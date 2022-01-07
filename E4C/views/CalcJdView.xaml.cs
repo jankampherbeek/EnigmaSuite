@@ -11,23 +11,25 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using E4C.be.model;
 using E4C.be.astron;
-using E4C.be.sefacade;
+using E4C.be.model;
 
-namespace E4C
+namespace E4C.views
 {
     /// <summary>
-    /// Interaction logic for DashboardCalc.xaml
+    /// Interaction logic for CalcJdView.xaml
     /// </summary>
-    public partial class DashboardCalc : Window
+    public partial class CalcJdView : Window      
     {
-        public DashboardCalc()
+        readonly private ICalendarCalc calCalc;
+
+        public CalcJdView(ICalendarCalc calCalc)
         {
             InitializeComponent();
+            this.calCalc = calCalc;
         }
 
-        private void BtnCalc_Click(object sender, RoutedEventArgs e)
+        private void CalculateJd(object sender, RoutedEventArgs e)
         {
             // TODO add validation 
             string[] dateItems = date.Text.Split('/');
@@ -42,13 +44,12 @@ namespace E4C
             double fractionaltime = hour + (double)minute / 60.0 + (double)second / 3600.0;
             bool gregflag = (bool)(rbgreg.IsChecked == true);
 
-            ISeDateTimeFacade dtFacade = new SeDateTimeFacade();
-            ICalendarCalc calc = new CalendarCalc(dtFacade);
-            SimpleDateTime dateTime = new (year, month, day, fractionaltime, gregflag);
-            ResultForDouble resultJd = calc.CalculateJd(dateTime);
+            SimpleDateTime dateTime = new(year, month, day, fractionaltime, gregflag);
+            ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
             if (resultJd.noErrors) result.Text = resultJd.returnValue.ToString();
             // TODO handle error situations
 
         }
+
     }
 }

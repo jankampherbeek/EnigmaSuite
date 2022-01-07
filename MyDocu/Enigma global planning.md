@@ -4,42 +4,29 @@
 
 
 
-## Release 2022.0.1
-
-Feasibility: make sure that the SE can be accessed and create a walking skeleton from UI to backend, and back again.
-
-- Dashboard: startup screen. Contains 1 image (Calculations) and a button. Clicking on image or button shows dashboard for calculations. Close button.
-- Calculations Dashboard. One selectable item: Julian Day Number.
-- Screen for Julian Day Calculation. Entry of date, time and calendar. Assumes astronomical year-count. No validation. Show result after calling service.
-- Backend: First version of access to Swiss Ephemeris.
-- Service to access calculation of JD.
-- Domain: structs for SimpleDate and result containg only a double, a bool for success and a text for the reason of a failure.
-- Unit tests for all functionality.
-- Introduce mocking.
-- Create GitHub repo.
-- Use simple DI: constructor injection and building the object tree at the start of the application.
-- No i18N yet, all texts in English.
-- Use interfaces except for VO's and UI.
-
 ## Release 2022.0.2
 
 Finishing the general approach and adding a calculator for obliquity.
 
 - Add validations to screens.
 - Add backend support for validations
-- Add i18N, including language definitions for Dutch and English. Check for an existing solution or implement a C# version of Rosetta.
 - Define architecture: check MVVM
-- Add help screens, using the look-and-feel as used in RadixPro (2008 version), help screens should also be bi-lingual.
-- Add hints (bi-lingual)
 - Add proper DI: either Pure DI or a framework. Check for the best solution (read van Deursen/Seeman).
 - Add possibility to start Calculation of obliquity to Dashboard for Calculations.
 - Create screen for Calculation of obliquity. Entry of date, time and calendar. Assumes astronomical year-count. Show results after calling service. Show both mean and true obliquity.
 - Service to access calculation of obliquity.
 - Unit tests for all functionality.
 
+
 ## Release 2022.0.3
 
 Calculation of planetary positions and houses, using a standard modus for Western Astrology. Shows results in a textual table. Use glyphs.
+
+## Backlog Common
+
+- Add help screens, using the look-and-feel as used in RadixPro (2008 version).
+- Add hints (bi-lingual).
+- Check if i18n is required.
 
 ## Backlog Charts
 
@@ -50,7 +37,7 @@ Calculation of planetary positions and houses, using a standard modus for Wester
   - Drawing as square
   - US style drawing
   - Drawing declination chart (Kt Böhrer)
-  - Dominatenverkettung (Chain of rulers)
+  - Dominantenverkettung (Chain of rulers)
   - Spiderweb (School of Ram)
   - Cyclings (School of Ram)
 
@@ -196,7 +183,22 @@ Calculation of planetary positions and houses, using a standard modus for Wester
 
 ## Finished releases
 
+### Release 2022.0.1
 
+Feasibility: make sure that the SE can be accessed and create a walking skeleton from UI to backend, and back again.
+
+- Dashboard: startup screen. Contains 1 image (Calculations) and a button. Clicking on image or button shows dashboard for calculations. Close button.
+- Calculations Dashboard. One selectable item: Julian Day Number.
+- Screen for Julian Day Calculation. Entry of date, time and calendar. Assumes astronomical year-count. No validation. Show result after calling service.
+- Backend: First version of access to Swiss Ephemeris.
+- Service to access calculation of JD.
+- Domain: structs for SimpleDate and result containg only a double, a bool for success and a text for the reason of a failure.
+- Unit tests for all functionality.
+- Introduce mocking.
+- Create GitHub repo.
+- Use simple DI: constructor injection and building the object tree at the start of the application.
+- No i18N yet, all texts in English.
+- Use interfaces except for VO's and UI.
 
 
 

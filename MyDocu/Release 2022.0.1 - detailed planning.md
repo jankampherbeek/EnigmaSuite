@@ -1,60 +1,52 @@
-# Release 2022.0.1 - detailed planning
+# Release 2022.0.1 - detailed planning - finished
 
 Feasibility: make sure that the SE can be accessed and create a walking skeleton from UI to backend, and back again.
 
-- Additional study
-  - Albahari - Nutshell: additional reading
-  - Investigate how to use Mocks with MSTest
-  - Investigate the preferred way to use unit tests, using MSTest
-- Create project
-  - Local git repo
+- ~~Additional study~~
+  - ~~Albahari - Nutshell: additional reading~~
+  - ~~Study WPF~~
+  - ~~Investigate how to use Mocks with MSTest~~
+  - ~~Investigate the preferred way to use unit tests, using MSTest~~
+- C~~reate project~~
+  - ~~Local git repo~~
   - ~~Folder structure~~
   - ~~Project~~
-  - Developers documentation
-    - Setup from the start
-      - Code conventions (start)
-      - Folder structure
-      - Choices made
+  - ~~Developers documentation~~
+    - ~~Setup from the start~~
+      - ~~Code conventions (start)~~
+      - ~~Folder structure~~
+      - ~~Choices made~~
         - ~~Language~~
-        - Mocking
+        - ~~Mocking~~
         - ~~Unit testing~~
-      - Intro
-    - Complete it for this version
-      - Final editing
-      - Create PDF and add to project (should be in git)
-- Complete project
-  - Release notes
-  - Push to GitHub and make release
-  - First setup for user documentation (fragmentary for now)
-    - Intro
-      - dutch
-      - english
-    - Text for Julian calendar
-      - dutch
-      - english
-    - Create PDF and add to project (should be in git)
-- Dashboard: startup screen. 
-  - Add image Calculations
-  - Add button Calculations. 
-  - Clicking on image or button shows dashboard for calculations. 
-  - Add Close button.
-- Calculations Dashboard. 
-  - Add selectable item: Julian Day Number. (Button?)
-- Screen for Julian Day Calculation. 
-  - Entry of date, time and calendar. Assumes astronomical year-count. No validation. 
-  - Show result after calling service.
-- Backend: 
-  - First version of access to Swiss Ephemeris.
-    - Define and document access of SE dll (preferably 64 bit)
-- Service to access calculation of JD.
-  - API
-  - Processing request from API to SE
-- Model 
-  - Struct for SimpleDate 
-  - Struct for result containg only a double, a bool for success and a text for the reason of a failure.
-- Unit tests for all functionality.
-- Introduce mocking.
-- Create GitHub repo.
-- Use simple DI: constructor injection and building the object tree at the start of the application.
-- No i18N yet, all texts in English. (Except for user manual, that should be bi-lingual).
-- Use interfaces except for VO's and UI.
+      - ~~Intro~~
+    - ~~Complete it for this version~~
+      - ~~Final editing~~
+      - ~~Add to project (should be in git)~~
+- ~~Complete project~~
+  - ~~Release notes~~
+  - ~~Push to GitHub and make release~~
+- ~~Dashboard: startup screen.~~ 
+  - ~~Add image Calculations~~
+  - ~~Add button Calculations btnCalc.~~ 
+  - ~~Clicking on image or button shows dashboard for calculations.~~ 
+  - ~~Add exit button btnExit.~~
+  - ~~Clicking on btnExit closes application.~~
+- ~~Calculations Dashboard/Screen for Julian Day Calculation.~~ 
+  - ~~Entry of date, time and calendar. Assumes astronomical year-count. No validation.~~ 
+  - ~~Show result after calling service.~~
+- ~~Backend:~~ 
+  - ~~First version of access to Swiss Ephemeris.~~
+    - ~~Define and document access of SE dll (preferably 64 bit)~~
+- ~~Service to access calculation of JD.~~
+  - ~~API~~
+  - ~~Processing request from API to SE~~
+- ~~Model~~ 
+  - ~~Struct for SimpleDate~~ 
+  - ~~Struct for result containg only a double, a bool for success and a text for the reason of a failure.~~
+- ~~Unit tests for all functionality.~~
+- ~~Introduce mocking.~~
+- ~~Create GitHub repo.~~
+- ~~Use simple constructor DI.~~
+- ~~No i18N yet, all texts in English. (Except for user manual, that should be bi-lingual).~~
+- ~~Use interfaces except for VO's and UI.~~

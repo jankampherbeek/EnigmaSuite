@@ -9,7 +9,7 @@ namespace E4CTest
     [TestClass]
     public class TestCalendarCalc
     {
-        double delta = 0.00000001;
+        readonly double delta = 0.00000001;
 
         [TestMethod]
         public void TestCalculateJd()
@@ -18,7 +18,7 @@ namespace E4CTest
             var mock = new Mock<ISeDateTimeFacade>();
             SimpleDateTime dateTime = new(2000, 1, 1, 12.0, true);
             mock.Setup(p => p.JdFromSe(dateTime)).Returns(expectedJd);
-            CalendarCalc calc = new CalendarCalc(mock.Object);
+            CalendarCalc calc = new (mock.Object);
             ResultForDouble result = calc.CalculateJd(dateTime);
             Assert.AreEqual(expectedJd, result.returnValue, delta);
 
