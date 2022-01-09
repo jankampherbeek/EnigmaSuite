@@ -25,27 +25,40 @@ This document provides information about the technical aspects for interested pr
 
 ## Choices made
 
-### Language
+### Language: C# 10
 
 I will use C# 10 and .NET Core 6.0 from Microsoft. 
 
-After experimenting with Java, Kotlin, Free Pascal and Delphi I found that C# has the following advantages:
+After experimenting with Java, Kotlin, Free Pascal and Delphi I found that C# has the following advantages.
 
-- Excellent support for the GUI, even better than Delphi and Free Pascal. And much better than JavaFX. I did not compare with Jetpack Compose for Desktop (as used by Kotlin) as this is still in its infancy.
-- A very good language, in my opinion on the same level as Kotlin and better than Java. Even if I prefer the Pascal syntax of FP and Delphi, I believe that C# does a better job.
-- Available functionality like Dependency Injection and Mocking. This is an advantage compared to FP (no DI and mocking)  and Delphi (one good library Spring4D, but only one maintainer).
-- Documentation. Extensive and very good. 
-- Integration: a lot of functionality is directly available in the Community Edition of Visual Studio. For Java and Kotlin your need to select many external libraries (sometimes frameworks). You can do the same in Visual Studio but it will often not be necessary.
-- Long term availability. VS has been available in a free edition for a very long time, the community edition for Delphi at this moment for about three years. Free versions of Delphi have been discontinued in the past. This is only an advantage compared to Delphi as FP, Java and Kotlin are freely available.
+**Compared to Java/Kotlin:**
+
+- Better language (compared to Java) or on equal foot (compared to Kotlin).
+- UI Support. JavaFX is becoming risky and Jetpack Compose for Desktop is in its infancy. And as it is a Google product, Jetpack could be terminated at any moment. Using WPF has a lot of advantages: testability, good match for MVVM
+- Deployment is integrated in Visual Studio (VS), no need for external tools to embed the runtime.
+- VS is about as good as intelliJ.
+- Documentation, less fragmented than with Java/Kotlin.
+- Integration: a lot of functionality is directly available in the Community Edition of VS. For Java and Kotlin, your need to select many external libraries (sometimes frameworks). You can do the same in Visual Studio but it will often not be necessary.
+
+**Compared to Object Pascal (Free Pascal/Delphi):**
+
+- A very good language. Even if I prefer the Pascal syntax of Free Pascal (FP) and Delphi, I believe that C# does a better job regarding language structure. Especially if programming against interfaces, the existing interface section in FP/Delphi code is obsolete.
+- Good support for the GUI, comparable to Delphi (FireMonkey) and better than Free Pascal. Supports a responsive UI. 
+- Available functionality like Dependency Injection and Mocking. FP does not support DI or mocking. For Delphi one good library (Spring4D) isn available,  but there is only one maintainer. In general there are much more non-commercial libraries available if compared to FP/Delphi.
+- Superior IDE, compared to Lazarus and also better than Delphi. About the same level as intelliJ.
+- Documentation: more extensive and easily accessible.
+- Long term availability. VS has been available in a free edition for a very long time, the community edition for Delphi at this moment for about three years. Free versions of Delphi have been discontinued in the past. 
 
 Of course, there are also some drawbacks:
 
 - The use of .NET is required. This is not a big problem anymore for installations, as .NET Core can be included in the installer.  But it seriously enlarges the footprint. This disadvantage is only compared to FP and Delphi, Java and Kotlin have the same problem.
 - Performance could be less than the performance of FP or Delphi because of the use of the .NET environment. I intend to do some benchmarks.
 
-The selection for C# is mainly based on the support for the GUI, the quality of the language and the documentation, and the expected long-term availability.
+The selection for C# is mainly based on the support for the GUI, the quality of the language and the documentation, and the expected long-term availability. What also counts is that I had previous positive  experiences with C# (2008, using C# 3).
 
-### Dependency Injection
+
+
+### Dependency Injection:  Simple Injector 
 
 All volatile objects will use DI. The approach is mostly based on *Dependency Injection: Principles, Practices, and Patterns* by Steven van Deursen and Mark Seeman. I will use a DI Container: Simple Injector, developed by Steven van Deursen. This DI Container performs well and has all required functionality. For a comparison with other frameworks, see: https://www.palmmedia.de/blog/2011/8/30/ioc-container-benchmark-performance-comparison
 
@@ -53,7 +66,7 @@ All volatile objects will use DI. The approach is mostly based on *Dependency In
 
 ### Testing
 
-#### MS Test for unit tests
+#### Unit tests: MS Test
 
 I will use MS Test for unit tests.
 
@@ -65,7 +78,7 @@ In Visual Studio the following solutions for unit testing are available.
 
 MSTest is the standard solution from Microsoft. I did not investigate this thoroughly but after a short search on the Internet it appears that nUnit and MSTest are comparable. xUnit has some specifics, like a less understandable syntax. I will use MS Test , mainly because the integration with VS is pretty much guaranteed.
 
-#### MOQ for mocking
+#### Mocking: MOQ
 
 For mocking MOQ is clearly the most used solution, so I will use this framework.
 

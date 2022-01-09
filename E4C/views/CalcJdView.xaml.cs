@@ -21,34 +21,65 @@ namespace E4C.views
     /// </summary>
     public partial class CalcJdView : Window      
     {
-        readonly private ICalendarCalc calCalc;
+        readonly private CalcJdViewModel calcJdViewModel;        
 
-        public CalcJdView(ICalendarCalc calCalc)
+        public CalcJdView(CalcJdViewModel calcJdViewModel)
         {
             InitializeComponent();
+            this.calcJdViewModel = calcJdViewModel;
+            PopulateStaticTexts();
+        }
+
+        private void PopulateStaticTexts()
+        {
+            Title = "Enigma Calculations: Julian Day Number";
+            JdFormTitle.Text = "Calculate Julian Day Number";
+            LblDate.Content = "Enter the date (format yyyy/mm/dd), use the astronomical yearcount.";
+            LblTime.Content = "Enter the time (format hh:mm:ss) using UT and 24-hour notation.";
+            LblCalendar.Content = "Select the Gregorian or Julian Calendar.";
+            rbgreg.Content = "Gregorian";
+            rbjul.Content = "Julian";
+            BtnCalcJd.Content = "Calculate Julian Day Number";
+        }
+
+
+        private void BtnCalcJd_Click(object sender, RoutedEventArgs e)
+        {
+            bool gregflag = rbgreg.IsChecked == true;
+            Result.Text = calcJdViewModel.CalculateJd(date.Text, time.Text, gregflag);
+        }
+    }
+
+    public class CalcJdViewModel
+    {
+        readonly private ICalendarCalc calCalc;
+
+        public CalcJdViewModel(ICalendarCalc calCalc)
+        {
             this.calCalc = calCalc;
         }
 
-        private void CalculateJd(object sender, RoutedEventArgs e)
+
+        public string CalculateJd(string DateText, string TimeText, bool rbGregChecked)
         {
             // TODO add validation 
-            string[] dateItems = date.Text.Split('/');
+            string[] dateItems = DateText.Split('/');
             int year = Int32.Parse(dateItems[0]);
             int month = Int32.Parse(dateItems[1]);
             int day = Int32.Parse(dateItems[2]);
 
-            string[] timeItems = time.Text.Split(':');
+            string[] timeItems = TimeText.Split(':');
             int hour = Int32.Parse(timeItems[0]);
             int minute = Int32.Parse(timeItems[1]);
             int second = Int32.Parse(timeItems[2]);
-            double fractionaltime = hour + (double)minute / 60.0 + (double)second / 3600.0;
-            bool gregflag = (bool)(rbgreg.IsChecked == true);
+            double fractionaltime = hour + minute / 60.0 + second / 3600.0;
+            bool gregflag = rbGregChecked;
 
             SimpleDateTime dateTime = new(year, month, day, fractionaltime, gregflag);
             ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
-            if (resultJd.noErrors) result.Text = resultJd.returnValue.ToString();
+            if (resultJd.noErrors) return resultJd.returnValue.ToString();
+            else return "Error";
             // TODO handle error situations
-
         }
 
     }

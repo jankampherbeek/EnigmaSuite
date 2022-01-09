@@ -4,6 +4,17 @@
 
 
 
+## Release 2022.0.2
+
+2022-01-... - Code-only release
+
+Mainly technical improvements
+
+- Implementing Dependency Injection, using Simple Injector.
+- Implementing MVVM.
+- Using data-binding for the UI.
+- Functional addition: calculation of Obliquity.
+
 ## Release 2022.0.1
 
 2022-01-02 - Code-only release

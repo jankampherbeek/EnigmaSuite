@@ -23,9 +23,7 @@ Main reasons, compared to Object Pascal:
 
 Main reasons, compared to Java/Kotlin:
 
-- Better language (compared to Java) or on equal foot (compared to Kotlin).
-- UI Support. JavaFX is becoming risky and Jetpack Compose for Desktop is in its infancy. And as it is a Google product, Jetpack could be terminated at any moment.
-- Deployment is integrated in VS, no need for external tools to embed the runtime.
+- 
 
 Drawbacks
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E4C.views"
         mc:Ignorable="d"
-        Title="Enigma Calculations" Height="400" Width="300">
+        Title="CalcDashboardViewTitle" Height="400" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -17,16 +17,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28">
-            Calculations
-        </TextBlock>
+        <TextBlock Name="FormTitle" Text="FormTitle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
         <StackPanel Grid.Row="1" Margin="10">
-            <Label FontWeight="Bold" HorizontalAlignment="Center">Select one of the available calculators</Label>
-            <Button x:Name="BtnCalcJd" Margin="2"  Click="ShowCalcJd">Julian Day Number</Button>
-            <Button x:Name="BtnCalcObliquity" Margin="2">Obliquity of earth axis</Button>
+            <Label FontWeight="Bold" HorizontalAlignment="Center" Name="CalcDashboardExplanation" Content="CalcDashboardExplanation" />
+            <Button Name="BtnCalcJd" Content="BtnCalcJd" Click="BtnCalcJd_Click" Margin="2"/>
+            <Button Name="BtnCalcObliquity" Content="BtnCalcObliquity" Margin="2"/>
         </StackPanel>
-        <Button Grid.Row="3" x:Name="BtnClose" Width="120" Margin="2">Close calculations</Button>
-     
+        <Button Grid.Row="3" x:Name="BtnClose" Content="BtnClose" Width="120" Margin="2" />
+
     </Grid>
 
 </Window>

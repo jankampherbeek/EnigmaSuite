@@ -5,22 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E4C.views"
         mc:Ignorable="d"
-        Title="Enigma Dashboard" Height="500" Width="300">
+        Title="CommonDashboardTitle" Height="500" Width="300">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
             <RowDefinition Height="300"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28">
-            Enigma Suite - 2022.0
-        </TextBlock>
-        <Image Grid.Row="1" Source="/Calculations.jpg">
-            
-        </Image>
+        <TextBlock Name="FormTitle" Text="FormTitle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
+        <Image Grid.Row="1" Source="/Calculations.jpg"/>
         <StackPanel Grid.Row="2" Grid.Column="0" Margin="5,0,0,2" Orientation="Vertical">
-            <Button x:Name="btnCalc" Margin="5" Click="BtnCalc_Click">Calculations</Button>
-            <Button x:Name="btnExit" Margin="5">Exit</Button>
+            <Button x:Name="btnCalc" Margin="5" Click="BtnCalc_Click" Content="CommonDashboardCalculations"/>
+            <Button x:Name="btnExit" Margin="5" Click="BtnExit_Click" Content="CommonDashboardExit"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -20,26 +20,42 @@ Finishing the general approach and adding a calculator for obliquity.
 
 ## Release 2022.0.3
 
-Calculation of planetary positions and houses, using a standard modus for Western Astrology. Shows results in a textual table. Use glyphs.
-
-## Backlog Common
+Calculation of planetary positions and houses, using a standard modus for Western Astrology. Shows results in a textual table. Use glyphs. 
 
 - Add help screens, using the look-and-feel as used in RadixPro (2008 version).
 - Add hints (bi-lingual).
+
+## Release 2022.0.4
+
+Drawing of chart, both with equals signs and with equal houses.
+
+## Release 2022.0.5
+
+Add oblique longitude, hypotheticals for School of Ram and Uranian astrology. Initial version of modi. Selection between Eris and Persephone.
+
+## Release 2022.0.6
+
+Aspects, midpoints and suggestion Paula Schreurs: houses and lords using anonymous planets. Use lists and graphic represwentation.
+
+
+
+## Backlog Common
+
 - Check if i18n is required.
 
 ## Backlog Charts
 
-- Graphics
+- Structures
 
-  - Drawing of chart
-  - Drawing midpoint disc
-  - Drawing as square
-  - US style drawing
-  - Drawing declination chart (Kt Böhrer)
   - Dominantenverkettung (Chain of rulers)
   - Spiderweb (School of Ram)
   - Cyclings (School of Ram)
+  
+- Graphics
+
+  - Drawing midpoint disc
+  - Drawing as square
+  - Drawing declination chart (Kt Böhrer)
 
 - Persistency
 
@@ -68,8 +84,6 @@ Calculation of planetary positions and houses, using a standard modus for Wester
 
 - Analysis
 
-  - Aspects
-  - Midpoints
   - Harmonics
   - Declinations
     - Parallels
@@ -110,14 +124,6 @@ Calculation of planetary positions and houses, using a standard modus for Wester
 - Calculations
 
   - Support heliocentric
-
-  - Support oblique longitude (School of Ram)
-
-  - Support Persephone, Hermes, Demeter
-
-    - Selection between Eris and Persephone
-
-  - Hypothetical planets Uranian astrology
 
   - Asteroids and Plutoids
 

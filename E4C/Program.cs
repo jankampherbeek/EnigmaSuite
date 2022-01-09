@@ -25,7 +25,7 @@ namespace E4C
             // Create the container as usual.
             var container = new Container();
 
-            // Register your types, for instance:
+            // Register your types:
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
@@ -35,9 +35,9 @@ namespace E4C
             container.Register<MainWindow>();
             container.Register<MainWindowViewModel>();
             container.Register<DashboardCalc>();
+            container.Register<DashboardCalcViewModel>();
             container.Register<CalcJdView>();
-
-           // container.Register< MainWindowViewModel>();
+            container.Register<CalcJdViewModel>();
 
             container.Verify();
 

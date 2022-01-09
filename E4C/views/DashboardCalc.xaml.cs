@@ -22,18 +22,47 @@ namespace E4C.views
     /// </summary>
     public partial class DashboardCalc : Window
     {
-        readonly private CalcJdView calcJdView;
+        readonly private DashboardCalcViewModel dashboardCalcViewModel;
 
-        public DashboardCalc(CalcJdView calcJdView)
+
+        public DashboardCalc(DashboardCalcViewModel dashboardCalcViewModel,  CalcJdView calcJdView)
         {
             InitializeComponent();
+            this.dashboardCalcViewModel = dashboardCalcViewModel;
+            PopulateStaticTexts();
+        }
+
+        private void PopulateStaticTexts()
+        {
+            Title = "Enigma Calculations";
+            FormTitle.Text = "Calculations";
+            CalcDashboardExplanation.Content = "Select and click one of the calculations";
+            BtnCalcJd.Content = "Julian Day Number";
+            BtnCalcObliquity.Content = "Obliquity of the earth axis";
+            BtnClose.Content = "Close Calculations";
+        }
+
+        private void BtnCalcJd_Click(object sender, RoutedEventArgs e)
+        {
+            dashboardCalcViewModel.ShowCalcJd();
+        }
+    }
+
+    public class DashboardCalcViewModel
+        {
+        readonly private CalcJdView calcJdView;
+
+        public DashboardCalcViewModel(CalcJdView calcJdView)
+        {
             this.calcJdView = calcJdView;
         }
 
-        public void ShowCalcJd(object sender, RoutedEventArgs e)
+        public void ShowCalcJd()
         {
             calcJdView.Show();
         }
+
     }
-       
+
+      
 }

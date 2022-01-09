@@ -26,12 +26,20 @@ namespace E4C.views
         {
             InitializeComponent();
             this.viewModel = viewModel;
-            base.DataContext = viewModel;
+            PopulateStaticTexts();
+        }
+
+        private void PopulateStaticTexts()
+        {
+            Title = "Enigma Suite";
+            FormTitle.Text = "Enigma Suite 2022.0";
+            btnCalc.Content = "Calculations";
+            btnExit.Content = "Exit and close Enigma";
         }
 
         private void BtnCalc_Click(object sender, RoutedEventArgs e)
         {
-           viewModel.BtnCalc_Click(sender, e);
+           viewModel.ShowCalculations();
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
@@ -51,7 +59,7 @@ namespace E4C.views
             this.dashboardCalc = dashboardCalc;
         }
 
-        public void BtnCalc_Click(object sender, RoutedEventArgs e)
+        public void ShowCalculations()
         {
             dashboardCalc.Show();
         }
