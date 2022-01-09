@@ -1,0 +1,43 @@
+﻿<Window x:Class="E4C.views.CalcObliquityView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:E4C.views"
+        mc:Ignorable="d"
+        Title="CalcObliquityTitle" Height="550" Width="400">
+    <Grid Margin="0,0,0,0" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Name="ObliquityFormTitle" Text="ObliquityFormTitle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
+        <Label Name="LblDate" Content="LblDate" Grid.Row="1" Grid.Column="0"  HorizontalAlignment="Center" />
+        <TextBox Grid.Row="2" Grid.Column="0" Name="date" Margin="12"></TextBox>
+        <Label Name="LblTime" Content="LblTime" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" />
+        <TextBox Grid.Row="4" Grid.Column="0" Name="time" Margin="12"></TextBox>
+        <Label Name="LblCalendar" Content="LblCalendar" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" />
+        <StackPanel Grid.Row="6" Grid.Column="0" Margin="10">
+            <RadioButton GroupName="cal" Name="rbgreg" Content="rbgreg" IsChecked="True"/>
+            <RadioButton GroupName="cal" Name="rbjul" Content="rbjul"/>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Grid.Column="0" Margin="10">
+            <RadioButton GroupName="obltype" Name="rbtrueobl" Content="rbtrueobl" IsChecked="True"/>
+            <RadioButton GroupName="obltype" Name="rbmeanobl" Content="rbmeanobl"/>
+        </StackPanel>
+        <Button x:Name="BtnCalcObliquity" Content="BtnCalcJd" Grid.Row="8" Grid.Column="0" Margin="5" Click="BtnCalcObliquity_Click"/>
+        <TextBlock Grid.Row="9" Grid.Column="0" HorizontalAlignment="Center" Margin="25" FontSize="18" Name="Result" Text="Result"/>
+    </Grid>
+</Window>

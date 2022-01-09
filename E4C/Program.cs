@@ -22,22 +22,24 @@ namespace E4C
 
         private static Container Bootstrap()
         {
-            // Create the container as usual.
+            // Create the container.
             var container = new Container();
 
-            // Register your types:
+            // Register types:
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade> (Lifestyle.Singleton);
 
-            // Register your windows and view models:
+            // Register windows and view models:
             container.Register<MainWindow>();
             container.Register<MainWindowViewModel>();
             container.Register<DashboardCalc>();
             container.Register<DashboardCalcViewModel>();
             container.Register<CalcJdView>();
             container.Register<CalcJdViewModel>();
+            container.Register<CalcObliquityView>();
+            container.Register<CalcObliquityViewModel>();
 
             container.Verify();
 

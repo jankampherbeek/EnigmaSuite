@@ -21,7 +21,7 @@
         <StackPanel Grid.Row="1" Margin="10">
             <Label FontWeight="Bold" HorizontalAlignment="Center" Name="CalcDashboardExplanation" Content="CalcDashboardExplanation" />
             <Button Name="BtnCalcJd" Content="BtnCalcJd" Click="BtnCalcJd_Click" Margin="2"/>
-            <Button Name="BtnCalcObliquity" Content="BtnCalcObliquity" Margin="2"/>
+            <Button Name="BtnCalcObliquity" Content="BtnCalcObliquity" Margin="2" Click="BtnCalcObliquity_Click"/>
         </StackPanel>
         <Button Grid.Row="3" x:Name="BtnClose" Content="BtnClose" Width="120" Margin="2" />
 

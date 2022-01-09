@@ -46,20 +46,32 @@ namespace E4C.views
         {
             dashboardCalcViewModel.ShowCalcJd();
         }
+
+        private void BtnCalcObliquity_Click(object sender, RoutedEventArgs e)
+        {
+            dashboardCalcViewModel.ShowCalcObliquity();
+        }
     }
 
     public class DashboardCalcViewModel
         {
         readonly private CalcJdView calcJdView;
+        readonly private CalcObliquityView calcOblView;
 
-        public DashboardCalcViewModel(CalcJdView calcJdView)
+        public DashboardCalcViewModel(CalcJdView calcJdView, CalcObliquityView calcOblView)
         {
             this.calcJdView = calcJdView;
+            this.calcOblView = calcOblView;
         }
 
         public void ShowCalcJd()
         {
             calcJdView.Show();
+        }
+
+        public void ShowCalcObliquity()
+        {
+            calcOblView.Show();
         }
 
     }
