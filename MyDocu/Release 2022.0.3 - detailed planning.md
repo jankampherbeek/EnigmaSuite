@@ -1,0 +1,38 @@
+# Release 2022.0.3 -  detailed planning
+
+- Data input for the calculation of charts.
+  - View and viewform for data input.
+    - ~~Layout.~~
+    - ~~Decide on input for date and time.~~
+    - Implementation.
+    - Functionality.
+  - Domain object to hold inputted data.
+  - Error handling.
+  - Enum
+    - Housesystems.
+    - Ayanamsha.
+    - Parallax.
+    - Calendar.
+- Calculation of planetary positions and houses (Sun .. Pluto, Chiron, Nodes).
+  - View and viewform for results.
+    - Layout.
+    - Menu.
+    - Implementation UI.
+  - Backend
+    - Functionality for calculation planet.
+    - Functionality for calculation range of planets.
+    - Functionality for calculation of houses.
+- Using one standard modus: Western Astrology.
+  - Define.
+  - Temporarily solution: hardcoded.
+- Calculated results are shown in a textual table.
+  - Tabbed pages for ecliptical, equatorial and horizontal positions.
+  - Where applicable, positions are given with glyphs.
+- Add help screens, using the look-and-feel as used in RadixPro (2008 version).
+- Add tooltips.
+- Use a separate file to populate texts, for now only in English.
+- Create a class to handle reading of texts (Rosetta).
+- Use mutex to force single instance being run. See Chowdhury, WPF dev. p. 46.
+- Unit testing:
+  - Improve mocking: add matchers.
+  - Create tests for viewmodels.
