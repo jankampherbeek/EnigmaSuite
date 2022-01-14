@@ -2,8 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using E4C.be.domain;
+using System;
 using System.Runtime.InteropServices;
-using E4C.be.model;
 
 namespace E4C.be.sefacade
 {
@@ -21,6 +22,22 @@ namespace E4C.be.sefacade
         /// <param name="dateTime">Date, time and calendar.</param>
         /// <returns>The calculated and validated Julian Day number.</returns>
         public double JdFromSe(SimpleDateTime dateTime);
+
+        /// <summary>
+        /// Retrive date and time (UT) from a given Julian Day Number.
+        /// </summary>
+        /// <param name="JulianDayNumber">Value for JUlian Day Number.</param>
+        /// <param name="calendar">Gregorian or Julian calendar.</param>
+        /// <returns>An instance of SimpleDateTime.</returns>
+        public SimpleDateTime DateTimeFromJd(double JulianDayNumber, Calendars calendar);
+
+        /// <summary>
+        /// Checks if a date and time are valid.
+        /// </summary>
+        /// <param name="dateTime">Instance of SimpleDateTime.</param>
+        /// <returns>True if date is a valid date and 0.0 <= ut < 24.0.</returns>
+        public bool DateTimeIsValid(SimpleDateTime dateTime);
+
     }
 
     /// <summary>
@@ -43,8 +60,38 @@ namespace E4C.be.sefacade
 
         public double JdFromSe(SimpleDateTime dateTime)
         {
-            int cal = (dateTime.gregorian) ? 1 : 0;
+            int cal = (dateTime.calendar == Calendars.Gregorian) ? 1 : 0;
             return ext_swe_julday(dateTime.year, dateTime.month, dateTime.day, dateTime.ut, cal);
+        }
+
+        public SimpleDateTime DateTimeFromJd(double JulianDayNumber, Calendars calendar)
+        {
+            int calId = (calendar == Calendars.Gregorian) ? 1 : 0;
+            int year = 0;
+            int month = 0;
+            int day = 0;
+            double ut = 0.0;
+            try
+            {
+                double result = ext_swe_revjul(JulianDayNumber, calId, ref year, ref month, ref day, ref ut);
+
+            }
+            catch (Exception e)
+            {
+                // todo throw new exception
+                // todo handle exception, write to log-file
+                Console.WriteLine("Error to log in SeDAteTimeFacade.DateTimeFromJd: " + e.Message);
+                return new SimpleDateTime(0, 0, 0, 0.0, Calendars.Gregorian);
+            }
+            return new SimpleDateTime(year, month, day, ut, calendar);
+        }
+
+        public bool DateTimeIsValid(SimpleDateTime dateTime)
+        {
+            double JulianDay = 0.0;
+            char calendar = dateTime.calendar == Calendars.Gregorian ? 'g' : 'j';
+            int result = ext_swe_date_conversion(dateTime.year, dateTime.month, dateTime.day, dateTime.ut, calendar, ref JulianDay);
+            return (result == 0) && (0.0 <= dateTime.ut) && (dateTime.ut < 24.0);
         }
 
 
@@ -59,7 +106,15 @@ namespace E4C.be.sefacade
         /// <returns>The calculated Julian Day Number.</returns>
         [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_julday")]
         private extern static double ext_swe_julday(int year, int month, int day, double hour, int gregflag);
+
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_revjul")]
+        private extern static double ext_swe_revjul(double tjd, int gregflag, ref int year, ref int month, ref int day, ref double hour);
+
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_date_conversion")]
+        private extern static int ext_swe_date_conversion(int year, int month, int day, double time, char calendar, ref double julianday);
+
     }
+
 
     public class SePosCelPointFacade : ISePosCelPointFacade
     {
@@ -68,6 +123,7 @@ namespace E4C.be.sefacade
             string resultValue = "";
             double[] positions = new double[6];
             int returnFlag = ext_swe_calc_ut(julianDay, seCelPointId, flags, positions, resultValue);
+            if (returnFlag < 0) Console.WriteLine("Error to log in SePosCelPointFacade.PosCelPointFromSe. ReturnFlag : " + returnFlag.ToString());
             // TODO check value of returnflag, if < 0 throw exception
             return positions;
         }
@@ -87,7 +143,7 @@ namespace E4C.be.sefacade
     }
 
 
-        
-    
+
+
 
 }

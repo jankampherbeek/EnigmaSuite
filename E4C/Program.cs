@@ -1,9 +1,13 @@
-﻿using System;
-using System.Windows;
-using SimpleInjector;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
 using E4C.be.astron;
 using E4C.be.sefacade;
+using E4C.be.validations;
 using E4C.views;
+using SimpleInjector;
+using System;
 
 
 namespace E4C
@@ -29,7 +33,8 @@ namespace E4C
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
-            container.Register<ISeDateTimeFacade, SeDateTimeFacade> (Lifestyle.Singleton);
+            container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
+            container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();
@@ -51,12 +56,13 @@ namespace E4C
             try
             {
                 var app = new App();
-            //    app.InitializeComponent();
+                //    app.InitializeComponent();
                 var mainWindow = container.GetInstance<MainWindow>();
                 app.Run(mainWindow);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Console.WriteLine("Error to log in Program.RunApplication : " + e.Message);
                 //Log the exception and exit
             }
         }

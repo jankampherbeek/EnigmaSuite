@@ -4,44 +4,50 @@
 
 
 
-## Release 2022.0.2
-
-Finishing the general approach and adding a calculator for obliquity.
-
-- Add validations to screens.
-- Add backend support for validations
-- Define architecture: check MVVM
-- Add proper DI: either Pure DI or a framework. Check for the best solution (read van Deursen/Seeman).
-- Add possibility to start Calculation of obliquity to Dashboard for Calculations.
-- Create screen for Calculation of obliquity. Entry of date, time and calendar. Assumes astronomical year-count. Show results after calling service. Show both mean and true obliquity.
-- Service to access calculation of obliquity.
-- Unit tests for all functionality.
-
 
 ## Release 2022.0.3
 
-Calculation of planetary positions and houses, using a standard modus for Western Astrology. Shows results in a textual table. Use glyphs. 
-
+- Data input for the calculation of charts.
+- Calculation of planetary positions and houses (Sun .. Pluto, Chiron, Nodes).
+- Using one standard modus: Western Astrology.
+- Calculated results are shown in a textual table.
+  - Tabbed pages for ecliptical, equatorial and horizontal positions.
+  - Where applicable, positions are given with glyphs.
 - Add help screens, using the look-and-feel as used in RadixPro (2008 version).
 - Add hints (bi-lingual).
+- Use a separate file to populate texts, for now only in English.
+- Create a class to handle reading of texts (Rosetta).
+- Use mutex to force single instance being run. See Chowdhury, WPF dev. p. 46.
+- Unit testing:
+  - Improve mocking: add matchers.
+  - Create tests for viewmodels.
+
 
 ## Release 2022.0.4
 
-Drawing of chart, both with equals signs and with equal houses.
+Drawing of chart, with equal signs, with equal houses and French variant.
+
+Add persistency for charts. (Retrieving, saving). Select database.
+
+Standardize input for date/time: same in calculations as in charts.	
+
+
 
 ## Release 2022.0.5
 
-Add oblique longitude, hypotheticals for School of Ram and Uranian astrology. Initial version of modi. Selection between Eris and Persephone.
+Add oblique longitude, hypotheticals for School of Ram and Uranian astrology. 
+
+Initial version of modi. Persistency and management for modi. (Retrieving, saving, editing).
+
+Selection between Eris and Persephone.
 
 ## Release 2022.0.6
 
-Aspects, midpoints and suggestion Paula Schreurs: houses and lords using anonymous planets. Use lists and graphic represwentation.
+Aspects, midpoints and suggestion Paula Schreurs: houses and lords using anonymous planets. Use lists and graphic representation.
 
 
 
 ## Backlog Common
-
-- Check if i18n is required.
 
 ## Backlog Charts
 
@@ -56,11 +62,6 @@ Aspects, midpoints and suggestion Paula Schreurs: houses and lords using anonymo
   - Drawing midpoint disc
   - Drawing as square
   - Drawing declination chart (Kt Böhrer)
-
-- Persistency
-
-  - Saving charts
-  - Retrieval of charts
 
 - Input support
 
@@ -102,6 +103,8 @@ Aspects, midpoints and suggestion Paula Schreurs: houses and lords using anonymo
   - Chart-ruler
     - According to Volguine
     - Other theories
+  - KAS system by Jack Chandu
+  - Rationelle Astrologie by Wilhelm Hof
 
 - Progressive
 
@@ -172,6 +175,28 @@ Aspects, midpoints and suggestion Paula Schreurs: houses and lords using anonymo
 - Generate ephemeris
 - Epsilon
 
+## Backlog Statistics
+
+- As in Enigma DedVM
+  - Planets in signs
+  - Planets in houses
+  - Planets at corners
+  - Elevated planets
+  - Prominent planets
+  - Unaspected planets
+  - Maximal planets
+  - Principles
+- Zodiacal divisions
+  - Dodecatemoria
+  - Terms
+  - Decanates
+  - Monomoiria
+- Midpoints
+- Harmonics
+- Rulership / houses
+- KAS system Jack Chandu
+- Rationelle Astrologie by Wilhelm Hoff
+
 ## Backlog Calculations
 
 - Coordinate conversions
@@ -206,5 +231,16 @@ Feasibility: make sure that the SE can be accessed and create a walking skeleton
 - No i18N yet, all texts in English.
 - Use interfaces except for VO's and UI.
 
+### Release 2022.0.2
 
+Finishing the general approach and adding a calculator for obliquity.
+
+- Add validations to screens.
+- Add backend support for validations
+- Define architecture: check MVVM
+- Add proper DI: either Pure DI or a framework. Check for the best solution (read van Deursen/Seeman).
+- Add possibility to start Calculation of obliquity to Dashboard for Calculations.
+- Create screen for Calculation of obliquity. Entry of date, time and calendar. Assumes astronomical year-count. Show results after calling service. Show both mean and true obliquity.
+- Service to access calculation of obliquity.
+- Unit tests.
 

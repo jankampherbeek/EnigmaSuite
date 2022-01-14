@@ -17,9 +17,9 @@ namespace E4C.be.validations
         /// Check the validity of input for a date. 
         /// </summary>
         /// <param name="DateText">Text in the format yyyy/mm/dd.</param>
-        /// <param name="IsGregorian">True for Gregorian calendar, false for Julian calendar.</param>
+        /// <param name="calendar">Gregorian or Julian calendar.</param>
         /// <returns>Instance of ValidatedDate with values for the date and information about the validation results.</returns>
-        public ValidatedDate ConstructAndValidateDate(string DateText, bool IsGregorian);
+        public ValidatedDate ConstructAndValidateDate(string DateText, Calendars calendar);
 
         /// <summary>
         /// Check the validity of input for a time.
@@ -32,9 +32,9 @@ namespace E4C.be.validations
 
     public class DateTimeValidations : IDateTimeValidations
     {
-        private string _dateText;
-        private string _timeText;
-        private bool _isGregorian;
+        private string _dateText = "";
+        private string _timeText = "";
+        private Calendars _calendar;
         readonly private ICalendarCalc _calendarCalc;
 
         public DateTimeValidations(ICalendarCalc calendarCalc)
@@ -42,10 +42,10 @@ namespace E4C.be.validations
             _calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
         }
 
-        public ValidatedDate ConstructAndValidateDate(string dateText, bool isGregorian)
+        public ValidatedDate ConstructAndValidateDate(string dateText, Calendars calendar)
         {
             _dateText = dateText ?? throw new ArgumentNullException(nameof(dateText));
-            _isGregorian = isGregorian;
+            _calendar = calendar;
             int year, month, day;
 
             string[] dateItems = _dateText.Split('/');
@@ -55,7 +55,7 @@ namespace E4C.be.validations
             {
                 NoErrors = false;
                 ErrorText = "Wrong format for DateText.";
-                return new ValidatedDate(0, 0, 0, true, NoErrors, ErrorText);
+                return new ValidatedDate(0, 0, 0, _calendar, NoErrors, ErrorText);
             }
             try
             {
@@ -67,15 +67,15 @@ namespace E4C.be.validations
             {
                 NoErrors = false;
                 ErrorText = "Error converting DateText to numerics: " + ex.Message;
-                return new ValidatedDate(0, 0, 0, true, NoErrors, ErrorText);
+                return new ValidatedDate(0, 0, 0, _calendar, NoErrors, ErrorText);
             }
-            SimpleDateTime simpleDateTime = new(year, month, day, 0.0, _isGregorian);
+            SimpleDateTime simpleDateTime = new(year, month, day, 0.0, calendar);
             NoErrors = _calendarCalc.ValidDateAndtime(simpleDateTime);
             if (!NoErrors)
             {
                 ErrorText = "Incorrect date.";
             }
-            return new ValidatedDate(year, month, day, isGregorian, NoErrors, ErrorText);
+            return new ValidatedDate(year, month, day, calendar, NoErrors, ErrorText);
 
         }
 

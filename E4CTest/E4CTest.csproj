@@ -21,4 +21,8 @@
     <ProjectReference Include="..\E4C\E4C.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="views\" />
+  </ItemGroup>
+
 </Project>

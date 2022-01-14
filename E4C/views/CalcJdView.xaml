@@ -30,9 +30,9 @@
         <Label Name="LblTime" Content="LblTime" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" />
         <TextBox Grid.Row="4" Grid.Column="0" Name="time" Margin="12"></TextBox>
         <Label Name="LblCalendar" Content="LblCalendar" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" />
-        <StackPanel Grid.Row="6" Grid.Column="0" Margin="10">
-            <RadioButton GroupName="cal" Name="rbgreg" Content="rbgreg" IsChecked="True"/>
-            <RadioButton GroupName="cal" Name="rbjul" Content="rbjul"/>
+        <StackPanel Grid.Row="6" Grid.Column="0" Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+            <RadioButton GroupName="rgCalendar" Name="rbgreg" Content="rbgreg" Margin="4" IsChecked="True"/>
+            <RadioButton GroupName="rgCalendar" Name="rbjul" Content="rbjul" Margin="4" />
         </StackPanel>
         <Button x:Name="BtnCalcJd" Content="BtnCalcJd" Grid.Row="7" Grid.Column="0" Margin="5" Click="BtnCalcJd_Click"/>
         <TextBlock Grid.Row="8" Grid.Column="0" HorizontalAlignment="Center" Margin="25" FontSize="18" Name="Result" Text="Result"/>

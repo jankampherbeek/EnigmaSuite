@@ -4,16 +4,26 @@
 
 
 
+## Release 2022.0.3
+
+2022-  Code-only release,
+
+Calculation of planets and houses.
+
+
+
 ## Release 2022.0.2
 
-2022-01-... - Code-only release
+2022-01-12 - Code-only release
 
 Mainly technical improvements
 
 - Implementing Dependency Injection, using Simple Injector.
 - Implementing MVVM.
-- Using data-binding for the UI.
-- Functional addition: calculation of Obliquity.
+- Functional additions
+  - Calculation of Obliquity.
+  - Basic error handling.
+
 
 ## Release 2022.0.1
 

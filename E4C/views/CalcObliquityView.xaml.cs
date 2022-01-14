@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
 using E4C.be.astron;
-using E4C.be.model;
+using E4C.be.domain;
+using E4C.be.validations;
+using System.Windows;
 
 namespace E4C.views
 {
@@ -46,9 +39,9 @@ namespace E4C.views
 
         private void BtnCalcObliquity_Click(object sender, RoutedEventArgs e)
         {
-            bool gregflag = rbgreg.IsChecked == true;
+            Calendars calendar = rbgreg.IsChecked == true ? Calendars.Gregorian : Calendars.Julian;
             bool typeTrueFlag = rbtrueobl.IsChecked == true;
-            Result.Text = calcObliquityViewModel.CalculateObliquity(date.Text, time.Text, gregflag, typeTrueFlag);
+            Result.Text = calcObliquityViewModel.CalculateObliquity(date.Text, time.Text, calendar, typeTrueFlag);
         }
     }
 
@@ -56,37 +49,57 @@ namespace E4C.views
     {
         readonly private ICalendarCalc calCalc;
         readonly private IObliquityNutationCalc oblNutCalc;
+        readonly private IDateTimeValidations dateTimeValidations;
+        private ValidatedDate? validatedDate;
+        private ValidatedUniversalTime? validatedTime;
+        readonly private string DateErrorText = "Error in date";
+        readonly private string TimeErrorText = "Error in time";
+        readonly private string GeneralErrorText = "Error while calculating obliquity.";
 
-        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityNutationCalc oblNutCalc)
+        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityNutationCalc oblNutCalc, IDateTimeValidations dateTimeValidations)
         {
             this.calCalc = calCalc;
             this.oblNutCalc = oblNutCalc;
+            this.dateTimeValidations = dateTimeValidations;
         }
 
-        public string CalculateObliquity(string DateText, string TimeText, bool rbGregChecked, bool obliquityTypeTrue)
+        public string CalculateObliquity(string DateText, string TimeText, Calendars calendar, bool obliquityTypeTrue)
         {
-            // TODO add validation 
-            // TODO extra functionality, same as for calculating jd
-            string[] dateItems = DateText.Split('/');
-            int year = Int32.Parse(dateItems[0]);
-            int month = Int32.Parse(dateItems[1]);
-            int day = Int32.Parse(dateItems[2]);
+            validatedDate = dateTimeValidations.ConstructAndValidateDate(DateText, calendar);
+            validatedTime = dateTimeValidations.ConstructAndValidateTime(TimeText);
 
-            string[] timeItems = TimeText.Split(':');
-            int hour = Int32.Parse(timeItems[0]);
-            int minute = Int32.Parse(timeItems[1]);
-            int second = Int32.Parse(timeItems[2]);
-            double fractionaltime = hour + minute / 60.0 + second / 3600.0;
-            bool gregflag = rbGregChecked;
+            //    string[] dateItems = DateText.Split('/');
+            //    int year = Int32.Parse(dateItems[0]);
+            //    int month = Int32.Parse(dateItems[1]);
+            //    int day = Int32.Parse(dateItems[2]);
 
-            SimpleDateTime dateTime = new(year, month, day, fractionaltime, gregflag);
-            ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
+            //   string[] timeItems = TimeText.Split(':');
+            //    int hour = Int32.Parse(timeItems[0]);
+            //    int minute = Int32.Parse(timeItems[1]);
+            //    int second = Int32.Parse(timeItems[2]);
 
-            ResultForDouble resultObl = oblNutCalc.CalculateObliquity(resultJd.returnValue, obliquityTypeTrue);
+            double fractionaltime = validatedTime.hour + validatedTime.minute / 60.0 + validatedTime.second / 3600.0;
+            if (validatedDate.noErrors && validatedTime.noErrors)
+            {
+                SimpleDateTime dateTime = new(validatedDate.year, validatedDate.month, validatedDate.day, fractionaltime, calendar);
+                ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
+                ResultForDouble resultObl = oblNutCalc.CalculateObliquity(resultJd.returnValue, obliquityTypeTrue);
+                if (resultJd.noErrors && resultObl.noErrors) return resultObl.returnValue.ToString();
+            }
+            return DefineErrorText();
+        }
 
-            if (resultObl.noErrors) return resultObl.returnValue.ToString();
-            else return "Error";
-            // TODO handle error situations
+        private string DefineErrorText()
+        {
+            string errorText = "";
+            if (validatedDate != null && !validatedDate.noErrors) errorText += DateErrorText;
+            if (validatedTime != null && !validatedTime.noErrors)
+            {
+                if (errorText.Length > 0) errorText += "\n";
+                errorText += TimeErrorText;
+            }
+            if (validatedDate != null && validatedDate.noErrors && validatedTime != null && validatedTime.noErrors) errorText += GeneralErrorText;
+            return errorText;
         }
 
     }

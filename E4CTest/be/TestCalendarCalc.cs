@@ -1,8 +1,12 @@
+// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using E4C.be.astron;
+using E4C.be.domain;
+using E4C.be.sefacade;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using E4C.be.sefacade;
-using E4C.be.astron;
-using E4C.be.model;
 
 namespace E4CTest
 {
@@ -16,9 +20,9 @@ namespace E4CTest
         {
             double expectedJd = 12345.678;
             var mock = new Mock<ISeDateTimeFacade>();
-            SimpleDateTime dateTime = new(2000, 1, 1, 12.0, true);
+            SimpleDateTime dateTime = new(2000, 1, 1, 12.0, Calendars.Gregorian);
             mock.Setup(p => p.JdFromSe(dateTime)).Returns(expectedJd);
-            CalendarCalc calc = new (mock.Object);
+            CalendarCalc calc = new(mock.Object);
             ResultForDouble result = calc.CalculateJd(dateTime);
             Assert.AreEqual(expectedJd, result.returnValue, delta);
 

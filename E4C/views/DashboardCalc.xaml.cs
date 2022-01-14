@@ -1,19 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using E4C.be.model;
-using E4C.be.astron;
-using E4C.be.sefacade;
+﻿using System.Windows;
 
 namespace E4C.views
 {
@@ -25,7 +10,7 @@ namespace E4C.views
         readonly private DashboardCalcViewModel dashboardCalcViewModel;
 
 
-        public DashboardCalc(DashboardCalcViewModel dashboardCalcViewModel,  CalcJdView calcJdView)
+        public DashboardCalc(DashboardCalcViewModel dashboardCalcViewModel)
         {
             InitializeComponent();
             this.dashboardCalcViewModel = dashboardCalcViewModel;
@@ -54,7 +39,7 @@ namespace E4C.views
     }
 
     public class DashboardCalcViewModel
-        {
+    {
         readonly private CalcJdView calcJdView;
         readonly private CalcObliquityView calcOblView;
 
@@ -76,5 +61,5 @@ namespace E4C.views
 
     }
 
-      
+
 }

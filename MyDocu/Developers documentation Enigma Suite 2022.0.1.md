@@ -100,3 +100,8 @@ To access the dll, the attribute [DllImport] is used. All imports from the dll a
 
 
 
+## Architecture
+
+The GUI is based on the MVVM model. The view consists of the XAML and accompanying C# part. And additional ViewModel is added to the view. The model is implemneted in the backend functionality.
+
+Further differentiations will be added to this initial approach.

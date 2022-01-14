@@ -9,6 +9,8 @@
   - Domain object to hold inputted data.
   - Error handling.
   - Enum
+    - SolSysPoints
+    - ~~SolSysPointCats~~
     - Housesystems.
     - Ayanamsha.
     - Parallax.

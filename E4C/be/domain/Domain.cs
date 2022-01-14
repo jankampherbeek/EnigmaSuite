@@ -2,11 +2,12 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+
 namespace E4C.be.domain
 {
 
     /// <summary>
-    /// Presentation for a date and time, including calendar.
+    /// Representation for a date and time, including calendar.
     /// </summary>
     /// <remarks>
     /// For ut (Universal Time) add the time in 0..23 hours and a decimal fraction for the total of minutes and seconds.
@@ -15,15 +16,15 @@ namespace E4C.be.domain
     {
         public readonly int year, month, day;
         public readonly double ut;
-        public readonly bool gregorian;
+        public readonly Calendars calendar;
 
-        public SimpleDateTime(int year, int month, int day, double ut, bool gregorian)
+        public SimpleDateTime(int year, int month, int day, double ut, Calendars calendar)
         {
             this.year = year;
             this.month = month;
             this.day = day;
             this.ut = ut;
-            this.gregorian = gregorian;
+            this.calendar = calendar;
         }
     }
 
@@ -52,16 +53,16 @@ namespace E4C.be.domain
         public readonly int year;
         public readonly int month;
         public readonly int day;
-        public readonly bool isGregorian;
+        public readonly Calendars calendar;
         public readonly bool noErrors;
         public readonly string errorText = "";
 
-        public ValidatedDate(int year, int month, int day, bool isGregorian, bool noErrors, string errorText = "")
+        public ValidatedDate(int year, int month, int day, Calendars calendar, bool noErrors, string errorText = "")
         {
             this.year = year;
             this.month = month;
             this.day = day;
-            this.isGregorian = isGregorian;
+            this.calendar = calendar;
             this.noErrors = noErrors;
             this.errorText = errorText;
         }
