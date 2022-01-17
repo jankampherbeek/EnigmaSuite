@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 GeneratedDocu
+/E4C/se/*.se1
+/E4C/se/*.eph
+/E4C/se/*.memo

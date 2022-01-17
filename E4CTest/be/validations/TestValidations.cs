@@ -7,7 +7,6 @@ using E4C.be.domain;
 using E4C.be.validations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 
 namespace E4CTest
 {
@@ -92,7 +91,6 @@ namespace E4CTest
             ValidatedDate validatedDate = dateTimeValidations.ConstructAndValidateDate(dateText, Calendars.Gregorian);
             Assert.IsFalse(validatedDate.noErrors);
         }
-
 
         [TestMethod]
         public void TestTimeHappyFlow()
@@ -187,4 +185,6 @@ namespace E4CTest
 
 
     }
+
+
 }

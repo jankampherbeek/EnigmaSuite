@@ -84,7 +84,7 @@ namespace E4C.views
                 if (errorText.Length > 0) errorText += "\n";
                 errorText += TimeErrorText;
             }
-            if (validatedDate != null && validatedTime != null &&  validatedDate.noErrors && validatedTime.noErrors) errorText += GeneralErrorText;
+            if (validatedDate != null && validatedTime != null && validatedDate.noErrors && validatedTime.noErrors) errorText += GeneralErrorText;
             return errorText;
         }
 

@@ -82,6 +82,12 @@ MSTest is the standard solution from Microsoft. I did not investigate this thoro
 
 For mocking MOQ is clearly the most used solution, so I will use this framework.
 
+### Database: SQLite
+
+The data to save is mostly about data for charts and in a much smaller amount for configurations. A RDBMS is well suited to handle this type of data. As Enigma is a single-user application, concurrency is not a requirement but an embedded, zero-configuration, database is. SQLite is a perfect match. A simple but proven database engine that can easily be matched with C#.
+
+To check: adding Ado.net ?????
+
 
 
 ## Coding conventions

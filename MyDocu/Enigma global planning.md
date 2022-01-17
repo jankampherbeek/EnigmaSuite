@@ -7,7 +7,7 @@
 
 ## Release 2022.0.3
 
-- Data input for the calculation of charts.
+- Data input for the calculation of charts, using databinding.
 - Calculation of planetary positions and houses (Sun .. Pluto, Chiron, Nodes).
 - Using one standard modus: Western Astrology.
 - Calculated results are shown in a textual table.
@@ -27,9 +27,11 @@
 
 Drawing of chart, with equal signs, with equal houses and French variant.
 
-Add persistency for charts. (Retrieving, saving). Select database.
+Add persistency for charts. (Retrieving, saving). Select database and possible use of Ado.net.
 
 Standardize input for date/time: same in calculations as in charts.	
+
+Add data binding to calculations.
 
 
 

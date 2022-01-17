@@ -5,16 +5,21 @@
     - ~~Layout.~~
     - ~~Decide on input for date and time.~~
     - Implementation.
+    - Add data binding.
     - Functionality.
   - Domain object to hold inputted data.
   - Error handling.
   - Enum
-    - SolSysPoints
+    - ~~SolSysPoints~~
     - ~~SolSysPointCats~~
-    - Housesystems.
+    - ~~Housesystems.~~
     - Ayanamsha.
-    - Parallax.
-    - Calendar.
+    - ~~ZodiacTypes.~~
+    - ~~ObserverPositions.~~
+    - ~~CoordinateSystems.~~
+    - ~~Calendar.~~
+      - ~~Create enum~~
+      - ~~Use enum for calendar consistently~~
 - Calculation of planetary positions and houses (Sun .. Pluto, Chiron, Nodes).
   - View and viewform for results.
     - Layout.

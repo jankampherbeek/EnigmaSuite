@@ -134,4 +134,27 @@ namespace E4C.be.astron
         }
     }
 
+
+    public class PositionSolSysPointCalc
+    {
+        private readonly ISePosCelPointFacade posCelPointFacade;
+
+        public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade)
+        {
+            this.posCelPointFacade= posCelPointFacade;
+        }
+
+   //     public SolSysPointPosSpeeds calculateSolSysPoint(int pointId, double jdnr, int flags)
+     //   {
+     //       double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
+
+//        }
+
+        public void calculateSolSysPoint(int pointId, double jdnr, int flags)
+        {
+            double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
+
+        }
+    }
+
 }

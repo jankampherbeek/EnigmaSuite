@@ -8,6 +8,26 @@ using System.Runtime.InteropServices;
 
 namespace E4C.be.sefacade
 {
+
+    public class SeInitializer
+    {
+
+        /// <summary>
+        /// Set location for Swiss Ephemeris files.
+        /// </summary>
+        /// <param name="path">Location, relative to the program.</param>
+        public static void setEphePath(String path)
+        {
+            ext_swe_set_ephe_path(path);
+        }
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
+        private extern static void ext_swe_set_ephe_path(String path);
+
+
+    }
+
+
+
     /// <summary>
     /// Facade for date/time functionality in the Swiss Ephemeris.
     /// </summary>

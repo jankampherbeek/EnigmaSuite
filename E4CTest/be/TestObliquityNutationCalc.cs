@@ -7,6 +7,7 @@ using E4C.be.domain;
 using E4C.be.sefacade;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 
 
 namespace E4CTest
@@ -50,4 +51,5 @@ namespace E4CTest
             return calc;
         }
     }
+
 }
