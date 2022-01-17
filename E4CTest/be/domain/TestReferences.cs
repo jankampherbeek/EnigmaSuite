@@ -182,5 +182,31 @@ namespace E4CTest.be.domain
         }
     }
 
+    [TestClass]
+    public class TestAyanamshaSpecifications
+    {
+        [TestMethod]
+        public void TestRetrievingDetails()
+        {
+            Ayanamshas ayanamsha = Ayanamshas.Huber;
+            IAyanamshaSpecifications specifications = new AyanamshaSpecifications();
+            AyanamshaDetails details = specifications.DetailsForAyanamsha(ayanamsha);
+            Assert.IsNotNull(details);
+            Assert.AreEqual(Ayanamshas.Huber, details.Ayanamsha);
+            Assert.AreEqual(12, details.SeId);
+            Assert.AreEqual("ayanamshaHuber", details.TextId);
+        }
 
+        [TestMethod]
+        public void TestAvailabilityOfDetailsForAllEnums()
+        {
+            IAyanamshaSpecifications specifications = new AyanamshaSpecifications();
+            foreach (Ayanamshas system in Enum.GetValues(typeof(Ayanamshas)))
+            {
+                AyanamshaDetails details = specifications.DetailsForAyanamsha(system);
+                Assert.IsNotNull(details);
+                Assert.IsTrue(details.TextId.Length > 0);
+            }
+        }
+    }
 }

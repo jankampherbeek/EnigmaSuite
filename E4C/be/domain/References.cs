@@ -381,7 +381,7 @@ namespace E4C.be.domain
         /// </summary>
         /// <param name="HouseSystem">The house system.</param>
         /// <param name="SeSupported">True if the house system is supported by the Swiss Ephyemeris.</param>
-        /// <param name="SeId">A character that defines the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
+        /// <param name="SeId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
         /// <param name="NrOfCusps">Number of cusps for this house system.</param>
         /// <param name="CounterClockWise">True if the cusps are counterclockwise, otherwise false.</param>
         /// <param name="QuadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10).</param>
@@ -441,6 +441,108 @@ namespace E4C.be.domain
                 HouseSystems.SunShine => new HouseSystemDetails(HouseSystem, true, 'i', 12, true, false, "houseSystemSunShine"),
                 HouseSystems.SunShineTreindl => new HouseSystemDetails(HouseSystem, true, 'I', 12, true, false, "houseSystemSunShineTreindl"),
                 _ => throw new ArgumentException("House system type unknown : " + HouseSystem.ToString())
+            };
+        }
+    }
+
+    #endregion
+
+    #region Ayanamshas
+
+    /// <summary>
+    /// Supported ayanamshas.
+    /// </summary>
+    public enum Ayanamshas
+    {
+        Fagan, Lahiri, DeLuce, Raman, UshaShashi, Krishnamurti, DjwhalKhul, Yukteshwar, Bhasin, Kugler1, Kugler2, Kugler3, Huber, EtaPiscium, Aldebaran15Tau, Hipparchus, Sassanian,
+        GalactCtr0Sag, J2000, J1900, B1950, SuryaSiddhanta, SuryaSiddhantaMeanSun, Aryabhata, AryabhataMeanSun, SsRevati, SsCitra, TrueCitra, TrueRevati, TruePushya, GalacticCtrBrand,
+        GalacticEqIau1958, GalacticEq, GalacticEqMidMula, Skydram, TrueMula, Dhruva, Aryabhata522, Britton, GalacticCtrOCap
+    }
+
+    /// <summary>
+    /// Specifications for an ayanamsha.
+    /// </summary>
+    public record AyanamshaDetails
+    {
+        readonly public Ayanamshas Ayanamsha;
+        readonly public int SeId;
+        readonly public string TextId;
+
+        /// <summary>
+        /// Constructor for the details of an ayanamsha.
+        /// </summary>
+        /// <param name="Ayanamsha">The ayanamsha.</param>
+        /// <param name="SeId">Id that identifies the ayanamsha for the Swiss Ephemeris.</param>
+        /// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+        public AyanamshaDetails(Ayanamshas Ayanamsha, int SeId, string TextId)
+        {
+            this.Ayanamsha = Ayanamsha;
+            this.SeId = SeId;
+            this.TextId = TextId;
+        }
+    }
+
+    /// <summary>
+    /// Specifications for an ayanamsha.
+    /// </summary>
+    public interface IAyanamshaSpecifications
+    {
+        /// <summary>
+        /// Returns the specification for an ayanamsha.
+        /// </summary>
+        /// <param name="Ayanamsha">The ayanamsha, from the enum Ayanamshas.</param>
+        /// <returns>A record AyanamshaDetails with the specification of the ayanamsha.</returns>
+        public AyanamshaDetails DetailsForAyanamsha(Ayanamshas Ayanamsha);
+    }
+
+    public class AyanamshaSpecifications : IAyanamshaSpecifications
+    {
+        /// <exception cref="ArgumentException">Is thrown if the ayanamsha was not recognized.</exception>
+        AyanamshaDetails IAyanamshaSpecifications.DetailsForAyanamsha(Ayanamshas Ayanamsha)
+        {
+            return Ayanamsha switch
+            {
+                Ayanamshas.Fagan => new AyanamshaDetails(Ayanamsha, 0, "ayanamshaFagan"),
+                Ayanamshas.Lahiri => new AyanamshaDetails(Ayanamsha, 1, "ayanamshaLahiri"),
+                Ayanamshas.DeLuce => new AyanamshaDetails(Ayanamsha, 2, "ayanamshaDeLuce"),
+                Ayanamshas.Raman => new AyanamshaDetails(Ayanamsha, 3, "ayanamshaRaman"),
+                Ayanamshas.UshaShashi => new AyanamshaDetails(Ayanamsha, 4, "ayanamshaUshaSashi"),
+                Ayanamshas.Krishnamurti => new AyanamshaDetails(Ayanamsha, 5, "ayanamshaKrishnamurti"),
+                Ayanamshas.DjwhalKhul => new AyanamshaDetails(Ayanamsha, 6, "ayanamshaDjwhalKhul"),
+                Ayanamshas.Yukteshwar => new AyanamshaDetails(Ayanamsha, 7, "ayanamshaYukteshwar"),
+                Ayanamshas.Bhasin => new AyanamshaDetails(Ayanamsha, 8, "ayanamshaBhasin"),
+                Ayanamshas.Kugler1 => new AyanamshaDetails(Ayanamsha, 9, "ayanamshaKugler1"),
+                Ayanamshas.Kugler2 => new AyanamshaDetails(Ayanamsha, 10, "ayanamshaKugler2"),
+                Ayanamshas.Kugler3 => new AyanamshaDetails(Ayanamsha, 11, "ayanamshaKugler3"),
+                Ayanamshas.Huber => new AyanamshaDetails(Ayanamsha, 12, "ayanamshaHuber"),
+                Ayanamshas.EtaPiscium => new AyanamshaDetails(Ayanamsha, 13, "ayanamshaEtaPiscium"),
+                Ayanamshas.Aldebaran15Tau => new AyanamshaDetails(Ayanamsha, 14, "ayanamshaAldebaran15Tau"),
+                Ayanamshas.Hipparchus => new AyanamshaDetails(Ayanamsha, 15, "ayanamshaHipparchus"),
+                Ayanamshas.Sassanian => new AyanamshaDetails(Ayanamsha, 16, "ayanamshaSassanian"),
+                Ayanamshas.GalactCtr0Sag => new AyanamshaDetails(Ayanamsha, 17, "ayanamshaGalactCtr0Sag"),
+                Ayanamshas.J2000 => new AyanamshaDetails(Ayanamsha, 18, "ayanamshaJ2000"),
+                Ayanamshas.J1900 => new AyanamshaDetails(Ayanamsha, 19, "ayanamshaJ1900"),
+                Ayanamshas.B1950 => new AyanamshaDetails(Ayanamsha, 20, "ayanamshaB1950"),
+                Ayanamshas.SuryaSiddhanta => new AyanamshaDetails(Ayanamsha, 21, "ayanamshaSuryaSiddhanta"),
+                Ayanamshas.SuryaSiddhantaMeanSun => new AyanamshaDetails(Ayanamsha, 22, "ayanamshaSuryaSiddhantaMeanSun"),
+                Ayanamshas.Aryabhata => new AyanamshaDetails(Ayanamsha, 23, "ayanamshaAryabhata"),
+                Ayanamshas.AryabhataMeanSun => new AyanamshaDetails(Ayanamsha, 24, "ayanamshaAryabhataMeanSun"),
+                Ayanamshas.SsRevati => new AyanamshaDetails(Ayanamsha, 25, "ayanamshaSsRevati"),
+                Ayanamshas.SsCitra => new AyanamshaDetails(Ayanamsha, 26, "ayanamshaSsCitra"),
+                Ayanamshas.TrueCitra => new AyanamshaDetails(Ayanamsha, 27, "ayanamshaTrueCitra"),
+                Ayanamshas.TrueRevati => new AyanamshaDetails(Ayanamsha, 28, "ayanamshaTrueRevati"),
+                Ayanamshas.TruePushya => new AyanamshaDetails(Ayanamsha, 29, "ayanamshaTruePushya"),
+                Ayanamshas.GalacticCtrBrand => new AyanamshaDetails(Ayanamsha, 30, "ayanamshaGalacticCtrBrand"),
+                Ayanamshas.GalacticEqIau1958 => new AyanamshaDetails(Ayanamsha, 31, "ayanamshaGalacticCtrEqIau1958"),
+                Ayanamshas.GalacticEq => new AyanamshaDetails(Ayanamsha, 32, "ayanamshaGalacticEq"),
+                Ayanamshas.GalacticEqMidMula => new AyanamshaDetails(Ayanamsha, 33, "ayanamshaGalacticEqMidMula"),
+                Ayanamshas.Skydram => new AyanamshaDetails(Ayanamsha, 34, "ayanamshaSkydram"),
+                Ayanamshas.TrueMula => new AyanamshaDetails(Ayanamsha, 35, "ayanamshaTrueMula"),
+                Ayanamshas.Dhruva => new AyanamshaDetails(Ayanamsha, 36, "ayanamshaDhruva"),
+                Ayanamshas.Aryabhata522 => new AyanamshaDetails(Ayanamsha, 37, "ayanamshaAryabhata522"),
+                Ayanamshas.Britton => new AyanamshaDetails(Ayanamsha, 38, "ayanamshaBritton"),
+                Ayanamshas.GalacticCtrOCap => new AyanamshaDetails(Ayanamsha, 39, "ayanamshaGalacticCtr0Cap"),
+                _ => throw new ArgumentException("Ayanamsha unknown : " + Ayanamsha.ToString())
             };
         }
     }
