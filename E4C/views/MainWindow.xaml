@@ -5,16 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E4C.views"
         mc:Ignorable="d"
-        Title="CommonDashboardTitle" Height="500" Width="300">
+        Title="CommonDashboardTitle" Height="820" Width="300">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="300"/>
             <RowDefinition Height="300"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Name="FormTitle" Text="FormTitle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
-        <Image Grid.Row="1" Source="/Calculations.jpg"/>
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="5,0,0,2" Orientation="Vertical">
+        <Image Grid.Row="1" Source="/views/Charts.jpg"/>
+        <Image Grid.Row="2" Source="/views/Calculations.jpg"/>
+        <StackPanel Grid.Row="3" Grid.Column="0" Margin="5,0,0,2" Orientation="Vertical">
+            <Button x:Name="btnCharts" Margin="5" Content="CommonDashboardCharts" Click="BtnCharts_Click"/>
             <Button x:Name="btnCalc" Margin="5" Click="BtnCalc_Click" Content="CommonDashboardCalculations"/>
             <Button x:Name="btnExit" Margin="5" Click="BtnExit_Click" Content="CommonDashboardExit"/>
         </StackPanel>

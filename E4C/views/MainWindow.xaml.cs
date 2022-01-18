@@ -20,6 +20,7 @@ namespace E4C.views
         {
             Title = "Enigma Suite";
             FormTitle.Text = "Enigma Suite 2022.0";
+            btnCharts.Content = "Charts";
             btnCalc.Content = "Calculations";
             btnExit.Content = "Exit and close Enigma";
         }
@@ -34,21 +35,32 @@ namespace E4C.views
             Application.Current.Shutdown();
         }
 
-
+        private void BtnCharts_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.ShowCharts();
+        }
     }
 
     public class MainWindowViewModel
     {
         readonly private DashboardCalc dashboardCalc;
+        readonly private DashboardCharts dashboardCharts;   
 
-        public MainWindowViewModel(DashboardCalc dashboardCalc)
+        public MainWindowViewModel(DashboardCalc dashboardCalc, DashboardCharts dashboardCharts)
         {
+            this.dashboardCharts = dashboardCharts;
             this.dashboardCalc = dashboardCalc;
+
         }
 
         public void ShowCalculations()
         {
             dashboardCalc.Show();
+        }
+
+        public void ShowCharts()
+        {
+            dashboardCharts.Show();
         }
 
     }
