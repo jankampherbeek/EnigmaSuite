@@ -140,8 +140,35 @@ namespace E4C.be.sefacade
     {
         public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
         {
+
+    
+
+
             string resultValue = "";
             double[] positions = new double[6];
+            /*
+            // temporary benchmark
+            // initialize ephemeris
+
+
+            SeInitializer.setEphePath(".//se");
+
+            double jd = 1500000.0;
+            string StartTime = DateTime.Now.ToString("h:mm:ss tt");
+            for (int i = 0; i < 1000000; i++)
+            {
+                jd = jd + 1.0;
+                ext_swe_calc_ut(jd, 1, 2, positions, resultValue);
+            }
+            string EndTime = DateTime.Now.ToString("h:mm:ss tt");
+
+
+            // end temporar4y benchmark
+            */
+         
+
+
+
             int returnFlag = ext_swe_calc_ut(julianDay, seCelPointId, flags, positions, resultValue);
             if (returnFlag < 0) Console.WriteLine("Error to log in SePosCelPointFacade.PosCelPointFromSe. ReturnFlag : " + returnFlag.ToString());
             // TODO check value of returnflag, if < 0 throw exception

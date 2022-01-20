@@ -5,6 +5,8 @@
 using E4C.be.astron;
 using E4C.be.sefacade;
 using E4C.be.validations;
+using E4C.be.domain;
+using E4C.be.persistency;
 using E4C.views;
 using SimpleInjector;
 using System;
@@ -24,12 +26,18 @@ namespace E4C
             RunApplication(container);
         }
 
+        /// <summary>
+        /// Container for dependency injection, using SimpleInjector.
+        /// </summary>
+        /// <returns>The constructed container.</returns>
         private static Container Bootstrap()
         {
             // Create the container.
             var container = new Container();
 
             // Register types:
+            container.Register<IRosetta, Rosetta>(Lifestyle.Singleton);
+            container.Register<ITextFromFileReader, TextFromFileReader>(Lifestyle.Singleton);
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
@@ -41,6 +49,10 @@ namespace E4C
             container.Register<MainWindowViewModel>();
             container.Register<DashboardCalc>();
             container.Register<DashboardCalcViewModel>();
+            container.Register<DashboardCharts>();
+            container.Register<DashboardChartsViewModel>();
+            container.Register<ChartsDataInputNewChart>();
+            container.Register<ChartsDataInputNewChartViewModel>();
             container.Register<CalcJdView>();
             container.Register<CalcJdViewModel>();
             container.Register<CalcObliquityView>();

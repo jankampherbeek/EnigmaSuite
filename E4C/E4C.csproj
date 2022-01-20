@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <None Remove="Calculations.jpg" />
+    <None Remove="views\Calculations.jpg" />
+    <None Remove="views\Charts.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,6 +22,8 @@
 
   <ItemGroup>
     <Resource Include="Calculations.jpg" />
+    <Resource Include="views\Calculations.jpg" />
+    <Resource Include="views\Charts.jpg" />
   </ItemGroup>
 
 </Project>

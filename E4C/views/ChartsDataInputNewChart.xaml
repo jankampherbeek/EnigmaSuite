@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:E4C.views"
+        x:Name="DataInputNewChart"
         mc:Ignorable="d"
-        Title="ChartsDataInputNewChart" Height="770" Width="500">
+        Title="ChartsDataInputNewChart" Height="740" Width="498">
 
-    <StackPanel Width="480">
-        <TextBlock Name="FormTitle" Text="FormTitle" HorizontalAlignment="Center" FontSize="28"/>        
-        <Grid Margin="12">
+    <StackPanel Width="482" Margin="6,0,6,0">
+        <TextBlock Name="FormTitle" Text="FormTitle"  HorizontalAlignment="Center" FontSize="28" Foreground="#FF262C7A"/>
+        <Grid Margin="8 4 8 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="24"/>
@@ -28,20 +29,20 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="9" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
-            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Name="TitleGeneral" Text="TitleGeneral" HorizontalAlignment="Left" FontWeight="Bold" />
-            <TextBlock Margin="6 0 6 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="NameText" Text="NameText" HorizontalAlignment="Left"/>
-            <TextBox Margin="6 0 6 0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="NameInput" />
-            <TextBlock Margin="6 0 6 0" Grid.Row="3" Grid.Column="0" Name="SubjectText" Text="SubjectText"/>
-            <TextBlock Margin="6 0 6 0" Grid.Row="3" Grid.Column="2" Name="RatingText" Text="RatingText"/>
+            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Name="GeneralTitle" Text="GeneralTitle" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF262C7A" />
+            <TextBlock Margin="6 6 6 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Name="NameText" Text="NameText" HorizontalAlignment="Left"/>
+            <TextBox Margin="6 0 6 0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Name="NameInput" Text="{Binding GeneralName, ElementName=DataInputNewChart}"/>
+            <TextBlock Margin="6 6 6 0" Grid.Row="3" Grid.Column="0" Name="SubjectText" Text="SubjectText"/>
+            <TextBlock Margin="6 6 6 0" Grid.Row="3" Grid.Column="2" Name="RatingText" Text="RatingText"/>
             <ComboBox Margin="6 0 6 0" Grid.Row="4" Grid.Column="0" Name="SubjectInput"/>
             <ComboBox Margin="6 0 6 0" Grid.Row="4" Grid.Column="2" Name="RatingInput"/>
-            <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Name="SourceText" Text="SourceText"/>
-            <TextBox Margin="6 0 6 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Name="SourceInput" />
-            <TextBlock Margin="6 0 6 0" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Name="DescriptionText" Text="DescriptionText"/>
+            <TextBlock Margin="6 6 6 0" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Name="SourceText" Text="SourceText"/>
+            <TextBox Margin="6 0 6 0" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Name="SourceInput" Text="{Binding SourceValue, ElementName=DataInputNewChart}"/>
+            <TextBlock Margin="6 6 6 0" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Name="DescriptionText" Text="DescriptionText"/>
             <TextBox Margin="6 0 6 6" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Name="DescriptionInput" TextWrapping="Wrap" AcceptsReturn="True"
-                     Height="60" VerticalScrollBarVisibility="Auto" />
+                     Height="60" MaxLength="10" VerticalScrollBarVisibility="Auto" />
         </Grid>
-        <Grid Margin="12">
+        <Grid Margin="8 4 8 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -62,11 +63,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="6" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
-            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Name="TitleLocation" Text="TitleLocation" FontWeight="Bold" />
-            <TextBlock Margin="6 0 6 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="9" Name="LocationText" Text="LocationText" />
-            <TextBox Margin="6 0 6 0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9" Name="LocationInput" />
-            <TextBlock Margin="6 0 6 0" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Name="LongitudeText" Text="LongitudeText" />
-            <TextBlock Margin="6 0 6 0" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="4" Name="LatitudeText" Text="LatitudeText" />
+            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Name="LocationTitle" Text="LocationTitle" FontWeight="Bold" Foreground="#FF262C7A"/>
+            <TextBlock Margin="6 0 6 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="9" Name="LocationName" Text="LocationName" />
+            <TextBox Margin="6 0 6 0" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="9" Name="LocationNameInput" />
+            <TextBlock Margin="6 6 6 0" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Name="LongitudeText" Text="LongitudeText" />
+            <TextBlock Margin="6 6 6 0" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="4" Name="LatitudeText" Text="LatitudeText" />
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="0" Name="LongDegreeText" Text="Degrees" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="1" Name="LongMinuteText" Text="Minutes" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="2" Name="LongSecondText" Text="Seconds" FontSize="8"/>
@@ -75,16 +76,16 @@
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="6" Name="LatMinuteText" Text="Minutes" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="7" Name="LatSecondText" Text="Seconds" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="8" Name="LatDirText" Text="Direction" FontSize="8"/>
-            <TextBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="0" Name="LongDegreeValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="1" Name="LongMinuteValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="2" Name="LongSecondsValue" />
-            <ComboBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="3" Name="LongDirValue"/>
-            <TextBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="5" Name="LatDegreeValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="6" Name="LatMinuteValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="7" Name="LatSecondsValue" />
-            <ComboBox Margin="6 0 6 6" Grid.Row="5" Grid.Column="8" Name="LatDirValue"/>
+            <TextBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="0" Height="18" Name="LongDegreeValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="1" Height="18" Name="LongMinuteValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="2" Height="18" Name="LongSecondsValue" />
+            <ComboBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="3" Height="18" Name="LongDirValue"/>
+            <TextBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="5" Height="18" Name="LatDegreeValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="6" Height="18" Name="LatMinuteValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="7" Height="18" Name="LatSecondsValue" />
+            <ComboBox Margin="6 0 6 9" Grid.Row="5" Grid.Column="8" Height="18" Name="LatDirValue"/>
         </Grid>
-        <Grid Margin="12">
+        <Grid Margin="8 4 8 4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -111,49 +112,49 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Grid.RowSpan="12" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
-            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Name="TitleDateTime" Text="TitleDateTime" FontWeight="Bold" />
+            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="9" Name="DateTimeTitle" Text="DateTimeTitle" FontWeight="Bold" Foreground="#FF262C7A"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="9" Name="DateText" Text="DateText" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="0" Name="DateYearText" Text="Year" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="1" Name="DateMonthText" Text="Month" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="2" Name="DateDayText" Text="Day" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="5" Name="DateCalendarText" Text="Calendar" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="7" Name="DateYearCount" Text="YearCount" FontSize="8" />
-            <TextBox Margin="6 0 6 6" Grid.Row="3" Grid.Column="0" Name="DateYearValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="3" Grid.Column="1" Name="DateMonthValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="3" Grid.Column="2" Name="DateDayValue" />
-            <ComboBox Margin="6 0 6 6" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" Name="DateCalendarValue"/>
-            <ComboBox Margin="6 0 6 6" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="2" Name="DateYearCountValue"/>
+            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="0" Height="18" Name="DateYearValue" />
+            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="1" Height="18" Name="DateMonthValue" />
+            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="2" Height="18" Name="DateDayValue" />
+            <ComboBox Margin="6 0 6 9" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="2" Height="18" Name="DateCalendarValue"/>
+            <ComboBox Margin="6 0 6 9" Grid.Row="3" Grid.Column="7" Grid.ColumnSpan="2" Height="18" Name="DateYearCountValue"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="9" Name="TimeText" Text="TimeText" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="0" Name="TimeHourText" Text="Hours" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="1" Name="TimeMinuteText" Text="Minutes" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="2" Name="TimeSecondText" Text="Seconds" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="5" Name="TimeDstText" Text="DST" FontSize="8" />
-            <TextBox Margin="6 0 6 6" Grid.Row="6" Grid.Column="0" Name="TimeHourValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="6" Grid.Column="1" Name="TimeMinuteValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="6" Grid.Column="2" Name="TimeSecondValue" />
-            <CheckBox Margin="6 0 6 6" Grid.Row="6" Grid.Column="5" Name="TimeDstValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="0" Name="TimeHourValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="1" Name="TimeMinuteValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="2" Name="TimeSecondValue" />
+            <CheckBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="5" Name="TimeDstValue" />
             <TextBlock Margin="6 0 6 0" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="9" Name="TimeZoneText" Text="TimezoneText" />
-            <ComboBox Margin="6 0 6 6" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="9" Name="TimeZoneValue"/>
+            <ComboBox Margin="6 0 6 9" Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="9" Height="18" Name="TimeZoneValue"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="9" Name="LmtZoneText" Text="LmtzoneText" />
             <TextBlock Margin="6 0 6 0" Grid.Row="10" Grid.Column="0" Name="LmtDegreeText" Text="Degrees" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="10" Grid.Column="1" Name="LmtMinuteText" Text="Minutes" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="10" Grid.Column="2" Name="LmtSecondText" Text="Seconds" FontSize="8"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="10" Grid.Column="3" Name="LmtDirText" Text="Direction" FontSize="8"/>
-            <TextBox Margin="6 0 6 6" Grid.Row="11" Grid.Column="0" Name="LmtDegreeValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="11" Grid.Column="1" Name="LmtMinuteValue" />
-            <TextBox Margin="6 0 6 6" Grid.Row="11" Grid.Column="2" Name="LmtSecondValue" />
-            <ComboBox Margin="6 0 6 6" Grid.Row="11" Grid.Column="3" Name="LmtDirValue"/>
+            <TextBox Margin="6 0 6 12" Grid.Row="11" Grid.Column="0" Height="18" Name="LmtDegreeValue" />
+            <TextBox Margin="6 0 6 12" Grid.Row="11" Grid.Column="1" Height="18" Name="LmtMinuteValue" />
+            <TextBox Margin="6 0 6 12" Grid.Row="11" Grid.Column="2" Height="18" Name="LmtSecondValue" />
+            <ComboBox Margin="6 0 6 9" Grid.Row="11" Grid.Column="3" Height="18" Name="LmtDirValue"/>
         </Grid>
-        <Grid Margin="12">
+        <Grid Margin="8 4 8 4" Height="Auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="24"/>                
+                <ColumnDefinition Width="24"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Name="BtnCalculate" Content="Calculate chart" Margin="12"/>
-            <Button Grid.Column="2" Name="BtnHelp" Content="BtnHelp" Margin="12"/>
-            <Button Grid.Column="3" Name="BtnCancel" Content="BtnCancel" Margin="12"/>
+            <Button Grid.Column="0" Name="BtnCalculate" Content="BtnCalculate" Margin="12,8,12,0" Height="20" VerticalAlignment="Top" Click="OnSubmit"/>
+            <Button Grid.Column="2" Name="BtnHelp" Content="BtnHelp"  Margin="12, 8, 12, 0" Height="20"/>
+            <Button Grid.Column="3" Name="BtnCancel" Content="BtnCancel" Margin="12, 8, 12, 0" Height="20"/>
         </Grid>
     </StackPanel>
 

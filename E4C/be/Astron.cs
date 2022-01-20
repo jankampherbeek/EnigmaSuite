@@ -130,6 +130,7 @@ namespace E4C.be.astron
                 // todo handle exception, write to log-file
                 Console.WriteLine("Error to log in CalendarCalc.CalculateObliquity: " + e.Message);
             }
+
             return result;
         }
     }

@@ -14,7 +14,6 @@
   - Tabbed pages for ecliptical, equatorial and horizontal positions.
   - Where applicable, positions are given with glyphs.
 - Add help screens, using the look-and-feel as used in RadixPro (2008 version).
-- Add hints (bi-lingual).
 - Use a separate file to populate texts, for now only in English.
 - Create a class to handle reading of texts (Rosetta).
 - Use mutex to force single instance being run. See Chowdhury, WPF dev. p. 46.

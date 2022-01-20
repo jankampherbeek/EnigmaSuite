@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E4C", "E4C.csproj", "{05FF68E8-EF55-483F-947C-B0F6C359BD09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "E4CTest", "..\E4CTest\E4CTest.csproj", "{BDC4B954-C640-4DF8-8101-BD557B0A50D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "E4CTest", "..\E4CTest\E4CTest.csproj", "{BDC4B954-C640-4DF8-8101-BD557B0A50D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
