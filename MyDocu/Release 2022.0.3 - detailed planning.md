@@ -5,7 +5,6 @@
     - ~~Layout.~~
     - ~~Decide on input for date and time.~~
     - ~~Implementation.~~
-    - Add data binding.
     - Functionality.
   - Domain object to hold inputted data.
   - Error handling.
@@ -40,18 +39,18 @@
 - ~~Create a class to handle reading of texts (Rosetta).~~
 - Use mutex to force single instance being run. See Chowdhury, WPF dev. p. 46.
 - Unit testing:
-  - Improve mocking: add matchers.
+  - ~~Improve mocking: add matchers.~~
   - Create tests for viewmodels.
 - Refactor existing screens:
   - Look and feel
     - General dashboard
-    - Dashboard calculations
+    - ~~Dashboard calculations~~
     - Dashboard  charts
     - Calculation JD
     - Calculation obliquity
   - Using Rosetta
     - General dashboard
-    - Dashboard calculations
+    - ~~Dashboard calculations~~
     - Dashboard  charts
     - Calculation JD
     - Calculation obliquity

@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.domain;
+using E4C.Models.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -77,7 +77,7 @@ namespace E4CTest.be.domain
         public void TestConstructionWithArray()
         {
             double delta = 0.00000001;
-            double[] values = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
+            double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
             SolSysPointPosSpeeds posSpeeds = new(values);
             Assert.AreEqual(1.0, posSpeeds.mainPosSpeed.position, delta);
             Assert.AreEqual(2.0, posSpeeds.mainPosSpeed.speed, delta);
@@ -101,7 +101,7 @@ namespace E4CTest.be.domain
             double delta = 0.00000001;
             PosSpeed mainPosSpeed = new(1.0, 2.0);
             PosSpeed deviationPosSpeed = new(3.0, 4.0);
-            PosSpeed distancePosSpeed = new PosSpeed(5.0, 6.0);
+            PosSpeed distancePosSpeed = new(5.0, 6.0);
             SolSysPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
             Assert.AreEqual(1.0, posSpeeds.mainPosSpeed.position, delta);
             Assert.AreEqual(2.0, posSpeeds.mainPosSpeed.speed, delta);

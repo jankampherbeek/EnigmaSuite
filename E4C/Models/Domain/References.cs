@@ -4,7 +4,7 @@
 
 using System;
 
-namespace E4C.be.domain
+namespace E4C.Models.Domain
 {
     #region SolSysPointCategories
     /// <summary>
@@ -76,6 +76,7 @@ namespace E4C.be.domain
 
     #endregion
 
+    #region Calendar
     /// <summary>
     /// Enum for Gregorian and Julian Calendar.
     /// </summary>
@@ -83,6 +84,118 @@ namespace E4C.be.domain
     {
         Gregorian, Julian
     }
+
+    /// <summary>
+    /// Details for a calendar.
+    /// </summary>
+    public record CalendarDetails
+    {
+        readonly public Calendars calendar;
+        readonly public string textId;
+
+        /// <summary>
+        /// Construct details for a calendar.
+        /// </summary>
+        /// <param name="calendar">The calendar.</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public CalendarDetails(Calendars calendar, string textId)
+        {
+            this.calendar = calendar;
+            this.textId = textId;
+        }
+    }
+
+    /// <summary>
+    /// Specifications for a calendar.
+    /// </summary>
+    public interface ICalendarSpecifications
+    {
+        /// <summary>
+        /// Returns the details for a Calendar.
+        /// </summary>
+        /// <param name="calendar">The calendar, from the enum Calendars.</param>
+        /// <returns>A record CalendarDetails with the specifications.</returns>
+        public CalendarDetails DetailsForCalendar(Calendars calendar);
+    }
+
+    public class CalendarSpecifications : ICalendarSpecifications
+    {
+        /// <exception cref="ArgumentException">Is thrown if the calendar was not recognized.</exception>
+        CalendarDetails ICalendarSpecifications.DetailsForCalendar(Calendars calendar)
+        {
+            return calendar switch
+            {
+                Calendars.Gregorian => new CalendarDetails(calendar, "ref.enumcalendargregorian"),
+                Calendars.Julian => new CalendarDetails(calendar, "ref.enumcalendarjulian"),
+                _ => throw new ArgumentException("Calendar unknown : " + calendar.ToString())
+            };
+        }
+    }
+
+
+
+    #endregion
+
+    #region YearCount
+    /// <summary>
+    /// Enum for Yearcounts.
+    /// </summary>
+    public enum YearCounts
+    {
+        CE, BCE, Astronomical
+    }
+
+    /// <summary>
+    /// Details for a yearcount.
+    /// </summary>
+    public record YearCountDetails
+    {
+        readonly public YearCounts yearCount;
+        readonly public string textId;
+
+        /// <summary>
+        /// Construct details for a YearCount.
+        /// </summary>
+        /// <param name="yearCount">The YearCount.</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public YearCountDetails(YearCounts yearCount, string textId)
+        {
+            this.yearCount  = yearCount;
+            this.textId = textId;
+        }
+    }
+
+    /// <summary>
+    /// Specifications for a YearCount.
+    /// </summary>
+    public interface IYearCountSpecifications
+    {
+        /// <summary>
+        /// Returns the details for a YearCount.
+        /// </summary>
+        /// <param name="yearCount">The YearCount, from the enum YearCounts.</param>
+        /// <returns>A record YearCountDetails with the specifications.</returns>
+        public YearCountDetails DetailsForYearCount(YearCounts yearCount);
+    }
+
+    public class YearCountSpecifications : IYearCountSpecifications
+    {
+        /// <exception cref="ArgumentException">Is thrown if the calendar was not recognized.</exception>
+        YearCountDetails IYearCountSpecifications.DetailsForYearCount(YearCounts yearCount)
+        {
+            return yearCount switch
+            {
+                YearCounts.CE => new YearCountDetails(yearCount, "ref.enumyearcountce"),
+                YearCounts.BCE => new YearCountDetails(yearCount, "ref.enumyearcountbce"),
+                YearCounts.Astronomical => new YearCountDetails(yearCount, "ref.enumyearcountastronomical"),
+                _ => throw new ArgumentException("YearCount unknown : " + yearCount.ToString())
+            };
+        }
+    }
+
+
+
+    #endregion
 
     #region SolarSystemPoints
     /// <summary>
@@ -273,7 +386,7 @@ namespace E4C.be.domain
         public ObserverPositionDetails DetailsForObserverPosition(ObserverPositions observerPosition);
     }
 
-    public class ObserverPositionSpecifications: IObserverPositionSpecifications
+    public class ObserverPositionSpecifications : IObserverPositionSpecifications
     {
         /// <exception cref="ArgumentException">Is thrown if the Observer Position was not recognized.</exception>
         ObserverPositionDetails IObserverPositionSpecifications.DetailsForObserverPosition(ObserverPositions observerPosition)
@@ -336,7 +449,7 @@ namespace E4C.be.domain
         public ZodiacTypeDetails DetailsForZodiacType(ZodiacTypes zodiacType);
     }
 
-    public class ZodiacTypeSpecifications: IZodiacTypeSpecifications
+    public class ZodiacTypeSpecifications : IZodiacTypeSpecifications
     {
         /// <exception cref="ArgumentException">Is thrown if the zodiac type was not recognized.</exception>
         ZodiacTypeDetails IZodiacTypeSpecifications.DetailsForZodiacType(ZodiacTypes zodiacType)
@@ -359,8 +472,8 @@ namespace E4C.be.domain
     /// </summary>
     public enum HouseSystems
     {
-        NoHouses, Placidus, Koch, Porphyri, Regiomontanus, Campanus, Alcabitius, TopoCentric, Krusinski, Apc, Morin, 
-        WholeSign, EqualAsc, EqualMc, EqualAries, Vehlow,  Axial, Horizon, Carter,  Gauquelin, SunShine, SunShineTreindl
+        NoHouses, Placidus, Koch, Porphyri, Regiomontanus, Campanus, Alcabitius, TopoCentric, Krusinski, Apc, Morin,
+        WholeSign, EqualAsc, EqualMc, EqualAries, Vehlow, Axial, Horizon, Carter, Gauquelin, SunShine, SunShineTreindl
     }
 
     /// <summary>
@@ -388,7 +501,7 @@ namespace E4C.be.domain
         /// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
         public HouseSystemDetails(HouseSystems HouseSystem, bool SeSupported, char SeId, int NrOfCusps, bool CounterClockWise, bool QuadrantSystem, string TextId)
         {
-            this.HouseSystem = HouseSystem; 
+            this.HouseSystem = HouseSystem;
             this.SeSupported = SeSupported;
             this.SeId = SeId;
             this.NrOfCusps = NrOfCusps;
@@ -411,7 +524,7 @@ namespace E4C.be.domain
         public HouseSystemDetails DetailsForHouseSystem(HouseSystems HouseSystem);
     }
 
-    public class HouseSystemSpecifications: IHouseSystemSpecifications
+    public class HouseSystemSpecifications : IHouseSystemSpecifications
     {
         /// <exception cref="ArgumentException">Is thrown if the house system was not recognized.</exception>
         HouseSystemDetails IHouseSystemSpecifications.DetailsForHouseSystem(HouseSystems HouseSystem)

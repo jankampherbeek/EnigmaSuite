@@ -9,9 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="be\**" />
+    <EmbeddedResource Remove="be\**" />
+    <None Remove="be\**" />
+    <Page Remove="be\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Calculations.jpg" />
-    <None Remove="views\Calculations.jpg" />
-    <None Remove="views\Charts.jpg" />
+    <None Remove="Views\Calculations.jpg" />
+    <None Remove="Views\Charts.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,8 +29,8 @@
 
   <ItemGroup>
     <Resource Include="Calculations.jpg" />
-    <Resource Include="views\Calculations.jpg" />
-    <Resource Include="views\Charts.jpg" />
+    <Resource Include="Views\Calculations.jpg" />
+    <Resource Include="Views\Charts.jpg" />
   </ItemGroup>
 
 </Project>

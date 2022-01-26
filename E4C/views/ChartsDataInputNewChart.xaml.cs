@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using E4C.Models;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using E4C.be.domain;
+using E4C.Views.ViewHelpers;
 
-namespace E4C.views
+namespace E4C.Views
 {
     /// <summary>
     /// Interaction logic for ChartsDataInputNewChart.xaml
@@ -25,12 +14,12 @@ namespace E4C.views
         private string generalName = "";
         private string sourceValue = "";
 
-        public ChartsDataInputNewChart(ChartsDataInputNewChartViewModel viewModel, IRosetta rosetta) 
+        public ChartsDataInputNewChart(ChartsDataInputNewChartViewModel viewModel, IRosetta rosetta)
         {
             InitializeComponent();
             this.viewModel = viewModel;
-            this.rosetta = rosetta; 
-            PopulateStaticTexts(); 
+            this.rosetta = rosetta;
+            PopulateStaticTexts();
         }
 
 
@@ -94,14 +83,14 @@ namespace E4C.views
             BtnHelp.Content = rosetta.TextForId("common.btnhelp");
             BtnCancel.Content = rosetta.TextForId("common.btncancel");
         }
-        
+
     }
 
     public class ChartsDataInputNewChartViewModel
     {
         public ChartsDataInputNewChartViewModel()
         {
-     
+
         }
 
 

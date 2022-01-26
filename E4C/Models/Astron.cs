@@ -2,11 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.domain;
-using E4C.be.sefacade;
+using E4C.Models.Domain;
+using E4C.Models.SeFacade;
 using System;
 
-namespace E4C.be.astron
+namespace E4C.Models.Astron
 {
     /// <summary>
     /// Calculations for date and time functionality.
@@ -87,7 +87,7 @@ namespace E4C.be.astron
             {
                 Result = dateTimeFacade.DateTimeFromJd(JulianDayNumber, calendar);
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 // todo handle exception, write to log-file
                 Console.WriteLine("Error to log in CalendarCalc.CalculateDateTimeFromJd: " + e.Message);
@@ -142,16 +142,16 @@ namespace E4C.be.astron
 
         public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade)
         {
-            this.posCelPointFacade= posCelPointFacade;
+            this.posCelPointFacade = posCelPointFacade;
         }
 
-   //     public SolSysPointPosSpeeds calculateSolSysPoint(int pointId, double jdnr, int flags)
-     //   {
-     //       double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
+        //     public SolSysPointPosSpeeds calculateSolSysPoint(int pointId, double jdnr, int flags)
+        //   {
+        //       double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
 
-//        }
+        //        }
 
-        public void calculateSolSysPoint(int pointId, double jdnr, int flags)
+        public void CalculateSolSysPoint(int pointId, double jdnr, int flags)
         {
             double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
 

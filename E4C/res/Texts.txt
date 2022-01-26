@@ -1,4 +1,29 @@
-﻿#Charts
+﻿--------------------------  Calculations --------------
+----- CalcJdNr ----------------------------------------
+calc.jdnr.btncalc = Calculate Julian Day Number
+calc.jdnr.calendar = Calendar
+calc.jdnr.date = Date
+calc.jdnr.datetime = Enter date and time
+calc.jdnr.day = Day
+calc.jdnr.formtitle = Calculate Julian Day Number
+calc.jdnr.hour = Hour
+calc.jdnr.minute = Minute
+calc.jdnr.month = Month
+calc.jdnr.second = Second
+calc.jdnr.time = Time (UT in 24-hour notation)
+calc.jdnr.title = Enigma Calculations: Julian Day Number
+calc.jdnr.year = Year
+calc.jdnr.yearcount = YearCount
+calc.jdnr.result = Result of calculation
+----- CalcStartView
+calc.startview.btnclose = Close Calculations
+calc.startview.btnjd = Julian Day Number
+calc.startview.btnobliquity = Obliquity of the earth axis
+calc.startview.explanation = Select and click one of the calculations
+calc.startview.formtitle = Calculations
+calc.startview.title = Enigma Calculations
+---------------------------- Charts --------------------
+----- ChartsDataInputChart
 charts.datainputchart.btncalculate = Calculate chart
 charts.datainputchart.calendar = Calendar
 charts.datainputchart.date = Date;
@@ -28,6 +53,17 @@ charts.datainputchart.titleform = Data input for new chart
 charts.datainputchart.titlegeneral = General information
 charts.datainputchart.year = Year
 charts.datainputchart.yearcount = Year count
-#Common
+-------------------------------- Common ----------------
 common.btncancel = Cancel
+common.btnclose = Close
 common.btnhelp = Help
+common.error.date = Please correct input for the date
+common.error.general = Enigma did find errors
+common.error.time = Please correct input for the time
+common.error.title = Errors!
+-------------------------------- References ------------
+ref.enumcalendargregorian = Gregorian
+ref.enumcalendarjulian = Julian
+ref.enumyearcountce = CE
+ref.enumyearcountbce = BCE
+ref.enumyearcountastronomical = Astronomical

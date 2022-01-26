@@ -2,11 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.domain;
+using E4C.Models.Domain;
 using System;
 using System.Runtime.InteropServices;
 
-namespace E4C.be.sefacade
+namespace E4C.Models.SeFacade
 {
 
     public class SeInitializer
@@ -16,7 +16,7 @@ namespace E4C.be.sefacade
         /// Set location for Swiss Ephemeris files.
         /// </summary>
         /// <param name="path">Location, relative to the program.</param>
-        public static void setEphePath(String path)
+        public static void SetEphePath(String path)
         {
             ext_swe_set_ephe_path(path);
         }
@@ -141,7 +141,7 @@ namespace E4C.be.sefacade
         public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
         {
 
-    
+
 
 
             string resultValue = "";
@@ -165,7 +165,7 @@ namespace E4C.be.sefacade
 
             // end temporar4y benchmark
             */
-         
+
 
 
 

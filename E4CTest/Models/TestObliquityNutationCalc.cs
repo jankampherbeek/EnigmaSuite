@@ -2,12 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.astron;
-using E4C.be.domain;
-using E4C.be.sefacade;
+using E4C.Models.Astron;
+using E4C.Models.Domain;
+using E4C.Models.SeFacade;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 
 
 namespace E4CTest

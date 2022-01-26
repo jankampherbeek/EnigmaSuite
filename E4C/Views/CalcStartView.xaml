@@ -1,0 +1,41 @@
+﻿<Window x:Class="E4C.Views.CalcStartView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:E4C.Views"
+        mc:Ignorable="d"
+        Title="CalcStartViewTitle" Height="240" Width="300">
+
+    <StackPanel Width="276" Margin="6" RenderTransformOrigin="0.5,0.5">
+        <StackPanel.RenderTransform>
+            <TransformGroup>
+                <ScaleTransform/>
+                <SkewTransform AngleX="0.408"/>
+                <RotateTransform/>
+                <TranslateTransform X="1.326"/>
+            </TransformGroup>
+        </StackPanel.RenderTransform>
+        <TextBlock Name="FormTitle" Text="FormTitle"  HorizontalAlignment="Center" FontSize="28" Foreground="#FF262C7A"/>
+        <Grid Margin="8 4 8 4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
+            <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="CalcDashboardExplanation" Text="CalcDashboardExplanation" HorizontalAlignment="Left" />
+            <Button Margin="6" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="BtnCalcJd" Content="BtnCalcJd" Click="BtnCalcJd_Click"/>
+            <Button Margin="6" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="BtnCalcObliquity" Content="BtnCalcObliquity" Click="BtnCalcObliquity_Click"/>
+            <Button Margin="6 24" Grid.Row="4" Grid.Column="0" Name="BtnHelp" Content="BtnHelp" />
+            <Button Margin="6 24" Grid.Row="4" Grid.Column="1" Name="BtnClose"  Content="BtnClose" Click="BtnClose_Click"/>
+        </Grid>
+    </StackPanel>
+
+</Window>

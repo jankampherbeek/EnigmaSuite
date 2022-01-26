@@ -2,12 +2,14 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.astron;
-using E4C.be.domain;
-using E4C.be.validations;
+using E4C.Models.Domain;
+using E4C.ViewModels;
+using E4C.Views.ViewHelpers;
 using System.Windows;
+using System.Collections.Generic;
+using System.Windows.Media;
 
-namespace E4C.views
+namespace E4C.Views
 {
     /// <summary>
     /// Interaction logic for CalcJdView.xaml
@@ -15,78 +17,122 @@ namespace E4C.views
     public partial class CalcJdView : Window
     {
         readonly private CalcJdViewModel calcJdViewModel;
+        readonly private IRosetta rosetta;
+        private List<CalendarDetails> calendarItems;
+        public List<CalendarDetails> CalendarItems { get => calendarItems; set => calendarItems = value; }
+        private List<YearCountDetails>? yearCountItems;
+        public List <YearCountDetails> YearCountItems { get => yearCountItems; set => yearCountItems = value; }
 
-        public CalcJdView(CalcJdViewModel calcJdViewModel)
+        public CalcJdView(CalcJdViewModel calcJdViewModel, IRosetta rosetta)
         {
             InitializeComponent();
             this.calcJdViewModel = calcJdViewModel;
+            this.rosetta = rosetta;
             PopulateStaticTexts();
         }
 
         private void PopulateStaticTexts()
         {
-            Title = "Enigma Calculations: Julian Day Number";
-            JdFormTitle.Text = "Calculate Julian Day Number";
-            LblDate.Content = "Enter the date (format yyyy/mm/dd), use the astronomical yearcount.";
-            LblTime.Content = "Enter the time (format hh:mm:ss) using UT and 24-hour notation.";
-            LblCalendar.Content = "Select the Gregorian or Julian Calendar.";
-            rbgreg.Content = "Gregorian";
-            rbjul.Content = "Julian";
-            BtnCalcJd.Content = "Calculate Julian Day Number";
+            Title = rosetta.TextForId("calc.jdnr.title");
+            FormTitle.Text = rosetta.TextForId("calc.jdnr.formtitle");
+            DateTime.Text = rosetta.TextForId("calc.jdnr.datetime");
+            Date.Text = rosetta.TextForId("calc.jdnr.date");
+            DateYear.Text = rosetta.TextForId("calc.jdnr.year");
+            DateMonth.Text = rosetta.TextForId("calc.jdnr.month");
+            DateDay.Text = rosetta.TextForId("calc.jdnr.day");
+            DateCalendar.Text = rosetta.TextForId("calc.jdnr.calendar");
+            DateYearCount.Text = rosetta.TextForId("calc.jdnr.yearcount");
+            Time.Text = rosetta.TextForId("calc.jdnr.time");
+            TimeHour.Text = rosetta.TextForId("calc.jdnr.hour");
+            TimeMinute.Text = rosetta.TextForId("calc.jdnr.minute");
+            TimeSecond.Text = rosetta.TextForId("calc.jdnr.second");
+            BtnCalculate.Content = rosetta.TextForId("calc.jdnr.btncalc");
+            Result.Text = rosetta.TextForId("calc.jdnr.result");
+            BtnHelp.Content = rosetta.TextForId("common.btnhelp");
+            BtnClose.Content = rosetta.TextForId("common.btnclose");
+            ResultValue.Text = "";
+            PopulateReferences();
+        }
+
+        private void PopulateReferences()
+        {
+            CalendarItems = calcJdViewModel.CalendarItems;
+            if (CalendarItems != null)
+            {
+                foreach (var calendarItem in CalendarItems)
+                {
+                    DateCalendarCombo.Items.Add(rosetta.TextForId(calendarItem.textId));
+                }
+                DateCalendarCombo.SelectedIndex = 0;
+            }
+            YearCountItems = calcJdViewModel.YearCountItems;
+            if (YearCountItems != null)
+            {
+                foreach (var yearCountItem in YearCountItems)
+                {
+                    DateYearCountCombo.Items.Add(rosetta.TextForId(yearCountItem.textId));
+                }
+                DateYearCountCombo.SelectedIndex = 0;
+            }
         }
 
 
-        private void BtnCalcJd_Click(object sender, RoutedEventArgs e)
+        private void OnSubmit(object sender, RoutedEventArgs e)
         {
-            Calendars calendar = rbgreg.IsChecked == true ? Calendars.Gregorian : Calendars.Julian;
-            Result.Text = calcJdViewModel.CalculateJd(date.Text, time.Text, calendar);
+            UpdateViewModel();
+            Date.Foreground = Brushes.Black;
+            Time.Foreground = Brushes.Black;
+            List<int> errors = calcJdViewModel.ValidateInput();
+            if (errors.Count > 0)
+            {
+                HandleErrors(errors);
+            } 
+            else
+            {
+                ResultValue.Text = calcJdViewModel.CalculateJd();
+            }
+        }
+
+        private void UpdateViewModel()
+        {
+            calcJdViewModel.InputYear = DateYearValue.Text;
+            calcJdViewModel.InputMonth = DateMonthValue.Text;
+            calcJdViewModel.InputDay = DateDayValue.Text;
+            calcJdViewModel.InputHour = TimeHourValue.Text;
+            calcJdViewModel.InputMinute = TimeMinuteValue.Text;
+            calcJdViewModel.InputSecond = TimeSecondValue.Text;
+            calcJdViewModel.InputCalendar = calendarItems[DateCalendarCombo.SelectedIndex].calendar;
+            calcJdViewModel.InputYearCount = yearCountItems[DateYearCountCombo.SelectedIndex].yearCount;
+        }
+
+        private void HandleErrors(List<int> errors)
+        {
+            string MessageText = rosetta.TextForId("common.error.general") + ":\n";
+            foreach (int error in errors)
+            { 
+                if (error == ErrorCodes.ERR_INVALID_DATE)
+                {
+                    MessageText +=  rosetta.TextForId("common.error.date") + ".\n";
+                    Date.Foreground = Brushes.Red;        
+                }
+                if (error == ErrorCodes.ERR_INVALID_TIME)
+                {
+                    MessageText += rosetta.TextForId("common.error.time") + ".\n";
+                    Time.Foreground = Brushes.Red;
+                }
+                    
+            }
+            string msgBoxTitle = rosetta.TextForId("common.error.title");
+            MessageBoxButton buttons = MessageBoxButton.OK;
+            MessageBoxImage icon = MessageBoxImage.Error;
+            MessageBox.Show(MessageText, msgBoxTitle, buttons, icon);
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 
-    public class CalcJdViewModel
-    {
-        readonly private string DateErrorText = "Error in date";
-        readonly private string TimeErrorText = "Error in time";
-        readonly private string GeneralErrorText = "Error while calculating Julian Day Number.";
-        readonly private ICalendarCalc calCalc;
-        readonly private IDateTimeValidations dateTimeValidations;
-        private ValidatedDate? validatedDate;
-        private ValidatedUniversalTime? validatedTime;
 
-        public CalcJdViewModel(ICalendarCalc calCalc, IDateTimeValidations dateTimeValidations)
-        {
-            this.calCalc = calCalc;
-            this.dateTimeValidations = dateTimeValidations;
-        }
-
-
-        public string CalculateJd(string DateText, string TimeText, Calendars calendar)
-        {
-            validatedDate = dateTimeValidations.ConstructAndValidateDate(DateText, calendar);
-            validatedTime = dateTimeValidations.ConstructAndValidateTime(TimeText);
-            double fractionaltime = validatedTime.hour + validatedTime.minute / 60.0 + validatedTime.second / 3600.0;
-            if (validatedDate.noErrors && validatedTime.noErrors)
-            {
-                SimpleDateTime dateTime = new(validatedDate.year, validatedDate.month, validatedDate.day, fractionaltime, calendar);
-                ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
-                if (resultJd.noErrors) return resultJd.returnValue.ToString();
-            }
-            // If no error occurred, the correct value has already been returned.
-            return DefineErrorText();
-        }
-
-        private string DefineErrorText()
-        {
-            string errorText = "";
-            if (validatedDate != null && !validatedDate.noErrors) errorText += DateErrorText;
-            if (validatedTime != null && !validatedTime.noErrors)
-            {
-                if (errorText.Length > 0) errorText += "\n";
-                errorText += TimeErrorText;
-            }
-            if (validatedDate != null && validatedTime != null && validatedDate.noErrors && validatedTime.noErrors) errorText += GeneralErrorText;
-            return errorText;
-        }
-
-    }
 }

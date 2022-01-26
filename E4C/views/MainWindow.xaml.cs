@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace E4C.views
+namespace E4C.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -43,10 +43,10 @@ namespace E4C.views
 
     public class MainWindowViewModel
     {
-        readonly private DashboardCalc dashboardCalc;
-        readonly private DashboardCharts dashboardCharts;   
+        readonly private CalcStartView dashboardCalc;
+        readonly private DashboardCharts dashboardCharts;
 
-        public MainWindowViewModel(DashboardCalc dashboardCalc, DashboardCharts dashboardCharts)
+        public MainWindowViewModel(CalcStartView dashboardCalc, DashboardCharts dashboardCharts)
         {
             this.dashboardCharts = dashboardCharts;
             this.dashboardCalc = dashboardCalc;

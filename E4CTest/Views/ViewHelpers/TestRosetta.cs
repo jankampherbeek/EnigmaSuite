@@ -2,16 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using E4C.be.domain;
 using E4C.be.persistency;
+using E4C.Views.ViewHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System.Collections.Generic;
 
 namespace E4CTest.be.domain
 {
@@ -24,7 +19,7 @@ namespace E4CTest.be.domain
         {
             IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "second.subject = MySecondSubject", "third.subject = MyThirdSubject" };
             var mock = new Mock<ITextFromFileReader>();
-            mock.Setup(p => p.readSeparatedLines(It.IsAny<string>())).Returns(allLines);
+            mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
             IRosetta rosetta = new Rosetta(mock.Object);
             string key = "second.subject";
             string expectedValue = "MySecondSubject";
@@ -37,7 +32,7 @@ namespace E4CTest.be.domain
         {
             IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "second.subject = MySecondSubject", "third.subject = MyThirdSubject" };
             var mock = new Mock<ITextFromFileReader>();
-            mock.Setup(p => p.readSeparatedLines(It.IsAny<string>())).Returns(allLines);
+            mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
             IRosetta rosetta = new Rosetta(mock.Object);
             string key = "wrong.key";
             string expectedValue = "-NOT FOUND-";
@@ -50,7 +45,7 @@ namespace E4CTest.be.domain
         {
             IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "", "third.subject = MyThirdSubject" };
             var mock = new Mock<ITextFromFileReader>();
-            mock.Setup(p => p.readSeparatedLines(It.IsAny<string>())).Returns(allLines);
+            mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
             IRosetta rosetta = new Rosetta(mock.Object);
             string key = "third.subject";
             string expectedValue = "MyThirdSubject";
@@ -63,7 +58,7 @@ namespace E4CTest.be.domain
         {
             IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "#Comment line", "third.subject = MyThirdSubject" };
             var mock = new Mock<ITextFromFileReader>();
-            mock.Setup(p => p.readSeparatedLines(It.IsAny<string>())).Returns(allLines);
+            mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
             IRosetta rosetta = new Rosetta(mock.Object);
             string key = "third.subject";
             string expectedValue = "MyThirdSubject";

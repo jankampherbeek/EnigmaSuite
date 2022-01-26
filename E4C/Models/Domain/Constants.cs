@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace E4C.be.domain
+namespace E4C.Models.Domain
 {
     /// <summary>
     /// Global constants.
@@ -12,6 +12,8 @@ namespace E4C.be.domain
     /// </remarks>
     public class Constants
     {
+
+
         // SE solar system points.
         public const int SE_SUN = 0;
         public const int SE_MOON = 1;
@@ -35,5 +37,11 @@ namespace E4C.be.domain
         public const int SEFLG_TOPOCTR = 32 * 1024;
         public const int SEFLG_SIDEREAL = 64 * 1024;
 
+    }
+
+    public class ErrorCodes
+    {
+        public const int ERR_INVALID_DATE = 1000;
+        public const int ERR_INVALID_TIME = 1001;
     }
 }

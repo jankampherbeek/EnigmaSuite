@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.domain;
+using E4C.Models.Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -74,7 +74,7 @@ namespace E4CTest.be.domain
         public void TestRetrievingDetails()
         {
             CoordinateSystems system = CoordinateSystems.Equatorial;
-            ICoordinateSystemSpecifications specifications = new CoordinateSystemSpecifications();  
+            ICoordinateSystemSpecifications specifications = new CoordinateSystemSpecifications();
             CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
             Assert.IsNotNull(details);
             Assert.AreEqual(system, details.coordinateSystem);
@@ -158,7 +158,7 @@ namespace E4CTest.be.domain
         public void TestRetrievingDetails()
         {
             HouseSystems houseSystem = HouseSystems.Regiomontanus;
-            IHouseSystemSpecifications specifications = new HouseSystemSpecifications();   
+            IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
             HouseSystemDetails details = specifications.DetailsForHouseSystem(houseSystem);
             Assert.IsNotNull(details);
             Assert.AreEqual(houseSystem, details.HouseSystem);
@@ -209,4 +209,60 @@ namespace E4CTest.be.domain
             }
         }
     }
+
+    [TestClass]
+    public class TestCalendarSpecifications
+    {
+        [TestMethod]
+        public void TestRetrievingDetails()
+        {
+            Calendars calendar = Calendars.Julian;
+            ICalendarSpecifications specifications = new CalendarSpecifications();
+            CalendarDetails details = specifications.DetailsForCalendar(calendar);
+            Assert.IsNotNull(details);
+            Assert.AreEqual(calendar, details.calendar);
+            Assert.AreEqual("ref.enumcalendarjulian", details.textId);
+        }
+
+        [TestMethod]
+        public void TestAvailabilityOfDetailsForAllEnums()
+        {
+            ICalendarSpecifications specifications = new CalendarSpecifications();
+            foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
+            {
+                CalendarDetails details = specifications.DetailsForCalendar(calendar);
+                Assert.IsNotNull(details);
+                Assert.IsTrue(details.textId.Length > 0);
+            }
+        }
+    }
+
+    [TestClass]
+    public class TestYearCounts
+    {
+        [TestMethod]
+        public void TestRetrievingDetails()
+        {
+            YearCounts yearCount = YearCounts.BCE;
+            IYearCountSpecifications specifications = new YearCountSpecifications();
+            YearCountDetails details = specifications.DetailsForYearCount(yearCount);
+            Assert.IsNotNull(details);
+            Assert.AreEqual(yearCount, details.yearCount);
+            Assert.AreEqual("ref.enumyearcountbce", details.textId);
+        }
+
+        [TestMethod]
+        public void TestAvailabilityOfDetailsForAllEnums()
+        {
+            IYearCountSpecifications specifications = new YearCountSpecifications();
+            foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
+            {
+                YearCountDetails details = specifications.DetailsForYearCount(yearCount);
+                Assert.IsNotNull(details);
+                Assert.IsTrue(details.textId.Length > 0);
+            }
+        }
+    }
+
+
 }

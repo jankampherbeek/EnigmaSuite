@@ -3,8 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
+using System.Collections.Generic;
 
-namespace E4C.be.domain
+namespace E4C.Models.Domain
 {
 
     /// <summary>
@@ -47,7 +48,7 @@ namespace E4C.be.domain
     }
 
     /// <summary>
-    /// Wrapper for a data with error information.
+    /// Wrapper for a date with error information.
     /// </summary>
     public record ValidatedDate
     {
@@ -55,17 +56,15 @@ namespace E4C.be.domain
         public readonly int month;
         public readonly int day;
         public readonly Calendars calendar;
-        public readonly bool noErrors;
-        public readonly string errorText = "";
+        public readonly List<int> errorCodes;
 
-        public ValidatedDate(int year, int month, int day, Calendars calendar, bool noErrors, string errorText = "")
+        public ValidatedDate(int year, int month, int day, Calendars calendar, List<int> errorCodes)
         {
             this.year = year;
             this.month = month;
             this.day = day;
             this.calendar = calendar;
-            this.noErrors = noErrors;
-            this.errorText = errorText;
+            this.errorCodes = errorCodes;
         }
     }
 
@@ -77,16 +76,14 @@ namespace E4C.be.domain
         public readonly int hour;
         public readonly int minute;
         public readonly int second;
-        public readonly bool noErrors;
-        public readonly string errorText = "";
+        public readonly List<int> errorCodes;
 
-        public ValidatedUniversalTime(int hour, int minute, int second, bool noErrors, string errorText = "")
+        public ValidatedUniversalTime(int hour, int minute, int second, List<int> errorCodes)
         {
             this.hour = hour;
             this.minute = minute;
             this.second = second;
-            this.noErrors = noErrors;
-            this.errorText = errorText;
+            this.errorCodes = errorCodes;
         }
 
     }

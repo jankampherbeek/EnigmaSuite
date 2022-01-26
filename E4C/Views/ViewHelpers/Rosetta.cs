@@ -2,11 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-using System.Collections.Generic;
 using E4C.be.persistency;
+using System.Collections.Generic;
 
-namespace E4C.be.domain
+namespace E4C.Views.ViewHelpers
 {
 
     /// <summary>
@@ -22,9 +21,9 @@ namespace E4C.be.domain
         public string TextForId(string Id);
     }
 
-    public class Rosetta: IRosetta
+    public class Rosetta : IRosetta
     {
-        private ITextFromFileReader fileReader;
+        readonly private ITextFromFileReader fileReader;
         readonly private List<KeyValuePair<string, string>> texts;
 
         public Rosetta(ITextFromFileReader fileReader)
@@ -47,13 +46,13 @@ namespace E4C.be.domain
         {
             string[] PartsOfText;
             string filename = @"..\..\..\res\texts.txt";
-            IEnumerable<string> allLines = fileReader.readSeparatedLines(filename);
+            IEnumerable<string> allLines = fileReader.ReadSeparatedLines(filename);
 
             foreach (string line in allLines)
             {
                 PartsOfText = line.Split('=');
                 // skip empty lines and remarks
-                if (PartsOfText.Length == 2)   
+                if (PartsOfText.Length == 2)
                 {
                     texts.Add(new KeyValuePair<string, string>(PartsOfText[0].Trim(), PartsOfText[1].Trim()));
                 }

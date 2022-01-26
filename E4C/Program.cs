@@ -2,12 +2,15 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.be.astron;
-using E4C.be.sefacade;
-using E4C.be.validations;
-using E4C.be.domain;
 using E4C.be.persistency;
-using E4C.views;
+using E4C.Models;
+using E4C.Models.Astron;
+using E4C.Models.Domain;
+using E4C.Models.SeFacade;
+using E4C.Models.Validations;
+using E4C.ViewModels;
+using E4C.Views;
+using E4C.Views.ViewHelpers;
 using SimpleInjector;
 using System;
 
@@ -43,12 +46,14 @@ namespace E4C
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
+            container.Register<ICalendarSpecifications, CalendarSpecifications>(Lifestyle.Singleton);
+            container.Register<IYearCountSpecifications, YearCountSpecifications>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();
             container.Register<MainWindowViewModel>();
-            container.Register<DashboardCalc>();
-            container.Register<DashboardCalcViewModel>();
+            container.Register<CalcStartView>();
+            container.Register<ICalcStartViewModel, CalcStartViewModel>();
             container.Register<DashboardCharts>();
             container.Register<DashboardChartsViewModel>();
             container.Register<ChartsDataInputNewChart>();
