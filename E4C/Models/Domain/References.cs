@@ -27,8 +27,8 @@ namespace E4C.Models.Domain
     /// </summary>
     public record SolSysPointCatDetails
     {
-        readonly public SolSysPointCats category;
-        readonly public string textId;
+        readonly public SolSysPointCats Category;
+        readonly public string TextId;
 
         /// <summary>
         /// Construct details for a Solar System Point.
@@ -37,8 +37,8 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public SolSysPointCatDetails(SolSysPointCats category, string textId)
         {
-            this.category = category;
-            this.textId = textId;
+            Category = category;
+            TextId = textId;
         }
     }
 
@@ -58,7 +58,6 @@ namespace E4C.Models.Domain
 
     public class SolSysPointCatSpecifications : ISolSysPointCatSpecifications
     {
-
         /// <exception cref="ArgumentException">Is thrown if the category was not recognized.</exception>
         public SolSysPointCatDetails DetailsForCategory(SolSysPointCats category)
         {
@@ -90,8 +89,8 @@ namespace E4C.Models.Domain
     /// </summary>
     public record CalendarDetails
     {
-        readonly public Calendars calendar;
-        readonly public string textId;
+        readonly public Calendars Calendar;
+        readonly public string TextId;
 
         /// <summary>
         /// Construct details for a calendar.
@@ -100,8 +99,8 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public CalendarDetails(Calendars calendar, string textId)
         {
-            this.calendar = calendar;
-            this.textId = textId;
+            Calendar = calendar;
+            TextId = textId;
         }
     }
 
@@ -131,9 +130,6 @@ namespace E4C.Models.Domain
             };
         }
     }
-
-
-
     #endregion
 
     #region YearCount
@@ -150,8 +146,8 @@ namespace E4C.Models.Domain
     /// </summary>
     public record YearCountDetails
     {
-        readonly public YearCounts yearCount;
-        readonly public string textId;
+        readonly public YearCounts YearCount;
+        readonly public string TextId;
 
         /// <summary>
         /// Construct details for a YearCount.
@@ -160,8 +156,8 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public YearCountDetails(YearCounts yearCount, string textId)
         {
-            this.yearCount  = yearCount;
-            this.textId = textId;
+            YearCount = yearCount;
+            TextId = textId;
         }
     }
 
@@ -193,8 +189,6 @@ namespace E4C.Models.Domain
         }
     }
 
-
-
     #endregion
 
     #region SolarSystemPoints
@@ -211,12 +205,12 @@ namespace E4C.Models.Domain
     /// </summary>
     public record SolarSystemPointDetails
     {
-        readonly public SolarSystemPoints solarSystemPoint;
-        readonly public SolSysPointCats solSysPointCat;
-        readonly public int seId;
-        readonly public bool useForHeliocentric;
-        readonly public bool useForGeocentric;
-        readonly public string textId;
+        readonly public SolarSystemPoints SolarSystemPoint;
+        readonly public SolSysPointCats SolSysPointCat;
+        readonly public int SeId;
+        readonly public bool UseForHeliocentric;
+        readonly public bool UseForGeocentric;
+        readonly public string TextId;
 
         /// <summary>
         /// Constructor for the details of a Solar System Point.
@@ -229,12 +223,12 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public SolarSystemPointDetails(SolarSystemPoints solarSystemPoint, SolSysPointCats solSysPointCat, int seId, bool useForHeliocentric, bool useForGeocentric, string textId)
         {
-            this.solarSystemPoint = solarSystemPoint;
-            this.solSysPointCat = solSysPointCat;
-            this.seId = seId;
-            this.useForHeliocentric = useForHeliocentric;
-            this.useForGeocentric = useForGeocentric;
-            this.textId = textId;
+            SolarSystemPoint = solarSystemPoint;
+            SolSysPointCat = solSysPointCat;
+            SeId = seId;
+            UseForHeliocentric = useForHeliocentric;
+            UseForGeocentric = useForGeocentric;
+            TextId = textId;
         }
     }
 
@@ -292,9 +286,9 @@ namespace E4C.Models.Domain
     /// </summary>
     public record CoordinateSystemDetails
     {
-        readonly public CoordinateSystems coordinateSystem;
-        readonly public int valueForFlag;
-        readonly public string textId;
+        readonly public CoordinateSystems CoordinateSystem;
+        readonly public int ValueForFlag;
+        readonly public string TextId;
 
         /// <summary>
         /// Constructor for the details of a coordinate system.
@@ -304,9 +298,9 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public CoordinateSystemDetails(CoordinateSystems system, int valueForFlag, string textId)
         {
-            coordinateSystem = system;
-            this.valueForFlag = valueForFlag;
-            this.textId = textId;
+            CoordinateSystem = system;
+            ValueForFlag = valueForFlag;
+            TextId = textId;
         }
     }
 
@@ -355,9 +349,9 @@ namespace E4C.Models.Domain
     /// </summary>
     public record ObserverPositionDetails
     {
-        readonly public ObserverPositions observerPosition;
-        readonly public int valueForFlag;
-        readonly public string textId;
+        readonly public ObserverPositions ObserverPosition;
+        readonly public int ValueForFlag;
+        readonly public string TextId;
 
         /// <summary>
         /// Constructor for the details of an observer position.
@@ -367,9 +361,9 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public ObserverPositionDetails(ObserverPositions position, int valueForFlag, string textId)
         {
-            observerPosition = position;
-            this.valueForFlag = valueForFlag;
-            this.textId = textId;
+            ObserverPosition = position;
+            ValueForFlag = valueForFlag;
+            TextId = textId;
         }
     }
 
@@ -418,9 +412,9 @@ namespace E4C.Models.Domain
     /// </summary>
     public record ZodiacTypeDetails
     {
-        readonly public ZodiacTypes zodiacType;
-        readonly public int valueForFlag;
-        readonly public string textId;
+        readonly public ZodiacTypes ZodiacType;
+        readonly public int ValueForFlag;
+        readonly public string TextId;
 
         /// <summary>
         /// Constructor for the details of a zodiac type.
@@ -430,9 +424,9 @@ namespace E4C.Models.Domain
         /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
         public ZodiacTypeDetails(ZodiacTypes type, int valueForFlag, string textId)
         {
-            zodiacType = type;
-            this.valueForFlag = valueForFlag;
-            this.textId = textId;
+            ZodiacType = type;
+            ValueForFlag = valueForFlag;
+            TextId = textId;
         }
     }
 
@@ -492,22 +486,22 @@ namespace E4C.Models.Domain
         /// <summary>
         /// Constructor for the details of a house system.
         /// </summary>
-        /// <param name="HouseSystem">The house system.</param>
-        /// <param name="SeSupported">True if the house system is supported by the Swiss Ephyemeris.</param>
-        /// <param name="SeId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
-        /// <param name="NrOfCusps">Number of cusps for this house system.</param>
-        /// <param name="CounterClockWise">True if the cusps are counterclockwise, otherwise false.</param>
-        /// <param name="QuadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10).</param>
-        /// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-        public HouseSystemDetails(HouseSystems HouseSystem, bool SeSupported, char SeId, int NrOfCusps, bool CounterClockWise, bool QuadrantSystem, string TextId)
+        /// <param name="houseSystem">The house system.</param>
+        /// <param name="seSupported">True if the house system is supported by the Swiss Ephyemeris.</param>
+        /// <param name="seId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
+        /// <param name="nrOfCusps">Number of cusps for this house system.</param>
+        /// <param name="counterClockWise">True if the cusps are counterclockwise, otherwise false.</param>
+        /// <param name="quadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10).</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public HouseSystemDetails(HouseSystems houseSystem, bool seSupported, char seId, int nrOfCusps, bool counterClockWise, bool quadrantSystem, string textId)
         {
-            this.HouseSystem = HouseSystem;
-            this.SeSupported = SeSupported;
-            this.SeId = SeId;
-            this.NrOfCusps = NrOfCusps;
-            this.CounterClockWise = CounterClockWise;
-            this.QuadrantSystem = QuadrantSystem;
-            this.TextId = TextId;
+            HouseSystem = houseSystem;
+            SeSupported = seSupported;
+            SeId = seId;
+            NrOfCusps = nrOfCusps;
+            CounterClockWise = counterClockWise;
+            QuadrantSystem = quadrantSystem;
+            TextId = textId;
         }
     }
 
@@ -519,41 +513,41 @@ namespace E4C.Models.Domain
         /// <summary>
         /// Returns the specification for a house system.
         /// </summary>
-        /// <param name="HouseSystem">The house system, from the enum HouseSystems.</param>
+        /// <param name="houseSystem">The house system, from the enum HouseSystems.</param>
         /// <returns>A record HouseSystemDetails with the specification of the house system.</returns>
-        public HouseSystemDetails DetailsForHouseSystem(HouseSystems HouseSystem);
+        public HouseSystemDetails DetailsForHouseSystem(HouseSystems houseSystem);
     }
 
     public class HouseSystemSpecifications : IHouseSystemSpecifications
     {
         /// <exception cref="ArgumentException">Is thrown if the house system was not recognized.</exception>
-        HouseSystemDetails IHouseSystemSpecifications.DetailsForHouseSystem(HouseSystems HouseSystem)
+        HouseSystemDetails IHouseSystemSpecifications.DetailsForHouseSystem(HouseSystems houseSystem)
         {
-            return HouseSystem switch
+            return houseSystem switch
             {
-                HouseSystems.NoHouses => new HouseSystemDetails(HouseSystem, true, 'W', 0, false, false, "houseSystemNoHouses"),
-                HouseSystems.Placidus => new HouseSystemDetails(HouseSystem, true, 'P', 12, true, true, "houseSystemPlacidus"),
-                HouseSystems.Koch => new HouseSystemDetails(HouseSystem, true, 'K', 12, true, true, "houseSystemKoch"),
-                HouseSystems.Porphyri => new HouseSystemDetails(HouseSystem, true, 'O', 12, true, true, "houseSystemPorphyri"),
-                HouseSystems.Regiomontanus => new HouseSystemDetails(HouseSystem, true, 'R', 12, true, true, "houseSystemRegiomontanus"),
-                HouseSystems.Campanus => new HouseSystemDetails(HouseSystem, true, 'C', 12, true, true, "houseSystemCampanus"),
-                HouseSystems.Alcabitius => new HouseSystemDetails(HouseSystem, true, 'B', 12, true, true, "houseSystemAlcabitius"),
-                HouseSystems.TopoCentric => new HouseSystemDetails(HouseSystem, true, 'T', 12, true, true, "houseSystemTopoCentric"),
-                HouseSystems.Krusinski => new HouseSystemDetails(HouseSystem, true, 'U', 12, true, true, "houseSystemKrusinski"),
-                HouseSystems.Apc => new HouseSystemDetails(HouseSystem, true, 'Y', 12, true, true, "houseSystemApc"),
-                HouseSystems.Morin => new HouseSystemDetails(HouseSystem, true, 'M', 12, true, false, "houseSystemMorin"),
-                HouseSystems.WholeSign => new HouseSystemDetails(HouseSystem, true, 'W', 12, true, false, "houseSystemWholeSign"),
-                HouseSystems.EqualAsc => new HouseSystemDetails(HouseSystem, true, 'A', 12, true, false, "houseSystemEqualAsc"),
-                HouseSystems.EqualMc => new HouseSystemDetails(HouseSystem, true, 'D', 12, true, false, "houseSystemEqualMc"),
-                HouseSystems.EqualAries => new HouseSystemDetails(HouseSystem, true, 'N', 12, true, false, "houseSystemEqualAries"),
-                HouseSystems.Vehlow => new HouseSystemDetails(HouseSystem, true, 'V', 12, true, false, "houseSystemVehlow"),
-                HouseSystems.Axial => new HouseSystemDetails(HouseSystem, true, 'X', 12, true, false, "houseSystemAxial"),
-                HouseSystems.Horizon => new HouseSystemDetails(HouseSystem, true, 'H', 12, true, false, "houseSystemHorizon"),
-                HouseSystems.Carter => new HouseSystemDetails(HouseSystem, true, 'F', 12, true, false, "houseSystemCarter"),
-                HouseSystems.Gauquelin => new HouseSystemDetails(HouseSystem, true, 'G', 36, true, false, "houseSystemGauquelin"),
-                HouseSystems.SunShine => new HouseSystemDetails(HouseSystem, true, 'i', 12, true, false, "houseSystemSunShine"),
-                HouseSystems.SunShineTreindl => new HouseSystemDetails(HouseSystem, true, 'I', 12, true, false, "houseSystemSunShineTreindl"),
-                _ => throw new ArgumentException("House system type unknown : " + HouseSystem.ToString())
+                HouseSystems.NoHouses => new HouseSystemDetails(houseSystem, true, 'W', 0, false, false, "houseSystemNoHouses"),
+                HouseSystems.Placidus => new HouseSystemDetails(houseSystem, true, 'P', 12, true, true, "houseSystemPlacidus"),
+                HouseSystems.Koch => new HouseSystemDetails(houseSystem, true, 'K', 12, true, true, "houseSystemKoch"),
+                HouseSystems.Porphyri => new HouseSystemDetails(houseSystem, true, 'O', 12, true, true, "houseSystemPorphyri"),
+                HouseSystems.Regiomontanus => new HouseSystemDetails(houseSystem, true, 'R', 12, true, true, "houseSystemRegiomontanus"),
+                HouseSystems.Campanus => new HouseSystemDetails(houseSystem, true, 'C', 12, true, true, "houseSystemCampanus"),
+                HouseSystems.Alcabitius => new HouseSystemDetails(houseSystem, true, 'B', 12, true, true, "houseSystemAlcabitius"),
+                HouseSystems.TopoCentric => new HouseSystemDetails(houseSystem, true, 'T', 12, true, true, "houseSystemTopoCentric"),
+                HouseSystems.Krusinski => new HouseSystemDetails(houseSystem, true, 'U', 12, true, true, "houseSystemKrusinski"),
+                HouseSystems.Apc => new HouseSystemDetails(houseSystem, true, 'Y', 12, true, true, "houseSystemApc"),
+                HouseSystems.Morin => new HouseSystemDetails(houseSystem, true, 'M', 12, true, false, "houseSystemMorin"),
+                HouseSystems.WholeSign => new HouseSystemDetails(houseSystem, true, 'W', 12, true, false, "houseSystemWholeSign"),
+                HouseSystems.EqualAsc => new HouseSystemDetails(houseSystem, true, 'A', 12, true, false, "houseSystemEqualAsc"),
+                HouseSystems.EqualMc => new HouseSystemDetails(houseSystem, true, 'D', 12, true, false, "houseSystemEqualMc"),
+                HouseSystems.EqualAries => new HouseSystemDetails(houseSystem, true, 'N', 12, true, false, "houseSystemEqualAries"),
+                HouseSystems.Vehlow => new HouseSystemDetails(houseSystem, true, 'V', 12, true, false, "houseSystemVehlow"),
+                HouseSystems.Axial => new HouseSystemDetails(houseSystem, true, 'X', 12, true, false, "houseSystemAxial"),
+                HouseSystems.Horizon => new HouseSystemDetails(houseSystem, true, 'H', 12, true, false, "houseSystemHorizon"),
+                HouseSystems.Carter => new HouseSystemDetails(houseSystem, true, 'F', 12, true, false, "houseSystemCarter"),
+                HouseSystems.Gauquelin => new HouseSystemDetails(houseSystem, true, 'G', 36, true, false, "houseSystemGauquelin"),
+                HouseSystems.SunShine => new HouseSystemDetails(houseSystem, true, 'i', 12, true, false, "houseSystemSunShine"),
+                HouseSystems.SunShineTreindl => new HouseSystemDetails(houseSystem, true, 'I', 12, true, false, "houseSystemSunShineTreindl"),
+                _ => throw new ArgumentException("House system type unknown : " + houseSystem.ToString())
             };
         }
     }
@@ -584,14 +578,14 @@ namespace E4C.Models.Domain
         /// <summary>
         /// Constructor for the details of an ayanamsha.
         /// </summary>
-        /// <param name="Ayanamsha">The ayanamsha.</param>
-        /// <param name="SeId">Id that identifies the ayanamsha for the Swiss Ephemeris.</param>
-        /// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-        public AyanamshaDetails(Ayanamshas Ayanamsha, int SeId, string TextId)
+        /// <param name="ayanamsha">The ayanamsha.</param>
+        /// <param name="seId">Id that identifies the ayanamsha for the Swiss Ephemeris.</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public AyanamshaDetails(Ayanamshas ayanamsha, int seId, string textId)
         {
-            this.Ayanamsha = Ayanamsha;
-            this.SeId = SeId;
-            this.TextId = TextId;
+            Ayanamsha = ayanamsha;
+            SeId = seId;
+            TextId = textId;
         }
     }
 
@@ -603,59 +597,59 @@ namespace E4C.Models.Domain
         /// <summary>
         /// Returns the specification for an ayanamsha.
         /// </summary>
-        /// <param name="Ayanamsha">The ayanamsha, from the enum Ayanamshas.</param>
+        /// <param name="ayanamsha">The ayanamsha, from the enum Ayanamshas.</param>
         /// <returns>A record AyanamshaDetails with the specification of the ayanamsha.</returns>
-        public AyanamshaDetails DetailsForAyanamsha(Ayanamshas Ayanamsha);
+        public AyanamshaDetails DetailsForAyanamsha(Ayanamshas ayanamsha);
     }
 
     public class AyanamshaSpecifications : IAyanamshaSpecifications
     {
         /// <exception cref="ArgumentException">Is thrown if the ayanamsha was not recognized.</exception>
-        AyanamshaDetails IAyanamshaSpecifications.DetailsForAyanamsha(Ayanamshas Ayanamsha)
+        AyanamshaDetails IAyanamshaSpecifications.DetailsForAyanamsha(Ayanamshas ayanamsha)
         {
-            return Ayanamsha switch
+            return ayanamsha switch
             {
-                Ayanamshas.Fagan => new AyanamshaDetails(Ayanamsha, 0, "ayanamshaFagan"),
-                Ayanamshas.Lahiri => new AyanamshaDetails(Ayanamsha, 1, "ayanamshaLahiri"),
-                Ayanamshas.DeLuce => new AyanamshaDetails(Ayanamsha, 2, "ayanamshaDeLuce"),
-                Ayanamshas.Raman => new AyanamshaDetails(Ayanamsha, 3, "ayanamshaRaman"),
-                Ayanamshas.UshaShashi => new AyanamshaDetails(Ayanamsha, 4, "ayanamshaUshaSashi"),
-                Ayanamshas.Krishnamurti => new AyanamshaDetails(Ayanamsha, 5, "ayanamshaKrishnamurti"),
-                Ayanamshas.DjwhalKhul => new AyanamshaDetails(Ayanamsha, 6, "ayanamshaDjwhalKhul"),
-                Ayanamshas.Yukteshwar => new AyanamshaDetails(Ayanamsha, 7, "ayanamshaYukteshwar"),
-                Ayanamshas.Bhasin => new AyanamshaDetails(Ayanamsha, 8, "ayanamshaBhasin"),
-                Ayanamshas.Kugler1 => new AyanamshaDetails(Ayanamsha, 9, "ayanamshaKugler1"),
-                Ayanamshas.Kugler2 => new AyanamshaDetails(Ayanamsha, 10, "ayanamshaKugler2"),
-                Ayanamshas.Kugler3 => new AyanamshaDetails(Ayanamsha, 11, "ayanamshaKugler3"),
-                Ayanamshas.Huber => new AyanamshaDetails(Ayanamsha, 12, "ayanamshaHuber"),
-                Ayanamshas.EtaPiscium => new AyanamshaDetails(Ayanamsha, 13, "ayanamshaEtaPiscium"),
-                Ayanamshas.Aldebaran15Tau => new AyanamshaDetails(Ayanamsha, 14, "ayanamshaAldebaran15Tau"),
-                Ayanamshas.Hipparchus => new AyanamshaDetails(Ayanamsha, 15, "ayanamshaHipparchus"),
-                Ayanamshas.Sassanian => new AyanamshaDetails(Ayanamsha, 16, "ayanamshaSassanian"),
-                Ayanamshas.GalactCtr0Sag => new AyanamshaDetails(Ayanamsha, 17, "ayanamshaGalactCtr0Sag"),
-                Ayanamshas.J2000 => new AyanamshaDetails(Ayanamsha, 18, "ayanamshaJ2000"),
-                Ayanamshas.J1900 => new AyanamshaDetails(Ayanamsha, 19, "ayanamshaJ1900"),
-                Ayanamshas.B1950 => new AyanamshaDetails(Ayanamsha, 20, "ayanamshaB1950"),
-                Ayanamshas.SuryaSiddhanta => new AyanamshaDetails(Ayanamsha, 21, "ayanamshaSuryaSiddhanta"),
-                Ayanamshas.SuryaSiddhantaMeanSun => new AyanamshaDetails(Ayanamsha, 22, "ayanamshaSuryaSiddhantaMeanSun"),
-                Ayanamshas.Aryabhata => new AyanamshaDetails(Ayanamsha, 23, "ayanamshaAryabhata"),
-                Ayanamshas.AryabhataMeanSun => new AyanamshaDetails(Ayanamsha, 24, "ayanamshaAryabhataMeanSun"),
-                Ayanamshas.SsRevati => new AyanamshaDetails(Ayanamsha, 25, "ayanamshaSsRevati"),
-                Ayanamshas.SsCitra => new AyanamshaDetails(Ayanamsha, 26, "ayanamshaSsCitra"),
-                Ayanamshas.TrueCitra => new AyanamshaDetails(Ayanamsha, 27, "ayanamshaTrueCitra"),
-                Ayanamshas.TrueRevati => new AyanamshaDetails(Ayanamsha, 28, "ayanamshaTrueRevati"),
-                Ayanamshas.TruePushya => new AyanamshaDetails(Ayanamsha, 29, "ayanamshaTruePushya"),
-                Ayanamshas.GalacticCtrBrand => new AyanamshaDetails(Ayanamsha, 30, "ayanamshaGalacticCtrBrand"),
-                Ayanamshas.GalacticEqIau1958 => new AyanamshaDetails(Ayanamsha, 31, "ayanamshaGalacticCtrEqIau1958"),
-                Ayanamshas.GalacticEq => new AyanamshaDetails(Ayanamsha, 32, "ayanamshaGalacticEq"),
-                Ayanamshas.GalacticEqMidMula => new AyanamshaDetails(Ayanamsha, 33, "ayanamshaGalacticEqMidMula"),
-                Ayanamshas.Skydram => new AyanamshaDetails(Ayanamsha, 34, "ayanamshaSkydram"),
-                Ayanamshas.TrueMula => new AyanamshaDetails(Ayanamsha, 35, "ayanamshaTrueMula"),
-                Ayanamshas.Dhruva => new AyanamshaDetails(Ayanamsha, 36, "ayanamshaDhruva"),
-                Ayanamshas.Aryabhata522 => new AyanamshaDetails(Ayanamsha, 37, "ayanamshaAryabhata522"),
-                Ayanamshas.Britton => new AyanamshaDetails(Ayanamsha, 38, "ayanamshaBritton"),
-                Ayanamshas.GalacticCtrOCap => new AyanamshaDetails(Ayanamsha, 39, "ayanamshaGalacticCtr0Cap"),
-                _ => throw new ArgumentException("Ayanamsha unknown : " + Ayanamsha.ToString())
+                Ayanamshas.Fagan => new AyanamshaDetails(ayanamsha, 0, "ayanamshaFagan"),
+                Ayanamshas.Lahiri => new AyanamshaDetails(ayanamsha, 1, "ayanamshaLahiri"),
+                Ayanamshas.DeLuce => new AyanamshaDetails(ayanamsha, 2, "ayanamshaDeLuce"),
+                Ayanamshas.Raman => new AyanamshaDetails(ayanamsha, 3, "ayanamshaRaman"),
+                Ayanamshas.UshaShashi => new AyanamshaDetails(ayanamsha, 4, "ayanamshaUshaSashi"),
+                Ayanamshas.Krishnamurti => new AyanamshaDetails(ayanamsha, 5, "ayanamshaKrishnamurti"),
+                Ayanamshas.DjwhalKhul => new AyanamshaDetails(ayanamsha, 6, "ayanamshaDjwhalKhul"),
+                Ayanamshas.Yukteshwar => new AyanamshaDetails(ayanamsha, 7, "ayanamshaYukteshwar"),
+                Ayanamshas.Bhasin => new AyanamshaDetails(ayanamsha, 8, "ayanamshaBhasin"),
+                Ayanamshas.Kugler1 => new AyanamshaDetails(ayanamsha, 9, "ayanamshaKugler1"),
+                Ayanamshas.Kugler2 => new AyanamshaDetails(ayanamsha, 10, "ayanamshaKugler2"),
+                Ayanamshas.Kugler3 => new AyanamshaDetails(ayanamsha, 11, "ayanamshaKugler3"),
+                Ayanamshas.Huber => new AyanamshaDetails(ayanamsha, 12, "ayanamshaHuber"),
+                Ayanamshas.EtaPiscium => new AyanamshaDetails(ayanamsha, 13, "ayanamshaEtaPiscium"),
+                Ayanamshas.Aldebaran15Tau => new AyanamshaDetails(ayanamsha, 14, "ayanamshaAldebaran15Tau"),
+                Ayanamshas.Hipparchus => new AyanamshaDetails(ayanamsha, 15, "ayanamshaHipparchus"),
+                Ayanamshas.Sassanian => new AyanamshaDetails(ayanamsha, 16, "ayanamshaSassanian"),
+                Ayanamshas.GalactCtr0Sag => new AyanamshaDetails(ayanamsha, 17, "ayanamshaGalactCtr0Sag"),
+                Ayanamshas.J2000 => new AyanamshaDetails(ayanamsha, 18, "ayanamshaJ2000"),
+                Ayanamshas.J1900 => new AyanamshaDetails(ayanamsha, 19, "ayanamshaJ1900"),
+                Ayanamshas.B1950 => new AyanamshaDetails(ayanamsha, 20, "ayanamshaB1950"),
+                Ayanamshas.SuryaSiddhanta => new AyanamshaDetails(ayanamsha, 21, "ayanamshaSuryaSiddhanta"),
+                Ayanamshas.SuryaSiddhantaMeanSun => new AyanamshaDetails(ayanamsha, 22, "ayanamshaSuryaSiddhantaMeanSun"),
+                Ayanamshas.Aryabhata => new AyanamshaDetails(ayanamsha, 23, "ayanamshaAryabhata"),
+                Ayanamshas.AryabhataMeanSun => new AyanamshaDetails(ayanamsha, 24, "ayanamshaAryabhataMeanSun"),
+                Ayanamshas.SsRevati => new AyanamshaDetails(ayanamsha, 25, "ayanamshaSsRevati"),
+                Ayanamshas.SsCitra => new AyanamshaDetails(ayanamsha, 26, "ayanamshaSsCitra"),
+                Ayanamshas.TrueCitra => new AyanamshaDetails(ayanamsha, 27, "ayanamshaTrueCitra"),
+                Ayanamshas.TrueRevati => new AyanamshaDetails(ayanamsha, 28, "ayanamshaTrueRevati"),
+                Ayanamshas.TruePushya => new AyanamshaDetails(ayanamsha, 29, "ayanamshaTruePushya"),
+                Ayanamshas.GalacticCtrBrand => new AyanamshaDetails(ayanamsha, 30, "ayanamshaGalacticCtrBrand"),
+                Ayanamshas.GalacticEqIau1958 => new AyanamshaDetails(ayanamsha, 31, "ayanamshaGalacticCtrEqIau1958"),
+                Ayanamshas.GalacticEq => new AyanamshaDetails(ayanamsha, 32, "ayanamshaGalacticEq"),
+                Ayanamshas.GalacticEqMidMula => new AyanamshaDetails(ayanamsha, 33, "ayanamshaGalacticEqMidMula"),
+                Ayanamshas.Skydram => new AyanamshaDetails(ayanamsha, 34, "ayanamshaSkydram"),
+                Ayanamshas.TrueMula => new AyanamshaDetails(ayanamsha, 35, "ayanamshaTrueMula"),
+                Ayanamshas.Dhruva => new AyanamshaDetails(ayanamsha, 36, "ayanamshaDhruva"),
+                Ayanamshas.Aryabhata522 => new AyanamshaDetails(ayanamsha, 37, "ayanamshaAryabhata522"),
+                Ayanamshas.Britton => new AyanamshaDetails(ayanamsha, 38, "ayanamshaBritton"),
+                Ayanamshas.GalacticCtrOCap => new AyanamshaDetails(ayanamsha, 39, "ayanamshaGalacticCtr0Cap"),
+                _ => throw new ArgumentException("Ayanamsha unknown : " + ayanamsha.ToString())
             };
         }
     }

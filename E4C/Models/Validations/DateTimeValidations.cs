@@ -38,64 +38,64 @@ namespace E4C.Models.Validations
 
     public class DateTimeValidations : IDateTimeValidations
     {
-        readonly private ICalendarCalc calendarCalc;
+        readonly private ICalendarCalc _calendarCalc;
 
         public DateTimeValidations(ICalendarCalc calendarCalc)
         {
-            this.calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
+            _calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
         }
 
         public List<int> ValidateDate(string year, string month, string day, Calendars calendar, YearCounts yearCount)
         {
-            List<int> errorCodes = new();
-            int yearValue, monthValue, dayValue;
+            List<int> _errorCodes = new();
+            int _yearValue, _monthValue, _dayValue;
             try
             {
-                yearValue = Int32.Parse(year);
-                monthValue = Int32.Parse(month);
-                dayValue = Int32.Parse(day);
+                _yearValue = int.Parse(year);
+                _monthValue = int.Parse(month);
+                _dayValue = int.Parse(day);
             }
             catch (Exception ex)
             {
                 // todo log exception
-                errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
-                return errorCodes;
+                _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
+                return _errorCodes;
             }
             // Convert to astronomical yearcount if original yearcount is BCE.
             if (yearCount == YearCounts.BCE)
             {
-                yearValue = -(Math.Abs(yearValue) + 1);
+                _yearValue = -(Math.Abs(_yearValue) + 1);
             }
-            SimpleDateTime simpleDateTime = new(yearValue, monthValue, dayValue, 0.0, calendar);
-            if (!calendarCalc.ValidDateAndtime(simpleDateTime))
+            SimpleDateTime _simpleDateTime = new(_yearValue, _monthValue, _dayValue, 0.0, calendar);
+            if (!_calendarCalc.ValidDateAndtime(_simpleDateTime))
             {
-                errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
+                _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
             };
-            return errorCodes;
+            return _errorCodes;
         }
 
         public List<int> ValidateTime(string hour, string minute, string second)
         {
-            List<int> errorCodes = new();
-            int hourValue, minuteValue, secondValue;
-            string secondText = String.IsNullOrWhiteSpace(second) ? "0" : second;
+            List<int> _errorCodes = new();
+            int _hourValue, _minuteValue, _secondValue;
+            string _secondText = String.IsNullOrWhiteSpace(second) ? "0" : second;
             try
             {
-                hourValue = Int32.Parse(hour);
-                minuteValue = Int32.Parse(minute);
-                secondValue = Int32.Parse(secondText);
-             }
+                _hourValue = int.Parse(hour);
+                _minuteValue = int.Parse(minute);
+                _secondValue = int.Parse(_secondText);
+            }
             catch (Exception ex)
             {
                 // todo log exception
-                errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
-                return errorCodes;
+                _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
+                return _errorCodes;
             }
-            if (hourValue < 0 || hourValue > 23 || minuteValue < 0 || minuteValue > 59 || secondValue < 0 || secondValue > 59)
+            if (_hourValue < 0 || _hourValue > 23 || _minuteValue < 0 || _minuteValue > 59 || _secondValue < 0 || _secondValue > 59)
             {
-                errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
+                _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
             }
-            return errorCodes;
+            return _errorCodes;
         }
 
     }

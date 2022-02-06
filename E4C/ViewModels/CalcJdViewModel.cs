@@ -10,10 +10,10 @@ namespace E4C.ViewModels
 
     public class CalcJdViewModel
     {
-        readonly private ICalendarSpecifications calendarSpecifications;
-        readonly private IYearCountSpecifications yearCountSpecifications;
-        readonly private ICalendarCalc calCalc;
-        readonly private IDateTimeValidations dateTimeValidations;
+        readonly private ICalendarSpecifications _calendarSpecifications;
+        readonly private IYearCountSpecifications _yearCountSpecifications;
+        readonly private ICalendarCalc _calCalc;
+        readonly private IDateTimeValidations _dateTimeValidations;
         public List<CalendarDetails> CalendarItems { get; }
         public List<YearCountDetails> YearCountItems { get; }
         public string InputYear { get; set; }
@@ -27,16 +27,16 @@ namespace E4C.ViewModels
 
         public CalcJdViewModel(ICalendarCalc calCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
         {
-            this.calendarSpecifications = calendarSpecifications;
-            this.yearCountSpecifications = yearCountSpecifications;
-            this.calCalc = calCalc;
-            this.dateTimeValidations = dateTimeValidations;
+            _calendarSpecifications = calendarSpecifications;
+            _yearCountSpecifications = yearCountSpecifications;
+            _calCalc = calCalc;
+            _dateTimeValidations = dateTimeValidations;
             CalendarItems = new List<CalendarDetails>();
             foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
             {
                 CalendarItems.Add(calendarSpecifications.DetailsForCalendar(calendar));
             }
-            YearCountItems= new List<YearCountDetails>();
+            YearCountItems = new List<YearCountDetails>();
             foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
             {
                 YearCountItems.Add(yearCountSpecifications.DetailsForYearCount(yearCount));
@@ -45,31 +45,31 @@ namespace E4C.ViewModels
 
         public List<int> ValidateInput()
         {
-            List<int> dateErrors = dateTimeValidations.ValidateDate(InputYear, InputMonth, InputDay, InputCalendar, InputYearCount);
-            List<int> timeErrors = dateTimeValidations.ValidateTime(InputHour, InputMinute, InputSecond);
-            List<int> allErrors = new();
-            allErrors.AddRange(dateErrors);
-            allErrors.AddRange(timeErrors);
-            return allErrors;
+            List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputYear, InputMonth, InputDay, InputCalendar, InputYearCount);
+            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputHour, InputMinute, InputSecond);
+            List<int> _allErrors = new();
+            _allErrors.AddRange(_dateErrors);
+            _allErrors.AddRange(_timeErrors);
+            return _allErrors;
         }
 
         public string CalculateJd()
         {
-            string checkedSecond = String.IsNullOrWhiteSpace(InputSecond) ? "0" : InputSecond;
-            double fractionalTime = Int32.Parse(InputHour) + (Int32.Parse(InputMinute) / 60.0) + (Int32.Parse(checkedSecond) / 3600.0);
-            int year = Int32.Parse(InputYear);
-            int month = Int32.Parse(InputMonth);
-            int day = Int32.Parse(InputDay);
+            string _checkedSecond = String.IsNullOrWhiteSpace(InputSecond) ? "0" : InputSecond;
+            double _fractionalTime = int.Parse(InputHour) + (int.Parse(InputMinute) / 60.0) + (int.Parse(_checkedSecond) / 3600.0);
+            int _year = int.Parse(InputYear);
+            int _month = int.Parse(InputMonth);
+            int _day = int.Parse(InputDay);
             // Convert to astronomical yearcount if original yearcount is BCE.
             if (InputYearCount == YearCounts.BCE)
             {
-                year = -(Math.Abs(year) + 1);
+                _year = -(Math.Abs(_year) + 1);
             }
-            SimpleDateTime dateTime = new(year, month, day, fractionalTime, InputCalendar);
-            ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
-            if (resultJd.noErrors)
+            SimpleDateTime _dateTime = new(_year, _month, _day, _fractionalTime, InputCalendar);
+            ResultForDouble _resultJd = _calCalc.CalculateJd(_dateTime);
+            if (_resultJd.NoErrors)
             {
-                return resultJd.returnValue.ToString();
+                return _resultJd.ReturnValue.ToString();
             }
             else
             {

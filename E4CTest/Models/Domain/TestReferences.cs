@@ -19,8 +19,8 @@ namespace E4CTest.be.domain
             ISolSysPointCatSpecifications specifications = new SolSysPointCatSpecifications();
             SolSysPointCatDetails details = specifications.DetailsForCategory(solSysPointCat);
             Assert.IsNotNull(details);
-            Assert.AreEqual(solSysPointCat, details.category);
-            Assert.AreEqual("enumSolSysPointCatModern", details.textId);
+            Assert.AreEqual(solSysPointCat, details.Category);
+            Assert.AreEqual("enumSolSysPointCatModern", details.TextId);
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace E4CTest.be.domain
             {
                 SolSysPointCatDetails details = specifications.DetailsForCategory(category);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }
@@ -46,12 +46,12 @@ namespace E4CTest.be.domain
             ISolarSystemPointSpecifications specifications = new SolarSystemPointSpecifications();
             SolarSystemPointDetails details = specifications.DetailsForPoint(point);
             Assert.IsNotNull(details);
-            Assert.AreEqual(point, details.solarSystemPoint);
-            Assert.AreEqual(SolSysPointCats.Modern, details.solSysPointCat);
-            Assert.AreEqual(Constants.SE_NEPTUNE, details.seId);
-            Assert.IsTrue(details.useForHeliocentric);
-            Assert.IsTrue(details.useForGeocentric);
-            Assert.AreEqual("solSysPointNeptune", details.textId);
+            Assert.AreEqual(point, details.SolarSystemPoint);
+            Assert.AreEqual(SolSysPointCats.Modern, details.SolSysPointCat);
+            Assert.AreEqual(Constants.SE_NEPTUNE, details.SeId);
+            Assert.IsTrue(details.UseForHeliocentric);
+            Assert.IsTrue(details.UseForGeocentric);
+            Assert.AreEqual("solSysPointNeptune", details.TextId);
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace E4CTest.be.domain
             {
                 SolarSystemPointDetails details = specifications.DetailsForPoint(point);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }
@@ -77,9 +77,9 @@ namespace E4CTest.be.domain
             ICoordinateSystemSpecifications specifications = new CoordinateSystemSpecifications();
             CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
             Assert.IsNotNull(details);
-            Assert.AreEqual(system, details.coordinateSystem);
-            Assert.AreEqual(Constants.SEFLG_EQUATORIAL, details.valueForFlag);
-            Assert.AreEqual("coordinateSysEquatorial", details.textId);
+            Assert.AreEqual(system, details.CoordinateSystem);
+            Assert.AreEqual(Constants.SEFLG_EQUATORIAL, details.ValueForFlag);
+            Assert.AreEqual("coordinateSysEquatorial", details.TextId);
         }
 
         [TestMethod]
@@ -90,7 +90,7 @@ namespace E4CTest.be.domain
             {
                 CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }
@@ -105,9 +105,9 @@ namespace E4CTest.be.domain
             IObserverPositionSpecifications specifications = new ObserverPositionSpecifications();
             ObserverPositionDetails details = specifications.DetailsForObserverPosition(position);
             Assert.IsNotNull(details);
-            Assert.AreEqual(position, details.observerPosition);
-            Assert.AreEqual(Constants.SEFLG_TOPOCTR, details.valueForFlag);
-            Assert.AreEqual("observerPosTopoCentric", details.textId);
+            Assert.AreEqual(position, details.ObserverPosition);
+            Assert.AreEqual(Constants.SEFLG_TOPOCTR, details.ValueForFlag);
+            Assert.AreEqual("observerPosTopoCentric", details.TextId);
         }
 
         [TestMethod]
@@ -118,7 +118,7 @@ namespace E4CTest.be.domain
             {
                 ObserverPositionDetails details = specifications.DetailsForObserverPosition(position);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }
@@ -133,9 +133,9 @@ namespace E4CTest.be.domain
             IZodiacTypeSpecifications specifications = new ZodiacTypeSpecifications();
             ZodiacTypeDetails details = specifications.DetailsForZodiacType(zodiacType);
             Assert.IsNotNull(details);
-            Assert.AreEqual(zodiacType, details.zodiacType);
-            Assert.AreEqual(Constants.SEFLG_SIDEREAL, details.valueForFlag);
-            Assert.AreEqual("zodiacTypeSidereal", details.textId);
+            Assert.AreEqual(zodiacType, details.ZodiacType);
+            Assert.AreEqual(Constants.SEFLG_SIDEREAL, details.ValueForFlag);
+            Assert.AreEqual("zodiacTypeSidereal", details.TextId);
         }
 
         [TestMethod]
@@ -146,7 +146,7 @@ namespace E4CTest.be.domain
             {
                 ZodiacTypeDetails details = specifications.DetailsForZodiacType(zodiacType);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }
@@ -220,8 +220,8 @@ namespace E4CTest.be.domain
             ICalendarSpecifications specifications = new CalendarSpecifications();
             CalendarDetails details = specifications.DetailsForCalendar(calendar);
             Assert.IsNotNull(details);
-            Assert.AreEqual(calendar, details.calendar);
-            Assert.AreEqual("ref.enumcalendarjulian", details.textId);
+            Assert.AreEqual(calendar, details.Calendar);
+            Assert.AreEqual("ref.enumcalendarjulian", details.TextId);
         }
 
         [TestMethod]
@@ -232,7 +232,7 @@ namespace E4CTest.be.domain
             {
                 CalendarDetails details = specifications.DetailsForCalendar(calendar);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }
@@ -247,8 +247,8 @@ namespace E4CTest.be.domain
             IYearCountSpecifications specifications = new YearCountSpecifications();
             YearCountDetails details = specifications.DetailsForYearCount(yearCount);
             Assert.IsNotNull(details);
-            Assert.AreEqual(yearCount, details.yearCount);
-            Assert.AreEqual("ref.enumyearcountbce", details.textId);
+            Assert.AreEqual(yearCount, details.YearCount);
+            Assert.AreEqual("ref.enumyearcountbce", details.TextId);
         }
 
         [TestMethod]
@@ -259,7 +259,7 @@ namespace E4CTest.be.domain
             {
                 YearCountDetails details = specifications.DetailsForYearCount(yearCount);
                 Assert.IsNotNull(details);
-                Assert.IsTrue(details.textId.Length > 0);
+                Assert.IsTrue(details.TextId.Length > 0);
             }
         }
     }

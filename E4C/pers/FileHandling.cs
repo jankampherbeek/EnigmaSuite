@@ -17,16 +17,16 @@ namespace E4C.be.persistency
     {
         public string ReadAllText(string fileName)
         {
-            string allText = File.ReadAllText(fileName);
-            return allText;
+            string _allText = File.ReadAllText(fileName);
+            return _allText;
         }
 
         public IEnumerable<string>? ReadSeparatedLines(string fileName)
         {
             try
             {
-                IEnumerable<string> lines = File.ReadLines(fileName);
-                return lines;
+                IEnumerable<string> _lines = File.ReadLines(fileName);
+                return _lines;
             }
             catch (FileNotFoundException fnfe)
             {

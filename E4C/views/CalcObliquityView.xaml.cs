@@ -5,7 +5,6 @@
 using E4C.Models.Astron;
 using E4C.Models.Domain;
 using E4C.Models.Validations;
-using System.Collections.Generic;
 using System.Windows;
 
 namespace E4C.Views
@@ -15,12 +14,12 @@ namespace E4C.Views
     /// </summary>
     public partial class CalcObliquityView : Window
     {
-        readonly private CalcObliquityViewModel calcObliquityViewModel;
+        readonly private CalcObliquityViewModel _calcObliquityViewModel;
 
         public CalcObliquityView(CalcObliquityViewModel calcObliquityViewModel)
         {
             InitializeComponent();
-            this.calcObliquityViewModel = calcObliquityViewModel;
+            _calcObliquityViewModel = calcObliquityViewModel;
             PopulateStaticTexts();
         }
 
@@ -40,62 +39,62 @@ namespace E4C.Views
 
         private void BtnCalcObliquity_Click(object sender, RoutedEventArgs e)
         {
-            Calendars calendar = rbgreg.IsChecked == true ? Calendars.Gregorian : Calendars.Julian;
-            bool typeTrueFlag = rbtrueobl.IsChecked == true;
-            Result.Text = calcObliquityViewModel.CalculateObliquity(date.Text, time.Text, calendar, typeTrueFlag);
+            Calendars _calendar = rbgreg.IsChecked == true ? Calendars.Gregorian : Calendars.Julian;
+            bool _typeTrueFlag = rbtrueobl.IsChecked == true;
+            Result.Text = _calcObliquityViewModel.CalculateObliquity(date.Text, time.Text, _calendar, _typeTrueFlag);
         }
     }
 
     public class CalcObliquityViewModel
     {
-        readonly private ICalendarCalc calCalc;
-        readonly private IObliquityNutationCalc oblNutCalc;
-        readonly private IDateTimeValidations dateTimeValidations;
-        readonly private ValidatedDate? validatedDate;
-        readonly private ValidatedUniversalTime? validatedTime;
-        readonly private string DateErrorText = "Error in date";
-        readonly private string TimeErrorText = "Error in time";
-        readonly private string GeneralErrorText = "Error while calculating obliquity.";
+        readonly private ICalendarCalc _calCalc;
+        readonly private IObliquityNutationCalc _oblNutCalc;
+        readonly private IDateTimeValidations _dateTimeValidations;
+        readonly private ValidatedDate? _validatedDate;
+        readonly private ValidatedUniversalTime? _validatedTime;
+    //    readonly private string _dateErrorText = "Error in date";
+    //    readonly private string TimeErrorText = "Error in time";
+    //    readonly private string GeneralErrorText = "Error while calculating obliquity.";
 
         public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityNutationCalc oblNutCalc, IDateTimeValidations dateTimeValidations)
         {
-            this.calCalc = calCalc;
-            this.oblNutCalc = oblNutCalc;
-            this.dateTimeValidations = dateTimeValidations;
+            _calCalc = calCalc;
+            _oblNutCalc = oblNutCalc;
+            _dateTimeValidations = dateTimeValidations;
         }
 
-        public string CalculateObliquity(string DateText, string TimeText, Calendars calendar, bool obliquityTypeTrue)
+        public string CalculateObliquity(string dateText, string timeText, Calendars calendar, bool obliquityTypeTrue)
         {
-          //  List<int> dateErrors = dateTimeValidations.ValidateDate();
-            
+            //  List<int> dateErrors = dateTimeValidations.ValidateDate();
 
 
-          //  validatedDate = dateTimeValidations.ConstructAndValidateDate(DateText, calendar);
-          //  validatedTime = dateTimeValidations.ConstructAndValidateTime(TimeText);
 
-            double fractionaltime = validatedTime.hour + validatedTime.minute / 60.0 + validatedTime.second / 3600.0;
-//            if (validatedDate.noErrors && validatedTime.noErrors)
-//            {
-                SimpleDateTime dateTime = new(validatedDate.year, validatedDate.month, validatedDate.day, fractionaltime, calendar);
-                ResultForDouble resultJd = calCalc.CalculateJd(dateTime);
-                ResultForDouble resultObl = oblNutCalc.CalculateObliquity(resultJd.returnValue, obliquityTypeTrue);
-                if (resultJd.noErrors && resultObl.noErrors) return resultObl.returnValue.ToString();
-//            }
+            //  validatedDate = dateTimeValidations.ConstructAndValidateDate(DateText, calendar);
+            //  validatedTime = dateTimeValidations.ConstructAndValidateTime(TimeText);
+
+            double _fractionaltime = _validatedTime.Hour + _validatedTime.Minute / 60.0 + _validatedTime.Second / 3600.0;
+            //            if (validatedDate.noErrors && validatedTime.noErrors)
+            //            {
+            SimpleDateTime _dateTime = new(_validatedDate.Year, _validatedDate.Month, _validatedDate.Day, _fractionaltime, calendar);
+            ResultForDouble _resultJd = _calCalc.CalculateJd(_dateTime);
+            ResultForDouble _resultObl = _oblNutCalc.CalculateObliquity(_resultJd.ReturnValue, obliquityTypeTrue);
+            if (_resultJd.NoErrors && _resultObl.NoErrors) return _resultObl.ReturnValue.ToString();
+            //            }
             return DefineErrorText();
         }
 
         private string DefineErrorText()
         {
-            string errorText = "";
- /*           if (validatedDate != null && !validatedDate.noErrors) errorText += DateErrorText;
-            if (validatedTime != null && !validatedTime.noErrors)
-            {
-                if (errorText.Length > 0) errorText += "\n";
-                errorText += TimeErrorText;
-            }
-            if (validatedDate != null && validatedDate.noErrors && validatedTime != null && validatedTime.noErrors) errorText += GeneralErrorText;
-   */
-            return errorText;
+            string _errorText = "";
+            /*           if (validatedDate != null && !validatedDate.noErrors) errorText += DateErrorText;
+                       if (validatedTime != null && !validatedTime.noErrors)
+                       {
+                           if (errorText.Length > 0) errorText += "\n";
+                           errorText += TimeErrorText;
+                       }
+                       if (validatedDate != null && validatedDate.noErrors && validatedTime != null && validatedTime.noErrors) errorText += GeneralErrorText;
+              */
+            return _errorText;
         }
 
     }

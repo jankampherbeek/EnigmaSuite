@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using System.Windows;
 
 namespace E4C.Views
 {
@@ -9,33 +13,33 @@ namespace E4C.Views
     public partial class DashboardCharts : Window
     {
 
-        readonly private DashboardChartsViewModel dashboardChartsViewModel;
+        readonly private DashboardChartsViewModel _dashboardChartsViewModel;
 
         public DashboardCharts(DashboardChartsViewModel dashboardChartsViewModel)
         {
             InitializeComponent();
-            this.dashboardChartsViewModel = dashboardChartsViewModel;
+            _dashboardChartsViewModel = dashboardChartsViewModel;
         }
 
         private void BtnNewChart_Click(object sender, RoutedEventArgs e)
         {
-            dashboardChartsViewModel.HandleNewChart();
+            _dashboardChartsViewModel.HandleNewChart();
         }
     }
 
     public class DashboardChartsViewModel
 
     {
-        readonly private ChartsDataInputNewChart chartsDataInputNewChart;
+        readonly private ChartsDataInputNewChart _chartsDataInputNewChart;
 
         public DashboardChartsViewModel(ChartsDataInputNewChart chartsDataInputNewChart)
         {
-            this.chartsDataInputNewChart = chartsDataInputNewChart;
+            _chartsDataInputNewChart = chartsDataInputNewChart;
         }
 
         public void HandleNewChart()
         {
-            chartsDataInputNewChart.Show();
+            _chartsDataInputNewChart.Show();
         }
 
 

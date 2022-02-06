@@ -23,10 +23,10 @@ namespace E4C.Models.Astron
         /// <summary>
         /// Calculate date and time (ut) from a given Julian Day Number.
         /// </summary>
-        /// <param name="JulianDayNumber">Vale of the Julian Day Number.</param>
+        /// <param name="julianDayNumber">Vale of the Julian Day Number.</param>
         /// <param name="calendar">Gregorian or Julian calendar.</param>
         /// <returns>Calculated date and timne.</returns>
-        public SimpleDateTime CalculateDateTimeFromJd(double JulianDayNumber, Calendars calendar);
+        public SimpleDateTime CalculateDateTimeFromJd(double julianDayNumber, Calendars calendar);
 
         /// <summary>
         /// Checks date and time for correctness. Date should fit in the calendar used, taking leapyears into account. Time should be >= 0.0 and < 24.0.
@@ -55,50 +55,50 @@ namespace E4C.Models.Astron
     public class CalendarCalc : ICalendarCalc
     {
 
-        private readonly ISeDateTimeFacade dateTimeFacade;
+        private readonly ISeDateTimeFacade _dateTimeFacade;
 
 
         public CalendarCalc(ISeDateTimeFacade dateTimeFacade)
         {
-            this.dateTimeFacade = dateTimeFacade;
+            _dateTimeFacade = dateTimeFacade;
         }
 
 
         public ResultForDouble CalculateJd(SimpleDateTime dateTime)
         {
-            ResultForDouble result;
+            ResultForDouble _result;
             try
             {
-                double jdNr = dateTimeFacade.JdFromSe(dateTime);
-                result = new ResultForDouble(jdNr, true);
+                double _jdNr = _dateTimeFacade.JdFromSe(dateTime);
+                _result = new ResultForDouble(_jdNr, true);
             }
             catch (System.Exception e)
             {
-                result = new ResultForDouble(0.0, false, "Exception: " + e.Message);
+                _result = new ResultForDouble(0.0, false, "Exception: " + e.Message);
                 // TODO log exception
             }
-            return result;
+            return _result;
         }
 
-        public SimpleDateTime CalculateDateTimeFromJd(double JulianDayNumber, Calendars calendar)
+        public SimpleDateTime CalculateDateTimeFromJd(double julianDayNumber, Calendars calendar)
         {
-            SimpleDateTime Result;
+            SimpleDateTime _result;
             try
             {
-                Result = dateTimeFacade.DateTimeFromJd(JulianDayNumber, calendar);
+                _result = _dateTimeFacade.DateTimeFromJd(julianDayNumber, calendar);
             }
             catch (Exception e)
             {
                 // todo handle exception, write to log-file
                 Console.WriteLine("Error to log in CalendarCalc.CalculateDateTimeFromJd: " + e.Message);
-                Result = new SimpleDateTime(0, 0, 0, 0.0, calendar);
+                _result = new SimpleDateTime(0, 0, 0, 0.0, calendar);
             }
-            return Result;
+            return _result;
         }
 
         public bool ValidDateAndtime(SimpleDateTime dateTime)
         {
-            return dateTimeFacade.DateTimeIsValid(dateTime);
+            return _dateTimeFacade.DateTimeIsValid(dateTime);
         }
     }
 
@@ -106,54 +106,49 @@ namespace E4C.Models.Astron
     {
         const int SE_ECL_NUT = -1;   // TODO move to separate class that contains constants for the SE 
 
-        private readonly ISePosCelPointFacade posCelPointFacade;
+        private readonly ISePosCelPointFacade _posCelPointFacade;
 
         public ObliquityNutationCalc(ISePosCelPointFacade celPointFacade)
         {
-            this.posCelPointFacade = celPointFacade;
+            _posCelPointFacade = celPointFacade;
         }
 
         public ResultForDouble CalculateObliquity(double julianDayUt, bool useTrueObliquity)
         {
-            ResultForDouble result;
+            ResultForDouble _result;
             try
             {
-                int celPointId = SE_ECL_NUT;
-                int flags = 0;   // todo define flags
-                double[] positions = posCelPointFacade.PosCelPointFromSe(julianDayUt, celPointId, flags);
-                double resultingPosition = useTrueObliquity ? positions[1] : positions[0];
-                result = new ResultForDouble(resultingPosition, true);
+                int _celPointId = SE_ECL_NUT;
+                int _flags = 0;   // todo define flags
+                double[] _positions = _posCelPointFacade.PosCelPointFromSe(julianDayUt, _celPointId, _flags);
+                double _resultingPosition = useTrueObliquity ? _positions[1] : _positions[0];
+                _result = new ResultForDouble(_resultingPosition, true);
             }
             catch (System.Exception e)   // todo replace with specific exception for SE
             {
-                result = new ResultForDouble(0.0, false, "Exception: " + e.Message);
+                _result = new ResultForDouble(0.0, false, "Exception: " + e.Message);
                 // todo handle exception, write to log-file
                 Console.WriteLine("Error to log in CalendarCalc.CalculateObliquity: " + e.Message);
             }
 
-            return result;
+            return _result;
         }
     }
 
 
     public class PositionSolSysPointCalc
     {
-        private readonly ISePosCelPointFacade posCelPointFacade;
+        private readonly ISePosCelPointFacade _posCelPointFacade;
 
         public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade)
         {
-            this.posCelPointFacade = posCelPointFacade;
+            _posCelPointFacade = posCelPointFacade;
         }
 
-        //     public SolSysPointPosSpeeds calculateSolSysPoint(int pointId, double jdnr, int flags)
-        //   {
-        //       double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
-
-        //        }
 
         public void CalculateSolSysPoint(int pointId, double jdnr, int flags)
         {
-            double[] positions = posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
+            double[] _positions = _posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
 
         }
     }

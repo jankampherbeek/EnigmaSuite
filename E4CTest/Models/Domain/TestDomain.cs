@@ -79,12 +79,12 @@ namespace E4CTest.be.domain
             double delta = 0.00000001;
             double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
             SolSysPointPosSpeeds posSpeeds = new(values);
-            Assert.AreEqual(1.0, posSpeeds.mainPosSpeed.position, delta);
-            Assert.AreEqual(2.0, posSpeeds.mainPosSpeed.speed, delta);
-            Assert.AreEqual(3.0, posSpeeds.deviationPosSpeed.position, delta);
-            Assert.AreEqual(4.0, posSpeeds.deviationPosSpeed.speed, delta);
-            Assert.AreEqual(5.0, posSpeeds.distancePosSpeed.position, delta);
-            Assert.AreEqual(6.0, posSpeeds.distancePosSpeed.speed, delta);
+            Assert.AreEqual(1.0, posSpeeds.MainPosSpeed.Position, delta);
+            Assert.AreEqual(2.0, posSpeeds.MainPosSpeed.Speed, delta);
+            Assert.AreEqual(3.0, posSpeeds.DeviationPosSpeed.Position, delta);
+            Assert.AreEqual(4.0, posSpeeds.DeviationPosSpeed.Speed, delta);
+            Assert.AreEqual(5.0, posSpeeds.DistancePosSpeed.Position, delta);
+            Assert.AreEqual(6.0, posSpeeds.DistancePosSpeed.Speed, delta);
         }
 
         [TestMethod]
@@ -103,12 +103,12 @@ namespace E4CTest.be.domain
             PosSpeed deviationPosSpeed = new(3.0, 4.0);
             PosSpeed distancePosSpeed = new(5.0, 6.0);
             SolSysPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
-            Assert.AreEqual(1.0, posSpeeds.mainPosSpeed.position, delta);
-            Assert.AreEqual(2.0, posSpeeds.mainPosSpeed.speed, delta);
-            Assert.AreEqual(3.0, posSpeeds.deviationPosSpeed.position, delta);
-            Assert.AreEqual(4.0, posSpeeds.deviationPosSpeed.speed, delta);
-            Assert.AreEqual(5.0, posSpeeds.distancePosSpeed.position, delta);
-            Assert.AreEqual(6.0, posSpeeds.distancePosSpeed.speed, delta);
+            Assert.AreEqual(1.0, posSpeeds.MainPosSpeed.Position, delta);
+            Assert.AreEqual(2.0, posSpeeds.MainPosSpeed.Speed, delta);
+            Assert.AreEqual(3.0, posSpeeds.DeviationPosSpeed.Position, delta);
+            Assert.AreEqual(4.0, posSpeeds.DeviationPosSpeed.Speed, delta);
+            Assert.AreEqual(5.0, posSpeeds.DistancePosSpeed.Position, delta);
+            Assert.AreEqual(6.0, posSpeeds.DistancePosSpeed.Speed, delta);
         }
 
 

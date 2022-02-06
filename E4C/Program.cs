@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.be.persistency;
-using E4C.Models;
 using E4C.Models.Astron;
 using E4C.Models.Domain;
 using E4C.Models.SeFacade;

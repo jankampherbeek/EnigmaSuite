@@ -24,7 +24,7 @@ namespace E4CTest
             mock.Setup(p => p.JdFromSe(dateTime)).Returns(expectedJd);
             CalendarCalc calc = new(mock.Object);
             ResultForDouble result = calc.CalculateJd(dateTime);
-            Assert.AreEqual(expectedJd, result.returnValue, delta);
+            Assert.AreEqual(expectedJd, result.ReturnValue, delta);
 
         }
     }

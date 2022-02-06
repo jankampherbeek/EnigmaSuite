@@ -16,17 +16,17 @@ namespace E4C.Models.Domain
     /// </remarks>
     public record SimpleDateTime
     {
-        public readonly int year, month, day;
-        public readonly double ut;
-        public readonly Calendars calendar;
+        public readonly int Year, Month, Day;
+        public readonly double Ut;
+        public readonly Calendars Calendar;
 
         public SimpleDateTime(int year, int month, int day, double ut, Calendars calendar)
         {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-            this.ut = ut;
-            this.calendar = calendar;
+            Year = year;
+            Month = month;
+            Day = day;
+            Ut = ut;
+            Calendar = calendar;
         }
     }
 
@@ -35,15 +35,15 @@ namespace E4C.Models.Domain
     /// </summary>
     public record ResultForDouble
     {
-        public readonly double returnValue;
-        public readonly bool noErrors;
-        public readonly string errorText = "";
+        public readonly double ReturnValue;
+        public readonly bool NoErrors;
+        public readonly string ErrorText = "";
 
         public ResultForDouble(double returnValue, bool noErrors, string errorText = "")
         {
-            this.returnValue = returnValue;
-            this.noErrors = noErrors;
-            this.errorText = errorText;
+            ReturnValue = returnValue;
+            NoErrors = noErrors;
+            ErrorText = errorText;
         }
     }
 
@@ -52,19 +52,19 @@ namespace E4C.Models.Domain
     /// </summary>
     public record ValidatedDate
     {
-        public readonly int year;
-        public readonly int month;
-        public readonly int day;
-        public readonly Calendars calendar;
-        public readonly List<int> errorCodes;
+        public readonly int Year;
+        public readonly int Month;
+        public readonly int Day;
+        public readonly Calendars Calendar;
+        public readonly List<int> ErrorCodes;
 
         public ValidatedDate(int year, int month, int day, Calendars calendar, List<int> errorCodes)
         {
-            this.year = year;
-            this.month = month;
-            this.day = day;
-            this.calendar = calendar;
-            this.errorCodes = errorCodes;
+            Year = year;
+            Month = month;
+            Day = day;
+            Calendar = calendar;
+            ErrorCodes = errorCodes;
         }
     }
 
@@ -73,17 +73,16 @@ namespace E4C.Models.Domain
     /// </summary>
     public record ValidatedUniversalTime
     {
-        public readonly int hour;
-        public readonly int minute;
-        public readonly int second;
-        public readonly List<int> errorCodes;
+        public readonly int Hour;
+        public readonly int Minute;
+        public readonly int Second;
+        public readonly List<int> ErrorCodes;
 
         public ValidatedUniversalTime(int hour, int minute, int second, List<int> errorCodes)
         {
-            this.hour = hour;
-            this.minute = minute;
-            this.second = second;
-            this.errorCodes = errorCodes;
+            Minute = minute;
+            Second = second;
+            ErrorCodes = errorCodes;
         }
 
     }
@@ -93,13 +92,13 @@ namespace E4C.Models.Domain
     /// </summary>
     public record PosSpeed
     {
-        public readonly double position;
-        public readonly double speed;
+        public readonly double Position;
+        public readonly double Speed;
 
         public PosSpeed(double position, double speed)
         {
-            this.position = position;
-            this.speed = speed;
+            Position = position;
+            Speed = speed;
         }
     }
 
@@ -108,23 +107,23 @@ namespace E4C.Models.Domain
     /// </summary>
     public record SolSysPointPosSpeeds
     {
-        public readonly PosSpeed mainPosSpeed;
-        public readonly PosSpeed deviationPosSpeed;
-        public readonly PosSpeed distancePosSpeed;
+        public readonly PosSpeed MainPosSpeed;
+        public readonly PosSpeed DeviationPosSpeed;
+        public readonly PosSpeed DistancePosSpeed;
 
         public SolSysPointPosSpeeds(double[] values)
         {
             if (values.Length != 6) throw new ArgumentException("Wrong numer of values for SolSysPointSpeeds.");
-            mainPosSpeed = new PosSpeed(values[0], values[1]);
-            deviationPosSpeed = new PosSpeed(values[2], values[3]);
-            distancePosSpeed = new PosSpeed(values[4], values[5]);
+            MainPosSpeed = new PosSpeed(values[0], values[1]);
+            DeviationPosSpeed = new PosSpeed(values[2], values[3]);
+            DistancePosSpeed = new PosSpeed(values[4], values[5]);
         }
 
         public SolSysPointPosSpeeds(PosSpeed mainPosSpeed, PosSpeed deviationPosSpeed, PosSpeed distancePosSpeed)
         {
-            this.mainPosSpeed = mainPosSpeed;
-            this.deviationPosSpeed = deviationPosSpeed;
-            this.distancePosSpeed = distancePosSpeed;
+            MainPosSpeed = mainPosSpeed;
+            DeviationPosSpeed = deviationPosSpeed;
+            DistancePosSpeed = distancePosSpeed;
         }
     }
 
@@ -136,12 +135,12 @@ namespace E4C.Models.Domain
         public static int DefineFlags(CoordinateSystems coordinateSystem, ObserverPositions observerPosition, ZodiacTypes zodiacType)
         {
             // Always use Swiss Ephemeris files and always calculate speed.
-            int flags = 0 | Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
-            if (coordinateSystem == CoordinateSystems.Equatorial) flags |= Constants.SEFLG_EQUATORIAL;
-            if (observerPosition == ObserverPositions.HelioCentric) flags |= Constants.SEFLG_HELCTR;
-            if (observerPosition == ObserverPositions.TopoCentric) flags |= Constants.SEFLG_TOPOCTR;
-            if (zodiacType == ZodiacTypes.Sidereal) flags |= Constants.SEFLG_SIDEREAL;
-            return flags;
+            int _flags = 0 | Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
+            if (coordinateSystem == CoordinateSystems.Equatorial) _flags |= Constants.SEFLG_EQUATORIAL;
+            if (observerPosition == ObserverPositions.HelioCentric) _flags |= Constants.SEFLG_HELCTR;
+            if (observerPosition == ObserverPositions.TopoCentric) _flags |= Constants.SEFLG_TOPOCTR;
+            if (zodiacType == ZodiacTypes.Sidereal) _flags |= Constants.SEFLG_SIDEREAL;
+            return _flags;
         }
 
     }

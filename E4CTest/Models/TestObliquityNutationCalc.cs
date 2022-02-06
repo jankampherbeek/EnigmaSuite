@@ -24,7 +24,7 @@ namespace E4CTest
             double jd = 12345.678;
             ObliquityNutationCalc calc = CreateObliquityNutationCalc();
             ResultForDouble result = calc.CalculateObliquity(jd, trueObliquity);
-            Assert.AreEqual(expectedObliquity, result.returnValue, delta);
+            Assert.AreEqual(expectedObliquity, result.ReturnValue, delta);
         }
 
         [TestMethod]
@@ -35,7 +35,7 @@ namespace E4CTest
             double jd = 12345.678;
             ObliquityNutationCalc calc = CreateObliquityNutationCalc();
             ResultForDouble result = calc.CalculateObliquity(jd, trueObliquity);
-            Assert.AreEqual(expectedObliquity, result.returnValue, delta);
+            Assert.AreEqual(expectedObliquity, result.ReturnValue, delta);
         }
 
         private static ObliquityNutationCalc CreateObliquityNutationCalc()

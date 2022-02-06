@@ -46,10 +46,10 @@ namespace E4C.Models.SeFacade
         /// <summary>
         /// Retrive date and time (UT) from a given Julian Day Number.
         /// </summary>
-        /// <param name="JulianDayNumber">Value for JUlian Day Number.</param>
+        /// <param name="julianDayNumber">Value for JUlian Day Number.</param>
         /// <param name="calendar">Gregorian or Julian calendar.</param>
         /// <returns>An instance of SimpleDateTime.</returns>
-        public SimpleDateTime DateTimeFromJd(double JulianDayNumber, Calendars calendar);
+        public SimpleDateTime DateTimeFromJd(double julianDayNumber, Calendars calendar);
 
         /// <summary>
         /// Checks if a date and time are valid.
@@ -80,20 +80,20 @@ namespace E4C.Models.SeFacade
 
         public double JdFromSe(SimpleDateTime dateTime)
         {
-            int cal = (dateTime.calendar == Calendars.Gregorian) ? 1 : 0;
-            return ext_swe_julday(dateTime.year, dateTime.month, dateTime.day, dateTime.ut, cal);
+            int _cal = (dateTime.Calendar == Calendars.Gregorian) ? 1 : 0;
+            return ext_swe_julday(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _cal);
         }
 
-        public SimpleDateTime DateTimeFromJd(double JulianDayNumber, Calendars calendar)
+        public SimpleDateTime DateTimeFromJd(double julianDayNumber, Calendars calendar)
         {
-            int calId = (calendar == Calendars.Gregorian) ? 1 : 0;
-            int year = 0;
-            int month = 0;
-            int day = 0;
-            double ut = 0.0;
+            int _calId = (calendar == Calendars.Gregorian) ? 1 : 0;
+            int _year = 0;
+            int _month = 0;
+            int _day = 0;
+            double _ut = 0.0;
             try
             {
-                double result = ext_swe_revjul(JulianDayNumber, calId, ref year, ref month, ref day, ref ut);
+                double result = ext_swe_revjul(julianDayNumber, _calId, ref _year, ref _month, ref _day, ref _ut);
 
             }
             catch (Exception e)
@@ -103,15 +103,15 @@ namespace E4C.Models.SeFacade
                 Console.WriteLine("Error to log in SeDAteTimeFacade.DateTimeFromJd: " + e.Message);
                 return new SimpleDateTime(0, 0, 0, 0.0, Calendars.Gregorian);
             }
-            return new SimpleDateTime(year, month, day, ut, calendar);
+            return new SimpleDateTime(_year, _month, _day, _ut, calendar);
         }
 
         public bool DateTimeIsValid(SimpleDateTime dateTime)
         {
-            double JulianDay = 0.0;
-            char calendar = dateTime.calendar == Calendars.Gregorian ? 'g' : 'j';
-            int result = ext_swe_date_conversion(dateTime.year, dateTime.month, dateTime.day, dateTime.ut, calendar, ref JulianDay);
-            return (result == 0) && (0.0 <= dateTime.ut) && (dateTime.ut < 24.0);
+            double _julianDay = 0.0;
+            char _calendar = dateTime.Calendar == Calendars.Gregorian ? 'g' : 'j';
+            int _result = ext_swe_date_conversion(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _calendar, ref _julianDay);
+            return (_result == 0) && (0.0 <= dateTime.Ut) && (dateTime.Ut < 24.0);
         }
 
 
@@ -141,11 +141,8 @@ namespace E4C.Models.SeFacade
         public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
         {
 
-
-
-
-            string resultValue = "";
-            double[] positions = new double[6];
+            string _resultValue = "";
+            double[] _positions = new double[6];
             /*
             // temporary benchmark
             // initialize ephemeris
@@ -169,10 +166,10 @@ namespace E4C.Models.SeFacade
 
 
 
-            int returnFlag = ext_swe_calc_ut(julianDay, seCelPointId, flags, positions, resultValue);
-            if (returnFlag < 0) Console.WriteLine("Error to log in SePosCelPointFacade.PosCelPointFromSe. ReturnFlag : " + returnFlag.ToString());
+            int _returnFlag = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
+            if (_returnFlag < 0) Console.WriteLine("Error to log in SePosCelPointFacade.PosCelPointFromSe. ReturnFlag : " + _returnFlag.ToString());
             // TODO check value of returnflag, if < 0 throw exception
-            return positions;
+            return _positions;
         }
 
         /// <summary>

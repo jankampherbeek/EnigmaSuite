@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
 using E4C.Views;
 
 namespace E4C.ViewModels
@@ -15,25 +14,25 @@ namespace E4C.ViewModels
 
     }
 
-    public class CalcStartViewModel: ICalcStartViewModel
+    public class CalcStartViewModel : ICalcStartViewModel
     {
-        readonly private CalcJdView calcJdView;
-        readonly private CalcObliquityView calcOblView;
+        readonly private CalcJdView _calcJdView;
+        readonly private CalcObliquityView _calcOblView;
 
         public CalcStartViewModel(CalcJdView calcJdView, CalcObliquityView calcOblView)
         {
-            this.calcJdView = calcJdView;
-            this.calcOblView = calcOblView;
+            _calcJdView = calcJdView;
+            _calcOblView = calcOblView;
         }
 
         public void ShowCalcJd()
         {
-            calcJdView.Show();
+            _calcJdView.Show();
         }
 
         public void ShowCalcObliquity()
         {
-            calcOblView.Show();
+            _calcOblView.Show();
         }
 
     }

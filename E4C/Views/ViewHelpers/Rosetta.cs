@@ -16,45 +16,45 @@ namespace E4C.Views.ViewHelpers
         /// <summary>
         /// Retrieve text for a specific id.
         /// </summary>
-        /// <param name="Id">The id to search.</param>
+        /// <param name="id">The id to search.</param>
         /// <returns>The text for the Id. Returns the string '-NOT FOUND-' if the text could not be found.</returns>
-        public string TextForId(string Id);
+        public string TextForId(string id);
     }
 
     public class Rosetta : IRosetta
     {
-        readonly private ITextFromFileReader fileReader;
-        readonly private List<KeyValuePair<string, string>> texts;
+        readonly private ITextFromFileReader _fileReader;
+        readonly private List<KeyValuePair<string, string>> _texts;
 
         public Rosetta(ITextFromFileReader fileReader)
         {
-            this.fileReader = fileReader;
-            texts = new List<KeyValuePair<string, string>>();
+            _fileReader = fileReader;
+            _texts = new List<KeyValuePair<string, string>>();
             ReadTextsFromFile();
         }
 
-        public string TextForId(string Id)
+        public string TextForId(string id)
         {
-            foreach (KeyValuePair<string, string> text in texts)
+            foreach (KeyValuePair<string, string> _text in _texts)
             {
-                if (text.Key == Id) return text.Value;
+                if (_text.Key == id) return _text.Value;
             }
             return "-NOT FOUND-";
         }
 
         private void ReadTextsFromFile()
         {
-            string[] PartsOfText;
-            string filename = @"..\..\..\res\texts.txt";
-            IEnumerable<string> allLines = fileReader.ReadSeparatedLines(filename);
+            string[] _partsOfText;
+            string _filename = @"..\..\..\res\texts.txt";
+            IEnumerable<string> _allLines = _fileReader.ReadSeparatedLines(_filename);
 
-            foreach (string line in allLines)
+            foreach (string _line in _allLines)
             {
-                PartsOfText = line.Split('=');
+                _partsOfText = _line.Split('=');
                 // skip empty lines and remarks
-                if (PartsOfText.Length == 2)
+                if (_partsOfText.Length == 2)
                 {
-                    texts.Add(new KeyValuePair<string, string>(PartsOfText[0].Trim(), PartsOfText[1].Trim()));
+                    _texts.Add(new KeyValuePair<string, string>(_partsOfText[0].Trim(), _partsOfText[1].Trim()));
                 }
             }
         }

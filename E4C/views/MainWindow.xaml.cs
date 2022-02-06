@@ -1,4 +1,8 @@
-﻿using System.Windows;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using System.Windows;
 
 namespace E4C.Views
 {
@@ -7,12 +11,12 @@ namespace E4C.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        readonly private MainWindowViewModel viewModel;
+        readonly private MainWindowViewModel _viewModel;
 
         public MainWindow(MainWindowViewModel viewModel)
         {
             InitializeComponent();
-            this.viewModel = viewModel;
+            _viewModel = viewModel;
             PopulateStaticTexts();
         }
 
@@ -27,7 +31,7 @@ namespace E4C.Views
 
         private void BtnCalc_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.ShowCalculations();
+            _viewModel.ShowCalculations();
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
@@ -37,30 +41,30 @@ namespace E4C.Views
 
         private void BtnCharts_Click(object sender, RoutedEventArgs e)
         {
-            viewModel.ShowCharts();
+            _viewModel.ShowCharts();
         }
     }
 
     public class MainWindowViewModel
     {
-        readonly private CalcStartView dashboardCalc;
-        readonly private DashboardCharts dashboardCharts;
+        readonly private CalcStartView _dashboardCalc;
+        readonly private DashboardCharts _dashboardCharts;
 
         public MainWindowViewModel(CalcStartView dashboardCalc, DashboardCharts dashboardCharts)
         {
-            this.dashboardCharts = dashboardCharts;
-            this.dashboardCalc = dashboardCalc;
+            _dashboardCharts = dashboardCharts;
+            _dashboardCalc = dashboardCalc;
 
         }
 
         public void ShowCalculations()
         {
-            dashboardCalc.Show();
+            _dashboardCalc.Show();
         }
 
         public void ShowCharts()
         {
-            dashboardCharts.Show();
+            _dashboardCharts.Show();
         }
 
     }
