@@ -59,11 +59,13 @@ namespace E4C.Views
             LongDegreeText.Text = _rosetta.TextForId("charts.datainputchart.degree");
             LongMinuteText.Text = _rosetta.TextForId("charts.datainputchart.minute");
             LongSecondText.Text = _rosetta.TextForId("charts.datainputchart.second");
-            LongDirText.Text = _rosetta.TextForId("charts.datainputchart.longdir");
+            LongEastText.Text = _rosetta.TextForId("charts.datainputchart.east");
+            LongWestText.Text = _rosetta.TextForId("charts.datainputchart.west");
             LatDegreeText.Text = _rosetta.TextForId("charts.datainputchart.degree");
             LatMinuteText.Text = _rosetta.TextForId("charts.datainputchart.minute");
             LatSecondText.Text = _rosetta.TextForId("charts.datainputchart.second");
-            LatDirText.Text = _rosetta.TextForId("charts.datainputchart.latdir");
+            LatNorthText.Text = _rosetta.TextForId("charts.datainputchart.north");
+            LatSouthText.Text = _rosetta.TextForId("charts.datainputchart.south");
             DateTimeTitle.Text = _rosetta.TextForId("charts.datainputchart.datetimetitle");
             DateText.Text = _rosetta.TextForId("charts.datainputchart.date");
             DateYearText.Text = _rosetta.TextForId("charts.datainputchart.year");
@@ -81,7 +83,8 @@ namespace E4C.Views
             LmtDegreeText.Text = _rosetta.TextForId("charts.datainputchart.degree");
             LmtMinuteText.Text = _rosetta.TextForId("charts.datainputchart.minute");
             LmtSecondText.Text = _rosetta.TextForId("charts.datainputchart.second");
-            LmtDirText.Text = _rosetta.TextForId("charts.datainputchart.longdir");
+            LmtDirEastText.Text = _rosetta.TextForId("charts.datainputchart.east");
+            LmtDirWestText.Text = _rosetta.TextForId("charts.datainputchart.west");
             BtnCalculate.Content = _rosetta.TextForId("charts.datainputchart.btncalculate");
             BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
             BtnCancel.Content = _rosetta.TextForId("common.btncancel");
