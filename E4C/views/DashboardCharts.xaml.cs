@@ -30,9 +30,9 @@ namespace E4C.Views
     public class DashboardChartsViewModel
 
     {
-        readonly private ChartsDataInputNewChart _chartsDataInputNewChart;
+        readonly private ChartsDataInputView _chartsDataInputNewChart;
 
-        public DashboardChartsViewModel(ChartsDataInputNewChart chartsDataInputNewChart)
+        public DashboardChartsViewModel(ChartsDataInputView chartsDataInputNewChart)
         {
             _chartsDataInputNewChart = chartsDataInputNewChart;
         }

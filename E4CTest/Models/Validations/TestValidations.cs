@@ -161,4 +161,292 @@ namespace E4CTest
 
     }
 
+    [TestClass]
+    public class TestLocationValidations
+    {
+        [TestMethod]
+        public void TestLongitudeHappyFlow()
+        {
+            string degrees = "6";
+            string minutes = "54";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.AreEqual(0, errors.Count);
+        }
+
+        [TestMethod]
+        public void TestLongitudeNonNumerics()
+        {
+            string degrees = "6";
+            string minutes = "abc";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeSecondsEmpty()
+        {
+            string degrees = "6";
+            string minutes = "54";
+            string seconds = "";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeDegreesTooSmall()
+        {
+            string degrees = "-1";
+            string minutes = "54";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeDegreesTooLarge()
+        {
+            string degrees = "200";
+            string minutes = "54";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeMinutesTooSmall()
+        {
+            string degrees = "6";
+            string minutes = "-54";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeMinutesTooLarge()
+        {
+            string degrees = "6";
+            string minutes = "154";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeSecondsTooSmall()
+        {
+            string degrees = "6";
+            string minutes = "54";
+            string seconds = "-10";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeSecondsTooLarge()
+        {
+            string degrees = "6";
+            string minutes = "54";
+            string seconds = "60";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLongitudeMaxValues()
+        {
+            string degrees = "180";
+            string minutes = "0";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.AreEqual(0, errors.Count);
+        }
+
+        [TestMethod]
+        public void TestLongitudeMinValues()
+        {
+            string degrees = "0";
+            string minutes = "0";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.AreEqual(0, errors.Count);
+        }
+
+        [TestMethod]
+        public void TestLongitudeMaxPlusOneSecond()
+        {
+            string degrees = "180";
+            string minutes = "0";
+            string seconds = "1";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeHappyFlow()
+        {
+            string degrees = "52";
+            string minutes = "13";
+            string seconds = "10";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.AreEqual(0, errors.Count);
+        }
+
+        [TestMethod]
+        public void TestLatitudeNonNumerics()
+        {
+            string degrees = "x";
+            string minutes = "13";
+            string seconds = "10";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeSecondsEmpty()
+        {
+            string degrees = "52";
+            string minutes = "13";
+            string seconds = "";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeDegreesTooSmall()
+        {
+            string degrees = "-1";
+            string minutes = "13";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeDegreesTooLarge()
+        {
+            string degrees = "100";
+            string minutes = "10";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeMinutesTooSmall()
+        {
+            string degrees = "52";
+            string minutes = "-13";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeMinutesTooLarge()
+        {
+            string degrees = "52";
+            string minutes = "60";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeSecondsTooSmall()
+        {
+            string degrees = "52";
+            string minutes = "13";
+            string seconds = "-1";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeSecondsTooLarge()
+        {
+            string degrees = "52";
+            string minutes = "13";
+            string seconds = "60";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeMaxValues()
+        {
+            string degrees = "89";
+            string minutes = "59";
+            string seconds = "59";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.AreEqual(0, errors.Count);
+        }
+
+        [TestMethod]
+        public void TestLatitudeMaxValuesPlusOneSecond()
+        {
+            string degrees = "90";
+            string minutes = "0";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.IsTrue(errors.Count > 0);
+            Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
+        }
+
+        [TestMethod]
+        public void TestLatitudeMinValues()
+        {
+            string degrees = "0";
+            string minutes = "0";
+            string seconds = "0";
+            LocationValidations locationValidations = new();
+            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            Assert.AreEqual(0, errors.Count);
+        }
+
+
+    }
+
 }

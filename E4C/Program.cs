@@ -45,8 +45,12 @@ namespace E4C
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
+            container.Register<ILocationValidations, LocationValidations>(Lifestyle.Singleton);
             container.Register<ICalendarSpecifications, CalendarSpecifications>(Lifestyle.Singleton);
             container.Register<IYearCountSpecifications, YearCountSpecifications>(Lifestyle.Singleton);
+            container.Register<IChartCategorySpecifications, ChartCategorySpecifications>(Lifestyle.Singleton);
+            container.Register<IRoddenRatingSpecifications, RoddenRatingSpecifications>(Lifestyle.Singleton);
+            container.Register<ITimeZoneSpecifications, TimeZoneSpecifications>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();
@@ -55,8 +59,8 @@ namespace E4C
             container.Register<ICalcStartViewModel, CalcStartViewModel>();
             container.Register<DashboardCharts>();
             container.Register<DashboardChartsViewModel>();
-            container.Register<ChartsDataInputNewChart>();
-            container.Register<ChartsDataInputNewChartViewModel>();
+            container.Register<ChartsDataInputView>();
+            container.Register<ChartsDataInputViewModel>();
             container.Register<CalcJdView>();
             container.Register<CalcJdViewModel>();
             container.Register<CalcObliquityView>();

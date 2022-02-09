@@ -91,7 +91,9 @@ namespace E4C.Models.Validations
                 _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
                 return _errorCodes;
             }
-            if (_hourValue < 0 || _hourValue > 23 || _minuteValue < 0 || _minuteValue > 59 || _secondValue < 0 || _secondValue > 59)
+            if (_hourValue < Constants.HOUR_MIN || _hourValue > Constants.HOUR_MAX 
+                || _minuteValue < Constants.MINUTE_MIN || _minuteValue > Constants.MINUTE_MAX 
+                || _secondValue < Constants.SECOND_MIN || _secondValue > Constants.SECOND_MAX)
             {
                 _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
             }

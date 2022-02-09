@@ -36,12 +36,27 @@ namespace E4C.Models.Domain
         public const int SEFLG_EQUATORIAL = 2048;
         public const int SEFLG_TOPOCTR = 32 * 1024;
         public const int SEFLG_SIDEREAL = 64 * 1024;
+        // Limits
+        public const int GEOLAT_DEGREE_MAX = 89;
+        public const int GEOLAT_DEGREE_MIN = 0;
+        public const int GEOLON_DEGREE_MAX = 180;
+        public const int GEOLON_DEGREE_MIN = 0;
+        public const int HOUR_MAX = 23;
+        public const int HOUR_MIN = 0;
+        public const int MINUTE_MAX = 59;
+        public const int MINUTE_MIN = 0;
+        public const int SECOND_MAX = 59;
+        public const int SECOND_MIN = 0;
 
     }
 
     public class ErrorCodes
     {
         public const int ERR_INVALID_DATE = 1000;
-        public const int ERR_INVALID_TIME = 1001;
+        public const int ERR_INVALID_GEOLAT = 1001;
+        public const int ERR_INVALID_GEOLON = 1002;
+        public const int ERR_INVALID_GEOLON_LMT = 1003;
+        public const int ERR_INVALID_TIME = 1004;
+
     }
 }

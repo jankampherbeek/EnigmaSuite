@@ -221,7 +221,7 @@ namespace E4CTest.be.domain
             CalendarDetails details = specifications.DetailsForCalendar(calendar);
             Assert.IsNotNull(details);
             Assert.AreEqual(calendar, details.Calendar);
-            Assert.AreEqual("ref.enumcalendarjulian", details.TextId);
+            Assert.AreEqual("ref.enum.calendar.julian", details.TextId);
         }
 
         [TestMethod]
@@ -235,6 +235,26 @@ namespace E4CTest.be.domain
                 Assert.IsTrue(details.TextId.Length > 0);
             }
         }
+
+        [TestMethod]
+        public void TestRetrievingWithIndex()
+        {
+            ICalendarSpecifications specifications = new CalendarSpecifications();
+            int calendarIndex = 1;
+            Calendars calendar = specifications.CalendarForIndex(calendarIndex);
+            Assert.AreEqual(Calendars.Julian, calendar);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRetrievingWithWrongIndex()
+        {
+            ICalendarSpecifications specifications = new CalendarSpecifications();
+            int calendarIndex = 333;
+            Calendars calendar = specifications.CalendarForIndex(calendarIndex);
+        }
+
     }
 
     [TestClass]
@@ -248,7 +268,7 @@ namespace E4CTest.be.domain
             YearCountDetails details = specifications.DetailsForYearCount(yearCount);
             Assert.IsNotNull(details);
             Assert.AreEqual(yearCount, details.YearCount);
-            Assert.AreEqual("ref.enumyearcountbce", details.TextId);
+            Assert.AreEqual("ref.enum.yearcount.bce", details.TextId);
         }
 
         [TestMethod]
@@ -262,7 +282,174 @@ namespace E4CTest.be.domain
                 Assert.IsTrue(details.TextId.Length > 0);
             }
         }
+
+        [TestMethod]
+        public void TestRetrievingWithIndex()
+        {
+            IYearCountSpecifications specifications = new YearCountSpecifications();
+            int yearCountIndex = 2;
+            YearCounts yearCount = specifications.YearCountForIndex(yearCountIndex);
+            Assert.AreEqual(YearCounts.Astronomical, yearCount);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRetrievingWithWrongIndex()
+        {
+            IYearCountSpecifications specifications = new YearCountSpecifications();
+            int yearCountIndex = 44;
+            YearCounts yearCount = specifications.YearCountForIndex(yearCountIndex);
+        }
     }
+
+
+
+    [TestClass]
+    public class TestChartCategories
+    {
+        [TestMethod]
+        public void TestRetrievingDetails()
+        {
+            ChartCategories chartCategory = ChartCategories.Election;
+            IChartCategorySpecifications specifications = new ChartCategorySpecifications();    
+            ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
+            Assert.IsNotNull(details);
+            Assert.AreEqual(chartCategory, details.Category);
+            Assert.AreEqual("ref.enum.chartcategories.election", details.TextId);
+        }
+
+        [TestMethod]
+        public void TestAvailabilityOfDetailsForAllEnums()
+        {
+            IChartCategorySpecifications specifications = new ChartCategorySpecifications();
+
+            foreach (ChartCategories chartCategory in Enum.GetValues(typeof(ChartCategories)))
+            {
+                ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
+                Assert.IsNotNull(details);
+                Assert.IsTrue(details.TextId.Length > 0);
+            }
+        }
+
+        [TestMethod]
+        public void TestRetrievingWithIndex()
+        {
+            IChartCategorySpecifications specifications = new ChartCategorySpecifications();
+            int chartCategoryIndex = 3;
+            ChartCategories chartCategory = specifications.ChartCategoryForIndex(chartCategoryIndex);
+            Assert.AreEqual(ChartCategories.Event, chartCategory);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRetrievingWithWrongIndex()
+        {
+            IChartCategorySpecifications specifications = new ChartCategorySpecifications();
+            int chartCategoryIndex = 500;
+            ChartCategories chartCategory = specifications.ChartCategoryForIndex(chartCategoryIndex);
+        }
+
+    }
+
+    [TestClass]
+    public class TestRoddenRatings
+    {
+        [TestMethod]
+        public void TestRetrievingDetails()
+        {
+            RoddenRatings roddenRating = RoddenRatings.C;
+            IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
+            RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
+            Assert.IsNotNull(details);
+            Assert.AreEqual(roddenRating, details.Rating);
+            Assert.AreEqual("ref.enum.roddenrating.c", details.TextId);
+        }
+
+        [TestMethod]
+        public void TestAvailabilityOfDetailsForAllEnums()
+        {
+            IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
+
+            foreach (RoddenRatings roddenRating in Enum.GetValues(typeof(RoddenRatings)))
+            {
+                RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
+                Assert.IsNotNull(details);
+                Assert.IsTrue(details.TextId.Length > 0);
+            }
+        }
+
+        [TestMethod]
+        public void TestRetrievingWithIndex()
+        {
+            IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
+            int roddenRatingIndex = 2;
+            RoddenRatings roddenRating = specifications.RoddenRatingForIndex(roddenRatingIndex);
+            Assert.AreEqual(RoddenRatings.A, roddenRating);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRetrievingWithWrongIndex()
+        {
+            IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
+            int roddenRatingIndex = 1000;
+            RoddenRatings roddenRating = specifications.RoddenRatingForIndex(roddenRatingIndex);
+        }
+
+    }
+
+
+
+    [TestClass]
+    public class TestTimeZones
+    {
+        [TestMethod]
+        public void TestRetrievingDetails()
+        {
+            double delta = 0.00000001;
+            TimeZones timeZone = TimeZones.AZOT;
+            ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
+            TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
+            Assert.IsNotNull(details);
+            Assert.AreEqual(timeZone, details.TimeZone);
+            Assert.AreEqual(-1.0, details.OffsetFromUt, delta);
+            Assert.AreEqual("ref.enum.timezone.azot", details.TextId);
+        }
+
+        [TestMethod]
+        public void TestAvailabilityOfDetailsForAllEnums()
+        {
+            IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
+
+            foreach (RoddenRatings roddenRating in Enum.GetValues(typeof(RoddenRatings)))
+            {
+                RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
+                Assert.IsNotNull(details);
+                Assert.IsTrue(details.TextId.Length > 0);
+            }
+        }
+
+        [TestMethod]
+        public void TestRetrievingWithIndex()
+        {
+            ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
+            int timeZoneIndex = 29;
+            TimeZones timeZone = specifications.TimeZoneForIndex(timeZoneIndex);
+            Assert.AreEqual(TimeZones.BRT, timeZone);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestRetrievingWithWrongIndex()
+        {
+            ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
+            int timeZoneIndex = -100;
+            TimeZones timeZone = specifications.TimeZoneForIndex(timeZoneIndex);
+        }
+
+    }
+
 
 
 }

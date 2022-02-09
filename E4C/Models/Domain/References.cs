@@ -81,7 +81,7 @@ namespace E4C.Models.Domain
     /// </summary>
     public enum Calendars
     {
-        Gregorian, Julian
+        Gregorian = 0, Julian = 1
     }
 
     /// <summary>
@@ -115,6 +115,14 @@ namespace E4C.Models.Domain
         /// <param name="calendar">The calendar, from the enum Calendars.</param>
         /// <returns>A record CalendarDetails with the specifications.</returns>
         public CalendarDetails DetailsForCalendar(Calendars calendar);
+
+        /// <summary>
+        /// Returns a value from the enum Calendars that corresponds with an index.
+        /// </summary>
+        /// <param name="calendarIndex">The index for the requested item from Calendars. 
+        /// Throws an exception if no Calendar for the given index does exist.</param>
+        /// <returns>Instance from enum Calendars that corresponds with the given index.</returns>
+        public Calendars CalendarForIndex(int calendarIndex);
     }
 
     public class CalendarSpecifications : ICalendarSpecifications
@@ -124,10 +132,19 @@ namespace E4C.Models.Domain
         {
             return calendar switch
             {
-                Calendars.Gregorian => new CalendarDetails(calendar, "ref.enumcalendargregorian"),
-                Calendars.Julian => new CalendarDetails(calendar, "ref.enumcalendarjulian"),
+                Calendars.Gregorian => new CalendarDetails(calendar, "ref.enum.calendar.gregorian"),
+                Calendars.Julian => new CalendarDetails(calendar, "ref.enum.calendar.julian"),
                 _ => throw new ArgumentException("Calendar unknown : " + calendar.ToString())
             };
+        }
+
+        public Calendars CalendarForIndex(int calendarIndex)
+        {
+            foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
+            {
+                if ((int)calendar == calendarIndex) return calendar;
+            }
+            throw new ArgumentException("Could not find Calendars for index : " + calendarIndex);
         }
     }
     #endregion
@@ -138,7 +155,7 @@ namespace E4C.Models.Domain
     /// </summary>
     public enum YearCounts
     {
-        CE, BCE, Astronomical
+        CE = 0, BCE = 1, Astronomical = 2
     }
 
     /// <summary>
@@ -172,6 +189,14 @@ namespace E4C.Models.Domain
         /// <param name="yearCount">The YearCount, from the enum YearCounts.</param>
         /// <returns>A record YearCountDetails with the specifications.</returns>
         public YearCountDetails DetailsForYearCount(YearCounts yearCount);
+
+        /// <summary>
+        /// Returns a value from the enum YearCounts that corresponds with an index.
+        /// </summary>
+        /// <param name="yearCountIndex">The index for the requested item from YearCounts. 
+        /// Throws an exception if no YearCount for the given index does exist.</param>
+        /// <returns>Instance from enum YearCounts that corresponds with the given index.</returns>
+        public YearCounts YearCountForIndex(int yearCountIndex);
     }
 
     public class YearCountSpecifications : IYearCountSpecifications
@@ -181,11 +206,20 @@ namespace E4C.Models.Domain
         {
             return yearCount switch
             {
-                YearCounts.CE => new YearCountDetails(yearCount, "ref.enumyearcountce"),
-                YearCounts.BCE => new YearCountDetails(yearCount, "ref.enumyearcountbce"),
-                YearCounts.Astronomical => new YearCountDetails(yearCount, "ref.enumyearcountastronomical"),
+                YearCounts.CE => new YearCountDetails(yearCount, "ref.enum.yearcount.ce"),
+                YearCounts.BCE => new YearCountDetails(yearCount, "ref.enum.yearcount.bce"),
+                YearCounts.Astronomical => new YearCountDetails(yearCount, "ref.enum.yearcount.astronomical"),
                 _ => throw new ArgumentException("YearCount unknown : " + yearCount.ToString())
             };
+        }
+
+        public YearCounts YearCountForIndex(int yearCountIndex)
+        {
+            foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
+            {
+                if ((int)yearCount == yearCountIndex) return yearCount;
+            }
+            throw new ArgumentException("Could not find YearCount for index : " + yearCountIndex);
         }
     }
 
@@ -655,4 +689,289 @@ namespace E4C.Models.Domain
     }
 
     #endregion
+
+    #region ChartCategories
+    /// <summary>
+    /// Types of charts. Describes the application of a chart.
+    /// </summary>
+    public enum ChartCategories
+    {
+        Unknown = 0, Female = 1, Male = 2, Event = 3, Horary = 4, Election = 5 
+    }
+
+    /// <summary>
+    /// Details for the Category of a chart.
+    /// </summary>
+    public record ChartCategoryDetails
+    {
+        readonly public ChartCategories Category;
+        readonly public string TextId;
+
+        /// <summary>
+        /// Construct details for a Chart category.
+        /// </summary>
+        /// <param name="category">The category of the chart.</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public ChartCategoryDetails(ChartCategories category, string textId)
+        {
+            Category = category;
+            TextId = textId;
+        }
+    }
+
+    /// <summary>
+    /// Specifications for a Chart category.
+    /// </summary>
+    public interface IChartCategorySpecifications
+    {
+        /// <summary>
+        /// Returns the details for a Chart category.
+        /// </summary>
+        /// <param name="category">The category, from the enum ChartCategories.</param>
+        /// <returns>A record ChartCategoryDetails with the specifications.</returns>
+        public ChartCategoryDetails DetailsForCategory(ChartCategories category);
+
+        /// <summary>
+        /// Returns a value from the enum ChartCategories that corresponds with an index.
+        /// </summary>
+        /// <param name="chartCategoryIndex">The index for the requested item from ChartCategories. 
+        /// Throws an exception if no ChartCategories for the given index does exist.</param>
+        /// <returns>Instance from enum ChartCategories that corresponds with the given index.</returns>
+        public ChartCategories ChartCategoryForIndex(int chartCategoryIndex);
+    
+    }
+
+
+    public class ChartCategorySpecifications : IChartCategorySpecifications
+    {
+        /// <exception cref="ArgumentException">Is thrown if the category was not recognized.</exception>
+        public ChartCategoryDetails DetailsForCategory(ChartCategories category)
+        {
+            return category switch
+            {
+                ChartCategories.Female => new ChartCategoryDetails(category, "ref.enum.chartcategories.female"),
+                ChartCategories.Male => new ChartCategoryDetails(category, "ref.enum.chartcategories.male"),
+                ChartCategories.Event => new ChartCategoryDetails(category, "ref.enum.chartcategories.event"),
+                ChartCategories.Horary => new ChartCategoryDetails(category, "ref.enum.chartcategories.horary"),
+                ChartCategories.Election => new ChartCategoryDetails(category, "ref.enum.chartcategories.election"),
+                ChartCategories.Unknown => new ChartCategoryDetails(category, "ref.enum.chartcategories.unknown"),
+                _ => throw new ArgumentException("SolSysPointCats unknown : " + category.ToString())
+            };
+        }
+
+        public ChartCategories ChartCategoryForIndex(int chartCategoryIndex)
+        {
+            foreach (ChartCategories category in Enum.GetValues(typeof(ChartCategories)))
+            {
+                if ((int)category == chartCategoryIndex) return category;
+            }
+            throw new ArgumentException("Could not find ChartCategories for index : " + chartCategoryIndex);
+        }
+
+    }
+
+    #endregion
+
+    #region TimeZones
+    /// <summary>
+    /// Timezones.
+    /// </summary>
+    public enum TimeZones
+    {
+        UT = 0, CET = 1, EET = 2, EAT = 3, IRST = 4, AMT = 5, AFT = 6, PKT = 7, IST = 8, IOT = 9, MMT = 10, ICT = 11, WST = 12, JST = 13, ACST = 14, AEST = 15, LHST = 16,
+        NCT = 17, NZST = 18, SST = 19, HAST = 20, MART = 21, AKST = 22, PST = 23, MST = 24, CST = 25, EST = 26, AST = 27, NST = 28, BRT = 29, GST = 30, AZOT = 31, LMT = 32
+    }
+
+    /// <summary>
+    /// Details for a Timezone.
+    /// </summary>
+    public record TimeZoneDetails
+    {
+        readonly public TimeZones TimeZone;
+        readonly public double OffsetFromUt;
+        readonly public string TextId;
+
+        /// <summary>
+        /// Construct details for a Time Zone.
+        /// </summary>
+        /// <param name="timeZone">The TimeZone.</param>
+        /// <param name="offsetFromUt">The difference with Universal Time.</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public TimeZoneDetails(TimeZones timeZone, double offsetFromUt, string textId)
+        {
+            TimeZone = timeZone;
+            OffsetFromUt = offsetFromUt;
+            TextId = textId;
+        }
+    }
+
+    /// <summary>
+    /// Specifications for a Time Zone.
+    /// </summary>
+    public interface ITimeZoneSpecifications
+    {
+        /// <summary>
+        /// Returns the details for a Time Zone.
+        /// </summary>
+        /// <param name="timeZone">The Time Zone, from the enum Timezones.</param>
+        /// <returns>A record TimeZoneDetails with the specifications.</returns>
+        public TimeZoneDetails DetailsForTimeZone(TimeZones timeZone);
+
+        /// <summary>
+        /// Returns a value from the enum TimeZones that corresponds with an index.
+        /// </summary>
+        /// <param name="timeZoneIndex">The index for the requested item from TimeZones. 
+        /// Throws an exception if no TimeZone for the given index does exist.</param>
+        /// <returns>Instance from enum TimeZones that corresponds with the given index.</returns>
+        public TimeZones TimeZoneForIndex(int yearCountIndex);
+    }
+
+    public class TimeZoneSpecifications : ITimeZoneSpecifications
+    {
+        /// <exception cref="ArgumentException">Is thrown if the Time Zone was not recognized.</exception>
+        public TimeZoneDetails DetailsForTimeZone(TimeZones timeZone)
+        {
+            return timeZone switch
+            {
+                TimeZones.UT => new TimeZoneDetails(timeZone, 0.0, "ref.enum.timezone.ut"),
+                TimeZones.CET => new TimeZoneDetails(timeZone, 1.0, "ref.enum.timezone.cet"),
+                TimeZones.EET => new TimeZoneDetails(timeZone, 2.0, "ref.enum.timezone.eet"),
+                TimeZones.EAT => new TimeZoneDetails(timeZone, 3.0, "ref.enum.timezone.eat"),
+                TimeZones.IRST => new TimeZoneDetails(timeZone, 3.5, "ref.enum.timezone.irst"),
+                TimeZones.AMT => new TimeZoneDetails(timeZone, 4.0, "ref.enum.timezone.amt"),
+                TimeZones.AFT => new TimeZoneDetails(timeZone, 4.5, "ref.enum.timezone.aft"),
+                TimeZones.PKT => new TimeZoneDetails(timeZone, 5.0, "ref.enum.timezone.pkt"),
+                TimeZones.IST => new TimeZoneDetails(timeZone, 5.5, "ref.enum.timezone.ist"),
+                TimeZones.IOT => new TimeZoneDetails(timeZone, 6.0, "ref.enum.timezone.iot"),
+                TimeZones.MMT => new TimeZoneDetails(timeZone, 6.5, "ref.enum.timezone.mmt"),
+                TimeZones.ICT => new TimeZoneDetails(timeZone, 7.0, "ref.enum.timezone.ict"),
+                TimeZones.WST => new TimeZoneDetails(timeZone, 8.0, "ref.enum.timezone.wst"),
+                TimeZones.JST => new TimeZoneDetails(timeZone, 9.0, "ref.enum.timezone.jst"),
+                TimeZones.ACST => new TimeZoneDetails(timeZone, 9.5, "ref.enum.timezone.acst"),
+                TimeZones.AEST => new TimeZoneDetails(timeZone, 10.0, "ref.enum.timezone.aest"),
+                TimeZones.LHST => new TimeZoneDetails(timeZone, 10.5, "ref.enum.timezone.lhst"),
+                TimeZones.NCT => new TimeZoneDetails(timeZone, 11.0, "ref.enum.timezone.nct"),
+                TimeZones.NZST => new TimeZoneDetails(timeZone, 12.0, "ref.enum.timezone.nzst"),
+                TimeZones.SST => new TimeZoneDetails(timeZone, -11.0, "ref.enum.timezone.sst"),
+                TimeZones.HAST => new TimeZoneDetails(timeZone, -10.0, "ref.enum.timezone.hast"),
+                TimeZones.MART => new TimeZoneDetails(timeZone, -9.5, "ref.enum.timezone.mart"),
+                TimeZones.AKST => new TimeZoneDetails(timeZone, -9.0, "ref.enum.timezone.akst"),
+                TimeZones.PST => new TimeZoneDetails(timeZone, -8.0, "ref.enum.timezone.pst"),
+                TimeZones.MST => new TimeZoneDetails(timeZone, -7.0, "ref.enum.timezone.mst"),
+                TimeZones.CST => new TimeZoneDetails(timeZone, -6.0, "ref.enum.timezone.cst"),
+                TimeZones.EST => new TimeZoneDetails(timeZone, -5.0, "ref.enum.timezone.est"),
+                TimeZones.AST => new TimeZoneDetails(timeZone, -4.0, "ref.enum.timezone.ast"),
+                TimeZones.NST => new TimeZoneDetails(timeZone, -3.5, "ref.enum.timezone.nst"),
+                TimeZones.BRT => new TimeZoneDetails(timeZone, -3.0, "ref.enum.timezone.brt"),
+                TimeZones.GST => new TimeZoneDetails(timeZone, -2.0, "ref.enum.timezone.gst"),
+                TimeZones.AZOT => new TimeZoneDetails(timeZone, -1.0, "ref.enum.timezone.azot"),
+                TimeZones.LMT => new TimeZoneDetails(timeZone, 0.0, "ref.enum.timezone.lmt"),
+                _ => throw new ArgumentException("TimeZones : " + timeZone.ToString())
+            };
+        }
+
+        public TimeZones TimeZoneForIndex(int timeZoneIndex)
+        {
+            foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
+            {
+                if ((int)timeZone == timeZoneIndex) return timeZone;
+            }
+            throw new ArgumentException("Could not find TimeZone for index : " + timeZoneIndex);
+        }
+    }
+    #endregion
+
+    #region RoddenRating
+    /// <summary>
+    /// Ratings according to Rodden and an added 'Undefined' rating.
+    /// </summary>
+    /// <remarks>
+    /// Suports:
+    /// AA - Accurate.As recorded by family or state
+    /// A - Quoted by the person, kin, friend, or associate
+    /// B - Biography or autobiography
+    /// C - Caution, no source
+    /// DD - Dirty data.Conflicting quotes that are unqualified
+    /// X - No time of birth
+    /// XX - No date of birth
+    /// Also added 'Unknown' which is not an original Rodden Rating.
+    /// </remarks>
+    public enum RoddenRatings
+    {
+        Unknown = 0, AA = 1, A = 2, B = 3, C = 4, DD = 5, X = 6, XX = 7
+    }
+
+    /// <summary>
+    /// Details for the Category of a chart.
+    /// </summary>
+    public record RoddenRatingDetails
+    {
+        readonly public RoddenRatings Rating;
+        readonly public string TextId;
+
+        /// <summary>
+        /// Construct details for a Rodden rating.
+        /// </summary>
+        /// <param name="rating">The standard acronym for the Rodden rating.</param>
+        /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+        public RoddenRatingDetails(RoddenRatings rating, string textId)
+        {
+            Rating = rating;
+            TextId = textId;
+        }
+    }
+
+    /// <summary>
+    /// Specifications for a Rodden rating.
+    /// </summary>
+    public interface IRoddenRatingSpecifications
+    {
+        /// <summary>
+        /// Returns the details for a Rodden rating.
+        /// </summary>
+        /// <param name="rating">The Rodden rating, from the enum RoddenRatings.</param>
+        /// <returns>A record RoddenRatingDetails with the specifications.</returns>
+        public RoddenRatingDetails DetailsForRating(RoddenRatings rating);
+
+        /// <summary>
+        /// Returns a value from the enum RoddenRatings that corresponds with an index.
+        /// </summary>
+        /// <param name="roddenRatingIndex">The index for the requested item from RoddenRatings. 
+        /// Throws an exception if no RoddenRatings for the given index does exist.</param>
+        /// <returns>Instance from enum RoddenRatings that corresponds with the given index.</returns>
+        public RoddenRatings RoddenRatingForIndex(int roddenRatingIndex);
+    }
+
+
+    public class RoddenRatingSpecifications : IRoddenRatingSpecifications
+    {
+        /// <exception cref="ArgumentException">Is thrown if the rating was not recognized.</exception>
+        public RoddenRatingDetails DetailsForRating(RoddenRatings rating)
+        {
+            return rating switch
+            {
+                RoddenRatings.Unknown => new RoddenRatingDetails(rating, "ref.enum.roddenrating.unknown"),
+                RoddenRatings.AA => new RoddenRatingDetails(rating, "ref.enum.roddenrating.aa"),
+                RoddenRatings.A => new RoddenRatingDetails(rating, "ref.enum.roddenrating.a"),
+                RoddenRatings.B => new RoddenRatingDetails(rating, "ref.enum.roddenrating.b"),
+                RoddenRatings.C => new RoddenRatingDetails(rating, "ref.enum.roddenrating.c"),
+                RoddenRatings.DD => new RoddenRatingDetails(rating, "ref.enum.roddenrating.dd"),
+                RoddenRatings.X => new RoddenRatingDetails(rating, "ref.enum.roddenrating.x"),
+                RoddenRatings.XX => new RoddenRatingDetails(rating, "ref.enum.roddenrating.xx"),
+                _ => throw new ArgumentException("RoddenRatings unknown : " + rating.ToString())
+            };
+        }
+
+        public RoddenRatings RoddenRatingForIndex(int roddenRatingIndex)
+        {
+            foreach (RoddenRatings rating in Enum.GetValues(typeof(RoddenRatings)))
+            {
+                if ((int)rating == roddenRatingIndex) return rating;
+            }
+            throw new ArgumentException("Could not find RoddenRatings for index : " + roddenRatingIndex);
+        }
+    }
+
+    #endregion
+
 }
