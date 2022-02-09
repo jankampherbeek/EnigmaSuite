@@ -15,7 +15,9 @@ namespace E4C.ViewModels
         readonly private ICalendarSpecifications _calendarSpecifications;
         readonly private IYearCountSpecifications _yearCountSpecifications;
         readonly private ITimeZoneSpecifications _timeZoneSpecifications;
-        
+        readonly private IDateTimeValidations _dateTimeValidations;
+        readonly private ILocationValidations _locationValidations;
+
         public List<ChartCategoryDetails> ChartCategoryItems { get; }
         public List<RoddenRatingDetails> RoddenRatingItems { get; }
         public List<CalendarDetails> CalendarItems { get; }
@@ -55,7 +57,7 @@ namespace E4C.ViewModels
         public RoddenRatings InputRoddenRating { get; set; }
         public TimeZones InputTimeZone { get; set; }
 
-        readonly private IDateTimeValidations _dateTimeValidations;
+
 
 
         public ChartsDataInputViewModel(IChartCategorySpecifications chartCategorySpecifications, 
@@ -63,7 +65,8 @@ namespace E4C.ViewModels
             ICalendarSpecifications calendarSpecifications,
             IYearCountSpecifications yearCountSpecifications,
             ITimeZoneSpecifications timeZoneSpecifications,
-            IDateTimeValidations dateTimeValidations)
+            IDateTimeValidations dateTimeValidations,
+            ILocationValidations locationValidations)
         {
             _chartCategorySpecifications = chartCategorySpecifications;
             _roddenRatingSpecifications = roddenRatingSpecifications;
@@ -71,6 +74,7 @@ namespace E4C.ViewModels
             _yearCountSpecifications = yearCountSpecifications;
             _timeZoneSpecifications = timeZoneSpecifications;
             _dateTimeValidations = dateTimeValidations;
+            _locationValidations = locationValidations;
 
             ChartCategoryItems = new List<ChartCategoryDetails>();
             RoddenRatingItems = new List<RoddenRatingDetails>();
@@ -142,12 +146,19 @@ namespace E4C.ViewModels
             }
             List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputYear, InputMonth, InputDay, InputCalendar, InputYearCount);
             List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputHour, InputMinute, InputSecond);
-            // check geographic longitude and latitude
-            // if timezone == LMT check values for LMT
-
+            List<int> _geoLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputLongDegrees, InputLongMinutes, InputLongSeconds);
+            List<int> _geoLatitudeErrors = _locationValidations.ValidateGeoLatitude(InputLatDegrees, InputLatMinutes, InputLatSeconds);
+            List<int> _lmtLongitudeErrors = new();
+            if (InputTimeZone == TimeZones.LMT)
+            {
+                _lmtLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputLmtLongDegrees, InputLmtLongMinutes, InputLmtLongSeconds);
+            }
             List<int> _allErrors = new();
             _allErrors.AddRange(_dateErrors);
             _allErrors.AddRange(_timeErrors);
+            _allErrors.AddRange(_geoLongitudeErrors);
+            _allErrors.AddRange(_geoLatitudeErrors);
+            _allErrors.AddRange(_lmtLongitudeErrors);
             return _allErrors;
         }
 

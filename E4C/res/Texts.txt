@@ -63,6 +63,9 @@ common.btnclose = Close
 common.btnhelp = Help
 common.error.date = Please correct input for the date
 common.error.general = Enigma did find errors
+common.error.geolat = Please correct input for the latitude
+common.error.geolong = Please correct input for the longitude
+common.error.lmtlong = Please correct input for the longitude of the locally defined time zone
 common.error.time = Please correct input for the time
 common.error.title = Errors!
 -------------------------------- References ------------

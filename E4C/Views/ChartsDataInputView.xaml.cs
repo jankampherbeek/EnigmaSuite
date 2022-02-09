@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using E4C.Views.ViewHelpers;
 using E4C.ViewModels;
 using E4C.Models.Domain;
+using System.Windows.Media;
 
 namespace E4C.Views
 {
@@ -40,13 +41,62 @@ namespace E4C.Views
         }
 
 
+        private void RemoveErrorIndications()
+        {
+            ShowDateIsValid(true);
+            ShowTimeIsValid(true);
+            ShowGeoLongIsValid(true);
+            ShowGeoLatIsValid(true);
+            ShowLmtLongIsValid(true);
+        }
+
+        private void ShowDateIsValid(bool valid)
+        {
+            SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
+            DateYearValue.Foreground = _brush;
+            DateMonthValue.Foreground = _brush;
+            DateDayValue.Foreground = _brush;
+        }
+
+        private void ShowTimeIsValid(bool valid)
+        {
+            SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
+            TimeHourValue.Foreground = _brush;
+            TimeMinuteValue.Foreground = _brush;
+            TimeSecondValue.Foreground = _brush;
+        }
+
+        private void ShowGeoLongIsValid(bool valid)
+        {
+            SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
+            LongDegreeValue.Foreground = _brush;
+            LongMinuteValue.Foreground = _brush;
+            LongSecondsValue.Foreground = _brush;
+        }
+
+        private void ShowGeoLatIsValid(bool valid)
+        {
+            SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
+            LatDegreeValue.Foreground = _brush;
+            LatMinuteValue.Foreground = _brush;
+            LatSecondsValue.Foreground = _brush;
+        }
+
+        private void ShowLmtLongIsValid(bool valid)
+        {
+            SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
+            LmtDegreeValue.Foreground = _brush;
+            LmtMinuteValue.Foreground = _brush;
+            LmtSecondValue.Foreground = _brush;
+        }
+
+
+
         private void OnSubmit(object sender, RoutedEventArgs e)
         {
             UpdateViewModel();
+            RemoveErrorIndications();
 
-
-            //Date.Foreground = Brushes.Black;
-            //Time.Foreground = Brushes.Black;
             List<int> _errors = _viewModel.ValidateInput();
             if (_errors.Count > 0)
             {
@@ -66,14 +116,28 @@ namespace E4C.Views
                 if (error == ErrorCodes.ERR_INVALID_DATE)
                 {
                     _messageText += _rosetta.TextForId("common.error.date") + ".\n";
-      //              Date.Foreground = Brushes.Red;
+                    ShowDateIsValid(false);
                 }
                 if (error == ErrorCodes.ERR_INVALID_TIME)
                 {
                     _messageText += _rosetta.TextForId("common.error.time") + ".\n";
-      //              Time.Foreground = Brushes.Red;
+                    ShowTimeIsValid(false);
                 }
-
+                if (error == ErrorCodes.ERR_INVALID_GEOLON)
+                {
+                    _messageText += _rosetta.TextForId("common.error.geolong") + ".\n";
+                    ShowGeoLongIsValid(false);
+                }
+                if (error == ErrorCodes.ERR_INVALID_GEOLAT)
+                {
+                    _messageText += _rosetta.TextForId("common.error.geolat") + ".\n";
+                    ShowGeoLatIsValid(false);
+                }
+                if (error == ErrorCodes.ERR_INVALID_GEOLON_LMT)
+                {
+                    _messageText += _rosetta.TextForId("common.error.lmtlong") + ".\n";
+                    ShowLmtLongIsValid(false);
+                }
             }
             string _msgBoxTitle = _rosetta.TextForId("common.error.title");
             MessageBoxButton _buttons = MessageBoxButton.OK;
