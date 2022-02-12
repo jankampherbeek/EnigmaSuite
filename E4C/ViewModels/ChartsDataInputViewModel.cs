@@ -27,21 +27,11 @@ namespace E4C.ViewModels
         public string InputLocation { get; set; }
         public string InputSource { get; set; }
         public string InputDescription { get; set; }
-        public string InputYear { get; set; }
-        public string InputMonth { get; set; }
-        public string InputDay { get; set; }
-        public string InputHour { get; set; }
-        public string InputMinute { get; set; }
-        public string InputSecond { get; set; }
-        public string InputLongDegrees { get; set; }
-        public string InputLongMinutes { get; set; }
-        public string InputLongSeconds { get; set; }
-        public string InputLatDegrees { get; set; }
-        public string InputLatMinutes { get; set; }
-        public string InputLatSeconds { get; set; }
-        public string InputLmtLongDegrees { get; set; }
-        public string InputLmtLongMinutes { get; set; }
-        public string InputLmtLongSeconds { get; set; }
+        public string[] InputDate { get; set; }
+        public string[] InputTime { get; set; }
+        public string[] InputGeoLong { get; set; }
+        public string[] InputGeoLat { get; set; }
+        public string[] InputLmtLong { get; set; }
         public bool? InputRbEastSelected { get; set; }
         public bool? InputRbNorthSelected { get; set; }
         public bool? InputRbLmtEastSelected { get; set; }
@@ -144,14 +134,14 @@ namespace E4C.ViewModels
                     "Received the values: InputRbEastSelected " + InputRbEastSelected + " , InputRbNorthSelected " + InputRbNorthSelected + " , InputRbLmtEastSelected " + InputRbLmtEastSelected + " , InputCbDstSelected " + InputCbDstSelected;
                 throw new Exception(ErrorMsg);
             }
-            List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputYear, InputMonth, InputDay, InputCalendar, InputYearCount);
-            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputHour, InputMinute, InputSecond);
-            List<int> _geoLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputLongDegrees, InputLongMinutes, InputLongSeconds);
-            List<int> _geoLatitudeErrors = _locationValidations.ValidateGeoLatitude(InputLatDegrees, InputLatMinutes, InputLatSeconds);
+            List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputDate, InputCalendar, InputYearCount);
+            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputTime);
+            List<int> _geoLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputGeoLong);
+            List<int> _geoLatitudeErrors = _locationValidations.ValidateGeoLatitude(InputGeoLat);
             List<int> _lmtLongitudeErrors = new();
             if (InputTimeZone == TimeZones.LMT)
             {
-                _lmtLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputLmtLongDegrees, InputLmtLongMinutes, InputLmtLongSeconds);
+                _lmtLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputLmtLong);
             }
             List<int> _allErrors = new();
             _allErrors.AddRange(_dateErrors);

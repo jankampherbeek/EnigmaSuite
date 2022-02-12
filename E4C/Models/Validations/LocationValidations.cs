@@ -17,32 +17,28 @@ namespace E4C.Models.Validations
         /// <summary>
         /// Validate the input for geographic longitude. Checks the values for degrees, minutes and seconds.
         /// </summary>
-        /// <param name="degrees">The text with the degrees.</param>
-        /// <param name="minutes">The text with the minutes.</param>
-        /// <param name="seconds">The text with the seconds,</param>
+        /// <param name="geoLong">String array with degrees, minutes and seconds for geographic longitude, in that sequence.</param>
         /// <returns>List with error codes.</returns>
-        public List<int> ValidateGeoLongitude(string degrees, string minutes, string seconds);
+        public List<int> ValidateGeoLongitude(string[] geoLong);
 
         /// <summary>
         /// Validate the input for geographic longitude. Checks the values for degrees, minutes and seconds.
         /// </summary>
-        /// <param name="degrees">The text with the degrees.</param>
-        /// <param name="minutes">The text with the minutes.</param>
-        /// <param name="seconds">The text with the seconds,</param>
+        /// <param name="geoLong">String array with degrees, minutes and seconds for geographic latitude, in that sequence.</param>
         /// <returns>List with error codes.</returns>
-        public List<int> ValidateGeoLatitude(string degrees, string minutes, string seconds);
+        public List<int> ValidateGeoLatitude(string[] geoLong);
     }
 
 
     public class LocationValidations : ILocationValidations
     {
 
-        public List<int> ValidateGeoLongitude(string degrees, string minutes, string seconds)
+        public List<int> ValidateGeoLongitude(string[] geoLong)
         {
             List<int> _errorCodes = new();
             try
             {
-                int[] _parsedValues = ParseDegreesMinutesSeconds(degrees, minutes, seconds);
+                int[] _parsedValues = ParseDegreesMinutesSeconds(geoLong);
                 if (!CheckDegreesMinutesSeconds(_parsedValues, Constants.GEOLON_DEGREE_MIN, Constants.GEOLON_DEGREE_MAX))
                 {
                     _errorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON);
@@ -60,12 +56,12 @@ namespace E4C.Models.Validations
             return _errorCodes;
         }
 
-        public List<int> ValidateGeoLatitude(string degrees, string minutes, string seconds)
+        public List<int> ValidateGeoLatitude(string[] geoLong)
         {
             List<int> _errorCodes = new();
             try
             {
-                int[] _parsedValues = ParseDegreesMinutesSeconds(degrees, minutes, seconds);
+                int[] _parsedValues = ParseDegreesMinutesSeconds(geoLong);
                 if (!CheckDegreesMinutesSeconds(_parsedValues, Constants.GEOLAT_DEGREE_MIN, Constants.GEOLAT_DEGREE_MAX))
                 {
                     _errorCodes.Add(ErrorCodes.ERR_INVALID_GEOLAT);
@@ -78,12 +74,12 @@ namespace E4C.Models.Validations
             return _errorCodes;
         }
 
-        private int[] ParseDegreesMinutesSeconds(string degrees, string minutes, string seconds)
+        private int[] ParseDegreesMinutesSeconds(string[] geoLong)
         {
             int[] _parsedValues = new int[3];
-            _parsedValues[0] = int.Parse(degrees);
-            _parsedValues[1] = int.Parse(minutes);
-            _parsedValues[2] = int.Parse(seconds);
+            _parsedValues[0] = int.Parse(geoLong[0]);
+            _parsedValues[1] = int.Parse(geoLong[1]);
+            _parsedValues[2] = int.Parse(geoLong[2]);
             return _parsedValues; 
         }
 

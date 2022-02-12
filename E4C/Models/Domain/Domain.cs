@@ -128,6 +128,117 @@ namespace E4C.Models.Domain
     }
 
     /// <summary>
+    /// Metadata for a chart.
+    /// </summary>
+    public record MetaData
+    {
+        public readonly string Name;
+        public readonly string Description;
+        public readonly string Source;
+        public readonly ChartCategories ChartCategory;
+        public readonly RoddenRatings RoddenRating;
+
+        /// <summary>
+        /// Constructor for record MetaData.
+        /// </summary>
+        /// <param name="name">Name for the chart.</param>
+        /// <param name="description">A descriptive text, possibly an empty string.</param>
+        /// <param name="source">An indication for the source, possibly an empty string.</param>
+        /// <param name="chartCategory">The category for teh chart, from enum ChartCategories.</param>
+        /// <param name="roddenRating">The Rodden Rating, from the enum RoddenRatings.</param>
+        public MetaData(string name, string description, string source, ChartCategories chartCategory, RoddenRatings roddenRating)
+        {
+            Name = name;
+            Description = description;
+            Source = source;
+            ChartCategory = chartCategory;
+            RoddenRating = roddenRating;
+        }
+    }
+
+    /// <summary>
+    /// Location related data.
+    /// </summary>
+    public record Location
+    {
+        public readonly string LocationFullName;
+        public readonly double GeoLong;
+        public readonly double GeoLat;
+
+        /// <summary>
+        /// Constructor for record Location
+        /// </summary>
+        /// <param name="locationFullName">Name and sexagesimal coordinatevalues for a location.</param>
+        /// <param name="geoLong">Value for geographic longitude.</param>
+        /// <param name="geoLat">Value for geographic latitude.</param>
+        public Location(string locationFullName, double geoLong, double geoLat)
+        {
+            LocationFullName = locationFullName;
+            GeoLong = geoLong;
+            GeoLat = geoLat;
+        }
+    }
+
+    /// <summary>
+    /// Date/time related data.
+    /// </summary>
+    public record FullDateTime
+    {
+        public readonly string DateText;
+        public readonly string TimeText;
+        public readonly double JulianDayForEt;
+        public readonly SimpleDateTime DateTime;
+
+        /// <summary>
+        /// Constructor for record FullDateTime.
+        /// </summary>
+        /// <param name="dateText">Textual presentation for the date.</param>
+        /// <param name="timeText">Textual presentation for the time.</param>
+        /// <param name="julianDayForEt">Julian Day for ephemeris time.</param>
+        /// <param name="dateTime">Instance of SimpleDateTime with values for date and time.</param>
+        public FullDateTime(string dateText, string timeText, double julianDayForEt, SimpleDateTime dateTime)
+        {
+            DateText = dateText;
+            TimeText = timeText;
+            JulianDayForEt = julianDayForEt;
+            DateTime = dateTime;
+        }
+    }
+
+    /// <summary>
+    /// Data for a chart.
+    /// </summary>
+    /// <remarks>
+    /// Data required for calculations and data to be shown to the user. Does not contain the astronomical positions.
+    /// </remarks>
+    public record ChartData
+    {
+        public readonly int Id;
+        public int TempId { get; set; }
+        public readonly MetaData ChartMetaData;
+        public readonly Location ChartLocation;
+        public readonly FullDateTime ChartDateTime;
+
+        /// <summary>
+        /// Constructor for record ChartData.
+        /// </summary>
+        /// <param name="id">Unique id that also serves as a primary key in the database.</param>
+        /// <param name="tempId">Temporary id, unique within the set of charts that are currently avaiable to the user.</param>
+        /// <param name="metaData">Metadata for this chart.</param>
+        /// <param name="location">Location related data.</param>
+        /// <param name="fullDateTime">Date/time related data.</param>
+        public ChartData(int id, int tempId, MetaData metaData, Location location, FullDateTime fullDateTime)
+        {
+            Id = id;
+            TempId = tempId;
+            ChartMetaData = metaData;
+            ChartLocation = location;
+            ChartDateTime = fullDateTime;
+        }
+        
+    }
+
+    /// <summary>
     /// Combines the flags for the Swiss Ephemeris to a single value.
     /// </summary>
     public class SeFlags
@@ -142,6 +253,7 @@ namespace E4C.Models.Domain
             if (zodiacType == ZodiacTypes.Sidereal) _flags |= Constants.SEFLG_SIDEREAL;
             return _flags;
         }
-
     }
+
+
 }

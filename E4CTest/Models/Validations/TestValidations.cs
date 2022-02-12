@@ -18,26 +18,22 @@ namespace E4CTest
         [TestMethod]
         public void TestDateHappyFlow()
         {
-            string year = "1953";
-            string month = "1";
-            string day = "29";
+            string[] inputDate = new string[] {"1953", "1", "29" }; 
             var mock = new Mock<ICalendarCalc>();
             mock.Setup(p => p.ValidDateAndtime(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian))).Returns(true);
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateDate(year, month, day, Calendars.Gregorian, YearCounts.CE);
+            List<int> errors = dateTimeValidations.ValidateDate(inputDate, Calendars.Gregorian, YearCounts.CE);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestDateNonNumerics()
         {
-            string year = "1953";
-            string month = "Januar";
-            string day = "29";
+            string[] inputDate = new string[] { "1953", "Januar", "29" };
             var mock = new Mock<ICalendarCalc>();
             mock.Setup(p => p.ValidDateAndtime(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian))).Returns(true);
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateDate(year, month, day, Calendars.Gregorian, YearCounts.CE);
+            List<int> errors = dateTimeValidations.ValidateDate(inputDate, Calendars.Gregorian, YearCounts.CE);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_DATE, errors[0]);
         }
@@ -45,13 +41,13 @@ namespace E4CTest
         [TestMethod]
         public void TestDateTwoElements()
         {
-            string year = "1953";
-            string month = "1";
-            string day = "";
+
+            string[] inputDate = new string[] { "1953", "1", "" };
+
             var mock = new Mock<ICalendarCalc>();
             mock.Setup(p => p.ValidDateAndtime(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian))).Returns(true);
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateDate(year, month, day, Calendars.Gregorian, YearCounts.CE);
+            List<int> errors = dateTimeValidations.ValidateDate(inputDate, Calendars.Gregorian, YearCounts.CE);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_DATE, errors[0]);
         }
@@ -59,26 +55,22 @@ namespace E4CTest
         [TestMethod]
         public void TestDateLeapYear()
         {
-            string year = "2024";
-            string month = "2";
-            string day = "29";
+            string[] inputDate = new string[] { "2024", "2", "29" };
             var mock = new Mock<ICalendarCalc>();
             mock.Setup(p => p.ValidDateAndtime(new SimpleDateTime(2024, 2, 29, 0.0, Calendars.Gregorian))).Returns(true);
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateDate(year, month, day, Calendars.Gregorian, YearCounts.CE);
+            List<int> errors = dateTimeValidations.ValidateDate(inputDate, Calendars.Gregorian, YearCounts.CE);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestDateNoLeapYear()
         {
-            string year = "2023";
-            string month = "2";
-            string day = "29";
+            string[] inputDate = new string[] { "2023", "2", "29" };
             var mock = new Mock<ICalendarCalc>();
             mock.Setup(p => p.ValidDateAndtime(new SimpleDateTime(2023, 2, 29, 0.0, Calendars.Gregorian))).Returns(false);
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateDate(year, month, day, Calendars.Gregorian, YearCounts.CE);
+            List<int> errors = dateTimeValidations.ValidateDate(inputDate, Calendars.Gregorian, YearCounts.CE);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_DATE, errors[0]);
         }
@@ -86,36 +78,30 @@ namespace E4CTest
         [TestMethod]
         public void TestTimeHappyFlow()
         {
-            string hour = "10";
-            string minute = "30";
-            string second = "0";
+            string[] inputTime = new string[] { "10", "30", "0"};
             var mock = new Mock<ICalendarCalc>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateTime(hour, minute, second);
+            List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestTimeDefaultSeconds()
         {
-            string hour = "10";
-            string minute = "30";
-            string second = "";
+            string[] inputTime = new string[] { "10", "30", "" };
             var mock = new Mock<ICalendarCalc>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateTime(hour, minute, second);
+            List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestNonNumeric()
         {
-            string hour = "10";
-            string minute = "30";
-            string second = "ab";
+            string[] inputTime = new string[] { "10", "30", "ab" };
             var mock = new Mock<ICalendarCalc>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateTime(hour, minute, second);
+            List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_TIME, errors[0]);
         }
@@ -123,25 +109,21 @@ namespace E4CTest
         [TestMethod]
         public void TestRangeTooLarge()
         {
-            string hour = "24";
-            string minute = "0";
-            string second = "0";
+            string[] inputTime = new string[] { "24", "0", "0" };
             var mock = new Mock<ICalendarCalc>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateTime(hour, minute, second);
+            List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_TIME, errors[0]);
         }
 
         [TestMethod]
         public void TestRangeTooSmall()
-        {
-            string hour = "-1";
-            string minute = "0";
-            string second = "0";
+        { 
+            string[] inputTime = new string[] { "-1", "0", "0" };
             var mock = new Mock<ICalendarCalc>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateTime(hour, minute, second);
+            List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_TIME, errors[0]);
         }
@@ -149,12 +131,10 @@ namespace E4CTest
         [TestMethod]
         public void TestElementsOutOfRange()
         {
-            string hour = "10";
-            string minute = "60";
-            string second = "0";
+            string[] inputTime = new string[] { "10", "60", "0" };
             var mock = new Mock<ICalendarCalc>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
-            List<int> errors = dateTimeValidations.ValidateTime(hour, minute, second);
+            List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_TIME, errors[0]);
         }
@@ -167,22 +147,18 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeHappyFlow()
         {
-            string degrees = "6";
-            string minutes = "54";
-            string seconds = "0";
+            string[] geoLongInput = { "6", "54", "0"};
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestLongitudeNonNumerics()
         {
-            string degrees = "6";
-            string minutes = "abc";
-            string seconds = "0";
+            string[] geoLongInput = { "6", "abc", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -190,11 +166,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeSecondsEmpty()
         {
-            string degrees = "6";
-            string minutes = "54";
-            string seconds = "";
+            string[] geoLongInput = { "6", "54", "" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -202,11 +176,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeDegreesTooSmall()
         {
-            string degrees = "-1";
-            string minutes = "54";
-            string seconds = "0";
+            string[] geoLongInput = { "-1", "54", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -214,11 +186,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeDegreesTooLarge()
         {
-            string degrees = "200";
-            string minutes = "54";
-            string seconds = "0";
+            string[] geoLongInput = { "200", "54", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -226,11 +196,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeMinutesTooSmall()
         {
-            string degrees = "6";
-            string minutes = "-54";
-            string seconds = "0";
+            string[] geoLongInput = { "6", "-54", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -238,11 +206,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeMinutesTooLarge()
         {
-            string degrees = "6";
-            string minutes = "154";
-            string seconds = "0";
+            string[] geoLongInput = { "6", "154", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -250,11 +216,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeSecondsTooSmall()
         {
-            string degrees = "6";
-            string minutes = "54";
-            string seconds = "-10";
+            string[] geoLongInput = { "6", "54", "-10" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -262,11 +226,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeSecondsTooLarge()
         {
-            string degrees = "6";
-            string minutes = "54";
-            string seconds = "60";
+            string[] geoLongInput = { "6", "54", "60" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -274,33 +236,27 @@ namespace E4CTest
         [TestMethod]
         public void TestLongitudeMaxValues()
         {
-            string degrees = "180";
-            string minutes = "0";
-            string seconds = "0";
+            string[] geoLongInput = { "180", "0", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestLongitudeMinValues()
         {
-            string degrees = "0";
-            string minutes = "0";
-            string seconds = "0";
+            string[] geoLongInput = { "0", "0", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestLongitudeMaxPlusOneSecond()
         {
-            string degrees = "180";
-            string minutes = "0";
-            string seconds = "1";
+            string[] geoLongInput = { "180", "0", "1" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLongitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLongitude(geoLongInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLON, errors[0]);
         }
@@ -308,22 +264,19 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeHappyFlow()
         {
-            string degrees = "52";
-            string minutes = "13";
-            string seconds = "10";
+            string[] geoLatInput = { "52", "13", "10" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestLatitudeNonNumerics()
         {
+            string[] geoLatInput = { "x", "13", "10" };
             string degrees = "x";
-            string minutes = "13";
-            string seconds = "10";
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -331,11 +284,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeSecondsEmpty()
         {
-            string degrees = "52";
-            string minutes = "13";
-            string seconds = "";
+            string[] geoLatInput = { "52", "13", "" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -343,11 +294,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeDegreesTooSmall()
         {
-            string degrees = "-1";
-            string minutes = "13";
-            string seconds = "0";
+            string[] geoLatInput = { "-1", "13", "10" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -355,11 +304,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeDegreesTooLarge()
         {
-            string degrees = "100";
-            string minutes = "10";
-            string seconds = "0";
+            string[] geoLatInput = { "100", "10", "10" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -367,11 +314,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeMinutesTooSmall()
         {
-            string degrees = "52";
-            string minutes = "-13";
-            string seconds = "0";
+            string[] geoLatInput = { "52", "-13", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -379,11 +324,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeMinutesTooLarge()
         {
-            string degrees = "52";
-            string minutes = "60";
-            string seconds = "0";
+            string[] geoLatInput = { "52", "60", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -391,11 +334,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeSecondsTooSmall()
         {
-            string degrees = "52";
-            string minutes = "13";
-            string seconds = "-1";
+            string[] geoLatInput = { "52", "13", "-1" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -403,11 +344,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeSecondsTooLarge()
         {
-            string degrees = "52";
-            string minutes = "13";
-            string seconds = "60";
+            string[] geoLatInput = { "52", "13", "60" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -415,22 +354,18 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeMaxValues()
         {
-            string degrees = "89";
-            string minutes = "59";
-            string seconds = "59";
+            string[] geoLatInput = { "89", "59", "59" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.AreEqual(0, errors.Count);
         }
 
         [TestMethod]
         public void TestLatitudeMaxValuesPlusOneSecond()
         {
-            string degrees = "90";
-            string minutes = "0";
-            string seconds = "0";
+            string[] geoLatInput = { "90", "0", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);
             Assert.AreEqual(ErrorCodes.ERR_INVALID_GEOLAT, errors[0]);
         }
@@ -438,11 +373,9 @@ namespace E4CTest
         [TestMethod]
         public void TestLatitudeMinValues()
         {
-            string degrees = "0";
-            string minutes = "0";
-            string seconds = "0";
+            string[] geoLatInput = { "0", "0", "0" };
             LocationValidations locationValidations = new();
-            List<int> errors = locationValidations.ValidateGeoLatitude(degrees, minutes, seconds);
+            List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.AreEqual(0, errors.Count);
         }
 

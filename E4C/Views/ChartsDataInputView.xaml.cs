@@ -18,8 +18,6 @@ namespace E4C.Views
     {
         readonly private ChartsDataInputViewModel _viewModel;
         readonly private IRosetta _rosetta;
-        private string _generalName = "";
-        private string _sourceValue = "";
         private List<ChartCategoryDetails> _chartCategoryItems;
         private List<RoddenRatingDetails> _roddenRatingItems;
         private List<CalendarDetails> _calendarItems;
@@ -53,41 +51,41 @@ namespace E4C.Views
         private void ShowDateIsValid(bool valid)
         {
             SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
-            DateYearValue.Foreground = _brush;
-            DateMonthValue.Foreground = _brush;
-            DateDayValue.Foreground = _brush;
+            DateYearInput.Foreground = _brush;
+            DateMonthInput.Foreground = _brush;
+            DateDayInput.Foreground = _brush;
         }
 
         private void ShowTimeIsValid(bool valid)
         {
             SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
-            TimeHourValue.Foreground = _brush;
-            TimeMinuteValue.Foreground = _brush;
-            TimeSecondValue.Foreground = _brush;
+            TimeHourInput.Foreground = _brush;
+            TimeMinuteInput.Foreground = _brush;
+            TimeSecondInput.Foreground = _brush;
         }
 
         private void ShowGeoLongIsValid(bool valid)
         {
             SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
-            LongDegreeValue.Foreground = _brush;
-            LongMinuteValue.Foreground = _brush;
-            LongSecondsValue.Foreground = _brush;
+            LongDegreeInput.Foreground = _brush;
+            LongMinuteInput.Foreground = _brush;
+            LongSecondInput.Foreground = _brush;
         }
 
         private void ShowGeoLatIsValid(bool valid)
         {
             SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
-            LatDegreeValue.Foreground = _brush;
-            LatMinuteValue.Foreground = _brush;
-            LatSecondsValue.Foreground = _brush;
+            LatDegreeInput.Foreground = _brush;
+            LatMinuteInput.Foreground = _brush;
+            LatSecondInput.Foreground = _brush;
         }
 
         private void ShowLmtLongIsValid(bool valid)
         {
             SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
-            LmtDegreeValue.Foreground = _brush;
-            LmtMinuteValue.Foreground = _brush;
-            LmtSecondValue.Foreground = _brush;
+            LmtDegreeInput.Foreground = _brush;
+            LmtMinuteInput.Foreground = _brush;
+            LmtSecondInput.Foreground = _brush;
         }
 
 
@@ -150,7 +148,7 @@ namespace E4C.Views
             FormTitle.Text = _rosetta.TextForId("charts.datainputchart.titleform");
             GeneralTitle.Text = _rosetta.TextForId("charts.datainputchart.titlegeneral");
             NameText.Text = _rosetta.TextForId("charts.datainputchart.name");
-            SubjectText.Text = _rosetta.TextForId("charts.datainputchart.subject");
+            ChartCatText.Text = _rosetta.TextForId("charts.datainputchart.subject");
             RatingText.Text = _rosetta.TextForId("charts.datainputchart.rating");
             SourceText.Text = _rosetta.TextForId("charts.datainputchart.source");
             DescriptionText.Text = _rosetta.TextForId("charts.datainputchart.description");
@@ -208,9 +206,9 @@ namespace E4C.Views
             {
                 foreach (var _chartCategoryItem in ChartCategoryItems)
                 {
-                    SubjectInput.Items.Add(_rosetta.TextForId(_chartCategoryItem.TextId));
+                    ChartCatInput.Items.Add(_rosetta.TextForId(_chartCategoryItem.TextId));
                 }
-                SubjectInput.SelectedIndex = 0;
+                ChartCatInput.SelectedIndex = 0;
             }
         }
 
@@ -234,9 +232,9 @@ namespace E4C.Views
             {
                 foreach (var _calendarItem in CalendarItems)
                 {
-                    DateCalendarValue.Items.Add(_rosetta.TextForId(_calendarItem.TextId));
+                    DateCalendarInput.Items.Add(_rosetta.TextForId(_calendarItem.TextId));
                 }
-                DateCalendarValue.SelectedIndex = 0;
+                DateCalendarInput.SelectedIndex = 0;
             }
         }
 
@@ -247,9 +245,9 @@ namespace E4C.Views
             {
                 foreach (var _yearCountItem in YearCountItems)
                 {
-                    DateYearCountValue.Items.Add(_rosetta.TextForId(_yearCountItem.TextId));
+                    DateYearCountInput.Items.Add(_rosetta.TextForId(_yearCountItem.TextId));
                 }
-                DateYearCountValue.SelectedIndex = 0;
+                DateYearCountInput.SelectedIndex = 0;
             }
         }
 
@@ -260,42 +258,32 @@ namespace E4C.Views
             {
                 foreach (var _timeZoneItem in TimeZoneItems)
                 {
-                    TimeZoneValue.Items.Add(_rosetta.TextForId(_timeZoneItem.TextId));  
+                    TimeZoneInput.Items.Add(_rosetta.TextForId(_timeZoneItem.TextId));  
                 }
-                TimeZoneValue.SelectedIndex = 0;
+                TimeZoneInput.SelectedIndex = 0;
             }
         }
 
         public void UpdateViewModel()
         {
-            _viewModel.ChartCategoryIndex = SubjectInput.SelectedIndex;
+            _viewModel.ChartCategoryIndex = ChartCatInput.SelectedIndex;
             _viewModel.RoddenRatingIndex = RatingInput.SelectedIndex;
-            _viewModel.CalendarIndex = DateCalendarValue.SelectedIndex;
-            _viewModel.YearCountIndex = DateYearCountValue.SelectedIndex;
-            _viewModel.TimeZoneIndex = TimeZoneValue.SelectedIndex;
+            _viewModel.CalendarIndex = DateCalendarInput.SelectedIndex;
+            _viewModel.YearCountIndex = DateYearCountInput.SelectedIndex;
+            _viewModel.TimeZoneIndex = TimeZoneInput.SelectedIndex;
             _viewModel.InputName = NameInput.Text;
             _viewModel.InputSource = SourceInput.Text;
             _viewModel.InputDescription = DescriptionInput.Text;
             _viewModel.InputLocation = LocationNameInput.Text;
-            _viewModel.InputLongDegrees = LongDegreeValue.Text;
-            _viewModel.InputLongMinutes = LongMinuteValue.Text;
-            _viewModel.InputLongSeconds = LongSecondsValue.Text;
+            _viewModel.InputGeoLong = new string[] {LongDegreeInput.Text, LongMinuteInput.Text, LongSecondInput.Text};
+            _viewModel.InputGeoLat = new string[] {LatDegreeInput.Text, LatMinuteInput.Text, LatSecondInput.Text};
+            _viewModel.InputDate = new string[] { DateYearInput.Text, DateMonthInput.Text, DateDayInput.Text};
+            _viewModel.InputTime = new string[] { TimeHourInput.Text, TimeMinuteInput.Text, TimeSecondInput.Text };
+            _viewModel.InputLmtLong = new string[] {LmtDegreeInput.Text, LmtMinuteInput.Text, LmtSecondInput.Text};
             _viewModel.InputRbEastSelected = RbEast.IsChecked;
-            _viewModel.InputLatDegrees = LatDegreeValue.Text;
-            _viewModel.InputLatMinutes = LatMinuteValue.Text;
-            _viewModel.InputLatSeconds = LatSecondsValue.Text;
-            _viewModel.InputRbNorthSelected = RbNorth.IsChecked;
-            _viewModel.InputYear = DateYearValue.Text;
-            _viewModel.InputMonth = DateMonthValue.Text;
-            _viewModel.InputDay = DateDayValue.Text;
-            _viewModel.InputHour = TimeHourValue.Text;
-            _viewModel.InputMinute = TimeMinuteValue.Text;
-            _viewModel.InputSecond = TimeSecondValue.Text;
-            _viewModel.InputCbDstSelected = TimeDstValue.IsChecked;
-            _viewModel.InputLmtLongDegrees = LmtDegreeValue.Text;
-            _viewModel.InputLmtLongMinutes = LmtMinuteValue.Text;
-            _viewModel.InputLmtLongSeconds = LmtSecondValue.Text;
             _viewModel.InputRbLmtEastSelected = RbZoneEast.IsChecked;
+            _viewModel.InputRbNorthSelected = RbNorth.IsChecked;
+            _viewModel.InputCbDstSelected = TimeDstInput.IsChecked;
             _viewModel.RetrieveComboBoxValues();
         }
 

@@ -17,22 +17,18 @@ namespace E4C.Models.Validations
         /// <summary>
         /// Check the validity of input for a date. 
         /// </summary>
-        /// <param name="year">The year.</param>
-        /// <param name="month">The month.</param>
-        /// <param name="day">The day.</param>
+        /// <param name="inputDate">Array with strings for year, month and day, in that sequence.</param>
         /// <param name="calendar">Gregorian or Julian calendar.</param>
         /// <param name="yearCount">Year count: BCE, CE or astronomical.</param>
         /// <returns>List with error codes.</returns>
-        public List<int> ValidateDate(string year, string month, string day, Calendars calendar, YearCounts yearCount);
+        public List<int> ValidateDate(string[] inputDate, Calendars calendar, YearCounts yearCount);
 
         /// <summary>
         /// Check the validity of input for a time.
         /// </summary>
-        /// <param name="hour">The hour (0..23).</param>
-        /// <param name="minute">The minute (0..59).</param>
-        /// <param name="second">The seconds (0..59). Is set to 0 if empty.</param>
+        /// <param name="inputTime">Array with strings for hour, minute and second in that sequence.</param>
         /// <returns>List with error codes.</returns>
-        public List<int> ValidateTime(string hour, string minute, string second);
+        public List<int> ValidateTime(string[] inputTime);
     }
 
 
@@ -45,15 +41,15 @@ namespace E4C.Models.Validations
             _calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
         }
 
-        public List<int> ValidateDate(string year, string month, string day, Calendars calendar, YearCounts yearCount)
+        public List<int> ValidateDate(string[] inputDate, Calendars calendar, YearCounts yearCount)
         {
             List<int> _errorCodes = new();
             int _yearValue, _monthValue, _dayValue;
             try
             {
-                _yearValue = int.Parse(year);
-                _monthValue = int.Parse(month);
-                _dayValue = int.Parse(day);
+                _yearValue = int.Parse(inputDate[0]);
+                _monthValue = int.Parse(inputDate[1]);
+                _dayValue = int.Parse(inputDate[2]);
             }
             catch (Exception ex)
             {
@@ -74,15 +70,15 @@ namespace E4C.Models.Validations
             return _errorCodes;
         }
 
-        public List<int> ValidateTime(string hour, string minute, string second)
+        public List<int> ValidateTime(string[] inputTime)
         {
             List<int> _errorCodes = new();
             int _hourValue, _minuteValue, _secondValue;
-            string _secondText = String.IsNullOrWhiteSpace(second) ? "0" : second;
+            string _secondText = String.IsNullOrWhiteSpace(inputTime[2]) ? "0" : inputTime[2];
             try
             {
-                _hourValue = int.Parse(hour);
-                _minuteValue = int.Parse(minute);
+                _hourValue = int.Parse(inputTime[0]);
+                _minuteValue = int.Parse(inputTime[1]);
                 _secondValue = int.Parse(_secondText);
             }
             catch (Exception ex)

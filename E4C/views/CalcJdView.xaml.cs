@@ -95,12 +95,8 @@ namespace E4C.Views
 
         private void UpdateViewModel()
         {
-            _calcJdViewModel.InputYear = DateYearValue.Text;
-            _calcJdViewModel.InputMonth = DateMonthValue.Text;
-            _calcJdViewModel.InputDay = DateDayValue.Text;
-            _calcJdViewModel.InputHour = TimeHourValue.Text;
-            _calcJdViewModel.InputMinute = TimeMinuteValue.Text;
-            _calcJdViewModel.InputSecond = TimeSecondValue.Text;
+            _calcJdViewModel.InputDate = new string[] { DateYearInput.Text, DateMonthInput.Text, DateDayInput.Text };
+            _calcJdViewModel.InputTime = new string[] { TimeHourInput.Text, TimeMinuteInput.Text, TimeSecondInput.Text };
             _calcJdViewModel.InputCalendar = _calendarItems[DateCalendarCombo.SelectedIndex].Calendar;
             _calcJdViewModel.InputYearCount = _yearCountItems[DateYearCountCombo.SelectedIndex].YearCount;
         }

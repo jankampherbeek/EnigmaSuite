@@ -974,4 +974,16 @@ namespace E4C.Models.Domain
 
     #endregion
 
+    #region Location related
+    public enum Directions4GeoLong
+    {
+        East = 1, West = -1
+    }
+
+    public enum Directions4GeoLat
+    {
+        North = 1, South = -1
+    }
+
+    #endregion
 }

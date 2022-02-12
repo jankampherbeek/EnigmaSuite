@@ -16,12 +16,8 @@ namespace E4C.ViewModels
         readonly private IDateTimeValidations _dateTimeValidations;
         public List<CalendarDetails> CalendarItems { get; }
         public List<YearCountDetails> YearCountItems { get; }
-        public string InputYear { get; set; }
-        public string InputMonth { get; set; }
-        public string InputDay { get; set; }
-        public string InputHour { get; set; }
-        public string InputMinute { get; set; }
-        public string InputSecond { get; set; }
+        public string[] InputDate { get; set; }
+        public string[] InputTime { get; set; }
         public Calendars InputCalendar { get; set; }
         public YearCounts InputYearCount { get; set; }
 
@@ -45,8 +41,8 @@ namespace E4C.ViewModels
 
         public List<int> ValidateInput()
         {
-            List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputYear, InputMonth, InputDay, InputCalendar, InputYearCount);
-            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputHour, InputMinute, InputSecond);
+            List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputDate, InputCalendar, InputYearCount);
+            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputTime);
             List<int> _allErrors = new();
             _allErrors.AddRange(_dateErrors);
             _allErrors.AddRange(_timeErrors);
@@ -55,11 +51,11 @@ namespace E4C.ViewModels
 
         public string CalculateJd()
         {
-            string _checkedSecond = String.IsNullOrWhiteSpace(InputSecond) ? "0" : InputSecond;
-            double _fractionalTime = int.Parse(InputHour) + (int.Parse(InputMinute) / 60.0) + (int.Parse(_checkedSecond) / 3600.0);
-            int _year = int.Parse(InputYear);
-            int _month = int.Parse(InputMonth);
-            int _day = int.Parse(InputDay);
+            string _checkedSecond = String.IsNullOrWhiteSpace(InputTime[2]) ? "0" : InputTime[2];
+            double _fractionalTime = int.Parse(InputTime[0]) + (int.Parse(InputTime[1]) / 60.0) + (int.Parse(_checkedSecond) / 3600.0);
+            int _year = int.Parse(InputDate[0]);
+            int _month = int.Parse(InputDate[1]);
+            int _day = int.Parse(InputDate[2]);
             // Convert to astronomical yearcount if original yearcount is BCE.
             if (InputYearCount == YearCounts.BCE)
             {
@@ -76,6 +72,7 @@ namespace E4C.ViewModels
                 // todo log error
                 throw new Exception("Error when calculating JD");
             }
+
         }
 
     }

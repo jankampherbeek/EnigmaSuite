@@ -43,18 +43,18 @@
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="2" Name="DateDay" Text="DateDay" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="4" Name="DateCalendar" Text="DateCalendar" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="5" Name="DateYearCount" Text="DateYearCount" FontSize="8" />
-            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="0" Height="18" Name="DateYearValue" />
-            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="1" Height="18" Name="DateMonthValue" />
-            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="2" Height="18" Name="DateDayValue" />
+            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="0" Height="18" Name="DateYearInput" />
+            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="1" Height="18" Name="DateMonthInput" />
+            <TextBox Margin="6 0 6 12" Grid.Row="3" Grid.Column="2" Height="18" Name="DateDayInput" />
             <ComboBox Margin="6 0 6 9" Grid.Row="3" Grid.Column="4" Height="22" Name="DateCalendarCombo" FontSize="10"/>
             <ComboBox Margin="6 0 6 9" Grid.Row="3" Grid.Column="5" Height="22" Name="DateYearCountCombo" FontSize="10"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="9" Name="Time" Text="Time" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="0" Name="TimeHour" Text="Hours" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="1" Name="TimeMinute" Text="Minutes" FontSize="8" />
             <TextBlock Margin="6 0 6 0" Grid.Row="5" Grid.Column="2" Name="TimeSecond" Text="Seconds" FontSize="8" />
-            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="0" Name="TimeHourValue" />
-            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="1" Name="TimeMinuteValue" />
-            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="2" Name="TimeSecondValue" />
+            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="0" Name="TimeHourInput" />
+            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="1" Name="TimeMinuteInput" />
+            <TextBox Margin="6 0 6 9" Grid.Row="6" Grid.Column="2" Name="TimeSecondInput" />
             <Button Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="6" Name="BtnCalculate" Content="BtnCalculate" Margin="12,8,12,8" Height="20" VerticalAlignment="Top" Click="OnSubmit"/>
             <TextBlock Margin="6 0 6 0" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="6" Name="Result" Text="Result" FontWeight="Bold"/>
             <Rectangle Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="3" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
