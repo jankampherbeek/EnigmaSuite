@@ -5,7 +5,11 @@
 using E4C.Models.Astron;
 using E4C.Models.Domain;
 using E4C.Models.Validations;
+using E4C.ViewModels;
+using E4C.Views.ViewHelpers;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 
 namespace E4C.Views
 {
@@ -15,87 +19,115 @@ namespace E4C.Views
     public partial class CalcObliquityView : Window
     {
         readonly private CalcObliquityViewModel _calcObliquityViewModel;
+        readonly private IRosetta _rosetta;
+        private List<CalendarDetails> _calendarItems;
+        public List<CalendarDetails> CalendarItems { get => _calendarItems; set => _calendarItems = value; }
+        private List<YearCountDetails> _yearCountItems;
+        public List<YearCountDetails> YearCountItems { get => _yearCountItems; set => _yearCountItems = value; }
 
-        public CalcObliquityView(CalcObliquityViewModel calcObliquityViewModel)
+
+        public CalcObliquityView(CalcObliquityViewModel calcObliquityViewModel, IRosetta rosetta)
         {
             InitializeComponent();
             _calcObliquityViewModel = calcObliquityViewModel;
+            _rosetta = rosetta;
+            _calendarItems = new List<CalendarDetails>();
+            _yearCountItems = new List<YearCountDetails>();
+            rbtrueobl.IsChecked = true;
             PopulateStaticTexts();
+            PopulateReferences();
         }
 
         private void PopulateStaticTexts()
         {
-            Title = "Enigma Calculations: Obliquity";
-            ObliquityFormTitle.Text = "Calculate Obliquity";
-            LblDate.Content = "Enter the date (format yyyy/mm/dd), use the astronomical yearcount.";
-            LblTime.Content = "Enter the time (format hh:mm:ss) using UT and 24-hour notation.";
-            LblCalendar.Content = "Select the Gregorian or Julian Calendar.";
-            rbgreg.Content = "Gregorian";
-            rbjul.Content = "Julian";
-            rbtrueobl.Content = "True obliquity";
-            rbmeanobl.Content = "Mean obliquity";
-            BtnCalcObliquity.Content = "Calculate Obliquity";
+            Title = _rosetta.TextForId("calc.obliquity.title");
+            FormTitle.Text = _rosetta.TextForId("calc.obliquity.formtitle");
+            Date.Text = _rosetta.TextForId("calc.obliquity.date");
+            DateYear.Text = _rosetta.TextForId("calc.obliquity.year");
+            DateMonth.Text = _rosetta.TextForId("calc.obliquity.month");
+            DateDay.Text = _rosetta.TextForId("calc.obliquity.day");
+            DateCalendar.Text = _rosetta.TextForId("calc.obliquity.calendar");
+            DateYearCount.Text = _rosetta.TextForId("calc.obliquity.yearcount");
+            ObliquityType.Text = _rosetta.TextForId("calc.obliquity.type");
+            rbtrueobl.Content = _rosetta.TextForId("calc.obliquity.true");
+            rbmeanobl.Content = _rosetta.TextForId("calc.obliquity.mean");
+            BtnCalculate.Content = _rosetta.TextForId("calc.obliquity.btncalc");
+            Result.Text = _rosetta.TextForId("calc.obliquity.result");
+            ResultValue.Text = "";
+            BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
+            BtnClose.Content = _rosetta.TextForId("common.btnclose");
+
         }
 
-        private void BtnCalcObliquity_Click(object sender, RoutedEventArgs e)
+
+        private void PopulateReferences()
         {
-            Calendars _calendar = rbgreg.IsChecked == true ? Calendars.Gregorian : Calendars.Julian;
-            bool _typeTrueFlag = rbtrueobl.IsChecked == true;
-            Result.Text = _calcObliquityViewModel.CalculateObliquity(date.Text, time.Text, _calendar, _typeTrueFlag);
+            CalendarItems = _calcObliquityViewModel.CalendarItems;
+            if (CalendarItems != null)
+            {
+                foreach (var _calendarItem in CalendarItems)
+                {
+                    DateCalendarCombo.Items.Add(_rosetta.TextForId(_calendarItem.TextId));
+                }
+                DateCalendarCombo.SelectedIndex = 0;
+            }
+            YearCountItems = _calcObliquityViewModel.YearCountItems;
+            if (YearCountItems != null)
+            {
+                foreach (var _yearCountItem in YearCountItems)
+                {
+                    DateYearCountCombo.Items.Add(_rosetta.TextForId(_yearCountItem.TextId));
+                }
+                DateYearCountCombo.SelectedIndex = 0;
+            }
         }
+
+
+        private void OnSubmit(object sender, RoutedEventArgs e)
+        {
+                UpdateViewModel();
+                Date.Foreground = Brushes.Black;
+                List<int> _errors = _calcObliquityViewModel.ValidateInput();
+                if (_errors.Count > 0)
+                {
+                    HandleErrors(_errors);
+                }
+                else
+                {
+                    ResultValue.Text = _calcObliquityViewModel.CalculateObliquity();
+                }
+        }
+
+        private void UpdateViewModel()
+        {
+            _calcObliquityViewModel.InputDate = new string[] { DateYearInput.Text, DateMonthInput.Text, DateDayInput.Text };
+            _calcObliquityViewModel.InputCalendar = _calendarItems[DateCalendarCombo.SelectedIndex].Calendar;
+            _calcObliquityViewModel.InputYearCount = _yearCountItems[DateYearCountCombo.SelectedIndex].YearCount;
+            _calcObliquityViewModel.UseTrueObliquity = (bool)rbtrueobl.IsChecked;
+        }
+
+        private void HandleErrors(List<int> errors)
+        {
+            string _messageText = _rosetta.TextForId("common.error.general") + ":\n";
+            foreach (int error in errors)
+            {
+                if (error == ErrorCodes.ERR_INVALID_DATE)
+                {
+                    _messageText += _rosetta.TextForId("common.error.date") + ".\n";
+                    Date.Foreground = Brushes.Red;
+                }
+            }
+            string _msgBoxTitle = _rosetta.TextForId("common.error.title");
+            MessageBoxButton _buttons = MessageBoxButton.OK;
+            MessageBoxImage _icon = MessageBoxImage.Error;
+            MessageBox.Show(_messageText, _msgBoxTitle, _buttons, _icon);
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
     }
 
-    public class CalcObliquityViewModel
-    {
-        readonly private ICalendarCalc _calCalc;
-        readonly private IObliquityNutationCalc _oblNutCalc;
-        readonly private IDateTimeValidations _dateTimeValidations;
-        readonly private ValidatedDate? _validatedDate;
-        readonly private ValidatedUniversalTime? _validatedTime;
-    //    readonly private string _dateErrorText = "Error in date";
-    //    readonly private string TimeErrorText = "Error in time";
-    //    readonly private string GeneralErrorText = "Error while calculating obliquity.";
-
-        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityNutationCalc oblNutCalc, IDateTimeValidations dateTimeValidations)
-        {
-            _calCalc = calCalc;
-            _oblNutCalc = oblNutCalc;
-            _dateTimeValidations = dateTimeValidations;
-        }
-
-        public string CalculateObliquity(string dateText, string timeText, Calendars calendar, bool obliquityTypeTrue)
-        {
-            //  List<int> dateErrors = dateTimeValidations.ValidateDate();
-
-
-
-            //  validatedDate = dateTimeValidations.ConstructAndValidateDate(DateText, calendar);
-            //  validatedTime = dateTimeValidations.ConstructAndValidateTime(TimeText);
-
-            double _fractionaltime = _validatedTime.Hour + _validatedTime.Minute / 60.0 + _validatedTime.Second / 3600.0;
-            //            if (validatedDate.noErrors && validatedTime.noErrors)
-            //            {
-            SimpleDateTime _dateTime = new(_validatedDate.Year, _validatedDate.Month, _validatedDate.Day, _fractionaltime, calendar);
-            ResultForDouble _resultJd = _calCalc.CalculateJd(_dateTime);
-            ResultForDouble _resultObl = _oblNutCalc.CalculateObliquity(_resultJd.ReturnValue, obliquityTypeTrue);
-            if (_resultJd.NoErrors && _resultObl.NoErrors) return _resultObl.ReturnValue.ToString();
-            //            }
-            return DefineErrorText();
-        }
-
-        private string DefineErrorText()
-        {
-            string _errorText = "";
-            /*           if (validatedDate != null && !validatedDate.noErrors) errorText += DateErrorText;
-                       if (validatedTime != null && !validatedTime.noErrors)
-                       {
-                           if (errorText.Length > 0) errorText += "\n";
-                           errorText += TimeErrorText;
-                       }
-                       if (validatedDate != null && validatedDate.noErrors && validatedTime != null && validatedTime.noErrors) errorText += GeneralErrorText;
-              */
-            return _errorText;
-        }
-
-    }
 }

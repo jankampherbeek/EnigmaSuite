@@ -71,6 +71,16 @@ namespace E4C.ViewModels
             CalendarItems = new List<CalendarDetails>();
             YearCountItems = new List<YearCountDetails>();
             TimeZoneItems = new List<TimeZoneDetails>();
+            InputDate = new string[3];
+            InputTime = new string[3];
+            InputGeoLong = new string[3];
+            InputGeoLat = new string[3];
+            InputLmtLong = new string[3];
+            InputDescription = "";
+            InputName = "";
+            InputLocation = "";
+            InputSource = "";
+
 
             DefineReferenceItems();
 

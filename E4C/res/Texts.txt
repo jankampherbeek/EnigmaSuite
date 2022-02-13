@@ -9,13 +9,29 @@ calc.jdnr.formtitle = Calculate Julian Day Number
 calc.jdnr.hour = Hour
 calc.jdnr.minute = Minute
 calc.jdnr.month = Month
+calc.jdnr.result = Calculated Julian Day Number
 calc.jdnr.second = Second
 calc.jdnr.time = Time (UT in 24-hour notation)
 calc.jdnr.title = Enigma Calculations: Julian Day Number
 calc.jdnr.year = Year
 calc.jdnr.yearcount = YearCount
-calc.jdnr.result = Result of calculation
------ CalcStartView
+
+----- CalcObliquity -----------------------------------
+calc.obliquity.btncalc = Calculate Obliquity
+calc.obliquity.calendar = Calendar
+calc.obliquity.date = Date
+calc.obliquity.day = Day
+calc.obliquity.formtitle = Calculate Obliquity
+calc.obliquity.mean = Mean obliquity
+calc.obliquity.month = Month
+calc.obliquity.result = Calculated Obliquity
+calc.obliquity.title = Enigma Calculations: Obliquity
+calc.obliquity.true = True obliquity
+calc.obliquity.type = Obliquity type
+calc.obliquity.year = Year
+calc.obliquity.yearcount = YearCount
+
+----- CalcStartView -----------------------------------
 calc.startview.btnclose = Close Calculations
 calc.startview.btnjd = Julian Day Number
 calc.startview.btnobliquity = Obliquity of the earth axis

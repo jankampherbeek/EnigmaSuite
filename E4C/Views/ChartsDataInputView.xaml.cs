@@ -34,6 +34,11 @@ namespace E4C.Views
             InitializeComponent();
             _viewModel = viewModel;
             _rosetta = rosetta;
+            _chartCategoryItems = new List<ChartCategoryDetails>();
+            _roddenRatingItems= new List<RoddenRatingDetails>();
+            _timeZoneDetails= new List<TimeZoneDetails>();  
+            _calendarItems= new List<CalendarDetails>();
+            _yearCountItems= new List<YearCountDetails>();
             PopulateStaticTexts();
             PopulateReferences();
         }

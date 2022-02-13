@@ -10,29 +10,30 @@ using System.Collections.Generic;
 
 namespace E4C.ViewModels
 {
-
-
-    public class CalcJdViewModel
+    public class CalcObliquityViewModel
     {
         readonly private ICalendarSpecifications _calendarSpecifications;
         readonly private IYearCountSpecifications _yearCountSpecifications;
         readonly private ICalendarCalc _calCalc;
         readonly private IDateTimeValidations _dateTimeValidations;
+        readonly private IObliquityNutationCalc _obliquityNutationCalc;
         public List<CalendarDetails> CalendarItems { get; }
         public List<YearCountDetails> YearCountItems { get; }
         public string[] InputDate { get; set; }
-        public string[] InputTime { get; set; }
         public Calendars InputCalendar { get; set; }
         public YearCounts InputYearCount { get; set; }
+        public bool UseTrueObliquity { get; set; }
 
-        public CalcJdViewModel(ICalendarCalc calCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
+
+        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityNutationCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
         {
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;
             _calCalc = calCalc;
             _dateTimeValidations = dateTimeValidations;
+            _obliquityNutationCalc = oblCalc;
+            UseTrueObliquity = true;
             InputDate = new string[3];
-            InputTime = new string[3];
             CalendarItems = new List<CalendarDetails>();
             foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
             {
@@ -48,17 +49,13 @@ namespace E4C.ViewModels
         public List<int> ValidateInput()
         {
             List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputDate, InputCalendar, InputYearCount);
-            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputTime);
             List<int> _allErrors = new();
             _allErrors.AddRange(_dateErrors);
-            _allErrors.AddRange(_timeErrors);
             return _allErrors;
         }
 
-        public string CalculateJd()
+        public string CalculateObliquity()
         {
-            string _checkedSecond = String.IsNullOrWhiteSpace(InputTime[2]) ? "0" : InputTime[2];
-            double _fractionalTime = int.Parse(InputTime[0]) + (int.Parse(InputTime[1]) / 60.0) + (int.Parse(_checkedSecond) / 3600.0);
             int _year = int.Parse(InputDate[0]);
             int _month = int.Parse(InputDate[1]);
             int _day = int.Parse(InputDate[2]);
@@ -67,19 +64,26 @@ namespace E4C.ViewModels
             {
                 _year = -(Math.Abs(_year) + 1);
             }
-            SimpleDateTime _dateTime = new(_year, _month, _day, _fractionalTime, InputCalendar);
-            ResultForDouble _resultJd = _calCalc.CalculateJd(_dateTime);
-            if (_resultJd.NoErrors)
+            SimpleDateTime _dateTime = new(_year, _month, _day, 0.0, InputCalendar);
+            ResultForDouble _julianDayResult = _calCalc.CalculateJd(_dateTime);
+            if (!_julianDayResult.NoErrors)
             {
-                return _resultJd.ReturnValue.ToString();
+                throw new Exception("Error calculating jdnr..........");
+            }
+
+            ResultForDouble _resultObliquity = _obliquityNutationCalc.CalculateObliquity(_julianDayResult.ReturnValue, UseTrueObliquity);
+            if (_resultObliquity.NoErrors)
+            {
+                return _resultObliquity.ReturnValue.ToString();
             }
             else
             {
                 // todo log error
-                throw new Exception("Error when calculating JD");
+                throw new Exception("Error when calculating Obliquity");
             }
 
-        }
 
+
+        }
     }
 }

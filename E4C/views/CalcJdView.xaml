@@ -35,7 +35,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Grid.RowSpan="7" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
+            <Rectangle Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Grid.RowSpan="7" Fill="#FFE3EFF2" RadiusX="6" RadiusY="6"/>
             <TextBlock Margin="6" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Name="DateTime" Text="DateTime" HorizontalAlignment="Left" FontWeight="Bold" Foreground="#FF262C7A" />
             <TextBlock Margin="6 0 6 0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="6" Name="Date" Text="Date" />
             <TextBlock Margin="6 0 6 0" Grid.Row="2" Grid.Column="0" Name="DateYear" Text="DateYear" FontSize="8" />

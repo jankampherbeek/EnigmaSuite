@@ -20,7 +20,7 @@ namespace E4C.Views
         readonly private IRosetta _rosetta;
         private List<CalendarDetails> _calendarItems;
         public List<CalendarDetails> CalendarItems { get => _calendarItems; set => _calendarItems = value; }
-        private List<YearCountDetails>? _yearCountItems;
+        private List<YearCountDetails> _yearCountItems;
         public List<YearCountDetails> YearCountItems { get => _yearCountItems; set => _yearCountItems = value; }
 
         public CalcJdView(CalcJdViewModel calcJdViewModel, IRosetta rosetta)
@@ -28,6 +28,8 @@ namespace E4C.Views
             InitializeComponent();
             _calcJdViewModel = calcJdViewModel;
             _rosetta = rosetta;
+            _calendarItems = new List<CalendarDetails>();
+            _yearCountItems = new List<YearCountDetails>();
             PopulateStaticTexts();
         }
 
