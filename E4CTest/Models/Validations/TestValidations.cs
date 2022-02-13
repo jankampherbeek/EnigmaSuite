@@ -274,7 +274,6 @@ namespace E4CTest
         public void TestLatitudeNonNumerics()
         {
             string[] geoLatInput = { "x", "13", "10" };
-            string degrees = "x";
             LocationValidations locationValidations = new();
             List<int> errors = locationValidations.ValidateGeoLatitude(geoLatInput);
             Assert.IsTrue(errors.Count > 0);

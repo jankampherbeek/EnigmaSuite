@@ -15,17 +15,24 @@ namespace E4C.be.persistency
 
     public class TextFromFileReader : ITextFromFileReader
     {
+        private IEnumerable<string> _lines;
+
+        public TextFromFileReader()
+        {
+            _lines = new List<string>();
+        }
+
         public string ReadAllText(string fileName)
         {
             string _allText = File.ReadAllText(fileName);
             return _allText;
         }
 
-        public IEnumerable<string>? ReadSeparatedLines(string fileName)
+        public IEnumerable<string> ReadSeparatedLines(string fileName)
         {
             try
             {
-                IEnumerable<string> _lines = File.ReadLines(fileName);
+                _lines = File.ReadLines(fileName);
                 return _lines;
             }
             catch (FileNotFoundException fnfe)
@@ -36,7 +43,7 @@ namespace E4C.be.persistency
             {
                 // todo log exception
             }
-            return null;
+            return _lines;
 
         }
     }

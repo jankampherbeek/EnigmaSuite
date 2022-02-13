@@ -92,7 +92,7 @@ namespace E4CTest
             ChartData chart1 = CreateChartData(100, 3);
             IChartsStock chartsStock = new ChartsStock();
             chartsStock.AddChart(chart1);
-            MetaData metaData = chartsStock.GetMetaData(3);
+            MetaData? metaData = chartsStock.GetMetaData(3);
             Assert.AreEqual(metaData, chart1.ChartMetaData);
         }
 
@@ -102,7 +102,7 @@ namespace E4CTest
             ChartData chart1 = CreateChartData(100, 3);
             IChartsStock chartsStock = new ChartsStock();
             chartsStock.AddChart(chart1);
-            MetaData metaData = chartsStock.GetMetaData(6);
+            MetaData? metaData = chartsStock.GetMetaData(6);
             Assert.IsNull(metaData);
         }
 
