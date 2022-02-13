@@ -72,7 +72,7 @@ namespace E4C.Models.Domain
             return SexagesimalToDouble(inputTime);
         }
 
-        private double SexagesimalToDouble(string[] texts)
+        private static double SexagesimalToDouble(string[] texts)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace E4C.Models.Domain
 
     public class DateConversions : IDateConversions
     {
-        ICalendarCalc _calendarCalc;
+        readonly private ICalendarCalc _calendarCalc;
 
 
         public DateConversions(ICalendarCalc calendarCalc)
@@ -121,7 +121,7 @@ namespace E4C.Models.Domain
             {
                 _dateValues[0]++;
             }
-            SimpleDateTime _simpleDateTime = new SimpleDateTime(_dateValues[0], _dateValues[1], _dateValues[2], _ut, calendar);
+            SimpleDateTime _simpleDateTime = new(_dateValues[0], _dateValues[1], _dateValues[2], _ut, calendar);
 
             ResultForDouble _jdResult = _calendarCalc.CalculateJd(_simpleDateTime);
             if (_jdResult.NoErrors)

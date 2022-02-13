@@ -252,7 +252,7 @@ namespace E4CTest.be.domain
         {
             ICalendarSpecifications specifications = new CalendarSpecifications();
             int calendarIndex = 333;
-            Calendars calendar = specifications.CalendarForIndex(calendarIndex);
+            _ = specifications.CalendarForIndex(calendarIndex);
         }
 
     }
@@ -299,7 +299,7 @@ namespace E4CTest.be.domain
         {
             IYearCountSpecifications specifications = new YearCountSpecifications();
             int yearCountIndex = 44;
-            YearCounts yearCount = specifications.YearCountForIndex(yearCountIndex);
+            _ = specifications.YearCountForIndex(yearCountIndex);
         }
     }
 
@@ -347,7 +347,7 @@ namespace E4CTest.be.domain
         {
             IChartCategorySpecifications specifications = new ChartCategorySpecifications();
             int chartCategoryIndex = 500;
-            ChartCategories chartCategory = specifications.ChartCategoryForIndex(chartCategoryIndex);
+            _ = specifications.ChartCategoryForIndex(chartCategoryIndex);
         }
 
     }
@@ -394,7 +394,7 @@ namespace E4CTest.be.domain
         {
             IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
             int roddenRatingIndex = 1000;
-            RoddenRatings roddenRating = specifications.RoddenRatingForIndex(roddenRatingIndex);
+            _ = specifications.RoddenRatingForIndex(roddenRatingIndex);
         }
 
     }
@@ -445,7 +445,7 @@ namespace E4CTest.be.domain
         {
             ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
             int timeZoneIndex = -100;
-            TimeZones timeZone = specifications.TimeZoneForIndex(timeZoneIndex);
+            _ = specifications.TimeZoneForIndex(timeZoneIndex);
         }
 
     }

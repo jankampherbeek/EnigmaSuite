@@ -80,6 +80,7 @@ namespace E4C.Models.Domain
 
         public ValidatedUniversalTime(int hour, int minute, int second, List<int> errorCodes)
         {
+            Hour = hour;
             Minute = minute;
             Second = second;
             ErrorCodes = errorCodes;

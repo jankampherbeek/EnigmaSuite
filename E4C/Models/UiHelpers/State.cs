@@ -24,7 +24,7 @@ namespace E4C.Models.UiHelpers
     {
         private int _latestTempId = 0;
         private int _currentTempId = 0;
-        private List<ChartData> _charts = new();
+        readonly private List<ChartData> _charts = new();
 
 
         public void AddChart(ChartData chartData)

@@ -36,12 +36,12 @@ namespace E4C.ViewModels
             CalendarItems = new List<CalendarDetails>();
             foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
             {
-                CalendarItems.Add(calendarSpecifications.DetailsForCalendar(calendar));
+                CalendarItems.Add(_calendarSpecifications.DetailsForCalendar(calendar));
             }
             YearCountItems = new List<YearCountDetails>();
             foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
             {
-                YearCountItems.Add(yearCountSpecifications.DetailsForYearCount(yearCount));
+                YearCountItems.Add(_yearCountSpecifications.DetailsForYearCount(yearCount));
             }
         }
 

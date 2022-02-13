@@ -130,7 +130,7 @@ namespace E4CTest
             Assert.AreEqual(2, _newId);
         }
 
-        private ChartData CreateChartData(int index, int tempId)
+        private static ChartData CreateChartData(int index, int tempId)
         {
             MetaData _metaData = new("name", "description", "source", ChartCategories.Female, RoddenRatings.A);
             Location _location = new("location full name", 100.0, 20.0);

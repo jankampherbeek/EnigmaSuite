@@ -14,8 +14,8 @@ namespace E4CTest
     [TestClass]
     public class TestSexagesimalConversions
     {
-        ISexagesimalConversions conversions = new SexagesimalConversions();
-        double delta = 0.00000001;
+        readonly private ISexagesimalConversions conversions = new SexagesimalConversions();
+        readonly private double delta = 0.00000001;
 
         [TestMethod]
         public void TestInputGeoLatToDoubleHappyFlow()
@@ -41,7 +41,7 @@ namespace E4CTest
         {
             string[] inputLat = new string[] { "xx", "13", "0" };
             Directions4GeoLat direction = Directions4GeoLat.North;
-            double dummyValue = conversions.InputGeoLatToDouble(inputLat, direction);
+            _ = conversions.InputGeoLatToDouble(inputLat, direction);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace E4CTest
         {
             string[] inputLong = new string[] { "12", "x", "20" };
             Directions4GeoLong direction = Directions4GeoLong.West;
-            double dummyValue = conversions.InputGeoLongToDouble(inputLong, direction);
+            _ = conversions.InputGeoLongToDouble(inputLong, direction);
         }
 
         [TestMethod]
@@ -84,14 +84,14 @@ namespace E4CTest
         public void TestInputTimeToDoubleHoursError()
         {
             string[] inputTime = new string[] { "8", "xx", "30" };
-            double dummyValue = conversions.InputTimeToDoubleHours(inputTime);
+            _ = conversions.InputTimeToDoubleHours(inputTime);
         }
     }
 
     [TestClass]
     public class TestDateConversions
     {
-        double delta = 0.00000001;
+        readonly private double delta = 0.00000001;
 
         [TestMethod]
         public void TestInputDateToJdNrHappyFlow()
@@ -141,7 +141,7 @@ namespace E4CTest
             string[] inputDate = new string[] { "xx", "1", "29" };
             var mock = new Mock<ICalendarCalc>();
             DateConversions conversions = new(mock.Object);
-            int[] dateResult = conversions.InputDateToDecimals(inputDate);
+            _ = conversions.InputDateToDecimals(inputDate);
         }
 
     }
