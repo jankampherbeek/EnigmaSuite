@@ -55,6 +55,7 @@ namespace E4C
             container.Register<ISexagesimalConversions, SexagesimalConversions>(Lifestyle.Singleton);
             container.Register<IDateConversions, DateConversions>(Lifestyle.Singleton);
             container.Register<IChartsStock, ChartsStock>(Lifestyle.Singleton);
+            container.Register<ITextAssembler, TextAssembler>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();
