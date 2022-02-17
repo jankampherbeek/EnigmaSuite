@@ -8,26 +8,6 @@ using System.Runtime.InteropServices;
 
 namespace E4C.Models.SeFacade
 {
-
-    public class SeInitializer
-    {
-
-        /// <summary>
-        /// Set location for Swiss Ephemeris files.
-        /// </summary>
-        /// <param name="path">Location, relative to the program.</param>
-        public static void SetEphePath(String path)
-        {
-            ext_swe_set_ephe_path(path);
-        }
-        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
-        private extern static void ext_swe_set_ephe_path(String path);
-
-
-    }
-
-
-
     /// <summary>
     /// Facade for date/time functionality in the Swiss Ephemeris.
     /// </summary>
@@ -44,7 +24,7 @@ namespace E4C.Models.SeFacade
         public double JdFromSe(SimpleDateTime dateTime);
 
         /// <summary>
-        /// Retrive date and time (UT) from a given Julian Day Number.
+        /// Retrieve date and time (UT) from a given Julian Day Number.
         /// </summary>
         /// <param name="julianDayNumber">Value for JUlian Day Number.</param>
         /// <param name="calendar">Gregorian or Julian calendar.</param>
@@ -74,6 +54,50 @@ namespace E4C.Models.SeFacade
         /// <returns>Array with 6 positions: longitude, latitude, distance, longitude speed, latitude speed and distance speed.</returns>
         public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags);
     }
+
+    /// <summary>
+    /// Calculation for horizontal coordinates: azimuth and altitude.
+    /// </summary>
+    public interface IHorizontalCoordinatesFacade
+    {
+        /// <summary>
+        /// 
+        /// Calculate azimuth and altitude.
+        /// </summary>
+        /// <remarks>
+        /// Assumes zero for atmospheric pressure and temperature.
+        /// </remarks>
+        /// <param name="JulianDayUt">Julian day in universal time.</param>
+        /// <param name="geoGraphicCoordinates">Geographic coordinates: gepgraphic longitude, geographic latitude and height (meters), in that sequence.</param>
+        /// <param name="eclipticCoordinates">Ecliptic coordinates: longitude, latitude and distance, in that sequence.</param>
+        /// <returns>Double array with susequentially azimuth, true altitude and apparent altitude.</returns>
+        public double[] CalculateHorizontalCoordinates(double JulianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates);
+    }
+
+
+    /// <summary>
+    /// Facade for the calculation of mundane points (housecusps, vertex etc.).
+    /// </summary>
+
+    public interface ISePosHousesFacade
+    {
+        /// <summary>
+        /// Retrieve positions for house cusps and other mundane points.
+        /// </summary>
+        /// <param name="jdUt">Julian Day for UT.</param>
+        /// <param name="flags">0 for tropical, 0 or SEFLG_SIDEREAL for sidereal.</param>
+        /// <param name="geoLat">Geographic latitude.</param>
+        /// <param name="geoLon">Geographic longitude.</param>
+        /// <param name="houseSystem">Indication for the house system within the Swiss Ephemeris.</param>
+        /// <returns>A two dimensional array. The first array contains the cusps, starting from position 1 (position 0 is empty) and ordered by number. 
+        /// The length is 13 (for systems with 12 cusps) or 37 (for Gauquelin houses, which have 36 cusps).
+        /// The second array contains 10 positions with the following content:
+        /// 0: = Ascendant, 1: MC, 2: ARMC, 3: Vertex, 4: equatorial ascendant( East point), 5: co-ascendant (Koch), 6: co-ascendant (Munkasey), 7: polar ascendant (Munkasey). 
+        /// Positions 8 and 9 are empty.
+        /// </returns>
+        public double[][] PosHousesFromSe(double jdUt, int flags, double geoLat, double geoLon, char houseSystem);
+    }
+        
 
     public class SeDateTimeFacade : ISeDateTimeFacade
     {
@@ -140,31 +164,8 @@ namespace E4C.Models.SeFacade
     {
         public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
         {
-
             string _resultValue = "";
-            double[] _positions = new double[6];
-            /*
-            // temporary benchmark
-            // initialize ephemeris
-
-
-            SeInitializer.setEphePath(".//se");
-
-            double jd = 1500000.0;
-            string StartTime = DateTime.Now.ToString("h:mm:ss tt");
-            for (int i = 0; i < 1000000; i++)
-            {
-                jd = jd + 1.0;
-                ext_swe_calc_ut(jd, 1, 2, positions, resultValue);
-            }
-            string EndTime = DateTime.Now.ToString("h:mm:ss tt");
-
-
-            // end temporar4y benchmark
-            */
-
-
-
+            var _positions = new double[6];
 
             int _returnFlag = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
             if (_returnFlag < 0) Console.WriteLine("Error to log in SePosCelPointFacade.PosCelPointFromSe. ReturnFlag : " + _returnFlag.ToString());
@@ -175,7 +176,7 @@ namespace E4C.Models.SeFacade
         /// <summary>
         /// Access dll to retrieve position for celestial point.
         /// </summary>
-        /// <param name="tjd">Julian day for UT</param>
+        /// <param name="tjd">Julian day for UT.</param>
         /// <param name="ipl">Identifier for the celestial point.</param>
         /// <param name="iflag">Combined values for flags.</param>
         /// <param name="xx">The resulting positions.</param>
@@ -186,7 +187,63 @@ namespace E4C.Models.SeFacade
         private extern static int ext_swe_calc_ut(double tjd, int ipl, long iflag, double[] xx, string serr);
     }
 
+    public class HorizontalCoordinatesFacade : IHorizontalCoordinatesFacade
+    {
+        public double[] CalculateHorizontalCoordinates(double JulianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates)
+        {
+            throw new NotImplementedException();
+        }
 
+        /// <summary>
+        /// Access dll to retrieve horizontal positions.
+        /// </summary>
+        /// <param name="tjd">Julian day for UT.</param>
+        /// <param name="iflag">Flag: always SE_ECL2HOR = 0.</param>
+        /// <param name="geoCoordinates">Geographic longitude, altitude and height above sea (ignored for real altitude).</param>
+        /// <param name="atPress">Atmospheric pressure in mbar, ignored for real altitude.</param>
+        /// <param name="atTemp">Atmospheric temperature in degrees Celsius, ignored for real altitude.</param>
+        /// <param name="eclipticCoordinates">Ecliptic longitude, latitude and distance.</param>
+        /// <param name="horizontalCoordinates">Resulting values for azimuth, true altitude and apparent altitude.</param>
+        /// <returns>An indication if the calculation was succesfull.</returns>
+        // TODO check returnvalue,  >=0 --> succesfull  
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_azalt")]
+        private extern static int ext_swe_azalt(double tjd, long iflag, double[] geoCoordinates, double atPress, double atTemp, double[] eclipticCoordinates, double[] horizontalCoordinates);
+    }
+
+    public class SePosHousesFacade : ISePosHousesFacade
+    {
+        public double[][] PosHousesFromSe(double jdUt, int flags, double geoLat, double geoLon, char houseSystem)
+        {
+            int _nrOfCusps = houseSystem == 'G' ? 37 : 13;
+            double[] _cusps = new double[_nrOfCusps];
+            double[] _mundanePoints = new double[6];
+            int _returnFlag = ext_swe_houses_ex(jdUt, flags, geoLat, geoLon, houseSystem, _cusps, _mundanePoints);
+            // todo check returnflag
+            double[][] result = { _cusps, _mundanePoints };
+            return result;
+
+        }
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_houses_ex")]
+        private extern static int ext_swe_houses_ex(double tjdut, int flags, double geolat, double geolon, char hsys, double[] hcusp0, double[] ascmc0);
+
+    }
+
+    public class SeInitializer
+    {
+
+        /// <summary>
+        /// Set location for Swiss Ephemeris files.
+        /// </summary>
+        /// <param name="path">Location, relative to the program.</param>
+        public static void SetEphePath(String path)
+        {
+            ext_swe_set_ephe_path(path);
+        }
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
+        private extern static void ext_swe_set_ephe_path(String path);
+
+
+    }
 
 
 

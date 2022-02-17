@@ -33,4 +33,8 @@
     <Resource Include="Views\Charts.jpg" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\ViewHelpers\" />
+  </ItemGroup>
+
 </Project>

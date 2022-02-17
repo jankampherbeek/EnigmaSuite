@@ -6,7 +6,7 @@ using E4C.Models.Astron;
 using E4C.Models.Domain;
 using E4C.Models.Validations;
 using E4C.ViewModels;
-using E4C.Views.ViewHelpers;
+using E4C.Models.UiHelpers;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;

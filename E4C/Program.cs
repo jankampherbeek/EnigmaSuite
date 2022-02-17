@@ -10,7 +10,6 @@ using E4C.Models.UiHelpers;
 using E4C.Models.Validations;
 using E4C.ViewModels;
 using E4C.Views;
-using E4C.Views.ViewHelpers;
 using SimpleInjector;
 using System;
 
@@ -44,6 +43,9 @@ namespace E4C
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
+            container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
+            container.Register<IPositionSolSysPointCalc, PositionSolSysPointCalc>(Lifestyle.Singleton);
+            container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
             container.Register<ILocationValidations, LocationValidations>(Lifestyle.Singleton);

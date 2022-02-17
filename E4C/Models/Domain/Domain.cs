@@ -236,7 +236,125 @@ namespace E4C.Models.Domain
             ChartLocation = location;
             ChartDateTime = fullDateTime;
         }
-        
+    }
+
+    /// <summary>
+    /// Data for a request to calculate a full chart.
+    /// </summary>
+    public record FullChartRequest
+    {
+        public readonly double JulianDayUt;
+        public readonly Location ChartLocation;
+        public readonly List<SolarSystemPoints> SolarSystemPoints;
+        public readonly HouseSystems HouseSystem;
+        public readonly ZodiacTypes ZodiacType;
+        public readonly Ayanamshas Ayanamsha;
+        public readonly ObserverPositions ObserverPosition;
+        public readonly ProjectionTypes ProjectionType;
+
+        /// <summary>
+        /// Constructor for the record FullChartRequest.
+        /// </summary>
+        /// <param name="julianDayUt">Julian day for universal time.</param>
+        /// <param name="location">Location (only latitude and longitude are used).</param>
+        /// <param name="solarSystemPoints">List with the Solar System Points to calculate.</param>
+        /// <param name="houseSystem">The preferred house system.</param>
+        /// <param name="zodiacType">The zodiac type: tropical or sidereal.</param>
+        /// <param name="ayanamsha">The ayanamsha to be applied.</param>
+        /// <param name="observerPosition">Observer position (geocentric, topocentric, heliocentric).</param>
+        /// <param name="projectionType">Projection type (standard or oblique longitude).</param>
+        public FullChartRequest(double julianDayUt, Location location, List<SolarSystemPoints> solarSystemPoints, HouseSystems houseSystem,
+            ZodiacTypes zodiacType, Ayanamshas ayanamsha, ObserverPositions observerPosition, ProjectionTypes projectionType)
+        {
+            JulianDayUt = julianDayUt;
+            ChartLocation = location;
+            SolarSystemPoints = solarSystemPoints;
+            HouseSystem = houseSystem;
+            ZodiacType = zodiacType;
+            Ayanamsha = ayanamsha;
+            ObserverPosition = observerPosition;
+            ProjectionType = projectionType;
+        }
+    }
+
+    /// <summary>
+    /// Results of calculation for mundane positions (cusps, asc. mc, vertex, eastpoint).
+    /// </summary>
+    public record CalculatedMundanePositions
+    {
+        public readonly List<double[]> Cusps;
+        public readonly double[] Mc;
+        public readonly double[] Ascendant;
+        public readonly double[] Vertex;
+        public readonly double[] EastPoint;
+
+        /// <summary>
+        /// Constructor for record CalculatedMundanePositions.
+        /// </summary>
+        /// <param name="cusps">List with values for cusps, in the sequence 1 ..n. The values in the array contain subsequently longitude, right ascensiona and declination.</param>
+        /// <param name="mc">Longitude, right ascensiona and declination, in that sequence, for the Mc.</param>
+        /// <param name="ascendant">Longitude, right ascensiona and declination, in that sequence, for the ascendant.</param>
+        /// <param name="vertex">Longitude, right ascensiona and declination, in that sequence, for the vertex.</param>
+        /// <param name="eastpoint">Longitude, right ascensiona and declination, in that sequence, for the eastpoint.</param>
+        public CalculatedMundanePositions(List<double[]> cusps, double[] mc, double[] ascendant, double[] vertex, double[] eastpoint)
+        {
+            Cusps = cusps;
+            Mc = mc;
+            Ascendant = ascendant;
+            Vertex = vertex;
+            EastPoint = eastpoint;
+        }
+
+    }
+
+    /// <summary>
+    /// Results of calculation for a single Solar System Point.
+    /// </summary>
+    public record CalculatedFullSolSysPointPosition
+    {
+        public readonly SolarSystemPoints SolarSystemPoint;
+        public readonly double[] EclipticalPosition;
+        public readonly double[] EquatorialPosition;
+        public readonly double[] HorizontalPosition;
+        public readonly double[] Distance;
+
+        /// <summary>
+        /// Constructor for the record CalculatedFullSolSysPointPosition.
+        /// </summary>
+        /// <param name="solarSystemPoint">Instane from the enum SolarSystemPoints.</param>
+        /// <param name="eclipticalPosition">Position on the ecliptic, subsequently: longitude, latitude, speed in longitude, speed in latitude.</param>
+        /// <param name="equatorialposition">Positions on the equator, subsequently: right ascension, declination, speed in right ascension, speed in declination.</param>
+        /// <param name="horizontalPosition">Positions on the horizon, subsequently azimuth and altitude.</param>
+        /// <param name="distance">Distance (Radius Vector) in Astronomical Units and speed in distance.</param>
+        public CalculatedFullSolSysPointPosition(SolarSystemPoints solarSystemPoint, double[] eclipticalPosition, double[] equatorialposition,
+            double[] horizontalPosition, double[] distance)
+        {
+            SolarSystemPoint = solarSystemPoint;
+            EclipticalPosition = eclipticalPosition;
+            EquatorialPosition = equatorialposition;
+            HorizontalPosition = horizontalPosition;
+            Distance = distance;
+        }
+    }
+
+    /// <summary>
+    /// Complete calcualtion results for a full chart.
+    /// </summary>
+    public record FullChartResponse
+    {
+        public readonly List<CalculatedFullSolSysPointPosition> SolarSystemPointPositions;
+        public readonly CalculatedMundanePositions MundanePositions;
+
+        /// <summary>
+        /// Constructor for record FullChartResponse.
+        /// </summary>
+        /// <param name="solarSystemPointPositions">List with calcualted positions for Solar System Points.</param>
+        /// <param name="mundanePositions">Calcualted mundane positions.</param>
+        public FullChartResponse(List<CalculatedFullSolSysPointPosition> solarSystemPointPositions, CalculatedMundanePositions mundanePositions)
+        {
+            SolarSystemPointPositions = solarSystemPointPositions;
+            MundanePositions = mundanePositions;
+        }
     }
 
     /// <summary>

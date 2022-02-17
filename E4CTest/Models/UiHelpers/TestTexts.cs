@@ -4,7 +4,7 @@
 
 using E4C.Models.Domain;
 using E4C.Models.UiHelpers;
-using E4C.Views.ViewHelpers;
+using E4C.Models.UiHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

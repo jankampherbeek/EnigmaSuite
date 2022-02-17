@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.ViewModels;
-using E4C.Views.ViewHelpers;
+using E4C.Models.UiHelpers;
 using System.Windows;
 
 namespace E4C.Views

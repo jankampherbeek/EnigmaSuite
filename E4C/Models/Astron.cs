@@ -52,6 +52,28 @@ namespace E4C.Models.Astron
     }
 
 
+
+
+    /// <summary>
+    /// Calculations for Solar System points.
+    /// </summary>
+    public interface IPositionSolSysPointCalc
+    {
+        /// <summary>
+        /// Calculate a single Solar System point.
+        /// </summary>
+        /// <param name="solarSystemPoint">The Solar System point that will be calcualted.</param>
+        /// <param name="jdnr">The Julian day number.</param>
+        /// <param name="location">Location with coordinates.</param>
+        /// <param name="flagsEcliptical">Flags that contain the settings for ecliptic based calculations.</param>
+        /// <param name="flagsEquatorial">Flags that contain the settings for equatorial based calculations.</param>
+        /// <returns>Instance of CalculatedFullSolSysPointPosition.</returns>
+        public CalculatedFullSolSysPointPosition CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial);
+
+    }
+
+
+
     public class CalendarCalc : ICalendarCalc
     {
 
@@ -136,19 +158,38 @@ namespace E4C.Models.Astron
     }
 
 
-    public class PositionSolSysPointCalc
+
+    public class PositionSolSysPointCalc: IPositionSolSysPointCalc
     {
         private readonly ISePosCelPointFacade _posCelPointFacade;
+        private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
+        private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
 
-        public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade)
+        public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade, IHorizontalCoordinatesFacade horizontalCoordinatesFacade, 
+            ISolarSystemPointSpecifications solarSystemPointSpecifications)
         {
             _posCelPointFacade = posCelPointFacade;
+            _horizontalCoordinatesFacade = horizontalCoordinatesFacade;
+            _solarSystemPointSpecifications = solarSystemPointSpecifications;
         }
 
 
-        public void CalculateSolSysPoint(int pointId, double jdnr, int flags)
+        public CalculatedFullSolSysPointPosition CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial)
         {
-            double[] _positions = _posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flags);
+
+            // todo handle actions for sidereal and/or topocentric
+            // todo define flags
+            double heightAboveSeaLevel = 0.0;
+            int pointId = _solarSystemPointSpecifications.DetailsForPoint(solarSystemPoint).SeId;
+            double[] _fullEclipticPositions = _posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flagsEcliptical);
+            double[] _fullEquatorialPositions = _posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flagsEquatorial);
+            var _eclCoordinatesForHorCalculation = new double[] { _fullEclipticPositions[0], _fullEclipticPositions[1], _fullEclipticPositions[2] };
+            var _geoGraphicCoordinates = new double[] { location.GeoLong, location.GeoLat, heightAboveSeaLevel };
+            double[] _horizontalPositions = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(jdnr, _geoGraphicCoordinates, _eclCoordinatesForHorCalculation);
+            var _eclipticPositions = new double[] { _fullEclipticPositions[0], _fullEclipticPositions[1], _fullEclipticPositions[3], _fullEclipticPositions[4] };
+            var _distancePositions = new double[] { _fullEclipticPositions[2], _fullEclipticPositions[5] };
+            var _equatorialPositions = new double[] { _fullEquatorialPositions[0], _fullEquatorialPositions[1], _fullEquatorialPositions[3], _fullEquatorialPositions[4] };
+            return new CalculatedFullSolSysPointPosition(solarSystemPoint, _eclipticPositions, _equatorialPositions, _horizontalPositions, _distancePositions);
 
         }
     }

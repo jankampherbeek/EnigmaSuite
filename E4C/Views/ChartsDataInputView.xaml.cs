@@ -4,7 +4,7 @@
 
 using System.Windows;
 using System.Collections.Generic;
-using E4C.Views.ViewHelpers;
+using E4C.Models.UiHelpers;
 using E4C.ViewModels;
 using E4C.Models.Domain;
 using System.Windows.Media;
