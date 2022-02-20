@@ -70,15 +70,28 @@ namespace E4C.Models.SeFacade
         /// <param name="JulianDayUt">Julian day in universal time.</param>
         /// <param name="geoGraphicCoordinates">Geographic coordinates: gepgraphic longitude, geographic latitude and height (meters), in that sequence.</param>
         /// <param name="eclipticCoordinates">Ecliptic coordinates: longitude, latitude and distance, in that sequence.</param>
-        /// <returns>Double array with susequentially azimuth, true altitude and apparent altitude.</returns>
-        public double[] CalculateHorizontalCoordinates(double JulianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates);
+        /// <param name="flags">Value for flags that contain settings.</param>
+        /// <returns>Instance of HorizontalPos with azimuth and true altitude.</returns>
+        public HorizontalPos CalculateHorizontalCoordinates(double JulianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags);
     }
 
+    /// <summary>
+    /// Facade for the conversion between ecliptic and equatorial coordinates.
+    /// </summary>
+    public interface ICoordinateConversionFacade
+    {
+        /// <summary>
+        /// Convert ecliptic to equaotrial coordinates.
+        /// </summary>
+        /// <param name="eclipticCoordinates">Array with subsequently longitudea and latitude.</param>
+        /// <param name="obliquity">Obliquity.</param>
+        /// <returns>Array with subsequently right ascension and declination.</returns>
+        public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity);
+    }
 
     /// <summary>
     /// Facade for the calculation of mundane points (housecusps, vertex etc.).
     /// </summary>
-
     public interface ISePosHousesFacade
     {
         /// <summary>
@@ -159,7 +172,6 @@ namespace E4C.Models.SeFacade
 
     }
 
-
     public class SePosCelPointFacade : ISePosCelPointFacade
     {
         public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
@@ -189,9 +201,11 @@ namespace E4C.Models.SeFacade
 
     public class HorizontalCoordinatesFacade : IHorizontalCoordinatesFacade
     {
-        public double[] CalculateHorizontalCoordinates(double JulianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates)
+        public HorizontalPos CalculateHorizontalCoordinates(double JulianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags)
         {
-            throw new NotImplementedException();
+            double[] horizontalCoordinates = new double[3];
+            int result = ext_swe_azalt(JulianDayUt, flags, geoGraphicCoordinates, 0, 0, eclipticCoordinates, horizontalCoordinates);
+            return new HorizontalPos(horizontalCoordinates[0], horizontalCoordinates[1]);
         }
 
         /// <summary>
@@ -200,14 +214,30 @@ namespace E4C.Models.SeFacade
         /// <param name="tjd">Julian day for UT.</param>
         /// <param name="iflag">Flag: always SE_ECL2HOR = 0.</param>
         /// <param name="geoCoordinates">Geographic longitude, altitude and height above sea (ignored for real altitude).</param>
-        /// <param name="atPress">Atmospheric pressure in mbar, ignored for real altitude.</param>
-        /// <param name="atTemp">Atmospheric temperature in degrees Celsius, ignored for real altitude.</param>
+        /// <param name="atPress">Atmospheric pressure in mbar, ignored for true altitude.</param>
+        /// <param name="atTemp">Atmospheric temperature in degrees Celsius, ignored for true altitude.</param>
         /// <param name="eclipticCoordinates">Ecliptic longitude, latitude and distance.</param>
         /// <param name="horizontalCoordinates">Resulting values for azimuth, true altitude and apparent altitude.</param>
         /// <returns>An indication if the calculation was succesfull.</returns>
         // TODO check returnvalue,  >=0 --> succesfull  
         [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_azalt")]
         private extern static int ext_swe_azalt(double tjd, long iflag, double[] geoCoordinates, double atPress, double atTemp, double[] eclipticCoordinates, double[] horizontalCoordinates);
+    }
+
+    public class CoordinateConversionFacade : ICoordinateConversionFacade
+    {
+        public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity)
+        {
+            double _negativeObliquity = -(Math.Abs(obliquity));
+            double[] _allEclipticCoordinates = new double[] {eclipticCoordinates[0], eclipticCoordinates[1], 1.0 }; // 1.0 is placeholder for distance.
+            double[] _equatorialResults = new double[3];
+            int result = ext_swe_cotrans(_allEclipticCoordinates, _equatorialResults, _negativeObliquity);
+            /// todo check return value
+            return _equatorialResults;
+        }
+
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_cotrans")]
+        private extern static int ext_swe_cotrans(double[] allEclipticCoordinates, double[] equatorialResults, double negativeObliquity);
     }
 
     public class SePosHousesFacade : ISePosHousesFacade

@@ -104,6 +104,52 @@ namespace E4C.Models.Domain
     }
 
     /// <summary>
+    /// Horizontal coordinates.
+    /// </summary>
+    public record HorizontalPos
+    {
+        public readonly double Azimuth;
+        public readonly double Altitude;
+
+        /// <summary>
+        /// Constructor for Horizontal Coordinates.
+        /// </summary>
+        /// <param name="azimuth">Azimuth.</param>
+        /// <param name="altitude">Altitude.</param>
+        public HorizontalPos(double azimuth, double altitude)
+        {
+            Azimuth = azimuth;
+            Altitude = altitude;
+        }
+    }
+
+    /// <summary>
+    /// Full position for  a cusp or other mundane point.
+    /// </summary>
+    public record CuspFullPos
+    {
+        public readonly double Longitude;
+        public readonly double RightAscension;
+        public readonly double Declination;
+        public readonly HorizontalPos AzimuthAltitude;
+
+        /// <summary>
+        /// Constructor for the full position of a cusp/mundane point.
+        /// </summary>
+        /// <param name="longitude">Longitude.</param>
+        /// <param name="rightAscension">Right ascension.</param>
+        /// <param name="declination">Declination.</param>
+        /// <param name="azimuthAltitude">Horizontal coordinates.</param>
+        public CuspFullPos(double longitude, double rightAscension, double declination, HorizontalPos azimuthAltitude)
+        {
+            Longitude = longitude;
+            RightAscension = rightAscension;
+            Declination = declination;
+            AzimuthAltitude = azimuthAltitude;
+        }
+    }
+
+    /// <summary>
     /// Position, speed and distance in a coordinatesystem for point in the Solar system.
     /// </summary>
     public record SolSysPointPosSpeeds
@@ -280,23 +326,23 @@ namespace E4C.Models.Domain
     /// <summary>
     /// Results of calculation for mundane positions (cusps, asc. mc, vertex, eastpoint).
     /// </summary>
-    public record CalculatedMundanePositions
+    public record MundanePositions
     {
-        public readonly List<double[]> Cusps;
-        public readonly double[] Mc;
-        public readonly double[] Ascendant;
-        public readonly double[] Vertex;
-        public readonly double[] EastPoint;
+        public readonly List<CuspFullPos> Cusps;
+        public readonly CuspFullPos Mc;
+        public readonly CuspFullPos Ascendant;
+        public readonly CuspFullPos Vertex;
+        public readonly CuspFullPos EastPoint;
 
         /// <summary>
         /// Constructor for record CalculatedMundanePositions.
         /// </summary>
-        /// <param name="cusps">List with values for cusps, in the sequence 1 ..n. The values in the array contain subsequently longitude, right ascensiona and declination.</param>
-        /// <param name="mc">Longitude, right ascensiona and declination, in that sequence, for the Mc.</param>
-        /// <param name="ascendant">Longitude, right ascensiona and declination, in that sequence, for the ascendant.</param>
-        /// <param name="vertex">Longitude, right ascensiona and declination, in that sequence, for the vertex.</param>
-        /// <param name="eastpoint">Longitude, right ascensiona and declination, in that sequence, for the eastpoint.</param>
-        public CalculatedMundanePositions(List<double[]> cusps, double[] mc, double[] ascendant, double[] vertex, double[] eastpoint)
+        /// <param name="cusps">List with full positions for cusps, in the sequence 1 ..n. </param>
+        /// <param name="mc">Full position for the Mc.</param>
+        /// <param name="ascendant">Full position for the ascendant.</param>
+        /// <param name="vertex">Full position for the vertex.</param>
+        /// <param name="eastpoint">Full position for the eastpoint.</param>
+        public MundanePositions(List<CuspFullPos> cusps, CuspFullPos mc, CuspFullPos ascendant, CuspFullPos vertex, CuspFullPos eastpoint)
         {
             Cusps = cusps;
             Mc = mc;
@@ -310,30 +356,36 @@ namespace E4C.Models.Domain
     /// <summary>
     /// Results of calculation for a single Solar System Point.
     /// </summary>
-    public record CalculatedFullSolSysPointPosition
+    public record FullSolSysPointPos
     {
         public readonly SolarSystemPoints SolarSystemPoint;
-        public readonly double[] EclipticalPosition;
-        public readonly double[] EquatorialPosition;
-        public readonly double[] HorizontalPosition;
-        public readonly double[] Distance;
-
+        public readonly PosSpeed Longitude;
+        public readonly PosSpeed Latitude;
+        public readonly PosSpeed RightAscension;
+        public readonly PosSpeed Declination;
+        public readonly PosSpeed Distance;
+        public readonly HorizontalPos AzimuthAltitude;
+        
         /// <summary>
-        /// Constructor for the record CalculatedFullSolSysPointPosition.
+        /// Constructor for a fully defined Solar system point.
         /// </summary>
-        /// <param name="solarSystemPoint">Instane from the enum SolarSystemPoints.</param>
-        /// <param name="eclipticalPosition">Position on the ecliptic, subsequently: longitude, latitude, speed in longitude, speed in latitude.</param>
-        /// <param name="equatorialposition">Positions on the equator, subsequently: right ascension, declination, speed in right ascension, speed in declination.</param>
-        /// <param name="horizontalPosition">Positions on the horizon, subsequently azimuth and altitude.</param>
-        /// <param name="distance">Distance (Radius Vector) in Astronomical Units and speed in distance.</param>
-        public CalculatedFullSolSysPointPosition(SolarSystemPoints solarSystemPoint, double[] eclipticalPosition, double[] equatorialposition,
-            double[] horizontalPosition, double[] distance)
+        /// <param name="solarSystemPoint">Instance of the enum SolarSystemPoints.</param>
+        /// <param name="longitude">Longitude in degrees.</param>
+        /// <param name="latitude">Latitude in degrees.</param>
+        /// <param name="rightAscension">Right ascension in degrees.</param>
+        /// <param name="declination">Declination in degrees.</param>
+        /// <param name="distance">distance in AU.</param>
+        /// <param name="azimuthAltitude">Azimuth and altitude in degrees.</param>
+        public FullSolSysPointPos(SolarSystemPoints solarSystemPoint, PosSpeed longitude, PosSpeed latitude, PosSpeed rightAscension, 
+            PosSpeed declination, PosSpeed distance, HorizontalPos azimuthAltitude)
         {
             SolarSystemPoint = solarSystemPoint;
-            EclipticalPosition = eclipticalPosition;
-            EquatorialPosition = equatorialposition;
-            HorizontalPosition = horizontalPosition;
+            Longitude = longitude;
+            Latitude = latitude;
+            RightAscension = rightAscension;
+            Declination = declination;
             Distance = distance;
+            AzimuthAltitude = azimuthAltitude;
         }
     }
 
@@ -342,15 +394,15 @@ namespace E4C.Models.Domain
     /// </summary>
     public record FullChartResponse
     {
-        public readonly List<CalculatedFullSolSysPointPosition> SolarSystemPointPositions;
-        public readonly CalculatedMundanePositions MundanePositions;
+        public readonly List<FullSolSysPointPos> SolarSystemPointPositions;
+        public readonly MundanePositions MundanePositions;
 
         /// <summary>
         /// Constructor for record FullChartResponse.
         /// </summary>
         /// <param name="solarSystemPointPositions">List with calcualted positions for Solar System Points.</param>
         /// <param name="mundanePositions">Calcualted mundane positions.</param>
-        public FullChartResponse(List<CalculatedFullSolSysPointPosition> solarSystemPointPositions, CalculatedMundanePositions mundanePositions)
+        public FullChartResponse(List<FullSolSysPointPos> solarSystemPointPositions, MundanePositions mundanePositions)
         {
             SolarSystemPointPositions = solarSystemPointPositions;
             MundanePositions = mundanePositions;

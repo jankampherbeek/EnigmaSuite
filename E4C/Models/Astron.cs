@@ -5,6 +5,7 @@
 using E4C.Models.Domain;
 using E4C.Models.SeFacade;
 using System;
+using System.Collections.Generic;
 
 namespace E4C.Models.Astron
 {
@@ -52,8 +53,6 @@ namespace E4C.Models.Astron
     }
 
 
-
-
     /// <summary>
     /// Calculations for Solar System points.
     /// </summary>
@@ -68,8 +67,24 @@ namespace E4C.Models.Astron
         /// <param name="flagsEcliptical">Flags that contain the settings for ecliptic based calculations.</param>
         /// <param name="flagsEquatorial">Flags that contain the settings for equatorial based calculations.</param>
         /// <returns>Instance of CalculatedFullSolSysPointPosition.</returns>
-        public CalculatedFullSolSysPointPosition CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial);
+        public FullSolSysPointPos CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial);
+    }
 
+    /// <summary>
+    /// Calculations for mundane positions (houses etc.).
+    /// </summary>
+    public interface IPositionsMundane
+    {
+        /// <summary>
+        /// Calculate house cusps, MC, Ascendant, Vertex and Eastpoint.
+        /// </summary>
+        /// <param name="julianDayUt">Julian Day for UT.</param>
+        /// <param name="obliquity"">Obliquity of the earths axis.</param>
+        /// <param name="flags">Flags swith the required settings.</param>
+        /// <param name="location">Location with coordinates.</param>
+        /// <param name="houseSystem">The Housesystem to use, from the enum HouseSystems.</param>
+        /// <returns>Instance of MundanePositions with the calculated values.</returns>
+        public MundanePositions CalculateAllMundanePositions(double julianDayUt, double obliquity, int flags, Location location, HouseSystems houseSystem);
     }
 
 
@@ -157,8 +172,6 @@ namespace E4C.Models.Astron
         }
     }
 
-
-
     public class PositionSolSysPointCalc: IPositionSolSysPointCalc
     {
         private readonly ISePosCelPointFacade _posCelPointFacade;
@@ -174,7 +187,7 @@ namespace E4C.Models.Astron
         }
 
 
-        public CalculatedFullSolSysPointPosition CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial)
+        public FullSolSysPointPos CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial)
         {
 
             // todo handle actions for sidereal and/or topocentric
@@ -185,13 +198,61 @@ namespace E4C.Models.Astron
             double[] _fullEquatorialPositions = _posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flagsEquatorial);
             var _eclCoordinatesForHorCalculation = new double[] { _fullEclipticPositions[0], _fullEclipticPositions[1], _fullEclipticPositions[2] };
             var _geoGraphicCoordinates = new double[] { location.GeoLong, location.GeoLat, heightAboveSeaLevel };
-            double[] _horizontalPositions = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(jdnr, _geoGraphicCoordinates, _eclCoordinatesForHorCalculation);
-            var _eclipticPositions = new double[] { _fullEclipticPositions[0], _fullEclipticPositions[1], _fullEclipticPositions[3], _fullEclipticPositions[4] };
-            var _distancePositions = new double[] { _fullEclipticPositions[2], _fullEclipticPositions[5] };
-            var _equatorialPositions = new double[] { _fullEquatorialPositions[0], _fullEquatorialPositions[1], _fullEquatorialPositions[3], _fullEquatorialPositions[4] };
-            return new CalculatedFullSolSysPointPosition(solarSystemPoint, _eclipticPositions, _equatorialPositions, _horizontalPositions, _distancePositions);
-
+            HorizontalPos _horizontalPos = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(   jdnr, _geoGraphicCoordinates, _eclCoordinatesForHorCalculation, flagsEcliptical);
+            var _longitude = new PosSpeed(_fullEclipticPositions[0], _fullEclipticPositions[3]);
+            var _latitude = new PosSpeed(_fullEclipticPositions[1], _fullEclipticPositions[4]);
+            var _distance = new PosSpeed(_fullEclipticPositions[2], _fullEclipticPositions[5]);
+            var _rightAscension = new PosSpeed(_fullEquatorialPositions[0], _fullEquatorialPositions[3]);
+            var _declination = new PosSpeed(_fullEquatorialPositions[1], _fullEquatorialPositions[4]);
+            return new FullSolSysPointPos(solarSystemPoint, _longitude, _latitude, _rightAscension, _declination, _distance, _horizontalPos);
         }
+    }
+
+    public class PositionsMundane : IPositionsMundane
+    {
+        private ISePosHousesFacade _sePosHousesFacade;
+        private ICoordinateConversionFacade _coordinateConversionFacade;
+        private IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
+        private IHouseSystemSpecifications _houseSystemSpecifications;
+
+        public PositionsMundane(ISePosHousesFacade sePosHousesFacade, ICoordinateConversionFacade coordinateConversionFacade, 
+            IHorizontalCoordinatesFacade horizontalCoordinatesFacade, IHouseSystemSpecifications houseSystemSpecifications)
+        {
+            _sePosHousesFacade = sePosHousesFacade;
+            _coordinateConversionFacade = coordinateConversionFacade;
+            _horizontalCoordinatesFacade = horizontalCoordinatesFacade;
+            _houseSystemSpecifications = houseSystemSpecifications;
+        }
+
+        public MundanePositions CalculateAllMundanePositions(double julianDayUt, double obliquity, int flags, Location location, HouseSystems houseSystem)
+        {
+            char _houseSystemId = _houseSystemSpecifications.DetailsForHouseSystem(houseSystem).SeId;
+            int _nrOfCusps = _houseSystemSpecifications.DetailsForHouseSystem(houseSystem).NrOfCusps;
+            double[][] _longitudeValues = _sePosHousesFacade.PosHousesFromSe(julianDayUt, flags, location.GeoLat, location.GeoLong, _houseSystemId);
+            var _cusps = new List<CuspFullPos>(); 
+            for (int i = 0; i < _nrOfCusps; i++)
+            {
+                double _longitude = _longitudeValues[0][i + 1];
+                _cusps.Add(CreateFullMundanePos(julianDayUt, obliquity, _longitude, flags, location));
+            }
+            CuspFullPos _mc = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][0], flags, location);
+            CuspFullPos _asc = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][1], flags, location);
+            CuspFullPos _vertex = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][3], flags, location);
+            CuspFullPos _eastPoint = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][4], flags, location);
+            return new MundanePositions(_cusps, _mc, _asc, _vertex, _eastPoint);
+        }
+
+        private CuspFullPos CreateFullMundanePos(double jdnr, double obliquity, double eclLongitude, int flags, Location location )
+        {
+            double _latitude = 0.0;    // always zero for mundane positions.
+            double _distance = 1.0;    // placeholder.
+            var _geographicCoordinates = new double[] { location.GeoLong, location.GeoLat, _distance };
+            var _eclipticCoordinates = new double[] { eclLongitude, _latitude, _distance };
+            double[] _equatorialCoordinates = _coordinateConversionFacade.EclipticToEquatorial(new double[] { eclLongitude, 0.0 }, obliquity);
+            HorizontalPos _horizontalPos = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(jdnr, _geographicCoordinates, _eclipticCoordinates, flags);
+            return new CuspFullPos(eclLongitude, _equatorialCoordinates[0], _equatorialCoordinates[1], _horizontalPos);
+        }
+
     }
 
 }

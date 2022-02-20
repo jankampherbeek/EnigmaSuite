@@ -45,7 +45,9 @@ namespace E4C
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
             container.Register<IPositionSolSysPointCalc, PositionSolSysPointCalc>(Lifestyle.Singleton);
+            container.Register<IPositionsMundane, PositionsMundane>(Lifestyle.Singleton);
             container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
+            container.Register<ICoordinateConversionFacade, CoordinateConversionFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
             container.Register<ILocationValidations, LocationValidations>(Lifestyle.Singleton);
