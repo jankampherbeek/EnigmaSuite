@@ -1,13 +1,11 @@
 # Release 2022.0.3 -  detailed planning
 
-- Data input for the calculation of charts.
-  - View and viewform for data input.
+- ~~Data input for the calculation of charts.~~
+  - ~~View and viewform for data input.~~
     - ~~Layout.~~
     - ~~Decide on input for date and time.~~
     - ~~Implementation.~~
-    - Functionality.
-  - Domain object to hold inputted data.
-  - Error handling.
+    - ~~Functionality.~~
   - ~~Enum~~
     - ~~SolSysPoints~~
     - ~~SolSysPointCats~~
@@ -19,38 +17,25 @@
     - ~~Calendar.~~
       - ~~Create enum~~
       - ~~Use enum for calendar consistently~~
-- Calculation of planetary positions and houses (Sun .. Pluto, Chiron, Nodes).
-  - View and viewform for results.
-    - Layout.
-    - Menu.
-    - Implementation UI.
-  - Backend
-    - Functionality for calculation planet.
-    - Functionality for calculation range of planets.
-    - Functionality for calculation of houses.
-- Using one standard modus: Western Astrology.
-  - Define.
-  - Temporarily solution: hardcoded.
-- Calculated results are shown in a textual table.
-  - Tabbed pages for ecliptical, equatorial and horizontal positions.
-  - Where applicable, positions are given with glyphs.
-- Add help screens, using the look-and-feel as used in RadixPro (2008 version).
+- ~~Calculation of planetary positions and houses.~~
+  - ~~Backend~~
+    - ~~Functionality for calculation planet.~~
+    - ~~Functionality for calculation range of planets.~~
+    - ~~Functionality for calculation of houses.~~
 - ~~Use a separate file to populate texts, for now only in English.~~
 - ~~Create a class to handle reading of texts (Rosetta).~~
-- Use mutex to force single instance being run. See Chowdhury, WPF dev. p. 46.
-- Unit testing:
+- ~~Unit testing:~~
   - ~~Improve mocking: add matchers.~~
-  - Create tests for viewmodels.
-- Refactor existing screens:
-  - Look and feel
-    - General dashboard
+- ~~Refactor existing screens:~~
+  - ~~Look and feel~~
+    - ~~General dashboard~~
     - ~~Dashboard calculations~~
-    - Dashboard  charts
-    - Calculation JD
-    - Calculation obliquity
-  - Using Rosetta
-    - General dashboard
+    - ~~Dashboard  charts~~
+    - ~~Calculation JD~~
+    - ~~Calculation obliquity~~
+  - ~~Using Rosetta~~
+    - ~~General dashboard~~
     - ~~Dashboard calculations~~
-    - Dashboard  charts
-    - Calculation JD
-    - Calculation obliquity
+    - ~~Dashboard  charts~~
+    - ~~Calculation JD~~
+    - ~~Calculation obliquity~~

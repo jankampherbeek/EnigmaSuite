@@ -6,9 +6,11 @@
 
 ## Release 2022.0.3
 
-2022-  Code-only release,
+2022- 02-24 Code-only release,
 
-Calculation of planets and houses.
+- Calculation of planets and houses. 
+- Input form for data for chart calculation.
+- Calculator for Julian Day number
 
 
 

@@ -52,6 +52,26 @@ namespace E4C.Models.Astron
         public ResultForDouble CalculateObliquity(double julianDayUt, bool useTrueObliquity);
     }
 
+    /// <summary>
+    /// Definitons for flags.
+    /// </summary>
+    public interface IFlagDefinitions
+    {
+        /// <summary>
+        /// Define flags for a given FullChartRequest.
+        /// </summary>
+        /// <param name="request">Request for which the flags need to be defined.</param>
+        /// <returns>Combined vlaue for flags.</returns>
+        public int DefineFlags(FullChartRequest request);
+
+        /// <summary>
+        /// Changes existing flags to suppport equatorial calculations. 
+        /// </summary>
+        /// <param name="eclipticFlags"></param>
+        /// <returns>Value for equatorial flags.</returns>
+        public int AddEquatorial(int eclipticFlags);
+    }
+
 
     /// <summary>
     /// Calculations for Solar System points.
@@ -87,6 +107,19 @@ namespace E4C.Models.Astron
         public MundanePositions CalculateAllMundanePositions(double julianDayUt, double obliquity, int flags, Location location, HouseSystems houseSystem);
     }
 
+    /// <summary>
+    /// Calculator for fully defined charts.
+    /// </summary>
+    /// <remarks>No unit test as this would require too much mocked data. This class should be tested by an integration test.</remarks>
+    public interface IFullChartCalc
+    {
+        /// <summary>
+        /// Calculate a fully defined chart.
+        /// </summary>
+        /// <param name="request">Instance of FullChartRequest.</param>
+        /// <returns>A FUllChartResponse with all the calculated data.</returns>
+        public FullChartResponse CalculateFullChart(FullChartRequest request);
+    }
 
 
     public class CalendarCalc : ICalendarCalc
@@ -169,6 +202,87 @@ namespace E4C.Models.Astron
             }
 
             return _result;
+        }
+    }
+
+    public class FlagDefinitions : IFlagDefinitions
+    {
+
+        public int DefineFlags(FullChartRequest request)
+        {
+            int flags = Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
+            if (request.ObserverPosition == ObserverPositions.HelioCentric)
+            {
+                flags = flags | Constants.SEFLG_HELCTR;
+            }
+            if (request.ObserverPosition == ObserverPositions.TopoCentric)
+            {
+                flags = flags | Constants.SEFLG_TOPOCTR;
+            }
+            if (request.ZodiacType == ZodiacTypes.Sidereal)
+            {
+                flags = flags | Constants.SEFLG_SIDEREAL;
+            }
+            return flags;
+        }
+
+        public int AddEquatorial(int eclipticFlags)
+        {
+            return eclipticFlags | Constants.SEFLG_EQUATORIAL;
+        }
+
+
+
+    }
+
+
+    public class FullChartCalc : IFullChartCalc
+    {
+        private IObliquityNutationCalc _obliquityNutationCalc;
+        private IPositionsMundane _positionsMundane;
+        private IPositionSolSysPointCalc _positionSolSysPointCalc;
+        private IFlagDefinitions _flagDefinitions;
+
+        /// <summary>
+        /// Constructor for FullChartCalc.
+        /// </summary>
+        /// <param name="obliquityNutationCalc">Calclator for boliquity and nutation.</param>
+        /// <param name="positionsMundane">Calculator for mundane positions.</param>
+        /// <param name="positionSolSysPointCalc">Calculator for solar system points.</param>
+        public FullChartCalc(IObliquityNutationCalc obliquityNutationCalc, IPositionsMundane positionsMundane, IPositionSolSysPointCalc positionSolSysPointCalc, IFlagDefinitions flagDefinitions)
+        {
+            _obliquityNutationCalc = obliquityNutationCalc;
+            _positionsMundane = positionsMundane;
+            _positionSolSysPointCalc = positionSolSysPointCalc;
+            _flagDefinitions = flagDefinitions;
+        }
+
+
+        public FullChartResponse CalculateFullChart(FullChartRequest request)
+        {
+            int _flagsEcliptical = _flagDefinitions.DefineFlags(request);
+            int _flagsEquatorial = _flagDefinitions.AddEquatorial(_flagsEcliptical);
+            double _obliquity = CalculateObliquity(request.JulianDayUt);
+            MundanePositions _mundanePositions = _positionsMundane.CalculateAllMundanePositions(request.JulianDayUt, _obliquity, _flagsEcliptical, request.ChartLocation, request.HouseSystem);
+
+            var _fullSolSysPoints = new List<FullSolSysPointPos>();
+            foreach (SolarSystemPoints solSysPoint in request.SolarSystemPoints)
+            {
+                _fullSolSysPoints.Add(_positionSolSysPointCalc.CalculateSolSysPoint(solSysPoint, request.JulianDayUt, request.ChartLocation, _flagsEcliptical, _flagsEquatorial));
+            }
+            return new FullChartResponse(_fullSolSysPoints, _mundanePositions);
+        }
+
+        private double CalculateObliquity(double _jdUt)
+        {
+            bool _trueObliquity = false;
+            ResultForDouble _obliquityResult = _obliquityNutationCalc.CalculateObliquity(_jdUt, _trueObliquity);
+            if (!_obliquityResult.NoErrors)
+            {
+                // todo use specific exception
+                throw new Exception("Error when calculating obliquity in FullChartCalc. Received message: " + _obliquityResult.ErrorText);
+            }
+            return _obliquityResult.ReturnValue;
         }
     }
 

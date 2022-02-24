@@ -5,36 +5,21 @@
 
 
 
-## Release 2022.0.3
-
-- Data input for the calculation of charts, using databinding.
-- Calculation of planetary positions and houses (Sun .. Pluto, Chiron, Nodes).
-- Using one standard modus: Western Astrology.
-- Calculated results are shown in a textual table.
-  - Tabbed pages for ecliptical, equatorial and horizontal positions.
-  - Where applicable, positions are given with glyphs.
-- Add help screens, using the look-and-feel as used in RadixPro (2008 version).
-- Use a separate file to populate texts, for now only in English.
-- Create a class to handle reading of texts (Rosetta).
-- Use mutex to force single instance being run. See Chowdhury, WPF dev. p. 46.
-- Unit testing:
-  - Improve mocking: add matchers.
-  - Create tests for viewmodels.
 
 
 ## Release 2022.0.4
 
 Drawing of chart, with equal signs, with equal houses and French variant.
 
-Add persistency for charts. (Retrieving, saving). Select database and possible use of Ado.net.
+Show results of calculation in table.
 
-Standardize input for date/time: same in calculations as in charts.	
-
-Add data binding to calculations.
+Implement central vault to keep track of available charts.
 
 
 
 ## Release 2022.0.5
+
+Add persistency for charts. (Retrieving, saving). Select database and possible use of Ado.net.
 
 Add oblique longitude, hypotheticals for School of Ram and Uranian astrology. 
 
@@ -245,3 +230,11 @@ Finishing the general approach and adding a calculator for obliquity.
 - Service to access calculation of obliquity.
 - Unit tests.
 
+### Release 2022.0.3
+
+- Data input for the calculation of charts.
+- Calculation of planetary positions and houses .
+- Use a separate file to populate texts, for now only in English.
+- Create a class to handle reading of texts (Rosetta).
+- Unit testing:
+  - Improve mocking: add matchers.
