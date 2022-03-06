@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.Models.Domain;
-using E4C.ViewModels;
 using E4C.Models.UiHelpers;
+using E4C.ViewModels;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;

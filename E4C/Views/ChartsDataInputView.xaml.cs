@@ -2,11 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Windows;
-using System.Collections.Generic;
+using E4C.Models.Domain;
 using E4C.Models.UiHelpers;
 using E4C.ViewModels;
-using E4C.Models.Domain;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Media;
 
 namespace E4C.Views
@@ -24,8 +24,8 @@ namespace E4C.Views
         private List<YearCountDetails> _yearCountItems;
         private List<TimeZoneDetails> _timeZoneDetails;
         public List<ChartCategoryDetails> ChartCategoryItems { get => _chartCategoryItems; set => _chartCategoryItems = value; }
-        public List<RoddenRatingDetails> RoddenRatingItems{ get => _roddenRatingItems; set => _roddenRatingItems = value; }
-        public List<CalendarDetails > CalendarItems { get => _calendarItems; set => _calendarItems = value; }
+        public List<RoddenRatingDetails> RoddenRatingItems { get => _roddenRatingItems; set => _roddenRatingItems = value; }
+        public List<CalendarDetails> CalendarItems { get => _calendarItems; set => _calendarItems = value; }
         public List<YearCountDetails> YearCountItems { get => _yearCountItems; set => _yearCountItems = value; }
         public List<TimeZoneDetails> TimeZoneItems { get => _timeZoneDetails; set => _timeZoneDetails = value; }
 
@@ -35,10 +35,10 @@ namespace E4C.Views
             _viewModel = viewModel;
             _rosetta = rosetta;
             _chartCategoryItems = new List<ChartCategoryDetails>();
-            _roddenRatingItems= new List<RoddenRatingDetails>();
-            _timeZoneDetails= new List<TimeZoneDetails>();  
-            _calendarItems= new List<CalendarDetails>();
-            _yearCountItems= new List<YearCountDetails>();
+            _roddenRatingItems = new List<RoddenRatingDetails>();
+            _timeZoneDetails = new List<TimeZoneDetails>();
+            _calendarItems = new List<CalendarDetails>();
+            _yearCountItems = new List<YearCountDetails>();
             PopulateStaticTexts();
             PopulateReferences();
         }
@@ -107,7 +107,7 @@ namespace E4C.Views
             }
             else
             {
-                // perform calculation
+                _viewModel.SignalNewChartInputCompleted();
             }
         }
 
@@ -263,7 +263,7 @@ namespace E4C.Views
             {
                 foreach (var _timeZoneItem in TimeZoneItems)
                 {
-                    TimeZoneInput.Items.Add(_rosetta.TextForId(_timeZoneItem.TextId));  
+                    TimeZoneInput.Items.Add(_rosetta.TextForId(_timeZoneItem.TextId));
                 }
                 TimeZoneInput.SelectedIndex = 0;
             }
@@ -280,11 +280,11 @@ namespace E4C.Views
             _viewModel.InputSource = SourceInput.Text;
             _viewModel.InputDescription = DescriptionInput.Text;
             _viewModel.InputLocation = LocationNameInput.Text;
-            _viewModel.InputGeoLong = new string[] {LongDegreeInput.Text, LongMinuteInput.Text, LongSecondInput.Text};
-            _viewModel.InputGeoLat = new string[] {LatDegreeInput.Text, LatMinuteInput.Text, LatSecondInput.Text};
-            _viewModel.InputDate = new string[] { DateYearInput.Text, DateMonthInput.Text, DateDayInput.Text};
+            _viewModel.InputGeoLong = new string[] { LongDegreeInput.Text, LongMinuteInput.Text, LongSecondInput.Text };
+            _viewModel.InputGeoLat = new string[] { LatDegreeInput.Text, LatMinuteInput.Text, LatSecondInput.Text };
+            _viewModel.InputDate = new string[] { DateYearInput.Text, DateMonthInput.Text, DateDayInput.Text };
             _viewModel.InputTime = new string[] { TimeHourInput.Text, TimeMinuteInput.Text, TimeSecondInput.Text };
-            _viewModel.InputLmtLong = new string[] {LmtDegreeInput.Text, LmtMinuteInput.Text, LmtSecondInput.Text};
+            _viewModel.InputLmtLong = new string[] { LmtDegreeInput.Text, LmtMinuteInput.Text, LmtSecondInput.Text };
             _viewModel.InputRbEastSelected = RbEast.IsChecked;
             _viewModel.InputRbLmtEastSelected = RbZoneEast.IsChecked;
             _viewModel.InputRbNorthSelected = RbNorth.IsChecked;

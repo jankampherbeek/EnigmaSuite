@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using E4C.Models.Creators;
 using E4C.Models.Domain;
-using E4C.Models.Validations;
+using E4C.Models.UiHelpers;
+using System;
+using System.Collections.Generic;
 
 namespace E4C.ViewModels
 {
@@ -17,13 +15,15 @@ namespace E4C.ViewModels
         readonly private ITimeZoneSpecifications _timeZoneSpecifications;
         readonly private IDateTimeValidations _dateTimeValidations;
         readonly private ILocationValidations _locationValidations;
+        readonly private IChartsStock _chartsStock;
+        readonly private ITextAssembler _textAssembler;
 
         public List<ChartCategoryDetails> ChartCategoryItems { get; }
         public List<RoddenRatingDetails> RoddenRatingItems { get; }
         public List<CalendarDetails> CalendarItems { get; }
-        public List<YearCountDetails> YearCountItems { get; }   
+        public List<YearCountDetails> YearCountItems { get; }
         public List<TimeZoneDetails> TimeZoneItems { get; }
-        public string InputName { get; set; }   
+        public string InputName { get; set; }
         public string InputLocation { get; set; }
         public string InputSource { get; set; }
         public string InputDescription { get; set; }
@@ -36,7 +36,7 @@ namespace E4C.ViewModels
         public bool? InputRbNorthSelected { get; set; }
         public bool? InputRbLmtEastSelected { get; set; }
         public bool? InputCbDstSelected { get; set; }
-        public int ChartCategoryIndex { get;  set; }
+        public int ChartCategoryIndex { get; set; }
         public int RoddenRatingIndex { get; set; }
         public int CalendarIndex { get; set; }
         public int YearCountIndex { get; set; }
@@ -50,13 +50,15 @@ namespace E4C.ViewModels
 
 
 
-        public ChartsDataInputViewModel(IChartCategorySpecifications chartCategorySpecifications, 
+        public ChartsDataInputViewModel(IChartCategorySpecifications chartCategorySpecifications,
             IRoddenRatingSpecifications roddenRatingSpecifications,
             ICalendarSpecifications calendarSpecifications,
             IYearCountSpecifications yearCountSpecifications,
             ITimeZoneSpecifications timeZoneSpecifications,
             IDateTimeValidations dateTimeValidations,
-            ILocationValidations locationValidations)
+            ILocationValidations locationValidations,
+            IChartsStock chartsStock,
+            ITextAssembler textAssembler)
         {
             _chartCategorySpecifications = chartCategorySpecifications;
             _roddenRatingSpecifications = roddenRatingSpecifications;
@@ -65,6 +67,8 @@ namespace E4C.ViewModels
             _timeZoneSpecifications = timeZoneSpecifications;
             _dateTimeValidations = dateTimeValidations;
             _locationValidations = locationValidations;
+            _chartsStock = chartsStock;
+            _textAssembler = textAssembler;
 
             ChartCategoryItems = new List<ChartCategoryDetails>();
             RoddenRatingItems = new List<RoddenRatingDetails>();
@@ -124,13 +128,13 @@ namespace E4C.ViewModels
         {
             foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
             {
-                YearCountItems.Add(_yearCountSpecifications.DetailsForYearCount(yearCount));    
+                YearCountItems.Add(_yearCountSpecifications.DetailsForYearCount(yearCount));
             }
         }
 
         public void DefineTimeZones()
         {
-            foreach(TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
+            foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
             {
                 TimeZoneItems.Add(_timeZoneSpecifications.DetailsForTimeZone(timeZone));
             }
@@ -169,7 +173,22 @@ namespace E4C.ViewModels
             InputCalendar = _calendarSpecifications.CalendarForIndex(CalendarIndex);
             InputYearCount = _yearCountSpecifications.YearCountForIndex(YearCountIndex);
             InputTimeZone = _timeZoneSpecifications.TimeZoneForIndex(TimeZoneIndex);
-            
+
+        }
+
+        public void SignalNewChartInputCompleted()
+        {
+            MetaData _metaData = new(InputName, InputDescription, InputSource, InputChartCategories, InputRoddenRating);
+            //        Directions4GeoLat _dirGeoLat = (bool)InputRbNorthSelected ? Directions4GeoLat.North : Directions4GeoLat.South;
+            //        Directions4GeoLong _dirGeoLong = (bool)InputRbEastSelected ? Directions4GeoLong.East : Directions4GeoLong.West;
+            //        string _locationFullName = _textAssembler.CreateLocationFullText(InputLocation, InputGeoLong, InputGeoLat, _dirGeoLong, _dirGeoLat);
+            //        Location _location = new Location(locationFullName, geoLong, geolat);
+            //        ChartData _chartData = new ChartData(id, tempId, _metaData, InputLocation, fullDateTime)
+            // construct ChartData
+            // add ChartData to _chartsStock
+            // construct Request
+            // perform calculation
+            // create form with chartdata
         }
 
     }

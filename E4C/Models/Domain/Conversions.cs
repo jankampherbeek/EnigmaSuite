@@ -2,8 +2,8 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
 using E4C.Models.Astron;
+using System;
 
 
 namespace E4C.Models.Domain
@@ -79,11 +79,11 @@ namespace E4C.Models.Domain
                 double value1 = double.Parse(texts[0]);
                 double value2 = double.Parse(texts[1]);
                 double value3 = double.Parse(texts[2]);
-                return value1 + value2 / Constants.MINUTES_PER_HOUR + value3 / Constants.SECONDS_PER_HOUR;
-            } 
+                return value1 + value2 / Constants.MINUTES_PER_HOUR_DEGREE + value3 / Constants.SECONDS_PER_HOUR_DEGREE;
+            }
             catch (Exception e)
             {
-                throw new ArgumentException("Error converting to decimal geoLong, using values : " + texts.ToString() + ". Original exception message : " + e.Message); 
+                throw new ArgumentException("Error converting to decimal geoLong, using values : " + texts.ToString() + ". Original exception message : " + e.Message);
             }
         }
     }
@@ -105,7 +105,7 @@ namespace E4C.Models.Domain
                 int value1 = int.Parse(inputDate[0]);
                 int value2 = int.Parse(inputDate[1]);
                 int value3 = int.Parse(inputDate[2]);
-                return new int[] {value1, value2, value3};
+                return new int[] { value1, value2, value3 };
             }
             catch (Exception e)
             {

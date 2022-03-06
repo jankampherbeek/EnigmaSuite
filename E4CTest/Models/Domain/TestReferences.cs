@@ -312,7 +312,7 @@ namespace E4CTest.be.domain
         public void TestRetrievingDetails()
         {
             ChartCategories chartCategory = ChartCategories.Election;
-            IChartCategorySpecifications specifications = new ChartCategorySpecifications();    
+            IChartCategorySpecifications specifications = new ChartCategorySpecifications();
             ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
             Assert.IsNotNull(details);
             Assert.AreEqual(chartCategory, details.Category);

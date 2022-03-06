@@ -134,8 +134,7 @@ namespace E4CTest
         {
             MetaData _metaData = new("name", "description", "source", ChartCategories.Female, RoddenRatings.A);
             Location _location = new("location full name", 100.0, 20.0);
-            SimpleDateTime _dateTime = new(2022, 2, 12, 0.0, Calendars.Gregorian);
-            FullDateTime _fullDateTime = new("date text", "time text", 123456.789, _dateTime);
+            FullDateTime _fullDateTime = new("date text", "time text", 123456.789);
             return new ChartData(index, tempId, _metaData, _location, _fullDateTime);
 
 

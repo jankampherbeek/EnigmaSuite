@@ -2,11 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Astron;
 using E4C.Models.Domain;
-using E4C.Models.Validations;
-using E4C.ViewModels;
 using E4C.Models.UiHelpers;
+using E4C.ViewModels;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -85,17 +83,17 @@ namespace E4C.Views
 
         private void OnSubmit(object sender, RoutedEventArgs e)
         {
-                UpdateViewModel();
-                Date.Foreground = Brushes.Black;
-                List<int> _errors = _calcObliquityViewModel.ValidateInput();
-                if (_errors.Count > 0)
-                {
-                    HandleErrors(_errors);
-                }
-                else
-                {
-                    ResultValue.Text = _calcObliquityViewModel.CalculateObliquity();
-                }
+            UpdateViewModel();
+            Date.Foreground = Brushes.Black;
+            List<int> _errors = _calcObliquityViewModel.ValidateInput();
+            if (_errors.Count > 0)
+            {
+                HandleErrors(_errors);
+            }
+            else
+            {
+                ResultValue.Text = _calcObliquityViewModel.CalculateObliquity();
+            }
         }
 
         private void UpdateViewModel()

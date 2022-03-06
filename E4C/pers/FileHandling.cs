@@ -35,11 +35,11 @@ namespace E4C.be.persistency
                 _lines = File.ReadLines(fileName);
                 return _lines;
             }
-            catch (FileNotFoundException fnfe)
+            catch (FileNotFoundException)
             {
                 // todo log exception
             }
-            catch (IOException ioe)
+            catch (IOException)
             {
                 // todo log exception
             }

@@ -4,10 +4,10 @@
 
 using E4C.be.persistency;
 using E4C.Models.Astron;
+using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.Models.SeFacade;
 using E4C.Models.UiHelpers;
-using E4C.Models.Validations;
 using E4C.ViewModels;
 using E4C.Views;
 using SimpleInjector;
@@ -62,6 +62,11 @@ namespace E4C
             container.Register<IDateConversions, DateConversions>(Lifestyle.Singleton);
             container.Register<IChartsStock, ChartsStock>(Lifestyle.Singleton);
             container.Register<ITextAssembler, TextAssembler>(Lifestyle.Singleton);
+            container.Register<IIntRangeCreator, IntRangeCreator>(Lifestyle.Singleton);
+            container.Register<ILocationFactory, LocationFactory>(Lifestyle.Singleton);
+            container.Register<IDateFactory, DateFactory>(Lifestyle.Singleton);
+            container.Register<ITimeFactory, TimeFactory>(Lifestyle.Singleton);
+            container.Register<IDateTimeFactory, DateTimeFactory>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();

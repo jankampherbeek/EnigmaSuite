@@ -1,12 +1,9 @@
-﻿using System;
+﻿using E4C.Models.Domain;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using E4C.Models.Domain;
 
 
-namespace E4C.Models.Validations
+namespace E4C.Models.Creators
 {
 
     /// <summary>
@@ -49,7 +46,7 @@ namespace E4C.Models.Validations
                     _errorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _errorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON);
             }
@@ -67,25 +64,25 @@ namespace E4C.Models.Validations
                     _errorCodes.Add(ErrorCodes.ERR_INVALID_GEOLAT);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 _errorCodes.Add(ErrorCodes.ERR_INVALID_GEOLAT);
             }
             return _errorCodes;
         }
 
-        private int[] ParseDegreesMinutesSeconds(string[] geoLong)
+        private static int[] ParseDegreesMinutesSeconds(string[] geoLong)
         {
             int[] _parsedValues = new int[3];
             _parsedValues[0] = int.Parse(geoLong[0]);
             _parsedValues[1] = int.Parse(geoLong[1]);
             _parsedValues[2] = int.Parse(geoLong[2]);
-            return _parsedValues; 
+            return _parsedValues;
         }
 
-        private bool CheckDegreesMinutesSeconds(int[] values, int minDegree, int maxDegree)
+        private static bool CheckDegreesMinutesSeconds(int[] values, int minDegree, int maxDegree)
         {
-            return values[0] >= minDegree && values[0] <= maxDegree 
+            return values[0] >= minDegree && values[0] <= maxDegree
                 && values[1] >= Constants.MINUTE_MIN && values[1] <= Constants.MINUTE_MAX
                 && values[2] >= Constants.SECOND_MIN && values[2] <= Constants.SECOND_MAX;
         }

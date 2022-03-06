@@ -92,7 +92,7 @@ namespace E4CTest.be.domain
         public void TestConstructionWrongArray()
         {
             double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0 };
-            SolSysPointPosSpeeds posSpeeds = new(values);
+            SolSysPointPosSpeeds _ = new(values);
         }
 
         [TestMethod]
@@ -113,4 +113,6 @@ namespace E4CTest.be.domain
 
 
     }
+
+
 }

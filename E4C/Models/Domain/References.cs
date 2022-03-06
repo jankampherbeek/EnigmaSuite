@@ -696,7 +696,7 @@ namespace E4C.Models.Domain
     /// </summary>
     public enum ChartCategories
     {
-        Unknown = 0, Female = 1, Male = 2, Event = 3, Horary = 4, Election = 5 
+        Unknown = 0, Female = 1, Male = 2, Event = 3, Horary = 4, Election = 5
     }
 
     /// <summary>
@@ -738,7 +738,7 @@ namespace E4C.Models.Domain
         /// Throws an exception if no ChartCategories for the given index does exist.</param>
         /// <returns>Instance from enum ChartCategories that corresponds with the given index.</returns>
         public ChartCategories ChartCategoryForIndex(int chartCategoryIndex);
-    
+
     }
 
 
@@ -1006,7 +1006,7 @@ namespace E4C.Models.Domain
     /// </summary>
     public record ProjectionTypeDetails
     {
-        readonly public ProjectionTypes ProjectionType; 
+        readonly public ProjectionTypes ProjectionType;
         readonly public string TextId;
 
         /// <summary>

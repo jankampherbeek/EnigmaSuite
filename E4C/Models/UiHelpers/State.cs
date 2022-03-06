@@ -83,19 +83,19 @@ namespace E4C.Models.UiHelpers
 
         public void RemoveChart(int tempId)
         {
-           if (tempId == _currentTempId)
+            if (tempId == _currentTempId)
             {
                 _currentTempId = 0;
             }
             ChartData? removableChartData = null;
-           foreach (ChartData chartData in _charts)
+            foreach (ChartData chartData in _charts)
             {
                 if (chartData.TempId == tempId)
                 {
                     removableChartData = chartData;
                 }
             }
-           if (removableChartData != null)
+            if (removableChartData != null)
             {
                 _charts.Remove(removableChartData);
             }

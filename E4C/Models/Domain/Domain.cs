@@ -206,16 +206,18 @@ namespace E4C.Models.Domain
     /// <summary>
     /// Location related data.
     /// </summary>
-    public record Location
+    public class Location
     {
         public readonly string LocationFullName;
         public readonly double GeoLong;
         public readonly double GeoLat;
+        public readonly Directions4GeoLong DirLong;
+        public readonly Directions4GeoLat DirLat;
 
         /// <summary>
-        /// Constructor for record Location
+        /// Constructor for Location.
         /// </summary>
-        /// <param name="locationFullName">Name and sexagesimal coordinatevalues for a location.</param>
+        /// <param name="locationFullName">Name and sexagesimal coordinatevalues for a location. Directions are defined between [] and need to be replaced with texts from Rosetta.</param>
         /// <param name="geoLong">Value for geographic longitude.</param>
         /// <param name="geoLat">Value for geographic latitude.</param>
         public Location(string locationFullName, double geoLong, double geoLat)
@@ -223,32 +225,86 @@ namespace E4C.Models.Domain
             LocationFullName = locationFullName;
             GeoLong = geoLong;
             GeoLat = geoLat;
+            DirLong = GeoLong >= 0.0 ? Directions4GeoLong.East : Directions4GeoLong.West;
+            DirLat = GeoLat >= 0.0 ? Directions4GeoLat.North : Directions4GeoLat.South;
         }
+
+
+
+
+    }
+
+    /// <summary>
+    /// Record for a full definition of a data.
+    /// </summary>
+    /// <remarks>Assumes an astronomical year count.</remarks>
+    public record FullDate
+    {
+        public readonly int[] YearMonthDay;
+        public readonly Calendars Calendar;
+        public readonly string DateFullText;
+
+        /// <summary>
+        /// Constructor for FullDate.
+        /// </summary>
+        /// <param name="yearMonthDay">Texts for year, month and day, in that sequence.</param>
+        /// <param name="calendar">Instane of enu Calendars.</param>
+        /// <param name="dateFullText">Text for the date, includes texts between [] that needs to be replaced with texts from Rosetta.</param>
+        public FullDate(int[] yearMonthDay, Calendars calendar, string dateFullText)
+        {
+            YearMonthDay = yearMonthDay;
+            Calendar = calendar;
+            DateFullText = dateFullText;
+        }
+    }
+
+    /// <summary>
+    /// Record for a full definition of a time.
+    /// </summary>
+    public record FullTime
+    {
+        public readonly int[] HourMinuteSecond;
+        public readonly double Ut;
+        public readonly int CorrectionForDay;
+        public readonly string TimeFullText;
+
+        /// <summary>
+        /// Constructor for FullTime.
+        /// </summary>
+        /// <param name="hourMinuteSecond">Texts for hour, minute and second in that sequence.</param>
+        /// <param name="ut">Value of Universal Time, using 24 hour notation.</param>
+        /// <param name="correctionForDay">Correction for day, due to time overflow. Poswsible values -1, 0, +1.</param>
+        /// <param name="timeFullText">Text for the time, includes texts between [] that needs to be replaced with texts from Rosetta.</param>
+        public FullTime(int[] hourMinuteSecond, double ut, int correctionForDay, string timeFullText)
+        {
+            HourMinuteSecond = hourMinuteSecond;
+            Ut = ut;
+            CorrectionForDay = correctionForDay;
+            TimeFullText = timeFullText;
+        }
+
     }
 
     /// <summary>
     /// Date/time related data.
     /// </summary>
-    public record FullDateTime
+    public class FullDateTime
     {
         public readonly string DateText;
         public readonly string TimeText;
         public readonly double JulianDayForEt;
-        public readonly SimpleDateTime DateTime;
 
         /// <summary>
-        /// Constructor for record FullDateTime.
+        /// Constructor for FullDateTime, using predefined values.
         /// </summary>
         /// <param name="dateText">Textual presentation for the date.</param>
         /// <param name="timeText">Textual presentation for the time.</param>
         /// <param name="julianDayForEt">Julian Day for ephemeris time.</param>
-        /// <param name="dateTime">Instance of SimpleDateTime with values for date and time.</param>
-        public FullDateTime(string dateText, string timeText, double julianDayForEt, SimpleDateTime dateTime)
+        public FullDateTime(string dateText, string timeText, double julianDayForEt)
         {
             DateText = dateText;
             TimeText = timeText;
             JulianDayForEt = julianDayForEt;
-            DateTime = dateTime;
         }
     }
 
@@ -365,7 +421,7 @@ namespace E4C.Models.Domain
         public readonly PosSpeed Declination;
         public readonly PosSpeed Distance;
         public readonly HorizontalPos AzimuthAltitude;
-        
+
         /// <summary>
         /// Constructor for a fully defined Solar system point.
         /// </summary>
@@ -376,7 +432,7 @@ namespace E4C.Models.Domain
         /// <param name="declination">Declination in degrees.</param>
         /// <param name="distance">distance in AU.</param>
         /// <param name="azimuthAltitude">Azimuth and altitude in degrees.</param>
-        public FullSolSysPointPos(SolarSystemPoints solarSystemPoint, PosSpeed longitude, PosSpeed latitude, PosSpeed rightAscension, 
+        public FullSolSysPointPos(SolarSystemPoints solarSystemPoint, PosSpeed longitude, PosSpeed latitude, PosSpeed rightAscension,
             PosSpeed declination, PosSpeed distance, HorizontalPos azimuthAltitude)
         {
             SolarSystemPoint = solarSystemPoint;

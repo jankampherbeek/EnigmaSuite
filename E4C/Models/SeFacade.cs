@@ -110,7 +110,7 @@ namespace E4C.Models.SeFacade
         /// </returns>
         public double[][] PosHousesFromSe(double jdUt, int flags, double geoLat, double geoLon, char houseSystem);
     }
-        
+
 
     public class SeDateTimeFacade : ISeDateTimeFacade
     {
@@ -205,6 +205,7 @@ namespace E4C.Models.SeFacade
         {
             double[] horizontalCoordinates = new double[3];
             int result = ext_swe_azalt(JulianDayUt, flags, geoGraphicCoordinates, 0, 0, eclipticCoordinates, horizontalCoordinates);
+            // TODO check result
             return new HorizontalPos(horizontalCoordinates[0], horizontalCoordinates[1]);
         }
 
@@ -229,7 +230,7 @@ namespace E4C.Models.SeFacade
         public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity)
         {
             double _negativeObliquity = -(Math.Abs(obliquity));
-            double[] _allEclipticCoordinates = new double[] {eclipticCoordinates[0], eclipticCoordinates[1], 1.0 }; // 1.0 is placeholder for distance.
+            double[] _allEclipticCoordinates = new double[] { eclipticCoordinates[0], eclipticCoordinates[1], 1.0 }; // 1.0 is placeholder for distance.
             double[] _equatorialResults = new double[3];
             int result = ext_swe_cotrans(_allEclipticCoordinates, _equatorialResults, _negativeObliquity);
             /// todo check return value

@@ -213,15 +213,15 @@ namespace E4C.Models.Astron
             int flags = Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
             if (request.ObserverPosition == ObserverPositions.HelioCentric)
             {
-                flags = flags | Constants.SEFLG_HELCTR;
+                flags |= Constants.SEFLG_HELCTR;
             }
             if (request.ObserverPosition == ObserverPositions.TopoCentric)
             {
-                flags = flags | Constants.SEFLG_TOPOCTR;
+                flags |= Constants.SEFLG_TOPOCTR;
             }
             if (request.ZodiacType == ZodiacTypes.Sidereal)
             {
-                flags = flags | Constants.SEFLG_SIDEREAL;
+                flags |= Constants.SEFLG_SIDEREAL;
             }
             return flags;
         }
@@ -238,10 +238,10 @@ namespace E4C.Models.Astron
 
     public class FullChartCalc : IFullChartCalc
     {
-        private IObliquityNutationCalc _obliquityNutationCalc;
-        private IPositionsMundane _positionsMundane;
-        private IPositionSolSysPointCalc _positionSolSysPointCalc;
-        private IFlagDefinitions _flagDefinitions;
+        private readonly IObliquityNutationCalc _obliquityNutationCalc;
+        private readonly IPositionsMundane _positionsMundane;
+        private readonly IPositionSolSysPointCalc _positionSolSysPointCalc;
+        private readonly IFlagDefinitions _flagDefinitions;
 
         /// <summary>
         /// Constructor for FullChartCalc.
@@ -286,13 +286,13 @@ namespace E4C.Models.Astron
         }
     }
 
-    public class PositionSolSysPointCalc: IPositionSolSysPointCalc
+    public class PositionSolSysPointCalc : IPositionSolSysPointCalc
     {
         private readonly ISePosCelPointFacade _posCelPointFacade;
         private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
         private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
 
-        public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade, IHorizontalCoordinatesFacade horizontalCoordinatesFacade, 
+        public PositionSolSysPointCalc(ISePosCelPointFacade posCelPointFacade, IHorizontalCoordinatesFacade horizontalCoordinatesFacade,
             ISolarSystemPointSpecifications solarSystemPointSpecifications)
         {
             _posCelPointFacade = posCelPointFacade;
@@ -312,7 +312,7 @@ namespace E4C.Models.Astron
             double[] _fullEquatorialPositions = _posCelPointFacade.PosCelPointFromSe(jdnr, pointId, flagsEquatorial);
             var _eclCoordinatesForHorCalculation = new double[] { _fullEclipticPositions[0], _fullEclipticPositions[1], _fullEclipticPositions[2] };
             var _geoGraphicCoordinates = new double[] { location.GeoLong, location.GeoLat, heightAboveSeaLevel };
-            HorizontalPos _horizontalPos = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(   jdnr, _geoGraphicCoordinates, _eclCoordinatesForHorCalculation, flagsEcliptical);
+            HorizontalPos _horizontalPos = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(jdnr, _geoGraphicCoordinates, _eclCoordinatesForHorCalculation, flagsEcliptical);
             var _longitude = new PosSpeed(_fullEclipticPositions[0], _fullEclipticPositions[3]);
             var _latitude = new PosSpeed(_fullEclipticPositions[1], _fullEclipticPositions[4]);
             var _distance = new PosSpeed(_fullEclipticPositions[2], _fullEclipticPositions[5]);
@@ -324,12 +324,12 @@ namespace E4C.Models.Astron
 
     public class PositionsMundane : IPositionsMundane
     {
-        private ISePosHousesFacade _sePosHousesFacade;
-        private ICoordinateConversionFacade _coordinateConversionFacade;
-        private IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
-        private IHouseSystemSpecifications _houseSystemSpecifications;
+        private readonly ISePosHousesFacade _sePosHousesFacade;
+        private readonly ICoordinateConversionFacade _coordinateConversionFacade;
+        private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
+        private readonly IHouseSystemSpecifications _houseSystemSpecifications;
 
-        public PositionsMundane(ISePosHousesFacade sePosHousesFacade, ICoordinateConversionFacade coordinateConversionFacade, 
+        public PositionsMundane(ISePosHousesFacade sePosHousesFacade, ICoordinateConversionFacade coordinateConversionFacade,
             IHorizontalCoordinatesFacade horizontalCoordinatesFacade, IHouseSystemSpecifications houseSystemSpecifications)
         {
             _sePosHousesFacade = sePosHousesFacade;
@@ -343,7 +343,7 @@ namespace E4C.Models.Astron
             char _houseSystemId = _houseSystemSpecifications.DetailsForHouseSystem(houseSystem).SeId;
             int _nrOfCusps = _houseSystemSpecifications.DetailsForHouseSystem(houseSystem).NrOfCusps;
             double[][] _longitudeValues = _sePosHousesFacade.PosHousesFromSe(julianDayUt, flags, location.GeoLat, location.GeoLong, _houseSystemId);
-            var _cusps = new List<CuspFullPos>(); 
+            var _cusps = new List<CuspFullPos>();
             for (int i = 0; i < _nrOfCusps; i++)
             {
                 double _longitude = _longitudeValues[0][i + 1];
@@ -356,7 +356,7 @@ namespace E4C.Models.Astron
             return new MundanePositions(_cusps, _mc, _asc, _vertex, _eastPoint);
         }
 
-        private CuspFullPos CreateFullMundanePos(double jdnr, double obliquity, double eclLongitude, int flags, Location location )
+        private CuspFullPos CreateFullMundanePos(double jdnr, double obliquity, double eclLongitude, int flags, Location location)
         {
             double _latitude = 0.0;    // always zero for mundane positions.
             double _distance = 1.0;    // placeholder.

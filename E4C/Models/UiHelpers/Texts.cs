@@ -2,8 +2,8 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Domain;
 using E4C.be.persistency;
+using E4C.Models.Domain;
 using System.Collections.Generic;
 
 namespace E4C.Models.UiHelpers
@@ -73,18 +73,8 @@ namespace E4C.Models.UiHelpers
     /// </summary>
     public interface ITextAssembler
     {
-        /// <summary>
-        /// Create a text for a full location.
-        /// </summary>
-        /// <param name="locationName">Nam eof the location.</param>
-        /// <param name="geoLongValues">Degrees, minutes and seconds for geographic longitude, in that sequence.</param>
-        /// <param name="geoLatValues">Degrees, minutes and seconds for geographic latitude, in that sequence.</param>
-        /// <param name="dirLong">Direction for geographic longitude.</param>
-        /// <param name="dirLat">Direction for geographic latitude.</param>
-        /// <returns>A string in a format as follows: Enschede, Netherlands, 6°54'00" East, 52°13'00" North.
-        /// If the location name is omitted, it is replaced with the string "No name for location".</returns>
-        string CreateLocationFullText(string locationName, int[] geoLongValues, int[] geoLatValues, Directions4GeoLong dirLong, Directions4GeoLat dirLat);
-        
+
+
         /// <summary>
         /// Create a text for a full date.
         /// </summary>
@@ -118,23 +108,6 @@ namespace E4C.Models.UiHelpers
             _timeZoneSpecifications = timeZoneSpecifications;
         }
 
-        public string CreateLocationFullText(string locationName, int[] geoLongValues, int[] geoLatValues, Directions4GeoLong dirLong, Directions4GeoLat dirLat)
-        {
-            string _checkedLocationName = locationName;
-            if (locationName.Length < 1)
-            {
-                _checkedLocationName = _rosetta.TextForId("common.location.noname");
-            }
-            string _dirLongArg = dirLong == Directions4GeoLong.East ? "common.location.dirgeolong.east" : "common.location.dirgeolong.west";
-            string _dirLongText = _rosetta.TextForId(_dirLongArg);
-            string _dirLatArg = dirLat == Directions4GeoLat.North ? "common.location.dirgeolat.north" : "common.location.dirgeolat.south";
-            string _dirLatText = _rosetta.TextForId(_dirLatArg);
-
-            return $"{_checkedLocationName}, {geoLongValues[0]}°{geoLongValues[1]:D2}'{geoLongValues[2]:D2}\" " +
-                $"{_dirLongText}, {geoLatValues[0]}°{geoLatValues[1]:D2}'{geoLatValues[2]:D2}\" {_dirLatText}.";
-
-        }
-
         public string CreateDayFullText(int[] dateValues, Calendars calendar, YearCounts yearCount)
         {
             string _monthText = GetMonthTextFromNumber(dateValues[1]);
@@ -154,7 +127,7 @@ namespace E4C.Models.UiHelpers
             }
             string _yearCountText = _rosetta.TextForId(_resourceBundleId);
             return $"{_monthText} {dateValues[2]}, {dateValues[0]}. {_calendarText}, {_yearCountText}.";
-//            string _expected = "8:37:30, LMT for 6°54'00\" East, no DST.";
+            //            string _expected = "8:37:30, LMT for 6°54'00\" East, no DST.";
 
         }
 
@@ -178,8 +151,8 @@ namespace E4C.Models.UiHelpers
 
         private string GetMonthTextFromNumber(int monthId)
         {
-            string[] postFixes = new string[] {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
-            string postFixIdForResourceBundle = postFixes[monthId-1];
+            string[] postFixes = new string[] { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+            string postFixIdForResourceBundle = postFixes[monthId - 1];
             return _rosetta.TextForId("common.date.month." + postFixIdForResourceBundle);
         }
     }
