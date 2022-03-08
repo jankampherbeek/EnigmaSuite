@@ -67,6 +67,8 @@ namespace E4C
             container.Register<IDateFactory, DateFactory>(Lifestyle.Singleton);
             container.Register<ITimeFactory, TimeFactory>(Lifestyle.Singleton);
             container.Register<IDateTimeFactory, DateTimeFactory>(Lifestyle.Singleton);
+            container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
+            container.Register<IHouseSystemSpecifications, HouseSystemSpecifications>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();

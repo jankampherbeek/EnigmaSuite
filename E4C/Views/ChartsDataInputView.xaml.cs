@@ -88,7 +88,7 @@ namespace E4C.Views
         private void ShowLmtLongIsValid(bool valid)
         {
             SolidColorBrush _brush = valid ? Brushes.Black : Brushes.Red;
-            LmtDegreeInput.Foreground = _brush;
+            LmtHourInput.Foreground = _brush;
             LmtMinuteInput.Foreground = _brush;
             LmtSecondInput.Foreground = _brush;
         }
@@ -284,11 +284,11 @@ namespace E4C.Views
             _viewModel.InputGeoLat = new string[] { LatDegreeInput.Text, LatMinuteInput.Text, LatSecondInput.Text };
             _viewModel.InputDate = new string[] { DateYearInput.Text, DateMonthInput.Text, DateDayInput.Text };
             _viewModel.InputTime = new string[] { TimeHourInput.Text, TimeMinuteInput.Text, TimeSecondInput.Text };
-            _viewModel.InputLmtLong = new string[] { LmtDegreeInput.Text, LmtMinuteInput.Text, LmtSecondInput.Text };
-            _viewModel.InputRbEastSelected = RbEast.IsChecked;
-            _viewModel.InputRbLmtEastSelected = RbZoneEast.IsChecked;
-            _viewModel.InputRbNorthSelected = RbNorth.IsChecked;
-            _viewModel.InputCbDstSelected = TimeDstInput.IsChecked;
+            _viewModel.InputLmtOffset = new string[] { LmtHourInput.Text, LmtMinuteInput.Text, LmtSecondInput.Text };
+            _viewModel.InputRbEastSelected = (bool)RbEast.IsChecked;
+            _viewModel.InputRbLmtPlusSelected = (bool)RbZoneEast.IsChecked;
+            _viewModel.InputRbNorthSelected = (bool)RbNorth.IsChecked;
+            _viewModel.InputCbDstSelected = (bool)TimeDstInput.IsChecked;
             _viewModel.RetrieveComboBoxValues();
         }
 

@@ -13,10 +13,14 @@ namespace E4C.ViewModels
         readonly private ICalendarSpecifications _calendarSpecifications;
         readonly private IYearCountSpecifications _yearCountSpecifications;
         readonly private ITimeZoneSpecifications _timeZoneSpecifications;
-        readonly private IDateTimeValidations _dateTimeValidations;
-        readonly private ILocationValidations _locationValidations;
         readonly private IChartsStock _chartsStock;
-        readonly private ITextAssembler _textAssembler;
+        readonly private ILocationFactory _locationFactory;
+        readonly private IDateFactory _dateFactory;
+        readonly private ITimeFactory _timeFactory;
+        readonly private IDateTimeFactory _dateTimeFactory;
+
+        private FullDateTime? _fullDateTime;
+        private Location? _location;
 
         public List<ChartCategoryDetails> ChartCategoryItems { get; }
         public List<RoddenRatingDetails> RoddenRatingItems { get; }
@@ -31,11 +35,11 @@ namespace E4C.ViewModels
         public string[] InputTime { get; set; }
         public string[] InputGeoLong { get; set; }
         public string[] InputGeoLat { get; set; }
-        public string[] InputLmtLong { get; set; }
-        public bool? InputRbEastSelected { get; set; }
-        public bool? InputRbNorthSelected { get; set; }
-        public bool? InputRbLmtEastSelected { get; set; }
-        public bool? InputCbDstSelected { get; set; }
+        public string[] InputLmtOffset { get; set; }
+        public bool InputRbEastSelected { get; set; }
+        public bool InputRbNorthSelected { get; set; }
+        public bool InputRbLmtPlusSelected { get; set; }
+        public bool InputCbDstSelected { get; set; }
         public int ChartCategoryIndex { get; set; }
         public int RoddenRatingIndex { get; set; }
         public int CalendarIndex { get; set; }
@@ -55,20 +59,22 @@ namespace E4C.ViewModels
             ICalendarSpecifications calendarSpecifications,
             IYearCountSpecifications yearCountSpecifications,
             ITimeZoneSpecifications timeZoneSpecifications,
-            IDateTimeValidations dateTimeValidations,
-            ILocationValidations locationValidations,
             IChartsStock chartsStock,
-            ITextAssembler textAssembler)
+            ILocationFactory locationFactory,
+            IDateFactory dateFactory,
+            ITimeFactory timeFactory,
+            IDateTimeFactory dateTimeFactory)
         {
             _chartCategorySpecifications = chartCategorySpecifications;
             _roddenRatingSpecifications = roddenRatingSpecifications;
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;
             _timeZoneSpecifications = timeZoneSpecifications;
-            _dateTimeValidations = dateTimeValidations;
-            _locationValidations = locationValidations;
             _chartsStock = chartsStock;
-            _textAssembler = textAssembler;
+            _locationFactory = locationFactory;
+            _dateFactory = dateFactory;
+            _timeFactory = timeFactory;
+            _dateTimeFactory = dateTimeFactory;
 
             ChartCategoryItems = new List<ChartCategoryDetails>();
             RoddenRatingItems = new List<RoddenRatingDetails>();
@@ -79,7 +85,7 @@ namespace E4C.ViewModels
             InputTime = new string[3];
             InputGeoLong = new string[3];
             InputGeoLat = new string[3];
-            InputLmtLong = new string[3];
+            InputLmtOffset = new string[3];
             InputDescription = "";
             InputName = "";
             InputLocation = "";
@@ -142,27 +148,22 @@ namespace E4C.ViewModels
 
         public List<int> ValidateInput()
         {
-            if (InputRbEastSelected == null || InputRbNorthSelected == null || InputRbLmtEastSelected == null || InputCbDstSelected == null)
+            bool dateOk = _dateFactory.CreateDate(InputDate, InputCalendar, InputYearCount, out FullDate fullDate, out List<int> dateErrorCodes);
+            bool timeOk = _timeFactory.CreateTime(InputTime, InputTimeZone, InputLmtOffset, InputRbLmtPlusSelected, out FullTime fullTime, out List<int> timeErrorCodes);
+
+            
+            bool dateTimeOk = false;
+            List<int> dateTimeErrorCodes = new();
+            if (dateOk && timeOk)
             {
-                string ErrorMsg = "Unexpected error in ChartsDataInputViewModel.ValidateInput(). At least one of the radiobuttons or checkbox is null. " +
-                    "Received the values: InputRbEastSelected " + InputRbEastSelected + " , InputRbNorthSelected " + InputRbNorthSelected + " , InputRbLmtEastSelected " + InputRbLmtEastSelected + " , InputCbDstSelected " + InputCbDstSelected;
-                throw new Exception(ErrorMsg);
+                dateTimeOk = _dateTimeFactory.CreateDateTime(fullDate, fullTime, out _fullDateTime, out dateTimeErrorCodes);
             }
-            List<int> _dateErrors = _dateTimeValidations.ValidateDate(InputDate, InputCalendar, InputYearCount);
-            List<int> _timeErrors = _dateTimeValidations.ValidateTime(InputTime);
-            List<int> _geoLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputGeoLong);
-            List<int> _geoLatitudeErrors = _locationValidations.ValidateGeoLatitude(InputGeoLat);
-            List<int> _lmtLongitudeErrors = new();
-            if (InputTimeZone == TimeZones.LMT)
-            {
-                _lmtLongitudeErrors = _locationValidations.ValidateGeoLongitude(InputLmtLong);
-            }
+            bool locationOk = _locationFactory.CreateLocation(InputLocation, InputGeoLong, InputGeoLat, InputRbEastSelected, InputRbNorthSelected, out _location, out List<int> locationErrorCodes);
             List<int> _allErrors = new();
-            _allErrors.AddRange(_dateErrors);
-            _allErrors.AddRange(_timeErrors);
-            _allErrors.AddRange(_geoLongitudeErrors);
-            _allErrors.AddRange(_geoLatitudeErrors);
-            _allErrors.AddRange(_lmtLongitudeErrors);
+            _allErrors.AddRange(dateErrorCodes);
+            _allErrors.AddRange(timeErrorCodes);
+            _allErrors.AddRange(dateTimeErrorCodes);
+            _allErrors.AddRange(locationErrorCodes);
             return _allErrors;
         }
 
@@ -179,12 +180,10 @@ namespace E4C.ViewModels
         public void SignalNewChartInputCompleted()
         {
             MetaData _metaData = new(InputName, InputDescription, InputSource, InputChartCategories, InputRoddenRating);
-            //        Directions4GeoLat _dirGeoLat = (bool)InputRbNorthSelected ? Directions4GeoLat.North : Directions4GeoLat.South;
-            //        Directions4GeoLong _dirGeoLong = (bool)InputRbEastSelected ? Directions4GeoLong.East : Directions4GeoLong.West;
-            //        string _locationFullName = _textAssembler.CreateLocationFullText(InputLocation, InputGeoLong, InputGeoLat, _dirGeoLong, _dirGeoLat);
-            //        Location _location = new Location(locationFullName, geoLong, geolat);
-            //        ChartData _chartData = new ChartData(id, tempId, _metaData, InputLocation, fullDateTime)
-            // construct ChartData
+
+            // todo define tempId
+            ChartData _chartData = new(-1, -1, _metaData, _location, _fullDateTime);
+
             // add ChartData to _chartsStock
             // construct Request
             // perform calculation
