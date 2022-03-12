@@ -42,6 +42,8 @@ namespace E4C
             container.Register<ITextFromFileReader, TextFromFileReader>(Lifestyle.Singleton);
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
+            container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
+            container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
             container.Register<IPositionSolSysPointCalc, PositionSolSysPointCalc>(Lifestyle.Singleton);
@@ -67,6 +69,8 @@ namespace E4C
             container.Register<IDateFactory, DateFactory>(Lifestyle.Singleton);
             container.Register<ITimeFactory, TimeFactory>(Lifestyle.Singleton);
             container.Register<IDateTimeFactory, DateTimeFactory>(Lifestyle.Singleton);
+            container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
+            container.Register<IHouseSystemSpecifications, HouseSystemSpecifications>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();

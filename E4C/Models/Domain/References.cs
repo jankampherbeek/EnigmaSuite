@@ -231,7 +231,7 @@ namespace E4C.Models.Domain
     /// </summary>
     public enum SolarSystemPoints
     {
-        Sun, Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, MeanNode, TrueNode, Chiron
+        Sun, Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, MeanNode, TrueNode, Chiron, PersephoneRam, HermesRam, DemeterRam, Eris
     }
 
     /// <summary>
@@ -286,20 +286,24 @@ namespace E4C.Models.Domain
         {
             return point switch
             {
-                SolarSystemPoints.Sun => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_SUN, false, true, "solSysPointSun"),
-                SolarSystemPoints.Moon => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_SUN, false, true, "solSysPointMoon"),
-                SolarSystemPoints.Mercury => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_MERCURY, true, true, "solSysPointMercury"),
-                SolarSystemPoints.Venus => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_VENUS, true, true, "solSysPointVenus"),
-                SolarSystemPoints.Earth => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_EARTH, true, false, "solSysPointEarth"),
-                SolarSystemPoints.Mars => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_MARS, true, true, "solSysPointMars"),
-                SolarSystemPoints.Jupiter => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_JUPITER, true, true, "solSysPointJupiter"),
-                SolarSystemPoints.Saturn => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_SATURN, true, true, "solSysPointSaturn"),
-                SolarSystemPoints.Uranus => new SolarSystemPointDetails(point, SolSysPointCats.Modern, Constants.SE_URANUS, true, true, "solSysPointUranus"),
-                SolarSystemPoints.Neptune => new SolarSystemPointDetails(point, SolSysPointCats.Modern, Constants.SE_NEPTUNE, true, true, "solSysPointNeptune"),
-                SolarSystemPoints.Pluto => new SolarSystemPointDetails(point, SolSysPointCats.Modern, Constants.SE_PLUTO, true, true, "solSysPointPluto"),
-                SolarSystemPoints.MeanNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, Constants.SE_MEAN_NODE, false, true, "solSysPointMeanNode"),
-                SolarSystemPoints.TrueNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, Constants.SE_TRUE_NODE, false, true, "solSysPointTrueNode"),
-                SolarSystemPoints.Chiron => new SolarSystemPointDetails(point, SolSysPointCats.Minor, Constants.SE_CHIRON, true, true, "solSysPointChiron"),
+                SolarSystemPoints.Sun => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_SUN, false, true, "sun"),
+                SolarSystemPoints.Moon => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_MOON, false, true, "moon"),
+                SolarSystemPoints.Mercury => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_MERCURY, true, true, "mercury"),
+                SolarSystemPoints.Venus => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_VENUS, true, true, "venus"),
+                SolarSystemPoints.Earth => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_EARTH, true, false, "earth"),
+                SolarSystemPoints.Mars => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_MARS, true, true, "mars"),
+                SolarSystemPoints.Jupiter => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_JUPITER, true, true, "jupiter"),
+                SolarSystemPoints.Saturn => new SolarSystemPointDetails(point, SolSysPointCats.Classic, Constants.SE_SATURN, true, true, "saturn"),
+                SolarSystemPoints.Uranus => new SolarSystemPointDetails(point, SolSysPointCats.Modern, Constants.SE_URANUS, true, true, "uranus"),
+                SolarSystemPoints.Neptune => new SolarSystemPointDetails(point, SolSysPointCats.Modern, Constants.SE_NEPTUNE, true, true, "neptune"),
+                SolarSystemPoints.Pluto => new SolarSystemPointDetails(point, SolSysPointCats.Modern, Constants.SE_PLUTO, true, true, "pluto"),
+                SolarSystemPoints.MeanNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, Constants.SE_MEAN_NODE, false, true, "meanNode"),
+                SolarSystemPoints.TrueNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, Constants.SE_TRUE_NODE, false, true, "trueNode"),
+                SolarSystemPoints.Chiron => new SolarSystemPointDetails(point, SolSysPointCats.Minor, Constants.SE_CHIRON, true, true, "chiron"),
+                SolarSystemPoints.PersephoneRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_PERSEPHONE_RAM, true, true, "persephone_ram"),
+                SolarSystemPoints.HermesRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_HERMES_RAM, true, true, "hermes_ram"),
+                SolarSystemPoints.DemeterRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_DEMETER_RAM, true, true, "demeter_ram"),
+                SolarSystemPoints.Eris => new SolarSystemPointDetails(point, SolSysPointCats.Minor, Constants.SE_ERIS, true, true, "eris"),
                 _ => throw new ArgumentException("SolarSystemPoint unknown : " + point.ToString())
             };
         }

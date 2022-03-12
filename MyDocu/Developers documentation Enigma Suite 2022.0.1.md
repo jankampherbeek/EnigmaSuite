@@ -111,3 +111,20 @@ To access the dll, the attribute [DllImport] is used. All imports from the dll a
 The GUI is based on the MVVM model. The view consists of the XAML and accompanying C# part. An additional ViewModel is added to the view. The model is implemneted in the backend functionality.
 
 Further differentiations will be added to this initial approach.
+
+## Astronomical aspects
+
+The usual approach using the Swiss Ephemeris is followed but some specifics need to be mentioned.
+
+### School of Ram: hypothetical planets
+
+The three hypothetical planets as proposed by the School of Ram, Persephone, Hermes and Demeter, are supported.
+
+The calculations are based on the orbitual elements and added to the file seorbel.txt. Make sure that the extended version of seorbel.txt, as available in the GitHub repository, is copied to the Swiss Ephemeris files.
+
+### School of Ram: oblique longitude
+
+The School of Ram supports a solution for the projection of the solar system bodies to the ecliptic. This solution ensures a proper placing of bodies in a house. However, the projection to the ecliptic is skewed. The solution is called 'true place' and also 'astrological place'. I prefer the more correct term 'oblique longitude'.
+
+A dedicated calculation of this oblique longitude is implemented in Enigma. Some background information will become available. [TODO].
+

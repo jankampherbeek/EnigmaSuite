@@ -131,6 +131,60 @@ namespace E4C.Models.Domain
             throw new ArgumentException("Error calculating JD while converting inputdate to Jdnr. Using values : " + _simpleDateTime.ToString() + " and Calendar : " + calendar);
         }
     }
+
+    public static class RangeUtil
+    {
+        public static double ValueToRange(double testValue, double lowerLimit, double upperLimit)
+        {
+            if ((upperLimit <= lowerLimit))
+            {
+                throw new ArgumentException("UpperRange: " + upperLimit + " <+ lowerLimit: " + lowerLimit);
+            }
+            return ForceToRange(testValue, lowerLimit, upperLimit);
+        }
+
+        private static double ForceToRange(double testValue, double lowerLimit, double upperLimit)
+        {
+            double rangeSize = upperLimit - lowerLimit;
+            double checkedForLowerLimit = ForceLowerLimit(lowerLimit, rangeSize, testValue);
+            return ForceUpperLimit(upperLimit, rangeSize, checkedForLowerLimit);
+        }
+
+        private static double ForceLowerLimit(double lowerLimit, double rangeSize, double toCheck)
+        {
+            double checkedForUpperLimit = toCheck;
+            while (checkedForUpperLimit < lowerLimit)
+            {
+                checkedForUpperLimit += rangeSize;
+            }
+            return checkedForUpperLimit;
+        }
+
+        private static double ForceUpperLimit(double upperLimit, double rangeSize, double toCheck)
+        {
+            double checkedForLowerLimit = toCheck;
+            while (checkedForLowerLimit >= upperLimit)
+            {
+                checkedForLowerLimit -= rangeSize;
+            }
+            return checkedForLowerLimit;
+        }
+    }
+
+    public static class DegreeRadianUtil
+    {
+        public static double RadToDeg(double radians)
+        {
+            return (180 / Math.PI) * radians;
+        }
+
+        public static double DegToRad(double degrees)
+        {
+            return (Math.PI / 180) * degrees;
+        }
+    }
+
+
 }
 
 
