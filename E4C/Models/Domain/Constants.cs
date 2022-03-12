@@ -29,6 +29,10 @@ namespace E4C.Models.Domain
         public const int SE_TRUE_NODE = 11;
         public const int SE_EARTH = 14;
         public const int SE_CHIRON = 15;
+        public const int SE_PERSEPHONE_RAM = 59;
+        public const int SE_HERMES_RAM = 60;
+        public const int SE_DEMETER_RAM = 61;
+        public const int SE_ERIS = 1009001;
         // SE flags
         public const int SEFLG_SWIEPH = 2;
         public const int SEFLG_HELCTR = 8;

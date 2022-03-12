@@ -9,7 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 
-namespace E4CTest
+namespace ConversionsTest
 {
     [TestClass]
     public class TestSexagesimalConversions
@@ -144,5 +144,129 @@ namespace E4CTest
             _ = conversions.InputDateToDecimals(inputDate);
         }
 
+    }
+
+    [TestClass]
+    public class TestRangeUtilNoChange
+    {
+        private double _delta = 0.00000001;
+
+        [TestMethod]
+        public void TestNoChange()
+        {
+            double testValue = 12.0;
+            double expectedValue = 12.0;
+            double lowerLimit = 0.0;
+            double upperLimit = 360.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestTooLow()
+        {
+            double testValue = -10.0;
+            double expectedValue = 350.0;
+            double lowerLimit = 0.0;
+            double upperLimit = 360.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestTooHigh()
+        {
+            double testValue = 410.0;
+            double expectedValue = 50.0;
+            double lowerLimit = 0.0;
+            double upperLimit = 360.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestOnLowerLimit()
+        {
+            double testValue = 0.0;
+            double expectedValue = 0.0;
+            double lowerLimit = 0.0;
+            double upperLimit = 360.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestOnUpperLimit()
+        {
+            double testValue = 360.0;
+            double expectedValue = 0.0;
+            double lowerLimit = 0.0;
+            double upperLimit = 360.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestPositiveNegativeRangeNoChange()
+        {
+            double testValue = -45.0;
+            double expectedValue = -45.0;
+            double lowerLimit = -90.0;
+            double upperLimit = 90.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestPositiveNegativeRangeTooLow()
+        {
+            double testValue = -100.0;
+            double expectedValue = 80.0;
+            double lowerLimit = -90.0;
+            double upperLimit = 90.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+        [TestMethod]
+        public void TestPositiveNegativeRangeTooHigh()
+        {
+            double testValue = 100.0;
+            double expectedValue = -80.0;
+            double lowerLimit = -90.0;
+            double upperLimit = 90.0;
+            Assert.AreEqual(expectedValue, RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), _delta);
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestWrongSequenceLOwerUpper()
+        {
+            double testValue = 100.0;
+            double expectedValue = -80.0;
+            double lowerLimit = 0.0;
+            double upperLimit = 360.0;
+            _ = RangeUtil.ValueToRange(testValue, upperLimit, lowerLimit);
+        }
+
+
+
+
+    }
+
+    [TestClass]
+    public class TestDegreeRadianUtil
+    {
+        double _delta = 0.00000001;
+
+        [TestMethod]
+        public void TestDegrees2Radians()
+        {
+            double degrees = 100.0;
+            double expectedRadians = 1.74532925199;
+            Assert.AreEqual(expectedRadians, DegreeRadianUtil.DegToRad(degrees), _delta);
+        }
+
+        [TestMethod]
+        public void TestRadians2Degrees()
+        {
+            double radians = 2.0;
+            double expectedDegrees = 114.591559026;
+            Assert.AreEqual(expectedDegrees, DegreeRadianUtil.RadToDeg(radians), _delta);
+        }
     }
 }
