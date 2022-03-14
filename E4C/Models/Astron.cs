@@ -268,6 +268,7 @@ namespace E4C.Models.Astron
         private readonly IPositionsMundane _positionsMundane;
         private readonly IPositionSolSysPointCalc _positionSolSysPointCalc;
         private readonly IFlagDefinitions _flagDefinitions;
+        private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
 
         /// <summary>
         /// Constructor for FullChartCalc.
@@ -275,17 +276,24 @@ namespace E4C.Models.Astron
         /// <param name="obliquityNutationCalc">Calclator for boliquity and nutation.</param>
         /// <param name="positionsMundane">Calculator for mundane positions.</param>
         /// <param name="positionSolSysPointCalc">Calculator for solar system points.</param>
-        public FullChartCalc(IObliquityNutationCalc obliquityNutationCalc, IPositionsMundane positionsMundane, IPositionSolSysPointCalc positionSolSysPointCalc, IFlagDefinitions flagDefinitions)
+        public FullChartCalc(IObliquityNutationCalc obliquityNutationCalc, IPositionsMundane positionsMundane, IPositionSolSysPointCalc positionSolSysPointCalc, 
+            IFlagDefinitions flagDefinitions, IAyanamshaSpecifications ayanamshaSpecifications)
         {
             _obliquityNutationCalc = obliquityNutationCalc;
             _positionsMundane = positionsMundane;
             _positionSolSysPointCalc = positionSolSysPointCalc;
             _flagDefinitions = flagDefinitions;
+            _ayanamshaSpecifications = ayanamshaSpecifications;
         }
 
 
         public FullChartResponse CalculateFullChart(FullChartRequest request)
         {
+            if (request.ZodiacType == ZodiacTypes.Sidereal)
+            {
+                int idAyanamsa = _ayanamshaSpecifications.DetailsForAyanamsha(request.Ayanamsha).SeId;
+                SeInitializer.SetAyanamsha(idAyanamsa);
+            }
             int _flagsEcliptical = _flagDefinitions.DefineFlags(request);
             int _flagsEquatorial = _flagDefinitions.AddEquatorial(_flagsEcliptical);
             double _obliquity = CalculateObliquity(request.JulianDayUt);
@@ -329,7 +337,7 @@ namespace E4C.Models.Astron
 
         public FullSolSysPointPos CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial)
         {
-
+            
             // todo handle actions for sidereal and/or topocentric
             // todo define flags
             double heightAboveSeaLevel = 0.0;

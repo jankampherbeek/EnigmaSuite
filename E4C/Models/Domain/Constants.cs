@@ -14,25 +14,33 @@ namespace E4C.Models.Domain
     {
 
 
-        // SE solar system points.
-        public const int SE_SUN = 0;
-        public const int SE_MOON = 1;
-        public const int SE_MERCURY = 2;
-        public const int SE_VENUS = 3;
-        public const int SE_MARS = 4;
-        public const int SE_JUPITER = 5;
-        public const int SE_SATURN = 6;
-        public const int SE_URANUS = 7;
-        public const int SE_NEPTUNE = 8;
-        public const int SE_PLUTO = 9;
-        public const int SE_MEAN_NODE = 10;
-        public const int SE_TRUE_NODE = 11;
-        public const int SE_EARTH = 14;
+        // SE solar system points. _RAM = School of Ram, _URA = Uranian.
+        public const int SE_ADMETOS_URA = 45;
+        public const int SE_APOLLON_URA = 44;
         public const int SE_CHIRON = 15;
-        public const int SE_PERSEPHONE_RAM = 59;
-        public const int SE_HERMES_RAM = 60;
+        public const int SE_CUPIDO_URA = 40;
         public const int SE_DEMETER_RAM = 61;
+        public const int SE_EARTH = 14;
         public const int SE_ERIS = 1009001;
+        public const int SE_HADES_URA = 41;
+        public const int SE_HERMES_RAM = 60;
+        public const int SE_JUPITER = 5;
+        public const int SE_KRONOS_URA = 43;
+        public const int SE_MARS = 4;
+        public const int SE_MEAN_NODE = 10;
+        public const int SE_MERCURY = 2;
+        public const int SE_MOON = 1;
+        public const int SE_NEPTUNE = 8;
+        public const int SE_PERSEPHONE_RAM = 59;
+        public const int SE_PLUTO = 9;
+        public const int SE_POSEIDON_URA = 47;
+        public const int SE_SATURN = 6;
+        public const int SE_SUN = 0;
+        public const int SE_TRUE_NODE = 11;
+        public const int SE_URANUS = 7;
+        public const int SE_VULCANUS_URA = 46;
+        public const int SE_VENUS = 3;
+        public const int SE_ZEUS_URA = 42;
         // SE flags
         public const int SEFLG_SWIEPH = 2;
         public const int SEFLG_HELCTR = 8;

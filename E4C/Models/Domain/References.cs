@@ -231,7 +231,8 @@ namespace E4C.Models.Domain
     /// </summary>
     public enum SolarSystemPoints
     {
-        Sun, Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, MeanNode, TrueNode, Chiron, PersephoneRam, HermesRam, DemeterRam, Eris
+        Sun, Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, MeanNode, TrueNode, Chiron, PersephoneRam, HermesRam, DemeterRam, 
+        CupidoUra, HadesUra, ZeusUra, KronosUra, ApollonUra, AdmetosUra, VulcanusUra, PoseidonUra,  Eris
     }
 
     /// <summary>
@@ -303,6 +304,14 @@ namespace E4C.Models.Domain
                 SolarSystemPoints.PersephoneRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_PERSEPHONE_RAM, true, true, "persephone_ram"),
                 SolarSystemPoints.HermesRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_HERMES_RAM, true, true, "hermes_ram"),
                 SolarSystemPoints.DemeterRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_DEMETER_RAM, true, true, "demeter_ram"),
+                SolarSystemPoints.CupidoUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_CUPIDO_URA, true, true, "cupido_ura"),
+                SolarSystemPoints.HadesUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_HADES_URA, true, true, "hades_ura"),
+                SolarSystemPoints.ZeusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_ZEUS_URA, true, true, "zeus_ura"),
+                SolarSystemPoints.KronosUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_KRONOS_URA, true, true, "kronos_ura"),
+                SolarSystemPoints.ApollonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_APOLLON_URA, true, true, "apollon_ura"),
+                SolarSystemPoints.AdmetosUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_ADMETOS_URA, true, true, "admetos_ura"),
+                SolarSystemPoints.VulcanusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_VULCANUS_URA, true, true, "vulcanus_ura"),
+                SolarSystemPoints.PoseidonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, Constants.SE_POSEIDON_URA, true, true, "poseidon_ura"),
                 SolarSystemPoints.Eris => new SolarSystemPointDetails(point, SolSysPointCats.Minor, Constants.SE_ERIS, true, true, "eris"),
                 _ => throw new ArgumentException("SolarSystemPoint unknown : " + point.ToString())
             };

@@ -273,7 +273,12 @@ namespace E4C.Models.SeFacade
         [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
         private extern static void ext_swe_set_ephe_path(String path);
 
-
+        public static void SetAyanamsha(int idAyanamsha)
+        {
+            ext_swe_set_sid_mode(idAyanamsha);
+        }
+        [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_sid_mode")]
+        private extern static void ext_swe_set_sid_mode(int idAyanamsha);
     }
 
 
