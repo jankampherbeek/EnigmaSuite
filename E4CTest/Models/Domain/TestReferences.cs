@@ -51,7 +51,7 @@ namespace E4CTest.be.domain
             Assert.AreEqual(Constants.SE_NEPTUNE, details.SeId);
             Assert.IsTrue(details.UseForHeliocentric);
             Assert.IsTrue(details.UseForGeocentric);
-            Assert.AreEqual("solSysPointNeptune", details.TextId);
+            Assert.AreEqual("neptune", details.TextId);
         }
 
         [TestMethod]
