@@ -70,6 +70,7 @@ namespace E4C
             container.Register<ITimeFactory, TimeFactory>(Lifestyle.Singleton);
             container.Register<IDateTimeFactory, DateTimeFactory>(Lifestyle.Singleton);
             container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
+            container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
             container.Register<IHouseSystemSpecifications, HouseSystemSpecifications>(Lifestyle.Singleton);
 
             // Register windows and view models:
@@ -95,6 +96,7 @@ namespace E4C
         {
             try
             {
+                SeInitializer.SetEphePath("./se");
                 var app = new App();
                 //    app.InitializeComponent();
                 var mainWindow = container.GetInstance<MainWindow>();

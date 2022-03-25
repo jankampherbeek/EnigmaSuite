@@ -19,11 +19,11 @@ namespace E4C.Models.Domain
         public const int SE_APOLLON_URA = 44;
         public const int SE_CHIRON = 15;
         public const int SE_CUPIDO_URA = 40;
-        public const int SE_DEMETER_RAM = 61;
+        public const int SE_DEMETER_RAM = 51;
         public const int SE_EARTH = 14;
         public const int SE_ERIS = 1009001;
         public const int SE_HADES_URA = 41;
-        public const int SE_HERMES_RAM = 60;
+        public const int SE_HERMES_RAM = 50;     
         public const int SE_JUPITER = 5;
         public const int SE_KRONOS_URA = 43;
         public const int SE_MARS = 4;
@@ -31,7 +31,7 @@ namespace E4C.Models.Domain
         public const int SE_MERCURY = 2;
         public const int SE_MOON = 1;
         public const int SE_NEPTUNE = 8;
-        public const int SE_PERSEPHONE_RAM = 59;
+        public const int SE_PERSEPHONE_RAM = 49;
         public const int SE_PLUTO = 9;
         public const int SE_POSEIDON_URA = 47;
         public const int SE_SATURN = 6;
