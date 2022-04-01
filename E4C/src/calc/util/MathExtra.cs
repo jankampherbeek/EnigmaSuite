@@ -1,15 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
 
-namespace E4C.Models;
+using System;
 
-internal class MathExtra
+
+namespace E4C.calc.util;
+
+public class MathExtra
 {
 
-    public double[] Rectangular2Polar(double[] rectangularValues)
+    public static double[] Rectangular2Polar(double[] rectangularValues)
     {
         if ((rectangularValues == null) || (rectangularValues.Length != 3))
         {
@@ -18,16 +19,16 @@ internal class MathExtra
         double x = rectangularValues[0];
         double y = rectangularValues[1];
         double z = rectangularValues[2];
-        double r = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y,2) + Math.Pow(z,2));
+        double r = Math.Sqrt(Math.Pow(x, 2) + Math.Pow(y, 2) + Math.Pow(z, 2));
         if (r == 0) r = double.MinValue;
         if (x == 0) x = double.MinValue;
         double phi = Math.Atan2(y, x);
         double theta = Math.Asin(z / r);
 
-        return new double[]{phi, theta, r };
+        return new double[] { phi, theta, r };
     }
 
-    public double[] Polar2Rectangular(double[] polarValues)
+    public static double[] Polar2Rectangular(double[] polarValues)
     {
         double phi = polarValues[0];
         double theta = polarValues[1];
@@ -38,7 +39,7 @@ internal class MathExtra
         double y = r * Math.Cos(theta) * Math.Sin(phi);
         double z = r * Math.Sin(theta);
 
-        return new double[] {x, y, z };
+        return new double[] { x, y, z };
 
     }
 

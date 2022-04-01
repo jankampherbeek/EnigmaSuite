@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <StartupObject>E4C.Program</StartupObject>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -42,6 +43,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="src\ui\charts\" />
+    <Folder Include="src\ui\calculators\" />
+    <Folder Include="src\ui\cycles\" />
+    <Folder Include="src\ui\counts\" />
+    <Folder Include="src\ui\shared\" />
     <Folder Include="Views\ViewHelpers\" />
   </ItemGroup>
 

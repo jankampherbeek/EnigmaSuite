@@ -3,16 +3,18 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.be.persistency;
+using E4C.calc.seph.secalculations;
+using E4C.calc.seph.sefacade;
 using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
-using E4C.Models.SeFacade;
 using E4C.Models.UiHelpers;
 using E4C.ViewModels;
 using E4C.Views;
+using E4C.domain.shared.references;
 using SimpleInjector;
 using System;
-
+using E4C.calc.seph;
 
 namespace E4C
 {
@@ -47,7 +49,7 @@ namespace E4C
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
             container.Register<IPositionSolSysPointCalc, PositionSolSysPointCalc>(Lifestyle.Singleton);
-            container.Register<IPositionsMundane, PositionsMundane>(Lifestyle.Singleton);
+            container.Register<IMundanePositionsCalculator, MundanePositionsCalculator>(Lifestyle.Singleton);
             container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
             container.Register<ICoordinateConversionFacade, CoordinateConversionFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);

@@ -2,10 +2,14 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using E4C.calc.seph.secalculations;
+using E4C.calc.seph.sefacade;
 using E4C.Models.Domain;
-using E4C.Models.SeFacade;
+using E4C.domain.shared.positions;
+using E4C.domain.shared.specifications;
 using System;
 using System.Collections.Generic;
+using E4C.calc.seph;
 
 namespace E4C.Models.Astron
 {
@@ -30,7 +34,7 @@ namespace E4C.Models.Astron
         public SimpleDateTime CalculateDateTimeFromJd(double julianDayNumber, Calendars calendar);
 
         /// <summary>
-        /// Checks date and time for correctness. Date should fit in the calendar used, taking leapyears into account. Time should be >= 0.0 and < 24.0.
+        /// Checks date and time for correctness. Date should fit in the calendar used, taking leapyears into account. Time should be between 0.0 (inclusive) and 24.0 (exclusive).
         /// </summary>
         /// <param name="dateTime">Instance of SimpleDateTime to check</param>
         /// <returns>true if date and time are both correct, otherwise false.</returns>
@@ -38,39 +42,9 @@ namespace E4C.Models.Astron
 
     }
 
-    /// <summary>
-    /// Calculations for obliquity and/or nutation.
-    /// </summary>
-    public interface IObliquityNutationCalc
-    {
-        /// <summary>
-        /// Calculate obliquity.
-        /// </summary>
-        /// <param name="JulianDayUt">Julian Day for UT.</param>
-        /// <param name="useTrueObliquity">True for true obliquity, false for mean obliquity.</param>
-        /// <returns>The calculated and validated obliquity.</returns>
-        public ResultForDouble CalculateObliquity(double julianDayUt, bool useTrueObliquity);
-    }
 
-    /// <summary>
-    /// Definitons for flags.
-    /// </summary>
-    public interface IFlagDefinitions
-    {
-        /// <summary>
-        /// Define flags for a given FullChartRequest.
-        /// </summary>
-        /// <param name="request">Request for which the flags need to be defined.</param>
-        /// <returns>Combined vlaue for flags.</returns>
-        public int DefineFlags(FullChartRequest request);
 
-        /// <summary>
-        /// Changes existing flags to suppport equatorial calculations. 
-        /// </summary>
-        /// <param name="eclipticFlags"></param>
-        /// <returns>Value for equatorial flags.</returns>
-        public int AddEquatorial(int eclipticFlags);
-    }
+
 
     /// <summary>
     /// Calculations for Solar System points.
@@ -117,22 +91,7 @@ namespace E4C.Models.Astron
         public List<NamedEclipticLongitude> CalcObliqueLongitudes(ObliqueLongitudeRequest request);
     }
 
-    /// <summary>
-    /// Calculations for mundane positions (houses etc.).
-    /// </summary>
-    public interface IPositionsMundane
-    {
-        /// <summary>
-        /// Calculate house cusps, MC, Ascendant, Vertex and Eastpoint.
-        /// </summary>
-        /// <param name="julianDayUt">Julian Day for UT.</param>
-        /// <param name="obliquity"">Obliquity of the earths axis.</param>
-        /// <param name="flags">Flags swith the required settings.</param>
-        /// <param name="location">Location with coordinates.</param>
-        /// <param name="houseSystem">The Housesystem to use, from the enum HouseSystems.</param>
-        /// <returns>Instance of MundanePositions with the calculated values.</returns>
-        public MundanePositions CalculateAllMundanePositions(double julianDayUt, double obliquity, int flags, Location location, HouseSystems houseSystem);
-    }
+
 
     /// <summary>
     /// Calculator for fully defined charts.
@@ -199,73 +158,13 @@ namespace E4C.Models.Astron
         }
     }
 
-    public class ObliquityNutationCalc : IObliquityNutationCalc
-    {
-        const int SE_ECL_NUT = -1;   // TODO move to separate class that contains constants for the SE 
-
-        private readonly ISePosCelPointFacade _posCelPointFacade;
-
-        public ObliquityNutationCalc(ISePosCelPointFacade celPointFacade)
-        {
-            _posCelPointFacade = celPointFacade;
-        }
-
-        public ResultForDouble CalculateObliquity(double julianDayUt, bool useTrueObliquity)
-        {
-            ResultForDouble _result;
-            try
-            {
-                int _celPointId = SE_ECL_NUT;
-                int _flags = 0;   // todo define flags
-                double[] _positions = _posCelPointFacade.PosCelPointFromSe(julianDayUt, _celPointId, _flags);
-                double _resultingPosition = useTrueObliquity ? _positions[1] : _positions[0];
-                _result = new ResultForDouble(_resultingPosition, true);
-            }
-            catch (System.Exception e)   // todo replace with specific exception for SE
-            {
-                _result = new ResultForDouble(0.0, false, "Exception: " + e.Message);
-                // todo handle exception, write to log-file
-                Console.WriteLine("Error to log in CalendarCalc.CalculateObliquity: " + e.Message);
-            }
-
-            return _result;
-        }
-    }
-
-    public class FlagDefinitions : IFlagDefinitions
-    {
-
-        public int DefineFlags(FullChartRequest request)
-        {
-            int flags = Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
-            if (request.ObserverPosition == ObserverPositions.HelioCentric)
-            {
-                flags |= Constants.SEFLG_HELCTR;
-            }
-            if (request.ObserverPosition == ObserverPositions.TopoCentric)
-            {
-                flags |= Constants.SEFLG_TOPOCTR;
-            }
-            if (request.ZodiacType == ZodiacTypes.Sidereal)
-            {
-                flags |= Constants.SEFLG_SIDEREAL;
-            }
-            return flags;
-        }
-
-        public int AddEquatorial(int eclipticFlags)
-        {
-            return eclipticFlags | Constants.SEFLG_EQUATORIAL;
-        }
 
 
-
-    }
 
     public class FullChartCalc : IFullChartCalc
     {
         private readonly IObliquityNutationCalc _obliquityNutationCalc;
-        private readonly IPositionsMundane _positionsMundane;
+        private readonly IMundanePositionsCalculator _positionsMundane;
         private readonly IPositionSolSysPointCalc _positionSolSysPointCalc;
         private readonly IFlagDefinitions _flagDefinitions;
         private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
@@ -276,7 +175,7 @@ namespace E4C.Models.Astron
         /// <param name="obliquityNutationCalc">Calclator for boliquity and nutation.</param>
         /// <param name="positionsMundane">Calculator for mundane positions.</param>
         /// <param name="positionSolSysPointCalc">Calculator for solar system points.</param>
-        public FullChartCalc(IObliquityNutationCalc obliquityNutationCalc, IPositionsMundane positionsMundane, IPositionSolSysPointCalc positionSolSysPointCalc, 
+        public FullChartCalc(IObliquityNutationCalc obliquityNutationCalc, IMundanePositionsCalculator positionsMundane, IPositionSolSysPointCalc positionSolSysPointCalc,
             IFlagDefinitions flagDefinitions, IAyanamshaSpecifications ayanamshaSpecifications)
         {
             _obliquityNutationCalc = obliquityNutationCalc;
@@ -297,7 +196,7 @@ namespace E4C.Models.Astron
             int _flagsEcliptical = _flagDefinitions.DefineFlags(request);
             int _flagsEquatorial = _flagDefinitions.AddEquatorial(_flagsEcliptical);
             double _obliquity = CalculateObliquity(request.JulianDayUt);
-            MundanePositions _mundanePositions = _positionsMundane.CalculateAllMundanePositions(request.JulianDayUt, _obliquity, _flagsEcliptical, request.ChartLocation, request.HouseSystem);
+            FullMundanePositions _mundanePositions = _positionsMundane.CalculateAllMundanePositions(request.JulianDayUt, _obliquity, _flagsEcliptical, request.ChartLocation, request.HouseSystem);
 
             var _fullSolSysPoints = new List<FullSolSysPointPos>();
             foreach (SolarSystemPoints solSysPoint in request.SolarSystemPoints)
@@ -310,13 +209,7 @@ namespace E4C.Models.Astron
         private double CalculateObliquity(double _jdUt)
         {
             bool _trueObliquity = false;
-            ResultForDouble _obliquityResult = _obliquityNutationCalc.CalculateObliquity(_jdUt, _trueObliquity);
-            if (!_obliquityResult.NoErrors)
-            {
-                // todo use specific exception
-                throw new Exception("Error when calculating obliquity in FullChartCalc. Received message: " + _obliquityResult.ErrorText);
-            }
-            return _obliquityResult.ReturnValue;
+            return _obliquityNutationCalc.CalculateObliquity(_jdUt, _trueObliquity);
         }
     }
 
@@ -337,7 +230,7 @@ namespace E4C.Models.Astron
 
         public FullSolSysPointPos CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flagsEcliptical, int flagsEquatorial)
         {
-            
+
             // todo handle actions for sidereal and/or topocentric
             // todo define flags
             double heightAboveSeaLevel = 0.0;
@@ -422,7 +315,7 @@ namespace E4C.Models.Astron
             double correctedV = 0.0;
             if (IsRising(longSp, longPl))
             {
-                correctedV = latPl < 0.0 ? absoluteV : -absoluteV; 
+                correctedV = latPl < 0.0 ? absoluteV : -absoluteV;
             }
             else
             {
@@ -441,51 +334,6 @@ namespace E4C.Models.Astron
         }
     }
 
-    public class PositionsMundane : IPositionsMundane
-    {
-        private readonly ISePosHousesFacade _sePosHousesFacade;
-        private readonly ICoordinateConversionFacade _coordinateConversionFacade;
-        private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
-        private readonly IHouseSystemSpecifications _houseSystemSpecifications;
 
-        public PositionsMundane(ISePosHousesFacade sePosHousesFacade, ICoordinateConversionFacade coordinateConversionFacade,
-            IHorizontalCoordinatesFacade horizontalCoordinatesFacade, IHouseSystemSpecifications houseSystemSpecifications)
-        {
-            _sePosHousesFacade = sePosHousesFacade;
-            _coordinateConversionFacade = coordinateConversionFacade;
-            _horizontalCoordinatesFacade = horizontalCoordinatesFacade;
-            _houseSystemSpecifications = houseSystemSpecifications;
-        }
-
-        public MundanePositions CalculateAllMundanePositions(double julianDayUt, double obliquity, int flags, Location location, HouseSystems houseSystem)
-        {
-            char _houseSystemId = _houseSystemSpecifications.DetailsForHouseSystem(houseSystem).SeId;
-            int _nrOfCusps = _houseSystemSpecifications.DetailsForHouseSystem(houseSystem).NrOfCusps;
-            double[][] _longitudeValues = _sePosHousesFacade.PosHousesFromSe(julianDayUt, flags, location.GeoLat, location.GeoLong, _houseSystemId);
-            var _cusps = new List<CuspFullPos>();
-            for (int i = 0; i < _nrOfCusps; i++)
-            {
-                double _longitude = _longitudeValues[0][i + 1];
-                _cusps.Add(CreateFullMundanePos(julianDayUt, obliquity, _longitude, flags, location));
-            }
-            CuspFullPos _mc = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][0], flags, location);
-            CuspFullPos _asc = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][1], flags, location);
-            CuspFullPos _vertex = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][3], flags, location);
-            CuspFullPos _eastPoint = CreateFullMundanePos(julianDayUt, obliquity, _longitudeValues[1][4], flags, location);
-            return new MundanePositions(_cusps, _mc, _asc, _vertex, _eastPoint);
-        }
-
-        private CuspFullPos CreateFullMundanePos(double jdnr, double obliquity, double eclLongitude, int flags, Location location)
-        {
-            double _latitude = 0.0;    // always zero for mundane positions.
-            double _distance = 1.0;    // placeholder.
-            var _geographicCoordinates = new double[] { location.GeoLong, location.GeoLat, _distance };
-            var _eclipticCoordinates = new double[] { eclLongitude, _latitude, _distance };
-            double[] _equatorialCoordinates = _coordinateConversionFacade.EclipticToEquatorial(new double[] { eclLongitude, 0.0 }, obliquity);
-            HorizontalPos _horizontalPos = _horizontalCoordinatesFacade.CalculateHorizontalCoordinates(jdnr, _geographicCoordinates, _eclipticCoordinates, flags);
-            return new CuspFullPos(eclLongitude, _equatorialCoordinates[0], _equatorialCoordinates[1], _horizontalPos);
-        }
-
-    }
 
 }

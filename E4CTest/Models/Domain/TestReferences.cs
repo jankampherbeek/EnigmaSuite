@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.Models.Domain;
+using E4C.domain.shared.references;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 

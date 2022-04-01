@@ -4,6 +4,7 @@
 
 using E4C.Models.Domain;
 using E4C.Models.UiHelpers;
+using E4C.domain.shared.specifications;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

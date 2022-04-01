@@ -4,6 +4,9 @@
 
 using System;
 using System.Collections.Generic;
+using E4C.domain.shared.positions;
+using E4C.domain.shared.specifications;
+using E4C.domain.shared.references;
 
 namespace E4C.Models.Domain
 {
@@ -146,7 +149,7 @@ namespace E4C.Models.Domain
             SolarSystemPoint = solarSystemPoint;
             EclipticLongitude = eclipticLongitude;
         }
-    }       
+    }
 
     /// <summary>
     /// Combination of position and speed (for a solar system point).
@@ -163,51 +166,9 @@ namespace E4C.Models.Domain
         }
     }
 
-    /// <summary>
-    /// Horizontal coordinates.
-    /// </summary>
-    public record HorizontalPos
-    {
-        public readonly double Azimuth;
-        public readonly double Altitude;
 
-        /// <summary>
-        /// Constructor for Horizontal Coordinates.
-        /// </summary>
-        /// <param name="azimuth">Azimuth.</param>
-        /// <param name="altitude">Altitude.</param>
-        public HorizontalPos(double azimuth, double altitude)
-        {
-            Azimuth = azimuth;
-            Altitude = altitude;
-        }
-    }
 
-    /// <summary>
-    /// Full position for  a cusp or other mundane point.
-    /// </summary>
-    public record CuspFullPos
-    {
-        public readonly double Longitude;
-        public readonly double RightAscension;
-        public readonly double Declination;
-        public readonly HorizontalPos AzimuthAltitude;
 
-        /// <summary>
-        /// Constructor for the full position of a cusp/mundane point.
-        /// </summary>
-        /// <param name="longitude">Longitude.</param>
-        /// <param name="rightAscension">Right ascension.</param>
-        /// <param name="declination">Declination.</param>
-        /// <param name="azimuthAltitude">Horizontal coordinates.</param>
-        public CuspFullPos(double longitude, double rightAscension, double declination, HorizontalPos azimuthAltitude)
-        {
-            Longitude = longitude;
-            RightAscension = rightAscension;
-            Declination = declination;
-            AzimuthAltitude = azimuthAltitude;
-        }
-    }
 
     /// <summary>
     /// Position, speed and distance in a coordinatesystem for point in the Solar system.
@@ -263,36 +224,6 @@ namespace E4C.Models.Domain
         }
     }
 
-    /// <summary>
-    /// Location related data.
-    /// </summary>
-    public class Location
-    {
-        public readonly string LocationFullName;
-        public readonly double GeoLong;
-        public readonly double GeoLat;
-        public readonly Directions4GeoLong DirLong;
-        public readonly Directions4GeoLat DirLat;
-
-        /// <summary>
-        /// Constructor for Location.
-        /// </summary>
-        /// <param name="locationFullName">Name and sexagesimal coordinatevalues for a location. Directions are defined between [] and need to be replaced with texts from Rosetta.</param>
-        /// <param name="geoLong">Value for geographic longitude.</param>
-        /// <param name="geoLat">Value for geographic latitude.</param>
-        public Location(string locationFullName, double geoLong, double geoLat)
-        {
-            LocationFullName = locationFullName;
-            GeoLong = geoLong;
-            GeoLat = geoLat;
-            DirLong = GeoLong >= 0.0 ? Directions4GeoLong.East : Directions4GeoLong.West;
-            DirLat = GeoLat >= 0.0 ? Directions4GeoLat.North : Directions4GeoLat.South;
-        }
-
-
-
-
-    }
 
     /// <summary>
     /// Record for a full definition of a data.
@@ -440,7 +371,7 @@ namespace E4C.Models.Domain
     }
 
     /// <summary>
-    /// Data for a reequest to calculate oblique longitudes.
+    /// Data for a request to calculate oblique longitudes.
     /// </summary>
     public record ObliqueLongitudeRequest
     {
@@ -463,38 +394,43 @@ namespace E4C.Models.Domain
             GeoLat = geoLat;
             SolSysPointCoordinates = solSysPointCoordinates;
         }
-           
+
     }
 
     /// <summary>
-    /// Results of calculation for mundane positions (cusps, asc. mc, vertex, eastpoint).
+    /// Data for an orbit-definition. Used for calcualtion of celestial (hypothetical) planets that are not supported by the SE.
     /// </summary>
-    public record MundanePositions
+    public record OrbitDefinition
     {
-        public readonly List<CuspFullPos> Cusps;
-        public readonly CuspFullPos Mc;
-        public readonly CuspFullPos Ascendant;
-        public readonly CuspFullPos Vertex;
-        public readonly CuspFullPos EastPoint;
+        public readonly double[] MeanAnomaly;
+        public readonly double[] Eccentricity;
+        public readonly double SemiMajorAxis;
+        public readonly double[] ArgumentPerihelion;
+        public readonly double[] AscendingNode;
+        public readonly double[] Inclination;
 
         /// <summary>
-        /// Constructor for record CalculatedMundanePositions.
+        /// Constructor for record ORbitDefinition.
         /// </summary>
-        /// <param name="cusps">List with full positions for cusps, in the sequence 1 ..n. </param>
-        /// <param name="mc">Full position for the Mc.</param>
-        /// <param name="ascendant">Full position for the ascendant.</param>
-        /// <param name="vertex">Full position for the vertex.</param>
-        /// <param name="eastpoint">Full position for the eastpoint.</param>
-        public MundanePositions(List<CuspFullPos> cusps, CuspFullPos mc, CuspFullPos ascendant, CuspFullPos vertex, CuspFullPos eastpoint)
+        /// <param name="meanAnomaly">Array with three elements for the mean anomaly.</param>
+        /// <param name="eccentricity">Array with three elements for the eccentricity.</param>
+        /// <param name="semiMajorAxis">Value for the semi major axis.</param>
+        /// <param name="argumentPerihelion">Array with three elements for the argument of the perihelion.</param>
+        /// <param name="ascendingNode">Array with three elements for the ascending node.</param>
+        /// <param name="inclination">Array with three elements for the inclination.</param>
+        public OrbitDefinition(double[] meanAnomaly, double[] eccentricity, double semiMajorAxis, double[] argumentPerihelion, double[] ascendingNode, double[] inclination)
         {
-            Cusps = cusps;
-            Mc = mc;
-            Ascendant = ascendant;
-            Vertex = vertex;
-            EastPoint = eastpoint;
+            MeanAnomaly = meanAnomaly;
+            Eccentricity = eccentricity;
+            SemiMajorAxis = semiMajorAxis;
+            ArgumentPerihelion = argumentPerihelion;
+            AscendingNode = ascendingNode;
+            Inclination = inclination;
         }
 
     }
+
+
 
     /// <summary>
     /// Results of calculation for a single Solar System Point.
@@ -538,14 +474,14 @@ namespace E4C.Models.Domain
     public record FullChartResponse
     {
         public readonly List<FullSolSysPointPos> SolarSystemPointPositions;
-        public readonly MundanePositions MundanePositions;
+        public readonly FullMundanePositions MundanePositions;
 
         /// <summary>
         /// Constructor for record FullChartResponse.
         /// </summary>
         /// <param name="solarSystemPointPositions">List with calcualted positions for Solar System Points.</param>
         /// <param name="mundanePositions">Calcualted mundane positions.</param>
-        public FullChartResponse(List<FullSolSysPointPos> solarSystemPointPositions, MundanePositions mundanePositions)
+        public FullChartResponse(List<FullSolSysPointPos> solarSystemPointPositions, FullMundanePositions mundanePositions)
         {
             SolarSystemPointPositions = solarSystemPointPositions;
             MundanePositions = mundanePositions;

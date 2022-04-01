@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using E4C.calc.seph.secalculations;
 using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
@@ -71,19 +72,8 @@ namespace E4C.ViewModels
                 throw new Exception("Error calculating jdnr..........");
             }
 
-            ResultForDouble _resultObliquity = _obliquityNutationCalc.CalculateObliquity(_julianDayResult.ReturnValue, UseTrueObliquity);
-            if (_resultObliquity.NoErrors)
-            {
-                return _resultObliquity.ReturnValue.ToString();
-            }
-            else
-            {
-                // todo log error
-                throw new Exception("Error when calculating Obliquity");
-            }
-
-
-
+            double _resultObliquity = _obliquityNutationCalc.CalculateObliquity(_julianDayResult.ReturnValue, UseTrueObliquity);
+            return _resultObliquity.ToString();
         }
     }
 }

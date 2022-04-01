@@ -1,6 +1,11 @@
-﻿using E4C.Models.Creators;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.Models.UiHelpers;
+using E4C.domain.shared.specifications;
 using System;
 using System.Collections.Generic;
 
@@ -151,7 +156,7 @@ namespace E4C.ViewModels
             bool dateOk = _dateFactory.CreateDate(InputDate, InputCalendar, InputYearCount, out FullDate fullDate, out List<int> dateErrorCodes);
             bool timeOk = _timeFactory.CreateTime(InputTime, InputTimeZone, InputLmtOffset, InputRbLmtPlusSelected, out FullTime fullTime, out List<int> timeErrorCodes);
 
-            
+
             bool dateTimeOk = false;
             List<int> dateTimeErrorCodes = new();
             if (dateOk && timeOk)

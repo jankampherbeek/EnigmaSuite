@@ -5,6 +5,7 @@
 
 using E4C.Models.Astron;
 using E4C.Models.Domain;
+using E4C.domain.shared.references;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;

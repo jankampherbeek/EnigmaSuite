@@ -2,11 +2,15 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Domain;
+using E4C.calc.seph.secalculations;
+using E4C.calc.seph.sefacade;
+using E4C.domain.shared.references;
 using E4C.Models.Astron;
-using E4C.Models.SeFacade;
-using System.Collections.Generic;
+using E4C.Models.Domain;
+using E4C.domain.shared.specifications;
 using NUnit.Framework;
+using System.Collections.Generic;
+using E4C.calc.seph;
 
 namespace E4CIntegrationTest.PlanetaryPositions
 {
@@ -96,24 +100,24 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
         [Test]
         public void TestEclipticalPositionsStandardPlanets()
         {
-          
 
-               
+
+
             double delta = 0.00000001;
 
-           /*     FullChartResponse response = DefinePositionsTropical();
-                FullSolSysPointPos solSysPointPos = response.SolarSystemPointPositions[0];
-                double longitudeSun = solSysPointPos.Longitude.Position;
-                bool closeEnough = System.Math.Abs(longitudeSun - 354.2773701944) <delta;
-               Assert.IsTrue(closeEnough);
-               Assert.AreEqual(354.2773701944, longitudeSun, delta);
-           */
+            /*     FullChartResponse response = DefinePositionsTropical();
+                 FullSolSysPointPos solSysPointPos = response.SolarSystemPointPositions[0];
+                 double longitudeSun = solSysPointPos.Longitude.Position;
+                 bool closeEnough = System.Math.Abs(longitudeSun - 354.2773701944) <delta;
+                Assert.IsTrue(closeEnough);
+                Assert.AreEqual(354.2773701944, longitudeSun, delta);
+            */
 
             // value found:    354.27816734551715
             // diff 0.000797151, about 1.15 minutes, 1m 9 sec, this is delta T!
             // after subtracting deltaT found value: 354.27737143287226 
             // diff is now 0.00000123847 or 0.004 seconds of arc. 
-            
+
             /*
             Assert.AreEqual(0.9966220278, solSysPointPos.Longitude.Speed, delta);
             Assert.AreEqual(0.0000995000, solSysPointPos.Latitude.Position, delta);
@@ -131,7 +135,7 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
             IHouseSystemSpecifications houseSystemSpecifications = new HouseSystemSpecifications();
             ISePosHousesFacade posHousesFacade = new SePosHousesFacade();
             ICoordinateConversionFacade posCoordinateConversionFacade = new CoordinateConversionFacade();
-            IPositionsMundane posMundane = new PositionsMundane(posHousesFacade, posCoordinateConversionFacade, horCoordFacade, houseSystemSpecifications);
+            IMundanePositionsCalculator posMundane = new MundanePositionsCalculator(posHousesFacade, posCoordinateConversionFacade, horCoordFacade, houseSystemSpecifications);
             IObliquityNutationCalc oblNutCalc = new ObliquityNutationCalc(posCelPointFacade);
             IFlagDefinitions flagdefs = new FlagDefinitions();
             IAyanamshaSpecifications ayanamshaSpecs = new AyanamshaSpecifications();
@@ -154,12 +158,12 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
             var ayanamsha = Ayanamshas.Fagan;
             var projectionType = ProjectionTypes.twoDimensional;
             var houseSystem = HouseSystems.NoHouses;
-            var solSysPoints = new List<SolarSystemPoints>(){SolarSystemPoints.Sun, SolarSystemPoints.Moon, SolarSystemPoints.DemeterRam, SolarSystemPoints.HermesRam};
+            var solSysPoints = new List<SolarSystemPoints>() { SolarSystemPoints.Sun, SolarSystemPoints.Moon, SolarSystemPoints.DemeterRam, SolarSystemPoints.HermesRam };
 
-        //    if (requestType == "tropicalstandard")
-        //    {
-        //        // do nothing
-        //    }
+            //    if (requestType == "tropicalstandard")
+            //    {
+            //        // do nothing
+            //    }
             return new FullChartRequest(julianDay, location, solSysPoints, houseSystem, zodiacType, ayanamsha, observerPos, projectionType);
         }
     }
