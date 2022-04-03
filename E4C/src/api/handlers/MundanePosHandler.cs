@@ -27,9 +27,9 @@ public interface IMundanePosHandler
 /// <inheritdoc/>
 public class MundanePosHandler : IMundanePosHandler
 {
-    private IMundanePositionsCalculator _mundPosCalc;
-    private IObliquityNutationCalc _oblCalc;
-    private IFlagDefinitions _flagDefs;
+    private readonly IMundanePositionsCalculator _mundPosCalc;
+    private readonly IObliquityNutationCalc _oblCalc;
+    private readonly IFlagDefinitions _flagDefs;
 
 
     public MundanePosHandler(IMundanePositionsCalculator mundPosCalc, IObliquityNutationCalc oblCalc, IFlagDefinitions flagDefs)
