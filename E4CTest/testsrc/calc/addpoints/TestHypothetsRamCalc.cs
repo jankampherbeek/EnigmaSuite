@@ -17,22 +17,30 @@ public class TestHypothetsRamCalc
     private double _delta = 0.0000001;
 
     [Test]
-    public void TestCalcHypRamEclPos()
+    public void TestCalcHypRamEclPosPersephone()
     {
-        _calculator = new CalcHypRamEclPos();
+        _calculator = new CalcHypRamEclPos(new CalcHelioPos());
         double jdUt = 2434406.817711;
         double[] result = _calculator.Calculate(SolarSystemPoints.PersephoneRam, jdUt);
         Assert.AreEqual(326.6011343685, result[0], _delta);         
-        result = _calculator.Calculate(SolarSystemPoints.HermesRam, jdUt);
-        Assert.AreEqual(161.6211128197, result[0], _delta);       
-        result = _calculator.Calculate(SolarSystemPoints.DemeterRam, jdUt);
-        Assert.AreEqual(261.4081200589, result[0], _delta);          
+    }
 
+    [Test]
+    public void TestCalcHypRamEclPosHermes()
+    {
+        _calculator = new CalcHypRamEclPos(new CalcHelioPos());
+        double jdUt = 2434406.817711;
+        double[] result = _calculator.Calculate(SolarSystemPoints.HermesRam, jdUt);
+        Assert.AreEqual(161.6211128197, result[0], _delta);
+    }
 
-
-        // Persephone 326.6 (Vulcanus) 26 g 36 m AQ (PD)  
-        // Hermes  161.62 (Vulcanus) 11 g 37 m VI (PD)
-        // Demeter 261.41   wp 259.85 (Vulcanus)  19 g 51 m SA (PD)
+    [Test]
+    public void TestCalcHypRamEclPosDemeter()
+    {
+        _calculator = new CalcHypRamEclPos(new CalcHelioPos());
+        double jdUt = 2434406.817711;
+        double[] result =  _calculator.Calculate(SolarSystemPoints.DemeterRam, jdUt);
+        Assert.AreEqual(261.4081200589, result[0], _delta);
     }
 
 }

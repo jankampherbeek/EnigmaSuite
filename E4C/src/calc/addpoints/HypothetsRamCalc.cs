@@ -8,6 +8,9 @@ using System;
 
 namespace E4C.calc.addpoints;
 
+/// <summary>
+/// Record with orbital elements for celestial points that are not calculated by the SE.
+/// </summary>
 public record OrbitDefinition
 {
     public readonly double[] MeanAnomaly;
@@ -26,14 +29,24 @@ public record OrbitDefinition
         AscNode = ascNode;
         Inclination = inclination;
     }
-
 }
 
+
+
+
+
+
+/// <summary>
+/// Calculate heliocentric position for celestial points that are not supported by the SE.
+/// </summary>
 public interface ICalcHelioPos
 {
-    public double[] CalcEclipticPosition(double factorT, OrbitDefinition orbitDefinition);
+    public RectAngCoordinates CalcEclipticPosition(double factorT, OrbitDefinition orbitDefinition);
 }
 
+/// <summary>
+/// Calculate geocentric ecliptical position for celestial points that are not supported by the SE.
+/// </summary>
 public interface ICalcHypRamEclPos
 {
     public double[] Calculate(SolarSystemPoints planet, double jdUt);
@@ -43,118 +56,117 @@ public interface ICalcHypRamEclPos
 
 public class CalcHelioPos : ICalcHelioPos
 {
-    public double[] CalcEclipticPosition(double factorT, OrbitDefinition orbitDefinition)
+
+    private double _meanAnomaly1;
+    private double _meanAnomaly2;
+    private double _semiAxis;
+    private double _inclination;
+    private double _eccentricity;
+    private double _eccAnomaly;
+    private double _factorT;
+    private PolarCoordinates _trueAnomalyPol;
+    private OrbitDefinition _orbitDefinition;
+
+    public RectAngCoordinates CalcEclipticPosition(double factorT, OrbitDefinition orbitDefinition)
     {
-        double m, e, ea, inc, v, a, b;
-        int count;
-        double[] anomaly_vec = new double[3];
-        double[] helio_vec = new double[3];
-        double[] anomaly_pol = new double[3];
-        double[] helio_pol = new double[3];
-
-        //m = rad(gra(rad(terms(T, thisorbit.M))));
-        m = DegreeRadianUtil.DegToRad(terms(factorT, orbitDefinition.MeanAnomaly));
-        if (m < 0.0) m += (Math.PI * 2);
-        e = terms(factorT, orbitDefinition.EccentricAnomaly);
-
-        /* solve Kepler's equation */
-        ea = m;
-        for (count = 1; count < 6; count++)
-            ea = m + e * Math.Sin(ea);
-
-        /* calculate true anomaly */
-        anomaly_vec[0] = orbitDefinition.SemiMajorAxis * (Math.Cos(ea) - e);
-        anomaly_vec[1] = orbitDefinition.SemiMajorAxis * Math.Sin(ea) * Math.Sqrt(1 - e * e);
-        anomaly_vec[2] = 0;
-        anomaly_pol = MathExtra.Rectangular2Polar(anomaly_vec);
-
-        /* reduce to ecliptic */
-        a = DegreeRadianUtil.RadToDeg(anomaly_pol[0]) + terms(factorT, orbitDefinition.ArgumentPerihelion);
-        m = DegreeRadianUtil.DegToRad(terms(factorT, orbitDefinition.AscNode));
-        //v = gra(rad(a + gra(m)));
-        v = a + DegreeRadianUtil.RadToDeg(m);
-        if (v < 0.0) v += 360.0;
-        b = DegreeRadianUtil.DegToRad(v);
-        inc = DegreeRadianUtil.DegToRad(terms(factorT, orbitDefinition.Inclination));
-        a = Math.Atan(Math.Cos(inc) * Math.Tan(b - m));
-        if (a < Math.PI) a = a + Math.PI;
-        a = DegreeRadianUtil.RadToDeg(a + m);
-        if (Math.Abs(v - a) > 10) a = a - 180;
-
-        /* heliocentric lat & long */
-        //helio_pol[0] = rad(gra(rad(a)));
-        helio_pol[0] = DegreeRadianUtil.DegToRad(a);
-        if (helio_pol[0] < 0.0) helio_pol[0] += (Math.PI * 2);
-        helio_pol[1] = Math.Atan(Math.Sin(helio_pol[0] - m) * Math.Tan(inc));
-        helio_pol[2] = DegreeRadianUtil.DegToRad(orbitDefinition.SemiMajorAxis) * (1 - e * Math.Cos(ea));
-
-        /* helio polar to rect */
-        helio_vec = MathExtra.Polar2Rectangular(helio_pol);
-
-        return helio_vec;
+        _factorT = factorT;
+        _orbitDefinition = orbitDefinition;
+        _meanAnomaly1 = MathExtra.DegToRad(ProcessTermsForFractionT(factorT, orbitDefinition.MeanAnomaly));
+        if (_meanAnomaly1 < 0.0) _meanAnomaly1 += (Math.PI * 2);
+        _eccentricity = ProcessTermsForFractionT(factorT, orbitDefinition.EccentricAnomaly);
+        _eccAnomaly = EccAnomalyFromKeplerEquation(_meanAnomaly1, _eccentricity);
+        _trueAnomalyPol = CalcPolarTrueAnomaly();
+        ReduceToEcliptic();
+        return CalcRectAngHelioCoordinates(_semiAxis, _inclination, _eccAnomaly, _eccentricity, _meanAnomaly2, orbitDefinition);
     }
 
-    double terms(double T, double[] thiselement)
-    { return thiselement[0] + thiselement[1] * T + thiselement[2] * T * T; }
+    private double EccAnomalyFromKeplerEquation(double meanAnomaly, double eccentricity)
+    {
+        int count;
+        double eccAnomaly = meanAnomaly;
+        for (count = 1; count < 6; count++)
+            eccAnomaly = meanAnomaly + eccentricity * Math.Sin(eccAnomaly);
+        return eccAnomaly;
+    }
+
+
+    private PolarCoordinates CalcPolarTrueAnomaly()
+    {
+        double xCoord = _orbitDefinition.SemiMajorAxis * (Math.Cos(_eccAnomaly) - _eccentricity);
+        double yCoord = _orbitDefinition.SemiMajorAxis * Math.Sin(_eccAnomaly) * Math.Sqrt(1 - _eccentricity * _eccentricity);
+        double zCoord = 0.0;
+        RectAngCoordinates anomalyVec = new(xCoord, yCoord, zCoord);
+        return MathExtra.Rectangular2Polar(anomalyVec);
+    }
+
+    private RectAngCoordinates CalcRectAngHelioCoordinates(double semiAxis, double inclination, double eccAnomaly, double eccentricity, double meanAnomaly, OrbitDefinition orbitDefinition)
+    {
+        double phiCoord = MathExtra.DegToRad(semiAxis);
+        if (phiCoord < 0.0) phiCoord += (Math.PI * 2);
+        double thetaCoord = Math.Atan(Math.Sin(phiCoord - meanAnomaly) * Math.Tan(inclination));
+        double rCoord = MathExtra.DegToRad(orbitDefinition.SemiMajorAxis) * (1 - eccentricity * Math.Cos(eccAnomaly));
+        PolarCoordinates helioPol = new PolarCoordinates(phiCoord, thetaCoord, rCoord);
+        return MathExtra.Polar2Rectangular(helioPol);
+    }
+
+    private void ReduceToEcliptic()
+    {
+        _semiAxis = MathExtra.RadToDeg(_trueAnomalyPol.PhiCoord) + ProcessTermsForFractionT(_factorT, _orbitDefinition.ArgumentPerihelion);
+        _meanAnomaly2 = MathExtra.DegToRad(ProcessTermsForFractionT(_factorT, _orbitDefinition.AscNode));
+        double factorVDeg = _semiAxis + MathExtra.RadToDeg(_meanAnomaly2);
+        if (factorVDeg < 0.0) factorVDeg += 360.0;
+        double factorVRad = MathExtra.DegToRad(factorVDeg);
+
+        _inclination = MathExtra.DegToRad(ProcessTermsForFractionT(_factorT, _orbitDefinition.Inclination));
+        _semiAxis = Math.Atan(Math.Cos(_inclination) * Math.Tan(factorVRad - _meanAnomaly2));
+        if (_semiAxis < Math.PI) _semiAxis += Math.PI;
+        _semiAxis = MathExtra.RadToDeg(_semiAxis + _meanAnomaly2);
+        if (Math.Abs(factorVDeg - _semiAxis) > 10.0) _semiAxis -= 180.0;
+    }
+
+    private double ProcessTermsForFractionT(double fractionT, double[] elements)
+    { 
+        return elements[0] + elements[1] * fractionT + elements[2] * fractionT * fractionT; 
+    }
 }
 
 
 
 public class CalcHypRamEclPos : ICalcHypRamEclPos
 {
-    public double[] Calculate(SolarSystemPoints planet, double jdUt)
+
+    private ICalcHelioPos _calcHelioPos;
+
+    public CalcHypRamEclPos(ICalcHelioPos calcHelioPos)
     {
-        double t = FactorT(jdUt);
-        double[] earth_helio;
-        double[] planetHelio;
-        double[] thisplanet_helio = new double[3];
-
-        double[] thisplanet_geo_vec = new double[3] ;
-        double[] thisplanet_geo_pol = new double[3];
-
-        ICalcHelioPos calcHelioPos = new CalcHelioPos();    // TODO use DI
-        //  Position thisposition;
-
-        /* calculate heliocentric position of earth: */
-        earth_helio = calcHelioPos.CalcEclipticPosition(t, DefineOrbitDefinition(SolarSystemPoints.Earth));
-
-        thisplanet_helio = calcHelioPos.CalcEclipticPosition(t, DefineOrbitDefinition(planet));
-
-
-     //   if (thisplanet != EARTH)
-     //   {
-          //  thisplanet_helio = helio_planet(T, orbits[thisplanet]);
-
-            /* calculate geocentric position: */
-            thisplanet_geo_vec[0] = thisplanet_helio[0] - earth_helio[0];
-        thisplanet_geo_vec[1] = thisplanet_helio[1] - earth_helio[1];
-        thisplanet_geo_vec[2] = thisplanet_helio[2] - earth_helio[2];
-    //    thisplanet_geo_vec.y = thisplanet_helio.y - earth_helio.y;
-    //        thisplanet_geo_vec.z = thisplanet_helio.z - earth_helio.z;
-     //   }
-     //   else
-     //   {
-          //  thisplanet_geo_vec = earth_helio;
-     //   }
-
-        thisplanet_geo_pol = MathExtra.Rectangular2Polar(thisplanet_geo_vec);
-
-        
-
-        double posLong = DegreeRadianUtil.RadToDeg(thisplanet_geo_pol[0]);
-        if (posLong < 0.0) posLong += 360.0;
-        double posLat = DegreeRadianUtil.RadToDeg(thisplanet_geo_pol[1]);
-        double posDist = DegreeRadianUtil.RadToDeg(thisplanet_geo_pol[2]);
-
-        double[] thisPosition = new double[] {posLong, posLat, posDist };
-
-
-      //  if (thisplanet == EARTH) thisposition.longitude = gra(thisplanet_geo_pol.phi + pi);
-     //   if (thisPosition[1] > 180) thisPosition[1] -= 360;
-
-        return thisPosition;
+        _calcHelioPos = calcHelioPos;
     }
 
+    public double[] Calculate(SolarSystemPoints planet, double jdUt)
+    {
+        double centuryFractionT = FactorT(jdUt);
+        PolarCoordinates polarPlanetGeo = CalcGeoPolarCoord(planet, centuryFractionT);
+        return DefinePosition(polarPlanetGeo);
+    }
+
+
+    private PolarCoordinates CalcGeoPolarCoord(SolarSystemPoints planet, double centuryFractionT)
+    {
+        RectAngCoordinates rectAngEarthHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(SolarSystemPoints.Earth));
+        RectAngCoordinates rectAngPlanetHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(planet));
+        RectAngCoordinates rectAngPlanetGeo = new RectAngCoordinates(rectAngPlanetHelio.XCoord - rectAngEarthHelio.XCoord, rectAngPlanetHelio.YCoord - rectAngEarthHelio.YCoord, rectAngPlanetHelio.ZCoord - rectAngEarthHelio.ZCoord);
+        return MathExtra.Rectangular2Polar(rectAngPlanetGeo);
+    }
+
+
+    private double[] DefinePosition(PolarCoordinates polarPlanetGeo)
+    {
+        double posLong = MathExtra.RadToDeg(polarPlanetGeo.PhiCoord);
+        if (posLong < 0.0) posLong += 360.0;
+        double posLat = MathExtra.RadToDeg(polarPlanetGeo.ThetaCoord);
+        double posDist = MathExtra.RadToDeg(polarPlanetGeo.RCoord);
+        return new double[] { posLong, posLat, posDist };
+    }
 
     private double FactorT(double jdUt)
     {

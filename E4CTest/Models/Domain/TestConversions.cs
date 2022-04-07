@@ -9,6 +9,7 @@ using E4C.domain.shared.references;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
+using E4C.calc.util;
 
 namespace ConversionsTest
 {
@@ -259,7 +260,7 @@ namespace ConversionsTest
         {
             double degrees = 100.0;
             double expectedRadians = 1.74532925199;
-            Assert.AreEqual(expectedRadians, DegreeRadianUtil.DegToRad(degrees), _delta);
+            Assert.AreEqual(expectedRadians, MathExtra.DegToRad(degrees), _delta);
         }
 
         [TestMethod]
@@ -267,7 +268,7 @@ namespace ConversionsTest
         {
             double radians = 2.0;
             double expectedDegrees = 114.591559026;
-            Assert.AreEqual(expectedDegrees, DegreeRadianUtil.RadToDeg(radians), _delta);
+            Assert.AreEqual(expectedDegrees, MathExtra.RadToDeg(radians), _delta);
         }
     }
 }

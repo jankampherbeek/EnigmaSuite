@@ -172,19 +172,6 @@ namespace E4C.Models.Domain
         }
     }
 
-    public static class DegreeRadianUtil
-    {
-        public static double RadToDeg(double radians)
-        {
-            return (180 / Math.PI) * radians;
-        }
-
-        public static double DegToRad(double degrees)
-        {
-            return (Math.PI / 180) * degrees;
-        }
-    }
-
 
 }
 

@@ -10,6 +10,7 @@ using E4C.domain.shared.specifications;
 using System;
 using System.Collections.Generic;
 using E4C.calc.seph;
+using E4C.calc.util;
 
 namespace E4C.Models.Astron
 {
@@ -261,15 +262,15 @@ namespace E4C.Models.Astron
                 declSP = -90.0 - geoLat;
             }
 
-            double sinSP = Math.Sin(DegreeRadianUtil.DegToRad(arsp));
-            double cosEps = Math.Cos(DegreeRadianUtil.DegToRad(obliquity));
-            double tanDecl = Math.Tan(DegreeRadianUtil.DegToRad(declSP));
-            double sinEps = Math.Sin(DegreeRadianUtil.DegToRad(obliquity));
-            double cosArsp = Math.Cos(DegreeRadianUtil.DegToRad(arsp));
-            double sinDecl = Math.Sin(DegreeRadianUtil.DegToRad(declSP));
-            double cosDecl = Math.Cos(DegreeRadianUtil.DegToRad(declSP));
-            double longSP = RangeUtil.ValueToRange(DegreeRadianUtil.RadToDeg(Math.Atan2((sinSP * cosEps) + (tanDecl * sinEps), cosArsp)), 0.0, 360.0);
-            double latSP = DegreeRadianUtil.RadToDeg(Math.Asin((sinDecl * cosEps) - (cosDecl * sinEps * sinSP)));
+            double sinSP = Math.Sin(MathExtra.DegToRad(arsp));
+            double cosEps = Math.Cos(MathExtra.DegToRad(obliquity));
+            double tanDecl = Math.Tan(MathExtra.DegToRad(declSP));
+            double sinEps = Math.Sin(MathExtra.DegToRad(obliquity));
+            double cosArsp = Math.Cos(MathExtra.DegToRad(arsp));
+            double sinDecl = Math.Sin(MathExtra.DegToRad(declSP));
+            double cosDecl = Math.Cos(MathExtra.DegToRad(declSP));
+            double longSP = RangeUtil.ValueToRange(MathExtra.RadToDeg(Math.Atan2((sinSP * cosEps) + (tanDecl * sinEps), cosArsp)), 0.0, 360.0);
+            double latSP = MathExtra.RadToDeg(Math.Asin((sinDecl * cosEps) - (cosDecl * sinEps * sinSP)));
             return new EclipticCoordinates(longSP, latSP);
         }
 
@@ -307,9 +308,9 @@ namespace E4C.Models.Astron
             double latSouthPMinusPlanet = absLatSp - latPl;
             double latSouthPPLusPlanet = absLatSp + latPl;
             double s = Math.Min(longSouthPMinusPlanet, longPlanetMinusSouthP) / 2;
-            double tanSRad = Math.Tan(DegreeRadianUtil.DegToRad(s));
-            double qRad = Math.Sin(DegreeRadianUtil.DegToRad(latSouthPMinusPlanet)) / Math.Sin(DegreeRadianUtil.DegToRad(latSouthPPLusPlanet));
-            double v = DegreeRadianUtil.RadToDeg(Math.Atan(tanSRad * qRad)) - s;
+            double tanSRad = Math.Tan(MathExtra.DegToRad(s));
+            double qRad = Math.Sin(MathExtra.DegToRad(latSouthPMinusPlanet)) / Math.Sin(MathExtra.DegToRad(latSouthPPLusPlanet));
+            double v = MathExtra.RadToDeg(Math.Atan(tanSRad * qRad)) - s;
             double absoluteV = RangeUtil.ValueToRange(Math.Abs(v), -90.0, 90.0);
             absoluteV = Math.Abs(absoluteV); // again?
             double correctedV = 0.0;
