@@ -2,8 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Ardalis.GuardClauses;
 using E4C.api.handlers;
 using E4C.domain.shared.reqresp;
+
 
 namespace E4C.api;
 
@@ -50,11 +52,16 @@ public class AstronCalcApi : IAstronCalcApi
     /// <inheritdoc>
     public FullMundanePosResponse getAllHousePositions(FullMundanePosRequest request)
     {
+        Guard.Against.Null(request, nameof(request));
+        Guard.Against.Null(request.ChartLocation);
         return _mundanePosHandler.CalculateAllMundanePositions(request);
     }
 
     public SolSysPointsResponse getSolSysPoints(SolSysPointsRequest request)
     {
+        Guard.Against.Null(request, nameof(request));
+        Guard.Against.NullOrEmpty(request.SolarSystemPoints);
+        Guard.Against.Null(request.ChartLocation);
         return _solSysPointsHandler.CalcSolSysPoints(request);
     }
 }
