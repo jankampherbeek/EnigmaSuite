@@ -152,36 +152,7 @@ namespace E4CTest.be.domain
         }
     }
 
-    [TestClass]
-    public class TestHouseSystemSpecifications
-    {
-        [TestMethod]
-        public void TestRetrievingDetails()
-        {
-            HouseSystems houseSystem = HouseSystems.Regiomontanus;
-            IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
-            HouseSystemDetails details = specifications.DetailsForHouseSystem(houseSystem);
-            Assert.IsNotNull(details);
-            Assert.AreEqual(houseSystem, details.HouseSystem);
-            Assert.AreEqual('R', details.SeId);
-            Assert.AreEqual(12, details.NrOfCusps);
-            Assert.IsTrue(details.CounterClockWise);
-            Assert.IsTrue(details.QuadrantSystem);
-            Assert.AreEqual("houseSystemRegiomontanus", details.TextId);
-        }
-
-        [TestMethod]
-        public void TestAvailabilityOfDetailsForAllEnums()
-        {
-            IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
-            foreach (HouseSystems system in Enum.GetValues(typeof(HouseSystems)))
-            {
-                HouseSystemDetails details = specifications.DetailsForHouseSystem(system);
-                Assert.IsNotNull(details);
-                Assert.IsTrue(details.TextId.Length > 0);
-            }
-        }
-    }
+  
 
     [TestClass]
     public class TestAyanamshaSpecifications

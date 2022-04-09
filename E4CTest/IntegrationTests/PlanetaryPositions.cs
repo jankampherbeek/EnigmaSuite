@@ -11,6 +11,7 @@ using E4C.domain.shared.specifications;
 using NUnit.Framework;
 using System.Collections.Generic;
 using E4C.calc.seph;
+using E4C.domain.shared.reqresp;
 
 namespace E4CIntegrationTest.PlanetaryPositions
 {
@@ -131,8 +132,8 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
             IHorizontalCoordinatesFacade horCoordFacade = new HorizontalCoordinatesFacade();
             ISePosCelPointFacade posCelPointFacade = new SePosCelPointFacade();
             ISolarSystemPointSpecifications solSysPointSpecs = new SolarSystemPointSpecifications();
-            IPositionSolSysPointCalc solSysPointCalc = new PositionSolSysPointCalc(posCelPointFacade, horCoordFacade, solSysPointSpecs);
-            IHouseSystemSpecifications houseSystemSpecifications = new HouseSystemSpecifications();
+            IPositionSolSysPointSECalc solSysPointCalc = new PositionSolSysPointSECalc(posCelPointFacade, horCoordFacade, solSysPointSpecs);
+            IHouseSystemSpecs houseSystemSpecifications = new HouseSystemSpecs();
             ISePosHousesFacade posHousesFacade = new SePosHousesFacade();
             ICoordinateConversionFacade posCoordinateConversionFacade = new CoordinateConversionFacade();
             IMundanePositionsCalculator posMundane = new MundanePositionsCalculator(posHousesFacade, posCoordinateConversionFacade, horCoordFacade, houseSystemSpecifications);
@@ -164,7 +165,8 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
             //    {
             //        // do nothing
             //    }
-            return new FullChartRequest(julianDay, location, solSysPoints, houseSystem, zodiacType, ayanamsha, observerPos, projectionType);
+            SolSysPointsRequest solSysPointRequest = new(julianDay, location, solSysPoints, zodiacType, ayanamsha, observerPos, projectionType);
+            return new FullChartRequest(solSysPointRequest, houseSystem);
         }
     }
 

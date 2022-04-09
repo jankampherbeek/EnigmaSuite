@@ -27,7 +27,7 @@ public record HouseSystemDetails
     readonly public int NrOfCusps;
     readonly public bool CounterClockWise;
     readonly public bool QuadrantSystem;
-    /// Identification of a dscriptive test in a resource bundle.</summary>
+    /// <summary>Identification of a descriptive test in a resource bundle.</summary>
     readonly public string TextId;
 
     /// <summary>
@@ -55,7 +55,7 @@ public record HouseSystemDetails
 /// <summary>
 /// Specifications for the different housesystems.
 /// </summary>
-public interface IHouseSystemSpecifications
+public interface IHouseSystemSpecs
 {
     /// <summary>
     /// Returns the specification for a house system.
@@ -66,10 +66,10 @@ public interface IHouseSystemSpecifications
 }
 
 /// <inheritdoc/>
-public class HouseSystemSpecifications : IHouseSystemSpecifications
+public class HouseSystemSpecs : IHouseSystemSpecs
 {
     /// <exception cref="ArgumentException">Is thrown if the house system was not recognized.</exception>
-    HouseSystemDetails IHouseSystemSpecifications.DetailsForHouseSystem(HouseSystems houseSystem)
+    HouseSystemDetails IHouseSystemSpecs.DetailsForHouseSystem(HouseSystems houseSystem)
     {
         return houseSystem switch
         {

@@ -89,7 +89,8 @@ public class TestFlagDefinitions
         if (helioCentric) observerPosition = ObserverPositions.HelioCentric;
         if (topoCentric) observerPosition = ObserverPositions.TopoCentric;
         var projectionType = ProjectionTypes.twoDimensional;
-        return new FullChartRequest(jdUt, location, solSysPoints, houseSystem, zodiactType, ayanamsha, observerPosition, projectionType);
+        SolSysPointsRequest solSysPointRequest = new(jdUt, location, solSysPoints, zodiactType, ayanamsha, observerPosition, projectionType);
+        return new FullChartRequest(solSysPointRequest, houseSystem);
     }
 
     private FullMundanePosRequest CreateRequest()

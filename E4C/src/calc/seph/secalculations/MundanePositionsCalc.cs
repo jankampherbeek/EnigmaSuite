@@ -33,11 +33,11 @@ public class MundanePositionsCalculator : IMundanePositionsCalculator
     private readonly ISePosHousesFacade _sePosHousesFacade;
     private readonly ICoordinateConversionFacade _coordinateConversionFacade;
     private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
-    private readonly IHouseSystemSpecifications _houseSystemSpecifications;
+    private readonly IHouseSystemSpecs _houseSystemSpecifications;
 
     /// <inheritdoc/>
     public MundanePositionsCalculator(ISePosHousesFacade sePosHousesFacade, ICoordinateConversionFacade coordinateConversionFacade,
-        IHorizontalCoordinatesFacade horizontalCoordinatesFacade, IHouseSystemSpecifications houseSystemSpecifications)
+        IHorizontalCoordinatesFacade horizontalCoordinatesFacade, IHouseSystemSpecs houseSystemSpecifications)
     {
         _sePosHousesFacade = sePosHousesFacade;
         _coordinateConversionFacade = coordinateConversionFacade;

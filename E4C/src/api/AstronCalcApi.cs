@@ -16,9 +16,17 @@ public interface IAstronCalcApi
     /// Api enabled access to retrieve all house positions. 
     /// </summary>
     /// <param name="request"/>
-    /// <returns>Validated response with all positions (cusps, MC, Asc, Vertex, Eastpoint) and all relevant coordinates (longitude, right ascension, declination, azimuth, altitude). 
+    /// <returns>Validated response with all positions (cusps, MC, Asc, Vertex, Eastpoint) and all relevant coordinates (ecliptical, equatorial and nhorizontal). 
     /// The field Success is set to false if an error occurs. Any errors are explained in the field ErrorText.</returns>
     public FullMundanePosResponse getAllHousePositions(FullMundanePosRequest request);
+
+    /// <summary>
+    /// Api enabled access to retrieve positions for one or more solar system points.
+    /// </summary>
+    /// <param name="request"/>
+    /// <returns>Validated response with all positions for the solar system ints in the request and all relevant coordinates (ecliptical, equatorial and nhorizontal). 
+    /// The field Success is set to false if an error occurs. Any errors are explained in the field ErrorText</returns>
+    public SolSysPointsResponse getSolSysPoints(SolSysPointsRequest request);
 }
 
 
@@ -26,20 +34,27 @@ public interface IAstronCalcApi
 public class AstronCalcApi : IAstronCalcApi
 {
 
-    private MundanePosHandler _mundanePosHandler;
+    private readonly IMundanePosHandler _mundanePosHandler;
+    private readonly ISolSysPointsHandler _solSysPointsHandler;
 
     /// <summary>
     /// Constructor defines all handlers.
     /// </summary>
     /// <param name="mundanePosHandler">Handler for the calculation of houses.</param>
-    public AstronCalcApi(MundanePosHandler mundanePosHandler)
+    public AstronCalcApi(IMundanePosHandler mundanePosHandler, ISolSysPointsHandler solSysPointsHandler)
     {
         _mundanePosHandler = mundanePosHandler;
+        _solSysPointsHandler = solSysPointsHandler;
     }
 
     /// <inheritdoc>
     public FullMundanePosResponse getAllHousePositions(FullMundanePosRequest request)
     {
         return _mundanePosHandler.CalculateAllMundanePositions(request);
+    }
+
+    public SolSysPointsResponse getSolSysPoints(SolSysPointsRequest request)
+    {
+        return _solSysPointsHandler.CalcSolSysPoints(request);
     }
 }

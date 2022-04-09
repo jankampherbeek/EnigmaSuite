@@ -15,6 +15,7 @@ using E4C.domain.shared.references;
 using SimpleInjector;
 using System;
 using E4C.calc.seph;
+using E4C.calc.specifics;
 
 namespace E4C
 {
@@ -48,7 +49,7 @@ namespace E4C
             container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
             container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
-            container.Register<IPositionSolSysPointCalc, PositionSolSysPointCalc>(Lifestyle.Singleton);
+            container.Register<IPositionSolSysPointSECalc, PositionSolSysPointSECalc>(Lifestyle.Singleton);
             container.Register<IMundanePositionsCalculator, MundanePositionsCalculator>(Lifestyle.Singleton);
             container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
             container.Register<ICoordinateConversionFacade, CoordinateConversionFacade>(Lifestyle.Singleton);
@@ -73,7 +74,7 @@ namespace E4C
             container.Register<IDateTimeFactory, DateTimeFactory>(Lifestyle.Singleton);
             container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
             container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
-            container.Register<IHouseSystemSpecifications, HouseSystemSpecifications>(Lifestyle.Singleton);
+            container.Register<IHouseSystemSpecs, HouseSystemSpecs>(Lifestyle.Singleton);
 
             // Register windows and view models:
             container.Register<MainWindow>();

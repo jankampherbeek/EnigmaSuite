@@ -149,7 +149,7 @@ public class TestMundanePositionsCalc
         mockHorizontalCoordinatesFacade.Setup(p => p.CalculateHorizontalCoordinates(jdUt, geoCoord, new double[] { 192.0, 0.0, 0.0 }, flags)).Returns(new HorizontalPos(311.0, 2.0));       // vertex
         mockHorizontalCoordinatesFacade.Setup(p => p.CalculateHorizontalCoordinates(jdUt, geoCoord, new double[] { 12.0, 0.0, 0.0 }, flags)).Returns(new HorizontalPos(31.0, -8.0));        // eastpoint
 
-        var mockHouseSystemSpecifications = new Mock<IHouseSystemSpecifications>();
+        var mockHouseSystemSpecifications = new Mock<IHouseSystemSpecs>();
         mockHouseSystemSpecifications.Setup(p => p.DetailsForHouseSystem(HouseSystems.Alcabitius)).
             Returns(new HouseSystemDetails(houseSystem, true, 'B', 12, true, true, "houseSystemAlcabitius"));
         MundanePositionsCalculator positions = new(mockPosHousesFacade.Object, mockCoordinateConversionFacade.Object, mockHorizontalCoordinatesFacade.Object, mockHouseSystemSpecifications.Object);

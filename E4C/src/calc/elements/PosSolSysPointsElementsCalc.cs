@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.calc.util;
-using E4C.Models.Domain;
+using E4C.domain.shared.references;
 using System;
 
-namespace E4C.calc.addpoints;
+namespace E4C.calc.elements;
 
 /// <summary>
 /// Record with orbital elements for celestial points that are not calculated by the SE.
@@ -47,7 +47,7 @@ public interface ICalcHelioPos
 /// <summary>
 /// Calculate geocentric ecliptical position for celestial points that are not supported by the SE.
 /// </summary>
-public interface ICalcHypRamEclPos
+public interface IPosSolSysPointsElementsCalc
 {
     public double[] Calculate(SolarSystemPoints planet, double jdUt);
 }
@@ -132,12 +132,12 @@ public class CalcHelioPos : ICalcHelioPos
 
 
 
-public class CalcHypRamEclPos : ICalcHypRamEclPos
+public class PosSolSysPointsElementsCalc : IPosSolSysPointsElementsCalc
 {
 
-    private ICalcHelioPos _calcHelioPos;
+    private readonly ICalcHelioPos _calcHelioPos;
 
-    public CalcHypRamEclPos(ICalcHelioPos calcHelioPos)
+    public PosSolSysPointsElementsCalc(ICalcHelioPos calcHelioPos)
     {
         _calcHelioPos = calcHelioPos;
     }

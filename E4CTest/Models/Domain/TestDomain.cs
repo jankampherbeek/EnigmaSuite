@@ -70,49 +70,7 @@ namespace E4CTest.be.domain
 
     }
 
-    [TestClass]
-    public class TestSolSysPointPosSpeeds
-    {
-        [TestMethod]
-        public void TestConstructionWithArray()
-        {
-            double delta = 0.00000001;
-            double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-            SolSysPointPosSpeeds posSpeeds = new(values);
-            Assert.AreEqual(1.0, posSpeeds.MainPosSpeed.Position, delta);
-            Assert.AreEqual(2.0, posSpeeds.MainPosSpeed.Speed, delta);
-            Assert.AreEqual(3.0, posSpeeds.DeviationPosSpeed.Position, delta);
-            Assert.AreEqual(4.0, posSpeeds.DeviationPosSpeed.Speed, delta);
-            Assert.AreEqual(5.0, posSpeeds.DistancePosSpeed.Position, delta);
-            Assert.AreEqual(6.0, posSpeeds.DistancePosSpeed.Speed, delta);
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
-        public void TestConstructionWrongArray()
-        {
-            double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0 };
-            SolSysPointPosSpeeds _ = new(values);
-        }
-
-        [TestMethod]
-        public void TestConstructionWithPosSpeeds()
-        {
-            double delta = 0.00000001;
-            PosSpeed mainPosSpeed = new(1.0, 2.0);
-            PosSpeed deviationPosSpeed = new(3.0, 4.0);
-            PosSpeed distancePosSpeed = new(5.0, 6.0);
-            SolSysPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
-            Assert.AreEqual(1.0, posSpeeds.MainPosSpeed.Position, delta);
-            Assert.AreEqual(2.0, posSpeeds.MainPosSpeed.Speed, delta);
-            Assert.AreEqual(3.0, posSpeeds.DeviationPosSpeed.Position, delta);
-            Assert.AreEqual(4.0, posSpeeds.DeviationPosSpeed.Speed, delta);
-            Assert.AreEqual(5.0, posSpeeds.DistancePosSpeed.Position, delta);
-            Assert.AreEqual(6.0, posSpeeds.DistancePosSpeed.Speed, delta);
-        }
-
-
-    }
+ 
 
 
 }

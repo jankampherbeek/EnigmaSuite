@@ -21,6 +21,14 @@ public interface IFlagDefinitions
     public int DefineFlags(FullChartRequest request);
 
     /// <summary>
+    /// Define flags for a given SolSysPointsRequest.
+    /// </summary>
+    /// <param name="request">Request for which the flags need to be defined.</param>
+    /// <returns>Combined value for flags.</returns>
+    public int DefineFlags(SolSysPointsRequest request);
+
+
+    /// <summary>
     /// Define flags for a given FullMundanePosRequest.
     /// </summary>
     /// <param name="request">Request for which the flags need to be defined.</param>
@@ -44,6 +52,11 @@ public class FlagDefinitions : IFlagDefinitions
     /// <inheritdoc/>
     public int DefineFlags(FullChartRequest request)
     {
+        return DefineFlags(request.SolSysPointRequest);
+    }
+
+    public int DefineFlags(SolSysPointsRequest request)
+    {
         int flags = Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
         if (request.ObserverPosition == ObserverPositions.HelioCentric)
         {
@@ -59,6 +72,7 @@ public class FlagDefinitions : IFlagDefinitions
         }
         return flags;
     }
+
 
     /// <inheritdoc/>
     public int DefineFlags(FullMundanePosRequest request)

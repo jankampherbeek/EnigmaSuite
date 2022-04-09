@@ -331,44 +331,7 @@ namespace E4C.Models.Domain
         }
     }
 
-    /// <summary>
-    /// Data for a request to calculate a full chart.
-    /// </summary>
-    public record FullChartRequest
-    {
-        public readonly double JulianDayUt;
-        public readonly Location ChartLocation;
-        public readonly List<SolarSystemPoints> SolarSystemPoints;
-        public readonly HouseSystems HouseSystem;
-        public readonly ZodiacTypes ZodiacType;
-        public readonly Ayanamshas Ayanamsha;
-        public readonly ObserverPositions ObserverPosition;
-        public readonly ProjectionTypes ProjectionType;
 
-        /// <summary>
-        /// Constructor for the record FullChartRequest.
-        /// </summary>
-        /// <param name="julianDayUt">Julian day for universal time.</param>
-        /// <param name="location">Location (only latitude and longitude are used).</param>
-        /// <param name="solarSystemPoints">List with the Solar System Points to calculate.</param>
-        /// <param name="houseSystem">The preferred house system.</param>
-        /// <param name="zodiacType">The zodiac type: tropical or sidereal.</param>
-        /// <param name="ayanamsha">The ayanamsha to be applied.</param>
-        /// <param name="observerPosition">Observer position (geocentric, topocentric, heliocentric).</param>
-        /// <param name="projectionType">Projection type (standard or oblique longitude).</param>
-        public FullChartRequest(double julianDayUt, Location location, List<SolarSystemPoints> solarSystemPoints, HouseSystems houseSystem,
-            ZodiacTypes zodiacType, Ayanamshas ayanamsha, ObserverPositions observerPosition, ProjectionTypes projectionType)
-        {
-            JulianDayUt = julianDayUt;
-            ChartLocation = location;
-            SolarSystemPoints = solarSystemPoints;
-            HouseSystem = houseSystem;
-            ZodiacType = zodiacType;
-            Ayanamsha = ayanamsha;
-            ObserverPosition = observerPosition;
-            ProjectionType = projectionType;
-        }
-    }
 
     /// <summary>
     /// Data for a request to calculate oblique longitudes.
@@ -468,25 +431,7 @@ namespace E4C.Models.Domain
         }
     }
 
-    /// <summary>
-    /// Complete calcualtion results for a full chart.
-    /// </summary>
-    public record FullChartResponse
-    {
-        public readonly List<FullSolSysPointPos> SolarSystemPointPositions;
-        public readonly FullMundanePositions MundanePositions;
 
-        /// <summary>
-        /// Constructor for record FullChartResponse.
-        /// </summary>
-        /// <param name="solarSystemPointPositions">List with calcualted positions for Solar System Points.</param>
-        /// <param name="mundanePositions">Calcualted mundane positions.</param>
-        public FullChartResponse(List<FullSolSysPointPos> solarSystemPointPositions, FullMundanePositions mundanePositions)
-        {
-            SolarSystemPointPositions = solarSystemPointPositions;
-            MundanePositions = mundanePositions;
-        }
-    }
 
     /// <summary>
     /// Combines the flags for the Swiss Ephemeris to a single value.
