@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using api.handlers;
 using E4C.api.handlers;
 using E4C.calc.seph;
 using E4C.calc.seph.secalculations;
@@ -81,8 +82,9 @@ public class TestMundanePosHandler
     {
         var mockFlagDefs = new Mock<IFlagDefinitions>();
         mockFlagDefs.Setup(p => p.DefineFlags(request)).Returns(_flags);
-        var mockOblCalc = new Mock<IObliquityNutationCalc>();
-        mockOblCalc.Setup(p => p.CalculateObliquity(_jdUt, true)).Returns(_obliquity);
+        var mockOblHandler = new Mock<IObliquityHandler>();
+        var oblRequest = new ObliquityRequest(_jdUt, true);
+        mockOblHandler.Setup(p => p.CalcObliquity(oblRequest)).Returns(new ObliquityResponse(_obliquity, true, ""));
         var mockMundPosCalc = new Mock<IMundanePositionsCalculator>();
         List<CuspFullPos> cusps = new List<CuspFullPos>();
         CuspFullPos mc = new CuspFullPos(100.0, 101.0, 5.0, new HorizontalPos(0.0, 70.0));
@@ -91,18 +93,19 @@ public class TestMundanePosHandler
         CuspFullPos eastPoint = new CuspFullPos(199.0, 200.0, -12.0, new HorizontalPos(99.0, -4.4));
         FullMundanePositions fullMundPos = new FullMundanePositions(cusps, mc, ascendant, vertex, eastPoint);
         mockMundPosCalc.Setup(p => p.CalculateAllMundanePositions(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<Location>(), It.IsAny<HouseSystems>())).Returns(fullMundPos);
-        return new MundanePosHandler(mockMundPosCalc.Object, mockOblCalc.Object, mockFlagDefs.Object);
+        return new MundanePosHandler(mockMundPosCalc.Object, mockOblHandler.Object, mockFlagDefs.Object);
     }
     
     private IMundanePosHandler defineHandlerError()
     {
         var mockFlagDefs = new Mock<IFlagDefinitions>();
         mockFlagDefs.Setup(p => p.DefineFlags(request)).Returns(_flags);
-        var mockOblCalc = new Mock<IObliquityNutationCalc>();
-        mockOblCalc.Setup(p => p.CalculateObliquity(_jdUt, true)).Returns(_obliquity);
+        var mockOblHandler = new Mock<IObliquityHandler>();
+        var oblRequest = new ObliquityRequest(_jdUt, true);
+        mockOblHandler.Setup(p => p.CalcObliquity(oblRequest)).Returns(new ObliquityResponse(_obliquity, true, ""));
         var mockMundPosCalc = new Mock<IMundanePositionsCalculator>();
         mockMundPosCalc.Setup(p => p.CalculateAllMundanePositions(It.IsAny<double>(), It.IsAny<double>(), It.IsAny<int>(), It.IsAny<Location>(), It.IsAny<HouseSystems>())).Throws(new SwissEphException(string.Format("{0}/{1}/{2}", _seErrorResult, _classAndMethod, _paramSummary)));
-        return new MundanePosHandler(mockMundPosCalc.Object, mockOblCalc.Object, mockFlagDefs.Object);
+        return new MundanePosHandler(mockMundPosCalc.Object, mockOblHandler.Object, mockFlagDefs.Object);
     }
 
 

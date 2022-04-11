@@ -17,7 +17,7 @@ namespace E4C.ViewModels
         readonly private IYearCountSpecifications _yearCountSpecifications;
         readonly private ICalendarCalc _calCalc;
         readonly private IDateTimeValidations _dateTimeValidations;
-        readonly private IObliquityNutationCalc _obliquityNutationCalc;
+        readonly private IObliquityCalc _obliquityNutationCalc;
         public List<CalendarDetails> CalendarItems { get; }
         public List<YearCountDetails> YearCountItems { get; }
         public string[] InputDate { get; set; }
@@ -26,7 +26,7 @@ namespace E4C.ViewModels
         public bool UseTrueObliquity { get; set; }
 
 
-        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityNutationCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
+        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
         {
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;

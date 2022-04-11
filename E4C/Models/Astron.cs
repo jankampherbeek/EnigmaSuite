@@ -48,21 +48,6 @@ namespace E4C.Models.Astron
 
 
 
-    /// <summary>
-    /// Calculator for fully defined charts.
-    /// </summary>
-    /// <remarks>No unit test as this would require too much mocked data. This class should be tested by an integration test.</remarks>
-    public interface IFullChartCalc
-    {
-        /// <summary>
-        /// Calculate a fully defined chart.
-        /// </summary>
-        /// <param name="request">Instance of FullChartRequest.</param>
-        /// <returns>A FUllChartResponse with all the calculated data.</returns>
-        public FullChartResponse CalculateFullChart(FullChartRequest request);
-    }
-
-
     public class CalendarCalc : ICalendarCalc
     {
 
@@ -113,63 +98,6 @@ namespace E4C.Models.Astron
         }
     }
 
-
-
-
-    public class FullChartCalc : IFullChartCalc
-    {
-        private readonly IObliquityNutationCalc _obliquityNutationCalc;
-        private readonly IMundanePositionsCalculator _positionsMundane;
-        private readonly IPositionSolSysPointSECalc _positionSolSysPointCalc;
-        private readonly IFlagDefinitions _flagDefinitions;
-        private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
-
-        /// <summary>
-        /// Constructor for FullChartCalc.
-        /// </summary>
-        /// <param name="obliquityNutationCalc">Calclator for boliquity and nutation.</param>
-        /// <param name="positionsMundane">Calculator for mundane positions.</param>
-        /// <param name="positionSolSysPointCalc">Calculator for solar system points.</param>
-        public FullChartCalc(IObliquityNutationCalc obliquityNutationCalc, IMundanePositionsCalculator positionsMundane, IPositionSolSysPointSECalc positionSolSysPointCalc,
-            IFlagDefinitions flagDefinitions, IAyanamshaSpecifications ayanamshaSpecifications)
-        {
-            _obliquityNutationCalc = obliquityNutationCalc;
-            _positionsMundane = positionsMundane;
-            _positionSolSysPointCalc = positionSolSysPointCalc;
-            _flagDefinitions = flagDefinitions;
-            _ayanamshaSpecifications = ayanamshaSpecifications;
-        }
-
-
-        public FullChartResponse CalculateFullChart(FullChartRequest request)
-        {
-            Boolean success = true;
-            string errorText = "";
-            if (request.SolSysPointRequest.ZodiacType == ZodiacTypes.Sidereal)
-            {
-                int idAyanamsa = _ayanamshaSpecifications.DetailsForAyanamsha(request.SolSysPointRequest.Ayanamsha).SeId;
-                SeInitializer.SetAyanamsha(idAyanamsa);
-            }
-            int _flagsEcliptical = _flagDefinitions.DefineFlags(request);
-            int _flagsEquatorial = _flagDefinitions.AddEquatorial(_flagsEcliptical);
-            double _obliquity = CalculateObliquity(request.SolSysPointRequest.JulianDayUt);
-            FullMundanePositions _mundanePositions = _positionsMundane.CalculateAllMundanePositions(request.SolSysPointRequest.JulianDayUt, _obliquity, _flagsEcliptical, request.SolSysPointRequest.ChartLocation, request.HouseSystem);
-
-            var _fullSolSysPoints = new List<FullSolSysPointPos>();
-            foreach (SolarSystemPoints solSysPoint in request.SolSysPointRequest.SolarSystemPoints)
-            {
-                _fullSolSysPoints.Add(_positionSolSysPointCalc.CalculateSolSysPoint(solSysPoint, request.SolSysPointRequest.JulianDayUt, request.SolSysPointRequest.ChartLocation, _flagsEcliptical, _flagsEquatorial));
-            }
-            // TODO add error checking
-            return new FullChartResponse(_fullSolSysPoints, _mundanePositions, success, errorText);
-        }
-
-        private double CalculateObliquity(double _jdUt)
-        {
-            bool _trueObliquity = false;
-            return _obliquityNutationCalc.CalculateObliquity(_jdUt, _trueObliquity);
-        }
-    }
 
 
 

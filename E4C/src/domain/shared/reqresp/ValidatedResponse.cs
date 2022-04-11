@@ -9,15 +9,15 @@ namespace E4C.domain.shared.reqresp;
 /// </summary>
 public abstract record ValidatedResponse
 {
-    public readonly bool Success;
-    public readonly string ErrorText;
+    public bool Success { get; set; }
+    public string ErrorText { get; set; }
 
     /// <summary>
     /// Constructor for abstract ValidResponse, needs to be overridden.
     /// </summary>
     /// <param name="success">True if the calculation was successfull, otherwise false.</param>
     /// <param name="errorText">The text of any error(s).</param>
-    public ValidatedResponse(bool success, string errorText)
+    protected ValidatedResponse(bool success, string errorText)
     {
         Success = success;
         ErrorText = errorText;

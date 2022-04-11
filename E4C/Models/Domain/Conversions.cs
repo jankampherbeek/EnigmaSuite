@@ -5,7 +5,7 @@
 using E4C.Models.Astron;
 using E4C.domain.shared.references;
 using System;
-
+using domain.shared;
 
 namespace E4C.Models.Domain
 {

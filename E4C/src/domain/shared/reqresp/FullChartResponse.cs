@@ -11,10 +11,20 @@ namespace E4C.domain.shared.reqresp;
 /// <summary>
 /// Complete calculation results for a full chart.
 /// </summary>
-public record FullChartResponse(List<FullSolSysPointPos>? SolarSystemPointPositions, FullMundanePositions? MundanePositions, bool Success, string ErrorText) : ValidatedResponse(Success, ErrorText)
+public record FullChartResponse : ValidatedResponse
 {
-    public readonly List<FullSolSysPointPos>? SolarSystemPointPositions;
-    public readonly FullMundanePositions? mundanePositions;
+    public int MyProperty { get; set; }
+    public List<FullSolSysPointPos> SolarSystemPointPositions { get; }
+    public FullMundanePositions? MundanePositions { get; }
+
+    public FullChartResponse(List<FullSolSysPointPos> solarSystemPointPositions, FullMundanePositions? mundanePositions, bool success, string errorText) : base(success, errorText)
+    {
+        SolarSystemPointPositions = solarSystemPointPositions;
+        MundanePositions = mundanePositions;
+        Success = success;
+        ErrorText = errorText;
+    }
+
 
 }
 

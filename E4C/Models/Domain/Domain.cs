@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.specifications;
 using E4C.domain.shared.references;
+using domain.shared;
 
 namespace E4C.Models.Domain
 {
@@ -151,49 +152,7 @@ namespace E4C.Models.Domain
         }
     }
 
-    /// <summary>
-    /// Combination of position and speed (for a solar system point).
-    /// </summary>
-    public record PosSpeed
-    {
-        public readonly double Position;
-        public readonly double Speed;
 
-        public PosSpeed(double position, double speed)
-        {
-            Position = position;
-            Speed = speed;
-        }
-    }
-
-
-
-
-
-    /// <summary>
-    /// Position, speed and distance in a coordinatesystem for point in the Solar system.
-    /// </summary>
-    public record SolSysPointPosSpeeds
-    {
-        public readonly PosSpeed MainPosSpeed;
-        public readonly PosSpeed DeviationPosSpeed;
-        public readonly PosSpeed DistancePosSpeed;
-
-        public SolSysPointPosSpeeds(double[] values)
-        {
-            if (values.Length != 6) throw new ArgumentException("Wrong numer of values for SolSysPointSpeeds.");
-            MainPosSpeed = new PosSpeed(values[0], values[1]);
-            DeviationPosSpeed = new PosSpeed(values[2], values[3]);
-            DistancePosSpeed = new PosSpeed(values[4], values[5]);
-        }
-
-        public SolSysPointPosSpeeds(PosSpeed mainPosSpeed, PosSpeed deviationPosSpeed, PosSpeed distancePosSpeed)
-        {
-            MainPosSpeed = mainPosSpeed;
-            DeviationPosSpeed = deviationPosSpeed;
-            DistancePosSpeed = distancePosSpeed;
-        }
-    }
 
     /// <summary>
     /// Metadata for a chart.
@@ -360,38 +319,7 @@ namespace E4C.Models.Domain
 
     }
 
-    /// <summary>
-    /// Data for an orbit-definition. Used for calcualtion of celestial (hypothetical) planets that are not supported by the SE.
-    /// </summary>
-    public record OrbitDefinition
-    {
-        public readonly double[] MeanAnomaly;
-        public readonly double[] Eccentricity;
-        public readonly double SemiMajorAxis;
-        public readonly double[] ArgumentPerihelion;
-        public readonly double[] AscendingNode;
-        public readonly double[] Inclination;
-
-        /// <summary>
-        /// Constructor for record ORbitDefinition.
-        /// </summary>
-        /// <param name="meanAnomaly">Array with three elements for the mean anomaly.</param>
-        /// <param name="eccentricity">Array with three elements for the eccentricity.</param>
-        /// <param name="semiMajorAxis">Value for the semi major axis.</param>
-        /// <param name="argumentPerihelion">Array with three elements for the argument of the perihelion.</param>
-        /// <param name="ascendingNode">Array with three elements for the ascending node.</param>
-        /// <param name="inclination">Array with three elements for the inclination.</param>
-        public OrbitDefinition(double[] meanAnomaly, double[] eccentricity, double semiMajorAxis, double[] argumentPerihelion, double[] ascendingNode, double[] inclination)
-        {
-            MeanAnomaly = meanAnomaly;
-            Eccentricity = eccentricity;
-            SemiMajorAxis = semiMajorAxis;
-            ArgumentPerihelion = argumentPerihelion;
-            AscendingNode = ascendingNode;
-            Inclination = inclination;
-        }
-
-    }
+ 
 
 
 

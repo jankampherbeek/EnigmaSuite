@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using api.handlers;
 using E4C.calc.seph;
 using E4C.calc.seph.secalculations;
 using E4C.domain.shared.positions;
@@ -28,14 +29,14 @@ public interface IMundanePosHandler
 public class MundanePosHandler : IMundanePosHandler
 {
     private readonly IMundanePositionsCalculator _mundPosCalc;
-    private readonly IObliquityNutationCalc _oblCalc;
+    private readonly IObliquityHandler _obliquityHandler;
     private readonly IFlagDefinitions _flagDefs;
 
 
-    public MundanePosHandler(IMundanePositionsCalculator mundPosCalc, IObliquityNutationCalc oblCalc, IFlagDefinitions flagDefs)
+    public MundanePosHandler(IMundanePositionsCalculator mundPosCalc, IObliquityHandler obliquityHandler, IFlagDefinitions flagDefs)
     {
         _mundPosCalc = mundPosCalc;
-        _oblCalc = oblCalc;
+        _obliquityHandler = obliquityHandler;
         _flagDefs = flagDefs;
     }
 
@@ -43,18 +44,24 @@ public class MundanePosHandler : IMundanePosHandler
     public FullMundanePosResponse CalculateAllMundanePositions(FullMundanePosRequest request)
     {
         FullMundanePositions? positions = null;
+        string errorText = "";
+        bool success = true;
         try
         {
-            double obliquity = _oblCalc.CalculateObliquity(request.JdUt, true);
+            var obliquityRequest = new ObliquityRequest(request.JdUt, true);
+            ObliquityResponse obliquityResponse = _obliquityHandler.CalcObliquity(obliquityRequest);
+            double obliquity = obliquityResponse.Obliquity;
+            success = obliquityResponse.Success;
+            errorText = obliquityResponse.ErrorText;
             int flags = _flagDefs.DefineFlags(request);
             positions = _mundPosCalc.CalculateAllMundanePositions(request.JdUt, obliquity, flags, request.ChartLocation, request.HouseSystem);
-            return new FullMundanePosResponse(positions, true, "");
         } 
         catch (SwissEphException see)
         {
-            return new FullMundanePosResponse(positions, false, see.Message);
+            errorText += see.Message;
+            success = false;
         }
-        
+        return new FullMundanePosResponse(positions, success, errorText);
     }
 
 

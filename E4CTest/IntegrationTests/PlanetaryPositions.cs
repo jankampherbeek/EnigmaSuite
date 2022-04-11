@@ -125,26 +125,27 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
             */
         }
 
-        private FullChartResponse DefinePositionsTropical()
-        {
-            SeInitializer.SetEphePath("../E4C/se");
-            var factory = new RequestFactory();
-            IHorizontalCoordinatesFacade horCoordFacade = new HorizontalCoordinatesFacade();
-            ISePosCelPointFacade posCelPointFacade = new SePosCelPointFacade();
-            ISolarSystemPointSpecifications solSysPointSpecs = new SolarSystemPointSpecifications();
-            IPositionSolSysPointSECalc solSysPointCalc = new PositionSolSysPointSECalc(posCelPointFacade, horCoordFacade, solSysPointSpecs);
-            IHouseSystemSpecs houseSystemSpecifications = new HouseSystemSpecs();
-            ISePosHousesFacade posHousesFacade = new SePosHousesFacade();
-            ICoordinateConversionFacade posCoordinateConversionFacade = new CoordinateConversionFacade();
-            IMundanePositionsCalculator posMundane = new MundanePositionsCalculator(posHousesFacade, posCoordinateConversionFacade, horCoordFacade, houseSystemSpecifications);
-            IObliquityNutationCalc oblNutCalc = new ObliquityNutationCalc(posCelPointFacade);
-            IFlagDefinitions flagdefs = new FlagDefinitions();
-            IAyanamshaSpecifications ayanamshaSpecs = new AyanamshaSpecifications();
-            IFullChartCalc fullChartCalc = new FullChartCalc(oblNutCalc, posMundane, solSysPointCalc, flagdefs, ayanamshaSpecs);
-            FullChartRequest request = factory.CreateFullChartRequest("tropicalstandard");
-            return fullChartCalc.CalculateFullChart(request);
+        /*        private FullChartResponse DefinePositionsTropical()
+                {
+                    SeInitializer.SetEphePath("../E4C/se");
+                    var factory = new RequestFactory();
+                    IHorizontalCoordinatesFacade horCoordFacade = new HorizontalCoordinatesFacade();
+                    ISePosCelPointFacade posCelPointFacade = new SePosCelPointFacade();
+                    ISolarSystemPointSpecifications solSysPointSpecs = new SolarSystemPointSpecifications();
+                    IPositionSolSysPointSECalc solSysPointCalc = new PositionSolSysPointSECalc(posCelPointFacade, horCoordFacade, solSysPointSpecs);
+                    IHouseSystemSpecs houseSystemSpecifications = new HouseSystemSpecs();
+                    ISePosHousesFacade posHousesFacade = new SePosHousesFacade();
+                    ICoordinateConversionFacade posCoordinateConversionFacade = new CoordinateConversionFacade();
+                    IMundanePositionsCalculator posMundane = new MundanePositionsCalculator(posHousesFacade, posCoordinateConversionFacade, horCoordFacade, houseSystemSpecifications);
+                    IObliquityCalc oblNutCalc = new ObliquityCalc(posCelPointFacade);
+                    IFlagDefinitions flagdefs = new FlagDefinitions();
+                    IAyanamshaSpecifications ayanamshaSpecs = new AyanamshaSpecifications();
+                    IFullChartCalc fullChartCalc = new FullChartCalc(oblNutCalc, posMundane, solSysPointCalc, flagdefs, ayanamshaSpecs);
+                    FullChartRequest request = factory.CreateFullChartRequest("tropicalstandard");
+                    return fullChartCalc.CalculateFullChart(request);
 
-        }
+                }
+        */
     }
 
 

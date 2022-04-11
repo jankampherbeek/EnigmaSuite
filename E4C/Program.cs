@@ -44,7 +44,7 @@ namespace E4C
             container.Register<IRosetta, Rosetta>(Lifestyle.Singleton);
             container.Register<ITextFromFileReader, TextFromFileReader>(Lifestyle.Singleton);
             container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
-            container.Register<IObliquityNutationCalc, ObliquityNutationCalc>(Lifestyle.Singleton);
+            container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
             container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
             container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
             container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
@@ -55,7 +55,6 @@ namespace E4C
             container.Register<ICoordinateConversionFacade, CoordinateConversionFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
             container.Register<IFlagDefinitions, FlagDefinitions>(Lifestyle.Singleton);
-            container.Register<IFullChartCalc, FullChartCalc>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
             container.Register<ILocationValidations, LocationValidations>(Lifestyle.Singleton);
             container.Register<ICalendarSpecifications, CalendarSpecifications>(Lifestyle.Singleton);

@@ -8,8 +8,13 @@ using System.Collections.Generic;
 
 namespace E4C.domain.shared.reqresp;
 
-public record SolSysPointsResponse(List<FullSolSysPointPos>? SolarSystemPointPositions, bool Success, string ErrorText) : ValidatedResponse(Success, ErrorText)
+public record SolSysPointsResponse: ValidatedResponse
 {
-    public readonly List<FullSolSysPointPos>? SolarSystemPointPositions;
+    public List<FullSolSysPointPos> SolarSystemPointPositions { get; }
+
+    public SolSysPointsResponse(List<FullSolSysPointPos> solarSystemPointPositions, bool success, string errorText): base(success, errorText)
+    {
+        SolarSystemPointPositions = solarSystemPointPositions;
+    }
 }
 

@@ -21,7 +21,7 @@ public class TestObliquityNutationCalc
         bool trueObliquity = true;
         double expectedObliquity = 23.447;
         double jd = 12345.678;
-        ObliquityNutationCalc calc = CreateObliquityNutationCalc();
+        ObliquityCalc calc = CreateObliquityCalc();
         double result = calc.CalculateObliquity(jd, trueObliquity);
         Assert.AreEqual(expectedObliquity, result, delta);
     }
@@ -32,12 +32,12 @@ public class TestObliquityNutationCalc
         bool trueObliquity = false;
         double expectedObliquity = 23.448;
         double jd = 12345.678;
-        ObliquityNutationCalc calc = CreateObliquityNutationCalc();
+        ObliquityCalc calc = CreateObliquityCalc();
         double result = calc.CalculateObliquity(jd, trueObliquity);
         Assert.AreEqual(expectedObliquity, result, delta);
     }
 
-    private static ObliquityNutationCalc CreateObliquityNutationCalc()
+    private static ObliquityCalc CreateObliquityCalc()
     {
         int celpointId = -1;
         int flags = 0;
@@ -45,7 +45,7 @@ public class TestObliquityNutationCalc
         double[] positions = { 23.448, 23.447, 0.0, 0.0, 0.0, 0.0 };
         var mock = new Mock<ISePosCelPointFacade>();
         mock.Setup(p => p.PosCelPointFromSe(jd, celpointId, flags)).Returns(positions);
-        ObliquityNutationCalc calc = new(mock.Object);
+        ObliquityCalc calc = new(mock.Object);
         return calc;
     }
 }

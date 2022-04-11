@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using domain.shared;
 using E4C.calc.seph.secalculations;
 using E4C.calc.seph.sefacade;
 using E4C.domain.shared.positions;

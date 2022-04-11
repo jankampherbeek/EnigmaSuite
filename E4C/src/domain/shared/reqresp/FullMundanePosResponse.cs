@@ -13,8 +13,14 @@ namespace E4C.domain.shared.reqresp;
 /// <param name="FullMundanePositions">Nullable: Calculated positions if no error occurred, otherwise null.</param>
 /// <param name="Success">True if no error occurred, otherwise false.</param>
 /// <param name="ErrorText">Text about error(s), if they occurred.</param>
-public record FullMundanePosResponse(FullMundanePositions? FullMundanePositions, bool Success, string ErrorText) : ValidatedResponse(Success, ErrorText)
+public record FullMundanePosResponse: ValidatedResponse
 {
-    public readonly FullMundanePositions? CalculatedFullMundanePositions;
+
+    public FullMundanePositions? FullMundanePositions { get; }
+
+    public FullMundanePosResponse(FullMundanePositions? fullMundanePositions, bool success, string errorText) : base(success, errorText)
+    {
+        FullMundanePositions = fullMundanePositions;
+    }
 
 }

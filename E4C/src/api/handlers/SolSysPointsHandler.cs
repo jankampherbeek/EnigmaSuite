@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using api.handlers;
 using E4C.calc.elements;
 using E4C.calc.seph;
 using E4C.calc.seph.secalculations;
@@ -37,7 +38,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
     private readonly IPosSolSysPointsElementsCalc _posSolSysPointElementsCalc;
     private readonly ISolarSystemPointSpecifications _solSysPointSpecs;
     private readonly ICoordinateConversionFacade _coordinateConversionFacade;
-    private readonly IObliquityNutationCalc _obliquityNutationCalc;
+    private readonly IObliquityHandler _obliquityHandler;
 
 
     public SolSysPointsHandler(IAyanamshaSpecifications ayanamshaSpecifications, 
@@ -46,7 +47,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
                                IPosSolSysPointsElementsCalc posSolSysPointsElementsCalc,
                                ISolarSystemPointSpecifications solSysPointSpecs,
                                ICoordinateConversionFacade coordinateConversionFacade,
-                               IObliquityNutationCalc obliquityNutationCalc)
+                               IObliquityHandler obliquityHandler)
     {
         _ayanamshaSpecifications = ayanamshaSpecifications;
         _flagDefinitions = flagDefinitions;
@@ -54,16 +55,18 @@ public class SolSysPointsHandler : ISolSysPointsHandler
         _solSysPointSpecs = solSysPointSpecs;
         _posSolSysPointElementsCalc = posSolSysPointsElementsCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
-        _obliquityNutationCalc = obliquityNutationCalc;
+        _obliquityHandler = obliquityHandler;
 
     }
 
 
     public SolSysPointsResponse CalcSolSysPoints(SolSysPointsRequest request)
     {
-        bool success = true;
-        string errorText = "";
-        double obliquity = _obliquityNutationCalc.CalculateObliquity(request.JulianDayUt, true);
+        var obliquityRequest = new ObliquityRequest(request.JulianDayUt, true);
+        ObliquityResponse obliquityResponse = _obliquityHandler.CalcObliquity(obliquityRequest);
+        double obliquity = obliquityResponse.Obliquity;
+        bool success = obliquityResponse.Success;
+        string errorText = obliquityResponse.ErrorText;
         if (request.ZodiacType == ZodiacTypes.Sidereal)
         {
             int idAyanamsa = _ayanamshaSpecifications.DetailsForAyanamsha(request.Ayanamsha).SeId;

@@ -7,6 +7,7 @@ using E4C.Models.Domain;
 using E4C.domain.shared.specifications;
 using System;
 using System.Collections.Generic;
+using domain.shared;
 
 namespace E4C.Models.Creators
 {
