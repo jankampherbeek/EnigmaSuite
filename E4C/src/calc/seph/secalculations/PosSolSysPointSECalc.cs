@@ -3,11 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.calc.seph.sefacade;
+using E4C.core.facades;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.references;
 using E4C.domain.shared.specifications;
 using E4C.Models.Domain;
-using System;
 
 namespace E4C.calc.seph.secalculations;
 
@@ -31,11 +31,11 @@ public interface IPositionSolSysPointSECalc
 
 public class PositionSolSysPointSECalc : IPositionSolSysPointSECalc
 {
-    private readonly ISePosCelPointFacade _posCelPointFacade;
+    private readonly ICalcUtFacade _posCelPointFacade;
     private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
     private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
 
-    public PositionSolSysPointSECalc(ISePosCelPointFacade posCelPointFacade, IHorizontalCoordinatesFacade horizontalCoordinatesFacade,
+    public PositionSolSysPointSECalc(ICalcUtFacade posCelPointFacade, IHorizontalCoordinatesFacade horizontalCoordinatesFacade,
         ISolarSystemPointSpecifications solarSystemPointSpecifications)
     {
         _posCelPointFacade = posCelPointFacade;

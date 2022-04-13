@@ -2,11 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.calc.seph.secalculations;
-using E4C.domain.shared.reqresp;
-using E4C.exceptions;
 
-namespace api.handlers;
+using E4C.exceptions;
+using E4C.shared.reqresp;
+
+namespace E4C.core.astron.obliquity;
 
 public interface IObliquityHandler
 {
@@ -16,11 +16,11 @@ public interface IObliquityHandler
 
 public class ObliquityHandler : IObliquityHandler
 {
-    private readonly IObliquityCalc _obliquityNutationCalc;
+    private readonly IObliquityCalc _obliquityCalc;
 
-    public ObliquityHandler(IObliquityCalc obliquityNutationCalc)
+    public ObliquityHandler(IObliquityCalc obliquityCalc)
     {
-        _obliquityNutationCalc = obliquityNutationCalc;
+        _obliquityCalc = obliquityCalc;
     }
 
     public ObliquityResponse CalcObliquity(ObliquityRequest request)
@@ -30,7 +30,7 @@ public class ObliquityHandler : IObliquityHandler
         bool success = true;
         try
         {
-            obliquity = _obliquityNutationCalc.CalculateObliquity(request.JdUt, request.UseCalculationForTrue);
+            obliquity = _obliquityCalc.CalculateObliquity(request.JdUt, request.UseCalculationForTrue);
         }
         catch (SwissEphException see)
         {

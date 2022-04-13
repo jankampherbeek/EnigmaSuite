@@ -16,6 +16,9 @@ using SimpleInjector;
 using System;
 using E4C.calc.seph;
 using E4C.calc.specifics;
+using E4C.core.astron.obliquity;
+using E4C.core.facades;
+
 
 namespace E4C
 {
@@ -47,12 +50,12 @@ namespace E4C
             container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
             container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
             container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
-            container.Register<ISePosCelPointFacade, SePosCelPointFacade>(Lifestyle.Singleton);
+            container.Register<ICalcUtFacade, CalcUtFacade>(Lifestyle.Singleton);
             container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
             container.Register<IPositionSolSysPointSECalc, PositionSolSysPointSECalc>(Lifestyle.Singleton);
             container.Register<IMundanePositionsCalculator, MundanePositionsCalculator>(Lifestyle.Singleton);
             container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
-            container.Register<ICoordinateConversionFacade, CoordinateConversionFacade>(Lifestyle.Singleton);
+            container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
             container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
             container.Register<IFlagDefinitions, FlagDefinitions>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);

@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;
 using E4C.calc.specifics;
+using E4C.core.shared.domain;
 
 namespace E4CTest.Models
 {

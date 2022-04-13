@@ -5,6 +5,7 @@
 using domain.shared;
 using E4C.calc.seph.secalculations;
 using E4C.calc.seph.sefacade;
+using E4C.core.facades;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.references;
 using E4C.domain.shared.specifications;
@@ -62,7 +63,7 @@ public class TestPositionSolSysPointCalc
         var _eclipticalPositions = new double[] { 100.0, -2.0, 3.3, 0.5, -0.1, 0.003 };
         var _equatorialPositions = new double[] { 99.0, -1.0, 3.3, 0.51, -0.09, 0.003 };
         var _location = new Location("", 52.0, 6.0);
-        var _mockCelPointCalc = new Mock<ISePosCelPointFacade>();
+        var _mockCelPointCalc = new Mock<ICalcUtFacade>();
         _mockCelPointCalc.Setup(p => p.PosCelPointFromSe(_julianDayUt, Constants.SE_MARS, _flagsEcliptical)).Returns(_eclipticalPositions);
         _mockCelPointCalc.Setup(p => p.PosCelPointFromSe(_julianDayUt, Constants.SE_MARS, _flagsEquatorial)).Returns(_equatorialPositions);
         var _mockHorCoordCalc = new Mock<IHorizontalCoordinatesFacade>();

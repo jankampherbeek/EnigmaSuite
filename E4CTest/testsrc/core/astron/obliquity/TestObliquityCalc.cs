@@ -2,16 +2,17 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.calc.seph.secalculations;
-using E4C.calc.seph.sefacade;
+
+using E4C.core.astron.obliquity;
+using E4C.core.facades;
 using Moq;
 using NUnit.Framework;
 
 
-namespace E4CTest.calc.seph.secalculations;
+namespace E4CTest.core.astron.obliquity;
 
 [TestFixture]
-public class TestObliquityNutationCalc
+public class TestObliquityCalc
 {
     readonly double delta = 0.00000001;
 
@@ -43,7 +44,7 @@ public class TestObliquityNutationCalc
         int flags = 0;
         double jd = 12345.678;
         double[] positions = { 23.448, 23.447, 0.0, 0.0, 0.0, 0.0 };
-        var mock = new Mock<ISePosCelPointFacade>();
+        var mock = new Mock<ICalcUtFacade>();
         mock.Setup(p => p.PosCelPointFromSe(jd, celpointId, flags)).Returns(positions);
         ObliquityCalc calc = new(mock.Object);
         return calc;

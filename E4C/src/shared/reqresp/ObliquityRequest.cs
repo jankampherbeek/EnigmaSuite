@@ -2,11 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace E4C.domain.shared.reqresp;
+namespace E4C.shared.reqresp;
 
-/// <summary>
-/// Request to calculate obliquity and nutation.
-/// </summary>
+/// <summary>Request to calculate obliquity.</summary>
 public record ObliquityRequest
 {
     public double JdUt { get; }

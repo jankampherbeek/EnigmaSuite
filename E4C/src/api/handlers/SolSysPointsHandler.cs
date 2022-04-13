@@ -2,16 +2,18 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using api.handlers;
+
 using E4C.calc.elements;
 using E4C.calc.seph;
 using E4C.calc.seph.secalculations;
 using E4C.calc.seph.sefacade;
+using E4C.core.astron.obliquity;
+using E4C.core.facades;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.references;
 using E4C.domain.shared.reqresp;
-using E4C.exceptions;
 using E4C.Models.Domain;
+using E4C.shared.reqresp;
 using System.Collections.Generic;
 
 namespace E4C.api.handlers;
@@ -37,7 +39,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
     private readonly IPositionSolSysPointSECalc _posSolSysPointSECalc;
     private readonly IPosSolSysPointsElementsCalc _posSolSysPointElementsCalc;
     private readonly ISolarSystemPointSpecifications _solSysPointSpecs;
-    private readonly ICoordinateConversionFacade _coordinateConversionFacade;
+    private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IObliquityHandler _obliquityHandler;
 
 
@@ -46,7 +48,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
                                IPositionSolSysPointSECalc positionSolSysPointSECalc,
                                IPosSolSysPointsElementsCalc posSolSysPointsElementsCalc,
                                ISolarSystemPointSpecifications solSysPointSpecs,
-                               ICoordinateConversionFacade coordinateConversionFacade,
+                               ICoTransFacade coordinateConversionFacade,
                                IObliquityHandler obliquityHandler)
     {
         _ayanamshaSpecifications = ayanamshaSpecifications;

@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.calc.seph.secalculations;
+using E4C.core.astron.obliquity;
 using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;

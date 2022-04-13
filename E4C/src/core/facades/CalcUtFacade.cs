@@ -5,17 +5,14 @@
 using E4C.exceptions;
 using System.Runtime.InteropServices;
 
-namespace E4C.calc.seph.sefacade;
+namespace E4C.core.facades;
 
 
-/// <summary>
-/// Facade for the calculation of the positions of celestial points (planets, nodes etc.).
-/// </summary> 
-public interface ISePosCelPointFacade
+/// <summary>Facade for the calculation of the positions of celestial points (planets, nodes etc.).</summary> 
+public interface ICalcUtFacade
 {
-    /// <summary>
-    /// Retrieve positions for a celestial point.
-    /// </summary>
+    /// <summary>Retrieve positions for a celestial point.</summary>
+    /// <remarks>Calls the function ext_swe_calc_ut from the SE.</remarks>
     /// <param name="julianDay">Julian day calculated for UT.</param>
     /// <param name="seCelPointId">Identifier for the celestial point as used by the SE.</param>
     /// <param name="flags">Combined value for flags to define the desired calculation.</param>
@@ -25,7 +22,7 @@ public interface ISePosCelPointFacade
 
 /// <inheritdoc/>
 /// <remarks>Throws a SwissEphException if the SE returns an error.</remarks>
-public class SePosCelPointFacade : ISePosCelPointFacade
+public class CalcUtFacade : ICalcUtFacade
 {
     /// <inheritdoc/>
     public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
@@ -42,9 +39,7 @@ public class SePosCelPointFacade : ISePosCelPointFacade
         return _positions;
     }
 
-    /// <summary>
-    /// Access dll to retrieve position for celestial point.
-    /// </summary>
+    /// <summary>Access dll to retrieve position for celestial point.</summary>
     /// <param name="tjd">Julian day for UT.</param>
     /// <param name="ipl">Identifier for the celestial point.</param>
     /// <param name="iflag">Combined values for flags.</param>

@@ -6,17 +6,14 @@ using E4C.exceptions;
 using System;
 using System.Runtime.InteropServices;
 
-namespace E4C.calc.seph.sefacade;
+namespace E4C.core.facades;
 
 
-/// <summary>
-/// Facade for the conversion between ecliptic and equatorial coordinates.
-/// </summary>
-public interface ICoordinateConversionFacade
+/// <summary>Facade for the conversion between ecliptic and equatorial coordinates.</summary>
+public interface ICoTransFacade
 {
-    /// <summary>
-    /// Convert ecliptic to equaotrial coordinates.
-    /// </summary>
+    /// <summary>Convert ecliptic to equatorial coordinates.</summary>
+    /// <remarks>Calls the function ext_swe_cotrans from the SE.</remarks>/// 
     /// <param name="eclipticCoordinates">Array with subsequently longitude and latitude.</param>
     /// <param name="obliquity"/>
     /// <returns>Array with subsequently right ascension and declination.</returns>
@@ -24,10 +21,8 @@ public interface ICoordinateConversionFacade
 }
 
 
-
-
 /// <inheritdoc/>
-public class CoordinateConversionFacade : ICoordinateConversionFacade
+public class CoTransFacade : ICoTransFacade
 {
     /// <inheritdoc/>
     /// <remarks>Throws SwissEphException if the SE returns an error.</remarks>

@@ -7,6 +7,7 @@ using E4C.domain.shared.references;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.specifications;
 using System.Collections.Generic;
+using E4C.core.facades;
 
 namespace E4C.calc.seph.secalculations;
 
@@ -31,12 +32,12 @@ public interface IMundanePositionsCalculator
 public class MundanePositionsCalculator : IMundanePositionsCalculator
 {
     private readonly ISePosHousesFacade _sePosHousesFacade;
-    private readonly ICoordinateConversionFacade _coordinateConversionFacade;
+    private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IHorizontalCoordinatesFacade _horizontalCoordinatesFacade;
     private readonly IHouseSystemSpecs _houseSystemSpecifications;
 
     /// <inheritdoc/>
-    public MundanePositionsCalculator(ISePosHousesFacade sePosHousesFacade, ICoordinateConversionFacade coordinateConversionFacade,
+    public MundanePositionsCalculator(ISePosHousesFacade sePosHousesFacade, ICoTransFacade coordinateConversionFacade,
         IHorizontalCoordinatesFacade horizontalCoordinatesFacade, IHouseSystemSpecs houseSystemSpecifications)
     {
         _sePosHousesFacade = sePosHousesFacade;

@@ -9,6 +9,7 @@ using E4C.domain.shared.positions;
 using E4C.domain.shared.specifications;
 using Moq;
 using NUnit.Framework;
+using E4C.core.facades;
 
 namespace E4CTest.testsrc.calc.seph.secalculations;
 
@@ -115,7 +116,7 @@ public class TestMundanePositionsCalc
         var mockPosHousesFacade = new Mock<ISePosHousesFacade>();
         mockPosHousesFacade.Setup(p => p.PosHousesFromSe(jdUt, flags, location.GeoLat, location.GeoLong, houseSysId)).Returns(facadeResult);
 
-        var mockCoordinateConversionFacade = new Mock<ICoordinateConversionFacade>();
+        var mockCoordinateConversionFacade = new Mock<ICoTransFacade>();
         mockCoordinateConversionFacade.Setup(p => p.EclipticToEquatorial(new double[] { 10.0, 0.0 }, obliquity)).Returns(new double[] { 11.0, 1.0 });      // cusp 1 and ascendant
         mockCoordinateConversionFacade.Setup(p => p.EclipticToEquatorial(new double[] { 40.0, 0.0 }, obliquity)).Returns(new double[] { 41.0, 2.0 });      // cusp 2 
         mockCoordinateConversionFacade.Setup(p => p.EclipticToEquatorial(new double[] { 70.0, 0.0 }, obliquity)).Returns(new double[] { 71.0, 3.0 });      // cusp 3

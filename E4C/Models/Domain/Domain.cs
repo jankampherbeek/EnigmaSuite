@@ -8,6 +8,7 @@ using E4C.domain.shared.positions;
 using E4C.domain.shared.specifications;
 using E4C.domain.shared.references;
 using domain.shared;
+using E4C.core.shared.domain;
 
 namespace E4C.Models.Domain
 {
@@ -92,25 +93,7 @@ namespace E4C.Models.Domain
 
     }
 
-    /// <summary>
-    /// Ecliptic position.
-    /// </summary>
-    public record EclipticCoordinates
-    {
-        public readonly double Longitude;
-        public readonly double Latitude;
 
-        /// <summary>
-        /// Constructor for record EclipticCoordinates.
-        /// </summary>
-        /// <param name="longitude">Ecliptic longitude.</param>
-        /// <param name="latitude">Ecliptic latitude.</param>
-        public EclipticCoordinates(double longitude, double latitude)
-        {
-            Longitude = longitude;
-            Latitude = latitude;
-        }
-    }
 
     /// <summary>
     /// Ecliptic position for a specific Solar system point.
