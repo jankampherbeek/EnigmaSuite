@@ -4,9 +4,11 @@
 
 using E4C.calc.seph.secalculations;
 using E4C.core.astron.obliquity;
+using E4C.core.shared.domain;
 using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
+using E4C.shared.references;
 using System;
 using System.Collections.Generic;
 

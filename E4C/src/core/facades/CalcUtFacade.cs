@@ -9,6 +9,7 @@ namespace E4C.core.facades;
 
 
 /// <summary>Facade for the calculation of the positions of celestial points (planets, nodes etc.).</summary> 
+/// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
 public interface ICalcUtFacade
 {
     /// <summary>Retrieve positions for a celestial point.</summary>

@@ -9,31 +9,12 @@ using E4C.domain.shared.specifications;
 using E4C.domain.shared.references;
 using domain.shared;
 using E4C.core.shared.domain;
+using E4C.shared.references;
 
 namespace E4C.Models.Domain
 {
 
-    /// <summary>
-    /// Representation for a date and time, including calendar.
-    /// </summary>
-    /// <remarks>
-    /// For ut (Universal Time) add the time in 0..23 hours and a decimal fraction for the total of minutes and seconds.
-    /// </remarks>
-    public record SimpleDateTime
-    {
-        public readonly int Year, Month, Day;
-        public readonly double Ut;
-        public readonly Calendars Calendar;
 
-        public SimpleDateTime(int year, int month, int day, double ut, Calendars calendar)
-        {
-            Year = year;
-            Month = month;
-            Day = day;
-            Ut = ut;
-            Calendar = calendar;
-        }
-    }
 
     /// <summary>
     /// Wrapper for a calculated double with error information.

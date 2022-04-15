@@ -4,7 +4,6 @@
 
 using E4C.be.persistency;
 using E4C.calc.seph.secalculations;
-using E4C.calc.seph.sefacade;
 using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
@@ -17,8 +16,11 @@ using System;
 using E4C.calc.seph;
 using E4C.calc.specifics;
 using E4C.core.astron.obliquity;
+using E4C.core.api;
+using E4C.core.astron.coordinateconversion;
 using E4C.core.facades;
-
+using E4C.calc.seph.sefacade;
+using E4C.shared.references;
 
 namespace E4C
 {
@@ -56,7 +58,9 @@ namespace E4C
             container.Register<IMundanePositionsCalculator, MundanePositionsCalculator>(Lifestyle.Singleton);
             container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
             container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
-            container.Register<ISeDateTimeFacade, SeDateTimeFacade>(Lifestyle.Singleton);
+            container.Register<IJulDayFacade, JulDayFacade>(Lifestyle.Singleton);
+            container.Register<IRevJulFacade, RevJulFacade>(Lifestyle.Singleton);
+            container.Register<IDateConversionFacade, DateConversionFacade>(Lifestyle.Singleton);
             container.Register<IFlagDefinitions, FlagDefinitions>(Lifestyle.Singleton);
             container.Register<IDateTimeValidations, DateTimeValidations>(Lifestyle.Singleton);
             container.Register<ILocationValidations, LocationValidations>(Lifestyle.Singleton);
@@ -77,6 +81,14 @@ namespace E4C
             container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
             container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
             container.Register<IHouseSystemSpecs, HouseSystemSpecs>(Lifestyle.Singleton);
+            container.Register<IAstronApi, AstronApi> (Lifestyle.Singleton);
+            container.Register<ICoordinateConversionCalc, CoordinateConversionCalc> (Lifestyle.Singleton);
+            container.Register<ICoordinateConversionHandler, CoordinateConversionHandler> ( Lifestyle.Singleton);
+            container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
+            container.Register<IObliquityHandler, ObliquityHandler> (Lifestyle.Singleton);
+            container.Register<ICalcUtFacade, CalcUtFacade> (Lifestyle.Singleton);
+            container.Register<ICoTransFacade, CoTransFacade> (Lifestyle.Singleton);
+
 
             // Register windows and view models:
             container.Register<MainWindow>();

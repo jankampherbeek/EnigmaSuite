@@ -6,6 +6,7 @@ using E4C.be.persistency;
 using E4C.Models.Domain;
 using E4C.domain.shared.references;
 using System.Collections.Generic;
+using E4C.shared.references;
 
 namespace E4C.Models.UiHelpers
 {

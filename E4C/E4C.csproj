@@ -44,6 +44,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="src\core\calendarandclock\checkdatetime\" />
     <Folder Include="src\ui\charts\" />
     <Folder Include="src\ui\calculators\" />
     <Folder Include="src\ui\cycles\" />

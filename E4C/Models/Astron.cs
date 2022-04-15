@@ -2,17 +2,13 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.calc.seph.secalculations;
-using E4C.calc.seph.sefacade;
+
+using E4C.core.facades;
 using E4C.Models.Domain;
-using E4C.domain.shared.positions;
-using E4C.domain.shared.specifications;
+using E4C.core.facades;
 using System;
-using System.Collections.Generic;
-using E4C.calc.seph;
-using E4C.calc.util;
-using E4C.domain.shared.references;
-using E4C.domain.shared.reqresp;
+using E4C.core.shared.domain;
+using E4C.shared.references;
 
 namespace E4C.Models.Astron
 {
@@ -21,12 +17,7 @@ namespace E4C.Models.Astron
     /// </summary>
     public interface ICalendarCalc
     {
-        /// <summary>
-        /// Calculate Julian Day number.
-        /// </summary>
-        /// <param name="dateTime">Date, time and calendar.</param>
-        /// <returns>The calculated and validated Julian Day number.</returns>
-        public ResultForDouble CalculateJd(SimpleDateTime dateTime);
+
 
         /// <summary>
         /// Calculate date and time (ut) from a given Julian Day Number.
@@ -51,37 +42,25 @@ namespace E4C.Models.Astron
     public class CalendarCalc : ICalendarCalc
     {
 
-        private readonly ISeDateTimeFacade _dateTimeFacade;
+        private readonly IDateConversionFacade _dateConversionFacade;
+        private readonly IJulDayFacade _julDayFacade;
+        private readonly IRevJulFacade _revJulFacade;
 
 
-        public CalendarCalc(ISeDateTimeFacade dateTimeFacade)
+        public CalendarCalc(IDateConversionFacade dateConversionFacade, IJulDayFacade julDayFacade, IRevJulFacade revJulFacade)
         {
-            _dateTimeFacade = dateTimeFacade;
+            _dateConversionFacade = dateConversionFacade;
+            _julDayFacade = julDayFacade;
+            _revJulFacade = revJulFacade;
         }
 
-
-        public ResultForDouble CalculateJd(SimpleDateTime dateTime)
-        {
-            ResultForDouble _result;
-            try
-            {
-                double _jdNr = _dateTimeFacade.JdFromSe(dateTime);
-                _result = new ResultForDouble(_jdNr, true);
-            }
-            catch (System.Exception e)
-            {
-                _result = new ResultForDouble(0.0, false, "Exception: " + e.Message);
-                // TODO log exception
-            }
-            return _result;
-        }
 
         public SimpleDateTime CalculateDateTimeFromJd(double julianDayNumber, Calendars calendar)
         {
             SimpleDateTime _result;
             try
             {
-                _result = _dateTimeFacade.DateTimeFromJd(julianDayNumber, calendar);
+                _result = _revJulFacade.DateTimeFromJd(julianDayNumber, calendar);
             }
             catch (Exception e)
             {
@@ -94,7 +73,7 @@ namespace E4C.Models.Astron
 
         public bool ValidDateAndtime(SimpleDateTime dateTime)
         {
-            return _dateTimeFacade.DateTimeIsValid(dateTime);
+            return _dateConversionFacade.DateTimeIsValid(dateTime);
         }
     }
 

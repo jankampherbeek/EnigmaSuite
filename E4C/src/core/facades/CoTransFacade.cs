@@ -10,6 +10,7 @@ namespace E4C.core.facades;
 
 
 /// <summary>Facade for the conversion between ecliptic and equatorial coordinates.</summary>
+/// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
 public interface ICoTransFacade
 {
     /// <summary>Convert ecliptic to equatorial coordinates.</summary>
