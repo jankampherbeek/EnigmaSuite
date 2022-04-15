@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using domain.shared;
 using E4C.shared.references;
 using E4C.core.shared.domain;
+using E4C.core.api;
+using E4C.shared.reqresp;
 
 namespace E4CTest.Creators
 {
@@ -494,10 +496,11 @@ namespace E4CTest.Creators
         [TestMethod]
         public void TestUt()
         {
-            var _mockCalendarCalc = new Mock<ICalendarCalc>();
+            var mockDateTimeApi = new Mock<IDateTimeApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 10.0, Calendars.Gregorian);
-            _mockCalendarCalc.Setup(p => p.CalculateJd(_dateTime)).Returns(new ResultForDouble(_baseJd + (10.0 / 24.0), true));
-            IDateTimeFactory factory = new DateTimeFactory(_mockCalendarCalc.Object);
+            JulianDayRequest julDayRequest = new (_dateTime, true);
+            mockDateTimeApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd + (10.0 / 24.0), true, ""));
+            IDateTimeFactory factory = new DateTimeFactory(mockDateTimeApi.Object);
             FullTime _fullTimeUt = new(new int[] { 10, 0, 0 }, 10.0, 0, "FullTextForTime");
             _ = factory.CreateDateTime(_fullDate, _fullTimeUt, out FullDateTime _fullDateTime, out List<int> _);
             double expectedJd = _baseJd + (10.0 / 24.0);
@@ -537,10 +540,11 @@ namespace E4CTest.Creators
 
         private IDateTimeFactory CreateDateTimeFactory()
         {
-            var _mockCalendarCalc = new Mock<ICalendarCalc>();
+            var mockDateTimeApi = new Mock<IDateTimeApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 0.0, Calendars.Gregorian);
-            _mockCalendarCalc.Setup(p => p.CalculateJd(_dateTime)).Returns(new ResultForDouble(_baseJd, true));
-            return new DateTimeFactory(_mockCalendarCalc.Object);
+            JulianDayRequest julDayRequest = new(_dateTime, true);
+            mockDateTimeApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd, true, ""));
+            return new DateTimeFactory(mockDateTimeApi.Object);
         }
 
     }

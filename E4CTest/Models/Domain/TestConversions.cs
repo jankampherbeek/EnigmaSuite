@@ -12,6 +12,8 @@ using System;
 using E4C.calc.util;
 using E4C.shared.references;
 using E4C.core.shared.domain;
+using E4C.core.api;
+using E4C.shared.reqresp;
 
 namespace ConversionsTest
 {
@@ -104,9 +106,13 @@ namespace ConversionsTest
             var calendar = Calendars.Gregorian;
             var yearCount = YearCounts.CE;
             double jdnr = 2434406.5;
-            var mock = new Mock<ICalendarCalc>();
-            var jdResult = new ResultForDouble(jdnr, true);
-            mock.Setup(p => p.CalculateJd(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian))).Returns(jdResult);
+            var mock = new Mock<IDateTimeApi>();
+
+
+            var dateTime = new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian);
+            var jdRequest = new JulianDayRequest(dateTime, true);
+            var jdResponse = new JulianDayResponse(jdnr, true, "");
+            mock.Setup(p => p.getJulianDay(jdRequest)).Returns(jdResponse);
             DateConversions conversions = new(mock.Object);
             Assert.AreEqual(jdnr, conversions.InputDateToJdNr(inputDate, calendar, yearCount), delta);
         }
@@ -119,9 +125,9 @@ namespace ConversionsTest
             var calendar = Calendars.Gregorian;
             var yearCount = YearCounts.CE;
             double jdnr = 2434406.5;
-            var mock = new Mock<ICalendarCalc>();
-            var jdResult = new ResultForDouble(jdnr, true);
-            mock.Setup(p => p.CalculateJd(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian))).Returns(jdResult);
+            var mock = new Mock<IDateTimeApi>();
+            var jdResponse = new JulianDayResponse(jdnr, true, "");
+            mock.Setup(p => p.getJulianDay(new JulianDayRequest(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian), true))).Returns(jdResponse);
             DateConversions conversions = new(mock.Object);
             double dummyValue = conversions.InputDateToJdNr(inputDate, calendar, yearCount);
         }
@@ -130,7 +136,7 @@ namespace ConversionsTest
         public void TestInputDateToDecimalsHappyFlow()
         {
             string[] inputDate = new string[] { "1953", "1", "29" };
-            var mock = new Mock<ICalendarCalc>();
+            var mock = new Mock<IDateTimeApi>();
             DateConversions conversions = new(mock.Object);
             int[] dateResult = conversions.InputDateToDecimals(inputDate);
             Assert.AreEqual(1953, dateResult[0]);
@@ -143,7 +149,7 @@ namespace ConversionsTest
         public void TestInputDateToDecimalsError()
         {
             string[] inputDate = new string[] { "xx", "1", "29" };
-            var mock = new Mock<ICalendarCalc>();
+            var mock = new Mock<IDateTimeApi>();
             DateConversions conversions = new(mock.Object);
             _ = conversions.InputDateToDecimals(inputDate);
         }

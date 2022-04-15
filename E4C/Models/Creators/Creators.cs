@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using domain.shared;
 using E4C.shared.references;
 using E4C.core.shared.domain;
+using E4C.core.api;
+using E4C.shared.reqresp;
 
 namespace E4C.Models.Creators
 {
@@ -341,11 +343,11 @@ namespace E4C.Models.Creators
 
     public class DateTimeFactory : IDateTimeFactory
     {
-        readonly private ICalendarCalc _calendarCalc;
+        readonly private IDateTimeApi _dateTimeAPi;
 
-        public DateTimeFactory(ICalendarCalc calendarCalc)
+        public DateTimeFactory(IDateTimeApi dateTimeApi)
         {
-            _calendarCalc = calendarCalc;
+            _dateTimeAPi = dateTimeApi;
         }
 
         public bool CreateDateTime(FullDate fullDate, FullTime fullTime, out FullDateTime fullDateTime, out List<int> errorCodes)
@@ -355,11 +357,11 @@ namespace E4C.Models.Creators
             string dateText = fullDate.DateFullText;
             string timeText = fullTime.TimeFullText;
             SimpleDateTime simpleDateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, fullDate.Calendar);
-            ResultForDouble resultForJulianDay = _calendarCalc.CalculateJd(simpleDateTime);
+            JulianDayResponse julDayResponse = _dateTimeAPi.getJulianDay(new JulianDayRequest(simpleDateTime, true)); 
             double baseForJulianDay = 0.0;
-            if (resultForJulianDay.NoErrors)
+            if (julDayResponse.Success)
             {
-                baseForJulianDay = resultForJulianDay.ReturnValue;
+                baseForJulianDay = julDayResponse.JulDay;
             }
             else
             {

@@ -3,12 +3,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.calc.seph.secalculations;
+using E4C.core.api;
 using E4C.core.astron.obliquity;
 using E4C.core.shared.domain;
 using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.shared.references;
+using E4C.shared.reqresp;
 using System;
 using System.Collections.Generic;
 
@@ -21,6 +23,7 @@ namespace E4C.ViewModels
         readonly private ICalendarCalc _calCalc;
         readonly private IDateTimeValidations _dateTimeValidations;
         readonly private IObliquityCalc _obliquityNutationCalc;
+        readonly private IDateTimeApi _dateTimeApi;
         public List<CalendarDetails> CalendarItems { get; }
         public List<YearCountDetails> YearCountItems { get; }
         public string[] InputDate { get; set; }
@@ -29,13 +32,14 @@ namespace E4C.ViewModels
         public bool UseTrueObliquity { get; set; }
 
 
-        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
+        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, IDateTimeApi dateTimeApi)
         {
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;
             _calCalc = calCalc;
             _dateTimeValidations = dateTimeValidations;
             _obliquityNutationCalc = oblCalc;
+            _dateTimeApi = dateTimeApi;
             UseTrueObliquity = true;
             InputDate = new string[3];
             CalendarItems = new List<CalendarDetails>();
@@ -69,13 +73,14 @@ namespace E4C.ViewModels
                 _year = -(Math.Abs(_year) + 1);
             }
             SimpleDateTime _dateTime = new(_year, _month, _day, 0.0, InputCalendar);
-            ResultForDouble _julianDayResult = _calCalc.CalculateJd(_dateTime);
-            if (!_julianDayResult.NoErrors)
+            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_dateTime, true));
+
+            if (!julDayResponse.Success)
             {
-                throw new Exception("Error calculating jdnr..........");
+                throw new Exception("Error calculating jdnr.......... : " + julDayResponse.ErrorText);
             }
 
-            double _resultObliquity = _obliquityNutationCalc.CalculateObliquity(_julianDayResult.ReturnValue, UseTrueObliquity);
+            double _resultObliquity = _obliquityNutationCalc.CalculateObliquity(julDayResponse.JulDay, UseTrueObliquity);
             return _resultObliquity.ToString();
         }
     }

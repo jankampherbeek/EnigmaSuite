@@ -8,6 +8,8 @@ using System;
 using domain.shared;
 using E4C.shared.references;
 using E4C.core.shared.domain;
+using E4C.core.api;
+using E4C.shared.reqresp;
 
 namespace E4C.Models.Domain
 {
@@ -93,12 +95,11 @@ namespace E4C.Models.Domain
 
     public class DateConversions : IDateConversions
     {
-        readonly private ICalendarCalc _calendarCalc;
+        readonly private IDateTimeApi _dateTimeApi;
 
-
-        public DateConversions(ICalendarCalc calendarCalc)
+        public DateConversions(IDateTimeApi dateTimeApi)
         {
-            _calendarCalc = calendarCalc;
+            _dateTimeApi = dateTimeApi;
         }
 
         public int[] InputDateToDecimals(string[] inputDate)
@@ -125,11 +126,10 @@ namespace E4C.Models.Domain
                 _dateValues[0]++;
             }
             SimpleDateTime _simpleDateTime = new(_dateValues[0], _dateValues[1], _dateValues[2], _ut, calendar);
-
-            ResultForDouble _jdResult = _calendarCalc.CalculateJd(_simpleDateTime);
-            if (_jdResult.NoErrors)
+            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_simpleDateTime, true)); 
+            if (julDayResponse.Success)
             {
-                return _jdResult.ReturnValue;
+                return julDayResponse.JulDay;
             }
             throw new ArgumentException("Error calculating JD while converting inputdate to Jdnr. Using values : " + _simpleDateTime.ToString() + " and Calendar : " + calendar);
         }

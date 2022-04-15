@@ -16,7 +16,7 @@ public interface IAstronApi
 {
     /// <summary>Api call to convert ecliptical coordinates into equatorial coordinates.</summary>
     /// <param name="request"/>
-    /// <remarks>Throws ArgumentNullException if the request is null.</remarks>/// 
+    /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Equaatorial coordinates that correspond to the ecliptic coordinates from the request, using the obliquity from the request.</returns>
     public CoordinateConversionResponse getEquatorialFromEcliptic(CoordinateConversionRequest request);
 
