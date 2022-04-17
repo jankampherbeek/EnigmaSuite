@@ -4,7 +4,6 @@
 
 using E4C.be.persistency;
 using E4C.calc.seph.secalculations;
-using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.Models.UiHelpers;
@@ -48,7 +47,6 @@ namespace E4C
             // Register types:
             container.Register<IRosetta, Rosetta>(Lifestyle.Singleton);
             container.Register<ITextFromFileReader, TextFromFileReader>(Lifestyle.Singleton);
-            container.Register<ICalendarCalc, CalendarCalc>(Lifestyle.Singleton);
             container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
             container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
             container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);

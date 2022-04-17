@@ -2,11 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.calc.seph.secalculations;
 using E4C.core.api;
 using E4C.core.astron.obliquity;
 using E4C.core.shared.domain;
-using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.shared.references;
@@ -20,7 +18,6 @@ namespace E4C.ViewModels
     {
         readonly private ICalendarSpecifications _calendarSpecifications;
         readonly private IYearCountSpecifications _yearCountSpecifications;
-        readonly private ICalendarCalc _calCalc;
         readonly private IDateTimeValidations _dateTimeValidations;
         readonly private IObliquityCalc _obliquityNutationCalc;
         readonly private IDateTimeApi _dateTimeApi;
@@ -32,11 +29,10 @@ namespace E4C.ViewModels
         public bool UseTrueObliquity { get; set; }
 
 
-        public CalcObliquityViewModel(ICalendarCalc calCalc, IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, IDateTimeApi dateTimeApi)
+        public CalcObliquityViewModel(IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, IDateTimeApi dateTimeApi)
         {
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;
-            _calCalc = calCalc;
             _dateTimeValidations = dateTimeValidations;
             _obliquityNutationCalc = oblCalc;
             _dateTimeApi = dateTimeApi;

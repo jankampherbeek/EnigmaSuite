@@ -4,7 +4,6 @@
 
 using E4C.calc.util;
 using E4C.core.shared.domain;
-using E4C.Models.Astron;
 using E4C.Models.Domain;
 using System;
 using System.Collections.Generic;

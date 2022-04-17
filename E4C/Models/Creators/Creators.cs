@@ -2,7 +2,6 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Astron;
 using E4C.Models.Domain;
 using E4C.domain.shared.specifications;
 using System;
@@ -12,6 +11,7 @@ using E4C.shared.references;
 using E4C.core.shared.domain;
 using E4C.core.api;
 using E4C.shared.reqresp;
+using E4C.api;
 
 namespace E4C.Models.Creators
 {
@@ -215,16 +215,16 @@ namespace E4C.Models.Creators
 
     public class DateFactory : IDateFactory
     {
-        private readonly ICalendarCalc _calendarCalc;
         private readonly IIntRangeCreator _intRangeCreator;
+        private readonly IDateTimeApi _dateTimeApi;
         private int[] _dateValues = Array.Empty<int>();
         private bool _success = true;
         private readonly List<int> _errorCodes = new();
 
-        public DateFactory(IIntRangeCreator intRangeCreator, ICalendarCalc calendarCalc)
+        public DateFactory(IIntRangeCreator intRangeCreator, IDateTimeApi dateTimeApi)        
         {
             _intRangeCreator = intRangeCreator;
-            _calendarCalc = calendarCalc;
+            _dateTimeApi = dateTimeApi;
         }
 
         public bool CreateDate(string[] dateTexts, Calendars calendar, YearCounts yearCount, out FullDate fullDate, out List<int> errorCodes)
@@ -234,7 +234,9 @@ namespace E4C.Models.Creators
             {
                 _dateValues[0] = -(_dateValues[0]) + 1;
             }
-            _success = _success && _calendarCalc.ValidDateAndtime(new SimpleDateTime(_dateValues[0], _dateValues[1], _dateValues[2], 0.0, calendar));
+            SimpleDateTime simpleDateTime = new SimpleDateTime(_dateValues[0], _dateValues[1], _dateValues[2], 0.0, calendar);
+            CheckDateTimeRequest checkDateTimeRequest = new CheckDateTimeRequest(simpleDateTime);
+            _success = _success && _dateTimeApi.checkDateTime(checkDateTimeRequest).Success;
             if (!_success)
             {
                 _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
@@ -376,11 +378,12 @@ namespace E4C.Models.Creators
 
     public class DateTimeValidations : IDateTimeValidations
     {
-        readonly private ICalendarCalc _calendarCalc;
+        readonly private IDateTimeApi _dateTimeApi;
 
-        public DateTimeValidations(ICalendarCalc calendarCalc)
+        public DateTimeValidations(IDateTimeApi dateTimeAPi)
         {
-            _calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
+            _dateTimeApi = dateTimeAPi;
+            //_calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
         }
 
         public List<int> ValidateDate(string[] inputDate, Calendars calendar, YearCounts yearCount)
@@ -404,7 +407,7 @@ namespace E4C.Models.Creators
                 _yearValue = -(Math.Abs(_yearValue) + 1);
             }
             SimpleDateTime _simpleDateTime = new(_yearValue, _monthValue, _dayValue, 0.0, calendar);
-            if (!_calendarCalc.ValidDateAndtime(_simpleDateTime))
+            if (!_dateTimeApi.checkDateTime(new CheckDateTimeRequest(_simpleDateTime)).Success)
             {
                 _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
             };

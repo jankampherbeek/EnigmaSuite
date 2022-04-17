@@ -3,15 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using E4C.Models.Astron;
-using E4C.Models.Domain;
-using E4C.calc.seph.sefacade;
-using E4C.domain.shared.positions;
-using E4C.domain.shared.specifications;
-using E4C.domain.shared.references;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Collections.Generic;
 using E4C.calc.specifics;
 using E4C.core.shared.domain;
 

@@ -4,7 +4,6 @@
 
 using E4C.core.api;
 using E4C.core.shared.domain;
-using E4C.Models.Astron;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.shared.references;
@@ -20,7 +19,6 @@ namespace E4C.ViewModels
     {
         readonly private ICalendarSpecifications _calendarSpecifications;
         readonly private IYearCountSpecifications _yearCountSpecifications;
-        readonly private ICalendarCalc _calCalc;
         readonly private IDateTimeValidations _dateTimeValidations;
         readonly private IDateTimeApi _dateTimeApi;
 
@@ -32,11 +30,10 @@ namespace E4C.ViewModels
         public Calendars InputCalendar { get; set; }
         public YearCounts InputYearCount { get; set; }
 
-        public CalcJdViewModel(ICalendarCalc calCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, IDateTimeApi dateTimeApi)
+        public CalcJdViewModel(IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, IDateTimeApi dateTimeApi)
         {
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;
-            _calCalc = calCalc;
             _dateTimeValidations = dateTimeValidations;
             _dateTimeApi = dateTimeApi;
             InputDate = new string[3];

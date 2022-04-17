@@ -2,7 +2,6 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Astron;
 using E4C.domain.shared.references;
 using System;
 using domain.shared;

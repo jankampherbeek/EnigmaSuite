@@ -5,7 +5,6 @@
 using E4C.calc.seph.secalculations;
 using E4C.calc.seph.sefacade;
 using E4C.domain.shared.references;
-using E4C.Models.Astron;
 using E4C.Models.Domain;
 using E4C.domain.shared.specifications;
 using NUnit.Framework;
