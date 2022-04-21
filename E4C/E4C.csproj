@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Views\Calculations.jpg" />
-    <None Remove="Views\Charts.jpg" />
+    <None Remove="Views_obs\Calculations.jpg" />
+    <None Remove="Views_obs\Charts.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -39,8 +39,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Views\Calculations.jpg" />
-    <Resource Include="Views\Charts.jpg" />
+    <Resource Include="Views_obs\Calculations.jpg" />
+    <Resource Include="Views_obs\Charts.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,7 +49,7 @@
     <Folder Include="src\ui\cycles\" />
     <Folder Include="src\ui\counts\" />
     <Folder Include="src\ui\shared\" />
-    <Folder Include="Views\ViewHelpers\" />
+    <Folder Include="Views_obs\ViewHelpers\" />
   </ItemGroup>
 
   <ItemGroup>

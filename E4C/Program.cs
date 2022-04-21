@@ -20,6 +20,8 @@ using E4C.core.astron.coordinateconversion;
 using E4C.core.facades;
 using E4C.calc.seph.sefacade;
 using E4C.shared.references;
+using E4C.core.api.astron;
+using E4C.core.api.datetime;
 
 namespace E4C
 {
@@ -50,11 +52,9 @@ namespace E4C
             container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
             container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
             container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
-            container.Register<ICalcUtFacade, CalcUtFacade>(Lifestyle.Singleton);
-            container.Register<ISePosHousesFacade, SePosHousesFacade>(Lifestyle.Singleton);
+            container.Register<IHousesFacade, HousesFacade>(Lifestyle.Singleton);
             container.Register<IPositionSolSysPointSECalc, PositionSolSysPointSECalc>(Lifestyle.Singleton);
-            container.Register<IMundanePositionsCalculator, MundanePositionsCalculator>(Lifestyle.Singleton);
-            container.Register<IHorizontalCoordinatesFacade, HorizontalCoordinatesFacade>(Lifestyle.Singleton);
+            container.Register<IAzAltFacade, AzAltFacade>(Lifestyle.Singleton);
             container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
             container.Register<IJulDayFacade, JulDayFacade>(Lifestyle.Singleton);
             container.Register<IRevJulFacade, RevJulFacade>(Lifestyle.Singleton);
@@ -79,12 +79,18 @@ namespace E4C
             container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
             container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
             container.Register<IHouseSystemSpecs, HouseSystemSpecs>(Lifestyle.Singleton);
-            container.Register<IAstronApi, AstronApi> (Lifestyle.Singleton);
+            container.Register<IHousesApi, HousesApi> (Lifestyle.Singleton);
+            container.Register<IObliquityApi, ObliquityApi> (Lifestyle.Singleton);
+            container.Register<ICoordinateConversionApi, CoordinateConversionApi> (Lifestyle.Singleton);
+            container.Register<IHorizontalApi, HorizontalApi> (Lifestyle.Singleton);
+            container.Register<IJulianDayApi, JulianDayApi>(Lifestyle.Singleton);
+            container.Register<ICheckDateTimeApi, CheckDateTimeApi>(Lifestyle.Singleton);
+            container.Register<ICalcDateTimeApi, CalcDateTimeApi> (Lifestyle.Singleton);
             container.Register<ICoordinateConversionCalc, CoordinateConversionCalc> (Lifestyle.Singleton);
             container.Register<ICoordinateConversionHandler, CoordinateConversionHandler> ( Lifestyle.Singleton);
             container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
             container.Register<IObliquityHandler, ObliquityHandler> (Lifestyle.Singleton);
-            container.Register<ICalcUtFacade, CalcUtFacade> (Lifestyle.Singleton);
+            container.Register<IHousesFacade, HousesFacade> (Lifestyle.Singleton);
             container.Register<ICoTransFacade, CoTransFacade> (Lifestyle.Singleton);
 
 

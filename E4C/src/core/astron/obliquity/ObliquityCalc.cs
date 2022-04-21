@@ -20,11 +20,11 @@ public interface IObliquityCalc
 /// <inheritdoc/>
 public class ObliquityCalc : IObliquityCalc
 {
-    private readonly ICalcUtFacade _posCelPointFacade;
+    private readonly ICelPointFacade _posCelPointFacade;
 
     /// <param name="celPointFacade">Facade for the calculation of celestial points.</param>
     /// <remarks>For the calculation by the SE, the obliquity is a special kind of celestial point, therefore the facade for cel points is used.</remarks>
-    public ObliquityCalc(ICalcUtFacade celPointFacade) => _posCelPointFacade = celPointFacade;
+    public ObliquityCalc(ICelPointFacade celPointFacade) => _posCelPointFacade = celPointFacade;
 
     /// <inheritdoc/>
     public double CalculateObliquity(double julianDayUt, bool useTrueObliquity)

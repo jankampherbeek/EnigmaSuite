@@ -5,7 +5,6 @@
 namespace E4CTest.core.astron.obliquity;
 
 using E4C.core.astron.obliquity;
-using E4C.domain.shared.reqresp;
 using E4C.exceptions;
 using E4C.shared.reqresp;
 using Moq;
