@@ -2,10 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.shared.domain;
-using E4C.shared.references;
+using E4C.Shared.References;
 
-namespace E4C.shared.reqresp;
+namespace E4C.Shared.ReqResp;
 
 /// <summary>Request to calculate day and time from Julian Day.</summary>
 public record DateTimeRequest
@@ -15,8 +14,9 @@ public record DateTimeRequest
     public Calendars Calendar { get; }
 
     /// <summary>Calculate date and time.</summary>
-    /// <param name="julDay">Julian day number.</param>
+    /// <param name="julDay"/>
     /// <param name="useJdForUt">True if JD is defined in Universal time, false if JD is defined in ephemeris time.</param>
+    /// <param name="calendar"/>
     public DateTimeRequest(double julDay, bool useJdForUt, Calendars calendar )
     {
         JulDay = julDay;

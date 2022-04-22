@@ -4,13 +4,10 @@
 
 using domain.shared;
 using E4C.calc.seph.secalculations;
-using E4C.calc.seph.sefacade;
-using E4C.core.facades;
-using E4C.domain.shared.positions;
+using E4C.Core.Facades;
 using E4C.domain.shared.references;
 using E4C.domain.shared.specifications;
 using E4C.Models.Domain;
-using E4C.shared.domain;
 using Moq;
 using NUnit.Framework;
 

@@ -2,9 +2,8 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using E4C.core.astron.obliquity;
-using E4C.core.facades;
+using E4C.Core.Astron.Obliquity;
+using E4C.Core.Facades;
 using Moq;
 using NUnit.Framework;
 

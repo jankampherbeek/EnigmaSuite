@@ -14,14 +14,13 @@ using SimpleInjector;
 using System;
 using E4C.calc.seph;
 using E4C.calc.specifics;
-using E4C.core.astron.obliquity;
-using E4C.core.api;
-using E4C.core.astron.coordinateconversion;
-using E4C.core.facades;
 using E4C.calc.seph.sefacade;
-using E4C.shared.references;
-using E4C.core.api.astron;
 using E4C.core.api.datetime;
+using E4C.Shared.References;
+using E4C.Core.Facades;
+using E4C.Core.Astron.Obliquity;
+using E4C.Core.Api.Astron;
+using E4C.Core.Astron.CoordinateConversion;
 
 namespace E4C
 {

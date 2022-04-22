@@ -4,11 +4,11 @@
 
 namespace E4CTest.core.calendarandclock.datetime;
 
-using E4C.core.calendarandclock.datetime;
-using E4C.core.shared.domain;
-using E4C.exceptions;
-using E4C.shared.references;
-using E4C.shared.reqresp;
+using E4C.Core.CalendarAndClock.DateTime;
+using E4C.Core.Shared.Domain;
+using E4C.Exceptions;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
 using Moq;
 using NUnit.Framework;
 

@@ -2,11 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.exceptions;
+using E4C.Exceptions;
 using System;
 using System.Runtime.InteropServices;
 
-namespace E4C.core.facades;
+namespace E4C.Core.Facades;
 
 
 /// <summary>Facade for the conversion between ecliptic and equatorial coordinates.</summary>

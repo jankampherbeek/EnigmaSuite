@@ -2,9 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.shared.domain;
+using E4C.Core.Shared.Domain;
 
-namespace E4C.shared.reqresp;
+namespace E4C.Shared.ReqResp;
 
 ///<inheritdoc/>
 /// <summary>

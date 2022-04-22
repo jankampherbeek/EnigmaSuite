@@ -2,15 +2,13 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
 using System.Collections.Generic;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.specifications;
 using E4C.domain.shared.references;
 using domain.shared;
-using E4C.core.shared.domain;
-using E4C.shared.references;
-using E4C.shared.domain;
+using E4C.Core.Shared.Domain;
+using E4C.Shared.References;
 
 namespace E4C.Models.Domain
 {
@@ -74,49 +72,6 @@ namespace E4C.Models.Domain
         }
 
     }
-
-
-
-    /// <summary>
-    /// Ecliptic position for a specific Solar system point.
-    /// </summary>
-    public record NamedEclipticCoordinates
-    {
-        public readonly SolarSystemPoints SolarSystemPoint;
-        public readonly EclipticCoordinates EclipticCoordinates;
-
-        /// <summary>
-        /// Constrctor for record NamedEclipticCoordinates.
-        /// </summary>
-        /// <param name="solarSystemPoint">Instance of enum SolarSystemPoints.</param>
-        /// <param name="eclipticCoordinate">Ecliptic position.</param>
-        public NamedEclipticCoordinates(SolarSystemPoints solarSystemPoint, EclipticCoordinates eclipticCoordinate)
-        {
-            SolarSystemPoint = solarSystemPoint;
-            EclipticCoordinates = eclipticCoordinate;
-        }
-    }
-
-    /// <summary>
-    /// Ecliptic longitude for a specific Solar system point.
-    /// </summary>
-    public record NamedEclipticLongitude
-    {
-        public readonly SolarSystemPoints SolarSystemPoint;
-        public readonly double EclipticLongitude;
-
-        /// <summary>
-        /// Constructor for record NamedEdclipticLongitude.
-        /// </summary>
-        /// <param name="solarSystemPoint">Instance of enum SolarSystemPoints.</param>
-        /// <param name="eclipticLongitude">Ecliptic longitude.</param>
-        public NamedEclipticLongitude(SolarSystemPoints solarSystemPoint, double eclipticLongitude)
-        {
-            SolarSystemPoint = solarSystemPoint;
-            EclipticLongitude = eclipticLongitude;
-        }
-    }
-
 
 
     /// <summary>
@@ -254,37 +209,6 @@ namespace E4C.Models.Domain
             ChartDateTime = fullDateTime;
         }
     }
-
-
-
-    /// <summary>
-    /// Data for a request to calculate oblique longitudes.
-    /// </summary>
-    public record ObliqueLongitudeRequest
-    {
-        public readonly double Armc;
-        public readonly double Obliquity;
-        public readonly double GeoLat;
-        public readonly List<NamedEclipticCoordinates> SolSysPointCoordinates;
-
-        /// <summary>
-        /// Constructor for the record ObliqueLongitudeRequest.
-        /// </summary>
-        /// <param name="armc">Right ascension of the MC (in degrees).</param>
-        /// <param name="obliquity">True obliquity of the earths axis.</param>
-        /// <param name="geoLat">Geographic latitude.</param>
-        /// <param name="solSysPointCoordinates">Solar system for which to calculate the oblique longitude, incoluding their ecliptical coordinates.</param>
-        public ObliqueLongitudeRequest(double armc, double obliquity, double geoLat, List<NamedEclipticCoordinates> solSysPointCoordinates)
-        {
-            Armc = armc;
-            Obliquity = obliquity;
-            GeoLat = geoLat;
-            SolSysPointCoordinates = solSysPointCoordinates;
-        }
-
-    }
-
- 
 
 
 

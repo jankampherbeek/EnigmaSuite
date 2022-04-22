@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using E4C.core.astron.horizontal;
-using E4C.shared.reqresp;
+using E4C.Core.Astron.Horizontal;
+using E4C.Shared.ReqResp;
 
-namespace E4C.core.api.astron;
+namespace E4C.Core.Api.Astron;
 
 /// <summary>API for the calculation of horizontal coordinates.</summary>
 public interface IHorizontalApi

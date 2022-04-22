@@ -44,6 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="src\Core\Astron\FullChart\" />
+    <Folder Include="src\Core\Astron\ObliqueLongitude\" />
+    <Folder Include="src\Core\Astron\SolSysPoints\" />
     <Folder Include="src\ui\charts\" />
     <Folder Include="src\ui\calculators\" />
     <Folder Include="src\ui\cycles\" />

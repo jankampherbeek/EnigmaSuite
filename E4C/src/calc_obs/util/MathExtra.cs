@@ -85,21 +85,6 @@ public static class MathExtra
         return new double[] { phi, theta, r };
     }
 
-    public static double[] Polar2Rectangular(double[] polarValues)
-    {
-        double phi = polarValues[0];
-        double theta = polarValues[1];
-        double r = polarValues[2];
-
-
-        double x = r * Math.Cos(theta) * Math.Cos(phi);
-        double y = r * Math.Cos(theta) * Math.Sin(phi);
-        double z = r * Math.Sin(theta);
-
-        return new double[] { x, y, z };
-
-    }
-
     public static PolarCoordinates Rectangular2Polar(RectAngCoordinates rectAngCoordinates)
     {
         double xCoord = rectAngCoordinates.XCoord;
@@ -111,6 +96,19 @@ public static class MathExtra
         double polarPhiCoord = Math.Atan2(yCoord, xCoord);
         double polarThetaCoord = Math.Asin(zCoord / polarRCoord);
         return new PolarCoordinates(polarPhiCoord, polarThetaCoord, polarRCoord);
+    }
+
+    public static double[] Polar2Rectangular(double[] polarValues)
+    {
+        double phi = polarValues[0];
+        double theta = polarValues[1];
+        double r = polarValues[2];
+        double x = r * Math.Cos(theta) * Math.Cos(phi);
+        double y = r * Math.Cos(theta) * Math.Sin(phi);
+        double z = r * Math.Sin(theta);
+
+        return new double[] { x, y, z };
+
     }
 
     public static RectAngCoordinates Polar2Rectangular(PolarCoordinates polarCoordinates)

@@ -2,7 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace E4C.core.shared.domain;
+using E4C.domain.shared.references;
+
+namespace E4C.Core.Shared.Domain;
 
 /// <summary>Ecliptic position, consisting of longitude and latitude.</summary>
 public record EclipticCoordinates
@@ -17,5 +19,36 @@ public record EclipticCoordinates
     {
         Longitude = longitude;
         Latitude = latitude;
+    }
+}
+
+
+/// <summary>Ecliptic position for a specific Solar system point.</summary>
+public record NamedEclipticCoordinates
+{
+    public readonly SolarSystemPoints SolarSystemPoint;
+    public readonly EclipticCoordinates EclipticCoordinates;
+
+    /// <param name="solarSystemPoint"/>
+    /// <param name="eclipticCoordinate"/>
+    public NamedEclipticCoordinates(SolarSystemPoints solarSystemPoint, EclipticCoordinates eclipticCoordinate)
+    {
+        SolarSystemPoint = solarSystemPoint;
+        EclipticCoordinates = eclipticCoordinate;
+    }
+}
+
+/// <summary>Ecliptic longitude for a specific Solar system point.</summary>
+public record NamedEclipticLongitude
+{
+    public readonly SolarSystemPoints SolarSystemPoint;
+    public readonly double EclipticLongitude;
+
+    /// <param name="solarSystemPoint"/>
+    /// <param name="eclipticLongitude"/>
+    public NamedEclipticLongitude(SolarSystemPoints solarSystemPoint, double eclipticLongitude)
+    {
+        SolarSystemPoint = solarSystemPoint;
+        EclipticLongitude = eclipticLongitude;
     }
 }

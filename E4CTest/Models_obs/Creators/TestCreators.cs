@@ -10,10 +10,10 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using domain.shared;
-using E4C.shared.references;
-using E4C.core.shared.domain;
 using E4C.core.api;
-using E4C.shared.reqresp;
+using E4C.Core.Shared.Domain;
+using E4C.Shared.ReqResp;
+using E4C.Shared.References;
 
 namespace E4CTest.Creators
 {

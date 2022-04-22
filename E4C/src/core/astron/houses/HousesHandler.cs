@@ -2,20 +2,17 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using E4C.core.api.astron;
-using E4C.core.astron.coordinateconversion;
-using E4C.core.astron.horizontal;
-using E4C.core.astron.obliquity;
-using E4C.core.shared.domain;
-using E4C.domain.shared.references;
+using E4C.Core.Astron.CoordinateConversion;
+using E4C.Core.Astron.Horizontal;
+using E4C.Core.Astron.Obliquity;
+using E4C.Core.Shared.Domain;
 using E4C.domain.shared.specifications;
-using E4C.exceptions;
-using E4C.shared.domain;
-using E4C.shared.reqresp;
+using E4C.Exceptions;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
 using System.Collections.Generic;
 
-namespace E4C.core.astron.houses;
+namespace E4C.Core.Astron.Houses;
 
 public interface IHousesHandler
 {

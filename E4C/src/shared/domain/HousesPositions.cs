@@ -2,11 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.shared.domain;
-using E4C.domain.shared.positions;
 using System.Collections.Generic;
 
-namespace E4C.shared.domain;
+namespace E4C.Core.Shared.Domain;
 
 /// <summary>
 /// Full results of calculation for houses, including cusps, asc. mc, vertex, eastpoint. Supports ecliptic, equatorial and horizontal coordinates.

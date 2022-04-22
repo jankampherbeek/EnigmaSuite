@@ -4,7 +4,7 @@
 
 using System;
 
-namespace E4C.shared.references;
+namespace E4C.Shared.References;
 
 /// <summary>
 /// Enum for Gregorian and Julian Calendar.

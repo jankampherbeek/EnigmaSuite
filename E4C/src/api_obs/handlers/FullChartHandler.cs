@@ -2,9 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.astron.houses;
+using E4C.Core.Astron.Houses;
 using E4C.domain.shared.reqresp;
-using E4C.shared.reqresp;
+using E4C.Shared.ReqResp;
 
 namespace E4C.api.handlers;
 

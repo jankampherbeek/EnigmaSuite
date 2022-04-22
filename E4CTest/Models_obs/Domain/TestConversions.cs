@@ -8,10 +8,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using E4C.calc.util;
-using E4C.shared.references;
-using E4C.core.shared.domain;
 using E4C.core.api;
-using E4C.shared.reqresp;
+using E4C.Core.Shared.Domain;
+using E4C.Shared.ReqResp;
+using E4C.Shared.References;
 
 namespace ConversionsTest
 {

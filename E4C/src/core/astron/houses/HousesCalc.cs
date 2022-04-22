@@ -3,11 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using E4C.core.facades;
-using E4C.domain.shared.references;
+using E4C.Core.Facades;
 using E4C.domain.shared.specifications;
+using E4C.Shared.References;
 
-namespace E4C.core.astron.houses;
+namespace E4C.Core.Astron.Houses;
 
 /// <summary>Calculations for houses and other mundane positions.</summary>
 public interface IHousesCalc
@@ -17,6 +17,7 @@ public interface IHousesCalc
     /// <param name="obliquity"/>
     /// <param name="location"/>
     /// <param name="houseSystemId">Id for a housesystem as used by the SE.</param>
+    /// <param name="flags"/>
     /// <returns>The calculated positions for the houses and other mundane points.</returns>
     public double[][] CalculateHouses(double julianDayUt, double obliquity, Location location, char houseSystemId, int flags);
 }

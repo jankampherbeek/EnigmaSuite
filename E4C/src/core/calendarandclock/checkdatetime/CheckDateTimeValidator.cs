@@ -2,10 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.facades;
-using E4C.core.shared.domain;
+using E4C.Core.Facades;
+using E4C.Core.Shared.Domain;
 
-namespace E4C.core.calendarandclock.checkdatetime;
+namespace E4C.Core.CalendarAndClock.CheckDateTime;
 
 /// <summary>Calculations for Julian Day.</summary>
 public interface ICheckDateTimeValidator

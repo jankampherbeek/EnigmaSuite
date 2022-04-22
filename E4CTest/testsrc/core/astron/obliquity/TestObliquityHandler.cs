@@ -4,9 +4,9 @@
 
 namespace E4CTest.core.astron.obliquity;
 
-using E4C.core.astron.obliquity;
-using E4C.exceptions;
-using E4C.shared.reqresp;
+using E4C.Core.Astron.Obliquity;
+using E4C.Exceptions;
+using E4C.Shared.ReqResp;
 using Moq;
 using NUnit.Framework;
 

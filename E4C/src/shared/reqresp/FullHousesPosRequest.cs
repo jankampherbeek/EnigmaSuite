@@ -2,10 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.domain.shared.references;
 using E4C.domain.shared.specifications;
+using E4C.Shared.References;
 
-namespace E4C.shared.reqresp;
+namespace E4C.Shared.ReqResp;
 
 /// <summary>
 /// Request to calculate a complete set of fully defined mundane positions.

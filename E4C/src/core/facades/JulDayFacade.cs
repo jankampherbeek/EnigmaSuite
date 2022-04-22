@@ -2,11 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.shared.domain;
-using E4C.shared.references;
+using E4C.Core.Shared.Domain;
+using E4C.Shared.References;
 using System.Runtime.InteropServices;
 
-namespace E4C.core.facades;
+namespace E4C.Core.Facades;
 
 /// <summary>Facade for retrieving Julian Day number from date and time, using the Swiss Ephemeris.</summary>
 /// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>

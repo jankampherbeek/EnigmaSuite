@@ -6,7 +6,7 @@
 using domain.shared;
 using E4C.domain.shared.reqresp;
 using E4C.Models.Domain;
-using E4C.shared.reqresp;
+using E4C.Shared.ReqResp;
 
 namespace E4C.calc.seph;
 

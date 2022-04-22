@@ -3,11 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.core.api;
-using E4C.core.shared.domain;
+using E4C.Core.Shared.Domain;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
-using E4C.shared.references;
-using E4C.shared.reqresp;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
 using System;
 using System.Collections.Generic;
 
@@ -74,7 +74,7 @@ namespace E4C.ViewModels
             }
             SimpleDateTime _dateTime = new(_year, _month, _day, _fractionalTime, InputCalendar);
 
-            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new shared.reqresp.JulianDayRequest(_dateTime, true));
+            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_dateTime, true));
 
             if (julDayResponse.Success)
             {

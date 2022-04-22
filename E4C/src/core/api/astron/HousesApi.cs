@@ -3,11 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using E4C.core.astron.houses;
-using E4C.core.astron.obliquity;
-using E4C.shared.reqresp;
+using E4C.Core.Astron.Houses;
+using E4C.Shared.ReqResp;
 
-namespace E4C.core.api.astron;
+namespace E4C.Core.Api.Astron;
 
 /// <summary>API for calculation of house cusps and other mundane points.</summary>
 public interface IHousesApi

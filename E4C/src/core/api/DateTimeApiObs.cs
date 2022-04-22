@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using E4C.core.calendarandclock.checkdatetime;
-using E4C.core.calendarandclock.datetime;
-using E4C.core.calendarandclock.julday;
-using E4C.shared.reqresp;
+using E4C.Core.CalendarAndClock.CheckDateTime;
+using E4C.Core.CalendarAndClock.DateTime;
+using E4C.Core.CalendarAndClock.JulDay;
+using E4C.Shared.ReqResp;
 
 namespace E4C.core.api;
 

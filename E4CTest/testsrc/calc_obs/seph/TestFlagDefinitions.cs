@@ -8,7 +8,8 @@ using E4C.domain.shared.references;
 using E4C.domain.shared.reqresp;
 using E4C.domain.shared.specifications;
 using E4C.Models.Domain;
-using E4C.shared.reqresp;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
 using NUnit.Framework;
 using System.Collections.Generic;
 

@@ -3,8 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.calc.util;
-using E4C.core.shared.domain;
+using E4C.Core.Shared.Domain;
 using E4C.Models.Domain;
+using E4C.Shared.ReqResp;
 using System;
 using System.Collections.Generic;
 
@@ -44,7 +45,7 @@ public interface ISouthPointCalculator
 
 public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
 {
-    private ISouthPointCalculator _southPointCalculator;
+    private readonly ISouthPointCalculator _southPointCalculator;
 
     public ObliqueLongitudeCalculator(ISouthPointCalculator southPointCalculator)
     {

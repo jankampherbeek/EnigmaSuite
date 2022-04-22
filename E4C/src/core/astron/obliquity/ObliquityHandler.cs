@@ -3,14 +3,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using E4C.exceptions;
-using E4C.shared.reqresp;
+using E4C.Exceptions;
+using E4C.Shared.ReqResp;
 
-namespace E4C.core.astron.obliquity;
+namespace E4C.Core.Astron.Obliquity;
 
 public interface IObliquityHandler
-{
-    public ObliquityResponse CalcObliquity(ObliquityRequest request);
+{ 
+    ObliquityResponse CalcObliquity(ObliquityRequest obliquityRequest);
 }
 
 
@@ -23,14 +23,14 @@ public class ObliquityHandler : IObliquityHandler
         _obliquityCalc = obliquityCalc;
     }
 
-    public ObliquityResponse CalcObliquity(ObliquityRequest request)
+    public ObliquityResponse CalcObliquity(ObliquityRequest obliquityRequest)
     {
         double obliquity = 0.0;
         string errorText = "";
         bool success = true;
         try
         {
-            obliquity = _obliquityCalc.CalculateObliquity(request.JdUt, request.UseCalculationForTrue);
+            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, obliquityRequest.UseCalculationForTrue);
         }
         catch (SwissEphException see)
         {

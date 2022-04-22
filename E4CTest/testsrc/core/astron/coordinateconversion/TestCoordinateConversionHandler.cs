@@ -2,11 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using E4C.core.astron.coordinateconversion;
-using E4C.core.shared.domain;
-using E4C.exceptions;
-using E4C.shared.reqresp;
+using E4C.Core.Astron.CoordinateConversion;
+using E4C.Core.Shared.Domain;
+using E4C.Exceptions;
+using E4C.Shared.ReqResp;
 using Moq;
 using NUnit.Framework;
 
@@ -21,7 +20,6 @@ public class TestCoordinateConversionHandler
     private EclipticCoordinates _eclCoord;
     private EquatorialCoordinates _eqCoord;
     private readonly double _obliquity = 23.447;
-    private double[] _equatorial;
     private readonly double _delta = 0.00000001;
     private readonly string _errorText = "Description of error.";
 

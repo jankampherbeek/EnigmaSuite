@@ -2,10 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.exceptions;
+using E4C.Exceptions;
 using System.Runtime.InteropServices;
 
-namespace E4C.core.facades;
+namespace E4C.Core.Facades;
 
 
 /// <summary>Facade for the calculation of the positions of celestial points (planets, nodes etc.).</summary> 

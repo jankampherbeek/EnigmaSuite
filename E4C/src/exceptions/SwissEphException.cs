@@ -4,7 +4,7 @@
 
 using System;
 
-namespace E4C.exceptions;
+namespace E4C.Exceptions;
 
 /// <summary>
 /// Exception that handles any error from accessing the dll from the Swiss Ephemeris.

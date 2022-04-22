@@ -2,9 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.shared.domain;
 
-namespace E4C.shared.reqresp;
+using E4C.Core.Shared.Domain;
+
+namespace E4C.Shared.ReqResp;
 
 /// <summary>Request to check the validity of a date.</summary>
 public record CheckDateTimeRequest

@@ -2,13 +2,12 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.calc.seph.sefacade;
-using E4C.core.facades;
+using E4C.Core.Facades;
+using E4C.Core.Shared.Domain;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.references;
 using E4C.domain.shared.specifications;
 using E4C.Models.Domain;
-using E4C.shared.domain;
 
 namespace E4C.calc.seph.secalculations;
 
@@ -57,7 +56,7 @@ public class PositionSolSysPointSECalc : IPositionSolSysPointSECalc
         var _eclCoordinatesForHorCalculation = new double[] { _fullEclipticPositions[0], _fullEclipticPositions[1], _fullEclipticPositions[2] };
         var _geoGraphicCoordinates = new double[] { location.GeoLong, location.GeoLat, heightAboveSeaLevel };
         double[] _horizontalValues = _hazAltFacade.RetrieveHorizontalCoordinates(jdnr, _geoGraphicCoordinates, _eclCoordinatesForHorCalculation, flagsEcliptical);
-        HorizontalCoordinates _horizontalCoords = new HorizontalCoordinates(_horizontalValues[0], _horizontalValues[1]);
+        var _horizontalCoords = new HorizontalCoordinates(_horizontalValues[0], _horizontalValues[1]);
         var _longitude = new PosSpeed(_fullEclipticPositions[0], _fullEclipticPositions[3]);
         var _latitude = new PosSpeed(_fullEclipticPositions[1], _fullEclipticPositions[4]);
         var _distance = new PosSpeed(_fullEclipticPositions[2], _fullEclipticPositions[5]);

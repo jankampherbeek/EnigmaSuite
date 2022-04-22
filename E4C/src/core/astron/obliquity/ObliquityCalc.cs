@@ -3,9 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using domain.shared;
-using E4C.core.facades;
+using E4C.Core.Facades;
 
-namespace E4C.core.astron.obliquity;
+namespace E4C.Core.Astron.Obliquity;
 
 /// <summary>Calculations for obliquity of the earths axis.</summary>
 public interface IObliquityCalc

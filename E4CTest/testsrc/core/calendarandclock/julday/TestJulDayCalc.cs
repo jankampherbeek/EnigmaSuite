@@ -2,11 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using E4C.core.calendarandclock.julday;
-using E4C.core.facades;
-using E4C.core.shared.domain;
-using E4C.shared.references;
+using E4C.Core.CalendarAndClock.JulDay;
+using E4C.Core.Facades;
+using E4C.Core.Shared.Domain;
+using E4C.Shared.References;
 using Moq;
 using NUnit.Framework;
 

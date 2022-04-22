@@ -3,11 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using E4C.core.shared.domain;
-using E4C.exceptions;
-using E4C.shared.reqresp;
+using E4C.Core.Shared.Domain;
+using E4C.Exceptions;
+using E4C.Shared.ReqResp;
 
-namespace E4C.core.astron.coordinateconversion;
+namespace E4C.Core.Astron.CoordinateConversion;
 
 /// <summary>Handles the conversion from ecliptical to equatorial coordinates.</summary>
 public interface ICoordinateConversionHandler

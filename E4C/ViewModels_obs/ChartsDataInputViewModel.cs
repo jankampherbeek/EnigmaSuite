@@ -8,7 +8,7 @@ using E4C.Models.UiHelpers;
 using E4C.domain.shared.specifications;
 using System;
 using System.Collections.Generic;
-using E4C.shared.references;
+using E4C.Shared.References;
 
 namespace E4C.ViewModels
 {

@@ -2,15 +2,15 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.calc.seph.secalculations;
-using E4C.calc.seph.sefacade;
+
 using E4C.domain.shared.references;
 using E4C.Models.Domain;
 using E4C.domain.shared.specifications;
 using NUnit.Framework;
 using System.Collections.Generic;
-using E4C.calc.seph;
+
 using E4C.domain.shared.reqresp;
+using E4C.Shared.References;
 
 namespace E4CIntegrationTest.PlanetaryPositions
 {

@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace E4C.shared.reqresp;
+namespace E4C.Shared.ReqResp;
 
 /// <summary>
 /// Parent for responses that have a validation part: an indication if the calculation was successfull and a text that explains any error(s).

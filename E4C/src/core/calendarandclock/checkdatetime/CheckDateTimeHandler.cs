@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using E4C.exceptions;
-using E4C.shared.reqresp;
+using E4C.Exceptions;
+using E4C.Shared.ReqResp;
 
-namespace E4C.core.calendarandclock.checkdatetime;
+namespace E4C.Core.CalendarAndClock.CheckDateTime;
 
 public interface ICheckDateTimeHandler
 {

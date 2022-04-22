@@ -2,9 +2,9 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.shared.references;
+using E4C.Shared.References;
 
-namespace E4C.core.shared.domain;
+namespace E4C.Core.Shared.Domain;
 
 
 /// <summary>Representation for a date and time, including calendar.</summary>

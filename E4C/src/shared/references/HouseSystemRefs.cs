@@ -4,7 +4,7 @@
 
 using System;
 
-namespace E4C.domain.shared.references;
+namespace E4C.Shared.References;
 
 
 /// <summary>

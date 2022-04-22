@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.Models.Domain;
-using E4C.shared.reqresp;
+using E4C.Shared.ReqResp;
 using System.Collections.Generic;
 
 namespace E4C.domain.shared.reqresp;

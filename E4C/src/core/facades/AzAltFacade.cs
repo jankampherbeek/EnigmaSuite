@@ -2,11 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.exceptions;
+using E4C.Exceptions;
 using System.Runtime.InteropServices;
-using E4C.shared.domain;
 
-namespace E4C.core.facades;
+namespace E4C.Core.Facades;
 
 
 /// <summary>

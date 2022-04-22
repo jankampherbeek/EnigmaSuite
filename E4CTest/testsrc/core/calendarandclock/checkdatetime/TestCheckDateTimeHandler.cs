@@ -4,12 +4,11 @@
 
 namespace E4CTest.core.calendarandclock.checkdatetime;
 
-using E4C.core.calendarandclock.checkdatetime;
-using E4C.core.calendarandclock.datetime;
-using E4C.core.shared.domain;
-using E4C.exceptions;
-using E4C.shared.references;
-using E4C.shared.reqresp;
+using E4C.Core.CalendarAndClock.CheckDateTime;
+using E4C.Core.Shared.Domain;
+using E4C.Exceptions;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
 using Moq;
 using NUnit.Framework;
 
@@ -17,8 +16,6 @@ using NUnit.Framework;
 public class TestDateTimeHandler
 {
     private readonly Calendars _calendar = Calendars.Gregorian;
-    private readonly double _jdUt = 123456.789;
-    private readonly bool _useJdForUt = true;
     private SimpleDateTime _dateTime;
 
 

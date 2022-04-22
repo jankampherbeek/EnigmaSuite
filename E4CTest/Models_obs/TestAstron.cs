@@ -5,7 +5,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using E4C.calc.specifics;
-using E4C.core.shared.domain;
+using E4C.Core.Shared.Domain;
 
 namespace E4CTest.Models
 {

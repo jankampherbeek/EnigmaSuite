@@ -7,14 +7,14 @@ using E4C.calc.elements;
 using E4C.calc.seph;
 using E4C.calc.seph.secalculations;
 using E4C.calc.seph.sefacade;
-using E4C.core.astron.obliquity;
-using E4C.core.facades;
+using E4C.Core.Astron.Obliquity;
+using E4C.Core.Facades;
+using E4C.Core.Shared.Domain;
 using E4C.domain.shared.positions;
 using E4C.domain.shared.references;
 using E4C.domain.shared.reqresp;
 using E4C.Models.Domain;
-using E4C.shared.domain;
-using E4C.shared.reqresp;
+using E4C.Shared.ReqResp;
 using System.Collections.Generic;
 
 namespace E4C.api.handlers;
