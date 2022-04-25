@@ -6,7 +6,7 @@ using Ardalis.GuardClauses;
 using E4C.Core.CalendarAndClock.CheckDateTime;
 using E4C.Shared.ReqResp;
 
-namespace E4C.core.api.datetime;
+namespace E4C.Core.Api.Datetime;
 
 /// <summary>API for checking date and time values.</summary>
 public interface ICheckDateTimeApi

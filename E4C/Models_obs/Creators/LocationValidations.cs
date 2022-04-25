@@ -1,5 +1,4 @@
 ﻿using domain.shared;
-using E4C.Models.Domain;
 using System;
 using System.Collections.Generic;
 

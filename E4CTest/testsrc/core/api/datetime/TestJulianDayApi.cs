@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api.datetime;
+using E4C.Core.Api.Datetime;
 using E4C.Core.CalendarAndClock.JulDay;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.References;
@@ -16,17 +16,9 @@ namespace E4CTest.core.api.datetime;
 [TestFixture]
 public class TestJulianDayApi
 {
-    private double _julDay = 123456.789;
-    private JulianDayRequest _jdRequest;
-    private JulianDayResponse _jdResponse;
+    private JulianDayRequest _jdRequest = new JulianDayRequest(new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian), true);
+    private JulianDayResponse _jdResponse = new JulianDayResponse(123456.789, true, "");
 
-
-    [SetUp]
-    public void SetUp()
-    {
-        _jdRequest = new JulianDayRequest(new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian), true);
-        _jdResponse = new JulianDayResponse(_julDay, true, "");
-    }
 
     [Test]
     public void TestHappyFlow()
@@ -53,7 +45,7 @@ public class TestJulianDayApi
 
     private IJulDayHandler CreateHandlerMock()
     {
-        var handlerMock= new Mock<IJulDayHandler>();
+        var handlerMock = new Mock<IJulDayHandler>();
         handlerMock.Setup(p => p.CalcJulDay(_jdRequest)).Returns(_jdResponse);
         return handlerMock.Object;
     }

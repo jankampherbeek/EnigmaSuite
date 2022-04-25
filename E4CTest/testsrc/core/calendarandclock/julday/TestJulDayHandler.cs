@@ -32,7 +32,7 @@ public class TestJulDayHandler
     [Test]
     public void TestHappyFlow()
     {
-        Mock<IJulDayCalc> calcMock = CreateCalcMock(); 
+        Mock<IJulDayCalc> calcMock = CreateCalcMock();
         IJulDayHandler handler = new JulDayHandler(calcMock.Object);
         JulianDayRequest request = new JulianDayRequest(_dateTime, _useJdForUt);
         JulianDayResponse response = handler.CalcJulDay(request);

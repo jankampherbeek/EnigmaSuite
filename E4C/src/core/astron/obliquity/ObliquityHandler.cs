@@ -9,7 +9,7 @@ using E4C.Shared.ReqResp;
 namespace E4C.Core.Astron.Obliquity;
 
 public interface IObliquityHandler
-{ 
+{
     ObliquityResponse CalcObliquity(ObliquityRequest obliquityRequest);
 }
 

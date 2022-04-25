@@ -15,7 +15,6 @@ namespace E4CTest.core.calendarandclock.datetime;
 [TestFixture]
 public class TestDateTimeCalc
 {
-    private readonly double _delta = 0.00000001;
 
     [Test]
     public void TestCalcDateTime()

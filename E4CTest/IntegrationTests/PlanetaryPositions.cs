@@ -3,14 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using E4C.domain.shared.references;
-using E4C.Models.Domain;
 using E4C.domain.shared.specifications;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
 using NUnit.Framework;
 using System.Collections.Generic;
-
-using E4C.domain.shared.reqresp;
-using E4C.Shared.References;
 
 namespace E4CIntegrationTest.PlanetaryPositions
 {

@@ -23,7 +23,7 @@ public class DateTimeCalc : IDateTimeCalc
 
     /// <summary>Calculate Date and time.</summary>
     /// <param name="julDay"/>
-    /// <param name="calendar""/>
+    /// <param name="calendar"/>
     /// <returns>Calculated JD for UT.</returns>
     public SimpleDateTime CalcDateTime(double julDay, Calendars calendar)
     {

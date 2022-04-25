@@ -2,15 +2,16 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Domain;
-using E4C.domain.shared.specifications;
-using System;
-using System.Collections.Generic;
 using domain.shared;
 using E4C.core.api;
 using E4C.Core.Shared.Domain;
-using E4C.Shared.ReqResp;
+using E4C.domain.shared.specifications;
+using E4C.Models.Domain;
 using E4C.Shared.References;
+using E4C.Shared.ReqResp;
+using E4C.Ui.Shared;
+using System;
+using System.Collections.Generic;
 
 namespace E4C.Models.Creators
 {
@@ -220,7 +221,7 @@ namespace E4C.Models.Creators
         private bool _success = true;
         private readonly List<int> _errorCodes = new();
 
-        public DateFactory(IIntRangeCreator intRangeCreator, IDateTimeApi dateTimeApi)        
+        public DateFactory(IIntRangeCreator intRangeCreator, IDateTimeApi dateTimeApi)
         {
             _intRangeCreator = intRangeCreator;
             _dateTimeApi = dateTimeApi;
@@ -358,7 +359,7 @@ namespace E4C.Models.Creators
             string dateText = fullDate.DateFullText;
             string timeText = fullTime.TimeFullText;
             SimpleDateTime simpleDateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, fullDate.Calendar);
-            JulianDayResponse julDayResponse = _dateTimeAPi.getJulianDay(new JulianDayRequest(simpleDateTime, true)); 
+            JulianDayResponse julDayResponse = _dateTimeAPi.getJulianDay(new JulianDayRequest(simpleDateTime, true));
             double baseForJulianDay = 0.0;
             if (julDayResponse.Success)
             {

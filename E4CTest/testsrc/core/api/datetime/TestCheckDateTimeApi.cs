@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api.datetime;
+using E4C.Core.Api.Datetime;
 using E4C.Core.CalendarAndClock.CheckDateTime;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.References;
@@ -27,7 +27,7 @@ public class TestCheckDateTimeApi
     public void SetUp()
     {
         _simpleDateTime = new SimpleDateTime(2022, 4, 20, 19.6, Calendars.Gregorian);
-        _simpleDateTimeError  = new SimpleDateTime(2022, 44, 20, 19.6, Calendars.Gregorian);
+        _simpleDateTimeError = new SimpleDateTime(2022, 44, 20, 19.6, Calendars.Gregorian);
         _checkDateTimeRequest = new CheckDateTimeRequest(_simpleDateTime);
         _checkDateTimeRequestError = new CheckDateTimeRequest(_simpleDateTimeError);
         _checkDateTimeResponse = new CheckDateTimeResponse(true, true, "");

@@ -70,3 +70,4 @@ public class DateTimeApiObs : IDateTimeApi
         return _julDayHandler.CalcJulDay(request);
     }
 }
+

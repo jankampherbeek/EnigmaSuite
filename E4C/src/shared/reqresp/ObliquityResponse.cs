@@ -9,10 +9,10 @@ public record ObliquityResponse : ValidatedResponse
 {
     public double Obliquity { get; }
 
-    public ObliquityResponse(double obliquity, bool success, string errorText): base(success, errorText)
+    public ObliquityResponse(double obliquity, bool success, string errorText) : base(success, errorText)
     {
         this.Obliquity = obliquity;
-        
+
     }
 
 }

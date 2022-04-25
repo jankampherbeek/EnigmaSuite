@@ -17,7 +17,7 @@ public record DateTimeRequest
     /// <param name="julDay"/>
     /// <param name="useJdForUt">True if JD is defined in Universal time, false if JD is defined in ephemeris time.</param>
     /// <param name="calendar"/>
-    public DateTimeRequest(double julDay, bool useJdForUt, Calendars calendar )
+    public DateTimeRequest(double julDay, bool useJdForUt, Calendars calendar)
     {
         JulDay = julDay;
         UseJdForUt = useJdForUt;

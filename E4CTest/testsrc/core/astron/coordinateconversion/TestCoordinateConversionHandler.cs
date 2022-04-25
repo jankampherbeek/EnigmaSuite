@@ -12,7 +12,7 @@ using NUnit.Framework;
 
 namespace E4CTest.core.astron.coordinateconversion;
 
-[TestFixture] 
+[TestFixture]
 public class TestCoordinateConversionHandler
 {
 
@@ -31,7 +31,7 @@ public class TestCoordinateConversionHandler
         _request = new CoordinateConversionRequest(_eclCoord, _obliquity);
         Mock<ICoordinateConversionCalc> calcMock = CreateCalcMock();
         ICoordinateConversionHandler handler = new CoordinateConversionHandler(calcMock.Object);
-        CoordinateConversionResponse response =  handler.HandleConversion(_request);
+        CoordinateConversionResponse response = handler.HandleConversion(_request);
         Assert.AreEqual(_eqCoord.RightAscension, response.equatorialCoord.RightAscension, _delta);
         Assert.AreEqual(_eqCoord.Declination, response.equatorialCoord.Declination, _delta);
         Assert.IsTrue(response.Success);

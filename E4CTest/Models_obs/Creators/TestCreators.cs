@@ -2,18 +2,19 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using domain.shared;
+using E4C.core.api;
+using E4C.Core.Shared.Domain;
+using E4C.domain.shared.specifications;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
-using E4C.domain.shared.specifications;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
+using E4C.Ui.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using domain.shared;
-using E4C.core.api;
-using E4C.Core.Shared.Domain;
-using E4C.Shared.ReqResp;
-using E4C.Shared.References;
 
 namespace E4CTest.Creators
 {
@@ -502,7 +503,7 @@ namespace E4CTest.Creators
         {
             var mockDateTimeApi = new Mock<IDateTimeApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 10.0, Calendars.Gregorian);
-            JulianDayRequest julDayRequest = new (_dateTime, true);
+            JulianDayRequest julDayRequest = new(_dateTime, true);
             mockDateTimeApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd + (10.0 / 24.0), true, ""));
             IDateTimeFactory factory = new DateTimeFactory(mockDateTimeApi.Object);
             FullTime _fullTimeUt = new(new int[] { 10, 0, 0 }, 10.0, 0, "FullTextForTime");

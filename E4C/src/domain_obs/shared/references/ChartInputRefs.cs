@@ -12,7 +12,7 @@ namespace E4C.domain.shared.references;
 public enum Directions4GeoLong
 {
     /// <summary>Eastern geographiuc longitude.</summary>
-    East = 1, 
+    East = 1,
     /// <summary>Western geographic longitude.</summary>
     West = -1
 }
@@ -23,7 +23,7 @@ public enum Directions4GeoLong
 public enum Directions4GeoLat
 {
     /// <summary>Northern geographic latitude.</summary>
-    North = 1, 
+    North = 1,
     /// <summary>Southern geographic latitude.</summary>
     South = -1
 }

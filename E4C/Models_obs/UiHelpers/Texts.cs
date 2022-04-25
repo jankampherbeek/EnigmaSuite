@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.be.persistency;
-using E4C.Models.Domain;
 using E4C.domain.shared.references;
-using System.Collections.Generic;
 using E4C.Shared.References;
+using E4C.Ui.Shared;
+using System.Collections.Generic;
 
 namespace E4C.Models.UiHelpers
 {
@@ -92,7 +92,8 @@ namespace E4C.Models.UiHelpers
         /// <param name="timeValues">Hour, minute and second, in that sequence.</param>
         /// <param name="timeZone">Timezone used.</param>
         /// <param name="dst">True if dst is used.</param>
-        /// <param name="lmtLongValues"></param>
+        /// <param name="lmtLongValues">Values for longitude if LMT is used. Default null.</param>
+        /// <param name="dirGeoLong">East or West for lmtLongValues, only used for LMT. Default null.</param>
         /// <returns>A string in a format as follows: 8:37:30, CET +1.0, no DST.
         /// If DST was used replace 'no DST' with 'DST applied.'
         /// If timezone is LMT, the text for timezone is as follows 'LMT for 6°54'00" East'.</returns>

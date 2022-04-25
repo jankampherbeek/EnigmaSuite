@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using domain.shared;
 using E4C.Core.Astron.CoordinateConversion;
 using E4C.Core.Astron.Horizontal;
 using E4C.Core.Astron.Obliquity;
@@ -28,7 +29,7 @@ public class HousesHandler : IHousesHandler
     private readonly IHorizontalHandler _horizontalHandler;
     private readonly ICoordinateConversionHandler _coordinateConversionHandler;
 
-    public HousesHandler(IHousesCalc housesCalc, IHouseSystemSpecs houseSystemSpecs, IObliquityHandler obliquityHandler, IHorizontalHandler horizontalHandler,  ICoordinateConversionHandler coordinateConversionHandler)
+    public HousesHandler(IHousesCalc housesCalc, IHouseSystemSpecs houseSystemSpecs, IObliquityHandler obliquityHandler, IHorizontalHandler horizontalHandler, ICoordinateConversionHandler coordinateConversionHandler)
     {
         _housesCalc = housesCalc;
         _houseSystemSpecs = houseSystemSpecs;
@@ -46,7 +47,7 @@ public class HousesHandler : IHousesHandler
         HouseSystems houseSystem = request.HouseSystem;
         HouseSystemDetails houseDetails = _houseSystemSpecs.DetailsForHouseSystem(houseSystem);
         char houseId4Se = houseDetails.SeId;
-        int _flags = 0;   // todo define flags
+        int _flags = Constants.SEFLG_SWIEPH;
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
         FullHousesPositions? fullHousesPos = null;
@@ -78,11 +79,11 @@ public class HousesHandler : IHousesHandler
     private CuspFullPos CreateCuspFullPos(double longitude, double jdUt, double obliquity, Location location)
     {
         double latitude = 0.0;
-        EclipticCoordinates eclCoord = new(longitude, latitude); 
+        EclipticCoordinates eclCoord = new(longitude, latitude);
         EquatorialCoordinates eqCoord = CalcEquatorialCoordinates(eclCoord, obliquity);
         HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eclCoord);
         return new CuspFullPos(eclCoord.Longitude, eqCoord, horCoord);
-            
+
     }
 
     private EquatorialCoordinates CalcEquatorialCoordinates(EclipticCoordinates eclCoord, double obliquity)
@@ -91,7 +92,7 @@ public class HousesHandler : IHousesHandler
         CoordinateConversionResponse coordConvResponse = _coordinateConversionHandler.HandleConversion(coordConvRequest);
         return coordConvResponse.equatorialCoord;
     }
-   
+
     private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EclipticCoordinates eclCoord)
     {
         HorizontalRequest horizontalRequest = new HorizontalRequest(jdUt, location, eclCoord);

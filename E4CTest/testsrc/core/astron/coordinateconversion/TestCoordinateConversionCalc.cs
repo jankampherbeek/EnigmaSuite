@@ -33,16 +33,16 @@ public class TestCoordinateConversionCalc
         Assert.AreEqual(_expectedRightAsc, equatCoord.RightAscension, _delta);
         Assert.AreEqual(_expectedDeclination, equatCoord.Declination, _delta);
     }
-    
-    
+
+
     private Mock<ICoTransFacade> CreateFacadeMock(double[] ecliptical, double[] equatorial)
-    { 
+    {
         var mock = new Mock<ICoTransFacade>();
         mock.Setup(p => p.EclipticToEquatorial(ecliptical, _obliquity)).Returns(equatorial);
         return mock;
     }
-    
- 
+
+
 
 
 

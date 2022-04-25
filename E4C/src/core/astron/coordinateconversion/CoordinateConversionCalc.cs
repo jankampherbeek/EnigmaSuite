@@ -11,7 +11,7 @@ namespace E4C.Core.Astron.CoordinateConversion;
 public interface ICoordinateConversionCalc
 {
     public EquatorialCoordinates PerformConversion(EclipticCoordinates eclCoord, double obliquity);
-   
+
 }
 
 /// <inheritdoc/>

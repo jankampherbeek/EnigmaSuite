@@ -21,7 +21,7 @@ public class TestJulDayCalc
     public void TestCalcJulDay()
     {
         double jd = 12345.6789;
-        SimpleDateTime dateTime = new SimpleDateTime(2000, 1, 1, 12.0, Calendars.Gregorian); 
+        SimpleDateTime dateTime = new SimpleDateTime(2000, 1, 1, 12.0, Calendars.Gregorian);
         var mock = new Mock<IJulDayFacade>();
         mock.Setup(p => p.JdFromSe(dateTime)).Returns(jd);
         IJulDayCalc jdCalc = new JulDayCalc(mock.Object);

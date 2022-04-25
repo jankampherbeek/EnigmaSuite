@@ -25,7 +25,7 @@ public class HorizontalHandler : IHorizontalHandler
         string errorText = "";
         bool success = true;
         int flags = 0;    // flags for horizontal coordinates.
-        var horCoord = new HorizontalCoordinates(0.0, 0.0); 
+        var horCoord = new HorizontalCoordinates(0.0, 0.0);
         try
         {
             double[] azimuthAltitude = _horizontalCalc.CalculateHorizontal(request.JdUt, request.ChartLocation, request.EclCoord, flags);

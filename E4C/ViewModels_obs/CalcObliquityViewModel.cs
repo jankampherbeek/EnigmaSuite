@@ -6,9 +6,9 @@ using E4C.core.api;
 using E4C.Core.Astron.Obliquity;
 using E4C.Core.Shared.Domain;
 using E4C.Models.Creators;
-using E4C.Models.Domain;
 using E4C.Shared.References;
 using E4C.Shared.ReqResp;
+using E4C.Ui.Shared;
 using System;
 using System.Collections.Generic;
 

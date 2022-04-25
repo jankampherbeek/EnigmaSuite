@@ -2,9 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.domain.shared.positions;
-using E4C.domain.shared.references;
-using E4C.Models.Domain;
+using E4C.Core.Shared.Domain;
 using NUnit.Framework;
 using System;
 

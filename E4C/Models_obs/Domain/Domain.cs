@@ -2,13 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections.Generic;
-using E4C.domain.shared.positions;
 using E4C.domain.shared.specifications;
-using E4C.domain.shared.references;
-using domain.shared;
-using E4C.Core.Shared.Domain;
 using E4C.Shared.References;
+using E4C.Ui.Charts;
+using System.Collections.Generic;
 
 namespace E4C.Models.Domain
 {
@@ -212,60 +209,9 @@ namespace E4C.Models.Domain
 
 
 
-    /// <summary>
-    /// Results of calculation for a single Solar System Point.
-    /// </summary>
-    public record FullSolSysPointPos
-    {
-        public readonly SolarSystemPoints SolarSystemPoint;
-        public readonly PosSpeed Longitude;
-        public readonly PosSpeed Latitude;
-        public readonly PosSpeed RightAscension;
-        public readonly PosSpeed Declination;
-        public readonly PosSpeed Distance;
-        public readonly HorizontalCoordinates AzimuthAltitude;
-
-        /// <summary>
-        /// Constructor for a fully defined Solar system point.
-        /// </summary>
-        /// <param name="solarSystemPoint">Instance of the enum SolarSystemPoints.</param>
-        /// <param name="longitude">Longitude in degrees.</param>
-        /// <param name="latitude">Latitude in degrees.</param>
-        /// <param name="rightAscension">Right ascension in degrees.</param>
-        /// <param name="declination">Declination in degrees.</param>
-        /// <param name="distance">distance in AU.</param>
-        /// <param name="azimuthAltitude">Azimuth and altitude in degrees.</param>
-        public FullSolSysPointPos(SolarSystemPoints solarSystemPoint, PosSpeed longitude, PosSpeed latitude, PosSpeed rightAscension,
-            PosSpeed declination, PosSpeed distance, HorizontalCoordinates azimuthAltitude)
-        {
-            SolarSystemPoint = solarSystemPoint;
-            Longitude = longitude;
-            Latitude = latitude;
-            RightAscension = rightAscension;
-            Declination = declination;
-            Distance = distance;
-            AzimuthAltitude = azimuthAltitude;
-        }
-    }
 
 
 
-    /// <summary>
-    /// Combines the flags for the Swiss Ephemeris to a single value.
-    /// </summary>
-    public class SeFlags
-    {
-        public static int DefineFlags(CoordinateSystems coordinateSystem, ObserverPositions observerPosition, ZodiacTypes zodiacType)
-        {
-            // Always use Swiss Ephemeris files and always calculate speed.
-            int _flags = 0 | Constants.SEFLG_SWIEPH | Constants.SEFLG_SPEED;
-            if (coordinateSystem == CoordinateSystems.Equatorial) _flags |= Constants.SEFLG_EQUATORIAL;
-            if (observerPosition == ObserverPositions.HelioCentric) _flags |= Constants.SEFLG_HELCTR;
-            if (observerPosition == ObserverPositions.TopoCentric) _flags |= Constants.SEFLG_TOPOCTR;
-            if (zodiacType == ZodiacTypes.Sidereal) _flags |= Constants.SEFLG_SIDEREAL;
-            return _flags;
-        }
-    }
 
 
 }

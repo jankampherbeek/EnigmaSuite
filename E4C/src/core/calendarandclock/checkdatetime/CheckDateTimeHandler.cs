@@ -22,7 +22,7 @@ public class CheckDateTimeHandler : ICheckDateTimeHandler
 
     public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request)
     {
-        bool dateIsValid = true; 
+        bool dateIsValid = true;
         string errorText = "";
         bool success = true;
         try

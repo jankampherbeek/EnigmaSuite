@@ -3,11 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using domain.shared;
-using E4C.calc.seph.secalculations;
+using E4C.Core.Astron.SolSysPoints;
 using E4C.Core.Facades;
-using E4C.domain.shared.references;
+using E4C.Core.Shared.Domain;
 using E4C.domain.shared.specifications;
-using E4C.Models.Domain;
+using E4C.Shared.References;
 using Moq;
 using NUnit.Framework;
 
@@ -66,11 +66,11 @@ public class TestPositionSolSysPointCalc
         _mockCelPointCalc.Setup(p => p.PosCelPointFromSe(_julianDayUt, Constants.SE_MARS, _flagsEquatorial)).Returns(_equatorialPositions);
         var _mockHorCoordCalc = new Mock<IAzAltFacade>();
         _mockHorCoordCalc.Setup(p => p.RetrieveHorizontalCoordinates(_julianDayUt, new double[] { 52.0, 6.0, 0.0 }, new double[] { 100.0, -2.0, 3.3 }, _flagsEcliptical)).
-            Returns(new double[] { 66.6, 45.0});
+            Returns(new double[] { 66.6, 45.0 });
         var _mockSolSysPointSpecs = new Mock<ISolarSystemPointSpecifications>();
         _mockSolSysPointSpecs.Setup(p => p.DetailsForPoint(SolarSystemPoints.Mars)).
             Returns(new SolarSystemPointDetails(SolarSystemPoints.Mars, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_MARS, true, true, "solSysPointMars"));
-        PositionSolSysPointSECalc _calc = new(_mockCelPointCalc.Object, _mockHorCoordCalc.Object, _mockSolSysPointSpecs.Object);
+        ISolSysPointSECalc _calc = new SolSysPointSECalc(_mockCelPointCalc.Object, _mockHorCoordCalc.Object, _mockSolSysPointSpecs.Object);
         return _calc.CalculateSolSysPoint(SolarSystemPoints.Mars, _julianDayUt, _location, _flagsEcliptical, _flagsEquatorial);
     }
 }

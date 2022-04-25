@@ -8,7 +8,7 @@ namespace E4C.Core.Shared.Domain;
 public record EquatorialCoordinates
 {
 
-    public double RightAscension{ get; }
+    public double RightAscension { get; }
     public double Declination { get; }
 
     /// <param name="rightAscension">Equatorial distance in degrees.</param>

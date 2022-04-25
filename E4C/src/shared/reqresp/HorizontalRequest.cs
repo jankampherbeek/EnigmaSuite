@@ -17,7 +17,7 @@ public record HorizontalRequest
     /// <param name="jdUt"/>
     /// <param name="location"/>
     /// <param name="eclipticCoordinates">Longitude and latitude in tropical zodiac.</param>
-    public HorizontalRequest (double jdUt, Location location, EclipticCoordinates eclipticCoordinates)
+    public HorizontalRequest(double jdUt, Location location, EclipticCoordinates eclipticCoordinates)
     {
         JdUt = jdUt;
         ChartLocation = location;

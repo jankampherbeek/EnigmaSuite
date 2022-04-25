@@ -7,7 +7,7 @@ namespace E4C.Shared.ReqResp;
 
 public record JulianDayResponse : ValidatedResponse
 {
-    public double JulDay{ get; }
+    public double JulDay { get; }
 
     public JulianDayResponse(double julDay, bool success, string errorText) : base(success, errorText)
     {

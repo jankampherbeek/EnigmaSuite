@@ -11,7 +11,7 @@ namespace E4C.Shared.ReqResp;
 /// Response with the results for the calculation of FullMundanePositions.
 /// </summary>
 
-public record FullHousesPosResponse: ValidatedResponse
+public record FullHousesPosResponse : ValidatedResponse
 {
 
     ///<inheritdoc/>

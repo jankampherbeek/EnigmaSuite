@@ -6,11 +6,11 @@ using E4C.Core.Shared.Domain;
 
 namespace E4C.Shared.ReqResp;
 
-public record CoordinateConversionResponse: ValidatedResponse
+public record CoordinateConversionResponse : ValidatedResponse
 {
     public EquatorialCoordinates equatorialCoord { get; }
-   
-    public CoordinateConversionResponse(EquatorialCoordinates equatorialCoordinates, bool success, string errorText): base(success, errorText)
+
+    public CoordinateConversionResponse(EquatorialCoordinates equatorialCoordinates, bool success, string errorText) : base(success, errorText)
     {
         equatorialCoord = equatorialCoordinates;
     }

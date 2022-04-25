@@ -20,7 +20,7 @@ public interface IDateConversionFacade
 
 
 /// <inheritdoc/>
-public class DateConversionFacade: IDateConversionFacade
+public class DateConversionFacade : IDateConversionFacade
 {
     /// <inheritdoc/>
     public bool DateTimeIsValid(SimpleDateTime dateTime)

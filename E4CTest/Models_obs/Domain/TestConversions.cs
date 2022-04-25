@@ -2,16 +2,17 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Domain;
+using E4C.core.api;
+using E4C.Core.Shared.Domain;
+using E4C.Core.Util;
 using E4C.domain.shared.references;
+using E4C.Models.Domain;
+using E4C.Shared.References;
+using E4C.Shared.ReqResp;
+using E4C.Ui.Shared;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using E4C.calc.util;
-using E4C.core.api;
-using E4C.Core.Shared.Domain;
-using E4C.Shared.ReqResp;
-using E4C.Shared.References;
 
 namespace ConversionsTest
 {
@@ -157,7 +158,7 @@ namespace ConversionsTest
     [TestClass]
     public class TestRangeUtilNoChange
     {
-        private double _delta = 0.00000001;
+        private readonly double _delta = 0.00000001;
 
         [TestMethod]
         public void TestNoChange()
@@ -242,13 +243,12 @@ namespace ConversionsTest
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void TestWrongSequenceLOwerUpper()
+        public void TestWrongSequenceLowerUpper()
         {
             double testValue = 100.0;
-            double expectedValue = -80.0;
-            double lowerLimit = 0.0;
-            double upperLimit = 360.0;
-            _ = RangeUtil.ValueToRange(testValue, upperLimit, lowerLimit);
+            double lowerLimit = 360.0;
+            double upperLimit = 0.0;
+            _ = RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit);
         }
 
 
@@ -259,7 +259,7 @@ namespace ConversionsTest
     [TestClass]
     public class TestDegreeRadianUtil
     {
-        double _delta = 0.00000001;
+        private readonly double _delta = 0.00000001;
 
         [TestMethod]
         public void TestDegrees2Radians()

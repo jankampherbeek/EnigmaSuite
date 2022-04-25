@@ -6,7 +6,7 @@ using E4C.Core.Shared.Domain;
 
 namespace E4C.Shared.ReqResp;
 
-public record HorizontalResponse: ValidatedResponse
+public record HorizontalResponse : ValidatedResponse
 {
     public HorizontalCoordinates HorizontalAzimuthAltitude { get; }
 

@@ -47,7 +47,7 @@ public class AzAltFacade : IAzAltFacade
             string paramsSummary = string.Format($"julianDayUt: { 0}, geoGraphicCoordinates: { 1}, eclipticCoordinates: { 2}, flags: { 3}.", julianDayUt, geoGraphCoordinatesText, eclCoordinatesText, flags);
             throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "CalculateHorizontalCoordinatesFacade.CalculateHorizontalCoordinat", paramsSummary));
         }
-        return new double[] {horizontalCoordinates[0], horizontalCoordinates[1]};
+        return new double[] { horizontalCoordinates[0], horizontalCoordinates[1] };
     }
 
     /// <summary>

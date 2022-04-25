@@ -2,12 +2,12 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Models.Domain;
-using E4C.domain.shared.references;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using domain.shared;
 using E4C.Shared.References;
+using E4C.Ui.Charts;
+using E4C.Ui.Shared;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace E4CTest.be.domain
 {
@@ -154,7 +154,7 @@ namespace E4CTest.be.domain
         }
     }
 
-  
+
 
     [TestClass]
     public class TestAyanamshaSpecifications

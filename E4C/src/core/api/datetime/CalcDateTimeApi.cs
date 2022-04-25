@@ -6,7 +6,7 @@ using Ardalis.GuardClauses;
 using E4C.Core.CalendarAndClock.DateTime;
 using E4C.Shared.ReqResp;
 
-namespace E4C.core.api.datetime;
+namespace E4C.Core.Api.Datetime;
 
 /// <summary>API for calculating date and time.</summary>
 public interface ICalcDateTimeApi

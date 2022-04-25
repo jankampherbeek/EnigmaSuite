@@ -37,7 +37,7 @@ public class RevJulFacade : IRevJulFacade
         return new SimpleDateTime(_year, _month, _day, _ut, calendar);
     }
 
-   
+
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_revjul")]
     private extern static void ext_swe_revjul(double tjd, int gregflag, ref int year, ref int month, ref int day, ref double hour);
 

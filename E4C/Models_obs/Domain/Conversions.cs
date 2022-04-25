@@ -2,13 +2,14 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.domain.shared.references;
-using System;
 using domain.shared;
 using E4C.core.api;
 using E4C.Core.Shared.Domain;
-using E4C.Shared.ReqResp;
+using E4C.domain.shared.references;
 using E4C.Shared.References;
+using E4C.Shared.ReqResp;
+using E4C.Ui.Shared;
+using System;
 
 namespace E4C.Models.Domain
 {
@@ -125,7 +126,7 @@ namespace E4C.Models.Domain
                 _dateValues[0]++;
             }
             SimpleDateTime _simpleDateTime = new(_dateValues[0], _dateValues[1], _dateValues[2], _ut, calendar);
-            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_simpleDateTime, true)); 
+            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_simpleDateTime, true));
             if (julDayResponse.Success)
             {
                 return julDayResponse.JulDay;

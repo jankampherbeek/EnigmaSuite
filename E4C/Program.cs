@@ -2,25 +2,25 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+
 using E4C.be.persistency;
-using E4C.calc.seph.secalculations;
+using E4C.Core.Api.Astron;
+using E4C.Core.Api.Datetime;
+using E4C.Core.Astron.CoordinateConversion;
+using E4C.Core.Astron.ObliqueLongitude;
+using E4C.Core.Astron.Obliquity;
+using E4C.Core.Astron.SolSysPoints;
+using E4C.Core.Facades;
 using E4C.Models.Creators;
 using E4C.Models.Domain;
 using E4C.Models.UiHelpers;
+using E4C.Shared.References;
+using E4C.Ui.Charts;
+using E4C.Ui.Shared;
 using E4C.ViewModels;
 using E4C.Views;
-using E4C.domain.shared.references;
 using SimpleInjector;
 using System;
-using E4C.calc.seph;
-using E4C.calc.specifics;
-using E4C.calc.seph.sefacade;
-using E4C.core.api.datetime;
-using E4C.Shared.References;
-using E4C.Core.Facades;
-using E4C.Core.Astron.Obliquity;
-using E4C.Core.Api.Astron;
-using E4C.Core.Astron.CoordinateConversion;
 
 namespace E4C
 {
@@ -36,9 +36,7 @@ namespace E4C
             RunApplication(container);
         }
 
-        /// <summary>
-        /// Container for dependency injection, using SimpleInjector.
-        /// </summary>
+        /// <summary>Container for dependency injection, using SimpleInjector.</summary>
         /// <returns>The constructed container.</returns>
         private static Container Bootstrap()
         {
@@ -52,7 +50,7 @@ namespace E4C
             container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
             container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
             container.Register<IHousesFacade, HousesFacade>(Lifestyle.Singleton);
-            container.Register<IPositionSolSysPointSECalc, PositionSolSysPointSECalc>(Lifestyle.Singleton);
+            container.Register<ISolSysPointSECalc, SolSysPointSECalc>(Lifestyle.Singleton);
             container.Register<IAzAltFacade, AzAltFacade>(Lifestyle.Singleton);
             container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
             container.Register<IJulDayFacade, JulDayFacade>(Lifestyle.Singleton);
@@ -78,19 +76,21 @@ namespace E4C
             container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
             container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
             container.Register<IHouseSystemSpecs, HouseSystemSpecs>(Lifestyle.Singleton);
-            container.Register<IHousesApi, HousesApi> (Lifestyle.Singleton);
-            container.Register<IObliquityApi, ObliquityApi> (Lifestyle.Singleton);
-            container.Register<ICoordinateConversionApi, CoordinateConversionApi> (Lifestyle.Singleton);
-            container.Register<IHorizontalApi, HorizontalApi> (Lifestyle.Singleton);
+            container.Register<IHousesApi, HousesApi>(Lifestyle.Singleton);
+            container.Register<IObliquityApi, ObliquityApi>(Lifestyle.Singleton);
+            container.Register<ICoordinateConversionApi, CoordinateConversionApi>(Lifestyle.Singleton);
+            container.Register<IHorizontalApi, HorizontalApi>(Lifestyle.Singleton);
             container.Register<IJulianDayApi, JulianDayApi>(Lifestyle.Singleton);
             container.Register<ICheckDateTimeApi, CheckDateTimeApi>(Lifestyle.Singleton);
-            container.Register<ICalcDateTimeApi, CalcDateTimeApi> (Lifestyle.Singleton);
-            container.Register<ICoordinateConversionCalc, CoordinateConversionCalc> (Lifestyle.Singleton);
-            container.Register<ICoordinateConversionHandler, CoordinateConversionHandler> ( Lifestyle.Singleton);
+            container.Register<ICalcDateTimeApi, CalcDateTimeApi>(Lifestyle.Singleton);
+            container.Register<ICoordinateConversionCalc, CoordinateConversionCalc>(Lifestyle.Singleton);
+            container.Register<ICoordinateConversionHandler, CoordinateConversionHandler>(Lifestyle.Singleton);
             container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
-            container.Register<IObliquityHandler, ObliquityHandler> (Lifestyle.Singleton);
-            container.Register<IHousesFacade, HousesFacade> (Lifestyle.Singleton);
-            container.Register<ICoTransFacade, CoTransFacade> (Lifestyle.Singleton);
+            container.Register<IObliquityHandler, ObliquityHandler>(Lifestyle.Singleton);
+            container.Register<IHousesFacade, HousesFacade>(Lifestyle.Singleton);
+            container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
+            container.Register<IObliqueLongitudeCalculator, IObliqueLongitudeCalculator>(Lifestyle.Singleton);
+            container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
 
 
             // Register windows and view models:

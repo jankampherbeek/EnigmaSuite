@@ -23,7 +23,7 @@ public class TestHorizontalApi
     private readonly double _expectedAltitude = 45.45;
     private readonly bool _expectedSuccess = true;
     private readonly string _expectedErrorText = "";
-    private readonly Location _location = new ("Anywhere", 55.5, 22.2);
+    private readonly Location _location = new("Anywhere", 55.5, 22.2);
     private readonly EclipticCoordinates _eclCoordinates = new EclipticCoordinates(111.1, 2.2);
     private IHorizontalApi _api;
 
@@ -40,7 +40,7 @@ public class TestHorizontalApi
     [Test]
     public void TestHorizontalHappyFlow()
     {
-        
+
         var _horizontalRequest = new HorizontalRequest(_jdUt, _location, _eclCoordinates);
         HorizontalResponse response = _api.getHorizontal(_horizontalRequest);
         Assert.AreEqual(_expectedAzimuth, response.HorizontalAzimuthAltitude.Azimuth, _delta);

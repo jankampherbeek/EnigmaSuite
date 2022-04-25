@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 
 namespace E4C.Shared.ReqResp;
-    /// <summary>
-    /// Data for a request to calculate oblique longitudes.
-    /// </summary>
+/// <summary>
+/// Data for a request to calculate oblique longitudes.
+/// </summary>
 public record ObliqueLongitudeRequest
 {
     public readonly double Armc;

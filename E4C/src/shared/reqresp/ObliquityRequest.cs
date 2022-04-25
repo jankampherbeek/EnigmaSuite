@@ -8,7 +8,7 @@ namespace E4C.Shared.ReqResp;
 public record ObliquityRequest
 {
     public double JdUt { get; }
-    public bool UseCalculationForTrue { get;  }
+    public bool UseCalculationForTrue { get; }
 
 
     public ObliquityRequest(double jdUt, bool useCalculationForTrue)

@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api.datetime;
+using E4C.Core.Api.Datetime;
 using E4C.Core.CalendarAndClock.DateTime;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.References;
@@ -17,7 +17,7 @@ namespace E4CTest.core.api.datetime;
 public class TestCalcDateTimeApi
 {
     private readonly DateTimeRequest _dateTimeRequest = new DateTimeRequest(123456.789, true, Calendars.Gregorian);
-    private readonly DateTimeResponse _dateTimeResponse = new DateTimeResponse(new  SimpleDateTime(2022, 4, 20, 19.6, Calendars.Gregorian), true, "");
+    private readonly DateTimeResponse _dateTimeResponse = new DateTimeResponse(new SimpleDateTime(2022, 4, 20, 19.6, Calendars.Gregorian), true, "");
 
     [Test]
     public void TestHappyFlow()

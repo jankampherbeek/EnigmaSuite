@@ -13,7 +13,7 @@ using NUnit.Framework;
 
 namespace E4CTest.core.astron.horizontal;
 
-[TestFixture] 
+[TestFixture]
 public class TestHorizontalHandler
 {
     private readonly double _delta = 0.00000001;
@@ -21,7 +21,7 @@ public class TestHorizontalHandler
     private readonly Location _location = new("Anywhere", 50.0, 10.0);
     private readonly EclipticCoordinates _eclipticCoordinates = new(160.0, 3.3);
     private readonly int _flags = 0;
-    private readonly double[] _expectedResults = {222.2, 33.3 };
+    private readonly double[] _expectedResults = { 222.2, 33.3 };
     private readonly string _errorText = "Description of problem.";
 
 

@@ -23,8 +23,8 @@ public class HorizontalCalc : IHorizontalCalc
 
     public double[] CalculateHorizontal(double jdUt, Location location, EclipticCoordinates eclipticCoordinates, int flags)
     {
-        var geoGraphicLonLat = new double[] {location.GeoLong, location.GeoLat};
-        var eclipticLonLat = new double[] {eclipticCoordinates.Longitude, eclipticCoordinates.Latitude};
+        var geoGraphicLonLat = new double[] { location.GeoLong, location.GeoLat };
+        var eclipticLonLat = new double[] { eclipticCoordinates.Longitude, eclipticCoordinates.Latitude };
         return _azAltFacade.RetrieveHorizontalCoordinates(jdUt, geoGraphicLonLat, eclipticLonLat, flags);
     }
 }

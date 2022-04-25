@@ -14,7 +14,7 @@ public interface IJulDayHandler
 }
 
 
-public class JulDayHandler: IJulDayHandler
+public class JulDayHandler : IJulDayHandler
 {
     private readonly IJulDayCalc _julDayCalc;
 
