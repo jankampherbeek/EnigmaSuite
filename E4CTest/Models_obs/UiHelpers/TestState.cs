@@ -2,10 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.domain.shared.specifications;
-using E4C.Models.Domain;
-using E4C.Models.UiHelpers;
+using E4C.Shared.Domain;
 using E4C.Ui.Charts;
+using E4C.Ui.Domain;
+using E4C.Ui.UiHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

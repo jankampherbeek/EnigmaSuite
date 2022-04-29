@@ -2,7 +2,6 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using domain.shared;
 using System;
 
 namespace E4C.Shared.References;
@@ -53,7 +52,7 @@ public class CoordinateSystemSpecifications : ICoordinateSystemSpecifications
         {
             // No specific flags for ecliptical and horizontal.
             CoordinateSystems.Ecliptical => new CoordinateSystemDetails(coordinateSystem, 0, "coordinateSysEcliptic"),
-            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordinateSystem, Constants.SEFLG_EQUATORIAL, "coordinateSysEquatorial"),
+            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordinateSystem, Constants.Constants.SEFLG_EQUATORIAL, "coordinateSysEquatorial"),
             CoordinateSystems.Horizontal => new CoordinateSystemDetails(coordinateSystem, 0, "coordinateSysHorizontal"),
             _ => throw new ArgumentException("Coordinate system unknown : " + coordinateSystem.ToString())
         };

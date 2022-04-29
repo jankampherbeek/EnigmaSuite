@@ -37,4 +37,22 @@ internal class TestMathExtra
         Assert.AreEqual(expectedValues[1], result[1], _delta);
         Assert.AreEqual(expectedValues[2], result[2], _delta);
     }
+
+    [Test]
+    public void TestDegrees2Radians()
+    {
+        double degrees = 100.0;
+        double expectedRadians = 1.74532925199;
+        Assert.AreEqual(expectedRadians, MathExtra.DegToRad(degrees), _delta);
+    }
+
+    [Test]
+    public void TestRadians2Degrees()
+    {
+        double radians = 2.0;
+        double expectedDegrees = 114.591559026;
+        Assert.AreEqual(expectedDegrees, MathExtra.RadToDeg(radians), _delta);
+    }
+
 }
+

@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using domain.shared;
+using E4C.Shared.Constants;
 using E4C.Shared.References;
 using E4C.Ui.Charts;
 using E4C.Ui.Shared;

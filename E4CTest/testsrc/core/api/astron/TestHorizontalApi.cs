@@ -5,7 +5,7 @@
 using E4C.Core.Api.Astron;
 using E4C.Core.Astron.Horizontal;
 using E4C.Core.Shared.Domain;
-using E4C.domain.shared.specifications;
+using E4C.Shared.Domain;
 using E4C.Shared.ReqResp;
 using Moq;
 using NUnit.Framework;

@@ -4,7 +4,6 @@
 
 using E4C.Core.Shared.Domain;
 using E4C.Core.Util;
-using E4C.Models.Domain;
 using System;
 
 namespace E4C.Core.Astron.ObliqueLongitude;

@@ -2,7 +2,6 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using domain.shared;
 using System;
 
 namespace E4C.Shared.References;
@@ -50,9 +49,9 @@ public class ObserverPositionSpecifications : IObserverPositionSpecifications
         return observerPosition switch
         {
             // No specific flags for geocentric.
-            ObserverPositions.HelioCentric => new ObserverPositionDetails(observerPosition, Constants.SEFLG_HELCTR, "observerPosHelioCentric"),
+            ObserverPositions.HelioCentric => new ObserverPositionDetails(observerPosition, Constants.Constants.SEFLG_HELCTR, "observerPosHelioCentric"),
             ObserverPositions.GeoCentric => new ObserverPositionDetails(observerPosition, 0, "observerPosGeoCentric"),
-            ObserverPositions.TopoCentric => new ObserverPositionDetails(observerPosition, Constants.SEFLG_TOPOCTR, "observerPosTopoCentric"),
+            ObserverPositions.TopoCentric => new ObserverPositionDetails(observerPosition, Constants.Constants.SEFLG_TOPOCTR, "observerPosTopoCentric"),
             _ => throw new ArgumentException("Observer position unknown : " + observerPosition.ToString())
         };
     }

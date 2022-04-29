@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.be.persistency;
-using E4C.Models.UiHelpers;
+using E4C.Ui.UiHelpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System.Collections.Generic;

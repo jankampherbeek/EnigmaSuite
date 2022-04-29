@@ -6,7 +6,7 @@ using E4C.Core.Astron.Horizontal;
 using E4C.Core.Astron.Obliquity;
 using E4C.Core.Facades;
 using E4C.Core.Shared.Domain;
-using E4C.domain.shared.specifications;
+using E4C.Shared.Domain;
 using Moq;
 using NUnit.Framework;
 
@@ -64,7 +64,7 @@ public class TestHorizontalCalc
         int flags = 0;
         double jd = 12345.678;
         double[] positions = { 23.448, 23.447, 0.0, 0.0, 0.0, 0.0 };
-        var mock = new Mock<ICelPointFacade>();
+        var mock = new Mock<ICalcUtFacade>();
         mock.Setup(p => p.PosCelPointFromSe(jd, celpointId, flags)).Returns(positions);
         ObliquityCalc calc = new(mock.Object);
         return calc;

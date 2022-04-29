@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using domain.shared;
+using E4C.Shared.Constants;
 using System;
 
 namespace E4C.Shared.References;
@@ -46,14 +46,11 @@ public class ZodiacTypeSpecifications : IZodiacTypeSpecifications
 {
     /// <inheritdoc/>
     /// <exception cref="ArgumentException">Is thrown if the zodiac type was not recognized.</exception>
-    ZodiacTypeDetails IZodiacTypeSpecifications.DetailsForZodiacType(ZodiacTypes zodiacType)
+    ZodiacTypeDetails IZodiacTypeSpecifications.DetailsForZodiacType(ZodiacTypes zodiacType) => zodiacType switch
     {
-        return zodiacType switch
-        {
-            // No specific flag for tropical.
-            ZodiacTypes.Tropical => new ZodiacTypeDetails(zodiacType, 0, "zodiacTypeTropical"),
-            ZodiacTypes.Sidereal => new ZodiacTypeDetails(zodiacType, Constants.SEFLG_SIDEREAL, "zodiacTypeSidereal"),
-            _ => throw new ArgumentException("Zodiac type unknown : " + zodiacType.ToString())
-        };
-    }
+        // No specific flag for tropical.
+        ZodiacTypes.Tropical => new ZodiacTypeDetails(zodiacType, 0, "zodiacTypeTropical"),
+        ZodiacTypes.Sidereal => new ZodiacTypeDetails(zodiacType, Constants.Constants.SEFLG_SIDEREAL, "zodiacTypeSidereal"),
+        _ => throw new ArgumentException("Zodiac type unknown : " + zodiacType.ToString())
+    };
 }

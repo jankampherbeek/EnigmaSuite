@@ -11,14 +11,13 @@ using E4C.Core.Astron.ObliqueLongitude;
 using E4C.Core.Astron.Obliquity;
 using E4C.Core.Astron.SolSysPoints;
 using E4C.Core.Facades;
-using E4C.Models.Creators;
-using E4C.Models.Domain;
-using E4C.Models.UiHelpers;
 using E4C.Shared.References;
+using E4C.Ui.Calculators;
 using E4C.Ui.Charts;
+using E4C.Ui.Crators;
+using E4C.Ui.Creators;
 using E4C.Ui.Shared;
-using E4C.ViewModels;
-using E4C.Views;
+using E4C.Ui.UiHelpers;
 using SimpleInjector;
 using System;
 

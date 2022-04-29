@@ -4,7 +4,7 @@
 
 using E4C.Core.Astron.Houses;
 using E4C.Core.Facades;
-using E4C.domain.shared.specifications;
+using E4C.Shared.Domain;
 using E4C.Shared.References;
 using Moq;
 using NUnit.Framework;

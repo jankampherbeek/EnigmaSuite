@@ -2,8 +2,8 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using domain.shared;
 using E4C.Core.Facades;
+using E4C.Shared.Constants;
 
 namespace E4C.Core.Astron.Obliquity;
 
@@ -20,11 +20,11 @@ public interface IObliquityCalc
 /// <inheritdoc/>
 public class ObliquityCalc : IObliquityCalc
 {
-    private readonly ICelPointFacade _posCelPointFacade;
+    private readonly ICalcUtFacade _posCelPointFacade;
 
     /// <param name="celPointFacade">Facade for the calculation of celestial points.</param>
     /// <remarks>For the calculation by the SE, the obliquity is a special kind of celestial point, therefore the facade for cel points is used.</remarks>
-    public ObliquityCalc(ICelPointFacade celPointFacade) => _posCelPointFacade = celPointFacade;
+    public ObliquityCalc(ICalcUtFacade celPointFacade) => _posCelPointFacade = celPointFacade;
 
     /// <inheritdoc/>
     public double CalculateObliquity(double julianDayUt, bool useTrueObliquity)

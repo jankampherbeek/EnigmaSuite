@@ -43,7 +43,7 @@ public class TestObliquityCalc
         int flags = 0;
         double jd = 12345.678;
         double[] positions = { 23.448, 23.447, 0.0, 0.0, 0.0, 0.0 };
-        var mock = new Mock<ICelPointFacade>();
+        var mock = new Mock<ICalcUtFacade>();
         mock.Setup(p => p.PosCelPointFromSe(jd, celpointId, flags)).Returns(positions);
         ObliquityCalc calc = new(mock.Object);
         return calc;

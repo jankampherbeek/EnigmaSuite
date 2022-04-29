@@ -2,7 +2,6 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using domain.shared;
 using System;
 
 namespace E4C.Shared.References;
@@ -62,32 +61,32 @@ public class SolarSystemPointSpecifications : ISolarSystemPointSpecifications
     {
         return point switch
         {
-            SolarSystemPoints.Sun => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_SUN, false, true, "sun"),
-            SolarSystemPoints.Moon => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_MOON, false, true, "moon"),
-            SolarSystemPoints.Mercury => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_MERCURY, true, true, "mercury"),
-            SolarSystemPoints.Venus => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_VENUS, true, true, "venus"),
-            SolarSystemPoints.Earth => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_EARTH, true, false, "earth"),
-            SolarSystemPoints.Mars => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_MARS, true, true, "mars"),
-            SolarSystemPoints.Jupiter => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_JUPITER, true, true, "jupiter"),
-            SolarSystemPoints.Saturn => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.SE_SATURN, true, true, "saturn"),
-            SolarSystemPoints.Uranus => new SolarSystemPointDetails(point, SolSysPointCats.Modern, CalculationTypes.SE, Constants.SE_URANUS, true, true, "uranus"),
-            SolarSystemPoints.Neptune => new SolarSystemPointDetails(point, SolSysPointCats.Modern, CalculationTypes.SE, Constants.SE_NEPTUNE, true, true, "neptune"),
-            SolarSystemPoints.Pluto => new SolarSystemPointDetails(point, SolSysPointCats.Modern, CalculationTypes.SE, Constants.SE_PLUTO, true, true, "pluto"),
-            SolarSystemPoints.MeanNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, Constants.SE_MEAN_NODE, false, true, "meanNode"),
-            SolarSystemPoints.TrueNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, Constants.SE_TRUE_NODE, false, true, "trueNode"),
-            SolarSystemPoints.Chiron => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, Constants.SE_CHIRON, true, true, "chiron"),
-            SolarSystemPoints.PersephoneRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Elements, Constants.SE_PERSEPHONE_RAM, true, true, "persephone_ram"),
-            SolarSystemPoints.HermesRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Elements, Constants.SE_HERMES_RAM, true, true, "hermes_ram"),
-            SolarSystemPoints.DemeterRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Elements, Constants.SE_DEMETER_RAM, true, true, "demeter_ram"),
-            SolarSystemPoints.CupidoUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_CUPIDO_URA, true, true, "cupido_ura"),
-            SolarSystemPoints.HadesUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_HADES_URA, true, true, "hades_ura"),
-            SolarSystemPoints.ZeusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_ZEUS_URA, true, true, "zeus_ura"),
-            SolarSystemPoints.KronosUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_KRONOS_URA, true, true, "kronos_ura"),
-            SolarSystemPoints.ApollonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_APOLLON_URA, true, true, "apollon_ura"),
-            SolarSystemPoints.AdmetosUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_ADMETOS_URA, true, true, "admetos_ura"),
-            SolarSystemPoints.VulcanusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_VULCANUS_URA, true, true, "vulcanus_ura"),
-            SolarSystemPoints.PoseidonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.SE_POSEIDON_URA, true, true, "poseidon_ura"),
-            SolarSystemPoints.Eris => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, Constants.SE_ERIS, true, true, "eris"),
+            SolarSystemPoints.Sun => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_SUN, false, true, "sun"),
+            SolarSystemPoints.Moon => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_MOON, false, true, "moon"),
+            SolarSystemPoints.Mercury => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_MERCURY, true, true, "mercury"),
+            SolarSystemPoints.Venus => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_VENUS, true, true, "venus"),
+            SolarSystemPoints.Earth => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_EARTH, true, false, "earth"),
+            SolarSystemPoints.Mars => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_MARS, true, true, "mars"),
+            SolarSystemPoints.Jupiter => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_JUPITER, true, true, "jupiter"),
+            SolarSystemPoints.Saturn => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, Constants.Constants.SE_SATURN, true, true, "saturn"),
+            SolarSystemPoints.Uranus => new SolarSystemPointDetails(point, SolSysPointCats.Modern, CalculationTypes.SE, Constants.Constants.SE_URANUS, true, true, "uranus"),
+            SolarSystemPoints.Neptune => new SolarSystemPointDetails(point, SolSysPointCats.Modern, CalculationTypes.SE, Constants.Constants.SE_NEPTUNE, true, true, "neptune"),
+            SolarSystemPoints.Pluto => new SolarSystemPointDetails(point, SolSysPointCats.Modern, CalculationTypes.SE, Constants.Constants.SE_PLUTO, true, true, "pluto"),
+            SolarSystemPoints.MeanNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, Constants.Constants.SE_MEAN_NODE, false, true, "meanNode"),
+            SolarSystemPoints.TrueNode => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, Constants.Constants.SE_TRUE_NODE, false, true, "trueNode"),
+            SolarSystemPoints.Chiron => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, Constants.Constants.SE_CHIRON, true, true, "chiron"),
+            SolarSystemPoints.PersephoneRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Elements, Constants.Constants.SE_PERSEPHONE_RAM, true, true, "persephone_ram"),
+            SolarSystemPoints.HermesRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Elements, Constants.Constants.SE_HERMES_RAM, true, true, "hermes_ram"),
+            SolarSystemPoints.DemeterRam => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Elements, Constants.Constants.SE_DEMETER_RAM, true, true, "demeter_ram"),
+            SolarSystemPoints.CupidoUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_CUPIDO_URA, true, true, "cupido_ura"),
+            SolarSystemPoints.HadesUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_HADES_URA, true, true, "hades_ura"),
+            SolarSystemPoints.ZeusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_ZEUS_URA, true, true, "zeus_ura"),
+            SolarSystemPoints.KronosUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_KRONOS_URA, true, true, "kronos_ura"),
+            SolarSystemPoints.ApollonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_APOLLON_URA, true, true, "apollon_ura"),
+            SolarSystemPoints.AdmetosUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_ADMETOS_URA, true, true, "admetos_ura"),
+            SolarSystemPoints.VulcanusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_VULCANUS_URA, true, true, "vulcanus_ura"),
+            SolarSystemPoints.PoseidonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, Constants.Constants.SE_POSEIDON_URA, true, true, "poseidon_ura"),
+            SolarSystemPoints.Eris => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, Constants.Constants.SE_ERIS, true, true, "eris"),
             _ => throw new ArgumentException("SolarSystemPoint unknown : " + point.ToString())
         };
     }

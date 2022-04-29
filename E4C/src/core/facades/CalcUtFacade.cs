@@ -10,7 +10,7 @@ namespace E4C.Core.Facades;
 
 /// <summary>Facade for the calculation of the positions of celestial points (planets, nodes etc.).</summary> 
 /// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
-public interface ICelPointFacade
+public interface ICalcUtFacade
 {
     /// <summary>Retrieve positions for a celestial point.</summary>
     /// <remarks>Calls the function ext_swe_calc_ut from the SE.</remarks>
@@ -23,7 +23,7 @@ public interface ICelPointFacade
 
 /// <inheritdoc/>
 /// <remarks>Throws a SwissEphException if the SE returns an error.</remarks>
-public class CelPointFacade : ICelPointFacade
+public class CalcUtFacade : ICalcUtFacade
 {
     /// <inheritdoc/>
     public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
@@ -34,7 +34,7 @@ public class CelPointFacade : ICelPointFacade
         int result = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
         if (result < 0)
         {
-            string paramsSummary = string.Format("julianDay: {0}, seCelPointId: {1}, flags: {2}.");
+            string paramsSummary = string.Format("julianDay: {0}, seCelPointId: {1}, flags: {2}.", julianDay, seCelPointId, flags);
             throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosCelPointFacade.PosCelPointFromSe", paramsSummary));
         }
         return _positions;
