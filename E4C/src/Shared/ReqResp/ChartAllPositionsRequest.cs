@@ -9,7 +9,7 @@ namespace E4C.Shared.ReqResp;
 /// <summary>
 /// Data for a request to calculate a full chart.
 /// </summary>
-public record FullChartRequest
+public record ChartAllPositionsRequest
 {
     public readonly SolSysPointsRequest SolSysPointRequest;
     public readonly HouseSystems HouseSystem;
@@ -19,7 +19,7 @@ public record FullChartRequest
     /// </summary>
     /// <param name="solSysPointRequest">All data except the housesystem.</param>
     /// <param name="houseSystem">The preferred house system.</param>
-    public FullChartRequest(SolSysPointsRequest solSysPointRequest, HouseSystems houseSystem)
+    public ChartAllPositionsRequest(SolSysPointsRequest solSysPointRequest, HouseSystems houseSystem)
     {
         SolSysPointRequest = solSysPointRequest;
         HouseSystem = houseSystem;

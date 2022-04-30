@@ -10,13 +10,13 @@ namespace E4C.Shared.ReqResp;
 /// <summary>
 /// Complete calculation results for a full chart.
 /// </summary>
-public record FullChartResponse : ValidatedResponse
+public record ChartAllPositionsResponse : ValidatedResponse
 {
     public int MyProperty { get; set; }
     public List<FullSolSysPointPos> SolarSystemPointPositions { get; }
     public FullHousesPositions? MundanePositions { get; }
 
-    public FullChartResponse(List<FullSolSysPointPos> solarSystemPointPositions, FullHousesPositions? mundanePositions, bool success, string errorText) : base(success, errorText)
+    public ChartAllPositionsResponse(List<FullSolSysPointPos> solarSystemPointPositions, FullHousesPositions? mundanePositions, bool success, string errorText) : base(success, errorText)
     {
         SolarSystemPointPositions = solarSystemPointPositions;
         MundanePositions = mundanePositions;

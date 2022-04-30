@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using E4C.Core.Api.Astron;
+using E4C.Core.Astron.ChartAllPositions;
 using E4C.Core.Astron.CoordinateConversion;
-using E4C.Core.Astron.FullChart;
 using E4C.Core.Astron.Horizontal;
 using E4C.Core.Astron.Houses;
 using E4C.Core.Astron.Obliquity;
@@ -24,7 +24,7 @@ public class FullChartIntTest
 {
 
     private Container _container;
-    private IFullChartApi _api;
+    private IChartAllPositionsApi _api;
     private readonly double _delta = 0.00000001;
 
     [SetUp]
@@ -38,12 +38,12 @@ public class FullChartIntTest
     public void TestCalculationFullChart()
     {
         PrepareEnvironment();
-        FullChartRequest request = CreateFullChartRequest();
-        FullChartResponse response = _api.getFullChart(request);
+        ChartAllPositionsRequest request = CreateFullChartRequest();
+        ChartAllPositionsResponse response = _api.getChart(request);
         CheckResults(response);
     }
 
-    private void CheckResults(FullChartResponse response)
+    private void CheckResults(ChartAllPositionsResponse response)
     {
         // Testvalues       Astrolog  Astro.com      PlanetDance
         // Sun longitude     6 TA 28    6 TA 28 11    6 TA 28 10
@@ -80,12 +80,12 @@ public class FullChartIntTest
 
     private void PrepareEnvironment()
     {
-        _api = _container.GetInstance<IFullChartApi>();
+        _api = _container.GetInstance<IChartAllPositionsApi>();
     }
 
-    private FullChartRequest CreateFullChartRequest()
+    private ChartAllPositionsRequest CreateFullChartRequest()
     {
-        return new FullChartRequest(CreateSolSysPointsRequest(), HouseSystems.Placidus);
+        return new ChartAllPositionsRequest(CreateSolSysPointsRequest(), HouseSystems.Placidus);
     }
 
 
@@ -127,8 +127,8 @@ public class FullChartIntTest
         _container.Register<ICoordinateConversionHandler, CoordinateConversionHandler>(Lifestyle.Singleton);
         _container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
         _container.Register<IFlagDefinitions, FlagDefinitions>(Lifestyle.Singleton);
-        _container.Register<IFullChartApi, FullChartApi>(Lifestyle.Singleton);
-        _container.Register<IFullChartHandler, FullChartHandler>(Lifestyle.Singleton);
+        _container.Register<IChartAllPositionsApi, ChartAllPositionsApi>(Lifestyle.Singleton);
+        _container.Register<IChartAllPositionsHandler, ChartAllPositionsHandler>(Lifestyle.Singleton);
         _container.Register<IHousesCalc, HousesCalc>(Lifestyle.Singleton);
         _container.Register<IHousesFacade, HousesFacade>(Lifestyle.Singleton);
         _container.Register<IHousesHandler, HousesHandler>(Lifestyle.Singleton);

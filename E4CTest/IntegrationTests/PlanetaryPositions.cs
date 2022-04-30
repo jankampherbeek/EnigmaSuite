@@ -147,7 +147,7 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
 
     public class RequestFactory
     {
-        public FullChartRequest CreateFullChartRequest(string requestType)
+        public ChartAllPositionsRequest CreateFullChartRequest(string requestType)
         {
             double julianDay = 2459653.397330 - 0.00079861111;   // add delta-T
             var location = new Location("LocationName", 6.9, 52.2166666667);
@@ -163,7 +163,7 @@ osc. Apogee 18 ge 24' 7.7112    2° 3'26.5572    0.002708392   -2°50'53.1566   
             //        // do nothing
             //    }
             SolSysPointsRequest solSysPointRequest = new(julianDay, location, solSysPoints, zodiacType, ayanamsha, observerPos, projectionType);
-            return new FullChartRequest(solSysPointRequest, houseSystem);
+            return new ChartAllPositionsRequest(solSysPointRequest, houseSystem);
         }
     }
 

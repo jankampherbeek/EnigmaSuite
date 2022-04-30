@@ -3,32 +3,31 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using E4C.Core.Astron.FullChart;
-using E4C.Core.Astron.Houses;
+using E4C.Core.Astron.ChartAllPositions;
 using E4C.Shared.ReqResp;
 
 namespace E4C.Core.Api.Astron;
 
 /// <summary>API for calculation of a fully defined chart.</summary>
-public interface IFullChartApi
+public interface IChartAllPositionsApi
 {
     /// <summary>Api call to calculate a full chart.</summary>
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Response with instance of FullChart with all positionscoordinates, or an indication of errors that occurred.</returns>
-    public FullChartResponse getFullChart(FullChartRequest request);
+    public ChartAllPositionsResponse getChart(ChartAllPositionsRequest request);
 }
 
 
 /// <inheritdoc/>
-public class FullChartApi: IFullChartApi
-{
-    private readonly IFullChartHandler _handler;
+public class ChartAllPositionsApi: IChartAllPositionsApi
+{ 
+    private readonly IChartAllPositionsHandler _handler;
 
     /// <param name="handler">Handler for the calculation of the chart.</param>
-    public FullChartApi(IFullChartHandler handler) => _handler = handler;
+    public ChartAllPositionsApi(IChartAllPositionsHandler handler) => _handler = handler;
 
-    public FullChartResponse getFullChart(FullChartRequest request)
+    public ChartAllPositionsResponse getChart(ChartAllPositionsRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.SolSysPointRequest);

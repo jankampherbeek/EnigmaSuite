@@ -6,35 +6,35 @@ using E4C.Core.Astron.Houses;
 using E4C.Core.Astron.SolSysPoints;
 using E4C.Shared.ReqResp;
 
-namespace E4C.Core.Astron.FullChart;
+namespace E4C.Core.Astron.ChartAllPositions;
 
-public interface IFullChartHandler
+public interface IChartAllPositionsHandler
 {
-    public FullChartResponse CalcFullChart(FullChartRequest request);
+    public ChartAllPositionsResponse CalcFullChart(ChartAllPositionsRequest request);
 }
 
 
-public class FullChartHandler : IFullChartHandler
+public class ChartAllPositionsHandler : IChartAllPositionsHandler
 {
 
     private readonly ISolSysPointsHandler _solSysPointsHandler;
     private readonly IHousesHandler _housesHandler;
 
 
-    public FullChartHandler(ISolSysPointsHandler solSysPointsHandler, IHousesHandler housesHandler)
+    public ChartAllPositionsHandler(ISolSysPointsHandler solSysPointsHandler, IHousesHandler housesHandler)
     {
         _solSysPointsHandler = solSysPointsHandler;
         _housesHandler = housesHandler;
     }
 
-    public FullChartResponse CalcFullChart(FullChartRequest request)
+    public ChartAllPositionsResponse CalcFullChart(ChartAllPositionsRequest request)
     {
         SolSysPointsResponse solSysPointsResponse = _solSysPointsHandler.CalcSolSysPoints(request.SolSysPointRequest);
         FullHousesPosRequest housesRequest = new FullHousesPosRequest(request.SolSysPointRequest.JulianDayUt, request.SolSysPointRequest.ChartLocation, request.HouseSystem);
         FullHousesPosResponse housesResponse = _housesHandler.CalcHouses(housesRequest);
         string errorText = solSysPointsResponse.ErrorText + housesResponse.ErrorText;
         bool success = solSysPointsResponse.Success && housesResponse.Success;
-        return new FullChartResponse(solSysPointsResponse.SolarSystemPointPositions, housesResponse.FullHousesPositions, success, errorText);
+        return new ChartAllPositionsResponse(solSysPointsResponse.SolarSystemPointPositions, housesResponse.FullHousesPositions, success, errorText);
     }
 }
 
