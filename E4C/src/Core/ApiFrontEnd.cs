@@ -18,6 +18,7 @@ using E4C.Core.Api.Datetime;
 using E4C.Core.CalendarAndClock.DateTime;
 using E4C.Core.CalendarAndClock.CheckDateTime;
 using E4C.Core.CalendarAndClock.JulDay;
+using E4C.Core.Astron.ObliqueLongitude;
 
 /// <summary>Frontend for API's, implemented as a singleton.</summary>
 public sealed class ApiFrontEnd
@@ -56,8 +57,6 @@ public sealed class ApiFrontEnd
 
     private static void AddDependencies()
     {
-
-
         _container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
         _container.Register<IAzAltFacade, AzAltFacade>(Lifestyle.Singleton);
         _container.Register<ICalcDateTimeApi, CalcDateTimeApi>(Lifestyle.Singleton);
@@ -88,6 +87,9 @@ public sealed class ApiFrontEnd
         _container.Register<IJulDayFacade, JulDayFacade>(Lifestyle.Singleton);
         _container.Register<IJulDayHandler, JulDayHandler>(Lifestyle.Singleton);
         _container.Register<IJulianDayApi, JulianDayApi>(Lifestyle.Singleton);
+        _container.Register<IObliqueLongitudeApi, ObliqueLongitudeApi>(Lifestyle.Singleton);
+        _container.Register<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>(Lifestyle.Singleton);
+        _container.Register<IObliqueLongitudeHandler, ObliqueLongitudeHandler>(Lifestyle.Singleton);
         _container.Register<IObliquityApi, ObliquityApi>(Lifestyle.Singleton);
         _container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
         _container.Register<IObliquityHandler, ObliquityHandler>(Lifestyle.Singleton);
@@ -96,6 +98,7 @@ public sealed class ApiFrontEnd
         _container.Register<ISolSysPointsHandler, SolSysPointsHandler>(Lifestyle.Singleton);
         _container.Register<ISolSysPointSECalc, SolSysPointSECalc>(Lifestyle.Singleton);
         _container.Register<ISolSysPointsElementsCalc, SolSysPointsElementsCalc>(Lifestyle.Singleton);
+        _container.Register<ISouthPointCalculator, SouthPointCalculator>(Lifestyle.Singleton);
     }
 
 

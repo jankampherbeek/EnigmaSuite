@@ -26,7 +26,7 @@ public class TestApiFactory
     {
         Assert.True(_factory.GetCalcDateTimeApi() is ICalcDateTimeApi);
     }
-
+ 
     [Test]
     public void TestGetCheckDateTimeApi()
     {
@@ -55,6 +55,12 @@ public class TestApiFactory
     public void TestJulianDayApi()
     {
         Assert.True(_factory.GetJulianDayApi() is IJulianDayApi);
+    }
+
+    [Test]
+    public void TestObliqueLongitudeApi()
+    {
+        Assert.True(_factory.GetObliqueLongitudeApi() is IObliqueLongitudeApi);
     }
 
     [Test]

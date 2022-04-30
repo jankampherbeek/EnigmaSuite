@@ -22,9 +22,6 @@ public interface ISouthPointCalculator
 }
 
 
-
-
-
 public class SouthPointCalculator : ISouthPointCalculator
 {
     public EclipticCoordinates CalculateSouthPoint(double armc, double obliquity, double geoLat)

@@ -2,14 +2,13 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.Core.Astron.ObliqueLongitude;
 using E4C.Core.Shared.Domain;
 using E4C.Core.Util;
 using E4C.Shared.ReqResp;
 using System;
 using System.Collections.Generic;
 
-namespace E4C.Core.Astron.SolSysPoints;
+namespace E4C.Core.Astron.ObliqueLongitude;
 
 /// <summary>Calculator for oblique longitudes (School of Ram).</summary>
 public interface IObliqueLongitudeCalculator

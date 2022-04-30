@@ -14,10 +14,11 @@ public interface IApiFactory
     public ICoordinateConversionApi GetCoordinateConversionApi();
     public IHorizontalApi GetHorizontalApi();
     public IHousesApi GetHousesApi();
-    public IObliquityApi GetObliquityApi();
     public ICalcDateTimeApi GetCalcDateTimeApi();
     public ICheckDateTimeApi GetCheckDateTimeApi();
     public IJulianDayApi GetJulianDayApi();
+    public IObliquityApi GetObliquityApi();
+    public IObliqueLongitudeApi GetObliqueLongitudeApi();
 
 }
 
@@ -66,6 +67,11 @@ public class ApiFactory : IApiFactory
     public IJulianDayApi GetJulianDayApi()
     {
         return _container.GetInstance<IJulianDayApi>();
+    }
+
+    public IObliqueLongitudeApi GetObliqueLongitudeApi()
+    {
+        return _container.GetInstance<IObliqueLongitudeApi>();
     }
 
     public IObliquityApi GetObliquityApi()
