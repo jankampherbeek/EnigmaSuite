@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api;
+using E4C.Core.Api.Datetime;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.References;
 using E4C.Shared.ReqResp;
@@ -34,11 +34,13 @@ public interface IDateConversions
 
 public class DateConversions : IDateConversions
 {
-    readonly private IDateTimeApi _dateTimeApi;
+    private readonly ICalcDateTimeApi _calcDateTimeApi;
+    private readonly IJulianDayApi _julianDayApi;
 
-    public DateConversions(IDateTimeApi dateTimeApi)
+    public DateConversions(ICalcDateTimeApi dateTimeApi, IJulianDayApi julianDayApi)
     {
-        _dateTimeApi = dateTimeApi;
+        _calcDateTimeApi = dateTimeApi;
+        _julianDayApi = julianDayApi;
     }
 
     public int[] InputDateToDecimals(string[] inputDate)
@@ -65,7 +67,7 @@ public class DateConversions : IDateConversions
             _dateValues[0]++;
         }
         SimpleDateTime _simpleDateTime = new(_dateValues[0], _dateValues[1], _dateValues[2], _ut, calendar);
-        JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_simpleDateTime, true));
+        JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_simpleDateTime, true));
         if (julDayResponse.Success)
         {
             return julDayResponse.JulDay;

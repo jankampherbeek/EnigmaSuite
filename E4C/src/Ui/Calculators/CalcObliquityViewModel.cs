@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api;
+using E4C.Core.Api.Datetime;
 using E4C.Core.Astron.Obliquity;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.References;
@@ -20,7 +20,7 @@ namespace E4C.Ui.Calculators;
         readonly private IYearCountSpecifications _yearCountSpecifications;
         readonly private IDateTimeValidations _dateTimeValidations;
         readonly private IObliquityCalc _obliquityNutationCalc;
-        readonly private IDateTimeApi _dateTimeApi;
+        readonly private IJulianDayApi _julianDayApi;
         public List<CalendarDetails> CalendarItems { get; }
         public List<YearCountDetails> YearCountItems { get; }
         public string[] InputDate { get; set; }
@@ -29,13 +29,14 @@ namespace E4C.Ui.Calculators;
         public bool UseTrueObliquity { get; set; }
 
 
-        public CalcObliquityViewModel(IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, IDateTimeApi dateTimeApi)
+        public CalcObliquityViewModel(IObliquityCalc oblCalc, IDateTimeValidations dateTimeValidations, ICalendarSpecifications calendarSpecifications, 
+            IYearCountSpecifications yearCountSpecifications, IJulianDayApi julianDayApi)
         {
             _calendarSpecifications = calendarSpecifications;
             _yearCountSpecifications = yearCountSpecifications;
             _dateTimeValidations = dateTimeValidations;
             _obliquityNutationCalc = oblCalc;
-            _dateTimeApi = dateTimeApi;
+            _julianDayApi = julianDayApi;
             UseTrueObliquity = true;
             InputDate = new string[3];
             CalendarItems = new List<CalendarDetails>();
@@ -69,7 +70,7 @@ namespace E4C.Ui.Calculators;
                 _year = -(Math.Abs(_year) + 1);
             }
             SimpleDateTime _dateTime = new(_year, _month, _day, 0.0, InputCalendar);
-            JulianDayResponse julDayResponse = _dateTimeApi.getJulianDay(new JulianDayRequest(_dateTime, true));
+            JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_dateTime, true));
 
             if (!julDayResponse.Success)
             {

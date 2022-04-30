@@ -11,9 +11,13 @@
 
   <ItemGroup>
     <Compile Remove="be\**" />
+    <Compile Remove="Models_obs\**" />
     <EmbeddedResource Remove="be\**" />
+    <EmbeddedResource Remove="Models_obs\**" />
     <None Remove="be\**" />
+    <None Remove="Models_obs\**" />
     <Page Remove="be\**" />
+    <Page Remove="Models_obs\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +35,6 @@
     <PackageReference Include="NUnit.Console" Version="3.15.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="SimpleInjector" Version="5.3.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Models_obs\" />
   </ItemGroup>
 
   <ItemGroup>

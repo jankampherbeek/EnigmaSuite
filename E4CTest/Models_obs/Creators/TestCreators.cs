@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api;
+using E4C.Core.Api.Datetime;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.Constants;
 using E4C.Shared.Domain;
@@ -263,13 +263,13 @@ namespace E4CTest.Creators
             var _dateValues = new int[] { 100, 1, 2 };
             var _mockIntRangeCreator = new Mock<IIntRangeCreator>();
             _mockIntRangeCreator.Setup(p => p.CreateIntRange(_dateTexts, out _dateValues)).Returns(true);
-            var _mockDateTimeApi = new Mock<IDateTimeApi>();
+            var _mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
             var _simpleDateTime = new SimpleDateTime(-99, 1, 2, 0.0, _calendar);
             var _checkDateTimeRequest = new CheckDateTimeRequest(_simpleDateTime);
-            _mockDateTimeApi.Setup(p => p.checkDateTime(_checkDateTimeRequest)).Returns(new CheckDateTimeResponse(true, true, ""));
+            _mockCheckDateTimeApi.Setup(p => p.checkDateTime(_checkDateTimeRequest)).Returns(new CheckDateTimeResponse(true, true, ""));
 
 
-            DateFactory _dateFactory = new(_mockIntRangeCreator.Object, _mockDateTimeApi.Object);
+            DateFactory _dateFactory = new(_mockIntRangeCreator.Object, _mockCheckDateTimeApi.Object);
             bool _success = _dateFactory.CreateDate(_dateTexts, _calendar, _yearCount, out FullDate fullDate, out List<int> errorCodes);
             Assert.IsTrue(_success);
             Assert.AreEqual(-99, fullDate.YearMonthDay[0]);
@@ -284,10 +284,10 @@ namespace E4CTest.Creators
             var _mockIntRangeCreator = new Mock<IIntRangeCreator>();
             int[] _defaultDateValues = new int[] { 2022, 3, 1 };
             _mockIntRangeCreator.Setup(p => p.CreateIntRange(_defaultDateTexts, out _defaultDateValues)).Returns(true);
-            var _mockDateTimeApi = new Mock<IDateTimeApi>();
+            var _mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
             var _simpleDateTime = new SimpleDateTime(2022, 3, 1, 0.0, Calendars.Gregorian);
-            _mockDateTimeApi.Setup(p => p.checkDateTime(new CheckDateTimeRequest(_simpleDateTime))).Returns(new CheckDateTimeResponse(true, true, ""));
-            DateFactory _dateFactory = new(_mockIntRangeCreator.Object, _mockDateTimeApi.Object);
+            _mockCheckDateTimeApi.Setup(p => p.checkDateTime(new CheckDateTimeRequest(_simpleDateTime))).Returns(new CheckDateTimeResponse(true, true, ""));
+            DateFactory _dateFactory = new(_mockIntRangeCreator.Object, _mockCheckDateTimeApi.Object);
             return _dateFactory;
         }
 
@@ -502,11 +502,11 @@ namespace E4CTest.Creators
         [TestMethod]
         public void TestUt()
         {
-            var mockDateTimeApi = new Mock<IDateTimeApi>();
+            var mockJulianDayApi = new Mock<IJulianDayApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 10.0, Calendars.Gregorian);
             JulianDayRequest julDayRequest = new(_dateTime, true);
-            mockDateTimeApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd + (10.0 / 24.0), true, ""));
-            IDateTimeFactory factory = new DateTimeFactory(mockDateTimeApi.Object);
+            mockJulianDayApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd + (10.0 / 24.0), true, ""));
+            IDateTimeFactory factory = new DateTimeFactory(mockJulianDayApi.Object);
             FullTime _fullTimeUt = new(new int[] { 10, 0, 0 }, 10.0, 0, "FullTextForTime");
             _ = factory.CreateDateTime(_fullDate, _fullTimeUt, out FullDateTime _fullDateTime, out List<int> _);
             double expectedJd = _baseJd + (10.0 / 24.0);
@@ -546,11 +546,11 @@ namespace E4CTest.Creators
 
         private IDateTimeFactory CreateDateTimeFactory()
         {
-            var mockDateTimeApi = new Mock<IDateTimeApi>();
+            var mockJulianDayApi = new Mock<IJulianDayApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 0.0, Calendars.Gregorian);
             JulianDayRequest julDayRequest = new(_dateTime, true);
-            mockDateTimeApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd, true, ""));
-            return new DateTimeFactory(mockDateTimeApi.Object);
+            mockJulianDayApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd, true, ""));
+            return new DateTimeFactory(mockJulianDayApi.Object);
         }
 
     }
@@ -625,7 +625,7 @@ namespace E4CTest.Creators
         public void TestTimeHappyFlow()
         {
             string[] inputTime = new string[] { "10", "30", "0" };
-            var mock = new Mock<IDateTimeApi>();
+            var mock = new Mock<ICheckDateTimeApi>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
             List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.AreEqual(0, errors.Count);
@@ -635,7 +635,7 @@ namespace E4CTest.Creators
         public void TestTimeDefaultSeconds()
         {
             string[] inputTime = new string[] { "10", "30", "" };
-            var mock = new Mock<IDateTimeApi>();
+            var mock = new Mock<ICheckDateTimeApi>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
             List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.AreEqual(0, errors.Count);
@@ -645,7 +645,7 @@ namespace E4CTest.Creators
         public void TestNonNumeric()
         {
             string[] inputTime = new string[] { "10", "30", "ab" };
-            var mock = new Mock<IDateTimeApi>();
+            var mock = new Mock<ICheckDateTimeApi>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
             List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
@@ -656,7 +656,7 @@ namespace E4CTest.Creators
         public void TestRangeTooLarge()
         {
             string[] inputTime = new string[] { "24", "0", "0" };
-            var mock = new Mock<IDateTimeApi>();
+            var mock = new Mock<ICheckDateTimeApi>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
             List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
@@ -667,7 +667,7 @@ namespace E4CTest.Creators
         public void TestRangeTooSmall()
         {
             string[] inputTime = new string[] { "-1", "0", "0" };
-            var mock = new Mock<IDateTimeApi>();
+            var mock = new Mock<ICheckDateTimeApi>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
             List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);
@@ -678,7 +678,7 @@ namespace E4CTest.Creators
         public void TestElementsOutOfRange()
         {
             string[] inputTime = new string[] { "10", "60", "0" };
-            var mock = new Mock<IDateTimeApi>();
+            var mock = new Mock<ICheckDateTimeApi>();
             DateTimeValidations dateTimeValidations = new(mock.Object);
             List<int> errors = dateTimeValidations.ValidateTime(inputTime);
             Assert.IsTrue(errors.Count > 0);

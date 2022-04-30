@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using E4C.core.api;
+using E4C.Core.Api.Datetime;
 using E4C.Core.Shared.Domain;
 using E4C.Shared.Constants;
 using E4C.Shared.Domain;
@@ -215,15 +215,15 @@ public class LocationFactory : ILocationFactory
 public class DateFactory : IDateFactory
 {
     private readonly IIntRangeCreator _intRangeCreator;
-    private readonly IDateTimeApi _dateTimeApi;
+    private readonly ICheckDateTimeApi _checkDateTimeApi;
     private int[] _dateValues = Array.Empty<int>();
     private bool _success = true;
     private readonly List<int> _errorCodes = new();
 
-    public DateFactory(IIntRangeCreator intRangeCreator, IDateTimeApi dateTimeApi)
+    public DateFactory(IIntRangeCreator intRangeCreator, ICheckDateTimeApi checkDateTimeApi)
     {
         _intRangeCreator = intRangeCreator;
-        _dateTimeApi = dateTimeApi;
+        _checkDateTimeApi = checkDateTimeApi;
     }
 
     public bool CreateDate(string[] dateTexts, Calendars calendar, YearCounts yearCount, out FullDate fullDate, out List<int> errorCodes)
@@ -235,7 +235,7 @@ public class DateFactory : IDateFactory
         }
         SimpleDateTime simpleDateTime = new SimpleDateTime(_dateValues[0], _dateValues[1], _dateValues[2], 0.0, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new CheckDateTimeRequest(simpleDateTime);
-        _success = _success && _dateTimeApi.checkDateTime(checkDateTimeRequest).Success;
+        _success = _success && _checkDateTimeApi.checkDateTime(checkDateTimeRequest).Success;
         if (!_success)
         {
             _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
@@ -344,11 +344,11 @@ public class TimeFactory : ITimeFactory
 
 public class DateTimeFactory : IDateTimeFactory
 {
-    readonly private IDateTimeApi _dateTimeAPi;
+    private readonly IJulianDayApi _julianDayApi;
 
-    public DateTimeFactory(IDateTimeApi dateTimeApi)
+    public DateTimeFactory(IJulianDayApi julianDayApi)
     {
-        _dateTimeAPi = dateTimeApi;
+        _julianDayApi = julianDayApi;
     }
 
     public bool CreateDateTime(FullDate fullDate, FullTime fullTime, out FullDateTime fullDateTime, out List<int> errorCodes)
@@ -358,7 +358,7 @@ public class DateTimeFactory : IDateTimeFactory
         string dateText = fullDate.DateFullText;
         string timeText = fullTime.TimeFullText;
         SimpleDateTime simpleDateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, fullDate.Calendar);
-        JulianDayResponse julDayResponse = _dateTimeAPi.getJulianDay(new JulianDayRequest(simpleDateTime, true));
+        JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(simpleDateTime, true));
         double baseForJulianDay = 0.0;
         if (julDayResponse.Success)
         {
@@ -377,12 +377,11 @@ public class DateTimeFactory : IDateTimeFactory
 
 public class DateTimeValidations : IDateTimeValidations
 {
-    readonly private IDateTimeApi _dateTimeApi;
+    private readonly ICheckDateTimeApi _checkDateTimeApi;
 
-    public DateTimeValidations(IDateTimeApi dateTimeAPi)
+    public DateTimeValidations(ICheckDateTimeApi checkDateTimeApi)
     {
-        _dateTimeApi = dateTimeAPi;
-        //_calendarCalc = calendarCalc ?? throw new ArgumentNullException(nameof(calendarCalc));
+        _checkDateTimeApi = checkDateTimeApi;
     }
 
     public List<int> ValidateDate(string[] inputDate, Calendars calendar, YearCounts yearCount)
@@ -406,7 +405,7 @@ public class DateTimeValidations : IDateTimeValidations
             _yearValue = -(Math.Abs(_yearValue) + 1);
         }
         SimpleDateTime _simpleDateTime = new(_yearValue, _monthValue, _dayValue, 0.0, calendar);
-        if (!_dateTimeApi.checkDateTime(new CheckDateTimeRequest(_simpleDateTime)).Success)
+        if (!_checkDateTimeApi.checkDateTime(new CheckDateTimeRequest(_simpleDateTime)).Success)
         {
             _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
         };
