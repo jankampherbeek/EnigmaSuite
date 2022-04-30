@@ -15,6 +15,9 @@ using E4C.Core.Astron.SolSysPoints;
 using E4C.Core.Facades;
 using E4C.Shared.References;
 using E4C.Core.Api.Datetime;
+using E4C.Core.CalendarAndClock.DateTime;
+using E4C.Core.CalendarAndClock.CheckDateTime;
+using E4C.Core.CalendarAndClock.JulDay;
 
 /// <summary>Frontend for API's, implemented as a singleton.</summary>
 public sealed class ApiFrontEnd
@@ -53,20 +56,26 @@ public sealed class ApiFrontEnd
 
     private static void AddDependencies()
     {
+
+
         _container.Register<IAyanamshaSpecifications, AyanamshaSpecifications>(Lifestyle.Singleton);
         _container.Register<IAzAltFacade, AzAltFacade>(Lifestyle.Singleton);
         _container.Register<ICalcDateTimeApi, CalcDateTimeApi>(Lifestyle.Singleton);
         _container.Register<ICalcHelioPos, CalcHelioPos>(Lifestyle.Singleton);
         _container.Register<ICalcUtFacade, CalcUtFacade>(Lifestyle.Singleton);
         _container.Register<IChartAllPositionsApi, ChartAllPositionsApi>(Lifestyle.Singleton);
-        _container.Register<ICheckDateTimeApi, CheckDateTimeApi>(Lifestyle.Singleton);  
+        _container.Register<IChartAllPositionsHandler, ChartAllPositionsHandler>(Lifestyle.Singleton);
+        _container.Register<ICheckDateTimeApi, CheckDateTimeApi>(Lifestyle.Singleton);
+        _container.Register<ICheckDateTimeHandler, CheckDateTimeHandler>(Lifestyle.Singleton);
+        _container.Register<ICheckDateTimeValidator, CheckDateTimeValidator>(Lifestyle.Singleton);
         _container.Register<ICoordinateConversionApi, CoordinateConversionApi>(Lifestyle.Singleton);
         _container.Register<ICoordinateConversionCalc, CoordinateConversionCalc>(Lifestyle.Singleton);
         _container.Register<ICoordinateConversionHandler, CoordinateConversionHandler>(Lifestyle.Singleton);
         _container.Register<ICoTransFacade, CoTransFacade>(Lifestyle.Singleton);
+        _container.Register<IDateConversionFacade, DateConversionFacade>(Lifestyle.Singleton);
+        _container.Register<IDateTimeCalc, DateTimeCalc>(Lifestyle.Singleton);
+        _container.Register<IDateTimeHandler, DateTimeHandler>(Lifestyle.Singleton);
         _container.Register<IFlagDefinitions, FlagDefinitions>(Lifestyle.Singleton);
-        _container.Register<IChartAllPositionsApi, ChartAllPositionsApi>(Lifestyle.Singleton);
-        _container.Register<IChartAllPositionsHandler, ChartAllPositionsHandler>(Lifestyle.Singleton);
         _container.Register<IHorizontalApi, HorizontalApi>(Lifestyle.Singleton);
         _container.Register<IHorizontalCalc, HorizontalCalc>(Lifestyle.Singleton);
         _container.Register<IHorizontalHandler, HorizontalHandler>(Lifestyle.Singleton);
@@ -75,10 +84,14 @@ public sealed class ApiFrontEnd
         _container.Register<IHousesFacade, HousesFacade>(Lifestyle.Singleton);
         _container.Register<IHousesHandler, HousesHandler>(Lifestyle.Singleton);
         _container.Register<IHouseSystemSpecs, HouseSystemSpecs>(Lifestyle.Singleton);
+        _container.Register<IJulDayCalc, JulDayCalc>(Lifestyle.Singleton);
+        _container.Register<IJulDayFacade, JulDayFacade>(Lifestyle.Singleton);
+        _container.Register<IJulDayHandler, JulDayHandler>(Lifestyle.Singleton);
         _container.Register<IJulianDayApi, JulianDayApi>(Lifestyle.Singleton);
         _container.Register<IObliquityApi, ObliquityApi>(Lifestyle.Singleton);
         _container.Register<IObliquityCalc, ObliquityCalc>(Lifestyle.Singleton);
         _container.Register<IObliquityHandler, ObliquityHandler>(Lifestyle.Singleton);
+        _container.Register<IRevJulFacade, RevJulFacade>(Lifestyle.Singleton);
         _container.Register<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>(Lifestyle.Singleton);
         _container.Register<ISolSysPointsHandler, SolSysPointsHandler>(Lifestyle.Singleton);
         _container.Register<ISolSysPointSECalc, SolSysPointSECalc>(Lifestyle.Singleton);

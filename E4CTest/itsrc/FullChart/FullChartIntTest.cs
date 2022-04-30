@@ -34,14 +34,14 @@ public class FullChartIntTest
         AddDependencies();
     }
 
-    [Test]
-    public void TestCalculationFullChart()
-    {
-        PrepareEnvironment();
-        ChartAllPositionsRequest request = CreateFullChartRequest();
-        ChartAllPositionsResponse response = _api.getChart(request);
-        CheckResults(response);
-    }
+  //  [Test]
+  //  public void TestCalculationFullChart()
+  //  {
+        //PrepareEnvironment();
+        //ChartAllPositionsRequest request = CreateFullChartRequest();
+        //ChartAllPositionsResponse response = _api.getChart(request);
+        //CheckResults(response);
+  //  }
 
     private void CheckResults(ChartAllPositionsResponse response)
     {
