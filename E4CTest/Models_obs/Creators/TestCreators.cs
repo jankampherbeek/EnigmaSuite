@@ -504,7 +504,7 @@ namespace E4CTest.Creators
         {
             var mockJulianDayApi = new Mock<IJulianDayApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 10.0, Calendars.Gregorian);
-            JulianDayRequest julDayRequest = new(_dateTime, true);
+            JulianDayRequest julDayRequest = new(_dateTime);
             mockJulianDayApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd + (10.0 / 24.0), true, ""));
             IDateTimeFactory factory = new DateTimeFactory(mockJulianDayApi.Object);
             FullTime _fullTimeUt = new(new int[] { 10, 0, 0 }, 10.0, 0, "FullTextForTime");
@@ -548,7 +548,7 @@ namespace E4CTest.Creators
         {
             var mockJulianDayApi = new Mock<IJulianDayApi>();
             SimpleDateTime _dateTime = new(2022, 3, 6, 0.0, Calendars.Gregorian);
-            JulianDayRequest julDayRequest = new(_dateTime, true);
+            JulianDayRequest julDayRequest = new(_dateTime);
             mockJulianDayApi.Setup(p => p.getJulianDay(julDayRequest)).Returns(new JulianDayResponse(_baseJd, true, ""));
             return new DateTimeFactory(mockJulianDayApi.Object);
         }

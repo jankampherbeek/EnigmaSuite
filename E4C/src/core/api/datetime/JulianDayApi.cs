@@ -12,7 +12,7 @@ namespace E4C.Core.Api.Datetime;
 public interface IJulianDayApi
 {
 
-    /// <summary>Api call to calculate a Julian Day Number.</summary>
+    /// <summary>Api call to calculate a Julian Day Number based on UT.</summary>
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null or if SimpleDateTime in the request is null.</remarks> 
     /// <returns>Response with validation and a value for a Julian Day number.</returns>

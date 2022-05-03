@@ -13,7 +13,7 @@ namespace E4CTest.Core;
 [TestFixture] 
 public class TestApiFactory
 {
-    private ApiFactory _factory = new ApiFactory();
+    private readonly ApiFactory _factory = new ApiFactory();
 
     [Test]
     public void TestGetChartallPositionsApi()

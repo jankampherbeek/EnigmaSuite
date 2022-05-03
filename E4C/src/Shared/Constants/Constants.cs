@@ -70,7 +70,7 @@ public static class Constants
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>
     public const int SEFLG_SWIEPH = 2;
     /// <summary>Flag: indication to calculate heliocentric positions.</summary>
-    public const int SEFLG_HELCTR = 8;
+    public const int SEFLG_HELCTR = 8; 
     /// <summary>Flag: indication to also calculate the speed.</summary>
     public const int SEFLG_SPEED = 256;
     /// <summary>Flag: indication to calculate equatorial positions.</summary>

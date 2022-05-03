@@ -70,7 +70,7 @@ namespace E4C.Ui.Calculators;
                 _year = -(Math.Abs(_year) + 1);
             }
             SimpleDateTime _dateTime = new(_year, _month, _day, 0.0, InputCalendar);
-            JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_dateTime, true));
+            JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_dateTime));
 
             if (!julDayResponse.Success)
             {

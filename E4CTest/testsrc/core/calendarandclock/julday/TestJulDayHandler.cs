@@ -20,7 +20,6 @@ public class TestJulDayHandler
     private SimpleDateTime _dateTime;
     private readonly double _delta = 0.00000001;
     private readonly string _errorText = "Description of problem.";
-    private readonly bool _useJdForUt = true;
 
     [SetUp]
     public void SetUp()
@@ -34,7 +33,7 @@ public class TestJulDayHandler
     {
         Mock<IJulDayCalc> calcMock = CreateCalcMock();
         IJulDayHandler handler = new JulDayHandler(calcMock.Object);
-        JulianDayRequest request = new JulianDayRequest(_dateTime, _useJdForUt);
+        JulianDayRequest request = new JulianDayRequest(_dateTime);
         JulianDayResponse response = handler.CalcJulDay(request);
         Assert.AreEqual(_expectedJd, response.JulDay, _delta);
         Assert.IsTrue(response.Success);
@@ -46,7 +45,7 @@ public class TestJulDayHandler
     {
         Mock<IJulDayCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IJulDayHandler handler = new JulDayHandler(calcExceptionMock.Object);
-        JulianDayRequest request = new JulianDayRequest(_dateTime, _useJdForUt);
+        JulianDayRequest request = new JulianDayRequest(_dateTime);
         JulianDayResponse response = handler.CalcJulDay(request);
         Assert.IsFalse(response.Success);
         Assert.AreEqual(_errorText, response.ErrorText);

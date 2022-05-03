@@ -6,19 +6,13 @@ using E4C.Core.Shared.Domain;
 
 namespace E4C.Shared.ReqResp;
 
-/// <summary>Request to calculate Julian Day.</summary>
 public record JulianDayRequest
 {
     public SimpleDateTime DateTime { get; }
-    public bool UseJdForUt { get; }
 
-    /// <summary>Calculate Julian day.</summary>
-    /// <param name="simpleDateTime">Date and time.</param>
-    /// <param name="useJdForUt">True if JD should be calculated for Universal time, false if JD should be calculatred for ephemeris time.</param>
-    public JulianDayRequest(SimpleDateTime simpleDateTime, bool useJdForUt)
+    public JulianDayRequest(SimpleDateTime simpleDateTime)
     {
         DateTime = simpleDateTime;
-        UseJdForUt = useJdForUt;
     }
 
 }

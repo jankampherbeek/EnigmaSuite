@@ -67,7 +67,7 @@ public class DateConversions : IDateConversions
             _dateValues[0]++;
         }
         SimpleDateTime _simpleDateTime = new(_dateValues[0], _dateValues[1], _dateValues[2], _ut, calendar);
-        JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_simpleDateTime, true));
+        JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_simpleDateTime));
         if (julDayResponse.Success)
         {
             return julDayResponse.JulDay;

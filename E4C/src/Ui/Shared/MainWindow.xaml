@@ -14,8 +14,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Name="FormTitle" Text="FormTitle" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
-        <Image Grid.Row="1" Source="/views/Charts.jpg"/>
-        <Image Grid.Row="2" Source="/views/Calculations.jpg"/>
+        <Image Grid.Row="1" Source="/res/Charts.jpg"/>
+        <Image Grid.Row="2" Source="/res/Calculations.jpg"/>
         <StackPanel Grid.Row="3" Grid.Column="0" Margin="5,0,0,2" Orientation="Vertical">
             <Button x:Name="btnCharts" Margin="5" Content="CommonDashboardCharts" Click="BtnCharts_Click"/>
             <Button x:Name="btnCalc" Margin="5" Click="BtnCalc_Click" Content="CommonDashboardCalculations"/>

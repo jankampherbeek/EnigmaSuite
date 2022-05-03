@@ -358,7 +358,7 @@ public class DateTimeFactory : IDateTimeFactory
         string dateText = fullDate.DateFullText;
         string timeText = fullTime.TimeFullText;
         SimpleDateTime simpleDateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, fullDate.Calendar);
-        JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(simpleDateTime, true));
+        JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(simpleDateTime));
         double baseForJulianDay = 0.0;
         if (julDayResponse.Success)
         {

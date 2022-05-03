@@ -74,7 +74,7 @@ namespace E4C.Ui.Calculators
             }
             SimpleDateTime _dateTime = new(_year, _month, _day, _fractionalTime, InputCalendar);
 
-            JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_dateTime, true));
+            JulianDayResponse julDayResponse = _julianDayApi.getJulianDay(new JulianDayRequest(_dateTime));
 
             if (julDayResponse.Success)
             {

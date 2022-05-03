@@ -16,7 +16,7 @@ namespace E4CTest.core.api.datetime;
 [TestFixture]
 public class TestJulianDayApi
 {
-    private JulianDayRequest _jdRequest = new JulianDayRequest(new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian), true);
+    private JulianDayRequest _jdRequest = new JulianDayRequest(new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian));
     private JulianDayResponse _jdResponse = new JulianDayResponse(123456.789, true, "");
 
 
@@ -38,7 +38,7 @@ public class TestJulianDayApi
     public void TestRequestDateTimeNull()
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
-        JulianDayRequest errorRequest = new JulianDayRequest(null, true);
+        JulianDayRequest errorRequest = new JulianDayRequest(null);
         Assert.That(() => api.getJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

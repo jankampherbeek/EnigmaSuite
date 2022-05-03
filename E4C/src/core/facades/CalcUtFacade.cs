@@ -30,13 +30,13 @@ public class CalcUtFacade : ICalcUtFacade
     {
         string _resultValue = "";
         var _positions = new double[6];
-
+        
         int result = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
-        if (result < 0)
-        {
-            string paramsSummary = string.Format("julianDay: {0}, seCelPointId: {1}, flags: {2}.", julianDay, seCelPointId, flags);
-            throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosCelPointFacade.PosCelPointFromSe", paramsSummary));
-        }
+   //     if (result < 0)
+   //     {
+   //         string paramsSummary = string.Format("julianDay: {0}, seCelPointId: {1}, flags: {2}.", julianDay, seCelPointId, flags);
+   //         throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosCelPointFacade.PosCelPointFromSe", paramsSummary));
+   //     }
         return _positions;
     }
 

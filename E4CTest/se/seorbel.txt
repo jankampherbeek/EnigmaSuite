@@ -1,5 +1,5 @@
-    # Orbital elements of ficticious planets - changes for Enigma Suite.
-    # March 22, 2022
+    # Orbital elements of ficticious planets
+    # 27 Jan. 2000
     #
     # This file is part of the Swiss Ephemeris, from Version 1.52 on.
     #
@@ -43,9 +43,35 @@ J1900, J1900, 165.5163, 83.66907, 0.00000,   0.0000,   0.0000, 0.0000, Poseidon 
     # 1772 is a leap year!
     # The fraction is counted from 1 Jan. 1772
 2368547.66, 2431456.5, 0.0, 77.775, 0.3, 0.7, 0, 0, Isis-Transpluto             # 9
-    # Elements for hypothetical planets according to the School of Ram.
-    # These elements are not part of the official Swiss Ephemeris distribution. 
-    # epoch eq    mean anom semi-axis  eccentr. arg-per    asc node incl.   name             nr
-J1900, J1900, 295.0,    71.137866, 0.00000,   0.0000,   0.0000, 0.0000, Persephone-Ram # 10
-J1900, J1900, 134.7,    80.331954, 0.00000,   0.0000,   0.0000, 0.0000, Hermes-Ram     # 11
-J1900, J1900, 114.6,    93.216975, 0.00000,    0.0000,125.0000, 5.5,    Demeter-Ram    # 12
+    # Nibiru, elements from Christian Woeltge, Hannover
+1856113.380954, 1856113.380954, 0.0, 234.8921, 0.981092, 103.966, -44.567, 158.708, Nibiru # 10
+    # Harrington, elements from Astronomical Journal 96(4), Oct. 1988 
+2374696.5, J2000, 0.0, 101.2, 0.411, 208.5, 275.4, 32.4, Harrington             # 11
+    # according to W.G. Hoyt, "Planets X and Pluto", Tucson 1980, p. 63 
+2395662.5, 2395662.5, 34.05, 36.15, 0.10761, 284.75, 0, 0, Leverrier (Neptune)  # 12
+2395662.5, 2395662.5, 24.28, 37.25, 0.12062, 299.11, 0, 0, Adams (Neptune)      # 13
+2425977.5, 2425977.5, 281, 43.0, 0.202, 204.9, 0, 0, Lowell (Pluto)             # 14
+2425977.5, 2425977.5, 48.95, 55.1, 0.31, 280.1, 100, 15, Pickering (Pluto)      # 15
+# intramercurian hypothetical Vulcan acc. to L.H. Weston
+J1900,JDATE, 252.8987988 + 707550.7341 * T, 0.13744, 0.019, 322.212069+1670.056*T, 47.787931-1670.056*T, 7.5, Vulcan # 16
+# Selena/White Moon
+J2000,JDATE, 242.2205555 + 5143.5418158 * T, 0.05280098949, 0.0, 0.0, 0.0, 0.0, Selena/White Moon, geo # 17
+# Hypothetical planet Proserpina, according to http://www.geocities.com/Hollywood/Academy/7519/proserpina.html
+# J1900, 170.73 + 51.05 * T
+J1900,JDATE, 170.73, 79.225630, 0, 0, 0, 0, Proserpina #18
+# Waldemath's Second Earth Moon 
+# Elements were derived by D.Koch from Waldemaths original elements as given in 
+# David Walters' book on Vulcan. They differ from Solar Fire (Graham Dawsons) 
+# elements, which are based on the assumption that the "mean longitude" given
+# by Waldemath is an observation (a true longitude)
+# Neither Swisseph nor Solar fire elements agree with Delphine Jay's ephemeris,
+# which is obviously wrong.
+2414290.95827875,2414290.95827875, 70.3407215 + 109023.2634989 * T, 0.0068400705250028, 0.1587, 8.14049594 + 2393.47417444 * T, 136.24878256 - 1131.71719709 * T, 2.5, Waldemath, geo # 19
+##############################################
+# The following elements are for test only
+# (Selena without T)
+J2000,JDATE, 242.2205555, 0.05279142865925, 0.0, 0.0, 0.0, 0.0, Selena/White Moon, geo # 17
+# (Selena with T, gives exactly the same position) 
+J2000,JDATE, 242.2205555 + 5143.5418158 * T, 0.05279142865925, 0.0, 0.0, 0.0, 0.0, Selena/White Moon with T Terms, geo # 17
+J2000, JDATE, 174.794787 + 149472.5157715 * T, 0.38709831, 0.20563175 + 0.000020406 * T, 29.125226 + 0.3702885 * T, 48.330893 + 1.186189 * T, 7.004986 + 0.0018215 * T, Mercury elem. for equ. of date # 18
+J2000, J2000, 174.794787 + 149472.5157715 * T, 0.38709831, 0.20563175 + 0.000020406 * T, 29.125226 + 0.2842872 * T, 48.330893 - 0.1254229 * T, 7.004986 - 0.0059516 * T, Mercury Test J2000 Elements# 18

@@ -22,6 +22,17 @@ public class SeInitializer
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
     private extern static void ext_swe_set_ephe_path(String path);
 
+    /// <summary>Close Swiss Ephemeris and release all allocated memory and resources.</summary>
+    /// <remarks>Use ony at end of application or test. To resuse, call SetEphePath().</remarks>
+    public static void CloseEphemeris()
+    {
+        ext_swe_close();
+    }
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_close")]
+    private extern static void ext_swe_close();
+
+
+
     /// <summary>Define Ayanamsha for calculation of sidereal positions.</summary>
     /// <param name="idAyanamsha">The id for the Ayanamsha as used by the SE.</param>
     /// <remarks>Run this method if sidereal calculations will be used. If this method has not run during the current session, Fagan/Bradley is used as default ayanamsha.</remarks>

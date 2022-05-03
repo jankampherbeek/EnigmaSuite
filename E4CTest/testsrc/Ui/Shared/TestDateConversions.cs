@@ -29,7 +29,7 @@ public class TestDateConversions
         var mockJulianDayApi = new Mock<IJulianDayApi>();
         var mockCalcDateTimeApi = new Mock<ICalcDateTimeApi>();
         var dateTime = new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian);
-        var jdRequest = new JulianDayRequest(dateTime, true);
+        var jdRequest = new JulianDayRequest(dateTime);
         var jdResponse = new JulianDayResponse(jdnr, true, "");
         mockJulianDayApi.Setup(p => p.getJulianDay(jdRequest)).Returns(jdResponse);
         DateConversions conversions = new(mockCalcDateTimeApi.Object,  mockJulianDayApi.Object);
@@ -46,7 +46,7 @@ public class TestDateConversions
         var mockJulianDayApi = new Mock<IJulianDayApi>();
         var mockCalcDateTimeApi = new Mock<ICalcDateTimeApi>();
         var jdResponse = new JulianDayResponse(jdnr, true, "");
-        mockJulianDayApi.Setup(p => p.getJulianDay(new JulianDayRequest(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian), true))).Returns(jdResponse);
+        mockJulianDayApi.Setup(p => p.getJulianDay(new JulianDayRequest(new SimpleDateTime(1953, 1, 29, 0.0, Calendars.Gregorian)))).Returns(jdResponse);
         DateConversions conversions = new(mockCalcDateTimeApi.Object,  mockJulianDayApi.Object);
         Assert.Throws<ArgumentException>(() => conversions.InputDateToJdNr(inputDate, calendar, yearCount));
     }
