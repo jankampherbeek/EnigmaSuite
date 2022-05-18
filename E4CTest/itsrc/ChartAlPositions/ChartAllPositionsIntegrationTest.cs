@@ -15,14 +15,14 @@ using System.Collections.Generic;
 
 namespace E4CIt.FullChart;
 
-[TestFixture] 
+//[TestFixture] 
 public class ChartAllPositionsIntegrationTest
 {
     private ApiFactory _apiFactory = new ApiFactory();
     private IChartAllPositionsApi _allChartPositionsApi;
     private readonly string _ephemerisPath = "./se";
 
-    [Test]
+  //  [Test]
     public void TestCalculationJulianDayUt()
     {
         SeInitializer.SetEphePath(_ephemerisPath);
@@ -41,7 +41,7 @@ public class ChartAllPositionsIntegrationTest
 
 
 
-    [Test]
+   // [Test]
     public void TestPositions()
     {
         SeInitializer.SetEphePath(_ephemerisPath);
