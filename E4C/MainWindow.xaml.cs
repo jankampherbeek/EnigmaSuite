@@ -6,7 +6,7 @@ using E4C.Ui.Calculators;
 using E4C.Ui.Charts;
 using System.Windows;
 
-namespace E4C.Ui.Shared;
+namespace E4C;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
