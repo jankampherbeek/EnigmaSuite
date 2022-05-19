@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Enigma" Height="700" Width="400">
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="FormTitle" Text="FormTitle"  Style="{StaticResource titleStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"/>
+        <Button Grid.Row="1" Grid.Column="0" Name="imgBtnCharts" Width="200" Height="200" Margin="0" Click="BtnCharts_Click">
+            <Image Source="/Images/Charts.jpg"/>
+        </Button>
+        <Button Grid.Row="1" Grid.Column="1" Name="imgBtnCycles" Width="200" Height="200" Margin="0" Click="BtnCycles_Click">
+            <Image Source="/Images/Cycles.jpg"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="0" Name="imgBtnCalc" Width="200" Height="200" Margin="0" Click="BtnCalc_Click">
+            <Image Source="/Images/Calculations.jpg"/>
+        </Button>
+        <Button Grid.Row="2" Grid.Column="1" Name="imgBtnCounts" Width="200" Height="200" Margin="0" Click="BtnCounts_Click">
+            <Image Source="/Images/Counting.jpg"/>
+        </Button>
+        <TextBlock Grid.Row="1" Grid.Column="0" Name="tbCharts" Text="tbCharts" Style="{StaticResource subTitleStyle}" Foreground="Orange" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="12"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Name="tbCycles" Text="tbCycles" Style="{StaticResource subTitleStyle}" Foreground="Orange" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="12"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Name="tbCalc" Text="tbCalculations" Style="{StaticResource subTitleStyle}" Foreground="Orange" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="12"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Name="tbCount" Text="tbCounting" Style="{StaticResource subTitleStyle}" Foreground="Orange" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="12"/>
+        <StackPanel Grid.Row="3" Grid.Column="0"  Orientation="Vertical">
+            <Button x:Name="btnCharts" Margin="5 35 5 5" Content="CommonDashboardCharts" Style="{StaticResource actionButtonStyle}" Width="160" Click="BtnCharts_Click"/>
+            <Button x:Name="btnCalc" Margin="5" Content="CommonDashboardCalculations" Style="{StaticResource actionButtonStyle}" Width="160" Click="BtnCalc_Click"/>
+            <Button x:Name="btnHelp" Margin="5 35 5 5" Content="CommonDashboardHelp" Width="160" Click="BtnHelp_Click"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1"  Orientation="Vertical">
+            <Button x:Name="btnCycles" Margin="5 35 5 5" Content="CommonDashboardCycles" Style="{StaticResource actionButtonStyle}" Width="160" Click="BtnCycles_Click"/>
+            <Button x:Name="btnCount" Margin="5" Content="CommonDashboardCounts" Style="{StaticResource actionButtonStyle}" Width="160" Click="BtnCounts_Click"/>
+            <Button x:Name="btnExit" Margin="5 35 5 5" Content="CommonDashboardExit" Width="160" Click="BtnExit_Click"/>
+        </StackPanel>
     </Grid>
 </Window>

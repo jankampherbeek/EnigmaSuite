@@ -1,28 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Enigma.Frontend.Calculators;
+using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace Enigma.Frontend
+
+namespace Enigma.Frontend;
+
+
+
+/// <summary>Dashboard, start window for application, provides access to the four main functionalities of Enigma Suite.</summary>
+public partial class MainWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    private IRosetta _rosetta;
+    private CalcStartWindow _calcStartWindow;
+    private HelpWindow _helpWindow;
+
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-        }
+        _rosetta = App.ServiceProvider.GetService<IRosetta>();
+        _calcStartWindow = App.ServiceProvider.GetService<CalcStartWindow>();
+        _helpWindow = App.ServiceProvider.GetService<HelpWindow>();
+
+        InitializeComponent();
+        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        PopulateStaticTexts();
+    }
+
+    private void PopulateStaticTexts()
+    {
+        Title = _rosetta.TextForId("dashboard.title");
+        FormTitle.Text = _rosetta.TextForId("dashboard.formtitle");
+        btnCharts.Content = _rosetta.TextForId("dashboard.charts");
+        btnCycles.Content = _rosetta.TextForId("dashboard.cycles");
+        btnCalc.Content = _rosetta.TextForId("dashboard.calculations");
+        btnCount.Content = _rosetta.TextForId("dashboard.counts");
+        tbCharts.Text = _rosetta.TextForId("dashboard.charts");
+        tbCycles.Text = _rosetta.TextForId("dashboard.cycles");
+        tbCalc.Text = _rosetta.TextForId("dashboard.calculations");
+        tbCount.Text = _rosetta.TextForId("dashboard.counts");
+        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
+        btnExit.Content = _rosetta.TextForId("dashboard.exit");
+    }
+
+    private void BtnCalc_Click(object sender, RoutedEventArgs e)
+    {
+        _calcStartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _calcStartWindow.ShowDialog();
+    }
+
+    private void BtnExit_Click(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
+    }
+
+    private void BtnCharts_Click(object sender, RoutedEventArgs e)
+    {
+        //      ChartsStartWindow chartsStartWindow = UiContainer.Instance.getContainer().GetInstance<ChartsStartWindow>();
+        //      chartsStartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        //      chartsStartWindow.ShowDialog();
+    }
+
+
+    private void BtnCycles_Click(object sender, RoutedEventArgs e)
+    {
+        //      CyclesStartWindow cyclesStartWindow = UiContainer.Instance.getContainer().GetInstance<CyclesStartWindow>();
+        //      cyclesStartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        //      cyclesStartWindow.ShowDialog();
+    }
+
+
+    private void BtnCounts_Click(object sender, RoutedEventArgs e)
+    {
+        //      CountsStartWindow countsStartWindow = UiContainer.Instance.getContainer().GetInstance<CountsStartWindow>();
+        //      countsStartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        //      countsStartWindow.ShowDialog();
+    }
+
+    private void BtnHelp_Click(object sender, RoutedEventArgs e)
+    {
+              _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+              _helpWindow.SetUri("Dashboard");
+              _helpWindow.ShowDialog();
     }
 }
+

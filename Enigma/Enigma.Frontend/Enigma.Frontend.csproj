@@ -8,11 +8,31 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Calculations.jpg" />
+    <None Remove="Images\Charts.jpg" />
+    <None Remove="Images\Counting.jpg" />
+    <None Remove="Images\Cycles.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enigma.Core\Enigma.Core.csproj" />
+    <ProjectReference Include="..\Enigma.Core\Enigma.Core.Calc.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Start\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Calculations.jpg" />
+    <Resource Include="Images\Charts.jpg" />
+    <Resource Include="Images\Counting.jpg" />
+    <Resource Include="Images\Cycles.jpg" />
   </ItemGroup>
 
 </Project>

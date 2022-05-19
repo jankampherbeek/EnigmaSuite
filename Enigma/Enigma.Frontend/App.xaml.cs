@@ -1,17 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
+using Enigma.Core.Calc.SeFacades;
+using Enigma.Core.Calc.Services;
+using Enigma.Frontend.Calculators;
+using Enigma.Frontend.Calculators.JulDay;
+using Enigma.Frontend.Calculators.Obliquity;
+using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace Enigma.Frontend
+namespace Enigma.Frontend;
+
+/// <summary>
+/// Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    public static ServiceProvider ServiceProvider { get; private set; }
+
+    protected override void OnStartup(StartupEventArgs e)
     {
+        base.OnStartup(e);
+
+        var serviceCollection = new ServiceCollection();
+
+        serviceCollection.AddTransient<MainWindow>();
+        serviceCollection.AddTransient<CalcStartWindow>();
+        serviceCollection.AddTransient<JulDayView>();
+        serviceCollection.AddTransient<JulDayController>();
+        serviceCollection.AddTransient<ObliquityView>();
+        serviceCollection.AddTransient<HelpWindow>();
+        serviceCollection.AddTransient<IRosetta,Rosetta>();
+        serviceCollection.AddTransient<ITextFileReader,TextFileReader>();
+
+        serviceCollection.RegisterCalculationServices();
+
+        //    serviceCollection.RegisterSectionAServices();
+
+        ServiceProvider = serviceCollection.BuildServiceProvider(true);
+
+        //var mainWindow = ServiceProvider.GetService<StartWindow>();
+        //      var mainWindow = new MainWindow();
+        //mainWindow?.Show();
+
+        string pathToSeFiles = "./se";
+        SeInitializer.SetEphePath(pathToSeFiles);
     }
 }
+
