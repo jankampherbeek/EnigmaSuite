@@ -17,7 +17,7 @@ public class JulDayController
     public string InputTime { get; set; }
     public bool GregorianCalendar { get; set; }
     public bool HistoricalTimeCount { get; set; }
-     public JulDayResult Result { get; set; }
+    public JulDayResult Result { get; set; }
     private IJulianDayApi _julianDayApi;
 
     public JulDayController(IJulianDayApi julianDayApi)
@@ -38,7 +38,7 @@ public class JulDayController
         int hour = int.Parse(inputTimeTexts[0]);
         int minute = int.Parse(inputTimeTexts[1]);
         int second = int.Parse(inputTimeTexts[2]);
-       double ut = hour / EnigmaConstants.HOURS_PER_DAY + minute / EnigmaConstants.MINUTES_PER_DAY + second / EnigmaConstants.SECONDS_PER_DAY;
+        double ut = hour / EnigmaConstants.HOURS_PER_DAY + minute / EnigmaConstants.MINUTES_PER_DAY + second / EnigmaConstants.SECONDS_PER_DAY;
         Calendars calendar = GregorianCalendar ? Calendars.Gregorian : Calendars.Julian;
 
         SimpleDateTime dateTime = new SimpleDateTime(year, month, day, ut, calendar);

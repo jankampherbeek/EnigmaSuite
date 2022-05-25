@@ -1,4 +1,7 @@
-﻿
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.Services;
 using Enigma.Frontend.Calculators;
@@ -29,8 +32,8 @@ public partial class App : Application
         serviceCollection.AddTransient<JulDayController>();
         serviceCollection.AddTransient<ObliquityView>();
         serviceCollection.AddTransient<HelpWindow>();
-        serviceCollection.AddTransient<IRosetta,Rosetta>();
-        serviceCollection.AddTransient<ITextFileReader,TextFileReader>();
+        serviceCollection.AddTransient<IRosetta, Rosetta>();
+        serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
 
         serviceCollection.RegisterCalculationServices();
 

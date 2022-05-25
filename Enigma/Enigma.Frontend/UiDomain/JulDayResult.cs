@@ -1,4 +1,6 @@
-﻿
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Calc.ReqResp;
@@ -21,8 +23,8 @@ public class JulDayResult
             NoErrors = true;
             JulDayUtText = response.JulDayUt.ToString().Replace(',', '.');
             JulDayEtText = response.JulDayEt.ToString().Replace(',', '.');
-            DeltaTTextInSeconds = response.DeltaT.ToString().Replace(',', '.');
-            DeltaTTextInDays = (response.DeltaT / EnigmaConstants.SECONDS_PER_DAY).ToString().Replace(',', '.');
+            DeltaTTextInSeconds = (response.DeltaT * EnigmaConstants.SECONDS_PER_DAY).ToString().Replace(',', '.');
+            DeltaTTextInDays = response.DeltaT.ToString().Replace(',', '.');
         }
         else
         {

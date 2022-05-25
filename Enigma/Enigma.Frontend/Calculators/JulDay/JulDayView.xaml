@@ -29,9 +29,9 @@
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="6" Margin="0 6 0 6"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="DateInputTxt" Text="DateInputTxt" VerticalAlignment="Bottom" />
-        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="DateInputValue" Text="DateInputValue" VerticalAlignment="Top" />
+        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="DateInputValue" Text="" VerticalAlignment="Top" />
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="TimeInputTxt" Text="TimeInputTxt" VerticalAlignment="Bottom" />
-        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="TimeInputValue" Text="TimeInputValue" VerticalAlignment="Top" />
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="TimeInputValue" Text="" VerticalAlignment="Top" />
         <TextBlock Grid.Row="5" Grid.Column="0" Margin="6" Name="CalendarTxt" Text="CalendarTxt" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">
             <RadioButton Name="rbJulian" Content="rbJulian" GroupName="Calendar" Margin="6"/>
@@ -42,7 +42,7 @@
             <RadioButton Name="rbAstronomical" Content="rbAstronomical" GroupName="YearCount" Margin="6"/>
             <RadioButton Name="rbHistorical" Content="rbHistorical" GroupName="YearCount" IsChecked="True" Margin="6"/>
         </StackPanel>
-        <Button Grid.Row="7" Grid.Column="0" Margin="6" Name="BtnReset" Content="BtnReset" HorizontalAlignment="Left" />
+        <Button Grid.Row="7" Grid.Column="0" Margin="6" Name="BtnReset" Content="BtnReset" HorizontalAlignment="Left" Click="ResetClick" />
         <Button Grid.Row="7" Grid.Column="1" Margin="6" Name="BtnCalc" Content="BtnCalc" HorizontalAlignment="Right"  Style="{StaticResource actionButtonStyle}" Click="CalcClick"/>
         <Rectangle Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="4" Margin="0 6 0 6" Style="{StaticResource rectangleDarkStyle}"/>
         <TextBlock Grid.Row="8" Grid.Column="0" Margin="6" Name="tbJdResultUtTxt" Text="tbJdResultUt" Style="{StaticResource largeTextStyle}"/>
@@ -54,8 +54,8 @@
         <TextBlock Grid.Row="11" Grid.Column="0" Margin="6" Name="tbDeltaTDaysTxt" Text="tbDeltaTDays" Style="{StaticResource largeTextStyle}"/>
         <TextBlock Grid.Row="11" Grid.Column="1" Margin="6" Name="tbDeltaTDaysvalue" Text="....." Style="{StaticResource largeTextStyle}" />
 
-        <Button Grid.Row="12" Grid.Column="0" Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Left" />
-        <Button Grid.Row="12" Grid.Column="1" Margin="6" Name="BtnClose" Content="BtnClose" HorizontalAlignment="Right" />
+        <Button Grid.Row="12" Grid.Column="0" Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Left" Click="HelpClick" />
+        <Button Grid.Row="12" Grid.Column="1" Margin="6" Name="BtnClose" Content="BtnClose" HorizontalAlignment="Right" Click="CloseClick"/>
 
     </Grid>
 </Window>

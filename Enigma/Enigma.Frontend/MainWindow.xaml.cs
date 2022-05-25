@@ -1,4 +1,8 @@
-﻿using Enigma.Frontend.Calculators;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Frontend.Calculators;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -78,9 +82,9 @@ public partial class MainWindow : Window
 
     private void BtnHelp_Click(object sender, RoutedEventArgs e)
     {
-              _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-              _helpWindow.SetUri("Dashboard");
-              _helpWindow.ShowDialog();
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetUri("Dashboard");
+        _helpWindow.ShowDialog();
     }
 }
 

@@ -2,8 +2,6 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-
 namespace Enigma.Domain.DateTime;
 
 /// <summary>

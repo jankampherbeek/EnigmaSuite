@@ -121,6 +121,7 @@ common.location.noname = No name for location
 common.time.dst.notused = no DST
 common.time.dst.used = DST applied
 common.timeinput = Enter the time in the format hh:mm:ss
+common.timeinput.ut = Enter UT in the format hh:mm:ss
 common.yearcountinput = Yearcount
 common.yearcount.rb.astron = Astronomical
 common.yearcount.rb.hist = Historical

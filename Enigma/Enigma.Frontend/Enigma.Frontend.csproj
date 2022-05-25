@@ -21,11 +21,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enigma.Core\Enigma.Core.Calc.csproj" />
+    <Folder Include="Start\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Start\" />
+    <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
+    <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
+    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.InputSupport.csproj" />
   </ItemGroup>
 
   <ItemGroup>

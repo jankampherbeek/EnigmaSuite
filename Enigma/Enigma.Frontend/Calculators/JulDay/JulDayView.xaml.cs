@@ -1,4 +1,8 @@
-﻿using Enigma.Frontend.Support;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
 using System.Windows;
 
@@ -8,15 +12,18 @@ namespace Enigma.Frontend.Calculators.JulDay;
 /// <summary>View for Julian Day Calculator.</summary>
 public partial class JulDayView : Window
 {
+    private readonly string EMPTY_STRING = "";
     private IRosetta _rosetta;
+    private HelpWindow _helpWindow;
     private JulDayController _controller;
     private JulDayResult _julDayResult;
 
-    public JulDayView(IRosetta rosetta, JulDayController controller)
+    public JulDayView(IRosetta rosetta, JulDayController controller, HelpWindow helpWindow)
     {
         InitializeComponent();
         _rosetta = rosetta;
         _controller = controller;
+        _helpWindow = helpWindow;
         PopulateTexts();
     }
 
@@ -33,16 +40,36 @@ public partial class JulDayView : Window
             tbJdResultUtValue.Text = _julDayResult.JulDayUtText;
             tbJdResultEtValue.Text = _julDayResult.JulDayEtText;
             tbDeltaTSecondsValue.Text = _julDayResult.DeltaTTextInSeconds;
-            tbDeltaTDaysvalue.Text = _julDayResult.DeltaTTextInDays;  
+            tbDeltaTDaysvalue.Text = _julDayResult.DeltaTTextInDays;
         }
+    }
 
+    public void ResetClick(object sender, RoutedEventArgs e)
+    {
+        DateInputValue.Text = EMPTY_STRING;
+        TimeInputValue.Text = EMPTY_STRING;
+        rbGregorian.IsChecked = true;
+        rbHistorical.IsChecked = true;
+        CleanResultTexts();
+    }
+
+    private void CloseClick(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
+    private void HelpClick(object sender, RoutedEventArgs e)
+    {
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetUri("CalcJd");
+        _helpWindow.ShowDialog();
     }
 
     private void PopulateTexts()
     {
         FormTitle.Text = _rosetta.TextForId("calc.jdnr.formtitle");
         DateInputTxt.Text = _rosetta.TextForId("common.dateinput");
-        TimeInputTxt.Text = _rosetta.TextForId("common.timeinput");
+        TimeInputTxt.Text = _rosetta.TextForId("common.timeinput.ut");
         CalendarTxt.Text = _rosetta.TextForId("common.calendarinput");
         rbJulian.Content = _rosetta.TextForId("common.calendar.rb.jul");
         rbGregorian.Content = _rosetta.TextForId("common.calendar.rb.greg");
@@ -57,6 +84,15 @@ public partial class JulDayView : Window
         tbYearCountTxt.Text = _rosetta.TextForId("common.yearcountinput");
         rbAstronomical.Content = _rosetta.TextForId("common.yearcount.rb.astron");
         rbHistorical.Content = _rosetta.TextForId("common.yearcount.rb.hist");
+        CleanResultTexts();
+    }
+
+    private void CleanResultTexts()
+    {
+        tbDeltaTDaysvalue.Text = EMPTY_STRING;
+        tbDeltaTSecondsValue.Text = EMPTY_STRING;
+        tbJdResultEtValue.Text = EMPTY_STRING;
+        tbJdResultUtValue.Text = EMPTY_STRING;
     }
 
 }

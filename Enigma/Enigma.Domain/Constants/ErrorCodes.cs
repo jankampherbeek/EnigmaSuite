@@ -5,7 +5,7 @@
 namespace Enigma.Domain.Constants;
 
 /// <summary>Numeric errcodes.</summary>
-public class ErrorCodes
+public static class ErrorCodes
 {
     /// <summary>/// Error: date is invalid./// </summary>
     public const int ERR_INVALID_DATE = 1000;

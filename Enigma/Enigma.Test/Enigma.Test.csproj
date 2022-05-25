@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -12,6 +12,7 @@
     <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Moq" Version="4.18.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
     <PackageReference Include="NUnit.Analyzers" Version="3.3.0" />
@@ -19,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enigma.Core\Enigma.Core.Calc.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
+    <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
+    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.InputSupport.csproj" />
     <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.csproj" />
   </ItemGroup>
 
