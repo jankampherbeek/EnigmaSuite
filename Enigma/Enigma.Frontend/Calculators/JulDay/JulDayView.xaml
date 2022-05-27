@@ -30,7 +30,9 @@
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="6" Margin="0 6 0 6"/>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="DateInputTxt" Text="DateInputTxt" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="DateInputValue" Text="" VerticalAlignment="Top" />
+
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="TimeInputTxt" Text="TimeInputTxt" VerticalAlignment="Bottom" />
+
         <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="TimeInputValue" Text="" VerticalAlignment="Top" />
         <TextBlock Grid.Row="5" Grid.Column="0" Margin="6" Name="CalendarTxt" Text="CalendarTxt" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="6" Grid.Column="0" Orientation="Horizontal">

@@ -2,11 +2,14 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.DateTime.CheckDateTime;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.Services;
+using Enigma.Domain.DateTime;
 using Enigma.Frontend.Calculators;
 using Enigma.Frontend.Calculators.JulDay;
 using Enigma.Frontend.Calculators.Obliquity;
+using Enigma.Frontend.InputSupport.Services;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -34,10 +37,12 @@ public partial class App : Application
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
+        serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
+        serviceCollection.AddSingleton<ICheckDateTimeValidator, CheckDateTimeValidator>();
+        serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
 
+        serviceCollection.RegisterInputSUpportServices();
         serviceCollection.RegisterCalculationServices();
-
-        //    serviceCollection.RegisterSectionAServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

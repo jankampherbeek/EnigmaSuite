@@ -2,10 +2,13 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
+using System;
+using System.Collections.Generic;
 using System.Windows;
-
+using System.Windows.Media;
 
 namespace Enigma.Frontend.Calculators.JulDay;
 
@@ -29,6 +32,8 @@ public partial class JulDayView : Window
 
     public void CalcClick(object sender, RoutedEventArgs e)
     {
+        DateInputValue.Background = Brushes.White;
+        TimeInputValue.Background = Brushes.White;
         _controller.InputDate = DateInputValue.Text;
         _controller.InputTime = TimeInputValue.Text;
         _controller.GregorianCalendar = rbGregorian.IsChecked == true;
@@ -41,6 +46,15 @@ public partial class JulDayView : Window
             tbJdResultEtValue.Text = _julDayResult.JulDayEtText;
             tbDeltaTSecondsValue.Text = _julDayResult.DeltaTTextInSeconds;
             tbDeltaTDaysvalue.Text = _julDayResult.DeltaTTextInDays;
+        } 
+        else
+        {
+            if (_controller._errorCodes.Contains(ErrorCodes.ERR_INVALID_DATE)){
+                DateInputValue.Background = Brushes.Yellow;
+            }
+            if (_controller._errorCodes.Contains(ErrorCodes.ERR_INVALID_TIME)){
+                TimeInputValue.Background = Brushes.Yellow;
+            }
         }
     }
 

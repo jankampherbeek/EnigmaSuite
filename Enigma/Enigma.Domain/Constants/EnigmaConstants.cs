@@ -118,5 +118,9 @@ public static class EnigmaConstants
     public const char MINUTE_SIGN = '\u2032';
     /// <summary>Quote-like identification for postional seconds.</summary>
     public const char SECOND_SIGN = '\u2033';
+    /// <summary>Separator for date input.</summary>
+    public const char SEPARATOR_DATE = '/';
+    /// <summary>Separator for time input.</summary>
+    public const char SEPARATOR_TIME = ':';
 
 }
