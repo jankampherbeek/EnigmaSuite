@@ -9,12 +9,14 @@ namespace Enigma.Core.Calc.ReqResp;
 
 public record ObliquityResponse : ValidatedResponse
 {
-    public double Obliquity { get; }
+    public double ObliquityMean { get; }
 
-    public ObliquityResponse(double obliquity, bool success, string errorText) : base(success, errorText)
+    public double ObliquityTrue { get; }
+
+    public ObliquityResponse(double obliquityMean, double obliquityTrue, bool success, string errorText) : base(success, errorText)
     {
-        this.Obliquity = obliquity;
-
+        ObliquityMean = obliquityMean;
+        ObliquityTrue = obliquityTrue;
     }
 
 }

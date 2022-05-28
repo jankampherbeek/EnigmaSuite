@@ -64,9 +64,9 @@ public class SolSysPointsHandler : ISolSysPointsHandler
         double previousJd = julDay - 0.5;
         double futureJd = julDay + 0.5;
         Location location = request.ChartLocation;
-        var obliquityRequest = new ObliquityRequest(julDay, true);
+        var obliquityRequest = new ObliquityRequest(julDay);
         ObliquityResponse obliquityResponse = _obliquityHandler.CalcObliquity(obliquityRequest);
-        double obliquity = obliquityResponse.Obliquity;
+        double obliquity = obliquityResponse.ObliquityTrue;
         bool success = obliquityResponse.Success;
         string errorText = obliquityResponse.ErrorText;
         if (request.ZodiacType == ZodiacTypes.Sidereal)

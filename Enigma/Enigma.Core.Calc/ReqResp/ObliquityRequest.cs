@@ -8,13 +8,11 @@ namespace Enigma.Core.Calc.ReqResp;
 public record ObliquityRequest
 {
     public double JdUt { get; }
-    public bool UseCalculationForTrue { get; }
 
 
-    public ObliquityRequest(double jdUt, bool useCalculationForTrue)
+    public ObliquityRequest(double jdUt)
     {
         JdUt = jdUt;
-        UseCalculationForTrue = useCalculationForTrue;
     }
 
 }

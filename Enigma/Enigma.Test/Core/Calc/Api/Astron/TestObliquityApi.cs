@@ -15,8 +15,8 @@ public class TestObliquityApi
 {
     private readonly double _jdUt = 123456.789;
     private readonly double _delta = 0.00000001;
-    private readonly bool _useTrueObliquity = true;
-    private readonly double _expectedObliquity = 23.447;
+    private readonly double _expectedTrueObliquity = 23.447;
+    private readonly double _expectedMeanObliquity = 23.447001;
     private readonly bool _expectedSuccess = true;
     private readonly string _expectedErrorText = "";
     private ObliquityRequest _obliquityRequest;
@@ -28,9 +28,9 @@ public class TestObliquityApi
     [SetUp]
     public void SetUp()
     {
-        _obliquityRequest = new ObliquityRequest(_jdUt, _useTrueObliquity);
+        _obliquityRequest = new ObliquityRequest(_jdUt);
         _mockObliquityHandler = new Mock<IObliquityHandler>();
-        _mockObliquityHandler.Setup(p => p.CalcObliquity(_obliquityRequest)).Returns(new ObliquityResponse(_expectedObliquity, _expectedSuccess, _expectedErrorText));
+        _mockObliquityHandler.Setup(p => p.CalcObliquity(_obliquityRequest)).Returns(new ObliquityResponse(_expectedMeanObliquity,  _expectedTrueObliquity, _expectedSuccess, _expectedErrorText));
         _obliquityApi = new ObliquityApi(_mockObliquityHandler.Object);
     }
 
@@ -39,7 +39,8 @@ public class TestObliquityApi
     public void TestObliquityHappyFlow()
     {
         ObliquityResponse response = _obliquityApi.getObliquity(_obliquityRequest);
-        Assert.That(response.Obliquity, Is.EqualTo(_expectedObliquity).Within(_delta));
+        Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
+        Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
         Assert.IsTrue(response.Success);
         Assert.That(response.ErrorText, Is.EqualTo(_expectedErrorText));
     }

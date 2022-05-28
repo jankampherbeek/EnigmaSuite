@@ -6,6 +6,7 @@ using Enigma.Core.Calc.Api.Astron;
 using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.ChartAllPositions;
 using Enigma.Core.Calc.DateTime.JulDay;
+using Enigma.Core.Calc.Obliquity;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.SolSysPoints;
 using Enigma.Core.Calc.Util;
@@ -37,6 +38,8 @@ public static class CalculationServices
         serviceCollection.AddSingleton<IJulDayFacade, JulDayFacade>();
         serviceCollection.AddSingleton<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddSingleton<IObliquityApi, ObliquityApi>();
+        serviceCollection.AddSingleton<IObliquityCalc, ObliquityCalc>();
+        serviceCollection.AddSingleton<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddSingleton<IRevJulFacade, RevJulFacade>();
         serviceCollection.AddSingleton<ISeFlags, SeFlags>();
         serviceCollection.AddSingleton<ISolSysPointSECalc, SolSysPointSECalc>();

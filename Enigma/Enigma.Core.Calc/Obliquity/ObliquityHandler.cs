@@ -25,18 +25,20 @@ public class ObliquityHandler : IObliquityHandler
 
     public ObliquityResponse CalcObliquity(ObliquityRequest obliquityRequest)
     {
-        double obliquity = 0.0;
+        double obliquityMean = 0.0;
+        double obliquityTrue = 0.0;
         string errorText = "";
         bool success = true;
         try
         {
-            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, obliquityRequest.UseCalculationForTrue);
+            obliquityMean = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, false);
+            obliquityTrue = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, true);
         }
         catch (SwissEphException see)
         {
             errorText = see.Message;
             success = false;
         }
-        return new ObliquityResponse(obliquity, success, errorText);
+        return new ObliquityResponse(obliquityMean, obliquityTrue, success, errorText);
     }
 }

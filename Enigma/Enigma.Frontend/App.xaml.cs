@@ -34,6 +34,7 @@ public partial class App : Application
         serviceCollection.AddTransient<JulDayView>();
         serviceCollection.AddTransient<JulDayController>();
         serviceCollection.AddTransient<ObliquityView>();
+        serviceCollection.AddTransient<ObliquityController>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();

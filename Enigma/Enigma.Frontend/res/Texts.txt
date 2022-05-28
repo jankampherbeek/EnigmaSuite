@@ -6,23 +6,12 @@ calc.jdnr.result.deltatday = Delta T (days)
 calc.jdnr.result.jdet = Julian Day (ET)
 calc.jdnr.result.jdut = Julian Day (UT)
 calc.jdnr.title = Enigma Calculations: Julian Day Number
-calc.jdnr.year = Year
-calc.jdnr.yearcount = YearCount
 
 ----- CalcObliquity -----------------------------------
-calc.obliquity.btncalc = Calculate Obliquity
-calc.obliquity.calendar = Calendar
-calc.obliquity.date = Date
-calc.obliquity.day = Day
 calc.obliquity.formtitle = Calculate Obliquity
-calc.obliquity.mean = Mean obliquity
-calc.obliquity.month = Month
-calc.obliquity.result = Calculated Obliquity
+calc.obliquity.result.mean = Mean obliquity
+calc.obliquity.result.true = True obliquity
 calc.obliquity.title = Enigma Calculations: Obliquity
-calc.obliquity.true = True obliquity
-calc.obliquity.type = Obliquity type
-calc.obliquity.year = Year
-calc.obliquity.yearcount = YearCount
 
 ----- CalcStartView -----------------------------------
 calc.startview.btnjd = Julian Day

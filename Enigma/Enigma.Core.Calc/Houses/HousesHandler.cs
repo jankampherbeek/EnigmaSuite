@@ -55,8 +55,8 @@ public class HousesHandler : IHousesHandler
         {
             double[][] _eclValues;
             List<CuspFullPos> allCusps = new();
-            ObliquityResponse oblResponse = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
-            double obliquity = oblResponse.Obliquity;
+            ObliquityResponse oblResponse = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt));
+            double obliquity = oblResponse.ObliquityTrue;
             _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
             for (int n = 1; n < _eclValues[0].Length; n++)
             {
