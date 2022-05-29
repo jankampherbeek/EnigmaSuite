@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Calculators;
+using Enigma.Frontend.Charts;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -12,17 +13,19 @@ namespace Enigma.Frontend;
 
 
 
-/// <summary>Dashboard, start window for application, provides access to the four main functionalities of Enigma Suite.</summary>
+/// <summary>Dashboard, start window for application, provides access to the four main functionalities of the Enigma Suite.</summary>
 public partial class MainWindow : Window
 {
     private IRosetta _rosetta;
     private CalcStartWindow _calcStartWindow;
+    private ChartsStartWindow _chartsStartWindow;
     private HelpWindow _helpWindow;
 
     public MainWindow()
     {
         _rosetta = App.ServiceProvider.GetService<IRosetta>();
         _calcStartWindow = App.ServiceProvider.GetService<CalcStartWindow>();
+        _chartsStartWindow = App.ServiceProvider.GetService<ChartsStartWindow>();
         _helpWindow = App.ServiceProvider.GetService<HelpWindow>();
 
         InitializeComponent();
@@ -59,9 +62,8 @@ public partial class MainWindow : Window
 
     private void BtnCharts_Click(object sender, RoutedEventArgs e)
     {
-        //      ChartsStartWindow chartsStartWindow = UiContainer.Instance.getContainer().GetInstance<ChartsStartWindow>();
-        //      chartsStartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        //      chartsStartWindow.ShowDialog();
+        _chartsStartWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _chartsStartWindow.ShowDialog();
     }
 
 

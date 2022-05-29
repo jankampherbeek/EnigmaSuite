@@ -9,6 +9,7 @@ using Enigma.Domain.DateTime;
 using Enigma.Frontend.Calculators;
 using Enigma.Frontend.Calculators.JulDay;
 using Enigma.Frontend.Calculators.Obliquity;
+using Enigma.Frontend.Charts;
 using Enigma.Frontend.InputSupport.Services;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,7 @@ public partial class App : Application
 
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<CalcStartWindow>();
+        serviceCollection.AddTransient<ChartsStartWindow>();
         serviceCollection.AddTransient<JulDayView>();
         serviceCollection.AddTransient<JulDayController>();
         serviceCollection.AddTransient<ObliquityView>();

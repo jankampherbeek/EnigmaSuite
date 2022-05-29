@@ -23,6 +23,18 @@ calc.startview.obliquityexplanation = Calculates the obliquity of the earth's ax
 calc.startview.obliquitytitle = Obliquity
 calc.startview.title = Enigma Calculations
 
+---- ChartsStartView ----------------------------------
+
+charts.startview.activechartssubtitle = Active charts
+charts.startview.chartssubtitle = Charts
+charts.startview.formtitle = Enigma Charts
+charts.startview.managecharts = Manage charts
+charts.startview.managemodes = Manage modes
+charts.startview.modessubtitle = Working modes
+charts.startview.newchart = New chart
+charts.startview.searchcriteria = Enter (part of) the name as search criterium
+charts.startview.selectmode = Select a mode
+
 -------------------------- dashboard ------------------
 -- DashboardView --------------------------------------
 dashboard.title = Enigma Suite 1.0
@@ -74,9 +86,11 @@ charts.datainputchart.yearcount = Year count
 common.btncancel = Cancel
 common.btncalc = Calculate
 common.btnclose = Close
+common.btndetailedsearch = Detailed search
 common.btnhelp = Help
 common.btnok = OK
 common.btnreset = Reset
+common.btnsearch = Search
 common.calendarinput = Select the calendar
 common.calendar.rb.greg = Gregorian
 common.calendar.rb.jul = Julian
