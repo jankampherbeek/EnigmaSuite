@@ -17,15 +17,15 @@ namespace Enigma.Frontend;
 public partial class MainWindow : Window
 {
     private IRosetta _rosetta;
-    private CalcStartWindow _calcStartWindow;
-    private ChartsStartWindow _chartsStartWindow;
+    private CalcStartView _calcStartWindow;
+    private ChartsStartView _chartsStartWindow;
     private HelpWindow _helpWindow;
 
     public MainWindow()
     {
         _rosetta = App.ServiceProvider.GetService<IRosetta>();
-        _calcStartWindow = App.ServiceProvider.GetService<CalcStartWindow>();
-        _chartsStartWindow = App.ServiceProvider.GetService<ChartsStartWindow>();
+        _calcStartWindow = App.ServiceProvider.GetService<CalcStartView>();
+        _chartsStartWindow = App.ServiceProvider.GetService<ChartsStartView>();
         _helpWindow = App.ServiceProvider.GetService<HelpWindow>();
 
         InitializeComponent();

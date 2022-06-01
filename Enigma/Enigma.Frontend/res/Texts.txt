@@ -23,6 +23,17 @@ calc.startview.obliquityexplanation = Calculates the obliquity of the earth's ax
 calc.startview.obliquitytitle = Obliquity
 calc.startview.title = Enigma Calculations
 
+---- ChartsDataInput ----------------------------------
+charts.datainput.datetime = Date and time
+charts.datainput.description = Additional information (optional)
+charts.datainput.formtitle = Enter data for new chart
+charts.datainput.general = Information about chart 
+charts.datainput.nameid = Unique name or id for chart
+charts.datainput.rating = Rodden Rating
+charts.datainput.source = Description of source (optional)
+charts.datainput.subject = Subject of chart
+
+
 ---- ChartsStartView ----------------------------------
 
 charts.startview.activechartssubtitle = Active charts
@@ -91,22 +102,11 @@ common.btnhelp = Help
 common.btnok = OK
 common.btnreset = Reset
 common.btnsearch = Search
-common.calendarinput = Select the calendar
+common.calendar = Cal.
 common.calendar.rb.greg = Gregorian
 common.calendar.rb.jul = Julian
-common.dateinput = Enter the date in the format yyyy/mm/dd
-common.date.month.jan = January
-common.date.month.feb = February
-common.date.month.mar = March
-common.date.month.apr = April
-common.date.month.may = May
-common.date.month.jun = June
-common.date.month.jul = July
-common.date.month.aug = August
-common.date.month.sep = September
-common.date.month.oct = October
-common.date.month.nov = November
-common.date.month.dec = December
+common.date = Date (yyyy/mm/dd)
+
 common.error.date = Please correct input for the date
 common.error.general = Enigma did find errors
 common.error.geolat = Please correct input for the latitude
@@ -120,12 +120,19 @@ common.location.dirgeolat.north = North
 common.location.dirgeolat.south = South
 common.location.dirgeolong.east = East
 common.location.dirgeolong.west = West
+common.location = Location
+common.location.name = Name for location (optional)
 common.location.noname = No name for location
+common.location.latitude = Latitude (dd:mm:ss)
+common.location.longitude = Longitude (ddd:mm:ss)
+common.time.dst = DST
 common.time.dst.notused = no DST
 common.time.dst.used = DST applied
-common.timeinput = Enter the time in the format hh:mm:ss
+common.time = Time (hh:mm:ss)
 common.timeinput.ut = Enter UT in the format hh:mm:ss
-common.yearcountinput = Yearcount
+common.time.lmt = LMT: difference with UT (hh:mm:ss)
+common.timezone = TimeZone
+common.yearcount = Yearcount
 common.yearcount.rb.astron = Astronomical
 common.yearcount.rb.hist = Historical
 -------------------------------- References ------------

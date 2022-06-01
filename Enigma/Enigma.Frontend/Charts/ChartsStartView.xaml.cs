@@ -6,16 +6,18 @@ namespace Enigma.Frontend.Charts
     /// <summary>
     /// Interaction logic for ChartsStartWindow.xaml
     /// </summary>
-    public partial class ChartsStartWindow : Window
+    public partial class ChartsStartView : Window
     {
 
         private readonly string EMPTY_STRING = "";
         private IRosetta _rosetta;
         private HelpWindow _helpWindow;
+        private ChartDataInputView _dataInputView;
 
-        public ChartsStartWindow(IRosetta rosetta, HelpWindow helpWindow)
+        public ChartsStartView(ChartDataInputView dataInputView, IRosetta rosetta, HelpWindow helpWindow)
         {
             InitializeComponent();
+            _dataInputView = dataInputView;
             _rosetta = rosetta;
             _helpWindow = helpWindow;
             PopulateTexts();
@@ -32,6 +34,12 @@ namespace Enigma.Frontend.Charts
             _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             _helpWindow.SetUri("ChartsDashboard");
             _helpWindow.ShowDialog();
+        }
+
+        private void NewChartClick(object sender, RoutedEventArgs e)
+        {
+            _dataInputView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _dataInputView.ShowDialog();
         }
 
         private void PopulateTexts()

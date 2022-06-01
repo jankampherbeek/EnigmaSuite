@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Calculators.JulDay"
         mc:Ignorable="d"
-       Title="JulDayView" Height="650" Width="400">
+       Title="JulDayView" Height="600" Width="400">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
         <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="6" Margin="0 6 0 6"/>
@@ -41,8 +41,8 @@
         </StackPanel>
         <TextBlock Grid.Row="5" Grid.Column="1" Margin="6" Name="tbYearCountTxt" Text="YearCountTxt" VerticalAlignment="Center"/>
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal">
-            <RadioButton Name="rbAstronomical" Content="rbAstronomical" GroupName="YearCount" Margin="6"/>
-            <RadioButton Name="rbHistorical" Content="rbHistorical" GroupName="YearCount" IsChecked="True" Margin="6"/>
+            <RadioButton Name="rbAstronomical" Content="rbAstronomical" GroupName="YearCount" Margin="3"/>
+            <RadioButton Name="rbHistorical" Content="rbHistorical" GroupName="YearCount" IsChecked="True" Margin="3"/>
         </StackPanel>
         <Button Grid.Row="7" Grid.Column="0" Margin="6" Name="BtnReset" Content="BtnReset" HorizontalAlignment="Left" Click="ResetClick" />
         <Button Grid.Row="7" Grid.Column="1" Margin="6" Name="BtnCalc" Content="BtnCalc" HorizontalAlignment="Right"  Style="{StaticResource actionButtonStyle}" Click="CalcClick"/>

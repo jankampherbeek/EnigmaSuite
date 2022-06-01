@@ -10,14 +10,14 @@ using System.Windows;
 namespace Enigma.Frontend.Calculators;
 
 /// <summary>Start screen for the use of calculations.</summary>
-public partial class CalcStartWindow : Window
+public partial class CalcStartView : Window
 {
     private HelpWindow _helpWindow;
     private JulDayView _julDayView;
     private ObliquityView _obliquityView;
     private IRosetta _rosetta;
 
-    public CalcStartWindow(IRosetta rosetta, HelpWindow helpWindow, JulDayView julDayView, ObliquityView obliquity)
+    public CalcStartView(IRosetta rosetta, HelpWindow helpWindow, JulDayView julDayView, ObliquityView obliquity)
     {
         InitializeComponent();
 

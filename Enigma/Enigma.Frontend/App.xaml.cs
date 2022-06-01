@@ -31,8 +31,9 @@ public partial class App : Application
         var serviceCollection = new ServiceCollection();
 
         serviceCollection.AddTransient<MainWindow>();
-        serviceCollection.AddTransient<CalcStartWindow>();
-        serviceCollection.AddTransient<ChartsStartWindow>();
+        serviceCollection.AddTransient<CalcStartView>();
+        serviceCollection.AddTransient<ChartsStartView>();
+        serviceCollection.AddTransient<ChartDataInputView>();
         serviceCollection.AddTransient<JulDayView>();
         serviceCollection.AddTransient<JulDayController>();
         serviceCollection.AddTransient<ObliquityView>();
