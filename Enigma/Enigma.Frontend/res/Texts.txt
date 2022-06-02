@@ -107,6 +107,11 @@ common.calendar.rb.greg = Gregorian
 common.calendar.rb.jul = Julian
 common.date = Date (yyyy/mm/dd)
 
+common.direction.east = E
+common.direction.north = N
+common.direction.south = S
+common.direction.west = W
+
 common.error.date = Please correct input for the date
 common.error.general = Enigma did find errors
 common.error.geolat = Please correct input for the latitude
