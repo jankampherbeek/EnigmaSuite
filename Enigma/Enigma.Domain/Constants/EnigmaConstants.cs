@@ -122,5 +122,8 @@ public static class EnigmaConstants
     public const char SEPARATOR_DATE = '/';
     /// <summary>Separator for time input.</summary>
     public const char SEPARATOR_TIME = ':';
-
+    /// <summary>Separator for geographic longitude input.</summary>
+    public const char SEPARATOR_GEOLONG = ':';
+    /// <summary>Separator for geographic latitude input.</summary>
+    public const char SEPARATOR_GEOLAT = ':';
 }

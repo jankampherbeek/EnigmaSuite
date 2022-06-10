@@ -9,12 +9,20 @@ namespace Enigma.Test.Domain.DateTime;
 [TestFixture]
 public class TestTimeZones
 {
+    private ITimeZoneSpecifications specifications;
+    private readonly double _delta = 0.00000001;
+
+    [SetUp]
+    public void SetUp()
+    {
+        specifications = new TimeZoneSpecifications();
+    }
+
     [Test]
     public void TestRetrievingDetails()
     {
         double delta = 0.00000001;
         TimeZones timeZone = TimeZones.AZOT;
-        ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
         TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
         Assert.IsNotNull(details);
         Assert.That(details.TimeZone, Is.EqualTo(timeZone));
@@ -25,8 +33,6 @@ public class TestTimeZones
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
-
         foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
         {
             TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
@@ -38,7 +44,6 @@ public class TestTimeZones
     [Test]
     public void TestRetrievingWithIndex()
     {
-        ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
         int timeZoneIndex = 29;
         TimeZones timeZone = specifications.TimeZoneForIndex(timeZoneIndex);
         Assert.That(timeZone, Is.EqualTo(TimeZones.BRT));
@@ -47,9 +52,19 @@ public class TestTimeZones
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        ITimeZoneSpecifications specifications = new TimeZoneSpecifications();
         int timeZoneIndex = -100;
         Assert.That(() => _ = specifications.TimeZoneForIndex(timeZoneIndex), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestAllTimeZoneDetails()
+    {
+        List<TimeZoneDetails> allDetails = specifications.AllTimeZoneDetails();
+        Assert.That(allDetails.Count == 33);
+        Assert.That(allDetails[0].TimeZone, Is.EqualTo(TimeZones.UT));
+        Assert.That(allDetails[8].TimeZone, Is.EqualTo(TimeZones.IST));
+        Assert.That(allDetails[10].TextId, Is.EqualTo("ref.enum.timezone.mmt"));
+        Assert.That(allDetails[20].OffsetFromUt, Is.EqualTo(-10.0).Within(_delta));
     }
 
 }

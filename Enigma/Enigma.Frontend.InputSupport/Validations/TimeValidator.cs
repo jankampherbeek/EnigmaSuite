@@ -14,12 +14,10 @@ public interface ITimeValidator
     /// </summary>
     /// <param name="timeValues">Array with integers for time in the sequence hour, minute, second. The value for second is optional.</param>
     /// <param name="timezone">The timezone that is used.</param>
-    /// <param name="inputLmtOffsetValues">If TimeZone is LMT this parameter contains values for the time offset in the sequence hours, minutes, seconds. Ignore if TimeZone != LMT.</param>
-    /// <param name="offSetPlus">True is offset for LMT is positieve (east), otherwise false. Ignore if TimeZone != LMT.</param>
+    /// <param name="lmtOffset">If TimeZone is LMT this parameter contains a value for the time offset. Will be zero if TimeZone != LMT.</param>
     /// <param name="fullTime">Resulting record FullTime.</param>
-    /// <param name="errorCodes">Errorcodes, if any.</param>
     /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, int[] inputLmtOffsetValues, bool offSetPlus, out FullTime fullTime, out List<int> errorCodes);
+    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime);
 }
 
 
@@ -27,9 +25,7 @@ public interface ITimeValidator
 public class TimeValidator : ITimeValidator
 {
     private readonly ITimeZoneSpecifications _timeZoneSpecifications;
-    private int[] _lmtOffsetValues = new int[] {0, 0, 0 };
     private bool _success = true;
-    private readonly List<int> _errorCodes = new();
     readonly int[] timeValues = new int[] { 0, 0, 0 };
     readonly int[] lmtOffsetValues = new int[] { 0, 0, 0 };
     private double _ut = 0.0;
@@ -41,7 +37,7 @@ public class TimeValidator : ITimeValidator
     }
 
     /// <inheritdoc/>
-    public bool CreateCheckedTime(int[] inputTimeValues, TimeZones timezone, int[] inputLmtOffsetValues, bool offSetPlus, out FullTime fullTime, out List<int> errorCodes)
+    public bool CreateCheckedTime(int[] inputTimeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime)
     {
 
         string _fullText = "";
@@ -55,40 +51,33 @@ public class TimeValidator : ITimeValidator
             }
             _success = CheckMinAndMaxValues(timeValues);
         }
-
-        if (!_success)
-        {
-            _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
-        }
  
-        if (timezone == TimeZones.LMT)
-        {
-            if (!CheckLmtOffset(inputLmtOffsetValues))
-            {
-                _success = false;
-                _errorCodes.Add(ErrorCodes.ERR_INVALID_OFFSET);
-            }
-        }
+   //     if (timezone == TimeZones.LMT)
+   //     {
+   //         if (!CheckLmtOffset(inputLmtOffsetValues))
+   //         {
+   //             _success = false;
+   //         }
+   //     }
 
         if (_success)
         {
-            CalculateUtAndCorrectionForDay(timezone);
-            _fullText = CreateFullText(timezone, offSetPlus);
+            CalculateUtAndCorrectionForDay(timezone, lmtOffset);
+            _fullText = CreateFullText(timezone, lmtOffset);
         }
         fullTime = new FullTime(timeValues, _ut, _correctionForDay, _fullText);
-        errorCodes = _errorCodes;
+
         return _success;
     }
 
-    private string CreateFullText(TimeZones timezone, bool offSetPlus)
+    private string CreateFullText(TimeZones timezone, double lmtOffset)
     {
         string _timeZoneTextId = _timeZoneSpecifications.DetailsForTimeZone(timezone).TextId;
         string _fullText = $"{timeValues[0]:d2}:{timeValues[1]:d2}:{timeValues[2]:d2} [{_timeZoneTextId}]";
 
         if (timezone == TimeZones.LMT)
         {
-            string _plusMinus = offSetPlus ? "+" : "-";
-            _fullText += $" {_plusMinus}{_lmtOffsetValues[0]:d2}:{_lmtOffsetValues[1]:d2}:{_lmtOffsetValues[2]:d2}";
+            _fullText += lmtOffset.ToString();
         }
         return _fullText;
     }
@@ -102,7 +91,7 @@ public class TimeValidator : ITimeValidator
         return result;
     }
 
-    private bool CheckLmtOffset(int[] inputLmtOffsetValues)
+  /*  private bool CheckLmtOffset(int[] inputLmtOffsetValues)
     {
         bool lmtOffsetOk = (inputLmtOffsetValues.Length == 3) || (inputLmtOffsetValues.Length == 2);
         if (lmtOffsetOk)
@@ -115,14 +104,14 @@ public class TimeValidator : ITimeValidator
         }
         return lmtOffsetOk;
     }
-
-    private void CalculateUtAndCorrectionForDay(TimeZones timezone)
+  */
+    private void CalculateUtAndCorrectionForDay(TimeZones timezone, double lmtOffset)
     {
         double _offset;
         _ut = timeValues[0] + (double)timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE + (double)timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE;
         if (timezone == TimeZones.LMT)
         {
-            _offset = _lmtOffsetValues[0] + (double)_lmtOffsetValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE + (double)_lmtOffsetValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE;
+            _offset = lmtOffset;
         }
         else
         {

@@ -15,9 +15,8 @@ public interface IGeoLatValidator
     /// <param name="latValues">Array with integers for the latitude in the sequence degree, minute, second. The value for second is optional.</param>
     /// <param name="direction">The direction: north or south.</param>
     /// <param name="fullLatitude">Resulting record FullGeoLatitude.</param>
-    /// <param name="errorCodes">Errorcodes, if any.</param>
     /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude, out List<int> errorCodes);
+    public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude);
 }
 
 
@@ -25,13 +24,12 @@ public interface IGeoLatValidator
 public class GeoLatValidator : IGeoLatValidator
 {
     private bool _success = true;
-    private readonly List<int> _errorCodes = new();
     private readonly int[] _latValues = new int[] { 0, 0, 0 };
     private double _latitude = 0.0;
     private Directions4GeoLat _direction;
 
     /// <inheritdoc/>
-    public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude, out List<int> errorCodes)
+    public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude)
     {
         _direction = direction;
         string _fullText = "";
@@ -46,18 +44,12 @@ public class GeoLatValidator : IGeoLatValidator
             _success = CheckMinAndMaxValues(_latValues);
         }
 
-        if (!_success)
-        {
-            _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
-        }
-
         if (_success)
         {
             CalculateLatitude();
             _fullText = CreateFullText();
         }
         fullLatitude = new(_latValues, _latitude, _direction, _fullText);
-        errorCodes = _errorCodes;
         return _success;
     }
 

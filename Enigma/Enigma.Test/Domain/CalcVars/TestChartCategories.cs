@@ -9,22 +9,28 @@ namespace Enigma.Test.Domain.CalcVars;
 [TestFixture]
 public class TestChartCategories
 {
+    private IChartCategorySpecifications specifications;
+
+    [SetUp]
+    public void SetUp()
+    {
+        specifications = new ChartCategorySpecifications();
+    }
+
+
     [Test]
     public void TestRetrievingDetails()
     {
         ChartCategories chartCategory = ChartCategories.Election;
-        IChartCategorySpecifications specifications = new ChartCategorySpecifications();
         ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
         Assert.IsNotNull(details);
-        Assert.AreEqual(chartCategory, details.Category);
-        Assert.AreEqual("ref.enum.chartcategories.election", details.TextId);
+        Assert.That(details.Category, Is.EqualTo(chartCategory));
+        Assert.That(details.TextId, Is.EqualTo("ref.enum.chartcategories.election"));
     }
 
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        IChartCategorySpecifications specifications = new ChartCategorySpecifications();
-
         foreach (ChartCategories chartCategory in Enum.GetValues(typeof(ChartCategories)))
         {
             ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
@@ -36,18 +42,26 @@ public class TestChartCategories
     [Test]
     public void TestRetrievingWithIndex()
     {
-        IChartCategorySpecifications specifications = new ChartCategorySpecifications();
         int chartCategoryIndex = 3;
         ChartCategories chartCategory = specifications.ChartCategoryForIndex(chartCategoryIndex);
-        Assert.AreEqual(ChartCategories.Event, chartCategory);
+        Assert.That(chartCategory, Is.EqualTo(ChartCategories.Event));
     }
 
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        IChartCategorySpecifications specifications = new ChartCategorySpecifications();
         int chartCategoryIndex = 500;
         Assert.That(() => _ = specifications.ChartCategoryForIndex(chartCategoryIndex), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestAllChartCatDetails()
+    {
+        List<ChartCategoryDetails> allDetails = specifications.AllChartCatDetails();
+        Assert.That(allDetails.Count, Is.EqualTo(6));
+        Assert.That(allDetails[0].Category, Is.EqualTo(ChartCategories.Unknown));
+        Assert.That(allDetails[3].Category, Is.EqualTo(ChartCategories.Event));
+        Assert.That(allDetails[4].TextId, Is.EqualTo("ref.enum.chartcategories.horary"));
     }
 
 }

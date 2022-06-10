@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Charts"
         mc:Ignorable="d"
-        Title="ChartDataInputView" Height="520" Width="660">
+        Title="ChartDataInputView" Height="600" Width="760">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -69,7 +69,7 @@
 
         <TextBox Grid.Row="8" Grid.Column="2" Margin="6" Name="DateValue" Text="" VerticalAlignment="Top" />
         <ComboBox Grid.Row="8" Grid.Column="3" Margin="6" Name="comboCalendar" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
-        <ComboBox Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2" Margin="6" Name="comboYeearCount" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2" Margin="6" Name="comboYearCount" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
         <TextBlock Grid.Row="9" Grid.Column="2" Margin="6" Name="TimeTxt" Text="TimeTxt" VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="9" Grid.Column="3" Margin="6" Name="DstTxt" Text="DstTxt" VerticalAlignment="Bottom"/>
         <TextBox Grid.Row="10" Grid.Column="2" Margin="6" Name="TimeValue" Text="" VerticalAlignment="Top" />

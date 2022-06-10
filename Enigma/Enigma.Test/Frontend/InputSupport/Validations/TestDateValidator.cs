@@ -28,9 +28,8 @@ public class TestDateValidator
         mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
         _dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
         FullDate? fullDate = null;
-        List<int>? errorCodes = null; ;
-        _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate, out errorCodes);
-        Assert.That(errorCodes.Count, Is.EqualTo(0));
+        bool result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate);
+        Assert.That(result, Is.True);
         Assert.NotNull(fullDate);
         Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
         Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
@@ -50,10 +49,8 @@ public class TestDateValidator
         mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
         _dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
         FullDate? fullDate = null;
-        List<int>? errorCodes = null; ;
-        var result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate, out errorCodes);
+        bool result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate);
         Assert.That(result, Is.False);
-        Assert.That(errorCodes.Count, Is.EqualTo(1));
     }
 
     [Test]
@@ -68,10 +65,8 @@ public class TestDateValidator
         mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
         _dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
         FullDate? fullDate = null;
-        List<int>? errorCodes = null; ;
-        var result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate, out errorCodes);
+        bool result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate);
         Assert.That(result, Is.False);
-        Assert.That(errorCodes.Count, Is.EqualTo(1));
     }
 
 
@@ -87,10 +82,8 @@ public class TestDateValidator
         mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
         _dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
         FullDate? fullDate = null;
-        List<int>? errorCodes = null; ;
-        var result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate, out errorCodes);
+        bool result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate);
         Assert.That(result, Is.True);
-        Assert.That(errorCodes.Count, Is.EqualTo(0));
         Assert.NotNull(fullDate);
         Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
         Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
@@ -110,10 +103,8 @@ public class TestDateValidator
             mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
             _dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
             FullDate? fullDate = null;
-            List<int>? errorCodes = null; 
-            var result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate, out errorCodes);
+            bool result = _dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out fullDate);
             Assert.That(result, Is.False);
-            Assert.That(errorCodes.Count, Is.EqualTo(1));
         }
 
 

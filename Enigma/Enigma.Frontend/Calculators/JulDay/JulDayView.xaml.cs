@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
+using Enigma.Domain.DateTime;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
 using System;
@@ -36,8 +37,9 @@ public partial class JulDayView : Window
         TimeInputValue.Background = Brushes.White;
         _controller.InputDate = DateInputValue.Text;
         _controller.InputTime = TimeInputValue.Text;
-        _controller.GregorianCalendar = rbGregorian.IsChecked == true;
-        _controller.HistoricalTimeCount = rbHistorical.IsChecked == true;
+        // TODO use combobox for calendar and yearcount
+        _controller.Calendar = rbGregorian.IsChecked == true ? Calendars.Gregorian : Calendars.Julian;
+        _controller.YearCount = rbHistorical.IsChecked == true ? YearCounts.CE : YearCounts.Astronomical;
         bool calculationOk = _controller.ProcessInput();
         if (calculationOk)
         {

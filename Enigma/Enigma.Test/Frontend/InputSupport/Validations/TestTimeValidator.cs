@@ -21,14 +21,12 @@ public class TestTimeValidator
         int minute = 7;
         int second = 30;
         int[] timeInput = new int[] {hour, minute, second };
-        int[] offsetLmtInput = new int[] { 0, 0, 0 };
-        bool offsetPlus = true;
+        double offsetLmt = 0.0;
         var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
         _timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
         FullTime? fullTime = null;
-        List<int>? errorCodes = null; ;
-        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmtInput, offsetPlus, out fullTime, out errorCodes);
+        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out fullTime);
         Assert.IsTrue(Result);
         Assert.That(fullTime.HourMinuteSecond[0], Is.EqualTo(hour));
         Assert.That(fullTime.HourMinuteSecond[1], Is.EqualTo(minute));
@@ -43,14 +41,12 @@ public class TestTimeValidator
         int minute = 7;
         int second = 30;
         int[] timeInput = new int[] { hour, minute, second };
-        int[] offsetLmtInput = new int[] { 0, 0, 0 };
-        bool offsetPlus = true;
+        double offsetLmt = 0.0;
         var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
         _timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
         FullTime? fullTime = null;
-        List<int>? errorCodes = null; ;
-        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmtInput, offsetPlus, out fullTime, out errorCodes);
+        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out fullTime);
         Assert.IsFalse(Result);
     }
 
@@ -62,14 +58,12 @@ public class TestTimeValidator
         int minute = 99;
         int second = 30;
         int[] timeInput = new int[] { hour, minute, second };
-        int[] offsetLmtInput = new int[] { 0, 0, 0 };
-        bool offsetPlus = true;
+        double offsetLmt = 0.0;
         var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
         _timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
         FullTime? fullTime = null;
-        List<int>? errorCodes = null; ;
-        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmtInput, offsetPlus, out fullTime, out errorCodes);
+        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out fullTime);
         Assert.IsFalse(Result);
     }
 
@@ -80,14 +74,12 @@ public class TestTimeValidator
         int minute = 7;
         int second = 60;
         int[] timeInput = new int[] { hour, minute, second };
-        int[] offsetLmtInput = new int[] { 0, 0, 0 };
-        bool offsetPlus = true;
+        double offsetLmt = 0.0;
         var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
         _timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
         FullTime? fullTime = null;
-        List<int>? errorCodes = null; ;
-        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmtInput, offsetPlus, out fullTime, out errorCodes);
+        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out fullTime);
         Assert.IsFalse(Result);
     }
 
@@ -98,14 +90,12 @@ public class TestTimeValidator
         int minute = 7;
         int second = -5;
         int[] timeInput = new int[] { hour, minute, second };
-        int[] offsetLmtInput = new int[] { 0, 0, 0 };
-        bool offsetPlus = true;
+        double offsetLmt = 0.0;
         var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
         _timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
         FullTime? fullTime = null;
-        List<int>? errorCodes = null; ;
-        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmtInput, offsetPlus, out fullTime, out errorCodes);
+        bool Result = _timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out fullTime);
         Assert.IsFalse(Result);
     }
 

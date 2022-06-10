@@ -32,8 +32,6 @@ namespace Enigma.Frontend.Calculators.Obliquity
         {
             DateInputValue.Background = Brushes.White;
             _controller.InputDate = DateInputValue.Text;
-            _controller.GregorianCalendar = rbGregorian.IsChecked == true;
-            _controller.HistoricalTimeCount = rbHistorical.IsChecked == true;
             bool calculationOk = _controller.ProcessInput();
             if (calculationOk)
             {

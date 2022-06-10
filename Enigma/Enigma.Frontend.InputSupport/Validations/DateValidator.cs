@@ -20,7 +20,7 @@ public interface IDateValidator
     /// <param name="fullDate">The resulting record FullDate.</param>
     /// <param name="errorCodes">Errorcodes, if any.</param> 
     /// <returns>True if no error occurred, otherwise false.</returns>
-    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate fullDate, out List<int> errorCodes);
+    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate fullDate);
 }
 
 
@@ -35,7 +35,7 @@ public class DateValidator : IDateValidator
         _checkDateTimeApi = checkDateTimeApi;
     }
 
-    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate, out List<int> errorCodes)
+    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
     {
         _success = dateValues != null && dateValues.Length == 3 && CheckCalendarRules(dateValues, calendar, yearCount);
         fullDate = null;
@@ -45,8 +45,6 @@ public class DateValidator : IDateValidator
             string _fullDateText = CreateFullDateText(dateValues, calendar);
             fullDate = new FullDate(dateValues, calendar, _fullDateText);
         }
-        else _errorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
-        errorCodes = _errorCodes;
         return _success;
     }
 

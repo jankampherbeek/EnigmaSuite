@@ -4,25 +4,18 @@
 
 namespace Enigma.Domain.DateTime;
 
-/// <summary>
-/// Enum for Gregorian and Julian Calendar.
-/// </summary>
+/// <summary>Enum for Gregorian and Julian Calendar.</summary>
 public enum Calendars
 {
     Gregorian = 0, Julian = 1
 }
 
-/// <summary>
-/// Details for a calendar.
-/// </summary>
+/// <summary>Details for a calendar.</summary>
 public record CalendarDetails
 {
     readonly public Calendars Calendar;
     readonly public string TextId;
 
-    /// <summary>
-    /// Construct details for a calendar.
-    /// </summary>
     /// <param name="calendar">The calendar.</param>
     /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
     public CalendarDetails(Calendars calendar, string textId)
@@ -32,31 +25,30 @@ public record CalendarDetails
     }
 }
 
-/// <summary>
-/// Specifications for a calendar.
-/// </summary>
+/// <summary>Specifications for a calendar.</summary>
 public interface ICalendarSpecifications
 {
-    /// <summary>
-    /// Returns the details for a Calendar.
-    /// </summary>
     /// <param name="calendar">The calendar, from the enum Calendars.</param>
     /// <returns>A record CalendarDetails with the specifications.</returns>
     public CalendarDetails DetailsForCalendar(Calendars calendar);
 
-    /// <summary>
-    /// Returns a value from the enum Calendars that corresponds with an index.
-    /// </summary>
+    /// <returns>Calendardetails for all items in the enum Calendars.</returns>
+    public List<CalendarDetails> AllCalendarDetails();
+
     /// <param name="calendarIndex">The index for the requested item from Calendars. 
     /// Throws an exception if no Calendar for the given index does exist.</param>
     /// <returns>Instance from enum Calendars that corresponds with the given index.</returns>
     public Calendars CalendarForIndex(int calendarIndex);
-}
 
+
+
+}
+/// <inheritdoc/>
 public class CalendarSpecifications : ICalendarSpecifications
 {
+    /// <inheritdoc/>
     /// <exception cref="ArgumentException">Is thrown if the calendar was not recognized.</exception>
-    CalendarDetails ICalendarSpecifications.DetailsForCalendar(Calendars calendar)
+    public CalendarDetails DetailsForCalendar(Calendars calendar)
     {
         return calendar switch
         {
@@ -66,6 +58,7 @@ public class CalendarSpecifications : ICalendarSpecifications
         };
     }
 
+    /// <inheritdoc/>
     public Calendars CalendarForIndex(int calendarIndex)
     {
         foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
@@ -73,5 +66,16 @@ public class CalendarSpecifications : ICalendarSpecifications
             if ((int)calendar == calendarIndex) return calendar;
         }
         throw new ArgumentException("Could not find Calendars for index : " + calendarIndex);
+    }
+
+    /// <inheritdoc/>
+    public List<CalendarDetails> AllCalendarDetails()
+    {
+        var allDetails = new List<CalendarDetails>();
+        foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
+        {
+            allDetails.Add(DetailsForCalendar(calendar));
+        }
+        return allDetails;
     }
 }

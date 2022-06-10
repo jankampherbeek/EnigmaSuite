@@ -10,9 +10,6 @@ public enum TimeZones
     NCT = 17, NZST = 18, SST = 19, HAST = 20, MART = 21, AKST = 22, PST = 23, MST = 24, CST = 25, EST = 26, AST = 27, NST = 28, BRT = 29, GST = 30, AZOT = 31, LMT = 32
 }
 
-/// <summary>
-/// Details for a Timezone.
-/// </summary>
 public record TimeZoneDetails
 {
     readonly public TimeZones TimeZone;
@@ -38,16 +35,14 @@ public record TimeZoneDetails
 /// </summary>
 public interface ITimeZoneSpecifications
 {
-    /// <summary>
-    /// Returns the details for a Time Zone.
-    /// </summary>
     /// <param name="timeZone">The Time Zone, from the enum Timezones.</param>
     /// <returns>A record TimeZoneDetails with the specifications.</returns>
     public TimeZoneDetails DetailsForTimeZone(TimeZones timeZone);
 
-    /// <summary>
-    /// Returns a value from the enum TimeZones that corresponds with an index.
-    /// </summary>
+    /// <returns>Details for all items in the enum TimeZones.</returns>
+    public List<TimeZoneDetails> AllTimeZoneDetails();
+
+
     /// <param name="timeZoneIndex">The index for the requested item from TimeZones. 
     /// Throws an exception if no TimeZone for the given index does exist.</param>
     /// <returns>Instance from enum TimeZones that corresponds with the given index.</returns>
@@ -56,6 +51,7 @@ public interface ITimeZoneSpecifications
 
 public class TimeZoneSpecifications : ITimeZoneSpecifications
 {
+
     /// <exception cref="ArgumentException">Is thrown if the Time Zone was not recognized.</exception>
     public TimeZoneDetails DetailsForTimeZone(TimeZones timeZone)
     {
@@ -98,6 +94,18 @@ public class TimeZoneSpecifications : ITimeZoneSpecifications
         };
     }
 
+    /// <inheritdoc/>
+    public List<TimeZoneDetails> AllTimeZoneDetails()
+    {
+        var allDetails = new List<TimeZoneDetails>();
+        foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
+        {
+            allDetails.Add(DetailsForTimeZone(timeZone));
+        }
+        return allDetails;
+    }
+
+
     public TimeZones TimeZoneForIndex(int timeZoneIndex)
     {
         foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
@@ -106,4 +114,5 @@ public class TimeZoneSpecifications : ITimeZoneSpecifications
         }
         throw new ArgumentException("Could not find TimeZone for index : " + timeZoneIndex);
     }
+
 }

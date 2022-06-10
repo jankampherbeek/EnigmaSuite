@@ -10,11 +10,18 @@ namespace Enigma.Test.Domain.DateTime;
 [TestFixture]
 public class TestYearCounts
 {
+    private IYearCountSpecifications specifications;
+
+    [SetUp]
+    public void SetUp()
+    {
+        specifications = new YearCountSpecifications();
+    }
+
     [Test]
     public void TestRetrievingDetails()
     {
         YearCounts yearCount = YearCounts.BCE;
-        IYearCountSpecifications specifications = new YearCountSpecifications();
         YearCountDetails details = specifications.DetailsForYearCount(yearCount);
         Assert.IsNotNull(details);
         Assert.That(details.YearCount, Is.EqualTo(yearCount));
@@ -24,7 +31,6 @@ public class TestYearCounts
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        IYearCountSpecifications specifications = new YearCountSpecifications();
         foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
         {
             YearCountDetails details = specifications.DetailsForYearCount(yearCount);
@@ -36,7 +42,6 @@ public class TestYearCounts
     [Test]
     public void TestRetrievingWithIndex()
     {
-        IYearCountSpecifications specifications = new YearCountSpecifications();
         int yearCountIndex = 2;
         YearCounts yearCount = specifications.YearCountForIndex(yearCountIndex);
         Assert.That(yearCount, Is.EqualTo(YearCounts.Astronomical));
@@ -46,8 +51,17 @@ public class TestYearCounts
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        IYearCountSpecifications specifications = new YearCountSpecifications();
         int yearCountIndex = 44;
         Assert.That(() => _ = specifications.YearCountForIndex(yearCountIndex), Throws.TypeOf<ArgumentException>());
     }
+
+    [Test]
+    public void TestAllDetailsForYearCounts()
+    {
+        List<YearCountDetails> allDetails = specifications.AllDetailsForYearCounts();
+        Assert.That(allDetails.Count == 3);
+        Assert.That(allDetails[0].YearCount, Is.EqualTo(YearCounts.CE));
+        Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.yearcount.astronomical"));
+    }
+
 }

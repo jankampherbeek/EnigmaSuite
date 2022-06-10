@@ -2,7 +2,11 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.CalcVars;
+using Enigma.Domain.DateTime;
+using Enigma.Domain.Locational;
 using Enigma.Frontend.Support;
+using System.Collections.Generic;
 using System.Windows;
 
 
@@ -15,16 +19,29 @@ public partial class ChartDataInputView : Window
 {
     private readonly string EMPTY_STRING = "";
     private IRosetta _rosetta;
+    private IChartsEnumFacade _chartsEnumFacade;
+    private ChartDataInputController _controller;
     private HelpWindow _helpWindow;
-    public ChartDataInputView(IRosetta rosetta, HelpWindow helpWindow)
+    private List<CalendarDetails> _calendarDetails;
+    private List<ChartCategoryDetails> _chartCategoryDetails;
+    private List<RoddenRatingDetails> _roddenRatingDetails;
+    private List<Directions4GeoLongDetails> _directions4GeoLongDetails;
+    private List<Directions4GeoLatDetails> _directions4GeoLatDetails;
+    private List<YearCountDetails> _yearCountDetails;
+    private List<TimeZoneDetails> _timeZoneDetails;
+
+    public ChartDataInputView(ChartDataInputController controller, IRosetta rosetta, IChartsEnumFacade chartsEnumFacade, HelpWindow helpWindow)
     {
         InitializeComponent();
+        _controller = controller;
         _rosetta = rosetta;
+        _chartsEnumFacade = chartsEnumFacade;
         _helpWindow = helpWindow;
         PopulateTexts();
+        PopulateLists();
     }
 
-    public void PopulateTexts()
+    private void PopulateTexts()
     {
         FormTitle.Text = _rosetta.TextForId("charts.datainput.formtitle");
         GeneralTxt.Text = _rosetta.TextForId("charts.datainput.general");
@@ -50,9 +67,123 @@ public partial class ChartDataInputView : Window
         BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
     }
 
+    private void PopulateLists()
+    {
+        PopulateCalendars();
+        PopulateChartCategories();
+        PopulateRoddenRatings();
+        PopulateDirections4GeoLat();
+        PopulateDirections4GeoLong();
+        PopulateYearCounts();
+        PopulateTimeZones();
+    }
+
+    private void PopulateCalendars()
+    {
+        comboCalendar.Items.Clear();
+        _calendarDetails = _chartsEnumFacade.AllCalendarDetails();
+        foreach (var calendarDetail in _calendarDetails)
+        {
+            comboCalendar.Items.Add(_rosetta.TextForId(calendarDetail.TextId));
+        }
+        comboCalendar.SelectedIndex = 0;
+    }
+
+    private void PopulateChartCategories()
+    {
+        comboSubject.Items.Clear();
+        _chartCategoryDetails = _chartsEnumFacade.AllChartCategoryDetails();
+        foreach (var chartCategoryDetail in _chartCategoryDetails)
+        {
+            comboSubject.Items.Add(_rosetta.TextForId(chartCategoryDetail.TextId));
+        }
+        comboSubject.SelectedIndex = 0;
+    }
+
+    private void PopulateRoddenRatings()
+    {
+        comboRating.Items.Clear();
+        _roddenRatingDetails = _chartsEnumFacade.AllRoddenRatingDetails();
+        foreach (var roddenRatingDetail in _roddenRatingDetails)
+        {
+            comboRating.Items.Add(_rosetta.TextForId(roddenRatingDetail.TextId));
+        }
+        comboRating.SelectedIndex = 0;
+    }
+
+    private void PopulateDirections4GeoLong()
+    {
+        comboLongDir.Items.Clear();
+        comboLmtLongDir.Items.Clear();
+        _directions4GeoLongDetails = _chartsEnumFacade.AllDirections4GeoLongDetails();
+        foreach(var direction4GeoLongDetail in _directions4GeoLongDetails)
+        {
+            comboLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
+            comboLmtLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
+        }
+        comboLongDir.SelectedIndex = 0;
+        comboLmtLongDir.SelectedIndex = 0;
+    }
+
+    private void PopulateDirections4GeoLat()
+    {
+        comboLatDir.Items.Clear();
+        _directions4GeoLatDetails = _chartsEnumFacade.AllDirections4GeoLatDetails();
+        foreach (var direction4GeoLatDetail in _directions4GeoLatDetails)
+        {
+            comboLatDir.Items.Add(_rosetta.TextForId(direction4GeoLatDetail.TextId));
+        }
+        comboLatDir.SelectedIndex = 0;
+    }
+
+    private void PopulateYearCounts()
+    {
+        comboYearCount.Items.Clear();
+        _yearCountDetails = _chartsEnumFacade.AllYearCountDetails();
+        foreach (var yearCountDetail in _yearCountDetails)
+        {
+            comboYearCount.Items.Add(_rosetta.TextForId(yearCountDetail.TextId));
+        }
+        comboYearCount.SelectedIndex = 0;
+    }
+
+    private void PopulateTimeZones()
+    {
+        comboTimezone.Items.Clear();
+        _timeZoneDetails = _chartsEnumFacade.AllTimeZoneDetails();
+        foreach(var timeZoneDetail in _timeZoneDetails)
+        {
+            comboTimezone.Items.Add(_rosetta.TextForId(timeZoneDetail.TextId));
+        }
+        comboTimezone.SelectedIndex = 0;
+    }
+
     private void CalculateClick(object sender, RoutedEventArgs e)
     {
-     
+        TransferValues();
+        // perform validation
+    }
+
+    private void TransferValues()
+    {
+        _controller.NameId = NameIdValue.Text;
+        _controller.Source = SourceValue.Text;
+        _controller.Description = DescriptionValue.Text;
+        _controller.ChartCategory = _chartCategoryDetails[comboSubject.SelectedIndex].Category;
+        _controller.RoddenRating = _roddenRatingDetails[comboRating.SelectedIndex].Rating;
+        _controller.LocationName = LocationNameValue.Text;
+        _controller.Longitude = LongitudeValue.Text;
+        _controller.Latitude = LatitudeValue.Text;
+        _controller.Direction4GeoLong = _directions4GeoLongDetails[comboLongDir.SelectedIndex].Direction;
+        _controller.Direction4GeoLat = _directions4GeoLatDetails[comboLatDir.SelectedIndex].Direction;
+        _controller.InputDate = DateValue.Text;
+        _controller.InputTime = TimeValue.Text;
+        _controller.Calendar = _calendarDetails[comboCalendar.SelectedIndex].Calendar;
+        _controller.YearCount = _yearCountDetails[comboYearCount.SelectedIndex].YearCount;
+        _controller.Dst = (bool)checkDst.IsChecked;
+        _controller.TimeZone = _timeZoneDetails[comboTimezone.SelectedIndex].TimeZone;
+        _controller.LmtOffset = LmtValue.Text;
+        _controller.LmtDirection4GeoLong = _directions4GeoLongDetails[comboLmtLongDir.SelectedIndex].Direction;
     }
 
     private void CloseClick(object sender, RoutedEventArgs e)

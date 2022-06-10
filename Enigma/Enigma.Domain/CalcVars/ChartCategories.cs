@@ -4,25 +4,18 @@
 
 namespace Enigma.Domain.CalcVars;
 
-/// <summary>
-/// Types of charts. Describes the application of a chart.
-/// </summary>
+/// <summary>Types of charts. Describes the application of a chart.</summary>
 public enum ChartCategories
 {
     Unknown = 0, Female = 1, Male = 2, Event = 3, Horary = 4, Election = 5
 }
 
-/// <summary>
-/// Details for the Category of a chart.
-/// </summary>
+/// <summary>Details for the Category of a chart.</summary>
 public record ChartCategoryDetails
 {
     readonly public ChartCategories Category;
     readonly public string TextId;
 
-    /// <summary>
-    /// Construct details for a Chart category.
-    /// </summary>
     /// <param name="category">The category of the chart.</param>
     /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
     public ChartCategoryDetails(ChartCategories category, string textId)
@@ -32,17 +25,15 @@ public record ChartCategoryDetails
     }
 }
 
-/// <summary>
-/// Specifications for a Chart category.
-/// </summary>
+/// <summary>Specifications for a Chart category.</summary>
 public interface IChartCategorySpecifications
 {
-    /// <summary>
-    /// Returns the details for a Chart category.
-    /// </summary>
     /// <param name="category">The category, from the enum ChartCategories.</param>
     /// <returns>A record ChartCategoryDetails with the specifications.</returns>
     public ChartCategoryDetails DetailsForCategory(ChartCategories category);
+
+    ///<returns>Details for all items in enum ChartCategories.</returns>
+    public List<ChartCategoryDetails> AllChartCatDetails();
 
     /// <summary>
     /// Returns a value from the enum ChartCategories that corresponds with an index.
@@ -57,6 +48,7 @@ public interface IChartCategorySpecifications
 
 public class ChartCategorySpecifications : IChartCategorySpecifications
 {
+    /// <inheritdoc/>
     /// <exception cref="ArgumentException">Is thrown if the category was not recognized.</exception>
     public ChartCategoryDetails DetailsForCategory(ChartCategories category)
     {
@@ -72,6 +64,7 @@ public class ChartCategorySpecifications : IChartCategorySpecifications
         };
     }
 
+    /// <inheritdoc/>
     public ChartCategories ChartCategoryForIndex(int chartCategoryIndex)
     {
         foreach (ChartCategories category in Enum.GetValues(typeof(ChartCategories)))
@@ -79,6 +72,17 @@ public class ChartCategorySpecifications : IChartCategorySpecifications
             if ((int)category == chartCategoryIndex) return category;
         }
         throw new ArgumentException("Could not find ChartCategories for index : " + chartCategoryIndex);
+    }
+
+    /// <inheritdoc/>
+    public List<ChartCategoryDetails> AllChartCatDetails()
+    {
+        var allDetails = new List<ChartCategoryDetails>();
+        foreach (ChartCategories category in Enum.GetValues(typeof(ChartCategories)))
+        {
+            allDetails.Add(DetailsForCategory(category));
+        }
+        return allDetails;
     }
 
 }

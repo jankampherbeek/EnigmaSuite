@@ -6,6 +6,7 @@ using Enigma.Core.Calc.DateTime.CheckDateTime;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.Services;
 using Enigma.Domain.DateTime;
+using Enigma.Domain.Services;
 using Enigma.Frontend.Calculators;
 using Enigma.Frontend.Calculators.JulDay;
 using Enigma.Frontend.Calculators.Obliquity;
@@ -33,6 +34,7 @@ public partial class App : Application
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<CalcStartView>();
         serviceCollection.AddTransient<ChartsStartView>();
+        serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartDataInputView>();
         serviceCollection.AddTransient<JulDayView>();
         serviceCollection.AddTransient<JulDayController>();
@@ -44,9 +46,11 @@ public partial class App : Application
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
         serviceCollection.AddSingleton<ICheckDateTimeValidator, CheckDateTimeValidator>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
+        serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
 
-        serviceCollection.RegisterInputSUpportServices();
+        serviceCollection.RegisterInputSupportServices();
         serviceCollection.RegisterCalculationServices();
+        serviceCollection.RegisterDomainServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

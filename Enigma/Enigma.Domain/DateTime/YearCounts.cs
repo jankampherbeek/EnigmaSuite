@@ -4,25 +4,18 @@
 
 namespace Enigma.Domain.DateTime;
 
-/// <summary>
-/// Enum for Yearcounts.
-/// </summary>
+/// <summary>Enum for Yearcounts, the way years are defined.</summary>
 public enum YearCounts
 {
     CE = 0, BCE = 1, Astronomical = 2
 }
 
-/// <summary>
-/// Details for a yearcount.
-/// </summary>
+
 public record YearCountDetails
 {
     readonly public YearCounts YearCount;
     readonly public string TextId;
 
-    /// <summary>
-    /// Construct details for a YearCount.
-    /// </summary>
     /// <param name="yearCount">The YearCount.</param>
     /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
     public YearCountDetails(YearCounts yearCount, string textId)
@@ -32,21 +25,18 @@ public record YearCountDetails
     }
 }
 
-/// <summary>
-/// Specifications for a YearCount.
-/// </summary>
+
 public interface IYearCountSpecifications
 {
-    /// <summary>
-    /// Returns the details for a YearCount.
-    /// </summary>
+
     /// <param name="yearCount">The YearCount, from the enum YearCounts.</param>
     /// <returns>A record YearCountDetails with the specifications.</returns>
     public YearCountDetails DetailsForYearCount(YearCounts yearCount);
 
-    /// <summary>
-    /// Returns a value from the enum YearCounts that corresponds with an index.
-    /// </summary>
+    ///<returns>Details for all items in enum YearCounts.</returns>
+    public List<YearCountDetails> AllDetailsForYearCounts();
+
+    /// <summary>Returns a value from the enum YearCounts that corresponds with an index.</summary>
     /// <param name="yearCountIndex">The index for the requested item from YearCounts. 
     /// Throws an exception if no YearCount for the given index does exist.</param>
     /// <returns>Instance from enum YearCounts that corresponds with the given index.</returns>
@@ -55,8 +45,9 @@ public interface IYearCountSpecifications
 
 public class YearCountSpecifications : IYearCountSpecifications
 {
+    /// <inheritdoc/>
     /// <exception cref="ArgumentException">Is thrown if the calendar was not recognized.</exception>
-    YearCountDetails IYearCountSpecifications.DetailsForYearCount(YearCounts yearCount)
+    public YearCountDetails DetailsForYearCount(YearCounts yearCount)
     {
         return yearCount switch
         {
@@ -67,6 +58,18 @@ public class YearCountSpecifications : IYearCountSpecifications
         };
     }
 
+    public List<YearCountDetails> AllDetailsForYearCounts()
+    {
+        var allDetails = new List<YearCountDetails>();
+        foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
+        {
+            allDetails.Add(DetailsForYearCount(yearCount));
+        }
+        return allDetails;
+    }
+
+
+    /// <inheritdoc/>
     public YearCounts YearCountForIndex(int yearCountIndex)
     {
         foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
@@ -75,4 +78,6 @@ public class YearCountSpecifications : IYearCountSpecifications
         }
         throw new ArgumentException("Could not find YearCount for index : " + yearCountIndex);
     }
+
+
 }

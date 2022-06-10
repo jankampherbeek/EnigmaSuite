@@ -10,11 +10,19 @@ namespace Enigma.Test.Domain.CalcVars;
 [TestFixture]
 public class TestRoddenRatings
 {
+    private IRoddenRatingSpecifications specifications;
+
+    [SetUp]
+    public void SetUp()
+    {
+        specifications = new RoddenRatingSpecifications();
+    }
+
+
     [Test]
     public void TestRetrievingDetails()
     {
         RoddenRatings roddenRating = RoddenRatings.C;
-        IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
         RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
         Assert.IsNotNull(details);
         Assert.That(details.Rating, Is.EqualTo(roddenRating));
@@ -24,8 +32,6 @@ public class TestRoddenRatings
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
-
         foreach (RoddenRatings roddenRating in Enum.GetValues(typeof(RoddenRatings)))
         {
             RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
@@ -37,7 +43,6 @@ public class TestRoddenRatings
     [Test]
     public void TestRetrievingWithIndex()
     {
-        IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
         int roddenRatingIndex = 2;
         RoddenRatings roddenRating = specifications.RoddenRatingForIndex(roddenRatingIndex);
         Assert.That(roddenRating, Is.EqualTo(RoddenRatings.A));
@@ -46,9 +51,18 @@ public class TestRoddenRatings
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        IRoddenRatingSpecifications specifications = new RoddenRatingSpecifications();
         int roddenRatingIndex = 1000;
         Assert.That(() => _ = specifications.RoddenRatingForIndex(roddenRatingIndex), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestAllDetailsForRating()
+    {
+        List<RoddenRatingDetails> allDetails = specifications.AllDetailsForRating();
+        Assert.That(allDetails.Count, Is.EqualTo(8));
+        Assert.That(allDetails[0].Rating, Is.EqualTo(RoddenRatings.Unknown));
+        Assert.That(allDetails[1].Rating, Is.EqualTo(RoddenRatings.AA));
+        Assert.That(allDetails[7].TextId, Is.EqualTo("ref.enum.roddenrating.xx"));
     }
 
 }

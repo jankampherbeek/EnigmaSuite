@@ -23,17 +23,12 @@ public enum RoddenRatings
     Unknown = 0, AA = 1, A = 2, B = 3, C = 4, DD = 5, X = 6, XX = 7
 }
 
-/// <summary>
-/// Details for the Category of a chart.
-/// </summary>
+/// <summary>Details for the Category of a chart.</summary>
 public record RoddenRatingDetails
 {
     readonly public RoddenRatings Rating;
     readonly public string TextId;
 
-    /// <summary>
-    /// Construct details for a Rodden rating.
-    /// </summary>
     /// <param name="rating">The standard acronym for the Rodden rating.</param>
     /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
     public RoddenRatingDetails(RoddenRatings rating, string textId)
@@ -43,17 +38,15 @@ public record RoddenRatingDetails
     }
 }
 
-/// <summary>
-/// Specifications for a Rodden rating.
-/// </summary>
+/// <summary>Specifications for a Rodden rating.</summary>
 public interface IRoddenRatingSpecifications
 {
-    /// <summary>
-    /// Returns the details for a Rodden rating.
-    /// </summary>
     /// <param name="rating">The Rodden rating, from the enum RoddenRatings.</param>
     /// <returns>A record RoddenRatingDetails with the specifications.</returns>
     public RoddenRatingDetails DetailsForRating(RoddenRatings rating);
+
+    ///<returns>Details for all items in enum RoddenRatings.</returns>
+    public List<RoddenRatingDetails> AllDetailsForRating();
 
     /// <summary>
     /// Returns a value from the enum RoddenRatings that corresponds with an index.
@@ -64,9 +57,20 @@ public interface IRoddenRatingSpecifications
     public RoddenRatings RoddenRatingForIndex(int roddenRatingIndex);
 }
 
-
+/// <inheritdoc/>
 public class RoddenRatingSpecifications : IRoddenRatingSpecifications
 {
+    public List<RoddenRatingDetails> AllDetailsForRating()
+    {
+        var allDetails = new List<RoddenRatingDetails>();
+        foreach (RoddenRatings rating in Enum.GetValues(typeof(RoddenRatings)))
+        {
+            allDetails.Add(DetailsForRating(rating));
+        }
+        return allDetails;    
+    }
+
+    /// <inheritdoc/>
     /// <exception cref="ArgumentException">Is thrown if the rating was not recognized.</exception>
     public RoddenRatingDetails DetailsForRating(RoddenRatings rating)
     {
@@ -84,6 +88,7 @@ public class RoddenRatingSpecifications : IRoddenRatingSpecifications
         };
     }
 
+    /// <inheritdoc/>
     public RoddenRatings RoddenRatingForIndex(int roddenRatingIndex)
     {
         foreach (RoddenRatings rating in Enum.GetValues(typeof(RoddenRatings)))

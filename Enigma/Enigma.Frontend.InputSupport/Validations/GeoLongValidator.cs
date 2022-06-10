@@ -12,12 +12,11 @@ public interface IGeoLongValidator
     /// <summary>
     /// Validate input and create a record FullGeoLongitude.
     /// </summary>
-    /// <param name="longValues">Array with integers for the longitude in the sequence degree, minute, second. The value for second is optional.</param>
+    /// <param name="inputLongValues">Array with integers for the longitude in the sequence degree, minute, second. The value for second is optional.</param>
     /// <param name="direction">The direction: east or west.</param>
     /// <param name="fullLongitude">Resulting record FullGeoLongitude.</param>
-    /// <param name="errorCodes">Errorcodes, if any.</param>
     /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedLongitude(int[] inputLongValues, Directions4GeoLong direction, out FullGeoLongitude fullLongitude, out List<int> errorCodes);
+    public bool CreateCheckedLongitude(int[] inputLongValues, Directions4GeoLong direction, out FullGeoLongitude fullLongitude);
 }
 
 
@@ -25,13 +24,12 @@ public interface IGeoLongValidator
 public class GeoLongValidator : IGeoLongValidator
 {
     private bool _success = true;
-    private readonly List<int> _errorCodes = new();
     private readonly int[] _longValues = new int[] { 0, 0, 0 };
     private double _longitude = 0.0;
     private Directions4GeoLong _direction;
 
     /// <inheritdoc/>
-    public bool CreateCheckedLongitude(int[] inputLongValues, Directions4GeoLong direction, out FullGeoLongitude fullLongitude, out List<int> errorCodes)
+    public bool CreateCheckedLongitude(int[] inputLongValues, Directions4GeoLong direction, out FullGeoLongitude fullLongitude)
     {
         _direction = direction;
         string _fullText = "";
@@ -45,19 +43,12 @@ public class GeoLongValidator : IGeoLongValidator
             }
             _success = CheckMinAndMaxValues(_longValues);
         }
-
-        if (!_success)
-        {
-            _errorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
-        }
-
         if (_success)
         {
             CalculateLongitude();
             _fullText = CreateFullText();  
         }
         fullLongitude = new (_longValues, _longitude, _direction, _fullText);
-        errorCodes = _errorCodes;
         return _success;
     }
 
