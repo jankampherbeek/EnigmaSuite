@@ -39,7 +39,7 @@ namespace Enigma.Frontend.Charts
         private void NewChartClick(object sender, RoutedEventArgs e)
         {
             _dataInputView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _dataInputView.ShowDialog();
+            _dataInputView.ShowDialog();   // TODO FIX: cannot reopen window a second time
         }
 
         private void PopulateTexts()

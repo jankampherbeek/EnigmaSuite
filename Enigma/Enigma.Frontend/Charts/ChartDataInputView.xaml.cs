@@ -3,12 +3,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.CalcVars;
+using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
 using Enigma.Frontend.Support;
 using System.Collections.Generic;
 using System.Windows;
-
+using System.Windows.Media;
 
 namespace Enigma.Frontend.Charts;
 
@@ -39,6 +40,7 @@ public partial class ChartDataInputView : Window
         _helpWindow = helpWindow;
         PopulateTexts();
         PopulateLists();
+        EnableLmt(false);
     }
 
     private void PopulateTexts()
@@ -158,10 +160,46 @@ public partial class ChartDataInputView : Window
         comboTimezone.SelectedIndex = 0;
     }
 
+    private void TimeZoneChanged(object sender, RoutedEventArgs e)
+    {
+        bool lmtSelected = false;
+        int tzIndex = comboTimezone.SelectedIndex;
+        if (_timeZoneDetails[tzIndex].TimeZone == TimeZones.LMT)
+        {
+            lmtSelected = true;
+        } else
+        {
+            LmtValue.Text = "";
+        }
+        EnableLmt(lmtSelected);
+    }
+    private void EnableLmt(bool active)
+    {
+        comboLmtLongDir.IsEnabled = active;
+        LmtValue.IsEnabled = active;
+    }
+
     private void CalculateClick(object sender, RoutedEventArgs e)
     {
         TransferValues();
-        // perform validation
+        bool calculationOk = _controller.ProcessInput();
+        if (calculationOk)
+        {
+            Close();
+        }
+        else
+        {
+            HandleErrors();
+        }
+    }
+
+    private void HandleErrors()
+    {
+        DateValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_DATE) ? Brushes.Yellow : Brushes.White;
+        TimeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_TIME) ? Brushes.Yellow : Brushes.White;
+        LongitudeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_GEOLON) ? Brushes.Yellow : Brushes.White;
+        LatitudeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_GEOLAT) ? Brushes.Yellow : Brushes.White;
+        LmtValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_GEOLON_LMT) ? Brushes.Yellow : Brushes.White;
     }
 
     private void TransferValues()
@@ -181,8 +219,9 @@ public partial class ChartDataInputView : Window
         _controller.Calendar = _calendarDetails[comboCalendar.SelectedIndex].Calendar;
         _controller.YearCount = _yearCountDetails[comboYearCount.SelectedIndex].YearCount;
         _controller.Dst = (bool)checkDst.IsChecked;
-        _controller.TimeZone = _timeZoneDetails[comboTimezone.SelectedIndex].TimeZone;
-        _controller.LmtOffset = LmtValue.Text;
+        TimeZones timeZone = _timeZoneDetails[comboTimezone.SelectedIndex].TimeZone;
+        _controller.TimeZone = timeZone;
+        _controller.LmtOffset = (timeZone == TimeZones.LMT) ? LmtValue.Text : "00:00:00";
         _controller.LmtDirection4GeoLong = _directions4GeoLongDetails[comboLmtLongDir.SelectedIndex].Direction;
     }
 

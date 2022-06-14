@@ -9,7 +9,7 @@ namespace Enigma.Domain.CalcVars;
 /// <summary>Supported ayanamshas.</summary>
 public enum Ayanamshas
 {
-    Fagan, Lahiri, DeLuce, Raman, UshaShashi, Krishnamurti, DjwhalKhul, Yukteshwar, Bhasin, Kugler1, Kugler2, Kugler3, Huber, EtaPiscium, Aldebaran15Tau, Hipparchus, Sassanian,
+    None, Fagan, Lahiri, DeLuce, Raman, UshaShashi, Krishnamurti, DjwhalKhul, Yukteshwar, Bhasin, Kugler1, Kugler2, Kugler3, Huber, EtaPiscium, Aldebaran15Tau, Hipparchus, Sassanian,
     GalactCtr0Sag, J2000, J1900, B1950, SuryaSiddhanta, SuryaSiddhantaMeanSun, Aryabhata, AryabhataMeanSun, SsRevati, SsCitra, TrueCitra, TrueRevati, TruePushya, GalacticCtrBrand,
     GalacticEqIau1958, GalacticEq, GalacticEqMidMula, Skydram, TrueMula, Dhruva, Aryabhata522, Britton, GalacticCtrOCap
 }
@@ -50,6 +50,7 @@ public class AyanamshaSpecifications : IAyanamshaSpecifications
     {
         return ayanamsha switch
         {
+            Ayanamshas.None => new AyanamshaDetails(ayanamsha, -1, "ayanamshaNone"),
             Ayanamshas.Fagan => new AyanamshaDetails(ayanamsha, 0, "ayanamshaFagan"),
             Ayanamshas.Lahiri => new AyanamshaDetails(ayanamsha, 1, "ayanamshaLahiri"),
             Ayanamshas.DeLuce => new AyanamshaDetails(ayanamsha, 2, "ayanamshaDeLuce"),

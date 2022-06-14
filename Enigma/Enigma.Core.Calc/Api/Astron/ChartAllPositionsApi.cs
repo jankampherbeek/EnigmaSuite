@@ -31,10 +31,14 @@ public class ChartAllPositionsApi : IChartAllPositionsApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.SolSysPointRequest);
-        Guard.Against.Null(request.SolSysPointRequest.Ayanamsha);
         Guard.Against.Null(request.SolSysPointRequest.ChartLocation);
-        Guard.Against.Null(request.SolSysPointRequest.ProjectionType);
-        Guard.Against.Null(request.SolSysPointRequest.ObserverPosition);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualProjectionType);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualAyanamsha);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualObserverPosition);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualHouseSystem);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualSolarSystemPoints);
+        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualZodiacType);
         Guard.Against.Null(request.HouseSystem);
 
         return _handler.CalcFullChart(request);

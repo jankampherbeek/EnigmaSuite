@@ -69,15 +69,15 @@ public class SolSysPointsHandler : ISolSysPointsHandler
         double obliquity = obliquityResponse.ObliquityTrue;
         bool success = obliquityResponse.Success;
         string errorText = obliquityResponse.ErrorText;
-        if (request.ZodiacType == ZodiacTypes.Sidereal)
+        if (request.ActualCalculationPreferences.ActualZodiacType == ZodiacTypes.Sidereal)
         {
-            int idAyanamsa = _ayanamshaSpecifications.DetailsForAyanamsha(request.Ayanamsha).SeId;
+            int idAyanamsa = _ayanamshaSpecifications.DetailsForAyanamsha(request.ActualCalculationPreferences.ActualAyanamsha).SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
         }
-        int _flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.ObserverPosition, request.ZodiacType);
-        int _flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.ObserverPosition, request.ZodiacType);
+        int _flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
+        int _flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
         var _fullSolSysPoints = new List<FullSolSysPointPos>();
-        foreach (SolarSystemPoints solSysPoint in request.SolarSystemPoints)
+        foreach (SolarSystemPoints solSysPoint in request.ActualCalculationPreferences.ActualSolarSystemPoints)
         {
             SolarSystemPointDetails details = _solSysPointSpecs.DetailsForPoint(solSysPoint);
             if (details.CalculationType == CalculationTypes.SE)

@@ -15,13 +15,17 @@ public record CalendarDetails
 {
     readonly public Calendars Calendar;
     readonly public string TextId;
+    readonly public string TextIdFull;
 
     /// <param name="calendar">The calendar.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public CalendarDetails(Calendars calendar, string textId)
+    /// <param name="textId">Id to find a descriptive text in a resource bundle. Uses an abbreviated version.</param>
+    /// <param name="textIdFull">Id to find a descriptive text in a resource bundle. Uses a full version.</param>
+    public CalendarDetails(Calendars calendar, string textId, string textIdFull)
     {
         Calendar = calendar;
         TextId = textId;
+        TextIdFull = textIdFull;
+
     }
 }
 
@@ -52,8 +56,8 @@ public class CalendarSpecifications : ICalendarSpecifications
     {
         return calendar switch
         {
-            Calendars.Gregorian => new CalendarDetails(calendar, "ref.enum.calendar.gregorian"),
-            Calendars.Julian => new CalendarDetails(calendar, "ref.enum.calendar.julian"),
+            Calendars.Gregorian => new CalendarDetails(calendar, "ref.enum.calendar.gregorian", "ref.enum.calendar.gregorian.full"),
+            Calendars.Julian => new CalendarDetails(calendar, "ref.enum.calendar.julian", "ref.enum.calendar.julian.full"),
             _ => throw new ArgumentException("Calendar unknown : " + calendar.ToString())
         };
     }

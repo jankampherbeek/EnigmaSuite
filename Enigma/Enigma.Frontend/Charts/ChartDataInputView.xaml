@@ -41,9 +41,9 @@
         <TextBlock Grid.Row="2" Margin="6" Name="NameIdTxt" Text="NameIdTxt" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="3" Margin="6" Name="NameIdValue" Text="" VerticalAlignment="Top" />
         <TextBlock Grid.Row="4" Margin="6" Name="SubjectTxt" Text="SubjectTxt" VerticalAlignment="Bottom" />
-        <ComboBox Grid.Row="5" Margin="6" Name="comboSubject" Text="" Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="5" Margin="6" Name="comboSubject" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
         <TextBlock Grid.Row="6" Margin="6" Name="RatingTxt" Text="RatingTxt" VerticalAlignment="Bottom" />
-        <ComboBox Grid.Row="7" Margin="6" Name="comboRating" Text="" Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="7" Margin="6" Name="comboRating" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
         <TextBlock Grid.Row="8" Margin="6" Name="SourceTxt" Text="SourceTxt" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="9" Grid.RowSpan="2" Margin="6" Height="54" TextWrapping="Wrap" AcceptsReturn="True" Name="SourceValue" Text="" VerticalAlignment="Top" />
         
@@ -57,9 +57,9 @@
         <TextBlock Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" Margin="6" Name="LongitudeTxt" Text="LongitudeTxt" VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="4" Grid.Column="4" Grid.ColumnSpan="2" Margin="6" Name="LatitudeTxt" Text="LatitudeTxt" VerticalAlignment="Bottom"/>        
         <TextBox Grid.Row="5" Grid.Column="2" Margin="6" Name="LongitudeValue" Text="" VerticalAlignment="Top" />
-        <ComboBox Grid.Row="5" Grid.Column="3" Margin="6" Name="comboLongDir" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="5" Grid.Column="3" Margin="6" Name="comboLongDir" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
         <TextBox Grid.Row="5" Grid.Column="4" Margin="6" Name="LatitudeValue" Text="" VerticalAlignment="Top" />
-        <ComboBox Grid.Row="5" Grid.Column="5" Margin="6" Name="comboLatDir" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="5" Grid.Column="5" Margin="6" Name="comboLatDir" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
 
         <TextBlock Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="4" Margin="6" Name="DateTimeTxt" Text="DateTimeTxt" FontWeight="Bold"  VerticalAlignment="Center" />
         <Rectangle Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="4" Grid.RowSpan="8" />
@@ -68,17 +68,17 @@
         <TextBlock Grid.Row="7" Grid.Column="4" Margin="6" Name="YearCountTxt" Text="YearCountTxt" VerticalAlignment="Bottom"/>
 
         <TextBox Grid.Row="8" Grid.Column="2" Margin="6" Name="DateValue" Text="" VerticalAlignment="Top" />
-        <ComboBox Grid.Row="8" Grid.Column="3" Margin="6" Name="comboCalendar" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
-        <ComboBox Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2" Margin="6" Name="comboYearCount" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="8" Grid.Column="3" Margin="6" Name="comboCalendar" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <ComboBox Grid.Row="8" Grid.Column="4" Grid.ColumnSpan="2" Margin="6" Name="comboYearCount" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
         <TextBlock Grid.Row="9" Grid.Column="2" Margin="6" Name="TimeTxt" Text="TimeTxt" VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="9" Grid.Column="3" Margin="6" Name="DstTxt" Text="DstTxt" VerticalAlignment="Bottom"/>
         <TextBox Grid.Row="10" Grid.Column="2" Margin="6" Name="TimeValue" Text="" VerticalAlignment="Top" />
-        <CheckBox Grid.Row="10" Grid.Column="3" Margin="6" Name="checkDst" Content="" />
+        <CheckBox Grid.Row="10" Grid.Column="3" Margin="6" Name="checkDst" IsTabStop="False"/>
         <TextBlock Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="4" Margin="6" Name="TimeZoneTxt" Text="TimeZoneTxt" VerticalAlignment="Bottom"/>
-        <ComboBox Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="4" Margin="6" Name="comboTimezone" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="12" Grid.Column="2" Grid.ColumnSpan="4" Margin="6" Name="comboTimezone" Text=""  Style="{DynamicResource ComboBoxStyle1}" SelectionChanged="TimeZoneChanged" IsEditable="True" IsReadOnly="True"/>
         <TextBlock Grid.Row="13" Grid.Column="2" Grid.ColumnSpan="4" Margin="6" Name="LmtTxt" Text="LmtTxt" VerticalAlignment="Bottom"/>
         <TextBox Grid.Row="14" Grid.Column="2" Margin="6" Name="LmtValue" Text="" VerticalAlignment="Top" />
-        <ComboBox Grid.Row="14" Grid.Column="3" Margin="6" Name="comboLmtLongDir" Text=""  Style="{DynamicResource ComboBoxStyle1}"/>
+        <ComboBox Grid.Row="14" Grid.Column="3" Margin="6" Name="comboLmtLongDir" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
         <StackPanel Grid.Row="15" Grid.ColumnSpan="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
             <Button Margin="6" Name="BtnClose" Content="BtnClose" HorizontalAlignment="Right" Click="CloseClick"/>

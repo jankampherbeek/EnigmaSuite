@@ -30,7 +30,7 @@ public record ProjectionTypeDetails
 }
 
 /// <summary>Specification for a Projection Type.</summary>
-public interface IProjectionTypeDetailSpecifications
+public interface IProjectionTypeDetailSpecifications          // TODO rename to IProjectionTypeSpecifications
 {
     /// <summary>Returns the details for a Projection Type.</summary>
     /// <param name="projectionType">Instance from the enum ProjectionTypes.</param>

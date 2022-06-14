@@ -15,28 +15,16 @@ public record SolSysPointsRequest
 {
     public readonly double JulianDayUt;
     public readonly Location ChartLocation;
-    public readonly List<SolarSystemPoints> SolarSystemPoints;
-    public readonly ZodiacTypes ZodiacType;
-    public readonly Ayanamshas Ayanamsha;
-    public readonly ObserverPositions ObserverPosition;
-    public readonly ProjectionTypes ProjectionType;
+    public readonly CalculationPreferences ActualCalculationPreferences;
 
     /// <param name="julianDayUt">Julian day for universal time.</param>
     /// <param name="location">Location (only latitude and longitude are used).</param>
-    /// <param name="solarSystemPoints">List with the Solar System Points to calculate.</param>
-    /// <param name="zodiacType">The zodiac type: tropical or sidereal.</param>
-    /// <param name="ayanamsha">The ayanamsha to be applied.</param>
-    /// <param name="observerPosition">Observer position (geocentric, topocentric, heliocentric).</param>
-    /// <param name="projectionType">Projection type (standard or oblique longitude).</param>
-    public SolSysPointsRequest(double julianDayUt, Location location, List<SolarSystemPoints> solarSystemPoints,
-        ZodiacTypes zodiacType, Ayanamshas ayanamsha, ObserverPositions observerPosition, ProjectionTypes projectionType)
+    /// <param name="calculationPreferences">User preferences for the calculation.</param>
+
+    public SolSysPointsRequest(double julianDayUt, Location location, CalculationPreferences calculationPreferences)
     {
         JulianDayUt = julianDayUt;
         ChartLocation = location;
-        SolarSystemPoints = solarSystemPoints;
-        ZodiacType = zodiacType;
-        Ayanamsha = ayanamsha;
-        ObserverPosition = observerPosition;
-        ProjectionType = projectionType;
+        ActualCalculationPreferences = calculationPreferences;
     }
 }
