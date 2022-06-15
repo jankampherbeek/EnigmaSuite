@@ -7,6 +7,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
 using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -18,11 +19,8 @@ namespace Enigma.Frontend.Charts;
 /// </summary>
 public partial class ChartDataInputView : Window
 {
-    private readonly string EMPTY_STRING = "";
     private IRosetta _rosetta;
-    private IChartsEnumFacade _chartsEnumFacade;
     private ChartDataInputController _controller;
-    private HelpWindow _helpWindow;
     private List<CalendarDetails> _calendarDetails;
     private List<ChartCategoryDetails> _chartCategoryDetails;
     private List<RoddenRatingDetails> _roddenRatingDetails;
@@ -31,13 +29,18 @@ public partial class ChartDataInputView : Window
     private List<YearCountDetails> _yearCountDetails;
     private List<TimeZoneDetails> _timeZoneDetails;
 
-    public ChartDataInputView(ChartDataInputController controller, IRosetta rosetta, IChartsEnumFacade chartsEnumFacade, HelpWindow helpWindow)
+    public ChartDataInputView(ChartDataInputController controller, IRosetta rosetta, IChartsEnumFacade chartsEnumFacade)
     {
         InitializeComponent();
         _controller = controller;
         _rosetta = rosetta;
-        _chartsEnumFacade = chartsEnumFacade;
-        _helpWindow = helpWindow;
+        _calendarDetails = chartsEnumFacade.AllCalendarDetails();
+        _chartCategoryDetails = chartsEnumFacade.AllChartCategoryDetails();
+        _roddenRatingDetails = chartsEnumFacade.AllRoddenRatingDetails();
+        _directions4GeoLongDetails = chartsEnumFacade.AllDirections4GeoLongDetails();
+        _directions4GeoLatDetails = chartsEnumFacade.AllDirections4GeoLatDetails();
+        _yearCountDetails = chartsEnumFacade.AllYearCountDetails();
+        _timeZoneDetails = chartsEnumFacade.AllTimeZoneDetails();
         PopulateTexts();
         PopulateLists();
         EnableLmt(false);
@@ -83,7 +86,6 @@ public partial class ChartDataInputView : Window
     private void PopulateCalendars()
     {
         comboCalendar.Items.Clear();
-        _calendarDetails = _chartsEnumFacade.AllCalendarDetails();
         foreach (var calendarDetail in _calendarDetails)
         {
             comboCalendar.Items.Add(_rosetta.TextForId(calendarDetail.TextId));
@@ -94,7 +96,6 @@ public partial class ChartDataInputView : Window
     private void PopulateChartCategories()
     {
         comboSubject.Items.Clear();
-        _chartCategoryDetails = _chartsEnumFacade.AllChartCategoryDetails();
         foreach (var chartCategoryDetail in _chartCategoryDetails)
         {
             comboSubject.Items.Add(_rosetta.TextForId(chartCategoryDetail.TextId));
@@ -105,7 +106,6 @@ public partial class ChartDataInputView : Window
     private void PopulateRoddenRatings()
     {
         comboRating.Items.Clear();
-        _roddenRatingDetails = _chartsEnumFacade.AllRoddenRatingDetails();
         foreach (var roddenRatingDetail in _roddenRatingDetails)
         {
             comboRating.Items.Add(_rosetta.TextForId(roddenRatingDetail.TextId));
@@ -117,7 +117,6 @@ public partial class ChartDataInputView : Window
     {
         comboLongDir.Items.Clear();
         comboLmtLongDir.Items.Clear();
-        _directions4GeoLongDetails = _chartsEnumFacade.AllDirections4GeoLongDetails();
         foreach(var direction4GeoLongDetail in _directions4GeoLongDetails)
         {
             comboLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
@@ -130,7 +129,6 @@ public partial class ChartDataInputView : Window
     private void PopulateDirections4GeoLat()
     {
         comboLatDir.Items.Clear();
-        _directions4GeoLatDetails = _chartsEnumFacade.AllDirections4GeoLatDetails();
         foreach (var direction4GeoLatDetail in _directions4GeoLatDetails)
         {
             comboLatDir.Items.Add(_rosetta.TextForId(direction4GeoLatDetail.TextId));
@@ -141,7 +139,6 @@ public partial class ChartDataInputView : Window
     private void PopulateYearCounts()
     {
         comboYearCount.Items.Clear();
-        _yearCountDetails = _chartsEnumFacade.AllYearCountDetails();
         foreach (var yearCountDetail in _yearCountDetails)
         {
             comboYearCount.Items.Add(_rosetta.TextForId(yearCountDetail.TextId));
@@ -152,7 +149,6 @@ public partial class ChartDataInputView : Window
     private void PopulateTimeZones()
     {
         comboTimezone.Items.Clear();
-        _timeZoneDetails = _chartsEnumFacade.AllTimeZoneDetails();
         foreach(var timeZoneDetail in _timeZoneDetails)
         {
             comboTimezone.Items.Add(_rosetta.TextForId(timeZoneDetail.TextId));
@@ -218,7 +214,7 @@ public partial class ChartDataInputView : Window
         _controller.InputTime = TimeValue.Text;
         _controller.Calendar = _calendarDetails[comboCalendar.SelectedIndex].Calendar;
         _controller.YearCount = _yearCountDetails[comboYearCount.SelectedIndex].YearCount;
-        _controller.Dst = (bool)checkDst.IsChecked;
+        _controller.Dst = checkDst.IsChecked != null && checkDst.IsChecked == true;
         TimeZones timeZone = _timeZoneDetails[comboTimezone.SelectedIndex].TimeZone;
         _controller.TimeZone = timeZone;
         _controller.LmtOffset = (timeZone == TimeZones.LMT) ? LmtValue.Text : "00:00:00";
@@ -232,9 +228,13 @@ public partial class ChartDataInputView : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-    //    _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-    //    _helpWindow.SetUri("CalcJd");
-    //    _helpWindow.ShowDialog();
+        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
+        if (helpWindow != null)
+        {
+            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            helpWindow.SetUri("");     // TODO define help page for ChartDataInput
+            helpWindow.ShowDialog();
+        }
     }
 
 }

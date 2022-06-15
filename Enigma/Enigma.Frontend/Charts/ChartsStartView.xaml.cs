@@ -1,4 +1,5 @@
 ﻿using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace Enigma.Frontend.Charts
@@ -8,18 +9,12 @@ namespace Enigma.Frontend.Charts
     /// </summary>
     public partial class ChartsStartView : Window
     {
-
-        private readonly string EMPTY_STRING = "";
         private IRosetta _rosetta;
-        private HelpWindow _helpWindow;
-        private ChartDataInputView _dataInputView;
 
-        public ChartsStartView(ChartDataInputView dataInputView, IRosetta rosetta, HelpWindow helpWindow)
+        public ChartsStartView(IRosetta rosetta)
         {
             InitializeComponent();
-            _dataInputView = dataInputView;
             _rosetta = rosetta;
-            _helpWindow = helpWindow;
             PopulateTexts();
         }
 
@@ -31,15 +26,23 @@ namespace Enigma.Frontend.Charts
 
         private void HelpClick(object sender, RoutedEventArgs e)
         {
-            _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _helpWindow.SetUri("ChartsDashboard");
-            _helpWindow.ShowDialog();
+            HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
+            if (helpWindow != null)
+            {
+                helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                helpWindow.SetUri("ChartsDashboard");
+                helpWindow.ShowDialog();
+            }
         }
 
         private void NewChartClick(object sender, RoutedEventArgs e)
         {
-            _dataInputView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _dataInputView.ShowDialog();   // TODO FIX: cannot reopen window a second time
+            ChartDataInputView? chartDataInputView = App.ServiceProvider.GetService<ChartDataInputView>();
+            if (chartDataInputView != null)
+            {
+                chartDataInputView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                chartDataInputView.ShowDialog();
+            }
         }
 
         private void PopulateTexts()

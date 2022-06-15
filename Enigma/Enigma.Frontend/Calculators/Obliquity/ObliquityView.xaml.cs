@@ -6,6 +6,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -17,22 +18,18 @@ namespace Enigma.Frontend.Calculators.Obliquity
     {
         private readonly string EMPTY_STRING = "";
         private IRosetta _rosetta;
-        private HelpWindow _helpWindow;
         private ObliquityController _controller;
         private ObliquityResult _obliquityResult;
         private List<CalendarDetails> _calendarDetails;
         private List<YearCountDetails> _yearCountDetails;
-        private ICalendarSpecifications _calendarSpecifications;
-        private IYearCountSpecifications _yearCountSpecifications;
 
-        public ObliquityView(IRosetta rosetta, ObliquityController controller, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications, HelpWindow helpWindow)
+        public ObliquityView(IRosetta rosetta, ObliquityController controller, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
         {
             InitializeComponent();
             _rosetta = rosetta;
             _controller = controller;
-            _calendarSpecifications = calendarSpecifications;
-            _yearCountSpecifications = yearCountSpecifications;
-            _helpWindow = helpWindow;
+            _calendarDetails = calendarSpecifications.AllCalendarDetails();
+            _yearCountDetails = yearCountSpecifications.AllDetailsForYearCounts();
             PopulateTexts();
             PopulateCalendars();
             PopulateYearCounts();
@@ -75,9 +72,13 @@ namespace Enigma.Frontend.Calculators.Obliquity
 
         private void HelpClick(object sender, RoutedEventArgs e)
         {
-            _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            _helpWindow.SetUri("CalcObliquity");
-            _helpWindow.ShowDialog();
+            HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
+            if (helpWindow != null)
+            {
+                helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                helpWindow.SetUri("CalcObliquity");
+                helpWindow.ShowDialog();
+            }
         }
 
 
@@ -99,7 +100,6 @@ namespace Enigma.Frontend.Calculators.Obliquity
         private void PopulateCalendars()
         {
             comboCalendar.Items.Clear();
-            _calendarDetails = _calendarSpecifications.AllCalendarDetails();
             foreach (var calendarDetail in _calendarDetails)
             {
                 comboCalendar.Items.Add(_rosetta.TextForId(calendarDetail.TextIdFull));
@@ -110,7 +110,6 @@ namespace Enigma.Frontend.Calculators.Obliquity
         private void PopulateYearCounts()
         {
             comboYearCount.Items.Clear();
-            _yearCountDetails = _yearCountSpecifications.AllDetailsForYearCounts();
             foreach (var yearCountDetail in _yearCountDetails)
             {
                 comboYearCount.Items.Add(_rosetta.TextForId(yearCountDetail.TextId));

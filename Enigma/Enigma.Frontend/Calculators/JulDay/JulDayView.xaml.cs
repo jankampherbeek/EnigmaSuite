@@ -6,6 +6,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -18,22 +19,17 @@ public partial class JulDayView : Window
 {
     private readonly string EMPTY_STRING = "";
     private IRosetta _rosetta;
-    private HelpWindow _helpWindow;
     private JulDayController _controller;
-    private JulDayResult _julDayResult;
     private List<CalendarDetails> _calendarDetails;
     private List<YearCountDetails> _yearCountDetails;
-    private ICalendarSpecifications _calendarSpecifications;
-    private IYearCountSpecifications _yearCountSpecifications;
 
-    public JulDayView(IRosetta rosetta, JulDayController controller, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications,  HelpWindow helpWindow)
+    public JulDayView(IRosetta rosetta, JulDayController controller, ICalendarSpecifications calendarSpecifications, IYearCountSpecifications yearCountSpecifications)
     {
         InitializeComponent();
         _rosetta = rosetta;
         _controller = controller;
-        _calendarSpecifications = calendarSpecifications;
-        _yearCountSpecifications = yearCountSpecifications; 
-        _helpWindow = helpWindow;
+        _calendarDetails = calendarSpecifications.AllCalendarDetails();
+        _yearCountDetails = yearCountSpecifications.AllDetailsForYearCounts();
         PopulateTexts();
         PopulateCalendars();
         PopulateYearCounts();
@@ -51,11 +47,11 @@ public partial class JulDayView : Window
         bool calculationOk = _controller.ProcessInput();
         if (calculationOk)
         {
-            _julDayResult = _controller.Result;
-            tbJdResultUtValue.Text = _julDayResult.JulDayUtText;
-            tbJdResultEtValue.Text = _julDayResult.JulDayEtText;
-            tbDeltaTSecondsValue.Text = _julDayResult.DeltaTTextInSeconds;
-            tbDeltaTDaysvalue.Text = _julDayResult.DeltaTTextInDays;
+            JulDayResult julDayResult = _controller.Result;
+            tbJdResultUtValue.Text = julDayResult.JulDayUtText;
+            tbJdResultEtValue.Text = julDayResult.JulDayEtText;
+            tbDeltaTSecondsValue.Text = julDayResult.DeltaTTextInSeconds;
+            tbDeltaTDaysvalue.Text = julDayResult.DeltaTTextInDays;
         } 
         else
         {
@@ -84,9 +80,13 @@ public partial class JulDayView : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetUri("CalcJd");
-        _helpWindow.ShowDialog();
+        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
+        if (helpWindow != null)
+        {
+            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            helpWindow.SetUri("CalcJd");
+            helpWindow.ShowDialog();
+        }
     }
 
     private void PopulateTexts()
@@ -110,7 +110,6 @@ public partial class JulDayView : Window
     private void PopulateCalendars()
     {
         comboCalendar.Items.Clear();
-        _calendarDetails = _calendarSpecifications.AllCalendarDetails();
         foreach (var calendarDetail in _calendarDetails)
         {
             comboCalendar.Items.Add(_rosetta.TextForId(calendarDetail.TextIdFull));
@@ -121,7 +120,6 @@ public partial class JulDayView : Window
     private void PopulateYearCounts()
     {
         comboYearCount.Items.Clear();
-        _yearCountDetails = _yearCountSpecifications.AllDetailsForYearCounts();
         foreach (var yearCountDetail in _yearCountDetails)
         {
             comboYearCount.Items.Add(_rosetta.TextForId(yearCountDetail.TextId));
