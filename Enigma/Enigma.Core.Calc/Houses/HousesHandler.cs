@@ -65,7 +65,7 @@ public class HousesHandler : IHousesHandler
             CuspFullPos ascendant = CreateCuspFullPos(_eclValues[1][0], jdUt, obliquity, location);
             CuspFullPos mc = CreateCuspFullPos(_eclValues[1][1], jdUt, obliquity, location);
             CuspFullPos vertex = CreateCuspFullPos(_eclValues[1][2], jdUt, obliquity, location);
-            CuspFullPos eastPoint = CreateCuspFullPos(_eclValues[1][3], jdUt, obliquity, location);
+            CuspFullPos eastPoint = CreateCuspFullPos(_eclValues[1][4], jdUt, obliquity, location);
             fullHousesPos = new(allCusps, mc, ascendant, vertex, eastPoint);
         }
         catch (SwissEphException see)
