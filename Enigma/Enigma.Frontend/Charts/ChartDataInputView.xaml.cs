@@ -232,7 +232,7 @@ public partial class ChartDataInputView : Window
         if (helpWindow != null)
         {
             helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetUri("");     // TODO define help page for ChartDataInput
+            helpWindow.SetUri("ChartsDataInput"); 
             helpWindow.ShowDialog();
         }
     }
