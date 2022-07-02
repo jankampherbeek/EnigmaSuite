@@ -18,7 +18,7 @@ public record FullHousesPositions
     public readonly CuspFullPos EastPoint;
 
     /// <summary>
-    /// Constructor for record CalculatedMundanePositions.
+    /// Constructor for record FullHousePositions.
     /// </summary>
     /// <param name="cusps">List with full positions for cusps, in the sequence 1 ..n. </param>
     /// <param name="mc"/>

@@ -17,6 +17,7 @@ public static class InputSupportServices
     {
         serviceCollection.AddSingleton<IDateInputParser, DateInputParser>();
         serviceCollection.AddSingleton<IDateValidator, DateValidator> ();
+        serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions> ();
         serviceCollection.AddSingleton<IGeoLatInputParser, GeoLatInputParser>();
         serviceCollection.AddSingleton<IGeoLatValidator, GeoLatValidator> ();
         serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();

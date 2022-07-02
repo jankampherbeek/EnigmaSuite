@@ -6,11 +6,13 @@ using Enigma.Core.Calc.Api.Astron;
 using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.CalcVars;
+using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
 using Enigma.Domain.Positional;
 using Enigma.Frontend.InputSupport.InputParsers;
+using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -46,12 +48,13 @@ public class ChartDataInputController
     private readonly IGeoLongInputParser _geoLongInputParser;
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
+    private readonly ChartsStartController _chartStartController;
     private Calendars _cal;
     private List<FullSolSysPointPos> _solarSystemPointPositions;
     private FullHousesPositions _mundanePositions;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
-                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
+                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi, ChartsStartController chartsStartController)
     {
         _dateInputParser = dateInputParser;
         _timeInputParser = timeInputParser;
@@ -59,6 +62,7 @@ public class ChartDataInputController
         _geoLongInputParser = geoLongInputParser;
         _julianDayApi = julianDayApi;
         _chartAllPositionsApi = chartAllPositionsApi;
+        _chartStartController = chartsStartController;
     }
 
     /// <summary>
@@ -122,6 +126,14 @@ public class ChartDataInputController
             {
                 _solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;
                 _mundanePositions = chartAllPositionsResponse.MundanePositions;
+                FullDateTime fullDateTime = new FullDateTime(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
+                MetaData metaData = new MetaData(NameId, Description, Source, ChartCategory, RoddenRating);
+                // Todo retrieve id from database, use local counter for tempId
+                int id = 1000;
+                int tempId = 1;
+                ChartData chartData = new ChartData(id, tempId, metaData, location, fullDateTime);
+                CalculatedChart chart = new CalculatedChart(_solarSystemPointPositions, _mundanePositions, chartData);
+                _chartStartController.AddCalculatedChart(chart);
                 return true;
             }
             else

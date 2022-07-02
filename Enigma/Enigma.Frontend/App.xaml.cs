@@ -11,8 +11,10 @@ using Enigma.Frontend.Calculators;
 using Enigma.Frontend.Calculators.JulDay;
 using Enigma.Frontend.Calculators.Obliquity;
 using Enigma.Frontend.Charts;
+using Enigma.Frontend.InputSupport.PresentationFactories;
 using Enigma.Frontend.InputSupport.Services;
 using Enigma.Frontend.Support;
+using Enigma.Frontend.UiDomain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -31,26 +33,31 @@ public partial class App : Application
 
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddTransient<MainWindow>();
+
         serviceCollection.AddTransient<CalcStartView>();
-        serviceCollection.AddTransient<ChartsStartView>();
         serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartDataInputView>();
-        serviceCollection.AddTransient<JulDayView>();
-        serviceCollection.AddTransient<JulDayController>();
-        serviceCollection.AddTransient<ObliquityView>();
-        serviceCollection.AddTransient<ObliquityController>();
-        serviceCollection.AddTransient<HelpWindow>();
-        serviceCollection.AddTransient<IRosetta, Rosetta>();
-        serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
+        serviceCollection.AddTransient<ChartPositions>();
+        serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
+        serviceCollection.AddSingleton<ChartsStartController>();
+        serviceCollection.AddTransient<ChartsStartView>();
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
         serviceCollection.AddSingleton<ICheckDateTimeValidator, CheckDateTimeValidator>();
+        serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
+        serviceCollection.AddTransient<HelpWindow>();
+        serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
+        serviceCollection.AddTransient<JulDayController>();
+        serviceCollection.AddTransient<JulDayView>();
+        serviceCollection.AddTransient<MainWindow>();
+        serviceCollection.AddTransient<ObliquityView>();
+        serviceCollection.AddTransient<ObliquityController>();
+        serviceCollection.AddTransient<IRosetta, Rosetta>();
+        serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
-        serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
 
-        serviceCollection.RegisterInputSupportServices();
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
+        serviceCollection.RegisterInputSupportServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

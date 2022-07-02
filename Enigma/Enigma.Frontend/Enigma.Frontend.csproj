@@ -8,10 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Calculations.jpg" />
-    <None Remove="Images\Charts.jpg" />
-    <None Remove="Images\Counting.jpg" />
-    <None Remove="Images\Cycles.jpg" />
+    <None Remove="Images\Enigma-2.0.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Calculations.jpg" />
-    <Resource Include="Images\Charts.jpg" />
-    <Resource Include="Images\Counting.jpg" />
-    <Resource Include="Images\Cycles.jpg" />
+    <Resource Include="Images\Enigma-2.0.jpg" />
   </ItemGroup>
 
 </Project>

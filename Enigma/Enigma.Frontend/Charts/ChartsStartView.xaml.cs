@@ -1,4 +1,5 @@
 ﻿using Enigma.Frontend.Support;
+using Enigma.Frontend.UiDomain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -10,10 +11,12 @@ namespace Enigma.Frontend.Charts
     public partial class ChartsStartView : Window
     {
         private IRosetta _rosetta;
+        private ChartsStartController _controller;
 
-        public ChartsStartView(IRosetta rosetta)
+        public ChartsStartView(ChartsStartController controller, IRosetta rosetta )
         {
             InitializeComponent();
+            _controller = controller;
             _rosetta = rosetta;
             PopulateTexts();
         }
@@ -42,8 +45,26 @@ namespace Enigma.Frontend.Charts
             {
                 chartDataInputView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
                 chartDataInputView.ShowDialog();
+    //            CurrentCharts allCurrentCharts = _controller.AllCurrentCharts;
+    //            if (allCurrentCharts.IdPrimaryChart > -1)
+    //            {
+    //                ShowPositions();
+    //            }
             }
         }
+
+        private void ShowPositions()
+        {
+            ChartPositions? chartPositions = App.ServiceProvider.GetService<ChartPositions>();
+            if (chartPositions != null)
+            { 
+             //   chartPositions.ActiveChart = 
+                chartPositions.PopulateHouses();
+                chartPositions.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                chartPositions.ShowDialog();
+            }
+        }
+
 
         private void PopulateTexts()
         {
