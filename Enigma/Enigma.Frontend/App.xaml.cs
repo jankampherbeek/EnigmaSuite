@@ -48,10 +48,10 @@ public partial class App : Application
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<JulDayController>();
         serviceCollection.AddTransient<JulDayView>();
-        serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<ObliquityView>();
         serviceCollection.AddTransient<ObliquityController>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
+        serviceCollection.AddTransient<StartWindow>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
 

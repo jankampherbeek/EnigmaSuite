@@ -10,10 +10,10 @@ namespace Enigma.Frontend;
 
 
 /// <summary>Dashboard, start window for application, provides access to the four main functionalities of the Enigma Suite.</summary>
-public partial class MainWindow : Window
+public partial class StartWindow : Window
 {
 
-    public MainWindow()
+    public StartWindow()
     {        
         InitializeComponent();
         this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
