@@ -24,10 +24,11 @@ public class DateConversionFacade : IDateConversionFacade
     /// <inheritdoc/>
     public bool DateTimeIsValid(SimpleDateTime dateTime)
     {
-        double _julianDay = 0.0;
-        char _calendar = dateTime.Calendar == Calendars.Gregorian ? 'g' : 'j';
-        int _result = ext_swe_date_conversion(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _calendar, ref _julianDay);
-        return (_result == 0) && (0.0 <= dateTime.Ut) && (dateTime.Ut < 24.0);
+            double _julianDay = 0.0;
+            char _calendar = dateTime.Calendar == Calendars.Gregorian ? 'g' : 'j';
+            int _result = ext_swe_date_conversion(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _calendar, ref _julianDay);
+            return (_result == 0) && (0.0 <= dateTime.Ut) && (dateTime.Ut < 24.0);
+        
     }
 
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_date_conversion")]

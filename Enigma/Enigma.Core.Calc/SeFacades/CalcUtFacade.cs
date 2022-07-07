@@ -4,6 +4,7 @@
 
 
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Enigma.Core.Calc.SeFacades;
 
@@ -28,16 +29,11 @@ public class CalcUtFacade : ICalcUtFacade
     /// <inheritdoc/>
     public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
     {
-        string _resultValue = "";
-        var _positions = new double[6];
+        StringBuilder _resultValue = new StringBuilder(256);
+              double[] _positions = new double[6];
 
-        int result = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
-        //     if (result < 0)
-        //     {
-        //         string paramsSummary = string.Format("julianDay: {0}, seCelPointId: {1}, flags: {2}.", julianDay, seCelPointId, flags);
-        //         throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosCelPointFacade.PosCelPointFromSe", paramsSummary));
-        //     }
-        return _positions;
+              long result = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
+              return _positions;
     }
 
     /// <summary>Access dll to retrieve position for celestial point.</summary>
@@ -48,5 +44,5 @@ public class CalcUtFacade : ICalcUtFacade
     /// <param name="serr">Error text, if any.</param>
     /// <returns>An indication if the calculation was succesfull.</returns>
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_calc_ut")]
-    private extern static int ext_swe_calc_ut(double tjd, int ipl, long iflag, double[] xx, string serr);
+    private extern static int ext_swe_calc_ut(double tjd, int ipl, long iflag, double[] xx, StringBuilder serr);
 }

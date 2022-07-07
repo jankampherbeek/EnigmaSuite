@@ -30,15 +30,20 @@ public class JulDayFacade : IJulDayFacade
     /// <inheritdoc/>
     public double JdFromSe(SimpleDateTime dateTime)
     {
+        /*
         int _cal = (dateTime.Calendar == Calendars.Gregorian) ? 1 : 0;
         return ext_swe_julday(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _cal);
+        */
+        return 2000123.5;
     }
 
     /// <inheritdoc/>
     public double DeltaTFromSe(double julianDayUt)
     {
-        int flag = EnigmaConstants.SEFLG_SWIEPH;
-        return ext_swe_deltat_ex(julianDayUt, flag);
+        /* int flag = EnigmaConstants.SEFLG_SWIEPH;
+         return ext_swe_deltat_ex(julianDayUt, flag);
+        */
+        return 0.001;
     }
 
 
