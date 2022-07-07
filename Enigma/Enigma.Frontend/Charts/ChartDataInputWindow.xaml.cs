@@ -14,10 +14,8 @@ using System.Windows.Media;
 
 namespace Enigma.Frontend.Charts;
 
-/// <summary>
-/// Interaction logic for ChartDataInputView.xaml
-/// </summary>
-public partial class ChartDataInputView : Window
+
+public partial class ChartDataInputWindow : Window
 {
     private IRosetta _rosetta;
     private ChartDataInputController _controller;
@@ -29,7 +27,7 @@ public partial class ChartDataInputView : Window
     private List<YearCountDetails> _yearCountDetails;
     private List<TimeZoneDetails> _timeZoneDetails;
 
-    public ChartDataInputView(ChartDataInputController controller, IRosetta rosetta, IChartsEnumFacade chartsEnumFacade)
+    public ChartDataInputWindow(ChartDataInputController controller, IRosetta rosetta, IChartsEnumFacade chartsEnumFacade)
     {
         InitializeComponent();
         _controller = controller;
@@ -223,7 +221,7 @@ public partial class ChartDataInputView : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        Close();
+        Hide();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

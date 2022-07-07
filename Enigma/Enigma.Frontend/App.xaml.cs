@@ -7,9 +7,6 @@ using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.Services;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Services;
-using Enigma.Frontend.Calculators;
-using Enigma.Frontend.Calculators.JulDay;
-using Enigma.Frontend.Calculators.Obliquity;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.InputSupport.PresentationFactories;
 using Enigma.Frontend.InputSupport.Services;
@@ -34,22 +31,18 @@ public partial class App : Application
         var serviceCollection = new ServiceCollection();
 
 
-        serviceCollection.AddTransient<CalcStartView>();
         serviceCollection.AddTransient<ChartDataInputController>();
-        serviceCollection.AddTransient<ChartDataInputView>();
-        serviceCollection.AddTransient<ChartPositions>();
+        serviceCollection.AddTransient<ChartDataInputWindow>();
+        serviceCollection.AddTransient<ChartPositionsController>();
+        serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
-        serviceCollection.AddSingleton<ChartsStartController>();
-        serviceCollection.AddTransient<ChartsStartView>();
+        serviceCollection.AddSingleton<MainController>();
+        serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
         serviceCollection.AddSingleton<ICheckDateTimeValidator, CheckDateTimeValidator>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
-        serviceCollection.AddTransient<JulDayController>();
-        serviceCollection.AddTransient<JulDayView>();
-        serviceCollection.AddTransient<ObliquityView>();
-        serviceCollection.AddTransient<ObliquityController>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<StartWindow>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();

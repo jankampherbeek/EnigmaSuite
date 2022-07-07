@@ -3,13 +3,17 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Frontend.Charts;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading;
 using System.Windows;
 
 
 namespace Enigma.Frontend;
 
 
-/// <summary>Dashboard, start window for application, provides access to the four main functionalities of the Enigma Suite.</summary>
+/// <summary>Splash window, starts the application.</summary>
+/// <remarks>No separate controller for this view.</remarks>
 public partial class StartWindow : Window
 {
 
@@ -18,6 +22,7 @@ public partial class StartWindow : Window
         InitializeComponent();
         this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         PopulateStaticTexts();
+        ShowSplashAndFinishView();
     }
 
     private void PopulateStaticTexts()
@@ -26,25 +31,24 @@ public partial class StartWindow : Window
     }
 
 
-    private void SendInitializationMsg()
+    private void ShowSplashAndFinishView()
     {
-        // TODO send message to StateMachine, the view is closed by the State Machine 
-    }
+        Show();
+        Thread.Sleep(1500);
 
-    /*
-
-
-    private void BtnCharts_Click(object sender, RoutedEventArgs e)
-    {
-        ChartsStartView? chartsStartView = App.ServiceProvider.GetService<ChartsStartView>();
-        if (chartsStartView != null)
+        MainWindow? mainWindow = App.ServiceProvider.GetService<MainWindow>();
+        if (mainWindow != null)
         {
-            chartsStartView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            chartsStartView.Show();
+            mainWindow.Show();
+            Close();
         }
+        else
+        {
+            // todo log error and show warning for user
+        }
+
     }
 
 
-    }*/
 }
 

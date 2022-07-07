@@ -4,8 +4,8 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
     <IsPackable>false</IsPackable>
+	<EnableTypeInfoReflection>false</EnableTypeInfoReflection>		
   </PropertyGroup>
 
   <ItemGroup>

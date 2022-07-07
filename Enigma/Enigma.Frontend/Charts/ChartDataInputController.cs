@@ -12,6 +12,7 @@ using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
 using Enigma.Domain.Positional;
 using Enigma.Frontend.InputSupport.InputParsers;
+using Enigma.Frontend.State;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -48,13 +49,13 @@ public class ChartDataInputController
     private readonly IGeoLongInputParser _geoLongInputParser;
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
-    private readonly ChartsStartController _chartStartController;
+   // private readonly MainController _chartStartController;
     private Calendars _cal;
     private List<FullSolSysPointPos> _solarSystemPointPositions;
     private FullHousesPositions _mundanePositions;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
-                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi, ChartsStartController chartsStartController)
+                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
     {
         _dateInputParser = dateInputParser;
         _timeInputParser = timeInputParser;
@@ -62,7 +63,7 @@ public class ChartDataInputController
         _geoLongInputParser = geoLongInputParser;
         _julianDayApi = julianDayApi;
         _chartAllPositionsApi = chartAllPositionsApi;
-        _chartStartController = chartsStartController;
+      //  _chartStartController = chartsStartController;
     }
 
     /// <summary>
@@ -133,7 +134,10 @@ public class ChartDataInputController
                 int tempId = 1;
                 ChartData chartData = new ChartData(id, tempId, metaData, location, fullDateTime);
                 CalculatedChart chart = new CalculatedChart(_solarSystemPointPositions, _mundanePositions, chartData);
-                _chartStartController.AddCalculatedChart(chart);
+
+                DataVault dataVault = DataVault.Instance;
+                dataVault.AddNewChart(chart);
+
                 return true;
             }
             else

@@ -1,27 +1,5 @@
 ﻿--------------------------  Calculations --------------
------ CalcJdNr ----------------------------------------
-calc.jdnr.formtitle = Calculate Julian Day
-calc.jdnr.result.deltatsec = Delta T (seconds)
-calc.jdnr.result.deltatday = Delta T (days)
-calc.jdnr.result.jdet = Julian Day (ET)
-calc.jdnr.result.jdut = Julian Day (UT)
-calc.jdnr.title = Enigma Calculations: Julian Day Number
 
------ CalcObliquity -----------------------------------
-calc.obliquity.formtitle = Calculate Obliquity
-calc.obliquity.result.mean = Mean obliquity
-calc.obliquity.result.true = True obliquity
-calc.obliquity.title = Enigma Calculations: Obliquity
-
------ CalcStartView -----------------------------------
-calc.startview.btnjd = Julian Day
-calc.startview.btnobliquity = Obliquity
-calc.startview.formtitle = Calculations
-calc.startview.jdexplanation = Calculates the Julian Day Number, both for Universal time and for Ephemeris time. Also returns the value for Delta T.
-calc.startview.jdtitle = Julian Day Number
-calc.startview.obliquityexplanation = Calculates the obliquity of the earth's axis. Returns both the mean and the true obliquity.
-calc.startview.obliquitytitle = Obliquity
-calc.startview.title = Enigma Calculations
 
 ---- ChartsDataInput ----------------------------------
 charts.datainput.datetime = Date and time

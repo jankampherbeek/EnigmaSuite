@@ -1,19 +1,20 @@
-﻿using Enigma.Frontend.Support;
-using Enigma.Frontend.UiDomain;
+﻿// Jan Kampherbeek, (c) 2022.
+// The Enigma Suite is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace Enigma.Frontend.Charts
 {
-    /// <summary>
-    /// Interaction logic for ChartsStartWindow.xaml
-    /// </summary>
-    public partial class ChartsStartView : Window
+    /// <summary>Main view for the application.</summary>
+    public partial class MainWindow : Window
     {
         private IRosetta _rosetta;
-        private ChartsStartController _controller;
+        private MainController _controller;
 
-        public ChartsStartView(ChartsStartController controller, IRosetta rosetta )
+        public MainWindow(MainController controller, IRosetta rosetta)
         {
             InitializeComponent();
             _controller = controller;
@@ -40,31 +41,8 @@ namespace Enigma.Frontend.Charts
 
         private void NewChartClick(object sender, RoutedEventArgs e)
         {
-            ChartDataInputView? chartDataInputView = App.ServiceProvider.GetService<ChartDataInputView>();
-            if (chartDataInputView != null)
-            {
-                chartDataInputView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                chartDataInputView.ShowDialog();
-    //            CurrentCharts allCurrentCharts = _controller.AllCurrentCharts;
-    //            if (allCurrentCharts.IdPrimaryChart > -1)
-    //            {
-    //                ShowPositions();
-    //            }
-            }
+            _controller.NewChart();
         }
-
-        private void ShowPositions()
-        {
-            ChartPositions? chartPositions = App.ServiceProvider.GetService<ChartPositions>();
-            if (chartPositions != null)
-            { 
-             //   chartPositions.ActiveChart = 
-                chartPositions.PopulateHouses();
-                chartPositions.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                chartPositions.ShowDialog();
-            }
-        }
-
 
         private void PopulateTexts()
         {

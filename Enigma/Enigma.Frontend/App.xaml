@@ -111,5 +111,11 @@
             <Setter Property="RadiusX" Value="6"/>
             <Setter Property="RadiusY" Value="6"/>
         </Style>
+
+        <Style x:Key="glyphColumnStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="EnigmaAstrology"/>
+        </Style>
+        
     </Application.Resources>
 </Application>
