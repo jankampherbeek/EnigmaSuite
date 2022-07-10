@@ -18,12 +18,14 @@ public class ChartPositionsController
     private CalculatedChart? _currentChart;
 
     private IHousePosForDataGridFactory _housePosForDataGridFactory;
+    private ICelPointForDataGridFactory _celPointForDataGridFactory;
     private DataVault _dataVault;
 
-    public ChartPositionsController(IHousePosForDataGridFactory housePosForDataGridFactory)
+    public ChartPositionsController(IHousePosForDataGridFactory housePosForDataGridFactory, ICelPointForDataGridFactory celPointForDataGridFactory)
     {
         _dataVault = DataVault.Instance;
         _housePosForDataGridFactory = housePosForDataGridFactory;
+        _celPointForDataGridFactory = celPointForDataGridFactory;
     }
 
 
@@ -40,5 +42,17 @@ public class ChartPositionsController
         }
     }
 
+    public List<PresentableCelPointPositions> GetCelPointPositionsCurrentChart()
+    {
+        _currentChart = _dataVault.GetLastChart();
+        if (_currentChart != null)
+        {
+            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.SolSysPointPositions);
+        }
+        else
+        {
+            return new List<PresentableCelPointPositions>();
+        }
+    }
 
 }

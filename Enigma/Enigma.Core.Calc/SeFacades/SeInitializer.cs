@@ -16,7 +16,9 @@ public class SeInitializer
     /// <remarks>This method must run before the SE can be used.</remarks>
     public static void SetEphePath(String path)
     {
-       ext_swe_set_ephe_path(path); 
+        string sedir = Environment.CurrentDirectory + "\\se"; 
+
+        ext_swe_set_ephe_path(sedir); 
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
     private extern static void ext_swe_set_ephe_path(String path);

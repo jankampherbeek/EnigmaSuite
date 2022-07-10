@@ -54,7 +54,7 @@ public class TestSolSysPointCalc
         var _location = new Location("", 52.0, 6.0);
         var _mockSolSysPointSpecs = new Mock<ISolarSystemPointSpecifications>();
         _mockSolSysPointSpecs.Setup(p => p.DetailsForPoint(SolarSystemPoints.Mars)).
-            Returns(new SolarSystemPointDetails(SolarSystemPoints.Mars, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MARS, true, true, "solSysPointMars"));
+            Returns(new SolarSystemPointDetails(SolarSystemPoints.Mars, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MARS, true, true, "solSysPointMars", "f"));
         var _mockCalcUtFacade = new Mock<ICalcUtFacade>();
         _mockCalcUtFacade.Setup(p => p.PosCelPointFromSe(_julianDayUt, EnigmaConstants.SE_MARS, _flagsEcliptical)).Returns(new double[] { _longitude, _latitude, _distance, _longSpeed, _latSpeed, _distSpeed });
         ISolSysPointSECalc _calc = new SolSysPointSECalc(_mockCalcUtFacade.Object, _mockSolSysPointSpecs.Object);

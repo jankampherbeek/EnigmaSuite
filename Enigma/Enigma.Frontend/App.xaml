@@ -111,9 +111,18 @@
             <Setter Property="RadiusX" Value="6"/>
             <Setter Property="RadiusY" Value="6"/>
         </Style>
-
-        <Style x:Key="glyphColumnStyle" TargetType="{x:Type DataGridCell}">
+        <Style TargetType="{x:Type DataGridCell}">
             <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>            
+        </Style>
+        <Style x:Key="nameColumnStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="glyphColumnStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="EnigmaAstrology"/>
         </Style>
         

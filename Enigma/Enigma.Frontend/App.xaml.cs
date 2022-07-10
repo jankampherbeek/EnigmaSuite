@@ -28,9 +28,12 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
+        string pathToSeFiles = @"se\";
+        SeInitializer.SetEphePath(pathToSeFiles);
+
         var serviceCollection = new ServiceCollection();
 
-
+        serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartDataInputWindow>();
         serviceCollection.AddTransient<ChartPositionsController>();
@@ -54,12 +57,7 @@ public partial class App : Application
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 
-        //var mainWindow = ServiceProvider.GetService<StartWindow>();
-        //      var mainWindow = new MainWindow();
-        //mainWindow?.Show();
 
-        string pathToSeFiles = "./se";
-        SeInitializer.SetEphePath(pathToSeFiles);
     }
 }
 

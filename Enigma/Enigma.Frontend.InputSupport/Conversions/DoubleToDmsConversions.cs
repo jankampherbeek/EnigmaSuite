@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
+using Enigma.Domain.Positional;
 
 namespace Enigma.Frontend.InputSupport.Conversions;
 
@@ -59,7 +60,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
 
     private string CreateDmsString(int degrees, int minutes, int seconds)
     {
-        string degreeText = string.Format("{0:00}", degrees);
+        string degreeText = degrees.ToString();
         string minuteText = string.Format("{0:00}", minutes);
         string secondText = string.Format("{0:00}", seconds);
         return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN + secondText + EnigmaConstants.SECOND_SIGN;

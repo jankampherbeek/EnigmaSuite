@@ -48,14 +48,10 @@ public class HousesFacade : IHousesFacade
                throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosHousesFacade.PosHousesFromSe", paramsSummary));
            }
    
-   //     double[] cusps = new double[] {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0 };
-   //     double[] mundanePoints = new double[] {13.0, 14.0, 15.0, 16.0, 17.0, 18.0 };
-   
         double[][] positions = { cusps, mundanePoints };
         return positions;
 
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_houses_ex")]
-    //    private extern static int ext_swe_houses_ex(double tjdut, int flags, double geolat, double geolon, char hsys, double[] hcusp0, double[] ascmc0);
     private extern static int ext_swe_houses_ex(double tjdut, int flags, double geolat, double geolon, int hsys, double[] hcusp0, double[] ascmc0);
 }

@@ -30,7 +30,7 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
         List<PresentableHousePositions> positions = new();
         positions.Add(CreateSingleCuspPos("MC", fullHousesPositions.Mc));
         positions.Add(CreateSingleCuspPos("Asc", fullHousesPositions.Ascendant));
-        int index = 0;
+        int index = 1;
         foreach (var cusp in fullHousesPositions.Cusps)
         {
             positions.Add(CreateSingleCuspPos(index++.ToString(), cusp)); 

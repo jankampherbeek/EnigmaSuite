@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Charts"
         mc:Ignorable="d"
-        Title="ChartPositions" Height="500" Width="900">
+        WindowStartupLocation="CenterScreen"        
+        Title="ChartPositions" Height="700" Width="900">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
@@ -42,11 +43,11 @@
         <TextBlock Grid.Row="8" Margin="6" Name="Source" Text="Source"/>
 
         <DataGrid Grid.Row="2" Margin="6" Grid.Column="1" Grid.RowSpan="7" Name="DGHouses" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
-                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
         </DataGrid>
 
         <DataGrid Grid.Row="9" Margin="6" Grid.ColumnSpan="2" Name="DGCelPoints" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
-                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
 
         </DataGrid>
         <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">

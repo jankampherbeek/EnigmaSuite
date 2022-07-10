@@ -6,7 +6,7 @@
 namespace Enigma.Frontend.UiDomain;
 
 
-/// <summary>Positions of houses to be shown in  a datagrid.</summary>
+/// <summary>Positions of houses to be shown in a datagrid.</summary>
 public record PresentableHousePositions
 {
     public string PointName { get; }
@@ -19,9 +19,9 @@ public record PresentableHousePositions
 
 
 
-    /// <summary>Construct a record with undane positions to be shown in a datagrid.</summary>
+    /// <summary>Construct a record with mundane positions to be shown in a datagrid.</summary>
     /// <param name="pointName">Textual identifier of mundane point.</param>
-    /// <param name="longText">Saxagesimal longitude within sign.</param>
+    /// <param name="longText">Sexagesimal longitude within sign.</param>
     /// <param name="signGlyph">Glyph for the sign the belongs to the longitude.</param>
     /// <param name="rightAscText">Sexagesimal right ascension in degrees.</param>
     /// <param name="declText">Sexagesimal declination, positive or negative.</param>
