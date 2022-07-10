@@ -52,6 +52,6 @@ public class HousesFacade : IHousesFacade
         return positions;
 
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_houses_ex")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_houses_ex")]
     private extern static int ext_swe_houses_ex(double tjdut, int flags, double geolat, double geolon, int hsys, double[] hcusp0, double[] ascmc0);
 }

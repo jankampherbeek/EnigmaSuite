@@ -44,6 +44,6 @@ public class CoTransFacade : ICoTransFacade
               return equatorialResults;
     }
 
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_cotrans")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_cotrans")]
     private extern static int ext_swe_cotrans(double[] allEclipticCoordinates, double[] equatorialResults, double negativeObliquity);
 }

@@ -16,11 +16,10 @@ public class SeInitializer
     /// <remarks>This method must run before the SE can be used.</remarks>
     public static void SetEphePath(String path)
     {
-        string sedir = Environment.CurrentDirectory + "\\se"; 
 
-        ext_swe_set_ephe_path(sedir); 
+        ext_swe_set_ephe_path(path); 
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_ephe_path")]
     private extern static void ext_swe_set_ephe_path(String path);
 
     /// <summary>Close Swiss Ephemeris and release all allocated memory and resources.</summary>
@@ -29,7 +28,7 @@ public class SeInitializer
     {
        /* ext_swe_close(); */
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_close")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_close")]
     private extern static void ext_swe_close();
 
 
@@ -42,6 +41,6 @@ public class SeInitializer
     {
       ext_swe_set_sid_mode(idAyanamsha, 0, 0);
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_sid_mode")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_sid_mode")]
     private extern static void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
 }

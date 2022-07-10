@@ -63,6 +63,6 @@ public class AzAltFacade : IAzAltFacade
     /// <param name="eclipticCoordinates">Ecliptic longitude, latitude and distance.</param>
     /// <param name="horizontalCoordinates">Resulting values for azimuth, true altitude and apparent altitude.</param>
     /// <returns>An indication if the calculation was succesfull. Negative values indicate an error.</returns>
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_azalt")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_azalt")]
     private extern static int ext_swe_azalt(double tjd, long iflag, double[] geoCoordinates, double atPress, double atTemp, double[] eclipticCoordinates, double[] horizontalCoordinates);
 }

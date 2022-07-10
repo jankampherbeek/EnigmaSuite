@@ -28,7 +28,7 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        string pathToSeFiles = @"se\";
+        string pathToSeFiles = @"c:\sweph";
         SeInitializer.SetEphePath(pathToSeFiles);
 
         var serviceCollection = new ServiceCollection();
