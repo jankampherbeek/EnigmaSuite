@@ -84,9 +84,7 @@ public class ChartDataInputController
             SolarSystemPoints.Neptune,
             SolarSystemPoints.Pluto,
             SolarSystemPoints.Chiron,
-            SolarSystemPoints.TrueNode,
-            SolarSystemPoints.Eris,
-            SolarSystemPoints.HadesUra
+            SolarSystemPoints.MeanNode
         });
         return new CalculationPreferences(solarSystemPoints, ZodiacTypes.Tropical, Ayanamshas.None, ObserverPositions.GeoCentric, ProjectionTypes.twoDimensional, HouseSystems.Placidus);
     }

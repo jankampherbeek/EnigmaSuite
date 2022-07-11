@@ -46,10 +46,26 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
     private PresentableCelPointPositions CreateSinglePos(FullSolSysPointPos celPointFullPos)
     {
         string pointGlyph = _solarSystemPointSpecifications.DetailsForPoint(celPointFullPos.SolarSystemPoint).DefaultGlyph;
-        var eclipticalLong = new Tuple<string, string, string>(
-            _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(celPointFullPos.Longitude.Position).longTxt, 
-            _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(celPointFullPos.Longitude.Position).glyph,
-            _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Longitude.Speed));
+        double tempPos = celPointFullPos.Longitude.Position;
+        double tempSpeed = celPointFullPos.Longitude.Speed;
+        string tempSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsText(tempSpeed);
+
+
+        string tempPosText = _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(tempPos).longTxt;
+        string tempGlyphText = _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(tempPos).glyph;
+
+        var eclipticalLong = new Tuple<string, string, string>(tempPosText, tempGlyphText, tempSpeedText);
+
+        Console.WriteLine("-----------------------");
+        Console.WriteLine(celPointFullPos.SolarSystemPoint.ToString());
+        Console.WriteLine("tempSpeed: " + tempSpeed);
+        Console.WriteLine("tempSpeedText: " + tempSpeedText);
+
+
+       // var eclipticalLong = new Tuple<string, string, string>(
+       //     _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(celPointFullPos.Longitude.Position).longTxt, 
+       //     _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(celPointFullPos.Longitude.Position).glyph,
+       //     _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Longitude.Speed));
         var eclipticalLat = new Tuple<string, string>(
             _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Latitude.Position),
             _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Latitude.Speed));

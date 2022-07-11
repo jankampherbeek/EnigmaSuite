@@ -32,6 +32,15 @@ public class TextDoubleToDmsConversions
     }
 
     [Test]
+    public void TestSmallNegativeValueDoubleToDms()
+    {
+        double inputValue = -0.03;
+        string expectedResult = "-0" + EnigmaConstants.DEGREE_SIGN + "01" + EnigmaConstants.MINUTE_SIGN + "48" + EnigmaConstants.SECOND_SIGN;
+        Assert.That(_conversions.ConvertDoubleToPositionsText(inputValue), Is.EqualTo(expectedResult));
+    }
+
+
+    [Test]
     public void TestLargeValueDoubleToDms()
     {
         double inputValue = 342.5;

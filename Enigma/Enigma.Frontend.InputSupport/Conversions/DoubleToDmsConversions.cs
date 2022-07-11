@@ -48,13 +48,14 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
 
     public string ConvertDoubleToPositionsText(double position)
     {
-        double remaining = position;              
-        int degrees = (int)position;              
-        remaining = Math.Abs(remaining - degrees);
+        string minusSign = position < 0.0 ? "-" : "";
+        double remaining = Math.Abs(position);              
+        int degrees = (int)remaining;              
+        remaining = remaining - degrees;
         int minutes = (int)(remaining * 60.0); 
         remaining -= minutes / 60.0;
         int seconds = (int)(remaining * 3600.0);
-        return CreateDmsString(degrees, minutes, seconds);
+        return minusSign + CreateDmsString(degrees, minutes, seconds);
 
     }
 
