@@ -13,6 +13,7 @@ using Enigma.Domain.Locational;
 using Enigma.Domain.Positional;
 using Enigma.Frontend.InputSupport.InputParsers;
 using Enigma.Frontend.State;
+using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -53,9 +54,10 @@ public class ChartDataInputController
     private Calendars _cal;
     private List<FullSolSysPointPos> _solarSystemPointPositions;
     private FullHousesPositions _mundanePositions;
+    private IRosetta _rosetta;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
-                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
+                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi, IRosetta rosetta)
     {
         _dateInputParser = dateInputParser;
         _timeInputParser = timeInputParser;
@@ -63,6 +65,7 @@ public class ChartDataInputController
         _geoLongInputParser = geoLongInputParser;
         _julianDayApi = julianDayApi;
         _chartAllPositionsApi = chartAllPositionsApi;
+        _rosetta = rosetta;
       //  _chartStartController = chartsStartController;
     }
 
@@ -119,7 +122,9 @@ public class ChartDataInputController
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, _cal);
             JulianDayRequest julianDayRequest = new JulianDayRequest(dateTime);
             double julianDayUt = _julianDayApi.getJulianDay(julianDayRequest).JulDayUt;
-            Location location = new Location(LocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
+            string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
+            string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText; 
+            Location location = new Location(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             SolSysPointsRequest solSysPointsRequest = new SolSysPointsRequest(julianDayUt, location, RetrieveCalculationPreferences());
             ChartAllPositionsRequest chartAllPositionsRequest = new ChartAllPositionsRequest(solSysPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
             ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.getChart(chartAllPositionsRequest);
@@ -128,7 +133,9 @@ public class ChartDataInputController
                 _solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;
                 _mundanePositions = chartAllPositionsResponse.MundanePositions;
                 FullDateTime fullDateTime = new FullDateTime(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
-                MetaData metaData = new MetaData(NameId, Description, Source, ChartCategory, RoddenRating);
+
+
+                MetaData metaData = CreateMetaData(NameId, Description, Source, ChartCategory, RoddenRating);
                 // Todo retrieve id from database, use local counter for tempId
                 int id = 1000;
                 int tempId = 1;
@@ -147,6 +154,15 @@ public class ChartDataInputController
             }
         }
         else return false;
+    }
+
+    private MetaData CreateMetaData(string nameId, string description, string source, ChartCategories chartCategory, RoddenRatings rating)
+    {
+        string nameIdText = string.IsNullOrEmpty(nameId) ? _rosetta.TextForId("charts.positions.chartname.empty") : nameId;
+        string descriptionText = string.IsNullOrEmpty(description) ? _rosetta.TextForId("charts.positions.description.empty") : description;
+        string sourceText = string.IsNullOrEmpty(source) ? _rosetta.TextForId("charts.positions.source.empty") : source;
+        return new MetaData(nameIdText, descriptionText, sourceText, chartCategory, rating);
+
     }
 
 

@@ -54,8 +54,8 @@ public class GeoLongValidator : IGeoLongValidator
 
     private string CreateFullText()
     {
-        string directionTextId = _direction == Directions4GeoLong.East ? "common.direction.east" : "common.direction.west";
-        return $"{_longValues[0]:d3}:{_longValues[1]:d2}:{_longValues[2]:d2} [{directionTextId}]";
+        string directionIndicator = _direction == Directions4GeoLong.East ? "+" : "-";
+        return $"{directionIndicator}{_longValues[0]}:{_longValues[1]:d2}:{_longValues[2]:d2}";
     }
 
     private bool CheckMinAndMaxValues(int[] valuesToCheck)

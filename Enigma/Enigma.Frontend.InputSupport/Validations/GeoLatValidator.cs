@@ -55,8 +55,8 @@ public class GeoLatValidator : IGeoLatValidator
 
     private string CreateFullText()
     {
-        string directionTextId = _direction == Directions4GeoLat.North ? "common.direction.north" : "common.direction.south";
-        return $"{_latValues[0]:d2}:{_latValues[1]:d2}:{_latValues[2]:d2} [{directionTextId}]";
+        string directionIndicator = _direction == Directions4GeoLat.North ? "+" : "-";
+        return $"{directionIndicator}{_latValues[0]}:{_latValues[1]:d2}:{_latValues[2]:d2}";
     }
 
     private bool CheckMinAndMaxValues(int[] valuesToCheck)

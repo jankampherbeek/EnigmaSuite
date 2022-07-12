@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Charts;
 using Enigma.Frontend.InputSupport.PresentationFactories;
 using Enigma.Frontend.State;
 using Enigma.Frontend.UiDomain;
@@ -17,15 +18,28 @@ public class ChartPositionsController
 
     private CalculatedChart? _currentChart;
 
-    private IHousePosForDataGridFactory _housePosForDataGridFactory;
-    private ICelPointForDataGridFactory _celPointForDataGridFactory;
-    private DataVault _dataVault;
+    private readonly IHousePosForDataGridFactory _housePosForDataGridFactory;
+    private readonly ICelPointForDataGridFactory _celPointForDataGridFactory;
+    private readonly DataVault _dataVault;
 
     public ChartPositionsController(IHousePosForDataGridFactory housePosForDataGridFactory, ICelPointForDataGridFactory celPointForDataGridFactory)
     {
         _dataVault = DataVault.Instance;
         _housePosForDataGridFactory = housePosForDataGridFactory;
         _celPointForDataGridFactory = celPointForDataGridFactory;
+    }
+
+    public ChartData GetMeta()
+    {
+        _currentChart = _dataVault.GetLastChart();
+        if (_currentChart != null)
+        {
+            return _currentChart.InputtedChartData;    
+        }
+        else
+        {
+            return null;
+        }
     }
 
 

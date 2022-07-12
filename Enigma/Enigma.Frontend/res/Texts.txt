@@ -1,6 +1,4 @@
-﻿--------------------------  Calculations --------------
-
-
+﻿
 ---- ChartsDataInput ----------------------------------
 charts.datainput.datetime = Date and time
 charts.datainput.description = Additional information (optional)
@@ -11,9 +9,30 @@ charts.datainput.rating = Rodden Rating
 charts.datainput.source = Description of source (optional)
 charts.datainput.subject = Subject of chart
 
+---- ChartsPositions ----------------------------------
+charts.positions.chartgategory = Category:
+charts.positions.chartname.empty = Anonymous
+charts.positions.datagrid.columns.altitude = Altitude
+charts.positions.datagrid.columns.azimuth = Azimuth
+charts.positions.datagrid.columns.decl = Declination
+charts.positions.datagrid.columns.declspeed = Speed decl
+charts.positions.datagrid.columns.dist = Distance
+charts.positions.datagrid.columns.distspeed = Speed dist
+charts.positions.datagrid.columns.lat = Latitude
+charts.positions.datagrid.columns.latspeed = Speed lat
+charts.positions.datagrid.columns.long = Longitude
+charts.positions.datagrid.columns.longspeed = Speed long
+charts.positions.datagrid.columns.ra = RA
+charts.positions.datagrid.columns.raspeed = Speed Ra
+charts.positions.datetime = Date and time:
+charts.positions.description.empty = No description
+charts.positions.formtitle = Radix positions
+charts.positions.location = Location:
+charts.positions.rating = Rodden Rating:
+charts.positions.source = Source:
+charts.positions.source.empty = Not defined
 
 ---- ChartsStartView ----------------------------------
-
 charts.startview.activechartssubtitle = Active charts
 charts.startview.chartssubtitle = Charts
 charts.startview.formtitle = Enigma Charts
@@ -244,3 +263,20 @@ ref.enum.timezone.lmt = LMT: Local Mean Time
 ref.enum.yearcount.ce = CE
 ref.enum.yearcount.bce = BCE
 ref.enum.yearcount.astronomical = Astronomical
+
+ref.months.jan = Jan
+ref.months.feb = Feb
+ref.months.mar = Mar
+ref.months.apr = Apr
+ref.months.may = May
+ref.months.jun = Jun
+ref.months.jul = Jul
+ref.months.aug = Aug
+ref.months.sep = Sep
+ref.months.oct = Oct
+ref.months.nov = Nov
+ref.months.dec = Dec
+
+ref.calendar.g = Greg.
+ref.calendar.j = Jul.
+

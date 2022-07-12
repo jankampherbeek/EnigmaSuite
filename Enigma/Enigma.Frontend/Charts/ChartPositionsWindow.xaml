@@ -9,50 +9,32 @@
         Title="ChartPositions" Height="700" Width="900">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="2*"/>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Name="ChartMenu" Height="22" Grid.ColumnSpan="2" HorizontalAlignment="Left" VerticalAlignment="Top">
-            <MenuItem Header="MiGeneral" Name="MiGeneral">
-                <MenuItem Header="MiClose" Name="MiClose"/>
-            </MenuItem>
-            <MenuItem Header="MiGraphics" Name="MiGraphics">
-                <MenuItem Header="MiDefaultWheel" Name="MiDefaultWheel"/>
-            </MenuItem>
-        </Menu>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
-        <TextBlock Grid.Row="2" Margin="6" Name="ChartName" Text="ChartName"/>
-        <TextBlock Grid.Row="3" Margin="6" Name="Description" Text="Description"/>
-        <TextBlock Grid.Row="4" Margin="6" Name="Location" Text="Location"/>
-        <TextBlock Grid.Row="5" Margin="6" Name="DateTime" Text="DateTime"/>
-        <TextBlock Grid.Row="6" Margin="6" Name="ChartCartegory" Text="ChartCategory"/>
-        <TextBlock Grid.Row="7" Margin="6" Name="Rating" Text="Rating"/>
-        <TextBlock Grid.Row="8" Margin="6" Name="Source" Text="Source"/>
-
-        <DataGrid Grid.Row="2" Margin="6" Grid.Column="1" Grid.RowSpan="7" Name="DGHouses" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}"/>
+        <Rectangle Grid.Row="1" Grid.RowSpan="2" Margin="6"/>
+        <TextBlock Grid.Row="1" Margin="10" Name="ChartName" Text="ChartName" TextWrapping="Wrap"  />
+        <TextBlock Grid.Row="2" Margin="10" Name="Details" Text="Details" TextWrapping="Wrap" />
+        <DataGrid Grid.Row="1" Margin="6" Grid.Column="1" Grid.RowSpan="2" Name="DGHouses" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
         </DataGrid>
 
-        <DataGrid Grid.Row="9" Margin="6" Grid.ColumnSpan="2" Name="DGCelPoints" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <DataGrid Grid.Row="4" Margin="6" Grid.ColumnSpan="2" Name="DGCelPoints" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
 
         </DataGrid>
-        <StackPanel Grid.Row="10" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="BtnHelp" Content="BtnHelp" Margin="6"/>
-            <Button Name="BtnClose" Content="BtnClose" Margin="6"/>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="BtnHelp" Content="BtnHelp" Margin="6" Click="HelpClick"/>
+            <Button Name="BtnClose" Content="BtnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>
         
     </Grid>

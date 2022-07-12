@@ -56,8 +56,8 @@ public class DateValidator : IDateValidator
             _yearText = $"{dateValues[0]:D5}";
         }
         string _monthText = GetPostFixIdForResourceBundle(dateValues[1]);
-        string _calendarText = calendar == Calendars.Gregorian ? "g" : "j";
-        return $"[month:{_monthText}] {_yearText}, {dateValues[2]} [{_calendarText}]";
+        string _calendarText = calendar == Calendars.Gregorian ? "g" : "j"; 
+        return $"[{_monthText}] {_yearText}, {dateValues[2]} [{_calendarText}]";
     }
 
     private static string GetPostFixIdForResourceBundle(int monthId)
