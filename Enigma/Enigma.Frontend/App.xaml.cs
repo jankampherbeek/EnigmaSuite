@@ -8,6 +8,7 @@ using Enigma.Core.Calc.Services;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Services;
 using Enigma.Frontend.Charts;
+using Enigma.Frontend.Charts.Graphics;
 using Enigma.Frontend.InputSupport.PresentationFactories;
 using Enigma.Frontend.InputSupport.Services;
 using Enigma.Frontend.Support;
@@ -39,6 +40,9 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartPositionsController>();
         serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
+        serviceCollection.AddTransient<ChartsWheel>();
+        serviceCollection.AddTransient<ChartsWheelController>();
+        serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddSingleton<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
