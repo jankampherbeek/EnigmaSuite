@@ -39,7 +39,7 @@ public partial class ChartsWheel : Window
 
     public void DrawChart()
     {
-        
+        wheelCanvas.Children.Clear();
         DrawCircles();
         DrawSigns();
     }
@@ -47,7 +47,7 @@ public partial class ChartsWheel : Window
 
     private void DrawCircles()
     {
-        WheelGrid.Children.Clear();
+        
 
         Ellipse outerCircle = CreateCircle(_metrics.OuterCircle, 0.0, Colors.AliceBlue, Colors.White);
         Ellipse outerSignsCircle = CreateCircle(_metrics.OuterSignCircle, _metrics.StrokeSize, Colors.PaleTurquoise, Colors.SlateBlue);
@@ -68,10 +68,10 @@ public partial class ChartsWheel : Window
         testLine.Stroke = Brushes.Red;
         testLine.StrokeThickness = 2;
    */
-        WheelGrid.Children.Add(outerCircle);
-        WheelGrid.Children.Add(outerSignsCircle);
-        WheelGrid.Children.Add(outerHouseCircle);
-        WheelGrid.Children.Add(outerAspectCircle);
+        wheelCanvas.Children.Add(outerCircle);
+        wheelCanvas.Children.Add(outerSignsCircle);
+        wheelCanvas.Children.Add(outerHouseCircle);
+        wheelCanvas.Children.Add(outerAspectCircle);
 
 
     }
@@ -87,33 +87,40 @@ public partial class ChartsWheel : Window
         Point centerPoint = new Point(_metrics.GridSize/2, _metrics.GridSize/2);
         double hypothenusa1 = _metrics.OuterHouseCircle/2;
         double hypothenusa2 = _metrics.OuterSignCircle/2;
-        double hypothenusa3 = _metrics.SignGlyphSize/2;
+        double hypothenusa3 = _metrics.SignGlyphCircle/2;
         double fontSize = _metrics.SignGlyphSize;
-
+        string[] glyphs = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "="};
+        int indexFirstGlyph = (int)(ascendant / 30.0);
+        int glyphIndex = indexFirstGlyph;
         for (int i = 0; i < 12; i++)
         {
-            angle = -(i * 30 - offsetAsc);
+
+            angle = (i * 30 + offsetAsc) + 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
             point1 = DefinePoint(centerPoint, angle, hypothenusa1);
             point2 = DefinePoint(centerPoint, angle, hypothenusa2);
-            WheelGrid.Children.Add(CreateLine(point1, point2, _metrics.StrokeSize, Colors.SlateBlue));
+            wheelCanvas.Children.Add(CreateLine(point1, point2, _metrics.StrokeSize, Colors.SlateBlue));
 
             glyphAngle = angle + 15.0;
             if (glyphAngle < 0.0) glyphAngle += 360.0;
             if (glyphAngle >= 360.0) glyphAngle -= 360.0;
             point1 = DefinePoint(centerPoint, glyphAngle, hypothenusa3);
 
-         /*   TextBlock glyph = new TextBlock();
-            glyph.Width = 20.0;
-            glyph.Height = 20.0;
-            glyph.Text = "X";
+            TextBlock glyph = new TextBlock();
+            glyph.Text = glyphs[glyphIndex];
+            glyphIndex++;
+            if (glyphIndex > 11) glyphIndex = 0;
+
+            glyph.FontFamily = new FontFamily("EnigmaAstrology");
             glyph.FontSize = fontSize;
             glyph.Foreground = new SolidColorBrush(Colors.SlateBlue);
-            WheelGrid.TranslatePoint(point1, glyph);
+         
+            Canvas.SetLeft(glyph, point1.X - fontSize/3);
+            Canvas.SetTop(glyph, point1.Y - fontSize/1.8);
 
-            WheelGrid.Children.Add(glyph);
-         */
+            wheelCanvas.Children.Add(glyph);
+         
         }
     }
 
@@ -140,6 +147,8 @@ public partial class ChartsWheel : Window
     private Ellipse CreateCircle(double circleSize, double strokeThickness, Color fillColor, Color strokeColor)
     {
         Ellipse circle = new Ellipse();
+        
+        circle.Margin = new Thickness((350 * _metrics.SizeFactor) - circleSize/2);
         circle.Width = circleSize;
         circle.Height = circleSize;
         circle.StrokeThickness = strokeThickness;
@@ -149,7 +158,7 @@ public partial class ChartsWheel : Window
     }
 
 
-    private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+    private void wheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         var ah = ActualHeight;
         var aw = ActualWidth;
@@ -157,8 +166,8 @@ public partial class ChartsWheel : Window
         var w = Width;
         double minSize = Math.Min(h, w);
         _metrics.SetSizeFactor(minSize/740.0);
-        WheelGrid.Height = _metrics.GridSize;
-        WheelGrid.Width = _metrics.GridSize;
+        wheelCanvas.Height = _metrics.GridSize;
+        wheelCanvas.Width = _metrics.GridSize;
 
 
         DrawChart();

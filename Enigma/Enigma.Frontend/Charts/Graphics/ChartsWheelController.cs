@@ -22,7 +22,7 @@ public class ChartsWheelController
     {
         double ascLong = -double.MaxValue;
         _currentChart = _dataVault.GetLastChart();
-        if (_currentChart == null)
+        if (_currentChart != null)
         {
             ascLong = _currentChart.FullHousePositions.Ascendant.Longitude;
         }

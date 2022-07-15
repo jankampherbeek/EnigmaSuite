@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Charts.Graphics"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"         
-        Title="ChartsWheel" Height="800" Width="740"
-        SizeChanged="Window_SizeChanged">
+        Title="ChartsWheel" Height="800" Width="740">
+   <!-- SizeChanged="Window_SizeChanged" -->
 
     <!-- Canvas x:Name="WheelCanvas" Width="700" Height="700">
         <Ellipse Width="686" Height="686" Fill="AliceBlue" Canvas.Left="10" Canvas.Top="10" StrokeThickness="0" />
@@ -15,25 +15,21 @@
         <Ellipse Width="554" Height="554" Fill="Bisque" Canvas.Left="73" Canvas.Top="73" Stroke="DarkSlateBlue" StrokeThickness="2" />
         <Ellipse Width="308" Height="308" Fill="White" Canvas.Left="196" Canvas.Top="196" Stroke="DarkSlateBlue" StrokeThickness="2" />
     </Canvas -->
-    <StackPanel>
-        <Grid x:Name="WheelGrid" Width="700" Height="700">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <!--Ellipse Width="686" Height="686" Fill="AliceBlue" Margin ="10" HorizontalAlignment="Left" VerticalAlignment="Top" StrokeThickness="0" />
-        <Ellipse Width="624" Height="624" Fill="PaleTurquoise" Margin="38" HorizontalAlignment="Left" VerticalAlignment="Top" Stroke="DarkSlateBlue" StrokeThickness="2" />
-        <Ellipse Width="554" Height="554" Fill="AntiqueWhite" Margin="73" HorizontalAlignment="Left" VerticalAlignment="Top"  Stroke="DarkSlateBlue" StrokeThickness="2" />
-        <Ellipse Width="308" Height="308" Fill="White" Margin="196" HorizontalAlignment="Left" VerticalAlignment="Top"  Stroke="DarkSlateBlue" StrokeThickness="2" / -->
-            <!--skia:SKElement Name="AUView" PaintSurface="AUView_PaintSurface" Margin="10"/ -->
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="wheelGrid" SizeChanged="wheelGrid_SizeChanged">
+            <Border x:Name="wheelBorder" BorderBrush="Gray" BorderThickness="1" Margin="6">
+                <Canvas x:Name="wheelCanvas" ClipToBounds="True"/>
+            </Border>
         </Grid>
-        <TextBlock Name="CurSize" Text="not defined" TextWrapping="Wrap"/>
-    </StackPanel>
+        <StackPanel Grid.Row="1" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="helpBtn" Content="Help" />
+        </StackPanel>
+    </Grid>
     
-
     
-    
-
 </Window>

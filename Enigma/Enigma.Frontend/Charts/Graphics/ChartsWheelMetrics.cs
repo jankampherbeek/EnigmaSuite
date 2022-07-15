@@ -9,9 +9,11 @@ namespace Enigma.Frontend.Charts.Graphics;
 /// </summary>
 public class ChartsWheelMetrics
 {
-    private double _sizeFactor;
     private double _baseSize = 700.0;
     private double _baseStrokeSize = 2.0;
+
+    public double SizeFactor { get; set; }
+
 
     public double SignGlyphSize { get; set; }
     public double GridSize { get; set; }
@@ -29,32 +31,32 @@ public class ChartsWheelMetrics
     private readonly double OuterAspectCircleInitial = 0.44;
     private readonly double SignGlyphCircleInitial = 0.84;
 
-    private readonly double SignGlyphSizeInitial = 18.0;
+    private readonly double SignGlyphSizeInitial = 32.0;
 
     public ChartsWheelMetrics()
     {
         GridSize = 700.0;
-        _sizeFactor = 1.0;
+        SizeFactor = 1.0;
         DefineSizes();
     }
 
     public void SetSizeFactor(double newFactor)
     {
-        _sizeFactor = newFactor;
+        SizeFactor = newFactor;
         DefineSizes();
     }
 
     private void DefineSizes()
     {
 
-        GridSize = _baseSize * _sizeFactor;
-        StrokeSize = _baseStrokeSize * _sizeFactor;
+        GridSize = _baseSize * SizeFactor;
+        StrokeSize = _baseStrokeSize * SizeFactor;
         OuterCircle = OuterCircleInitial * GridSize;
         OuterSignCircle = OuterSignCircleInitial * GridSize;
         OuterHouseCircle = OuterHouseCircleInitial * GridSize;
         OuterAspectCircle = OuterAspectCircleInitial * GridSize;
         SignGlyphCircle = SignGlyphCircleInitial * GridSize;
-        SignGlyphSize = SignGlyphSizeInitial * GridSize;
+        SignGlyphSize = SignGlyphSizeInitial * (GridSize / 700.0);
     }
 
 }
