@@ -9,7 +9,7 @@ namespace Enigma.Frontend.UiDomain;
 
 
 /// <summary>Positions of celestial points to be shown in a datagrid.</summary>
-public record PresentableCelPointPositions
+public record PresentableSolSysPointPositions
 {
     public string PointGlyph { get; }
     public string LongText { get; }
@@ -35,7 +35,7 @@ public record PresentableCelPointPositions
     /// <param name="distance">Tuple with decimal distance and speed in distance.</param>
     /// <param name="azimuth">Sexagesimal azimuth.</param>
     /// <param name="altitude">Sexagesimal altitude, positive or negative.</param>
-    public PresentableCelPointPositions(string pointGlyph, 
+    public PresentableSolSysPointPositions(string pointGlyph, 
         Tuple<string, string, string> eclipticalLong, 
         Tuple<string, string> eclipticalLat,     
         Tuple<string, string> equatorialRa,  

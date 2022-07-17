@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Positional;
 using Enigma.Frontend.State;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
@@ -22,12 +23,24 @@ public class ChartsWheelController
     {
         double ascLong = -double.MaxValue;
         _currentChart = _dataVault.GetLastChart();
-        if (_currentChart != null)
+        if (_currentChart != null) 
         {
             ascLong = _currentChart.FullHousePositions.Ascendant.Longitude;
         }
         return ascLong;
     }
+
+    public double GetMcLongitude()
+    {
+        double mcLong = -double.MaxValue;
+        _currentChart = _dataVault.GetLastChart();
+        if (_currentChart != null)
+        {
+            mcLong = _currentChart.FullHousePositions.Mc.Longitude;
+        }
+        return mcLong;
+    }
+
 
     public List<double> GetHouseLongitudesCurrentChart()
     {
@@ -42,6 +55,12 @@ public class ChartsWheelController
 
         }
         return longitudes;
+    }
+
+    public List<FullSolSysPointPos> GetSolSysPointsCurrentChart()
+    {
+        _currentChart = _dataVault.GetLastChart();
+        return _currentChart.SolSysPointPositions;
     }
 
 

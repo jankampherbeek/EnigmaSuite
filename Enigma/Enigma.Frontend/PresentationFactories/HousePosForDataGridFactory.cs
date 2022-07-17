@@ -7,7 +7,7 @@ using Enigma.Frontend.InputSupport.Conversions;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.InputSupport.PresentationFactories;
+namespace Enigma.Frontend.PresentationFactories;
 
 
 public interface IHousePosForDataGridFactory

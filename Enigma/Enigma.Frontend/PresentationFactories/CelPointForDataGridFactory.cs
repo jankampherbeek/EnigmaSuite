@@ -10,12 +10,12 @@ using Enigma.Frontend.UiDomain;
 using System;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.InputSupport.PresentationFactories;
+namespace Enigma.Frontend.PresentationFactories;
 
 
 public interface ICelPointForDataGridFactory
 {
-    List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions);
+    List<PresentableSolSysPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions);
 }
 
 
@@ -32,9 +32,9 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
         _rosetta = rosetta;
     }
 
-    public List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions)
+    public List<PresentableSolSysPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions)
     {
-        List<PresentableCelPointPositions> positions = new();
+        List<PresentableSolSysPointPositions> positions = new();
         foreach (var celPos in fullSolSysPointPositions)
         {
             positions.Add(CreateSinglePos(celPos));
@@ -43,7 +43,7 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
     }
 
 
-    private PresentableCelPointPositions CreateSinglePos(FullSolSysPointPos celPointFullPos)
+    private PresentableSolSysPointPositions CreateSinglePos(FullSolSysPointPos celPointFullPos)
     {
         string pointGlyph = _solarSystemPointSpecifications.DetailsForPoint(celPointFullPos.SolarSystemPoint).DefaultGlyph;
         double tempPos = celPointFullPos.Longitude.Position;
@@ -61,11 +61,6 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
         Console.WriteLine("tempSpeed: " + tempSpeed);
         Console.WriteLine("tempSpeedText: " + tempSpeedText);
 
-
-       // var eclipticalLong = new Tuple<string, string, string>(
-       //     _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(celPointFullPos.Longitude.Position).longTxt, 
-       //     _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(celPointFullPos.Longitude.Position).glyph,
-       //     _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Longitude.Speed));
         var eclipticalLat = new Tuple<string, string>(
             _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Latitude.Position),
             _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.Latitude.Speed));
@@ -81,7 +76,7 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
         string azimuth = _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.AzimuthAltitude.Azimuth);
         string altitude = _doubleToDmsConversions.ConvertDoubleToPositionsText(celPointFullPos.AzimuthAltitude.Altitude);
 
-        return new PresentableCelPointPositions(
+        return new PresentableSolSysPointPositions(
             pointGlyph, eclipticalLong, eclipticalLat, equatorialRa, equatorialDecl, distance, azimuth, altitude);
     }
 

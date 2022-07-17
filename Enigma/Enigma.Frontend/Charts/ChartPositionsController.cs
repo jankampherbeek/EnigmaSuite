@@ -4,7 +4,7 @@
 
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.InputSupport.PresentationFactories;
+using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.State;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ public class ChartPositionsController
         }
     }
 
-    public List<PresentableCelPointPositions> GetCelPointPositionsCurrentChart()
+    public List<PresentableSolSysPointPositions> GetCelPointPositionsCurrentChart()
     {
         _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
@@ -65,7 +65,7 @@ public class ChartPositionsController
         }
         else
         {
-            return new List<PresentableCelPointPositions>();
+            return new List<PresentableSolSysPointPositions>();
         }
     }
 

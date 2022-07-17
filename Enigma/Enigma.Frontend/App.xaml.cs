@@ -9,7 +9,7 @@ using Enigma.Domain.DateTime;
 using Enigma.Domain.Services;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
-using Enigma.Frontend.InputSupport.PresentationFactories;
+using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.InputSupport.Services;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
@@ -18,9 +18,7 @@ using System.Windows;
 
 namespace Enigma.Frontend;
 
-/// <summary>
-/// Interaction logic for App.xaml
-/// </summary>
+
 public partial class App : Application
 {
     public static ServiceProvider ServiceProvider { get; private set; }
@@ -51,6 +49,7 @@ public partial class App : Application
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
+        serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
         serviceCollection.AddTransient<StartWindow>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();

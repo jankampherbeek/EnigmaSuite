@@ -16,8 +16,15 @@ public interface IDoubleToDmsConversions
     /// Convert value for longitude to longitude within a sign accompanied with a string for a glyph.
     /// </summary>
     /// <param name="position">Longitude.</param>
-    /// <returns>Tuple with text for longitude in degrees (0 .. 30), minutes and seconds and a string for the glyph.</returns>
+    /// <returns>Tuple with text for longitude in degrees (0 .. 29), minutes and seconds and a string for the glyph.</returns>
     public (string longTxt, string glyph) ConvertDoubleToLongWithGlyph(double position);
+
+    /// <summary>
+    /// Convert value for longitude to longitude within a sign (0..29 degrees) but without a glyph..
+    /// </summary>
+    /// <param name="position">Longitude.</param>
+    /// <returns>Text for longitude in degrees (0 .. 29), minutes and seconds.</returns>
+    public string ConvertDoubleToLongInSignNoGlyph(double position);
 
     /// <summary>
     /// Convert value to sexagesimal text. Negative values are indicated with a minus sign.
@@ -29,6 +36,11 @@ public interface IDoubleToDmsConversions
 
 public class DoubleToDmsConversions : IDoubleToDmsConversions
 {
+    public string ConvertDoubleToLongInSignNoGlyph(double position)
+    {
+        var longWithGlyph = ConvertDoubleToLongWithGlyph(position);
+        return longWithGlyph.longTxt;
+    }
 
     public (string longTxt, string glyph) ConvertDoubleToLongWithGlyph(double position)
     {
