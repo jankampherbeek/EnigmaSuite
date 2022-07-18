@@ -10,7 +10,7 @@ namespace Enigma.Test.Frontend.InputSupport.Conversions;
 
 [TestFixture]
 
-public class TextDoubleToDmsConversions
+public class TestDoubleToDmsConversions
 {
     private IDoubleToDmsConversions _conversions = new DoubleToDmsConversions();
 
@@ -75,4 +75,14 @@ public class TextDoubleToDmsConversions
         Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
         Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
     }
+
+    [Test]
+    public void TestHappyFlowDoubleToLongInSignNoGlyph()
+    {
+        double inputValue = 136.5;
+        string expectedText = "16" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
+        Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
+    }
+
+
 }

@@ -4,17 +4,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 using Enigma.Core.Calc.Util;
@@ -58,7 +50,7 @@ public partial class ChartsWheel : Window
     public void DrawChart()
     {
         _ascendant = _controller.GetAscendantLongitude();
-        _offsetAsc = _ascendant % 30.0;
+        _offsetAsc = 30.0 - (_ascendant % 30.0);
         _mc = _controller.GetMcLongitude();
         _centerPoint = new Point(_metrics.GridSize / 2, _metrics.GridSize / 2);
         wheelCanvas.Children.Clear();
@@ -261,8 +253,8 @@ public partial class ChartsWheel : Window
         double hypothenusa3 = _metrics.OuterAspectCircle / 2;
         double hypothenusa4 = _metrics.SolSysPointTextCircle / 2;
         double angle = 0.0;
-        Point point1 = new Point(0, 0);
-        Point point2 = new Point(0, 0);
+        Point point1;
+        Point point2;
         double fontSize = _metrics.SolSysPointGlyphSize;
         double offsetX = _metrics.GlyphXOffset;
         double offsetY = _metrics.GlyphYOffset;
@@ -326,8 +318,6 @@ public partial class ChartsWheel : Window
             Canvas.SetTop(posText, point1.Y - offsetY);
             wheelCanvas.Children.Add(posText);
         }
-    
-
 
     }
 
@@ -358,7 +348,7 @@ public partial class ChartsWheel : Window
     {
         Ellipse circle = new Ellipse();
         
-        circle.Margin = new Thickness((350 * _metrics.SizeFactor) - circleSize/2);
+        circle.Margin = new Thickness((350 * _metrics.SizeFactor) - circleSize/2);  // TODO replace magic number
         circle.Width = circleSize;
         circle.Height = circleSize;
         circle.StrokeThickness = strokeThickness;

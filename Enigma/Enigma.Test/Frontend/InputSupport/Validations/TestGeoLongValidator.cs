@@ -30,7 +30,7 @@ public class TestGeoLongValidator
         Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
         Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(delta));
         Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
-        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("006:54:00 [common.direction.east]"));
+        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
     }
 
     [Test]
@@ -49,7 +49,7 @@ public class TestGeoLongValidator
         Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
         Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(delta));
         Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
-        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("006:54:00 [common.direction.east]"));
+        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
     }
 
     [Test]
@@ -68,7 +68,7 @@ public class TestGeoLongValidator
         Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
         Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(-6.9).Within(delta));
         Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.West));
-        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("006:54:00 [common.direction.west]"));
+        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("-6:54:00"));
     }
 
 
