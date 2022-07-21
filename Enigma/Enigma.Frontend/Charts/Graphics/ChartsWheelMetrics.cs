@@ -5,11 +5,30 @@
 namespace Enigma.Frontend.Charts.Graphics;
 
 /// <summary>
-/// 
+/// Metrics used in drawing a graphic wheel.
 /// </summary>
 public class ChartsWheelMetrics
 {
-    private double _baseSize = 700.0;
+
+    public double OuterCircle { get; private set; }
+    public double OuterRadius { get; private set; }
+    public double OuterSignCircle { get; private set; }
+    public double OuterSignRadius { get; private set; }
+    public double OuterHouseCircle { get; private set; }
+    public double OuterHouseRadius { get; private set; }
+    public double OuterAspectCircle { get; private set; }
+    public double OuterAspectRadius { get; private set; }
+
+
+
+    private readonly double OuterCircleInitial = 0.98;
+    private readonly double OuterSignCircleInitial = 0.89;
+    private readonly double OuterHouseCircleInitial = 0.79;
+    private readonly double OuterAspectCircleInitial = 0.44;
+
+    // --------------------------------------------------
+    public double BaseSize { get; private set; } = 700.0;
+  
     private double _baseStrokeSize = 2.0;
     private double _baseConnectLineSize = 1.0;
 
@@ -24,11 +43,10 @@ public class ChartsWheelMetrics
     public double GridSize { get; private set; }
     public double StrokeSize { get; private set; }
     public double ConnectLineSize { get; private set; }
-    public double OuterCircle { get; private set; }
-    public double OuterSignCircle { get; private set; }
-    public double OuterHouseCircle { get; private set; }
+
+
     public double CuspTextCircle { get; private set; }
-    public double OuterAspectCircle { get; private set; }
+
     public double OuterConnectionCircle { get; private set; }
     public double SignGlyphCircle { get; private set; }
     public double DegreesCircle { get; private set; }
@@ -36,11 +54,10 @@ public class ChartsWheelMetrics
     public double SolSysPointGlyphCircle { get; private set; }
     public double SolSysPointTextCircle { get; private set; }   
 
-    private readonly double OuterCircleInitial = 0.98;
-    private readonly double OuterSignCircleInitial = 0.89;
-    private readonly double OuterHouseCircleInitial = 0.79;
+
+
     private readonly double CuspTextCircleInitial = 0.76;
-    private readonly double OuterAspectCircleInitial = 0.44;
+
     private readonly double SignGlyphCircleInitial = 0.84;
     private readonly double DegreesCircleInitial = 0.775;
     private readonly double Degrees5CircleInitial = 0.76;
@@ -69,15 +86,12 @@ public class ChartsWheelMetrics
 
     private void DefineSizes()
     {
+        DefineCircleSizes();
 
-        GridSize = _baseSize * SizeFactor;
+        GridSize = BaseSize * SizeFactor;
         StrokeSize = _baseStrokeSize * SizeFactor;
         ConnectLineSize = _baseConnectLineSize * SizeFactor;
-        OuterCircle = OuterCircleInitial * GridSize;
-        OuterSignCircle = OuterSignCircleInitial * GridSize;
-        OuterHouseCircle = OuterHouseCircleInitial * GridSize;
         CuspTextCircle = CuspTextCircleInitial * GridSize;
-        OuterAspectCircle = OuterAspectCircleInitial * GridSize;
         SignGlyphCircle = SignGlyphCircleInitial * GridSize;
         DegreesCircle = DegreesCircleInitial * GridSize;
         Degrees5Circle = Degrees5CircleInitial * GridSize;
@@ -91,6 +105,21 @@ public class ChartsWheelMetrics
         SolSysPointGlyphSize = SolSysPointGlyphSizeInitial * (GridSize / 700.0);
         PositionTextSize = PositionTextSizeInitial * (GridSize  / 700.0);
 
+    }
+
+    private void DefineCircleSizes()
+    {
+        OuterCircle = OuterCircleInitial * GridSize;
+        OuterRadius = OuterCircle / 2;
+
+        OuterSignCircle = OuterSignCircleInitial * GridSize;
+        OuterSignRadius = OuterSignCircle / 2;
+
+        OuterHouseCircle = OuterHouseCircleInitial * GridSize;
+        OuterHouseRadius = OuterHouseCircle / 2;
+
+        OuterAspectCircle = OuterAspectCircleInitial * GridSize;
+        OuterAspectRadius = OuterAspectCircle / 2;
     }
 
 }
