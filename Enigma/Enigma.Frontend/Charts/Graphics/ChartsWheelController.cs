@@ -19,12 +19,13 @@ namespace Enigma.Frontend.Charts.Graphics;
 public class ChartsWheelController
 {
     public double CanvasSize{ get; private set; }
+    private Point _centerPoint;
 
     private readonly ChartsWheelMetrics _metrics;
     private readonly DataVault _dataVault;
-    private IDoubleToDmsConversions _doubleToDmsConversions;
-    private ISortedGraphicSolSysPointsFactory _sortedGraphicSolSysPointsFactory;
-    private ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly ISortedGraphicSolSysPointsFactory _sortedGraphicSolSysPointsFactory;
+    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
     private CalculatedChart? _currentChart;
 
     public ChartsWheelController(ChartsWheelMetrics metrics, 
@@ -55,8 +56,7 @@ public class ChartsWheelController
     public List<Line> GetAllDegreeIndications()
     {
         double offsetAsc = 30.0 - (GetAscendantLongitude() % 30.0);
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        DimDegreeIndications dimDegreeIndications = new(centerPoint, offsetAsc, _metrics.OuterHouseCircle/2, _metrics.DegreesCircle/2, _metrics.Degrees5Circle/2);
+        DimDegreeIndications dimDegreeIndications = new(_centerPoint, offsetAsc, _metrics.OuterHouseRadius, _metrics.DegreesRadius, _metrics.Degrees5Radius);
         return dimDegreeIndications.CreateDegreeIndications();
     }
 
@@ -64,19 +64,16 @@ public class ChartsWheelController
     {
         List<Line> allSeparators = new();
         double offsetAsc = 30.0 - (GetAscendantLongitude() % 30.0);
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
         DimLine dimLine = new();
-        DimPoint dimPoint = new(centerPoint);
+        DimPoint dimPoint = new(_centerPoint);
         Point point1;
         Point point2;
         double angle;
-        double hypothenusa1 = _metrics.OuterHouseCircle / 2;
-        double hypothenusa2 = _metrics.OuterSignCircle / 2;
+        double hypothenusa1 = _metrics.OuterHouseRadius;
+        double hypothenusa2 = _metrics.OuterSignRadius;
         for (int i = 0; i < 12; i++)
         {
-            angle = (i * 30 + offsetAsc) + 90.0;
-            if (angle < 0.0) angle += 360.0;
-            if (angle >= 360.0) angle -= 360.0;
+            angle = InRange360(i * 30 + offsetAsc) + 90.0;
             point1 = dimPoint.CreatePoint(angle, hypothenusa1);
             point2 = dimPoint.CreatePoint(angle, hypothenusa2);
             allSeparators.Add(dimLine.CreateLine(point1, point2, _metrics.StrokeSize, Colors.SlateBlue, 1.0));
@@ -86,23 +83,19 @@ public class ChartsWheelController
 
     public List<TextBlock> CreateSignGlyphs()
     {
-        double angle = 0.0;
         Point point1;
         double offsetAsc = 30.0 - (GetAscendantLongitude() % 30.0);
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        double hypothenusa = _metrics.SignGlyphCircle / 2;
+        double hypothenusa = _metrics.SignGlyphRadius;
         double fontSize = _metrics.SignGlyphSize;
         string[] glyphs = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
         int indexFirstGlyph = (int)(GetAscendantLongitude() / 30.0 + 1);
         int glyphIndex = indexFirstGlyph;
-        DimPoint dimPoint = new(centerPoint);
-        DimTextBlock dimTextBlock = new DimTextBlock(new FontFamily("EnigmaAstrology"), fontSize, 0.7, Colors.SlateBlue);
+        DimPoint dimPoint = new(_centerPoint);
+        DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 0.7, Colors.SlateBlue);
         List<TextBlock> glyphList = new();
         for (int i = 0; i < 12; i++)
         {
-            angle = (i * 30) + offsetAsc + 90.0 + 15.0;
-            if (angle < 0.0) angle += 360.0;
-            if (angle >= 360.0) angle -= 360.0;
+            double angle = InRange360((i * 30) + offsetAsc + 90.0 + 15.0);
             point1 = dimPoint.CreatePoint(angle, hypothenusa);
             glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - fontSize / 3, point1.Y - fontSize / 1.8));
             glyphIndex++;
@@ -114,51 +107,54 @@ public class ChartsWheelController
     public List<Line> CreateCuspLines()
     {
         List<Line> cuspLines = new();
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        DimPoint dimPoint = new(centerPoint);
-        double hypothenusa1 = _metrics.OuterAspectRadius;
-        double hypothenusa2 = _metrics.OuterHouseRadius;
-        double strokeSizeSmall = _metrics.StrokeSize;
-        double strokeSizeDouble = _metrics.StrokeSize * 2;
-        Point point1;
-        Point point2;
-        double angle = 0.0;
-        DimLine dimLine = new();
         List<double> housePositions = GetHouseLongitudesCurrentChart();
         for (int i = 0; i < housePositions.Count; i++)
         {
-            angle = housePositions[i] - GetAscendantLongitude() + 90.0;
-            if (angle < 0.0) angle += 360.0;
-            if (angle >= 360.0) angle -= 360.0;
-            point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-            point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-            double width = ((i % 3) == 0) ? strokeSizeDouble : strokeSizeSmall;
-            Line cuspLine = dimLine.CreateLine(point1, point2, width, Colors.Gray, 0.5);
-            cuspLines.Add(cuspLine);
+            double angle = InRange360(housePositions[i] - GetAscendantLongitude() + 90.0);
+            double width = ((i % 3) == 0) ? _metrics.StrokeSizeDouble : _metrics.StrokeSize;
+            cuspLines.Add(CreateSingleCuspLine(angle, _metrics.OuterAspectRadius, _metrics.OuterHouseRadius, width));
         }
         return cuspLines;
+    }
+
+    public List<Line> CreateCardinalLines()
+    {
+        List<Line> cardinalLines = new();
+        double angle = 90.0;
+        double hypothenusa1 = _metrics.OuterSignRadius;
+        double hypothenusa2 = _metrics.OuterRadius;
+        cardinalLines.Add(CreateSingleCuspLine(angle, hypothenusa1, hypothenusa2, _metrics.StrokeSizeDouble));
+        angle = InRange360(angle + 180.0);
+        cardinalLines.Add(CreateSingleCuspLine(angle, hypothenusa1, hypothenusa2, _metrics.StrokeSizeDouble));
+        angle = InRange360(GetMcLongitude() - GetAscendantLongitude() + 90.0);
+        cardinalLines.Add(CreateSingleCuspLine(angle, hypothenusa1, hypothenusa2, _metrics.StrokeSizeDouble));
+        angle = InRange360(angle + 180.0);
+        cardinalLines.Add(CreateSingleCuspLine(angle, hypothenusa1, hypothenusa2, _metrics.StrokeSizeDouble));
+        return cardinalLines;
+    }
+
+    private Line CreateSingleCuspLine(double angle, double hypothenusa1, double hypothenusa2, double strokeSize)
+    {
+        DimPoint dimPoint = new(_centerPoint);
+        DimLine dimLine = new();
+        Point point1 = dimPoint.CreatePoint(angle, hypothenusa1);
+        Point point2 = dimPoint.CreatePoint(angle, hypothenusa2);
+        return dimLine.CreateLine(point1, point2, strokeSize, _metrics.CuspLineColor, _metrics.CuspLineOpacity);
     }
 
     public List<TextBlock> CreateCuspTexts()
     {
         List<TextBlock> cuspTexts = new();
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        DimPoint dimPoint = new(centerPoint);
-        DimTextBlock cuspsDimTextBlock = new DimTextBlock(new FontFamily("Calibri"), _metrics.PositionTextSize, 1.0, Colors.SaddleBrown);
-        double hypothenusa3 = _metrics.CuspTextCircle / 2;
-        Point point1;
-        double angle = 0.0;
-       
+        DimPoint dimPoint = new(_centerPoint);
+        DimTextBlock cuspsDimTextBlock = new(_metrics.PositionTextsFontFamily, _metrics.PositionTextSize, _metrics.CuspTextOpacity, _metrics.CuspTextColor);     
         List<double> housePositions = GetHouseLongitudesCurrentChart();
         for (int i = 0; i < housePositions.Count; i++)
         {
-            angle = housePositions[i] - GetAscendantLongitude() + 90.0;
-            if (angle < 0.0) angle += 360.0;
-            if (angle >= 360.0) angle -= 360.0;
-            RotateTransform rotateTransform = new RotateTransform();
-            double rotateAngle = 0.0;
-            double swapAngle = 0.0;
-            double yOffset;     // TODO move to metrics
+            double angle = InRange360(housePositions[i] - GetAscendantLongitude() + 90.0);
+            RotateTransform rotateTransform = new();
+            double rotateAngle;
+            double swapAngle;
+            double yOffset;    
             double textOffsetDegrees;
             if (angle <= 90.0 || angle > 270.0)
             {
@@ -172,14 +168,9 @@ public class ChartsWheelController
                 yOffset = -10.0;
                 textOffsetDegrees = -3.0;
             }
-            point1 = dimPoint.CreatePoint(angle + textOffsetDegrees, hypothenusa3 + yOffset);
+            Point point1 = dimPoint.CreatePoint(angle + textOffsetDegrees, _metrics.CuspTextRadius + yOffset);
             swapAngle = 90.0 - rotateAngle;
-            rotateAngle = 180.0 + swapAngle;
-            if (rotateAngle < 0.0) rotateAngle += 360.0;
-
-            rotateTransform.Angle = rotateAngle;
-
-
+            rotateTransform.Angle = InRange360(180.0 + swapAngle); 
             string text = _doubleToDmsConversions.ConvertDoubleToLongInSignNoGlyph(housePositions[i]);
             TextBlock posText = cuspsDimTextBlock.CreateTextBlock(text, point1.X, point1.Y, rotateTransform);
             cuspTexts.Add(posText);
@@ -187,68 +178,27 @@ public class ChartsWheelController
         return cuspTexts;
     }
 
-    public List<Line> CreateCardinalLines()
-    {
-        List<Line> cardinalLines = new();
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        DimPoint dimPoint = new(centerPoint);
-        double hypothenusa1 = _metrics.OuterAspectRadius;
-        double hypothenusa2 = _metrics.OuterHouseRadius;
-        Point point1;
-        Point point2;
-        double angle = 0.0;
-        DimLine dimLine = new();
-
-        angle = 90.0;
-        hypothenusa1 = _metrics.OuterSignRadius;
-        hypothenusa2 = _metrics.OuterRadius;
-        point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-        point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-        Line ascLine = dimLine.CreateLine(point1, point2, _metrics.StrokeSize * 2, Colors.Gray, 0.5);
-        cardinalLines.Add(ascLine);
-        angle += 180.0;
-        if (angle >= 360.0) angle -= 360.0;
-        point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-        point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-        Line descLine = dimLine.CreateLine(point1, point2, _metrics.StrokeSize * 2, Colors.Gray, 0.5);
-        cardinalLines.Add(descLine);
-        angle = GetMcLongitude() - GetAscendantLongitude() + 90.0;
-        if (angle < 0.0) angle += 360.0;
-        if (angle >= 360.0) angle -= 360.0;
-        point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-        point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-        Line mcLine = dimLine.CreateLine(point1, point2, _metrics.StrokeSize * 2, Colors.Gray, 0.5);
-        cardinalLines.Add(mcLine);
-        angle += 180.0;
-        if (angle >= 360.0) angle -= 360.0;
-        point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-        point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-        Line icLine = dimLine.CreateLine(point1, point2, _metrics.StrokeSize * 2, Colors.Gray, 0.5);
-        cardinalLines.Add(icLine);
-        return cardinalLines;
-    }
+ 
 
     public List<TextBlock> CreateSolSysPointGlyphs()
     {
         List<TextBlock> glyphs = new();
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        double minDistance = 6.0;  // TODO move to metrics
+
         List<FullSolSysPointPos> solSysPoints = GetSolSysPointsCurrentChart();
-        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, GetAscendantLongitude(), minDistance);
-        DimPoint dimPoint = new(centerPoint);
-        double hypothenusa1 = _metrics.SolSysPointGlyphCircle / 2;
-        double angle = 0.0;
-        Point point1;
+        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, GetAscendantLongitude(), _metrics.MinDistance);
+        DimPoint dimPoint = new(_centerPoint);
         double fontSize = _metrics.SolSysPointGlyphSize;
         foreach (var graphPoint in graphicSolSysPointsPositions)
         {
-            angle = graphPoint.PlotPos;
-            point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-            TextBlock glyph = new TextBlock();
-            glyph.Text = _solarSystemPointSpecifications.DetailsForPoint(graphPoint.SolSysPoint).DefaultGlyph;
-            glyph.FontFamily = new FontFamily("EnigmaAstrology");
-            glyph.FontSize = fontSize;
-            glyph.Foreground = new SolidColorBrush(Colors.DarkSlateBlue);
+            double angle = graphPoint.PlotPos;
+            Point point1 = dimPoint.CreatePoint(angle, _metrics.SolSysPointGlyphRadius);
+            TextBlock glyph = new()
+            {
+                Text = _solarSystemPointSpecifications.DetailsForPoint(graphPoint.SolSysPoint).DefaultGlyph,
+                FontFamily = _metrics.GlyphsFontFamily,
+                FontSize = fontSize,
+                Foreground = new SolidColorBrush(_metrics.SolSysPointColor)
+            };
 
             Canvas.SetLeft(glyph, point1.X - fontSize / 3);
             Canvas.SetTop(glyph, point1.Y - fontSize / 1.8);
@@ -260,24 +210,15 @@ public class ChartsWheelController
     public List<Line> CreateSolSysPointConnectLines()
     {
         List<Line> connectLines = new();
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        double minDistance = 6.0;  // TODO move to metrics
         List<FullSolSysPointPos> solSysPoints = GetSolSysPointsCurrentChart();
-        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, GetAscendantLongitude(), minDistance);
+        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, GetAscendantLongitude(), _metrics.MinDistance);
         DimLine dimLine = new();
-        DimPoint dimPoint = new(centerPoint);
-        double hypothenusa2 = _metrics.OuterConnectionCircle / 2;
-        double hypothenusa3 = _metrics.OuterAspectRadius;
-        double angle = 0.0;
-        Point point1;
-        Point point2;
+        DimPoint dimPoint = new(_centerPoint);
         foreach (var graphPoint in graphicSolSysPointsPositions)
         {
-            angle = graphPoint.PlotPos;
-            point1 = dimPoint.CreatePoint(angle, hypothenusa2);
-            angle = graphPoint.MundanePos;
-            point2 = dimPoint.CreatePoint(angle, hypothenusa3);
-            Line connectionLine = dimLine.CreateLine(point1, point2, _metrics.ConnectLineSize, Colors.DarkSlateBlue, 0.25);
+            Point point1 = dimPoint.CreatePoint(graphPoint.PlotPos, _metrics.OuterConnectionRadius);
+            Point point2 = dimPoint.CreatePoint(graphPoint.MundanePos, _metrics.OuterAspectRadius);
+            Line connectionLine = dimLine.CreateLine(point1, point2, _metrics.ConnectLineSize, _metrics.SolSysPointConnectLineColor, _metrics.SolSysPointConnectLineOpacity);
             connectLines.Add(connectionLine);
         }
         return connectLines;
@@ -286,49 +227,27 @@ public class ChartsWheelController
     public List<TextBlock> CreateSolSysPointTexts()
     {
         List<TextBlock> texts = new();
-        Point centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
-        double minDistance = 6.0;
         List<FullSolSysPointPos> solSysPoints = GetSolSysPointsCurrentChart();
-        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, GetAscendantLongitude(), minDistance);
-        DimPoint dimPoint = new(centerPoint);
-        double hypothenusa4 = _metrics.SolSysPointTextCircle / 2;
-        double angle = 0.0;
-        Point point1;
-        double offsetX = _metrics.GlyphXOffset;
-        double offsetY = _metrics.GlyphYOffset;
+        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, GetAscendantLongitude(), _metrics.MinDistance);
+        DimPoint dimPoint = new(_centerPoint);
         foreach (var graphPoint in graphicSolSysPointsPositions)
         {
-            angle = graphPoint.PlotPos;
-            double hypothenusaEast = hypothenusa4 + 20.0;
-            double hypothenusaWest = hypothenusa4 - 20.0;
-
-            if (angle < 180.0) point1 = dimPoint.CreatePoint(angle, hypothenusaEast);
-            else point1 = dimPoint.CreatePoint(angle, hypothenusaWest);
-            TextBlock posText = new TextBlock();
-            posText.Text = graphPoint.LongitudeText;
-            posText.FontFamily = new FontFamily("Calibri");
-            posText.FontSize = _metrics.PositionTextSize;
-            posText.Foreground = new SolidColorBrush(Colors.DarkSlateBlue);
-
-            RotateTransform rotateTransform = new RotateTransform();
-            double rotateAngle = 0.0;
-            double swapAngle = 0.0;
-            if (graphPoint.PlotPos < 180.0)
+            double angle = graphPoint.PlotPos;
+            Point point1 = angle < 180.0 ? dimPoint.CreatePoint(angle, _metrics.SolSysPointTextRadius + 20.0) : dimPoint.CreatePoint(angle, _metrics.SolSysPointTextRadius - 20.0);
+            TextBlock posText = new()
             {
-                rotateAngle = graphPoint.PlotPos - 90.0;
-            }
-            else
-            {
-                rotateAngle = graphPoint.PlotPos - 270.0;
-            }
-            swapAngle = 90.0 - rotateAngle;
-            rotateAngle = 270.0 + swapAngle;
-            if (rotateAngle < 0.0) rotateAngle += 360.0;
-
-            rotateTransform.Angle = rotateAngle;
+                Text = graphPoint.LongitudeText,
+                FontFamily = _metrics.PositionTextsFontFamily,
+                FontSize = _metrics.PositionTextSize,
+                Foreground = new SolidColorBrush(_metrics.SolSysPointTextColor)
+            };
+            RotateTransform rotateTransform = new();
+            double rotateAngle = graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 90.0 : graphPoint.PlotPos - 270.0;
+            double swapAngle = 90.0 - rotateAngle;
+            rotateTransform.Angle = InRange360(270.0 + swapAngle);
             posText.RenderTransform = rotateTransform;
-            Canvas.SetLeft(posText, point1.X - offsetX);
-            Canvas.SetTop(posText, point1.Y - offsetY);
+            Canvas.SetLeft(posText, point1.X - _metrics.GlyphXOffset);
+            Canvas.SetTop(posText, point1.Y - _metrics.GlyphYOffset);
             texts.Add(posText);
         }
         return texts;
@@ -360,7 +279,7 @@ public class ChartsWheelController
 
     public List<double> GetHouseLongitudesCurrentChart()
     {
-        List<double> longitudes = new List<double>();
+        List<double> longitudes = new();
         _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
@@ -390,8 +309,21 @@ public class ChartsWheelController
     {
         _metrics.SetSizeFactor(minSize / 740.0);
         CanvasSize = _metrics.GridSize;
+        _centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
     }
 
-
+    private double InRange360(double angle)
+    {
+        double angleInRange = angle;
+        while (angleInRange < 0.0)
+        {
+            angleInRange += 360.0;
+        }
+        while (angleInRange >= 360.0)
+        {
+            angleInRange -= 360.0;
+        }
+        return angleInRange;
+    }
 
 }
