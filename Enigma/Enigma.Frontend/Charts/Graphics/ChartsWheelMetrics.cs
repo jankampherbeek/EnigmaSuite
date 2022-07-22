@@ -76,6 +76,8 @@ public class ChartsWheelMetrics
 
     public double SignGlyphSize { get; private set; }
     public double SolSysPointGlyphSize { get; private set; }
+    public double SolSysPointTextEastOffset { get; private set; }
+    public double SolSysPointTextWestOffset { get; private set; }
     public double PositionTextSize { get; private set; }
     public double GlyphXOffset { get; private set; }
     public double GlyphYOffset { get; private set; }
@@ -88,6 +90,8 @@ public class ChartsWheelMetrics
 
     private readonly double SignGlyphSizeInitial = 28.0;
     private readonly double SolSysPointGlyphSizeInitial = 24.0;
+    private readonly double SolSysPointTextEastOffsetInitial = 8.0;
+    private readonly double SolSysPointTextWestOffsetInitial = -20.0;
     private readonly double PositionTextSizeInitial = 10.0;
     private readonly double GlyphXOffsetInitial = 0.0;
     private readonly double GlyphYOffsetInitial = 0.0;
@@ -117,6 +121,8 @@ public class ChartsWheelMetrics
         GlyphYOffset = GlyphYOffsetInitial * GridSize;
         SignGlyphSize = SignGlyphSizeInitial * (GridSize / 700.0);
         SolSysPointGlyphSize = SolSysPointGlyphSizeInitial * (GridSize / 700.0);
+        SolSysPointTextEastOffset = SolSysPointTextEastOffsetInitial * SizeFactor;
+        SolSysPointTextWestOffset = SolSysPointTextWestOffsetInitial * SizeFactor;
         PositionTextSize = PositionTextSizeInitial * (GridSize  / 700.0);
 
     }

@@ -95,7 +95,7 @@ public class ChartsWheelCusps: IChartsWheelCusps
             Point point1 = dimPoint.CreatePoint(angle + textOffsetDegrees, metrics.CuspTextRadius + yOffset);
             swapAngle = 90.0 - rotateAngle;
             rotateTransform.Angle = _rangeCheck.InRange360(180.0 + swapAngle);
-            string text = _doubleToDmsConversions.ConvertDoubleToLongInSignNoGlyph(housePositions[i]);
+            string text = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(housePositions[i]);
             TextBlock posText = cuspsDimTextBlock.CreateTextBlock(text, point1.X, point1.Y, rotateTransform);
             cuspTexts.Add(posText);
         }

@@ -20,7 +20,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = 6.5;
         string expectedResult = "6" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
-        Assert.That(_conversions.ConvertDoubleToPositionsText(inputValue), Is.EqualTo(expectedResult));
+        Assert.That(_conversions.ConvertDoubleToPositionsDmsText(inputValue), Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -28,7 +28,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = -6.5;
         string expectedResult = "-6" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
-        Assert.That(_conversions.ConvertDoubleToPositionsText(inputValue), Is.EqualTo(expectedResult));
+        Assert.That(_conversions.ConvertDoubleToPositionsDmsText(inputValue), Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -36,7 +36,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = -0.03;
         string expectedResult = "-0" + EnigmaConstants.DEGREE_SIGN + "01" + EnigmaConstants.MINUTE_SIGN + "48" + EnigmaConstants.SECOND_SIGN;
-        Assert.That(_conversions.ConvertDoubleToPositionsText(inputValue), Is.EqualTo(expectedResult));
+        Assert.That(_conversions.ConvertDoubleToPositionsDmsText(inputValue), Is.EqualTo(expectedResult));
     }
 
 
@@ -45,7 +45,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = 342.5;
         string expectedResult = "342" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
-        Assert.That(_conversions.ConvertDoubleToPositionsText(inputValue), Is.EqualTo(expectedResult));
+        Assert.That(_conversions.ConvertDoubleToPositionsDmsText(inputValue), Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -53,7 +53,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = 42.999999;
         string expectedResult = "42" + EnigmaConstants.DEGREE_SIGN + "59" + EnigmaConstants.MINUTE_SIGN + "59" + EnigmaConstants.SECOND_SIGN;
-        Assert.That(_conversions.ConvertDoubleToPositionsText(inputValue), Is.EqualTo(expectedResult));
+        Assert.That(_conversions.ConvertDoubleToPositionsDmsText(inputValue), Is.EqualTo(expectedResult));
     }
 
     [Test]
@@ -62,8 +62,8 @@ public class TestDoubleToDmsConversions
         double inputValue = 36.5;
         string expectedText = "6" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
         string expectedGlyph = "2";
-        Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
-        Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
+        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
+        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
     }
 
     [Test]
@@ -72,8 +72,8 @@ public class TestDoubleToDmsConversions
         double inputValue = 0.0;
         string expectedText = "0" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
         string expectedGlyph = "1";
-        Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
-        Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
+        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
+        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
     }
 
     [Test]
@@ -81,7 +81,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = 136.5;
         string expectedText = "16" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
-        Assert.That(_conversions.ConvertDoubleToLongWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
+        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
     }
 
 

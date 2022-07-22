@@ -4,6 +4,7 @@
 
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.Positional;
+using Enigma.Frontend.InputSupport.Conversions;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
@@ -29,14 +30,17 @@ public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints
     private readonly IRangeCheck _rangeCheck;
     private readonly ISortedGraphicSolSysPointsFactory _sortedGraphicSolSysPointsFactory;
     private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
     public ChartsWheelSolSysPoints(ISortedGraphicSolSysPointsFactory sortedGraphicSolSysPointsFactory, 
         ISolarSystemPointSpecifications solarSystemPointSpecifications,
-        IRangeCheck rangeCheck)
+        IRangeCheck rangeCheck,
+        IDoubleToDmsConversions doubleToDmsConversions)
     {
         _rangeCheck = rangeCheck;
         _sortedGraphicSolSysPointsFactory = sortedGraphicSolSysPointsFactory;
         _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _doubleToDmsConversions = doubleToDmsConversions;
     }
    
 
@@ -89,11 +93,12 @@ public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints
         DimPoint dimPoint = new(centerPoint);
         foreach (var graphPoint in graphicSolSysPointsPositions)
         {
-            double angle = graphPoint.PlotPos;
-            Point point1 = angle < 180.0 ? dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + 20.0) : dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius - 20.0);
+            double angle =  graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 1.5 : graphPoint.PlotPos + 1.5;
+            string posDmText = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(graphPoint.EclipticPos);
+            Point point1 = angle < 180.0 ? dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + metrics.SolSysPointTextEastOffset) : dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + metrics.SolSysPointTextWestOffset);
             TextBlock posText = new()
             {
-                Text = graphPoint.LongitudeText,
+                Text = posDmText,
                 FontFamily = metrics.PositionTextsFontFamily,
                 FontSize = metrics.PositionTextSize,
                 Foreground = new SolidColorBrush(metrics.SolSysPointTextColor)

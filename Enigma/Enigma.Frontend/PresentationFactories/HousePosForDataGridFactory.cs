@@ -45,12 +45,12 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
    {
         PresentableHousePositions positions = new PresentableHousePositions(
             identification, 
-            _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(cuspFullPos.Longitude).longTxt,
-            _doubleToDmsConversions.ConvertDoubleToLongWithGlyph(cuspFullPos.Longitude).glyph,
-            _doubleToDmsConversions.ConvertDoubleToPositionsText(cuspFullPos.RaDecl.RightAscension),
-            _doubleToDmsConversions.ConvertDoubleToPositionsText(cuspFullPos.RaDecl.Declination),
-            _doubleToDmsConversions.ConvertDoubleToPositionsText(cuspFullPos.AzimuthAltitude.Azimuth),
-            _doubleToDmsConversions.ConvertDoubleToPositionsText(cuspFullPos.AzimuthAltitude.Altitude));
+            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).longTxt,
+            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).glyph,
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.RaDecl.RightAscension),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.RaDecl.Declination),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.AzimuthAltitude.Azimuth),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.AzimuthAltitude.Altitude));
         return positions;
     }
     

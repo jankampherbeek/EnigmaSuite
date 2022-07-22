@@ -13,36 +13,53 @@ namespace Enigma.Frontend.InputSupport.Conversions;
 public interface IDoubleToDmsConversions
 {
     /// <summary>
-    /// Convert value for longitude to longitude within a sign accompanied with a string for a glyph.
+    /// Convert value for longitude to longitude in degrees and minutes, within a sign (0..29 degrees) but without a glyph.
+    /// </summary>
+    /// <param name="position">Longitude.</param>
+    /// <returns>Text for longitude in degrees (0 .. 29) and minutes.</returns>
+    public string ConvertDoubleToDmInSignNoGlyph(double position);
+    /// <summary>
+    /// Convert value for longitude to longitude in degrees, minutes and seconds, within a sign, accompanied with a string for a glyph.
     /// </summary>
     /// <param name="position">Longitude.</param>
     /// <returns>Tuple with text for longitude in degrees (0 .. 29), minutes and seconds and a string for the glyph.</returns>
-    public (string longTxt, string glyph) ConvertDoubleToLongWithGlyph(double position);
+    public (string longTxt, string glyph) ConvertDoubleToDmsWithGlyph(double position);
 
     /// <summary>
-    /// Convert value for longitude to longitude within a sign (0..29 degrees) but without a glyph..
+    /// Convert value for longitude to longitude in degrees, minutes and seconds, within a sign (0..29 degrees) but without a glyph.
     /// </summary>
     /// <param name="position">Longitude.</param>
     /// <returns>Text for longitude in degrees (0 .. 29), minutes and seconds.</returns>
-    public string ConvertDoubleToLongInSignNoGlyph(double position);
+    public string ConvertDoubleToDmsInSignNoGlyph(double position);
 
     /// <summary>
     /// Convert value to sexagesimal text. Negative values are indicated with a minus sign.
     /// </summary>
     /// <param name="position">The value to convert.</param>
     /// <returns>The saexagesimal result in degrees, minutes and seconds.</returns>
-    public string ConvertDoubleToPositionsText(double position);
+    public string ConvertDoubleToPositionsDmsText(double position);
 }
 
 public class DoubleToDmsConversions : IDoubleToDmsConversions
 {
-    public string ConvertDoubleToLongInSignNoGlyph(double position)
+    public string ConvertDoubleToDmsInSignNoGlyph(double position)
     {
-        var longWithGlyph = ConvertDoubleToLongWithGlyph(position);
+        var longWithGlyph = ConvertDoubleToDmsWithGlyph(position);
         return longWithGlyph.longTxt;
     }
+    public string ConvertDoubleToDmInSignNoGlyph(double position)
+    {
+        double remaining = Math.Abs(position);
+        int degrees = (int)position;
+        int nrOfSigns = 1 + degrees / 30;
+        int degreesInSign = degrees - ((nrOfSigns - 1) * 30);
+        remaining = Math.Abs(remaining - degrees);
+        int minutes = (int)(remaining * 60.0);
+        return CreateDmString(degreesInSign, minutes);
+    }
 
-    public (string longTxt, string glyph) ConvertDoubleToLongWithGlyph(double position)
+
+    public (string longTxt, string glyph) ConvertDoubleToDmsWithGlyph(double position)
     {
         double remaining = position;
         int degrees = (int)position;
@@ -58,7 +75,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
 
     }
 
-    public string ConvertDoubleToPositionsText(double position)
+    public string ConvertDoubleToPositionsDmsText(double position)
     {
         string minusSign = position < 0.0 ? "-" : "";
         double remaining = Math.Abs(position);              
@@ -79,6 +96,12 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
         return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN + secondText + EnigmaConstants.SECOND_SIGN;
     }
 
+    private string CreateDmString(int degrees, int minutes)
+    {
+        string degreeText = degrees.ToString();
+        string minuteText = string.Format("{0:00}", minutes);
+        return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN;
+    }
 
     private string DefineGlyph(int nrOfSigns)
     {
