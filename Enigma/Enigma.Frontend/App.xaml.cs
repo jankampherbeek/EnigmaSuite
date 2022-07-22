@@ -39,8 +39,12 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
         serviceCollection.AddTransient<ChartsWheel>();
+        serviceCollection.AddTransient<IChartsWheelCircles, ChartsWheelCircles>();
         serviceCollection.AddTransient<ChartsWheelController>();
+        serviceCollection.AddTransient<IChartsWheelCusps, ChartsWheelCusps>();
         serviceCollection.AddTransient<ChartsWheelMetrics>();
+        serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
+        serviceCollection.AddTransient<IChartsWheelSolSysPoints, ChartsWheelSolSysPoints>();
         serviceCollection.AddSingleton<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
@@ -48,6 +52,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
+        serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
         serviceCollection.AddTransient<StartWindow>();

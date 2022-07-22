@@ -86,12 +86,6 @@ public class ChartsWheelMetrics
 
 
 
-
-
-
-
-
-
     private readonly double SignGlyphSizeInitial = 28.0;
     private readonly double SolSysPointGlyphSizeInitial = 24.0;
     private readonly double PositionTextSizeInitial = 10.0;

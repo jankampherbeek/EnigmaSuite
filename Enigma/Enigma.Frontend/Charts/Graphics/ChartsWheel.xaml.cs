@@ -24,6 +24,7 @@ public partial class ChartsWheel : Window
     public void DrawChart()
     {
         wheelCanvas.Children.Clear();
+        _controller.PrepareDraw();
         DrawChartFrame();
         DrawCusps();
         DrawSolSysPoints();
@@ -32,25 +33,25 @@ public partial class ChartsWheel : Window
 
     private void DrawChartFrame()
     {
-        AddToWheel(_controller.GetAllCircles());
-        AddToWheel(_controller.CreateSignSeparators());
-        AddToWheel(_controller.CreateSignGlyphs());
-        AddToWheel(_controller.GetAllDegreeIndications());
+        AddToWheel(_controller.WheelCircles);
+        AddToWheel(_controller.SignSeparators);
+        AddToWheel(_controller.SignGlyphs);
+        AddToWheel(_controller.DegreeLines);
     }
 
 
     private void DrawCusps()
     {
-        AddToWheel(_controller.CreateCuspLines());
-        AddToWheel(_controller.CreateCuspTexts());
-        AddToWheel(_controller.CreateCardinalLines());
+        AddToWheel(_controller.CuspLines);
+        AddToWheel(_controller.CuspCardinalLines);
+        AddToWheel(_controller.CuspTexts);
     }
 
     private void DrawSolSysPoints()
     {
-        AddToWheel(_controller.CreateSolSysPointGlyphs());
-        AddToWheel(_controller.CreateSolSysPointConnectLines());
-        AddToWheel(_controller.CreateSolSysPointTexts());
+        AddToWheel(_controller.SolSysPointGlyphs);
+        AddToWheel(_controller.SolSysPointConnectLines);
+        AddToWheel(_controller.SolSysPointTexts);
     }
 
     private void AddToWheel(List<TextBlock> textBlocks)
