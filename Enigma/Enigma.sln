@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Domain", "Enigma.Dom
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Calc", "Enigma.Core.Calc\Enigma.Core.Calc.csproj", "{610792E8-BD40-47BD-8217-4F56057900C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Frontend.InputSupport", "Enigma.Frontend.InputSupport\Enigma.Frontend.InputSupport.csproj", "{3E47014A-23B9-42CD-9B75-3DD661C17395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Frontend.InputSupport", "Enigma.Frontend.InputSupport\Enigma.Frontend.InputSupport.csproj", "{3E47014A-23B9-42CD-9B75-3DD661C17395}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Core.Analysis", "Enigma.Core.Analysis\Enigma.Core.Analysis.csproj", "{256B8085-4CF5-4E87-8597-2215E2C47227}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{256B8085-4CF5-4E87-8597-2215E2C47227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{256B8085-4CF5-4E87-8597-2215E2C47227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{256B8085-4CF5-4E87-8597-2215E2C47227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{256B8085-4CF5-4E87-8597-2215E2C47227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

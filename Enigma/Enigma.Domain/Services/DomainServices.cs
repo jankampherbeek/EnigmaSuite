@@ -2,6 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Analysis;
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
@@ -13,6 +14,7 @@ public static class DomainServices
 {
     public static void RegisterDomainServices(this ServiceCollection serviceCollection)
     {
+        serviceCollection.AddTransient<IAspectSpecifications, AspectSpecifications>();
         serviceCollection.AddTransient<IAyanamshaSpecifications, AyanamshaSpecifications>();
         serviceCollection.AddTransient<ICalendarSpecifications, CalendarSpecifications>();
         serviceCollection.AddTransient<IChartCategorySpecifications, ChartCategorySpecifications>();

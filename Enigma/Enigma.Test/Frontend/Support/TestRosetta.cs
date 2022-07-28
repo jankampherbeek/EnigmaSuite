@@ -64,4 +64,17 @@ public class TestRosetta
     }
 
 
+    [Test]
+    public void TestWithSexagesimals()
+    {
+        IEnumerable<string> allLines = new string[] { "septile = Septile (51\u00B025\u203243\u2033)" };
+        var mock = new Mock<ITextFileReader>();
+        mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
+        IRosetta rosetta = new Rosetta(mock.Object);
+        string key = "septile";
+        string expectedValue = "Septile (51" + '\u00B0' + "25" + '\u2032' + "43" + '\u2033' + ")";
+        string retrievedValue = rosetta.TextForId(key);
+        Assert.That(retrievedValue, Is.EqualTo(expectedValue));
+    }
+
 }

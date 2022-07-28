@@ -131,6 +131,30 @@ common.yearcount = Yearcount
 common.yearcount.rb.astron = Astronomical
 common.yearcount.rb.hist = Historical
 -------------------------------- References ------------
+
+ref.enum.aspect.centile = Centile (100\u00B0)
+ref.enum.aspect.binovile = Bi-novile(80\u00B0)
+ref.enum.aspect.biquintile = Bi-quintile (144\u00B0)
+ref.enum.aspect.biseptile = Bi-septile (102\u00B051\u203226\u2033)
+ref.enum.aspect.conjunction = Conjunction (0\u00B0)
+ref.enum.aspect.decile = Decile (36\u00B0)
+ref.enum.aspect.inconjunct = Inconjunct (150\u00B0)
+ref.enum.aspect.novile = Novile (40\u00B0)
+ref.enum.aspect.opposition = Opposition (180\u00B0)
+ref.enum.aspect.quadranovile = Quadra-novile(160\u00B0)
+ref.enum.aspect.quintile = Quintile (72\u00B0)
+ref.enum.aspect.semisextile = Semi-sextile (30\u00B0)
+ref.enum.aspect.semisquare = Semi-square (45\u00B0)
+ref.enum.aspect.septile = Septile (51\u00B025\u203243\u2033)
+ref.enum.aspect.sesquiquadrate = Sesquiquadrate (135\u00B0)
+ref.enum.aspect.sextile = Sextile (60\u00B0)
+ref.enum.aspect.square = Square (90\u00B0)
+ref.enum.aspect.triangle = Triangle (120\u00B0)
+ref.enum.aspect.tridecile = Tri-decile (108\u00B0)
+ref.enum.aspect.triseptile = Tri-septile (154\u00B017\u203209\u2033)
+ref.enum.aspect.undecile = Undecile (33\u00B0)
+ref.enum.aspect.vigintile = Vigintile (18\u00B0)
+
 ref.enum.ayanamsha.none = None (Tropical zodiac)
 ref.enum.ayanamsha.Fagan = Fagan
 ref.enum.ayanamsha.Lahiri = Lahiri
