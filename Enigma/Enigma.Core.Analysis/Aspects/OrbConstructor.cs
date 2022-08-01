@@ -16,6 +16,8 @@ public interface IOrbConstructor
 public class OrbConstructor: IOrbConstructor
 {
 
+    private readonly double _baseOrb = 10.0;   // todo make baseorb configurable
+
     private IOrbDefinitions _orbDefinitions;
 
     public OrbConstructor(IOrbDefinitions orbDefinitions)
@@ -28,7 +30,7 @@ public class OrbConstructor: IOrbConstructor
         double factor1 = _orbDefinitions.DefineSolSysPointOrb(point1).OrbFactor;
         double factor2 = _orbDefinitions.DefineSolSysPointOrb(point2).OrbFactor;
         double aspectFactor = aspectDetails.OrbFactor;
-        return factor1 * factor2 * aspectFactor;
+        return Math.Max(factor1, factor2) * aspectFactor * _baseOrb;
     }
 
     public double DefineOrb(string mundanePoint, SolarSystemPoints solSysPoint, AspectDetails aspectDetails)
@@ -36,6 +38,6 @@ public class OrbConstructor: IOrbConstructor
         double mundaneFactor = _orbDefinitions.DefineMundanePointOrb(mundanePoint).OrbFactor;
         double solSysFactor = _orbDefinitions.DefineSolSysPointOrb(solSysPoint).OrbFactor;
         double aspectFactor = aspectDetails.OrbFactor;
-        return mundaneFactor * solSysFactor * aspectFactor;
+        return Math.Max(mundaneFactor, solSysFactor) * aspectFactor * _baseOrb;
     }
 }

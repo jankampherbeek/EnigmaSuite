@@ -2,7 +2,7 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.UiDomain;
+using Enigma.Domain;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.State;

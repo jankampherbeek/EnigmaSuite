@@ -15,6 +15,7 @@ using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using Enigma.Core.Analysis.Services;
 
 namespace Enigma.Frontend;
 
@@ -32,6 +33,7 @@ public partial class App : Application
 
         var serviceCollection = new ServiceCollection();
 
+        serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartDataInputWindow>();
@@ -62,6 +64,7 @@ public partial class App : Application
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
         serviceCollection.RegisterInputSupportServices();
+        serviceCollection.RegisterAnalysisServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

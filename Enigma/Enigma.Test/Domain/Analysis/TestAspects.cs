@@ -12,12 +12,12 @@ public class TestAspectSpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        Aspects aspect = Aspects.BiQuintile;
+        AspectTypes aspect = AspectTypes.BiQuintile;
         IAspectSpecifications specifications = new AspectSpecifications();
 
         AspectDetails details = specifications.DetailsForAspect(aspect);
         Assert.That(details, Is.Not.Null);
-        Assert.That(details.Aspect, Is.EqualTo(Aspects.BiQuintile));
+        Assert.That(details.Aspect, Is.EqualTo(AspectTypes.BiQuintile));
         Assert.That(details.Angle, Is.EqualTo(144.0));
     }
 
@@ -25,7 +25,7 @@ public class TestAspectSpecifications
     public void TestAvailabilityOfDetailsForAllEnums()
     {
         IAspectSpecifications specifications = new AspectSpecifications();
-        foreach (Aspects system in Enum.GetValues(typeof(Aspects)))
+        foreach (AspectTypes system in Enum.GetValues(typeof(AspectTypes)))
         {
             AspectDetails details = specifications.DetailsForAspect(system);
             Assert.That(details, Is.Not.Null);

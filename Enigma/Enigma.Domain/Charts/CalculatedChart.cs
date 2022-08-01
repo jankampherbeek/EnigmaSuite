@@ -4,9 +4,9 @@
 
 using Enigma.Domain.Charts;
 using Enigma.Domain.Positional;
-using System.Collections.Generic;
 
-namespace Enigma.Frontend.UiDomain;
+
+namespace Enigma.Domain;
 
 /// <summary>Inputted data and calculation results for a chart.</summary>
 public record CalculatedChart

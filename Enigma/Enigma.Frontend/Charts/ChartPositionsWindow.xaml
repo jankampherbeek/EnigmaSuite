@@ -13,6 +13,7 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="22"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="25*"/>
@@ -20,19 +21,38 @@
             <RowDefinition Height="35*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}"/>
-        <Rectangle Grid.Row="1" Grid.RowSpan="2" Margin="6"/>
-        <TextBlock Grid.Row="1" Margin="10" Name="ChartName" Text="ChartName" TextWrapping="Wrap"  />
-        <TextBlock Grid.Row="2" Margin="10" Name="Details" Text="Details" TextWrapping="Wrap" />
-        <DataGrid Grid.Row="1" Margin="6" Grid.Column="1" Grid.RowSpan="2" Name="DGHouses" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Name="miGeneral" Header="miGeneral">
+                <MenuItem Name="miClose" Header="miClose" Click="CloseClick"/>
+            </MenuItem>
+            <MenuItem Name="miAnalysis" Header="miAnalysis">
+                <MenuItem Name="miAspects" Header="miAspects" Click="AspectsClick"/>
+                <MenuItem Name="miMidpoints" Header="miMidpoints" Click="MidpointsClick"/>
+                <MenuItem Name="miHarmonics" Header="miHarmonics" Click="HarmonicsClick"/>
+                <MenuItem Name="miDeclinations" Header="miDeclinations" Click="DeclinationsClick"/>
+            </MenuItem>
+            <MenuItem Name="miProgressive" Header="miPogressive">
+                <MenuItem Name="miPrimary" Header="miPrimary" Click="PrimaryClick" />
+                <MenuItem Name="miSecundary" Header="miSecundary" Click="SecundaryClick"/>
+                <MenuItem Name="miTransits" Header="miTransits" Click="TransitsClick"/>
+                <MenuItem Name="miSolarreturn" Header="miSolarreturn" Click="SolarreturnClick"/>
+            </MenuItem>
+            <MenuItem Name="miHelp" Header="miHelp" Click="HelpClick"/>
+        </Menu>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}"/>
+        <Rectangle Grid.Row="2" Grid.RowSpan="2" Margin="6"/>
+        <TextBlock Grid.Row="2" Margin="10" Name="ChartName" Text="ChartName" TextWrapping="Wrap"  />
+        <TextBlock Grid.Row="3" Margin="10" Name="Details" Text="Details" TextWrapping="Wrap" />
+        <DataGrid Grid.Row="2" Margin="6" Grid.Column="1" Grid.RowSpan="2" Name="DGHouses" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
         </DataGrid>
 
-        <DataGrid Grid.Row="4" Margin="6" Grid.ColumnSpan="2" Name="DGCelPoints" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <DataGrid Grid.Row="5" Margin="6" Grid.ColumnSpan="2" Name="DGCelPoints" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
 
         </DataGrid>
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="BtnAspects" Content="BtnAspects" Margin="6" Click="AspectsClick"/>
             <Button Name="BtnHelp" Content="BtnHelp" Margin="6" Click="HelpClick"/>
             <Button Name="BtnClose" Content="BtnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>

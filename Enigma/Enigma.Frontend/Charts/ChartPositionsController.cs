@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.State;
@@ -67,6 +68,11 @@ public class ChartPositionsController
         {
             return new List<PresentableSolSysPointPositions>();
         }
+    }
+
+    public CalculatedChart GetCalculatedChart()
+    {
+        return _dataVault.GetLastChart();
     }
 
 }

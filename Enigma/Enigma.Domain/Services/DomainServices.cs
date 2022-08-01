@@ -22,6 +22,7 @@ public static class DomainServices
         serviceCollection.AddTransient<IDirections4GeoLongSpecifications, Directions4GeoLongSpecifications>();
         serviceCollection.AddTransient<IHouseSystemSpecs, HouseSystemSpecs>();
         serviceCollection.AddTransient<IObserverPositionSpecifications, ObserverPositionSpecifications>();
+        serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();
         serviceCollection.AddTransient<IProjectionTypeDetailSpecifications, ProjectionTypeDetailSpecifications>();
         serviceCollection.AddTransient<IRoddenRatingSpecifications, RoddenRatingSpecifications>();
         serviceCollection.AddTransient<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>();

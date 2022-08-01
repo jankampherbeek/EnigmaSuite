@@ -2,9 +2,13 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Analysis.Api;
+using Enigma.Domain;
+using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,16 +22,21 @@ public partial class ChartPositionsWindow : Window
     private ChartPositionsController _controller;
     private readonly string _space = " ";
     private readonly string _newLine = "\n";
-    public ChartPositionsWindow(ChartPositionsController controller, IRosetta rosetta)
+    private ChartData _chartData;
+    private CalculatedChart _calculatedChart;
+    private IAspectsApi _aspectsApi;
+    public ChartPositionsWindow(ChartPositionsController controller, IRosetta rosetta, IAspectsApi aspectsApi)
     {
         InitializeComponent();
         _controller = controller;
         _rosetta = rosetta;
-
+        _aspectsApi = aspectsApi;
     }
 
     public void PopulateAll()
     {
+        _calculatedChart = _controller.GetCalculatedChart();
+        PopulateMenu();
         PopulateTexts();
         PopulateHouses();
         PopulateCelPoints();
@@ -37,27 +46,35 @@ public partial class ChartPositionsWindow : Window
     private void PopulateTexts()
     {
         FormTitle.Text = _rosetta.TextForId("charts.positions.formtitle");
-        ChartData chartData = _controller.GetMeta();
-        if (chartData != null)
+        _chartData = _controller.GetMeta();
+        if (_chartData != null)
         {
-            ChartName.Text =chartData.ChartMetaData.Name;
-            Details.Text = chartData.ChartMetaData.Description + _newLine +
-                chartData.ChartLocation.LocationFullName + _newLine +
-                ParseDateText(chartData.ChartDateTime.DateText) + _space + ParseTimeText(chartData.ChartDateTime.TimeText) + _newLine +
-                _rosetta.TextForId("charts.positions.chartgategory") + _space + chartData.ChartMetaData.ChartCategory + _newLine +
-                _rosetta.TextForId("charts.positions.rating") + _space + chartData.ChartMetaData.RoddenRating + _newLine +
-                _rosetta.TextForId("charts.positions.source") + _space + chartData.ChartMetaData.Source;
-
-
-       /*     Description.Text = chartData.ChartMetaData.Description;
-            Location.Text = chartData.ChartLocation.LocationFullName;
-            DateTime.Text = ParseDateText(chartData.ChartDateTime.DateText) + _space + ParseTimeText(chartData.ChartDateTime.TimeText);
-            ChartCartegory.Text = _rosetta.TextForId("charts.positions.chartgategory") + _space + chartData.ChartMetaData.ChartCategory;
-            Rating.Text = _rosetta.TextForId("charts.positions.rating") + _space + chartData.ChartMetaData.RoddenRating;
-            Source.Text = _rosetta.TextForId("charts.positions.source") + _space + chartData.ChartMetaData.Source; */
+            ChartName.Text =_chartData.ChartMetaData.Name;
+            Details.Text = _chartData.ChartMetaData.Description + _newLine +
+                _chartData.ChartLocation.LocationFullName + _newLine +
+                ParseDateText(_chartData.ChartDateTime.DateText) + _space + ParseTimeText(_chartData.ChartDateTime.TimeText) + _newLine +
+                _rosetta.TextForId("charts.positions.chartgategory") + _space + _chartData.ChartMetaData.ChartCategory + _newLine +
+                _rosetta.TextForId("charts.positions.rating") + _space + _chartData.ChartMetaData.RoddenRating + _newLine +
+                _rosetta.TextForId("charts.positions.source") + _space + _chartData.ChartMetaData.Source;
         }
     }
 
+    private void PopulateMenu()
+    {
+        miGeneral.Header = _rosetta.TextForId("charts.positions.menu.migeneral");
+        miClose.Header = _rosetta.TextForId("charts.positions.menu.miclose");
+        miAnalysis.Header = _rosetta.TextForId("charts.positions.menu.mianalysis");
+        miAspects.Header = _rosetta.TextForId("charts.positions.menu.miaspects");
+        miDeclinations.Header = _rosetta.TextForId("charts.positions.menu.mideclinations");
+        miHarmonics.Header = _rosetta.TextForId("charts.positions.menu.miharmonics");
+        miMidpoints.Header = _rosetta.TextForId("charts.positions.menu.mimidpoints");
+        miProgressive.Header = _rosetta.TextForId("charts.positions.menu.miprogressive");
+        miPrimary.Header = _rosetta.TextForId("charts.positions.menu.miprimary");
+        miSecundary.Header = _rosetta.TextForId("charts.positions.menu.misecundary");
+        miTransits.Header = _rosetta.TextForId("charts.positions.menu.mitransits");
+        miSolarreturn.Header = _rosetta.TextForId("charts.positions.menu.misolarreturn");
+        miHelp.Header = _rosetta.TextForId("charts.positions.menu.mihelp");
+    }
 
     private void PopulateHouses()
     {
@@ -121,6 +138,52 @@ public partial class ChartPositionsWindow : Window
         return inputTimeText.Substring(0, startIndex - 1) + _rosetta.TextForId(timeZoneId);
     }
 
+
+    private void AspectsClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Aspects is work in progress......");
+        AspectRequest request = new AspectRequest(_calculatedChart);
+        List<EffectiveAspect> ssAspects = _aspectsApi.AspectsForSolSysPoints(request);
+        List<EffectiveAspect> muAspects = _aspectsApi.AspectsForMundanePoints(request);
+        int ssCount = ssAspects.Count;
+        int muCount = muAspects.Count;
+
+    }
+
+    private void DeclinationsClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Declinations not yet implemented.");
+    }
+
+    private void HarmonicsClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Harmonics not yet implemented.");
+    }
+
+    private void MidpointsClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Midpoints not yet implemented.");
+    }
+
+    private void PrimaryClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Primary directions not yet implemented.");
+    }
+
+    private void SecundaryClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Secundary progressions not yet implemented.");
+    }
+
+    private void TransitsClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Transits not yet implemented.");
+    }
+
+    private void SolarreturnClick(object sender, RoutedEventArgs e)
+    {
+        MessageBox.Show("Solar return not yet implemented.");
+    }
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {

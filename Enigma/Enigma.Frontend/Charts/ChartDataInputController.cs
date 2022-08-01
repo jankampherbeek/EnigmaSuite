@@ -5,6 +5,7 @@
 using Enigma.Core.Calc.Api.Astron;
 using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.ReqResp;
+using Enigma.Domain;
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
@@ -14,7 +15,6 @@ using Enigma.Domain.Positional;
 using Enigma.Frontend.InputSupport.InputParsers;
 using Enigma.Frontend.State;
 using Enigma.Frontend.Support;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 

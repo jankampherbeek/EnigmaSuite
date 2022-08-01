@@ -7,7 +7,7 @@ namespace Enigma.Domain.Analysis;
 /// <summary>
 /// Supported aspects.
 /// </summary>
-public enum Aspects
+public enum AspectTypes
 {
     Conjunction,
     Opposition,
@@ -38,7 +38,7 @@ public enum Aspects
 /// </summary>
 public record AspectDetails
 {
-    public readonly Aspects Aspect;
+    public readonly AspectTypes Aspect;
     public readonly double Angle;
     public readonly string TextId;
     public readonly string Glyph;
@@ -52,7 +52,7 @@ public record AspectDetails
     /// <param name="textId">Text for this aspect in the resource bundle.</param>
     /// <param name="glyph">Default glyph.</param>
     /// <param name="orbFactor">Default weighting Factor for the calculation of the orb. Zero is the aspect should not be used.</param>
-    public AspectDetails(Aspects aspect, double angle, string textId, string glyph, double orbFactor)
+    public AspectDetails(AspectTypes aspect, double angle, string textId, string glyph, double orbFactor)
     {
         Aspect = aspect;
         Angle = angle;
@@ -72,39 +72,39 @@ public interface IAspectSpecifications
     /// </summary>
     /// <param name="aspect">The aspect for which the details are defined.</param>
     /// <returns>A record AspectDetaisl with the required information.</returns>
-    public AspectDetails DetailsForAspect(Aspects aspect);
+    public AspectDetails DetailsForAspect(AspectTypes aspect);
 }
 
 
 /// <inheritdoc/>
 public class AspectSpecifications : IAspectSpecifications
 {
-    public AspectDetails DetailsForAspect(Aspects aspect)
+    public AspectDetails DetailsForAspect(AspectTypes aspect)
     {
         return aspect switch
         {
-            Aspects.Conjunction => new AspectDetails(aspect, 0.0, "ref.enum.aspect.conjunction", "B", 1.0),
-            Aspects.Opposition => new AspectDetails(aspect, 180.0, "ref.enum.aspect.opposition", "C", 1.0),
-            Aspects.Triangle => new AspectDetails(aspect, 120.0, "ref.enum.aspect.triangle", "D", 0.85),
-            Aspects.Square => new AspectDetails(aspect, 90.0, "ref.enum.aspect.square", "E", 0.85),
-            Aspects.Septile => new AspectDetails(aspect, 51.42857143, "ref.enum.aspect.septile", "N", 0.0),
-            Aspects.Sextile => new AspectDetails(aspect, 60.0, "ref.enum.aspect.sextile", "F", 0.7),
-            Aspects.Quintile => new AspectDetails(aspect, 72.0, "ref.enum.aspect.quintile", "K", 0.2),
-            Aspects.SemiSextile => new AspectDetails(aspect, 30.0, "ref.enum.aspect.semisextile", "G", 0.2),
-            Aspects.SemiSquare => new AspectDetails(aspect, 45.0, "ref.enum.aspect.semisquare", "I", 0.2),
-            Aspects.BiQuintile => new AspectDetails(aspect, 144.0, "ref.enum.aspect.biquintile", "L", 0.2),
-            Aspects.Inconjunct => new AspectDetails(aspect, 150.0, "ref.enum.aspect.inconjunct", "H", 0.3),
-            Aspects.SesquiQuadrate => new AspectDetails(aspect, 135.0, "ref.enum.aspect.sesquiquadrate", "J", 0.2),
-            Aspects.Decile => new AspectDetails(aspect, 36.0, "ref.enum.aspect.decile", "Ö", 0.0),
-            Aspects.TriDecile => new AspectDetails(aspect, 108.0, "ref.enum.aspect.tridecile", "Õ", 0.0),
-            Aspects.BiSeptile => new AspectDetails(aspect, 102.85714286, "biseptile", "Ú", 0.0),
-            Aspects.TriSeptile => new AspectDetails(aspect, 154.28571429, "triseptile", "Û", 0.0),
-            Aspects.Novile => new AspectDetails(aspect, 40.0, "novile", "Ü", 0.0),
-            Aspects.BiNovile => new AspectDetails(aspect, 80.0, "binovile", "Ñ", 0.0),
-            Aspects.QuadraNovile => new AspectDetails(aspect, 160.0, "quadranovile", "|", 0.0),
-            Aspects.Undecile => new AspectDetails(aspect, 33.0, "undecile", "ç", 0.0),
-            Aspects.Centile => new AspectDetails(aspect, 100.0, "centile", ",Ç", 0.0),
-            Aspects.Vigintile => new AspectDetails(aspect, 18.0, "vigintile", "Ï", 0.0),
+            AspectTypes.Conjunction => new AspectDetails(aspect, 0.0, "ref.enum.aspect.conjunction", "B", 1.0),
+            AspectTypes.Opposition => new AspectDetails(aspect, 180.0, "ref.enum.aspect.opposition", "C", 1.0),
+            AspectTypes.Triangle => new AspectDetails(aspect, 120.0, "ref.enum.aspect.triangle", "D", 0.85),
+            AspectTypes.Square => new AspectDetails(aspect, 90.0, "ref.enum.aspect.square", "E", 0.85),
+            AspectTypes.Septile => new AspectDetails(aspect, 51.42857143, "ref.enum.aspect.septile", "N", 0.0),
+            AspectTypes.Sextile => new AspectDetails(aspect, 60.0, "ref.enum.aspect.sextile", "F", 0.7),
+            AspectTypes.Quintile => new AspectDetails(aspect, 72.0, "ref.enum.aspect.quintile", "K", 0.2),
+            AspectTypes.SemiSextile => new AspectDetails(aspect, 30.0, "ref.enum.aspect.semisextile", "G", 0.2),
+            AspectTypes.SemiSquare => new AspectDetails(aspect, 45.0, "ref.enum.aspect.semisquare", "I", 0.2),
+            AspectTypes.BiQuintile => new AspectDetails(aspect, 144.0, "ref.enum.aspect.biquintile", "L", 0.2),
+            AspectTypes.Inconjunct => new AspectDetails(aspect, 150.0, "ref.enum.aspect.inconjunct", "H", 0.3),
+            AspectTypes.SesquiQuadrate => new AspectDetails(aspect, 135.0, "ref.enum.aspect.sesquiquadrate", "J", 0.2),
+            AspectTypes.Decile => new AspectDetails(aspect, 36.0, "ref.enum.aspect.decile", "Ö", 0.0),
+            AspectTypes.TriDecile => new AspectDetails(aspect, 108.0, "ref.enum.aspect.tridecile", "Õ", 0.0),
+            AspectTypes.BiSeptile => new AspectDetails(aspect, 102.85714286, "biseptile", "Ú", 0.0),
+            AspectTypes.TriSeptile => new AspectDetails(aspect, 154.28571429, "triseptile", "Û", 0.0),
+            AspectTypes.Novile => new AspectDetails(aspect, 40.0, "novile", "Ü", 0.0),
+            AspectTypes.BiNovile => new AspectDetails(aspect, 80.0, "binovile", "Ñ", 0.0),
+            AspectTypes.QuadraNovile => new AspectDetails(aspect, 160.0, "quadranovile", "|", 0.0),
+            AspectTypes.Undecile => new AspectDetails(aspect, 33.0, "undecile", "ç", 0.0),
+            AspectTypes.Centile => new AspectDetails(aspect, 100.0, "centile", ",Ç", 0.0),
+            AspectTypes.Vigintile => new AspectDetails(aspect, 18.0, "vigintile", "Ï", 0.0),
             _ => throw new ArgumentException("Aspect unknown : " + aspect.ToString())
         };
     }
