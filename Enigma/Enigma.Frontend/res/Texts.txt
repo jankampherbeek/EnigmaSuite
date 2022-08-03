@@ -1,4 +1,8 @@
-﻿
+﻿---- ChartsAspects ------------------------------------
+charts.aspects.datagrid.columns.exactness = Exactness %
+charts.aspects.datagrid.columns.orb = Max. orb
+charts.aspects.formtitle = Aspects
+
 ---- ChartsDataInput ----------------------------------
 charts.datainput.datetime = Date and time
 charts.datainput.description = Additional information (optional)
@@ -57,6 +61,8 @@ charts.startview.newchart = New chart
 charts.startview.searchcriteria = Enter (part of) the name as search criterium
 charts.startview.selectmode = Select a mode
 
+
+
 -------------------------- dashboard ------------------
 -- DashboardView --------------------------------------
 dashboard.title = Enigma Suite 1.0
@@ -69,41 +75,7 @@ dashboard.exit = Exit Enigma
 -------------------------- HelpWindow -----------------
 -- HelpWindow -----------------------------------------
 helpwindow.title = Help for Enigma Suite
----------------------------- Charts --------------------
------ ChartsDataInputChart
-charts.datainputchart.btncalculate = Calculate chart
-charts.datainputchart.calendar = Calendar
-charts.datainputchart.date = Date;
-charts.datainputchart.datetimetitle = Date and time
-charts.datainputchart.day = Day
-charts.datainputchart.degree = Degrees
-charts.datainputchart.dst = DST
-charts.datainputchart.description = General information about this chart
-charts.datainputchart.east = East
-charts.datainputchart.hour = Hours
-charts.datainputchart.latdir = N/S
-charts.datainputchart.latitude = Latitude
-charts.datainputchart.lmtzone = Define a specific zone
-charts.datainputchart.locationname = Name of location
-charts.datainputchart.locationtitle = Location
-charts.datainputchart.longdir = E/W
-charts.datainputchart.longitude = Longitude
-charts.datainputchart.minute = Minutes
-charts.datainputchart.month = Month
-charts.datainputchart.name = Name or description for this chart
-charts.datainputchart.north = North
-charts.datainputchart.rating = Select the Rodden Rating
-charts.datainputchart.second = Seconds
-charts.datainputchart.source = An optional short description of the source
-charts.datainputchart.south = South
-charts.datainputchart.subject = Select the type of chart
-charts.datainputchart.time = Time
-charts.datainputchart.timezone = Select a time zone
-charts.datainputchart.titleform = Data input for new chart
-charts.datainputchart.titlegeneral = General information
-charts.datainputchart.west = West
-charts.datainputchart.year = Year
-charts.datainputchart.yearcount = Year count
+
 -------------------------------- Common ----------------
 common.btncancel = Cancel
 common.btncalc = Calculate

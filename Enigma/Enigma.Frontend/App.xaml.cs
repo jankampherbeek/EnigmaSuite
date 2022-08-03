@@ -35,6 +35,8 @@ public partial class App : Application
 
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
+        serviceCollection.AddTransient<ChartAspectsWindow>();
+        serviceCollection.AddTransient<ChartAspectsController>();
         serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartDataInputWindow>();
         serviceCollection.AddTransient<ChartPositionsController>();

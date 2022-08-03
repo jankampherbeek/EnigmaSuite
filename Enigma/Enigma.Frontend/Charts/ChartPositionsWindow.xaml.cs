@@ -2,13 +2,10 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis.Api;
 using Enigma.Domain;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,19 +20,16 @@ public partial class ChartPositionsWindow : Window
     private readonly string _space = " ";
     private readonly string _newLine = "\n";
     private ChartData _chartData;
-    private CalculatedChart _calculatedChart;
-    private IAspectsApi _aspectsApi;
-    public ChartPositionsWindow(ChartPositionsController controller, IRosetta rosetta, IAspectsApi aspectsApi)
+    public ChartPositionsWindow(ChartPositionsController controller, IRosetta rosetta)
     {
         InitializeComponent();
         _controller = controller;
         _rosetta = rosetta;
-        _aspectsApi = aspectsApi;
+
     }
 
     public void PopulateAll()
     {
-        _calculatedChart = _controller.GetCalculatedChart();
         PopulateMenu();
         PopulateTexts();
         PopulateHouses();
@@ -141,13 +135,7 @@ public partial class ChartPositionsWindow : Window
 
     private void AspectsClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Aspects is work in progress......");
-        AspectRequest request = new AspectRequest(_calculatedChart);
-        List<EffectiveAspect> ssAspects = _aspectsApi.AspectsForSolSysPoints(request);
-        List<EffectiveAspect> muAspects = _aspectsApi.AspectsForMundanePoints(request);
-        int ssCount = ssAspects.Count;
-        int muCount = muAspects.Count;
-
+        _controller.ShowAspects();
     }
 
     private void DeclinationsClick(object sender, RoutedEventArgs e)

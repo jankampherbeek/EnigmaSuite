@@ -90,10 +90,11 @@ public class AspectChecker : IAspectChecker
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {   AspectDetails aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double actualOrb = _orbConstructor.DefineOrb(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck);
-                    if (Math.Abs(angle - distance) < actualOrb)
+                    double maxOrb = _orbConstructor.DefineOrb(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck);
+                    double actualOrb = Math.Abs(angle - distance);
+                    if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck, actualOrb, distance));
+                        effectiveAspects.Add(new EffectiveAspect(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }
@@ -121,10 +122,11 @@ public class AspectChecker : IAspectChecker
                 {
                     var aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double actualOrb = _orbConstructor.DefineOrb(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck);
-                    if (Math.Abs(angle - distance) < actualOrb)
+                    double maxOrb = _orbConstructor.DefineOrb(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck);
+                    double actualOrb = Math.Abs(angle - distance);
+                    if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck, actualOrb, distance));
+                        effectiveAspects.Add(new EffectiveAspect(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }

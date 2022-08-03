@@ -5,7 +5,6 @@
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.Positional;
 using Enigma.Frontend.InputSupport.Conversions;
-using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
 using System;
 using System.Collections.Generic;
@@ -21,15 +20,13 @@ public interface ICelPointForDataGridFactory
 
 public class CelPointForDataGridFactory : ICelPointForDataGridFactory
 {
-    private IDoubleToDmsConversions _doubleToDmsConversions;
-    private ISolarSystemPointSpecifications _solarSystemPointSpecifications;
-    private IRosetta _rosetta;
+    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
 
-    public CelPointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, ISolarSystemPointSpecifications solarSystemPointSpecifications, IRosetta rosetta)
+    public CelPointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, ISolarSystemPointSpecifications solarSystemPointSpecifications)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
         _solarSystemPointSpecifications = solarSystemPointSpecifications;
-        _rosetta = rosetta;
     }
 
     public List<PresentableSolSysPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions)
@@ -50,17 +47,10 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
         double tempSpeed = celPointFullPos.Longitude.Speed;
         string tempSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(tempSpeed);
 
-
         string tempPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(tempPos).longTxt;
         string tempGlyphText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(tempPos).glyph;
 
         var eclipticalLong = new Tuple<string, string, string>(tempPosText, tempGlyphText, tempSpeedText);
-
-        Console.WriteLine("-----------------------");
-        Console.WriteLine(celPointFullPos.SolarSystemPoint.ToString());
-        Console.WriteLine("tempSpeed: " + tempSpeed);
-        Console.WriteLine("tempSpeedText: " + tempSpeedText);
-
         var eclipticalLat = new Tuple<string, string>(
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.Latitude.Position),
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.Latitude.Speed));
