@@ -17,6 +17,7 @@ public interface IChartsWheelCusps
     public List<Line> CreateCuspLines(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant);
     public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc);
     public List<TextBlock> CreateCuspTexts(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant);
+    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc);
 }
 
 public class ChartsWheelCusps: IChartsWheelCusps
@@ -66,6 +67,40 @@ public class ChartsWheelCusps: IChartsWheelCusps
         Point point2 = dimPoint.CreatePoint(angle, hypothenusa2);
         return dimLine.CreateLine(point1, point2, strokeSize, metrics.CuspLineColor, metrics.CuspLineOpacity);
     }
+
+    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc)
+    {
+        DimPoint dimPoint = new DimPoint(centerPoint);
+        DimTextBlock cuspsDimTextBlock = new(metrics.PositionTextsFontFamily, metrics.CardinalFontSize, metrics.CuspTextOpacity, metrics.CuspTextColor);
+        List<TextBlock> cardinalIndicators = new();
+        double xOffset = metrics.CardinalFontSize / 3;
+        double yOffset = metrics.CardinalFontSize / 1.8;
+       
+        // Asc
+        double angle = 90.0;
+        string text = "A";
+        Point posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
+        cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
+        // Desc
+        angle = _rangeCheck.InRange360(angle + 180.0);
+        text = "D";
+        posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
+        cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
+        // MC
+        angle = _rangeCheck.InRange360(longMc - longAscendant + 90.0);
+        text = "M";
+        posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
+        cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
+        // IC
+        angle = _rangeCheck.InRange360(angle + 180.0);
+        text = "I";
+        posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
+        cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
+        return cardinalIndicators;
+    }
+
+
+
 
     public List<TextBlock> CreateCuspTexts(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant)
     {

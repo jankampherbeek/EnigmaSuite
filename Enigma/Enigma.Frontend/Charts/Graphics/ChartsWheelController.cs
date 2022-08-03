@@ -23,6 +23,7 @@ public class ChartsWheelController
     public List<TextBlock> SignGlyphs { get; private set; }
     public List<Line> CuspLines { get; private set; }
     public List<Line> CuspCardinalLines { get; private set; }
+    public List<TextBlock> CuspCardinalIndicators { get; private set; } 
     public List<TextBlock> CuspTexts { get; private set; }
     public List<Line> SolSysPointConnectLines { get; private set; }
     public List<TextBlock> SolSysPointTexts { get; private set; }
@@ -39,7 +40,7 @@ public class ChartsWheelController
     private readonly IChartsWheelSigns _chartsWheelSigns;
     private readonly IChartsWheelCusps _chartsWheelCusps;
     private readonly IChartsWheelCircles _chartsWheelCircles;
-
+   
     private CalculatedChart? _currentChart;
 
     public ChartsWheelController(ChartsWheelMetrics metrics, 
@@ -74,6 +75,7 @@ public class ChartsWheelController
     {
         CuspLines = _chartsWheelCusps.CreateCuspLines(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(), GetAscendantLongitude());
         CuspCardinalLines = _chartsWheelCusps.CreateCardinalLines(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
+        CuspCardinalIndicators = _chartsWheelCusps.CreateCardinalIndicators(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
         CuspTexts = _chartsWheelCusps.CreateCuspTexts(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(), GetAscendantLongitude());
     
     }

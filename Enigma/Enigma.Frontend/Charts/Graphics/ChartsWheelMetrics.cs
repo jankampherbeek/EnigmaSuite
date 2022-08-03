@@ -51,9 +51,12 @@ public class ChartsWheelMetrics
     public double Degrees5Radius { get; private set; }  
     public double SolSysPointTextCircle { get; private set; }
     public double SolSysPointTextRadius { get; private set; }
+    public double CardinalIndicatorCircle { get; private set; }
+    public double CardinalIndicatorRadius { get; private set; }
 
 
     private readonly double OuterCircleInitial = 0.98;
+    private readonly double CardinalIndicatorCircleInitial = 0.93;
     private readonly double OuterSignCircleInitial = 0.89;
     private readonly double OuterHouseCircleInitial = 0.79;
     private readonly double OuterAspectCircleInitial = 0.44;
@@ -64,6 +67,7 @@ public class ChartsWheelMetrics
     private readonly double DegreesCircleInitial = 0.775;
     private readonly double Degrees5CircleInitial = 0.76;
     private readonly double SolSysPointGlyphCircleInitial = 0.54;
+
 
     // --------------------------------------------------
     public double BaseSize { get; private set; } = 700.0;
@@ -76,6 +80,7 @@ public class ChartsWheelMetrics
 
     public double SignGlyphSize { get; private set; }
     public double SolSysPointGlyphSize { get; private set; }
+    public double CardinalFontSize { get; private set; }
     public double SolSysPointTextEastOffset { get; private set; }
     public double SolSysPointTextWestOffset { get; private set; }
     public double PositionTextSize { get; private set; }
@@ -90,6 +95,7 @@ public class ChartsWheelMetrics
 
     private readonly double SignGlyphSizeInitial = 28.0;
     private readonly double SolSysPointGlyphSizeInitial = 24.0;
+    private readonly double CardinalFontSizeInitial = 16.0;
     private readonly double SolSysPointTextEastOffsetInitial = 8.0;
     private readonly double SolSysPointTextWestOffsetInitial = -20.0;
     private readonly double PositionTextSizeInitial = 10.0;
@@ -121,6 +127,7 @@ public class ChartsWheelMetrics
         GlyphYOffset = GlyphYOffsetInitial * GridSize;
         SignGlyphSize = SignGlyphSizeInitial * (GridSize / 700.0);
         SolSysPointGlyphSize = SolSysPointGlyphSizeInitial * (GridSize / 700.0);
+        CardinalFontSize = CardinalFontSizeInitial * (GridSize / 700.0);
         SolSysPointTextEastOffset = SolSysPointTextEastOffsetInitial * SizeFactor;
         SolSysPointTextWestOffset = SolSysPointTextWestOffsetInitial * SizeFactor;
         PositionTextSize = PositionTextSizeInitial * (GridSize  / 700.0);
@@ -161,6 +168,9 @@ public class ChartsWheelMetrics
 
         SolSysPointTextCircle = SolSysPointTextCircleInitial * GridSize;
         SolSysPointTextRadius = SolSysPointTextCircle / 2;
+
+        CardinalIndicatorCircle = CardinalIndicatorCircleInitial * GridSize;
+        CardinalIndicatorRadius = CardinalIndicatorCircle / 2;
     }
 
 }

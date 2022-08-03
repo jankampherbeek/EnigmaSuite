@@ -45,6 +45,7 @@ public partial class ChartsWheel : Window
         AddToWheel(_controller.CuspLines);
         AddToWheel(_controller.CuspCardinalLines);
         AddToWheel(_controller.CuspTexts);
+        AddToWheel(_controller.CuspCardinalIndicators);
     }
 
     private void DrawSolSysPoints()
