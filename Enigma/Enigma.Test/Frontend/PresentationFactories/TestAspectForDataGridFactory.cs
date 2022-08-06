@@ -48,7 +48,7 @@ public class TestAspectForDataGridFactory
             Assert.That(presAspects[0].Point2Glyph, Is.EqualTo("b"));
             Assert.That(presAspects[1].Point2Glyph, Is.EqualTo("g"));
             Assert.That(presAspects[0].OrbText, Is.EqualTo("10°00′00″"));
-            Assert.That(presAspects[0].ExactnessText, Is.EqualTo("30.00"));
+            Assert.That(presAspects[0].ExactnessText, Is.EqualTo("70.00"));
         });
     }
 
