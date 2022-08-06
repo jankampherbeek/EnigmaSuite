@@ -22,6 +22,9 @@ public class ChartsWheelMetrics
     public Color SolSysPointColor { get; } = Colors.DarkSlateBlue;
     public Color SolSysPointConnectLineColor { get; } = Colors.DarkSlateBlue;
     public Color SolSysPointTextColor { get; } = Colors.DarkSlateBlue;
+    public Color HardAspectsColor {  get; } = Colors.Red;
+    public Color SoftAspectsColor { get; } = Colors.Green;
+    public Color MinorAspectsColor { get; } = Colors.Gray;
 
     // Opacities
     public double CuspLineOpacity { get; } = 0.5;
@@ -74,6 +77,7 @@ public class ChartsWheelMetrics
   
     private readonly double _baseStrokeSize = 2.0;
     private readonly double _baseConnectLineSize = 1.0;
+    private readonly double _baseAspectLineSize = 6.0;
 
     public double SizeFactor { get; private set; }
 
@@ -90,6 +94,7 @@ public class ChartsWheelMetrics
     public double StrokeSize { get; private set; }
     public double StrokeSizeDouble { get; private set; }
     public double ConnectLineSize { get; private set; }
+    public double AspectLineSize { get; private set; }
 
 
 
@@ -123,6 +128,7 @@ public class ChartsWheelMetrics
         StrokeSize = _baseStrokeSize * SizeFactor;
         StrokeSizeDouble = StrokeSize * 2.0;
         ConnectLineSize = _baseConnectLineSize * SizeFactor;
+        AspectLineSize = _baseAspectLineSize * SizeFactor;
         GlyphXOffset = GlyphXOffsetInitial * GridSize;
         GlyphYOffset = GlyphYOffsetInitial * GridSize;
         SignGlyphSize = SignGlyphSizeInitial * (GridSize / 700.0);

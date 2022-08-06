@@ -28,6 +28,7 @@ public partial class ChartsWheel : Window
         DrawChartFrame();
         DrawCusps();
         DrawSolSysPoints();
+        DrawAspects();
     }
 
 
@@ -53,6 +54,11 @@ public partial class ChartsWheel : Window
         AddToWheel(_controller.SolSysPointGlyphs);
         AddToWheel(_controller.SolSysPointConnectLines);
         AddToWheel(_controller.SolSysPointTexts);
+    }
+
+    private void DrawAspects()
+    {
+        AddToWheel(_controller.AspectLines);
     }
 
     private void AddToWheel(List<TextBlock> textBlocks)

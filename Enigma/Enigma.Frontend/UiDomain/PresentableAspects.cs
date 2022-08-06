@@ -4,7 +4,7 @@
 
 namespace Enigma.Frontend.UiDomain;
 
-/// <summary>Aspects to be shown in a dta grid.</summary>
+/// <summary>Aspects to be shown in a data grid.</summary>
 public record PresentableAspects
 {
     public string Point1TextGlyph { get; }

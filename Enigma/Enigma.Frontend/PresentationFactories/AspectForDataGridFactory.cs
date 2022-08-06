@@ -62,7 +62,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
         string secondPoint = _solarSystemPointSpecifications.DetailsForPoint(effAspect.SolSysPoint2).DefaultGlyph;
 
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.Orb);
-        double exactnessValue = (effAspect.ActualOrb / effAspect.Orb) * 100;
+        double exactnessValue = 100 - ((effAspect.ActualOrb / effAspect.Orb) * 100);
         string exactness = string.Format("{0:N}", exactnessValue).Replace(",", "."); 
         return new PresentableAspects(firstPoint, aspectGlyph, secondPoint, orb, exactness);
     }

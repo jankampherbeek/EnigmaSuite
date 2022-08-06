@@ -3,15 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain;
-using Enigma.Domain.CalcVars;
 using Enigma.Domain.Positional;
-using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.State;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Charts.Graphics;
@@ -30,6 +26,7 @@ public class ChartsWheelController
     public List<TextBlock> SolSysPointGlyphs { get; private set; }
     public List<Ellipse> WheelCircles { get; private set; }
     public List<Line> DegreeLines { get; private set; }
+    public List<Line> AspectLines { get; private set; }
 
     public double CanvasSize{ get; private set; }
     private Point _centerPoint;
@@ -40,16 +37,16 @@ public class ChartsWheelController
     private readonly IChartsWheelSigns _chartsWheelSigns;
     private readonly IChartsWheelCusps _chartsWheelCusps;
     private readonly IChartsWheelCircles _chartsWheelCircles;
+    private readonly IChartsWheelAspects _chartsWheelAspects;
    
     private CalculatedChart? _currentChart;
 
     public ChartsWheelController(ChartsWheelMetrics metrics, 
-        ISortedGraphicSolSysPointsFactory sortedGraphicSolSysPointsFactory,
-        ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IChartsWheelSolSysPoints chartsWheelSolSysPoints,
         IChartsWheelSigns chartsWheelSigns,
         IChartsWheelCusps chartsWheelCusps,
-        IChartsWheelCircles chartsWheelCircles)
+        IChartsWheelCircles chartsWheelCircles,
+        IChartsWheelAspects chartsWheelAspects)
     {
         _dataVault = DataVault.Instance;
         _chartsWheelSolSysPoints = chartsWheelSolSysPoints;
@@ -57,6 +54,7 @@ public class ChartsWheelController
         _chartsWheelSigns = chartsWheelSigns;
         _chartsWheelCusps = chartsWheelCusps;
         _chartsWheelCircles = chartsWheelCircles;
+        _chartsWheelAspects = chartsWheelAspects;
     }
 
     private void HandleCircles()
@@ -87,6 +85,10 @@ public class ChartsWheelController
         SolSysPointTexts = _chartsWheelSolSysPoints.CreateSolSysPointTexts(_metrics, GetSolSysPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
     }
 
+    private void HandleAspects()
+    {
+        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetLastChart(), _metrics, _centerPoint); 
+    }
 
     public double GetAscendantLongitude()
     {
@@ -124,7 +126,7 @@ public class ChartsWheelController
         else
         {
             return new List<FullSolSysPointPos>();
-        }   
+        }
     }
 
     public void Resize(double minSize)
@@ -137,12 +139,12 @@ public class ChartsWheelController
 
     public void PrepareDraw()
     {
+        _currentChart = _dataVault.GetLastChart();
         HandleCircles();
         HandleSigns();
         HandleCusps();
         HandleSolSysPoints();
+        HandleAspects();
     }
-
-
 
 }

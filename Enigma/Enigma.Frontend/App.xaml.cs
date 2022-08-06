@@ -34,6 +34,7 @@ public partial class App : Application
         var serviceCollection = new ServiceCollection();
 
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
+        serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<ChartAspectsController>();
@@ -43,6 +44,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
         serviceCollection.AddTransient<ChartsWheel>();
+        serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
         serviceCollection.AddTransient<IChartsWheelCircles, ChartsWheelCircles>();
         serviceCollection.AddTransient<ChartsWheelController>();
         serviceCollection.AddTransient<IChartsWheelCusps, ChartsWheelCusps>();

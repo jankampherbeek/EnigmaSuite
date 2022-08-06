@@ -63,11 +63,11 @@ public class ChartsWheelSigns: IChartsWheelSigns
         List<TextBlock> glyphList = new();
         for (int i = 0; i < 12; i++)
         {
+            if (glyphIndex > 11) glyphIndex = 0;
             double angle = _rangeCheck.InRange360((i * 30) + offsetAsc + 90.0 + 15.0);
             point1 = dimPoint.CreatePoint(angle, hypothenusa);
             glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - fontSize / 3, point1.Y - fontSize / 1.8));
             glyphIndex++;
-            if (glyphIndex > 11) glyphIndex = 0;
         }
         return glyphList;
     }
