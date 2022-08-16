@@ -200,6 +200,20 @@ ref.enum.direction4geolat.south = S
 ref.enum.direction4geolong.east = E
 ref.enum.direction4geolong.west = W
 
+ref.enum.midpoint.dial360 = Dial 360\u00B0
+ref.enum.midpoint.dial90 = Dial 90\u00B0
+ref.enum.midpoint.dial45 = Dial 45\u00B0
+
+ref.enum.mundanepoint.id.asc = Ascendant
+ref.enum.mundanepoint.id.eastpoint = Eastpoint
+ref.enum.mundanepoint.id.mc = MC
+ref.enum.mundanepoint.id.vertex = Vertex
+
+ref.enum.mundanepoint.idabbr.asc = A
+ref.enum.mundanepoint.idabbr.eastpoint = E
+ref.enum.mundanepoint.idabbr.mc = M
+ref.enum.mundanepoint.idabbr.vertex = V
+
 ref.enum.roddenrating.aa = AA - Accurate. As recorded by family or state
 ref.enum.roddenrating.a = A - Quoted by the person, kin, friend, or associate
 ref.enum.roddenrating.b = B - Biography or autobiography
@@ -273,6 +287,11 @@ ref.enum.timezone.lmt = LMT: Local Mean Time
 ref.enum.yearcount.ce = CE
 ref.enum.yearcount.bce = BCE
 ref.enum.yearcount.astronomical = Astronomical
+
+ref.enum.zodiacalpoints.id.zeroar = Zero Aries
+ref.enum.zodiacalpoints.id.zerocn = Zero Cancer
+ref.enum.zodiacalpoints.idabbr.zeroar = 0\u00B0Ar
+ref.enum.zodiacalpoints.idabbr.zerocn = 0\u00B0Cn
 
 ref.months.jan = Jan
 ref.months.feb = Feb

@@ -47,11 +47,11 @@ public record AspectDetails
     /// <summary>
     /// Constructs details for an aspect.
     /// </summary>
-    /// <param name="aspect">Aspect from enum 'Aspects'.</param>
+    /// <param name="aspect">Aspect from enum 'AspectTypes'.</param>
     /// <param name="angle">Angle for this aspect.</param>
     /// <param name="textId">Text for this aspect in the resource bundle.</param>
     /// <param name="glyph">Default glyph.</param>
-    /// <param name="orbFactor">Default weighting Factor for the calculation of the orb. Zero is the aspect should not be used.</param>
+    /// <param name="orbFactor">Default weighting Factor for the calculation of the orb. Zero if the aspect should not be used.</param>
     public AspectDetails(AspectTypes aspect, double angle, string textId, string glyph, double orbFactor)
     {
         Aspect = aspect;
@@ -71,7 +71,7 @@ public interface IAspectSpecifications
     /// Defines the specifications for an aspect.
     /// </summary>
     /// <param name="aspect">The aspect for which the details are defined.</param>
-    /// <returns>A record AspectDetaisl with the required information.</returns>
+    /// <returns>A record AspectDetails with the required information.</returns>
     public AspectDetails DetailsForAspect(AspectTypes aspect);
 }
 

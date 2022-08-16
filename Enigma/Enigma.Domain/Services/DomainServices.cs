@@ -21,6 +21,7 @@ public static class DomainServices
         serviceCollection.AddTransient<IDirections4GeoLatSpecifications, Directions4GeoLatSpecifications>();
         serviceCollection.AddTransient<IDirections4GeoLongSpecifications, Directions4GeoLongSpecifications>();
         serviceCollection.AddTransient<IHouseSystemSpecs, HouseSystemSpecs>();
+        serviceCollection.AddTransient<IMundanePointSpecifications, MundanePointSpecifications>();
         serviceCollection.AddTransient<IObserverPositionSpecifications, ObserverPositionSpecifications>();
         serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();
         serviceCollection.AddTransient<IProjectionTypeDetailSpecifications, ProjectionTypeDetailSpecifications>();
@@ -29,6 +30,7 @@ public static class DomainServices
         serviceCollection.AddTransient<ISolSysPointCatSpecifications, SolSysPointCatSpecifications>();
         serviceCollection.AddTransient<ITimeZoneSpecifications, TimeZoneSpecifications>();
         serviceCollection.AddTransient<IYearCountSpecifications, YearCountSpecifications>();
+        serviceCollection.AddTransient<IZodiacalPointSpecifications, ZodiacalPointSpecifications>();
         serviceCollection.AddTransient<IZodiacTypeSpecifications, ZodiacTypeSpecifications>();
     }
 }

@@ -52,7 +52,7 @@ public interface ISolarSystemPointSpecifications
 {
     /// <summary>Returns the specifications for a Solar System Point.</summary>
     /// <param name="point">The solar system point for which to find the details.</param>
-    /// <returns>A record SolSysPointCatDetails with the specifications.</returns>
+    /// <returns>A record SolarSystemPointDetails with the specifications.</returns>
     public SolarSystemPointDetails DetailsForPoint(SolarSystemPoints point);
 }
 

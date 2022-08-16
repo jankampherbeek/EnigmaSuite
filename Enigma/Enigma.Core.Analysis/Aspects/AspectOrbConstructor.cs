@@ -7,20 +7,20 @@ using Enigma.Domain.CalcVars;
 
 namespace Enigma.Core.Analysis.Aspects;
 
-public interface IOrbConstructor
+public interface IAspectOrbConstructor
 {
     public double DefineOrb(SolarSystemPoints point1, SolarSystemPoints point2, AspectDetails aspectDetails);
     public double DefineOrb(string mundanePoint, SolarSystemPoints solSysPoint, AspectDetails aspectDetails);
 }
 
-public class OrbConstructor: IOrbConstructor
+public class AspectOrbConstructor: IAspectOrbConstructor
 {
 
     private readonly double _baseOrb = 10.0;   // todo make baseorb configurable
 
     private IOrbDefinitions _orbDefinitions;
 
-    public OrbConstructor(IOrbDefinitions orbDefinitions)
+    public AspectOrbConstructor(IOrbDefinitions orbDefinitions)
     {
         _orbDefinitions = orbDefinitions;
     }

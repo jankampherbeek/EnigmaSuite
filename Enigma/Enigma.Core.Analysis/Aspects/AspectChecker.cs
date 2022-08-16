@@ -32,10 +32,10 @@ public interface IAspectChecker
 /// <inheritdoc/>
 public class AspectChecker : IAspectChecker
 {
-    private IOrbConstructor _orbConstructor;
+    private IAspectOrbConstructor _orbConstructor;
     private IAspectSpecifications _aspectSpecifications;
 
-    public AspectChecker(IOrbConstructor orbConstructor, IAspectSpecifications aspectSpecifications)
+    public AspectChecker(IAspectOrbConstructor orbConstructor, IAspectSpecifications aspectSpecifications)
     {
         _orbConstructor = orbConstructor;
         _aspectSpecifications = aspectSpecifications;
