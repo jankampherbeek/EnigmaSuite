@@ -35,7 +35,7 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
         {
             if (lastPos != null)
             {
-                actDistance = pos.MundanePos - lastPos.MundanePos;
+                actDistance = pos.MundanePos - lastPos.PlotPos;
                 if (actDistance < minDistance)
                 {
                     pos.PlotPos += (minDistance - actDistance);

@@ -5,6 +5,7 @@
 using Enigma.Core.Analysis.Api;
 using Enigma.Core.Analysis.Aspects;
 using Enigma.Core.Analysis.Dto;
+using Enigma.Core.Analysis.Midpoints;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace
@@ -18,6 +19,7 @@ public static class AnalysisServices
         serviceCollection.AddTransient<IAspectChecker, AspectChecker>();
         serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
+        serviceCollection.AddTransient<IMidpointChecker, MidpointChecker>();
         serviceCollection.AddTransient<IMundanePointToAnalysisPointMap, MundanePointToAnalysisPointMap>();
         serviceCollection.AddTransient<ISolSysPointToAnalysisPointMap, SolSysPointToAnalysisPointMap>();
     }

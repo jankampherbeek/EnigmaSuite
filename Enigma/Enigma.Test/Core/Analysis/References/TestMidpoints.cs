@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Analysis;
 
-namespace Enigma.Test.Domain.Analysis;
+namespace Enigma.Test.Core.Analysis.References;
 
 [TestFixture]
 public class TestMidpointSpecifications

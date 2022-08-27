@@ -2,9 +2,8 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain;
+using Enigma.Core.Analysis.Dto;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Positional;
 
 namespace Enigma.Core.Analysis.Midpoints;
 
@@ -15,11 +14,19 @@ namespace Enigma.Core.Analysis.Midpoints;
 public interface IMidpointChecker
 {
     /// <summary>
-    /// Find midpoints, both empty and occupied.
+    /// Find all midpoints using the shortest arc between two points, longitudes based on a 360-degree dial.
     /// </summary>
-    /// <param name="calculatedChart">Chart with positions.</param>
-    /// <returns>List with effective midpoints.</returns>
-    List<EffectiveMidpoint> FindAspectsForSolSysPoints(CalculatedChart calculatedChart);
+    /// <param name="analysisPoints">Points to analyse.</param>
+    /// <returns>List with all midpoints.</returns>
+    List<EffectiveMidpoint> FindMidpoints(List<AnalysisPoint> analysisPoints);
+
+    /// <summary>
+    /// Find occupied midpoints.
+    /// </summary>
+    /// <param name="midPointType">Indicates the dial to use.</param>
+    /// <param name="analysisPoints">Points to analyse.</param>
+    /// <returns>List with all occupied midpoints.</returns>
+    List<EffOccupiedMidpoint> FindOccupiedMidpoints(MidpointTypes midpointType, List<AnalysisPoint> analysisPoints);
 
 }
 
@@ -27,6 +34,9 @@ public interface IMidpointChecker
 /// <inheritdoc/>
 public class MidpointChecker : IMidpointChecker
 {
+    private readonly double _halfCircle = 180.0;
+    private readonly double _fullCircle = 360.0;
+
     private IMidpointOrbConstructor _orbConstructor;
     private IMidpointSpecifications _midpointSpecifications;
 
@@ -36,111 +46,48 @@ public class MidpointChecker : IMidpointChecker
         _midpointSpecifications = midpointSpecifications;
     }
 
-    public List<EffectiveMidpoint> FindAspectsForSolSysPoints(CalculatedChart calculatedChart)
+    /// <inheritdoc/>
+    public List<EffectiveMidpoint> FindMidpoints(List<AnalysisPoint> analysisPoints)
+    {
+        List<EffectiveMidpoint> midpoints = new();
+        int nrOfPoints = analysisPoints.Count;
+        for (int i = 0; i < nrOfPoints; i++)
+        {
+            for (int j = i + 1; j < nrOfPoints; j++)
+            {
+                midpoints.Add(ConstructEffectiveMidpoint(analysisPoints[i], analysisPoints[j]));
+            }
+        }
+        return midpoints;
+    }
+
+    public List<EffOccupiedMidpoint> FindOccupiedMidpoints(MidpointTypes midpointType, List<AnalysisPoint> analysisPoints)
     {
         throw new NotImplementedException();
     }
-    /*
 
-/// <inheritdoc/>
-public List<EffectiveAspect> FindAspectsForSolSysPoints(CalculatedChart calculatedChart)
-{
-   return AspectsForSolSysPoints(calculatedChart);
-}
+ 
+    private EffectiveMidpoint ConstructEffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2)
+    {
+        double pos1 = point1.Position;
+        double pos2 = point2.Position;
 
-/// <inheritdoc/>
-public List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart)
-{
-   return AspectsForMundanePoints(calculatedChart);
-}
+        double smallPos = (pos1 < pos2) ? pos1 : pos2;
+        double largePos = (pos1 < pos2) ? pos2 : pos1;
 
-private List<AspectDetails> DefineSupportedAspects()
-{
-   // TODO replace with configurable set of aspect(details).
-   List<AspectDetails> aspectDetails = new();
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Conjunction));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Opposition));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Triangle));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Square));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Sextile));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Inconjunct));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.SemiSquare));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.SesquiQuadrate));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Quintile));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.BiQuintile));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Septile));
-   aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.SemiSextile));
-   return aspectDetails;
-}
+        double diff = largePos - smallPos;
 
-private List<EffectiveAspect> AspectsForSolSysPoints(CalculatedChart calculatedChart)
-{
-   var effectiveAspects = new List<EffectiveAspect>();
-   List<AspectDetails> supportedAspects = DefineSupportedAspects();
+        double firstPosShortestArc = (diff < _halfCircle) ? smallPos : largePos;
+        double lastPosShortestArc = (diff < _halfCircle) ? largePos : smallPos;
 
-   List<FullSolSysPointPos> solSysPointPositions = calculatedChart.SolSysPointPositions;
-   int count = solSysPointPositions.Count;
-   for (int i = 0; i < count; i++)
-   {
-       var solSysPointPos1 = solSysPointPositions[i];
-       for (int j = i + 1; j < solSysPointPositions.Count; j++)
-       {
-           var solSysPointPos2 = solSysPointPositions[j];
-           double distance = NormalizeDistance(solSysPointPos1.Longitude.Position - solSysPointPos2.Longitude.Position);
-           for (int k = 0; k < supportedAspects.Count; k++)
-           {
-               AspectDetails aspectToCheck = supportedAspects[k];
-               double angle = aspectToCheck.Angle;
-               double maxOrb = _orbConstructor.DefineOrb(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck);
-               double actualOrb = Math.Abs(angle - distance);
-               if (actualOrb < maxOrb)
-               {
-                   effectiveAspects.Add(new EffectiveAspect(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck, maxOrb, actualOrb));
-               }
-           }
-       }
-   }
-   return effectiveAspects;
-}
+        diff = lastPosShortestArc - firstPosShortestArc;
+        if (diff < 0.0) diff += _fullCircle;
 
-private List<EffectiveAspect> AspectsForMundanePoints(CalculatedChart calculatedChart)
-{
-   var effectiveAspects = new List<EffectiveAspect>();
-   List<AspectDetails> supportedAspects = DefineSupportedAspects();
-   List<FullSolSysPointPos> solSysPointPositions = calculatedChart.SolSysPointPositions;
-   var mundanePointPositions = new List<String>() { "MC", "ASC" };
-   int countMundanePoints = mundanePointPositions.Count;
-   int countSolSysPoints = solSysPointPositions.Count;
-   for (int i = 0; i < countMundanePoints; i++)
-   {
-       string mPointTxt = mundanePointPositions[i];
-       double mLong = mPointTxt == "MC" ? calculatedChart.FullHousePositions.Mc.Longitude : calculatedChart.FullHousePositions.Ascendant.Longitude;
-       for (int j = 0; j < countSolSysPoints; j++)
-       {
-           var ssPoint = solSysPointPositions[j];
-           double distance = NormalizeDistance(mLong - ssPoint.Longitude.Position);
-           for (int k = 1; k < supportedAspects.Count; k++)
-           {
-               var aspectToCheck = supportedAspects[k];
-               double angle = aspectToCheck.Angle;
-               double maxOrb = _orbConstructor.DefineOrb(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck);
-               double actualOrb = Math.Abs(angle - distance);
-               if (actualOrb < maxOrb)
-               {
-                   effectiveAspects.Add(new EffectiveAspect(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck, maxOrb, actualOrb));
-               }
-           }
-       }
-   }
-   return effectiveAspects;
-}
+        double mPos = (diff / 2) + firstPosShortestArc;
+        if (mPos >= _fullCircle) mPos -= _fullCircle;
 
-private double NormalizeDistance(double InitialValue)
-{
-   double distance = InitialValue;
-   if (distance < 0) distance += 360.0;
-   if (distance > 180.0) distance = 360.0 - distance;
-   return distance;
-}
-*/
+        return new EffectiveMidpoint(point1, point2, mPos);
+
+    }
+
 }
