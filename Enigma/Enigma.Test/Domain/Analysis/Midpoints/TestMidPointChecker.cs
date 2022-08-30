@@ -92,7 +92,7 @@ public class TextMidpointChecker
     {
         double pos1 = 300.0;
         double pos2 = 0.0;
-        double expected = 150.0;
+        double expected = 330.0;
 
         List<AnalysisPoint> points = new();
         points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1));
