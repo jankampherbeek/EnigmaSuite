@@ -33,6 +33,7 @@ public partial class App : Application
 
         var serviceCollection = new ServiceCollection();
 
+        serviceCollection.AddTransient<AboutWindow>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();

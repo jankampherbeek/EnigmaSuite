@@ -3,15 +3,16 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain;
+using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
 using Enigma.Frontend.UiDomain;
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend;
 
 
 public class MainController
 {
-
+    private AboutWindow _aboutWindow;
     private ChartDataInputWindow _chartDataInputWindow;
     private ChartPositionsWindow _chartPositionsWindow;
     private ChartsWheel _chartsWheel;
@@ -19,8 +20,9 @@ public class MainController
     public CurrentCharts AllCurrentCharts { get; set; }
 
 
-    public MainController(ChartDataInputWindow chartDataInputWindow, ChartPositionsWindow chartPositionsWindow, ChartsWheel chartsWheel)
+    public MainController(AboutWindow aboutWindow, ChartDataInputWindow chartDataInputWindow, ChartPositionsWindow chartPositionsWindow, ChartsWheel chartsWheel)
     {
+        _aboutWindow = aboutWindow;
         _chartDataInputWindow = chartDataInputWindow;
         _chartPositionsWindow = chartPositionsWindow;
         _chartsWheel = chartsWheel;
@@ -33,6 +35,11 @@ public class MainController
         ShowWheel();
         ShowPositions();
 
+    }
+
+    public void ShowAbout()
+    {
+        _aboutWindow.ShowDialog();
     }
 
 

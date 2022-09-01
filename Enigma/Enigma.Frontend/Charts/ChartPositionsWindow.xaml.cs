@@ -30,7 +30,6 @@ public partial class ChartPositionsWindow : Window
 
     public void PopulateAll()
     {
-        PopulateMenu();
         PopulateTexts();
         PopulateHouses();
         PopulateCelPoints();
@@ -53,22 +52,6 @@ public partial class ChartPositionsWindow : Window
         }
     }
 
-    private void PopulateMenu()
-    {
-        miGeneral.Header = _rosetta.TextForId("charts.positions.menu.migeneral");
-        miClose.Header = _rosetta.TextForId("charts.positions.menu.miclose");
-        miAnalysis.Header = _rosetta.TextForId("charts.positions.menu.mianalysis");
-        miAspects.Header = _rosetta.TextForId("charts.positions.menu.miaspects");
-        miDeclinations.Header = _rosetta.TextForId("charts.positions.menu.mideclinations");
-        miHarmonics.Header = _rosetta.TextForId("charts.positions.menu.miharmonics");
-        miMidpoints.Header = _rosetta.TextForId("charts.positions.menu.mimidpoints");
-        miProgressive.Header = _rosetta.TextForId("charts.positions.menu.miprogressive");
-        miPrimary.Header = _rosetta.TextForId("charts.positions.menu.miprimary");
-        miSecundary.Header = _rosetta.TextForId("charts.positions.menu.misecundary");
-        miTransits.Header = _rosetta.TextForId("charts.positions.menu.mitransits");
-        miSolarreturn.Header = _rosetta.TextForId("charts.positions.menu.misolarreturn");
-        miHelp.Header = _rosetta.TextForId("charts.positions.menu.mihelp");
-    }
 
     private void PopulateHouses()
     {

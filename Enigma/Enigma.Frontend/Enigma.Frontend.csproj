@@ -9,7 +9,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\Enigma-2.0.jpg" />
+    <None Remove="Images\calculations.png" />
+    <None Remove="Images\close.png" />
+    <None Remove="Images\configuration.png" />
+    <None Remove="Images\cycles.png" />
+    <None Remove="Images\Enigma.jpg" />
+    <None Remove="Images\ephemeris.png" />
+    <None Remove="Images\help.png" />
+    <None Remove="Images\input.png" />
+    <None Remove="Images\manual.png" />
+    <None Remove="Images\newchart.png" />
+    <None Remove="Images\newproject.png" />
+    <None Remove="Images\occurrences.png" />
+    <None Remove="Images\output.png" />
+    <None Remove="Images\settings.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +42,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\Enigma-2.0.jpg" />
+    <Resource Include="Images\calculations.png" />
+    <Resource Include="Images\close.png" />
+    <Resource Include="Images\configuration.png" />
+    <Resource Include="Images\cycles.png" />
+    <Resource Include="Images\Enigma.jpg" />
+    <Resource Include="Images\ephemeris.png" />
+    <Resource Include="Images\help.png" />
+    <Resource Include="Images\input.png" />
+    <Resource Include="Images\manual.png" />
+    <Resource Include="Images\newchart.png" />
+    <Resource Include="Images\newproject.png" />
+    <Resource Include="Images\occurrences.png" />
+    <Resource Include="Images\output.png" />
+    <Resource Include="Images\settings.png" />
   </ItemGroup>
 
 </Project>

@@ -7,17 +7,18 @@
         mc:Ignorable="d"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"        
-        Height="300" Width="450">
+        Height="320" Width="430">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.Column="0" Height="300" Width="450" Name="ImgBtn" Margin="0" >
-            <Image Source="/Images/Enigma-2.0.jpg"/>
+        <Button Grid.Row="0" Grid.Column="0" Height="290" Width="430" Name="ImgBtn" Margin="4" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/Images/Enigma.jpg"/>
         </Button>
-        <TextBlock Grid.Row="0" Grid.Column="0" Name="NameVersion" Text="NameVersion" Style="{StaticResource subTitleStyle}" Foreground="Cornsilk" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="12"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Name="Name" Text="Enigma" Style="{StaticResource subTitleStyle}" Foreground="Red" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="6"/>
     </Grid>
 </Window>

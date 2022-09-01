@@ -1,4 +1,12 @@
-﻿---- ChartsAspects ------------------------------------
+﻿--- About window --------------------------------------
+aboutwindow.copyright.text = Enigma is written by Jan Kampherbeek. The program is free and open source. See the file copyright.txt in the root of the application for more details.
+aboutwindow.copyright.title = Open source
+aboutwindow.description = Enigma Research is a program for astrological research
+aboutwindow.moreinfo.text = See the manual when using Enigma Research. Programmers will find more information at: http://www.radixpro.org 
+aboutwindow.moreinfo.title = More information
+aboutwindow.title = About Enigma Research 0.1
+
+---- ChartsAspects ------------------------------------
 charts.aspects.datagrid.columns.exactness = Exactness %
 charts.aspects.datagrid.columns.orb = Max. orb
 charts.aspects.formtitle = Aspects
@@ -32,35 +40,22 @@ charts.positions.datetime = Date and time:
 charts.positions.description.empty = No description
 charts.positions.formtitle = Radix positions
 charts.positions.location = Location:
-charts.positions.menu.mianalysis = _Analysis
-charts.positions.menu.miaspects = _Aspects
-charts.positions.menu.miclose = _Close
-charts.positions.menu.mideclinations = _Declinations
-charts.positions.menu.migeneral = _General
-charts.positions.menu.miharmonics = _Harmonics
-charts.positions.menu.mihelp = _Help
-charts.positions.menu.mimidpoints = _Midpoints
-charts.positions.menu.miprimary = _Primary
-charts.positions.menu.miprogressive = _Progressive
-charts.positions.menu.misecundary = _Secundary
-charts.positions.menu.misolarreturn = Solar _Return
-charts.positions.menu.mitransits = _Transits
-
+-- charts.positions.menu.mianalysis = _Analysis
+-- charts.positions.menu.miaspects = _Aspects
+-- charts.positions.menu.miclose = _Close
+-- charts.positions.menu.mideclinations = _Declinations
+-- charts.positions.menu.migeneral = _General
+-- charts.positions.menu.miharmonics = _Harmonics
+-- charts.positions.menu.mihelp = _Help
+-- charts.positions.menu.mimidpoints = _Midpoints
+-- charts.positions.menu.miprimary = _Primary
+-- charts.positions.menu.miprogressive = _Progressive
+-- charts.positions.menu.misecundary = _Secundary
+-- charts.positions.menu.misolarreturn = Solar _Return
+-- charts.positions.menu.mitransits = _Transits
 charts.positions.rating = Rodden Rating:
 charts.positions.source = Source:
 charts.positions.source.empty = Not defined
-
----- ChartsStartView ----------------------------------
-charts.startview.activechartssubtitle = Active charts
-charts.startview.chartssubtitle = Charts
-charts.startview.formtitle = Enigma Charts
-charts.startview.managecharts = Manage charts
-charts.startview.managemodes = Manage modes
-charts.startview.modessubtitle = Working modes
-charts.startview.newchart = New chart
-charts.startview.searchcriteria = Enter (part of) the name as search criterium
-charts.startview.selectmode = Select a mode
-
 
 
 -------------------------- dashboard ------------------
@@ -116,6 +111,37 @@ common.timezone = TimeZone
 common.yearcount = Yearcount
 common.yearcount.rb.astron = Astronomical
 common.yearcount.rb.hist = Historical
+
+-------------------------------- Main window -----------
+
+mainwindow.btnnewchart = New chart
+mainwindow.btnnewproject = New project
+mainwindow.btnopenproject = Open project
+mainwindow.formtitle = Enigma Research
+mainwindow.menu.miadhoc = Ad hoc actions
+mainwindow.menu.miadhoc.chart = Calculate chart
+mainwindow.menu.miadhoc.calculations = Calculators
+mainwindow.menu.miperiodical = Periodical
+mainwindow.menu.miperiodical.cycles = Cycles
+mainwindow.menu.miperiodical.ephemeris = Ephemeris
+mainwindow.menu.miperiodical.occurrences = Occurrences
+mainwindow.menu.migeneral = General
+mainwindow.menu.migeneral.close = Exit Enigma
+mainwindow.menu.migeneral.configuration = Configuration
+mainwindow.menu.migeneral.settings = Settings
+mainwindow.menu.miprojects = Projects
+mainwindow.menu.miprojects.new = New project
+mainwindow.menu.miprojects.open = Open project
+mainwindow.menu.midata = Data
+mainwindow.menu.midata.import = Import data
+mainwindow.menu.midata.export = Export data
+mainwindow.menu.mihelp = Help
+mainwindow.menu.mihelp.about = About Enigma
+mainwindow.menu.mihelp.page = Help for this page
+mainwindow.menu.mihelp.manual = Enigma manual
+mainwindow.projectssubtitle = Projects
+
+
 -------------------------------- References ------------
 
 ref.enum.aspect.centile = Centile (100\u00B0)

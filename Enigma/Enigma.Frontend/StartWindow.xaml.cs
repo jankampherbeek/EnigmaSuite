@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Frontend.Charts;
 using Microsoft.Extensions.DependencyInjection;
 using System.Threading;
 using System.Windows;
@@ -27,7 +26,7 @@ public partial class StartWindow : Window
 
     private void PopulateStaticTexts()
     {
-        NameVersion.Text = "Enigma Charts 2.0";
+        Name.Text = "Enigma Research 0.1";
     }
 
 
