@@ -79,7 +79,7 @@ namespace Enigma.Frontend
 
         private void AdhocChartClick(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Ad hoc - chart not yet implemented.");
+            _controller.NewChart();
         }
 
         private void AdhocCalculationsClick(object sender, RoutedEventArgs e)

@@ -33,8 +33,6 @@ public partial class ChartDataInputWindow : Window
         _controller = controller;
         _rosetta = rosetta;
         _calendarDetails = chartsEnumFacade.AllCalendarDetails();
-        _chartCategoryDetails = chartsEnumFacade.AllChartCategoryDetails();
-        _roddenRatingDetails = chartsEnumFacade.AllRoddenRatingDetails();
         _directions4GeoLongDetails = chartsEnumFacade.AllDirections4GeoLongDetails();
         _directions4GeoLatDetails = chartsEnumFacade.AllDirections4GeoLatDetails();
         _yearCountDetails = chartsEnumFacade.AllYearCountDetails();
@@ -47,14 +45,8 @@ public partial class ChartDataInputWindow : Window
     private void PopulateTexts()
     {
         FormTitle.Text = _rosetta.TextForId("charts.datainput.formtitle");
-        GeneralTxt.Text = _rosetta.TextForId("charts.datainput.general");
+        NameLocationTxt.Text = _rosetta.TextForId("charts.datainput.namelocation");
         NameIdTxt.Text = _rosetta.TextForId("charts.datainput.nameid");
-        SubjectTxt.Text = _rosetta.TextForId("charts.datainput.subject");
-        RatingTxt.Text = _rosetta.TextForId("charts.datainput.rating");
-        SourceTxt.Text = _rosetta.TextForId("charts.datainput.source");
-        DescriptionTxt.Text = _rosetta.TextForId("charts.datainput.description");
-        LocationTxt.Text = _rosetta.TextForId("common.location");
-        LocationNameTxt.Text = _rosetta.TextForId("common.location.name");
         LongitudeTxt.Text = _rosetta.TextForId("common.location.longitude");
         LatitudeTxt.Text = _rosetta.TextForId("common.location.latitude");
         DateTimeTxt.Text = _rosetta.TextForId("charts.datainput.datetime");
@@ -73,8 +65,6 @@ public partial class ChartDataInputWindow : Window
     private void PopulateLists()
     {
         PopulateCalendars();
-        PopulateChartCategories();
-        PopulateRoddenRatings();
         PopulateDirections4GeoLat();
         PopulateDirections4GeoLong();
         PopulateYearCounts();
@@ -89,26 +79,6 @@ public partial class ChartDataInputWindow : Window
             comboCalendar.Items.Add(_rosetta.TextForId(calendarDetail.TextId));
         }
         comboCalendar.SelectedIndex = 0;
-    }
-
-    private void PopulateChartCategories()
-    {
-        comboSubject.Items.Clear();
-        foreach (var chartCategoryDetail in _chartCategoryDetails)
-        {
-            comboSubject.Items.Add(_rosetta.TextForId(chartCategoryDetail.TextId));
-        }
-        comboSubject.SelectedIndex = 0;
-    }
-
-    private void PopulateRoddenRatings()
-    {
-        comboRating.Items.Clear();
-        foreach (var roddenRatingDetail in _roddenRatingDetails)
-        {
-            comboRating.Items.Add(_rosetta.TextForId(roddenRatingDetail.TextId));
-        }
-        comboRating.SelectedIndex = 0;
     }
 
     private void PopulateDirections4GeoLong()
@@ -199,11 +169,11 @@ public partial class ChartDataInputWindow : Window
     private void TransferValues()
     {
         _controller.NameId = NameIdValue.Text;
-        _controller.Source = SourceValue.Text;
-        _controller.Description = DescriptionValue.Text;
-        _controller.ChartCategory = _chartCategoryDetails[comboSubject.SelectedIndex].Category;
-        _controller.RoddenRating = _roddenRatingDetails[comboRating.SelectedIndex].Rating;
-        _controller.LocationName = LocationNameValue.Text;
+    //    _controller.Source = SourceValue.Text;
+    //    _controller.Description = DescriptionValue.Text;
+    //    _controller.ChartCategory = _chartCategoryDetails[comboSubject.SelectedIndex].Category;
+    //    _controller.RoddenRating = _roddenRatingDetails[comboRating.SelectedIndex].Rating;
+    //    _controller.LocationName = LocationNameValue.Text;
         _controller.Longitude = LongitudeValue.Text;
         _controller.Latitude = LatitudeValue.Text;
         _controller.Direction4GeoLong = _directions4GeoLongDetails[comboLongDir.SelectedIndex].Direction;

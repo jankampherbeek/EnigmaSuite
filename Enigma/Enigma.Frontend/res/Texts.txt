@@ -13,13 +13,9 @@ charts.aspects.formtitle = Aspects
 
 ---- ChartsDataInput ----------------------------------
 charts.datainput.datetime = Date and time
-charts.datainput.description = Additional information (optional)
 charts.datainput.formtitle = Enter data for new chart
-charts.datainput.general = Information about chart 
 charts.datainput.nameid = Unique name or id for chart
-charts.datainput.rating = Rodden Rating
-charts.datainput.source = Description of source (optional)
-charts.datainput.subject = Subject of chart
+charts.datainput.namelocation = Name and location
 
 ---- ChartsPositions ----------------------------------
 charts.positions.chartgategory = Category:
