@@ -33,6 +33,7 @@
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Background" Value="#788BCC"/>
                 </Trigger>
+             
             </Style.Triggers>
         </Style>
         <Style TargetType="{x:Type RadioButton}">

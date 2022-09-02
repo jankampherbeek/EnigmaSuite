@@ -58,4 +58,10 @@
     <Resource Include="Images\settings.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="res\Texts.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

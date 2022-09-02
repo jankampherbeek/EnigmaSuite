@@ -19,8 +19,11 @@
                 <Canvas x:Name="wheelCanvas" ClipToBounds="True"/>
             <!-- /Border -->
         </Grid>
-        <StackPanel Grid.Row="1" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="helpBtn" Content="Help" />
+        <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btnPositions" Content="btnPositions" />
+            <Button Name="btnAnalysis" Content="btnAnalysis" />
+            <Button Name="btnProgressions" Content="btnProgressions" />
+            <Button Name="helpBtn" Content="btnHelp" />
         </StackPanel>
     </Grid>
     

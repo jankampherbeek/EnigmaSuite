@@ -13,7 +13,6 @@ namespace Enigma.Frontend.Charts.Graphics;
 public partial class ChartsWheel : Window
 {
     private ChartsWheelController _controller;
-   
 
     public ChartsWheel(ChartsWheelController controller) 
     {
@@ -88,7 +87,8 @@ public partial class ChartsWheel : Window
 
     private void wheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double minSize = Math.Min(Height, Width);
+        double availHeight = Height - 80.0;
+        double minSize = Math.Min(availHeight, Width);
         _controller.Resize(minSize);
         wheelCanvas.Height = _controller.CanvasSize;
         wheelCanvas.Width = _controller.CanvasSize;

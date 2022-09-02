@@ -39,7 +39,7 @@ public class Rosetta : IRosetta
     private void ReadTextsFromFile()
     {
         string[] _partsOfText;
-        string _filename = @"..\..\..\res\texts.txt";
+        string _filename = @"res\texts.txt";
         IEnumerable<string> _allLines = _fileReader.ReadSeparatedLines(_filename);
 
         foreach (string _line in _allLines)

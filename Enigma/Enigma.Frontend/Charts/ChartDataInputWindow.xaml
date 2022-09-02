@@ -9,7 +9,6 @@
         Title="ChartDataInputView" Height="660" Width="380">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
-
             <ColumnDefinition Width="18*"/>
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="18*"/>
