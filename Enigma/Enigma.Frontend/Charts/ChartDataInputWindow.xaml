@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Charts"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"          
-        Title="ChartDataInputView" Height="600" Width="380">
+        Title="ChartDataInputView" Height="660" Width="380">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
 
