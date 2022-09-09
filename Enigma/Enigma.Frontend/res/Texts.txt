@@ -6,6 +6,14 @@ aboutwindow.moreinfo.text = See the manual when using Enigma Research. Programme
 aboutwindow.moreinfo.title = More information
 aboutwindow.title = About Enigma Research 0.1
 
+--- App settings window -------------------------------
+appsettingswindow.explanation = The locations for different types of files as used in Enigma Research. In future releases you will be able to change these locations.
+appsettingswindow.locdata = Data files
+appsettingswindow.locexport = Exported files
+appsettingswindow.locproject = Projects
+appsettingswindow.locswisseph = Swiss Ephemeris files
+appsettingswindow.title = Application settings
+
 ---- ChartsAspects ------------------------------------
 charts.aspects.datagrid.columns.exactness = Exactness %
 charts.aspects.datagrid.columns.orb = Max. orb
@@ -129,6 +137,7 @@ mainwindow.menu.miprojects = Projects
 mainwindow.menu.miprojects.new = New project
 mainwindow.menu.miprojects.open = Open project
 mainwindow.menu.midata = Data
+mainwindow.menu.midata.overview = Overview datafiles
 mainwindow.menu.midata.import = Import data
 mainwindow.menu.midata.export = Export data
 mainwindow.menu.mihelp = Help
@@ -330,4 +339,5 @@ ref.months.dec = Dec
 
 ref.calendar.g = Greg.
 ref.calendar.j = Jul.
+
 

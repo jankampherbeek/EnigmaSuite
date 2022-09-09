@@ -16,6 +16,8 @@ using Enigma.Frontend.UiDomain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using Enigma.Core.Analysis.Services;
+using Enigma.Frontend.DataFiles;
+using Enigma.Frontend.Settings;
 
 namespace Enigma.Frontend;
 
@@ -28,14 +30,18 @@ public partial class App : Application
     {
         base.OnStartup(e);
 
-        string pathToSeFiles = @"c:\sweph";
+        string pathToSeFiles = @"c:\sweph";                    // TODO make path to SE files configurable
         SeInitializer.SetEphePath(pathToSeFiles);
 
         var serviceCollection = new ServiceCollection();
 
         serviceCollection.AddTransient<AboutWindow>();
+        serviceCollection.AddTransient<AppSettingsController>();
+        serviceCollection.AddTransient<AppSettingsWindow>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
+        serviceCollection.AddTransient<AstroConfigController>();
+        serviceCollection.AddTransient<AstroConfigWindow>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<ChartAspectsController>();
@@ -52,6 +58,12 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelSolSysPoints, ChartsWheelSolSysPoints>();
+        serviceCollection.AddTransient<DataFilesExportController>();
+        serviceCollection.AddTransient<DataFilesExportWindow>();
+        serviceCollection.AddTransient<DataFilesImportController>();
+        serviceCollection.AddTransient<DataFilesImportWindow>();
+        serviceCollection.AddTransient<DataFilesOverviewController>();
+        serviceCollection.AddTransient<DataFilesOverviewWindow>();
         serviceCollection.AddSingleton<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();

@@ -50,6 +50,7 @@
                 <MenuItem Name="miProjectsOpen" Header="miProjectsOpen" Click="ProjectsOpenClick"/>
             </MenuItem>
             <MenuItem Name="miData" Header="miData">
+                <MenuItem Name="miDataOverview" Header="miDataOverview" Click="DataOverviewClick"/>
                 <MenuItem Name="miDataImport" Header="miDataImport" Click="DataImportClick">
                     <MenuItem.Icon>
                         <Image Source="../Images/input.png"/>
