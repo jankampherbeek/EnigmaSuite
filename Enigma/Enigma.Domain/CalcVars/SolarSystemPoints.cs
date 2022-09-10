@@ -4,6 +4,7 @@
 
 
 using Enigma.Domain.Constants;
+using System.Runtime.ConstrainedExecution;
 
 namespace Enigma.Domain.CalcVars;
 
@@ -11,7 +12,9 @@ namespace Enigma.Domain.CalcVars;
 public enum SolarSystemPoints
 {
     Sun, Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, MeanNode, TrueNode, Chiron, PersephoneRam, HermesRam, DemeterRam,
-    CupidoUra, HadesUra, ZeusUra, KronosUra, ApollonUra, AdmetosUra, VulcanusUra, PoseidonUra, Eris
+    CupidoUra, HadesUra, ZeusUra, KronosUra, ApollonUra, AdmetosUra, VulcanusUra, PoseidonUra, Eris, Pholus, Ceres, Pallas, Juno, Vesta, Isis, Nessus,
+    Huya, Varuna, Ixion, Quaoar, Haumea, Orcus, Makemake, Sedna, Hygieia, Astraea, ApogeeMean, ApogeeCorrected, ApogeeInterpolated, ApogeeDuval, ZeroAries, 
+    ParsFortunaNoSect, ParsFortunaSect, PersephoneCarteret, VulcanusCarteret
 }
 
 /// <summary>Details for a Solar System Point.</summary>
@@ -65,6 +68,26 @@ public class SolarSystemPointSpecifications : ISolarSystemPointSpecifications
     {
         return point switch
         {
+            /*
+             * To add:
+             * Black Moon Mean       12 Mean apogee
+             * Black Moon corrected  13 Oscu apogee
+             * ---> Interpolated Apogee   21
+             * ---> Interpolated Perigee 22
+             * Black Moon Duval                   --> 105
+             * Zero Aries                         --> 106
+             * ParsFortuna Sect                   --> 107
+             * ParsFortuna NoSect                 --> 108
+
+             * 
+             * Vulcanus Carteret   (103)
+             * Persephone Carteret (104)
+             * Persephone/hermes/Demeter - Ram nieuwe nrs: 100, 101, 102
+             * 0 Ram : 105
+
+             */
+
+
             SolarSystemPoints.Sun => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_SUN, false, true, "sun", "a"),
             SolarSystemPoints.Moon => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MOON, false, true, "moon", "b"),
             SolarSystemPoints.Mercury => new SolarSystemPointDetails(point, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MERCURY, true, true, "mercury", "c"),
@@ -91,6 +114,33 @@ public class SolarSystemPointSpecifications : ISolarSystemPointSpecifications
             SolarSystemPoints.VulcanusUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, EnigmaConstants.SE_VULCANUS_URA, true, true, "vulcanus_ura", "%"),
             SolarSystemPoints.PoseidonUra => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, EnigmaConstants.SE_POSEIDON_URA, true, true, "poseidon_ura", "&"),
             SolarSystemPoints.Eris => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_ERIS, true, true, "eris", "*"),
+            SolarSystemPoints.Pholus => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_PHOLUS, true, true, "pholus", ")"),
+            SolarSystemPoints.Ceres => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_CERES, true, true, "ceres", "_"),
+            SolarSystemPoints.Pallas => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_PALLAS, true, true, "pallas", "û"),
+            SolarSystemPoints.Juno => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_JUNO, true, true, "juno", "ü"),
+            SolarSystemPoints.Vesta => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_VESTA, true, true, "vesta", "À"),
+            SolarSystemPoints.Isis => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.SE, EnigmaConstants.SE_ISIS, true, true, "isis", "â"),
+            SolarSystemPoints.Nessus => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_NESSUS, true, true, "nessus", "("),
+            SolarSystemPoints.Huya => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_HUYA, true, true, "huya", "ï"),
+            SolarSystemPoints.Varuna => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_VARUNA, true, true, "varuna", "ò"),
+            SolarSystemPoints.Ixion => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_IXION, true, true, "ixion", "ó"),
+            SolarSystemPoints.Quaoar => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_QUAOAR, true, true, "quaoar", "ô"),
+            SolarSystemPoints.Haumea => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_HAUMEA, true, true, "haumea", "í"),
+            SolarSystemPoints.Orcus => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_ORCUS, true, true, "orcus", "ù"),
+            SolarSystemPoints.Makemake => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_MAKEMAKE, true, true, "makemake", "î"),
+            SolarSystemPoints.Sedna => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_SEDNA, true, true, "sedna", "ö"),
+            SolarSystemPoints.Hygieia => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_HYGIEIA, true, true, "hygieia", "Á"),
+            SolarSystemPoints.Astraea => new SolarSystemPointDetails(point, SolSysPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_ASTRAEA, true, true, "astraea", "Ã"),
+            SolarSystemPoints.ApogeeMean => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_MEAN_APOGEE, false, true, "apogee_mean", ","),
+            SolarSystemPoints.ApogeeCorrected => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_OSCU_APOG, false, true, "apogee_corrected", "."),
+            SolarSystemPoints.ApogeeInterpolated => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_INTP_APOG, false, true, "apogee_interpolated", "."),
+            SolarSystemPoints.ApogeeDuval => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_DUVAL_APOGEE, false, true, "apogee_duval", "."),
+            SolarSystemPoints.ZeroAries => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_ZEROARIES, false, true, "zero_aries", "1"),
+            SolarSystemPoints.ParsFortunaSect => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_SECT, false, true, "pars_fortuna_sect", "e"),
+            SolarSystemPoints.ParsFortunaNoSect => new SolarSystemPointDetails(point, SolSysPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_NOSECT, false, true, "pars_fortuna_nosect", "e"),
+            SolarSystemPoints.PersephoneCarteret => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PERSEPHONE_CARTERET, false, true, "pesephone_carteret", "à"),
+            SolarSystemPoints.VulcanusCarteret => new SolarSystemPointDetails(point, SolSysPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_VULCANUS_CARTERET, false, true, "pesephone_carteret", "Ï"),
+
             _ => throw new ArgumentException("SolarSystemPoint unknown : " + point.ToString())
         };
     }

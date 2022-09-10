@@ -13,6 +13,10 @@ public static class EnigmaConstants
     public const int SE_ADMETOS_URA = 45;
     /// <summary>SE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_APOLLON_URA = 44;
+    /// <summary>SE id for Astraea.</summary>
+    public const int SE_ASTRAEA = 10005;
+    /// <summary>SE id to identify the planetoid Ceres.</summary>
+    public const int SE_CERES = 17;
     /// <summary>SE id to identify Chiron.</summary>
     public const int SE_CHIRON = 15;
     /// <summary>SE id to identify Cupido, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
@@ -27,14 +31,32 @@ public static class EnigmaConstants
     public const int SE_ERIS = 1009001;
     /// <summary>SE id to identify Hades, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_HADES_URA = 41;
+    /// <summary>SE id for Haumea.</summary>
+    public const int SE_HAUMEA = 146108;
     /// <summary>Hermes, hypothetical planet, School of Ram.</summary>
     public const int SE_HERMES_RAM = 50;
+    /// <summary>SE id for Huya.</summary>
+    public const int SE_HUYA = 48628;
+    /// <summary>SE id for Hygieia.</summary>
+    public const int SE_HYGIEIA = 10010;
+    /// <summary>SE id to identify the interpolated Apogee.</summary>
+    public const int SE_INTP_APOG = 21;
+    /// <summary>SE id to identify the hypothetical planet Isis/Transpluto.</summary>
+    public const int SE_ISIS = 48;
+    /// <summary>SE id for Ixion.</summary>
+    public const int SE_IXION = 38978;
+    /// <summary>SE id to identify the planetoid Juno.</summary>
+    public const int SE_JUNO = 19;
     /// <summary>SE id to identify Jupiter.</summary>
     public const int SE_JUPITER = 5;
     /// <summary>SE id to identify Kronos, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_KRONOS_URA = 43;
+    /// <summary>Se id for Makemake.</summary>
+    public const int SE_MAKEMAKE = 146472;
     /// <summary>SE id to identify Mars.</summary>
     public const int SE_MARS = 4;
+    /// <summary>SE id to identify the mean Apogee.</summary>
+    public const int SE_MEAN_APOGEE = 12;
     /// <summary>SE id to identify the Mean node.</summary>
     public const int SE_MEAN_NODE = 10;
     /// <summary>SE id to identify Mercury.</summary>
@@ -43,26 +65,59 @@ public static class EnigmaConstants
     public const int SE_MOON = 1;
     /// <summary>SE id to identify Neptune.</summary>
     public const int SE_NEPTUNE = 8;
-    /// <summary>Persophona, hypothetical planet, School of Ram.</summary>
+    /// <summary>SE id for Nessus.</summary>
+    public const int SE_NESSUS = 17066;
+    /// <summary>SE id to identify Orcus.</summary>
+    public const int SE_ORCUS = 100482;
+    /// <summary>SE id to identify the osculating Apogee.</summary>
+    public const int SE_OSCU_APOG = 13;
+    /// <summary>SE id to identify the centaur Pallas.</summary>
+    public const int SE_PALLAS = 18;
+    /// <summary>Persephone, hypothetical planet, School of Ram.</summary>
     public const int SE_PERSEPHONE_RAM = 49;
+    /// <summary>SE id to identify the centaur Pholus.</summary>
+    public const int SE_PHOLUS = 16;
     /// <summary>SE id to identify Pluto.</summary>
     public const int SE_PLUTO = 9;
     /// <summary>SE id to identify Poseidon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_POSEIDON_URA = 47;
+    /// <summary>SE id to identify Quaoar.</summary>
+    public const int SE_QUAOAR = 60000;
     /// <summary>SE id to identify Saturn.</summary>
     public const int SE_SATURN = 6;
+    /// <summary>SE id to identify Sedna.</summary>
+    public const int SE_SEDNA = 100377;
     /// <summary>SE id to identify the Sun.</summary>
     public const int SE_SUN = 0;
     /// <summary>SE id to identify the oscilating (true) lunar node.</summary>
     public const int SE_TRUE_NODE = 11;
     /// <summary>SE id to identify Uranus.</summary>
     public const int SE_URANUS = 7;
-    /// <summary>SE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_VULCANUS_URA = 46;
+    /// <summary>SE id to identify Varuna.</summary>
+    public const int SE_VARUNA = 30000;
     /// <summary>SE id to identify Venus.</summary>
     public const int SE_VENUS = 3;
+    /// <summary>SE id to identify the planetoid Vesta.</summary>
+    public const int SE_VESTA = 20;
+    /// <summary>SE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    public const int SE_VULCANUS_URA = 46;
     /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ZEUS_URA = 42;
+
+
+    // Solar System points that are not calculated with the Swiss Ephemeris
+    /// <summary>Apogee, approximately according to Max Duval, formula's by Cees Jansen.</summary>
+    public const int NON_SE_DUVAL_APOGEE = 105;
+    /// <summary>Pars Fortunae, omitting effect of sect.</summary>
+    public const int NON_SE_PARS_FORTUNA_SECT = 107;
+    /// <summary>Pars Fortunae, using sect.</summary>
+    public const int NON_SE_PARS_FORTUNA_NOSECT = 108;
+    /// <summary>Persephone according to Carteret.</summary>
+    public const int NON_SE_PERSEPHONE_CARTERET = 104;
+    /// <summary>Vulcanus according to Carteret.</summary>
+    public const int NON_SE_VULCANUS_CARTERET = 103;
+    /// <summary>Spring equinox/zero degrees Aries.</summary>
+    public const int NON_SE_ZEROARIES = 106;
 
     // SE flags
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>

@@ -101,8 +101,9 @@
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
         <Style x:Key="subTitleStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="largeTextStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="14"/>
