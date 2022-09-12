@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Settings"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="AstroConfigWindow" Height="720" Width="630">
+        Title="AstroConfigWindow" Height="720" Width="640">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -102,14 +102,16 @@
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
-                        
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleBasicCelPoints" Text="Title Basic CelPoints" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9" Name="tbBasicExplanation" Text="tbExplanation" Margin="6" TextWrapping="Wrap"/>
 
                     <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9" />
                     <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5" />
-                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="3" />
+                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="5" />
+                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="3" />
                     
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Name="tbClassical" Text="tbClassical" FontSize="18.0" FontWeight="Bold" Margin="6"/>
                     <TextBlock Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4" Name="tbModern" Text="tbModern" FontSize="18.0" FontWeight="Bold" Margin="6"/>
@@ -169,17 +171,41 @@
                     <TextBlock Grid.Column="7" Grid.Row="6" Name="tbTextPluto" Text="tbPluto" VerticalAlignment="Center"/>
                     <TextBox Grid.Column="8" Grid.Row="6" Name="PlutoFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4" Name="tbArabicParts" Text="tbArabicParts" FontSize="18.0" FontWeight="Bold" Margin="6"/>
+                    <TextBlock Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4" Name="tbMundanePoints" Text="tbMundanePoints" FontSize="18.0" FontWeight="Bold" Margin="6"/>
+                    <TextBlock Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4" Name="tbArabicParts" Text="tbArabicParts" FontSize="18.0" FontWeight="Bold" Margin="6"/>
+
+                    <!-- Mc -->
+                    <CheckBox Grid.Column="0" Grid.Row="13" Name="cboxMc" IsEnabled="False" IsChecked="True" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Grid.Row="13" Name="tbGlyphMc" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="13" Name="tbTextMc" Text="tbMc" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="13" Name="McFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <!-- Ascendant -->
+                    <CheckBox Grid.Column="0" Grid.Row="14" Name="cboxAsc" IsEnabled="False" IsChecked="True" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Grid.Row="14" Name="tbGlyphAsc" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="14" Name="tbTextAsc" Text="tbAsc" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="14" Name="AscFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <!-- Vertex -->
+                    <CheckBox Grid.Column="0" Grid.Row="15" Name="cboxVertex" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Grid.Row="15" Name="tbGlyphVertex" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="15" Name="tbTextVertex" Text="tbVertex" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="15" Name="VertexFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <!-- Eastpoint -->
+                    <CheckBox Grid.Column="0" Grid.Row="16" Name="cboxEastpoint" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Grid.Row="16" Name="tbGlyphEastpoint" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="16" Name="tbTextEastpoint" Text="tbEastpoint" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="16" Name="EastpointFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+
+
                     <!-- Pars Fortunae with sect -->
-                    <CheckBox Grid.Column="0" Grid.Row="13" Name="cboxParsSect" VerticalAlignment="Center" Margin="6,0,0,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="13" Name="tbGlyphParsSect" Text="x" FontFamily="EnigmaAstrology" Margin="6,0,6,0" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="13" Name="tbTextParsSect" Text="tbParsSect" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="13" Name="FactorParsSect" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="13" Name="cboxParsSect" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="13" Name="tbGlyphParsSect" Text="x" FontFamily="EnigmaAstrology" Margin="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="13" Name="tbTextParsSect" Text="tbParsSect" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="13" Name="FactorParsSect" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Pars Fortunae no sect -->
-                    <CheckBox Grid.Column="0" Grid.Row="14" Name="cboxParsNoSect" VerticalAlignment="Center" Margin="6,0,0,0"/>
-                    <TextBlock Grid.Column="1" Grid.Row="14" Name="tbGlyphParsNoSect" Text="x" FontFamily="EnigmaAstrology" Margin="6,0,6,0" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="14" Name="tbTextParsNoSect" Text="tbParsNoSect" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="14" Name="FactorParsNoSect" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="14" Name="cboxParsNoSect" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="14" Name="tbGlyphParsNoSect" Text="x" FontFamily="EnigmaAstrology" Margin="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="14" Name="tbTextParsNoSect" Text="tbParsNoSect" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="14" Name="FactorParsNoSect" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
 
 
 
@@ -530,16 +556,21 @@
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
+                        <RowDefinition Height="10"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
-
-
-
                     </Grid.RowDefinitions>
+                    
+                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="7"/>
+                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9"/>
+                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="9"  Grid.RowSpan="6"/>
+
+
+
                     <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleAspects" Text="Title Aspects" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9" Name="tbAspectsExplanation" Text="tbExplanation" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Name="tbMajorAspects" Text="tbMajorAspects" FontSize="18.0" FontWeight="Bold" Margin="6"/>
@@ -550,120 +581,120 @@
                     <TextBlock Grid.Column="8" Grid.Row="3" Name="tbOrbFactorRight" Text="tbOrbFactor" Margin="6"/>
 
                     <!-- Conjunction -->
-                    <CheckBox Grid.Column="0" Grid.Row="4" Name="cboxConjunction" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="4" Name="tbGlyphConjunction" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="0" Grid.Row="4" Name="cboxConjunction" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="4" Name="tbGlyphConjunction" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="4" Name="tbTextConjunction" Text="Conjunction" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="4" Name="tbConjunctionFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="4" Name="tbConjunctionFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Opposition -->
-                    <CheckBox Grid.Column="0" Grid.Row="5" Name="cboxOpposition" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="5" Name="tbGlyphOpposition" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="0" Grid.Row="5" Name="cboxOpposition" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="5" Name="tbGlyphOpposition" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="5" Name="tbTextOpposition" Text="Opposition" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="5" Name="tbOppositionFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="5" Name="tbOppositionFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Triangle -->
-                    <CheckBox Grid.Column="0" Grid.Row="6" Name="cboxTriangle" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="6" Name="tbGlyphTriangle" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="0" Grid.Row="6" Name="cboxTriangle" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="6" Name="tbGlyphTriangle" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="6" Name="tbTextTriangle" Text="Triangle" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="6" Name="tbTriangleFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="6" Name="tbTriangleFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Square -->
-                    <CheckBox Grid.Column="0" Grid.Row="7" Name="cboxSquare" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="7" Name="tbGlyphSquare" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="0" Grid.Row="7" Name="cboxSquare" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="7" Name="tbGlyphSquare" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="7" Name="tbTextSquare" Text="Square" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="7" Name="tbSquareFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="7" Name="tbSquareFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Sextile -->
-                    <CheckBox Grid.Column="0" Grid.Row="8" Name="cboxSextile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="8" Name="tbGlyphSextile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
+                    <CheckBox Grid.Column="0" Grid.Row="8" Name="cboxSextile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="8" Name="tbGlyphSextile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
                     <TextBlock Grid.Column="2" Grid.Row="8" Name="tbTextSextile" Text="Sextile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="8" Name="tbSextileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <TextBox Grid.Column="3" Grid.Row="8" Name="tbSextileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
 
                     <!-- Semisextile -->
-                    <CheckBox Grid.Column="5" Grid.Row="4" Name="cboxSemiSextile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="4" Name="tbGlyphSemiSextile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="4" Name="tbSemiSextile" Text="Semi sextile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="4" Name="tbSemiSextileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="4" Name="cboxSemiSextile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="4" Name="tbGlyphSemiSextile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="4" Name="tbTextSemiSextile" Text="Semi sextile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="4" Name="tbSemiSextileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Inconjunct -->
-                    <CheckBox Grid.Column="5" Grid.Row="5" Name="cboxInconjunct" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="5" Name="tbGlyphInconjunct" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="5" Name="tbInconjunct" Text="Inconjunct" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="5" Name="tbInconjunctFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="5" Name="cboxInconjunct" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="5" Name="tbGlyphInconjunct" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="5" Name="tbTextInconjunct" Text="Inconjunct" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="5" Name="tbInconjunctFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Semisquare -->
-                    <CheckBox Grid.Column="5" Grid.Row="6" Name="cboxSemiSquare" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="6" Name="tbGlyphSemiSquare" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="6" Name="tbSemiSquare" Text="SemiSquare" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="6" Name="tbSemiSquareFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="6" Name="cboxSemiSquare" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="6" Name="tbGlyphSemiSquare" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="6" Name="tbTextSemiSquare" Text="SemiSquare" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="6" Name="tbSemiSquareFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Sesquiquadrate -->
-                    <CheckBox Grid.Column="5" Grid.Row="7" Name="cboxSesquiquadrate" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="7" Name="tbGlyphSesquiquadrate" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="7" Name="tbSesquiquadrate" Text="Sesquiquadrate" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="7" Name="tbSesquiquadrateFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="7" Name="cboxSesquiquadrate" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="7" Name="tbGlyphSesquiquadrate" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="7" Name="tbTextSesquiquadrate" Text="Sesquiquadrate" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="7" Name="tbSesquiquadrateFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Quintile -->
-                    <CheckBox Grid.Column="5" Grid.Row="8" Name="cboxQuintile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="8" Name="tbGlyphQuintile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="8" Name="tbQuintile" Text="Quintile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="8" Name="tbQuintileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="8" Name="cboxQuintile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="8" Name="tbGlyphQuintile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="8" Name="tbTextQuintile" Text="Quintile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="8" Name="tbQuintileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- BiQuintile -->
-                    <CheckBox Grid.Column="5" Grid.Row="9" Name="cboxBiQuintile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="9" Name="tbGlyphBiQuintile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="9" Name="tbBiQuintile" Text="BiQuintile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="9" Name="tbBiQuintileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
-                    <!-- BiSeptile -->
-                    <CheckBox Grid.Column="5" Grid.Row="10" Name="cboxSeptile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="10" Name="tbGlyphSeptile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="10" Name="tbSeptile" Text="Septile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="10" Name="tbSeptileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="9" Name="cboxBiQuintile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="9" Name="tbGlyphBiQuintile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="9" Name="tbTextBiQuintile" Text="BiQuintile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="9" Name="tbBiQuintileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
+                    <!-- Septile -->
+                    <CheckBox Grid.Column="5" Grid.Row="10" Name="cboxSeptile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="10" Name="tbGlyphSeptile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="10" Name="tbTextSeptile" Text="Septile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="10" Name="tbSeptileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
 
-                    <TextBlock Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="9" Name="tbMicroAspects" Text="tbMicroAspects" FontSize="18.0" FontWeight="Bold" Margin="6"/>
+                    <TextBlock Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="9" Name="tbMicroAspects" Text="tbMicroAspects" FontSize="18.0" FontWeight="Bold" Margin="6"/>
 
                     <!-- Vigintile -->
-                    <CheckBox Grid.Column="0" Grid.Row="12" Name="cboxVigintile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="12" Name="tbGlyphVigintile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="12" Name="tbTextVigintile" Text="Vigintile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="12" Name="tbVigintileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="0" Grid.Row="13" Name="cboxVigintile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="13" Name="tbGlyphVigintile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="13" Name="tbTextVigintile" Text="Vigintile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="13" Name="tbVigintileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Undecile -->
-                    <CheckBox Grid.Column="0" Grid.Row="13" Name="cboxUndecile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="13" Name="tbGlyphUndecile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="13" Name="tbTextUndecile" Text="Undecile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="13" Name="tbUndecileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="0" Grid.Row="14" Name="cboxUndecile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="14" Name="tbGlyphUndecile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="14" Name="tbTextUndecile" Text="Undecile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="14" Name="tbUndecileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Semi quintile -->
-                    <CheckBox Grid.Column="0" Grid.Row="14" Name="cboxSemiQuintile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="14" Name="tbGlyphSemiQuintile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="14" Name="tbTextSemiQuintile" Text="SemiQuintile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="14" Name="tbSemiQuintileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="0" Grid.Row="15" Name="cboxSemiQuintile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="15" Name="tbGlyphSemiQuintile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="15" Name="tbTextSemiQuintile" Text="SemiQuintile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="15" Name="tbSemiQuintileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Novile -->
-                    <CheckBox Grid.Column="0" Grid.Row="15" Name="cboxNovile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="15" Name="tbGlyphNovile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="15" Name="tbTextNovile" Text="Novile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="15" Name="tbNovileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="0" Grid.Row="16" Name="cboxNovile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="16" Name="tbGlyphNovile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="16" Name="tbTextNovile" Text="Novile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="16" Name="tbNovileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- BiNovile -->
-                    <CheckBox Grid.Column="0" Grid.Row="16" Name="cboxBiNovile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="1" Grid.Row="16" Name="tbGlyphBiNovile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="2" Grid.Row="16" Name="tbTextBiNovile" Text="BiNovile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="3" Grid.Row="16" Name="tbBiNovileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="0" Grid.Row="17" Name="cboxBiNovile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="17" Name="tbGlyphBiNovile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="2" Grid.Row="17" Name="tbTextBiNovile" Text="BiNovile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="3" Grid.Row="17" Name="tbBiNovileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
 
                     <!-- Centile -->
-                    <CheckBox Grid.Column="5" Grid.Row="12" Name="cboxCentile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="12" Name="tbGlyphCentile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="12" Name="tbTextCentile" Text="Centile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="12" Name="tbCentileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="13" Name="cboxCentile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="13" Name="tbGlyphCentile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="13" Name="tbTextCentile" Text="Centile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="13" Name="tbCentileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- BiSeptile -->
-                    <CheckBox Grid.Column="5" Grid.Row="13" Name="cboxBiSeptile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="13" Name="tbGlyphBiSeptile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="13" Name="tbTextBiSeptile" Text="BiSeptile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="13" Name="tbBiSeptileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="14" Name="cboxBiSeptile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="14" Name="tbGlyphBiSeptile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="14" Name="tbTextBiSeptile" Text="BiSeptile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="14" Name="tbBiSeptileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- TriDecile -->
-                    <CheckBox Grid.Column="5" Grid.Row="14" Name="cboxTriDecile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="14" Name="tbGlyphTriDecile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="14" Name="tbTextTriDecile" Text="TriDecile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="14" Name="tbTriDecileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="15" Name="cboxTriDecile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="15" Name="tbGlyphTriDecile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="15" Name="tbTextTriDecile" Text="TriDecile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="15" Name="tbTriDecileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- TriSeptile -->
-                    <CheckBox Grid.Column="5" Grid.Row="15" Name="cboxTriSeptile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="15" Name="tbGlyphTriSeptile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="15" Name="tbTextTriSeptile" Text="TriSeptile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="15" Name="tbTriSeptileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="16" Name="cboxTriSeptile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="16" Name="tbGlyphTriSeptile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="16" Name="tbTextTriSeptile" Text="TriSeptile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="16" Name="tbTriSeptileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                     <!-- Quadranovile -->
-                    <CheckBox Grid.Column="5" Grid.Row="16" Name="cboxQuadranovile" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="6" Grid.Row="16" Name="tbGlyphQuadranovile" Text="x" FontFamily="EnigmaAstrology" VerticalAlignment="Center"/>
-                    <TextBlock Grid.Column="7" Grid.Row="16" Name="tbTextQuadranovile" Text="Quadranovile" VerticalAlignment="Center"/>
-                    <TextBox Grid.Column="8" Grid.Row="16" Name="tbQuadranovileFactor" Text="1.0" Height="16.0" VerticalAlignment="Center" />
+                    <CheckBox Grid.Column="5" Grid.Row="17" Name="cboxQuadranovile" VerticalAlignment="Center" Margin="6,0,0,0"/>
+                    <TextBlock Grid.Column="6" Grid.Row="17" Name="tbGlyphQuadranovile" Text="x" FontFamily="EnigmaAstrology" Margin ="6,0,6,0" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="7" Grid.Row="17" Name="tbTextQuadranovile" Text="Quadranovile" VerticalAlignment="Center"/>
+                    <TextBox Grid.Column="8" Grid.Row="17" Name="tbQuadranovileFactor" Text="1.0" Height="16.0" Margin="0,0,6,0" VerticalAlignment="Center" />
                 </Grid>
             </TabItem>
         </TabControl>

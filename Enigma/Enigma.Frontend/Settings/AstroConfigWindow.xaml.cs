@@ -8,6 +8,7 @@ using System.Windows;
 using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using Enigma.Domain.Analysis;
 
 namespace Enigma.Frontend.Settings;
 
@@ -58,7 +59,7 @@ public partial class AstroConfigWindow : Window
         tbBasicExplanation.Text = _rosetta.TextForId("astroconfigwindow.basiccelpointsexpl");
         tbClassical.Text = _rosetta.TextForId("astroconfigwindow.classicalpoints");
         tbModern.Text = _rosetta.TextForId("astroconfigwindow.modernpoints");
-
+        tbMundanePoints.Text = _rosetta.TextForId("astroconfigwindow.mundanepoints");
         tbBasicPointLeft.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
         tbBasicPointRight.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
         tbBasicOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
@@ -73,6 +74,11 @@ public partial class AstroConfigWindow : Window
         tbTextUranus.Text = _rosetta.TextForId("ref.enum.solsyspoint.uranus");
         tbTextNeptune.Text = _rosetta.TextForId("ref.enum.solsyspoint.neptune");
         tbTextPluto.Text = _rosetta.TextForId("ref.enum.solsyspoint.pluto");
+        tbTextMc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.mc");
+        tbTextAsc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.asc");
+        tbTextVertex.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.vertex");
+        tbTextEastpoint.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.eastpoint");
+
         tbTextParsSect.Text = _rosetta.TextForId("ref.enum.solsyspoint.parssect");
         tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.solsyspoint.parsnosect");
         // Tab Math and Minor points
@@ -145,68 +151,126 @@ public partial class AstroConfigWindow : Window
         tbTextPersephoneCarteret.Text = _rosetta.TextForId("ref.enum.solsyspoint.persephone_carteret");
         tbTextTransPluto.Text = _rosetta.TextForId("ref.enum.solsyspoint.transpluto");
 
-
-
+        // Tab aspects
+        TitleAspects.Text = _rosetta.TextForId("astroconfigwindow.aspects");
+        tbAspectsExplanation.Text = _rosetta.TextForId("astroconfigwindow.aspectsexpl");
+        tbMajorAspects.Text = _rosetta.TextForId("astroconfigwindow.majoraspects");
+        tbMinorAspects.Text = _rosetta.TextForId("astroconfigwindow.minoraspects");
+        tbMicroAspects.Text = _rosetta.TextForId("astroconfigwindow.microaspects");
+        tbAspectLabelLeft.Text = _rosetta.TextForId("astroconfigwindow.aspect");
+        tbAspectLabelRight.Text = _rosetta.TextForId("astroconfigwindow.aspect");
+        tbOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbTextConjunction.Text = _rosetta.TextForId("ref.enum.aspect.conjunction");
+        tbTextOpposition.Text = _rosetta.TextForId("ref.enum.aspect.opposition");
+        tbTextTriangle.Text = _rosetta.TextForId("ref.enum.aspect.triangle");
+        tbTextSquare.Text = _rosetta.TextForId("ref.enum.aspect.square");
+        tbTextSextile.Text = _rosetta.TextForId("ref.enum.aspect.sextile");
+        tbTextSemiSextile.Text = _rosetta.TextForId("ref.enum.aspect.semisextile");
+        tbTextInconjunct.Text = _rosetta.TextForId("ref.enum.aspect.inconjunct");
+        tbTextSemiSquare.Text = _rosetta.TextForId("ref.enum.aspect.semisquare");
+        tbTextSesquiquadrate.Text = _rosetta.TextForId("ref.enum.aspect.sesquiquadrate");
+        tbTextQuintile.Text = _rosetta.TextForId("ref.enum.aspect.quintile");
+        tbTextBiQuintile.Text = _rosetta.TextForId("ref.enum.aspect.biquintile");
+        tbTextSeptile.Text = _rosetta.TextForId("ref.enum.aspect.septile");
+        tbTextVigintile.Text = _rosetta.TextForId("ref.enum.aspect.vigintile");
+        tbTextUndecile.Text = _rosetta.TextForId("ref.enum.aspect.undecile");
+        tbTextSemiQuintile.Text = _rosetta.TextForId("ref.enum.aspect.semiquintile");
+        tbTextNovile.Text = _rosetta.TextForId("ref.enum.aspect.novile");
+        tbTextBiNovile.Text = _rosetta.TextForId("ref.enum.aspect.binovile");
+        tbTextCentile.Text = _rosetta.TextForId("ref.enum.aspect.centile");
+        tbTextBiSeptile.Text = _rosetta.TextForId("ref.enum.aspect.septile");
+        tbTextTriDecile.Text = _rosetta.TextForId("ref.enum.aspect.tridecile");
+        tbTextTriSeptile.Text = _rosetta.TextForId("ref.enum.aspect.triseptile");
+        tbTextQuadranovile.Text = _rosetta.TextForId("ref.enum.aspect.quadranovile");
     }
 
-private void PopulateGlyphs()
-{
-    tbGlyphSun.Text = _controller.DefineGlyph(SolarSystemPoints.Sun);
-    tbGlyphMoon.Text = _controller.DefineGlyph(SolarSystemPoints.Moon);
-    tbGlyphMercury.Text = _controller.DefineGlyph(SolarSystemPoints.Mercury);
-    tbGlyphVenus.Text = _controller.DefineGlyph(SolarSystemPoints.Venus);
-    tbGlyphMars.Text = _controller.DefineGlyph(SolarSystemPoints.Mars);
-    tbGlyphJupiter.Text = _controller.DefineGlyph(SolarSystemPoints.Jupiter);
-    tbGlyphSaturn.Text = _controller.DefineGlyph(SolarSystemPoints.Saturn);
-    tbGlyphUranus.Text = _controller.DefineGlyph(SolarSystemPoints.Uranus);
-    tbGlyphNeptune.Text = _controller.DefineGlyph(SolarSystemPoints.Neptune);
-    tbGlyphPluto.Text = _controller.DefineGlyph(SolarSystemPoints.Pluto);
-    tbGlyphParsSect.Text = _controller.DefineGlyph(SolarSystemPoints.ParsFortunaSect);
-    tbGlyphParsNoSect.Text = _controller.DefineGlyph(SolarSystemPoints.ParsFortunaNoSect);
+    private void PopulateGlyphs()
+    {
+        tbGlyphSun.Text = _controller.DefineGlyph(SolarSystemPoints.Sun);
+        tbGlyphMoon.Text = _controller.DefineGlyph(SolarSystemPoints.Moon);
+        tbGlyphMercury.Text = _controller.DefineGlyph(SolarSystemPoints.Mercury);
+        tbGlyphVenus.Text = _controller.DefineGlyph(SolarSystemPoints.Venus);
+        tbGlyphMars.Text = _controller.DefineGlyph(SolarSystemPoints.Mars);
+        tbGlyphJupiter.Text = _controller.DefineGlyph(SolarSystemPoints.Jupiter);
+        tbGlyphSaturn.Text = _controller.DefineGlyph(SolarSystemPoints.Saturn);
+        tbGlyphUranus.Text = _controller.DefineGlyph(SolarSystemPoints.Uranus);
+        tbGlyphNeptune.Text = _controller.DefineGlyph(SolarSystemPoints.Neptune);
+        tbGlyphPluto.Text = _controller.DefineGlyph(SolarSystemPoints.Pluto);
+        tbGlyphMc.Text = _controller.DefineGlyph(MundanePoints.Mc);
+        tbGlyphAsc.Text = _controller.DefineGlyph(MundanePoints.Ascendant);
+        tbGlyphVertex.Text = _controller.DefineGlyph(MundanePoints.Vertex);
+        tbGlyphEastpoint.Text = _controller.DefineGlyph(MundanePoints.EastPoint);
 
-    tbGlyphMeanNode.Text = _controller.DefineGlyph(SolarSystemPoints.MeanNode);
-    tbGlyphTrueNode.Text = _controller.DefineGlyph(SolarSystemPoints.TrueNode);
-    tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeMean);
-    tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeCorrected);
-    tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeInterpolated);
-    tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeDuval);
-    tbGlyphZeroAries.Text = _controller.DefineGlyph(SolarSystemPoints.ZeroAries);
+        tbGlyphParsSect.Text = _controller.DefineGlyph(SolarSystemPoints.ParsFortunaSect);
+        tbGlyphParsNoSect.Text = _controller.DefineGlyph(SolarSystemPoints.ParsFortunaNoSect);
 
-    tbGlyphHuya.Text = _controller.DefineGlyph(SolarSystemPoints.Huya);
-    tbGlyphVaruna.Text = _controller.DefineGlyph(SolarSystemPoints.Varuna);
-    tbGlyphIxion.Text = _controller.DefineGlyph(SolarSystemPoints.Ixion);
-    tbGlyphQuaoar.Text = _controller.DefineGlyph(SolarSystemPoints.Quaoar);
-    tbGlyphHaumea.Text = _controller.DefineGlyph(SolarSystemPoints.Haumea);
-    tbGlyphEris.Text = _controller.DefineGlyph(SolarSystemPoints.Eris);
-    tbGlyphSedna.Text = _controller.DefineGlyph(SolarSystemPoints.Sedna);
-    tbGlyphOrcus.Text = _controller.DefineGlyph(SolarSystemPoints.Orcus);
-    tbGlyphMakemake.Text = _controller.DefineGlyph(SolarSystemPoints.Makemake);
+        tbGlyphMeanNode.Text = _controller.DefineGlyph(SolarSystemPoints.MeanNode);
+        tbGlyphTrueNode.Text = _controller.DefineGlyph(SolarSystemPoints.TrueNode);
+        tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeMean);
+        tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeCorrected);
+        tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeInterpolated);
+        tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeDuval);
+        tbGlyphZeroAries.Text = _controller.DefineGlyph(SolarSystemPoints.ZeroAries);
 
-    tbGlyphChiron.Text = _controller.DefineGlyph(SolarSystemPoints.Chiron);
-    tbGlyphNessus.Text = _controller.DefineGlyph(SolarSystemPoints.Nessus);
-    tbGlyphPholus.Text = _controller.DefineGlyph(SolarSystemPoints.Pholus);
+        tbGlyphHuya.Text = _controller.DefineGlyph(SolarSystemPoints.Huya);
+        tbGlyphVaruna.Text = _controller.DefineGlyph(SolarSystemPoints.Varuna);
+        tbGlyphIxion.Text = _controller.DefineGlyph(SolarSystemPoints.Ixion);
+        tbGlyphQuaoar.Text = _controller.DefineGlyph(SolarSystemPoints.Quaoar);
+        tbGlyphHaumea.Text = _controller.DefineGlyph(SolarSystemPoints.Haumea);
+        tbGlyphEris.Text = _controller.DefineGlyph(SolarSystemPoints.Eris);
+        tbGlyphSedna.Text = _controller.DefineGlyph(SolarSystemPoints.Sedna);
+        tbGlyphOrcus.Text = _controller.DefineGlyph(SolarSystemPoints.Orcus);
+        tbGlyphMakemake.Text = _controller.DefineGlyph(SolarSystemPoints.Makemake);
 
-    tbGlyphCeres.Text = _controller.DefineGlyph(SolarSystemPoints.Ceres);
-    tbGlyphPallas.Text = _controller.DefineGlyph(SolarSystemPoints.Pallas);
-    tbGlyphJuno.Text = _controller.DefineGlyph(SolarSystemPoints.Juno);
-    tbGlyphVesta.Text = _controller.DefineGlyph(SolarSystemPoints.Vesta);
-    tbGlyphHygieia.Text = _controller.DefineGlyph(SolarSystemPoints.Hygieia);
-    tbGlyphAstraea.Text = _controller.DefineGlyph(SolarSystemPoints.Astraea);
+        tbGlyphChiron.Text = _controller.DefineGlyph(SolarSystemPoints.Chiron);
+        tbGlyphNessus.Text = _controller.DefineGlyph(SolarSystemPoints.Nessus);
+        tbGlyphPholus.Text = _controller.DefineGlyph(SolarSystemPoints.Pholus);
 
-    tbGlyphCupido.Text = _controller.DefineGlyph(SolarSystemPoints.CupidoUra);
-    tbGlyphHades.Text = _controller.DefineGlyph(SolarSystemPoints.HadesUra);
-    tbGlyphZeus.Text = _controller.DefineGlyph(SolarSystemPoints.ZeusUra);
-    tbGlyphKronos.Text = _controller.DefineGlyph(SolarSystemPoints.KronosUra);
-    tbGlyphApollon.Text = _controller.DefineGlyph(SolarSystemPoints.ApollonUra);
-    tbGlyphAdmetos.Text = _controller.DefineGlyph(SolarSystemPoints.AdmetosUra);
-    tbGlyphVulkanusUra.Text = _controller.DefineGlyph(SolarSystemPoints.VulcanusUra);
-    tbGlyphPoseidon.Text = _controller.DefineGlyph(SolarSystemPoints.PoseidonUra);
-    tbGlyphPersephoneRam.Text = _controller.DefineGlyph(SolarSystemPoints.PersephoneRam);
-    tbGlyphHermes.Text = _controller.DefineGlyph(SolarSystemPoints.HermesRam);
-    tbGlyphDemeter.Text = _controller.DefineGlyph(SolarSystemPoints.DemeterRam);
-    tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(SolarSystemPoints.VulcanusCarteret);
-    tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(SolarSystemPoints.PersephoneCarteret);
-    tbGlyphTransPluto.Text = _controller.DefineGlyph(SolarSystemPoints.Isis);
+        tbGlyphCeres.Text = _controller.DefineGlyph(SolarSystemPoints.Ceres);
+        tbGlyphPallas.Text = _controller.DefineGlyph(SolarSystemPoints.Pallas);
+        tbGlyphJuno.Text = _controller.DefineGlyph(SolarSystemPoints.Juno);
+        tbGlyphVesta.Text = _controller.DefineGlyph(SolarSystemPoints.Vesta);
+        tbGlyphHygieia.Text = _controller.DefineGlyph(SolarSystemPoints.Hygieia);
+        tbGlyphAstraea.Text = _controller.DefineGlyph(SolarSystemPoints.Astraea);
+
+        tbGlyphCupido.Text = _controller.DefineGlyph(SolarSystemPoints.CupidoUra);
+        tbGlyphHades.Text = _controller.DefineGlyph(SolarSystemPoints.HadesUra);
+        tbGlyphZeus.Text = _controller.DefineGlyph(SolarSystemPoints.ZeusUra);
+        tbGlyphKronos.Text = _controller.DefineGlyph(SolarSystemPoints.KronosUra);
+        tbGlyphApollon.Text = _controller.DefineGlyph(SolarSystemPoints.ApollonUra);
+        tbGlyphAdmetos.Text = _controller.DefineGlyph(SolarSystemPoints.AdmetosUra);
+        tbGlyphVulkanusUra.Text = _controller.DefineGlyph(SolarSystemPoints.VulcanusUra);
+        tbGlyphPoseidon.Text = _controller.DefineGlyph(SolarSystemPoints.PoseidonUra);
+        tbGlyphPersephoneRam.Text = _controller.DefineGlyph(SolarSystemPoints.PersephoneRam);
+        tbGlyphHermes.Text = _controller.DefineGlyph(SolarSystemPoints.HermesRam);
+        tbGlyphDemeter.Text = _controller.DefineGlyph(SolarSystemPoints.DemeterRam);
+        tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(SolarSystemPoints.VulcanusCarteret);
+        tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(SolarSystemPoints.PersephoneCarteret);
+        tbGlyphTransPluto.Text = _controller.DefineGlyph(SolarSystemPoints.Isis);
+
+        tbGlyphConjunction.Text = _controller.DefineGlyph(AspectTypes.Conjunction);
+        tbGlyphOpposition.Text = _controller.DefineGlyph(AspectTypes.Opposition);
+        tbGlyphTriangle.Text = _controller.DefineGlyph(AspectTypes.Triangle);
+        tbGlyphSquare.Text = _controller.DefineGlyph(AspectTypes.Square);
+        tbGlyphSextile.Text = _controller.DefineGlyph(AspectTypes.Sextile);
+        tbGlyphSemiSextile.Text = _controller.DefineGlyph(AspectTypes.SemiSextile);
+        tbGlyphInconjunct.Text = _controller.DefineGlyph(AspectTypes.Inconjunct);
+        tbGlyphSemiSquare.Text = _controller.DefineGlyph(AspectTypes.SemiSquare);
+        tbGlyphSesquiquadrate.Text = _controller.DefineGlyph(AspectTypes.SesquiQuadrate);
+        tbGlyphQuintile.Text = _controller.DefineGlyph(AspectTypes.Quintile);
+        tbGlyphBiQuintile.Text = _controller.DefineGlyph(AspectTypes.BiQuintile);
+        tbGlyphSeptile.Text = _controller.DefineGlyph(AspectTypes.Septile);
+        tbGlyphVigintile.Text = _controller.DefineGlyph(AspectTypes.Vigintile);
+        tbGlyphUndecile.Text = _controller.DefineGlyph(AspectTypes.Undecile);
+        tbGlyphSemiQuintile.Text = _controller.DefineGlyph(AspectTypes.SemiQuintile);
+        tbGlyphNovile.Text = _controller.DefineGlyph(AspectTypes.Novile);
+        tbGlyphBiNovile.Text = _controller.DefineGlyph(AspectTypes.BiNovile);
+        tbGlyphCentile.Text = _controller.DefineGlyph(AspectTypes.Centile);
+        tbGlyphBiSeptile.Text = _controller.DefineGlyph(AspectTypes.BiSeptile);
+        tbGlyphTriDecile.Text = _controller.DefineGlyph(AspectTypes.TriDecile);
+        tbGlyphTriSeptile.Text = _controller.DefineGlyph(AspectTypes.TriSeptile);
+        tbGlyphQuadranovile.Text = _controller.DefineGlyph(AspectTypes.QuadraNovile);
 
     }
 
