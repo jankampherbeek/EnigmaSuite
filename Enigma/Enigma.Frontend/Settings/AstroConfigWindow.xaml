@@ -22,8 +22,10 @@
             <TabItem Name="tabGeneral" Header="TabGeneral">
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="25*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40"/>
@@ -42,35 +44,46 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="25"/>
                         <RowDefinition Height="6"/>
+                        <RowDefinition Height="40"/>
                         <RowDefinition Height="25"/>
+
+
                     </Grid.RowDefinitions>
                     
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="TitleGeneral" Text="Title General" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Name="TitleGeneral" Text="Title General" Margin="6" Style="{StaticResource subTitleStyle}"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9"  Grid.RowSpan="2" />
-                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="tbHouseSystemExpl" Text="tbHouseSystemExpl" Margin="6" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="0" Grid.Row="2" Name="tbHouseSystem" Text="tbHouseSystem" FontWeight="Bold" Margin="6"/>
-                    <ComboBox Grid.Column="1" Grid.Row="2" Margin="6" Name="comboHouseSystem" Text="" SelectionChanged="HouseSystemChanged" IsEditable="True" IsReadOnly="True"/>
+                    <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"  Grid.RowSpan="2" />
+                    <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Name="tbHouseSystemExpl" Text="tbHouseSystemExpl" Margin="6" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Name="tbHouseSystem" Text="tbHouseSystem" FontWeight="Bold" Margin="6"/>
+                    <ComboBox Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Margin="6" Name="comboHouseSystem" Text="" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="9"  Grid.RowSpan="2"/>
-                    <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Name="tbZodiacTypeExpl" Text="tbZodiacTypeExpl" Margin="6" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="0" Grid.Row="5" Name="tbZodiacType" Text="tbZodiacType" FontWeight="Bold" Margin="6"/>
-                    <ComboBox Grid.Column="1" Grid.Row="5" Margin="6" Name="comboZodiacType" Text="" SelectionChanged="ZodiacTypeChanged" IsEditable="True" IsReadOnly="True"/>
+                    <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4"  Grid.RowSpan="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Name="tbZodiacTypeExpl" Text="tbZodiacTypeExpl" Margin="6" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="tbZodiacType" Text="tbZodiacType" FontWeight="Bold" Margin="6"/>
+                    <ComboBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2"  Margin="6" Name="comboZodiacType" Text="" SelectionChanged="ZodiacTypeChanged" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="9"  Grid.RowSpan="2"/>
-                    <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Name="tbAyanamshaExpl" Text="tbAyanamshaExpl" Margin="6" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="0" Grid.Row="8" Name="tbAyanamsha" Text="tbAynamsha" FontWeight="Bold" Margin="6"/>
-                    <ComboBox Grid.Column="1" Grid.Row="8" Margin="6" Name="comboAyanamsha" Text="" SelectionChanged="AyanamshaChanged" IsEditable="True" IsReadOnly="True"/>
+                    <Rectangle Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4"  Grid.RowSpan="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4" Name="tbAyanamshaExpl" Text="tbAyanamshaExpl" Margin="6" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Name="tbAyanamsha" Text="tbAynamsha" FontWeight="Bold" Margin="6"/>
+                    <ComboBox Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="6" Name="comboAyanamsha" Text="" SelectionChanged="AyanamshaChanged" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="9"  Grid.RowSpan="2"/>
-                    <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2" Name="tbObserverPosExpl" Text="tbObserverPosExpl" Margin="6" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="0" Grid.Row="11" Name="tbObserverPos" Text="tbObserverPos" FontWeight="Bold" Margin="6"/>
-                    <ComboBox Grid.Column="1" Grid.Row="11" Margin="6" Name="comboObserverPos" Text="" SelectionChanged="ObserverPosChanged" IsEditable="True" IsReadOnly="True"/>
+                    <Rectangle Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4"  Grid.RowSpan="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4" Name="tbObserverPosExpl" Text="tbObserverPosExpl" Margin="6" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Name="tbObserverPos" Text="tbObserverPos" FontWeight="Bold" Margin="6"/>
+                    <ComboBox Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="2" Margin="6" Name="comboObserverPos" Text="" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="9"  Grid.RowSpan="2"/>
-                    <TextBlock Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2" Name="tbProjectionTypeExpl" Text="tbProjectionTypeExpl" Margin="6" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="0" Grid.Row="14" Name="tbProjectionType" Text="tbProjectionType" FontWeight="Bold" Margin="6"/>
-                    <ComboBox Grid.Column="1" Grid.Row="14" Margin="6" Name="comboProjectionType" Text="" SelectionChanged="ObserverPosChanged" IsEditable="True" IsReadOnly="True"/>
+                    <Rectangle Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4"  Grid.RowSpan="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4" Name="tbProjectionTypeExpl" Text="tbProjectionTypeExpl" Margin="6" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Name="tbProjectionType" Text="tbProjectionType" FontWeight="Bold" Margin="6"/>
+                    <ComboBox Grid.Column="2" Grid.Row="14" Grid.ColumnSpan="2" Margin="6" Name="comboProjectionType" Text="" IsEditable="True" IsReadOnly="True"/>
+
+                    <Rectangle Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="4"  Grid.RowSpan="2"/>
+                    <TextBlock Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="4" Name="tbBaseOrbExpl" Text="tbBaseOrbExpl" Margin="6" TextWrapping="Wrap"/>
+                    <TextBlock Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="1" Name="tbAspectBaseOrb" Text="tbAspectBaseOrb" FontWeight="Bold" Margin="6"/>
+                    <TextBox Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="1" Margin="6" Name="tboxAspectBaseOrb" Text="tboxAspectBaseOrb"/>
+                    <TextBlock Grid.Column="2" Grid.Row="17" Grid.ColumnSpan="1" Name="tbMidpointBaseOrb" Text="tbMidpointBaseOrb" FontWeight="Bold" Margin="6"/>
+                    <TextBox Grid.Column="3" Grid.Row="17" Grid.ColumnSpan="1" Margin="6" Name="tboxMidpointAspectBaseOrb" Text="tboxMidpointBaseOrb" />
+
                 </Grid>                                
             </TabItem>
             <TabItem Name="tabBasicPoints" Header="TabBasicPoints">

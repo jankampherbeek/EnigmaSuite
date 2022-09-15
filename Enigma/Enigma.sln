@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Frontend", "Enigma.Frontend\Enigma.Frontend.csproj", "{CA39B2B5-44BD-4822-ABEE-AD413485B27D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3E09E614-6627-4FEA-9B74-8144A9CF53A9} = {3E09E614-6627-4FEA-9B74-8144A9CF53A9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Test", "Enigma.Test\Enigma.Test.csproj", "{3CEAA68B-B316-4DA4-9125-0D75051057DE}"
 EndProject
@@ -13,7 +16,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Calc", "Enigma.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Frontend.InputSupport", "Enigma.Frontend.InputSupport\Enigma.Frontend.InputSupport.csproj", "{3E47014A-23B9-42CD-9B75-3DD661C17395}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Core.Analysis", "Enigma.Core.Analysis\Enigma.Core.Analysis.csproj", "{256B8085-4CF5-4E87-8597-2215E2C47227}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Analysis", "Enigma.Core.Analysis\Enigma.Core.Analysis.csproj", "{256B8085-4CF5-4E87-8597-2215E2C47227}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Persistency", "Enigma.Persistency\Enigma.Persistency.csproj", "{3E09E614-6627-4FEA-9B74-8144A9CF53A9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14} = {B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Configuration", "Configuration\Enigma.Configuration.csproj", "{4FC41900-8060-4D21-9920-08C3B06CE0F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +55,14 @@ Global
 		{256B8085-4CF5-4E87-8597-2215E2C47227}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{256B8085-4CF5-4E87-8597-2215E2C47227}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{256B8085-4CF5-4E87-8597-2215E2C47227}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

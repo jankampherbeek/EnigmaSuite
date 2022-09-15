@@ -18,6 +18,7 @@ using System.Windows;
 using Enigma.Core.Analysis.Services;
 using Enigma.Frontend.DataFiles;
 using Enigma.Frontend.Settings;
+using Enigma.Persistency.Services;
 
 namespace Enigma.Frontend;
 
@@ -82,6 +83,7 @@ public partial class App : Application
         serviceCollection.RegisterDomainServices();
         serviceCollection.RegisterInputSupportServices();
         serviceCollection.RegisterAnalysisServices();
+        serviceCollection.RegisterPersistencyServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

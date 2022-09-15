@@ -15,6 +15,9 @@ appsettingswindow.locswisseph = Swiss Ephemeris files
 appsettingswindow.title = Application settings
 
 --- Astro Config Window -------------------------------
+astroconfigwindow.baseorbexpl = Base orb, the maximum allowed orb in degrees. For aspects, the actual orb will be modified by the weighting factors for celestial points and specific aspects.
+astroconfigwindow.baseorbaspect = Base orb for aspects
+astroconfigwindow.baseorbmidpoint = Base orb for midpoints
 astroconfigwindow.aspect = Aspect
 astroconfigwindow.aspects = Aspects
 astroconfigwindow.aspectsexpl = Select the aspects you want to use. For each aspect define the weighting factor, running from 0.0 to 1.0. The weighting factor is combined with the weighting factor of the celestial point to define the actual orb.
@@ -167,7 +170,7 @@ common.yearcount.rb.hist = Historical
 mainwindow.btnnewchart = New chart
 mainwindow.btnnewproject = New project
 mainwindow.btnopenproject = Open project
-mainwindow.formtitle = Enigma Research
+mainwindow.formtitle = Enigma Research 0.1
 mainwindow.menu.miadhoc = Ad hoc actions
 mainwindow.menu.miadhoc.chart = Calculate chart
 mainwindow.menu.miadhoc.calculations = Calculators

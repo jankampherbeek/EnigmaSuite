@@ -53,6 +53,10 @@ public partial class AstroConfigWindow : Window
         tbObserverPos.Text = _rosetta.TextForId("astroconfigwindow.observerpos");
         tbProjectionTypeExpl.Text = _rosetta.TextForId("astroconfigwindow.projectiontypeexpl");
         tbProjectionType.Text = _rosetta.TextForId("astroconfigwindow.projectiontype");
+        tbBaseOrbExpl.Text = _rosetta.TextForId("astroconfigwindow.baseorbexpl");
+        tbAspectBaseOrb.Text = _rosetta.TextForId("astroconfigwindow.baseorbaspect");
+        tbMidpointBaseOrb.Text = _rosetta.TextForId("astroconfigwindow.baseorbmidpoint");
+
         // Tab Basic celestial points
         TitleBasicCelPoints.Text = _rosetta.TextForId("astroconfigwindow.basiccelpoints");
         tbArabicParts.Text = _rosetta.TextForId("astroconfigwindow.arabicparts");
@@ -290,16 +294,6 @@ public void OkClick(object sender, RoutedEventArgs e)
 }
 
 public void AyanamshaChanged(object sender, RoutedEventArgs e)
-{
-
-}
-
-public void HouseSystemChanged(object sender, RoutedEventArgs e)
-{
-
-}
-
-public void ObserverPosChanged(object sender, RoutedEventArgs e)
 {
 
 }

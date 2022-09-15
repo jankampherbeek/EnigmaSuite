@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Settings;
 
-namespace Enigma.Test.Domain.Settings;
+namespace Enigma.Test.Configuration.Domain;
 
 
 [TestFixture]

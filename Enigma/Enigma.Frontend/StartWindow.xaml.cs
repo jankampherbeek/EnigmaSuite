@@ -33,7 +33,11 @@ public partial class StartWindow : Window
     private void ShowSplashAndFinishView()
     {
         Show();
-        Thread.Sleep(1500);
+        Thread.Sleep(500);
+        // TODO remove sleep
+        // TODO check for configfile and write if not available
+        // TODO check for settingsfile and write if not available
+        // TODO check for update
 
         MainWindow? mainWindow = App.ServiceProvider.GetService<MainWindow>();
         if (mainWindow != null)

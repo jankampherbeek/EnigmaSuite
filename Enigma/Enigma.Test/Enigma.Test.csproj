@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Configuration\Enigma.Configuration.csproj" />
     <ProjectReference Include="..\Enigma.Core.Analysis\Enigma.Core.Analysis.csproj" />
     <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />

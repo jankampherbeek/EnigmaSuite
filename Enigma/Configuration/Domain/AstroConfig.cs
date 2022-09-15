@@ -6,7 +6,7 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.CalcVars;
 
-namespace Enigma.Domain.Settings;
+namespace Enigma.Configuration.Domain;
 
 public class AstroConfig
 {
@@ -15,7 +15,7 @@ public class AstroConfig
     public ObserverPositions ObserverPosition { get; set; }
     public ZodiacTypes ZodiacType { get; set; }
     public ProjectionTypes ProjectionType { get; set; }
-    public List<CelPointSpecs>? CelPoints { get; set; } 
+    public List<CelPointSpecs>? CelPoints { get; set; }
     public List<AspectSpecs>? Aspects { get; set; }
     public OrbMethods OrbMethod { get; set; }
 }
@@ -25,8 +25,8 @@ public class AstroConfig
 public record CelPointSpecs
 {
     public SolarSystemPoints SolarSystemPoint { get; set; }
-      public double FactorAspectOrb { get; set; }
-      public bool IsUsed { get; set; }
+    public double FactorAspectOrb { get; set; }
+    public bool IsUsed { get; set; }
 
     public CelPointSpecs(SolarSystemPoints solarSystemPoint, double factorAspectOrb, bool isUsed)
     {
