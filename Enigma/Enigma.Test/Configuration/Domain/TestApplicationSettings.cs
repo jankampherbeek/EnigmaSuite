@@ -1,8 +1,8 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Settings;
+using Enigma.Configuration.Domain;
 
 namespace Enigma.Test.Configuration.Domain;
 
@@ -39,6 +39,7 @@ public class TestApplicationSettings
         ApplicationSettings newSettings = ApplicationSettings.Instance;
         Assert.That(_newProjData, Is.EqualTo(newSettings.LocationProjectFiles));
     }
+
 
 
 

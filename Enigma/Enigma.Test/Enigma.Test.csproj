@@ -28,4 +28,9 @@
     <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configuration\Handlers\" />
+    <Folder Include="Configuration\Parsers\" />
+  </ItemGroup>
+
 </Project>

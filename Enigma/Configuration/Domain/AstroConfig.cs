@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -10,23 +10,40 @@ namespace Enigma.Configuration.Domain;
 
 public class AstroConfig
 {
-    public HouseSystems HouseSystem { get; set; }
-    public Ayanamshas Ayanamsha { get; set; }
-    public ObserverPositions ObserverPosition { get; set; }
-    public ZodiacTypes ZodiacType { get; set; }
-    public ProjectionTypes ProjectionType { get; set; }
-    public List<CelPointSpecs>? CelPoints { get; set; }
-    public List<AspectSpecs>? Aspects { get; set; }
-    public OrbMethods OrbMethod { get; set; }
+    public HouseSystems HouseSystem { get; }
+    public Ayanamshas Ayanamsha { get; }
+    public ObserverPositions ObserverPosition { get; }
+    public ZodiacTypes ZodiacType { get; }
+    public ProjectionTypes ProjectionType { get; }
+    public OrbMethods OrbMethod { get; }
+    public List<CelPointSpecs> CelPoints { get; }
+    public List<AspectSpecs> Aspects { get; }
+    public double BaseOrbAspects { get; }
+    public double BaseOrbMidpoints { get; }
+
+    public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPositions, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
+        List<CelPointSpecs> celPoints, List<AspectSpecs> aspects, double baseOrbAspects, double baseOrbMidpoints)
+    {
+        HouseSystem = houseSystem;
+        Ayanamsha = ayanamsha;
+        ObserverPosition = observerPositions;
+        ZodiacType = zodiacType;
+        ProjectionType = projectionType;
+        OrbMethod = orbMethod;
+        CelPoints = celPoints;
+        Aspects = aspects;
+        BaseOrbAspects = baseOrbAspects;
+        BaseOrbMidpoints = baseOrbMidpoints;    
+    }
 }
 
 
 
 public record CelPointSpecs
 {
-    public SolarSystemPoints SolarSystemPoint { get; set; }
-    public double FactorAspectOrb { get; set; }
-    public bool IsUsed { get; set; }
+    public SolarSystemPoints SolarSystemPoint { get; }
+    public double FactorAspectOrb { get; }
+    public bool IsUsed { get; }
 
     public CelPointSpecs(SolarSystemPoints solarSystemPoint, double factorAspectOrb, bool isUsed)
     {
@@ -38,13 +55,15 @@ public record CelPointSpecs
 
 public record AspectSpecs
 {
-    public AspectTypes AspectType { get; set; }
-    public double FactorOrb { get; set; }
+    public AspectTypes AspectType { get; }
+    public double FactorOrb { get; }
+    public bool IsUsed { get; }
 
-    public AspectSpecs(AspectTypes aspectType, double factorOrb)
+    public AspectSpecs(AspectTypes aspectType, double factorOrb, bool isUsed)
     {
         AspectType = aspectType;
         FactorOrb = factorOrb;
+        IsUsed = isUsed;
     }
 }
 

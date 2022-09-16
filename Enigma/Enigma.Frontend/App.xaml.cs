@@ -19,6 +19,10 @@ using Enigma.Core.Analysis.Services;
 using Enigma.Frontend.DataFiles;
 using Enigma.Frontend.Settings;
 using Enigma.Persistency.Services;
+using Enigma.Configuration.Services;
+using Enigma.Domain.Constants;
+using System.IO;
+using Enigma.Configuration.Parsers;
 
 namespace Enigma.Frontend;
 
@@ -33,9 +37,14 @@ public partial class App : Application
 
         string pathToSeFiles = @"c:\sweph";                    // TODO make path to SE files configurable
         SeInitializer.SetEphePath(pathToSeFiles);
+        HandleRegistrationForDI();
+    }
 
+    protected void HandleRegistrationForDI()
+    {
         var serviceCollection = new ServiceCollection();
 
+        // Handle services from project Enigma.Frontend.
         serviceCollection.AddTransient<AboutWindow>();
         serviceCollection.AddTransient<AppSettingsController>();
         serviceCollection.AddTransient<AppSettingsWindow>();
@@ -78,15 +87,16 @@ public partial class App : Application
         serviceCollection.AddTransient<StartWindow>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
-
+        
+        // Handle services from other projects.
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
         serviceCollection.RegisterInputSupportServices();
         serviceCollection.RegisterAnalysisServices();
         serviceCollection.RegisterPersistencyServices();
+        serviceCollection.RegisterConfigurationServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
-
 
     }
 }

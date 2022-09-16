@@ -1,16 +1,20 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Settings;
+using Enigma.Configuration.Domain;
 using System.Text.Json;
 
 namespace Enigma.Persistency.Parsers;
 
 
+public interface IAstroConfigParser
+{
+    public string Marshall(AstroConfig astroConfig);
+    public AstroConfig UnMarshall(string jsonString);
+}
 
-
-public class AstroConfigPersister
+public class AstroConfigParser: IAstroConfigParser
 {
     public string Marshall(AstroConfig astroConfig)
     {

@@ -167,7 +167,7 @@ public static class EnigmaConstants
     /// <summary>Number of seconds in one degree.</summary>
     public const int SECONDS_PER_MINUTE_DEGREE = 60;
     // Characters
-    /// <summary>SMall elevated circle to identify degrees.</summary>
+    /// <summary>Small elevated circle to identify degrees.</summary>
     public const char DEGREE_SIGN = '\u00B0';
     /// <summary>Apostroph-like identification for positional minutes.</summary>
     public const char MINUTE_SIGN = '\u2032';
@@ -181,4 +181,9 @@ public static class EnigmaConstants
     public const char SEPARATOR_GEOLONG = ':';
     /// <summary>Separator for geographic latitude input.</summary>
     public const char SEPARATOR_GEOLAT = ':';
+
+
+    // Locations
+    /// <summary>Location of configuration file, contains path and filename.</summary>
+    public const string CONFIG_LOCATION = @"./enigmaconfig.json";
 }
