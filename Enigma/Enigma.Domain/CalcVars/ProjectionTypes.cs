@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.CalcVars;
@@ -30,7 +30,7 @@ public record ProjectionTypeDetails
 }
 
 /// <summary>Specification for a Projection Type.</summary>
-public interface IProjectionTypeDetailSpecifications          // TODO rename to IProjectionTypeSpecifications
+public interface IProjectionTypeSpecifications      
 {
     /// <summary>Returns the details for a Projection Type.</summary>
     /// <param name="projectionType">Instance from the enum ProjectionTypes.</param>
@@ -42,10 +42,11 @@ public interface IProjectionTypeDetailSpecifications          // TODO rename to 
     /// Throws an exception if no ProjectionTypes for the given index does exist.</param>
     /// <returns>Instance from enum ProjectionTypes that corresponds with the given index.</returns>
     public ProjectionTypes ProjectionTypeForIndex(int projectionTypeIndex);
+    public List<ProjectionTypeDetails> AllProjectionTypeDetails();
 }
 
 /// <inheritdoc/>
-public class ProjectionTypeDetailSpecifications : IProjectionTypeDetailSpecifications
+public class ProjectionTypeSpecifications : IProjectionTypeSpecifications
 {
     /// <inheritdoc/>
     /// <exception cref="ArgumentException">Is thrown if the projection type was not recognized.</exception>
@@ -53,8 +54,8 @@ public class ProjectionTypeDetailSpecifications : IProjectionTypeDetailSpecifica
     {
         return projectionType switch
         {
-            ProjectionTypes.twoDimensional => new ProjectionTypeDetails(projectionType, ""),
-            ProjectionTypes.obliqueLongitude => new ProjectionTypeDetails(projectionType, ""),
+            ProjectionTypes.twoDimensional => new ProjectionTypeDetails(projectionType, "ref.enum.projectiontype.twodimensional"),
+            ProjectionTypes.obliqueLongitude => new ProjectionTypeDetails(projectionType, "ref.enum.projectiontype.obliquelongitude"),
             _ => throw new ArgumentException("ProjectionType unknown : " + projectionType.ToString())
         };
     }
@@ -67,4 +68,14 @@ public class ProjectionTypeDetailSpecifications : IProjectionTypeDetailSpecifica
         }
         throw new ArgumentException("Could not find ProjectionTypes for index : " + projectionTypeIndex);
     }
+    public List<ProjectionTypeDetails> AllProjectionTypeDetails()
+    {
+        var allDetails = new List<ProjectionTypeDetails>();
+        foreach (ProjectionTypes projectionType in Enum.GetValues(typeof(ProjectionTypes)))
+        {
+            allDetails.Add(DetailsForProjectionType(projectionType));
+        }
+        return allDetails;
+    }
+
 }

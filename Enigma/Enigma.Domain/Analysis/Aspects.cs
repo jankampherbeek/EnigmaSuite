@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Analysis;
@@ -9,29 +9,28 @@ namespace Enigma.Domain.Analysis;
 /// </summary>
 public enum AspectTypes
 {
-    Conjunction,
-    Opposition,
-    Triangle,
-    Square,
-    Septile,
-    Sextile,
-    Quintile,
-    SemiSextile,
-    SemiSquare,
-    SemiQuintile,
-    BiQuintile,
-    Inconjunct,
-    SesquiQuadrate,
-    Decile,
-    TriDecile,
-    BiSeptile,
-    TriSeptile,
-    Novile,
-    BiNovile,
-    QuadraNovile,
-    Undecile,
-    Centile,
-    Vigintile
+    Conjunction = 0,
+    Opposition = 1,
+    Triangle = 2,
+    Square = 3,
+    Septile = 4,
+    Sextile = 5,
+    Quintile = 6,
+    SemiSextile = 7,
+    SemiSquare = 8,
+    SemiQuintile = 9,
+    BiQuintile = 10,
+    Inconjunct = 11,
+    SesquiQuadrate = 12,
+    TriDecile = 13,
+    BiSeptile = 14,
+    TriSeptile = 15,
+    Novile = 16,
+    BiNovile = 17,
+    QuadraNovile = 18,
+    Undecile = 19,
+    Centile = 20,
+    Vigintile = 21
 }
 
 /// <summary>
@@ -97,7 +96,6 @@ public class AspectSpecifications : IAspectSpecifications
             AspectTypes.SemiQuintile => new AspectDetails(aspect, 36.0, "ref.enum.aspect.semiquintile", "Ö", 0.0),
             AspectTypes.Inconjunct => new AspectDetails(aspect, 150.0, "ref.enum.aspect.inconjunct", "H", 0.2),
             AspectTypes.SesquiQuadrate => new AspectDetails(aspect, 135.0, "ref.enum.aspect.sesquiquadrate", "J", 0.2),
-            AspectTypes.Decile => new AspectDetails(aspect, 36.0, "ref.enum.aspect.decile", "Ö", 0.0),
             AspectTypes.TriDecile => new AspectDetails(aspect, 108.0, "ref.enum.aspect.tridecile", "Õ", 0.0),
             AspectTypes.BiSeptile => new AspectDetails(aspect, 102.85714286, "biseptile", "Ú", 0.0),
             AspectTypes.TriSeptile => new AspectDetails(aspect, 154.28571429, "triseptile", "Û", 0.0),

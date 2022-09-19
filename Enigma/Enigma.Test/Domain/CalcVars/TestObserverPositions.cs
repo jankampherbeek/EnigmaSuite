@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.CalcVars;
@@ -19,7 +19,7 @@ public class TestObserverPositionSpecifications
         Assert.IsNotNull(details);
         Assert.That(details.ObserverPosition, Is.EqualTo(position));
         Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
-        Assert.That(details.TextId, Is.EqualTo("observerPosTopoCentric"));
+        Assert.That(details.TextId, Is.EqualTo("ref.enum.observerposition.topocentric"));
     }
 
     [Test]

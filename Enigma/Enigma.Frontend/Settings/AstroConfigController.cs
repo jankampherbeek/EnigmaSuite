@@ -2,10 +2,12 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Configuration.Domain;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.CalcVars;
+using Enigma.Frontend.State;
 using System;
-using System.Collections;
+
 
 namespace Enigma.Frontend.Settings;
 
@@ -13,12 +15,15 @@ public class AstroConfigController
 {
     private ISolarSystemPointSpecifications _solarSystemPointSpecifications;
     private IAspectSpecifications _aspectSpecifications;
+    private AstroConfig _astroConfig;
 
     public AstroConfigController(ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IAspectSpecifications aspectSpecifications)
     {
         _solarSystemPointSpecifications = solarSystemPointSpecifications;
         _aspectSpecifications = aspectSpecifications;
+        _astroConfig = CurrentConfig.Instance.GetConfig();
+
     }
 
     public string DefineGlyph(SolarSystemPoints point)
@@ -47,4 +52,10 @@ public class AstroConfigController
     {
         return _aspectSpecifications.DetailsForAspect(aspect).Glyph;
     }
+
+    public AstroConfig GetConfig()
+    {
+        return _astroConfig;
+    }
+
 }

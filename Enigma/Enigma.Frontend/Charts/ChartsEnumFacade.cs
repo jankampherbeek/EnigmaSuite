@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -7,6 +7,8 @@ using Enigma.Domain.CalcVars;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
 using System.Collections.Generic;
+
+namespace Enigma.Frontend.Charts;
 
 /// <summary>
 /// Simple facade to manage the number of imports that is required to use enums.
@@ -20,6 +22,11 @@ public interface IChartsEnumFacade
     public List<RoddenRatingDetails> AllRoddenRatingDetails();
     public List<TimeZoneDetails> AllTimeZoneDetails();
     public List<YearCountDetails> AllYearCountDetails();
+    public List<HouseSystemDetails> AllHouseSystemDetails();
+    public List<AyanamshaDetails> AllAyanamshaDetails();
+    public List<ZodiacTypeDetails> AllZodiacTypeDetails();
+    public List<ObserverPositionDetails> AllObserverPositionDetails();
+    public List<ProjectionTypeDetails> AllProjectionTypeDetails();
 }
 
 
@@ -33,6 +40,11 @@ public class ChartsEnumFacade : IChartsEnumFacade
     private IRoddenRatingSpecifications _roddenRatingSpecifications;
     private ITimeZoneSpecifications _timeZoneSpecifications;
     private IYearCountSpecifications _yearCountSpecifications;
+    private IHouseSystemSpecs _houseSystemSpecs;
+    private IAyanamshaSpecifications _ayanamshaSpecifications;
+    private IZodiacTypeSpecifications _zodiacTypeSpecifications;
+    private IObserverPositionSpecifications _observerPositionSpecifications;
+    private IProjectionTypeSpecifications _projectionTypeSpecifications;
 
     public ChartsEnumFacade(ICalendarSpecifications calendarSpecifications,
                             IChartCategorySpecifications chartCategorySpecifications,
@@ -40,7 +52,12 @@ public class ChartsEnumFacade : IChartsEnumFacade
                             IDirections4GeoLongSpecifications directions4GeoLongSpecifications,
                             IRoddenRatingSpecifications roddenRatingSpecifications,
                             ITimeZoneSpecifications timeZoneSpecifications,
-                            IYearCountSpecifications yearCountSpecifications)
+                            IYearCountSpecifications yearCountSpecifications,
+                            IHouseSystemSpecs houseSystemSpecs,
+                            IAyanamshaSpecifications ayanamshaSpecifications,
+                            IZodiacTypeSpecifications zodiacTypeSpecifications,
+                            IObserverPositionSpecifications observerPositionSpecifications,
+                            IProjectionTypeSpecifications projectionTypeSpecifications)
     {
         _calendarSpecifications = calendarSpecifications;
         _chartCategorySpecifications = chartCategorySpecifications;
@@ -49,6 +66,11 @@ public class ChartsEnumFacade : IChartsEnumFacade
         _roddenRatingSpecifications = roddenRatingSpecifications;
         _timeZoneSpecifications = timeZoneSpecifications;
         _yearCountSpecifications = yearCountSpecifications;
+        _houseSystemSpecs = houseSystemSpecs;
+        _ayanamshaSpecifications = ayanamshaSpecifications;
+        _zodiacTypeSpecifications = zodiacTypeSpecifications;
+        _observerPositionSpecifications = observerPositionSpecifications;
+        _projectionTypeSpecifications = projectionTypeSpecifications;
     }
 
 
@@ -86,4 +108,30 @@ public class ChartsEnumFacade : IChartsEnumFacade
     {
         return _yearCountSpecifications.AllDetailsForYearCounts();
     }
+
+    public List<HouseSystemDetails> AllHouseSystemDetails()
+    {
+        return _houseSystemSpecs.AllHouseSystemDetails();       
+    }
+
+    public List<AyanamshaDetails> AllAyanamshaDetails()
+    {
+        return _ayanamshaSpecifications.AllAyanamshaDetails();
+    }
+
+    public List<ZodiacTypeDetails> AllZodiacTypeDetails()
+    {
+        return _zodiacTypeSpecifications.AllZodiacTypeDetails();
+    }
+
+    public List<ObserverPositionDetails> AllObserverPositionDetails()
+    {
+        return _observerPositionSpecifications.AllObserverPositionDetails();
+    }
+
+    public List<ProjectionTypeDetails> AllProjectionTypeDetails()
+    {
+        return _projectionTypeSpecifications.AllProjectionTypeDetails();
+    }
+
 }

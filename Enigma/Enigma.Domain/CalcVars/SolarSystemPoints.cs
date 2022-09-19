@@ -1,20 +1,21 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Domain.Constants;
-using System.Runtime.ConstrainedExecution;
 
 namespace Enigma.Domain.CalcVars;
 
 /// <summary>Supported points in the Solar System (Planets, lights, Plutoids etc.).</summary>
 public enum SolarSystemPoints
 {
-    Sun, Moon, Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, MeanNode, TrueNode, Chiron, PersephoneRam, HermesRam, DemeterRam,
-    CupidoUra, HadesUra, ZeusUra, KronosUra, ApollonUra, AdmetosUra, VulcanusUra, PoseidonUra, Eris, Pholus, Ceres, Pallas, Juno, Vesta, Isis, Nessus,
-    Huya, Varuna, Ixion, Quaoar, Haumea, Orcus, Makemake, Sedna, Hygieia, Astraea, ApogeeMean, ApogeeCorrected, ApogeeInterpolated, ApogeeDuval, ZeroAries, 
-    ParsFortunaNoSect, ParsFortunaSect, PersephoneCarteret, VulcanusCarteret
+    Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth = 4, Mars = 5, Jupiter = 6, Saturn = 7, Uranus = 8, Neptune = 9, 
+    Pluto = 10, MeanNode = 11, TrueNode = 12, Chiron = 13, PersephoneRam = 14, HermesRam = 15, DemeterRam = 16, CupidoUra = 17, HadesUra = 18, ZeusUra = 19, 
+    KronosUra = 20, ApollonUra = 21, AdmetosUra = 22, VulcanusUra = 23, PoseidonUra = 24, Eris = 25, Pholus = 26, Ceres = 27, Pallas = 28, Juno = 29, 
+    Vesta = 30, Isis = 31, Nessus = 32, Huya = 33, Varuna = 34, Ixion = 35, Quaoar = 36, Haumea = 37, Orcus = 38, Makemake = 39, 
+    Sedna = 40, Hygieia = 41, Astraea = 42, ApogeeMean = 43, ApogeeCorrected = 44, ApogeeInterpolated = 45, ApogeeDuval = 46, ZeroAries = 47, ParsFortunaNoSect = 48, ParsFortunaSect = 49, 
+    PersephoneCarteret = 50, VulcanusCarteret = 51
 }
 
 /// <summary>Details for a Solar System Point.</summary>

@@ -3,7 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Configuration.Domain;
-using System.Text.Json;
+using Newtonsoft.Json;
+using System.Security.Principal;
 
 namespace Enigma.Persistency.Parsers;
 
@@ -18,19 +19,12 @@ public class AstroConfigParser: IAstroConfigParser
 {
     public string Marshall(AstroConfig astroConfig)
     {
-        var options = new JsonSerializerOptions()
-        {
-            WriteIndented = true
-        };
-        string jsonString = JsonSerializer.Serialize(astroConfig, options);
-
-        return jsonString;
+        return JsonConvert.SerializeObject(astroConfig, Formatting.Indented);
     }
 
-    public AstroConfig UnMarshall(string jsonString)
+    public AstroConfig UnMarshall(string json)
     {
-        AstroConfig? astroConfig = JsonSerializer.Deserialize<AstroConfig>(jsonString);
-        return astroConfig;
+        return JsonConvert.DeserializeObject<AstroConfig>(json);
     }
 
 }

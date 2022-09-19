@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.CalcVars;
@@ -18,7 +18,7 @@ public class TestAyanamshaSpecifications
         Assert.IsNotNull(details);
         Assert.That(details.Ayanamsha, Is.EqualTo(Ayanamshas.Huber));
         Assert.That(details.SeId, Is.EqualTo(12));
-        Assert.That(details.TextId, Is.EqualTo("ayanamshaHuber"));
+        Assert.That(details.TextId, Is.EqualTo("ref.enum.ayanamsha.huber"));
     }
 
     [Test]

@@ -24,7 +24,7 @@ public static class DomainServices
         serviceCollection.AddTransient<IMundanePointSpecifications, MundanePointSpecifications>();
         serviceCollection.AddTransient<IObserverPositionSpecifications, ObserverPositionSpecifications>();
         serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();
-        serviceCollection.AddTransient<IProjectionTypeDetailSpecifications, ProjectionTypeDetailSpecifications>();
+        serviceCollection.AddTransient<IProjectionTypeSpecifications, ProjectionTypeSpecifications>();
         serviceCollection.AddTransient<IRoddenRatingSpecifications, RoddenRatingSpecifications>();
         serviceCollection.AddTransient<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>();
         serviceCollection.AddTransient<ISolSysPointCatSpecifications, SolSysPointCatSpecifications>();

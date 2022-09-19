@@ -18,19 +18,23 @@ public class AstroConfig
     public OrbMethods OrbMethod { get; }
     public List<CelPointSpecs> CelPoints { get; }
     public List<AspectSpecs> Aspects { get; }
+    public List<MundanePointSpecs> MundanePoints { get; }
+    public List<ArabicPointSpecs> ArabicPoints { get; }
     public double BaseOrbAspects { get; }
     public double BaseOrbMidpoints { get; }
 
-    public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPositions, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
-        List<CelPointSpecs> celPoints, List<AspectSpecs> aspects, double baseOrbAspects, double baseOrbMidpoints)
+    public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
+        List<CelPointSpecs> celPoints, List<AspectSpecs> aspects, List<MundanePointSpecs> mundanePoints, List<ArabicPointSpecs> arabicPoints, double baseOrbAspects, double baseOrbMidpoints)
     {
         HouseSystem = houseSystem;
         Ayanamsha = ayanamsha;
-        ObserverPosition = observerPositions;
+        ObserverPosition = observerPosition;
         ZodiacType = zodiacType;
         ProjectionType = projectionType;
         OrbMethod = orbMethod;
         CelPoints = celPoints;
+        MundanePoints = mundanePoints;
+        ArabicPoints = arabicPoints;
         Aspects = aspects;
         BaseOrbAspects = baseOrbAspects;
         BaseOrbMidpoints = baseOrbMidpoints;    
@@ -38,6 +42,7 @@ public class AstroConfig
 }
 
 
+// TODO rename CelPointSpecs, AspectSpecs, MundanePOintSpecs and ArabicPointSpecs to *FrontendSpecs
 
 public record CelPointSpecs
 {
@@ -67,6 +72,33 @@ public record AspectSpecs
     }
 }
 
+public record MundanePointSpecs
+{
+    public MundanePoints MundanePoint { get; }
+    public double FactorOrb { get; }
+    public bool IsUsed { get; }
 
+    public MundanePointSpecs(MundanePoints mundanePoint, double factorOrb, bool isUsed)
+    {
+        MundanePoint = mundanePoint;
+        FactorOrb = factorOrb;
+        IsUsed = isUsed;
+    }
+}
+
+
+public record ArabicPointSpecs
+{
+    public ArabicPoints ArabicPoint { get; }
+    public double FactorOrb { get; }
+    public bool IsUsed { get; }
+
+    public ArabicPointSpecs(ArabicPoints arabicPoint, double factorOrb, bool isUsed)
+    {
+        ArabicPoint = arabicPoint;
+        FactorOrb = factorOrb;
+        IsUsed = isUsed;
+    }
+}
 
 

@@ -1,5 +1,5 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma Research is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.CalcVars;
@@ -9,6 +9,11 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Controls;
 using System.Xml.Linq;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.DateTime;
+using System;
+using Enigma.Frontend.Charts;
+using Enigma.Configuration.Domain;
+using System.Collections.Generic;
 
 namespace Enigma.Frontend.Settings;
 
@@ -19,13 +24,16 @@ public partial class AstroConfigWindow : Window
 {
     private AstroConfigController _controller;
     private IRosetta _rosetta;
-    public AstroConfigWindow(AstroConfigController controller, IRosetta rosetta)
+    private IChartsEnumFacade _enumFacade;
+    public AstroConfigWindow(AstroConfigController controller, IRosetta rosetta, IChartsEnumFacade enumFacade)
     {
         InitializeComponent(); 
         _controller = controller;
         _rosetta = rosetta;
+        _enumFacade = enumFacade;
         PopulateTexts();
         PopulateGlyphs();
+        DefaultValues();
     }
 
     private void PopulateTexts()
@@ -178,7 +186,7 @@ public partial class AstroConfigWindow : Window
         tbTextBiQuintile.Text = _rosetta.TextForId("ref.enum.aspect.biquintile");
         tbTextSeptile.Text = _rosetta.TextForId("ref.enum.aspect.septile");
         tbTextVigintile.Text = _rosetta.TextForId("ref.enum.aspect.vigintile");
-        tbTextUndecile.Text = _rosetta.TextForId("ref.enum.aspect.undecile");
+        tbTextUnDecile.Text = _rosetta.TextForId("ref.enum.aspect.undecile");
         tbTextSemiQuintile.Text = _rosetta.TextForId("ref.enum.aspect.semiquintile");
         tbTextNovile.Text = _rosetta.TextForId("ref.enum.aspect.novile");
         tbTextBiNovile.Text = _rosetta.TextForId("ref.enum.aspect.binovile");
@@ -186,7 +194,7 @@ public partial class AstroConfigWindow : Window
         tbTextBiSeptile.Text = _rosetta.TextForId("ref.enum.aspect.septile");
         tbTextTriDecile.Text = _rosetta.TextForId("ref.enum.aspect.tridecile");
         tbTextTriSeptile.Text = _rosetta.TextForId("ref.enum.aspect.triseptile");
-        tbTextQuadranovile.Text = _rosetta.TextForId("ref.enum.aspect.quadranovile");
+        tbTextQuadraNovile.Text = _rosetta.TextForId("ref.enum.aspect.quadranovile");
     }
 
     private void PopulateGlyphs()
@@ -266,7 +274,7 @@ public partial class AstroConfigWindow : Window
         tbGlyphBiQuintile.Text = _controller.DefineGlyph(AspectTypes.BiQuintile);
         tbGlyphSeptile.Text = _controller.DefineGlyph(AspectTypes.Septile);
         tbGlyphVigintile.Text = _controller.DefineGlyph(AspectTypes.Vigintile);
-        tbGlyphUndecile.Text = _controller.DefineGlyph(AspectTypes.Undecile);
+        tbGlyphUnDecile.Text = _controller.DefineGlyph(AspectTypes.Undecile);
         tbGlyphSemiQuintile.Text = _controller.DefineGlyph(AspectTypes.SemiQuintile);
         tbGlyphNovile.Text = _controller.DefineGlyph(AspectTypes.Novile);
         tbGlyphBiNovile.Text = _controller.DefineGlyph(AspectTypes.BiNovile);
@@ -274,33 +282,245 @@ public partial class AstroConfigWindow : Window
         tbGlyphBiSeptile.Text = _controller.DefineGlyph(AspectTypes.BiSeptile);
         tbGlyphTriDecile.Text = _controller.DefineGlyph(AspectTypes.TriDecile);
         tbGlyphTriSeptile.Text = _controller.DefineGlyph(AspectTypes.TriSeptile);
-        tbGlyphQuadranovile.Text = _controller.DefineGlyph(AspectTypes.QuadraNovile);
+        tbGlyphQuadraNovile.Text = _controller.DefineGlyph(AspectTypes.QuadraNovile);
 
     }
 
 
-public void CancelClick(object sender, RoutedEventArgs e)
-{
-Close();
-}
-public void HelpClick(object sender, RoutedEventArgs e)
-{
 
-}
+    private void DefaultValues()
+    {
+        comboHouseSystem.Items.Clear();
+        foreach (var detail in _enumFacade.AllHouseSystemDetails())
+        {
+            comboHouseSystem.Items.Add(_rosetta.TextForId(detail.TextId));
+        }
+        comboHouseSystem.SelectedIndex = (int)_controller.GetConfig().HouseSystem;
 
-public void OkClick(object sender, RoutedEventArgs e)
-{
+        comboZodiacType.Items.Clear();
+        foreach (var detail in _enumFacade.AllZodiacTypeDetails())
+        {
+            comboZodiacType.Items.Add(_rosetta.TextForId(detail.TextId));
+        }
+        comboZodiacType.SelectedIndex = (int)_controller.GetConfig().ZodiacType;
 
-}
 
-public void AyanamshaChanged(object sender, RoutedEventArgs e)
-{
+        comboAyanamsha.Items.Clear();
+        foreach (var detail in _enumFacade.AllAyanamshaDetails())
+        {
+            comboAyanamsha.Items.Add(_rosetta.TextForId(detail.TextId));
+        }
+        comboAyanamsha.SelectedIndex = (int)_controller.GetConfig().Ayanamsha;
 
-}
+        comboObserverPos.Items.Clear();
+        foreach (var detail in _enumFacade.AllObserverPositionDetails())
+        {
+            comboObserverPos.Items.Add(_rosetta.TextForId(detail.TextId));
+        }
+        comboObserverPos.SelectedIndex = (int)_controller.GetConfig().ObserverPosition;
 
-public void ZodiacTypeChanged(object sender, RoutedEventArgs e)
-{
+        comboProjectionType.Items.Clear();
+        foreach (var detail in _enumFacade.AllProjectionTypeDetails())
+        {
+            comboProjectionType.Items.Add(_rosetta.TextForId(detail.TextId));
+        }
+        comboProjectionType.SelectedIndex = (int)_controller.GetConfig().ProjectionType;
 
-}
+
+        tboxAspectBaseOrb.Text = (_controller.GetConfig().BaseOrbAspects).ToString();
+        tboxMidpointAspectBaseOrb.Text = (_controller.GetConfig().BaseOrbMidpoints).ToString();
+
+        List<CelPointSpecs> celPoints = _controller.GetConfig().CelPoints;
+
+        tboxSunFactor.Text = (celPoints[0].FactorAspectOrb).ToString();
+        tboxMoonFactor.Text = (celPoints[1].FactorAspectOrb).ToString();
+        tboxMercuryFactor.Text = (celPoints[2].FactorAspectOrb).ToString();
+        tboxVenusFactor.Text = (celPoints[3].FactorAspectOrb).ToString();
+        tboxMarsFactor.Text = (celPoints[5].FactorAspectOrb).ToString();
+        tboxJupiterFactor.Text = (celPoints[6].FactorAspectOrb).ToString();
+        tboxSaturnFactor.Text = (celPoints[7].FactorAspectOrb).ToString();
+        tboxUranusFactor.Text = (celPoints[8].FactorAspectOrb).ToString();
+        cboxUranus.IsChecked = celPoints[8].IsUsed;
+        tboxNeptuneFactor.Text = (celPoints[9].FactorAspectOrb).ToString();
+        cboxNeptune.IsChecked = celPoints[9].IsUsed;
+        tboxPlutoFactor.Text = (celPoints[10].FactorAspectOrb).ToString();
+        cboxPluto.IsChecked = celPoints[10].IsUsed;
+        tboxMeanNodeFactor.Text = (celPoints[11].FactorAspectOrb).ToString();
+        cboxMeanNode.IsChecked = celPoints[11].IsUsed;
+        tboxTrueNodeFactor.Text = (celPoints[12].FactorAspectOrb).ToString();
+        cboxTrueNode.IsChecked = celPoints[12].IsUsed;
+        tboxChironFactor.Text = (celPoints[13].FactorAspectOrb).ToString();
+        cboxChiron.IsChecked = celPoints[13].IsUsed;
+        tboxPersephoneRamFactor.Text = (celPoints[14].FactorAspectOrb).ToString();
+        cboxPersephoneRam.IsChecked = celPoints[14].IsUsed;
+        tboxHermesFactor.Text = (celPoints[15].FactorAspectOrb).ToString();
+        cboxHermes.IsChecked = celPoints[15].IsUsed;
+        tboxDemeterFactor.Text = (celPoints[16].FactorAspectOrb).ToString();
+        cboxDemeter.IsChecked = celPoints[16].IsUsed;
+        tboxCupidoFactor.Text = (celPoints[17].FactorAspectOrb).ToString();
+        cboxCupido.IsChecked = celPoints[17].IsUsed;
+        tboxHadesFactor.Text = (celPoints[18].FactorAspectOrb).ToString();
+        cboxHades.IsChecked = celPoints[18].IsUsed;
+        tboxZeusFactor.Text = (celPoints[19].FactorAspectOrb).ToString();
+        cboxZeus.IsChecked = celPoints[19].IsUsed;
+        tboxKronosFactor.Text = (celPoints[20].FactorAspectOrb).ToString();
+        cboxKronos.IsChecked = celPoints[20].IsUsed;
+        tboxApollonFactor.Text = (celPoints[21].FactorAspectOrb).ToString();
+        cboxApollon.IsChecked = celPoints[21].IsUsed;
+        tboxAdmetosFactor.Text = (celPoints[22].FactorAspectOrb).ToString();
+        cboxAdmetos.IsChecked = celPoints[22].IsUsed;
+        tboxVulkanusUraFactor.Text = (celPoints[23].FactorAspectOrb).ToString();
+        cboxVulkanusUra.IsChecked = celPoints[23].IsUsed;
+        tboxPoseidonFactor.Text = (celPoints[24].FactorAspectOrb).ToString();
+        cboxPoseidon.IsChecked = celPoints[24].IsUsed;
+        tboxErisFactor.Text = (celPoints[25].FactorAspectOrb).ToString();
+        cboxEris.IsChecked = celPoints[25].IsUsed;
+        tboxPholusFactor.Text = (celPoints[26].FactorAspectOrb).ToString();
+        cboxPholus.IsChecked = celPoints[26].IsUsed;
+        tboxCeresFactor.Text = (celPoints[27].FactorAspectOrb).ToString();
+        cboxCeres.IsChecked = celPoints[27].IsUsed;
+        tboxPallasFactor.Text = (celPoints[28].FactorAspectOrb).ToString();
+        cboxPallas.IsChecked = celPoints[28].IsUsed;
+        tboxJunoFactor.Text = (celPoints[29].FactorAspectOrb).ToString();
+        cboxJuno.IsChecked = celPoints[29].IsUsed;
+        tboxVestaFactor.Text = (celPoints[30].FactorAspectOrb).ToString();
+        cboxVesta.IsChecked = celPoints[30].IsUsed;
+        tboxTransPlutoFactor.Text = (celPoints[31].FactorAspectOrb).ToString();
+        cboxTransPluto.IsChecked = celPoints[31].IsUsed;
+        tboxNessusFactor.Text = (celPoints[32].FactorAspectOrb).ToString();
+        cboxNessus.IsChecked = celPoints[32].IsUsed;
+        tboxHuyaFactor.Text = (celPoints[33].FactorAspectOrb).ToString();
+        cboxHuya.IsChecked = celPoints[33].IsUsed;
+        tboxVarunaFactor.Text = (celPoints[34].FactorAspectOrb).ToString();
+        cboxVaruna.IsChecked = celPoints[34].IsUsed;
+        tboxIxionFactor.Text = (celPoints[35].FactorAspectOrb).ToString();
+        cboxIxion.IsChecked = celPoints[35].IsUsed;
+        tboxQuaoarFactor.Text = (celPoints[36].FactorAspectOrb).ToString();
+        cboxQuaoar.IsChecked = celPoints[36].IsUsed;
+        tboxHaumeaFactor.Text = (celPoints[37].FactorAspectOrb).ToString();
+        cboxHaumea.IsChecked = celPoints[37].IsUsed;
+        tboxOrcusFactor.Text = (celPoints[38].FactorAspectOrb).ToString();
+        cboxOrcus.IsChecked = celPoints[38].IsUsed;
+        tboxMakemakeFactor.Text = (celPoints[39].FactorAspectOrb).ToString();
+        cboxMakemake.IsChecked = celPoints[39].IsUsed;
+        tboxSednaFactor.Text = (celPoints[40].FactorAspectOrb).ToString();
+        cboxSedna.IsChecked = celPoints[40].IsUsed;
+        tboxHygieiaFactor.Text = (celPoints[41].FactorAspectOrb).ToString();
+        cboxHygieia.IsChecked = celPoints[41].IsUsed;
+        tboxAstraeaFactor.Text = (celPoints[42].FactorAspectOrb).ToString();
+        cboxAstraea.IsChecked = celPoints[42].IsUsed;
+        tboxMeanBlackMoonFactor.Text = (celPoints[43].FactorAspectOrb).ToString();
+        cboxMeanBlackMoon.IsChecked = celPoints[43].IsUsed;
+        tboxCorrBlackMoonFactor.Text = (celPoints[44].FactorAspectOrb).ToString();
+        cboxCorrBlackMoon.IsChecked = celPoints[44].IsUsed;
+        tboxInterpolatedBlackMoonFactor.Text = (celPoints[45].FactorAspectOrb).ToString();
+        cboxInterpolatedBlackMoon.IsChecked = celPoints[45].IsUsed;
+        tboxDuvalBlackMoonFactor.Text = (celPoints[46].FactorAspectOrb).ToString();
+        cboxDuvalBlackMoon.IsChecked = celPoints[46].IsUsed;
+        tboxZeroAriesFactor.Text = (celPoints[47].FactorAspectOrb).ToString();
+        cboxZeroAries.IsChecked = celPoints[47].IsUsed;
+        tboxParsNoSectFactor.Text = (celPoints[48].FactorAspectOrb).ToString();
+        cboxParsNoSect.IsChecked = celPoints[48].IsUsed;
+        tboxParsSectFactor.Text = (celPoints[49].FactorAspectOrb).ToString();
+        cboxParsSect.IsChecked = celPoints[49].IsUsed;
+        tboxPersephoneCarteretFactor.Text = (celPoints[50].FactorAspectOrb).ToString();
+        cboxPersephoneCarteret.IsChecked = celPoints[50].IsUsed;
+        tboxVulcanusCarteretFactor.Text = (celPoints[51].FactorAspectOrb).ToString();
+        cboxVulcanusCarteret.IsChecked = celPoints[51].IsUsed;
+
+        // aspects
+        List<AspectSpecs> aspects = _controller.GetConfig().Aspects;
+
+        tboxConjunctionFactor.Text = (aspects[0].FactorOrb).ToString();
+        cboxConjunction.IsChecked = aspects[0].IsUsed;
+        tboxOppositionFactor.Text = (aspects[1].FactorOrb).ToString();
+        cboxOpposition.IsChecked = aspects[1].IsUsed;
+        tboxTriangleFactor.Text = (aspects[2].FactorOrb).ToString();
+        cboxTriangle.IsChecked = aspects[2].IsUsed;
+        tboxSquareFactor.Text = (aspects[3].FactorOrb).ToString();
+        cboxSquare.IsChecked = aspects[3].IsUsed;
+        tboxSeptileFactor.Text = (aspects[4].FactorOrb).ToString();
+        cboxSeptile.IsChecked = aspects[4].IsUsed;
+        tboxSextileFactor.Text = (aspects[5].FactorOrb).ToString();
+        cboxSextile.IsChecked = aspects[5].IsUsed;
+        tboxQuintileFactor.Text = (aspects[6].FactorOrb).ToString();
+        cboxQuintile.IsChecked = aspects[6].IsUsed;
+        tboxSemiSextileFactor.Text = (aspects[7].FactorOrb).ToString();
+        cboxSemiSextile.IsChecked = aspects[7].IsUsed;
+        tboxSemiSquareFactor.Text = (aspects[8].FactorOrb).ToString();
+        cboxSemiSquare.IsChecked = aspects[8].IsUsed;
+        tboxSemiQuintileFactor.Text = (aspects[9].FactorOrb).ToString();
+        cboxSemiQuintile.IsChecked = aspects[9].IsUsed;
+        tboxBiQuintileFactor.Text = (aspects[10].FactorOrb).ToString();
+        cboxBiQuintile.IsChecked = aspects[10].IsUsed;
+        tboxInconjunctFactor.Text = (aspects[11].FactorOrb).ToString();
+        cboxInconjunct.IsChecked = aspects[11].IsUsed;
+        tboxSesquiquadrateFactor.Text = (aspects[12].FactorOrb).ToString();
+        cboxSesquiquadrate.IsChecked = aspects[12].IsUsed;
+        tboxTriDecileFactor.Text = (aspects[13].FactorOrb).ToString();
+        cboxTriDecile.IsChecked = aspects[13].IsUsed;
+        tboxBiSeptileFactor.Text = (aspects[14].FactorOrb).ToString();
+        cboxBiSeptile.IsChecked = aspects[14].IsUsed;
+        tboxTriSeptileFactor.Text = (aspects[15].FactorOrb).ToString();
+        cboxTriSeptile.IsChecked = aspects[15].IsUsed;
+        tboxNovileFactor.Text = (aspects[16].FactorOrb).ToString();
+        cboxNovile.IsChecked = aspects[16].IsUsed;
+        tboxBiNovileFactor.Text = (aspects[17].FactorOrb).ToString();
+        cboxBiNovile.IsChecked = aspects[17].IsUsed;
+        tboxQuadraNovileFactor.Text = (aspects[18].FactorOrb).ToString();
+        cboxQuadraNovile.IsChecked = aspects[18].IsUsed;
+        tboxUnDecileFactor.Text = (aspects[19].FactorOrb).ToString();
+        cboxUnDecile.IsChecked = aspects[19].IsUsed;
+        tboxCentileFactor.Text = (aspects[20].FactorOrb).ToString();
+        cboxCentile.IsChecked = aspects[20].IsUsed;
+        tboxVigintileFactor.Text = (aspects[21].FactorOrb).ToString();
+        cboxVigintile.IsChecked = aspects[21].IsUsed;
+
+
+        // MundanePoints
+        List<MundanePointSpecs> mundanePoints = _controller.GetConfig().MundanePoints;
+        tboxAscFactor.Text = (mundanePoints[0].FactorOrb).ToString();
+        cboxAsc.IsChecked = mundanePoints[0].IsUsed;
+        tboxMcFactor.Text = (mundanePoints[1].FactorOrb).ToString();
+        cboxMc.IsChecked = mundanePoints[1].IsUsed;
+        tboxEastpointFactor.Text = (mundanePoints[2].FactorOrb).ToString();
+        cboxEastpoint.IsChecked = mundanePoints[2].IsUsed;
+        tboxVertexFactor.Text = (mundanePoints[3].FactorOrb).ToString();
+        cboxVertex.IsChecked = mundanePoints[3].IsUsed;
+
+        // Arabic Points
+        List<ArabicPointSpecs> arabicPoints = _controller.GetConfig().ArabicPoints;
+        tboxParsSectFactor.Text = (arabicPoints[0].FactorOrb).ToString();
+        cboxParsSect.IsChecked = arabicPoints[0].IsUsed;
+        tboxParsNoSectFactor.Text = (arabicPoints[1].FactorOrb).ToString();
+        cboxParsNoSect.IsChecked = arabicPoints[1].IsUsed;
+
+    }
+
+
+
+    public void CancelClick(object sender, RoutedEventArgs e)
+    {
+    Close();
+    }
+    public void HelpClick(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    public void OkClick(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    public void AyanamshaChanged(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    public void ZodiacTypeChanged(object sender, RoutedEventArgs e)
+    {
+
+    }
 
 }

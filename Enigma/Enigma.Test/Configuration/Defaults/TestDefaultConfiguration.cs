@@ -80,7 +80,7 @@ public class TestDefaultConfiguration
     public void TestCelPoints()
     {
         List<CelPointSpecs> celPoints = _astroConfig.CelPoints;
-        Assert.That(_astroConfig.CelPoints.Count, Is.EqualTo(51));
+        Assert.That(_astroConfig.CelPoints.Count, Is.EqualTo(52));
 
         CelPointSpecs celPointSpecs = celPoints[0];     // Sun
         Assert.That(celPointSpecs.SolarSystemPoint, Is.EqualTo(SolarSystemPoints.Sun));
@@ -93,7 +93,7 @@ public class TestDefaultConfiguration
     public void TestAspects()
     {
         List<AspectSpecs> aspects = _astroConfig.Aspects;
-        Assert.That(_astroConfig.Aspects.Count, Is.EqualTo(23));
+        Assert.That(_astroConfig.Aspects.Count, Is.EqualTo(22));
 
         AspectSpecs aspectSpecs = aspects[1];           // Opposition
         Assert.That(aspectSpecs.AspectType, Is.EqualTo(AspectTypes.Opposition));

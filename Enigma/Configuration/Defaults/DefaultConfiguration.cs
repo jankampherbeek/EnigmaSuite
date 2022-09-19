@@ -29,9 +29,12 @@ public class DefaultConfiguration : IDefaultConfiguration
         OrbMethods orbMethod = OrbMethods.Weighted;
         List<CelPointSpecs> celPointsSpecs = CreateCelPoints();
         List<AspectSpecs> aspectSpecs = CreateAspects();
+        List<MundanePointSpecs> mundanePointSpecs = CreateMundanePoints();
+        List<ArabicPointSpecs> arabicPointSpecs = CreateArabicPoints();
         double baseOrbAspects = 10.0;
         double baseOrbMidpoints = 1.6;
-        return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints);
+        return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, 
+            celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, baseOrbAspects, baseOrbMidpoints);
     }
 
     private List <CelPointSpecs> CreateCelPoints()
@@ -42,6 +45,7 @@ public class DefaultConfiguration : IDefaultConfiguration
             new CelPointSpecs(SolarSystemPoints.Moon, 1.0, true),
             new CelPointSpecs(SolarSystemPoints.Mercury, 0.8, true),
             new CelPointSpecs(SolarSystemPoints.Venus, 0.8, true),
+            new CelPointSpecs(SolarSystemPoints.Earth, 1.0, false),
             new CelPointSpecs(SolarSystemPoints.Mars, 0.8, true),
             new CelPointSpecs(SolarSystemPoints.Jupiter, 0.65, true),
             new CelPointSpecs(SolarSystemPoints.Saturn, 0.65, true),
@@ -101,8 +105,8 @@ public class DefaultConfiguration : IDefaultConfiguration
             new AspectSpecs(AspectTypes.Opposition, 1.0, true),
             new AspectSpecs(AspectTypes.Triangle, 0.85, true),
             new AspectSpecs(AspectTypes.Square, 0.85, true),
-            new AspectSpecs(AspectTypes.Sextile, 0.7, true),
             new AspectSpecs(AspectTypes.Septile, 0.3, false),
+            new AspectSpecs(AspectTypes.Sextile, 0.7, true),
             new AspectSpecs(AspectTypes.Quintile, 0.3, false),
             new AspectSpecs(AspectTypes.SemiSextile, 0.3, false),
             new AspectSpecs(AspectTypes.SemiSquare, 0.3, false),
@@ -110,7 +114,6 @@ public class DefaultConfiguration : IDefaultConfiguration
             new AspectSpecs(AspectTypes.BiQuintile, 0.3, false),
             new AspectSpecs(AspectTypes.Inconjunct, 0.3, true),
             new AspectSpecs(AspectTypes.SesquiQuadrate, 0.3, false),
-            new AspectSpecs(AspectTypes.Decile, 0.15, false),
             new AspectSpecs(AspectTypes.TriDecile, 0.15, false),
             new AspectSpecs(AspectTypes.BiSeptile, 0.15, false),
             new AspectSpecs(AspectTypes.TriSeptile, 0.15, false),
@@ -124,6 +127,27 @@ public class DefaultConfiguration : IDefaultConfiguration
         return aspectSpecs;
     }
 
+    private List<MundanePointSpecs> CreateMundanePoints()
+    {
+        List<MundanePointSpecs> mundanePointSpecs = new()
+        {
+            new MundanePointSpecs(MundanePoints.Ascendant, 1.0, true),
+            new MundanePointSpecs(MundanePoints.Mc, 1.0, true),
+            new MundanePointSpecs(MundanePoints.EastPoint, 0.2, false),
+            new MundanePointSpecs(MundanePoints.Vertex, 0.2, false)
+        };
+        return mundanePointSpecs;
+    }
+
+    private List<ArabicPointSpecs> CreateArabicPoints()
+    {
+        List<ArabicPointSpecs> arabicPointSpecs = new()
+        {
+            new ArabicPointSpecs(ArabicPoints.FortunaSect, 0.4, true),
+            new ArabicPointSpecs(ArabicPoints.FortunaNoSect, 0.4, false)
+        };
+        return arabicPointSpecs;
+    }
 
 
 
