@@ -1,0 +1,133 @@
+﻿<Application x:Class="Enigma.Frontend.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Enigma.Frontend"
+             StartupUri="StartWindow.xaml">
+    <Application.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="Liberation Sans"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Background" Value="#677DC5"/>
+            <Setter Property="Margin" Value="12, 8, 12, 0"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#788BCC"/>
+                </Trigger>
+             
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="{x:Type RadioButton}">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontFamily" Value="Liberation Sans"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="{x:Type CheckBox}">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="Black"/>
+                <Setter Property="FontFamily" Value="Liberation Sans"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style.Setters>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="0 0 0 1" />
+            <Setter Property="BorderBrush" Value="#334687" />
+            <Setter Property="Background" Value="#FFFFFF" />
+            <Setter Property="Height" Value="22"/>
+        </Style>
+        <Style TargetType="{x:Type ComboBox}">
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Height" Value="22"/>            
+        </Style>
+        <Style TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="#EEF1F9"/>
+            <Setter Property="RadiusX" Value="6"/>
+            <Setter Property="RadiusY" Value="6"/>
+        </Style>
+        <Style x:Key="actionButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="Background" Value="#334687"  />
+            <Setter Property="Margin" Value="12, 8, 12, 0"/>
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#3F57A7"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="titleStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style x:Key="subTitleStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="largeTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="DemiBold"/>
+        </Style>
+        <Style x:Key="rectangleDarkStyle" TargetType="{x:Type Rectangle}">
+            <Setter Property="Fill" Value="#DDE2F2"/>
+            <Setter Property="RadiusX" Value="6"/>
+            <Setter Property="RadiusY" Value="6"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>            
+        </Style>
+        <Style x:Key="nameColumnStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
+        <Style x:Key="glyphColumnStyle" TargetType="{x:Type DataGridCell}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="EnigmaAstrology"/>
+        </Style>
+        
+    </Application.Resources>
+</Application>

@@ -1,0 +1,34 @@
+﻿<Window x:Class="Enigma.Frontend.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma.Frontend"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"             
+        Title="AboutWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Name="Title" Text="Title" Style="{StaticResource subTitleStyle}" Margin="6"/>
+        <TextBlock Grid.Row="1" Name="Description" Text="Description" TextWrapping="Wrap" Margin="6"/>
+        <TextBlock Grid.Row="2" Name="CopyrightTitle" Text="CopyRightTitle" Style="{StaticResource subTitleStyle}" Margin="6"/>
+        <TextBlock Grid.Row="3" Name="CopyrightText" Text="CopyrightText" TextWrapping="Wrap" Margin="6"/>
+        <TextBlock Grid.Row="4" Name="MoreInfoTitle" Text="MoreInfoTitle" Style="{StaticResource subTitleStyle}" Margin="6"/>
+        <TextBlock Grid.Row="5" Name="MoreInfoText" Text="MoreInfoText" TextWrapping="Wrap" Margin="6"/>
+        <Button Grid.Row="6" Margin="6" HorizontalAlignment="Right" Width="160" Name="BtnClose" Content="BtnClose" Style="{StaticResource actionButtonStyle}" Click="CloseClick" />
+
+    </Grid>
+
+</Window>

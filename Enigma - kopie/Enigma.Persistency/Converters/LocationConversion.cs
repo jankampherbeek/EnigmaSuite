@@ -1,0 +1,89 @@
+﻿// Jan Kampherbeek, (c) 2022.
+// Enigma is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Domain.Constants;
+
+namespace Enigma.Persistency.Converters;
+
+/// <summary>
+/// Conversions for latitude and longitude for csv-data.
+/// </summary>
+public interface ILocationCheckedConversion{
+    /// <summary>Convert csv text for longitude into a double.</summary>
+    /// <param name="csvLocation">Csv text: in the format dd:mm:ss:dir (122:34:56:E)</param>
+    /// <returns>Calculated value and an indication of errors. If errors did occutr the value will be zero.</returns>
+    public Tuple<double, bool> StandardCsvToLongitude(string csvLocation);
+
+    /// <summary>Convert csv text for latitude into a double.</summary>
+    /// <param name="csvLocation">Csv text: in the format dd:mm:ss:dir (12:34:56:N)</param>
+    /// <returns>Calculated value and an indication of errors. If errors did occutr the value will be zero.</returns>
+    public Tuple<double, bool> StandardCsvToLatitude(string csvLocation);
+}
+
+/// <inheritdoc/>
+public class LocationCheckedConversion : ILocationCheckedConversion
+{
+
+    public Tuple<double, bool> StandardCsvToLongitude(string csvLocation)
+    {
+        return StandardCsvToValue(csvLocation, "E", "W", 180);
+    }
+
+    public Tuple<double, bool> StandardCsvToLatitude(string csvLocation)
+    {
+        return StandardCsvToValue(csvLocation, "N", "S", 90);
+    }
+
+
+    private Tuple<double, bool> StandardCsvToValue(string csvLocation, string dirPlus, string dirMin, int degreeLimit)
+    {
+        double calculatedValue = 0.0;
+        bool noErrors = true;
+        string[] items = csvLocation.Split(':');
+        if (items.Length == 4)
+        {
+            double direction = 0.0;
+            if (dirPlus.Equals(items[3].Trim().ToUpper())) direction = 1.0;
+            else if (dirMin.Equals(items[3].Trim().ToUpper())) direction = -1;
+            else noErrors = false;
+
+            if (noErrors)
+            {
+                Tuple<double, bool> validatedValue = SexagTextsToDouble(items[0], items[1], items[2]);
+                if (validatedValue.Item2)
+                {
+                    calculatedValue = validatedValue.Item1;
+                    if (calculatedValue >= degreeLimit)
+                    {
+                        calculatedValue = 0.0;
+                        noErrors = false;
+                    } else calculatedValue *= direction;
+                } else noErrors = false;
+            }
+        }
+        else noErrors = false;
+        return new Tuple<double, bool>(calculatedValue, noErrors);
+    }
+
+    private Tuple<double, bool> SexagTextsToDouble(string degreeText, string minuteText, string secondText)
+    {
+        bool noErrors = true;
+        bool result;
+        result = int.TryParse(degreeText, out int degrees);
+        if (!result || (degrees < 0)) noErrors = false;
+        result = int.TryParse(minuteText, out int minutes);
+        if (!result || (minutes < 0) || (minutes > 59)) noErrors = false;
+        result = int.TryParse(secondText, out int seconds);
+        if (!result || (seconds < 0) || (seconds > 59)) noErrors = false;
+        return new Tuple<double, bool>((double)degrees
+            + (double)minutes / EnigmaConstants.MINUTES_PER_HOUR_DEGREE
+            + (double)seconds / EnigmaConstants.SECONDS_PER_HOUR_DEGREE,
+            noErrors);
+    }
+
+}
+
+
+
+

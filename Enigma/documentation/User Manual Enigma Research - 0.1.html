@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>User Manual Enigma Research - 0.1</title>
+</head>
+<body><h1 id='user-manual-enigma-research-01'>User Manual Enigma Research 0.1</h1>
+<div>[TOC]</div>
+<p>&nbsp;</p>
+<h2 id='about-enigma-research'>About Enigma Research</h2>
+<p>Enigma Research is free software to aid research into astrology. The program does support the calculation and analysis of horoscopes but for the general astrologer it makes sense to use software that is aimed at the practice of astrology. For practical astrology, the free programs  <em>PlanetDance</em>, <em>Astrolog</em> or <em>Morinus</em> will come in handy.</p>
+<p>Enigma Research supports the analysis of multiple charts. It uses control groups to support the validation of results and taking care of the pitfalls of both astronomical and demographic artifacts. The program also produces clear graphics that can be used in publications.</p>
+<p>This version 0.1 is a preliminary version. It is not public and only available to a select group of researchers.</p>
+<h3 id='requirements'>Requirements</h3>
+<p>You need a computer that runs Windows. Enigma has been tested on Windows 11. It probably runs on older versions, but not older than Windows 7. Enigma will likely run in a Windows emulator on Apple hardware but that has not yet been tested.</p>
+<p>The program required about 200 mb diskspace and about 4 GB internal memory (currently this is a very rough estimation).</p>
+<p>&nbsp;</p>
+<h2 id='installation'>Installation</h2>
+<p>[todo]</p>
+<p>&nbsp;</p>
+<h2 id='starting-enigma'>Starting Enigma</h2>
+<p>[todo]</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h2 id='using-enigma'>Using Enigma</h2>
+<p>After starting Enigma you will see a screen with a menu on top.</p>
+<h3 id='celestial-points-overview'>Celestial points overview</h3>
+<p>overview</p>
+<h3 id='orbs-for-aspects'>Orbs for aspects</h3>
+<p>explanation of method and different approaches</p>
+<h3 id='ayanamshas-overview'>Ayanamshas overview</h3>
+<p>overview</p>
+<h3 id='settings'>Settings</h3>
+<p>Menu: General -&gt; Settings</p>
+<!-- html-help-begin [settings] -->
+<p>Settings define the location of files that Enigma uses. In version 0.1 these locations are fixed.</p>
+<p>The current locations are:</p>
+<ul>
+<li><strong>Location of data files</strong>: <code>c:\enigma\data</code>  Data files contain data, currently only in csv-format,  that can be used by projects.</li>
+<li><strong>Location of project files</strong>: <code>c:\enigma\project</code> Project files include files with description of projects and files that are converted to Json format.</li>
+<li><strong>Location of export files</strong>: <code>c:\enigma\export</code> Files that you export, currently only in csv-format.</li>
+<li><strong>Location of Swiss Ephemeris files</strong>: <code>c:\enigma\se</code> The files as supplied by the Swiss Ephemeris that contain the data for the calculations. These files will (almost) never change.</li>
+
+</ul>
+<p><em>Csv</em> (comma delimited values) is the format that is used by spreadsheet software like Microsoft Excel and Libre Office Calc to export data.</p>
+<p><em>Json</em> is a format that is mostly used by software but can be read by humans. </p>
+<!-- html-help-end [settings] -->
+<p>&nbsp;</p>
+<h3 id='configuration'>Configuration</h3>
+<p>Menu: General -&gt; Configuration</p>
+<!-- html-help-begin [configuration] -->
+<p>In the configuration, you can define your astrological preferences. Enigma provides a default configuration at install time, but you can override that configuration. </p>
+<p>In the menu you can define your preferences for:</p>
+<ul>
+<li>General selections that have effect on the calculations: Tab <em>General</em>.</li>
+<li>Selection of celestial bodies and their orbs: Tabs <em>Celestial points</em>, <em>Minor/mathematical</em> and <em>Hypothetical</em>.</li>
+<li>Selection of aspects and their orbs: Tab <em>Aspects</em>.</li>
+
+</ul>
+<p>After changing the configuration, you can save it by clicking on the button <strong>OK</strong>. Saving is done simultaneously for the settings on all tabs. If you made an error you will get a popup with a warning and the data will not be saved. Locate the error, correct it and click OK again.</p>
+<p>Click the button <strong>Cancel</strong> to ignore your changes and to close this window.</p>
+<p>&nbsp;</p>
+<h5 id='general-selections'>General selections</h5>
+<p>If you select the tab <em>General</em> you can define the following preferences:</p>
+<p><strong>House system</strong>. Currently only house systems with 12 houses are supported. Select <em>None</em> if you do not want to use a house system. </p>
+<p><strong>Type of zodiac</strong>. Select either <em>sidereal</em> or <em>tropical</em>. If you select tropical, the Ayanamsha will always be None, if you select another Ayanamsha, the setting for Type of zodiac will automatically change into sidereal.</p>
+<p><strong>Ayanamsha</strong>. Select one of the available Ayanamshas. The paragraph <em>Ayanamshas overview</em> in the user manual gives a short explanation of the different types. See the remarks at the point above: Type of zodiac.</p>
+<p><strong>Observer position</strong>. The standard approach is <em>geocentric</em>, if you want to take parallax into account select <em>topocentric</em>. In future releases the option <em>heliocentric</em> will be supported.</p>
+<p><strong>Type of projection to the ecliptic</strong>. Select <em>Standard (two-dimensional)</em> for most approaches. <em>Oblique longitude</em> provides an alternative calculation as supported by the School of Ram. It is also called <em>True Astrological Longitude Location</em>.</p>
+<p><strong>Base orbs</strong>. You can define orbs for aspects and for midpoints. </p>
+<p>The base orb for aspects will be corrected with the percentages for celestial bodies and aspects. See the paragraph Orbs for Aspects in the User Manual. The value indicates the maximum orb for the most important aspect and the most important celestial body.</p>
+<p>The base orb for midpoints  is the effective orb for midpoints.</p>
+<p>&nbsp;</p>
+<h5 id='celestial-points'>Celestial points</h5>
+<p>The tab <em>Celestial points</em> is the first of three tabs where you can define points for your chart.</p>
+<p>For each point you will find a checkbox. Check this box if you want to take the celestial point into account, deselect it if you do not want to use it. </p>
+<p>There is also a value <em>Percentage for orb</em> that you can change. You can enter a percentage from 0 up to 100, make sure you use only whole numbers. It is possible to define a percentage for a point that is not selected so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.</p>
+<p>In this tab you see four types of points: <em>Classic</em>, <em>Modern</em>, <em>Mundane points</em> and <em>Arabic Parts</em>. Please note that you cannot deselect the classic points and also not MC or Ascendant. </p>
+<p>See the paragraph <em>Celestial Points Overview</em> in the User Manual for an explanation for each point.</p>
+<p>&nbsp;</p>
+<h5 id='minormathematical'>Minor/Mathematical</h5>
+<p>The tab <em>Minor/Mathematical</em> contains four types of points: Mathematical points (mostly intersections), Centaurs, Plutoids and Planetoids.</p>
+<p>Use it the same way as described for the tab <em>Celestial Points</em>.</p>
+<p>&nbsp;</p>
+<h5 id='hypothetical-points-and-planets'>Hypothetical points and planets</h5>
+<p>The tab <em>Hypothetical</em> enables selections of different types of hypothetical points/planets.</p>
+<p>Use it the same way as described for the tab <em>Celestial Points</em>.</p>
+<p>&nbsp;</p>
+<h5 id='aspects'>Aspects</h5>
+<p><em>Aspects</em> is the last tab for the configuration. First you need to select a <em>method for defining orbs</em>. You have three possibilities:</p>
+<ul>
+<li><strong>Fixed orb</strong>. Use only one orb for all celestial points and all major aspects. For minor aspects and micro aspects you can define a different orb. This is not yet supported in this release.</li>
+<li><strong>Weighted orb</strong>. Use percentages for celestial bodies and for aspects to define the actual orb.</li>
+<li><strong>Dynamic/historical orb</strong>. Take the historical development of the orb into account. Not yet supported in this release.</li>
+
+</ul>
+<p>See the paragraph <em>Orbs for aspects</em> in the User Manual for more information. </p>
+<p>The aspects are divided into three categories: Major, Minor and Micro. For each aspect you (de)select using the checkbox and define the percentage for the orb. </p>
+<!-- html-help-end [configuration] -->
+</body>
+</html>
