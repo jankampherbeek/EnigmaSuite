@@ -78,4 +78,37 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Charts\ChartAspectsWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="Charts\ChartDataInputWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="Charts\ChartPositionsWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="DataFiles\DataFilesExportWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="DataFiles\DataFilesImportWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="DataFiles\DataFilesOverviewWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="Settings\AppSettingsWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="Settings\AstroConfigWindow.xaml">
+      <Generator></Generator>
+    </Page>
+    <Page Update="StartWindow.xaml">
+      <Generator></Generator>
+    </Page>
+  </ItemGroup>
+
 </Project>
