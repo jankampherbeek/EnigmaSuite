@@ -36,10 +36,10 @@
 <p>Settings define the location of files that Enigma uses. In version 0.1 these locations are fixed.</p>
 <p>The current locations are:</p>
 <ul>
-<li><strong>Location of data files</strong>: <code>c:\enigma\data</code>  Data files contain data, currently only in csv-format,  that can be used by projects.</li>
-<li><strong>Location of project files</strong>: <code>c:\enigma\project</code> Project files include files with description of projects and files that are converted to Json format.</li>
-<li><strong>Location of export files</strong>: <code>c:\enigma\export</code> Files that you export, currently only in csv-format.</li>
-<li><strong>Location of Swiss Ephemeris files</strong>: <code>c:\enigma\se</code> The files as supplied by the Swiss Ephemeris that contain the data for the calculations. These files will (almost) never change.</li>
+<li><strong>Location of data files</strong>: <code>c:\enigma_ar\data</code>  Data files contain data, currently only in csv-format,  that can be used by projects.</li>
+<li><strong>Location of project files</strong>: <code>c:\enigma_ar\project</code> Project files include files with description of projects and files that are converted to Json format.</li>
+<li><strong>Location of export files</strong>: <code>c:\enigma_ar\export</code> Files that you export, currently only in csv-format.</li>
+<li><strong>Location of Swiss Ephemeris files</strong>: <code>c:\enigma_ar\se</code> The files as supplied by the Swiss Ephemeris that contain the data for the calculations. These files will (almost) never change.</li>
 
 </ul>
 <p><em>Csv</em> (comma delimited values) is the format that is used by spreadsheet software like Microsoft Excel and Libre Office Calc to export data.</p>
@@ -60,7 +60,7 @@
 <p>After changing the configuration, you can save it by clicking on the button <strong>OK</strong>. Saving is done simultaneously for the settings on all tabs. If you made an error you will get a popup with a warning and the data will not be saved. Locate the error, correct it and click OK again.</p>
 <p>Click the button <strong>Cancel</strong> to ignore your changes and to close this window.</p>
 <p>&nbsp;</p>
-<h5 id='general-selections'>General selections</h5>
+<h4 id='general-selections'>General selections</h4>
 <p>If you select the tab <em>General</em> you can define the following preferences:</p>
 <p><strong>House system</strong>. Currently only house systems with 12 houses are supported. Select <em>None</em> if you do not want to use a house system. </p>
 <p><strong>Type of zodiac</strong>. Select either <em>sidereal</em> or <em>tropical</em>. If you select tropical, the Ayanamsha will always be None, if you select another Ayanamsha, the setting for Type of zodiac will automatically change into sidereal.</p>
@@ -71,22 +71,22 @@
 <p>The base orb for aspects will be corrected with the percentages for celestial bodies and aspects. See the paragraph Orbs for Aspects in the User Manual. The value indicates the maximum orb for the most important aspect and the most important celestial body.</p>
 <p>The base orb for midpoints  is the effective orb for midpoints.</p>
 <p>&nbsp;</p>
-<h5 id='celestial-points'>Celestial points</h5>
+<h4 id='celestial-points'>Celestial points</h4>
 <p>The tab <em>Celestial points</em> is the first of three tabs where you can define points for your chart.</p>
 <p>For each point you will find a checkbox. Check this box if you want to take the celestial point into account, deselect it if you do not want to use it. </p>
 <p>There is also a value <em>Percentage for orb</em> that you can change. You can enter a percentage from 0 up to 100, make sure you use only whole numbers. It is possible to define a percentage for a point that is not selected so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.</p>
 <p>In this tab you see four types of points: <em>Classic</em>, <em>Modern</em>, <em>Mundane points</em> and <em>Arabic Parts</em>. Please note that you cannot deselect the classic points and also not MC or Ascendant. </p>
 <p>See the paragraph <em>Celestial Points Overview</em> in the User Manual for an explanation for each point.</p>
 <p>&nbsp;</p>
-<h5 id='minormathematical'>Minor/Mathematical</h5>
+<h4 id='minormathematical'>Minor/Mathematical</h4>
 <p>The tab <em>Minor/Mathematical</em> contains four types of points: Mathematical points (mostly intersections), Centaurs, Plutoids and Planetoids.</p>
 <p>Use it the same way as described for the tab <em>Celestial Points</em>.</p>
 <p>&nbsp;</p>
-<h5 id='hypothetical-points-and-planets'>Hypothetical points and planets</h5>
+<h4 id='hypothetical-points-and-planets'>Hypothetical points and planets</h4>
 <p>The tab <em>Hypothetical</em> enables selections of different types of hypothetical points/planets.</p>
 <p>Use it the same way as described for the tab <em>Celestial Points</em>.</p>
 <p>&nbsp;</p>
-<h5 id='aspects'>Aspects</h5>
+<h4 id='aspects'>Aspects</h4>
 <p><em>Aspects</em> is the last tab for the configuration. First you need to select a <em>method for defining orbs</em>. You have three possibilities:</p>
 <ul>
 <li><strong>Fixed orb</strong>. Use only one orb for all celestial points and all major aspects. For minor aspects and micro aspects you can define a different orb. This is not yet supported in this release.</li>
@@ -97,5 +97,58 @@
 <p>See the paragraph <em>Orbs for aspects</em> in the User Manual for more information. </p>
 <p>The aspects are divided into three categories: Major, Minor and Micro. For each aspect you (de)select using the checkbox and define the percentage for the orb. </p>
 <!-- html-help-end [configuration] -->
+<p>&nbsp;</p>
+<h3 id='data-import'>Data import</h3>
+<p>Enigma imports data. In the future it will support multiple formats for data but currently only one standard format is supported.</p>
+<h4 id='definition-of-standard-format-for-data-import'>Definition of standard format for data import</h4>
+<p>The standard format is in csv (Comma Separated Values). </p>
+<p>The data should use the following items:</p>
+<ul>
+<li><strong>Id</strong> Unique identifier, can be a number or any text.</li>
+<li><strong>Name</strong> A descriptive name, this can be empty but make sure not to skip the comma.</li>
+<li><strong>Longitude</strong> A text defining the geographic longitude. Format is <code>ddd:mm:ss:dir</code> where <em>ddd</em> is the number of degrees, <em>mm</em> the minutes, <em>ss</em> the seconds and <em>dir</em> an indication for East or West, respectively E or W. Some examples: <code>62:13:30:E</code>,  <code>5:6:0:W</code> and <code>118:0:0:E</code>. Make sure to add a value - possibly zero - for seconds. </li>
+<li><strong>Latitude</strong> A text defining the geographic latitude. Format is the same as for Longitude with the exception for <em>dir</em>, which for latitude is an indication for North or South, respectively N or S. </li>
+<li><strong>Data</strong> A text defining the date. The format is <code>yyyy/mm/dd</code> where <em>yyyy</em> is the year, <em>mm</em> the month and <em>dd</em> the day. For dates before the year zero, use astronomical years. Some examples: <code>2022/9/26</code>, <code>1/1/1</code> (January 1 in the year 1 CE) and <code>-10000/2/2</code> (February 2 in the astronomical year -10000 or the historical year 10001 BCE).</li>
+<li><strong>Calendar</strong> A character indicating the calender. Use G for the Gregorian calendar or J for the Julian calendar.</li>
+<li><strong>Time</strong> A text indicting the time. The format is <code>hh:mm:ss</code> where <em>hh</em> is the hour, <em>mm</em> the minute and <em>ss</em> the second. The notation is 24-hour based. Some examples <code>13:49:30</code>, <code>1:1:0</code> and <code>12:30:00</code>. Make sure to add a value - possibly zero - for seconds. </li>
+<li><strong>Zone</strong> A value that indicates the offset from Greenwich Time. Use a positive or negative number, fractions are allowed, do not use comma&#39;s but dots.</li>
+<li><strong>Dst</strong> An indication for Daylight Saving time. Use a value for indicate the difference in hours. In most cases this will be the value 1. Fractions are allowed, do not use comma&#39;s but dots. A zero value indicates that there was no dst.</li>
+
+</ul>
+<p>An example of a valid line:</p>
+<p><code>1234,Jan,6:52:31:E,52:12:37:N,1953/1/29,G,8:37:30,1,0</code> </p>
+<p>You can add spaces fore or after the comma&#39;s to make the line more readable. Do not pace spaces inside the values.</p>
+<p>An example with added spaces:</p>
+<p><code>1234, Jan, 6:52:31:E, 52:12:37:N, 1953/1/29, G, 8:37:30, 1, 0</code> </p>
+<p>Enigma expects that the first line of the file will contain header inforamtion, like:</p>
+<p><code>Id,Name,longitude,latitude,date,cal,time,zone,dst</code></p>
+<p>This line is always ignored so do not put data on the first line.</p>
+<p>&nbsp;</p>
+<h4 id='location-of-the-files'>Location of the files</h4>
+<p>The files are saved in a folder structure. The start folder is defined in the settings, default it is : c:\enigma_ar\data</p>
+<p>A csv-file that has been imported is copied to <em>c:\enigma_ar\data\[name]\csv</em> and a json file to <em>c:\enigma_ar\data\[name]\json</em>.</p>
+<p> The name for the dataset is used instead of <em>[name]</em>.</p>
+<p>&nbsp;</p>
+<h4 id='overview-of-imported-data-files'>Overview of imported data files</h4>
+<p>Menu: Data -&gt; Overview Datafiles</p>
+<!-- html-help-begin [datafilesoverview] -->
+<p>Data files that you already imported will show up in this view.</p>
+<p>It contains the files that have been imported into the Enigma environment.</p>
+<p>The overview only contains the names of the imported data files.</p>
+<!-- html-help-end [datafilesoverview] -->
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4 id='performing-an-import'>Performing an import</h4>
+<p>Menu: Data -&gt; Import data</p>
+<!-- html-help-begin [dataimport] -->
+<p>To import data, you need to select a file in the correct csv-format and define a unique name for the data. This name is used to define the data in research projects.</p>
+<p>To select a file you can use the button <strong>Browse for file</strong>. This will open a standard window to find and select a file. The selected file will show in the field after &#39;Select the file with data&#39;.</p>
+<p>After completing this information, you can click the button <strong>Import file</strong>.</p>
+<p>If you did not enter all required information, or if you used a name for the data that is already in use, you will get a popup window with an explanation of what is wrong.</p>
+<p>If no errors occurred, a text that clarifies the result is shown in the filed underneath &#39;Result of the import&#39;.</p>
+<p>After a successful import, you can either perform another import or click the button <strong>Close</strong>.</p>
+<p>If you change your mind and want to skip the import, click the button <strong>Cancel</strong>.</p>
+<!-- html-help-end [dataimport] -->
+<p>&nbsp;</p>
 </body>
 </html>

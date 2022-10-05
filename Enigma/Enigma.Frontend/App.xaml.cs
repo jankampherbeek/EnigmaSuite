@@ -21,7 +21,6 @@ using Enigma.Frontend.Settings;
 using Enigma.Persistency.Services;
 using Enigma.Configuration.Services;
 
-
 namespace Enigma.Frontend;
 
 
@@ -72,6 +71,7 @@ public partial class App : Application
         serviceCollection.AddTransient<DataFilesImportWindow>();
         serviceCollection.AddTransient<DataFilesOverviewController>();
         serviceCollection.AddTransient<DataFilesOverviewWindow>();
+        serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
         serviceCollection.AddSingleton<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();

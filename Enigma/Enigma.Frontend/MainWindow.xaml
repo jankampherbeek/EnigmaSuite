@@ -42,15 +42,19 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Name="miData" Header="miData">
-                <MenuItem Name="miDataOverview" Header="miDataOverview" Click="DataOverviewClick"/>
+                <MenuItem Name="miDataOverview" Header="miDataOverview" Click="DataOverviewClick">
+                    <MenuItem.Icon>
+                        <Image Source="../Images/list.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Name="miDataImport" Header="miDataImport" Click="DataImportClick">
                     <MenuItem.Icon>
-                        <Image Source="../Images/input.png"/>
+                        <Image Source="../Images/download.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miDataExport" Header="miDataExport" Click="DataExportClick">
                     <MenuItem.Icon>
-                        <Image Source="../Images/output.png"/>
+                        <Image Source="../Images/upload.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

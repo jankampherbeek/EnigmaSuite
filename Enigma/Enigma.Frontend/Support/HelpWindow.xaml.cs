@@ -26,11 +26,7 @@ public partial class HelpWindow : Window
     public void SetHelpPage(string helpFile)
     {
    string currentDir = AppDomain.CurrentDomain.BaseDirectory;
- /*       int endOfUsableDir = currentDir.IndexOf("bin");
-        string usableDir = currentDir.Substring(0, endOfUsableDir);
-        string fullPath = usableDir + "res\\help\\" + helpFile + ".html";  */
         string relativePath = currentDir + @"res\help\" + helpFile + ".html";
-        //HtmlFrame.Source = new Uri(relativePath, UriKind.Relative);
         HtmlFrame.Source = new Uri(relativePath);
     }
 

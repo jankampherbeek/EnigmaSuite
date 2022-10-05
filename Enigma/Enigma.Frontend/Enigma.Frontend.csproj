@@ -13,16 +13,20 @@
     <None Remove="Images\close.png" />
     <None Remove="Images\configuration.png" />
     <None Remove="Images\cycles.png" />
+    <None Remove="Images\download.png" />
     <None Remove="Images\Enigma.jpg" />
     <None Remove="Images\ephemeris.png" />
     <None Remove="Images\help.png" />
     <None Remove="Images\input.png" />
+    <None Remove="Images\list.png" />
+    <None Remove="Images\listalt.png" />
     <None Remove="Images\manual.png" />
     <None Remove="Images\newchart.png" />
     <None Remove="Images\newproject.png" />
     <None Remove="Images\occurrences.png" />
     <None Remove="Images\output.png" />
     <None Remove="Images\settings.png" />
+    <None Remove="Images\upload.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,16 +52,28 @@
     <Resource Include="Images\close.png" />
     <Resource Include="Images\configuration.png" />
     <Resource Include="Images\cycles.png" />
+    <Resource Include="Images\download.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\Enigma.jpg" />
     <Resource Include="Images\ephemeris.png" />
     <Resource Include="Images\help.png" />
     <Resource Include="Images\input.png" />
+    <Resource Include="Images\list.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\listalt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\manual.png" />
     <Resource Include="Images\newchart.png" />
     <Resource Include="Images\newproject.png" />
     <Resource Include="Images\occurrences.png" />
     <Resource Include="Images\output.png" />
     <Resource Include="Images\settings.png" />
+    <Resource Include="Images\upload.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +81,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\css\enigma.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\help\DataFilesOverview.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\DataImport.html">

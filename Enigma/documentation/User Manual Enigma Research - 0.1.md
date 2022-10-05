@@ -93,7 +93,7 @@ Click the button **Cancel** to ignore your changes and to close this window.
 
 
 
-##### General selections
+#### General selections
 
 If you select the tab *General* you can define the following preferences:
 
@@ -115,7 +115,7 @@ The base orb for midpoints  is the effective orb for midpoints.
 
 
 
-##### Celestial points
+#### Celestial points
 
 The tab *Celestial points* is the first of three tabs where you can define points for your chart.
 
@@ -129,7 +129,7 @@ See the paragraph *Celestial Points Overview* in the User Manual for an explanat
 
 
 
-##### Minor/Mathematical
+#### Minor/Mathematical
 
 The tab *Minor/Mathematical* contains four types of points: Mathematical points (mostly intersections), Centaurs, Plutoids and Planetoids.
 
@@ -137,7 +137,7 @@ Use it the same way as described for the tab *Celestial Points*.
 
 
 
-##### Hypothetical points and planets
+#### Hypothetical points and planets
 
 The tab *Hypothetical* enables selections of different types of hypothetical points/planets.
 
@@ -145,7 +145,7 @@ Use it the same way as described for the tab *Celestial Points*.
 
 
 
-##### Aspects
+#### Aspects
 
 *Aspects* is the last tab for the configuration. First you need to select a *method for defining orbs*. You have three possibilities:
 
@@ -206,6 +206,24 @@ The files are saved in a folder structure. The start folder is defined in the se
 A csv-file that has been imported is copied to *c:\enigma_ar\data\\[name]\csv* and a json file to *c:\enigma_ar\data\\[name]\json*.
 
  The name for the dataset is used instead of *[name]*.
+
+
+
+#### Overview of imported data files
+
+Menu: Data -> Overview Datafiles
+
+<!-- html-help-begin [datafilesoverview] -->
+
+Data files that you already imported will show up in this view.
+
+It contains the files that have been imported into the Enigma environment.
+
+The overview only contains the names of the imported data files.
+
+<!-- html-help-end [datafilesoverview] -->
+
+
 
 
 

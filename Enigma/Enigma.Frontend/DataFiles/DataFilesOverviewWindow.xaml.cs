@@ -1,10 +1,11 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-
+using System.Windows.Controls;
 
 namespace Enigma.Frontend.DataFiles;
 
@@ -13,18 +14,49 @@ namespace Enigma.Frontend.DataFiles;
 /// </summary>
 public partial class DataFilesOverviewWindow : Window
 {
+    private DataFilesOverviewController _controller;
 
     private IRosetta _rosetta;
-    public DataFilesOverviewWindow(IRosetta rosetta)
+    public DataFilesOverviewWindow(DataFilesOverviewController controller, IRosetta rosetta)
     {
         InitializeComponent();
         _rosetta = rosetta;
+        _controller = controller;
         PopulateTexts();
+        PopulateData();
     }
 
 
     private void PopulateTexts()
     {
         FormTitle.Text = _rosetta.TextForId("datafilesoverviewwindow.title");
+        btnClose.Content = _rosetta.TextForId("common.btnclose");
+        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
     }
+
+    private void PopulateData()
+    {
+        dgDataNames.ItemsSource = _controller.GetDataNames();
+        dgDataNames.GridLinesVisibility = DataGridGridLinesVisibility.None;
+        dgDataNames.Columns[0].Header = _rosetta.TextForId("datafilesoverviewwindow.dataname");
+        dgDataNames.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
+    }
+
+    private void HelpClick(object sender, RoutedEventArgs e)
+    {
+        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
+        if (helpWindow != null)
+        {
+            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            helpWindow.SetHelpPage("DataFilesOverview");
+            helpWindow.ShowDialog();
+        }
+    }
+
+    private void CloseClick(object sender, RoutedEventArgs e)
+    {
+        Hide();
+
+    }
+
 }

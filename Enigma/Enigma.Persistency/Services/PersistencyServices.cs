@@ -17,6 +17,7 @@ public static class PersistencyServices
     {
         serviceCollection.AddTransient<ICsvHandler, CsvHandler>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
+        serviceCollection.AddTransient<IDataNameHandler, DataNameHandler>();
         serviceCollection.AddTransient<IDateCheckedConversion, DateCheckedConversion>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();

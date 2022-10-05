@@ -16,11 +16,16 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Name="FormTitle" Text="FormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-        <DataGrid Grid.Row="1" Name="dgDataNames" Margin="6"/>
+        <TextBlock Grid.Row="0" Name="FormTitle" Text="FormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <DataGrid Grid.Row="1" Margin="6" Name="dgDataNames" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="False" 
+                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="dataname-x" Binding="{Binding DataName}" Width="Auto"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
-            <Button Name="btnHelp" Content="btnHelp" Margin="6"/>
-            <Button Name="btnClose" Content="btnClose" Margin="6"/>
+            <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
+            <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>
     </Grid>
 </Window>

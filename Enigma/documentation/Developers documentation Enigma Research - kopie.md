@@ -80,6 +80,14 @@ To access the dll, the attribute [DllImport] is used. All imports from the dll a
 
 
 
+### Icons
+
+All icons in Enigma are from the icon set by Google, used for Material Dsign.
+
+You can download the originals at https://fonts.google.com/icons
+
+
+
 ## Architecture
 
 The GUI is based on the MVC model. The view consists of the XAML and accompanying C# part. An additional ViewModel is added to the view. 
