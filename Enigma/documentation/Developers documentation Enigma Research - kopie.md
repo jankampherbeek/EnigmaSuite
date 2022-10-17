@@ -10,7 +10,23 @@
 
 Enigma Suite is a software suite,written in C#. The program is free and open source. This document provides information about the technical aspects for interested programmers.
 
-Please rad the User Manual for information about the functionality of Enigma Research. 
+Please read the User Manual for information about the functionality of Enigma Research. 
+
+
+
+### License / open source
+
+Enigma is Open Source. You can use it following the terms of the GNU General Public License (GPL). 
+
+The GPL allows you to use, change and redistribute this software only if your own software is open source. It does not have to be free, but the full source code should be available.
+
+For more information see the file *gpl-3.0.txt* in the root of the source.
+
+Enigma uses libraries from the Swiss Ephemeris (SE). For the SE additional conditions are in place. These conditions prohibit the use of the software unless it is open source and also free. If you want to charge money for a program using software from the SE, you need to buy a professional license from the SE. But doing so does not release from the conditions as set forth by the GPL: the code must be open source. 
+
+For more information see the file *se_license.htm* in the root of the source.
+
+To use software from Enigma in your program, that program has to be open source. If you include the libraries from the SE, it also has to be free. Buying a license from the SE does not change the condition from the GPL that the software should remain open source. If you want to create software that is not open source you can use the libraries from the SE but you will need to buy a professional license, and you cannot use any code from Enigma.
 
 
 

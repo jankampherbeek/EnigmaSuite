@@ -10,8 +10,8 @@ namespace Enigma.Test.Domain.Configuration;
 [TestFixture]
 public class TestApplicationSettings
 {
-    private readonly string _defaultLocData = @"c:\enigma\data";
-    private readonly string _defaultLocSe = @"c:\enigma\se";
+    private readonly string _defaultLocData = @"c:\enigma_ar\data";
+    private readonly string _defaultLocSe = @"c:\enigma_ar\se";
     private readonly string _newProjData = @"d:\somewhere\projdata";
 
     [Test]

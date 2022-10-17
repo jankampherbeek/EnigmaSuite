@@ -9,7 +9,7 @@ using Moq;
 using Enigma.Domain.DateTime;
 using Enigma.Persistency.Domain;
 
-namespace Enigma.Text.Persistency.Converters;
+namespace Enigma.Test.Persistency.Converters;
 
 [TestFixture]
 public class TestDateCheckedConversion
