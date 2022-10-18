@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.DataFiles"
         mc:Ignorable="d"
-        WindowStyle="none"
         WindowStartupLocation="CenterScreen"
         Title="DataFilesImport" Height="300" Width="640">
     <Grid Margin="6">

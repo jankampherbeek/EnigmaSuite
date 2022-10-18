@@ -41,8 +41,8 @@ public class AstroConfigController
     {
         switch (point)
         {
-            case MundanePoints.Mc: 
-                return "M"; 
+            case MundanePoints.Mc:
+                return "M";
             case MundanePoints.Ascendant:
                 return "A";
             case MundanePoints.Vertex:
@@ -72,12 +72,9 @@ public class AstroConfigController
 
     public void ShowHelp()
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
-        if (helpWindow != null)
-        {
-            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetHelpPage("Configurations");
-            helpWindow.ShowDialog();
-        }
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("Configurations");
+        helpWindow.ShowDialog();
     }
 }

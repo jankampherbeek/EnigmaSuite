@@ -50,6 +50,7 @@ public class ChartDataInputController
     private readonly IGeoLongInputParser _geoLongInputParser;
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
+    private readonly DataVault _dataVault;
    // private readonly MainController _chartStartController;
     private Calendars _cal;
     private List<FullSolSysPointPos> _solarSystemPointPositions;
@@ -66,7 +67,8 @@ public class ChartDataInputController
         _julianDayApi = julianDayApi;
         _chartAllPositionsApi = chartAllPositionsApi;
         _rosetta = rosetta;
-      //  _chartStartController = chartsStartController;
+        _dataVault = DataVault.Instance;
+        //  _chartStartController = chartsStartController;
     }
 
     /// <summary>
@@ -90,6 +92,11 @@ public class ChartDataInputController
             SolarSystemPoints.MeanNode
         });
         return new CalculationPreferences(solarSystemPoints, ZodiacTypes.Tropical, Ayanamshas.None, ObserverPositions.GeoCentric, ProjectionTypes.twoDimensional, HouseSystems.Placidus);
+    }
+
+    public void InitializeDataVault()
+    {
+        _dataVault.SetNewChartAdded(false);
     }
 
 
@@ -141,10 +148,8 @@ public class ChartDataInputController
                 int tempId = 1;
                 ChartData chartData = new ChartData(id, tempId, metaData, location, fullDateTime);
                 CalculatedChart chart = new CalculatedChart(_solarSystemPointPositions, _mundanePositions, chartData);
-
-                DataVault dataVault = DataVault.Instance;
-                dataVault.AddNewChart(chart);
-
+                _dataVault.AddNewChart(chart);
+                _dataVault.SetNewChartAdded(true);
                 return true;
             }
             else

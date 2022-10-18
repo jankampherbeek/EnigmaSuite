@@ -16,24 +16,23 @@ namespace Enigma.Frontend.Charts;
 
 public partial class ChartDataInputWindow : Window
 {
-    private IRosetta _rosetta;
-    private ChartDataInputController _controller;
+    private readonly IRosetta _rosetta;
+    private readonly ChartDataInputController _controller;
+    private readonly IChartsEnumFacade _chartsEnumFacade;
     private List<CalendarDetails> _calendarDetails;
     private List<Directions4GeoLongDetails> _directions4GeoLongDetails;
     private List<Directions4GeoLatDetails> _directions4GeoLatDetails;
     private List<YearCountDetails> _yearCountDetails;
     private List<TimeZoneDetails> _timeZoneDetails;
 
-    public ChartDataInputWindow(ChartDataInputController controller, IRosetta rosetta, IChartsEnumFacade chartsEnumFacade)
+    public ChartDataInputWindow()
     {
         InitializeComponent();
-        _controller = controller;
-        _rosetta = rosetta;
-        _calendarDetails = chartsEnumFacade.AllCalendarDetails();
-        _directions4GeoLongDetails = chartsEnumFacade.AllDirections4GeoLongDetails();
-        _directions4GeoLatDetails = chartsEnumFacade.AllDirections4GeoLatDetails();
-        _yearCountDetails = chartsEnumFacade.AllYearCountDetails();
-        _timeZoneDetails = chartsEnumFacade.AllTimeZoneDetails();
+        _controller = App.ServiceProvider.GetRequiredService<ChartDataInputController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
+        _chartsEnumFacade = App.ServiceProvider.GetRequiredService<IChartsEnumFacade>();
+        _controller.InitializeDataVault();
+        PopulateDetails();
         PopulateTexts();
         PopulateLists();
         EnableLmt(false);
@@ -59,6 +58,16 @@ public partial class ChartDataInputWindow : Window
         BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
     }
 
+    private void PopulateDetails()
+    {
+        _calendarDetails = _chartsEnumFacade.AllCalendarDetails();
+        _directions4GeoLongDetails = _chartsEnumFacade.AllDirections4GeoLongDetails();
+        _directions4GeoLatDetails = _chartsEnumFacade.AllDirections4GeoLatDetails();
+        _yearCountDetails = _chartsEnumFacade.AllYearCountDetails();
+        List<TimeZoneDetails> timeZoneDetails = _chartsEnumFacade.AllTimeZoneDetails();
+        _timeZoneDetails = timeZoneDetails;
+    }
+
     private void PopulateLists()
     {
         PopulateCalendars();
@@ -82,7 +91,7 @@ public partial class ChartDataInputWindow : Window
     {
         comboLongDir.Items.Clear();
         comboLmtLongDir.Items.Clear();
-        foreach(var direction4GeoLongDetail in _directions4GeoLongDetails)
+        foreach (var direction4GeoLongDetail in _directions4GeoLongDetails)
         {
             comboLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
             comboLmtLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
@@ -114,7 +123,7 @@ public partial class ChartDataInputWindow : Window
     private void PopulateTimeZones()
     {
         comboTimezone.Items.Clear();
-        foreach(var timeZoneDetail in _timeZoneDetails)
+        foreach (var timeZoneDetail in _timeZoneDetails)
         {
             comboTimezone.Items.Add(_rosetta.TextForId(timeZoneDetail.TextId));
         }
@@ -128,7 +137,8 @@ public partial class ChartDataInputWindow : Window
         if (_timeZoneDetails[tzIndex].TimeZone == TimeZones.LMT)
         {
             lmtSelected = true;
-        } else
+        }
+        else
         {
             LmtValue.Text = "";
         }
@@ -183,18 +193,15 @@ public partial class ChartDataInputWindow : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        Hide();
+        Close();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
-        if (helpWindow != null)
-        {
-            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetHelpPage("ChartsDataInput"); 
-            helpWindow.ShowDialog();
-        }
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ChartsDataInput");
+        helpWindow.ShowDialog();
     }
 
 }

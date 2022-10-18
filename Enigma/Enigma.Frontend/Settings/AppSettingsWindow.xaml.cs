@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 namespace Enigma.Frontend.Settings;
@@ -12,14 +13,15 @@ namespace Enigma.Frontend.Settings;
 /// </summary>
 public partial class AppSettingsWindow : Window
 {
-    private AppSettingsController _controller;
-    private IRosetta _rosetta;
+    private readonly AppSettingsController _controller;
+    private readonly IRosetta _rosetta;
 
-    public AppSettingsWindow(AppSettingsController controller, IRosetta rosetta)
+
+    public AppSettingsWindow()
     {
         InitializeComponent();
-        _controller = controller;
-        _rosetta = rosetta;
+        _controller = App.ServiceProvider.GetRequiredService<AppSettingsController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
     }
     private void PopulateTexts()
@@ -32,13 +34,10 @@ public partial class AppSettingsWindow : Window
         LocSwissEph.Text = _rosetta.TextForId("appsettingswindow.locswisseph");
         BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
         BtnClose.Content = _rosetta.TextForId("common.btnclose");
-
         LocDataValue.Text = _controller.LocationOfDataFiles();
         LocExportValue.Text = _controller.LocationOfExportFiles();
         LocProjectValue.Text = _controller.LocationOfProjectFiles();
         LocSwissEphValue.Text = _controller.LocationOfSeFiles();
-
-
     }
 
     public void BtnCloseClick(object sender, RoutedEventArgs e)

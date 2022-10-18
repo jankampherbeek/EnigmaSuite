@@ -1,8 +1,7 @@
 ﻿// Jan Kampherbeek, (c) 2022.
-// The Enigma Suite is open source.
+// Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,12 +18,12 @@ public partial class ChartPositionsWindow : Window
     private ChartPositionsController _controller;
     private readonly string _space = " ";
     private readonly string _newLine = "\n";
-    private ChartData _chartData;
-    public ChartPositionsWindow(ChartPositionsController controller, IRosetta rosetta)
+    private ChartData? _chartData;
+    public ChartPositionsWindow()
     {
         InitializeComponent();
-        _controller = controller;
-        _rosetta = rosetta;
+        _controller = App.ServiceProvider.GetRequiredService<ChartPositionsController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
 
     }
 
@@ -158,7 +157,7 @@ public partial class ChartPositionsWindow : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        Hide();
+        Close();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

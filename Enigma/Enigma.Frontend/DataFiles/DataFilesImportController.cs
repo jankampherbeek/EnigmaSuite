@@ -37,7 +37,7 @@ public class DataFilesImportController
     /// <param name="inputFile">Csv to read.</param>
     /// <param name="dataName">Name for data.</param>
     /// <returns>ResultMessage with a descriptive text and an error_code (possibly zero: no error).</returns>
-    public ResultMessage PerformImport(string inputFile,string dataName)
+    public ResultMessage PerformImport(string inputFile, string dataName)
     {
         string dataPath = ApplicationSettings.Instance.LocationDataFiles + @"\" + dataName;
         string fullCsvPath = ApplicationSettings.Instance.LocationDataFiles + @"\" + dataName + @"\csv";
@@ -53,19 +53,16 @@ public class DataFilesImportController
         {
             File.Copy(inputFile, fullCsvPath + dataName + "_copy.csv");
         }
-     
+
         return receivedResultMessage;
     }
 
     public void ShowHelp()
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
-        if (helpWindow != null)
-        {
-            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetHelpPage("DataImport");
-            helpWindow.ShowDialog();
-        }
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("DataImport");
+        helpWindow.ShowDialog();
     }
 
 

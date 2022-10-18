@@ -42,20 +42,15 @@ public partial class App : Application
         var serviceCollection = new ServiceCollection();
 
         // Handle services from project Enigma.Frontend.
-        serviceCollection.AddTransient<AboutWindow>();
         serviceCollection.AddTransient<AppSettingsController>();
-        serviceCollection.AddTransient<AppSettingsWindow>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<AstroConfigController>();
-        serviceCollection.AddTransient<AstroConfigWindow>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<ChartAspectsController>();
         serviceCollection.AddTransient<ChartDataInputController>();
-        serviceCollection.AddTransient<ChartDataInputWindow>();
         serviceCollection.AddTransient<ChartPositionsController>();
-        serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
         serviceCollection.AddTransient<ChartsWheel>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
@@ -66,11 +61,8 @@ public partial class App : Application
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelSolSysPoints, ChartsWheelSolSysPoints>();
         serviceCollection.AddTransient<DataFilesExportController>();
-        serviceCollection.AddTransient<DataFilesExportWindow>();
         serviceCollection.AddTransient<DataFilesImportController>();
-        serviceCollection.AddTransient<DataFilesImportWindow>();
         serviceCollection.AddTransient<DataFilesOverviewController>();
-        serviceCollection.AddTransient<DataFilesOverviewWindow>();
         serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
         serviceCollection.AddSingleton<MainController>();
         serviceCollection.AddTransient<MainWindow>();
@@ -82,7 +74,6 @@ public partial class App : Application
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
-        serviceCollection.AddTransient<StartWindow>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
         

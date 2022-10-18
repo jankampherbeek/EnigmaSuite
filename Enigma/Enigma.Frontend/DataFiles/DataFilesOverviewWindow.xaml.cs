@@ -17,11 +17,11 @@ public partial class DataFilesOverviewWindow : Window
     private DataFilesOverviewController _controller;
 
     private IRosetta _rosetta;
-    public DataFilesOverviewWindow(DataFilesOverviewController controller, IRosetta rosetta)
+    public DataFilesOverviewWindow()
     {
         InitializeComponent();
-        _rosetta = rosetta;
-        _controller = controller;
+        _controller = App.ServiceProvider.GetRequiredService<DataFilesOverviewController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
         PopulateData();
     }
@@ -44,18 +44,15 @@ public partial class DataFilesOverviewWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
-        if (helpWindow != null)
-        {
-            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetHelpPage("DataFilesOverview");
-            helpWindow.ShowDialog();
-        }
+        HelpWindow? helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("DataFilesOverview");
+        helpWindow.ShowDialog();
     }
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        Hide();
+        Close();
 
     }
 

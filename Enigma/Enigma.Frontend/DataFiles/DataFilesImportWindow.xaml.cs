@@ -5,6 +5,7 @@
 using Enigma.Domain.Constants;
 using Enigma.Domain.Messages;
 using Enigma.Frontend.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
@@ -19,12 +20,12 @@ namespace Enigma.Frontend.DataFiles
         private IRosetta _rosetta;
         private DataFilesImportController _controller;
 
-        public DataFilesImportWindow(DataFilesImportController controller, IRosetta rosetta)
+        public DataFilesImportWindow()
         {
             InitializeComponent();
-            _controller = controller;
-            _rosetta = rosetta;
-            PopulateTexts();
+            _controller = App.ServiceProvider.GetRequiredService<DataFilesImportController>();
+            _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
+                PopulateTexts();
         }
 
 
@@ -97,13 +98,13 @@ namespace Enigma.Frontend.DataFiles
         public void CancelClick(object sender, RoutedEventArgs e)
         {
             ClearValues();
-            Hide();
+            Close();
         }
 
         public void CloseClick(object sender, RoutedEventArgs e)
         {
             ClearValues();
-            Hide();
+            Close();
         }
 
     }

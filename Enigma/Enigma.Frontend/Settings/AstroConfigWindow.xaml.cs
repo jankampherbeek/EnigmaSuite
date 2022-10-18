@@ -11,6 +11,7 @@ using Enigma.Frontend.Charts;
 using Enigma.Domain.Configuration;
 using System.Collections.Generic;
 using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Settings;
 
@@ -19,16 +20,17 @@ namespace Enigma.Frontend.Settings;
 /// </summary>
 public partial class AstroConfigWindow : Window
 {
-    private AstroConfigController _controller;
-    private IRosetta _rosetta;
-    private IChartsEnumFacade _enumFacade;
+    private readonly AstroConfigController _controller;
+    private readonly IRosetta _rosetta;
+    private readonly IChartsEnumFacade _enumFacade;
 
-    public AstroConfigWindow(AstroConfigController controller, IRosetta rosetta, IChartsEnumFacade enumFacade)
+
+    public AstroConfigWindow()
     {
-        InitializeComponent(); 
-        _controller = controller;
-        _rosetta = rosetta;
-        _enumFacade = enumFacade;
+        InitializeComponent();
+        _controller = App.ServiceProvider.GetRequiredService<AstroConfigController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
+        _enumFacade = App.ServiceProvider.GetRequiredService<IChartsEnumFacade>();
         PopulateTexts();
         PopulateGlyphs();
         DefaultValues();
@@ -165,7 +167,7 @@ public partial class AstroConfigWindow : Window
         TitleAspects.Text = _rosetta.TextForId("astroconfigwindow.aspects");
         tbAspectsExplanation.Text = _rosetta.TextForId("astroconfigwindow.aspectsexpl");
         tbOrbMethod.Text = _rosetta.TextForId("astroconfigwindow.orbmethod");
-        tbOrbMethodExpl.Text = _rosetta.TextForId("astroconfigwindow.orbmethodexpl"); 
+        tbOrbMethodExpl.Text = _rosetta.TextForId("astroconfigwindow.orbmethodexpl");
         tbMajorAspects.Text = _rosetta.TextForId("astroconfigwindow.majoraspects");
         tbMinorAspects.Text = _rosetta.TextForId("astroconfigwindow.minoraspects");
         tbMicroAspects.Text = _rosetta.TextForId("astroconfigwindow.microaspects");
@@ -304,7 +306,7 @@ public partial class AstroConfigWindow : Window
         }
         comboZodiacType.SelectedIndex = (int)_controller.GetConfig().ZodiacType;
 
-                comboAyanamsha.Items.Clear();
+        comboAyanamsha.Items.Clear();
         foreach (AyanamshaDetails detail in _enumFacade.Ayanamshas().AllAyanamshaDetails())
         {
             comboAyanamsha.Items.Add(_rosetta.TextForId(detail.TextId));
@@ -518,12 +520,14 @@ public partial class AstroConfigWindow : Window
     {
         if (HandleInput())
         {
-            // create line in logfile.
+            // TODO create line in logfile.
             Hide();
 
-        } else
+        }
+        else
         {
-            MessageBox.Show(_rosetta.TextForId("astroconfigwindow.errorsfound"));
+            // TODO create line in logfile.
+            MessageBox.Show(_rosetta != null ? _rosetta.TextForId("astroconfigwindow.errorsfound") : "An error occurred, check the logfile");
         }
 
     }
@@ -538,7 +542,8 @@ public partial class AstroConfigWindow : Window
         if (comboZodiacType.SelectedIndex == 1)
         {
             comboAyanamsha.SelectedIndex = 0;
-        } else if (comboAyanamsha.SelectedIndex == 0)
+        }
+        else if (comboAyanamsha.SelectedIndex == 0)
         {
             comboAyanamsha.SelectedIndex = 2;  // Lahiri
         }
@@ -547,11 +552,11 @@ public partial class AstroConfigWindow : Window
     private bool HandleInput()
     {
         // TODO 0.2 Add validation for input, also take acceptable ranges into account.
-       
+
         bool noErrors = true;
         try
         {
-            HouseSystems houseSystem =  _enumFacade.Houses().HouseSystemForIndex(comboHouseSystem.SelectedIndex);
+            HouseSystems houseSystem = _enumFacade.Houses().HouseSystemForIndex(comboHouseSystem.SelectedIndex);
             ZodiacTypes zodiacType = _enumFacade.ZodiacTypes().ZodiacTypeForIndex(comboZodiacType.SelectedIndex);
             Ayanamshas ayanamsha = _enumFacade.Ayanamshas().AyanamshaForIndex(comboAyanamsha.SelectedIndex);
             ObserverPositions observerPosition = _enumFacade.ObserverPositions().ObserverPositionForIndex(comboObserverPos.SelectedIndex);
@@ -561,7 +566,7 @@ public partial class AstroConfigWindow : Window
             List<AspectSpecs> aspectSpecs = DefineAspectSpecs();
             List<MundanePointSpecs> mundanePointSpecs = DefineMundanePointSpecs();
             List<ArabicPointSpecs> arabicPointSpecs = DefineArabicPointSpecs();
-            double baseOrbAspects = Convert.ToDouble(tboxAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture); 
+            double baseOrbAspects = Convert.ToDouble(tboxAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             double baseOrbMidpoints = Convert.ToDouble(tboxMidpointAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
 
             AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, baseOrbAspects, baseOrbMidpoints);

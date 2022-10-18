@@ -16,6 +16,7 @@ public sealed class DataVault
 
     private List<CalculatedChart> _allCharts = new(); 
     private CalculatedChart? _lastChart;
+    private bool NewChartAdded = false;
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
     static DataVault()
@@ -49,8 +50,15 @@ public sealed class DataVault
             // todo log error
             return null;
         }
-
-        
     }
 
+    public void SetNewChartAdded(bool newStatus)
+    {
+        NewChartAdded = newStatus;
+    }
+
+    public bool GetNewChartAdded()
+    {
+        return NewChartAdded;
+    }
 }

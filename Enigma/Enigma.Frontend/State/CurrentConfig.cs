@@ -45,11 +45,8 @@ public sealed class CurrentConfig
     {
         if (_currentConfig == null)
         {
-            IConfigReader? configReader = App.ServiceProvider.GetService<IConfigReader>();
-            if (configReader != null)
-            {
-                _currentConfig = configReader.ReadConfig();
-            } 
+            IConfigReader configReader = App.ServiceProvider.GetRequiredService<IConfigReader>();
+            _currentConfig = configReader.ReadConfig();
         }
         return _currentConfig;
     }

@@ -5,12 +5,9 @@
 
 using Enigma.Domain.Configuration;
 using Enigma.Configuration.Handlers;
-using Enigma.Configuration.Parsers;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
-using Enigma.Persistency.Parsers;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -25,7 +22,7 @@ public partial class StartWindow : Window
 {
 
     public StartWindow()
-    {        
+    {
         InitializeComponent();
         this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         PopulateStaticTexts();
@@ -36,7 +33,7 @@ public partial class StartWindow : Window
 
     private void PopulateStaticTexts()
     {
-        Name.Text = "Enigma Astrology Research 0.1";
+        Name.Text = "Enigma Astrology Research 0.1";   // TODO use resource bundle
     }
 
 
@@ -46,19 +43,14 @@ public partial class StartWindow : Window
         HandleCheckForConfig();
         HandleCheckDirForSettings();
         Thread.Sleep(500);
+
         // TODO remove sleep
         // TODO check for update
+        Hide();
+        MainWindow mainWindow = new();
+        mainWindow.ShowDialog();
+        Application.Current.Shutdown(0);
 
-        MainWindow? mainWindow = App.ServiceProvider.GetService<MainWindow>();
-        if (mainWindow != null)
-        {
-            mainWindow.Show();
-            Close();
-        }
-        else
-        {
-            // todo log error and show warning for user
-        }
 
     }
 
@@ -69,14 +61,8 @@ public partial class StartWindow : Window
         bool result = true;
         if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
         {
-            IConfigWriter? configWriter = App.ServiceProvider.GetService<IConfigWriter>();
-            if (configWriter != null)
-            {
-                result = configWriter.WriteDefaultConfig();
-            } else
-            {
-                result = false;
-            }
+            IConfigWriter configWriter = App.ServiceProvider.GetRequiredService<IConfigWriter>();
+            result = configWriter.WriteDefaultConfig();
         }
         if (!result)
         {
@@ -87,7 +73,7 @@ public partial class StartWindow : Window
 
     private void HandleCheckDirForSettings()
     {
-        ApplicationSettings settings = ApplicationSettings.Instance;
+        ApplicationSettings? settings = ApplicationSettings.Instance;
         if (!Directory.Exists(settings.LocationEnigmaRoot)) Directory.CreateDirectory(settings.LocationEnigmaRoot);
         if (!Directory.Exists(settings.LocationExportFiles)) Directory.CreateDirectory(settings.LocationExportFiles);
         if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);

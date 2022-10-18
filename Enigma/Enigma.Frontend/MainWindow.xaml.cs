@@ -12,14 +12,14 @@ namespace Enigma.Frontend;
 /// <summary>Main view for the application.</summary>
 public partial class MainWindow : Window
 {
-    private IRosetta _rosetta;
-    private MainController _controller;
+    private readonly IRosetta _rosetta;
+    private readonly MainController _controller;
 
-    public MainWindow(MainController controller, IRosetta rosetta)
+    public MainWindow()
     {
         InitializeComponent();
-        _controller = controller;
-        _rosetta = rosetta;
+        _controller = App.ServiceProvider.GetRequiredService<MainController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
         PopulateMenu();
     }
@@ -97,13 +97,10 @@ public partial class MainWindow : Window
 
     private void HelpPageClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetService<HelpWindow>();
-        if (helpWindow != null)
-        {
-            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetHelpPage("MainWindow");
-            helpWindow.ShowDialog();
-        }
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("MainWindow");
+        helpWindow.ShowDialog();
     }
 
     private void HelpManualClick(object sender, RoutedEventArgs e)
