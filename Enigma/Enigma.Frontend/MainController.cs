@@ -6,6 +6,7 @@ using Enigma.Domain;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
 using Enigma.Frontend.DataFiles;
+using Enigma.Frontend.ResearchProjects;
 using Enigma.Frontend.Settings;
 using Enigma.Frontend.State;
 using Enigma.Frontend.Support;
@@ -43,6 +44,13 @@ public class MainController
             ShowWheel();
             ShowPositions();  // TODO move ShowPositions as an option to ShowWheel()
         }
+    }
+
+
+    public void NewProject()
+    {
+        ProjectInputWindow projectInputWindow = new();
+        projectInputWindow.ShowDialog();
     }
 
     public void ShowAbout()

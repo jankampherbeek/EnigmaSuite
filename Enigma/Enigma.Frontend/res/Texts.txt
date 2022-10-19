@@ -121,6 +121,7 @@ common.btndetailedsearch = Detailed search
 common.btnhelp = Help
 common.btnok = OK
 common.btnreset = Reset
+common.btnsave = Save
 common.btnsearch = Search
 common.calendar = Cal.
 common.calendar.full = Calendar
@@ -219,6 +220,18 @@ mainwindow.menu.mihelp.page = Help for this page
 mainwindow.menu.mihelp.manual = Enigma manual
 mainwindow.projectssubtitle = Projects
 
+-------------------------------- Project input window --
+
+projectinputwindow.formtitle = Create new project
+projectinputwindow.generalinfo = Name and description for project
+projectinputwindow.name = Name for project
+projectinputwindow.identification = Identification (to be used in filenames)
+projectinputwindow.description = Description
+projectinputwindow.controlgroupinfo = Controlgroup
+projectinputwindow.controlgrouptype = Select the type of controlgroup
+projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
+projectinputwindow.datainfo = Datafile to be used
+projectinputwindow.datafile = Select the datafile
 
 -------------------------------- References ------------
 
@@ -302,6 +315,9 @@ ref.enum.chartcategories.female = Female
 ref.enum.chartcategories.horary = Horary
 ref.enum.chartcategories.male = Male
 ref.enum.chartcategories.unknown = Unknown
+
+ref.enum.controlgrouptypes.standardshift = Standard shifting of location, date, and time
+ref.enum.controlgrouptypes.groupmembershift = Shift members of groups
 
 ref.enum.direction4geolat.north = N
 ref.enum.direction4geolat.south = S

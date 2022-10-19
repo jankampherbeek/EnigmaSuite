@@ -20,6 +20,8 @@ using Enigma.Frontend.DataFiles;
 using Enigma.Frontend.Settings;
 using Enigma.Persistency.Services;
 using Enigma.Configuration.Services;
+using Enigma.Frontend.ResearchProjects;
+using Enigma.Research.Services;
 
 namespace Enigma.Frontend;
 
@@ -71,6 +73,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
+        serviceCollection.AddTransient<ProjectInputController>();
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
@@ -84,6 +87,7 @@ public partial class App : Application
         serviceCollection.RegisterAnalysisServices();
         serviceCollection.RegisterPersistencyServices();
         serviceCollection.RegisterConfigurationServices();
+        serviceCollection.RegisterResearchServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

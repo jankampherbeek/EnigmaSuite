@@ -114,7 +114,7 @@
         <Rectangle Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Margin="0 6 0 6"/>
         <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalScrollBarVisibility = "Auto" VerticalScrollBarVisibility = "Auto"/>
         <Button Grid.Row="4" Grid.Column="0" Margin="6" HorizontalAlignment="Left" Width="160" Name="BtnOpenProject" Content="ProjectsOpenClick" />
-        <Button Grid.Row="4" Grid.Column="1" Margin="6" HorizontalAlignment="Right" Width="160" Name="BtnNewProject" Content="ProjectsNewClick" Style="{StaticResource actionButtonStyle}" />
+        <Button Grid.Row="4" Grid.Column="1" Margin="6" HorizontalAlignment="Right" Width="160" Name="BtnNewProject" Content="ProjectsNewClick" Style="{StaticResource actionButtonStyle}" Click="ProjectsNewClick"/>
 
 
         <Button Grid.Row="5" Grid.Column="1" Margin="6" HorizontalAlignment="Right" Width="160" Name="BtnNewChart" Content="BtnNewChart" Style="{StaticResource actionButtonStyle}" Click="AdhocChartClick" />

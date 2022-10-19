@@ -41,7 +41,7 @@ public partial class MainWindow : Window
 
     private void ProjectsNewClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Projects - New not yet implemented.");
+        _controller.NewProject();
     }
 
 

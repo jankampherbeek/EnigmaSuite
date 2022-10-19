@@ -10,29 +10,22 @@ namespace Enigma.Research.Projects;
 public class CountProject : IResearchProject
 {
     public string Name { get;  }
+    public string Identification { get; }
     public string Description { get; }
     public string DataName { get; } 
     public string CreationDate { get; } 
     public ControlGroupTypes ControlGroupType { get; }
-    public ResearchMethods ResearchMethods { get; }
 
-    public ResearchMethods ResearchMethod => throw new NotImplementedException();
 
-    public CountProject(string name, string description, string dataName, string creationDate, 
-        ControlGroupTypes controlGroupType, ResearchMethods researchMethod) 
+    public CountProject(string name, string identification, string description, string dataName, string creationDate, ControlGroupTypes controlGroupType) 
     {
         Name = name;
         Description = description;
         DataName = dataName;
         CreationDate = creationDate;
         ControlGroupType = controlGroupType;
-        ResearchMethods = researchMethod;
+
     }
 
-    public IResearchResult PerformResearch(IMethodDefinitions methodDefinition)
-    {
-
-        return null;
-    }
 
 }
