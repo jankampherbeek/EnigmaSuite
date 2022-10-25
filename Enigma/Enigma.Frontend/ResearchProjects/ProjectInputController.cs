@@ -2,27 +2,42 @@
 // The Enigma Suite is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Engima.Domain.Research;
+using Enigma.Domain.Constants;
+using Enigma.Domain.Research;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.UiDomain;
+using Enigma.Persistency.FileHandling;
 using Enigma.Persistency.Handlers;
+using Enigma.Research.Parsers;
+using Enigma.Research.Handlers;
 using System.Collections.Generic;
+using System.IO;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace Enigma.Frontend.ResearchProjects;
 public class ProjectInputController
 {
+    public string ProjectName { get; set; }
+    public string ProjectIdentifier { get; set; }
+    public string ProjectDescription { get; set; }
+    public string DataFileName { get; set; }
+    public ControlGroupTypes ControlGroupType { get; set; }
+    public string ControlGroupMultiplication { get; set; }
+    public List<int> ActualErrorCodes { get; set; }
 
+    private readonly IDataNameHandler _dataNameHandler;
+    private readonly IDataNameForDataGridFactory _dataNameForDataGridFactory;
+    private readonly IProjectCreationHandler _projectCreationHandler;
 
-
-
-    private IDataNameHandler _dataNameHandler;
-    private IDataNameForDataGridFactory _dataNameForDataGridFactory;
-
-    // todo move functionality for reading datafiles to separate class that can also be used by Dat5aFilesOverviewController
-
-    public ProjectInputController(IDataNameHandler dataNameHandler, IDataNameForDataGridFactory dataNameForDataGridFactory)
+    public ProjectInputController(IDataNameHandler dataNameHandler, 
+        IDataNameForDataGridFactory dataNameForDataGridFactory, 
+        IProjectCreationHandler projectCreationHandler)
     {
         _dataNameHandler = dataNameHandler;
         _dataNameForDataGridFactory = dataNameForDataGridFactory;
+        _projectCreationHandler = projectCreationHandler;
     }
 
     public List<PresentableDataName> GetDataNames()
@@ -31,5 +46,55 @@ public class ProjectInputController
         List<string> fullPathDataNames = _dataNameHandler.GetExistingDataNames(path);
         return _dataNameForDataGridFactory.CreateDataNamesForDataGrid(fullPathDataNames);
     }
+
+    public bool ProcessInput()
+    {
+        bool noErrors = true;
+        ActualErrorCodes = new List<int>();
+
+        if (ProjectName == null || ProjectName.Trim().Length == 0)
+        {
+            noErrors = false;
+            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_NAME_INVALID);
+            ProjectName = "";
+        } 
+        if (ProjectIdentifier == null || ProjectIdentifier.Trim().Length == 0)
+        {
+            noErrors = false;
+            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_IDENTIFICATION_INVALID);
+            ProjectIdentifier = "";
+        } 
+        if (ProjectDescription == null || ProjectDescription.Trim().Length == 0)
+        {
+            noErrors = false;
+            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_DESCRIPTION);
+            ProjectDescription = "";
+        }
+        bool isNumeric = int.TryParse(ControlGroupMultiplication, out int multiplication);
+        if (!isNumeric || 0 >= multiplication || multiplication > 10)
+        {
+            noErrors = false;
+            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_MULTIPLICATION);
+        }
+        // check if datafilename exists
+        if (noErrors)
+        {
+            ResearchProject project = new ResearchProject(ProjectName, ProjectIdentifier, ProjectDescription, DataFileName, ControlGroupType, multiplication);
+            _projectCreationHandler.CreateProject(project, out int errorCode);
+            if (errorCode != 0)
+            {
+                MessageBox.Show("An error occurred");
+                noErrors = false;
+                // TODO handle errors
+            }
+            else
+            {
+                MessageBox.Show("Project has been saved.");
+
+            }
+        }
+        return noErrors;
+    }
+
 
 }

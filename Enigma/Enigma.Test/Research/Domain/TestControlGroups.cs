@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Engima.Research.Domain;
+using Engima.Domain.Research;
 
 namespace Enigma.Test.Research.Domain;
 

@@ -4,9 +4,8 @@
 
 using Enigma.Domain.Configuration;
 using Newtonsoft.Json;
-using System.Security.Principal;
 
-namespace Enigma.Persistency.Parsers;
+namespace Enigma.Configuration.Parsers;
 
 
 public interface IAstroConfigParser

@@ -2,11 +2,17 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Research.Domain;
+using Engima.Domain.Research;
 using Enigma.Domain.Messages;
-using Enigma.Research.Interfaces;
+
 
 namespace Enigma.Research.ControlGroups;
+
+public interface IControlGroupCreator
+{
+    public ResultMessage DefineControlGroup(string dataName, ControlGroupTypes controlGroupType);
+
+}
 
 public class StandardShiftControlGroupCreator : IControlGroupCreator
 {
@@ -19,4 +25,6 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
 
         throw new NotImplementedException();
     }
+
+
 }

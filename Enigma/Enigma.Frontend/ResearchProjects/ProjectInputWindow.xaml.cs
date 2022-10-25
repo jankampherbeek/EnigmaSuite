@@ -2,11 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Research.Domain;
+using Engima.Domain.Research;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-
+using System.Windows.Media;
 
 namespace Enigma.Frontend.ResearchProjects
 {
@@ -43,7 +44,18 @@ namespace Enigma.Frontend.ResearchProjects
 
         private void SaveClick(object sender, RoutedEventArgs e)
         {
-            // todo
+            TransferValues();
+            if (_controller.ProcessInput())
+            {
+                // create json for project
+                // create controlgroups
+                // show msgbox
+                Close();
+            }
+            else
+            {
+                HandleErrors();
+            }
         }
 
 
@@ -79,6 +91,25 @@ namespace Enigma.Frontend.ResearchProjects
                 comboDataFile.Items.Add(presDataName.DataName);
             }
             comboDataFile.SelectedIndex = 0;
+        }
+
+        private void HandleErrors()
+        {
+            NameValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_NAME_INVALID) ? Brushes.Yellow : Brushes.White;
+            IdentifValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_IDENTIFICATION_INVALID) ? Brushes.Yellow : Brushes.White;
+            DescrValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_DESCRIPTION) ? Brushes.Yellow : Brushes.White;
+            MultiplicValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_MULTIPLICATION) ? Brushes.Yellow : Brushes.White;
+        }
+
+        private void TransferValues()
+        {
+            _controller.ProjectName = NameValue.Text;
+            _controller.ProjectIdentifier = IdentifValue.Text;
+            _controller.ProjectDescription = DescrValue.Text;
+            _controller.ControlGroupMultiplication  = MultiplicValue.Text;
+            ControlGroupTypes controlGroupType = _controlGroupTypeSpecifications.AllControlGroupTypeDetails()[comboControlGroup.SelectedIndex].ControlGroupType;
+            _controller.ControlGroupType = controlGroupType;
+            _controller.DataFileName = comboDataFile.SelectedItem.ToString();
         }
     }
 }

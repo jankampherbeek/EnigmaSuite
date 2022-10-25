@@ -9,17 +9,6 @@ using Enigma.Domain.Messages;
 namespace Enigma.Research.Interfaces;
 
 
-public interface IResearchProject
-{
-    public string Name { get; }
-    public string Identification { get; }
-    public string Description { get; }
-    public string DataName {  get; }
-    public string CreationDate { get; }
-    public ControlGroupTypes ControlGroupType { get; }
-
-}
-
 
 public interface IResearchResult
 {
@@ -41,8 +30,3 @@ public interface IMethodDefinitions
     public ProjectionTypes ProjectionType { get; }
 }
 
-public interface IControlGroupCreator
-{
-    public ResultMessage DefineControlGroup(string dataName, ControlGroupTypes controlGroupType);
-
-}
