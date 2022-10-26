@@ -22,6 +22,30 @@ public interface IControlGroupRng
     /// <param name="count">Number of random values that should be returned.</param>
     /// <returns>The generated values. If not maxExclusive > 0, or if count is invalid, an empty list is returned.</returns>
     List<int> GetIntegers(int maxExclusive, int count);
+
+    List<int> ShuffleList(List<int> data);
+    List<double> ShuffleList(List<double> data);
+}
+
+
+static class ExtensionsClass
+{
+    private static IControlGroupRng controlGroupRng = new ControlGroupRng();
+    public static void Shuffle<T>(this IList<T> list)
+    {
+        int n = list.Count;
+        List<int> randomNumbers = controlGroupRng.GetIntegers(n - 1, n);
+
+        int index = 0;
+        while (n > 1)
+        {
+            n--;
+            int k = randomNumbers[index++];
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
+        }
+    }
 }
 
 
@@ -46,4 +70,19 @@ public class ControlGroupRng: IControlGroupRng
     {
         return GetIntegers(0, maxExclusive, count);
     }
+
+
+    public List<int> ShuffleList(List<int> data)
+    {
+        data.Shuffle();
+        return data; 
+    }
+
+    public List<double> ShuffleList(List<double> data)
+    {
+        data.Shuffle();
+        return data;
+    }
+
+
 }

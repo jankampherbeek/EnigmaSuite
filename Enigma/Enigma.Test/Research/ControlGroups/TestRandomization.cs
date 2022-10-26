@@ -109,4 +109,26 @@ public class TestControlGroupRng
         Assert.That(result.Count, Is.EqualTo(0));
     }
 
+
+    [Test]
+    public void TestShuffleIntList()
+    {
+        int[] dataItems = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+        List<int> data = new();
+        data.AddRange(dataItems);
+        _rng.ShuffleList(data);
+        Assert.That(data.Count, Is.EqualTo(dataItems.Length));
+        Assert.That(data[0] != 1 || data[1] != 2 || data[2] != 3 || data[3] != 4 || data[4] != 5  || data[5] != 6);
+    }
+
+    [Test]
+    public void TestShuffleDoubleList()
+    {
+        double[] dataItems = { 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.0, 11.1, 12.2 };
+        List<double> data = new();
+        data.AddRange(dataItems);
+        _rng.ShuffleList(data);
+        Assert.That(data.Count, Is.EqualTo(dataItems.Length));
+        Assert.That(data[0] != 1.1 || data[1] != 2.2 || data[2] != 3.3 || data[3] != 4.4 || data[4] != 5.5 || data[5] != 6.6);
+    }
 }
