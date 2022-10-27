@@ -66,7 +66,7 @@ public partial class StartWindow : Window
         }
         if (!result)
         {
-            throw new StartupException("Could not start Enigma Research. There is a problem with the configuration file. Please check if you have write access to the disk.");
+            throw new StartupException("Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk.");
         }
 
     }

@@ -2,12 +2,12 @@
 aboutwindow.copyright.text = Enigma is written by Jan Kampherbeek. The program is free and open source. See the file copyright.txt in the root of the application for more details.
 aboutwindow.copyright.title = Open source
 aboutwindow.description = Enigma Astrology Research is a program for astrological research
-aboutwindow.moreinfo.text = See the manual when using Enigma Research. Programmers will find more information at: http://www.radixpro.org 
+aboutwindow.moreinfo.text = See the manual when using Enigma Astrology Research. Programmers will find more information at: http://www.radixpro.org 
 aboutwindow.moreinfo.title = More information
 aboutwindow.title = About Enigma Astrology Research 0.1
 
 --- App settings window -------------------------------
-appsettingswindow.explanation = The locations for different types of files as used in Enigma Research. In future releases you will be able to change these locations.
+appsettingswindow.explanation = The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations.
 appsettingswindow.locdata = Data files
 appsettingswindow.locexport = Exported files
 appsettingswindow.locproject = Projects
@@ -156,10 +156,10 @@ common.yearcount.rb.astron = Astronomical
 common.yearcount.rb.hist = Historical
 
 
--------------------------- dashboard ------------------
+-------------------------- dashboard ------------------  obsolete?
 -- DashboardView --------------------------------------
-dashboard.title = Enigma Suite 1.0
-dashboard.formtitle = Enigma Suite 1.0
+dashboard.title = Enigma Astrology Research 1.0
+dashboard.formtitle = Enigma Astrology Research 1.0
 dashboard.charts = Charts
 dashboard.cycles = Cycles
 dashboard.counts = Counts
