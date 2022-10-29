@@ -21,7 +21,7 @@ public class TestAspectOrbConstructor
         mockOrbDefinitions.Setup(p => p.DefineSolSysPointOrb(SolarSystemPoints.Venus)).Returns(new SolSysPointOrb(SolarSystemPoints.Venus, 0.9));
         mockOrbDefinitions.Setup(p => p.DefineSolSysPointOrb(SolarSystemPoints.Uranus)).Returns(new SolSysPointOrb(SolarSystemPoints.Uranus, 0.6));
         IAspectOrbConstructor _orbConstructor = new AspectOrbConstructor(mockOrbDefinitions.Object);
-        AspectDetails aspectDetails = new AspectDetails(AspectTypes.Quintile, 72.0, "", "", 0.2);
+        AspectDetails aspectDetails = new(AspectTypes.Quintile, 72.0, "", "", 0.2);
         double actualOrb = _orbConstructor.DefineOrb(SolarSystemPoints.Venus, SolarSystemPoints.Uranus, aspectDetails);
         double expectedOrb = 1.8;
         Assert.That(actualOrb, Is.EqualTo(expectedOrb).Within(_delta));
@@ -34,7 +34,7 @@ public class TestAspectOrbConstructor
         mockOrbDefinitions.Setup(p => p.DefineMundanePointOrb("MC")).Returns(new MundanePointOrb("MC", 1.0));
         mockOrbDefinitions.Setup(p => p.DefineSolSysPointOrb(SolarSystemPoints.Uranus)).Returns(new SolSysPointOrb(SolarSystemPoints.Uranus, 0.6));
         IAspectOrbConstructor _orbConstructor = new AspectOrbConstructor(mockOrbDefinitions.Object);
-        AspectDetails aspectDetails = new AspectDetails(AspectTypes.Quintile, 72.0, "", "", 0.2);
+        AspectDetails aspectDetails = new(AspectTypes.Quintile, 72.0, "", "", 0.2);
         double actualOrb = _orbConstructor.DefineOrb("MC", SolarSystemPoints.Uranus, aspectDetails);
         double expectedOrb = 2.0;
         Assert.That(actualOrb, Is.EqualTo(expectedOrb).Within(_delta));

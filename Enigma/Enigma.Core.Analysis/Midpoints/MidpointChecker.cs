@@ -37,8 +37,8 @@ public class MidpointChecker : IMidpointChecker
     private readonly double _halfCircle = 180.0;
     private readonly double _fullCircle = 360.0;
 
-    private IMidpointOrbConstructor _orbConstructor;
-    private IMidpointSpecifications _midpointSpecifications;
+    private readonly IMidpointOrbConstructor _orbConstructor;
+    private readonly IMidpointSpecifications _midpointSpecifications;
 
     public MidpointChecker(IMidpointOrbConstructor orbConstructor, IMidpointSpecifications midpointSpecifications)
     {

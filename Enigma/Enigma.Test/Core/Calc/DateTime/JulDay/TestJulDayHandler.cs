@@ -32,7 +32,7 @@ public class TestJulDayHandler
     {
         Mock<IJulDayCalc> calcMock = CreateCalcMock();
         IJulDayHandler handler = new JulDayHandler(calcMock.Object);
-        JulianDayRequest request = new JulianDayRequest(_dateTime);
+        JulianDayRequest request = new(_dateTime);
         JulianDayResponse response = handler.CalcJulDay(request);
         Assert.That(response.JulDayUt, Is.EqualTo(_expectedJd).Within(_delta));
         Assert.That(response.Success);
@@ -44,7 +44,7 @@ public class TestJulDayHandler
     {
         Mock<IJulDayCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IJulDayHandler handler = new JulDayHandler(calcExceptionMock.Object);
-        JulianDayRequest request = new JulianDayRequest(_dateTime);
+        JulianDayRequest request = new(_dateTime);
         JulianDayResponse response = handler.CalcJulDay(request);
         Assert.That(!response.Success);
         Assert.That(response.ErrorText, Is.EqualTo(_errorText));

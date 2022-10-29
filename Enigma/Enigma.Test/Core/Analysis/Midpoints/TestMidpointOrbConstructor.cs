@@ -16,7 +16,7 @@ public class TestMidpointOrbConstructor
     public void TestOrb4SolSysPoint()
     {
         IMidpointOrbConstructor _orbConstructor = new MidpointOrbConstructor();
-        MidpointDetails midpointDetails = new MidpointDetails(MidpointTypes.Dial45, 8, "", 0.125);
+        MidpointDetails midpointDetails = new(MidpointTypes.Dial45, 8, "", 0.125);
         double actualOrb = _orbConstructor.DefineOrb(midpointDetails);
         double expectedOrb = 1.6 * 0.125;
         Assert.That(actualOrb, Is.EqualTo(expectedOrb).Within(_delta));

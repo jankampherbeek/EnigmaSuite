@@ -13,8 +13,8 @@ namespace Enigma.Test.Core.Calc.Api.DateTime;
 [TestFixture]
 public class TestJulianDayApi
 {
-    private readonly JulianDayRequest _jdRequest = new JulianDayRequest(new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian));
-    private readonly JulianDayResponse _jdResponse = new JulianDayResponse(123456.789, 123456.790, 0.000345, true, "");
+    private readonly JulianDayRequest _jdRequest = new(new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian));
+    private readonly JulianDayResponse _jdResponse = new(123456.789, 123456.790, 0.000345, true, "");
 
 
     [Test]
@@ -37,7 +37,7 @@ public class TestJulianDayApi
     public void TestRequestDateTimeNull()
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
-        JulianDayRequest errorRequest = new JulianDayRequest(null);
+        JulianDayRequest errorRequest = new(null);
         Assert.That(() => api.getJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

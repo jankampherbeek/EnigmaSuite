@@ -22,7 +22,7 @@ public class TestHorizontalApi
     private readonly bool _expectedSuccess = true;
     private readonly string _expectedErrorText = "";
     private readonly Location _location = new("Anywhere", 55.5, 22.2);
-    private readonly EclipticCoordinates _eclCoordinates = new EclipticCoordinates(111.1, 2.2);
+    private readonly EclipticCoordinates _eclCoordinates = new(111.1, 2.2);
     private IHorizontalApi _api;
 
     [SetUp]
@@ -56,14 +56,14 @@ public class TestHorizontalApi
     [Test]
     public void TestHorizontalLocationNullRequest()
     {
-        HorizontalRequest request = new HorizontalRequest(_jdUt, null, _eclCoordinates);
+        HorizontalRequest request = new(_jdUt, null, _eclCoordinates);
         Assert.That(() => _api.getHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestHorizontalEclcoordinatesNullRequest()
     {
-        HorizontalRequest request = new HorizontalRequest(_jdUt, _location, null);
+        HorizontalRequest request = new(_jdUt, _location, null);
         Assert.That(() => _api.getHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 

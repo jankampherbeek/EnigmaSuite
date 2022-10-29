@@ -22,7 +22,7 @@ public class DateTimeHandler : IDateTimeHandler
 
     public DateTimeResponse CalcDateTime(DateTimeRequest request)
     {
-        SimpleDateTime dateTime = new SimpleDateTime(0, 0, 0, 0.0, Calendars.Gregorian);
+        SimpleDateTime dateTime = new(0, 0, 0, 0.0, Calendars.Gregorian);
         string errorText = "";
         bool success = true;
         try

@@ -40,7 +40,7 @@ public class TestDateInputParser
     public void SyntaxError()
     {
         string dateInput = "2022/a/8";
-        int[] dateValues = new int[] { };
+        int[] dateValues = Array.Empty<int>();
         var _mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (dateValues, false);
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, _separator)).Returns(rangeResult);

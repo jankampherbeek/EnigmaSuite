@@ -19,11 +19,14 @@ public class TestValueRangeConverter
         string text = "12-14-18";
         char separator = '-';
         (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
-        Assert.IsTrue(success);
-        Assert.That(numbers.Length, Is.EqualTo(3));
-        Assert.That(12, Is.EqualTo(numbers[0]));
-        Assert.That(14, Is.EqualTo(numbers[1]));
-        Assert.That(18, Is.EqualTo(numbers[2]));
+        Assert.Multiple(() =>
+        {
+            Assert.That(success, Is.True);
+            Assert.That(numbers, Has.Length.EqualTo(3));
+            Assert.That(numbers[0], Is.EqualTo(12));
+            Assert.That(numbers[1], Is.EqualTo(14));
+            Assert.That(numbers[2], Is.EqualTo(18));
+        });
     }
 
     [Test]
@@ -32,9 +35,12 @@ public class TestValueRangeConverter
         string text = "12";
         char separator = '-';
         (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
-        Assert.IsTrue(success);
-        Assert.That(numbers.Length, Is.EqualTo(1));
-        Assert.That(12, Is.EqualTo(numbers[0]));
+        Assert.Multiple(() =>
+        {
+            Assert.That(success, Is.True);
+            Assert.That(numbers, Has.Length.EqualTo(1));
+            Assert.That(numbers[0], Is.EqualTo(12));
+        });
     }
 
     [Test]
@@ -42,8 +48,8 @@ public class TestValueRangeConverter
     {
         string text = "";
         char separator = '-';
-        (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
-        Assert.IsFalse(success);
+        (_, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        Assert.That(success, Is.False);
     }
 
     [Test]
@@ -51,7 +57,9 @@ public class TestValueRangeConverter
     {
         string? text = null;
         char separator = '-';
-        Assert.Throws<ArgumentNullException>(() => Converter.ConvertStringRangeToIntRange(text, separator));
+#pragma warning disable CS8604 // Possible null reference argument.
+        _ = Assert.Throws<ArgumentNullException>(() => Converter.ConvertStringRangeToIntRange(text, separator));
+#pragma warning restore CS8604 // Possible null reference argument.
     }
 
     [Test]
@@ -59,8 +67,8 @@ public class TestValueRangeConverter
     {
         string text = "aa-12-22";
         char separator = '-';
-        (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
-        Assert.IsFalse(success);
+        (_, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        Assert.That(success, Is.False);
     }
 
     [Test]
@@ -68,8 +76,8 @@ public class TestValueRangeConverter
     {
         string text = "3-12-22";
         char separator = '|';
-        (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
-        Assert.IsFalse(success);
+        (_, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        Assert.That(success, Is.False);
     }
 
 }

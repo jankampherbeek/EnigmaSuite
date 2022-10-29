@@ -38,7 +38,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
     /// <inheritdoc/>
     public List<PresentableAspects> CreateAspectForDataGrid(List<EffectiveAspect> aspects)
     {
-        List<PresentableAspects> presentableAspects = new List<PresentableAspects>();
+        List<PresentableAspects> presentableAspects = new();
         foreach (var aspect in aspects)
         {
             presentableAspects.Add(CreatePresAspect(aspect));

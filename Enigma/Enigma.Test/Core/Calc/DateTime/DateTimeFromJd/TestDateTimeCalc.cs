@@ -19,7 +19,7 @@ public class TestDateTimeCalc
     {
         double jd = 12345.6789;
         Calendars calendar = Calendars.Gregorian;
-        SimpleDateTime dateTime = new SimpleDateTime(2000, 1, 1, 12.0, calendar);
+        SimpleDateTime dateTime = new(2000, 1, 1, 12.0, calendar);
         var mock = new Mock<IRevJulFacade>();
         mock.Setup(p => p.DateTimeFromJd(jd, calendar)).Returns(dateTime);
         IDateTimeCalc dateTimeCalc = new DateTimeCalc(mock.Object);

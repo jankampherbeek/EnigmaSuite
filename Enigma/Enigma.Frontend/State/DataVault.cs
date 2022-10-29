@@ -12,7 +12,7 @@ namespace Enigma.Frontend.State;
 /// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
 public sealed class DataVault
 {
-    private static readonly DataVault instance = new DataVault();
+    private static readonly DataVault instance = new();
 
     private List<CalculatedChart> _allCharts = new(); 
     private CalculatedChart? _lastChart;

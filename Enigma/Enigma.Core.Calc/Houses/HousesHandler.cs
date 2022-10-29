@@ -88,14 +88,14 @@ public class HousesHandler : IHousesHandler
 
     private EquatorialCoordinates CalcEquatorialCoordinates(EclipticCoordinates eclCoord, double obliquity)
     {
-        CoordinateConversionRequest coordConvRequest = new CoordinateConversionRequest(eclCoord, obliquity);
+        CoordinateConversionRequest coordConvRequest = new(eclCoord, obliquity);
         CoordinateConversionResponse coordConvResponse = _coordinateConversionHandler.HandleConversion(coordConvRequest);
         return coordConvResponse.equatorialCoord;
     }
 
     private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EclipticCoordinates eclCoord)
     {
-        HorizontalRequest horizontalRequest = new HorizontalRequest(jdUt, location, eclCoord);
+        HorizontalRequest horizontalRequest = new(jdUt, location, eclCoord);
         HorizontalResponse horizontalResponse = _horizontalHandler.CalcHorizontal(horizontalRequest);
         return horizontalResponse.HorizontalAzimuthAltitude;
     }

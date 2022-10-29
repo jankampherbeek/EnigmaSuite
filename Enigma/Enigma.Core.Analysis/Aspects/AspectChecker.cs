@@ -32,8 +32,8 @@ public interface IAspectChecker
 /// <inheritdoc/>
 public class AspectChecker : IAspectChecker
 {
-    private IAspectOrbConstructor _orbConstructor;
-    private IAspectSpecifications _aspectSpecifications;
+    private readonly IAspectOrbConstructor _orbConstructor;
+    private readonly IAspectSpecifications _aspectSpecifications;
 
     public AspectChecker(IAspectOrbConstructor orbConstructor, IAspectSpecifications aspectSpecifications)
     {

@@ -29,7 +29,7 @@ public class CalcUtFacade : ICalcUtFacade
     /// <inheritdoc/>
     public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags)
     {
-        StringBuilder _resultValue = new StringBuilder(256);
+        StringBuilder _resultValue = new(256);
               double[] _positions = new double[6];
 
               long result = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);

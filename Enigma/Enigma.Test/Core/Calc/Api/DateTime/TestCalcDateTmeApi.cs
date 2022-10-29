@@ -13,8 +13,8 @@ namespace Enigma.Test.Core.App.Api.DateTime;
 [TestFixture]
 public class TestCalcDateTimeApi
 {
-    private readonly DateTimeRequest _dateTimeRequest = new DateTimeRequest(123456.789, true, Calendars.Gregorian);
-    private readonly DateTimeResponse _dateTimeResponse = new DateTimeResponse(new SimpleDateTime(2022, 4, 20, 19.6, Calendars.Gregorian), true, "");
+    private readonly DateTimeRequest _dateTimeRequest = new(123456.789, true, Calendars.Gregorian);
+    private readonly DateTimeResponse _dateTimeResponse = new(new SimpleDateTime(2022, 4, 20, 19.6, Calendars.Gregorian), true, "");
 
     [Test]
     public void TestHappyFlow()
@@ -24,6 +24,7 @@ public class TestCalcDateTimeApi
         Assert.That(_dateTimeResponse, Is.EqualTo(actualResponse));
     }
 
+    [Test]
     public void TestRequestNull()
     {
         ICalcDateTimeApi api = new CalcDateTimeApi(CreateHandlerMock());

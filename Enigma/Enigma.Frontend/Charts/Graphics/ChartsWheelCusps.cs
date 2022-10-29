@@ -70,7 +70,7 @@ public class ChartsWheelCusps: IChartsWheelCusps
 
     public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc)
     {
-        DimPoint dimPoint = new DimPoint(centerPoint);
+        DimPoint dimPoint = new(centerPoint);
         DimTextBlock cuspsDimTextBlock = new(metrics.PositionTextsFontFamily, metrics.CardinalFontSize, metrics.CuspTextOpacity, metrics.CuspTextColor);
         List<TextBlock> cardinalIndicators = new();
         double xOffset = metrics.CardinalFontSize / 3;

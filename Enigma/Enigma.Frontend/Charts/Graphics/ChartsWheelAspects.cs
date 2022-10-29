@@ -41,7 +41,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
     {
         List<Line> aspectLines = new();
         List<DrawableAspectCoordinatesSs> ssCoordinates = createSsCoordinates(currentChart, metrics, centerPoint);
-        AspectRequest request = new AspectRequest(currentChart);
+        AspectRequest request = new(currentChart);
         List<EffectiveAspect> effSsAspects = _aspectsApi.AspectsForSolSysPoints(request);
         List<DrawableSolSysPointAspect> drawSsAspects = _aspectForWheelFactory.CreateSolSysAspectForWheel(effSsAspects);
         List<EffectiveAspect> effMuAspects = _aspectsApi.AspectsForMundanePoints(request);
@@ -68,8 +68,8 @@ public class ChartsWheelAspects : IChartsWheelAspects
             }
             if (drawCoordSs1 != null && drawCoordSs2 != null)
             {
-                Point firstPoint = new Point(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
-                Point secondPoint = new Point(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);  
+                Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
+                Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);  
                 Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.SolSysPointConnectLineOpacity);
                 aspectLines.Add(connectionLine);
 

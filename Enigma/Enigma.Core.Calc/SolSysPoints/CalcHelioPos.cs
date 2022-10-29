@@ -73,7 +73,7 @@ public class CalcHelioPos : ICalcHelioPos
         if (phiCoord < 0.0) phiCoord += (Math.PI * 2);
         double thetaCoord = Math.Atan(Math.Sin(phiCoord - meanAnomaly) * Math.Tan(inclination));
         double rCoord = MathExtra.DegToRad(orbitDefinition.SemiMajorAxis) * (1 - eccentricity * Math.Cos(eccAnomaly));
-        PolarCoordinates helioPol = new PolarCoordinates(phiCoord, thetaCoord, rCoord);
+        PolarCoordinates helioPol = new(phiCoord, thetaCoord, rCoord);
         return MathExtra.Polar2Rectangular(helioPol);
     }
 

@@ -18,14 +18,14 @@ public class TestCoordinateConversionApi
     private readonly double _obliquity = 23.447;
     private readonly bool _expectedSuccess = true;
     private readonly string _expectedErrorText = "";
-    private readonly EquatorialCoordinates _expectedEqCoord = new EquatorialCoordinates(221.1, 4.4);
+    private readonly EquatorialCoordinates _expectedEqCoord = new(221.1, 4.4);
     private ICoordinateConversionApi _api;
 
     [SetUp]
     public void SetUp()
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
-        EclipticCoordinates _eclCoordinates = new EclipticCoordinates(111.1, 2.2);
+        EclipticCoordinates _eclCoordinates = new(111.1, 2.2);
         var _mockCoordConvHandler = new Mock<ICoordinateConversionHandler>();
         _mockCoordConvHandler.Setup(p => p.HandleConversion(_coordConvRequest)).Returns(new CoordinateConversionResponse(_expectedEqCoord, _expectedSuccess, _expectedErrorText));
         _api = new CoordinateConversionApi(_mockCoordConvHandler.Object);
@@ -50,7 +50,7 @@ public class TestCoordinateConversionApi
     [Test]
     public void TestCoordinateConversionNullCoordinates()
     {
-        CoordinateConversionRequest errorRequest = new CoordinateConversionRequest(null, _obliquity);
+        CoordinateConversionRequest errorRequest = new(null, _obliquity);
         Assert.That(() => _api.getEquatorialFromEcliptic(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

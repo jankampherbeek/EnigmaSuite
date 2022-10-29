@@ -51,11 +51,10 @@ public class ChartDataInputController
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
-   // private readonly MainController _chartStartController;
     private Calendars _cal;
     private List<FullSolSysPointPos> _solarSystemPointPositions;
     private FullHousesPositions _mundanePositions;
-    private IRosetta _rosetta;
+    private readonly IRosetta _rosetta;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
                                     IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi, IRosetta rosetta)
@@ -74,7 +73,7 @@ public class ChartDataInputController
     /// <summary>
     /// Retrieve calculation preferences from active modus. Currently uses hardcoded values.
     /// </summary>
-    /// TODO: replace hardocded values with a lookup from the active modus.
+    /// TODO: replace hardocded values with a lookup from the active settings.
     private CalculationPreferences RetrieveCalculationPreferences() {
 
         ImmutableArray<SolarSystemPoints> solarSystemPoints = ImmutableArray.Create(new SolarSystemPoints[] { 
@@ -104,19 +103,14 @@ public class ChartDataInputController
     {
         ActualErrorCodes = new List<int>();
         _cal = Calendar;
-        FullDate? fullDate = null;
-        FullTime? fullTime = null;
-        FullGeoLongitude? fullGeoLongitude = null;
-        FullGeoLatitude? fullGeoLatitude = null;
-        FullGeoLongitude? fullLmtOffset = null;
 
         // todo validate and define lmtoffset
         double lmtOffset = 0.0;
-        bool dateSuccess = _dateInputParser.HandleGeoLong(InputDate, Calendar, YearCount, out fullDate);
-        bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, out fullTime);
-        bool geoLongSuccess = _geoLongInputParser.HandleGeoLong(Longitude, Direction4GeoLong, out fullGeoLongitude);
-        bool geoLatSuccess = _geoLatInputParser.HandleGeoLat(Latitude, Direction4GeoLat, out fullGeoLatitude);
-        bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out fullLmtOffset);
+        bool dateSuccess = _dateInputParser.HandleGeoLong(InputDate, Calendar, YearCount, out FullDate? fullDate);
+        bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, out FullTime? fullTime);
+        bool geoLongSuccess = _geoLongInputParser.HandleGeoLong(Longitude, Direction4GeoLong, out FullGeoLongitude? fullGeoLongitude);
+        bool geoLatSuccess = _geoLatInputParser.HandleGeoLat(Latitude, Direction4GeoLat, out FullGeoLatitude? fullGeoLatitude);
+        bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? fullLmtOffset);
         
         if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
         if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
@@ -127,27 +121,27 @@ public class ChartDataInputController
         if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess)
         {
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, _cal);
-            JulianDayRequest julianDayRequest = new JulianDayRequest(dateTime);
+            JulianDayRequest julianDayRequest = new (dateTime);
             double julianDayUt = _julianDayApi.getJulianDay(julianDayRequest).JulDayUt;
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
             string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText; 
-            Location location = new Location(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
-            SolSysPointsRequest solSysPointsRequest = new SolSysPointsRequest(julianDayUt, location, RetrieveCalculationPreferences());
-            ChartAllPositionsRequest chartAllPositionsRequest = new ChartAllPositionsRequest(solSysPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
+            Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
+            SolSysPointsRequest solSysPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
+            ChartAllPositionsRequest chartAllPositionsRequest = new(solSysPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
             ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.getChart(chartAllPositionsRequest);
             if (chartAllPositionsResponse.Success)
             {
                 _solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;
                 _mundanePositions = chartAllPositionsResponse.MundanePositions;
-                FullDateTime fullDateTime = new FullDateTime(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
+                FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
 
 
                 MetaData metaData = CreateMetaData(NameId, Description, Source, ChartCategory, RoddenRating);
                 // Todo retrieve id from database, use local counter for tempId
                 int id = 1000;
                 int tempId = 1;
-                ChartData chartData = new ChartData(id, tempId, metaData, location, fullDateTime);
-                CalculatedChart chart = new CalculatedChart(_solarSystemPointPositions, _mundanePositions, chartData);
+                ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
+                CalculatedChart chart = new(_solarSystemPointPositions, _mundanePositions, chartData);
                 _dataVault.AddNewChart(chart);
                 _dataVault.SetNewChartAdded(true);
                 return true;

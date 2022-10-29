@@ -53,7 +53,7 @@ namespace Enigma.Frontend.DataFiles
 
         private void BrowseClick(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.OpenFileDialog openFileDlg = new Microsoft.Win32.OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog openFileDlg = new();
             Nullable<bool> result = openFileDlg.ShowDialog();
             if (result == true)
             {

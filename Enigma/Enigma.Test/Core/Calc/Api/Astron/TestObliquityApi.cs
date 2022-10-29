@@ -38,7 +38,7 @@ public class TestObliquityApi
     [Test]
     public void TestObliquityHappyFlow()
     {
-        ObliquityResponse response = _obliquityApi.getObliquity(_obliquityRequest);
+        ObliquityResponse response = _obliquityApi.GetObliquity(_obliquityRequest);
         Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
         Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
         Assert.IsTrue(response.Success);
@@ -48,7 +48,7 @@ public class TestObliquityApi
     [Test]
     public void TestObliquityNullRequest()
     {
-        Assert.That(() => _obliquityApi.getObliquity(null), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _obliquityApi.GetObliquity(null), Throws.TypeOf<ArgumentNullException>());
     }
 
 

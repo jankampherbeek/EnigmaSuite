@@ -7,19 +7,15 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.UiDomain;
-using Enigma.Persistency.FileHandling;
 using Enigma.Persistency.Handlers;
-using Enigma.Research.Parsers;
 using Enigma.Research.Handlers;
 using System.Collections.Generic;
-using System.IO;
-using System.Windows.Controls;
 using System.Windows;
 
 namespace Enigma.Frontend.ResearchProjects;
 public class ProjectInputController
 {
-    public string ProjectName { get; set; }
+    public string ProjectName { get; set; } 
     public string ProjectIdentifier { get; set; }
     public string ProjectDescription { get; set; }
     public string DataFileName { get; set; }
@@ -31,13 +27,20 @@ public class ProjectInputController
     private readonly IDataNameForDataGridFactory _dataNameForDataGridFactory;
     private readonly IProjectCreationHandler _projectCreationHandler;
 
-    public ProjectInputController(IDataNameHandler dataNameHandler, 
+    public ProjectInputController(IDataNameHandler dataNameHandler,
         IDataNameForDataGridFactory dataNameForDataGridFactory, 
         IProjectCreationHandler projectCreationHandler)
     {
         _dataNameHandler = dataNameHandler;
         _dataNameForDataGridFactory = dataNameForDataGridFactory;
         _projectCreationHandler = projectCreationHandler;
+        ProjectName = "";
+        ProjectIdentifier = "";
+        ProjectDescription = "";
+        DataFileName = "";
+        ControlGroupType = ControlGroupTypes.StandardShift;
+        ControlGroupMultiplication = "1";
+        ActualErrorCodes = new();
     }
 
     public List<PresentableDataName> GetDataNames()
@@ -76,10 +79,10 @@ public class ProjectInputController
             noErrors = false;
             ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_MULTIPLICATION);
         }
-        // check if datafilename exists
+        // TODO check if datafilename exists
         if (noErrors)
         {
-            ResearchProject project = new ResearchProject(ProjectName, ProjectIdentifier, ProjectDescription, DataFileName, ControlGroupType, multiplication);
+            ResearchProject project = new(ProjectName, ProjectIdentifier, ProjectDescription, DataFileName, ControlGroupType, multiplication);
             _projectCreationHandler.CreateProject(project, out int errorCode);
             if (errorCode != 0)
             {

@@ -15,7 +15,7 @@ public partial class ChartPositionsWindow : Window
 {
     private IRosetta _rosetta;
 
-    private ChartPositionsController _controller;
+    private readonly ChartPositionsController _controller;
     private readonly string _space = " ";
     private readonly string _newLine = "\n";
     private ChartData? _chartData;

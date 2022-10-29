@@ -43,7 +43,7 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
 
    private PresentableHousePositions CreateSingleCuspPos(string identification, CuspFullPos cuspFullPos)
    {
-        PresentableHousePositions positions = new PresentableHousePositions(
+        PresentableHousePositions positions = new(
             identification, 
             _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).longTxt,
             _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).glyph,

@@ -18,7 +18,7 @@ public class AspectOrbConstructor: IAspectOrbConstructor
 
     private readonly double _baseOrb = 10.0;   // todo make baseorb configurable
 
-    private IOrbDefinitions _orbDefinitions;
+    private readonly IOrbDefinitions _orbDefinitions;
 
     public AspectOrbConstructor(IOrbDefinitions orbDefinitions)
     {

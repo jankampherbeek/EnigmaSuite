@@ -34,7 +34,7 @@ public class TestDateTimeHandler
     {
         Mock<ICheckDateTimeValidator> validatorMock = CreateValidatorMock();
         ICheckDateTimeHandler handler = new CheckDateTimeHandler(validatorMock.Object);
-        CheckDateTimeRequest request = new CheckDateTimeRequest(_dateTime);
+        CheckDateTimeRequest request = new(_dateTime);
         CheckDateTimeResponse response = handler.CheckDateTime(request);
         Assert.That(response.Validated, Is.True);
         Assert.That(response.Success, Is.True);
@@ -46,7 +46,7 @@ public class TestDateTimeHandler
     {
         Mock<ICheckDateTimeValidator> validatorExceptionMock = CreateCalcMockThrowingException();
         ICheckDateTimeHandler handler = new CheckDateTimeHandler(validatorExceptionMock.Object);
-        CheckDateTimeRequest request = new CheckDateTimeRequest(_dateTime);
+        CheckDateTimeRequest request = new(_dateTime);
         CheckDateTimeResponse response = handler.CheckDateTime(request);
         Assert.IsFalse(response.Success);
         Assert.That(response.ErrorText, Is.EqualTo(_errorText));
