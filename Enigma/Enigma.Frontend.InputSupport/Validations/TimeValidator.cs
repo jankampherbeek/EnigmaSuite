@@ -51,15 +51,6 @@ public class TimeValidator : ITimeValidator
             }
             _success = CheckMinAndMaxValues(timeValues);
         }
- 
-   //     if (timezone == TimeZones.LMT)
-   //     {
-   //         if (!CheckLmtOffset(inputLmtOffsetValues))
-   //         {
-   //             _success = false;
-   //         }
-   //     }
-
         if (_success)
         {
             CalculateUtAndCorrectionForDay(timezone, lmtOffset);
@@ -82,7 +73,7 @@ public class TimeValidator : ITimeValidator
         return _fullText;
     }
 
-    private bool CheckMinAndMaxValues(int[] valuesToCheck)
+    private static bool CheckMinAndMaxValues(int[] valuesToCheck)
     {
         bool result = true;
         if (valuesToCheck[0] < 0 || valuesToCheck[0] > 23) result = false;
@@ -91,20 +82,6 @@ public class TimeValidator : ITimeValidator
         return result;
     }
 
-  /*  private bool CheckLmtOffset(int[] inputLmtOffsetValues)
-    {
-        bool lmtOffsetOk = (inputLmtOffsetValues.Length == 3) || (inputLmtOffsetValues.Length == 2);
-        if (lmtOffsetOk)
-        {
-            for (int i = 0; i < inputLmtOffsetValues.Length; i++)
-            {
-                lmtOffsetValues[i] = inputLmtOffsetValues[i];
-            }
-            lmtOffsetOk = CheckMinAndMaxValues(lmtOffsetValues);
-        }
-        return lmtOffsetOk;
-    }
-  */
     private void CalculateUtAndCorrectionForDay(TimeZones timezone, double lmtOffset)
     {
         double _offset;

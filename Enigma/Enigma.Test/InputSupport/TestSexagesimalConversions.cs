@@ -19,7 +19,7 @@ public class TestSexagesimalConversions
         string[] inputLat = new string[] { "52", "13", "0" };
         Directions4GeoLat direction = Directions4GeoLat.North;
         double expected = 52.2166666667;
-        Assert.AreEqual(expected, conversions.InputGeoLatToDouble(inputLat, direction), delta);
+        Assert.That(conversions.InputGeoLatToDouble(inputLat, direction), Is.EqualTo(expected).Within(delta));
     }
 
     [Test]
@@ -28,7 +28,7 @@ public class TestSexagesimalConversions
         string[] inputLat = new string[] { "52", "13", "0" };
         Directions4GeoLat direction = Directions4GeoLat.South;
         double expected = -52.2166666667;
-        Assert.AreEqual(expected, conversions.InputGeoLatToDouble(inputLat, direction), delta);
+        Assert.That(conversions.InputGeoLatToDouble(inputLat, direction), Is.EqualTo(expected).Within(delta));
     }
 
     [Test]
@@ -45,7 +45,7 @@ public class TestSexagesimalConversions
         string[] inputLong = new string[] { "12", "15", "20" };
         Directions4GeoLong direction = Directions4GeoLong.East;
         double expected = 12.25555555556;
-        Assert.AreEqual(expected, conversions.InputGeoLongToDouble(inputLong, direction), delta);
+        Assert.That(conversions.InputGeoLongToDouble(inputLong, direction), Is.EqualTo(expected).Within(delta));
     }
 
     [Test]
@@ -54,7 +54,7 @@ public class TestSexagesimalConversions
         string[] inputLong = new string[] { "12", "15", "20" };
         Directions4GeoLong direction = Directions4GeoLong.West;
         double expected = -12.25555555556;
-        Assert.AreEqual(expected, conversions.InputGeoLongToDouble(inputLong, direction), delta);
+        Assert.That(conversions.InputGeoLongToDouble(inputLong, direction), Is.EqualTo(expected).Within(delta));
     }
 
     [Test]
@@ -70,7 +70,7 @@ public class TestSexagesimalConversions
     {
         string[] inputTime = new string[] { "8", "37", "30" };
         double expected = 8.625;
-        Assert.AreEqual(expected, conversions.InputTimeToDoubleHours(inputTime), delta);
+        Assert.That(conversions.InputTimeToDoubleHours(inputTime), Is.EqualTo(expected).Within(delta));
     }
 
     [Test]

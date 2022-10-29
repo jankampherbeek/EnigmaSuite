@@ -46,7 +46,7 @@ public interface ITimeZoneSpecifications
     /// <param name="timeZoneIndex">The index for the requested item from TimeZones. 
     /// Throws an exception if no TimeZone for the given index does exist.</param>
     /// <returns>Instance from enum TimeZones that corresponds with the given index.</returns>
-    public TimeZones TimeZoneForIndex(int yearCountIndex);
+    public TimeZones TimeZoneForIndex(int timeZoneIndex);
 }
 
 public class TimeZoneSpecifications : ITimeZoneSpecifications

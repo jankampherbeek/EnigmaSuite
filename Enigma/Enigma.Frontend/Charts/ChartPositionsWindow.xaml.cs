@@ -7,6 +7,7 @@ using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
+using System;
 
 namespace Enigma.Frontend.Charts;
 
@@ -103,7 +104,7 @@ public partial class ChartPositionsWindow : Window
         string monthId = inputDateText.Substring(firstStartIndex + 1, firstEndIndex - firstStartIndex - 1);
         string calendarId = inputDateText.Substring(secondStartIndex + 1, secondEndIndex - secondStartIndex - 1);
 
-        return _rosetta.TextForId("ref.months." + monthId) + inputDateText.Substring(firstEndIndex + 1, secondStartIndex - firstEndIndex - 1) + _rosetta.TextForId("ref.calendar." + calendarId);
+        return string.Concat(_rosetta.TextForId("ref.months." + monthId), inputDateText.AsSpan(firstEndIndex + 1, secondStartIndex - firstEndIndex - 1), _rosetta.TextForId("ref.calendar." + calendarId));
     }
 
     private string ParseTimeText(string inputTimeText)
@@ -111,7 +112,7 @@ public partial class ChartPositionsWindow : Window
         int startIndex = inputTimeText.IndexOf("[");
         int endIndex = inputTimeText.LastIndexOf("]");
         string timeZoneId = inputTimeText.Substring(startIndex + 1, endIndex - startIndex - 1);
-        return inputTimeText.Substring(0, startIndex - 1) + _rosetta.TextForId(timeZoneId);
+        return string.Concat(inputTimeText.AsSpan(0, startIndex - 1), _rosetta.TextForId(timeZoneId));
     }
 
 

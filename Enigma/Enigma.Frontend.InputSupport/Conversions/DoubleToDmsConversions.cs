@@ -44,8 +44,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
 {
     public string ConvertDoubleToDmsInSignNoGlyph(double position)
     {
-        var longWithGlyph = ConvertDoubleToDmsWithGlyph(position);
-        return longWithGlyph.longTxt;
+        return ConvertDoubleToDmsWithGlyph(position).longTxt;
     }
     public string ConvertDoubleToDmInSignNoGlyph(double position)
     {
@@ -80,7 +79,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
         string minusSign = position < 0.0 ? "-" : "";
         double remaining = Math.Abs(position);              
         int degrees = (int)remaining;              
-        remaining = remaining - degrees;
+        remaining -= degrees;
         int minutes = (int)(remaining * 60.0); 
         remaining -= minutes / 60.0;
         int seconds = (int)(remaining * 3600.0);
@@ -88,7 +87,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
 
     }
 
-    private string CreateDmsString(int degrees, int minutes, int seconds)
+    private static string CreateDmsString(int degrees, int minutes, int seconds)
     {
         string degreeText = degrees.ToString();
         string minuteText = string.Format("{0:00}", minutes);
@@ -96,14 +95,14 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
         return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN + secondText + EnigmaConstants.SECOND_SIGN;
     }
 
-    private string CreateDmString(int degrees, int minutes)
+    private static string CreateDmString(int degrees, int minutes)
     {
         string degreeText = degrees.ToString();
         string minuteText = string.Format("{0:00}", minutes);
         return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN;
     }
 
-    private string DefineGlyph(int nrOfSigns)
+    private static string DefineGlyph(int nrOfSigns)
     {
         var AllGlyphs = new string[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
         return AllGlyphs[nrOfSigns - 1];

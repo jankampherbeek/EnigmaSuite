@@ -16,10 +16,13 @@ public class TestCoordinateSystemSpecifications
         CoordinateSystems system = CoordinateSystems.Equatorial;
         ICoordinateSystemSpecifications specifications = new CoordinateSystemSpecifications();
         CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
-        Assert.IsNotNull(details);
-        Assert.That(details.CoordinateSystem, Is.EqualTo(system));
-        Assert.AreEqual(EnigmaConstants.SEFLG_EQUATORIAL, details.ValueForFlag);
-        Assert.That(details.TextId, Is.EqualTo("coordinateSysEquatorial"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.CoordinateSystem, Is.EqualTo(system));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_EQUATORIAL));
+            Assert.That(details.TextId, Is.EqualTo("coordinateSysEquatorial"));
+        });
     }
 
     [Test]
@@ -29,8 +32,8 @@ public class TestCoordinateSystemSpecifications
         foreach (CoordinateSystems system in Enum.GetValues(typeof(CoordinateSystems)))
         {
             CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }

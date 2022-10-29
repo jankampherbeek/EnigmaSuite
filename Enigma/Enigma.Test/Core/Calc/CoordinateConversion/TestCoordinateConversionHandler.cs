@@ -13,10 +13,6 @@ namespace Enigma.Test.Core.Calc.CoordinateConversion;
 [TestFixture]
 public class TestCoordinateConversionHandler
 {
-
-    private CoordinateConversionRequest _request;
-    private EclipticCoordinates _eclCoord;
-    private EquatorialCoordinates _eqCoord;
     private readonly double _obliquity = 23.447;
     private readonly double _delta = 0.00000001;
     private readonly string _errorText = "Description of error.";
@@ -24,46 +20,50 @@ public class TestCoordinateConversionHandler
     [Test]
     public void TestHappyFlow()
     {
-        _eclCoord = new EclipticCoordinates(222.2, 1.1);
-        _eqCoord = new EquatorialCoordinates(223.3, -3.3);
-        _request = new CoordinateConversionRequest(_eclCoord, _obliquity);
-        Mock<ICoordinateConversionCalc> calcMock = CreateCalcMock();
+        var eclCoord = new EclipticCoordinates(222.2, 1.1);
+        var eqCoord = new EquatorialCoordinates(223.3, -3.3);
+        var request = new CoordinateConversionRequest(eclCoord, _obliquity);
+        Mock<ICoordinateConversionCalc> calcMock = CreateCalcMock(eclCoord, eqCoord);
         ICoordinateConversionHandler handler = new CoordinateConversionHandler(calcMock.Object);
-        CoordinateConversionResponse response = handler.HandleConversion(_request);
-        Assert.That(response.equatorialCoord.RightAscension, Is.EqualTo(_eqCoord.RightAscension).Within(_delta));
-        Assert.That(response.equatorialCoord.Declination, Is.EqualTo(_eqCoord.Declination).Within(_delta));
-        Assert.IsTrue(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        CoordinateConversionResponse response = handler.HandleConversion(request);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.EquatorialCoord.RightAscension, Is.EqualTo(eqCoord.RightAscension).Within(_delta));
+            Assert.That(response.EquatorialCoord.Declination, Is.EqualTo(eqCoord.Declination).Within(_delta));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]
     public void TestSeException()
     {
-        _eclCoord = new EclipticCoordinates(222.2, 1.1);
-        _eqCoord = new EquatorialCoordinates(223.3, -3.3);
-        _request = new CoordinateConversionRequest(_eclCoord, _obliquity);
-        Mock<ICoordinateConversionCalc> calcMock = CreateCalcMockThrowingException();
+        var eclCoord = new EclipticCoordinates(222.2, 1.1);
+        var eqCoord = new EquatorialCoordinates(223.3, -3.3);
+        var request = new CoordinateConversionRequest(eclCoord, _obliquity);
+        Mock<ICoordinateConversionCalc> calcMock = CreateCalcMockThrowingException(eclCoord);
         ICoordinateConversionHandler handler = new CoordinateConversionHandler(calcMock.Object);
-        CoordinateConversionResponse response = handler.HandleConversion(_request);
-        Assert.IsFalse(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        CoordinateConversionResponse response = handler.HandleConversion(request);
+        Assert.Multiple(() =>
+        {
+            Assert.IsFalse(response.Success);
+            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        });
     }
 
-
-
-    private Mock<ICoordinateConversionCalc> CreateCalcMock()
+    private Mock<ICoordinateConversionCalc> CreateCalcMock(EclipticCoordinates eclCoord, EquatorialCoordinates eqCoord)
     {
         var mock = new Mock<ICoordinateConversionCalc>();
-        mock.Setup(p => p.PerformConversion(_eclCoord, _obliquity)).Returns(_eqCoord);
+        mock.Setup(p => p.PerformConversion(eclCoord, _obliquity)).Returns(eqCoord);
         return mock;
     }
 
 
-    private Mock<ICoordinateConversionCalc> CreateCalcMockThrowingException()
+    private Mock<ICoordinateConversionCalc> CreateCalcMockThrowingException(EclipticCoordinates eclCoord)
     {
         var mock = new Mock<ICoordinateConversionCalc>();
         var exception = new SwissEphException(_errorText);
-        mock.Setup(p => p.PerformConversion(_eclCoord, _obliquity)).Throws(exception);
+        mock.Setup(p => p.PerformConversion(eclCoord, _obliquity)).Throws(exception);
         return mock;
     }
 

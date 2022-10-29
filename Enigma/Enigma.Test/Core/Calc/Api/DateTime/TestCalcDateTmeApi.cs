@@ -20,7 +20,7 @@ public class TestCalcDateTimeApi
     public void TestHappyFlow()
     {
         ICalcDateTimeApi api = new CalcDateTimeApi(CreateHandlerMock());
-        DateTimeResponse actualResponse = api.getDateTime(_dateTimeRequest);
+        DateTimeResponse actualResponse = api.GetDateTime(_dateTimeRequest);
         Assert.That(_dateTimeResponse, Is.EqualTo(actualResponse));
     }
 
@@ -28,7 +28,7 @@ public class TestCalcDateTimeApi
     public void TestRequestNull()
     {
         ICalcDateTimeApi api = new CalcDateTimeApi(CreateHandlerMock());
-        Assert.That(() => api.getDateTime(null), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => api.GetDateTime(null), Throws.TypeOf<ArgumentNullException>());
     }
 
 

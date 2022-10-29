@@ -61,13 +61,13 @@ public class ProjectCreationHandler : IProjectCreationHandler
 
     private bool FolderExists(string projectName)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + @"/" + projectName;
+        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName;
         return Directory.Exists(projPath);
     }
 
     private bool CreateFolder(string projectName)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + @"/" + projectName;
+        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName;
         try
         {
             Directory.CreateDirectory(projPath);
@@ -96,7 +96,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
 
     private bool WriteJsonToFile(string jsonText, ResearchProject project)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + @"/" + project.Name + @"/" + project.Identification + "_definition.json";
+        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_definition.json";
         try
         {
             _textFileWriter.WriteFile(projPath, jsonText);

@@ -14,7 +14,8 @@ public class TestSolSysPointToAnalysisPointMap
     private readonly double _delta = 0.00000001;
 
     [Test]
-    public void TestMapToAnalysisPointLongitude(){
+    public void TestMapToAnalysisPointLongitude()
+    {
         double longPos = 12.34;
         var solSysPoint = SolarSystemPoints.Sun;
         var pointGroup = PointGroups.SolarSystemPoints;
@@ -27,10 +28,12 @@ public class TestSolSysPointToAnalysisPointMap
         HorizontalCoordinates horcoord = new(0.0, 0.0);
         FullSolSysPointPos fullSolSysPointPos = CreateFullSolSysPointPos(solSysPoint, longPS, emptyPS, emptyPS, emptyPS, emptyPS, horcoord);
         AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(fullSolSysPointPos, pointGroup, coordSystem, mainCoord);
-
-        Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.SolarSystemPoints));
-        Assert.That(resultingPoint.Position, Is.EqualTo(longPos).Within(_delta));
-        Assert.That(resultingPoint.ItemId, Is.EqualTo((int)solSysPoint));
+        Assert.Multiple(() =>
+        {
+            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.SolarSystemPoints));
+            Assert.That(resultingPoint.Position, Is.EqualTo(longPos).Within(_delta));
+            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)solSysPoint));
+        });
     }
 
     [Test]
@@ -48,10 +51,12 @@ public class TestSolSysPointToAnalysisPointMap
         HorizontalCoordinates horcoord = new (0.0, 0.0);
         FullSolSysPointPos fullSolSysPointPos = CreateFullSolSysPointPos(solSysPoint, emptyPS, emptyPS, emptyPS, declPS, emptyPS, horcoord);
         AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(fullSolSysPointPos, pointGroup, coordSystem, mainCoord);
-
-        Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.SolarSystemPoints));
-        Assert.That(resultingPoint.Position, Is.EqualTo(declPos).Within(_delta));
-        Assert.That(resultingPoint.ItemId, Is.EqualTo((int)solSysPoint));
+        Assert.Multiple(() =>
+        {
+            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.SolarSystemPoints));
+            Assert.That(resultingPoint.Position, Is.EqualTo(declPos).Within(_delta));
+            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)solSysPoint));
+        });
     }
 
     private FullSolSysPointPos CreateFullSolSysPointPos(SolarSystemPoints ssPoint, PosSpeed longPS, PosSpeed latPS, PosSpeed raPS, PosSpeed declPS, PosSpeed distPS, HorizontalCoordinates horCoord)
@@ -81,8 +86,11 @@ public class TestMundanePointToAnalysisPointMap
 
         IMundanePointToAnalysisPointMap pointMap = new MundanePointToAnalysisPointMap();
         AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(mPoint, cuspPos, pointGroup, coordSystem, mainCoord);
-        Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.MundanePoints));
-        Assert.That(resultingPoint.Position, Is.EqualTo(longPos).Within(_delta));
-        Assert.That(resultingPoint.ItemId, Is.EqualTo((int)MundanePoints.Ascendant));
+        Assert.Multiple(() =>
+        {
+            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.MundanePoints));
+            Assert.That(resultingPoint.Position, Is.EqualTo(longPos).Within(_delta));
+            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)MundanePoints.Ascendant));
+        });
     }
 }

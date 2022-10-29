@@ -37,12 +37,14 @@ public class TextMidpointChecker
         double pos2 = 200.0;
         double expected = 150.0;
 
-        List<AnalysisPoint> points = new();
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 0, pos1));
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 1, pos2));
+        List<AnalysisPoint> points = new()
+        {
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 0, pos1),
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 1, pos2)
+        };
         List<EffectiveMidpoint> effectiveMidpoints = _midpointChecker.FindMidpoints(points);
         Assert.That(effectiveMidpoints, Is.Not.Null);
-        Assert.That(effectiveMidpoints.Count, Is.EqualTo(1));
+        Assert.That(effectiveMidpoints, Has.Count.EqualTo(1));
         Assert.Multiple(() =>
         {
             Assert.That(effectiveMidpoints[0].Position, Is.EqualTo(expected).Within(_delta));
@@ -58,12 +60,14 @@ public class TextMidpointChecker
         double pos2 = 10.0;
         double expected = 55.0;
 
-        List<AnalysisPoint> points = new();
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 3, pos1));
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 9, pos2));
+        List<AnalysisPoint> points = new()
+        {
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 3, pos1),
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 9, pos2)
+        };
         List<EffectiveMidpoint> effectiveMidpoints = _midpointChecker.FindMidpoints(points);
         Assert.That(effectiveMidpoints, Is.Not.Null);
-        Assert.That(effectiveMidpoints.Count, Is.EqualTo(1));
+        Assert.That(effectiveMidpoints, Has.Count.EqualTo(1));
         Assert.Multiple(() =>
         {
             Assert.That(effectiveMidpoints[0].Position, Is.EqualTo(expected).Within(_delta));
@@ -79,9 +83,11 @@ public class TextMidpointChecker
         double pos2 = 340.0;
         double expected = 355.0;
 
-        List<AnalysisPoint> points = new();
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1));
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2));
+        List<AnalysisPoint> points = new()
+        {
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1),
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2)
+        };
         List<EffectiveMidpoint> effectiveMidpoints = _midpointChecker.FindMidpoints(points);
 
         Assert.That(effectiveMidpoints[0].Position, Is.EqualTo(expected).Within(_delta));
@@ -94,9 +100,11 @@ public class TextMidpointChecker
         double pos2 = 0.0;
         double expected = 330.0;
 
-        List<AnalysisPoint> points = new();
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1));
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2));
+        List<AnalysisPoint> points = new()
+        {
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1),
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2)
+        };
         List<EffectiveMidpoint> effectiveMidpoints = _midpointChecker.FindMidpoints(points);
 
         Assert.That(effectiveMidpoints[0].Position, Is.EqualTo(expected).Within(_delta));
@@ -109,9 +117,11 @@ public class TextMidpointChecker
         double pos2 = 189.0;
         double expected = 99.5;
 
-        List<AnalysisPoint> points = new();
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1));
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2));
+        List<AnalysisPoint> points = new()
+        {
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1),
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2)
+        };
         List<EffectiveMidpoint> effectiveMidpoints = _midpointChecker.FindMidpoints(points);
 
         Assert.That(effectiveMidpoints[0].Position, Is.EqualTo(expected).Within(_delta));
@@ -124,9 +134,11 @@ public class TextMidpointChecker
         double pos2 = 191.0;
         double expected = 280.5;
 
-        List<AnalysisPoint> points = new();
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1));
-        points.Add(new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2));
+        List<AnalysisPoint> points = new()
+        {
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 2, pos1),
+            new AnalysisPoint(PointGroups.SolarSystemPoints, 4, pos2)
+        };
         List<EffectiveMidpoint> effectiveMidpoints = _midpointChecker.FindMidpoints(points);
 
         Assert.That(effectiveMidpoints[0].Position, Is.EqualTo(expected).Within(_delta));

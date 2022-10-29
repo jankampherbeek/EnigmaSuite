@@ -11,7 +11,7 @@ namespace Enigma.Test.InputSupport.Validations;
 [TestFixture]
 public class TestGeoLongValidator
 {
-    private GeoLongValidator _geoLongValidator = new();
+    private readonly GeoLongValidator _geoLongValidator = new();
     private readonly double delta = 0.00000001;
 
     [Test]
@@ -22,15 +22,17 @@ public class TestGeoLongValidator
         int second = 0;
         int[] longInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLong.East;
-        FullGeoLongitude? fullGeoLongitude = null;
-        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out fullGeoLongitude);
-        Assert.IsTrue(Result);
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-        Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(delta));
-        Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
-        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
+        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out FullGeoLongitude? fullGeoLongitude);
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
+            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(delta));
+            Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
+            Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
+        });
     }
 
     [Test]
@@ -41,15 +43,17 @@ public class TestGeoLongValidator
         int second = 0;
         int[] longInput = new int[] { degree, minute };
         var direction = Directions4GeoLong.East;
-        FullGeoLongitude? fullGeoLongitude = null;
-        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out fullGeoLongitude);
-        Assert.IsTrue(Result);
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-        Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(delta));
-        Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
-        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
+        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out FullGeoLongitude? fullGeoLongitude);
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
+            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(delta));
+            Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
+            Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
+        });
     }
 
     [Test]
@@ -60,17 +64,18 @@ public class TestGeoLongValidator
         int second = 0;
         int[] longInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLong.West;
-        FullGeoLongitude? fullGeoLongitude = null;
-        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out fullGeoLongitude);
-        Assert.IsTrue(Result);
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-        Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(-6.9).Within(delta));
-        Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.West));
-        Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("-6:54:00"));
+        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out FullGeoLongitude? fullGeoLongitude);
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
+            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(-6.9).Within(delta));
+            Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.West));
+            Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("-6:54:00"));
+        });
     }
-
 
     [Test]
     public void TestDegreeTooLarge()
@@ -80,9 +85,8 @@ public class TestGeoLongValidator
         int second = 0;
         int[] longInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLong.East;
-        FullGeoLongitude? fullGeoLongitude = null;
-        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out fullGeoLongitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out _);
+        Assert.That(Result, Is.False);
     }
 
 
@@ -94,9 +98,8 @@ public class TestGeoLongValidator
         int second = 0;
         int[] longInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLong.East;
-        FullGeoLongitude? fullGeoLongitude = null;
-        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out fullGeoLongitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out _);
+        Assert.That(Result, Is.False);
     }
 
 
@@ -108,8 +111,7 @@ public class TestGeoLongValidator
         int second = 60;
         int[] longInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLong.East;
-        FullGeoLongitude? fullGeoLongitude = null;
-        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out fullGeoLongitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLongValidator.CreateCheckedLongitude(longInput, direction, out _);
+        Assert.That(Result, Is.False);
     }
 }

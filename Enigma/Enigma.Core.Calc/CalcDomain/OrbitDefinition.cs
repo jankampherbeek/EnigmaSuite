@@ -2,6 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Immutable;
+
 namespace Enigma.Core.Calc.CalcDomain;
 
 /// <summary>

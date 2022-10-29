@@ -23,26 +23,26 @@ namespace Enigma.Frontend.Charts;
 public class ChartDataInputController
 {
 
-    public string NameId { get; set; }
-    public string Source { get; set; }
-    public string Description { get; set; }
-    public string LocationName { get; set; }
-    public string Longitude { get; set; }
-    public string Latitude { get; set; }
-    public string InputDate { get; set; }
-    public string InputTime { get; set; }
-    public ChartCategories ChartCategory { get; set; }
-    public RoddenRatings RoddenRating { get; set; }
-    public Directions4GeoLat Direction4GeoLat { get; set; }
-    public Directions4GeoLong Direction4GeoLong { get; set; }
-    public Directions4GeoLong LmtDirection4GeoLong { get; set; }
-    public Calendars Calendar { get; set; }
-    public YearCounts YearCount { get; set; }
-    public bool Dst { get; set; }
-    public TimeZones TimeZone { get; set; }
-    public string LmtOffset { get; set; }
-    public List<int> ActualErrorCodes { get; set; }
-    public int ERR_INVALID_DATE { get; private set; }
+    public string NameId { get; set; } = "";
+    public string Source { get; set; } = "";
+    public string Description { get; set; } = "";
+    public string LocationName { get; set; } = "";
+    public string Longitude { get; set; } = "";
+    public string Latitude { get; set; } = "";
+    public string InputDate { get; set; } = "";
+    public string InputTime { get; set; } = "";
+    public ChartCategories ChartCategory { get; set; } = ChartCategories.Unknown;
+    public RoddenRatings RoddenRating { get; set; } = RoddenRatings.Unknown;
+    public Directions4GeoLat Direction4GeoLat { get; set; } = Directions4GeoLat.North;
+    public Directions4GeoLong Direction4GeoLong { get; set; } = Directions4GeoLong.East;
+    public Directions4GeoLong LmtDirection4GeoLong { get; set; } = Directions4GeoLong.East;
+    public Calendars Calendar { get; set; } = Calendars.Gregorian;
+    public YearCounts YearCount { get; set; } = YearCounts.CE;
+    public bool Dst { get; set; } = false;
+    public TimeZones TimeZone { get; set; } = TimeZones.UT;
+    public string LmtOffset { get; set; } = "";
+    public List<int> ActualErrorCodes { get; set; } = new();
+    public int ERR_INVALID_DATE { get; private set; } = 0;
 
     private readonly IDateInputParser _dateInputParser;
     private readonly ITimeInputParser _timeInputParser;
@@ -52,7 +52,7 @@ public class ChartDataInputController
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
     private Calendars _cal;
-    private List<FullSolSysPointPos> _solarSystemPointPositions;
+    private List<FullSolSysPointPos> _solarSystemPointPositions = new();
     private FullHousesPositions _mundanePositions;
     private readonly IRosetta _rosetta;
 
@@ -67,7 +67,6 @@ public class ChartDataInputController
         _chartAllPositionsApi = chartAllPositionsApi;
         _rosetta = rosetta;
         _dataVault = DataVault.Instance;
-        //  _chartStartController = chartsStartController;
     }
 
     /// <summary>
@@ -128,7 +127,7 @@ public class ChartDataInputController
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             SolSysPointsRequest solSysPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
             ChartAllPositionsRequest chartAllPositionsRequest = new(solSysPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
-            ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.getChart(chartAllPositionsRequest);
+            ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(chartAllPositionsRequest);
             if (chartAllPositionsResponse.Success)
             {
                 _solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;

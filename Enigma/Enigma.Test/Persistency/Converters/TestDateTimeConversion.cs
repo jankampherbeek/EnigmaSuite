@@ -37,10 +37,13 @@ public class TestDateCheckedConversion
 
         _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeApi.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
-        Assert.That(result.Item2);
-        Assert.That(result.Item1.Year , Is.EqualTo(year));
-        Assert.That(result.Item1.Month , Is.EqualTo(month));
-        Assert.That(result.Item1.Day , Is.EqualTo(day));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Item2);
+            Assert.That(result.Item1.Year, Is.EqualTo(year));
+            Assert.That(result.Item1.Month, Is.EqualTo(month));
+            Assert.That(result.Item1.Day, Is.EqualTo(day));
+        });
     }
 
     [Test]
@@ -64,7 +67,6 @@ public class TestDateCheckedConversion
         _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeApi.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
-        Assert.That(result.Item1, Is.Null);
     }
 
     [Test]
@@ -88,7 +90,6 @@ public class TestDateCheckedConversion
         _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeApi.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
-        Assert.That(result.Item1, Is.Null);
     }
 
 }
@@ -112,13 +113,16 @@ public class TestTimeCheckedConversion
         string csvDst = "0";
         string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
-        Assert.That(result.Item2, Is.EqualTo(true));
-        Assert.That(result.Item1, Is.Not.EqualTo(null));
-        Assert.That(result.Item1.Hour, Is.EqualTo(14));
-        Assert.That(result.Item1.Minute, Is.EqualTo(6));
-        Assert.That(result.Item1.Second, Is.EqualTo(30));
-        Assert.That(result.Item1.ZoneOffset, Is.EqualTo(1.0).Within(_delta));
-        Assert.That(result.Item1.Dst, Is.EqualTo(0.0).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Item2, Is.EqualTo(true));
+            Assert.That(result.Item1, Is.Not.EqualTo(null));
+            Assert.That(result.Item1.Hour, Is.EqualTo(14));
+            Assert.That(result.Item1.Minute, Is.EqualTo(6));
+            Assert.That(result.Item1.Second, Is.EqualTo(30));
+            Assert.That(result.Item1.ZoneOffset, Is.EqualTo(1.0).Within(_delta));
+            Assert.That(result.Item1.Dst, Is.EqualTo(0.0).Within(_delta));
+        });
     }
 
     [Test]

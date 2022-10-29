@@ -14,7 +14,6 @@ namespace Enigma.Test.InputSupport.InputParsers;
 
 public class TestDateInputParser
 {
-    private IDateInputParser _parser;
     private readonly char _separator = '/';
     private readonly Calendars cal = Calendars.Gregorian;
     private readonly YearCounts yearCount = YearCounts.CE;
@@ -31,9 +30,9 @@ public class TestDateInputParser
         var _mockDateValidator = new Mock<IDateValidator>();
         FullDate? fullDate;
         _mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, cal, yearCount, out fullDate)).Returns(true);
-        _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
+        var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
         
-        Assert.IsTrue(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate));
+        Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate), Is.True);
     }
 
     [Test]
@@ -45,10 +44,9 @@ public class TestDateInputParser
         (int[] numbers, bool success) rangeResult = (dateValues, false);
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, _separator)).Returns(rangeResult);
         var _mockDateValidator = new Mock<IDateValidator>();
-        FullDate? fullDate;
-        _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
+        var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
 
-        Assert.IsFalse(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate));
+        Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out FullDate? fullDate), Is.False);
     }
 
     [Test]
@@ -62,9 +60,9 @@ public class TestDateInputParser
         var _mockDateValidator = new Mock<IDateValidator>();
         FullDate? fullDate;
         _mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, cal, yearCount, out fullDate)).Returns(false);
-        _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
+        var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
 
-        Assert.IsFalse(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate));
+        Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate), Is.False);
     }
 
 }

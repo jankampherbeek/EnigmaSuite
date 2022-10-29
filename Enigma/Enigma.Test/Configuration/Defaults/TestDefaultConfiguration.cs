@@ -79,25 +79,29 @@ public class TestDefaultConfiguration
     public void TestCelPoints()
     {
         List<CelPointSpecs> celPoints = _astroConfig.CelPoints;
-        Assert.That(_astroConfig.CelPoints.Count, Is.EqualTo(52));
+        Assert.That(_astroConfig.CelPoints, Has.Count.EqualTo(52));
 
         CelPointSpecs celPointSpecs = celPoints[0];     // Sun
-        Assert.That(celPointSpecs.SolarSystemPoint, Is.EqualTo(SolarSystemPoints.Sun));
-        Assert.IsTrue(celPointSpecs.IsUsed);
-        Assert.That(celPointSpecs.PercentageAspectOrb, Is.EqualTo(100).Within(_delta));
-        
+        Assert.Multiple(() =>
+        {
+            Assert.That(celPointSpecs.SolarSystemPoint, Is.EqualTo(SolarSystemPoints.Sun));
+            Assert.That(celPointSpecs.IsUsed, Is.True);
+            Assert.That(celPointSpecs.PercentageAspectOrb, Is.EqualTo(100).Within(_delta));
+        });
     }
 
     [Test]
     public void TestAspects()
     {
         List<AspectSpecs> aspects = _astroConfig.Aspects;
-        Assert.That(_astroConfig.Aspects.Count, Is.EqualTo(22));
+        Assert.That(_astroConfig.Aspects, Has.Count.EqualTo(22));
 
         AspectSpecs aspectSpecs = aspects[1];           // Opposition
-        Assert.That(aspectSpecs.AspectType, Is.EqualTo(AspectTypes.Opposition));
-        Assert.IsTrue(aspectSpecs.IsUsed);
-        Assert.That(aspectSpecs.PercentageAspectOrb, Is.EqualTo(100));
+        Assert.Multiple(() =>
+        {
+            Assert.That(aspectSpecs.AspectType, Is.EqualTo(AspectTypes.Opposition));
+            Assert.That(aspectSpecs.IsUsed, Is.True);
+            Assert.That(aspectSpecs.PercentageAspectOrb, Is.EqualTo(100));
+        });
     }
-
 }

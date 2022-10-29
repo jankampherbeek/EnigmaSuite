@@ -16,7 +16,7 @@ public interface ISortedGraphicSolSysPointsFactory
 
 public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactory
 {
-    private ICelPointForDataGridFactory _celPointFactory;
+    private readonly ICelPointForDataGridFactory _celPointFactory;
 
     public SortedGraphicSolSysPointsFactory(ICelPointForDataGridFactory celPointFactory)
     {

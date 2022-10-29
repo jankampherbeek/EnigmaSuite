@@ -52,7 +52,7 @@ public class SolSysPointsElementsCalc : ISolSysPointsElementsCalc
     }
 
 
-    private double[] DefinePosition(PolarCoordinates polarPlanetGeo)
+    private static double[] DefinePosition(PolarCoordinates polarPlanetGeo)
     {
         double posLong = MathExtra.RadToDeg(polarPlanetGeo.PhiCoord);
         if (posLong < 0.0) posLong += 360.0;
@@ -61,12 +61,12 @@ public class SolSysPointsElementsCalc : ISolSysPointsElementsCalc
         return new double[] { posLong, posLat, posDist };
     }
 
-    private double FactorT(double jdUt)
+    private static double FactorT(double jdUt)
     {
         return (jdUt - 2415020.5) / 36525;
     }
 
-    private OrbitDefinition DefineOrbitDefinition(SolarSystemPoints planet)
+    private static OrbitDefinition DefineOrbitDefinition(SolarSystemPoints planet)
     {
         double[] meanAnomaly;
         double[] eccentricAnomaly = new double[] { 0, 0, 0 };

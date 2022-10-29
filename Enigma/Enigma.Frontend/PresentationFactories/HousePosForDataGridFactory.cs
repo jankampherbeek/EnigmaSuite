@@ -27,9 +27,11 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
 
     public List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fullHousesPositions)
     {
-        List<PresentableHousePositions> positions = new();
-        positions.Add(CreateSingleCuspPos("MC", fullHousesPositions.Mc));
-        positions.Add(CreateSingleCuspPos("Asc", fullHousesPositions.Ascendant));
+        List<PresentableHousePositions> positions = new()
+        {
+            CreateSingleCuspPos("MC", fullHousesPositions.Mc),
+            CreateSingleCuspPos("Asc", fullHousesPositions.Ascendant)
+        };
         int index = 1;
         foreach (var cusp in fullHousesPositions.Cusps)
         {

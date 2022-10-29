@@ -30,7 +30,7 @@ public interface IControlGroupRng
 
 static class ExtensionsClass
 {
-    private static IControlGroupRng controlGroupRng = new ControlGroupRng();
+    private static readonly IControlGroupRng controlGroupRng = new ControlGroupRng();
     public static void Shuffle<T>(this IList<T> list)
     {
         int n = list.Count;

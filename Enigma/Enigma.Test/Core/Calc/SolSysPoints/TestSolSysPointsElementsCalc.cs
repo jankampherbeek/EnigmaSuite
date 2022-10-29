@@ -10,33 +10,33 @@ namespace EnigmaTest.Core.Calc.SolSysPoints;
 [TestFixture]
 public class TestHypothetsRamCalc
 {
-    private SolSysPointsElementsCalc _calculator;
+
     private readonly double _delta = 0.0000001;
 
     [Test]
     public void TestCalcHypRamEclPosPersephone()
     {
-        _calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
+        var calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
         double jdUt = 2434406.817711;
-        double[] result = _calculator.Calculate(SolarSystemPoints.PersephoneRam, jdUt);
+        double[] result = calculator.Calculate(SolarSystemPoints.PersephoneRam, jdUt);
         Assert.That(result[0], Is.EqualTo(326.6011343685).Within(_delta));
     }
 
     [Test]
     public void TestCalcHypRamEclPosHermes()
     {
-        _calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
+        var calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
         double jdUt = 2434406.817711;
-        double[] result = _calculator.Calculate(SolarSystemPoints.HermesRam, jdUt);
+        double[] result = calculator.Calculate(SolarSystemPoints.HermesRam, jdUt);
         Assert.That(result[0], Is.EqualTo(161.6211128197).Within(_delta));
     }
 
     [Test]
     public void TestCalcHypRamEclPosDemeter()
     {
-        _calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
+        var calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
         double jdUt = 2434406.817711;
-        double[] result = _calculator.Calculate(SolarSystemPoints.DemeterRam, jdUt);
+        double[] result = calculator.Calculate(SolarSystemPoints.DemeterRam, jdUt);
         Assert.That(result[0], Is.EqualTo(261.4081200589).Within(_delta));
     }
 

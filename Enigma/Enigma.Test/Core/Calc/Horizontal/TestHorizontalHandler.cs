@@ -29,10 +29,13 @@ public class TestHorizontalHandler
         Mock<IHorizontalCalc> calcMock = CreateCalcMock();
         IHorizontalHandler handler = new HorizontalHandler(calcMock.Object);
         HorizontalResponse response = handler.CalcHorizontal(new HorizontalRequest(_jdUt, _location, _eclipticCoordinates));
-        Assert.That(response.HorizontalAzimuthAltitude.Azimuth, Is.EqualTo(_expectedResults[0]).Within(_delta));
-        Assert.That(response.HorizontalAzimuthAltitude.Altitude, Is.EqualTo(_expectedResults[1]).Within(_delta));
-        Assert.IsTrue(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.HorizontalAzimuthAltitude.Azimuth, Is.EqualTo(_expectedResults[0]).Within(_delta));
+            Assert.That(response.HorizontalAzimuthAltitude.Altitude, Is.EqualTo(_expectedResults[1]).Within(_delta));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]
@@ -41,10 +44,12 @@ public class TestHorizontalHandler
         Mock<IHorizontalCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IHorizontalHandler handler = new HorizontalHandler(calcExceptionMock.Object);
         HorizontalResponse response = handler.CalcHorizontal(new HorizontalRequest(_jdUt, _location, _eclipticCoordinates));
-        Assert.IsFalse(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.Success, Is.False);
+            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        });
     }
-
 
     private Mock<IHorizontalCalc> CreateCalcMock()
     {

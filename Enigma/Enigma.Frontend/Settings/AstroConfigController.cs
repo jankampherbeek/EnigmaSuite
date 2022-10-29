@@ -16,10 +16,10 @@ namespace Enigma.Frontend.Settings;
 
 public class AstroConfigController
 {
-    private ISolarSystemPointSpecifications _solarSystemPointSpecifications;
-    private IAspectSpecifications _aspectSpecifications;
-    private IConfigWriter _configWriter;
-    private AstroConfig _astroConfig;
+    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly IAspectSpecifications _aspectSpecifications;
+    private readonly IConfigWriter _configWriter;
+    private readonly AstroConfig _astroConfig;
 
     public AstroConfigController(ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IAspectSpecifications aspectSpecifications,
@@ -39,19 +39,14 @@ public class AstroConfigController
 
     public string DefineGlyph(MundanePoints point)
     {
-        switch (point)
+        return point switch
         {
-            case MundanePoints.Mc:
-                return "M";
-            case MundanePoints.Ascendant:
-                return "A";
-            case MundanePoints.Vertex:
-                return "";
-            case MundanePoints.EastPoint:
-                return "";
-            default:
-                throw new ArgumentException("Wrong value for mundane points when defining glyph.");
-        }
+            MundanePoints.Mc => "M",
+            MundanePoints.Ascendant => "A",
+            MundanePoints.Vertex => "",
+            MundanePoints.EastPoint => "",
+            _ => throw new ArgumentException("Wrong value for mundane points when defining glyph."),
+        };
     }
 
     public string DefineGlyph(AspectTypes aspect)

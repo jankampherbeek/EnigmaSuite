@@ -50,8 +50,10 @@ public class CsvHandler : ICsvHandler
         List<StandardInputItem> allInput = new();
         Tuple<StandardInputItem, bool> processedLine;
         string[] lines = File.ReadAllLines(fullPathCsv);
-        List<string> resultLines = new();
-        resultLines.Add("Result for processing : " + fullPathCsv + " for data: " + fullPathJson);
+        List<string> resultLines = new()
+        {
+            "Result for processing : " + fullPathCsv + " for data: " + fullPathJson
+        };
         int count = lines.Length;
         for (int i = 1; i < count-1; i++)           // skip first line that contains header
         {

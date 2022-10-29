@@ -25,7 +25,7 @@ public interface ITimeCheckedConversion
 
 public class DateCheckedConversion : IDateCheckedConversion
 {
-    private ICheckDateTimeApi _checkDateTimeApi;
+    private readonly ICheckDateTimeApi _checkDateTimeApi;
 
     public DateCheckedConversion(ICheckDateTimeApi checkDateTimeApi)
     {
@@ -35,7 +35,7 @@ public class DateCheckedConversion : IDateCheckedConversion
     public Tuple<PersistableDate, bool> StandardCsvToDate(string csvDate, string csvCalendar)     
     {
         bool noErrors = true;
-        PersistableDate? date = null;
+        var date = new PersistableDate(0, 0, 0, "g");
         string[] items = csvDate.Trim().Split('/');
         if (items.Length == 3)
         {
@@ -75,7 +75,7 @@ public class TimeCheckedConversion : ITimeCheckedConversion
     public Tuple<PersistableTime, bool> StandardCsvToTime(string csvTime, string zoneOffset, string dst)
     {
         bool noErrors = true;
-        PersistableTime? time = null;
+        var time = new PersistableTime(0, 0, 0, 0.0, 0.0);
         string[] items = csvTime.Trim().Split(":");
         if (items.Length == 3)
         {

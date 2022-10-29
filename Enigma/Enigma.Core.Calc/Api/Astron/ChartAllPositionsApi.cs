@@ -15,7 +15,7 @@ public interface IChartAllPositionsApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Response with instance of FullChart with all positionscoordinates, or an indication of errors that occurred.</returns>
-    public ChartAllPositionsResponse getChart(ChartAllPositionsRequest request);
+    public ChartAllPositionsResponse GetChart(ChartAllPositionsRequest request);
 }
 
 
@@ -27,7 +27,7 @@ public class ChartAllPositionsApi : IChartAllPositionsApi
     /// <param name="handler">Handler for the calculation of the chart.</param>
     public ChartAllPositionsApi(IChartAllPositionsHandler handler) => _handler = handler;
 
-    public ChartAllPositionsResponse getChart(ChartAllPositionsRequest request)
+    public ChartAllPositionsResponse GetChart(ChartAllPositionsRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.SolSysPointRequest);

@@ -36,7 +36,7 @@ public class TestCoordinateConversionApi
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
         CoordinateConversionResponse response = _api.getEquatorialFromEcliptic(_coordConvRequest);
-        Assert.That(response.equatorialCoord.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
+        Assert.That(response.EquatorialCoord.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
         Assert.That(response.Success, Is.True);
         Assert.That(response.ErrorText, Is.EqualTo(""));
     }

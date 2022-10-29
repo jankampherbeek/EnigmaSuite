@@ -21,14 +21,16 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsTrue(Result);
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-        Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(_delta));
-        Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("+52:13:00"));
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
+            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(_delta));
+            Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("+52:13:00"));
+        });
     }
 
     [Test]
@@ -39,14 +41,16 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute };
         var direction = Directions4GeoLat.North;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsTrue(Result);
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-        Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(_delta));
-        Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("+52:13:00"));
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
+            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(_delta));
+            Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("+52:13:00"));
+        });
     }
 
     [Test]
@@ -57,14 +61,16 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.South;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsTrue(Result);
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-        Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(-52.216666666667).Within(_delta));
-        Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("-52:13:00"));
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
+            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(-52.216666666667).Within(_delta));
+            Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("-52:13:00"));
+        });
     }
 
     [Test]
@@ -75,9 +81,8 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.That(Result, Is.False);
     }
 
     [Test]
@@ -88,9 +93,8 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.That(Result, Is.False);
     }
 
     [Test]
@@ -101,9 +105,8 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.That(Result, Is.False);
     }
 
     [Test]
@@ -114,9 +117,8 @@ public class TestGeoLatValidator
         int second = -11;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        FullGeoLatitude? fullGeoLatitude = null;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out fullGeoLatitude);
-        Assert.IsFalse(Result);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        Assert.That(Result, Is.False);
     }
 
 

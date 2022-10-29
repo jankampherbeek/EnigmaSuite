@@ -16,7 +16,7 @@ public interface ICalcDateTimeApi
     /// <param name="request">DateTimeRequest with the value of a Julian Day number and the calendar that is used.</param>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks> 
     /// <returns>Response with validation and an instance of SimpleDateTime.</returns>
-    public DateTimeResponse getDateTime(DateTimeRequest request);
+    public DateTimeResponse GetDateTime(DateTimeRequest request);
 
 }
 
@@ -28,7 +28,7 @@ public class CalcDateTimeApi : ICalcDateTimeApi
 
     public CalcDateTimeApi(IDateTimeHandler dateTimeHandler) => _dateTimeHandler = dateTimeHandler;
 
-    public DateTimeResponse getDateTime(DateTimeRequest request)
+    public DateTimeResponse GetDateTime(DateTimeRequest request)
     {
         Guard.Against.Null(request);
         return _dateTimeHandler.CalcDateTime(request);

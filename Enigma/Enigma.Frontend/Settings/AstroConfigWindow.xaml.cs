@@ -582,59 +582,61 @@ public partial class AstroConfigWindow : Window
 
     private List<CelPointSpecs> DefineCelPointSpecs()
     {
-        List<CelPointSpecs> celPointSpecs = new();
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Sun, tboxSunFactor.Text, cboxSun.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Moon, tboxMoonFactor.Text, cboxMoon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Mercury, tboxMercuryFactor.Text, cboxMercury.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Venus, tboxVenusFactor.Text, cboxVenus.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Earth, "100", false));                                       // TODO 0.4 handle earth for heliocentric
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Mars, tboxMarsFactor.Text, cboxMars.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Jupiter, tboxJupiterFactor.Text, cboxJupiter.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Saturn, tboxSaturnFactor.Text, cboxSaturn.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Uranus, tboxUranusFactor.Text, cboxUranus.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Neptune, tboxNeptuneFactor.Text, cboxNeptune.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Pluto, tboxPlutoFactor.Text, cboxPluto.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.MeanNode, tboxMeanNodeFactor.Text, cboxMeanNode.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.TrueNode, tboxTrueNodeFactor.Text, cboxTrueNode.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Chiron, tboxChironFactor.Text, cboxChiron.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.PersephoneRam, tboxPersephoneRamFactor.Text, cboxPersephoneRam.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.DemeterRam, tboxDemeterFactor.Text, cboxDemeter.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.HermesRam, tboxHermesFactor.Text, cboxHermes.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.CupidoUra, tboxCupidoFactor.Text, cboxCupido.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.HadesUra, tboxHadesFactor.Text, cboxHades.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ZeusUra, tboxZeusFactor.Text, cboxZeus.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.KronosUra, tboxKronosFactor.Text, cboxKronos.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ApollonUra, tboxApollonFactor.Text, cboxApollon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.AdmetosUra, tboxAdmetosFactor.Text, cboxAdmetos.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.VulcanusUra, tboxVulkanusUraFactor.Text, cboxVulkanusUra.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.PoseidonUra, tboxPoseidonFactor.Text, cboxPoseidon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Eris, tboxErisFactor.Text, cboxEris.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Pholus, tboxPholusFactor.Text, cboxPholus.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Ceres, tboxCeresFactor.Text, cboxCeres.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Pallas, tboxPallasFactor.Text, cboxPallas.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Juno, tboxJunoFactor.Text, cboxJuno.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Vesta, tboxVestaFactor.Text, cboxVesta.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Isis, tboxTransPlutoFactor.Text, cboxTransPluto.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Nessus, tboxNessusFactor.Text, cboxNessus.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Huya, tboxHuyaFactor.Text, cboxHuya.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Varuna, tboxVarunaFactor.Text, cboxVaruna.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Ixion, tboxIxionFactor.Text, cboxIxion.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Quaoar, tboxQuaoarFactor.Text, cboxQuaoar.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Haumea, tboxHaumeaFactor.Text, cboxHaumea.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Orcus, tboxOrcusFactor.Text, cboxOrcus.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Makemake, tboxMakemakeFactor.Text, cboxMakemake.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Sedna, tboxSednaFactor.Text, cboxSedna.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Hygieia, tboxHygieiaFactor.Text, cboxHygieia.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.Astraea, tboxAstraeaFactor.Text, cboxAstraea.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ApogeeMean, tboxMeanBlackMoonFactor.Text, cboxMeanBlackMoon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ApogeeCorrected, tboxCorrBlackMoonFactor.Text, cboxCorrBlackMoon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ApogeeInterpolated, tboxInterpolatedBlackMoonFactor.Text, cboxInterpolatedBlackMoon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ApogeeDuval, tboxDuvalBlackMoonFactor.Text, cboxDuvalBlackMoon.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ParsFortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.ParsFortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.PersephoneCarteret, tboxPersephoneCarteretFactor.Text, cboxPersephoneCarteret.IsChecked));
-        celPointSpecs.Add(DefineSingleCelPointSpec(SolarSystemPoints.VulcanusCarteret, tboxVulcanusCarteretFactor.Text, cboxVulcanusCarteret.IsChecked));
+        List<CelPointSpecs> celPointSpecs = new()
+        {
+            DefineSingleCelPointSpec(SolarSystemPoints.Sun, tboxSunFactor.Text, cboxSun.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Moon, tboxMoonFactor.Text, cboxMoon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Mercury, tboxMercuryFactor.Text, cboxMercury.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Venus, tboxVenusFactor.Text, cboxVenus.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Earth, "100", false),                                       // TODO 0.4 handle earth for heliocentric
+            DefineSingleCelPointSpec(SolarSystemPoints.Mars, tboxMarsFactor.Text, cboxMars.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Jupiter, tboxJupiterFactor.Text, cboxJupiter.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Saturn, tboxSaturnFactor.Text, cboxSaturn.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Uranus, tboxUranusFactor.Text, cboxUranus.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Neptune, tboxNeptuneFactor.Text, cboxNeptune.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Pluto, tboxPlutoFactor.Text, cboxPluto.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.MeanNode, tboxMeanNodeFactor.Text, cboxMeanNode.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.TrueNode, tboxTrueNodeFactor.Text, cboxTrueNode.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Chiron, tboxChironFactor.Text, cboxChiron.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.PersephoneRam, tboxPersephoneRamFactor.Text, cboxPersephoneRam.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.DemeterRam, tboxDemeterFactor.Text, cboxDemeter.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.HermesRam, tboxHermesFactor.Text, cboxHermes.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.CupidoUra, tboxCupidoFactor.Text, cboxCupido.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.HadesUra, tboxHadesFactor.Text, cboxHades.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ZeusUra, tboxZeusFactor.Text, cboxZeus.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.KronosUra, tboxKronosFactor.Text, cboxKronos.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ApollonUra, tboxApollonFactor.Text, cboxApollon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.AdmetosUra, tboxAdmetosFactor.Text, cboxAdmetos.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.VulcanusUra, tboxVulkanusUraFactor.Text, cboxVulkanusUra.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.PoseidonUra, tboxPoseidonFactor.Text, cboxPoseidon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Eris, tboxErisFactor.Text, cboxEris.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Pholus, tboxPholusFactor.Text, cboxPholus.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Ceres, tboxCeresFactor.Text, cboxCeres.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Pallas, tboxPallasFactor.Text, cboxPallas.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Juno, tboxJunoFactor.Text, cboxJuno.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Vesta, tboxVestaFactor.Text, cboxVesta.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Isis, tboxTransPlutoFactor.Text, cboxTransPluto.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Nessus, tboxNessusFactor.Text, cboxNessus.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Huya, tboxHuyaFactor.Text, cboxHuya.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Varuna, tboxVarunaFactor.Text, cboxVaruna.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Ixion, tboxIxionFactor.Text, cboxIxion.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Quaoar, tboxQuaoarFactor.Text, cboxQuaoar.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Haumea, tboxHaumeaFactor.Text, cboxHaumea.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Orcus, tboxOrcusFactor.Text, cboxOrcus.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Makemake, tboxMakemakeFactor.Text, cboxMakemake.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Sedna, tboxSednaFactor.Text, cboxSedna.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Hygieia, tboxHygieiaFactor.Text, cboxHygieia.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.Astraea, tboxAstraeaFactor.Text, cboxAstraea.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeMean, tboxMeanBlackMoonFactor.Text, cboxMeanBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeCorrected, tboxCorrBlackMoonFactor.Text, cboxCorrBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeInterpolated, tboxInterpolatedBlackMoonFactor.Text, cboxInterpolatedBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeDuval, tboxDuvalBlackMoonFactor.Text, cboxDuvalBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ParsFortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.ParsFortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.PersephoneCarteret, tboxPersephoneCarteretFactor.Text, cboxPersephoneCarteret.IsChecked),
+            DefineSingleCelPointSpec(SolarSystemPoints.VulcanusCarteret, tboxVulcanusCarteretFactor.Text, cboxVulcanusCarteret.IsChecked)
+        };
         return celPointSpecs;
     }
 
@@ -646,29 +648,31 @@ public partial class AstroConfigWindow : Window
 
     private List<AspectSpecs> DefineAspectSpecs()
     {
-        List<AspectSpecs> aspectSpecs = new();
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Conjunction, tboxConjunctionFactor.Text, cboxConjunction.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Opposition, tboxOppositionFactor.Text, cboxOpposition.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Triangle, tboxTriangleFactor.Text, cboxTriangle.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Square, tboxSquareFactor.Text, cboxSquare.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Septile, tboxSeptileFactor.Text, cboxSeptile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Sextile, tboxSextileFactor.Text, cboxSextile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Quintile, tboxQuintileFactor.Text, cboxQuintile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.SemiSextile, tboxSemiSextileFactor.Text, cboxSemiSextile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.SemiSquare, tboxSemiSquareFactor.Text, cboxSemiSquare.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.SemiQuintile, tboxSemiQuintileFactor.Text, cboxSemiQuintile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.BiQuintile, tboxBiQuintileFactor.Text, cboxBiQuintile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Inconjunct, tboxInconjunctFactor.Text, cboxInconjunct.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.SesquiQuadrate, tboxSesquiquadrateFactor.Text, cboxSesquiquadrate.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.TriDecile, tboxTriDecileFactor.Text, cboxTriDecile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.BiSeptile, tboxBiSeptileFactor.Text, cboxBiSeptile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.TriSeptile, tboxTriSeptileFactor.Text, cboxTriSeptile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Novile, tboxNovileFactor.Text, cboxNovile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.BiNovile, tboxBiNovileFactor.Text, cboxBiNovile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.QuadraNovile, tboxQuadraNovileFactor.Text, cboxQuadraNovile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Undecile, tboxUnDecileFactor.Text, cboxUnDecile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Centile, tboxCentileFactor.Text, cboxCentile.IsChecked));
-        aspectSpecs.Add(DefineSingleAspectSpec(AspectTypes.Vigintile, tboxVigintileFactor.Text, cboxVigintile.IsChecked));
+        List<AspectSpecs> aspectSpecs = new()
+        {
+            DefineSingleAspectSpec(AspectTypes.Conjunction, tboxConjunctionFactor.Text, cboxConjunction.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Opposition, tboxOppositionFactor.Text, cboxOpposition.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Triangle, tboxTriangleFactor.Text, cboxTriangle.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Square, tboxSquareFactor.Text, cboxSquare.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Septile, tboxSeptileFactor.Text, cboxSeptile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Sextile, tboxSextileFactor.Text, cboxSextile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Quintile, tboxQuintileFactor.Text, cboxQuintile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.SemiSextile, tboxSemiSextileFactor.Text, cboxSemiSextile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.SemiSquare, tboxSemiSquareFactor.Text, cboxSemiSquare.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.SemiQuintile, tboxSemiQuintileFactor.Text, cboxSemiQuintile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.BiQuintile, tboxBiQuintileFactor.Text, cboxBiQuintile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Inconjunct, tboxInconjunctFactor.Text, cboxInconjunct.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.SesquiQuadrate, tboxSesquiquadrateFactor.Text, cboxSesquiquadrate.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.TriDecile, tboxTriDecileFactor.Text, cboxTriDecile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.BiSeptile, tboxBiSeptileFactor.Text, cboxBiSeptile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.TriSeptile, tboxTriSeptileFactor.Text, cboxTriSeptile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Novile, tboxNovileFactor.Text, cboxNovile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.BiNovile, tboxBiNovileFactor.Text, cboxBiNovile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.QuadraNovile, tboxQuadraNovileFactor.Text, cboxQuadraNovile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Undecile, tboxUnDecileFactor.Text, cboxUnDecile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Centile, tboxCentileFactor.Text, cboxCentile.IsChecked),
+            DefineSingleAspectSpec(AspectTypes.Vigintile, tboxVigintileFactor.Text, cboxVigintile.IsChecked)
+        };
 
         return aspectSpecs;
     }
@@ -682,11 +686,13 @@ public partial class AstroConfigWindow : Window
 
     private List<MundanePointSpecs> DefineMundanePointSpecs()
     {
-        List<MundanePointSpecs> mundanePointSpecs = new();
-        mundanePointSpecs.Add(DefineSingleMundanePointSpec(MundanePoints.Mc, tboxMcFactor.Text, cboxMc.IsChecked));
-        mundanePointSpecs.Add(DefineSingleMundanePointSpec(MundanePoints.Ascendant, tboxAscFactor.Text, cboxAsc.IsChecked));
-        mundanePointSpecs.Add(DefineSingleMundanePointSpec(MundanePoints.Vertex, tboxVertexFactor.Text, cboxVertex.IsChecked));
-        mundanePointSpecs.Add(DefineSingleMundanePointSpec(MundanePoints.EastPoint, tboxEastpointFactor.Text, cboxEastpoint.IsChecked));
+        List<MundanePointSpecs> mundanePointSpecs = new()
+        {
+            DefineSingleMundanePointSpec(MundanePoints.Mc, tboxMcFactor.Text, cboxMc.IsChecked),
+            DefineSingleMundanePointSpec(MundanePoints.Ascendant, tboxAscFactor.Text, cboxAsc.IsChecked),
+            DefineSingleMundanePointSpec(MundanePoints.Vertex, tboxVertexFactor.Text, cboxVertex.IsChecked),
+            DefineSingleMundanePointSpec(MundanePoints.EastPoint, tboxEastpointFactor.Text, cboxEastpoint.IsChecked)
+        };
 
         return mundanePointSpecs;
     }
@@ -701,9 +707,11 @@ public partial class AstroConfigWindow : Window
 
     private List<ArabicPointSpecs> DefineArabicPointSpecs()
     {
-        List<ArabicPointSpecs> arabicPointSpecs = new();
-        arabicPointSpecs.Add(DefineSingleArabicPoint(ArabicPoints.FortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked));
-        arabicPointSpecs.Add(DefineSingleArabicPoint(ArabicPoints.FortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked));
+        List<ArabicPointSpecs> arabicPointSpecs = new()
+        {
+            DefineSingleArabicPoint(ArabicPoints.FortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
+            DefineSingleArabicPoint(ArabicPoints.FortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked)
+        };
         return arabicPointSpecs;
     }
 

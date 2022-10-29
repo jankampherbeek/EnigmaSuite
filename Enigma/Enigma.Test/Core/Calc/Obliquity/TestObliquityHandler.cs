@@ -25,10 +25,13 @@ public class TestObliquityHandler
         Mock<IObliquityCalc> calcMock = CreateCalcMock();
         IObliquityHandler handler = new ObliquityHandler(calcMock.Object);
         ObliquityResponse response = handler.CalcObliquity(new ObliquityRequest(_jdUt));
-        Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
-        Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
-        Assert.That(response.Success, Is.True);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
+            Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]
@@ -37,10 +40,12 @@ public class TestObliquityHandler
         Mock<IObliquityCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IObliquityHandler handler = new ObliquityHandler(calcExceptionMock.Object);
         ObliquityResponse response = handler.CalcObliquity(new ObliquityRequest(_jdUt));
-        Assert.That(response.Success, Is.False);
-        Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.Success, Is.False);
+            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        });
     }
-
 
     private Mock<IObliquityCalc> CreateCalcMock()
     {

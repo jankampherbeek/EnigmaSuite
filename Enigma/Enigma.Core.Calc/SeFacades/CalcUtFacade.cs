@@ -31,9 +31,8 @@ public class CalcUtFacade : ICalcUtFacade
     {
         StringBuilder _resultValue = new(256);
               double[] _positions = new double[6];
-
-              long result = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
-              return _positions;
+        _ = ext_swe_calc_ut(julianDay, seCelPointId, flags, _positions, _resultValue);
+        return _positions;
     }
 
     /// <summary>Access dll to retrieve position for celestial point.</summary>

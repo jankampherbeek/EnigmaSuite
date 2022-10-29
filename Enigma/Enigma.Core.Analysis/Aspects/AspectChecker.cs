@@ -57,19 +57,21 @@ public class AspectChecker : IAspectChecker
     private List<AspectDetails> DefineSupportedAspects()
     {
         // TODO replace with configurable set of aspect(details).
-        List<AspectDetails> aspectDetails= new();
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Conjunction));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Opposition));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Triangle));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Square));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Sextile));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Inconjunct));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.SemiSquare));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.SesquiQuadrate));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Quintile));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.BiQuintile));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.Septile));
-        aspectDetails.Add(_aspectSpecifications.DetailsForAspect(AspectTypes.SemiSextile));
+        List<AspectDetails> aspectDetails = new()
+        {
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Conjunction),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Opposition),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Triangle),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Square),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Sextile),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Inconjunct),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.SemiSquare),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.SesquiQuadrate),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Quintile),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.BiQuintile),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.Septile),
+            _aspectSpecifications.DetailsForAspect(AspectTypes.SemiSextile)
+        };
         return aspectDetails;
     }
 
@@ -134,7 +136,7 @@ public class AspectChecker : IAspectChecker
         return effectiveAspects;
     }
 
-    private double NormalizeDistance(double InitialValue)
+    private static double NormalizeDistance(double InitialValue)
     {
         double distance = InitialValue;
         if (distance < 0) distance += 360.0;

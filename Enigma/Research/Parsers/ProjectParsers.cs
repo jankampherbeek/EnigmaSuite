@@ -22,9 +22,9 @@ public class ResearchProjectParser : IResearchProjectParser
         return JsonConvert.SerializeObject(project, Formatting.Indented);
     }
 
-    public ResearchProject UnMarshall(string json)
+    public ResearchProject UnMarshall(string jsonString)
     {
-        return JsonConvert.DeserializeObject<ResearchProject>(json);
+        return JsonConvert.DeserializeObject<ResearchProject>(jsonString);
     }
 
 }

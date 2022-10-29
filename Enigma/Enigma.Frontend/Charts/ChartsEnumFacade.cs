@@ -42,19 +42,19 @@ public class ChartsEnumFacade : IChartsEnumFacade
 {
 
 
-    private ICalendarSpecifications _calendarSpecifications;
-    private IChartCategorySpecifications _chartCategorySpecifications;
-    private IDirections4GeoLatSpecifications _directions4GeoLatSpecifications;
-    private IDirections4GeoLongSpecifications _directions4GeoLongSpecifications;
-    private IRoddenRatingSpecifications _roddenRatingSpecifications;
-    private ITimeZoneSpecifications _timeZoneSpecifications;
-    private IYearCountSpecifications _yearCountSpecifications;
-    private IHouseSystemSpecifications _houseSystemSpecifications;
-    private IAyanamshaSpecifications _ayanamshaSpecifications;
-    private IZodiacTypeSpecifications _zodiacTypeSpecifications;
-    private IObserverPositionSpecifications _observerPositionSpecifications;
-    private IProjectionTypeSpecifications _projectionTypeSpecifications;
-    private IOrbMethodSpecifications _orbMethodSpecifications;
+    private readonly ICalendarSpecifications _calendarSpecifications;
+    private readonly IChartCategorySpecifications _chartCategorySpecifications;
+    private readonly IDirections4GeoLatSpecifications _directions4GeoLatSpecifications;
+    private readonly IDirections4GeoLongSpecifications _directions4GeoLongSpecifications;
+    private readonly IRoddenRatingSpecifications _roddenRatingSpecifications;
+    private readonly ITimeZoneSpecifications _timeZoneSpecifications;
+    private readonly IYearCountSpecifications _yearCountSpecifications;
+    private readonly IHouseSystemSpecifications _houseSystemSpecifications;
+    private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
+    private readonly IZodiacTypeSpecifications _zodiacTypeSpecifications;
+    private readonly IObserverPositionSpecifications _observerPositionSpecifications;
+    private readonly IProjectionTypeSpecifications _projectionTypeSpecifications;
+    private readonly IOrbMethodSpecifications _orbMethodSpecifications;
 
     public ChartsEnumFacade(ICalendarSpecifications calendarSpecifications,
                             IChartCategorySpecifications chartCategorySpecifications,

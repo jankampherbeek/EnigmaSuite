@@ -82,13 +82,13 @@ public class SolSysPointsHandler : ISolSysPointsHandler
             SolarSystemPointDetails details = _solSysPointSpecs.DetailsForPoint(solSysPoint);
             if (details.CalculationType == CalculationTypes.SE)
             {
-                _fullSolSysPoints.Add(createPosForSePoint(solSysPoint, julDay, location, _flagsEcliptical, _flagsEquatorial));
+                _fullSolSysPoints.Add(CreatePosForSePoint(solSysPoint, julDay, location, _flagsEcliptical, _flagsEquatorial));
             }
             else if (details.CalculationType == CalculationTypes.Elements)
             {
-                double[][] positions = createPosForElementBasedPoint(solSysPoint, julDay, location, obliquity);
-                double[][] previousPositions = createPosForElementBasedPoint(solSysPoint, previousJd, location, obliquity);
-                double[][] futurePositions = createPosForElementBasedPoint(solSysPoint, futureJd, location, obliquity);
+                double[][] positions = CreatePosForElementBasedPoint(solSysPoint, julDay, location, obliquity);
+                double[][] previousPositions = CreatePosForElementBasedPoint(solSysPoint, previousJd, location, obliquity);
+                double[][] futurePositions = CreatePosForElementBasedPoint(solSysPoint, futureJd, location, obliquity);
                 PosSpeed longPosSpeed = new(positions[0][0], futurePositions[0][0] - previousPositions[0][0]);
                 PosSpeed latPosSpeed = new(positions[0][1], futurePositions[0][1] - previousPositions[0][1]);
                 PosSpeed distPosSpeed = new(positions[0][2], futurePositions[0][2] - previousPositions[0][2]);
@@ -104,7 +104,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
 
     }
 
-    private FullSolSysPointPos createPosForSePoint(SolarSystemPoints solSysPoint, double julDay, Location location, int flagsEcl, int flagsEq)
+    private FullSolSysPointPos CreatePosForSePoint(SolarSystemPoints solSysPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _solSysPointSECalc.CalculateSolSysPoint(solSysPoint, julDay, location, flagsEcl);
         PosSpeed[] equatorialPosSpeed = _solSysPointSECalc.CalculateSolSysPoint(solSysPoint, julDay, location, flagsEq);
@@ -114,7 +114,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
         return new FullSolSysPointPos(solSysPoint, eclipticPosSpeed[0], eclipticPosSpeed[1], equatorialPosSpeed[0], equatorialPosSpeed[1], eclipticPosSpeed[2], horCoord);
     }
 
-    private double[][] createPosForElementBasedPoint(SolarSystemPoints solSysPoint, double julDay, Location location, double obliquity)
+    private double[][] CreatePosForElementBasedPoint(SolarSystemPoints solSysPoint, double julDay, Location location, double obliquity)
     {
         double[] eclipticPos = _solSysPointElementsCalc.Calculate(solSysPoint, julDay);
         double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new double[] { eclipticPos[0], eclipticPos[1] }, obliquity);

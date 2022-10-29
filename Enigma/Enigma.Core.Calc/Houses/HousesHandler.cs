@@ -90,7 +90,7 @@ public class HousesHandler : IHousesHandler
     {
         CoordinateConversionRequest coordConvRequest = new(eclCoord, obliquity);
         CoordinateConversionResponse coordConvResponse = _coordinateConversionHandler.HandleConversion(coordConvRequest);
-        return coordConvResponse.equatorialCoord;
+        return coordConvResponse.EquatorialCoord;
     }
 
     private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EclipticCoordinates eclCoord)

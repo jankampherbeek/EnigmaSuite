@@ -10,11 +10,11 @@ namespace Enigma.Core.Calc.ReqResp;
 
 public record CoordinateConversionResponse : ValidatedResponse
 {
-    public EquatorialCoordinates equatorialCoord { get; }
+    public EquatorialCoordinates EquatorialCoord { get; }
 
     public CoordinateConversionResponse(EquatorialCoordinates equatorialCoordinates, bool success, string errorText) : base(success, errorText)
     {
-        equatorialCoord = equatorialCoordinates;
+        EquatorialCoord = equatorialCoordinates;
     }
 
 }

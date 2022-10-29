@@ -17,9 +17,6 @@ namespace Enigma.Test.Frontend.PresentationFactories;
 public class TestAspectForDataGridFactory
 {
 
-    private IAspectForDataGridFactory _aspectForDataGridFactory;
-
-
     [Test]
     public void TestHappyFlow()
     {
@@ -34,10 +31,10 @@ public class TestAspectForDataGridFactory
         var aspectSpecsMock = new Mock<IAspectSpecifications>();
         aspectSpecsMock.Setup(p => p.DetailsForAspect(AspectTypes.Conjunction)).Returns(new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", "B", 1.0));
         aspectSpecsMock.Setup(p => p.DetailsForAspect(AspectTypes.Square)).Returns(new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", "E", 0.85));
-        _aspectForDataGridFactory = new AspectForDataGridFactory(dmsConversionsMock.Object, solSysPointSpecsMock.Object, aspectSpecsMock.Object);
+        IAspectForDataGridFactory aspectForDataGridFactory = new AspectForDataGridFactory(dmsConversionsMock.Object, solSysPointSpecsMock.Object, aspectSpecsMock.Object);
 
         List<EffectiveAspect> effAspects = CreateEffAspects();
-        List<PresentableAspects> presAspects = _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
+        List<PresentableAspects> presAspects = aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
         Assert.That(presAspects.Count, Is.EqualTo(2));
         Assert.Multiple(() =>
         {
@@ -52,11 +49,13 @@ public class TestAspectForDataGridFactory
         });
     }
 
-    private List<EffectiveAspect> CreateEffAspects()
+    private static List<EffectiveAspect> CreateEffAspects()
     {
-        List<EffectiveAspect> effAspects = new();
-        effAspects.Add(new EffectiveAspect(SolarSystemPoints.Sun, SolarSystemPoints.Moon, new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", "B", 1.0), 10.0, 3.0));
-        effAspects.Add(new EffectiveAspect("Asc", SolarSystemPoints.Jupiter, new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", "E", 0.85), 10.0, 2.5));
+        List<EffectiveAspect> effAspects = new()
+        {
+            new EffectiveAspect(SolarSystemPoints.Sun, SolarSystemPoints.Moon, new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", "B", 1.0), 10.0, 3.0),
+            new EffectiveAspect("Asc", SolarSystemPoints.Jupiter, new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", "E", 0.85), 10.0, 2.5)
+        };
         return effAspects;
 
     }
