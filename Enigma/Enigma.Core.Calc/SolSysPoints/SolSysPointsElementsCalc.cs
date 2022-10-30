@@ -62,7 +62,7 @@ public class SolSysPointsElementsCalc : ISolSysPointsElementsCalc
         double[] argumentPerihelion = new double[] { 0, 0, 0 };
         double[] ascNode = new double[] { 0, 0, 0 };
         double[] inclination = new double[] { 0, 0, 0 };
-        double semiMajorAxis = 0.0;
+        double semiMajorAxis;
         if (planet == SolarSystemPoints.Earth)
         {
             meanAnomaly = new double[] { 358.47584, 35999.0498, -.00015 };

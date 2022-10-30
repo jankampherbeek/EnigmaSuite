@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -22,8 +21,6 @@ namespace Enigma.Frontend.DataFiles
             InitializeComponent();
             _controller = App.ServiceProvider.GetRequiredService<DataFilesExportController>();
             _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
-        //   PopulateTexts();
-
 
         }
     }

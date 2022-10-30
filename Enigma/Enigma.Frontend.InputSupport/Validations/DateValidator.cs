@@ -13,8 +13,6 @@ namespace Enigma.InputSupport.Validations;
 public class DateValidator : IDateValidator
 {
     private readonly ICheckDateTimeApi _checkDateTimeApi;
-    private bool _success = true;
-    private readonly List<int> _errorCodes = new();
 
     public DateValidator(ICheckDateTimeApi checkDateTimeApi)
     {
@@ -23,18 +21,18 @@ public class DateValidator : IDateValidator
 
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
     {
-        _success = dateValues != null && dateValues.Length == 3 && CheckCalendarRules(dateValues, calendar, yearCount);
+        bool success = dateValues != null && dateValues.Length == 3 && CheckCalendarRules(dateValues, calendar, yearCount);
         fullDate = null;
 
-        if (_success)
+        if (success)
         {
             string _fullDateText = CreateFullDateText(dateValues, calendar);
             fullDate = new FullDate(dateValues, calendar, _fullDateText);
         }
-        return _success;
+        return success;
     }
 
-    private string CreateFullDateText(int[] dateValues, Calendars calendar)
+    private static string CreateFullDateText(int[] dateValues, Calendars calendar)
     {
         string _yearText = $"{dateValues[0]:D4}";
         if (dateValues[0] > 9999 || dateValues[0] < -9999)

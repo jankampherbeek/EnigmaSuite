@@ -21,9 +21,9 @@ public class AstroConfigParser: IAstroConfigParser
         return JsonConvert.SerializeObject(astroConfig, Formatting.Indented);
     }
 
-    public AstroConfig UnMarshall(string json)
+    public AstroConfig UnMarshall(string jsonString)
     {
-        return JsonConvert.DeserializeObject<AstroConfig>(json);
+        return JsonConvert.DeserializeObject<AstroConfig>(jsonString);
     }
 
 }

@@ -45,7 +45,7 @@ public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         double v = MathExtra.RadToDeg(Math.Atan(tanSRad * qRad)) - s;
         double absoluteV = RangeUtil.ValueToRange(Math.Abs(v), -90.0, 90.0);
         absoluteV = Math.Abs(absoluteV); // TODO Check if this is required, copied this from my original Java version. It partially repeats the line above.
-        double correctedV = 0.0;
+        double correctedV;
         if (IsRising(longSp, longPl))
         {
             correctedV = latPl < 0.0 ? absoluteV : -absoluteV;

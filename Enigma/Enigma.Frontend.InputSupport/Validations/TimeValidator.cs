@@ -13,7 +13,6 @@ namespace Enigma.InputSupport.Validations;
 public class TimeValidator : ITimeValidator
 {
     private readonly ITimeZoneSpecifications _timeZoneSpecifications;
-    private bool _success = true;
     readonly int[] timeValues = new int[] { 0, 0, 0 };
     readonly int[] lmtOffsetValues = new int[] { 0, 0, 0 };
     private double _ut = 0.0;
@@ -29,24 +28,24 @@ public class TimeValidator : ITimeValidator
     {
 
         string _fullText = "";
-        _success = (inputTimeValues.Length == 3) || (inputTimeValues.Length == 2);
+        bool success = (inputTimeValues.Length == 3) || (inputTimeValues.Length == 2);
 
-        if (_success)
+        if (success)
         {
             for (int i = 0; i < inputTimeValues.Length; i++)
             {
                 timeValues[i] = inputTimeValues[i];
             }
-            _success = CheckMinAndMaxValues(timeValues);
+            success = CheckMinAndMaxValues(timeValues);
         }
-        if (_success)
+        if (success)
         {
             CalculateUtAndCorrectionForDay(timezone, lmtOffset);
             _fullText = CreateFullText(timezone, lmtOffset);
         }
         fullTime = new FullTime(timeValues, _ut, _correctionForDay, _fullText);
 
-        return _success;
+        return success;
     }
 
     private string CreateFullText(TimeZones timezone, double lmtOffset)
@@ -74,14 +73,7 @@ public class TimeValidator : ITimeValidator
     {
         double _offset;
         _ut = timeValues[0] + (double)timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE + (double)timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE;
-        if (timezone == TimeZones.LMT)
-        {
-            _offset = lmtOffset;
-        }
-        else
-        {
-            _offset = _timeZoneSpecifications.DetailsForTimeZone(timezone).OffsetFromUt;
-        }
+        _offset = timezone == TimeZones.LMT ? _offset = lmtOffset : _timeZoneSpecifications.DetailsForTimeZone(timezone).OffsetFromUt;
         _ut -= _offset;
         if (_ut < 0.0)
         {

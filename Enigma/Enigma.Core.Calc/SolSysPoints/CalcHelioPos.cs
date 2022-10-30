@@ -9,14 +9,9 @@ using Enigma.Core.Calc.Util;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 
-
-
-
-
 /// <inheritdoc/>
 public class CalcHelioPos : ICalcHelioPos
 {
-    private double _meanAnomaly1;
     private double _meanAnomaly2;
     private double _semiAxis;
     private double _inclination;
@@ -31,16 +26,16 @@ public class CalcHelioPos : ICalcHelioPos
     {
         _factorT = factorT;
         _orbitDefinition = orbitDefinition;
-        _meanAnomaly1 = MathExtra.DegToRad(ProcessTermsForFractionT(factorT, orbitDefinition.MeanAnomaly));
-        if (_meanAnomaly1 < 0.0) _meanAnomaly1 += (Math.PI * 2);
+        double meanAnomaly1 = MathExtra.DegToRad(ProcessTermsForFractionT(factorT, orbitDefinition.MeanAnomaly));
+        if (meanAnomaly1 < 0.0) meanAnomaly1 += (Math.PI * 2);
         _eccentricity = ProcessTermsForFractionT(factorT, orbitDefinition.Eccentricity);
-        _eccAnomaly = EccAnomalyFromKeplerEquation(_meanAnomaly1, _eccentricity);
+        _eccAnomaly = EccAnomalyFromKeplerEquation(meanAnomaly1, _eccentricity);
         _trueAnomalyPol = CalcPolarTrueAnomaly();
         ReduceToEcliptic();
         return CalcRectAngHelioCoordinates(_semiAxis, _inclination, _eccAnomaly, _eccentricity, _meanAnomaly2, orbitDefinition);
     }
 
-    private double EccAnomalyFromKeplerEquation(double meanAnomaly, double eccentricity)
+    private static double EccAnomalyFromKeplerEquation(double meanAnomaly, double eccentricity)
     {
         int count;
         double eccAnomaly = meanAnomaly;
@@ -59,7 +54,7 @@ public class CalcHelioPos : ICalcHelioPos
         return MathExtra.Rectangular2Polar(anomalyVec);
     }
 
-    private RectAngCoordinates CalcRectAngHelioCoordinates(double semiAxis, double inclination, double eccAnomaly, double eccentricity, double meanAnomaly, OrbitDefinition orbitDefinition)
+    private static RectAngCoordinates CalcRectAngHelioCoordinates(double semiAxis, double inclination, double eccAnomaly, double eccentricity, double meanAnomaly, OrbitDefinition orbitDefinition)
     {
         double phiCoord = MathExtra.DegToRad(semiAxis);
         if (phiCoord < 0.0) phiCoord += (Math.PI * 2);
@@ -84,7 +79,7 @@ public class CalcHelioPos : ICalcHelioPos
         if (Math.Abs(factorVDeg - _semiAxis) > 10.0) _semiAxis -= 180.0;
     }
 
-    private double ProcessTermsForFractionT(double fractionT, double[] elements)
+    private static double ProcessTermsForFractionT(double fractionT, double[] elements)
     {
         return elements[0] + elements[1] * fractionT + elements[2] * fractionT * fractionT;
     }

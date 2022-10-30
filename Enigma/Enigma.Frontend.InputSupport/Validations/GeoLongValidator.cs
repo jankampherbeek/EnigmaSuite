@@ -12,7 +12,6 @@ namespace Enigma.InputSupport.Validations;
 /// <inheritdoc/>
 public class GeoLongValidator : IGeoLongValidator
 {
-    private bool _success = true;
     private readonly int[] _longValues = new int[] { 0, 0, 0 };
     private double _longitude = 0.0;
     private Directions4GeoLong _direction;
@@ -22,23 +21,23 @@ public class GeoLongValidator : IGeoLongValidator
     {
         _direction = direction;
         string _fullText = "";
-        _success = (inputLongValues.Length == 3) || (inputLongValues.Length == 2);
+        bool success = (inputLongValues.Length == 3) || (inputLongValues.Length == 2);
 
-        if (_success)
+        if (success)
         {
             for (int i = 0; i < inputLongValues.Length; i++)
             {
                 _longValues[i] = inputLongValues[i];
             }
-            _success = CheckMinAndMaxValues(_longValues);
+            success = CheckMinAndMaxValues(_longValues);
         }
-        if (_success)
+        if (success)
         {
             CalculateLongitude();
             _fullText = CreateFullText();  
         }
         fullLongitude = new (_longValues, _longitude, _direction, _fullText);
-        return _success;
+        return success;
     }
 
     private string CreateFullText()
