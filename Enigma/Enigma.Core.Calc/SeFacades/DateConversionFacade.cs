@@ -2,20 +2,13 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.DateTime;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Core.Calc.SeFacades;
 
-/// <summary>Facade for date/time conversion functionality in the Swiss Ephemeris.</summary>
-/// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
-public interface IDateConversionFacade
-{
-    /// <summary>Checks if a date and time are valid.</summary>
-    /// <param name="dateTime"/>
-    /// <returns>True if date is a valid date and ut between 0.0 (inclusive) and 24.0 (exclusive).</returns>
-    public bool DateTimeIsValid(SimpleDateTime dateTime);
-}
+
 
 
 /// <inheritdoc/>

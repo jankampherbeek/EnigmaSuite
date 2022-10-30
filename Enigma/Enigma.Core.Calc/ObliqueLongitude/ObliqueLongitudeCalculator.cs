@@ -2,21 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Core.Calc.Util;
 using Enigma.Domain.Positional;
 
 namespace Enigma.Core.Calc.ObliqueLongitude;
-
-/// <summary>Calculator for oblique longitudes (School of Ram).</summary>
-public interface IObliqueLongitudeCalculator
-{
-    /// <summary>Perform calculations to obtain oblique longitudes.</summary>
-    /// <param name="request">Specifications for the calculation.</param>
-    /// <returns>Solar System Points with the oblique longitude.</returns>
-    public List<NamedEclipticLongitude> CalcObliqueLongitudes(ObliqueLongitudeRequest request);
-}
-
 
 
 /// <inheritdoc/>

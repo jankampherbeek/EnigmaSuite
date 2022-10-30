@@ -4,20 +4,9 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Locational;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.InputSupport.Validations;
-
-public interface IGeoLongValidator
-{
-    /// <summary>
-    /// Validate input and create a record FullGeoLongitude.
-    /// </summary>
-    /// <param name="inputLongValues">Array with integers for the longitude in the sequence degree, minute, second. The value for second is optional.</param>
-    /// <param name="direction">The direction: east or west.</param>
-    /// <param name="fullLongitude">Resulting record FullGeoLongitude.</param>
-    /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedLongitude(int[] inputLongValues, Directions4GeoLong direction, out FullGeoLongitude fullLongitude);
-}
 
 
 /// <inheritdoc/>

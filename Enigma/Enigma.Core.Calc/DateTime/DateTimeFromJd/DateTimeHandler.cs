@@ -2,16 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Exceptions;
 
 namespace Enigma.Core.Calc.DateTime.DateTimeFromJd;
-
-public interface IDateTimeHandler
-{
-    public DateTimeResponse CalcDateTime(DateTimeRequest request);
-}
 
 
 public class DateTimeHandler : IDateTimeHandler

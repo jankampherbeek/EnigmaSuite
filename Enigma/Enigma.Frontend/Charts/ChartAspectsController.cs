@@ -4,8 +4,10 @@
 
 
 using Enigma.Core.Analysis.Api;
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain;
 using Enigma.Domain.Analysis;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.State;
 using Enigma.Frontend.Support;

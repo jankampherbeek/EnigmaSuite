@@ -2,25 +2,17 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Interfaces;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.Support;
 
-/// <summary>Manage texts that are stored in an external dictionary file.</summary>
-public interface IRosetta
-{
-    /// <summary>Retrieve text from a resource bundle.</summary>
-    /// <param name="id">The id to search.</param>
-    /// <returns>The text for the Id. Returns the string '-NOT FOUND-' if the text could not be found.</returns>
-    public string TextForId(string id);
-}
-
 public class Rosetta : IRosetta
 {
-    readonly private ITextFileReader _fileReader;
+    readonly private ITextFileReaderFE _fileReader;
     readonly private List<KeyValuePair<string, string>> _texts;
 
-    public Rosetta(ITextFileReader fileReader)
+    public Rosetta(ITextFileReaderFE fileReader)
     {
         _fileReader = fileReader;
         _texts = new List<KeyValuePair<string, string>>();

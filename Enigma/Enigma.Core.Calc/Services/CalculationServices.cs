@@ -10,6 +10,7 @@ using Enigma.Core.Calc.DateTime.CheckDateTime;
 using Enigma.Core.Calc.DateTime.DateTimeFromJd;
 using Enigma.Core.Calc.DateTime.JulDay;
 using Enigma.Core.Calc.Houses;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Obliquity;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.SolSysPoints;

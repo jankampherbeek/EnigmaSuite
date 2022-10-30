@@ -17,6 +17,9 @@ using Enigma.Frontend.State;
 using Enigma.Frontend.Support;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using Enigma.Core.Calc.Interfaces;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.Charts;
 

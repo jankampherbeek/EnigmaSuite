@@ -4,6 +4,7 @@
 
 
 using Enigma.Core.Calc.DateTime.JulDay;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.DateTime;
 using Moq;

@@ -9,6 +9,8 @@ using Enigma.InputSupport.Conversions;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.UiDomain;
 using Moq;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Test.Frontend.PresentationFactories;
 

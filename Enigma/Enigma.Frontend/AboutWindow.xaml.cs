@@ -1,4 +1,5 @@
-﻿using Enigma.Frontend.Support;
+﻿using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Support;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;

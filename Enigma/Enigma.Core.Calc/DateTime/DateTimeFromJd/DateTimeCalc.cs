@@ -3,16 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.DateTime;
 
 namespace Enigma.Core.Calc.DateTime.DateTimeFromJd;
 
-/// <summary>Calculations for Julian Day.</summary>
-public interface IDateTimeCalc
-{
-    public SimpleDateTime CalcDateTime(double julDay, Calendars calendar);
-}
 
 /// <inheritdoc/>
 public class DateTimeCalc : IDateTimeCalc

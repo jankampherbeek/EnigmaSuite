@@ -3,16 +3,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ObliqueLongitude;
 using Enigma.Core.Calc.ReqResp;
 
 namespace Enigma.Core.Calc.Api.Astron;
 
-public interface IObliqueLongitudeApi
-{
-    public ObliqueLongitudeResponse GetObliqueLongitude(ObliqueLongitudeRequest request);
 
-}
 
 public class ObliqueLongitudeApi : IObliqueLongitudeApi
 {

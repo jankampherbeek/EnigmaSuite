@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.CoordinateConversion;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Positional;

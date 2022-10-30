@@ -4,20 +4,10 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Calc.DateTime.JulDay;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 
 namespace Enigma.Core.Calc.Api.DateTime;
-
-/// <summary>API for the calculation of the Julian Day Number.</summary>
-public interface IJulianDayApi
-{
-
-    /// <summary>Api call to calculate a Julian Day Number based on UT.</summary>
-    /// <param name="request"/>
-    /// <remarks>Throws ArgumentNullException if the request is null or if SimpleDateTime in the request is null.</remarks> 
-    /// <returns>Response with validation and a value for a Julian Day number.</returns>
-    public JulianDayResponse getJulianDay(JulianDayRequest request);
-}
 
 
 /// <inheritdoc/>

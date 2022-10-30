@@ -22,6 +22,8 @@ using Enigma.Persistency.Services;
 using Enigma.Configuration.Services;
 using Enigma.Frontend.ResearchProjects;
 using Enigma.Research.Services;
+using Enigma.Core.Calc.Interfaces;
+using Enigma.Frontend.Interfaces;
 
 namespace Enigma.Frontend;
 
@@ -77,7 +79,7 @@ public partial class App : Application
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
-        serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
+        serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
         
         // Handle services from other projects.

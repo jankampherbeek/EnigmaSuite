@@ -4,16 +4,10 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
-using Enigma.InputSupport.Conversions;
+using Enigma.InputSupport.Interfaces;
 using Enigma.InputSupport.Validations;
 
 namespace Enigma.InputSupport.InputParsers;
-
-/// <summary>Parse, validate and convert input for a date.</summary>
-public interface ITimeInputParser
-{
-    public bool HandleTime(string inputTime, TimeZones timeZone, double lmtOffset, out FullTime? fullTime);
-}
 
 
 /// <inheritdoc/>

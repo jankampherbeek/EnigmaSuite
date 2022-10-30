@@ -5,6 +5,7 @@
 using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

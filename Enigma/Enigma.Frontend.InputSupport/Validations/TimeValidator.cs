@@ -4,21 +4,9 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.InputSupport.Validations;
-
-public interface ITimeValidator
-{
-    /// <summary>
-    /// Validate input and create a record FullTime.
-    /// </summary>
-    /// <param name="timeValues">Array with integers for time in the sequence hour, minute, second. The value for second is optional.</param>
-    /// <param name="timezone">The timezone that is used.</param>
-    /// <param name="lmtOffset">If TimeZone is LMT this parameter contains a value for the time offset. Will be zero if TimeZone != LMT.</param>
-    /// <param name="fullTime">Resulting record FullTime.</param>
-    /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime);
-}
 
 
 /// <inheritdoc/>

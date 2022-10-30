@@ -4,6 +4,7 @@
 
 
 using Enigma.Persistency.Converters;
+using Enigma.Persistency.Interfaces;
 
 namespace Enigma.Text.Persistency.Converters;
 

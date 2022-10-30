@@ -2,12 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Interfaces;
+
 namespace Enigma.Frontend.Support;
 
-public interface IRangeCheck
-{
-    public double InRange360(double angle);
-}
 
 
 public class RangeCheck: IRangeCheck

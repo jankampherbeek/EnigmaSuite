@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.Support;
 using System.Collections.Generic;
 using System.Windows;
@@ -11,12 +12,6 @@ using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Charts.Graphics;
 
-
-public interface IChartsWheelSigns
-{
-    public List<Line> CreateSignSeparators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant);
-    public List<TextBlock> CreateSignGlyphs(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant);
-}
 
 public class ChartsWheelSigns: IChartsWheelSigns
 {

@@ -4,21 +4,9 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Locational;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.InputSupport.Validations;
-
-public interface IGeoLatValidator
-{
-    /// <summary>
-    /// Validate input and create a record FullGeoLatitude.
-    /// </summary>
-    /// <param name="latValues">Array with integers for the latitude in the sequence degree, minute, second. The value for second is optional.</param>
-    /// <param name="direction">The direction: north or south.</param>
-    /// <param name="fullLatitude">Resulting record FullGeoLatitude.</param>
-    /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude);
-}
-
 
 /// <inheritdoc/>
 public class GeoLatValidator : IGeoLatValidator

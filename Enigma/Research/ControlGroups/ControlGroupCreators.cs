@@ -4,21 +4,10 @@
 
 using Engima.Domain.Research;
 using Enigma.Persistency.Domain;
+using Enigma.Research.Interfaces;
 
 namespace Enigma.Research.ControlGroups;
 
-public interface IControlGroupCreator
-{
-    public List<StandardInputItem> CreateMultipleControlData(List<StandardInputItem> inputItems, 
-        ControlGroupTypes controlGroupType,
-        int multiplicity);
-
-}
-
-public interface IControlDataCalendar
-{
-    public bool DayFitsInMonth(int day, int month, int year);
-}
 
 
 public class StandardShiftControlGroupCreator : IControlGroupCreator

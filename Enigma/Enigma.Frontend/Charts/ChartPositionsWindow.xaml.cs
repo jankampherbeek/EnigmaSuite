@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 using System;
+using Enigma.Frontend.Interfaces;
 
 namespace Enigma.Frontend.Charts;
 

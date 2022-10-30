@@ -2,18 +2,13 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Interfaces;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Enigma.Frontend.Support;
 
-public interface ITextFileReader
-{
-    public IEnumerable<string> ReadSeparatedLines(string fileName);
-    public string ReadAllText(string fileName);
-}
-
-public class TextFileReader : ITextFileReader
+public class TextFileReader : ITextFileReaderFE
 {
     private IEnumerable<string> _lines;
 

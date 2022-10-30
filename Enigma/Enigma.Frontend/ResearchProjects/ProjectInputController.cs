@@ -5,10 +5,10 @@
 using Engima.Domain.Research;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
-using Enigma.Frontend.PresentationFactories;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.UiDomain;
-using Enigma.Persistency.Handlers;
-using Enigma.Research.Handlers;
+using Enigma.Persistency.Interfaces;
+using Enigma.Research.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 

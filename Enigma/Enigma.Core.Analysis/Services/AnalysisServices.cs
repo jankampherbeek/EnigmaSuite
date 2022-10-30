@@ -5,6 +5,7 @@
 using Enigma.Core.Analysis.Api;
 using Enigma.Core.Analysis.Aspects;
 using Enigma.Core.Analysis.Dto;
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Core.Analysis.Midpoints;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -4,19 +4,12 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Calc.ChartAllPositions;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 
 namespace Enigma.Core.Calc.Api.Astron;
 
-/// <summary>API for calculation of a fully defined chart.</summary>
-public interface IChartAllPositionsApi
-{
-    /// <summary>Api call to calculate a full chart.</summary>
-    /// <param name="request"/>
-    /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
-    /// <returns>Response with instance of FullChart with all positionscoordinates, or an indication of errors that occurred.</returns>
-    public ChartAllPositionsResponse GetChart(ChartAllPositionsRequest request);
-}
+
 
 
 /// <inheritdoc/>

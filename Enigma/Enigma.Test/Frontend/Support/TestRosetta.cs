@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.Support;
 using Moq;
 
@@ -15,7 +16,7 @@ public class TestRosetta
     public void TestHappyFlow()
     {
         IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "second.subject = MySecondSubject", "third.subject = MyThirdSubject" };
-        var mock = new Mock<ITextFileReader>();
+        var mock = new Mock<ITextFileReaderFE>();
         mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
         IRosetta rosetta = new Rosetta(mock.Object);
         string key = "second.subject";
@@ -28,7 +29,7 @@ public class TestRosetta
     public void TestKeyNotFound()
     {
         IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "second.subject = MySecondSubject", "third.subject = MyThirdSubject" };
-        var mock = new Mock<ITextFileReader>();
+        var mock = new Mock<ITextFileReaderFE>();
         mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
         IRosetta rosetta = new Rosetta(mock.Object);
         string key = "wrong.key";
@@ -41,7 +42,7 @@ public class TestRosetta
     public void TestWithEmptyLines()
     {
         IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "", "third.subject = MyThirdSubject" };
-        var mock = new Mock<ITextFileReader>();
+        var mock = new Mock<ITextFileReaderFE>();
         mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
         IRosetta rosetta = new Rosetta(mock.Object);
         string key = "third.subject";
@@ -54,7 +55,7 @@ public class TestRosetta
     public void TestWithCommentLines()
     {
         IEnumerable<string> allLines = new string[] { "first.subject = MyFirstSubject", "#Comment line", "third.subject = MyThirdSubject" };
-        var mock = new Mock<ITextFileReader>();
+        var mock = new Mock<ITextFileReaderFE>();
         mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
         IRosetta rosetta = new Rosetta(mock.Object);
         string key = "third.subject";
@@ -68,7 +69,7 @@ public class TestRosetta
     public void TestWithSexagesimals()
     {
         IEnumerable<string> allLines = new string[] { "septile = Septile (51\u00B025\u203243\u2033)" };
-        var mock = new Mock<ITextFileReader>();
+        var mock = new Mock<ITextFileReaderFE>();
         mock.Setup(p => p.ReadSeparatedLines(It.IsAny<string>())).Returns(allLines);
         IRosetta rosetta = new Rosetta(mock.Object);
         string key = "septile";

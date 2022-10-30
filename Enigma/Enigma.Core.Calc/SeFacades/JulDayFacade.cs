@@ -2,26 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Core.Calc.SeFacades;
-
-/// <summary>Facade for retrieving Julian Day number from date and time, using the Swiss Ephemeris.</summary>
-/// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
-public interface IJulDayFacade
-{
-    /// <summary>Retrieve Julian Day number from Swiss Ephemeris.</summary>
-    /// <param name="dateTime">Date, time and calendar.</param>
-    /// <returns>The calculated Julian Day number.</returns>
-    public double JdFromSe(SimpleDateTime dateTime);
-
-    /// <summary>Retrieve value for Delta T.</summary>
-    /// <param name="JulianDayUT">Value for Julian Day in UT.</param>
-    /// <returns>The value for Delta T in seconds and fractions of seconds.</returns>
-    public double DeltaTFromSe(double JulianDayUT);
-}
 
 
 /// <inheritdoc/>

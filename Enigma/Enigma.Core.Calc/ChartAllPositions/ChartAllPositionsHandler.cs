@@ -3,16 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Houses;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Core.Calc.SolSysPoints;
 
 namespace Enigma.Core.Calc.ChartAllPositions;
-
-public interface IChartAllPositionsHandler
-{
-    public ChartAllPositionsResponse CalcFullChart(ChartAllPositionsRequest request);
-}
-
 
 public class ChartAllPositionsHandler : IChartAllPositionsHandler
 {

@@ -4,21 +4,13 @@
 // The code in this file is based on an example in C++ by Ingmar de Boer.
 
 using Enigma.Core.Calc.CalcDomain;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Util;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 
 
-/// <summary>
-/// Calculate heliocentric rectangular positions for celestial points that are not supported by the SE.
-/// </summary>
-public interface ICalcHelioPos
-{
-    /// <param name="factorT">Fraction of century, mostly simply called 'T'.</param>
-    /// <param name="orbitDefinition">Orbital elements to calculate the position.</param>
-    /// <returns>Calculated rectangualr coördinates.</returns>
-    public RectAngCoordinates CalcEclipticPosition(double factorT, OrbitDefinition orbitDefinition);
-}
+
 
 
 /// <inheritdoc/>

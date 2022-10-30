@@ -2,26 +2,16 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Api.DateTime;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.Constants;
 using Enigma.Domain.DateTime;
 using Enigma.Persistency.Domain;
+using Enigma.Persistency.Interfaces;
 using System;
 
 namespace Enigma.Persistency.Converters;
 
-/// <summary>Conversions to date for csv-data.</summary>
-public interface IDateCheckedConversion
-{
-    public Tuple<PersistableDate, bool> StandardCsvToDate(string csvDate, string csvCalendar);
-}
-
-/// <summary>Conversions to time for csv-data.</summary>
-public interface ITimeCheckedConversion
-{
-    public Tuple<PersistableTime, bool> StandardCsvToTime(string csvTime, string zoneOffset, string dst);
-}
 
 public class DateCheckedConversion : IDateCheckedConversion
 {

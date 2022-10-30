@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.InputSupport.Conversions;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Test.InputSupport.Conversions;
 

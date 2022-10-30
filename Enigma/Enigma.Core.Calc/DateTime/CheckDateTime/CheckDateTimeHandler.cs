@@ -3,15 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.Exceptions;
 
 namespace Enigma.Core.Calc.DateTime.CheckDateTime;
-
-public interface ICheckDateTimeHandler
-{
-    public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request);
-}
 
 
 public class CheckDateTimeHandler : ICheckDateTimeHandler

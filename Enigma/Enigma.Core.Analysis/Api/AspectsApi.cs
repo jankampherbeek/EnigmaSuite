@@ -4,6 +4,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Analysis.Aspects;
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain;
 using Enigma.Domain.Analysis;
 
@@ -21,12 +22,7 @@ public record AspectRequest
 }
 
 
-public interface IAspectsApi
-{
-    public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request);
 
-    public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request);
-}
 
 
 public class AspectsApi : IAspectsApi

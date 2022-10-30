@@ -12,6 +12,7 @@ using Enigma.Domain.Configuration;
 using System.Collections.Generic;
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
+using Enigma.Frontend.Interfaces;
 
 namespace Enigma.Frontend.Settings;
 

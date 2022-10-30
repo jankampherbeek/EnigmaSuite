@@ -4,6 +4,7 @@
 
 using Enigma.Core.Calc.Api.Astron;
 using Enigma.Core.Calc.CoordinateConversion;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.Positional;
 using Moq;

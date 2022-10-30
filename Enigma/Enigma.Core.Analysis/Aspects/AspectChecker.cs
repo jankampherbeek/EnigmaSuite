@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Positional;
@@ -9,24 +10,7 @@ using Enigma.Domain.Positional;
 namespace Enigma.Core.Analysis.Aspects;
 
 
-/// <summary>
-/// Checks for aspects.
-/// </summary>
-public interface IAspectChecker
-{
-    /// <summary>
-    /// Find aspects between solar systempoints.
-    /// </summary>
-    /// <param name="calculatedChart">Chart with positions.</param>
-    /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsForSolSysPoints(CalculatedChart calculatedChart);
-    /// <summary>
-    /// Find aspects between a mundane point and a solar system point.
-    /// </summary>
-    /// <param name="calculatedChart">Chart with positions.</param>
-    /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart);
-}
+
 
 
 /// <inheritdoc/>

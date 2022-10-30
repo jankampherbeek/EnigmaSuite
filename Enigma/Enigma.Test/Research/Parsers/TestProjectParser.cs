@@ -6,6 +6,7 @@
 using Enigma.Research.Parsers;
 using Enigma.Domain.Research;
 using Engima.Domain.Research;
+using Enigma.Research.Interfaces;
 
 namespace Enigma.Test.Research.Parsers;
 

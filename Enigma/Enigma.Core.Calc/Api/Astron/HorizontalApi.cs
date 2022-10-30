@@ -3,21 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma4C.Core.Calc.Horizontal;
 
 namespace Enigma.Core.Calc.Api.Astron;
-
-/// <summary>API for the calculation of horizontal coordinates.</summary>
-public interface IHorizontalApi
-{
-
-    /// <summary>Api call to retrieve horizontal coordinates (azimuth and altitude).</summary>
-    /// <param name="request"/>
-    /// <remarks>Throws ArgumentNullException if either the request is null or the request contains a location that is null or eclipticalcoordinates that are null.</remarks>
-    /// <returns>Values for azimuth and altitude.</returns>
-    public HorizontalResponse getHorizontal(HorizontalRequest request);
-}
 
 
 /// <inheritdoc/>

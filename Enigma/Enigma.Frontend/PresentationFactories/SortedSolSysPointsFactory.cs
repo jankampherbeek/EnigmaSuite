@@ -4,15 +4,13 @@
 
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.Positional;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
 
-public interface ISortedGraphicSolSysPointsFactory
-{
-    public List<GraphicSolSysPointPositions> CreateSortedList(List<FullSolSysPointPos> solSysPointPositions, double longitudeAsc, double minDistance);
-}
+
 
 public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactory
 {

@@ -5,15 +5,10 @@
 using Enigma.Domain.Constants;
 using Enigma.Domain.Locational;
 using Enigma.InputSupport.Conversions;
+using Enigma.InputSupport.Interfaces;
 using Enigma.InputSupport.Validations;
 
 namespace Enigma.InputSupport.InputParsers;
-
-/// <summary>Parse, validate and convert input for geographic longitude.</summary>
-public interface IGeoLatInputParser
-{
-    public bool HandleGeoLat(string inputGeoLat, Directions4GeoLat direction, out FullGeoLatitude fullGeoLatitude);
-}
 
 
 /// <inheritdoc/>

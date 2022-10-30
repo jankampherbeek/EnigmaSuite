@@ -4,9 +4,11 @@
 
 
 using Enigma.Core.Analysis.Api;
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.CalcVars;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.Support;
 using Enigma.Frontend.UiDomain;
@@ -18,10 +20,6 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Charts.Graphics;
 
 
-public interface IChartsWheelAspects
-{
-    public List<Line> CreateAspectLines(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint);
-}
 
 
 public class ChartsWheelAspects : IChartsWheelAspects

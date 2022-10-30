@@ -6,17 +6,12 @@ using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
 using Enigma.Persistency.FileHandling;
+using Enigma.Persistency.Interfaces;
+using Enigma.Research.Interfaces;
 using Enigma.Research.Parsers;
 
 
 namespace Enigma.Research.Handlers;
-
-public interface IProjectCreationHandler
-{
-    public bool CreateProject(ResearchProject project, out int errorCode);
-}
-
-
 
 public class ProjectCreationHandler : IProjectCreationHandler
 {

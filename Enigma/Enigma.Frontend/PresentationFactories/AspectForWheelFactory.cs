@@ -4,23 +4,12 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.CalcVars;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
 
-public interface IAspectForWheelFactory
-{
-    /// <summary>Builds a drawable aspect between two solar system points, that can be used in a wheel.</summary>
-    /// <param name="aspects">Calculated aspects.</param>
-    /// <returns>Drawable aspects.</returns>
-    List<DrawableSolSysPointAspect> CreateSolSysAspectForWheel(List<EffectiveAspect> aspects);
-
-    /// <summary>Builds a drawable aspect between a mundane point and a solar system point, that can be used in a wheel.</summary>
-    /// <param name="aspects">Calculated aspects.</param>
-    /// <returns>Drawable aspects.</returns>
-    List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<EffectiveAspect> aspects);
-}
 
 
 /// <inheritdoc/>

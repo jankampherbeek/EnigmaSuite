@@ -2,25 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Api.DateTime;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.DateTime;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.InputSupport.Validations;
-
-public interface IDateValidator
-{
-    /// <summary>
-    /// Validate input and create a record FullDate.
-    /// </summary>
-    /// <param name="dateValues>Array with values for the date in the sequence: year, month, day.</param>
-    /// <param name="calendar">The calendar that is used (Gregorian or Julian).</param>
-    /// <param name="yearCount">The year count, this will be converted to an astronomical year count.</param>
-    /// <param name="fullDate">The resulting record FullDate.</param>
-    /// <param name="errorCodes">Errorcodes, if any.</param> 
-    /// <returns>True if no error occurred, otherwise false.</returns>
-    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate fullDate);
-}
 
 
 public class DateValidator : IDateValidator

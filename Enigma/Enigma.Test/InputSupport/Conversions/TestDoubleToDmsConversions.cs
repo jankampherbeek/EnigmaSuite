@@ -4,6 +4,7 @@
 
 using Enigma.Domain.Constants;
 using Enigma.InputSupport.Conversions;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Test.InputSupport.Conversions;
 

@@ -9,16 +9,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.Charts.Graphics;
-
-public interface IChartsWheelCusps
-{
-    public List<Line> CreateCuspLines(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant);
-    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc);
-    public List<TextBlock> CreateCuspTexts(ChartsWheelMetrics metrics, Point centerPoint, List<double> housePositions, double longAscendant);
-    public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc);
-}
 
 public class ChartsWheelCusps: IChartsWheelCusps
 {

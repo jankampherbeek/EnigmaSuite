@@ -3,24 +3,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Enigma.Core.Calc.SeFacades;
 
 
-/// <summary>Facade for the calculation of the positions of celestial points (planets, nodes etc.).</summary> 
-/// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
-public interface ICalcUtFacade
-{
-    /// <summary>Retrieve positions for a celestial point.</summary>
-    /// <remarks>Calls the function ext_swe_calc_ut from the SE.</remarks>
-    /// <param name="julianDay">Julian day calculated for UT.</param>
-    /// <param name="seCelPointId">Identifier for the celestial point as used by the SE.</param>
-    /// <param name="flags">Combined value for flags to define the desired calculation.</param>
-    /// <returns>Array with 6 positions, subsequently: longitude, latitude, distance, longitude speed, latitude speed and distance speed.</returns>
-    public double[] PosCelPointFromSe(double julianDay, int seCelPointId, int flags);
-}
 
 /// <inheritdoc/>
 /// <remarks>Throws a SwissEphException if the SE returns an error.</remarks>

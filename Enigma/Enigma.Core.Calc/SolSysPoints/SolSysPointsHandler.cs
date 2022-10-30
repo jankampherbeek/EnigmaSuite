@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Obliquity;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Core.Calc.SeFacades;
@@ -14,14 +15,7 @@ using Enigma4C.Core.Calc.Horizontal;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 
-/// <summary>
-/// Handler for the calculation of one or more solar system points.
-/// </summary>
-public interface ISolSysPointsHandler
-{
 
-    public SolSysPointsResponse CalcSolSysPoints(SolSysPointsRequest request);
-}
 
 
 /// <inheritdoc/>

@@ -7,21 +7,10 @@ using Enigma.Domain.Messages;
 using Enigma.Persistency.Converters;
 using Enigma.Persistency.Domain;
 using Enigma.Persistency.FileHandling;
+using Enigma.Persistency.Interfaces;
 using Newtonsoft.Json;
 
 namespace Enigma.Persistency.Handlers;
-
-/// <summary>Handles reading data from a csv file and writing it to a Json file.</summary>
-public interface ICsvHandler
-{
-    /// <summary>Processes data in the 'standard' csv-format and writes it to Json.</summary>
-    /// <remarks>Writes a meta-file with processing status and error lines. Only writes the Json file if no errors were found.</remarks>
-    /// <param name="dataName">Name for dataset.</param>
-    /// <param name="fullPathCsv">Full path of the csv file.</param>
-    /// <param name="fullPathJson">Full path of the json file.</param>
-    /// <returns>ResultMessage with an errorcode > zero if an error occurred. Message contains the error description or a report of a succesfull conversion.</returns>
-    public ResultMessage ConvertStandardCsvToJson(string dataName, string fullPathCsv, string fullPathJson);
-}
 
 
 public class CsvHandler : ICsvHandler

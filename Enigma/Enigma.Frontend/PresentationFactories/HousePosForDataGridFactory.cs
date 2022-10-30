@@ -6,14 +6,10 @@ using Enigma.Domain.Positional;
 using Enigma.InputSupport.Conversions;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.PresentationFactories;
-
-
-public interface IHousePosForDataGridFactory
-{
-    List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fullHousesPositions);
-}
 
 
 public class HousePosForDataGridFactory: IHousePosForDataGridFactory

@@ -2,17 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.Positional;
 
 namespace Enigma.Core.Calc.CoordinateConversion;
-
-/// <summary>Convert ecliptical longitude and latitude to equatorial right ascension and declination.</summary>
-public interface ICoordinateConversionCalc
-{
-    public EquatorialCoordinates PerformConversion(EclipticCoordinates eclCoord, double obliquity);
-
-}
 
 /// <inheritdoc/>
 public class CoordinateConversionCalc : ICoordinateConversionCalc

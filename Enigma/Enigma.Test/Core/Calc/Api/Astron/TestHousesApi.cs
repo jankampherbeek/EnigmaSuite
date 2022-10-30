@@ -4,6 +4,7 @@
 
 using Enigma.Core.Calc.Api.Astron;
 using Enigma.Core.Calc.Houses;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.Locational;

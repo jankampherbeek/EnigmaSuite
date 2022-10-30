@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -9,11 +10,7 @@ using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Charts.Graphics;
 
-public interface IChartsWheelCircles
-{
-    public List<Ellipse> CreateCircles(ChartsWheelMetrics metrics);
-    public List<Line> CreateDegreeLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant);
-}
+
 
 public class ChartsWheelCircles: IChartsWheelCircles
 {

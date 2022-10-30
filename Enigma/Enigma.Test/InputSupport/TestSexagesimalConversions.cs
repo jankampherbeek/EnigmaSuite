@@ -4,6 +4,7 @@
 
 using Enigma.Domain.Locational;
 using Enigma.InputSupport.Conversions;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Test.InputSupport.Conversions;
 

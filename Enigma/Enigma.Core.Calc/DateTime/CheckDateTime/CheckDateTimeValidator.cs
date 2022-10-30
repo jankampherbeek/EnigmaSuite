@@ -4,16 +4,12 @@
 
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.DateTime;
 
 namespace Enigma.Core.Calc.DateTime.CheckDateTime;
 
-/// <summary>Calculations for Julian Day.</summary>
-public interface ICheckDateTimeValidator
-{
-    public bool ValidateDateTime(SimpleDateTime dateTime);
-}
 
 /// <inheritdoc/>
 public class CheckDateTimeValidator : ICheckDateTimeValidator

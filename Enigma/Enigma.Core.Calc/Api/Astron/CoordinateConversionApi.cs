@@ -4,20 +4,10 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Calc.CoordinateConversion;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 
 namespace Enigma.Core.Calc.Api.Astron;
-
-/// <summary>API for conversion between coordinates.</summary>
-public interface ICoordinateConversionApi
-{
-    /// <summary>Api call to convert ecliptical coordinates into equatorial coordinates.</summary>
-    /// <param name="request"/>
-    /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
-    /// <returns>Equatorial coordinates that correspond to the ecliptic coordinates from the request, using the obliquity from the request.</returns>
-    public CoordinateConversionResponse getEquatorialFromEcliptic(CoordinateConversionRequest request);
-
-}
 
 
 /// <inheritdoc/>

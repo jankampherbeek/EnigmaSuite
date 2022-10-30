@@ -4,15 +4,10 @@
 
 using Enigma.Core.Analysis.Midpoints;
 using Enigma.Domain.Analysis;
-using Enigma.Frontend.Charts;
-using Enigma.Frontend;
-using Microsoft.Extensions.DependencyInjection;
 using Enigma.Core.Analysis.Dto;
 using Enigma.Domain.CalcVars;
-using Enigma.Core.Analysis.Services;
-using Enigma.Core.Analysis.Aspects;
 using Moq;
-using Castle.Components.DictionaryAdapter.Xml;
+using Enigma.Core.Analysis.Interfaces;
 
 namespace Enigma.Test.Domain.Midpoints;
 

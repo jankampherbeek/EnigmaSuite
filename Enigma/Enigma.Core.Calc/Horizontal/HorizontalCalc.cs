@@ -3,17 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.Locational;
 using Enigma.Domain.Positional;
 
 namespace Enigma4C.Core.Calc.Horizontal;
-
-public interface IHorizontalCalc
-{
-    public double[] CalculateHorizontal(double jdUt, Location location, EclipticCoordinates eclipticCoordinates, int flags);
-}
-
 
 
 public class HorizontalCalc : IHorizontalCalc

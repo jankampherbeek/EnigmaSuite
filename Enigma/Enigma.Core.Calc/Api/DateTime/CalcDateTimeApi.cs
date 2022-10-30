@@ -4,21 +4,10 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Calc.DateTime.DateTimeFromJd;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 
 namespace Enigma.Core.Calc.Api.DateTime;
-
-/// <summary>API for calculating date and time.</summary>
-public interface ICalcDateTimeApi
-{
-
-    /// <summary>Api call to calculate date and time.</summary>
-    /// <param name="request">DateTimeRequest with the value of a Julian Day number and the calendar that is used.</param>
-    /// <remarks>Throws ArgumentNullException if the request is null.</remarks> 
-    /// <returns>Response with validation and an instance of SimpleDateTime.</returns>
-    public DateTimeResponse GetDateTime(DateTimeRequest request);
-
-}
 
 
 /// <inheritdoc/>

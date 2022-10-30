@@ -4,6 +4,7 @@
 
 using Enigma.Domain;
 using Enigma.Domain.Positional;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.State;
 using System.Collections.Generic;
 using System.Windows;

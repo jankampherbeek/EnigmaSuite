@@ -3,11 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Persistency.Converters;
-using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.ReqResp;
 using Moq;
 using Enigma.Domain.DateTime;
 using Enigma.Persistency.Domain;
+using Enigma.Core.Calc.Interfaces;
+using Enigma.Persistency.Interfaces;
 
 namespace Enigma.Test.Persistency.Converters;
 

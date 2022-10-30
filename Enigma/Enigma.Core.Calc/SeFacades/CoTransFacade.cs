@@ -3,23 +3,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.Exceptions;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Core.Calc.SeFacades;
 
 
-/// <summary>Facade for the conversion between ecliptic and equatorial coordinates.</summary>
-/// <remarks>Enables accessing the SE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
-public interface ICoTransFacade
-{
-    /// <summary>Convert ecliptic to equatorial coordinates.</summary>
-    /// <remarks>Calls the function ext_swe_cotrans from the SE.</remarks>/// 
-    /// <param name="eclipticCoordinates">Array with subsequently longitude and latitude.</param>
-    /// <param name="obliquity"/>
-    /// <returns>Array with subsequently right ascension and declination.</returns>
-    public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity);
-}
 
 
 /// <inheritdoc/>

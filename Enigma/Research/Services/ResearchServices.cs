@@ -4,6 +4,7 @@
 
 using Enigma.Research.ControlGroups;
 using Enigma.Research.Handlers;
+using Enigma.Research.Interfaces;
 using Enigma.Research.Parsers;
 using Microsoft.Extensions.DependencyInjection;
 

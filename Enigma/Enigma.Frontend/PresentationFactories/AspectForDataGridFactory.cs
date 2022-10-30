@@ -7,17 +7,11 @@ using Enigma.Domain.CalcVars;
 using Enigma.InputSupport.Conversions;
 using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.PresentationFactories;
 
-
-public interface IAspectForDataGridFactory
-{
-    /// <summary>Builds a presentable aspect to be used in a grid.</summary>
-    /// <param name="aspects">Calculated aspects.</param>
-    /// <returns>Presentable aspects.</returns>
-    List<PresentableAspects> CreateAspectForDataGrid(List<EffectiveAspect> aspects);
-}
 
 
 public class AspectForDataGridFactory : IAspectForDataGridFactory

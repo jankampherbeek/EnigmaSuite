@@ -2,12 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Persistency.Handlers;
+using Enigma.Persistency.Interfaces;
 
-public interface IDataNameHandler
-{
-    List<string> GetExistingDataNames(string path);
-}
+namespace Enigma.Persistency.Handlers;
 
 public class DataNameHandler : IDataNameHandler
 {

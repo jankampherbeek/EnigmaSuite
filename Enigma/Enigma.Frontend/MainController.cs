@@ -6,6 +6,7 @@ using Enigma.Domain;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
 using Enigma.Frontend.DataFiles;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.ResearchProjects;
 using Enigma.Frontend.Settings;
 using Enigma.Frontend.State;

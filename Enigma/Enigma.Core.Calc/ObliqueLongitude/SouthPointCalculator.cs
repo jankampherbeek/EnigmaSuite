@@ -2,23 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Util;
 using Enigma.Domain.Positional;
 
 namespace Enigma.Core.Calc.ObliqueLongitude;
-
-
-
-/// <summary>Calculations for the south-point.</summary>
-public interface ISouthPointCalculator
-{
-    /// <summary>Calculate longitude and latitude for the south-point.</summary>
-    /// <param name="armc">Right ascension for the MC.</param>
-    /// <param name="obliquity">Obliquity of the earths axis.</param>
-    /// <param name="geoLat">Geographic latitude.</param>
-    /// <returns>An instance of EclipticCoodinates with values for longitude and latitude.</returns>
-    public EclipticCoordinates CalculateSouthPoint(double armc, double obliquity, double geoLat);
-}
 
 
 public class SouthPointCalculator : ISouthPointCalculator

@@ -13,15 +13,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.Charts.Graphics;
-
-public interface IChartsWheelSolSysPoints
-{
-    public List<TextBlock> CreateSolSysPointGlyphs(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant);
-    public List<Line> CreateSolSysPointConnectLines(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant);
-    public List<TextBlock> CreateSolSysPointTexts(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant);
-}
 
 
 public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints

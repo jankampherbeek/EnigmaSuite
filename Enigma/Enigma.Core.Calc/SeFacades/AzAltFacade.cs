@@ -2,30 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.Exceptions;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Core.Calc.SeFacades;
-
-
-/// <summary>
-/// Calculation for horizontal coordinates: azimuth and altitude.
-/// </summary>
-public interface IAzAltFacade
-{
-    /// <summary>
-    /// Calculate azimuth and altitude.
-    /// </summary>
-    /// <remarks>
-    /// Assumes zero for atmospheric pressure and temperature. 
-    /// </remarks>
-    /// <param name="julianDayUt">Julian day in universal time.</param>
-    /// <param name="geoGraphicCoordinates">Geographic coordinates: gepgraphic longitude, geographic latitude and height (meters), in that sequence.</param>
-    /// <param name="eclipticCoordinates">Ecliptic coordinates: longitude, latitude and distance, in that sequence.</param>
-    /// <param name="flags">Combined values that contain settings.</param>
-    /// <returns>Array with azimuth and altitude in that seqwuence.</returns>
-    public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags);
-}
 
 
 

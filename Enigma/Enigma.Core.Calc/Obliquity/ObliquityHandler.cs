@@ -3,15 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.Exceptions;
 
 namespace Enigma.Core.Calc.Obliquity;
 
-public interface IObliquityHandler
-{
-    ObliquityResponse CalcObliquity(ObliquityRequest obliquityRequest);
-}
 
 
 public class ObliquityHandler : IObliquityHandler

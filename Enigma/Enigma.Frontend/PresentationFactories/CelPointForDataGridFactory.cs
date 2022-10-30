@@ -4,18 +4,17 @@
 
 using Enigma.Domain.CalcVars;
 using Enigma.Domain.Positional;
-using Enigma.InputSupport.Conversions;
+
 using Enigma.Frontend.UiDomain;
 using System;
 using System.Collections.Generic;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.PresentationFactories;
 
 
-public interface ICelPointForDataGridFactory
-{
-    List<PresentableSolSysPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions);
-}
+
 
 
 public class CelPointForDataGridFactory : ICelPointForDataGridFactory

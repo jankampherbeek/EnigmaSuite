@@ -5,22 +5,11 @@
 
 
 using Enigma.Core.Calc.CalcDomain;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Util;
 using Enigma.Domain.CalcVars;
 
 namespace Enigma.Core.Calc.SolSysPoints;
-
-
-/// <summary>
-/// Calculate geocentric ecliptical position for celestial points that are not supported by the SE.
-/// </summary>
-public interface ISolSysPointsElementsCalc
-{
-    /// <param name="planet">Currently supported hypothetical planets: Persephone, Hermes, Demeter (School of Ram).</param>
-    /// <param name="jdUt">Julian day for UT.</param>
-    /// <returns>Array with longitude, latitude and distance in that sequence.</returns>
-    public double[] Calculate(SolarSystemPoints planet, double jdUt);
-}
 
 
 /// <inheritdoc/>

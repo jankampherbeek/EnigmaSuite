@@ -2,16 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.CalcVars;
 
 namespace Enigma.Core.Analysis.Aspects;
 
-public interface IAspectOrbConstructor
-{
-    public double DefineOrb(SolarSystemPoints point1, SolarSystemPoints point2, AspectDetails aspectDetails);
-    public double DefineOrb(string mundanePoint, SolarSystemPoints solSysPoint, AspectDetails aspectDetails);
-}
 
 public class AspectOrbConstructor: IAspectOrbConstructor
 {

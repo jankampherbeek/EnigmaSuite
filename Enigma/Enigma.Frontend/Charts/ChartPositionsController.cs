@@ -5,6 +5,7 @@
 
 using Enigma.Domain;
 using Enigma.Domain.Charts;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.State;
 using Enigma.Frontend.UiDomain;

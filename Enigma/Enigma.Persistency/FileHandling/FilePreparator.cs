@@ -4,23 +4,9 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Messages;
+using Enigma.Persistency.Interfaces;
 
 namespace Enigma.Persistency.FileHandling;
-
-/// <summary>Handle directories for storing datafiles.</summary>
-public interface IDataFilePreparator
-{
-    /// <summary>Checks if new folder can be created.</summary>
-    /// <param name="fullPath">Path to the folder for the data to import.</param>
-    /// <returns>True if folder does not exist, otherwise false.</returns>
-    bool FolderNameAvailable(string fullPath);
-
-    /// <summary>Create folder structure for data files, including subfolders.</summary>
-    /// <param name="fullPath">Path to the folder for the data.</param>
-    /// <returns>ResultMessage, containing errorcode > zero if an error occurred. 
-    /// In case of an error the errorText contains the path of the directory that could not be created.</returns>
-    ResultMessage MakeFolderStructure(string fullPath);
-}
 
 
 /// <inheritdoc/>

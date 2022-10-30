@@ -4,6 +4,7 @@
 
 
 using Enigma.Core.Calc.CoordinateConversion;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Obliquity;
 using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.CalcVars;
@@ -14,12 +15,6 @@ using Enigma.Domain.Positional;
 using Enigma4C.Core.Calc.Horizontal;
 
 namespace Enigma.Core.Calc.Houses;
-
-public interface IHousesHandler
-{
-    public FullHousesPosResponse CalcHouses(FullHousesPosRequest request);
-}
-
 
 public class HousesHandler : IHousesHandler
 {

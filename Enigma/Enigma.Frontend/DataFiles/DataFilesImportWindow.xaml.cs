@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Messages;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
