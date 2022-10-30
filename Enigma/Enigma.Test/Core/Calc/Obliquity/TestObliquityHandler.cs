@@ -4,8 +4,8 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Obliquity;
-using Enigma.Core.Calc.ReqResp;
 using Enigma.Domain.Exceptions;
+using Enigma.Domain.RequestResponse;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Obliquity;

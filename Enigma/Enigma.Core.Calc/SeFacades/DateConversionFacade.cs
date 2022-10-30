@@ -3,7 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Core.Calc.SeFacades;

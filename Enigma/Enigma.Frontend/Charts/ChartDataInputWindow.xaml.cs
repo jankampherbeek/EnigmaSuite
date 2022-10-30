@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.Enums;
 using Enigma.Domain.Locational;
 using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.Support;

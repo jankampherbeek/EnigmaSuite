@@ -2,7 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Analysis;
 
@@ -35,12 +36,6 @@ public record MundanePointOrb
         MundanePoint = mundanePoint;
         OrbFactor = orbFactor;
     }
-}
-
-public interface IOrbDefinitions
-{
-    public SolSysPointOrb DefineSolSysPointOrb(SolarSystemPoints solSysPoint);
-    public MundanePointOrb DefineMundanePointOrb(string mundanePoint);
 }
 
 

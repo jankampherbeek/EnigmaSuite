@@ -4,7 +4,7 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.ObliqueLongitude;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
 
 namespace EnigmaTest.Core.Calc.SolSysPoints;
 

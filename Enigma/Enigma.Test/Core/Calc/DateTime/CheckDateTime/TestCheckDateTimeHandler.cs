@@ -5,9 +5,10 @@
 
 using Enigma.Core.Calc.DateTime.CheckDateTime;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 using Enigma.Domain.Exceptions;
+using Enigma.Domain.RequestResponse;
 using Moq;
 
 

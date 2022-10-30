@@ -5,12 +5,13 @@
 using Enigma.Domain.Configuration;
 using Enigma.Configuration.Handlers;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
 using Enigma.Frontend.State;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
+using Enigma.Domain.Interfaces;
+using Enigma.Domain.Enums;
 
 namespace Enigma.Frontend.Settings;
 
@@ -20,6 +21,8 @@ public class AstroConfigController
     private readonly IAspectSpecifications _aspectSpecifications;
     private readonly IConfigWriter _configWriter;
     private readonly AstroConfig _astroConfig;
+
+    public ISolarSystemPointSpecifications SolarSystemPointSpecifications => _solarSystemPointSpecifications;
 
     public AstroConfigController(ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IAspectSpecifications aspectSpecifications,
@@ -34,7 +37,7 @@ public class AstroConfigController
 
     public string DefineGlyph(SolarSystemPoints point)
     {
-        return _solarSystemPointSpecifications.DetailsForPoint(point).DefaultGlyph;
+        return SolarSystemPointSpecifications.DetailsForPoint(point).DefaultGlyph;
     }
 
     public string DefineGlyph(MundanePoints point)

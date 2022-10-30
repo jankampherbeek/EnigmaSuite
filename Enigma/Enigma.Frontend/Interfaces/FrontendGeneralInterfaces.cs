@@ -4,8 +4,8 @@
 
 using Enigma.Domain;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Positional;
-using Enigma.Frontend.UiDomain;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.Interfaces;
@@ -81,19 +81,7 @@ public interface ITextFileReaderFE   // todo, check if this has the same functio
     public string ReadAllText(string fileName);
 }
 
-/// <summary>Collection of available charts for the UI.</summary>
-public interface ICurrentCharts
-{
 
-    /// <summary>Id for the chart that is currently active.</summary>
-    public int IdPrimaryChart { get; set; }
-
-    /// <summary>Id for a chart that is compared with the primary chart.</summary>
-    public int IdSecondaryChart { get; set; }
-    public void AddChart(CalculatedChart newChart, bool isPrimary, bool isSecondary);
-    public void RemoveChart(int chartId);
-
-}
 
 
 

@@ -4,9 +4,10 @@
 
 using Enigma.Core.Analysis.Api;
 using Enigma.Core.Analysis.Aspects;
-using Enigma.Core.Analysis.Dto;
 using Enigma.Core.Analysis.Interfaces;
 using Enigma.Core.Analysis.Midpoints;
+using Enigma.Domain.Analysis;
+using Enigma.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace

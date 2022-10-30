@@ -5,8 +5,7 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma4C.Core.Calc.Horizontal;
 

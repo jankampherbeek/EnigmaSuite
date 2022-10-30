@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Engima.Domain.Research;
-using Enigma.Persistency.Domain;
+using Enigma.Domain.Persistency;
 using Enigma.Research.Interfaces;
 
 namespace Enigma.Research.ControlGroups;

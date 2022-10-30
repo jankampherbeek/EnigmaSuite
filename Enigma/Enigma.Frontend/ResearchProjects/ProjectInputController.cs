@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Engima.Domain.Research;
+using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.UiDomain;
 using Enigma.Persistency.Interfaces;
 using Enigma.Research.Interfaces;
 using System.Collections.Generic;

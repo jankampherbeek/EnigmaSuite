@@ -4,7 +4,8 @@
 
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Core.Calc.SeFacades;

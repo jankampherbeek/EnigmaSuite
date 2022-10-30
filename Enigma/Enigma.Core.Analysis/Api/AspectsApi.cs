@@ -3,10 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Core.Analysis.Aspects;
 using Enigma.Core.Analysis.Interfaces;
-using Enigma.Domain;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Charts;
 
 namespace Enigma.Core.Analysis.Api;
 

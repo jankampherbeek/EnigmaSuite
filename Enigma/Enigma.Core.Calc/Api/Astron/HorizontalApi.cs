@@ -4,8 +4,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
-using Enigma4C.Core.Calc.Horizontal;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.Api.Astron;
 

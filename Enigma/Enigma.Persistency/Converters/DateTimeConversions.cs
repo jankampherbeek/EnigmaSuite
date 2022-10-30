@@ -3,12 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
-using Enigma.Domain.DateTime;
-using Enigma.Persistency.Domain;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Persistency;
+using Enigma.Domain.RequestResponse;
 using Enigma.Persistency.Interfaces;
-using System;
 
 namespace Enigma.Persistency.Converters;
 

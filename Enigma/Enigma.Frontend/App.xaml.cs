@@ -5,14 +5,12 @@
 using Enigma.Core.Calc.DateTime.CheckDateTime;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.Services;
-using Enigma.Domain.DateTime;
 using Enigma.Domain.Services;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
 using Enigma.Frontend.PresentationFactories;
 using Enigma.InputSupport.Services;
 using Enigma.Frontend.Support;
-using Enigma.Frontend.UiDomain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using Enigma.Core.Analysis.Services;
@@ -24,6 +22,9 @@ using Enigma.Frontend.ResearchProjects;
 using Enigma.Research.Services;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Frontend.Interfaces;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
+using Enigma.Domain.Charts;
 
 namespace Enigma.Frontend;
 

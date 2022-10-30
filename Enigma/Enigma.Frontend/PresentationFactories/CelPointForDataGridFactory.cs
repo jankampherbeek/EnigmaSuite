@@ -2,19 +2,15 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Positional;
-
-using Enigma.Frontend.UiDomain;
 using System;
 using System.Collections.Generic;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Interfaces;
+using Enigma.Domain.Charts;
 
 namespace Enigma.Frontend.PresentationFactories;
-
-
-
 
 
 public class CelPointForDataGridFactory : ICelPointForDataGridFactory
@@ -37,7 +33,6 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
         }
         return positions;
     }
-
 
     private PresentableSolSysPointPositions CreateSinglePos(FullSolSysPointPos celPointFullPos)
     {

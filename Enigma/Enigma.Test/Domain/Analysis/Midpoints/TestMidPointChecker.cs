@@ -4,10 +4,9 @@
 
 using Enigma.Core.Analysis.Midpoints;
 using Enigma.Domain.Analysis;
-using Enigma.Core.Analysis.Dto;
-using Enigma.Domain.CalcVars;
 using Moq;
 using Enigma.Core.Analysis.Interfaces;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma.Test.Domain.Midpoints;
 

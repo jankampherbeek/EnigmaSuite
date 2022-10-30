@@ -4,8 +4,9 @@
 
 using Engima.Domain.Research;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Enigma.Domain.Locational;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,7 @@ public static class DomainServices
 {
     public static void RegisterDomainServices(this ServiceCollection serviceCollection)
     {
+
         serviceCollection.AddTransient<IAspectSpecifications, AspectSpecifications>();
         serviceCollection.AddTransient<IAyanamshaSpecifications, AyanamshaSpecifications>();
         serviceCollection.AddTransient<ICalendarSpecifications, CalendarSpecifications>();

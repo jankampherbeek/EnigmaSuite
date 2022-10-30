@@ -4,10 +4,10 @@
 // The code in this file is based on an example in C++ by Ingmar de Boer.
 
 
-using Enigma.Core.Calc.CalcDomain;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Util;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 

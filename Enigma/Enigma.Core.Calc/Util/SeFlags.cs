@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.CalcVars;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Enums;
 
 namespace Enigma.Core.Calc.Util;
 

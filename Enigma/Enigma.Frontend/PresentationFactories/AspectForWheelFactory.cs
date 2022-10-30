@@ -3,9 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
@@ -41,4 +41,5 @@ public class AspectForWheelFactory : IAspectForWheelFactory
         }
         return drawables;
     }
+
 }

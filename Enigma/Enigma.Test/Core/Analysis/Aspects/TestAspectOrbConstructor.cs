@@ -5,7 +5,8 @@
 using Enigma.Core.Analysis.Aspects;
 using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Moq;
 
 namespace Enigma.Test.Core.Analysis.Aspects;

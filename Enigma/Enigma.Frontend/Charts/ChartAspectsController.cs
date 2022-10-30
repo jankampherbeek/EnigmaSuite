@@ -5,13 +5,11 @@
 
 using Enigma.Core.Analysis.Api;
 using Enigma.Core.Analysis.Interfaces;
-using Enigma.Domain;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Charts;
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.PresentationFactories;
 using Enigma.Frontend.State;
 using Enigma.Frontend.Support;
-using Enigma.Frontend.UiDomain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;

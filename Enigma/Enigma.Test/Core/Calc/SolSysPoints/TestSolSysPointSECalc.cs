@@ -3,12 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.SolSysPoints;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Moq;
 
 namespace EnigmaTest.Core.Calc.SolSysPoints;

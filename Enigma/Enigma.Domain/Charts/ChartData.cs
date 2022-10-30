@@ -2,8 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.DateTime;
-using Enigma.Domain.Locational;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma.Domain.Charts;
 

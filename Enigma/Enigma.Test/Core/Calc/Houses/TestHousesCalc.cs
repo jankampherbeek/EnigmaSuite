@@ -5,8 +5,9 @@
 using Enigma.Core.Calc.Houses;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Locational;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Houses;

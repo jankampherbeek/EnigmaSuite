@@ -4,9 +4,8 @@
 
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.DateTime.JulDay;
 

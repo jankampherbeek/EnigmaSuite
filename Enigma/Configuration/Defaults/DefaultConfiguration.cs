@@ -4,7 +4,8 @@
 
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Enums;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma.Configuration.Parsers;
 public interface IDefaultConfiguration

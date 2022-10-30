@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CalcDomain\" />
-  </ItemGroup>
-
 </Project>

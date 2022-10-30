@@ -5,7 +5,8 @@
 using Enigma.Core.Calc.DateTime.CheckDateTime;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 using Moq;
 
 

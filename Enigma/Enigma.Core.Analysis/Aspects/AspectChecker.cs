@@ -3,14 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Analysis.Interfaces;
-using Enigma.Domain;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Interfaces;
 
 namespace Enigma.Core.Analysis.Aspects;
-
-
-
 
 
 /// <inheritdoc/>

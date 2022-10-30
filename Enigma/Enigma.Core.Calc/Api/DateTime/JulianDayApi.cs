@@ -3,9 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Core.Calc.DateTime.JulDay;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.Api.DateTime;
 
@@ -24,4 +23,5 @@ public class JulianDayApi : IJulianDayApi
         Guard.Against.Null(request.DateTime);
         return _julDayHandler.CalcJulDay(request);
     }
+
 }

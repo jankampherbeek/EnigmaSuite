@@ -2,6 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Interfaces;
+
 namespace Enigma.Domain.Analysis;
 
 /// <summary>
@@ -60,19 +62,6 @@ public record AspectDetails
         Glyph = glyph;
         OrbFactor = orbFactor;
     }
-}
-
-/// <summary>
-/// Specifications for an aspect.
-/// </summary>
-public interface IAspectSpecifications
-{
-    /// <summary>
-    /// Defines the specifications for an aspect.
-    /// </summary>
-    /// <param name="aspect">The aspect for which the details are defined.</param>
-    /// <returns>A record AspectDetails with the required information.</returns>
-    public AspectDetails DetailsForAspect(AspectTypes aspect);
 }
 
 

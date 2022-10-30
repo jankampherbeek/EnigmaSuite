@@ -4,7 +4,7 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Util;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma.Core.Calc.ObliqueLongitude;
 

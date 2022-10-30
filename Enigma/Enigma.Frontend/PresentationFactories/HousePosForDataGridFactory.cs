@@ -2,12 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Positional;
-using Enigma.InputSupport.Conversions;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
 
 namespace Enigma.Frontend.PresentationFactories;
 
@@ -39,7 +38,7 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
     }
 
 
-   private PresentableHousePositions CreateSingleCuspPos(string identification, CuspFullPos cuspFullPos)
+    private PresentableHousePositions CreateSingleCuspPos(string identification, CuspFullPos cuspFullPos)
    {
         PresentableHousePositions positions = new(
             identification, 

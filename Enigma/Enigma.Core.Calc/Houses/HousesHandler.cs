@@ -3,16 +3,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Calc.CoordinateConversion;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.Obliquity;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Enums;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
-using Enigma4C.Core.Calc.Horizontal;
+using Enigma.Domain.Interfaces;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.Houses;
 

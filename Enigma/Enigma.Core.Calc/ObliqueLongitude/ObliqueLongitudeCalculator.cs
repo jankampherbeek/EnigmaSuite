@@ -3,9 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
 using Enigma.Core.Calc.Util;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.ObliqueLongitude;
 
@@ -65,6 +65,7 @@ public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         if (diff >= 360.0) diff -= 360.0;
         return (diff < 180.0);
     }
+
 }
 
 

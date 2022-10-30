@@ -3,11 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Engima.Domain.Research;
-using Engima.Research.Domain;
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Messages;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
-using Enigma.Persistency.Domain;
+
 
 namespace Enigma.Research.Interfaces;
 

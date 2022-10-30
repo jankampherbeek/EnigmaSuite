@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Messages;
-using Enigma.Persistency.Domain;
+using Enigma.Domain.Persistency;
 
 namespace Enigma.Persistency.Interfaces;
 

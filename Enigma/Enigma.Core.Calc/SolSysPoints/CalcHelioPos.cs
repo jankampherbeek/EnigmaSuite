@@ -3,9 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 // The code in this file is based on an example in C++ by Ingmar de Boer.
 
-using Enigma.Core.Calc.CalcDomain;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Util;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 
@@ -83,4 +83,5 @@ public class CalcHelioPos : ICalcHelioPos
     {
         return elements[0] + elements[1] * fractionT + elements[2] * fractionT * fractionT;
     }
+
 }

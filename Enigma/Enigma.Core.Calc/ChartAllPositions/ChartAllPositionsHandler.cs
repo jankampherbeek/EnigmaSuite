@@ -2,10 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Houses;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Core.Calc.SolSysPoints;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.ChartAllPositions;
 
@@ -31,5 +29,6 @@ public class ChartAllPositionsHandler : IChartAllPositionsHandler
         bool success = solSysPointsResponse.Success && housesResponse.Success;
         return new ChartAllPositionsResponse(solSysPointsResponse.SolarSystemPointPositions, housesResponse.FullHousesPositions, success, errorText);
     }
+
 }
 

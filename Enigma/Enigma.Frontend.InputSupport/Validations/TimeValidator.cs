@@ -2,8 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.InputSupport.Validations;

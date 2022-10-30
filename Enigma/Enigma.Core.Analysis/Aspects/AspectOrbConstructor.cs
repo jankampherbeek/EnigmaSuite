@@ -4,7 +4,8 @@
 
 using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 
 namespace Enigma.Core.Analysis.Aspects;
 

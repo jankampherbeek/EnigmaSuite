@@ -2,24 +2,18 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Api.Astron;
-using Enigma.Core.Calc.Api.DateTime;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Domain;
-using Enigma.Domain.CalcVars;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
-using Enigma.Domain.DateTime;
 using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
-using Enigma.InputSupport.InputParsers;
 using Enigma.Frontend.State;
-using Enigma.Frontend.Support;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Frontend.Charts;
 

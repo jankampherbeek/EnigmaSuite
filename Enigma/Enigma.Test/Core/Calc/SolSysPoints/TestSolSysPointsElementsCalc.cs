@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.SolSysPoints;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Enums;
 
 namespace EnigmaTest.Core.Calc.SolSysPoints;
 

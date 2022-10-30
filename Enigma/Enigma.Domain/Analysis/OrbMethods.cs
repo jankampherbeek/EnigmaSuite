@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Constants;
+
+using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Analysis;
 
@@ -31,17 +31,6 @@ public record OrbMethodDetails
     }
 }
 
-/// <summary>Specifications for an orb method.</summary>
-public interface IOrbMethodSpecifications
-{
-    /// <summary>Returns the specification for an orb method.</summary>
-    /// <param name="orbMethod">The orb method, from the enum ErbMethods.</param>
-    /// <returns>A record OrbMethodDetails with the specification of the zodiac type.</returns>
-    public OrbMethodDetails DetailsForOrbMethod(OrbMethods orbMethod);
-    public List<OrbMethodDetails> AllOrbMethodDetails();
-    public OrbMethods OrbMethodForIndex(int index);
-
-}
 
 /// <inheritdoc/>
 public class OrbMethodSpecifications : IOrbMethodSpecifications

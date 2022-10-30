@@ -4,7 +4,8 @@
 
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 
 namespace Enigma.Domain.Configuration;
 

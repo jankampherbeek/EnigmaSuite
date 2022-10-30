@@ -5,7 +5,7 @@
 using Enigma.Core.Calc.CoordinateConversion;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
 using Moq;
 
 

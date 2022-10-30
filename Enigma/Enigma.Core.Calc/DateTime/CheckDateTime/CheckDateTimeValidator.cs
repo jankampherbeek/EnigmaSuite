@@ -6,7 +6,7 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
 
 namespace Enigma.Core.Calc.DateTime.CheckDateTime;
 

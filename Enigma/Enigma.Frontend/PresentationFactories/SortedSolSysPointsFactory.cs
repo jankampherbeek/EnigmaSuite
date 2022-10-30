@@ -2,10 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
@@ -66,8 +66,6 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
             count++;
         }
         return graphPositions;
-    } 
-
-    
+    }
 
 }

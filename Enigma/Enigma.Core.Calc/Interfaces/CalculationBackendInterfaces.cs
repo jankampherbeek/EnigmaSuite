@@ -2,13 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.CalcDomain;
-using Enigma.Core.Calc.ReqResp;
 using Enigma.Core.Calc.Util;
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.DateTime;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.Interfaces;
 

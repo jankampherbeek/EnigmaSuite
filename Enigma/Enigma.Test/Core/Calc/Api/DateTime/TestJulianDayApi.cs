@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Api.DateTime;
-using Enigma.Core.Calc.DateTime.JulDay;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Domain.DateTime;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.RequestResponse;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Api.DateTime;

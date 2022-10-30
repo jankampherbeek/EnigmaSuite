@@ -6,9 +6,9 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 

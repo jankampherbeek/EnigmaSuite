@@ -3,12 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
-using Enigma.InputSupport.Conversions;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
+using Enigma.Domain.Interfaces;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Charts;
 
 namespace Enigma.Frontend.PresentationFactories;
 
@@ -41,7 +41,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
 
     }
 
-    private PresentableAspects CreatePresAspect(EffectiveAspect effAspect)
+     private PresentableAspects CreatePresAspect(EffectiveAspect effAspect)
     {
         string firstPoint = "";
         if (effAspect.IsMundane )

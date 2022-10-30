@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Charts;
-using Enigma.Domain.Positional;
+using Enigma.Domain.AstronCalculations;
 
 
-namespace Enigma.Domain;
+
+namespace Enigma.Domain.Charts;
 
 /// <summary>Inputted data and calculation results for a chart.</summary>
 public record CalculatedChart

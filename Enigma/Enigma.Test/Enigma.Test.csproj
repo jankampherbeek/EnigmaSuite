@@ -32,6 +32,7 @@
   <ItemGroup>
     <Folder Include="Configuration\Handlers\" />
     <Folder Include="Configuration\Parsers\" />
+    <Folder Include="Core\Analysis\Dto\" />
   </ItemGroup>
 
 </Project>

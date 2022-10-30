@@ -4,14 +4,12 @@
 
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.Obliquity;
-using Enigma.Core.Calc.ReqResp;
 using Enigma.Core.Calc.SeFacades;
 using Enigma.Core.Calc.Util;
-using Enigma.Domain.CalcVars;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
-using Enigma4C.Core.Calc.Horizontal;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc.SolSysPoints;
 

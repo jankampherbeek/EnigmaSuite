@@ -5,13 +5,10 @@
 
 using Enigma.Core.Analysis.Api;
 using Enigma.Core.Analysis.Interfaces;
-using Enigma.Domain;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.CalcVars;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.PresentationFactories;
-using Enigma.Frontend.Support;
-using Enigma.Frontend.UiDomain;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;

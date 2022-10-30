@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain;
+using Enigma.Domain.Charts;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
 using Enigma.Frontend.DataFiles;
@@ -10,8 +10,6 @@ using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.ResearchProjects;
 using Enigma.Frontend.Settings;
 using Enigma.Frontend.State;
-using Enigma.Frontend.Support;
-using Enigma.Frontend.UiDomain;
 
 namespace Enigma.Frontend;
 

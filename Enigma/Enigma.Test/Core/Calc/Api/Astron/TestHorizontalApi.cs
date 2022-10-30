@@ -4,10 +4,8 @@
 
 using Enigma.Core.Calc.Api.Astron;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
-using Enigma4C.Core.Calc.Horizontal;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.RequestResponse;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Api.Astron;

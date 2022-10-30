@@ -4,9 +4,7 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Messages;
-using Enigma.Persistency.Converters;
-using Enigma.Persistency.Domain;
-using Enigma.Persistency.FileHandling;
+using Enigma.Domain.Persistency;
 using Enigma.Persistency.Interfaces;
 using Newtonsoft.Json;
 

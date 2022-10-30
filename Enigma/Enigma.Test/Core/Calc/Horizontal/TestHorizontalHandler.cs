@@ -3,10 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Locational;
-using Enigma.Domain.Positional;
+using Enigma.Domain.RequestResponse;
 using Enigma4C.Core.Calc.Horizontal;
 using Moq;
 

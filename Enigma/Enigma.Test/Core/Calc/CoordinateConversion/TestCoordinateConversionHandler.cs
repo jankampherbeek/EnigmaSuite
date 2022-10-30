@@ -4,9 +4,9 @@
 
 using Enigma.Core.Calc.CoordinateConversion;
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Positional;
+using Enigma.Domain.RequestResponse;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.CoordinateConversion;

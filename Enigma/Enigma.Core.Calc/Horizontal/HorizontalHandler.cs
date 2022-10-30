@@ -4,9 +4,9 @@
 
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.ReqResp;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Positional;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma4C.Core.Calc.Horizontal;
 
@@ -35,4 +35,5 @@ public class HorizontalHandler : IHorizontalHandler
         }
         return new HorizontalResponse(horCoord, success, errorText);
     }
+
 }
