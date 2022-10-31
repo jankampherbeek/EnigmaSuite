@@ -4,10 +4,8 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.Conversions;
 using Enigma.InputSupport.InputParsers;
 using Enigma.InputSupport.Interfaces;
-using Enigma.InputSupport.Validations;
 using Moq;
 
 namespace Enigma.Test.InputSupport.InputParsers;
@@ -33,7 +31,7 @@ public class TestDateInputParser
         FullDate? fullDate;
         _mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, cal, yearCount, out fullDate)).Returns(true);
         var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
-        
+
         Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate), Is.True);
     }
 
@@ -55,7 +53,7 @@ public class TestDateInputParser
     public void DateError()
     {
         string dateInput = "2022/13/8";
-        int[] dateValues = new int[] {2022, 13, 8 };
+        int[] dateValues = new int[] { 2022, 13, 8 };
         var _mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (dateValues, true);
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, _separator)).Returns(rangeResult);

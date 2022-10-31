@@ -40,7 +40,7 @@ public class TestHorizontalApi
     {
 
         var _horizontalRequest = new HorizontalRequest(_jdUt, _location, _eclCoordinates);
-        HorizontalResponse response = _api.getHorizontal(_horizontalRequest);
+        HorizontalResponse response = _api.GetHorizontal(_horizontalRequest);
         Assert.That(response.HorizontalAzimuthAltitude.Azimuth, Is.EqualTo(_expectedAzimuth).Within(_delta));
         Assert.That(response.HorizontalAzimuthAltitude.Altitude, Is.EqualTo(_expectedAltitude).Within(_delta));
         Assert.That(response.Success, Is.True);
@@ -50,21 +50,21 @@ public class TestHorizontalApi
     [Test]
     public void TestHorizontalNullRequest()
     {
-        Assert.That(() => _api.getHorizontal(null), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetHorizontal(null), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestHorizontalLocationNullRequest()
     {
         HorizontalRequest request = new(_jdUt, null, _eclCoordinates);
-        Assert.That(() => _api.getHorizontal(request), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestHorizontalEclcoordinatesNullRequest()
     {
         HorizontalRequest request = new(_jdUt, _location, null);
-        Assert.That(() => _api.getHorizontal(request), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 
 

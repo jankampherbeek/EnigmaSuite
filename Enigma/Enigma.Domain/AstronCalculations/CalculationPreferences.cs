@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using System.Collections.Immutable;
 using Enigma.Domain.Enums;
+using System.Collections.Immutable;
 
 namespace Enigma.Domain.AstronCalculations;
 

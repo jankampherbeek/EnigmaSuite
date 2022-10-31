@@ -38,7 +38,7 @@ public class AstroConfig
         ArabicPoints = arabicPoints;
         Aspects = aspects;
         BaseOrbAspects = baseOrbAspects;
-        BaseOrbMidpoints = baseOrbMidpoints;    
+        BaseOrbMidpoints = baseOrbMidpoints;
     }
 }
 

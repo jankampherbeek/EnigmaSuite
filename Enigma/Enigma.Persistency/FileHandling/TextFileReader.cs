@@ -20,7 +20,7 @@ public class TextFileReader : ITextFileReader
             if (File.Exists(location))
             {
                 text = File.ReadAllText(location);
-            } 
+            }
         }
         catch (Exception)
         {

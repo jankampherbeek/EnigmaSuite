@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,7 +12,7 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Charts.Graphics;
 
 
-public class ChartsWheelSigns: IChartsWheelSigns
+public class ChartsWheelSigns : IChartsWheelSigns
 {
     private readonly IRangeCheck _rangeCheck;
 

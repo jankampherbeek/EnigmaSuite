@@ -91,8 +91,9 @@ public partial class ChartDataInputWindow : Window
     {
         comboLongDir.Items.Clear();
         comboLmtLongDir.Items.Clear();
-        foreach (var direction4GeoLongDetail in _directions4GeoLongDetails)
+        for (int i = 0; i < _directions4GeoLongDetails.Count; i++)
         {
+            Directions4GeoLongDetails? direction4GeoLongDetail = _directions4GeoLongDetails[i];
             comboLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
             comboLmtLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
         }

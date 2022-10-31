@@ -5,7 +5,6 @@
 using Engima.Domain.Research;
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Media;
@@ -17,9 +16,9 @@ namespace Enigma.Frontend.ResearchProjects
     /// </summary>
     public partial class ProjectInputWindow : Window
     {
-        private IRosetta _rosetta;
-        private ProjectInputController _controller;
-        private IControlGroupTypeSpecifications _controlGroupTypeSpecifications;
+        private readonly IRosetta _rosetta;
+        private readonly ProjectInputController _controller;
+        private readonly IControlGroupTypeSpecifications _controlGroupTypeSpecifications;
 
 
         public ProjectInputWindow()
@@ -107,7 +106,7 @@ namespace Enigma.Frontend.ResearchProjects
             _controller.ProjectName = NameValue.Text;
             _controller.ProjectIdentifier = IdentifValue.Text;
             _controller.ProjectDescription = DescrValue.Text;
-            _controller.ControlGroupMultiplication  = MultiplicValue.Text;
+            _controller.ControlGroupMultiplication = MultiplicValue.Text;
             ControlGroupTypes controlGroupType = _controlGroupTypeSpecifications.AllControlGroupTypeDetails()[comboControlGroup.SelectedIndex].ControlGroupType;
             _controller.ControlGroupType = controlGroupType;
             _controller.DataFileName = comboDataFile.SelectedItem.ToString();

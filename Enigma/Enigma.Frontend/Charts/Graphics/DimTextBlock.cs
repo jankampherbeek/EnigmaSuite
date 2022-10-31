@@ -2,11 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -47,7 +42,7 @@ internal class DimTextBlock
 
     public TextBlock CreateTextBlock(string text, double posLeft, double posTop, RotateTransform transform)
     {
-        TextBlock textBlock = CreateTextBlock(text, posLeft, posTop);   
+        TextBlock textBlock = CreateTextBlock(text, posLeft, posTop);
         textBlock.RenderTransform = transform;
         return textBlock;
     }

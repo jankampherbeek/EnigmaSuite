@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Interfaces;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;

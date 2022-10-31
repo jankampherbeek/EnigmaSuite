@@ -18,7 +18,7 @@ public class CsvHandler : ICsvHandler
     private readonly IDateCheckedConversion _dateCheckedConversion;
     private readonly ITimeCheckedConversion _timeCheckedConversion;
 
-    public CsvHandler(ITextFileWriter fileWriter, 
+    public CsvHandler(ITextFileWriter fileWriter,
         ILocationCheckedConversion locationCheckedConversion,
         IDateCheckedConversion dateCheckedConversion,
         ITimeCheckedConversion timeCheckedConversion)
@@ -29,7 +29,7 @@ public class CsvHandler : ICsvHandler
         _timeCheckedConversion = timeCheckedConversion;
     }
 
-    public ResultMessage ConvertStandardCsvToJson(string dataName, string fullPathCsv, string fullPathJson) 
+    public ResultMessage ConvertStandardCsvToJson(string dataName, string fullPathCsv, string fullPathJson)
     {
         bool noErrors = true;
         int errorCode = ErrorCodes.ERR_NONE;
@@ -42,14 +42,15 @@ public class CsvHandler : ICsvHandler
             "Result for processing : " + fullPathCsv + " for data: " + fullPathJson
         };
         int count = lines.Length;
-        for (int i = 1; i < count-1; i++)           // skip first line that contains header
+        for (int i = 1; i < count - 1; i++)           // skip first line that contains header
         {
             processedLine = ProcessLine(lines[i]);
             if (!processedLine.Item2)
             {
                 resultLines.Add("Error, " + processedLine.Item1);
                 noErrors = false;
-            } else
+            }
+            else
             {
                 allInput.Add(processedLine.Item1);
             }
@@ -61,15 +62,16 @@ public class CsvHandler : ICsvHandler
             var result = JsonConvert.SerializeObject(standardInput, Formatting.Indented);
             _fileWriter.WriteFile(fullPathJson + @"\date_time_loc.json", result);
             conversionReport = "Succesfully converted " + fullPathCsv + ". Number of lines processed: " + allInput.Count;
-        } else
+        }
+        else
         {
             errorCode = ErrorCodes.ERR_CSV_JSON_CONVERSION;
-            conversionReport = "Errors while trying to convert " + fullPathCsv + ". Numer of lines with errors: " + (resultLines.Count - 1) ;
+            conversionReport = "Errors while trying to convert " + fullPathCsv + ". Numer of lines with errors: " + (resultLines.Count - 1);
         }
 
         resultLines.Add("Number of lines processed (including header): " + lines.Length.ToString());
         _fileWriter.WriteFile(fullPathCsv + "_result", resultLines);
-        return new ResultMessage(errorCode, conversionReport); 
+        return new ResultMessage(errorCode, conversionReport);
 
     }
 

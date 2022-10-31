@@ -19,22 +19,22 @@ public class DataFilePreparator : IDataFilePreparator
     }
 
     /// <inheritdoc/>
-    public ResultMessage MakeFolderStructure(string dataPath)
+    public ResultMessage MakeFolderStructure(string fullPath)
     {
         int errorCode = ErrorCodes.ERR_NONE;
         string resultTxt = "";
         try
         {
-            Directory.CreateDirectory(dataPath);
-            Directory.CreateDirectory(dataPath + @"\csv");
-            Directory.CreateDirectory(dataPath + @"\json");
+            Directory.CreateDirectory(fullPath);
+            Directory.CreateDirectory(fullPath + @"\csv");
+            Directory.CreateDirectory(fullPath + @"\json");
         }
         catch (Exception)
         {
             errorCode = ErrorCodes.ERR_DIR_COULD_NOT_BE_CREATED;
-            resultTxt = dataPath;
+            resultTxt = fullPath;
         }
-        return new ResultMessage(errorCode, resultTxt); 
+        return new ResultMessage(errorCode, resultTxt);
     }
 
 

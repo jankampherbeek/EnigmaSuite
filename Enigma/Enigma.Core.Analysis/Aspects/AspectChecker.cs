@@ -60,7 +60,7 @@ public class AspectChecker : IAspectChecker
     private List<EffectiveAspect> AspectsForSolSysPoints(CalculatedChart calculatedChart)
     {
         var effectiveAspects = new List<EffectiveAspect>();
-        List <AspectDetails> supportedAspects = DefineSupportedAspects();
+        List<AspectDetails> supportedAspects = DefineSupportedAspects();
 
         List<FullSolSysPointPos> solSysPointPositions = calculatedChart.SolSysPointPositions;
         int count = solSysPointPositions.Count;
@@ -72,7 +72,8 @@ public class AspectChecker : IAspectChecker
                 var solSysPointPos2 = solSysPointPositions[j];
                 double distance = NormalizeDistance(solSysPointPos1.Longitude.Position - solSysPointPos2.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
-                {   AspectDetails aspectToCheck = supportedAspects[k];
+                {
+                    AspectDetails aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
                     double maxOrb = _orbConstructor.DefineOrb(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck);
                     double actualOrb = Math.Abs(angle - distance);
@@ -84,7 +85,7 @@ public class AspectChecker : IAspectChecker
             }
         }
         return effectiveAspects;
-    } 
+    }
 
     private List<EffectiveAspect> AspectsForMundanePoints(CalculatedChart calculatedChart)
     {
@@ -97,7 +98,7 @@ public class AspectChecker : IAspectChecker
         for (int i = 0; i < countMundanePoints; i++)
         {
             string mPointTxt = mundanePointPositions[i];
-            double mLong = mPointTxt == "MC" ? calculatedChart.FullHousePositions.Mc.Longitude : calculatedChart.FullHousePositions.Ascendant.Longitude;           
+            double mLong = mPointTxt == "MC" ? calculatedChart.FullHousePositions.Mc.Longitude : calculatedChart.FullHousePositions.Ascendant.Longitude;
             for (int j = 0; j < countSolSysPoints; j++)
             {
                 var ssPoint = solSysPointPositions[j];

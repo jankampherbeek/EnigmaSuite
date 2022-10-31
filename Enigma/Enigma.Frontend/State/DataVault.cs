@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain;
 using Enigma.Domain.Charts;
 using System.Collections.Generic;
 
@@ -15,7 +14,7 @@ public sealed class DataVault
 {
     private static readonly DataVault instance = new();
 
-    private readonly List<CalculatedChart> _allCharts = new(); 
+    private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _lastChart;
     private bool NewChartAdded = false;
 

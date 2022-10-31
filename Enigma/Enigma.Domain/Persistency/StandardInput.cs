@@ -33,7 +33,7 @@ public class StandardInputItem
     public PersistableTime Time { get; }
 
 
-    public StandardInputItem(string id, string name, 
+    public StandardInputItem(string id, string name,
         double geoLongitude, double geoLatitude,
         PersistableDate date, PersistableTime time)
     {

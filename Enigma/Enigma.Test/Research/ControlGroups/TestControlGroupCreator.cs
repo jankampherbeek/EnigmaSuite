@@ -20,7 +20,7 @@ public class TestControlDataCalendar
     {
         _cdCal = new ControlDataCalendar();
     }
-    
+
     [Test]
     public void TestHappyFlow()
     {

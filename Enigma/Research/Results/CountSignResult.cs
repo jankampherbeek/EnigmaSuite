@@ -5,13 +5,14 @@
 using Enigma.Research.Domain;
 using Enigma.Research.Interfaces;
 
+namespace Enigma.Research.Results;
 public class CountSignResult : IResearchResult
 {
-    public bool NoErrors { get; } 
+    public bool NoErrors { get; }
 
     public string Comments { get; }
 
-    public List<CelPointPerSign> CelPointsPerSign { get;  }
+    public List<CelPointPerSign> CelPointsPerSign { get; }
 
     public List<SignPerCelPoint> SignsPerCelPoint { get; }
 

@@ -45,8 +45,10 @@ public class LocationCheckedConversion : ILocationCheckedConversion
                     {
                         calculatedValue = 0.0;
                         noErrors = false;
-                    } else calculatedValue *= direction;
-                } else noErrors = false;
+                    }
+                    else calculatedValue *= direction;
+                }
+                else noErrors = false;
             }
         }
         else noErrors = false;

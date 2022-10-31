@@ -2,15 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Persistency.Converters;
-using Moq;
-using Enigma.Persistency.Interfaces;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.RequestResponse;
-using Enigma.Api.Interfaces;
-using Enigma.Core.Calc.Interfaces;
+using Enigma.Persistency.Converters;
+using Enigma.Persistency.Interfaces;
+using Moq;
 
 namespace Enigma.Test.Persistency.Converters;
 
@@ -100,7 +99,7 @@ public class TestDateCheckedConversion
 [TestFixture]
 public class TestTimeCheckedConversion
 {
-    private double _delta = 0.00000001;
+    private readonly double _delta = 0.00000001;
     private ITimeCheckedConversion _timeCheckedConversion;
 
     [SetUp]

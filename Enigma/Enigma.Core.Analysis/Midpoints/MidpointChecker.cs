@@ -46,7 +46,7 @@ public class MidpointChecker : IMidpointChecker
         throw new NotImplementedException();
     }
 
- 
+
     private EffectiveMidpoint ConstructEffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2)
     {
         double pos1 = point1.Position;

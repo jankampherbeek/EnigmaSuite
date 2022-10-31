@@ -12,7 +12,7 @@ namespace Enigma.Test.InputSupport.Validations;
 public class TestGeoLatValidator
 {
     private readonly double _delta = 0.00000001;
-    private GeoLatValidator _geoLatValidator = new();
+    private readonly GeoLatValidator _geoLatValidator = new();
 
     [Test]
     public void TestHappyFlow()

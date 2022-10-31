@@ -26,7 +26,7 @@ public interface ICoordinateConversionApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Equatorial coordinates that correspond to the ecliptic coordinates from the request, using the obliquity from the request.</returns>
-    public CoordinateConversionResponse getEquatorialFromEcliptic(CoordinateConversionRequest request);
+    public CoordinateConversionResponse GetEquatorialFromEcliptic(CoordinateConversionRequest request);
 }
 
 /// <summary>API for the calculation of horizontal coordinates.</summary>
@@ -37,7 +37,7 @@ public interface IHorizontalApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if either the request is null or the request contains a location that is null or eclipticalcoordinates that are null.</remarks>
     /// <returns>Values for azimuth and altitude.</returns>
-    public HorizontalResponse getHorizontal(HorizontalRequest request);
+    public HorizontalResponse GetHorizontal(HorizontalRequest request);
 }
 
 
@@ -48,7 +48,7 @@ public interface IHousesApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Instance of FullHousesPosResponse with all coordinates for cusps, MC, Ascendant, EastPoint and Vertex.</returns>
-    public FullHousesPosResponse getHouses(FullHousesPosRequest request);
+    public FullHousesPosResponse GetHouses(FullHousesPosRequest request);
 }
 
 /// <summary>API for calculation of pblique longitude (True place for the WvA)</summary>
@@ -96,5 +96,5 @@ public interface IJulianDayApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null or if SimpleDateTime in the request is null.</remarks> 
     /// <returns>Response with validation and a value for a Julian Day number.</returns>
-    public JulianDayResponse getJulianDay(JulianDayRequest request);
+    public JulianDayResponse GetJulianDay(JulianDayRequest request);
 }

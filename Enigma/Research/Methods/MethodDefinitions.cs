@@ -20,7 +20,8 @@ public class CountSignsMethodDefinition : IMethodDefinitions
     public List<SolarSystemPoints> SelectedCelPoints { get; }
 
     public CountSignsMethodDefinition(Ayanamshas ayanamsha, ObserverPositions observerPosition, HouseSystems houseSystem,
-        ProjectionTypes projectionType, List<int> selectedSigns, List<SolarSystemPoints> selectedCelPoints) {
+        ProjectionTypes projectionType, List<int> selectedSigns, List<SolarSystemPoints> selectedCelPoints)
+    {
 
         Ayanamsha = ayanamsha;
         ObserverPosition = observerPosition;

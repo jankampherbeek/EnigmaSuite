@@ -15,9 +15,9 @@ namespace Enigma.Frontend.DataFiles;
 /// </summary>
 public partial class DataFilesOverviewWindow : Window
 {
-    private DataFilesOverviewController _controller;
+    private readonly DataFilesOverviewController _controller;
 
-    private IRosetta _rosetta;
+    private readonly IRosetta _rosetta;
     public DataFilesOverviewWindow()
     {
         InitializeComponent();

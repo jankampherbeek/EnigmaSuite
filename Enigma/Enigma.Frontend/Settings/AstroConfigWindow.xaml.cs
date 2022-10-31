@@ -2,18 +2,17 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Support;
-using System.Windows;
 using Enigma.Domain.Analysis;
-using System;
-using Enigma.Frontend.Charts;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Enums;
+using Enigma.Frontend.Charts;
+using Enigma.Frontend.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Microsoft.Extensions.DependencyInjection;
-using Enigma.Frontend.Interfaces;
-using Enigma.Domain.Enums;
-using Enigma.Domain.AstronCalculations;
+using System.Windows;
 
 namespace Enigma.Frontend.Settings;
 

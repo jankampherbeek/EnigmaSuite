@@ -36,7 +36,7 @@ public class TestCoordinateConversionApi
     public void TestCoordinateConversionHappyFlow()
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
-        CoordinateConversionResponse response = _api.getEquatorialFromEcliptic(_coordConvRequest);
+        CoordinateConversionResponse response = _api.GetEquatorialFromEcliptic(_coordConvRequest);
         Assert.That(response.EquatorialCoord.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
         Assert.That(response.Success, Is.True);
         Assert.That(response.ErrorText, Is.EqualTo(""));
@@ -45,14 +45,14 @@ public class TestCoordinateConversionApi
     [Test]
     public void TestCoordinateConversionNullRequest()
     {
-        Assert.That(() => _api.getEquatorialFromEcliptic(null), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetEquatorialFromEcliptic(null), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestCoordinateConversionNullCoordinates()
     {
         CoordinateConversionRequest errorRequest = new(null, _obliquity);
-        Assert.That(() => _api.getEquatorialFromEcliptic(errorRequest), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetEquatorialFromEcliptic(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
     private CoordinateConversionRequest CreateConvRequest()

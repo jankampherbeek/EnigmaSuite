@@ -27,7 +27,7 @@ public interface IMethodProcessor
 
 public interface IMethodDefinitions
 {
-    public Ayanamshas Ayanamsha { get;  }
+    public Ayanamshas Ayanamsha { get; }
     public ObserverPositions ObserverPosition { get; }
     public HouseSystems HouseSystem { get; }
     public ProjectionTypes ProjectionType { get; }

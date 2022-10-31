@@ -22,7 +22,7 @@ public class CoordinateConversionApi : ICoordinateConversionApi
         _coordConvHandler = coordConvHandler;
     }
 
-    public CoordinateConversionResponse getEquatorialFromEcliptic(CoordinateConversionRequest request)
+    public CoordinateConversionResponse GetEquatorialFromEcliptic(CoordinateConversionRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.EclCoord);

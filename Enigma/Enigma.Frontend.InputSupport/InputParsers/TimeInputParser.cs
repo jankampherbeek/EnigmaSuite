@@ -6,7 +6,6 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.InputSupport.Interfaces;
-using Enigma.InputSupport.Validations;
 
 namespace Enigma.InputSupport.InputParsers;
 

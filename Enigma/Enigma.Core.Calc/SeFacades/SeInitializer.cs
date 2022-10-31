@@ -29,7 +29,7 @@ public static class SeInitializer
     /// <remarks>Use ony at end of application or test. To reuse, call SetEphePath().</remarks>
     public static void CloseEphemeris()
     {
-       ext_swe_close();
+        ext_swe_close();
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_close")]
     private extern static void ext_swe_close();

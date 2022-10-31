@@ -23,7 +23,7 @@ public record SignPerCelPoint
     public int SignIndex { get; }
     public int[] CelPointIndexes { get; }
 
-    public SignPerCelPoint(int signIndex, int[] celPointIndexes )
+    public SignPerCelPoint(int signIndex, int[] celPointIndexes)
     {
         SignIndex = signIndex;
         CelPointIndexes = celPointIndexes;

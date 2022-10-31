@@ -22,7 +22,7 @@ public class AspectForWheelFactory : IAspectForWheelFactory
         foreach (var effAspect in aspects)
         {
             double exactness = 100 - ((effAspect.ActualOrb / effAspect.Orb) * 100);
-            drawables.Add( new DrawableMundaneAspect(effAspect.MundanePoint, effAspect.SolSysPoint2, exactness, effAspect.EffAspectDetails.Aspect));
+            drawables.Add(new DrawableMundaneAspect(effAspect.MundanePoint, effAspect.SolSysPoint2, exactness, effAspect.EffAspectDetails.Aspect));
         }
         return drawables;
     }

@@ -2,18 +2,18 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections.Generic;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
+using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
 
 
-public class HousePosForDataGridFactory: IHousePosForDataGridFactory
+public class HousePosForDataGridFactory : IHousePosForDataGridFactory
 {
-    private IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
     public HousePosForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
@@ -30,7 +30,7 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
         int index = 1;
         foreach (var cusp in fullHousesPositions.Cusps)
         {
-            positions.Add(CreateSingleCuspPos(index++.ToString(), cusp)); 
+            positions.Add(CreateSingleCuspPos(index++.ToString(), cusp));
         }
         positions.Add(CreateSingleCuspPos("Vertex", fullHousesPositions.Vertex));
         positions.Add(CreateSingleCuspPos("East point", fullHousesPositions.EastPoint));
@@ -39,9 +39,9 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
 
 
     private PresentableHousePositions CreateSingleCuspPos(string identification, CuspFullPos cuspFullPos)
-   {
+    {
         PresentableHousePositions positions = new(
-            identification, 
+            identification,
             _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).longTxt,
             _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).glyph,
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.RaDecl.RightAscension),
@@ -50,6 +50,6 @@ public class HousePosForDataGridFactory: IHousePosForDataGridFactory
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.AzimuthAltitude.Altitude));
         return positions;
     }
-    
+
 
 }

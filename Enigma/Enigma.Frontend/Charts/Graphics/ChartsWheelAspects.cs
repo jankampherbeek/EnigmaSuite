@@ -35,7 +35,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
     public List<Line> CreateAspectLines(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<Line> aspectLines = new();
-        List<DrawableAspectCoordinatesSs> ssCoordinates = createSsCoordinates(currentChart, metrics, centerPoint);
+        List<DrawableAspectCoordinatesSs> ssCoordinates = CreateSsCoordinates(currentChart, metrics, centerPoint);
         AspectRequest request = new(currentChart);
         List<EffectiveAspect> effSsAspects = _aspectsApi.AspectsForSolSysPoints(request);
         List<DrawableSolSysPointAspect> drawSsAspects = _aspectForWheelFactory.CreateSolSysAspectForWheel(effSsAspects);
@@ -53,7 +53,8 @@ public class ChartsWheelAspects : IChartsWheelAspects
             DrawableAspectCoordinatesSs? drawCoordSs2 = null;
             foreach (var coord in ssCoordinates)
             {
-                if (coord.SolSysPoint == point1) {
+                if (coord.SolSysPoint == point1)
+                {
                     drawCoordSs1 = new(point1, coord.XCoordinate, coord.YCoordinate);
                 }
                 if (coord.SolSysPoint == point2)
@@ -64,7 +65,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
             if (drawCoordSs1 != null && drawCoordSs2 != null)
             {
                 Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
-                Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);  
+                Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
                 Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.SolSysPointConnectLineOpacity);
                 aspectLines.Add(connectionLine);
 
@@ -75,7 +76,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
     }
 
 
-    private List<DrawableAspectCoordinatesSs> createSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
+    private List<DrawableAspectCoordinatesSs> CreateSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesSs> drawableAspectCoordinatesSs = new();
         double longAsc = currentChart.FullHousePositions.Ascendant.Longitude;
@@ -84,7 +85,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
         {
             double longitude = ssPointPos.Longitude.Position;
             SolarSystemPoints ssPos = ssPointPos.SolarSystemPoint;
-            double posOnCircle =  _rangeCheck.InRange360(longitude - longAsc + 90.0);
+            double posOnCircle = _rangeCheck.InRange360(longitude - longAsc + 90.0);
             Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
             drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesSs(ssPos, newPoint.X, newPoint.Y));
         }
@@ -93,7 +94,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
 
 
 
-    private List<DrawableAspectCoordinatesMu> createMuCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
+    private List<DrawableAspectCoordinatesMu> CreateMuCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesMu> drawableAspectCoordinatesMu = new();
         double longAsc = currentChart.FullHousePositions.Ascendant.Longitude;

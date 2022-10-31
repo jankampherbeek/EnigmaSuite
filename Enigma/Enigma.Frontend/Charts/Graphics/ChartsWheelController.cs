@@ -20,7 +20,7 @@ public class ChartsWheelController
     public List<TextBlock> SignGlyphs { get; private set; }
     public List<Line> CuspLines { get; private set; }
     public List<Line> CuspCardinalLines { get; private set; }
-    public List<TextBlock> CuspCardinalIndicators { get; private set; } 
+    public List<TextBlock> CuspCardinalIndicators { get; private set; }
     public List<TextBlock> CuspTexts { get; private set; }
     public List<Line> SolSysPointConnectLines { get; private set; }
     public List<TextBlock> SolSysPointTexts { get; private set; }
@@ -29,7 +29,7 @@ public class ChartsWheelController
     public List<Line> DegreeLines { get; private set; }
     public List<Line> AspectLines { get; private set; }
 
-    public double CanvasSize{ get; private set; }
+    public double CanvasSize { get; private set; }
     private Point _centerPoint;
 
     private readonly ChartsWheelMetrics _metrics;
@@ -39,10 +39,10 @@ public class ChartsWheelController
     private readonly IChartsWheelCusps _chartsWheelCusps;
     private readonly IChartsWheelCircles _chartsWheelCircles;
     private readonly IChartsWheelAspects _chartsWheelAspects;
-   
+
     private CalculatedChart? _currentChart;
 
-    public ChartsWheelController(ChartsWheelMetrics metrics, 
+    public ChartsWheelController(ChartsWheelMetrics metrics,
         IChartsWheelSolSysPoints chartsWheelSolSysPoints,
         IChartsWheelSigns chartsWheelSigns,
         IChartsWheelCusps chartsWheelCusps,
@@ -76,7 +76,7 @@ public class ChartsWheelController
         CuspCardinalLines = _chartsWheelCusps.CreateCardinalLines(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
         CuspCardinalIndicators = _chartsWheelCusps.CreateCardinalIndicators(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
         CuspTexts = _chartsWheelCusps.CreateCuspTexts(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(), GetAscendantLongitude());
-    
+
     }
 
     private void HandleSolSysPoints()
@@ -88,7 +88,7 @@ public class ChartsWheelController
 
     private void HandleAspects()
     {
-        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetLastChart(), _metrics, _centerPoint); 
+        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetLastChart(), _metrics, _centerPoint);
     }
 
     public double GetAscendantLongitude()

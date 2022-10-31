@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Analysis.Interfaces;
 using Enigma.Core.Analysis.Midpoints;
 using Enigma.Domain.Analysis;
-using Moq;
-using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain.AstronCalculations;
+using Moq;
 
 namespace Enigma.Test.Domain.Midpoints;
 
@@ -17,12 +17,13 @@ public class TextMidpointChecker
     private readonly double _delta = 0.00000001;
 
     [SetUp]
-    public void SetUp() {
+    public void SetUp()
+    {
         var mockOrbConstructor = new Mock<IMidpointOrbConstructor>();
         var mockMidpointSpecs = new Mock<IMidpointSpecifications>();
         _midpointChecker = new MidpointChecker(mockOrbConstructor.Object, mockMidpointSpecs.Object);
     }
-   
+
 
     [Test]
     public void TestFindMidpointsHappyFlow()

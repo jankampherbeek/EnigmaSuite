@@ -3,15 +3,15 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Constants;
-using Enigma.Frontend.PresentationFactories;
-using Moq;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Constants;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
+using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.PresentationFactories;
+using Enigma.InputSupport.Interfaces;
+using Moq;
 
 namespace Enigma.Test.Frontend.PresentationFactories;
 

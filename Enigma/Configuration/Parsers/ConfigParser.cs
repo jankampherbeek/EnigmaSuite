@@ -14,7 +14,7 @@ public interface IAstroConfigParser
     public AstroConfig UnMarshall(string jsonString);
 }
 
-public class AstroConfigParser: IAstroConfigParser
+public class AstroConfigParser : IAstroConfigParser
 {
     public string Marshall(AstroConfig astroConfig)
     {

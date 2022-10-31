@@ -15,7 +15,7 @@ using System.Windows;
 namespace Enigma.Frontend.ResearchProjects;
 public class ProjectInputController
 {
-    public string ProjectName { get; set; } 
+    public string ProjectName { get; set; }
     public string ProjectIdentifier { get; set; }
     public string ProjectDescription { get; set; }
     public string DataFileName { get; set; }
@@ -28,7 +28,7 @@ public class ProjectInputController
     private readonly IProjectCreationHandler _projectCreationHandler;
 
     public ProjectInputController(IDataNameHandler dataNameHandler,
-        IDataNameForDataGridFactory dataNameForDataGridFactory, 
+        IDataNameForDataGridFactory dataNameForDataGridFactory,
         IProjectCreationHandler projectCreationHandler)
     {
         _dataNameHandler = dataNameHandler;
@@ -60,13 +60,13 @@ public class ProjectInputController
             noErrors = false;
             ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_NAME_INVALID);
             ProjectName = "";
-        } 
+        }
         if (ProjectIdentifier == null || ProjectIdentifier.Trim().Length == 0)
         {
             noErrors = false;
             ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_IDENTIFICATION_INVALID);
             ProjectIdentifier = "";
-        } 
+        }
         if (ProjectDescription == null || ProjectDescription.Trim().Length == 0)
         {
             noErrors = false;

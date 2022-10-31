@@ -45,10 +45,10 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
     public string ConvertDoubleToPositionsDmsText(double position)
     {
         string minusSign = position < 0.0 ? "-" : "";
-        double remaining = Math.Abs(position);              
-        int degrees = (int)remaining;              
+        double remaining = Math.Abs(position);
+        int degrees = (int)remaining;
         remaining -= degrees;
-        int minutes = (int)(remaining * 60.0); 
+        int minutes = (int)(remaining * 60.0);
         remaining -= minutes / 60.0;
         int seconds = (int)(remaining * 3600.0);
         return minusSign + CreateDmsString(degrees, minutes, seconds);
@@ -72,7 +72,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
 
     private static string DefineGlyph(int nrOfSigns)
     {
-        var AllGlyphs = new string[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
+        var AllGlyphs = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
         return AllGlyphs[nrOfSigns - 1];
     }
 

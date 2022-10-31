@@ -28,7 +28,7 @@ public partial class AboutWindow : Window
         MoreInfoTitle.Text = _rosetta.TextForId("aboutwindow.moreinfo.title");
         MoreInfoText.Text = _rosetta.TextForId("aboutwindow.moreinfo.text");
         BtnClose.Content = _rosetta.TextForId("common.btnclose");
-     }
+    }
 
 
     private void CloseClick(object sender, RoutedEventArgs e)

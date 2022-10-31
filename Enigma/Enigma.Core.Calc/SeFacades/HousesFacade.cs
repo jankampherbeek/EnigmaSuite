@@ -16,17 +16,17 @@ public class HousesFacade : IHousesFacade
     /// <remarks>Throws a SwissEphException if the SE returns an error.</remarks>
     public double[][] RetrieveHouses(double jdUt, int flags, double geoLat, double geoLon, char houseSystem)
     {
-           int _nrOfCusps = houseSystem == 'G' ? 37 : 13;
-           double[] cusps = new double[_nrOfCusps];
-           double[] mundanePoints = new double[10];
+        int _nrOfCusps = houseSystem == 'G' ? 37 : 13;
+        double[] cusps = new double[_nrOfCusps];
+        double[] mundanePoints = new double[10];
 
-           int result = ext_swe_houses_ex(jdUt, flags, geoLat, geoLon, (int)houseSystem, cusps, mundanePoints);
-           if (result < 0)
-           {
-               string paramsSummary = string.Format("jdUt: {0}, flags: {1}, geoLat: {2}, geoLon: {3}, houseSystem: {4}.", jdUt, flags, geoLat, geoLon, houseSystem);
-               throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosHousesFacade.PosHousesFromSe", paramsSummary));
-           }
-   
+        int result = ext_swe_houses_ex(jdUt, flags, geoLat, geoLon, (int)houseSystem, cusps, mundanePoints);
+        if (result < 0)
+        {
+            string paramsSummary = string.Format("jdUt: {0}, flags: {1}, geoLat: {2}, geoLon: {3}, houseSystem: {4}.", jdUt, flags, geoLat, geoLon, houseSystem);
+            throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosHousesFacade.PosHousesFromSe", paramsSummary));
+        }
+
         double[][] positions = { cusps, mundanePoints };
         return positions;
 

@@ -12,8 +12,8 @@ public record PresentableHousePositions
     public string PointName { get; }
     public string Longtext { get; }
     public string SignGlyph { get; }
-    public string RightAscText{ get; }
-    public string Decltext{ get; }
+    public string RightAscText { get; }
+    public string Decltext { get; }
     public string AzimuthText { get; }
     public string AltitudeText { get; }
 

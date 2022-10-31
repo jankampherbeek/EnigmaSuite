@@ -2,10 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Enums;
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Configuration;
+using Enigma.Domain.Enums;
 
 namespace Enigma.Configuration.Parsers;
 public interface IDefaultConfiguration
@@ -34,11 +34,11 @@ public class DefaultConfiguration : IDefaultConfiguration
         List<ArabicPointSpecs> arabicPointSpecs = CreateArabicPoints();
         double baseOrbAspects = 10.0;
         double baseOrbMidpoints = 1.6;
-        return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, 
+        return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, baseOrbAspects, baseOrbMidpoints);
     }
 
-    private List <CelPointSpecs> CreateCelPoints()
+    private List<CelPointSpecs> CreateCelPoints()
     {
         List<CelPointSpecs> celPointSpecs = new()
         {

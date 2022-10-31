@@ -50,7 +50,7 @@ public class ChartAspectsController
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
@@ -61,7 +61,7 @@ public class ChartAspectsController
 
     private AspectRequest CreateRequest()
     {
-        CalculatedChart? currentChart = _dataVault.GetLastChart() as CalculatedChart;
+        CalculatedChart? currentChart = _dataVault.GetLastChart();
         return new AspectRequest(currentChart);
     }
 

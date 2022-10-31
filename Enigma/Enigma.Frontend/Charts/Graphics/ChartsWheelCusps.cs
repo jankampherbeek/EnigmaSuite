@@ -2,19 +2,17 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.InputSupport.Conversions;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.Frontend.Charts.Graphics;
 
-public class ChartsWheelCusps: IChartsWheelCusps
+public class ChartsWheelCusps : IChartsWheelCusps
 {
     private readonly IRangeCheck _rangeCheck;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
@@ -37,13 +35,13 @@ public class ChartsWheelCusps: IChartsWheelCusps
         return cuspLines;
     }
 
-    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics,Point centerPoint, double longAscendant, double longMc)
+    public List<Line> CreateCardinalLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc)
     {
         List<Line> cardinalLines = new();
         double angle = 90.0;
         double hypothenusa1 = metrics.OuterSignRadius;
         double hypothenusa2 = metrics.OuterRadius;
-        cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint,angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
+        cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
         angle = _rangeCheck.InRange360(angle + 180.0);
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
         angle = _rangeCheck.InRange360(longMc - longAscendant + 90.0);
@@ -69,7 +67,7 @@ public class ChartsWheelCusps: IChartsWheelCusps
         List<TextBlock> cardinalIndicators = new();
         double xOffset = metrics.CardinalFontSize / 3;
         double yOffset = metrics.CardinalFontSize / 1.8;
-       
+
         // Asc
         double angle = 90.0;
         string text = "A";

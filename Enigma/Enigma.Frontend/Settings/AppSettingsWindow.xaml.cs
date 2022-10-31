@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -48,7 +47,7 @@ public partial class AppSettingsWindow : Window
 
     public void BtnHelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        AppSettingsController.ShowHelp();
     }
 
 }

@@ -13,7 +13,7 @@ namespace Enigma.Frontend.Support;
 /// <summary>Show help text.</summary>
 public partial class HelpWindow : Window
 {
-    private IRosetta _rosetta;
+    private readonly IRosetta _rosetta;
     public HelpWindow(IRosetta rosetta)
     {
         InitializeComponent();
@@ -26,7 +26,7 @@ public partial class HelpWindow : Window
     /// <param name="helpFile">Name of file withou the .html extension. File should be in the folder E4CUi/res/help/</param>
     public void SetHelpPage(string helpFile)
     {
-   string currentDir = AppDomain.CurrentDomain.BaseDirectory;
+        string currentDir = AppDomain.CurrentDomain.BaseDirectory;
         string relativePath = currentDir + @"res\help\" + helpFile + ".html";
         HtmlFrame.Source = new Uri(relativePath);
     }

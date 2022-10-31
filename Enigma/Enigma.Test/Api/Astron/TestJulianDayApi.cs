@@ -23,7 +23,7 @@ public class TestJulianDayApi
     public void TestHappyFlow()
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
-        JulianDayResponse actualResponse = api.getJulianDay(_jdRequest);
+        JulianDayResponse actualResponse = api.GetJulianDay(_jdRequest);
         Assert.That(_jdResponse, Is.EqualTo(actualResponse));
     }
 
@@ -32,7 +32,7 @@ public class TestJulianDayApi
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
         JulianDayRequest? errorRequest = null;
 #pragma warning disable CS8604 // Possible null reference argument.
-        Assert.That(() => api.getJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => api.GetJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
 #pragma warning restore CS8604 // Possible null reference argument.
     }
 
@@ -40,7 +40,7 @@ public class TestJulianDayApi
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
         JulianDayRequest errorRequest = new(null);
-        Assert.That(() => api.getJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => api.GetJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
 

@@ -23,30 +23,39 @@ public class TestSolSysPointCalc
     private readonly double _latSpeed = -0.1;
     private readonly double _distSpeed = 0.02;
     private readonly double _delta = 0.00000001;
-    int _flagsEcliptical = 0;
+    readonly int _flagsEcliptical = 0;
 
     [Test]
     public void TestCalculateSolSysPointLongitude()
     {
         PosSpeed[] _result = CalculatePosSpeedForSolSysPoint();
-        Assert.That(_result[0].Position, Is.EqualTo(_longitude).Within(_delta));
-        Assert.That(_result[0].Speed, Is.EqualTo(_longSpeed).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_result[0].Position, Is.EqualTo(_longitude).Within(_delta));
+            Assert.That(_result[0].Speed, Is.EqualTo(_longSpeed).Within(_delta));
+        });
     }
 
     [Test]
     public void TestCalculateSolSysPointLatitude()
     {
         PosSpeed[] _result = CalculatePosSpeedForSolSysPoint();
-        Assert.That(_result[1].Position, Is.EqualTo(_latitude).Within(_delta));
-        Assert.That(_result[1].Speed, Is.EqualTo(_latSpeed).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_result[1].Position, Is.EqualTo(_latitude).Within(_delta));
+            Assert.That(_result[1].Speed, Is.EqualTo(_latSpeed).Within(_delta));
+        });
     }
 
     [Test]
     public void TestCalculateSolSysPointDistance()
     {
         PosSpeed[] _result = CalculatePosSpeedForSolSysPoint();
-        Assert.That(_result[2].Position, Is.EqualTo(_distance).Within(_delta));
-        Assert.That(_result[2].Speed, Is.EqualTo(_distSpeed).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_result[2].Position, Is.EqualTo(_distance).Within(_delta));
+            Assert.That(_result[2].Speed, Is.EqualTo(_distSpeed).Within(_delta));
+        });
     }
 
     private PosSpeed[] CalculatePosSpeedForSolSysPoint()

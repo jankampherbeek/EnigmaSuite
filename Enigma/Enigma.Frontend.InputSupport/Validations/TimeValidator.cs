@@ -16,7 +16,6 @@ public class TimeValidator : ITimeValidator
 {
     private readonly ITimeZoneSpecifications _timeZoneSpecifications;
     readonly int[] timeValues = new int[] { 0, 0, 0 };
-    readonly int[] lmtOffsetValues = new int[] { 0, 0, 0 };
     private double _ut = 0.0;
     private int _correctionForDay = 0;
 
@@ -26,26 +25,26 @@ public class TimeValidator : ITimeValidator
     }
 
     /// <inheritdoc/>
-    public bool CreateCheckedTime(int[] inputTimeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime)
+    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime)
     {
 
         string _fullText = "";
-        bool success = (inputTimeValues.Length == 3) || (inputTimeValues.Length == 2);
+        bool success = (timeValues.Length == 3) || (timeValues.Length == 2);
 
         if (success)
         {
-            for (int i = 0; i < inputTimeValues.Length; i++)
+            for (int i = 0; i < timeValues.Length; i++)
             {
-                timeValues[i] = inputTimeValues[i];
+                this.timeValues[i] = timeValues[i];
             }
-            success = CheckMinAndMaxValues(timeValues);
+            success = CheckMinAndMaxValues(this.timeValues);
         }
         if (success)
         {
             CalculateUtAndCorrectionForDay(timezone, lmtOffset);
             _fullText = CreateFullText(timezone, lmtOffset);
         }
-        fullTime = new FullTime(timeValues, _ut, _correctionForDay, _fullText);
+        fullTime = new FullTime(this.timeValues, _ut, _correctionForDay, _fullText);
 
         return success;
     }
@@ -75,7 +74,7 @@ public class TimeValidator : ITimeValidator
     {
         double _offset;
         _ut = timeValues[0] + (double)timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE + (double)timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE;
-        _offset = timezone == TimeZones.LMT ? _offset = lmtOffset : _timeZoneSpecifications.DetailsForTimeZone(timezone).OffsetFromUt;
+        _offset = timezone == TimeZones.LMT ? lmtOffset : _timeZoneSpecifications.DetailsForTimeZone(timezone).OffsetFromUt;
         _ut -= _offset;
         if (_ut < 0.0)
         {

@@ -42,26 +42,29 @@ public class TestHousesApi
     [Test]
     public void TestHousesHappyFlow()
     {
-        FullHousesPosResponse actualResponse = _api.getHouses(_housesRequest);
-        Assert.That(actualResponse, Is.EqualTo(_housesResponse));
-        Assert.IsTrue(actualResponse.Success);
-        Assert.That(actualResponse.ErrorText, Is.EqualTo(_expectedErrorText));
+        FullHousesPosResponse actualResponse = _api.GetHouses(_housesRequest);
+        Assert.Multiple(() =>
+        {
+            Assert.That(actualResponse, Is.EqualTo(_housesResponse));
+            Assert.That(actualResponse.Success, Is.True);
+            Assert.That(actualResponse.ErrorText, Is.EqualTo(_expectedErrorText));
+        });
     }
 
     [Test]
     public void TestRequest()
     {
-        Assert.That(() => _api.getHouses(null), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetHouses(null), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestNullLocation()
     {
         FullHousesPosRequest errorRequest = new(_jdUt, null, _houseSystem);
-        Assert.That(() => _api.getHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
-    private FullHousesPosResponse CreateResponse()
+    private static FullHousesPosResponse CreateResponse()
     {
         var cusps = new List<CuspFullPos>
         {

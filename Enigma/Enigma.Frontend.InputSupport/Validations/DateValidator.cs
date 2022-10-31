@@ -13,12 +13,6 @@ namespace Enigma.InputSupport.Validations;
 
 public class DateValidator : IDateValidator
 {
- //   private readonly ICheckDateTimeApi _checkDateTimeApi;
-
-//    public DateValidator(ICheckDateTimeApi checkDateTimeApi)
-//    {
-//        _checkDateTimeApi = checkDateTimeApi;
-//    }
 
     private readonly ICheckDateTimeHandler _checkDateTimeHandler;
 
@@ -48,7 +42,7 @@ public class DateValidator : IDateValidator
             _yearText = $"{dateValues[0]:D5}";
         }
         string _monthText = GetPostFixIdForResourceBundle(dateValues[1]);
-        string _calendarText = calendar == Calendars.Gregorian ? "g" : "j"; 
+        string _calendarText = calendar == Calendars.Gregorian ? "g" : "j";
         return $"[{_monthText}] {_yearText}, {dateValues[2]} [{_calendarText}]";
     }
 
@@ -63,7 +57,6 @@ public class DateValidator : IDateValidator
         if (yearCount == YearCounts.BCE) dateValues[0] = -(dateValues[0]) + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new(simpleDateTime);
-        // CheckDateTimeResponse responseValidated = _checkDateTimeApi.CheckDateTime(checkDateTimeRequest);
         CheckDateTimeResponse responseValidated = _checkDateTimeHandler.CheckDateTime(checkDateTimeRequest);
         return responseValidated.Validated;
     }

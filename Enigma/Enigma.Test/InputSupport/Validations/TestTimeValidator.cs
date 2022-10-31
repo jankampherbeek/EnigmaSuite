@@ -20,7 +20,7 @@ public class TestTimeValidator
         int hour = 22;
         int minute = 7;
         int second = 30;
-        int[] timeInput = new int[] {hour, minute, second };
+        int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
         var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));

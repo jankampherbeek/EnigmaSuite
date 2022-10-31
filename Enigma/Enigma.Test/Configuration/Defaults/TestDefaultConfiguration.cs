@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Configuration;
 using Enigma.Configuration.Parsers;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Enums;
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Configuration;
+using Enigma.Domain.Enums;
 
 namespace Enigma.Test.Configuration.Defaults;
 
@@ -17,11 +17,11 @@ public class TestDefaultConfiguration
     private IDefaultConfiguration _defaultConfiguration;
     private AstroConfig _astroConfig;
     private readonly double _delta = 0.00000001;
-    
+
 
 
     [SetUp]
-    public void SetUp() 
+    public void SetUp()
     {
         _defaultConfiguration = new DefaultConfiguration();
         _astroConfig = _defaultConfiguration.CreateDefaultConfig();

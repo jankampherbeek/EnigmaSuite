@@ -5,7 +5,6 @@
 
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;

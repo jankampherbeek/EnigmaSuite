@@ -17,7 +17,7 @@ public record EffectiveAspect
     public readonly AspectDetails EffAspectDetails;
     public readonly double Orb;
     public readonly double ActualOrb;
-    public bool IsMundane;
+    public readonly bool IsMundane;
 
     /// <summary>
     /// Construct a mundane aspect (between cusp and celestial point).
@@ -47,6 +47,7 @@ public record EffectiveAspect
     public EffectiveAspect(SolarSystemPoints solSysPoint1, SolarSystemPoints solSysPoint2, AspectDetails effAspectDetails, double orb, double actualOrb)
     {
         IsMundane = false;
+        MundanePoint = "";
         SolSysPoint1 = solSysPoint1;
         SolSysPoint2 = solSysPoint2;
         EffAspectDetails = effAspectDetails;

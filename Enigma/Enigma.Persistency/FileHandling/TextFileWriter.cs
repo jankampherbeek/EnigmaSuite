@@ -9,7 +9,7 @@ namespace Enigma.Persistency.FileHandling;
 
 
 /// <inheritdoc/>
-public class TextFileWriter: ITextFileWriter
+public class TextFileWriter : ITextFileWriter
 {
 
     /// <inheritdoc/>

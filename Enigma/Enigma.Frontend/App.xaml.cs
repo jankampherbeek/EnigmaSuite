@@ -2,30 +2,24 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Services;
 using Enigma.Core.Calc.DateTime.CheckDateTime;
+using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.SeFacades;
-using Enigma.Core.Calc.Services;
-using Enigma.Domain.Services;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Charts;
 using Enigma.Frontend.Charts.Graphics;
+using Enigma.Frontend.Datafiles;
+using Enigma.Frontend.DataFiles;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.PresentationFactories;
-using Enigma.InputSupport.Services;
+using Enigma.Frontend.ResearchProjects;
+using Enigma.Frontend.Settings;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using Enigma.Core.Analysis.Services;
-using Enigma.Frontend.DataFiles;
-using Enigma.Frontend.Settings;
-using Enigma.Persistency.Services;
-using Enigma.Configuration.Services;
-using Enigma.Frontend.ResearchProjects;
-using Enigma.Research.Services;
-using Enigma.Core.Calc.Interfaces;
-using Enigma.Frontend.Interfaces;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
-using Enigma.Domain.Charts;
-using Enigma.Api.Services;
 
 namespace Enigma.Frontend;
 

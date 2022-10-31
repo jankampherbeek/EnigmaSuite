@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Research.Parsers;
-using Enigma.Domain.Research;
 using Engima.Domain.Research;
+using Enigma.Domain.Research;
 using Enigma.Research.Interfaces;
+using Enigma.Research.Parsers;
 
 namespace Enigma.Test.Research.Parsers;
 

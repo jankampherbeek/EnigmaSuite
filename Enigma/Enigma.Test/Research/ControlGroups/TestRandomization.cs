@@ -25,11 +25,11 @@ public class TestControlGroupRng
         int end = 50;
         int count = 100;
         List<int> result = _rng.GetIntegers(start, end, count);
-        Assert.That(result.Count, Is.EqualTo(count));
+        Assert.That(result, Has.Count.EqualTo(count));
         for (int i = 0; i < count; i++)
         {
-            Assert.GreaterOrEqual(result[i], start);
-            Assert.Less(result[i], end);
+            Assert.That(result[i], Is.GreaterThanOrEqualTo(start));
+            Assert.That(result[i], Is.LessThan(end));
         }
     }
 
@@ -46,7 +46,7 @@ public class TestControlGroupRng
         {
             if (result1[i] != result2[i]) listsAreEqual = false;
         }
-        Assert.IsFalse(listsAreEqual);
+        Assert.That(listsAreEqual, Is.False);
     }
 
 
@@ -54,35 +54,34 @@ public class TestControlGroupRng
     public void TestGetIntegersWrongSequenceOfParameters()
     {
         List<int> result = _rng.GetIntegers(10, 2, 30);
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
     [Test]
     public void TestGetIntegersInvalidCount()
     {
         List<int> result = _rng.GetIntegers(10, 20, -1);
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
     [Test]
     public void TestGetIntegersZeroBasedRangeHappyFlow()
     {
-        int start = 0; 
+        int start = 0;
         int end = 50;
         int count = 100;
         List<int> result = _rng.GetIntegers(end, count);
-        Assert.That(result.Count, Is.EqualTo(count));
+        Assert.That(result, Has.Count.EqualTo(count));
         for (int i = 0; i < count; i++)
         {
-            Assert.GreaterOrEqual(result[i], start);
-            Assert.Less(result[i], end);
+            Assert.That(result[i], Is.GreaterThanOrEqualTo(start));
+            Assert.That(result[i], Is.LessThan(end));
         }
     }
 
     [Test]
     public void TestGetIntegersZeroBasedDifferenceHappyFlow()
     {
-        int start = 0;
         int end = 50;
         int count = 100;
         List<int> result1 = _rng.GetIntegers(end, count);
@@ -92,7 +91,7 @@ public class TestControlGroupRng
         {
             if (result1[i] != result2[i]) listsAreEqual = false;
         }
-        Assert.IsFalse(listsAreEqual);
+        Assert.That(listsAreEqual, Is.False);
     }
 
 
@@ -100,14 +99,14 @@ public class TestControlGroupRng
     public void TestGetIntegersZeroBasedMaxIsNegative()
     {
         List<int> result = _rng.GetIntegers(-2, 30);
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
     [Test]
     public void TestGetIntegersZeroBasedInvalidCount()
     {
         List<int> result = _rng.GetIntegers(20, -1);
-        Assert.That(result.Count, Is.EqualTo(0));
+        Assert.That(result, Is.Empty);
     }
 
 
@@ -118,8 +117,8 @@ public class TestControlGroupRng
         List<int> data = new();
         data.AddRange(dataItems);
         _rng.ShuffleList(data);
-        Assert.That(data.Count, Is.EqualTo(dataItems.Length));
-        Assert.That(data[0] != 1 || data[1] != 2 || data[2] != 3 || data[3] != 4 || data[4] != 5  || data[5] != 6);
+        Assert.That(data, Has.Count.EqualTo(dataItems.Length));
+        Assert.That(data[0] != 1 || data[1] != 2 || data[2] != 3 || data[3] != 4 || data[4] != 5 || data[5] != 6);
     }
 
     [Test]
@@ -129,7 +128,7 @@ public class TestControlGroupRng
         List<double> data = new();
         data.AddRange(dataItems);
         _rng.ShuffleList(data);
-        Assert.That(data.Count, Is.EqualTo(dataItems.Length));
+        Assert.That(data, Has.Count.EqualTo(dataItems.Length));
         Assert.That(data[0] != 1.1 || data[1] != 2.2 || data[2] != 3.3 || data[3] != 4.4 || data[4] != 5.5 || data[5] != 6.6);
     }
 }

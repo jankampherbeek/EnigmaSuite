@@ -13,7 +13,7 @@ namespace Enigma.Test.InputSupport.Conversions;
 
 public class TestDoubleToDmsConversions
 {
-    private IDoubleToDmsConversions _conversions = new DoubleToDmsConversions();
+    private readonly IDoubleToDmsConversions _conversions = new DoubleToDmsConversions();
 
 
     [Test]
@@ -63,8 +63,11 @@ public class TestDoubleToDmsConversions
         double inputValue = 36.5;
         string expectedText = "6" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
         string expectedGlyph = "2";
-        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
-        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
+            Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
+        });
     }
 
     [Test]
@@ -73,8 +76,11 @@ public class TestDoubleToDmsConversions
         double inputValue = 0.0;
         string expectedText = "0" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
         string expectedGlyph = "1";
-        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
-        Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
+        Assert.Multiple(() =>
+        {
+            Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
+            Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).glyph, Is.EqualTo(expectedGlyph));
+        });
     }
 
     [Test]

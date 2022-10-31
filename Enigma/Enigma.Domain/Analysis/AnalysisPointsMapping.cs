@@ -46,7 +46,7 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
             {
                 double pos0Aries = 0.0;  // correct value for 0 Aries all ecliptical and equatorial coordinates.
                 mappedPoints.Add(new AnalysisPoint(pointGroup, (int)ZodiacalPoints.ZeroAries, pos0Aries));
-            }   
+            }
         }
         return mappedPoints;
     }
@@ -60,7 +60,7 @@ public class SolSysPointToAnalysisPointMap : ISolSysPointToAnalysisPointMap
         double position = 0.0;
         if (coordinateSystem == CoordinateSystems.Ecliptical)
         {
-            position = mainCoord ? solSysPoint. Longitude.Position : solSysPoint.Latitude.Position;
+            position = mainCoord ? solSysPoint.Longitude.Position : solSysPoint.Latitude.Position;
         }
         if (coordinateSystem == CoordinateSystems.Equatorial)
         {

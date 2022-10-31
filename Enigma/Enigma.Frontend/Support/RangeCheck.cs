@@ -8,7 +8,7 @@ namespace Enigma.Frontend.Support;
 
 
 
-public class RangeCheck: IRangeCheck
+public class RangeCheck : IRangeCheck
 {
     public double InRange360(double angle)
     {

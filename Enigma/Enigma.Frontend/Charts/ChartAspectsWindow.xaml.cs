@@ -3,8 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
-using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -64,14 +62,14 @@ public partial class ChartAspectsWindow : Window
 
     private void PopulateMundaneAspects()
     {
-        dgMuAspects.ItemsSource = _controller.GetPresentableAspectsForMundanePoints();  
+        dgMuAspects.ItemsSource = _controller.GetPresentableAspectsForMundanePoints();
         dgMuAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
-        dgMuAspects.Columns[0].Header =_emptyHeader;
+        dgMuAspects.Columns[0].Header = _emptyHeader;
         dgMuAspects.Columns[1].Header = _emptyHeader;
         dgMuAspects.Columns[2].Header = _emptyHeader;
         dgMuAspects.Columns[3].Header = _rosetta.TextForId("charts.aspects.datagrid.columns.orb");
         dgMuAspects.Columns[4].Header = _rosetta.TextForId("charts.aspects.datagrid.columns.exactness");
-        dgMuAspects.Columns[0].MaxWidth= 80;
+        dgMuAspects.Columns[0].MaxWidth = 80;
         dgMuAspects.Columns[1].MaxWidth = 20;
         dgMuAspects.Columns[2].MaxWidth = 20;
         dgMuAspects.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
@@ -87,6 +85,6 @@ public partial class ChartAspectsWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        ChartAspectsController.ShowHelp();
     }
 }

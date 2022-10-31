@@ -16,7 +16,8 @@ public class CurrentCharts : ICurrentCharts
 
     public List<CalculatedChart> AllCurrentCharts { get; set; }
 
-    public CurrentCharts() {
+    public CurrentCharts()
+    {
         IdPrimaryChart = -1;
         IdSecondaryChart = -1;
         AllCurrentCharts = new List<CalculatedChart>();
@@ -33,7 +34,8 @@ public class CurrentCharts : ICurrentCharts
     {
         foreach (var chart in AllCurrentCharts)
         {
-            if (chart.InputtedChartData.Id == chartId) {
+            if (chart.InputtedChartData.Id == chartId)
+            {
                 AllCurrentCharts.Remove(chart);
             }
         }

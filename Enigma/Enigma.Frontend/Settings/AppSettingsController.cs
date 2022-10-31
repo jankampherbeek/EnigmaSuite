@@ -13,7 +13,7 @@ namespace Enigma.Frontend.Settings;
 
 public class AppSettingsController
 {
-    private ApplicationSettings _applicationSettings;
+    private readonly ApplicationSettings _applicationSettings;
 
     public AppSettingsController()
     {
@@ -41,7 +41,7 @@ public class AppSettingsController
         return _applicationSettings.LocationSeFiles;
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
         HelpWindow? helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;

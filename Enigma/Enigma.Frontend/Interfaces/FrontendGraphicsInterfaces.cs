@@ -20,7 +20,8 @@ public interface IChartsWheelAspects
 }
 
 public interface IChartsWheelCircles
-{    public List<Ellipse> CreateCircles(ChartsWheelMetrics metrics);
+{
+    public List<Ellipse> CreateCircles(ChartsWheelMetrics metrics);
     public List<Line> CreateDegreeLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant);
 }
 

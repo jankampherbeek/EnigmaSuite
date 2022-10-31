@@ -15,14 +15,14 @@ public class ChartsWheelMetrics
     public double MinDistance { get; } = 6.0;
     // Fonts
     public FontFamily GlyphsFontFamily { get; } = new FontFamily("EnigmaAstrology");
-    public FontFamily PositionTextsFontFamily { get; } = new FontFamily("Calibri");    
+    public FontFamily PositionTextsFontFamily { get; } = new FontFamily("Calibri");
     // Colors
     public Color CuspLineColor { get; } = Colors.Gray;
     public Color CuspTextColor { get; } = Colors.SaddleBrown;
     public Color SolSysPointColor { get; } = Colors.DarkSlateBlue;
     public Color SolSysPointConnectLineColor { get; } = Colors.DarkSlateBlue;
     public Color SolSysPointTextColor { get; } = Colors.DarkSlateBlue;
-    public Color HardAspectsColor {  get; } = Colors.Red;
+    public Color HardAspectsColor { get; } = Colors.Red;
     public Color SoftAspectsColor { get; } = Colors.Green;
     public Color MinorAspectsColor { get; } = Colors.Gray;
 
@@ -51,7 +51,7 @@ public class ChartsWheelMetrics
     public double DegreesCircle { get; private set; }
     public double DegreesRadius { get; private set; }
     public double Degrees5Circle { get; private set; }
-    public double Degrees5Radius { get; private set; }  
+    public double Degrees5Radius { get; private set; }
     public double SolSysPointTextCircle { get; private set; }
     public double SolSysPointTextRadius { get; private set; }
     public double CardinalIndicatorCircle { get; private set; }
@@ -74,7 +74,7 @@ public class ChartsWheelMetrics
 
     // --------------------------------------------------
     public double BaseSize { get; private set; } = 700.0;
-  
+
     private readonly double _baseStrokeSize = 2.0;
     private readonly double _baseConnectLineSize = 1.0;
     private readonly double _baseAspectLineSize = 6.0;
@@ -136,7 +136,7 @@ public class ChartsWheelMetrics
         CardinalFontSize = CardinalFontSizeInitial * (GridSize / 700.0);
         SolSysPointTextEastOffset = SolSysPointTextEastOffsetInitial * SizeFactor;
         SolSysPointTextWestOffset = SolSysPointTextWestOffsetInitial * SizeFactor;
-        PositionTextSize = PositionTextSizeInitial * (GridSize  / 700.0);
+        PositionTextSize = PositionTextSizeInitial * (GridSize / 700.0);
 
     }
 

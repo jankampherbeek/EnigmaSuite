@@ -3,12 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using System.Collections.Generic;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
-using Enigma.Domain.Interfaces;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Charts;
+using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
 
@@ -20,7 +20,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
     private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
     private readonly IAspectSpecifications _aspectSpecifications;
 
-    public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, 
+    public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
         ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IAspectSpecifications aspectSpecifications)
     {
@@ -41,10 +41,10 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
 
     }
 
-     private PresentableAspects CreatePresAspect(EffectiveAspect effAspect)
+    private PresentableAspects CreatePresAspect(EffectiveAspect effAspect)
     {
         string firstPoint = "";
-        if (effAspect.IsMundane )
+        if (effAspect.IsMundane)
         {
             firstPoint = effAspect.MundanePoint;
         }
@@ -57,7 +57,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
 
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.Orb);
         double exactnessValue = 100 - ((effAspect.ActualOrb / effAspect.Orb) * 100);
-        string exactness = string.Format("{0:N}", exactnessValue).Replace(",", "."); 
+        string exactness = string.Format("{0:N}", exactnessValue).Replace(",", ".");
         return new PresentableAspects(firstPoint, aspectGlyph, secondPoint, orb, exactness);
     }
 

@@ -10,7 +10,7 @@ using Enigma.Domain.Interfaces;
 namespace Enigma.Core.Analysis.Aspects;
 
 
-public class AspectOrbConstructor: IAspectOrbConstructor
+public class AspectOrbConstructor : IAspectOrbConstructor
 {
 
     private readonly double _baseOrb = 10.0;   // todo make baseorb configurable

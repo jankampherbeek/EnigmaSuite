@@ -5,6 +5,7 @@
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 
+namespace Enigma.Test.Domain.Enums;
 
 [TestFixture]
 public class TestAyanamshaSpecifications
@@ -15,10 +16,13 @@ public class TestAyanamshaSpecifications
         Ayanamshas ayanamsha = Ayanamshas.Huber;
         IAyanamshaSpecifications specifications = new AyanamshaSpecifications();
         AyanamshaDetails details = specifications.DetailsForAyanamsha(ayanamsha);
-        Assert.IsNotNull(details);
-        Assert.That(details.Ayanamsha, Is.EqualTo(Ayanamshas.Huber));
-        Assert.That(details.SeId, Is.EqualTo(12));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.ayanamsha.huber"));
+        Assert.That(details, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(details.Ayanamsha, Is.EqualTo(Ayanamshas.Huber));
+            Assert.That(details.SeId, Is.EqualTo(12));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.ayanamsha.huber"));
+        });
     }
 
     [Test]
@@ -28,8 +32,8 @@ public class TestAyanamshaSpecifications
         foreach (Ayanamshas system in Enum.GetValues(typeof(Ayanamshas)))
         {
             AyanamshaDetails details = specifications.DetailsForAyanamsha(system);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }

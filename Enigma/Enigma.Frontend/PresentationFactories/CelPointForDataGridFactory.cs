@@ -2,13 +2,13 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-using System.Collections.Generic;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Interfaces;
-using Enigma.Domain.Charts;
+using System;
+using System.Collections.Generic;
 
 namespace Enigma.Frontend.PresentationFactories;
 

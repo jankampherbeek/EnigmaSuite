@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Configuration;
 using Enigma.Configuration.Parsers;
+using Enigma.Domain.Configuration;
 
 
 namespace Enigma.Test.Configuration.Parsers;
@@ -15,9 +15,10 @@ public class TestConfigParser
     private IDefaultConfiguration _defaultConfig;
 
     [SetUp]
-    public void SetUp() {
+    public void SetUp()
+    {
         _parser = new AstroConfigParser();
-        _defaultConfig = new DefaultConfiguration();   
+        _defaultConfig = new DefaultConfiguration();
     }
 
     [Test]

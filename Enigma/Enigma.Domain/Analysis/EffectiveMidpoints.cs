@@ -14,12 +14,12 @@ public record EffectiveMidpoint
     public readonly AnalysisPoint Point2;
     public readonly double Position;
 
-/// <summary>
-/// Constructs an effective midpoint.
-/// </summary>
-/// <param name="point1">First point.</param>
-/// <param name="point2">Second point.</param>
-/// <param name="position">Midpoint using the shortest arc.</param>
+    /// <summary>
+    /// Constructs an effective midpoint.
+    /// </summary>
+    /// <param name="point1">First point.</param>
+    /// <param name="point2">Second point.</param>
+    /// <param name="position">Midpoint using the shortest arc.</param>
     public EffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2, double position)
     {
         Point1 = point1;

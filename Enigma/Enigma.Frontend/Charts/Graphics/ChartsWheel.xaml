@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="wheelGrid" SizeChanged="wheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
+        <Grid x:Name="wheelGrid" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
             <!-- Border x:Name="wheelBorder" BorderBrush="Gray" BorderThickness="1" Margin="6" -->
                 <Canvas x:Name="wheelCanvas" ClipToBounds="True"/>
             <!-- /Border -->

@@ -4,18 +4,20 @@
 
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Frontend.Support;
+using Enigma.Domain.RequestResponse;
 using Enigma.Frontend;
+using Enigma.Frontend.Support;
+using Enigma.Persistency.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using Enigma.Persistency.Interfaces;
-using Enigma.Domain.RequestResponse;
 
+
+namespace Enigma.Frontend.Datafiles;
 public class DataFilesImportController
 {
-    private IDataFilePreparator _dataFilePreparator;
-    private ICsvHandler _csvHandler;
+    private readonly IDataFilePreparator _dataFilePreparator;
+    private readonly ICsvHandler _csvHandler;
 
     public DataFilesImportController(IDataFilePreparator dataFilePreparator, ICsvHandler csvHandler)
     {

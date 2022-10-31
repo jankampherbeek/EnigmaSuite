@@ -18,7 +18,7 @@ public class JulianDayApi : IJulianDayApi
     public JulianDayApi(IJulDayHandler julDayHandler) => _julDayHandler = julDayHandler;
 
 
-    public JulianDayResponse getJulianDay(JulianDayRequest request)
+    public JulianDayResponse GetJulianDay(JulianDayRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.DateTime);

@@ -32,7 +32,7 @@ static class ExtensionsClass
 
 
 /// <inheritdoc/>
-public class ControlGroupRng: IControlGroupRng 
+public class ControlGroupRng : IControlGroupRng
 {
 
     /// <inheritdoc/>
@@ -57,7 +57,7 @@ public class ControlGroupRng: IControlGroupRng
     public List<int> ShuffleList(List<int> data)
     {
         data.Shuffle();
-        return data; 
+        return data;
     }
 
     public List<double> ShuffleList(List<double> data)

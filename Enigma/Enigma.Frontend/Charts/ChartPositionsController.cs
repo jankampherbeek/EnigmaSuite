@@ -15,13 +15,12 @@ namespace Enigma.Frontend.Charts;
 public class ChartPositionsController
 {
 
-    private CalculatedChart? _currentChart;
     private readonly ChartAspectsWindow _chartAspectsWindow;
     private readonly IHousePosForDataGridFactory _housePosForDataGridFactory;
     private readonly ICelPointForDataGridFactory _celPointForDataGridFactory;
     private readonly DataVault _dataVault;
 
-    public ChartPositionsController(IHousePosForDataGridFactory housePosForDataGridFactory, 
+    public ChartPositionsController(IHousePosForDataGridFactory housePosForDataGridFactory,
         ICelPointForDataGridFactory celPointForDataGridFactory,
         ChartAspectsWindow chartAspectsWindow)
     {
@@ -33,10 +32,10 @@ public class ChartPositionsController
 
     public ChartData GetMeta()
     {
-        _currentChart = _dataVault.GetLastChart();
+        CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _currentChart.InputtedChartData;    
+            return _currentChart.InputtedChartData;
         }
         else
         {
@@ -47,7 +46,7 @@ public class ChartPositionsController
 
     public List<PresentableHousePositions> GetHousePositionsCurrentChart()
     {
-        _currentChart = _dataVault.GetLastChart();
+        CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
             return _housePosForDataGridFactory.CreateHousePosForDataGrid(_currentChart.FullHousePositions);
@@ -60,7 +59,7 @@ public class ChartPositionsController
 
     public List<PresentableSolSysPointPositions> GetCelPointPositionsCurrentChart()
     {
-        _currentChart = _dataVault.GetLastChart();
+        CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
             return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.SolSysPointPositions);

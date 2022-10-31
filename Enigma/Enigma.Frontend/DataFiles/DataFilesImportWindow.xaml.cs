@@ -4,6 +4,7 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
+using Enigma.Frontend.Datafiles;
 using Enigma.Frontend.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,19 +18,19 @@ namespace Enigma.Frontend.DataFiles
     /// </summary>
     public partial class DataFilesImportWindow : Window
     {
-        private IRosetta _rosetta;
-        private DataFilesImportController _controller;
+        private readonly IRosetta _rosetta;
+        private readonly DataFilesImportController _controller;
 
         public DataFilesImportWindow()
         {
             InitializeComponent();
             _controller = App.ServiceProvider.GetRequiredService<DataFilesImportController>();
             _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
-                PopulateTexts();
+            PopulateTexts();
         }
 
 
-        
+
         private void PopulateTexts()
         {
             FormTitle.Text = _rosetta.TextForId("datafilesimportwindow.title");
@@ -70,7 +71,8 @@ namespace Enigma.Frontend.DataFiles
             if (String.IsNullOrWhiteSpace(dataName) || String.IsNullOrWhiteSpace(inputFile))
             {
                 MessageBox.Show(_rosetta.TextForId("datafilesimportwindow.errorsnamepathfound"));
-            } else
+            }
+            else
             {
                 if (_controller.CheckIfNameCanBeUsed(dataName))
                 {
@@ -78,11 +80,13 @@ namespace Enigma.Frontend.DataFiles
                     if (resultMsg.ErrorCode > ErrorCodes.ERR_NONE)
                     {
                         MessageBox.Show(_rosetta.TextForId("datafilesimportwindow.errorsproblemfilesystem") + " " + resultMsg.Message);
-                    } else
+                    }
+                    else
                     {
                         tbResultText.Text = resultMsg.Message;
                     }
-                } else
+                }
+                else
                 {
                     MessageBox.Show(_rosetta.TextForId("datafilesimportwindow.errorsdatanamenotunique"));
                 }

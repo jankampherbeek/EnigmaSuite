@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Configuration;
 using Enigma.Configuration.Handlers;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
 using Microsoft.Extensions.DependencyInjection;

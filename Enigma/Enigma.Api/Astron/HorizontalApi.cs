@@ -18,7 +18,7 @@ public class HorizontalApi : IHorizontalApi
     /// <param name="horizontalHandler">Handler for the calculation of horizontal coordinates.</param>
     public HorizontalApi(IHorizontalHandler horizontalHandler) => _horizontalHandler = horizontalHandler;
 
-    public HorizontalResponse getHorizontal(HorizontalRequest request)
+    public HorizontalResponse GetHorizontal(HorizontalRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.EclCoord);

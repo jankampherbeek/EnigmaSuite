@@ -12,7 +12,6 @@ namespace Enigma.InputSupport.Validations;
 /// <inheritdoc/>
 public class GeoLatValidator : IGeoLatValidator
 {
-    private bool _success = true;
     private readonly int[] _latValues = new int[] { 0, 0, 0 };
     private double _latitude = 0.0;
     private Directions4GeoLat _direction;
@@ -22,7 +21,7 @@ public class GeoLatValidator : IGeoLatValidator
     {
         _direction = direction;
         string _fullText = "";
-        _success = (inputLatValues.Length == 3) || (inputLatValues.Length == 2);
+        bool _success = (inputLatValues.Length == 3) || (inputLatValues.Length == 2);
 
         if (_success)
         {
@@ -48,7 +47,7 @@ public class GeoLatValidator : IGeoLatValidator
         return $"{directionIndicator}{_latValues[0]}:{_latValues[1]:d2}:{_latValues[2]:d2}";
     }
 
-    private bool CheckMinAndMaxValues(int[] valuesToCheck)
+    private static bool CheckMinAndMaxValues(int[] valuesToCheck)
     {
         bool result = true;
         if (valuesToCheck[0] < 0 || valuesToCheck[0] > 89) result = false;

@@ -18,7 +18,7 @@ public class HousesApi : IHousesApi
     /// <param name="housesHandler">Handler for the calculation of the houses.</param>
     public HousesApi(IHousesHandler housesHandler) => _housesHandler = housesHandler;
 
-    public FullHousesPosResponse getHouses(FullHousesPosRequest request)
+    public FullHousesPosResponse GetHouses(FullHousesPosRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.ChartLocation);

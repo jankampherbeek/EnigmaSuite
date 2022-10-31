@@ -2,9 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using System;
-
 namespace Enigma.Domain.Charts;
 
 
@@ -15,7 +12,7 @@ public record PresentableSolSysPointPositions
     public string LongText { get; }
     public string SignGlyph { get; }
     public string LongSpeedText { get; }
-    public string LatText {get; }
+    public string LatText { get; }
     public string LatSpeedText { get; }
     public string RightAscText { get; }
     public string RightAscSpeedText { get; }
@@ -35,13 +32,13 @@ public record PresentableSolSysPointPositions
     /// <param name="distance">Tuple with decimal distance and speed in distance.</param>
     /// <param name="azimuth">Sexagesimal azimuth.</param>
     /// <param name="altitude">Sexagesimal altitude, positive or negative.</param>
-    public PresentableSolSysPointPositions(string pointGlyph, 
-        Tuple<string, string, string> eclipticalLong, 
-        Tuple<string, string> eclipticalLat,     
-        Tuple<string, string> equatorialRa,  
-        Tuple<string, string> equatorialDecl, 
+    public PresentableSolSysPointPositions(string pointGlyph,
+        Tuple<string, string, string> eclipticalLong,
+        Tuple<string, string> eclipticalLat,
+        Tuple<string, string> equatorialRa,
+        Tuple<string, string> equatorialDecl,
         Tuple<string, string> distance,
-        string azimuth, 
+        string azimuth,
         string altitude)
     {
         PointGlyph = pointGlyph;

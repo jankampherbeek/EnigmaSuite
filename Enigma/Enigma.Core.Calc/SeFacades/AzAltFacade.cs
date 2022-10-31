@@ -17,7 +17,7 @@ public class AzAltFacade : IAzAltFacade
     /// <remarks>Throws SwissEphException if SE returns an error.</remarks>
     public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags)
     {
-       
+
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
         int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, eclipticCoordinates, horizontalCoordinates);
         if (result < 0)
@@ -30,7 +30,7 @@ public class AzAltFacade : IAzAltFacade
             throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "CalculateHorizontalCoordinatesFacade.CalculateHorizontalCoordinat", paramsSummary));
         }
         return new double[] { horizontalCoordinates[0], horizontalCoordinates[1] };
-        
+
     }
 
     /// <summary>

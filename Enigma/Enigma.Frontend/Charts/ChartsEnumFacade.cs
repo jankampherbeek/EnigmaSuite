@@ -17,7 +17,7 @@ namespace Enigma.Frontend.Charts;
 /// </summary>
 public interface IChartsEnumFacade
 {
-    
+
 
     public List<CalendarDetails> AllCalendarDetails();
     public List<ChartCategoryDetails> AllChartCategoryDetails();
@@ -86,7 +86,7 @@ public class ChartsEnumFacade : IChartsEnumFacade
 
     public List<CalendarDetails> AllCalendarDetails()
     {
-       return _calendarSpecifications.AllCalendarDetails();
+        return _calendarSpecifications.AllCalendarDetails();
     }
 
     public List<ChartCategoryDetails> AllChartCategoryDetails()
@@ -106,7 +106,7 @@ public class ChartsEnumFacade : IChartsEnumFacade
 
     public List<RoddenRatingDetails> AllRoddenRatingDetails()
     {
-       return _roddenRatingSpecifications.AllDetailsForRating();
+        return _roddenRatingSpecifications.AllDetailsForRating();
     }
 
     public List<TimeZoneDetails> AllTimeZoneDetails()
@@ -121,7 +121,7 @@ public class ChartsEnumFacade : IChartsEnumFacade
 
     public IHouseSystemSpecifications Houses()
     {
-        return _houseSystemSpecifications;       
+        return _houseSystemSpecifications;
     }
 
     public IAyanamshaSpecifications Ayanamshas()

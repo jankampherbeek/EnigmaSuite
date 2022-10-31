@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.Constants;
 
 namespace Enigma.Core.Calc.Obliquity;

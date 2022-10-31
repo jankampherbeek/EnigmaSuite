@@ -4,7 +4,6 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Core.Calc.Obliquity;
-using Enigma.Core.Calc.SeFacades;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Obliquity;

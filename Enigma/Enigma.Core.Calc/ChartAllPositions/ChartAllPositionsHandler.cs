@@ -23,7 +23,7 @@ public class ChartAllPositionsHandler : IChartAllPositionsHandler
     public ChartAllPositionsResponse CalcFullChart(ChartAllPositionsRequest request)
     {
         SolSysPointsResponse solSysPointsResponse = _solSysPointsHandler.CalcSolSysPoints(request.SolSysPointRequest);
-        FullHousesPosRequest housesRequest = new (request.SolSysPointRequest.JulianDayUt, request.SolSysPointRequest.ChartLocation, request.HouseSystem);
+        FullHousesPosRequest housesRequest = new(request.SolSysPointRequest.JulianDayUt, request.SolSysPointRequest.ChartLocation, request.HouseSystem);
         FullHousesPosResponse housesResponse = _housesHandler.CalcHouses(housesRequest);
         string errorText = solSysPointsResponse.ErrorText + housesResponse.ErrorText;
         bool success = solSysPointsResponse.Success && housesResponse.Success;

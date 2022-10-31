@@ -4,7 +4,6 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Enums;
-using System.Drawing;
 
 namespace Enigma.Domain.Charts;
 
@@ -14,7 +13,7 @@ public record DrawableSolSysPointAspect
     public SolarSystemPoints Point1 { get; }
     public SolarSystemPoints Point2 { get; }
     public double Exactness { get; }
-    public AspectTypes AspectType { get; } 
+    public AspectTypes AspectType { get; }
 
     /// <summary>
     /// Constructor for a drawable aspect between 2 solar system points.
@@ -25,10 +24,10 @@ public record DrawableSolSysPointAspect
     /// <param name="aspectType">The aspect type (conjunction, opposition etc.).</param>
     public DrawableSolSysPointAspect(SolarSystemPoints point1, SolarSystemPoints point2, double exactness, AspectTypes aspectType)
     {
-        Point1 = point1; 
-        Point2 = point2; 
-        Exactness = exactness; 
-        AspectType = aspectType; 
+        Point1 = point1;
+        Point2 = point2;
+        Exactness = exactness;
+        AspectType = aspectType;
     }
 }
 

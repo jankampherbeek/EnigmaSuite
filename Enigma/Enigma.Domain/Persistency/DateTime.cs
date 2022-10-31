@@ -26,7 +26,7 @@ public class PersistableTime
 {
     public int Hour { get; }
     public int Minute { get; }
-    public int Second { get; }  
+    public int Second { get; }
     public double ZoneOffset { get; }
     public double Dst { get; }
 

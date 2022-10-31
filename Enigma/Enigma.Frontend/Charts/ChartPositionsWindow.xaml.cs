@@ -3,19 +3,19 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
+using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System;
-using Enigma.Frontend.Interfaces;
 
 namespace Enigma.Frontend.Charts;
 
 /// <summary>Shows positions in tabular format.</summary>
 public partial class ChartPositionsWindow : Window
 {
-    private IRosetta _rosetta;
+    private readonly IRosetta _rosetta;
 
     private readonly ChartPositionsController _controller;
     private readonly string _space = " ";
@@ -43,7 +43,7 @@ public partial class ChartPositionsWindow : Window
         _chartData = _controller.GetMeta();
         if (_chartData != null)
         {
-            ChartName.Text =_chartData.ChartMetaData.Name;
+            ChartName.Text = _chartData.ChartMetaData.Name;
             Details.Text = _chartData.ChartMetaData.Description + _newLine +
                 _chartData.ChartLocation.LocationFullName + _newLine +
                 ParseDateText(_chartData.ChartDateTime.DateText) + _space + ParseTimeText(_chartData.ChartDateTime.TimeText) + _newLine +

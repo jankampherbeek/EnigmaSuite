@@ -13,8 +13,8 @@ namespace Enigma.Frontend.DataFiles
     /// </summary>
     public partial class DataFilesExportWindow : Window
     {
-        private DataFilesExportController _controller;
-        private IRosetta _rosetta;
+        private readonly DataFilesExportController _controller;
+        private readonly IRosetta _rosetta;
 
         public DataFilesExportWindow()
         {

@@ -2,22 +2,21 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Interfaces;
+using Enigma.Frontend.Interfaces;
+using Enigma.InputSupport.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
-using Enigma.Domain.Charts;
 
 namespace Enigma.Frontend.Charts.Graphics;
 
 
-public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints
+public class ChartsWheelSolSysPoints : IChartsWheelSolSysPoints
 {
 
     private readonly IRangeCheck _rangeCheck;
@@ -25,7 +24,7 @@ public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints
     private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
-    public ChartsWheelSolSysPoints(ISortedGraphicSolSysPointsFactory sortedGraphicSolSysPointsFactory, 
+    public ChartsWheelSolSysPoints(ISortedGraphicSolSysPointsFactory sortedGraphicSolSysPointsFactory,
         ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IRangeCheck rangeCheck,
         IDoubleToDmsConversions doubleToDmsConversions)
@@ -35,10 +34,10 @@ public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints
         _solarSystemPointSpecifications = solarSystemPointSpecifications;
         _doubleToDmsConversions = doubleToDmsConversions;
     }
-   
 
 
-    public List<TextBlock> CreateSolSysPointGlyphs(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints,  Point centerPoint, double longAscendant)
+
+    public List<TextBlock> CreateSolSysPointGlyphs(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> glyphs = new();
 
@@ -86,7 +85,7 @@ public class ChartsWheelSolSysPoints: IChartsWheelSolSysPoints
         DimPoint dimPoint = new(centerPoint);
         foreach (var graphPoint in graphicSolSysPointsPositions)
         {
-            double angle =  graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 1.5 : graphPoint.PlotPos + 1.5;
+            double angle = graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 1.5 : graphPoint.PlotPos + 1.5;
             string posDmText = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(graphPoint.EclipticPos);
             Point point1 = angle < 180.0 ? dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + metrics.SolSysPointTextEastOffset) : dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + metrics.SolSysPointTextWestOffset);
             TextBlock posText = new()

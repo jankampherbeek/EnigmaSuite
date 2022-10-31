@@ -23,7 +23,7 @@ public static class PersistencyServices
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
-        serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();    
+        serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
 
     }
 }

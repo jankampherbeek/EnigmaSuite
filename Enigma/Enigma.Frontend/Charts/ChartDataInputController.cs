@@ -2,17 +2,17 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Interfaces;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
-using Enigma.Frontend.State;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
-using Enigma.Api.Interfaces;
+using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.State;
+using Enigma.InputSupport.Interfaces;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Enigma.Frontend.Charts;
 
@@ -69,9 +69,10 @@ public class ChartDataInputController
     /// Retrieve calculation preferences from active modus. Currently uses hardcoded values.
     /// </summary>
     /// TODO: replace hardocded values with a lookup from the active settings.
-    private CalculationPreferences RetrieveCalculationPreferences() {
+    private CalculationPreferences RetrieveCalculationPreferences()
+    {
 
-        ImmutableArray<SolarSystemPoints> solarSystemPoints = ImmutableArray.Create(new SolarSystemPoints[] { 
+        ImmutableArray<SolarSystemPoints> solarSystemPoints = ImmutableArray.Create(new SolarSystemPoints[] {
             SolarSystemPoints.Sun,
             SolarSystemPoints.Moon,
             SolarSystemPoints.Mercury,
@@ -106,7 +107,7 @@ public class ChartDataInputController
         bool geoLongSuccess = _geoLongInputParser.HandleGeoLong(Longitude, Direction4GeoLong, out FullGeoLongitude? fullGeoLongitude);
         bool geoLatSuccess = _geoLatInputParser.HandleGeoLat(Latitude, Direction4GeoLat, out FullGeoLatitude? fullGeoLatitude);
         bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? fullLmtOffset);
-        
+
         if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
         if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
         if (!geoLongSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON);
@@ -116,10 +117,10 @@ public class ChartDataInputController
         if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess)
         {
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, _cal);
-            JulianDayRequest julianDayRequest = new (dateTime);
-            double julianDayUt = _julianDayApi.getJulianDay(julianDayRequest).JulDayUt;
+            JulianDayRequest julianDayRequest = new(dateTime);
+            double julianDayUt = _julianDayApi.GetJulianDay(julianDayRequest).JulDayUt;
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
-            string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText; 
+            string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             SolSysPointsRequest solSysPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
             ChartAllPositionsRequest chartAllPositionsRequest = new(solSysPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences

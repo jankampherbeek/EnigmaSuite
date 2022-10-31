@@ -35,9 +35,9 @@ public class GeoLongValidator : IGeoLongValidator
         if (success)
         {
             CalculateLongitude();
-            _fullText = CreateFullText();  
+            _fullText = CreateFullText();
         }
-        fullLongitude = new (_longValues, _longitude, _direction, _fullText);
+        fullLongitude = new(_longValues, _longitude, _direction, _fullText);
         return success;
     }
 

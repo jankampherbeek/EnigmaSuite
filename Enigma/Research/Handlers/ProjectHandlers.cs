@@ -5,10 +5,8 @@
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
-using Enigma.Persistency.FileHandling;
 using Enigma.Persistency.Interfaces;
 using Enigma.Research.Interfaces;
-using Enigma.Research.Parsers;
 
 
 namespace Enigma.Research.Handlers;
@@ -66,7 +64,9 @@ public class ProjectCreationHandler : IProjectCreationHandler
         try
         {
             Directory.CreateDirectory(projPath);
-        } catch(Exception e) {
+        }
+        catch (Exception e)
+        {
             // TODO log error
             return false;
         }
@@ -85,7 +85,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
             // TODO log error
             return false;
         }
-        return true;   
+        return true;
     }
 
 

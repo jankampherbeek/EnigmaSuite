@@ -17,15 +17,15 @@ public static class InputSupportServices
     public static void RegisterInputSupportServices(this ServiceCollection serviceCollection)
     {
         serviceCollection.AddSingleton<IDateInputParser, DateInputParser>();
-        serviceCollection.AddSingleton<IDateValidator, DateValidator> ();
-        serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions> ();
+        serviceCollection.AddSingleton<IDateValidator, DateValidator>();
+        serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions>();
         serviceCollection.AddSingleton<IGeoLatInputParser, GeoLatInputParser>();
-        serviceCollection.AddSingleton<IGeoLatValidator, GeoLatValidator> ();
+        serviceCollection.AddSingleton<IGeoLatValidator, GeoLatValidator>();
         serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();
         serviceCollection.AddSingleton<IGeoLongValidator, GeoLongValidator>();
-        serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions> ();
+        serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
-        serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter> ();
+        serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();
     }
 }

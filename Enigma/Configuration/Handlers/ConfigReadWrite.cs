@@ -2,10 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Configuration;
 using Enigma.Configuration.Parsers;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Persistency.FileHandling;
 using Enigma.Persistency.Interfaces;
 
 namespace Enigma.Configuration.Handlers;
@@ -75,7 +74,7 @@ public class ConfigReader : IConfigReader
     public ConfigReader(ITextFileReader textFileReader, IAstroConfigParser configParser)
     {
         _textFileReader = textFileReader;
-        _configParser= configParser;
+        _configParser = configParser;
     }
     public AstroConfig ReadConfig()
     {

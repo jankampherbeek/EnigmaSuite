@@ -12,7 +12,7 @@ namespace Enigma.Frontend.Charts.Graphics;
 
 
 
-public class ChartsWheelCircles: IChartsWheelCircles
+public class ChartsWheelCircles : IChartsWheelCircles
 {
 
     public List<Ellipse> CreateCircles(ChartsWheelMetrics metrics)

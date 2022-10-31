@@ -24,7 +24,8 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
     public List<GraphicSolSysPointPositions> CreateSortedList(List<FullSolSysPointPos> solSysPointPositions, double longitudeAsc, double minDistance)
     {
         List<GraphicSolSysPointPositions> graphPositions = CreateGraphicPositions(solSysPointPositions, longitudeAsc);
-        graphPositions.Sort(delegate (GraphicSolSysPointPositions pos1, GraphicSolSysPointPositions pos2) {
+        graphPositions.Sort(delegate (GraphicSolSysPointPositions pos1, GraphicSolSysPointPositions pos2)
+        {
             return pos1.MundanePos.CompareTo(pos2.MundanePos);
         });
         double actDistance = 0.0;
@@ -40,7 +41,7 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
                     if (pos.PlotPos >= 360.0) pos.PlotPos -= 360.0;
                 }
             }
-           
+
             lastPos = pos;
         }
         return graphPositions;
