@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Persistency", "Enigm
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Configuration", "Configuration\Enigma.Configuration.csproj", "{4FC41900-8060-4D21-9920-08C3B06CE0F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Research", "Research\Enigma.Research.csproj", "{8B831D15-0A7A-49D2-8659-0F738E349F68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Research", "Research\Enigma.Research.csproj", "{8B831D15-0A7A-49D2-8659-0F738E349F68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Api", "Enigma.Api\Enigma.Api.csproj", "{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +71,10 @@ Global
 		{8B831D15-0A7A-49D2-8659-0F738E349F68}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B831D15-0A7A-49D2-8659-0F738E349F68}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B831D15-0A7A-49D2-8659-0F738E349F68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

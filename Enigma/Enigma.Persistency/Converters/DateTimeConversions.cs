@@ -15,11 +15,18 @@ namespace Enigma.Persistency.Converters;
 
 public class DateCheckedConversion : IDateCheckedConversion
 {
-    private readonly ICheckDateTimeApi _checkDateTimeApi;
+ //   private readonly ICheckDateTimeApi _checkDateTimeApi;
 
-    public DateCheckedConversion(ICheckDateTimeApi checkDateTimeApi)
+//    public DateCheckedConversion(ICheckDateTimeApi checkDateTimeApi)
+//    {
+//        _checkDateTimeApi = checkDateTimeApi;
+//    }
+
+    private readonly ICheckDateTimeHandler _checkDateTimeHandler;
+
+    public DateCheckedConversion(ICheckDateTimeHandler checkDateTimeHandler)
     {
-        _checkDateTimeApi = checkDateTimeApi;
+        _checkDateTimeHandler = checkDateTimeHandler;
     }
 
     public Tuple<PersistableDate, bool> StandardCsvToDate(string csvDate, string csvCalendar)     
@@ -53,7 +60,8 @@ public class DateCheckedConversion : IDateCheckedConversion
         Calendars calendar = (cal == "J") ? Calendars.Julian : Calendars.Gregorian;
         SimpleDateTime dateTime = new(year, month, day, ut, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new(dateTime);
-        CheckDateTimeResponse responseValidated = _checkDateTimeApi.CheckDateTime(checkDateTimeRequest);
+        //       CheckDateTimeResponse responseValidated = _checkDateTimeApi.CheckDateTime(checkDateTimeRequest);
+        CheckDateTimeResponse responseValidated = _checkDateTimeHandler.CheckDateTime(checkDateTimeRequest);
         return (responseValidated.Validated && responseValidated.Success);
     }
 

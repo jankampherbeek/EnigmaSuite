@@ -2,13 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Api.Astron;
+using Enigma.Api.Astron;
+using Enigma.Api.Interfaces;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.Api.Astron;
+namespace Enigma.Test.Api.Astron;
 
 
 [TestFixture]

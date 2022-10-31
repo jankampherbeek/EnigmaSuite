@@ -4,12 +4,13 @@
 
 using Enigma.Persistency.Converters;
 using Moq;
-using Enigma.Core.Calc.Interfaces;
 using Enigma.Persistency.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.RequestResponse;
+using Enigma.Api.Interfaces;
+using Enigma.Core.Calc.Interfaces;
 
 namespace Enigma.Test.Persistency.Converters;
 
@@ -34,10 +35,10 @@ public class TestDateCheckedConversion
         bool validated = true;
         bool success = true;
         string errorText = "";
-        var _mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        _mockCheckDateTimeApi.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
+        var _mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        _mockCheckDateTimeHandler.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
 
-        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeApi.Object);
+        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeHandler.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.Multiple(() =>
         {
@@ -63,10 +64,10 @@ public class TestDateCheckedConversion
         bool validated = false;
         bool success = true;
         string errorText = "";
-        var _mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        _mockCheckDateTimeApi.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
+        var _mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        _mockCheckDateTimeHandler.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
 
-        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeApi.Object);
+        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeHandler.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }
@@ -86,10 +87,10 @@ public class TestDateCheckedConversion
         bool validated = true;                       // error should be handled before CheckDateTimeApi is called.
         bool success = true;
         string errorText = "";
-        var _mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        _mockCheckDateTimeApi.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
+        var _mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        _mockCheckDateTimeHandler.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
 
-        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeApi.Object);
+        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeHandler.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }

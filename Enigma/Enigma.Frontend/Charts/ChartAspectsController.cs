@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Analysis.Api;
-using Enigma.Core.Analysis.Interfaces;
+using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
+using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.State;
 using Enigma.Frontend.Support;

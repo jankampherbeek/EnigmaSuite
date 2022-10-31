@@ -2,9 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+// Interfaces for API's that support astronomical calculations.
+
+
 using Enigma.Domain.RequestResponse;
 
-namespace Enigma.Core.Calc.Interfaces;
+namespace Enigma.Api.Interfaces;
 
 /// <summary>API for calculation of a fully defined chart.</summary>
 public interface IChartAllPositionsApi

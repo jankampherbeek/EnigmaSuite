@@ -5,23 +5,10 @@
 using Ardalis.GuardClauses;
 using Enigma.Core.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Charts;
+using Enigma.Domain.RequestResponse;
+using Enigma.Api.Interfaces;
 
-namespace Enigma.Core.Analysis.Api;
-
-
-public record AspectRequest
-{
-    public CalculatedChart CalcChart { get; }
-
-    public AspectRequest (CalculatedChart calculatedChart)
-    {
-        CalcChart = calculatedChart;
-    }
-}
-
-
-
+namespace Enigma.Api.Analysis;
 
 
 public class AspectsApi : IAspectsApi

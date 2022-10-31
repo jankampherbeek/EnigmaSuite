@@ -13,11 +13,18 @@ namespace Enigma.InputSupport.Validations;
 
 public class DateValidator : IDateValidator
 {
-    private readonly ICheckDateTimeApi _checkDateTimeApi;
+ //   private readonly ICheckDateTimeApi _checkDateTimeApi;
 
-    public DateValidator(ICheckDateTimeApi checkDateTimeApi)
+//    public DateValidator(ICheckDateTimeApi checkDateTimeApi)
+//    {
+//        _checkDateTimeApi = checkDateTimeApi;
+//    }
+
+    private readonly ICheckDateTimeHandler _checkDateTimeHandler;
+
+    public DateValidator(ICheckDateTimeHandler dateTimeHandler)
     {
-        _checkDateTimeApi = checkDateTimeApi;
+        _checkDateTimeHandler = dateTimeHandler;
     }
 
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
@@ -56,7 +63,8 @@ public class DateValidator : IDateValidator
         if (yearCount == YearCounts.BCE) dateValues[0] = -(dateValues[0]) + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new(simpleDateTime);
-        CheckDateTimeResponse responseValidated = _checkDateTimeApi.CheckDateTime(checkDateTimeRequest);
+        // CheckDateTimeResponse responseValidated = _checkDateTimeApi.CheckDateTime(checkDateTimeRequest);
+        CheckDateTimeResponse responseValidated = _checkDateTimeHandler.CheckDateTime(checkDateTimeRequest);
         return responseValidated.Validated;
     }
 

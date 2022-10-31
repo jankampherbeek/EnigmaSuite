@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Interfaces;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
@@ -23,9 +24,9 @@ public class TestDateValidator
         int day = 23;
         int[] DateInput = new int[] { year, month, day };
         CheckDateTimeResponse response = new(true, true, "");
-        var mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
-        var dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
+        var mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
+        var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.True);
         Assert.NotNull(fullDate);
@@ -43,9 +44,9 @@ public class TestDateValidator
         int day = 23;
         int[] DateInput = new int[] { year, month, day };
         CheckDateTimeResponse response = new(false, true, "");
-        var mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
-        var dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
+        var mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
+        var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.False);
     }
@@ -58,9 +59,9 @@ public class TestDateValidator
         int day = -1;
         int[] DateInput = new int[] { year, month, day };
         CheckDateTimeResponse response = new(false, true, "");
-        var mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
-        var dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
+        var mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
+        var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.False);
     }
@@ -74,9 +75,9 @@ public class TestDateValidator
         int day = 29;
         int[] DateInput = new int[] { year, month, day };
         CheckDateTimeResponse response = new(true, true, "");
-        var mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
-        var dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
+        var mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
+        var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.True);
         Assert.NotNull(fullDate);
@@ -94,9 +95,9 @@ public class TestDateValidator
         int day = 29;
         int[] DateInput = new int[] { year, month, day };
         CheckDateTimeResponse response = new(false, true, "");
-        var mockCheckDateTimeApi = new Mock<ICheckDateTimeApi>();
-        mockCheckDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
-        var dateValidator = new DateValidator(mockCheckDateTimeApi.Object);
+        var mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
+        mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
+        var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.False);
     }

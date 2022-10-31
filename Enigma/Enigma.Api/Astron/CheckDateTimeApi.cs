@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
+using Enigma.Api.Interfaces;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.RequestResponse;
 
@@ -10,18 +11,17 @@ namespace Enigma.Core.Calc.Api.DateTime;
 
 
 /// <inheritdoc/>
-public class JulianDayApi : IJulianDayApi
+public class CheckDateTimeApi : ICheckDateTimeApi
 {
-    private readonly IJulDayHandler _julDayHandler;
+    private readonly ICheckDateTimeHandler _checkDateTimeHandler;
 
-    public JulianDayApi(IJulDayHandler julDayHandler) => _julDayHandler = julDayHandler;
+    public CheckDateTimeApi(ICheckDateTimeHandler checkDateTimeHandler) => _checkDateTimeHandler = checkDateTimeHandler;
 
-
-    public JulianDayResponse getJulianDay(JulianDayRequest request)
+    public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.DateTime);
-        return _julDayHandler.CalcJulDay(request);
+        return _checkDateTimeHandler.CheckDateTime(request);
     }
 
 }

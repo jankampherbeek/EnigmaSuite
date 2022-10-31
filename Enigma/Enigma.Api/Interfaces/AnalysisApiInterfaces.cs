@@ -5,11 +5,10 @@
 // Interfaces for API's that support analysises.
 
 
-
-using Enigma.Core.Analysis.Api;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.RequestResponse;
 
-namespace Enigma.Core.Analysis.Interfaces;
+namespace Enigma.Api.Interfaces;
 
 /// <summary>Api for the analysis of aspects.</summary>
 public interface IAspectsApi

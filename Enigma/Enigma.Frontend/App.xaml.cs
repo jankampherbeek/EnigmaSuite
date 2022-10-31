@@ -25,6 +25,7 @@ using Enigma.Frontend.Interfaces;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Charts;
+using Enigma.Api.Services;
 
 namespace Enigma.Frontend;
 
@@ -82,15 +83,9 @@ public partial class App : Application
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
         serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
         serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
-        
+
         // Handle services from other projects.
-        serviceCollection.RegisterCalculationServices();
-        serviceCollection.RegisterDomainServices();
-        serviceCollection.RegisterInputSupportServices();
-        serviceCollection.RegisterAnalysisServices();
-        serviceCollection.RegisterPersistencyServices();
-        serviceCollection.RegisterConfigurationServices();
-        serviceCollection.RegisterResearchServices();
+        serviceCollection.RegisterApiServices();
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 

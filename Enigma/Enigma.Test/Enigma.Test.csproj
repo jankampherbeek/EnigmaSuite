@@ -9,6 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Core\Analysis\Dto\**" />
+    <EmbeddedResource Remove="Core\Analysis\Dto\**" />
+    <None Remove="Core\Analysis\Dto\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.GuardClauses" Version="4.0.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
@@ -32,7 +38,6 @@
   <ItemGroup>
     <Folder Include="Configuration\Handlers\" />
     <Folder Include="Configuration\Parsers\" />
-    <Folder Include="Core\Analysis\Dto\" />
   </ItemGroup>
 
 </Project>

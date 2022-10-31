@@ -7,12 +7,12 @@ using Enigma.Domain.Constants;
 using Enigma.Frontend.State;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using Enigma.Core.Calc.Interfaces;
 using Enigma.Frontend.Interfaces;
 using Enigma.InputSupport.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
+using Enigma.Api.Interfaces;
 
 namespace Enigma.Frontend.Charts;
 

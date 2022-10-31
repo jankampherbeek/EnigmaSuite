@@ -3,10 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
+using Enigma.Api.Interfaces;
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.RequestResponse;
 
-namespace Enigma.Core.Calc.Api.Astron;
+namespace Enigma.Api.Astron;
 
 
 

@@ -1,0 +1,44 @@
+﻿// Jan Kampherbeek, (c) 2022.
+// Enigma is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Api.Analysis;
+using Enigma.Api.Astron;
+using Enigma.Api.Interfaces;
+using Enigma.Configuration.Services;
+using Enigma.Core.Analysis.Services;
+using Enigma.Core.Calc.Api.DateTime;
+using Enigma.Core.Calc.Services;
+using Enigma.Domain.Services;
+using Enigma.InputSupport.Services;
+using Enigma.Persistency.Services;
+using Enigma.Research.Services;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace
+    Enigma.Api.Services;
+
+public static class ApiServices
+{
+    public static void RegisterApiServices(this ServiceCollection serviceCollection)
+    {
+        serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
+        serviceCollection.AddSingleton<ICalcDateTimeApi, CalcDateTimeApi>();
+        serviceCollection.AddSingleton<IChartAllPositionsApi, ChartAllPositionsApi>();
+        serviceCollection.AddSingleton<ICheckDateTimeApi, CheckDateTimeApi>();
+        serviceCollection.AddSingleton<ICoordinateConversionApi, CoordinateConversionApi>();
+        serviceCollection.AddSingleton<IHorizontalApi, HorizontalApi>();
+        serviceCollection.AddSingleton<IHousesApi, HousesApi>();
+        serviceCollection.AddSingleton<IJulianDayApi, JulianDayApi>();
+        serviceCollection.AddSingleton<IObliqueLongitudeApi, ObliqueLongitudeApi>();
+        serviceCollection.AddSingleton<IObliquityApi, ObliquityApi>();
+
+        serviceCollection.RegisterCalculationServices();
+        serviceCollection.RegisterDomainServices();
+        serviceCollection.RegisterInputSupportServices();
+        serviceCollection.RegisterAnalysisServices();
+        serviceCollection.RegisterPersistencyServices();
+        serviceCollection.RegisterConfigurationServices();
+        serviceCollection.RegisterResearchServices();
+    }
+}
