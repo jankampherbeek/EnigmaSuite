@@ -5,7 +5,6 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Locational;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.Charts;

@@ -4,7 +4,6 @@
 
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Locational;
 using Enigma.Frontend.State;
 using System.Collections.Generic;
 using System.Collections.Immutable;

@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Messages;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Persistency.Interfaces;
 

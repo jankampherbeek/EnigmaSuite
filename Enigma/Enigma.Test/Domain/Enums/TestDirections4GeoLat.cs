@@ -2,9 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Locational;
+using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 
-namespace Enigma.Test.Domain.Locational;
+namespace Enigma.Test.Domain.Enums;
 
 
 [TestFixture]

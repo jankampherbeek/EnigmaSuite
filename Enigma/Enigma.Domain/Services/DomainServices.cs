@@ -7,7 +7,6 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Locational;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Domain.Services;

@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Locational;
+using Enigma.Domain.Enums;
 using Enigma.InputSupport.Conversions;
 using Enigma.InputSupport.InputParsers;
 using Enigma.InputSupport.Interfaces;

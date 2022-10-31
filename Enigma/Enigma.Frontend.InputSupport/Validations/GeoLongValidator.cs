@@ -4,7 +4,7 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Locational;
+using Enigma.Domain.Enums;
 using Enigma.InputSupport.Interfaces;
 
 namespace Enigma.InputSupport.Validations;

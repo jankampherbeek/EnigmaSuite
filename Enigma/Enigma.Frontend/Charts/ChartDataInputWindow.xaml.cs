@@ -4,7 +4,6 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Locational;
 using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;

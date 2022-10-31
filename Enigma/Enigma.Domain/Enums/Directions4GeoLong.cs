@@ -2,7 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.Locational;
+using Enigma.Domain.Interfaces;
+
+namespace Enigma.Domain.Enums;
 
 
 /// <summary>Enum with directions for geographic longitude.</summary>
@@ -29,24 +31,7 @@ public record Directions4GeoLongDetails
     }
 }
 
-/// <summary>Specifications for the Direction of geographic longitude.</summary>
-public interface IDirections4GeoLongSpecifications
-{
-    /// <param name="direction">The direction, from the enum Directions4GeoLong.</param>
-    /// <returns>A record with the specifications.</returns>
-    public Directions4GeoLongDetails DetailsForDirection(Directions4GeoLong direction);
 
-    ///<returns>Details for all items in enum Directions4GeoLong.</returns>
-    public List<Directions4GeoLongDetails> AllDirectionDetails();
-
-    /// <summary>
-    /// Returns a value from the enum Directions4GeoLong that corresponds with an index.
-    /// </summary>
-    /// <param name="directionIndex">The index for the requested item from Directions4GeoLong. 
-    /// Throws an exception if no direction for the given index does exist.</param>
-    /// <returns>Instance from enum Directions4GeoLong that corresponds with the given index.</returns>
-    public Directions4GeoLong DirectionForIndex(int directionIndex);
-}
 
 ///<inheritdoc/>
 public class Directions4GeoLongSpecifications : IDirections4GeoLongSpecifications

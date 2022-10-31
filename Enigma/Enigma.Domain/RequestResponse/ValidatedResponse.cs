@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.ReqResp;
+namespace Enigma.Domain.RequestResponse;
 
 /// <summary>
 /// Parent for responses that have a validation part: an indication if the calculation was successfull and a text that explains any error(s).

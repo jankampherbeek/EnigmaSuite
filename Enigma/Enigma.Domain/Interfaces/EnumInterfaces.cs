@@ -266,3 +266,41 @@ public interface IZodiacTypeSpecifications
 
 }
 
+/// <summary>Specifications for the Direction of geographic latitude.</summary>
+public interface IDirections4GeoLatSpecifications
+{
+    /// <param name="direction">The direction, from the enum Directions4GeoLat.</param>
+    /// <returns>A record with the specifications.</returns>
+    public Directions4GeoLatDetails DetailsForDirection(Directions4GeoLat direction);
+
+    ///<returns>Details for all items in enum Directions4GeoLat.</returns>
+    public List<Directions4GeoLatDetails> AllDirectionDetails();
+
+    /// <summary>
+    /// Returns a value from the enum Directions4GeoLat that corresponds with an index.
+    /// </summary>
+    /// <param name="directionIndex">The index for the requested item from Directions4GeoLat. 
+    /// Throws an exception if no direction for the given index does exist.</param>
+    /// <returns>Instance from enum Directions4GeoLat that corresponds with the given index.</returns>
+    public Directions4GeoLat DirectionForIndex(int directionIndex);
+}
+
+/// <summary>Specifications for the Direction of geographic longitude.</summary>
+public interface IDirections4GeoLongSpecifications
+{
+    /// <param name="direction">The direction, from the enum Directions4GeoLong.</param>
+    /// <returns>A record with the specifications.</returns>
+    public Directions4GeoLongDetails DetailsForDirection(Directions4GeoLong direction);
+
+    ///<returns>Details for all items in enum Directions4GeoLong.</returns>
+    public List<Directions4GeoLongDetails> AllDirectionDetails();
+
+    /// <summary>
+    /// Returns a value from the enum Directions4GeoLong that corresponds with an index.
+    /// </summary>
+    /// <param name="directionIndex">The index for the requested item from Directions4GeoLong. 
+    /// Throws an exception if no direction for the given index does exist.</param>
+    /// <returns>Instance from enum Directions4GeoLong that corresponds with the given index.</returns>
+    public Directions4GeoLong DirectionForIndex(int directionIndex);
+}
+

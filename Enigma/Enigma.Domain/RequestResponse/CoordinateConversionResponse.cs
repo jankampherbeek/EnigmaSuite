@@ -4,7 +4,6 @@
 
 
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.ReqResp;
 
 namespace Enigma.Domain.RequestResponse;
 

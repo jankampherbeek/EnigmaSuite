@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Domain.Messages;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.RequestResponse;
 using Enigma.Persistency.Interfaces;
 using Newtonsoft.Json;
 
