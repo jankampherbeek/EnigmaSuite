@@ -47,7 +47,7 @@ public class TestCoordinateConversionHandler
         CoordinateConversionResponse response = handler.HandleConversion(request);
         Assert.Multiple(() =>
         {
-            Assert.IsFalse(response.Success);
+            Assert.That(response.Success, Is.False);
             Assert.That(response.ErrorText, Is.EqualTo(_errorText));
         });
     }

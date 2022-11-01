@@ -39,7 +39,7 @@ internal class DimCircle
     {
         Ellipse circle = new()
         {
-            Margin = new Thickness(((_defaultCanvasSize / 2) * _sizeFactor) - circleRadius),
+            Margin = new Thickness((_defaultCanvasSize / 2 * _sizeFactor) - circleRadius),
             Width = circleRadius * 2,
             Height = circleRadius * 2,
             StrokeThickness = strokeThickness,

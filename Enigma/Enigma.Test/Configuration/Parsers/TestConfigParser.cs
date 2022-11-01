@@ -27,8 +27,11 @@ public class TestConfigParser
         AstroConfig config = _defaultConfig.CreateDefaultConfig();
         string jsonText = _parser.Marshall(config);
         AstroConfig parsedConfig = _parser.UnMarshall(jsonText);
-        Assert.That(parsedConfig, Is.Not.Null);
-        Assert.That(parsedConfig.CelPoints, Is.EquivalentTo(config.CelPoints));
-        Assert.That(parsedConfig.Ayanamsha, Is.EqualTo(config.Ayanamsha));
+        Assert.Multiple(() =>
+        {
+            Assert.That(parsedConfig, Is.Not.Null);
+            Assert.That(parsedConfig.CelPoints, Is.EquivalentTo(config.CelPoints));
+            Assert.That(parsedConfig.Ayanamsha, Is.EqualTo(config.Ayanamsha));
+        });
     }
 }

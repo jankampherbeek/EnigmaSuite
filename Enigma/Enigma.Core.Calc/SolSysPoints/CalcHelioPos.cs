@@ -27,7 +27,7 @@ public class CalcHelioPos : ICalcHelioPos
         _factorT = factorT;
         _orbitDefinition = orbitDefinition;
         double meanAnomaly1 = MathExtra.DegToRad(ProcessTermsForFractionT(factorT, orbitDefinition.MeanAnomaly));
-        if (meanAnomaly1 < 0.0) meanAnomaly1 += (Math.PI * 2);
+        if (meanAnomaly1 < 0.0) meanAnomaly1 += Math.PI * 2;
         _eccentricity = ProcessTermsForFractionT(factorT, orbitDefinition.Eccentricity);
         _eccAnomaly = EccAnomalyFromKeplerEquation(meanAnomaly1, _eccentricity);
         _trueAnomalyPol = CalcPolarTrueAnomaly();
@@ -40,7 +40,7 @@ public class CalcHelioPos : ICalcHelioPos
         int count;
         double eccAnomaly = meanAnomaly;
         for (count = 1; count < 6; count++)
-            eccAnomaly = meanAnomaly + eccentricity * Math.Sin(eccAnomaly);
+            eccAnomaly = meanAnomaly + (eccentricity * Math.Sin(eccAnomaly));
         return eccAnomaly;
     }
 
@@ -48,7 +48,7 @@ public class CalcHelioPos : ICalcHelioPos
     private PolarCoordinates CalcPolarTrueAnomaly()
     {
         double xCoord = _orbitDefinition.SemiMajorAxis * (Math.Cos(_eccAnomaly) - _eccentricity);
-        double yCoord = _orbitDefinition.SemiMajorAxis * Math.Sin(_eccAnomaly) * Math.Sqrt(1 - _eccentricity * _eccentricity);
+        double yCoord = _orbitDefinition.SemiMajorAxis * Math.Sin(_eccAnomaly) * Math.Sqrt(1 - (_eccentricity * _eccentricity));
         double zCoord = 0.0;
         RectAngCoordinates anomalyVec = new(xCoord, yCoord, zCoord);
         return MathExtra.Rectangular2Polar(anomalyVec);
@@ -57,9 +57,9 @@ public class CalcHelioPos : ICalcHelioPos
     private static RectAngCoordinates CalcRectAngHelioCoordinates(double semiAxis, double inclination, double eccAnomaly, double eccentricity, double meanAnomaly, OrbitDefinition orbitDefinition)
     {
         double phiCoord = MathExtra.DegToRad(semiAxis);
-        if (phiCoord < 0.0) phiCoord += (Math.PI * 2);
+        if (phiCoord < 0.0) phiCoord += Math.PI * 2;
         double thetaCoord = Math.Atan(Math.Sin(phiCoord - meanAnomaly) * Math.Tan(inclination));
-        double rCoord = MathExtra.DegToRad(orbitDefinition.SemiMajorAxis) * (1 - eccentricity * Math.Cos(eccAnomaly));
+        double rCoord = MathExtra.DegToRad(orbitDefinition.SemiMajorAxis) * (1 - (eccentricity * Math.Cos(eccAnomaly)));
         PolarCoordinates helioPol = new(phiCoord, thetaCoord, rCoord);
         return MathExtra.Polar2Rectangular(helioPol);
     }
@@ -81,7 +81,7 @@ public class CalcHelioPos : ICalcHelioPos
 
     private static double ProcessTermsForFractionT(double fractionT, double[] elements)
     {
-        return elements[0] + elements[1] * fractionT + elements[2] * fractionT * fractionT;
+        return elements[0] + (elements[1] * fractionT) + (elements[2] * fractionT * fractionT);
     }
 
 }

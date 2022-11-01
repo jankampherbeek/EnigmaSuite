@@ -18,7 +18,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
     {
         double remaining = Math.Abs(position);
         int degrees = (int)position;
-        int nrOfSigns = 1 + degrees / 30;
+        int nrOfSigns = 1 + (degrees / 30);
         int degreesInSign = degrees - ((nrOfSigns - 1) * 30);
         remaining = Math.Abs(remaining - degrees);
         int minutes = (int)(remaining * 60.0);
@@ -30,7 +30,7 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
     {
         double remaining = position;
         int degrees = (int)position;
-        int nrOfSigns = 1 + degrees / 30;
+        int nrOfSigns = 1 + (degrees / 30);
         int degreesInSign = degrees - ((nrOfSigns - 1) * 30);
         remaining = Math.Abs(remaining - degrees);
         int minutes = (int)(remaining * 60.0);

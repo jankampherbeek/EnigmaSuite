@@ -41,6 +41,7 @@ public class TestCheckDateTimeApi
         Assert.That(_checkDateTimeResponse, Is.EqualTo(actualResponse));
     }
 
+    [Test]
     public void TestInvalidDate()
     {
         ICheckDateTimeApi api = new CheckDateTimeApi(CreateHandlerMockError());
@@ -48,6 +49,7 @@ public class TestCheckDateTimeApi
         Assert.That(_checkDateTimeResponseError, Is.EqualTo(actualResponse));
     }
 
+    [Test]
     public void TestRequestNull()
     {
         ICheckDateTimeApi api = new CheckDateTimeApi(CreateHandlerMock());

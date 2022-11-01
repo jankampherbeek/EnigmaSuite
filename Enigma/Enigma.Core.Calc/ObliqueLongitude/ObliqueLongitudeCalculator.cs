@@ -63,7 +63,7 @@ public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         double diff = longPl - longSp;
         if (diff < 0.0) diff += 360.0;
         if (diff >= 360.0) diff -= 360.0;
-        return (diff < 180.0);
+        return diff < 180.0;
     }
 
 }

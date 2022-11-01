@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Configuration\Enigma.Configuration.csproj" />
     <ProjectReference Include="..\Enigma.Core.Analysis\Enigma.Core.Analysis.csproj" />
     <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />

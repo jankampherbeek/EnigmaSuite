@@ -170,15 +170,15 @@ public class ControlDataCalendar : IControlDataCalendar
         List<int> months30 = new();
         months31.AddRange(months31Array);
         months30.AddRange(months30Array);
-        return (day < 29
-            || day == 29 && 2 != month
-            || day == 30 && months30.Contains(month)
-            || day == 31 && months31.Contains(month)
-            || IsLeapYear(year) && day < 30);
+        return day < 29
+            || (day == 29 && 2 != month)
+            || (day == 30 && months30.Contains(month))
+            || (day == 31 && months31.Contains(month))
+            || (IsLeapYear(year) && day < 30);
     }
 
     private static bool IsLeapYear(int year)
     {
-        return year % 400 == 0 || year % 100 != 0 && year % 4 == 0;
+        return year % 400 == 0 || (year % 100 != 0 && year % 4 == 0);
     }
 }

@@ -19,7 +19,7 @@ public class CoTransFacade : ICoTransFacade
     /// <remarks>Throws SwissEphException if the SE returns an error.</remarks>
     public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity)
     {
-        double negativeObliquity = -(Math.Abs(obliquity));
+        double negativeObliquity = -Math.Abs(obliquity);
         double placeHolderForDistance = 1.0;
         double[] allEclipticCoordinates = new double[] { eclipticCoordinates[0], eclipticCoordinates[1], placeHolderForDistance };
         double[] equatorialResults = new double[3];

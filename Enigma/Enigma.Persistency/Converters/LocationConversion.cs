@@ -23,7 +23,7 @@ public class LocationCheckedConversion : ILocationCheckedConversion
     }
 
 
-    private Tuple<double, bool> StandardCsvToValue(string csvLocation, string dirPlus, string dirMin, int degreeLimit)
+    private static Tuple<double, bool> StandardCsvToValue(string csvLocation, string dirPlus, string dirMin, int degreeLimit)
     {
         double calculatedValue = 0.0;
         bool noErrors = true;
@@ -55,7 +55,7 @@ public class LocationCheckedConversion : ILocationCheckedConversion
         return new Tuple<double, bool>(calculatedValue, noErrors);
     }
 
-    private Tuple<double, bool> SexagTextsToDouble(string degreeText, string minuteText, string secondText)
+    private static Tuple<double, bool> SexagTextsToDouble(string degreeText, string minuteText, string secondText)
     {
         bool noErrors = true;
         bool result;
@@ -66,8 +66,8 @@ public class LocationCheckedConversion : ILocationCheckedConversion
         result = int.TryParse(secondText, out int seconds);
         if (!result || (seconds < 0) || (seconds > 59)) noErrors = false;
         return new Tuple<double, bool>((double)degrees
-            + (double)minutes / EnigmaConstants.MINUTES_PER_HOUR_DEGREE
-            + (double)seconds / EnigmaConstants.SECONDS_PER_HOUR_DEGREE,
+            + ((double)minutes / EnigmaConstants.MINUTES_PER_HOUR_DEGREE)
+            + ((double)seconds / EnigmaConstants.SECONDS_PER_HOUR_DEGREE),
             noErrors);
     }
 

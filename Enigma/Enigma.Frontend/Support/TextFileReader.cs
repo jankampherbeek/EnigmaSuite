@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Interfaces;
+using Serilog;
 using System.Collections.Generic;
 using System.IO;
 
@@ -30,13 +31,13 @@ public class TextFileReader : ITextFileReaderFE
             _lines = File.ReadLines(fileName);
             return _lines;
         }
-        catch (FileNotFoundException)
+        catch (FileNotFoundException e)
         {
-            // todo log exception
+            Log.Error("Could not read file {fileName}, a FileNotFoundException was thrown : {e}", fileName, e);
         }
-        catch (IOException)
+        catch (IOException e)
         {
-            // todo log exception
+            Log.Error("An IOException was thrown while reading file {fileName}. The exception msg was : {e}", fileName, e);
         }
         return _lines;
 

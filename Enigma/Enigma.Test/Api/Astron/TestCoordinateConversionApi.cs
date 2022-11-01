@@ -26,7 +26,6 @@ public class TestCoordinateConversionApi
     public void SetUp()
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
-        EclipticCoordinates _eclCoordinates = new(111.1, 2.2);
         var _mockCoordConvHandler = new Mock<ICoordinateConversionHandler>();
         _mockCoordConvHandler.Setup(p => p.HandleConversion(_coordConvRequest)).Returns(new CoordinateConversionResponse(_expectedEqCoord, _expectedSuccess, _expectedErrorText));
         _api = new CoordinateConversionApi(_mockCoordConvHandler.Object);
@@ -37,9 +36,12 @@ public class TestCoordinateConversionApi
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
         CoordinateConversionResponse response = _api.GetEquatorialFromEcliptic(_coordConvRequest);
-        Assert.That(response.EquatorialCoord.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
-        Assert.That(response.Success, Is.True);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.EquatorialCoord.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]

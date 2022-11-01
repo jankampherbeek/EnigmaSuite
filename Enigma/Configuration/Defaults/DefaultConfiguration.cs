@@ -20,7 +20,7 @@ public class DefaultConfiguration : IDefaultConfiguration
         return CombineDefaultDetails();
     }
 
-    private AstroConfig CombineDefaultDetails()
+    private static AstroConfig CombineDefaultDetails()
     {
         HouseSystems houseSystem = HouseSystems.Placidus;
         Ayanamshas ayanamsha = Ayanamshas.None;
@@ -38,7 +38,7 @@ public class DefaultConfiguration : IDefaultConfiguration
             celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, baseOrbAspects, baseOrbMidpoints);
     }
 
-    private List<CelPointSpecs> CreateCelPoints()
+    private static List<CelPointSpecs> CreateCelPoints()
     {
         List<CelPointSpecs> celPointSpecs = new()
         {
@@ -98,7 +98,7 @@ public class DefaultConfiguration : IDefaultConfiguration
         return celPointSpecs;
     }
 
-    private List<AspectSpecs> CreateAspects()
+    private static List<AspectSpecs> CreateAspects()
     {
         List<AspectSpecs> aspectSpecs = new()
         {
@@ -128,7 +128,7 @@ public class DefaultConfiguration : IDefaultConfiguration
         return aspectSpecs;
     }
 
-    private List<MundanePointSpecs> CreateMundanePoints()
+    private static List<MundanePointSpecs> CreateMundanePoints()
     {
         List<MundanePointSpecs> mundanePointSpecs = new()
         {
@@ -140,7 +140,7 @@ public class DefaultConfiguration : IDefaultConfiguration
         return mundanePointSpecs;
     }
 
-    private List<ArabicPointSpecs> CreateArabicPoints()
+    private static List<ArabicPointSpecs> CreateArabicPoints()
     {
         List<ArabicPointSpecs> arabicPointSpecs = new()
         {

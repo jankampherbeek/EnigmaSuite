@@ -27,19 +27,19 @@ public class TestJulianDayApi
         Assert.That(_jdResponse, Is.EqualTo(actualResponse));
     }
 
+    [Test]
     public void TestRequestNull()
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
         JulianDayRequest? errorRequest = null;
-#pragma warning disable CS8604 // Possible null reference argument.
         Assert.That(() => api.GetJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
-#pragma warning restore CS8604 // Possible null reference argument.
     }
 
+    [Test]
     public void TestRequestDateTimeNull()
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
-        JulianDayRequest errorRequest = new(null);
+        JulianDayRequest errorRequest = null;
         Assert.That(() => api.GetJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

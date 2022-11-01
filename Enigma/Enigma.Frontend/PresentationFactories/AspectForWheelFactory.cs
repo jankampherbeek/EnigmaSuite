@@ -21,7 +21,7 @@ public class AspectForWheelFactory : IAspectForWheelFactory
         List<DrawableMundaneAspect> drawables = new();
         foreach (var effAspect in aspects)
         {
-            double exactness = 100 - ((effAspect.ActualOrb / effAspect.Orb) * 100);
+            double exactness = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);
             drawables.Add(new DrawableMundaneAspect(effAspect.MundanePoint, effAspect.SolSysPoint2, exactness, effAspect.EffAspectDetails.Aspect));
         }
         return drawables;
@@ -33,7 +33,7 @@ public class AspectForWheelFactory : IAspectForWheelFactory
         List<DrawableSolSysPointAspect> drawables = new();
         foreach (var effAspect in aspects)
         {
-            double exactness = 100 - ((effAspect.ActualOrb / effAspect.Orb) * 100);
+            double exactness = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);
             if (effAspect.SolSysPoint1 != null)
             {
                 drawables.Add(new DrawableSolSysPointAspect((SolarSystemPoints)effAspect.SolSysPoint1, effAspect.SolSysPoint2, exactness, effAspect.EffAspectDetails.Aspect));

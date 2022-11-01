@@ -55,7 +55,7 @@ public class DateCheckedConversion : IDateCheckedConversion
         SimpleDateTime dateTime = new(year, month, day, ut, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new(dateTime);
         CheckDateTimeResponse responseValidated = _checkDateTimeHandler.CheckDateTime(checkDateTimeRequest);
-        return (responseValidated.Validated && responseValidated.Success);
+        return responseValidated.Validated && responseValidated.Success;
     }
 
 }

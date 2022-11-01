@@ -47,4 +47,6 @@ public static class ErrorCodes
     public const int ERR_RESEARCH_CANNOT_PARSE_PROJECT_2_JSON = 1016;
     /// <summary>Error: could not write JSON for project to file.</summary>
     public const int ERR_RESEARCH_CANNOT_WRITE_JSON_4_PROJECT = 1017;
+    /// <summary>Error: could not copy datafile to project.</summary>
+    public const int ERR_RESEARCH_CANNOT_COPY_DATAFILE = 1018;
 }

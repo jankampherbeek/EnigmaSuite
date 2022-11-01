@@ -27,13 +27,15 @@ public class TestDateValidator
         mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
         var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
-        Assert.That(result, Is.True);
-        Assert.NotNull(fullDate);
-        Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
-        Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
-        Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(fullDate, Is.Not.Null);
+            Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
+            Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
+            Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+        });
     }
-
 
     [Test]
     public void TestMonthTooLarge()
@@ -78,13 +80,15 @@ public class TestDateValidator
         mockCheckDateTimeHandler.Setup(x => x.CheckDateTime(It.IsAny<CheckDateTimeRequest>())).Returns(response);
         var dateValidator = new DateValidator(mockCheckDateTimeHandler.Object);
         bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
-        Assert.That(result, Is.True);
-        Assert.NotNull(fullDate);
-        Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
-        Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
-        Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.True);
+            Assert.That(fullDate, Is.Not.Null);
+            Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
+            Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
+            Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+        });
     }
-
 
     [Test]
     public void TestLeapYearFalse()

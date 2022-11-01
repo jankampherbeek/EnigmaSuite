@@ -19,6 +19,7 @@ using Enigma.Frontend.ResearchProjects;
 using Enigma.Frontend.Settings;
 using Enigma.Frontend.Support;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System.Windows;
 
 namespace Enigma.Frontend;
@@ -31,10 +32,12 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-
+        DefineLogging();
+        Log.Information("Enigma starting.");
         string pathToSeFiles = @"c:\sweph";                    // TODO make path to SE files configurable
         SeInitializer.SetEphePath(pathToSeFiles);
         HandleRegistrationForDI();
+        Log.Information("DI container constructed.");
     }
 
     protected void HandleRegistrationForDI()
@@ -83,6 +86,14 @@ public partial class App : Application
 
         ServiceProvider = serviceCollection.BuildServiceProvider(true);
 
+    }
+
+    public static void DefineLogging()
+    {
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File("logs\\my_log.log", rollingInterval: RollingInterval.Day)
+            .CreateLogger();
     }
 }
 

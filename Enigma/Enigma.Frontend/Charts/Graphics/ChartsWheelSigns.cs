@@ -35,7 +35,7 @@ public class ChartsWheelSigns : IChartsWheelSigns
         double hypothenusa2 = metrics.OuterSignRadius;
         for (int i = 0; i < 12; i++)
         {
-            angle = _rangeCheck.InRange360(i * 30 + offsetAsc) + 90.0;
+            angle = _rangeCheck.InRange360((i * 30) + offsetAsc) + 90.0;
             point1 = dimPoint.CreatePoint(angle, hypothenusa1);
             point2 = dimPoint.CreatePoint(angle, hypothenusa2);
             allSeparators.Add(dimLine.CreateLine(point1, point2, metrics.StrokeSize, Colors.SlateBlue, 1.0));
@@ -50,7 +50,7 @@ public class ChartsWheelSigns : IChartsWheelSigns
         double hypothenusa = metrics.SignGlyphRadius;
         double fontSize = metrics.SignGlyphSize;
         string[] glyphs = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
-        int indexFirstGlyph = (int)(longAscendant / 30.0 + 1);
+        int indexFirstGlyph = (int)((longAscendant / 30.0) + 1);
         int glyphIndex = indexFirstGlyph;
         DimPoint dimPoint = new(centerPoint);
         DimTextBlock dimTextBlock = new(metrics.GlyphsFontFamily, fontSize, 0.7, Colors.SlateBlue);
@@ -60,7 +60,7 @@ public class ChartsWheelSigns : IChartsWheelSigns
             if (glyphIndex > 11) glyphIndex = 0;
             double angle = _rangeCheck.InRange360((i * 30) + offsetAsc + 90.0 + 15.0);
             point1 = dimPoint.CreatePoint(angle, hypothenusa);
-            glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - fontSize / 3, point1.Y - fontSize / 1.8));
+            glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - (fontSize / 3), point1.Y - (fontSize / 1.8)));
             glyphIndex++;
         }
         return glyphList;

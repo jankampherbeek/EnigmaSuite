@@ -40,10 +40,14 @@ public class TestObliquityApi
     public void TestObliquityHappyFlow()
     {
         ObliquityResponse response = _obliquityApi.GetObliquity(_obliquityRequest);
-        Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
-        Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
-        Assert.IsTrue(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(_expectedErrorText));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
+            Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(_expectedErrorText));
+        });
+
     }
 
     [Test]

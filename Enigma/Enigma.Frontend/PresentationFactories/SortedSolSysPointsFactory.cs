@@ -37,7 +37,7 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
                 actDistance = pos.MundanePos - lastPos.PlotPos;
                 if (actDistance < minDistance)
                 {
-                    pos.PlotPos += (minDistance - actDistance);
+                    pos.PlotPos += minDistance - actDistance;
                     if (pos.PlotPos >= 360.0) pos.PlotPos -= 360.0;
                 }
             }

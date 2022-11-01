@@ -98,7 +98,7 @@ public class MainController
         _chartsWheel.Show();
         _chartsWheel.DrawChart();
     }
-    private void ShowPositions()
+    private static void ShowPositions()
     {
         ChartPositionsWindow chartPositionsWindow = new();
         chartPositionsWindow.Show();

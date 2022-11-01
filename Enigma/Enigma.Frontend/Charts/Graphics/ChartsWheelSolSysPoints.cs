@@ -55,8 +55,8 @@ public class ChartsWheelSolSysPoints : IChartsWheelSolSysPoints
                 FontSize = fontSize,
                 Foreground = new SolidColorBrush(metrics.SolSysPointColor)
             };
-            Canvas.SetLeft(glyph, point1.X - fontSize / 3);
-            Canvas.SetTop(glyph, point1.Y - fontSize / 1.8);
+            Canvas.SetLeft(glyph, point1.X - (fontSize / 3));
+            Canvas.SetTop(glyph, point1.Y - (fontSize / 1.8));
             glyphs.Add(glyph);
         }
         return glyphs;

@@ -94,7 +94,7 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out _);
         Assert.That(Result, Is.False);
     }
 
@@ -106,7 +106,7 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out _);
         Assert.That(Result, Is.False);
     }
 
@@ -118,7 +118,7 @@ public class TestGeoLatValidator
         int second = -11;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out _);
         Assert.That(Result, Is.False);
     }
 

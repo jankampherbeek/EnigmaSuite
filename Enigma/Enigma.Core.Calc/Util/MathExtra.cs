@@ -46,13 +46,13 @@ public static class MathExtra
     /// <summary>Convert radians to degrees.</summary>
     public static double RadToDeg(double radians)
     {
-        return (180 / Math.PI) * radians;
+        return 180 / Math.PI * radians;
     }
 
     /// <summary>Converts degrees to radians.</summary>
     public static double DegToRad(double degrees)
     {
-        return (Math.PI / 180) * degrees;
+        return Math.PI / 180 * degrees;
     }
 
 

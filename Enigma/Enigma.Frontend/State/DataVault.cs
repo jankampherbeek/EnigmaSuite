@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
+using Serilog;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.State;
@@ -47,7 +48,7 @@ public sealed class DataVault
         if (_lastChart != null) return _lastChart;
         else
         {
-            // todo log error
+            Log.Error("No chart available while using GetLastChart() in DataVault.");
             return null;
         }
     }

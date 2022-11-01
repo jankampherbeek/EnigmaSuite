@@ -7,7 +7,7 @@ public static class RangeUtil
 {
     public static double ValueToRange(double testValue, double lowerLimit, double upperLimit)
     {
-        if ((upperLimit <= lowerLimit))
+        if (upperLimit <= lowerLimit)
         {
             throw new ArgumentException("UpperRange: " + upperLimit + " <+ lowerLimit: " + lowerLimit);
         }

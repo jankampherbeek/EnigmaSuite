@@ -9,6 +9,7 @@ using Enigma.Domain.Research;
 using Enigma.Frontend.Interfaces;
 using Enigma.Persistency.Interfaces;
 using Enigma.Research.Interfaces;
+using Serilog;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -79,21 +80,20 @@ public class ProjectInputController
             noErrors = false;
             ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_MULTIPLICATION);
         }
-        // TODO check if datafilename exists
         if (noErrors)
         {
             ResearchProject project = new(ProjectName, ProjectIdentifier, ProjectDescription, DataFileName, ControlGroupType, multiplication);
             _projectCreationHandler.CreateProject(project, out int errorCode);
             if (errorCode != 0)
             {
-                MessageBox.Show("An error occurred");
                 noErrors = false;
-                // TODO handle errors
+                Log.Error("Error while creating project, Enigma errorcode: {errorCode}, project: {@project}", errorCode, project);
+                MessageBox.Show("An error occurred");         // TODO use RB
             }
             else
             {
-                MessageBox.Show("Project has been saved.");
-
+                Log.Information("Created project {projectName}", ProjectName);
+                MessageBox.Show("Project has been saved.");  // TODO use RB
             }
         }
         return noErrors;

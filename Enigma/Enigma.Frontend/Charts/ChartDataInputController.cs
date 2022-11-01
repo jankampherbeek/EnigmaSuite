@@ -11,6 +11,7 @@ using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Interfaces;
 using Enigma.Frontend.State;
 using Enigma.InputSupport.Interfaces;
+using Serilog;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -144,7 +145,7 @@ public class ChartDataInputController
             }
             else
             {
-                // TODO handle error conditions
+                Log.Error("");
                 return false;
             }
         }

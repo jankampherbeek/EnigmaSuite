@@ -54,7 +54,7 @@ public class DateValidator : IDateValidator
 
     private bool CheckCalendarRules(int[] dateValues, Calendars calendar, YearCounts yearCount)
     {
-        if (yearCount == YearCounts.BCE) dateValues[0] = -(dateValues[0]) + 1;
+        if (yearCount == YearCounts.BCE) dateValues[0] = -dateValues[0] + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new(simpleDateTime);
         CheckDateTimeResponse responseValidated = _checkDateTimeHandler.CheckDateTime(checkDateTimeRequest);

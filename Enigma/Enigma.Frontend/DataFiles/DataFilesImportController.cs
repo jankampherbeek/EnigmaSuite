@@ -5,7 +5,6 @@
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend;
 using Enigma.Frontend.Support;
 using Enigma.Persistency.Interfaces;
 using Microsoft.Extensions.DependencyInjection;

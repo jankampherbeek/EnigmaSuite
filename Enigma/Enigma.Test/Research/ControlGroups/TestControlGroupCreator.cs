@@ -24,43 +24,43 @@ public class TestControlDataCalendar
     [Test]
     public void TestHappyFlow()
     {
-        Assert.IsTrue(_cdCal.DayFitsInMonth(25, 10, 2022));
+        Assert.That(_cdCal.DayFitsInMonth(25, 10, 2022), Is.True);
     }
 
     [Test]
     public void TestDay31Correct()
     {
-        Assert.IsTrue(_cdCal.DayFitsInMonth(31, 10, 2022));
+        Assert.That(_cdCal.DayFitsInMonth(31, 10, 2022), Is.True);
     }
 
     [Test]
     public void TestDay31NotCorrect()
     {
-        Assert.IsFalse(_cdCal.DayFitsInMonth(31, 11, 2022));
+        Assert.That(_cdCal.DayFitsInMonth(31, 11, 2022), Is.False);
     }
 
     [Test]
     public void TestFebruaryNotCorrect()
     {
-        Assert.IsFalse(_cdCal.DayFitsInMonth(29, 02, 2022));
+        Assert.That(_cdCal.DayFitsInMonth(29, 02, 2022), Is.False);
     }
 
     [Test]
     public void TestLeapYear()
     {
-        Assert.IsTrue(_cdCal.DayFitsInMonth(29, 02, 2024));
+        Assert.That(_cdCal.DayFitsInMonth(29, 02, 2024), Is.True);
     }
 
     [Test]
     public void TestLeapYear400()
     {
-        Assert.IsTrue(_cdCal.DayFitsInMonth(29, 02, 2000));
+        Assert.That(_cdCal.DayFitsInMonth(29, 02, 2000), Is.True);
     }
 
     [Test]
     public void TestNoLeapYear100()
     {
-        Assert.IsFalse(_cdCal.DayFitsInMonth(29, 02, 1900));
+        Assert.That(_cdCal.DayFitsInMonth(29, 02, 1900), Is.False);
     }
 
 }
