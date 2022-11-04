@@ -4,6 +4,7 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Helpers.Interfaces;
+using Enigma.Domain.Configuration;
 
 namespace Enigma.Core.Handlers.Persistency;
 
@@ -18,8 +19,9 @@ public class DataNamesHandler: IDataNamesHandler
     }
 
     /// <inheritdoc/>
-    public List<string> GetExistingDataNames(string path)
+    public List<string> GetExistingDataNames()
     {
+        string path = ApplicationSettings.Instance.LocationDataFiles;
         return _foldersInfo.GetExistingFolderNames(path, false);
     }
 

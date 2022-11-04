@@ -47,8 +47,7 @@ public class ProjectInputController
 
     public List<PresentableDataName> GetDataNames()
     {
-        string path = @"c:\enigma_ar\data\";        // TODO release 0.2 replace hardcoded path to data with path from settings.
-        List<string> fullPathDataNames = _fileManagementApi.GetDataNames(path);
+        List<string> fullPathDataNames = _fileManagementApi.GetDataNames();
         return _dataNameForDataGridFactory.CreateDataNamesForDataGrid(fullPathDataNames);
     }
 

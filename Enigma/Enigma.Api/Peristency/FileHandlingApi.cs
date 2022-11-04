@@ -54,10 +54,9 @@ public class FileManagementApi: IFileManagementApi
     }
 
     /// <inheritdoc/>
-    public List<string> GetDataNames(string fullPath)
+    public List<string> GetDataNames()
     {
-        Guard.Against.NullOrEmpty(fullPath);
-        return _dataNamesHandler.GetExistingDataNames(fullPath);
+        return _dataNamesHandler.GetExistingDataNames();
     }
 }
 

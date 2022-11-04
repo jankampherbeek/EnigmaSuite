@@ -63,54 +63,6 @@ public class Csv2JsonConverter : ICsv2JsonConverter
         return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
     }
 
-
-
-    public ResultMessage Old_ConvertStandardCsvToJson(string dataName, string fullPathCsv, string fullPathJson)
-    {
-        bool noErrors = true;
-        int errorCode = ErrorCodes.ERR_NONE;
-        string conversionReport = "";
-        List<StandardInputItem> allInput = new();
-        Tuple<StandardInputItem, bool> processedLine;
-        string[] lines = File.ReadAllLines(fullPathCsv);
-        List<string> resultLines = new()
-        {
-            "Result for processing : " + fullPathCsv + " for data: " + fullPathJson
-        };
-        int count = lines.Length;
-        for (int i = 1; i < count - 1; i++)           // skip first line that contains header
-        {
-            processedLine = ProcessLine(lines[i]);
-            if (!processedLine.Item2)
-            {
-                resultLines.Add("Error, " + processedLine.Item1);
-                noErrors = false;
-            }
-            else
-            {
-                allInput.Add(processedLine.Item1);
-            }
-        }
-        if (noErrors)
-        {
-            string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            StandardInput standardInput = new(dataName, creation, allInput);
-            var result = JsonConvert.SerializeObject(standardInput, Formatting.Indented);
-            _fileWriter.WriteFile(fullPathJson + @"\date_time_loc.json", result);
-            conversionReport = "Succesfully converted " + fullPathCsv + ". Number of lines processed: " + allInput.Count;
-        }
-        else
-        {
-            errorCode = ErrorCodes.ERR_CSV_JSON_CONVERSION;
-            conversionReport = "Errors while trying to convert " + fullPathCsv + ". Numer of lines with errors: " + (resultLines.Count - 1);
-        }
-
-        resultLines.Add("Number of lines processed (including header): " + lines.Length.ToString());
-        _fileWriter.WriteFile(fullPathCsv + "_result", resultLines);
-        return new ResultMessage(errorCode, conversionReport);
-
-    }
-
     private Tuple<StandardInputItem?, bool> ProcessLine(string csvLine)
     {
         bool noErrors = true;

@@ -96,7 +96,7 @@ namespace Enigma.Frontend.Ui.DataFiles
 
         public void HelpClick(object sender, RoutedEventArgs e)
         {
-            _controller.ShowHelp();
+            DataFilesImportController.ShowHelp();
         }
 
         public void CancelClick(object sender, RoutedEventArgs e)

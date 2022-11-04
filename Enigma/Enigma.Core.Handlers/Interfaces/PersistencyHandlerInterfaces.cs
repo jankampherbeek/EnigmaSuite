@@ -26,9 +26,8 @@ public interface IDataFilePreparationHandler
 public interface IDataNamesHandler
 {
     /// <summary>Retrieve data names from data folders.</summary>
-    /// <param name="path">Full path to the data folders.</param>
     /// <returns>Data names.</returns>
-    public List<string> GetExistingDataNames(string path);
+    public List<string> GetExistingDataNames();
 
 }
 

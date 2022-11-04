@@ -34,7 +34,6 @@ public interface IFileManagementApi
     public ResultMessage CreateFoldersForData(string fullPath);
 
     /// <summary>Create a list of data names, based in folders in the file system.</summary>
-    /// <param name="fullPath">The path fopr the root of the data files.</param>
     /// <returns>Dat names.</returns>
-    public List<string> GetDataNames(string fullPath);
+    public List<string> GetDataNames();
 }

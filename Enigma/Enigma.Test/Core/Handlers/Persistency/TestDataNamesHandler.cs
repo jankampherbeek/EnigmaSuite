@@ -15,7 +15,6 @@ public class TestDataNamesHandler
     [Test]
     public void TestGetExistingDataNamesHappyFlow()
     {
-        string path = @"x:\folder\";
         bool useSubFolders = false;
         List<string> expectedDataNames = new()
         {
@@ -23,9 +22,9 @@ public class TestDataNamesHandler
             "dataname-2"
         };
         var mock = new Mock<IFoldersInfo>();
-        mock.Setup(p => p.GetExistingFolderNames(path, useSubFolders)).Returns(expectedDataNames);
+        mock.Setup(p => p.GetExistingFolderNames(It.IsAny<string>(), useSubFolders)).Returns(expectedDataNames);
         IDataNamesHandler handler = new DataNamesHandler(mock.Object);
-        List<string> resultDataNames = handler.GetExistingDataNames(path);
+        List<string> resultDataNames = handler.GetExistingDataNames();
         Assert.Multiple(() =>
         {
             Assert.That(resultDataNames, Has.Count.EqualTo(2));

@@ -50,7 +50,7 @@ public class DataFilesImportController
         return receivedResultMessage;
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
