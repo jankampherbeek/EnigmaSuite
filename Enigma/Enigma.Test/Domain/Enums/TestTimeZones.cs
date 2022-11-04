@@ -25,10 +25,13 @@ public class TestTimeZones
         double delta = 0.00000001;
         TimeZones timeZone = TimeZones.AZOT;
         TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
-        Assert.IsNotNull(details);
-        Assert.That(details.TimeZone, Is.EqualTo(timeZone));
-        Assert.That(details.OffsetFromUt, Is.EqualTo(-1.0).Within(delta));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.timezone.azot"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TimeZone, Is.EqualTo(timeZone));
+            Assert.That(details.OffsetFromUt, Is.EqualTo(-1.0).Within(delta));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.timezone.azot"));
+        });
     }
 
     [Test]
@@ -37,8 +40,8 @@ public class TestTimeZones
         foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
         {
             TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -61,11 +64,13 @@ public class TestTimeZones
     public void TestAllTimeZoneDetails()
     {
         List<TimeZoneDetails> allDetails = specifications.AllTimeZoneDetails();
-        Assert.That(allDetails.Count == 33);
-        Assert.That(allDetails[0].TimeZone, Is.EqualTo(TimeZones.UT));
-        Assert.That(allDetails[8].TimeZone, Is.EqualTo(TimeZones.IST));
-        Assert.That(allDetails[10].TextId, Is.EqualTo("ref.enum.timezone.mmt"));
-        Assert.That(allDetails[20].OffsetFromUt, Is.EqualTo(-10.0).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(33));
+            Assert.That(allDetails[0].TimeZone, Is.EqualTo(TimeZones.UT));
+            Assert.That(allDetails[8].TimeZone, Is.EqualTo(TimeZones.IST));
+            Assert.That(allDetails[10].TextId, Is.EqualTo("ref.enum.timezone.mmt"));
+            Assert.That(allDetails[20].OffsetFromUt, Is.EqualTo(-10.0).Within(_delta));
+        });
     }
-
 }

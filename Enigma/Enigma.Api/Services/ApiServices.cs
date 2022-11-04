@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Engima.Api.Persistency;
 using Enigma.Api.Analysis;
 using Enigma.Api.Astron;
 using Enigma.Api.Interfaces;
@@ -9,8 +10,9 @@ using Enigma.Configuration.Services;
 using Enigma.Core.Analysis.Services;
 using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.Services;
+using Enigma.Core.Handlers.Services;
 using Enigma.Domain.Services;
-using Enigma.InputSupport.Services;
+using Enigma.Frontend.Helpers.Services;
 using Enigma.Persistency.Services;
 using Enigma.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,15 +25,17 @@ public static class ApiServices
     public static void RegisterApiServices(this ServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
-        serviceCollection.AddSingleton<ICalcDateTimeApi, CalcDateTimeApi>();
-        serviceCollection.AddSingleton<IChartAllPositionsApi, ChartAllPositionsApi>();
-        serviceCollection.AddSingleton<ICheckDateTimeApi, CheckDateTimeApi>();
-        serviceCollection.AddSingleton<ICoordinateConversionApi, CoordinateConversionApi>();
-        serviceCollection.AddSingleton<IHorizontalApi, HorizontalApi>();
-        serviceCollection.AddSingleton<IHousesApi, HousesApi>();
-        serviceCollection.AddSingleton<IJulianDayApi, JulianDayApi>();
-        serviceCollection.AddSingleton<IObliqueLongitudeApi, ObliqueLongitudeApi>();
-        serviceCollection.AddSingleton<IObliquityApi, ObliquityApi>();
+        serviceCollection.AddTransient<ICalcDateTimeApi, CalcDateTimeApi>();
+        serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
+        serviceCollection.AddTransient<ICheckDateTimeApi, CheckDateTimeApi>();
+        serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
+        serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
+        serviceCollection.AddTransient<IFileManagementApi, FileManagementApi>();
+        serviceCollection.AddTransient<IHorizontalApi, HorizontalApi>();
+        serviceCollection.AddTransient<IHousesApi, HousesApi>();
+        serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
+        serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
+        serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
 
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
@@ -40,5 +44,7 @@ public static class ApiServices
         serviceCollection.RegisterPersistencyServices();
         serviceCollection.RegisterConfigurationServices();
         serviceCollection.RegisterResearchServices();
+
+        serviceCollection.RegisterHandlerServices();
     }
 }

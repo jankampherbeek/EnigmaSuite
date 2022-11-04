@@ -17,10 +17,13 @@ public class TestObserverPositionSpecifications
         ObserverPositions position = ObserverPositions.TopoCentric;
         IObserverPositionSpecifications specifications = new ObserverPositionSpecifications();
         ObserverPositionDetails details = specifications.DetailsForObserverPosition(position);
-        Assert.IsNotNull(details);
-        Assert.That(details.ObserverPosition, Is.EqualTo(position));
-        Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.observerposition.topocentric"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.ObserverPosition, Is.EqualTo(position));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.observerposition.topocentric"));
+        });
     }
 
     [Test]
@@ -30,8 +33,8 @@ public class TestObserverPositionSpecifications
         foreach (ObserverPositions position in Enum.GetValues(typeof(ObserverPositions)))
         {
             ObserverPositionDetails details = specifications.DetailsForObserverPosition(position);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }

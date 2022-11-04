@@ -4,8 +4,8 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.InputParsers;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.InputParsers;
+using Enigma.Frontend.Helpers.Interfaces;
 using Moq;
 
 namespace Enigma.Test.InputSupport.InputParsers;
@@ -33,7 +33,7 @@ public class TestTimeInputParser
         _mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, out fullTime)).Returns(true);
         _parser = new TimeInputParser(_mockValueRangeConverter.Object, _mockTimeValidator.Object);
 
-        Assert.IsTrue(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime));
+        Assert.That(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime), Is.True);
     }
 
     [Test]
@@ -51,7 +51,7 @@ public class TestTimeInputParser
         _mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, out fullTime)).Returns(true);
         _parser = new TimeInputParser(_mockValueRangeConverter.Object, _mockTimeValidator.Object);
 
-        Assert.IsTrue(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime));
+        Assert.That(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime), Is.True);
     }
 
 
@@ -59,7 +59,7 @@ public class TestTimeInputParser
     public void SyntaxError()
     {
         string timeInput = "10:xy:00";
-        int[] timeValues = new int[] { };
+        int[] timeValues = Array.Empty<int>();
         double lmtOffset = 0.0;
         TimeZones timeZone = TimeZones.UT;
         var _mockValueRangeConverter = new Mock<IValueRangeConverter>();
@@ -67,9 +67,8 @@ public class TestTimeInputParser
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(timeInput, _separator)).Returns(rangeResult);
         var _mockTimeValidator = new Mock<ITimeValidator>();
         _parser = new TimeInputParser(_mockValueRangeConverter.Object, _mockTimeValidator.Object);
-        FullTime? fullTime;
 
-        Assert.IsFalse(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime));
+        Assert.That(_parser.HandleTime(timeInput, timeZone, lmtOffset, out FullTime? fullTime), Is.False);
     }
 
     [Test]
@@ -87,7 +86,7 @@ public class TestTimeInputParser
         _mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, out fullTime)).Returns(false);
         _parser = new TimeInputParser(_mockValueRangeConverter.Object, _mockTimeValidator.Object);
 
-        Assert.IsFalse(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime));
+        Assert.That(_parser.HandleTime(timeInput, timeZone, lmtOffset, out fullTime), Is.False);
     }
 
 }

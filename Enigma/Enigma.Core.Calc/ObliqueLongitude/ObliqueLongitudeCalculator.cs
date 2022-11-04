@@ -29,7 +29,7 @@ public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         return oblLongitudes;
     }
 
-    private double OblLongForSolSysPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint)
+    private static double OblLongForSolSysPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint)
     {
         double absLatSp = Math.Abs(southPoint.Latitude);
         double longSp = southPoint.Longitude;

@@ -8,7 +8,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 internal class DimDegreeIndications
 {

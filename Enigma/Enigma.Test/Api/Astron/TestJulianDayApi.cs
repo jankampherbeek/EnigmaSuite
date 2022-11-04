@@ -27,19 +27,11 @@ public class TestJulianDayApi
         Assert.That(_jdResponse, Is.EqualTo(actualResponse));
     }
 
-    [Test]
-    public void TestRequestNull()
-    {
-        IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
-        JulianDayRequest? errorRequest = null;
-        Assert.That(() => api.GetJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
-    }
-
-    [Test]
+      [Test]
     public void TestRequestDateTimeNull()
     {
         IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
-        JulianDayRequest errorRequest = null;
+        JulianDayRequest? errorRequest = null;
         Assert.That(() => api.GetJulianDay(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

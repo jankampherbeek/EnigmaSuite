@@ -23,9 +23,7 @@ static class ExtensionsClass
         {
             n--;
             int k = randomNumbers[index++];
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
+            (list[n], list[k]) = (list[k], list[n]);
         }
     }
 }

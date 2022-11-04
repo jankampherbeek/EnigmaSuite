@@ -4,9 +4,9 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.InputSupport.Conversions;
+namespace Enigma.Frontend.Helpers.Conversions;
 
 public class SexagesimalConversions : ISexagesimalConversions
 {

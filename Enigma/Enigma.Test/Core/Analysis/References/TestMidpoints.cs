@@ -16,9 +16,12 @@ public class TestMidpointSpecifications
         IMidpointSpecifications specifications = new MidpointSpecifications();
 
         MidpointDetails details = specifications.DetailsForMidpoint(midpoint);
-        Assert.That(details, Is.Not.Null);
-        Assert.That(details.Midpoint, Is.EqualTo(MidpointTypes.Dial90));
-        Assert.That(details.Division, Is.EqualTo(4));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Midpoint, Is.EqualTo(MidpointTypes.Dial90));
+            Assert.That(details.Division, Is.EqualTo(4));
+        });
     }
 
     [Test]

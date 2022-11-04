@@ -6,7 +6,7 @@ using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
-using Enigma.InputSupport.Validations;
+using Enigma.Frontend.Helpers.Validations;
 using Moq;
 
 namespace Enigma.Test.InputSupport.Validations;

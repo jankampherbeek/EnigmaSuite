@@ -2,13 +2,13 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 
-namespace Enigma.Frontend;
+namespace Enigma.Frontend.Ui;
 
 /// <summary>Main view for the application.</summary>
 public partial class MainWindow : Window

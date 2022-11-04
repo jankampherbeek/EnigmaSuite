@@ -9,20 +9,20 @@ using Enigma.Core.Calc.SeFacades;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.Charts;
-using Enigma.Frontend.Charts.Graphics;
-using Enigma.Frontend.Datafiles;
-using Enigma.Frontend.DataFiles;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.PresentationFactories;
-using Enigma.Frontend.ResearchProjects;
-using Enigma.Frontend.Settings;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.Charts;
+using Enigma.Frontend.Ui.Charts.Graphics;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
+using Enigma.Frontend.Ui.ResearchProjects;
+using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
+using Enigma.Frontend.Ui.Datafiles;
+using Enigma.Frontend.Ui.DataFiles;
 
-namespace Enigma.Frontend;
+namespace Enigma.Frontend.Ui;
 
 
 public partial class App : Application

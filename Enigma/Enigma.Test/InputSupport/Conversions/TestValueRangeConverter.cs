@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.InputSupport.Conversions;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.Conversions;
+using Enigma.Frontend.Helpers.Interfaces;
 
 namespace Enigma.Test.InputSupport.Conversions;
 

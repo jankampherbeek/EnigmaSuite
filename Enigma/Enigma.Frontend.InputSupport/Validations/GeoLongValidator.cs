@@ -5,9 +5,9 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.InputSupport.Validations;
+namespace Enigma.Frontend.Helpers.Validations;
 
 
 /// <inheritdoc/>

@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Support;
 using Moq;
 
-namespace Enigma.Test.Frontend.Support;
+namespace Enigma.Test.Frontend.Ui.Support;
 
 [TestFixture]
 public class TestRosetta

@@ -31,14 +31,15 @@
     <ProjectReference Include="..\Enigma.Core.Analysis\Enigma.Core.Analysis.csproj" />
     <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
-    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.InputSupport.csproj" />
-    <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.csproj" />
+    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
+    <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.Ui.csproj" />
     <ProjectReference Include="..\Research\Enigma.Research.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Configuration\Handlers\" />
     <Folder Include="Configuration\Parsers\" />
+    <Folder Include="Frontend\Helpers\" />
   </ItemGroup>
 
 </Project>

@@ -25,9 +25,12 @@ public class TestRoddenRatings
     {
         RoddenRatings roddenRating = RoddenRatings.C;
         RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
-        Assert.IsNotNull(details);
-        Assert.That(details.Rating, Is.EqualTo(roddenRating));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.roddenrating.c"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Rating, Is.EqualTo(roddenRating));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.roddenrating.c"));
+        });
     }
 
     [Test]
@@ -36,8 +39,7 @@ public class TestRoddenRatings
         foreach (RoddenRatings roddenRating in Enum.GetValues(typeof(RoddenRatings)))
         {
             RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -60,10 +62,12 @@ public class TestRoddenRatings
     public void TestAllDetailsForRating()
     {
         List<RoddenRatingDetails> allDetails = specifications.AllDetailsForRating();
-        Assert.That(allDetails.Count, Is.EqualTo(8));
-        Assert.That(allDetails[0].Rating, Is.EqualTo(RoddenRatings.Unknown));
-        Assert.That(allDetails[1].Rating, Is.EqualTo(RoddenRatings.AA));
-        Assert.That(allDetails[7].TextId, Is.EqualTo("ref.enum.roddenrating.xx"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(8));
+            Assert.That(allDetails[0].Rating, Is.EqualTo(RoddenRatings.Unknown));
+            Assert.That(allDetails[1].Rating, Is.EqualTo(RoddenRatings.AA));
+            Assert.That(allDetails[7].TextId, Is.EqualTo("ref.enum.roddenrating.xx"));
+        });
     }
-
 }

@@ -29,10 +29,12 @@ public class TestCoordinateConversionCalc
         Mock<ICoTransFacade> mockFacade = CreateFacadeMock(ecliptical, equatorial);
         ICoordinateConversionCalc convCalc = new CoordinateConversionCalc(mockFacade.Object);
         EquatorialCoordinates equatCoord = convCalc.PerformConversion(eclCoord, _obliquity);
-        Assert.That(equatCoord.RightAscension, Is.EqualTo(_expectedRightAsc).Within(_delta));
-        Assert.That(equatCoord.Declination, Is.EqualTo(_expectedDeclination).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(equatCoord.RightAscension, Is.EqualTo(_expectedRightAsc).Within(_delta));
+            Assert.That(equatCoord.Declination, Is.EqualTo(_expectedDeclination).Within(_delta));
+        });
     }
-
 
     private Mock<ICoTransFacade> CreateFacadeMock(double[] ecliptical, double[] equatorial)
     {

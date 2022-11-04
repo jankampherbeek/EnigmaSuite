@@ -4,11 +4,11 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.PresentationFactories;
+namespace Enigma.Frontend.Ui.PresentationFactories;
 
 
 public class HousePosForDataGridFactory : IHousePosForDataGridFactory

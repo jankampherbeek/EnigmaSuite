@@ -36,9 +36,12 @@ public class TestJulDayHandler
         IJulDayHandler handler = new JulDayHandler(calcMock.Object);
         JulianDayRequest request = new(_dateTime);
         JulianDayResponse response = handler.CalcJulDay(request);
-        Assert.That(response.JulDayUt, Is.EqualTo(_expectedJd).Within(_delta));
-        Assert.That(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.JulDayUt, Is.EqualTo(_expectedJd).Within(_delta));
+            Assert.That(response.Success);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]
@@ -48,10 +51,12 @@ public class TestJulDayHandler
         IJulDayHandler handler = new JulDayHandler(calcExceptionMock.Object);
         JulianDayRequest request = new(_dateTime);
         JulianDayResponse response = handler.CalcJulDay(request);
-        Assert.That(!response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        Assert.Multiple(() =>
+        {
+            Assert.That(!response.Success);
+            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        });
     }
-
 
     private Mock<IJulDayCalc> CreateCalcMock()
     {

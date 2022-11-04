@@ -17,10 +17,13 @@ public class TestZodiacTypeSpecifications
         ZodiacTypes zodiacType = ZodiacTypes.Sidereal;
         IZodiacTypeSpecifications specifications = new ZodiacTypeSpecifications();
         ZodiacTypeDetails details = specifications.DetailsForZodiacType(zodiacType);
-        Assert.IsNotNull(details);
-        Assert.That(details.ZodiacType, Is.EqualTo(zodiacType));
-        Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_SIDEREAL));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.ZodiacType, Is.EqualTo(zodiacType));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_SIDEREAL));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
+        });
     }
 
     [Test]
@@ -30,8 +33,8 @@ public class TestZodiacTypeSpecifications
         foreach (ZodiacTypes zodiacType in Enum.GetValues(typeof(ZodiacTypes)))
         {
             ZodiacTypeDetails details = specifications.DetailsForZodiacType(zodiacType);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }

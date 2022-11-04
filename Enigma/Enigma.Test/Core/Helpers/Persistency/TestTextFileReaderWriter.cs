@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Persistency.FileHandling;
-using Enigma.Persistency.Interfaces;
+using Enigma.Core.Helpers.Persistency;
+using Enigma.Core.Helpers.Interfaces;
 
-namespace Enigma.Text.Persistency.FileHandling;
+namespace Enigma.Test.Core.Helpers.Persistency;
 
 [TestFixture]
 public class TestTextFileReaderWriter

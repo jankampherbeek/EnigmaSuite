@@ -47,13 +47,17 @@ public class TestCoordinateConversionApi
     [Test]
     public void TestCoordinateConversionNullRequest()
     {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(() => _api.GetEquatorialFromEcliptic(null), Throws.TypeOf<ArgumentNullException>());
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
 
     [Test]
     public void TestCoordinateConversionNullCoordinates()
     {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         CoordinateConversionRequest errorRequest = new(null, _obliquity);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(() => _api.GetEquatorialFromEcliptic(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

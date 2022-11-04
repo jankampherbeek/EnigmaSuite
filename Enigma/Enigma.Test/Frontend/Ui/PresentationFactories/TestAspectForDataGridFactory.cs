@@ -8,12 +8,12 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.PresentationFactories;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
+using Enigma.Frontend.Helpers.Interfaces;
 using Moq;
 
-namespace Enigma.Test.Frontend.PresentationFactories;
+namespace Enigma.Test.Frontend.Ui.PresentationFactories;
 
 
 [TestFixture]
@@ -38,9 +38,10 @@ public class TestAspectForDataGridFactory
 
         List<EffectiveAspect> effAspects = CreateEffAspects();
         List<PresentableAspects> presAspects = aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
-        Assert.That(presAspects.Count, Is.EqualTo(2));
+
         Assert.Multiple(() =>
         {
+            Assert.That(presAspects, Has.Count.EqualTo(2));
             Assert.That(presAspects[0].AspectGlyph, Is.EqualTo("B"));
             Assert.That(presAspects[1].AspectGlyph, Is.EqualTo("E"));
             Assert.That(presAspects[0].Point1TextGlyph, Is.EqualTo("a"));

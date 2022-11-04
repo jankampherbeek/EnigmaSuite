@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 /// <summary>
 /// Dimensioned circle, with all metrics and colors defined, that can be shown in a graphic wheel.

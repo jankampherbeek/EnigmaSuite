@@ -5,15 +5,15 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
 public class ChartsWheelSolSysPoints : IChartsWheelSolSysPoints

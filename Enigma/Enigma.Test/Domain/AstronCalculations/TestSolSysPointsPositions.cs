@@ -15,12 +15,15 @@ public class TestSolSysPointPosSpeeds
         double delta = 0.00000001;
         double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
         SolSysPointPosSpeeds posSpeeds = new(values);
-        Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));
-        Assert.That(posSpeeds.MainPosSpeed.Speed, Is.EqualTo(2.0).Within(delta));
-        Assert.That(posSpeeds.DeviationPosSpeed.Position, Is.EqualTo(3.0).Within(delta));
-        Assert.That(posSpeeds.DeviationPosSpeed.Speed, Is.EqualTo(4.0).Within(delta));
-        Assert.That(posSpeeds.DistancePosSpeed.Position, Is.EqualTo(5.0).Within(delta));
-        Assert.That(posSpeeds.DistancePosSpeed.Speed, Is.EqualTo(6.0).Within(delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));
+            Assert.That(posSpeeds.MainPosSpeed.Speed, Is.EqualTo(2.0).Within(delta));
+            Assert.That(posSpeeds.DeviationPosSpeed.Position, Is.EqualTo(3.0).Within(delta));
+            Assert.That(posSpeeds.DeviationPosSpeed.Speed, Is.EqualTo(4.0).Within(delta));
+            Assert.That(posSpeeds.DistancePosSpeed.Position, Is.EqualTo(5.0).Within(delta));
+            Assert.That(posSpeeds.DistancePosSpeed.Speed, Is.EqualTo(6.0).Within(delta));
+        });
     }
 
     [Test]
@@ -39,13 +42,14 @@ public class TestSolSysPointPosSpeeds
         PosSpeed deviationPosSpeed = new(3.0, 4.0);
         PosSpeed distancePosSpeed = new(5.0, 6.0);
         SolSysPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
-        Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));
-        Assert.That(posSpeeds.MainPosSpeed.Speed, Is.EqualTo(2.0).Within(delta));
-        Assert.That(posSpeeds.DeviationPosSpeed.Position, Is.EqualTo(3.0).Within(delta));
-        Assert.That(posSpeeds.DeviationPosSpeed.Speed, Is.EqualTo(4.0).Within(delta));
-        Assert.That(posSpeeds.DistancePosSpeed.Position, Is.EqualTo(5.0).Within(delta));
-        Assert.That(posSpeeds.DistancePosSpeed.Speed, Is.EqualTo(6.0).Within(delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));
+            Assert.That(posSpeeds.MainPosSpeed.Speed, Is.EqualTo(2.0).Within(delta));
+            Assert.That(posSpeeds.DeviationPosSpeed.Position, Is.EqualTo(3.0).Within(delta));
+            Assert.That(posSpeeds.DeviationPosSpeed.Speed, Is.EqualTo(4.0).Within(delta));
+            Assert.That(posSpeeds.DistancePosSpeed.Position, Is.EqualTo(5.0).Within(delta));
+            Assert.That(posSpeeds.DistancePosSpeed.Speed, Is.EqualTo(6.0).Within(delta));
+        });
     }
-
-
 }

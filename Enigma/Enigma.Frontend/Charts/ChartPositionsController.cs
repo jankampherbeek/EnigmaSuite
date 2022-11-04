@@ -4,12 +4,12 @@
 
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.State;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
 
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>Controller (according to MVC pattern) for the view ChartPositionsWindow.</summary>
 public class ChartPositionsController

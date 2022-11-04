@@ -2,10 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Windows;
 
-namespace Enigma.Frontend;
+namespace Enigma.Frontend.Ui;
 
 /// <summary>
 /// Interaction logic for AboutWindow.xaml

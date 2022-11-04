@@ -7,7 +7,7 @@ using System;
 using System.Windows;
 
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 /// <summary>
 /// Point with the correct X-Y-coördinates. Is used by shapes to define their positions on the canvas.

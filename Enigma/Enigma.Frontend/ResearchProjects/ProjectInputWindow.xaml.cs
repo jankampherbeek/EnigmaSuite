@@ -4,12 +4,12 @@
 
 using Engima.Domain.Research;
 using Enigma.Domain.Constants;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Enigma.Frontend.ResearchProjects
+namespace Enigma.Frontend.Ui.ResearchProjects
 {
     /// <summary>
     /// Interaction logic for ProjectInputWindow.xaml

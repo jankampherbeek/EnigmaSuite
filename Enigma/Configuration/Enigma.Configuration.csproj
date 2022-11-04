@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Enigma.Core.Helpers\Enigma.Core.Helpers.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
     <ProjectReference Include="..\Enigma.Persistency\Enigma.Persistency.csproj" />
   </ItemGroup>

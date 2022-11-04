@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>
 /// Interaction logic for ChartAspects.xaml

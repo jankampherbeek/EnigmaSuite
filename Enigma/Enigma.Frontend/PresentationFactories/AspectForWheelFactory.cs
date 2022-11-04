@@ -5,10 +5,10 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.PresentationFactories;
+namespace Enigma.Frontend.Ui.PresentationFactories;
 
 
 

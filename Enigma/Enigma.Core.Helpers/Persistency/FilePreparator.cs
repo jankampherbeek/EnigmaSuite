@@ -4,9 +4,9 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
-using Enigma.Persistency.Interfaces;
+using Enigma.Core.Helpers.Interfaces;
 
-namespace Enigma.Persistency.FileHandling;
+namespace Enigma.Core.Helpers.Persistency;
 
 
 /// <inheritdoc/>

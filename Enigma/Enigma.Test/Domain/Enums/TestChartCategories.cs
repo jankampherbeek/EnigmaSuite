@@ -24,9 +24,12 @@ public class TestChartCategories
     {
         ChartCategories chartCategory = ChartCategories.Election;
         ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
-        Assert.IsNotNull(details);
-        Assert.That(details.Category, Is.EqualTo(chartCategory));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.chartcategories.election"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Category, Is.EqualTo(chartCategory));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.chartcategories.election"));
+        });
     }
 
     [Test]
@@ -35,8 +38,8 @@ public class TestChartCategories
         foreach (ChartCategories chartCategory in Enum.GetValues(typeof(ChartCategories)))
         {
             ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -59,10 +62,12 @@ public class TestChartCategories
     public void TestAllChartCatDetails()
     {
         List<ChartCategoryDetails> allDetails = specifications.AllChartCatDetails();
-        Assert.That(allDetails.Count, Is.EqualTo(6));
-        Assert.That(allDetails[0].Category, Is.EqualTo(ChartCategories.Unknown));
-        Assert.That(allDetails[3].Category, Is.EqualTo(ChartCategories.Event));
-        Assert.That(allDetails[4].TextId, Is.EqualTo("ref.enum.chartcategories.horary"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(6));
+            Assert.That(allDetails[0].Category, Is.EqualTo(ChartCategories.Unknown));
+            Assert.That(allDetails[3].Category, Is.EqualTo(ChartCategories.Event));
+            Assert.That(allDetails[4].TextId, Is.EqualTo("ref.enum.chartcategories.horary"));
+        });
     }
-
 }

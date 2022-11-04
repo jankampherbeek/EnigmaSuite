@@ -4,8 +4,8 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.InputParsers;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.InputParsers;
+using Enigma.Frontend.Helpers.Interfaces;
 using Moq;
 
 namespace Enigma.Test.InputSupport.InputParsers;
@@ -14,7 +14,6 @@ namespace Enigma.Test.InputSupport.InputParsers;
 
 public class TestGeoLatInputParser
 {
-    private IGeoLatInputParser _parser;
     private readonly char _separator = ':';
 
 
@@ -31,9 +30,9 @@ public class TestGeoLatInputParser
         var _mockGeoLatValidator = new Mock<IGeoLatValidator>();
         FullGeoLatitude? fullGeoLatitude;
         _mockGeoLatValidator.Setup(x => x.CreateCheckedLatitude(geoLatValues, direction, out fullGeoLatitude)).Returns(true);
-        _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
+        IGeoLatInputParser _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
 
-        Assert.IsTrue(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude));
+        Assert.That(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude), Is.True);
     }
 
     [Test]
@@ -48,9 +47,9 @@ public class TestGeoLatInputParser
         var _mockGeoLatValidator = new Mock<IGeoLatValidator>();
         FullGeoLatitude? fullGeoLatitude;
         _mockGeoLatValidator.Setup(x => x.CreateCheckedLatitude(geoLatValues, direction, out fullGeoLatitude)).Returns(true);
-        _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
+        IGeoLatInputParser _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
 
-        Assert.IsTrue(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude));
+        Assert.That(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude), Is.True);
     }
 
 
@@ -58,16 +57,15 @@ public class TestGeoLatInputParser
     public void SyntaxError()
     {
         string geoLatInput = "5q:13:00";
-        int[] geoLatValues = new int[] { };
+        int[] geoLatValues = Array.Empty<int>();
         Directions4GeoLat direction = Directions4GeoLat.North;
         var _mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLatValues, false);
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, _separator)).Returns(rangeResult);
         var _mockGeoLatValidator = new Mock<IGeoLatValidator>();
-        FullGeoLatitude? fullGeoLatitude;
-        _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
+        IGeoLatInputParser _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
 
-        Assert.IsFalse(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude));
+        Assert.That(_parser.HandleGeoLat(geoLatInput, direction, out FullGeoLatitude? fullGeoLatitude), Is.False);
     }
 
     [Test]
@@ -82,9 +80,9 @@ public class TestGeoLatInputParser
         var _mockGeoLatValidator = new Mock<IGeoLatValidator>();
         FullGeoLatitude? fullGeoLatitude;
         _mockGeoLatValidator.Setup(x => x.CreateCheckedLatitude(geoLatValues, direction, out fullGeoLatitude)).Returns(false);
-        _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
+        IGeoLatInputParser _parser = new GeoLatInputParser(_mockValueRangeConverter.Object, _mockGeoLatValidator.Object);
 
-        Assert.IsFalse(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude));
+        Assert.That(_parser.HandleGeoLat(geoLatInput, direction, out fullGeoLatitude), Is.False);
     }
 
 }

@@ -53,7 +53,9 @@ public class TestObliquityApi
     [Test]
     public void TestObliquityNullRequest()
     {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(() => _obliquityApi.GetObliquity(null), Throws.TypeOf<ArgumentNullException>());
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
 
 

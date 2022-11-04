@@ -5,7 +5,7 @@
 using Enigma.Configuration.Parsers;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Persistency.Interfaces;
+using Enigma.Core.Helpers.Interfaces;
 
 namespace Enigma.Configuration.Handlers;
 

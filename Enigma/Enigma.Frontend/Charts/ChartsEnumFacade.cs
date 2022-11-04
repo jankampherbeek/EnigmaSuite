@@ -7,7 +7,7 @@ using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 // TODO: move ChartsEnumFacade to Enigma.Domain and rename to EnumFacade.
 

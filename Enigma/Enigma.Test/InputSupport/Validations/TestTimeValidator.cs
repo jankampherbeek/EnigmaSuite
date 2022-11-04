@@ -5,7 +5,7 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.InputSupport.Validations;
+using Enigma.Frontend.Helpers.Validations;
 using Moq;
 
 namespace Enigma.Test.InputSupport.Validations;
@@ -26,12 +26,14 @@ public class TestTimeValidator
         mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
         var timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
         bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
-        Assert.IsTrue(Result);
-        Assert.That(fullTime.HourMinuteSecond[0], Is.EqualTo(hour));
-        Assert.That(fullTime.HourMinuteSecond[1], Is.EqualTo(minute));
-        Assert.That(fullTime.HourMinuteSecond[2], Is.EqualTo(second));
+        Assert.Multiple(() =>
+        {
+            Assert.That(Result, Is.True);
+            Assert.That(fullTime.HourMinuteSecond[0], Is.EqualTo(hour));
+            Assert.That(fullTime.HourMinuteSecond[1], Is.EqualTo(minute));
+            Assert.That(fullTime.HourMinuteSecond[2], Is.EqualTo(second));
+        });
     }
-
 
     [Test]
     public void TestWrongValueForHour()

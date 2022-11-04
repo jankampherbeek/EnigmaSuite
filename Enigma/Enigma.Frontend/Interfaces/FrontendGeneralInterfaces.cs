@@ -7,7 +7,7 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.Interfaces;
+namespace Enigma.Frontend.Ui.Interfaces;
 
 public interface IAspectForDataGridFactory
 {

@@ -30,7 +30,9 @@ public class TestCalcDateTimeApi
     public void TestRequestNull()
     {
         ICalcDateTimeApi api = new CalcDateTimeApi(CreateHandlerMock());
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(() => api.GetDateTime(null), Throws.TypeOf<ArgumentNullException>());
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
 
 

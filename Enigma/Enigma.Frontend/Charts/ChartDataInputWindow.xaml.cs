@@ -4,14 +4,14 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 
 public partial class ChartDataInputWindow : Window

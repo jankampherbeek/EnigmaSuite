@@ -2,13 +2,15 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Enigma.Domain.RequestResponse;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.InputSupport.Validations;
+namespace Enigma.Frontend.Helpers.Validations;
 
 
 public class DateValidator : IDateValidator

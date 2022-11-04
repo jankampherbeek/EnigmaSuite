@@ -4,11 +4,11 @@
 
 
 using Enigma.Domain.Configuration;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace Enigma.Frontend.Settings;
+namespace Enigma.Frontend.Ui.Settings;
 
 
 public class AppSettingsController

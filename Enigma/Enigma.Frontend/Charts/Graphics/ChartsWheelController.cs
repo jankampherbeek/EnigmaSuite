@@ -4,30 +4,30 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.State;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 public class ChartsWheelController
 {
 
-    public List<Line> SignSeparators { get; private set; }
-    public List<TextBlock> SignGlyphs { get; private set; }
-    public List<Line> CuspLines { get; private set; }
-    public List<Line> CuspCardinalLines { get; private set; }
-    public List<TextBlock> CuspCardinalIndicators { get; private set; }
-    public List<TextBlock> CuspTexts { get; private set; }
-    public List<Line> SolSysPointConnectLines { get; private set; }
-    public List<TextBlock> SolSysPointTexts { get; private set; }
-    public List<TextBlock> SolSysPointGlyphs { get; private set; }
-    public List<Ellipse> WheelCircles { get; private set; }
-    public List<Line> DegreeLines { get; private set; }
-    public List<Line> AspectLines { get; private set; }
+    public List<Line> SignSeparators { get; private set; } = new();
+    public List<TextBlock> SignGlyphs { get; private set; } = new();
+    public List<Line> CuspLines { get; private set; } = new();
+    public List<Line> CuspCardinalLines { get; private set; } = new();
+    public List<TextBlock> CuspCardinalIndicators { get; private set; } = new();
+    public List<TextBlock> CuspTexts { get; private set; } = new();
+    public List<Line> SolSysPointConnectLines { get; private set; } = new();
+    public List<TextBlock> SolSysPointTexts { get; private set; } = new();
+    public List<TextBlock> SolSysPointGlyphs { get; private set; } = new();
+    public List<Ellipse> WheelCircles { get; private set; } = new();
+    public List<Line> DegreeLines { get; private set; } = new();
+    public List<Line> AspectLines { get; private set; } = new();
 
     public double CanvasSize { get; private set; }
     private Point _centerPoint;

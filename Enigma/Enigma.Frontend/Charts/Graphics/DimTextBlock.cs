@@ -5,7 +5,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 /// <summary>
 /// Text to be shown in a graphical environment.

@@ -24,9 +24,12 @@ public class TestYearCounts
     {
         YearCounts yearCount = YearCounts.BCE;
         YearCountDetails details = specifications.DetailsForYearCount(yearCount);
-        Assert.IsNotNull(details);
-        Assert.That(details.YearCount, Is.EqualTo(yearCount));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.yearcount.bce"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.YearCount, Is.EqualTo(yearCount));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.yearcount.bce"));
+        });
     }
 
     [Test]
@@ -35,8 +38,7 @@ public class TestYearCounts
         foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
         {
             YearCountDetails details = specifications.DetailsForYearCount(yearCount);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -60,9 +62,11 @@ public class TestYearCounts
     public void TestAllDetailsForYearCounts()
     {
         List<YearCountDetails> allDetails = specifications.AllDetailsForYearCounts();
-        Assert.That(allDetails.Count == 3);
-        Assert.That(allDetails[0].YearCount, Is.EqualTo(YearCounts.CE));
-        Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.yearcount.astronomical"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(3));
+            Assert.That(allDetails[0].YearCount, Is.EqualTo(YearCounts.CE));
+            Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.yearcount.astronomical"));
+        });
     }
-
 }

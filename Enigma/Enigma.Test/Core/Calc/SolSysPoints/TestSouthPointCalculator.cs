@@ -29,11 +29,11 @@ public class TestSouthPointCalculator
         double expectedLong = 318.50043580207006;
         double expectedLat = -27.562090280566338;
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
-        Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(_delta));
-        Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(_delta));
-        // Expected a difference no greater than <1E-08> between expected value <318,50043580207006> and actual value <318,5003113717042>.   Mean obliquity   verschil 0.0001245   0.4482 seconde
-        // Expected a difference no greater than<1E-08 > between expected value<-27,562090280566338 > and actual value<-27,562042216088308 >. Latitude, mean obliquity  
-        // Expected a difference no greater than <1E-08> between expected value <318,50043580207006> and actual value <318,4995873430928>.   True obliquity   verschil 0.00084846  3 seconden
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(_delta));
+            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(_delta));
+        });
     }
 
     [Test]
@@ -49,9 +49,10 @@ public class TestSouthPointCalculator
         double expectedLat = -48.16467239725159;
         // TODO check values for southern latitude
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
-        Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(_delta));
-        Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(_delta));
+            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(_delta));
+        });
     }
-
-
 }

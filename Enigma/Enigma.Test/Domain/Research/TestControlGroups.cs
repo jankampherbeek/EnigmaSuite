@@ -24,9 +24,12 @@ public class TestControlGroupTypes
     {
         ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift;
         ControlGroupTypeDetails details = specifications.DetailsForControlGroupType(controlGroupType);
-        Assert.IsNotNull(details);
-        Assert.That(details.ControlGroupType, Is.EqualTo(controlGroupType));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.controlgrouptypes.standardshift"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.ControlGroupType, Is.EqualTo(controlGroupType));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.controlgrouptypes.standardshift"));
+        });
     }
 
     [Test]
@@ -35,8 +38,8 @@ public class TestControlGroupTypes
         foreach (ControlGroupTypes controlGroupType in Enum.GetValues(typeof(ControlGroupTypes)))
         {
             ControlGroupTypeDetails details = specifications.DetailsForControlGroupType(controlGroupType);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -59,9 +62,11 @@ public class TestControlGroupTypes
     public void TestAllControlGroupTypeDetails()
     {
         List<ControlGroupTypeDetails> allDetails = specifications.AllControlGroupTypeDetails();
-        Assert.That(allDetails.Count, Is.EqualTo(2));
-        Assert.That(allDetails[0].ControlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
-        Assert.That(allDetails[1].ControlGroupType, Is.EqualTo(ControlGroupTypes.GroupMemberShift));
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(2));
+            Assert.That(allDetails[0].ControlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
+            Assert.That(allDetails[1].ControlGroupType, Is.EqualTo(ControlGroupTypes.GroupMemberShift));
+        });
     }
-
 }

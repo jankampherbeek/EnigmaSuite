@@ -6,7 +6,7 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 
-namespace Enigma.InputSupport.Interfaces;
+namespace Enigma.Frontend.Helpers.Interfaces;
 
 // interfaces for parsers that handle inputted data.
 

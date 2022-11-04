@@ -7,14 +7,14 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.State;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>Controller (according to MVC pattern) for the view ChartAspectsWindow.</summary>
 public class ChartAspectsController

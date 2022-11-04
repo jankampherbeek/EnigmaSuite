@@ -2,9 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 
-namespace Enigma.Frontend.Support;
+namespace Enigma.Frontend.Ui.Support;
 
 
 

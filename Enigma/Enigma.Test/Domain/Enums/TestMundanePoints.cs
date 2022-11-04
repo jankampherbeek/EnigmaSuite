@@ -23,10 +23,13 @@ public class TestMundanePoints
     public void TestRetrievingDetails()
     {
         MundanePointDetails details = specifications.DetailsForPoint(MundanePoints.Ascendant);
-        Assert.IsNotNull(details);
-        Assert.That(details.MundanePoint, Is.EqualTo(MundanePoints.Ascendant));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.mundanepoint.id.asc"));
-        Assert.That(details.TextIdAbbreviated, Is.EqualTo("ref.enum.mundanepoint.idabbr.asc"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.MundanePoint, Is.EqualTo(MundanePoints.Ascendant));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.mundanepoint.id.asc"));
+            Assert.That(details.TextIdAbbreviated, Is.EqualTo("ref.enum.mundanepoint.idabbr.asc"));
+        });
     }
 
     [Test]
@@ -35,8 +38,8 @@ public class TestMundanePoints
         foreach (MundanePoints point in Enum.GetValues(typeof(MundanePoints)))
         {
             MundanePointDetails details = specifications.DetailsForPoint(point);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -45,9 +48,11 @@ public class TestMundanePoints
     {
         int mundanePointIndex = 2;
         MundanePointDetails mundanePointDetails = specifications.DetailsForPoint(mundanePointIndex);
-        Assert.IsNotNull(mundanePointDetails);
-        Assert.That(mundanePointDetails.MundanePoint, Is.EqualTo(MundanePoints.EastPoint));
-
+        Assert.Multiple(() =>
+        {
+            Assert.That(mundanePointDetails, Is.Not.Null);
+            Assert.That(mundanePointDetails.MundanePoint, Is.EqualTo(MundanePoints.EastPoint));
+        });
     }
 
     [Test]

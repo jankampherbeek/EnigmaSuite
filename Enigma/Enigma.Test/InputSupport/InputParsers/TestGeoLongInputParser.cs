@@ -4,8 +4,8 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.InputParsers;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.InputParsers;
+using Enigma.Frontend.Helpers.Interfaces;
 using Moq;
 
 namespace Enigma.Test.InputSupport.InputParsers;
@@ -14,7 +14,6 @@ namespace Enigma.Test.InputSupport.InputParsers;
 
 public class TestGeoLongInputParser
 {
-    private IGeoLongInputParser _parser;
     private readonly char _separator = ':';
 
 
@@ -31,9 +30,9 @@ public class TestGeoLongInputParser
         var _mockGeoLongValidator = new Mock<IGeoLongValidator>();
         FullGeoLongitude? fullGeoLongitude;
         _mockGeoLongValidator.Setup(x => x.CreateCheckedLongitude(geoLongValues, direction, out fullGeoLongitude)).Returns(true);
-        _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
+        IGeoLongInputParser _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
 
-        Assert.IsTrue(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude));
+        Assert.That(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude), Is.True);
     }
 
     [Test]
@@ -48,9 +47,9 @@ public class TestGeoLongInputParser
         var _mockGeoLongValidator = new Mock<IGeoLongValidator>();
         FullGeoLongitude? fullGeoLongitude;
         _mockGeoLongValidator.Setup(x => x.CreateCheckedLongitude(geoLongValues, direction, out fullGeoLongitude)).Returns(true);
-        _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
+        IGeoLongInputParser _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
 
-        Assert.IsTrue(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude));
+        Assert.That(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude), Is.True);
     }
 
 
@@ -58,16 +57,15 @@ public class TestGeoLongInputParser
     public void SyntaxError()
     {
         string geoLongInput = "123:xw:00";
-        int[] geoLongValues = new int[] { };
+        int[] geoLongValues = Array.Empty<int>();
         Directions4GeoLong direction = Directions4GeoLong.East;
         var _mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLongValues, false);
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, _separator)).Returns(rangeResult);
         var _mockGeoLongValidator = new Mock<IGeoLongValidator>();
-        FullGeoLongitude? fullGeoLongitude;
-        _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
+        IGeoLongInputParser _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
 
-        Assert.IsFalse(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude));
+        Assert.That(_parser.HandleGeoLong(geoLongInput, direction, out FullGeoLongitude? fullGeoLongitude), Is.False);
     }
 
     [Test]
@@ -82,9 +80,9 @@ public class TestGeoLongInputParser
         var _mockGeoLongValidator = new Mock<IGeoLongValidator>();
         FullGeoLongitude? fullGeoLongitude;
         _mockGeoLongValidator.Setup(x => x.CreateCheckedLongitude(geoLongValues, direction, out fullGeoLongitude)).Returns(false);
-        _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
+        IGeoLongInputParser _parser = new GeoLongInputParser(_mockValueRangeConverter.Object, _mockGeoLongValidator.Object);
 
-        Assert.IsFalse(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude));
+        Assert.That(_parser.HandleGeoLong(geoLongInput, direction, out fullGeoLongitude), Is.False);
     }
 
 }

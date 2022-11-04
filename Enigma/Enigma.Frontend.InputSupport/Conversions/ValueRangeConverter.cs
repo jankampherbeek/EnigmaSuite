@@ -3,9 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.InputSupport.Conversions;
+namespace Enigma.Frontend.Helpers.Conversions;
 
 
 

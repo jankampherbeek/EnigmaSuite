@@ -25,9 +25,12 @@ public class TestTestDirections4GeoLat
     {
         Directions4GeoLat direction = Directions4GeoLat.North;
         Directions4GeoLatDetails details = specifications.DetailsForDirection(direction);
-        Assert.IsNotNull(details);
-        Assert.That(details.Direction, Is.EqualTo(direction));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.direction4geolat.north"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Direction, Is.EqualTo(direction));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.direction4geolat.north"));
+        });
     }
 
     [Test]
@@ -36,8 +39,7 @@ public class TestTestDirections4GeoLat
         foreach (Directions4GeoLat direction in Enum.GetValues(typeof(Directions4GeoLat)))
         {
             Directions4GeoLatDetails details = specifications.DetailsForDirection(direction);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -60,9 +62,11 @@ public class TestTestDirections4GeoLat
     public void TestAllDirectionDetails()
     {
         List<Directions4GeoLatDetails> allDetails = specifications.AllDirectionDetails();
-        Assert.That(allDetails.Count, Is.EqualTo(2));
-        Assert.That(allDetails[0].Direction, Is.EqualTo(Directions4GeoLat.North));
-        Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.direction4geolat.south"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(2));
+            Assert.That(allDetails[0].Direction, Is.EqualTo(Directions4GeoLat.North));
+            Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.direction4geolat.south"));
+        });
     }
-
 }

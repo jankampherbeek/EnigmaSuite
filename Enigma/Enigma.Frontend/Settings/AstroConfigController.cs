@@ -7,13 +7,13 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.State;
-using Enigma.Frontend.Support;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
-namespace Enigma.Frontend.Settings;
+namespace Enigma.Frontend.Ui.Settings;
 
 public class AstroConfigController
 {

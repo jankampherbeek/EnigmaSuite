@@ -4,14 +4,14 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Datafiles;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Datafiles;
+using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
 
-namespace Enigma.Frontend.DataFiles
+namespace Enigma.Frontend.Ui.DataFiles
 {
     /// <summary>
     /// Interaction logic for DataFilesImportWindow.xaml

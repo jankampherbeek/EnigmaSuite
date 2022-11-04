@@ -18,9 +18,12 @@ public class TestSolSysPointCatSpecifications
         SolSysPointCats solSysPointCat = SolSysPointCats.Modern;
         ISolSysPointCatSpecifications specifications = new SolSysPointCatSpecifications();
         SolSysPointCatDetails details = specifications.DetailsForCategory(solSysPointCat);
-        Assert.That(details, Is.Not.Null);
-        Assert.That(details.Category, Is.EqualTo(solSysPointCat));
-        Assert.That(details.TextId, Is.EqualTo("enumSolSysPointCatModern"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Category, Is.EqualTo(solSysPointCat));
+            Assert.That(details.TextId, Is.EqualTo("enumSolSysPointCatModern"));
+        });
     }
 
     [Test]
@@ -31,7 +34,7 @@ public class TestSolSysPointCatSpecifications
         {
             SolSysPointCatDetails details = specifications.DetailsForCategory(category);
             Assert.That(details, Is.Not.Null);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }
@@ -45,13 +48,16 @@ public class TestSolarSystemPointSpecifications
         SolarSystemPoints point = SolarSystemPoints.Neptune;
         ISolarSystemPointSpecifications specifications = new SolarSystemPointSpecifications();
         SolarSystemPointDetails details = specifications.DetailsForPoint(point);
-        Assert.IsNotNull(details);
-        Assert.That(details.SolarSystemPoint, Is.EqualTo(point));
-        Assert.That(details.SolSysPointCat, Is.EqualTo(SolSysPointCats.Modern));
-        Assert.That(details.SeId, Is.EqualTo(EnigmaConstants.SE_NEPTUNE));
-        Assert.IsTrue(details.UseForHeliocentric);
-        Assert.IsTrue(details.UseForGeocentric);
-        Assert.That(details.TextId, Is.EqualTo("neptune"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.SolarSystemPoint, Is.EqualTo(point));
+            Assert.That(details.SolSysPointCat, Is.EqualTo(SolSysPointCats.Modern));
+            Assert.That(details.SeId, Is.EqualTo(EnigmaConstants.SE_NEPTUNE));
+            Assert.That(details.UseForHeliocentric, Is.True);
+            Assert.That(details.UseForGeocentric, Is.True);
+            Assert.That(details.TextId, Is.EqualTo("neptune"));
+        });
     }
 
     [Test]
@@ -61,8 +67,8 @@ public class TestSolarSystemPointSpecifications
         foreach (SolarSystemPoints point in Enum.GetValues(typeof(SolarSystemPoints)))
         {
             SolarSystemPointDetails details = specifications.DetailsForPoint(point);
-            Assert.IsNotNull(details);
-            Assert.IsTrue(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }

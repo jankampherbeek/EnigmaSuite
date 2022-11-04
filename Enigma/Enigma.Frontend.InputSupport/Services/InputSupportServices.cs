@@ -3,14 +3,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.InputSupport.Conversions;
-using Enigma.InputSupport.InputParsers;
-using Enigma.InputSupport.Interfaces;
-using Enigma.InputSupport.Validations;
+using Enigma.Frontend.Helpers.Conversions;
+using Enigma.Frontend.Helpers.InputParsers;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Validations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace
-    Enigma.InputSupport.Services;
+    Enigma.Frontend.Helpers.Services;
 
 public static class InputSupportServices
 {

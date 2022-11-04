@@ -35,9 +35,12 @@ public class TestDateTimeHandler
         Mock<IDateTimeCalc> calcMock = CreateCalcMock();
         IDateTimeHandler handler = new DateTimeHandler(calcMock.Object);
         DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
-        Assert.That(response.DateTime, Is.EqualTo(_dateTime));
-        Assert.That(response.Success, Is.True);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.DateTime, Is.EqualTo(_dateTime));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]
@@ -46,10 +49,12 @@ public class TestDateTimeHandler
         Mock<IDateTimeCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IDateTimeHandler handler = new DateTimeHandler(calcExceptionMock.Object);
         DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
-        Assert.IsFalse(response.Success);
-        Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.Success, Is.False);
+            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
+        });
     }
-
 
     private Mock<IDateTimeCalc> CreateCalcMock()
     {

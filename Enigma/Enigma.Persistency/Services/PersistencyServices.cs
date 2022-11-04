@@ -4,8 +4,6 @@
 
 
 using Enigma.Persistency.Converters;
-using Enigma.Persistency.FileHandling;
-using Enigma.Persistency.Handlers;
 using Enigma.Persistency.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,13 +14,8 @@ public static class PersistencyServices
 {
     public static void RegisterPersistencyServices(this ServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<ICsvHandler, CsvHandler>();
-        serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
-        serviceCollection.AddTransient<IDataNameHandler, DataNameHandler>();
         serviceCollection.AddTransient<IDateCheckedConversion, DateCheckedConversion>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
-        serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
-        serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
 
     }

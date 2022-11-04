@@ -2,15 +2,15 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 public class ChartsWheelCusps : IChartsWheelCusps
 {

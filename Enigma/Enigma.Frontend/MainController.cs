@@ -3,15 +3,15 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Charts;
-using Enigma.Frontend.Charts.Graphics;
-using Enigma.Frontend.DataFiles;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.ResearchProjects;
-using Enigma.Frontend.Settings;
-using Enigma.Frontend.State;
+using Enigma.Frontend.Ui.Charts;
+using Enigma.Frontend.Ui.Charts.Graphics;
+using Enigma.Frontend.Ui.DataFiles;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.ResearchProjects;
+using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Ui.State;
 
-namespace Enigma.Frontend;
+namespace Enigma.Frontend.Ui;
 
 
 public class MainController

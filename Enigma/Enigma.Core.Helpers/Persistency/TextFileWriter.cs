@@ -2,10 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Persistency.Interfaces;
+using Enigma.Core.Helpers.Interfaces;
 using Serilog;
 
-namespace Enigma.Persistency.FileHandling;
+namespace Enigma.Core.Helpers.Persistency;
 
 
 
@@ -23,7 +23,7 @@ public class TextFileWriter : ITextFileWriter
         }
         catch (Exception e)
         {
-            Log.Error("An exception {e} occurred when writing a text to file {location}. Text to write: {text}", e.Message, location, text);
+            Log.Error("An exception {e} was thrown when TextFileWriter was writing a text to file {location}. Text to write: {text}", e.Message, location, text);
             success = false;
         }
         return success;
@@ -38,7 +38,7 @@ public class TextFileWriter : ITextFileWriter
         }
         catch (Exception e)
         {
-            Log.Error("An exception {e} occurred when writing several textlines to file {location}. Text to write: {@textLines}", e.Message, location, textLines);
+            Log.Error("An exception {e} ws thrown when TextFileWriter was writing several textlines to file {location}. Text to write: {@textLines}", e.Message, location, textLines);
             success = false;
         }
         return success;

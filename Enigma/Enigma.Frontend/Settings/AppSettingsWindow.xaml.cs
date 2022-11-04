@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace Enigma.Frontend.Settings;
+namespace Enigma.Frontend.Ui.Settings;
 
 /// <summary>
 /// Interaction logic for AppSettingsWindow.xaml

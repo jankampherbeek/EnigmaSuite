@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.PresentationFactories;
+namespace Enigma.Frontend.Ui.PresentationFactories;
 
 public class DataNameForDataGridFactory : IDataNameForDataGridFactory
 {

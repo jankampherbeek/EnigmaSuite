@@ -8,14 +8,14 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Interfaces;
-using Enigma.Frontend.State;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Helpers.Interfaces;
 using Serilog;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
-namespace Enigma.Frontend.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 public class ChartDataInputController
 {

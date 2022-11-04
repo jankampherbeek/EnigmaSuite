@@ -3,17 +3,18 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Engima.Domain.Research;
+using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Persistency.Interfaces;
 using Enigma.Research.Interfaces;
 using Serilog;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Enigma.Frontend.ResearchProjects;
+namespace Enigma.Frontend.Ui.ResearchProjects;
 public class ProjectInputController
 {
     public string ProjectName { get; set; }
@@ -24,15 +25,15 @@ public class ProjectInputController
     public string ControlGroupMultiplication { get; set; }
     public List<int> ActualErrorCodes { get; set; }
 
-    private readonly IDataNameHandler _dataNameHandler;
+    private readonly IFileManagementApi _fileManagementApi;
     private readonly IDataNameForDataGridFactory _dataNameForDataGridFactory;
     private readonly IProjectCreationHandler _projectCreationHandler;
 
-    public ProjectInputController(IDataNameHandler dataNameHandler,
+    public ProjectInputController(IFileManagementApi fileManagementApi,
         IDataNameForDataGridFactory dataNameForDataGridFactory,
         IProjectCreationHandler projectCreationHandler)
     {
-        _dataNameHandler = dataNameHandler;
+        _fileManagementApi = fileManagementApi;
         _dataNameForDataGridFactory = dataNameForDataGridFactory;
         _projectCreationHandler = projectCreationHandler;
         ProjectName = "";
@@ -47,7 +48,7 @@ public class ProjectInputController
     public List<PresentableDataName> GetDataNames()
     {
         string path = @"c:\enigma_ar\data\";        // TODO release 0.2 replace hardcoded path to data with path from settings.
-        List<string> fullPathDataNames = _dataNameHandler.GetExistingDataNames(path);
+        List<string> fullPathDataNames = _fileManagementApi.GetDataNames(path);
         return _dataNameForDataGridFactory.CreateDataNamesForDataGrid(fullPathDataNames);
     }
 

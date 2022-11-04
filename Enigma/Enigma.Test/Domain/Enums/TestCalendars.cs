@@ -24,9 +24,12 @@ public class TestCalendarSpecifications
     {
         Calendars calendar = Calendars.Julian;
         CalendarDetails details = specifications.DetailsForCalendar(calendar);
-        Assert.IsNotNull(details);
-        Assert.That(details.Calendar, Is.EqualTo(calendar));
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.calendar.julian"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Calendar, Is.EqualTo(calendar));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.calendar.julian"));
+        });
     }
 
     [Test]
@@ -35,8 +38,8 @@ public class TestCalendarSpecifications
         foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
         {
             CalendarDetails details = specifications.DetailsForCalendar(calendar);
-            Assert.IsNotNull(details);
-            Assert.That(details.TextId.Length > 0);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -54,16 +57,17 @@ public class TestCalendarSpecifications
     {
         int calendarIndex = 333;
         Assert.That(() => _ = specifications.CalendarForIndex(calendarIndex), Throws.TypeOf<ArgumentException>());
-
     }
 
     [Test]
     public void TestAllCalendarDetails()
     {
         List<CalendarDetails> allDetails = specifications.AllCalendarDetails();
-        Assert.That(allDetails.Count == 2);
-        Assert.That(allDetails[0].Calendar, Is.EqualTo(Calendars.Gregorian));
-        Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.calendar.julian"));
-
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(2));
+            Assert.That(allDetails[0].Calendar, Is.EqualTo(Calendars.Gregorian));
+            Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.calendar.julian"));
+        });
     }
 }

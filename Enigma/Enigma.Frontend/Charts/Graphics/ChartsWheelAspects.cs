@@ -8,13 +8,13 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
 

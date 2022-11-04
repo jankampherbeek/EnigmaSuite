@@ -4,8 +4,8 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.InputParsers;
-using Enigma.InputSupport.Interfaces;
+using Enigma.Frontend.Helpers.InputParsers;
+using Enigma.Frontend.Helpers.Interfaces;
 using Moq;
 
 namespace Enigma.Test.InputSupport.InputParsers;

@@ -16,13 +16,16 @@ public class TestHouseSystemSpecifications
         HouseSystems houseSystem = HouseSystems.Regiomontanus;
         IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
         HouseSystemDetails details = specifications.DetailsForHouseSystem(houseSystem);
-        Assert.IsNotNull(details);
-        Assert.That(details.HouseSystem, Is.EqualTo(houseSystem));
-        Assert.That(details.SeId, Is.EqualTo('R'));
-        Assert.That(details.NrOfCusps, Is.EqualTo(12));
-        Assert.That(details.CounterClockWise, Is.True);
-        Assert.That(details.QuadrantSystem, Is.True);
-        Assert.That(details.TextId, Is.EqualTo("ref.enum.housesystemregiomontanus"));
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.HouseSystem, Is.EqualTo(houseSystem));
+            Assert.That(details.SeId, Is.EqualTo('R'));
+            Assert.That(details.NrOfCusps, Is.EqualTo(12));
+            Assert.That(details.CounterClockWise, Is.True);
+            Assert.That(details.QuadrantSystem, Is.True);
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.housesystemregiomontanus"));
+        });
     }
 
     [Test]
@@ -32,8 +35,8 @@ public class TestHouseSystemSpecifications
         foreach (HouseSystems system in Enum.GetValues(typeof(HouseSystems)))
         {
             HouseSystemDetails details = specifications.DetailsForHouseSystem(system);
-            Assert.IsNotNull(details);
-            Assert.That(details.TextId.Length > 0, Is.True);
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 }

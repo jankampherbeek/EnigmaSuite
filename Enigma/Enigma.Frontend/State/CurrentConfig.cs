@@ -6,7 +6,7 @@ using Enigma.Configuration.Handlers;
 using Enigma.Domain.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enigma.Frontend.State;
+namespace Enigma.Frontend.Ui.State;
 
 
 /// <summary>Central vault for calculated charts and other data.</summary>

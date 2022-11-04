@@ -4,13 +4,13 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Charts.Graphics;
+using Enigma.Frontend.Ui.Charts.Graphics;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Interfaces;
+namespace Enigma.Frontend.Ui.Interfaces;
 
 
 // Interfaces for frontend graphics.

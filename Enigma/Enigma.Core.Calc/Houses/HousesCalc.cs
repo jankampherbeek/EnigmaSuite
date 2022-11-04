@@ -5,19 +5,17 @@
 
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Interfaces;
+
 
 namespace Enigma.Core.Calc.Houses;
 
 public class HousesCalc : IHousesCalc
 {
     private readonly IHousesFacade _seHousesFacade;
-    private readonly IHouseSystemSpecifications _houseSystemSpecifications;
 
-    public HousesCalc(IHousesFacade seHousesFacade, IHouseSystemSpecifications houseSystemSpecs)
+    public HousesCalc(IHousesFacade seHousesFacade)
     {
         _seHousesFacade = seHousesFacade;
-        _houseSystemSpecifications = houseSystemSpecs;
     }
 
     public double[][] CalculateHouses(double julianDayUt, double obliquity, Location location, char houseSystemId, int flags)

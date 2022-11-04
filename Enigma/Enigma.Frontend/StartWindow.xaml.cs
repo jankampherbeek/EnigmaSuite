@@ -13,7 +13,7 @@ using System.Threading;
 using System.Windows;
 
 
-namespace Enigma.Frontend;
+namespace Enigma.Frontend.Ui;
 
 
 /// <summary>Splash window, starts the application.</summary>
@@ -43,8 +43,6 @@ public partial class StartWindow : Window
         HandleCheckForConfig();
         HandleCheckDirForSettings();
         Thread.Sleep(500);
-
-        // TODO remove sleep
         // TODO check for update
         Hide();
         MainWindow mainWindow = new();
@@ -56,7 +54,7 @@ public partial class StartWindow : Window
 
 
 
-    private void HandleCheckForConfig()
+    private static void HandleCheckForConfig()
     {
         bool result = true;
         if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
@@ -71,7 +69,7 @@ public partial class StartWindow : Window
 
     }
 
-    private void HandleCheckDirForSettings()
+    private static void HandleCheckDirForSettings()        // todo move to backend
     {
         ApplicationSettings? settings = ApplicationSettings.Instance;
         if (!Directory.Exists(settings.LocationEnigmaRoot)) Directory.CreateDirectory(settings.LocationEnigmaRoot);

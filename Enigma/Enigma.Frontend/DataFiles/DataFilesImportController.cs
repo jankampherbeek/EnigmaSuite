@@ -2,35 +2,35 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Support;
-using Enigma.Persistency.Interfaces;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
 using System.Windows;
 
 
-namespace Enigma.Frontend.Datafiles;
+namespace Enigma.Frontend.Ui.Datafiles;
 public class DataFilesImportController
 {
-    private readonly IDataFilePreparator _dataFilePreparator;
-    private readonly ICsvHandler _csvHandler;
+    private readonly IFileManagementApi _fileManagementApi;
+    private readonly IDataHandlerApi _dataHandlerApi;
 
-    public DataFilesImportController(IDataFilePreparator dataFilePreparator, ICsvHandler csvHandler)
+    public DataFilesImportController(IFileManagementApi fileManagementApi, IDataHandlerApi dataHandlerApi)
     {
-        _dataFilePreparator = dataFilePreparator;
-        _csvHandler = csvHandler;
+        _fileManagementApi = fileManagementApi;
+        _dataHandlerApi = dataHandlerApi;
     }
 
-    /// <summary>Chick if a directory does not yet exist.</summary>
+    /// <summary>Check if a directory does not yet exist.</summary>
     /// <param name="dataName">Name to be used for the data.</param>
     /// <returns>True if a directory for the data with the given name can be created, otherwise false.</returns>
     public bool CheckIfNameCanBeUsed(string dataName)
     {
-        string fullPath = ApplicationSettings.Instance.LocationDataFiles + @"\" + dataName;
-        return _dataFilePreparator.FolderNameAvailable(fullPath);
+        string fullPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
+        return _fileManagementApi.FolderIsAvailable(fullPath);
     }
 
     /// <summary>Start processing a csv file and convert it to Json. If no error occurs, save the Json and a copy of the csv.</summary>
@@ -39,21 +39,14 @@ public class DataFilesImportController
     /// <returns>ResultMessage with a descriptive text and an error_code (possibly zero: no error).</returns>
     public ResultMessage PerformImport(string inputFile, string dataName)
     {
-        string dataPath = ApplicationSettings.Instance.LocationDataFiles + @"\" + dataName;
-        string fullCsvPath = ApplicationSettings.Instance.LocationDataFiles + @"\" + dataName + @"\csv";
-        string fullJsonPath = ApplicationSettings.Instance.LocationDataFiles + @"\" + dataName + @"\json";
-        ResultMessage receivedResultMessage = _dataFilePreparator.MakeFolderStructure(dataPath);
+        string dataPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
+        ResultMessage receivedResultMessage = _fileManagementApi.CreateFoldersForData(dataPath);
         if (receivedResultMessage.ErrorCode > ErrorCodes.ERR_NONE)
         {
             return receivedResultMessage;
 
         }
-        receivedResultMessage = _csvHandler.ConvertStandardCsvToJson(dataName, inputFile, fullJsonPath);
-        if (receivedResultMessage.ErrorCode == ErrorCodes.ERR_NONE)
-        {
-            File.Copy(inputFile, fullCsvPath + dataName + "_copy.csv");
-        }
-
+        receivedResultMessage = _dataHandlerApi.ConvertDataFile2Json(inputFile, dataName);
         return receivedResultMessage;
     }
 

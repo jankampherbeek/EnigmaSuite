@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
-    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.InputSupport.csproj" />
+    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
   </ItemGroup>
 
 </Project>

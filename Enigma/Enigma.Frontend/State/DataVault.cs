@@ -6,7 +6,7 @@ using Enigma.Domain.Charts;
 using Serilog;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.State;
+namespace Enigma.Frontend.Ui.State;
 
 
 /// <summary>Central vault for calculated charts and other data.</summary>

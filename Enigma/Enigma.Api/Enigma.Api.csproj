@@ -14,6 +14,7 @@
     <ProjectReference Include="..\Configuration\Enigma.Configuration.csproj" />
     <ProjectReference Include="..\Enigma.Core.Analysis\Enigma.Core.Analysis.csproj" />
     <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Handlers\Enigma.Core.Handlers.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
     <ProjectReference Include="..\Enigma.Persistency\Enigma.Persistency.csproj" />
     <ProjectReference Include="..\Research\Enigma.Research.csproj" />

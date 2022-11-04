@@ -38,13 +38,15 @@ public class TestHorizontalApi
     [Test]
     public void TestHorizontalHappyFlow()
     {
-
         var _horizontalRequest = new HorizontalRequest(_jdUt, _location, _eclCoordinates);
         HorizontalResponse response = _api.GetHorizontal(_horizontalRequest);
-        Assert.That(response.HorizontalAzimuthAltitude.Azimuth, Is.EqualTo(_expectedAzimuth).Within(_delta));
-        Assert.That(response.HorizontalAzimuthAltitude.Altitude, Is.EqualTo(_expectedAltitude).Within(_delta));
-        Assert.That(response.Success, Is.True);
-        Assert.That(response.ErrorText, Is.EqualTo(""));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response.HorizontalAzimuthAltitude.Azimuth, Is.EqualTo(_expectedAzimuth).Within(_delta));
+            Assert.That(response.HorizontalAzimuthAltitude.Altitude, Is.EqualTo(_expectedAltitude).Within(_delta));
+            Assert.That(response.Success, Is.True);
+            Assert.That(response.ErrorText, Is.EqualTo(""));
+        });
     }
 
     [Test]

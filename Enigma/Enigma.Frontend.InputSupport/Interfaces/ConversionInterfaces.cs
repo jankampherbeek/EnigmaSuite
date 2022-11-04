@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Enums;
 
-namespace Enigma.InputSupport.Interfaces;
+namespace Enigma.Frontend.Helpers.Interfaces;
 
 // interfaces for conversions of inputted data.
 

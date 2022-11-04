@@ -1,9 +1,9 @@
-﻿<Window x:Class="Enigma.Frontend.AboutWindow"
+﻿<Window x:Class="Enigma.Frontend.Ui.AboutWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Enigma.Frontend"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"             
         Title="AboutWindow" Height="450" Width="800">

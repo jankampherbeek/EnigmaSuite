@@ -54,13 +54,17 @@ public class TestHousesApi
     [Test]
     public void TestRequest()
     {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(() => _api.GetHouses(null), Throws.TypeOf<ArgumentNullException>());
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
 
     [Test]
     public void TestNullLocation()
     {
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         FullHousesPosRequest errorRequest = new(_jdUt, null, _houseSystem);
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
         Assert.That(() => _api.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

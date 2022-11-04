@@ -4,7 +4,7 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.InputSupport.Validations;
+using Enigma.Frontend.Helpers.Validations;
 
 
 namespace Enigma.Test.InputSupport.Validations;

@@ -6,8 +6,8 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
-using Enigma.Frontend.Charts;
-using Enigma.Frontend.Interfaces;
+using Enigma.Frontend.Ui.Charts;
+using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 
-namespace Enigma.Frontend.Settings;
+namespace Enigma.Frontend.Ui.Settings;
 
 /// <summary>
 /// Interaction logic for AstroConfigWindow.xaml

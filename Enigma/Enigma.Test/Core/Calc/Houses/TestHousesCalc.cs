@@ -35,14 +35,14 @@ public class TestHousesCalc
     [Test]
     public void TestCusps()
     {
-        Assert.NotNull(_calculatedResults);
+        Assert.That(_calculatedResults, Is.Not.Null);
         Assert.That(_calculatedResults[0], Is.EqualTo(_cusps));
     }
 
     [Test]
     public void TestOtherPoints()
     {
-        Assert.NotNull(_calculatedResults);
+        Assert.That(_calculatedResults, Is.Not.Null);
         Assert.That(_calculatedResults[1], Is.EqualTo(_otherPoints));
     }
 
@@ -62,9 +62,7 @@ public class TestHousesCalc
         double[][] positions = { _cusps, _otherPoints };
         var mockFacade = new Mock<IHousesFacade>();
         mockFacade.Setup(p => p.RetrieveHouses(jd, flags, _geoLat, _geoLon, houseSystemId)).Returns(positions);
-        var mockSpecs = new Mock<IHouseSystemSpecifications>();
-        mockSpecs.Setup(p => p.DetailsForHouseSystem(HouseSystems.Placidus)).Returns(new HouseSystemDetails(HouseSystems.Placidus, true, _houseSystemId, 12, true, true, "textId"));
-        HousesCalc calc = new(mockFacade.Object, mockSpecs.Object);
+        HousesCalc calc = new(mockFacade.Object);
         return calc;
     }
 }

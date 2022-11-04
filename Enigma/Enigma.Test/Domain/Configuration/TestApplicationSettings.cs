@@ -18,9 +18,12 @@ public class TestApplicationSettings
     public void TestDefaultValues()
     {
         ApplicationSettings settings = ApplicationSettings.Instance;
-        Assert.IsNotNull(settings);
-        Assert.That(_defaultLocData, Is.EqualTo(settings.LocationDataFiles));
-        Assert.That(_defaultLocSe, Is.EqualTo(settings.LocationSeFiles));
+        Assert.Multiple(() =>
+        {
+            Assert.That(settings, Is.Not.Null);
+            Assert.That(_defaultLocData, Is.EqualTo(settings.LocationDataFiles));
+            Assert.That(_defaultLocSe, Is.EqualTo(settings.LocationSeFiles));
+        });
     }
 
     [Test]

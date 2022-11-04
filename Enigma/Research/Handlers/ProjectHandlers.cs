@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Helpers.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
-using Enigma.Persistency.Interfaces;
 using Enigma.Research.Interfaces;
 using Serilog;
 

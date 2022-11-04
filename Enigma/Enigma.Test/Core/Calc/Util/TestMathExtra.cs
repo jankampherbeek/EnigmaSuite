@@ -20,9 +20,12 @@ internal class TestMathExtra
         var expectedValues = new double[] { 1.107148717794, 0.930274014115, 3.741657386774 };
 
         double[] result = MathExtra.Rectangular2Polar(rectangularValues);
-        Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(_delta));
-        Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(_delta));
-        Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(_delta));
+            Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(_delta));
+            Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(_delta));
+        });
     }
 
     [Test]
@@ -32,9 +35,12 @@ internal class TestMathExtra
         var expectedValues = new double[] { 1.0, 2.0, 3.0 };
 
         double[] result = MathExtra.Polar2Rectangular(polarValues);
-        Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(_delta));
-        Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(_delta));
-        Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(_delta));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(_delta));
+            Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(_delta));
+            Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(_delta));
+        });
     }
 
     [Test]

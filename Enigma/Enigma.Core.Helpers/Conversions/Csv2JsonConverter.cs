@@ -5,20 +5,23 @@
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.RequestResponse;
+using Enigma.Core.Helpers.Interfaces;
 using Enigma.Persistency.Interfaces;
 using Newtonsoft.Json;
+using Enigma.Core.Helpers.Persistency;
 
-namespace Enigma.Persistency.Handlers;
+namespace Enigma.Core.Helpers.Conversions;
 
 
-public class CsvHandler : ICsvHandler
+/// <inheritdoc/>
+public class Csv2JsonConverter : ICsv2JsonConverter
 {
     private readonly ITextFileWriter _fileWriter;
     private readonly ILocationCheckedConversion _locationCheckedConversion;
     private readonly IDateCheckedConversion _dateCheckedConversion;
     private readonly ITimeCheckedConversion _timeCheckedConversion;
 
-    public CsvHandler(ITextFileWriter fileWriter,
+    public Csv2JsonConverter(ITextFileWriter fileWriter,
         ILocationCheckedConversion locationCheckedConversion,
         IDateCheckedConversion dateCheckedConversion,
         ITimeCheckedConversion timeCheckedConversion)
@@ -29,7 +32,40 @@ public class CsvHandler : ICsvHandler
         _timeCheckedConversion = timeCheckedConversion;
     }
 
-    public ResultMessage ConvertStandardCsvToJson(string dataName, string fullPathCsv, string fullPathJson)
+    /// <inheritdoc/>
+    public Tuple<bool, string, List<string>> ConvertStandardDataCsvToJson(List<string> csvLines, string dataName)
+    {
+        bool noErrors = true;
+        int count = csvLines.Count;
+        Tuple<StandardInputItem?, bool> processedLine;
+        List<StandardInputItem> allInput = new();
+        List<string> resultLines = new();
+        for (int i = 1; i < count; i++)           // skip first line that contains header
+        {
+            processedLine = ProcessLine(csvLines[i]);
+            if (!processedLine.Item2 || processedLine.Item1 == null)
+            {
+                resultLines.Add("Error: " + processedLine.Item1);
+                noErrors = false;
+            }
+            else
+            {
+                allInput.Add(processedLine.Item1);
+            }
+        }
+        string jsonText = "";
+        if (noErrors)
+        {
+            string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+            StandardInput standardInput = new(dataName, creation, allInput);
+            jsonText = JsonConvert.SerializeObject(standardInput, Formatting.Indented);
+        }
+        return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
+    }
+
+
+
+    public ResultMessage Old_ConvertStandardCsvToJson(string dataName, string fullPathCsv, string fullPathJson)
     {
         bool noErrors = true;
         int errorCode = ErrorCodes.ERR_NONE;
@@ -75,7 +111,7 @@ public class CsvHandler : ICsvHandler
 
     }
 
-    private Tuple<StandardInputItem, bool> ProcessLine(string csvLine)
+    private Tuple<StandardInputItem?, bool> ProcessLine(string csvLine)
     {
         bool noErrors = true;
         StandardInputItem? inputItem = null;
@@ -113,7 +149,7 @@ public class CsvHandler : ICsvHandler
         {
             noErrors = false;
         }
-        return new Tuple<StandardInputItem, bool>(inputItem, noErrors);
+        return new Tuple<StandardInputItem?, bool>(inputItem, noErrors);
     }
 
 
