@@ -2,10 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Research.ControlGroups;
-using Enigma.Research.Interfaces;
+using Enigma.Core.Helpers.Research;
 
-namespace Enigma.Test.Research.ControlGroups;
+namespace Enigma.Test.Core.Helpers.Research;
 
 [TestFixture]
 public class TestControlGroupRng

@@ -2,11 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Domain.Research;
 using Enigma.Domain.Persistency;
-using Enigma.Research.Interfaces;
+using Enigma.Domain.Research;
 
-namespace Enigma.Research.ControlGroups;
+namespace Enigma.Core.Helpers.Research;
 
 
 
@@ -40,19 +39,19 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
         var allControlData = new List<StandardInputItem>();
         for (int i = 0; i < multiplicity; i++)
         {
-            var controlDataForOneSet = CreateControlData(inputItems, controlGroupType);
+            var controlDataForOneSet = CreateControlData(inputItems, controlGroupType, i);
             allControlData.AddRange(controlDataForOneSet);
         }
         return allControlData;
     }
 
 
-    private List<StandardInputItem> CreateControlData(List<StandardInputItem> inputItems, ControlGroupTypes controlGroupType)
+    private List<StandardInputItem> CreateControlData(List<StandardInputItem> inputItems, ControlGroupTypes controlGroupType, int sequence)
     {
         _controlGroupItems.Clear();
         ProcessInputData(inputItems);
         SortDaysAndShuffleOtherItems();
-        ProcessData();
+        ProcessData(sequence);
         return _controlGroupItems;
 
     }
@@ -101,11 +100,22 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
         _controlGroupRng.ShuffleList(longitudes);
     }
 
-    private void ProcessData()
+    private void ProcessData(int sequence)
     {
         int counter = 0;
         while (years.Count > 0)
+        //for (int i = 0; i < years.Count; i++)
         {
+        /*    int year = years[i];
+            int day = days[i];
+            int month = FindMonth(day, year);
+            int hour = hours[i];
+            int minute = minutes[i];
+            int second = seconds[i];
+            double dst = dsts[i];
+            double zoneOffset = zoneOffsets[i];
+            double latitude = latitudes[i];
+            double longitude = longitudes[i];   */
             int year = GetFromList(years);
             int day = GetFromList(days);
             int month = FindMonth(day, year);
@@ -120,8 +130,8 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
             PersistableDate date = new(year, month, day, "G");      // TODO add support for Julian? Or use always Gregorian?
             PersistableTime time = new(hour, minute, second, zoneOffset, dst);
             int id = counter++;
-            string name = "Controldata " + id;
-            _controlGroupItems.Add(new StandardInputItem(id.ToString(), name, longitude, latitude, date, time));
+            string name = "Controldata " + sequence + "-" + id;
+            _controlGroupItems.Add(new StandardInputItem(sequence.ToString() + "-" + id.ToString(), name, longitude, latitude, date, time));
         }
     }
 
@@ -136,24 +146,24 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
             if (_controlDataCalendar.DayFitsInMonth(day, month, year))
             {
                 found = true;
-                months.Remove(counter);
+                months.RemoveAt(counter);    
             }
             counter++;
         }
         return month;
     }
 
-    private static int GetFromList(List<int> theList)
+    private int GetFromList(List<int> theList)
     {
         int result = theList[0];
-        theList.Remove(0);
+        theList.RemoveAt(0);
         return result;
     }
 
-    private static double GetFromList(List<double> theList)
+    private double GetFromList(List<double> theList)
     {
         double result = theList[0];
-        theList.Remove(0);
+        theList.RemoveAt(0);
         return result;
     }
 

@@ -53,8 +53,10 @@ public class TestCheckDateTimeApi
     public void TestRequestNull()
     {
         ICheckDateTimeApi api = new CheckDateTimeApi(CreateHandlerMock());
-        CheckDateTimeRequest errorRequest = null;
+        CheckDateTimeRequest? errorRequest = null;
+#pragma warning disable CS8604 // Possible null reference argument.
         Assert.That(() => api.CheckDateTime(errorRequest), Throws.TypeOf<ArgumentNullException>());
+#pragma warning restore CS8604 // Possible null reference argument.
     }
 
 

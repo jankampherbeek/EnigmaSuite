@@ -31,9 +31,11 @@ public class TestDateValidator
         {
             Assert.That(result, Is.True);
             Assert.That(fullDate, Is.Not.Null);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
             Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
             Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         });
     }
 
@@ -84,9 +86,11 @@ public class TestDateValidator
         {
             Assert.That(result, Is.True);
             Assert.That(fullDate, Is.Not.Null);
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             Assert.That(year, Is.EqualTo(fullDate.YearMonthDay[0]));
             Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
             Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         });
     }
 

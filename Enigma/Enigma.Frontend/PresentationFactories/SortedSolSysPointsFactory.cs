@@ -29,7 +29,7 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
             return pos1.MundanePos.CompareTo(pos2.MundanePos);
         });
         double actDistance = 0.0;
-        GraphicSolSysPointPositions lastPos = null;
+        GraphicSolSysPointPositions? lastPos = null;
         foreach (var pos in graphPositions)
         {
             if (lastPos != null)
@@ -41,7 +41,6 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
                     if (pos.PlotPos >= 360.0) pos.PlotPos -= 360.0;
                 }
             }
-
             lastPos = pos;
         }
         return graphPositions;
@@ -62,9 +61,12 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
             if (mundanePos >= 360.0) mundanePos -= 360.0;
             string longitudeText = presentablePositions[count].LongText;
 
-            GraphicSolSysPointPositions graphicPos = new(solSysPoint, longitude, mundanePos, longitudeText);
-            graphPositions.Add(graphicPos);
-            count++;
+            GraphicSolSysPointPositions? graphicPos = new(solSysPoint, longitude, mundanePos, longitudeText);
+            if (graphicPos != null)
+            {
+                graphPositions.Add(graphicPos);
+                count++;
+            }
         }
         return graphPositions;
     }

@@ -2,15 +2,16 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Helpers.Interfaces;
+using Enigma.Core.Helpers.Research;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
-using Enigma.Research.Interfaces;
 using Serilog;
 
-namespace Enigma.Research.Handlers;
+namespace Enigma.Core.Handlers.Research;
 
 public class ProjectCreationHandler : IProjectCreationHandler
 {
@@ -20,17 +21,20 @@ public class ProjectCreationHandler : IProjectCreationHandler
     private readonly ITextFileWriter _textFileWriter;
     private readonly ITextFileReader _textFileReader;
     private readonly IControlGroupCreator _controlGroupCreator;
+    private readonly IInputDataConverter _inputDataConverter;
 
     public ProjectCreationHandler(IResearchProjectParser researchProjectParser,
         ITextFileWriter textFileWriter,
         ITextFileReader textFileReader,
-        IControlGroupCreator controlGroupCreator)
+        IControlGroupCreator controlGroupCreator,
+        IInputDataConverter inputDataConverter)
     {
         _researchProjectParser = researchProjectParser;
         _textFileWriter = textFileWriter;
         _textFileReader = textFileReader;
         _applicationSettings = ApplicationSettings.Instance;
         _controlGroupCreator = controlGroupCreator;
+        _inputDataConverter = inputDataConverter;
     }
 
     public bool CreateProject(ResearchProject project, out int errorCode)
@@ -61,11 +65,32 @@ public class ProjectCreationHandler : IProjectCreationHandler
         {
             errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_COPY_DATAFILE;
             return false;
-        };
+        }
+        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_data.json";
+
+
+
+
         // lees datafile (naam staat in project)
+        string inputData = _textFileReader.ReadFile(projDataPath);
+
+        // converteer van Json naar InputItems
+        StandardInput standardInput = _inputDataConverter.UnMarshallStandardInput(inputData);
+        List<StandardInputItem> allInputItems = standardInput.ChartData;
+
+
 
         // maak controlgroup via ControlGroupCreator
+        List<StandardInputItem> controlGroupData = _controlGroupCreator.CreateMultipleControlData(allInputItems, project.ControlGroupType, project.ControlGroupMultiplication);
+        string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+        StandardInput controlGroup = new(project.Name, creation, controlGroupData);
         // schrijf data controlgroep weg
+        string controlGroupJson = _inputDataConverter.MarshallStandardInput(controlGroup);
+        
+        string controlGroupPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "controldata.json";
+
+        _textFileWriter.WriteFile(controlGroupPath, controlGroupJson);
+
 
 
         return true;
@@ -126,7 +151,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
 
     private bool CopyDataFile(ResearchProject project)
     {
-        string dataPath = _applicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "date_time_loc.json";
+        string dataPath = _applicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
         string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_data.json";
         try
         {

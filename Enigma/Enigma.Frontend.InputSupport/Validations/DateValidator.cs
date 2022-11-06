@@ -6,7 +6,6 @@
 using Enigma.Core.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 

@@ -22,7 +22,7 @@ public class CoordinateConversionHandler : ICoordinateConversionHandler
     {
         string errorText = "";
         bool success = true;
-        EquatorialCoordinates equatorialCoordinates = null;
+        EquatorialCoordinates equatorialCoordinates = new(0.0, 0.0);
         try
         {
             equatorialCoordinates = _conversionCalc.PerformConversion(request.EclCoord, request.Obliquity);

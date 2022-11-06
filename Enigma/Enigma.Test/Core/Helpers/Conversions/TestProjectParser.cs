@@ -3,12 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Engima.Domain.Research;
+using Enigma.Core.Helpers.Conversions;
+using Enigma.Core.Helpers.Interfaces;
 using Enigma.Domain.Research;
-using Enigma.Research.Interfaces;
-using Enigma.Research.Parsers;
 
-namespace Enigma.Test.Research.Parsers;
+namespace Enigma.Test.Core.Helpers.Conversions;
 
 [TestFixture]
 public class TestResearchProjectParser

@@ -6,6 +6,7 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
+using Enigma.Core.Handlers.Research;
 using Enigma.Core.Helpers.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +24,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IDataFilePreparationHandler, DataFilePreparationHandler>();
         serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
         serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();
+        serviceCollection.AddTransient<IProjectCreationHandler, ProjectCreationHandler>();
 
         serviceCollection.RegisterHelperServices();
     }

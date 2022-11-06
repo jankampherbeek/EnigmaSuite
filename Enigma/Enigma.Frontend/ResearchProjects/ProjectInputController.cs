@@ -2,14 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Domain.Research;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
+using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Interfaces;
-using Enigma.Persistency.Interfaces;
-using Enigma.Research.Interfaces;
 using Serilog;
 using System.Collections.Generic;
 using System.Windows;
@@ -17,31 +15,26 @@ using System.Windows;
 namespace Enigma.Frontend.Ui.ResearchProjects;
 public class ProjectInputController
 {
-    public string ProjectName { get; set; }
-    public string ProjectIdentifier { get; set; }
-    public string ProjectDescription { get; set; }
-    public string DataFileName { get; set; }
-    public ControlGroupTypes ControlGroupType { get; set; }
-    public string ControlGroupMultiplication { get; set; }
+    public string ProjectName { get; set; } = "";
+    public string ProjectIdentifier { get; set; } = "";
+    public string ProjectDescription { get; set; } = "";
+    public string DataFileName { get; set; } = "";
+    public ControlGroupTypes ControlGroupType { get; set; } = ControlGroupTypes.StandardShift;
+    public string ControlGroupMultiplication { get; set; } = "";
     public List<int> ActualErrorCodes { get; set; }
 
     private readonly IFileManagementApi _fileManagementApi;
     private readonly IDataNameForDataGridFactory _dataNameForDataGridFactory;
-    private readonly IProjectCreationHandler _projectCreationHandler;
+    private readonly IProjectCreationApi _projectCreationApi;
 
     public ProjectInputController(IFileManagementApi fileManagementApi,
         IDataNameForDataGridFactory dataNameForDataGridFactory,
-        IProjectCreationHandler projectCreationHandler)
+        IProjectCreationApi projectCreationApi)
     {
         _fileManagementApi = fileManagementApi;
         _dataNameForDataGridFactory = dataNameForDataGridFactory;
-        _projectCreationHandler = projectCreationHandler;
-        ProjectName = "";
-        ProjectIdentifier = "";
-        ProjectDescription = "";
-        DataFileName = "";
-        ControlGroupType = ControlGroupTypes.StandardShift;
-        ControlGroupMultiplication = "1";
+        _projectCreationApi = projectCreationApi;
+
         ActualErrorCodes = new();
     }
 
@@ -83,11 +76,11 @@ public class ProjectInputController
         if (noErrors)
         {
             ResearchProject project = new(ProjectName, ProjectIdentifier, ProjectDescription, DataFileName, ControlGroupType, multiplication);
-            _projectCreationHandler.CreateProject(project, out int errorCode);
-            if (errorCode != 0)
+            ResultMessage resultMessage = _projectCreationApi.CreateProject(project);
+            if (resultMessage.ErrorCode != 0)
             {
                 noErrors = false;
-                Log.Error("Error while creating project, Enigma errorcode: {errorCode}, project: {@project}", errorCode, project);
+                Log.Error("Error while creating project, Enigma errorcode: {errorCode}, project: {@project}", resultMessage.ErrorCode, project);
                 MessageBox.Show("An error occurred");         // TODO use RB
             }
             else

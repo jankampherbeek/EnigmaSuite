@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Engima.Api.Persistency;
+using Engima.Api.Research;
 using Enigma.Api.Analysis;
 using Enigma.Api.Astron;
 using Enigma.Api.Interfaces;
@@ -36,6 +37,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
+        serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
 
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
@@ -44,7 +46,6 @@ public static class ApiServices
         serviceCollection.RegisterPersistencyServices();
         serviceCollection.RegisterConfigurationServices();
         serviceCollection.RegisterResearchServices();
-
         serviceCollection.RegisterHandlerServices();
     }
 }

@@ -6,6 +6,7 @@
 using Enigma.Core.Helpers.Conversions;
 using Enigma.Core.Helpers.Interfaces;
 using Enigma.Core.Helpers.Persistency;
+using Enigma.Core.Helpers.Research;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Helpers.Services;
@@ -19,11 +20,18 @@ public static class HelperServices
 {
     public static void RegisterHelperServices(this ServiceCollection serviceCollection)
     {
+        serviceCollection.AddTransient<IControlDataCalendar, ControlDataCalendar>();
+        serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();
+        serviceCollection.AddTransient<IControlGroupRng, ControlGroupRng>();
         serviceCollection.AddTransient<ICsv2JsonConverter, Csv2JsonConverter>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
+        serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
+        serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
+
+
     }
 }

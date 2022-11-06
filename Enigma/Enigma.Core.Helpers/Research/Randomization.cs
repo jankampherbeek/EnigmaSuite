@@ -2,10 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Research.Interfaces;
 using System.Security.Cryptography;
 
-namespace Enigma.Research.ControlGroups;
+namespace Enigma.Core.Helpers.Research;
 
 
 

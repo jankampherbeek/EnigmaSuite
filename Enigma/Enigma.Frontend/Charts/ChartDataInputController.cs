@@ -48,9 +48,6 @@ public class ChartDataInputController
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
-    private Calendars _cal;
-    private List<FullSolSysPointPos> _solarSystemPointPositions = new();
-    private FullHousesPositions _mundanePositions;
     private readonly IRosetta _rosetta;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
@@ -70,7 +67,7 @@ public class ChartDataInputController
     /// Retrieve calculation preferences from active modus. Currently uses hardcoded values.
     /// </summary>
     /// TODO: replace hardocded values with a lookup from the active settings.
-    private CalculationPreferences RetrieveCalculationPreferences()
+    private static CalculationPreferences RetrieveCalculationPreferences()
     {
 
         ImmutableArray<SolarSystemPoints> solarSystemPoints = ImmutableArray.Create(new SolarSystemPoints[] {
@@ -99,7 +96,7 @@ public class ChartDataInputController
     public bool ProcessInput()
     {
         ActualErrorCodes = new List<int>();
-        _cal = Calendar;
+        Calendars cal = Calendar;
 
         // todo validate and define lmtoffset
         double lmtOffset = 0.0;
@@ -115,9 +112,9 @@ public class ChartDataInputController
         if (!geoLatSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLAT);
         if (!lmtSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON_LMT);
 
-        if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess)
+        if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && fullDate != null  && fullTime != null)
         {
-            SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, _cal);
+            SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, cal);
             JulianDayRequest julianDayRequest = new(dateTime);
             double julianDayUt = _julianDayApi.GetJulianDay(julianDayRequest).JulDayUt;
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
@@ -128,8 +125,8 @@ public class ChartDataInputController
             ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(chartAllPositionsRequest);
             if (chartAllPositionsResponse.Success)
             {
-                _solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;
-                _mundanePositions = chartAllPositionsResponse.MundanePositions;
+                List<FullSolSysPointPos> solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;
+                FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions;
                 FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
 
 
@@ -138,7 +135,7 @@ public class ChartDataInputController
                 int id = 1000;
                 int tempId = 1;
                 ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
-                CalculatedChart chart = new(_solarSystemPointPositions, _mundanePositions, chartData);
+                CalculatedChart chart = new(solarSystemPointPositions, _mundanePositions, chartData);
                 _dataVault.AddNewChart(chart);
                 _dataVault.SetNewChartAdded(true);
                 return true;

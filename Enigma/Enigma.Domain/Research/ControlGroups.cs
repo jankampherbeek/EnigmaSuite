@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-namespace Engima.Domain.Research;
+namespace Enigma.Domain.Research;
 
 
 /// <summary>Types of controlgroups.</summary>

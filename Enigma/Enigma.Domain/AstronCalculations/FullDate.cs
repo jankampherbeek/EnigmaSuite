@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
+using System.Collections.Immutable;
 
 namespace Enigma.Domain.AstronCalculations;
 
@@ -16,11 +17,9 @@ public record FullDate
     public readonly Calendars Calendar;
     public readonly string DateFullText;
 
-    /// <summary>
-    /// Constructor for FullDate.
-    /// </summary>
+    /// <summary>Constructor for FullDate.</summary>
     /// <param name="yearMonthDay">Texts for year, month and day, in that sequence.</param>
-    /// <param name="calendar">Instane of enu Calendars.</param>
+    /// <param name="calendar">Instance of enu Calendars.</param>
     /// <param name="dateFullText">Text for the date, includes texts between [] that needs to be replaced with texts from Rosetta.</param>
     public FullDate(int[] yearMonthDay, Calendars calendar, string dateFullText)
     {
