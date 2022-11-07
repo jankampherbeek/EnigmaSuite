@@ -38,6 +38,8 @@ public static class ApiServices
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
+        serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
+
 
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();

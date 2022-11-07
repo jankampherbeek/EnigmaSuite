@@ -28,6 +28,7 @@ public static class HelperServices
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
+        serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();

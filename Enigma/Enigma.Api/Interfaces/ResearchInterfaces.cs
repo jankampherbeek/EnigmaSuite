@@ -18,3 +18,11 @@ public interface IProjectCreationApi
     /// <returns>Resultmessage with info about this action.</returns>
     public ResultMessage CreateProject(ResearchProject project);
 }
+
+/// <summary>Overview of available projects.</summary>
+public interface IProjectsOverviewApi
+{
+    /// <summary>Get details for all available projects.</summary>
+    /// <returns>List with projects.</returns>
+    public List<ResearchProject> GetDetailsForAllProjects();
+}

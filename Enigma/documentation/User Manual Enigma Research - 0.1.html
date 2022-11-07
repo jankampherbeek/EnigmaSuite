@@ -138,7 +138,7 @@
 <!-- html-help-end [datafilesoverview] -->
 <p>&nbsp;</p>
 <p>&nbsp;</p>
-<h4 id='performing-an-import'>Performing an import</h4>
+<h4 id='performing-an-import-1'>Performing an import</h4>
 <p>Menu: Data -&gt; Import data</p>
 <!-- html-help-begin [dataimport] -->
 <p>To import data, you need to select a file in the correct csv-format and define a unique name for the data. This name is used to define the data in research projects.</p>
@@ -150,5 +150,35 @@
 <p>If you change your mind and want to skip the import, click the button <strong>Cancel</strong>.</p>
 <!-- html-help-end [dataimport] -->
 <p>&nbsp;</p>
+<h3 id='project-import'>Project import</h3>
+<p>&nbsp;</p>
+<h4 id='types-of-controlgroups'>Types of controlgroups</h4>
+<p>Currently there is one type of controlgroup: <em>Standard shifting of location, date, and time</em>. In the document <a href='https://nvwoa.nl/txt/20200628controlegroepen.pdf' target='_blank' class='url'>https://nvwoa.nl/txt/20200628controlegroepen.pdf</a>  (in dutch, will soon be translated) you will find a thorough description of this way of generating controlgroups.</p>
+<p>&nbsp;</p>
+<h4 id='randomization'>Randomization</h4>
+<p>Randomization is an essential part of generating controlgroups. Most programs use a pseudo random number generator, resulting in data being not fully random. That is sufficient for gaming etc., but for research we prefer real random number generators. Enigma uses such a real random number generator, based on the &#39;entropy&#39; (random internal data) of the system. </p>
+<p>&nbsp;</p>
+<h4 id='multiplication-factor'>Multiplication factor</h4>
+<p>If a dataset is relatively small this will also result in a small control group. This easily leads to unreal effects. To avoid this, it is possible to multiply the control group data. This has the effect that the control group gives a better estimation of the expected data in the research population. </p>
+<p>&nbsp;</p>
+<h4 id='performing-an-import-2'>Performing an import</h4>
+<!-- html-help-begin [projectimport] -->
+<p> Before you can create a project, a datafile already needs to have been imported. If you did not yet import a datafile, please do so now. Menu: <b>Data - Import Data</b>.</p>
+<h5 id='description-of-the-project'>Description of the project</h5>
+<p>To define the project you need to provide a <i>name</i>, an <i>identification</i> and a <i>description</i>. All these fields are obligatory.</p>
+<ul>
+<li>In <b>Name for project</b> you enter the name you want to use for your project.</li>
+<li>Enter an abbreviation in <b>Identification</b>. This will become the prefix in all files that Enigma generates.</li>
+<li>In <b>Description</b> you can enter additional information about the project, typically a short description of your intended research.</li>
+
+</ul>
+<h5 id='control-group'>Control group</h5>
+<p>Defining a project includes the creation of data for a control group. You can define the type of controlgroup and a multiplication factor.
+See the initial part of this paragraph in the User manual.</p>
+<h5 id='datafile-to-be-used'>Datafile to be used</h5>
+<p>Select a datafile from the list of available datafiles.</p>
+<h5 id='saving-the-project'>Saving the project</h5>
+<p>If you click the button <strong>Save</strong>, Enigma will check your input and mark any incorrect input fields with a yellow color. If there are no errors, a folder structure for this project, a datafile and a control file are generated. If during this process an error occurs, you will receive a popup about the error. Otherwise you will receive a confirmation popup. After closing this popup you will return to the main screen.</p>
+<!-- html-help-end [projectimport] -->
 </body>
 </html>

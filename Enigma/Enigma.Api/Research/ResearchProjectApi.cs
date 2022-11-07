@@ -20,11 +20,27 @@ public class ProjectCreationApi : IProjectCreationApi
         _projectCreationHandler = projectCreationHandler;
     }
 
-        public ResultMessage CreateProject(ResearchProject project)
+    public ResultMessage CreateProject(ResearchProject project)
     {
         Guard.Against.Null(project);
         bool success = _projectCreationHandler.CreateProject(project, out int errorCode);
         string msg = success ? "Project created." : "An error occurred.";
         return new ResultMessage(errorCode, msg);
+    }
+}
+
+public class ProjectsOverviewApi: IProjectsOverviewApi
+{
+    private readonly IProjectsOverviewHandler _projectsOverviewHandler;
+
+    public ProjectsOverviewApi(IProjectsOverviewHandler projectsOverviewHandler)
+    {
+        _projectsOverviewHandler = projectsOverviewHandler;
+    }
+
+    public List<ResearchProject> GetDetailsForAllProjects()
+    {
+        return _projectsOverviewHandler.ReadAllProjectDetails();
+
     }
 }

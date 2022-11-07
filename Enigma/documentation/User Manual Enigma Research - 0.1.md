@@ -249,3 +249,55 @@ If you change your mind and want to skip the import, click the button **Cancel**
 
 <!-- html-help-end [dataimport] -->
 
+
+
+### Project import
+
+
+
+#### Types of controlgroups
+
+Currently there is one type of controlgroup: *Standard shifting of location, date, and time*. In the document https://nvwoa.nl/txt/20200628controlegroepen.pdf  (in dutch, will soon be translated) you will find a thorough description of this way of generating controlgroups.
+
+
+
+#### Randomization
+
+Randomization is an essential part of generating controlgroups. Most programs use a pseudo random number generator, resulting in data being not fully random. That is sufficient for gaming etc., but for research we prefer real random number generators. Enigma uses such a real random number generator, based on the 'entropy' (random internal data) of the system. 
+
+
+
+#### Multiplication factor
+
+If a dataset is relatively small this will also result in a small control group. This easily leads to unreal effects. To avoid this, it is possible to multiply the control group data. This has the effect that the control group gives a better estimation of the expected data in the research population. 
+
+
+
+#### Performing an import
+
+<!-- html-help-begin [projectimport] -->
+
+ Before you can create a project, a datafile already needs to have been imported. If you did not yet import a datafile, please do so now. Menu: <b>Data - Import Data</b>.
+
+##### Description of the project
+
+To define the project you need to provide a <i>name</i>, an <i>identification</i> and a <i>description</i>. All these fields are obligatory.
+
+- In <b>Name for project</b> you enter the name you want to use for your project.
+- Enter an abbreviation in <b>Identification</b>. This will become the prefix in all files that Enigma generates.
+- In <b>Description</b> you can enter additional information about the project, typically a short description of your intended research.
+
+##### Control group
+
+Defining a project includes the creation of data for a control group. You can define the type of controlgroup and a multiplication factor.
+See the initial part of this paragraph in the User manual.
+
+##### Datafile to be used
+
+Select a datafile from the list of available datafiles.
+
+##### Saving the project
+
+If you click the button **Save**, Enigma will check your input and mark any incorrect input fields with a yellow color. If there are no errors, a folder structure for this project, a datafile and a control file are generated. If during this process an error occurs, you will receive a popup about the error. Otherwise you will receive a confirmation popup. After closing this popup you will return to the main screen.
+
+<!-- html-help-end [projectimport] -->

@@ -42,3 +42,13 @@ public interface IControlGroupRng
     List<int> ShuffleList(List<int> data);
     List<double> ShuffleList(List<double> data);
 }
+
+/// <summary>Retrieve details for a project.</summary>
+public interface IProjectDetails
+{
+    /// <summary>Read the details for a specific project.</summary>
+    /// <param name="projectName">The project for which the detaisl are required.</param>
+    /// <returns>Instance of ResearchProject with the details.</returns>
+    public ResearchProject FindProjectDetails(string projectName);
+}
+

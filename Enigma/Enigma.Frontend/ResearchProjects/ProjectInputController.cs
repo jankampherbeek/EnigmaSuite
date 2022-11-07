@@ -8,6 +8,8 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
 using System.Windows;
@@ -92,5 +94,11 @@ public class ProjectInputController
         return noErrors;
     }
 
-
+    public static void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ProjectImport");
+        helpWindow.ShowDialog();
+    }
 }

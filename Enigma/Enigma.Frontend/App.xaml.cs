@@ -27,20 +27,19 @@ namespace Enigma.Frontend.Ui;
 
 public partial class App : Application
 {
-    public static ServiceProvider ServiceProvider { get; private set; }
+    public static ServiceProvider ServiceProvider { get; private set; } = HandleRegistrationForDI();
 
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         DefineLogging();
-        Log.Information("Enigma starting.");
+        Log.Information("********************** Enigma starting ***********************");
         string pathToSeFiles = @"c:\sweph";                    // TODO make path to SE files configurable
         SeInitializer.SetEphePath(pathToSeFiles);
-        HandleRegistrationForDI();
-        Log.Information("DI container constructed.");
+        Log.Information("Using path to SE: {path}.", pathToSeFiles);
     }
 
-    protected void HandleRegistrationForDI()
+    protected static ServiceProvider HandleRegistrationForDI()
     {
         var serviceCollection = new ServiceCollection();
 
@@ -84,15 +83,14 @@ public partial class App : Application
         // Handle services from other projects.
         serviceCollection.RegisterApiServices();
 
-        ServiceProvider = serviceCollection.BuildServiceProvider(true);
-
+        return serviceCollection.BuildServiceProvider(true);
     }
 
     public static void DefineLogging()
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
-            .WriteTo.File("logs\\my_log.log", rollingInterval: RollingInterval.Day)
+            .WriteTo.File("logs\\enigma_.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();
     }
 }

@@ -11,15 +11,12 @@ using System.Windows.Media;
 
 namespace Enigma.Frontend.Ui.ResearchProjects
 {
-    /// <summary>
-    /// Interaction logic for ProjectInputWindow.xaml
-    /// </summary>
+    /// <summary>Window for the input of project data.</summary>
     public partial class ProjectInputWindow : Window
     {
         private readonly IRosetta _rosetta;
         private readonly ProjectInputController _controller;
         private readonly IControlGroupTypeSpecifications _controlGroupTypeSpecifications;
-
 
         public ProjectInputWindow()
         {
@@ -29,7 +26,6 @@ namespace Enigma.Frontend.Ui.ResearchProjects
             _controlGroupTypeSpecifications = App.ServiceProvider.GetRequiredService<IControlGroupTypeSpecifications>();
             PopulateTexts();
             PopulateData();
-
         }
 
         private void CancelClick(object sender, RoutedEventArgs e)
@@ -39,7 +35,7 @@ namespace Enigma.Frontend.Ui.ResearchProjects
 
         private void HelpClick(object sender, RoutedEventArgs e)
         {
-            // todo
+            ProjectInputController.ShowHelp();
         }
 
         private void SaveClick(object sender, RoutedEventArgs e)
@@ -47,9 +43,6 @@ namespace Enigma.Frontend.Ui.ResearchProjects
             TransferValues();
             if (_controller.ProcessInput())
             {
-                // create json for project
-                // create controlgroups
-                // show msgbox
                 Close();
             }
             else
@@ -109,7 +102,9 @@ namespace Enigma.Frontend.Ui.ResearchProjects
             _controller.ControlGroupMultiplication = MultiplicValue.Text;
             ControlGroupTypes controlGroupType = _controlGroupTypeSpecifications.AllControlGroupTypeDetails()[comboControlGroup.SelectedIndex].ControlGroupType;
             _controller.ControlGroupType = controlGroupType;
+#pragma warning disable CS8601 // Possible null reference assignment.    
             _controller.DataFileName = comboDataFile.SelectedItem.ToString();
+#pragma warning restore CS8601 // Possible null reference assignment.
         }
     }
 }

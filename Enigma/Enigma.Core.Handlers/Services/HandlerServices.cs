@@ -25,6 +25,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
         serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();
         serviceCollection.AddTransient<IProjectCreationHandler, ProjectCreationHandler>();
+        serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
 
         serviceCollection.RegisterHelperServices();
     }
