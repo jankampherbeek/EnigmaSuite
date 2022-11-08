@@ -6,7 +6,7 @@
 
 ## About Enigma Research
 
-Enigma Research is free software to aid research into astrology. The program does support the calculation and analysis of horoscopes but for the general astrologer it makes sense to use software that is aimed at the practice of astrology. For practical astrology, the free programs  *PlanetDance*, *Astrolog* or *Morinus* will come in handy.
+Enigma Research is free software to aid research into astrology. The program does support the calculation and analysis of horoscopes but its primary focus is research.
 
 Enigma Research supports the analysis of multiple charts. It uses control groups to support the validation of results and taking care of the pitfalls of both astronomical and demographic artifacts. The program also produces clear graphics that can be used in publications.
 
@@ -16,7 +16,7 @@ This version 0.1 is a preliminary version. It is not public and only available t
 
 You need a computer that runs Windows. Enigma has been tested on Windows 11. It probably runs on older versions, but not older than Windows 7. Enigma will likely run in a Windows emulator on Apple hardware but that has not yet been tested.
 
-The program required about 200 mb diskspace and about 4 GB internal memory (currently this is a very rough estimation).
+The program requires about 200 mb diskspace and about 4 GB internal memory (currently this is a very rough estimation).
 
 
 
@@ -67,7 +67,7 @@ The current locations are:
 
 *Csv* (comma delimited values) is the format that is used by spreadsheet software like Microsoft Excel and Libre Office Calc to export data.
 
-*Json* is a format that is mostly used by software but can be read by humans. 
+*Json* is a format that is mostly used by software but is easy to read for humans. 
 
 <!-- html-help-end [settings] -->
 
@@ -300,3 +300,35 @@ Select a datafile from the list of available datafiles.
 If you click the button **Save**, Enigma will check your input and mark any incorrect input fields with a yellow color. If there are no errors, a folder structure for this project, a datafile and a control file are generated. If during this process an error occurs, you will receive a popup about the error. Otherwise you will receive a confirmation popup. After closing this popup you will return to the main screen.
 
 <!-- html-help-end [projectimport] -->
+
+
+
+### Doing research
+
+To support research, Enigma needs to:
+
+- Import data (population data).
+- Define a project which includes:
+  - A project defionition.
+  - A copy of the data.
+  - A generated control group.
+- One or more tests that will be performed using the population data and the control group data.
+
+#### Folder structure
+
+The following folder structure is in use:
+
+- Root of Enigma data, typically c:\enigma_ar\
+  - data
+    - separate folders for each data set
+      - csv: a copy of the original data
+      - json: the same data converted to Json format.
+  - project
+    - separate folders for each project
+      - file: controldata.json: the control group data.
+      - file: project.json: definition for the project
+      - file: testdata.json: the population data.
+      - folder: tests
+        - seprate folders for each test
+          - [TODO................]
+

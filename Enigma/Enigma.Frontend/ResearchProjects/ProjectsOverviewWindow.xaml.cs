@@ -2,10 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Media.Animation;
 
 namespace Enigma.Frontend.Ui.ResearchProjects;
 
@@ -13,11 +17,28 @@ namespace Enigma.Frontend.Ui.ResearchProjects;
 public partial class ProjectsOverviewWindow : Window
 {
     private ProjectsOverviewController _controller;
+    private IRosetta _rosetta;
+
+
     public ProjectsOverviewWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ProjectsOverviewController>();
+        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
+        PopulateTexts();
         PopulateData();
+    }
+
+
+    public void PopulateTexts()
+    {
+        Title = _rosetta.TextForId("projectoverviewwindow.title");
+        tbExplText.Text = _rosetta.TextForId("projectoverviewwindow.expltext");
+        tbFormTitle.Text = _rosetta.TextForId("projectoverviewwindow.formtitle");
+        btnClose.Content = _rosetta.TextForId("common.btnclose");
+        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
+        btnInfo.Content = _rosetta.TextForId("common.btninfo");
+        btnOpen.Content = _rosetta.TextForId("common.btnopen");
     }
 
     public void PopulateData()
@@ -27,7 +48,7 @@ public partial class ProjectsOverviewWindow : Window
     }
 
 
-    private void CancelClick(object sender, RoutedEventArgs e)
+    private void CloseClick(object sender, RoutedEventArgs e)
     {
         Close();
     }

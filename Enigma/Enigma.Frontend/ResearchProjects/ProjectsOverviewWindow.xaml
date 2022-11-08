@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.ResearchProjects"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"    
         Title="ProjectsOverviewWindow" Height="450" Width="600">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
@@ -12,12 +13,14 @@
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="60*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="55*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
-        <ListBox Grid.Row="1" Margin="6" Name="lbProjects" HorizontalContentAlignment="Stretch">
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="tbFormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Margin="6" Name="tbExplText" Text="ExplText" TextWrapping="Wrap"/>
+        <ListBox Grid.Row="2" Margin="6" Name="lbProjects" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -31,13 +34,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
-            <Button Margin="6" Name="BtnInfo" Content="BtnInfo" HorizontalAlignment="Right" Click="InfoClick"/>
-            <Button Margin="6" Name="BtnOpen" Content="BtnOpen" HorizontalAlignment="Right" Click="OpenClick"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+            <Button Margin="6" Name="btnInfo" Content="BtnInfo" HorizontalAlignment="Right" Click="InfoClick"/>
+            <Button Margin="6" Name="btnOpen" Content="BtnOpen" HorizontalAlignment="Right" Click="OpenClick"/>
         </StackPanel>
-        <StackPanel Grid.Row="19"  Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
-            <Button Margin="6" Name="BtnCancel" Content="BtnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+        <StackPanel Grid.Row="3"  Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="btnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="btnClose" Content="BtnClose" HorizontalAlignment="Right" Click="CloseClick"/>
         </StackPanel>
     </Grid>
 </Window>

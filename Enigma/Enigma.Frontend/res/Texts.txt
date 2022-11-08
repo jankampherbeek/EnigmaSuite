@@ -119,7 +119,9 @@ common.btncalc = Calculate
 common.btnclose = Close
 common.btndetailedsearch = Detailed search
 common.btnhelp = Help
+common.btninfo = Info
 common.btnok = OK
+common.btnopen = Open
 common.btnreset = Reset
 common.btnsave = Save
 common.btnsearch = Search
@@ -231,6 +233,12 @@ projectinputwindow.controlgrouptype = Select the type of controlgroup
 projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
 projectinputwindow.datainfo = Datafile to be used
 projectinputwindow.datafile = Select the datafile
+
+------------------------------- Project overview window --
+
+projectoverviewwindow.title = Projects: overview
+projectoverviewwindow.formtitle = Available projects
+projectoverviewwindow.expltext = Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project.
 
 -------------------------------- References ------------
 
