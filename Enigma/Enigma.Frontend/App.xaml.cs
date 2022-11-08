@@ -74,6 +74,7 @@ public partial class App : Application
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ProjectInputController>();
+        serviceCollection.AddTransient<ProjectsOverviewController>();
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();

@@ -57,7 +57,6 @@ namespace Enigma.Frontend.Ui.ResearchProjects
             FormTitle.Text = _rosetta.TextForId("projectinputwindow.formtitle");
             GeneralInfoTxt.Text = _rosetta.TextForId("projectinputwindow.generalinfo");
             NameTxt.Text = _rosetta.TextForId("projectinputwindow.name");
-            Identif.Text = _rosetta.TextForId("projectinputwindow.identification");
             Descr.Text = _rosetta.TextForId("projectinputwindow.description");
             ControlGroupInfoTxt.Text = _rosetta.TextForId("projectinputwindow.controlgroupinfo");
             ControlGroup.Text = _rosetta.TextForId("projectinputwindow.controlgrouptype");
@@ -89,7 +88,6 @@ namespace Enigma.Frontend.Ui.ResearchProjects
         private void HandleErrors()
         {
             NameValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_NAME_INVALID) ? Brushes.Yellow : Brushes.White;
-            IdentifValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_IDENTIFICATION_INVALID) ? Brushes.Yellow : Brushes.White;
             DescrValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_DESCRIPTION) ? Brushes.Yellow : Brushes.White;
             MultiplicValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_RESEARCH_MULTIPLICATION) ? Brushes.Yellow : Brushes.White;
         }
@@ -97,7 +95,6 @@ namespace Enigma.Frontend.Ui.ResearchProjects
         private void TransferValues()
         {
             _controller.ProjectName = NameValue.Text;
-            _controller.ProjectIdentifier = IdentifValue.Text;
             _controller.ProjectDescription = DescrValue.Text;
             _controller.ControlGroupMultiplication = MultiplicValue.Text;
             ControlGroupTypes controlGroupType = _controlGroupTypeSpecifications.AllControlGroupTypeDetails()[comboControlGroup.SelectedIndex].ControlGroupType;

@@ -14,7 +14,6 @@ public class TestResearchProjectParser
 {
     private IResearchProjectParser _parser;
     private readonly string _projectName = "TestProject";
-    private readonly string _identification = "T_P";
     private readonly string _description = "Description for test project.";
     private readonly string _dataName = "This_datafile";
     private readonly ControlGroupTypes _controlGroupType = ControlGroupTypes.StandardShift;
@@ -32,14 +31,13 @@ public class TestResearchProjectParser
     [Test]
     public void TestMarshallUnmarshall()
     {
-        ResearchProject project1 = new(_projectName, _identification, _description, _dataName, _controlGroupType, _multiplFactor);
+        ResearchProject project1 = new(_projectName, _description, _dataName, _controlGroupType, _multiplFactor);
         string jsonText = _parser.Marshall(project1);
         ResearchProject project2 = _parser.UnMarshall(jsonText);
         Assert.That(project2, Is.Not.Null);
         Assert.Multiple(() =>
         {
             Assert.That(project2.Name, Is.EqualTo(project1.Name));
-            Assert.That(project2.Identification, Is.EqualTo(project1.Identification));
             Assert.That(project2.Description, Is.EqualTo(project1.Description));
             Assert.That(project2.DataName, Is.EqualTo(project1.DataName));
             Assert.That(project2.ControlGroupType, Is.EqualTo(project1.ControlGroupType));

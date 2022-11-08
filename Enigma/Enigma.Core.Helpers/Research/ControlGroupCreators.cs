@@ -104,18 +104,7 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
     {
         int counter = 0;
         while (years.Count > 0)
-        //for (int i = 0; i < years.Count; i++)
         {
-        /*    int year = years[i];
-            int day = days[i];
-            int month = FindMonth(day, year);
-            int hour = hours[i];
-            int minute = minutes[i];
-            int second = seconds[i];
-            double dst = dsts[i];
-            double zoneOffset = zoneOffsets[i];
-            double latitude = latitudes[i];
-            double longitude = longitudes[i];   */
             int year = GetFromList(years);
             int day = GetFromList(days);
             int month = FindMonth(day, year);
@@ -153,14 +142,14 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
         return month;
     }
 
-    private int GetFromList(List<int> theList)
+    private static int GetFromList(List<int> theList)
     {
         int result = theList[0];
         theList.RemoveAt(0);
         return result;
     }
 
-    private double GetFromList(List<double> theList)
+    private static double GetFromList(List<double> theList)
     {
         double result = theList[0];
         theList.RemoveAt(0);

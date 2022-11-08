@@ -225,7 +225,6 @@ mainwindow.projectssubtitle = Projects
 projectinputwindow.formtitle = Create new project
 projectinputwindow.generalinfo = Name and description for project
 projectinputwindow.name = Name for project
-projectinputwindow.identification = Identification (to be used in filenames)
 projectinputwindow.description = Description
 projectinputwindow.controlgroupinfo = Controlgroup
 projectinputwindow.controlgrouptype = Select the type of controlgroup

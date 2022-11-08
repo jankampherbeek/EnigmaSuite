@@ -57,12 +57,6 @@ public class ProjectInputController
             ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_NAME_INVALID);
             ProjectName = "";
         }
-        if (ProjectIdentifier == null || ProjectIdentifier.Trim().Length == 0)
-        {
-            noErrors = false;
-            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_IDENTIFICATION_INVALID);
-            ProjectIdentifier = "";
-        }
         if (ProjectDescription == null || ProjectDescription.Trim().Length == 0)
         {
             noErrors = false;
@@ -77,7 +71,7 @@ public class ProjectInputController
         }
         if (noErrors)
         {
-            ResearchProject project = new(ProjectName, ProjectIdentifier, ProjectDescription, DataFileName, ControlGroupType, multiplication);
+            ResearchProject project = new(ProjectName, ProjectDescription, DataFileName, ControlGroupType, multiplication);
             ResultMessage resultMessage = _projectCreationApi.CreateProject(project);
             if (resultMessage.ErrorCode != 0)
             {

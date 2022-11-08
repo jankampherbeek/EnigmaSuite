@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.DataFiles"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="DataFilesImport" Height="300" Width="640">
+        Title="DataFilesImport" Height="360" Width="640">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>

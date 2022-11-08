@@ -9,7 +9,6 @@ namespace Enigma.Domain.Research;
 public class ResearchProject
 {
     public string Name { get; }
-    public string Identification { get; }
     public string Description { get; }
     public string DataName { get; }
     public string CreationDate { get; }
@@ -17,10 +16,9 @@ public class ResearchProject
 
     public int ControlGroupMultiplication { get; }
 
-    public ResearchProject(string name, string identification, string description, string dataName, ControlGroupTypes controlGroupType, int controlGroupMultiplication)
+    public ResearchProject(string name, string description, string dataName, ControlGroupTypes controlGroupType, int controlGroupMultiplication)
     {
         Name = name;
-        Identification = identification;
         Description = description;
         DataName = dataName;
         ControlGroupType = controlGroupType;

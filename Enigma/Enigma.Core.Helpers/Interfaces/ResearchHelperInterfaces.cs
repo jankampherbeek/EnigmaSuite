@@ -47,7 +47,7 @@ public interface IControlGroupRng
 public interface IProjectDetails
 {
     /// <summary>Read the details for a specific project.</summary>
-    /// <param name="projectName">The project for which the detaisl are required.</param>
+    /// <param name="projectName">The project for which the details are required.</param>
     /// <returns>Instance of ResearchProject with the details.</returns>
     public ResearchProject FindProjectDetails(string projectName);
 }

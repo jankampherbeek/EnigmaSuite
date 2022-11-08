@@ -48,7 +48,7 @@ public partial class MainWindow : Window
 
     private void ProjectsOpenClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Projects - Open not yet implemented.");
+        _controller.ShowProjectsOpen();
     }
 
     private void DataOverviewClick(object sender, RoutedEventArgs e)

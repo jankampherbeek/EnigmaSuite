@@ -284,7 +284,6 @@ If a dataset is relatively small this will also result in a small control group.
 To define the project you need to provide a <i>name</i>, an <i>identification</i> and a <i>description</i>. All these fields are obligatory.
 
 - In <b>Name for project</b> you enter the name you want to use for your project.
-- Enter an abbreviation in <b>Identification</b>. This will become the prefix in all files that Enigma generates.
 - In <b>Description</b> you can enter additional information about the project, typically a short description of your intended research.
 
 ##### Control group

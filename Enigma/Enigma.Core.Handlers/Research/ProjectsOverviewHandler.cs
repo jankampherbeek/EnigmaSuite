@@ -30,7 +30,9 @@ public class ProjectsOverviewHandler: IProjectsOverviewHandler
         List<string> projectNames = _foldersInfo.GetExistingFolderNames(path, false);
         foreach (string proj in projectNames)
         {
-            projects.Add(_projectDetails.FindProjectDetails(proj));
+            int startPos = proj.LastIndexOf(Path.DirectorySeparatorChar) + 1;
+            string projText = proj[startPos..];
+            projects.Add(_projectDetails.FindProjectDetails(projText));
         }
         return projects;
     }

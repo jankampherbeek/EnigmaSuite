@@ -24,7 +24,8 @@ public class ProjectDetails: IProjectDetails
     /// <inheritdoc/>
     public ResearchProject FindProjectDetails(string projectName)
     {
-        string projectPath = ApplicationSettings.Instance.LocationProjectFiles + Path.DirectorySeparatorChar + projectName + "_definition.json";
+        string projectPath = ApplicationSettings.Instance.LocationProjectFiles + Path.DirectorySeparatorChar + projectName 
+            + Path.DirectorySeparatorChar + "_definition.json";
         string jsonText = _textFileReader.ReadFile(projectPath);
         return _parser.UnMarshall(jsonText);
     }

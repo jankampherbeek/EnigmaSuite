@@ -66,7 +66,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
             errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_COPY_DATAFILE;
             return false;
         }
-        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_data.json";
+        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
 
 
 
@@ -135,7 +135,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
 
     private bool WriteJsonToFile(string jsonText, ResearchProject project)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_definition.json";
+        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "project.json";
         try
         {
             _textFileWriter.WriteFile(projPath, jsonText);
@@ -152,7 +152,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
     private bool CopyDataFile(ResearchProject project)
     {
         string dataPath = _applicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
-        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_data.json";
+        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
         try
         {
             File.Copy(dataPath, projDataPath, true);
@@ -167,7 +167,7 @@ public class ProjectCreationHandler : IProjectCreationHandler
 
     private bool ReadDataFile(ResearchProject project, out List<StandardInputItem> inputItems)
     {
-        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + project.Identification + "_data.json";
+        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
         inputItems = new();
         // kijk naar lgoica in CsvHandler in Persistency, en ook naar de controller voor data. Logica hiervan verplaatsen.
         return false;

@@ -52,6 +52,12 @@ public class MainController
         projectInputWindow.ShowDialog();
     }
 
+    public void ShowProjectsOpen()
+    {
+        ProjectsOverviewWindow projectsOverviewWindow = new();
+        projectsOverviewWindow.ShowDialog();
+    }
+
     public void ShowAbout()
     {
         AboutWindow aboutWindow = new(_rosetta);
