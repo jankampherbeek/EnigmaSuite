@@ -52,6 +52,7 @@ Source: "d:\dev\proj\Enigmasuite\Enigma\documentation\User Manual Enigma Researc
 Source: "d:\dev\proj\Enigmasuite\Enigma\copyright.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "d:\dev\proj\Enigmasuite\Enigma\gpl-3.0.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "d:\dev\proj\Enigmasuite\Enigma\se-license.html"; DestDir: "{app}"; Flags: ignoreversion
+Source: "d:\dev\proj\Enigmasuite\Enigma\font\EnigmaAstrology.ttf"; DestDir: "{autofonts}"; FontInstall: "EnigmaAstrology"; Flags: onlyifdoesntexist uninsneveruninstall
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
