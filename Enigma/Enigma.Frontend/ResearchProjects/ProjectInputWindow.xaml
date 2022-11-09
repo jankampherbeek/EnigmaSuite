@@ -33,9 +33,9 @@
             <RowDefinition Height="10*"/>       <!-- 17 -->
 
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="4" />
-        <Rectangle Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="4" />
-        <Rectangle Grid.Row="14" Grid.ColumnSpan="2" Grid.RowSpan="2" />
+        <Rectangle Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="14" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}"/>
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="GeneralInfoTxt" Text="GeneralInfoTxt"  FontWeight="Bold"  VerticalAlignment="Center" />

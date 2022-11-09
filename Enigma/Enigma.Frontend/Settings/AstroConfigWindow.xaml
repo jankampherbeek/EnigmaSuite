@@ -121,10 +121,10 @@
                     <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleBasicCelPoints" Text="Title Basic CelPoints" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9" Name="tbBasicExplanation" Text="tbExplanation" Margin="6" TextWrapping="Wrap"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9" />
-                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5" />
-                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="5" />
-                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="3" />
+                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
+                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="3" Style="{StaticResource backgroundStyle}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Name="tbClassical" Text="tbClassical" FontSize="18.0" FontWeight="Bold" Margin="6"/>
                     <TextBlock Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4" Name="tbModern" Text="tbModern" FontSize="18.0" FontWeight="Bold" Margin="6"/>

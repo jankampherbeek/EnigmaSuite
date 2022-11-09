@@ -23,8 +23,8 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
-        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"  Grid.RowSpan="2" />
-        <Rectangle Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"  Grid.RowSpan="1" />
+        <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3"  Grid.RowSpan="1" Style="{StaticResource backgroundStyle}" />
         
         <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Name="FormTitle" Text="FormTitle Data Import" Margin="6" Style="{StaticResource titleStyle}"/>
         <TextBlock Grid.Column="0" Grid.Row="1" Name="tbSelectFile" Text="tbSelectFile" Margin="6"/>

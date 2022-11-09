@@ -37,7 +37,7 @@
  
       
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Name="NameLocationTxt" Text="NameLocationTxt" FontWeight="Bold"  VerticalAlignment="Center"/>
-        <Rectangle Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"  Grid.RowSpan="4" />
+        <Rectangle Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"  Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Name="NameIdTxt" Text="NameIdTxt" VerticalAlignment="Bottom"/>
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Name="NameIdValue" Text="" VerticalAlignment="Top" />
         <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="LongitudeTxt" Text="LongitudeTxt" VerticalAlignment="Bottom"/>
@@ -48,7 +48,7 @@
         <ComboBox Grid.Row="5" Grid.Column="3" Margin="6" Name="comboLatDir" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
 
         <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Margin="6" Name="DateTimeTxt" Text="DateTimeTxt" FontWeight="Bold"  VerticalAlignment="Center" />
-        <Rectangle Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="8" />
+        <Rectangle Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="8" Style="{StaticResource backgroundStyle}" />
         <TextBlock Grid.Row="7" Grid.Column="0" Margin="6" Name="DateTxt" Text="DateTxt" VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="7" Grid.Column="1" Margin="6" Name="CalTxt" Text="CalTxt" VerticalAlignment="Bottom"/>
         <TextBlock Grid.Row="7" Grid.Column="2" Margin="6" Name="YearCountTxt" Text="YearCountTxt" VerticalAlignment="Bottom"/>
