@@ -8,6 +8,8 @@ namespace Enigma.Domain.Constants;
 /// <remarks>Constants for the Swiss Ephemeris are prefixed by 'SE'.</remarks>
 public static class EnigmaConstants
 {
+    // Version info
+    public const string ENIGMA_VERSION = "0.1.0";
     // SE solar system points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;

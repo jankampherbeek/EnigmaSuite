@@ -28,15 +28,47 @@ The program requires about 200 mb diskspace and about 4 GB internal memory (curr
 
 ## Starting Enigma
 
-[todo]
+
+
+
+
+### Startscreen / dashboard
+
+After starting Enigma you will see a screen *Dashboard Enigma Astrology Research* with a menu on top.
+
+
+
+<!-- html-help-begin [mainwindow] -->
+
+The screen is divided in four sections: Charts, Research, Periods and Calculators. In release 0.1.0 only the functionality of Charts and Research is available.
+
+You can start actions from the menu of from the buttons in the four sections.
+
+The following actions are available:
+
+- **Settings**. Menu *General - Setttings*. Check the currently used settings.
+- **Configuration**. Menu *General - Configuration*. Define the configuration that is used for your calculations.
+- **Charts**.
+  - **New chart**. Menu *Charts - New chart* or button *New Chart*. Calculate a new chart. 
+  - **Overview of charts**. Menu *Charts - Overview of charts*. List of available charts.
+  - **Search chart**. Button *Search chart* and the accompanying input field. You can search after you input a part of the name that you used for the chart.
+- **Research**.
+  - **Overview data files**. Menu *Research - Overview data files*. List of imported datafiles.
+  - **Import data file**. Menu *Research - Import data file* or button *New data*. Add an external file to the Enigma environment.
+  - **New project**. Menu *Research - New project* or button *New project*. Define a new research project.
+  - **Search project**. Button *Search project* and  the accompanying input field. You can search after you input a part of the name that you used for the project. 
+- **Periods**. This functionality is not yet available in version 0.1.0.
+- **Calculations**. This functionality is not yet available in version 0.1.0.
+
+Via the **Help** menu or button, you can access the user manual.
+
+<!-- html-help-end [mainwindow] -->
 
 
 
 
 
 ## Using Enigma
-
-After starting Enigma you will see a screen with a menu on top.
 
 ### Celestial points overview
 

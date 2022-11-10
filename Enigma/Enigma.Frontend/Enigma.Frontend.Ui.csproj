@@ -67,7 +67,9 @@
     </Resource>
     <Resource Include="Images\Enigma.jpg" />
     <Resource Include="Images\ephemeris.png" />
-    <Resource Include="Images\help.png" />
+    <Resource Include="Images\help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\input.png" />
     <Resource Include="Images\list.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -75,7 +77,9 @@
     <Resource Include="Images\listalt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\manual.png" />
+    <Resource Include="Images\manual.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\newchart.png" />
     <Resource Include="Images\newproject.png" />
     <Resource Include="Images\occurrences.png" />
@@ -139,6 +143,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\Settings.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\swedll64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\Texts.txt">

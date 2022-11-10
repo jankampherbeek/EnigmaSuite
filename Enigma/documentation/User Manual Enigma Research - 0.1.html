@@ -8,22 +8,59 @@
 <div>[TOC]</div>
 <p>&nbsp;</p>
 <h2 id='about-enigma-research'>About Enigma Research</h2>
-<p>Enigma Research is free software to aid research into astrology. The program does support the calculation and analysis of horoscopes but for the general astrologer it makes sense to use software that is aimed at the practice of astrology. For practical astrology, the free programs  <em>PlanetDance</em>, <em>Astrolog</em> or <em>Morinus</em> will come in handy.</p>
+<p>Enigma Research is free software to aid research into astrology. The program does support the calculation and analysis of horoscopes but its primary focus is research.</p>
 <p>Enigma Research supports the analysis of multiple charts. It uses control groups to support the validation of results and taking care of the pitfalls of both astronomical and demographic artifacts. The program also produces clear graphics that can be used in publications.</p>
 <p>This version 0.1 is a preliminary version. It is not public and only available to a select group of researchers.</p>
 <h3 id='requirements'>Requirements</h3>
 <p>You need a computer that runs Windows. Enigma has been tested on Windows 11. It probably runs on older versions, but not older than Windows 7. Enigma will likely run in a Windows emulator on Apple hardware but that has not yet been tested.</p>
-<p>The program required about 200 mb diskspace and about 4 GB internal memory (currently this is a very rough estimation).</p>
+<p>The program requires about 200 mb diskspace and about 4 GB internal memory (currently this is a very rough estimation).</p>
 <p>&nbsp;</p>
 <h2 id='installation'>Installation</h2>
 <p>[todo]</p>
 <p>&nbsp;</p>
 <h2 id='starting-enigma'>Starting Enigma</h2>
-<p>[todo]</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h3 id='startscreen--dashboard'>Startscreen / dashboard</h3>
+<p>After starting Enigma you will see a screen <em>Dashboard Enigma Astrology Research</em> with a menu on top.</p>
+<p>&nbsp;</p>
+<!-- html-mainwindow-begin [settings] -->
+<p>The screen is divided in four sections: Charts, Research, Periods and Calculators. In release 0.1.0 only the functionality of Charts and Research is available.</p>
+<p>You can start actions from the menu of from the buttons in the four sections.</p>
+<p>The following actions are available:</p>
+<ul>
+<li><p><strong>Settings</strong>. Menu <em>General - Setttings</em>. Check the currently used settings.</p>
+</li>
+<li><p><strong>Configuration</strong>. Menu <em>General - Configuration</em>. Define the configuration that is used for your calculations.</p>
+</li>
+<li><p><strong>Charts</strong>.</p>
+<ul>
+<li><strong>New chart</strong>. Menu <em>Charts - New chart</em> or button <em>New Chart</em>. Calculate a new chart. </li>
+<li><strong>Overview of charts</strong>. Menu <em>Charts - Overview of charts</em>. List of available charts.</li>
+<li><strong>Search chart</strong>. Button <em>Search chart</em> and the accompanying input field. You can search after you input a part of the name that you used for the chart.</li>
+
+</ul>
+</li>
+<li><p>Research.</p>
+<ul>
+<li><strong>Overview data files</strong>. Menu <em>Research - Overview data files</em>. List of imported datafiles.</li>
+<li><strong>Import data file</strong>. Menu <em>Research - Import data file</em> or button <em>New data</em>. Add an external file to the Enigma environment.</li>
+<li><strong>New project</strong>. Menu <em>Research - New project</em> or button <em>New project</em>. Define a new research project.</li>
+<li><strong>Search project</strong>. Button <em>Search project</em> and  the accompanying input field. You can search after you input a part of the name that you used for the project. </li>
+
+</ul>
+</li>
+<li><p><strong>Periods</strong>. This functionality is not yet available in version 0.1.0.</p>
+</li>
+<li><p><strong>Calculations</strong>. This functionality is not yet available in version 0.1.0.</p>
+</li>
+
+</ul>
+<p>Via the <strong>Help</strong> menu or button, you can access the user manual.</p>
+<!-- html-mainwindow-end [settings] -->
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 id='using-enigma'>Using Enigma</h2>
-<p>After starting Enigma you will see a screen with a menu on top.</p>
 <h3 id='celestial-points-overview'>Celestial points overview</h3>
 <p>overview</p>
 <h3 id='orbs-for-aspects'>Orbs for aspects</h3>
@@ -43,7 +80,7 @@
 
 </ul>
 <p><em>Csv</em> (comma delimited values) is the format that is used by spreadsheet software like Microsoft Excel and Libre Office Calc to export data.</p>
-<p><em>Json</em> is a format that is mostly used by software but can be read by humans. </p>
+<p><em>Json</em> is a format that is mostly used by software but is easy to read for humans. </p>
 <!-- html-help-end [settings] -->
 <p>&nbsp;</p>
 <h3 id='configuration'>Configuration</h3>
@@ -168,7 +205,6 @@
 <p>To define the project you need to provide a <i>name</i>, an <i>identification</i> and a <i>description</i>. All these fields are obligatory.</p>
 <ul>
 <li>In <b>Name for project</b> you enter the name you want to use for your project.</li>
-<li>Enter an abbreviation in <b>Identification</b>. This will become the prefix in all files that Enigma generates.</li>
 <li>In <b>Description</b> you can enter additional information about the project, typically a short description of your intended research.</li>
 
 </ul>
@@ -180,5 +216,73 @@ See the initial part of this paragraph in the User manual.</p>
 <h5 id='saving-the-project'>Saving the project</h5>
 <p>If you click the button <strong>Save</strong>, Enigma will check your input and mark any incorrect input fields with a yellow color. If there are no errors, a folder structure for this project, a datafile and a control file are generated. If during this process an error occurs, you will receive a popup about the error. Otherwise you will receive a confirmation popup. After closing this popup you will return to the main screen.</p>
 <!-- html-help-end [projectimport] -->
+<p>&nbsp;</p>
+<h3 id='doing-research'>Doing research</h3>
+<p>To support research, Enigma needs to:</p>
+<ul>
+<li><p>Import data (population data).</p>
+</li>
+<li><p>Define a project which includes:</p>
+<ul>
+<li>A project defionition.</li>
+<li>A copy of the data.</li>
+<li>A generated control group.</li>
+
+</ul>
+</li>
+<li><p>One or more tests that will be performed using the population data and the control group data.</p>
+</li>
+
+</ul>
+<h4 id='folder-structure'>Folder structure</h4>
+<p>The following folder structure is in use:</p>
+<ul>
+<li><p>Root of Enigma data, typically c:\enigma_ar\</p>
+<ul>
+<li><p>data</p>
+<ul>
+<li><p>separate folders for each data set</p>
+<ul>
+<li>csv: a copy of the original data</li>
+<li>json: the same data converted to Json format.</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+<li><p>project</p>
+<ul>
+<li><p>separate folders for each project</p>
+<ul>
+<li><p>file: controldata.json: the control group data.</p>
+</li>
+<li><p>file: project.json: definition for the project</p>
+</li>
+<li><p>file: testdata.json: the population data.</p>
+</li>
+<li><p>folder: tests</p>
+<ul>
+<li><p>seprate folders for each test</p>
+<ul>
+<li>[TODO................]</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+</li>
+
+</ul>
+<p>&nbsp;</p>
 </body>
 </html>
