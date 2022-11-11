@@ -40,8 +40,9 @@ public class MainController
         chartDataInputWindow.ShowDialog();
         if (_dataVault.GetNewChartAdded())
         {
-            ShowWheel();
-            ShowPositions();  // TODO move ShowPositions as an option to ShowWheel()
+            ChartsMain chartsMainWindow = new();
+            chartsMainWindow.ShowDialog();
+            //ShowPositions();  // TODO move ShowPositions as an option to ShowWheel()
         }
     }
 
