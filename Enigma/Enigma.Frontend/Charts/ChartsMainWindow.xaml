@@ -1,4 +1,4 @@
-﻿<Window x:Class="Enigma.Frontend.Ui.ChartsMain"
+﻿<Window x:Class="Enigma.Frontend.Ui.ChartsMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -26,7 +26,7 @@
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Rectangle Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
 
         <Menu Grid.Row="0" Grid.ColumnSpan="5">
             <MenuItem Name="miGeneral" Header="miGeneral">
@@ -39,81 +39,85 @@
             <MenuItem Name="miCharts" Header="miCharts">
                 <MenuItem Name="miChartsWheel" Header="miChartsWheel" Click="ShowWheelClick">
                     <MenuItem.Icon>
-                        <Image Source="./Images/wheel.png"/>
+                        <Image Source="/Images/wheel.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miChartsPositions" Header="miChartsPositions" Click="ShowPositionsClick">
                     <MenuItem.Icon>
-                        <Image Source="list.png"/>
+                        <Image Source="/Images/table.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Name="miChartsNew" Header="miChartsNew" Click="ChartsNewClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/newchart.png"/>
+                        <Image Source="/Images/newchart.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miChartsOverview" Header="miChartsOverview" Click="ChartsOverviewClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/list.png"/>
+                        <Image Source="/Images/list.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miChartsSave" Header="miChartsSave" Click="ChartsSaveClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/database.png"/>
+                        <Image Source="/Images/database.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Name="miAnalysis" Header="miAnalysis">
-                <MenuItem Name="miReAnalysisAspects" Header="miAnalysisAspects" Click="AnalysisClick">
+                <MenuItem Name="miAnalysisAspects" Header="miAnalysisAspects" Click="AnalysisClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/aspects.png"/>
+                        <Image Source="/Images/aspects.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miAnalysisHarmonics" Header="miAnalysisHarmonics" Click="HarmonicsClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/harmonics.png"/>
+                        <Image Source="/Images/harmonics.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
                 <MenuItem Name="miAnalysisMidpoints" Header="miAnalysisMidpoints" Click="MidpointsClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/midpoints.png"/>
+                        <Image Source="/Images/midpoints.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Name="miProgressive" Header="miProgressive">
                 <MenuItem Name="miProgressivePrimary" Header="miProgressivePrimary" Click="PrimaryClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/primary.png"/>
+                        <Image Source="/Images/primary.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miProgressiveSecundary" Header="miProgressiveSecundary" Click="SecundaryClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/secundary.png"/>
+                        <Image Source="/Images/secundary.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miProgressiveTransits" Header="miProgressiveTransits" Click="TransitsClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/transits.png"/>
+                        <Image Source="/Images/transits.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miProgressiveSolarReturn" Header="miProgressiveSolarReturn" Click="SolarReturnClick">
                     <MenuItem.Icon>
-                        <Image Source="Images/solar.png"/>
+                        <Image Source="/Images/solar.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Name="miHelp" Header="miHelp">
-                <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick" />
+                <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/help_2.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Name="miHelpPage" Header="miHelpPage" Click="HelpClick">
                     <MenuItem.Icon>
-                        <Image Source="help.png"/>
+                        <Image Source="/Images/help.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Name="miHelpManual" Header="miHelpManual" Click="HelpManualClick">
                     <MenuItem.Icon>
-                        <Image Source="manual.png"/>
+                        <Image Source="/Images/manual.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -121,18 +125,17 @@
         <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
         <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Name="tbCurrent" Text="tbCurrent" Margin="6" Style="{StaticResource subTitleStyle}"/>
         <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Name="tbTags" Text="tbTags" Margin="6" Style="{StaticResource subTitleStyle}"/>
-
-        <DataGrid Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
-                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Row">
-        </DataGrid>
-        <ComboBox Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="cobTags"/>
-        <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Vertical" Margin="6">
+        <StackPanel Grid.Row="2" Grid.Column="4" Grid.RowSpan="2" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
             <Button Name="btnWheel" Content="btnWheel" Click="ShowWheelClick"/>
             <Button Name="btnPositions" Content="btnPositions" Click="ShowPositionsClick"/>
             <Button Name="btnSave" Content="btnSave" Click="ChartsSaveClick"/>
             <Button Name="btnNew" Content="btnNew" Click="ChartsNewClick"/>
             <Button Name="btnOverview" Content="btnOverview" Click="ChartsOverviewClick"/>
         </StackPanel>
+        <DataGrid Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Row">
+        </DataGrid>
+        <ComboBox Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="cobTags"/>
         <TextBox Grid.Row="4" Margin="6" Name="tboxSearch"/>
         <Button Grid.Row="4" Grid.Column="1" Margin="6" Name="btnSearch" Content="btnSearch" Click="SearchClick"/>
         <TextBox Grid.Row="4" Grid.Column="2"  Margin="6" Name="tboxAddTag"/>

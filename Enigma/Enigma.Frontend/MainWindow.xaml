@@ -19,41 +19,41 @@
                 <MenuItem Name="miGeneral" Header="miGeneral">
                     <MenuItem Name="miGeneralSettings" Header="miGeneralSettings" Click="GeneralSettingsClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/settings.png"/>
+                            <Image Source="/Images/settings.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miGeneralConfiguration" Header="miGeneralConfiguration" Click="GeneralConfigurationClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/configuration.png"/>
+                            <Image Source="/Images/configuration.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miGeneralClose" Header="miGeneralClose" Click="GeneralCloseClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/close.png"/>
+                            <Image Source="/Images/close.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Name="miCharts" Header="miCharts">
                     <MenuItem Name="miChartsNew" Header="miChartsNew" Click="ChartsNewClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/newchart.png"/>
+                            <Image Source="/Images/newchart.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miChartsOverview" Header="miChartsOverview" Click="ChartsOverviewClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/list.png"/>
+                            <Image Source="/Images/list.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
                 <MenuItem Name="miResearch" Header="miResearch">
                     <MenuItem Name="miResearchDataOverview" Header="miResearchDataOverview" Click="DataOverviewClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/list.png"/>
+                            <Image Source="/Images/list.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miResearchDataImport" Header="miResearchDataImport" Click="DataImportClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/download.png"/>
+                            <Image Source="/Images/download.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <Separator/>
@@ -67,37 +67,38 @@
                 <MenuItem Name="miPeriodical" Header="miPeriodical">
                     <MenuItem Name="miPeriodicalCycles" Header="miPeriodicalCycles" Click="PeriodicalCyclesClick">
                         <MenuItem.Icon>
-                            <Image Source="../Images/cycles.png"/>
+                            <Image Source="/Images/cycles.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miPeriodicalEphemeris" Header="miPeriodicalEphemeris" Click="PeriodicalEphemerisClick">
                         <MenuItem.Icon>
-                            <Image Source="../Images/ephemeris.png"/>
+                            <Image Source="/Images/ephemeris.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miPeriodicalOccurrences" Header="miPeriodicalOccurrences" Click="PeriodicalOccurrencesClick">
                         <MenuItem.Icon>
-                            <Image Source="../Images/occurrences.png"/>
+                            <Image Source="/Images/occurrences.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-
-
-
 
                 <MenuItem Name="miCalculations" Header="miCalculations" Click="CalculationsClick"/>
 
 
                 <MenuItem Name="miHelp" Header="miHelp">
-                    <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick" />
+                    <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick" >
+                        <MenuItem.Icon>
+                            <Image Source="/Images/help_2.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Name="miHelpPage" Header="miHelpPage" Click="HelpClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/help.png"/>
+                            <Image Source="/Images/help.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                     <MenuItem Name="miHelpManual" Header="miHelpManual" Click="HelpManualClick">
                         <MenuItem.Icon>
-                            <Image Source="Images/manual.png"/>
+                            <Image Source="/Images/manual.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
