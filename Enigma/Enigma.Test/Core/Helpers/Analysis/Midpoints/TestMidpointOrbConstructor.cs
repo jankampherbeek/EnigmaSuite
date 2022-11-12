@@ -5,7 +5,7 @@
 using Enigma.Core.Analysis.Midpoints;
 using Enigma.Domain.Analysis;
 
-namespace Enigma.Test.Core.Analysis.Midpoints;
+namespace Enigma.Test.Core.Helpers.Analysis.Midpoints;
 
 [TestFixture]
 public class TestMidpointOrbConstructor

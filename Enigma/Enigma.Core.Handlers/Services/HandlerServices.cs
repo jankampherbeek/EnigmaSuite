@@ -4,6 +4,7 @@
 
 
 
+using Enigma.Core.Handlers.Analysis;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Research;
@@ -21,6 +22,7 @@ public static class HandlerServices
 {
     public static void RegisterHandlerServices(this ServiceCollection serviceCollection)
     {
+        serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<IDataFilePreparationHandler, DataFilePreparationHandler>();
         serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
         serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();

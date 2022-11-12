@@ -2,13 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis.Interfaces;
+
+using Enigma.Core.Helpers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Interfaces;
 
-namespace Enigma.Core.Analysis.Aspects;
+namespace Enigma.Core.Helpers.Analysis.Aspects;
 
 
 /// <inheritdoc/>

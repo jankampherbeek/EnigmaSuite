@@ -8,7 +8,6 @@ using Enigma.Api.Analysis;
 using Enigma.Api.Astron;
 using Enigma.Api.Interfaces;
 using Enigma.Configuration.Services;
-using Enigma.Core.Analysis.Services;
 using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.Services;
 using Enigma.Core.Handlers.Services;
@@ -44,7 +43,6 @@ public static class ApiServices
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
         serviceCollection.RegisterInputSupportServices();
-        serviceCollection.RegisterAnalysisServices();
         serviceCollection.RegisterPersistencyServices();
         serviceCollection.RegisterConfigurationServices();
         serviceCollection.RegisterResearchServices();

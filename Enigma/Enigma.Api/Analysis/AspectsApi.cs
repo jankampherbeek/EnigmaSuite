@@ -4,7 +4,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Analysis.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.RequestResponse;
 
@@ -14,25 +14,25 @@ namespace Enigma.Api.Analysis;
 public class AspectsApi : IAspectsApi
 {
 
-    private readonly IAspectChecker _aspectChecker;
+    private readonly IAspectsHandler _aspectHandler;
 
-    public AspectsApi(IAspectChecker aspectChecker)
+    public AspectsApi(IAspectsHandler aspectHandler)
     {
-        _aspectChecker = aspectChecker;
+        _aspectHandler = aspectHandler;
     }
 
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        return _aspectChecker.FindAspectsForMundanePoints(request.CalcChart);
+        return _aspectHandler.AspectsForMundanePoints(request);
     }
 
     public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        return _aspectChecker.FindAspectsForSolSysPoints(request.CalcChart);
+        return _aspectHandler.AspectsForSolSysPoints(request);
     }
 }
 

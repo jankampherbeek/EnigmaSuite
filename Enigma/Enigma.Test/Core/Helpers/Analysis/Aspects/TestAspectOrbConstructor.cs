@@ -2,14 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis.Aspects;
-using Enigma.Core.Analysis.Interfaces;
+using Enigma.Core.Helpers.Analysis.Aspects;
+using Enigma.Core.Helpers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Moq;
 
-namespace Enigma.Test.Core.Analysis.Aspects;
+namespace Enigma.Test.Core.Helpers.Analysis.Aspects;
 
 [TestFixture]
 public class TestAspectOrbConstructor

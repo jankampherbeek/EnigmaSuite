@@ -2,10 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis.Interfaces;
+using Enigma.Core.Analysis.Midpoints;
+using Enigma.Core.Helpers.Interfaces;
 using Enigma.Domain.Analysis;
 
-namespace Enigma.Core.Analysis.Midpoints;
+namespace Enigma.Core.Helpers.Analysis.Midpoints;
 
 
 

@@ -3,10 +3,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Helpers.Analysis.Aspects;
+using Enigma.Core.Helpers.Analysis.Midpoints;
 using Enigma.Core.Helpers.Conversions;
 using Enigma.Core.Helpers.Interfaces;
 using Enigma.Core.Helpers.Persistency;
 using Enigma.Core.Helpers.Research;
+using Enigma.Domain.Analysis;
+using Enigma.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Helpers.Services;
@@ -20,6 +24,9 @@ public static class HelperServices
 {
     public static void RegisterHelperServices(this ServiceCollection serviceCollection)
     {
+        serviceCollection.AddTransient<IAnalysisPointsMapping, AnalysisPointsMapping>();
+        serviceCollection.AddTransient<IAspectChecker, AspectChecker>();
+        serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IControlDataCalendar, ControlDataCalendar>();
         serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();
         serviceCollection.AddTransient<IControlGroupRng, ControlGroupRng>();
@@ -28,11 +35,13 @@ public static class HelperServices
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
+        serviceCollection.AddTransient<IMidpointChecker, MidpointChecker>();
+        serviceCollection.AddTransient<IMundanePointToAnalysisPointMap, MundanePointToAnalysisPointMap>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
+        serviceCollection.AddTransient<ISolSysPointToAnalysisPointMap, SolSysPointToAnalysisPointMap>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
-
 
     }
 }
