@@ -68,7 +68,6 @@
     <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
     <ProjectReference Include="..\Enigma.Persistency\Enigma.Persistency.csproj" />
-    <ProjectReference Include="..\Research\Enigma.Research.csproj" />
   </ItemGroup>
 
   <ItemGroup>

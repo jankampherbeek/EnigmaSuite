@@ -14,7 +14,6 @@ using Enigma.Core.Handlers.Services;
 using Enigma.Domain.Services;
 using Enigma.Frontend.Helpers.Services;
 using Enigma.Persistency.Services;
-using Enigma.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace
@@ -45,7 +44,6 @@ public static class ApiServices
         serviceCollection.RegisterInputSupportServices();
         serviceCollection.RegisterPersistencyServices();
         serviceCollection.RegisterConfigurationServices();
-        serviceCollection.RegisterResearchServices();
         serviceCollection.RegisterHandlerServices();
     }
 }
