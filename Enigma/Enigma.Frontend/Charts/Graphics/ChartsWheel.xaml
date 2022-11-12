@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Graphics"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"         
+        WindowStartupLocation="CenterScreen" 
         Title="ChartsWheel" Height="900" Width="740" MinHeight="400" MinWidth="300">
    <!-- SizeChanged="Window_SizeChanged" -->
 

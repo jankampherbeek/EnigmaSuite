@@ -65,7 +65,7 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Name="miAnalysis" Header="miAnalysis">
-                <MenuItem Name="miAnalysisAspects" Header="miAnalysisAspects" Click="AnalysisClick">
+                <MenuItem Name="miAnalysisAspects" Header="miAnalysisAspects" Click="AspectsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/aspects.png"/>
                     </MenuItem.Icon>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"     
+        WindowStartupLocation="Manual" Top="20" Left="20"     
         Title="MainWindow" Height="700" Width="640">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="6">

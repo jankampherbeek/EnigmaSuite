@@ -19,10 +19,8 @@ public class MainController
     private readonly IRosetta _rosetta;
     private readonly DataVault _dataVault;
 
-    private readonly ChartsWheel _chartsWheel;
-
-
-    public CurrentCharts AllCurrentCharts { get; set; }
+  
+    public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
 
 
     public MainController(IRosetta rosetta, ChartsWheel chartsWheel)
@@ -30,7 +28,6 @@ public class MainController
         _rosetta = rosetta;
         _dataVault = DataVault.Instance;
 
-        _chartsWheel = chartsWheel;
         AllCurrentCharts = new CurrentCharts();
     }
 
@@ -41,8 +38,7 @@ public class MainController
         if (_dataVault.GetNewChartAdded())
         {
             ChartsMainWindow chartsMainWindow = new();
-            chartsMainWindow.ShowDialog();
-            //ShowPositions();  // TODO move ShowPositions as an option to ShowWheel()
+            chartsMainWindow.Show();
         }
     }
 
@@ -100,11 +96,6 @@ public class MainController
         AllCurrentCharts.AddChart(newChart, true, false);
     }
 
-    private void ShowWheel()
-    {
-        _chartsWheel.Show();
-        _chartsWheel.DrawChart();
-    }
     private static void ShowPositions()
     {
         ChartPositionsWindow chartPositionsWindow = new();
