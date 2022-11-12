@@ -25,7 +25,6 @@ public partial class ChartsMainWindow : Window
         _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
         PopulateMenu();
-        DisableWhatsNotInThisRelease();
         ShowCurrentChart();
     }
 
@@ -71,10 +70,6 @@ public partial class ChartsMainWindow : Window
         miHelpManual.Header = _rosetta.TextForId("chartsmainwindow.menu.manual");
     }
 
-    private void DisableWhatsNotInThisRelease()
-    {
-
-    }
 
     private void ShowCurrentChart()
     {
@@ -85,20 +80,18 @@ public partial class ChartsMainWindow : Window
     private void CloseClick(object sender, RoutedEventArgs e)
     {
         // TODO check if chart was saved 0.2.0
-        // TODO close other windows
         _controller.HandleClose();
         Close();
     }
 
     private void ShowWheelClick(object sender, RoutedEventArgs e)
     {
-        // TODO check that window is not yet open
         ShowCurrentChart();
     }
 
     private void ShowPositionsClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Show positions not yet implemented.");     // TODO implement handling of click
+        _controller.ShowPositions();
     }
 
     private void ChartsSaveClick(object sender, RoutedEventArgs e)
@@ -118,7 +111,7 @@ public partial class ChartsMainWindow : Window
 
     private void AspectsClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Aspects not yet implemented.");       // TODO implement handling of click
+       _controller.ShowAspects();
     }
 
     private void HarmonicsClick(object sender, RoutedEventArgs e)

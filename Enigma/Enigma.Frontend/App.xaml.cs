@@ -52,6 +52,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<ChartAspectsController>();
         serviceCollection.AddTransient<ChartDataInputController>();
+        serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<ChartPositionsController>();
         serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
         serviceCollection.AddTransient<ChartsMainController>();

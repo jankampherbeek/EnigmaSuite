@@ -11,12 +11,16 @@ using System.Windows.Documents;
 
 namespace Enigma.Frontend.Ui.Charts;
 
+/// <summary>Controller for main chart window.</summary>
 public class ChartsMainController
 {
     private ChartsWheel? _chartsWheel;
+    private ChartPositionsWindow? _chartPositionsWindow;
+    private ChartAspectsWindow? _chartAspectsWindow;
 
     private List<Window> _openWindows = new();
 
+    /// <summary>Opens chart wheel for current chart.</summary>
     public void ShowCurrentChart()
     {
         _chartsWheel = App.ServiceProvider.GetRequiredService<ChartsWheel>();
@@ -26,6 +30,25 @@ public class ChartsMainController
 
     }
 
+    public void ShowPositions()
+    {
+        _chartPositionsWindow = App.ServiceProvider.GetRequiredService<ChartPositionsWindow>();
+        _openWindows.Add(_chartPositionsWindow);
+        _chartPositionsWindow.Show();
+        _chartPositionsWindow.PopulateAll();
+     
+    }
+
+    public void ShowAspects()
+    {
+        _chartAspectsWindow = App.ServiceProvider.GetRequiredService<ChartAspectsWindow>();
+        _openWindows.Add(_chartAspectsWindow);
+        _chartAspectsWindow.Show();
+        _chartAspectsWindow.Populate();
+    }
+
+
+    /// <summary>Closes all child windows of main chart window.</summary>
     public void HandleClose()
     {
         foreach (Window window in _openWindows)
