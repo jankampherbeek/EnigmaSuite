@@ -44,13 +44,11 @@ public record EffOccupiedMidpoint
     /// </summary>
     /// <param name="effMidpoint">THe effective midpoint, consisting of two points.</param>
     /// <param name="occupyingPoint">The point that is at the midpoint position.</param>
-    /// <param name="occupyingPointPosition">Longitude of the point at the midpoint position.</param>
     /// <param name="exactness">Percentage of exactness, based on actual orb.</param>
-    public EffOccupiedMidpoint(EffectiveMidpoint effMidpoint, AnalysisPoint occupyingPoint, double occupyingPointPosition, double exactness)
+    public EffOccupiedMidpoint(EffectiveMidpoint effMidpoint, AnalysisPoint occupyingPoint, double exactness)
     {
         EffMidpoint = effMidpoint;
         OccupyingPoint = occupyingPoint;
-        OccupyingPointPosition = occupyingPointPosition;
         Exactness = exactness;
     }
 

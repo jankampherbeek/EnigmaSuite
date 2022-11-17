@@ -104,7 +104,7 @@ public class AspectChecker : IAspectChecker
             {
                 var ssPoint = solSysPointPositions[j];
                 double distance = NormalizeDistance(mLong - ssPoint.Longitude.Position);
-                for (int k = 1; k < supportedAspects.Count; k++)
+                for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     var aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;

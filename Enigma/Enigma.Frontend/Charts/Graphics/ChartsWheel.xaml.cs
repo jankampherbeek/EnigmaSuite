@@ -22,7 +22,7 @@ public partial class ChartsWheel : Window
 
     public void DrawChart()
     {
-     //   wheelCanvas.Children.Clear();
+        wheelCanvas.Children.Clear();
         _controller.PrepareDraw();
         DrawChartFrame();
         DrawCusps();

@@ -19,3 +19,12 @@ public interface IAspectsApi
     /// <summary>Aspects for mundane points.</summary>
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request);
 }
+
+/// <summary>Api for the analysis of midpoints.</summary>
+public interface IMidpointsApi
+{
+    /// <summary>All midpoints as list and list of occupied midpoints.</summary>
+    /// <param name="request">Request contains chartdata and wheeltype for midpoints.</param>
+    /// <returns>Midpoints and occupied midpoints.</returns>
+    public MidpointResponse AllMidpoints(MidpointRequest request);
+}

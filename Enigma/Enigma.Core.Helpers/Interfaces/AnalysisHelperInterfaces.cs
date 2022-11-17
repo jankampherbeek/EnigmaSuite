@@ -44,20 +44,26 @@ public interface IAspectOrbConstructor
 /// <summary>
 /// Checks for midpoints.
 /// </summary>
-public interface IMidpointChecker
+public interface IMidpointsHelper
 {
-    /// <summary>
-    /// Find all midpoints using the shortest arc between two points, longitudes based on a 360-degree dial.
-    /// </summary>
-    /// <param name="analysisPoints">Points to analyse.</param>
-    /// <returns>List with all midpoints.</returns>
-    List<EffectiveMidpoint> FindMidpoints(List<AnalysisPoint> analysisPoints);
 
-    /// <summary>
-    /// Find occupied midpoints.
-    /// </summary>
-    /// <param name="midPointType">Indicates the dial to use.</param>
-    /// <param name="analysisPoints">Points to analyse.</param>
-    /// <returns>List with all occupied midpoints.</returns>
-    List<EffOccupiedMidpoint> FindOccupiedMidpoints(MidpointTypes midpointType, List<AnalysisPoint> analysisPoints);
+    /// <summary>Create the definition of an effective (occupied) midpoint.</summary>
+    /// <param name="point1">The first participating point.</param>
+    /// <param name="point2">The second participating point</param>
+    /// <returns>Defined effective midpoint.</returns>
+    public EffectiveMidpoint ConstructEffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2);
+
+    /// <summary>Measure deviation from an exact midpoint.</summary>
+    /// <param name="division">Fraction of 360 degrees, the midpoint-wheel.</param>
+    /// <param name="midpointPos">Position of the midpoint.</param>
+    /// <param name="posCelPoint">Position of the point to compare with the midpoint.</param>
+    /// <returns>Deviation from the exact midpoint in degrees.</returns>
+    public double MeasureMidpointDeviation(double division, double midpointPos, double posCelPoint);
+
+    /// <summary>Convert a list of midpoints in a 360 degree dial to midpoints within a specific dial.</summary>
+    /// <param name="division">Factor for the dial.</param>
+    /// <param name="midPoints360Degrees">Original midpoints ina  360 degree dial.</param>
+    /// <returns>Midpoints in a specific dial.</returns>
+    public List<EffectiveMidpoint> CreateMidpoints4Dial(double division, List<EffectiveMidpoint> midPoints360Degrees);
+
 }

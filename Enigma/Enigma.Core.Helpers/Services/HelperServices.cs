@@ -35,7 +35,7 @@ public static class HelperServices
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
-        serviceCollection.AddTransient<IMidpointChecker, MidpointChecker>();
+        serviceCollection.AddTransient<IMidpointsHelper, MidpointsHelper>();
         serviceCollection.AddTransient<IMundanePointToAnalysisPointMap, MundanePointToAnalysisPointMap>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();

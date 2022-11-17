@@ -28,7 +28,7 @@ public interface IAnalysisPointsMapping
     /// <remarks>Does not yet support fix stars, or horizontal coordiantes. 
     /// For mundane positions only supports Mc and Asc.
     /// For zodiacal points only supports Zero Aries.</remarks>
-    public List<AnalysisPoint> ChartToSingelAnalysisPoints(List<PointGroups> pointGroups, CoordinateSystems coordinateSystem, bool mainCoord, CalculatedChart chart);
+    public List<AnalysisPoint> ChartToSingLeAnalysisPoints(List<PointGroups> pointGroups, CoordinateSystems coordinateSystem, bool mainCoord, CalculatedChart chart);
 }
 
 public interface ISolSysPointToAnalysisPointMap

@@ -11,6 +11,7 @@ using Enigma.Domain.RequestResponse;
 namespace Enigma.Api.Analysis;
 
 
+/// <inheritdoc/>
 public class AspectsApi : IAspectsApi
 {
 
@@ -21,6 +22,7 @@ public class AspectsApi : IAspectsApi
         _aspectHandler = aspectHandler;
     }
 
+    /// <inheritdoc/>
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request)
     {
         Guard.Against.Null(request);
@@ -28,6 +30,7 @@ public class AspectsApi : IAspectsApi
         return _aspectHandler.AspectsForMundanePoints(request);
     }
 
+    /// <inheritdoc/>
     public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request)
     {
         Guard.Against.Null(request);

@@ -47,6 +47,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
             if (drawSsAspect.AspectType == AspectTypes.Square || drawSsAspect.AspectType == AspectTypes.Opposition) aspectColor = metrics.HardAspectsColor;
             if (drawSsAspect.AspectType == AspectTypes.Triangle || drawSsAspect.AspectType == AspectTypes.Sextile) aspectColor = metrics.SoftAspectsColor;
             double lineWidth = metrics.AspectLineSize * drawSsAspect.Exactness / 100.0;
+            if (lineWidth < 0.5) lineWidth = 0.5;
             SolarSystemPoints point1 = drawSsAspect.Point1;
             SolarSystemPoints point2 = drawSsAspect.Point2;
             DrawableAspectCoordinatesSs? drawCoordSs1 = null;

@@ -38,6 +38,7 @@
     <Folder Include="Configuration\Handlers\" />
     <Folder Include="Configuration\Parsers\" />
     <Folder Include="Core\Analysis\References\" />
+    <Folder Include="Core\Handlers\Analysis\Midpoints\" />
     <Folder Include="Frontend\Helpers\" />
   </ItemGroup>
 
