@@ -51,7 +51,7 @@ public interface IMidpointsHelper
     /// <param name="point1">The first participating point.</param>
     /// <param name="point2">The second participating point</param>
     /// <returns>Defined effective midpoint.</returns>
-    public EffectiveMidpoint ConstructEffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2);
+//    public EffectiveMidpoint ConstructEffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial);  // TODO remove this method
 
     /// <summary>Measure deviation from an exact midpoint.</summary>
     /// <param name="division">Fraction of 360 degrees, the midpoint-wheel.</param>
@@ -64,6 +64,7 @@ public interface IMidpointsHelper
     /// <param name="division">Factor for the dial.</param>
     /// <param name="midPoints360Degrees">Original midpoints ina  360 degree dial.</param>
     /// <returns>Midpoints in a specific dial.</returns>
-    public List<EffectiveMidpoint> CreateMidpoints4Dial(double division, List<EffectiveMidpoint> midPoints360Degrees);
+       public EffectiveMidpoint ConstructEffectiveMidpointInDial(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial);
 
+    public List<EffectiveMidpoint> CreateMidpoints4Dial(double division, List<EffectiveMidpoint> midPoints360Degrees);
 }

@@ -29,19 +29,22 @@ public class MidpointsHandler: IMidpointsHandler
 
     public MidpointResponse RetrieveMidpoints(MidpointRequest request)
     {
+        double divisionForDial = 1.0;
+        if (request.MidpointType == MidpointTypes.Dial90) divisionForDial = 0.25;
+        if (request.MidpointType == MidpointTypes.Dial45) divisionForDial = 0.125;
         List<PointGroups> pointGroups = new List<PointGroups> {PointGroups.SolarSystemPoints, PointGroups.MundanePoints, PointGroups.ZodiacalPoints };
         CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
         CalculatedChart chart = request.CalcChart;
         List<AnalysisPoint> analysisPoints = _analysisPointsMapping.ChartToSingLeAnalysisPoints(pointGroups, coordSystem, mainCoord, chart);
-        List<EffectiveMidpoint> effectiveMidpoints = FindMidpoints(analysisPoints);
+        List<EffectiveMidpoint> effectiveMidpoints = FindMidpoints(analysisPoints, divisionForDial);
         List<EffectiveMidpoint> effectiveMidpointsForDial = CreateMidpoints4Dial(request.MidpointType, effectiveMidpoints);
         List<EffOccupiedMidpoint> effOccupiedMidpoints = FindOccupiedMidpoints(request.MidpointType, effectiveMidpoints, analysisPoints);        
         return new MidpointResponse(effectiveMidpoints, effectiveMidpointsForDial, effOccupiedMidpoints);
     }
 
     /// <inheritdoc/>
-    private List<EffectiveMidpoint> FindMidpoints(List<AnalysisPoint> analysisPoints)
+    private List<EffectiveMidpoint> FindMidpoints(List<AnalysisPoint> analysisPoints, double divisionForDial)
     {
         List<EffectiveMidpoint> midpoints = new();
         int nrOfPoints = analysisPoints.Count;
@@ -49,7 +52,7 @@ public class MidpointsHandler: IMidpointsHandler
         {
             for (int j = i + 1; j < nrOfPoints; j++)
             {
-                midpoints.Add(_midpointsHelper.ConstructEffectiveMidpoint(analysisPoints[i], analysisPoints[j]));
+                midpoints.Add(_midpointsHelper.ConstructEffectiveMidpointInDial(analysisPoints[i], analysisPoints[j], divisionForDial));
             }
         }
         return midpoints;
@@ -67,7 +70,7 @@ public class MidpointsHandler: IMidpointsHandler
         List<EffOccupiedMidpoint> effOccupiedMidpoints = new();
         MidpointDetails mpDetails = _midpointSpecifications.DetailsForMidpoint(midpointType);
         double orbFactor = mpDetails.OrbFactor;
-        double activeOrb = 1.6 * orbFactor;         // TODO retrieve orb from configuration.
+        double maxOrb = 1.6 * orbFactor;         // TODO retrieve orb from configuration.
         double division = mpDetails.Division;
 
         foreach (var effMidpoint in effMidpoints)
@@ -75,11 +78,11 @@ public class MidpointsHandler: IMidpointsHandler
             double position = effMidpoint.Position;
             foreach (var analysisPoint in analysisPoints)
             {
-                double deviation = _midpointsHelper.MeasureMidpointDeviation(division, position, analysisPoint.Position);
-                if (deviation <= activeOrb)
+                double orb = _midpointsHelper.MeasureMidpointDeviation(division, position, analysisPoint.Position);
+                if (orb <= maxOrb)
                 {
-                    double exactness = 100.0 - ((deviation / activeOrb) * 100.0);
-                    effOccupiedMidpoints.Add(new EffOccupiedMidpoint(effMidpoint, analysisPoint, exactness));
+                    double exactness = 100.0 - ((orb / maxOrb) * 100.0);
+                    effOccupiedMidpoints.Add(new EffOccupiedMidpoint(effMidpoint, analysisPoint, orb, exactness));
                 }
             }
 

@@ -32,6 +32,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IFileManagementApi, FileManagementApi>();
         serviceCollection.AddTransient<IHorizontalApi, HorizontalApi>();
         serviceCollection.AddTransient<IHousesApi, HousesApi>();
+        serviceCollection.AddTransient<IMidpointsApi, MidpointsApi>();
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();

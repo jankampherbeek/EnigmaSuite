@@ -79,7 +79,7 @@ charts.datainput.namelocation = Name and location
 
 --- ChartsMain ----------------------------------------
 
-chartsmainwindow.title = Enigma Research : Charts
+chartsmainwindow.title = Enigma Astrology Research : Charts
 chartsmainwindow.formtitle = Charts
 chartsmainwindow.current = Current chart
 chartsmainwindow.tags = Tags
@@ -109,6 +109,20 @@ chartsmainwindow.menu.wheel = Show wheel
 chartsmainwindow.newchart = New
 chartsmainwindow.overviewcharts = List
 chartsmainwindow.btnaddtag = Add new tag
+
+---- ChartsMidpoints ----------------------------------
+charts.midpoints.formtitle = Midpoints
+charts.midpoints.title = Enigma Astrology Research : Midpoints
+charts.midpoints.allmidpoints = All midpoints
+charts.midpoints.header.exactness = Exactness
+charts.midpoints.header.orb = Orb
+charts.midpoints.header.position = Position
+charts.midpoints.occmidpoints = Occupied midpoints
+charts.midpoints.dialsize = Dial size
+charts.midpoints.dial360 = 360 degrees
+charts.midpoints.dial90 = 90 degrees
+charts.midpoints.dial45 = 45 degrees
+charts.midpoints.orbsize = Orbsize for selected dial:
 
 ---- ChartsPositions ----------------------------------
 charts.positions.chartgategory = Category:

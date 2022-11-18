@@ -121,7 +121,7 @@ public partial class ChartsMainWindow : Window
 
     private void MidpointsClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Midpoints not yet implemented.");      // TODO implement handling of click
+        _controller.ShowMidpoints();
     }
 
     private void PrimaryClick(object sender, RoutedEventArgs e)

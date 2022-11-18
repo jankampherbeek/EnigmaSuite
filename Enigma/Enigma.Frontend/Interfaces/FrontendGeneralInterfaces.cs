@@ -31,6 +31,21 @@ public interface IAspectForWheelFactory
     List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<EffectiveAspect> aspects);
 }
 
+/// <summary>Prepare midpoint values to be shown in a datagrid.</summary>
+public interface IMidpointForDataGridFactory
+{
+    /// <summary>Builds a presentable midpoint to be used in a grid.</summary>
+    /// <param name="midpoints">Calculated midpoints.</param>
+    /// <returns>Presentable midpoints.</returns>
+    List<PresentableMidpoint> CreateMidpointsDataGrid(List<EffectiveMidpoint> midpoints);
+
+    /// <summary>Builds a presentable occupied midpoint to be used in a grid.</summary>
+    /// <param name="midpoints">Occupied midpoints.</param>
+    /// <returns>Presentable occupied midpoints.</returns>
+    List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<EffOccupiedMidpoint> midpoints);
+}
+
+
 
 public interface ICelPointForDataGridFactory
 {

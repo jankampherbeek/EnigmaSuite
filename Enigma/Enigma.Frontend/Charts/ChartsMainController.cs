@@ -7,7 +7,6 @@ using Enigma.Frontend.Ui.Charts.Graphics;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -17,6 +16,7 @@ public class ChartsMainController
     private ChartsWheel? _chartsWheel;
     private ChartPositionsWindow? _chartPositionsWindow;
     private ChartAspectsWindow? _chartAspectsWindow;
+    private ChartMidpointsWindow? _chartMidpointsWindow;
 
     private List<Window> _openWindows = new();
 
@@ -47,6 +47,15 @@ public class ChartsMainController
         _chartAspectsWindow.Populate();
     }
 
+
+    /// <summary>Show form with midpoints.</summary>
+    public void ShowMidpoints()
+    {
+        _chartMidpointsWindow = App.ServiceProvider.GetRequiredService<ChartMidpointsWindow>();
+        _openWindows.Add(_chartMidpointsWindow);
+        _chartMidpointsWindow.Show();
+        _chartMidpointsWindow.Populate();
+    }
 
     /// <summary>Closes all child windows of main chart window.</summary>
     public void HandleClose()

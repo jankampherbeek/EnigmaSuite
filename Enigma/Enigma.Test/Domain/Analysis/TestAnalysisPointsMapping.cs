@@ -22,7 +22,8 @@ public class TestSolSysPointToAnalysisPointMap
         var pointGroup = PointGroups.SolarSystemPoints;
         var coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
-        ISolSysPointToAnalysisPointMap pointMap = new SolSysPointToAnalysisPointMap();
+        ISolarSystemPointSpecifications solarSystemPointSpecifications = new SolarSystemPointSpecifications();
+        ISolSysPointToAnalysisPointMap pointMap = new SolSysPointToAnalysisPointMap(solarSystemPointSpecifications);
 
         PosSpeed emptyPS = new(0.0, 0.0);
         PosSpeed longPS = new(longPos, 0.0);
@@ -45,7 +46,8 @@ public class TestSolSysPointToAnalysisPointMap
         var pointGroup = PointGroups.SolarSystemPoints;
         var coordSystem = CoordinateSystems.Equatorial;
         bool mainCoord = false;
-        ISolSysPointToAnalysisPointMap pointMap = new SolSysPointToAnalysisPointMap();
+        ISolarSystemPointSpecifications solarSystemPointSpecifications = new SolarSystemPointSpecifications();
+        ISolSysPointToAnalysisPointMap pointMap = new SolSysPointToAnalysisPointMap(solarSystemPointSpecifications);
 
         PosSpeed emptyPS = new(0.0, 0.0);
         PosSpeed declPS = new(declPos, 0.0);

@@ -19,20 +19,20 @@ public class TestMidpointHelper
     [Test]
     public void TestConstructEffectiveMidpointHappyFlow()
     {
-        AnalysisPoint point1 = new(PointGroups.ZodiacalPoints, 1, 22.0);
-        AnalysisPoint point2 = new(PointGroups.ZodiacalPoints, 2, 44.0);
+        AnalysisPoint point1 = new(PointGroups.ZodiacalPoints, 1, 22.0, "a");
+        AnalysisPoint point2 = new(PointGroups.ZodiacalPoints, 2, 44.0, "b");
         double expectedMidpoint = 33.0;
-        EffectiveMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpoint(point1, point2);    
+        EffectiveMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpointInDial(point1, point2, 1.0);    
         Assert.That(actualMidpoint.Position, Is.EqualTo(expectedMidpoint).Within(_delta));
     }
 
     [Test]
     public void TestConstructEffectiveMidpointLargeDifference()
     {
-        AnalysisPoint point1 = new(PointGroups.ZodiacalPoints, 1, 2.0);
-        AnalysisPoint point2 = new(PointGroups.ZodiacalPoints, 2, 352.0);
+        AnalysisPoint point1 = new(PointGroups.ZodiacalPoints, 1, 2.0, "a");
+        AnalysisPoint point2 = new(PointGroups.ZodiacalPoints, 2, 352.0, "b");
         double expectedMidpoint = 357.0;
-        EffectiveMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpoint(point1, point2);
+        EffectiveMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpointInDial(point1, point2, 1.0);
         Assert.That(actualMidpoint.Position, Is.EqualTo(expectedMidpoint).Within(_delta));
     }
 
@@ -165,17 +165,17 @@ public class TestMidpointHelper
     {
         List<EffectiveMidpoint> midpoints = new();
         PointGroups pointGroup = PointGroups.ZodiacalPoints;
-        AnalysisPoint sun = new(pointGroup, 0, 22.0);
-        AnalysisPoint moon = new(pointGroup, 1, 178.0);
-        AnalysisPoint mars = new(pointGroup, 5, 302.0);
-        AnalysisPoint jupiter = new(pointGroup, 6, 42.0);
+        AnalysisPoint sun = new(pointGroup, 0, 22.0, "a");
+        AnalysisPoint moon = new(pointGroup, 1, 178.0, "b");
+        AnalysisPoint mars = new(pointGroup, 5, 302.0, "c");
+        AnalysisPoint jupiter = new(pointGroup, 6, 42.0, "d");
 
-        midpoints.Add(new EffectiveMidpoint(sun, moon, 100.0));
-        midpoints.Add(new EffectiveMidpoint(sun, mars, 342.0));
-        midpoints.Add(new EffectiveMidpoint(sun, jupiter, 32.0));
-        midpoints.Add(new EffectiveMidpoint(moon, mars, 240.0));
-        midpoints.Add(new EffectiveMidpoint(moon, jupiter, 110.0));
-        midpoints.Add(new EffectiveMidpoint(mars, jupiter, 352.0));
+        midpoints.Add(new EffectiveMidpoint(sun, moon, 100.0, 1.0));
+        midpoints.Add(new EffectiveMidpoint(sun, mars, 342.0, 1.0));
+        midpoints.Add(new EffectiveMidpoint(sun, jupiter, 32.0, 1.0));
+        midpoints.Add(new EffectiveMidpoint(moon, mars, 240.0, 1.0));
+        midpoints.Add(new EffectiveMidpoint(moon, jupiter, 110.0, 1.0));
+        midpoints.Add(new EffectiveMidpoint(mars, jupiter, 352.0, 1.0));
         return midpoints;
     }
 

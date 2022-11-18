@@ -14,7 +14,7 @@ public class MidpointsHelper : IMidpointsHelper
     private readonly double _fullCircle = 360.0;
 
     /// <inheritdoc/>
-    public EffectiveMidpoint ConstructEffectiveMidpoint(AnalysisPoint point1, AnalysisPoint point2)
+    public EffectiveMidpoint ConstructEffectiveMidpointInDial(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial)
     {
         double pos1 = point1.Position;
         double pos2 = point2.Position;
@@ -33,7 +33,7 @@ public class MidpointsHelper : IMidpointsHelper
         double mPos = (diff / 2) + firstPosShortestArc;
         if (mPos >= _fullCircle) mPos -= _fullCircle;
 
-        return new EffectiveMidpoint(point1, point2, mPos);
+        return new EffectiveMidpoint(point1, point2, mPos, divisionForDial);
     }
 
     /// <inheritdoc/>
@@ -65,8 +65,9 @@ public class MidpointsHelper : IMidpointsHelper
             {
                 longInDial -= dialSize;
             }
-            dialMidpoints.Add(new EffectiveMidpoint(midpoint.Point1, midpoint.Point2, longInDial));
+            dialMidpoints.Add(new EffectiveMidpoint(midpoint.Point1, midpoint.Point2, longInDial, division));
         }
         return dialMidpoints;
     }
+
 }

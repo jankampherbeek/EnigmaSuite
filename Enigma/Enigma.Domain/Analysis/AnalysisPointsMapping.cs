@@ -42,10 +42,11 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
                 mappedPoints.Add(_mundanePointMap.MapToAnalysisPoint(MundanePoints.Mc, chart.FullHousePositions.Mc, pointGroup, coordinateSystem, mainCoord));
                 mappedPoints.Add(_mundanePointMap.MapToAnalysisPoint(MundanePoints.Ascendant, chart.FullHousePositions.Ascendant, pointGroup, coordinateSystem, mainCoord));
             }
-            if (pointGroup != PointGroups.ZodiacalPoints)
+            if (pointGroup == PointGroups.ZodiacalPoints)
             {
                 double pos0Aries = 0.0;  // correct value for 0 Aries all ecliptical and equatorial coordinates.
-                mappedPoints.Add(new AnalysisPoint(pointGroup, (int)ZodiacalPoints.ZeroAries, pos0Aries));
+                string glyph = "1";
+                mappedPoints.Add(new AnalysisPoint(pointGroup, (int)ZodiacalPoints.ZeroAries, pos0Aries, glyph));
             }
         }
         return mappedPoints;
@@ -55,9 +56,18 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
 
 public class SolSysPointToAnalysisPointMap : ISolSysPointToAnalysisPointMap
 {
+    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+
+    public SolSysPointToAnalysisPointMap(ISolarSystemPointSpecifications solarSystemPointSpecifications)
+    {
+        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+    }
+
     public AnalysisPoint MapToAnalysisPoint(FullSolSysPointPos solSysPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord)
     {
         double position = 0.0;
+        SolarSystemPointDetails sspDetails = _solarSystemPointSpecifications.DetailsForPoint(solSysPoint.SolarSystemPoint);
+        string glyph = sspDetails.DefaultGlyph;
         if (coordinateSystem == CoordinateSystems.Ecliptical)
         {
             position = mainCoord ? solSysPoint.Longitude.Position : solSysPoint.Latitude.Position;
@@ -67,7 +77,7 @@ public class SolSysPointToAnalysisPointMap : ISolSysPointToAnalysisPointMap
             position = mainCoord ? solSysPoint.RightAscension.Position : solSysPoint.Declination.Position;
         }
         int idPoint = (int)solSysPoint.SolarSystemPoint;
-        return new AnalysisPoint(pointGroup, idPoint, position);
+        return new AnalysisPoint(pointGroup, idPoint, position, glyph);
     }
 }
 
@@ -76,6 +86,9 @@ public class MundanePointToAnalysisPointMap : IMundanePointToAnalysisPointMap
     public AnalysisPoint MapToAnalysisPoint(MundanePoints mundanePoint, CuspFullPos cuspPos, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord)
     {
         double position = 0.0;
+        string glyph = "";
+        if (mundanePoint == MundanePoints.Mc) glyph = "M";
+        if (mundanePoint == MundanePoints.Ascendant) glyph = "A";
         if (coordinateSystem == CoordinateSystems.Ecliptical)
         {
             position = mainCoord ? cuspPos.Longitude : 0.0;     // latitude for cusp is always zero.
@@ -85,7 +98,7 @@ public class MundanePointToAnalysisPointMap : IMundanePointToAnalysisPointMap
             position = mainCoord ? cuspPos.RaDecl.RightAscension : cuspPos.RaDecl.Declination;
         }
         int idPoint = (int)mundanePoint;
-        return new AnalysisPoint(pointGroup, idPoint, position);
+        return new AnalysisPoint(pointGroup, idPoint, position, glyph);
     }
 
 }

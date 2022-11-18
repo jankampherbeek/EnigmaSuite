@@ -5,26 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts"
         mc:Ignorable="d"
-        Title="ChartMidpointsWindow" Height="450" Width="800"
+        Title="ChartMidpointsWindow" Height="750" Width="580"
         WindowStartupLocation="CenterScreen">
-    <Grid Margin="6">
+    <Grid Margin="6" HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35*"/>
             <ColumnDefinition Width="45*"/>
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="36"/>
+            <RowDefinition Height="28"/>
             <RowDefinition Height="60*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="28"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Name="FormTitle" Text="tbTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="SubTitleChartId" Text="SubTitleChartId" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Name="tbFormTitle" Text="tbTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="tbSubTitleChartId" Text="tbSubTitleChartId" Margin="6" Style="{StaticResource subTitleStyle}"/>
         <TextBlock Grid.Row="2" Name="tbAllMidpoints" Text="tbAllMidpoints" Margin="6" FontWeight="Bold"/>
         <TextBlock Grid.Row="2" Grid.Column="1" Name="tbOccupiedMidpoints" Text="tbOccupiedMidpoints" Margin="6" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2" Grid.Column="2" Name="tbDiskSize" Text="tbDiskSize" Margin="6" FontWeight="Bold"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Name="tbDialSize" Text="tbDialSize" Margin="6" FontWeight="Bold"/>
         <DataGrid Grid.Row="3" Name="dgAllMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   HorizontalAlignment="Left"/>
@@ -32,14 +32,14 @@
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   HorizontalAlignment="Left"/>
         <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" Margin="6">
-            <RadioButton Name="rbDisk360" Content="rbDisk360" GroupName="rbgDiskSize" Margin="6"/>
-            <RadioButton Name="rbDisk90" Content="rbDisk90" GroupName="rbgDiskSize" Margin="6"/>
-            <RadioButton Name="rbDisk45" Content="rbDisk45" GroupName="rbgDiskSize" Margin="6"/>
-            <TextBlock Name="tbOrbSize" Text="tbOrbSize" Margin="6"/>
+            <RadioButton Name="rbDial360" Content="rbDial360" GroupName="rbgDialSize" Margin="6" IsChecked="True"/>
+            <RadioButton Name="rbDial90" Content="rbDial90" GroupName="rbgDialSize" Margin="6"/>
+            <RadioButton Name="rbDial45" Content="rbDial45" GroupName="rbgDialSize" Margin="6"/>
+            <TextBlock Name="tbOrbSize" Text="tbOrbSize" Margin="6" TextWrapping="Wrap"/>
         </StackPanel>
-        <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="BtnHelp" Content="BtnHelp" Margin="6" Click="HelpClick"/>
-            <Button Name="BtnClose" Content="BtnClose" Margin="6" Click="CloseClick"/>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
+            <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>
     </Grid>
 
