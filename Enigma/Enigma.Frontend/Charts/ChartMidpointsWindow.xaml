@@ -32,9 +32,9 @@
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   HorizontalAlignment="Left"/>
         <StackPanel Grid.Row="3" Grid.Column="2" Orientation="Vertical" Margin="6">
-            <RadioButton Name="rbDial360" Content="rbDial360" GroupName="rbgDialSize" Margin="6" IsChecked="True"/>
-            <RadioButton Name="rbDial90" Content="rbDial90" GroupName="rbgDialSize" Margin="6"/>
-            <RadioButton Name="rbDial45" Content="rbDial45" GroupName="rbgDialSize" Margin="6"/>
+            <RadioButton Name="rbDial360" Content="rbDial360" GroupName="rbgDialSize" Margin="6" IsChecked="True" Checked="RbDial360Checked"/>
+            <RadioButton Name="rbDial90" Content="rbDial90" GroupName="rbgDialSize" Margin="6" Checked="RbDial90Checked"/>
+            <RadioButton Name="rbDial45" Content="rbDial45" GroupName="rbgDialSize" Margin="6" Checked="RbDial45Checked"/>
             <TextBlock Name="tbOrbSize" Text="tbOrbSize" Margin="6" TextWrapping="Wrap"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">

@@ -20,7 +20,7 @@ public interface IMidpointOrbConstructor
 }
 
 /// <inheritdoc/>
-public class MidpointOrbConstructor : IMidpointOrbConstructor
+public class MidpointOrbConstructor : IMidpointOrbConstructor  // TODO: possibly obsolete, remove.
 {
 
     private readonly double _baseOrb = 1.6;   // todo make baseorb configurable

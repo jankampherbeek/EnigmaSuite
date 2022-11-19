@@ -18,8 +18,8 @@ namespace Enigma.Frontend.Ui.Charts;
 /// </summary>
 public partial class ChartMidpointsWindow : Window
 {
-    private ChartMidpointsController _controller;
-    private IRosetta _rosetta;
+    private readonly ChartMidpointsController _controller;
+    private readonly IRosetta _rosetta;
     private readonly string _emptyHeader = " ";
 
     public ChartMidpointsWindow(ChartMidpointsController controller, IRosetta rosetta)
@@ -27,35 +27,24 @@ public partial class ChartMidpointsWindow : Window
         InitializeComponent();
         _controller = controller;
         _rosetta = rosetta;
-        PopulateTexts();
     }
 
     public void Populate()
     {
         PopulateTexts();
-        PopulateData();
+        PopulateData(MidpointTypes.Dial360);
     }
 
-
-    public void PopulateData()
+ 
+    public void PopulateData(MidpointTypes midpointType)
     {
         string orbSize = _rosetta.TextForId("charts.midpoints.orbsize");
         double actualOrb = 1.6;                             // TODO 0.2.0 retrieve orb from settings
-        MidpointTypes midpointType = MidpointTypes.Dial360;
-        if ((bool)rbDial90.IsChecked)
-        {
-            actualOrb /= 4.0;
-            midpointType = MidpointTypes.Dial90;
-        }
-        if ((bool)rbDial45.IsChecked)
-        {
-            actualOrb /= 8.0;
-            midpointType = MidpointTypes.Dial45;
-        }
+        if (midpointType == MidpointTypes.Dial90) actualOrb /= 4.0;
+        if (midpointType == MidpointTypes.Dial45) actualOrb /= 8.0;
 
         string orbText = _controller.DegreesToDms(actualOrb);
         tbOrbSize.Text = orbSize + "\n" + orbText;
-
         dgAllMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(midpointType).Item1;
         dgAllMidpoints.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgAllMidpoints.Columns[0].Header = _emptyHeader;
@@ -107,7 +96,20 @@ public partial class ChartMidpointsWindow : Window
         btnClose.Content = _rosetta.TextForId("common.btnclose");
     }
 
+    private void RbDial360Checked(object sender, RoutedEventArgs e)
+    {
+        if (_controller != null) PopulateData(MidpointTypes.Dial360);
+    }
 
+    private void RbDial90Checked(object sender, RoutedEventArgs e)
+    {
+        if (_controller != null) PopulateData(MidpointTypes.Dial90);
+    }
+
+    private void RbDial45Checked(object sender, RoutedEventArgs e)
+    {
+        if (_controller != null) PopulateData(MidpointTypes.Dial45);
+    }
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {

@@ -57,7 +57,7 @@ public class TestMidpointHelper
         double actualDeviation = _midpointsHelper.MeasureMidpointDeviation(division, posMidpoint, posCelPoint);
         Assert.That(actualDeviation, Is.EqualTo(expectedDeviation).Within(_delta));
     }
-
+/*
     [Test]
     public void TestMeasureMidpointDeviationDial90HappyFlow()
     {
@@ -101,7 +101,7 @@ public class TestMidpointHelper
         double actualDeviation = _midpointsHelper.MeasureMidpointDeviation(division, posMidpoint, posCelPoint);
         Assert.That(actualDeviation, Is.EqualTo(expectedDeviation).Within(_delta));
     }
-
+*/
     [Test]
     public void TestCreateMidpoints4Dial360Degrees()
     {

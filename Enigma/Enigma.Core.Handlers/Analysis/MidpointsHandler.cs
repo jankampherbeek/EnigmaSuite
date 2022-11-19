@@ -10,6 +10,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Core.Handlers.Analysis;
 
@@ -70,22 +71,33 @@ public class MidpointsHandler: IMidpointsHandler
         List<EffOccupiedMidpoint> effOccupiedMidpoints = new();
         MidpointDetails mpDetails = _midpointSpecifications.DetailsForMidpoint(midpointType);
         double orbFactor = mpDetails.OrbFactor;
-        double maxOrb = 1.6 * orbFactor;         // TODO retrieve orb from configuration.
+        double maxOrb = 1.6;         // TODO retrieve orb from configuration.
         double division = mpDetails.Division;
+        double dialSize = division * 360.0;
+
+        List<AnalysisPoint> analysisPointsInDial= new();
+        foreach (var analysisPoint in analysisPoints)
+        {
+            double positionInDial = analysisPoint.Position;
+            while (positionInDial >= dialSize) positionInDial -= dialSize;
+            analysisPointsInDial.Add(new AnalysisPoint(analysisPoint.PointGroup, analysisPoint.ItemId, positionInDial, analysisPoint.Glyph));
+        }
+
 
         foreach (var effMidpoint in effMidpoints)
         {
-            double position = effMidpoint.Position;
-            foreach (var analysisPoint in analysisPoints)
+            double positionInDial = effMidpoint.PositionIndial;
+            foreach (var analysisPoint in analysisPointsInDial)
             {
-                double orb = _midpointsHelper.MeasureMidpointDeviation(division, position, analysisPoint.Position);
+                double analysisPointPosInDial = analysisPoint.Position;
+                while(analysisPointPosInDial >= dialSize) analysisPointPosInDial -= dialSize;
+                double orb = _midpointsHelper.MeasureMidpointDeviation(division, positionInDial, analysisPoint.Position);
                 if (orb <= maxOrb)
                 {
                     double exactness = 100.0 - ((orb / maxOrb) * 100.0);
                     effOccupiedMidpoints.Add(new EffOccupiedMidpoint(effMidpoint, analysisPoint, orb, exactness));
                 }
             }
-
         }
         return effOccupiedMidpoints;
     }

@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Analysis;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

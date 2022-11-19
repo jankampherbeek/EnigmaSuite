@@ -32,24 +32,25 @@ public class MidpointsHelper : IMidpointsHelper
 
         double mPos = (diff / 2) + firstPosShortestArc;
         if (mPos >= _fullCircle) mPos -= _fullCircle;
-
-        return new EffectiveMidpoint(point1, point2, mPos, divisionForDial);
+        double dialSize = divisionForDial * 360.0;
+        double posInDial = mPos;
+        while(posInDial >= dialSize) posInDial-= dialSize;
+        return new EffectiveMidpoint(point1, point2, mPos, posInDial);
     }
 
     /// <inheritdoc/>
     public double MeasureMidpointDeviation(double division, double midpointPos, double posCelPoint)
     {
-        double wheelSize = division * 360.0;
-        double correctedMidPointPos = midpointPos;
+        double dialSize = division * 360.0;
+        double correctedMidpointPos = midpointPos;
         double candidatePos = posCelPoint;
         
-        while(correctedMidPointPos > (wheelSize))correctedMidPointPos -= wheelSize;
-        while(candidatePos > (wheelSize)) candidatePos -= wheelSize;
-        double smallPos = (candidatePos < midpointPos) ? candidatePos : midpointPos;
-        double largePos = (candidatePos < midpointPos) ? midpointPos: candidatePos;
+  //      while(correctedMidpointPos > (dialSize)) correctedMidpointPos -= dialSize;
+  //      while(candidatePos > (dialSize)) candidatePos -= dialSize;
+        double smallPos = (candidatePos < correctedMidpointPos) ? candidatePos : correctedMidpointPos;
+        double largePos = (candidatePos < correctedMidpointPos) ? correctedMidpointPos: candidatePos;
         double deviation = largePos - smallPos;   
-        if (deviation > (wheelSize / 2.0)) deviation = wheelSize - deviation;
-
+        if (deviation > (dialSize / 2.0)) deviation = dialSize - deviation;
         return deviation;
     }
 
