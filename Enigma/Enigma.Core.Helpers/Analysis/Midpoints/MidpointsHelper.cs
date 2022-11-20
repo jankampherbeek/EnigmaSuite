@@ -14,7 +14,7 @@ public class MidpointsHelper : IMidpointsHelper
     private readonly double _fullCircle = 360.0;
 
     /// <inheritdoc/>
-    public EffectiveMidpoint ConstructEffectiveMidpointInDial(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial)
+    public BaseMidpoint ConstructEffectiveMidpointInDial(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial)
     {
         double pos1 = point1.Position;
         double pos2 = point2.Position;
@@ -35,7 +35,7 @@ public class MidpointsHelper : IMidpointsHelper
         double dialSize = divisionForDial * 360.0;
         double posInDial = mPos;
         while(posInDial >= dialSize) posInDial-= dialSize;
-        return new EffectiveMidpoint(point1, point2, mPos, posInDial);
+        return new BaseMidpoint(point1, point2, mPos);
     }
 
     /// <inheritdoc/>
@@ -55,10 +55,10 @@ public class MidpointsHelper : IMidpointsHelper
     }
 
     /// <inheritdoc/>
-    public List<EffectiveMidpoint> CreateMidpoints4Dial(double division, List<EffectiveMidpoint> midPoints360Degrees)
+    public List<BaseMidpoint> CreateMidpoints4Dial(double division, List<BaseMidpoint> midPoints360Degrees)
     {
         double dialSize = division * 360.0;
-        List<EffectiveMidpoint> dialMidpoints = new();
+        List<BaseMidpoint> dialMidpoints = new();
         foreach (var midpoint in midPoints360Degrees)
         {
             double longInDial = midpoint.Position;
@@ -66,7 +66,7 @@ public class MidpointsHelper : IMidpointsHelper
             {
                 longInDial -= dialSize;
             }
-            dialMidpoints.Add(new EffectiveMidpoint(midpoint.Point1, midpoint.Point2, longInDial, division));
+            dialMidpoints.Add(new BaseMidpoint(midpoint.Point1, midpoint.Point2, longInDial));
         }
         return dialMidpoints;
     }

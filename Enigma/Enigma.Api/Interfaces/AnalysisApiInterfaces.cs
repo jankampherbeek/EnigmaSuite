@@ -6,9 +6,11 @@
 
 
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Charts;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Api.Interfaces;
+
 
 /// <summary>Api for the analysis of aspects.</summary>
 public interface IAspectsApi
@@ -20,11 +22,18 @@ public interface IAspectsApi
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request);
 }
 
+
 /// <summary>Api for the analysis of midpoints.</summary>
 public interface IMidpointsApi
 {
-    /// <summary>All midpoints as list and list of occupied midpoints.</summary>
-    /// <param name="request">Request contains chartdata and wheeltype for midpoints.</param>
-    /// <returns>Midpoints and occupied midpoints.</returns>
-    public MidpointResponse AllMidpoints(MidpointRequest request);
+    /// <summary>Return all base midpoints.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <returns>Midpoints in 360 degree dial, regardless of being occupied.</returns>
+    public List<BaseMidpoint> AllMidpoints(CalculatedChart chart);
+
+    /// <summary>Return all occupied midpoints for a specific dial.</summary>
+    /// <param name="chart">Chart with positions.</param>
+    /// <param name="dialSize">Size of dial in degrees.</param>
+    /// <returns>All occupied midpoints.</returns>
+    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize);
 }

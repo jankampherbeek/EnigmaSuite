@@ -2,12 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Interfaces;
-using System.Collections.Generic;
-using System;
 using System.Windows;
-using Enigma.Domain.Analysis;
 using System.Windows.Controls;
 
 namespace Enigma.Frontend.Ui.Charts;
@@ -32,20 +28,20 @@ public partial class ChartMidpointsWindow : Window
     public void Populate()
     {
         PopulateTexts();
-        PopulateData(MidpointTypes.Dial360);
+        PopulateData(360.0);
     }
 
  
-    public void PopulateData(MidpointTypes midpointType)
+
+    // TODO split in two methodes
+    public void PopulateData(double dialSize)
     {
         string orbSize = _rosetta.TextForId("charts.midpoints.orbsize");
         double actualOrb = 1.6;                             // TODO 0.2.0 retrieve orb from settings
-        if (midpointType == MidpointTypes.Dial90) actualOrb /= 4.0;
-        if (midpointType == MidpointTypes.Dial45) actualOrb /= 8.0;
 
         string orbText = _controller.DegreesToDms(actualOrb);
         tbOrbSize.Text = orbSize + "\n" + orbText;
-        dgAllMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(midpointType).Item1;
+        dgAllMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(360.0).Item1;
         dgAllMidpoints.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgAllMidpoints.Columns[0].Header = _emptyHeader;
         dgAllMidpoints.Columns[1].Header = _emptyHeader;
@@ -61,7 +57,7 @@ public partial class ChartMidpointsWindow : Window
         dgAllMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgAllMidpoints.HorizontalAlignment= HorizontalAlignment.Right;
 
-        dgOccupiedMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(midpointType).Item2;
+        dgOccupiedMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(dialSize).Item2;
         dgOccupiedMidpoints.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgOccupiedMidpoints.Columns[0].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[1].Header = _emptyHeader;
@@ -98,17 +94,17 @@ public partial class ChartMidpointsWindow : Window
 
     private void RbDial360Checked(object sender, RoutedEventArgs e)
     {
-        if (_controller != null) PopulateData(MidpointTypes.Dial360);
+        if (_controller != null) PopulateData(360.0);
     }
 
     private void RbDial90Checked(object sender, RoutedEventArgs e)
     {
-        if (_controller != null) PopulateData(MidpointTypes.Dial90);
+        if (_controller != null) PopulateData(90.0);
     }
 
     private void RbDial45Checked(object sender, RoutedEventArgs e)
     {
-        if (_controller != null) PopulateData(MidpointTypes.Dial45);
+        if (_controller != null) PopulateData(45.0);
     }
 
     private void CloseClick(object sender, RoutedEventArgs e)

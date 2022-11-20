@@ -4,13 +4,14 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Charts;
 
 namespace Enigma.Api.Analysis;
 
 
+/// <inheritdoc/>
 public class MidpointsApi : IMidpointsApi
 {
 
@@ -21,12 +22,22 @@ public class MidpointsApi : IMidpointsApi
         _midpointsHandler = midpointsHandler;
     }
 
-    public MidpointResponse AllMidpoints(MidpointRequest request)
+
+    /// <inheritdoc/>
+    public List<BaseMidpoint> AllMidpoints(CalculatedChart chart)
     {
-        Guard.Against.Null(request);
-        return _midpointsHandler.RetrieveMidpoints(request);
+        Guard.Against.Null(chart);
+        return _midpointsHandler.RetrieveBaseMidpoints(chart);
     }
 
+
+    /// <inheritdoc/>
+    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize)
+    {
+        Guard.Against.Null(chart);
+        return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize);
+    }
+        
 
 
 }

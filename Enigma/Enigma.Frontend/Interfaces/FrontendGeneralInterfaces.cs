@@ -37,12 +37,12 @@ public interface IMidpointForDataGridFactory
     /// <summary>Builds a presentable midpoint to be used in a grid.</summary>
     /// <param name="midpoints">Calculated midpoints.</param>
     /// <returns>Presentable midpoints.</returns>
-    List<PresentableMidpoint> CreateMidpointsDataGrid(List<EffectiveMidpoint> midpoints);
+    List<PresentableMidpoint> CreateMidpointsDataGrid(List<BaseMidpoint> midpoints);
 
     /// <summary>Builds a presentable occupied midpoint to be used in a grid.</summary>
     /// <param name="midpoints">Occupied midpoints.</param>
     /// <returns>Presentable occupied midpoints.</returns>
-    List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<EffOccupiedMidpoint> midpoints);
+    List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<OccupiedMidpoint> midpoints);
 }
 
 

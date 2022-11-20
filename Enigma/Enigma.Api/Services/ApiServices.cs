@@ -11,6 +11,7 @@ using Enigma.Configuration.Services;
 using Enigma.Core.Calc.Api.DateTime;
 using Enigma.Core.Calc.Services;
 using Enigma.Core.Handlers.Services;
+using Enigma.Core.Work.Services;
 using Enigma.Domain.Services;
 using Enigma.Frontend.Helpers.Services;
 using Enigma.Persistency.Services;
@@ -39,7 +40,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
         serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
 
-
+        serviceCollection.RegisterWorkServices();
         serviceCollection.RegisterCalculationServices();
         serviceCollection.RegisterDomainServices();
         serviceCollection.RegisterInputSupportServices();

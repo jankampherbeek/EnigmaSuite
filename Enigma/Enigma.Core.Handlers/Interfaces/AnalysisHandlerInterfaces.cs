@@ -24,13 +24,3 @@ public interface IAspectsHandler
 
 }
 
-/// <summary>Handler for midpoints.</summary>
-public interface IMidpointsHandler
-{
-    /// <summary>Find midpoints and occupied midpoints for a chart.</summary>
-    /// <param name="request">Request with positions.</param>
-    /// <returns>Found midpoints and occupied midpoints.</returns>
-    public MidpointResponse RetrieveMidpoints(MidpointRequest request);
-
-
-}

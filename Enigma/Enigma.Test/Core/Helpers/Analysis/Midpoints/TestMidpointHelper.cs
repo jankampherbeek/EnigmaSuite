@@ -22,7 +22,7 @@ public class TestMidpointHelper
         AnalysisPoint point1 = new(PointGroups.ZodiacalPoints, 1, 22.0, "a");
         AnalysisPoint point2 = new(PointGroups.ZodiacalPoints, 2, 44.0, "b");
         double expectedMidpoint = 33.0;
-        EffectiveMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpointInDial(point1, point2, 1.0);    
+        BaseMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpointInDial(point1, point2, 1.0);    
         Assert.That(actualMidpoint.Position, Is.EqualTo(expectedMidpoint).Within(_delta));
     }
 
@@ -32,7 +32,7 @@ public class TestMidpointHelper
         AnalysisPoint point1 = new(PointGroups.ZodiacalPoints, 1, 2.0, "a");
         AnalysisPoint point2 = new(PointGroups.ZodiacalPoints, 2, 352.0, "b");
         double expectedMidpoint = 357.0;
-        EffectiveMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpointInDial(point1, point2, 1.0);
+        BaseMidpoint actualMidpoint = _midpointsHelper.ConstructEffectiveMidpointInDial(point1, point2, 1.0);
         Assert.That(actualMidpoint.Position, Is.EqualTo(expectedMidpoint).Within(_delta));
     }
 
@@ -101,12 +101,12 @@ public class TestMidpointHelper
         double actualDeviation = _midpointsHelper.MeasureMidpointDeviation(division, posMidpoint, posCelPoint);
         Assert.That(actualDeviation, Is.EqualTo(expectedDeviation).Within(_delta));
     }
-*/
+
     [Test]
     public void TestCreateMidpoints4Dial360Degrees()
     {
-        List<EffectiveMidpoint> midpoints360 = CreateMidpoints();
-        List<EffectiveMidpoint> midpointsConverted = _midpointsHelper.CreateMidpoints4Dial(1.0, midpoints360);
+        List<BaseMidpoint> midpoints360 = CreateMidpoints();
+        List<BaseMidpoint> midpointsConverted = _midpointsHelper.CreateMidpoints4Dial(1.0, midpoints360);
         Assert.Multiple(() =>
         {
             Assert.That(midpointsConverted.Count, Is.EqualTo(6));
@@ -124,8 +124,8 @@ public class TestMidpointHelper
     [Test]
     public void TestCreateMidpoints4Dial90Degrees()
     {
-        List<EffectiveMidpoint> midpoints360 = CreateMidpoints();
-        List<EffectiveMidpoint> midpointsConverted = _midpointsHelper.CreateMidpoints4Dial(0.25, midpoints360);
+        List<BaseMidpoint> midpoints360 = CreateMidpoints();
+        List<BaseMidpoint> midpointsConverted = _midpointsHelper.CreateMidpoints4Dial(0.25, midpoints360);
         Assert.Multiple(() =>
         {
             Assert.That(midpointsConverted.Count, Is.EqualTo(6));
@@ -143,8 +143,8 @@ public class TestMidpointHelper
     [Test]
     public void TestCreateMidpoints4Dial45Degrees()
     {
-        List<EffectiveMidpoint> midpoints360 = CreateMidpoints();
-        List<EffectiveMidpoint> midpointsConverted = _midpointsHelper.CreateMidpoints4Dial(0.125, midpoints360);
+        List<BaseMidpoint> midpoints360 = CreateMidpoints();
+        List<BaseMidpoint> midpointsConverted = _midpointsHelper.CreateMidpoints4Dial(0.125, midpoints360);
         Assert.Multiple(() =>
         {
             Assert.That(midpointsConverted.Count, Is.EqualTo(6));
@@ -160,23 +160,23 @@ public class TestMidpointHelper
     }
 
 
-
-    private static List<EffectiveMidpoint> CreateMidpoints()
+    private static List<BaseMidpoint> CreateMidpoints()
     {
-        List<EffectiveMidpoint> midpoints = new();
+        List<BaseMidpoint> midpoints = new();
         PointGroups pointGroup = PointGroups.ZodiacalPoints;
         AnalysisPoint sun = new(pointGroup, 0, 22.0, "a");
         AnalysisPoint moon = new(pointGroup, 1, 178.0, "b");
         AnalysisPoint mars = new(pointGroup, 5, 302.0, "c");
         AnalysisPoint jupiter = new(pointGroup, 6, 42.0, "d");
 
-        midpoints.Add(new EffectiveMidpoint(sun, moon, 100.0, 1.0));
-        midpoints.Add(new EffectiveMidpoint(sun, mars, 342.0, 1.0));
-        midpoints.Add(new EffectiveMidpoint(sun, jupiter, 32.0, 1.0));
-        midpoints.Add(new EffectiveMidpoint(moon, mars, 240.0, 1.0));
-        midpoints.Add(new EffectiveMidpoint(moon, jupiter, 110.0, 1.0));
-        midpoints.Add(new EffectiveMidpoint(mars, jupiter, 352.0, 1.0));
+        midpoints.Add(new BaseMidpoint(sun, moon, 100.0, 1.0));
+        midpoints.Add(new BaseMidpoint(sun, mars, 342.0, 1.0));
+        midpoints.Add(new BaseMidpoint(sun, jupiter, 32.0, 1.0));
+        midpoints.Add(new BaseMidpoint(moon, mars, 240.0, 1.0));
+        midpoints.Add(new BaseMidpoint(moon, jupiter, 110.0, 1.0));
+        midpoints.Add(new BaseMidpoint(mars, jupiter, 352.0, 1.0));
         return midpoints;
     }
+    */
 
 }

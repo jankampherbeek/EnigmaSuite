@@ -39,18 +39,17 @@ public class ChartMidpointsController
         }
         return "";
     }
-    public Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> RetrieveAndFormatMidpoints(MidpointTypes midpointType)
+    public Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> RetrieveAndFormatMidpoints(double dialSize)
     {
         var chart = _dataVault.GetLastChart();
-        MidpointRequest request;
         List<PresentableMidpoint> presMidpoints = new();
         List<PresentableOccupiedMidpoint> presOccMidpoints = new();
         if (chart != null)
         {
-            request = new(midpointType, chart);
-            MidpointResponse response = _midpointsApi.AllMidpoints(request);
-            presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(response.EffectiveMidpoints);
-            presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(response.EffOccupiedMidpoints);
+            List<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
+            presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
+            List<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize);
+            presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
         }
         return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
     }

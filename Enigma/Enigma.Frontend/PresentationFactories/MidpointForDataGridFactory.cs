@@ -26,7 +26,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
     }
 
     /// <inheritdoc/>
-    public List<PresentableMidpoint> CreateMidpointsDataGrid(List<EffectiveMidpoint> midpoints)
+    public List<PresentableMidpoint> CreateMidpointsDataGrid(List<BaseMidpoint> midpoints)
     {
         List<PresentableMidpoint> presentableMidpoints = new();
         foreach (var midpoint in midpoints)
@@ -37,7 +37,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
     }
 
     /// <inheritdoc/>
-    public List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<EffOccupiedMidpoint> midpoints)
+    public List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<OccupiedMidpoint> midpoints)
     {
         List<PresentableOccupiedMidpoint> presentableOccMidpoints = new();
         foreach (var midpoint in midpoints)
@@ -47,7 +47,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
         return presentableOccMidpoints;
     }
 
-    private PresentableMidpoint CreatePresMidpoint(EffectiveMidpoint midpoint) {
+    private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint) {
         string point1Glyph = midpoint.Point1.Glyph;
         string point2Glyph = midpoint.Point2.Glyph;
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(midpoint.Position);
@@ -57,10 +57,10 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 
     }
 
-    private PresentableOccupiedMidpoint CreatePresMidpoint(EffOccupiedMidpoint midpoint)
+    private PresentableOccupiedMidpoint CreatePresMidpoint(OccupiedMidpoint midpoint)
     {
-        string point1Glyph = midpoint.EffMidpoint.Point1.Glyph;
-        string point2Glyph = midpoint.EffMidpoint.Point2.Glyph;
+        string point1Glyph = midpoint.Midpoint.Point1.Glyph;
+        string point2Glyph = midpoint.Midpoint.Point2.Glyph;
         string pointOccGlyph = midpoint.OccupyingPoint.Glyph;
         string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(midpoint.Orb);
         string exactnessText = System.Math.Floor(midpoint.Exactness).ToString() + " %"; 

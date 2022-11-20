@@ -64,7 +64,7 @@ public interface IMidpointsHelper
     /// <param name="division">Factor for the dial.</param>
     /// <param name="midPoints360Degrees">Original midpoints ina  360 degree dial.</param>
     /// <returns>Midpoints in a specific dial.</returns>
-       public EffectiveMidpoint ConstructEffectiveMidpointInDial(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial);
+       public BaseMidpoint ConstructEffectiveMidpointInDial(AnalysisPoint point1, AnalysisPoint point2, double divisionForDial);
 
-    public List<EffectiveMidpoint> CreateMidpoints4Dial(double division, List<EffectiveMidpoint> midPoints360Degrees);
+    public List<BaseMidpoint> CreateMidpoints4Dial(double division, List<BaseMidpoint> midPoints360Degrees);
 }

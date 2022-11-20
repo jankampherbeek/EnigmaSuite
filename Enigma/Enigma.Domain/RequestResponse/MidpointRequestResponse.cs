@@ -26,15 +26,15 @@ public record MidpointRequest
 public record MidpointResponse
 {
     /// <summary>All midpointpositions in a 360 degree dial.</summary>
-    public List<EffectiveMidpoint> EffectiveMidpoints { get; }
+    public List<BaseMidpoint> EffectiveMidpoints { get; }
 
     /// <summary>All midpointpositions in the selected dial.</summary>
-    public List<EffectiveMidpoint> EffectiveMidpointsInDisk { get; }
+    public List<BaseMidpoint> EffectiveMidpointsInDisk { get; }
 
     /// <summary>Occupiedmidpoints in the selected dial.</summary>
-    public List<EffOccupiedMidpoint> EffOccupiedMidpoints { get; }
+    public List<OccupiedMidpoint> EffOccupiedMidpoints { get; }
 
-    public MidpointResponse(List<EffectiveMidpoint> effectiveMidpoints, List<EffectiveMidpoint> effectiveMidpointsinDisk, List<EffOccupiedMidpoint> effOccupiedMidpoints) {
+    public MidpointResponse(List<BaseMidpoint> effectiveMidpoints, List<BaseMidpoint> effectiveMidpointsinDisk, List<OccupiedMidpoint> effOccupiedMidpoints) {
         EffectiveMidpoints = effectiveMidpoints;
         EffectiveMidpointsInDisk = effectiveMidpointsinDisk;
         EffOccupiedMidpoints = effOccupiedMidpoints;
