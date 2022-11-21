@@ -68,7 +68,7 @@ Via the **Help** menu or button, you can access the user manual.
 
 
 
-## Using Enigma
+## General
 
 ### Celestial points overview
 
@@ -190,6 +190,50 @@ See the paragraph *Orbs for aspects* in the User Manual for more information.
 The aspects are divided into three categories: Major, Minor and Micro. For each aspect you (de)select using the checkbox and define the percentage for the orb. 
 
 <!-- html-help-end [configuration] -->
+
+
+
+## Charts
+
+
+
+### Analysis of radix charts
+
+#### Aspects
+
+
+
+#### Midpoints
+
+After calculating a chart of reading a chart from the database, you will see the window **Charts**.
+
+This window shows a menu. Select *Analysis - Midpoints* to show the window for midpoints.
+
+<!-- html-help-start [midpoints] -->
+
+In this window you will see two tables. The left table contains a list of all midpoints, regardless if they are occupied or not.  The table to the right shows occupied midpoints for a specific dial. 
+
+Both tables will contain only celestial points that you selected in the configuration.
+
+For the occupied midpoints you will also see the actual orb and a percentage for the exactness of the midpoint. The higher the percentage, the smaller the orb.
+
+Default a dial of 360 degrees is used. You can change the dial with the radio buttons to the left of the two tables. Currently, the dials for 360 degrees, 90 degrees and 45 degrees are supported. The orb for all dials is the same.
+
+After changing the selection of the dial, the content of the table with Occupied midpoints will automatically update.
+
+<!-- html-help-end [midpoints] -->
+
+
+
+#### Harmonics
+
+
+
+
+
+
+
+## Research
 
 
 
@@ -363,4 +407,18 @@ The following folder structure is in use:
       - folder: tests
         - seprate folders for each test
           - [TODO................]
+
+
+
+
+
+## Cycles
+
+
+
+
+
+## Calculators
+
+
 

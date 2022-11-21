@@ -25,7 +25,7 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
 
 
     /// <inheritdoc/>
-    public List<AnalysisPoint> ChartToSingLeAnalysisPoints(List<PointGroups> pointGroups, CoordinateSystems coordinateSystem, bool mainCoord, CalculatedChart chart)
+    public List<AnalysisPoint> ChartToSingleAnalysisPoints(List<PointGroups> pointGroups, CoordinateSystems coordinateSystem, bool mainCoord, CalculatedChart chart)
     {
         List<AnalysisPoint> mappedPoints = new();
         foreach (var pointGroup in pointGroups)

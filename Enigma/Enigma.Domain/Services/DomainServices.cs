@@ -24,7 +24,6 @@ public static class DomainServices
         serviceCollection.AddTransient<IDirections4GeoLatSpecifications, Directions4GeoLatSpecifications>();
         serviceCollection.AddTransient<IDirections4GeoLongSpecifications, Directions4GeoLongSpecifications>();
         serviceCollection.AddTransient<IHouseSystemSpecifications, HouseSystemSpecifications>();
-        serviceCollection.AddTransient<IMidpointSpecifications, MidpointSpecifications>();
         serviceCollection.AddTransient<IMundanePointSpecifications, MundanePointSpecifications>();
         serviceCollection.AddTransient<IObserverPositionSpecifications, ObserverPositionSpecifications>();
         serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();

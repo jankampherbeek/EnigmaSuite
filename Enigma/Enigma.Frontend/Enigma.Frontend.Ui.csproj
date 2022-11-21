@@ -230,6 +230,9 @@
     <None Update="res\help\MainWindow.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="res\help\Midpoints.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="res\help\ProjectImport.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

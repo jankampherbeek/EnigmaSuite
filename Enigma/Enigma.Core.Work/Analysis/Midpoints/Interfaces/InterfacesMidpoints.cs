@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Interfaces;
 
 namespace Enigma.Core.Work.Analysis.Midpoints.Interfaces;
 
@@ -22,8 +23,6 @@ public interface IMidpointsHandler
     /// <param name="dialSize">Degrees for specified dial.</param>
     /// <returns>All occupied midpoints.</returns>
     public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize);
-
-
 }
 
 /// <summary>Create list with all base midpoints.</summary>
@@ -39,4 +38,25 @@ public interface IBaseMidpointsCreator
     /// <param name="dialSize">Degrees of the dial.</param>
     /// <returns>Midpoints with a position that fits in the specified dial.</returns>
     public List<BaseMidpoint> ConvertBaseMidpointsToDial(List<BaseMidpoint> baseMidpoints, double dialSize);
+}
+
+
+/// <summary>Handle analysispoints to be used for the calculation of midpoints.</summary>
+public interface IAnalysisPointsForMidpoints
+{
+    /// <summary>Create analysispoints for a specific dial.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <param name="dialSize">Dial size in degrees.</param>
+    /// <returns>Constructed AnalysisPoints.</returns>
+    public List<AnalysisPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize);
+}
+
+/// <summary>Handle the calculartion of occupied midpoints.</summary>
+public interface IOccupiedMidpoints
+{
+    /// <summary>Calculate occupied midpoints for a specific dial.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <param name="dialSize">Dial size in degrees.</param>
+    /// <returns>Calculated occupied midpoints.</returns>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize);
 }

@@ -22,7 +22,9 @@ public static class WorkServices
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
 
         // Additional classes
+        serviceCollection.AddTransient<IAnalysisPointsForMidpoints, AnalysisPointsForMidpoints>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
+        serviceCollection.AddTransient<IOccupiedMidpoints, OccupiedMidpoints>();
     }
 }
  

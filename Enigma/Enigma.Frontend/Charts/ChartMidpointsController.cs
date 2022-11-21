@@ -9,9 +9,11 @@ using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
-
+using System.Windows;
 
 namespace Enigma.Frontend.Ui.Charts;
 public class ChartMidpointsController
@@ -21,7 +23,7 @@ public class ChartMidpointsController
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly DataVault _dataVault;
 
-    // TODO make it possible to work with a new chart without overwriting screns with data from the previous chart.
+    // TODO make it possible to work with a new chart without overwriting screens with data from the previous chart.
     public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions)
     {
         _dataVault = DataVault.Instance;
@@ -59,6 +61,14 @@ public class ChartMidpointsController
     public string DegreesToDms(double value)
     {
         return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(value);
+    }
+
+    public void ShowHelp()
+    {
+            HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            helpWindow.SetHelpPage("Midpoints");
+            helpWindow.ShowDialog();
     }
 
 }

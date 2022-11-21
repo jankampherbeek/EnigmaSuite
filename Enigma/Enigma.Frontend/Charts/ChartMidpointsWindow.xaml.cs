@@ -114,7 +114,7 @@ public partial class ChartMidpointsWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        //  ChartAspectsController.ShowHelp();
+        _controller.ShowHelp();
     }
 
 
