@@ -2,9 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Helpers.Research;
 
-namespace Enigma.Test.Core.Helpers.Research;
+using Enigma.Core.Work.Research;
+using Enigma.Core.Work.Research.Interfaces;
+
+namespace Enigma.Test.Core.Work.Research;
 
 [TestFixture]
 

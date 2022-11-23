@@ -2,16 +2,15 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Helpers.Interfaces;
-using Enigma.Core.Helpers.Research;
+using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Serilog;
 
-namespace Enigma.Core.Handlers.Research;
+namespace Enigma.Core.Work.Research;
 
 public class ProjectCreationHandler : IProjectCreationHandler
 {

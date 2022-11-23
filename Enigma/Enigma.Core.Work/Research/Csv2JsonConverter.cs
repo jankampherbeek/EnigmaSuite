@@ -9,6 +9,7 @@ using Enigma.Core.Helpers.Interfaces;
 using Enigma.Persistency.Interfaces;
 using Newtonsoft.Json;
 using Enigma.Core.Helpers.Persistency;
+using Enigma.Core.Work.Research.Interfaces;
 
 namespace Enigma.Core.Helpers.Conversions;
 

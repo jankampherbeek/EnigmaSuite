@@ -5,9 +5,10 @@
 
 using Enigma.Core.Helpers.Conversions;
 using Enigma.Core.Helpers.Interfaces;
+using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Persistency;
 
-namespace Enigma.Test.Core.Helpers.Conversions;
+namespace Enigma.Test.Core.Work.Research;
 
 [TestFixture]
 public class TestInputDataConverter
