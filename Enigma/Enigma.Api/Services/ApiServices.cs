@@ -31,6 +31,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
         serviceCollection.AddTransient<IFileManagementApi, FileManagementApi>();
+        serviceCollection.AddTransient<IHarmonicsApi, HarmonicsApi>();
         serviceCollection.AddTransient<IHorizontalApi, HorizontalApi>();
         serviceCollection.AddTransient<IHousesApi, HousesApi>();
         serviceCollection.AddTransient<IMidpointsApi, MidpointsApi>();

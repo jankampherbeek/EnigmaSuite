@@ -74,13 +74,6 @@ public partial class MainWindow : Window
     }
 
 
-
-
-
-
-
-
-
     private void ProjectsNewClick(object sender, RoutedEventArgs e)
     {
         _controller.NewProject();

@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Work.Analysis.Harmonics;
 using Enigma.Core.Work.Analysis.Midpoints;
 using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,11 +20,13 @@ public static class WorkServices
     public static void RegisterWorkServices(this ServiceCollection serviceCollection)
     {
         // Handlers
+        serviceCollection.AddTransient<IHarmonicsHandler, HarmonicsHandler>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
 
         // Additional classes
         serviceCollection.AddTransient<IAnalysisPointsForMidpoints, AnalysisPointsForMidpoints>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
+        serviceCollection.AddTransient<IHarmonicsCalculator, HarmonicsCalculator>();
         serviceCollection.AddTransient<IOccupiedMidpoints, OccupiedMidpoints>();
     }
 }

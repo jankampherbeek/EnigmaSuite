@@ -49,9 +49,11 @@ public partial class App : Application
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<AstroConfigController>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
-        serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<ChartAspectsController>();
+        serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<ChartDataInputController>();
+        serviceCollection.AddTransient<ChartHarmonicsController>();
+        serviceCollection.AddTransient<ChartHarmonicsWindow>();
         serviceCollection.AddTransient<ChartMidpointsController>();
         serviceCollection.AddTransient<ChartMidpointsWindow>();
         serviceCollection.AddTransient<ChartPositionsWindow>();
@@ -73,6 +75,7 @@ public partial class App : Application
         serviceCollection.AddTransient<DataFilesImportController>();
         serviceCollection.AddTransient<DataFilesOverviewController>();
         serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
+        serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddSingleton<MainController>();

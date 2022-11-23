@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Core.Work.Analysis.Midpoints.Interfaces;
 

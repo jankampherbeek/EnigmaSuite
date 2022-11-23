@@ -77,6 +77,14 @@ charts.datainput.formtitle = Enter data for new chart
 charts.datainput.nameid = Unique name or id for chart
 charts.datainput.namelocation = Name and location
 
+---- ChartsHarmonics ----------------------------------
+charts.harmonics.formtitle = Harmonics
+charts.harmonics.harmonicpos = Harmonic position
+charts.harmonics.inputharmonicnr = Enter number for new harmonic.
+charts.harmonics.radixpos = Radix position
+charts.harmonics.title = Enigma Astrology Research : Harmonics
+charts.harmonics.titlenumber = Positions for harmonic
+
 --- ChartsMain ----------------------------------------
 
 chartsmainwindow.title = Enigma Astrology Research : Charts

@@ -17,6 +17,7 @@ public class ChartsMainController
     private ChartPositionsWindow? _chartPositionsWindow;
     private ChartAspectsWindow? _chartAspectsWindow;
     private ChartMidpointsWindow? _chartMidpointsWindow;
+    private ChartHarmonicsWindow? _chartHarmonicsWindow;
 
     private List<Window> _openWindows = new();
 
@@ -56,6 +57,16 @@ public class ChartsMainController
         _chartMidpointsWindow.Show();
         _chartMidpointsWindow.Populate();
     }
+
+    public void ShowHarmonics()
+    {
+        _chartHarmonicsWindow = App.ServiceProvider.GetRequiredService<ChartHarmonicsWindow>();
+        _openWindows.Add(_chartHarmonicsWindow);
+        _chartHarmonicsWindow.Show();
+        _chartHarmonicsWindow.Populate();
+
+    }
+
 
     /// <summary>Closes all child windows of main chart window.</summary>
     public void HandleClose()

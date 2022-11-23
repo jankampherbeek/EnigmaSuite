@@ -61,7 +61,15 @@ public interface IDataNameForDataGridFactory
     List<PresentableDataName> CreateDataNamesForDataGrid(List<string> fullPathDataNames);
 }
 
-
+/// <summary>Factory to create presentable harmonic positions.</summary>
+public interface IHarmonicForDataGridFactory
+{
+    /// <summary>Create a presentabe list with combined radix and harmonic positions.</summary>
+    /// <param name="harmonicPositions">List with all harmonic positions in the same sequence as the celestial points in chart, and followed by respectively Mc, Asc, Vertex and Eastpoint.</param>
+    /// <param name="chart">Calculated chart.</param>
+    /// <returns>The presentable positions.</returns>
+    public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart);
+}
 
 public interface IHousePosForDataGridFactory
 {

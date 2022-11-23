@@ -37,3 +37,13 @@ public interface IMidpointsApi
     /// <returns>All occupied midpoints.</returns>
     public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize);
 }
+
+/// <summary>Api for the calculation of harmonics.</summary>
+public interface IHarmonicsApi
+{
+    /// <summary>Calculate harmonic positions using the given harmonic number.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <param name="harmonicNumber">Number for the harmonic, a fractional number is possible.</param>
+    /// <returns>List with harmnc positions, the celestial points in the same sequence as in the calculated chart, followed by Mc, Asc, Vertex and Eastpoint (in that sequence).</returns>
+    public List<double> Harmonics(CalculatedChart chart, double harmonicNumber);
+}

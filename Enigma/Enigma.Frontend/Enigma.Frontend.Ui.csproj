@@ -227,6 +227,9 @@
     <None Update="res\help\DataImport.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="res\help\Harmonics.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="res\help\MainWindow.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -116,7 +116,7 @@ public partial class ChartsMainWindow : Window
 
     private void HarmonicsClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Harmonics not yet implemented.");      // TODO implement handling of click
+       _controller.ShowHarmonics();
     }
 
     private void MidpointsClick(object sender, RoutedEventArgs e)

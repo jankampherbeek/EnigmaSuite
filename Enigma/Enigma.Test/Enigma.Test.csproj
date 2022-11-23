@@ -9,9 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Core\Analysis\Dto\**" />
-    <EmbeddedResource Remove="Core\Analysis\Dto\**" />
-    <None Remove="Core\Analysis\Dto\**" />
+    <Compile Remove="Core\Analysis\**" />
+    <EmbeddedResource Remove="Core\Analysis\**" />
+    <None Remove="Core\Analysis\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,7 +37,6 @@
   <ItemGroup>
     <Folder Include="Configuration\Handlers\" />
     <Folder Include="Configuration\Parsers\" />
-    <Folder Include="Core\Analysis\References\" />
     <Folder Include="Core\Handlers\Analysis\Midpoints\" />
     <Folder Include="Frontend\Helpers\" />
   </ItemGroup>

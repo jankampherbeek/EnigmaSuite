@@ -227,7 +227,21 @@ After changing the selection of the dial, the content of the table with Occupied
 
 #### Harmonics
 
+In the window **Charts** you will see a menu. Select *Analysis - Harmonics* to show the window for harmonics.
 
+<!-- html-help-start [harmonics] -->
+
+The table contains both the radix positions and the harmonic positions for all celestial points that you selected in the configuration, and additionally for the MC and the Ascendant. 
+
+Initially, the harmonics are calculated for the 2nd harmonic. You can change the harmonic by entering a number underneath *Enter number for new harmonic* and clicking the button **Calculate**. 
+
+After clicking this button, the content of the table with harmonics will automatically update.
+
+Enigma also supports fractional harmonics: harmonics for non-integer numbers. You can enter a fractional number the same way as an integer number. Use the decimal separator (dot or comma) that you normally use on your computer.
+
+The effective harmonic is shown above the table with positions.
+
+<!-- html-help-end [harmonics] -->
 
 
 
