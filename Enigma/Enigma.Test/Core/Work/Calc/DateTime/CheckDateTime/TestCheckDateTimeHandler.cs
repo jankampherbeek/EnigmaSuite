@@ -13,7 +13,7 @@ using Enigma.Domain.RequestResponse;
 using Moq;
 
 
-namespace Enigma.Test.Core.Calc.DateTime.CheckDateTime;
+namespace Enigma.Test.Core.Work.Calc.DateTime.CheckDateTime;
 
 [TestFixture]
 public class TestDateTimeHandler

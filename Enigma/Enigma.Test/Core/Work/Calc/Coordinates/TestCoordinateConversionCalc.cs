@@ -9,7 +9,7 @@ using Enigma.Facades.Interfaces;
 using Moq;
 
 
-namespace Enigma.Test.Core.Calc.CoordinateConversion;
+namespace Enigma.Test.Core.Work.Calc.Coordinates;
 
 [TestFixture]
 public class TestCoordinateConversionCalc

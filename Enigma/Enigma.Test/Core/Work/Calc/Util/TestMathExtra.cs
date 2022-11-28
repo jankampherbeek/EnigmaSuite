@@ -4,7 +4,7 @@
 
 using Enigma.Core.Work.Calc.Util;
 
-namespace Enigma.Test.Core.Calc.Util;
+namespace Enigma.Test.Core.Work.Calc.Util;
 
 
 [TestFixture]

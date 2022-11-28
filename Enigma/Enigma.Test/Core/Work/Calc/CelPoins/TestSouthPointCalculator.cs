@@ -6,7 +6,7 @@ using Enigma.Core.Work.Calc.CelPoints.ObliqueLongitude;
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 
-namespace EnigmaTest.Core.Calc.SolSysPoints;
+namespace Enigma.Test.Core.Work.Calc.CelPoins;
 
 
 

@@ -9,7 +9,7 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.Horizontal;
+namespace Enigma.Test.Core.Handlers.Calc.Coordinates;
 
 [TestFixture]
 public class TestHorizontalHandler

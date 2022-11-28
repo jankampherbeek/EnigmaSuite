@@ -11,7 +11,7 @@ using Enigma.Domain.Interfaces;
 using Enigma.Facades.Interfaces;
 using Moq;
 
-namespace EnigmaTest.Core.Calc.SolSysPoints;
+namespace Enigma.Test.Core.Work.Calc.CelPoins;
 
 [TestFixture]
 public class TestSolSysPointCalc

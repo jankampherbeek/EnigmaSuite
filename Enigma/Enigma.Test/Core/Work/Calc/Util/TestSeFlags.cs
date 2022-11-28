@@ -6,7 +6,7 @@ using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.Enums;
 
-namespace Enigma.Core.Calc.Util;
+namespace Enigma.Test.Core.Work.Calc.Util;
 
 [TestFixture]
 public class TestSeFlags

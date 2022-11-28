@@ -8,7 +8,7 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.Obliquity;
+namespace Enigma.Test.Core.Handlers.Calc.Specials;
 
 
 [TestFixture]

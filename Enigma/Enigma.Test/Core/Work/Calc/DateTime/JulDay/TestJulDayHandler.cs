@@ -2,8 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-namespace E4CTest.core.calendarandclock.julday;
+namespace Enigma.Test.Core.Work.Calc.DateTime.JulDay;
 
 using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Interfaces;

@@ -5,7 +5,7 @@
 using Enigma.Core.Work.Calc.CelPoints;
 using Enigma.Domain.Enums;
 
-namespace EnigmaTest.Core.Calc.SolSysPoints;
+namespace Enigma.Test.Core.Work.Calc.CelPoins;
 
 [TestFixture]
 public class TestHypothetsRamCalc

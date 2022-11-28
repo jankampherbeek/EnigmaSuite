@@ -6,7 +6,7 @@ using Enigma.Core.Work.Calc.Specials;
 using Enigma.Facades.Interfaces;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.Obliquity;
+namespace Enigma.Test.Core.Work.Calc.Specials;
 
 [TestFixture]
 public class TestObliquityCalc

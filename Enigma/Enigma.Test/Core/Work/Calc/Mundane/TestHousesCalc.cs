@@ -8,7 +8,7 @@ using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.Houses;
+namespace Enigma.Test.Core.Work.Calc.Mundane;
 
 [TestFixture]
 public class TestHousesCalc

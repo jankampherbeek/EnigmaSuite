@@ -10,7 +10,7 @@ using Enigma.Facades.Interfaces;
 using Moq;
 
 
-namespace Enigma.Test.Core.Calc.DateTime.CheckDateTime;
+namespace Enigma.Test.Core.Work.Calc.DateTime.CheckDateTime;
 
 [TestFixture]
 public class TestCheckDateTimeValidator

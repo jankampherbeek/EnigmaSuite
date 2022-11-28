@@ -10,7 +10,7 @@ using Enigma.Domain.Enums;
 using Enigma.Facades.Interfaces;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.DateTime.JulDay;
+namespace Enigma.Test.Core.Work.Calc.DateTime.JulDay;
 
 [TestFixture]
 public class TestJulDayCalc

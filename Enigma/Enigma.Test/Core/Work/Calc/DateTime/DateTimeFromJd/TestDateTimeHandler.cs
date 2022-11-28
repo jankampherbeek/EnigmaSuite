@@ -11,7 +11,7 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
-namespace Enigma.Test.Core.Calc.DateTime.DateTimeFromJd;
+namespace Enigma.Test.Core.Work.Calc.DateTime.DateTimeFromJd;
 
 [TestFixture]
 public class TestDateTimeHandler
