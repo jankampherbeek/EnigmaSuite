@@ -22,19 +22,19 @@ public class AspectOrbConstructor : IAspectOrbConstructor
         _orbDefinitions = orbDefinitions;
     }
 
-    public double DefineOrb(SolarSystemPoints point1, SolarSystemPoints point2, AspectDetails aspectDetails)
+    public double DefineOrb(CelPoints point1, CelPoints point2, AspectDetails aspectDetails)
     {
-        double factor1 = _orbDefinitions.DefineSolSysPointOrb(point1).OrbFactor;
-        double factor2 = _orbDefinitions.DefineSolSysPointOrb(point2).OrbFactor;
+        double factor1 = _orbDefinitions.DefineCelPointOrb(point1).OrbFactor;
+        double factor2 = _orbDefinitions.DefineCelPointOrb(point2).OrbFactor;
         double aspectFactor = aspectDetails.OrbFactor;
         return Math.Max(factor1, factor2) * aspectFactor * _baseOrb;
     }
 
-    public double DefineOrb(string mundanePoint, SolarSystemPoints solSysPoint, AspectDetails aspectDetails)
+    public double DefineOrb(string mundanePoint, CelPoints celPoint, AspectDetails aspectDetails)
     {
         double mundaneFactor = _orbDefinitions.DefineMundanePointOrb(mundanePoint).OrbFactor;
-        double solSysFactor = _orbDefinitions.DefineSolSysPointOrb(solSysPoint).OrbFactor;
+        double celPointFactor = _orbDefinitions.DefineCelPointOrb(celPoint).OrbFactor;
         double aspectFactor = aspectDetails.OrbFactor;
-        return Math.Max(mundaneFactor, solSysFactor) * aspectFactor * _baseOrb;
+        return Math.Max(mundaneFactor, celPointFactor) * aspectFactor * _baseOrb;
     }
 }

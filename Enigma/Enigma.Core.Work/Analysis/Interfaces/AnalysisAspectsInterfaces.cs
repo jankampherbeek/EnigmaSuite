@@ -20,7 +20,7 @@ public interface IAspectChecker
     /// </summary>
     /// <param name="calculatedChart">Chart with positions.</param>
     /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsForSolSysPoints(CalculatedChart calculatedChart);
+    List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart);
     /// <summary>
     /// Find aspects between a mundane point and a celestial point.
     /// </summary>
@@ -36,8 +36,8 @@ public interface IAspectChecker
 public interface IAspectOrbConstructor
 {
     /// <summary>Define orb between two celestial points.</summary>
-    public double DefineOrb(SolarSystemPoints point1, SolarSystemPoints point2, AspectDetails aspectDetails);
+    public double DefineOrb(CelPoints point1, CelPoints point2, AspectDetails aspectDetails);
     /// <summary>Define orb between mundane point and celestial point.
-    public double DefineOrb(string mundanePoint, SolarSystemPoints solSysPoint, AspectDetails aspectDetails);
+    public double DefineOrb(string mundanePoint, CelPoints celPoint, AspectDetails aspectDetails);
 }
 

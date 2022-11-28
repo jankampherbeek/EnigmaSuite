@@ -11,14 +11,14 @@ namespace Enigma.Domain.Charts;
 /// <summary>Inputted data and calculation results for a chart.</summary>
 public record CalculatedChart
 {
-    public readonly List<FullSolSysPointPos> SolSysPointPositions;
+    public readonly List<FullCelPointPos> CelPointPositions;
     public readonly FullHousesPositions FullHousePositions;
     public readonly ChartData InputtedChartData;
 
 
-    public CalculatedChart(List<FullSolSysPointPos> solSysPointPositions, FullHousesPositions fullHousePositions, ChartData inputtedChartData)
+    public CalculatedChart(List<FullCelPointPos> celPointPositions, FullHousesPositions fullHousePositions, ChartData inputtedChartData)
     {
-        SolSysPointPositions = solSysPointPositions;
+        CelPointPositions = celPointPositions;
         FullHousePositions = fullHousePositions;
         InputtedChartData = inputtedChartData;
     }

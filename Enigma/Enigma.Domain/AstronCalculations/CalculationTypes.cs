@@ -4,7 +4,7 @@
 
 namespace Enigma.Domain.AstronCalculations;
 
-/// <summary>Different methods to calculate a solar system point.</summary>
+/// <summary>Different methods to calculate a celestial point.</summary>
 /// <remarks>
 /// SE: Calculation via the Swiss Ephemeris (for celestial points and for houses).
 /// Elements: Calculation based on ecliptical elements (for celestial points only).

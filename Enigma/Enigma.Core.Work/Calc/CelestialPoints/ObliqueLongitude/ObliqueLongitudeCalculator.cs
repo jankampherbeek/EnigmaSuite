@@ -7,7 +7,7 @@ using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.RequestResponse;
 
-namespace Enigma.Core.Work.Calc.CelPoints.ObliqueLongitude;
+namespace Enigma.Core.Work.Calc.CelestialPoints.ObliqueLongitude;
 
 
 /// <inheritdoc/>
@@ -22,15 +22,15 @@ public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
     {
         List<NamedEclipticLongitude> oblLongitudes = new();
         EclipticCoordinates southPoint = _southPointCalculator.CalculateSouthPoint(request.Armc, request.Obliquity, request.GeoLat);
-        foreach (NamedEclipticCoordinates solSysPointCoordinate in request.SolSysPointCoordinates)
+        foreach (NamedEclipticCoordinates celPointCoordinate in request.CelPointCoordinates)
         {
-            double oblLong = OblLongForSolSysPoint(solSysPointCoordinate, southPoint);
-            oblLongitudes.Add(new NamedEclipticLongitude(solSysPointCoordinate.SolarSystemPoint, oblLong));
+            double oblLong = OblLongForCelPoint(celPointCoordinate, southPoint);
+            oblLongitudes.Add(new NamedEclipticLongitude(celPointCoordinate.CelPoint, oblLong));
         }
         return oblLongitudes;
     }
 
-    private static double OblLongForSolSysPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint)
+    private static double OblLongForCelPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint)
     {
         double absLatSp = Math.Abs(southPoint.Latitude);
         double longSp = southPoint.Longitude;

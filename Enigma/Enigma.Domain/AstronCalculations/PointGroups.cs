@@ -6,5 +6,5 @@ namespace Enigma.Domain.AstronCalculations;
 
 public enum PointGroups
 {
-    SolarSystemPoints, MundanePoints, FixStars, ZodiacalPoints
+    CelPoints, MundanePoints, FixStars, ZodiacalPoints
 }

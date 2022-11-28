@@ -2,10 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Calc.CelPoints;
+using Enigma.Core.Work.Calc.CelestialPoints;
 using Enigma.Domain.Enums;
 
-namespace Enigma.Test.Core.Work.Calc.CelPoins;
+namespace Enigma.Test.Core.Work.Calc.CelestialPoints;
 
 [TestFixture]
 public class TestHypothetsRamCalc
@@ -16,27 +16,27 @@ public class TestHypothetsRamCalc
     [Test]
     public void TestCalcHypRamEclPosPersephone()
     {
-        var calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
+        var calculator = new CelPointsElementsCalc(new CalcHelioPos());
         double jdUt = 2434406.817711;
-        double[] result = calculator.Calculate(SolarSystemPoints.PersephoneRam, jdUt);
+        double[] result = calculator.Calculate(CelPoints.PersephoneRam, jdUt);
         Assert.That(result[0], Is.EqualTo(326.6011343685).Within(_delta));
     }
 
     [Test]
     public void TestCalcHypRamEclPosHermes()
     {
-        var calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
+        var calculator = new CelPointsElementsCalc(new CalcHelioPos());
         double jdUt = 2434406.817711;
-        double[] result = calculator.Calculate(SolarSystemPoints.HermesRam, jdUt);
+        double[] result = calculator.Calculate(CelPoints.HermesRam, jdUt);
         Assert.That(result[0], Is.EqualTo(161.6211128197).Within(_delta));
     }
 
     [Test]
     public void TestCalcHypRamEclPosDemeter()
     {
-        var calculator = new SolSysPointsElementsCalc(new CalcHelioPos());
+        var calculator = new CelPointsElementsCalc(new CalcHelioPos());
         double jdUt = 2434406.817711;
-        double[] result = calculator.Calculate(SolarSystemPoints.DemeterRam, jdUt);
+        double[] result = calculator.Calculate(CelPoints.DemeterRam, jdUt);
         Assert.That(result[0], Is.EqualTo(261.4081200589).Within(_delta));
     }
 

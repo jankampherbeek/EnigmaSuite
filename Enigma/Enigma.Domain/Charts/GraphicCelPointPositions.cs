@@ -9,12 +9,12 @@ namespace Enigma.Domain.Charts;
 
 
 /// <summary>
-/// Required data to plot a glyph for a solar system point in a chart wheel.
+/// Required data to plot a glyph for a celestial point in a chart wheel.
 /// </summary>
-public record GraphicSolSysPointPositions
+public record GraphicCelPointPositions
 {
-    /// <summary>The solar system point to plot.</summary>
-    public SolarSystemPoints SolSysPoint { get; }
+    /// <summary>The celestial point to plot.</summary>
+    public CelPoints CelPoint { get; }
     /// <summary>Ecliptic longitude</summary>
     public double EclipticPos { get; }
     /// <summary>Position in mundane frame, measured in degrees from then ascendant, in anti-clockwise direction.</summary>
@@ -24,9 +24,9 @@ public record GraphicSolSysPointPositions
     /// <summary>Textual presentation of the longitude in degrees and minutes, (0 .. 29 degrees).</summary>
     public string LongitudeText { get; }
 
-    public GraphicSolSysPointPositions(SolarSystemPoints solSysPoint, double eclipticPos, double mundanePos, string longitudeText)
+    public GraphicCelPointPositions(CelPoints celPoint, double eclipticPos, double mundanePos, string longitudeText)
     {
-        SolSysPoint = solSysPoint;
+        CelPoint = celPoint;
         EclipticPos = eclipticPos;
         MundanePos = mundanePos;
         PlotPos = mundanePos;

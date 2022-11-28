@@ -25,7 +25,7 @@ public class AnalysisPointsForMidpoints : IAnalysisPointsForMidpoints
     public List<AnalysisPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize)
     {
         // TODO 1.0.0 make pointgroups, coordinatesystems and maincoord for midpoints configurable.
-        var pointGroups = new List<PointGroups> { PointGroups.SolarSystemPoints, PointGroups.MundanePoints, PointGroups.ZodiacalPoints };
+        var pointGroups = new List<PointGroups> { PointGroups.CelPoints, PointGroups.MundanePoints, PointGroups.ZodiacalPoints };
         CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
         List<AnalysisPoint> pointsIn360Dial = _analysisPointsMapping.ChartToSingleAnalysisPoints(pointGroups, coordSystem, mainCoord, chart);

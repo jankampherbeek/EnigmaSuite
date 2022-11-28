@@ -27,7 +27,7 @@ public partial class ChartAspectsWindow : Window
     public void Populate()
     {
         PopulateTexts();
-        PopulateSolSysAspects();
+        PopulateCelPointAspects();
         PopulateMundaneAspects();
     }
 
@@ -42,9 +42,9 @@ public partial class ChartAspectsWindow : Window
     }
 
 
-    private void PopulateSolSysAspects()
+    private void PopulateCelPointAspects()
     {
-        dgSsAspects.ItemsSource = _controller.GetPresentableAspectsForSolSysPoints();
+        dgSsAspects.ItemsSource = _controller.GetPresentableAspectsForCelPoints();
         dgSsAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgSsAspects.Columns[0].Header = _emptyHeader;
         dgSsAspects.Columns[1].Header = _emptyHeader;

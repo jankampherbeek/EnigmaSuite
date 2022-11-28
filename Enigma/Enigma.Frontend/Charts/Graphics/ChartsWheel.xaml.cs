@@ -26,7 +26,7 @@ public partial class ChartsWheel : Window
         _controller.PrepareDraw();
         DrawChartFrame();
         DrawCusps();
-        DrawSolSysPoints();
+        DrawCelPoints();
         DrawAspects();
     }
 
@@ -48,11 +48,11 @@ public partial class ChartsWheel : Window
         AddToWheel(_controller.CuspCardinalIndicators);
     }
 
-    private void DrawSolSysPoints()
+    private void DrawCelPoints()
     {
-        AddToWheel(_controller.SolSysPointGlyphs);
-        AddToWheel(_controller.SolSysPointConnectLines);
-        AddToWheel(_controller.SolSysPointTexts);
+        AddToWheel(_controller.CelPointGlyphs);
+        AddToWheel(_controller.CelPointConnectLines);
+        AddToWheel(_controller.CelPointTexts);
     }
 
     private void DrawAspects()

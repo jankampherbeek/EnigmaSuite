@@ -7,7 +7,7 @@ using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.AstronCalculations;
 
-namespace Enigma.Core.Work.Calc.CelPoints;
+namespace Enigma.Core.Work.Calc.CelestialPoints;
 
 /// <inheritdoc/>
 public class CalcHelioPos : ICalcHelioPos

@@ -42,7 +42,7 @@ public class ChartCategorySpecifications : IChartCategorySpecifications
             ChartCategories.Horary => new ChartCategoryDetails(category, "ref.enum.chartcategories.horary"),
             ChartCategories.Election => new ChartCategoryDetails(category, "ref.enum.chartcategories.election"),
             ChartCategories.Unknown => new ChartCategoryDetails(category, "ref.enum.chartcategories.unknown"),
-            _ => throw new ArgumentException("SolSysPointCats unknown : " + category.ToString())
+            _ => throw new ArgumentException("CelPointCats unknown : " + category.ToString())
         };
     }
 

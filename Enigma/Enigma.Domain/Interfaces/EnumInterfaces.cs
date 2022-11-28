@@ -222,22 +222,22 @@ public interface IRoddenRatingSpecifications
     public RoddenRatings RoddenRatingForIndex(int roddenRatingIndex);
 }
 
-/// <summary>Specifications for a Solar System Point.</summary>
-public interface ISolarSystemPointSpecifications
+/// <summary>Specifications for a celestial point.</summary>
+public interface ICelPointSpecifications
 {
-    /// <summary>Returns the specifications for a Solar System Point.</summary>
-    /// <param name="point">The solar system point for which to find the details.</param>
-    /// <returns>A record SolarSystemPointDetails with the specifications.</returns>
-    public SolarSystemPointDetails DetailsForPoint(SolarSystemPoints point);
+    /// <summary>Returns the specifications for a celestial point.</summary>
+    /// <param name="point">The celestial point for which to find the details.</param>
+    /// <returns>A record CelPointDetails with the specifications.</returns>
+    public CelPointDetails DetailsForPoint(CelPoints point);
 }
 
-/// <summary>Specifications for a Solar Systempoint Category.</summary>
-public interface ISolSysPointCatSpecifications
+/// <summary>Specifications for a celestial point Category.</summary>
+public interface ICelPointCatSpecifications
 {
-    /// <summary>Returns the details for a Solar System Point Category.</summary>
-    /// <param name="category">The category, from the enum SolSysPointCats.</param>
-    /// <returns>A record SolSysPointCatDetails with the specifications.</returns>
-    public SolSysPointCatDetails DetailsForCategory(SolSysPointCats category);
+    /// <summary>Returns the details for a celestial point category.</summary>
+    /// <param name="category">The category, from the enum CelPointCats.</param>
+    /// <returns>A record CelPointCatDetails with the specifications.</returns>
+    public CelPointCatDetails DetailsForCategory(CelPointCats category);
 }
 
 /// <summary>Specifications for a Zodiacal Point.</summary>

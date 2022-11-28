@@ -37,8 +37,8 @@ public class ChartsWheelAspects : IChartsWheelAspects
         List<Line> aspectLines = new();
         List<DrawableAspectCoordinatesSs> ssCoordinates = CreateSsCoordinates(currentChart, metrics, centerPoint);
         AspectRequest request = new(currentChart);
-        List<EffectiveAspect> effSsAspects = _aspectsApi.AspectsForSolSysPoints(request);
-        List<DrawableSolSysPointAspect> drawSsAspects = _aspectForWheelFactory.CreateSolSysAspectForWheel(effSsAspects);
+        List<EffectiveAspect> effSsAspects = _aspectsApi.AspectsForCelPoints(request);
+        List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(effSsAspects);
         List<EffectiveAspect> effMuAspects = _aspectsApi.AspectsForMundanePoints(request);
         DimLine dimLine = new();
         foreach (var drawSsAspect in drawSsAspects)
@@ -48,17 +48,17 @@ public class ChartsWheelAspects : IChartsWheelAspects
             if (drawSsAspect.AspectType == AspectTypes.Triangle || drawSsAspect.AspectType == AspectTypes.Sextile) aspectColor = metrics.SoftAspectsColor;
             double lineWidth = metrics.AspectLineSize * drawSsAspect.Exactness / 100.0;
             if (lineWidth < 0.5) lineWidth = 0.5;
-            SolarSystemPoints point1 = drawSsAspect.Point1;
-            SolarSystemPoints point2 = drawSsAspect.Point2;
+            CelPoints point1 = drawSsAspect.Point1;
+            CelPoints point2 = drawSsAspect.Point2;
             DrawableAspectCoordinatesSs? drawCoordSs1 = null;
             DrawableAspectCoordinatesSs? drawCoordSs2 = null;
             foreach (var coord in ssCoordinates)
             {
-                if (coord.SolSysPoint == point1)
+                if (coord.CelPoint == point1)
                 {
                     drawCoordSs1 = new(point1, coord.XCoordinate, coord.YCoordinate);
                 }
-                if (coord.SolSysPoint == point2)
+                if (coord.CelPoint == point2)
                 {
                     drawCoordSs2 = new(point2, coord.XCoordinate, coord.YCoordinate);
                 }
@@ -67,7 +67,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
             {
                 Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
                 Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
-                Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.SolSysPointConnectLineOpacity);
+                Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.CelPointConnectLineOpacity);
                 aspectLines.Add(connectionLine);
 
             }
@@ -82,10 +82,10 @@ public class ChartsWheelAspects : IChartsWheelAspects
         List<DrawableAspectCoordinatesSs> drawableAspectCoordinatesSs = new();
         double longAsc = currentChart.FullHousePositions.Ascendant.Longitude;
         DimPoint dimPoint = new(centerPoint);
-        foreach (var ssPointPos in currentChart.SolSysPointPositions)
+        foreach (var ssPointPos in currentChart.CelPointPositions)
         {
             double longitude = ssPointPos.Longitude.Position;
-            SolarSystemPoints ssPos = ssPointPos.SolarSystemPoint;
+            CelPoints ssPos = ssPointPos.CelPoint;
             double posOnCircle = _rangeCheck.InRange360(longitude - longAsc + 90.0);
             Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
             drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesSs(ssPos, newPoint.X, newPoint.Y));

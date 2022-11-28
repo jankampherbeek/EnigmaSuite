@@ -22,21 +22,21 @@ public class AspectForWheelFactory : IAspectForWheelFactory
         foreach (var effAspect in aspects)
         {
             double exactness = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);
-            drawables.Add(new DrawableMundaneAspect(effAspect.MundanePoint, effAspect.SolSysPoint2, exactness, effAspect.EffAspectDetails.Aspect));
+            drawables.Add(new DrawableMundaneAspect(effAspect.MundanePoint, effAspect.CelPoint2, exactness, effAspect.EffAspectDetails.Aspect));
         }
         return drawables;
     }
 
     /// <inheritdoc/>
-    public List<DrawableSolSysPointAspect> CreateSolSysAspectForWheel(List<EffectiveAspect> aspects)
+    public List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<EffectiveAspect> aspects)
     {
-        List<DrawableSolSysPointAspect> drawables = new();
+        List<DrawableCelPointAspect> drawables = new();
         foreach (var effAspect in aspects)
         {
             double exactness = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);
-            if (effAspect.SolSysPoint1 != null)
+            if (effAspect.CelPoint1 != null)
             {
-                drawables.Add(new DrawableSolSysPointAspect((SolarSystemPoints)effAspect.SolSysPoint1, effAspect.SolSysPoint2, exactness, effAspect.EffAspectDetails.Aspect));
+                drawables.Add(new DrawableCelPointAspect((CelPoints)effAspect.CelPoint1, effAspect.CelPoint2, exactness, effAspect.EffAspectDetails.Aspect));
             }
         }
         return drawables;

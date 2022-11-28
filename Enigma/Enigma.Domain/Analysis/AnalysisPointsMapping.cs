@@ -14,12 +14,12 @@ namespace Enigma.Domain.Analysis;
 /// <inheritdoc/>
 public class AnalysisPointsMapping : IAnalysisPointsMapping
 {
-    private readonly ISolSysPointToAnalysisPointMap _solSysPointMap;
+    private readonly ICelPointToAnalysisPointMap _celPointMap;
     private readonly IMundanePointToAnalysisPointMap _mundanePointMap;
 
-    public AnalysisPointsMapping(ISolSysPointToAnalysisPointMap solSysPointMap, IMundanePointToAnalysisPointMap mundanePointMap)
+    public AnalysisPointsMapping(ICelPointToAnalysisPointMap celPointMap, IMundanePointToAnalysisPointMap mundanePointMap)
     {
-        _solSysPointMap = solSysPointMap;
+        _celPointMap = celPointMap;
         _mundanePointMap = mundanePointMap;
     }
 
@@ -30,11 +30,11 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
         List<AnalysisPoint> mappedPoints = new();
         foreach (var pointGroup in pointGroups)
         {
-            if (pointGroup == PointGroups.SolarSystemPoints)
+            if (pointGroup == PointGroups.CelPoints)
             {
-                foreach (var fullSolSysPointPos in chart.SolSysPointPositions)
+                foreach (var fulCelPointPos in chart.CelPointPositions)
                 {
-                    mappedPoints.Add(_solSysPointMap.MapToAnalysisPoint(fullSolSysPointPos, pointGroup, coordinateSystem, mainCoord));
+                    mappedPoints.Add(_celPointMap.MapToAnalysisPoint(fulCelPointPos, pointGroup, coordinateSystem, mainCoord));
                 }
             }
             if (pointGroup == PointGroups.MundanePoints)
@@ -54,29 +54,29 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
 
 }
 
-public class SolSysPointToAnalysisPointMap : ISolSysPointToAnalysisPointMap
+public class CelPointToAnalysisPointMap : ICelPointToAnalysisPointMap
 {
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
 
-    public SolSysPointToAnalysisPointMap(ISolarSystemPointSpecifications solarSystemPointSpecifications)
+    public CelPointToAnalysisPointMap(ICelPointSpecifications celPointSpecifications)
     {
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
     }
 
-    public AnalysisPoint MapToAnalysisPoint(FullSolSysPointPos solSysPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord)
+    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos celPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord)
     {
         double position = 0.0;
-        SolarSystemPointDetails sspDetails = _solarSystemPointSpecifications.DetailsForPoint(solSysPoint.SolarSystemPoint);
+        CelPointDetails sspDetails = _celPointSpecifications.DetailsForPoint(celPoint.CelPoint);
         string glyph = sspDetails.DefaultGlyph;
         if (coordinateSystem == CoordinateSystems.Ecliptical)
         {
-            position = mainCoord ? solSysPoint.Longitude.Position : solSysPoint.Latitude.Position;
+            position = mainCoord ? celPoint.Longitude.Position : celPoint.Latitude.Position;
         }
         if (coordinateSystem == CoordinateSystems.Equatorial)
         {
-            position = mainCoord ? solSysPoint.RightAscension.Position : solSysPoint.Declination.Position;
+            position = mainCoord ? celPoint.RightAscension.Position : celPoint.Declination.Position;
         }
-        int idPoint = (int)solSysPoint.SolarSystemPoint;
+        int idPoint = (int)celPoint.CelPoint;
         return new AnalysisPoint(pointGroup, idPoint, position, glyph);
     }
 }

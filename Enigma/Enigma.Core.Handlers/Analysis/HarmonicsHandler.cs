@@ -23,7 +23,7 @@ public class HarmonicsHandler : IHarmonicsHandler
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber)
     {
         List<double> originalPositions = new();
-        foreach (var celPoint in chart.SolSysPointPositions)
+        foreach (var celPoint in chart.CelPointPositions)
         {
             originalPositions.Add(celPoint.Longitude.Position);
         }

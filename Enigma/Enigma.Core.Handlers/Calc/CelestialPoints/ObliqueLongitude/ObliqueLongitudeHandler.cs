@@ -6,7 +6,7 @@ using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.RequestResponse;
 
-namespace Enigma.Core.Handlers.Calc.CelPoints.ObliqueLongitude;
+namespace Enigma.Core.Handlers.Calc.CelestialPoints.ObliqueLongitude;
 
 public class ObliqueLongitudeHandler : IObliqueLongitudeHandler
 {

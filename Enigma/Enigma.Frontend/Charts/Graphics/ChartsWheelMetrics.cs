@@ -19,9 +19,9 @@ public class ChartsWheelMetrics
     // Colors
     public Color CuspLineColor { get; } = Colors.Gray;
     public Color CuspTextColor { get; } = Colors.SaddleBrown;
-    public Color SolSysPointColor { get; } = Colors.DarkSlateBlue;
-    public Color SolSysPointConnectLineColor { get; } = Colors.DarkSlateBlue;
-    public Color SolSysPointTextColor { get; } = Colors.DarkSlateBlue;
+    public Color CelPointColor { get; } = Colors.DarkSlateBlue;
+    public Color CelPointConnectLineColor { get; } = Colors.DarkSlateBlue;
+    public Color CelPointTextColor { get; } = Colors.DarkSlateBlue;
     public Color HardAspectsColor { get; } = Colors.Red;
     public Color SoftAspectsColor { get; } = Colors.Green;
     public Color MinorAspectsColor { get; } = Colors.Gray;
@@ -29,7 +29,7 @@ public class ChartsWheelMetrics
     // Opacities
     public double CuspLineOpacity { get; } = 0.5;
     public double CuspTextOpacity { get; } = 1.0;
-    public double SolSysPointConnectLineOpacity { get; } = 0.25;
+    public double CelPointConnectLineOpacity { get; } = 0.25;
 
     // Circles and radiuses
     public double OuterCircle { get; private set; }
@@ -44,16 +44,16 @@ public class ChartsWheelMetrics
     public double SignGlyphRadius { get; private set; }
     public double CuspTextCircle { get; private set; }
     public double CuspTextRadius { get; private set; }
-    public double SolSysPointGlyphCircle { get; private set; }
-    public double SolSysPointGlyphRadius { get; private set; }
+    public double CelPointGlyphCircle { get; private set; }
+    public double CelPointGlyphRadius { get; private set; }
     public double OuterConnectionCircle { get; private set; }
     public double OuterConnectionRadius { get; private set; }
     public double DegreesCircle { get; private set; }
     public double DegreesRadius { get; private set; }
     public double Degrees5Circle { get; private set; }
     public double Degrees5Radius { get; private set; }
-    public double SolSysPointTextCircle { get; private set; }
-    public double SolSysPointTextRadius { get; private set; }
+    public double CelPointTextCircle { get; private set; }
+    public double CelPointTextRadius { get; private set; }
     public double CardinalIndicatorCircle { get; private set; }
     public double CardinalIndicatorRadius { get; private set; }
 
@@ -65,11 +65,11 @@ public class ChartsWheelMetrics
     private readonly double OuterAspectCircleInitial = 0.44;
     private readonly double CuspTextCircleInitial = 0.76;
     private readonly double SignGlyphCircleInitial = 0.84;
-    private readonly double SolSysPointTextCircleInitial = 0.64;
+    private readonly double CelPointTextCircleInitial = 0.64;
     private readonly double OuterConnectionCircleInitial = 0.48;
     private readonly double DegreesCircleInitial = 0.775;
     private readonly double Degrees5CircleInitial = 0.76;
-    private readonly double SolSysPointGlyphCircleInitial = 0.54;
+    private readonly double CelPointGlyphCircleInitial = 0.54;
 
 
     // --------------------------------------------------
@@ -83,10 +83,10 @@ public class ChartsWheelMetrics
 
 
     public double SignGlyphSize { get; private set; }
-    public double SolSysPointGlyphSize { get; private set; }
+    public double CelPointGlyphSize { get; private set; }
     public double CardinalFontSize { get; private set; }
-    public double SolSysPointTextEastOffset { get; private set; }
-    public double SolSysPointTextWestOffset { get; private set; }
+    public double CelPointTextEastOffset { get; private set; }
+    public double CelPointTextWestOffset { get; private set; }
     public double PositionTextSize { get; private set; }
     public double GlyphXOffset { get; private set; }
     public double GlyphYOffset { get; private set; }
@@ -99,10 +99,10 @@ public class ChartsWheelMetrics
 
 
     private readonly double SignGlyphSizeInitial = 28.0;
-    private readonly double SolSysPointGlyphSizeInitial = 24.0;
+    private readonly double CelPointGlyphSizeInitial = 24.0;
     private readonly double CardinalFontSizeInitial = 16.0;
-    private readonly double SolSysPointTextEastOffsetInitial = 8.0;
-    private readonly double SolSysPointTextWestOffsetInitial = -20.0;
+    private readonly double CelPointTextEastOffsetInitial = 8.0;
+    private readonly double CelPointTextWestOffsetInitial = -20.0;
     private readonly double PositionTextSizeInitial = 10.0;
     private readonly double GlyphXOffsetInitial = 0.0;
     private readonly double GlyphYOffsetInitial = 0.0;
@@ -132,10 +132,10 @@ public class ChartsWheelMetrics
         GlyphXOffset = GlyphXOffsetInitial * GridSize;
         GlyphYOffset = GlyphYOffsetInitial * GridSize;
         SignGlyphSize = SignGlyphSizeInitial * (GridSize / 700.0);
-        SolSysPointGlyphSize = SolSysPointGlyphSizeInitial * (GridSize / 700.0);
+        CelPointGlyphSize = CelPointGlyphSizeInitial * (GridSize / 700.0);
         CardinalFontSize = CardinalFontSizeInitial * (GridSize / 700.0);
-        SolSysPointTextEastOffset = SolSysPointTextEastOffsetInitial * SizeFactor;
-        SolSysPointTextWestOffset = SolSysPointTextWestOffsetInitial * SizeFactor;
+        CelPointTextEastOffset = CelPointTextEastOffsetInitial * SizeFactor;
+        CelPointTextWestOffset = CelPointTextWestOffsetInitial * SizeFactor;
         PositionTextSize = PositionTextSizeInitial * (GridSize / 700.0);
 
     }
@@ -160,8 +160,8 @@ public class ChartsWheelMetrics
         CuspTextCircle = CuspTextCircleInitial * GridSize;
         CuspTextRadius = CuspTextCircle / 2;
 
-        SolSysPointGlyphCircle = SolSysPointGlyphCircleInitial * GridSize;
-        SolSysPointGlyphRadius = SolSysPointGlyphCircle / 2;
+        CelPointGlyphCircle = CelPointGlyphCircleInitial * GridSize;
+        CelPointGlyphRadius = CelPointGlyphCircle / 2;
 
         OuterConnectionCircle = OuterConnectionCircleInitial * GridSize;
         OuterConnectionRadius = OuterConnectionCircle / 2;
@@ -172,8 +172,8 @@ public class ChartsWheelMetrics
         Degrees5Circle = Degrees5CircleInitial * GridSize;
         Degrees5Radius = Degrees5Circle / 2;
 
-        SolSysPointTextCircle = SolSysPointTextCircleInitial * GridSize;
-        SolSysPointTextRadius = SolSysPointTextCircle / 2;
+        CelPointTextCircle = CelPointTextCircleInitial * GridSize;
+        CelPointTextRadius = CelPointTextCircle / 2;
 
         CardinalIndicatorCircle = CardinalIndicatorCircleInitial * GridSize;
         CardinalIndicatorRadius = CardinalIndicatorCircle / 2;

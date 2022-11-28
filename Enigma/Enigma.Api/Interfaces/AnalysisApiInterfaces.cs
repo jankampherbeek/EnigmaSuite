@@ -16,7 +16,7 @@ namespace Enigma.Api.Interfaces;
 public interface IAspectsApi
 {
     /// <summary>Aspects for celestial points.</summary>
-    public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request);
+    public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request);
 
     /// <summary>Aspects for mundane points.</summary>
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request);

@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Configuration.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
@@ -17,27 +16,27 @@ namespace Enigma.Frontend.Ui.Settings;
 
 public class AstroConfigController
 {
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
     private readonly IAspectSpecifications _aspectSpecifications;
     private readonly IConfigurationApi _configApi;
     private readonly AstroConfig _astroConfig;
 
-    public ISolarSystemPointSpecifications SolarSystemPointSpecifications => _solarSystemPointSpecifications;
+    public ICelPointSpecifications CelPointSpecifications => _celPointSpecifications;
 
-    public AstroConfigController(ISolarSystemPointSpecifications solarSystemPointSpecifications,
+    public AstroConfigController(ICelPointSpecifications celPointSpecifications,
         IAspectSpecifications aspectSpecifications,
         IConfigurationApi configApi)
     {
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
         _aspectSpecifications = aspectSpecifications;
         _configApi = configApi;
         _astroConfig = CurrentConfig.Instance.GetConfig();
 
     }
 
-    public string DefineGlyph(SolarSystemPoints point)
+    public string DefineGlyph(CelPoints point)
     {
-        return SolarSystemPointSpecifications.DetailsForPoint(point).DefaultGlyph;
+        return CelPointSpecifications.DetailsForPoint(point).DefaultGlyph;
     }
 
     public string DefineGlyph(MundanePoints point)

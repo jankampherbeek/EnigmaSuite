@@ -34,10 +34,10 @@ public record ResearchPoint
 
 public record CelPointPerSign
 {
-    public SolarSystemPoints CelPoint { get; }
+    public CelPoints CelPoint { get; }
     int[] PositionsPerSign { get; }
 
-    public CelPointPerSign(SolarSystemPoints celPoint, int[] positionsPerSign)
+    public CelPointPerSign(CelPoints celPoint, int[] positionsPerSign)
     {
         CelPoint = celPoint;
         PositionsPerSign = positionsPerSign;

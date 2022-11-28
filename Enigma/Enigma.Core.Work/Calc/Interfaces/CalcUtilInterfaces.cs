@@ -9,7 +9,7 @@ namespace Enigma.Core.Work.Calc.Interfaces;
 /// <summary>Definitons for flags.</summary>
 public interface ISeFlags
 {
-    /// <summary>Define flags for a given SolSysPointsRequest.</summary>
+    /// <summary>Define flags for a given CelPointsRequest.</summary>
     /// <param name="coordinateSystem"/>
     /// <param name="observerPosition"/>
     /// <param name="zodiacType"/>

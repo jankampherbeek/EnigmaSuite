@@ -18,9 +18,9 @@ public interface IObliqueLongitudeHandler
 
 
 /// <summary>
-/// Handler for the calculation of one or more solar system points.
+/// Handler for the calculation of one or more celestial points.
 /// </summary>
-public interface ISolSysPointsHandler
+public interface ICelPointsHandler
 {
-    public SolSysPointsResponse CalcSolSysPoints(SolSysPointsRequest request);
+    public CelPointsResponse CalcCelPoints(CelPointsRequest request);
 }

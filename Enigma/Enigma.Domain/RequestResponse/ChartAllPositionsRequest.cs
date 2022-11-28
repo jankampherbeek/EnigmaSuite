@@ -11,17 +11,17 @@ namespace Enigma.Domain.RequestResponse;
 /// </summary>
 public record ChartAllPositionsRequest
 {
-    public readonly SolSysPointsRequest SolSysPointRequest;
+    public readonly CelPointsRequest celPointsRequest;
     public readonly HouseSystems HouseSystem;
 
     /// <summary>
     /// Constructor for the record FullChartRequest.
     /// </summary>
-    /// <param name="solSysPointRequest">All data except the housesystem.</param>
+    /// <param name="celPointRequest">All data except the housesystem.</param>
     /// <param name="houseSystem">The preferred house system.</param>
-    public ChartAllPositionsRequest(SolSysPointsRequest solSysPointRequest, HouseSystems houseSystem)
+    public ChartAllPositionsRequest(CelPointsRequest celPointRequest, HouseSystems houseSystem)
     {
-        SolSysPointRequest = solSysPointRequest;
+        celPointsRequest = celPointRequest;
         HouseSystem = houseSystem;
     }
 }

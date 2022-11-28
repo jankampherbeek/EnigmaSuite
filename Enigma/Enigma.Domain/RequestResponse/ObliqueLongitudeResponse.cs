@@ -8,10 +8,10 @@ namespace Enigma.Domain.RequestResponse;
 
 public record ObliqueLongitudeResponse : ValidatedResponse
 {
-    public List<NamedEclipticLongitude> SolSysPointLongitudes { get; }
+    public List<NamedEclipticLongitude> CelPointLongitudes { get; }
 
-    public ObliqueLongitudeResponse(List<NamedEclipticLongitude> solSysPointLongitudes, bool success, string errorText) : base(success, errorText)
+    public ObliqueLongitudeResponse(List<NamedEclipticLongitude> celPointLongitudes, bool success, string errorText) : base(success, errorText)
     {
-        SolSysPointLongitudes = solSysPointLongitudes;
+        CelPointLongitudes = celPointLongitudes;
     }
 }

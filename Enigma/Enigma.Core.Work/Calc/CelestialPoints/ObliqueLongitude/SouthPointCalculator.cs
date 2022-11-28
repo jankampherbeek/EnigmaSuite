@@ -6,7 +6,7 @@ using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.AstronCalculations;
 
-namespace Enigma.Core.Work.Calc.CelPoints.ObliqueLongitude;
+namespace Enigma.Core.Work.Calc.CelestialPoints.ObliqueLongitude;
 
 
 /// <inheritdoc/>

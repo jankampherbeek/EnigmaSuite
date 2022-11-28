@@ -19,7 +19,7 @@ public interface IAspectsHandler
     /// <summary>Find aspects between celestial points (excluding mundane points).</summary>
     /// <param name="request">Request with positions.</param>
     /// <returns>Aspects found.</returns>
-    public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request);
+    public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request);
 
 }
 

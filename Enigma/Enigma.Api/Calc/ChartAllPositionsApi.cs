@@ -22,15 +22,15 @@ public class ChartAllPositionsApi : IChartAllPositionsApi
     public ChartAllPositionsResponse GetChart(ChartAllPositionsRequest request)
     {
         Guard.Against.Null(request);
-        Guard.Against.Null(request.SolSysPointRequest);
-        Guard.Against.Null(request.SolSysPointRequest.ChartLocation);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualProjectionType);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualAyanamsha);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualObserverPosition);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualHouseSystem);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualSolarSystemPoints);
-        Guard.Against.Null(request.SolSysPointRequest.ActualCalculationPreferences.ActualZodiacType);
+        Guard.Against.Null(request.celPointsRequest);
+        Guard.Against.Null(request.celPointsRequest.ChartLocation);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualProjectionType);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualAyanamsha);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualObserverPosition);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualHouseSystem);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualCelPoints);
+        Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualZodiacType);
         Guard.Against.Null(request.HouseSystem);
 
         return _handler.CalcFullChart(request);

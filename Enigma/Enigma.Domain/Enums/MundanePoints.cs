@@ -6,7 +6,7 @@ using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Enums;
 
-/// <summary>Supported points in the Solar System (Planets, lights, Plutoids etc.).</summary>
+/// <summary>Supported mundane.</summary>
 public enum MundanePoints
 {
     Ascendant = 0, Mc = 1, EastPoint = 2, Vertex = 3

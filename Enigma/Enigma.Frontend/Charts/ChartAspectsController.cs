@@ -38,9 +38,9 @@ public class ChartAspectsController
         return chart == null ? "" : chart.InputtedChartData.ChartMetaData.Name;
     }
 
-    public List<PresentableAspects> GetPresentableAspectsForSolSysPoints()
+    public List<PresentableAspects> GetPresentableAspectsForCelPoints()
     {
-        List<EffectiveAspect> effAspects = _aspectsApi.AspectsForSolSysPoints(CreateRequest());
+        List<EffectiveAspect> effAspects = _aspectsApi.AspectsForCelPoints(CreateRequest());
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 

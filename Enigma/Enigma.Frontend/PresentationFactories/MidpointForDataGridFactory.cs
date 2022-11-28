@@ -16,13 +16,13 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
 
     public MidpointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
-        ISolarSystemPointSpecifications solarSystemPointSpecifications)
+        ICelPointSpecifications celPointSpecifications)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
     }
 
     /// <inheritdoc/>

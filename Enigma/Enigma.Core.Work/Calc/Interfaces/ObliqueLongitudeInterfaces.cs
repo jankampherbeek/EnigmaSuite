@@ -12,7 +12,7 @@ public interface IObliqueLongitudeCalculator
 {
     /// <summary>Perform calculations to obtain oblique longitudes.</summary>
     /// <param name="request">Specifications for the calculation.</param>
-    /// <returns>Solar System Points with the oblique longitude.</returns>
+    /// <returns>Celestial points with the oblique longitude.</returns>
     public List<NamedEclipticLongitude> CalcObliqueLongitudes(ObliqueLongitudeRequest request);
 }
 

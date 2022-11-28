@@ -31,11 +31,11 @@ public class AspectsApi : IAspectsApi
     }
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request)
+    public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        return _aspectHandler.AspectsForSolSysPoints(request);
+        return _aspectHandler.AspectsForCelPoints(request);
     }
 }
 

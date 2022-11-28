@@ -57,16 +57,16 @@ public class ChartPositionsController
         }
     }
 
-    public List<PresentableSolSysPointPositions> GetCelPointPositionsCurrentChart()
+    public List<PresentableCelPointPositions> GetCelPointPositionsCurrentChart()
     {
         CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.SolSysPointPositions);
+            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.CelPointPositions);
         }
         else
         {
-            return new List<PresentableSolSysPointPositions>();
+            return new List<PresentableCelPointPositions>();
         }
     }
 

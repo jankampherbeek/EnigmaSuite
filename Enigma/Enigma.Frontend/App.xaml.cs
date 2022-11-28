@@ -72,7 +72,7 @@ public partial class App : Application
         serviceCollection.AddTransient<IChartsWheelCusps, ChartsWheelCusps>();
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
-        serviceCollection.AddTransient<IChartsWheelSolSysPoints, ChartsWheelSolSysPoints>();
+        serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DataFilesExportController>();
@@ -90,7 +90,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ProjectsOverviewController>();
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
-        serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
+        serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
         serviceCollection.AddTransient<ITimeZoneSpecifications, TimeZoneSpecifications>();
 

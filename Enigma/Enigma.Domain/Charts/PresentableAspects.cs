@@ -14,7 +14,7 @@ public record PresentableAspects
     public string ExactnessText { get; }
 
     /// <summary>Construct a record with data for aspects to be shown in a datagrid.</summary>
-    /// <param name="point1TextGlyph">Glyph or test for the first point. A glyph for solar system points and a text for mundane points.</param>
+    /// <param name="point1TextGlyph">Glyph or test for the first point. A glyph for celestial points and a text for mundane points.</param>
     /// <param name="aspectGlyph">Glyph for the aspect.</param>
     /// <param name="point2Glyph">Glyph for the second point.</param>
     /// <param name="orbText">Text for the acual orb.</param>

@@ -86,7 +86,7 @@ public class TestDefaultConfiguration
         CelPointSpecs celPointSpecs = celPoints[0];     // Sun
         Assert.Multiple(() =>
         {
-            Assert.That(celPointSpecs.SolarSystemPoint, Is.EqualTo(SolarSystemPoints.Sun));
+            Assert.That(celPointSpecs.CelPoint, Is.EqualTo(CelPoints.Sun));
             Assert.That(celPointSpecs.IsUsed, Is.True);
             Assert.That(celPointSpecs.PercentageAspectOrb, Is.EqualTo(100).Within(_delta));
         });

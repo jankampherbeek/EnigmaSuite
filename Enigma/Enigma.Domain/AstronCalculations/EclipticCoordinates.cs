@@ -24,32 +24,32 @@ public record EclipticCoordinates
 }
 
 
-/// <summary>Ecliptic position for a specific Solar system point.</summary>
+/// <summary>Ecliptic position for a specific clestial point.</summary>
 public record NamedEclipticCoordinates
 {
-    public readonly SolarSystemPoints SolarSystemPoint;
+    public readonly CelPoints CelPoint;
     public readonly EclipticCoordinates EclipticCoordinates;
 
-    /// <param name="solarSystemPoint"/>
+    /// <param name="celPoint"/>
     /// <param name="eclipticCoordinate"/>
-    public NamedEclipticCoordinates(SolarSystemPoints solarSystemPoint, EclipticCoordinates eclipticCoordinate)
+    public NamedEclipticCoordinates(CelPoints celPoint, EclipticCoordinates eclipticCoordinate)
     {
-        SolarSystemPoint = solarSystemPoint;
+        CelPoint = celPoint;
         EclipticCoordinates = eclipticCoordinate;
     }
 }
 
-/// <summary>Ecliptic longitude for a specific Solar system point.</summary>
+/// <summary>Ecliptic longitude for a specific celestial point.</summary>
 public record NamedEclipticLongitude
 {
-    public readonly SolarSystemPoints SolarSystemPoint;
+    public readonly CelPoints CelPoint;
     public readonly double EclipticLongitude;
 
-    /// <param name="solarSystemPoint"/>
+    /// <param name="celPoint"/>
     /// <param name="eclipticLongitude"/>
-    public NamedEclipticLongitude(SolarSystemPoints solarSystemPoint, double eclipticLongitude)
+    public NamedEclipticLongitude(CelPoints celPoint, double eclipticLongitude)
     {
-        SolarSystemPoint = solarSystemPoint;
+        CelPoint = celPoint;
         EclipticLongitude = eclipticLongitude;
     }
 }

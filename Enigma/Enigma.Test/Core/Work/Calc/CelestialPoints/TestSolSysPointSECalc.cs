@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Calc.CelPoints;
+using Enigma.Core.Work.Calc.CelestialPoints;
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
@@ -11,10 +11,10 @@ using Enigma.Domain.Interfaces;
 using Enigma.Facades.Interfaces;
 using Moq;
 
-namespace Enigma.Test.Core.Work.Calc.CelPoins;
+namespace Enigma.Test.Core.Work.Calc.CelestialPoints;
 
 [TestFixture]
-public class TestSolSysPointCalc
+public class TestCelPointCalc
 {
     private readonly double _julianDayUt = 2123456.5;
     private readonly double _longitude = 52.0;
@@ -27,9 +27,9 @@ public class TestSolSysPointCalc
     readonly int _flagsEcliptical = 0;
 
     [Test]
-    public void TestCalculateSolSysPointLongitude()
+    public void TestCalculateCelPointLongitude()
     {
-        PosSpeed[] _result = CalculatePosSpeedForSolSysPoint();
+        PosSpeed[] _result = CalculatePosSpeedForCelPoint();
         Assert.Multiple(() =>
         {
             Assert.That(_result[0].Position, Is.EqualTo(_longitude).Within(_delta));
@@ -38,9 +38,9 @@ public class TestSolSysPointCalc
     }
 
     [Test]
-    public void TestCalculateSolSysPointLatitude()
+    public void TestCalculateCelPointLatitude()
     {
-        PosSpeed[] _result = CalculatePosSpeedForSolSysPoint();
+        PosSpeed[] _result = CalculatePosSpeedForCelPoint();
         Assert.Multiple(() =>
         {
             Assert.That(_result[1].Position, Is.EqualTo(_latitude).Within(_delta));
@@ -49,9 +49,9 @@ public class TestSolSysPointCalc
     }
 
     [Test]
-    public void TestCalculateSolSysPointDistance()
+    public void TestCalculateCelPointDistance()
     {
-        PosSpeed[] _result = CalculatePosSpeedForSolSysPoint();
+        PosSpeed[] _result = CalculatePosSpeedForCelPoint();
         Assert.Multiple(() =>
         {
             Assert.That(_result[2].Position, Is.EqualTo(_distance).Within(_delta));
@@ -59,16 +59,16 @@ public class TestSolSysPointCalc
         });
     }
 
-    private PosSpeed[] CalculatePosSpeedForSolSysPoint()
+    private PosSpeed[] CalculatePosSpeedForCelPoint()
     {
         var _location = new Location("", 52.0, 6.0);
-        var _mockSolSysPointSpecs = new Mock<ISolarSystemPointSpecifications>();
-        _mockSolSysPointSpecs.Setup(p => p.DetailsForPoint(SolarSystemPoints.Mars)).
-            Returns(new SolarSystemPointDetails(SolarSystemPoints.Mars, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MARS, true, true, "solSysPointMars", "f"));
+        var _mockCelPointSpecs = new Mock<ICelPointSpecifications>();
+        _mockCelPointSpecs.Setup(p => p.DetailsForPoint(CelPoints.Mars)).
+            Returns(new CelPointDetails(CelPoints.Mars, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MARS, true, true, "celPointMars", "f"));
         var _mockCalcUtFacade = new Mock<ICalcUtFacade>();
         _mockCalcUtFacade.Setup(p => p.PosCelPointFromSe(_julianDayUt, EnigmaConstants.SE_MARS, _flagsEcliptical)).Returns(new double[] { _longitude, _latitude, _distance, _longSpeed, _latSpeed, _distSpeed });
-        ISolSysPointSECalc _calc = new SolSysPointSECalc(_mockCalcUtFacade.Object, _mockSolSysPointSpecs.Object);
-        return _calc.CalculateSolSysPoint(SolarSystemPoints.Mars, _julianDayUt, _location, _flagsEcliptical);
+        ICelPointSECalc _calc = new CelPointSECalc(_mockCalcUtFacade.Object, _mockCelPointSpecs.Object);
+        return _calc.CalculateCelPoint(CelPoints.Mars, _julianDayUt, _location, _flagsEcliptical);
     }
 
 }

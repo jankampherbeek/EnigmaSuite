@@ -27,14 +27,14 @@ public class TestAspectForDataGridFactory
         dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(3.0)).Returns("3" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN);
         dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(2.5)).Returns("2" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN);
         dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(10.0)).Returns("10" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN);
-        var solSysPointSpecsMock = new Mock<ISolarSystemPointSpecifications>();
-        solSysPointSpecsMock.Setup(p => p.DetailsForPoint(SolarSystemPoints.Sun)).Returns(new SolarSystemPointDetails(SolarSystemPoints.Sun, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_SUN, false, true, "sun", "a"));
-        solSysPointSpecsMock.Setup(p => p.DetailsForPoint(SolarSystemPoints.Moon)).Returns(new SolarSystemPointDetails(SolarSystemPoints.Moon, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MOON, false, true, "moon", "b"));
-        solSysPointSpecsMock.Setup(p => p.DetailsForPoint(SolarSystemPoints.Jupiter)).Returns(new SolarSystemPointDetails(SolarSystemPoints.Jupiter, SolSysPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_JUPITER, true, true, "jupiter", "g"));
+        var celPointSpecsMock = new Mock<ICelPointSpecifications>();
+        celPointSpecsMock.Setup(p => p.DetailsForPoint(CelPoints.Sun)).Returns(new CelPointDetails(CelPoints.Sun, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_SUN, false, true, "sun", "a"));
+        celPointSpecsMock.Setup(p => p.DetailsForPoint(CelPoints.Moon)).Returns(new CelPointDetails(CelPoints.Moon, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MOON, false, true, "moon", "b"));
+        celPointSpecsMock.Setup(p => p.DetailsForPoint(CelPoints.Jupiter)).Returns(new CelPointDetails(CelPoints.Jupiter, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_JUPITER, true, true, "jupiter", "g"));
         var aspectSpecsMock = new Mock<IAspectSpecifications>();
         aspectSpecsMock.Setup(p => p.DetailsForAspect(AspectTypes.Conjunction)).Returns(new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", "B", 1.0));
         aspectSpecsMock.Setup(p => p.DetailsForAspect(AspectTypes.Square)).Returns(new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", "E", 0.85));
-        IAspectForDataGridFactory aspectForDataGridFactory = new AspectForDataGridFactory(dmsConversionsMock.Object, solSysPointSpecsMock.Object, aspectSpecsMock.Object);
+        IAspectForDataGridFactory aspectForDataGridFactory = new AspectForDataGridFactory(dmsConversionsMock.Object, celPointSpecsMock.Object, aspectSpecsMock.Object);
 
         List<EffectiveAspect> effAspects = CreateEffAspects();
         List<PresentableAspects> presAspects = aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
@@ -57,8 +57,8 @@ public class TestAspectForDataGridFactory
     {
         List<EffectiveAspect> effAspects = new()
         {
-            new EffectiveAspect(SolarSystemPoints.Sun, SolarSystemPoints.Moon, new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", "B", 1.0), 10.0, 3.0),
-            new EffectiveAspect("Asc", SolarSystemPoints.Jupiter, new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", "E", 0.85), 10.0, 2.5)
+            new EffectiveAspect(CelPoints.Sun, CelPoints.Moon, new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", "B", 1.0), 10.0, 3.0),
+            new EffectiveAspect("Asc", CelPoints.Jupiter, new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", "E", 0.85), 10.0, 2.5)
         };
         return effAspects;
 

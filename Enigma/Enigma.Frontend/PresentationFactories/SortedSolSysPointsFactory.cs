@@ -12,24 +12,24 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 
 
 
-public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactory
+public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
 {
     private readonly ICelPointForDataGridFactory _celPointFactory;
 
-    public SortedGraphicSolSysPointsFactory(ICelPointForDataGridFactory celPointFactory)
+    public SortedGraphicCelPointsFactory(ICelPointForDataGridFactory celPointFactory)
     {
         _celPointFactory = celPointFactory;
     }
 
-    public List<GraphicSolSysPointPositions> CreateSortedList(List<FullSolSysPointPos> solSysPointPositions, double longitudeAsc, double minDistance)
+    public List<GraphicCelPointPositions> CreateSortedList(List<FullCelPointPos> celPointPositions, double longitudeAsc, double minDistance)
     {
-        List<GraphicSolSysPointPositions> graphPositions = CreateGraphicPositions(solSysPointPositions, longitudeAsc);
-        graphPositions.Sort(delegate (GraphicSolSysPointPositions pos1, GraphicSolSysPointPositions pos2)
+        List<GraphicCelPointPositions> graphPositions = CreateGraphicPositions(celPointPositions, longitudeAsc);
+        graphPositions.Sort(delegate (GraphicCelPointPositions pos1, GraphicCelPointPositions pos2)
         {
             return pos1.MundanePos.CompareTo(pos2.MundanePos);
         });
         double actDistance = 0.0;
-        GraphicSolSysPointPositions? lastPos = null;
+        GraphicCelPointPositions? lastPos = null;
         foreach (var pos in graphPositions)
         {
             if (lastPos != null)
@@ -47,21 +47,21 @@ public class SortedGraphicSolSysPointsFactory : ISortedGraphicSolSysPointsFactor
     }
 
 
-    private List<GraphicSolSysPointPositions> CreateGraphicPositions(List<FullSolSysPointPos> fullPositions, double longitudeAsc)
+    private List<GraphicCelPointPositions> CreateGraphicPositions(List<FullCelPointPos> fullPositions, double longitudeAsc)
     {
-        List<GraphicSolSysPointPositions> graphPositions = new();
-        List<PresentableSolSysPointPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
+        List<GraphicCelPointPositions> graphPositions = new();
+        List<PresentableCelPointPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
         int count = 0;
-        foreach (FullSolSysPointPos solSysPointPos in fullPositions)
+        foreach (FullCelPointPos celPointPos in fullPositions)
         {
-            double longitude = solSysPointPos.Longitude.Position;
-            SolarSystemPoints solSysPoint = solSysPointPos.SolarSystemPoint;
+            double longitude = celPointPos.Longitude.Position;
+            CelPoints celPoint = celPointPos.CelPoint;
             double mundanePos = longitude - longitudeAsc + 90.0;
             if (mundanePos < 0.0) mundanePos += 360.0;
             if (mundanePos >= 360.0) mundanePos -= 360.0;
             string longitudeText = presentablePositions[count].LongText;
 
-            GraphicSolSysPointPositions? graphicPos = new(solSysPoint, longitude, mundanePos, longitudeText);
+            GraphicCelPointPositions? graphicPos = new(celPoint, longitude, mundanePos, longitudeText);
             if (graphicPos != null)
             {
                 graphPositions.Add(graphicPos);

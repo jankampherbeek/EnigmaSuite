@@ -6,7 +6,7 @@ using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Enums;
 
-/// <summary>Supported points in the Solar System (Planets, lights, Plutoids etc.).</summary>
+/// <summary>Supported zodiacal points.</summary>
 public enum ZodiacalPoints
 {
     ZeroAries = 0, ZeroCancer = 1

@@ -5,15 +5,15 @@
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers.Analysis;
 using Enigma.Core.Handlers.Calc;
-using Enigma.Core.Handlers.Calc.Celpoints;
-using Enigma.Core.Handlers.Calc.CelPoints.ObliqueLongitude;
+using Enigma.Core.Handlers.Calc.Celestialpoints;
+using Enigma.Core.Handlers.Calc.CelestialPoints.ObliqueLongitude;
 using Enigma.Core.Handlers.Calc.Coordinates;
 using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Calc.Specials;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Research;
-using Enigma.Core.Work.Handlers.Calc.CelPoints;
+using Enigma.Core.Work.Handlers.Calc.CelestialPoints;
 using Enigma.Core.Work.Research;
 using Enigma.Core.Work.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,7 +49,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
         serviceCollection.AddTransient<IResearchPerformHandler, ResearchPerformHandler>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
-        serviceCollection.AddTransient<ISolSysPointsHandler, SolSysPointsHandler>();
+        serviceCollection.AddTransient<ICelPointsHandler, CelsPointsHandler>();
 
 
         serviceCollection.RegisterWorkServices();

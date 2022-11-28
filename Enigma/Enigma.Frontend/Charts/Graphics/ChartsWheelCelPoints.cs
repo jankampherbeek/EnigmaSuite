@@ -16,44 +16,44 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
-public class ChartsWheelSolSysPoints : IChartsWheelSolSysPoints
+public class ChartsWheelCelPoints : IChartsWheelCelPoints
 {
 
     private readonly IRangeCheck _rangeCheck;
-    private readonly ISortedGraphicSolSysPointsFactory _sortedGraphicSolSysPointsFactory;
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ISortedGraphicCelPointsFactory _sortedGraphicCelPointsFactory;
+    private readonly ICelPointSpecifications _celPointSpecifications;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
-    public ChartsWheelSolSysPoints(ISortedGraphicSolSysPointsFactory sortedGraphicSolSysPointsFactory,
-        ISolarSystemPointSpecifications solarSystemPointSpecifications,
+    public ChartsWheelCelPoints(ISortedGraphicCelPointsFactory sortedGraphicCelPointsFactory,
+        ICelPointSpecifications celPointSpecifications,
         IRangeCheck rangeCheck,
         IDoubleToDmsConversions doubleToDmsConversions)
     {
         _rangeCheck = rangeCheck;
-        _sortedGraphicSolSysPointsFactory = sortedGraphicSolSysPointsFactory;
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _sortedGraphicCelPointsFactory = sortedGraphicCelPointsFactory;
+        _celPointSpecifications = celPointSpecifications;
         _doubleToDmsConversions = doubleToDmsConversions;
     }
 
 
 
-    public List<TextBlock> CreateSolSysPointGlyphs(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant)
+    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> glyphs = new();
 
-        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
-        double fontSize = metrics.SolSysPointGlyphSize;
-        foreach (var graphPoint in graphicSolSysPointsPositions)
+        double fontSize = metrics.CelPointGlyphSize;
+        foreach (var graphPoint in graphicSolCelPointsPositions)
         {
             double angle = graphPoint.PlotPos;
-            Point point1 = dimPoint.CreatePoint(angle, metrics.SolSysPointGlyphRadius);
+            Point point1 = dimPoint.CreatePoint(angle, metrics.CelPointGlyphRadius);
             TextBlock glyph = new()
             {
-                Text = _solarSystemPointSpecifications.DetailsForPoint(graphPoint.SolSysPoint).DefaultGlyph,
+                Text = _celPointSpecifications.DetailsForPoint(graphPoint.CelPoint).DefaultGlyph,
                 FontFamily = metrics.GlyphsFontFamily,
                 FontSize = fontSize,
-                Foreground = new SolidColorBrush(metrics.SolSysPointColor)
+                Foreground = new SolidColorBrush(metrics.CelPointColor)
             };
             Canvas.SetLeft(glyph, point1.X - (fontSize / 3));
             Canvas.SetTop(glyph, point1.Y - (fontSize / 1.8));
@@ -62,38 +62,38 @@ public class ChartsWheelSolSysPoints : IChartsWheelSolSysPoints
         return glyphs;
     }
 
-    public List<Line> CreateSolSysPointConnectLines(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant)
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<Line> connectLines = new();
-        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
         DimLine dimLine = new();
         DimPoint dimPoint = new(centerPoint);
-        foreach (var graphPoint in graphicSolSysPointsPositions)
+        foreach (var graphPoint in graphicCelPointsPositions)
         {
             Point point1 = dimPoint.CreatePoint(graphPoint.PlotPos, metrics.OuterConnectionRadius);
             Point point2 = dimPoint.CreatePoint(graphPoint.MundanePos, metrics.OuterAspectRadius);
-            Line connectionLine = dimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.SolSysPointConnectLineColor, metrics.SolSysPointConnectLineOpacity);
+            Line connectionLine = dimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.CelPointConnectLineColor, metrics.CelPointConnectLineOpacity);
             connectLines.Add(connectionLine);
         }
         return connectLines;
     }
 
-    public List<TextBlock> CreateSolSysPointTexts(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant)
+    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> texts = new();
-        List<GraphicSolSysPointPositions> graphicSolSysPointsPositions = _sortedGraphicSolSysPointsFactory.CreateSortedList(solSysPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
-        foreach (var graphPoint in graphicSolSysPointsPositions)
+        foreach (var graphPoint in graphicCelPointsPositions)
         {
             double angle = graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 1.5 : graphPoint.PlotPos + 1.5;
             string posDmText = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(graphPoint.EclipticPos);
-            Point point1 = angle < 180.0 ? dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + metrics.SolSysPointTextEastOffset) : dimPoint.CreatePoint(angle, metrics.SolSysPointTextRadius + metrics.SolSysPointTextWestOffset);
+            Point point1 = angle < 180.0 ? dimPoint.CreatePoint(angle, metrics.CelPointTextRadius + metrics.CelPointTextEastOffset) : dimPoint.CreatePoint(angle, metrics.CelPointTextRadius + metrics.CelPointTextWestOffset);
             TextBlock posText = new()
             {
                 Text = posDmText,
                 FontFamily = metrics.PositionTextsFontFamily,
                 FontSize = metrics.PositionTextSize,
-                Foreground = new SolidColorBrush(metrics.SolSysPointTextColor)
+                Foreground = new SolidColorBrush(metrics.CelPointTextColor)
             };
             RotateTransform rotateTransform = new();
             double rotateAngle = graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 90.0 : graphPoint.PlotPos - 270.0;

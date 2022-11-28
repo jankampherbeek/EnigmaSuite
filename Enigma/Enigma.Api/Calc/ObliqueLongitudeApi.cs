@@ -22,7 +22,7 @@ public class ObliqueLongitudeApi : IObliqueLongitudeApi
     public ObliqueLongitudeResponse GetObliqueLongitude(ObliqueLongitudeRequest request)
     {
         Guard.Against.Null(request);
-        Guard.Against.NullOrEmpty(request.SolSysPointCoordinates);
+        Guard.Against.NullOrEmpty(request.CelPointCoordinates);
         return _handler.CalcObliqueLongitude(request);
     }
 }

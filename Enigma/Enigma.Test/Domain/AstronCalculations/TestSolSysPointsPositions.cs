@@ -7,14 +7,14 @@ using Enigma.Domain.AstronCalculations;
 namespace Enigma.Test.Domain.AstronCalculations;
 
 [TestFixture]
-public class TestSolSysPointPosSpeeds
+public class TestCelPointPosSpeeds
 {
     [Test]
     public void TestConstructionWithArray()
     {
         double delta = 0.00000001;
         double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-        SolSysPointPosSpeeds posSpeeds = new(values);
+        CelPointPosSpeeds posSpeeds = new(values);
         Assert.Multiple(() =>
         {
             Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));
@@ -30,7 +30,7 @@ public class TestSolSysPointPosSpeeds
     public void TestConstructionWrongArray()
     {
         double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0 };
-        Assert.That(() => _ = new SolSysPointPosSpeeds(values), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = new CelPointPosSpeeds(values), Throws.TypeOf<ArgumentException>());
 
     }
 
@@ -41,7 +41,7 @@ public class TestSolSysPointPosSpeeds
         PosSpeed mainPosSpeed = new(1.0, 2.0);
         PosSpeed deviationPosSpeed = new(3.0, 4.0);
         PosSpeed distancePosSpeed = new(5.0, 6.0);
-        SolSysPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
+        CelPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
         Assert.Multiple(() =>
         {
             Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));

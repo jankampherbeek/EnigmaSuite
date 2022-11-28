@@ -9,9 +9,9 @@ namespace Enigma.Domain.RequestResponse;
 
 
 /// <summary>
-/// Data for a request to calculate one or more positions for a solar system point.
+/// Data for a request to calculate one or more positions for a celestial point.
 /// </summary>
-public record SolSysPointsRequest
+public record CelPointsRequest
 {
     public readonly double JulianDayUt;
     public readonly Location ChartLocation;
@@ -21,7 +21,7 @@ public record SolSysPointsRequest
     /// <param name="location">Location (only latitude and longitude are used).</param>
     /// <param name="calculationPreferences">User preferences for the calculation.</param>
 
-    public SolSysPointsRequest(double julianDayUt, Location location, CalculationPreferences calculationPreferences)
+    public CelPointsRequest(double julianDayUt, Location location, CalculationPreferences calculationPreferences)
     {
         JulianDayUt = julianDayUt;
         ChartLocation = location;

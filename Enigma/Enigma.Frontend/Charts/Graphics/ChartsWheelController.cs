@@ -22,9 +22,9 @@ public class ChartsWheelController
     public List<Line> CuspCardinalLines { get; private set; } = new();
     public List<TextBlock> CuspCardinalIndicators { get; private set; } = new();
     public List<TextBlock> CuspTexts { get; private set; } = new();
-    public List<Line> SolSysPointConnectLines { get; private set; } = new();
-    public List<TextBlock> SolSysPointTexts { get; private set; } = new();
-    public List<TextBlock> SolSysPointGlyphs { get; private set; } = new();
+    public List<Line> CelPointConnectLines { get; private set; } = new();
+    public List<TextBlock> CelPointTexts { get; private set; } = new();
+    public List<TextBlock> CelPointGlyphs { get; private set; } = new();
     public List<Ellipse> WheelCircles { get; private set; } = new();
     public List<Line> DegreeLines { get; private set; } = new();
     public List<Line> AspectLines { get; private set; } = new();
@@ -34,7 +34,7 @@ public class ChartsWheelController
 
     private readonly ChartsWheelMetrics _metrics;
     private readonly DataVault _dataVault;
-    private readonly IChartsWheelSolSysPoints _chartsWheelSolSysPoints;
+    private readonly IChartsWheelCelPoints _chartsWheelCelPoints;
     private readonly IChartsWheelSigns _chartsWheelSigns;
     private readonly IChartsWheelCusps _chartsWheelCusps;
     private readonly IChartsWheelCircles _chartsWheelCircles;
@@ -43,14 +43,14 @@ public class ChartsWheelController
     private CalculatedChart? _currentChart;
 
     public ChartsWheelController(ChartsWheelMetrics metrics,
-        IChartsWheelSolSysPoints chartsWheelSolSysPoints,
+        IChartsWheelCelPoints chartsWheelCelPoints,
         IChartsWheelSigns chartsWheelSigns,
         IChartsWheelCusps chartsWheelCusps,
         IChartsWheelCircles chartsWheelCircles,
         IChartsWheelAspects chartsWheelAspects)
     {
         _dataVault = DataVault.Instance;
-        _chartsWheelSolSysPoints = chartsWheelSolSysPoints;
+        _chartsWheelCelPoints = chartsWheelCelPoints;
         _metrics = metrics;
         _chartsWheelSigns = chartsWheelSigns;
         _chartsWheelCusps = chartsWheelCusps;
@@ -79,11 +79,11 @@ public class ChartsWheelController
 
     }
 
-    private void HandleSolSysPoints()
+    private void HandleCelPoints()
     {
-        SolSysPointGlyphs = _chartsWheelSolSysPoints.CreateSolSysPointGlyphs(_metrics, GetSolSysPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
-        SolSysPointConnectLines = _chartsWheelSolSysPoints.CreateSolSysPointConnectLines(_metrics, GetSolSysPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
-        SolSysPointTexts = _chartsWheelSolSysPoints.CreateSolSysPointTexts(_metrics, GetSolSysPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
+        CelPointGlyphs = _chartsWheelCelPoints.CreateCelPointGlyphs(_metrics, GetCelPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
+        CelPointConnectLines = _chartsWheelCelPoints.CreateCelPointConnectLines(_metrics, GetCelPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
+        CelPointTexts = _chartsWheelCelPoints.CreateCelPointTexts(_metrics, GetCelPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
     }
 
     private void HandleAspects()
@@ -117,16 +117,16 @@ public class ChartsWheelController
         return longitudes;
     }
 
-    public List<FullSolSysPointPos> GetSolSysPointsCurrentChart()
+    public List<FullCelPointPos> GetCelPointsCurrentChart()
     {
         _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _currentChart.SolSysPointPositions;
+            return _currentChart.CelPointPositions;
         }
         else
         {
-            return new List<FullSolSysPointPos>();
+            return new List<FullCelPointPos>();
         }
     }
 
@@ -144,7 +144,7 @@ public class ChartsWheelController
         HandleCircles();
         HandleSigns();
         HandleCusps();
-        HandleSolSysPoints();
+        HandleCelPoints();
         HandleAspects();
     }
 

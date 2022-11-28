@@ -6,29 +6,28 @@
 
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Facades.Interfaces;
 
-namespace Enigma.Core.Work.Calc.CelPoints;
+namespace Enigma.Core.Work.Calc.CelestialPoints;
 
 
 /// <inheritdoc/>
-public class SolSysPointSECalc : ISolSysPointSECalc
+public class CelPointSECalc : ICelPointSECalc
 {
     private readonly ICalcUtFacade _calcUtFacade;
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
 
-    public SolSysPointSECalc(ICalcUtFacade calcUtFacade, ISolarSystemPointSpecifications solarSystemPointSpecifications)
+    public CelPointSECalc(ICalcUtFacade calcUtFacade, ICelPointSpecifications celPointSpecifications)
     {
         _calcUtFacade = calcUtFacade;
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
     }
 
 
-    public PosSpeed[] CalculateSolSysPoint(SolarSystemPoints solarSystemPoint, double jdnr, Location location, int flags)
+    public PosSpeed[] CalculateCelPoint(Domain.Enums.CelPoints celPoint, double jdnr, Location location, int flags)
     {
-        int pointId = _solarSystemPointSpecifications.DetailsForPoint(solarSystemPoint).SeId;
+        int pointId = _celPointSpecifications.DetailsForPoint(celPoint).SeId;
         double[] positions = _calcUtFacade.PosCelPointFromSe(jdnr, pointId, flags);
         var mainPos = new PosSpeed(positions[0], positions[3]);
         var deviation = new PosSpeed(positions[1], positions[4]);

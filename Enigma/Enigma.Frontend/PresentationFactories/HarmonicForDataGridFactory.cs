@@ -17,33 +17,33 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
 
 
     public HarmonicForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
-        ISolarSystemPointSpecifications solarSystemPointSpecifications)
+        ICelPointSpecifications celPointSpecifications)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
 
     }
 
     /// <inheritdoc/>
     public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart)
     {
-        if (harmonicPositions.Count != chart.SolSysPointPositions.Count + 4)
+        if (harmonicPositions.Count != chart.CelPointPositions.Count + 4)
         {
             Log.Error("ERROR in HarmonicDataGridFactory. Count for harmonicPositions = " + harmonicPositions.Count + " and count for celestial points = "
                 + harmonicPositions.Count + ". The harmonicPositions should have a count that is 4 larger than the count for celestial points");
             throw new System.Exception("Error in Enigma. Please check the log file.");    // TODO use specific exception.
         }
         List<PresentableHarmonic> presentableHarmonics = new();
-        List<FullSolSysPointPos> celPoints = chart.SolSysPointPositions;
+        List<FullCelPointPos> celPoints = chart.CelPointPositions;
         int counterCelPoints = 0;
         for (int i = 0; i < celPoints.Count; i++)
         {
             counterCelPoints = i;
-            string glyph = _solarSystemPointSpecifications.DetailsForPoint(celPoints[i].SolarSystemPoint).DefaultGlyph;
+            string glyph = _celPointSpecifications.DetailsForPoint(celPoints[i].CelPoint).DefaultGlyph;
             double radixPos = celPoints[i].Longitude.Position;
             double harmonicPos = harmonicPositions[i];
             presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));

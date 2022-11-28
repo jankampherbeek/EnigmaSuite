@@ -70,21 +70,21 @@ public class ChartDataInputController
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
 
-        ImmutableArray<SolarSystemPoints> solarSystemPoints = ImmutableArray.Create(new SolarSystemPoints[] {
-            SolarSystemPoints.Sun,
-            SolarSystemPoints.Moon,
-            SolarSystemPoints.Mercury,
-            SolarSystemPoints.Venus,
-            SolarSystemPoints.Mars,
-            SolarSystemPoints.Jupiter,
-            SolarSystemPoints.Saturn,
-            SolarSystemPoints.Uranus,
-            SolarSystemPoints.Neptune,
-            SolarSystemPoints.Pluto,
-            SolarSystemPoints.Chiron,
-            SolarSystemPoints.MeanNode
+        ImmutableArray<CelPoints> celPoints = ImmutableArray.Create(new CelPoints[] {
+            CelPoints.Sun,
+            CelPoints.Moon,
+            CelPoints.Mercury,
+            CelPoints.Venus,
+            CelPoints.Mars,
+            CelPoints.Jupiter,
+            CelPoints.Saturn,
+            CelPoints.Uranus,
+            CelPoints.Neptune,
+            CelPoints.Pluto,
+            CelPoints.Chiron,
+            CelPoints.MeanNode
         });
-        return new CalculationPreferences(solarSystemPoints, ZodiacTypes.Tropical, Ayanamshas.None, ObserverPositions.GeoCentric, ProjectionTypes.twoDimensional, HouseSystems.Placidus);
+        return new CalculationPreferences(celPoints, ZodiacTypes.Tropical, Ayanamshas.None, ObserverPositions.GeoCentric, ProjectionTypes.twoDimensional, HouseSystems.Placidus);
     }
 
     public void InitializeDataVault()
@@ -120,12 +120,12 @@ public class ChartDataInputController
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
             string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
-            SolSysPointsRequest solSysPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
-            ChartAllPositionsRequest chartAllPositionsRequest = new(solSysPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
+            CelPointsRequest celPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
+            ChartAllPositionsRequest chartAllPositionsRequest = new(celPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
             ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(chartAllPositionsRequest);
             if (chartAllPositionsResponse.Success)
             {
-                List<FullSolSysPointPos> solarSystemPointPositions = chartAllPositionsResponse.SolarSystemPointPositions;
+                List<FullCelPointPos> celPointPositions = chartAllPositionsResponse.CelPointPositions;
                 FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions;
                 FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
 
@@ -135,7 +135,7 @@ public class ChartDataInputController
                 int id = 1000;
                 int tempId = 1;
                 ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
-                CalculatedChart chart = new(solarSystemPointPositions, _mundanePositions, chartData);
+                CalculatedChart chart = new(celPointPositions, _mundanePositions, chartData);
                 _dataVault.AddNewChart(chart);
                 _dataVault.SetNewChartAdded(true);
                 return true;

@@ -10,7 +10,7 @@ using Enigma.Domain.Interfaces;
 namespace Enigma.Test.Domain.Analysis;
 
 [TestFixture]
-public class TestSolSysPointToAnalysisPointMap
+public class TestCelPointToAnalysisPointMap
 {
     private readonly double _delta = 0.00000001;
 
@@ -18,23 +18,23 @@ public class TestSolSysPointToAnalysisPointMap
     public void TestMapToAnalysisPointLongitude()
     {
         double longPos = 12.34;
-        var solSysPoint = SolarSystemPoints.Sun;
-        var pointGroup = PointGroups.SolarSystemPoints;
+        var celPoint = CelPoints.Sun;
+        var pointGroup = PointGroups.CelPoints;
         var coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
-        ISolarSystemPointSpecifications solarSystemPointSpecifications = new SolarSystemPointSpecifications();
-        ISolSysPointToAnalysisPointMap pointMap = new SolSysPointToAnalysisPointMap(solarSystemPointSpecifications);
+        ICelPointSpecifications celPointSpecifications = new CelPointSpecifications();
+        ICelPointToAnalysisPointMap pointMap = new CelPointToAnalysisPointMap(celPointSpecifications);
 
         PosSpeed emptyPS = new(0.0, 0.0);
         PosSpeed longPS = new(longPos, 0.0);
         HorizontalCoordinates horcoord = new(0.0, 0.0);
-        FullSolSysPointPos fullSolSysPointPos = CreateFullSolSysPointPos(solSysPoint, longPS, emptyPS, emptyPS, emptyPS, emptyPS, horcoord);
-        AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(fullSolSysPointPos, pointGroup, coordSystem, mainCoord);
+        FullCelPointPos fullCelPointPos = CreateFullCelPointPos(celPoint, longPS, emptyPS, emptyPS, emptyPS, emptyPS, horcoord);
+        AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(fullCelPointPos, pointGroup, coordSystem, mainCoord);
         Assert.Multiple(() =>
         {
-            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.SolarSystemPoints));
+            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.CelPoints));
             Assert.That(resultingPoint.Position, Is.EqualTo(longPos).Within(_delta));
-            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)solSysPoint));
+            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)celPoint));
         });
     }
 
@@ -42,27 +42,27 @@ public class TestSolSysPointToAnalysisPointMap
     public void TestMapToAnalysisPointDeclination()
     {
         double declPos = -8.88;
-        var solSysPoint = SolarSystemPoints.Mars;
-        var pointGroup = PointGroups.SolarSystemPoints;
+        var celPoint = CelPoints.Mars;
+        var pointGroup = PointGroups.CelPoints;
         var coordSystem = CoordinateSystems.Equatorial;
         bool mainCoord = false;
-        ISolarSystemPointSpecifications solarSystemPointSpecifications = new SolarSystemPointSpecifications();
-        ISolSysPointToAnalysisPointMap pointMap = new SolSysPointToAnalysisPointMap(solarSystemPointSpecifications);
+        ICelPointSpecifications celPointSpecifications = new CelPointSpecifications();
+        ICelPointToAnalysisPointMap pointMap = new CelPointToAnalysisPointMap(celPointSpecifications);
 
         PosSpeed emptyPS = new(0.0, 0.0);
         PosSpeed declPS = new(declPos, 0.0);
         HorizontalCoordinates horcoord = new(0.0, 0.0);
-        FullSolSysPointPos fullSolSysPointPos = CreateFullSolSysPointPos(solSysPoint, emptyPS, emptyPS, emptyPS, declPS, emptyPS, horcoord);
-        AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(fullSolSysPointPos, pointGroup, coordSystem, mainCoord);
+        FullCelPointPos fullCelPointPos = CreateFullCelPointPos(celPoint, emptyPS, emptyPS, emptyPS, declPS, emptyPS, horcoord);
+        AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(fullCelPointPos, pointGroup, coordSystem, mainCoord);
         Assert.Multiple(() =>
         {
-            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.SolarSystemPoints));
+            Assert.That(resultingPoint.PointGroup, Is.EqualTo(PointGroups.CelPoints));
             Assert.That(resultingPoint.Position, Is.EqualTo(declPos).Within(_delta));
-            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)solSysPoint));
+            Assert.That(resultingPoint.ItemId, Is.EqualTo((int)celPoint));
         });
     }
 
-    private FullSolSysPointPos CreateFullSolSysPointPos(SolarSystemPoints ssPoint, PosSpeed longPS, PosSpeed latPS, PosSpeed raPS, PosSpeed declPS, PosSpeed distPS, HorizontalCoordinates horCoord)
+    private FullCelPointPos CreateFullCelPointPos(CelPoints ssPoint, PosSpeed longPS, PosSpeed latPS, PosSpeed raPS, PosSpeed declPS, PosSpeed distPS, HorizontalCoordinates horCoord)
     {
         return new(ssPoint, longPS, latPS, raPS, declPS, distPS, horCoord);
     }

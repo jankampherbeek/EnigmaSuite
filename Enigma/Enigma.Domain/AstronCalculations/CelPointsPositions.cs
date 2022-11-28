@@ -7,10 +7,10 @@ using Enigma.Domain.Enums;
 
 namespace Enigma.Domain.AstronCalculations;
 
-/// <summary>Results of calculation for a single Solar System Point.</summary>
-public record FullSolSysPointPos
+/// <summary>Results of calculation for a single celestial point.</summary>
+public record FullCelPointPos
 {
-    public readonly SolarSystemPoints SolarSystemPoint;
+    public readonly CelPoints CelPoint;
     public readonly PosSpeed Longitude;
     public readonly PosSpeed Latitude;
     public readonly PosSpeed RightAscension;
@@ -18,17 +18,17 @@ public record FullSolSysPointPos
     public readonly PosSpeed Distance;
     public readonly HorizontalCoordinates AzimuthAltitude;
 
-    /// <param name="solarSystemPoint">Instance of the enum SolarSystemPoints.</param>
+    /// <param name="celPoint">Instance of the enum CelPoints.</param>
     /// <param name="longitude">Longitude in degrees.</param>
     /// <param name="latitude">Latitude in degrees.</param>
     /// <param name="rightAscension">Right ascension in degrees.</param>
     /// <param name="declination">Declination in degrees.</param>
     /// <param name="distance">distance in AU.</param>
     /// <param name="azimuthAltitude">Azimuth and altitude in degrees.</param>
-    public FullSolSysPointPos(SolarSystemPoints solarSystemPoint, PosSpeed longitude, PosSpeed latitude, PosSpeed rightAscension,
+    public FullCelPointPos(CelPoints celPoint, PosSpeed longitude, PosSpeed latitude, PosSpeed rightAscension,
         PosSpeed declination, PosSpeed distance, HorizontalCoordinates azimuthAltitude)
     {
-        SolarSystemPoint = solarSystemPoint;
+        CelPoint = celPoint;
         Longitude = longitude;
         Latitude = latitude;
         RightAscension = rightAscension;
@@ -39,7 +39,7 @@ public record FullSolSysPointPos
 }
 
 
-/// <summary>Combination of position and speed (for a solar system point).</summary>
+/// <summary>Combination of position and speed (for a celestial point).</summary>
 public record PosSpeed
 {
     public readonly double Position;
@@ -53,22 +53,22 @@ public record PosSpeed
 }
 
 
-/// <summary>Position, speed and distance in a coordinatesystem for point in the Solar system.</summary>
-public record SolSysPointPosSpeeds
+/// <summary>Position, speed and distance in a coordinatesystem for a celestial point.</summary>
+public record CelPointPosSpeeds
 {
     public readonly PosSpeed MainPosSpeed;
     public readonly PosSpeed DeviationPosSpeed;
     public readonly PosSpeed DistancePosSpeed;
 
-    public SolSysPointPosSpeeds(double[] values)
+    public CelPointPosSpeeds(double[] values)
     {
-        if (values.Length != 6) throw new ArgumentException("Wrong numer of values for SolSysPointSpeeds.");
+        if (values.Length != 6) throw new ArgumentException("Wrong numer of values for CelPointSpeeds.");
         MainPosSpeed = new PosSpeed(values[0], values[1]);
         DeviationPosSpeed = new PosSpeed(values[2], values[3]);
         DistancePosSpeed = new PosSpeed(values[4], values[5]);
     }
 
-    public SolSysPointPosSpeeds(PosSpeed mainPosSpeed, PosSpeed deviationPosSpeed, PosSpeed distancePosSpeed)
+    public CelPointPosSpeeds(PosSpeed mainPosSpeed, PosSpeed deviationPosSpeed, PosSpeed distancePosSpeed)
     {
         MainPosSpeed = mainPosSpeed;
         DeviationPosSpeed = deviationPosSpeed;

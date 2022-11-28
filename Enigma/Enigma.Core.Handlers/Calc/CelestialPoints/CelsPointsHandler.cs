@@ -11,38 +11,38 @@ using Enigma.Domain.RequestResponse;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
 
-namespace Enigma.Core.Work.Handlers.Calc.CelPoints;
+namespace Enigma.Core.Work.Handlers.Calc.CelestialPoints;
 
 
 
 
 /// <inheritdoc/>
-public class SolSysPointsHandler : ISolSysPointsHandler
+public class CelsPointsHandler : ICelPointsHandler
 {
     private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
     private readonly ISeFlags _seFlags;
-    private readonly ISolSysPointSECalc _solSysPointSECalc;
-    private readonly ISolSysPointsElementsCalc _solSysPointElementsCalc;
-    private readonly ISolarSystemPointSpecifications _solSysPointSpecs;
+    private readonly ICelPointSECalc _celPointSECalc;
+    private readonly ICelPointsElementsCalc _celPointElementsCalc;
+    private readonly ICelPointSpecifications _celPointSpecs;
     private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IObliquityHandler _obliquityHandler;
     private readonly IHorizontalHandler _horizontalHandler;
 
 
-    public SolSysPointsHandler(IAyanamshaSpecifications ayanamshaSpecifications,
+    public CelsPointsHandler(IAyanamshaSpecifications ayanamshaSpecifications,
                                ISeFlags seFlags,
-                               ISolSysPointSECalc positionSolSysPointSECalc,
-                               ISolSysPointsElementsCalc posSolSysPointsElementsCalc,
-                               ISolarSystemPointSpecifications solSysPointSpecs,
+                               ICelPointSECalc positionCelPointSECalc,
+                               ICelPointsElementsCalc posCelPointsElementsCalc,
+                               ICelPointSpecifications celPointspecs,
                                ICoTransFacade coordinateConversionFacade,
                                IObliquityHandler obliquityHandler,
                                IHorizontalHandler horizontalHandler)
     {
         _ayanamshaSpecifications = ayanamshaSpecifications;
         _seFlags = seFlags;
-        _solSysPointSECalc = positionSolSysPointSECalc;
-        _solSysPointSpecs = solSysPointSpecs;
-        _solSysPointElementsCalc = posSolSysPointsElementsCalc;
+        _celPointSECalc = positionCelPointSECalc;
+        _celPointSpecs = celPointspecs;
+        _celPointElementsCalc = posCelPointsElementsCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
         _obliquityHandler = obliquityHandler;
         _horizontalHandler = horizontalHandler;
@@ -50,7 +50,7 @@ public class SolSysPointsHandler : ISolSysPointsHandler
     }
 
 
-    public SolSysPointsResponse CalcSolSysPoints(SolSysPointsRequest request)
+    public CelPointsResponse CalcCelPoints(CelPointsRequest request)
     {
         double julDay = request.JulianDayUt;
         double previousJd = julDay - 0.5;
@@ -68,19 +68,19 @@ public class SolSysPointsHandler : ISolSysPointsHandler
         }
         int _flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
         int _flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
-        var _fullSolSysPoints = new List<FullSolSysPointPos>();
-        foreach (SolarSystemPoints solSysPoint in request.ActualCalculationPreferences.ActualSolarSystemPoints)
+        var _fullCelPoints = new List<FullCelPointPos>();
+        foreach (Domain.Enums.CelPoints celPoint in request.ActualCalculationPreferences.ActualCelPoints)
         {
-            SolarSystemPointDetails details = _solSysPointSpecs.DetailsForPoint(solSysPoint);
+            CelPointDetails details = _celPointSpecs.DetailsForPoint(celPoint);
             if (details.CalculationType == CalculationTypes.SE)
             {
-                _fullSolSysPoints.Add(CreatePosForSePoint(solSysPoint, julDay, location, _flagsEcliptical, _flagsEquatorial));
+                _fullCelPoints.Add(CreatePosForSePoint(celPoint, julDay, location, _flagsEcliptical, _flagsEquatorial));
             }
             else if (details.CalculationType == CalculationTypes.Elements)
             {
-                double[][] positions = CreatePosForElementBasedPoint(solSysPoint, julDay, location, obliquity);
-                double[][] previousPositions = CreatePosForElementBasedPoint(solSysPoint, previousJd, location, obliquity);
-                double[][] futurePositions = CreatePosForElementBasedPoint(solSysPoint, futureJd, location, obliquity);
+                double[][] positions = CreatePosForElementBasedPoint(celPoint, julDay, location, obliquity);
+                double[][] previousPositions = CreatePosForElementBasedPoint(celPoint, previousJd, location, obliquity);
+                double[][] futurePositions = CreatePosForElementBasedPoint(celPoint, futureJd, location, obliquity);
                 PosSpeed longPosSpeed = new(positions[0][0], futurePositions[0][0] - previousPositions[0][0]);
                 PosSpeed latPosSpeed = new(positions[0][1], futurePositions[0][1] - previousPositions[0][1]);
                 PosSpeed distPosSpeed = new(positions[0][2], futurePositions[0][2] - previousPositions[0][2]);
@@ -89,26 +89,26 @@ public class SolSysPointsHandler : ISolSysPointsHandler
                 EclipticCoordinates eclCoordinates = new(positions[0][0], positions[0][1]);
                 HorizontalRequest horizontalRequest = new(julDay, request.ChartLocation, eclCoordinates);
                 HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest).HorizontalAzimuthAltitude;
-                _fullSolSysPoints.Add(new FullSolSysPointPos(solSysPoint, longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, distPosSpeed, horCoord));
+                _fullCelPoints.Add(new FullCelPointPos(celPoint, longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, distPosSpeed, horCoord));
             }
         }
-        return new SolSysPointsResponse(_fullSolSysPoints, success, errorText);
+        return new CelPointsResponse(_fullCelPoints, success, errorText);
 
     }
 
-    private FullSolSysPointPos CreatePosForSePoint(SolarSystemPoints solSysPoint, double julDay, Location location, int flagsEcl, int flagsEq)
+    private FullCelPointPos CreatePosForSePoint(Domain.Enums.CelPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
-        PosSpeed[] eclipticPosSpeed = _solSysPointSECalc.CalculateSolSysPoint(solSysPoint, julDay, location, flagsEcl);
-        PosSpeed[] equatorialPosSpeed = _solSysPointSECalc.CalculateSolSysPoint(solSysPoint, julDay, location, flagsEq);
+        PosSpeed[] eclipticPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
+        PosSpeed[] equatorialPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);
         var eclCoordinates = new EclipticCoordinates(eclipticPosSpeed[0].Position, eclipticPosSpeed[1].Position);
         HorizontalRequest horizontalRequest = new(julDay, location, eclCoordinates);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest).HorizontalAzimuthAltitude;
-        return new FullSolSysPointPos(solSysPoint, eclipticPosSpeed[0], eclipticPosSpeed[1], equatorialPosSpeed[0], equatorialPosSpeed[1], eclipticPosSpeed[2], horCoord);
+        return new FullCelPointPos(celPoint, eclipticPosSpeed[0], eclipticPosSpeed[1], equatorialPosSpeed[0], equatorialPosSpeed[1], eclipticPosSpeed[2], horCoord);
     }
 
-    private double[][] CreatePosForElementBasedPoint(SolarSystemPoints solSysPoint, double julDay, Location location, double obliquity)
+    private double[][] CreatePosForElementBasedPoint(Domain.Enums.CelPoints celPoint, double julDay, Location location, double obliquity)
     {
-        double[] eclipticPos = _solSysPointElementsCalc.Calculate(solSysPoint, julDay);
+        double[] eclipticPos = _celPointElementsCalc.Calculate(celPoint, julDay);
         double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new double[] { eclipticPos[0], eclipticPos[1] }, obliquity);
         return new double[][] { eclipticPos, equatorialPos };
 

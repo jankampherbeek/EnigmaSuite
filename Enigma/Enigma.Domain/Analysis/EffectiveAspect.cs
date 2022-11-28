@@ -12,8 +12,8 @@ namespace Enigma.Domain.Analysis;
 public record EffectiveAspect
 {
     public readonly string MundanePoint;
-    public readonly SolarSystemPoints? SolSysPoint1;
-    public readonly SolarSystemPoints SolSysPoint2;
+    public readonly CelPoints? CelPoint1;
+    public readonly CelPoints CelPoint2;
     public readonly AspectDetails EffAspectDetails;
     public readonly double Orb;
     public readonly double ActualOrb;
@@ -23,15 +23,15 @@ public record EffectiveAspect
     /// Construct a mundane aspect (between cusp and celestial point).
     /// </summary>
     /// <param name="mundanePoint">String that indicates the mundane point.</param>
-    /// <param name="solSysPoint">The solar system point.</param>
+    /// <param name="celPoint">The celestial point.</param>
     /// <param name="effAspectDetails">Details for the aspect.</param>
     /// <param name="orb">The actual orb.</param>
-    public EffectiveAspect(string mundanePoint, SolarSystemPoints solSysPoint, AspectDetails effAspectDetails, double orb, double actualOrb)
+    public EffectiveAspect(string mundanePoint, CelPoints celPoint, AspectDetails effAspectDetails, double orb, double actualOrb)
     {
         IsMundane = true;
         MundanePoint = mundanePoint;
-        SolSysPoint1 = null;
-        SolSysPoint2 = solSysPoint;
+        CelPoint1 = null;
+        CelPoint2 = celPoint;
         EffAspectDetails = effAspectDetails;
         Orb = orb;
         ActualOrb = actualOrb;
@@ -40,16 +40,16 @@ public record EffectiveAspect
     /// <summary>
     /// Construct an aspect between two celestial points.
     /// </summary>
-    /// <param name="solSysPoint1">The first solar system point.</param>
-    /// <param name="solSysPoint2">The second solar system point.</param>
+    /// <param name="celPoint1">The first celestial point.</param>
+    /// <param name="celPoint2">The second celestial point.</param>
     /// <param name="effAspectDetails">Details for the aspect.</param>
     /// <param name="orb">The actual orb.</param>
-    public EffectiveAspect(SolarSystemPoints solSysPoint1, SolarSystemPoints solSysPoint2, AspectDetails effAspectDetails, double orb, double actualOrb)
+    public EffectiveAspect(CelPoints celPoint1, CelPoints celPoint2, AspectDetails effAspectDetails, double orb, double actualOrb)
     {
         IsMundane = false;
         MundanePoint = "";
-        SolSysPoint1 = solSysPoint1;
-        SolSysPoint2 = solSysPoint2;
+        CelPoint1 = celPoint1;
+        CelPoint2 = celPoint2;
         EffAspectDetails = effAspectDetails;
         Orb = orb;
         ActualOrb = actualOrb;

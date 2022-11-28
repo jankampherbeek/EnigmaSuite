@@ -40,11 +40,11 @@ public interface IChartsWheelSigns
 }
 
 
-public interface IChartsWheelSolSysPoints
+public interface IChartsWheelCelPoints
 {
-    public List<TextBlock> CreateSolSysPointGlyphs(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant);
-    public List<Line> CreateSolSysPointConnectLines(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant);
-    public List<TextBlock> CreateSolSysPointTexts(ChartsWheelMetrics metrics, List<FullSolSysPointPos> solSysPoints, Point centerPoint, double longAscendant);
+    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant);
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant);
+    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant);
 }
 
 

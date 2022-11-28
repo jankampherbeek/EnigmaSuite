@@ -78,23 +78,23 @@ public partial class AstroConfigWindow : Window
         tbBasicPointRight.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
         tbBasicOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
         tbBasicOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbTextSun.Text = _rosetta.TextForId("ref.enum.solsyspoint.sun");
-        tbTextMoon.Text = _rosetta.TextForId("ref.enum.solsyspoint.moon");
-        tbTextMercury.Text = _rosetta.TextForId("ref.enum.solsyspoint.mercury");
-        tbTextVenus.Text = _rosetta.TextForId("ref.enum.solsyspoint.venus");
-        tbTextMars.Text = _rosetta.TextForId("ref.enum.solsyspoint.mars");
-        tbTextJupiter.Text = _rosetta.TextForId("ref.enum.solsyspoint.jupiter");
-        tbTextSaturn.Text = _rosetta.TextForId("ref.enum.solsyspoint.saturn");
-        tbTextUranus.Text = _rosetta.TextForId("ref.enum.solsyspoint.uranus");
-        tbTextNeptune.Text = _rosetta.TextForId("ref.enum.solsyspoint.neptune");
-        tbTextPluto.Text = _rosetta.TextForId("ref.enum.solsyspoint.pluto");
+        tbTextSun.Text = _rosetta.TextForId("ref.enum.celpoint.sun");
+        tbTextMoon.Text = _rosetta.TextForId("ref.enum.celpoint.moon");
+        tbTextMercury.Text = _rosetta.TextForId("ref.enum.celpoint.mercury");
+        tbTextVenus.Text = _rosetta.TextForId("ref.enum.celpoint.venus");
+        tbTextMars.Text = _rosetta.TextForId("ref.enum.celpoint.mars");
+        tbTextJupiter.Text = _rosetta.TextForId("ref.enum.celpoint.jupiter");
+        tbTextSaturn.Text = _rosetta.TextForId("ref.enum.celpoint.saturn");
+        tbTextUranus.Text = _rosetta.TextForId("ref.enum.celpoint.uranus");
+        tbTextNeptune.Text = _rosetta.TextForId("ref.enum.celpoint.neptune");
+        tbTextPluto.Text = _rosetta.TextForId("ref.enum.celpoint.pluto");
         tbTextMc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.mc");
         tbTextAsc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.asc");
         tbTextVertex.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.vertex");
         tbTextEastpoint.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.eastpoint");
 
-        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.solsyspoint.parssect");
-        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.solsyspoint.parsnosect");
+        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.celpoint.parssect");
+        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.celpoint.parsnosect");
         // Tab Math and Minor points
         TitleMathMinorPoints.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpoints");
         tbMathMinorExplanation.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpointsexpl");
@@ -106,34 +106,34 @@ public partial class AstroConfigWindow : Window
         tbMathMinorPointRight.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
         tbMathMinorOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
         tbMathMinorOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbTextMeanNode.Text = _rosetta.TextForId("ref.enum.solsyspoint.meannode");
-        tbTextTrueNode.Text = _rosetta.TextForId("ref.enum.solsyspoint.truenode");
-        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.solsyspoint.zeroaries");
-        tbTextMeanBlackMoon.Text = _rosetta.TextForId("ref.enum.solsyspoint.meanblackmoon");
-        tbTextCorrBlackMoon.Text = _rosetta.TextForId("ref.enum.solsyspoint.corrblackmoon");
-        tbTextInterpolatedBlackMoon.Text = _rosetta.TextForId("ref.enum.solsyspoint.interpblackmoon");
-        tbTextDuvalBlackMoon.Text = _rosetta.TextForId("ref.enum.solsyspoint.duvalblackmoon");
+        tbTextMeanNode.Text = _rosetta.TextForId("ref.enum.celpoint.meannode");
+        tbTextTrueNode.Text = _rosetta.TextForId("ref.enum.celpoint.truenode");
+        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.celpoint.zeroaries");
+        tbTextMeanBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.meanblackmoon");
+        tbTextCorrBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.corrblackmoon");
+        tbTextInterpolatedBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.interpblackmoon");
+        tbTextDuvalBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.duvalblackmoon");
 
-        tbTextHuya.Text = _rosetta.TextForId("ref.enum.solsyspoint.huya");
-        tbTextVaruna.Text = _rosetta.TextForId("ref.enum.solsyspoint.varuna");
-        tbTextIxion.Text = _rosetta.TextForId("ref.enum.solsyspoint.ixion");
-        tbTextQuaoar.Text = _rosetta.TextForId("ref.enum.solsyspoint.quaoar");
-        tbTextHaumea.Text = _rosetta.TextForId("ref.enum.solsyspoint.haumea");
-        tbTextEris.Text = _rosetta.TextForId("ref.enum.solsyspoint.eris");
-        tbTextSedna.Text = _rosetta.TextForId("ref.enum.solsyspoint.sedna");
-        tbTextOrcus.Text = _rosetta.TextForId("ref.enum.solsyspoint.orcus");
-        tbTextMakemake.Text = _rosetta.TextForId("ref.enum.solsyspoint.makemake");
+        tbTextHuya.Text = _rosetta.TextForId("ref.enum.celpoint.huya");
+        tbTextVaruna.Text = _rosetta.TextForId("ref.enum.celpoint.varuna");
+        tbTextIxion.Text = _rosetta.TextForId("ref.enum.celpoint.ixion");
+        tbTextQuaoar.Text = _rosetta.TextForId("ref.enum.celpoint.quaoar");
+        tbTextHaumea.Text = _rosetta.TextForId("ref.enum.celpoint.haumea");
+        tbTextEris.Text = _rosetta.TextForId("ref.enum.celpoint.eris");
+        tbTextSedna.Text = _rosetta.TextForId("ref.enum.celpoint.sedna");
+        tbTextOrcus.Text = _rosetta.TextForId("ref.enum.celpoint.orcus");
+        tbTextMakemake.Text = _rosetta.TextForId("ref.enum.celpoint.makemake");
 
-        tbTextChiron.Text = _rosetta.TextForId("ref.enum.solsyspoint.chiron");
-        tbTextNessus.Text = _rosetta.TextForId("ref.enum.solsyspoint.nessus");
-        tbTextPholus.Text = _rosetta.TextForId("ref.enum.solsyspoint.pholus");
+        tbTextChiron.Text = _rosetta.TextForId("ref.enum.celpoint.chiron");
+        tbTextNessus.Text = _rosetta.TextForId("ref.enum.celpoint.nessus");
+        tbTextPholus.Text = _rosetta.TextForId("ref.enum.celpoint.pholus");
 
-        tbTextCeres.Text = _rosetta.TextForId("ref.enum.solsyspoint.ceres");
-        tbTextPallas.Text = _rosetta.TextForId("ref.enum.solsyspoint.pallas");
-        tbTextJuno.Text = _rosetta.TextForId("ref.enum.solsyspoint.juno");
-        tbTextVesta.Text = _rosetta.TextForId("ref.enum.solsyspoint.vesta");
-        tbTextHygieia.Text = _rosetta.TextForId("ref.enum.solsyspoint.hygieia");
-        tbTextAstraea.Text = _rosetta.TextForId("ref.enum.solsyspoint.astraea");
+        tbTextCeres.Text = _rosetta.TextForId("ref.enum.celpoint.ceres");
+        tbTextPallas.Text = _rosetta.TextForId("ref.enum.celpoint.pallas");
+        tbTextJuno.Text = _rosetta.TextForId("ref.enum.celpoint.juno");
+        tbTextVesta.Text = _rosetta.TextForId("ref.enum.celpoint.vesta");
+        tbTextHygieia.Text = _rosetta.TextForId("ref.enum.celpoint.hygieia");
+        tbTextAstraea.Text = _rosetta.TextForId("ref.enum.celpoint.astraea");
 
         // Tab hypothetical points
         TitleHypotheticalPoints.Text = _rosetta.TextForId("astroconfigwindow.hypotheticalpoints");
@@ -150,20 +150,20 @@ public partial class AstroConfigWindow : Window
         tbUranianFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
         tbUranianFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
 
-        tbTextCupido.Text = _rosetta.TextForId("ref.enum.solsyspoint.cupido_ura");
-        tbTextHades.Text = _rosetta.TextForId("ref.enum.solsyspoint.hades_ura");
-        tbTextZeus.Text = _rosetta.TextForId("ref.enum.solsyspoint.zeus_ura");
-        tbTextKronos.Text = _rosetta.TextForId("ref.enum.solsyspoint.kronos_ura");
-        tbTextApollon.Text = _rosetta.TextForId("ref.enum.solsyspoint.apollon_ura");
-        tbTextAdmetos.Text = _rosetta.TextForId("ref.enum.solsyspoint.admetos_ura");
-        tbTextVulkanusUra.Text = _rosetta.TextForId("ref.enum.solsyspoint.vulcanus_ura");
-        tbTextPoseidon.Text = _rosetta.TextForId("ref.enum.solsyspoint.poseidon_ura");
-        tbTextPersephoneRam.Text = _rosetta.TextForId("ref.enum.solsyspoint.persephone_ram");
-        tbTextHermes.Text = _rosetta.TextForId("ref.enum.solsyspoint.hermes_ram");
-        tbTextDemeter.Text = _rosetta.TextForId("ref.enum.solsyspoint.demeter_ram");
-        tbTextVulcanusCarteret.Text = _rosetta.TextForId("ref.enum.solsyspoint.vulcanus_carteret");
-        tbTextPersephoneCarteret.Text = _rosetta.TextForId("ref.enum.solsyspoint.persephone_carteret");
-        tbTextTransPluto.Text = _rosetta.TextForId("ref.enum.solsyspoint.transpluto");
+        tbTextCupido.Text = _rosetta.TextForId("ref.enum.celpoint.cupido_ura");
+        tbTextHades.Text = _rosetta.TextForId("ref.enum.celpoint.hades_ura");
+        tbTextZeus.Text = _rosetta.TextForId("ref.enum.celpoint.zeus_ura");
+        tbTextKronos.Text = _rosetta.TextForId("ref.enum.celpoint.kronos_ura");
+        tbTextApollon.Text = _rosetta.TextForId("ref.enum.celpoint.apollon_ura");
+        tbTextAdmetos.Text = _rosetta.TextForId("ref.enum.celpoint.admetos_ura");
+        tbTextVulkanusUra.Text = _rosetta.TextForId("ref.enum.celpoint.vulcanus_ura");
+        tbTextPoseidon.Text = _rosetta.TextForId("ref.enum.celpoint.poseidon_ura");
+        tbTextPersephoneRam.Text = _rosetta.TextForId("ref.enum.celpoint.persephone_ram");
+        tbTextHermes.Text = _rosetta.TextForId("ref.enum.celpoint.hermes_ram");
+        tbTextDemeter.Text = _rosetta.TextForId("ref.enum.celpoint.demeter_ram");
+        tbTextVulcanusCarteret.Text = _rosetta.TextForId("ref.enum.celpoint.vulcanus_carteret");
+        tbTextPersephoneCarteret.Text = _rosetta.TextForId("ref.enum.celpoint.persephone_carteret");
+        tbTextTransPluto.Text = _rosetta.TextForId("ref.enum.celpoint.transpluto");
 
         // Tab aspects
         TitleAspects.Text = _rosetta.TextForId("astroconfigwindow.aspects");
@@ -203,67 +203,67 @@ public partial class AstroConfigWindow : Window
 
     private void PopulateGlyphs()
     {
-        tbGlyphSun.Text = _controller.DefineGlyph(SolarSystemPoints.Sun);
-        tbGlyphMoon.Text = _controller.DefineGlyph(SolarSystemPoints.Moon);
-        tbGlyphMercury.Text = _controller.DefineGlyph(SolarSystemPoints.Mercury);
-        tbGlyphVenus.Text = _controller.DefineGlyph(SolarSystemPoints.Venus);
-        tbGlyphMars.Text = _controller.DefineGlyph(SolarSystemPoints.Mars);
-        tbGlyphJupiter.Text = _controller.DefineGlyph(SolarSystemPoints.Jupiter);
-        tbGlyphSaturn.Text = _controller.DefineGlyph(SolarSystemPoints.Saturn);
-        tbGlyphUranus.Text = _controller.DefineGlyph(SolarSystemPoints.Uranus);
-        tbGlyphNeptune.Text = _controller.DefineGlyph(SolarSystemPoints.Neptune);
-        tbGlyphPluto.Text = _controller.DefineGlyph(SolarSystemPoints.Pluto);
+        tbGlyphSun.Text = _controller.DefineGlyph(CelPoints.Sun);
+        tbGlyphMoon.Text = _controller.DefineGlyph(CelPoints.Moon);
+        tbGlyphMercury.Text = _controller.DefineGlyph(CelPoints.Mercury);
+        tbGlyphVenus.Text = _controller.DefineGlyph(CelPoints.Venus);
+        tbGlyphMars.Text = _controller.DefineGlyph(CelPoints.Mars);
+        tbGlyphJupiter.Text = _controller.DefineGlyph(CelPoints.Jupiter);
+        tbGlyphSaturn.Text = _controller.DefineGlyph(CelPoints.Saturn);
+        tbGlyphUranus.Text = _controller.DefineGlyph(CelPoints.Uranus);
+        tbGlyphNeptune.Text = _controller.DefineGlyph(CelPoints.Neptune);
+        tbGlyphPluto.Text = _controller.DefineGlyph(CelPoints.Pluto);
         tbGlyphMc.Text = _controller.DefineGlyph(MundanePoints.Mc);
         tbGlyphAsc.Text = _controller.DefineGlyph(MundanePoints.Ascendant);
         tbGlyphVertex.Text = _controller.DefineGlyph(MundanePoints.Vertex);
         tbGlyphEastpoint.Text = _controller.DefineGlyph(MundanePoints.EastPoint);
 
-        tbGlyphParsSect.Text = _controller.DefineGlyph(SolarSystemPoints.ParsFortunaSect);
-        tbGlyphParsNoSect.Text = _controller.DefineGlyph(SolarSystemPoints.ParsFortunaNoSect);
+        tbGlyphParsSect.Text = _controller.DefineGlyph(CelPoints.ParsFortunaSect);
+        tbGlyphParsNoSect.Text = _controller.DefineGlyph(CelPoints.ParsFortunaNoSect);
 
-        tbGlyphMeanNode.Text = _controller.DefineGlyph(SolarSystemPoints.MeanNode);
-        tbGlyphTrueNode.Text = _controller.DefineGlyph(SolarSystemPoints.TrueNode);
-        tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeMean);
-        tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeCorrected);
-        tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeInterpolated);
-        tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(SolarSystemPoints.ApogeeDuval);
-        tbGlyphZeroAries.Text = _controller.DefineGlyph(SolarSystemPoints.ZeroAries);
+        tbGlyphMeanNode.Text = _controller.DefineGlyph(CelPoints.MeanNode);
+        tbGlyphTrueNode.Text = _controller.DefineGlyph(CelPoints.TrueNode);
+        tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeMean);
+        tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeCorrected);
+        tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeInterpolated);
+        tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeDuval);
+        tbGlyphZeroAries.Text = _controller.DefineGlyph(CelPoints.ZeroAries);
 
-        tbGlyphHuya.Text = _controller.DefineGlyph(SolarSystemPoints.Huya);
-        tbGlyphVaruna.Text = _controller.DefineGlyph(SolarSystemPoints.Varuna);
-        tbGlyphIxion.Text = _controller.DefineGlyph(SolarSystemPoints.Ixion);
-        tbGlyphQuaoar.Text = _controller.DefineGlyph(SolarSystemPoints.Quaoar);
-        tbGlyphHaumea.Text = _controller.DefineGlyph(SolarSystemPoints.Haumea);
-        tbGlyphEris.Text = _controller.DefineGlyph(SolarSystemPoints.Eris);
-        tbGlyphSedna.Text = _controller.DefineGlyph(SolarSystemPoints.Sedna);
-        tbGlyphOrcus.Text = _controller.DefineGlyph(SolarSystemPoints.Orcus);
-        tbGlyphMakemake.Text = _controller.DefineGlyph(SolarSystemPoints.Makemake);
+        tbGlyphHuya.Text = _controller.DefineGlyph(CelPoints.Huya);
+        tbGlyphVaruna.Text = _controller.DefineGlyph(CelPoints.Varuna);
+        tbGlyphIxion.Text = _controller.DefineGlyph(CelPoints.Ixion);
+        tbGlyphQuaoar.Text = _controller.DefineGlyph(CelPoints.Quaoar);
+        tbGlyphHaumea.Text = _controller.DefineGlyph(CelPoints.Haumea);
+        tbGlyphEris.Text = _controller.DefineGlyph(CelPoints.Eris);
+        tbGlyphSedna.Text = _controller.DefineGlyph(CelPoints.Sedna);
+        tbGlyphOrcus.Text = _controller.DefineGlyph(CelPoints.Orcus);
+        tbGlyphMakemake.Text = _controller.DefineGlyph(CelPoints.Makemake);
 
-        tbGlyphChiron.Text = _controller.DefineGlyph(SolarSystemPoints.Chiron);
-        tbGlyphNessus.Text = _controller.DefineGlyph(SolarSystemPoints.Nessus);
-        tbGlyphPholus.Text = _controller.DefineGlyph(SolarSystemPoints.Pholus);
+        tbGlyphChiron.Text = _controller.DefineGlyph(CelPoints.Chiron);
+        tbGlyphNessus.Text = _controller.DefineGlyph(CelPoints.Nessus);
+        tbGlyphPholus.Text = _controller.DefineGlyph(CelPoints.Pholus);
 
-        tbGlyphCeres.Text = _controller.DefineGlyph(SolarSystemPoints.Ceres);
-        tbGlyphPallas.Text = _controller.DefineGlyph(SolarSystemPoints.Pallas);
-        tbGlyphJuno.Text = _controller.DefineGlyph(SolarSystemPoints.Juno);
-        tbGlyphVesta.Text = _controller.DefineGlyph(SolarSystemPoints.Vesta);
-        tbGlyphHygieia.Text = _controller.DefineGlyph(SolarSystemPoints.Hygieia);
-        tbGlyphAstraea.Text = _controller.DefineGlyph(SolarSystemPoints.Astraea);
+        tbGlyphCeres.Text = _controller.DefineGlyph(CelPoints.Ceres);
+        tbGlyphPallas.Text = _controller.DefineGlyph(CelPoints.Pallas);
+        tbGlyphJuno.Text = _controller.DefineGlyph(CelPoints.Juno);
+        tbGlyphVesta.Text = _controller.DefineGlyph(CelPoints.Vesta);
+        tbGlyphHygieia.Text = _controller.DefineGlyph(CelPoints.Hygieia);
+        tbGlyphAstraea.Text = _controller.DefineGlyph(CelPoints.Astraea);
 
-        tbGlyphCupido.Text = _controller.DefineGlyph(SolarSystemPoints.CupidoUra);
-        tbGlyphHades.Text = _controller.DefineGlyph(SolarSystemPoints.HadesUra);
-        tbGlyphZeus.Text = _controller.DefineGlyph(SolarSystemPoints.ZeusUra);
-        tbGlyphKronos.Text = _controller.DefineGlyph(SolarSystemPoints.KronosUra);
-        tbGlyphApollon.Text = _controller.DefineGlyph(SolarSystemPoints.ApollonUra);
-        tbGlyphAdmetos.Text = _controller.DefineGlyph(SolarSystemPoints.AdmetosUra);
-        tbGlyphVulkanusUra.Text = _controller.DefineGlyph(SolarSystemPoints.VulcanusUra);
-        tbGlyphPoseidon.Text = _controller.DefineGlyph(SolarSystemPoints.PoseidonUra);
-        tbGlyphPersephoneRam.Text = _controller.DefineGlyph(SolarSystemPoints.PersephoneRam);
-        tbGlyphHermes.Text = _controller.DefineGlyph(SolarSystemPoints.HermesRam);
-        tbGlyphDemeter.Text = _controller.DefineGlyph(SolarSystemPoints.DemeterRam);
-        tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(SolarSystemPoints.VulcanusCarteret);
-        tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(SolarSystemPoints.PersephoneCarteret);
-        tbGlyphTransPluto.Text = _controller.DefineGlyph(SolarSystemPoints.Isis);
+        tbGlyphCupido.Text = _controller.DefineGlyph(CelPoints.CupidoUra);
+        tbGlyphHades.Text = _controller.DefineGlyph(CelPoints.HadesUra);
+        tbGlyphZeus.Text = _controller.DefineGlyph(CelPoints.ZeusUra);
+        tbGlyphKronos.Text = _controller.DefineGlyph(CelPoints.KronosUra);
+        tbGlyphApollon.Text = _controller.DefineGlyph(CelPoints.ApollonUra);
+        tbGlyphAdmetos.Text = _controller.DefineGlyph(CelPoints.AdmetosUra);
+        tbGlyphVulkanusUra.Text = _controller.DefineGlyph(CelPoints.VulcanusUra);
+        tbGlyphPoseidon.Text = _controller.DefineGlyph(CelPoints.PoseidonUra);
+        tbGlyphPersephoneRam.Text = _controller.DefineGlyph(CelPoints.PersephoneRam);
+        tbGlyphHermes.Text = _controller.DefineGlyph(CelPoints.HermesRam);
+        tbGlyphDemeter.Text = _controller.DefineGlyph(CelPoints.DemeterRam);
+        tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(CelPoints.VulcanusCarteret);
+        tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(CelPoints.PersephoneCarteret);
+        tbGlyphTransPluto.Text = _controller.DefineGlyph(CelPoints.Isis);
 
         tbGlyphConjunction.Text = _controller.DefineGlyph(AspectTypes.Conjunction);
         tbGlyphOpposition.Text = _controller.DefineGlyph(AspectTypes.Opposition);
@@ -586,66 +586,66 @@ public partial class AstroConfigWindow : Window
     {
         List<CelPointSpecs> celPointSpecs = new()
         {
-            DefineSingleCelPointSpec(SolarSystemPoints.Sun, tboxSunFactor.Text, cboxSun.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Moon, tboxMoonFactor.Text, cboxMoon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Mercury, tboxMercuryFactor.Text, cboxMercury.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Venus, tboxVenusFactor.Text, cboxVenus.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Earth, "100", false),                                       // TODO 0.4 handle earth for heliocentric
-            DefineSingleCelPointSpec(SolarSystemPoints.Mars, tboxMarsFactor.Text, cboxMars.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Jupiter, tboxJupiterFactor.Text, cboxJupiter.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Saturn, tboxSaturnFactor.Text, cboxSaturn.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Uranus, tboxUranusFactor.Text, cboxUranus.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Neptune, tboxNeptuneFactor.Text, cboxNeptune.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Pluto, tboxPlutoFactor.Text, cboxPluto.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.MeanNode, tboxMeanNodeFactor.Text, cboxMeanNode.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.TrueNode, tboxTrueNodeFactor.Text, cboxTrueNode.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Chiron, tboxChironFactor.Text, cboxChiron.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.PersephoneRam, tboxPersephoneRamFactor.Text, cboxPersephoneRam.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.DemeterRam, tboxDemeterFactor.Text, cboxDemeter.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.HermesRam, tboxHermesFactor.Text, cboxHermes.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.CupidoUra, tboxCupidoFactor.Text, cboxCupido.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.HadesUra, tboxHadesFactor.Text, cboxHades.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ZeusUra, tboxZeusFactor.Text, cboxZeus.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.KronosUra, tboxKronosFactor.Text, cboxKronos.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ApollonUra, tboxApollonFactor.Text, cboxApollon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.AdmetosUra, tboxAdmetosFactor.Text, cboxAdmetos.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.VulcanusUra, tboxVulkanusUraFactor.Text, cboxVulkanusUra.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.PoseidonUra, tboxPoseidonFactor.Text, cboxPoseidon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Eris, tboxErisFactor.Text, cboxEris.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Pholus, tboxPholusFactor.Text, cboxPholus.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Ceres, tboxCeresFactor.Text, cboxCeres.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Pallas, tboxPallasFactor.Text, cboxPallas.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Juno, tboxJunoFactor.Text, cboxJuno.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Vesta, tboxVestaFactor.Text, cboxVesta.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Isis, tboxTransPlutoFactor.Text, cboxTransPluto.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Nessus, tboxNessusFactor.Text, cboxNessus.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Huya, tboxHuyaFactor.Text, cboxHuya.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Varuna, tboxVarunaFactor.Text, cboxVaruna.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Ixion, tboxIxionFactor.Text, cboxIxion.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Quaoar, tboxQuaoarFactor.Text, cboxQuaoar.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Haumea, tboxHaumeaFactor.Text, cboxHaumea.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Orcus, tboxOrcusFactor.Text, cboxOrcus.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Makemake, tboxMakemakeFactor.Text, cboxMakemake.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Sedna, tboxSednaFactor.Text, cboxSedna.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Hygieia, tboxHygieiaFactor.Text, cboxHygieia.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.Astraea, tboxAstraeaFactor.Text, cboxAstraea.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeMean, tboxMeanBlackMoonFactor.Text, cboxMeanBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeCorrected, tboxCorrBlackMoonFactor.Text, cboxCorrBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeInterpolated, tboxInterpolatedBlackMoonFactor.Text, cboxInterpolatedBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ApogeeDuval, tboxDuvalBlackMoonFactor.Text, cboxDuvalBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ParsFortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.ParsFortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.PersephoneCarteret, tboxPersephoneCarteretFactor.Text, cboxPersephoneCarteret.IsChecked),
-            DefineSingleCelPointSpec(SolarSystemPoints.VulcanusCarteret, tboxVulcanusCarteretFactor.Text, cboxVulcanusCarteret.IsChecked)
+            DefineSingleCelPointSpec(CelPoints.Sun, tboxSunFactor.Text, cboxSun.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Moon, tboxMoonFactor.Text, cboxMoon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Mercury, tboxMercuryFactor.Text, cboxMercury.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Venus, tboxVenusFactor.Text, cboxVenus.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Earth, "100", false),                                       // TODO 0.4 handle earth for heliocentric
+            DefineSingleCelPointSpec(CelPoints.Mars, tboxMarsFactor.Text, cboxMars.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Jupiter, tboxJupiterFactor.Text, cboxJupiter.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Saturn, tboxSaturnFactor.Text, cboxSaturn.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Uranus, tboxUranusFactor.Text, cboxUranus.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Neptune, tboxNeptuneFactor.Text, cboxNeptune.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Pluto, tboxPlutoFactor.Text, cboxPluto.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.MeanNode, tboxMeanNodeFactor.Text, cboxMeanNode.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.TrueNode, tboxTrueNodeFactor.Text, cboxTrueNode.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Chiron, tboxChironFactor.Text, cboxChiron.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.PersephoneRam, tboxPersephoneRamFactor.Text, cboxPersephoneRam.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.DemeterRam, tboxDemeterFactor.Text, cboxDemeter.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.HermesRam, tboxHermesFactor.Text, cboxHermes.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.CupidoUra, tboxCupidoFactor.Text, cboxCupido.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.HadesUra, tboxHadesFactor.Text, cboxHades.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ZeusUra, tboxZeusFactor.Text, cboxZeus.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.KronosUra, tboxKronosFactor.Text, cboxKronos.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ApollonUra, tboxApollonFactor.Text, cboxApollon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.AdmetosUra, tboxAdmetosFactor.Text, cboxAdmetos.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.VulcanusUra, tboxVulkanusUraFactor.Text, cboxVulkanusUra.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.PoseidonUra, tboxPoseidonFactor.Text, cboxPoseidon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Eris, tboxErisFactor.Text, cboxEris.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Pholus, tboxPholusFactor.Text, cboxPholus.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Ceres, tboxCeresFactor.Text, cboxCeres.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Pallas, tboxPallasFactor.Text, cboxPallas.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Juno, tboxJunoFactor.Text, cboxJuno.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Vesta, tboxVestaFactor.Text, cboxVesta.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Isis, tboxTransPlutoFactor.Text, cboxTransPluto.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Nessus, tboxNessusFactor.Text, cboxNessus.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Huya, tboxHuyaFactor.Text, cboxHuya.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Varuna, tboxVarunaFactor.Text, cboxVaruna.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Ixion, tboxIxionFactor.Text, cboxIxion.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Quaoar, tboxQuaoarFactor.Text, cboxQuaoar.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Haumea, tboxHaumeaFactor.Text, cboxHaumea.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Orcus, tboxOrcusFactor.Text, cboxOrcus.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Makemake, tboxMakemakeFactor.Text, cboxMakemake.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Sedna, tboxSednaFactor.Text, cboxSedna.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Hygieia, tboxHygieiaFactor.Text, cboxHygieia.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.Astraea, tboxAstraeaFactor.Text, cboxAstraea.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ApogeeMean, tboxMeanBlackMoonFactor.Text, cboxMeanBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ApogeeCorrected, tboxCorrBlackMoonFactor.Text, cboxCorrBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ApogeeInterpolated, tboxInterpolatedBlackMoonFactor.Text, cboxInterpolatedBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ApogeeDuval, tboxDuvalBlackMoonFactor.Text, cboxDuvalBlackMoon.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ParsFortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.ParsFortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.PersephoneCarteret, tboxPersephoneCarteretFactor.Text, cboxPersephoneCarteret.IsChecked),
+            DefineSingleCelPointSpec(CelPoints.VulcanusCarteret, tboxVulcanusCarteretFactor.Text, cboxVulcanusCarteret.IsChecked)
         };
         return celPointSpecs;
     }
 
-    private CelPointSpecs DefineSingleCelPointSpec(SolarSystemPoints solSysPoint, string orbFactorText, bool? isUsed)
+    private CelPointSpecs DefineSingleCelPointSpec(CelPoints celPoint, string orbFactorText, bool? isUsed)
     {
         int orbFactorValue = Convert.ToInt32(orbFactorText, CultureInfo.InvariantCulture);
-        return new CelPointSpecs(solSysPoint, orbFactorValue, isUsed ?? false);
+        return new CelPointSpecs(celPoint, orbFactorValue, isUsed ?? false);
     }
 
     private List<AspectSpecs> DefineAspectSpecs()

@@ -17,15 +17,15 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class AspectForDataGridFactory : IAspectForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
     private readonly IAspectSpecifications _aspectSpecifications;
 
     public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
-        ISolarSystemPointSpecifications solarSystemPointSpecifications,
+        ICelPointSpecifications celPointSpecifications,
         IAspectSpecifications aspectSpecifications)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
         _aspectSpecifications = aspectSpecifications;
     }
 
@@ -48,12 +48,12 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
         {
             firstPoint = effAspect.MundanePoint;
         }
-        else if (effAspect.SolSysPoint1 != null)
+        else if (effAspect.CelPoint1 != null)
         {
-            firstPoint = _solarSystemPointSpecifications.DetailsForPoint((SolarSystemPoints)effAspect.SolSysPoint1).DefaultGlyph;
+            firstPoint = _celPointSpecifications.DetailsForPoint((CelPoints)effAspect.CelPoint1).DefaultGlyph;
         }
         string aspectGlyph = _aspectSpecifications.DetailsForAspect(effAspect.EffAspectDetails.Aspect).Glyph;
-        string secondPoint = _solarSystemPointSpecifications.DetailsForPoint(effAspect.SolSysPoint2).DefaultGlyph;
+        string secondPoint = _celPointSpecifications.DetailsForPoint(effAspect.CelPoint2).DefaultGlyph;
 
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.Orb);
         double exactnessValue = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);

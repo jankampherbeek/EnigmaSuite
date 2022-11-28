@@ -25,9 +25,9 @@ public class AspectChecker : IAspectChecker
 
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsForSolSysPoints(CalculatedChart calculatedChart)
+    public List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart)
     {
-        return AspectsForSolSysPoints(calculatedChart);
+        return AspectsForCelPoints(calculatedChart);
     }
 
     /// <inheritdoc/>
@@ -57,29 +57,29 @@ public class AspectChecker : IAspectChecker
         return aspectDetails;
     }
 
-    private List<EffectiveAspect> AspectsForSolSysPoints(CalculatedChart calculatedChart)
+    private List<EffectiveAspect> AspectsForCelPoints(CalculatedChart calculatedChart)
     {
         var effectiveAspects = new List<EffectiveAspect>();
         List<AspectDetails> supportedAspects = DefineSupportedAspects();
 
-        List<FullSolSysPointPos> solSysPointPositions = calculatedChart.SolSysPointPositions;
-        int count = solSysPointPositions.Count;
+        List<FullCelPointPos> celPointPositions = calculatedChart.CelPointPositions;
+        int count = celPointPositions.Count;
         for (int i = 0; i < count; i++)
         {
-            var solSysPointPos1 = solSysPointPositions[i];
-            for (int j = i + 1; j < solSysPointPositions.Count; j++)
+            var celPointPos1 = celPointPositions[i];
+            for (int j = i + 1; j < celPointPositions.Count; j++)
             {
-                var solSysPointPos2 = solSysPointPositions[j];
-                double distance = NormalizeDistance(solSysPointPos1.Longitude.Position - solSysPointPos2.Longitude.Position);
+                var celPointPos2 = celPointPositions[j];
+                double distance = NormalizeDistance(celPointPos1.Longitude.Position - celPointPos2.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     AspectDetails aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double maxOrb = _orbConstructor.DefineOrb(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck);
+                    double maxOrb = _orbConstructor.DefineOrb(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck);
                     double actualOrb = Math.Abs(angle - distance);
                     if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(solSysPointPos1.SolarSystemPoint, solSysPointPos2.SolarSystemPoint, aspectToCheck, maxOrb, actualOrb));
+                        effectiveAspects.Add(new EffectiveAspect(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }
@@ -91,27 +91,27 @@ public class AspectChecker : IAspectChecker
     {
         var effectiveAspects = new List<EffectiveAspect>();
         List<AspectDetails> supportedAspects = DefineSupportedAspects();
-        List<FullSolSysPointPos> solSysPointPositions = calculatedChart.SolSysPointPositions;
+        List<FullCelPointPos> celPointPositions = calculatedChart.CelPointPositions;
         var mundanePointPositions = new List<String>() { "MC", "ASC" };
         int countMundanePoints = mundanePointPositions.Count;
-        int countSolSysPoints = solSysPointPositions.Count;
+        int countCelPoints = celPointPositions.Count;
         for (int i = 0; i < countMundanePoints; i++)
         {
             string mPointTxt = mundanePointPositions[i];
             double mLong = mPointTxt == "MC" ? calculatedChart.FullHousePositions.Mc.Longitude : calculatedChart.FullHousePositions.Ascendant.Longitude;
-            for (int j = 0; j < countSolSysPoints; j++)
+            for (int j = 0; j < countCelPoints; j++)
             {
-                var ssPoint = solSysPointPositions[j];
+                var ssPoint = celPointPositions[j];
                 double distance = NormalizeDistance(mLong - ssPoint.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     var aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double maxOrb = _orbConstructor.DefineOrb(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck);
+                    double maxOrb = _orbConstructor.DefineOrb(mPointTxt, ssPoint.CelPoint, aspectToCheck);
                     double actualOrb = Math.Abs(angle - distance);
                     if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(mPointTxt, ssPoint.SolarSystemPoint, aspectToCheck, maxOrb, actualOrb));
+                        effectiveAspects.Add(new EffectiveAspect(mPointTxt, ssPoint.CelPoint, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }

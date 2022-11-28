@@ -2,11 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Calc.CelPoints.ObliqueLongitude;
+using Enigma.Core.Work.Calc.CelestialPoints.ObliqueLongitude;
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 
-namespace Enigma.Test.Core.Work.Calc.CelPoins;
+namespace Enigma.Test.Core.Work.Calc.CelestialPoints;
 
 
 

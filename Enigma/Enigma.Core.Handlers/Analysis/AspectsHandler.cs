@@ -26,8 +26,8 @@ class AspectsHandler : IAspectsHandler
     }
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> AspectsForSolSysPoints(AspectRequest request)
+    public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request)
     {
-        return _aspectChecker.FindAspectsForSolSysPoints(request.CalcChart);
+        return _aspectChecker.FindAspectsCelPoints(request.CalcChart);
     }
 }

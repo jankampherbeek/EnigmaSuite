@@ -9,16 +9,16 @@ namespace Enigma.Domain.Analysis;
 
 
 /// <summary>
-/// Default orb factor for a Solaar System Point.
+/// Default orb factor for a celestial point.
 /// </summary>
-public record SolSysPointOrb
+public record CelPointOrb
 {
-    public readonly SolarSystemPoints SolSysPoint;
+    public readonly CelPoints CelPoint;
     public readonly double OrbFactor;
 
-    public SolSysPointOrb(SolarSystemPoints solSysPoint, double orbFactor)
+    public CelPointOrb(CelPoints celPoint, double orbFactor)
     {
-        SolSysPoint = solSysPoint;
+        CelPoint = celPoint;
         OrbFactor = orbFactor;
     }
 }
@@ -42,37 +42,37 @@ public record MundanePointOrb
 public class OrbDefinitions : IOrbDefinitions
 {
 
-    public SolSysPointOrb DefineSolSysPointOrb(SolarSystemPoints solSysPoint)
+    public CelPointOrb DefineCelPointOrb(CelPoints celPoint)
     {
-        return solSysPoint switch
+        return celPoint switch
         {
-            SolarSystemPoints.Sun => new SolSysPointOrb(solSysPoint, 1.0),
-            SolarSystemPoints.Moon => new SolSysPointOrb(solSysPoint, 1.0),
-            SolarSystemPoints.Mercury => new SolSysPointOrb(solSysPoint, 0.9),
-            SolarSystemPoints.Venus => new SolSysPointOrb(solSysPoint, 0.9),
-            SolarSystemPoints.Earth => new SolSysPointOrb(solSysPoint, 1.0),
-            SolarSystemPoints.Mars => new SolSysPointOrb(solSysPoint, 0.9),
-            SolarSystemPoints.Jupiter => new SolSysPointOrb(solSysPoint, 0.7),
-            SolarSystemPoints.Saturn => new SolSysPointOrb(solSysPoint, 0.7),
-            SolarSystemPoints.Uranus => new SolSysPointOrb(solSysPoint, 0.6),
-            SolarSystemPoints.Neptune => new SolSysPointOrb(solSysPoint, 0.6),
-            SolarSystemPoints.Pluto => new SolSysPointOrb(solSysPoint, 0.6),
-            SolarSystemPoints.MeanNode => new SolSysPointOrb(solSysPoint, 0.3),
-            SolarSystemPoints.TrueNode => new SolSysPointOrb(solSysPoint, 0.3),
-            SolarSystemPoints.Chiron => new SolSysPointOrb(solSysPoint, 0.3),
-            SolarSystemPoints.PersephoneRam => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.HermesRam => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.DemeterRam => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.CupidoUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.HadesUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.ZeusUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.KronosUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.ApollonUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.AdmetosUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.VulcanusUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.PoseidonUra => new SolSysPointOrb(solSysPoint, 0.0),
-            SolarSystemPoints.Eris => new SolSysPointOrb(solSysPoint, 0.3),
-            _ => throw new ArgumentException("Orb definition for solar system point unknown : " + solSysPoint.ToString())
+            CelPoints.Sun => new CelPointOrb(celPoint, 1.0),
+            CelPoints.Moon => new CelPointOrb(celPoint, 1.0),
+            CelPoints.Mercury => new CelPointOrb(celPoint, 0.9),
+            CelPoints.Venus => new CelPointOrb(celPoint, 0.9),
+            CelPoints.Earth => new CelPointOrb(celPoint, 1.0),
+            CelPoints.Mars => new CelPointOrb(celPoint, 0.9),
+            CelPoints.Jupiter => new CelPointOrb(celPoint, 0.7),
+            CelPoints.Saturn => new CelPointOrb(celPoint, 0.7),
+            CelPoints.Uranus => new CelPointOrb(celPoint, 0.6),
+            CelPoints.Neptune => new CelPointOrb(celPoint, 0.6),
+            CelPoints.Pluto => new CelPointOrb(celPoint, 0.6),
+            CelPoints.MeanNode => new CelPointOrb(celPoint, 0.3),
+            CelPoints.TrueNode => new CelPointOrb(celPoint, 0.3),
+            CelPoints.Chiron => new CelPointOrb(celPoint, 0.3),
+            CelPoints.PersephoneRam => new CelPointOrb(celPoint, 0.0),
+            CelPoints.HermesRam => new CelPointOrb(celPoint, 0.0),
+            CelPoints.DemeterRam => new CelPointOrb(celPoint, 0.0),
+            CelPoints.CupidoUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.HadesUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.ZeusUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.KronosUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.ApollonUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.AdmetosUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.VulcanusUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.PoseidonUra => new CelPointOrb(celPoint, 0.0),
+            CelPoints.Eris => new CelPointOrb(celPoint, 0.3),
+            _ => throw new ArgumentException("Orb definition for celestial point unknown : " + celPoint.ToString())
         };
     }
 

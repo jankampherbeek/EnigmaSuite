@@ -10,7 +10,7 @@ public static class EnigmaConstants
 {
     // Version info
     public const string ENIGMA_VERSION = "0.1.0";
-    // SE solar system points. _RAM = School of Ram, _URA = Uranian.
+    // SE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;
     /// <summary>SE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
@@ -107,7 +107,7 @@ public static class EnigmaConstants
     public const int SE_ZEUS_URA = 42;
 
 
-    // Solar System points that are not calculated with the Swiss Ephemeris
+    // Celestial points that are not calculated with the Swiss Ephemeris
     /// <summary>Apogee, approximately according to Max Duval, formula's by Cees Jansen.</summary>
     public const int NON_SE_DUVAL_APOGEE = 105;
     /// <summary>Pars Fortunae, omitting effect of sect.</summary>

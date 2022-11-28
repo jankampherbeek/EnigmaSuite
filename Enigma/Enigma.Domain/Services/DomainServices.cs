@@ -30,8 +30,8 @@ public static class DomainServices
         serviceCollection.AddTransient<IOrbMethodSpecifications, OrbMethodSpecifications>();
         serviceCollection.AddTransient<IProjectionTypeSpecifications, ProjectionTypeSpecifications>();
         serviceCollection.AddTransient<IRoddenRatingSpecifications, RoddenRatingSpecifications>();
-        serviceCollection.AddTransient<ISolarSystemPointSpecifications, SolarSystemPointSpecifications>();
-        serviceCollection.AddTransient<ISolSysPointCatSpecifications, SolSysPointCatSpecifications>();
+        serviceCollection.AddTransient<ICelPointSpecifications, CelPointSpecifications>();
+        serviceCollection.AddTransient<ICelPointCatSpecifications, CelPointCatSpecifications>();
         serviceCollection.AddTransient<ITimeZoneSpecifications, TimeZoneSpecifications>();
         serviceCollection.AddTransient<IYearCountSpecifications, YearCountSpecifications>();
         serviceCollection.AddTransient<IZodiacalPointSpecifications, ZodiacalPointSpecifications>();

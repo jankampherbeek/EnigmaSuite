@@ -20,12 +20,12 @@ public interface IAspectForDataGridFactory
 
 public interface IAspectForWheelFactory
 {
-    /// <summary>Builds a drawable aspect between two solar system points, that can be used in a wheel.</summary>
+    /// <summary>Builds a drawable aspect between two celestial points, that can be used in a wheel.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Drawable aspects.</returns>
-    List<DrawableSolSysPointAspect> CreateSolSysAspectForWheel(List<EffectiveAspect> aspects);
+    List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<EffectiveAspect> aspects);
 
-    /// <summary>Builds a drawable aspect between a mundane point and a solar system point, that can be used in a wheel.</summary>
+    /// <summary>Builds a drawable aspect between a mundane point and a celestial point, that can be used in a wheel.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Drawable aspects.</returns>
     List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<EffectiveAspect> aspects);
@@ -49,7 +49,7 @@ public interface IMidpointForDataGridFactory
 
 public interface ICelPointForDataGridFactory
 {
-    List<PresentableSolSysPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions);
+    List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullCelPointPos> celPointPositions);
 }
 
 
@@ -77,9 +77,9 @@ public interface IHousePosForDataGridFactory
 }
 
 
-public interface ISortedGraphicSolSysPointsFactory
+public interface ISortedGraphicCelPointsFactory
 {
-    public List<GraphicSolSysPointPositions> CreateSortedList(List<FullSolSysPointPos> solSysPointPositions, double longitudeAsc, double minDistance);
+    public List<GraphicCelPointPositions> CreateSortedList(List<FullCelPointPos> celPointPositions, double longitudeAsc, double minDistance);
 }
 
 public interface IRangeCheck

@@ -7,22 +7,22 @@ using Enigma.Domain.Enums;
 
 namespace Enigma.Domain.Charts;
 
-/// <summary>Aspect, between two solar system points, to be shown in a chart wheel.</summary>
-public record DrawableSolSysPointAspect
+/// <summary>Aspect, between two celestial points, to be shown in a chart wheel.</summary>
+public record DrawableCelPointAspect
 {
-    public SolarSystemPoints Point1 { get; }
-    public SolarSystemPoints Point2 { get; }
+    public CelPoints Point1 { get; }
+    public CelPoints Point2 { get; }
     public double Exactness { get; }
     public AspectTypes AspectType { get; }
 
     /// <summary>
-    /// Constructor for a drawable aspect between 2 solar system points.
+    /// Constructor for a drawable aspect between 2 celestial points.
     /// </summary>
-    /// <param name="point1">The first solar system point.</param>
-    /// <param name="point2">The second solar system point.</param>
+    /// <param name="point1">The first celestial point.</param>
+    /// <param name="point2">The second celestial point.</param>
     /// <param name="exactness">The exactness (unused fraction of the max. orb) as a percentage.</param>
     /// <param name="aspectType">The aspect type (conjunction, opposition etc.).</param>
-    public DrawableSolSysPointAspect(SolarSystemPoints point1, SolarSystemPoints point2, double exactness, AspectTypes aspectType)
+    public DrawableCelPointAspect(CelPoints point1, CelPoints point2, double exactness, AspectTypes aspectType)
     {
         Point1 = point1;
         Point2 = point2;
@@ -32,25 +32,25 @@ public record DrawableSolSysPointAspect
 }
 
 
-/// <summary>Aspect between a mundane point and a solar system point, that can be shown in a wheel.</summary>
+/// <summary>Aspect between a mundane point and a celestial point, that can be shown in a wheel.</summary>
 public record DrawableMundaneAspect
 {
     public string MundanePoint { get; }
-    public SolarSystemPoints SolSysPoint { get; }
+    public CelPoints CelPoint { get; }
     public double Exactness { get; }
     public AspectTypes AspectType { get; }
 
     /// <summary>
-    /// Constructor for a drawable aspect between a mundane point and a solar system point. 
+    /// Constructor for a drawable aspect between a mundane point and a celestial point. 
     /// </summary>
     /// <param name="mundanePoint"></param>
-    /// <param name="solSysPoint">The solar system point.</param>
+    /// <param name="celPoint">The celestial point point.</param>
     /// <param name="exactness">The exactness (unused fraction of the max. orb) as a percentage.</param>
     /// <param name="aspectType">The aspect type (conjunction, opposition etc.).</param>
-    public DrawableMundaneAspect(string mundanePoint, SolarSystemPoints solSysPoint, double exactness, AspectTypes aspectType)
+    public DrawableMundaneAspect(string mundanePoint, CelPoints celPoint, double exactness, AspectTypes aspectType)
     {
         MundanePoint = mundanePoint;
-        SolSysPoint = solSysPoint;
+        CelPoint = celPoint;
         Exactness = exactness;
         AspectType = aspectType;
     }
@@ -58,22 +58,22 @@ public record DrawableMundaneAspect
 
 
 /// <summary>X-Y-coordinates for the start, or end, of a drawable aspect-line.</summary>
-/// <remarks>The coordinates are for a solar system poiit.</remarks>
+/// <remarks>The coordinates are for a celestial point.</remarks>
 public record DrawableAspectCoordinatesSs
 {
-    public SolarSystemPoints SolSysPoint { get; }
+    public CelPoints CelPoint { get; }
     public double XCoordinate { get; }
     public double YCoordinate { get; }
 
     /// <summary>
     /// Constructor for the coordinates of one side of an aspect line.
     /// </summary>
-    /// <param name="solSysPoint">The solar system point at one side of the aspect line.</param>
+    /// <param name="celPoint">The celestial point at one side of the aspect line.</param>
     /// <param name="xCoordinate">Value for X.</param>
     /// <param name="yCoordinate">Value for Y.</param>
-    public DrawableAspectCoordinatesSs(SolarSystemPoints solSysPoint, double xCoordinate, double yCoordinate)
+    public DrawableAspectCoordinatesSs(CelPoints celPoint, double xCoordinate, double yCoordinate)
     {
-        SolSysPoint = solSysPoint;
+        CelPoint = celPoint;
         XCoordinate = xCoordinate;
         YCoordinate = yCoordinate;
     }

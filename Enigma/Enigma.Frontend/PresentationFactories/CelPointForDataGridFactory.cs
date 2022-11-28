@@ -16,27 +16,27 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class CelPointForDataGridFactory : ICelPointForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
+    private readonly ICelPointSpecifications _celPointSpecifications;
 
-    public CelPointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, ISolarSystemPointSpecifications solarSystemPointSpecifications)
+    public CelPointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, ICelPointSpecifications celPointSpecifications)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _solarSystemPointSpecifications = solarSystemPointSpecifications;
+        _celPointSpecifications = celPointSpecifications;
     }
 
-    public List<PresentableSolSysPointPositions> CreateCelPointPosForDataGrid(List<FullSolSysPointPos> fullSolSysPointPositions)
+    public List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullCelPointPos> fullCelPointPositions)
     {
-        List<PresentableSolSysPointPositions> positions = new();
-        foreach (var celPos in fullSolSysPointPositions)
+        List<PresentableCelPointPositions> positions = new();
+        foreach (var celPos in fullCelPointPositions)
         {
             positions.Add(CreateSinglePos(celPos));
         }
         return positions;
     }
 
-    private PresentableSolSysPointPositions CreateSinglePos(FullSolSysPointPos celPointFullPos)
+    private PresentableCelPointPositions CreateSinglePos(FullCelPointPos celPointFullPos)
     {
-        string pointGlyph = _solarSystemPointSpecifications.DetailsForPoint(celPointFullPos.SolarSystemPoint).DefaultGlyph;
+        string pointGlyph = _celPointSpecifications.DetailsForPoint(celPointFullPos.CelPoint).DefaultGlyph;
         double tempPos = celPointFullPos.Longitude.Position;
         double tempSpeed = celPointFullPos.Longitude.Speed;
         string tempSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(tempSpeed);
@@ -60,7 +60,7 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
         string azimuth = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.AzimuthAltitude.Azimuth);
         string altitude = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.AzimuthAltitude.Altitude);
 
-        return new PresentableSolSysPointPositions(
+        return new PresentableCelPointPositions(
             pointGlyph, eclipticalLong, eclipticalLat, equatorialRa, equatorialDecl, distance, azimuth, altitude);
     }
 

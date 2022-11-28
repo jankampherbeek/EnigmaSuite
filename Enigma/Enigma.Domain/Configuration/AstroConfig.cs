@@ -47,13 +47,13 @@ public class AstroConfig
 
 public record CelPointSpecs
 {
-    public SolarSystemPoints SolarSystemPoint { get; }
+    public CelPoints CelPoint { get; }
     public int PercentageAspectOrb { get; }
     public bool IsUsed { get; }
 
-    public CelPointSpecs(SolarSystemPoints solarSystemPoint, int percentageAspectOrb, bool isUsed)
+    public CelPointSpecs(CelPoints celPoint, int percentageAspectOrb, bool isUsed)
     {
-        SolarSystemPoint = solarSystemPoint;
+        CelPoint = celPoint;
         PercentageAspectOrb = percentageAspectOrb;
         IsUsed = isUsed;
     }

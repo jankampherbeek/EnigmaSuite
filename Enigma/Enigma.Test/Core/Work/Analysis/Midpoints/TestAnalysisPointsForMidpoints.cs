@@ -76,7 +76,7 @@ public class TestAnalysisPointsForMidpoints
     private static IAnalysisPointsMapping CreateMockForMapping()
     {
         List<AnalysisPoint> analysisPoints = CreateAnalysisPoints();
-        List<PointGroups> pointGroups = new() { PointGroups.SolarSystemPoints, PointGroups.MundanePoints, PointGroups.ZodiacalPoints };
+        List<PointGroups> pointGroups = new() { PointGroups.CelPoints, PointGroups.MundanePoints, PointGroups.ZodiacalPoints };
         CoordinateSystems coordinateSystem = CoordinateSystems.Ecliptical;
         bool mainCoordinate = true;
         var mockAnalysisPointsMapping = new Mock<IAnalysisPointsMapping>();
@@ -99,7 +99,7 @@ public class TestAnalysisPointsForMidpoints
     private static CalculatedChart CreateChart()
     {
         // the calculated chart is actually used as a mock, but as it is a record is it not possible to mock it with moq.
-        List<FullSolSysPointPos> solSysPointPositions = new();
+        List<FullCelPointPos> celPointPositions = new();
         List<CuspFullPos> cusps = new();
         CuspFullPos mc = CreateCuspFullPos();
         CuspFullPos ascendant = CreateCuspFullPos();
@@ -112,7 +112,7 @@ public class TestAnalysisPointsForMidpoints
         Location location = new("Somewhere", 0.0, 0.0);
         FullDateTime fullDateTime = new("dateText", "timeText", 1234567.89);
         ChartData inputData = new(id, tempId, metaData, location, fullDateTime);
-        return new CalculatedChart(solSysPointPositions, fullHousePositions, inputData);
+        return new CalculatedChart(celPointPositions, fullHousePositions, inputData);
     }
 
     private static CuspFullPos CreateCuspFullPos()

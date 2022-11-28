@@ -12,7 +12,7 @@ namespace Enigma.Domain.Interfaces;
 
 public interface IOrbDefinitions
 {
-    public SolSysPointOrb DefineSolSysPointOrb(SolarSystemPoints solSysPoint);
+    public CelPointOrb DefineCelPointOrb(CelPoints celPoint);
     public MundanePointOrb DefineMundanePointOrb(string mundanePoint);
 }
 
@@ -31,9 +31,9 @@ public interface IAnalysisPointsMapping
     public List<AnalysisPoint> ChartToSingleAnalysisPoints(List<PointGroups> pointGroups, CoordinateSystems coordinateSystem, bool mainCoord, CalculatedChart chart);
 }
 
-public interface ISolSysPointToAnalysisPointMap
+public interface ICelPointToAnalysisPointMap
 {
-    public AnalysisPoint MapToAnalysisPoint(FullSolSysPointPos solSysPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord);
+    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos celPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord);
 }
 
 public interface IMundanePointToAnalysisPointMap

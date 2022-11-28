@@ -12,12 +12,12 @@ namespace Enigma.Domain.RequestResponse;
 public record ChartAllPositionsResponse : ValidatedResponse
 {
     public int MyProperty { get; set; }
-    public List<FullSolSysPointPos> SolarSystemPointPositions { get; }
+    public List<FullCelPointPos> CelPointPositions { get; }
     public FullHousesPositions? MundanePositions { get; }
 
-    public ChartAllPositionsResponse(List<FullSolSysPointPos> solarSystemPointPositions, FullHousesPositions? mundanePositions, bool success, string errorText) : base(success, errorText)
+    public ChartAllPositionsResponse(List<FullCelPointPos> celPointPositions, FullHousesPositions? mundanePositions, bool success, string errorText) : base(success, errorText)
     {
-        SolarSystemPointPositions = solarSystemPointPositions;
+        CelPointPositions = celPointPositions;
         MundanePositions = mundanePositions;
         Success = success;
         ErrorText = errorText;
