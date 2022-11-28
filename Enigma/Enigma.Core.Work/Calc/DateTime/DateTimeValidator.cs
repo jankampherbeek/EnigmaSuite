@@ -12,11 +12,11 @@ namespace Enigma.Core.Work.Calc.DateTime;
 
 
 /// <inheritdoc/>
-public class CheckDateTimeValidator : ICheckDateTimeValidator
+public class DateTimeValidator : IDateTimeValidator
 {
     private readonly IDateConversionFacade _dateConversionFacade;
 
-    public CheckDateTimeValidator(IDateConversionFacade dateConversionFacade) => _dateConversionFacade = dateConversionFacade;
+    public DateTimeValidator(IDateConversionFacade dateConversionFacade) => _dateConversionFacade = dateConversionFacade;
 
     public bool ValidateDateTime(SimpleDateTime dateTime)
     {

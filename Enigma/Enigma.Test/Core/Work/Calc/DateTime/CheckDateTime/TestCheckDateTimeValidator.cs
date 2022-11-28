@@ -23,7 +23,7 @@ public class TestCheckDateTimeValidator
         SimpleDateTime dateTime = new(2000, 1, 1, 12.0, calendar);
         var facadeMock = new Mock<IDateConversionFacade>();
         facadeMock.Setup(p => p.DateTimeIsValid(dateTime)).Returns(true);
-        ICheckDateTimeValidator validator = new CheckDateTimeValidator(facadeMock.Object);
+        IDateTimeValidator validator = new DateTimeValidator(facadeMock.Object);
         Assert.That(validator.ValidateDateTime(dateTime), Is.True);
     }
 
@@ -34,7 +34,7 @@ public class TestCheckDateTimeValidator
         SimpleDateTime dateTime = new(2000, 13, 1, 12.0, calendar);
         var facadeMock = new Mock<IDateConversionFacade>();
         facadeMock.Setup(p => p.DateTimeIsValid(dateTime)).Returns(false);
-        ICheckDateTimeValidator validator = new CheckDateTimeValidator(facadeMock.Object);
+        IDateTimeValidator validator = new DateTimeValidator(facadeMock.Object);
         Assert.That(validator.ValidateDateTime(dateTime), Is.False);
     }
 

@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Core.Work.Persistency;
 using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Domain.AstronCalculations;
@@ -18,9 +19,6 @@ public class TestDateCheckedConversion
 {
     private IDateCheckedConversion _dateCheckedConversion;
 
-    // TODO urgent fix tests for DateCheckedConversion
-
-    /*
     [Test]
     public void TestCsvToDateHappyFlow()
     {
@@ -32,14 +30,9 @@ public class TestDateCheckedConversion
         double ut = 0.0;
         Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        CheckDateTimeRequest request = new(simpleDateTime);
-        bool validated = true;
-        bool success = true;
-        string errorText = "";
-        var _mockDateTimeHandler = new Mock<IDateTimeHandler>();
-        _mockDateTimeHandler.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
-
-        _dateCheckedConversion = new DateCheckedConversion(_mockDateTimeHandler.Object);
+        var _mockDateTimeValidator = new Mock<IDateTimeValidator>();
+        _mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(true);
+        _dateCheckedConversion = new DateCheckedConversion(_mockDateTimeValidator.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.Multiple(() =>
         {
@@ -61,14 +54,9 @@ public class TestDateCheckedConversion
         double ut = 0.0;
         Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        CheckDateTimeRequest request = new(simpleDateTime);
-        bool validated = false;
-        bool success = true;
-        string errorText = "";
-        var _mockCheckDateTimeHandler = new Mock<IDateTimeHandler>();
-        _mockCheckDateTimeHandler.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
-
-        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeHandler.Object);
+        var _mockDateTimeValidator = new Mock<IDateTimeValidator>();
+        _mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
+        _dateCheckedConversion = new DateCheckedConversion(_mockDateTimeValidator.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }
@@ -84,14 +72,9 @@ public class TestDateCheckedConversion
         double ut = 0.0;
         Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        CheckDateTimeRequest request = new(simpleDateTime);
-        bool validated = true;                       // error should be handled before CheckDateTimeApi is called.
-        bool success = true;
-        string errorText = "";
-        var _mockCheckDateTimeHandler = new Mock<ICheckDateTimeHandler>();
-        _mockCheckDateTimeHandler.Setup(p => p.CheckDateTime(request)).Returns(new CheckDateTimeResponse(validated, success, errorText));
-
-        _dateCheckedConversion = new DateCheckedConversion(_mockCheckDateTimeHandler.Object);
+        var _mockDateTimeValidator = new Mock<IDateTimeValidator>();
+        _mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
+        _dateCheckedConversion = new DateCheckedConversion(_mockDateTimeValidator.Object);
         Tuple<PersistableDate, bool> result = _dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }
@@ -198,5 +181,5 @@ public class TestTimeCheckedConversion
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
-    */
+
 }

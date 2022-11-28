@@ -15,9 +15,9 @@ namespace Enigma.Core.Work.Persistency;
 
 public class DateCheckedConversion : IDateCheckedConversion
 {
-    private readonly ICheckDateTimeValidator _dateTimeValidator;
+    private readonly IDateTimeValidator _dateTimeValidator;
 
-    public DateCheckedConversion(ICheckDateTimeValidator dateTimeValidator)
+    public DateCheckedConversion(IDateTimeValidator dateTimeValidator)
     {
         _dateTimeValidator = dateTimeValidator;
     }

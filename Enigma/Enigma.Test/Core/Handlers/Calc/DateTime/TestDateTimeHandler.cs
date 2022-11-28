@@ -11,7 +11,7 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
-namespace Enigma.Test.Core.Work.Calc.DateTime.DateTimeFromJd;
+namespace Enigma.Test.Core.Handlers.Calc.DateTime;
 
 [TestFixture]
 public class TestDateTimeHandler
@@ -30,15 +30,12 @@ public class TestDateTimeHandler
     }
 
 
-
-    // TODO: Urgent: fix test for DateTimeHandler
-    /*
-
     [Test]
     public void TestHappyFlow()
     {
         Mock<IDateTimeCalc> calcMock = CreateCalcMock();
-        IDateTimeHandler handler = new DateTimeHandler(calcMock.Object);
+        Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
+        IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorMock.Object);
         DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
         Assert.Multiple(() =>
         {
@@ -52,7 +49,8 @@ public class TestDateTimeHandler
     public void TextSeException()
     {
         Mock<IDateTimeCalc> calcExceptionMock = CreateCalcMockThrowingException();
-        IDateTimeHandler handler = new DateTimeHandler(calcExceptionMock.Object);
+        Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
+        IDateTimeHandler handler = new DateTimeHandler(calcExceptionMock.Object, validatorMock.Object);
         DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
         Assert.Multiple(() =>
         {
@@ -61,7 +59,6 @@ public class TestDateTimeHandler
         });
     }
 
-    */
 
     private Mock<IDateTimeCalc> CreateCalcMock()
     {
@@ -69,6 +66,14 @@ public class TestDateTimeHandler
         mock.Setup(p => p.CalcDateTime(_jdUt, _calendar)).Returns(_dateTime);
         return mock;
     }
+
+    private Mock<IDateTimeValidator> CreateValidatorMock()
+    {
+        var mock = new Mock<IDateTimeValidator>();
+       // mock.Setup(p => p.CalcDateTime(_jdUt, _calendar)).Returns(_dateTime);
+        return mock;
+    }
+
 
     private Mock<IDateTimeCalc> CreateCalcMockThrowingException()
     {

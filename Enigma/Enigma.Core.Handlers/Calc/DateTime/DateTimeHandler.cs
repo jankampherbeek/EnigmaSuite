@@ -15,9 +15,9 @@ namespace Enigma.Core.Handlers.Calc.DateTime;
 public class DateTimeHandler : IDateTimeHandler
 {
     private readonly IDateTimeCalc _dateTimeCalc;
-    private readonly ICheckDateTimeValidator _dateTimeValidator;
+    private readonly IDateTimeValidator _dateTimeValidator;
 
-    public DateTimeHandler(IDateTimeCalc dateTimeCalc, ICheckDateTimeValidator dateTimeValidator)
+    public DateTimeHandler(IDateTimeCalc dateTimeCalc, IDateTimeValidator dateTimeValidator)
     {
         _dateTimeCalc = dateTimeCalc;
         _dateTimeValidator = dateTimeValidator;

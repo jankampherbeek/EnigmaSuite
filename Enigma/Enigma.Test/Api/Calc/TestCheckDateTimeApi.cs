@@ -8,6 +8,7 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
 using Moq;
+using Enigma.Core.Handlers.Interfaces;
 
 namespace Enigma.Test.Api.Astron;
 
@@ -33,12 +34,10 @@ public class TestCheckDateTimeApi
     }
 
 
-    // TODO Urgent. Fix tests for DAteTimeApi (change into tewsts for handler?).
-    /*
     [Test]
     public void TestHappyFlow()
     {
-        IDateTimeApi api = new DateTimeApi(CreateApiMock());
+        IDateTimeApi api = new DateTimeApi(CreateHandlerMock());
         CheckDateTimeResponse actualResponse = api.CheckDateTime(_checkDateTimeRequest);
         Assert.That(_checkDateTimeResponse, Is.EqualTo(actualResponse));
     }
@@ -54,26 +53,25 @@ public class TestCheckDateTimeApi
     [Test]
     public void TestRequestNull()
     {
-        IDateTimeApi api = new DateTimeApi(CreateApiMock());
+        IDateTimeApi api = new DateTimeApi(CreateHandlerMock());
         CheckDateTimeRequest? errorRequest = null;
 #pragma warning disable CS8604 // Possible null reference argument.
         Assert.That(() => api.CheckDateTime(errorRequest), Throws.TypeOf<ArgumentNullException>());
 #pragma warning restore CS8604 // Possible null reference argument.
     }
 
-    */
-    private IDateTimeApi CreateApiMock()
+    private IDateTimeHandler CreateHandlerMock()
     {
-        var apiMock = new Mock<IDateTimeApi>();
-        apiMock.Setup(p => p.CheckDateTime(_checkDateTimeRequest)).Returns(_checkDateTimeResponse);
-        return apiMock.Object;
+        var handlerMock = new Mock<IDateTimeHandler>();
+        handlerMock.Setup(p => p.CheckDateTime(_checkDateTimeRequest)).Returns(_checkDateTimeResponse);
+        return handlerMock.Object;
     }
 
-    private IDateTimeApi CreateApiMockError()
+    private IDateTimeHandler CreateHandlerMockError()
     {
-        var apiMock = new Mock<IDateTimeApi>();
-        apiMock.Setup(p => p.CheckDateTime(_checkDateTimeRequestError)).Returns(_checkDateTimeResponseError);
-        return apiMock.Object;
+        var handlerMock = new Mock<IDateTimeHandler>();
+        handlerMock.Setup(p => p.CheckDateTime(_checkDateTimeRequestError)).Returns(_checkDateTimeResponseError);
+        return handlerMock.Object;
     }
 
 }

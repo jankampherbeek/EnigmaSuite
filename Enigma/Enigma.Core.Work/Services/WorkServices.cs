@@ -47,7 +47,7 @@ public static class WorkServices
         serviceCollection.AddTransient<IAstroConfigParser, AstroConfigParser>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
-        serviceCollection.AddTransient<ICheckDateTimeValidator, CheckDateTimeValidator>();
+        serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<IConfigReader, ConfigReader>();
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
         serviceCollection.AddTransient<IControlDataCalendar, ControlDataCalendar>();

@@ -13,10 +13,10 @@ using Enigma.Domain.RequestResponse;
 using Moq;
 
 
-namespace Enigma.Test.Core.Work.Calc.DateTime.CheckDateTime;
+namespace Enigma.Test.Core.Handlers.Calc.DateTime;
 
 [TestFixture]
-public class TestDateTimeHandler
+public class TestCheckDateTimeHandler
 {
     private readonly Calendars _calendar = Calendars.Gregorian;
     private SimpleDateTime _dateTime;
@@ -31,16 +31,12 @@ public class TestDateTimeHandler
         _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, _calendar);
     }
 
-    // TODO Urgent  Fix tests for DateTimeHandler.
-
-
-    /*
-
     [Test]
     public void TestHappyFlow()
     {
-        Mock<ICheckDateTimeValidator> validatorMock = CreateValidatorMock();
-        IDateTimeHandler handler = new DateTimeHandler(validatorMock.Object);
+        Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
+        Mock<IDateTimeCalc> calcMock = CreateCalcMock();
+        IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorMock.Object);
         CheckDateTimeRequest request = new(_dateTime);
         CheckDateTimeResponse response = handler.CheckDateTime(request);
         Assert.Multiple(() =>
@@ -54,8 +50,9 @@ public class TestDateTimeHandler
     [Test]
     public void TextSeException()
     {
-        Mock<ICheckDateTimeValidator> validatorExceptionMock = CreateCalcMockThrowingException();
-        IDateTimeHandler handler = new DateTimeHandler(validatorExceptionMock.Object);
+        Mock<IDateTimeCalc> calcMock = CreateCalcMock();
+        Mock<IDateTimeValidator> validatorExceptionMock = CreateCalcMockThrowingException();
+        IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorExceptionMock.Object);
         CheckDateTimeRequest request = new(_dateTime);
         CheckDateTimeResponse response = handler.CheckDateTime(request);
         Assert.Multiple(() =>
@@ -64,18 +61,26 @@ public class TestDateTimeHandler
             Assert.That(response.ErrorText, Is.EqualTo(_errorText));
         });
     }
-    */
+    
 
-    private Mock<ICheckDateTimeValidator> CreateValidatorMock()
+    private Mock<IDateTimeValidator> CreateValidatorMock()
     {
-        var mock = new Mock<ICheckDateTimeValidator>();
+        var mock = new Mock<IDateTimeValidator>();
         mock.Setup(p => p.ValidateDateTime(_dateTime)).Returns(true);
         return mock;
     }
 
-    private Mock<ICheckDateTimeValidator> CreateCalcMockThrowingException()
+    private Mock<IDateTimeCalc> CreateCalcMock()
     {
-        var mock = new Mock<ICheckDateTimeValidator>();
+        var mock = new Mock<IDateTimeCalc>();
+        //mock.Setup(p => p.CalcDateTime(_dateTime)).Returns(true);
+        return mock;
+    }
+
+
+    private Mock<IDateTimeValidator> CreateCalcMockThrowingException()
+    {
+        var mock = new Mock<IDateTimeValidator>();
         var exception = new SwissEphException(_errorText);
         mock.Setup(p => p.ValidateDateTime(_dateTime)).Throws(exception);
         return mock;

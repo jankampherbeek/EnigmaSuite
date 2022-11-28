@@ -73,7 +73,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelSolSysPoints, ChartsWheelSolSysPoints>();
-        serviceCollection.AddTransient<ICheckDateTimeValidator, CheckDateTimeValidator>();
+        serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DataFilesExportController>();
         serviceCollection.AddTransient<DataFilesImportController>();

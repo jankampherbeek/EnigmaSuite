@@ -10,7 +10,7 @@ namespace Enigma.Core.Work.Calc.Interfaces;
 
 
 /// <summary>Calculations for Julian Day.</summary>
-public interface ICheckDateTimeValidator
+public interface IDateTimeValidator
 {
     public bool ValidateDateTime(SimpleDateTime dateTime);
 }
