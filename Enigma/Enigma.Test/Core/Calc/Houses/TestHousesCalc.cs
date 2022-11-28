@@ -2,11 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Houses;
-using Enigma.Core.Calc.Interfaces;
+using Enigma.Api.Calc;
+using Enigma.Core.Facades.Se.Interfaces;
+using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Houses;

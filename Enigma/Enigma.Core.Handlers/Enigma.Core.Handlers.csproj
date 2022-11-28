@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enigma.Core.Helpers\Enigma.Core.Helpers.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Facades\Enigma.Facades.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Work\Enigma.Core.Work.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
   </ItemGroup>
 

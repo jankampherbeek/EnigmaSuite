@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Analysis.Midpoints;
-using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 
@@ -94,7 +94,7 @@ public class TestBaseMidpointsCreator
         List<AnalysisPoint> analysisPoints = CreateAnalysisPoints();
         baseMidpoints.Add(new BaseMidpoint(analysisPoints[0], analysisPoints[1], 100.0));     // sun and moon
         baseMidpoints.Add(new BaseMidpoint(analysisPoints[0], analysisPoints[2], 342.0));     // sun and mars
-        baseMidpoints.Add(new BaseMidpoint(analysisPoints[0], analysisPoints[1],  32.0));     // sun and jupiter
+        baseMidpoints.Add(new BaseMidpoint(analysisPoints[0], analysisPoints[1], 32.0));     // sun and jupiter
         baseMidpoints.Add(new BaseMidpoint(analysisPoints[1], analysisPoints[2], 240.0));     // moon and mars
         baseMidpoints.Add(new BaseMidpoint(analysisPoints[1], analysisPoints[3], 110.0));     // moon and jupiter
         baseMidpoints.Add(new BaseMidpoint(analysisPoints[2], analysisPoints[3], 352.0));     // mars and jupiter
@@ -109,7 +109,7 @@ public class TestBaseMidpointsCreator
         AnalysisPoint moon = new(pointGroup, 1, 178.0, "b");
         AnalysisPoint mars = new(pointGroup, 5, 302.0, "c");
         AnalysisPoint jupiter = new(pointGroup, 6, 42.0, "d");
-        List<AnalysisPoint> analysisPoints = new() {sun, moon, mars, jupiter };
+        List<AnalysisPoint> analysisPoints = new() { sun, moon, mars, jupiter };
         return analysisPoints;
     }
 }

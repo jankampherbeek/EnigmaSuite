@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
+    <ProjectReference Include="..\Enigma.Api\Enigma.Api.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
   </ItemGroup>
 

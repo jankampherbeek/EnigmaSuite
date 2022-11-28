@@ -4,11 +4,9 @@
 
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Persistency;
-using Enigma.Domain.Research;
 using Newtonsoft.Json;
-using Serilog;
 
-namespace Enigma.Core.Helpers.Conversions;
+namespace Enigma.Core.Work.Conversions;
 
 
 
@@ -37,7 +35,7 @@ public class InputDataConverter : IInputDataConverter
         return JsonConvert.DeserializeObject<StandardInput>(jsonString);
     }
 
-   
+
 
 
 

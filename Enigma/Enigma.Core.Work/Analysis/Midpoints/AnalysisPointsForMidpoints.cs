@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
+using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
@@ -12,7 +12,7 @@ using Enigma.Domain.Interfaces;
 namespace Enigma.Core.Work.Analysis.Midpoints;
 
 /// <inheritdoc/>
-public class AnalysisPointsForMidpoints: IAnalysisPointsForMidpoints
+public class AnalysisPointsForMidpoints : IAnalysisPointsForMidpoints
 {
     private readonly IAnalysisPointsMapping _analysisPointsMapping;
 

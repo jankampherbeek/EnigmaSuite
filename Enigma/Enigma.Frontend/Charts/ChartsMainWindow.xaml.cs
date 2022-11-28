@@ -111,12 +111,12 @@ public partial class ChartsMainWindow : Window
 
     private void AspectsClick(object sender, RoutedEventArgs e)
     {
-       _controller.ShowAspects();
+        _controller.ShowAspects();
     }
 
     private void HarmonicsClick(object sender, RoutedEventArgs e)
     {
-       _controller.ShowHarmonics();
+        _controller.ShowHarmonics();
     }
 
     private void MidpointsClick(object sender, RoutedEventArgs e)

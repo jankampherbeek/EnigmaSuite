@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Configuration.Handlers;
+using Enigma.Core.Work.Configuration.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
@@ -19,18 +19,18 @@ public class AstroConfigController
 {
     private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
     private readonly IAspectSpecifications _aspectSpecifications;
-    private readonly IConfigWriter _configWriter;
+    private readonly IConfigurationApi _configApi;
     private readonly AstroConfig _astroConfig;
 
     public ISolarSystemPointSpecifications SolarSystemPointSpecifications => _solarSystemPointSpecifications;
 
     public AstroConfigController(ISolarSystemPointSpecifications solarSystemPointSpecifications,
         IAspectSpecifications aspectSpecifications,
-        IConfigWriter configWriter)
+        IConfigurationApi configApi)
     {
         _solarSystemPointSpecifications = solarSystemPointSpecifications;
         _aspectSpecifications = aspectSpecifications;
-        _configWriter = configWriter;
+        _configApi = configApi;
         _astroConfig = CurrentConfig.Instance.GetConfig();
 
     }
@@ -64,7 +64,7 @@ public class AstroConfigController
 
     public void UpdateConfig(AstroConfig astroConfig)
     {
-        _configWriter.WriteChangedConfig(astroConfig);
+        _configApi.WriteConfig(astroConfig);
         CurrentConfig.Instance.ChangeConfig(astroConfig);
     }
 

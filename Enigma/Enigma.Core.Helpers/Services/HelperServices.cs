@@ -21,19 +21,7 @@ public static class HelperServices
 {
     public static void RegisterHelperServices(this ServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<IAnalysisPointsMapping, AnalysisPointsMapping>();
-        serviceCollection.AddTransient<IAspectChecker, AspectChecker>();
-        serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
-        serviceCollection.AddTransient<ICsv2JsonConverter, Csv2JsonConverter>();
-        serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
-        serviceCollection.AddTransient<IFileCopier, FileCopier>();
-        serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
 
-        serviceCollection.AddTransient<IMundanePointToAnalysisPointMap, MundanePointToAnalysisPointMap>();
-
-        serviceCollection.AddTransient<ISolSysPointToAnalysisPointMap, SolSysPointToAnalysisPointMap>();
-        serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
-        serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
 
     }
 }

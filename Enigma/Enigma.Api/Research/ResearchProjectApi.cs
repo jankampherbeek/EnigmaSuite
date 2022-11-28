@@ -4,7 +4,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Work.Research.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
 
@@ -29,7 +29,7 @@ public class ProjectCreationApi : IProjectCreationApi
     }
 }
 
-public class ProjectsOverviewApi: IProjectsOverviewApi
+public class ProjectsOverviewApi : IProjectsOverviewApi
 {
     private readonly IProjectsOverviewHandler _projectsOverviewHandler;
 
@@ -44,3 +44,5 @@ public class ProjectsOverviewApi: IProjectsOverviewApi
 
     }
 }
+
+

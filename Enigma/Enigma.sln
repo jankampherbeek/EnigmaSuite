@@ -4,34 +4,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Frontend.Ui", "Enigma.Frontend\Enigma.Frontend.Ui.csproj", "{CA39B2B5-44BD-4822-ABEE-AD413485B27D}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3E09E614-6627-4FEA-9B74-8144A9CF53A9} = {3E09E614-6627-4FEA-9B74-8144A9CF53A9}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Test", "Enigma.Test\Enigma.Test.csproj", "{3CEAA68B-B316-4DA4-9125-0D75051057DE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Domain", "Enigma.Domain\Enigma.Domain.csproj", "{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Calc", "Enigma.Core.Calc\Enigma.Core.Calc.csproj", "{610792E8-BD40-47BD-8217-4F56057900C4}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Frontend.Helpers", "Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj", "{3E47014A-23B9-42CD-9B75-3DD661C17395}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Persistency", "Enigma.Persistency\Enigma.Persistency.csproj", "{3E09E614-6627-4FEA-9B74-8144A9CF53A9}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14} = {B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Configuration", "Configuration\Enigma.Configuration.csproj", "{4FC41900-8060-4D21-9920-08C3B06CE0F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Api", "Enigma.Api\Enigma.Api.csproj", "{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Facades", "Enigma.Core.Facades\Enigma.Core.Facades.csproj", "{01E1C88C-786A-4D19-80DB-128F846C554C}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Helpers", "Enigma.Core.Helpers\Enigma.Core.Helpers.csproj", "{DAC089A6-CAB4-4C6A-926D-78E0F38F733B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Facades", "Enigma.Core.Facades\Enigma.Facades.csproj", "{01E1C88C-786A-4D19-80DB-128F846C554C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Handlers", "Enigma.Core.Handlers\Enigma.Core.Handlers.csproj", "{8F9B3CF9-98AE-4311-9EFC-1698EE80610C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enigma.Core.Work", "Enigma.Core.Work\Enigma.Core.Work.csproj", "{1ECECA0A-661E-4E65-8CDA-3DBB10B94A36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Work", "Enigma.Core.Work\Enigma.Core.Work.csproj", "{1ECECA0A-661E-4E65-8CDA-3DBB10B94A36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,22 +37,10 @@ Global
 		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{610792E8-BD40-47BD-8217-4F56057900C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{610792E8-BD40-47BD-8217-4F56057900C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{610792E8-BD40-47BD-8217-4F56057900C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{610792E8-BD40-47BD-8217-4F56057900C4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E09E614-6627-4FEA-9B74-8144A9CF53A9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4FC41900-8060-4D21-9920-08C3B06CE0F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,10 +49,6 @@ Global
 		{01E1C88C-786A-4D19-80DB-128F846C554C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01E1C88C-786A-4D19-80DB-128F846C554C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01E1C88C-786A-4D19-80DB-128F846C554C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DAC089A6-CAB4-4C6A-926D-78E0F38F733B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DAC089A6-CAB4-4C6A-926D-78E0F38F733B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DAC089A6-CAB4-4C6A-926D-78E0F38F733B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DAC089A6-CAB4-4C6A-926D-78E0F38F733B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8F9B3CF9-98AE-4311-9EFC-1698EE80610C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F9B3CF9-98AE-4311-9EFC-1698EE80610C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F9B3CF9-98AE-4311-9EFC-1698EE80610C}.Release|Any CPU.ActiveCfg = Release|Any CPU

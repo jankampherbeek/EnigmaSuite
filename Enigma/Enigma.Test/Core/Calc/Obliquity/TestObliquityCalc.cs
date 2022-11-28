@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.Obliquity;
+using Enigma.Core.Work.Calc.Specials;
+using Enigma.Facades.Interfaces;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.Obliquity;

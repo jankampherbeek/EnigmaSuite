@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Calc.Interfaces;
+using Enigma.Api.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
@@ -15,11 +15,11 @@ namespace Enigma.Frontend.Helpers.Validations;
 public class DateValidator : IDateValidator
 {
 
-    private readonly ICheckDateTimeHandler _checkDateTimeHandler;
+    private readonly ICalcDateTimeApi _dateTimeApi;
 
-    public DateValidator(ICheckDateTimeHandler dateTimeHandler)
+    public DateValidator(ICalcDateTimeApi dateTimeHandler)
     {
-        _checkDateTimeHandler = dateTimeHandler;
+        _dateTimeApi = dateTimeHandler;
     }
 
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
@@ -58,7 +58,7 @@ public class DateValidator : IDateValidator
         if (yearCount == YearCounts.BCE) dateValues[0] = -dateValues[0] + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
         CheckDateTimeRequest checkDateTimeRequest = new(simpleDateTime);
-        CheckDateTimeResponse responseValidated = _checkDateTimeHandler.CheckDateTime(checkDateTimeRequest);
+        CheckDateTimeResponse responseValidated = _dateTimeApi.CheckDateTime(checkDateTimeRequest);
         return responseValidated.Validated;
     }
 

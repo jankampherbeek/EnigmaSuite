@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Helpers.Interfaces;
+using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Handlers.Persistency;

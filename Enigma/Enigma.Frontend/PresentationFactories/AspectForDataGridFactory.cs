@@ -6,8 +6,8 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;

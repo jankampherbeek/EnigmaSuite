@@ -26,3 +26,12 @@ public interface IProjectsOverviewApi
     /// <returns>List with projects.</returns>
     public List<ResearchProject> GetDetailsForAllProjects();
 }
+
+/// <summary>Api for handling tests.</summary>
+public interface IResearchPerformApi
+{
+    /// <summary>Perform a test.</summary>
+    /// <param name="request">Research request.</param>
+    /// <returns>The results as a ResearchResponse.</returns>
+    public ResearchResponse PerformTest(ResearchRequest request);
+}

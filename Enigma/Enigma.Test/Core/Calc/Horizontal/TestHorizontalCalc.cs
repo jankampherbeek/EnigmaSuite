@@ -2,10 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.Obliquity;
+using Enigma.Api.Calc;
 using Enigma.Domain.AstronCalculations;
-using Enigma4C.Core.Calc.Horizontal;
+using Enigma.Facades.Interfaces;
 using Moq;
 
 

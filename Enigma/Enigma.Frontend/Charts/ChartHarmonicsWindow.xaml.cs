@@ -3,13 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Ui.Interfaces;
-using Newtonsoft.Json.Linq;
-using System.Globalization;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -24,7 +20,7 @@ public partial class ChartHarmonicsWindow
     {
         InitializeComponent();
         _controller = controller;
-        _rosetta= rosetta;
+        _rosetta = rosetta;
     }
 
     public void Populate()

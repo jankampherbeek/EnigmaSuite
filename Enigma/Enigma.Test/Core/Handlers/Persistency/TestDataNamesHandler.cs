@@ -4,7 +4,7 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
-using Enigma.Core.Helpers.Interfaces;
+using Enigma.Core.Work.Persistency.Interfaces;
 using Moq;
 
 namespace Enigma.Test.Core.Handlers.Persistency;

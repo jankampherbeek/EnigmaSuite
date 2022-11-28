@@ -2,14 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
+using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 
 namespace Enigma.Core.Work.Analysis.Midpoints;
 
 
-public class OccupiedMidpoints: IOccupiedMidpoints
+public class OccupiedMidpoints : IOccupiedMidpoints
 {
 
     private readonly IAnalysisPointsForMidpoints _analysisPointsForMidpoints;
@@ -19,8 +19,8 @@ public class OccupiedMidpoints: IOccupiedMidpoints
 
     public OccupiedMidpoints(IAnalysisPointsForMidpoints analysisPointsForMidpoints, IBaseMidpointsCreator baseMidpointsCreator)
     {
-        _analysisPointsForMidpoints= analysisPointsForMidpoints;
-        _baseMidpointsCreator= baseMidpointsCreator;
+        _analysisPointsForMidpoints = analysisPointsForMidpoints;
+        _baseMidpointsCreator = baseMidpointsCreator;
     }
 
 
@@ -39,7 +39,7 @@ public class OccupiedMidpoints: IOccupiedMidpoints
                 double orb = MeasureMidpointDeviation(positionInDial, analysisPoint.Position, dialSize);
                 if (orb <= maxOrb)
                 {
-                    double exactness = 100.0 - ((orb / maxOrb) * 100.0);
+                    double exactness = 100.0 - (orb / maxOrb * 100.0);
                     occupiedMidpoints.Add(new OccupiedMidpoint(baseMidpoint, analysisPoint, orb, exactness));
                 }
             }

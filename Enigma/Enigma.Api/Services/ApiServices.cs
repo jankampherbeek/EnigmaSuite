@@ -6,15 +6,13 @@ using Engima.Api.Persistency;
 using Engima.Api.Research;
 using Enigma.Api.Analysis;
 using Enigma.Api.Astron;
+using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
-using Enigma.Configuration.Services;
-using Enigma.Core.Calc.Api.DateTime;
-using Enigma.Core.Calc.Services;
+using Enigma.Api.Calc;
 using Enigma.Core.Handlers.Services;
 using Enigma.Core.Work.Services;
 using Enigma.Domain.Services;
-using Enigma.Frontend.Helpers.Services;
-using Enigma.Persistency.Services;
+using Enigma.Facades.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace
@@ -27,7 +25,8 @@ public static class ApiServices
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcDateTimeApi, CalcDateTimeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
-        serviceCollection.AddTransient<ICheckDateTimeApi, CheckDateTimeApi>();
+        serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
+        serviceCollection.AddTransient<IConfigurationApi, ConfigurationApi>();
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
         serviceCollection.AddTransient<IFileManagementApi, FileManagementApi>();
@@ -38,15 +37,13 @@ public static class ApiServices
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
+        serviceCollection.AddTransient<IResearchPerformApi, ResearchPerformApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
         serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
+        serviceCollection.AddTransient<ISeApi, SeApi>();
 
-        serviceCollection.RegisterWorkServices();
-        serviceCollection.RegisterCalculationServices();
+        serviceCollection.RegisterFacadesServices();
         serviceCollection.RegisterDomainServices();
-        serviceCollection.RegisterInputSupportServices();
-        serviceCollection.RegisterPersistencyServices();
-        serviceCollection.RegisterConfigurationServices();
         serviceCollection.RegisterHandlerServices();
     }
 }

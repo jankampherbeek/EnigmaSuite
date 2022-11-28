@@ -5,7 +5,6 @@
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
-using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
@@ -27,8 +26,8 @@ public class ChartMidpointsController
     public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions)
     {
         _dataVault = DataVault.Instance;
-        _midpointsApi = midpointsApi;   
-        _midpointForDataGridFactory= midpointForDataGridFactory;
+        _midpointsApi = midpointsApi;
+        _midpointForDataGridFactory = midpointForDataGridFactory;
         _doubleToDmsConversions = doubleToDmsConversions;
     }
 
@@ -65,10 +64,10 @@ public class ChartMidpointsController
 
     public void ShowHelp()
     {
-            HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-            helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            helpWindow.SetHelpPage("Midpoints");
-            helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("Midpoints");
+        helpWindow.ShowDialog();
     }
 
 }

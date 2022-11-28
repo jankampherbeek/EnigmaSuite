@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Helpers.Interfaces;
+using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Research;
@@ -10,7 +10,7 @@ using Enigma.Domain.Research;
 namespace Enigma.Core.Work.Research;
 
 /// <inheritdoc/>
-public class ProjectDetails: IProjectDetails
+public class ProjectDetails : IProjectDetails
 {
 
     private readonly ITextFileReader _textFileReader;
@@ -25,7 +25,7 @@ public class ProjectDetails: IProjectDetails
     /// <inheritdoc/>
     public ResearchProject FindProjectDetails(string projectName)
     {
-        string projectPath = ApplicationSettings.Instance.LocationProjectFiles + Path.DirectorySeparatorChar + projectName 
+        string projectPath = ApplicationSettings.Instance.LocationProjectFiles + Path.DirectorySeparatorChar + projectName
             + Path.DirectorySeparatorChar + "project.json";
         string jsonText = _textFileReader.ReadFile(projectPath);
         return _parser.UnMarshall(jsonText);

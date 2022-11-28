@@ -136,7 +136,7 @@ public class StandardShiftControlGroupCreator : IControlGroupCreator
             if (_controlDataCalendar.DayFitsInMonth(day, month, year))
             {
                 found = true;
-                months.RemoveAt(counter);    
+                months.RemoveAt(counter);
             }
             counter++;
         }

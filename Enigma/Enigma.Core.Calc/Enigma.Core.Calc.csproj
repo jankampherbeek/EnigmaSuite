@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Enigma.Core.Facades\Enigma.Facades.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
   </ItemGroup>
 

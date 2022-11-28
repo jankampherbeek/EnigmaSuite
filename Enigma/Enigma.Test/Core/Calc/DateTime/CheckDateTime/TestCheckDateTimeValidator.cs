@@ -2,10 +2,11 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.DateTime.CheckDateTime;
-using Enigma.Core.Calc.Interfaces;
+using Enigma.Core.Work.Calc.DateTime;
+using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Facades.Interfaces;
 using Moq;
 
 

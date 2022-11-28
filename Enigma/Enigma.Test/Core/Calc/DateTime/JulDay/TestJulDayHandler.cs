@@ -5,8 +5,9 @@
 
 namespace E4CTest.core.calendarandclock.julday;
 
-using Enigma.Core.Calc.DateTime.JulDay;
-using Enigma.Core.Calc.Interfaces;
+using Enigma.Core.Handlers.Calc.DateTime;
+using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Exceptions;

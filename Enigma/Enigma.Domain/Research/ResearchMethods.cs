@@ -7,6 +7,6 @@ namespace Engima.Research.Domain;
 
 public enum ResearchMethods
 {
-    CountSigns,
-    CountHouses
+    CountCelPosInSigns,
+    CountCelPosInHouses
 }

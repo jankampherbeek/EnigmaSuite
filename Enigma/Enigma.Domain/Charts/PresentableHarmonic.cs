@@ -21,11 +21,11 @@ public record PresentableHarmonic
     /// <param name="exactnessText">Text indicating the exactness of the aspect as a percentage.</param>
     public PresentableHarmonic(string pointTextGlyph, string radixPosTest, string radixSignGlyph, string harmonicPosText, string harmonicPosGlyph)
     {
-        PointTextGlyph= pointTextGlyph;
-        RadixPosText= radixPosTest;
-        RadixSignGlyph= radixSignGlyph;
-        HarmonicPosText= harmonicPosText;
-        HarmonicPosGlyph= harmonicPosGlyph;
+        PointTextGlyph = pointTextGlyph;
+        RadixPosText = radixPosTest;
+        RadixSignGlyph = radixSignGlyph;
+        HarmonicPosText = harmonicPosText;
+        HarmonicPosGlyph = harmonicPosGlyph;
     }
 
 }

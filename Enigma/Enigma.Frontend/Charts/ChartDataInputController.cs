@@ -8,9 +8,9 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
+using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Helpers.Interfaces;
 using Serilog;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -112,7 +112,7 @@ public class ChartDataInputController
         if (!geoLatSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLAT);
         if (!lmtSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON_LMT);
 
-        if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && fullDate != null  && fullTime != null)
+        if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && fullDate != null && fullTime != null)
         {
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, cal);
             JulianDayRequest julianDayRequest = new(dateTime);

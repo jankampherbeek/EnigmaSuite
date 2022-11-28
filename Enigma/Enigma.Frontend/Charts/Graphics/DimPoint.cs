@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Util;
+using Enigma.Core.Work.Calc.Util;
 using System;
 using System.Windows;
 

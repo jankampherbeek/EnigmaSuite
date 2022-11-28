@@ -5,9 +5,8 @@
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Research;
 using Newtonsoft.Json;
-using Formatting = Newtonsoft.Json.Formatting;
 
-namespace Enigma.Core.Helpers.Conversions;
+namespace Enigma.Core.Work.Research;
 
 
 

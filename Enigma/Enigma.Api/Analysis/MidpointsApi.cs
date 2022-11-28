@@ -4,7 +4,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 
@@ -37,7 +37,7 @@ public class MidpointsApi : IMidpointsApi
         Guard.Against.Null(chart);
         return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize);
     }
-        
+
 
 
 }

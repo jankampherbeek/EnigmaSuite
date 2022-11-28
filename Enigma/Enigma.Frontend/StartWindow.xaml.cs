@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Configuration.Handlers;
+using Enigma.Core.Work.Configuration.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
@@ -59,8 +59,9 @@ public partial class StartWindow : Window
         bool result = true;
         if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
         {
-            IConfigWriter configWriter = App.ServiceProvider.GetRequiredService<IConfigWriter>();
-            result = configWriter.WriteDefaultConfig();
+            IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
+            AstroConfig config = configApi.GetDefaultConfiguration();
+            result = configApi.WriteConfig(config);
         }
         if (!result)
         {

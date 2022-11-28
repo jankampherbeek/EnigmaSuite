@@ -19,7 +19,7 @@ public class MainController
     private readonly IRosetta _rosetta;
     private readonly DataVault _dataVault;
 
-  
+
     public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
 
 

@@ -6,10 +6,6 @@ using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using static System.Net.Mime.MediaTypeNames;
-using System.Windows.Media.Animation;
 
 namespace Enigma.Frontend.Ui.ResearchProjects;
 

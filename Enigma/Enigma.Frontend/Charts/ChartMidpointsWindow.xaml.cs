@@ -31,7 +31,7 @@ public partial class ChartMidpointsWindow : Window
         PopulateData(360.0);
     }
 
- 
+
 
     // TODO split in two methodes
     public void PopulateData(double dialSize)
@@ -46,7 +46,7 @@ public partial class ChartMidpointsWindow : Window
         dgAllMidpoints.Columns[0].Header = _emptyHeader;
         dgAllMidpoints.Columns[1].Header = _emptyHeader;
         dgAllMidpoints.Columns[2].Header = _emptyHeader;
-        dgAllMidpoints.Columns[3].Header = _rosetta.TextForId("charts.midpoints.header.position");      
+        dgAllMidpoints.Columns[3].Header = _rosetta.TextForId("charts.midpoints.header.position");
         dgAllMidpoints.Columns[4].Header = _emptyHeader;
         dgAllMidpoints.Columns[0].MaxWidth = 20;
         dgAllMidpoints.Columns[1].MaxWidth = 12;
@@ -55,7 +55,7 @@ public partial class ChartMidpointsWindow : Window
         dgAllMidpoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgAllMidpoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgAllMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgAllMidpoints.HorizontalAlignment= HorizontalAlignment.Right;
+        dgAllMidpoints.HorizontalAlignment = HorizontalAlignment.Right;
 
         dgOccupiedMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(dialSize).Item2;
         dgOccupiedMidpoints.GridLinesVisibility = DataGridGridLinesVisibility.None;
@@ -65,7 +65,7 @@ public partial class ChartMidpointsWindow : Window
         dgOccupiedMidpoints.Columns[3].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[4].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[5].Header = _rosetta.TextForId("charts.midpoints.header.orb");
-        dgOccupiedMidpoints.Columns[6].Header = _rosetta.TextForId("charts.midpoints.header.exactness"); 
+        dgOccupiedMidpoints.Columns[6].Header = _rosetta.TextForId("charts.midpoints.header.exactness");
         dgOccupiedMidpoints.Columns[0].MaxWidth = 20;
         dgOccupiedMidpoints.Columns[1].MaxWidth = 12;
         dgOccupiedMidpoints.Columns[2].MaxWidth = 20;
@@ -74,14 +74,14 @@ public partial class ChartMidpointsWindow : Window
         dgOccupiedMidpoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgOccupiedMidpoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgOccupiedMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgOccupiedMidpoints.HorizontalAlignment= HorizontalAlignment.Right;
+        dgOccupiedMidpoints.HorizontalAlignment = HorizontalAlignment.Right;
     }
 
     private void PopulateTexts()
     {
         Title = _rosetta.TextForId("charts.midpoints.title");
         tbFormTitle.Text = _rosetta.TextForId("charts.midpoints.formtitle");
-        tbSubTitleChartId.Text = _controller.RetrieveChartName();                              
+        tbSubTitleChartId.Text = _controller.RetrieveChartName();
         tbAllMidpoints.Text = _rosetta.TextForId("charts.midpoints.allmidpoints");
         tbOccupiedMidpoints.Text = _rosetta.TextForId("charts.midpoints.occmidpoints");
         tbDialSize.Text = _rosetta.TextForId("charts.midpoints.dialsize");

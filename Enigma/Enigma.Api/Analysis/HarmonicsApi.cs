@@ -4,7 +4,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Work.Analysis.Harmonics;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Charts;
 
 namespace Enigma.Api.Analysis;
@@ -17,14 +17,14 @@ public class HarmonicsApi : IHarmonicsApi
 
     public HarmonicsApi(IHarmonicsHandler handler)
     {
-        _handler= handler;
+        _handler = handler;
     }
 
     /// <inheritdoc/>
     public List<double> Harmonics(CalculatedChart chart, double harmonicNumber)
     {
         Guard.Against.Null(chart);
-        Guard.Against.NegativeOrZero(harmonicNumber-1); // harmonic number must be at least 1
+        Guard.Against.NegativeOrZero(harmonicNumber - 1); // harmonic number must be at least 1
         return _handler.RetrieveHarmonicPositions(chart, harmonicNumber);
     }
 }

@@ -63,11 +63,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\Enigma.Configuration.csproj" />
     <ProjectReference Include="..\Enigma.Api\Enigma.Api.csproj" />
-    <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
-    <ProjectReference Include="..\Enigma.Persistency\Enigma.Persistency.csproj" />
+    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

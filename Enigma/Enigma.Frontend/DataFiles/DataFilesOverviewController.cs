@@ -4,7 +4,6 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 
 using System.Collections.Generic;

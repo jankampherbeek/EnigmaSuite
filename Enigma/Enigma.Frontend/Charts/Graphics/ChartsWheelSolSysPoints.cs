@@ -5,8 +5,8 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;

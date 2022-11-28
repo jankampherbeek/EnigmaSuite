@@ -28,7 +28,7 @@ public class DataHandlerApi : IDataHandlerApi
 }
 
 /// <inheritdoc/>
-public class FileManagementApi: IFileManagementApi
+public class FileManagementApi : IFileManagementApi
 {
     private readonly IDataFilePreparationHandler _preparationHandler;
     private readonly IDataNamesHandler _dataNamesHandler;

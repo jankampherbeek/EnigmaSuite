@@ -37,7 +37,7 @@ public class ChartsMainController
         _openWindows.Add(_chartPositionsWindow);
         _chartPositionsWindow.Show();
         _chartPositionsWindow.PopulateAll();
-     
+
     }
 
     public void ShowAspects()

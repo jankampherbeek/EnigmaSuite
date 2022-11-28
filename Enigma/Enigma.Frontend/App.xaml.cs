@@ -2,15 +2,19 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Calc;
+using Enigma.Api.Interfaces;
 using Enigma.Api.Services;
-using Enigma.Core.Calc.DateTime.CheckDateTime;
-using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.SeFacades;
+using Enigma.Core.Work.Calc.DateTime;
+using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
+using Enigma.Frontend.Helpers.Services;
 using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
+using Enigma.Frontend.Ui.Datafiles;
+using Enigma.Frontend.Ui.DataFiles;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.ResearchProjects;
@@ -19,8 +23,6 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
-using Enigma.Frontend.Ui.Datafiles;
-using Enigma.Frontend.Ui.DataFiles;
 
 namespace Enigma.Frontend.Ui;
 
@@ -34,8 +36,11 @@ public partial class App : Application
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
+
+        ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
+
         string pathToSeFiles = @"c:\sweph";                    // TODO make path to SE files configurable
-        SeInitializer.SetEphePath(pathToSeFiles);
+        seApi.SetupSe(pathToSeFiles);
         Log.Information("Using path to SE: {path}.", pathToSeFiles);
     }
 
@@ -68,17 +73,17 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelSolSysPoints, ChartsWheelSolSysPoints>();
-        serviceCollection.AddSingleton<ICheckDateTimeHandler, CheckDateTimeHandler>();
-        serviceCollection.AddSingleton<ICheckDateTimeValidator, CheckDateTimeValidator>();
+        serviceCollection.AddTransient<ICheckDateTimeValidator, CheckDateTimeValidator>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DataFilesExportController>();
         serviceCollection.AddTransient<DataFilesImportController>();
         serviceCollection.AddTransient<DataFilesOverviewController>();
         serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
+        serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpWindow>();
-        serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
-        serviceCollection.AddSingleton<MainController>();
+        serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
+        serviceCollection.AddTransient<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<ProjectInputController>();
@@ -87,10 +92,12 @@ public partial class App : Application
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicSolSysPointsFactory, SortedGraphicSolSysPointsFactory>();
         serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
-        serviceCollection.AddSingleton<ITimeZoneSpecifications, TimeZoneSpecifications>();
+        serviceCollection.AddTransient<ITimeZoneSpecifications, TimeZoneSpecifications>();
 
         // Handle services from other projects.
+        serviceCollection.RegisterFrontendHelpersServices();
         serviceCollection.RegisterApiServices();
+
 
         return serviceCollection.BuildServiceProvider(true);
     }

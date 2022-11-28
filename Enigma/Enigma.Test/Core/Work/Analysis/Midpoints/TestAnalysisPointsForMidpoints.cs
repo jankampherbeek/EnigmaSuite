@@ -4,8 +4,8 @@
 
 
 
+using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Analysis.Midpoints;
-using Enigma.Core.Work.Analysis.Midpoints.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
@@ -102,8 +102,8 @@ public class TestAnalysisPointsForMidpoints
         List<FullSolSysPointPos> solSysPointPositions = new();
         List<CuspFullPos> cusps = new();
         CuspFullPos mc = CreateCuspFullPos();
-        CuspFullPos ascendant= CreateCuspFullPos();
-        CuspFullPos vertex= CreateCuspFullPos();
+        CuspFullPos ascendant = CreateCuspFullPos();
+        CuspFullPos vertex = CreateCuspFullPos();
         CuspFullPos eastPoint = CreateCuspFullPos();
         FullHousesPositions fullHousePositions = new(cusps, mc, ascendant, vertex, eastPoint);
         int id = 1;
@@ -115,7 +115,7 @@ public class TestAnalysisPointsForMidpoints
         return new CalculatedChart(solSysPointPositions, fullHousePositions, inputData);
     }
 
-    private static CuspFullPos CreateCuspFullPos() 
+    private static CuspFullPos CreateCuspFullPos()
     {
         return new CuspFullPos(0.0, new EquatorialCoordinates(0.0, 0.0), new HorizontalCoordinates(0.0, 0.0));
     }

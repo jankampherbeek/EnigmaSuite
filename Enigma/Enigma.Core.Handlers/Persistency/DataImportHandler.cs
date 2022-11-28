@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Helpers.Interfaces;
+using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.RequestResponse;
 
@@ -19,11 +19,11 @@ public class DataImportHandler : IDataImportHandler
     private readonly ICsv2JsonConverter _csv2JsonConverter;
 
     public DataImportHandler(IFileCopier fileCopier, ITextFileReader textFileReader, ITextFileWriter textFileWriter, ICsv2JsonConverter csv2JsonConverter)
-    {   
+    {
         _fileCopier = fileCopier;
         _textFileReader = textFileReader;
         _textFileWriter = textFileWriter;
-        _csv2JsonConverter = csv2JsonConverter; 
+        _csv2JsonConverter = csv2JsonConverter;
     }
 
     /// <inheritdoc/>
@@ -40,12 +40,13 @@ public class DataImportHandler : IDataImportHandler
             string jsonText = conversionResult.Item2;
             _textFileWriter.WriteFile(fullJsonPath, jsonText);
             return new ResultMessage(0, "File successfully imported.");       // TODO use RB
-        } else
+        }
+        else
         {
             List<string> errorLines = conversionResult.Item3;
             _textFileWriter.WriteFile(fullErrorPath, errorLines);
             return new ResultMessage(1, "Error in reading csv, check file errors.json.");    // TODO use RB
         }
-       
+
     }
 }

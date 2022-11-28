@@ -18,7 +18,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly ISolarSystemPointSpecifications _solarSystemPointSpecifications;
 
-    public MidpointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, 
+    public MidpointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
         ISolarSystemPointSpecifications solarSystemPointSpecifications)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
@@ -47,7 +47,8 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
         return presentableOccMidpoints;
     }
 
-    private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint) {
+    private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint)
+    {
         string point1Glyph = midpoint.Point1.Glyph;
         string point2Glyph = midpoint.Point2.Glyph;
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(midpoint.Position);
@@ -63,7 +64,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
         string point2Glyph = midpoint.Midpoint.Point2.Glyph;
         string pointOccGlyph = midpoint.OccupyingPoint.Glyph;
         string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(midpoint.Orb);
-        string exactnessText = System.Math.Floor(midpoint.Exactness).ToString() + " %"; 
+        string exactnessText = System.Math.Floor(midpoint.Exactness).ToString() + " %";
         return new PresentableOccupiedMidpoint(point1Glyph, point2Glyph, pointOccGlyph, orbText, exactnessText);
     }
 }

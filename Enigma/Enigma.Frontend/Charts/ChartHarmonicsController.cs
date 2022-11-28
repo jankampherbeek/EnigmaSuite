@@ -3,9 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Api.Analysis;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;

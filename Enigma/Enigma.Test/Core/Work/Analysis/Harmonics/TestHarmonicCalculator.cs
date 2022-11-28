@@ -4,6 +4,7 @@
 
 
 using Enigma.Core.Work.Analysis.Harmonics;
+using Enigma.Core.Work.Analysis.Interfaces;
 
 namespace Enigma.Test.Core.Work.Analysis.Harmonics;
 
@@ -80,7 +81,7 @@ public class TestHarmonicCalculator
 
     private List<double> CreateOriginalPositions()
     {
-        return new List<double>() {1.0, 22.234567, 345.67, 512.0 };
+        return new List<double>() { 1.0, 22.234567, 345.67, 512.0 };
 
     }
 }

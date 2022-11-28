@@ -4,9 +4,7 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
-using System.Windows.Documents;
 
 namespace Enigma.Frontend.Ui.ResearchProjects;
 
@@ -26,7 +24,7 @@ public class ProjectsOverviewController
         List<ResearchProject> allProjects = _projectsOverviewApi.GetDetailsForAllProjects();
         foreach (var project in allProjects)
         {
-            projectItems.Add(new ProjectItem() { ProjectName = project.Name,  ProjectDescription = project.Description });
+            projectItems.Add(new ProjectItem() { ProjectName = project.Name, ProjectDescription = project.Description });
         }
         return projectItems;
     }

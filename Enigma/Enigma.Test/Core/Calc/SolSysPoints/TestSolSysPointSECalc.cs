@@ -2,12 +2,13 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc.Interfaces;
-using Enigma.Core.Calc.SolSysPoints;
+using Enigma.Core.Work.Calc.CelPoints;
+using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
+using Enigma.Facades.Interfaces;
 using Moq;
 
 namespace EnigmaTest.Core.Calc.SolSysPoints;

@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Ardalis.GuardClauses;
 using Enigma.Frontend.Helpers.Interfaces;
 
 namespace Enigma.Frontend.Helpers.Conversions;
@@ -15,7 +14,6 @@ public class ValueRangeConverter : IValueRangeConverter
     /// <inheritdoc/>
     public (int[] numbers, bool success) ConvertStringRangeToIntRange(string text, char separator)
     {
-        Guard.Against.Null(text);
         string[] strings = text.Split(separator);
         return CreateNumerics(strings);
     }

@@ -29,18 +29,18 @@ public partial class MainWindow : Window
 
     private void DisableWhatsNotInThisRelease()
     {
-        btnConversions.IsEnabled= false;
-        btnEvents.IsEnabled= false;
-        btnNewCycle.IsEnabled= false;
-        btnNewEphemeris.IsEnabled= false;
-        btnOthers.IsEnabled= false;
-        btnParans.IsEnabled= false;
-        btnSearchCycle.IsEnabled= false;
-        miCalculations.IsEnabled= false;
-        miPeriodical.IsEnabled= false;
-        miPeriodicalCycles.IsEnabled= false;
-        miPeriodicalEphemeris.IsEnabled= false;
-        miPeriodicalOccurrences.IsEnabled= false;
+        btnConversions.IsEnabled = false;
+        btnEvents.IsEnabled = false;
+        btnNewCycle.IsEnabled = false;
+        btnNewEphemeris.IsEnabled = false;
+        btnOthers.IsEnabled = false;
+        btnParans.IsEnabled = false;
+        btnSearchCycle.IsEnabled = false;
+        miCalculations.IsEnabled = false;
+        miPeriodical.IsEnabled = false;
+        miPeriodicalCycles.IsEnabled = false;
+        miPeriodicalEphemeris.IsEnabled = false;
+        miPeriodicalOccurrences.IsEnabled = false;
     }
 
     private void GeneralSettingsClick(object sender, RoutedEventArgs e)
@@ -115,7 +115,7 @@ public partial class MainWindow : Window
         MessageBox.Show("Periodical - occurrences not yet implemented.");
     }
 
- 
+
 
     private void CalculationsClick(object sender, RoutedEventArgs e)
     {
@@ -208,12 +208,12 @@ public partial class MainWindow : Window
         miPeriodicalEphemeris.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.ephemeris");
         miPeriodicalOccurrences.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.occurrences");
 
-       miCalculations.Header = _rosetta.TextForId("mainwindow.menu.micalculations");
+        miCalculations.Header = _rosetta.TextForId("mainwindow.menu.micalculations");
 
-       miHelp.Header = _rosetta.TextForId("mainwindow.menu.mihelp");
-       miHelpAbout.Header = _rosetta.TextForId("mainwindow.menu.mihelp.about");
-       miHelpPage.Header = _rosetta.TextForId("mainwindow.menu.mihelp.page");
-       miHelpManual.Header = _rosetta.TextForId("mainwindow.menu.mihelp.manual");
+        miHelp.Header = _rosetta.TextForId("mainwindow.menu.mihelp");
+        miHelpAbout.Header = _rosetta.TextForId("mainwindow.menu.mihelp.about");
+        miHelpPage.Header = _rosetta.TextForId("mainwindow.menu.mihelp.page");
+        miHelpManual.Header = _rosetta.TextForId("mainwindow.menu.mihelp.manual");
 
 
     }

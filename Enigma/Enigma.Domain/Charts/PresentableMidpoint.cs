@@ -11,8 +11,8 @@ public record PresentableMidpoint
     public string Separator { get; } = "/";
     public string Point2Glyph { get; }
     public string Position { get; }
-    public string SignGlyph { get; }    
-   
+    public string SignGlyph { get; }
+
 
     /// <summary>Construct a record with data for midpoints to be shown in a datagrid.</summary>
     /// <param name="point1Glyph">Glyph for the first point.</param>
@@ -53,8 +53,8 @@ public record PresentableOccupiedMidpoint
         Point1Glyph = point1Glyph;
         Point2Glyph = point2Glyph;
         PointOccGlyph = pointOccGlyph;
-        OrbText= orbText;
-        ExactnessText= exactnessText;
+        OrbText = orbText;
+        ExactnessText = exactnessText;
     }
 
 

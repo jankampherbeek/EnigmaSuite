@@ -27,19 +27,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Configuration\Enigma.Configuration.csproj" />
-    <ProjectReference Include="..\Enigma.Core.Calc\Enigma.Core.Calc.csproj" />
+    <ProjectReference Include="..\Enigma.Api\Enigma.Api.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Facades\Enigma.Facades.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Handlers\Enigma.Core.Handlers.csproj" />
+    <ProjectReference Include="..\Enigma.Core.Work\Enigma.Core.Work.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
     <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
     <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.Ui.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Configuration\Handlers\" />
-    <Folder Include="Configuration\Parsers\" />
+    <Folder Include="Core\Work\Configuration\Handlers\" />
     <Folder Include="Core\Handlers\Analysis\Midpoints\" />
-    <Folder Include="Core\Helpers\Research\" />
-    <Folder Include="Frontend\Helpers\" />
+    <Folder Include="Facades\" />
   </ItemGroup>
 
 </Project>
