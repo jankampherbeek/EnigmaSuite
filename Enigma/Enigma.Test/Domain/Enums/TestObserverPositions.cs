@@ -12,7 +12,7 @@ namespace Enigma.Test.Domain.Enums;
 public class TestObserverPositionSpecifications
 {
     [Test]
-    public void TestRetrievingDetails()
+    public void TestRetrievingDetails_Obsolete()
     {
         ObserverPositions position = ObserverPositions.TopoCentric;
         IObserverPositionSpecifications specifications = new ObserverPositionSpecifications();
@@ -25,6 +25,21 @@ public class TestObserverPositionSpecifications
             Assert.That(details.TextId, Is.EqualTo("ref.enum.observerposition.topocentric"));
         });
     }
+
+    [Test]
+    public void TestRetrievingDetails()
+    {
+        ObserverPositions position = ObserverPositions.TopoCentric;
+        ObserverPositionDetails details = position.GetDetails();
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.ObserverPosition, Is.EqualTo(position));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.observerposition.topocentric"));
+        });
+    }
+
 
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()

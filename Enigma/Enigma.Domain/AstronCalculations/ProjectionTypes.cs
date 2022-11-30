@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Engima.Research.Domain;
 using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.AstronCalculations;
@@ -15,6 +16,24 @@ public enum ProjectionTypes
 {
     twoDimensional = 0, obliqueLongitude = 1
 }
+
+
+public static class ProjectionTypesExtensions
+{
+    /// <summary>Retrieve text id for resourcebundle for projection type.</summary>
+    /// <param name="projType">The projection type, is automatically filled.</param>
+    /// <returns>Id for the resource bundle.</returns>
+    public static string TextInRbId(this ProjectionTypes projType)
+    {
+        return projType switch
+        {
+            ProjectionTypes.twoDimensional => "ref.enum.projectiontype.twodimensional",
+            ProjectionTypes.obliqueLongitude => "ref.enum.projectiontype.obliquelongitude",
+            _ => throw new ArgumentException("ProjectionType unknown : " + projType.ToString())
+        };
+    }
+}
+
 
 /// <summary>Details for a Projection Type.</summary>
 public record ProjectionTypeDetails
@@ -34,6 +53,7 @@ public record ProjectionTypeDetails
 
 
 /// <inheritdoc/>
+/// Obsolete.
 public class ProjectionTypeSpecifications : IProjectionTypeSpecifications
 {
     /// <inheritdoc/>

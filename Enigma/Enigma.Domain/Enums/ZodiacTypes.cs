@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Engima.Research.Domain;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Interfaces;
 
@@ -13,6 +14,25 @@ public enum ZodiacTypes
 {
     Sidereal = 0, Tropical = 1
 }
+
+
+public static class ZodiacTypeExtensions
+{
+    /// <summary>Retrieve dtails for zodiac type.</summary>
+    /// <param name="zType">The zodiac type, is automatically filled.</param>
+    /// <returns>Details for the zodiac type.</returns>
+    public static ZodiacTypeDetails GetDetails(this ZodiacTypes zType)
+    {
+        return zType switch
+        {
+            // No specific flag for tropical.
+            ZodiacTypes.Tropical => new ZodiacTypeDetails(zType, 0, "ref.enum.zodiactype.tropical"),
+            ZodiacTypes.Sidereal => new ZodiacTypeDetails(zType, EnigmaConstants.SEFLG_SIDEREAL, "ref.enum.zodiactype.sidereal"),
+            _ => throw new ArgumentException("Zodiactype unknown" + ": " + zType.ToString())
+        };
+    }
+}
+
 
 /// <summary>Details for a zodiac type.</summary>
 public record ZodiacTypeDetails
@@ -35,6 +55,7 @@ public record ZodiacTypeDetails
 
 
 /// <inheritdoc/>
+/// Obsolete
 public class ZodiacTypeSpecifications : IZodiacTypeSpecifications
 {
     /// <inheritdoc/>

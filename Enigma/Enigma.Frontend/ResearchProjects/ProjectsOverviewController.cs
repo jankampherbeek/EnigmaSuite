@@ -4,14 +4,17 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Enigma.Frontend.Ui.ResearchProjects;
 
 public class ProjectsOverviewController
 {
     private IProjectsOverviewApi _projectsOverviewApi;
-
+    private ResearchMethodInputWindow? _researchMethodInputWindow;
+    private List<Window> _openWindows = new();
 
     public ProjectsOverviewController(IProjectsOverviewApi projectsOverviewApi)
     {
@@ -27,6 +30,22 @@ public class ProjectsOverviewController
             projectItems.Add(new ProjectItem() { ProjectName = project.Name, ProjectDescription = project.Description });
         }
         return projectItems;
+    }
+
+    public void OpenProject(ProjectItem projectItem)
+    {
+        _researchMethodInputWindow = App.ServiceProvider.GetRequiredService <ResearchMethodInputWindow>();
+        _openWindows.Add(_researchMethodInputWindow);
+        _researchMethodInputWindow.Show();
+        _researchMethodInputWindow.PopulateAll(projectItem);
+    }
+
+    public void HandleClose()
+    {
+        foreach (Window window in _openWindows)
+        {
+            window.Close();
+        }
     }
 
 }

@@ -13,6 +13,24 @@ public enum ObserverPositions
     HelioCentric = 0, GeoCentric = 1, TopoCentric = 2
 }
 
+public static class ObserverPositionsExtensions
+{
+    /// <summary>Retrieve dtails for observer position.</summary>
+    /// <param name="obsPos">The observer position, is automatically filled.</param>
+    /// <returns>Details for the observer position.</returns>
+    public static ObserverPositionDetails GetDetails(this ObserverPositions obsPos)
+    {
+        return obsPos switch
+        {
+            // No specific flags for geocentric.
+            ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "ref.enum.observerposition.geocentric"),
+            ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "ref.enum.observerposition.heliocentric"),
+            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "ref.enum.observerposition.topocentric"),
+            _ => throw new ArgumentException("Observer position unknown : " + obsPos.ToString())
+        };
+    }
+}
+
 /// <summary>Details for an observer position.</summary>
 public record ObserverPositionDetails
 {
@@ -33,6 +51,7 @@ public record ObserverPositionDetails
 
 
 /// <inheritdoc/>
+/// Obsolete
 public class ObserverPositionSpecifications : IObserverPositionSpecifications
 {
     /// <inheritdoc/>

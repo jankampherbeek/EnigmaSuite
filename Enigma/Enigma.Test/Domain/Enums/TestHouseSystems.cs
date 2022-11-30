@@ -11,11 +11,28 @@ namespace Enigma.Test.Domain.Enums;
 public class TestHouseSystemSpecifications
 {
     [Test]
-    public void TestRetrievingDetails()
+    public void TestRetrievingDetails_Obsolete()
     {
         HouseSystems houseSystem = HouseSystems.Regiomontanus;
         IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
         HouseSystemDetails details = specifications.DetailsForHouseSystem(houseSystem);
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.HouseSystem, Is.EqualTo(houseSystem));
+            Assert.That(details.SeId, Is.EqualTo('R'));
+            Assert.That(details.NrOfCusps, Is.EqualTo(12));
+            Assert.That(details.CounterClockWise, Is.True);
+            Assert.That(details.QuadrantSystem, Is.True);
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.housesystemregiomontanus"));
+        });
+    }
+
+    [Test]
+    public void TestRetrievingDetails()
+    {
+        HouseSystems houseSystem = HouseSystems.Regiomontanus;
+        HouseSystemDetails details = houseSystem.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);

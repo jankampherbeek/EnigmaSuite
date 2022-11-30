@@ -11,7 +11,7 @@ namespace Enigma.Test.Domain.Enums;
 public class TestAyanamshaSpecifications
 {
     [Test]
-    public void TestRetrievingDetails()
+    public void TestRetrievingDetails_Obsolete()
     {
         Ayanamshas ayanamsha = Ayanamshas.Huber;
         IAyanamshaSpecifications specifications = new AyanamshaSpecifications();
@@ -24,6 +24,21 @@ public class TestAyanamshaSpecifications
             Assert.That(details.TextId, Is.EqualTo("ref.enum.ayanamsha.huber"));
         });
     }
+
+    [Test]
+    public void TestRetrievingDetails()
+    {
+        Ayanamshas ayanamsha = Ayanamshas.Huber;
+        AyanamshaDetails details = ayanamsha.GetDetails();
+        Assert.That(details, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(details.Ayanamsha, Is.EqualTo(Ayanamshas.Huber));
+            Assert.That(details.SeId, Is.EqualTo(12));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.ayanamsha.huber"));
+        });
+    }
+
 
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()

@@ -89,6 +89,9 @@ public partial class App : Application
         serviceCollection.AddTransient<ProjectInputController>();
         serviceCollection.AddTransient<ProjectsOverviewController>();
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
+
+        serviceCollection.AddTransient<ResearchMethodInputWindow>();
+        serviceCollection.AddTransient<ResearchMethodInputController>();
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();

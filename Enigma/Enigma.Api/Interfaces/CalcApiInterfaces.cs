@@ -5,6 +5,7 @@
 // Interfaces for API's that support astronomical calculations.
 
 
+using Enigma.Domain.CalcChartsRange;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Api.Interfaces;
@@ -112,4 +113,13 @@ public interface IJulianDayApi
     /// <remarks>Throws ArgumentNullException if the request is null or if SimpleDateTime in the request is null.</remarks> 
     /// <returns>Response with validation and a value for a Julian Day number.</returns>
     public JulianDayResponse GetJulianDay(JulianDayRequest request);
+}
+
+/// <summary>API for the calculation of a range of charts.</summary>
+public interface ICalcChartsRangeApi
+{
+    /// <summary>Calculate range of charts.</summary>
+    /// <param name="request">Request with data and settings.</param>
+    /// <returns>Calculatred charts.</returns>
+    public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
 }

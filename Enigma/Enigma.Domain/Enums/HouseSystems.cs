@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Engima.Research.Domain;
 using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Enums;
@@ -14,8 +15,42 @@ public enum HouseSystems
 {
     NoHouses = 0, Placidus = 1, Koch = 2, Porphyri = 3, Regiomontanus = 4, Campanus = 5, Alcabitius = 6, TopoCentric = 7, Krusinski = 8, Apc = 9, Morin = 10,
     WholeSign = 11, EqualAsc = 12, EqualMc = 13, EqualAries = 14, Vehlow = 15, Axial = 16, Horizon = 17, Carter = 18, Gauquelin = 19, SunShine = 20, SunShineTreindl = 21
+}
 
-
+public static class HouoseSystemExtensions
+{
+    /// <summary>Retrieve datials for a house system.</summary>
+    /// <param name="method">The method, is automatically filled.</param>
+    /// <returns>Details for the house system. IN case of an unknown house system, details for 'No Houses' are returned.</returns>
+    public static HouseSystemDetails GetDetails(this HouseSystems houseSystem)
+    {
+        return houseSystem switch
+        {
+            HouseSystems.NoHouses => new HouseSystemDetails(houseSystem, true, 'W', 0, false, false, "ref.enum.housesystemnohouses"),
+            HouseSystems.Placidus => new HouseSystemDetails(houseSystem, true, 'P', 12, true, true, "ref.enum.housesystemplacidus"),
+            HouseSystems.Koch => new HouseSystemDetails(houseSystem, true, 'K', 12, true, true, "ref.enum.housesystemkoch"),
+            HouseSystems.Porphyri => new HouseSystemDetails(houseSystem, true, 'O', 12, true, true, "ref.enum.housesystemporphyri"),
+            HouseSystems.Regiomontanus => new HouseSystemDetails(houseSystem, true, 'R', 12, true, true, "ref.enum.housesystemregiomontanus"),
+            HouseSystems.Campanus => new HouseSystemDetails(houseSystem, true, 'C', 12, true, true, "ref.enum.housesystemcampanus"),
+            HouseSystems.Alcabitius => new HouseSystemDetails(houseSystem, true, 'B', 12, true, true, "ref.enum.housesystemalcabitius"),
+            HouseSystems.TopoCentric => new HouseSystemDetails(houseSystem, true, 'T', 12, true, true, "ref.enum.housesystemtopocentric"),
+            HouseSystems.Krusinski => new HouseSystemDetails(houseSystem, true, 'U', 12, true, true, "ref.enum.housesystemkrusinski"),
+            HouseSystems.Apc => new HouseSystemDetails(houseSystem, true, 'Y', 12, true, true, "ref.enum.housesystemapc"),
+            HouseSystems.Morin => new HouseSystemDetails(houseSystem, true, 'M', 12, true, false, "ref.enum.housesystemmorin"),
+            HouseSystems.WholeSign => new HouseSystemDetails(houseSystem, true, 'W', 12, true, false, "ref.enum.housesystemwholesign"),
+            HouseSystems.EqualAsc => new HouseSystemDetails(houseSystem, true, 'A', 12, true, false, "ref.enum.housesystemequalasc"),
+            HouseSystems.EqualMc => new HouseSystemDetails(houseSystem, true, 'D', 12, true, false, "ref.enum.housesystemequalmc"),
+            HouseSystems.EqualAries => new HouseSystemDetails(houseSystem, true, 'N', 12, true, false, "ref.enum.housesystemequalaries"),
+            HouseSystems.Vehlow => new HouseSystemDetails(houseSystem, true, 'V', 12, true, false, "ref.enum.housesystemvehlow"),
+            HouseSystems.Axial => new HouseSystemDetails(houseSystem, true, 'X', 12, true, false, "ref.enum.housesystemaxial"),
+            HouseSystems.Horizon => new HouseSystemDetails(houseSystem, true, 'H', 12, true, false, "ref.enum.housesystemhorizon"),
+            HouseSystems.Carter => new HouseSystemDetails(houseSystem, true, 'F', 12, true, false, "ref.enum.housesystemcarter"),
+            HouseSystems.Gauquelin => new HouseSystemDetails(houseSystem, true, 'G', 36, true, false, "ref.enum.housesystemgauquelin"),
+            HouseSystems.SunShine => new HouseSystemDetails(houseSystem, true, 'i', 12, true, false, "ref.enum.housesystemsunshine"),
+            HouseSystems.SunShineTreindl => new HouseSystemDetails(houseSystem, true, 'I', 12, true, false, "ref.enum.housesystemsunshinetreindl"),
+            _ => new HouseSystemDetails(houseSystem, true, 'W', 0, false, false, "ref.enum.housesystemnohouses")
+        };
+    }
 }
 
 /// <summary>
@@ -56,6 +91,7 @@ public record HouseSystemDetails
 
 
 /// <inheritdoc/>
+/// Obsolete!
 public class HouseSystemSpecifications : IHouseSystemSpecifications
 {
 

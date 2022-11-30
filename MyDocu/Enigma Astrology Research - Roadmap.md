@@ -1,207 +1,192 @@
 # Enigma Astrology Research - Roadmap
 
-2022-11-23 
+*Jan Kampherbeek, 2022-11-30
 
 [TOC]
 
-## General
-
-### Objectives
+## Objectives
 
 The initial versions of Enigma will supply general support for calculating and analyzing charts but will also have a focus on five specific projects:
 
-- Research into suicide by Vivian Muller.
-- Research into explosions by Frank Vernooij.
-- Research into fybromialgia by Herman Oldenburger and Vivian Muller.
-- Harmonical aspect theory by Albert Bredenhoff.
-- Micro astrology by Cemal Cicek.
+- Research into suicide (Vivian Muller).
+- Research into explosions (Frank Vernooij).
+- Research into fybromialgia (Herman Oldenburger and Vivian Muller).
+- Harmonical aspect theory (Albert Bredenhoff).
+- School of Ram techniques (Paula Schreurs).
+- Micro astrology (Cemal Cicek).
 
-Support for these projects and methods will be added step-by-step to Enigma during the first four releases. 
-
-
-
-### Planned releases
-
-This roadmap describes the expected functionality in the following releases:
-
-- 0.1 Initial beta-version with support for calculations.
-- 0.2 Second beta-version with technical improvements (regarding programming) and more functionality.
-- 0.3 First publicly available release but still beta and most of the functionality for the projects mentioned above.
-- 1.0 First 'golden code' version (not beta anymore) with fixes and suggestions from the first releases applied.
+Support for these projects and methods will be added step-by-step to Enigma. 
 
 
 
-## Functionality 
+## Planned releases
 
-A point by point description of the functionality of each planned release.
+This roadmap describes the expected functionality in the first 7 releases. 
 
-### Release 0.1
+A point by point description of the functionality of each planned release:
 
-#### General
+### Release 0.1 - beta
 
-- User defined settings for:
-  - Housesystem (21 options).
-  - Zodiac (tropical/sidereal) and Ayanamsha (40 options).
-  - Observer position (geocentric, heliocentric, topocentric [using parallax correction]).
-  - Type of projection to the ecliptic (standard, oblique longitude [School of Ram]).
-  - Base orb for aspects.
-  - Base orb for midpoints.
-  - Base orb for progressions.
-  - Selection of supported celestial points: classic and modern planets, Vertex, Eastpoint, Pars Fortunae (with and without sect), 7 mathematical points (Lunar node, apogee [Black Moon] etc.), 9 Plutoïds, Centaurs (Chiron, Nessus, Pholus), 6 Planetoïds, 14 hypothetical planets (including Uranian TNP's (8), School of Ram (3), Carteret (2) and Transpluto).
-  - Weighting factor to define the orb for each celestial point mentioned above.
-  - Selection of aspects: 5 major, 7 minor and 10 micro aspects.
-  - Weighting factor for each aspect.
-  - Specific orbs (e.g. aspects to cusps).
-  - Three methods to define an orb.
-- Input location and time for charts, coordinates and timezone to be entered by the user.
-- Calculation of charts with support of all elements that can be defined in the settings, covering a period of 13000 BCE up to 16800 CE (almost 30000 years) for most important celestial points. Chiron however is only supported from 675 CE up to 4650 CE. Several other smaller bodies are supported from 3000 BCE up to 3000 CE.
-- High quality graphical presentation of the chart (no 'staircase effect' in oblique lines or circles). The chart figure uses equal signs and variable houses, shows aspects, and is resizable.
-- Font with astrological symbols
-- Overview of all calculated positions, including longitude, latitude, right ascension, declination, distance, azimuth and altitude. The daily speed is also shown except for azimuth and altitude.
+Basic functionality for charts (calculations, analysis) and research (data, simple tests).
+
+**General**:
+
+- User definable configuration for house systems, zodiac (tropical/sidereal), ayanamsha, observer position, projection to the ecliptic, celestial points to include, aspects to use, orbs for aspects/celestial points.
+- Font with astrological symbols.
+
 - Logging of possible errors.
+
 - User manual and help system. Each window that is shown gives access to a help-page.
-- Installation program.
-- Automatic check for updates.
+- Installation program and automatic check for updates.
 
-#### Analysis
+**Charts**:
 
-- Aspects: a list with actual aspects, calculated based on the settings the user made. 
-- Aspects to cusps: a list with aspects form celestial points to cusps, but not between cusps.
-- List with all midpoints in a 360° circle, regardless if they are occupied or not.
-- List with occupied midpoints for three dial sizes: 360°, 90° and 45°. The user can interactively change the dial size. 
-- List with harmonics. The user can interactively define and change the harmonic number. The harmonic number should be at least 1, there is no limit for the maximum number but for extremely high numbers the results will be less reliable.
+- Calculation, support for 21 house systems, tropical/sideral zodiac, 40 ayanamsha's, observer position (geocentric, heliocentric, topocentric [using parallax]), classic/modern planets, Chiron, Nessus, Pholus, 9 plutoïds, 6 planetoïds, hypothetical planets (School of Ram (3), Uranian astrology (8) and Transpluto), mathematical points (lunar node (true and mean), apogee (Black Moon, mean and corrected according to the Swiss Ephemeris), Vertex and Eastpoint. Support for oblique longitude (true astrological place, School of Ram). The user still needs to enter location coordinates and timezone manually. 
+- Covered period for calculation from 13000 BCE up to 16800 CE (almost 30000 years) for most important celestial points. Chiron however is only supported from 675 CE up to 4650 CE. Several other smaller bodies are supported from 3000 BCE up to 3000 CE.
+- High quality graphical presentation of the chart (no 'staircase effect'). The chart figure uses equal signs and variable houses, shows aspects, and is resizable.
+- Overview of all calculated positions, including longitude, latitude, right ascension, declination, distance, azimuth and altitude. The daily speed is also shown except for azimuth and altitude.
+- Analysis: aspects, a list with actual aspects, aspects to cusps. Midpoints in a 360° circle, represented as list and occupied midpoints for three dial sizes: 360°, 90° and 45°. The user can interactively change the dial size. Harmonics in the form of a list. The user can interactively define and change the harmonic number. There is no limit for the maximum number. Support for fractional harmonics.
 
-#### Progressive
-
-- Primary directions. Support for Placidus semi-arc directions, both mundane and zodiacal, with support for the following timekeys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc. This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.
-- Secundary directions with the following time keys:  astronomical days = astronomical year (tropical and sidereal), calendar days = calendar years (using mean calender and days defined in UT). Includes matches between radix and secundary positions.
-- Transits. Includes matches between radix and transit positions.
-
-
-
-#### Research
+**Research**:
 
 - Import csv-data from a specific format and convert it into Json format.
-- Construct a control group by shuffling the imported data. Optionally the items in the control group can be multiplied.
+
+- Create control groups by shuffling the imported data. Optionally the items in the control group can be multiplied. 
+
+- Use a real random number generator (not a pseudo random number generator).
+
+- Create projects that support research. Within these projects it is possible to calculate a large range of charts, based on inputted data or on data from the control group. The research projects allow some simple countings: positions is signs, positions in houses, aspects, unaspected celestial points, occupied midpoints and harmonic positions that are conjunct radix positions.
+
+  
+
+### Release 0.2 - beta
+
+Implementing a first set of progressive techniques.
+
+**General**:
+
+- Support for data that describes events. These events are linked to persons in the dataset as mentioned for release 0.1.
+- Add orbs for progressive techniques to configuration.
+
+**Charts (progressive)**:
+
+- Primary directions. Support for Placidus semi-arc directions and directions under the pole, for Regiomontanus and Campanus, all mundane and zodiacal.  Time keys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc (40 possibe combinations). This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.  
+- Secundary progressions with the following time keys:  astronomical days = astronomical year (tropical and sidereal), calendar days = calendar years (using mean calender and days defined in UT). 
+- Symbolic progressions. Solar arc directions and variants. Timekeys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc and user defined fixed values of any size. 
+- Transits. 
+- Solar returns, tropical and sidereal, supporting relocation.  
+- For al progressive techniques: includes matches between progressive and radix positions, defined in aspects, midpoints or harmonics.
+
+**Research**:
+
 - Construct a control group for progressions, separate shuffling for radix date/time and event date/time.
-- Create projects that support research.
-- Calculation of a large range of charts, based on inputted data or on data from the control group.
-- Paging function to browse through the calculated charts.
-- Counting positions is signs.
-- Counting positions in houses.
-- Counting for aspects.
-- Counting for unaspected celestial points.
 
+- Provide calculated totals for progressive positions, using all methods mentioned above, in relation to a chart. Counts aspects between progressed and radix positions, progressive positions that occupy radix midpoints and the other way around, progressive positions that occupy a harmonic point and the other way around. 
 
+  
 
+### Release 0.3 - beta
 
+Adds harmonic and historical orb definitions, celestial objects, dials for midpoints. techniques for the school of Ram and testing methods.
 
-### Release 0.2
+**General**:
 
-#### General
-
+- Extend configuration with values for orb for midpoints, using different dials, with parameters for historical orbs, for using sect for Pars Fortunae and for rulerships.
 - Automatic cleaning of old log files.
+- User defined selections for glyphs.
 
-#### Analysis
+**Charts**:
 
-- Harmonic orbs, according to the approach by Albert Bredenhoff. Both a list of values and usage in the actual calculation of aspects.
-- Harmonic orbs, according to the approach by David Hamblin. Both a list of values and usage in the actual calculation of aspects.
+- Calculation of Pars Fortunae, hypothetical planets as proposed by Carteret and for the apogee (Black Moon) according to Duval. (Approached calculation with formulae by Cees Jansen).
+- Harmonic orbs in two versions, according to the approaches by Albert Bredenhoff and David Hamblin. Both a list of values and usage in the actual calculation of aspects.
+- Dynamic orbs, an approach to take the development of the orb during a given timespan into account (to be defined in cooperation with Frank Vernooij).
 - Midpoints: introducing configurable orb for each dial and adding dials for 22°15' and 11°7'30".
-- Dynamic orbs, an approach to take the development of the orb during a given timespan into account.
+- School of Ram: spiderweb, short path and house-cycles, including images.
 
-#### Progressive
+**Research**:
 
-- Primary directions based on Regiomontanus.
+- Countings for celestial points at corners, elevation (close to MC), prominence (several rulesets, to be defined), principles (combination of sign, house and planet, e.g. Taurus, II and Venus), maximality (to be defined, configurable conditions) and short path (school of Ram).
+- Paging function to browse through the calculated charts.
 
-#### Research
+
+
+### Release 0.4 - beta
+
+Support for English and Dutch. Adding a database, multiple configurations, including both standard and user definable configurations.
+
+**General**:
+
+- Bi-linguality: English and Dutch for all texts in the application, the help system, and the user manual.
+- User can define the location for files.
+- Support for multiple configurations. Introduces a set of standard configurations: Common western (western mainstream astrology), School of Ram, Micro astrology, Uranian astrology, Ebertin system, Hellenistic astrology. The user can define additional configurations based on one of the standard configurations.
+- Introduction of EAFS: Enigma Astrological Fact Sheets. Documentation for key aspects in astrology.
+
+**Charts**:
+
+- Charts can be saved into, and retrieved from a database. The user can add multiple tags to the saved charts, making it possible to search for specific criteria.
+
+**Research**:
 
 - Import data: support for files with Gauquelin data and for files containing earthquakes.
-- Counting positions in harmonics.
-- Counting aspects in harmonics.
-- Counting occupied midpoints.
-- Counting celestial points at corners.
-- Counting elevation (close to MC).
-- Counting prominence (several rulesets, to be defined).
 
 
 
-### Release 0.3
+### Release 0.5 - beta
 
-#### General
+Adds several technical possibilities.
 
-- User can define the location for files.
-- Support multiple configurations.
-- Introduce a set of standard configurations
-  - Common western (western mainstream astrology).
-  - School of Ram.
-  - Micro astrology.
-  - Uranian astrology.
-  - Ebertin system.
-  - Hellenistic astrology.
-- User defined configurations based on one of the standard configurations.
-- Bi-linguality: English and Dutch for all texts in the application, the help system and the user manual.
+**Charts**:
 
-#### Analysis
+- 3d-aspects: the shortest distance along the globe between two celestial points. Used as an alternative for ecliptical aspects, both in the drawing of the chart and in the list of aspects. 
 
-- 3d-aspects: the shortest distance along the globe between two celestial points. Used as an alternative for ecliptical aspects, both in the drawing of the chart and in the list of aspects.
-- List with distances between celestial points. In ecliptical and 3d coordinates.
-- Declinations: (Contra)-parallel, OOB positions.
+- Lists with distances between celestial points in both ecliptical and 3d coordinates.
 
-#### Progressive
+- Declinations: (Contra)-parallel and OOB positions.
+- Calculation of 'super-midpoint' for user defined set or celestial points.
+- Graphical presentation of midpoints, using several dials
+- Graphical presentation of midpoints as planetary pictures.
+- Midpoints for declinations.
 
-- Primary directions: to be decided, either Placidus under the pole or Campanus.
-- Symbolic directions: solar arc, fixed values.
-- Solar return, with difference between tropical and sidereal returns.
-- Optionally relocation for solar return. 
-
-#### Research
-
-- Counting principles (combination of sign, house and planet, e.g. Taurus, II and Venus), conditions will be configurable.
-- Counting maximality (to be defined, configurable conditions).
-- Support for progressive positions:
-  - Count of progressive aspects at the time of a given event.
-  - Count of progressive midpoints at the time of a given event.
-
-#### Calculators
+**Calculators**: 
 
 - Calculator for julian day number.
 - Calculator for obliquity.
 - Conversion between coördinates.
 
-#### Cycles
+**Research**:
 
-- Calculate timeseries of positions in tropical or sidereal positions, geocentric of heliocentric.
-- Show positions in line diagram and a histogram of counts.
-- Show distances between specified celestial points in line diagram and a histogram of counts.
+- Counts for (contra)parallels and occupied declination midpoints, both in radix and in progressive techniques.
+- Add histograms and linecharts.
+
+
+
+### Release 0.6 - beta
+
+Usability. 
+
+**General**:
+
+- New font for glyphs based on Unicode, adding more glyphs.
+- Input location with database or with Google Maps (or alternative).
+- Read default time settings from tz database.
+- Export images to pdf to support printing.
 
 
 
 ### Release 1.0
 
-#### General
+The first non-beta release.
 
-- User defined selections for glyphs.
-- New font for glyphs based on Unicode.
-- Show additional information with chartwheel, based on user input.
-- Solution for showing a large amount of celestial points in the chart wheel (to be defined).
-- Input location with database or with Google Maps (or alternative).
-- Read default time settings from tz database.
+**Charts**:
 
-#### Analysis
-
-- Graphical presentation of midpoints, using several dials
-- Graphical presentation of midpoints as planetary pictures.
-- Midpoints for declinations.
 - Full support for micro astrology.
-- Calculation of 'super-midpoint' for user defined set or celestial points.
+- Show additional information with chartwheel, using mouse-over. The content is configurable.
+- Solution for showing a large amount of celestial points in the chart wheel (to be defined).
 
-#### Progressive
+**Cycles**:
 
-#### Research
-
-#### Calculators
-
-#### Cycles
-
+- Calculate timeseries of positions in tropical or sidereal positions, geocentric of heliocentric.
+- Show positions in line diagram and a histogram of totals.
+- Show distances between specified celestial points in line diagram and a histogram of totals.
 - Support for approach by Robert Doolaard.
 

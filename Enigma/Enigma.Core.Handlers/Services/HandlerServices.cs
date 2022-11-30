@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Engima.Core.Handlers.Calc.CelestialPoints;
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers.Analysis;
 using Enigma.Core.Handlers.Calc;
@@ -22,7 +23,7 @@ namespace Enigma.Core.Handlers.Services;
 
 
 /// <summary>
-/// Definitions for Dependency Injection for classes and interfaces for persistency..
+/// Definitions for Dependency Injection for classes and interfaces for handlers.
 /// </summary>
 
 public static class HandlerServices
@@ -30,7 +31,7 @@ public static class HandlerServices
     public static void RegisterHandlerServices(this ServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
-
+        serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddSingleton<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
         serviceCollection.AddSingleton<ICoordinateConversionHandler, CoordinateConversionHandler>();
@@ -49,7 +50,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
         serviceCollection.AddTransient<IResearchPerformHandler, ResearchPerformHandler>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
-        serviceCollection.AddTransient<ICelPointsHandler, CelsPointsHandler>();
+        serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
 
 
         serviceCollection.RegisterWorkServices();

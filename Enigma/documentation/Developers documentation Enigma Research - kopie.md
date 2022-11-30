@@ -1,6 +1,6 @@
 # Developers documentation Enigma Research 0.1
 
-*Jan Kampherbeek, September 14, 2022
+*Jan Kampherbeek, November 28, 2022
 
 [TOC]
 
@@ -30,63 +30,28 @@ To use software from Enigma in your program, that program has to be open source.
 
 
 
-## Choices made
 
-### Language: C# 
 
-The conditions that I deem most important for a programming language are:
+## Technical aspects
 
-- Object orientation.
-- Good support for the UI.
-- Easy implementable Unit Testing.
-- Sufficient libraries.
-- Support for dependency injection.
+### Technical environment
 
-I experimented with Java, Kotlin, Free Pascal, Delphi and C# and I believe that C# is the best approach.
-
-I will use C# in combination with .NET Core and use WPF for the UI.
-
-For Dependency Injection I use the standard solution as offered by Microsoft.
-
-The current versions are C# 10 and .NET Core 6. I will update to more recent versions shortly after they come available. 
+- Language: C# version 10.
+- UI: WPF/XAML.
+- .NET environment: .NET Core 6.
+- Unit testing: NUnit.
+- Mocking: Moq.
+- Database: SQLite.
+- IDE: Microsoft Visual Studio 2022.
+- Dependency Injection: Microsoft Extensions Dependency Injection
 
 
 
-### Testing
-
-#### Unit tests: NUnit
-
-I will use nUnit for unit tests.
-In Visual Studio the following solutions for unit testing are available.
-
-- xUnit
-
-- nUnit
-
-- MSTest
-
-MSTest is the standard solution from Microsoft but nUnit has more functionality and is a long
-time de facto standard. I did not investigate this thoroughly but after a short search on the
-Internet it appears that nUnit and MSTest are comparable. xUnit has some specifics, like a less
-understandable syntax. I will use nUnit, mainly because it is a long time proven solution.
-
-#### Mocking: MOQ
-
-For mocking MOQ is clearly the most used solution, so I will use this framework.
-
-### Database: SQLite
-
-The data to save is mostly about data for charts and in a much smaller amount for configurations. A RDBMS is well suited to handle this type of data. As Enigma is a single-user application, concurrency is not a requirement but an embedded, zero-configuration, database is. SQLite is a perfect match. A simple but proven database engine that can easily be matched with C#.
-
-
-
-## Coding conventions
+### Coding conventions
 
 I will try to abide to the standards. For a definition check: https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions
 
 
-
-## Technical aspects
 
 ### Using the Swiss Ephemeris
 
@@ -104,53 +69,75 @@ You can download the originals at https://fonts.google.com/icons
 
 
 
+## Projects
+
+Enigma is build as a .NET solution that contains 8 projects. There is a separate project for unit testing, the other 7 projects contain the application. There is only limited communication between these 7 projects.
+
+In the diagram you see three types of projects. In green projects for the user interface, in light red the core of the application and in blue a Domain project.
+
+![Overview-projects](D:\dev\proj\EnigmaSuite\Enigma\documentation\img\Overview-projects.png)
+
+### Frontend projects
+
+There are two frontend projects, in the diagram recognizable by a green color.
+
+#### Project Frontend.Ui
+
+*Frontend.Ui* is activated as the application starts. It takes care of some initializing. Its main task is showing information to the user and receiving input from the user.
+
+*Frontend.UI* can access *Frontend.Helpers*, *Domain* and *API*. No other project can access *Frontend.Ui*. 
+
+#### Project Frontend.Helpers
+
+This project contains helper classes for handling the Frontend. *Frontend.Helpers* has access to *Domain*. It can only be accessed by *Frontend.UI*. 
+
+
+
+### Core projects
+
+The core projects handle the calculations, analyses etc. In the diagram they have a light red color.
+
+#### Project API
+
+The core projects are only accessible via the *API* project. Typically the classes in this project receive requests from the Frontend, perform some basic validation and pass the request to a Handler in the *Handlers* project. In most cases a response is returned to the Frontend. An API will never contain any business logic.
+
+*API* can access the projects *Handlers* and *Domain*. It can only be accessed from *Frontend.Ui*.
+
+#### Project Handlers
+
+A Handler orchestrates the fullfilment of a request. Possibly it uses some basic business logic but in most cases it will rely on helper classes from the project *Work*. A handler is allowed to call other handlers. Sometimes it will simply pass through a request but it can also combine the results of several helper classes from the project *Work*.
+
+*Handlers* can access *Work*, *Facades* and *Domain*. It can only be accessed by *API*.
+
+#### Project Work
+
+In *Work* you will find helper classes that can be used by handlers. Helper classes perform the real calculations, analyses etc. A helper class can use other helper classes but it cannot access a handler.
+
+*Work* can access *Facades* and *Domain*. It can only be accessed by *Handlers*. 
+
+#### Project Facades
+
+The project *Facades* contains classes that can access the outside world. A range of classes is used to access the dll from the Swiss Ephemeris. Other classes take care of persistency.
+
+Facades can only access *Domain*, it can be accessed by *Handlers* and *Work*.
+
+
+
+### Domain project(s)
+
+Currently there is only one domain project in the diagram it has a blue color.So all domain objects are accessible by all projects. A division into three projects: for the Frontend, the Core and a shared version is not implemented but probably will make sense in the future.
+
+#### Project Domain
+
+*Domain* contains all domain objects, including enums, DTO's and records. *Domain* cannot access other projects and is itself accessible by all projects.
+
+
+
 ## Architecture
 
-The GUI is based on the MVC model. The view consists of the XAML and accompanying C# part. An additional ViewModel is added to the view. 
-
-### Core
-
-The core of the application handles all calculations and analyses. All requests should be done via an API. An API always uses a Handler to take care of the request. The Handler will use one or more other classes to perform the required actions and uses the results of these actions to return a response.
-
-If the Swiss Ephemeris needs to be accessed, a separate Facade is called that is aware of the specifics of the SE.
-All classes that are used by an API, except the Facades, are part of a functional whole, typically within one folder and one namespace. I use the term *swimming lane* for this functional whole.
-
-The outside world of the Core will be the UI and external resources like the SE, databases etc.
-
-Domain information is available in a part called *Shared* which is accessible for the UI and part of
-the core.
-
-In the following diagram, all green boxes are part of the Core.
-
-![](D:\dev\proj\EnigmaSuite\MyDocu\diagrams\Architecture core - general approach.drawio.png)
 
 
-
-### API
-
-The API is divided in several groups: *AstronApi* for astronomical calculations, *DateTimeApi* for calculations related to clock and calendar etc. This will result in a relatively small set of classes, each with several public methods. These public methods provide the real API.
-
-Each API method accepts an incoming request and, if the request is valid, will ask a *Handle*r to take care of this request and return a response, which is returned to the caller of the API. To check the validity of a request, a set of guards is used in each API call.
-
-### Handlers
-
-A handler is the starting point of a specific functionality. In the following diagram, each handler is shown in a kind of swimming lane. The swimming lane is typically implemented as a folder and a namespace for the same folder. Sub-folders and sub-namespaces are allowed.
-
-A handler or other objects can access either objects in the same swimming lane, or API's in other
-swimming lanes. By accessing the API f another swimming lane, the validity of the request is ensured because of the guard statements in the API.
-
-### Facades
-
-To access external functionality, a facade or comparable object is used. For the Swiss Ephemeris, this will be a facade (as shown in the following diagram). For a database, this will typically be a DAO.
-
-The facades for the SE are outside of the swimming lanes as some facades (e.g. CalcUtFacade) will be accessed from several swimming lanes.
-
-![](D:\dev\proj\EnigmaSuite\MyDocu\diagrams\Architecture core - details.drawio.png)
-
-In the diagram classes are indicated by a green box. The green regions *AstronApi* and *DateTimeApi*
-also indicate classes. The blue boxes indicate a method.
-The overview is schematic, eventually several classes will be added to some of the swimming
-lanes
+TODO
 
 
 

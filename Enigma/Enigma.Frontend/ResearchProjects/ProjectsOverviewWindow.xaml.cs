@@ -46,6 +46,7 @@ public partial class ProjectsOverviewWindow : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
+        _controller.HandleClose();
         Close();
     }
 
@@ -61,7 +62,11 @@ public partial class ProjectsOverviewWindow : Window
 
     private void OpenClick(object sender, RoutedEventArgs e)
     {
-        // open project
+        ProjectItem? selectedProject = lbProjects.SelectedItem as ProjectItem;
+        if (selectedProject != null)
+        {
+            _controller.OpenProject(selectedProject);
+        }
     }
 
 }

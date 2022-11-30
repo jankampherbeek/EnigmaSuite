@@ -17,7 +17,7 @@ namespace Enigma.Core.Work.Handlers.Calc.CelestialPoints;
 
 
 /// <inheritdoc/>
-public class CelsPointsHandler : ICelPointsHandler
+public class CelPointsHandler : ICelPointsHandler
 {
     private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
     private readonly ISeFlags _seFlags;
@@ -29,7 +29,7 @@ public class CelsPointsHandler : ICelPointsHandler
     private readonly IHorizontalHandler _horizontalHandler;
 
 
-    public CelsPointsHandler(IAyanamshaSpecifications ayanamshaSpecifications,
+    public CelPointsHandler(IAyanamshaSpecifications ayanamshaSpecifications,
                                ISeFlags seFlags,
                                ICelPointSECalc positionCelPointSECalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,

@@ -12,7 +12,7 @@ namespace Enigma.Test.Domain.Enums;
 public class TestZodiacTypeSpecifications
 {
     [Test]
-    public void TestRetrievingDetails()
+    public void TestRetrievingDetails_Obsolete()
     {
         ZodiacTypes zodiacType = ZodiacTypes.Sidereal;
         IZodiacTypeSpecifications specifications = new ZodiacTypeSpecifications();
@@ -25,6 +25,21 @@ public class TestZodiacTypeSpecifications
             Assert.That(details.TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
         });
     }
+
+    [Test]
+    public void TestRetrievingDetails()
+    {
+        ZodiacTypes zodiacType = ZodiacTypes.Sidereal;
+        ZodiacTypeDetails details = zodiacType.GetDetails();
+        Assert.Multiple(() =>
+        {
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.ZodiacType, Is.EqualTo(zodiacType));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_SIDEREAL));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
+        });
+    }
+
 
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()

@@ -14,6 +14,7 @@ using Enigma.Core.Work.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Enigma.Api.Calc.CalcChartsRangeApi;
 
 namespace
     Enigma.Api.Services;
@@ -23,6 +24,7 @@ public static class ApiServices
     public static void RegisterApiServices(this ServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
+        serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
         serviceCollection.AddTransient<ICalcDateTimeApi, CalcDateTimeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();

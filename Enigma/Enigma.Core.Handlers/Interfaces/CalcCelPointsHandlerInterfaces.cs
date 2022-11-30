@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.CalcChartsRange;
 using Enigma.Domain.RequestResponse;
 
 /// <summary>Handle calculation for a full chart with all positions.</summary>
@@ -23,4 +24,13 @@ public interface IObliqueLongitudeHandler
 public interface ICelPointsHandler
 {
     public CelPointsResponse CalcCelPoints(CelPointsRequest request);
+}
+
+/// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
+public interface ICalcChartsRangeHandler
+{
+    /// <summary>Calclate a range of charts.</summary>
+    /// <param name="request">Request with the data and the settings.</param>
+    /// <returns>The calculated result.</returns>
+    public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
 }

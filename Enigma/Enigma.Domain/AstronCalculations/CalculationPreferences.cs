@@ -11,28 +11,10 @@ namespace Enigma.Domain.AstronCalculations;
 /// <summary>
 /// User preferences for the calculation.
 /// </summary>
-public record CalculationPreferences
-{
-    readonly public ImmutableArray<CelPoints> ActualCelPoints;
-    readonly public ZodiacTypes ActualZodiacType;
-    readonly public Ayanamshas ActualAyanamsha;
-    readonly public ObserverPositions ActualObserverPosition;
-    readonly public ProjectionTypes ActualProjectionType;
-    readonly public HouseSystems ActualHouseSystem;
-
-
-    public CalculationPreferences(ImmutableArray<CelPoints> celPoints,
-                                  ZodiacTypes zodiacType,
-                                  Ayanamshas ayanamsha,
-                                  ObserverPositions observerPosition,
-                                  ProjectionTypes projectionType,
-                                  HouseSystems houseSystem)
-    {
-        ActualCelPoints = celPoints;
-        ActualZodiacType = zodiacType;
-        ActualAyanamsha = ayanamsha;
-        ActualObserverPosition = observerPosition;
-        ActualProjectionType = projectionType;
-        ActualHouseSystem = houseSystem;
-    }
-}
+public record CalculationPreferences(ImmutableArray<CelPoints> ActualCelPoints, 
+    ZodiacTypes ActualZodiacType, 
+    Ayanamshas ActualAyanamsha, 
+    CoordinateSystems CoordinateSystem, 
+    ObserverPositions ActualObserverPosition, 
+    ProjectionTypes ActualProjectionType,
+    HouseSystems ActualHouseSystem);
