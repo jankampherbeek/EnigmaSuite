@@ -3,8 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Research;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,26 +14,8 @@ public static class DomainServices
     public static void RegisterDomainServices(this ServiceCollection serviceCollection)
     {
 
-        serviceCollection.AddTransient<IAspectSpecifications, AspectSpecifications>();
-        serviceCollection.AddTransient<IAyanamshaSpecifications, AyanamshaSpecifications>();
-        serviceCollection.AddTransient<ICalendarSpecifications, CalendarSpecifications>();
-        serviceCollection.AddTransient<IChartCategorySpecifications, ChartCategorySpecifications>();
         serviceCollection.AddTransient<IControlGroupTypeSpecifications, ControlGroupTypeSpecifications>();
-        serviceCollection.AddTransient<IDirections4GeoLatSpecifications, Directions4GeoLatSpecifications>();
-        serviceCollection.AddTransient<IDirections4GeoLongSpecifications, Directions4GeoLongSpecifications>();
-        serviceCollection.AddTransient<IHouseSystemSpecifications, HouseSystemSpecifications>();
-        serviceCollection.AddTransient<IMundanePointSpecifications, MundanePointSpecifications>();
-        serviceCollection.AddTransient<IObserverPositionSpecifications, ObserverPositionSpecifications>();
         serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();
-        serviceCollection.AddTransient<IOrbMethodSpecifications, OrbMethodSpecifications>();
-        serviceCollection.AddTransient<IProjectionTypeSpecifications, ProjectionTypeSpecifications>();
-        serviceCollection.AddTransient<IRoddenRatingSpecifications, RoddenRatingSpecifications>();
-        serviceCollection.AddTransient<ICelPointSpecifications, CelPointSpecifications>();
-        serviceCollection.AddTransient<ICelPointCatSpecifications, CelPointCatSpecifications>();
-        serviceCollection.AddTransient<ITimeZoneSpecifications, TimeZoneSpecifications>();
-        serviceCollection.AddTransient<IYearCountSpecifications, YearCountSpecifications>();
-        serviceCollection.AddTransient<IZodiacalPointSpecifications, ZodiacalPointSpecifications>();
-        serviceCollection.AddTransient<IZodiacTypeSpecifications, ZodiacTypeSpecifications>();
     }
 }
 

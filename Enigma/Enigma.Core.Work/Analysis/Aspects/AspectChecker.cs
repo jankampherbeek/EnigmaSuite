@@ -6,7 +6,6 @@ using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Core.Work.Analysis.Aspects;
 
@@ -15,12 +14,10 @@ namespace Enigma.Core.Work.Analysis.Aspects;
 public class AspectChecker : IAspectChecker
 {
     private readonly IAspectOrbConstructor _orbConstructor;
-    private readonly IAspectSpecifications _aspectSpecifications;
 
-    public AspectChecker(IAspectOrbConstructor orbConstructor, IAspectSpecifications aspectSpecifications)
+    public AspectChecker(IAspectOrbConstructor orbConstructor)
     {
         _orbConstructor = orbConstructor;
-        _aspectSpecifications = aspectSpecifications;
     }
 
 
@@ -41,18 +38,18 @@ public class AspectChecker : IAspectChecker
         // TODO replace with configurable set of aspect(details).
         List<AspectDetails> aspectDetails = new()
         {
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Conjunction),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Opposition),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Triangle),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Square),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Sextile),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Inconjunct),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.SemiSquare),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.SesquiQuadrate),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Quintile),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.BiQuintile),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.Septile),
-            _aspectSpecifications.DetailsForAspect(AspectTypes.SemiSextile)
+            AspectTypes.Conjunction.GetDetails(),
+            AspectTypes.Opposition.GetDetails(),
+            AspectTypes.Triangle.GetDetails(),
+            AspectTypes.Square.GetDetails(),
+            AspectTypes.Sextile.GetDetails(),
+            AspectTypes.Inconjunct.GetDetails(),
+            AspectTypes.SemiSquare.GetDetails(),
+            AspectTypes.SesquiQuadrate.GetDetails(),
+            AspectTypes.Quintile.GetDetails(),
+            AspectTypes.BiQuintile.GetDetails(),
+            AspectTypes.Septile.GetDetails(),
+            AspectTypes.SemiSextile.GetDetails()
         };
         return aspectDetails;
     }

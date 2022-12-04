@@ -10,23 +10,6 @@ namespace Enigma.Test.Domain.Enums;
 [TestFixture]
 public class TestHouseSystemSpecifications
 {
-    [Test]
-    public void TestRetrievingDetails_Obsolete()
-    {
-        HouseSystems houseSystem = HouseSystems.Regiomontanus;
-        IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
-        HouseSystemDetails details = specifications.DetailsForHouseSystem(houseSystem);
-        Assert.Multiple(() =>
-        {
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.HouseSystem, Is.EqualTo(houseSystem));
-            Assert.That(details.SeId, Is.EqualTo('R'));
-            Assert.That(details.NrOfCusps, Is.EqualTo(12));
-            Assert.That(details.CounterClockWise, Is.True);
-            Assert.That(details.QuadrantSystem, Is.True);
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.housesystemregiomontanus"));
-        });
-    }
 
     [Test]
     public void TestRetrievingDetails()
@@ -48,12 +31,46 @@ public class TestHouseSystemSpecifications
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        IHouseSystemSpecifications specifications = new HouseSystemSpecifications();
         foreach (HouseSystems system in Enum.GetValues(typeof(HouseSystems)))
         {
-            HouseSystemDetails details = specifications.DetailsForHouseSystem(system);
+            HouseSystemDetails details = system.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
+    }
+
+
+    [Test]
+    public void TestRetrievingWithIndex()
+    {
+        int index = 5;
+        HouseSystems system = HouseSystems.NoHouses.HouseSystemForIndex(index);
+        Assert.That(system, Is.EqualTo(HouseSystems.Campanus));
+    }
+
+
+    [Test]
+    public void TestRetrievingWithWrongIndex()
+    {
+        int index = 1000;
+        Assert.That(() => _ = HouseSystems.NoHouses.HouseSystemForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestAllDetailsForHouseSystems()
+    {
+        List<HouseSystemDetails> allDetails = HouseSystems.NoHouses.AllDetails();
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(22));
+            Assert.That(allDetails[1].CounterClockWise, Is.EqualTo(true));
+            Assert.That(allDetails[5].QuadrantSystem, Is.EqualTo(true));
+            Assert.That(allDetails[8].SeSupported, Is.EqualTo(true));
+            Assert.That(allDetails[8].NrOfCusps, Is.EqualTo(12));
+            Assert.That(allDetails[19].NrOfCusps, Is.EqualTo(36));
+            Assert.That(allDetails[12].SeId, Is.EqualTo('A'));
+            Assert.That(allDetails[3].TextId, Is.EqualTo("ref.enum.housesystemporphyri"));
+            Assert.That(allDetails[14].HouseSystem, Is.EqualTo(HouseSystems.EqualAries));
+        });
     }
 }

@@ -56,27 +56,21 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
 
 public class CelPointToAnalysisPointMap : ICelPointToAnalysisPointMap
 {
-    private readonly ICelPointSpecifications _celPointSpecifications;
 
-    public CelPointToAnalysisPointMap(ICelPointSpecifications celPointSpecifications)
-    {
-        _celPointSpecifications = celPointSpecifications;
-    }
-
-    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos celPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord)
+    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos fullCelPointPos, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord)
     {
         double position = 0.0;
-        CelPointDetails sspDetails = _celPointSpecifications.DetailsForPoint(celPoint.CelPoint);
+        CelPointDetails sspDetails = fullCelPointPos.CelPoint.GetDetails();
         string glyph = sspDetails.DefaultGlyph;
         if (coordinateSystem == CoordinateSystems.Ecliptical)
         {
-            position = mainCoord ? celPoint.Longitude.Position : celPoint.Latitude.Position;
+            position = mainCoord ? fullCelPointPos.Longitude.Position : fullCelPointPos.Latitude.Position;
         }
         if (coordinateSystem == CoordinateSystems.Equatorial)
         {
-            position = mainCoord ? celPoint.RightAscension.Position : celPoint.Declination.Position;
+            position = mainCoord ? fullCelPointPos.RightAscension.Position : fullCelPointPos.Declination.Position;
         }
-        int idPoint = (int)celPoint.CelPoint;
+        int idPoint = (int)fullCelPointPos.CelPoint;
         return new AnalysisPoint(pointGroup, idPoint, position, glyph);
     }
 }

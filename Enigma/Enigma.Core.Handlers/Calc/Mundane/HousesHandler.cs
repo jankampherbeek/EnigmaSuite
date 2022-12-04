@@ -17,15 +17,13 @@ namespace Enigma.Core.Calc;
 public class HousesHandler : IHousesHandler
 {
     private readonly IHousesCalc _housesCalc;
-    private readonly IHouseSystemSpecifications _houseSystemSpecs;
     private readonly IObliquityHandler _obliquityHandler;
     private readonly IHorizontalHandler _horizontalHandler;
     private readonly ICoordinateConversionHandler _coordinateConversionHandler;
 
-    public HousesHandler(IHousesCalc housesCalc, IHouseSystemSpecifications houseSystemSpecs, IObliquityHandler obliquityHandler, IHorizontalHandler horizontalHandler, ICoordinateConversionHandler coordinateConversionHandler)
+    public HousesHandler(IHousesCalc housesCalc, IObliquityHandler obliquityHandler, IHorizontalHandler horizontalHandler, ICoordinateConversionHandler coordinateConversionHandler)
     {
         _housesCalc = housesCalc;
-        _houseSystemSpecs = houseSystemSpecs;
         _obliquityHandler = obliquityHandler;
         _horizontalHandler = horizontalHandler;
         _coordinateConversionHandler = coordinateConversionHandler;
@@ -38,7 +36,7 @@ public class HousesHandler : IHousesHandler
         string errorText = "";
         bool success = true;
         HouseSystems houseSystem = request.HouseSystem;
-        HouseSystemDetails houseDetails = _houseSystemSpecs.DetailsForHouseSystem(houseSystem);
+        HouseSystemDetails houseDetails = houseSystem.GetDetails();
         char houseId4Se = houseDetails.SeId;
         int _flags = EnigmaConstants.SEFLG_SWIEPH;
         Location location = request.ChartLocation;

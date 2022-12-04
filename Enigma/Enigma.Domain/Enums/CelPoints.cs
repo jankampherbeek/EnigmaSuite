@@ -20,51 +20,17 @@ public enum CelPoints
     PersephoneCarteret = 50, VulcanusCarteret = 51
 }
 
-/// <summary>Details for a celestial point.</summary>
-public record CelPointDetails
+public static class CelpointssExtensions
 {
-    readonly public CelPoints CelPoint;
-    readonly public CelPointCats CelPointCat;
-    readonly public CalculationTypes CalculationType;
-    readonly public int SeId;
-    readonly public bool UseForHeliocentric;
-    readonly public bool UseForGeocentric;
-    readonly public string TextId;
-    readonly public string DefaultGlyph;
-
-    /// <param name="celPoint">The celestial point.</param>
-    /// <param name="celPointCat">The category for the celestial point.</param>
-    /// <param name="calculationType">The type of calculation to be performed.</param>
-    /// <param name="seId">The id as used by the Swiss Ephemeris.</param>
-    /// <param name="useForHeliocentric">True if a heliocentric position can be calculated.</param>
-    /// <param name="useForGeocentric">True if a geocentric position can be calculated.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    /// <param name="defaultGlyph">Character to show default glyph.</param>
-    public CelPointDetails(CelPoints celPoint, CelPointCats celPointCat, CalculationTypes calculationType, int seId, bool useForHeliocentric, bool useForGeocentric, string textId, string defaultGlyph)
-    {
-        CelPoint = celPoint;
-        CelPointCat = celPointCat;
-        CalculationType = calculationType;
-        SeId = seId;
-        UseForHeliocentric = useForHeliocentric;
-        UseForGeocentric = useForGeocentric;
-        TextId = textId;
-        DefaultGlyph = defaultGlyph;
-    }
-}
-
-
-/// <inheritdoc/>
-public class CelPointSpecifications : ICelPointSpecifications
-{
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the celestial point was not recognized.</exception>
-    CelPointDetails ICelPointSpecifications.DetailsForPoint(CelPoints point)
+    /// <summary>Retrieve details for a celestial point.</summary>
+    /// <param name="point">The celestial point, is automatically filled.</param>
+    /// <returns>Details for the celestial point.</returns>
+    public static CelPointDetails GetDetails(this CelPoints point)
     {
         return point switch
         {
             /*
-             * To add:
+             * TODO add celestial Points:
              * Black Moon Mean       12 Mean apogee
              * Black Moon corrected  13 Oscu apogee
              * ---> Interpolated Apogee   21
@@ -73,16 +39,12 @@ public class CelPointSpecifications : ICelPointSpecifications
              * Zero Aries                         --> 106
              * ParsFortuna Sect                   --> 107
              * ParsFortuna NoSect                 --> 108
-
-             * 
              * Vulcanus Carteret   (103)
              * Persephone Carteret (104)
-             * Persephone/hermes/Demeter - Ram nieuwe nrs: 100, 101, 102
+             * Persephone/hermes/Demeter - Ram new nrs: 100, 101, 102
              * 0 Ram : 105
 
              */
-
-
             CelPoints.Sun => new CelPointDetails(point, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_SUN, false, true, "sun", "a"),
             CelPoints.Moon => new CelPointDetails(point, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MOON, false, true, "moon", "b"),
             CelPoints.Mercury => new CelPointDetails(point, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MERCURY, true, true, "mercury", "c"),
@@ -139,4 +101,45 @@ public class CelPointSpecifications : ICelPointSpecifications
             _ => throw new ArgumentException("CelPoint unknown : " + point.ToString())
         };
     }
+
+    /// <summary>Retrieve details for items in the enum CelPoints.</summary>
+    /// <param name="celPoint">The celestial point, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<CelPointDetails> AllDetails(this CelPoints celPoint)
+    {
+        var allDetails = new List<CelPointDetails> ();
+        foreach (CelPoints currentPoint in Enum.GetValues(typeof(CelPoints)))
+        {
+            allDetails.Add(currentPoint.GetDetails());
+        }
+        return allDetails;
+    }
+
+
+    /// <summary>Find celestial point for an index.</summary>
+    /// <param name="celPoint">Any celestial point, automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The celestial point for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static CelPoints CelestialPointForIndex(this CelPoints celPoint, int index)
+    {
+        foreach (CelPoints currentPoint in Enum.GetValues(typeof(CelPoints)))
+        {
+            if ((int)currentPoint == index) return currentPoint;
+        }
+        throw new ArgumentException("Could not find celestial point for index : " + index);
+    }
+
 }
+
+
+/// <summary>Details for a celestial point.</summary>
+/// <param name="celPoint">The celestial point.</param>
+/// <param name="celPointCat">The category for the celestial point.</param>
+/// <param name="calculationType">The type of calculation to be performed.</param>
+/// <param name="seId">The id as used by the Swiss Ephemeris.</param>
+/// <param name="useForHeliocentric">True if a heliocentric position can be calculated.</param>
+/// <param name="useForGeocentric">True if a geocentric position can be calculated.</param>
+/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+/// <param name="defaultGlyph">Character to show default glyph.</param> 
+public record CelPointDetails(CelPoints CelPoint, CelPointCats CelPointCat, CalculationTypes CalculationType, int SeId, bool UseForHeliocentric, bool UseForGeocentric, string TextId, string DefaultGlyph);

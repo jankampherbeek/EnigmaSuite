@@ -15,9 +15,9 @@ public enum ObserverPositions
 
 public static class ObserverPositionsExtensions
 {
-    /// <summary>Retrieve dtails for observer position.</summary>
-    /// <param name="obsPos">The observer position, is automatically filled.</param>
-    /// <returns>Details for the observer position.</returns>
+    /// <summary>Retrieve dtails for observer Position.</summary>
+    /// <param name="obsPos">The observer Position, is automatically filled.</param>
+    /// <returns>Details for the observer Position.</returns>
     public static ObserverPositionDetails GetDetails(this ObserverPositions obsPos)
     {
         return obsPos switch
@@ -26,66 +26,45 @@ public static class ObserverPositionsExtensions
             ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "ref.enum.observerposition.geocentric"),
             ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "ref.enum.observerposition.heliocentric"),
             ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "ref.enum.observerposition.topocentric"),
-            _ => throw new ArgumentException("Observer position unknown : " + obsPos.ToString())
-        };
-    }
-}
-
-/// <summary>Details for an observer position.</summary>
-public record ObserverPositionDetails
-{
-    readonly public ObserverPositions ObserverPosition;
-    readonly public int ValueForFlag;
-    readonly public string TextId;
-
-    /// <param name="position">The observer position.</param>
-    /// <param name="valueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public ObserverPositionDetails(ObserverPositions position, int valueForFlag, string textId)
-    {
-        ObserverPosition = position;
-        ValueForFlag = valueForFlag;
-        TextId = textId;
-    }
-}
-
-
-/// <inheritdoc/>
-/// Obsolete
-public class ObserverPositionSpecifications : IObserverPositionSpecifications
-{
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the Observer Position was not recognized.</exception>
-    public ObserverPositionDetails DetailsForObserverPosition(ObserverPositions observerPosition)
-    {
-        return observerPosition switch
-        {
-            // No specific flags for geocentric.
-            ObserverPositions.GeoCentric => new ObserverPositionDetails(observerPosition, 0, "ref.enum.observerposition.geocentric"),
-            ObserverPositions.HelioCentric => new ObserverPositionDetails(observerPosition, EnigmaConstants.SEFLG_HELCTR, "ref.enum.observerposition.heliocentric"),
-            ObserverPositions.TopoCentric => new ObserverPositionDetails(observerPosition, EnigmaConstants.SEFLG_TOPOCTR, "ref.enum.observerposition.topocentric"),
-            _ => throw new ArgumentException("Observer position unknown : " + observerPosition.ToString())
+            _ => throw new ArgumentException("Observer Position unknown : " + obsPos.ToString())
         };
     }
 
-    public List<ObserverPositionDetails> AllObserverPositionDetails()
+
+    /// <summary>Retrieve details for items in the enum ObserverPositions.</summary>
+    /// <param name="...">The ObserverPosition, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<ObserverPositionDetails> AllDetails(this ObserverPositions position)
     {
         var allDetails = new List<ObserverPositionDetails>();
-        foreach (ObserverPositions position in Enum.GetValues(typeof(ObserverPositions)))
+        foreach (ObserverPositions currentPosition in Enum.GetValues(typeof(ObserverPositions)))
         {
-            allDetails.Add(DetailsForObserverPosition(position));
+            allDetails.Add(currentPosition.GetDetails());
         }
         return allDetails;
     }
 
-    public ObserverPositions ObserverPositionForIndex(int index)
+    public static ObserverPositions ObserverPositionForIndex(this ObserverPositions observerPosition,  int index)
     {
-        foreach (ObserverPositions observerPosition in Enum.GetValues(typeof(ObserverPositions)))
+        foreach (ObserverPositions currentObsPos in Enum.GetValues(typeof(ObserverPositions)))
         {
-            if ((int)observerPosition == index) return observerPosition;
+            if ((int)currentObsPos == index) return currentObsPos;
         }
         throw new ArgumentException("Could not find Observer Position for index : " + index);
     }
 
 }
+
+
+/// <summary>Details for an observer Position.</summary>
+/// <param name="Position">The observer Position.</param>
+/// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record ObserverPositionDetails(ObserverPositions Position, int ValueForFlag, string TextId);
+
+
+
+	
+
+
 

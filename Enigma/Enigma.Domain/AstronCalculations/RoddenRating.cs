@@ -25,39 +25,12 @@ public enum RoddenRatings
     Unknown = 0, AA = 1, A = 2, B = 3, C = 4, DD = 5, X = 6, XX = 7
 }
 
-/// <summary>Details for the Category of a chart.</summary>
-public record RoddenRatingDetails
+public static class RoddenRatingsExtensions
 {
-    readonly public RoddenRatings Rating;
-    readonly public string TextId;
-
-    /// <param name="rating">The standard acronym for the Rodden rating.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public RoddenRatingDetails(RoddenRatings rating, string textId)
-    {
-        Rating = rating;
-        TextId = textId;
-    }
-}
-
-
-
-/// <inheritdoc/>
-public class RoddenRatingSpecifications : IRoddenRatingSpecifications
-{
-    public List<RoddenRatingDetails> AllDetailsForRating()
-    {
-        var allDetails = new List<RoddenRatingDetails>();
-        foreach (RoddenRatings rating in Enum.GetValues(typeof(RoddenRatings)))
-        {
-            allDetails.Add(DetailsForRating(rating));
-        }
-        return allDetails;
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the rating was not recognized.</exception>
-    public RoddenRatingDetails DetailsForRating(RoddenRatings rating)
+    /// <summary>Retrieve details for Rodden rating.</summary>
+    /// <param name="rating">The Rodden rating, is automatically filled.</param>
+    /// <returns>Details for the Rodden rating.</returns>
+    public static RoddenRatingDetails GetDetails(this RoddenRatings rating)
     {
         return rating switch
         {
@@ -73,13 +46,37 @@ public class RoddenRatingSpecifications : IRoddenRatingSpecifications
         };
     }
 
-    /// <inheritdoc/>
-    public RoddenRatings RoddenRatingForIndex(int roddenRatingIndex)
+    /// <summary>Retrieve details for items in the enum RoddenRatings.</summary>
+    /// <param name="...">The ..., is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<RoddenRatingDetails> AllDetails(this RoddenRatings rating)
     {
-        foreach (RoddenRatings rating in Enum.GetValues(typeof(RoddenRatings)))
-        {
-            if ((int)rating == roddenRatingIndex) return rating;
+        var allDetails = new List<RoddenRatingDetails> ();
+        foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))
+            {
+            allDetails.Add(currentRating.GetDetails());
         }
-        throw new ArgumentException("Could not find RoddenRatings for index : " + roddenRatingIndex);
+        return allDetails;
     }
+
+
+    /// <summary>Find Rodden rating for an index.</summary>
+    /// <param name="rating">Any Rodden rating, is automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The Rodden rating for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static RoddenRatings RoddenRatingForIndex(this RoddenRatings rating, int index)
+    {
+        foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))
+            {
+            if ((int)currentRating == index) return currentRating;
+        }
+        throw new ArgumentException("Could not find Rodden rating for index : " + index);
+    }
+	
 }
+
+/// <summary>Details for the Category of a chart.</summary>
+/// <param name="rating">The standard acronym for the Rodden rating.</param>
+/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+public record RoddenRatingDetails(RoddenRatings Rating, string TextId);

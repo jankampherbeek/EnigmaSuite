@@ -2,9 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Analysis;
 
 public enum OrbMethods
@@ -14,53 +11,54 @@ public enum OrbMethods
     Dynamic = 2
 }
 
-
-
-/// <summary>Details for an orb method.</summary>
-public record OrbMethodDetails
+public static class OrbMethodsExtensions
 {
-    readonly public OrbMethods OrbMethod;
-    readonly public string TextId;
-
-    /// <param name="orbMethod">The orb method.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public OrbMethodDetails(OrbMethods orbMethod, string textId)
+    /// <summary>Retrieve details for orb orbMethod.</summary>
+    /// <param name="orbMethod">The orb orbMethod, is automatically filled.</param>
+    /// <returns>Details for the orb orbMethod.</returns>
+    public static OrbMethodDetails GetDetails(this OrbMethods orbMethod)
     {
-        OrbMethod = orbMethod;
-        TextId = textId;
-    }
-}
-
-
-/// <inheritdoc/>
-public class OrbMethodSpecifications : IOrbMethodSpecifications
-{
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the orb method was not recognized.</exception>
-    public OrbMethodDetails DetailsForOrbMethod(OrbMethods orbMethod) => orbMethod switch
-    {
-        OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
-        OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.weighted"),
-        OrbMethods.Dynamic => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.dynamic"),
-        _ => throw new ArgumentException("Orb method unknown : " + orbMethod.ToString())
-    };
-
-    public List<OrbMethodDetails> AllOrbMethodDetails()
-    {
-        var allDetails = new List<OrbMethodDetails>();
-        foreach (OrbMethods orbMethod in Enum.GetValues(typeof(OrbMethods)))
+        return orbMethod switch
         {
-            allDetails.Add(DetailsForOrbMethod(orbMethod));
+            OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
+            OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.weighted"),
+            OrbMethods.Dynamic => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.dynamic"),
+            _ => throw new ArgumentException("OrbMethod unknown : " + orbMethod.ToString())
+        };
+    }
+
+    /// <summary>Retrieve details for items in the enum OrbMethods.</summary>
+    /// <param name="orbMethod">The orb method, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<OrbMethodDetails> AllDetails(this OrbMethods orbMethod)
+    {
+        var allDetails = new List<OrbMethodDetails> ();
+        foreach (OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)))
+            {
+            allDetails.Add(currentMethod.GetDetails());
         }
         return allDetails;
     }
 
-    public OrbMethods OrbMethodForIndex(int index)
+
+    /// <summary>Find orb method for an index.</summary>
+    /// <param name="orbMethod">Any orb method, automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The orb method for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static OrbMethods OrbMethodForIndex(this OrbMethods orbMethod, int index)
     {
-        foreach (OrbMethods orbMethod in Enum.GetValues(typeof(OrbMethods)))
+        foreach (OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)))
         {
-            if ((int)orbMethod == index) return orbMethod;
+            if ((int)currentMethod == index) return currentMethod;
         }
         throw new ArgumentException("Could not find Orb Method for index : " + index);
     }
+	
 }
+
+
+/// <summary>Details for an orb orbMethod.</summary>
+/// <param name="OrbMethod">The orb orbMethod.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record OrbMethodDetails(OrbMethods OrbMethod, string TextId);

@@ -3,28 +3,20 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
 [TestFixture]
 public class TestTimeZones
 {
-    private ITimeZoneSpecifications specifications;
     private readonly double _delta = 0.00000001;
-
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new TimeZoneSpecifications();
-    }
 
     [Test]
     public void TestRetrievingDetails()
     {
         double delta = 0.00000001;
         TimeZones timeZone = TimeZones.AZOT;
-        TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
+        TimeZoneDetails details = timeZone.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -39,7 +31,7 @@ public class TestTimeZones
     {
         foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
         {
-            TimeZoneDetails details = specifications.DetailsForTimeZone(timeZone);
+            TimeZoneDetails details = timeZone.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
@@ -49,7 +41,7 @@ public class TestTimeZones
     public void TestRetrievingWithIndex()
     {
         int timeZoneIndex = 29;
-        TimeZones timeZone = specifications.TimeZoneForIndex(timeZoneIndex);
+        TimeZones timeZone = TimeZones.CET.TimeZoneForIndex(timeZoneIndex);
         Assert.That(timeZone, Is.EqualTo(TimeZones.BRT));
     }
 
@@ -57,13 +49,13 @@ public class TestTimeZones
     public void TestRetrievingWithWrongIndex()
     {
         int timeZoneIndex = -100;
-        Assert.That(() => _ = specifications.TimeZoneForIndex(timeZoneIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = TimeZones.MST.TimeZoneForIndex(timeZoneIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllTimeZoneDetails()
     {
-        List<TimeZoneDetails> allDetails = specifications.AllTimeZoneDetails();
+        List<TimeZoneDetails> allDetails = TimeZones.UT.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(33));

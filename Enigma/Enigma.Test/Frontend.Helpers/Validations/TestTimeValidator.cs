@@ -4,7 +4,6 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Validations;
 using Moq;
 
@@ -22,9 +21,7 @@ public class TestTimeValidator
         int second = 30;
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
-        var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
-        mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
-        var timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
+        var timeValidator = new TimeValidator();
         bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
         Assert.Multiple(() =>
         {
@@ -43,9 +40,7 @@ public class TestTimeValidator
         int second = 30;
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
-        var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
-        mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
-        var timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
+        var timeValidator = new TimeValidator();
         bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
         Assert.That(Result, Is.False);
     }
@@ -59,9 +54,7 @@ public class TestTimeValidator
         int second = 30;
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
-        var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
-        mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
-        var timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
+        var timeValidator = new TimeValidator();
         bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
         Assert.That(Result, Is.False);
     }
@@ -74,9 +67,7 @@ public class TestTimeValidator
         int second = 60;
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
-        var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
-        mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
-        var timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
+        var timeValidator = new TimeValidator();
         bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
         Assert.That(Result, Is.False);
     }
@@ -89,9 +80,7 @@ public class TestTimeValidator
         int second = -5;
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
-        var mockTimeZonespecifications = new Mock<ITimeZoneSpecifications>();
-        mockTimeZonespecifications.Setup(x => x.DetailsForTimeZone(TimeZones.UT)).Returns(new TimeZoneDetails(TimeZones.UT, 0.0, "ref.enum.timezone.ut"));
-        var timeValidator = new TimeValidator(mockTimeZonespecifications.Object);
+        var timeValidator = new TimeValidator();
         bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
         Assert.That(Result, Is.False);
     }

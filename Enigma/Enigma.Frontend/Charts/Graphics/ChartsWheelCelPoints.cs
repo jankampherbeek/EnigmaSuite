@@ -4,7 +4,7 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Interfaces;
+using Enigma.Domain.Enums;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
@@ -21,17 +21,14 @@ public class ChartsWheelCelPoints : IChartsWheelCelPoints
 
     private readonly IRangeCheck _rangeCheck;
     private readonly ISortedGraphicCelPointsFactory _sortedGraphicCelPointsFactory;
-    private readonly ICelPointSpecifications _celPointSpecifications;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
     public ChartsWheelCelPoints(ISortedGraphicCelPointsFactory sortedGraphicCelPointsFactory,
-        ICelPointSpecifications celPointSpecifications,
         IRangeCheck rangeCheck,
         IDoubleToDmsConversions doubleToDmsConversions)
     {
         _rangeCheck = rangeCheck;
         _sortedGraphicCelPointsFactory = sortedGraphicCelPointsFactory;
-        _celPointSpecifications = celPointSpecifications;
         _doubleToDmsConversions = doubleToDmsConversions;
     }
 
@@ -50,7 +47,7 @@ public class ChartsWheelCelPoints : IChartsWheelCelPoints
             Point point1 = dimPoint.CreatePoint(angle, metrics.CelPointGlyphRadius);
             TextBlock glyph = new()
             {
-                Text = _celPointSpecifications.DetailsForPoint(graphPoint.CelPoint).DefaultGlyph,
+                Text = graphPoint.CelPoint.GetDetails().DefaultGlyph,
                 FontFamily = metrics.GlyphsFontFamily,
                 FontSize = fontSize,
                 Foreground = new SolidColorBrush(metrics.CelPointColor)

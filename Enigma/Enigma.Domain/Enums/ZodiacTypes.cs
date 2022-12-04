@@ -2,10 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Engima.Research.Domain;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Enums;
 
@@ -18,9 +15,9 @@ public enum ZodiacTypes
 
 public static class ZodiacTypeExtensions
 {
-    /// <summary>Retrieve dtails for zodiac type.</summary>
-    /// <param name="zType">The zodiac type, is automatically filled.</param>
-    /// <returns>Details for the zodiac type.</returns>
+    /// <summary>Retrieve dtails for zodiac Type.</summary>
+    /// <param name="zType">The zodiac Type, is automatically filled.</param>
+    /// <returns>Details for the zodiac Type.</returns>
     public static ZodiacTypeDetails GetDetails(this ZodiacTypes zType)
     {
         return zType switch
@@ -31,59 +28,39 @@ public static class ZodiacTypeExtensions
             _ => throw new ArgumentException("Zodiactype unknown" + ": " + zType.ToString())
         };
     }
-}
 
-
-/// <summary>Details for a zodiac type.</summary>
-public record ZodiacTypeDetails
-{
-    readonly public ZodiacTypes ZodiacType;
-    readonly public int ValueForFlag;
-    readonly public string TextId;
-
-    /// <param name="type">The zodiac type.</param>
-    /// <param name="valueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public ZodiacTypeDetails(ZodiacTypes type, int valueForFlag, string textId)
-    {
-        ZodiacType = type;
-        ValueForFlag = valueForFlag;
-        TextId = textId;
-    }
-}
-
-
-
-/// <inheritdoc/>
-/// Obsolete
-public class ZodiacTypeSpecifications : IZodiacTypeSpecifications
-{
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the zodiac type was not recognized.</exception>
-    public ZodiacTypeDetails DetailsForZodiacType(ZodiacTypes zodiacType) => zodiacType switch
-    {
-        // No specific flag for tropical.
-        ZodiacTypes.Tropical => new ZodiacTypeDetails(zodiacType, 0, "ref.enum.zodiactype.tropical"),
-        ZodiacTypes.Sidereal => new ZodiacTypeDetails(zodiacType, EnigmaConstants.SEFLG_SIDEREAL, "ref.enum.zodiactype.sidereal"),
-        _ => throw new ArgumentException("Zodiac type unknown : " + zodiacType.ToString())
-    };
-
-    public List<ZodiacTypeDetails> AllZodiacTypeDetails()
+    /// <summary>Retrieve details for items in the enum ZodiacTypes.</summary>
+    /// <param name="zodiacType">The zodiac type, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<ZodiacTypeDetails> AllDetails(this ZodiacTypes zodiacType)
     {
         var allDetails = new List<ZodiacTypeDetails>();
-        foreach (ZodiacTypes zodiacType in Enum.GetValues(typeof(ZodiacTypes)))
+        foreach (ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)))
         {
-            allDetails.Add(DetailsForZodiacType(zodiacType));
+            allDetails.Add(currentZodT.GetDetails());
         }
         return allDetails;
     }
 
-    public ZodiacTypes ZodiacTypeForIndex(int index)
+
+    /// <summary>Find zodiac type for an index.</summary>
+    /// <param name="zodiacType">Any zodiac type, is automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The zodiac type for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static ZodiacTypes  ZodiacTypeForIndex(this ZodiacTypes zodiacType, int index)
     {
-        foreach (ZodiacTypes zodiacType in Enum.GetValues(typeof(ZodiacTypes)))
+        foreach (ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)))
         {
-            if ((int)zodiacType == index) return zodiacType;
+            if ((int)currentZodT == index) return currentZodT;
         }
         throw new ArgumentException("Could not find Zodiac Type for index : " + index);
     }
 }
+
+
+/// <summary>Details for a zodiac Type.</summary>
+/// <param name="Type">The zodiac Type.</param>
+/// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record ZodiacTypeDetails(ZodiacTypes Type, int ValueForFlag, string TextId);

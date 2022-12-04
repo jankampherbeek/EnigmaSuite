@@ -10,19 +10,12 @@ namespace Enigma.Test.Domain.Enums;
 [TestFixture]
 public class TestZodiacalPoints
 {
-    private IZodiacalPointSpecifications specifications;
 
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new ZodiacalPointSpecifications();
-    }
-
-
+ 
     [Test]
     public void TestRetrievingDetails()
     {
-        ZodiacalPointDetails details = specifications.DetailsForPoint(ZodiacalPoints.ZeroCancer);
+        ZodiacalPointDetails details = ZodiacalPoints.ZeroCancer.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
         {
@@ -37,7 +30,7 @@ public class TestZodiacalPoints
     {
         foreach (ZodiacalPoints point in Enum.GetValues(typeof(ZodiacalPoints)))
         {
-            ZodiacalPointDetails details = specifications.DetailsForPoint(point);
+            ZodiacalPointDetails details = point.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
@@ -47,9 +40,8 @@ public class TestZodiacalPoints
     public void TestRetrievingWithIndex()
     {
         int zodPointIndex = 0;
-        ZodiacalPointDetails zodPointDetails = specifications.DetailsForPoint(zodPointIndex);
-        Assert.That(zodPointDetails, Is.Not.Null);
-        Assert.That(zodPointDetails.ZodiacalPoint, Is.EqualTo(ZodiacalPoints.ZeroAries));
+        ZodiacalPoints zodPoint = ZodiacalPoints.ZeroAries.ZodiacalPointForIndex(zodPointIndex);
+        Assert.That(zodPoint, Is.EqualTo(ZodiacalPoints.ZeroAries));
 
     }
 
@@ -57,7 +49,7 @@ public class TestZodiacalPoints
     public void TestRetrievingWithWrongIndex()
     {
         int zodPointIndex = 300;
-        Assert.That(() => _ = specifications.DetailsForPoint(zodPointIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ZodiacalPoints.ZeroCancer.ZodiacalPointForIndex(zodPointIndex), Throws.TypeOf<ArgumentException>());
     }
 
 

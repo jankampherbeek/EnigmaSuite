@@ -2,22 +2,20 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Constants;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
 [TestFixture]
-public class TestCelPointCatSpecifications
+public class TestCelPointCats
 {
 
     [Test]
     public void TestRetrievingDetails()
     {
         CelPointCats celPointCat = CelPointCats.Modern;
-        ICelPointCatSpecifications specifications = new CelPointCatSpecifications();
-        CelPointCatDetails details = specifications.DetailsForCategory(celPointCat);
+        CelPointCatDetails details = celPointCat.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -29,46 +27,42 @@ public class TestCelPointCatSpecifications
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        ICelPointCatSpecifications specifications = new CelPointCatSpecifications();
         foreach (CelPointCats category in Enum.GetValues(typeof(CelPointCats)))
         {
-            CelPointCatDetails details = specifications.DetailsForCategory(category);
+            CelPointCatDetails details = category.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
     }
-}
 
-[TestFixture]
-public class TestCelPointSpecifications
-{
+
     [Test]
-    public void TestRetrievingDetails()
+    public void TestRetrievingWithIndex()
     {
-        CelPoints point = CelPoints.Neptune;
-        ICelPointSpecifications specifications = new CelPointSpecifications();
-        CelPointDetails details = specifications.DetailsForPoint(point);
+        int index = 4;
+        CelPointCats cat = CelPointCats.MathPoint.CelPointCatForIndex(index);
+        Assert.That(cat, Is.EqualTo(CelPointCats.Hypothetical));
+    }
+
+    [Test]
+    public void TestRetrievingWithWrongIndex()
+    {
+        int index = 500;
+        Assert.That(() => _ = CelPointCats.MathPoint.CelPointCatForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestAllCelPointCatDetails()
+    {
+        List<CelPointCatDetails> allDetails = CelPointCats.Classic.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.CelPoint, Is.EqualTo(point));
-            Assert.That(details.CelPointCat, Is.EqualTo(CelPointCats.Modern));
-            Assert.That(details.SeId, Is.EqualTo(EnigmaConstants.SE_NEPTUNE));
-            Assert.That(details.UseForHeliocentric, Is.True);
-            Assert.That(details.UseForGeocentric, Is.True);
-            Assert.That(details.TextId, Is.EqualTo("neptune"));
+            Assert.That(allDetails, Has.Count.EqualTo(5));
+
+            Assert.That(allDetails[0].TextId, Is.EqualTo("enumCelPointCatClassic"));
+            Assert.That(allDetails[1].Category, Is.EqualTo(CelPointCats.Modern));
         });
     }
 
-    [Test]
-    public void TestAvailabilityOfDetailsForAllEnums()
-    {
-        ICelPointSpecifications specifications = new CelPointSpecifications();
-        foreach (CelPoints point in Enum.GetValues(typeof(CelPoints)))
-        {
-            CelPointDetails details = specifications.DetailsForPoint(point);
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
-        }
-    }
 }
+

@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
+using System;
 
 namespace Enigma.Domain.Enums;
 
@@ -12,32 +12,13 @@ public enum TimeZones
     NCT = 17, NZST = 18, SST = 19, HAST = 20, MART = 21, AKST = 22, PST = 23, MST = 24, CST = 25, EST = 26, AST = 27, NST = 28, BRT = 29, GST = 30, AZOT = 31, LMT = 32
 }
 
-public record TimeZoneDetails
+
+public static class TimeZonesExtensions
 {
-    readonly public TimeZones TimeZone;
-    readonly public double OffsetFromUt;
-    readonly public string TextId;
-
-    /// <summary>
-    /// Construct details for a Time Zone.
-    /// </summary>
-    /// <param name="timeZone">The TimeZone.</param>
-    /// <param name="offsetFromUt">The difference with Universal Time.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public TimeZoneDetails(TimeZones timeZone, double offsetFromUt, string textId)
-    {
-        TimeZone = timeZone;
-        OffsetFromUt = offsetFromUt;
-        TextId = textId;
-    }
-}
-
-
-public class TimeZoneSpecifications : ITimeZoneSpecifications
-{
-
-    /// <exception cref="ArgumentException">Is thrown if the Time Zone was not recognized.</exception>
-    public TimeZoneDetails DetailsForTimeZone(TimeZones timeZone)
+    /// <summary>Retrieve details for TimeZone.</summary>
+    /// <param name="timezone">The time zone, is automatically filled.</param>
+    /// <returns>Details for the time zone.</returns>
+    public static TimeZoneDetails GetDetails(this TimeZones timeZone)
     {
         return timeZone switch
         {
@@ -78,25 +59,40 @@ public class TimeZoneSpecifications : ITimeZoneSpecifications
         };
     }
 
-    /// <inheritdoc/>
-    public List<TimeZoneDetails> AllTimeZoneDetails()
+
+    /// <summary>Retrieve details for items in the enum TimeZones.</summary>
+    /// <param name="timezone">The time zone, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<TimeZoneDetails> AllDetails(this TimeZones timeZone)
     {
-        var allDetails = new List<TimeZoneDetails>();
-        foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
-        {
-            allDetails.Add(DetailsForTimeZone(timeZone));
+        var allDetails = new List<TimeZoneDetails> ();
+        foreach (TimeZones currentTz in Enum.GetValues(typeof(TimeZones)))
+            {
+            allDetails.Add(currentTz.GetDetails());
         }
         return allDetails;
     }
 
 
-    public TimeZones TimeZoneForIndex(int timeZoneIndex)
+    /// <summary>Find time zone for an index.</summary>
+    /// <param name="index">Index to look for.</param>
+    /// <param name="timeZone">Any time zone, is automatically filled.</param>
+    /// <returns>The time zone for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static TimeZones  TimeZoneForIndex(this TimeZones timeZone, int index)
     {
-        foreach (TimeZones timeZone in Enum.GetValues(typeof(TimeZones)))
+        foreach (TimeZones currentTz in Enum.GetValues(typeof(TimeZones)))
         {
-            if ((int)timeZone == timeZoneIndex) return timeZone;
+            if ((int)currentTz == index) return currentTz;
         }
-        throw new ArgumentException("Could not find TimeZone for index : " + timeZoneIndex);
+        throw new ArgumentException("Could not find TimeZone for index : " + index);
     }
-
+	
 }
+
+
+/// <summary>Details for a Time Zone.</summary>
+/// <param name="TimeZone">The TimeZone.</param>
+/// <param name="OffsetFromUt">The difference with Universal Time.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record TimeZoneDetails(TimeZones TimeZone, double OffsetFromUt, string TextId);

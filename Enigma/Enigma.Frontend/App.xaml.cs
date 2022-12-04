@@ -8,7 +8,6 @@ using Enigma.Api.Services;
 using Enigma.Core.Work.Calc.DateTime;
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Services;
 using Enigma.Frontend.Ui.Charts;
@@ -63,7 +62,6 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartMidpointsWindow>();
         serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<ChartPositionsController>();
-        serviceCollection.AddTransient<IChartsEnumFacade, ChartsEnumFacade>();
         serviceCollection.AddTransient<ChartsMainController>();
         serviceCollection.AddTransient<ChartsWheel>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
@@ -95,7 +93,6 @@ public partial class App : Application
         serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
-        serviceCollection.AddTransient<ITimeZoneSpecifications, TimeZoneSpecifications>();
 
         // Handle services from other projects.
         serviceCollection.RegisterFrontendHelpersServices();

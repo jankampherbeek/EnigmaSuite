@@ -6,7 +6,6 @@
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.RequestResponse;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
@@ -19,29 +18,23 @@ namespace Enigma.Core.Work.Handlers.Calc.CelestialPoints;
 /// <inheritdoc/>
 public class CelPointsHandler : ICelPointsHandler
 {
-    private readonly IAyanamshaSpecifications _ayanamshaSpecifications;
     private readonly ISeFlags _seFlags;
     private readonly ICelPointSECalc _celPointSECalc;
     private readonly ICelPointsElementsCalc _celPointElementsCalc;
-    private readonly ICelPointSpecifications _celPointSpecs;
     private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IObliquityHandler _obliquityHandler;
     private readonly IHorizontalHandler _horizontalHandler;
 
 
-    public CelPointsHandler(IAyanamshaSpecifications ayanamshaSpecifications,
-                               ISeFlags seFlags,
+    public CelPointsHandler(   ISeFlags seFlags,
                                ICelPointSECalc positionCelPointSECalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
-                               ICelPointSpecifications celPointspecs,
                                ICoTransFacade coordinateConversionFacade,
                                IObliquityHandler obliquityHandler,
                                IHorizontalHandler horizontalHandler)
     {
-        _ayanamshaSpecifications = ayanamshaSpecifications;
         _seFlags = seFlags;
         _celPointSECalc = positionCelPointSECalc;
-        _celPointSpecs = celPointspecs;
         _celPointElementsCalc = posCelPointsElementsCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
         _obliquityHandler = obliquityHandler;
@@ -63,7 +56,7 @@ public class CelPointsHandler : ICelPointsHandler
         string errorText = obliquityResponse.ErrorText;
         if (request.ActualCalculationPreferences.ActualZodiacType == ZodiacTypes.Sidereal)
         {
-            int idAyanamsa = _ayanamshaSpecifications.DetailsForAyanamsha(request.ActualCalculationPreferences.ActualAyanamsha).SeId;
+            int idAyanamsa = request.ActualCalculationPreferences.ActualAyanamsha.GetDetails().SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
         }
         int _flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
@@ -71,7 +64,7 @@ public class CelPointsHandler : ICelPointsHandler
         var _fullCelPoints = new List<FullCelPointPos>();
         foreach (Domain.Enums.CelPoints celPoint in request.ActualCalculationPreferences.ActualCelPoints)
         {
-            CelPointDetails details = _celPointSpecs.DetailsForPoint(celPoint);
+            CelPointDetails details = celPoint.GetDetails();
             if (details.CalculationType == CalculationTypes.SE)
             {
                 _fullCelPoints.Add(CreatePosForSePoint(celPoint, julDay, location, _flagsEcliptical, _flagsEquatorial));

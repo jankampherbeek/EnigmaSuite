@@ -84,7 +84,7 @@ public class ChartDataInputController
             CelPoints.Chiron,
             CelPoints.MeanNode
         });
-        return new CalculationPreferences(celPoints, ZodiacTypes.Tropical, Ayanamshas.None, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.twoDimensional, HouseSystems.Placidus);
+        return new CalculationPreferences(celPoints, ZodiacTypes.Tropical, Ayanamshas.None, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, HouseSystems.Placidus);
     }
 
     public void InitializeDataVault()

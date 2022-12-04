@@ -24,7 +24,7 @@ public class DefaultConfiguration : IDefaultConfiguration
         Ayanamshas ayanamsha = Ayanamshas.None;
         ObserverPositions observerPosition = ObserverPositions.GeoCentric;
         ZodiacTypes zodiacType = ZodiacTypes.Tropical;
-        ProjectionTypes projectionType = ProjectionTypes.twoDimensional;
+        ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         OrbMethods orbMethod = OrbMethods.Weighted;
         List<CelPointSpecs> celPointsSpecs = CreateCelPoints();
         List<AspectSpecs> aspectSpecs = CreateAspects();

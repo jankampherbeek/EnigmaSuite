@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
@@ -11,19 +10,12 @@ namespace Enigma.Test.Domain.Enums;
 [TestFixture]
 public class TestYearCounts
 {
-    private IYearCountSpecifications specifications;
-
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new YearCountSpecifications();
-    }
 
     [Test]
     public void TestRetrievingDetails()
     {
         YearCounts yearCount = YearCounts.BCE;
-        YearCountDetails details = specifications.DetailsForYearCount(yearCount);
+        YearCountDetails details = yearCount.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -37,7 +29,7 @@ public class TestYearCounts
     {
         foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
         {
-            YearCountDetails details = specifications.DetailsForYearCount(yearCount);
+            YearCountDetails details = yearCount.GetDetails();
             Assert.That(details.TextId, Is.Not.Empty);
         }
     }
@@ -46,7 +38,7 @@ public class TestYearCounts
     public void TestRetrievingWithIndex()
     {
         int yearCountIndex = 2;
-        YearCounts yearCount = specifications.YearCountForIndex(yearCountIndex);
+        YearCounts yearCount = YearCounts.CE.YearCountForIndex(yearCountIndex);
         Assert.That(yearCount, Is.EqualTo(YearCounts.Astronomical));
     }
 
@@ -55,13 +47,13 @@ public class TestYearCounts
     public void TestRetrievingWithWrongIndex()
     {
         int yearCountIndex = 44;
-        Assert.That(() => _ = specifications.YearCountForIndex(yearCountIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = YearCounts.CE.YearCountForIndex(yearCountIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDetailsForYearCounts()
     {
-        List<YearCountDetails> allDetails = specifications.AllDetailsForYearCounts();
+        List<YearCountDetails> allDetails = YearCounts.CE.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));

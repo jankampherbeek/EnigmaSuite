@@ -5,7 +5,6 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
@@ -17,16 +16,10 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class AspectForDataGridFactory : IAspectForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ICelPointSpecifications _celPointSpecifications;
-    private readonly IAspectSpecifications _aspectSpecifications;
 
-    public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
-        ICelPointSpecifications celPointSpecifications,
-        IAspectSpecifications aspectSpecifications)
+    public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _celPointSpecifications = celPointSpecifications;
-        _aspectSpecifications = aspectSpecifications;
     }
 
     /// <inheritdoc/>
@@ -50,10 +43,10 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
         }
         else if (effAspect.CelPoint1 != null)
         {
-            firstPoint = _celPointSpecifications.DetailsForPoint((CelPoints)effAspect.CelPoint1).DefaultGlyph;
+            firstPoint = ((CelPoints)effAspect.CelPoint1).GetDetails().DefaultGlyph;
         }
-        string aspectGlyph = _aspectSpecifications.DetailsForAspect(effAspect.EffAspectDetails.Aspect).Glyph;
-        string secondPoint = _celPointSpecifications.DetailsForPoint(effAspect.CelPoint2).DefaultGlyph;
+        string aspectGlyph = effAspect.EffAspectDetails.Aspect.GetDetails().Glyph;
+        string secondPoint = effAspect.CelPoint2.GetDetails().DefaultGlyph;
 
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.Orb);
         double exactnessValue = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);

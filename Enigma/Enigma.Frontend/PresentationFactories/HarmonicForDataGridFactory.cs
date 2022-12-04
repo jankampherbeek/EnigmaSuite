@@ -4,6 +4,7 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
@@ -17,15 +18,10 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ICelPointSpecifications _celPointSpecifications;
 
-
-    public HarmonicForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions,
-        ICelPointSpecifications celPointSpecifications)
+    public HarmonicForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _celPointSpecifications = celPointSpecifications;
-
     }
 
     /// <inheritdoc/>
@@ -43,13 +39,13 @@ public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
         for (int i = 0; i < celPoints.Count; i++)
         {
             counterCelPoints = i;
-            string glyph = _celPointSpecifications.DetailsForPoint(celPoints[i].CelPoint).DefaultGlyph;
+            string glyph = celPoints[i].CelPoint.GetDetails().DefaultGlyph;
             double radixPos = celPoints[i].Longitude.Position;
             double harmonicPos = harmonicPositions[i];
             presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
         }
         presentableHarmonics.Add(CreatePresHarmonic("M", chart.FullHousePositions.Mc.Longitude, harmonicPositions[++counterCelPoints]));
-        presentableHarmonics.Add(CreatePresHarmonic("A", chart.FullHousePositions.Ascendant.Longitude, harmonicPositions[++counterCelPoints]));
+        presentableHarmonics.Add(CreatePresHarmonic("A", chart.FullHousePositions.Ascendant.Longitude, harmonicPositions[counterCelPoints]));
         return presentableHarmonics;
     }
 

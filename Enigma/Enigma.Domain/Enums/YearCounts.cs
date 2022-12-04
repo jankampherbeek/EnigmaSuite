@@ -2,8 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Enums;
 
 /// <summary>Enum for Yearcounts, the way years are defined.</summary>
@@ -13,27 +11,12 @@ public enum YearCounts
 }
 
 
-public record YearCountDetails
+public static class YearCountsExtensions
 {
-    readonly public YearCounts YearCount;
-    readonly public string TextId;
-
-    /// <param name="yearCount">The YearCount.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public YearCountDetails(YearCounts yearCount, string textId)
-    {
-        YearCount = yearCount;
-        TextId = textId;
-    }
-}
-
-
-
-public class YearCountSpecifications : IYearCountSpecifications
-{
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the calendar was not recognized.</exception>
-    public YearCountDetails DetailsForYearCount(YearCounts yearCount)
+    /// <summary>Retrieve details for year counts.</summary>
+    /// <param name="yearCount">The year count, is automatically filled.</param>
+    /// <returns>Details for the year count.</returns>
+    public static YearCountDetails GetDetails(this YearCounts yearCount)
     {
         return yearCount switch
         {
@@ -44,26 +27,40 @@ public class YearCountSpecifications : IYearCountSpecifications
         };
     }
 
-    public List<YearCountDetails> AllDetailsForYearCounts()
+
+    /// <summary>Retrieve details for items in the enum YearCounts.</summary>
+    /// <param name="yearCount">The year count, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<YearCountDetails> AllDetails(this YearCounts yearCount)
     {
         var allDetails = new List<YearCountDetails>();
-        foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
+        foreach (YearCounts currentYc in Enum.GetValues(typeof(YearCounts)))
         {
-            allDetails.Add(DetailsForYearCount(yearCount));
+            allDetails.Add(currentYc.GetDetails());
         }
         return allDetails;
     }
 
 
-    /// <inheritdoc/>
-    public YearCounts YearCountForIndex(int yearCountIndex)
+    /// <summary>Find year count for an index.</summary>
+    /// <param name="yearCount">Any year count, automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The year count for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static YearCounts YearCountForIndex(this YearCounts yearCount, int index)
     {
-        foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
+        foreach (YearCounts currentYc in Enum.GetValues(typeof(YearCounts)))
         {
-            if ((int)yearCount == yearCountIndex) return yearCount;
+            if ((int)currentYc == index) return currentYc;
         }
-        throw new ArgumentException("Could not find YearCount for index : " + yearCountIndex);
+        throw new ArgumentException("Could not find YearCount for index : " + index);
     }
-
-
+	
 }
+
+
+/// <summary>Details for YearCounts.</summary>
+/// <param name="YearCount">The YearCount.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record YearCountDetails(YearCounts YearCount, string TextId);
+

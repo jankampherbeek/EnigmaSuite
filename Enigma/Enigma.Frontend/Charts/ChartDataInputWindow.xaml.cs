@@ -7,6 +7,7 @@ using Enigma.Domain.Enums;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -18,7 +19,6 @@ public partial class ChartDataInputWindow : Window
 {
     private readonly IRosetta _rosetta;
     private readonly ChartDataInputController _controller;
-    private readonly IChartsEnumFacade _chartsEnumFacade;
     private List<CalendarDetails> _calendarDetails;
     private List<Directions4GeoLongDetails> _directions4GeoLongDetails;
     private List<Directions4GeoLatDetails> _directions4GeoLatDetails;
@@ -30,7 +30,6 @@ public partial class ChartDataInputWindow : Window
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ChartDataInputController>();
         _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
-        _chartsEnumFacade = App.ServiceProvider.GetRequiredService<IChartsEnumFacade>();
         _controller.InitializeDataVault();
         PopulateDetails();
         PopulateTexts();
@@ -60,11 +59,12 @@ public partial class ChartDataInputWindow : Window
 
     private void PopulateDetails()
     {
-        _calendarDetails = _chartsEnumFacade.AllCalendarDetails();
-        _directions4GeoLongDetails = _chartsEnumFacade.AllDirections4GeoLongDetails();
-        _directions4GeoLatDetails = _chartsEnumFacade.AllDirections4GeoLatDetails();
-        _yearCountDetails = _chartsEnumFacade.AllYearCountDetails();
-        List<TimeZoneDetails> timeZoneDetails = _chartsEnumFacade.AllTimeZoneDetails();
+        _calendarDetails = Calendars.Gregorian.AllDetails();
+
+        _directions4GeoLongDetails = Directions4GeoLong.East.AllDetails();
+        _directions4GeoLatDetails = Directions4GeoLat.North.AllDetails();
+        _yearCountDetails = YearCounts.Astronomical.AllDetails();
+        List<TimeZoneDetails> timeZoneDetails = TimeZones.UT.AllDetails();
         _timeZoneDetails = timeZoneDetails;
     }
 

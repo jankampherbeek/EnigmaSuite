@@ -56,7 +56,7 @@ public class ResearchMethodInputController
         configItems.Add(new ConfigItem()
         {
             ConfigName = _rosetta.TextForId("astroconfigwindow.projectiontype"),
-            ConfigValue = _rosetta.TextForId(_currentAstroConfig.ProjectionType.TextInRbId())
+            ConfigValue = _rosetta.TextForId(_currentAstroConfig.ProjectionType.GetDetails().TextId)
         });
         configItems.Add(new ConfigItem()
         {

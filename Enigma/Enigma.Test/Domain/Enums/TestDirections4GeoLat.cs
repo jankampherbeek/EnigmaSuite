@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
@@ -11,20 +10,12 @@ namespace Enigma.Test.Domain.Enums;
 [TestFixture]
 public class TestTestDirections4GeoLat
 {
-    private IDirections4GeoLatSpecifications specifications;
-
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new Directions4GeoLatSpecifications();
-    }
-
 
     [Test]
     public void TestRetrievingDetails()
     {
         Directions4GeoLat direction = Directions4GeoLat.North;
-        Directions4GeoLatDetails details = specifications.DetailsForDirection(direction);
+        Directions4GeoLatDetails details = direction.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -38,7 +29,7 @@ public class TestTestDirections4GeoLat
     {
         foreach (Directions4GeoLat direction in Enum.GetValues(typeof(Directions4GeoLat)))
         {
-            Directions4GeoLatDetails details = specifications.DetailsForDirection(direction);
+            Directions4GeoLatDetails details = direction.GetDetails();
             Assert.That(details.TextId, Is.Not.Empty);
         }
     }
@@ -47,7 +38,7 @@ public class TestTestDirections4GeoLat
     public void TestRetrievingWithIndex()
     {
         int directionIndex = -1;
-        Directions4GeoLat direction = specifications.DirectionForIndex(directionIndex);
+        Directions4GeoLat direction = Directions4GeoLat.North.directionsForIndex(directionIndex);
         Assert.That(direction, Is.EqualTo(Directions4GeoLat.South));
     }
 
@@ -55,13 +46,13 @@ public class TestTestDirections4GeoLat
     public void TestRetrievingWithWrongIndex()
     {
         int directionIndex = 500;
-        Assert.That(() => _ = specifications.DirectionForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ =  Directions4GeoLat.North.directionsForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDirectionDetails()
     {
-        List<Directions4GeoLatDetails> allDetails = specifications.AllDirectionDetails();
+        List<Directions4GeoLatDetails> allDetails = Directions4GeoLat.South.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

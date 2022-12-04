@@ -22,8 +22,7 @@ public class TestCelPointToAnalysisPointMap
         var pointGroup = PointGroups.CelPoints;
         var coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
-        ICelPointSpecifications celPointSpecifications = new CelPointSpecifications();
-        ICelPointToAnalysisPointMap pointMap = new CelPointToAnalysisPointMap(celPointSpecifications);
+        ICelPointToAnalysisPointMap pointMap = new CelPointToAnalysisPointMap();
 
         PosSpeed emptyPS = new(0.0, 0.0);
         PosSpeed longPS = new(longPos, 0.0);
@@ -46,8 +45,7 @@ public class TestCelPointToAnalysisPointMap
         var pointGroup = PointGroups.CelPoints;
         var coordSystem = CoordinateSystems.Equatorial;
         bool mainCoord = false;
-        ICelPointSpecifications celPointSpecifications = new CelPointSpecifications();
-        ICelPointToAnalysisPointMap pointMap = new CelPointToAnalysisPointMap(celPointSpecifications);
+        ICelPointToAnalysisPointMap pointMap = new CelPointToAnalysisPointMap();
 
         PosSpeed emptyPS = new(0.0, 0.0);
         PosSpeed declPS = new(declPos, 0.0);
@@ -62,7 +60,7 @@ public class TestCelPointToAnalysisPointMap
         });
     }
 
-    private FullCelPointPos CreateFullCelPointPos(CelPoints ssPoint, PosSpeed longPS, PosSpeed latPS, PosSpeed raPS, PosSpeed declPS, PosSpeed distPS, HorizontalCoordinates horCoord)
+    private static FullCelPointPos CreateFullCelPointPos(CelPoints ssPoint, PosSpeed longPS, PosSpeed latPS, PosSpeed raPS, PosSpeed declPS, PosSpeed distPS, HorizontalCoordinates horCoord)
     {
         return new(ssPoint, longPS, latPS, raPS, declPS, distPS, horCoord);
     }

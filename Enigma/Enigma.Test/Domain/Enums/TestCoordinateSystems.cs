@@ -4,23 +4,21 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
 [TestFixture]
-public class TestCoordinateSystemSpecifications
+public class TestCoordinateSystems
 {
     [Test]
     public void TestRetrievingDetails()
     {
         CoordinateSystems system = CoordinateSystems.Equatorial;
-        ICoordinateSystemSpecifications specifications = new CoordinateSystemSpecifications();
-        CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
+        CoordinateSystemDetails details = system.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.CoordinateSystem, Is.EqualTo(system));
+            Assert.That(details.CoordSystem, Is.EqualTo(system));
             Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_EQUATORIAL));
             Assert.That(details.TextId, Is.EqualTo("coordinateSysEquatorial"));
         });
@@ -29,12 +27,40 @@ public class TestCoordinateSystemSpecifications
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        ICoordinateSystemSpecifications specifications = new CoordinateSystemSpecifications();
         foreach (CoordinateSystems system in Enum.GetValues(typeof(CoordinateSystems)))
         {
-            CoordinateSystemDetails details = specifications.DetailsForCoordinateSystem(system);
+            CoordinateSystemDetails details = system.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
     }
+
+    [Test]
+    public void TestRetrievingWithIndex()
+    {
+        int index = 1;
+        CoordinateSystems system = CoordinateSystems.Ecliptical.CoordinateSystemForIndex(index);
+        Assert.That(system, Is.EqualTo(CoordinateSystems.Equatorial));
+    }
+
+    [Test]
+    public void TestRetrievingWithWrongIndex()
+    {
+        int index = 500;
+        Assert.That(() => _ = CoordinateSystems.Ecliptical.CoordinateSystemForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestAllCoordinateSystemDetails()
+    {
+        List<CoordinateSystemDetails> allDetails = CoordinateSystems.Horizontal.AllDetails();
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDetails, Has.Count.EqualTo(3));
+            Assert.That(allDetails[0].TextId, Is.EqualTo("coordinateSysEcliptic"));
+            Assert.That(allDetails[1].CoordSystem, Is.EqualTo(CoordinateSystems.Equatorial));
+            Assert.That(allDetails[2].ValueForFlag, Is.EqualTo(0));
+        });
+    }
+
 }

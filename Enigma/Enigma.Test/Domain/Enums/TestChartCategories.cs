@@ -9,21 +9,13 @@ namespace Enigma.Test.Domain.Enums;
 
 [TestFixture]
 public class TestChartCategories
-{
-    private IChartCategorySpecifications specifications;
-
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new ChartCategorySpecifications();
-    }
-
+{ 
 
     [Test]
     public void TestRetrievingDetails()
     {
         ChartCategories chartCategory = ChartCategories.Election;
-        ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
+        ChartCategoryDetails details = chartCategory.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -37,7 +29,7 @@ public class TestChartCategories
     {
         foreach (ChartCategories chartCategory in Enum.GetValues(typeof(ChartCategories)))
         {
-            ChartCategoryDetails details = specifications.DetailsForCategory(chartCategory);
+            ChartCategoryDetails details = chartCategory.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
@@ -47,7 +39,7 @@ public class TestChartCategories
     public void TestRetrievingWithIndex()
     {
         int chartCategoryIndex = 3;
-        ChartCategories chartCategory = specifications.ChartCategoryForIndex(chartCategoryIndex);
+        ChartCategories chartCategory =  ChartCategories.Election.ChartCategoryForIndex(chartCategoryIndex);
         Assert.That(chartCategory, Is.EqualTo(ChartCategories.Event));
     }
 
@@ -55,13 +47,13 @@ public class TestChartCategories
     public void TestRetrievingWithWrongIndex()
     {
         int chartCategoryIndex = 500;
-        Assert.That(() => _ = specifications.ChartCategoryForIndex(chartCategoryIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ChartCategories.Election.ChartCategoryForIndex(chartCategoryIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllChartCatDetails()
     {
-        List<ChartCategoryDetails> allDetails = specifications.AllChartCatDetails();
+        List<ChartCategoryDetails> allDetails = ChartCategories.Election.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));

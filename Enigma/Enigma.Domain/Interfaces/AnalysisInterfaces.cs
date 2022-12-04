@@ -33,7 +33,7 @@ public interface IAnalysisPointsMapping
 
 public interface ICelPointToAnalysisPointMap
 {
-    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos celPoint, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord);
+    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos fullCelPointPos, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord);
 }
 
 public interface IMundanePointToAnalysisPointMap

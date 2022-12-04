@@ -2,57 +2,71 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Enums;
 
 
 /// <summary>Types of celestial points.</summary>
 /// <remarks>
-/// CLASSIC: Sun, Moon and visible planets, 
-/// MODERN: Uranus, Neptune, Pluto, 
-/// MATHPOINT: mathematical points like the lunare node, 
-/// MINOR: Plutoids (except Pluto), planetoids, centaurs, 
-/// HYPOTHETICAL: hypothetical bodies and points.
+/// Classic: Sun, Moon and visible planets, 
+/// Modern: Uranus, Neptune, Pluto, 
+/// Mathpoint: mathematical points like the lunare node, 
+/// Minor: Plutoids (except Pluto), planetoids, centaurs, 
+/// Hypothetical: hypothetical bodies and points.
 /// </remarks>
 public enum CelPointCats
 {
-    Classic, Modern, MathPoint, Minor, Hypothetical
+    Classic = 0, Modern = 1, MathPoint = 2, Minor = 3, Hypothetical = 4
 }
 
-/// <summary>Details for the Category of a celestial point.</summary>
-public record CelPointCatDetails
+public static class CelPointCatsExtensions
 {
-    readonly public CelPointCats Category;
-    readonly public string TextId;
-
-    /// <param name="category">The category of the celestial point.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public CelPointCatDetails(CelPointCats category, string textId)
+    /// <summary>Retrieve details for celestial point category.</summary>
+    /// <param name="cat">The celestial point category, is automatically filled.</param>
+    /// <returns>Details for the celestial point category.</returns>
+    public static CelPointCatDetails GetDetails(this CelPointCats cat)
     {
-        Category = category;
-        TextId = textId;
-    }
-}
-
-
-/// <inheritdoc/>
-public class CelPointCatSpecifications : ICelPointCatSpecifications
-{
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the category was not recognized.</exception>
-    public CelPointCatDetails DetailsForCategory(CelPointCats category)
-    {
-        return category switch
+        return cat switch
         {
-            CelPointCats.Classic => new CelPointCatDetails(category, "enumCelPointCatClassic"),
-            CelPointCats.Modern => new CelPointCatDetails(category, "enumCelPointCatModern"),
-            CelPointCats.MathPoint => new CelPointCatDetails(category, "enumCelPointCatMathPoint"),
-            CelPointCats.Minor => new CelPointCatDetails(category, "enumCelPointCatMinor"),
-            CelPointCats.Hypothetical => new CelPointCatDetails(category, "enumCelPointCatHypothetical"),
-            _ => throw new ArgumentException("CelPointCats unknown : " + category.ToString())
+            CelPointCats.Classic => new CelPointCatDetails(cat, "enumCelPointCatClassic"),
+            CelPointCats.Modern => new CelPointCatDetails(cat, "enumCelPointCatModern"),
+            CelPointCats.MathPoint => new CelPointCatDetails(cat, "enumCelPointCatMathPoint"),
+            CelPointCats.Minor => new CelPointCatDetails(cat, "enumCelPointCatMinor"),
+            CelPointCats.Hypothetical => new CelPointCatDetails(cat, "enumCelPointCatHypothetical"),
+            _ => throw new ArgumentException("CelPointCats unknown : " + cat.ToString())
         };
     }
+
+
+    /// <summary>Retrieve details for items in the enum CelPointCats.</summary>
+    /// <param name="cat">The celestial point category, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<CelPointCatDetails> AllDetails(this CelPointCats cat)
+    {
+        var allDetails = new List<CelPointCatDetails>();
+        foreach (CelPointCats currentCat in Enum.GetValues(typeof(CelPointCats)))
+        {
+            allDetails.Add(currentCat.GetDetails());
+        }
+        return allDetails;
+    }
+
+
+    /// <summary>Find celestial point category for an index.</summary>
+    /// <param name="cat">Any celestial point category, automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The celestial point category for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static CelPointCats CelPointCatForIndex(this CelPointCats cat, int index)
+    {
+        foreach (CelPointCats currentCat in Enum.GetValues(typeof(CelPointCats)))
+        {
+            if ((int)currentCat == index) return currentCat;
+        }
+        throw new ArgumentException("Could not find celestial point category for index : " + index);
+    }
 }
 
-
+    /// <summary>Details for the Category of a celestial point.</summary>
+    /// <param name="category">The category of the celestial point.</param>
+    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+    public record CelPointCatDetails(CelPointCats Category, string TextId); 

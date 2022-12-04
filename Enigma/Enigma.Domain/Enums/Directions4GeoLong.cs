@@ -2,8 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Enums;
 
 
@@ -16,55 +14,54 @@ public enum Directions4GeoLong
     West = -1
 }
 
-/// <summary>Details for the Directions of geographic longitude.</summary>
-public record Directions4GeoLongDetails
+public static class Directions4GeoLongExtensions
 {
-    readonly public Directions4GeoLong Direction;
-    readonly public string TextId;
-
-    /// <param name="direction">Direction from the enum DirectionsGeo4Long.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public Directions4GeoLongDetails(Directions4GeoLong direction, string textId)
-    {
-        Direction = direction;
-        TextId = textId;
-    }
-}
-
-
-
-///<inheritdoc/>
-public class Directions4GeoLongSpecifications : IDirections4GeoLongSpecifications
-{
-    public List<Directions4GeoLongDetails> AllDirectionDetails()
-    {
-        var allDetails = new List<Directions4GeoLongDetails>();
-        foreach (Directions4GeoLong direction in Enum.GetValues(typeof(Directions4GeoLong)))
-        {
-            allDetails.Add(DetailsForDirection(direction));
-        }
-        return allDetails;
-    }
-
-    /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Is thrown if the direction was not recognized.</exception>
-    public Directions4GeoLongDetails DetailsForDirection(Directions4GeoLong direction)
+    /// <summary>Retrieve details for Directions4GeoLong.</summary>
+    /// <param name="direction">The Directions4GeoLong, is automatically filled.</param>
+    /// <returns>Details for the Directions4GeoLong.</returns>
+    public static Directions4GeoLongDetails GetDetails(this Directions4GeoLong direction)
     {
         return direction switch
         {
             Directions4GeoLong.East => new Directions4GeoLongDetails(direction, "ref.enum.direction4geolong.east"),
             Directions4GeoLong.West => new Directions4GeoLongDetails(direction, "ref.enum.direction4geolong.west"),
-            _ => throw new ArgumentException("Direction for longitude unknown : " + direction.ToString())
+            _ => throw new ArgumentException("Direction for Longitude unknown : " + direction.ToString())
         };
     }
 
-    /// <inheritdoc/>
-    public Directions4GeoLong DirectionForIndex(int directionIndex)
+    /// <summary>Retrieve details for items in the enum Directions4GeoLong.</summary>
+    /// <param name="direction.">The Directions4GeoLong, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<Directions4GeoLongDetails> AllDetails(this Directions4GeoLong direction)
     {
-        foreach (Directions4GeoLong direction in Enum.GetValues(typeof(Directions4GeoLong)))
+        var allDetails = new List<Directions4GeoLongDetails>();
+        foreach (Directions4GeoLong currentDir in Enum.GetValues(typeof(Directions4GeoLong)))
         {
-            if ((int)direction == directionIndex) return direction;
+            allDetails.Add(currentDir.GetDetails());
         }
-        throw new ArgumentException("Could not find direction of longitude for index : " + directionIndex);
+        return allDetails;
     }
+
+
+    /// <summary>Find Directions4GeoLong for an index.</summary>
+    /// <param name="direction.">Any Directions4GeoLong, is automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The Directions4GeoLong.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static Directions4GeoLong DirectionForIndex(this Directions4GeoLong direction, int index)
+    {
+        foreach (Directions4GeoLong currentDir in Enum.GetValues(typeof(Directions4GeoLong)))
+        {
+            if ((int)currentDir == index) return currentDir;
+        }
+        throw new ArgumentException("Could not find Directions4GeoLong for index : " + index);
+    }
+
 }
+
+
+/// <summary>Details for the Directions of geographic longitude.</summary>
+/// <param name="Direction">Direction from the enum DirectionsGeo4Long.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record Directions4GeoLongDetails(Directions4GeoLong Direction, string TextId);
+

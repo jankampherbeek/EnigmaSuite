@@ -56,7 +56,7 @@ public class TestDefaultConfiguration
     [Test]
     public void TestProjectionType()
     {
-        Assert.That(_astroConfig.ProjectionType, Is.EqualTo(ProjectionTypes.twoDimensional));
+        Assert.That(_astroConfig.ProjectionType, Is.EqualTo(ProjectionTypes.TwoDimensional));
     }
 
     [Test]

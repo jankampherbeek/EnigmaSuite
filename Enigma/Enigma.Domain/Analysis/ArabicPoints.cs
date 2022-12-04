@@ -2,8 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Analysis;
 
 /// <summary>
@@ -14,48 +12,38 @@ public enum ArabicPoints
     FortunaSect = 1, FortunaNoSect = 2
 }
 
-/// <summary>
-/// Details for Arabic Points
-/// </summary>
-public record ArabicPointDetails
+public static class ArabicPointsExtensions
 {
-    readonly public ArabicPoints ArabicPoint;
-    readonly public string TextId;
-
-    /// <param name="arabicPoint">Instance from enum ArabicPoints.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public ArabicPointDetails(ArabicPoints arabicPoint, string textId)
+    /// <summary>Retrieve details for lots/Arabic points.</summary>
+    /// <param name="arabicPoint">The arabic point, is automatically filled.</param>
+    /// <returns>Details for the Arabic point.</returns>
+    public static ArabicPointDetails GetDetails(this ArabicPoints arabicPoint)
     {
-        ArabicPoint = arabicPoint;
-        TextId = textId;
-    }
+        return arabicPoint switch
+        {
+            ArabicPoints.FortunaSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunasect"),
+            ArabicPoints.FortunaNoSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunanosect"),
+            _ => throw new ArgumentException("Arabic Point unknown : " + arabicPoint.ToString())
+        };
 }
 
-
-
-/// <inheritdoc/>
-public class ArabicPointSpecifications : IArabicPointSpecifications
-{
-    /// <inheritdoc/>
-    public ArabicPointDetails DetailsForArabicPoint(ArabicPoints arabicPoint) => arabicPoint switch
-    {
-        ArabicPoints.FortunaSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunasect"),
-        ArabicPoints.FortunaNoSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunanosect"),
-        _ => throw new ArgumentException("Arabic Point unknown : " + arabicPoint.ToString())
-    };
-
-
-    /// <inheritdoc/>
-    public List<ArabicPointDetails> AllArabicPointDetails()
+    /// <summary>Retrieve details for items in the enum ArabicPoints.</summary>
+    /// <param name="arabicPoint">The arabic point, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<ArabicPointDetails> AllDetails(this ArabicPoints arabicPoint)
     {
         var allDetails = new List<ArabicPointDetails>();
-        foreach (ArabicPoints arabicPoint in Enum.GetValues(typeof(ArabicPoints)))
+        foreach (ArabicPoints currentArabicPoint in Enum.GetValues(typeof(ArabicPoints)))
         {
-            allDetails.Add(DetailsForArabicPoint(arabicPoint));
+            allDetails.Add(currentArabicPoint.GetDetails());
         }
         return allDetails;
-    }
-
+    }	
 }
 
+
+/// <summary>Details for Arabic Points.</summary>
+/// <param name="ArabicPoint">Instance from enum ArabicPoints.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record ArabicPointDetails(ArabicPoints ArabicPoint, string TextId);
 

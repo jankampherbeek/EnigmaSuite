@@ -1,6 +1,6 @@
 # Enigma Astrology Research - Roadmap
 
-*Jan Kampherbeek, 2022-11-30
+*Jan Kampherbeek, 2022-12-2
 
 [TOC]
 
@@ -171,7 +171,10 @@ Usability.
 - Read default time settings from tz database.
 - Export images to pdf to support printing.
 
+**Charts**:
 
+- Declinations: longitude equivalent (according to Kt Boehrer).
+- Declinations: declination diagram (according to Kt Boehrer).
 
 ### Release 1.0
 
@@ -190,3 +193,14 @@ The first non-beta release.
 - Show distances between specified celestial points in line diagram and a histogram of totals.
 - Support for approach by Robert Doolaard.
 
+
+
+### Backlog
+
+**Charts**:
+
+- Recognize aspect patterns.
+
+**Research**:
+
+- Count aspect patterns.

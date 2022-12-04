@@ -2,9 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Research.Domain;
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Enums;
 
 
@@ -17,126 +14,42 @@ public enum HouseSystems
     WholeSign = 11, EqualAsc = 12, EqualMc = 13, EqualAries = 14, Vehlow = 15, Axial = 16, Horizon = 17, Carter = 18, Gauquelin = 19, SunShine = 20, SunShineTreindl = 21
 }
 
-public static class HouoseSystemExtensions
+public static class HouseSystemsExtensions
 {
-    /// <summary>Retrieve datials for a house system.</summary>
-    /// <param name="method">The method, is automatically filled.</param>
-    /// <returns>Details for the house system. IN case of an unknown house system, details for 'No Houses' are returned.</returns>
-    public static HouseSystemDetails GetDetails(this HouseSystems houseSystem)
+    /// <summary>Retrieve details for house systems.</summary>
+    /// <param name="system">The house system, is automatically filled.</param>
+    /// <returns>Details for the house system.</returns>
+    public static HouseSystemDetails GetDetails(this HouseSystems system)
     {
-        return houseSystem switch
+        return system switch
         {
-            HouseSystems.NoHouses => new HouseSystemDetails(houseSystem, true, 'W', 0, false, false, "ref.enum.housesystemnohouses"),
-            HouseSystems.Placidus => new HouseSystemDetails(houseSystem, true, 'P', 12, true, true, "ref.enum.housesystemplacidus"),
-            HouseSystems.Koch => new HouseSystemDetails(houseSystem, true, 'K', 12, true, true, "ref.enum.housesystemkoch"),
-            HouseSystems.Porphyri => new HouseSystemDetails(houseSystem, true, 'O', 12, true, true, "ref.enum.housesystemporphyri"),
-            HouseSystems.Regiomontanus => new HouseSystemDetails(houseSystem, true, 'R', 12, true, true, "ref.enum.housesystemregiomontanus"),
-            HouseSystems.Campanus => new HouseSystemDetails(houseSystem, true, 'C', 12, true, true, "ref.enum.housesystemcampanus"),
-            HouseSystems.Alcabitius => new HouseSystemDetails(houseSystem, true, 'B', 12, true, true, "ref.enum.housesystemalcabitius"),
-            HouseSystems.TopoCentric => new HouseSystemDetails(houseSystem, true, 'T', 12, true, true, "ref.enum.housesystemtopocentric"),
-            HouseSystems.Krusinski => new HouseSystemDetails(houseSystem, true, 'U', 12, true, true, "ref.enum.housesystemkrusinski"),
-            HouseSystems.Apc => new HouseSystemDetails(houseSystem, true, 'Y', 12, true, true, "ref.enum.housesystemapc"),
-            HouseSystems.Morin => new HouseSystemDetails(houseSystem, true, 'M', 12, true, false, "ref.enum.housesystemmorin"),
-            HouseSystems.WholeSign => new HouseSystemDetails(houseSystem, true, 'W', 12, true, false, "ref.enum.housesystemwholesign"),
-            HouseSystems.EqualAsc => new HouseSystemDetails(houseSystem, true, 'A', 12, true, false, "ref.enum.housesystemequalasc"),
-            HouseSystems.EqualMc => new HouseSystemDetails(houseSystem, true, 'D', 12, true, false, "ref.enum.housesystemequalmc"),
-            HouseSystems.EqualAries => new HouseSystemDetails(houseSystem, true, 'N', 12, true, false, "ref.enum.housesystemequalaries"),
-            HouseSystems.Vehlow => new HouseSystemDetails(houseSystem, true, 'V', 12, true, false, "ref.enum.housesystemvehlow"),
-            HouseSystems.Axial => new HouseSystemDetails(houseSystem, true, 'X', 12, true, false, "ref.enum.housesystemaxial"),
-            HouseSystems.Horizon => new HouseSystemDetails(houseSystem, true, 'H', 12, true, false, "ref.enum.housesystemhorizon"),
-            HouseSystems.Carter => new HouseSystemDetails(houseSystem, true, 'F', 12, true, false, "ref.enum.housesystemcarter"),
-            HouseSystems.Gauquelin => new HouseSystemDetails(houseSystem, true, 'G', 36, true, false, "ref.enum.housesystemgauquelin"),
-            HouseSystems.SunShine => new HouseSystemDetails(houseSystem, true, 'i', 12, true, false, "ref.enum.housesystemsunshine"),
-            HouseSystems.SunShineTreindl => new HouseSystemDetails(houseSystem, true, 'I', 12, true, false, "ref.enum.housesystemsunshinetreindl"),
-            _ => new HouseSystemDetails(houseSystem, true, 'W', 0, false, false, "ref.enum.housesystemnohouses")
-        };
-    }
-}
-
-/// <summary>
-/// Specifications for a house system.
-/// </summary>
-public record HouseSystemDetails
-{
-    readonly public HouseSystems HouseSystem;
-    readonly public bool SeSupported;
-    readonly public char SeId;
-    readonly public int NrOfCusps;
-    readonly public bool CounterClockWise;
-    readonly public bool QuadrantSystem;
-    /// <summary>Identification of a descriptive text in a resource bundle.</summary>
-    readonly public string TextId;
-
-    /// <summary>
-    /// Constructor for the details of a house system.
-    /// </summary>
-    /// <param name="houseSystem">The house system.</param>
-    /// <param name="seSupported">True if the house system is supported by the Swiss Ephyemeris.</param>
-    /// <param name="seId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
-    /// <param name="nrOfCusps">Number of cusps for this house system.</param>
-    /// <param name="counterClockWise">True if the cusps are counterclockwise, otherwise false.</param>
-    /// <param name="quadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10).</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public HouseSystemDetails(HouseSystems houseSystem, bool seSupported, char seId, int nrOfCusps, bool counterClockWise, bool quadrantSystem, string textId)
-    {
-        HouseSystem = houseSystem;
-        SeSupported = seSupported;
-        SeId = seId;
-        NrOfCusps = nrOfCusps;
-        CounterClockWise = counterClockWise;
-        QuadrantSystem = quadrantSystem;
-        TextId = textId;
-    }
-}
-
-
-/// <inheritdoc/>
-/// Obsolete!
-public class HouseSystemSpecifications : IHouseSystemSpecifications
-{
-
-    /// <exception cref="ArgumentException">Is thrown if the house system was not recognized.</exception>
-    public HouseSystemDetails DetailsForHouseSystem(HouseSystems houseSystem)
-    {
-        return houseSystem switch
-        {
-            HouseSystems.NoHouses => new HouseSystemDetails(houseSystem, true, 'W', 0, false, false, "ref.enum.housesystemnohouses"),
-            HouseSystems.Placidus => new HouseSystemDetails(houseSystem, true, 'P', 12, true, true, "ref.enum.housesystemplacidus"),
-            HouseSystems.Koch => new HouseSystemDetails(houseSystem, true, 'K', 12, true, true, "ref.enum.housesystemkoch"),
-            HouseSystems.Porphyri => new HouseSystemDetails(houseSystem, true, 'O', 12, true, true, "ref.enum.housesystemporphyri"),
-            HouseSystems.Regiomontanus => new HouseSystemDetails(houseSystem, true, 'R', 12, true, true, "ref.enum.housesystemregiomontanus"),
-            HouseSystems.Campanus => new HouseSystemDetails(houseSystem, true, 'C', 12, true, true, "ref.enum.housesystemcampanus"),
-            HouseSystems.Alcabitius => new HouseSystemDetails(houseSystem, true, 'B', 12, true, true, "ref.enum.housesystemalcabitius"),
-            HouseSystems.TopoCentric => new HouseSystemDetails(houseSystem, true, 'T', 12, true, true, "ref.enum.housesystemtopocentric"),
-            HouseSystems.Krusinski => new HouseSystemDetails(houseSystem, true, 'U', 12, true, true, "ref.enum.housesystemkrusinski"),
-            HouseSystems.Apc => new HouseSystemDetails(houseSystem, true, 'Y', 12, true, true, "ref.enum.housesystemapc"),
-            HouseSystems.Morin => new HouseSystemDetails(houseSystem, true, 'M', 12, true, false, "ref.enum.housesystemmorin"),
-            HouseSystems.WholeSign => new HouseSystemDetails(houseSystem, true, 'W', 12, true, false, "ref.enum.housesystemwholesign"),
-            HouseSystems.EqualAsc => new HouseSystemDetails(houseSystem, true, 'A', 12, true, false, "ref.enum.housesystemequalasc"),
-            HouseSystems.EqualMc => new HouseSystemDetails(houseSystem, true, 'D', 12, true, false, "ref.enum.housesystemequalmc"),
-            HouseSystems.EqualAries => new HouseSystemDetails(houseSystem, true, 'N', 12, true, false, "ref.enum.housesystemequalaries"),
-            HouseSystems.Vehlow => new HouseSystemDetails(houseSystem, true, 'V', 12, true, false, "ref.enum.housesystemvehlow"),
-            HouseSystems.Axial => new HouseSystemDetails(houseSystem, true, 'X', 12, true, false, "ref.enum.housesystemaxial"),
-            HouseSystems.Horizon => new HouseSystemDetails(houseSystem, true, 'H', 12, true, false, "ref.enum.housesystemhorizon"),
-            HouseSystems.Carter => new HouseSystemDetails(houseSystem, true, 'F', 12, true, false, "ref.enum.housesystemcarter"),
-            HouseSystems.Gauquelin => new HouseSystemDetails(houseSystem, true, 'G', 36, true, false, "ref.enum.housesystemgauquelin"),
-            HouseSystems.SunShine => new HouseSystemDetails(houseSystem, true, 'i', 12, true, false, "ref.enum.housesystemsunshine"),
-            HouseSystems.SunShineTreindl => new HouseSystemDetails(houseSystem, true, 'I', 12, true, false, "ref.enum.housesystemsunshinetreindl"),
-            _ => throw new ArgumentException("House system type unknown : " + houseSystem.ToString())
+            HouseSystems.NoHouses => new HouseSystemDetails(system, true, 'W', 0, false, false, "ref.enum.housesystemnohouses"),
+            HouseSystems.Placidus => new HouseSystemDetails(system, true, 'P', 12, true, true, "ref.enum.housesystemplacidus"),
+            HouseSystems.Koch => new HouseSystemDetails(system, true, 'K', 12, true, true, "ref.enum.housesystemkoch"),
+            HouseSystems.Porphyri => new HouseSystemDetails(system, true, 'O', 12, true, true, "ref.enum.housesystemporphyri"),
+            HouseSystems.Regiomontanus => new HouseSystemDetails(system, true, 'R', 12, true, true, "ref.enum.housesystemregiomontanus"),
+            HouseSystems.Campanus => new HouseSystemDetails(system, true, 'C', 12, true, true, "ref.enum.housesystemcampanus"),
+            HouseSystems.Alcabitius => new HouseSystemDetails(system, true, 'B', 12, true, true, "ref.enum.housesystemalcabitius"),
+            HouseSystems.TopoCentric => new HouseSystemDetails(system, true, 'T', 12, true, true, "ref.enum.housesystemtopocentric"),
+            HouseSystems.Krusinski => new HouseSystemDetails(system, true, 'U', 12, true, true, "ref.enum.housesystemkrusinski"),
+            HouseSystems.Apc => new HouseSystemDetails(system, true, 'Y', 12, true, true, "ref.enum.housesystemapc"),
+            HouseSystems.Morin => new HouseSystemDetails(system, true, 'M', 12, true, false, "ref.enum.housesystemmorin"),
+            HouseSystems.WholeSign => new HouseSystemDetails(system, true, 'W', 12, true, false, "ref.enum.housesystemwholesign"),
+            HouseSystems.EqualAsc => new HouseSystemDetails(system, true, 'A', 12, true, false, "ref.enum.housesystemequalasc"),
+            HouseSystems.EqualMc => new HouseSystemDetails(system, true, 'D', 12, true, false, "ref.enum.housesystemequalmc"),
+            HouseSystems.EqualAries => new HouseSystemDetails(system, true, 'N', 12, true, false, "ref.enum.housesystemequalaries"),
+            HouseSystems.Vehlow => new HouseSystemDetails(system, true, 'V', 12, true, false, "ref.enum.housesystemvehlow"),
+            HouseSystems.Axial => new HouseSystemDetails(system, true, 'X', 12, true, false, "ref.enum.housesystemaxial"),
+            HouseSystems.Horizon => new HouseSystemDetails(system, true, 'H', 12, true, false, "ref.enum.housesystemhorizon"),
+            HouseSystems.Carter => new HouseSystemDetails(system, true, 'F', 12, true, false, "ref.enum.housesystemcarter"),
+            HouseSystems.Gauquelin => new HouseSystemDetails(system, true, 'G', 36, true, false, "ref.enum.housesystemgauquelin"),
+            HouseSystems.SunShine => new HouseSystemDetails(system, true, 'i', 12, true, false, "ref.enum.housesystemsunshine"),
+            HouseSystems.SunShineTreindl => new HouseSystemDetails(system, true, 'I', 12, true, false, "ref.enum.housesystemsunshinetreindl"),
+            _ => new HouseSystemDetails(system, true, 'W', 0, false, false, "ref.enum.housesystemnohouses")
         };
     }
 
-    public List<HouseSystemDetails> AllHouseSystemDetails()
-    {
-        var allDetails = new List<HouseSystemDetails>();
-        foreach (HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)))
-        {
-            allDetails.Add(DetailsForHouseSystem(houseSystem));
-        }
-        return allDetails;
-    }
-
-    public HouseSystems HouseSystemForIndex(int index)
+    public static HouseSystems HouseSystemForIndex(this HouseSystems system, int index)
     {
         foreach (HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)))
         {
@@ -145,4 +58,28 @@ public class HouseSystemSpecifications : IHouseSystemSpecifications
         throw new ArgumentException("Could not find HouseSystem for index : " + index);
     }
 
+    public static List<HouseSystemDetails> AllDetails(this HouseSystems system)
+    {
+        var allDetails = new List<HouseSystemDetails>();
+        foreach (HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)))
+        {
+            allDetails.Add(houseSystem.GetDetails());
+        }
+        return allDetails;
+    }
+
+
 }
+
+
+
+/// <summary>Details for a house system.</summary>
+/// <param name="HouseSystem">The house system.</param>
+/// <param name="SeSupported">True if the house system is supported by the Swiss Ephyemeris.</param>
+/// <param name="SeId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
+/// <param name="NrOfCusps">Number of cusps for this house system.</param>
+/// <param name="CounterClockWise">True if the cusps are counterclockwise, otherwise false.</param>
+/// <param name="QuadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10).</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record HouseSystemDetails(HouseSystems HouseSystem, bool SeSupported, char SeId, int NrOfCusps, bool CounterClockWise, bool QuadrantSystem, string TextId);
+

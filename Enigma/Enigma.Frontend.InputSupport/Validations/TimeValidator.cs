@@ -14,15 +14,10 @@ namespace Enigma.Frontend.Helpers.Validations;
 /// <inheritdoc/>
 public class TimeValidator : ITimeValidator
 {
-    private readonly ITimeZoneSpecifications _timeZoneSpecifications;
     readonly int[] timeValues = new int[] { 0, 0, 0 };
     private double _ut = 0.0;
     private int _correctionForDay = 0;
 
-    public TimeValidator(ITimeZoneSpecifications timeZoneSpecifications)
-    {
-        _timeZoneSpecifications = timeZoneSpecifications;
-    }
 
     /// <inheritdoc/>
     public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime)
@@ -51,7 +46,7 @@ public class TimeValidator : ITimeValidator
 
     private string CreateFullText(TimeZones timezone, double lmtOffset)
     {
-        string _timeZoneTextId = _timeZoneSpecifications.DetailsForTimeZone(timezone).TextId;
+        string _timeZoneTextId =  timezone.GetDetails().TextId;
         string _fullText = $"{timeValues[0]:d2}:{timeValues[1]:d2}:{timeValues[2]:d2} [{_timeZoneTextId}]";
 
         if (timezone == TimeZones.LMT)
@@ -74,7 +69,7 @@ public class TimeValidator : ITimeValidator
     {
         double _offset;
         _ut = timeValues[0] + ((double)timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE);
-        _offset = timezone == TimeZones.LMT ? lmtOffset : _timeZoneSpecifications.DetailsForTimeZone(timezone).OffsetFromUt;
+        _offset = timezone == TimeZones.LMT ? lmtOffset : timezone.GetDetails().OffsetFromUt;
         _ut -= _offset;
         if (_ut < 0.0)
         {

@@ -24,7 +24,6 @@ public partial class AstroConfigWindow : Window
 {
     private readonly AstroConfigController _controller;
     private readonly IRosetta _rosetta;
-    private readonly IChartsEnumFacade _enumFacade;
 
 
     public AstroConfigWindow()
@@ -32,7 +31,6 @@ public partial class AstroConfigWindow : Window
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<AstroConfigController>();
         _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
-        _enumFacade = App.ServiceProvider.GetRequiredService<IChartsEnumFacade>();
         PopulateTexts();
         PopulateGlyphs();
         DefaultValues();
@@ -294,41 +292,41 @@ public partial class AstroConfigWindow : Window
 
     private void DefaultValues()
     {
+
         comboHouseSystem.Items.Clear();
-        foreach (HouseSystemDetails detail in _enumFacade.Houses().AllHouseSystemDetails())
+        foreach (HouseSystemDetails detail in HouseSystems.NoHouses.AllDetails())
         {
             comboHouseSystem.Items.Add(_rosetta.TextForId(detail.TextId));
         }
         comboHouseSystem.SelectedIndex = (int)_controller.GetConfig().HouseSystem;
 
         comboZodiacType.Items.Clear();
-        foreach (ZodiacTypeDetails details in _enumFacade.ZodiacTypes().AllZodiacTypeDetails())
+        foreach (ZodiacTypeDetails details in ZodiacTypes.Tropical.AllDetails())
         {
             comboZodiacType.Items.Add(_rosetta.TextForId(details.TextId));
         }
         comboZodiacType.SelectedIndex = (int)_controller.GetConfig().ZodiacType;
 
         comboAyanamsha.Items.Clear();
-        foreach (AyanamshaDetails detail in _enumFacade.Ayanamshas().AllAyanamshaDetails())
+        foreach (AyanamshaDetails detail in Ayanamshas.None.AllDetails())
         {
             comboAyanamsha.Items.Add(_rosetta.TextForId(detail.TextId));
         }
         comboAyanamsha.SelectedIndex = (int)_controller.GetConfig().Ayanamsha;
 
         comboObserverPos.Items.Clear();
-        foreach (ObserverPositionDetails detail in _enumFacade.ObserverPositions().AllObserverPositionDetails())
+        foreach (ObserverPositionDetails detail in ObserverPositions.GeoCentric.AllDetails())
         {
             comboObserverPos.Items.Add(_rosetta.TextForId(detail.TextId));
         }
         comboObserverPos.SelectedIndex = (int)_controller.GetConfig().ObserverPosition;
 
         comboProjectionType.Items.Clear();
-        foreach (ProjectionTypeDetails detail in _enumFacade.ProjectionTypes().AllProjectionTypeDetails())
+        foreach (ProjectionTypeDetails detail in ProjectionTypes.TwoDimensional.AllDetails())
         {
             comboProjectionType.Items.Add(_rosetta.TextForId(detail.TextId));
         }
         comboProjectionType.SelectedIndex = (int)_controller.GetConfig().ProjectionType;
-
 
         tboxAspectBaseOrb.Text = _controller.GetConfig().BaseOrbAspects.ToString();
         tboxMidpointAspectBaseOrb.Text = _controller.GetConfig().BaseOrbMidpoints.ToString();
@@ -434,7 +432,7 @@ public partial class AstroConfigWindow : Window
         // aspects
         List<AspectSpecs> aspects = _controller.GetConfig().Aspects;
         comboOrbMethod.Items.Clear();
-        foreach (OrbMethodDetails detail in _enumFacade.OrbMethods().AllOrbMethodDetails())
+        foreach (OrbMethodDetails detail in OrbMethods.Weighted.AllDetails())
         {
             comboOrbMethod.Items.Add(_rosetta.TextForId(detail.TextId));
         }
@@ -556,12 +554,12 @@ public partial class AstroConfigWindow : Window
         bool noErrors = true;
         try
         {
-            HouseSystems houseSystem = _enumFacade.Houses().HouseSystemForIndex(comboHouseSystem.SelectedIndex);
-            ZodiacTypes zodiacType = _enumFacade.ZodiacTypes().ZodiacTypeForIndex(comboZodiacType.SelectedIndex);
-            Ayanamshas ayanamsha = _enumFacade.Ayanamshas().AyanamshaForIndex(comboAyanamsha.SelectedIndex);
-            ObserverPositions observerPosition = _enumFacade.ObserverPositions().ObserverPositionForIndex(comboObserverPos.SelectedIndex);
-            ProjectionTypes projectionType = _enumFacade.ProjectionTypes().ProjectionTypeForIndex(comboProjectionType.SelectedIndex);
-            OrbMethods orbMethod = _enumFacade.OrbMethods().OrbMethodForIndex(comboOrbMethod.SelectedIndex);
+            HouseSystems houseSystem = HouseSystems.NoHouses.HouseSystemForIndex(comboHouseSystem.SelectedIndex);
+            ZodiacTypes zodiacType =  ZodiacTypes.Tropical.ZodiacTypeForIndex(comboZodiacType.SelectedIndex);
+            Ayanamshas ayanamsha = Ayanamshas.None.AyanamshaForIndex(comboAyanamsha.SelectedIndex);
+            ObserverPositions observerPosition = ObserverPositions.GeoCentric.ObserverPositionForIndex(comboObserverPos.SelectedIndex);
+            ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(comboProjectionType.SelectedIndex);
+            OrbMethods orbMethod = OrbMethods.Weighted.OrbMethodForIndex(comboOrbMethod.SelectedIndex);
             List<CelPointSpecs> celPointsSpecs = DefineCelPointSpecs();
             List<AspectSpecs> aspectSpecs = DefineAspectSpecs();
             List<MundanePointSpecs> mundanePointSpecs = DefineMundanePointSpecs();
@@ -642,7 +640,7 @@ public partial class AstroConfigWindow : Window
         return celPointSpecs;
     }
 
-    private CelPointSpecs DefineSingleCelPointSpec(CelPoints celPoint, string orbFactorText, bool? isUsed)
+    private static CelPointSpecs DefineSingleCelPointSpec(CelPoints celPoint, string orbFactorText, bool? isUsed)
     {
         int orbFactorValue = Convert.ToInt32(orbFactorText, CultureInfo.InvariantCulture);
         return new CelPointSpecs(celPoint, orbFactorValue, isUsed ?? false);
@@ -679,7 +677,7 @@ public partial class AstroConfigWindow : Window
         return aspectSpecs;
     }
 
-    private AspectSpecs DefineSingleAspectSpec(AspectTypes aspectType, string percentageText, bool? isUsed)
+    private static AspectSpecs DefineSingleAspectSpec(AspectTypes aspectType, string percentageText, bool? isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
         return new AspectSpecs(aspectType, percentageValue, isUsed ?? false);
@@ -700,7 +698,7 @@ public partial class AstroConfigWindow : Window
     }
 
 
-    private MundanePointSpecs DefineSingleMundanePointSpec(MundanePoints point, string percentageText, bool? isUsed)
+    private static MundanePointSpecs DefineSingleMundanePointSpec(MundanePoints point, string percentageText, bool? isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
         return new MundanePointSpecs(point, percentageValue, isUsed ?? false);
@@ -717,7 +715,7 @@ public partial class AstroConfigWindow : Window
         return arabicPointSpecs;
     }
 
-    private ArabicPointSpecs DefineSingleArabicPoint(ArabicPoints point, string percentageText, bool? isUsed)
+    private static ArabicPointSpecs DefineSingleArabicPoint(ArabicPoints point, string percentageText, bool? isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
         return new ArabicPointSpecs(point, percentageValue, isUsed ?? false);

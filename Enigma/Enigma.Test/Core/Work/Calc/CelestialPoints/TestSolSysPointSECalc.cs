@@ -62,12 +62,9 @@ public class TestCelPointCalc
     private PosSpeed[] CalculatePosSpeedForCelPoint()
     {
         var _location = new Location("", 52.0, 6.0);
-        var _mockCelPointSpecs = new Mock<ICelPointSpecifications>();
-        _mockCelPointSpecs.Setup(p => p.DetailsForPoint(CelPoints.Mars)).
-            Returns(new CelPointDetails(CelPoints.Mars, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_MARS, true, true, "celPointMars", "f"));
         var _mockCalcUtFacade = new Mock<ICalcUtFacade>();
         _mockCalcUtFacade.Setup(p => p.PosCelPointFromSe(_julianDayUt, EnigmaConstants.SE_MARS, _flagsEcliptical)).Returns(new double[] { _longitude, _latitude, _distance, _longSpeed, _latSpeed, _distSpeed });
-        ICelPointSECalc _calc = new CelPointSECalc(_mockCalcUtFacade.Object, _mockCelPointSpecs.Object);
+        ICelPointSECalc _calc = new CelPointSECalc(_mockCalcUtFacade.Object);
         return _calc.CalculateCelPoint(CelPoints.Mars, _julianDayUt, _location, _flagsEcliptical);
     }
 

@@ -6,6 +6,7 @@
 
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Facades.Interfaces;
 
@@ -16,18 +17,16 @@ namespace Enigma.Core.Work.Calc.CelestialPoints;
 public class CelPointSECalc : ICelPointSECalc
 {
     private readonly ICalcUtFacade _calcUtFacade;
-    private readonly ICelPointSpecifications _celPointSpecifications;
 
-    public CelPointSECalc(ICalcUtFacade calcUtFacade, ICelPointSpecifications celPointSpecifications)
+    public CelPointSECalc(ICalcUtFacade calcUtFacade)
     {
         _calcUtFacade = calcUtFacade;
-        _celPointSpecifications = celPointSpecifications;
     }
 
 
-    public PosSpeed[] CalculateCelPoint(Domain.Enums.CelPoints celPoint, double jdnr, Location location, int flags)
+    public PosSpeed[] CalculateCelPoint(CelPoints celPoint, double jdnr, Location location, int flags)
     {
-        int pointId = _celPointSpecifications.DetailsForPoint(celPoint).SeId;
+        int pointId = celPoint.GetDetails().SeId;
         double[] positions = _calcUtFacade.PosCelPointFromSe(jdnr, pointId, flags);
         var mainPos = new PosSpeed(positions[0], positions[3]);
         var deviation = new PosSpeed(positions[1], positions[4]);

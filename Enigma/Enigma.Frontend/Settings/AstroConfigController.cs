@@ -16,19 +16,12 @@ namespace Enigma.Frontend.Ui.Settings;
 
 public class AstroConfigController
 {
-    private readonly ICelPointSpecifications _celPointSpecifications;
-    private readonly IAspectSpecifications _aspectSpecifications;
     private readonly IConfigurationApi _configApi;
     private readonly AstroConfig _astroConfig;
 
-    public ICelPointSpecifications CelPointSpecifications => _celPointSpecifications;
 
-    public AstroConfigController(ICelPointSpecifications celPointSpecifications,
-        IAspectSpecifications aspectSpecifications,
-        IConfigurationApi configApi)
+    public AstroConfigController(IConfigurationApi configApi)
     {
-        _celPointSpecifications = celPointSpecifications;
-        _aspectSpecifications = aspectSpecifications;
         _configApi = configApi;
         _astroConfig = CurrentConfig.Instance.GetConfig();
 
@@ -36,7 +29,7 @@ public class AstroConfigController
 
     public string DefineGlyph(CelPoints point)
     {
-        return CelPointSpecifications.DetailsForPoint(point).DefaultGlyph;
+        return point.GetDetails().DefaultGlyph;
     }
 
     public string DefineGlyph(MundanePoints point)
@@ -53,7 +46,7 @@ public class AstroConfigController
 
     public string DefineGlyph(AspectTypes aspect)
     {
-        return _aspectSpecifications.DetailsForAspect(aspect).Glyph;
+        return aspect.GetDetails().Glyph;
     }
 
     public AstroConfig GetConfig()

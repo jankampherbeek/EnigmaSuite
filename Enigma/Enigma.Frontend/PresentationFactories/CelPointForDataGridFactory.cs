@@ -4,6 +4,7 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
@@ -16,18 +17,16 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class CelPointForDataGridFactory : ICelPointForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly ICelPointSpecifications _celPointSpecifications;
 
-    public CelPointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions, ICelPointSpecifications celPointSpecifications)
+    public CelPointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
-        _celPointSpecifications = celPointSpecifications;
     }
 
-    public List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullCelPointPos> fullCelPointPositions)
+    public List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullCelPointPos> celPointPositions)
     {
         List<PresentableCelPointPositions> positions = new();
-        foreach (var celPos in fullCelPointPositions)
+        foreach (var celPos in celPointPositions)
         {
             positions.Add(CreateSinglePos(celPos));
         }
@@ -36,7 +35,7 @@ public class CelPointForDataGridFactory : ICelPointForDataGridFactory
 
     private PresentableCelPointPositions CreateSinglePos(FullCelPointPos celPointFullPos)
     {
-        string pointGlyph = _celPointSpecifications.DetailsForPoint(celPointFullPos.CelPoint).DefaultGlyph;
+        string pointGlyph = celPointFullPos.CelPoint.GetDetails().DefaultGlyph;
         double tempPos = celPointFullPos.Longitude.Position;
         double tempSpeed = celPointFullPos.Longitude.Speed;
         string tempSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(tempSpeed);

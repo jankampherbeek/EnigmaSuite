@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
@@ -11,20 +10,12 @@ namespace Enigma.Test.Domain.Enums;
 [TestFixture]
 public class TestRoddenRatings
 {
-    private IRoddenRatingSpecifications specifications;
-
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new RoddenRatingSpecifications();
-    }
-
 
     [Test]
     public void TestRetrievingDetails()
     {
         RoddenRatings roddenRating = RoddenRatings.C;
-        RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
+        RoddenRatingDetails details = roddenRating.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -38,7 +29,7 @@ public class TestRoddenRatings
     {
         foreach (RoddenRatings roddenRating in Enum.GetValues(typeof(RoddenRatings)))
         {
-            RoddenRatingDetails details = specifications.DetailsForRating(roddenRating);
+            RoddenRatingDetails details = roddenRating.GetDetails();
             Assert.That(details.TextId, Is.Not.Empty);
         }
     }
@@ -47,7 +38,7 @@ public class TestRoddenRatings
     public void TestRetrievingWithIndex()
     {
         int roddenRatingIndex = 2;
-        RoddenRatings roddenRating = specifications.RoddenRatingForIndex(roddenRatingIndex);
+        RoddenRatings roddenRating = RoddenRatings.C.RoddenRatingForIndex(roddenRatingIndex);
         Assert.That(roddenRating, Is.EqualTo(RoddenRatings.A));
     }
 
@@ -55,13 +46,13 @@ public class TestRoddenRatings
     public void TestRetrievingWithWrongIndex()
     {
         int roddenRatingIndex = 1000;
-        Assert.That(() => _ = specifications.RoddenRatingForIndex(roddenRatingIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = RoddenRatings.XX.RoddenRatingForIndex(roddenRatingIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDetailsForRating()
     {
-        List<RoddenRatingDetails> allDetails = specifications.AllDetailsForRating();
+        List<RoddenRatingDetails> allDetails = RoddenRatings.AA.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));

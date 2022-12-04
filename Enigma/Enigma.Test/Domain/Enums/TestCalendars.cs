@@ -9,21 +9,15 @@ namespace Enigma.Test.Domain.Enums;
 
 
 [TestFixture]
-public class TestCalendarSpecifications
+public class TestCalendars
 {
-    private ICalendarSpecifications specifications;
 
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new CalendarSpecifications();
-    }
 
     [Test]
     public void TestRetrievingDetails()
     {
         Calendars calendar = Calendars.Julian;
-        CalendarDetails details = specifications.DetailsForCalendar(calendar);
+        CalendarDetails details = calendar.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -37,32 +31,17 @@ public class TestCalendarSpecifications
     {
         foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
         {
-            CalendarDetails details = specifications.DetailsForCalendar(calendar);
+            CalendarDetails details = calendar.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
-    [Test]
-    public void TestRetrievingWithIndex()
-    {
-        int calendarIndex = 1;
-        Calendars calendar = specifications.CalendarForIndex(calendarIndex);
-        Assert.That(calendar, Is.EqualTo(Calendars.Julian));
-    }
-
-
-    [Test]
-    public void TestRetrievingWithWrongIndex()
-    {
-        int calendarIndex = 333;
-        Assert.That(() => _ = specifications.CalendarForIndex(calendarIndex), Throws.TypeOf<ArgumentException>());
-    }
 
     [Test]
     public void TestAllCalendarDetails()
     {
-        List<CalendarDetails> allDetails = specifications.AllCalendarDetails();
+        List<CalendarDetails> allDetails = Calendars.Gregorian.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));
@@ -70,4 +49,5 @@ public class TestCalendarSpecifications
             Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.calendar.julian"));
         });
     }
+
 }
