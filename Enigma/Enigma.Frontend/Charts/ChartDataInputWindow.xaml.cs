@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,7 +17,7 @@ namespace Enigma.Frontend.Ui.Charts;
 
 public partial class ChartDataInputWindow : Window
 {
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly ChartDataInputController _controller;
     private List<CalendarDetails> _calendarDetails;
     private List<Directions4GeoLongDetails> _directions4GeoLongDetails;
@@ -29,7 +29,6 @@ public partial class ChartDataInputWindow : Window
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ChartDataInputController>();
-        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         _controller.InitializeDataVault();
         PopulateDetails();
         PopulateTexts();

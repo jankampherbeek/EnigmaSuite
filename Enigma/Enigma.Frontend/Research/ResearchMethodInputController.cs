@@ -6,25 +6,22 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Ui.Interfaces;
-using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.Ui.ResearchProjects;
+namespace Enigma.Frontend.Ui.Research;
 
 
 public class ResearchMethodInputController
 {
     private readonly AstroConfig _currentAstroConfig;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
-    public ResearchMethodInputController(IRosetta rosetta, IDoubleToDmsConversions doubleToDmsConversions)
+    public ResearchMethodInputController(IDoubleToDmsConversions doubleToDmsConversions)
     {
-        _rosetta = rosetta;
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
         _doubleToDmsConversions = doubleToDmsConversions;
     }

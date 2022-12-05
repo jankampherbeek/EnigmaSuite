@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 
-namespace Enigma.Frontend.Ui.ResearchProjects
+namespace Enigma.Frontend.Ui.Research
 {
     /// <summary>Form for inputwindow for researchmethods.</summary>
     public partial class ResearchMethodInputWindow : Window

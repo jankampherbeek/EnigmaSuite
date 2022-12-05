@@ -2,8 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts;
-using Enigma.Frontend.Ui.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -15,17 +16,16 @@ public partial class ChartsMainWindow : Window
 {
 
     private ChartsMainController _controller;
-    private IRosetta _rosetta;
+    private Rosetta _rosetta = Rosetta.Instance;
 
 
     public ChartsMainWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ChartsMainController>();
-        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
         PopulateMenu();
-        ShowCurrentChart();
+   //     ShowCurrentChart();
     }
 
     private void PopulateTexts()
@@ -49,6 +49,8 @@ public partial class ChartsMainWindow : Window
     {
         miGeneral.Header = _rosetta.TextForId("chartsmainwindow.menu.general");
         miGeneralClose.Header = _rosetta.TextForId("chartsmainwindow.menu.close");
+        miGeneralConfiguration.Header = _rosetta.TextForId("chartsmainwindow.menu.migeneral.configuration");
+        miGeneralSettings.Header = _rosetta.TextForId("chartsmainwindow.menu.migeneral.settings");
         miCharts.Header = _rosetta.TextForId("chartsmainwindow.menu.charts");
         miChartsWheel.Header = _rosetta.TextForId("chartsmainwindow.menu.wheel");
         miChartsPositions.Header = _rosetta.TextForId("chartsmainwindow.menu.positions");
@@ -59,11 +61,7 @@ public partial class ChartsMainWindow : Window
         miAnalysisAspects.Header = _rosetta.TextForId("chartsmainwindow.menu.aspects");
         miAnalysisHarmonics.Header = _rosetta.TextForId("chartsmainwindow.menu.harmonics");
         miAnalysisMidpoints.Header = _rosetta.TextForId("chartsmainwindow.menu.midpoints");
-        miProgressive.Header = _rosetta.TextForId("chartsmainwindow.menu.progressions");
-        miProgressivePrimary.Header = _rosetta.TextForId("chartsmainwindow.menu.primary");
-        miProgressiveSecundary.Header = _rosetta.TextForId("chartsmainwindow.menu.secundary");
-        miProgressiveTransits.Header = _rosetta.TextForId("chartsmainwindow.menu.transits");
-        miProgressiveSolarReturn.Header = _rosetta.TextForId("chartsmainwindow.menu.solarreturn");
+
         miHelp.Header = _rosetta.TextForId("chartsmainwindow.menu.help");
         miHelpAbout.Header = _rosetta.TextForId("chartsmainwindow.menu.helpabout");
         miHelpPage.Header = _rosetta.TextForId("chartsmainwindow.menu.helppage");
@@ -84,6 +82,17 @@ public partial class ChartsMainWindow : Window
         Close();
     }
 
+    private void GeneralConfigurationClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowAstroConfig();
+    }
+
+    private void GeneralSettingsClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowAppSettings();
+    }
+
+
     private void ShowWheelClick(object sender, RoutedEventArgs e)
     {
         ShowCurrentChart();
@@ -101,7 +110,7 @@ public partial class ChartsMainWindow : Window
 
     private void ChartsNewClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("New chart not yet implemented.");      // TODO implement handling of click
+        _controller.NewChart();
     }
 
     private void ChartsOverviewClick(object sender, RoutedEventArgs e)
@@ -122,27 +131,6 @@ public partial class ChartsMainWindow : Window
     private void MidpointsClick(object sender, RoutedEventArgs e)
     {
         _controller.ShowMidpoints();
-    }
-
-    private void PrimaryClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Primary directions not yet implemented."); // TODO implement handling of click
-    }
-
-
-    private void SecundaryClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Secundary directions not yet implemented.");   // TODO implement handling of click
-    }
-
-    private void TransitsClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Transits not yet implemented.");       // TODO implement handling of click
-    }
-
-    private void SolarReturnClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Solar returns not yet implemented.");  // TODO implement handling of click
     }
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)

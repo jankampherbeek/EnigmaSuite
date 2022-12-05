@@ -2,6 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,13 +17,12 @@ public partial class ChartAspectsWindow : Window
 {
 
     private readonly ChartAspectsController _controller;
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly string _emptyHeader = " ";
-    public ChartAspectsWindow(ChartAspectsController controller, IRosetta rosetta)
+    public ChartAspectsWindow(ChartAspectsController controller)
     {
         InitializeComponent();
         _controller = controller;
-        _rosetta = rosetta;
     }
 
     public void Populate()

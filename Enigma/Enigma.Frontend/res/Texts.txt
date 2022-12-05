@@ -98,7 +98,17 @@ chartsmainwindow.menu.aspects = Aspects
 chartsmainwindow.menu.charts = Charts
 chartsmainwindow.menu.chartsoverview = Overview of charts
 chartsmainwindow.menu.close = Close charts
+
+general.menu.migeneral = General
+general.menu.migeneral.close = Close
+general.menu.migeneral.configuration = Configuration
+general.menu.migeneral.settings = Settings
+
+
 chartsmainwindow.menu.general = General
+chartsmainwindow.menu.migeneral.close = Close Charts
+chartsmainwindow.menu.migeneral.configuration = Configuration
+chartsmainwindow.menu.migeneral.settings = Settings
 chartsmainwindow.menu.harmonics = Harmonics
 chartsmainwindow.menu.help = Help
 chartsmainwindow.menu.helpabout = About charts
@@ -107,12 +117,7 @@ chartsmainwindow.menu.manual = User manual
 chartsmainwindow.menu.midpoints = Midpoints
 chartsmainwindow.menu.newchart = New chart
 chartsmainwindow.menu.positions = Show positions
-chartsmainwindow.menu.primary = Primary directions
-chartsmainwindow.menu.progressions = Progressions
 chartsmainwindow.menu.save = Save
-chartsmainwindow.menu.secundary = Secundary progressions
-chartsmainwindow.menu.solarreturn = Solar returns
-chartsmainwindow.menu.transits = Transits
 chartsmainwindow.menu.wheel = Show wheel
 chartsmainwindow.newchart = New
 chartsmainwindow.overviewcharts = List
@@ -249,55 +254,58 @@ helpwindow.title = Help for Enigma Astrology Research
 
 
 -------------------------------- Main window -----------
+mainwindow.charts = Charts
+mainwindow.explanation = Click an image to continue
+mainwindow.formtitle = Enigma
+mainwindow.research = Research
+mainwindow.subtitle = Astrology Research
+mainwindow.title = Dashboard Enigma Astrology Research
 
-mainwindow.btnchartsnew = New chart
-mainwindow.btnchartssearch = Search chart
-mainwindow.btnconversions = Conversions
-mainwindow.btncyclenew = New cycle
-mainwindow.btncyclesearch = Search cycle
-mainwindow.btndatanew = New data
-mainwindow.btnephemerisnew = New ephemeris
-mainwindow.btnevents = Events
-mainwindow.btnother = Other
-mainwindow.btnparans = Parans
-mainwindow.btnprojectnew = New project
-mainwindow.btnprojectsearch = Search project
-mainwindow.calculatorsexpl = Support for several types of calculations (not available in version 0.1.0)
-mainwindow.calculatorstitle = Calculators
-mainwindow.chartsexpl = Calculate, analyze and progress charts
-mainwindow.chartsnew = Calculate a new chart
-mainwindow.chartstitle = Charts
-mainwindow.cyclenew = Create new cycle
-mainwindow.datanew = Import new data
-mainwindow.ephemerisnew = Create new ephemeris
-mainwindow.formtitle = Dashboard Enigma Astrology Research
-mainwindow.menu.micalculations = Calculations
-mainwindow.menu.micharts = Charts
-mainwindow.menu.micharts.new = New chart
-mainwindow.menu.micharts.overview = Overview of charts
-mainwindow.menu.migeneral = General
-mainwindow.menu.migeneral.close = Exit Enigma
-mainwindow.menu.migeneral.configuration = Configuration
-mainwindow.menu.migeneral.settings = Settings
-mainwindow.menu.mihelp = Help
-mainwindow.menu.mihelp.about = About
-mainwindow.menu.mihelp.page = Help about this window
-mainwindow.menu.mihelp.manual = User manual 
-mainwindow.menu.miperiodical = Periods
-mainwindow.menu.miperiodical.cycles = Cycles
-mainwindow.menu.miperiodical.ephemeris = Ephemerides
-mainwindow.menu.miperiodical.occurrences = Occurrences
-mainwindow.menu.miresearch = Research
-mainwindow.menu.miresearch.dataimport = Import data file
-mainwindow.menu.miresearch.dataoverview = Overview data files
-mainwindow.menu.miresearch.projectsnew = New project
-mainwindow.menu.miresearch.projectsopen = Open project
-mainwindow.periodicalexpl = Cycles and ephemerides (not available in version 0.1.0)
-mainwindow.periodicaltitle = Periods and cycles
-mainwindow.projectnew = Create a new project
-mainwindow.researchexpl = Import data, create and use research projects
-mainwindow.researchtitle = Research
-mainwindow.title = Enigma Astrology Research
+--mainwindow.btnchartsnew = New chart
+--mainwindow.btnchartssearch = Search chart
+--mainwindow.btnconversions = Conversions
+--mainwindow.btncyclenew = New cycle
+--mainwindow.btncyclesearch = Search cycle
+--mainwindow.btndatanew = New data
+--mainwindow.btnephemerisnew = New ephemeris
+--mainwindow.btnevents = Events
+--mainwindow.btnother = Other
+--mainwindow.btnparans = Parans
+--mainwindow.btnprojectnew = New project
+--mainwindow.btnprojectsearch = Search project
+--mainwindow.calculatorsexpl = Support for several types of calculations (not available in version 0.1.0)
+--mainwindow.calculatorstitle = Calculators
+--mainwindow.chartsexpl = Calculate, analyze and progress charts
+--mainwindow.chartsnew = Calculate a new chart
+--mainwindow.chartstitle = Charts
+--mainwindow.cyclenew = Create new cycle
+--mainwindow.datanew = Import new data
+--mainwindow.ephemerisnew = Create new ephemeris
+--mainwindow.menu.micharts = Charts
+--mainwindow.menu.micharts.new = New chart
+--mainwindow.menu.micharts.overview = Overview of charts
+--mainwindow.menu.migeneral = General
+--mainwindow.menu.migeneral.close = Exit Enigma
+--mainwindow.menu.migeneral.configuration = Configuration
+--mainwindow.menu.migeneral.settings = Settings
+--mainwindow.menu.mihelp = Help
+--mainwindow.menu.mihelp.about = About
+--mainwindow.menu.mihelp.page = Help about this window
+--mainwindow.menu.mihelp.manual = User manual 
+--mainwindow.menu.miperiodical = Periods
+--mainwindow.menu.miperiodical.cycles = Cycles
+--mainwindow.menu.miperiodical.ephemeris = Ephemerides
+--mainwindow.menu.miperiodical.occurrences = Occurrences
+--mainwindow.menu.miresearch = Research
+--mainwindow.menu.miresearch.dataimport = Import data file
+--mainwindow.menu.miresearch.dataoverview = Overview data files
+--mainwindow.menu.miresearch.projectsnew = New project
+--mainwindow.menu.miresearch.projectsopen = Open project
+--mainwindow.periodicalexpl = Cycles and ephemerides (not available in version 0.1.0)
+--mainwindow.periodicaltitle = Periods and cycles
+--mainwindow.projectnew = Create a new project
+--mainwindow.researchexpl = Import data, create and use research projects
+--mainwindow.researchtitle = Research
 
 
 -------------------------------- Project input window --
@@ -311,12 +319,6 @@ projectinputwindow.controlgrouptype = Select the type of controlgroup
 projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
 projectinputwindow.datainfo = Datafile to be used
 projectinputwindow.datafile = Select the datafile
-
-------------------------------- Project overview window --
-
-projectoverviewwindow.title = Projects: overview
-projectoverviewwindow.formtitle = Available projects
-projectoverviewwindow.expltext = Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project.
 
 -------------------------------- References ------------
 
@@ -588,4 +590,21 @@ ref.months.dec = Dec
 ref.calendar.g = Greg.
 ref.calendar.j = Jul.
 
+--------- ResearchMain ----------------------------
+researchmainwindow.expltext = Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project.
+researchmainwindow.formtitle = Available projects
+researchmainwindow.menu.midata = Data
+researchmainwindow.menu.midata.overview = Available data sets
+researchmainwindow.menu.midata.import = Import data
+researchmainwindow.menu.migeneral = General
+researchmainwindow.menu.migeneral.close = Close Research
+researchmainwindow.menu.migeneral.configuration = Configuration
+researchmainwindow.menu.migeneral.settings = Settings
+researchmainwindow.menu.mihelp = Help
+researchmainwindow.menu.mihelp.about = About Research
+researchmainwindow.menu.mihelp.page = Help for this window
+researchmainwindow.menu.mihelp.manual = User Manual
+researchmainwindow.menu.miprojects = Research Projects
+researchmainwindow.menu.miprojects.new = Add new project
+researchmainwindow.title = Projects: overview
 

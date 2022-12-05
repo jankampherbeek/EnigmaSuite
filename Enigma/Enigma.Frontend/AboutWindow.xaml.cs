@@ -2,7 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using System.Windows;
 
 namespace Enigma.Frontend.Ui;
@@ -12,11 +13,10 @@ namespace Enigma.Frontend.Ui;
 /// </summary>
 public partial class AboutWindow : Window
 {
-    private readonly IRosetta _rosetta;
-    public AboutWindow(IRosetta rosetta)
+    private readonly Rosetta _rosetta = Rosetta.Instance;
+    public AboutWindow()
     {
         InitializeComponent();
-        _rosetta = rosetta;
         PopulateTexts();
     }
     private void PopulateTexts()

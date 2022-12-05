@@ -8,7 +8,7 @@ using Enigma.Frontend.Ui.Interfaces;
 
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.Ui.DataFiles;
+namespace Enigma.Frontend.Ui.Research.DataFiles;
 public class DataFilesOverviewController
 {
     private readonly IFileManagementApi _fileManagementApi;

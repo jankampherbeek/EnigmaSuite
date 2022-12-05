@@ -2,7 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using System;
 using System.Windows;
 
@@ -13,11 +14,10 @@ namespace Enigma.Frontend.Ui.Support;
 /// <summary>Show help text.</summary>
 public partial class HelpWindow : Window
 {
-    private readonly IRosetta _rosetta;
-    public HelpWindow(IRosetta rosetta)
+    private readonly Rosetta _rosetta = Rosetta.Instance;
+    public HelpWindow()
     {
         InitializeComponent();
-        _rosetta = rosetta;
         Title = _rosetta.TextForId("helpwindow.title");
         btnClose.Content = _rosetta.TextForId("common.btnclose");
     }

@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,7 +15,7 @@ namespace Enigma.Frontend.Ui.Charts;
 /// <summary>Shows positions in tabular format.</summary>
 public partial class ChartPositionsWindow : Window
 {
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
     private readonly ChartPositionsController _controller;
     private readonly string _space = " ";
@@ -25,8 +25,6 @@ public partial class ChartPositionsWindow : Window
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ChartPositionsController>();
-        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
-
     }
 
     public void PopulateAll()

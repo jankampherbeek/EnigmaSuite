@@ -3,105 +3,38 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Ui.Charts;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts.Graphics;
-using Enigma.Frontend.Ui.DataFiles;
-using Enigma.Frontend.Ui.Interfaces;
-using Enigma.Frontend.Ui.ResearchProjects;
-using Enigma.Frontend.Ui.Settings;
-using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Research;
 
 namespace Enigma.Frontend.Ui;
 
 
 public class MainController
 {
-    private readonly IRosetta _rosetta;
-    private readonly DataVault _dataVault;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
+
 
 
     public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
 
 
-    public MainController(IRosetta rosetta, ChartsWheel chartsWheel)
+    public MainController(ChartsWheel chartsWheel)
     {
-        _rosetta = rosetta;
-        _dataVault = DataVault.Instance;
-
-        AllCurrentCharts = new CurrentCharts();
-    }
-
-    public void NewChart()
-    {
-        ChartDataInputWindow chartDataInputWindow = new();
-        chartDataInputWindow.ShowDialog();
-        if (_dataVault.GetNewChartAdded())
-        {
-            ChartsMainWindow chartsMainWindow = new();
-            chartsMainWindow.Show();
-        }
+        AllCurrentCharts = new CurrentCharts();   // move to maincharts
     }
 
 
-    public void NewProject()
+    public void ShowResearchMain()
     {
-        ProjectInputWindow projectInputWindow = new();
-        projectInputWindow.ShowDialog();
+        ResearchMainWindow researchMainWindow = new();
+        researchMainWindow.ShowDialog();
     }
 
-    public void ShowProjectsOpen()
+    public void ShowChartsMain()
     {
-        ProjectsOverviewWindow projectsOverviewWindow = new();
-        projectsOverviewWindow.ShowDialog();
+        ChartsMainWindow chartsMainWindow = new();
+        chartsMainWindow.ShowDialog();
     }
-
-    public void ShowAbout()
-    {
-        AboutWindow aboutWindow = new(_rosetta);
-        aboutWindow.ShowDialog();
-    }
-
-    public void ShowAppSettings()
-    {
-        AppSettingsWindow appSettingsWindow = new();
-        appSettingsWindow.ShowDialog();
-    }
-
-    public void ShowAstroConfig()
-    {
-        AstroConfigWindow astroConfigWindow = new();
-        astroConfigWindow.ShowDialog();
-    }
-
-    public void ShowDataOverview()
-    {
-        DataFilesOverviewWindow dataFilesOverviewWindow = new();
-        dataFilesOverviewWindow.ShowDialog();
-    }
-
-    public void ShowDataExport()
-    {
-        DataFilesExportWindow dataFilesExportWindow = new();
-        dataFilesExportWindow.ShowDialog();
-    }
-
-    public void ShowDataImport()
-    {
-        DataFilesImportWindow dataFilesImportWindow = new();
-        dataFilesImportWindow.ShowDialog();
-    }
-
-    public void AddCalculatedChart(CalculatedChart newChart)
-    {
-        AllCurrentCharts.AddChart(newChart, true, false);
-    }
-
-    private static void ShowPositions()
-    {
-        ChartPositionsWindow chartPositionsWindow = new();
-        chartPositionsWindow.Show();
-        chartPositionsWindow.PopulateAll();
-    }
-
 
 }

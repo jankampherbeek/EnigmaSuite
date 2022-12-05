@@ -4,19 +4,24 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Research.DataFiles;
+using Enigma.Frontend.Ui.Settings;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Enigma.Frontend.Ui.ResearchProjects;
+namespace Enigma.Frontend.Ui.Research;
 
-public class ProjectsOverviewController
+public class ResearchMainController
 {
     private IProjectsOverviewApi _projectsOverviewApi;
     private ResearchMethodInputWindow? _researchMethodInputWindow;
     private List<Window> _openWindows = new();
+    private Rosetta _rosetta = Rosetta.Instance;
 
-    public ProjectsOverviewController(IProjectsOverviewApi projectsOverviewApi)
+    public ResearchMainController(IProjectsOverviewApi projectsOverviewApi)
     {
         _projectsOverviewApi = projectsOverviewApi;
     }
@@ -47,6 +52,51 @@ public class ProjectsOverviewController
             window.Close();
         }
     }
+
+    public void ShowAppSettings()
+    {
+        AppSettingsWindow appSettingsWindow = new();
+        appSettingsWindow.ShowDialog();
+    }
+
+    public void ShowAstroConfig()
+    {
+        AstroConfigWindow astroConfigWindow = new();
+        astroConfigWindow.ShowDialog();
+    }
+
+    public void NewProject()
+    {
+        ProjectInputWindow projectInputWindow = new();
+        projectInputWindow.ShowDialog();
+    }
+
+    public void ShowProjectsOpen()
+    {
+
+    }
+
+    public void ShowDataOverview()
+    {
+        DataFilesOverviewWindow dataFilesOverviewWindow = new();
+        dataFilesOverviewWindow.ShowDialog();
+    }
+
+
+    public void ShowDataImport()
+    {
+        DataFilesImportWindow dataFilesImportWindow = new();
+        dataFilesImportWindow.ShowDialog();
+    }
+
+    public void ShowAbout()
+    {
+        AboutWindow aboutWindow = new();   // todo make specific for research
+        aboutWindow.ShowDialog();
+    }
+
+
+
 
 }
 

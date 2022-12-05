@@ -12,11 +12,10 @@ using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Services;
 using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
-using Enigma.Frontend.Ui.Datafiles;
-using Enigma.Frontend.Ui.DataFiles;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
-using Enigma.Frontend.Ui.ResearchProjects;
+using Enigma.Frontend.Ui.Research;
+using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Settings;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -73,7 +72,6 @@ public partial class App : Application
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
-        serviceCollection.AddTransient<DataFilesExportController>();
         serviceCollection.AddTransient<DataFilesImportController>();
         serviceCollection.AddTransient<DataFilesOverviewController>();
         serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
@@ -85,14 +83,10 @@ public partial class App : Application
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<ProjectInputController>();
-        serviceCollection.AddTransient<ProjectsOverviewController>();
-        serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
-
+        serviceCollection.AddTransient<ResearchMainController>();
         serviceCollection.AddTransient<ResearchMethodInputWindow>();
         serviceCollection.AddTransient<ResearchMethodInputController>();
-        serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
-        serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
 
         // Handle services from other projects.
         serviceCollection.RegisterFrontendHelpersServices();

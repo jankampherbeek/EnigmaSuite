@@ -2,13 +2,14 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Enigma.Frontend.Ui.DataFiles;
+namespace Enigma.Frontend.Ui.Research.DataFiles;
 
 /// <summary>
 /// Interaction logic for DataFilesOverview.xaml
@@ -17,12 +18,11 @@ public partial class DataFilesOverviewWindow : Window
 {
     private readonly DataFilesOverviewController _controller;
 
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
     public DataFilesOverviewWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<DataFilesOverviewController>();
-        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
         PopulateData();
     }

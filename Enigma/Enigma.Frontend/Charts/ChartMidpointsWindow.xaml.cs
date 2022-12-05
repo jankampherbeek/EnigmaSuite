@@ -2,7 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -15,14 +15,13 @@ namespace Enigma.Frontend.Ui.Charts;
 public partial class ChartMidpointsWindow : Window
 {
     private readonly ChartMidpointsController _controller;
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly string _emptyHeader = " ";
 
-    public ChartMidpointsWindow(ChartMidpointsController controller, IRosetta rosetta)
+    public ChartMidpointsWindow(ChartMidpointsController controller)
     {
         InitializeComponent();
         _controller = controller;
-        _rosetta = rosetta;
     }
 
     public void Populate()

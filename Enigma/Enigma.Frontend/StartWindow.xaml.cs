@@ -33,7 +33,7 @@ public partial class StartWindow : Window
 
     private void PopulateStaticTexts()
     {
-        Name.Text = "Enigma Astrology Research 0.1";   // TODO use resource bundle
+        tbExplanation.Text = "Checking for updates";   // TODO use resource bundle
     }
 
 
@@ -42,14 +42,12 @@ public partial class StartWindow : Window
         Show();
         HandleCheckForConfig();
         HandleCheckDirForSettings();
-        Thread.Sleep(500);
+        // Thread.Sleep(500);
         // TODO check for update
         Hide();
         MainWindow mainWindow = new();
         mainWindow.ShowDialog();
         Application.Current.Shutdown(0);
-
-
     }
 
 

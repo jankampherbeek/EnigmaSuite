@@ -8,6 +8,8 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Windows;

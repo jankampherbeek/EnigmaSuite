@@ -2,7 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -14,14 +15,13 @@ namespace Enigma.Frontend.Ui.Settings;
 public partial class AppSettingsWindow : Window
 {
     private readonly AppSettingsController _controller;
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public AppSettingsWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<AppSettingsController>();
-        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
     }
     private void PopulateTexts()

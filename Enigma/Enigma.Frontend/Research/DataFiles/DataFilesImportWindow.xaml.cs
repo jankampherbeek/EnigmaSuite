@@ -4,28 +4,27 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Ui.Datafiles;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
 
-namespace Enigma.Frontend.Ui.DataFiles
+namespace Enigma.Frontend.Ui.Research.DataFiles
 {
     /// <summary>
     /// Interaction logic for DataFilesImportWindow.xaml
     /// </summary>
     public partial class DataFilesImportWindow : Window
     {
-        private readonly IRosetta _rosetta;
+        private readonly Rosetta _rosetta = Rosetta.Instance;
         private readonly DataFilesImportController _controller;
 
         public DataFilesImportWindow()
         {
             InitializeComponent();
             _controller = App.ServiceProvider.GetRequiredService<DataFilesImportController>();
-            _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
             PopulateTexts();
         }
 

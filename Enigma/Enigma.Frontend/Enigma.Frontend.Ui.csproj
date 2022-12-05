@@ -44,6 +44,10 @@
     <None Remove="Images\secundary.png" />
     <None Remove="Images\settings.png" />
     <None Remove="Images\solar.png" />
+    <None Remove="Images\StartupCalculations.jpg" />
+    <None Remove="Images\StartupCharts.jpg" />
+    <None Remove="Images\StartupCycles.jpg" />
+    <None Remove="Images\StartupResearch.jpg" />
     <None Remove="Images\table.png" />
     <None Remove="Images\tertiary.png" />
     <None Remove="Images\transits.png" />
@@ -165,6 +169,18 @@
     <Resource Include="Images\solar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\StartupCalculations.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\StartupCharts.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\StartupCycles.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\StartupResearch.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\table.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -258,13 +274,10 @@
     <Page Update="Charts\ChartPositionsWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="DataFiles\DataFilesExportWindow.xaml">
+    <Page Update="Research\DataFiles\DataFilesImportWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="DataFiles\DataFilesImportWindow.xaml">
-      <Generator></Generator>
-    </Page>
-    <Page Update="DataFiles\DataFilesOverviewWindow.xaml">
+    <Page Update="Research\DataFiles\DataFilesOverviewWindow.xaml">
       <Generator></Generator>
     </Page>
     <Page Update="MainWindow.xaml">

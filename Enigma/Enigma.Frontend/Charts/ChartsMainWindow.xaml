@@ -30,6 +30,16 @@
 
         <Menu Grid.Row="0" Grid.ColumnSpan="5">
             <MenuItem Name="miGeneral" Header="miGeneral">
+                <MenuItem Name="miGeneralSettings" Header="miGeneralSettings" Click="GeneralSettingsClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/settings.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miGeneralConfiguration" Header="miGeneralConfiguration" Click="GeneralConfigurationClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/configuration.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Name="miGeneralClose" Header="miGeneralClose" Click="CloseClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/close.png"/>
@@ -79,28 +89,6 @@
                 <MenuItem Name="miAnalysisMidpoints" Header="miAnalysisMidpoints" Click="MidpointsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/midpoints.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-            </MenuItem>
-            <MenuItem Name="miProgressive" Header="miProgressive">
-                <MenuItem Name="miProgressivePrimary" Header="miProgressivePrimary" Click="PrimaryClick">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/primary.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Name="miProgressiveSecundary" Header="miProgressiveSecundary" Click="SecundaryClick">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/secundary.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Name="miProgressiveTransits" Header="miProgressiveTransits" Click="TransitsClick">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/transits.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Name="miProgressiveSolarReturn" Header="miProgressiveSolarReturn" Click="SolarReturnClick">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/solar.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

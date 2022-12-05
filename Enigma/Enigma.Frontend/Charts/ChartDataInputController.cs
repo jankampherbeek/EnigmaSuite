@@ -9,6 +9,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Serilog;
@@ -48,10 +49,10 @@ public class ChartDataInputController
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
-                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi, IRosetta rosetta)
+                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
     {
         _dateInputParser = dateInputParser;
         _timeInputParser = timeInputParser;
@@ -59,7 +60,6 @@ public class ChartDataInputController
         _geoLongInputParser = geoLongInputParser;
         _julianDayApi = julianDayApi;
         _chartAllPositionsApi = chartAllPositionsApi;
-        _rosetta = rosetta;
         _dataVault = DataVault.Instance;
     }
 

@@ -2,12 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
 using Serilog;
-using System.Collections.Generic;
-using System.IO;
 
-namespace Enigma.Frontend.Ui.Support;
+namespace Enigma.Frontend.Helpers.Support;
 
 public class TextFileReader : ITextFileReaderFE
 {

@@ -6,199 +6,40 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Ui"
         mc:Ignorable="d"
         WindowStartupLocation="Manual" Top="20" Left="20"     
-        Title="MainWindow" Height="700" Width="640">
+        Title="MainWindow" Height="400" Width="390">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="6">
             <Grid.RowDefinitions>
-                <RowDefinition Height="20"/>
                 <RowDefinition Height="60"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <Menu Grid.Row="0">
-                <MenuItem Name="miGeneral" Header="miGeneral">
-                    <MenuItem Name="miGeneralSettings" Header="miGeneralSettings" Click="GeneralSettingsClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/settings.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miGeneralConfiguration" Header="miGeneralConfiguration" Click="GeneralConfigurationClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/configuration.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miGeneralClose" Header="miGeneralClose" Click="GeneralCloseClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/close.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Name="miCharts" Header="miCharts">
-                    <MenuItem Name="miChartsNew" Header="miChartsNew" Click="ChartsNewClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/newchart.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miChartsOverview" Header="miChartsOverview" Click="ChartsOverviewClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/list.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-                <MenuItem Name="miResearch" Header="miResearch">
-                    <MenuItem Name="miResearchDataOverview" Header="miResearchDataOverview" Click="DataOverviewClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/list.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miResearchDataImport" Header="miResearchDataImport" Click="DataImportClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/download.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <Separator/>
-                    <MenuItem Name="miResesearchProjectsNew" Header="miResearchProjectsNew" Click="ProjectsNewClick">
-                        <MenuItem.Icon>
-                            <Image Source="Images/newproject.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miResearchProjectsOpen" Header="miResearchProjectsOpen" Click="ProjectsOpenClick"/> 
-                </MenuItem>
-                <MenuItem Name="miPeriodical" Header="miPeriodical">
-                    <MenuItem Name="miPeriodicalCycles" Header="miPeriodicalCycles" Click="PeriodicalCyclesClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/cycles.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miPeriodicalEphemeris" Header="miPeriodicalEphemeris" Click="PeriodicalEphemerisClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/ephemeris.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miPeriodicalOccurrences" Header="miPeriodicalOccurrences" Click="PeriodicalOccurrencesClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/occurrences.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-
-                <MenuItem Name="miCalculations" Header="miCalculations" Click="CalculationsClick"/>
-
-
-                <MenuItem Name="miHelp" Header="miHelp">
-                    <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick" >
-                        <MenuItem.Icon>
-                            <Image Source="/Images/help_2.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miHelpPage" Header="miHelpPage" Click="HelpClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/help.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                    <MenuItem Name="miHelpManual" Header="miHelpManual" Click="HelpManualClick">
-                        <MenuItem.Icon>
-                            <Image Source="/Images/manual.png"/>
-                        </MenuItem.Icon>
-                    </MenuItem>
-                </MenuItem>
-            </Menu>
-
-            <TextBlock Grid.Row="1" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-
+            <TextBlock Name="tbFormTitle" Text="tbFormTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource titleStyle}"/>
+            <TextBlock Grid.Row="1" Name="tbSubTitle" Text="tbSubTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource subTitleStyle}"/>
+            <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                <Button Margin="6" Width="160" Height="160"  Name="btnCharts" Click="ChartsClick">
+                    <Image Source="/Images/StartupCharts.jpg"/>
+                </Button>
+                <Button Margin="6" Width="160" Height="160" Name="btnResearch" Click="ResearchClick">
+                    <Image Source="/Images/StartupResearch.jpg"/>
+                </Button>
+              </WrapPanel>
 
             <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
-                <Grid Margin="6" Width="280" Height="240">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="40*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="tbChartsTitle" Text="tbChartsTitle" Style="{StaticResource subTitleStyle}"/>
-                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbChartsExpl" Text="tbChartsExpl" FontWeight="Bold" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Row="2" Margin="6" Name="tbNewChart" Text="tbNewChart" VerticalAlignment="Bottom"/>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="6" Name="btnNewChart" Content="btnNewChart" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ChartsNewClick"/>
-                    <TextBox Grid.Row="3" Grid.Column="0" Margin="6" Name="tboxSearchChart" VerticalAlignment="Center" />
-                    <Button Grid.Row="3" Grid.Column="1" Margin="6" Name="btnSearchChart" Content="btnSearchChart" VerticalAlignment="Center" HorizontalAlignment="Right" Click="ChartsSearchClick"/>
-
+                <Grid Margin="6" Width="160" Height="160">
+                    <TextBlock Margin="6" Name="tbCharts" Text="tbCharts" Style="{StaticResource titleStyle}" Foreground="Goldenrod" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                 </Grid>
-                <Grid Margin="6" Width="280" Height="240">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="40*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="tbResearchTitle" Text="tbResearchTitle" Style="{StaticResource subTitleStyle}"/>
-                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbResearchExpl" Text="tbResearchExpl" FontWeight="Bold" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Row="2" Name="tbNewData" Margin="6" Text="tbNewData" VerticalAlignment="Bottom"/>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="6" Name="btnNewData" Content="btnNewData" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                    <TextBlock Grid.Row="3" Name="tbNewProject" Margin="6" Text="tbNewProject" VerticalAlignment="Bottom"/>
-                    <Button Grid.Row="3" Grid.Column="1" Margin="6" Name="btnNewProject" Content="btnNewProject" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                    <TextBox Grid.Row="4" Grid.Column="0" Margin="6" Name="tboxSearchProject" VerticalAlignment="Center"/>
-                    <Button Grid.Row="4" Grid.Column="1" Margin="6" Name="btnSearchProject" Content="btnSearchProject" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                </Grid>
-                <Grid Margin="6" Width="280" Height="240">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="60*"/>
-                        <ColumnDefinition Width="40*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="tbPeriodicalTitle" Text="tbPeriodicalTitle" Style="{StaticResource subTitleStyle}"/>
-                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbPeriodicalExpl" Text="tbPeriodicalExpl" FontWeight="Bold" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Row="2" Margin="6" Name="tbNewCycle" Text="tbNewCycle" VerticalAlignment="Bottom"/>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="6" Name="btnNewCycle" Content="btnNewCycle" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                    <TextBox Grid.Row="3" Grid.Column="0" Margin="6" Name="tboxSearchCycle" VerticalAlignment="Center"/>
-                    <Button Grid.Row="3" Grid.Column="1" Margin="6" Name="btnSearchCycle" Content="btnSearchCycle" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <TextBlock Grid.Row="4" Margin="6" Name="tbNewEphemeris" Text="tbNewEphemeris" VerticalAlignment="Bottom"/>
-                    <Button Grid.Row="4" Grid.Column="1" Margin="6" Name="btnNewEphemeris" Content="btnNewEphemeris" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                </Grid>
-                <Grid Margin="6" Width="280" Height="240">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Rectangle Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-                    <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="tbCalculatorsTitle" Text="tbCalculatorsTitle" Style="{StaticResource subTitleStyle}"/>
-                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbCalculatorsExpl" Text="tbCalculatorsExpl" FontWeight="Bold" VerticalAlignment="Bottom" TextWrapping="Wrap"/>
-                    <Button Grid.Row="2" Grid.Column="0" Margin="6" Name="btnConversions" Content="btnConversions" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                    <Button Grid.Row="2" Grid.Column="1" Margin="6" Name="btnParans" Content="btnParans" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-                    <Button Grid.Row="3" Grid.Column="0" Margin="6" Name="btnEvents" Content="btnEvents" VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
-                    <Button Grid.Row="3" Grid.Column="1" Margin="6" Name="btnOthers" Content="btnOthers" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                <Grid Margin="6" Width="160" Height="160">
+                    <TextBlock Margin="6" Name="tbResearch" Text="tbResearch" Style="{StaticResource titleStyle}" Foreground="Goldenrod" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
                 </Grid>
             </WrapPanel>
-            <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Grid.Row="3" Name="tbExplanation" Text="tbExplanation" HorizontalAlignment="Center" Margin="6"/>
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Margin="6" Name="btnHelp" Content="btnHelp" Click="HelpClick" />
                 <Button Margin="6" Name="btnExit" Content="btnExit" Click="ExitClick"/>
             </StackPanel>
-
         </Grid>
     </ScrollViewer>
 </Window>

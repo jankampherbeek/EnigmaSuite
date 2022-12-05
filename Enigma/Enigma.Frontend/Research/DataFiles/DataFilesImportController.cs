@@ -12,7 +12,7 @@ using System.IO;
 using System.Windows;
 
 
-namespace Enigma.Frontend.Ui.Datafiles;
+namespace Enigma.Frontend.Ui.Research.DataFiles;
 public class DataFilesImportController
 {
     private readonly IFileManagementApi _fileManagementApi;

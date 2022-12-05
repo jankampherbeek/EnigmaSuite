@@ -6,8 +6,8 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
-using Enigma.Frontend.Ui.Charts;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
@@ -23,14 +23,13 @@ namespace Enigma.Frontend.Ui.Settings;
 public partial class AstroConfigWindow : Window
 {
     private readonly AstroConfigController _controller;
-    private readonly IRosetta _rosetta;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public AstroConfigWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<AstroConfigController>();
-        _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
         PopulateTexts();
         PopulateGlyphs();
         DefaultValues();

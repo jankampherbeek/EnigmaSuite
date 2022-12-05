@@ -14,7 +14,7 @@ using Serilog;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace Enigma.Frontend.Ui.ResearchProjects;
+namespace Enigma.Frontend.Ui.Research;
 public class ProjectInputController
 {
     public string ProjectName { get; set; } = "";

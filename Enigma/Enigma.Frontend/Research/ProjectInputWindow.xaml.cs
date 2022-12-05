@@ -4,24 +4,24 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Media;
 
-namespace Enigma.Frontend.Ui.ResearchProjects
+namespace Enigma.Frontend.Ui.Research
 {
     /// <summary>Window for the input of project data.</summary>
     public partial class ProjectInputWindow : Window
     {
-        private readonly IRosetta _rosetta;
+        private readonly Rosetta _rosetta = Rosetta.Instance;
         private readonly ProjectInputController _controller;
         private readonly IControlGroupTypeSpecifications _controlGroupTypeSpecifications;
 
         public ProjectInputWindow()
         {
             InitializeComponent();
-            _rosetta = App.ServiceProvider.GetRequiredService<IRosetta>();
             _controller = App.ServiceProvider.GetRequiredService<ProjectInputController>();
             _controlGroupTypeSpecifications = App.ServiceProvider.GetRequiredService<IControlGroupTypeSpecifications>();
             PopulateTexts();

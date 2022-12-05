@@ -3,7 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Charts;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts.Graphics;
+using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Ui.State;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -18,8 +23,35 @@ public class ChartsMainController
     private ChartAspectsWindow? _chartAspectsWindow;
     private ChartMidpointsWindow? _chartMidpointsWindow;
     private ChartHarmonicsWindow? _chartHarmonicsWindow;
-
+    private Rosetta _rosetta = Rosetta.Instance;
     private List<Window> _openWindows = new();
+    private readonly DataVault _dataVault = DataVault.Instance;
+
+
+
+    public void ShowAppSettings()
+    {
+        AppSettingsWindow appSettingsWindow = new();
+        appSettingsWindow.ShowDialog();
+    }
+
+    public void ShowAstroConfig()
+    {
+        AstroConfigWindow astroConfigWindow = new();
+        astroConfigWindow.ShowDialog();
+    }
+
+    public void NewChart()
+    {
+        ChartDataInputWindow chartDataInputWindow = new();
+        chartDataInputWindow.ShowDialog();
+        if (_dataVault.GetNewChartAdded())
+        {
+            ChartsMainWindow chartsMainWindow = new();
+            chartsMainWindow.Show();
+        }
+    }
+
 
     /// <summary>Opens chart wheel for current chart.</summary>
     public void ShowCurrentChart()
@@ -67,6 +99,17 @@ public class ChartsMainController
 
     }
 
+    public void AddCalculatedChart(CalculatedChart newChart)
+    {
+        // AllCurrentCharts.AddChart(newChart, true, false);
+    }
+
+
+    public void ShowAbout()
+    {
+        AboutWindow aboutWindow = new();    // todo make specific for charts
+        aboutWindow.ShowDialog();
+    }
 
     /// <summary>Closes all child windows of main chart window.</summary>
     public void HandleClose()

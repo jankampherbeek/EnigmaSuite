@@ -1,9 +1,9 @@
-﻿<Window x:Class="Enigma.Frontend.Ui.DataFiles.DataFilesImportWindow"
+﻿<Window x:Class="Enigma.Frontend.Ui.Research.DataFiles.DataFilesImportWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Enigma.Frontend.Ui.DataFiles"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Research.DataFiles"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="DataFilesImport" Height="360" Width="640">
