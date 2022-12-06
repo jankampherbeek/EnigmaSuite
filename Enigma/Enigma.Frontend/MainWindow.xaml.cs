@@ -3,12 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-using System.Windows.Controls;
+
 
 namespace Enigma.Frontend.Ui;
 

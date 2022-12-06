@@ -4,8 +4,6 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Settings;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,9 +15,9 @@ namespace Enigma.Frontend.Ui.Research;
 public class ResearchMainController
 {
     private IProjectsOverviewApi _projectsOverviewApi;
-    private ResearchMethodInputWindow? _researchMethodInputWindow;
+    private ProjectUsageWindow? _projectUsageWindow;
+    private List<ResearchProject> _researchProjects = new();
     private List<Window> _openWindows = new();
-    private Rosetta _rosetta = Rosetta.Instance;
 
     public ResearchMainController(IProjectsOverviewApi projectsOverviewApi)
     {
@@ -29,9 +27,11 @@ public class ResearchMainController
     public List<ProjectItem> GetAllProjectItems()
     {
         List<ProjectItem> projectItems = new();
+        _researchProjects = new();
         List<ResearchProject> allProjects = _projectsOverviewApi.GetDetailsForAllProjects();
         foreach (var project in allProjects)
         {
+            _researchProjects.Add(project);
             projectItems.Add(new ProjectItem() { ProjectName = project.Name, ProjectDescription = project.Description });
         }
         return projectItems;
@@ -39,10 +39,19 @@ public class ResearchMainController
 
     public void OpenProject(ProjectItem projectItem)
     {
-        _researchMethodInputWindow = App.ServiceProvider.GetRequiredService <ResearchMethodInputWindow>();
-        _openWindows.Add(_researchMethodInputWindow);
-        _researchMethodInputWindow.Show();
-        _researchMethodInputWindow.PopulateAll(projectItem);
+
+        ResearchProject currentProject = null;
+        foreach (var project in _researchProjects)
+        {
+            if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
+            {
+                _projectUsageWindow = App.ServiceProvider.GetRequiredService<ProjectUsageWindow>();
+                _openWindows.Add(_projectUsageWindow);
+                currentProject = project;
+                _projectUsageWindow.SetProject(currentProject);
+                _projectUsageWindow.Show();
+            }
+        }
     }
 
     public void HandleClose()
@@ -69,11 +78,6 @@ public class ResearchMainController
     {
         ProjectInputWindow projectInputWindow = new();
         projectInputWindow.ShowDialog();
-    }
-
-    public void ShowProjectsOpen()
-    {
-
     }
 
     public void ShowDataOverview()

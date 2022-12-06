@@ -17,13 +17,11 @@ namespace Enigma.Frontend.Ui.Research
     {
         private readonly Rosetta _rosetta = Rosetta.Instance;
         private readonly ProjectInputController _controller;
-        private readonly IControlGroupTypeSpecifications _controlGroupTypeSpecifications;
 
         public ProjectInputWindow()
         {
             InitializeComponent();
             _controller = App.ServiceProvider.GetRequiredService<ProjectInputController>();
-            _controlGroupTypeSpecifications = App.ServiceProvider.GetRequiredService<IControlGroupTypeSpecifications>();
             PopulateTexts();
             PopulateData();
         }
@@ -71,7 +69,7 @@ namespace Enigma.Frontend.Ui.Research
         private void PopulateData()
         {
             comboControlGroup.Items.Clear();
-            foreach (var cgDetail in _controlGroupTypeSpecifications.AllControlGroupTypeDetails())
+            foreach (var cgDetail in ControlGroupTypes.StandardShift.AllDetails())
             {
                 comboControlGroup.Items.Add(_rosetta.TextForId(cgDetail.TextId));
             }
@@ -97,7 +95,7 @@ namespace Enigma.Frontend.Ui.Research
             _controller.ProjectName = NameValue.Text;
             _controller.ProjectDescription = DescrValue.Text;
             _controller.ControlGroupMultiplication = MultiplicValue.Text;
-            ControlGroupTypes controlGroupType = _controlGroupTypeSpecifications.AllControlGroupTypeDetails()[comboControlGroup.SelectedIndex].ControlGroupType;
+            ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(comboControlGroup.SelectedIndex);
             _controller.ControlGroupType = controlGroupType;
 #pragma warning disable CS8601 // Possible null reference assignment.    
             _controller.DataFileName = comboDataFile.SelectedItem.ToString();

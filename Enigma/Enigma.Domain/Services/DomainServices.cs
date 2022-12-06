@@ -14,7 +14,6 @@ public static class DomainServices
     public static void RegisterDomainServices(this ServiceCollection serviceCollection)
     {
 
-        serviceCollection.AddTransient<IControlGroupTypeSpecifications, ControlGroupTypeSpecifications>();
         serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();
     }
 }

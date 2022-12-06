@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Research;
 
@@ -12,9 +12,6 @@ namespace Enigma.Frontend.Ui;
 
 public class MainController
 {
-    private readonly Rosetta _rosetta = Rosetta.Instance;
-
-
 
     public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
 

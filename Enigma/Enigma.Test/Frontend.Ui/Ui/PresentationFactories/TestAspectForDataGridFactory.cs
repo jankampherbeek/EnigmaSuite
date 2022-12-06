@@ -3,11 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;

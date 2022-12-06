@@ -84,8 +84,8 @@ public partial class App : Application
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<ProjectInputController>();
         serviceCollection.AddTransient<ResearchMainController>();
-        serviceCollection.AddTransient<ResearchMethodInputWindow>();
-        serviceCollection.AddTransient<ResearchMethodInputController>();
+        serviceCollection.AddTransient<ProjectUsageWindow>();
+        serviceCollection.AddTransient<ProjectUsageController>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
 
         // Handle services from other projects.

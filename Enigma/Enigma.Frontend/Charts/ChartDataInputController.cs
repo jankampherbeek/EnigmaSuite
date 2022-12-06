@@ -10,7 +10,6 @@ using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Serilog;
 using System.Collections.Generic;

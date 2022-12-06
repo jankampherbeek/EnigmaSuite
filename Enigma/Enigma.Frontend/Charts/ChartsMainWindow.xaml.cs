@@ -2,14 +2,13 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Charts;
+using Enigma.Frontend.Ui.State;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
 
-namespace Enigma.Frontend.Ui;
+namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>Main window with dashboard for charts.</summary>
 public partial class ChartsMainWindow : Window
@@ -17,7 +16,7 @@ public partial class ChartsMainWindow : Window
 
     private ChartsMainController _controller;
     private Rosetta _rosetta = Rosetta.Instance;
-
+    private DataVault _dataVault = DataVault.Instance;
 
     public ChartsMainWindow()
     {
@@ -25,7 +24,7 @@ public partial class ChartsMainWindow : Window
         _controller = App.ServiceProvider.GetRequiredService<ChartsMainController>();
         PopulateTexts();
         PopulateMenu();
-   //     ShowCurrentChart();
+        DisableOrEnable(false);
     }
 
     private void PopulateTexts()
@@ -36,11 +35,7 @@ public partial class ChartsMainWindow : Window
         tbTags.Text = _rosetta.TextForId("chartsmainwindow.tags");
         btnWheel.Content = _rosetta.TextForId("chartsmainwindow.btnwheel");
         btnPositions.Content = _rosetta.TextForId("chartsmainwindow.btnpositions");
-        btnSave.Content = _rosetta.TextForId("common.btnsave");
         btnNew.Content = _rosetta.TextForId("chartsmainwindow.newchart");
-        btnOverview.Content = _rosetta.TextForId("chartsmainwindow.overviewcharts");
-        btnSearch.Content = _rosetta.TextForId("common.btnsearch");
-        btnAddTag.Content = _rosetta.TextForId("chartsmainwindow.btnaddtag");
         btnHelp.Content = _rosetta.TextForId("common.btnhelp");
         btnClose.Content = _rosetta.TextForId("common.btnclose");
     }
@@ -52,11 +47,9 @@ public partial class ChartsMainWindow : Window
         miGeneralConfiguration.Header = _rosetta.TextForId("chartsmainwindow.menu.migeneral.configuration");
         miGeneralSettings.Header = _rosetta.TextForId("chartsmainwindow.menu.migeneral.settings");
         miCharts.Header = _rosetta.TextForId("chartsmainwindow.menu.charts");
+        miChartsNew.Header = _rosetta.TextForId("chartsmainwindow.menu.newchart");
         miChartsWheel.Header = _rosetta.TextForId("chartsmainwindow.menu.wheel");
         miChartsPositions.Header = _rosetta.TextForId("chartsmainwindow.menu.positions");
-        miChartsNew.Header = _rosetta.TextForId("chartsmainwindow.menu.newchart");
-        miChartsOverview.Header = _rosetta.TextForId("chartsmainwindow.menu.chartsoverview");
-        miChartsSave.Header = _rosetta.TextForId("chartsmainwindow.menu.save");
         miAnalysis.Header = _rosetta.TextForId("chartsmainwindow.menu.analysis");
         miAnalysisAspects.Header = _rosetta.TextForId("chartsmainwindow.menu.aspects");
         miAnalysisHarmonics.Header = _rosetta.TextForId("chartsmainwindow.menu.harmonics");
@@ -66,6 +59,22 @@ public partial class ChartsMainWindow : Window
         miHelpAbout.Header = _rosetta.TextForId("chartsmainwindow.menu.helpabout");
         miHelpPage.Header = _rosetta.TextForId("chartsmainwindow.menu.helppage");
         miHelpManual.Header = _rosetta.TextForId("chartsmainwindow.menu.manual");
+        
+
+
+    
+    }
+
+    private void DisableOrEnable(bool able)
+    {
+        miChartsPositions.IsEnabled = able;
+        miChartsWheel.IsEnabled = able;
+        miAnalysis.IsEnabled = able;
+        miAnalysisAspects.IsEnabled = able;
+        miAnalysisHarmonics.IsEnabled = able;
+        miAnalysisMidpoints.IsEnabled = able;
+        btnPositions.IsEnabled = able;
+        btnWheel.IsEnabled = able;
     }
 
 
@@ -103,14 +112,13 @@ public partial class ChartsMainWindow : Window
         _controller.ShowPositions();
     }
 
-    private void ChartsSaveClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Save not yet implemented.");           // TODO implement handling of click
-    }
+
 
     private void ChartsNewClick(object sender, RoutedEventArgs e)
     {
         _controller.NewChart();
+        bool newChartAdded = _dataVault.GetNewChartAdded();
+        DisableOrEnable(newChartAdded);
     }
 
     private void ChartsOverviewClick(object sender, RoutedEventArgs e)
@@ -148,15 +156,7 @@ public partial class ChartsMainWindow : Window
         MessageBox.Show("Help manual not yet implemented.");    // TODO implement handling of click
     }
 
-    private void SearchClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Search not yet implemented.");         // TODO implement handling of click
-    }
 
-    private void AddTagClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Add Tag not yet implemented.");        // TODO implement handling of click
-    }
 
 
 }

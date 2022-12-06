@@ -2,6 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Serilog;
+
 namespace Enigma.Domain.Analysis;
 
 /// <summary>
@@ -24,7 +26,7 @@ public static class ArabicPointsExtensions
             ArabicPoints.FortunaSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunasect"),
             ArabicPoints.FortunaNoSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunanosect"),
             _ => throw new ArgumentException("Arabic Point unknown : " + arabicPoint.ToString())
-        };
+        } ;
 }
 
     /// <summary>Retrieve details for items in the enum ArabicPoints.</summary>
@@ -39,6 +41,13 @@ public static class ArabicPointsExtensions
         }
         return allDetails;
     }	
+
+    private static void HandleError(ArabicPoints arabicPoint)
+    {
+        string errorTxt = "Arabic Point unknown : " + arabicPoint.ToString();
+        Log.Error(errorTxt);
+        throw new ArgumentException(errorTxt);
+    }
 }
 
 

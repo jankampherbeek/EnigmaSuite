@@ -10,20 +10,13 @@ namespace Enigma.Test.Domain.Research;
 [TestFixture]
 public class TestControlGroupTypes
 {
-    private IControlGroupTypeSpecifications specifications;
-
-    [SetUp]
-    public void SetUp()
-    {
-        specifications = new ControlGroupTypeSpecifications();
-    }
 
 
     [Test]
     public void TestRetrievingDetails()
     {
         ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift;
-        ControlGroupTypeDetails details = specifications.DetailsForControlGroupType(controlGroupType);
+        ControlGroupTypeDetails details = controlGroupType.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
@@ -37,7 +30,7 @@ public class TestControlGroupTypes
     {
         foreach (ControlGroupTypes controlGroupType in Enum.GetValues(typeof(ControlGroupTypes)))
         {
-            ControlGroupTypeDetails details = specifications.DetailsForControlGroupType(controlGroupType);
+            ControlGroupTypeDetails details = controlGroupType.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }
@@ -47,7 +40,7 @@ public class TestControlGroupTypes
     public void TestRetrievingWithIndex()
     {
         int controlGroupTypeIndex = 2;
-        ControlGroupTypes controlGroupType = specifications.ControlGroupTypeForIndex(controlGroupTypeIndex);
+        ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(controlGroupTypeIndex);
         Assert.That(controlGroupType, Is.EqualTo(ControlGroupTypes.GroupMemberShift));
     }
 
@@ -55,13 +48,13 @@ public class TestControlGroupTypes
     public void TestRetrievingWithWrongIndex()
     {
         int controlGroupTypeIndex = 500;
-        Assert.That(() => _ = specifications.ControlGroupTypeForIndex(controlGroupTypeIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(controlGroupTypeIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllControlGroupTypeDetails()
     {
-        List<ControlGroupTypeDetails> allDetails = specifications.AllControlGroupTypeDetails();
+        List<ControlGroupTypeDetails> allDetails = ControlGroupTypes.StandardShift.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

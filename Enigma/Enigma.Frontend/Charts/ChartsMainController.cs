@@ -4,8 +4,6 @@
 
 
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Settings;
 using Enigma.Frontend.Ui.State;
@@ -23,7 +21,6 @@ public class ChartsMainController
     private ChartAspectsWindow? _chartAspectsWindow;
     private ChartMidpointsWindow? _chartMidpointsWindow;
     private ChartHarmonicsWindow? _chartHarmonicsWindow;
-    private Rosetta _rosetta = Rosetta.Instance;
     private List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
 
@@ -47,8 +44,9 @@ public class ChartsMainController
         chartDataInputWindow.ShowDialog();
         if (_dataVault.GetNewChartAdded())
         {
-            ChartsMainWindow chartsMainWindow = new();
-            chartsMainWindow.Show();
+            // enable relevant menuitems and buttons
+            ShowCurrentChart();
+
         }
     }
 

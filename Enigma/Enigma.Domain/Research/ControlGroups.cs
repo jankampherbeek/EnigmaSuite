@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 namespace Enigma.Domain.Research;
 
 
@@ -13,69 +12,56 @@ public enum ControlGroupTypes
     GroupMemberShift = 2
 }
 
-/// <summary>Details for ControlGroupTypes </summary>
-public record ControlGroupTypeDetails
-{
-    readonly public ControlGroupTypes ControlGroupType;
-    readonly public string TextId;
 
-    /// <param name="controlGroupType">Instance from enum ControlGroupTypes.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public ControlGroupTypeDetails(ControlGroupTypes controlGroupType, string textId)
+public static class ControlGroupTypesExtensions
+{
+    /// <summary>Retrieve details for ControlGroupTypes.</summary>
+    /// <param name="cgType">The control group type, is automatically filled.</param>
+    /// <returns>Details for the control group type.</returns>
+    public static ControlGroupTypeDetails GetDetails(this ControlGroupTypes cgType)
     {
-        ControlGroupType = controlGroupType;
-        TextId = textId;
+        return cgType switch
+        {
+            ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.standardshift"),
+            ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),
+            _ => throw new ArgumentException("Controlgroup type unknown : " + cgType.ToString())
+        };
     }
-}
 
-/// <summary>Specifications for ControlGroupTypes.</summary>
-public interface IControlGroupTypeSpecifications
-{
-    /// <param name="controlGroupType">The controlgroup type, from the enum ControlGroupTypes.</param>
-    /// <returns>A record CongrolGroupTypeDetails with the specification of the controlgroup type.</returns>
-    public ControlGroupTypeDetails DetailsForControlGroupType(ControlGroupTypes controlGroupType);
-    /// <returns>List with details for all controlgroup types.</returns>
-    public List<ControlGroupTypeDetails> AllControlGroupTypeDetails();
-    /// <summary>Find controlgroup type from enum.</summary>
-    /// <param name="controlGroupTypeIndex">Index in enum.</param>
-    /// <returns>If found: the control group type Otherwise an ArgumentException is thrown.</returns>
-    public ControlGroupTypes ControlGroupTypeForIndex(int controlGroupTypeIndex);
-}
-
-
-/// <inheritdoc/>
-public class ControlGroupTypeSpecifications : IControlGroupTypeSpecifications
-{
-    /// <inheritdoc/>
-    public List<ControlGroupTypeDetails> AllControlGroupTypeDetails()
+    /// <summary>Retrieve details for items in the enum ControlGroupTypes.</summary>
+    /// <param name="cal">The control group type, is automatically filled.</param>
+    /// <returns>All details.</returns>
+    public static List<ControlGroupTypeDetails> AllDetails(this ControlGroupTypes cgType)
     {
         var allDetails = new List<ControlGroupTypeDetails>();
-        foreach (ControlGroupTypes controlGroupType in Enum.GetValues(typeof(ControlGroupTypes)))
+        foreach (ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)))
         {
-            allDetails.Add(DetailsForControlGroupType(controlGroupType));
+            allDetails.Add(currentCgType.GetDetails());
         }
         return allDetails;
     }
 
-    /// <inheritdoc/>
-    public ControlGroupTypeDetails DetailsForControlGroupType(ControlGroupTypes controlGroupType) => controlGroupType switch
+    /// <summary>Find control group type for an index.</summary>
+    /// <param name="cgType">Any control group type, automatically filled.</param>
+    /// <param name="index">Index to look for.</param>
+    /// <returns>The control group type for the index.</returns>
+    /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
+    public static ControlGroupTypes ControlGroupTypeForIndex(this ControlGroupTypes cgType, int index)
     {
-        ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(controlGroupType, "ref.enum.controlgrouptypes.standardshift"),
-        ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(controlGroupType, "ref.enum.controlgrouptypes.groupmembershift"),
-        _ => throw new ArgumentException("Controlgroup type unknown : " + controlGroupType.ToString())
-    };
-
-    /// <inheritdoc/>
-    public ControlGroupTypes ControlGroupTypeForIndex(int controlGroupTypeIndex)
-    {
-        foreach (ControlGroupTypes cgType in Enum.GetValues(typeof(ControlGroupTypes)))
+        foreach (ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)))
         {
-            if ((int)cgType == controlGroupTypeIndex) return cgType;
+            if ((int)currentCgType == index) return currentCgType;
         }
-        throw new ArgumentException("Could not find ControlGroupTypes for index : " + controlGroupTypeIndex);
+        throw new ArgumentException("Could not find control group type for index : " + index);
     }
 
 }
+
+
+/// <summary>Details for ControlGroupTypes </summary>
+/// <param name="controlGroupType">Instance from enum ControlGroupTypes.</param>
+/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+public record ControlGroupTypeDetails(ControlGroupTypes ControlGroupType, string TextId);
 
 
 

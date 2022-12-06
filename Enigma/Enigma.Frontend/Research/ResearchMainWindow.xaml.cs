@@ -83,12 +83,6 @@ public partial class ResearchMainWindow : Window
         _controller.NewProject();
     }
 
-
-    private void ProjectsOpenClick(object sender, RoutedEventArgs e)
-    {
-        _controller.ShowProjectsOpen();
-    }
-
     private void DataOverviewClick(object sender, RoutedEventArgs e)
     {
         _controller.ShowDataOverview();

@@ -30,4 +30,5 @@ public class ProjectDetails : IProjectDetails
         string jsonText = _textFileReader.ReadFile(projectPath);
         return _parser.UnMarshall(jsonText);
     }
+
 }

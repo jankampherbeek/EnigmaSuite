@@ -1,6 +1,6 @@
 # Enigma Astrology Research - Roadmap
 
-*Jan Kampherbeek, 2022-12-2
+*Jan Kampherbeek, 2022-12-5
 
 [TOC]
 
@@ -175,6 +175,8 @@ Usability.
 
 - Declinations: longitude equivalent (according to Kt Boehrer).
 - Declinations: declination diagram (according to Kt Boehrer).
+
+
 
 ### Release 1.0
 

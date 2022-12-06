@@ -52,6 +52,7 @@ public interface IProjectDetails
     /// <param name="projectName">The project for which the details are required.</param>
     /// <returns>Instance of ResearchProject with the details.</returns>
     public ResearchProject FindProjectDetails(string projectName);
+
 }
 
 /// <summary>Converts a ResearchProject to Json and vice versa.</summary>
