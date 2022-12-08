@@ -11,7 +11,7 @@ public record CoordinateConversionRequest
 {
     /// <summary>Ecliptical longitude and latitude.</summary>
     public EclipticCoordinates EclCoord { get; }
-    /// <summary>Obliquity of the aerth's axis.</summary>
+    /// <summary>Obliquity of the earth's axis.</summary>
     public double Obliquity { get; }
 
     public CoordinateConversionRequest(EclipticCoordinates eclCoord, double obliquity)

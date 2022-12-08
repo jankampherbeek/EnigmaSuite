@@ -6,6 +6,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Calc;
 
@@ -17,11 +18,12 @@ public class JulianDayApi : IJulianDayApi
 
     public JulianDayApi(IJulDayHandler julDayHandler) => _julDayHandler = julDayHandler;
 
-
+    /// <inheritdoc/>
     public JulianDayResponse GetJulianDay(JulianDayRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.DateTime);
+        Log.Information("JulianDayApi GetJulianDay for year {y}/{m}/{d} {ut}", request.DateTime.Year, request.DateTime.Month, request.DateTime.Day, request.DateTime.Ut);
         return _julDayHandler.CalcJulDay(request);
     }
 

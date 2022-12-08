@@ -7,6 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Analysis;
 
@@ -27,6 +28,7 @@ public class AspectsApi : IAspectsApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
+        Log.Information("AspectsApi: AspectsForMundanePoints for chart " + request.CalcChart.InputtedChartData.ChartMetaData.Name);
         return _aspectHandler.AspectsForMundanePoints(request);
     }
 
@@ -35,6 +37,7 @@ public class AspectsApi : IAspectsApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
+        Log.Information("AspectsApi: AspectsForCelPoints for chart " + request.CalcChart.InputtedChartData.ChartMetaData.Name);
         return _aspectHandler.AspectsForCelPoints(request);
     }
 }

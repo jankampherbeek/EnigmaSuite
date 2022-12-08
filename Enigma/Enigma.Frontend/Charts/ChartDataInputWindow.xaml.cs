@@ -7,7 +7,6 @@ using Enigma.Domain.Enums;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;

@@ -10,7 +10,7 @@ namespace Enigma.Core.Handlers.Research;
 
 public class ResearchPerformHandler : IResearchPerformHandler
 {
-    public ResearchResponse HandleTestPeformance(ResearchRequest request)
+    public MethodResponse HandleTestPeformance(MethodPerformRequest request)
     {
         // for testdata and for controldata
         //    read json file

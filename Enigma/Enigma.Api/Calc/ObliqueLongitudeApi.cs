@@ -5,24 +5,24 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Astron;
 
 
-
+/// <inheritdoc/>
 public class ObliqueLongitudeApi : IObliqueLongitudeApi
 {
     private readonly IObliqueLongitudeHandler _handler;
 
-    public ObliqueLongitudeApi(IObliqueLongitudeHandler handler)
-    {
-        _handler = handler;
-    }
+    public ObliqueLongitudeApi(IObliqueLongitudeHandler handler) => _handler = handler;
 
+    /// <inheritdoc/>
     public ObliqueLongitudeResponse GetObliqueLongitude(ObliqueLongitudeRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.NullOrEmpty(request.CelPointCoordinates);
+        Log.Information("ObliqueLongitudeApi GetObliqueLongitude.");
         return _handler.CalcObliqueLongitude(request);
     }
 }

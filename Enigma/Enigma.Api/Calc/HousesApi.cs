@@ -6,6 +6,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Astron;
 
@@ -18,10 +19,12 @@ public class HousesApi : IHousesApi
     /// <param name="housesHandler">Handler for the calculation of the houses.</param>
     public HousesApi(IHousesHandler housesHandler) => _housesHandler = housesHandler;
 
+    /// <inheritdoc/>
     public FullHousesPosResponse GetHouses(FullHousesPosRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.ChartLocation);
+        Log.Information("HousesApi GetHouses using house system {hs}.", request.HouseSystem);
         return _housesHandler.CalcHouses(request);
     }
 

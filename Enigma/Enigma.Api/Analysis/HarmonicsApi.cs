@@ -6,6 +6,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Charts;
+using Serilog;
 
 namespace Enigma.Api.Analysis;
 
@@ -25,6 +26,7 @@ public class HarmonicsApi : IHarmonicsApi
     {
         Guard.Against.Null(chart);
         Guard.Against.NegativeOrZero(harmonicNumber - 1); // harmonic number must be at least 1
+        Log.Information("HarmonicsApi: Harmonics nr. {harmNr} for chart : {chartName} ", harmonicNumber, chart.InputtedChartData.ChartMetaData.Name);
         return _handler.RetrieveHarmonicPositions(chart, harmonicNumber);
     }
 }

@@ -9,7 +9,7 @@ namespace Enigma.Core.Handlers.Interfaces;
 
 public interface IResearchPerformHandler
 {
-    public ResearchResponse HandleTestPeformance(ResearchRequest request);
+    public MethodResponse HandleTestPeformance(MethodPerformRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>

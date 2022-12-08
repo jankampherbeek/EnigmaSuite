@@ -6,6 +6,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Calc;
 
@@ -20,6 +21,7 @@ public class CalcDateTimeApi : ICalcDateTimeApi
     public DateTimeResponse GetDateTime(DateTimeRequest request)
     {
         Guard.Against.Null(request);
+        Log.Information("CalcDateTimeApi: GetDateTime using julian day {jd}.", request.JulDay);
         return _dateTimeHandler.CalcDateTime(request);
     }
     
@@ -27,8 +29,8 @@ public class CalcDateTimeApi : ICalcDateTimeApi
     public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request)
     {
         Guard.Against.Null(request);
+        Log.Information("CalcDateTimeApi: CheckDateTime.");
         return _dateTimeHandler.CheckDateTime(request);
     }
-
 
 }

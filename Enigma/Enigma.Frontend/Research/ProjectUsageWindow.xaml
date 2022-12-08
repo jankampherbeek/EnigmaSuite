@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Research"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"  
-        Title="ResearchMethodInputWindow" Height="560" Width="500">
+        Title="ProjectUsageWindow" Height="560" Width="500">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>

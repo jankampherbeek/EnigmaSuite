@@ -5,11 +5,9 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Astron;
-
-
-
 
 /// <inheritdoc/>
 public class ChartAllPositionsApi : IChartAllPositionsApi
@@ -19,6 +17,8 @@ public class ChartAllPositionsApi : IChartAllPositionsApi
     /// <param name="handler">Handler for the calculation of the chart.</param>
     public ChartAllPositionsApi(IChartAllPositionsHandler handler) => _handler = handler;
 
+
+    /// <inheritdoc/>
     public ChartAllPositionsResponse GetChart(ChartAllPositionsRequest request)
     {
         Guard.Against.Null(request);
@@ -33,6 +33,7 @@ public class ChartAllPositionsApi : IChartAllPositionsApi
         Guard.Against.Null(request.celPointsRequest.ActualCalculationPreferences.ActualZodiacType);
         Guard.Against.Null(request.HouseSystem);
 
+        Log.Information("ChartAllPositionsApi: GetChart.");
         return _handler.CalcFullChart(request);
     }
 

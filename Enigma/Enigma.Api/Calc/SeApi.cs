@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
+using Serilog;
 
 namespace Enigma.Api.Calc;
 
@@ -12,14 +13,13 @@ public class SeApi : ISeApi
 {
     private ISeHandler _seHandler;
 
-    public SeApi(ISeHandler seHandler)
-    {
-        _seHandler = seHandler;
-    }
+    public SeApi(ISeHandler seHandler) => _seHandler = seHandler;
+
 
     /// <inheritdoc/>
     public void SetupSe(string pathToSeFiles)
     {
+        Log.Information("SeApi SetupSe: Setting up SE with path {p}.", pathToSeFiles);
         _seHandler.SetupSe(pathToSeFiles);
     }
 }

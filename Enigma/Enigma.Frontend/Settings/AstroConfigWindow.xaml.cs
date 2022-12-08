@@ -6,7 +6,6 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -192,7 +191,7 @@ public partial class AstroConfigWindow : Window
         tbTextNovile.Text = _rosetta.TextForId("ref.enum.aspect.novile");
         tbTextBiNovile.Text = _rosetta.TextForId("ref.enum.aspect.binovile");
         tbTextCentile.Text = _rosetta.TextForId("ref.enum.aspect.centile");
-        tbTextBiSeptile.Text = _rosetta.TextForId("ref.enum.aspect.septile");
+        tbTextBiSeptile.Text = _rosetta.TextForId("ref.enum.aspect.biseptile");
         tbTextTriDecile.Text = _rosetta.TextForId("ref.enum.aspect.tridecile");
         tbTextTriSeptile.Text = _rosetta.TextForId("ref.enum.aspect.triseptile");
         tbTextQuadraNovile.Text = _rosetta.TextForId("ref.enum.aspect.quadranovile");

@@ -5,6 +5,7 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Api.Astron;
 
@@ -25,6 +26,7 @@ public class CoordinateConversionApi : ICoordinateConversionApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.EclCoord);
+        Log.Information("CoordinateConversionApi: GetEquatorialFromEcliptic using longitude {lon}, latitude {lat} and obliquity {obl}.", request.EclCoord.Longitude, request.EclCoord.Latitude, request.Obliquity);
         return _coordConvHandler.HandleConversion(request);
     }
 

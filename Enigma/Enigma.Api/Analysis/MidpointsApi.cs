@@ -7,6 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
+using Serilog;
 
 namespace Enigma.Api.Analysis;
 
@@ -27,6 +28,7 @@ public class MidpointsApi : IMidpointsApi
     public List<BaseMidpoint> AllMidpoints(CalculatedChart chart)
     {
         Guard.Against.Null(chart);
+        Log.Information("MidpointsApi: AllMidpoints for chart : {chartName} ", chart.InputtedChartData.ChartMetaData.Name);
         return _midpointsHandler.RetrieveBaseMidpoints(chart);
     }
 
@@ -35,9 +37,8 @@ public class MidpointsApi : IMidpointsApi
     public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize)
     {
         Guard.Against.Null(chart);
+        Log.Information("MidpointsApi: OccupiedMidpoints in dial size {dialSize} for chart : {chartName} ", dialSize, chart.InputtedChartData.ChartMetaData.Name);
         return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize);
     }
-
-
 
 }
