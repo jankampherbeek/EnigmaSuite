@@ -15,20 +15,20 @@ namespace Engima.Api.Research;
 public class ResearchPerformApi : IResearchPerformApi
 {
 
-    private readonly IResearchPerformHandler _researchPerformHandler;
+    private readonly ITestMethodHandler _researchPerformHandler;
 
 
-    public ResearchPerformApi(IResearchPerformHandler researchPerformHandler)
+    public ResearchPerformApi(ITestMethodHandler researchPerformHandler)
     {
         _researchPerformHandler = researchPerformHandler;
     }
 
 
     /// <inheritdoc/>
-    public MethodResponse PerformTest(MethodPerformRequest request)
+    public MethodResponse PerformTest(TestMethodRequest request)
     {
         Guard.Against.Null(request);
         Log.Information("ResearchPerformApi: PerformTest: " + request.Method);
-        return _researchPerformHandler.HandleTestPeformance(request);
+        return _researchPerformHandler.HandleTestMethod(request);
     }
 }

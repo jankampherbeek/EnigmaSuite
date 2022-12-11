@@ -97,4 +97,20 @@ public interface IInputDataConverter
     public StandardInput UnMarshallStandardInput(string jsonString);
 }
 
+/// <summary>File paths for research.</summary>
+public interface IResearchPaths
+{
+    /// <summary>Path to data files.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="useControlGroup">True if data contains a controlgroup, false if data contains testcases.</param>
+    /// <returns>String with full path to the required data, including the filename.</returns>
+    public string DataPath(String projName, bool useControlGroup);
+
+    /// <summary>Path to result files.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="methodName">Name for method.</param>
+    /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
+    /// <returns>String with full path for the results, including the filename.</returns>
+    public string ResultPath(string projName, string methodName, bool useControlGroup);
+}
 

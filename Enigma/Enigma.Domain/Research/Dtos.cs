@@ -3,51 +3,64 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 
 namespace Enigma.Research.Domain;
 
 
-/// <summary>Create a point and use a redefinition for the original id.</summary>
-/// <param name="id">Id that identifies the point, see remarks.</param>
-/// <param name="pointType">The type of point.</param>
-/// <param name="calculationType">The type of calculation for this point.</param>
-/// <param name="OrbWeight">Weight for the calculation of an orb.</param>
-/// <remarks>For Celestial pionts the id is the same as the original id, 
-/// for special mundane points the id's are 1000 plus the value as in the enum MundanePoints,
-/// for cusps the values are 2000 plus the value of the cusp (1..n),
-/// for zodiacal points the values are 3000 plus the value as in the enum ZodiacalPoints.</remarks>
-public record ResearchPoint(int Id, PointTypes PointType, CalculationTypes CalculationType, double OrbWeight);
+/// <summary>Abstract definition for a point that can be the result of a research test.</summary>
+/// <param name="Id">Id that identifies the point.</param>
+public abstract record ResearchPoint(int Id);
 
 
-public record CelPointPerSign
-{
-    public CelPoints CelPoint { get; }
-    int[] PositionsPerSign { get; }
+/// <summary>Define a celestial point that can be the result of a research test.</summary>
+/// <param name="Id">Id that identifies the point.</param>
+/// <param name="CelPoint">The celestial point.</param>
+public record ResearchCelPoint(int Id, CelPoints CelPoint): ResearchPoint(Id);
 
-    public CelPointPerSign(CelPoints celPoint, int[] positionsPerSign)
-    {
-        CelPoint = celPoint;
-        PositionsPerSign = positionsPerSign;
-    }
-}
 
-public record SignPerCelPoint
-{
-    public int SignIndex { get; }
-    public int[] CelPointIndexes { get; }
+/// <summary>Define a mundane point that can be the result of a research test.</summary>
+/// <param name="Id">Id that identifies the point.</param>
+/// <param name="MundanePoint">The mundane point.</param>
+public record ResearchMundanePoint(int Id, MundanePoints MundanePoint): ResearchPoint(Id);
 
-    public SignPerCelPoint(int signIndex, int[] celPointIndexes)
-    {
-        SignIndex = signIndex;
-        CelPointIndexes = celPointIndexes;
-    }
+/// <summary>Define a zodiacal point that can be the result of a research test.</summary>
+/// <param name="Id">Id that identifies the point.</param>
+/// <param name="ZodiacalPoint">The zodiacal point.</param>
+public record ResearchZodiacalPoint(int Id, ZodiacalPoints ZodiacalPoint) : ResearchPoint(Id);
 
-}
+
+
+
+/// <summary>Selection of points to use in research.</summary>
+/// <param name="SelectedCelPoints">Selected celestial points.</param>
+/// <param name="SelectedMundanePoints">Selected mundane points.</param>
+/// <param name="SelectedZodiacalPoints">Selected zodiacal points.</param>
+/// <param name="IncludeCusps">True if all cusps are used, otherwise false.</param>
+public record ResearchPointsSelection(List<CelPoints> SelectedCelPoints, List<MundanePoints> SelectedMundanePoints, List<ZodiacalPoints> SelectedZodiacalPoints, bool IncludeCusps);
+
+
+// TODO check if CelPointPerSign is still required.
+public record CelPointPerSign(CelPoints celPoint, int[] positionsPerSign);
+
+
+// TODO check if SignPerCelPoint is still required.
+public record SignPerCelPoint(int signIndex, int[] celPointIndexes);
+
+
+/// <summary>Inputdata for a chart in a research project.</summary>
+/// <param name="CelPointPositions">All relevant positions for celstial points.</param>
+/// <param name="FullHousePositions">All relevant mundane positions including cusps.</param>
+/// <param name="InputItem"></param>
+public record CalculatedResearchChart(List<FullCelPointPos> CelPointPositions, FullHousesPositions FullHousePositions, StandardInputItem InputItem);
+
+
 
 
 /// <summary>Resulting counts from a test.</summary>
 /// <param name="Point">The research point for which the counting has been performed.</param>
 /// <param name="Counts">The totals in the sequence of the elements that have been checked.</param>
-public record ResearchPointCounts(ResearchPoint Point, List<int> Counts);
+public record ResearchPointCounts(ResearchPoint Point, List<int> Counts);   // TODO check if ResearchPointCounts is still required.

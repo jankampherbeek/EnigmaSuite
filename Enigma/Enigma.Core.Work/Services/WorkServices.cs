@@ -71,6 +71,7 @@ public static class WorkServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IOccupiedMidpoints, OccupiedMidpoints>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
+        serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ICelPointSECalc, CelPointSECalc>();

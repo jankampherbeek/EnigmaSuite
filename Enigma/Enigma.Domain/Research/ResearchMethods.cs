@@ -7,8 +7,8 @@ namespace Enigma.Domain.Research;
 /// <summary>Available methods to perform research.</summary>
 public enum ResearchMethods
 {
-    CountCelPosInSigns,
-    CountCelPosInHouses,
+    CountPosInSigns,
+    CountPosInHouses,
     CountAspects,
     CountUnaspected,
     CountOccupiedMidpoints,
@@ -24,8 +24,8 @@ public static class ResearchMethodsExtensions
     {
         return method switch
         {
-            ResearchMethods.CountCelPosInSigns => "ref.enum.researchmethods.countposinsigns",
-            ResearchMethods.CountCelPosInHouses => "ref.enum.researchmethods.countposinhouses",
+            ResearchMethods.CountPosInSigns => "ref.enum.researchmethods.countposinsigns",
+            ResearchMethods.CountPosInHouses => "ref.enum.researchmethods.countposinhouses",
             ResearchMethods.CountAspects => "ref.enum.researchmethods.countaspects",
             ResearchMethods.CountUnaspected => "ref.enum.researchmethods.countunaspected",
             ResearchMethods.CountOccupiedMidpoints => "ref.enum.researchmethods.countoccupiedmidpoints",

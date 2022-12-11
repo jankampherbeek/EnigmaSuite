@@ -11,7 +11,7 @@ namespace Enigma.Domain.AstronCalculations;
 /// <summary>
 /// User preferences for the calculation.
 /// </summary>
-public record CalculationPreferences(ImmutableArray<CelPoints> ActualCelPoints, 
+public record CalculationPreferences(List<CelPoints> ActualCelPoints, 
     ZodiacTypes ActualZodiacType, 
     Ayanamshas ActualAyanamsha, 
     CoordinateSystems CoordinateSystem, 

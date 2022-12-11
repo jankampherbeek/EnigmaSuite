@@ -21,13 +21,13 @@ public interface IDataFilePreparationHandler
     public ResultMessage MakeFolderStructure(string fullPath);
 }
 
+
 /// <summary>Handler for data names.</summary>
 public interface IDataNamesHandler
 {
     /// <summary>Retrieve data names from data folders.</summary>
     /// <returns>Data names.</returns>
     public List<string> GetExistingDataNames();
-
 }
 
 
@@ -39,4 +39,20 @@ public interface IDataImportHandler
     /// <param name="dataName">Name for the data.</param>
     /// <returns>Resultmessage with a description of the action.</returns>
     public ResultMessage ImportStandardData(string fullPathSource, string dataName);
+}
+
+/// <summary>Handler for writing and reading files.</summary>
+public interface IFilePersistencyHandler
+{
+    /// <summary>Reads a textfile.</summary>
+    /// <param name="fullPath">Full path to the file to read.</param>
+    /// <returns>The textual content of the file.</returns>
+    public string ReadFile(string fullPath);
+
+    /// <summary>Writes a textfile.</summary>
+    /// <param name="fullPath">Full path to the file to write.</param>
+    /// <param name="text">The text to write.</param>
+    /// <returns>True if the file was successfully written, otherwise false.</returns>
+    public bool WriteFile(string fullPath, string text);
+
 }

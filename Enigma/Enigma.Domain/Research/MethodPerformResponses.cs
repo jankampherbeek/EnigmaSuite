@@ -45,4 +45,4 @@ public record ThreePointCount(ResearchPoint Point, ResearchPoint Point2, Researc
 /// <param name="Request">The original request.</param>
 /// <param name="Configuration">The actual used configuration.</param>
 /// <param name="Count">The counted results.</param>
-public record MethodResponse(MethodPerformRequest Request, AstroConfig Configuration, MethodCount Count );
+public record MethodResponse(TestMethodRequest Request, AstroConfig Configuration, MethodCount Count );

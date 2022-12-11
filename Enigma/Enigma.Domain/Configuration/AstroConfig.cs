@@ -43,7 +43,7 @@ public class AstroConfig
 }
 
 
-// TODO rename CelPointSpecs, AspectSpecs, MundanePOintSpecs and ArabicPointSpecs to *FrontendSpecs
+// TODO rename CelPointSpecs, AspectSpecs, MundanePointSpecs and ArabicPointSpecs to *FrontendSpecs
 
 public record CelPointSpecs
 {

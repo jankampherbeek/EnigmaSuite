@@ -69,7 +69,7 @@ public class ChartDataInputController
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
 
-        ImmutableArray<CelPoints> celPoints = ImmutableArray.Create(new CelPoints[] {
+        List<CelPoints> celPoints = new () {
             CelPoints.Sun,
             CelPoints.Moon,
             CelPoints.Mercury,
@@ -82,7 +82,7 @@ public class ChartDataInputController
             CelPoints.Pluto,
             CelPoints.Chiron,
             CelPoints.MeanNode
-        });
+        };
         return new CalculationPreferences(celPoints, ZodiacTypes.Tropical, Ayanamshas.None, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, HouseSystems.Placidus);
     }
 

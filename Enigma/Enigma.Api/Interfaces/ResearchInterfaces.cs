@@ -33,5 +33,5 @@ public interface IResearchPerformApi
     /// <summary>Perform a test.</summary>
     /// <param name="request">Research request.</param>
     /// <returns>The results as a MethodResponse.</returns>
-    public MethodResponse PerformTest(MethodPerformRequest request);
+    public MethodResponse PerformTest(TestMethodRequest request);
 }

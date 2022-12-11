@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Core.Facades.Se.Interfaces;
-
+// TODO move to FacadeInterfaces (one level up).
 /// <summary>
 /// Facade for the calculation of mundane points (housecusps, vertex etc.).
 /// </summary>

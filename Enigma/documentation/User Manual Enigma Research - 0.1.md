@@ -398,9 +398,9 @@ The following folder structure is in use:
       - file: controldata.json: the control group data.
       - file: project.json: definition for the project
       - file: testdata.json: the population data.
-      - folder: tests
-        - seprate folders for each test
-          - [TODO................]
+      - folder: results
+        - separate folders for each test, a name that describes the test method that was used, followed by a date/time stamp in the format *yyyy/mm/dd HH:mm:ss*.
+          - in each folder the calculated charts for the test-data and for the control-data, respectively *charts_testdata.json* and charts_*controldata.json*. Also the counts: *counts.json*.
 
 
 

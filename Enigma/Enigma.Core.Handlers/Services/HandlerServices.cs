@@ -32,23 +32,25 @@ public static class HandlerServices
     {
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
-        serviceCollection.AddSingleton<IChartAllPositionsHandler, ChartAllPositionsHandler>();
+        serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
-        serviceCollection.AddSingleton<ICoordinateConversionHandler, CoordinateConversionHandler>();
+        serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
         serviceCollection.AddTransient<IDataFilePreparationHandler, DataFilePreparationHandler>();
         serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
         serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
+        serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
         serviceCollection.AddTransient<IHarmonicsHandler, HarmonicsHandler>();
-        serviceCollection.AddSingleton<IHorizontalHandler, HorizontalHandler>();
+        serviceCollection.AddTransient<IHorizontalHandler, HorizontalHandler>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();
-        serviceCollection.AddSingleton<IObliquityHandler, ObliquityHandler>();
+        serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IProjectCreationHandler, ProjectCreationHandler>();
         serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
-        serviceCollection.AddTransient<IResearchPerformHandler, ResearchPerformHandler>();
+        serviceCollection.AddTransient<IResearchDataHandler, ResearchDataHandler>();
+        serviceCollection.AddTransient<ITestMethodHandler, TestMethodHandler>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
 

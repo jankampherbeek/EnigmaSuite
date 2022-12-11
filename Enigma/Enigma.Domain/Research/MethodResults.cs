@@ -11,6 +11,6 @@ namespace Enigma.Domain.Research;
 public abstract class MethodResult
 {
     
-    public MethodPerformRequest methodPerformer { get; set; }
+    public TestMethodRequest methodPerformer { get; set; }
     public AstroConfig appliedConfig { get; set; }
 }

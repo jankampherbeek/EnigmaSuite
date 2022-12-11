@@ -3,13 +3,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 
 namespace Enigma.Core.Handlers.Interfaces;
 
-public interface IResearchPerformHandler
+public interface ITestMethodHandler
 {
-    public MethodResponse HandleTestPeformance(MethodPerformRequest request);
+    public MethodResponse HandleTestMethod(TestMethodRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>
@@ -29,4 +30,13 @@ public interface IProjectsOverviewHandler
     /// <summary>Read the details of all projects.</summary>
     /// <returns>Details for all projects.</returns>
     public List<ResearchProject> ReadAllProjectDetails();
+}
+
+/// <summary>Handle research data.</summary>
+public interface IResearchDataHandler
+{
+    /// <summary>Convert Json text into StandardInput object.</summary>
+    /// <param name="json">The Json text.</param>
+    /// <returns>The resulting StandardInput object.</returns>
+    public StandardInput GetStandardInputFromJson(string json);
 }
