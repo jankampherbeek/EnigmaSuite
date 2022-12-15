@@ -2,9 +2,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
+using Serilog;
 using System;
+using System.IO;
 using System.Windows;
 
 
@@ -28,7 +29,14 @@ public partial class HelpWindow : Window
     {
         string currentDir = AppDomain.CurrentDomain.BaseDirectory;
         string relativePath = currentDir + @"res\help\" + helpFile + ".html";
-        HtmlFrame.Source = new Uri(relativePath);
+        if (File.Exists(relativePath))
+        {
+            HtmlFrame.Source = new Uri(relativePath);
+        }
+        else
+        {
+            Log.Error("Could not find helpfile {rp}. This results in a blank help screen but the program continues.", relativePath);
+        }
     }
 
     private void ClickClose(object sender, RoutedEventArgs e)

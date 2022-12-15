@@ -2,6 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Exceptions;
+using Serilog;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Facades.Se;
@@ -18,7 +20,15 @@ public static class SeInitializer
     {
         if (path != null)
         {
-            ext_swe_set_ephe_path(path);
+            try {
+                ext_swe_set_ephe_path(path);
+            } 
+            catch(DllNotFoundException dnfe)
+            {
+                Log.Error("SeInitializer could not find swedll64.dll. Throwing SwissEphException which should terminate the program.");
+                throw new SwissEphException("The swedll64.dll, which is an essential part of the Swiss Ephemeris, could not be found.");
+            }
+
         }
 
     }

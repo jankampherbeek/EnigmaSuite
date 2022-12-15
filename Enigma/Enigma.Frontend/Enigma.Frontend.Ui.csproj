@@ -53,6 +53,7 @@
     <None Remove="Images\transits.png" />
     <None Remove="Images\upload.png" />
     <None Remove="Images\wheel.png" />
+    <None Remove="res\swedll64.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -196,6 +197,9 @@
     <Resource Include="Images\wheel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <EmbeddedResource Include="res\swedll64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -254,9 +258,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\Settings.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="res\swedll64.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\Texts.txt">

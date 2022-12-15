@@ -1,6 +1,6 @@
 # Developers documentation Enigma Research 0.1
 
-*Jan Kampherbeek, November 28, 2022
+*Jan Kampherbeek, December 14, 2022
 
 [TOC]
 
@@ -66,6 +66,18 @@ To access the dll, the attribute [DllImport] is used. All imports from the dll a
 All icons in Enigma are from the icon set by Google, used for Material Design.
 
 You can download the originals at https://fonts.google.com/icons
+
+
+
+## Installing the code
+
+Clone the repository from GitHub .........  [TODO]
+
+Copy swedll64.dll from Enigmasuite/Enigma/Enigma.Frontend.res to
+Enigmasuite/Enigma/Enigma.Frontend/bin/Debug/net6.0-windows and to
+Enigmasuite/Enigma/Enigma.Frontend/bin/Release/net6.0-windows
+
+
 
 
 

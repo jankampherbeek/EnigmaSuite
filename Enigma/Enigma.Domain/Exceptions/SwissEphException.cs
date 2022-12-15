@@ -10,6 +10,8 @@ namespace Enigma.Domain.Exceptions;
 [Serializable]
 public class SwissEphException : Exception
 {
+    string message;
+
     /// <summary>
     /// Empty constructor.
     /// </summary>
@@ -18,7 +20,9 @@ public class SwissEphException : Exception
 
 
     public SwissEphException(string text) : base(text)
-    { }
+    {
+        message = text;
+    }
 
 
 }
