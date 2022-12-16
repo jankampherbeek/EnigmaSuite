@@ -7,14 +7,11 @@
         mc:Ignorable="d"
         WindowStartupLocation="Manual"   
         Left="10" Top="10"
-        Title="ChartsMain" Height="450" Width="800">
+        Title="ChartsMain" Height="450" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="15*"/>
-            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="22"/>
@@ -23,10 +20,9 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Rectangle Grid.Row="2" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Row="2" Grid.RowSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
 
-        <Menu Grid.Row="0" Grid.ColumnSpan="5">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Name="miGeneral" Header="miGeneral">
                 <MenuItem Name="miGeneralSettings" Header="miGeneralSettings" Click="GeneralSettingsClick">
                     <MenuItem.Icon>
@@ -98,19 +94,22 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" Name="tbCurrent" Text="tbCurrent" Margin="6" Style="{StaticResource subTitleStyle}"/>
-        <TextBlock Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" Name="tbTags" Text="tbTags" Margin="6" Style="{StaticResource subTitleStyle}"/>
-        <StackPanel Grid.Row="2" Grid.Column="4" Grid.RowSpan="2" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="1" Name="tbCurrent" Text="tbCurrent" Margin="6" Style="{StaticResource subTitleStyle}"/>
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
             <Button Name="btnNew" Content="btnNew" Click="ChartsNewClick"/>
             <Button Name="btnWheel" Content="btnWheel" Click="ShowWheelClick"/>
             <Button Name="btnPositions" Content="btnPositions" Click="ShowPositionsClick"/>
         </StackPanel>
-        <DataGrid Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <DataGrid Grid.Row="3" Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Row">
         </DataGrid>
-        <Button Grid.Row="4" Grid.Column="3" Margin="6" Name="btnHelp" Content="btnHelp" Click="HelpClick"/>
-        <Button Grid.Row="4" Grid.Column="4" Margin="6" Name="btnClose" Content="btnClose" Click="CloseClick"/>
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
+            <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
+            <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
+        </StackPanel>
+
 
     </Grid>
 </Window>

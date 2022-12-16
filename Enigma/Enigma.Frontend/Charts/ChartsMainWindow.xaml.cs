@@ -32,7 +32,6 @@ public partial class ChartsMainWindow : Window
         Title = _rosetta.TextForId("chartsmainwindow.title");
         tbFormTitle.Text = _rosetta.TextForId("chartsmainwindow.formtitle");
         tbCurrent.Text = _rosetta.TextForId("chartsmainwindow.current");
-        tbTags.Text = _rosetta.TextForId("chartsmainwindow.tags");
         btnWheel.Content = _rosetta.TextForId("chartsmainwindow.btnwheel");
         btnPositions.Content = _rosetta.TextForId("chartsmainwindow.btnpositions");
         btnNew.Content = _rosetta.TextForId("chartsmainwindow.newchart");
