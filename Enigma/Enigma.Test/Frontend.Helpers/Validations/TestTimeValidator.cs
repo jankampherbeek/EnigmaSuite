@@ -5,7 +5,6 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Frontend.Helpers.Validations;
-using Moq;
 
 namespace Enigma.Test.Frontend.Helpers.Validations;
 

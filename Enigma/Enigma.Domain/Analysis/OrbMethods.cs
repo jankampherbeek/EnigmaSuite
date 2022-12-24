@@ -7,8 +7,8 @@ namespace Enigma.Domain.Analysis;
 public enum OrbMethods
 {
     FixMajorMinor = 0,
-    Weighted = 1,
-    Dynamic = 2
+    Weighted = 1
+  //  Dynamic = 2
 }
 
 public static class OrbMethodsExtensions
@@ -22,7 +22,7 @@ public static class OrbMethodsExtensions
         {
             OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
             OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.weighted"),
-            OrbMethods.Dynamic => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.dynamic"),
+  //          OrbMethods.Dynamic => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.dynamic"),
             _ => throw new ArgumentException("OrbMethod unknown : " + orbMethod.ToString())
         };
     }
@@ -32,9 +32,9 @@ public static class OrbMethodsExtensions
     /// <returns>All details.</returns>
     public static List<OrbMethodDetails> AllDetails(this OrbMethods orbMethod)
     {
-        var allDetails = new List<OrbMethodDetails> ();
+        var allDetails = new List<OrbMethodDetails>();
         foreach (OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)))
-            {
+        {
             allDetails.Add(currentMethod.GetDetails());
         }
         return allDetails;
@@ -54,7 +54,7 @@ public static class OrbMethodsExtensions
         }
         throw new ArgumentException("Could not find Orb Method for index : " + index);
     }
-	
+
 }
 
 

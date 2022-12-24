@@ -27,7 +27,7 @@ public class TestAspects
     {
         foreach (AspectTypes aspectType in Enum.GetValues(typeof(AspectTypes)))
         {
-            AspectDetails details =  aspectType.GetDetails();
+            AspectDetails details = aspectType.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
         }

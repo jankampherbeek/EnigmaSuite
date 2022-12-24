@@ -10,7 +10,7 @@ using Serilog;
 namespace Enigma.Api.Calc.CalcChartsRangeApi;
 
 /// <inheritdoc/>
-public class CalcChartsRangeApi: ICalcChartsRangeApi
+public class CalcChartsRangeApi : ICalcChartsRangeApi
 {
     private readonly ICalcChartsRangeHandler _handler;
 
@@ -26,4 +26,4 @@ public class CalcChartsRangeApi: ICalcChartsRangeApi
         Log.Information("CalcChartsRangeApi: CalculateRange");
         return _handler.CalculateRange(request);
     }
-} 
+}

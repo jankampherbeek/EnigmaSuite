@@ -38,25 +38,9 @@ public record FullHousesPositions
 
 }
 
-/// <summary>
-/// Full position for  a single cusp or other mundane point.
-/// </summary>
-public record CuspFullPos
-{
-    public readonly double Longitude;
-    public readonly EquatorialCoordinates RaDecl;
-    public readonly HorizontalCoordinates AzimuthAltitude;
-
-    /// <summary>
-    /// Constructor for the full position of a cusp/mundane point.
-    /// </summary>
-    /// <param name="longitude"/>
-    /// <param name="raDecl">Equatorial coordinates.</param>
-    /// <param name="azimuthAltitude">Horizontal coordinates.</param>
-    public CuspFullPos(double longitude, EquatorialCoordinates raDecl, HorizontalCoordinates azimuthAltitude)
-    {
-        Longitude = longitude;
-        RaDecl = raDecl;
-        AzimuthAltitude = azimuthAltitude;
-    }
-}
+/// <summary>Full position for  a single cusp or other mundane point.</summary>
+/// <param name="Name">Name for mundane point.</param>
+/// <param name="Longitude"/>
+/// <param name="RaDecl">Equatorial coordinates.</param>
+/// <param name="AzimuthAltitude">Horizontal coordinates.</param>
+public record CuspFullPos(string Name, double Longitude, EquatorialCoordinates RaDecl, HorizontalCoordinates AzimuthAltitude);

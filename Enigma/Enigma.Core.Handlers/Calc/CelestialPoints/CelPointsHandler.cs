@@ -26,7 +26,7 @@ public class CelPointsHandler : ICelPointsHandler
     private readonly IHorizontalHandler _horizontalHandler;
 
 
-    public CelPointsHandler(   ISeFlags seFlags,
+    public CelPointsHandler(ISeFlags seFlags,
                                ICelPointSECalc positionCelPointSECalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
                                ICoTransFacade coordinateConversionFacade,

@@ -2,8 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Enums;
 
 /// <summary>Types of charts. Describes the application of a chart.</summary>
@@ -19,18 +17,18 @@ public static class ChartCategoriesExtensions
     /// <param name="cat">The chart category, is automatically filled.</param>
     /// <returns>Details for the chart category.</returns>
     public static ChartCategoryDetails GetDetails(this ChartCategories cat)
-{
-    return cat switch
     {
-        ChartCategories.Female => new ChartCategoryDetails(cat, "ref.enum.chartcategories.female"),
-        ChartCategories.Male => new ChartCategoryDetails(cat, "ref.enum.chartcategories.male"),
-        ChartCategories.Event => new ChartCategoryDetails(cat, "ref.enum.chartcategories.event"),
-        ChartCategories.Horary => new ChartCategoryDetails(cat, "ref.enum.chartcategories.horary"),
-        ChartCategories.Election => new ChartCategoryDetails(cat, "ref.enum.chartcategories.election"),
-        ChartCategories.Unknown => new ChartCategoryDetails(cat, "ref.enum.chartcategories.unknown"),
-        _ => throw new ArgumentException("CelPointCats unknown : " + cat.ToString())
-    };
-}
+        return cat switch
+        {
+            ChartCategories.Female => new ChartCategoryDetails(cat, "ref.enum.chartcategories.female"),
+            ChartCategories.Male => new ChartCategoryDetails(cat, "ref.enum.chartcategories.male"),
+            ChartCategories.Event => new ChartCategoryDetails(cat, "ref.enum.chartcategories.event"),
+            ChartCategories.Horary => new ChartCategoryDetails(cat, "ref.enum.chartcategories.horary"),
+            ChartCategories.Election => new ChartCategoryDetails(cat, "ref.enum.chartcategories.election"),
+            ChartCategories.Unknown => new ChartCategoryDetails(cat, "ref.enum.chartcategories.unknown"),
+            _ => throw new ArgumentException("CelPointCats unknown : " + cat.ToString())
+        };
+    }
 
     /// <summary>Retrieve details for items in the enum ChartCategories.</summary>
     /// <param name="cat">The chart category, is automatically filled.</param>
@@ -39,7 +37,7 @@ public static class ChartCategoriesExtensions
     {
         var allDetails = new List<ChartCategoryDetails>();
         foreach (ChartCategories chartCat in Enum.GetValues(typeof(ChartCategories)))
-            {
+        {
             allDetails.Add(chartCat.GetDetails());
         }
         return allDetails;

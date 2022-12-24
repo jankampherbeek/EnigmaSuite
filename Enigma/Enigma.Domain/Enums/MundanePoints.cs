@@ -2,9 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-using System.Drawing;
-
 namespace Enigma.Domain.Enums;
 
 /// <summary>Supported mundane.</summary>
@@ -17,27 +14,27 @@ public static class MundanePointsExtensions
 {
     /// <summary>Retrieve details for MundanePoints.</summary>
     /// <param name="point">The mundane point, is automatically filled.</param>
-    /// <returns>Details for the ....</returns>
+    /// <returns>Details for the mundane point.</returns>
     public static MundanePointDetails GetDetails(this MundanePoints point)
-{
-    return point switch
     {
-        MundanePoints.Ascendant => new MundanePointDetails(point, "ref.enum.mundanepoint.id.asc", "ref.enum.mundanepoint.idabbr.asc"),
-        MundanePoints.Mc => new MundanePointDetails(point, "ref.enum.mundanepoint.id.mc", "ref.enum.mundanepoint.idabbr.mc"),
-        MundanePoints.EastPoint => new MundanePointDetails(point, "ref.enum.mundanepoint.id.eastpoint", "ref.enum.mundanepoint.idabbr.eastpoint"),
-        MundanePoints.Vertex => new MundanePointDetails(point, "ref.enum.mundanepoint.id.vertex", "ref.enum.mundanepoint.idabbr.vertex"),
-        _ => throw new ArgumentException("MundanePoint unknown : " + point.ToString())
-    };
-}
+        return point switch
+        {
+            MundanePoints.Ascendant => new MundanePointDetails(point, "ref.enum.mundanepoint.id.asc", "ref.enum.mundanepoint.idabbr.asc"),
+            MundanePoints.Mc => new MundanePointDetails(point, "ref.enum.mundanepoint.id.mc", "ref.enum.mundanepoint.idabbr.mc"),
+            MundanePoints.EastPoint => new MundanePointDetails(point, "ref.enum.mundanepoint.id.eastpoint", "ref.enum.mundanepoint.idabbr.eastpoint"),
+            MundanePoints.Vertex => new MundanePointDetails(point, "ref.enum.mundanepoint.id.vertex", "ref.enum.mundanepoint.idabbr.vertex"),
+            _ => throw new ArgumentException("MundanePoint unknown : " + point.ToString())
+        };
+    }
 
     /// <summary>Retrieve details for items in the enum MundanePoints.</summary>
     /// <param name="point">Any mundane point, is automatically filled.</param>
     /// <returns>All details.</returns>
     public static List<MundanePointDetails> AllDetails(this MundanePoints point)
     {
-        var allDetails = new List<MundanePointDetails> ();
+        var allDetails = new List<MundanePointDetails>();
         foreach (MundanePoints currentPoint in Enum.GetValues(typeof(MundanePoints)))
-            {
+        {
             allDetails.Add(currentPoint.GetDetails());
         }
         return allDetails;
@@ -52,12 +49,12 @@ public static class MundanePointsExtensions
     public static MundanePoints MundanePointForIndex(this MundanePoints point, int index)
     {
         foreach (MundanePoints mPoint in Enum.GetValues(typeof(MundanePoints)))
-            {
+        {
             if ((int)mPoint == index) return mPoint;
         }
         throw new ArgumentException("Could not find mundane point for index : " + index);
     }
-	
+
 }
 
 

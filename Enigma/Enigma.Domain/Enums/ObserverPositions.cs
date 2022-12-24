@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Enums;
 
@@ -44,7 +43,7 @@ public static class ObserverPositionsExtensions
         return allDetails;
     }
 
-    public static ObserverPositions ObserverPositionForIndex(this ObserverPositions observerPosition,  int index)
+    public static ObserverPositions ObserverPositionForIndex(this ObserverPositions observerPosition, int index)
     {
         foreach (ObserverPositions currentObsPos in Enum.GetValues(typeof(ObserverPositions)))
         {
@@ -64,7 +63,7 @@ public record ObserverPositionDetails(ObserverPositions Position, int ValueForFl
 
 
 
-	
+
 
 
 

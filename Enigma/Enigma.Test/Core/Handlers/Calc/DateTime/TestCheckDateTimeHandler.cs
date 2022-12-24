@@ -61,7 +61,7 @@ public class TestCheckDateTimeHandler
             Assert.That(response.ErrorText, Is.EqualTo(_errorText));
         });
     }
-    
+
 
     private Mock<IDateTimeValidator> CreateValidatorMock()
     {

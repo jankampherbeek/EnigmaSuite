@@ -6,7 +6,7 @@ using Enigma.Facades.Se;
 
 namespace Enigma.Core.Handlers.Calc;
 
-public class SeHandler: ISeHandler
+public class SeHandler : ISeHandler
 {
     public void SetupSe(string pathToSeFiles)
     {

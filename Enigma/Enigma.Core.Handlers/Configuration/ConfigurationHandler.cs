@@ -7,9 +7,9 @@ using Enigma.Core.Work.Configuration.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 
+namespace Enigma.Core.Handlers.Configuration;
+
 /// <inheritdoc/>
-/// 
-/// </summary>
 public class ConfigurationHandler : IConfigurationHandler
 {
     private readonly IDefaultConfiguration _defaultConfig;

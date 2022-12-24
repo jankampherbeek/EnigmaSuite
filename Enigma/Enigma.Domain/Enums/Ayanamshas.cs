@@ -2,26 +2,23 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Constants;
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.Enums;
 
 
 /// <summary>Supported ayanamshas.</summary>
 public enum Ayanamshas
 {
-    None = 0, Fagan = 1, Lahiri = 2, DeLuce = 3, Raman = 4, UshaShashi = 5, Krishnamurti = 6, DjwhalKhul = 7, Yukteshwar = 8, Bhasin = 9, 
-    Kugler1 = 10, Kugler2 = 11, Kugler3 = 12, Huber = 13, EtaPiscium = 14, Aldebaran15Tau = 15, Hipparchus = 16, Sassanian = 17, GalactCtr0Sag = 18, J2000 = 19, 
-    J1900 = 20, B1950 = 21, SuryaSiddhanta = 22, SuryaSiddhantaMeanSun = 23, Aryabhata = 24, AryabhataMeanSun = 25, SsRevati = 26, SsCitra = 27, TrueCitra = 28, TrueRevati = 29, 
-    TruePushya = 30, GalacticCtrBrand = 31, GalacticEqIau1958 = 32, GalacticEq = 33, GalacticEqMidMula = 34, Skydram = 35, TrueMula = 36, Dhruva = 37, Aryabhata522 = 38, Britton = 39, 
+    None = 0, Fagan = 1, Lahiri = 2, DeLuce = 3, Raman = 4, UshaShashi = 5, Krishnamurti = 6, DjwhalKhul = 7, Yukteshwar = 8, Bhasin = 9,
+    Kugler1 = 10, Kugler2 = 11, Kugler3 = 12, Huber = 13, EtaPiscium = 14, Aldebaran15Tau = 15, Hipparchus = 16, Sassanian = 17, GalactCtr0Sag = 18, J2000 = 19,
+    J1900 = 20, B1950 = 21, SuryaSiddhanta = 22, SuryaSiddhantaMeanSun = 23, Aryabhata = 24, AryabhataMeanSun = 25, SsRevati = 26, SsCitra = 27, TrueCitra = 28, TrueRevati = 29,
+    TruePushya = 30, GalacticCtrBrand = 31, GalacticEqIau1958 = 32, GalacticEq = 33, GalacticEqMidMula = 34, Skydram = 35, TrueMula = 36, Dhruva = 37, Aryabhata522 = 38, Britton = 39,
     GalacticCtrOCap = 40
 }
 
 /// <summary>Specifications for an ayanamsha.</summary>
-/// <param name="ayanamsha"/>
-/// <param name="seId">Id that identifies the ayanamsha for the Swiss Ephemeris.</param>
-/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+/// <param name="Ayanamsha"/>
+/// <param name="SeId">Id that identifies the ayanamsha for the Swiss Ephemeris.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
 public record AyanamshaDetails(Ayanamshas Ayanamsha, int SeId, string TextId);
 
 

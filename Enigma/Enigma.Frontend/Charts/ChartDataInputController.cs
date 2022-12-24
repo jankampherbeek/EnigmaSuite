@@ -13,7 +13,6 @@ using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Serilog;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -69,7 +68,7 @@ public class ChartDataInputController
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
 
-        List<CelPoints> celPoints = new () {
+        List<CelPoints> celPoints = new() {
             CelPoints.Sun,
             CelPoints.Moon,
             CelPoints.Mercury,

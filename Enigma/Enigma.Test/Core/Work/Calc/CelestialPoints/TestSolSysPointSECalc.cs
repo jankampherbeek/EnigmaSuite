@@ -7,7 +7,6 @@ using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Facades.Interfaces;
 using Moq;
 

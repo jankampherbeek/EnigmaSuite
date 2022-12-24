@@ -4,7 +4,6 @@
 
 // Interfaces for API's that support persistency.
 
-
 using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
 
@@ -32,6 +31,37 @@ public interface IResearchPerformApi
 {
     /// <summary>Perform a test.</summary>
     /// <param name="request">Research request.</param>
-    /// <returns>The results as a MethodResponse.</returns>
-    public MethodResponse PerformTest(TestMethodRequest request);
+    /// <returns>The results as a CountOfPartsResponse.</returns>
+    public CountOfPartsResponse PerformTest(GeneralCountRequest request);
+}
+
+public interface IResearchPathApi
+{
+    /// <summary>Path to data files.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="useControlGroup">True if data contains a controlgroup, false if data contains testcases.</param>
+    /// <returns>String with full path to the required data, including the filename.</returns>
+    public string DataPath(string projName, bool useControlGroup);
+
+    /// <summary>Path to result files with positions.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="methodName">Name for method.</param>
+    /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
+    /// <returns>String with full path for the results, including the filename.</returns>
+    public string ResultPath(string projName, string methodName, bool useControlGroup);
+
+    /// <summary>Path to result files with countings.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="methodName">Name for method.</param>
+    /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
+    /// <returns>String with full path for the results, including the filename.</returns>
+    public string CountResultsPath(string projName, string methodName, bool useControlGroup);
+
+    /// <summary>Path to result files with the sums of all countings.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="methodName">Name for method.</param>
+    /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
+    /// <returns>String with full path for the summed totals, including the filename.</returns>
+    public string SummedResultsPath(string projName, string methodName, bool useControlGroup);
+
 }

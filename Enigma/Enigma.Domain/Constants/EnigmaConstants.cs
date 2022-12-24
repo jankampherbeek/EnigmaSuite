@@ -192,7 +192,8 @@ public static class EnigmaConstants
     public const char SEPARATOR_GEOLONG = ':';
     /// <summary>Separator for geographic latitude input.</summary>
     public const char SEPARATOR_GEOLAT = ':';
-
+    /// <summary>Character for line-end (new line).</summary>
+    public const char NEW_LINE = '\n';
 
     // Locations
     /// <summary>Location of configuration file, contains path and filename.</summary>

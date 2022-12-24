@@ -5,7 +5,6 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;

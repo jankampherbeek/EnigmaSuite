@@ -22,13 +22,13 @@ public static class ProjectionTypesExtensions
     /// <returns>Details for the projection type.</returns>
     public static ProjectionTypeDetails GetDetails(this ProjectionTypes projType)
     {
-      return projType switch
+        return projType switch
         {
             ProjectionTypes.ObliqueLongitude => new ProjectionTypeDetails(projType, "ref.enum.projectiontype.obliquelongitude"),
             ProjectionTypes.TwoDimensional => new ProjectionTypeDetails(projType, "ref.enum.projectiontype.twodimensional"),
 
             _ => throw new ArgumentException("ProjectionType unknown : " + projType.ToString())
-        }; 
+        };
 
     }
 

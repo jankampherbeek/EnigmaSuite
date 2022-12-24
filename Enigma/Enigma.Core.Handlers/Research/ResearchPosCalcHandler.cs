@@ -20,7 +20,7 @@ public sealed class ResearchPosCalcHandler
         List<ResearchPoint> zodiacalPoints = new();
         foreach (ResearchPoint point in points)
         {
-            if (point.Id < 1000 ) celPoints.Add(point);
+            if (point.Id < 1000) celPoints.Add(point);
             if (1000 <= point.Id && point.Id < 2000) mundanePoints.Add(point);
             if (2000 <= point.Id && point.Id < 3000) cusps.Add(point);
             if (3000 <= point.Id) zodiacalPoints.Add(point);
@@ -29,7 +29,7 @@ public sealed class ResearchPosCalcHandler
         foreach (StandardInputItem item in standardInput.ChartData)
         {
             string itemId = item.Id;
-            double geoLat = item.GeoLatitude; 
+            double geoLat = item.GeoLatitude;
             double geoLon = item.GeoLongitude;
             double year = item.Date.Year;
             double month = item.Date.Month;
@@ -53,7 +53,7 @@ public sealed class ResearchPosCalcHandler
         foreach (ResearchPoint point in zodiacalPoints)
         {
             if (point.Id == 3000)    // Zero Aries
-            { 
+            {
                 calculatedPositions.Add(new Tuple<ResearchPoint, double>(point, 0.0));
             }
             if (point.Id == 3001)    // Zero Cancer
@@ -61,7 +61,7 @@ public sealed class ResearchPosCalcHandler
                 calculatedPositions.Add(new Tuple<ResearchPoint, double>(point, 90.0));
             }
         }
-        
+
 
 
 

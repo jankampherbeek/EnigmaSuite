@@ -98,7 +98,7 @@ public interface IInputDataConverter
 }
 
 /// <summary>File paths for research.</summary>
-public interface IResearchPaths
+public interface IResearchPaths                       // todo combine with handler
 {
     /// <summary>Path to data files.</summary>
     /// <param name="projName">Name for project.</param>
@@ -106,11 +106,26 @@ public interface IResearchPaths
     /// <returns>String with full path to the required data, including the filename.</returns>
     public string DataPath(String projName, bool useControlGroup);
 
-    /// <summary>Path to result files.</summary>
+    /// <summary>Path to result files with positions.</summary>
     /// <param name="projName">Name for project.</param>
     /// <param name="methodName">Name for method.</param>
     /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
     /// <returns>String with full path for the results, including the filename.</returns>
     public string ResultPath(string projName, string methodName, bool useControlGroup);
+
+    /// <summary>Path to result files with countings.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="methodName">Name for method.</param>
+    /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
+    /// <returns>String with full path for the results, including the filename.</returns>
+    public string CountResultsPath(string projName, string methodName, bool useControlGroup);
+
+    /// <summary>Path to result files with the sums of all countings.</summary>
+    /// <param name="projName">Name for project.</param>
+    /// <param name="methodName">Name for method.</param>
+    /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
+    /// <returns>String with full path for the summed totals, including the filename.</returns>
+    public string SummedResultsPath(string projName, string methodName, bool useControlGroup);
+
 }
 

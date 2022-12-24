@@ -24,8 +24,8 @@ public class CalcDateTimeApi : ICalcDateTimeApi
         Log.Information("CalcDateTimeApi: GetDateTime using julian day {jd}.", request.JulDay);
         return _dateTimeHandler.CalcDateTime(request);
     }
-    
-    
+
+
     public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request)
     {
         Guard.Against.Null(request);

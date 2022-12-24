@@ -92,38 +92,38 @@ public partial class MainWindow : Window
         btnHelp.Content = _rosetta.TextForId("common.btnhelp");
     }
 
-/*    private void PopulateMenu()
-    {
+    /*    private void PopulateMenu()
+        {
 
 
-        miGeneral.Header = _rosetta.TextForId("mainwindow.menu.migeneral");
-        miGeneralSettings.Header = _rosetta.TextForId("mainwindow.menu.migeneral.settings");
-        miGeneralConfiguration.Header = _rosetta.TextForId("mainwindow.menu.migeneral.configuration");
-        miGeneralClose.Header = _rosetta.TextForId("mainwindow.menu.migeneral.close");
+            miGeneral.Header = _rosetta.TextForId("mainwindow.menu.migeneral");
+            miGeneralSettings.Header = _rosetta.TextForId("mainwindow.menu.migeneral.settings");
+            miGeneralConfiguration.Header = _rosetta.TextForId("mainwindow.menu.migeneral.configuration");
+            miGeneralClose.Header = _rosetta.TextForId("mainwindow.menu.migeneral.close");
 
-        miCharts.Header = _rosetta.TextForId("mainwindow.menu.micharts");
-        miChartsNew.Header = _rosetta.TextForId("mainwindow.menu.micharts.new");
-        miChartsOverview.Header = _rosetta.TextForId("mainwindow.menu.micharts.overview");
+            miCharts.Header = _rosetta.TextForId("mainwindow.menu.micharts");
+            miChartsNew.Header = _rosetta.TextForId("mainwindow.menu.micharts.new");
+            miChartsOverview.Header = _rosetta.TextForId("mainwindow.menu.micharts.overview");
 
-        miResearch.Header = _rosetta.TextForId("mainwindow.menu.miresearch");
-        miResearchDataOverview.Header = _rosetta.TextForId("mainwindow.menu.miresearch.dataoverview");
-        miResearchDataImport.Header = _rosetta.TextForId("mainwindow.menu.miresearch.dataimport");
-        miResesearchProjectsNew.Header = _rosetta.TextForId("mainwindow.menu.miresearch.projectsnew");
-        miResearchProjectsOpen.Header = _rosetta.TextForId("mainwindow.menu.miresearch.projectsopen");
+            miResearch.Header = _rosetta.TextForId("mainwindow.menu.miresearch");
+            miResearchDataOverview.Header = _rosetta.TextForId("mainwindow.menu.miresearch.dataoverview");
+            miResearchDataImport.Header = _rosetta.TextForId("mainwindow.menu.miresearch.dataimport");
+            miResesearchProjectsNew.Header = _rosetta.TextForId("mainwindow.menu.miresearch.projectsnew");
+            miResearchProjectsOpen.Header = _rosetta.TextForId("mainwindow.menu.miresearch.projectsopen");
 
-        miPeriodical.Header = _rosetta.TextForId("mainwindow.menu.miperiodical");
-        miPeriodicalCycles.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.cycles");
-        miPeriodicalEphemeris.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.ephemeris");
-        miPeriodicalOccurrences.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.occurrences");
+            miPeriodical.Header = _rosetta.TextForId("mainwindow.menu.miperiodical");
+            miPeriodicalCycles.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.cycles");
+            miPeriodicalEphemeris.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.ephemeris");
+            miPeriodicalOccurrences.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.occurrences");
 
-        miCalculations.Header = _rosetta.TextForId("mainwindow.menu.micalculations");
+            miCalculations.Header = _rosetta.TextForId("mainwindow.menu.micalculations");
 
-        miHelp.Header = _rosetta.TextForId("mainwindow.menu.mihelp");
-        miHelpAbout.Header = _rosetta.TextForId("mainwindow.menu.mihelp.about");
-        miHelpPage.Header = _rosetta.TextForId("mainwindow.menu.mihelp.page");
-        miHelpManual.Header = _rosetta.TextForId("mainwindow.menu.mihelp.manual");
+            miHelp.Header = _rosetta.TextForId("mainwindow.menu.mihelp");
+            miHelpAbout.Header = _rosetta.TextForId("mainwindow.menu.mihelp.about");
+            miHelpPage.Header = _rosetta.TextForId("mainwindow.menu.mihelp.page");
+            miHelpManual.Header = _rosetta.TextForId("mainwindow.menu.mihelp.manual");
 
 
-    }
-*/
+        }
+    */
 }

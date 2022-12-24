@@ -9,7 +9,6 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc;
@@ -51,12 +50,12 @@ public class HousesHandler : IHousesHandler
             _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
             for (int n = 1; n < _eclValues[0].Length; n++)
             {
-                allCusps.Add(CreateCuspFullPos(_eclValues[0][n], jdUt, obliquity, location));
+                allCusps.Add(CreateCuspFullPos("Cusp " + n, _eclValues[0][n], jdUt, obliquity, location));
             }
-            CuspFullPos ascendant = CreateCuspFullPos(_eclValues[1][0], jdUt, obliquity, location);
-            CuspFullPos mc = CreateCuspFullPos(_eclValues[1][1], jdUt, obliquity, location);
-            CuspFullPos vertex = CreateCuspFullPos(_eclValues[1][2], jdUt, obliquity, location);
-            CuspFullPos eastPoint = CreateCuspFullPos(_eclValues[1][4], jdUt, obliquity, location);
+            CuspFullPos ascendant = CreateCuspFullPos(MundanePoints.Ascendant.ToString(), _eclValues[1][0], jdUt, obliquity, location);
+            CuspFullPos mc = CreateCuspFullPos(MundanePoints.Mc.ToString(), _eclValues[1][1], jdUt, obliquity, location);
+            CuspFullPos vertex = CreateCuspFullPos(MundanePoints.Vertex.ToString(), _eclValues[1][2], jdUt, obliquity, location);
+            CuspFullPos eastPoint = CreateCuspFullPos(MundanePoints.EastPoint.ToString(), _eclValues[1][4], jdUt, obliquity, location);
             fullHousesPos = new(allCusps, mc, ascendant, vertex, eastPoint);
         }
         catch (SwissEphException see)
@@ -67,13 +66,13 @@ public class HousesHandler : IHousesHandler
         return new FullHousesPosResponse(fullHousesPos, success, errorText);
     }
 
-    private CuspFullPos CreateCuspFullPos(double longitude, double jdUt, double obliquity, Location location)
+    private CuspFullPos CreateCuspFullPos(string name, double longitude, double jdUt, double obliquity, Location location)
     {
         double latitude = 0.0;
         EclipticCoordinates eclCoord = new(longitude, latitude);
         EquatorialCoordinates eqCoord = CalcEquatorialCoordinates(eclCoord, obliquity);
         HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eclCoord);
-        return new CuspFullPos(eclCoord.Longitude, eqCoord, horCoord);
+        return new CuspFullPos(name, eclCoord.Longitude, eqCoord, horCoord);
 
     }
 

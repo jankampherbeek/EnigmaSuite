@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using System.Windows;
 

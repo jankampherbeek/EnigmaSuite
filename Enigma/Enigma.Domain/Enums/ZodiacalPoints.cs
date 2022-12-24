@@ -2,9 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-using System.Drawing;
-
 namespace Enigma.Domain.Enums;
 
 /// <summary>Supported zodiacal points.</summary>
@@ -14,6 +11,7 @@ public enum ZodiacalPoints
 }
 
 
+[Obsolete]
 public static class ZodiacalPointsExtensions
 {
     /// <summary>Retrieve details for zodiacal point.</summary>
@@ -38,12 +36,12 @@ public static class ZodiacalPointsExtensions
     public static ZodiacalPoints ZodiacalPointForIndex(this ZodiacalPoints point, int index)
     {
         foreach (ZodiacalPoints currentPoint in Enum.GetValues(typeof(ZodiacalPoints)))
-            {
+        {
             if ((int)currentPoint == index) return currentPoint;
         }
         throw new ArgumentException("Could not find zodiacal point for index : " + index);
     }
-	
+
 }
 
 

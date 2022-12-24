@@ -2,8 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
-
 namespace Enigma.Domain.Enums;
 
 public enum TimeZones
@@ -65,9 +63,9 @@ public static class TimeZonesExtensions
     /// <returns>All details.</returns>
     public static List<TimeZoneDetails> AllDetails(this TimeZones timeZone)
     {
-        var allDetails = new List<TimeZoneDetails> ();
+        var allDetails = new List<TimeZoneDetails>();
         foreach (TimeZones currentTz in Enum.GetValues(typeof(TimeZones)))
-            {
+        {
             allDetails.Add(currentTz.GetDetails());
         }
         return allDetails;
@@ -79,7 +77,7 @@ public static class TimeZonesExtensions
     /// <param name="timeZone">Any time zone, is automatically filled.</param>
     /// <returns>The time zone for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static TimeZones  TimeZoneForIndex(this TimeZones timeZone, int index)
+    public static TimeZones TimeZoneForIndex(this TimeZones timeZone, int index)
     {
         foreach (TimeZones currentTz in Enum.GetValues(typeof(TimeZones)))
         {
@@ -87,7 +85,7 @@ public static class TimeZonesExtensions
         }
         throw new ArgumentException("Could not find TimeZone for index : " + index);
     }
-	
+
 }
 
 

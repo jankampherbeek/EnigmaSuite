@@ -3,13 +3,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
 [TestFixture]
 public class TestChartCategories
-{ 
+{
 
     [Test]
     public void TestRetrievingDetails()
@@ -39,7 +38,7 @@ public class TestChartCategories
     public void TestRetrievingWithIndex()
     {
         int chartCategoryIndex = 3;
-        ChartCategories chartCategory =  ChartCategories.Election.ChartCategoryForIndex(chartCategoryIndex);
+        ChartCategories chartCategory = ChartCategories.Election.ChartCategoryForIndex(chartCategoryIndex);
         Assert.That(chartCategory, Is.EqualTo(ChartCategories.Event));
     }
 

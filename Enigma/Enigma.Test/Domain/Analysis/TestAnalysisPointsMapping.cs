@@ -83,7 +83,7 @@ public class TestMundanePointToAnalysisPointMap
         bool mainCoord = true;
         EquatorialCoordinates eqCoord = new(0.0, 0.0);
         HorizontalCoordinates horCoord = new(0.0, 0.0);
-        CuspFullPos cuspPos = new(longPos, eqCoord, horCoord);
+        CuspFullPos cuspPos = new("Cusp 5", longPos, eqCoord, horCoord);
 
         IMundanePointToAnalysisPointMap pointMap = new MundanePointToAnalysisPointMap();
         AnalysisPoint resultingPoint = pointMap.MapToAnalysisPoint(mPoint, cuspPos, pointGroup, coordSystem, mainCoord);

@@ -101,10 +101,10 @@ public class TestAnalysisPointsForMidpoints
         // the calculated chart is actually used as a mock, but as it is a record is it not possible to mock it with moq.
         List<FullCelPointPos> celPointPositions = new();
         List<CuspFullPos> cusps = new();
-        CuspFullPos mc = CreateCuspFullPos();
-        CuspFullPos ascendant = CreateCuspFullPos();
-        CuspFullPos vertex = CreateCuspFullPos();
-        CuspFullPos eastPoint = CreateCuspFullPos();
+        CuspFullPos mc = CreateCuspFullPos(MundanePoints.Mc.ToString());
+        CuspFullPos ascendant = CreateCuspFullPos(MundanePoints.Ascendant.ToString());
+        CuspFullPos vertex = CreateCuspFullPos(MundanePoints.Vertex.ToString());
+        CuspFullPos eastPoint = CreateCuspFullPos(MundanePoints.EastPoint.ToString());
         FullHousesPositions fullHousePositions = new(cusps, mc, ascendant, vertex, eastPoint);
         int id = 1;
         int tempId = 2;
@@ -115,8 +115,8 @@ public class TestAnalysisPointsForMidpoints
         return new CalculatedChart(celPointPositions, fullHousePositions, inputData);
     }
 
-    private static CuspFullPos CreateCuspFullPos()
+    private static CuspFullPos CreateCuspFullPos(string name)
     {
-        return new CuspFullPos(0.0, new EquatorialCoordinates(0.0, 0.0), new HorizontalCoordinates(0.0, 0.0));
+        return new CuspFullPos(name, 0.0, new EquatorialCoordinates(0.0, 0.0), new HorizontalCoordinates(0.0, 0.0));
     }
 }

@@ -66,7 +66,7 @@ public static class CelPointCatsExtensions
     }
 }
 
-    /// <summary>Details for the Category of a celestial point.</summary>
-    /// <param name="category">The category of the celestial point.</param>
-    /// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-    public record CelPointCatDetails(CelPointCats Category, string TextId); 
+/// <summary>Details for the Category of a celestial point.</summary>
+/// <param name="category">The category of the celestial point.</param>
+/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+public record CelPointCatDetails(CelPointCats Category, string TextId);

@@ -4,12 +4,12 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
 using Serilog;
 
-namespace Engima.Api.Research;
+namespace Enigma.Api.Research;
 
 
 public class ProjectCreationApi : IProjectCreationApi

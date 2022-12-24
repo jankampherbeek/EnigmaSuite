@@ -10,7 +10,7 @@ namespace Enigma.Core.Handlers.Persistency;
 
 
 /// <inheritdoc/>
-public class FilePersistencyHandler: IFilePersistencyHandler
+public class FilePersistencyHandler : IFilePersistencyHandler
 {
     private ITextFileReader _textFileReader;
     private ITextFileWriter _textFileWriter;
@@ -31,6 +31,6 @@ public class FilePersistencyHandler: IFilePersistencyHandler
     public bool WriteFile(string fullPath, string text)
     {
         return _textFileWriter.WriteFile(fullPath, text);
-           
+
     }
 }

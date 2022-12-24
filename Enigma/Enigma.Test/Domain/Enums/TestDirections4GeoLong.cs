@@ -46,13 +46,13 @@ public class TestTestDirections4GeoLong
     public void TestRetrievingWithWrongIndex()
     {
         int directionIndex = 500;
-        Assert.That(() => _ =  Directions4GeoLong.East.DirectionForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = Directions4GeoLong.East.DirectionForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDirectionDetails()
     {
-        List<Directions4GeoLongDetails> allDetails =  Directions4GeoLong.East.AllDetails();
+        List<Directions4GeoLongDetails> allDetails = Directions4GeoLong.East.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

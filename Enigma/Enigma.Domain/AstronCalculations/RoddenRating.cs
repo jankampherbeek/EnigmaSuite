@@ -2,8 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Interfaces;
-
 namespace Enigma.Domain.AstronCalculations;
 
 /// <summary>
@@ -51,9 +49,9 @@ public static class RoddenRatingsExtensions
     /// <returns>All details.</returns>
     public static List<RoddenRatingDetails> AllDetails(this RoddenRatings rating)
     {
-        var allDetails = new List<RoddenRatingDetails> ();
+        var allDetails = new List<RoddenRatingDetails>();
         foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))
-            {
+        {
             allDetails.Add(currentRating.GetDetails());
         }
         return allDetails;
@@ -68,12 +66,12 @@ public static class RoddenRatingsExtensions
     public static RoddenRatings RoddenRatingForIndex(this RoddenRatings rating, int index)
     {
         foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))
-            {
+        {
             if ((int)currentRating == index) return currentRating;
         }
         throw new ArgumentException("Could not find Rodden rating for index : " + index);
     }
-	
+
 }
 
 /// <summary>Details for the Category of a chart.</summary>

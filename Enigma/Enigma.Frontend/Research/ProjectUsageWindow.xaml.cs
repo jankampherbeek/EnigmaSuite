@@ -28,7 +28,7 @@ namespace Enigma.Frontend.Ui.Research
         public void SetProject(ResearchProject project)
         {
             _controller.SetProject(project);
-            PopulateData();
+            PopulateData(project);
         }
 
 
@@ -39,18 +39,45 @@ namespace Enigma.Frontend.Ui.Research
             tbFormTitle.Text = _rosetta.TextForId("projectusagewindow.formtitle");
             tbProjDetails.Text = _rosetta.TextForId("projectusagewindow.projdetails");
             tbExistingMethods.Text = _rosetta.TextForId("projectusagewindow.existingmethods");
+
+            tbProjName.Text = _rosetta.TextForId("projectusagewindow.details.name");
+            tbProjDescr.Text = _rosetta.TextForId("projectusagewindow.details.description");
+            tbProjDate.Text = _rosetta.TextForId("projectusagewindow.details.date");
+            tbProjDataSet.Text = _rosetta.TextForId("projectusagewindow.details.dataname");
+            tbProjControlGroupType.Text = _rosetta.TextForId("projectusagewindow.details.controlgrouptype");
+            tbProjControlGroupMult.Text = _rosetta.TextForId("projectusagewindow.details.multiplication");
+
             btnConfig.Content = _rosetta.TextForId("projectusagewindow.btnconfig");
-            btnTestMethod.Content = _rosetta.TextForId("projectusagewindow.btntestmethod");
-            btnMethodDetails.Content = _rosetta.TextForId("projectusagewindow.btnmethoddetails");
             btnPerformTest.Content = _rosetta.TextForId("projectusagewindow.btnperformtest");
             btnHelp.Content = _rosetta.TextForId("common.btnhelp");
             btnClose.Content = _rosetta.TextForId("common.btnclose");
         }
 
-        private void PopulateData()
+        private void PopulateData(ResearchProject project)
         {
-            List<PresentableProjectDetails> projectDetails = _controller.GetAllProjectDetails();
-            lbProjDetails.ItemsSource = projectDetails;
+            tbProjNameValue.Text = project.Name;
+            tbProjDescrValue.Text = project.Description;
+            tbProjDateValue.Text = project.CreationDate.ToString();
+            tbProjDataSetValue.Text = project.DataName;
+            tbProjControlGroupTypeValue.Text = project.ControlGroupType.ToString();
+            tbProjControlGroupMultValue.Text = project.ControlGroupMultiplication.ToString();
+
+            List<PresentableMethodDetails> methodDetails = _controller.GetAllMethodDetails();
+            lbExistingMethods.ItemsSource = methodDetails;
+        }
+
+
+        private void PerformTest(object sender, RoutedEventArgs e)
+        {
+            PresentableMethodDetails method = lbExistingMethods.SelectedItem as PresentableMethodDetails;
+            string methodName = method.MethodName;   // TODO add enum for methods to PresentableMethodDetails and use that to define the method
+            ResearchMethods researchMethod = ResearchMethods.CountPosInSigns;   // temporary
+            _controller.PerformRequest(researchMethod);
+        }
+
+        private void ShowConfig(object sender, RoutedEventArgs e)
+        {
+            _controller.ShowConfig();
         }
 
     }

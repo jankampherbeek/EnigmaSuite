@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Configuration;
 using Enigma.Research.Domain;
 
 namespace Enigma.Domain.Research;
@@ -17,7 +16,7 @@ public abstract record MethodCount(ResearchPoint Point);
 /// <summary>Count result for parts (signs, houses etc.)</summary>
 /// <param name="Point">The research point.</param>
 /// <param name="Counts">List with results in the same sequence as the parts, always starting with zero.</param>
-public record CountOfParts(ResearchPoint Point, List<int> Counts): MethodCount(Point);
+public record CountOfParts(ResearchPoint Point, List<int> Counts) : MethodCount(Point);
 
 
 /// <summary>Count for a single research point.</summary>
@@ -41,8 +40,13 @@ public record TwoPointCount(ResearchPoint Point, ResearchPoint Point2, int Count
 public record ThreePointCount(ResearchPoint Point, ResearchPoint Point2, ResearchPoint Point3, int Count) : MethodCount(Point);
 
 
-/// <summary>Response from a performed test.</summary>
+/// <summary>Parent for a response from a performed test.</summary>
 /// <param name="Request">The original request.</param>
-/// <param name="Configuration">The actual used configuration.</param>
-/// <param name="Count">The counted results.</param>
-public record MethodResponse(TestMethodRequest Request, AstroConfig Configuration, MethodCount Count );
+public abstract record MethodResponse(GeneralCountRequest Request);
+
+
+/// <summary>Response for counting of parts.</summary>
+/// <param name="Request">The original request.</param>
+/// <param name="Counts">All counted values.</param>
+/// <param name="Totals">Totals of all positions per sign.</param>
+public record CountOfPartsResponse(GeneralCountRequest Request, List<CountOfParts> Counts, List<int> Totals) : MethodResponse(Request);

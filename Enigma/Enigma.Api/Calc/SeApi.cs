@@ -9,9 +9,9 @@ namespace Enigma.Api.Calc;
 
 /// <inheritdoc/>
 
-public class SeApi : ISeApi
+public sealed class SeApi : ISeApi
 {
-    private ISeHandler _seHandler;
+    private readonly ISeHandler _seHandler;
 
     public SeApi(ISeHandler seHandler) => _seHandler = seHandler;
 

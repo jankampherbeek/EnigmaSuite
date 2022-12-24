@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,6 +36,7 @@ public partial class ResearchMainWindow : Window
         btnHelp.Content = _rosetta.TextForId("common.btnhelp");
         btnInfo.Content = _rosetta.TextForId("common.btninfo");
         btnOpen.Content = _rosetta.TextForId("common.btnopen");
+        btnNew.Content = _rosetta.TextForId("common.btnnew");
     }
 
     public void PopulateMenu()
@@ -132,6 +132,12 @@ public partial class ResearchMainWindow : Window
         {
             _controller.OpenProject(selectedProject);
         }
+    }
+
+    private void NewClick(object sender, RoutedEventArgs e)
+    {
+        _controller.NewProject();
+        PopulateData();
     }
 
 }

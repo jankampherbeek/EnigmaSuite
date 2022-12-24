@@ -9,58 +9,60 @@
         Title="ProjectUsageWindow" Height="560" Width="500">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="35*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="50*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
             <RowDefinition Height="6"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="4" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.ColumnSpan="2" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
+        
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="7" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbProjDetails" Text="tbProjDetails" Style="{StaticResource subTitleStyle}" />
-        <ListBox Grid.Row="2" Grid.ColumnSpan="2" Margin="6" Name="lbProjDetails" HorizontalContentAlignment="Stretch">
+
+        <TextBlock Grid.Row="2" Margin="6" Name="tbProjName" Text="tbProjName" FontWeight="Bold" />
+        <TextBlock Grid.Row="2" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjNameValue" Text="tbProjNameValue" />
+        <TextBlock Grid.Row="3" Margin="6" Name="tbProjDescr" Text="tbProjDescr" FontWeight="Bold" />
+        <TextBlock Grid.Row="3" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjDescrValue" Text="tbProjDescrValue" />
+        <TextBlock Grid.Row="4" Margin="6" Name="tbProjDate" Text="tbProjDate" FontWeight="Bold" />
+        <TextBlock Grid.Row="4" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjDateValue" Text="tbProjDateValue" />
+        <TextBlock Grid.Row="5" Margin="6" Name="tbProjDataSet" Text="tbProjDataSet" FontWeight="Bold" />
+        <TextBlock Grid.Row="5" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjDataSetValue" Text="tbProjDataSetValue" />
+        <TextBlock Grid.Row="6" Margin="6" Name="tbProjControlGroupType" Text="tbProjControlGroupType" FontWeight="Bold" />
+        <TextBlock Grid.Row="6" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjControlGroupTypeValue" Text="tbProjControlGroupTypeValue" />
+        <TextBlock Grid.Row="7" Margin="6" Name="tbProjControlGroupMult" Text="tbProjControlGroupMult" FontWeight="Bold" />
+        <TextBlock Grid.Row="7" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjControlGroupMultValue" Text="tbProjControlGroupMultValue" />
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Margin="6" Name="tbExistingMethods" Text="tbExistingMethods" Style="{StaticResource subTitleStyle}" />
+        <ListBox Grid.Row="10" Grid.ColumnSpan="2" Margin="6" Name="lbExistingMethods" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40*" />
-                            <ColumnDefinition Width="60*" />
+                            <ColumnDefinition Width="100*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Value}" />
+                        <TextBlock Text="{Binding MethodName}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBlock Grid.Row="4" Margin="6" Name="tbExistingMethods" Text="tbExistingMethods" Style="{StaticResource subTitleStyle}" />
-        <ListBox Grid.Row="5" Margin="6" Name="lbExistingMethods" HorizontalContentAlignment="Stretch">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50*" />
-                            <ColumnDefinition Width="50*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding MethodDetailsTxt}" />
-                        <TextBlock Grid.Column="1" Text="{Binding MethodDetailsValue}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Grid.Column="1" Grid.Row="4" Grid.RowSpan="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6">
-            <Button Name="btnConfig" Content="btnConfig"/>
-            <Button Name="btnTestMethod" Content="btnTestMethod"/>
-            <Button Name="btnMethodDetails" Content="btnMethodDetails"/>
-            <Button Name="btnPerformTest" Content="btnPerformTest"/>
+        <StackPanel Grid.Column="2" Grid.Row="10" Grid.RowSpan="2" Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6">
+            <Button Name="btnConfig" Content="btnConfig" Click="ShowConfig"/>
+            <Button Name="btnPerformTest" Content="btnPerformTest" Click="PerformTest"/>
         </StackPanel>
-        <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+        <StackPanel Grid.Row="11" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Name="btnHelp" Content="btnHelp"/>
             <Button Name="btnClose" Content="btnClose"/>
         </StackPanel>

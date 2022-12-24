@@ -8,12 +8,10 @@ using Enigma.Domain.Configuration;
 namespace Enigma.Core.Work.Research;
 
 /// <inherit/>
-public class ResearchPaths: IResearchPaths {
+public class ResearchPaths : IResearchPaths
+{
 
-   private readonly string _dateTimeFormat = "yyyy/MM/dd HH:mm:ss";
-
-
-   public string DataPath(String projName, bool useControlGroup)
+    public string DataPath(String projName, bool useControlGroup)
     {
         return ConstructDataPath(projName, useControlGroup);
     }
@@ -24,8 +22,20 @@ public class ResearchPaths: IResearchPaths {
         return ConstructResultPath(projName, methodName, useControlGroup);
     }
 
+    /// <inherit/>
+    public string CountResultsPath(string projName, string methodName, bool useControlGroup)
+    {
+        return ConstructCountResultsPath(projName, methodName, useControlGroup);
+    }
+
+    /// <inherit/>
+    public string SummedResultsPath(string projName, string methodName, bool useControlGroup)
+    {
+        return ConstructSummedResultsPath(projName, methodName, useControlGroup);
+    }
+
     private string ConstructDataPath(string projName, bool useControlGroup)
-    {   
+    {
         ApplicationSettings _appSettings = ApplicationSettings.Instance;
         string projFiles = _appSettings.LocationProjectFiles;
         string dataFilename = useControlGroup ? "controldata" : "testdata";
@@ -36,9 +46,40 @@ public class ResearchPaths: IResearchPaths {
     {
         ApplicationSettings _appSettings = ApplicationSettings.Instance;
         string projFiles = _appSettings.LocationProjectFiles;
-        string dateTimeStamp = DateTime.Now.ToString(_dateTimeFormat);
+        string dateTimeStamp = ConstructDateTimeStamp();
         string prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
-        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_" + dateTimeStamp + ".json";
+        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_positions_" + dateTimeStamp + ".json";
+    }
+
+    private string ConstructCountResultsPath(string projName, string methodName, bool useControlGroup)
+    {
+        ApplicationSettings _appSettings = ApplicationSettings.Instance;
+        string projFiles = _appSettings.LocationProjectFiles;
+        string dateTimeStamp = ConstructDateTimeStamp();
+        string prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
+        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".json";
+    }
+
+    private string ConstructSummedResultsPath(string projName, string methodName, bool useControlGroup)
+    {
+        ApplicationSettings _appSettings = ApplicationSettings.Instance;
+        string projFiles = _appSettings.LocationProjectFiles;
+        string dateTimeStamp = ConstructDateTimeStamp();
+        string prefix = useControlGroup ? "controlsummedresult_" : "testsummedresult_";
+        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".txt";
+
+    }
+
+    private string ConstructDateTimeStamp()
+    {
+        DateTime dateTime = DateTime.Now;
+        string year = dateTime.Year.ToString();
+        string month = dateTime.Month.ToString();
+        string day = dateTime.Day.ToString();
+        string hour = dateTime.Hour.ToString();
+        string minute = dateTime.Minute.ToString();
+        string second = dateTime.Second.ToString();
+        return year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + second;
     }
 }
 

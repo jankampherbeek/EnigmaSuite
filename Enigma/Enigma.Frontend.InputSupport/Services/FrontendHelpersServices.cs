@@ -24,7 +24,7 @@ public static class FrontendHelpersServices
         serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();
         serviceCollection.AddSingleton<IGeoLongValidator, GeoLongValidator>();
         serviceCollection.AddTransient<IRangeCheck, RangeCheck>();
-     //   serviceCollection.AddTransient<IRosetta, Rosetta>();
+        //   serviceCollection.AddTransient<IRosetta, Rosetta>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();
         serviceCollection.AddTransient<ITextFileReaderFE, TextFileReader>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();

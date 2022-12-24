@@ -4,17 +4,16 @@
 
 
 using Enigma.Domain.Enums;
-using System.Collections.Immutable;
 
 namespace Enigma.Domain.AstronCalculations;
 
 /// <summary>
 /// User preferences for the calculation.
 /// </summary>
-public record CalculationPreferences(List<CelPoints> ActualCelPoints, 
-    ZodiacTypes ActualZodiacType, 
-    Ayanamshas ActualAyanamsha, 
-    CoordinateSystems CoordinateSystem, 
-    ObserverPositions ActualObserverPosition, 
+public record CalculationPreferences(List<CelPoints> ActualCelPoints,
+    ZodiacTypes ActualZodiacType,
+    Ayanamshas ActualAyanamsha,
+    CoordinateSystems CoordinateSystem,
+    ObserverPositions ActualObserverPosition,
     ProjectionTypes ActualProjectionType,
     HouseSystems ActualHouseSystem);

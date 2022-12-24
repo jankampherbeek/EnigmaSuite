@@ -7,7 +7,6 @@
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
 
 namespace Enigma.Core.Work.Calc.CelestialPoints;
 

@@ -3,10 +3,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Api.Calc;
 using Enigma.Configuration.Handlers;
 using Enigma.Configuration.Parsers;
 using Enigma.Core.Work.Analysis.Aspects;
-using Enigma.Core.Work.Conversions;
 using Enigma.Core.Work.Analysis.Harmonics;
 using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Analysis.Midpoints;
@@ -14,18 +14,18 @@ using Enigma.Core.Work.Calc.CelestialPoints;
 using Enigma.Core.Work.Calc.Coordinates;
 using Enigma.Core.Work.Calc.DateTime;
 using Enigma.Core.Work.Calc.Interfaces;
+using Enigma.Core.Work.Calc.Specials;
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Core.Work.Configuration;
 using Enigma.Core.Work.Configuration.Interfaces;
+using Enigma.Core.Work.Conversions;
 using Enigma.Core.Work.Persistency;
 using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Core.Work.Research;
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Interfaces;
-using Enigma.Api.Calc;
 using Microsoft.Extensions.DependencyInjection;
-using Enigma.Core.Work.Calc.Specials;
 
 namespace Enigma.Core.Work.Services;
 

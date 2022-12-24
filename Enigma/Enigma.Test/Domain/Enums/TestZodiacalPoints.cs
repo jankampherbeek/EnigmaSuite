@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 
@@ -11,7 +10,7 @@ namespace Enigma.Test.Domain.Enums;
 public class TestZodiacalPoints
 {
 
- 
+
     [Test]
     public void TestRetrievingDetails()
     {

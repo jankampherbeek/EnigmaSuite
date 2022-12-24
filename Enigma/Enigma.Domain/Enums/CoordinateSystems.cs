@@ -37,7 +37,7 @@ public static class CoordinateSystemsExtensions
     /// <returns>All details.</returns>
     public static List<CoordinateSystemDetails> AllDetails(this CoordinateSystems coordSys)
     {
-        var allDetails = new List<CoordinateSystemDetails> ();
+        var allDetails = new List<CoordinateSystemDetails>();
         foreach (CoordinateSystems currentSys in Enum.GetValues(typeof(CoordinateSystems)))
         {
             allDetails.Add(currentSys.GetDetails());
@@ -51,7 +51,7 @@ public static class CoordinateSystemsExtensions
     /// <param name="cSys">Any coordfinate system, is automatically filled.</param>
     /// <returns>The coordinate systrem for the given index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static CoordinateSystems  CoordinateSystemForIndex(this CoordinateSystems cSys, int index)
+    public static CoordinateSystems CoordinateSystemForIndex(this CoordinateSystems cSys, int index)
     {
         foreach (CoordinateSystems currentSys in Enum.GetValues(typeof(CoordinateSystems)))
         {
@@ -59,7 +59,7 @@ public static class CoordinateSystemsExtensions
         }
         throw new ArgumentException("Could not find coordinate system for index : " + index);
     }
-	
+
 }
 
 

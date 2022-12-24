@@ -72,13 +72,13 @@ public class TestHousesApi
     {
         var cusps = new List<CuspFullPos>
         {
-            new CuspFullPos(100.0, new EquatorialCoordinates(101.1, 2.2), new HorizontalCoordinates(99.9, 3.3)),
-            new CuspFullPos(130.0, new EquatorialCoordinates(131.1, 2.3), new HorizontalCoordinates(119.9, 2.2))
+            new CuspFullPos("Cusp 5", 100.0, new EquatorialCoordinates(101.1, 2.2), new HorizontalCoordinates(99.9, 3.3)),
+            new CuspFullPos("Cusp 6", 130.0, new EquatorialCoordinates(131.1, 2.3), new HorizontalCoordinates(119.9, 2.2))
         };
-        CuspFullPos mc = new(290.0, new EquatorialCoordinates(292.1, 2.3), new HorizontalCoordinates(310.9, 1.2));
-        CuspFullPos ascendant = new(20.0, new EquatorialCoordinates(22.2, -1.1), new HorizontalCoordinates(40.9, -3.5));
-        CuspFullPos vertex = new(205.0, new EquatorialCoordinates(202.2, -1.14), new HorizontalCoordinates(220.9, -5.5));
-        CuspFullPos eastPoint = new(25.0, new EquatorialCoordinates(27.2, -1.1), new HorizontalCoordinates(45.9, -0.5));
+        CuspFullPos mc = new(MundanePoints.Mc.ToString(), 290.0, new EquatorialCoordinates(292.1, 2.3), new HorizontalCoordinates(310.9, 1.2));
+        CuspFullPos ascendant = new(MundanePoints.Ascendant.ToString(), 20.0, new EquatorialCoordinates(22.2, -1.1), new HorizontalCoordinates(40.9, -3.5));
+        CuspFullPos vertex = new(MundanePoints.Vertex.ToString(), 205.0, new EquatorialCoordinates(202.2, -1.14), new HorizontalCoordinates(220.9, -5.5));
+        CuspFullPos eastPoint = new(MundanePoints.EastPoint.ToString(), 25.0, new EquatorialCoordinates(27.2, -1.1), new HorizontalCoordinates(45.9, -0.5));
         FullHousesPositions fullHousesPositions = new(cusps, mc, ascendant, vertex, eastPoint);
         return new FullHousesPosResponse(fullHousesPositions, true, "");
 

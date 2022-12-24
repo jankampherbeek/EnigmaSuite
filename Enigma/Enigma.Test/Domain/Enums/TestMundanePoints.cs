@@ -13,7 +13,7 @@ public class TestMundanePoints
     [Test]
     public void TestRetrievingDetails()
     {
-        MundanePointDetails details =  MundanePoints.Ascendant.GetDetails();
+        MundanePointDetails details = MundanePoints.Ascendant.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);

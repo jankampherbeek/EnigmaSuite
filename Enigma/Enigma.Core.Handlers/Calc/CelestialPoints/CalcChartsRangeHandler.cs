@@ -7,14 +7,14 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.CalcChartsRange;
 using Enigma.Domain.RequestResponse;
 
-namespace Engima.Core.Handlers.Calc.CelestialPoints;
+namespace Enigma.Core.Handlers.Calc.CelestialPoints;
 
 /// <inheritdoc/>
-public class CalcChartsRangeHandler: ICalcChartsRangeHandler
+public class CalcChartsRangeHandler : ICalcChartsRangeHandler
 {
     private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
     private readonly IJulDayHandler _julDayHandler;
-    
+
     public CalcChartsRangeHandler(IChartAllPositionsHandler chartAllPositionsHandler, IJulDayHandler julDayHandler)
     {
         _chartAllPositionsHandler = chartAllPositionsHandler;

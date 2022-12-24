@@ -3,13 +3,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Work.Configuration.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using System.IO;
-using System.Threading;
 using System.Windows;
 
 

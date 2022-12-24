@@ -26,8 +26,8 @@ public static class ArabicPointsExtensions
             ArabicPoints.FortunaSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunasect"),
             ArabicPoints.FortunaNoSect => new ArabicPointDetails(arabicPoint, "ref.enum.arabicpoint.fortunanosect"),
             _ => throw new ArgumentException("Arabic Point unknown : " + arabicPoint.ToString())
-        } ;
-}
+        };
+    }
 
     /// <summary>Retrieve details for items in the enum ArabicPoints.</summary>
     /// <param name="arabicPoint">The arabic point, is automatically filled.</param>
@@ -40,7 +40,7 @@ public static class ArabicPointsExtensions
             allDetails.Add(currentArabicPoint.GetDetails());
         }
         return allDetails;
-    }	
+    }
 
     private static void HandleError(ArabicPoints arabicPoint)
     {

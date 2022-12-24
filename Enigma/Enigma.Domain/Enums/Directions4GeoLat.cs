@@ -32,9 +32,9 @@ public static class Directions4GeoLatExtensions
     /// <returns>All details.</returns>
     public static List<Directions4GeoLatDetails> AllDetails(this Directions4GeoLat direction)
     {
-        var allDetails = new List<Directions4GeoLatDetails> ();
+        var allDetails = new List<Directions4GeoLatDetails>();
         foreach (Directions4GeoLat currentDir in Enum.GetValues(typeof(Directions4GeoLat)))
-            {
+        {
             allDetails.Add(currentDir.GetDetails());
         }
         return allDetails;
@@ -49,12 +49,12 @@ public static class Directions4GeoLatExtensions
     public static Directions4GeoLat directionsForIndex(this Directions4GeoLat direction, int index)
     {
         foreach (Directions4GeoLat currentDir in Enum.GetValues(typeof(Directions4GeoLat)))
-            {
+        {
             if ((int)currentDir == index) return currentDir;
         }
         throw new ArgumentException("Could not find Directions4GeoLat for index : " + index);
     }
-	
+
 }
 
 

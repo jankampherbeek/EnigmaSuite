@@ -20,10 +20,11 @@ public static class SeInitializer
     {
         if (path != null)
         {
-            try {
+            try
+            {
                 ext_swe_set_ephe_path(path);
-            } 
-            catch(DllNotFoundException dnfe)
+            }
+            catch (DllNotFoundException)
             {
                 Log.Error("SeInitializer could not find swedll64.dll. Throwing SwissEphException which should terminate the program.");
                 throw new SwissEphException("The swedll64.dll, which is an essential part of the Swiss Ephemeris, could not be found.");
@@ -32,7 +33,7 @@ public static class SeInitializer
         }
 
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_ephe_path")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
     private extern static void ext_swe_set_ephe_path(String path);
 
     /// <summary>Close Swiss Ephemeris and release all allocated memory and resources.</summary>
@@ -41,7 +42,7 @@ public static class SeInitializer
     {
         ext_swe_close();
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_close")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_close")]
     private extern static void ext_swe_close();
 
 
@@ -58,6 +59,6 @@ public static class SeInitializer
         }
 
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_sid_mode")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_sid_mode")]
     private extern static void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
 }

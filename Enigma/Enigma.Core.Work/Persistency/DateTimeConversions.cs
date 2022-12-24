@@ -8,7 +8,6 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Persistency;
-using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Work.Persistency;
 

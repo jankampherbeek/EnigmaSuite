@@ -5,7 +5,6 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Interfaces;
 
 namespace Enigma.Frontend.Helpers.Validations;
@@ -46,7 +45,7 @@ public class TimeValidator : ITimeValidator
 
     private string CreateFullText(TimeZones timezone, double lmtOffset)
     {
-        string _timeZoneTextId =  timezone.GetDetails().TextId;
+        string _timeZoneTextId = timezone.GetDetails().TextId;
         string _fullText = $"{timeValues[0]:d2}:{timeValues[1]:d2}:{timeValues[2]:d2} [{_timeZoneTextId}]";
 
         if (timezone == TimeZones.LMT)

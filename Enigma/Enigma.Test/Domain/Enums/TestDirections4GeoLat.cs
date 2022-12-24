@@ -46,7 +46,7 @@ public class TestTestDirections4GeoLat
     public void TestRetrievingWithWrongIndex()
     {
         int directionIndex = 500;
-        Assert.That(() => _ =  Directions4GeoLat.North.directionsForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = Directions4GeoLat.North.directionsForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]

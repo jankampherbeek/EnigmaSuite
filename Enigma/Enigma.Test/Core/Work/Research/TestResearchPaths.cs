@@ -16,7 +16,7 @@ public class TestResearchPaths
     [SetUp]
     public void SetUp()
     {
-        _researchPaths= new ResearchPaths();
+        _researchPaths = new ResearchPaths();
     }
 
 

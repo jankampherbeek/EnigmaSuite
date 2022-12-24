@@ -51,6 +51,7 @@ public partial class App : Application
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<AstroConfigController>();
+        serviceCollection.AddTransient<AstroConfigWindow>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartAspectsController>();
         serviceCollection.AddTransient<ChartAspectsWindow>();
@@ -82,10 +83,16 @@ public partial class App : Application
         serviceCollection.AddTransient<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
+        serviceCollection.AddTransient<PointSelectController>();
+        serviceCollection.AddTransient<PointSelectWindow>();
         serviceCollection.AddTransient<ProjectInputController>();
         serviceCollection.AddTransient<ResearchMainController>();
-        serviceCollection.AddTransient<ProjectUsageWindow>();
+        serviceCollection.AddTransient<ResearchMainController>();
+        serviceCollection.AddTransient<ResearchMainWindow>();
+        serviceCollection.AddTransient<ResearchResultController>();
+        serviceCollection.AddTransient<ResearchResultWindow>();
         serviceCollection.AddTransient<ProjectUsageController>();
+        serviceCollection.AddTransient<ProjectUsageWindow>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
 
         // Handle services from other projects.

@@ -58,10 +58,10 @@ public partial class ChartsMainWindow : Window
         miHelpAbout.Header = _rosetta.TextForId("chartsmainwindow.menu.helpabout");
         miHelpPage.Header = _rosetta.TextForId("chartsmainwindow.menu.helppage");
         miHelpManual.Header = _rosetta.TextForId("chartsmainwindow.menu.manual");
-        
 
 
-    
+
+
     }
 
     private void DisableOrEnable(bool able)

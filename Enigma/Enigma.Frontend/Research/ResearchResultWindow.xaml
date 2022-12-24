@@ -1,0 +1,58 @@
+﻿<Window x:Class="Enigma.Frontend.Ui.Research.ResearchResultWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Research"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" 
+        Title="ResearchResultWindow" Height="650" Width="880">
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+
+        <TabControl Grid.Row="1">
+            <TabItem Name="tabTest" Header="TabTest">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="6"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Name="tbTestProject" Text="tbTestProject" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Row="1" Name="tbTestMethod" Text="tbTestMethod" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Name="sv1">
+                        <TextBlock Name="tbTestResult" Text="tbTestResult" TextWrapping="Wrap" Margin="6" FontFamily="Courier New"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+            <TabItem Name="tabControl" Header="TabControl">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="6"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Name="tbControlProject" Text="tbControlProject" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Row="1" Name="tbControlMethod" Text="tbControlMethod" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Name="sv2">
+                        <TextBlock Grid.Row="3" Name="tbControlResult" Text="tbControlResult" TextWrapping="Wrap" Margin="6" FontFamily="Courier New"/>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+            <Button Name="btnHelp" Content="btnHelp"/>
+            <Button Name="btnClose" Content="btnClose" />
+        </StackPanel>
+    </Grid>
+</Window>

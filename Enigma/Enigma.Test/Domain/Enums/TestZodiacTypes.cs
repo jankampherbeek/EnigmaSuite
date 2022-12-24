@@ -4,7 +4,6 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Test.Domain.Enums;
 

@@ -4,7 +4,6 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Research;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Domain.Services;

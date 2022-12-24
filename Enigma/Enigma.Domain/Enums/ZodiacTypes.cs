@@ -48,7 +48,7 @@ public static class ZodiacTypeExtensions
     /// <param name="index">Index to look for.</param>
     /// <returns>The zodiac type for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static ZodiacTypes  ZodiacTypeForIndex(this ZodiacTypes zodiacType, int index)
+    public static ZodiacTypes ZodiacTypeForIndex(this ZodiacTypes zodiacType, int index)
     {
         foreach (ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)))
         {

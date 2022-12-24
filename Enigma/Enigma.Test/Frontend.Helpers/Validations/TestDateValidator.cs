@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.RequestResponse;

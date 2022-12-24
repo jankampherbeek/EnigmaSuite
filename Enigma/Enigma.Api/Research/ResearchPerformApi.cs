@@ -4,28 +4,28 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Research;
 using Serilog;
 
-namespace Engima.Api.Research;
+namespace Enigma.Api.Research;
 
 
 /// <inheritdoc/>
 public class ResearchPerformApi : IResearchPerformApi
 {
 
-    private readonly ITestMethodHandler _researchPerformHandler;
+    private readonly IResearchMethodHandler _researchPerformHandler;
 
 
-    public ResearchPerformApi(ITestMethodHandler researchPerformHandler)
+    public ResearchPerformApi(IResearchMethodHandler researchPerformHandler)
     {
         _researchPerformHandler = researchPerformHandler;
     }
 
 
     /// <inheritdoc/>
-    public MethodResponse PerformTest(TestMethodRequest request)
+    public CountOfPartsResponse PerformTest(GeneralCountRequest request)
     {
         Guard.Against.Null(request);
         Log.Information("ResearchPerformApi: PerformTest: " + request.Method);

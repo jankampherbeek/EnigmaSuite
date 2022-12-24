@@ -89,8 +89,8 @@ public partial class AstroConfigWindow : Window
         tbTextVertex.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.vertex");
         tbTextEastpoint.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.eastpoint");
 
-        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.celpoint.parssect");
-        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.celpoint.parsnosect");
+        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.celpoint.pars_fortuna_sect");
+        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.celpoint.pars_fortuna_nosect");
         // Tab Math and Minor points
         TitleMathMinorPoints.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpoints");
         tbMathMinorExplanation.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpointsexpl");
@@ -104,7 +104,7 @@ public partial class AstroConfigWindow : Window
         tbMathMinorOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
         tbTextMeanNode.Text = _rosetta.TextForId("ref.enum.celpoint.meannode");
         tbTextTrueNode.Text = _rosetta.TextForId("ref.enum.celpoint.truenode");
-        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.celpoint.zeroaries");
+        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.celpoint.zero_aries");
         tbTextMeanBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.meanblackmoon");
         tbTextCorrBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.corrblackmoon");
         tbTextInterpolatedBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.interpblackmoon");
@@ -222,7 +222,7 @@ public partial class AstroConfigWindow : Window
         tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeMean);
         tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeCorrected);
         tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeInterpolated);
-        tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeDuval);
+ //       tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeDuval);
         tbGlyphZeroAries.Text = _controller.DefineGlyph(CelPoints.ZeroAries);
 
         tbGlyphHuya.Text = _controller.DefineGlyph(CelPoints.Huya);
@@ -257,8 +257,8 @@ public partial class AstroConfigWindow : Window
         tbGlyphPersephoneRam.Text = _controller.DefineGlyph(CelPoints.PersephoneRam);
         tbGlyphHermes.Text = _controller.DefineGlyph(CelPoints.HermesRam);
         tbGlyphDemeter.Text = _controller.DefineGlyph(CelPoints.DemeterRam);
-        tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(CelPoints.VulcanusCarteret);
-        tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(CelPoints.PersephoneCarteret);
+   //     tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(CelPoints.VulcanusCarteret);
+   //     tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(CelPoints.PersephoneCarteret);
         tbGlyphTransPluto.Text = _controller.DefineGlyph(CelPoints.Isis);
 
         tbGlyphConjunction.Text = _controller.DefineGlyph(AspectTypes.Conjunction);
@@ -415,7 +415,9 @@ public partial class AstroConfigWindow : Window
         tboxInterpolatedBlackMoonFactor.Text = celPoints[45].PercentageAspectOrb.ToString();
         cboxInterpolatedBlackMoon.IsChecked = celPoints[45].IsUsed;
         tboxDuvalBlackMoonFactor.Text = celPoints[46].PercentageAspectOrb.ToString();
-        cboxDuvalBlackMoon.IsChecked = celPoints[46].IsUsed;
+        cboxDuvalBlackMoon.IsChecked = false;   // celPoints[46].IsUsed;
+        cboxDuvalBlackMoon.IsEnabled= false;
+        
         tboxZeroAriesFactor.Text = celPoints[47].PercentageAspectOrb.ToString();
         cboxZeroAries.IsChecked = celPoints[47].IsUsed;
         tboxParsNoSectFactor.Text = celPoints[48].PercentageAspectOrb.ToString();
@@ -423,9 +425,11 @@ public partial class AstroConfigWindow : Window
         tboxParsSectFactor.Text = celPoints[49].PercentageAspectOrb.ToString();
         cboxParsSect.IsChecked = celPoints[49].IsUsed;
         tboxPersephoneCarteretFactor.Text = celPoints[50].PercentageAspectOrb.ToString();
-        cboxPersephoneCarteret.IsChecked = celPoints[50].IsUsed;
+        cboxPersephoneCarteret.IsChecked = false;  // celPoints[50].IsUsed;
+        cboxPersephoneCarteret.IsEnabled= false;
         tboxVulcanusCarteretFactor.Text = celPoints[51].PercentageAspectOrb.ToString();
-        cboxVulcanusCarteret.IsChecked = celPoints[51].IsUsed;
+        cboxVulcanusCarteret.IsChecked = false;  // celPoints[51].IsUsed;
+        cboxVulcanusCarteret.IsEnabled= false;
 
         // aspects
         List<AspectSpecs> aspects = _controller.GetConfig().Aspects;
@@ -553,7 +557,7 @@ public partial class AstroConfigWindow : Window
         try
         {
             HouseSystems houseSystem = HouseSystems.NoHouses.HouseSystemForIndex(comboHouseSystem.SelectedIndex);
-            ZodiacTypes zodiacType =  ZodiacTypes.Tropical.ZodiacTypeForIndex(comboZodiacType.SelectedIndex);
+            ZodiacTypes zodiacType = ZodiacTypes.Tropical.ZodiacTypeForIndex(comboZodiacType.SelectedIndex);
             Ayanamshas ayanamsha = Ayanamshas.None.AyanamshaForIndex(comboAyanamsha.SelectedIndex);
             ObserverPositions observerPosition = ObserverPositions.GeoCentric.ObserverPositionForIndex(comboObserverPos.SelectedIndex);
             ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(comboProjectionType.SelectedIndex);

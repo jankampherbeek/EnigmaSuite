@@ -10,7 +10,7 @@ namespace Enigma.Domain.Research;
 
 public abstract class MethodResult
 {
-    
-    public TestMethodRequest methodPerformer { get; set; }
+
+    public GeneralCountRequest methodPerformer { get; set; }
     public AstroConfig appliedConfig { get; set; }
 }

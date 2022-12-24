@@ -73,7 +73,7 @@ public static class AspectTypesExtensions
     /// <returns>All details.</returns>
     public static List<AspectDetails> AllDetails(this AspectTypes aspect)
     {
-        var allDetails = new List<AspectDetails> ();
+        var allDetails = new List<AspectDetails>();
         foreach (AspectTypes currentAspect in Enum.GetValues(typeof(AspectTypes)))
         {
             allDetails.Add(currentAspect.GetDetails());
@@ -90,12 +90,12 @@ public static class AspectTypesExtensions
     public static AspectTypes AspectTypeForIndex(this AspectTypes aspect, int index)
     {
         foreach (AspectTypes currAspect in Enum.GetValues(typeof(AspectTypes)))
-            {
+        {
             if ((int)currAspect == index) return currAspect;
         }
         throw new ArgumentException("Could not find aspect type for index : " + index);
     }
-	
+
 }
 
 

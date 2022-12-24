@@ -5,11 +5,10 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.RequestResponse;
 using Serilog;
 
-namespace Engima.Api.Persistency;
+namespace Enigma.Api.Persistency;
 
 /// <inheritdoc/>
 public class DataHandlerApi : IDataHandlerApi

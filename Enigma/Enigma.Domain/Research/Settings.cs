@@ -2,9 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Research.Domain;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Research.Domain;
 
 namespace Enigma.Domain.Research;
 

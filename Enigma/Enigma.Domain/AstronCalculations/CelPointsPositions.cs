@@ -11,6 +11,7 @@ namespace Enigma.Domain.AstronCalculations;
 public record FullCelPointPos
 {
     public readonly CelPoints CelPoint;
+    public readonly string CelPointName;
     public readonly PosSpeed Longitude;
     public readonly PosSpeed Latitude;
     public readonly PosSpeed RightAscension;
@@ -29,6 +30,7 @@ public record FullCelPointPos
         PosSpeed declination, PosSpeed distance, HorizontalCoordinates azimuthAltitude)
     {
         CelPoint = celPoint;
+        CelPointName = CelPoint.ToString();
         Longitude = longitude;
         Latitude = latitude;
         RightAscension = rightAscension;

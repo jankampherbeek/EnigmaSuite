@@ -39,9 +39,9 @@ public class TestOrbMethods
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 2;
+        int index = 1;
         OrbMethods method = OrbMethods.FixMajorMinor.OrbMethodForIndex(index);
-        Assert.That(method, Is.EqualTo(OrbMethods.Dynamic));
+        Assert.That(method, Is.EqualTo(OrbMethods.Weighted));
     }
 
     [Test]

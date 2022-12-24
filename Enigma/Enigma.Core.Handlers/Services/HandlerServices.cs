@@ -2,20 +2,20 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Engima.Core.Handlers.Calc.CelestialPoints;
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers.Analysis;
 using Enigma.Core.Handlers.Calc;
 using Enigma.Core.Handlers.Calc.Celestialpoints;
+using Enigma.Core.Handlers.Calc.CelestialPoints;
 using Enigma.Core.Handlers.Calc.CelestialPoints.ObliqueLongitude;
 using Enigma.Core.Handlers.Calc.Coordinates;
 using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Calc.Specials;
+using Enigma.Core.Handlers.Configuration;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
-using Enigma.Core.Handlers.Research;
+using Enigma.Core.Handlers.Research.Services;
 using Enigma.Core.Work.Handlers.Calc.CelestialPoints;
-using Enigma.Core.Work.Research;
 using Enigma.Core.Work.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -47,14 +47,10 @@ public static class HandlerServices
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
-        serviceCollection.AddTransient<IProjectCreationHandler, ProjectCreationHandler>();
-        serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
-        serviceCollection.AddTransient<IResearchDataHandler, ResearchDataHandler>();
-        serviceCollection.AddTransient<ITestMethodHandler, TestMethodHandler>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
 
-
+        serviceCollection.RegisterResearchServices();
         serviceCollection.RegisterWorkServices();
 
 

@@ -103,10 +103,12 @@
         <Style x:Key="titleStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="28"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="SteelBlue"/>
         </Style>
         <Style x:Key="subTitleStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="SteelBlue"/>            
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="largeTextStyle" TargetType="{x:Type TextBlock}">

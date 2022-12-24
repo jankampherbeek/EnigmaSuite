@@ -5,7 +5,6 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Interfaces;
 
 namespace Enigma.Domain.Enums;
 
@@ -56,8 +55,8 @@ public static class CelpointssExtensions
             CelPoints.Uranus => new CelPointDetails(point, CelPointCats.Modern, CalculationTypes.SE, EnigmaConstants.SE_URANUS, true, true, "uranus", "i"),
             CelPoints.Neptune => new CelPointDetails(point, CelPointCats.Modern, CalculationTypes.SE, EnigmaConstants.SE_NEPTUNE, true, true, "neptune", "j"),
             CelPoints.Pluto => new CelPointDetails(point, CelPointCats.Modern, CalculationTypes.SE, EnigmaConstants.SE_PLUTO, true, true, "pluto", "k"),
-            CelPoints.MeanNode => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_MEAN_NODE, false, true, "meanNode", "{"),
-            CelPoints.TrueNode => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_TRUE_NODE, false, true, "trueNode", "{"),
+            CelPoints.MeanNode => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_MEAN_NODE, false, true, "meannode", "{"),
+            CelPoints.TrueNode => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_TRUE_NODE, false, true, "truenode", "{"),
             CelPoints.Chiron => new CelPointDetails(point, CelPointCats.Minor, CalculationTypes.SE, EnigmaConstants.SE_CHIRON, true, true, "chiron", "w"),
             CelPoints.PersephoneRam => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Elements, EnigmaConstants.SE_PERSEPHONE_RAM, true, true, "persephone_ram", "/"),
             CelPoints.HermesRam => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Elements, EnigmaConstants.SE_HERMES_RAM, true, true, "hermes_ram", "<"),
@@ -95,8 +94,8 @@ public static class CelpointssExtensions
             CelPoints.ZeroAries => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_ZEROARIES, false, true, "zero_aries", "1"),
             CelPoints.ParsFortunaSect => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_SECT, false, true, "pars_fortuna_sect", "e"),
             CelPoints.ParsFortunaNoSect => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_NOSECT, false, true, "pars_fortuna_nosect", "e"),
-            CelPoints.PersephoneCarteret => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PERSEPHONE_CARTERET, false, true, "pesephone_carteret", "à"),
-            CelPoints.VulcanusCarteret => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_VULCANUS_CARTERET, false, true, "pesephone_carteret", "Ï"),
+            CelPoints.PersephoneCarteret => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PERSEPHONE_CARTERET, false, true, "persephone_carteret", "à"),
+            CelPoints.VulcanusCarteret => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_VULCANUS_CARTERET, false, true, "vulcanus_carteret", "Ï"),
 
             _ => throw new ArgumentException("CelPoint unknown : " + point.ToString())
         };
@@ -107,7 +106,7 @@ public static class CelpointssExtensions
     /// <returns>All details.</returns>
     public static List<CelPointDetails> AllDetails(this CelPoints celPoint)
     {
-        var allDetails = new List<CelPointDetails> ();
+        var allDetails = new List<CelPointDetails>();
         foreach (CelPoints currentPoint in Enum.GetValues(typeof(CelPoints)))
         {
             allDetails.Add(currentPoint.GetDetails());
