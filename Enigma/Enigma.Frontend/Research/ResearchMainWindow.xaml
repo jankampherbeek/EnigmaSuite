@@ -93,7 +93,6 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="3" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
-            <Button Margin="6" Name="btnInfo" Content="BtnInfo" HorizontalAlignment="Right" Click="InfoClick"/>
             <Button Margin="6" Name="btnOpen" Content="BtnOpen" HorizontalAlignment="Right" Click="OpenClick"/>
             <Button Margin="6" Name="btnNew" Content="BtnNew" HorizontalAlignment="Right" Click="NewClick"/>
         </StackPanel>

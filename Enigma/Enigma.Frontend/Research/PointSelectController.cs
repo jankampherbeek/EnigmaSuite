@@ -7,7 +7,10 @@ using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Enigma.Frontend.Ui.Research;
 public sealed class PointSelectController
@@ -75,4 +78,11 @@ public sealed class PointSelectController
         }
     }
 
+    public void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("SelectPointsForTest");
+        helpWindow.ShowDialog();
+    }
 }

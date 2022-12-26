@@ -6,6 +6,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -95,10 +96,17 @@ public class ResearchMainController
 
     public void ShowAbout()
     {
-        AboutWindow aboutWindow = new();   // todo make specific for research
+        AboutWindow aboutWindow = new();  
         aboutWindow.ShowDialog();
     }
 
+    public void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("TestwithProject");
+        helpWindow.ShowDialog();
+    }
 
 
 

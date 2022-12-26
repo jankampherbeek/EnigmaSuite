@@ -404,6 +404,62 @@ The following folder structure is in use:
 
 
 
+#### Projects overview
+
+After selecting Research in the dashboard, Enigma shows a screen with new screen to handle research projects.
+
+<!-- html-help-begin [projectoverview] -->
+
+This screen shows an overview of existing projects. If you did not yet define a project, the overview of projects will be empty.
+
+In the menu you can check the current settings: **General - Settings**, and check of change the Configuration: **General - Configuration**.
+
+To check the available data sets, use the menu **Data - Available data sets**. You can import a new data set via the menu **Data - Import data**. 
+
+Before you can define a new project, you already must have imported a dataset. To define a new project use the menu **Research Projects - Add new project** or the button **New**. A project needs to have access to one data set. If you want to use multiple data sets you will need to define multiple projects.
+
+You can start research on an existing project by select the project in the list and clicking the button **Open**. A new screen will appear that will ask you to select a method to perform a test.
+
+<!-- html-help-end [projectoverview] -->
+
+
+
+#### Test with project
+
+<!-- html-help-begin [testwithproject] -->
+
+In the upper half of this screen, you will see details about the current project, including the dataset that will be used and the type of control group.
+
+The bottom half of the screen shows the available test methods. You can perform a method, using the data set for this project, by selecting it in the list and clicking the button **Perform test**. In subsequent screens you will be asked for more details. The type of details will depend on the type of the selected test.
+
+Please note that your options will be limited to the definitions as defined in the configuration. If you did not include a specific celestial body or aspect in the configuration, you cannot use it in your test. And orbs in the configuration remain active. If you want to check, or change, the configuration, you can click the button **Configuration**. This will open the standard screen to define a configuration and you can change this. After closing this screen, the new configuration will be immediately active. 
+
+<!-- html-help-end [testwithproject] -->
+
+#### Select points to include for test
+
+<!-- html-help-begin [selectpointsfortest] -->
+
+For each test, you will need to define the points to include in the test. The screen shows Celestail Points (Lights, planets, minor planets, mathematical points) in the list to the left, and Mundane points (related to houses) in the list to the right.
+
+Points that are not selected in the current configuration are not shown.  If you are missing a point you need to redefine the configuration: click the button **Cancel** to close this window and return to the overview of tests, where you can also open the configuration window.
+
+You can select one or more point by clicking them. Deselect by clicking again. You can select/deselect all celestial or all mundane points by clicking one of the checkboxes **Select all celestail points** or **Select all mundane points**.
+
+With the checkbox Include all cusps you can include all cusps into the research. This means you can count aspects to cusps or use cusps in midpoints, etc. Please note that Ascendant and MC can also be selected, for quadrant systems you have to be aware of this effect. 
+
+Click the button **OK** to start the calculations.
+
+<!-- html-help-end [selectpointsfortest] -->
+
+
+
+#### Research results
+
+The results of the research are show in tabular format. Of course these results depend on the type of test that you performed. You will see two tabs, one for **Test data** and one for **Control data**. Each of these tabs shows the result of the respective countings.
+
+These results are automatically saved to disk as a text file. At the bottom of the screen you will find the location of the files for test data and for control data.
+
 
 
 ## Cycles

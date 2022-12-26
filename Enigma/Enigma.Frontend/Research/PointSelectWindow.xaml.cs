@@ -16,6 +16,8 @@ public partial class PointSelectWindow : Window
     private Rosetta _rosetta = Rosetta.Instance;
     private bool _allCelPointsSelected = false;
     private bool _allMundanePointsSelected = false;
+    private bool _completed = false;
+    private int _minimalNrOfPoints = 1;
     public List<SelectableCelPointDetails> SelectedCelPoints { get; } = new();
     public List<SelectableMundanePointDetails> SelectedMundanePoints { get; } = new();
     public bool SelectedUseCusps { get; set; } = false;
@@ -28,9 +30,15 @@ public partial class PointSelectWindow : Window
         PopulateData();
     }
 
+    public void SetMinimalNrOfPoints(int minNumber)
+    {
+        _minimalNrOfPoints = minNumber;
+    }
 
-
-
+    public bool IsCompleted()
+    {
+        return _completed;
+    }
 
     private void PopulateTexts()
     {
@@ -86,11 +94,13 @@ public partial class PointSelectWindow : Window
 
     private void OkClick(object sender, RoutedEventArgs e)
     {
+        int countOfPoints = 0;
         SelectedCelPoints.Clear();
         var selectedCPs = lbCelPoints.SelectedItems;
         foreach (var selectedCP in selectedCPs)
         {
             SelectedCelPoints.Add((SelectableCelPointDetails)selectedCP);
+            countOfPoints++;
         }
 
         SelectedMundanePoints.Clear();
@@ -98,12 +108,30 @@ public partial class PointSelectWindow : Window
         foreach (var selectedMP in selectedMPs)
         {
             SelectedMundanePoints.Add((SelectableMundanePointDetails)selectedMP);
+            countOfPoints++;
         }
 
         SelectedUseCusps = cBoxIncludeAllCusps.IsChecked == true;
-        Close();
+        if (countOfPoints >= _minimalNrOfPoints)
+        {
+            _completed = true;
+            Close();
+        } else
+        {
+            string warning = _rosetta.TextForId("pointselectwindow.warningnrofpoints") + " " + _minimalNrOfPoints.ToString();
+            MessageBox.Show(warning);    
+        }
     }
 
 
+    private void CancelClick(object sender, RoutedEventArgs e)
+    {
+        _completed = false;
+        Close();
+    }
 
+    private void HelpClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowHelp();
+    }
 }

@@ -57,7 +57,7 @@ public class TestOrbMethods
         List<OrbMethodDetails> allDetails = OrbMethods.Weighted.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(3));
+            Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.orbmethod.fixmajorminor"));
             Assert.That(allDetails[1].OrbMethod, Is.EqualTo(OrbMethods.Weighted));
         });

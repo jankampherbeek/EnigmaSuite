@@ -69,10 +69,13 @@ namespace Enigma.Frontend.Ui.Research
 
         private void PerformTest(object sender, RoutedEventArgs e)
         {
-            PresentableMethodDetails method = lbExistingMethods.SelectedItem as PresentableMethodDetails;
-            string methodName = method.MethodName;   // TODO add enum for methods to PresentableMethodDetails and use that to define the method
-            ResearchMethods researchMethod = ResearchMethods.CountPosInSigns;   // temporary
-            _controller.PerformRequest(researchMethod);
+            if (lbExistingMethods.SelectedItems.Count == 1)
+            {
+                PresentableMethodDetails method = lbExistingMethods.SelectedItem as PresentableMethodDetails;
+                string methodName = method.MethodName;   // TODO add enum for methods to PresentableMethodDetails and use that to define the method
+                ResearchMethods researchMethod = ResearchMethods.CountPosInSigns;   // temporary
+                _controller.PerformRequest(researchMethod);
+            }
         }
 
         private void ShowConfig(object sender, RoutedEventArgs e)
@@ -80,5 +83,14 @@ namespace Enigma.Frontend.Ui.Research
             _controller.ShowConfig();
         }
 
+        private void CloseClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void HelpClick(object sender, RoutedEventArgs e)
+        {
+            _controller.ShowHelp(); ;
+        }
     }
 }

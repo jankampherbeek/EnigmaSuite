@@ -50,7 +50,7 @@ namespace Enigma.Frontend.Ui.Research
 
 
 
-        public void CancelClick(object sender, RoutedEventArgs e)
+        public void CloseClick(object sender, RoutedEventArgs e)
         {
             Close();
         }

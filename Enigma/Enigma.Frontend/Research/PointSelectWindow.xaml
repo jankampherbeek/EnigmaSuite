@@ -59,8 +59,8 @@
         <CheckBox Grid.Column="2" Grid.Row="4" Margin="6" Name="cBoxIncludeAllCusps" Content="cBoxIncludeALlCusps"/>
         <TextBlock Grid.Column="2" Grid.Row="6" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap"/>
         <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
-            <Button Name="btnHelp" Content="btnHelp"/>
-            <Button Name="btnCancel" Content="btnCancel"/>
+            <Button Name="btnHelp" Content="btnHelp" Click="HelpClick"/>
+            <Button Name="btnCancel" Content="btnCancel" Click="CancelClick"/>
             <Button Name="btnOk" Content="btnOk" Click="OkClick"/>
         </StackPanel>
     </Grid>

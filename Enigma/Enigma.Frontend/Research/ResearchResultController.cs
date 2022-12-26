@@ -3,10 +3,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
+using Enigma.Domain.Constants;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows;
 
 namespace Enigma.Frontend.Ui.Research;
 
@@ -47,10 +51,11 @@ public class ResearchResultController
         string pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         useControlGroup = true;
         string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
-
-
         _fileAccessApi.WriteFile(pathTest, TestResultText);
         _fileAccessApi.WriteFile(pathControl, ControlResultText);
+        TestResultText += EnigmaConstants.NEW_LINE + _rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathTest;
+        ControlResultText += EnigmaConstants.NEW_LINE + _rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathControl;
+
     }
 
     private void CreateResultHeaders(CountOfPartsResponse response)
@@ -99,6 +104,9 @@ public class ResearchResultController
 
     public void ShowHelp()
     {
-
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ResearchResults");
+        helpWindow.ShowDialog();
     }
 }

@@ -298,15 +298,15 @@ mainwindow.title = Dashboard Enigma Astrology Research
 
 -------------------------------- Point select window ---
 
-pointselectwindow.title = Select points
-pointselectwindow.formtitle = Select points to include
+pointselectwindow.allcusps = Include all cusps
 pointselectwindow.celpoints = Celestial points
-pointselectwindow.explanation = Select one or more points, either celestial or mundane. You can select multiple points by holding the Ctrl-key while clicking.
-pointselectwindow.mundanepoints = Mundane points
 pointselectwindow.checkallcelpoints = Select all celestial points
 pointselectwindow.checkallmundanepoints = Select all mundane points
-pointselectwindow.allcusps = Include all cusps
-
+pointselectwindow.explanation = Select one or more points, either celestial or mundane. You can select multiple points.
+pointselectwindow.formtitle = Select points to include
+pointselectwindow.mundanepoints = Mundane points
+pointselectwindow.title = Select points
+pointselectwindow.warningnrofpoints = Please select more points. The minimal number for the current method is
 
 -------------------------------- Project input window --
 
@@ -620,7 +620,7 @@ researchmainwindow.menu.migeneral.close = Close Research
 researchmainwindow.menu.migeneral.configuration = Configuration
 researchmainwindow.menu.migeneral.settings = Settings
 researchmainwindow.menu.mihelp = Help
-researchmainwindow.menu.mihelp.about = About Research
+researchmainwindow.menu.mihelp.about = About Enigma
 researchmainwindow.menu.mihelp.page = Help for this window
 researchmainwindow.menu.mihelp.manual = User Manual
 researchmainwindow.menu.miprojects = Research Projects
@@ -630,5 +630,6 @@ researchmainwindow.title = Projects: overview
 --------- ResearchResultWindow -------------------
 researchresultwindow.title = Research: results
 researchresultwindow.formtitle = Research results
+researchresultwindow.pathinfo = These results have been saved at : 
 researchresultwindow.tabtest = Test data
 researchresultwindow.tabcontrol = Control data

@@ -34,7 +34,6 @@ public partial class ResearchMainWindow : Window
         tbFormTitle.Text = _rosetta.TextForId("researchmainwindow.formtitle");
         btnClose.Content = _rosetta.TextForId("common.btnclose");
         btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        btnInfo.Content = _rosetta.TextForId("common.btninfo");
         btnOpen.Content = _rosetta.TextForId("common.btnopen");
         btnNew.Content = _rosetta.TextForId("common.btnnew");
     }
@@ -104,10 +103,7 @@ public partial class ResearchMainWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ResearchMainWindow");
-        helpWindow.ShowDialog();
+        _controller.ShowHelp();
     }
 
     private void HelpManualClick(object sender, RoutedEventArgs e)
@@ -115,14 +111,9 @@ public partial class ResearchMainWindow : Window
         MessageBox.Show("Help - Manual not yet implemented.");
     }
 
-    private void InfoClick(object sender, RoutedEventArgs e)
-    {
-        // show info
-    }
-
     private void HelpAboutClick(object sender, RoutedEventArgs e)
     {
-        // show about for research
+        _controller.ShowAbout();
     }
 
     private void OpenClick(object sender, RoutedEventArgs e)

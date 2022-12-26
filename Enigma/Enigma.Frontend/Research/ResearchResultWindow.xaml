@@ -51,8 +51,8 @@
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
-            <Button Name="btnHelp" Content="btnHelp"/>
-            <Button Name="btnClose" Content="btnClose" />
+            <Button Name="btnHelp" Content="btnHelp" Click="HelpClick"/>
+            <Button Name="btnClose" Content="btnClose" Click="CloseClick" />
         </StackPanel>
     </Grid>
 </Window>
