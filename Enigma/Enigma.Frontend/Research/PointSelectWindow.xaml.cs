@@ -2,6 +2,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
 using System.Collections.Generic;
 using System.Windows;
@@ -18,6 +19,7 @@ public partial class PointSelectWindow : Window
     private bool _allMundanePointsSelected = false;
     private bool _completed = false;
     private int _minimalNrOfPoints = 1;
+    private ResearchMethods _researchMethod = ResearchMethods.None;
     public List<SelectableCelPointDetails> SelectedCelPoints { get; } = new();
     public List<SelectableMundanePointDetails> SelectedMundanePoints { get; } = new();
     public bool SelectedUseCusps { get; set; } = false;
@@ -34,6 +36,18 @@ public partial class PointSelectWindow : Window
     {
         _minimalNrOfPoints = minNumber;
     }
+
+    public void SetResearchMethod(ResearchMethods researchMethod)
+    {
+        _researchMethod = researchMethod;
+        if (_researchMethod == ResearchMethods.CountPosInHouses)
+        {
+            lbMundanePoints.IsEnabled = false;
+            cBoxAllMundanePoints.IsEnabled = false;
+            cBoxIncludeAllCusps.IsEnabled = false;
+        }
+    }
+
 
     public bool IsCompleted()
     {
@@ -62,6 +76,9 @@ public partial class PointSelectWindow : Window
         lbCelPoints.ItemsSource = celPointDetails;
         List<SelectableMundanePointDetails> mundanePointDetails = _controller.GetAllMundanePointDetails();
         lbMundanePoints.ItemsSource = mundanePointDetails;
+
+
+
     }
 
     private void AllCelPointsClick(object sender, RoutedEventArgs e)

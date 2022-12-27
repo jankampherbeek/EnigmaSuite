@@ -71,9 +71,8 @@ namespace Enigma.Frontend.Ui.Research
         {
             if (lbExistingMethods.SelectedItems.Count == 1)
             {
-                PresentableMethodDetails method = lbExistingMethods.SelectedItem as PresentableMethodDetails;
-                string methodName = method.MethodName;   // TODO add enum for methods to PresentableMethodDetails and use that to define the method
-                ResearchMethods researchMethod = ResearchMethods.CountPosInSigns;   // temporary
+                int index = lbExistingMethods.SelectedIndex;
+                ResearchMethods researchMethod = ResearchMethods.None.ResearchMethodForIndex(index); 
                 _controller.PerformRequest(researchMethod);
             }
         }

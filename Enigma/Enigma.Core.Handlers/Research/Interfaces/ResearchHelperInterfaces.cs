@@ -19,9 +19,9 @@ public interface ICalculatedResearchPositions
 
 
 /// <summary>Counting for points in parts of the zodiac (e.g. signs, decanates etc.</summary>
-public interface IPointsInZodiacPartsCounting
+public interface IPointsInPartsCounting
 {
-    /// <summary>Perform a count for points in parts of the zodiac.</summary>
+    /// <summary>Perform a count for points in parts of the zodiac of in the housesystem.</summary>
     /// <param name="charts">The calculatred charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>

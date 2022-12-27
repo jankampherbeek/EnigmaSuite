@@ -15,12 +15,12 @@ namespace Enigma.Api.Research;
 public class ResearchPerformApi : IResearchPerformApi
 {
 
-    private readonly IResearchMethodHandler _researchPerformHandler;
+    private readonly IResearchMethodHandler _researchMethodHandler;
 
 
     public ResearchPerformApi(IResearchMethodHandler researchPerformHandler)
     {
-        _researchPerformHandler = researchPerformHandler;
+        _researchMethodHandler = researchPerformHandler;
     }
 
 
@@ -29,6 +29,6 @@ public class ResearchPerformApi : IResearchPerformApi
     {
         Guard.Against.Null(request);
         Log.Information("ResearchPerformApi: PerformTest: " + request.Method);
-        return _researchPerformHandler.HandleTestMethod(request);
+        return _researchMethodHandler.HandleTestMethod(request);
     }
 }

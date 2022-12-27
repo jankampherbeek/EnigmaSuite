@@ -68,36 +68,41 @@ public class ResearchResultController
 
     private static string CreateResultData(CountOfPartsResponse response)
     {
-        string spaces = "                    ";  // 20 spaces
-        StringBuilder resultData = new();
-
         List<CountOfParts> countOfParts = response.Counts;
         List<int> totals = response.Totals;
-
-
+        string spaces = "                    ";  // 20 spaces
+        string headerLine = string.Empty;
+        string separatorLine = "--------------------------------------------------------------------------------------------------------";
+        StringBuilder resultData = new();
         if (response.Request.Method == ResearchMethods.CountPosInSigns)
         {
-            resultData.AppendLine("                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS");
-            resultData.AppendLine("--------------------------------------------------------------------------------------------------------");
-            foreach (CountOfParts cop in countOfParts)
+            headerLine = "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS";
+        }
+        else 
+        if (response.Request.Method == ResearchMethods.CountPosInHouses)
+        {
+            headerLine = "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
+        }
+        resultData.AppendLine(headerLine);
+        resultData.AppendLine(separatorLine);
+
+        foreach (CountOfParts cop in countOfParts)
+        {
+            string name = cop.Point.Name + spaces;
+            resultData.Append(name[..20]);
+            foreach (int count in cop.Counts)
             {
-                string name = cop.Point.Name + spaces;
-                resultData.Append(name[..20]);
-                foreach (int count in cop.Counts)
-                {
-                    resultData.Append((count.ToString() + spaces)[..7]);
-                }
-                resultData.AppendLine();
-            }
-            resultData.AppendLine("--------------------------------------------------------------------------------------------------------");
-            resultData.Append(spaces);
-            foreach (int total in totals)
-            {
-                resultData.Append((total.ToString() + spaces)[..7]);
+                resultData.Append((count.ToString() + spaces)[..7]);
             }
             resultData.AppendLine();
-
         }
+        resultData.AppendLine(separatorLine);
+        resultData.Append(spaces);
+        foreach (int total in totals)
+        {
+            resultData.Append((total.ToString() + spaces)[..7]);
+        }
+        resultData.AppendLine();
         return resultData.ToString();
     }
 

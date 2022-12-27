@@ -18,20 +18,20 @@ namespace Enigma.Core.Handlers.Research;
 public sealed class ResearchMethodHandler : IResearchMethodHandler
 {
     private readonly ICalculatedResearchPositions _researchPositions;
-    private readonly IPointsInZodiacPartsCounting _pointsInZodiacCounting;
+    private readonly IPointsInPartsCounting _pointsInPartsCounting;
     private readonly IFilePersistencyHandler _filePersistencyHandler;
     private readonly IResearchDataHandler _researchDataHandler;
     private readonly IResearchPaths _researchPaths;
 
 
     public ResearchMethodHandler(ICalculatedResearchPositions researchPositions,
-        IPointsInZodiacPartsCounting pointsInZodiacPartsCounting,
+        IPointsInPartsCounting pointsInZodiacPartsCounting,
         IFilePersistencyHandler filePersistencyHandler,
         IResearchDataHandler researchDataHandler,
         IResearchPaths researchPaths)
     {
         _researchPositions = researchPositions;
-        _pointsInZodiacCounting = pointsInZodiacPartsCounting;
+        _pointsInPartsCounting = pointsInZodiacPartsCounting;
         _filePersistencyHandler = filePersistencyHandler;
         _researchDataHandler = researchDataHandler;
         _researchPaths = researchPaths;
@@ -56,9 +56,9 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
 
         switch (method)
         {
-            case ResearchMethods.CountPosInSigns: return _pointsInZodiacCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-            /*          case ResearchMethods.CountPosInHouses: return TestPointsInHouses(request);
-                      case ResearchMethods.CountAspects: return TestAspects(request);
+            case ResearchMethods.CountPosInSigns: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+            case ResearchMethods.CountPosInHouses: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+            /*          case ResearchMethods.CountAspects: return TestAspects(request);
                       case ResearchMethods.CountUnaspected: return TestUnaspected(request);
                       case ResearchMethods.CountOccupiedMidpoints: return TestOccupiedMidpoints(request);
                       case ResearchMethods.CountHarmonicConjunctions: return TestHarmonicConjunctions(request);
@@ -72,10 +72,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     }
 
 
-    private MethodResponse TestPointsInHouses(GeneralCountRequest request)
-    {
-        return null;
-    }
+
 
     private MethodResponse TestAspects(GeneralCountRequest request)
     {

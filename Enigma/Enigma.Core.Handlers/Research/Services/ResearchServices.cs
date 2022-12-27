@@ -27,7 +27,7 @@ public static class ResearchServices
 
         // Helpers
         serviceCollection.AddTransient<ICalculatedResearchPositions, CalculatedResearchPositions>();
-        serviceCollection.AddTransient<IPointsInZodiacPartsCounting, PointsInZodiacPartsCounting>();
+        serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();
     }
 
 

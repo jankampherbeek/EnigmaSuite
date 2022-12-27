@@ -120,24 +120,28 @@ public class ProjectUsageController
                 break;
         }
         _pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
+        _pointSelectWindow.SetResearchMethod(researchMethod);
         _pointSelectWindow.ShowDialog();
 
         if (_pointSelectWindow.IsCompleted())
         {
             List<SelectableCelPointDetails> selectedCelPoints = _pointSelectWindow.SelectedCelPoints;
             List<SelectableMundanePointDetails> selectedMundanePoints = _pointSelectWindow.SelectedMundanePoints;
-            bool selectedUseCusps = _pointSelectWindow.SelectedUseCusps;
+            bool selectedUseCusps = false;
             List<CelPoints> celPoints = new();
+            List<MundanePoints> mundanePoints = new();
             foreach (var point in selectedCelPoints)
             {
                 celPoints.Add(point.CelPoint);
             }
-            List<MundanePoints> mundanePoints = new();
-            foreach (var point in selectedMundanePoints)
+            if (researchMethod != ResearchMethods.CountPosInHouses)
             {
-                mundanePoints.Add(point.MundanePoint);
+                foreach (var point in selectedMundanePoints)
+                {
+                    mundanePoints.Add(point.MundanePoint);
+                }
+                selectedUseCusps = _pointSelectWindow.SelectedUseCusps;
             }
-
             ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
 
             bool useControlGroup = false;
