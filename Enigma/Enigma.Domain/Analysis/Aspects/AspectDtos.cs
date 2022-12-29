@@ -62,4 +62,15 @@ public record EffectiveAspect
 /// <remarks>Main usage is for research projects that involve the counting of aspects.</remarks>
 /// <param name="ChartId">Unique id for the chart (unique within the existing dataset).</param>
 /// <param name="EffectiveAspects">The aspects that are effective for this chart.</param>
-public record AspectsPerChart(int ChartId, List<EffectiveAspect> EffectiveAspects);
+public record AspectsPerChart(string ChartId, List<EffectiveAspect> EffectiveAspects);
+
+
+/// <summary>Totals of aspect counts.</summary>
+/// <param name="CelPoints">All celestial points that have been used.</param>
+/// <param name="MundanePoints">All mundane points that have been used, if any.</param>
+/// <param name="Cusps">All cusps that have been used, if any.</param>
+/// <param name="AspectTypes">All aspects that have been used.</param>
+/// <param name="Totals">A 2d array with the counts.</param>
+/// <remarks>The first index relates to the CelPoints, MundanePoints and Cusps (in that sequence). The second index relates to the AspectTypes.</remarks>
+/// <example>Note that all indexes start at zero. If the record contains 5 celestial points, no mundane points and 12 cusps, and 4 aspects, the position [7,2] refers to the third cusp and the third aspect.</example>
+public record AspectTotals(List<CelPoints> CelPoints, List<MundanePoints> MundanePoints, List<int> Cusps, List<AspectTypes> AspectTypes, int[,] Totals);

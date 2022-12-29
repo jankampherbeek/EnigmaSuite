@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Research;
 
 namespace Enigma.Domain.RequestResponse.Research;
@@ -11,4 +12,4 @@ namespace Enigma.Domain.RequestResponse.Research;
 /// <param name="Request">The original request.</param>
 /// <param name="Counts">All counted values.</param>
 /// <param name="Totals">Totals of all aspects.</param>
-public record CountAspectsResponse(GeneralCountRequest Request, List<CountOfParts> Counts, List<int> Totals) : MethodResponse(Request);
+public record CountAspectsResponse(CountAspectsRequest Request, List<AspectsPerChart> Counts, AspectTotals Totals);

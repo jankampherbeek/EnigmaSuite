@@ -17,7 +17,6 @@ using Enigma.Domain.Research;
 using Enigma.Research.Domain;
 using Newtonsoft.Json;
 using Serilog;
-using static Enigma.Core.Work.Analysis.Interfaces.IAspectChecker;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
@@ -52,17 +51,24 @@ public class AspectsCounting
     {
         ResearchMethods researchMethod = request.Method;
         List<AspectDetails> aspectDetails = new();
+        List<AspectTypes> aspectTypes = new();
+        List<AspectsPerChart> aspectsPerChart = new();
+        List<EffectiveAspect> selectedEffectiveAspects = new();
+        List<CelPoints> selectedCelPoints = request.PointsSelection.SelectedCelPoints;
+        List<MundanePoints> selectedMundanePoints = request.PointsSelection.SelectedMundanePoints;
+
         for (int i = 0; i < request.Config.Aspects.Count; i++)
         {
             aspectDetails.Add(request.Config.Aspects[i].AspectType.GetDetails());
+            aspectTypes.Add(request.Config.Aspects[i].AspectType);
         }
 
         for (int i = 0; i < charts.Count; i++)
         {
             List<FullCelPointPos> fullCelPointPositions = new();
-            for (int j = 0; j < request.PointsSelection.SelectedCelPoints.Count; j++)
+            for (int j = 0; j < selectedCelPoints.Count; j++)
             {
-                CelPoints point = request.PointsSelection.SelectedCelPoints[j];
+                CelPoints point = selectedCelPoints[j];
                 for (int k = 0; k < charts[j].CelPointPositions.Count; k++)
                 {
                     if (charts[i].CelPointPositions[k].CelPoint == point)
@@ -70,169 +76,109 @@ public class AspectsCounting
                         fullCelPointPositions.Add(charts[i].CelPointPositions[k]);
                     }
                 }
-
             }
             List<EffectiveAspect> effectiveAspects = _aspectsHandler.AspectsForCelPoints(aspectDetails, fullCelPointPositions);
-
-            // TODO add effectiveAspects to allCounts (refactor allCounts)
-        }
-        
-
-
-        
-
-
-
-            ////////////////
-
-            List<AspectSpecs> aspects = new();
-        int counter = 0;
-        for (int i = 0; i < request.Config.Aspects.Count; i++)
-        {
-            if (request.Config.Aspects[i].IsUsed)
+            
+            List<AspectSpecs> selectedAspects = request.Aspects;
+            foreach (EffectiveAspect effAspect in effectiveAspects)
             {
-                aspects[counter++] = request.Config.Aspects[i];
+                foreach (AspectSpecs aspectSpec in selectedAspects)
+                {
+                    if (effAspect.EffAspectDetails.Aspect.GetDetails().Aspect == aspectSpec.AspectType.GetDetails().Aspect)
+                    {
+                        selectedEffectiveAspects.Add(effAspect);
+                    }
+                }
             }
-        }
-        List<ResearchPoint> selectedResearchPoints = InitializeCounts(request);
-        int[,] allCounts = new int[selectedResearchPoints.Count, selectedResearchPoints.Count];
-
-
-        foreach (CalculatedResearchChart chart in charts)
-        {
-            HandleChart(researchMethod, chart, selectedResearchPoints, aspects, ref allCounts);
+            string chartId = charts[i].InputItem.Id;
+            aspectsPerChart.Add(new AspectsPerChart(chartId, selectedEffectiveAspects));
         }
 
-
-
-        /*
-
-                List<int> totals = CountTotals(allCounts);
-                CountOfAspectsResponse response = new(request, allCounts, totals);
-
-                string jsonText = JsonConvert.SerializeObject(response, Formatting.Indented);
-                string pathForResults = _researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
-                _filePersistencyHandler.WriteFile(pathForResults, jsonText);
-                Log.Information("Json with countings for aspects written to {path}.", pathForResults);
-                return response;
-
-                */
-
-        return null;
-    }
-
-
-    private static List<ResearchPoint> InitializeCounts(CountAspectsRequest request)
-    {
-        List<ResearchPoint> researchPoints = new();
-        foreach (CelPoints selectedCelPoint in request.PointsSelection.SelectedCelPoints)
-        {
-            int Id = selectedCelPoint.GetDetails().SeId;
-            researchPoints.Add(new ResearchCelPoint(Id, selectedCelPoint));
-        }
-        foreach (MundanePoints selectedMundanePoint in request.PointsSelection.SelectedMundanePoints)
-        {
-            int Id = (int)selectedMundanePoint;
-            researchPoints.Add(new ResearchMundanePoint(Id, selectedMundanePoint));
-        }
+        List<int> selectedCusps = new();
         if (request.PointsSelection.IncludeCusps)
         {
             int nrOfCusps = request.Config.HouseSystem.GetDetails().NrOfCusps;
             for (int i = 0; i < nrOfCusps; i++)
             {
-                int index = i + 1;
-                string name = "Cusp " + index;
-                researchPoints.Add(new ResearchCuspPoint(index, name));
+                selectedCusps.Add(0);
             }
         }
-        return researchPoints;
-    }
+
+        int[,] totals = DefineTotals(selectedCelPoints, selectedMundanePoints, selectedCusps, aspectTypes, selectedEffectiveAspects);
+
+        // todo define totals
+        // todo fill aspectTypes
+
+        AspectTotals aspectTotals = new(selectedCelPoints, selectedMundanePoints, selectedCusps, aspectTypes, totals);
+        CountAspectsResponse response = new CountAspectsResponse(request, aspectsPerChart, aspectTotals);
 
 
-    private void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, List<ResearchPoint> selectedResearchPoints, List<AspectSpecs> aspects, ref int[,] allCounts)
+
+        string jsonText = JsonConvert.SerializeObject(response, Formatting.Indented);
+        string pathForResults = _researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
+        _filePersistencyHandler.WriteFile(pathForResults, jsonText);
+        Log.Information("Json with countings for aspects written to {path}.", pathForResults);
+        return response;
+
+     }
+
+    int[,] DefineTotals(List<CelPoints> celPoints, List<MundanePoints> mundanePoints, List<int> cusps, List<AspectTypes> aspectTypes, List<EffectiveAspect> effectiveAspects)
     {
-        List<PositionedResearchPoint> posResearchPoints = CreatePosResearchPoints(chart, selectedResearchPoints);
-        for (int i = 0; i < posResearchPoints.Count; i++)
+
+        int combinedPointSize = celPoints.Count + mundanePoints.Count + cusps.Count;
+        int aspectSize = aspectTypes.Count;
+        int[,] totals = new int[combinedPointSize, aspectSize];
+
+        int point1Index;
+        int point2Index;
+        foreach (EffectiveAspect effAspect in effectiveAspects)
         {
-            PositionedResearchPoint point1 = posResearchPoints[i];
-            for (int j = i + 1; j < posResearchPoints.Count; j++)
-            {
-                PositionedResearchPoint point2 = posResearchPoints[j];
-                double distance = point1.Position - point2.Position;
-                if (distance < 0.0) distance += 360.0;
-                if (distance > 180.0) distance = 360 - distance;
-
-                /*            for (int k = 0; k < aspects.Count; k++)
-                            {
-                                AspectDetails aspectToCheck = aspects[k].AspectType.GetDetails();
-                                double angle = aspectToCheck.Angle;
-                                double maxOrb = _orbConstructor.DefineOrb(point1.Point.   celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck);
-                                double actualOrb = Math.Abs(angle - distance);
-                                if (actualOrb < maxOrb)
-                                {
-                                    effectiveAspects.Add(new EffectiveAspect(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck, maxOrb, actualOrb));
-                                }
-                            }
-                    */
-
-            }
-
-        }
-
-
       
-    }
-
-
-    private static List<PositionedResearchPoint> CreatePosResearchPoints(CalculatedResearchChart chart, List<ResearchPoint> selectedResearchPoints)
-    {
-        List<PositionedResearchPoint> posResearchPoints = new();
-        for (int i = 0; i < selectedResearchPoints.Count; i++)
-        {
-            double longitude = -1.0;
-            if (selectedResearchPoints[i] is ResearchCelPoint)
+            if (effAspect.IsMundane)
             {
-                for (int j = 0; j < chart.CelPointPositions.Count; j++)
-                {
-                    if (chart.CelPointPositions[j].CelPoint == ((ResearchCelPoint)selectedResearchPoints[j]).CelPoint)
-                    {
-                        longitude = chart.CelPointPositions[j].Longitude.Position;
-                    }
-                }
-            }
-            else if (selectedResearchPoints[i] is ResearchMundanePoint point)
+                point1Index = FindIndexForMundanePoint(celPoints.Count, effAspect.MundanePoint, mundanePoints);
+            } else
             {
-                switch (point.MundanePoint)
-                {
-                    case MundanePoints.Ascendant:
-                        longitude = chart.FullHousePositions.Ascendant.Longitude;
-                        break;
-                    case MundanePoints.Mc:
-                        longitude = chart.FullHousePositions.Mc.Longitude;
-                        break;
-                    case MundanePoints.EastPoint:
-                        longitude = chart.FullHousePositions.EastPoint.Longitude;
-                        break;
-                    case MundanePoints.Vertex:
-                        longitude = chart.FullHousePositions.Vertex.Longitude;
-                        break;
-                    default:
-                        string errorString = "AspectsCounting.CreatePosResearchPoints(): encountered unknown MundanePoint: " +  point.MundanePoint.ToString();
-                        Log.Error(errorString);
-                        throw new ArgumentException(errorString);
-                }
+                point1Index = FindIndexForCelPoint((CelPoints)effAspect.CelPoint1, celPoints);
             }
-            else if (selectedResearchPoints[i] is ResearchCuspPoint)
-            {
-                ResearchCuspPoint cuspPoint = (ResearchCuspPoint)selectedResearchPoints[i];
-                longitude = chart.FullHousePositions.Cusps[cuspPoint.Id].Longitude;
-            }
-            if (longitude >= 0.0)
-            {
-                posResearchPoints.Add(new PositionedResearchPoint(selectedResearchPoints[i], longitude));
-            }
+            // todo handle cusps
+            point2Index = FindIndexForCelPoint(effAspect.CelPoint2, celPoints);
+            totals[point1Index, point2Index] += 1;
         }
-        return posResearchPoints;
+        return totals;
     }
+
+    private int FindIndexForCelPoint(CelPoints celPoint, List<CelPoints> celPoints )
+    {
+        int index = -1;
+        for (int i = 0; i < celPoints.Count; i++)
+        {
+            if (celPoint == celPoints[i]) index = i;
+        }
+        return index;
+    }
+
+    private int FindIndexForMundanePoint(int offset, string mundanePoint, List<MundanePoints> mundanePoints)  // TODO use enum for mundanepoints and not strings.
+    {
+        switch (mundanePoint)
+        {
+            case "Ascendant":
+                return offset + 1;
+            case "Mc": 
+                return offset + 2;
+            case "EastPoint":
+                return offset + 3;
+            case "Vertex":
+                return offset + 4;
+            default:
+                return -1;
+        }
+    }
+
+    private int FindIndexForCusp(int offset, int cusp)
+    {
+        return cusp + offset;
+    }
+
 
 }
