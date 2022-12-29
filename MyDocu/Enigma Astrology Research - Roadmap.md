@@ -176,6 +176,10 @@ Usability.
 - Declinations: longitude equivalent (according to Kt Boehrer).
 - Declinations: declination diagram (according to Kt Boehrer).
 
+**Calculators:**
+
+- Heliacal rising and setting.
+
 
 
 ### Release 1.0

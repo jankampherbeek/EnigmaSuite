@@ -61,3 +61,7 @@ public record SignPerCelPoint(int SignIndex, int[] CelPointIndexes);
 public record CalculatedResearchChart(List<FullCelPointPos> CelPointPositions, FullHousesPositions FullHousePositions, StandardInputItem InputItem);
 
 
+/// <summary>Instance of ResearchPoint with position.</summary>
+/// <param name="Point">The research point.</param>
+/// <param name="Position">The position.</param>
+public record PositionedResearchPoint(ResearchPoint Point, double Position);

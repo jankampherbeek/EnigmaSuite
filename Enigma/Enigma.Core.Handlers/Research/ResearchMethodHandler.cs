@@ -58,9 +58,9 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         {
             case ResearchMethods.CountPosInSigns: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
             case ResearchMethods.CountPosInHouses: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-            /*          case ResearchMethods.CountAspects: return TestAspects(request);
-                      case ResearchMethods.CountUnaspected: return TestUnaspected(request);
-                      case ResearchMethods.CountOccupiedMidpoints: return TestOccupiedMidpoints(request);
+    //                 case ResearchMethods.CountAspects: return TestAspects(request);
+    //                  case ResearchMethods.CountUnaspected: return TestUnaspected(request);
+           /*           case ResearchMethods.CountOccupiedMidpoints: return TestOccupiedMidpoints(request);
                       case ResearchMethods.CountHarmonicConjunctions: return TestHarmonicConjunctions(request);
             */
             default:
@@ -71,28 +71,6 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
 
     }
 
-
-
-
-    private MethodResponse TestAspects(GeneralCountRequest request)
-    {
-        return null;
-    }
-
-    private MethodResponse TestUnaspected(GeneralCountRequest request)
-    {
-        return null;
-    }
-
-    private MethodResponse TestOccupiedMidpoints(GeneralCountRequest request)
-    {
-        return null;
-    }
-
-    private MethodResponse TestHarmonicConjunctions(GeneralCountRequest request)
-    {
-        return null;
-    }
 
 
 

@@ -3,6 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Enums;
 
 namespace Enigma.Test.Domain.Analysis;
@@ -27,9 +28,12 @@ public class TestAspects
     {
         foreach (AspectTypes aspectType in Enum.GetValues(typeof(AspectTypes)))
         {
-            AspectDetails details = aspectType.GetDetails();
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            if (aspectType != AspectTypes.None)
+            {
+                AspectDetails details = aspectType.GetDetails();
+                Assert.That(details, Is.Not.Null);
+                Assert.That(details.TextId, Is.Not.Empty);
+            }
         }
     }
 

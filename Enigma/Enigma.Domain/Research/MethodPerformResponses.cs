@@ -2,7 +2,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using Enigma.Research.Domain;
 
 namespace Enigma.Domain.Research;
@@ -50,3 +49,13 @@ public abstract record MethodResponse(GeneralCountRequest Request);
 /// <param name="Counts">All counted values.</param>
 /// <param name="Totals">Totals of all positions per sign.</param>
 public record CountOfPartsResponse(GeneralCountRequest Request, List<CountOfParts> Counts, List<int> Totals) : MethodResponse(Request);
+
+
+
+
+
+/// <summary>Response for counting unaspected points.</summary>
+/// <param name="Request">The original request.</param>
+/// <param name="Counts">All counted values.</param>
+public record CountOfUnaspectedResponse(GeneralCountRequest Request, List<SimpleCount> Counts): MethodResponse(Request);
+

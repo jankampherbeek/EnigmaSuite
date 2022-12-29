@@ -3,6 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Analysis.Aspects;
+using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.RequestResponse;
 
@@ -16,12 +18,24 @@ public interface IAspectsHandler
     /// <returns>Aspects found.</returns>
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request);
 
+    /// <summary>Find aspects to mundane points.</summary>
+    /// <param name="aspectDetails">Supported aspects.</param>
+    /// <param name="calculatedChart">Calculated chart.</param>
+    /// <returns>Aspects found.</returns>
+    public List<EffectiveAspect> AspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart);
+
     /// <summary>Find aspects between celestial points (excluding mundane points).</summary>
     /// <param name="request">Request with positions.</param>
     /// <returns>Aspects found.</returns>
     public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request);
 
+    /// <summary>Find aspects between celestial points (excluding mundane points).</summary>
+    /// <param name="aspectDetails">Supported aspects.</param>
+    /// <param name="fullCelPointPositions">Supported celestial points.</param>
+    /// <returns>Aspects found.</returns>
+    public List<EffectiveAspect> AspectsForCelPoints(List<AspectDetails> aspectDetails, List<FullCelPointPos> fullCelPointPositions);
 }
+
 
 
 /// <summary>Handler for harmonics.</summary>

@@ -2,13 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.Analysis;
+namespace Enigma.Domain.Analysis.Aspects;
 
-/// <summary>
-/// Supported aspects.
-/// </summary>
+/// <summary>Enumeration of supported aspects.</summary>
 public enum AspectTypes
 {
+    None = -1,
     Conjunction = 0,
     Opposition = 1,
     Triangle = 2,
@@ -33,6 +32,7 @@ public enum AspectTypes
     Vigintile = 21
 }
 
+/// <summary>Extension class for enum AspectTypes.</summary>
 public static class AspectTypesExtensions
 {
     /// <summary>Retrieve details for aspect type.</summary>

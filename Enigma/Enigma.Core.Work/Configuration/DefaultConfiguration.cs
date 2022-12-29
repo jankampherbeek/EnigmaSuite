@@ -4,6 +4,7 @@
 
 using Enigma.Core.Work.Configuration.Interfaces;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;

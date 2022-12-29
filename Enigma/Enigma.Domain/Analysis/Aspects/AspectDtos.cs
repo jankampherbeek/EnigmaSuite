@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Enums;
 
-namespace Enigma.Domain.Analysis;
+namespace Enigma.Domain.Analysis.Aspects;
 
 /// <summary>
 /// Details for an effective aspect and its forming partners.
@@ -56,3 +56,10 @@ public record EffectiveAspect
     }
 
 }
+
+
+/// <summary>List of aspects for a specific chart.</summary>
+/// <remarks>Main usage is for research projects that involve the counting of aspects.</remarks>
+/// <param name="ChartId">Unique id for the chart (unique within the existing dataset).</param>
+/// <param name="EffectiveAspects">The aspects that are effective for this chart.</param>
+public record AspectsPerChart(int ChartId, List<EffectiveAspect> EffectiveAspects);

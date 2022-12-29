@@ -7,7 +7,6 @@ using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
-using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
 using Newtonsoft.Json;
@@ -17,20 +16,16 @@ using System.Collections.Immutable;
 namespace Enigma.Core.Handlers.Research.Helpers;
 
 /// <inheritdoc/>
-public class PointsInPartsCounting : IPointsInPartsCounting
+public sealed class PointsInPartsCounting : IPointsInPartsCounting
 {
     private readonly IResearchPaths _researchPaths;
     private readonly IFilePersistencyHandler _filePersistencyHandler;
-    private readonly IResearchDataHandler _researchDataHandler;
-
 
     public PointsInPartsCounting(IResearchPaths researchPaths,
-        IFilePersistencyHandler filePersistencyHandler,
-        IResearchDataHandler researchDataHandler)
+        IFilePersistencyHandler filePersistencyHandler)
     {
         _researchPaths = researchPaths;
         _filePersistencyHandler = filePersistencyHandler;
-        _researchDataHandler = researchDataHandler;
     }
 
     /// <inheritdoc/>
@@ -61,34 +56,23 @@ public class PointsInPartsCounting : IPointsInPartsCounting
         return response;
     }
 
-        private int DefineNumberOfParts(GeneralCountRequest request)
+    private static int DefineNumberOfParts(GeneralCountRequest request)
     {
         switch (request.Method)
         {
-        //    case ResearchMethods.None:
-        //        break;
             case ResearchMethods.CountPosInSigns:
                 return 12;
             case ResearchMethods.CountPosInHouses:
                 return request.Config.HouseSystem.GetDetails().NrOfCusps;
-         //   case ResearchMethods.CountAspects:
-         //       break;
-         //   case ResearchMethods.CountUnaspected:
-         //       break;
-         //   case ResearchMethods.CountOccupiedMidpoints:
-         //       break;
-         //   case ResearchMethods.CountHarmonicConjunctions:
-         //       break;
             default:
                 string error = "PointsInPartsCounting: unsupported method in request: " + request.Method.ToString();
                 Log.Error(error);
                 throw new ArgumentException(error);
         }
-
     }
 
 
-    private List<CountOfParts> InitializeCounts(GeneralCountRequest request, int nrOfParts)
+    private static List<CountOfParts> InitializeCounts(GeneralCountRequest request, int nrOfParts)
     {
         List<CountOfParts> allCounts = new();
         int[] tempCounts = new int[nrOfParts];
@@ -104,7 +88,6 @@ public class PointsInPartsCounting : IPointsInPartsCounting
             {
                 int Id = (int)selectedMundanePoint;
                 ResearchPoint researchPoint = new ResearchMundanePoint(Id, selectedMundanePoint);
-                CountOfParts countOfParts = new(researchPoint, tempCounts.ToList());
                 allCounts.Add(new(researchPoint, tempCounts.ToList()));
             }
             if (request.PointsSelection.IncludeCusps)
@@ -123,15 +106,7 @@ public class PointsInPartsCounting : IPointsInPartsCounting
     }
 
 
-    private StandardInput ReadInputForCharts(GeneralCountRequest request)
-    {
-        string fullPath = _researchPaths.DataPath(request.ProjectName, request.UseControlGroup);
-        string json = _filePersistencyHandler.ReadFile(fullPath);
-        return _researchDataHandler.GetStandardInputFromJson(json);
-    }
-
-
-    private void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointsSelection pointsSelection, int nrOfParts, ref List<CountOfParts> allCounts)
+    private static void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointsSelection pointsSelection, int nrOfParts, ref List<CountOfParts> allCounts)
     {
         int pointIndex = 0;
         foreach (CelPoints selectedCelPoint in pointsSelection.SelectedCelPoints)
@@ -185,12 +160,12 @@ public class PointsInPartsCounting : IPointsInPartsCounting
     }
 
 
-    private int SignIndex(double longitude)
+    private static int SignIndex(double longitude)
     {
         return (int)longitude / 30;
     }
 
-    private List<int> CountTotals(List<CountOfParts> allCounts)
+    private static List<int> CountTotals(List<CountOfParts> allCounts)
     {
         List<int> totals = new();
         int nrOfParts = allCounts.Count > 0 ? allCounts[0].Counts.Count : 0;
@@ -206,7 +181,7 @@ public class PointsInPartsCounting : IPointsInPartsCounting
         return totals;
     }
 
-    private int DefineHouseNr(double longitude, int nrOfCusps, FullHousesPositions fullHousePositions)  // returns housenr 0..11 of 0..nrOfHouses-1
+    private static int DefineHouseNr(double longitude, int nrOfCusps, FullHousesPositions fullHousePositions)  // returns housenr 0..11 of 0..nrOfHouses-1
     {
         ImmutableList<CuspFullPos> cusps = fullHousePositions.Cusps;
         List<double> cuspLongitudes = new();

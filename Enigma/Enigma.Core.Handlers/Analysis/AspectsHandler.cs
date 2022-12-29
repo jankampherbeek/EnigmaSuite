@@ -4,7 +4,9 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Work.Analysis.Interfaces;
-using Enigma.Domain.Analysis;
+using Enigma.Domain.Analysis.Aspects;
+using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Charts;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Handlers.Analysis;
@@ -20,10 +22,23 @@ class AspectsHandler : IAspectsHandler
     }
 
     /// <inheritdoc/>
+    public List<EffectiveAspect> AspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart)
+    {
+        return _aspectChecker.FindAspectsForMundanePoints(aspectDetails, calculatedChart);
+    }
+
+    /// <inheritdoc/>
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request)
     {
         return _aspectChecker.FindAspectsForMundanePoints(request.CalcChart);
     }
+
+    /// <inheritdoc/>
+    public List<EffectiveAspect> AspectsForCelPoints(List<AspectDetails> aspectDetails, List<FullCelPointPos> fullCelPointPositions)
+    {
+        return _aspectChecker.FindAspectsCelPoints(aspectDetails, fullCelPointPositions);
+    }
+
 
     /// <inheritdoc/>
     public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request)

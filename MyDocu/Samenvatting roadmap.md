@@ -12,7 +12,7 @@ Release 0.4 voegt Nederlands als tweede taal toe: voor het programma, de helptek
 
 Release 0.5 voegt calculators voor korte berekeningen toe en extra technieken, onder meer 3d aspecten (de kortst mogelijke afstand tussen twee hemelpunten, volgens David Hamblin), een 'super' midpunt (gemeenschappelijk midpunt van meerdere hemelpunten), declinaties (parallel, OOB, midpunten). Nieuwe tekeningen voor midpunten in diverse schijven en als 'planetary pictures'. Onderzoek: tellen van diverse standen die samenhangen met declinaties, weergave van resultaten in histogrammen en lijn diagrammen.
 
-Release 0.6 zal de laatste beta-release zijn. Hierin een nieuw font in Unicode voor symbolen dat het bestaande Enigma font vervangt (hierdoor zijn veel meer symbolen mogelijk). Database met coordinaten en tijdzones. Zeer nauwkeurige invoer van de plaats via een on-line kaartsysteem. Export naar PDF van de diverse tekeningen. Declinaties: lengte equivalent en declinatie diagram (volgens Kt Boehrer) .
+Release 0.6 zal de laatste beta-release zijn. Hierin een nieuw font in Unicode voor symbolen dat het bestaande Enigma font vervangt (hierdoor zijn veel meer symbolen mogelijk). Database met coordinaten en tijdzones. Zeer nauwkeurige invoer van de plaats via een on-line kaartsysteem. Export naar PDF van de diverse tekeningen. Declinaties: lengte equivalent en declinatie diagram (volgens Kt Boehrer) . Calculator voor heliaktische opkomst en ondergang. 
 
 Release 1.0 is niet meer beta. Hierin volledige support voor micro astrology (Cemal Cicek), uitbreiding van de tekeningen (informatie tonen bij een mouse over). Toevoeging cycli als in het bestaande 'Enigma Cycles' programma en volgens de Golven theorie van Robert Doolaard.
 

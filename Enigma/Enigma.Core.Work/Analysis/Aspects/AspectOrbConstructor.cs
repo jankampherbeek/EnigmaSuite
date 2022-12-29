@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Work.Analysis.Interfaces;
-using Enigma.Domain.Analysis;
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 

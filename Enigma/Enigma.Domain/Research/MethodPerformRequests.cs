@@ -19,15 +19,7 @@ namespace Enigma.Domain.Research;
 public record GeneralCountRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config);
 
 
-/// <summary>Request to perform a test using aspects.</summary>
-/// <param name="ProjectName">Name for project, used to find data files.</param>
-/// <param name="Method">The research method to be used.</param>
-/// <param name="UseControlGroup">True if controlgroup data needs to be calculated, false for test data.</param>
-/// <param name="PointsSelection">All points that need to be tested.</param>
-/// <param name="Config">Currently active configuration.</param>
-/// <param name="Aspects">All aspects that need to be tested.</param>
-public record CountAspectsPerformRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, List<AspectSpecs> Aspects) :
-    GeneralCountRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
+
 
 /// <summary>Request to perform a test using midpoints. Checks for occupied midpoints (conjunction and opposition).</summary>
 /// <param name="ProjectName">Name for project, used to find data files.</param>

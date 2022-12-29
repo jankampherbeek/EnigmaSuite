@@ -4,7 +4,7 @@
 
 
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Analysis;
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Ui.Interfaces;
