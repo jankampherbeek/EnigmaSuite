@@ -5,7 +5,7 @@
 
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
-using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.State;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

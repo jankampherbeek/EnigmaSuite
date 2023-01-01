@@ -4,8 +4,9 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
-namespace Enigma.Test.Domain.Analysis;
+namespace Enigma.Test.Domain.Points;
 
 [TestFixture]
 public class TestArabicPoints
@@ -26,9 +27,12 @@ public class TestArabicPoints
     {
         foreach (ArabicPoints point in Enum.GetValues(typeof(ArabicPoints)))
         {
-            ArabicPointDetails details = point.GetDetails();
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            if (point != ArabicPoints.None)
+            {
+                ArabicPointDetails details = point.GetDetails();
+                Assert.That(details, Is.Not.Null);
+                Assert.That(details.TextId, Is.Not.Empty);
+            }
         }
     }
 

@@ -6,7 +6,7 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 
-namespace Enigma.Domain.Enums;
+namespace Enigma.Domain.Points;
 
 /// <summary>Supported celestial points (Planets, lights, Plutoids etc.).</summary>
 public enum CelPoints
@@ -15,8 +15,8 @@ public enum CelPoints
     Pluto = 10, MeanNode = 11, TrueNode = 12, Chiron = 13, PersephoneRam = 14, HermesRam = 15, DemeterRam = 16, CupidoUra = 17, HadesUra = 18, ZeusUra = 19,
     KronosUra = 20, ApollonUra = 21, AdmetosUra = 22, VulcanusUra = 23, PoseidonUra = 24, Eris = 25, Pholus = 26, Ceres = 27, Pallas = 28, Juno = 29,
     Vesta = 30, Isis = 31, Nessus = 32, Huya = 33, Varuna = 34, Ixion = 35, Quaoar = 36, Haumea = 37, Orcus = 38, Makemake = 39,
-    Sedna = 40, Hygieia = 41, Astraea = 42, ApogeeMean = 43, ApogeeCorrected = 44, ApogeeInterpolated = 45, ApogeeDuval = 46, ZeroAries = 47, ParsFortunaNoSect = 48, ParsFortunaSect = 49,
-    PersephoneCarteret = 50, VulcanusCarteret = 51
+    Sedna = 40, Hygieia = 41, Astraea = 42, ApogeeMean = 43, ApogeeCorrected = 44, ApogeeInterpolated = 45, ApogeeDuval = 46,
+    PersephoneCarteret = 47, VulcanusCarteret = 48
 }
 
 public static class CelpointssExtensions
@@ -42,6 +42,12 @@ public static class CelpointssExtensions
              * Persephone Carteret (104)
              * Persephone/hermes/Demeter - Ram new nrs: 100, 101, 102
              * 0 Ram : 105
+             * 
+             * 
+             * add to Arabic points and zodiacal points: ZeroAries = 47, ParsFortunaNoSect = 48, ParsFortunaSect = 49,
+             *             CelPoints.ZeroAries => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_ZEROARIES, false, true, "zero_aries", "1"),
+            CelPoints.ParsFortunaSect => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_SECT, false, true, "pars_fortuna_sect", "e"),
+            CelPoints.ParsFortunaNoSect => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_NOSECT, false, true, "pars_fortuna_nosect", "e"),
 
              */
             CelPoints.Sun => new CelPointDetails(point, CelPointCats.Classic, CalculationTypes.SE, EnigmaConstants.SE_SUN, false, true, "sun", "a"),
@@ -91,9 +97,6 @@ public static class CelpointssExtensions
             CelPoints.ApogeeCorrected => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_OSCU_APOG, false, true, "apogee_corrected", "."),
             CelPoints.ApogeeInterpolated => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.SE, EnigmaConstants.SE_INTP_APOG, false, true, "apogee_interpolated", "."),
             CelPoints.ApogeeDuval => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_DUVAL_APOGEE, false, true, "apogee_duval", "."),
-            CelPoints.ZeroAries => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_ZEROARIES, false, true, "zero_aries", "1"),
-            CelPoints.ParsFortunaSect => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_SECT, false, true, "pars_fortuna_sect", "e"),
-            CelPoints.ParsFortunaNoSect => new CelPointDetails(point, CelPointCats.MathPoint, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PARS_FORTUNA_NOSECT, false, true, "pars_fortuna_nosect", "e"),
             CelPoints.PersephoneCarteret => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_PERSEPHONE_CARTERET, false, true, "persephone_carteret", "à"),
             CelPoints.VulcanusCarteret => new CelPointDetails(point, CelPointCats.Hypothetical, CalculationTypes.Numeric, EnigmaConstants.NON_SE_VULCANUS_CARTERET, false, true, "vulcanus_carteret", "Ï"),
 

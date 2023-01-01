@@ -3,8 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.Points;
 
 namespace Enigma.Research.Domain;
 
@@ -34,7 +34,7 @@ public record ResearchCuspPoint(int Id, string Name) : ResearchPoint(Id, Name);
 /// <summary>Define a zodiacal point that can be the result of a research test.</summary>
 /// <param name="Id">Id that identifies the point.</param>
 /// <param name="ZodiacalPoint">The zodiacal point.</param>
-public record ResearchZodiacalPoint(int Id, ZodiacalPoints ZodiacalPoint) : ResearchPoint(Id, ZodiacalPoint.ToString());
+public record ResearchZodiacalPoint(int Id, ZodiacPoints ZodiacPoint) : ResearchPoint(Id, ZodiacPoint.ToString());
 
 
 

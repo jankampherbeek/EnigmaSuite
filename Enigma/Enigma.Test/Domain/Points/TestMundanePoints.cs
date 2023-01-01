@@ -3,8 +3,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
-namespace Enigma.Test.Domain.Enums;
+namespace Enigma.Test.Domain.Points;
 
 [TestFixture]
 public class TestMundanePoints

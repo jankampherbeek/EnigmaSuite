@@ -5,8 +5,9 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
-namespace Enigma.Test.Domain.Enums;
+namespace Enigma.Test.Domain.Points;
 
 [TestFixture]
 public class TestCelPoints
@@ -60,7 +61,7 @@ public class TestCelPoints
         List<CelPointDetails> allDetails = CelPoints.Vesta.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(52));
+            Assert.That(allDetails, Has.Count.EqualTo(49));
 
             Assert.That(allDetails[0].CelPointCat, Is.EqualTo(CelPointCats.Classic));
             Assert.That(allDetails[3].TextId, Is.EqualTo("venus"));

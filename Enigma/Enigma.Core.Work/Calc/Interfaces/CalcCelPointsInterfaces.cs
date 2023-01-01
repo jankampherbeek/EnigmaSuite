@@ -5,6 +5,7 @@
 
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Points;
 
 namespace Enigma.Core.Work.Calc.Interfaces;
 
@@ -29,7 +30,7 @@ public interface ICelPointSECalc
     /// <param name="location">Location with coordinates.</param>
     /// <param name="flags">Flags that contain the settings for ecliptic or equatorial based calculations.</param>
     /// <returns>Array with position and speed for mainposition, deviation and distance, in that sequence. Typically: longitude, latitude, distance or right ascension, declination and distance.</returns>
-    public PosSpeed[] CalculateCelPoint(Domain.Enums.CelPoints celPoint, double jdnr, Location location, int flags);
+    public PosSpeed[] CalculateCelPoint(CelPoints celPoint, double jdnr, Location location, int flags);
 }
 
 /// <summary>
@@ -40,5 +41,5 @@ public interface ICelPointsElementsCalc
     /// <param name="planet">Currently supported hypothetical planets: Persephone, Hermes, Demeter (School of Ram).</param>
     /// <param name="jdUt">Julian day for UT.</param>
     /// <returns>Array with longitude, latitude and distance in that sequence.</returns>
-    public double[] Calculate(Domain.Enums.CelPoints planet, double jdUt);
+    public double[] Calculate(CelPoints planet, double jdUt);
 }

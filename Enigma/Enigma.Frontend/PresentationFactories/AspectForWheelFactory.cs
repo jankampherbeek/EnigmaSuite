@@ -4,7 +4,7 @@
 
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 

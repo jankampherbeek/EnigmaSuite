@@ -2,8 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Analysis;
 

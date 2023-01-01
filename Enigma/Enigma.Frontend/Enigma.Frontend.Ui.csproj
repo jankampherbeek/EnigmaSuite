@@ -296,10 +296,10 @@
     <Page Update="MainWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="Settings\AppSettingsWindow.xaml">
+    <Page Update="Configuration\AppSettingsWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="Settings\AstroConfigWindow.xaml">
+    <Page Update="Configuration\AstroConfigWindow.xaml">
       <Generator></Generator>
     </Page>
     <Page Update="StartWindow.xaml">

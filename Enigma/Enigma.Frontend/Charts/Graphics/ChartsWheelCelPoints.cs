@@ -5,6 +5,7 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;

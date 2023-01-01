@@ -9,6 +9,7 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Exceptions;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc;

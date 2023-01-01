@@ -7,6 +7,7 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Configuration;
 
@@ -18,15 +19,17 @@ public class AstroConfig
     public ZodiacTypes ZodiacType { get; }
     public ProjectionTypes ProjectionType { get; }
     public OrbMethods OrbMethod { get; }
-    public List<CelPointSpecs> CelPoints { get; }
-    public List<AspectSpecs> Aspects { get; }
-    public List<MundanePointSpecs> MundanePoints { get; }
-    public List<ArabicPointSpecs> ArabicPoints { get; }
+    public List<CelPointConfigSpecs> CelPoints { get; }
+    public List<AspectConfigSpecs> Aspects { get; }
+    public List<MundanePointConfigSpecs> MundanePoints { get; }
+    public List<ArabicPointConfigSpecs> ArabicPoints { get; }
+    public List<ZodiacPointConfigSpecs> ZodiacPoints { get; }
     public double BaseOrbAspects { get; }
     public double BaseOrbMidpoints { get; }
 
     public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
-        List<CelPointSpecs> celPoints, List<AspectSpecs> aspects, List<MundanePointSpecs> mundanePoints, List<ArabicPointSpecs> arabicPoints, double baseOrbAspects, double baseOrbMidpoints)
+        List<CelPointConfigSpecs> celPoints, List<AspectConfigSpecs> aspects, List<MundanePointConfigSpecs> mundanePoints, List<ArabicPointConfigSpecs> arabicPoints, List<ZodiacPointConfigSpecs> zodiacPoints, 
+        double baseOrbAspects, double baseOrbMidpoints)
     {
         HouseSystem = houseSystem;
         Ayanamsha = ayanamsha;
@@ -38,67 +41,41 @@ public class AstroConfig
         MundanePoints = mundanePoints;
         ArabicPoints = arabicPoints;
         Aspects = aspects;
+        ZodiacPoints = zodiacPoints; 
         BaseOrbAspects = baseOrbAspects;
         BaseOrbMidpoints = baseOrbMidpoints;
     }
 }
 
+/// <summary>Details for a celestial point to be used in a configuration.</summary>
+/// <param name="CelPoint">The celestial point.</param>
+/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+/// <param name="IsUsed">True if selected, otherwise false.</param>
+public record CelPointConfigSpecs(CelPoints CelPoint, int PercentageOrb, bool IsUsed);
 
-// TODO rename CelPointSpecs, AspectSpecs, MundanePointSpecs and ArabicPointSpecs to *FrontendSpecs
+/// <summary>Details for an aspect to be used in a configuration.</summary>
+/// <param name="AspectType">The aspect.</param>
+/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+/// <param name="IsUsed">True if selected, otherwise false.</param>
+public record AspectConfigSpecs(AspectTypes AspectType, int PercentageOrb, bool IsUsed);
 
-public record CelPointSpecs
-{
-    public CelPoints CelPoint { get; }
-    public int PercentageAspectOrb { get; }
-    public bool IsUsed { get; }
-
-    public CelPointSpecs(CelPoints celPoint, int percentageAspectOrb, bool isUsed)
-    {
-        CelPoint = celPoint;
-        PercentageAspectOrb = percentageAspectOrb;
-        IsUsed = isUsed;
-    }
-}
-
-public record AspectSpecs
-{
-    public AspectTypes AspectType { get; }
-    public int PercentageAspectOrb { get; }
-    public bool IsUsed { get; }
-
-    public AspectSpecs(AspectTypes aspectType, int percentageaspectOrb, bool isUsed)
-    {
-        AspectType = aspectType;
-        PercentageAspectOrb = percentageaspectOrb;
-        IsUsed = isUsed;
-    }
-}
-
-public record MundanePointSpecs
-{
-    public MundanePoints MundanePoint { get; }
-    public int PercentageOrb { get; }
-    public bool IsUsed { get; }
-
-    public MundanePointSpecs(MundanePoints mundanePoint, int percentageOrb, bool isUsed)
-    {
-        MundanePoint = mundanePoint;
-        PercentageOrb = percentageOrb;
-        IsUsed = isUsed;
-    }
-}
+/// <summary>Details for a mundane point to be used in a configuration.</summary>
+/// <param name="MundanePoint">The mundane point.</param>
+/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+/// <param name="IsUsed">True if selected, otherwise false.</param>
+public record MundanePointConfigSpecs(MundanePoints MundanePoint, int PercentageOrb, bool IsUsed);
 
 
-public record ArabicPointSpecs
-{
-    public ArabicPoints ArabicPoint { get; }
-    public int PercentageOrb { get; }
-    public bool IsUsed { get; }
+/// <summary>Details for an Arabic Point to be used in a configuration.</summary>
+/// <param name="ArabicPoint">The Arabic Point.</param>
+/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+/// <param name="IsUsed">True if selected, otherwise false.</param>
+public record ArabicPointConfigSpecs(ArabicPoints ArabicPoint, int PercentageOrb, bool IsUsed);
 
-    public ArabicPointSpecs(ArabicPoints arabicPoint, int percentageOrb, bool isUsed)
-    {
-        ArabicPoint = arabicPoint;
-        PercentageOrb = percentageOrb;
-        IsUsed = isUsed;
-    }
-}
+
+/// <summary>Details for a zodiacpoint to be used in a configuration.</summary>
+/// <param name="ZodiacPoint">The ZodiacPoint.</param>
+/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+/// <param name="IsUsed">True if selected, otherwise false.</param>
+public record ZodiacPointConfigSpecs(ZodiacPoints ZodiacPoint, int PercentageOrb, bool IsUsed);
+

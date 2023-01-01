@@ -110,10 +110,6 @@ public static class EnigmaConstants
     // Celestial points that are not calculated with the Swiss Ephemeris
     /// <summary>Apogee, approximately according to Max Duval, formula's by Cees Jansen.</summary>
     public const int NON_SE_DUVAL_APOGEE = 105;
-    /// <summary>Pars Fortunae, omitting effect of sect.</summary>
-    public const int NON_SE_PARS_FORTUNA_SECT = 107;
-    /// <summary>Pars Fortunae, using sect.</summary>
-    public const int NON_SE_PARS_FORTUNA_NOSECT = 108;
     /// <summary>Persephone according to Carteret.</summary>
     public const int NON_SE_PERSEPHONE_CARTERET = 104;
     /// <summary>Vulcanus according to Carteret.</summary>

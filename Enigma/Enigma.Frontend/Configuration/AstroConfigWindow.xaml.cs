@@ -7,6 +7,7 @@ using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -15,7 +16,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 
-namespace Enigma.Frontend.Ui.Settings;
+namespace Enigma.Frontend.Ui.Configuration;
 
 /// <summary>
 /// Interaction logic for AstroConfigWindow.xaml
@@ -89,9 +90,8 @@ public partial class AstroConfigWindow : Window
         tbTextAsc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.asc");
         tbTextVertex.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.vertex");
         tbTextEastpoint.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.eastpoint");
-
-        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.celpoint.pars_fortuna_sect");
-        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.celpoint.pars_fortuna_nosect");
+        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.arabicpoint.fortunasect");
+        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.arabicpoint.fortunanosect");
         // Tab Math and Minor points
         TitleMathMinorPoints.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpoints");
         tbMathMinorExplanation.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpointsexpl");
@@ -105,7 +105,7 @@ public partial class AstroConfigWindow : Window
         tbMathMinorOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
         tbTextMeanNode.Text = _rosetta.TextForId("ref.enum.celpoint.meannode");
         tbTextTrueNode.Text = _rosetta.TextForId("ref.enum.celpoint.truenode");
-        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.celpoint.zero_aries");
+        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.zodiacpoints.id.zeroar");
         tbTextMeanBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.meanblackmoon");
         tbTextCorrBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.corrblackmoon");
         tbTextInterpolatedBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.interpblackmoon");
@@ -215,8 +215,8 @@ public partial class AstroConfigWindow : Window
         tbGlyphVertex.Text = _controller.DefineGlyph(MundanePoints.Vertex);
         tbGlyphEastpoint.Text = _controller.DefineGlyph(MundanePoints.EastPoint);
 
-        tbGlyphParsSect.Text = _controller.DefineGlyph(CelPoints.ParsFortunaSect);
-        tbGlyphParsNoSect.Text = _controller.DefineGlyph(CelPoints.ParsFortunaNoSect);
+        tbGlyphParsSect.Text = _controller.DefineGlyph(ArabicPoints.FortunaSect);
+        tbGlyphParsNoSect.Text = _controller.DefineGlyph(ArabicPoints.FortunaNoSect);
 
         tbGlyphMeanNode.Text = _controller.DefineGlyph(CelPoints.MeanNode);
         tbGlyphTrueNode.Text = _controller.DefineGlyph(CelPoints.TrueNode);
@@ -224,7 +224,7 @@ public partial class AstroConfigWindow : Window
         tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeCorrected);
         tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeInterpolated);
  //       tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeDuval);
-        tbGlyphZeroAries.Text = _controller.DefineGlyph(CelPoints.ZeroAries);
+        tbGlyphZeroAries.Text = _controller.DefineGlyph(ZodiacPoints.ZeroAries);
 
         tbGlyphHuya.Text = _controller.DefineGlyph(CelPoints.Huya);
         tbGlyphVaruna.Text = _controller.DefineGlyph(CelPoints.Varuna);
@@ -330,110 +330,114 @@ public partial class AstroConfigWindow : Window
         tboxAspectBaseOrb.Text = _controller.GetConfig().BaseOrbAspects.ToString();
         tboxMidpointAspectBaseOrb.Text = _controller.GetConfig().BaseOrbMidpoints.ToString();
 
-        List<CelPointSpecs> celPoints = _controller.GetConfig().CelPoints;
+        List<CelPointConfigSpecs> celPoints = _controller.GetConfig().CelPoints;
 
-        tboxSunFactor.Text = celPoints[0].PercentageAspectOrb.ToString();
-        tboxMoonFactor.Text = celPoints[1].PercentageAspectOrb.ToString();
-        tboxMercuryFactor.Text = celPoints[2].PercentageAspectOrb.ToString();
-        tboxVenusFactor.Text = celPoints[3].PercentageAspectOrb.ToString();
-        tboxMarsFactor.Text = celPoints[5].PercentageAspectOrb.ToString();
-        tboxJupiterFactor.Text = celPoints[6].PercentageAspectOrb.ToString();
-        tboxSaturnFactor.Text = celPoints[7].PercentageAspectOrb.ToString();
-        tboxUranusFactor.Text = celPoints[8].PercentageAspectOrb.ToString();
+        tboxSunFactor.Text = celPoints[0].PercentageOrb.ToString();
+        tboxMoonFactor.Text = celPoints[1].PercentageOrb.ToString();
+        tboxMercuryFactor.Text = celPoints[2].PercentageOrb.ToString();
+        tboxVenusFactor.Text = celPoints[3].PercentageOrb.ToString();
+        tboxMarsFactor.Text = celPoints[5].PercentageOrb.ToString();
+        tboxJupiterFactor.Text = celPoints[6].PercentageOrb.ToString();
+        tboxSaturnFactor.Text = celPoints[7].PercentageOrb.ToString();
+        tboxUranusFactor.Text = celPoints[8].PercentageOrb.ToString();
         cboxUranus.IsChecked = celPoints[8].IsUsed;
-        tboxNeptuneFactor.Text = celPoints[9].PercentageAspectOrb.ToString();
+        tboxNeptuneFactor.Text = celPoints[9].PercentageOrb.ToString();
         cboxNeptune.IsChecked = celPoints[9].IsUsed;
-        tboxPlutoFactor.Text = celPoints[10].PercentageAspectOrb.ToString();
+        tboxPlutoFactor.Text = celPoints[10].PercentageOrb.ToString();
         cboxPluto.IsChecked = celPoints[10].IsUsed;
-        tboxMeanNodeFactor.Text = celPoints[11].PercentageAspectOrb.ToString();
+        tboxMeanNodeFactor.Text = celPoints[11].PercentageOrb.ToString();
         cboxMeanNode.IsChecked = celPoints[11].IsUsed;
-        tboxTrueNodeFactor.Text = celPoints[12].PercentageAspectOrb.ToString();
+        tboxTrueNodeFactor.Text = celPoints[12].PercentageOrb.ToString();
         cboxTrueNode.IsChecked = celPoints[12].IsUsed;
-        tboxChironFactor.Text = celPoints[13].PercentageAspectOrb.ToString();
+        tboxChironFactor.Text = celPoints[13].PercentageOrb.ToString();
         cboxChiron.IsChecked = celPoints[13].IsUsed;
-        tboxPersephoneRamFactor.Text = celPoints[14].PercentageAspectOrb.ToString();
+        tboxPersephoneRamFactor.Text = celPoints[14].PercentageOrb.ToString();
         cboxPersephoneRam.IsChecked = celPoints[14].IsUsed;
-        tboxHermesFactor.Text = celPoints[15].PercentageAspectOrb.ToString();
+        tboxHermesFactor.Text = celPoints[15].PercentageOrb.ToString();
         cboxHermes.IsChecked = celPoints[15].IsUsed;
-        tboxDemeterFactor.Text = celPoints[16].PercentageAspectOrb.ToString();
+        tboxDemeterFactor.Text = celPoints[16].PercentageOrb.ToString();
         cboxDemeter.IsChecked = celPoints[16].IsUsed;
-        tboxCupidoFactor.Text = celPoints[17].PercentageAspectOrb.ToString();
+        tboxCupidoFactor.Text = celPoints[17].PercentageOrb.ToString();
         cboxCupido.IsChecked = celPoints[17].IsUsed;
-        tboxHadesFactor.Text = celPoints[18].PercentageAspectOrb.ToString();
+        tboxHadesFactor.Text = celPoints[18].PercentageOrb.ToString();
         cboxHades.IsChecked = celPoints[18].IsUsed;
-        tboxZeusFactor.Text = celPoints[19].PercentageAspectOrb.ToString();
+        tboxZeusFactor.Text = celPoints[19].PercentageOrb.ToString();
         cboxZeus.IsChecked = celPoints[19].IsUsed;
-        tboxKronosFactor.Text = celPoints[20].PercentageAspectOrb.ToString();
+        tboxKronosFactor.Text = celPoints[20].PercentageOrb.ToString();
         cboxKronos.IsChecked = celPoints[20].IsUsed;
-        tboxApollonFactor.Text = celPoints[21].PercentageAspectOrb.ToString();
+        tboxApollonFactor.Text = celPoints[21].PercentageOrb.ToString();
         cboxApollon.IsChecked = celPoints[21].IsUsed;
-        tboxAdmetosFactor.Text = celPoints[22].PercentageAspectOrb.ToString();
+        tboxAdmetosFactor.Text = celPoints[22].PercentageOrb.ToString();
         cboxAdmetos.IsChecked = celPoints[22].IsUsed;
-        tboxVulkanusUraFactor.Text = celPoints[23].PercentageAspectOrb.ToString();
+        tboxVulkanusUraFactor.Text = celPoints[23].PercentageOrb.ToString();
         cboxVulkanusUra.IsChecked = celPoints[23].IsUsed;
-        tboxPoseidonFactor.Text = celPoints[24].PercentageAspectOrb.ToString();
+        tboxPoseidonFactor.Text = celPoints[24].PercentageOrb.ToString();
         cboxPoseidon.IsChecked = celPoints[24].IsUsed;
-        tboxErisFactor.Text = celPoints[25].PercentageAspectOrb.ToString();
+        tboxErisFactor.Text = celPoints[25].PercentageOrb.ToString();
         cboxEris.IsChecked = celPoints[25].IsUsed;
-        tboxPholusFactor.Text = celPoints[26].PercentageAspectOrb.ToString();
+        tboxPholusFactor.Text = celPoints[26].PercentageOrb.ToString();
         cboxPholus.IsChecked = celPoints[26].IsUsed;
-        tboxCeresFactor.Text = celPoints[27].PercentageAspectOrb.ToString();
+        tboxCeresFactor.Text = celPoints[27].PercentageOrb.ToString();
         cboxCeres.IsChecked = celPoints[27].IsUsed;
-        tboxPallasFactor.Text = celPoints[28].PercentageAspectOrb.ToString();
+        tboxPallasFactor.Text = celPoints[28].PercentageOrb.ToString();
         cboxPallas.IsChecked = celPoints[28].IsUsed;
-        tboxJunoFactor.Text = celPoints[29].PercentageAspectOrb.ToString();
+        tboxJunoFactor.Text = celPoints[29].PercentageOrb.ToString();
         cboxJuno.IsChecked = celPoints[29].IsUsed;
-        tboxVestaFactor.Text = celPoints[30].PercentageAspectOrb.ToString();
+        tboxVestaFactor.Text = celPoints[30].PercentageOrb.ToString();
         cboxVesta.IsChecked = celPoints[30].IsUsed;
-        tboxTransPlutoFactor.Text = celPoints[31].PercentageAspectOrb.ToString();
+        tboxTransPlutoFactor.Text = celPoints[31].PercentageOrb.ToString();
         cboxTransPluto.IsChecked = celPoints[31].IsUsed;
-        tboxNessusFactor.Text = celPoints[32].PercentageAspectOrb.ToString();
+        tboxNessusFactor.Text = celPoints[32].PercentageOrb.ToString();
         cboxNessus.IsChecked = celPoints[32].IsUsed;
-        tboxHuyaFactor.Text = celPoints[33].PercentageAspectOrb.ToString();
+        tboxHuyaFactor.Text = celPoints[33].PercentageOrb.ToString();
         cboxHuya.IsChecked = celPoints[33].IsUsed;
-        tboxVarunaFactor.Text = celPoints[34].PercentageAspectOrb.ToString();
+        tboxVarunaFactor.Text = celPoints[34].PercentageOrb.ToString();
         cboxVaruna.IsChecked = celPoints[34].IsUsed;
-        tboxIxionFactor.Text = celPoints[35].PercentageAspectOrb.ToString();
+        tboxIxionFactor.Text = celPoints[35].PercentageOrb.ToString();
         cboxIxion.IsChecked = celPoints[35].IsUsed;
-        tboxQuaoarFactor.Text = celPoints[36].PercentageAspectOrb.ToString();
+        tboxQuaoarFactor.Text = celPoints[36].PercentageOrb.ToString();
         cboxQuaoar.IsChecked = celPoints[36].IsUsed;
-        tboxHaumeaFactor.Text = celPoints[37].PercentageAspectOrb.ToString();
+        tboxHaumeaFactor.Text = celPoints[37].PercentageOrb.ToString();
         cboxHaumea.IsChecked = celPoints[37].IsUsed;
-        tboxOrcusFactor.Text = celPoints[38].PercentageAspectOrb.ToString();
+        tboxOrcusFactor.Text = celPoints[38].PercentageOrb.ToString();
         cboxOrcus.IsChecked = celPoints[38].IsUsed;
-        tboxMakemakeFactor.Text = celPoints[39].PercentageAspectOrb.ToString();
+        tboxMakemakeFactor.Text = celPoints[39].PercentageOrb.ToString();
         cboxMakemake.IsChecked = celPoints[39].IsUsed;
-        tboxSednaFactor.Text = celPoints[40].PercentageAspectOrb.ToString();
+        tboxSednaFactor.Text = celPoints[40].PercentageOrb.ToString();
         cboxSedna.IsChecked = celPoints[40].IsUsed;
-        tboxHygieiaFactor.Text = celPoints[41].PercentageAspectOrb.ToString();
+        tboxHygieiaFactor.Text = celPoints[41].PercentageOrb.ToString();
         cboxHygieia.IsChecked = celPoints[41].IsUsed;
-        tboxAstraeaFactor.Text = celPoints[42].PercentageAspectOrb.ToString();
+        tboxAstraeaFactor.Text = celPoints[42].PercentageOrb.ToString();
         cboxAstraea.IsChecked = celPoints[42].IsUsed;
-        tboxMeanBlackMoonFactor.Text = celPoints[43].PercentageAspectOrb.ToString();
+        tboxMeanBlackMoonFactor.Text = celPoints[43].PercentageOrb.ToString();
         cboxMeanBlackMoon.IsChecked = celPoints[43].IsUsed;
-        tboxCorrBlackMoonFactor.Text = celPoints[44].PercentageAspectOrb.ToString();
+        tboxCorrBlackMoonFactor.Text = celPoints[44].PercentageOrb.ToString();
         cboxCorrBlackMoon.IsChecked = celPoints[44].IsUsed;
-        tboxInterpolatedBlackMoonFactor.Text = celPoints[45].PercentageAspectOrb.ToString();
+        tboxInterpolatedBlackMoonFactor.Text = celPoints[45].PercentageOrb.ToString();
         cboxInterpolatedBlackMoon.IsChecked = celPoints[45].IsUsed;
-        tboxDuvalBlackMoonFactor.Text = celPoints[46].PercentageAspectOrb.ToString();
+        tboxDuvalBlackMoonFactor.Text = celPoints[46].PercentageOrb.ToString();
         cboxDuvalBlackMoon.IsChecked = false;   // celPoints[46].IsUsed;
         cboxDuvalBlackMoon.IsEnabled= false;
-        
-        tboxZeroAriesFactor.Text = celPoints[47].PercentageAspectOrb.ToString();
-        cboxZeroAries.IsChecked = celPoints[47].IsUsed;
-        tboxParsNoSectFactor.Text = celPoints[48].PercentageAspectOrb.ToString();
-        cboxParsNoSect.IsChecked = celPoints[48].IsUsed;
-        tboxParsSectFactor.Text = celPoints[49].PercentageAspectOrb.ToString();
-        cboxParsSect.IsChecked = celPoints[49].IsUsed;
-        tboxPersephoneCarteretFactor.Text = celPoints[50].PercentageAspectOrb.ToString();
-        cboxPersephoneCarteret.IsChecked = false;  // celPoints[50].IsUsed;
+        tboxPersephoneCarteretFactor.Text = celPoints[47].PercentageOrb.ToString();
+        cboxPersephoneCarteret.IsChecked = false;  
         cboxPersephoneCarteret.IsEnabled= false;
-        tboxVulcanusCarteretFactor.Text = celPoints[51].PercentageAspectOrb.ToString();
-        cboxVulcanusCarteret.IsChecked = false;  // celPoints[51].IsUsed;
+        tboxVulcanusCarteretFactor.Text = celPoints[48].PercentageOrb.ToString();
+        cboxVulcanusCarteret.IsChecked = false;  
         cboxVulcanusCarteret.IsEnabled= false;
 
+        List<ZodiacPointConfigSpecs> zodiacPoints = _controller.GetConfig().ZodiacPoints;
+        tboxZeroAriesFactor.Text = zodiacPoints[0].PercentageOrb.ToString();
+        cboxZeroAries.IsChecked = zodiacPoints[0].IsUsed;
+
+        List<ArabicPointConfigSpecs> arabicPoints = _controller.GetConfig().ArabicPoints;
+        tboxParsSectFactor.Text = arabicPoints[0].PercentageOrb.ToString();
+        cboxParsSect.IsChecked = arabicPoints[0].IsUsed;
+        tboxParsNoSectFactor.Text = arabicPoints[1].PercentageOrb.ToString();
+        cboxParsNoSect.IsChecked = arabicPoints[1].IsUsed;
+
+
         // aspects
-        List<AspectSpecs> aspects = _controller.GetConfig().Aspects;
+        List<AspectConfigSpecs> aspects = _controller.GetConfig().Aspects;
         comboOrbMethod.Items.Clear();
         foreach (OrbMethodDetails detail in OrbMethods.Weighted.AllDetails())
         {
@@ -442,54 +446,54 @@ public partial class AstroConfigWindow : Window
         comboOrbMethod.SelectedIndex = (int)_controller.GetConfig().OrbMethod;
 
 
-        tboxConjunctionFactor.Text = aspects[0].PercentageAspectOrb.ToString();
+        tboxConjunctionFactor.Text = aspects[0].PercentageOrb.ToString();
         cboxConjunction.IsChecked = aspects[0].IsUsed;
-        tboxOppositionFactor.Text = aspects[1].PercentageAspectOrb.ToString();
+        tboxOppositionFactor.Text = aspects[1].PercentageOrb.ToString();
         cboxOpposition.IsChecked = aspects[1].IsUsed;
-        tboxTriangleFactor.Text = aspects[2].PercentageAspectOrb.ToString();
+        tboxTriangleFactor.Text = aspects[2].PercentageOrb.ToString();
         cboxTriangle.IsChecked = aspects[2].IsUsed;
-        tboxSquareFactor.Text = aspects[3].PercentageAspectOrb.ToString();
+        tboxSquareFactor.Text = aspects[3].PercentageOrb.ToString();
         cboxSquare.IsChecked = aspects[3].IsUsed;
-        tboxSeptileFactor.Text = aspects[4].PercentageAspectOrb.ToString();
+        tboxSeptileFactor.Text = aspects[4].PercentageOrb.ToString();
         cboxSeptile.IsChecked = aspects[4].IsUsed;
-        tboxSextileFactor.Text = aspects[5].PercentageAspectOrb.ToString();
+        tboxSextileFactor.Text = aspects[5].PercentageOrb.ToString();
         cboxSextile.IsChecked = aspects[5].IsUsed;
-        tboxQuintileFactor.Text = aspects[6].PercentageAspectOrb.ToString();
+        tboxQuintileFactor.Text = aspects[6].PercentageOrb.ToString();
         cboxQuintile.IsChecked = aspects[6].IsUsed;
-        tboxSemiSextileFactor.Text = aspects[7].PercentageAspectOrb.ToString();
+        tboxSemiSextileFactor.Text = aspects[7].PercentageOrb.ToString();
         cboxSemiSextile.IsChecked = aspects[7].IsUsed;
-        tboxSemiSquareFactor.Text = aspects[8].PercentageAspectOrb.ToString();
+        tboxSemiSquareFactor.Text = aspects[8].PercentageOrb.ToString();
         cboxSemiSquare.IsChecked = aspects[8].IsUsed;
-        tboxSemiQuintileFactor.Text = aspects[9].PercentageAspectOrb.ToString();
+        tboxSemiQuintileFactor.Text = aspects[9].PercentageOrb.ToString();
         cboxSemiQuintile.IsChecked = aspects[9].IsUsed;
-        tboxBiQuintileFactor.Text = aspects[10].PercentageAspectOrb.ToString();
+        tboxBiQuintileFactor.Text = aspects[10].PercentageOrb.ToString();
         cboxBiQuintile.IsChecked = aspects[10].IsUsed;
-        tboxInconjunctFactor.Text = aspects[11].PercentageAspectOrb.ToString();
+        tboxInconjunctFactor.Text = aspects[11].PercentageOrb.ToString();
         cboxInconjunct.IsChecked = aspects[11].IsUsed;
-        tboxSesquiquadrateFactor.Text = aspects[12].PercentageAspectOrb.ToString();
+        tboxSesquiquadrateFactor.Text = aspects[12].PercentageOrb.ToString();
         cboxSesquiquadrate.IsChecked = aspects[12].IsUsed;
-        tboxTriDecileFactor.Text = aspects[13].PercentageAspectOrb.ToString();
+        tboxTriDecileFactor.Text = aspects[13].PercentageOrb.ToString();
         cboxTriDecile.IsChecked = aspects[13].IsUsed;
-        tboxBiSeptileFactor.Text = aspects[14].PercentageAspectOrb.ToString();
+        tboxBiSeptileFactor.Text = aspects[14].PercentageOrb.ToString();
         cboxBiSeptile.IsChecked = aspects[14].IsUsed;
-        tboxTriSeptileFactor.Text = aspects[15].PercentageAspectOrb.ToString();
+        tboxTriSeptileFactor.Text = aspects[15].PercentageOrb.ToString();
         cboxTriSeptile.IsChecked = aspects[15].IsUsed;
-        tboxNovileFactor.Text = aspects[16].PercentageAspectOrb.ToString();
+        tboxNovileFactor.Text = aspects[16].PercentageOrb.ToString();
         cboxNovile.IsChecked = aspects[16].IsUsed;
-        tboxBiNovileFactor.Text = aspects[17].PercentageAspectOrb.ToString();
+        tboxBiNovileFactor.Text = aspects[17].PercentageOrb.ToString();
         cboxBiNovile.IsChecked = aspects[17].IsUsed;
-        tboxQuadraNovileFactor.Text = aspects[18].PercentageAspectOrb.ToString();
+        tboxQuadraNovileFactor.Text = aspects[18].PercentageOrb.ToString();
         cboxQuadraNovile.IsChecked = aspects[18].IsUsed;
-        tboxUnDecileFactor.Text = aspects[19].PercentageAspectOrb.ToString();
+        tboxUnDecileFactor.Text = aspects[19].PercentageOrb.ToString();
         cboxUnDecile.IsChecked = aspects[19].IsUsed;
-        tboxCentileFactor.Text = aspects[20].PercentageAspectOrb.ToString();
+        tboxCentileFactor.Text = aspects[20].PercentageOrb.ToString();
         cboxCentile.IsChecked = aspects[20].IsUsed;
-        tboxVigintileFactor.Text = aspects[21].PercentageAspectOrb.ToString();
+        tboxVigintileFactor.Text = aspects[21].PercentageOrb.ToString();
         cboxVigintile.IsChecked = aspects[21].IsUsed;
 
 
         // MundanePoints
-        List<MundanePointSpecs> mundanePoints = _controller.GetConfig().MundanePoints;
+        List<MundanePointConfigSpecs> mundanePoints = _controller.GetConfig().MundanePoints;
         tboxAscFactor.Text = mundanePoints[0].PercentageOrb.ToString();
         cboxAsc.IsChecked = mundanePoints[0].IsUsed;
         tboxMcFactor.Text = mundanePoints[1].PercentageOrb.ToString();
@@ -499,12 +503,7 @@ public partial class AstroConfigWindow : Window
         tboxVertexFactor.Text = mundanePoints[3].PercentageOrb.ToString();
         cboxVertex.IsChecked = mundanePoints[3].IsUsed;
 
-        // Arabic Points
-        List<ArabicPointSpecs> arabicPoints = _controller.GetConfig().ArabicPoints;
-        tboxParsSectFactor.Text = arabicPoints[0].PercentageOrb.ToString();
-        cboxParsSect.IsChecked = arabicPoints[0].IsUsed;
-        tboxParsNoSectFactor.Text = arabicPoints[1].PercentageOrb.ToString();
-        cboxParsNoSect.IsChecked = arabicPoints[1].IsUsed;
+
 
     }
 
@@ -563,14 +562,15 @@ public partial class AstroConfigWindow : Window
             ObserverPositions observerPosition = ObserverPositions.GeoCentric.ObserverPositionForIndex(comboObserverPos.SelectedIndex);
             ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(comboProjectionType.SelectedIndex);
             OrbMethods orbMethod = OrbMethods.Weighted.OrbMethodForIndex(comboOrbMethod.SelectedIndex);
-            List<CelPointSpecs> celPointsSpecs = DefineCelPointSpecs();
-            List<AspectSpecs> aspectSpecs = DefineAspectSpecs();
-            List<MundanePointSpecs> mundanePointSpecs = DefineMundanePointSpecs();
-            List<ArabicPointSpecs> arabicPointSpecs = DefineArabicPointSpecs();
+            List<CelPointConfigSpecs> celPointsSpecs = DefineCelPointSpecs();
+            List<AspectConfigSpecs> aspectSpecs = DefineAspectSpecs();
+            List<MundanePointConfigSpecs> mundanePointSpecs = DefineMundanePointSpecs();
+            List<ArabicPointConfigSpecs> arabicPointSpecs = DefineArabicPointSpecs();
+            List<ZodiacPointConfigSpecs> zodiacPointSpecs = DefineZodiacPointSpecs();
             double baseOrbAspects = Convert.ToDouble(tboxAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             double baseOrbMidpoints = Convert.ToDouble(tboxMidpointAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
 
-            AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, baseOrbAspects, baseOrbMidpoints);
+            AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, zodiacPointSpecs, baseOrbAspects, baseOrbMidpoints);
             Log.Information("Created new configuration: {@astroConfig}", astroConfig);
             _controller.UpdateConfig(astroConfig);
 
@@ -583,9 +583,9 @@ public partial class AstroConfigWindow : Window
         return noErrors;
     }
 
-    private List<CelPointSpecs> DefineCelPointSpecs()
+    private List<CelPointConfigSpecs> DefineCelPointSpecs()
     {
-        List<CelPointSpecs> celPointSpecs = new()
+        List<CelPointConfigSpecs> celPointSpecs = new()
         {
             DefineSingleCelPointSpec(CelPoints.Sun, tboxSunFactor.Text, cboxSun.IsChecked),
             DefineSingleCelPointSpec(CelPoints.Moon, tboxMoonFactor.Text, cboxMoon.IsChecked),
@@ -634,24 +634,24 @@ public partial class AstroConfigWindow : Window
             DefineSingleCelPointSpec(CelPoints.ApogeeCorrected, tboxCorrBlackMoonFactor.Text, cboxCorrBlackMoon.IsChecked),
             DefineSingleCelPointSpec(CelPoints.ApogeeInterpolated, tboxInterpolatedBlackMoonFactor.Text, cboxInterpolatedBlackMoon.IsChecked),
             DefineSingleCelPointSpec(CelPoints.ApogeeDuval, tboxDuvalBlackMoonFactor.Text, cboxDuvalBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ParsFortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ParsFortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked),
             DefineSingleCelPointSpec(CelPoints.PersephoneCarteret, tboxPersephoneCarteretFactor.Text, cboxPersephoneCarteret.IsChecked),
             DefineSingleCelPointSpec(CelPoints.VulcanusCarteret, tboxVulcanusCarteretFactor.Text, cboxVulcanusCarteret.IsChecked)
         };
         return celPointSpecs;
     }
 
-    private static CelPointSpecs DefineSingleCelPointSpec(CelPoints celPoint, string orbFactorText, bool? isUsed)
+    private static CelPointConfigSpecs DefineSingleCelPointSpec(CelPoints celPoint, string orbFactorText, bool? isUsed)
     {
         int orbFactorValue = Convert.ToInt32(orbFactorText, CultureInfo.InvariantCulture);
-        return new CelPointSpecs(celPoint, orbFactorValue, isUsed ?? false);
+        return new CelPointConfigSpecs(celPoint, orbFactorValue, isUsed ?? false);
     }
 
-    private List<AspectSpecs> DefineAspectSpecs()
+
+
+
+    private List<AspectConfigSpecs> DefineAspectSpecs()
     {
-        List<AspectSpecs> aspectSpecs = new()
+        List<AspectConfigSpecs> aspectSpecs = new()
         {
             DefineSingleAspectSpec(AspectTypes.Conjunction, tboxConjunctionFactor.Text, cboxConjunction.IsChecked),
             DefineSingleAspectSpec(AspectTypes.Opposition, tboxOppositionFactor.Text, cboxOpposition.IsChecked),
@@ -680,16 +680,16 @@ public partial class AstroConfigWindow : Window
         return aspectSpecs;
     }
 
-    private static AspectSpecs DefineSingleAspectSpec(AspectTypes aspectType, string percentageText, bool? isUsed)
+    private static AspectConfigSpecs DefineSingleAspectSpec(AspectTypes aspectType, string percentageText, bool? isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new AspectSpecs(aspectType, percentageValue, isUsed ?? false);
+        return new AspectConfigSpecs(aspectType, percentageValue, isUsed ?? false);
     }
 
 
-    private List<MundanePointSpecs> DefineMundanePointSpecs()
+    private List<MundanePointConfigSpecs> DefineMundanePointSpecs()
     {
-        List<MundanePointSpecs> mundanePointSpecs = new()
+        List<MundanePointConfigSpecs> mundanePointSpecs = new()
         {
             DefineSingleMundanePointSpec(MundanePoints.Mc, tboxMcFactor.Text, cboxMc.IsChecked),
             DefineSingleMundanePointSpec(MundanePoints.Ascendant, tboxAscFactor.Text, cboxAsc.IsChecked),
@@ -701,27 +701,45 @@ public partial class AstroConfigWindow : Window
     }
 
 
-    private static MundanePointSpecs DefineSingleMundanePointSpec(MundanePoints point, string percentageText, bool? isUsed)
+    private static MundanePointConfigSpecs DefineSingleMundanePointSpec(MundanePoints point, string percentageText, bool? isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new MundanePointSpecs(point, percentageValue, isUsed ?? false);
+        return new MundanePointConfigSpecs(point, percentageValue, isUsed ?? false);
     }
 
 
-    private List<ArabicPointSpecs> DefineArabicPointSpecs()
+    private List<ArabicPointConfigSpecs> DefineArabicPointSpecs()
     {
-        List<ArabicPointSpecs> arabicPointSpecs = new()
+        List<ArabicPointConfigSpecs> arabicPointConfigSpecs = new()
         {
             DefineSingleArabicPoint(ArabicPoints.FortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
             DefineSingleArabicPoint(ArabicPoints.FortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked)
         };
-        return arabicPointSpecs;
+        return arabicPointConfigSpecs;
     }
 
-    private static ArabicPointSpecs DefineSingleArabicPoint(ArabicPoints point, string percentageText, bool? isUsed)
+    private static ArabicPointConfigSpecs DefineSingleArabicPoint(ArabicPoints point, string percentageText, bool? isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new ArabicPointSpecs(point, percentageValue, isUsed ?? false);
+        return new ArabicPointConfigSpecs(point, percentageValue, isUsed ?? false);
     }
+
+
+    private List<ZodiacPointConfigSpecs> DefineZodiacPointSpecs()
+    {
+        List<ZodiacPointConfigSpecs> zodiacPointConfigSpecs = new()
+        {
+            DefineSingleZodiacPoint(ZodiacPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked)
+        };
+        return zodiacPointConfigSpecs;
+    }
+
+
+    private static ZodiacPointConfigSpecs DefineSingleZodiacPoint(ZodiacPoints point, string percentageText, bool? isUsed)
+    {
+        int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
+        return new ZodiacPointConfigSpecs(point, percentageValue, isUsed ?? false);
+    }
+
 
 }

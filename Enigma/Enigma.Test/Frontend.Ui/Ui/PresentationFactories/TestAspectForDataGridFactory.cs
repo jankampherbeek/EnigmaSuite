@@ -5,7 +5,7 @@
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;

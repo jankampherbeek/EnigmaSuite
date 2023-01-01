@@ -7,6 +7,7 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
 using static Enigma.Core.Work.Analysis.Interfaces.IAspectChecker;
 
 namespace Enigma.Core.Work.Analysis.Aspects;
@@ -112,7 +113,7 @@ public class AspectChecker : IAspectChecker
             for (int j = i + 1; j < celPointPositions.Count; j++)
             {
                 var celPointPos2 = celPointPositions[j];
-                double distance = NormalizeDistance(celPointPos1.Longitude.Position - celPointPos2.Longitude.Position);
+                double distance = NormalizeDistance(celPointPos1.GeneralPointPos.Longitude.Position - celPointPos2.GeneralPointPos.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     AspectDetails aspectToCheck = supportedAspects[k];
@@ -145,7 +146,7 @@ public class AspectChecker : IAspectChecker
             for (int j = 0; j < countCelPoints; j++)
             {
                 var ssPoint = celPointPositions[j];
-                double distance = NormalizeDistance(mLong - ssPoint.Longitude.Position);
+                double distance = NormalizeDistance(mLong - ssPoint.GeneralPointPos.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     var aspectToCheck = supportedAspects[k];

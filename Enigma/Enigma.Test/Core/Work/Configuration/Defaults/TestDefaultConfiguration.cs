@@ -9,6 +9,7 @@ using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Test.Core.Work.Configuration.Defaults;
 
@@ -81,30 +82,30 @@ public class TestDefaultConfiguration
     [Test]
     public void TestCelPoints()
     {
-        List<CelPointSpecs> celPoints = _astroConfig.CelPoints;
-        Assert.That(_astroConfig.CelPoints, Has.Count.EqualTo(52));
+        List<CelPointConfigSpecs> celPoints = _astroConfig.CelPoints;
+        Assert.That(_astroConfig.CelPoints, Has.Count.EqualTo(49));
 
-        CelPointSpecs celPointSpecs = celPoints[0];     // Sun
+        CelPointConfigSpecs celPointSpecs = celPoints[0];     // Sun
         Assert.Multiple(() =>
         {
             Assert.That(celPointSpecs.CelPoint, Is.EqualTo(CelPoints.Sun));
             Assert.That(celPointSpecs.IsUsed, Is.True);
-            Assert.That(celPointSpecs.PercentageAspectOrb, Is.EqualTo(100).Within(_delta));
+            Assert.That(celPointSpecs.PercentageOrb, Is.EqualTo(100).Within(_delta));
         });
     }
 
     [Test]
     public void TestAspects()
     {
-        List<AspectSpecs> aspects = _astroConfig.Aspects;
+        List<AspectConfigSpecs> aspects = _astroConfig.Aspects;
         Assert.That(_astroConfig.Aspects, Has.Count.EqualTo(22));
 
-        AspectSpecs aspectSpecs = aspects[1];           // Opposition
+        AspectConfigSpecs aspectSpecs = aspects[1];           // Opposition
         Assert.Multiple(() =>
         {
             Assert.That(aspectSpecs.AspectType, Is.EqualTo(AspectTypes.Opposition));
             Assert.That(aspectSpecs.IsUsed, Is.True);
-            Assert.That(aspectSpecs.PercentageAspectOrb, Is.EqualTo(100));
+            Assert.That(aspectSpecs.PercentageOrb, Is.EqualTo(100));
         });
     }
 }

@@ -25,7 +25,7 @@ public class HarmonicsHandler : IHarmonicsHandler
         List<double> originalPositions = new();
         foreach (var celPoint in chart.CelPointPositions)
         {
-            originalPositions.Add(celPoint.Longitude.Position);
+            originalPositions.Add(celPoint.GeneralPointPos.Longitude.Position);
         }
         List<CuspFullPos> housePositions = new() { chart.FullHousePositions.Mc, chart.FullHousePositions.Ascendant, chart.FullHousePositions.Vertex, chart.FullHousePositions.EastPoint };
         foreach (var housePosition in housePositions)

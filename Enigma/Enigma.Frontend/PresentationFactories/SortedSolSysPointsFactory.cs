@@ -2,9 +2,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
@@ -54,7 +53,7 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
         int count = 0;
         foreach (FullCelPointPos celPointPos in fullPositions)
         {
-            double longitude = celPointPos.Longitude.Position;
+            double longitude = celPointPos.GeneralPointPos.Longitude.Position;
             CelPoints celPoint = celPointPos.CelPoint;
             double mundanePos = longitude - longitudeAsc + 90.0;
             if (mundanePos < 0.0) mundanePos += 360.0;

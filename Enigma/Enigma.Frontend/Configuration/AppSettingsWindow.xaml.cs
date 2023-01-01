@@ -5,8 +5,7 @@
 using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
-
-namespace Enigma.Frontend.Ui.Settings;
+namespace Enigma.Frontend.Ui.Configuration;
 
 /// <summary>
 /// Interaction logic for AppSettingsWindow.xaml

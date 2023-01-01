@@ -7,6 +7,7 @@ using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
 using Newtonsoft.Json;
@@ -116,7 +117,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
                 int partIndex = -1;
                 if (chartCelPointPos.CelPoint == selectedCelPoint)
                 {
-                    double longitude = chartCelPointPos.Longitude.Position;
+                    double longitude = chartCelPointPos.GeneralPointPos.Longitude.Position;
                     switch (researchMethod)
                     {
                         case ResearchMethods.CountPosInSigns:

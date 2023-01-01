@@ -8,7 +8,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace Enigma.Frontend.Ui.Settings;
+namespace Enigma.Frontend.Ui.Configuration;
 
 
 public class AppSettingsController

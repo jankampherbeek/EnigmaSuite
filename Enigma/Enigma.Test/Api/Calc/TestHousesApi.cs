@@ -7,6 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Moq;
 

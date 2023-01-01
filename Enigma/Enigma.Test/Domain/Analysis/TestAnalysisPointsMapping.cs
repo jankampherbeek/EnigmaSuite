@@ -6,6 +6,7 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 
 namespace Enigma.Test.Domain.Analysis;
 
@@ -62,7 +63,8 @@ public class TestCelPointToAnalysisPointMap
 
     private static FullCelPointPos CreateFullCelPointPos(CelPoints ssPoint, PosSpeed longPS, PosSpeed latPS, PosSpeed raPS, PosSpeed declPS, PosSpeed distPS, HorizontalCoordinates horCoord)
     {
-        return new(ssPoint, longPS, latPS, raPS, declPS, distPS, horCoord);
+        FullPointPos pointPos = new(longPS, latPS, raPS, declPS, horCoord);
+        return new(ssPoint, distPS, pointPos);
     }
 
 }

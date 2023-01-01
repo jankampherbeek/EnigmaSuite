@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
@@ -54,7 +55,7 @@ public sealed class PointSelectController
         string resourceBundlePrefix = "ref.enum.celpoint.";
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selCPDetails = new();
-        foreach (CelPointSpecs currentCPSpec in _astroConfig.CelPoints)
+        foreach (CelPointConfigSpecs currentCPSpec in _astroConfig.CelPoints)
         {
             if (currentCPSpec.IsUsed)
             {
@@ -68,7 +69,7 @@ public sealed class PointSelectController
     {
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selMPDetails = new();
-        foreach (MundanePointSpecs currentMPSpec in _astroConfig.MundanePoints)
+        foreach (MundanePointConfigSpecs currentMPSpec in _astroConfig.MundanePoints)
         {
             if (currentMPSpec.IsUsed)
             {

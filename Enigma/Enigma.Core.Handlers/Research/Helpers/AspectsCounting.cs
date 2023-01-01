@@ -12,6 +12,7 @@ using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse.Research;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
@@ -79,10 +80,10 @@ public class AspectsCounting
             }
             List<EffectiveAspect> effectiveAspects = _aspectsHandler.AspectsForCelPoints(aspectDetails, fullCelPointPositions);
             
-            List<AspectSpecs> selectedAspects = request.Aspects;
+            List<AspectConfigSpecs> selectedAspects = request.Aspects;
             foreach (EffectiveAspect effAspect in effectiveAspects)
             {
-                foreach (AspectSpecs aspectSpec in selectedAspects)
+                foreach (AspectConfigSpecs aspectSpec in selectedAspects)
                 {
                     if (effAspect.EffAspectDetails.Aspect.GetDetails().Aspect == aspectSpec.AspectType.GetDetails().Aspect)
                     {

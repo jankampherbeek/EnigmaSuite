@@ -7,6 +7,7 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;

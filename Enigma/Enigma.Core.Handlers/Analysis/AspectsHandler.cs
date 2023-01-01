@@ -5,8 +5,8 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Handlers.Analysis;

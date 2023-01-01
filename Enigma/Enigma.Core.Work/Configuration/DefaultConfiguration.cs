@@ -8,6 +8,7 @@ using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Configuration.Parsers;
 
@@ -27,128 +28,136 @@ public class DefaultConfiguration : IDefaultConfiguration
         ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         OrbMethods orbMethod = OrbMethods.Weighted;
-        List<CelPointSpecs> celPointsSpecs = CreateCelPoints();
-        List<AspectSpecs> aspectSpecs = CreateAspects();
-        List<MundanePointSpecs> mundanePointSpecs = CreateMundanePoints();
-        List<ArabicPointSpecs> arabicPointSpecs = CreateArabicPoints();
+        List<CelPointConfigSpecs> celPointsSpecs = CreateCelPoints();
+        List<AspectConfigSpecs> aspectSpecs = CreateAspects();
+        List<MundanePointConfigSpecs> mundanePointSpecs = CreateMundanePoints();
+        List<ArabicPointConfigSpecs> arabicPointSpecs = CreateArabicPoints();
+        List<ZodiacPointConfigSpecs> zodiacPointSpecs = CreateZodiacPoints();
         double baseOrbAspects = 10.0;
         double baseOrbMidpoints = 1.6;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-            celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, baseOrbAspects, baseOrbMidpoints);
+            celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, zodiacPointSpecs, baseOrbAspects, baseOrbMidpoints);
     }
 
-    private static List<CelPointSpecs> CreateCelPoints()
+    private static List<CelPointConfigSpecs> CreateCelPoints()
     {
-        List<CelPointSpecs> celPointSpecs = new()
+        List<CelPointConfigSpecs> celPointSpecs = new()
         {
-            new CelPointSpecs(CelPoints.Sun, 100, true),
-            new CelPointSpecs(CelPoints.Moon, 100, true),
-            new CelPointSpecs(CelPoints.Mercury, 80, true),
-            new CelPointSpecs(CelPoints.Venus, 80, true),
-            new CelPointSpecs(CelPoints.Earth, 100, false),
-            new CelPointSpecs(CelPoints.Mars, 80, true),
-            new CelPointSpecs(CelPoints.Jupiter, 65, true),
-            new CelPointSpecs(CelPoints.Saturn, 65, true),
-            new CelPointSpecs(CelPoints.Uranus, 50, true),
-            new CelPointSpecs(CelPoints.Neptune, 50, true),
-            new CelPointSpecs(CelPoints.Pluto, 50, true),
-            new CelPointSpecs(CelPoints.MeanNode, 65, false),
-            new CelPointSpecs(CelPoints.TrueNode, 65, true),
-            new CelPointSpecs(CelPoints.Chiron, 65, true),
-            new CelPointSpecs(CelPoints.PersephoneRam, 40, false),
-            new CelPointSpecs(CelPoints.HermesRam, 40, false),
-            new CelPointSpecs(CelPoints.DemeterRam, 40, false),
-            new CelPointSpecs(CelPoints.CupidoUra, 40, false),
-            new CelPointSpecs(CelPoints.HadesUra, 40, false),
-            new CelPointSpecs(CelPoints.ZeusUra, 40, false),
-            new CelPointSpecs(CelPoints.KronosUra, 40, false),
-            new CelPointSpecs(CelPoints.ApollonUra, 40, false),
-            new CelPointSpecs(CelPoints.AdmetosUra, 40, false),
-            new CelPointSpecs(CelPoints.VulcanusUra, 40, false),
-            new CelPointSpecs(CelPoints.PoseidonUra, 40, false),
-            new CelPointSpecs(CelPoints.Eris, 40, false),
-            new CelPointSpecs(CelPoints.Pholus, 40, false),
-            new CelPointSpecs(CelPoints.Ceres, 40, false),
-            new CelPointSpecs(CelPoints.Pallas, 40, false),
-            new CelPointSpecs(CelPoints.Juno, 40, false),
-            new CelPointSpecs(CelPoints.Vesta, 40, false),
-            new CelPointSpecs(CelPoints.Isis, 40, false),
-            new CelPointSpecs(CelPoints.Nessus, 40, false),
-            new CelPointSpecs(CelPoints.Huya, 40, false),
-            new CelPointSpecs(CelPoints.Varuna, 40, false),
-            new CelPointSpecs(CelPoints.Ixion, 40, false),
-            new CelPointSpecs(CelPoints.Quaoar, 40, false),
-            new CelPointSpecs(CelPoints.Haumea, 40, false),
-            new CelPointSpecs(CelPoints.Orcus, 40, false),
-            new CelPointSpecs(CelPoints.Makemake, 40, false),
-            new CelPointSpecs(CelPoints.Sedna, 40, false),
-            new CelPointSpecs(CelPoints.Hygieia, 40, false),
-            new CelPointSpecs(CelPoints.Astraea, 40, false),
-            new CelPointSpecs(CelPoints.ApogeeMean, 65, true),
-            new CelPointSpecs(CelPoints.ApogeeCorrected, 65, false),
-            new CelPointSpecs(CelPoints.ApogeeInterpolated, 65, false),
-            new CelPointSpecs(CelPoints.ApogeeDuval, 65, false),
-            new CelPointSpecs(CelPoints.ZeroAries, 40, false),
-            new CelPointSpecs(CelPoints.ParsFortunaNoSect, 65, false),
-            new CelPointSpecs(CelPoints.ParsFortunaSect, 65, true),
-            new CelPointSpecs(CelPoints.PersephoneCarteret, 40, false),
-            new CelPointSpecs(CelPoints.VulcanusCarteret, 40, false)
+            new CelPointConfigSpecs(CelPoints.Sun, 100, true),
+            new CelPointConfigSpecs(CelPoints.Moon, 100, true),
+            new CelPointConfigSpecs(CelPoints.Mercury, 80, true),
+            new CelPointConfigSpecs(CelPoints.Venus, 80, true),
+            new CelPointConfigSpecs(CelPoints.Earth, 100, false),
+            new CelPointConfigSpecs(CelPoints.Mars, 80, true),
+            new CelPointConfigSpecs(CelPoints.Jupiter, 65, true),
+            new CelPointConfigSpecs(CelPoints.Saturn, 65, true),
+            new CelPointConfigSpecs(CelPoints.Uranus, 50, true),
+            new CelPointConfigSpecs(CelPoints.Neptune, 50, true),
+            new CelPointConfigSpecs(CelPoints.Pluto, 50, true),
+            new CelPointConfigSpecs(CelPoints.MeanNode, 65, false),
+            new CelPointConfigSpecs(CelPoints.TrueNode, 65, true),
+            new CelPointConfigSpecs(CelPoints.Chiron, 65, true),
+            new CelPointConfigSpecs(CelPoints.PersephoneRam, 40, false),
+            new CelPointConfigSpecs(CelPoints.HermesRam, 40, false),
+            new CelPointConfigSpecs(CelPoints.DemeterRam, 40, false),
+            new CelPointConfigSpecs(CelPoints.CupidoUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.HadesUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.ZeusUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.KronosUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.ApollonUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.AdmetosUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.VulcanusUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.PoseidonUra, 40, false),
+            new CelPointConfigSpecs(CelPoints.Eris, 40, false),
+            new CelPointConfigSpecs(CelPoints.Pholus, 40, false),
+            new CelPointConfigSpecs(CelPoints.Ceres, 40, false),
+            new CelPointConfigSpecs(CelPoints.Pallas, 40, false),
+            new CelPointConfigSpecs(CelPoints.Juno, 40, false),
+            new CelPointConfigSpecs(CelPoints.Vesta, 40, false),
+            new CelPointConfigSpecs(CelPoints.Isis, 40, false),
+            new CelPointConfigSpecs(CelPoints.Nessus, 40, false),
+            new CelPointConfigSpecs(CelPoints.Huya, 40, false),
+            new CelPointConfigSpecs(CelPoints.Varuna, 40, false),
+            new CelPointConfigSpecs(CelPoints.Ixion, 40, false),
+            new CelPointConfigSpecs(CelPoints.Quaoar, 40, false),
+            new CelPointConfigSpecs(CelPoints.Haumea, 40, false),
+            new CelPointConfigSpecs(CelPoints.Orcus, 40, false),
+            new CelPointConfigSpecs(CelPoints.Makemake, 40, false),
+            new CelPointConfigSpecs(CelPoints.Sedna, 40, false),
+            new CelPointConfigSpecs(CelPoints.Hygieia, 40, false),
+            new CelPointConfigSpecs(CelPoints.Astraea, 40, false),
+            new CelPointConfigSpecs(CelPoints.ApogeeMean, 65, true),
+            new CelPointConfigSpecs(CelPoints.ApogeeCorrected, 65, false),
+            new CelPointConfigSpecs(CelPoints.ApogeeInterpolated, 65, false),
+            new CelPointConfigSpecs(CelPoints.ApogeeDuval, 65, false),
+  //          new CelPointConfigSpecs(CelPoints.ZeroAries, 40, false),
+  //          new CelPointConfigSpecs(CelPoints.ParsFortunaNoSect, 65, false),
+  //          new CelPointConfigSpecs(CelPoints.ParsFortunaSect, 65, true),
+            new CelPointConfigSpecs(CelPoints.PersephoneCarteret, 40, false),
+            new CelPointConfigSpecs(CelPoints.VulcanusCarteret, 40, false)
         };
         return celPointSpecs;
     }
 
-    private static List<AspectSpecs> CreateAspects()
+    private static List<AspectConfigSpecs> CreateAspects()
     {
-        List<AspectSpecs> aspectSpecs = new()
+        List<AspectConfigSpecs> aspectSpecs = new()
         {
-            new AspectSpecs(AspectTypes.Conjunction, 100, true),
-            new AspectSpecs(AspectTypes.Opposition, 100, true),
-            new AspectSpecs(AspectTypes.Triangle, 85, true),
-            new AspectSpecs(AspectTypes.Square, 85, true),
-            new AspectSpecs(AspectTypes.Septile, 30, false),
-            new AspectSpecs(AspectTypes.Sextile, 70, true),
-            new AspectSpecs(AspectTypes.Quintile, 30, false),
-            new AspectSpecs(AspectTypes.SemiSextile, 30, false),
-            new AspectSpecs(AspectTypes.SemiSquare, 30, false),
-            new AspectSpecs(AspectTypes.SemiQuintile, 30, false),
-            new AspectSpecs(AspectTypes.BiQuintile, 30, false),
-            new AspectSpecs(AspectTypes.Inconjunct, 30, true),
-            new AspectSpecs(AspectTypes.SesquiQuadrate, 30, false),
-            new AspectSpecs(AspectTypes.TriDecile, 15, false),
-            new AspectSpecs(AspectTypes.BiSeptile, 15, false),
-            new AspectSpecs(AspectTypes.TriSeptile, 15, false),
-            new AspectSpecs(AspectTypes.Novile, 15, false),
-            new AspectSpecs(AspectTypes.BiNovile, 15, false),
-            new AspectSpecs(AspectTypes.QuadraNovile, 15, false),
-            new AspectSpecs(AspectTypes.Undecile, 15, false),
-            new AspectSpecs(AspectTypes.Centile, 15, false),
-            new AspectSpecs(AspectTypes.Vigintile, 15, false)
+            new AspectConfigSpecs(AspectTypes.Conjunction, 100, true),
+            new AspectConfigSpecs(AspectTypes.Opposition, 100, true),
+            new AspectConfigSpecs(AspectTypes.Triangle, 85, true),
+            new AspectConfigSpecs(AspectTypes.Square, 85, true),
+            new AspectConfigSpecs(AspectTypes.Septile, 30, false),
+            new AspectConfigSpecs(AspectTypes.Sextile, 70, true),
+            new AspectConfigSpecs(AspectTypes.Quintile, 30, false),
+            new AspectConfigSpecs(AspectTypes.SemiSextile, 30, false),
+            new AspectConfigSpecs(AspectTypes.SemiSquare, 30, false),
+            new AspectConfigSpecs(AspectTypes.SemiQuintile, 30, false),
+            new AspectConfigSpecs(AspectTypes.BiQuintile, 30, false),
+            new AspectConfigSpecs(AspectTypes.Inconjunct, 30, true),
+            new AspectConfigSpecs(AspectTypes.SesquiQuadrate, 30, false),
+            new AspectConfigSpecs(AspectTypes.TriDecile, 15, false),
+            new AspectConfigSpecs(AspectTypes.BiSeptile, 15, false),
+            new AspectConfigSpecs(AspectTypes.TriSeptile, 15, false),
+            new AspectConfigSpecs(AspectTypes.Novile, 15, false),
+            new AspectConfigSpecs(AspectTypes.BiNovile, 15, false),
+            new AspectConfigSpecs(AspectTypes.QuadraNovile, 15, false),
+            new AspectConfigSpecs(AspectTypes.Undecile, 15, false),
+            new AspectConfigSpecs(AspectTypes.Centile, 15, false),
+            new AspectConfigSpecs(AspectTypes.Vigintile, 15, false)
         };
         return aspectSpecs;
     }
 
-    private static List<MundanePointSpecs> CreateMundanePoints()
+    private static List<MundanePointConfigSpecs> CreateMundanePoints()
     {
-        List<MundanePointSpecs> mundanePointSpecs = new()
+        List<MundanePointConfigSpecs> mundanePointSpecs = new()
         {
-            new MundanePointSpecs(MundanePoints.Ascendant, 100, true),
-            new MundanePointSpecs(MundanePoints.Mc, 100, true),
-            new MundanePointSpecs(MundanePoints.EastPoint, 20, false),
-            new MundanePointSpecs(MundanePoints.Vertex, 20, false)
+            new MundanePointConfigSpecs(MundanePoints.Ascendant, 100, true),
+            new MundanePointConfigSpecs(MundanePoints.Mc, 100, true),
+            new MundanePointConfigSpecs(MundanePoints.EastPoint, 20, false),
+            new MundanePointConfigSpecs(MundanePoints.Vertex, 20, false)
         };
         return mundanePointSpecs;
     }
 
-    private static List<ArabicPointSpecs> CreateArabicPoints()
+    private static List<ArabicPointConfigSpecs> CreateArabicPoints()
     {
-        List<ArabicPointSpecs> arabicPointSpecs = new()
+        List<ArabicPointConfigSpecs> arabicPointSpecs = new()
         {
-            new ArabicPointSpecs(ArabicPoints.FortunaSect, 40, true),
-            new ArabicPointSpecs(ArabicPoints.FortunaNoSect, 40, false)
+            new ArabicPointConfigSpecs(ArabicPoints.FortunaSect, 40, true),
+            new ArabicPointConfigSpecs(ArabicPoints.FortunaNoSect, 40, false)
         };
         return arabicPointSpecs;
     }
 
-
+    private static List<ZodiacPointConfigSpecs> CreateZodiacPoints()
+    {
+        List<ZodiacPointConfigSpecs> zodiacPointSpecs = new()
+        {
+            new ZodiacPointConfigSpecs(ZodiacPoints.ZeroAries, 0, false)
+        };
+        return zodiacPointSpecs;
+    }
 
 }

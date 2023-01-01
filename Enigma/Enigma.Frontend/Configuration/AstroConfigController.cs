@@ -6,13 +6,14 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows;
 
-namespace Enigma.Frontend.Ui.Settings;
+namespace Enigma.Frontend.Ui.Configuration;
 
 public class AstroConfigController
 {
@@ -44,9 +45,19 @@ public class AstroConfigController
         };
     }
 
+    public string DefineGlyph(ArabicPoints point)
+    {
+        return point.GetDetails().DefaultGlyph;
+    }
+
     public string DefineGlyph(AspectTypes aspect)
     {
         return aspect.GetDetails().Glyph;
+    }
+
+    public string DefineGlyph(ZodiacPoints point)
+    {
+        return point.GetDetails().DefaultGlyph;
     }
 
     public AstroConfig GetConfig()

@@ -4,6 +4,7 @@
 
 
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Domain.AstronCalculations;
 

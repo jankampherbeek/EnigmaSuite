@@ -1,0 +1,80 @@
+﻿// Jan Kampherbeek, (c) 2022, 2023.
+// Enigma is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Domain.Interfaces;
+
+namespace Enigma.Domain.Points;
+
+/// <inheritdoc/>
+public class PointMappings: IPointMappings
+{
+
+    private readonly int _offsetCelPoints = 0;
+    private readonly int _offsetZodiacPoints = 1000;
+    private readonly int _offsetArabicPoints = 2000;
+    private readonly int _offsetMundanePoints = 3000;
+    private readonly int _offsetCusps = 4000;
+    private readonly PointDefinitions _pointDefinitions;
+
+    /// <inheritdoc/>
+    public PointMappings(PointDefinitions pointDefinitions)
+    {
+        _pointDefinitions = pointDefinitions;
+    }
+
+    /// <inheritdoc/>
+    public int IndexForCelPoint(CelPoints point)
+    {
+        return (int)point + _offsetCelPoints;
+    }
+
+    /// <inheritdoc/>
+    public int IndexForZodiacPoint(ZodiacPoints point)
+    {
+        return (int)point + _offsetZodiacPoints;
+    }
+
+    /// <inheritdoc/>
+    public int IndexForArabicPoint(ArabicPoints point)
+    {
+        return (int)point + _offsetArabicPoints;
+    }
+
+    /// <inheritdoc/>
+    public int IndexForMundanePoint(MundanePoints point)
+    {
+        return (int)point + _offsetMundanePoints;
+    }
+
+    /// <inheritdoc/>
+    public int IndexForCusp(int cuspNr)
+    {
+        return cuspNr -1 + _offsetCusps;
+    }
+
+    /// <inheritdoc/>
+    public GeneralPoint GeneralPointForIndex(int index)
+    {
+       foreach (GeneralPoint point in _pointDefinitions.AllGenericPoints)
+       {
+            if (point.Index == index) return point; 
+       }
+        throw new ArgumentException("Could not find GeneralPoint for index: " + index);
+    }
+
+    /// <inheritdoc/>
+    public PointTypes PointTypeForIndex(int index)
+    {
+        if (index >= _offsetCelPoints)
+        {
+            if (index < _offsetZodiacPoints) return PointTypes.CelestialPoint;
+            if (index < _offsetArabicPoints) return PointTypes.ZodiacalPoint;
+            if (index < _offsetMundanePoints) return PointTypes.ArabicPoint;
+            if (index < _offsetCusps) return PointTypes.MundaneSpecialPoint;
+            if (index < 5000) return PointTypes.Cusp;
+        }
+        return PointTypes.None;
+    }
+
+}

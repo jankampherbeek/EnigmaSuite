@@ -336,7 +336,7 @@ projectusagewindow.details.multiplication = Multiplication for controlgroup
 
 -------------------------------- References ------------
 
-ref.enum.arabicpoint.fortunasect = Pars Fortunae (using sect)
+ref.enum.arabicpoint.fortunasect = Pars Fortunae (sect)
 ref.enum.arabicpoint.fortunanosect = Pars Fortunae (no sect)
 
 ref.enum.aspect.centile = Centile (100°)
@@ -446,8 +446,6 @@ ref.enum.celpoint.neptune = Neptune
 ref.enum.celpoint.nessus = Nessus
 ref.enum.celpoint.orcus = Orcus
 ref.enum.celpoint.pallas = Pallas
-ref.enum.celpoint.pars_fortuna_sect = Pars Fortunae (sect)
-ref.enum.celpoint.pars_fortuna_nosect = Pars Fortunae (no sect)
 ref.enum.celpoint.persephone_carteret = Persephone (Carteret) (n/a)
 ref.enum.celpoint.persephone_ram = Persephone (Ram)
 ref.enum.celpoint.pholus = Pholus
@@ -465,7 +463,6 @@ ref.enum.celpoint.venus = Venus
 ref.enum.celpoint.vesta = Vesta
 ref.enum.celpoint.vulcanus_carteret = Vulcanus (Carteret) (n/a)
 ref.enum.celpoint.vulcanus_ura = Vulcanus (Uranian)
-ref.enum.celpoint.zero_aries = Zero Aries
 ref.enum.celpoint.zeus_ura = Zeus (Uranian)
 
 ref.enum.chartcategories.election = Election
@@ -474,6 +471,43 @@ ref.enum.chartcategories.female = Female
 ref.enum.chartcategories.horary = Horary
 ref.enum.chartcategories.male = Male
 ref.enum.chartcategories.unknown = Unknown
+
+ref.enum.cusps.0 = Cusp 1
+ref.enum.cusps.1 = Cusp 2
+ref.enum.cusps.2 = Cusp 3
+ref.enum.cusps.3 = Cusp 4
+ref.enum.cusps.4 = Cusp 5
+ref.enum.cusps.5 = Cusp 6
+ref.enum.cusps.6 = Cusp 7
+ref.enum.cusps.7 = Cusp 8
+ref.enum.cusps.8 = Cusp 9
+ref.enum.cusps.9 = Cusp 0
+ref.enum.cusps.10 = Cusp 11
+ref.enum.cusps.11 = Cusp 12
+ref.enum.cusps.12 = Cusp 13
+ref.enum.cusps.13 = Cusp 14
+ref.enum.cusps.14 = Cusp 15
+ref.enum.cusps.15 = Cusp 16
+ref.enum.cusps.16 = Cusp 17
+ref.enum.cusps.17 = Cusp 18
+ref.enum.cusps.18 = Cusp 19
+ref.enum.cusps.19 = Cusp 20
+ref.enum.cusps.20 = Cusp 21
+ref.enum.cusps.21 = Cusp 22
+ref.enum.cusps.22 = Cusp 23
+ref.enum.cusps.23 = Cusp 24
+ref.enum.cusps.24 = Cusp 25
+ref.enum.cusps.25 = Cusp 26
+ref.enum.cusps.26 = Cusp 27
+ref.enum.cusps.27 = Cusp 28
+ref.enum.cusps.28 = Cusp 29
+ref.enum.cusps.29 = Cusp 30
+ref.enum.cusps.30 = Cusp 31
+ref.enum.cusps.31 = Cusp 32 
+ref.enum.cusps.32 = Cusp 33
+ref.enum.cusps.33 = Cusp 34
+ref.enum.cusps.34 = Cusp 35
+ref.enum.cusps.35 = Cusp 36
 
 ref.enum.controlgrouptypes.standardshift = Standard shifting of location, date, and time
 ref.enum.controlgrouptypes.groupmembershift = Shift members of groups
@@ -585,10 +619,10 @@ ref.enum.yearcount.ce = CE
 ref.enum.yearcount.bce = BCE
 ref.enum.yearcount.astronomical = Astronomical
 
-ref.enum.zodiacalpoints.id.zeroar = Zero Aries
-ref.enum.zodiacalpoints.id.zerocn = Zero Cancer
-ref.enum.zodiacalpoints.idabbr.zeroar = 0\u00B0Ar
-ref.enum.zodiacalpoints.idabbr.zerocn = 0\u00B0Cn
+ref.enum.zodiacpoints.id.zeroar = Zero Aries
+ref.enum.zodiacpoints.id.zerocn = Zero Cancer
+ref.enum.zodiacpoints.idabbr.zeroar = 0\u00B0Ar
+ref.enum.zodiacpoints.idabbr.zerocn = 0\u00B0Cn
 
 ref.enum.zodiactype.sidereal = Sideral
 ref.enum.zodiactype.tropical = Tropical

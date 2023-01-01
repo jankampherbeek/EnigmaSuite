@@ -7,6 +7,7 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Analysis;
 
@@ -46,7 +47,7 @@ public class AnalysisPointsMapping : IAnalysisPointsMapping
             {
                 double pos0Aries = 0.0;  // correct value for 0 Aries all ecliptical and equatorial coordinates.
                 string glyph = "1";
-                mappedPoints.Add(new AnalysisPoint(pointGroup, (int)ZodiacalPoints.ZeroAries, pos0Aries, glyph));
+                mappedPoints.Add(new AnalysisPoint(pointGroup, (int)ZodiacPoints.ZeroAries, pos0Aries, glyph));
             }
         }
         return mappedPoints;
@@ -64,11 +65,11 @@ public class CelPointToAnalysisPointMap : ICelPointToAnalysisPointMap
         string glyph = sspDetails.DefaultGlyph;
         if (coordinateSystem == CoordinateSystems.Ecliptical)
         {
-            position = mainCoord ? fullCelPointPos.Longitude.Position : fullCelPointPos.Latitude.Position;
+            position = mainCoord ? fullCelPointPos.GeneralPointPos.Longitude.Position : fullCelPointPos.GeneralPointPos.Latitude.Position;
         }
         if (coordinateSystem == CoordinateSystems.Equatorial)
         {
-            position = mainCoord ? fullCelPointPos.RightAscension.Position : fullCelPointPos.Declination.Position;
+            position = mainCoord ? fullCelPointPos.GeneralPointPos.RightAscension.Position : fullCelPointPos.GeneralPointPos.Declination.Position;
         }
         int idPoint = (int)fullCelPointPos.CelPoint;
         return new AnalysisPoint(pointGroup, idPoint, position, glyph);

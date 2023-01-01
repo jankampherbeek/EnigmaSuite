@@ -6,6 +6,7 @@
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
@@ -62,7 +63,7 @@ public class CelPointsHandler : ICelPointsHandler
         int _flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
         int _flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.ActualCalculationPreferences.ActualObserverPosition, request.ActualCalculationPreferences.ActualZodiacType);
         var _fullCelPoints = new List<FullCelPointPos>();
-        foreach (Domain.Enums.CelPoints celPoint in request.ActualCalculationPreferences.ActualCelPoints)
+        foreach (CelPoints celPoint in request.ActualCalculationPreferences.ActualCelPoints)
         {
             CelPointDetails details = celPoint.GetDetails();
             if (details.CalculationType == CalculationTypes.SE)
@@ -82,29 +83,36 @@ public class CelPointsHandler : ICelPointsHandler
                 EclipticCoordinates eclCoordinates = new(positions[0][0], positions[0][1]);
                 HorizontalRequest horizontalRequest = new(julDay, request.ChartLocation, eclCoordinates);
                 HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest).HorizontalAzimuthAltitude;
-                _fullCelPoints.Add(new FullCelPointPos(celPoint, longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, distPosSpeed, horCoord));
+                FullPointPos fullPointPos = new(longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, horCoord);
+                _fullCelPoints.Add(new FullCelPointPos(celPoint, distPosSpeed, fullPointPos));
             }
         }
         return new CelPointsResponse(_fullCelPoints, success, errorText);
-
     }
 
-    private FullCelPointPos CreatePosForSePoint(Domain.Enums.CelPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
+
+    private FullCelPointPos CreatePosForSePoint(CelPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
+        PosSpeed longPosSpeed = eclipticPosSpeed[0];
+        PosSpeed latPosSpeed = eclipticPosSpeed[1];
+        PosSpeed distPosSpeed = eclipticPosSpeed[2];
         PosSpeed[] equatorialPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);
+        PosSpeed raPosSpeed = equatorialPosSpeed[0];
+        PosSpeed declPosSpeed = equatorialPosSpeed[1];
         var eclCoordinates = new EclipticCoordinates(eclipticPosSpeed[0].Position, eclipticPosSpeed[1].Position);
         HorizontalRequest horizontalRequest = new(julDay, location, eclCoordinates);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest).HorizontalAzimuthAltitude;
-        return new FullCelPointPos(celPoint, eclipticPosSpeed[0], eclipticPosSpeed[1], equatorialPosSpeed[0], equatorialPosSpeed[1], eclipticPosSpeed[2], horCoord);
+        FullPointPos fullPointPos = new(longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, horCoord);
+        return new FullCelPointPos(celPoint, distPosSpeed, fullPointPos);
     }
 
-    private double[][] CreatePosForElementBasedPoint(Domain.Enums.CelPoints celPoint, double julDay, Location location, double obliquity)
+
+    private double[][] CreatePosForElementBasedPoint(CelPoints celPoint, double julDay, Location location, double obliquity)
     {
         double[] eclipticPos = _celPointElementsCalc.Calculate(celPoint, julDay);
         double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new double[] { eclipticPos[0], eclipticPos[1] }, obliquity);
         return new double[][] { eclipticPos, equatorialPos };
-
     }
 }
 

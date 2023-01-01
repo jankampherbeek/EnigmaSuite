@@ -7,6 +7,7 @@
 using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Core.Work.Calc.Util;
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Points;
 
 namespace Enigma.Core.Work.Calc.CelestialPoints;
 
@@ -23,7 +24,7 @@ public class CelPointsElementsCalc : ICelPointsElementsCalc
     }
 
     /// <inheritdoc/>
-    public double[] Calculate(Domain.Enums.CelPoints planet, double jdUt)
+    public double[] Calculate(CelPoints planet, double jdUt)
     {
         double centuryFractionT = FactorT(jdUt);
         PolarCoordinates polarPlanetGeo = CalcGeoPolarCoord(planet, centuryFractionT);
@@ -31,9 +32,9 @@ public class CelPointsElementsCalc : ICelPointsElementsCalc
     }
 
 
-    private PolarCoordinates CalcGeoPolarCoord(Domain.Enums.CelPoints planet, double centuryFractionT)
+    private PolarCoordinates CalcGeoPolarCoord(CelPoints planet, double centuryFractionT)
     {
-        RectAngCoordinates rectAngEarthHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(Domain.Enums.CelPoints.Earth));
+        RectAngCoordinates rectAngEarthHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(CelPoints.Earth));
         RectAngCoordinates rectAngPlanetHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(planet));
         RectAngCoordinates rectAngPlanetGeo = new(rectAngPlanetHelio.XCoord - rectAngEarthHelio.XCoord, rectAngPlanetHelio.YCoord - rectAngEarthHelio.YCoord, rectAngPlanetHelio.ZCoord - rectAngEarthHelio.ZCoord);
         return MathExtra.Rectangular2Polar(rectAngPlanetGeo);
@@ -54,7 +55,7 @@ public class CelPointsElementsCalc : ICelPointsElementsCalc
         return (jdUt - 2415020.5) / 36525;
     }
 
-    private static OrbitDefinition DefineOrbitDefinition(Domain.Enums.CelPoints planet)
+    private static OrbitDefinition DefineOrbitDefinition(CelPoints planet)
     {
         double[] meanAnomaly;
         double[] eccentricAnomaly = new double[] { 0, 0, 0 };
@@ -62,24 +63,24 @@ public class CelPointsElementsCalc : ICelPointsElementsCalc
         double[] ascNode = new double[] { 0, 0, 0 };
         double[] inclination = new double[] { 0, 0, 0 };
         double semiMajorAxis;
-        if (planet == Domain.Enums.CelPoints.Earth)
+        if (planet == CelPoints.Earth)
         {
             meanAnomaly = new double[] { 358.47584, 35999.0498, -.00015 };
             eccentricAnomaly = new double[] { .016751, -.41e-4, 0 };
             semiMajorAxis = 1.00000013;
             argumentPerihelion = new double[] { 101.22083, 1.71918, .00045 };
         }
-        else if (planet == Domain.Enums.CelPoints.PersephoneRam)
+        else if (planet == CelPoints.PersephoneRam)
         {
             meanAnomaly = new double[] { 295.0, 60, 0 };
             semiMajorAxis = 71.137866;
         }
-        else if (planet == Domain.Enums.CelPoints.HermesRam)
+        else if (planet == CelPoints.HermesRam)
         {
             meanAnomaly = new double[] { 134.7, 50.0, 0 };
             semiMajorAxis = 80.331954;
         }
-        else if (planet == Domain.Enums.CelPoints.DemeterRam)
+        else if (planet == CelPoints.DemeterRam)
         {
             meanAnomaly = new double[] { 114.6, 40, 0 };
             semiMajorAxis = 93.216975;

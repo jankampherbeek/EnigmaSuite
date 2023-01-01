@@ -6,7 +6,7 @@
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
@@ -85,7 +85,7 @@ public class ChartsWheelAspects : IChartsWheelAspects
         DimPoint dimPoint = new(centerPoint);
         foreach (var ssPointPos in currentChart.CelPointPositions)
         {
-            double longitude = ssPointPos.Longitude.Position;
+            double longitude = ssPointPos.GeneralPointPos.Longitude.Position;
             CelPoints ssPos = ssPointPos.CelPoint;
             double posOnCircle = _rangeCheck.InRange360(longitude - longAsc + 90.0);
             Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);

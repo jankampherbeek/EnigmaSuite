@@ -2,9 +2,9 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Points;
 
-namespace Enigma.Test.Domain.AstronCalculations;
+namespace Enigma.Test.Domain.Points;
 
 [TestFixture]
 public class TestCelPointPosSpeeds
@@ -14,7 +14,7 @@ public class TestCelPointPosSpeeds
     {
         double delta = 0.00000001;
         double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
-        CelPointPosSpeeds posSpeeds = new(values);
+        PointPosSpeeds posSpeeds = new(values);
         Assert.Multiple(() =>
         {
             Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));
@@ -30,7 +30,7 @@ public class TestCelPointPosSpeeds
     public void TestConstructionWrongArray()
     {
         double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0 };
-        Assert.That(() => _ = new CelPointPosSpeeds(values), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = new PointPosSpeeds(values), Throws.TypeOf<ArgumentException>());
 
     }
 
@@ -41,7 +41,7 @@ public class TestCelPointPosSpeeds
         PosSpeed mainPosSpeed = new(1.0, 2.0);
         PosSpeed deviationPosSpeed = new(3.0, 4.0);
         PosSpeed distancePosSpeed = new(5.0, 6.0);
-        CelPointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
+        PointPosSpeeds posSpeeds = new(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
         Assert.Multiple(() =>
         {
             Assert.That(posSpeeds.MainPosSpeed.Position, Is.EqualTo(1.0).Within(delta));

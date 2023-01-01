@@ -4,9 +4,8 @@
 
 
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Core.Work.Analysis.Interfaces;
 

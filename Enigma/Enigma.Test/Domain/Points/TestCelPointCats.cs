@@ -4,8 +4,9 @@
 
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
-namespace Enigma.Test.Domain.Enums;
+namespace Enigma.Test.Domain.Points;
 
 [TestFixture]
 public class TestCelPointCats

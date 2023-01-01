@@ -5,7 +5,7 @@
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Research.DataFiles;
-using Enigma.Frontend.Ui.Settings;
+using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;

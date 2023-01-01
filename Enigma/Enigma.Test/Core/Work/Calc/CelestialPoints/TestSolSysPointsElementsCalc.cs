@@ -3,7 +3,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Work.Calc.CelestialPoints;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Test.Core.Work.Calc.CelestialPoints;
 

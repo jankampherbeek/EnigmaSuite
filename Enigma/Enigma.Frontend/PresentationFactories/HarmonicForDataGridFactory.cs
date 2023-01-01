@@ -5,6 +5,7 @@
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Serilog;
@@ -39,7 +40,7 @@ public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
         {
             counterCelPoints = i;
             string glyph = celPoints[i].CelPoint.GetDetails().DefaultGlyph;
-            double radixPos = celPoints[i].Longitude.Position;
+            double radixPos = celPoints[i].GeneralPointPos.Longitude.Position;
             double harmonicPos = harmonicPositions[i];
             presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
         }

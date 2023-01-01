@@ -16,4 +16,4 @@ namespace Enigma.Domain.RequestResponse.Research;
 /// <param name="PointsSelection">All points that need to be tested.</param>
 /// <param name="Aspects">All aspects that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
-public record CountAspectsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, List<AspectSpecs> Aspects, AstroConfig Config);
+public record CountAspectsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, List<AspectConfigSpecs> Aspects, AstroConfig Config);

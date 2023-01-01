@@ -8,6 +8,7 @@ using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Research.Domain;
 using Serilog;
@@ -72,9 +73,9 @@ public class CalculatedResearchPositions : ICalculatedResearchPositions
     private CalculationPreferences DefinePreferences()
     {
         AstroConfig config = _configurationHandler.ReadConfig();
-        List<CelPointSpecs> cpSpecs = config.CelPoints;
+        List<CelPointConfigSpecs> cpSpecs = config.CelPoints;
         List<CelPoints> celPoints = new();
-        foreach (CelPointSpecs cpSpec in cpSpecs)
+        foreach (CelPointConfigSpecs cpSpec in cpSpecs)
         {
             if (cpSpec.IsUsed)
             {

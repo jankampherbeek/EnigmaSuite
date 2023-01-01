@@ -2,12 +2,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.Enums;
+namespace Enigma.Domain.Points;
 
-/// <summary>Supported mundane.</summary>
+/// <summary>Supported mundane points.</summary>
 public enum MundanePoints
 {
-    Ascendant = 0, Mc = 1, EastPoint = 2, Vertex = 3
+    None = -1, Ascendant = 0, Mc = 1, EastPoint = 2, Vertex = 3
 }
 
 public static class MundanePointsExtensions
@@ -34,8 +34,11 @@ public static class MundanePointsExtensions
     {
         var allDetails = new List<MundanePointDetails>();
         foreach (MundanePoints currentPoint in Enum.GetValues(typeof(MundanePoints)))
-        {
-            allDetails.Add(currentPoint.GetDetails());
+        { 
+            if (currentPoint != MundanePoints.None)
+            {
+                allDetails.Add(currentPoint.GetDetails());
+            }
         }
         return allDetails;
     }
@@ -50,7 +53,7 @@ public static class MundanePointsExtensions
     {
         foreach (MundanePoints mPoint in Enum.GetValues(typeof(MundanePoints)))
         {
-            if ((int)mPoint == index) return mPoint;
+            if (mPoint != MundanePoints.None && (int)mPoint == index) return mPoint;
         }
         throw new ArgumentException("Could not find mundane point for index : " + index);
     }
@@ -60,8 +63,8 @@ public static class MundanePointsExtensions
 
 
 
-/// <summary>Details for a Mundane Point.</summary>
-/// <param name="MundanePoint">The Mundane Point.</param>
+/// <summary>Details for a Mundane GeneralPoint.</summary>
+/// <param name="MundanePoint">The Mundane GeneralPoint.</param>
 /// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
 /// <param name="TextIdAbbreviated">Abbreviated version for TextId.</param>
 public record MundanePointDetails(MundanePoints MundanePoint, string TextId, string TextIdAbbreviated);

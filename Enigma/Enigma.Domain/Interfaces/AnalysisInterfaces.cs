@@ -7,6 +7,7 @@ using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Interfaces;
 

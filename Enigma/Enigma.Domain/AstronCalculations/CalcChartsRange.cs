@@ -4,6 +4,7 @@
 
 
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Points;
 using System.Globalization;
 
 namespace Enigma.Domain.CalcChartsRange;
