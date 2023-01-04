@@ -1,9 +1,8 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
@@ -12,9 +11,9 @@ using Enigma.Domain.RequestResponse;
 namespace Enigma.Core.Handlers.Analysis;
 
 /// <inheritdoc/>
-class AspectsHandler : IAspectsHandler
+public sealed class AspectsHandler : IAspectsHandler
 {
-    private IAspectChecker _aspectChecker;
+    private readonly IAspectChecker _aspectChecker;
 
     public AspectsHandler(IAspectChecker aspectChecker)
     {
@@ -30,7 +29,7 @@ class AspectsHandler : IAspectsHandler
     /// <inheritdoc/>
     public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request)
     {
-        return _aspectChecker.FindAspectsForMundanePoints(request.CalcChart);
+        return _aspectChecker.FindAspectsForMundanePoints(request.CalcChart, request.Config);
     }
 
     /// <inheritdoc/>
@@ -43,6 +42,6 @@ class AspectsHandler : IAspectsHandler
     /// <inheritdoc/>
     public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request)
     {
-        return _aspectChecker.FindAspectsCelPoints(request.CalcChart);
+        return _aspectChecker.FindAspectsCelPoints(request.CalcChart, request.Config);
     }
 }

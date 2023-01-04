@@ -1,11 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Domain.AstronCalculations;
 
-namespace Enigma.Domain.Analysis;
+namespace Enigma.Domain.Points;
 
 /// <summary>
 /// Generic DTO for points that will be part of an analysis.

@@ -3,6 +3,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Points;
+
 namespace Enigma.Domain.Analysis;
 
 /// <summary>Details for a base midpoint, a midpoint position that is not necessarily occupied.</summary>

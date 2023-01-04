@@ -1,4 +1,4 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,28 +7,10 @@ using Enigma.Domain.Enums;
 namespace Enigma.Domain.AstronCalculations;
 
 /// <summary>
-/// Record for a full definition of geographic latitude.
+/// Record for a full definition of geographic Latitude.
 /// </summary>
-public record FullGeoLatitude
-{
-    public readonly int[] DegreeMinuteSecond;
-    public readonly double Latitude;
-    public readonly Directions4GeoLat Direction;
-    public readonly string GeoLatFullText;
-
-    /// <summary>
-    /// Constructor for FullGeoLatitude.
-    /// </summary>
-    /// <param name="degreeMinuteSecond">Texts for degree, minute and second in that sequence.</param>
-    /// <param name="latitude">Value of geographic latitude.</param>
-    /// <param name="direction">Direction for geographic latitude: north or south.</param>
-    /// <param name="geoLatFullText">Text for the geographic latitude.</param>
-    public FullGeoLatitude(int[] degreeMinuteSecond, double latitude, Directions4GeoLat direction, string geoLatFullText)
-    {
-        DegreeMinuteSecond = degreeMinuteSecond;
-        Latitude = latitude;
-        Direction = direction;
-        GeoLatFullText = geoLatFullText;
-    }
-
-}
+/// <param name="DegreeMinuteSecond">Texts for degree, minute and second in that sequence.</param>
+/// <param name="Latitude">Value of geographic Latitude.</param>
+/// <param name="Direction">Direction for geographic Latitude: north or south.</param>
+/// <param name="GeoLatFullText">Text for the geographic Latitude.</param>
+public record FullGeoLatitude(int[] DegreeMinuteSecond, double Latitude, Directions4GeoLat Direction, string GeoLatFullText);

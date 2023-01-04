@@ -1,31 +1,13 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Charts;
 
 /// <summary>Aspects to be shown in a data grid.</summary>
-public record PresentableHarmonic
-{
-    public string PointTextGlyph { get; }
-    public string RadixPosText { get; }
-    public string RadixSignGlyph { get; }
-    public string HarmonicPosText { get; }
-    public string HarmonicPosGlyph { get; }
-
-    /// <summary>Construct a record with data for harmonics to be shown in a datagrid.</summary>
-    /// <param name="point1TextGlyph">Glyph or test for the first point. A glyph for celestial points and a text for mundane points.</param>
-    /// <param name="aspectGlyph">Glyph for the aspect.</param>
-    /// <param name="point2Glyph">Glyph for the second point.</param>
-    /// <param name="orbText">Text for the acual orb.</param>
-    /// <param name="exactnessText">Text indicating the exactness of the aspect as a percentage.</param>
-    public PresentableHarmonic(string pointTextGlyph, string radixPosTest, string radixSignGlyph, string harmonicPosText, string harmonicPosGlyph)
-    {
-        PointTextGlyph = pointTextGlyph;
-        RadixPosText = radixPosTest;
-        RadixSignGlyph = radixSignGlyph;
-        HarmonicPosText = harmonicPosText;
-        HarmonicPosGlyph = harmonicPosGlyph;
-    }
-
-}
+/// <param name="point1TextGlyph">Glyph or test for the first point. A glyph for celestial points and a text for mundane points.</param>
+/// <param name="aspectGlyph">Glyph for the aspect.</param>
+/// <param name="point2Glyph">Glyph for the second point.</param>
+/// <param name="orbText">Text for the acual orb.</param>
+/// <param name="exactnessText">Text indicating the exactness of the aspect as a percentage.</param>
+public record PresentableHarmonic(string PointTextGlyph, string RadixPosTest, string RadixSignGlyph, string HarmonicPosText, string harmonicPosGlyph);

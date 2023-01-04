@@ -34,9 +34,12 @@ public class TestCelPoints
     {
         foreach (CelPoints point in Enum.GetValues(typeof(CelPoints)))
         {
-            CelPointDetails details = point.GetDetails();
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            if (point != CelPoints.None)
+            {
+                CelPointDetails details = point.GetDetails();
+                Assert.That(details, Is.Not.Null);
+                Assert.That(details.TextId, Is.Not.Empty);
+            }
         }
     }
 

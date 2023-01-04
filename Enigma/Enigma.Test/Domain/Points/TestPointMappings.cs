@@ -3,7 +3,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 
@@ -30,7 +29,7 @@ public class TestPointMappings
         int expectedIndex = 9;
         CelPoints celPoint = CelPoints.Neptune;
         int resultingIndex = _mappings.IndexForCelPoint(celPoint);
-        Assert.That(resultingIndex, Is.EqualTo(expectedIndex));
+        Assert.That(expectedIndex, Is.EqualTo(resultingIndex));
     }
 
     [Test]
@@ -39,7 +38,7 @@ public class TestPointMappings
         int expectedIndex = 1001;
         ZodiacPoints zodiacPoint = ZodiacPoints.ZeroCancer;
         int resultingIndex = _mappings.IndexForZodiacPoint(zodiacPoint);
-        Assert.That(resultingIndex, Is.EqualTo(expectedIndex));
+        Assert.That(expectedIndex, Is.EqualTo(resultingIndex));
     }
 
     [Test]
@@ -48,7 +47,7 @@ public class TestPointMappings
         int expectedIndex = 2000;
         ArabicPoints arabicPoint = ArabicPoints.FortunaSect;
         int resultingIndex = _mappings.IndexForArabicPoint(arabicPoint);
-        Assert.That(resultingIndex, Is.EqualTo(expectedIndex));
+        Assert.That(expectedIndex, Is.EqualTo(resultingIndex));
     }
 
     [Test]
@@ -57,7 +56,7 @@ public class TestPointMappings
         int expectedIndex = 3002;
         MundanePoints mundanePoint = MundanePoints.EastPoint;
         int resultingIndex = _mappings.IndexForMundanePoint(mundanePoint);
-        Assert.That(resultingIndex, Is.EqualTo(expectedIndex));
+        Assert.That(expectedIndex, Is.EqualTo(resultingIndex));
     }
 
     [Test]
@@ -66,7 +65,7 @@ public class TestPointMappings
         int expectedIndex = 4006;
         int cuspNr = 7;
         int resultingIndex = _mappings.IndexForCusp(cuspNr);
-        Assert.That(resultingIndex, Is.EqualTo(expectedIndex));
+        Assert.That(expectedIndex, Is.EqualTo(resultingIndex));
     }
 
     [Test]
@@ -75,7 +74,7 @@ public class TestPointMappings
         int index = 41;
         string expectedPointName = "Hygieia";
         GeneralPoint resultingPoint = _mappings.GeneralPointForIndex(index);
-        Assert.That(resultingPoint.Name, Is.EqualTo(expectedPointName));
+        Assert.That(expectedPointName, Is.EqualTo(resultingPoint.Name));
     }
 
     [Test]
@@ -84,7 +83,7 @@ public class TestPointMappings
         int index = 3001;
         string expectedPointName = "MC";
         GeneralPoint resultingPoint = _mappings.GeneralPointForIndex(index);
-        Assert.That(resultingPoint.Name, Is.EqualTo(expectedPointName));
+        Assert.That(expectedPointName, Is.EqualTo(resultingPoint.Name));
     }
 
     [Test]
@@ -100,7 +99,76 @@ public class TestPointMappings
         int index = 2100;
         PointTypes expectedPointType = PointTypes.ArabicPoint;
         PointTypes resultingPointType = _mappings.PointTypeForIndex(index);
-        Assert.That(expectedPointType, Is.EqualTo(resultingPointType));
+        Assert.That(resultingPointType, Is.EqualTo(expectedPointType));
     }
+
+    [Test]
+    public void TestCelPointForIndexHappyFlow()
+    {
+        int index = 5;
+        CelPoints expectedPoint = CelPoints.Mars;
+        CelPoints resultingPoint = _mappings.CelPointForIndex(index);
+        Assert.That(resultingPoint, Is.EqualTo(expectedPoint));
+    }
+
+    [Test]
+    public void TestCelPointForIndexOutOfRange()
+    {
+        int index = 2020;
+        Assert.That(() => _ = _mappings.CelPointForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestZodiacPointForIndexHappyFlow()
+    {
+        int index = 1000;
+        ZodiacPoints expectedPoint = ZodiacPoints.ZeroAries;
+        ZodiacPoints resultingPoint = _mappings.ZodiacPointForIndex(index);
+        Assert.That(resultingPoint, Is.EqualTo(expectedPoint));
+    }
+
+    [Test]
+    public void TestZodiacPointForIndexOutOfRange()
+    {
+        int index = 2000;
+        Assert.That(() => _ = _mappings.ZodiacPointForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestArabicPointForIndexHappyFlow()
+    {
+        int index = 2001;
+        ArabicPoints expectedPoint = ArabicPoints.FortunaNoSect;
+        ArabicPoints resultingPoint = _mappings.ArabicPointForIndex(index);
+        Assert.That(resultingPoint, Is.EqualTo(expectedPoint));
+    }
+
+    [Test]
+    public void TestArabicPointForIndexOutOfRange()
+    {
+        int index = 3001;
+        Assert.That(() => _ = _mappings.ArabicPointForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+    [Test]
+    public void TestMundanePointForIndexHappyFlow()
+    {
+        int index = 3002;
+        MundanePoints expectedPoint = MundanePoints.EastPoint;
+        MundanePoints resultingPoint = _mappings.MundanePointForIndex(index);
+        Assert.That(resultingPoint, Is.EqualTo(expectedPoint));
+    }
+
+    [Test]
+    public void TestMundanePointForIndexOutOfRange()
+    {
+        int index = 1002;
+        Assert.That(() => _ = _mappings.MundanePointForIndex(index), Throws.TypeOf<ArgumentException>());
+    }
+
+
+
+
+
 
 }

@@ -18,27 +18,5 @@ public interface IOrbDefinitions
 }
 
 
-/// <summary>
-/// Mapping to support analysis.
-/// </summary>
-public interface IAnalysisPointsMapping
-{
-    /// <summary>
-    /// Maps values from a calculated chart to a list of AnalysisPoint.
-    /// </summary>
-    /// <remarks>Does not yet support fix stars, or horizontal coordiantes. 
-    /// For mundane positions only supports Mc and Asc.
-    /// For zodiacal points only supports Zero Aries.</remarks>
-    public List<AnalysisPoint> ChartToSingleAnalysisPoints(List<PointGroups> pointGroups, CoordinateSystems coordinateSystem, bool mainCoord, CalculatedChart chart);
-}
 
-public interface ICelPointToAnalysisPointMap
-{
-    public AnalysisPoint MapToAnalysisPoint(FullCelPointPos fullCelPointPos, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord);
-}
-
-public interface IMundanePointToAnalysisPointMap
-{
-    public AnalysisPoint MapToAnalysisPoint(MundanePoints mundanePoint, CuspFullPos cuspPos, PointGroups pointGroup, CoordinateSystems coordinateSystem, bool mainCoord);
-}
 

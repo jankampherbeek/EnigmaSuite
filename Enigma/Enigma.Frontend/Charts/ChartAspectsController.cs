@@ -1,4 +1,4 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -6,6 +6,7 @@
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
@@ -62,7 +63,8 @@ public class ChartAspectsController
     private AspectRequest CreateRequest()
     {
         CalculatedChart? currentChart = _dataVault.GetLastChart();
-        return new AspectRequest(currentChart);
+        AstroConfig config = CurrentConfig.Instance.GetConfig();
+        return new AspectRequest(currentChart, config);
     }
 
 }

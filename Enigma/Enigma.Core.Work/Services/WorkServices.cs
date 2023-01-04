@@ -6,7 +6,6 @@
 using Enigma.Api.Calc;
 using Enigma.Configuration.Handlers;
 using Enigma.Configuration.Parsers;
-using Enigma.Core.Work.Analysis.Aspects;
 using Enigma.Core.Work.Analysis.Harmonics;
 using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Analysis.Midpoints;
@@ -23,8 +22,8 @@ using Enigma.Core.Work.Persistency;
 using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Core.Work.Research;
 using Enigma.Core.Work.Research.Interfaces;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Work.Services;
@@ -42,8 +41,6 @@ public static class WorkServices
 
         serviceCollection.AddTransient<IAnalysisPointsForMidpoints, AnalysisPointsForMidpoints>();
         serviceCollection.AddTransient<IAnalysisPointsMapping, AnalysisPointsMapping>();
-        serviceCollection.AddTransient<IAspectChecker, AspectChecker>();
-        serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IAstroConfigParser, AstroConfigParser>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();

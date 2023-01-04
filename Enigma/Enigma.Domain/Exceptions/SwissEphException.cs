@@ -1,4 +1,4 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -10,13 +10,15 @@ namespace Enigma.Domain.Exceptions;
 [Serializable]
 public class SwissEphException : Exception
 {
-    string message;
+    public readonly string message;
 
     /// <summary>
     /// Empty constructor.
     /// </summary>
     public SwissEphException()
-    { }
+    {
+        message= string.Empty;
+    }
 
 
     public SwissEphException(string text) : base(text)

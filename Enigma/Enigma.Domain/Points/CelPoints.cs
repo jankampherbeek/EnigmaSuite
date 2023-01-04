@@ -1,4 +1,4 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -11,7 +11,7 @@ namespace Enigma.Domain.Points;
 /// <summary>Supported celestial points (Planets, lights, Plutoids etc.).</summary>
 public enum CelPoints
 {
-    Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth = 4, Mars = 5, Jupiter = 6, Saturn = 7, Uranus = 8, Neptune = 9,
+    None = -1, Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth = 4, Mars = 5, Jupiter = 6, Saturn = 7, Uranus = 8, Neptune = 9,
     Pluto = 10, MeanNode = 11, TrueNode = 12, Chiron = 13, PersephoneRam = 14, HermesRam = 15, DemeterRam = 16, CupidoUra = 17, HadesUra = 18, ZeusUra = 19,
     KronosUra = 20, ApollonUra = 21, AdmetosUra = 22, VulcanusUra = 23, PoseidonUra = 24, Eris = 25, Pholus = 26, Ceres = 27, Pallas = 28, Juno = 29,
     Vesta = 30, Isis = 31, Nessus = 32, Huya = 33, Varuna = 34, Ixion = 35, Quaoar = 36, Haumea = 37, Orcus = 38, Makemake = 39,
@@ -112,7 +112,10 @@ public static class CelpointssExtensions
         var allDetails = new List<CelPointDetails>();
         foreach (CelPoints currentPoint in Enum.GetValues(typeof(CelPoints)))
         {
-            allDetails.Add(currentPoint.GetDetails());
+            if (currentPoint != CelPoints.None)
+            {
+                allDetails.Add(currentPoint.GetDetails());
+            }
         }
         return allDetails;
     }

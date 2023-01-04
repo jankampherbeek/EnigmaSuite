@@ -64,6 +64,50 @@ public class PointMappings: IPointMappings
     }
 
     /// <inheritdoc/>
+    public CelPoints CelPointForIndex(int index)
+    {
+        if (index >= 0 && index < _offsetZodiacPoints)
+        {
+            return CelPoints.Neptune.CelestialPointForIndex(index);
+              
+        }
+        throw new ArgumentException("PointMappings.CelPointForIndex(): index not in range for CelPoint: " + index);
+    }
+
+    /// <inheritdoc/>
+    public ZodiacPoints ZodiacPointForIndex(int index)
+    {
+        if (index >= _offsetZodiacPoints && index < _offsetArabicPoints)
+        {
+            return ZodiacPoints.None.ZodiacPointForIndex(index - _offsetZodiacPoints);
+
+        }
+        throw new ArgumentException("PointMappings.ZodiacPointForIndex(): index not in range for ZodiacPoint: " + index);
+    }
+
+    /// <inheritdoc/>
+    public ArabicPoints ArabicPointForIndex(int index)
+    {
+        if (index >= _offsetArabicPoints && index < _offsetMundanePoints)
+        {
+            return ArabicPoints.None.ArabicPointForIndex(index - _offsetArabicPoints);
+
+        }
+        throw new ArgumentException("PointMappings.ArabicPointForIndex(): index not in range for Arabic Point:  " + index);
+    }
+
+    /// <inheritdoc/>
+    public MundanePoints MundanePointForIndex(int index)
+    {
+        if (index >= _offsetMundanePoints && index < _offsetCusps)
+        {
+            return MundanePoints.None.MundanePointForIndex(index - _offsetMundanePoints);
+
+        }
+        throw new ArgumentException("PointMappings.MundanePointForIndex(): index not in range for Mundane Point: " + index);
+    }
+
+    /// <inheritdoc/>
     public PointTypes PointTypeForIndex(int index)
     {
         if (index >= _offsetCelPoints)

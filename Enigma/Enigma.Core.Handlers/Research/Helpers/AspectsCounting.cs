@@ -1,17 +1,17 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Enums;
+using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse.Research;
 using Enigma.Domain.Research;
@@ -29,18 +29,21 @@ public class AspectsCounting
     private readonly IResearchDataHandler _researchDataHandler;
     private readonly IAspectsHandler _aspectsHandler;
     private readonly IAspectOrbConstructor _orbConstructor;
+    private readonly IPointMappings _pointMappings;
 
     public AspectsCounting(IResearchPaths researchPaths,
         IFilePersistencyHandler filePersistencyHandler,
         IResearchDataHandler researchDataHandler,
         IAspectsHandler aspectsHandler,
-        IAspectOrbConstructor orbConstructor)
+        IAspectOrbConstructor orbConstructor,
+        IPointMappings pointMappings)
     {
         _researchPaths = researchPaths;
         _filePersistencyHandler = filePersistencyHandler;
         _researchDataHandler = researchDataHandler;
         _aspectsHandler = aspectsHandler;
         _orbConstructor = orbConstructor;
+        _pointMappings = pointMappings;
     }
 
     public CountAspectsResponse CountAspects(List<CalculatedResearchChart> charts, CountAspectsRequest request)
@@ -54,9 +57,22 @@ public class AspectsCounting
         List<AspectDetails> aspectDetails = new();
         List<AspectTypes> aspectTypes = new();
         List<AspectsPerChart> aspectsPerChart = new();
-        List<EffectiveAspect> selectedEffectiveAspects = new();
+        List<DefinedAspect> selectedDefinedAspects = new();
+
+
         List<CelPoints> selectedCelPoints = request.PointsSelection.SelectedCelPoints;
         List<MundanePoints> selectedMundanePoints = request.PointsSelection.SelectedMundanePoints;
+
+        List<GeneralPoint> selectedPoints = new();
+        foreach (CelPoints celPoint in selectedCelPoints)
+        {
+            selectedPoints.Add(_pointMappings.GeneralPointForIndex((int)celPoint));
+        }
+        foreach (MundanePoints mundanePoint in selectedMundanePoints)
+        {
+            selectedPoints.Add(_pointMappings.GeneralPointForIndex((int)mundanePoint + 3000));     // todo add offsets for general points to constants
+        }
+
 
         for (int i = 0; i < request.Config.Aspects.Count; i++)
         {
@@ -64,62 +80,82 @@ public class AspectsCounting
             aspectTypes.Add(request.Config.Aspects[i].AspectType);
         }
 
-        for (int i = 0; i < charts.Count; i++)
-        {
-            List<FullCelPointPos> fullCelPointPositions = new();
-            for (int j = 0; j < selectedCelPoints.Count; j++)
-            {
-                CelPoints point = selectedCelPoints[j];
-                for (int k = 0; k < charts[j].CelPointPositions.Count; k++)
+
+        // todo posities rechtstreeks toekennen aan General point
+
+
+
+
+
+
+
+
+
+        /*
+
+
+
+                for (int i = 0; i < charts.Count; i++)
                 {
-                    if (charts[i].CelPointPositions[k].CelPoint == point)
+                    List<FullCelPointPos> fullCelPointPositions = new();
+                    for (int j = 0; j < selectedCelPoints.Count; j++)
                     {
-                        fullCelPointPositions.Add(charts[i].CelPointPositions[k]);
+                        CelPoints point = selectedCelPoints[j];
+                        for (int k = 0; k < charts[j].CelPointPositions.Count; k++)
+                        {
+                            if (charts[i].CelPointPositions[k].CelPoint == point)
+                            {
+                                fullCelPointPositions.Add(charts[i].CelPointPositions[k]);
+                            }
+                        }
+                    }
+
+
+
+                    List<EffectiveAspect> effectiveAspects = _aspectsHandler.AspectsForCelPoints(aspectDetails, fullCelPointPositions);
+
+                    List<AspectConfigSpecs> selectedAspects = request.Aspects;
+                    foreach (EffectiveAspect effAspect in effectiveAspects)
+                    {
+                        foreach (AspectConfigSpecs aspectSpec in selectedAspects)
+                        {
+                            if (effAspect.EffAspectDetails.Aspect.GetDetails().Aspect == aspectSpec.AspectType.GetDetails().Aspect)
+                            {
+                                selectedDefinedAspects.Add(effAspect);
+                            }
+                        }
+                    }
+                    string chartId = charts[i].InputItem.Id;
+                    aspectsPerChart.Add(new AspectsPerChart(chartId, selectedDefinedAspects));
+                }
+
+                List<int> selectedCusps = new();
+                if (request.PointsSelection.IncludeCusps)
+                {
+                    int nrOfCusps = request.Config.HouseSystem.GetDetails().NrOfCusps;
+                    for (int i = 0; i < nrOfCusps; i++)
+                    {
+                        selectedCusps.Add(0);
                     }
                 }
-            }
-            List<EffectiveAspect> effectiveAspects = _aspectsHandler.AspectsForCelPoints(aspectDetails, fullCelPointPositions);
-            
-            List<AspectConfigSpecs> selectedAspects = request.Aspects;
-            foreach (EffectiveAspect effAspect in effectiveAspects)
-            {
-                foreach (AspectConfigSpecs aspectSpec in selectedAspects)
-                {
-                    if (effAspect.EffAspectDetails.Aspect.GetDetails().Aspect == aspectSpec.AspectType.GetDetails().Aspect)
-                    {
-                        selectedEffectiveAspects.Add(effAspect);
-                    }
-                }
-            }
-            string chartId = charts[i].InputItem.Id;
-            aspectsPerChart.Add(new AspectsPerChart(chartId, selectedEffectiveAspects));
-        }
 
-        List<int> selectedCusps = new();
-        if (request.PointsSelection.IncludeCusps)
-        {
-            int nrOfCusps = request.Config.HouseSystem.GetDetails().NrOfCusps;
-            for (int i = 0; i < nrOfCusps; i++)
-            {
-                selectedCusps.Add(0);
-            }
-        }
+                int[,] totals = DefineTotals(selectedCelPoints, selectedMundanePoints, selectedCusps, aspectTypes, selectedDefinedAspects);
 
-        int[,] totals = DefineTotals(selectedCelPoints, selectedMundanePoints, selectedCusps, aspectTypes, selectedEffectiveAspects);
+                // todo define totals
+                // todo fill aspectTypes
 
-        // todo define totals
-        // todo fill aspectTypes
-
-        AspectTotals aspectTotals = new(selectedCelPoints, selectedMundanePoints, selectedCusps, aspectTypes, totals);
-        CountAspectsResponse response = new CountAspectsResponse(request, aspectsPerChart, aspectTotals);
+                AspectTotals aspectTotals = new(selectedCelPoints, selectedMundanePoints, selectedCusps, aspectTypes, totals);
+                CountAspectsResponse response = new CountAspectsResponse(request, aspectsPerChart, aspectTotals);
 
 
 
-        string jsonText = JsonConvert.SerializeObject(response, Formatting.Indented);
-        string pathForResults = _researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
-        _filePersistencyHandler.WriteFile(pathForResults, jsonText);
-        Log.Information("Json with countings for aspects written to {path}.", pathForResults);
-        return response;
+                string jsonText = JsonConvert.SerializeObject(response, Formatting.Indented);
+                string pathForResults = _researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
+                _filePersistencyHandler.WriteFile(pathForResults, jsonText);
+                Log.Information("Json with countings for aspects written to {path}.", pathForResults);
+
+                return response;   */
+        return null;
 
      }
 

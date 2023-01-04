@@ -6,6 +6,7 @@ using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Analysis.Midpoints;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Points;
 
 namespace Enigma.Test.Core.Work.Analysis.Midpoints;
 

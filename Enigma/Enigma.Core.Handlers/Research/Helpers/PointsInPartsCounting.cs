@@ -184,7 +184,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
     private static int DefineHouseNr(double longitude, int nrOfCusps, FullHousesPositions fullHousePositions)  // returns housenr 0..11 of 0..nrOfHouses-1
     {
-        ImmutableList<CuspFullPos> cusps = fullHousePositions.Cusps;
+        List<CuspFullPos> cusps = fullHousePositions.Cusps;
         List<double> cuspLongitudes = new();
         foreach (var cusp in cusps)
         {

@@ -34,8 +34,8 @@ public class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
     {
         double absLatSp = Math.Abs(southPoint.Latitude);
         double longSp = southPoint.Longitude;
-        double longPl = namedEclipticCoordinate.EclipticCoordinates.Longitude;
-        double latPl = namedEclipticCoordinate.EclipticCoordinates.Latitude;
+        double longPl = namedEclipticCoordinate.EclipticCoordinate.Longitude;
+        double latPl = namedEclipticCoordinate.EclipticCoordinate.Latitude;
         double longSouthPMinusPlanet = Math.Abs(longSp - longPl);
         double longPlanetMinusSouthP = Math.Abs(longPl - longSp);
         double latSouthPMinusPlanet = absLatSp - latPl;

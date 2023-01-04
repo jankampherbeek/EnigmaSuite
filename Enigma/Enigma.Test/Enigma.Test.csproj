@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Work\Analysis\Aspects\" />
     <Folder Include="Core\Work\Configuration\Handlers\" />
     <Folder Include="Core\Handlers\Analysis\Midpoints\" />
     <Folder Include="Facades\" />

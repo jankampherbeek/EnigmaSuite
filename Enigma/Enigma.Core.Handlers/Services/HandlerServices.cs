@@ -1,9 +1,10 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers.Analysis;
+using Enigma.Core.Handlers.Analysis.Helpers;
 using Enigma.Core.Handlers.Calc;
 using Enigma.Core.Handlers.Calc.Celestialpoints;
 using Enigma.Core.Handlers.Calc.CelestialPoints;
@@ -15,6 +16,7 @@ using Enigma.Core.Handlers.Configuration;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Research.Services;
+using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Core.Work.Handlers.Calc.CelestialPoints;
 using Enigma.Core.Work.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,8 +32,11 @@ public static class HandlerServices
 {
     public static void RegisterHandlerServices(this ServiceCollection serviceCollection)
     {
+        serviceCollection.AddTransient<IAspectChecker, AspectChecker>();
+        serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
+        serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
@@ -48,7 +53,6 @@ public static class HandlerServices
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
-        serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
 
         serviceCollection.RegisterResearchServices();
         serviceCollection.RegisterWorkServices();

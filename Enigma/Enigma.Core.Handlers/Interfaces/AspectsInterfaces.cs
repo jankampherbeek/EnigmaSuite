@@ -1,13 +1,14 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 
-namespace Enigma.Core.Work.Analysis.Interfaces;
+namespace Enigma.Core.Handlers.Interfaces;
 
 
 /// <summary>
@@ -15,12 +16,20 @@ namespace Enigma.Core.Work.Analysis.Interfaces;
 /// </summary>
 public interface IAspectChecker
 {
+
+    /// <summary>Find aspects between general points.</summary>
+    /// <param name="aspectDetails"></param>
+    /// <param name="positionedPoints"></param>
+    /// <returns>List with defined aspects.</returns>
+    public List<DefinedAspect> FindAspectsForGeneralPoints(List<AspectDetails> aspectDetails, List<PositionedPoint> positionedPoints);
+
     /// <summary>
     /// Find aspects between celestial points.
     /// </summary>
     /// <param name="calculatedChart">Chart with positions.</param>
+    /// <param name="config">Current configuration.</param>
     /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart);
+    List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart, AstroConfig config);
 
     /// <summary>
     /// Find aspects between celestial points.
@@ -34,8 +43,9 @@ public interface IAspectChecker
     /// Find aspects between a mundane point and a celestial point.
     /// </summary>
     /// <param name="calculatedChart">Chart with positions.</param>
+    /// <param name="config">Current configuration.</param> 
     /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart);
+    List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart, AstroConfig config);
 
     /// <summary>
     /// Find aspects between a mundane point and a celestial point.
@@ -55,7 +65,11 @@ public interface IAspectChecker
         public double DefineOrb(CelPoints point1, CelPoints point2, AspectDetails aspectDetails);
         /// <summary>Define orb between mundane point and celestial point.
         public double DefineOrb(string mundanePoint, CelPoints celPoint, AspectDetails aspectDetails);
+        /// <summary>Define orb between two general points.</summary>
+        public double DefineOrb(GeneralPoint point1, GeneralPoint point2, AspectDetails aspectDetails);
     }
+
+
 
 
 

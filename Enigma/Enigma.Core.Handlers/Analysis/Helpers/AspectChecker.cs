@@ -1,20 +1,20 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Analysis.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
-using static Enigma.Core.Work.Analysis.Interfaces.IAspectChecker;
 
-namespace Enigma.Core.Work.Analysis.Aspects;
+namespace Enigma.Core.Handlers.Analysis.Helpers;
 
 
 /// <inheritdoc/>
-public class AspectChecker : IAspectChecker
+public sealed class AspectChecker : IAspectChecker
 {
     private readonly IAspectOrbConstructor _orbConstructor;
 
@@ -25,9 +25,9 @@ public class AspectChecker : IAspectChecker
 
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart)
+    public List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart, AstroConfig config)
     {
-        List<AspectDetails> aspectDetails = DefineSupportedAspects();
+        List<AspectDetails> aspectDetails = DefineSupportedAspects(config);
         return AspectsForCelPoints(aspectDetails, calculatedChart.CelPointPositions);
     }
 
@@ -39,9 +39,9 @@ public class AspectChecker : IAspectChecker
 
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart)
+    public List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart, AstroConfig config)
     {
-        List<AspectDetails> aspectDetails = DefineSupportedAspects();
+        List<AspectDetails> aspectDetails = DefineSupportedAspects(config);
         return AspectsForMundanePoints(aspectDetails, calculatedChart.CelPointPositions, calculatedChart.FullHousePositions);
     }
 
@@ -51,61 +51,55 @@ public class AspectChecker : IAspectChecker
         return AspectsForMundanePoints(aspectDetails, calculatedChart.CelPointPositions, calculatedChart.FullHousePositions);
     }
 
-    private List<AspectDetails> DefineSupportedAspects()
+    /// <inheritdoc/>
+    public List<DefinedAspect> FindAspectsForGeneralPoints(List<AspectDetails> aspectDetails, List<PositionedPoint> positionedPoints)
     {
-        // TODO replace with configurable set of aspect(details).
-        List<AspectDetails> aspectDetails = new()
+        return AspectsForGeneralPoints(aspectDetails, positionedPoints);
+    }
+
+
+    private List<AspectDetails> DefineSupportedAspects(AstroConfig conf)
+    {
+        List<AspectDetails> aspectDetails = new();
+        foreach(AspectConfigSpecs aspectSpecs in conf.Aspects) 
         {
-            AspectTypes.Conjunction.GetDetails(),
-            AspectTypes.Opposition.GetDetails(),
-            AspectTypes.Triangle.GetDetails(),
-            AspectTypes.Square.GetDetails(),
-            AspectTypes.Sextile.GetDetails(),
-            AspectTypes.Inconjunct.GetDetails(),
-            AspectTypes.SemiSquare.GetDetails(),
-            AspectTypes.SesquiQuadrate.GetDetails(),
-            AspectTypes.Quintile.GetDetails(),
-            AspectTypes.BiQuintile.GetDetails(),
-            AspectTypes.Septile.GetDetails(),
-            AspectTypes.SemiSextile.GetDetails()
-        };
+            aspectDetails.Add(aspectSpecs.AspectType.GetDetails());
+        }
         return aspectDetails;
     }
 
- /*   private List<EffectiveAspect> AspectsForCelPoints(List<FullCelPointPos> celPointPositions)
+    private List<DefinedAspect> AspectsForGeneralPoints(List<AspectDetails> supportedAspects, List<PositionedPoint> points)
     {
-        var effectiveAspects = new List<EffectiveAspect>();
-        List<AspectDetails> supportedAspects = DefineSupportedAspects();
-
-        int count = celPointPositions.Count;
+        List<DefinedAspect> definedAspects = new();
+        int count = points.Count;
         for (int i = 0; i < count; i++)
         {
-            var celPointPos1 = celPointPositions[i];
-            for (int j = i + 1; j < celPointPositions.Count; j++)
+            PositionedPoint pointPos1 = points[i];
+            for (int j = i + 1; j < count; j++)
             {
-                var celPointPos2 = celPointPositions[j];
-                double distance = NormalizeDistance(celPointPos1.Longitude.Position - celPointPos2.Longitude.Position);
+                var pointPos2 = points[j];
+                double distance = NormalizeDistance(pointPos1.Position - pointPos2.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     AspectDetails aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double maxOrb = _orbConstructor.DefineOrb(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck);
+                    double maxOrb = _orbConstructor.DefineOrb(pointPos1.Point, pointPos2.Point, aspectToCheck);
                     double actualOrb = Math.Abs(angle - distance);
                     if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck, maxOrb, actualOrb));
+                        definedAspects.Add(new DefinedAspect(pointPos1.Point, pointPos2.Point, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }
         }
-        return effectiveAspects;
+        return definedAspects;
     }
- */
+
+
 
     private List<EffectiveAspect> AspectsForCelPoints(List<AspectDetails> supportedAspects, List<FullCelPointPos> celPointPositions)
     {
         var effectiveAspects = new List<EffectiveAspect>();
-
         int count = celPointPositions.Count;
         for (int i = 0; i < count; i++)
         {
@@ -131,11 +125,11 @@ public class AspectChecker : IAspectChecker
     }
 
 
+
+
     private List<EffectiveAspect> AspectsForMundanePoints(List<AspectDetails> supportedAspects, List<FullCelPointPos> celPointPositions, FullHousesPositions fullHousePositions )
     {
         var effectiveAspects = new List<EffectiveAspect>();
-
-
         var mundanePointPositions = new List<String>() { "MC", "ASC" };
         int countMundanePoints = mundanePointPositions.Count;
         int countCelPoints = celPointPositions.Count;

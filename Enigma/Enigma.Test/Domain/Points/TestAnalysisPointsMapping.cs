@@ -1,14 +1,13 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Analysis;
 using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Enums;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 
-namespace Enigma.Test.Domain.Analysis;
+namespace Enigma.Test.Domain.Points;
 
 [TestFixture]
 public class TestCelPointToAnalysisPointMap

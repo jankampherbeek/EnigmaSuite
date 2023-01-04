@@ -1,4 +1,4 @@
-﻿// Jan Kampherbeek, (c) 2022.
+﻿// Jan Kampherbeek, (c) 2022, 2023.
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -6,9 +6,20 @@ using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Analysis.Aspects;
 
+
+/// <summary>Details for an actual aspect and its forming partners.</summary>
+/// <param name="Point1">The first point.</param>
+/// <param name="Point2">The second point.</param>
+/// <param name="Aspect">Details about the aspect.</param>
+/// <param name="maxOrb">Max allowed orb.</param>
+/// <param name="actualOrb">Actual orb.</param>
+public record DefinedAspect(GeneralPoint Point1, GeneralPoint Point2, AspectDetails Aspect, double maxOrb, double actualOrb);
+
+
 /// <summary>
 /// Details for an effective aspect and its forming partners.
 /// </summary>
+[Obsolete]
 public record EffectiveAspect
 {
     public readonly string MundanePoint;
