@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
-
+// TODO 0.1 Analysis
 public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
@@ -45,23 +46,28 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 
     private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint)
     {
+        /*
         string point1Glyph = midpoint.Point1.Glyph;
-        string point2Glyph = midpoint.Point2.Glyph;
+        string point2Glyph = midpoint.Point2.Glyph; 
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(midpoint.Position);
         string position = longTxt;
-        string signGlyph = glyph;
-        return new PresentableMidpoint(point1Glyph, point2Glyph, signGlyph, position);
+        string signGlyph = glyph; */
+        char tempGlyph = ' ';
+        return new PresentableMidpoint(tempGlyph, tempGlyph, tempGlyph, "positionTxt");
 
     }
 
     private PresentableOccupiedMidpoint CreatePresMidpoint(OccupiedMidpoint midpoint)
     {
-        string point1Glyph = midpoint.Midpoint.Point1.Glyph;
-        string point2Glyph = midpoint.Midpoint.Point2.Glyph;
-        string pointOccGlyph = midpoint.OccupyingPoint.Glyph;
+        /*
+              string point1Glyph = midpoint.Midpoint.Point1.Glyph;
+          string point2Glyph = midpoint.Midpoint.Point2.Glyph;
+          string pointOccGlyph = midpoint.OccupyingPoint.Glyph;
+        */
         string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(midpoint.Orb);
         string exactnessText = System.Math.Floor(midpoint.Exactness).ToString() + " %";
-        return new PresentableOccupiedMidpoint(point1Glyph, point2Glyph, pointOccGlyph, orbText, exactnessText);
+        string tempGlyph = "";
+        return new PresentableOccupiedMidpoint(tempGlyph, tempGlyph, tempGlyph, orbText, exactnessText);
     }
 }
 

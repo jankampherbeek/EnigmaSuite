@@ -1,18 +1,18 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Persistency.Interfaces;
-using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Research;
 
-namespace Enigma.Core.Work.Research;
+namespace Enigma.Core.Handlers.Research;
 
 /// <inheritdoc/>
-public class ProjectsOverviewHandler : IProjectsOverviewHandler
+public sealed class ProjectsOverviewHandler : IProjectsOverviewHandler
 {
     private readonly IProjectDetails _projectDetails;
     private readonly IFoldersInfo _foldersInfo;

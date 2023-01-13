@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -30,7 +31,7 @@ public class ChartPositionsController
         _chartAspectsWindow = chartAspectsWindow;
     }
 
-    public ChartData GetMeta()
+    public ChartData? GetMeta()
     {
         CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
@@ -62,7 +63,7 @@ public class ChartPositionsController
         CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.CelPointPositions);
+            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.ChartPointPositions);
         }
         else
         {
@@ -70,7 +71,7 @@ public class ChartPositionsController
         }
     }
 
-    public CalculatedChart GetCalculatedChart()
+    public CalculatedChart? GetCalculatedChart()
     {
         return _dataVault.GetLastChart();
     }

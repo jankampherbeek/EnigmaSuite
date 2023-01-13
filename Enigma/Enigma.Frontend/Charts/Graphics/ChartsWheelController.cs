@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
@@ -13,7 +14,7 @@ using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
-public class ChartsWheelController
+public sealed class ChartsWheelController
 {
 
     public List<Line> SignSeparators { get; private set; } = new();
@@ -88,7 +89,7 @@ public class ChartsWheelController
 
     private void HandleAspects()
     {
-        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetLastChart(), _metrics, _centerPoint);
+        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetLastChart()!, _metrics, _centerPoint);
     }
 
     public double GetAscendantLongitude()
@@ -117,16 +118,16 @@ public class ChartsWheelController
         return longitudes;
     }
 
-    public List<FullCelPointPos> GetCelPointsCurrentChart()
+    public List<FullChartPointPos> GetCelPointsCurrentChart()
     {
         _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _currentChart.CelPointPositions;
+            return _currentChart.ChartPointPositions;
         }
         else
         {
-            return new List<FullCelPointPos>();
+            return new List<FullChartPointPos>();
         }
     }
 

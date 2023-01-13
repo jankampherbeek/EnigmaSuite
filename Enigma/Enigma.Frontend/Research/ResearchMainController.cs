@@ -1,11 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Configuration;
+using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -15,10 +16,17 @@ namespace Enigma.Frontend.Ui.Research;
 
 public class ResearchMainController
 {
-    private IProjectsOverviewApi _projectsOverviewApi;
+    private readonly IProjectsOverviewApi _projectsOverviewApi;
     private ProjectUsageWindow? _projectUsageWindow;
     private List<ResearchProject> _researchProjects = new();
-    private List<Window> _openWindows = new();
+    private readonly List<Window> _openWindows = new();
+    private readonly AppSettingsWindow _appSettingsWindow = new();
+    private readonly AstroConfigWindow _astroConfigWindow = new();
+    private readonly ProjectInputWindow _projectInputWindow = new();
+    private readonly DataFilesOverviewWindow _dataFilesOverviewWindow = new();
+    private readonly DataFilesImportWindow _dataFilesImportWindow = new();
+    private readonly AboutWindow _aboutWindow = new();
+    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ResearchMainController(IProjectsOverviewApi projectsOverviewApi)
     {
@@ -41,7 +49,7 @@ public class ResearchMainController
     public void OpenProject(ProjectItem projectItem)
     {
 
-        ResearchProject currentProject = null;
+        ResearchProject? currentProject = null;
         foreach (var project in _researchProjects)
         {
             if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
@@ -65,47 +73,40 @@ public class ResearchMainController
 
     public void ShowAppSettings()
     {
-        AppSettingsWindow appSettingsWindow = new();
-        appSettingsWindow.ShowDialog();
+        _appSettingsWindow.ShowDialog();
     }
 
     public void ShowAstroConfig()
     {
-        AstroConfigWindow astroConfigWindow = new();
-        astroConfigWindow.ShowDialog();
+        _astroConfigWindow.ShowDialog();
     }
 
     public void NewProject()
     {
-        ProjectInputWindow projectInputWindow = new();
-        projectInputWindow.ShowDialog();
+        _projectInputWindow.ShowDialog();
     }
 
     public void ShowDataOverview()
     {
-        DataFilesOverviewWindow dataFilesOverviewWindow = new();
-        dataFilesOverviewWindow.ShowDialog();
+        _dataFilesOverviewWindow.ShowDialog();
     }
 
 
     public void ShowDataImport()
     {
-        DataFilesImportWindow dataFilesImportWindow = new();
-        dataFilesImportWindow.ShowDialog();
+        _dataFilesImportWindow.ShowDialog();
     }
 
     public void ShowAbout()
     {
-        AboutWindow aboutWindow = new();  
-        aboutWindow.ShowDialog();
+        _aboutWindow.ShowDialog();
     }
 
     public void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("TestwithProject");
-        helpWindow.ShowDialog();
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetHelpPage("TestwithProject");
+        _helpWindow.ShowDialog();
     }
 
 
@@ -114,6 +115,6 @@ public class ResearchMainController
 
 public class ProjectItem
 {
-    public string ProjectName { get; set; }
-    public string ProjectDescription { get; set; }
+    public string? ProjectName { get; set; }
+    public string? ProjectDescription { get; set; }
 }

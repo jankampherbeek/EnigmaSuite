@@ -21,7 +21,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Name="Title" Text="Title" Style="{StaticResource subTitleStyle}" Margin="6"/>
+        <TextBlock Grid.Row="0" Name="FormTitle" Text="FormTitle" Style="{StaticResource subTitleStyle}" Margin="6"/>
         <TextBlock Grid.Row="1" Name="Description" Text="Description" TextWrapping="Wrap" Margin="6"/>
         <TextBlock Grid.Row="2" Name="CopyrightTitle" Text="CopyRightTitle" Style="{StaticResource subTitleStyle}" Margin="6"/>
         <TextBlock Grid.Row="3" Name="CopyrightText" Text="CopyrightText" TextWrapping="Wrap" Margin="6"/>

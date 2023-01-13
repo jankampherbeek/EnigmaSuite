@@ -1,29 +1,54 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Persistency;
-using Enigma.Research.Domain;
+using Enigma.Domain.Points;
+using Serilog;
 
 namespace Enigma.Core.Handlers.Research;
 
+// TODO 0.1 Analysis
 
 public sealed class ResearchPosCalcHandler
 {
 
-    public List<Tuple<ResearchPoint, double>> CalculateLongitudes(StandardInput standardInput, List<ResearchPoint> points)
+    public List<Tuple<ChartPoints, double>> CalculateLongitudes(StandardInput standardInput, List<ChartPoints> points)
     {
-        List<Tuple<ResearchPoint, double>> calculatedPositions = new();
-        List<ResearchPoint> mundanePoints = new();
-        List<ResearchPoint> celPoints = new();
-        List<ResearchPoint> cusps = new();
-        List<ResearchPoint> zodiacalPoints = new();
-        foreach (ResearchPoint point in points)
+        List<Tuple<ChartPoints, double>> calculatedPositions = new();
+        List<ChartPoints> mundanePoints = new();
+        List<ChartPoints> celPoints = new();
+        List<ChartPoints> cusps = new();
+        List<ChartPoints> zodiacalPoints = new();
+        foreach (ChartPoints point in points)
         {
-            if (point.Id < 1000) celPoints.Add(point);
-            if (1000 <= point.Id && point.Id < 2000) mundanePoints.Add(point);
-            if (2000 <= point.Id && point.Id < 3000) cusps.Add(point);
-            if (3000 <= point.Id) zodiacalPoints.Add(point);
+            PointCats cat = point.GetDetails().PointCat;
+            switch (cat)
+            {
+                case PointCats.Classic:
+                case PointCats.Modern:
+                case PointCats.Minor:
+                case PointCats.MathPoint:
+                case PointCats.Hypothetical:
+                    celPoints.Add(point);
+                    break;
+                case PointCats.Mundane:
+                    mundanePoints.Add(point);
+                    break;
+                case PointCats.Cusp:
+                    cusps.Add(point);
+                    break;
+                case PointCats.Arabic:
+                    break;
+                case PointCats.Zodiac:
+                    zodiacalPoints.Add(point);
+                    break;
+                default:
+                    string errorText = "ResearchPosCalcHandler.CalculateLOngitudes(): Unreconized PointCats : " + cat.ToString();
+                    Log.Error(errorText);
+                    throw new ArgumentException(errorText);
+            }
         }
 
         foreach (StandardInputItem item in standardInput.ChartData)
@@ -42,29 +67,22 @@ public sealed class ResearchPosCalcHandler
             double offSet = item.Time.ZoneOffset;
 
         }
-
-
-
         // calc mundane points and cusps
-        foreach (ResearchPoint point in celPoints)
+        foreach (ChartPoints point in celPoints)
         {
             // perform calculation for celPOints
         }
-        foreach (ResearchPoint point in zodiacalPoints)
+        foreach (ChartPoints point in zodiacalPoints)
         {
-            if (point.Id == 3000)    // Zero Aries
+            if (point == ChartPoints.ZeroAries)
             {
-                calculatedPositions.Add(new Tuple<ResearchPoint, double>(point, 0.0));
+                calculatedPositions.Add(new Tuple<ChartPoints, double>(point, 0.0));
             }
-            if (point.Id == 3001)    // Zero Cancer
+            if (point == ChartPoints.ZeroCancer)
             {
-                calculatedPositions.Add(new Tuple<ResearchPoint, double>(point, 90.0));
+                calculatedPositions.Add(new Tuple<ChartPoints, double>(point, 90.0));
             }
         }
-
-
-
-
         return calculatedPositions;
     }
 

@@ -1,12 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
@@ -17,25 +17,24 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
-public class ChartsWheelCelPoints : IChartsWheelCelPoints
+public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
 {
 
-    private readonly IRangeCheck _rangeCheck;
     private readonly ISortedGraphicCelPointsFactory _sortedGraphicCelPointsFactory;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly GlyphsForChartPoints _glyphsForChartPoints;
 
     public ChartsWheelCelPoints(ISortedGraphicCelPointsFactory sortedGraphicCelPointsFactory,
-        IRangeCheck rangeCheck,
         IDoubleToDmsConversions doubleToDmsConversions)
     {
-        _rangeCheck = rangeCheck;
         _sortedGraphicCelPointsFactory = sortedGraphicCelPointsFactory;
         _doubleToDmsConversions = doubleToDmsConversions;
+        _glyphsForChartPoints = new();
     }
 
 
 
-    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant)
+    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> glyphs = new();
 
@@ -48,7 +47,7 @@ public class ChartsWheelCelPoints : IChartsWheelCelPoints
             Point point1 = dimPoint.CreatePoint(angle, metrics.CelPointGlyphRadius);
             TextBlock glyph = new()
             {
-                Text = graphPoint.CelPoint.GetDetails().DefaultGlyph,
+                Text = _glyphsForChartPoints.FindGlyph(graphPoint.CelPoint).ToString(),
                 FontFamily = metrics.GlyphsFontFamily,
                 FontSize = fontSize,
                 Foreground = new SolidColorBrush(metrics.CelPointColor)
@@ -60,7 +59,7 @@ public class ChartsWheelCelPoints : IChartsWheelCelPoints
         return glyphs;
     }
 
-    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant)
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<Line> connectLines = new();
         List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
@@ -76,7 +75,7 @@ public class ChartsWheelCelPoints : IChartsWheelCelPoints
         return connectLines;
     }
 
-    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, List<FullCelPointPos> celPoints, Point centerPoint, double longAscendant)
+    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> texts = new();
         List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
@@ -96,7 +95,9 @@ public class ChartsWheelCelPoints : IChartsWheelCelPoints
             RotateTransform rotateTransform = new();
             double rotateAngle = graphPoint.PlotPos < 180.0 ? graphPoint.PlotPos - 90.0 : graphPoint.PlotPos - 270.0;
             double swapAngle = 90.0 - rotateAngle;
-            rotateTransform.Angle = _rangeCheck.InRange360(270.0 + swapAngle);
+            rotateTransform.Angle = 270.0 + swapAngle;
+            if (rotateTransform.Angle >= 360.0) rotateTransform.Angle -= 360.0;
+
             posText.RenderTransform = rotateTransform;
             Canvas.SetLeft(posText, point1.X - metrics.GlyphXOffset);
             Canvas.SetTop(posText, point1.Y - metrics.GlyphYOffset);

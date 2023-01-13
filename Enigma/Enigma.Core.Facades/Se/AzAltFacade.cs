@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Exceptions;
@@ -14,7 +15,7 @@ namespace Enigma.Facades.Se;
 public class AzAltFacade : IAzAltFacade
 {
     /// <inheritdoc/>
-    /// <remarks>Throws SwissEphException if SE returns an error.</remarks>
+    /// <remarks>Throws SwissEphException if CelPointSE returns an error.</remarks>
     public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags)
     {
 
@@ -43,7 +44,7 @@ public class AzAltFacade : IAzAltFacade
     /// <param name="atTemp">Atmospheric temperature in degrees Celsius, ignored for true altitude.</param>
     /// <param name="eclipticCoordinates">Ecliptic longitude, latitude and distance.</param>
     /// <param name="horizontalCoordinates">Resulting values for azimuth, true altitude and apparent altitude.</param>
-    /// <returns>An indication if the calculation was succesfull. Negative values indicate an error.</returns>
+    /// <returns>An indication if the calculation was successful. Negative values indicate an error.</returns>
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_azalt")]
     private extern static int ext_swe_azalt(double tjd, long iflag, double[] geoCoordinates, double atPress, double atTemp, double[] eclipticCoordinates, double[] horizontalCoordinates);
 }

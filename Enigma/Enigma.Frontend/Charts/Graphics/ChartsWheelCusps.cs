@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Helpers.Interfaces;
@@ -12,14 +13,12 @@ using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
-public class ChartsWheelCusps : IChartsWheelCusps
+public sealed class ChartsWheelCusps : IChartsWheelCusps
 {
-    private readonly IRangeCheck _rangeCheck;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
-    public ChartsWheelCusps(IRangeCheck rangeCheck, IDoubleToDmsConversions doubleToDmsConversions)
+    public ChartsWheelCusps(IDoubleToDmsConversions doubleToDmsConversions)
     {
-        _rangeCheck = rangeCheck;
         _doubleToDmsConversions = doubleToDmsConversions;
     }
 
@@ -28,7 +27,10 @@ public class ChartsWheelCusps : IChartsWheelCusps
         List<Line> cuspLines = new();
         for (int i = 0; i < housePositions.Count; i++)
         {
-            double angle = _rangeCheck.InRange360(housePositions[i] - longAscendant + 90.0);
+            double angle = housePositions[i] - longAscendant + 90.0;
+            if (angle < 0.0) angle += 360.0;
+            if (angle >= 360.0) angle -= 360.0;
+
             double width = ((i % 3) == 0) ? metrics.StrokeSizeDouble : metrics.StrokeSize;
             cuspLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, metrics.OuterAspectRadius, metrics.OuterHouseRadius, width));
         }
@@ -42,16 +44,20 @@ public class ChartsWheelCusps : IChartsWheelCusps
         double hypothenusa1 = metrics.OuterSignRadius;
         double hypothenusa2 = metrics.OuterRadius;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
-        angle = _rangeCheck.InRange360(angle + 180.0);
+        angle += 180.0;
+        if (angle >= 360.0) angle -= 360.0;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
-        angle = _rangeCheck.InRange360(longMc - longAscendant + 90.0);
+        angle = longMc - longAscendant + 90.0;
+        if (angle < 0.0) angle += 360.0;
+        if (angle >= 360.0) angle -= 360.0;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
-        angle = _rangeCheck.InRange360(angle + 180.0);
+        angle += 180.0;
+        if (angle >= 360.0) angle -= 360.0;
         cardinalLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, hypothenusa1, hypothenusa2, metrics.StrokeSizeDouble));
         return cardinalLines;
     }
 
-    private Line CreateSingleCuspLine(ChartsWheelMetrics metrics, Point centerPoint, double angle, double hypothenusa1, double hypothenusa2, double strokeSize)
+    private static Line CreateSingleCuspLine(ChartsWheelMetrics metrics, Point centerPoint, double angle, double hypothenusa1, double hypothenusa2, double strokeSize)
     {
         DimPoint dimPoint = new(centerPoint);
         DimLine dimLine = new();
@@ -74,17 +80,21 @@ public class ChartsWheelCusps : IChartsWheelCusps
         Point posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
         cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
         // Desc
-        angle = _rangeCheck.InRange360(angle + 180.0);
+        angle += 180.0;
+        if (angle >= 360.0) angle -= 360.0;
         text = "D";
         posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
         cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
         // MC
-        angle = _rangeCheck.InRange360(longMc - longAscendant + 90.0);
+        angle = longMc - longAscendant + 90.0;
+        if (angle < 0.0) angle += 360.0;
+        if (angle >= 360.0) angle -= 360.0;
         text = "M";
         posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
         cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
         // IC
-        angle = _rangeCheck.InRange360(angle + 180.0);
+        angle += 180.0;
+        if (angle >= 360.0) angle -= 360.0;
         text = "I";
         posPoint = dimPoint.CreatePoint(angle, metrics.CardinalIndicatorRadius);
         cardinalIndicators.Add(cuspsDimTextBlock.CreateTextBlock(text, posPoint.X - xOffset, posPoint.Y - yOffset));
@@ -101,7 +111,9 @@ public class ChartsWheelCusps : IChartsWheelCusps
         DimTextBlock cuspsDimTextBlock = new(metrics.PositionTextsFontFamily, metrics.PositionTextSize, metrics.CuspTextOpacity, metrics.CuspTextColor);
         for (int i = 0; i < housePositions.Count; i++)
         {
-            double angle = _rangeCheck.InRange360(housePositions[i] - longAscendant + 90.0);
+            double angle = housePositions[i] - longAscendant + 90.0;
+            if (angle < 0.0) angle += 360.0;
+            if (angle >= 360.0) angle -= 360.0;
             RotateTransform rotateTransform = new();
             double rotateAngle;
             double swapAngle;
@@ -121,7 +133,9 @@ public class ChartsWheelCusps : IChartsWheelCusps
             }
             Point point1 = dimPoint.CreatePoint(angle + textOffsetDegrees, metrics.CuspTextRadius + yOffset);
             swapAngle = 90.0 - rotateAngle;
-            rotateTransform.Angle = _rangeCheck.InRange360(180.0 + swapAngle);
+            rotateTransform.Angle = 180.0 + swapAngle;
+            if (rotateTransform.Angle < 0.0) rotateTransform.Angle += 360.0;
+            if (rotateTransform.Angle >= 360.0) rotateTransform.Angle -= 360.0;
             string text = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(housePositions[i]);
             TextBlock posText = cuspsDimTextBlock.CreateTextBlock(text, point1.X, point1.Y, rotateTransform);
             cuspTexts.Add(posText);

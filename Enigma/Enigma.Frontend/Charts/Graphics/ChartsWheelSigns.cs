@@ -1,8 +1,8 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
@@ -13,14 +13,8 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
-public class ChartsWheelSigns : IChartsWheelSigns
+public sealed class ChartsWheelSigns : IChartsWheelSigns
 {
-    private readonly IRangeCheck _rangeCheck;
-
-    public ChartsWheelSigns(IRangeCheck rangeCheck)
-    {
-        _rangeCheck = rangeCheck;
-    }
 
 
     public List<Line> CreateSignSeparators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant)
@@ -36,7 +30,11 @@ public class ChartsWheelSigns : IChartsWheelSigns
         double hypothenusa2 = metrics.OuterSignRadius;
         for (int i = 0; i < 12; i++)
         {
-            angle = _rangeCheck.InRange360((i * 30) + offsetAsc) + 90.0;
+            angle = (i * 30) + offsetAsc;
+            if (angle < 0.0) angle += 360.0;
+            if (angle >= 360.0) angle -= 360.0;
+
+            angle += 90.0;
             point1 = dimPoint.CreatePoint(angle, hypothenusa1);
             point2 = dimPoint.CreatePoint(angle, hypothenusa2);
             allSeparators.Add(dimLine.CreateLine(point1, point2, metrics.StrokeSize, Colors.SlateBlue, 1.0));
@@ -59,7 +57,9 @@ public class ChartsWheelSigns : IChartsWheelSigns
         for (int i = 0; i < 12; i++)
         {
             if (glyphIndex > 11) glyphIndex = 0;
-            double angle = _rangeCheck.InRange360((i * 30) + offsetAsc + 90.0 + 15.0);
+            double angle = (i * 30) + offsetAsc + 90.0 + 15.0;
+            if (angle < 0.0) angle += 360.0;
+            if (angle >= 360.0) angle -= 360.0;
             point1 = dimPoint.CreatePoint(angle, hypothenusa);
             glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - (fontSize / 3), point1.Y - (fontSize / 1.8)));
             glyphIndex++;

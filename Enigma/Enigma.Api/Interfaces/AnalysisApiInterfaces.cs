@@ -1,8 +1,7 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
-
-// Interfaces for API's that support analysises.
 
 
 using Enigma.Domain.Analysis;
@@ -17,10 +16,10 @@ namespace Enigma.Api.Interfaces;
 public interface IAspectsApi
 {
     /// <summary>Aspects for celestial points.</summary>
-    public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request);
+    public List<DefinedAspect> AspectsForCelPoints(AspectRequest request);
 
     /// <summary>Aspects for mundane points.</summary>
-    public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request);
+    public List<DefinedAspect> AspectsForMundanePoints(AspectRequest request);
 }
 
 

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
@@ -11,7 +12,7 @@ using Serilog;
 namespace Enigma.Api.Analysis;
 
 /// <inheritdoc/>
-public class HarmonicsApi : IHarmonicsApi
+public sealed class HarmonicsApi : IHarmonicsApi
 {
 
     private readonly IHarmonicsHandler _handler;
@@ -26,7 +27,7 @@ public class HarmonicsApi : IHarmonicsApi
     {
         Guard.Against.Null(chart);
         Guard.Against.NegativeOrZero(harmonicNumber - 1); // harmonic number must be at least 1
-        Log.Information("HarmonicsApi: Harmonics nr. {harmNr} for chart : {chartName} ", harmonicNumber, chart.InputtedChartData.ChartMetaData.Name);
+        Log.Information("HarmonicsApi: Harmonics nr. {harmNr} for chart : {chartName} ", harmonicNumber, chart.InputtedChartData.MetaData.Name);
         return _handler.RetrieveHarmonicPositions(chart, harmonicNumber);
     }
 }

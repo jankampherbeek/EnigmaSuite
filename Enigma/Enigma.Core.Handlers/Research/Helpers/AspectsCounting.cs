@@ -1,49 +1,40 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Research.Interfaces;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Configuration;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse.Research;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
-using Newtonsoft.Json;
-using Serilog;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
+// TODO 0.1 Analysis
 
-public class AspectsCounting
+public sealed class AspectsCounting
 {
     private readonly IResearchPaths _researchPaths;
     private readonly IFilePersistencyHandler _filePersistencyHandler;
     private readonly IResearchDataHandler _researchDataHandler;
     private readonly IAspectsHandler _aspectsHandler;
     private readonly IAspectOrbConstructor _orbConstructor;
-    private readonly IPointMappings _pointMappings;
 
     public AspectsCounting(IResearchPaths researchPaths,
         IFilePersistencyHandler filePersistencyHandler,
         IResearchDataHandler researchDataHandler,
         IAspectsHandler aspectsHandler,
-        IAspectOrbConstructor orbConstructor,
-        IPointMappings pointMappings)
+        IAspectOrbConstructor orbConstructor)
     {
         _researchPaths = researchPaths;
         _filePersistencyHandler = filePersistencyHandler;
         _researchDataHandler = researchDataHandler;
         _aspectsHandler = aspectsHandler;
         _orbConstructor = orbConstructor;
-        _pointMappings = pointMappings;
     }
 
     public CountAspectsResponse CountAspects(List<CalculatedResearchChart> charts, CountAspectsRequest request)
@@ -60,23 +51,23 @@ public class AspectsCounting
         List<DefinedAspect> selectedDefinedAspects = new();
 
 
-        List<CelPoints> selectedCelPoints = request.PointsSelection.SelectedCelPoints;
-        List<MundanePoints> selectedMundanePoints = request.PointsSelection.SelectedMundanePoints;
+        List<ChartPoints> selectedCelPoints = request.PointsSelection.SelectedPoints;
+        List<ChartPoints> selectedMundanePoints = request.PointsSelection.SelectedMundanePoints;
 
-        List<GeneralPoint> selectedPoints = new();
-        foreach (CelPoints celPoint in selectedCelPoints)
-        {
-            selectedPoints.Add(_pointMappings.GeneralPointForIndex((int)celPoint));
-        }
-        foreach (MundanePoints mundanePoint in selectedMundanePoints)
-        {
-            selectedPoints.Add(_pointMappings.GeneralPointForIndex((int)mundanePoint + 3000));     // todo add offsets for general points to constants
-        }
-
+        List<ChartPoints> selectedPoints = new();
+        /*      foreach (ChartPoints celPoint in selectedCelPoints)
+              {
+                  selectedPoints.Add(_pointMappings.GeneralPointForIndex((int)celPoint));
+              }
+              foreach (MundanePoints mundanePoint in selectedMundanePoints)
+              {
+                  selectedPoints.Add(_pointMappings.GeneralPointForIndex((int)mundanePoint + 3000));     // todo add offsets for general points to constants
+              }
+        */
 
         for (int i = 0; i < request.Config.Aspects.Count; i++)
         {
-            aspectDetails.Add(request.Config.Aspects[i].AspectType.GetDetails());
+            //    aspectDetails.Add(request.Config.Aspects[i].AspectType.GetDetails());
             aspectTypes.Add(request.Config.Aspects[i].AspectType);
         }
 
@@ -97,13 +88,13 @@ public class AspectsCounting
 
                 for (int i = 0; i < charts.Count; i++)
                 {
-                    List<FullCelPointPos> fullCelPointPositions = new();
+                    List<FullChartPointPos> fullCelPointPositions = new();
                     for (int j = 0; j < selectedCelPoints.Count; j++)
                     {
-                        CelPoints point = selectedCelPoints[j];
+                        ChartPoints point = selectedCelPoints[j];
                         for (int k = 0; k < charts[j].CelPointPositions.Count; k++)
                         {
-                            if (charts[i].CelPointPositions[k].CelPoint == point)
+                            if (charts[i].CelPointPositions[k].ChartPoint == point)
                             {
                                 fullCelPointPositions.Add(charts[i].CelPointPositions[k]);
                             }
@@ -157,9 +148,9 @@ public class AspectsCounting
                 return response;   */
         return null;
 
-     }
+    }
 
-    int[,] DefineTotals(List<CelPoints> celPoints, List<MundanePoints> mundanePoints, List<int> cusps, List<AspectTypes> aspectTypes, List<EffectiveAspect> effectiveAspects)
+    int[,] DefineTotals(List<ChartPoints> celPoints, List<ChartPoints> mundanePoints, List<int> cusps, List<AspectTypes> aspectTypes, List<DefinedAspect> effectiveAspects)
     {
 
         int combinedPointSize = celPoints.Count + mundanePoints.Count + cusps.Count;
@@ -168,24 +159,25 @@ public class AspectsCounting
 
         int point1Index;
         int point2Index;
-        foreach (EffectiveAspect effAspect in effectiveAspects)
-        {
-      
-            if (effAspect.IsMundane)
-            {
-                point1Index = FindIndexForMundanePoint(celPoints.Count, effAspect.MundanePoint, mundanePoints);
-            } else
-            {
-                point1Index = FindIndexForCelPoint((CelPoints)effAspect.CelPoint1, celPoints);
-            }
-            // todo handle cusps
-            point2Index = FindIndexForCelPoint(effAspect.CelPoint2, celPoints);
-            totals[point1Index, point2Index] += 1;
-        }
+        /*     foreach (EffectiveAspect effAspect in effectiveAspects)
+             {
+
+                 if (effAspect.IsMundane)
+                 {
+                     point1Index = FindIndexForMundanePoint(celPoints.Count, effAspect.MundanePoint, mundanePoints);
+                 } else
+                 {
+                     point1Index = FindIndexForCelPoint((ChartPoints)effAspect.Point1, celPoints);
+                 }
+                 // todo handle cusps
+                 point2Index = FindIndexForCelPoint(effAspect.Point2, celPoints);
+                 totals[point1Index, point2Index] += 1;
+             }
+        */
         return totals;
     }
 
-    private int FindIndexForCelPoint(CelPoints celPoint, List<CelPoints> celPoints )
+    private int FindIndexForCelPoint(ChartPoints celPoint, List<ChartPoints> celPoints)
     {
         int index = -1;
         for (int i = 0; i < celPoints.Count; i++)
@@ -195,13 +187,13 @@ public class AspectsCounting
         return index;
     }
 
-    private int FindIndexForMundanePoint(int offset, string mundanePoint, List<MundanePoints> mundanePoints)  // TODO use enum for mundanepoints and not strings.
+    private int FindIndexForMundanePoint(int offset, string mundanePoint, List<ChartPoints> mundanePoints)  // TODO use enum for mundanepoints and not strings.
     {
         switch (mundanePoint)
         {
             case "Ascendant":
                 return offset + 1;
-            case "Mc": 
+            case "Mc":
                 return offset + 2;
             case "EastPoint":
                 return offset + 3;

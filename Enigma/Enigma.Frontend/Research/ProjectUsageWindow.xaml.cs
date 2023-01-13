@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Research;
@@ -14,9 +15,10 @@ namespace Enigma.Frontend.Ui.Research
     /// <summary>Form for inputwindow for researchmethods.</summary>
     public partial class ProjectUsageWindow : Window
     {
-        private Rosetta _rosetta = Rosetta.Instance;
-        private ProjectItem _projectItem;
-        private ProjectUsageController _controller;
+        // TODO 0.1 Rosetta usage
+
+        private readonly Rosetta _rosetta = Rosetta.Instance;
+        private readonly ProjectUsageController _controller;
 
         public ProjectUsageWindow()
         {
@@ -72,7 +74,7 @@ namespace Enigma.Frontend.Ui.Research
             if (lbExistingMethods.SelectedItems.Count == 1)
             {
                 int index = lbExistingMethods.SelectedIndex;
-                ResearchMethods researchMethod = ResearchMethods.None.ResearchMethodForIndex(index); 
+                ResearchMethods researchMethod = ResearchMethods.None.ResearchMethodForIndex(index);
                 _controller.PerformRequest(researchMethod);
             }
         }

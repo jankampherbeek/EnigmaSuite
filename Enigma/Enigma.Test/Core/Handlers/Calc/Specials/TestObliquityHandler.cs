@@ -1,11 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Calc.Specials;
-using Enigma.Core.Work.Calc.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
+using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.RequestResponse;
 using Moq;
 
 namespace Enigma.Test.Core.Handlers.Calc.Specials;
@@ -21,18 +22,21 @@ public class TestObliquityHandler
     private readonly string _errorText = "Description of problem.";
 
     [Test]
+    public void TestMeanObliquity()
+    {
+        Mock<IObliquityCalc> calcMock = CreateCalcMock();
+        IObliquityHandler handler = new ObliquityHandler(calcMock.Object);
+        double resultMeanObliquity = handler.CalcObliquity(new ObliquityRequest(_jdUt, false));
+        Assert.That(resultMeanObliquity, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
+    }
+
+    [Test]
     public void TestHappyFlow()
     {
         Mock<IObliquityCalc> calcMock = CreateCalcMock();
         IObliquityHandler handler = new ObliquityHandler(calcMock.Object);
-        ObliquityResponse response = handler.CalcObliquity(new ObliquityRequest(_jdUt));
-        Assert.Multiple(() =>
-        {
-            Assert.That(response.ObliquityMean, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
-            Assert.That(response.ObliquityTrue, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
-            Assert.That(response.Success, Is.True);
-            Assert.That(response.ErrorText, Is.EqualTo(""));
-        });
+        double resultTrueObliquity = handler.CalcObliquity(new ObliquityRequest(_jdUt, true));
+        Assert.That(resultTrueObliquity, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
     }
 
     [Test]
@@ -40,12 +44,7 @@ public class TestObliquityHandler
     {
         Mock<IObliquityCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IObliquityHandler handler = new ObliquityHandler(calcExceptionMock.Object);
-        ObliquityResponse response = handler.CalcObliquity(new ObliquityRequest(_jdUt));
-        Assert.Multiple(() =>
-        {
-            Assert.That(response.Success, Is.False);
-            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
-        });
+        var _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(_jdUt, true)));
     }
 
     private Mock<IObliquityCalc> CreateCalcMock()

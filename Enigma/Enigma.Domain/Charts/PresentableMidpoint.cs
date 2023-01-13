@@ -1,35 +1,19 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Charts;
 
-/// <summary>Midpoints to be shown in a data grid.</summary>
-public record PresentableMidpoint
-{
-    public string Point1Glyph { get; }
-    public string Separator { get; } = "/";
-    public string Point2Glyph { get; }
-    public string Position { get; }
-    public string SignGlyph { get; }
+
+/// <summary>Midpoint to be presented in a data grid.</summary>
+/// <param name="Point1Glyph">Glyph of first point.</param>
+/// <param name="Point2Glyph">Glyph of second point.</param>
+/// <param name="SignGlyph">Glyph of sign.</param>
+/// <param name="Position">Positions as text.</param>
+public record PresentableMidpoint(char Point1Glyph, char Point2Glyph, char SignGlyph, string Position);
 
 
-    /// <summary>Construct a record with data for midpoints to be shown in a datagrid.</summary>
-    /// <param name="point1Glyph">Glyph for the first point.</param>
-    /// <param name="point2Glyph">Glyph for the second point.</param>
-
-    public PresentableMidpoint(string point1Glyph, string point2Glyph, string signGlyph, string position)
-    {
-        Point1Glyph = point1Glyph;
-        Point2Glyph = point2Glyph;
-        Position = position;
-        SignGlyph = signGlyph;
-    }
-
-    /// <param name="orbText">Text for the acual orb.</param>
-    /// <param name="exactnessText">Text indicating the exactness of the aspect as a percentage.</param>
-
-}
 
 /// <summary>Occupied midpoints to be shown in a datagrid.</summary>
 public record PresentableOccupiedMidpoint

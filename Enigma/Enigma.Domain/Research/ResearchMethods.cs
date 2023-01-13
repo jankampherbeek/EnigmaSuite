@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Research;
@@ -16,13 +17,20 @@ public enum ResearchMethods
     CountHarmonicConjunctions = 5
 }
 
+
+/// <summary>Specifications for a research method.</summary>
+/// <param name="ResearchMethod"/>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
+public record ResearchMethodDetails(ResearchMethods ResearchMethod, string TextId);
+
+
 /// <summary>Extension methods for ResearchMethods.</summary>
 public static class ResearchMethodsExtensions
 {
 
     /// <summary>Retrieve details for research method.</summary>
-    /// <param name="method">The ayanamsha, is automatically filled.</param>
-    /// <returns>Details for the ayanamsha.</returns>
+    /// <param name="method">The method.</param>
+    /// <returns>Details for the method.</returns>
     /// <exception cref="ArgumentException">Is thrown if ResearchMethod is unknown or None.</exception>
     public static ResearchMethodDetails GetDetails(this ResearchMethods method)
     {
@@ -40,8 +48,7 @@ public static class ResearchMethodsExtensions
     }
 
 
-    /// <summary>Retrieve details for items in the enum ReseearchMethods.</summary>
-    /// <param name="ayanamsha">Any instance of ayanamsha, is automatically filled.</param>
+    /// <summary>Retrieve details for items in the enum ResearchMethods.</summary>
     /// <returns>All details.</returns>
     public static List<ResearchMethodDetails> AllDetails(this ResearchMethods _)
     {
@@ -72,10 +79,6 @@ public static class ResearchMethodsExtensions
 }
 
 
-/// <summary>Specifications for a research method.</summary>
-/// <param name="ResearchMethod"/>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record ResearchMethodDetails(ResearchMethods ResearchMethod, string TextId);
 
 
 

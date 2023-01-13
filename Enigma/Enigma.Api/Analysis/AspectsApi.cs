@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
@@ -13,7 +14,7 @@ namespace Enigma.Api.Analysis;
 
 
 /// <inheritdoc/>
-public class AspectsApi : IAspectsApi
+public sealed class AspectsApi : IAspectsApi
 {
 
     private readonly IAspectsHandler _aspectHandler;
@@ -24,20 +25,20 @@ public class AspectsApi : IAspectsApi
     }
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> AspectsForMundanePoints(AspectRequest request)
+    public List<DefinedAspect> AspectsForMundanePoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        Log.Information("AspectsApi: AspectsForMundanePoints for chart " + request.CalcChart.InputtedChartData.ChartMetaData.Name);
+        Log.Information("AspectsApi: AspectsForMundanePoints for chart " + request.CalcChart.InputtedChartData.MetaData.Name);
         return _aspectHandler.AspectsForMundanePoints(request);
     }
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> AspectsForCelPoints(AspectRequest request)
+    public List<DefinedAspect> AspectsForCelPoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        Log.Information("AspectsApi: AspectsForCelPoints for chart " + request.CalcChart.InputtedChartData.ChartMetaData.Name);
+        Log.Information("AspectsApi: AspectsForCelPoints for chart " + request.CalcChart.InputtedChartData.MetaData.Name);
         return _aspectHandler.AspectsForCelPoints(request);
     }
 }

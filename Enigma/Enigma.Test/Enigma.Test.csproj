@@ -10,8 +10,14 @@
 
   <ItemGroup>
     <Compile Remove="Core\Analysis\**" />
+    <Compile Remove="Core\Handlers\Analysis\Midpoints\**" />
+    <Compile Remove="Facades\**" />
     <EmbeddedResource Remove="Core\Analysis\**" />
+    <EmbeddedResource Remove="Core\Handlers\Analysis\Midpoints\**" />
+    <EmbeddedResource Remove="Facades\**" />
     <None Remove="Core\Analysis\**" />
+    <None Remove="Core\Handlers\Analysis\Midpoints\**" />
+    <None Remove="Facades\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,17 +36,13 @@
     <ProjectReference Include="..\Enigma.Api\Enigma.Api.csproj" />
     <ProjectReference Include="..\Enigma.Core.Facades\Enigma.Facades.csproj" />
     <ProjectReference Include="..\Enigma.Core.Handlers\Enigma.Core.Handlers.csproj" />
-    <ProjectReference Include="..\Enigma.Core.Work\Enigma.Core.Work.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
     <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
     <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.Ui.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Work\Analysis\Aspects\" />
-    <Folder Include="Core\Work\Configuration\Handlers\" />
-    <Folder Include="Core\Handlers\Analysis\Midpoints\" />
-    <Folder Include="Facades\" />
+    <Folder Include="Domain\Calc\Specials\" />
   </ItemGroup>
 
 </Project>

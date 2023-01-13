@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Analysis;
@@ -24,14 +25,13 @@ public static class ApiServices
     {
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
-        serviceCollection.AddTransient<ICalcDateTimeApi, CalcDateTimeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
-        serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IConfigurationApi, ConfigurationApi>();
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
+        serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
         serviceCollection.AddTransient<IFileAccessApi, FileAccessApi>();
-        serviceCollection.AddTransient<IFileManagementApi, FileManagementApi>();
+        serviceCollection.AddTransient<IDataFileManagementApi, DataFileManagementApi>();
         serviceCollection.AddTransient<IHarmonicsApi, HarmonicsApi>();
         serviceCollection.AddTransient<IHorizontalApi, HorizontalApi>();
         serviceCollection.AddTransient<IHousesApi, HousesApi>();

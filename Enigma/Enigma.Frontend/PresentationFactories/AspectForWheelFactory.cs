@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis.Aspects;
@@ -16,28 +17,25 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class AspectForWheelFactory : IAspectForWheelFactory
 {
     /// <inheritdoc/>
-    public List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<EffectiveAspect> aspects)
+    public List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<DefinedAspect> aspects)
     {
         List<DrawableMundaneAspect> drawables = new();
-        foreach (var effAspect in aspects)
+        foreach (DefinedAspect defAspect in aspects)
         {
-            double exactness = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);
-            drawables.Add(new DrawableMundaneAspect(effAspect.MundanePoint, effAspect.CelPoint2, exactness, effAspect.EffAspectDetails.Aspect));
+            double exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100);
+            drawables.Add(new DrawableMundaneAspect(defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect));
         }
         return drawables;
     }
 
     /// <inheritdoc/>
-    public List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<EffectiveAspect> aspects)
+    public List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<DefinedAspect> aspects)
     {
         List<DrawableCelPointAspect> drawables = new();
-        foreach (var effAspect in aspects)
+        foreach (DefinedAspect defAspect in aspects)
         {
-            double exactness = 100 - (effAspect.ActualOrb / effAspect.Orb * 100);
-            if (effAspect.CelPoint1 != null)
-            {
-                drawables.Add(new DrawableCelPointAspect((CelPoints)effAspect.CelPoint1, effAspect.CelPoint2, exactness, effAspect.EffAspectDetails.Aspect));
-            }
+            double exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100);
+            drawables.Add(new DrawableCelPointAspect((ChartPoints)defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect));
         }
         return drawables;
     }

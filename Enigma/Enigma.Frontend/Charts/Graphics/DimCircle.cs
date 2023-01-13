@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Windows;
@@ -11,7 +12,7 @@ namespace Enigma.Frontend.Ui.Charts.Graphics;
 /// <summary>
 /// Dimensioned circle, with all metrics and colors defined, that can be shown in a graphic wheel.
 /// </summary>
-internal class DimCircle
+internal sealed class DimCircle
 {
     private readonly double _defaultCanvasSize;
     private readonly double _sizeFactor;

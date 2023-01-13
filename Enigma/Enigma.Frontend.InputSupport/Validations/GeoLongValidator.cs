@@ -1,10 +1,10 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Enums;
 using Enigma.Frontend.Helpers.Interfaces;
 
 namespace Enigma.Frontend.Helpers.Validations;
@@ -47,7 +47,7 @@ public class GeoLongValidator : IGeoLongValidator
         return $"{directionIndicator}{_longValues[0]}:{_longValues[1]:d2}:{_longValues[2]:d2}";
     }
 
-    private bool CheckMinAndMaxValues(int[] valuesToCheck)
+    private static bool CheckMinAndMaxValues(int[] valuesToCheck)
     {
         bool result = true;
         if (valuesToCheck[0] < 0 || valuesToCheck[0] > 180) result = false;

@@ -1,19 +1,19 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Persistency.Interfaces;
 
 namespace Enigma.Core.Handlers.Persistency;
 
 
 /// <inheritdoc/>
-public class FilePersistencyHandler : IFilePersistencyHandler
+public sealed class FilePersistencyHandler : IFilePersistencyHandler
 {
-    private ITextFileReader _textFileReader;
-    private ITextFileWriter _textFileWriter;
+    private readonly ITextFileReader _textFileReader;
+    private readonly ITextFileWriter _textFileWriter;
 
     public FilePersistencyHandler(ITextFileReader textFileReader, ITextFileWriter textFileWriter)
     {

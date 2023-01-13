@@ -1,19 +1,19 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Persistency.Interfaces;
-using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Serilog;
 
-namespace Enigma.Core.Work.Research;
+namespace Enigma.Core.Handlers.Research;
 
-public class ProjectCreationHandler : IProjectCreationHandler
+public sealed class ProjectCreationHandler : IProjectCreationHandler
 {
 
     private readonly ApplicationSettings _applicationSettings;
@@ -163,14 +163,6 @@ public class ProjectCreationHandler : IProjectCreationHandler
             return false;
         }
         return true;
-    }
-
-    private bool ReadDataFile(ResearchProject project, out List<StandardInputItem> inputItems)
-    {
-        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
-        inputItems = new();
-        // kijk naar lgoica in CsvHandler in Persistency, en ook naar de controller voor data. Logica hiervan verplaatsen.
-        return false;
     }
 
 }

@@ -1,12 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Calc.Coordinates;
-using Enigma.Core.Work.Calc.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Exceptions;
-using Enigma.Domain.RequestResponse;
+using Enigma.Core.Handlers.Interfaces;
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Moq;
 
 namespace Enigma.Test.Core.Handlers.Calc.Coordinates;
@@ -20,7 +20,6 @@ public class TestHorizontalHandler
     private readonly EclipticCoordinates _eclipticCoordinates = new(160.0, 3.3);
     private readonly int _flags = 0;
     private readonly double[] _expectedResults = { 222.2, 33.3 };
-    private readonly string _errorText = "Description of problem.";
 
 
     [Test]
@@ -28,28 +27,14 @@ public class TestHorizontalHandler
     {
         Mock<IHorizontalCalc> calcMock = CreateCalcMock();
         IHorizontalHandler handler = new HorizontalHandler(calcMock.Object);
-        HorizontalResponse response = handler.CalcHorizontal(new HorizontalRequest(_jdUt, _location, _eclipticCoordinates));
+        HorizontalCoordinates coordinates = handler.CalcHorizontal(new HorizontalRequest(_jdUt, _location, _eclipticCoordinates));
         Assert.Multiple(() =>
         {
-            Assert.That(response.HorizontalAzimuthAltitude.Azimuth, Is.EqualTo(_expectedResults[0]).Within(_delta));
-            Assert.That(response.HorizontalAzimuthAltitude.Altitude, Is.EqualTo(_expectedResults[1]).Within(_delta));
-            Assert.That(response.Success, Is.True);
-            Assert.That(response.ErrorText, Is.EqualTo(""));
+            Assert.That(coordinates.Azimuth, Is.EqualTo(_expectedResults[0]).Within(_delta));
+            Assert.That(coordinates.Altitude, Is.EqualTo(_expectedResults[1]).Within(_delta));
         });
     }
 
-    [Test]
-    public void TextSeException()
-    {
-        Mock<IHorizontalCalc> calcExceptionMock = CreateCalcMockThrowingException();
-        IHorizontalHandler handler = new HorizontalHandler(calcExceptionMock.Object);
-        HorizontalResponse response = handler.CalcHorizontal(new HorizontalRequest(_jdUt, _location, _eclipticCoordinates));
-        Assert.Multiple(() =>
-        {
-            Assert.That(response.Success, Is.False);
-            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
-        });
-    }
 
     private Mock<IHorizontalCalc> CreateCalcMock()
     {
@@ -58,11 +43,4 @@ public class TestHorizontalHandler
         return mock;
     }
 
-    private Mock<IHorizontalCalc> CreateCalcMockThrowingException()
-    {
-        var mock = new Mock<IHorizontalCalc>();
-        var exception = new SwissEphException(_errorText);
-        mock.Setup(p => p.CalculateHorizontal(_jdUt, _location, _eclipticCoordinates, _flags)).Throws(exception);
-        return mock;
-    }
 }

@@ -1,9 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Enums;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,18 +20,17 @@ public partial class ChartDataInputWindow : Window
 {
     private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly ChartDataInputController _controller;
-    private List<CalendarDetails> _calendarDetails;
-    private List<Directions4GeoLongDetails> _directions4GeoLongDetails;
-    private List<Directions4GeoLatDetails> _directions4GeoLatDetails;
-    private List<YearCountDetails> _yearCountDetails;
-    private List<TimeZoneDetails> _timeZoneDetails;
+    private readonly List<CalendarDetails> _calendarDetails = Calendars.Gregorian.AllDetails();
+    private readonly List<Directions4GeoLongDetails> _directions4GeoLongDetails = Directions4GeoLong.East.AllDetails();
+    private readonly List<Directions4GeoLatDetails> _directions4GeoLatDetails = Directions4GeoLat.North.AllDetails();
+    private readonly List<YearCountDetails> _yearCountDetails = YearCounts.Astronomical.AllDetails();
+    private readonly List<TimeZoneDetails> _timeZoneDetails = TimeZones.UT.AllDetails();
 
     public ChartDataInputWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ChartDataInputController>();
         _controller.InitializeDataVault();
-        PopulateDetails();
         PopulateTexts();
         PopulateLists();
         EnableLmt(false);
@@ -55,16 +56,6 @@ public partial class ChartDataInputWindow : Window
         BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
     }
 
-    private void PopulateDetails()
-    {
-        _calendarDetails = Calendars.Gregorian.AllDetails();
-
-        _directions4GeoLongDetails = Directions4GeoLong.East.AllDetails();
-        _directions4GeoLatDetails = Directions4GeoLat.North.AllDetails();
-        _yearCountDetails = YearCounts.Astronomical.AllDetails();
-        List<TimeZoneDetails> timeZoneDetails = TimeZones.UT.AllDetails();
-        _timeZoneDetails = timeZoneDetails;
-    }
 
     private void PopulateLists()
     {

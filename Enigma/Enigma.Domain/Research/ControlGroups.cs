@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Research;
@@ -13,6 +14,12 @@ public enum ControlGroupTypes
 }
 
 
+/// <summary>Details for ControlGroupTypes </summary>
+/// <param name="controlGroupType">Instance from enum ControlGroupTypes.</param>
+/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+public record ControlGroupTypeDetails(ControlGroupTypes ControlGroupType, string TextId);
+
+/// <summary>Extension class for enum ControlGroupTypes.</summary>
 public static class ControlGroupTypesExtensions
 {
     /// <summary>Retrieve details for ControlGroupTypes.</summary>
@@ -29,9 +36,8 @@ public static class ControlGroupTypesExtensions
     }
 
     /// <summary>Retrieve details for items in the enum ControlGroupTypes.</summary>
-    /// <param name="cal">The control group type, is automatically filled.</param>
     /// <returns>All details.</returns>
-    public static List<ControlGroupTypeDetails> AllDetails(this ControlGroupTypes cgType)
+    public static List<ControlGroupTypeDetails> AllDetails(this ControlGroupTypes _)
     {
         var allDetails = new List<ControlGroupTypeDetails>();
         foreach (ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)))
@@ -42,11 +48,10 @@ public static class ControlGroupTypesExtensions
     }
 
     /// <summary>Find control group type for an index.</summary>
-    /// <param name="cgType">Any control group type, automatically filled.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The control group type for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static ControlGroupTypes ControlGroupTypeForIndex(this ControlGroupTypes cgType, int index)
+    public static ControlGroupTypes ControlGroupTypeForIndex(this ControlGroupTypes _, int index)
     {
         foreach (ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)))
         {
@@ -58,10 +63,7 @@ public static class ControlGroupTypesExtensions
 }
 
 
-/// <summary>Details for ControlGroupTypes </summary>
-/// <param name="controlGroupType">Instance from enum ControlGroupTypes.</param>
-/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
-public record ControlGroupTypeDetails(ControlGroupTypes ControlGroupType, string TextId);
+
 
 
 

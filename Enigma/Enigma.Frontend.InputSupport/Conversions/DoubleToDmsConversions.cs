@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
@@ -8,12 +9,16 @@ using Enigma.Frontend.Helpers.Interfaces;
 namespace Enigma.Frontend.Helpers.Conversions;
 
 
-public class DoubleToDmsConversions : IDoubleToDmsConversions
+/// <inheritdoc/>
+public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
 {
+    /// <inheritdoc/>
     public string ConvertDoubleToDmsInSignNoGlyph(double position)
     {
         return ConvertDoubleToDmsWithGlyph(position).longTxt;
     }
+
+    /// <inheritdoc/>
     public string ConvertDoubleToDmInSignNoGlyph(double position)
     {
         double remaining = Math.Abs(position);
@@ -25,8 +30,8 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
         return CreateDmString(degreesInSign, minutes);
     }
 
-
-    public (string longTxt, string glyph) ConvertDoubleToDmsWithGlyph(double position)
+    /// <inheritdoc/>
+    public (string longTxt, char glyph) ConvertDoubleToDmsWithGlyph(double position)
     {
         double remaining = position;
         int degrees = (int)position;
@@ -37,11 +42,12 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
         remaining -= minutes / 60.0;
         int seconds = (int)(remaining * 3600.0);
         string longTxt = CreateDmsString(degreesInSign, minutes, seconds);
-        string glyph = DefineGlyph(nrOfSigns);
+        char glyph = DefineGlyph(nrOfSigns);
         return (longTxt, glyph);
 
     }
 
+    /// <inheritdoc/>
     public string ConvertDoubleToPositionsDmsText(double position)
     {
         string minusSign = position < 0.0 ? "-" : "";
@@ -70,9 +76,9 @@ public class DoubleToDmsConversions : IDoubleToDmsConversions
         return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN;
     }
 
-    private static string DefineGlyph(int nrOfSigns)
+    private static char DefineGlyph(int nrOfSigns)
     {
-        var AllGlyphs = new string[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
+        var AllGlyphs = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=' };
         return AllGlyphs[nrOfSigns - 1];
     }
 

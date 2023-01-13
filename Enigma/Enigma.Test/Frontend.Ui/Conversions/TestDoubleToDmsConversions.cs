@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
@@ -62,7 +63,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = 36.5;
         string expectedText = "6" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
-        string expectedGlyph = "2";
+        char expectedGlyph = '2';
         Assert.Multiple(() =>
         {
             Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));
@@ -75,7 +76,7 @@ public class TestDoubleToDmsConversions
     {
         double inputValue = 0.0;
         string expectedText = "0" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN;
-        string expectedGlyph = "1";
+        char expectedGlyph = '1';
         Assert.Multiple(() =>
         {
             Assert.That(_conversions.ConvertDoubleToDmsWithGlyph(inputValue).longTxt, Is.EqualTo(expectedText));

@@ -1,23 +1,22 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Points;
-using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
-using Serilog;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.Ui.Charts;
 
-public class ChartDataInputController
+public sealed class ChartDataInputController
 {
 
     public string NameId { get; set; } = "";
@@ -69,19 +68,19 @@ public class ChartDataInputController
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
 
-        List<CelPoints> celPoints = new() {
-            CelPoints.Sun,
-            CelPoints.Moon,
-            CelPoints.Mercury,
-            CelPoints.Venus,
-            CelPoints.Mars,
-            CelPoints.Jupiter,
-            CelPoints.Saturn,
-            CelPoints.Uranus,
-            CelPoints.Neptune,
-            CelPoints.Pluto,
-            CelPoints.Chiron,
-            CelPoints.MeanNode
+        List<ChartPoints> celPoints = new() {
+            ChartPoints.Sun,
+            ChartPoints.Moon,
+            ChartPoints.Mercury,
+            ChartPoints.Venus,
+            ChartPoints.Mars,
+            ChartPoints.Jupiter,
+            ChartPoints.Saturn,
+            ChartPoints.Uranus,
+            ChartPoints.Neptune,
+            ChartPoints.Pluto,
+            ChartPoints.Chiron,
+            ChartPoints.MeanNode
         };
         return new CalculationPreferences(celPoints, ZodiacTypes.Tropical, Ayanamshas.None, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, HouseSystems.Placidus);
     }
@@ -103,7 +102,7 @@ public class ChartDataInputController
         bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, out FullTime? fullTime);
         bool geoLongSuccess = _geoLongInputParser.HandleGeoLong(Longitude, Direction4GeoLong, out FullGeoLongitude? fullGeoLongitude);
         bool geoLatSuccess = _geoLatInputParser.HandleGeoLat(Latitude, Direction4GeoLat, out FullGeoLatitude? fullGeoLatitude);
-        bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? fullLmtOffset);
+        bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? _);
 
         if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
         if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
@@ -114,36 +113,27 @@ public class ChartDataInputController
         if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && fullDate != null && fullTime != null)
         {
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, cal);
-            JulianDayRequest julianDayRequest = new(dateTime);
-            double julianDayUt = _julianDayApi.GetJulianDay(julianDayRequest).JulDayUt;
+            double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
             string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             CelPointsRequest celPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
             ChartAllPositionsRequest chartAllPositionsRequest = new(celPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
             ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(chartAllPositionsRequest);
-            if (chartAllPositionsResponse.Success)
-            {
-                List<FullCelPointPos> celPointPositions = chartAllPositionsResponse.CelPointPositions;
-                FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions;
-                FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
+            List<FullChartPointPos> celPointPositions = chartAllPositionsResponse.CelPointPositions;
+            FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions;
+            FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
 
 
-                MetaData metaData = CreateMetaData(NameId, Description, Source, ChartCategory, RoddenRating);
-                // Todo retrieve id from database, use local counter for tempId
-                int id = 1000;
-                int tempId = 1;
-                ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
-                CalculatedChart chart = new(celPointPositions, _mundanePositions, chartData);
-                _dataVault.AddNewChart(chart);
-                _dataVault.SetNewChartAdded(true);
-                return true;
-            }
-            else
-            {
-                Log.Error("");
-                return false;
-            }
+            MetaData metaData = CreateMetaData(NameId, Description, Source, ChartCategory, RoddenRating);
+            // Todo retrieve id from database, use local counter for tempId
+            int id = 1000;
+            int tempId = 1;
+            ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
+            CalculatedChart chart = new(celPointPositions, _mundanePositions, chartData);
+            _dataVault.AddNewChart(chart);
+            _dataVault.SetNewChartAdded(true);
+            return true;
         }
         else return false;
     }

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -18,7 +19,7 @@ using System.Windows;
 namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>Controller (according to MVC pattern) for the view ChartAspectsWindow.</summary>
-public class ChartAspectsController
+public sealed class ChartAspectsController
 {
     private readonly IAspectForDataGridFactory _aspectForDataGridFactory;
     private readonly IAspectsApi _aspectsApi;
@@ -36,18 +37,18 @@ public class ChartAspectsController
     public string GetChartIdName()
     {
         var chart = _dataVault.GetLastChart();
-        return chart == null ? "" : chart.InputtedChartData.ChartMetaData.Name;
+        return chart == null ? "" : chart.InputtedChartData.MetaData.Name;
     }
 
     public List<PresentableAspects> GetPresentableAspectsForCelPoints()
     {
-        List<EffectiveAspect> effAspects = _aspectsApi.AspectsForCelPoints(CreateRequest());
+        List<DefinedAspect> effAspects = _aspectsApi.AspectsForCelPoints(CreateRequest());
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 
     public List<PresentableAspects> GetPresentableAspectsForMundanePoints()
     {
-        List<EffectiveAspect> effAspects = _aspectsApi.AspectsForMundanePoints(CreateRequest());
+        List<DefinedAspect> effAspects = _aspectsApi.AspectsForMundanePoints(CreateRequest());
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 
@@ -64,7 +65,7 @@ public class ChartAspectsController
     {
         CalculatedChart? currentChart = _dataVault.GetLastChart();
         AstroConfig config = CurrentConfig.Instance.GetConfig();
-        return new AspectRequest(currentChart, config);
+        return new AspectRequest(currentChart!, config);
     }
 
 }

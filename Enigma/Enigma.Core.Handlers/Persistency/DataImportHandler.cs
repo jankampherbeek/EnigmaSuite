@@ -1,9 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Persistency.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.RequestResponse;
 
@@ -11,7 +11,7 @@ using Enigma.Domain.RequestResponse;
 namespace Enigma.Core.Handlers.Persistency;
 
 /// <inheritdoc/>
-public class DataImportHandler : IDataImportHandler
+public sealed class DataImportHandler : IDataImportHandler
 {
     private readonly IFileCopier _fileCopier;
     private readonly ITextFileReader _textFileReader;

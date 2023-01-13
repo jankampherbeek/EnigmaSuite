@@ -1,10 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
-using Enigma.Research.Domain;
+using Enigma.Domain.Calc.ChartItems;
 
 namespace Enigma.Domain.Research;
 
@@ -29,15 +28,5 @@ public record MundaneSettings(Ayanamshas Ayanamsha,
     ResearchCalcSettings(Ayanamsha, ObserverPosition, ProjectionType);
 
 
-/// <summary>Research settings for divisions of the ecliptic.</summary>
-/// <param name="Ayanamsha">Ayanamsha, for tropical use Ayanamsha 'None'.</param>
-/// <param name="ObserverPosition">Position of observer (helio-, geo- or topocentric).</param>
-/// <param name="ProjectionType">Type of projection (standard or oblique longitude).</param>
-/// <param name="EclipticDivisionType">The type of division (signs, decans etc.).</param>
-public record EclipticDivisionSettings(Ayanamshas Ayanamsha,
-    ObserverPositions ObserverPosition,
-    ProjectionTypes ProjectionType,
-    EclipticDivisionTypes EclipticDivisionType) :
-    ResearchCalcSettings(Ayanamsha, ObserverPosition, ProjectionType);
 
 

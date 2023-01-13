@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
@@ -11,13 +12,14 @@ using Serilog;
 
 namespace Enigma.Api.Research;
 
-
-public class ProjectCreationApi : IProjectCreationApi
+/// <inheritdoc/>
+public sealed class ProjectCreationApi : IProjectCreationApi
 {
     private readonly IProjectCreationHandler _projectCreationHandler;
 
     public ProjectCreationApi(IProjectCreationHandler projectCreationHandler) => _projectCreationHandler = projectCreationHandler;
 
+    /// <inheritdoc/>
     public ResultMessage CreateProject(ResearchProject project)
     {
         Guard.Against.Null(project);
@@ -26,26 +28,28 @@ public class ProjectCreationApi : IProjectCreationApi
         string msg = "Project created";
         if (success)
         {
-            Log.Information("Project {name} successfully created.", project.Name);
+            Log.Information("ProjectCreationApi.CreateProject(): Project {name} successfully created.", project.Name);
         }
         else
         {
-            msg = "An error occurred";
-            Log.Error("An error occurred when creating project {name}, the errorCode is: {code}.", project.Name, errorCode);
+            msg = "An error occurred when trying to create a project.";
+            Log.Error("ProjectCreationApi.CreateProject(): An error occurred when creating project {name}, the errorCode is: {code}.", project.Name, errorCode);
         }
         return new ResultMessage(errorCode, msg);
     }
 }
 
-public class ProjectsOverviewApi : IProjectsOverviewApi
+/// <inheritdoc/>
+public sealed class ProjectsOverviewApi : IProjectsOverviewApi
 {
     private readonly IProjectsOverviewHandler _projectsOverviewHandler;
 
     public ProjectsOverviewApi(IProjectsOverviewHandler projectsOverviewHandler) => _projectsOverviewHandler = projectsOverviewHandler;
 
+    /// <inheritdoc/>
     public List<ResearchProject> GetDetailsForAllProjects()
     {
-        Log.Information("ProjectsOverviewApi GetDetailsForAllProjects.");
+        Log.Information("ProjectsOverviewApi.GetDetailsForAllProjects(). Returning list of projects.");
         return _projectsOverviewHandler.ReadAllProjectDetails();
     }
 }

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Helpers.Support;
@@ -10,13 +11,16 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Charts;
 
+// TODO 0.1 finish ChartsMainWindow
+
+
 /// <summary>Main window with dashboard for charts.</summary>
 public partial class ChartsMainWindow : Window
 {
 
-    private ChartsMainController _controller;
-    private Rosetta _rosetta = Rosetta.Instance;
-    private DataVault _dataVault = DataVault.Instance;
+    private readonly ChartsMainController _controller;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
+    private readonly DataVault _dataVault = DataVault.Instance;
 
     public ChartsMainWindow()
     {

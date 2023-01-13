@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
@@ -13,7 +14,7 @@ namespace Enigma.Api.Analysis;
 
 
 /// <inheritdoc/>
-public class MidpointsApi : IMidpointsApi
+public sealed class MidpointsApi : IMidpointsApi
 {
 
     private readonly IMidpointsHandler _midpointsHandler;
@@ -28,7 +29,7 @@ public class MidpointsApi : IMidpointsApi
     public List<BaseMidpoint> AllMidpoints(CalculatedChart chart)
     {
         Guard.Against.Null(chart);
-        Log.Information("MidpointsApi: AllMidpoints for chart : {chartName} ", chart.InputtedChartData.ChartMetaData.Name);
+        Log.Information("MidpointsApi: AllMidpoints for chart : {chartName} ", chart.InputtedChartData.MetaData.Name);
         return _midpointsHandler.RetrieveBaseMidpoints(chart);
     }
 
@@ -37,7 +38,7 @@ public class MidpointsApi : IMidpointsApi
     public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize)
     {
         Guard.Against.Null(chart);
-        Log.Information("MidpointsApi: OccupiedMidpoints in dial size {dialSize} for chart : {chartName} ", dialSize, chart.InputtedChartData.ChartMetaData.Name);
+        Log.Information("MidpointsApi: OccupiedMidpoints in dial size {dialSize} for chart : {chartName} ", dialSize, chart.InputtedChartData.MetaData.Name);
         return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize);
     }
 

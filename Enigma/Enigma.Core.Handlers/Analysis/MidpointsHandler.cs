@@ -1,24 +1,25 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Analysis.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Analysis;
 
-public class MidpointsHandler : IMidpointsHandler
+/// <inheritdoc/>
+public sealed class MidpointsHandler : IMidpointsHandler
 {
-    private IAnalysisPointsForMidpoints _analysisPointsForMidpoints;
+    private readonly IPointsForMidpoints _analysisPointsForMidpoints;
     private readonly IBaseMidpointsCreator _baseMidpointsCreator;
     private readonly IOccupiedMidpoints _occupiedMidpoints;
 
 
-    public MidpointsHandler(IAnalysisPointsForMidpoints analysisPointsForMidpoints,
+    public MidpointsHandler(IPointsForMidpoints analysisPointsForMidpoints,
         IBaseMidpointsCreator baseMidpointsCreator,
         IOccupiedMidpoints occupiedMidpoints)
     {
@@ -27,13 +28,15 @@ public class MidpointsHandler : IMidpointsHandler
         _occupiedMidpoints = occupiedMidpoints;
     }
 
+    /// <inheritdoc/>
     public List<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart)
     {
         double dialSize = 360.0;
-        List<AnalysisPoint> analysisPoints = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
+        List<PositionedPoint> analysisPoints = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
         return _baseMidpointsCreator.CreateBaseMidpoints(analysisPoints);
     }
 
+    /// <inheritdoc/>
     public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize)
     {
         return _occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize);

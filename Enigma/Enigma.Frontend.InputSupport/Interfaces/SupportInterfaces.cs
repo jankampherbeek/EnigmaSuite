@@ -1,13 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Frontend.Helpers.Interfaces;
-
-public interface IRangeCheck
-{
-    public double InRange360(double angle);
-}
 
 
 /// <summary>Manage texts that are stored in an external dictionary file.</summary>

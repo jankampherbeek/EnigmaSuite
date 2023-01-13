@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
@@ -17,8 +18,8 @@ namespace Enigma.Frontend.Ui.Research;
 public class ResearchResultController
 {
 
-    private IFileAccessApi _fileAccessApi;
-    private IResearchPathApi _researchPathApi;
+    private readonly IFileAccessApi _fileAccessApi;
+    private readonly IResearchPathApi _researchPathApi;
     public string ProjectText { get; set; } = string.Empty;
     public string TestMethodText { get; set; } = string.Empty;
     public string ControlMethodText { get; set; } = string.Empty;
@@ -78,7 +79,7 @@ public class ResearchResultController
         {
             headerLine = "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS";
         }
-        else 
+        else
         if (response.Request.Method == ResearchMethods.CountPosInHouses)
         {
             headerLine = "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
@@ -88,7 +89,7 @@ public class ResearchResultController
 
         foreach (CountOfParts cop in countOfParts)
         {
-            string name = cop.Point.Name + spaces;
+            string name = cop.Point.ToString() + spaces;
             resultData.Append(name[..20]);
             foreach (int count in cop.Counts)
             {

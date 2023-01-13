@@ -1,20 +1,21 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Calc.Interfaces;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Calc;
 
-public class HousesHandler : IHousesHandler
+/// <inheritdoc/>
+public sealed class HousesHandler : IHousesHandler
 {
     private readonly IHousesCalc _housesCalc;
     private readonly IObliquityHandler _obliquityHandler;
@@ -30,41 +31,28 @@ public class HousesHandler : IHousesHandler
     }
 
 
-
-    public FullHousesPosResponse CalcHouses(FullHousesPosRequest request)
+    /// <inheritdoc/>
+    public FullHousesPositions CalcHouses(FullHousesPosRequest request)
     {
-        string errorText = "";
-        bool success = true;
         HouseSystems houseSystem = request.HouseSystem;
         HouseSystemDetails houseDetails = houseSystem.GetDetails();
         char houseId4Se = houseDetails.SeId;
         int _flags = EnigmaConstants.SEFLG_SWIEPH;
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
-        FullHousesPositions? fullHousesPos = null;
-        try
+        double[][] _eclValues;
+        List<CuspFullPos> allCusps = new();
+        double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
+        _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
+        for (int n = 1; n < _eclValues[0].Length; n++)
         {
-            double[][] _eclValues;
-            List<CuspFullPos> allCusps = new();
-            ObliquityResponse oblResponse = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt));
-            double obliquity = oblResponse.ObliquityTrue;
-            _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
-            for (int n = 1; n < _eclValues[0].Length; n++)
-            {
-                allCusps.Add(CreateCuspFullPos("Cusp " + n, _eclValues[0][n], jdUt, obliquity, location));
-            }
-            CuspFullPos ascendant = CreateCuspFullPos(MundanePoints.Ascendant.ToString(), _eclValues[1][0], jdUt, obliquity, location);
-            CuspFullPos mc = CreateCuspFullPos(MundanePoints.Mc.ToString(), _eclValues[1][1], jdUt, obliquity, location);
-            CuspFullPos vertex = CreateCuspFullPos(MundanePoints.Vertex.ToString(), _eclValues[1][2], jdUt, obliquity, location);
-            CuspFullPos eastPoint = CreateCuspFullPos(MundanePoints.EastPoint.ToString(), _eclValues[1][4], jdUt, obliquity, location);
-            fullHousesPos = new(allCusps, mc, ascendant, vertex, eastPoint);
+            allCusps.Add(CreateCuspFullPos("Cusp " + n, _eclValues[0][n], jdUt, obliquity, location));
         }
-        catch (SwissEphException see)
-        {
-            errorText = see.Message;
-            success = false;
-        }
-        return new FullHousesPosResponse(fullHousesPos, success, errorText);
+        CuspFullPos ascendant = CreateCuspFullPos(ChartPoints.Ascendant.ToString(), _eclValues[1][0], jdUt, obliquity, location);
+        CuspFullPos mc = CreateCuspFullPos(ChartPoints.Mc.ToString(), _eclValues[1][1], jdUt, obliquity, location);
+        CuspFullPos vertex = CreateCuspFullPos(ChartPoints.Vertex.ToString(), _eclValues[1][2], jdUt, obliquity, location);
+        CuspFullPos eastPoint = CreateCuspFullPos(ChartPoints.EastPoint.ToString(), _eclValues[1][4], jdUt, obliquity, location);
+        return new FullHousesPositions(allCusps, mc, ascendant, vertex, eastPoint);
     }
 
     private CuspFullPos CreateCuspFullPos(string name, double longitude, double jdUt, double obliquity, Location location)
@@ -80,15 +68,13 @@ public class HousesHandler : IHousesHandler
     private EquatorialCoordinates CalcEquatorialCoordinates(EclipticCoordinates eclCoord, double obliquity)
     {
         CoordinateConversionRequest coordConvRequest = new(eclCoord, obliquity);
-        CoordinateConversionResponse coordConvResponse = _coordinateConversionHandler.HandleConversion(coordConvRequest);
-        return coordConvResponse.EquatorialCoord;
+        return _coordinateConversionHandler.HandleConversion(coordConvRequest);
     }
 
     private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EclipticCoordinates eclCoord)
     {
         HorizontalRequest horizontalRequest = new(jdUt, location, eclCoord);
-        HorizontalResponse horizontalResponse = _horizontalHandler.CalcHorizontal(horizontalRequest);
-        return horizontalResponse.HorizontalAzimuthAltitude;
+        return _horizontalHandler.CalcHorizontal(horizontalRequest);
     }
 
 

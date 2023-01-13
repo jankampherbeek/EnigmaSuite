@@ -1,12 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Api.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Frontend.Helpers.Interfaces;
 
 namespace Enigma.Frontend.Helpers.Validations;
@@ -15,9 +14,9 @@ namespace Enigma.Frontend.Helpers.Validations;
 public class DateValidator : IDateValidator
 {
 
-    private readonly ICalcDateTimeApi _dateTimeApi;
+    private readonly IDateTimeApi _dateTimeApi;
 
-    public DateValidator(ICalcDateTimeApi dateTimeHandler)
+    public DateValidator(IDateTimeApi dateTimeHandler)
     {
         _dateTimeApi = dateTimeHandler;
     }
@@ -57,9 +56,7 @@ public class DateValidator : IDateValidator
     {
         if (yearCount == YearCounts.BCE) dateValues[0] = -dateValues[0] + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
-        CheckDateTimeRequest checkDateTimeRequest = new(simpleDateTime);
-        CheckDateTimeResponse responseValidated = _dateTimeApi.CheckDateTime(checkDateTimeRequest);
-        return responseValidated.Validated;
+        return _dateTimeApi.CheckDateTime(simpleDateTime);
     }
 
 }

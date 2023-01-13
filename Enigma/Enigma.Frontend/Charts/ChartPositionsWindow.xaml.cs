@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
@@ -41,13 +42,13 @@ public partial class ChartPositionsWindow : Window
         _chartData = _controller.GetMeta();
         if (_chartData != null)
         {
-            ChartName.Text = _chartData.ChartMetaData.Name;
-            Details.Text = _chartData.ChartMetaData.Description + _newLine +
-                _chartData.ChartLocation.LocationFullName + _newLine +
-                ParseDateText(_chartData.ChartDateTime.DateText) + _space + ParseTimeText(_chartData.ChartDateTime.TimeText) + _newLine +
-                _rosetta.TextForId("charts.positions.chartgategory") + _space + _chartData.ChartMetaData.ChartCategory + _newLine +
-                _rosetta.TextForId("charts.positions.rating") + _space + _chartData.ChartMetaData.RoddenRating + _newLine +
-                _rosetta.TextForId("charts.positions.source") + _space + _chartData.ChartMetaData.Source;
+            ChartName.Text = _chartData.MetaData.Name;
+            Details.Text = _chartData.MetaData.Description + _newLine +
+                _chartData.Location.LocationFullName + _newLine +
+                ParseDateText(_chartData.FullDateTime.DateText) + _space + ParseTimeText(_chartData.FullDateTime.TimeText) + _newLine +
+                _rosetta.TextForId("charts.positions.chartgategory") + _space + _chartData.MetaData.ChartCategory + _newLine +
+                _rosetta.TextForId("charts.positions.rating") + _space + _chartData.MetaData.RoddenRating + _newLine +
+                _rosetta.TextForId("charts.positions.source") + _space + _chartData.MetaData.Source;
         }
     }
 

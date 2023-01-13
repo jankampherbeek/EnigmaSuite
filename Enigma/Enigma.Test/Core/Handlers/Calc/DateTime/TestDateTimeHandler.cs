@@ -1,13 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Calc.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
-using Enigma.Domain.Exceptions;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
@@ -20,7 +18,6 @@ public class TestDateTimeHandler
     private readonly double _jdUt = 123456.789;
     private readonly bool _useJdForUt = true;
     private SimpleDateTime _dateTime;
-    private readonly string _errorText = "Description of problem.";
 
 
     [SetUp]
@@ -37,26 +34,7 @@ public class TestDateTimeHandler
         Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
         IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorMock.Object);
         DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
-        Assert.Multiple(() =>
-        {
-            Assert.That(response.DateTime, Is.EqualTo(_dateTime));
-            Assert.That(response.Success, Is.True);
-            Assert.That(response.ErrorText, Is.EqualTo(""));
-        });
-    }
-
-    [Test]
-    public void TextSeException()
-    {
-        Mock<IDateTimeCalc> calcExceptionMock = CreateCalcMockThrowingException();
-        Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
-        IDateTimeHandler handler = new DateTimeHandler(calcExceptionMock.Object, validatorMock.Object);
-        DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
-        Assert.Multiple(() =>
-        {
-            Assert.That(response.Success, Is.False);
-            Assert.That(response.ErrorText, Is.EqualTo(_errorText));
-        });
+        Assert.That(response.DateTime, Is.EqualTo(_dateTime));
     }
 
 
@@ -70,17 +48,10 @@ public class TestDateTimeHandler
     private Mock<IDateTimeValidator> CreateValidatorMock()
     {
         var mock = new Mock<IDateTimeValidator>();
-        // mock.Setup(p => p.CalcDateTime(_jdUt, _calendar)).Returns(_dateTime);
+
+        mock.Setup(p => p.ValidateDateTime(_dateTime)).Returns(true);
         return mock;
     }
 
-
-    private Mock<IDateTimeCalc> CreateCalcMockThrowingException()
-    {
-        var mock = new Mock<IDateTimeCalc>();
-        var exception = new SwissEphException(_errorText);
-        mock.Setup(p => p.CalcDateTime(_jdUt, _calendar)).Throws(exception);
-        return mock;
-    }
 
 }

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Facades.Se.Interfaces;
@@ -13,7 +14,7 @@ namespace Enigma.Facades.Se;
 public class HousesFacade : IHousesFacade
 {
     /// <inheritdoc/>
-    /// <remarks>Throws a SwissEphException if the SE returns an error.</remarks>
+    /// <remarks>Throws a SwissEphException if the CelPointSE returns an error.</remarks>
     public double[][] RetrieveHouses(double jdUt, int flags, double geoLat, double geoLon, char houseSystem)
     {
         int _nrOfCusps = houseSystem == 'G' ? 37 : 13;

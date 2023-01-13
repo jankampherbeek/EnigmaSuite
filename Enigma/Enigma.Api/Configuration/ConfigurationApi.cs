@@ -1,16 +1,18 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Api.Interfaces;
+using Enigma.Core.Handlers.Configuration.Interfaces;
 using Enigma.Domain.Configuration;
 using Serilog;
 
 namespace Enigma.Api.Configuration;
 
 /// <inheritdoc/>
-public class ConfigurationApi : IConfigurationApi
+public sealed class ConfigurationApi : IConfigurationApi
 {
     private readonly IConfigurationHandler _handler;
 

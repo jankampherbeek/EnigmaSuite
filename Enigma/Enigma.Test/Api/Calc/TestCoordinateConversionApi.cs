@@ -1,10 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Astron;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Core.Handlers.Interfaces;
+using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
@@ -16,8 +18,6 @@ public class TestCoordinateConversionApi
 {
     private readonly double _delta = 0.00000001;
     private readonly double _obliquity = 23.447;
-    private readonly bool _expectedSuccess = true;
-    private readonly string _expectedErrorText = "";
     private readonly EquatorialCoordinates _expectedEqCoord = new(221.1, 4.4);
     private ICoordinateConversionApi _api;
 
@@ -26,7 +26,7 @@ public class TestCoordinateConversionApi
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
         var _mockCoordConvHandler = new Mock<ICoordinateConversionHandler>();
-        _mockCoordConvHandler.Setup(p => p.HandleConversion(_coordConvRequest)).Returns(new CoordinateConversionResponse(_expectedEqCoord, _expectedSuccess, _expectedErrorText));
+        _mockCoordConvHandler.Setup(p => p.HandleConversion(_coordConvRequest)).Returns(_expectedEqCoord);
         _api = new CoordinateConversionApi(_mockCoordConvHandler.Object);
     }
 
@@ -34,29 +34,22 @@ public class TestCoordinateConversionApi
     public void TestCoordinateConversionHappyFlow()
     {
         CoordinateConversionRequest _coordConvRequest = CreateConvRequest();
-        CoordinateConversionResponse response = _api.GetEquatorialFromEcliptic(_coordConvRequest);
-        Assert.Multiple(() =>
-        {
-            Assert.That(response.EquatorialCoord.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
-            Assert.That(response.Success, Is.True);
-            Assert.That(response.ErrorText, Is.EqualTo(""));
-        });
+        EquatorialCoordinates coordinates = _api.GetEquatorialFromEcliptic(_coordConvRequest);
+        Assert.That(coordinates.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(_delta));
     }
 
     [Test]
     public void TestCoordinateConversionNullRequest()
     {
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-        Assert.That(() => _api.GetEquatorialFromEcliptic(null), Throws.TypeOf<ArgumentNullException>());
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        CoordinateConversionRequest? request = null;
+        Assert.That(() => _api.GetEquatorialFromEcliptic(request!), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestCoordinateConversionNullCoordinates()
     {
-#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
-        CoordinateConversionRequest errorRequest = new(null, _obliquity);
-#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
+        EclipticCoordinates? eclCoord = null;
+        CoordinateConversionRequest errorRequest = new(eclCoord!, _obliquity);
         Assert.That(() => _api.GetEquatorialFromEcliptic(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
@@ -65,11 +58,4 @@ public class TestCoordinateConversionApi
         return new CoordinateConversionRequest(new EclipticCoordinates(222.2, 1.1), _obliquity);
     }
 }
-
-
-
-
-
-
-
 

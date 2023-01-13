@@ -1,10 +1,10 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Domain.Configuration;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
@@ -38,14 +38,14 @@ public sealed class PointSelectController
 
     public class SelectableCelPointDetails
     {
-        public CelPoints CelPoint { get; set; }
-        public string? Glyph { get; set; }
+        public ChartPoints ChartPoint { get; set; }
+        public char? Glyph { get; set; }
         public string? Name { get; set; }
     }
 
     public class SelectableMundanePointDetails
     {
-        public MundanePoints MundanePoint { get; set; }
+        public ChartPoints MundanePoint { get; set; }
         public string? Name { get; set; }
     }
 
@@ -55,12 +55,14 @@ public sealed class PointSelectController
         string resourceBundlePrefix = "ref.enum.celpoint.";
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selCPDetails = new();
-        foreach (CelPointConfigSpecs currentCPSpec in _astroConfig.CelPoints)
+        foreach (ChartPointConfigSpecs currentCPSpec in _astroConfig.ChartPoints)
         {
-            if (currentCPSpec.IsUsed)
+            PointCats cat = currentCPSpec.Point.GetDetails().PointCat;
+            if (currentCPSpec.IsUsed && cat != PointCats.Mundane && cat != PointCats.Cusp)
             {
-                CelPointDetails cpDetails = currentCPSpec.CelPoint.GetDetails();
-                _selCPDetails.Add(new SelectableCelPointDetails() { CelPoint = cpDetails.CelPoint, Glyph = cpDetails.DefaultGlyph, Name = _rosetta.TextForId(resourceBundlePrefix + cpDetails.TextId) });
+                PointDetails cpDetails = currentCPSpec.Point.GetDetails();
+                char glyph = ' ';
+                _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = _rosetta.TextForId(resourceBundlePrefix + cpDetails.TextId) });
             }
         }
     }
@@ -69,12 +71,12 @@ public sealed class PointSelectController
     {
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selMPDetails = new();
-        foreach (MundanePointConfigSpecs currentMPSpec in _astroConfig.MundanePoints)
+        foreach (ChartPointConfigSpecs currentSpec in _astroConfig.ChartPoints)
         {
-            if (currentMPSpec.IsUsed)
+            if (currentSpec.IsUsed && currentSpec.Point.GetDetails().PointCat == PointCats.Mundane)
             {
-                MundanePointDetails mpDetails = currentMPSpec.MundanePoint.GetDetails();
-                _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.MundanePoint, Name = _rosetta.TextForId(mpDetails.TextId) });
+                PointDetails mpDetails = currentSpec.Point.GetDetails();
+                _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.Point, Name = _rosetta.TextForId(mpDetails.TextId) });
             }
         }
     }

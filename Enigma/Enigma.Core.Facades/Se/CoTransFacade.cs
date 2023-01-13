@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -10,13 +11,11 @@ using System.Runtime.InteropServices;
 namespace Enigma.Facades.Se;
 
 
-
-
 /// <inheritdoc/>
 public class CoTransFacade : ICoTransFacade
 {
     /// <inheritdoc/>
-    /// <remarks>Throws SwissEphException if the SE returns an error.</remarks>
+    /// <remarks>Throws SwissEphException if the CelPointSE returns an error.</remarks>
     public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity)
     {
         double negativeObliquity = -Math.Abs(obliquity);

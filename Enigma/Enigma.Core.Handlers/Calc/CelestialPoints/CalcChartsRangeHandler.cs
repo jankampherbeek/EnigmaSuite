@@ -1,16 +1,16 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.CalcChartsRange;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.Specials;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints;
 
 /// <inheritdoc/>
-public class CalcChartsRangeHandler : ICalcChartsRangeHandler
+public sealed class CalcChartsRangeHandler : ICalcChartsRangeHandler
 {
     private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
     private readonly IJulDayHandler _julDayHandler;
@@ -31,12 +31,11 @@ public class CalcChartsRangeHandler : ICalcChartsRangeHandler
 
         foreach (var calcDataItem in calcData)
         {
-            JulianDayRequest jdRequest = new(calcDataItem.DateTime);
-            double jdUt = _julDayHandler.CalcJulDay(jdRequest).JulDayUt;
+            double jdUt = _julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt;
             CelPointsRequest celPointsRequest = new(jdUt, calcDataItem.Location, preferences);
             ChartAllPositionsRequest chartAllPositionsRequest = new(celPointsRequest, preferences.ActualHouseSystem);
             ChartAllPositionsResponse response = _chartAllPositionsHandler.CalcFullChart(chartAllPositionsRequest);
-            fullChartForResearchItems.Add(new FullChartForResearchItem(calcDataItem.Id, response.CelPointPositions, response.MundanePositions));
+            fullChartForResearchItems.Add(new FullChartForResearchItem(calcDataItem.Id, response.CelPointPositions, response.MundanePositions!));
         }
         return fullChartForResearchItems;
     }

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Charts;
@@ -10,4 +11,4 @@ namespace Enigma.Domain.Charts;
 /// <param name="point2Glyph">Glyph for the second point.</param>
 /// <param name="orbText">Text for the acual orb.</param>
 /// <param name="exactnessText">Text indicating the exactness of the aspect as a percentage.</param>
-public record PresentableHarmonic(string PointTextGlyph, string RadixPosTest, string RadixSignGlyph, string HarmonicPosText, string harmonicPosGlyph);
+public record PresentableHarmonic(char PointTextGlyph, string RadixPosTest, char RadixSignGlyph, string HarmonicPosText, char HarmonicPosGlyph);

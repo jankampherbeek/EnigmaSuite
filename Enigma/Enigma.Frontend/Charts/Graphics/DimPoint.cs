@@ -1,8 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Work.Calc.Util;
+using Enigma.Core.Handlers.Calc.Util;
 using System;
 using System.Windows;
 
@@ -12,7 +13,7 @@ namespace Enigma.Frontend.Ui.Charts.Graphics;
 /// <summary>
 /// GeneralPoint with the correct X-Y-coördinates. Is used by shapes to define their positions on the canvas.
 /// </summary>
-internal class DimPoint
+internal sealed class DimPoint
 {
     private readonly Point _centerPoint;
 

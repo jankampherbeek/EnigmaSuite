@@ -1,10 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.RequestResponse;
 using Serilog;
 
@@ -12,19 +14,26 @@ namespace Enigma.Api.Calc;
 
 
 /// <inheritdoc/>
-public class DateTimeApi : IDateTimeApi
+public sealed class DateTimeApi : IDateTimeApi
 {
-    private readonly IDateTimeHandler _checkDateTimeHandler;
+    private readonly IDateTimeHandler _dateTimeHandler;
 
-    public DateTimeApi(IDateTimeHandler checkDateTimeHandler) => _checkDateTimeHandler = checkDateTimeHandler;
+    public DateTimeApi(IDateTimeHandler dateTimeHandler) => _dateTimeHandler = dateTimeHandler;
 
     /// <inheritdoc/>
-    public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request)
+    public DateTimeResponse GetDateTime(DateTimeRequest request)
     {
         Guard.Against.Null(request);
-        Guard.Against.Null(request.DateTime);
-        Log.Information("DateTimeapi CheckDateTime");
-        return _checkDateTimeHandler.CheckDateTime(request);
+        Log.Information("DateTimeApi.GetDateTime() using julian day {jd}.", request.JulDay);
+        return _dateTimeHandler.CalcDateTime(request);
+    }
+
+    /// <inheritdoc/>
+    public bool CheckDateTime(SimpleDateTime dateTime)
+    {
+        Guard.Against.Null(dateTime);
+        Log.Information("DateTimeApi.CheckDateTime().");
+        return _dateTimeHandler.CheckDateTime(dateTime);
     }
 
 }

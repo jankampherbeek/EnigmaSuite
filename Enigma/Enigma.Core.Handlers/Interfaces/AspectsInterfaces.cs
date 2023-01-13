@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -29,7 +30,7 @@ public interface IAspectChecker
     /// <param name="calculatedChart">Chart with positions.</param>
     /// <param name="config">Current configuration.</param>
     /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart, AstroConfig config);
+    List<DefinedAspect> FindAspectsCelPoints(CalculatedChart calculatedChart, AstroConfig config);
 
     /// <summary>
     /// Find aspects between celestial points.
@@ -37,7 +38,7 @@ public interface IAspectChecker
     /// <param name="aspectDetails">Suppported aspects.</param>
     /// <param name="fullCelPointPositions">Supported celestial points.</param>
     /// <returns>List with effective aspects.</returns>
-    public List<EffectiveAspect> FindAspectsCelPoints(List<AspectDetails> aspectDetails, List<FullCelPointPos> fullCelPointPositions);
+    public List<DefinedAspect> FindAspectsCelPoints(List<AspectDetails> aspectDetails, List<FullChartPointPos> fullCelPointPositions);
 
     /// <summary>
     /// Find aspects between a mundane point and a celestial point.
@@ -45,7 +46,7 @@ public interface IAspectChecker
     /// <param name="calculatedChart">Chart with positions.</param>
     /// <param name="config">Current configuration.</param> 
     /// <returns>List with effective aspects.</returns>
-    List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart, AstroConfig config);
+    List<DefinedAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart, AstroConfig config);
 
     /// <summary>
     /// Find aspects between a mundane point and a celestial point.
@@ -53,21 +54,18 @@ public interface IAspectChecker
     /// <param name="aspectDetails">Suppported aspects.</param>
     /// <param name="fullCelPointPositions">Supported celestial points.</param>
     /// <returns>List with effective aspects.</returns>
-    public List<EffectiveAspect> FindAspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart);
+    public List<DefinedAspect> FindAspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart);
 }
 
-    /// <summary>
-    /// Define actual orb for an aspect.
-    /// </summary>
-    public interface IAspectOrbConstructor
-    {
-        /// <summary>Define orb between two celestial points.</summary>
-        public double DefineOrb(CelPoints point1, CelPoints point2, AspectDetails aspectDetails);
-        /// <summary>Define orb between mundane point and celestial point.
-        public double DefineOrb(string mundanePoint, CelPoints celPoint, AspectDetails aspectDetails);
-        /// <summary>Define orb between two general points.</summary>
-        public double DefineOrb(GeneralPoint point1, GeneralPoint point2, AspectDetails aspectDetails);
-    }
+/// <summary>
+/// Define actual orb for an aspect.
+/// </summary>
+public interface IAspectOrbConstructor
+{
+    /// <summary>Define orb between two celestial points.</summary>
+    public double DefineOrb(ChartPoints point1, ChartPoints point2, AspectDetails aspectDetails);
+    /// <summary>Define orb between mundane point and celestial point.
+}
 
 
 

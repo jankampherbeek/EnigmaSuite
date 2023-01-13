@@ -1,24 +1,25 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Handlers.Configuration.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Configuration;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
-using Enigma.Domain.RequestResponse;
 using Enigma.Research.Domain;
 using Serilog;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
 /// <inheritdoc/>
-public class CalculatedResearchPositions : ICalculatedResearchPositions
+public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
 {
-
+    // TODO 0.1 Analysis
     private readonly IConfigurationHandler _configurationHandler;
     private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
     private readonly IJulDayHandler _julDayHandler;
@@ -65,21 +66,20 @@ public class CalculatedResearchPositions : ICalculatedResearchPositions
         // TODO check for overflow
         Calendars cal = inputItem.Date.Calendar == "G" ? Calendars.Gregorian : Calendars.Julian;
         SimpleDateTime simpleDateTime = new(inputItem.Date.Year, inputItem.Date.Month, inputItem.Date.Day, ut, cal);
-        JulianDayRequest jdRequest = new(simpleDateTime);
-        return _julDayHandler.CalcJulDay(jdRequest).JulDayUt;
+        return _julDayHandler.CalcJulDay(simpleDateTime).JulDayUt;
     }
 
 
     private CalculationPreferences DefinePreferences()
     {
         AstroConfig config = _configurationHandler.ReadConfig();
-        List<CelPointConfigSpecs> cpSpecs = config.CelPoints;
-        List<CelPoints> celPoints = new();
-        foreach (CelPointConfigSpecs cpSpec in cpSpecs)
+        List<ChartPointConfigSpecs> cpSpecs = config.ChartPoints;
+        List<ChartPoints> celPoints = new();
+        foreach (ChartPointConfigSpecs cpSpec in cpSpecs)
         {
             if (cpSpec.IsUsed)
             {
-                celPoints.Add(cpSpec.CelPoint);
+                celPoints.Add(cpSpec.Point);
             }
 
         }

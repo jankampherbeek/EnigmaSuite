@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Helpers.Support;
@@ -12,9 +13,9 @@ namespace Enigma.Frontend.Ui.Charts;
 /// <summary>Window for the results of calculated harmonics.</summary>
 public partial class ChartHarmonicsWindow
 {
-    private ChartHarmonicsController _controller;
-    private Rosetta _rosetta = Rosetta.Instance;
-    private string _emptyHeader = "";
+    private readonly ChartHarmonicsController _controller;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
+    private readonly string _emptyHeader = "";
 
     public ChartHarmonicsWindow(ChartHarmonicsController controller)
     {

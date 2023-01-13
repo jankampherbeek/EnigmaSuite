@@ -1,9 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 
@@ -11,7 +11,7 @@ namespace Enigma.Facades.Se;
 
 
 /// <inheritdoc/>
-public class DateConversionFacade : IDateConversionFacade
+public sealed class DateConversionFacade : IDateConversionFacade
 {
     /// <inheritdoc/>
     public bool DateTimeIsValid(SimpleDateTime dateTime)
@@ -23,7 +23,7 @@ public class DateConversionFacade : IDateConversionFacade
 
     }
 
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_date_conversion")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_date_conversion")]
     private extern static int ext_swe_date_conversion(int year, int month, int day, double time, char calendar, ref double julianday);
 
 }

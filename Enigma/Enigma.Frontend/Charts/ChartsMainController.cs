@@ -1,9 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.State;
@@ -21,21 +21,21 @@ public class ChartsMainController
     private ChartAspectsWindow? _chartAspectsWindow;
     private ChartMidpointsWindow? _chartMidpointsWindow;
     private ChartHarmonicsWindow? _chartHarmonicsWindow;
-    private List<Window> _openWindows = new();
+    private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
-
+    private readonly AppSettingsWindow _appSettingsWindow = new();
+    private readonly AstroConfigWindow _astroConfigWindow = new();
+    private readonly AboutWindow _aboutWindow = new();
 
 
     public void ShowAppSettings()
     {
-        AppSettingsWindow appSettingsWindow = new();
-        appSettingsWindow.ShowDialog();
+        _appSettingsWindow.ShowDialog();
     }
 
     public void ShowAstroConfig()
     {
-        AstroConfigWindow astroConfigWindow = new();
-        astroConfigWindow.ShowDialog();
+        _astroConfigWindow.ShowDialog();
     }
 
     public void NewChart()
@@ -94,19 +94,12 @@ public class ChartsMainController
         _openWindows.Add(_chartHarmonicsWindow);
         _chartHarmonicsWindow.Show();
         _chartHarmonicsWindow.Populate();
-
-    }
-
-    public void AddCalculatedChart(CalculatedChart newChart)
-    {
-        // AllCurrentCharts.AddChart(newChart, true, false);
     }
 
 
     public void ShowAbout()
     {
-        AboutWindow aboutWindow = new();    // todo make specific for charts
-        aboutWindow.ShowDialog();
+        _aboutWindow.ShowDialog();
     }
 
     /// <summary>Closes all child windows of main chart window.</summary>

@@ -1,17 +1,17 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Configuration;
 
-public class AstroConfig
+public sealed class AstroConfig
 {
     public HouseSystems HouseSystem { get; }
     public Ayanamshas Ayanamsha { get; }
@@ -19,17 +19,15 @@ public class AstroConfig
     public ZodiacTypes ZodiacType { get; }
     public ProjectionTypes ProjectionType { get; }
     public OrbMethods OrbMethod { get; }
-    public List<CelPointConfigSpecs> CelPoints { get; }
-    public List<AspectConfigSpecs> Aspects { get; }
-    public List<MundanePointConfigSpecs> MundanePoints { get; }
-    public List<ArabicPointConfigSpecs> ArabicPoints { get; }
-    public List<ZodiacPointConfigSpecs> ZodiacPoints { get; }
+    public bool UseCuspsForAspects { get; }
+    public List<ChartPointConfigSpecs> ChartPoints;
+    public List<AspectConfigSpecs> Aspects;
+
     public double BaseOrbAspects { get; }
     public double BaseOrbMidpoints { get; }
 
     public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
-        List<CelPointConfigSpecs> celPoints, List<AspectConfigSpecs> aspects, List<MundanePointConfigSpecs> mundanePoints, List<ArabicPointConfigSpecs> arabicPoints, List<ZodiacPointConfigSpecs> zodiacPoints, 
-        double baseOrbAspects, double baseOrbMidpoints)
+        List<ChartPointConfigSpecs> chartPoints, List<AspectConfigSpecs> aspects, double baseOrbAspects, double baseOrbMidpoints, bool useCuspsForAspects)
     {
         HouseSystem = houseSystem;
         Ayanamsha = ayanamsha;
@@ -37,45 +35,29 @@ public class AstroConfig
         ZodiacType = zodiacType;
         ProjectionType = projectionType;
         OrbMethod = orbMethod;
-        CelPoints = celPoints;
-        MundanePoints = mundanePoints;
-        ArabicPoints = arabicPoints;
+        ChartPoints = chartPoints;
         Aspects = aspects;
-        ZodiacPoints = zodiacPoints; 
         BaseOrbAspects = baseOrbAspects;
         BaseOrbMidpoints = baseOrbMidpoints;
+        UseCuspsForAspects = useCuspsForAspects;
     }
 }
 
-/// <summary>Details for a celestial point to be used in a configuration.</summary>
-/// <param name="CelPoint">The celestial point.</param>
-/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+/// <summary>Configuration details for a chart point.</summary>
+/// <param name="Point">The ChartPoint.</param>
 /// <param name="IsUsed">True if selected, otherwise false.</param>
-public record CelPointConfigSpecs(CelPoints CelPoint, int PercentageOrb, bool IsUsed);
+/// <param name="Glyph">Character for the glyph, space if no glyph is available.</param>
+/// <param name="PercentageOrb">Factor to calculate the orb.</param>
+public record ChartPointConfigSpecs(ChartPoints Point, bool IsUsed, char Glyph, int PercentageOrb);
+
 
 /// <summary>Details for an aspect to be used in a configuration.</summary>
 /// <param name="AspectType">The aspect.</param>
-/// <param name="PercentageOrb">Factor to calculate the orb.</param>
 /// <param name="IsUsed">True if selected, otherwise false.</param>
-public record AspectConfigSpecs(AspectTypes AspectType, int PercentageOrb, bool IsUsed);
-
-/// <summary>Details for a mundane point to be used in a configuration.</summary>
-/// <param name="MundanePoint">The mundane point.</param>
+/// <param name="Glyph">Character for the glyph, space if no glyph is available.</param>
 /// <param name="PercentageOrb">Factor to calculate the orb.</param>
-/// <param name="IsUsed">True if selected, otherwise false.</param>
-public record MundanePointConfigSpecs(MundanePoints MundanePoint, int PercentageOrb, bool IsUsed);
+
+public record AspectConfigSpecs(AspectTypes AspectType, bool IsUsed, char Glyph, int PercentageOrb);
 
 
-/// <summary>Details for an Arabic Point to be used in a configuration.</summary>
-/// <param name="ArabicPoint">The Arabic Point.</param>
-/// <param name="PercentageOrb">Factor to calculate the orb.</param>
-/// <param name="IsUsed">True if selected, otherwise false.</param>
-public record ArabicPointConfigSpecs(ArabicPoints ArabicPoint, int PercentageOrb, bool IsUsed);
-
-
-/// <summary>Details for a zodiacpoint to be used in a configuration.</summary>
-/// <param name="ZodiacPoint">The ZodiacPoint.</param>
-/// <param name="PercentageOrb">Factor to calculate the orb.</param>
-/// <param name="IsUsed">True if selected, otherwise false.</param>
-public record ZodiacPointConfigSpecs(ZodiacPoints ZodiacPoint, int PercentageOrb, bool IsUsed);
 

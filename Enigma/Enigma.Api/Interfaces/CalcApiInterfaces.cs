@@ -1,11 +1,13 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-// Interfaces for API's that support astronomical calculations.
 
-
-using Enigma.Domain.CalcChartsRange;
+using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Api.Interfaces;
@@ -13,8 +15,8 @@ namespace Enigma.Api.Interfaces;
 /// <summary>API for managing the Swiss Ephemeris.</summary>
 public interface ISeApi
 {
-    /// <summary>Initialize the SE.</summary>
-    /// <param name="pathToSeFiles">Full path to datafiles for the SE.</param>
+    /// <summary>Initialize the CelPointSE.</summary>
+    /// <param name="pathToSeFiles">Full path to datafiles for the CelPointSE.</param>
     public void SetupSe(string pathToSeFiles);
 }
 
@@ -36,7 +38,7 @@ public interface ICoordinateConversionApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Equatorial coordinates that correspond to the ecliptic coordinates from the request, using the obliquity from the request.</returns>
-    public CoordinateConversionResponse GetEquatorialFromEcliptic(CoordinateConversionRequest request);
+    public EquatorialCoordinates GetEquatorialFromEcliptic(CoordinateConversionRequest request);
 }
 
 /// <summary>API for the calculation of horizontal coordinates.</summary>
@@ -47,7 +49,7 @@ public interface IHorizontalApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if either the request is null or the request contains a location that is null or eclipticalcoordinates that are null.</remarks>
     /// <returns>Values for azimuth and altitude.</returns>
-    public HorizontalResponse GetHorizontal(HorizontalRequest request);
+    public HorizontalCoordinates GetHorizontal(HorizontalRequest request);
 }
 
 
@@ -58,14 +60,14 @@ public interface IHousesApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Instance of FullHousesPosResponse with all coordinates for cusps, MC, Ascendant, EastPoint and Vertex.</returns>
-    public FullHousesPosResponse GetHouses(FullHousesPosRequest request);
+    public FullHousesPositions GetHouses(FullHousesPosRequest request);
 }
 
 /// <summary>API for calculation of pblique longitude (True place for the WvA)</summary>
 public interface IObliqueLongitudeApi
 {
     /// <summary>Calculate oblique longitude.</summary>
-    public ObliqueLongitudeResponse GetObliqueLongitude(ObliqueLongitudeRequest request);
+    public List<NamedEclipticLongitude> GetObliqueLongitude(ObliqueLongitudeRequest request);
 
 }
 
@@ -76,11 +78,11 @@ public interface IObliquityApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Value for the obliquity of the earth's axis.</returns>
-    public ObliquityResponse GetObliquity(ObliquityRequest request);
+    public double GetObliquity(ObliquityRequest request);
 }
 
-/// <summary>API for calculating date and time.</summary>
-public interface ICalcDateTimeApi
+/// <summary>API for handling date and time.</summary>
+public interface IDateTimeApi
 {
     /// <summary>Api call to calculate date and time.</summary>
     /// <param name="request">DateTimeRequest with the value of a Julian Day number and the calendar that is used.</param>
@@ -89,21 +91,13 @@ public interface ICalcDateTimeApi
     public DateTimeResponse GetDateTime(DateTimeRequest request);
 
     /// <summary>Checks if a given date and time is possible.</summary>
-    /// <param name="request">Instance of DateTimeRequest.</param>
+    /// <param name="dateTime">Date and time.</param>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks> 
-    /// <returns>Instance of DateTimeResponse.</returns>
-    public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request);
+    /// <returns>True if date and tme are valid.</returns>
+    public bool CheckDateTime(SimpleDateTime dateTime);
 }
 
-/// <summary>API for date and time.</summary>
-public interface IDateTimeApi
-{
-    /// <summary>Api call to check if a given date time is valid.</summary>
-    /// <param name="request"/>
-    /// <remarks>Throws ArgumentNullException if the request is null or if SimpleDateTime in the request is null.</remarks> 
-    /// <returns>Response with an indication if the date and time are valid and an indication if errors did occur.</returns>
-    public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request);
-}
+
 
 /// <summary>API for the calculation of the Julian Day Number.</summary>
 public interface IJulianDayApi
@@ -112,7 +106,7 @@ public interface IJulianDayApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null or if SimpleDateTime in the request is null.</remarks> 
     /// <returns>Response with validation and a value for a Julian Day number.</returns>
-    public JulianDayResponse GetJulianDay(JulianDayRequest request);
+    public JulianDayResponse GetJulianDay(SimpleDateTime request);
 }
 
 /// <summary>API for the calculation of a range of charts.</summary>

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
@@ -21,6 +22,7 @@ public class ChartMidpointsController
     private readonly IMidpointForDataGridFactory _midpointForDataGridFactory;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly DataVault _dataVault;
+    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     // TODO make it possible to work with a new chart without overwriting screens with data from the previous chart.
     public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions)
@@ -36,7 +38,7 @@ public class ChartMidpointsController
         var chart = _dataVault.GetLastChart();
         if (chart != null)
         {
-            return chart.InputtedChartData.ChartMetaData.Name;
+            return chart.InputtedChartData.MetaData.Name;
         }
         return "";
     }
@@ -64,10 +66,9 @@ public class ChartMidpointsController
 
     public void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("Midpoints");
-        helpWindow.ShowDialog();
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetHelpPage("Midpoints");
+        _helpWindow.ShowDialog();
     }
 
 }

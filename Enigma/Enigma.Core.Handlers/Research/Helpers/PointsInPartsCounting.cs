@@ -1,18 +1,16 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Research.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
 using Newtonsoft.Json;
 using Serilog;
-using System.Collections.Immutable;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
@@ -77,19 +75,15 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
     {
         List<CountOfParts> allCounts = new();
         int[] tempCounts = new int[nrOfParts];
-        foreach (CelPoints selectedCelPoint in request.PointsSelection.SelectedCelPoints)
+        foreach (ChartPoints selectedCelPoint in request.PointsSelection.SelectedPoints)
         {
-            int Id = selectedCelPoint.GetDetails().SeId;
-            ResearchPoint researchPoint = new ResearchCelPoint(Id, selectedCelPoint);
-            allCounts.Add(new(researchPoint, tempCounts.ToList()));
+            allCounts.Add(new(selectedCelPoint, tempCounts.ToList()));
         }
         if (request.Method != ResearchMethods.CountPosInHouses)
         {
-            foreach (MundanePoints selectedMundanePoint in request.PointsSelection.SelectedMundanePoints)
+            foreach (ChartPoints selectedMundanePoint in request.PointsSelection.SelectedMundanePoints)
             {
-                int Id = (int)selectedMundanePoint;
-                ResearchPoint researchPoint = new ResearchMundanePoint(Id, selectedMundanePoint);
-                allCounts.Add(new(researchPoint, tempCounts.ToList()));
+                allCounts.Add(new(selectedMundanePoint, tempCounts.ToList()));
             }
             if (request.PointsSelection.IncludeCusps)
             {
@@ -97,9 +91,8 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
                 for (int i = 0; i < nrOfCusps; i++)
                 {
                     int index = i + 1;
-                    string name = "Cusp " + index;
-                    ResearchPoint researchPoint = new ResearchCuspPoint(index, name);
-                    allCounts.Add(new(researchPoint, tempCounts.ToList()));
+                    ChartPoints cusp = ChartPoints.None.PointForIndex(index + 2000);
+                    allCounts.Add(new(cusp, tempCounts.ToList()));
                 }
             }
         }
@@ -110,26 +103,26 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
     private static void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointsSelection pointsSelection, int nrOfParts, ref List<CountOfParts> allCounts)
     {
         int pointIndex = 0;
-        foreach (CelPoints selectedCelPoint in pointsSelection.SelectedCelPoints)
+        foreach (ChartPoints selectedCelPoint in pointsSelection.SelectedPoints)
         {
-            foreach (FullCelPointPos chartCelPointPos in chart.CelPointPositions)
+            foreach (FullChartPointPos chartCelPointPos in chart.CelPointPositions)
             {
                 int partIndex = -1;
-                if (chartCelPointPos.CelPoint == selectedCelPoint)
+                if (chartCelPointPos.ChartPoint == selectedCelPoint)
                 {
-                    double longitude = chartCelPointPos.GeneralPointPos.Longitude.Position;
+                    double longitude = chartCelPointPos.PointPos.Longitude.Position;
                     switch (researchMethod)
                     {
                         case ResearchMethods.CountPosInSigns:
                             partIndex = SignIndex(longitude);
                             break;
-                        case ResearchMethods.CountPosInHouses: 
+                        case ResearchMethods.CountPosInHouses:
                             partIndex = DefineHouseNr(longitude, nrOfParts, chart.FullHousePositions);
                             break;
                         default:
                             break;
                     }
-                    if (partIndex >= 0)  allCounts[pointIndex].Counts[partIndex]++;
+                    if (partIndex >= 0) allCounts[pointIndex].Counts[partIndex]++;
                 }
             }
             pointIndex++;
@@ -137,13 +130,13 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
         if (researchMethod != ResearchMethods.CountPosInHouses)
         {
-            foreach (MundanePoints selectedMundanePoint in pointsSelection.SelectedMundanePoints)
+            foreach (ChartPoints selectedMundanePoint in pointsSelection.SelectedMundanePoints)
             {
-                if (selectedMundanePoint == MundanePoints.Mc)
+                if (selectedMundanePoint == ChartPoints.Mc)
                 {
                     allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Mc.Longitude)]++;
                 }
-                if (selectedMundanePoint == MundanePoints.Ascendant)
+                if (selectedMundanePoint == ChartPoints.Ascendant)
                 {
                     allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Ascendant.Longitude)]++;
                 }

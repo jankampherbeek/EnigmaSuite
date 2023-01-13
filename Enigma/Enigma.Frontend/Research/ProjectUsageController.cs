@@ -1,12 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Api.Interfaces;
-using Enigma.Domain.AstronCalculations;
 using Enigma.Domain.Configuration;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
@@ -25,12 +24,13 @@ namespace Enigma.Frontend.Ui.Research;
 public class ProjectUsageController
 {
     private AstroConfig _currentAstroConfig;
-    private IResearchPerformApi _researchPerformApi;
+    private readonly IResearchPerformApi _researchPerformApi;
     private readonly Rosetta _rosetta = Rosetta.Instance;
-    private ResearchProject _currentProject;
-    private PointSelectWindow _pointSelectWindow;
-    private ResearchResultWindow _researchResultWindow;
-    private AstroConfigWindow _configWindow;
+    private ResearchProject? _currentProject;
+    private readonly PointSelectWindow _pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+    private readonly ResearchResultWindow _researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+    private readonly AstroConfigWindow _configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
+    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ProjectUsageController(IResearchPerformApi researchPerformApi)
     {
@@ -52,7 +52,7 @@ public class ProjectUsageController
     public List<PresentableProjectDetails> GetAllProjectDetails()
     {
         List<PresentableProjectDetails> details = new();
-        if (IsProjectSelected())
+        if (IsProjectSelected() && _currentProject != null)
         {
             details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.name"), Value = _currentProject.Name });
             details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.description"), Value = _currentProject.Description });
@@ -79,21 +79,19 @@ public class ProjectUsageController
 
     public class PresentableProjectDetails
     {
-        public string Name { get; set; }
-        public string Value { get; set; }
+        public string? Name { get; set; }
+        public string? Value { get; set; }
     }
 
     public class PresentableMethodDetails
     {
-        public string MethodName { get; set; }
+        public string? MethodName { get; set; }
     }
 
 
     public void PerformRequest(ResearchMethods researchMethod)
     {
         int minimalNrOfPoints = 0;
-        _pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-
         switch (researchMethod)
         {
             case ResearchMethods.None:
@@ -124,16 +122,16 @@ public class ProjectUsageController
         _pointSelectWindow.SetResearchMethod(researchMethod);
         _pointSelectWindow.ShowDialog();
 
-        if (_pointSelectWindow.IsCompleted())
+        if (_pointSelectWindow.IsCompleted() && _currentProject != null)
         {
             List<SelectableCelPointDetails> selectedCelPoints = _pointSelectWindow.SelectedCelPoints;
             List<SelectableMundanePointDetails> selectedMundanePoints = _pointSelectWindow.SelectedMundanePoints;
             bool selectedUseCusps = false;
-            List<CelPoints> celPoints = new();
-            List<MundanePoints> mundanePoints = new();
+            List<ChartPoints> celPoints = new();
+            List<ChartPoints> mundanePoints = new();
             foreach (var point in selectedCelPoints)
             {
-                celPoints.Add(point.CelPoint);
+                celPoints.Add(point.ChartPoint);
             }
             if (researchMethod != ResearchMethods.CountPosInHouses)
             {
@@ -154,26 +152,22 @@ public class ProjectUsageController
             useControlGroup = true;
             request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
             CountOfPartsResponse responseCg = _researchPerformApi.PerformTest(request);
-
-            _researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
             _researchResultWindow.SetResults(responseTest, responseCg);
             _researchResultWindow.ShowDialog();
-        }    
+        }
     }
 
     public void ShowConfig()
     {
-        _configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
         _configWindow.ShowDialog();
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
     }
 
     public void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ProjectOverview");
-        helpWindow.ShowDialog();
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetHelpPage("ProjectOverview");
+        _helpWindow.ShowDialog();
     }
 }
 

@@ -1,10 +1,10 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Enums;
 using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 
@@ -12,7 +12,7 @@ namespace Enigma.Facades.Se;
 
 
 /// <inheritdoc/>
-public class JulDayFacade : IJulDayFacade
+public sealed class JulDayFacade : IJulDayFacade
 {
     /// <inheritdoc/>
     public double JdFromSe(SimpleDateTime dateTime)
@@ -36,7 +36,7 @@ public class JulDayFacade : IJulDayFacade
     /// <param name="hour">The hour: integer part and fraction.</param>
     /// <param name="gregflag">Type of calendar: Gregorian = 1, Julian = 0.</param>
     /// <returns>The calculated Julian Day Number.</returns>
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_julday")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_julday")]
     private extern static double ext_swe_julday(int year, int month, int day, double hour, int gregflag);
 
 
@@ -44,6 +44,6 @@ public class JulDayFacade : IJulDayFacade
     /// <param name="julianDayUt">Julian day for UT.</param>
     /// <param name="flag">Always Constants.SEFLG_SWIEPH, unless the JPL or Moshier is used.</param>
     /// <returns></returns>
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_deltat")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_deltat")]
     private extern static double ext_swe_deltat_ex(double julianDayUt, int flag);
 }

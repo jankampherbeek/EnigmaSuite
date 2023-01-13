@@ -1,10 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ public interface IAspectForDataGridFactory
     /// <summary>Builds a presentable aspect to be used in a grid.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Presentable aspects.</returns>
-    List<PresentableAspects> CreateAspectForDataGrid(List<EffectiveAspect> aspects);
+    List<PresentableAspects> CreateAspectForDataGrid(List<DefinedAspect> aspects);
 }
 
 
@@ -25,12 +26,12 @@ public interface IAspectForWheelFactory
     /// <summary>Builds a drawable aspect between two celestial points, that can be used in a wheel.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Drawable aspects.</returns>
-    List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<EffectiveAspect> aspects);
+    List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<DefinedAspect> aspects);
 
     /// <summary>Builds a drawable aspect between a mundane point and a celestial point, that can be used in a wheel.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Drawable aspects.</returns>
-    List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<EffectiveAspect> aspects);
+    List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<DefinedAspect> aspects);
 }
 
 /// <summary>Prepare midpoint values to be shown in a datagrid.</summary>
@@ -51,7 +52,7 @@ public interface IMidpointForDataGridFactory
 
 public interface ICelPointForDataGridFactory
 {
-    List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullCelPointPos> celPointPositions);
+    List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullChartPointPos> celPointPositions);
 }
 
 
@@ -81,7 +82,7 @@ public interface IHousePosForDataGridFactory
 
 public interface ISortedGraphicCelPointsFactory
 {
-    public List<GraphicCelPointPositions> CreateSortedList(List<FullCelPointPos> celPointPositions, double longitudeAsc, double minDistance);
+    public List<GraphicCelPointPositions> CreateSortedList(List<FullChartPointPos> celPointPositions, double longitudeAsc, double minDistance);
 }
 
 

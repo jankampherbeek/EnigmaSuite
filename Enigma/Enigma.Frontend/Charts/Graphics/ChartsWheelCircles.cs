@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Ui.Interfaces;
@@ -12,7 +13,7 @@ namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
 
-public class ChartsWheelCircles : IChartsWheelCircles
+public sealed class ChartsWheelCircles : IChartsWheelCircles
 {
 
     public List<Ellipse> CreateCircles(ChartsWheelMetrics metrics)

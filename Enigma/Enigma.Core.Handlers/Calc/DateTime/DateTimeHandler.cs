@@ -1,18 +1,18 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Work.Calc.Interfaces;
-using Enigma.Domain.AstronCalculations;
-using Enigma.Domain.Enums;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.DateTime;
 
 
-public class DateTimeHandler : IDateTimeHandler
+public sealed class DateTimeHandler : IDateTimeHandler
 {
     private readonly IDateTimeCalc _dateTimeCalc;
     private readonly IDateTimeValidator _dateTimeValidator;
@@ -35,25 +35,24 @@ public class DateTimeHandler : IDateTimeHandler
         catch (SwissEphException see)
         {
             errorText = see.Message;
+            Log.Error("DateTimeHandler.CalcDateTime() encountered an error : " + errorText);
             success = false;
         }
         return new DateTimeResponse(dateTime, success, errorText);
     }
 
-    public CheckDateTimeResponse CheckDateTime(CheckDateTimeRequest request)
+    public bool CheckDateTime(SimpleDateTime dateTime)
     {
-        bool dateIsValid = true;
-        string errorText = "";
-        bool success = true;
+        bool dateIsValid;
         try
         {
-            dateIsValid = _dateTimeValidator.ValidateDateTime(request.DateTime);
+            dateIsValid = _dateTimeValidator.ValidateDateTime(dateTime);
         }
         catch (SwissEphException see)
         {
-            errorText = see.Message;
-            success = false;
+            Log.Error("DateTimeHandler.CheckDateTime() encountered an error : " + see.Message);
+            dateIsValid = false;
         }
-        return new CheckDateTimeResponse(dateIsValid, success, errorText);
+        return dateIsValid;
     }
 }

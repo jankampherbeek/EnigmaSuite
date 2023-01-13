@@ -1,17 +1,19 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Work.Calc.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
+using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.Specials;
 
 
-
-public class ObliquityHandler : IObliquityHandler
+/// <inheritdoc/>
+public sealed class ObliquityHandler : IObliquityHandler
 {
     private readonly IObliquityCalc _obliquityCalc;
 
@@ -20,23 +22,21 @@ public class ObliquityHandler : IObliquityHandler
         _obliquityCalc = obliquityCalc;
     }
 
-    public ObliquityResponse CalcObliquity(ObliquityRequest obliquityRequest)
+    /// <inheritdoc/>
+    public double CalcObliquity(ObliquityRequest obliquityRequest)
     {
-        double obliquityMean = 0.0;
-        double obliquityTrue = 0.0;
-        string errorText = "";
-        bool success = true;
+        double obliquity;
         try
         {
-            obliquityMean = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, false);
-            obliquityTrue = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, true);
+            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, obliquityRequest.TrueObliquity);
         }
         catch (SwissEphException see)
         {
-            errorText = see.Message;
-            success = false;
+            string errorText = "ObliquityHandler.CalcObliquity(): received error: " + see.Message;
+            Log.Error(errorText);
+            throw new EnigmaException(errorText);
         }
-        return new ObliquityResponse(obliquityMean, obliquityTrue, success, errorText);
+        return obliquity;
     }
 
 }

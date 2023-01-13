@@ -1,12 +1,12 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
-using Enigma.Domain.Enums;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -200,90 +200,90 @@ public partial class AstroConfigWindow : Window
 
     private void PopulateGlyphs()
     {
-        tbGlyphSun.Text = _controller.DefineGlyph(CelPoints.Sun);
-        tbGlyphMoon.Text = _controller.DefineGlyph(CelPoints.Moon);
-        tbGlyphMercury.Text = _controller.DefineGlyph(CelPoints.Mercury);
-        tbGlyphVenus.Text = _controller.DefineGlyph(CelPoints.Venus);
-        tbGlyphMars.Text = _controller.DefineGlyph(CelPoints.Mars);
-        tbGlyphJupiter.Text = _controller.DefineGlyph(CelPoints.Jupiter);
-        tbGlyphSaturn.Text = _controller.DefineGlyph(CelPoints.Saturn);
-        tbGlyphUranus.Text = _controller.DefineGlyph(CelPoints.Uranus);
-        tbGlyphNeptune.Text = _controller.DefineGlyph(CelPoints.Neptune);
-        tbGlyphPluto.Text = _controller.DefineGlyph(CelPoints.Pluto);
-        tbGlyphMc.Text = _controller.DefineGlyph(MundanePoints.Mc);
-        tbGlyphAsc.Text = _controller.DefineGlyph(MundanePoints.Ascendant);
-        tbGlyphVertex.Text = _controller.DefineGlyph(MundanePoints.Vertex);
-        tbGlyphEastpoint.Text = _controller.DefineGlyph(MundanePoints.EastPoint);
+        tbGlyphSun.Text = _controller.DefineGlyph(ChartPoints.Sun).ToString();
+        tbGlyphMoon.Text = _controller.DefineGlyph(ChartPoints.Moon).ToString();
+        tbGlyphMercury.Text = _controller.DefineGlyph(ChartPoints.Mercury).ToString();
+        tbGlyphVenus.Text = _controller.DefineGlyph(ChartPoints.Venus).ToString();
+        tbGlyphMars.Text = _controller.DefineGlyph(ChartPoints.Mars).ToString();
+        tbGlyphJupiter.Text = _controller.DefineGlyph(ChartPoints.Jupiter).ToString();
+        tbGlyphSaturn.Text = _controller.DefineGlyph(ChartPoints.Saturn).ToString();
+        tbGlyphUranus.Text = _controller.DefineGlyph(ChartPoints.Uranus).ToString();
+        tbGlyphNeptune.Text = _controller.DefineGlyph(ChartPoints.Neptune).ToString();
+        tbGlyphPluto.Text = _controller.DefineGlyph(ChartPoints.Pluto).ToString();
+        tbGlyphMc.Text = _controller.DefineGlyph(ChartPoints.Mc).ToString();
+        tbGlyphAsc.Text = _controller.DefineGlyph(ChartPoints.Ascendant).ToString();
+        tbGlyphVertex.Text = _controller.DefineGlyph(ChartPoints.Vertex).ToString();
+        tbGlyphEastpoint.Text = _controller.DefineGlyph(ChartPoints.EastPoint).ToString();
 
-        tbGlyphParsSect.Text = _controller.DefineGlyph(ArabicPoints.FortunaSect);
-        tbGlyphParsNoSect.Text = _controller.DefineGlyph(ArabicPoints.FortunaNoSect);
+        tbGlyphParsSect.Text = _controller.DefineGlyph(ChartPoints.FortunaSect).ToString();
+        tbGlyphParsNoSect.Text = _controller.DefineGlyph(ChartPoints.FortunaNoSect).ToString();
 
-        tbGlyphMeanNode.Text = _controller.DefineGlyph(CelPoints.MeanNode);
-        tbGlyphTrueNode.Text = _controller.DefineGlyph(CelPoints.TrueNode);
-        tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeMean);
-        tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeCorrected);
-        tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeInterpolated);
- //       tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(CelPoints.ApogeeDuval);
-        tbGlyphZeroAries.Text = _controller.DefineGlyph(ZodiacPoints.ZeroAries);
+        tbGlyphMeanNode.Text = _controller.DefineGlyph(ChartPoints.MeanNode).ToString();
+        tbGlyphTrueNode.Text = _controller.DefineGlyph(ChartPoints.TrueNode).ToString();
+        tbGlyphMeanBLackMoon.Text = _controller.DefineGlyph(ChartPoints.ApogeeMean).ToString();
+        tbGlyphCorrBlackMoon.Text = _controller.DefineGlyph(ChartPoints.ApogeeCorrected).ToString();
+        tbGlyphInterpolatedBlackMoon.Text = _controller.DefineGlyph(ChartPoints.ApogeeInterpolated).ToString();
+        tbGlyphDuvalBlackMoon.Text = _controller.DefineGlyph(ChartPoints.ApogeeDuval).ToString();
+        tbGlyphZeroAries.Text = _controller.DefineGlyph(ChartPoints.ZeroAries).ToString();
 
-        tbGlyphHuya.Text = _controller.DefineGlyph(CelPoints.Huya);
-        tbGlyphVaruna.Text = _controller.DefineGlyph(CelPoints.Varuna);
-        tbGlyphIxion.Text = _controller.DefineGlyph(CelPoints.Ixion);
-        tbGlyphQuaoar.Text = _controller.DefineGlyph(CelPoints.Quaoar);
-        tbGlyphHaumea.Text = _controller.DefineGlyph(CelPoints.Haumea);
-        tbGlyphEris.Text = _controller.DefineGlyph(CelPoints.Eris);
-        tbGlyphSedna.Text = _controller.DefineGlyph(CelPoints.Sedna);
-        tbGlyphOrcus.Text = _controller.DefineGlyph(CelPoints.Orcus);
-        tbGlyphMakemake.Text = _controller.DefineGlyph(CelPoints.Makemake);
+        tbGlyphHuya.Text = _controller.DefineGlyph(ChartPoints.Huya).ToString();
+        tbGlyphVaruna.Text = _controller.DefineGlyph(ChartPoints.Varuna).ToString();
+        tbGlyphIxion.Text = _controller.DefineGlyph(ChartPoints.Ixion).ToString();
+        tbGlyphQuaoar.Text = _controller.DefineGlyph(ChartPoints.Quaoar).ToString();
+        tbGlyphHaumea.Text = _controller.DefineGlyph(ChartPoints.Haumea).ToString();
+        tbGlyphEris.Text = _controller.DefineGlyph(ChartPoints.Eris).ToString();
+        tbGlyphSedna.Text = _controller.DefineGlyph(ChartPoints.Sedna).ToString();
+        tbGlyphOrcus.Text = _controller.DefineGlyph(ChartPoints.Orcus).ToString();
+        tbGlyphMakemake.Text = _controller.DefineGlyph(ChartPoints.Makemake).ToString();
 
-        tbGlyphChiron.Text = _controller.DefineGlyph(CelPoints.Chiron);
-        tbGlyphNessus.Text = _controller.DefineGlyph(CelPoints.Nessus);
-        tbGlyphPholus.Text = _controller.DefineGlyph(CelPoints.Pholus);
+        tbGlyphChiron.Text = _controller.DefineGlyph(ChartPoints.Chiron).ToString();
+        tbGlyphNessus.Text = _controller.DefineGlyph(ChartPoints.Nessus).ToString();
+        tbGlyphPholus.Text = _controller.DefineGlyph(ChartPoints.Pholus).ToString();
 
-        tbGlyphCeres.Text = _controller.DefineGlyph(CelPoints.Ceres);
-        tbGlyphPallas.Text = _controller.DefineGlyph(CelPoints.Pallas);
-        tbGlyphJuno.Text = _controller.DefineGlyph(CelPoints.Juno);
-        tbGlyphVesta.Text = _controller.DefineGlyph(CelPoints.Vesta);
-        tbGlyphHygieia.Text = _controller.DefineGlyph(CelPoints.Hygieia);
-        tbGlyphAstraea.Text = _controller.DefineGlyph(CelPoints.Astraea);
+        tbGlyphCeres.Text = _controller.DefineGlyph(ChartPoints.Ceres).ToString();
+        tbGlyphPallas.Text = _controller.DefineGlyph(ChartPoints.Pallas).ToString();
+        tbGlyphJuno.Text = _controller.DefineGlyph(ChartPoints.Juno).ToString();
+        tbGlyphVesta.Text = _controller.DefineGlyph(ChartPoints.Vesta).ToString();
+        tbGlyphHygieia.Text = _controller.DefineGlyph(ChartPoints.Hygieia).ToString();
+        tbGlyphAstraea.Text = _controller.DefineGlyph(ChartPoints.Astraea).ToString();
 
-        tbGlyphCupido.Text = _controller.DefineGlyph(CelPoints.CupidoUra);
-        tbGlyphHades.Text = _controller.DefineGlyph(CelPoints.HadesUra);
-        tbGlyphZeus.Text = _controller.DefineGlyph(CelPoints.ZeusUra);
-        tbGlyphKronos.Text = _controller.DefineGlyph(CelPoints.KronosUra);
-        tbGlyphApollon.Text = _controller.DefineGlyph(CelPoints.ApollonUra);
-        tbGlyphAdmetos.Text = _controller.DefineGlyph(CelPoints.AdmetosUra);
-        tbGlyphVulkanusUra.Text = _controller.DefineGlyph(CelPoints.VulcanusUra);
-        tbGlyphPoseidon.Text = _controller.DefineGlyph(CelPoints.PoseidonUra);
-        tbGlyphPersephoneRam.Text = _controller.DefineGlyph(CelPoints.PersephoneRam);
-        tbGlyphHermes.Text = _controller.DefineGlyph(CelPoints.HermesRam);
-        tbGlyphDemeter.Text = _controller.DefineGlyph(CelPoints.DemeterRam);
-   //     tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(CelPoints.VulcanusCarteret);
-   //     tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(CelPoints.PersephoneCarteret);
-        tbGlyphTransPluto.Text = _controller.DefineGlyph(CelPoints.Isis);
+        tbGlyphCupido.Text = _controller.DefineGlyph(ChartPoints.CupidoUra).ToString();
+        tbGlyphHades.Text = _controller.DefineGlyph(ChartPoints.HadesUra).ToString();
+        tbGlyphZeus.Text = _controller.DefineGlyph(ChartPoints.ZeusUra).ToString();
+        tbGlyphKronos.Text = _controller.DefineGlyph(ChartPoints.KronosUra).ToString();
+        tbGlyphApollon.Text = _controller.DefineGlyph(ChartPoints.ApollonUra).ToString();
+        tbGlyphAdmetos.Text = _controller.DefineGlyph(ChartPoints.AdmetosUra).ToString();
+        tbGlyphVulkanusUra.Text = _controller.DefineGlyph(ChartPoints.VulcanusUra).ToString();
+        tbGlyphPoseidon.Text = _controller.DefineGlyph(ChartPoints.PoseidonUra).ToString();
+        tbGlyphPersephoneRam.Text = _controller.DefineGlyph(ChartPoints.PersephoneRam).ToString();
+        tbGlyphHermes.Text = _controller.DefineGlyph(ChartPoints.HermesRam).ToString();
+        tbGlyphDemeter.Text = _controller.DefineGlyph(ChartPoints.DemeterRam).ToString();
+        tbGlyphVulcanusCarteret.Text = _controller.DefineGlyph(ChartPoints.VulcanusCarteret).ToString();
+        tbGlyphPersephoneCarteret.Text = _controller.DefineGlyph(ChartPoints.PersephoneCarteret).ToString();
+        tbGlyphTransPluto.Text = _controller.DefineGlyph(ChartPoints.Isis).ToString();
 
-        tbGlyphConjunction.Text = _controller.DefineGlyph(AspectTypes.Conjunction);
-        tbGlyphOpposition.Text = _controller.DefineGlyph(AspectTypes.Opposition);
-        tbGlyphTriangle.Text = _controller.DefineGlyph(AspectTypes.Triangle);
-        tbGlyphSquare.Text = _controller.DefineGlyph(AspectTypes.Square);
-        tbGlyphSextile.Text = _controller.DefineGlyph(AspectTypes.Sextile);
-        tbGlyphSemiSextile.Text = _controller.DefineGlyph(AspectTypes.SemiSextile);
-        tbGlyphInconjunct.Text = _controller.DefineGlyph(AspectTypes.Inconjunct);
-        tbGlyphSemiSquare.Text = _controller.DefineGlyph(AspectTypes.SemiSquare);
-        tbGlyphSesquiquadrate.Text = _controller.DefineGlyph(AspectTypes.SesquiQuadrate);
-        tbGlyphQuintile.Text = _controller.DefineGlyph(AspectTypes.Quintile);
-        tbGlyphBiQuintile.Text = _controller.DefineGlyph(AspectTypes.BiQuintile);
-        tbGlyphSeptile.Text = _controller.DefineGlyph(AspectTypes.Septile);
-        tbGlyphVigintile.Text = _controller.DefineGlyph(AspectTypes.Vigintile);
-        tbGlyphUnDecile.Text = _controller.DefineGlyph(AspectTypes.Undecile);
-        tbGlyphSemiQuintile.Text = _controller.DefineGlyph(AspectTypes.SemiQuintile);
-        tbGlyphNovile.Text = _controller.DefineGlyph(AspectTypes.Novile);
-        tbGlyphBiNovile.Text = _controller.DefineGlyph(AspectTypes.BiNovile);
-        tbGlyphCentile.Text = _controller.DefineGlyph(AspectTypes.Centile);
-        tbGlyphBiSeptile.Text = _controller.DefineGlyph(AspectTypes.BiSeptile);
-        tbGlyphTriDecile.Text = _controller.DefineGlyph(AspectTypes.TriDecile);
-        tbGlyphTriSeptile.Text = _controller.DefineGlyph(AspectTypes.TriSeptile);
-        tbGlyphQuadraNovile.Text = _controller.DefineGlyph(AspectTypes.QuadraNovile);
+        tbGlyphConjunction.Text = (AspectTypes.Conjunction.GetDetails().Glyph).ToString();
+        tbGlyphOpposition.Text = (AspectTypes.Opposition.GetDetails().Glyph).ToString();
+        tbGlyphTriangle.Text = (AspectTypes.Triangle.GetDetails().Glyph).ToString();
+        tbGlyphSquare.Text = (AspectTypes.Square.GetDetails().Glyph).ToString();
+        tbGlyphSextile.Text = (AspectTypes.Sextile.GetDetails().Glyph).ToString();
+        tbGlyphSemiSextile.Text = (AspectTypes.SemiSextile.GetDetails().Glyph).ToString();
+        tbGlyphInconjunct.Text = (AspectTypes.Inconjunct.GetDetails().Glyph).ToString();
+        tbGlyphSemiSquare.Text = (AspectTypes.SemiSquare.GetDetails().Glyph).ToString();
+        tbGlyphSesquiquadrate.Text = (AspectTypes.SesquiQuadrate.GetDetails().Glyph).ToString();
+        tbGlyphQuintile.Text = (AspectTypes.Quintile.GetDetails().Glyph).ToString();
+        tbGlyphBiQuintile.Text = (AspectTypes.BiQuintile.GetDetails().Glyph).ToString();
+        tbGlyphSeptile.Text = (AspectTypes.Septile.GetDetails().Glyph).ToString();
+        tbGlyphVigintile.Text = (AspectTypes.Vigintile.GetDetails().Glyph).ToString();
+        tbGlyphUnDecile.Text = (AspectTypes.Undecile.GetDetails().Glyph).ToString();
+        tbGlyphSemiQuintile.Text = (AspectTypes.SemiQuintile.GetDetails().Glyph).ToString();
+        tbGlyphNovile.Text = (AspectTypes.Novile.GetDetails().Glyph).ToString();
+        tbGlyphBiNovile.Text = (AspectTypes.BiNovile.GetDetails().Glyph).ToString();
+        tbGlyphCentile.Text = (AspectTypes.Centile.GetDetails().Glyph).ToString();
+        tbGlyphBiSeptile.Text = (AspectTypes.BiSeptile.GetDetails().Glyph).ToString();
+        tbGlyphTriDecile.Text = (AspectTypes.TriDecile.GetDetails().Glyph).ToString();
+        tbGlyphTriSeptile.Text = (AspectTypes.TriSeptile.GetDetails().Glyph).ToString();
+        tbGlyphQuadraNovile.Text = (AspectTypes.QuadraNovile.GetDetails().Glyph).ToString();
 
     }
 
@@ -330,110 +330,148 @@ public partial class AstroConfigWindow : Window
         tboxAspectBaseOrb.Text = _controller.GetConfig().BaseOrbAspects.ToString();
         tboxMidpointAspectBaseOrb.Text = _controller.GetConfig().BaseOrbMidpoints.ToString();
 
-        List<CelPointConfigSpecs> celPoints = _controller.GetConfig().CelPoints;
 
-        tboxSunFactor.Text = celPoints[0].PercentageOrb.ToString();
-        tboxMoonFactor.Text = celPoints[1].PercentageOrb.ToString();
-        tboxMercuryFactor.Text = celPoints[2].PercentageOrb.ToString();
-        tboxVenusFactor.Text = celPoints[3].PercentageOrb.ToString();
-        tboxMarsFactor.Text = celPoints[5].PercentageOrb.ToString();
-        tboxJupiterFactor.Text = celPoints[6].PercentageOrb.ToString();
-        tboxSaturnFactor.Text = celPoints[7].PercentageOrb.ToString();
-        tboxUranusFactor.Text = celPoints[8].PercentageOrb.ToString();
-        cboxUranus.IsChecked = celPoints[8].IsUsed;
-        tboxNeptuneFactor.Text = celPoints[9].PercentageOrb.ToString();
-        cboxNeptune.IsChecked = celPoints[9].IsUsed;
-        tboxPlutoFactor.Text = celPoints[10].PercentageOrb.ToString();
-        cboxPluto.IsChecked = celPoints[10].IsUsed;
-        tboxMeanNodeFactor.Text = celPoints[11].PercentageOrb.ToString();
-        cboxMeanNode.IsChecked = celPoints[11].IsUsed;
-        tboxTrueNodeFactor.Text = celPoints[12].PercentageOrb.ToString();
-        cboxTrueNode.IsChecked = celPoints[12].IsUsed;
-        tboxChironFactor.Text = celPoints[13].PercentageOrb.ToString();
-        cboxChiron.IsChecked = celPoints[13].IsUsed;
-        tboxPersephoneRamFactor.Text = celPoints[14].PercentageOrb.ToString();
-        cboxPersephoneRam.IsChecked = celPoints[14].IsUsed;
-        tboxHermesFactor.Text = celPoints[15].PercentageOrb.ToString();
-        cboxHermes.IsChecked = celPoints[15].IsUsed;
-        tboxDemeterFactor.Text = celPoints[16].PercentageOrb.ToString();
-        cboxDemeter.IsChecked = celPoints[16].IsUsed;
-        tboxCupidoFactor.Text = celPoints[17].PercentageOrb.ToString();
-        cboxCupido.IsChecked = celPoints[17].IsUsed;
-        tboxHadesFactor.Text = celPoints[18].PercentageOrb.ToString();
-        cboxHades.IsChecked = celPoints[18].IsUsed;
-        tboxZeusFactor.Text = celPoints[19].PercentageOrb.ToString();
-        cboxZeus.IsChecked = celPoints[19].IsUsed;
-        tboxKronosFactor.Text = celPoints[20].PercentageOrb.ToString();
-        cboxKronos.IsChecked = celPoints[20].IsUsed;
-        tboxApollonFactor.Text = celPoints[21].PercentageOrb.ToString();
-        cboxApollon.IsChecked = celPoints[21].IsUsed;
-        tboxAdmetosFactor.Text = celPoints[22].PercentageOrb.ToString();
-        cboxAdmetos.IsChecked = celPoints[22].IsUsed;
-        tboxVulkanusUraFactor.Text = celPoints[23].PercentageOrb.ToString();
-        cboxVulkanusUra.IsChecked = celPoints[23].IsUsed;
-        tboxPoseidonFactor.Text = celPoints[24].PercentageOrb.ToString();
-        cboxPoseidon.IsChecked = celPoints[24].IsUsed;
-        tboxErisFactor.Text = celPoints[25].PercentageOrb.ToString();
-        cboxEris.IsChecked = celPoints[25].IsUsed;
-        tboxPholusFactor.Text = celPoints[26].PercentageOrb.ToString();
-        cboxPholus.IsChecked = celPoints[26].IsUsed;
-        tboxCeresFactor.Text = celPoints[27].PercentageOrb.ToString();
-        cboxCeres.IsChecked = celPoints[27].IsUsed;
-        tboxPallasFactor.Text = celPoints[28].PercentageOrb.ToString();
-        cboxPallas.IsChecked = celPoints[28].IsUsed;
-        tboxJunoFactor.Text = celPoints[29].PercentageOrb.ToString();
-        cboxJuno.IsChecked = celPoints[29].IsUsed;
-        tboxVestaFactor.Text = celPoints[30].PercentageOrb.ToString();
-        cboxVesta.IsChecked = celPoints[30].IsUsed;
-        tboxTransPlutoFactor.Text = celPoints[31].PercentageOrb.ToString();
-        cboxTransPluto.IsChecked = celPoints[31].IsUsed;
-        tboxNessusFactor.Text = celPoints[32].PercentageOrb.ToString();
-        cboxNessus.IsChecked = celPoints[32].IsUsed;
-        tboxHuyaFactor.Text = celPoints[33].PercentageOrb.ToString();
-        cboxHuya.IsChecked = celPoints[33].IsUsed;
-        tboxVarunaFactor.Text = celPoints[34].PercentageOrb.ToString();
-        cboxVaruna.IsChecked = celPoints[34].IsUsed;
-        tboxIxionFactor.Text = celPoints[35].PercentageOrb.ToString();
-        cboxIxion.IsChecked = celPoints[35].IsUsed;
-        tboxQuaoarFactor.Text = celPoints[36].PercentageOrb.ToString();
-        cboxQuaoar.IsChecked = celPoints[36].IsUsed;
-        tboxHaumeaFactor.Text = celPoints[37].PercentageOrb.ToString();
-        cboxHaumea.IsChecked = celPoints[37].IsUsed;
-        tboxOrcusFactor.Text = celPoints[38].PercentageOrb.ToString();
-        cboxOrcus.IsChecked = celPoints[38].IsUsed;
-        tboxMakemakeFactor.Text = celPoints[39].PercentageOrb.ToString();
-        cboxMakemake.IsChecked = celPoints[39].IsUsed;
-        tboxSednaFactor.Text = celPoints[40].PercentageOrb.ToString();
-        cboxSedna.IsChecked = celPoints[40].IsUsed;
-        tboxHygieiaFactor.Text = celPoints[41].PercentageOrb.ToString();
-        cboxHygieia.IsChecked = celPoints[41].IsUsed;
-        tboxAstraeaFactor.Text = celPoints[42].PercentageOrb.ToString();
-        cboxAstraea.IsChecked = celPoints[42].IsUsed;
-        tboxMeanBlackMoonFactor.Text = celPoints[43].PercentageOrb.ToString();
-        cboxMeanBlackMoon.IsChecked = celPoints[43].IsUsed;
-        tboxCorrBlackMoonFactor.Text = celPoints[44].PercentageOrb.ToString();
-        cboxCorrBlackMoon.IsChecked = celPoints[44].IsUsed;
-        tboxInterpolatedBlackMoonFactor.Text = celPoints[45].PercentageOrb.ToString();
-        cboxInterpolatedBlackMoon.IsChecked = celPoints[45].IsUsed;
-        tboxDuvalBlackMoonFactor.Text = celPoints[46].PercentageOrb.ToString();
-        cboxDuvalBlackMoon.IsChecked = false;   // celPoints[46].IsUsed;
-        cboxDuvalBlackMoon.IsEnabled= false;
-        tboxPersephoneCarteretFactor.Text = celPoints[47].PercentageOrb.ToString();
-        cboxPersephoneCarteret.IsChecked = false;  
-        cboxPersephoneCarteret.IsEnabled= false;
-        tboxVulcanusCarteretFactor.Text = celPoints[48].PercentageOrb.ToString();
-        cboxVulcanusCarteret.IsChecked = false;  
-        cboxVulcanusCarteret.IsEnabled= false;
+        // main celestial points
 
-        List<ZodiacPointConfigSpecs> zodiacPoints = _controller.GetConfig().ZodiacPoints;
-        tboxZeroAriesFactor.Text = zodiacPoints[0].PercentageOrb.ToString();
-        cboxZeroAries.IsChecked = zodiacPoints[0].IsUsed;
+        List<ChartPointConfigSpecs> chartConfigPoints = new();
+        foreach (var configPoint in _controller.GetConfig().ChartPoints)
+        {
+            PointCats cat = configPoint.Point.GetDetails().PointCat;
+            chartConfigPoints.Add(configPoint);
+        }
+        tboxSunFactor.Text = chartConfigPoints[(int)ChartPoints.Sun].PercentageOrb.ToString();
+        tboxMoonFactor.Text = chartConfigPoints[(int)ChartPoints.Moon].PercentageOrb.ToString();
+        tboxMercuryFactor.Text = chartConfigPoints[(int)ChartPoints.Mercury].PercentageOrb.ToString();
+        tboxVenusFactor.Text = chartConfigPoints[(int)ChartPoints.Venus].PercentageOrb.ToString();
+        tboxMarsFactor.Text = chartConfigPoints[(int)ChartPoints.Mars].PercentageOrb.ToString();
+        tboxJupiterFactor.Text = chartConfigPoints[(int)ChartPoints.Jupiter].PercentageOrb.ToString();
+        tboxSaturnFactor.Text = chartConfigPoints[(int)ChartPoints.Saturn].PercentageOrb.ToString();
+        tboxUranusFactor.Text = chartConfigPoints[(int)ChartPoints.Uranus].PercentageOrb.ToString();
+        cboxUranus.IsChecked = chartConfigPoints[(int)ChartPoints.Uranus].IsUsed;
+        tboxNeptuneFactor.Text = chartConfigPoints[(int)ChartPoints.Neptune].PercentageOrb.ToString();
+        cboxNeptune.IsChecked = chartConfigPoints[(int)ChartPoints.Neptune].IsUsed;
+        tboxPlutoFactor.Text = chartConfigPoints[(int)ChartPoints.Pluto].PercentageOrb.ToString();
+        cboxPluto.IsChecked = chartConfigPoints[(int)ChartPoints.Pluto].IsUsed;
+        tboxMeanNodeFactor.Text = chartConfigPoints[(int)ChartPoints.MeanNode].PercentageOrb.ToString();
+        cboxMeanNode.IsChecked = chartConfigPoints[(int)ChartPoints.MeanNode].IsUsed;
+        tboxTrueNodeFactor.Text = chartConfigPoints[(int)ChartPoints.TrueNode].PercentageOrb.ToString();
+        cboxTrueNode.IsChecked = chartConfigPoints[(int)ChartPoints.TrueNode].IsUsed;
+        tboxChironFactor.Text = chartConfigPoints[(int)ChartPoints.Chiron].PercentageOrb.ToString();
+        cboxChiron.IsChecked = chartConfigPoints[(int)ChartPoints.Chiron].IsUsed;
+        tboxPersephoneRamFactor.Text = chartConfigPoints[(int)ChartPoints.PersephoneRam].PercentageOrb.ToString();
+        cboxPersephoneRam.IsChecked = chartConfigPoints[(int)ChartPoints.PersephoneRam].IsUsed;
+        tboxHermesFactor.Text = chartConfigPoints[(int)ChartPoints.HermesRam].PercentageOrb.ToString();
+        cboxHermes.IsChecked = chartConfigPoints[(int)ChartPoints.HermesRam].IsUsed;
+        tboxDemeterFactor.Text = chartConfigPoints[(int)ChartPoints.DemeterRam].PercentageOrb.ToString();
+        cboxDemeter.IsChecked = chartConfigPoints[(int)ChartPoints.DemeterRam].IsUsed;
+        tboxCupidoFactor.Text = chartConfigPoints[(int)ChartPoints.CupidoUra].PercentageOrb.ToString();
+        cboxCupido.IsChecked = chartConfigPoints[(int)ChartPoints.CupidoUra].IsUsed;
+        tboxHadesFactor.Text = chartConfigPoints[(int)ChartPoints.HadesUra].PercentageOrb.ToString();
+        cboxHades.IsChecked = chartConfigPoints[(int)ChartPoints.HadesUra].IsUsed;
+        tboxZeusFactor.Text = chartConfigPoints[(int)ChartPoints.ZeusUra].PercentageOrb.ToString();
+        cboxZeus.IsChecked = chartConfigPoints[(int)ChartPoints.ZeusUra].IsUsed;
+        tboxKronosFactor.Text = chartConfigPoints[(int)ChartPoints.KronosUra].PercentageOrb.ToString();
+        cboxKronos.IsChecked = chartConfigPoints[(int)ChartPoints.KronosUra].IsUsed;
+        tboxApollonFactor.Text = chartConfigPoints[(int)ChartPoints.ApollonUra].PercentageOrb.ToString();
+        cboxApollon.IsChecked = chartConfigPoints[(int)ChartPoints.ApollonUra].IsUsed;
+        tboxAdmetosFactor.Text = chartConfigPoints[(int)ChartPoints.AdmetosUra].PercentageOrb.ToString();
+        cboxAdmetos.IsChecked = chartConfigPoints[(int)ChartPoints.AdmetosUra].IsUsed;
+        tboxVulkanusUraFactor.Text = chartConfigPoints[(int)ChartPoints.VulcanusUra].PercentageOrb.ToString();
+        cboxVulkanusUra.IsChecked = chartConfigPoints[(int)ChartPoints.VulcanusUra].IsUsed;
+        tboxPoseidonFactor.Text = chartConfigPoints[(int)ChartPoints.PoseidonUra].PercentageOrb.ToString();
+        cboxPoseidon.IsChecked = chartConfigPoints[(int)ChartPoints.PoseidonUra].IsUsed;
+        tboxErisFactor.Text = chartConfigPoints[(int)ChartPoints.Eris].PercentageOrb.ToString();
+        cboxEris.IsChecked = chartConfigPoints[(int)ChartPoints.Eris].IsUsed;
+        tboxPholusFactor.Text = chartConfigPoints[(int)ChartPoints.Pholus].PercentageOrb.ToString();
+        cboxPholus.IsChecked = chartConfigPoints[(int)ChartPoints.Pholus].IsUsed;
+        tboxCeresFactor.Text = chartConfigPoints[(int)ChartPoints.Ceres].PercentageOrb.ToString();
+        cboxCeres.IsChecked = chartConfigPoints[(int)ChartPoints.Ceres].IsUsed;
+        tboxPallasFactor.Text = chartConfigPoints[(int)ChartPoints.Pallas].PercentageOrb.ToString();
+        cboxPallas.IsChecked = chartConfigPoints[(int)ChartPoints.Pallas].IsUsed;
+        tboxJunoFactor.Text = chartConfigPoints[(int)ChartPoints.Juno].PercentageOrb.ToString();
+        cboxJuno.IsChecked = chartConfigPoints[(int)ChartPoints.Juno].IsUsed;
+        tboxVestaFactor.Text = chartConfigPoints[(int)ChartPoints.Vesta].PercentageOrb.ToString();
+        cboxVesta.IsChecked = chartConfigPoints[(int)ChartPoints.Vesta].IsUsed;
+        tboxTransPlutoFactor.Text = chartConfigPoints[(int)ChartPoints.Isis].PercentageOrb.ToString();
+        cboxTransPluto.IsChecked = chartConfigPoints[(int)ChartPoints.Isis].IsUsed;
+        tboxNessusFactor.Text = chartConfigPoints[(int)ChartPoints.Nessus].PercentageOrb.ToString();
+        cboxNessus.IsChecked = chartConfigPoints[(int)ChartPoints.Nessus].IsUsed;
+        tboxHuyaFactor.Text = chartConfigPoints[(int)ChartPoints.Huya].PercentageOrb.ToString();
+        cboxHuya.IsChecked = chartConfigPoints[(int)ChartPoints.Huya].IsUsed;
+        tboxVarunaFactor.Text = chartConfigPoints[(int)ChartPoints.Varuna].PercentageOrb.ToString();
+        cboxVaruna.IsChecked = chartConfigPoints[(int)ChartPoints.Varuna].IsUsed;
+        tboxIxionFactor.Text = chartConfigPoints[(int)ChartPoints.Ixion].PercentageOrb.ToString();
+        cboxIxion.IsChecked = chartConfigPoints[(int)ChartPoints.Ixion].IsUsed;
+        tboxQuaoarFactor.Text = chartConfigPoints[(int)ChartPoints.Quaoar].PercentageOrb.ToString();
+        cboxQuaoar.IsChecked = chartConfigPoints[(int)ChartPoints.Quaoar].IsUsed;
+        tboxHaumeaFactor.Text = chartConfigPoints[(int)ChartPoints.Haumea].PercentageOrb.ToString();
+        cboxHaumea.IsChecked = chartConfigPoints[(int)ChartPoints.Haumea].IsUsed;
+        tboxOrcusFactor.Text = chartConfigPoints[(int)ChartPoints.Orcus].PercentageOrb.ToString();
+        cboxOrcus.IsChecked = chartConfigPoints[(int)ChartPoints.Orcus].IsUsed;
+        tboxMakemakeFactor.Text = chartConfigPoints[(int)ChartPoints.Makemake].PercentageOrb.ToString();
+        cboxMakemake.IsChecked = chartConfigPoints[(int)ChartPoints.Makemake].IsUsed;
+        tboxSednaFactor.Text = chartConfigPoints[(int)ChartPoints.Sedna].PercentageOrb.ToString();
+        cboxSedna.IsChecked = chartConfigPoints[(int)ChartPoints.Sedna].IsUsed;
+        tboxHygieiaFactor.Text = chartConfigPoints[(int)ChartPoints.Hygieia].PercentageOrb.ToString();
+        cboxHygieia.IsChecked = chartConfigPoints[(int)ChartPoints.Hygieia].IsUsed;
+        tboxAstraeaFactor.Text = chartConfigPoints[(int)ChartPoints.Astraea].PercentageOrb.ToString();
+        cboxAstraea.IsChecked = chartConfigPoints[(int)ChartPoints.Astraea].IsUsed;
+        tboxMeanBlackMoonFactor.Text = chartConfigPoints[(int)ChartPoints.ApogeeMean].PercentageOrb.ToString();
+        cboxMeanBlackMoon.IsChecked = chartConfigPoints[(int)ChartPoints.ApogeeMean].IsUsed;
+        tboxCorrBlackMoonFactor.Text = chartConfigPoints[(int)ChartPoints.ApogeeCorrected].PercentageOrb.ToString();
+        cboxCorrBlackMoon.IsChecked = chartConfigPoints[(int)ChartPoints.ApogeeCorrected].IsUsed;
+        tboxInterpolatedBlackMoonFactor.Text = chartConfigPoints[(int)ChartPoints.ApogeeInterpolated].PercentageOrb.ToString();
+        cboxInterpolatedBlackMoon.IsChecked = chartConfigPoints[(int)ChartPoints.ApogeeInterpolated].IsUsed;
+        tboxDuvalBlackMoonFactor.Text = chartConfigPoints[(int)ChartPoints.ApogeeDuval].PercentageOrb.ToString();
+        cboxDuvalBlackMoon.IsChecked = false;
+        cboxDuvalBlackMoon.IsEnabled = false;
+        tboxPersephoneCarteretFactor.Text = chartConfigPoints[(int)ChartPoints.PersephoneCarteret].PercentageOrb.ToString();
+        cboxPersephoneCarteret.IsChecked = false;
+        cboxPersephoneCarteret.IsEnabled = false;
+        tboxVulcanusCarteretFactor.Text = chartConfigPoints[(int)ChartPoints.VulcanusCarteret].PercentageOrb.ToString();
+        cboxVulcanusCarteret.IsChecked = false;
+        cboxVulcanusCarteret.IsEnabled = false;
 
-        List<ArabicPointConfigSpecs> arabicPoints = _controller.GetConfig().ArabicPoints;
-        tboxParsSectFactor.Text = arabicPoints[0].PercentageOrb.ToString();
-        cboxParsSect.IsChecked = arabicPoints[0].IsUsed;
-        tboxParsNoSectFactor.Text = arabicPoints[1].PercentageOrb.ToString();
-        cboxParsNoSect.IsChecked = arabicPoints[1].IsUsed;
+
+        // mundane points
+        // TODO 0.1  add mundane and other points to configuration.
+        List<ChartPointConfigSpecs> chartMundaneConfigPoints = new()
+        {
+            new ChartPointConfigSpecs(ChartPoints.Mc, true, 'M', 100),
+            new ChartPointConfigSpecs(ChartPoints.Ascendant, true, 'A', 100),
+            new ChartPointConfigSpecs(ChartPoints.EastPoint, false, ' ', 0),
+            new ChartPointConfigSpecs(ChartPoints.Vertex, false, ' ', 0)
+        };
+
+        int offsetMundane = 1001;
+        tboxAscFactor.Text = chartMundaneConfigPoints[((int)ChartPoints.Ascendant) - offsetMundane].PercentageOrb.ToString();
+        cboxAsc.IsChecked = chartMundaneConfigPoints[((int)ChartPoints.Ascendant) - offsetMundane].IsUsed;
+        tboxMcFactor.Text = chartMundaneConfigPoints[((int)ChartPoints.Mc) - offsetMundane].PercentageOrb.ToString();
+        cboxMc.IsChecked = chartMundaneConfigPoints[((int)ChartPoints.Mc) - offsetMundane].IsUsed;
+        tboxEastpointFactor.Text = chartMundaneConfigPoints[((int)ChartPoints.EastPoint) - offsetMundane].PercentageOrb.ToString();
+        cboxEastpoint.IsChecked = chartMundaneConfigPoints[((int)ChartPoints.EastPoint) - offsetMundane].IsUsed;
+        tboxVertexFactor.Text = chartMundaneConfigPoints[((int)ChartPoints.Vertex) - offsetMundane].PercentageOrb.ToString();
+        cboxVertex.IsChecked = chartMundaneConfigPoints[((int)ChartPoints.Vertex) - offsetMundane].IsUsed;
+
+        List<ChartPointConfigSpecs> chartZodiacConfigPoints = new()
+        {
+            new ChartPointConfigSpecs(ChartPoints.ZeroAries, false, '1', 0)
+        };
+        int offsetZodiac = 3001;
+        tboxZeroAriesFactor.Text = chartZodiacConfigPoints[((int)ChartPoints.ZeroAries) - offsetZodiac].PercentageOrb.ToString();
+        cboxZeroAries.IsChecked = chartZodiacConfigPoints[((int)ChartPoints.ZeroAries) - offsetZodiac].IsUsed;
+        // TODO 0.1 add ZeroCancer
+
+        List<ChartPointConfigSpecs> chartArabicConfigPoints = new()
+        {
+            new ChartPointConfigSpecs(ChartPoints.FortunaSect, false, 'e', 0),
+            new ChartPointConfigSpecs(ChartPoints.FortunaNoSect, false, 'e', 0)
+        };
+        int offsetArabic = 4001;
+        tboxParsSectFactor.Text = chartArabicConfigPoints[((int)ChartPoints.FortunaSect) - offsetArabic].PercentageOrb.ToString();
+        cboxParsSect.IsChecked = chartArabicConfigPoints[((int)ChartPoints.FortunaSect) - offsetArabic].IsUsed;
+        tboxParsNoSectFactor.Text = chartArabicConfigPoints[((int)ChartPoints.FortunaNoSect) - offsetArabic].PercentageOrb.ToString();
+        cboxParsNoSect.IsChecked = chartArabicConfigPoints[((int)ChartPoints.FortunaNoSect) - offsetArabic].IsUsed;
 
 
         // aspects
@@ -490,24 +528,7 @@ public partial class AstroConfigWindow : Window
         cboxCentile.IsChecked = aspects[20].IsUsed;
         tboxVigintileFactor.Text = aspects[21].PercentageOrb.ToString();
         cboxVigintile.IsChecked = aspects[21].IsUsed;
-
-
-        // MundanePoints
-        List<MundanePointConfigSpecs> mundanePoints = _controller.GetConfig().MundanePoints;
-        tboxAscFactor.Text = mundanePoints[0].PercentageOrb.ToString();
-        cboxAsc.IsChecked = mundanePoints[0].IsUsed;
-        tboxMcFactor.Text = mundanePoints[1].PercentageOrb.ToString();
-        cboxMc.IsChecked = mundanePoints[1].IsUsed;
-        tboxEastpointFactor.Text = mundanePoints[2].PercentageOrb.ToString();
-        cboxEastpoint.IsChecked = mundanePoints[2].IsUsed;
-        tboxVertexFactor.Text = mundanePoints[3].PercentageOrb.ToString();
-        cboxVertex.IsChecked = mundanePoints[3].IsUsed;
-
-
-
     }
-
-
 
     public void CancelClick(object sender, RoutedEventArgs e)
     {
@@ -562,15 +583,15 @@ public partial class AstroConfigWindow : Window
             ObserverPositions observerPosition = ObserverPositions.GeoCentric.ObserverPositionForIndex(comboObserverPos.SelectedIndex);
             ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(comboProjectionType.SelectedIndex);
             OrbMethods orbMethod = OrbMethods.Weighted.OrbMethodForIndex(comboOrbMethod.SelectedIndex);
-            List<CelPointConfigSpecs> celPointsSpecs = DefineCelPointSpecs();
-            List<AspectConfigSpecs> aspectSpecs = DefineAspectSpecs();
-            List<MundanePointConfigSpecs> mundanePointSpecs = DefineMundanePointSpecs();
-            List<ArabicPointConfigSpecs> arabicPointSpecs = DefineArabicPointSpecs();
-            List<ZodiacPointConfigSpecs> zodiacPointSpecs = DefineZodiacPointSpecs();
+            List<ChartPointConfigSpecs> celPointsSpecs = DefineCelPointSpecs();
+            List<ChartPointConfigSpecs> mundanePointSpecs = DefineMundanePointSpecs();
+            List<ChartPointConfigSpecs> arabicPointSpecs = DefineArabicPointSpecs();
+            List<ChartPointConfigSpecs> zodiacPointSpecs = DefineZodiacPointSpecs();
             double baseOrbAspects = Convert.ToDouble(tboxAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             double baseOrbMidpoints = Convert.ToDouble(tboxMidpointAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
-
-            AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, mundanePointSpecs, arabicPointSpecs, zodiacPointSpecs, baseOrbAspects, baseOrbMidpoints);
+            List<AspectConfigSpecs> aspectSpecs = DefineAspectSpecs();
+            bool useCuspsForAspects = false;                // TODO 0.1 Read vaue for UseCuspsForAspects from config form
+            AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
             Log.Information("Created new configuration: {@astroConfig}", astroConfig);
             _controller.UpdateConfig(astroConfig);
 
@@ -583,67 +604,104 @@ public partial class AstroConfigWindow : Window
         return noErrors;
     }
 
-    private List<CelPointConfigSpecs> DefineCelPointSpecs()
+    private List<ChartPointConfigSpecs> DefineCelPointSpecs()
     {
-        List<CelPointConfigSpecs> celPointSpecs = new()
+        List<ChartPointConfigSpecs> celPointSpecs = new()
         {
-            DefineSingleCelPointSpec(CelPoints.Sun, tboxSunFactor.Text, cboxSun.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Moon, tboxMoonFactor.Text, cboxMoon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Mercury, tboxMercuryFactor.Text, cboxMercury.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Venus, tboxVenusFactor.Text, cboxVenus.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Earth, "100", false),                                       // TODO 0.4 handle earth for heliocentric
-            DefineSingleCelPointSpec(CelPoints.Mars, tboxMarsFactor.Text, cboxMars.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Jupiter, tboxJupiterFactor.Text, cboxJupiter.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Saturn, tboxSaturnFactor.Text, cboxSaturn.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Uranus, tboxUranusFactor.Text, cboxUranus.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Neptune, tboxNeptuneFactor.Text, cboxNeptune.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Pluto, tboxPlutoFactor.Text, cboxPluto.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.MeanNode, tboxMeanNodeFactor.Text, cboxMeanNode.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.TrueNode, tboxTrueNodeFactor.Text, cboxTrueNode.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Chiron, tboxChironFactor.Text, cboxChiron.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.PersephoneRam, tboxPersephoneRamFactor.Text, cboxPersephoneRam.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.DemeterRam, tboxDemeterFactor.Text, cboxDemeter.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.HermesRam, tboxHermesFactor.Text, cboxHermes.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.CupidoUra, tboxCupidoFactor.Text, cboxCupido.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.HadesUra, tboxHadesFactor.Text, cboxHades.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ZeusUra, tboxZeusFactor.Text, cboxZeus.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.KronosUra, tboxKronosFactor.Text, cboxKronos.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ApollonUra, tboxApollonFactor.Text, cboxApollon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.AdmetosUra, tboxAdmetosFactor.Text, cboxAdmetos.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.VulcanusUra, tboxVulkanusUraFactor.Text, cboxVulkanusUra.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.PoseidonUra, tboxPoseidonFactor.Text, cboxPoseidon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Eris, tboxErisFactor.Text, cboxEris.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Pholus, tboxPholusFactor.Text, cboxPholus.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Ceres, tboxCeresFactor.Text, cboxCeres.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Pallas, tboxPallasFactor.Text, cboxPallas.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Juno, tboxJunoFactor.Text, cboxJuno.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Vesta, tboxVestaFactor.Text, cboxVesta.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Isis, tboxTransPlutoFactor.Text, cboxTransPluto.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Nessus, tboxNessusFactor.Text, cboxNessus.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Huya, tboxHuyaFactor.Text, cboxHuya.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Varuna, tboxVarunaFactor.Text, cboxVaruna.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Ixion, tboxIxionFactor.Text, cboxIxion.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Quaoar, tboxQuaoarFactor.Text, cboxQuaoar.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Haumea, tboxHaumeaFactor.Text, cboxHaumea.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Orcus, tboxOrcusFactor.Text, cboxOrcus.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Makemake, tboxMakemakeFactor.Text, cboxMakemake.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Sedna, tboxSednaFactor.Text, cboxSedna.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Hygieia, tboxHygieiaFactor.Text, cboxHygieia.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.Astraea, tboxAstraeaFactor.Text, cboxAstraea.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ApogeeMean, tboxMeanBlackMoonFactor.Text, cboxMeanBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ApogeeCorrected, tboxCorrBlackMoonFactor.Text, cboxCorrBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ApogeeInterpolated, tboxInterpolatedBlackMoonFactor.Text, cboxInterpolatedBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.ApogeeDuval, tboxDuvalBlackMoonFactor.Text, cboxDuvalBlackMoon.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.PersephoneCarteret, tboxPersephoneCarteretFactor.Text, cboxPersephoneCarteret.IsChecked),
-            DefineSingleCelPointSpec(CelPoints.VulcanusCarteret, tboxVulcanusCarteretFactor.Text, cboxVulcanusCarteret.IsChecked)
+            DefineSingleChartPointSpec(ChartPoints.Sun, cboxSun.IsChecked ?? false, 'a', tboxSunFactor.Text ),
+            DefineSingleChartPointSpec(ChartPoints.Moon, cboxMoon.IsChecked ?? false, 'b', tboxMoonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Mercury, cboxMercury.IsChecked ?? false, 'c', tboxMercuryFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Venus, cboxVenus.IsChecked ?? false, 'd', tboxVenusFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Earth, false, 'e',  "100"),                                       // TODO 0.4 handle earth for heliocentric
+            DefineSingleChartPointSpec(ChartPoints.Mars, cboxMars.IsChecked ?? false, 'f', tboxMarsFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Jupiter, cboxJupiter.IsChecked ?? false, 'g', tboxJupiterFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Saturn, cboxSaturn.IsChecked ?? false, 'h', tboxSaturnFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Uranus, cboxUranus.IsChecked ?? false, 'i', tboxUranusFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Neptune, cboxNeptune.IsChecked ?? false, 'j', tboxNeptuneFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Pluto, cboxPluto.IsChecked ?? false, 'k', tboxPlutoFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.MeanNode, cboxMeanNode.IsChecked ?? false, '{', tboxMeanNodeFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.TrueNode, cboxTrueNode.IsChecked ?? false, '}', tboxTrueNodeFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Chiron, cboxChiron.IsChecked ?? false, 'w', tboxChironFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.PersephoneRam, cboxPersephoneRam.IsChecked ?? false, '/', tboxPersephoneRamFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.HermesRam, cboxHermes.IsChecked ?? false, '<', tboxHermesFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.DemeterRam, cboxDemeter.IsChecked ?? false, '>', tboxDemeterFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.CupidoUra, cboxCupido.IsChecked ?? false, 'y', tboxCupidoFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.HadesUra, cboxHades.IsChecked ?? false, 'z', tboxHadesFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.ZeusUra, cboxZeus.IsChecked ?? false, '!', tboxZeusFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.KronosUra, cboxKronos.IsChecked ?? false, '@', tboxKronosFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.ApollonUra, cboxApollon.IsChecked ?? false, '#', tboxApollonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.AdmetosUra, cboxAdmetos.IsChecked ?? false, '$', tboxAdmetosFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.VulcanusUra, cboxVulkanusUra.IsChecked ?? false, '%', tboxVulkanusUraFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.PoseidonUra, cboxPoseidon.IsChecked ?? false, '&', tboxPoseidonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Eris, cboxEris.IsChecked ?? false, '*', tboxErisFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Pholus, cboxPholus.IsChecked ?? false, ')', tboxPholusFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Ceres, cboxCeres.IsChecked ?? false, '_', tboxCeresFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Pallas, cboxPallas.IsChecked ?? false, 'û', tboxPallasFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Juno, cboxJuno.IsChecked ?? false, 'ü', tboxJunoFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Vesta, cboxVesta.IsChecked ?? false, 'À', tboxVestaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Isis, cboxTransPluto.IsChecked ?? false, 'â', tboxTransPlutoFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Nessus, cboxNessus.IsChecked ?? false, '(', tboxNessusFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Huya, cboxHuya.IsChecked ?? false, 'ï', tboxHuyaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Varuna, cboxVaruna.IsChecked ?? false, 'ò', tboxVarunaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Ixion, cboxIxion.IsChecked ?? false, 'ó', tboxIxionFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Quaoar, cboxQuaoar.IsChecked ?? false, 'ô', tboxQuaoarFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Haumea, cboxHaumea.IsChecked ?? false, 'í', tboxHaumeaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Orcus, cboxOrcus.IsChecked ?? false, 'ù', tboxOrcusFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Makemake, cboxMakemake.IsChecked ?? false, 'î', tboxMakemakeFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Sedna, cboxSedna.IsChecked ?? false, 'ö', tboxSednaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Hygieia, cboxHygieia.IsChecked ?? false, 'Á', tboxHygieiaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Astraea, cboxAstraea.IsChecked ?? false, 'Ã', tboxAstraeaFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.ApogeeMean, cboxMeanBlackMoon.IsChecked ?? false, ',', tboxMeanBlackMoonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.ApogeeCorrected, cboxCorrBlackMoon.IsChecked ?? false, '.', tboxCorrBlackMoonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.ApogeeInterpolated, cboxInterpolatedBlackMoon.IsChecked ?? false, '.', tboxInterpolatedBlackMoonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.ApogeeDuval, cboxDuvalBlackMoon.IsChecked ?? false, '.', tboxDuvalBlackMoonFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.PersephoneCarteret, cboxPersephoneCarteret.IsChecked ?? false, 'à', tboxPersephoneCarteretFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.VulcanusCarteret, cboxVulcanusCarteret.IsChecked ?? false,  'Ï', tboxVulcanusCarteretFactor.Text)
         };
         return celPointSpecs;
     }
 
-    private static CelPointConfigSpecs DefineSingleCelPointSpec(CelPoints celPoint, string orbFactorText, bool? isUsed)
+
+
+    private List<ChartPointConfigSpecs> DefineMundanePointSpecs()
+    {
+        List<ChartPointConfigSpecs> mundanePointSpecs = new()
+        {
+            DefineSingleChartPointSpec(ChartPoints.Mc, cboxMc.IsChecked ?? false, 'M', tboxMcFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Ascendant, cboxAsc.IsChecked ?? false, 'A', tboxAscFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.Vertex, cboxVertex.IsChecked ?? false, ' ', tboxVertexFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.EastPoint, cboxEastpoint.IsChecked ?? false, ' ', tboxEastpointFactor.Text)
+        };
+
+        return mundanePointSpecs;
+    }
+
+
+    private List<ChartPointConfigSpecs> DefineArabicPointSpecs()
+    {
+        List<ChartPointConfigSpecs> arabicPointConfigSpecs = new()
+        {
+            DefineSingleChartPointSpec(ChartPoints.FortunaNoSect, cboxParsNoSect.IsChecked ?? false, 'e', tboxParsNoSectFactor.Text),
+            DefineSingleChartPointSpec(ChartPoints.FortunaSect, cboxParsSect.IsChecked ?? false, 'e', tboxParsSectFactor.Text)
+        };
+        return arabicPointConfigSpecs;
+    }
+
+
+    private List<ChartPointConfigSpecs> DefineZodiacPointSpecs()
+    {
+        List<ChartPointConfigSpecs> zodiacPointConfigSpecs = new()
+        {
+            DefineSingleChartPointSpec(ChartPoints.ZeroAries, cboxZeroAries.IsChecked ??  false, '1', tboxZeroAriesFactor.Text)
+        };
+        return zodiacPointConfigSpecs;
+    }
+
+
+    private static ChartPointConfigSpecs DefineSingleChartPointSpec(ChartPoints celPoint, bool isUsed, char glyph, string orbFactorText)
     {
         int orbFactorValue = Convert.ToInt32(orbFactorText, CultureInfo.InvariantCulture);
-        return new CelPointConfigSpecs(celPoint, orbFactorValue, isUsed ?? false);
+        return new ChartPointConfigSpecs(celPoint, isUsed, glyph, orbFactorValue);
     }
 
 
@@ -653,93 +711,35 @@ public partial class AstroConfigWindow : Window
     {
         List<AspectConfigSpecs> aspectSpecs = new()
         {
-            DefineSingleAspectSpec(AspectTypes.Conjunction, tboxConjunctionFactor.Text, cboxConjunction.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Opposition, tboxOppositionFactor.Text, cboxOpposition.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Triangle, tboxTriangleFactor.Text, cboxTriangle.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Square, tboxSquareFactor.Text, cboxSquare.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Septile, tboxSeptileFactor.Text, cboxSeptile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Sextile, tboxSextileFactor.Text, cboxSextile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Quintile, tboxQuintileFactor.Text, cboxQuintile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.SemiSextile, tboxSemiSextileFactor.Text, cboxSemiSextile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.SemiSquare, tboxSemiSquareFactor.Text, cboxSemiSquare.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.SemiQuintile, tboxSemiQuintileFactor.Text, cboxSemiQuintile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.BiQuintile, tboxBiQuintileFactor.Text, cboxBiQuintile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Inconjunct, tboxInconjunctFactor.Text, cboxInconjunct.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.SesquiQuadrate, tboxSesquiquadrateFactor.Text, cboxSesquiquadrate.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.TriDecile, tboxTriDecileFactor.Text, cboxTriDecile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.BiSeptile, tboxBiSeptileFactor.Text, cboxBiSeptile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.TriSeptile, tboxTriSeptileFactor.Text, cboxTriSeptile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Novile, tboxNovileFactor.Text, cboxNovile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.BiNovile, tboxBiNovileFactor.Text, cboxBiNovile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.QuadraNovile, tboxQuadraNovileFactor.Text, cboxQuadraNovile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Undecile, tboxUnDecileFactor.Text, cboxUnDecile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Centile, tboxCentileFactor.Text, cboxCentile.IsChecked),
-            DefineSingleAspectSpec(AspectTypes.Vigintile, tboxVigintileFactor.Text, cboxVigintile.IsChecked)
+            DefineSingleAspectSpec(AspectTypes.Conjunction, 'B', tboxConjunctionFactor.Text, cboxConjunction.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Opposition, 'C', tboxOppositionFactor.Text, cboxOpposition.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Triangle, 'D', tboxTriangleFactor.Text, cboxTriangle.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Square, 'E', tboxSquareFactor.Text, cboxSquare.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Septile, 'N', tboxSeptileFactor.Text, cboxSeptile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Sextile, 'F', tboxSextileFactor.Text, cboxSextile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Quintile, 'K', tboxQuintileFactor.Text, cboxQuintile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.SemiSextile, 'G', tboxSemiSextileFactor.Text, cboxSemiSextile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.SemiSquare, 'I', tboxSemiSquareFactor.Text, cboxSemiSquare.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.SemiQuintile, 'Ô', tboxSemiQuintileFactor.Text, cboxSemiQuintile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.BiQuintile, 'L', tboxBiQuintileFactor.Text, cboxBiQuintile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Inconjunct, 'H', tboxInconjunctFactor.Text, cboxInconjunct.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.SesquiQuadrate, 'J', tboxSesquiquadrateFactor.Text, cboxSesquiquadrate.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.TriDecile, 'Õ', tboxTriDecileFactor.Text, cboxTriDecile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.BiSeptile, 'Ú', tboxBiSeptileFactor.Text, cboxBiSeptile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.TriSeptile, 'Û', tboxTriSeptileFactor.Text, cboxTriSeptile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Novile, 'Ü', tboxNovileFactor.Text, cboxNovile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.BiNovile, 'Ñ', tboxBiNovileFactor.Text, cboxBiNovile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.QuadraNovile, '|', tboxQuadraNovileFactor.Text, cboxQuadraNovile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Undecile, 'ç', tboxUnDecileFactor.Text, cboxUnDecile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Centile, 'Ç', tboxCentileFactor.Text, cboxCentile.IsChecked ?? false),
+            DefineSingleAspectSpec(AspectTypes.Vigintile, 'Ï', tboxVigintileFactor.Text, cboxVigintile.IsChecked ?? false)
         };
 
         return aspectSpecs;
     }
-
-    private static AspectConfigSpecs DefineSingleAspectSpec(AspectTypes aspectType, string percentageText, bool? isUsed)
+    private static AspectConfigSpecs DefineSingleAspectSpec(AspectTypes aspectType, char glyph, string percentageText, bool isUsed)
     {
         int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new AspectConfigSpecs(aspectType, percentageValue, isUsed ?? false);
+        return new AspectConfigSpecs(aspectType, isUsed, glyph, percentageValue);
     }
-
-
-    private List<MundanePointConfigSpecs> DefineMundanePointSpecs()
-    {
-        List<MundanePointConfigSpecs> mundanePointSpecs = new()
-        {
-            DefineSingleMundanePointSpec(MundanePoints.Mc, tboxMcFactor.Text, cboxMc.IsChecked),
-            DefineSingleMundanePointSpec(MundanePoints.Ascendant, tboxAscFactor.Text, cboxAsc.IsChecked),
-            DefineSingleMundanePointSpec(MundanePoints.Vertex, tboxVertexFactor.Text, cboxVertex.IsChecked),
-            DefineSingleMundanePointSpec(MundanePoints.EastPoint, tboxEastpointFactor.Text, cboxEastpoint.IsChecked)
-        };
-
-        return mundanePointSpecs;
-    }
-
-
-    private static MundanePointConfigSpecs DefineSingleMundanePointSpec(MundanePoints point, string percentageText, bool? isUsed)
-    {
-        int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new MundanePointConfigSpecs(point, percentageValue, isUsed ?? false);
-    }
-
-
-    private List<ArabicPointConfigSpecs> DefineArabicPointSpecs()
-    {
-        List<ArabicPointConfigSpecs> arabicPointConfigSpecs = new()
-        {
-            DefineSingleArabicPoint(ArabicPoints.FortunaNoSect, tboxParsNoSectFactor.Text, cboxParsNoSect.IsChecked),
-            DefineSingleArabicPoint(ArabicPoints.FortunaSect, tboxParsSectFactor.Text, cboxParsSect.IsChecked)
-        };
-        return arabicPointConfigSpecs;
-    }
-
-    private static ArabicPointConfigSpecs DefineSingleArabicPoint(ArabicPoints point, string percentageText, bool? isUsed)
-    {
-        int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new ArabicPointConfigSpecs(point, percentageValue, isUsed ?? false);
-    }
-
-
-    private List<ZodiacPointConfigSpecs> DefineZodiacPointSpecs()
-    {
-        List<ZodiacPointConfigSpecs> zodiacPointConfigSpecs = new()
-        {
-            DefineSingleZodiacPoint(ZodiacPoints.ZeroAries, tboxZeroAriesFactor.Text, cboxZeroAries.IsChecked)
-        };
-        return zodiacPointConfigSpecs;
-    }
-
-
-    private static ZodiacPointConfigSpecs DefineSingleZodiacPoint(ZodiacPoints point, string percentageText, bool? isUsed)
-    {
-        int percentageValue = Convert.ToInt32(percentageText, CultureInfo.InvariantCulture);
-        return new ZodiacPointConfigSpecs(point, percentageValue, isUsed ?? false);
-    }
-
-
 }

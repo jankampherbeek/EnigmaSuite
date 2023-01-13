@@ -1,8 +1,7 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
-
-// Interfaces for API's that support persistency.
 
 using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Research;
@@ -13,8 +14,8 @@ namespace Enigma.Frontend.Ui.Research;
 /// <summary>Code behind for dialog window that enables the selection of points to include in research.</summary>
 public partial class PointSelectWindow : Window
 {
-    private PointSelectController _controller;
-    private Rosetta _rosetta = Rosetta.Instance;
+    private readonly PointSelectController _controller;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
     private bool _allCelPointsSelected = false;
     private bool _allMundanePointsSelected = false;
     private bool _completed = false;
@@ -133,10 +134,11 @@ public partial class PointSelectWindow : Window
         {
             _completed = true;
             Close();
-        } else
+        }
+        else
         {
             string warning = _rosetta.TextForId("pointselectwindow.warningnrofpoints") + " " + _minimalNrOfPoints.ToString();
-            MessageBox.Show(warning);    
+            MessageBox.Show(warning);
         }
     }
 

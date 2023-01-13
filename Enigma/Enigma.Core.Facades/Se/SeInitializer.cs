@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Exceptions;
@@ -9,13 +10,13 @@ using System.Runtime.InteropServices;
 namespace Enigma.Facades.Se;
 
 /// <summary>
-/// Initializer for the Swiss Ephemeris. Check the comments for the methods as they are partly required to run before using the SE.
+/// Initializer for the Swiss Ephemeris. Check the comments for the methods as they are partly required to run before using the CelPointSE.
 /// </summary>
 public static class SeInitializer
 {
     /// <summary>Set location for Swiss Ephemeris files.</summary>
     /// <param name="path">Location, relative to the program.</param>
-    /// <remarks>This method must run before the SE can be used.</remarks>
+    /// <remarks>This method must run before the CelPointSE can be used.</remarks>
     public static void SetEphePath(String path)
     {
         if (path != null)
@@ -29,7 +30,6 @@ public static class SeInitializer
                 Log.Error("SeInitializer could not find swedll64.dll. Throwing SwissEphException which should terminate the program.");
                 throw new SwissEphException("The swedll64.dll, which is an essential part of the Swiss Ephemeris, could not be found.");
             }
-
         }
 
     }
@@ -48,9 +48,9 @@ public static class SeInitializer
 
 
     /// <summary>Define Ayanamsha for calculation of sidereal positions.</summary>
-    /// <param name="idAyanamsha">The id for the Ayanamsha as used by the SE.</param>
+    /// <param name="idAyanamsha">The id for the Ayanamsha as used by the CelPointSE.</param>
     /// <remarks>Run this method if sidereal calculations will be used. If this method has not run during the current session, Fagan/Bradley is used as default ayanamsha.
-    /// The method from the SE dll is called using parameters t0 and t1 with the value 0, these will be ignored for all prdefined ayanamsha's.</remarks>
+    /// The method from the CelPointSE dll is called using parameters t0 and t1 with the value 0, these will be ignored for all prdefined ayanamsha's.</remarks>
     public static void SetAyanamsha(int idAyanamsha)
     {
         if (idAyanamsha >= -1 && idAyanamsha <= 39)

@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -15,11 +16,12 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Charts;
 
-public class ChartHarmonicsController
+public sealed class ChartHarmonicsController
 {
     private readonly IHarmonicsApi _harmonicsApi;
     private readonly IHarmonicForDataGridFactory _dataGridFactory;
     private readonly DataVault _dataVault;
+    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ChartHarmonicsController(IHarmonicsApi harmonicsApi, IHarmonicForDataGridFactory dataGridFactory)
     {
@@ -33,7 +35,7 @@ public class ChartHarmonicsController
         var chart = _dataVault.GetLastChart();
         if (chart != null)
         {
-            return chart.InputtedChartData.ChartMetaData.Name;
+            return chart.InputtedChartData.MetaData.Name;
         }
         return "";
     }
@@ -52,9 +54,8 @@ public class ChartHarmonicsController
 
     public void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("Harmonics");
-        helpWindow.ShowDialog();
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetHelpPage("Harmonics");
+        _helpWindow.ShowDialog();
     }
 }

@@ -1,25 +1,16 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Charts;
 
+
 /// <summary>Inputted data and calculation results for a chart.</summary>
-public record CalculatedChart
-{
-    public readonly List<FullCelPointPos> CelPointPositions;
-    public readonly FullHousesPositions FullHousePositions;
-    public readonly ChartData InputtedChartData;
-
-
-    public CalculatedChart(List<FullCelPointPos> celPointPositions, FullHousesPositions fullHousePositions, ChartData inputtedChartData)
-    {
-        CelPointPositions = celPointPositions;
-        FullHousePositions = fullHousePositions;
-        InputtedChartData = inputtedChartData;
-    }
-
-}
+/// <param name="ChartPointPositions">Full positions for chart points.</param>
+/// <param name="FullHousePositions">Full mundane and cusp positions.</param>
+/// <param name="InputtedChartData">Originally inputted data.</param>
+public record CalculatedChart(List<FullChartPointPos> ChartPointPositions, FullHousesPositions FullHousePositions, ChartData InputtedChartData);

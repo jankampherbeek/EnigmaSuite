@@ -1,11 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Research.Interfaces;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
@@ -14,6 +14,8 @@ using Serilog;
 
 
 namespace Enigma.Core.Handlers.Research;
+
+// TODO 0.1 Analysis
 
 public sealed class ResearchMethodHandler : IResearchMethodHandler
 {
@@ -58,11 +60,11 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         {
             case ResearchMethods.CountPosInSigns: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
             case ResearchMethods.CountPosInHouses: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-    //                 case ResearchMethods.CountAspects: return TestAspects(request);
-    //                  case ResearchMethods.CountUnaspected: return TestUnaspected(request);
-           /*           case ResearchMethods.CountOccupiedMidpoints: return TestOccupiedMidpoints(request);
-                      case ResearchMethods.CountHarmonicConjunctions: return TestHarmonicConjunctions(request);
-            */
+            //                 case ResearchMethods.CountAspects: return TestAspects(request);
+            //                  case ResearchMethods.CountUnaspected: return TestUnaspected(request);
+            /*           case ResearchMethods.CountOccupiedMidpoints: return TestOccupiedMidpoints(request);
+                       case ResearchMethods.CountHarmonicConjunctions: return TestHarmonicConjunctions(request);
+             */
             default:
                 string errorTxt = "An error occurred while using a testmethod in ResearchMethodHandler.HandleTestMethod(). An unrecognized ResearchMethod was encountered.";
                 Log.Error(errorTxt);
@@ -70,9 +72,6 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         }
 
     }
-
-
-
 
 
 }

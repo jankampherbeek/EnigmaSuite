@@ -1,9 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -13,8 +13,8 @@ namespace Enigma.Frontend.Ui.Research;
 /// <summary>Window for overview of projects and the possibility to open a project.</summary>
 public partial class ResearchMainWindow : Window
 {
-    private ResearchMainController _controller;
-    private Rosetta _rosetta = Rosetta.Instance;
+    private readonly ResearchMainController _controller;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public ResearchMainWindow()
@@ -118,8 +118,7 @@ public partial class ResearchMainWindow : Window
 
     private void OpenClick(object sender, RoutedEventArgs e)
     {
-        ProjectItem? selectedProject = lbProjects.SelectedItem as ProjectItem;
-        if (selectedProject != null)
+        if (lbProjects.SelectedItem is ProjectItem selectedProject)
         {
             _controller.OpenProject(selectedProject);
         }

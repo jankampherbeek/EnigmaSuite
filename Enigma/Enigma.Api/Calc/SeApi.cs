@@ -1,14 +1,15 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Serilog;
 
 namespace Enigma.Api.Calc;
 
 /// <inheritdoc/>
-
 public sealed class SeApi : ISeApi
 {
     private readonly ISeHandler _seHandler;
@@ -19,7 +20,7 @@ public sealed class SeApi : ISeApi
     /// <inheritdoc/>
     public void SetupSe(string pathToSeFiles)
     {
-        Log.Information("SeApi SetupSe: Setting up SE with path {p}.", pathToSeFiles);
+        Log.Information("SeApi SetupSe: Setting up CelPointSE with path {p}.", pathToSeFiles);
         _seHandler.SetupSe(pathToSeFiles);
     }
 }

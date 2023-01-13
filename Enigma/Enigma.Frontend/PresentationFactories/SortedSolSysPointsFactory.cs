@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
@@ -20,7 +21,7 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
         _celPointFactory = celPointFactory;
     }
 
-    public List<GraphicCelPointPositions> CreateSortedList(List<FullCelPointPos> celPointPositions, double longitudeAsc, double minDistance)
+    public List<GraphicCelPointPositions> CreateSortedList(List<FullChartPointPos> celPointPositions, double longitudeAsc, double minDistance)
     {
         List<GraphicCelPointPositions> graphPositions = CreateGraphicPositions(celPointPositions, longitudeAsc);
         graphPositions.Sort(delegate (GraphicCelPointPositions pos1, GraphicCelPointPositions pos2)
@@ -46,15 +47,15 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
     }
 
 
-    private List<GraphicCelPointPositions> CreateGraphicPositions(List<FullCelPointPos> fullPositions, double longitudeAsc)
+    private List<GraphicCelPointPositions> CreateGraphicPositions(List<FullChartPointPos> fullPositions, double longitudeAsc)
     {
         List<GraphicCelPointPositions> graphPositions = new();
         List<PresentableCelPointPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
         int count = 0;
-        foreach (FullCelPointPos celPointPos in fullPositions)
+        foreach (FullChartPointPos celPointPos in fullPositions)
         {
-            double longitude = celPointPos.GeneralPointPos.Longitude.Position;
-            CelPoints celPoint = celPointPos.CelPoint;
+            double longitude = celPointPos.PointPos.Longitude.Position;
+            ChartPoints celPoint = celPointPos.ChartPoint;
             double mundanePos = longitude - longitudeAsc + 90.0;
             if (mundanePos < 0.0) mundanePos += 360.0;
             if (mundanePos >= 360.0) mundanePos -= 360.0;

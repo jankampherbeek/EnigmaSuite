@@ -1,12 +1,15 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Api.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System.IO;
 using System.Windows;
 
@@ -61,7 +64,9 @@ public partial class StartWindow : Window
         }
         if (!result)
         {
-            throw new StartupException("Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk.");
+            string errorText = "Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk.";
+            Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): " + errorText);
+            throw new EnigmaException(errorText);
         }
 
     }

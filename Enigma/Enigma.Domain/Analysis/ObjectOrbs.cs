@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Interfaces;
@@ -8,82 +9,51 @@ using Enigma.Domain.Points;
 namespace Enigma.Domain.Analysis;
 
 
-/// <summary>
-/// Default orb factor for a celestial point.
-/// </summary>
-public record CelPointOrb
-{
-    public readonly CelPoints CelPoint;
-    public readonly double OrbFactor;
-
-    public CelPointOrb(CelPoints celPoint, double orbFactor)
-    {
-        CelPoint = celPoint;
-        OrbFactor = orbFactor;
-    }
-}
-
-/// <summary>
-/// Default orb factor for a mundane point.
-/// </summary>
-public record MundanePointOrb
-{
-    public readonly string MundanePoint;
-    public readonly double OrbFactor;
-
-    public MundanePointOrb(string mundanePoint, double orbFactor)
-    {
-        MundanePoint = mundanePoint;
-        OrbFactor = orbFactor;
-    }
-}
+/// <summary>Default orb factor for a chart point.</summary>
+/// <param name="Point">The chart point.</param>
+/// <param name="OrbFactor">Factor for the orb.</param>
+public record ChartPointOrb(ChartPoints Point, double OrbFactor);
 
 
 public class OrbDefinitions : IOrbDefinitions
 {
 
-    public CelPointOrb DefineCelPointOrb(CelPoints celPoint)
-    {
-        return celPoint switch
+    public ChartPointOrb DefineChartPointOrb(ChartPoints chartPoint)            // TODO read orb from configuration.
+    {                                                                           // TODO complete definitions.    
+        return chartPoint switch
         {
-            CelPoints.Sun => new CelPointOrb(celPoint, 1.0),
-            CelPoints.Moon => new CelPointOrb(celPoint, 1.0),
-            CelPoints.Mercury => new CelPointOrb(celPoint, 0.9),
-            CelPoints.Venus => new CelPointOrb(celPoint, 0.9),
-            CelPoints.Earth => new CelPointOrb(celPoint, 1.0),
-            CelPoints.Mars => new CelPointOrb(celPoint, 0.9),
-            CelPoints.Jupiter => new CelPointOrb(celPoint, 0.7),
-            CelPoints.Saturn => new CelPointOrb(celPoint, 0.7),
-            CelPoints.Uranus => new CelPointOrb(celPoint, 0.6),
-            CelPoints.Neptune => new CelPointOrb(celPoint, 0.6),
-            CelPoints.Pluto => new CelPointOrb(celPoint, 0.6),
-            CelPoints.MeanNode => new CelPointOrb(celPoint, 0.3),
-            CelPoints.TrueNode => new CelPointOrb(celPoint, 0.3),
-            CelPoints.Chiron => new CelPointOrb(celPoint, 0.3),
-            CelPoints.PersephoneRam => new CelPointOrb(celPoint, 0.0),
-            CelPoints.HermesRam => new CelPointOrb(celPoint, 0.0),
-            CelPoints.DemeterRam => new CelPointOrb(celPoint, 0.0),
-            CelPoints.CupidoUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.HadesUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.ZeusUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.KronosUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.ApollonUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.AdmetosUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.VulcanusUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.PoseidonUra => new CelPointOrb(celPoint, 0.0),
-            CelPoints.Eris => new CelPointOrb(celPoint, 0.3),
-            _ => throw new ArgumentException("Orb definition for celestial point unknown : " + celPoint.ToString())
+            ChartPoints.Sun => new ChartPointOrb(chartPoint, 1.0),
+            ChartPoints.Moon => new ChartPointOrb(chartPoint, 1.0),
+            ChartPoints.Mercury => new ChartPointOrb(chartPoint, 0.9),
+            ChartPoints.Venus => new ChartPointOrb(chartPoint, 0.9),
+            ChartPoints.Earth => new ChartPointOrb(chartPoint, 1.0),
+            ChartPoints.Mars => new ChartPointOrb(chartPoint, 0.9),
+            ChartPoints.Jupiter => new ChartPointOrb(chartPoint, 0.7),
+            ChartPoints.Saturn => new ChartPointOrb(chartPoint, 0.7),
+            ChartPoints.Uranus => new ChartPointOrb(chartPoint, 0.6),
+            ChartPoints.Neptune => new ChartPointOrb(chartPoint, 0.6),
+            ChartPoints.Pluto => new ChartPointOrb(chartPoint, 0.6),
+            ChartPoints.MeanNode => new ChartPointOrb(chartPoint, 0.3),
+            ChartPoints.TrueNode => new ChartPointOrb(chartPoint, 0.3),
+            ChartPoints.Chiron => new ChartPointOrb(chartPoint, 0.3),
+            ChartPoints.PersephoneRam => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.HermesRam => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.DemeterRam => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.CupidoUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.HadesUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.ZeusUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.KronosUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.ApollonUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.AdmetosUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.VulcanusUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.PoseidonUra => new ChartPointOrb(chartPoint, 0.0),
+            ChartPoints.Eris => new ChartPointOrb(chartPoint, 0.3),
+            ChartPoints.Mc => new ChartPointOrb(chartPoint, 1.0),
+            ChartPoints.Ascendant => new ChartPointOrb(chartPoint, 1.0),
+
+            _ => throw new ArgumentException("Orb definition for chart point unknown : " + chartPoint.ToString())
         };
     }
 
-    public MundanePointOrb DefineMundanePointOrb(string mundanePoint)
-    {
-        return mundanePoint.ToUpper() switch
-        {
-            "MC" => new MundanePointOrb(mundanePoint, 1.0),
-            "ASC" => new MundanePointOrb(mundanePoint, 1.0),
-            _ => throw new ArgumentException("Orb definition for mundane point unknown : " + mundanePoint)
-        };
-    }
 }
 

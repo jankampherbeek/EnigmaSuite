@@ -1,12 +1,11 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Services;
-using Enigma.Core.Work.Calc.DateTime;
-using Enigma.Core.Work.Calc.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Services;
@@ -37,9 +36,9 @@ public partial class App : Application
 
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
 
-        string pathToSeFiles = @"c:\sweph";                    // TODO make path to SE files configurable
+        string pathToSeFiles = @"c:\sweph";                    // TODO make path to CelPointSE files configurable
         seApi.SetupSe(pathToSeFiles);
-        Log.Information("Using path to SE: {path}.", pathToSeFiles);
+        Log.Information("Using path to CelPointSE: {path}.", pathToSeFiles);
     }
 
     protected static ServiceProvider HandleRegistrationForDI()
@@ -71,7 +70,6 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
-        serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DataFilesImportController>();
         serviceCollection.AddTransient<DataFilesOverviewController>();

@@ -1,15 +1,16 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems.Coordinates;
 
 namespace Enigma.Domain.Points;
 
 
 /// <summary>General data for a fully defined Position</summary>
-/// <remarks>This recod should be included in specific records, e.g. FullCelPointPos etc.</remarks>
+/// <remarks>This record should be included in specific records, e.g. FullChartPointPos etc.</remarks>
 /// <param name="Longitude">Longitude in degrees.</param>
 /// <param name="Latitude">Latitude in degrees.</param>
 /// <param name="RightAscension">Right ascension in degrees.</param>
@@ -18,27 +19,23 @@ namespace Enigma.Domain.Points;
 public record FullPointPos(PosSpeed Longitude, PosSpeed Latitude, PosSpeed RightAscension, PosSpeed Declination, HorizontalCoordinates AzimuthAltitude);
 
 
-/// <summary>Results of calculation for a single celestial point.</summary>
-public record FullCelPointPos
+/// <summary>Results of calculation for a single chart point.</summary>
+public record FullChartPointPos
 {
-    public readonly CelPoints CelPoint;
-    public readonly string CelPointName;
+    public readonly ChartPoints ChartPoint;
+    public readonly string ChartPointName;
     public readonly PosSpeed Distance;
-    public readonly FullPointPos GeneralPointPos;
+    public readonly FullPointPos PointPos;
 
-    /// <param name="celPoint">Instance of the enum CelPoints.</param>
-    /// <param name="longitude">Longitude in degrees.</param>
-    /// <param name="latitude">Latitude in degrees.</param>
-    /// <param name="rightAscension">Right ascension in degrees.</param>
-    /// <param name="declination">Declination in degrees.</param>
+    /// <param name="chartPoint">Instance of the enum ChartPoints.</param>
     /// <param name="distance">distance in AU.</param>
-    /// <param name="azimuthAltitude">Azimuth and altitude in degrees.</param>
-    public FullCelPointPos(CelPoints celPoint, PosSpeed distance, FullPointPos generalPointPos)
+    /// <param name="pointPos">Postion in all coordinates.</param>
+    public FullChartPointPos(ChartPoints chartPoint, PosSpeed distance, FullPointPos pointPos)
     {
-        CelPoint = celPoint;
-        CelPointName = CelPoint.ToString();
+        ChartPoint = chartPoint;
+        ChartPointName = ChartPoint.ToString();
         Distance = distance;
-        GeneralPointPos = generalPointPos;
+        PointPos = pointPos;
     }
 }
 
@@ -59,7 +56,7 @@ public record PointPosSpeeds
 
     public PointPosSpeeds(double[] values)
     {
-        if (values.Length != 6) throw new ArgumentException("Wrong numer of values for PointSpeeds.");
+        if (values.Length != 6) throw new ArgumentException("Wrong number of values for PointSpeeds.");
         MainPosSpeed = new PosSpeed(values[0], values[1]);
         DeviationPosSpeed = new PosSpeed(values[2], values[3]);
         DistancePosSpeed = new PosSpeed(values[4], values[5]);

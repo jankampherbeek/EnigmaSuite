@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis.Aspects;
@@ -12,7 +13,7 @@ namespace Enigma.Domain.Charts;
 /// <param name="Point2">The second celestial point.</param>
 /// <param name="Exactness">The Exactness (unused fraction of the max. orb) as a percentage.</param>
 /// <param name="AspectType">The aspect type (conjunction, opposition etc.).</param>
-public record DrawableCelPointAspect(CelPoints Point1, CelPoints Point2, double Exactness, AspectTypes AspectType);
+public record DrawableCelPointAspect(ChartPoints Point1, ChartPoints Point2, double Exactness, AspectTypes AspectType);
 
 
 
@@ -21,7 +22,7 @@ public record DrawableCelPointAspect(CelPoints Point1, CelPoints Point2, double 
 /// <param name="CelPoint">The celestial point point.</param>
 /// <param name="Exactness">The Exactness (unused fraction of the max. orb) as a percentage.</param>
 /// <param name="AspectType">The aspect type (conjunction, opposition etc.).</param>
-public record DrawableMundaneAspect(string MundanePoint, CelPoints CelPoint, double Exactness, AspectTypes AspectType);
+public record DrawableMundaneAspect(ChartPoints MundanePoint, ChartPoints CelPoint, double Exactness, AspectTypes AspectType);
 
 
 
@@ -30,7 +31,7 @@ public record DrawableMundaneAspect(string MundanePoint, CelPoints CelPoint, dou
 /// <param name="CelPoint">The celestial point at one side of the aspect line.</param>
 /// <param name="XCoordinate">Value for X.</param>
 /// <param name="YCoordinate">Value for Y.</param>
-public record DrawableAspectCoordinatesCp(CelPoints CelPoint, double XCoordinate, double YCoordinate);
+public record DrawableAspectCoordinatesCp(ChartPoints CelPoint, double XCoordinate, double YCoordinate);
 
 
 

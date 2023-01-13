@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Charts;
@@ -8,9 +9,9 @@ namespace Enigma.Domain.Charts;
 /// <summary>Positions of celestial points to be shown in a datagrid.</summary>
 public record PresentableCelPointPositions
 {
-    public string PointGlyph { get; }
+    public char PointGlyph { get; }
     public string LongText { get; }
-    public string SignGlyph { get; }
+    public char SignGlyph { get; }
     public string LongSpeedText { get; }
     public string LatText { get; }
     public string LatSpeedText { get; }
@@ -32,8 +33,8 @@ public record PresentableCelPointPositions
     /// <param name="distance">Tuple with decimal distance and speed in distance.</param>
     /// <param name="azimuth">Sexagesimal azimuth.</param>
     /// <param name="altitude">Sexagesimal altitude, positive or negative.</param>
-    public PresentableCelPointPositions(string pointGlyph,
-        Tuple<string, string, string> eclipticalLong,
+    public PresentableCelPointPositions(char pointGlyph,
+        Tuple<string, char, string> eclipticalLong,
         Tuple<string, string> eclipticalLat,
         Tuple<string, string> equatorialRa,
         Tuple<string, string> equatorialDecl,

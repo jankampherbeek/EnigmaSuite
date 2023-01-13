@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Persistency;
@@ -29,13 +30,13 @@ public class StandardInputItem
     public string Name { get; }
     public double GeoLongitude { get; }
     public double GeoLatitude { get; }
-    public PersistableDate Date { get; }
-    public PersistableTime Time { get; }
+    public PersistableDate? Date { get; }
+    public PersistableTime? Time { get; }
 
 
     public StandardInputItem(string id, string name,
         double geoLongitude, double geoLatitude,
-        PersistableDate date, PersistableTime time)
+        PersistableDate? date, PersistableTime? time)
     {
         Id = id;
         Name = name;

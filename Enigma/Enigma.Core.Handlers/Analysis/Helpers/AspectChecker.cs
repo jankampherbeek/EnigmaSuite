@@ -1,17 +1,19 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.AstronCalculations;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Analysis.Helpers;
 
+// TODO 0.1 Analysis
 
 /// <inheritdoc/>
 public sealed class AspectChecker : IAspectChecker
@@ -25,30 +27,30 @@ public sealed class AspectChecker : IAspectChecker
 
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsCelPoints(CalculatedChart calculatedChart, AstroConfig config)
+    public List<DefinedAspect> FindAspectsCelPoints(CalculatedChart calculatedChart, AstroConfig config)
     {
         List<AspectDetails> aspectDetails = DefineSupportedAspects(config);
-        return AspectsForCelPoints(aspectDetails, calculatedChart.CelPointPositions);
+        return AspectsForCelPoints(aspectDetails, calculatedChart.ChartPointPositions);
     }
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsCelPoints(List<AspectDetails> aspectDetails, List<FullCelPointPos> fullCelPointPositions)
-    { 
+    public List<DefinedAspect> FindAspectsCelPoints(List<AspectDetails> aspectDetails, List<FullChartPointPos> fullCelPointPositions)
+    {
         return AspectsForCelPoints(aspectDetails, fullCelPointPositions);
     }
 
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart, AstroConfig config)
+    public List<DefinedAspect> FindAspectsForMundanePoints(CalculatedChart calculatedChart, AstroConfig config)
     {
         List<AspectDetails> aspectDetails = DefineSupportedAspects(config);
-        return AspectsForMundanePoints(aspectDetails, calculatedChart.CelPointPositions, calculatedChart.FullHousePositions);
+        return AspectsForMundanePoints(aspectDetails, calculatedChart.ChartPointPositions, calculatedChart.FullHousePositions);
     }
 
     /// <inheritdoc/>
-    public List<EffectiveAspect> FindAspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart)
+    public List<DefinedAspect> FindAspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart)
     {
-        return AspectsForMundanePoints(aspectDetails, calculatedChart.CelPointPositions, calculatedChart.FullHousePositions);
+        return AspectsForMundanePoints(aspectDetails, calculatedChart.ChartPointPositions, calculatedChart.FullHousePositions);
     }
 
     /// <inheritdoc/>
@@ -61,7 +63,7 @@ public sealed class AspectChecker : IAspectChecker
     private List<AspectDetails> DefineSupportedAspects(AstroConfig conf)
     {
         List<AspectDetails> aspectDetails = new();
-        foreach(AspectConfigSpecs aspectSpecs in conf.Aspects) 
+        foreach (AspectConfigSpecs aspectSpecs in conf.Aspects)
         {
             aspectDetails.Add(aspectSpecs.AspectType.GetDetails());
         }
@@ -71,6 +73,8 @@ public sealed class AspectChecker : IAspectChecker
     private List<DefinedAspect> AspectsForGeneralPoints(List<AspectDetails> supportedAspects, List<PositionedPoint> points)
     {
         List<DefinedAspect> definedAspects = new();
+
+        /*
         int count = points.Count;
         for (int i = 0; i < count; i++)
         {
@@ -78,7 +82,7 @@ public sealed class AspectChecker : IAspectChecker
             for (int j = i + 1; j < count; j++)
             {
                 var pointPos2 = points[j];
-                double distance = NormalizeDistance(pointPos1.Position - pointPos2.Position);
+                double distance = NormalizeShortestDistance(pointPos1.Position - pointPos2.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     AspectDetails aspectToCheck = supportedAspects[k];
@@ -92,14 +96,15 @@ public sealed class AspectChecker : IAspectChecker
                 }
             }
         }
+        */
         return definedAspects;
     }
 
 
 
-    private List<EffectiveAspect> AspectsForCelPoints(List<AspectDetails> supportedAspects, List<FullCelPointPos> celPointPositions)
+    private List<DefinedAspect> AspectsForCelPoints(List<AspectDetails> supportedAspects, List<FullChartPointPos> celPointPositions)
     {
-        var effectiveAspects = new List<EffectiveAspect>();
+        var DefinedAspects = new List<DefinedAspect>();
         int count = celPointPositions.Count;
         for (int i = 0; i < count; i++)
         {
@@ -107,54 +112,54 @@ public sealed class AspectChecker : IAspectChecker
             for (int j = i + 1; j < celPointPositions.Count; j++)
             {
                 var celPointPos2 = celPointPositions[j];
-                double distance = NormalizeDistance(celPointPos1.GeneralPointPos.Longitude.Position - celPointPos2.GeneralPointPos.Longitude.Position);
+                double distance = NormalizeDistance(celPointPos1.PointPos.Longitude.Position - celPointPos2.PointPos.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     AspectDetails aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double maxOrb = _orbConstructor.DefineOrb(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck);
+                    double maxOrb = _orbConstructor.DefineOrb(celPointPos1.ChartPoint, celPointPos2.ChartPoint, aspectToCheck);
                     double actualOrb = Math.Abs(angle - distance);
                     if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(celPointPos1.CelPoint, celPointPos2.CelPoint, aspectToCheck, maxOrb, actualOrb));
+                        DefinedAspects.Add(new DefinedAspect(celPointPos1.ChartPoint, celPointPos2.ChartPoint, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }
         }
-        return effectiveAspects;
+        return DefinedAspects;
     }
 
 
 
 
-    private List<EffectiveAspect> AspectsForMundanePoints(List<AspectDetails> supportedAspects, List<FullCelPointPos> celPointPositions, FullHousesPositions fullHousePositions )
+    private List<DefinedAspect> AspectsForMundanePoints(List<AspectDetails> supportedAspects, List<FullChartPointPos> celPointPositions, FullHousesPositions fullHousePositions)
     {
-        var effectiveAspects = new List<EffectiveAspect>();
-        var mundanePointPositions = new List<String>() { "MC", "ASC" };
+        var DefinedAspects = new List<DefinedAspect>();
+        var mundanePointPositions = new List<ChartPoints>() { ChartPoints.Mc, ChartPoints.Ascendant };                    // todo use mundane points a s defined in config
         int countMundanePoints = mundanePointPositions.Count;
         int countCelPoints = celPointPositions.Count;
         for (int i = 0; i < countMundanePoints; i++)
         {
-            string mPointTxt = mundanePointPositions[i];
-            double mLong = mPointTxt == "MC" ? fullHousePositions.Mc.Longitude : fullHousePositions.Ascendant.Longitude;
+            ChartPoints mPoint = mundanePointPositions[i];
+            double mLong = mPoint == ChartPoints.Mc ? fullHousePositions.Mc.Longitude : fullHousePositions.Ascendant.Longitude;
             for (int j = 0; j < countCelPoints; j++)
             {
                 var ssPoint = celPointPositions[j];
-                double distance = NormalizeDistance(mLong - ssPoint.GeneralPointPos.Longitude.Position);
+                double distance = NormalizeDistance(mLong - ssPoint.PointPos.Longitude.Position);
                 for (int k = 0; k < supportedAspects.Count; k++)
                 {
                     var aspectToCheck = supportedAspects[k];
                     double angle = aspectToCheck.Angle;
-                    double maxOrb = _orbConstructor.DefineOrb(mPointTxt, ssPoint.CelPoint, aspectToCheck);
+                    double maxOrb = _orbConstructor.DefineOrb(mPoint, ssPoint.ChartPoint, aspectToCheck);
                     double actualOrb = Math.Abs(angle - distance);
                     if (actualOrb < maxOrb)
                     {
-                        effectiveAspects.Add(new EffectiveAspect(mPointTxt, ssPoint.CelPoint, aspectToCheck, maxOrb, actualOrb));
+                        DefinedAspects.Add(new DefinedAspect(mPoint, ssPoint.ChartPoint, aspectToCheck, maxOrb, actualOrb));
                     }
                 }
             }
         }
-        return effectiveAspects;
+        return DefinedAspects;
     }
 
     private static double NormalizeDistance(double InitialValue)

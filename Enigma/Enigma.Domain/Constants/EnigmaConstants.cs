@@ -1,109 +1,110 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 namespace Enigma.Domain.Constants;
 
 /// <summary>Global constants.</summary>
-/// <remarks>Constants for the Swiss Ephemeris are prefixed by 'SE'.</remarks>
+/// <remarks>Constants for the Swiss Ephemeris are prefixed by 'CelPointSE'.</remarks>
 public static class EnigmaConstants
 {
     // Version info
     public const string ENIGMA_VERSION = "0.1.0";
-    // SE celestial points. _RAM = School of Ram, _URA = Uranian.
+    // CelPointSE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;
-    /// <summary>SE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_APOLLON_URA = 44;
-    /// <summary>SE id for Astraea.</summary>
+    /// <summary>CelPointSE id for Astraea.</summary>
     public const int SE_ASTRAEA = 10005;
-    /// <summary>SE id to identify the planetoid Ceres.</summary>
+    /// <summary>CelPointSE id to identify the planetoid Ceres.</summary>
     public const int SE_CERES = 17;
-    /// <summary>SE id to identify Chiron.</summary>
+    /// <summary>CelPointSE id to identify Chiron.</summary>
     public const int SE_CHIRON = 15;
-    /// <summary>SE id to identify Cupido, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Cupido, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_CUPIDO_URA = 40;
     /// <summary>Demeter, hypothetical planet, School of Ram.</summary>
     public const int SE_DEMETER_RAM = 51;
-    /// <summary>SE id to identify Earth.</summary>
+    /// <summary>CelPointSE id to identify Earth.</summary>
     public const int SE_EARTH = 14;
-    /// <summary>SE id to identify obliquity and nutation.</summary>
+    /// <summary>CelPointSE id to identify obliquity and nutation.</summary>
     public const int SE_ECL_NUT = -1;
-    /// <summary>SE id to identify Eris.</summary>
+    /// <summary>CelPointSE id to identify Eris.</summary>
     public const int SE_ERIS = 1009001;
-    /// <summary>SE id to identify Hades, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Hades, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_HADES_URA = 41;
-    /// <summary>SE id for Haumea.</summary>
+    /// <summary>CelPointSE id for Haumea.</summary>
     public const int SE_HAUMEA = 146108;
     /// <summary>Hermes, hypothetical planet, School of Ram.</summary>
     public const int SE_HERMES_RAM = 50;
-    /// <summary>SE id for Huya.</summary>
+    /// <summary>CelPointSE id for Huya.</summary>
     public const int SE_HUYA = 48628;
-    /// <summary>SE id for Hygieia.</summary>
+    /// <summary>CelPointSE id for Hygieia.</summary>
     public const int SE_HYGIEIA = 10010;
-    /// <summary>SE id to identify the interpolated Apogee.</summary>
+    /// <summary>CelPointSE id to identify the interpolated Apogee.</summary>
     public const int SE_INTP_APOG = 21;
-    /// <summary>SE id to identify the hypothetical planet Isis/Transpluto.</summary>
+    /// <summary>CelPointSE id to identify the hypothetical planet Isis/Transpluto.</summary>
     public const int SE_ISIS = 48;
-    /// <summary>SE id for Ixion.</summary>
+    /// <summary>CelPointSE id for Ixion.</summary>
     public const int SE_IXION = 38978;
-    /// <summary>SE id to identify the planetoid Juno.</summary>
+    /// <summary>CelPointSE id to identify the planetoid Juno.</summary>
     public const int SE_JUNO = 19;
-    /// <summary>SE id to identify Jupiter.</summary>
+    /// <summary>CelPointSE id to identify Jupiter.</summary>
     public const int SE_JUPITER = 5;
-    /// <summary>SE id to identify Kronos, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Kronos, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_KRONOS_URA = 43;
     /// <summary>Se id for Makemake.</summary>
     public const int SE_MAKEMAKE = 146472;
-    /// <summary>SE id to identify Mars.</summary>
+    /// <summary>CelPointSE id to identify Mars.</summary>
     public const int SE_MARS = 4;
-    /// <summary>SE id to identify the mean Apogee.</summary>
+    /// <summary>CelPointSE id to identify the mean Apogee.</summary>
     public const int SE_MEAN_APOGEE = 12;
-    /// <summary>SE id to identify the Mean node.</summary>
+    /// <summary>CelPointSE id to identify the Mean node.</summary>
     public const int SE_MEAN_NODE = 10;
-    /// <summary>SE id to identify Mercury.</summary>
+    /// <summary>CelPointSE id to identify Mercury.</summary>
     public const int SE_MERCURY = 2;
-    /// <summary>SE id to identify the Moon.</summary>
+    /// <summary>CelPointSE id to identify the Moon.</summary>
     public const int SE_MOON = 1;
-    /// <summary>SE id to identify Neptune.</summary>
+    /// <summary>CelPointSE id to identify Neptune.</summary>
     public const int SE_NEPTUNE = 8;
-    /// <summary>SE id for Nessus.</summary>
+    /// <summary>CelPointSE id for Nessus.</summary>
     public const int SE_NESSUS = 17066;
-    /// <summary>SE id to identify Orcus.</summary>
+    /// <summary>CelPointSE id to identify Orcus.</summary>
     public const int SE_ORCUS = 100482;
-    /// <summary>SE id to identify the osculating Apogee.</summary>
+    /// <summary>CelPointSE id to identify the osculating Apogee.</summary>
     public const int SE_OSCU_APOG = 13;
-    /// <summary>SE id to identify the centaur Pallas.</summary>
+    /// <summary>CelPointSE id to identify the centaur Pallas.</summary>
     public const int SE_PALLAS = 18;
     /// <summary>Persephone, hypothetical planet, School of Ram.</summary>
     public const int SE_PERSEPHONE_RAM = 49;
-    /// <summary>SE id to identify the centaur Pholus.</summary>
+    /// <summary>CelPointSE id to identify the centaur Pholus.</summary>
     public const int SE_PHOLUS = 16;
-    /// <summary>SE id to identify Pluto.</summary>
+    /// <summary>CelPointSE id to identify Pluto.</summary>
     public const int SE_PLUTO = 9;
-    /// <summary>SE id to identify Poseidon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Poseidon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_POSEIDON_URA = 47;
-    /// <summary>SE id to identify Quaoar.</summary>
+    /// <summary>CelPointSE id to identify Quaoar.</summary>
     public const int SE_QUAOAR = 60000;
-    /// <summary>SE id to identify Saturn.</summary>
+    /// <summary>CelPointSE id to identify Saturn.</summary>
     public const int SE_SATURN = 6;
-    /// <summary>SE id to identify Sedna.</summary>
+    /// <summary>CelPointSE id to identify Sedna.</summary>
     public const int SE_SEDNA = 100377;
-    /// <summary>SE id to identify the Sun.</summary>
+    /// <summary>CelPointSE id to identify the Sun.</summary>
     public const int SE_SUN = 0;
-    /// <summary>SE id to identify the oscilating (true) lunar node.</summary>
+    /// <summary>CelPointSE id to identify the oscilating (true) lunar node.</summary>
     public const int SE_TRUE_NODE = 11;
-    /// <summary>SE id to identify Uranus.</summary>
+    /// <summary>CelPointSE id to identify Uranus.</summary>
     public const int SE_URANUS = 7;
-    /// <summary>SE id to identify Varuna.</summary>
+    /// <summary>CelPointSE id to identify Varuna.</summary>
     public const int SE_VARUNA = 30000;
-    /// <summary>SE id to identify Venus.</summary>
+    /// <summary>CelPointSE id to identify Venus.</summary>
     public const int SE_VENUS = 3;
-    /// <summary>SE id to identify the planetoid Vesta.</summary>
+    /// <summary>CelPointSE id to identify the planetoid Vesta.</summary>
     public const int SE_VESTA = 20;
-    /// <summary>SE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_VULCANUS_URA = 46;
-    /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>CelPointSE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ZEUS_URA = 42;
 
 
@@ -117,7 +118,7 @@ public static class EnigmaConstants
     /// <summary>Spring equinox/zero degrees Aries.</summary>
     public const int NON_SE_ZEROARIES = 106;
 
-    // SE flags
+    // CelPointSE flags
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>
     public const int SEFLG_SWIEPH = 2;
     /// <summary>Flag: indication to calculate heliocentric positions.</summary>

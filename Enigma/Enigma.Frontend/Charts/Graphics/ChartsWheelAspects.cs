@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022, 2023.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2023.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
@@ -9,7 +10,6 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
@@ -20,19 +20,17 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
+// TODO 0.1 Analysis, check aspects in chart
 
-
-public class ChartsWheelAspects : IChartsWheelAspects
+public sealed class ChartsWheelAspects : IChartsWheelAspects
 {
     private readonly IAspectsApi _aspectsApi;
     private readonly IAspectForWheelFactory _aspectForWheelFactory;
-    private readonly IRangeCheck _rangeCheck;
 
-    public ChartsWheelAspects(IAspectsApi aspectsApi, IAspectForWheelFactory aspectForWheelFactory, IRangeCheck rangeCheck)
+    public ChartsWheelAspects(IAspectsApi aspectsApi, IAspectForWheelFactory aspectForWheelFactory)
     {
         _aspectsApi = aspectsApi;
         _aspectForWheelFactory = aspectForWheelFactory;
-        _rangeCheck = rangeCheck;
     }
 
     public List<Line> CreateAspectLines(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
@@ -41,9 +39,9 @@ public class ChartsWheelAspects : IChartsWheelAspects
         List<DrawableAspectCoordinatesCp> ssCoordinates = CreateSsCoordinates(currentChart, metrics, centerPoint);
         AstroConfig config = CurrentConfig.Instance.GetConfig();
         AspectRequest request = new(currentChart, config);
-        List<EffectiveAspect> effSsAspects = _aspectsApi.AspectsForCelPoints(request);
-        List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(effSsAspects);
-        List<EffectiveAspect> effMuAspects = _aspectsApi.AspectsForMundanePoints(request);
+        List<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
+        List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
+        List<DefinedAspect> defMuAspects = _aspectsApi.AspectsForMundanePoints(request);
         DimLine dimLine = new();
         foreach (var drawSsAspect in drawSsAspects)
         {
@@ -52,8 +50,8 @@ public class ChartsWheelAspects : IChartsWheelAspects
             if (drawSsAspect.AspectType == AspectTypes.Triangle || drawSsAspect.AspectType == AspectTypes.Sextile) aspectColor = metrics.SoftAspectsColor;
             double lineWidth = metrics.AspectLineSize * drawSsAspect.Exactness / 100.0;
             if (lineWidth < 0.5) lineWidth = 0.5;
-            CelPoints point1 = drawSsAspect.Point1;
-            CelPoints point2 = drawSsAspect.Point2;
+            ChartPoints point1 = drawSsAspect.Point1;
+            ChartPoints point2 = drawSsAspect.Point2;
             DrawableAspectCoordinatesCp? drawCoordSs1 = null;
             DrawableAspectCoordinatesCp? drawCoordSs2 = null;
             foreach (var coord in ssCoordinates)
@@ -86,11 +84,13 @@ public class ChartsWheelAspects : IChartsWheelAspects
         List<DrawableAspectCoordinatesCp> drawableAspectCoordinatesSs = new();
         double longAsc = currentChart.FullHousePositions.Ascendant.Longitude;
         DimPoint dimPoint = new(centerPoint);
-        foreach (var ssPointPos in currentChart.CelPointPositions)
+        foreach (var ssPointPos in currentChart.ChartPointPositions)
         {
-            double longitude = ssPointPos.GeneralPointPos.Longitude.Position;
-            CelPoints ssPos = ssPointPos.CelPoint;
-            double posOnCircle = _rangeCheck.InRange360(longitude - longAsc + 90.0);
+            double longitude = ssPointPos.PointPos.Longitude.Position;
+            ChartPoints ssPos = ssPointPos.ChartPoint;
+            double posOnCircle = longitude - longAsc + 90.0;
+            if (posOnCircle < 0.0) posOnCircle += 360.0;
+            if (posOnCircle >= 360.0) posOnCircle -= 360.0;
             Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
             drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesCp(ssPos, newPoint.X, newPoint.Y));
         }
@@ -110,7 +110,9 @@ public class ChartsWheelAspects : IChartsWheelAspects
         drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("Asc", ascPoint.X, ascPoint.Y));
         // MC
         double longitudeMc = currentChart.FullHousePositions.Mc.Longitude;
-        posOnCircle = _rangeCheck.InRange360(longitudeMc - longAsc + 90.0);
+        posOnCircle = longitudeMc - longAsc + 90.0;
+        if (posOnCircle < 0.0) posOnCircle += 360.0;
+        if (posOnCircle >= 360.0) posOnCircle -= 360.0;
         Point mcPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
         drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("MC", mcPoint.X, mcPoint.Y));
         return drawableAspectCoordinatesMu;

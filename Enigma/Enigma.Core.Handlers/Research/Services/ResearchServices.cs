@@ -1,10 +1,10 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Research.Helpers;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Core.Work.Research;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Handlers.Research.Services;
@@ -27,7 +27,16 @@ public static class ResearchServices
 
         // Helpers
         serviceCollection.AddTransient<ICalculatedResearchPositions, CalculatedResearchPositions>();
+        serviceCollection.AddTransient<IControlDataCalendar, ControlDataCalendar>();
+        serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();
+        serviceCollection.AddTransient<IControlGroupRng, ControlGroupRng>();
+        serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
         serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();
+        serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
+        serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
+        serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
+
+
     }
 
 

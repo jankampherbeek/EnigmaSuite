@@ -1,8 +1,9 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Enums;
+using Enigma.Domain.Calc.ChartItems;
 
 namespace Enigma.Frontend.Helpers.Interfaces;
 
@@ -24,7 +25,7 @@ public interface IDoubleToDmsConversions
     /// </summary>
     /// <param name="position">Longitude.</param>
     /// <returns>Tuple with text for longitude in degrees (0 .. 29), minutes and seconds and a string for the glyph.</returns>
-    public (string longTxt, string glyph) ConvertDoubleToDmsWithGlyph(double position);
+    public (string longTxt, char glyph) ConvertDoubleToDmsWithGlyph(double position);
 
     /// <summary>
     /// Convert value for longitude to longitude in degrees, minutes and seconds, within a sign (0..29 degrees) but without a glyph.

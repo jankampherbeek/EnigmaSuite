@@ -1,5 +1,6 @@
-﻿// Jan Kampherbeek, (c) 2022.
-// Enigma is open source.
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Windows.Controls;
@@ -10,7 +11,7 @@ namespace Enigma.Frontend.Ui.Charts.Graphics;
 /// <summary>
 /// Text to be shown in a graphical environment.
 /// </summary>
-internal class DimTextBlock
+internal sealed class DimTextBlock
 {
     private readonly FontFamily _fontFamily;
     private readonly double _fontSize;
