@@ -6,6 +6,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Analysis;
 
@@ -27,10 +28,10 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
         {
             originalPositions.Add(celPoint.PointPos.Longitude.Position);
         }
-        List<CuspFullPos> housePositions = new() { chart.FullHousePositions.Mc, chart.FullHousePositions.Ascendant, chart.FullHousePositions.Vertex, chart.FullHousePositions.EastPoint };
+        List<FullChartPointPos> housePositions = new() { chart.FullHousePositions.Mc, chart.FullHousePositions.Ascendant, chart.FullHousePositions.Vertex, chart.FullHousePositions.EastPoint };
         foreach (var housePosition in housePositions)
         {
-            originalPositions.Add(housePosition.Longitude);
+            originalPositions.Add(housePosition.PointPos.Longitude.Position);
         }
         return _calculator.CalculateHarmonics(originalPositions, harmonicNumber);
     }

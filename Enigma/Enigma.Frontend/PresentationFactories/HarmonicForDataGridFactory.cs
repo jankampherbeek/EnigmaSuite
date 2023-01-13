@@ -46,8 +46,8 @@ public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
             double harmonicPos = harmonicPositions[i];
             presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
         }
-        presentableHarmonics.Add(CreatePresHarmonic('M', chart.FullHousePositions.Mc.Longitude, harmonicPositions[++counterCelPoints]));
-        presentableHarmonics.Add(CreatePresHarmonic('A', chart.FullHousePositions.Ascendant.Longitude, harmonicPositions[counterCelPoints]));
+        presentableHarmonics.Add(CreatePresHarmonic('M', chart.FullHousePositions.Mc.PointPos.Longitude.Position, harmonicPositions[++counterCelPoints]));
+        presentableHarmonics.Add(CreatePresHarmonic('A', chart.FullHousePositions.Ascendant.PointPos.Longitude.Position, harmonicPositions[counterCelPoints]));
         return presentableHarmonics;
     }
 

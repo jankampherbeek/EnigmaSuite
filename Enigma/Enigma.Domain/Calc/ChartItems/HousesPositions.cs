@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Calc.ChartItems;
 
@@ -16,12 +16,6 @@ namespace Enigma.Domain.Calc.ChartItems;
 /// <param name="Ascendant"/>
 /// <param name="Vertex"/>
 /// <param name="EastPoint"/>
-public record FullHousesPositions(List<CuspFullPos> Cusps, CuspFullPos Mc, CuspFullPos Ascendant, CuspFullPos Vertex, CuspFullPos EastPoint);
+public record FullHousesPositions(List<FullChartPointPos> Cusps, FullChartPointPos Mc, FullChartPointPos Ascendant, FullChartPointPos Vertex, FullChartPointPos EastPoint);
 
 
-/// <summary>Full position for  a single cusp or other mundane point.</summary>
-/// <param name="Name">Name for mundane point.</param>
-/// <param name="Longitude"/>
-/// <param name="RaDecl">Equatorial coordinates.</param>
-/// <param name="AzimuthAltitude">Horizontal coordinates.</param>
-public record CuspFullPos(string Name, double Longitude, EquatorialCoordinates RaDecl, HorizontalCoordinates AzimuthAltitude);

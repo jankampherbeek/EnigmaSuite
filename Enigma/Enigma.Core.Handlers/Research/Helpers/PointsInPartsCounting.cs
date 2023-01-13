@@ -134,11 +134,11 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
             {
                 if (selectedMundanePoint == ChartPoints.Mc)
                 {
-                    allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Mc.Longitude)]++;
+                    allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Mc.PointPos.Longitude.Position)]++;
                 }
                 if (selectedMundanePoint == ChartPoints.Ascendant)
                 {
-                    allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Ascendant.Longitude)]++;
+                    allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Ascendant.PointPos.Longitude.Position)]++;
                 }
                 pointIndex++;
             }
@@ -147,7 +147,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
             {
                 foreach (var cusp in chart.FullHousePositions.Cusps)
                 {
-                    allCounts[pointIndex++].Counts[SignIndex(cusp.Longitude)]++;
+                    allCounts[pointIndex++].Counts[SignIndex(cusp.PointPos.Longitude.Position)]++;
                 }
             }
         }
@@ -177,11 +177,11 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
     private static int DefineHouseNr(double longitude, int nrOfCusps, FullHousesPositions fullHousePositions)  // returns housenr 0..11 of 0..nrOfHouses-1
     {
-        List<CuspFullPos> cusps = fullHousePositions.Cusps;
+        List<FullChartPointPos> cusps = fullHousePositions.Cusps;
         List<double> cuspLongitudes = new();
         foreach (var cusp in cusps)
         {
-            cuspLongitudes.Add(cusp.Longitude);
+            cuspLongitudes.Add(cusp.PointPos.Longitude.Position);
         }
         for (int i = 0; i < nrOfCusps; i++)
         {

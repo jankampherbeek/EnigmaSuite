@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
@@ -39,16 +40,16 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
     }
 
 
-    private PresentableHousePositions CreateSingleCuspPos(string identification, CuspFullPos cuspFullPos)
+    private PresentableHousePositions CreateSingleCuspPos(string identification, FullChartPointPos cuspFullPos)
     {
         PresentableHousePositions positions = new(
             identification,
-            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).longTxt,
-            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Longitude).glyph,
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.RaDecl.RightAscension),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.RaDecl.Declination),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.AzimuthAltitude.Azimuth),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.AzimuthAltitude.Altitude));
+            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.PointPos.Longitude.Position).longTxt,
+            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.PointPos.Longitude.Position).glyph,
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.RightAscension.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.Declination.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.AzimuthAltitude.Azimuth),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.AzimuthAltitude.Altitude));
         return positions;
     }
 

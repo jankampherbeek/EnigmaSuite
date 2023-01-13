@@ -103,7 +103,7 @@ public sealed class AspectsCounting
 
 
 
-                    List<EffectiveAspect> effectiveAspects = _aspectsHandler.AspectsForCelPoints(aspectDetails, fullCelPointPositions);
+                    List<EffectiveAspect> effectiveAspects = _aspectsHandler.AspectsForChartPoints(aspectDetails, fullCelPointPositions);
 
                     List<AspectConfigSpecs> selectedAspects = request.Aspects;
                     foreach (EffectiveAspect effAspect in effectiveAspects)

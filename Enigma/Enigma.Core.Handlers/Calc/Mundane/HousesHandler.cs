@@ -41,28 +41,37 @@ public sealed class HousesHandler : IHousesHandler
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
         double[][] _eclValues;
-        List<CuspFullPos> allCusps = new();
+        List<FullChartPointPos> allCusps = new();
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
         _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
         for (int n = 1; n < _eclValues[0].Length; n++)
         {
-            allCusps.Add(CreateCuspFullPos("Cusp " + n, _eclValues[0][n], jdUt, obliquity, location));
+            int cuspIndex = 2000 + n;
+            ChartPoints cusp = ChartPoints.None.PointForIndex(cuspIndex);
+            allCusps.Add(CreateFullChartPointPosForCusp(cusp, _eclValues[0][n], jdUt, obliquity, location));
         }
-        CuspFullPos ascendant = CreateCuspFullPos(ChartPoints.Ascendant.ToString(), _eclValues[1][0], jdUt, obliquity, location);
-        CuspFullPos mc = CreateCuspFullPos(ChartPoints.Mc.ToString(), _eclValues[1][1], jdUt, obliquity, location);
-        CuspFullPos vertex = CreateCuspFullPos(ChartPoints.Vertex.ToString(), _eclValues[1][2], jdUt, obliquity, location);
-        CuspFullPos eastPoint = CreateCuspFullPos(ChartPoints.EastPoint.ToString(), _eclValues[1][4], jdUt, obliquity, location);
+        FullChartPointPos ascendant = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
+        FullChartPointPos mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
+        FullChartPointPos vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][2], jdUt, obliquity, location);
+        FullChartPointPos eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
         return new FullHousesPositions(allCusps, mc, ascendant, vertex, eastPoint);
     }
 
-    private CuspFullPos CreateCuspFullPos(string name, double longitude, double jdUt, double obliquity, Location location)
+    private FullChartPointPos CreateFullChartPointPosForCusp(ChartPoints point, double longitude, double jdUt, double obliquity, Location location)
     {
         double latitude = 0.0;
+        double speed = 0.0;
+        double distance = 0.0;
         EclipticCoordinates eclCoord = new(longitude, latitude);
         EquatorialCoordinates eqCoord = CalcEquatorialCoordinates(eclCoord, obliquity);
         HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eclCoord);
-        return new CuspFullPos(name, eclCoord.Longitude, eqCoord, horCoord);
-
+        PosSpeed psLongitude = new(longitude, speed);
+        PosSpeed psLatitude = new (latitude, speed);
+        PosSpeed psRightAscension = new(eqCoord.RightAscension, speed);
+        PosSpeed psDeclination = new (eqCoord.Declination, speed);
+        PosSpeed psDistance = new(distance, speed);
+        FullPointPos fullPointPos = new(psLongitude, psLatitude, psRightAscension, psDeclination, horCoord);
+        return new FullChartPointPos(point, psDistance, fullPointPos);
     }
 
     private EquatorialCoordinates CalcEquatorialCoordinates(EclipticCoordinates eclCoord, double obliquity)

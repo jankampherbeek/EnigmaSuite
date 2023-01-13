@@ -41,7 +41,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         AspectRequest request = new(currentChart, config);
         List<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
         List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
-        List<DefinedAspect> defMuAspects = _aspectsApi.AspectsForMundanePoints(request);
+  //      List<DefinedAspect> defMuAspects = _aspectsApi.AspectsForMundanePoints(request);                                  // todo 0.1 add mundane aspects to chartwheel
         DimLine dimLine = new();
         foreach (var drawSsAspect in drawSsAspects)
         {
@@ -82,7 +82,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     private List<DrawableAspectCoordinatesCp> CreateSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesCp> drawableAspectCoordinatesSs = new();
-        double longAsc = currentChart.FullHousePositions.Ascendant.Longitude;
+        double longAsc = currentChart.FullHousePositions.Ascendant.PointPos.Longitude.Position;
         DimPoint dimPoint = new(centerPoint);
         foreach (var ssPointPos in currentChart.ChartPointPositions)
         {
@@ -102,14 +102,14 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     private List<DrawableAspectCoordinatesMu> CreateMuCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesMu> drawableAspectCoordinatesMu = new();
-        double longAsc = currentChart.FullHousePositions.Ascendant.Longitude;
+        double longAsc = currentChart.FullHousePositions.Ascendant.PointPos.Longitude.Position;
         DimPoint dimPoint = new(centerPoint);
         // Asc
         double posOnCircle = 90.0;
         Point ascPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
         drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("Asc", ascPoint.X, ascPoint.Y));
         // MC
-        double longitudeMc = currentChart.FullHousePositions.Mc.Longitude;
+        double longitudeMc = currentChart.FullHousePositions.Mc.PointPos.Longitude.Position;  
         posOnCircle = longitudeMc - longAsc + 90.0;
         if (posOnCircle < 0.0) posOnCircle += 360.0;
         if (posOnCircle >= 360.0) posOnCircle -= 360.0;

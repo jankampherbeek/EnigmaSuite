@@ -40,17 +40,17 @@ public sealed class ChartAspectsController
         return chart == null ? "" : chart.InputtedChartData.MetaData.Name;
     }
 
-    public List<PresentableAspects> GetPresentableAspectsForCelPoints()
+    public List<PresentableAspects> GetPresentableAspectsForChartPoints()
     {
         List<DefinedAspect> effAspects = _aspectsApi.AspectsForCelPoints(CreateRequest());
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 
-    public List<PresentableAspects> GetPresentableAspectsForMundanePoints()
-    {
-        List<DefinedAspect> effAspects = _aspectsApi.AspectsForMundanePoints(CreateRequest());
-        return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
-    }
+  //  public List<PresentableAspects> GetPresentableAspectsForMundanePoints()
+  //  {
+  //      List<DefinedAspect> effAspects = _aspectsApi.AspectsForMundanePoints(CreateRequest());
+  //      return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
+ //   }
 
     public static void ShowHelp()
     {

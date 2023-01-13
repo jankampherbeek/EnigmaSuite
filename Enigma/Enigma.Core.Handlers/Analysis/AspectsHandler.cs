@@ -16,81 +16,51 @@ using Enigma.Domain.RequestResponse;
 namespace Enigma.Core.Handlers.Analysis;
 
 /// <inheritdoc/>
-public sealed class AspectsHandler : IAspectsHandler
+public sealed class AspectsHandler : IAspectsHandler                // TODO 0.1 Add aspects to cusps.
 {
     private readonly IPointsMapping _pointsMapping;
-    private readonly IAspectChecker _aspectChecker;
     private readonly IDistanceCalculator _distanceCalculator;
+    private readonly IAspectPointSelector _aspectPointSelector;
+    private readonly IAspectOrbConstructor _aspectOrbConstructor;
 
-    public AspectsHandler(IPointsMapping pointsMapping,  IAspectChecker aspectChecker, IDistanceCalculator distanceCalculator)
+    public AspectsHandler(IPointsMapping pointsMapping, IDistanceCalculator distanceCalculator, IAspectPointSelector aspectPointSelector, IAspectOrbConstructor aspectOrbConstructor)
     {
         _pointsMapping = pointsMapping;
-        _aspectChecker = aspectChecker;
         _distanceCalculator = distanceCalculator;
+        _aspectPointSelector = aspectPointSelector;
+        _aspectOrbConstructor = aspectOrbConstructor;
     }
 
     /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart)
+    public List<DefinedAspect> AspectsForChartPoints(AspectRequest request)
     {
-        return _aspectChecker.FindAspectsForMundanePoints(aspectDetails, calculatedChart);
-    }
-
-    /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForMundanePoints(AspectRequest request)
-    {
-        return _aspectChecker.FindAspectsForMundanePoints(request.CalcChart, request.Config);
-    }
-
-    /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForCelPoints(List<AspectDetails> aspectDetails, List<FullChartPointPos> fullCelPointPositions)
-    {
-        return _aspectChecker.FindAspectsCelPoints(aspectDetails, fullCelPointPositions);
-    }
-
-
-    /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForCelPoints(AspectRequest request)
-    {
-        // define celpoints to use
-        // rekening houden met mundane punten, cuspen. classic, mc, asc altijd geselecteerd.
-        // 
         List<FullChartPointPos> chartPointPositions = request.CalcChart.ChartPointPositions;
         FullHousesPositions fullHousesPositions = request.CalcChart.FullHousePositions;
-
-        List<FullChartPointPos> relevantCelPointPositions = new();
-        foreach (FullChartPointPos fcpPos in chartPointPositions)
-        {
-            PointCats actualPointCat = fcpPos.ChartPoint.GetDetails().PointCat;
-            if (actualPointCat == PointCats.Classic || actualPointCat == PointCats.Modern || actualPointCat == PointCats.MathPoint || actualPointCat == PointCats.Minor)
-            {
-                relevantCelPointPositions.Add(fcpPos);
-            }
-            CuspFullPos mc = fullHousesPositions.Mc;
-
-        //    relevantCelPointPositions.Add()
-        }
-
-
-
-        // convert to PositionedPoints
-        List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCelPointPositions, CoordinateSystems.Ecliptical, true);
-        // calculate distances
+        List<ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
+        List<FullChartPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
+        List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
         List<DistanceBetween2Points> distances = _distanceCalculator.FindShortestDistances(posPoints);
-        // define supported aspects
         List<AspectConfigSpecs> allAspects = request.Config.Aspects;
         List<AspectConfigSpecs> relevantAspects = new();
         foreach (AspectConfigSpecs acSpec in allAspects)
         {
             if (acSpec.IsUsed) relevantAspects.Add(acSpec);
         }
-
-
-        // voor alle distances
-        //     voor alle aspecten
-        //         check for aspect
-
-
-
-        return _aspectChecker.FindAspectsCelPoints(request.CalcChart, request.Config);
+        List<DefinedAspect> definedAspects = new();
+        foreach (DistanceBetween2Points distance in distances)
+        {
+            foreach (AspectConfigSpecs aspect in allAspects)
+            {
+                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspect.PercentageOrb/100.0, request.Config.BaseOrbAspects);
+                AspectTypes aspectType = aspect.AspectType;
+                double aspectDistance = aspectType.GetDetails().Angle;
+                double actualOrb = Math.Abs(distance.Distance - aspectDistance);
+                if (actualOrb <= maxOrb)
+                {
+                    definedAspects.Add(new DefinedAspect(distance.Point1.Point, distance.Point2.Point, aspectType.GetDetails(), maxOrb, actualOrb));
+                }
+            }
+        }
+        return definedAspects;
     }
 }

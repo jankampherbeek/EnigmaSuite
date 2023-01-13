@@ -5,7 +5,9 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
@@ -21,31 +23,26 @@ public interface IDistanceCalculator
     public List<DistanceBetween2Points> FindShortestDistances(List<PositionedPoint> allPoints);
 }
 
+/// <summary>Selector for points that can be used to calculate aspects.</summary>
+public interface IAspectPointSelector
+{
+    /// <summary>Selects points for aspects.</summary>
+    /// <param name="chartPointPositions">Available chartpoint positions (not including mundane positions).</param>
+    /// <param name="fullHousesPositions">Available mundane positions.</param>
+    /// <param name="chartPointConfigSpecs">Configuration data for chart points.</param>
+    /// <returns>The relevant points for the calculation of aspects.</returns>
+    public List<FullChartPointPos> SelectPoints(List<FullChartPointPos> chartPointPositions, FullHousesPositions fullHousesPositions, List<ChartPointConfigSpecs> chartPointConfigSpecs);
+}
+
 
 /// <summary>Handler for aspects.</summary>
 public interface IAspectsHandler
 {
-    /// <summary>Find aspects to mundane points.</summary>
-    /// <param name="request">Request with positions.</param>
-    /// <returns>Aspects found.</returns>
-    public List<DefinedAspect> AspectsForMundanePoints(AspectRequest request);
-
-    /// <summary>Find aspects to mundane points.</summary>
-    /// <param name="aspectDetails">Supported aspects.</param>
-    /// <param name="calculatedChart">Calculated chart.</param>
-    /// <returns>Aspects found.</returns>
-    public List<DefinedAspect> AspectsForMundanePoints(List<AspectDetails> aspectDetails, CalculatedChart calculatedChart);
-
+  
     /// <summary>Find aspects between celestial points (excluding mundane points).</summary>
     /// <param name="request">Request with positions.</param>
     /// <returns>Aspects found.</returns>
-    public List<DefinedAspect> AspectsForCelPoints(AspectRequest request);
-
-    /// <summary>Find aspects between celestial points (excluding mundane points).</summary>
-    /// <param name="aspectDetails">Supported aspects.</param>
-    /// <param name="fullCelPointPositions">Supported celestial points.</param>
-    /// <returns>Aspects found.</returns>
-    public List<DefinedAspect> AspectsForCelPoints(List<AspectDetails> aspectDetails, List<FullChartPointPos> fullCelPointPositions);
+    public List<DefinedAspect> AspectsForChartPoints(AspectRequest request);
 }
 
 
@@ -125,7 +122,14 @@ public interface IOccupiedMidpoints
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize);
 }
 
-
+/// <summary>
+/// Define actual orb for an aspect.
+/// </summary>
+public interface IAspectOrbConstructor
+{
+    /// <summary>Define orb between two celestial points for a given aspect.</summary>
+    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor);
+}
 
 
 

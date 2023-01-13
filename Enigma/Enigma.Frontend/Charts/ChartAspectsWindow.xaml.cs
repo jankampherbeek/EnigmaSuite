@@ -44,7 +44,7 @@ public partial class ChartAspectsWindow : Window
 
     private void PopulateCelPointAspects()
     {
-        dgSsAspects.ItemsSource = _controller.GetPresentableAspectsForCelPoints();
+        dgSsAspects.ItemsSource = _controller.GetPresentableAspectsForChartPoints();
         dgSsAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgSsAspects.Columns[0].Header = _emptyHeader;
         dgSsAspects.Columns[1].Header = _emptyHeader;
@@ -62,7 +62,7 @@ public partial class ChartAspectsWindow : Window
 
     private void PopulateMundaneAspects()
     {
-        dgMuAspects.ItemsSource = _controller.GetPresentableAspectsForMundanePoints();
+  /*      dgMuAspects.ItemsSource = _controller.GetPresentableAspectsForMundanePoints();
         dgMuAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgMuAspects.Columns[0].Header = _emptyHeader;
         dgMuAspects.Columns[1].Header = _emptyHeader;
@@ -76,7 +76,8 @@ public partial class ChartAspectsWindow : Window
         dgMuAspects.Columns[1].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgMuAspects.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgMuAspects.HorizontalAlignment = HorizontalAlignment.Right;
-    }
+   */
+        }
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {

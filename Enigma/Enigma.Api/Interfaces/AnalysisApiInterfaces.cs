@@ -18,8 +18,6 @@ public interface IAspectsApi
     /// <summary>Aspects for celestial points.</summary>
     public List<DefinedAspect> AspectsForCelPoints(AspectRequest request);
 
-    /// <summary>Aspects for mundane points.</summary>
-    public List<DefinedAspect> AspectsForMundanePoints(AspectRequest request);
 }
 
 

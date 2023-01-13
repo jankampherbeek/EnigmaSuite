@@ -38,8 +38,8 @@ public static class HandlerServices
     public static void RegisterHandlerServices(this ServiceCollection serviceCollection)
     {
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();
-        serviceCollection.AddTransient<IAspectChecker, AspectChecker>();
         serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
+        serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<IAstroConfigParser, AstroConfigParser>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();

@@ -94,12 +94,12 @@ public sealed class ChartsWheelController
 
     public double GetAscendantLongitude()
     {
-        return _currentChart != null ? _currentChart.FullHousePositions.Ascendant.Longitude : 0.0;
+        return _currentChart != null ? _currentChart.FullHousePositions.Ascendant.PointPos.Longitude.Position : 0.0;
     }
 
     public double GetMcLongitude()
     {
-        return _currentChart != null ? _currentChart.FullHousePositions.Mc.Longitude : 0.0;
+        return _currentChart != null ? _currentChart.FullHousePositions.Mc.PointPos.Longitude.Position : 0.0;
     }
 
 
@@ -111,7 +111,7 @@ public sealed class ChartsWheelController
         {
             foreach (var cusp in _currentChart.FullHousePositions.Cusps)
             {
-                longitudes.Add(cusp.Longitude);
+                longitudes.Add(cusp.PointPos.Longitude.Position);
             }
 
         }

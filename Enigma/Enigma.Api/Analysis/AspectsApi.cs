@@ -24,22 +24,14 @@ public sealed class AspectsApi : IAspectsApi
         _aspectHandler = aspectHandler;
     }
 
-    /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForMundanePoints(AspectRequest request)
-    {
-        Guard.Against.Null(request);
-        Guard.Against.Null(request.CalcChart);
-        Log.Information("AspectsApi: AspectsForMundanePoints for chart " + request.CalcChart.InputtedChartData.MetaData.Name);
-        return _aspectHandler.AspectsForMundanePoints(request);
-    }
 
     /// <inheritdoc/>
     public List<DefinedAspect> AspectsForCelPoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        Log.Information("AspectsApi: AspectsForCelPoints for chart " + request.CalcChart.InputtedChartData.MetaData.Name);
-        return _aspectHandler.AspectsForCelPoints(request);
+        Log.Information("AspectsApi: AspectsForChartPoints for chart " + request.CalcChart.InputtedChartData.MetaData.Name);
+        return _aspectHandler.AspectsForChartPoints(request);
     }
 }
 

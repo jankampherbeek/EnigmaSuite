@@ -59,19 +59,35 @@ public class TestHousesApi
         Assert.That(() => _api.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
-    private static FullHousesPositions CreateResponse()
+    private FullHousesPositions CreateResponse()
     {
-        var cusps = new List<CuspFullPos>
+
+
+        var cusps = new List<FullChartPointPos>
         {
-            new CuspFullPos("Cusp 5", 100.0, new EquatorialCoordinates(101.1, 2.2), new HorizontalCoordinates(99.9, 3.3)),
-            new CuspFullPos("Cusp 6", 130.0, new EquatorialCoordinates(131.1, 2.3), new HorizontalCoordinates(119.9, 2.2))
+            CreateFullChartPointPos(ChartPoints.Cusp5, 100.0, 101.1, 2.2, 99.9, 3.3),
+            CreateFullChartPointPos(ChartPoints.Cusp6, 130.0, 131.1, 2.3, 119.9, 2.2)
         };
-        CuspFullPos mc = new(ChartPoints.Mc.ToString(), 290.0, new EquatorialCoordinates(292.1, 2.3), new HorizontalCoordinates(310.9, 1.2));
-        CuspFullPos ascendant = new(ChartPoints.Ascendant.ToString(), 20.0, new EquatorialCoordinates(22.2, -1.1), new HorizontalCoordinates(40.9, -3.5));
-        CuspFullPos vertex = new(ChartPoints.Vertex.ToString(), 205.0, new EquatorialCoordinates(202.2, -1.14), new HorizontalCoordinates(220.9, -5.5));
-        CuspFullPos eastPoint = new(ChartPoints.EastPoint.ToString(), 25.0, new EquatorialCoordinates(27.2, -1.1), new HorizontalCoordinates(45.9, -0.5));
+
+        FullChartPointPos mc = CreateFullChartPointPos(ChartPoints.Mc, 290.0, 292.1, 2.3, 310.9, 1.2);
+        FullChartPointPos ascendant = CreateFullChartPointPos(ChartPoints.Ascendant, 20.0, 22.2, -1.1, 40.9, -3.5);
+        FullChartPointPos vertex = CreateFullChartPointPos(ChartPoints.Vertex, 205.0, 202.2, -1.14, 220.9, -5.5);
+        FullChartPointPos eastPoint = CreateFullChartPointPos(ChartPoints.EastPoint, 25.0, 27.2, -1.1, 45.9, -0.5);
         return new FullHousesPositions(cusps, mc, ascendant, vertex, eastPoint);
     }
+
+
+    private FullChartPointPos CreateFullChartPointPos(ChartPoints point, double longitude, double ra, double decl, double azimuth, double altitude)
+    {
+        PosSpeed distance = new PosSpeed(0.0, 0.0);
+        PosSpeed psLongitude = new(longitude, 0.0);
+        PosSpeed psLatitude = new(0.0, 0.0);
+        PosSpeed psRightAscension = new(ra, 0.0);
+        PosSpeed psDeclination = new(decl, 0.0);
+        HorizontalCoordinates horCoord = new(azimuth, altitude);
+        FullPointPos fpPos = new(psLongitude, psLatitude, psRightAscension, psDeclination, horCoord);
+        return new FullChartPointPos(ChartPoints.Cusp5, distance, fpPos);
+    }  
 
 }
 
