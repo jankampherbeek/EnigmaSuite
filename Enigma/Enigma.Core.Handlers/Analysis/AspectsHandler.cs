@@ -49,7 +49,7 @@ public sealed class AspectsHandler : IAspectsHandler                // TODO 0.1 
         List<DefinedAspect> definedAspects = new();
         foreach (DistanceBetween2Points distance in distances)
         {
-            foreach (AspectConfigSpecs aspect in allAspects)
+            foreach (AspectConfigSpecs aspect in relevantAspects)
             {
                 double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspect.PercentageOrb/100.0, request.Config.BaseOrbAspects);
                 AspectTypes aspectType = aspect.AspectType;

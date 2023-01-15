@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,7 +13,6 @@ namespace Enigma.Frontend.Ui.Research
     public partial class ResearchResultWindow : Window
     {
         private readonly ResearchResultController _controller;
-        private readonly Rosetta _rosetta = Rosetta.Instance;
 
         public ResearchResultWindow(ResearchResultController controller)
         {
@@ -30,12 +29,12 @@ namespace Enigma.Frontend.Ui.Research
 
         private void PopulateTexts()
         {
-            Title = _rosetta.TextForId("researchresultwindow.title");
-            tbFormTitle.Text = _rosetta.TextForId("researchresultwindow.formtitle");
-            tabTest.Header = _rosetta.TextForId("researchresultwindow.tabtest");
-            tabControl.Header = _rosetta.TextForId("researchresultwindow.tabcontrol");
-            btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-            btnClose.Content = _rosetta.TextForId("common.btnclose");
+            Title = Rosetta.TextForId("researchresultwindow.title");
+            tbFormTitle.Text = Rosetta.TextForId("researchresultwindow.formtitle");
+            tabTest.Header = Rosetta.TextForId("researchresultwindow.tabtest");
+            tabControl.Header = Rosetta.TextForId("researchresultwindow.tabcontrol");
+            btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+            btnClose.Content = Rosetta.TextForId("common.btnclose");
         }
 
 

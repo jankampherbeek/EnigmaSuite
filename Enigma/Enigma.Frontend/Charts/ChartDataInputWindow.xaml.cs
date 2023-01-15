@@ -18,7 +18,6 @@ namespace Enigma.Frontend.Ui.Charts;
 
 public partial class ChartDataInputWindow : Window
 {
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly ChartDataInputController _controller;
     private readonly List<CalendarDetails> _calendarDetails = Calendars.Gregorian.AllDetails();
     private readonly List<Directions4GeoLongDetails> _directions4GeoLongDetails = Directions4GeoLong.East.AllDetails();
@@ -38,22 +37,22 @@ public partial class ChartDataInputWindow : Window
 
     private void PopulateTexts()
     {
-        FormTitle.Text = _rosetta.TextForId("charts.datainput.formtitle");
-        NameLocationTxt.Text = _rosetta.TextForId("charts.datainput.namelocation");
-        NameIdTxt.Text = _rosetta.TextForId("charts.datainput.nameid");
-        LongitudeTxt.Text = _rosetta.TextForId("common.location.longitude");
-        LatitudeTxt.Text = _rosetta.TextForId("common.location.latitude");
-        DateTimeTxt.Text = _rosetta.TextForId("charts.datainput.datetime");
-        DateTxt.Text = _rosetta.TextForId("common.date");
-        CalTxt.Text = _rosetta.TextForId("common.calendar");
-        YearCountTxt.Text = _rosetta.TextForId("common.yearcount");
-        TimeTxt.Text = _rosetta.TextForId("common.time");
-        DstTxt.Text = _rosetta.TextForId("common.time.dst");
-        TimeZoneTxt.Text = _rosetta.TextForId("common.timezone");
-        LmtTxt.Text = _rosetta.TextForId("common.time.lmt");
-        BtnCalculate.Content = _rosetta.TextForId("common.btncalc");
-        BtnClose.Content = _rosetta.TextForId("common.btnclose");
-        BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
+        FormTitle.Text = Rosetta.TextForId("charts.datainput.formtitle");
+        NameLocationTxt.Text = Rosetta.TextForId("charts.datainput.namelocation");
+        NameIdTxt.Text = Rosetta.TextForId("charts.datainput.nameid");
+        LongitudeTxt.Text = Rosetta.TextForId("common.location.longitude");
+        LatitudeTxt.Text = Rosetta.TextForId("common.location.latitude");
+        DateTimeTxt.Text = Rosetta.TextForId("charts.datainput.datetime");
+        DateTxt.Text = Rosetta.TextForId("common.date");
+        CalTxt.Text = Rosetta.TextForId("common.calendar");
+        YearCountTxt.Text = Rosetta.TextForId("common.yearcount");
+        TimeTxt.Text = Rosetta.TextForId("common.time");
+        DstTxt.Text = Rosetta.TextForId("common.time.dst");
+        TimeZoneTxt.Text = Rosetta.TextForId("common.timezone");
+        LmtTxt.Text = Rosetta.TextForId("common.time.lmt");
+        BtnCalculate.Content = Rosetta.TextForId("common.btncalc");
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
     }
 
 
@@ -71,7 +70,7 @@ public partial class ChartDataInputWindow : Window
         comboCalendar.Items.Clear();
         foreach (var calendarDetail in _calendarDetails)
         {
-            comboCalendar.Items.Add(_rosetta.TextForId(calendarDetail.TextId));
+            comboCalendar.Items.Add(Rosetta.TextForId(calendarDetail.TextId));
         }
         comboCalendar.SelectedIndex = 0;
     }
@@ -83,8 +82,8 @@ public partial class ChartDataInputWindow : Window
         for (int i = 0; i < _directions4GeoLongDetails.Count; i++)
         {
             Directions4GeoLongDetails? direction4GeoLongDetail = _directions4GeoLongDetails[i];
-            comboLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
-            comboLmtLongDir.Items.Add(_rosetta.TextForId(direction4GeoLongDetail.TextId));
+            comboLongDir.Items.Add(Rosetta.TextForId(direction4GeoLongDetail.TextId));
+            comboLmtLongDir.Items.Add(Rosetta.TextForId(direction4GeoLongDetail.TextId));
         }
         comboLongDir.SelectedIndex = 0;
         comboLmtLongDir.SelectedIndex = 0;
@@ -95,7 +94,7 @@ public partial class ChartDataInputWindow : Window
         comboLatDir.Items.Clear();
         foreach (var direction4GeoLatDetail in _directions4GeoLatDetails)
         {
-            comboLatDir.Items.Add(_rosetta.TextForId(direction4GeoLatDetail.TextId));
+            comboLatDir.Items.Add(Rosetta.TextForId(direction4GeoLatDetail.TextId));
         }
         comboLatDir.SelectedIndex = 0;
     }
@@ -105,7 +104,7 @@ public partial class ChartDataInputWindow : Window
         comboYearCount.Items.Clear();
         foreach (var yearCountDetail in _yearCountDetails)
         {
-            comboYearCount.Items.Add(_rosetta.TextForId(yearCountDetail.TextId));
+            comboYearCount.Items.Add(Rosetta.TextForId(yearCountDetail.TextId));
         }
         comboYearCount.SelectedIndex = 0;
     }
@@ -115,7 +114,7 @@ public partial class ChartDataInputWindow : Window
         comboTimezone.Items.Clear();
         foreach (var timeZoneDetail in _timeZoneDetails)
         {
-            comboTimezone.Items.Add(_rosetta.TextForId(timeZoneDetail.TextId));
+            comboTimezone.Items.Add(Rosetta.TextForId(timeZoneDetail.TextId));
         }
         comboTimezone.SelectedIndex = 0;
     }

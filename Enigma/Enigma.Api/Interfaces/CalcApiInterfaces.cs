@@ -18,6 +18,8 @@ public interface ISeApi
     /// <summary>Initialize the CelPointSE.</summary>
     /// <param name="pathToSeFiles">Full path to datafiles for the CelPointSE.</param>
     public void SetupSe(string pathToSeFiles);
+
+    public void CloseSe();
 }
 
 

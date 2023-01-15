@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -14,7 +14,6 @@ namespace Enigma.Frontend.Ui.Research;
 public partial class ResearchMainWindow : Window
 {
     private readonly ResearchMainController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public ResearchMainWindow()
@@ -29,30 +28,30 @@ public partial class ResearchMainWindow : Window
 
     public void PopulateTexts()
     {
-        Title = _rosetta.TextForId("researchmainwindow.title");
-        tbExplText.Text = _rosetta.TextForId("researchmainwindow.expltext");
-        tbFormTitle.Text = _rosetta.TextForId("researchmainwindow.formtitle");
-        btnClose.Content = _rosetta.TextForId("common.btnclose");
-        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        btnOpen.Content = _rosetta.TextForId("common.btnopen");
-        btnNew.Content = _rosetta.TextForId("common.btnnew");
+        Title = Rosetta.TextForId("researchmainwindow.title");
+        tbExplText.Text = Rosetta.TextForId("researchmainwindow.expltext");
+        tbFormTitle.Text = Rosetta.TextForId("researchmainwindow.formtitle");
+        btnClose.Content = Rosetta.TextForId("common.btnclose");
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        btnOpen.Content = Rosetta.TextForId("common.btnopen");
+        btnNew.Content = Rosetta.TextForId("common.btnnew");
     }
 
     public void PopulateMenu()
     {
-        miGeneral.Header = _rosetta.TextForId("researchmainwindow.menu.migeneral");
-        miGeneralClose.Header = _rosetta.TextForId("researchmainwindow.menu.migeneral.close");
-        miGeneralConfiguration.Header = _rosetta.TextForId("researchmainwindow.menu.migeneral.configuration");
-        miGeneralSettings.Header = _rosetta.TextForId("researchmainwindow.menu.migeneral.settings");
-        miData.Header = _rosetta.TextForId("researchmainwindow.menu.midata");
-        miDataOverview.Header = _rosetta.TextForId("researchmainwindow.menu.midata.overview");
-        miDataImport.Header = _rosetta.TextForId("researchmainwindow.menu.midata.import");
-        miProjects.Header = _rosetta.TextForId("researchmainwindow.menu.miprojects");
-        miProjectsNew.Header = _rosetta.TextForId("researchmainwindow.menu.miprojects.new");
-        miHelp.Header = _rosetta.TextForId("researchmainwindow.menu.mihelp");
-        miHelpAbout.Header = _rosetta.TextForId("researchmainwindow.menu.mihelp.about");
-        miHelpPage.Header = _rosetta.TextForId("researchmainwindow.menu.mihelp.page");
-        miHelpManual.Header = _rosetta.TextForId("researchmainwindow.menu.mihelp.manual");
+        miGeneral.Header = Rosetta.TextForId("researchmainwindow.menu.migeneral");
+        miGeneralClose.Header = Rosetta.TextForId("researchmainwindow.menu.migeneral.close");
+        miGeneralConfiguration.Header = Rosetta.TextForId("researchmainwindow.menu.migeneral.configuration");
+        miGeneralSettings.Header = Rosetta.TextForId("researchmainwindow.menu.migeneral.settings");
+        miData.Header = Rosetta.TextForId("researchmainwindow.menu.midata");
+        miDataOverview.Header = Rosetta.TextForId("researchmainwindow.menu.midata.overview");
+        miDataImport.Header = Rosetta.TextForId("researchmainwindow.menu.midata.import");
+        miProjects.Header = Rosetta.TextForId("researchmainwindow.menu.miprojects");
+        miProjectsNew.Header = Rosetta.TextForId("researchmainwindow.menu.miprojects.new");
+        miHelp.Header = Rosetta.TextForId("researchmainwindow.menu.mihelp");
+        miHelpAbout.Header = Rosetta.TextForId("researchmainwindow.menu.mihelp.about");
+        miHelpPage.Header = Rosetta.TextForId("researchmainwindow.menu.mihelp.page");
+        miHelpManual.Header = Rosetta.TextForId("researchmainwindow.menu.mihelp.manual");
     }
 
 

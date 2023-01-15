@@ -11,5 +11,7 @@ public interface ISeHandler
     /// <summary>Initialize the Se.</summary>
     /// <param name="pathToSeFiles">Full path to the CelPointSE data files.</param>
     public void SetupSe(string pathToSeFiles);
+
+    public void CloseSe();
 }
 

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -15,7 +15,6 @@ namespace Enigma.Frontend.Ui.Research;
 public partial class PointSelectWindow : Window
 {
     private readonly PointSelectController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private bool _allCelPointsSelected = false;
     private bool _allMundanePointsSelected = false;
     private bool _completed = false;
@@ -57,18 +56,18 @@ public partial class PointSelectWindow : Window
 
     private void PopulateTexts()
     {
-        Title = _rosetta.TextForId("pointselectwindow.title");
-        tbFormTitle.Text = _rosetta.TextForId("pointselectwindow.formtitle");
-        tbCelPoints.Text = _rosetta.TextForId("pointselectwindow.celpoints");
-        tbMundanePoints.Text = _rosetta.TextForId("pointselectwindow.mundanepoints");
-        tbExplanation.Text = _rosetta.TextForId("pointselectwindow.explanation");
-        cBoxAllCelPoints.Content = _rosetta.TextForId("pointselectwindow.checkallcelpoints");
-        cBoxAllMundanePoints.Content = _rosetta.TextForId("pointselectwindow.checkallmundanepoints");
-        cBoxIncludeAllCusps.Content = _rosetta.TextForId("pointselectwindow.allcusps");
+        Title = Rosetta.TextForId("pointselectwindow.title");
+        tbFormTitle.Text = Rosetta.TextForId("pointselectwindow.formtitle");
+        tbCelPoints.Text = Rosetta.TextForId("pointselectwindow.celpoints");
+        tbMundanePoints.Text = Rosetta.TextForId("pointselectwindow.mundanepoints");
+        tbExplanation.Text = Rosetta.TextForId("pointselectwindow.explanation");
+        cBoxAllCelPoints.Content = Rosetta.TextForId("pointselectwindow.checkallcelpoints");
+        cBoxAllMundanePoints.Content = Rosetta.TextForId("pointselectwindow.checkallmundanepoints");
+        cBoxIncludeAllCusps.Content = Rosetta.TextForId("pointselectwindow.allcusps");
 
-        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        btnCancel.Content = _rosetta.TextForId("common.btncancel");
-        btnOk.Content = _rosetta.TextForId("common.btnok");
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        btnCancel.Content = Rosetta.TextForId("common.btncancel");
+        btnOk.Content = Rosetta.TextForId("common.btnok");
     }
 
     private void PopulateData()
@@ -137,7 +136,7 @@ public partial class PointSelectWindow : Window
         }
         else
         {
-            string warning = _rosetta.TextForId("pointselectwindow.warningnrofpoints") + " " + _minimalNrOfPoints.ToString();
+            string warning = Rosetta.TextForId("pointselectwindow.warningnrofpoints") + " " + _minimalNrOfPoints.ToString();
             MessageBox.Show(warning);
         }
     }

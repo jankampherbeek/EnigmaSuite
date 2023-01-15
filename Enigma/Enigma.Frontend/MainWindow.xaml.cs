@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -15,7 +15,6 @@ namespace Enigma.Frontend.Ui;
 /// <summary>Main view for the application.</summary>
 public partial class MainWindow : Window
 {
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly MainController _controller;
 
     public MainWindow()
@@ -52,77 +51,77 @@ public partial class MainWindow : Window
 
     private void PopulateTexts()
     {
-        Title = _rosetta.TextForId("mainwindow.title") + " " + EnigmaConstants.ENIGMA_VERSION;
-        tbFormTitle.Text = _rosetta.TextForId("mainwindow.formtitle");
-        tbSubTitle.Text = _rosetta.TextForId("mainwindow.subtitle");
-        tbExplanation.Text = _rosetta.TextForId("mainwindow.explanation");
-        tbCharts.Text = _rosetta.TextForId("mainwindow.charts");
-        tbResearch.Text = _rosetta.TextForId("mainwindow.research");
+        Title = Rosetta.TextForId("mainwindow.title") + " " + EnigmaConstants.ENIGMA_VERSION;
+        tbFormTitle.Text = Rosetta.TextForId("mainwindow.formtitle");
+        tbSubTitle.Text = Rosetta.TextForId("mainwindow.subtitle");
+        tbExplanation.Text = Rosetta.TextForId("mainwindow.explanation");
+        tbCharts.Text = Rosetta.TextForId("mainwindow.charts");
+        tbResearch.Text = Rosetta.TextForId("mainwindow.research");
 
 
-        /*    tbChartsTitle.Text = _rosetta.TextForId("mainwindow.chartstitle");
-            tbChartsExpl.Text = _rosetta.TextForId("mainwindow.chartsexpl");
-            tbNewChart.Text = _rosetta.TextForId("mainwindow.chartsnew");
-            btnNewChart.Content = _rosetta.TextForId("mainwindow.btnchartsnew");
-            btnSearchChart.Content = _rosetta.TextForId("mainwindow.btnchartssearch");
+        /*    tbChartsTitle.Text = Rosetta.TextForId("mainwindow.chartstitle");
+            tbChartsExpl.Text = Rosetta.TextForId("mainwindow.chartsexpl");
+            tbNewChart.Text = Rosetta.TextForId("mainwindow.chartsnew");
+            btnNewChart.Content = Rosetta.TextForId("mainwindow.btnchartsnew");
+            btnSearchChart.Content = Rosetta.TextForId("mainwindow.btnchartssearch");
 
-            tbResearchExpl.Text = _rosetta.TextForId("mainwindow.researchexpl");
-            tbResearchTitle.Text = _rosetta.TextForId("mainwindow.researchtitle");
-            tbNewData.Text = _rosetta.TextForId("mainwindow.datanew");
-            tbNewProject.Text = _rosetta.TextForId("mainwindow.projectnew");
-            btnNewData.Content = _rosetta.TextForId("mainwindow.btndatanew");
-            btnNewProject.Content = _rosetta.TextForId("mainwindow.btnprojectnew");
-            btnSearchProject.Content = _rosetta.TextForId("mainwindow.btnprojectsearch");
+            tbResearchExpl.Text = Rosetta.TextForId("mainwindow.researchexpl");
+            tbResearchTitle.Text = Rosetta.TextForId("mainwindow.researchtitle");
+            tbNewData.Text = Rosetta.TextForId("mainwindow.datanew");
+            tbNewProject.Text = Rosetta.TextForId("mainwindow.projectnew");
+            btnNewData.Content = Rosetta.TextForId("mainwindow.btndatanew");
+            btnNewProject.Content = Rosetta.TextForId("mainwindow.btnprojectnew");
+            btnSearchProject.Content = Rosetta.TextForId("mainwindow.btnprojectsearch");
 
-            tbPeriodicalTitle.Text = _rosetta.TextForId("mainwindow.periodicaltitle");
-            tbPeriodicalExpl.Text = _rosetta.TextForId("mainwindow.periodicalexpl");
-            tbNewCycle.Text = _rosetta.TextForId("mainwindow.cyclenew");
-            tbNewEphemeris.Text = _rosetta.TextForId("mainwindow.ephemerisnew");
-            btnNewCycle.Content = _rosetta.TextForId("mainwindow.btncyclenew");
-            btnSearchCycle.Content = _rosetta.TextForId("mainwindow.btncyclesearch");
-            btnNewEphemeris.Content = _rosetta.TextForId("mainwindow.btnephemerisnew");
+            tbPeriodicalTitle.Text = Rosetta.TextForId("mainwindow.periodicaltitle");
+            tbPeriodicalExpl.Text = Rosetta.TextForId("mainwindow.periodicalexpl");
+            tbNewCycle.Text = Rosetta.TextForId("mainwindow.cyclenew");
+            tbNewEphemeris.Text = Rosetta.TextForId("mainwindow.ephemerisnew");
+            btnNewCycle.Content = Rosetta.TextForId("mainwindow.btncyclenew");
+            btnSearchCycle.Content = Rosetta.TextForId("mainwindow.btncyclesearch");
+            btnNewEphemeris.Content = Rosetta.TextForId("mainwindow.btnephemerisnew");
 
 
-            tbCalculatorsTitle.Text = _rosetta.TextForId("mainwindow.calculatorstitle");
-            tbCalculatorsExpl.Text = _rosetta.TextForId("mainwindow.calculatorsexpl");
-            btnConversions.Content = _rosetta.TextForId("mainwindow.btnconversions");
-            btnParans.Content = _rosetta.TextForId("mainwindow.btnparans");
-            btnEvents.Content = _rosetta.TextForId("mainwindow.btnevents");
-            btnOthers.Content = _rosetta.TextForId("mainwindow.btnother");  */
-        btnExit.Content = _rosetta.TextForId("common.btnexit");
-        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
+            tbCalculatorsTitle.Text = Rosetta.TextForId("mainwindow.calculatorstitle");
+            tbCalculatorsExpl.Text = Rosetta.TextForId("mainwindow.calculatorsexpl");
+            btnConversions.Content = Rosetta.TextForId("mainwindow.btnconversions");
+            btnParans.Content = Rosetta.TextForId("mainwindow.btnparans");
+            btnEvents.Content = Rosetta.TextForId("mainwindow.btnevents");
+            btnOthers.Content = Rosetta.TextForId("mainwindow.btnother");  */
+        btnExit.Content = Rosetta.TextForId("common.btnexit");
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
     }
 
     /*    private void PopulateMenu()
         {
 
 
-            miGeneral.Header = _rosetta.TextForId("mainwindow.menu.migeneral");
-            miGeneralSettings.Header = _rosetta.TextForId("mainwindow.menu.migeneral.settings");
-            miGeneralConfiguration.Header = _rosetta.TextForId("mainwindow.menu.migeneral.configuration");
-            miGeneralClose.Header = _rosetta.TextForId("mainwindow.menu.migeneral.close");
+            miGeneral.Header = Rosetta.TextForId("mainwindow.menu.migeneral");
+            miGeneralSettings.Header = Rosetta.TextForId("mainwindow.menu.migeneral.settings");
+            miGeneralConfiguration.Header = Rosetta.TextForId("mainwindow.menu.migeneral.configuration");
+            miGeneralClose.Header = Rosetta.TextForId("mainwindow.menu.migeneral.close");
 
-            miCharts.Header = _rosetta.TextForId("mainwindow.menu.micharts");
-            miChartsNew.Header = _rosetta.TextForId("mainwindow.menu.micharts.new");
-            miChartsOverview.Header = _rosetta.TextForId("mainwindow.menu.micharts.overview");
+            miCharts.Header = Rosetta.TextForId("mainwindow.menu.micharts");
+            miChartsNew.Header = Rosetta.TextForId("mainwindow.menu.micharts.new");
+            miChartsOverview.Header = Rosetta.TextForId("mainwindow.menu.micharts.overview");
 
-            miResearch.Header = _rosetta.TextForId("mainwindow.menu.miresearch");
-            miResearchDataOverview.Header = _rosetta.TextForId("mainwindow.menu.miresearch.dataoverview");
-            miResearchDataImport.Header = _rosetta.TextForId("mainwindow.menu.miresearch.dataimport");
-            miResesearchProjectsNew.Header = _rosetta.TextForId("mainwindow.menu.miresearch.projectsnew");
-            miResearchProjectsOpen.Header = _rosetta.TextForId("mainwindow.menu.miresearch.projectsopen");
+            miResearch.Header = Rosetta.TextForId("mainwindow.menu.miresearch");
+            miResearchDataOverview.Header = Rosetta.TextForId("mainwindow.menu.miresearch.dataoverview");
+            miResearchDataImport.Header = Rosetta.TextForId("mainwindow.menu.miresearch.dataimport");
+            miResesearchProjectsNew.Header = Rosetta.TextForId("mainwindow.menu.miresearch.projectsnew");
+            miResearchProjectsOpen.Header = Rosetta.TextForId("mainwindow.menu.miresearch.projectsopen");
 
-            miPeriodical.Header = _rosetta.TextForId("mainwindow.menu.miperiodical");
-            miPeriodicalCycles.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.cycles");
-            miPeriodicalEphemeris.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.ephemeris");
-            miPeriodicalOccurrences.Header = _rosetta.TextForId("mainwindow.menu.miperiodical.occurrences");
+            miPeriodical.Header = Rosetta.TextForId("mainwindow.menu.miperiodical");
+            miPeriodicalCycles.Header = Rosetta.TextForId("mainwindow.menu.miperiodical.cycles");
+            miPeriodicalEphemeris.Header = Rosetta.TextForId("mainwindow.menu.miperiodical.ephemeris");
+            miPeriodicalOccurrences.Header = Rosetta.TextForId("mainwindow.menu.miperiodical.occurrences");
 
-            miCalculations.Header = _rosetta.TextForId("mainwindow.menu.micalculations");
+            miCalculations.Header = Rosetta.TextForId("mainwindow.menu.micalculations");
 
-            miHelp.Header = _rosetta.TextForId("mainwindow.menu.mihelp");
-            miHelpAbout.Header = _rosetta.TextForId("mainwindow.menu.mihelp.about");
-            miHelpPage.Header = _rosetta.TextForId("mainwindow.menu.mihelp.page");
-            miHelpManual.Header = _rosetta.TextForId("mainwindow.menu.mihelp.manual");
+            miHelp.Header = Rosetta.TextForId("mainwindow.menu.mihelp");
+            miHelpAbout.Header = Rosetta.TextForId("mainwindow.menu.mihelp.about");
+            miHelpPage.Header = Rosetta.TextForId("mainwindow.menu.mihelp.page");
+            miHelpManual.Header = Rosetta.TextForId("mainwindow.menu.mihelp.manual");
 
 
         }

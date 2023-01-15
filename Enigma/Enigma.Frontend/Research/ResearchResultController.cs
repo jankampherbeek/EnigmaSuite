@@ -25,7 +25,6 @@ public class ResearchResultController
     public string ControlMethodText { get; set; } = string.Empty;
     public string TestResultText { get; set; } = string.Empty;
     public string ControlResultText { get; set; } = string.Empty;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public ResearchResultController(IFileAccessApi fileAccessApi, IResearchPathApi researchPathApi)
@@ -54,15 +53,15 @@ public class ResearchResultController
         string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         _fileAccessApi.WriteFile(pathTest, TestResultText);
         _fileAccessApi.WriteFile(pathControl, ControlResultText);
-        TestResultText += EnigmaConstants.NEW_LINE + _rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathTest;
-        ControlResultText += EnigmaConstants.NEW_LINE + _rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathControl;
+        TestResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathTest;
+        ControlResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathControl;
 
     }
 
     private void CreateResultHeaders(CountOfPartsResponse response)
     {
         ProjectText = response.Request.ProjectName;
-        string methodText = _rosetta.TextForId(response.Request.Method.GetDetails().TextId);
+        string methodText = Rosetta.TextForId(response.Request.Method.GetDetails().TextId);
         TestMethodText = methodText + " - test data";
         ControlMethodText = methodText + " - control data";
     }

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -14,7 +14,6 @@ namespace Enigma.Frontend.Ui.Charts;
 public partial class ChartHarmonicsWindow
 {
     private readonly ChartHarmonicsController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly string _emptyHeader = "";
 
     public ChartHarmonicsWindow(ChartHarmonicsController controller)
@@ -71,25 +70,25 @@ public partial class ChartHarmonicsWindow
 
     private void PopulateTexts()
     {
-        Title = _rosetta.TextForId("charts.harmonics.title");
-        tbFormTitle.Text = _rosetta.TextForId("charts.harmonics.formtitle");
+        Title = Rosetta.TextForId("charts.harmonics.title");
+        tbFormTitle.Text = Rosetta.TextForId("charts.harmonics.formtitle");
         tbSubTitleChartId.Text = _controller.RetrieveChartName();
-        tbSubTitleHarmonicNumber.Text = _rosetta.TextForId("charts.harmonics.titlenumber");
-        tbInputHarmonicNr.Text = _rosetta.TextForId("charts.harmonics.inputharmonicnr");
-        btnCalculate.Content = _rosetta.TextForId("common.btncalc");
-        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        btnClose.Content = _rosetta.TextForId("common.btnclose");
+        tbSubTitleHarmonicNumber.Text = Rosetta.TextForId("charts.harmonics.titlenumber");
+        tbInputHarmonicNr.Text = Rosetta.TextForId("charts.harmonics.inputharmonicnr");
+        btnCalculate.Content = Rosetta.TextForId("common.btncalc");
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        btnClose.Content = Rosetta.TextForId("common.btnclose");
     }
 
     private void PopulateData(double harmonicNumber)
     {
-        tbSubTitleHarmonicNumber.Text = _rosetta.TextForId("charts.harmonics.titlenumber") + " " + harmonicNumber;
+        tbSubTitleHarmonicNumber.Text = Rosetta.TextForId("charts.harmonics.titlenumber") + " " + harmonicNumber;
         dgHarmonics.ItemsSource = _controller.RetrieveAndFormatHarmonics(harmonicNumber);
         dgHarmonics.GridLinesVisibility = dgHarmonics.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgHarmonics.Columns[0].Header = _emptyHeader;
-        dgHarmonics.Columns[1].Header = _rosetta.TextForId("charts.harmonics.radixpos");
+        dgHarmonics.Columns[1].Header = Rosetta.TextForId("charts.harmonics.radixpos");
         dgHarmonics.Columns[2].Header = _emptyHeader;
-        dgHarmonics.Columns[3].Header = _rosetta.TextForId("charts.harmonics.harmonicpos");
+        dgHarmonics.Columns[3].Header = Rosetta.TextForId("charts.harmonics.harmonicpos");
         dgHarmonics.Columns[4].Header = _emptyHeader;
         dgHarmonics.Columns[0].MaxWidth = 20;
         dgHarmonics.Columns[2].MaxWidth = 20;

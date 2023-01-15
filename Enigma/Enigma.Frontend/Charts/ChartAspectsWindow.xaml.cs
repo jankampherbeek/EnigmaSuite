@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -16,7 +16,6 @@ public partial class ChartAspectsWindow : Window
 {
 
     private readonly ChartAspectsController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly string _emptyHeader = " ";
     public ChartAspectsWindow(ChartAspectsController controller)
     {
@@ -28,17 +27,16 @@ public partial class ChartAspectsWindow : Window
     {
         PopulateTexts();
         PopulateCelPointAspects();
-        PopulateMundaneAspects();
     }
 
 
     private void PopulateTexts()
     {
-        this.Title = _rosetta.TextForId("charts.aspects.formtitle");
-        FormTitle.Text = _rosetta.TextForId("charts.aspects.formtitle");
+        this.Title = Rosetta.TextForId("charts.aspects.formtitle");
+        FormTitle.Text = Rosetta.TextForId("charts.aspects.formtitle");
         SubTitleChartId.Text = _controller.GetChartIdName();
-        BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        BtnClose.Content = _rosetta.TextForId("common.btnclose");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
     }
 
 
@@ -46,38 +44,27 @@ public partial class ChartAspectsWindow : Window
     {
         dgSsAspects.ItemsSource = _controller.GetPresentableAspectsForChartPoints();
         dgSsAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
-        dgSsAspects.Columns[0].Header = _emptyHeader;
+        dgSsAspects.Columns[0].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point1");
         dgSsAspects.Columns[1].Header = _emptyHeader;
-        dgSsAspects.Columns[2].Header = _emptyHeader;
-        dgSsAspects.Columns[3].Header = _rosetta.TextForId("charts.aspects.datagrid.columns.orb");
-        dgSsAspects.Columns[4].Header = _rosetta.TextForId("charts.aspects.datagrid.columns.exactness");
-        dgSsAspects.Columns[0].MaxWidth = 20;
+        dgSsAspects.Columns[2].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.aspect"); 
+        dgSsAspects.Columns[3].Header = _emptyHeader;
+        dgSsAspects.Columns[4].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point2");
+        dgSsAspects.Columns[5].Header = _emptyHeader;
+        dgSsAspects.Columns[6].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.orb");
+        dgSsAspects.Columns[7].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.exactness");
+
+
         dgSsAspects.Columns[1].MaxWidth = 20;
-        dgSsAspects.Columns[2].MaxWidth = 20;
-        dgSsAspects.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgSsAspects.Columns[3].MaxWidth = 20;
+        dgSsAspects.Columns[5].MaxWidth = 20;
+        dgSsAspects.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
+        dgSsAspects.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
+        dgSsAspects.Columns[4].CellStyle = FindResource("nameColumnStyle") as Style;
         dgSsAspects.Columns[1].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgSsAspects.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgSsAspects.Columns[3].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgSsAspects.Columns[5].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgSsAspects.HorizontalAlignment = HorizontalAlignment.Right;
     }
-
-    private void PopulateMundaneAspects()
-    {
-  /*      dgMuAspects.ItemsSource = _controller.GetPresentableAspectsForMundanePoints();
-        dgMuAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
-        dgMuAspects.Columns[0].Header = _emptyHeader;
-        dgMuAspects.Columns[1].Header = _emptyHeader;
-        dgMuAspects.Columns[2].Header = _emptyHeader;
-        dgMuAspects.Columns[3].Header = _rosetta.TextForId("charts.aspects.datagrid.columns.orb");
-        dgMuAspects.Columns[4].Header = _rosetta.TextForId("charts.aspects.datagrid.columns.exactness");
-        dgMuAspects.Columns[0].MaxWidth = 80;
-        dgMuAspects.Columns[1].MaxWidth = 20;
-        dgMuAspects.Columns[2].MaxWidth = 20;
-        dgMuAspects.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
-        dgMuAspects.Columns[1].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgMuAspects.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgMuAspects.HorizontalAlignment = HorizontalAlignment.Right;
-   */
-        }
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,7 +18,6 @@ namespace Enigma.Frontend.Ui.Research.DataFiles
     /// </summary>
     public partial class DataFilesImportWindow : Window
     {
-        private readonly Rosetta _rosetta = Rosetta.Instance;
         private readonly DataFilesImportController _controller;
 
         public DataFilesImportWindow()
@@ -32,16 +31,16 @@ namespace Enigma.Frontend.Ui.Research.DataFiles
 
         private void PopulateTexts()
         {
-            FormTitle.Text = _rosetta.TextForId("datafilesimportwindow.title");
-            tbSelectFile.Text = _rosetta.TextForId("datafilesimportwindow.selectfile");
-            tbNameForData.Text = _rosetta.TextForId("datafilesimportwindow.namefordata");
-            tbResultLabel.Text = _rosetta.TextForId("datafilesimportwindow.resultlabel");
-            tbResultText.Text = _rosetta.TextForId("datafilesimportwindow.resulttext");
-            btnBrowse.Content = _rosetta.TextForId("datafilesimportwindow.btnbrowse");
-            btnImport.Content = _rosetta.TextForId("datafilesimportwindow.btnimport");
-            btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-            btnCancel.Content = _rosetta.TextForId("common.btncancel");
-            btnClose.Content = _rosetta.TextForId("common.btnclose");
+            FormTitle.Text = Rosetta.TextForId("datafilesimportwindow.title");
+            tbSelectFile.Text = Rosetta.TextForId("datafilesimportwindow.selectfile");
+            tbNameForData.Text = Rosetta.TextForId("datafilesimportwindow.namefordata");
+            tbResultLabel.Text = Rosetta.TextForId("datafilesimportwindow.resultlabel");
+            tbResultText.Text = Rosetta.TextForId("datafilesimportwindow.resulttext");
+            btnBrowse.Content = Rosetta.TextForId("datafilesimportwindow.btnbrowse");
+            btnImport.Content = Rosetta.TextForId("datafilesimportwindow.btnimport");
+            btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+            btnCancel.Content = Rosetta.TextForId("common.btncancel");
+            btnClose.Content = Rosetta.TextForId("common.btnclose");
         }
 
         private void ClearValues()
@@ -69,7 +68,7 @@ namespace Enigma.Frontend.Ui.Research.DataFiles
             string inputFile = tboxSelectFile.Text;
             if (String.IsNullOrWhiteSpace(dataName) || String.IsNullOrWhiteSpace(inputFile))
             {
-                MessageBox.Show(_rosetta.TextForId("datafilesimportwindow.errorsnamepathfound"));
+                MessageBox.Show(Rosetta.TextForId("datafilesimportwindow.errorsnamepathfound"));
             }
             else
             {
@@ -78,7 +77,7 @@ namespace Enigma.Frontend.Ui.Research.DataFiles
                     ResultMessage resultMsg = _controller.PerformImport(inputFile, dataName);
                     if (resultMsg.ErrorCode > ErrorCodes.ERR_NONE)
                     {
-                        MessageBox.Show(_rosetta.TextForId("datafilesimportwindow.errorsproblemfilesystem") + " " + resultMsg.Message);
+                        MessageBox.Show(Rosetta.TextForId("datafilesimportwindow.errorsproblemfilesystem") + " " + resultMsg.Message);
                     }
                     else
                     {
@@ -87,7 +86,7 @@ namespace Enigma.Frontend.Ui.Research.DataFiles
                 }
                 else
                 {
-                    MessageBox.Show(_rosetta.TextForId("datafilesimportwindow.errorsdatanamenotunique"));
+                    MessageBox.Show(Rosetta.TextForId("datafilesimportwindow.errorsdatanamenotunique"));
                 }
             }
         }

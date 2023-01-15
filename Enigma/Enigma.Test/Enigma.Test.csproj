@@ -11,13 +11,10 @@
   <ItemGroup>
     <Compile Remove="Core\Analysis\**" />
     <Compile Remove="Core\Handlers\Analysis\Midpoints\**" />
-    <Compile Remove="Facades\**" />
     <EmbeddedResource Remove="Core\Analysis\**" />
     <EmbeddedResource Remove="Core\Handlers\Analysis\Midpoints\**" />
-    <EmbeddedResource Remove="Facades\**" />
     <None Remove="Core\Analysis\**" />
     <None Remove="Core\Handlers\Analysis\Midpoints\**" />
-    <None Remove="Facades\**" />
   </ItemGroup>
 
   <ItemGroup>

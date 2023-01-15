@@ -67,8 +67,11 @@ astroconfigwindow.zodiactype = Type of zodiac
 astroconfigwindow.zodiactypeexpl = Select a tropical or a sidereal type of zodiac. If you select a sidereal zodiac you can define the Ayanamsha below.
 
 ---- ChartsAspects ------------------------------------
+charts.aspects.datagrid.columns.aspect = Aspect
 charts.aspects.datagrid.columns.exactness = Exactness %
-charts.aspects.datagrid.columns.orb = Max. orb
+charts.aspects.datagrid.columns.orb = Orb
+charts.aspects.datagrid.columns.point1 = First point
+charts.aspects.datagrid.columns.point2 = Second point
 charts.aspects.formtitle = Aspects
 
 ---- ChartsDataInput ----------------------------------

@@ -24,7 +24,6 @@ namespace Enigma.Frontend.Ui.Configuration;
 public partial class AstroConfigWindow : Window
 {
     private readonly AstroConfigController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public AstroConfigWindow()
@@ -39,163 +38,163 @@ public partial class AstroConfigWindow : Window
     private void PopulateTexts()
     {
         // Overall
-        Title = _rosetta.TextForId("astroconfigwindow.title");
-        FormTitle.Text = _rosetta.TextForId("astroconfigwindow.title");
-        TitleGeneral.Text = _rosetta.TextForId("astroconfigwindow.titlegeneral");
-        tabGeneral.Header = _rosetta.TextForId("astroconfigwindow.tabgeneral");
-        tabBasicPoints.Header = _rosetta.TextForId("astroconfigwindow.tabbasicpoints");
-        tabMathMinorPoints.Header = _rosetta.TextForId("astroconfigwindow.tabminorpoints");
-        tabHypoPoints.Header = _rosetta.TextForId("astroconfigwindow.tabhypopoints");
-        tabAspects.Header = _rosetta.TextForId("astroconfigwindow.tabaspects");
-        BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        BtnCancel.Content = _rosetta.TextForId("common.btncancel");
-        BtnOk.Content = _rosetta.TextForId("common.btnok");
+        Title = Rosetta.TextForId("astroconfigwindow.title");
+        FormTitle.Text = Rosetta.TextForId("astroconfigwindow.title");
+        TitleGeneral.Text = Rosetta.TextForId("astroconfigwindow.titlegeneral");
+        tabGeneral.Header = Rosetta.TextForId("astroconfigwindow.tabgeneral");
+        tabBasicPoints.Header = Rosetta.TextForId("astroconfigwindow.tabbasicpoints");
+        tabMathMinorPoints.Header = Rosetta.TextForId("astroconfigwindow.tabminorpoints");
+        tabHypoPoints.Header = Rosetta.TextForId("astroconfigwindow.tabhypopoints");
+        tabAspects.Header = Rosetta.TextForId("astroconfigwindow.tabaspects");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        BtnCancel.Content = Rosetta.TextForId("common.btncancel");
+        BtnOk.Content = Rosetta.TextForId("common.btnok");
         // Tab General
-        tbHouseSystemExpl.Text = _rosetta.TextForId("astroconfigwindow.housesystemexpl");
-        tbHouseSystem.Text = _rosetta.TextForId("astroconfigwindow.housesystem");
-        tbZodiacTypeExpl.Text = _rosetta.TextForId("astroconfigwindow.zodiactypeexpl");
-        tbZodiacType.Text = _rosetta.TextForId("astroconfigwindow.zodiactype");
-        tbAyanamshaExpl.Text = _rosetta.TextForId("astroconfigwindow.ayanamshaexpl");
-        tbAyanamsha.Text = _rosetta.TextForId("astroconfigwindow.ayanamsha");
-        tbObserverPosExpl.Text = _rosetta.TextForId("astroconfigwindow.observerposexpl");
-        tbObserverPos.Text = _rosetta.TextForId("astroconfigwindow.observerpos");
-        tbProjectionTypeExpl.Text = _rosetta.TextForId("astroconfigwindow.projectiontypeexpl");
-        tbProjectionType.Text = _rosetta.TextForId("astroconfigwindow.projectiontype");
-        tbBaseOrbExpl.Text = _rosetta.TextForId("astroconfigwindow.baseorbexpl");
-        tbAspectBaseOrb.Text = _rosetta.TextForId("astroconfigwindow.baseorbaspect");
-        tbMidpointBaseOrb.Text = _rosetta.TextForId("astroconfigwindow.baseorbmidpoint");
+        tbHouseSystemExpl.Text = Rosetta.TextForId("astroconfigwindow.housesystemexpl");
+        tbHouseSystem.Text = Rosetta.TextForId("astroconfigwindow.housesystem");
+        tbZodiacTypeExpl.Text = Rosetta.TextForId("astroconfigwindow.zodiactypeexpl");
+        tbZodiacType.Text = Rosetta.TextForId("astroconfigwindow.zodiactype");
+        tbAyanamshaExpl.Text = Rosetta.TextForId("astroconfigwindow.ayanamshaexpl");
+        tbAyanamsha.Text = Rosetta.TextForId("astroconfigwindow.ayanamsha");
+        tbObserverPosExpl.Text = Rosetta.TextForId("astroconfigwindow.observerposexpl");
+        tbObserverPos.Text = Rosetta.TextForId("astroconfigwindow.observerpos");
+        tbProjectionTypeExpl.Text = Rosetta.TextForId("astroconfigwindow.projectiontypeexpl");
+        tbProjectionType.Text = Rosetta.TextForId("astroconfigwindow.projectiontype");
+        tbBaseOrbExpl.Text = Rosetta.TextForId("astroconfigwindow.baseorbexpl");
+        tbAspectBaseOrb.Text = Rosetta.TextForId("astroconfigwindow.baseorbaspect");
+        tbMidpointBaseOrb.Text = Rosetta.TextForId("astroconfigwindow.baseorbmidpoint");
 
         // Tab Basic celestial points
-        TitleBasicCelPoints.Text = _rosetta.TextForId("astroconfigwindow.basiccelpoints");
-        tbArabicParts.Text = _rosetta.TextForId("astroconfigwindow.arabicparts");
-        tbBasicExplanation.Text = _rosetta.TextForId("astroconfigwindow.basiccelpointsexpl");
-        tbClassical.Text = _rosetta.TextForId("astroconfigwindow.classicalpoints");
-        tbModern.Text = _rosetta.TextForId("astroconfigwindow.modernpoints");
-        tbMundanePoints.Text = _rosetta.TextForId("astroconfigwindow.mundanepoints");
-        tbBasicPointLeft.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
-        tbBasicPointRight.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
-        tbBasicOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbBasicOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbTextSun.Text = _rosetta.TextForId("ref.enum.celpoint.sun");
-        tbTextMoon.Text = _rosetta.TextForId("ref.enum.celpoint.moon");
-        tbTextMercury.Text = _rosetta.TextForId("ref.enum.celpoint.mercury");
-        tbTextVenus.Text = _rosetta.TextForId("ref.enum.celpoint.venus");
-        tbTextMars.Text = _rosetta.TextForId("ref.enum.celpoint.mars");
-        tbTextJupiter.Text = _rosetta.TextForId("ref.enum.celpoint.jupiter");
-        tbTextSaturn.Text = _rosetta.TextForId("ref.enum.celpoint.saturn");
-        tbTextUranus.Text = _rosetta.TextForId("ref.enum.celpoint.uranus");
-        tbTextNeptune.Text = _rosetta.TextForId("ref.enum.celpoint.neptune");
-        tbTextPluto.Text = _rosetta.TextForId("ref.enum.celpoint.pluto");
-        tbTextMc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.mc");
-        tbTextAsc.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.asc");
-        tbTextVertex.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.vertex");
-        tbTextEastpoint.Text = _rosetta.TextForId("ref.enum.mundanepoint.id.eastpoint");
-        tbTextParsSect.Text = _rosetta.TextForId("ref.enum.arabicpoint.fortunasect");
-        tbTextParsNoSect.Text = _rosetta.TextForId("ref.enum.arabicpoint.fortunanosect");
+        TitleBasicCelPoints.Text = Rosetta.TextForId("astroconfigwindow.basiccelpoints");
+        tbArabicParts.Text = Rosetta.TextForId("astroconfigwindow.arabicparts");
+        tbBasicExplanation.Text = Rosetta.TextForId("astroconfigwindow.basiccelpointsexpl");
+        tbClassical.Text = Rosetta.TextForId("astroconfigwindow.classicalpoints");
+        tbModern.Text = Rosetta.TextForId("astroconfigwindow.modernpoints");
+        tbMundanePoints.Text = Rosetta.TextForId("astroconfigwindow.mundanepoints");
+        tbBasicPointLeft.Text = Rosetta.TextForId("astroconfigwindow.celpoint");
+        tbBasicPointRight.Text = Rosetta.TextForId("astroconfigwindow.celpoint");
+        tbBasicOrbFactorLeft.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbBasicOrbFactorRight.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbTextSun.Text = Rosetta.TextForId("ref.enum.celpoint.sun");
+        tbTextMoon.Text = Rosetta.TextForId("ref.enum.celpoint.moon");
+        tbTextMercury.Text = Rosetta.TextForId("ref.enum.celpoint.mercury");
+        tbTextVenus.Text = Rosetta.TextForId("ref.enum.celpoint.venus");
+        tbTextMars.Text = Rosetta.TextForId("ref.enum.celpoint.mars");
+        tbTextJupiter.Text = Rosetta.TextForId("ref.enum.celpoint.jupiter");
+        tbTextSaturn.Text = Rosetta.TextForId("ref.enum.celpoint.saturn");
+        tbTextUranus.Text = Rosetta.TextForId("ref.enum.celpoint.uranus");
+        tbTextNeptune.Text = Rosetta.TextForId("ref.enum.celpoint.neptune");
+        tbTextPluto.Text = Rosetta.TextForId("ref.enum.celpoint.pluto");
+        tbTextMc.Text = Rosetta.TextForId("ref.enum.mundanepoint.id.mc");
+        tbTextAsc.Text = Rosetta.TextForId("ref.enum.mundanepoint.id.asc");
+        tbTextVertex.Text = Rosetta.TextForId("ref.enum.mundanepoint.id.vertex");
+        tbTextEastpoint.Text = Rosetta.TextForId("ref.enum.mundanepoint.id.eastpoint");
+        tbTextParsSect.Text = Rosetta.TextForId("ref.enum.arabicpoint.fortunasect");
+        tbTextParsNoSect.Text = Rosetta.TextForId("ref.enum.arabicpoint.fortunanosect");
         // Tab Math and Minor points
-        TitleMathMinorPoints.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpoints");
-        tbMathMinorExplanation.Text = _rosetta.TextForId("astroconfigwindow.mathminorcelpointsexpl");
-        tbMathematical.Text = _rosetta.TextForId("astroconfigwindow.mathematical");
-        tbCentaurs.Text = _rosetta.TextForId("astroconfigwindow.centaurs");
-        tbPlanetoids.Text = _rosetta.TextForId("astroconfigwindow.planetoids");
-        tbPlutoids.Text = _rosetta.TextForId("astroconfigwindow.plutoids");
-        tbMathMinorPointLeft.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
-        tbMathMinorPointRight.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
-        tbMathMinorOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbMathMinorOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbTextMeanNode.Text = _rosetta.TextForId("ref.enum.celpoint.meannode");
-        tbTextTrueNode.Text = _rosetta.TextForId("ref.enum.celpoint.truenode");
-        tbTextZeroAries.Text = _rosetta.TextForId("ref.enum.zodiacpoints.id.zeroar");
-        tbTextMeanBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.meanblackmoon");
-        tbTextCorrBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.corrblackmoon");
-        tbTextInterpolatedBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.interpblackmoon");
-        tbTextDuvalBlackMoon.Text = _rosetta.TextForId("ref.enum.celpoint.duvalblackmoon");
+        TitleMathMinorPoints.Text = Rosetta.TextForId("astroconfigwindow.mathminorcelpoints");
+        tbMathMinorExplanation.Text = Rosetta.TextForId("astroconfigwindow.mathminorcelpointsexpl");
+        tbMathematical.Text = Rosetta.TextForId("astroconfigwindow.mathematical");
+        tbCentaurs.Text = Rosetta.TextForId("astroconfigwindow.centaurs");
+        tbPlanetoids.Text = Rosetta.TextForId("astroconfigwindow.planetoids");
+        tbPlutoids.Text = Rosetta.TextForId("astroconfigwindow.plutoids");
+        tbMathMinorPointLeft.Text = Rosetta.TextForId("astroconfigwindow.celpoint");
+        tbMathMinorPointRight.Text = Rosetta.TextForId("astroconfigwindow.celpoint");
+        tbMathMinorOrbFactorLeft.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbMathMinorOrbFactorRight.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbTextMeanNode.Text = Rosetta.TextForId("ref.enum.celpoint.meannode");
+        tbTextTrueNode.Text = Rosetta.TextForId("ref.enum.celpoint.truenode");
+        tbTextZeroAries.Text = Rosetta.TextForId("ref.enum.zodiacpoints.id.zeroar");
+        tbTextMeanBlackMoon.Text = Rosetta.TextForId("ref.enum.celpoint.meanblackmoon");
+        tbTextCorrBlackMoon.Text = Rosetta.TextForId("ref.enum.celpoint.corrblackmoon");
+        tbTextInterpolatedBlackMoon.Text = Rosetta.TextForId("ref.enum.celpoint.interpblackmoon");
+        tbTextDuvalBlackMoon.Text = Rosetta.TextForId("ref.enum.celpoint.duvalblackmoon");
 
-        tbTextHuya.Text = _rosetta.TextForId("ref.enum.celpoint.huya");
-        tbTextVaruna.Text = _rosetta.TextForId("ref.enum.celpoint.varuna");
-        tbTextIxion.Text = _rosetta.TextForId("ref.enum.celpoint.ixion");
-        tbTextQuaoar.Text = _rosetta.TextForId("ref.enum.celpoint.quaoar");
-        tbTextHaumea.Text = _rosetta.TextForId("ref.enum.celpoint.haumea");
-        tbTextEris.Text = _rosetta.TextForId("ref.enum.celpoint.eris");
-        tbTextSedna.Text = _rosetta.TextForId("ref.enum.celpoint.sedna");
-        tbTextOrcus.Text = _rosetta.TextForId("ref.enum.celpoint.orcus");
-        tbTextMakemake.Text = _rosetta.TextForId("ref.enum.celpoint.makemake");
+        tbTextHuya.Text = Rosetta.TextForId("ref.enum.celpoint.huya");
+        tbTextVaruna.Text = Rosetta.TextForId("ref.enum.celpoint.varuna");
+        tbTextIxion.Text = Rosetta.TextForId("ref.enum.celpoint.ixion");
+        tbTextQuaoar.Text = Rosetta.TextForId("ref.enum.celpoint.quaoar");
+        tbTextHaumea.Text = Rosetta.TextForId("ref.enum.celpoint.haumea");
+        tbTextEris.Text = Rosetta.TextForId("ref.enum.celpoint.eris");
+        tbTextSedna.Text = Rosetta.TextForId("ref.enum.celpoint.sedna");
+        tbTextOrcus.Text = Rosetta.TextForId("ref.enum.celpoint.orcus");
+        tbTextMakemake.Text = Rosetta.TextForId("ref.enum.celpoint.makemake");
 
-        tbTextChiron.Text = _rosetta.TextForId("ref.enum.celpoint.chiron");
-        tbTextNessus.Text = _rosetta.TextForId("ref.enum.celpoint.nessus");
-        tbTextPholus.Text = _rosetta.TextForId("ref.enum.celpoint.pholus");
+        tbTextChiron.Text = Rosetta.TextForId("ref.enum.celpoint.chiron");
+        tbTextNessus.Text = Rosetta.TextForId("ref.enum.celpoint.nessus");
+        tbTextPholus.Text = Rosetta.TextForId("ref.enum.celpoint.pholus");
 
-        tbTextCeres.Text = _rosetta.TextForId("ref.enum.celpoint.ceres");
-        tbTextPallas.Text = _rosetta.TextForId("ref.enum.celpoint.pallas");
-        tbTextJuno.Text = _rosetta.TextForId("ref.enum.celpoint.juno");
-        tbTextVesta.Text = _rosetta.TextForId("ref.enum.celpoint.vesta");
-        tbTextHygieia.Text = _rosetta.TextForId("ref.enum.celpoint.hygieia");
-        tbTextAstraea.Text = _rosetta.TextForId("ref.enum.celpoint.astraea");
+        tbTextCeres.Text = Rosetta.TextForId("ref.enum.celpoint.ceres");
+        tbTextPallas.Text = Rosetta.TextForId("ref.enum.celpoint.pallas");
+        tbTextJuno.Text = Rosetta.TextForId("ref.enum.celpoint.juno");
+        tbTextVesta.Text = Rosetta.TextForId("ref.enum.celpoint.vesta");
+        tbTextHygieia.Text = Rosetta.TextForId("ref.enum.celpoint.hygieia");
+        tbTextAstraea.Text = Rosetta.TextForId("ref.enum.celpoint.astraea");
 
         // Tab hypothetical points
-        TitleHypotheticalPoints.Text = _rosetta.TextForId("astroconfigwindow.hypotheticalpoints");
-        tbHypotheticalExplanation.Text = _rosetta.TextForId("astroconfigwindow.hypotheticalpointsexpl");
+        TitleHypotheticalPoints.Text = Rosetta.TextForId("astroconfigwindow.hypotheticalpoints");
+        tbHypotheticalExplanation.Text = Rosetta.TextForId("astroconfigwindow.hypotheticalpointsexpl");
 
-        tbUranianWitte.Text = _rosetta.TextForId("astroconfigwindow.uranian_witte");
-        tbUranianSieggrun.Text = _rosetta.TextForId("astroconfigwindow.uranian_sieggrun");
-        tbSchoolRam.Text = _rosetta.TextForId("astroconfigwindow.schoolofram");
-        tbCarteret.Text = _rosetta.TextForId("astroconfigwindow.carteret");
-        tbHypotOthers.Text = _rosetta.TextForId("astroconfigwindow.hypotothers");
+        tbUranianWitte.Text = Rosetta.TextForId("astroconfigwindow.uranian_witte");
+        tbUranianSieggrun.Text = Rosetta.TextForId("astroconfigwindow.uranian_sieggrun");
+        tbSchoolRam.Text = Rosetta.TextForId("astroconfigwindow.schoolofram");
+        tbCarteret.Text = Rosetta.TextForId("astroconfigwindow.carteret");
+        tbHypotOthers.Text = Rosetta.TextForId("astroconfigwindow.hypotothers");
 
-        tbUranianPointLeft.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
-        tbUranianPointRight.Text = _rosetta.TextForId("astroconfigwindow.celpoint");
-        tbUranianFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbUranianFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbUranianPointLeft.Text = Rosetta.TextForId("astroconfigwindow.celpoint");
+        tbUranianPointRight.Text = Rosetta.TextForId("astroconfigwindow.celpoint");
+        tbUranianFactorLeft.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbUranianFactorRight.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
 
-        tbTextCupido.Text = _rosetta.TextForId("ref.enum.celpoint.cupido_ura");
-        tbTextHades.Text = _rosetta.TextForId("ref.enum.celpoint.hades_ura");
-        tbTextZeus.Text = _rosetta.TextForId("ref.enum.celpoint.zeus_ura");
-        tbTextKronos.Text = _rosetta.TextForId("ref.enum.celpoint.kronos_ura");
-        tbTextApollon.Text = _rosetta.TextForId("ref.enum.celpoint.apollon_ura");
-        tbTextAdmetos.Text = _rosetta.TextForId("ref.enum.celpoint.admetos_ura");
-        tbTextVulkanusUra.Text = _rosetta.TextForId("ref.enum.celpoint.vulcanus_ura");
-        tbTextPoseidon.Text = _rosetta.TextForId("ref.enum.celpoint.poseidon_ura");
-        tbTextPersephoneRam.Text = _rosetta.TextForId("ref.enum.celpoint.persephone_ram");
-        tbTextHermes.Text = _rosetta.TextForId("ref.enum.celpoint.hermes_ram");
-        tbTextDemeter.Text = _rosetta.TextForId("ref.enum.celpoint.demeter_ram");
-        tbTextVulcanusCarteret.Text = _rosetta.TextForId("ref.enum.celpoint.vulcanus_carteret");
-        tbTextPersephoneCarteret.Text = _rosetta.TextForId("ref.enum.celpoint.persephone_carteret");
-        tbTextTransPluto.Text = _rosetta.TextForId("ref.enum.celpoint.transpluto");
+        tbTextCupido.Text = Rosetta.TextForId("ref.enum.celpoint.cupido_ura");
+        tbTextHades.Text = Rosetta.TextForId("ref.enum.celpoint.hades_ura");
+        tbTextZeus.Text = Rosetta.TextForId("ref.enum.celpoint.zeus_ura");
+        tbTextKronos.Text = Rosetta.TextForId("ref.enum.celpoint.kronos_ura");
+        tbTextApollon.Text = Rosetta.TextForId("ref.enum.celpoint.apollon_ura");
+        tbTextAdmetos.Text = Rosetta.TextForId("ref.enum.celpoint.admetos_ura");
+        tbTextVulkanusUra.Text = Rosetta.TextForId("ref.enum.celpoint.vulcanus_ura");
+        tbTextPoseidon.Text = Rosetta.TextForId("ref.enum.celpoint.poseidon_ura");
+        tbTextPersephoneRam.Text = Rosetta.TextForId("ref.enum.celpoint.persephone_ram");
+        tbTextHermes.Text = Rosetta.TextForId("ref.enum.celpoint.hermes_ram");
+        tbTextDemeter.Text = Rosetta.TextForId("ref.enum.celpoint.demeter_ram");
+        tbTextVulcanusCarteret.Text = Rosetta.TextForId("ref.enum.celpoint.vulcanus_carteret");
+        tbTextPersephoneCarteret.Text = Rosetta.TextForId("ref.enum.celpoint.persephone_carteret");
+        tbTextTransPluto.Text = Rosetta.TextForId("ref.enum.celpoint.transpluto");
 
         // Tab aspects
-        TitleAspects.Text = _rosetta.TextForId("astroconfigwindow.aspects");
-        tbAspectsExplanation.Text = _rosetta.TextForId("astroconfigwindow.aspectsexpl");
-        tbOrbMethod.Text = _rosetta.TextForId("astroconfigwindow.orbmethod");
-        tbOrbMethodExpl.Text = _rosetta.TextForId("astroconfigwindow.orbmethodexpl");
-        tbMajorAspects.Text = _rosetta.TextForId("astroconfigwindow.majoraspects");
-        tbMinorAspects.Text = _rosetta.TextForId("astroconfigwindow.minoraspects");
-        tbMicroAspects.Text = _rosetta.TextForId("astroconfigwindow.microaspects");
-        tbAspectLabelLeft.Text = _rosetta.TextForId("astroconfigwindow.aspect");
-        tbAspectLabelRight.Text = _rosetta.TextForId("astroconfigwindow.aspect");
-        tbOrbFactorLeft.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbOrbFactorRight.Text = _rosetta.TextForId("astroconfigwindow.orbfactor");
-        tbTextConjunction.Text = _rosetta.TextForId("ref.enum.aspect.conjunction");
-        tbTextOpposition.Text = _rosetta.TextForId("ref.enum.aspect.opposition");
-        tbTextTriangle.Text = _rosetta.TextForId("ref.enum.aspect.triangle");
-        tbTextSquare.Text = _rosetta.TextForId("ref.enum.aspect.square");
-        tbTextSextile.Text = _rosetta.TextForId("ref.enum.aspect.sextile");
-        tbTextSemiSextile.Text = _rosetta.TextForId("ref.enum.aspect.semisextile");
-        tbTextInconjunct.Text = _rosetta.TextForId("ref.enum.aspect.inconjunct");
-        tbTextSemiSquare.Text = _rosetta.TextForId("ref.enum.aspect.semisquare");
-        tbTextSesquiquadrate.Text = _rosetta.TextForId("ref.enum.aspect.sesquiquadrate");
-        tbTextQuintile.Text = _rosetta.TextForId("ref.enum.aspect.quintile");
-        tbTextBiQuintile.Text = _rosetta.TextForId("ref.enum.aspect.biquintile");
-        tbTextSeptile.Text = _rosetta.TextForId("ref.enum.aspect.septile");
-        tbTextVigintile.Text = _rosetta.TextForId("ref.enum.aspect.vigintile");
-        tbTextUnDecile.Text = _rosetta.TextForId("ref.enum.aspect.undecile");
-        tbTextSemiQuintile.Text = _rosetta.TextForId("ref.enum.aspect.semiquintile");
-        tbTextNovile.Text = _rosetta.TextForId("ref.enum.aspect.novile");
-        tbTextBiNovile.Text = _rosetta.TextForId("ref.enum.aspect.binovile");
-        tbTextCentile.Text = _rosetta.TextForId("ref.enum.aspect.centile");
-        tbTextBiSeptile.Text = _rosetta.TextForId("ref.enum.aspect.biseptile");
-        tbTextTriDecile.Text = _rosetta.TextForId("ref.enum.aspect.tridecile");
-        tbTextTriSeptile.Text = _rosetta.TextForId("ref.enum.aspect.triseptile");
-        tbTextQuadraNovile.Text = _rosetta.TextForId("ref.enum.aspect.quadranovile");
+        TitleAspects.Text = Rosetta.TextForId("astroconfigwindow.aspects");
+        tbAspectsExplanation.Text = Rosetta.TextForId("astroconfigwindow.aspectsexpl");
+        tbOrbMethod.Text = Rosetta.TextForId("astroconfigwindow.orbmethod");
+        tbOrbMethodExpl.Text = Rosetta.TextForId("astroconfigwindow.orbmethodexpl");
+        tbMajorAspects.Text = Rosetta.TextForId("astroconfigwindow.majoraspects");
+        tbMinorAspects.Text = Rosetta.TextForId("astroconfigwindow.minoraspects");
+        tbMicroAspects.Text = Rosetta.TextForId("astroconfigwindow.microaspects");
+        tbAspectLabelLeft.Text = Rosetta.TextForId("astroconfigwindow.aspect");
+        tbAspectLabelRight.Text = Rosetta.TextForId("astroconfigwindow.aspect");
+        tbOrbFactorLeft.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbOrbFactorRight.Text = Rosetta.TextForId("astroconfigwindow.orbfactor");
+        tbTextConjunction.Text = Rosetta.TextForId("ref.enum.aspect.conjunction");
+        tbTextOpposition.Text = Rosetta.TextForId("ref.enum.aspect.opposition");
+        tbTextTriangle.Text = Rosetta.TextForId("ref.enum.aspect.triangle");
+        tbTextSquare.Text = Rosetta.TextForId("ref.enum.aspect.square");
+        tbTextSextile.Text = Rosetta.TextForId("ref.enum.aspect.sextile");
+        tbTextSemiSextile.Text = Rosetta.TextForId("ref.enum.aspect.semisextile");
+        tbTextInconjunct.Text = Rosetta.TextForId("ref.enum.aspect.inconjunct");
+        tbTextSemiSquare.Text = Rosetta.TextForId("ref.enum.aspect.semisquare");
+        tbTextSesquiquadrate.Text = Rosetta.TextForId("ref.enum.aspect.sesquiquadrate");
+        tbTextQuintile.Text = Rosetta.TextForId("ref.enum.aspect.quintile");
+        tbTextBiQuintile.Text = Rosetta.TextForId("ref.enum.aspect.biquintile");
+        tbTextSeptile.Text = Rosetta.TextForId("ref.enum.aspect.septile");
+        tbTextVigintile.Text = Rosetta.TextForId("ref.enum.aspect.vigintile");
+        tbTextUnDecile.Text = Rosetta.TextForId("ref.enum.aspect.undecile");
+        tbTextSemiQuintile.Text = Rosetta.TextForId("ref.enum.aspect.semiquintile");
+        tbTextNovile.Text = Rosetta.TextForId("ref.enum.aspect.novile");
+        tbTextBiNovile.Text = Rosetta.TextForId("ref.enum.aspect.binovile");
+        tbTextCentile.Text = Rosetta.TextForId("ref.enum.aspect.centile");
+        tbTextBiSeptile.Text = Rosetta.TextForId("ref.enum.aspect.biseptile");
+        tbTextTriDecile.Text = Rosetta.TextForId("ref.enum.aspect.tridecile");
+        tbTextTriSeptile.Text = Rosetta.TextForId("ref.enum.aspect.triseptile");
+        tbTextQuadraNovile.Text = Rosetta.TextForId("ref.enum.aspect.quadranovile");
     }
 
     private void PopulateGlyphs()
@@ -295,35 +294,35 @@ public partial class AstroConfigWindow : Window
         comboHouseSystem.Items.Clear();
         foreach (HouseSystemDetails detail in HouseSystems.NoHouses.AllDetails())
         {
-            comboHouseSystem.Items.Add(_rosetta.TextForId(detail.TextId));
+            comboHouseSystem.Items.Add(Rosetta.TextForId(detail.TextId));
         }
         comboHouseSystem.SelectedIndex = (int)_controller.GetConfig().HouseSystem;
 
         comboZodiacType.Items.Clear();
         foreach (ZodiacTypeDetails details in ZodiacTypes.Tropical.AllDetails())
         {
-            comboZodiacType.Items.Add(_rosetta.TextForId(details.TextId));
+            comboZodiacType.Items.Add(Rosetta.TextForId(details.TextId));
         }
         comboZodiacType.SelectedIndex = (int)_controller.GetConfig().ZodiacType;
 
         comboAyanamsha.Items.Clear();
         foreach (AyanamshaDetails detail in Ayanamshas.None.AllDetails())
         {
-            comboAyanamsha.Items.Add(_rosetta.TextForId(detail.TextId));
+            comboAyanamsha.Items.Add(Rosetta.TextForId(detail.TextId));
         }
         comboAyanamsha.SelectedIndex = (int)_controller.GetConfig().Ayanamsha;
 
         comboObserverPos.Items.Clear();
         foreach (ObserverPositionDetails detail in ObserverPositions.GeoCentric.AllDetails())
         {
-            comboObserverPos.Items.Add(_rosetta.TextForId(detail.TextId));
+            comboObserverPos.Items.Add(Rosetta.TextForId(detail.TextId));
         }
         comboObserverPos.SelectedIndex = (int)_controller.GetConfig().ObserverPosition;
 
         comboProjectionType.Items.Clear();
         foreach (ProjectionTypeDetails detail in ProjectionTypes.TwoDimensional.AllDetails())
         {
-            comboProjectionType.Items.Add(_rosetta.TextForId(detail.TextId));
+            comboProjectionType.Items.Add(Rosetta.TextForId(detail.TextId));
         }
         comboProjectionType.SelectedIndex = (int)_controller.GetConfig().ProjectionType;
 
@@ -479,7 +478,7 @@ public partial class AstroConfigWindow : Window
         comboOrbMethod.Items.Clear();
         foreach (OrbMethodDetails detail in OrbMethods.Weighted.AllDetails())
         {
-            comboOrbMethod.Items.Add(_rosetta.TextForId(detail.TextId));
+            comboOrbMethod.Items.Add(Rosetta.TextForId(detail.TextId));
         }
         comboOrbMethod.SelectedIndex = (int)_controller.GetConfig().OrbMethod;
 
@@ -548,7 +547,7 @@ public partial class AstroConfigWindow : Window
         }
         else
         {
-            MessageBox.Show(_rosetta != null ? _rosetta.TextForId("astroconfigwindow.errorsfound") : "An error occurred, check the logfile");     // TODO use RB
+            MessageBox.Show(Rosetta.TextForId("astroconfigwindow.errorsfound"));
         }
 
     }

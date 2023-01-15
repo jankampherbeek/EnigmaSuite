@@ -19,7 +19,6 @@ public partial class ChartsMainWindow : Window
 {
 
     private readonly ChartsMainController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private readonly DataVault _dataVault = DataVault.Instance;
 
     public ChartsMainWindow()
@@ -33,35 +32,35 @@ public partial class ChartsMainWindow : Window
 
     private void PopulateTexts()
     {
-        Title = _rosetta.TextForId("chartsmainwindow.title");
-        tbFormTitle.Text = _rosetta.TextForId("chartsmainwindow.formtitle");
-        tbCurrent.Text = _rosetta.TextForId("chartsmainwindow.current");
-        btnWheel.Content = _rosetta.TextForId("chartsmainwindow.btnwheel");
-        btnPositions.Content = _rosetta.TextForId("chartsmainwindow.btnpositions");
-        btnNew.Content = _rosetta.TextForId("chartsmainwindow.newchart");
-        btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        btnClose.Content = _rosetta.TextForId("common.btnclose");
+        Title = Rosetta.TextForId("chartsmainwindow.title");
+        tbFormTitle.Text = Rosetta.TextForId("chartsmainwindow.formtitle");
+        tbCurrent.Text = Rosetta.TextForId("chartsmainwindow.current");
+        btnWheel.Content = Rosetta.TextForId("chartsmainwindow.btnwheel");
+        btnPositions.Content = Rosetta.TextForId("chartsmainwindow.btnpositions");
+        btnNew.Content = Rosetta.TextForId("chartsmainwindow.newchart");
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        btnClose.Content = Rosetta.TextForId("common.btnclose");
     }
 
     private void PopulateMenu()
     {
-        miGeneral.Header = _rosetta.TextForId("chartsmainwindow.menu.general");
-        miGeneralClose.Header = _rosetta.TextForId("chartsmainwindow.menu.close");
-        miGeneralConfiguration.Header = _rosetta.TextForId("chartsmainwindow.menu.migeneral.configuration");
-        miGeneralSettings.Header = _rosetta.TextForId("chartsmainwindow.menu.migeneral.settings");
-        miCharts.Header = _rosetta.TextForId("chartsmainwindow.menu.charts");
-        miChartsNew.Header = _rosetta.TextForId("chartsmainwindow.menu.newchart");
-        miChartsWheel.Header = _rosetta.TextForId("chartsmainwindow.menu.wheel");
-        miChartsPositions.Header = _rosetta.TextForId("chartsmainwindow.menu.positions");
-        miAnalysis.Header = _rosetta.TextForId("chartsmainwindow.menu.analysis");
-        miAnalysisAspects.Header = _rosetta.TextForId("chartsmainwindow.menu.aspects");
-        miAnalysisHarmonics.Header = _rosetta.TextForId("chartsmainwindow.menu.harmonics");
-        miAnalysisMidpoints.Header = _rosetta.TextForId("chartsmainwindow.menu.midpoints");
+        miGeneral.Header = Rosetta.TextForId("chartsmainwindow.menu.general");
+        miGeneralClose.Header = Rosetta.TextForId("chartsmainwindow.menu.close");
+        miGeneralConfiguration.Header = Rosetta.TextForId("chartsmainwindow.menu.migeneral.configuration");
+        miGeneralSettings.Header = Rosetta.TextForId("chartsmainwindow.menu.migeneral.settings");
+        miCharts.Header = Rosetta.TextForId("chartsmainwindow.menu.charts");
+        miChartsNew.Header = Rosetta.TextForId("chartsmainwindow.menu.newchart");
+        miChartsWheel.Header = Rosetta.TextForId("chartsmainwindow.menu.wheel");
+        miChartsPositions.Header = Rosetta.TextForId("chartsmainwindow.menu.positions");
+        miAnalysis.Header = Rosetta.TextForId("chartsmainwindow.menu.analysis");
+        miAnalysisAspects.Header = Rosetta.TextForId("chartsmainwindow.menu.aspects");
+        miAnalysisHarmonics.Header = Rosetta.TextForId("chartsmainwindow.menu.harmonics");
+        miAnalysisMidpoints.Header = Rosetta.TextForId("chartsmainwindow.menu.midpoints");
 
-        miHelp.Header = _rosetta.TextForId("chartsmainwindow.menu.help");
-        miHelpAbout.Header = _rosetta.TextForId("chartsmainwindow.menu.helpabout");
-        miHelpPage.Header = _rosetta.TextForId("chartsmainwindow.menu.helppage");
-        miHelpManual.Header = _rosetta.TextForId("chartsmainwindow.menu.manual");
+        miHelp.Header = Rosetta.TextForId("chartsmainwindow.menu.help");
+        miHelpAbout.Header = Rosetta.TextForId("chartsmainwindow.menu.helpabout");
+        miHelpPage.Header = Rosetta.TextForId("chartsmainwindow.menu.helppage");
+        miHelpManual.Header = Rosetta.TextForId("chartsmainwindow.menu.manual");
 
 
 

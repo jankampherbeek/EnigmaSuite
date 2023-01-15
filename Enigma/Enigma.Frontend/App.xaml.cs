@@ -36,10 +36,11 @@ public partial class App : Application
 
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
 
-        string pathToSeFiles = @"c:\sweph";                    // TODO make path to CelPointSE files configurable
+        string pathToSeFiles = "";                    // TODO 0.1 make path to CelPointSE files configurable
         seApi.SetupSe(pathToSeFiles);
         Log.Information("Using path to CelPointSE: {path}.", pathToSeFiles);
-    }
+         
+        }
 
     protected static ServiceProvider HandleRegistrationForDI()
     {

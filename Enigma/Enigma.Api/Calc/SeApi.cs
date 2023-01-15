@@ -23,4 +23,9 @@ public sealed class SeApi : ISeApi
         Log.Information("SeApi SetupSe: Setting up CelPointSE with path {p}.", pathToSeFiles);
         _seHandler.SetupSe(pathToSeFiles);
     }
+
+    public void CloseSe()
+    {
+        _seHandler.CloseSe();
+    }
 }

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -14,7 +14,6 @@ namespace Enigma.Frontend.Ui.Configuration;
 public partial class AppSettingsWindow : Window
 {
     private readonly AppSettingsController _controller;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
 
 
     public AppSettingsWindow()
@@ -25,14 +24,14 @@ public partial class AppSettingsWindow : Window
     }
     private void PopulateTexts()
     {
-        FormTitle.Text = _rosetta.TextForId("appsettingswindow.title");
-        Explanation.Text = _rosetta.TextForId("appsettingswindow.explanation");
-        LocData.Text = _rosetta.TextForId("appsettingswindow.locdata");
-        LocExport.Text = _rosetta.TextForId("appsettingswindow.locexport");
-        LocProject.Text = _rosetta.TextForId("appsettingswindow.locproject");
-        LocSwissEph.Text = _rosetta.TextForId("appsettingswindow.locswisseph");
-        BtnHelp.Content = _rosetta.TextForId("common.btnhelp");
-        BtnClose.Content = _rosetta.TextForId("common.btnclose");
+        FormTitle.Text = Rosetta.TextForId("appsettingswindow.title");
+        Explanation.Text = Rosetta.TextForId("appsettingswindow.explanation");
+        LocData.Text = Rosetta.TextForId("appsettingswindow.locdata");
+        LocExport.Text = Rosetta.TextForId("appsettingswindow.locexport");
+        LocProject.Text = Rosetta.TextForId("appsettingswindow.locproject");
+        LocSwissEph.Text = Rosetta.TextForId("appsettingswindow.locswisseph");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
         LocDataValue.Text = _controller.LocationOfDataFiles();
         LocExportValue.Text = _controller.LocationOfExportFiles();
         LocProjectValue.Text = _controller.LocationOfProjectFiles();

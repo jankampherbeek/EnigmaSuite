@@ -15,9 +15,6 @@ namespace Enigma.Frontend.Ui.Research
     /// <summary>Form for inputwindow for researchmethods.</summary>
     public partial class ProjectUsageWindow : Window
     {
-        // TODO 0.1 Rosetta usage
-
-        private readonly Rosetta _rosetta = Rosetta.Instance;
         private readonly ProjectUsageController _controller;
 
         public ProjectUsageWindow()
@@ -37,22 +34,22 @@ namespace Enigma.Frontend.Ui.Research
 
         private void PopulateTexts()
         {
-            Title = _rosetta.TextForId("projectusagewindow.title");
-            tbFormTitle.Text = _rosetta.TextForId("projectusagewindow.formtitle");
-            tbProjDetails.Text = _rosetta.TextForId("projectusagewindow.projdetails");
-            tbExistingMethods.Text = _rosetta.TextForId("projectusagewindow.existingmethods");
+            Title = Rosetta.TextForId("projectusagewindow.title");
+            tbFormTitle.Text = Rosetta.TextForId("projectusagewindow.formtitle");
+            tbProjDetails.Text = Rosetta.TextForId("projectusagewindow.projdetails");
+            tbExistingMethods.Text = Rosetta.TextForId("projectusagewindow.existingmethods");
 
-            tbProjName.Text = _rosetta.TextForId("projectusagewindow.details.name");
-            tbProjDescr.Text = _rosetta.TextForId("projectusagewindow.details.description");
-            tbProjDate.Text = _rosetta.TextForId("projectusagewindow.details.date");
-            tbProjDataSet.Text = _rosetta.TextForId("projectusagewindow.details.dataname");
-            tbProjControlGroupType.Text = _rosetta.TextForId("projectusagewindow.details.controlgrouptype");
-            tbProjControlGroupMult.Text = _rosetta.TextForId("projectusagewindow.details.multiplication");
+            tbProjName.Text = Rosetta.TextForId("projectusagewindow.details.name");
+            tbProjDescr.Text = Rosetta.TextForId("projectusagewindow.details.description");
+            tbProjDate.Text = Rosetta.TextForId("projectusagewindow.details.date");
+            tbProjDataSet.Text = Rosetta.TextForId("projectusagewindow.details.dataname");
+            tbProjControlGroupType.Text = Rosetta.TextForId("projectusagewindow.details.controlgrouptype");
+            tbProjControlGroupMult.Text = Rosetta.TextForId("projectusagewindow.details.multiplication");
 
-            btnConfig.Content = _rosetta.TextForId("projectusagewindow.btnconfig");
-            btnPerformTest.Content = _rosetta.TextForId("projectusagewindow.btnperformtest");
-            btnHelp.Content = _rosetta.TextForId("common.btnhelp");
-            btnClose.Content = _rosetta.TextForId("common.btnclose");
+            btnConfig.Content = Rosetta.TextForId("projectusagewindow.btnconfig");
+            btnPerformTest.Content = Rosetta.TextForId("projectusagewindow.btnperformtest");
+            btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+            btnClose.Content = Rosetta.TextForId("common.btnclose");
         }
 
         private void PopulateData(ResearchProject project)

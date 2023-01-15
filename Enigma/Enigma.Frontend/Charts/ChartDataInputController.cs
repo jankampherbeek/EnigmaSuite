@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -47,7 +47,6 @@ public sealed class ChartDataInputController
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
                                     IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
@@ -140,9 +139,9 @@ public sealed class ChartDataInputController
 
     private MetaData CreateMetaData(string nameId, string description, string source, ChartCategories chartCategory, RoddenRatings rating)
     {
-        string nameIdText = string.IsNullOrEmpty(nameId) ? _rosetta.TextForId("charts.positions.chartname.empty") : nameId;
-        string descriptionText = string.IsNullOrEmpty(description) ? _rosetta.TextForId("charts.positions.description.empty") : description;
-        string sourceText = string.IsNullOrEmpty(source) ? _rosetta.TextForId("charts.positions.source.empty") : source;
+        string nameIdText = string.IsNullOrEmpty(nameId) ? Rosetta.TextForId("charts.positions.chartname.empty") : nameId;
+        string descriptionText = string.IsNullOrEmpty(description) ? Rosetta.TextForId("charts.positions.description.empty") : description;
+        string sourceText = string.IsNullOrEmpty(source) ? Rosetta.TextForId("charts.positions.source.empty") : source;
         return new MetaData(nameIdText, descriptionText, sourceText, chartCategory, rating);
 
     }

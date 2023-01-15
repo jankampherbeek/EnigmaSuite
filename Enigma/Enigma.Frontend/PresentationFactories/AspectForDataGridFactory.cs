@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
@@ -39,14 +40,16 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
 
     private PresentableAspects CreatePresAspect(DefinedAspect effAspect)
     {
-        char firstPointGlyph = _glyphsForChartPoints.FindGlyph(effAspect.Point1);
-        char secondPointGlyph = _glyphsForChartPoints.FindGlyph(effAspect.Point2);
+        char point1Glyph = _glyphsForChartPoints.FindGlyph(effAspect.Point1);
+        char point2Glyph = _glyphsForChartPoints.FindGlyph(effAspect.Point2);
         char aspectGlyph = effAspect.Aspect.Glyph;
-
+        string point1Text = Rosetta.TextForId(effAspect.Point1.GetDetails().TextId);
+        string point2Text = Rosetta.TextForId(effAspect.Point2.GetDetails().TextId);
+        string aspectText = Rosetta.TextForId(effAspect.Aspect.TextId);
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.ActualOrb);
         double exactnessValue = 100 - (effAspect.ActualOrb / effAspect.MaxOrb * 100);
         string exactness = string.Format("{0:N}", exactnessValue).Replace(",", ".");
-        return new PresentableAspects(firstPointGlyph, aspectGlyph, secondPointGlyph, orb, exactness);
+        return new PresentableAspects(point1Text, point1Glyph, aspectText, aspectGlyph, point2Text, point2Glyph, orb, exactness);
     }
 
 

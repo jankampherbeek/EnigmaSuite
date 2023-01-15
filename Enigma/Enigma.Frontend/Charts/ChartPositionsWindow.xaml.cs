@@ -16,8 +16,6 @@ namespace Enigma.Frontend.Ui.Charts;
 /// <summary>Shows positions in tabular format.</summary>
 public partial class ChartPositionsWindow : Window
 {
-    private readonly Rosetta _rosetta = Rosetta.Instance;
-
     private readonly ChartPositionsController _controller;
     private readonly string _space = " ";
     private readonly string _newLine = "\n";
@@ -38,7 +36,7 @@ public partial class ChartPositionsWindow : Window
 
     private void PopulateTexts()
     {
-        FormTitle.Text = _rosetta.TextForId("charts.positions.formtitle");
+        FormTitle.Text = Rosetta.TextForId("charts.positions.formtitle");
         _chartData = _controller.GetMeta();
         if (_chartData != null)
         {
@@ -46,9 +44,9 @@ public partial class ChartPositionsWindow : Window
             Details.Text = _chartData.MetaData.Description + _newLine +
                 _chartData.Location.LocationFullName + _newLine +
                 ParseDateText(_chartData.FullDateTime.DateText) + _space + ParseTimeText(_chartData.FullDateTime.TimeText) + _newLine +
-                _rosetta.TextForId("charts.positions.chartgategory") + _space + _chartData.MetaData.ChartCategory + _newLine +
-                _rosetta.TextForId("charts.positions.rating") + _space + _chartData.MetaData.RoddenRating + _newLine +
-                _rosetta.TextForId("charts.positions.source") + _space + _chartData.MetaData.Source;
+                Rosetta.TextForId("charts.positions.chartgategory") + _space + _chartData.MetaData.ChartCategory + _newLine +
+                Rosetta.TextForId("charts.positions.rating") + _space + _chartData.MetaData.RoddenRating + _newLine +
+                Rosetta.TextForId("charts.positions.source") + _space + _chartData.MetaData.Source;
         }
     }
 
@@ -58,12 +56,12 @@ public partial class ChartPositionsWindow : Window
         DGHouses.ItemsSource = _controller.GetHousePositionsCurrentChart();
         DGHouses.GridLinesVisibility = DataGridGridLinesVisibility.None;
         DGHouses.Columns[0].Header = "";
-        DGHouses.Columns[1].Header = _rosetta.TextForId("charts.positions.datagrid.columns.long");
+        DGHouses.Columns[1].Header = Rosetta.TextForId("charts.positions.datagrid.columns.long");
         DGHouses.Columns[2].Header = "";
-        DGHouses.Columns[3].Header = _rosetta.TextForId("charts.positions.datagrid.columns.ra");
-        DGHouses.Columns[4].Header = _rosetta.TextForId("charts.positions.datagrid.columns.decl");
-        DGHouses.Columns[5].Header = _rosetta.TextForId("charts.positions.datagrid.columns.azimuth");
-        DGHouses.Columns[6].Header = _rosetta.TextForId("charts.positions.datagrid.columns.altitude");
+        DGHouses.Columns[3].Header = Rosetta.TextForId("charts.positions.datagrid.columns.ra");
+        DGHouses.Columns[4].Header = Rosetta.TextForId("charts.positions.datagrid.columns.decl");
+        DGHouses.Columns[5].Header = Rosetta.TextForId("charts.positions.datagrid.columns.azimuth");
+        DGHouses.Columns[6].Header = Rosetta.TextForId("charts.positions.datagrid.columns.altitude");
         DGHouses.Columns[0].MaxWidth = 80;
         DGHouses.Columns[2].MaxWidth = 20;
         DGHouses.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
@@ -76,19 +74,19 @@ public partial class ChartPositionsWindow : Window
         DGCelPoints.ItemsSource = _controller.GetCelPointPositionsCurrentChart();
         DGCelPoints.GridLinesVisibility = DataGridGridLinesVisibility.None;
         DGCelPoints.Columns[0].Header = "";
-        DGCelPoints.Columns[1].Header = _rosetta.TextForId("charts.positions.datagrid.columns.long");
+        DGCelPoints.Columns[1].Header = Rosetta.TextForId("charts.positions.datagrid.columns.long");
         DGCelPoints.Columns[2].Header = "";
-        DGCelPoints.Columns[3].Header = _rosetta.TextForId("charts.positions.datagrid.columns.longspeed");
-        DGCelPoints.Columns[4].Header = _rosetta.TextForId("charts.positions.datagrid.columns.lat");
-        DGCelPoints.Columns[5].Header = _rosetta.TextForId("charts.positions.datagrid.columns.latspeed");
-        DGCelPoints.Columns[6].Header = _rosetta.TextForId("charts.positions.datagrid.columns.ra");
-        DGCelPoints.Columns[7].Header = _rosetta.TextForId("charts.positions.datagrid.columns.raspeed");
-        DGCelPoints.Columns[8].Header = _rosetta.TextForId("charts.positions.datagrid.columns.decl");
-        DGCelPoints.Columns[9].Header = _rosetta.TextForId("charts.positions.datagrid.columns.declspeed");
-        DGCelPoints.Columns[10].Header = _rosetta.TextForId("charts.positions.datagrid.columns.dist");
-        DGCelPoints.Columns[11].Header = _rosetta.TextForId("charts.positions.datagrid.columns.distspeed");
-        DGCelPoints.Columns[12].Header = _rosetta.TextForId("charts.positions.datagrid.columns.azimuth");
-        DGCelPoints.Columns[13].Header = _rosetta.TextForId("charts.positions.datagrid.columns.altitude");
+        DGCelPoints.Columns[3].Header = Rosetta.TextForId("charts.positions.datagrid.columns.longspeed");
+        DGCelPoints.Columns[4].Header = Rosetta.TextForId("charts.positions.datagrid.columns.lat");
+        DGCelPoints.Columns[5].Header = Rosetta.TextForId("charts.positions.datagrid.columns.latspeed");
+        DGCelPoints.Columns[6].Header = Rosetta.TextForId("charts.positions.datagrid.columns.ra");
+        DGCelPoints.Columns[7].Header = Rosetta.TextForId("charts.positions.datagrid.columns.raspeed");
+        DGCelPoints.Columns[8].Header = Rosetta.TextForId("charts.positions.datagrid.columns.decl");
+        DGCelPoints.Columns[9].Header = Rosetta.TextForId("charts.positions.datagrid.columns.declspeed");
+        DGCelPoints.Columns[10].Header = Rosetta.TextForId("charts.positions.datagrid.columns.dist");
+        DGCelPoints.Columns[11].Header = Rosetta.TextForId("charts.positions.datagrid.columns.distspeed");
+        DGCelPoints.Columns[12].Header = Rosetta.TextForId("charts.positions.datagrid.columns.azimuth");
+        DGCelPoints.Columns[13].Header = Rosetta.TextForId("charts.positions.datagrid.columns.altitude");
 
         DGCelPoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
         DGCelPoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
@@ -104,7 +102,7 @@ public partial class ChartPositionsWindow : Window
         string monthId = inputDateText.Substring(firstStartIndex + 1, firstEndIndex - firstStartIndex - 1);
         string calendarId = inputDateText.Substring(secondStartIndex + 1, secondEndIndex - secondStartIndex - 1);
 
-        return string.Concat(_rosetta.TextForId("ref.months." + monthId), inputDateText.AsSpan(firstEndIndex + 1, secondStartIndex - firstEndIndex - 1), _rosetta.TextForId("ref.calendar." + calendarId));
+        return string.Concat(Rosetta.TextForId("ref.months." + monthId), inputDateText.AsSpan(firstEndIndex + 1, secondStartIndex - firstEndIndex - 1), Rosetta.TextForId("ref.calendar." + calendarId));
     }
 
     private string ParseTimeText(string inputTimeText)
@@ -112,7 +110,7 @@ public partial class ChartPositionsWindow : Window
         int startIndex = inputTimeText.IndexOf("[");
         int endIndex = inputTimeText.LastIndexOf("]");
         string timeZoneId = inputTimeText.Substring(startIndex + 1, endIndex - startIndex - 1);
-        return string.Concat(inputTimeText.AsSpan(0, startIndex - 1), _rosetta.TextForId(timeZoneId));
+        return string.Concat(inputTimeText.AsSpan(0, startIndex - 1), Rosetta.TextForId(timeZoneId));
     }
 
 

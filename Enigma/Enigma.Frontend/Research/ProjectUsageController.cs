@@ -25,7 +25,6 @@ public class ProjectUsageController
 {
     private AstroConfig _currentAstroConfig;
     private readonly IResearchPerformApi _researchPerformApi;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private ResearchProject? _currentProject;
     private readonly PointSelectWindow _pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
     private readonly ResearchResultWindow _researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
@@ -54,12 +53,12 @@ public class ProjectUsageController
         List<PresentableProjectDetails> details = new();
         if (IsProjectSelected() && _currentProject != null)
         {
-            details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.name"), Value = _currentProject.Name });
-            details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.description"), Value = _currentProject.Description });
-            details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.date"), Value = _currentProject.CreationDate });
-            details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.dataname"), Value = _currentProject.DataName });
-            details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.controlgrouptype"), Value = _rosetta.TextForId(_currentProject.ControlGroupType.GetDetails().TextId) });
-            details.Add(new PresentableProjectDetails() { Name = _rosetta.TextForId("projectusagewindow.details.multiplication"), Value = _currentProject.ControlGroupMultiplication.ToString() });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.name"), Value = _currentProject.Name });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.description"), Value = _currentProject.Description });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.date"), Value = _currentProject.CreationDate });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.dataname"), Value = _currentProject.DataName });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.controlgrouptype"), Value = Rosetta.TextForId(_currentProject.ControlGroupType.GetDetails().TextId) });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.multiplication"), Value = _currentProject.ControlGroupMultiplication.ToString() });
         }
         return details;
     }
@@ -70,7 +69,7 @@ public class ProjectUsageController
         List<ResearchMethodDetails> methodDetails = ResearchMethods.None.AllDetails();
         foreach (var currentMethodDetails in methodDetails)
         {
-            details.Add(new PresentableMethodDetails() { MethodName = _rosetta.TextForId(currentMethodDetails.TextId) });
+            details.Add(new PresentableMethodDetails() { MethodName = Rosetta.TextForId(currentMethodDetails.TextId) });
         }
         return details;
     }

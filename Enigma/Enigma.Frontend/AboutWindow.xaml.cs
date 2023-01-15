@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,7 +13,6 @@ namespace Enigma.Frontend.Ui;
 /// </summary>
 public partial class AboutWindow : Window
 {
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     public AboutWindow()
     {
         InitializeComponent();
@@ -21,13 +20,13 @@ public partial class AboutWindow : Window
     }
     private void PopulateTexts()
     {
-        FormTitle.Text = _rosetta.TextForId("aboutwindow.title");
-        Description.Text = _rosetta.TextForId("aboutwindow.description");
-        CopyrightTitle.Text = _rosetta.TextForId("aboutwindow.copyright.title");
-        CopyrightText.Text = _rosetta.TextForId("aboutwindow.copyright.text");
-        MoreInfoTitle.Text = _rosetta.TextForId("aboutwindow.moreinfo.title");
-        MoreInfoText.Text = _rosetta.TextForId("aboutwindow.moreinfo.text");
-        BtnClose.Content = _rosetta.TextForId("common.btnclose");
+        FormTitle.Text = Rosetta.TextForId("aboutwindow.title");
+        Description.Text = Rosetta.TextForId("aboutwindow.description");
+        CopyrightTitle.Text = Rosetta.TextForId("aboutwindow.copyright.title");
+        CopyrightText.Text = Rosetta.TextForId("aboutwindow.copyright.text");
+        MoreInfoTitle.Text = Rosetta.TextForId("aboutwindow.moreinfo.title");
+        MoreInfoText.Text = Rosetta.TextForId("aboutwindow.moreinfo.text");
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
     }
 
 

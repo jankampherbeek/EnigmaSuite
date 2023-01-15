@@ -12,7 +12,7 @@ public sealed class SeFlags : ISeFlags
     /// <inheritdoc/>
     public int DefineFlags(CoordinateSystems coordinateSystem, ObserverPositions observerPosition, ZodiacTypes zodiacType)
     {
-        int flags = 2;              // use SE
+        int flags = 2 + 256;              // use SE + speed
         if (coordinateSystem == CoordinateSystems.Equatorial)
         {
             flags += 2048;          // use equatorial positions    

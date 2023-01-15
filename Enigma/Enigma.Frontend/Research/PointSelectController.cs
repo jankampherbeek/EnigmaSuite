@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -19,9 +19,9 @@ public sealed class PointSelectController
 
 
     private AstroConfig? _astroConfig;
-    private readonly Rosetta _rosetta = Rosetta.Instance;
     private List<SelectableCelPointDetails> _selCPDetails = new();
     private List<SelectableMundanePointDetails> _selMPDetails = new();
+    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
 
     public List<SelectableCelPointDetails> GetAllCelPointDetails()
@@ -62,7 +62,7 @@ public sealed class PointSelectController
             {
                 PointDetails cpDetails = currentCPSpec.Point.GetDetails();
                 char glyph = ' ';
-                _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = _rosetta.TextForId(resourceBundlePrefix + cpDetails.TextId) });
+                _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(resourceBundlePrefix + cpDetails.TextId) });
             }
         }
     }
@@ -76,16 +76,16 @@ public sealed class PointSelectController
             if (currentSpec.IsUsed && currentSpec.Point.GetDetails().PointCat == PointCats.Mundane)
             {
                 PointDetails mpDetails = currentSpec.Point.GetDetails();
-                _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.Point, Name = _rosetta.TextForId(mpDetails.TextId) });
+                _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.Point, Name = Rosetta.TextForId(mpDetails.TextId) });
             }
         }
     }
 
     public void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("SelectPointsForTest");
-        helpWindow.ShowDialog();
+
+        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        _helpWindow.SetHelpPage("SelectPointsForTest");
+        _helpWindow.ShowDialog();
     }
 }

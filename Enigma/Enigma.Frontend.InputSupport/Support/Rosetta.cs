@@ -8,45 +8,28 @@ using Enigma.Frontend.Helpers.Interfaces;
 namespace Enigma.Frontend.Helpers.Support;
 
 
-// TODO 0.1 Rosetta
-
-
 /// <summary>Handler for texts from resource bundle.</summary>
-/// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
-public sealed class Rosetta
+/// <remarks>Implemented as static class.</remarks>
+public static class Rosetta
 {
-    private static readonly Rosetta _instance = new();
     private static readonly bool _initialized = false;
     private static ITextFileReaderFE _fileReader;
     private static List<KeyValuePair<string, string>> _texts;
 
-    // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. N/A becasue Rosetta is a singleton.
-    static Rosetta()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor.
+    private static void CheckInit()
     {
-    }
-
-    private Rosetta()
-    {
-    }
-
-    public static Rosetta Instance
-    {
-        get
+        if (!_initialized)
         {
-            if (!_initialized)
-            {
-                _fileReader = new TextFileReader();
-                _texts = new List<KeyValuePair<string, string>>();
-                ReadTextsFromFile();
-            }
-            return _instance;
+            _fileReader = new TextFileReader();
+            _texts = new List<KeyValuePair<string, string>>();
+            ReadTextsFromFile();
         }
-    }
+    } 
 
-    public string TextForId(string id)
+
+    public static string TextForId(string id)
     {
+        CheckInit();
         foreach (KeyValuePair<string, string> _text in _texts)
         {
             if (_text.Key == id) return _text.Value;
