@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -24,9 +24,8 @@ public class ChartsMainController
     private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
     private readonly AppSettingsWindow _appSettingsWindow = new();
-    private readonly AstroConfigWindow _astroConfigWindow = new();
     private readonly AboutWindow _aboutWindow = new();
-
+    private AstroConfigWindow _astroConfigWindow = new();
 
     public void ShowAppSettings()
     {
@@ -35,6 +34,10 @@ public class ChartsMainController
 
     public void ShowAstroConfig()
     {
+        if (!_astroConfigWindow.IsLoaded)
+        {
+            _astroConfigWindow = new();
+        }
         _astroConfigWindow.ShowDialog();
     }
 

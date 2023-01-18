@@ -26,10 +26,10 @@ public class ProjectUsageController
     private AstroConfig _currentAstroConfig;
     private readonly IResearchPerformApi _researchPerformApi;
     private ResearchProject? _currentProject;
-    private readonly PointSelectWindow _pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-    private readonly ResearchResultWindow _researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-    private readonly AstroConfigWindow _configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+    //private readonly PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+    //private readonly ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+    //private readonly AstroConfigWindow configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
+   // private readonly HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ProjectUsageController(IResearchPerformApi researchPerformApi)
     {
@@ -117,15 +117,16 @@ public class ProjectUsageController
                 minimalNrOfPoints = 1;
                 break;
         }
-        _pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
-        _pointSelectWindow.SetResearchMethod(researchMethod);
-        _pointSelectWindow.ShowDialog();
+        PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+        pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
+        pointSelectWindow.SetResearchMethod(researchMethod);
+        pointSelectWindow.ShowDialog();
 
-        if (_pointSelectWindow.IsCompleted() && _currentProject != null)
+        if (pointSelectWindow.IsCompleted() && _currentProject != null)
         {
-            List<SelectableCelPointDetails> selectedCelPoints = _pointSelectWindow.SelectedCelPoints;
-            List<SelectableMundanePointDetails> selectedMundanePoints = _pointSelectWindow.SelectedMundanePoints;
-            bool selectedUseCusps = false;
+            List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
+            List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
+            bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
             List<ChartPoints> celPoints = new();
             List<ChartPoints> mundanePoints = new();
             foreach (var point in selectedCelPoints)
@@ -138,35 +139,54 @@ public class ProjectUsageController
                 {
                     mundanePoints.Add(point.MundanePoint);
                 }
-                selectedUseCusps = _pointSelectWindow.SelectedUseCusps;
+                selectedUseCusps = pointSelectWindow.SelectedUseCusps;
             }
             ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
 
-            bool useControlGroup = false;
-            GeneralCountRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+            if (researchMethod == ResearchMethods.CountPosInHouses || researchMethod == ResearchMethods.CountPosInSigns)
+            {
+                bool useControlGroup = false;
+                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
 
-            // fire request
-            CountOfPartsResponse responseTest = _researchPerformApi.PerformTest(request);
+                // fire request
+                CountOfPartsResponse response = _researchPerformApi.PerformPartsCountTest(request);
 
-            useControlGroup = true;
-            request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-            CountOfPartsResponse responseCg = _researchPerformApi.PerformTest(request);
-            _researchResultWindow.SetResults(responseTest, responseCg);
-            _researchResultWindow.ShowDialog();
+                useControlGroup = true;
+                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                CountOfPartsResponse responseCg = _researchPerformApi.PerformPartsCountTest(request);
+                ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                researchResultWindow.SetResults(response, responseCg);
+                researchResultWindow.ShowDialog();
+            }
+            else if (researchMethod == ResearchMethods.CountAspects)
+            {
+                bool useControlGroup = false;
+                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                CountOfAspectsResponse responseTest = _researchPerformApi.PerformAspectCount(request);
+                useControlGroup = true;
+                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                CountOfAspectsResponse responseCg = _researchPerformApi.PerformAspectCount(request);
+                ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                researchResultWindow.SetResults(responseTest, responseCg);
+                researchResultWindow.ShowDialog();
+            }
+
         }
     }
 
     public void ShowConfig()
     {
-        _configWindow.ShowDialog();
+        AstroConfigWindow configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
+        configWindow.ShowDialog();
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
     }
 
     public void ShowHelp()
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("ProjectOverview");
-        _helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ProjectOverview");
+        helpWindow.ShowDialog();
     }
 }
 

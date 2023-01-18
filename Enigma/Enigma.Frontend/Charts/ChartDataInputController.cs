@@ -7,6 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
@@ -47,6 +48,7 @@ public sealed class ChartDataInputController
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
+    private static readonly AstroConfig _config = CurrentConfig.Instance.GetConfig();
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
                                     IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
@@ -63,25 +65,18 @@ public sealed class ChartDataInputController
     /// <summary>
     /// Retrieve calculation preferences from active modus. Currently uses hardcoded values.
     /// </summary>
-    /// TODO: replace hardocded values with a lookup from the active settings.
+    /// TODO: add CoordinateSystem to the configuration ???? Or use it without config but only as ad hoc setting?.
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
-
-        List<ChartPoints> celPoints = new() {
-            ChartPoints.Sun,
-            ChartPoints.Moon,
-            ChartPoints.Mercury,
-            ChartPoints.Venus,
-            ChartPoints.Mars,
-            ChartPoints.Jupiter,
-            ChartPoints.Saturn,
-            ChartPoints.Uranus,
-            ChartPoints.Neptune,
-            ChartPoints.Pluto,
-            ChartPoints.Chiron,
-            ChartPoints.MeanNode
-        };
-        return new CalculationPreferences(celPoints, ZodiacTypes.Tropical, Ayanamshas.None, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, HouseSystems.Placidus);
+        List<ChartPoints> celPoints = new(); 
+        foreach (ChartPointConfigSpecs spec in _config.ChartPoints)
+        {
+            if (spec.IsUsed)
+            {
+                celPoints.Add(spec.Point);
+            }
+        }
+        return new CalculationPreferences(celPoints, _config.ZodiacType, _config.Ayanamsha, CoordinateSystems.Ecliptical, _config.ObserverPosition, _config.ProjectionType, _config.HouseSystem);
     }
 
     public void InitializeDataVault()
@@ -114,13 +109,12 @@ public sealed class ChartDataInputController
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, cal);
             double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
-            string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude.GeoLongFullText + " " + fullGeoLatitude.GeoLatFullText;
+            string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude!.GeoLongFullText + " " + fullGeoLatitude!.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             CelPointsRequest celPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
-            ChartAllPositionsRequest chartAllPositionsRequest = new(celPointsRequest, HouseSystems.Placidus);   // TODO remove housesystem, is already part of CalculationPreferences
-            ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(chartAllPositionsRequest);
+            ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(celPointsRequest);
             List<FullChartPointPos> celPointPositions = chartAllPositionsResponse.CelPointPositions;
-            FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions;
+            FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions!;
             FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
 
 
@@ -137,7 +131,7 @@ public sealed class ChartDataInputController
         else return false;
     }
 
-    private MetaData CreateMetaData(string nameId, string description, string source, ChartCategories chartCategory, RoddenRatings rating)
+    private static MetaData CreateMetaData(string nameId, string description, string source, ChartCategories chartCategory, RoddenRatings rating)
     {
         string nameIdText = string.IsNullOrEmpty(nameId) ? Rosetta.TextForId("charts.positions.chartname.empty") : nameId;
         string descriptionText = string.IsNullOrEmpty(description) ? Rosetta.TextForId("charts.positions.description.empty") : description;

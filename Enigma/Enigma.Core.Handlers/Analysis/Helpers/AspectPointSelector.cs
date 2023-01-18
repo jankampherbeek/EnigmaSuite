@@ -21,7 +21,7 @@ public class AspectPointSelector : IAspectPointSelector
         foreach (FullChartPointPos fcpPos in chartPointPositions)
         {
             PointCats actualPointCat = fcpPos.ChartPoint.GetDetails().PointCat;
-            if (actualPointCat == PointCats.Classic || actualPointCat == PointCats.Modern || actualPointCat == PointCats.MathPoint || actualPointCat == PointCats.Minor)
+            if (actualPointCat == PointCats.Classic || actualPointCat == PointCats.Modern || actualPointCat == PointCats.MathPoint || actualPointCat == PointCats.Minor || actualPointCat == PointCats.Hypothetical)
             {
                 relevantChartPointPositions.Add(fcpPos);
             }
@@ -41,5 +41,6 @@ public class AspectPointSelector : IAspectPointSelector
         }        
         return relevantChartPointPositions;
     }
+
 
 }

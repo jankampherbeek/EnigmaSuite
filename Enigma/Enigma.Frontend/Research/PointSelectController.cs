@@ -36,6 +36,11 @@ public sealed class PointSelectController
         return _selMPDetails;
     }
 
+    public bool IncludeCuspsForAspects()
+    {
+        return _astroConfig.UseCuspsForAspects;
+    }
+
     public class SelectableCelPointDetails
     {
         public ChartPoints ChartPoint { get; set; }
@@ -52,7 +57,6 @@ public sealed class PointSelectController
 
     private void DefineCelPoints()
     {
-        string resourceBundlePrefix = "ref.enum.celpoint.";
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selCPDetails = new();
         foreach (ChartPointConfigSpecs currentCPSpec in _astroConfig.ChartPoints)
@@ -61,8 +65,8 @@ public sealed class PointSelectController
             if (currentCPSpec.IsUsed && cat != PointCats.Mundane && cat != PointCats.Cusp)
             {
                 PointDetails cpDetails = currentCPSpec.Point.GetDetails();
-                char glyph = ' ';
-                _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(resourceBundlePrefix + cpDetails.TextId) });
+                char glyph = currentCPSpec.Glyph;
+                _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
             }
         }
     }
@@ -83,7 +87,6 @@ public sealed class PointSelectController
 
     public void ShowHelp()
     {
-
         _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         _helpWindow.SetHelpPage("SelectPointsForTest");
         _helpWindow.ShowDialog();

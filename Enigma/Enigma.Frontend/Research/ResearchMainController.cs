@@ -17,7 +17,6 @@ namespace Enigma.Frontend.Ui.Research;
 public class ResearchMainController
 {
     private readonly IProjectsOverviewApi _projectsOverviewApi;
-    private ProjectUsageWindow? _projectUsageWindow;
     private List<ResearchProject> _researchProjects = new();
     private readonly List<Window> _openWindows = new();
     private readonly AppSettingsWindow _appSettingsWindow = new();
@@ -25,6 +24,7 @@ public class ResearchMainController
     private readonly ProjectInputWindow _projectInputWindow = new();
     private readonly DataFilesOverviewWindow _dataFilesOverviewWindow = new();
     private readonly DataFilesImportWindow _dataFilesImportWindow = new();
+    private readonly ProjectUsageWindow _projectUsageWindow = new();
     private readonly AboutWindow _aboutWindow = new();
     private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
@@ -54,7 +54,7 @@ public class ResearchMainController
         {
             if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
             {
-                _projectUsageWindow = App.ServiceProvider.GetRequiredService<ProjectUsageWindow>();
+                
                 _openWindows.Add(_projectUsageWindow);
                 currentProject = project;
                 _projectUsageWindow.SetProject(currentProject);

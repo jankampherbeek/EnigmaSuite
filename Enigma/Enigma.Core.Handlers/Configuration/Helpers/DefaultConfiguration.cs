@@ -86,7 +86,7 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             new ChartPointConfigSpecs(ChartPoints.Sedna, false, 'ö', 40),
             new ChartPointConfigSpecs(ChartPoints.Hygieia, false, 'Á', 40),
             new ChartPointConfigSpecs(ChartPoints.Astraea, false, 'Ã', 40),
-            new ChartPointConfigSpecs(ChartPoints.ApogeeMean, false, ',', 40),
+            new ChartPointConfigSpecs(ChartPoints.ApogeeMean, false, ',', 65),
             new ChartPointConfigSpecs(ChartPoints.ApogeeCorrected, false, '.', 65),
             new ChartPointConfigSpecs(ChartPoints.ApogeeInterpolated, false, '.', 65),
             new ChartPointConfigSpecs(ChartPoints.ApogeeDuval, false, '.', 65),

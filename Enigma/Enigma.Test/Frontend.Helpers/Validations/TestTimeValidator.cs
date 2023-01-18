@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -40,7 +40,7 @@ public class TestTimeValidator
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
+        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? _);
         Assert.That(Result, Is.False);
     }
 
@@ -54,7 +54,7 @@ public class TestTimeValidator
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
+        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? _);
         Assert.That(Result, Is.False);
     }
 
@@ -67,7 +67,7 @@ public class TestTimeValidator
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
+        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? _);
         Assert.That(Result, Is.False);
     }
 
@@ -80,7 +80,7 @@ public class TestTimeValidator
         int[] timeInput = new int[] { hour, minute, second };
         double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? fullTime);
+        bool Result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, out FullTime? _);
         Assert.That(Result, Is.False);
     }
 

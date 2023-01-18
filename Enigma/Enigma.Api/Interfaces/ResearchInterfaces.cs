@@ -28,10 +28,15 @@ public interface IProjectsOverviewApi
 /// <summary>Api for handling tests.</summary>
 public interface IResearchPerformApi
 {
-    /// <summary>Perform a test.</summary>
+    /// <summary>Perform a test to perform a count of parts.</summary>
     /// <param name="request">Research request.</param>
     /// <returns>The results as a CountOfPartsResponse.</returns>
-    public CountOfPartsResponse PerformTest(GeneralCountRequest request);
+    public CountOfPartsResponse PerformPartsCountTest(GeneralResearchRequest request);
+
+    /// <summary>Perform a test to count aspects.</summary>
+    /// <param name="request">Research request.</param>
+    /// <returns>The results as a CountOfAspectsResponse.</returns>
+    public CountOfAspectsResponse PerformAspectCount(GeneralResearchRequest request);
 }
 
 public interface IResearchPathApi

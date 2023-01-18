@@ -53,7 +53,7 @@ public sealed class ResearchPosCalcHandler
 
         foreach (StandardInputItem item in standardInput.ChartData)
         {
-            string itemId = item.Id;
+    /*        string itemId = item.Id;
             double geoLat = item.GeoLatitude;
             double geoLon = item.GeoLongitude;
             double year = item.Date.Year;
@@ -65,7 +65,7 @@ public sealed class ResearchPosCalcHandler
             double second = item.Time.Second;
             double dst = item.Time.Dst;
             double offSet = item.Time.ZoneOffset;
-
+    */
         }
         // calc mundane points and cusps
         foreach (ChartPoints point in celPoints)

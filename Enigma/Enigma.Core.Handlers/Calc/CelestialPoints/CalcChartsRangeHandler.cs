@@ -33,8 +33,7 @@ public sealed class CalcChartsRangeHandler : ICalcChartsRangeHandler
         {
             double jdUt = _julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt;
             CelPointsRequest celPointsRequest = new(jdUt, calcDataItem.Location, preferences);
-            ChartAllPositionsRequest chartAllPositionsRequest = new(celPointsRequest, preferences.ActualHouseSystem);
-            ChartAllPositionsResponse response = _chartAllPositionsHandler.CalcFullChart(chartAllPositionsRequest);
+            ChartAllPositionsResponse response = _chartAllPositionsHandler.CalcFullChart(celPointsRequest);
             fullChartForResearchItems.Add(new FullChartForResearchItem(calcDataItem.Id, response.CelPointPositions, response.MundanePositions!));
         }
         return fullChartForResearchItems;

@@ -21,6 +21,12 @@ public interface IDistanceCalculator
     /// <param name="allPoints">List of points.</param>
     /// <returns>List of shortest distances between each pair of points.</returns>
     public List<DistanceBetween2Points> FindShortestDistances(List<PositionedPoint> allPoints);
+
+    /// <summary>Calculates the shortest distances between two points, the first point is not a cusp (but could be Mc or Asc), the second point is a cusp.</summary>
+    /// <param name="allPoints">All points except the cusps.</param>
+    /// <param name="allCusps">The cusps.</param>
+    /// <returns>List of shortest distances between a non-cusp (first position in distance) and a cusp (second position).</returns>
+    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(List<PositionedPoint> allPoints, List<PositionedPoint> allCusps);
 }
 
 /// <summary>Selector for points that can be used to calculate aspects.</summary>
@@ -39,10 +45,18 @@ public interface IAspectPointSelector
 public interface IAspectsHandler
 {
   
-    /// <summary>Find aspects between celestial points (excluding mundane points).</summary>
+    /// <summary>Find aspects between chart points.</summary>
     /// <param name="request">Request with positions.</param>
     /// <returns>Aspects found.</returns>
     public List<DefinedAspect> AspectsForChartPoints(AspectRequest request);
+
+    /// <summary>Find aspects between chart points.</summary>
+    /// <param name="posPoints">Celestial points with positions.</param>
+    /// <param name="cuspPoints">Cusps with positions.</param>
+    /// <param name="relevantAspects">Supported aspects as defined in configuration.</param>
+    /// <param name="baseOrb">Base orb for aspects.</param>
+    /// <returns>List with aspects between celestial points and between celestial points and cusps. Aspects between cusps are omitted.</returns>
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, List<AspectConfigSpecs> relevantAspects, double baseOrb);
 }
 
 

@@ -76,9 +76,8 @@ public partial class PointSelectWindow : Window
         lbCelPoints.ItemsSource = celPointDetails;
         List<SelectableMundanePointDetails> mundanePointDetails = _controller.GetAllMundanePointDetails();
         lbMundanePoints.ItemsSource = mundanePointDetails;
-
-
-
+        cBoxAllCelPoints.IsChecked = false;
+        cBoxIncludeAllCusps.IsChecked = _controller.IncludeCuspsForAspects();
     }
 
     private void AllCelPointsClick(object sender, RoutedEventArgs e)

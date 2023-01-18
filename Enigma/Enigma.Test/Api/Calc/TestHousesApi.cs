@@ -59,7 +59,7 @@ public class TestHousesApi
         Assert.That(() => _api.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
-    private FullHousesPositions CreateResponse()
+    private static FullHousesPositions CreateResponse()
     {
 
 
@@ -77,16 +77,16 @@ public class TestHousesApi
     }
 
 
-    private FullChartPointPos CreateFullChartPointPos(ChartPoints point, double longitude, double ra, double decl, double azimuth, double altitude)
+    private static FullChartPointPos CreateFullChartPointPos(ChartPoints point, double longitude, double ra, double decl, double azimuth, double altitude)
     {
-        PosSpeed distance = new PosSpeed(0.0, 0.0);
+        PosSpeed distance = new (0.0, 0.0);
         PosSpeed psLongitude = new(longitude, 0.0);
         PosSpeed psLatitude = new(0.0, 0.0);
         PosSpeed psRightAscension = new(ra, 0.0);
         PosSpeed psDeclination = new(decl, 0.0);
         HorizontalCoordinates horCoord = new(azimuth, altitude);
         FullPointPos fpPos = new(psLongitude, psLatitude, psRightAscension, psDeclination, horCoord);
-        return new FullChartPointPos(ChartPoints.Cusp5, distance, fpPos);
+        return new FullChartPointPos(point, distance, fpPos);
     }  
 
 }

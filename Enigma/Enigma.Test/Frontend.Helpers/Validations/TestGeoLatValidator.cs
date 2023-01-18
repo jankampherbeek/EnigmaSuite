@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -82,7 +82,7 @@ public class TestGeoLatValidator
         int second = 0;
         int[] latInput = new int[] { degree, minute, second };
         var direction = Directions4GeoLat.North;
-        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? fullGeoLatitude);
+        bool Result = _geoLatValidator.CreateCheckedLatitude(latInput, direction, out FullGeoLatitude? _);
         Assert.That(Result, Is.False);
     }
 

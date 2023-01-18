@@ -46,14 +46,6 @@ public record ResearchCuspPoint(int Id, string Name) : ResearchPoint(Id, Name);
 public record ResearchPointsSelection(List<ChartPoints> SelectedPoints, List<ChartPoints> SelectedMundanePoints, bool IncludeCusps);
 
 
-// TODO check if CelPointPerSign is still required.
-public record CelPointPerSign(ChartPoints Point, int[] PositionsPerSign);
-
-
-// TODO check if SignPerCelPoint is still required.
-public record SignPerCelPoint(int SignIndex, int[] CelPointIndexes);
-
-
 /// <summary>Inputdata for a chart in a research project.</summary>
 /// <param name="CelPointPositions">All relevant positions for celstial points.</param>
 /// <param name="FullHousePositions">All relevant mundane positions including cusps.</param>

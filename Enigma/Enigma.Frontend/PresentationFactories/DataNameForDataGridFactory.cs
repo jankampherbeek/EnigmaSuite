@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -17,7 +17,7 @@ public class DataNameForDataGridFactory : IDataNameForDataGridFactory
         foreach (var fullPathDataName in fullPathDataNames)
         {
             int pos = fullPathDataName.LastIndexOf(@"\");
-            string dataName = fullPathDataName.Substring(pos + 1);
+            string dataName = fullPathDataName[(pos + 1)..];
             presentableDataNames.Add(new PresentableDataName(dataName));
         }
         return presentableDataNames;

@@ -27,6 +27,12 @@ namespace Enigma.Frontend.Ui.Research
             PopulateData();
         }
 
+        public void SetResults(CountOfAspectsResponse responseTest, CountOfAspectsResponse responseControl)
+        {
+            _controller.SetMethodResponses(responseTest, responseControl);
+            PopulateData();
+        }
+
         private void PopulateTexts()
         {
             Title = Rosetta.TextForId("researchresultwindow.title");

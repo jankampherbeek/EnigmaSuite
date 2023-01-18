@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -22,10 +22,10 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
         _housesHandler = housesHandler;
     }
 
-    public ChartAllPositionsResponse CalcFullChart(ChartAllPositionsRequest request)
+    public ChartAllPositionsResponse CalcFullChart(CelPointsRequest request)
     {
-        CelPointsResponse celPointsResponse = _celPointsHandler.CalcCelPoints(request.CelPointRequest);
-        FullHousesPosRequest housesRequest = new(request.CelPointRequest.JulianDayUt, request.CelPointRequest.Location, request.HouseSystem);
+        CelPointsResponse celPointsResponse = _celPointsHandler.CalcCelPoints(request);
+        FullHousesPosRequest housesRequest = new(request.JulianDayUt, request.Location, request.CalculationPreferences.ActualHouseSystem);
         FullHousesPositions housesResponse = _housesHandler.CalcHouses(housesRequest);
         return new ChartAllPositionsResponse(celPointsResponse.CelPointPositions, housesResponse);
     }

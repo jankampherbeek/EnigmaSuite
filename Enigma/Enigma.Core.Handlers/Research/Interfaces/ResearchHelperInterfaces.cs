@@ -1,9 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Persistency;
+using Enigma.Domain.RequestResponse.Research;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
 
@@ -22,12 +23,23 @@ public interface ICalculatedResearchPositions
 /// <summary>Counting for points in parts of the zodiac (e.g. signs, decanates etc.</summary>
 public interface IPointsInPartsCounting
 {
-    /// <summary>Perform a count for points in parts of the zodiac of in the housesystem.</summary>
+    /// <summary>Perform a count for points in parts of the zodiac or in the housesystem.</summary>
     /// <param name="charts">The calculatred charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
-    public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralCountRequest request);
+    public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
 }
+
+/// <summary>Counting for aspects.</summary>
+public interface IAspectsCounting
+{
+    /// <summary>Perform a count of aspects.</summary>
+    /// <param name="charts">The calculatred charts to check.</param>
+    /// <param name="request">The original request.</param>
+    /// <returns>The calculated counts.</returns>
+    public CountOfAspectsResponse CountAspects(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
+}
+
 
 
 public interface IControlGroupCreator

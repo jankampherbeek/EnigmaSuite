@@ -28,8 +28,8 @@ public class DateValidator : IDateValidator
 
         if (success)
         {
-            string _fullDateText = CreateFullDateText(dateValues, calendar);
-            fullDate = new FullDate(dateValues, calendar, _fullDateText);
+            string _fullDateText = CreateFullDateText(dateValues!, calendar);
+            fullDate = new FullDate(dateValues!, calendar, _fullDateText);
         }
         return success;
     }

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -59,9 +59,7 @@ public class TestValueRangeConverter
     {
         string? text = null;
         char separator = '-';
-#pragma warning disable CS8604 // Possible null reference argument.
-        _ = Assert.Throws<NullReferenceException>(() => Converter.ConvertStringRangeToIntRange(text, separator));
-#pragma warning restore CS8604 // Possible null reference argument.
+        _ = Assert.Throws<NullReferenceException>(() => Converter.ConvertStringRangeToIntRange(text!, separator));
     }
 
     [Test]

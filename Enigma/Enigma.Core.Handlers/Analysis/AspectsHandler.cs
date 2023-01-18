@@ -16,7 +16,7 @@ using Enigma.Domain.RequestResponse;
 namespace Enigma.Core.Handlers.Analysis;
 
 /// <inheritdoc/>
-public sealed class AspectsHandler : IAspectsHandler                // TODO 0.1 Add aspects to cusps.
+public sealed class AspectsHandler : IAspectsHandler       
 {
     private readonly IPointsMapping _pointsMapping;
     private readonly IDistanceCalculator _distanceCalculator;
@@ -39,19 +39,40 @@ public sealed class AspectsHandler : IAspectsHandler                // TODO 0.1 
         List<ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
         List<FullChartPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
         List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
-        List<DistanceBetween2Points> distances = _distanceCalculator.FindShortestDistances(posPoints);
+        List<PositionedPoint> cuspPoints = new();
+        if (request.Config.UseCuspsForAspects)
+        {
+            List<FullChartPointPos> relevantCusps = request.CalcChart.FullHousePositions.Cusps;
+            cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
+        }
         List<AspectConfigSpecs> allAspects = request.Config.Aspects;
         List<AspectConfigSpecs> relevantAspects = new();
         foreach (AspectConfigSpecs acSpec in allAspects)
         {
             if (acSpec.IsUsed) relevantAspects.Add(acSpec);
         }
+        return AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, request.Config.BaseOrbAspects);
+    }
+
+    /// <inheritdoc/>
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, List<AspectConfigSpecs> relevantAspects, double baseOrb)
+    {
+
+        List<DistanceBetween2Points> pointDistances = _distanceCalculator.FindShortestDistances(posPoints);
+        List<DistanceBetween2Points> cuspDistances = new();
+        if (cuspPoints.Count > 0)
+        {
+            cuspDistances = _distanceCalculator.FindShortestDistanceBetweenPointsAndCusps(posPoints, cuspPoints);  
+        }
+        List<DistanceBetween2Points> allDistances = new(pointDistances.Count + cuspDistances.Count);
+        allDistances.AddRange(pointDistances);
+        allDistances.AddRange(cuspDistances);
         List<DefinedAspect> definedAspects = new();
-        foreach (DistanceBetween2Points distance in distances)
+        foreach (DistanceBetween2Points distance in allDistances)
         {
             foreach (AspectConfigSpecs aspect in relevantAspects)
             {
-                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspect.PercentageOrb/100.0, request.Config.BaseOrbAspects);
+                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspect.PercentageOrb / 100.0, baseOrb);
                 AspectTypes aspectType = aspect.AspectType;
                 double aspectDistance = aspectType.GetDetails().Angle;
                 double actualOrb = Math.Abs(distance.Distance - aspectDistance);
@@ -63,4 +84,6 @@ public sealed class AspectsHandler : IAspectsHandler                // TODO 0.1 
         }
         return definedAspects;
     }
+
+
 }

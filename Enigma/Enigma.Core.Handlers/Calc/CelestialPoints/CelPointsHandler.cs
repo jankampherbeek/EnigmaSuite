@@ -10,6 +10,7 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
@@ -86,6 +87,11 @@ public sealed class CelPointsHandler : ICelPointsHandler
                 HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
                 FullPointPos fullPointPos = new(longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, horCoord);
                 _fullCelPoints.Add(new FullChartPointPos(celPoint, distPosSpeed, fullPointPos));
+            } 
+            // TODO add branch for numeric calculations
+            else
+            {
+                throw new EnigmaException("Unrecognized calculationtype for chartpoint : " + celPoint);
             }
         }
         bool success = true;

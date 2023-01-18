@@ -28,12 +28,12 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
     }
 
     /// <inheritdoc/>
-    public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralCountRequest request)
+    public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
         return PerformCounts(charts, request);
     }
 
-    private CountOfPartsResponse PerformCounts(List<CalculatedResearchChart> charts, GeneralCountRequest request)
+    private CountOfPartsResponse PerformCounts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
         ResearchMethods researchMethod = request.Method;
         int nrOfParts = DefineNumberOfParts(request);
@@ -55,7 +55,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         return response;
     }
 
-    private static int DefineNumberOfParts(GeneralCountRequest request)
+    private static int DefineNumberOfParts(GeneralResearchRequest request)
     {
         switch (request.Method)
         {
@@ -71,7 +71,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
     }
 
 
-    private static List<CountOfParts> InitializeCounts(GeneralCountRequest request, int nrOfParts)
+    private static List<CountOfParts> InitializeCounts(GeneralResearchRequest request, int nrOfParts)
     {
         List<CountOfParts> allCounts = new();
         int[] tempCounts = new int[nrOfParts];

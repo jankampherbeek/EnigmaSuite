@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -9,9 +9,18 @@ using Enigma.Domain.Research;
 
 namespace Enigma.Core.Handlers.Research.Interfaces;
 
+/// <summary>Handlers for performing research methods.</summary>
 public interface IResearchMethodHandler
 {
-    public CountOfPartsResponse HandleTestMethod(GeneralCountRequest request);
+    /// <summary>Initiate a test that implies counting of parts.</summary>
+    /// <param name="request"/>
+    /// <returns>Results of the counting.</returns>
+    public CountOfPartsResponse HandleTestForPartsMethod(GeneralResearchRequest request);
+
+    /// <summary>Initiate a test that implies counting of aspects.</summary>
+    /// <param name="request"/>
+    /// <returns>Response with counted aspects and totals.</returns>
+    public CountOfAspectsResponse HandleTestForAspectsMethod(GeneralResearchRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>

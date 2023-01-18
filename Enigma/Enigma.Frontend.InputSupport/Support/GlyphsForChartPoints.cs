@@ -15,123 +15,66 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
 
     public char FindGlyph(ChartPoints point)
     {
-        switch (point)
+        return point switch
         {
-            case ChartPoints.None:
-                return _emptyGlyph;
-            case ChartPoints.Sun:
-                return 'a';
-            case ChartPoints.Moon:
-                return 'b';
-            case ChartPoints.Mercury:
-                return 'c';
-            case ChartPoints.Venus:
-                return 'd';
-            case ChartPoints.Earth:
-                return 'e';
-            case ChartPoints.Mars:
-                return 'f';
-            case ChartPoints.Jupiter:
-                return 'g';
-            case ChartPoints.Saturn:
-                return 'h';
-            case ChartPoints.Uranus:
-                return 'i';
-            case ChartPoints.Neptune:
-                return 'j';
-            case ChartPoints.Pluto:
-                return 'k';
-            case ChartPoints.MeanNode:
-                return '{';
-            case ChartPoints.TrueNode:
-                return '{';
-            case ChartPoints.Chiron:
-                return 'w';
-            case ChartPoints.PersephoneRam:
-                return '/';
-            case ChartPoints.HermesRam:
-                return '<';
-            case ChartPoints.DemeterRam:
-                return '>';
-            case ChartPoints.CupidoUra:
-                return 'y';
-            case ChartPoints.HadesUra:
-                return 'z';
-            case ChartPoints.ZeusUra:
-                return '!';
-            case ChartPoints.KronosUra:
-                return '@';
-            case ChartPoints.ApollonUra:
-                return '#';
-            case ChartPoints.AdmetosUra:
-                return '$';
-            case ChartPoints.VulcanusUra:
-                return '%';
-            case ChartPoints.PoseidonUra:
-                return '&';
-            case ChartPoints.Eris:
-                return '*';
-            case ChartPoints.Pholus:
-                return ')';
-            case ChartPoints.Ceres:
-                return '_';
-            case ChartPoints.Pallas:
-                return 'û';
-            case ChartPoints.Juno:
-                return 'ü';
-            case ChartPoints.Vesta:
-                return 'À';
-            case ChartPoints.Isis:
-                return 'â';
-            case ChartPoints.Nessus:
-                return '(';
-            case ChartPoints.Huya:
-                return 'ï';
-            case ChartPoints.Varuna:
-                return 'ò';
-            case ChartPoints.Ixion:
-                return 'ó';
-            case ChartPoints.Quaoar:
-                return 'ô';
-            case ChartPoints.Haumea:
-                return 'í';
-            case ChartPoints.Orcus:
-                return 'ù';
-            case ChartPoints.Makemake:
-                return 'î';
-            case ChartPoints.Sedna:
-                return 'ö';
-            case ChartPoints.Hygieia:
-                return 'Á';
-            case ChartPoints.Astraea:
-                return 'Ã';
-            case ChartPoints.ApogeeMean:
-                return ',';
-            case ChartPoints.ApogeeCorrected:
-                return '.';
-            case ChartPoints.ApogeeInterpolated:
-                return '.';
-            case ChartPoints.ApogeeDuval:
-                return '.';
-            case ChartPoints.PersephoneCarteret:
-                return 'à';
-            case ChartPoints.VulcanusCarteret:
-                return 'Ï';
-            case ChartPoints.Ascendant:
-                return 'A';
-            case ChartPoints.Mc:
-                return 'M';
-            case ChartPoints.ZeroAries:
-                return '1';
-            case ChartPoints.ZeroCancer:
-                return '4';
-            case ChartPoints.FortunaSect:
-                return 'e';
-            case ChartPoints.FortunaNoSect:
-                return 'e';
-            default:
-                return _emptyGlyph;
-        }
+            ChartPoints.None => _emptyGlyph,
+            ChartPoints.Sun => 'a',
+            ChartPoints.Moon => 'b',
+            ChartPoints.Mercury => 'c',
+            ChartPoints.Venus => 'd',
+            ChartPoints.Earth => 'e',
+            ChartPoints.Mars => 'f',
+            ChartPoints.Jupiter => 'g',
+            ChartPoints.Saturn => 'h',
+            ChartPoints.Uranus => 'i',
+            ChartPoints.Neptune => 'j',
+            ChartPoints.Pluto => 'k',
+            ChartPoints.MeanNode => '{',
+            ChartPoints.TrueNode => '{',
+            ChartPoints.Chiron => 'w',
+            ChartPoints.PersephoneRam => '/',
+            ChartPoints.HermesRam => '<',
+            ChartPoints.DemeterRam => '>',
+            ChartPoints.CupidoUra => 'y',
+            ChartPoints.HadesUra => 'z',
+            ChartPoints.ZeusUra => '!',
+            ChartPoints.KronosUra => '@',
+            ChartPoints.ApollonUra => '#',
+            ChartPoints.AdmetosUra => '$',
+            ChartPoints.VulcanusUra => '%',
+            ChartPoints.PoseidonUra => '&',
+            ChartPoints.Eris => '*',
+            ChartPoints.Pholus => ')',
+            ChartPoints.Ceres => '_',
+            ChartPoints.Pallas => 'û',
+            ChartPoints.Juno => 'ü',
+            ChartPoints.Vesta => 'À',
+            ChartPoints.Isis => 'â',
+            ChartPoints.Nessus => '(',
+            ChartPoints.Huya => 'ï',
+            ChartPoints.Varuna => 'ò',
+            ChartPoints.Ixion => 'ó',
+            ChartPoints.Quaoar => 'ô',
+            ChartPoints.Haumea => 'í',
+            ChartPoints.Orcus => 'ù',
+            ChartPoints.Makemake => 'î',
+            ChartPoints.Sedna => 'ö',
+            ChartPoints.Hygieia => 'Á',
+            ChartPoints.Astraea => 'Ã',
+            ChartPoints.ApogeeMean => ',',
+            ChartPoints.ApogeeCorrected => '.',
+            ChartPoints.ApogeeInterpolated => '.',
+            ChartPoints.ApogeeDuval => '.',
+            ChartPoints.PersephoneCarteret => 'à',
+            ChartPoints.VulcanusCarteret => 'Ï',
+            ChartPoints.Ascendant => 'A',
+            ChartPoints.Mc => 'M',
+            ChartPoints.ZeroAries => '1',
+            ChartPoints.ZeroCancer => '4',
+            ChartPoints.FortunaSect => 'e',
+            ChartPoints.FortunaNoSect => 'e',
+            _ => _emptyGlyph,
+        };
     }
 }
 

@@ -6,6 +6,8 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 
+namespace EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
+
 /// <inheritdoc/>
 public sealed class SeFlags : ISeFlags
 {

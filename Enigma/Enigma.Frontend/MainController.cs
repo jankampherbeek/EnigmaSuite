@@ -13,11 +13,12 @@ namespace Enigma.Frontend.Ui;
 
 public class MainController
 {
-
+    private readonly ResearchMainWindow _researchMainWindow = new();
+    private readonly ChartsMainWindow _chartsMainWindow = new();
     public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
 
 
-    public MainController(ChartsWheel chartsWheel)
+    public MainController()
     {
         AllCurrentCharts = new CurrentCharts();   // move to maincharts
     }
@@ -25,14 +26,12 @@ public class MainController
 
     public void ShowResearchMain()
     {
-        ResearchMainWindow researchMainWindow = new();
-        researchMainWindow.ShowDialog();
+        _researchMainWindow.ShowDialog();
     }
 
     public void ShowChartsMain()
     {
-        ChartsMainWindow chartsMainWindow = new();
-        chartsMainWindow.ShowDialog();
+        _chartsMainWindow.ShowDialog();
     }
 
 }

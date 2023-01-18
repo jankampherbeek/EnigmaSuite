@@ -17,7 +17,7 @@ public class TestDistanceCalculator
     private readonly IDistanceCalculator _distanceCalculator = new DistanceCalculator();
 
     [Test]
-    public void TestShortestDistances()
+    public void TestFindShortestDistances()
     {
         List<PositionedPoint> posPoints = CreatePositionedPoints();
         List<DistanceBetween2Points> allDistances = _distanceCalculator.FindShortestDistances(posPoints);
@@ -33,6 +33,26 @@ public class TestDistanceCalculator
         });
     }
 
+    [Test]
+    public void TestFindShortestDistancesBetweenPointsAndCusps()
+    {
+        List<PositionedPoint> posPoints = CreatePositionedPoints();
+        List<PositionedPoint> cusps = CreateCusps();
+        List<DistanceBetween2Points> allDistances = _distanceCalculator.FindShortestDistanceBetweenPointsAndCusps(posPoints, cusps);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(allDistances, Has.Count.EqualTo(9));
+            Assert.That(allDistances[0].Point1.Point, Is.EqualTo(ChartPoints.Sun));
+            Assert.That(allDistances[1].Point2.Point, Is.EqualTo(ChartPoints.Cusp2));
+            Assert.That(allDistances[0].Distance, Is.EqualTo(10.0).Within(_delta));         // Sun Cusp1
+            Assert.That(allDistances[4].Distance, Is.EqualTo(60.0).Within(_delta));        // Moon Cusp2
+            Assert.That(allDistances[8].Distance, Is.EqualTo(89.5).Within(_delta));        // Jupiter Cusp3
+        });
+    }
+
+
+
     private static List<PositionedPoint> CreatePositionedPoints()
     {
         List<PositionedPoint> allPoints = new()
@@ -44,4 +64,14 @@ public class TestDistanceCalculator
         return allPoints;
     }
 
+    private static List<PositionedPoint> CreateCusps()
+    {
+        List<PositionedPoint> allPoints = new()
+        {
+            new PositionedPoint(ChartPoints.Cusp1, 20.0),
+            new PositionedPoint(ChartPoints.Cusp2, 50.0),
+            new PositionedPoint(ChartPoints.Cusp3, 81.0)
+        };
+        return allPoints;
+    }
 }

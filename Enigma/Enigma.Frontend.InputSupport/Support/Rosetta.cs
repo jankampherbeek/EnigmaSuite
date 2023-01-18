@@ -12,17 +12,16 @@ namespace Enigma.Frontend.Helpers.Support;
 /// <remarks>Implemented as static class.</remarks>
 public static class Rosetta
 {
-    private static readonly bool _initialized = false;
-    private static ITextFileReaderFE _fileReader;
-    private static List<KeyValuePair<string, string>> _texts;
+    private static bool _initialized = false;
+    private static readonly ITextFileReaderFE _fileReader = new TextFileReader();
+    private static readonly List<KeyValuePair<string, string>> _texts = new(); 
 
     private static void CheckInit()
     {
         if (!_initialized)
         {
-            _fileReader = new TextFileReader();
-            _texts = new List<KeyValuePair<string, string>>();
             ReadTextsFromFile();
+            _initialized = true;
         }
     } 
 

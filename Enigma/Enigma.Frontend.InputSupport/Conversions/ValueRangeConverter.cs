@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -19,7 +19,7 @@ public class ValueRangeConverter : IValueRangeConverter
         return CreateNumerics(strings);
     }
 
-    private (int[] numbers, bool success) CreateNumerics(string[] strings)
+    private static  (int[] numbers, bool success) CreateNumerics(string[] strings)
     {
         bool success = true;
         int[] numbers = new int[strings.Length];

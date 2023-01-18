@@ -166,6 +166,9 @@ public partial class AstroConfigWindow : Window
         tbAspectsExplanation.Text = Rosetta.TextForId("astroconfigwindow.aspectsexpl");
         tbOrbMethod.Text = Rosetta.TextForId("astroconfigwindow.orbmethod");
         tbOrbMethodExpl.Text = Rosetta.TextForId("astroconfigwindow.orbmethodexpl");
+
+        tbIncludeCusps.Text = Rosetta.TextForId("astroconfigwindow.includecusps");
+
         tbMajorAspects.Text = Rosetta.TextForId("astroconfigwindow.majoraspects");
         tbMinorAspects.Text = Rosetta.TextForId("astroconfigwindow.minoraspects");
         tbMicroAspects.Text = Rosetta.TextForId("astroconfigwindow.microaspects");
@@ -481,8 +484,7 @@ public partial class AstroConfigWindow : Window
             comboOrbMethod.Items.Add(Rosetta.TextForId(detail.TextId));
         }
         comboOrbMethod.SelectedIndex = (int)_controller.GetConfig().OrbMethod;
-
-
+        cboxIncludeCusps.IsChecked = _controller.GetConfig().UseCuspsForAspects;
         tboxConjunctionFactor.Text = aspects[0].PercentageOrb.ToString();
         cboxConjunction.IsChecked = aspects[0].IsUsed;
         tboxOppositionFactor.Text = aspects[1].PercentageOrb.ToString();
@@ -542,7 +544,7 @@ public partial class AstroConfigWindow : Window
     {
         if (HandleInput())
         {
-            Hide();   // TODO check, change into Close() ?
+            Close(); 
 
         }
         else
@@ -589,7 +591,7 @@ public partial class AstroConfigWindow : Window
             double baseOrbAspects = Convert.ToDouble(tboxAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             double baseOrbMidpoints = Convert.ToDouble(tboxMidpointAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             List<AspectConfigSpecs> aspectSpecs = DefineAspectSpecs();
-            bool useCuspsForAspects = false;                // TODO 0.1 Read vaue for UseCuspsForAspects from config form
+            bool useCuspsForAspects = cboxIncludeCusps.IsChecked ?? false;               
             AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
             Log.Information("Created new configuration: {@astroConfig}", astroConfig);
             _controller.UpdateConfig(astroConfig);

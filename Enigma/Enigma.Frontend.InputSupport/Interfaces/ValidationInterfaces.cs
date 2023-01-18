@@ -23,7 +23,7 @@ public interface IDateValidator
     /// <param name="fullDate">The resulting record FullDate.</param>
     /// <param name="errorCodes">Errorcodes, if any.</param> 
     /// <returns>True if no error occurred, otherwise false.</returns>
-    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate fullDate);
+    public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate);
 }
 
 

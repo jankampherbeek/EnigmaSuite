@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -17,7 +17,7 @@ namespace Enigma.Domain.Research;
 /// <param name="UseControlGroup">True if controlgroup data needs to be calculated, false for test data.</param>
 /// <param name="PointsSelection">All points that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
-public record GeneralCountRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config);
+public record GeneralResearchRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config);
 
 
 
@@ -30,7 +30,7 @@ public record GeneralCountRequest(string ProjectName, ResearchMethods Method, bo
 /// <param name="Config">Currently active configuration.</param>
 /// <param name="DivisionForDial">The division to construct the dial: 4 = 90 degrees etc.</param>
 public record CountMidpointsPerformRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, int DivisionForDial) :
-    GeneralCountRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
+    GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
 
 /// <summary>Request to perform a test using harmonics. Checks for harmonic positions conjunct radix positions.</summary>
 /// <param name="ProjectName">Name for project, used to find data files.</param>
@@ -40,5 +40,5 @@ public record CountMidpointsPerformRequest(string ProjectName, ResearchMethods M
 /// <param name="Config">Currently active configuration.</param>
 /// <param name="HarmonicNumber">The harmonic number.</param>
 public record CountHarmonicConjunctionsPerformRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, double HarmonicNumber) :
-    GeneralCountRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
+    GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
 

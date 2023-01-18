@@ -50,11 +50,10 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             Location location = new("", inputItem.GeoLongitude, inputItem.GeoLatitude);
             double jdUt = CalcJdUt(inputItem);
             CelPointsRequest cpRequest = new(jdUt, location, calcPref);
-            ChartAllPositionsRequest chartAllPosRequest = new(cpRequest, calcPref.ActualHouseSystem);
-            ChartAllPositionsResponse response = _chartAllPositionsHandler.CalcFullChart(chartAllPosRequest);
+            ChartAllPositionsResponse response = _chartAllPositionsHandler.CalcFullChart(cpRequest);
             // TODO check for null for MundanePositions.
 
-            calculatedCharts.Add(new CalculatedResearchChart(response.CelPointPositions, response.MundanePositions, inputItem));
+            calculatedCharts.Add(new CalculatedResearchChart(response.CelPointPositions, response.MundanePositions!, inputItem));
         }
         Log.Information("CalculatedResearchPositions: Calculation completed.");
         return calculatedCharts;
@@ -62,10 +61,13 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
 
     private double CalcJdUt(StandardInputItem inputItem)
     {
-        double ut = inputItem.Time.Hour + inputItem.Time.Minute * 60.0 + inputItem.Time.Second * 3600.0 + inputItem.Time.Dst + inputItem.Time.ZoneOffset;
+        PersistableTime time = inputItem.Time!;
+        PersistableDate date = inputItem.Date!;
+
+        double ut = time.Hour + time.Minute * 60.0 + time.Second * 3600.0 + time.Dst + time.ZoneOffset;
         // TODO check for overflow
-        Calendars cal = inputItem.Date.Calendar == "G" ? Calendars.Gregorian : Calendars.Julian;
-        SimpleDateTime simpleDateTime = new(inputItem.Date.Year, inputItem.Date.Month, inputItem.Date.Day, ut, cal);
+        Calendars cal = date.Calendar == "G" ? Calendars.Gregorian : Calendars.Julian;
+        SimpleDateTime simpleDateTime = new(date.Year, date.Month, date.Day, ut, cal);
         return _julDayHandler.CalcJulDay(simpleDateTime).JulDayUt;
     }
 

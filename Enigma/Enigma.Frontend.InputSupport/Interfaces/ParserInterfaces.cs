@@ -20,14 +20,14 @@ public interface IDateInputParser
 /// <summary>Parse, validate and convert input for geographic longitude.</summary>
 public interface IGeoLatInputParser
 {
-    public bool HandleGeoLat(string inputGeoLat, Directions4GeoLat direction, out FullGeoLatitude fullGeoLatitude);
+    public bool HandleGeoLat(string inputGeoLat, Directions4GeoLat direction, out FullGeoLatitude? fullGeoLatitude);
 }
 
 
 /// <summary>Parse, validate and convert input for geographic longitude.</summary>
 public interface IGeoLongInputParser
 {
-    public bool HandleGeoLong(string inputGeoLong, Directions4GeoLong direction, out FullGeoLongitude fullGeoLongitude);
+    public bool HandleGeoLong(string inputGeoLong, Directions4GeoLong direction, out FullGeoLongitude? fullGeoLongitude);
 }
 
 /// <summary>Parse, validate and convert input for a date.</summary>

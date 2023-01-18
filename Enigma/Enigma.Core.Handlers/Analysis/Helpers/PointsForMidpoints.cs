@@ -18,8 +18,8 @@ public sealed class PointsForMidpoints : IPointsForMidpoints            // TODO 
     public List<PositionedPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize)
     {
         // TODO 1.0.0 make pointgroups, coordinatesystems and maincoord for midpoints configurable.
-        var pointGroups = new List<PointCats> { PointCats.Classic, PointCats.Modern, PointCats.Hypothetical, PointCats.MathPoint, PointCats.Minor, PointCats.Mundane, PointCats.Zodiac };
-        CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
+        //var pointGroups = new List<PointCats> { PointCats.Classic, PointCats.Modern, PointCats.Hypothetical, PointCats.MathPoint, PointCats.Minor, PointCats.Mundane, PointCats.Zodiac };
+       // CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         //      bool mainCoord = true;
         //      List<PositionedPoint> pointsIn360Dial = _analysisPointsMapping.ChartToSingleAnalysisPoints(pointGroups, coordSystem, mainCoord, chart);
         List<PositionedPoint> pointsInActualDial = new();

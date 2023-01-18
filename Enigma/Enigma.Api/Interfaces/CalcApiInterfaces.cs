@@ -30,7 +30,7 @@ public interface IChartAllPositionsApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Response with instance of FullChart with all positionscoordinates, or an indication of errors that occurred.</returns>
-    public ChartAllPositionsResponse GetChart(ChartAllPositionsRequest request);
+    public ChartAllPositionsResponse GetChart(CelPointsRequest request);
 }
 
 /// <summary>API for conversion between coordinates.</summary>

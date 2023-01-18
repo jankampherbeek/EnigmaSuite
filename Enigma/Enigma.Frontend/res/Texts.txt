@@ -36,6 +36,7 @@ astroconfigwindow.housesystemexpl = Select one of the available house systems. B
 astroconfigwindow.hypotheticalpoints = Hypothetical points and planets
 astroconfigwindow.hypotheticalpointsexpl = Hypothetical planets/points from different schools. Currently, the School of Ram often replaces the hypothetical planet Persephone with the minor planet Eris.
 astroconfigwindow.hypotothers = Other points
+astroconfigwindow.includecusps = Calculate aspects to cusps
 astroconfigwindow.majoraspects = Major aspects
 astroconfigwindow.mathematical = Mathematical points
 astroconfigwindow.mathminorcelpoints = Mathematical and minor celestial points
@@ -242,6 +243,11 @@ datafilesoverviewwindow.title = Existing data files
 -------------------------- HelpWindow -----------------
 -- HelpWindow -----------------------------------------
 helpwindow.title = Help for Enigma Astrology Research
+
+-------------------------- IO messages ----------------
+
+file.import.ok = File successfully imported.
+file.import.csverror = Error in reading csv, check file errors.json.
 
 
 
@@ -484,7 +490,7 @@ ref.enum.cusps.6 = Cusp 6
 ref.enum.cusps.7 = Cusp 7
 ref.enum.cusps.8 = Cusp 8
 ref.enum.cusps.9 = Cusp 9
-ref.enum.cusps.10 = Cusp 0
+ref.enum.cusps.10 = Cusp 10
 ref.enum.cusps.11 = Cusp 11
 ref.enum.cusps.12 = Cusp 12
 ref.enum.cusps.13 = Cusp 13

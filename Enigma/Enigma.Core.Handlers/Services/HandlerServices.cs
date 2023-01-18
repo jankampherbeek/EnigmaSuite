@@ -24,6 +24,7 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Persistency.Helpers;
 using Enigma.Core.Handlers.Research.Services;
+using EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Handlers.Services;

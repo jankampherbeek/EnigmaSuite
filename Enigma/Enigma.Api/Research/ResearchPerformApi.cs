@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -26,10 +26,19 @@ public sealed class ResearchPerformApi : IResearchPerformApi
 
 
     /// <inheritdoc/>
-    public CountOfPartsResponse PerformTest(GeneralCountRequest request)
+    public CountOfPartsResponse PerformPartsCountTest(GeneralResearchRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformTest(): " + request.Method);
-        return _researchMethodHandler.HandleTestMethod(request);
+        Log.Information("ResearchPerformApi: PerformPartsCountTest(): " + request.Method);
+        return _researchMethodHandler.HandleTestForPartsMethod(request);
     }
+
+    /// <inheritdoc/>
+    public CountOfAspectsResponse PerformAspectCount(GeneralResearchRequest request)
+    {
+        Guard.Against.Null(request);
+        Log.Information("ResearchPerformApi: PerformAspectCount(): " + request.Method);
+        return _researchMethodHandler.HandleTestForAspectsMethod(request);
+    }
+
 }

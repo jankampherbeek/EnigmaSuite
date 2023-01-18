@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,7 +13,6 @@ namespace Enigma.Core.Handlers.Research.Services;
 /// <summary>
 /// Definitions for Dependency Injection for classes and interfaces. Contains handlers and helpers for research functionality.
 /// </summary>
-
 public static class ResearchServices
 {
     public static void RegisterResearchServices(this ServiceCollection serviceCollection)
@@ -26,6 +25,7 @@ public static class ResearchServices
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();
 
         // Helpers
+        serviceCollection.AddTransient<IAspectsCounting, AspectsCounting>();
         serviceCollection.AddTransient<ICalculatedResearchPositions, CalculatedResearchPositions>();
         serviceCollection.AddTransient<IControlDataCalendar, ControlDataCalendar>();
         serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();

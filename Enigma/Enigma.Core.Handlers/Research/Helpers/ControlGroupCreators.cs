@@ -41,14 +41,14 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
         var allControlData = new List<StandardInputItem>();
         for (int i = 0; i < multiplicity; i++)
         {
-            var controlDataForOneSet = CreateControlData(inputItems, controlGroupType, i);
+            var controlDataForOneSet = CreateControlData(inputItems, i);
             allControlData.AddRange(controlDataForOneSet);
         }
         return allControlData;
     }
 
 
-    private List<StandardInputItem> CreateControlData(List<StandardInputItem> inputItems, ControlGroupTypes controlGroupType, int sequence)
+    private List<StandardInputItem> CreateControlData(List<StandardInputItem> inputItems, int sequence)
     {
         _controlGroupItems.Clear();
         ProcessInputData(inputItems);
@@ -71,16 +71,19 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
         latitudes.Clear();
         longitudes.Clear();
 
+
         foreach (var inputItem in inputItems)
         {
-            years.Add(inputItem.Date.Year);
-            months.Add(inputItem.Date.Month);
-            days.Add(inputItem.Date.Day);
-            hours.Add(inputItem.Time.Hour);
-            minutes.Add(inputItem.Time.Minute);
-            seconds.Add(inputItem.Time.Second);
-            dsts.Add(inputItem.Time.Dst);
-            zoneOffsets.Add(inputItem.Time.ZoneOffset);
+            PersistableDate date = inputItem.Date!;
+            PersistableTime time = inputItem.Time!;
+            years.Add(date.Year);
+            months.Add(date.Month);
+            days.Add(date.Day);
+            hours.Add(time.Hour);
+            minutes.Add(time.Minute);
+            seconds.Add(time.Second);
+            dsts.Add(time.Dst);
+            zoneOffsets.Add(time.ZoneOffset);
             latitudes.Add(inputItem.GeoLatitude);
             longitudes.Add(inputItem.GeoLongitude);
         }
