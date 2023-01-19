@@ -46,6 +46,19 @@ public class ResearchResultController
         DefinePartsResultTexts(responseTest, responseControl);
     }
 
+    public void SetMethodResponses(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
+    {
+        DefineUnaspectedResultTexts(responseTest, responseControl);
+    }
+
+
+    public void DefineUnaspectedResultTexts(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
+    {
+        TestResultText = CreateUnaspectedResultData(responseTest);
+        ControlResultText = CreateUnaspectedResultData(responseControl);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
 
     public void DefineAspectsResultTexts(CountOfAspectsResponse responseTest, CountOfAspectsResponse responseControl)
     {
@@ -184,6 +197,24 @@ public class ResearchResultController
         detailLine.Append((totalOverall.ToString() + spaces)[..7]);
         resultData.AppendLine(separatorLine);
         resultData.AppendLine(detailLine.ToString());
+        return resultData.ToString();
+    }
+
+
+    private static string CreateUnaspectedResultData(CountOfUnaspectedResponse response)
+    {
+        StringBuilder resultData = new();
+        string spaces = "                    ";                                             // 20 spaces
+        string separatorLine = "--------------------------------------------------";        // 50 positions
+        StringBuilder headerLine = new();
+        headerLine.Append(spaces);   
+        headerLine.Append("Nr of charts without aspects.");   // TODO use RB
+        resultData.AppendLine(headerLine.ToString());
+        resultData.AppendLine(separatorLine);
+        foreach (SimpleCount simpleCount in response.Counts)
+        {
+            resultData.AppendLine((Rosetta.TextForId(simpleCount.Point.GetDetails().TextId) + spaces)[..20] + simpleCount.Count.ToString());
+        }
         return resultData.ToString();
     }
 

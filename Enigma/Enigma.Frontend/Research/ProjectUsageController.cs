@@ -90,88 +90,105 @@ public class ProjectUsageController
 
     public void PerformRequest(ResearchMethods researchMethod)
     {
-        int minimalNrOfPoints = 0;
-        switch (researchMethod)
+        if (researchMethod == ResearchMethods.CountUnaspected && _currentProject != null)
         {
-            case ResearchMethods.None:
-                break;
-            case ResearchMethods.CountPosInSigns:
-                minimalNrOfPoints = 1;
-                break;
-            case ResearchMethods.CountPosInHouses:
-                minimalNrOfPoints = 1;
-                break;
-            case ResearchMethods.CountAspects:
-                minimalNrOfPoints = 2;
-                break;
-            case ResearchMethods.CountUnaspected:
-                minimalNrOfPoints = 1;
-                break;
-            case ResearchMethods.CountOccupiedMidpoints:
-                minimalNrOfPoints = 3;
-                break;
-            case ResearchMethods.CountHarmonicConjunctions:
-                minimalNrOfPoints = 2;
-                break;
-            default:
-                minimalNrOfPoints = 1;
-                break;
+            ResearchPointsSelection pointsSelection = new(new List<ChartPoints>(), new List<ChartPoints>(), false);          // TODO, get rid of this dummy value
+            bool useControlGroup = false;
+            GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+            CountOfUnaspectedResponse responseTest = _researchPerformApi.PerformUnaspectedCount(request);
+            useControlGroup = true;
+            request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+            CountOfUnaspectedResponse responseCg = _researchPerformApi.PerformUnaspectedCount(request);
+            ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+            researchResultWindow.SetResults(responseTest, responseCg);
+            researchResultWindow.ShowDialog();
         }
-        PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-        pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
-        pointSelectWindow.SetResearchMethod(researchMethod);
-        pointSelectWindow.ShowDialog();
-
-        if (pointSelectWindow.IsCompleted() && _currentProject != null)
+        else
         {
-            List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
-            List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
-            bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
-            List<ChartPoints> celPoints = new();
-            List<ChartPoints> mundanePoints = new();
-            foreach (var point in selectedCelPoints)
+            int minimalNrOfPoints = 0;
+            switch (researchMethod)
             {
-                celPoints.Add(point.ChartPoint);
+                case ResearchMethods.None:
+                    break;
+                case ResearchMethods.CountPosInSigns:
+                    minimalNrOfPoints = 1;
+                    break;
+                case ResearchMethods.CountPosInHouses:
+                    minimalNrOfPoints = 1;
+                    break;
+                case ResearchMethods.CountAspects:
+                    minimalNrOfPoints = 2;
+                    break;
+                case ResearchMethods.CountOccupiedMidpoints:
+                    minimalNrOfPoints = 3;
+                    break;
+                case ResearchMethods.CountHarmonicConjunctions:
+                    minimalNrOfPoints = 2;
+                    break;
+                default:
+                    minimalNrOfPoints = 1;
+                    break;
             }
-            if (researchMethod != ResearchMethods.CountPosInHouses)
+
+            PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+            pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
+            pointSelectWindow.SetResearchMethod(researchMethod);
+            pointSelectWindow.ShowDialog();
+
+            if (pointSelectWindow.IsCompleted() && _currentProject != null)
             {
-                foreach (var point in selectedMundanePoints)
+                List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
+                List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
+                bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
+                List<ChartPoints> celPoints = new();
+                List<ChartPoints> mundanePoints = new();
+                foreach (var point in selectedCelPoints)
                 {
-                    mundanePoints.Add(point.MundanePoint);
+                    celPoints.Add(point.ChartPoint);
                 }
-                selectedUseCusps = pointSelectWindow.SelectedUseCusps;
+                if (researchMethod != ResearchMethods.CountPosInHouses)
+                {
+                    foreach (var point in selectedMundanePoints)
+                    {
+                        mundanePoints.Add(point.MundanePoint);
+                    }
+                    selectedUseCusps = pointSelectWindow.SelectedUseCusps;
+                }
+                ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
+
+                if (researchMethod == ResearchMethods.CountPosInHouses || researchMethod == ResearchMethods.CountPosInSigns)
+                {
+                    bool useControlGroup = false;
+                    GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+
+                    // fire request
+                    CountOfPartsResponse response = _researchPerformApi.PerformPartsCountTest(request);
+
+                    useControlGroup = true;
+                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                    CountOfPartsResponse responseCg = _researchPerformApi.PerformPartsCountTest(request);
+                    ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                    researchResultWindow.SetResults(response, responseCg);
+                    researchResultWindow.ShowDialog();
+                }
+                if (researchMethod == ResearchMethods.CountAspects)
+                {
+                    bool useControlGroup = false;
+                    GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                    CountOfAspectsResponse responseTest = _researchPerformApi.PerformAspectCount(request);
+                    useControlGroup = true;
+                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                    CountOfAspectsResponse responseCg = _researchPerformApi.PerformAspectCount(request);
+                    ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                    researchResultWindow.SetResults(responseTest, responseCg);
+                    researchResultWindow.ShowDialog();
+                }
+
+
             }
-            ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
-
-            if (researchMethod == ResearchMethods.CountPosInHouses || researchMethod == ResearchMethods.CountPosInSigns)
-            {
-                bool useControlGroup = false;
-                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-
-                // fire request
-                CountOfPartsResponse response = _researchPerformApi.PerformPartsCountTest(request);
-
-                useControlGroup = true;
-                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                CountOfPartsResponse responseCg = _researchPerformApi.PerformPartsCountTest(request);
-                ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                researchResultWindow.SetResults(response, responseCg);
-                researchResultWindow.ShowDialog();
-            }
-            else if (researchMethod == ResearchMethods.CountAspects)
-            {
-                bool useControlGroup = false;
-                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                CountOfAspectsResponse responseTest = _researchPerformApi.PerformAspectCount(request);
-                useControlGroup = true;
-                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                CountOfAspectsResponse responseCg = _researchPerformApi.PerformAspectCount(request);
-                ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                researchResultWindow.SetResults(responseTest, responseCg);
-                researchResultWindow.ShowDialog();
-            }
-
         }
+
+
     }
 
     public void ShowConfig()

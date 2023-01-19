@@ -21,6 +21,11 @@ public interface IResearchMethodHandler
     /// <param name="request"/>
     /// <returns>Response with counted aspects and totals.</returns>
     public CountOfAspectsResponse HandleTestForAspectsMethod(GeneralResearchRequest request);
+
+    /// <summary>Initiate a test that counts unaspected points.</summary>
+    /// <param name="request"/>
+    /// <returns>Response with counted values.</returns>
+    public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>

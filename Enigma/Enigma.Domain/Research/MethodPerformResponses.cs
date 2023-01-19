@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -50,6 +50,7 @@ public record ThreePointCount(ChartPoints Point, ChartPoints Point2, ChartPoints
 /// <param name="AspectsUsed">The supported aspects.</param>
 /// <remarks>The sequence of ChartPoints in PointUsed is the same as in the first two dimensions of AllCounts. The sequence of Aspects in AspectsUsed is the same as in the thrid dimension of AllCounts.</remarks>
 public record CountOfAspectsResponse(GeneralResearchRequest Request, int[,,] AllCounts, int[,] TotalsPerPointCombi, int[] TotalsPerAspect, List<ChartPoints> PointsUsed, List<AspectTypes> AspectsUsed);
+
 
 /// <summary>Parent for a response from a performed test.</summary>
 /// <param name="Request">The original request.</param>

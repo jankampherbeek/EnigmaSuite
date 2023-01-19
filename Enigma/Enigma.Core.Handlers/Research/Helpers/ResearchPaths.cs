@@ -36,7 +36,7 @@ public sealed class ResearchPaths : IResearchPaths
         return ConstructSummedResultsPath(projName, methodName, useControlGroup);
     }
 
-    private string ConstructDataPath(string projName, bool useControlGroup)
+    private static string ConstructDataPath(string projName, bool useControlGroup)
     {
         ApplicationSettings _appSettings = ApplicationSettings.Instance;
         string projFiles = _appSettings.LocationProjectFiles;
@@ -44,7 +44,7 @@ public sealed class ResearchPaths : IResearchPaths
         return projFiles + @"\" + projName + @"\" + dataFilename + ".json";
     }
 
-    private string ConstructResultPath(string projName, string methodName, bool useControlGroup)
+    private static string ConstructResultPath(string projName, string methodName, bool useControlGroup)
     {
         ApplicationSettings _appSettings = ApplicationSettings.Instance;
         string projFiles = _appSettings.LocationProjectFiles;
@@ -53,7 +53,7 @@ public sealed class ResearchPaths : IResearchPaths
         return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_positions_" + dateTimeStamp + ".json";
     }
 
-    private string ConstructCountResultsPath(string projName, string methodName, bool useControlGroup)
+    private static string ConstructCountResultsPath(string projName, string methodName, bool useControlGroup)
     {
         ApplicationSettings _appSettings = ApplicationSettings.Instance;
         string projFiles = _appSettings.LocationProjectFiles;
@@ -62,7 +62,7 @@ public sealed class ResearchPaths : IResearchPaths
         return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".json";
     }
 
-    private string ConstructSummedResultsPath(string projName, string methodName, bool useControlGroup)
+    private static string ConstructSummedResultsPath(string projName, string methodName, bool useControlGroup)
     {
         ApplicationSettings _appSettings = ApplicationSettings.Instance;
         string projFiles = _appSettings.LocationProjectFiles;
@@ -72,7 +72,7 @@ public sealed class ResearchPaths : IResearchPaths
 
     }
 
-    private string ConstructDateTimeStamp()
+    private static string ConstructDateTimeStamp()
     {
         DateTime dateTime = DateTime.Now;
         string year = dateTime.Year.ToString();

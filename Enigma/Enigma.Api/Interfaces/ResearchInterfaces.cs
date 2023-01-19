@@ -37,6 +37,11 @@ public interface IResearchPerformApi
     /// <param name="request">Research request.</param>
     /// <returns>The results as a CountOfAspectsResponse.</returns>
     public CountOfAspectsResponse PerformAspectCount(GeneralResearchRequest request);
+
+    /// <summary>Perform a test to count unaspected points.</summary>
+    /// <param name="request">Research request.</param>
+    /// <returns>The results as a CountOfUnaspectedResponse.</returns>
+    public CountOfUnaspectedResponse PerformUnaspectedCount(GeneralResearchRequest request);
 }
 
 public interface IResearchPathApi

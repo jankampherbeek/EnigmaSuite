@@ -34,12 +34,22 @@ public interface IPointsInPartsCounting
 public interface IAspectsCounting
 {
     /// <summary>Perform a count of aspects.</summary>
-    /// <param name="charts">The calculatred charts to check.</param>
+    /// <param name="charts">The calculated charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
     public CountOfAspectsResponse CountAspects(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
 }
 
+
+/// <summary>Counting for unaspected points.</summary>
+public interface IUnaspectedCounting
+{
+    /// <summary>Perform a count of unaspected points.</summary>
+    /// <param name="charts">The calculated charts to check.</param>
+    /// <param name="request">The original request.</param>
+    /// <returns>The calculated counts.</returns>
+    public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
+}
 
 
 public interface IControlGroupCreator

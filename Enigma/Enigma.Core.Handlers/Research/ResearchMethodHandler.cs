@@ -24,6 +24,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     private readonly IResearchDataHandler _researchDataHandler;
     private readonly IResearchPaths _researchPaths;
     private readonly IAspectsCounting _aspectsCounting;
+    private readonly IUnaspectedCounting _unaspectedCounting;
 
 
     public ResearchMethodHandler(ICalculatedResearchPositions researchPositions,
@@ -31,7 +32,8 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         IFilePersistencyHandler filePersistencyHandler,
         IResearchDataHandler researchDataHandler,
         IResearchPaths researchPaths,
-        IAspectsCounting aspectsCounting)
+        IAspectsCounting aspectsCounting,
+        IUnaspectedCounting unaspectedCounting)
     {
         _researchPositions = researchPositions;
         _pointsInPartsCounting = pointsInZodiacPartsCounting;
@@ -39,6 +41,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         _researchDataHandler = researchDataHandler;
         _researchPaths = researchPaths;
         _aspectsCounting = aspectsCounting;
+        _unaspectedCounting = unaspectedCounting;
     }
 
     /// <inheritdoc/>
@@ -93,7 +96,15 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     }
 
 
-
+    /// <inheritdoc/>
+    public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request)
+    {
+        ResearchMethods method = request.Method;
+        Log.Information("ResearchMethodHandler HandleTestForUnaspectedMethod, using method {m} for project {p}", method, request.ProjectName);
+        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
+        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
+        return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
+    }
 
 }
 

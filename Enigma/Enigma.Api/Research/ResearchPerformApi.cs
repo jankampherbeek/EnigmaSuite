@@ -41,4 +41,12 @@ public sealed class ResearchPerformApi : IResearchPerformApi
         return _researchMethodHandler.HandleTestForAspectsMethod(request);
     }
 
+    /// <inheritdoc/>w
+    public CountOfUnaspectedResponse PerformUnaspectedCount(GeneralResearchRequest request)
+    {
+        Guard.Against.Null(request);
+        Log.Information("ResearchPerformApi: PerformUnaspectedCount(): " + request.Method);
+        return _researchMethodHandler.HandleTestForUnaspectedMethod(request);
+    }
+
 }

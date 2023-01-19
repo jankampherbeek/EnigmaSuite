@@ -93,7 +93,7 @@ public partial class ChartPositionsWindow : Window
         DGCelPoints.HorizontalAlignment = HorizontalAlignment.Right;
     }
 
-    private string ParseDateText(string inputDateText)
+    private static string ParseDateText(string inputDateText)
     {
         int firstStartIndex = inputDateText.IndexOf("[");
         int secondStartIndex = inputDateText.LastIndexOf("[");
@@ -105,7 +105,7 @@ public partial class ChartPositionsWindow : Window
         return string.Concat(Rosetta.TextForId("ref.months." + monthId), inputDateText.AsSpan(firstEndIndex + 1, secondStartIndex - firstEndIndex - 1), Rosetta.TextForId("ref.calendar." + calendarId));
     }
 
-    private string ParseTimeText(string inputTimeText)
+    private static string ParseTimeText(string inputTimeText)
     {
         int startIndex = inputTimeText.IndexOf("[");
         int endIndex = inputTimeText.LastIndexOf("]");

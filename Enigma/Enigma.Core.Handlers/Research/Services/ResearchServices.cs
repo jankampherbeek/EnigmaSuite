@@ -35,6 +35,7 @@ public static class ResearchServices
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
         serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
+        serviceCollection.AddTransient<IUnaspectedCounting, UnaspectedCounting>();
 
 
     }
