@@ -49,41 +49,35 @@ public class ResearchResultController
 
     public void DefineAspectsResultTexts(CountOfAspectsResponse responseTest, CountOfAspectsResponse responseControl)
     {
-        CreateResultHeaders(responseTest.Request);
         TestResultText = CreateAspectsResultData(responseTest);
         ControlResultText = CreateAspectsResultData(responseControl);
-        string projName = responseTest.Request.ProjectName;
-        string methodName = responseTest.Request.Method.ToString();
-        bool useControlGroup = false;
-        string pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
-        useControlGroup = true;
-        string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
-        _fileAccessApi.WriteFile(pathTest, TestResultText);
-        _fileAccessApi.WriteFile(pathControl, ControlResultText);
-        TestResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathTest;
-        ControlResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathControl;
-
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
     }
 
 
     public void DefinePartsResultTexts(CountOfPartsResponse responseTest, CountOfPartsResponse responseControl)
     {
-        CreateResultHeaders(responseTest.Request);
-
         TestResultText = CreatePartsResultData(responseTest);
         ControlResultText = CreatePartsResultData(responseControl);
-        string projName = responseTest.Request.ProjectName;
-        string methodName = responseTest.Request.Method.ToString();
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+
+    private void WriteResults(GeneralResearchRequest request)
+    {
+        string projName = request.ProjectName;
+        string methodName = request.Method.ToString();
         bool useControlGroup = false;
         string pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         useControlGroup = true;
         string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
-        _fileAccessApi.WriteFile(pathTest, TestResultText);
-        _fileAccessApi.WriteFile(pathControl, ControlResultText);
         TestResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathTest;
         ControlResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathControl;
-
+        _fileAccessApi.WriteFile(pathTest, TestResultText);
+        _fileAccessApi.WriteFile(pathControl, ControlResultText);
     }
+
 
     private void CreateResultHeaders(GeneralResearchRequest request)
     {
@@ -164,8 +158,6 @@ public class ResearchResultController
                 nrOfCelPoints++;
             }
         }
-
-
         for (int i = 0; i < nrOfCelPoints; i++)
         {
             for (int j = i+1; j < response.PointsUsed.Count; j++)

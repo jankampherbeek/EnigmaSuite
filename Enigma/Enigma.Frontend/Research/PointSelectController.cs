@@ -38,7 +38,7 @@ public sealed class PointSelectController
 
     public bool IncludeCuspsForAspects()
     {
-        return _astroConfig.UseCuspsForAspects;
+        return _astroConfig!.UseCuspsForAspects;
     }
 
     public class SelectableCelPointDetails

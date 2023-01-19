@@ -81,9 +81,12 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
         {
             if (cpSpec.IsUsed)
             {
-                celPoints.Add(cpSpec.Point);
+                PointCats pointCat = cpSpec.Point.GetDetails().PointCat;
+                if (pointCat == PointCats.Classic || pointCat == PointCats.Modern || pointCat == PointCats.MathPoint || pointCat == PointCats.Hypothetical || pointCat == PointCats.Minor)
+                {
+                    celPoints.Add(cpSpec.Point);
+                }
             }
-
         }
         return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
     }

@@ -588,11 +588,18 @@ public partial class AstroConfigWindow : Window
             List<ChartPointConfigSpecs> mundanePointSpecs = DefineMundanePointSpecs();
             List<ChartPointConfigSpecs> arabicPointSpecs = DefineArabicPointSpecs();
             List<ChartPointConfigSpecs> zodiacPointSpecs = DefineZodiacPointSpecs();
+
+            List<ChartPointConfigSpecs> chartPointSpecs = new(celPointsSpecs.Count + mundanePointSpecs.Count + arabicPointSpecs.Count + zodiacPointSpecs.Count);
+            chartPointSpecs.AddRange(celPointsSpecs);
+            chartPointSpecs.AddRange(mundanePointSpecs);
+            chartPointSpecs.AddRange(arabicPointSpecs);
+            chartPointSpecs.AddRange(zodiacPointSpecs);
+
             double baseOrbAspects = Convert.ToDouble(tboxAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             double baseOrbMidpoints = Convert.ToDouble(tboxMidpointAspectBaseOrb.Text.Replace(',', '.'), CultureInfo.InvariantCulture);
             List<AspectConfigSpecs> aspectSpecs = DefineAspectSpecs();
             bool useCuspsForAspects = cboxIncludeCusps.IsChecked ?? false;               
-            AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, celPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
+            AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, chartPointSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
             Log.Information("Created new configuration: {@astroConfig}", astroConfig);
             _controller.UpdateConfig(astroConfig);
 
