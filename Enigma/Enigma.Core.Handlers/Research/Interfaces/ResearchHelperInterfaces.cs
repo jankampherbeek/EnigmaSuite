@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
@@ -194,4 +195,17 @@ public interface IResearchMethodUtils
     /// <returns>Positioned points that match wityh the selection.</returns>
     public List<FullChartPointPos> DefineSelectedPointPositions(AstroConfig config, CalculatedResearchChart calcResearchChart, List<ChartPoints> selectedChartPoints, ResearchPointsSelection pointsSelection);
 
+    /// <summary>Find the index for a chart point in a list with psotioned points.</summary>
+    /// <param name="point">The chart point for which to find the index.</param>
+    /// <param name="allPoints">Positioned points.</param>
+    /// <exception cref="EnigmaException">Is thrown if index was not found.</exception>
+    /// <returns>If found: the index.</returns>
+    public int FindIndexForPoint(ChartPoints point, List<PositionedPoint> allPoints);
+
+    /// <summary>Find the index for an aspect type in list with aspect config specs.</summary>
+    /// <param name="aspectType">The aspect type for which to find the index.</param>
+    /// <param name="allAspects">Aspect config specs.</param>
+    /// <exception cref="EnigmaException">Is thrown if index was not found.</exception>
+    /// <returns>If found: the index.</returns>
+    public int FindIndexForAspectType(AspectTypes aspectType, List<AspectConfigSpecs> allAspects);
 }

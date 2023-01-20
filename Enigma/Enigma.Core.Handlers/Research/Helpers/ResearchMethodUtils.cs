@@ -6,13 +6,17 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
+using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Research.Domain;
+using Serilog;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
+/// <inheritdoc/>
 public class ResearchMethodUtils: IResearchMethodUtils {
 
     private readonly IAspectPointSelector _aspectPointSelector;
@@ -22,6 +26,7 @@ public class ResearchMethodUtils: IResearchMethodUtils {
         _aspectPointSelector = aspectPointSelector;
     }
 
+    /// <inheritdoc/>
     public List<AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
     {
         List<AspectConfigSpecs> allAspects = config.Aspects;
@@ -33,6 +38,7 @@ public class ResearchMethodUtils: IResearchMethodUtils {
         return selectedAspects;
     }
 
+    /// <inheritdoc/>
     public List<ChartPoints> DefineConfigSelectedChartPoints(AstroConfig config)
     {
         List<ChartPointConfigSpecs> allChartPoints = config.ChartPoints;
@@ -44,7 +50,7 @@ public class ResearchMethodUtils: IResearchMethodUtils {
         return selectedPoints;
     }
 
-
+    /// <inheritdoc/>
     public List<FullChartPointPos> DefineSelectedPointPositions(AstroConfig config, CalculatedResearchChart calcResearchChart, List<ChartPoints> selectedChartPoints, ResearchPointsSelection pointsSelection)
     {
         List<FullChartPointPos> chartPointPositions = calcResearchChart.CelPointPositions;
@@ -80,5 +86,28 @@ public class ResearchMethodUtils: IResearchMethodUtils {
         return selectedChartPointPositions;
     }
 
+    /// <inheritdoc/>
+    public int FindIndexForPoint(ChartPoints point, List<PositionedPoint> allPoints)
+    {
+        for (int i = 0; i < allPoints.Count; i++)
+        {
+            if (allPoints[i].Point == point) return i;
+        }
+        string errorText = "AspectsCounting.FindIndexForPoint(). Could not find index for ChartPoint : " + point;
+        Log.Error(errorText);
+        throw new EnigmaException(errorText);
+    }
+
+    /// <inheritdoc/>
+    public int FindIndexForAspectType(AspectTypes aspectType, List<AspectConfigSpecs> allAspects)
+    {
+        for (int i = 0; i < allAspects.Count; i++)
+        {
+            if (allAspects[i].AspectType == aspectType) return i;
+        }
+        string errorText = "AspectsCounting.FindIndexForAspectType(). Could not find index for AspectType : " + aspectType;
+        Log.Error(errorText);
+        throw new EnigmaException(errorText);
+    }
 
 }

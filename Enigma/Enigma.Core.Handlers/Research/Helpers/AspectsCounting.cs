@@ -9,11 +9,9 @@ using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
-using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
-using Serilog;
 
 
 namespace Enigma.Core.Handlers.Research.Helpers;
@@ -24,12 +22,14 @@ public sealed class AspectsCounting: IAspectsCounting
     private readonly IAspectsHandler _aspectsHandler;
     private readonly IAspectPointSelector _aspectPointSelector;
     private readonly IPointsMapping _pointsMapping;
+    private readonly IResearchMethodUtils _researchMethodUtils;
 
-    public AspectsCounting(IAspectsHandler aspectsHandler, IAspectPointSelector aspectPointSelector, IPointsMapping pointsMapping)
+    public AspectsCounting(IAspectsHandler aspectsHandler, IAspectPointSelector aspectPointSelector, IPointsMapping pointsMapping, IResearchMethodUtils researchMethodUtils)
     {
         _aspectsHandler = aspectsHandler;
         _aspectPointSelector = aspectPointSelector;
         _pointsMapping = pointsMapping;
+        _researchMethodUtils = researchMethodUtils;
     }
 
 
@@ -42,21 +42,14 @@ public sealed class AspectsCounting: IAspectsCounting
 
     private CountOfAspectsResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
-        ResearchPointsSelection pointsSelection = request.PointsSelection;
-
         AstroConfig config = request.Config;
-        List<AspectConfigSpecs> allAspects = config.Aspects;
-        List<AspectConfigSpecs> relevantAspects = new();
-        foreach (AspectConfigSpecs acSpec in allAspects)
-        {
-            if (acSpec.IsUsed) relevantAspects.Add(acSpec);
-        }
+        List<AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
 
         List<ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
         int cuspSize = config.UseCuspsForAspects ? charts[0].FullHousePositions.Cusps.Count : 0;
-        int aspectSize = relevantAspects.Count;
+        int aspectSize = configSelectedAspects.Count;
         int[,,] allCounts = new int[celPointSize, celPointSize + cuspSize, aspectSize];
         List<PositionedPoint> allPoints = new();
 
@@ -65,33 +58,10 @@ public sealed class AspectsCounting: IAspectsCounting
             List<FullChartPointPos> chartPointPositions = calcResearchChart.CelPointPositions;
             FullHousesPositions fullHousesPositions = calcResearchChart.FullHousePositions;
             List<FullChartPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
-            List<FullChartPointPos> relevantChartPointPositions = new();
-            foreach (FullChartPointPos configPoint in configChartPointPositions)
-            {
-                foreach (ChartPoints selectPoint in pointsSelection.SelectedPoints)
-                {
-                    if (configPoint.ChartPoint == selectPoint)
-                    {
-                        relevantChartPointPositions.Add(configPoint);
-                    }
-                }
-            }
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.Mc))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.Mc);
-            } ;
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.Ascendant))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.Ascendant);
-            };
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.Vertex))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.Vertex);
-            };
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.EastPoint))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.EastPoint);
-            };
+            List<ChartPoints> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
+
+            List<FullChartPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(config, calcResearchChart, configSelectedChartPoints, request.PointsSelection);
+
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();
             if (request.PointsSelection.IncludeCusps)
@@ -104,39 +74,19 @@ public sealed class AspectsCounting: IAspectsCounting
             allPoints.AddRange(posPoints);
             allPoints.AddRange(cuspPoints);
 
-            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, config.BaseOrbAspects);
+            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.BaseOrbAspects);
             foreach (DefinedAspect defAspect in definedAspects)
             {
-                int index1 = FindIndexForPoint(defAspect.Point1, allPoints);
-                int index2 = FindIndexForPoint(defAspect.Point2, allPoints);
-                int index3 = FindIndexForAspectType(defAspect.Aspect.Aspect, relevantAspects);
+                int index1 = _researchMethodUtils.FindIndexForPoint(defAspect.Point1, allPoints);
+                int index2 = _researchMethodUtils.FindIndexForPoint(defAspect.Point2, allPoints);
+                int index3 = _researchMethodUtils.FindIndexForAspectType(defAspect.Aspect.Aspect, configSelectedAspects);
                 allCounts[index1, index2, index3] += 1;    
             }
         }
-        return CreateResponse(request, selectedCelPointSize, allCounts, allPoints, relevantAspects);
+        return CreateResponse(request, selectedCelPointSize, allCounts, allPoints, configSelectedAspects);
     }
 
-    private static int FindIndexForPoint(ChartPoints point, List<PositionedPoint> allPoints)
-    {
-        for (int i = 0; i < allPoints.Count; i++)
-        {
-            if (allPoints[i].Point == point) return i;
-        }
-        string errorText = "AspectsCounting.FindIndexForPoint(). Could not find index for ChartPoint : " + point;
-        Log.Error(errorText);
-        throw new EnigmaException(errorText);
-    }
 
-    private static int FindIndexForAspectType(AspectTypes aspectType, List<AspectConfigSpecs> allAspects)
-    {
-        for (int i = 0; i < allAspects.Count; i++)
-        {
-            if (allAspects[i].AspectType == aspectType) return i;
-        }
-        string errorText = "AspectsCounting.FindIndexForAspectType(). Could not find index for AspectType : " + aspectType;
-        Log.Error(errorText);
-        throw new EnigmaException(errorText);
-    }
 
     private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize, int[,,] allCounts, List<PositionedPoint> posPoints, List<AspectConfigSpecs> aspects)
     {
@@ -168,7 +118,5 @@ public sealed class AspectsCounting: IAspectsCounting
         }
         return new CountOfAspectsResponse(request, allCounts, totalsPerPointCombi, totalsPerAspect, chartPoints, aspectTypes);
     }
-
-
 
 }
