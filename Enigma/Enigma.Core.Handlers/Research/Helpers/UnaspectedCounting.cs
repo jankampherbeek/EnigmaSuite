@@ -20,14 +20,14 @@ namespace Enigma.Core.Handlers.Research.Helpers;
 public sealed class UnaspectedCounting: IUnaspectedCounting
 {
     private readonly IAspectsHandler _aspectsHandler;
-    private readonly IAspectPointSelector _aspectPointSelector;
     private readonly IPointsMapping _pointsMapping;
+    private readonly IResearchMethodUtils _researchMethodUtils;
 
-    public UnaspectedCounting(IAspectsHandler aspectsHandler, IAspectPointSelector aspectPointSelector, IPointsMapping pointsMapping)
+    public UnaspectedCounting(IAspectsHandler aspectsHandler, IPointsMapping pointsMapping, IResearchMethodUtils researchMethodUtils)
     {
         _aspectsHandler = aspectsHandler;
-        _aspectPointSelector = aspectPointSelector;
         _pointsMapping = pointsMapping;
+        _researchMethodUtils = researchMethodUtils;
 
     }
     public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
@@ -37,64 +37,24 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
 
     private CountOfUnaspectedResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
-        ResearchPointsSelection pointsSelection = request.PointsSelection;
         AstroConfig config = request.Config;
-        List<AspectConfigSpecs> allAspects = config.Aspects;
-        List<AspectConfigSpecs> relevantAspects = new();
-        foreach (AspectConfigSpecs acSpec in allAspects)
-        {
-            if (acSpec.IsUsed) relevantAspects.Add(acSpec);
-        }
-        List<ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
-        List<ChartPoints> relevantPoints = new();
-        foreach (ChartPointConfigSpecs cpConfigSpec in chartPointConfigSpecs)
-        {
-            if (cpConfigSpec.IsUsed) relevantPoints.Add(cpConfigSpec.Point);
-        }
 
-        int celPointSize = relevantPoints.Count;
-        int[,] allCounts = new int[celPointSize, charts.Count];
+        List<AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
+        List<ChartPoints> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
+        int configCelPointSize = configSelectedChartPoints.Count;
+        int[,] allCounts = new int[configCelPointSize, charts.Count];
 
-        // todo combine main part of this method with comparable methods in other classes (AspectsCounting)
+
+        
+
         int chartIndex = 0;
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            List<FullChartPointPos> chartPointPositions = calcResearchChart.CelPointPositions;
-            FullHousesPositions fullHousesPositions = calcResearchChart.FullHousePositions;
-            List<FullChartPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
-            List<FullChartPointPos> relevantChartPointPositions = new();
-
-            foreach (FullChartPointPos configPoint in configChartPointPositions)
-            {
-                foreach (ChartPoints selectPoint in relevantPoints)
-                {
-                    if (configPoint.ChartPoint == selectPoint)
-                    {
-                        relevantChartPointPositions.Add(configPoint);
-                    }
-                }
-            }
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.Mc))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.Mc);
-            };
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.Ascendant))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.Ascendant);
-            };
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.Vertex))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.Vertex);
-            };
-            if (request.PointsSelection.SelectedMundanePoints.Contains(ChartPoints.EastPoint))
-            {
-                relevantChartPointPositions.Add(calcResearchChart.FullHousePositions.EastPoint);
-            };
+            List<FullChartPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(config, calcResearchChart, configSelectedChartPoints, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();       // use empty list
-            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, config.BaseOrbAspects);
-
-
+            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.BaseOrbAspects);     
+            
             foreach (PositionedPoint posPoint in posPoints)
             {
                 ChartPoints point = posPoint.Point;
@@ -108,7 +68,7 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
                 }
                 if (aspectCount == 0) 
                 {
-                    for (int i = 0; i < celPointSize; i++)
+                    for (int i = 0; i < configCelPointSize; i++)
                     {
                         if (relevantChartPointPositions[i].ChartPoint == point)
                         {
@@ -120,9 +80,9 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
             chartIndex++;
         }
         List<SimpleCount> resultingCounts = new();
-        for (int i = 0; i < celPointSize; i++)
+        for (int i = 0; i < configCelPointSize; i++)
         {
-            ChartPoints point = chartPointConfigSpecs[i].Point;
+            ChartPoints point = config.ChartPoints[i].Point;
             int unaspectedCount = 0;
             for (int j = 0; j < charts.Count; j++)
             {
@@ -132,4 +92,7 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
         }
         return new CountOfUnaspectedResponse(request, resultingCounts);
     }
+
+
+
 }

@@ -33,6 +33,7 @@ public static class ResearchServices
         serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
         serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
+        serviceCollection.AddTransient<IResearchMethodUtils, ResearchMethodUtils>();
         serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
         serviceCollection.AddTransient<IUnaspectedCounting, UnaspectedCounting>();

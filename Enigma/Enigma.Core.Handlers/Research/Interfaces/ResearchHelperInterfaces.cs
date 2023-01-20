@@ -3,8 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
-using Enigma.Domain.RequestResponse.Research;
+using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
 
@@ -169,5 +170,28 @@ public interface IResearchPaths                       // todo combine with handl
     /// <param name="useControlGroup">True if result is based on a controlgroup, false if result is based on testcases.</param>
     /// <returns>String with full path for the summed totals, including the filename.</returns>
     public string SummedResultsPath(string projName, string methodName, bool useControlGroup);
+
+}
+
+/// <summary>Utilities for research methods.</summary>
+public interface IResearchMethodUtils
+{
+    /// <summary>Create list of aspects as defined in configuration.</summary>
+    /// <param name="config">The configuration to check.</param>
+    /// <returns>The aspects that are found.</returns>
+    public List<AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config);
+
+    /// <summary>Create list of chart points as defined in configuration.</summary>
+    /// <param name="config">The configuration to check.</param>
+    /// <returns>The chart points that5 are found.</returns>
+    public List<ChartPoints> DefineConfigSelectedChartPoints(AstroConfig config);
+
+    /// <summary>Create list of positioned points according to a given selection of chart points.</summary>
+    /// <param name="config">The current configuration.</param>
+    /// <param name="calcResearchChart">Calculated chart.</param>
+    /// <param name="selectedChartPoints">The selection of chart points.</param>
+    /// <param name="pointsSelection">Selection of all points, including mundane points.</param>
+    /// <returns>Positioned points that match wityh the selection.</returns>
+    public List<FullChartPointPos> DefineSelectedPointPositions(AstroConfig config, CalculatedResearchChart calcResearchChart, List<ChartPoints> selectedChartPoints, ResearchPointsSelection pointsSelection);
 
 }
