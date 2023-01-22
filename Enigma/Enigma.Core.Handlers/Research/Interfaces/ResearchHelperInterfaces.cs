@@ -53,6 +53,15 @@ public interface IUnaspectedCounting
     public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
 }
 
+/// <summary>Counting for occupied midpoints.</summary>
+public interface IOccupiedMidpointsCounting
+{
+    /// <summary>Perform a count for occupied midpoints.</summary>
+    /// <param name="charts">The calculated charts to check.</param>
+    /// <param name="request">The original request.</param>
+    /// <returns>The calculated counts.</returns>
+    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountMidpointsPerformRequest request);
+}
 
 public interface IControlGroupCreator
 {

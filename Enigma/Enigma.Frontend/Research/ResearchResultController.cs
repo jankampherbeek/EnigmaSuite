@@ -22,6 +22,7 @@ public class ResearchResultController
 
     private readonly IFileAccessApi _fileAccessApi;
     private readonly IResearchPathApi _researchPathApi;
+
     public string ProjectText { get; set; } = string.Empty;
     public string TestMethodText { get; set; } = string.Empty;
     public string ControlMethodText { get; set; } = string.Empty;
@@ -162,7 +163,7 @@ public class ResearchResultController
         resultData.AppendLine(headerLine.ToString());
         resultData.AppendLine(separatorLine);
         int[,,] allCounts = response.AllCounts;
-        StringBuilder detailLine = new();
+        StringBuilder detailLine;
         int nrOfCelPoints = 0;
         foreach (var item in response.PointsUsed)
         {
@@ -222,7 +223,7 @@ public class ResearchResultController
 
     public void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        HelpWindow helpWindow = new();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         helpWindow.SetHelpPage("ResearchResults");
         helpWindow.ShowDialog();

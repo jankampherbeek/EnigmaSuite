@@ -91,7 +91,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
             // TODO add branch for numeric calculations
             else
             {
-                throw new EnigmaException("Unrecognized calculationtype for chartpoint : " + celPoint);
+               // throw new EnigmaException("Unrecognized calculationtype for chartpoint : " + celPoint);
             }
         }
         bool success = true;

@@ -31,6 +31,7 @@ public static class ResearchServices
         serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();
         serviceCollection.AddTransient<IControlGroupRng, ControlGroupRng>();
         serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
+        serviceCollection.AddTransient<IOccupiedMidpointsCounting, OccupiedMidpointsCounting>();
         serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
         serviceCollection.AddTransient<IResearchMethodUtils, ResearchMethodUtils>();

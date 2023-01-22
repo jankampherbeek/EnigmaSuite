@@ -29,7 +29,7 @@ public class ProjectUsageController
     //private readonly PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
     //private readonly ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
     //private readonly AstroConfigWindow configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
-   // private readonly HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+   // private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ProjectUsageController(IResearchPerformApi researchPerformApi)
     {

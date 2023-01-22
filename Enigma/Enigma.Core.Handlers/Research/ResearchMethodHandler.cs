@@ -66,6 +66,32 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
 
     }
 
+
+    /// <inheritdoc/>
+    public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request)
+    {
+        ResearchMethods method = request.Method;
+        Log.Information("ResearchMethodHandler HandleTestForUnaspectedMethod, using method {m} for project {p}", method, request.ProjectName);
+        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
+        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
+        return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
+    }
+
+
+    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountMidpointsPerformRequest request)
+    {
+        ResearchMethods method = request.Method;
+        Log.Information("ResearchMethodHandler HandleTestForOccupiedMidpointMethod, using method {m} for project {p}", method, request.ProjectName);
+        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
+        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
+
+        // todo call OccupiedMidpointsCounting
+
+        return null;
+    }
+
+
+
     /// <inheritdoc/>
     public CountOfAspectsResponse HandleTestForAspectsMethod(GeneralResearchRequest request)
     {
@@ -96,15 +122,6 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     }
 
 
-    /// <inheritdoc/>
-    public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request)
-    {
-        ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForUnaspectedMethod, using method {m} for project {p}", method, request.ProjectName);
-        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
-        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-        return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
-    }
 
 }
 

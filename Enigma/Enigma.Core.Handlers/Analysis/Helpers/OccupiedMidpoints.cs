@@ -11,7 +11,7 @@ using Enigma.Domain.Points;
 namespace Enigma.Core.Handlers.Analysis.Helpers;
 
 
-public sealed class OccupiedMidpoints : IOccupiedMidpoints
+public sealed class OccupiedMidpoints : IOccupiedMidpoints      // todo 0.1 change name into OccupiedMidpointsFinder
 {
 
     private readonly IPointsForMidpoints _analysisPointsForMidpoints;

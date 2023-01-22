@@ -72,3 +72,7 @@ public record CountOfPartsResponse(GeneralResearchRequest Request, List<CountOfP
 /// <param name="Counts">All counted values.</param>
 public record CountOfUnaspectedResponse(GeneralResearchRequest Request, List<SimpleCount> Counts) : MethodResponse(Request);
 
+/// <summary>Response for counting occupied midpoints.</summary>
+/// <param name="Request">The original request.</param>
+/// <param name="Counts">List of record ThreePointCount, containing the points that form the midpoint, the point at the midpoint (Point3) and the number of occurrences.</param>
+public record CountOfOccupiedMidpointsResponse(CountMidpointsPerformRequest Request, List<ThreePointCount> Counts);
