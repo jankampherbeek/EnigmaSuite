@@ -15,7 +15,7 @@ namespace Enigma.Facades.Se;
 public class CoTransFacade : ICoTransFacade
 {
     /// <inheritdoc/>
-    /// <remarks>Throws SwissEphException if the CelPointSE returns an error.</remarks>
+    /// <remarks>Throws SwissEphException if the CommonSE returns an error.</remarks>
     public double[] EclipticToEquatorial(double[] eclipticCoordinates, double obliquity)
     {
         double negativeObliquity = -Math.Abs(obliquity);

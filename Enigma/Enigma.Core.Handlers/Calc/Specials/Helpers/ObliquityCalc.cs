@@ -14,8 +14,8 @@ public sealed class ObliquityCalc : IObliquityCalc
 {
     private readonly ICalcUtFacade _calcUtFacade;
 
-    /// <param name="calcUtFacade">Facade for the calculation of celestial points by the CelPointSE.</param>
-    /// <remarks>For the calculation by the CelPointSE, the obliquity is a special kind of celestial point, therefore the facade for cel points is used.</remarks>
+    /// <param name="calcUtFacade">Facade for the calculation of celestial points by the CommonSE.</param>
+    /// <remarks>For the calculation by the CommonSE, the obliquity is a special kind of celestial point, therefore the facade for cel points is used.</remarks>
     public ObliquityCalc(ICalcUtFacade calcUtFacade) => _calcUtFacade = calcUtFacade;
 
     /// <inheritdoc/>

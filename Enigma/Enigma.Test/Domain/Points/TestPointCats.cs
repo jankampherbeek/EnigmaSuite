@@ -14,13 +14,13 @@ public class TestPointCats
     [Test]
     public void TestRetrievingDetails()
     {
-        PointCats pointCat = PointCats.Modern;
+        PointCats pointCat = PointCats.Common;
         PointCatDetails details = pointCat.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Category, Is.EqualTo(pointCat));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.pointcats.modern"));
+            Assert.That(details.TextId, Is.EqualTo("ref.enum.pointcats.common"));
         });
     }
 
@@ -44,7 +44,7 @@ public class TestPointCats
     {
         int index = 4;
         PointCats cat = PointCats.None.PointCatForIndex(index);
-        Assert.That(cat, Is.EqualTo(PointCats.Hypothetical));
+        Assert.That(cat, Is.EqualTo(PointCats.Arabic));
     }
 
     [Test]
@@ -60,10 +60,10 @@ public class TestPointCats
         List<PointCatDetails> allDetails = PointCats.None.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(9));
+            Assert.That(allDetails, Has.Count.EqualTo(6));
 
-            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.pointcats.classic"));
-            Assert.That(allDetails[1].Category, Is.EqualTo(PointCats.Modern));
+            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.pointcats.common"));
+            Assert.That(allDetails[1].Category, Is.EqualTo(PointCats.Angle));
         });
     }
 

@@ -7,17 +7,17 @@ namespace Enigma.Domain.Calc;
 
 /// <summary>Different methods to calculate a celestial point.</summary>
 /// <remarks>
-/// CelPointSE: Calculation of celestial points via the Swiss Ephemeris.
-/// CelPointElements: Calculation of celestial points based on ecliptical elements.
-/// CelPointFormula: Calculation of celestial points based on a formula. 
+/// CommonSE: Calculation of celestial points via the Swiss Ephemeris.
+/// CommonElements: Calculation of celestial points based on ecliptical elements.
+/// CommonFormula: Calculation of celestial points based on a formula. 
 /// Mundane: Calculation of mundane points, either via the Swiss Ephemeris of based on a formula.
 /// Specific: Calculation of points that requiere a specific approach (Arabic points etc.).
 /// </remarks>
-public enum CalculationTypes
+public enum CalculationCats
 {
-    CelPointSE = 0,
-    CelPointElements = 1,
-    CelPointFormula = 2,
+    CommonSE = 0,
+    CommonElements = 1,
+    CommonFormula = 2,
     Mundane = 3,
     Specific = 4
 }

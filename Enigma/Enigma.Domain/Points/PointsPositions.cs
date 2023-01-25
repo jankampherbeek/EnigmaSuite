@@ -4,40 +4,15 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Calc.ChartItems.Coordinates;
-
 namespace Enigma.Domain.Points;
 
 
-/// <summary>General data for a fully defined Position</summary>
-/// <remarks>This record should be included in specific records, e.g. FullChartPointPos etc.</remarks>
-/// <param name="Longitude">Longitude in degrees.</param>
-/// <param name="Latitude">Latitude in degrees.</param>
-/// <param name="RightAscension">Right ascension in degrees.</param>
-/// <param name="Declination">Declination in degrees.</param>
-/// <param name="AzimuthAltitude">Azimuth and altitude in degrees.</param>
-public record FullPointPos(PosSpeed Longitude, PosSpeed Latitude, PosSpeed RightAscension, PosSpeed Declination, HorizontalCoordinates AzimuthAltitude);
+/// <summary>Full data for a specific point.</summary>
+/// <param name="Ecliptical">Longitude and latitude.</param>
+/// <param name="Equatorial">Right ascension and declination.</param>
+/// <param name="Horizontal">Azimuth and altitude.</param>
+public record FullPointPos(PointPosSpeeds Ecliptical, PointPosSpeeds Equatorial, PointPosSpeeds Horizontal);
 
-
-/// <summary>Results of calculation for a single chart point.</summary>
-public record FullChartPointPos
-{
-    public readonly ChartPoints ChartPoint;
-    public readonly string ChartPointName;
-    public readonly PosSpeed Distance;
-    public readonly FullPointPos PointPos;
-
-    /// <param name="chartPoint">Instance of the enum ChartPoints.</param>
-    /// <param name="distance">distance in AU.</param>
-    /// <param name="pointPos">Postion in all coordinates.</param>
-    public FullChartPointPos(ChartPoints chartPoint, PosSpeed distance, FullPointPos pointPos)
-    {
-        ChartPoint = chartPoint;
-        ChartPointName = ChartPoint.ToString();
-        Distance = distance;
-        PointPos = pointPos;
-    }
-}
 
 
 /// <summary>Combination of Position and Speed for a point.</summary>

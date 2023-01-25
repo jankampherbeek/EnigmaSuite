@@ -7,7 +7,6 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
@@ -18,13 +17,6 @@ namespace Enigma.Core.Handlers.Research.Helpers;
 
 /// <inheritdoc/>
 public class ResearchMethodUtils: IResearchMethodUtils {
-
-    private readonly IAspectPointSelector _aspectPointSelector;
-
-    public ResearchMethodUtils(IAspectPointSelector aspectPointSelector)
-    {
-        _aspectPointSelector = aspectPointSelector;
-    }
 
     /// <inheritdoc/>
     public List<AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
@@ -51,40 +43,24 @@ public class ResearchMethodUtils: IResearchMethodUtils {
     }
 
     /// <inheritdoc/>
-    public List<FullChartPointPos> DefineSelectedPointPositions(AstroConfig config, CalculatedResearchChart calcResearchChart, List<ChartPoints> selectedChartPoints, ResearchPointsSelection pointsSelection)
+    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointsSelection pointsSelection)
     {
-        List<FullChartPointPos> chartPointPositions = calcResearchChart.CelPointPositions;
-        FullHousesPositions fullHousesPositions = calcResearchChart.FullHousePositions;
-        List<FullChartPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, config.ChartPoints);
-        List<FullChartPointPos> selectedChartPointPositions = new();
-        foreach (FullChartPointPos configPoint in configChartPointPositions)
+        Dictionary<ChartPoints, FullPointPos> chartPointPositions = calcResearchChart.Positions.CommonPoints;
+        Dictionary<ChartPoints, FullPointPos> angles = calcResearchChart.Positions.Angles;
+        Dictionary<ChartPoints, FullPointPos> selectedChartPointPositions = new();
+        foreach (ChartPoints point in pointsSelection.SelectedPoints)
         {
-            foreach (ChartPoints selectPoint in selectedChartPoints)
-            {
-                if (configPoint.ChartPoint == selectPoint)
-                {
-                    selectedChartPointPositions.Add(configPoint);
-                }
-            }
+            selectedChartPointPositions.Add(point, chartPointPositions[point]);
         }
-        if (pointsSelection.SelectedMundanePoints.Contains(ChartPoints.Mc))
+        foreach (ChartPoints point in pointsSelection.SelectedMundanePoints)
         {
-            selectedChartPointPositions.Add(calcResearchChart.FullHousePositions.Mc);
-        };
-        if (pointsSelection.SelectedMundanePoints.Contains(ChartPoints.Ascendant))
-        {
-            selectedChartPointPositions.Add(calcResearchChart.FullHousePositions.Ascendant);
-        };
-        if (pointsSelection.SelectedMundanePoints.Contains(ChartPoints.Vertex))
-        {
-            selectedChartPointPositions.Add(calcResearchChart.FullHousePositions.Vertex);
-        };
-        if (pointsSelection.SelectedMundanePoints.Contains(ChartPoints.EastPoint))
-        {
-            selectedChartPointPositions.Add(calcResearchChart.FullHousePositions.EastPoint);
-        };
+            selectedChartPointPositions.Add(point, angles[point]);
+        }
         return selectedChartPointPositions;
     }
+
+
+
 
     /// <inheritdoc/>
     public int FindIndexForPoint(ChartPoints point, List<PositionedPoint> allPoints)

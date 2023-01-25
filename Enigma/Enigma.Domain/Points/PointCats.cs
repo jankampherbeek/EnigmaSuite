@@ -11,19 +11,16 @@ namespace Enigma.Domain.Points;
 /// <summary>Categories of points.</summary>
 /// <remarks>
 /// Categorization of any point that can be shown in a chart. 
-/// Classic: Sun, Moon and visible planets,.
-/// Modern: Uranus, Neptune, Pluto.
-/// Mathpoint: mathematical points like the lunar node. 
-/// Minor: Plutoids (except Pluto), planetoids, centaurs. 
-/// Hypothetical: hypothetical bodies and points.
-/// Mundane: specific mundane points like Mc, Ascendant and vertex.
+/// Common: planets and comprable points (lights, nodes, plutoids, asteroids, hypothetical planets etc.
+/// Angle: specific mundane points like Mc, Ascendant and Vertex.
 /// Cusp: housecusps.
 /// Zodiac: specific zodiac points like Zero Aries.
 /// Arabic: Arabic points.
+/// FixStar: stars and comparable objects, like nebulae.
 /// </remarks>
 public enum PointCats
 {
-    None = -1, Classic = 0, Modern = 1, MathPoint = 2, Minor = 3, Hypothetical = 4, Mundane = 5, Cusp = 6, Zodiac = 7, Arabic = 8
+    None = -1, Common = 0, Angle = 1, Cusp = 2, Zodiac = 3, Arabic = 4, FixStar = 5
 }
 
 
@@ -44,15 +41,12 @@ public static class PointCatsExtensions
     {
         return cat switch
         {
-            PointCats.Classic => new PointCatDetails(cat, "ref.enum.pointcats.classic"),
-            PointCats.Modern => new PointCatDetails(cat, "ref.enum.pointcats.modern"),
-            PointCats.MathPoint => new PointCatDetails(cat, "ref.enum.pointcats.math"),
-            PointCats.Minor => new PointCatDetails(cat, "ref.enum.pointcats.minor"),
-            PointCats.Hypothetical => new PointCatDetails(cat, "ref.enum.pointcats.hypothetical"),
-            PointCats.Mundane => new PointCatDetails(cat, "ref.enum.pointcats.mundane"),
+            PointCats.Common => new PointCatDetails(cat, "ref.enum.pointcats.common"),
+            PointCats.Angle => new PointCatDetails(cat, "ref.enum.pointcats.angle"),
             PointCats.Cusp => new PointCatDetails(cat, "ref.enum.pointcats.cusp"),
             PointCats.Zodiac => new PointCatDetails(cat, "ref.enum.pointcats.zodiac"),
             PointCats.Arabic => new PointCatDetails(cat, "ref.enum.pointcats.arabic"),
+            PointCats.FixStar => new PointCatDetails(cat, "ref.enum.pointcats.fixstar"),
             _ => throw new ArgumentException("PointCat unknown : " + cat.ToString())
         };
     }

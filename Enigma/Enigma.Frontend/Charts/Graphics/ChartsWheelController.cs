@@ -94,12 +94,12 @@ public sealed class ChartsWheelController
 
     public double GetAscendantLongitude()
     {
-        return _currentChart != null ? _currentChart.FullHousePositions.Ascendant.PointPos.Longitude.Position : 0.0;
+        return _currentChart != null ? _currentChart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position : 0.0;
     }
 
     public double GetMcLongitude()
     {
-        return _currentChart != null ? _currentChart.FullHousePositions.Mc.PointPos.Longitude.Position : 0.0;
+        return _currentChart != null ? _currentChart.Positions.Angles[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position : 0.0;
     }
 
 
@@ -109,25 +109,25 @@ public sealed class ChartsWheelController
         _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            foreach (var cusp in _currentChart.FullHousePositions.Cusps)
+            foreach (var cusp in _currentChart.Positions.Cusps)
             {
-                longitudes.Add(cusp.PointPos.Longitude.Position);
+                longitudes.Add(cusp.Value.Ecliptical.MainPosSpeed.Position);
             }
 
         }
         return longitudes;
     }
 
-    public List<FullChartPointPos> GetCelPointsCurrentChart()
+    public Dictionary<ChartPoints, FullPointPos> GetCelPointsCurrentChart()
     {
         _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _currentChart.ChartPointPositions;
+            return _currentChart.Positions.CommonPoints;
         }
         else
         {
-            return new List<FullChartPointPos>();
+            return new Dictionary<ChartPoints, FullPointPos>();
         }
     }
 

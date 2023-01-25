@@ -3,7 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
@@ -29,25 +31,24 @@ public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
     /// <inheritdoc/>
     public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart)
     {
-        if (harmonicPositions.Count != chart.ChartPointPositions.Count + 4)
+        if (harmonicPositions.Count != chart.Positions.CommonPoints.Count + 4)
         {
             Log.Error("ERROR in HarmonicDataGridFactory. Count for harmonicPositions = " + harmonicPositions.Count + " and count for celestial points = "
                 + harmonicPositions.Count + ". The harmonicPositions should have a count that is 4 larger than the count for celestial points");
-            throw new System.Exception("Error in Enigma. Please check the log file.");    // TODO use specific exception.
+            throw new EnigmaException("Error in Enigma. Please check the log file.");   
         }
         List<PresentableHarmonic> presentableHarmonics = new();
-        List<FullChartPointPos> celPoints = chart.ChartPointPositions;
+        Dictionary<ChartPoints, FullPointPos> celPoints = chart.Positions.CommonPoints;
         int counterCelPoints = 0;
-        for (int i = 0; i < celPoints.Count; i++)
+        foreach (KeyValuePair<ChartPoints, FullPointPos> celPoint in celPoints)
         {
-            counterCelPoints = i;
-            char glyph = _glyphsForChartPoints.FindGlyph(celPoints[i].ChartPoint);
-            double radixPos = celPoints[i].PointPos.Longitude.Position;
-            double harmonicPos = harmonicPositions[i];
+            char glyph = _glyphsForChartPoints.FindGlyph(celPoint.Key);
+            double radixPos = celPoint.Value.Ecliptical.MainPosSpeed.Position;
+            double harmonicPos = harmonicPositions[counterCelPoints++];
             presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
         }
-        presentableHarmonics.Add(CreatePresHarmonic('M', chart.FullHousePositions.Mc.PointPos.Longitude.Position, harmonicPositions[++counterCelPoints]));
-        presentableHarmonics.Add(CreatePresHarmonic('A', chart.FullHousePositions.Ascendant.PointPos.Longitude.Position, harmonicPositions[counterCelPoints]));
+        presentableHarmonics.Add(CreatePresHarmonic('M', chart.Positions.Angles[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position, harmonicPositions[++counterCelPoints]));
+        presentableHarmonics.Add(CreatePresHarmonic('A', chart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position, harmonicPositions[counterCelPoints]));
         return presentableHarmonics;
     }
 

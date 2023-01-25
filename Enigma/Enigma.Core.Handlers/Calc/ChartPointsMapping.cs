@@ -20,20 +20,20 @@ public sealed class ChartPointsMapping : IChartPointsMapping
 
 
     /// <inheritdoc/>
-    public CalculationTypes CalculationTypeForPoint(ChartPoints point)
+    public CalculationCats CalculationTypeForPoint(ChartPoints point)
     {
         int pointId = (int)point;
         if (pointId < 1000)                         // celestial points
         {
-            if (_elementsCandidates.Contains(point)) return CalculationTypes.CelPointElements;
-            else if (_formulaCandidates.Contains(point)) return CalculationTypes.CelPointFormula;
-            else return CalculationTypes.CelPointSE;
+            if (_elementsCandidates.Contains(point)) return CalculationCats.CommonElements;
+            else if (_formulaCandidates.Contains(point)) return CalculationCats.CommonFormula;
+            else return CalculationCats.CommonSE;
         }
         else if (pointId < 3000)                    // mundane points or cusps
         {
-            return CalculationTypes.Mundane;
+            return CalculationCats.Mundane;
         }
-        else return CalculationTypes.Specific;      // specific points
+        else return CalculationCats.Specific;      // specific points
     }
 
     /// <inheritdoc/>

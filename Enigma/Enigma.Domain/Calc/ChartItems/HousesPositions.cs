@@ -11,11 +11,8 @@ namespace Enigma.Domain.Calc.ChartItems;
 /// <summary>
 /// Full results of calculation for houses, including Cusps, asc. Mc, Vertex, Eastpoint. Supports ecliptic, equatorial and horizontal coordinates.
 /// </summary>
-/// <param name="Cusps">List with full positions for Cusps, in the sequence 1 ..n. </param>
-/// <param name="Mc"/>
-/// <param name="Ascendant"/>
-/// <param name="Vertex"/>
-/// <param name="EastPoint"/>
-public record FullHousesPositions(List<FullChartPointPos> Cusps, FullChartPointPos Mc, FullChartPointPos Ascendant, FullChartPointPos Vertex, FullChartPointPos EastPoint);
+/// <param name="Angles">Positions for mundane angles. </param>
+/// <param name="Cusps">Positions for cusps.</param>
+public record FullHousesPositions(Dictionary<ChartPoints, FullPointPos> Angles, Dictionary<ChartPoints, FullPointPos> Cusps);
 
 

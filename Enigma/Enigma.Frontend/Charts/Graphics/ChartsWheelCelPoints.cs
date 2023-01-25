@@ -34,11 +34,11 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
 
 
 
-    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant)
+    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> glyphs = new();
 
-        List<GraphicCelPointPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(commonPoints, longAscendant, metrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         double fontSize = metrics.CelPointGlyphSize;
         foreach (var graphPoint in graphicSolCelPointsPositions)
@@ -59,7 +59,7 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
         return glyphs;
     }
 
-    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant)
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<Line> connectLines = new();
         List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
@@ -75,7 +75,7 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
         return connectLines;
     }
 
-    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant)
+    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> texts = new();
         List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);

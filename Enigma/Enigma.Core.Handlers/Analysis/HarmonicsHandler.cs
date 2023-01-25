@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 
@@ -24,14 +23,15 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber)
     {
         List<double> originalPositions = new();
-        foreach (var celPoint in chart.ChartPointPositions)
+        
+        
+        foreach (KeyValuePair<ChartPoints, FullPointPos> celPoint in chart.Positions.CommonPoints)
         {
-            originalPositions.Add(celPoint.PointPos.Longitude.Position);
+            originalPositions.Add(celPoint.Value.Ecliptical.MainPosSpeed.Position);
         }
-        List<FullChartPointPos> housePositions = new() { chart.FullHousePositions.Mc, chart.FullHousePositions.Ascendant, chart.FullHousePositions.Vertex, chart.FullHousePositions.EastPoint };
-        foreach (var housePosition in housePositions)
+        foreach (KeyValuePair<ChartPoints, FullPointPos> housePosition in chart.Positions.Angles)
         {
-            originalPositions.Add(housePosition.PointPos.Longitude.Position);
+            originalPositions.Add(housePosition.Value.Ecliptical.MainPosSpeed.Position);
         }
         return _calculator.CalculateHarmonics(originalPositions, harmonicNumber);
     }

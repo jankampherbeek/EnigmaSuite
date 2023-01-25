@@ -11,7 +11,7 @@ using System.Text;
 namespace Enigma.Facades.Se;
 
 /// <inheritdoc/>
-/// <remarks>Throws a SwissEphException if the CelPointSE returns an error.</remarks>
+/// <remarks>Throws a SwissEphException if the CommonSE returns an error.</remarks>
 public sealed class CalcUtFacade : ICalcUtFacade
 {
     /// <inheritdoc/>

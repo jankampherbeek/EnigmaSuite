@@ -26,8 +26,8 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointLongitude()
     {
-        FullChartPointPos fullCelPointPos = CreateFullCelPointPos();
-        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCelPointPos, CoordinateSystems.Ecliptical, true);
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new (ChartPoints.Jupiter, CreateFullPointPos());
+        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Ecliptical, true);
         Assert.Multiple(() =>
         {
             Assert.That(posPoint.Position, Is.EqualTo(_longitude).Within(_delta));
@@ -38,8 +38,8 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointLatitude()
     {
-        FullChartPointPos fullCelPointPos = CreateFullCelPointPos();
-        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCelPointPos, CoordinateSystems.Ecliptical, false);
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new(ChartPoints.Jupiter, CreateFullPointPos());
+        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Ecliptical, false);
         Assert.Multiple(() =>
         {
             Assert.That(posPoint.Position, Is.EqualTo(_latitude).Within(_delta));
@@ -50,8 +50,8 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointRightAscension()
     {
-        FullChartPointPos fullCelPointPos = CreateFullCelPointPos();
-        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCelPointPos, CoordinateSystems.Equatorial, true);
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new(ChartPoints.Jupiter, CreateFullPointPos());
+        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Equatorial, true);
         Assert.Multiple(() =>
         {
             Assert.That(posPoint.Position, Is.EqualTo(_rightAscension).Within(_delta));
@@ -62,8 +62,8 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointDeclination()
     {
-        FullChartPointPos fullCelPointPos = CreateFullCelPointPos();
-        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCelPointPos, CoordinateSystems.Equatorial, false);
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new(ChartPoints.Jupiter, CreateFullPointPos());
+        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Equatorial, false);
         Assert.Multiple(() =>
         {
             Assert.That(posPoint.Position, Is.EqualTo(_declination).Within(_delta));
@@ -74,8 +74,8 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointAzimuth()
     {
-        FullChartPointPos fullCelPointPos = CreateFullCelPointPos();
-        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCelPointPos, CoordinateSystems.Horizontal, true);
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new(ChartPoints.Jupiter, CreateFullPointPos());
+        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Horizontal, true);
         Assert.Multiple(() =>
         {
             Assert.That(posPoint.Position, Is.EqualTo(_azimuth).Within(_delta));
@@ -86,8 +86,8 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointAltitude()
     {
-        FullChartPointPos fullCelPointPos = CreateFullCelPointPos();
-        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCelPointPos, CoordinateSystems.Horizontal, false);
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new(ChartPoints.Jupiter, CreateFullPointPos());
+        PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Horizontal, false);
         Assert.Multiple(() =>
         {
             Assert.That(posPoint.Position, Is.EqualTo(_altitude).Within(_delta));
@@ -98,12 +98,11 @@ public class TestPointsMapping
     [Test]
     public void TestMultiplePoints()
     {
-        List<FullChartPointPos> fcpPositions = new()
-        {
-            CreateFullCelPointPos(),
-            CreateFullCelPointPos()
-        };
-        List<PositionedPoint> posPoints = _mapping.MapFullPointPos2PositionedPoint(fcpPositions, CoordinateSystems.Equatorial, true);
+        Dictionary<ChartPoints, FullPointPos> positions = new();
+        positions.Add(ChartPoints.Mars, CreateFullPointPos());
+        positions.Add(ChartPoints.Jupiter, CreateFullPointPos());
+        
+        List<PositionedPoint> posPoints = _mapping.MapFullPointPos2PositionedPoint(positions, CoordinateSystems.Equatorial, true);
         Assert.Multiple(() =>
         {
             Assert.That(posPoints, Has.Count.EqualTo(2));
@@ -113,17 +112,18 @@ public class TestPointsMapping
     }
 
 
-    private FullChartPointPos CreateFullCelPointPos()
+    private FullPointPos CreateFullPointPos()
     {
-
-        ChartPoints celPoint = ChartPoints.Jupiter;
         PosSpeed psDistance = new(1.0, 1.5);
         PosSpeed psLongitude = new (_longitude, 2.5);
         PosSpeed psLatitude = new (_latitude, 3.5);
         PosSpeed psRightAscension = new(_rightAscension, 4.5);
         PosSpeed psDeclination = new(_declination, 5.5);
-        HorizontalCoordinates hcAzimuthAltitude = new(_azimuth, _altitude);
-        FullPointPos fullPointPos = new(psLongitude, psLatitude, psRightAscension, psDeclination, hcAzimuthAltitude); 
-        return new FullChartPointPos(celPoint, psDistance, fullPointPos);
+        PosSpeed psAzimuth = new(_azimuth, 0.0);
+        PosSpeed psAltitude = new(_altitude, 0.0);
+        PointPosSpeeds ppsEcliptical = new(psLongitude, psLatitude, psDistance);
+        PointPosSpeeds ppsEquatorial = new(psRightAscension, psDeclination, psDistance);
+        PointPosSpeeds ppsHorizontal = new(psAzimuth, psAltitude, psDistance);
+        return new FullPointPos(ppsEcliptical, ppsEquatorial, ppsHorizontal);
     }
 }

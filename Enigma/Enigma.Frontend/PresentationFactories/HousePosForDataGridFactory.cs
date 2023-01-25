@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -22,34 +22,34 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
         _doubleToDmsConversions = doubleToDmsConversions;
     }
 
-    public List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fullHousesPositions)
+    public List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fhPositions)
     {
         List<PresentableHousePositions> positions = new()
         {
-            CreateSingleCuspPos("MC", fullHousesPositions.Mc),
-            CreateSingleCuspPos("Asc", fullHousesPositions.Ascendant)
+            CreateSingleCuspPos("MC", fhPositions.Angles[ChartPoints.Mc]),
+            CreateSingleCuspPos("Asc", fhPositions.Angles[ChartPoints.Ascendant])
         };
         int index = 1;
-        foreach (var cusp in fullHousesPositions.Cusps)
+        foreach (var cusp in fhPositions.Cusps)
         {
-            positions.Add(CreateSingleCuspPos(index++.ToString(), cusp));
+            positions.Add(CreateSingleCuspPos(index++.ToString(), cusp.Value));
         }
-        positions.Add(CreateSingleCuspPos("Vertex", fullHousesPositions.Vertex));
-        positions.Add(CreateSingleCuspPos("East point", fullHousesPositions.EastPoint));
+        positions.Add(CreateSingleCuspPos("Vertex",   fhPositions.Angles[ChartPoints.Vertex]));
+        positions.Add(CreateSingleCuspPos("East point", fhPositions.Angles[ChartPoints.EastPoint]));
         return positions;
     }
 
 
-    private PresentableHousePositions CreateSingleCuspPos(string identification, FullChartPointPos cuspFullPos)
+    private PresentableHousePositions CreateSingleCuspPos(string identification, FullPointPos cuspFullPos)
     {
         PresentableHousePositions positions = new(
             identification,
-            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.PointPos.Longitude.Position).longTxt,
-            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.PointPos.Longitude.Position).glyph,
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.RightAscension.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.Declination.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.AzimuthAltitude.Azimuth),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.PointPos.AzimuthAltitude.Altitude));
+            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Ecliptical.MainPosSpeed.Position).longTxt,
+            _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(cuspFullPos.Ecliptical.MainPosSpeed.Position).glyph,
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.Equatorial.MainPosSpeed.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.Equatorial.DeviationPosSpeed.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.Horizontal.MainPosSpeed.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(cuspFullPos.Horizontal.DeviationPosSpeed.Position));
         return positions;
     }
 

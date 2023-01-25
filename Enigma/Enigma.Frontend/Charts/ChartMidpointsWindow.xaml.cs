@@ -46,14 +46,14 @@ public partial class ChartMidpointsWindow : Window
         dgAllMidpoints.Columns[1].Header = _emptyHeader;
         dgAllMidpoints.Columns[2].Header = _emptyHeader;
         dgAllMidpoints.Columns[3].Header = Rosetta.TextForId("charts.midpoints.header.position");
-        dgAllMidpoints.Columns[4].Header = _emptyHeader;
+     //   dgAllMidpoints.Columns[4].Header = _emptyHeader;
         dgAllMidpoints.Columns[0].MaxWidth = 20;
         dgAllMidpoints.Columns[1].MaxWidth = 12;
         dgAllMidpoints.Columns[2].MaxWidth = 20;
-        dgAllMidpoints.Columns[4].MaxWidth = 20;
+   //     dgAllMidpoints.Columns[4].MaxWidth = 20;
         dgAllMidpoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgAllMidpoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgAllMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
+   //     dgAllMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
         dgAllMidpoints.HorizontalAlignment = HorizontalAlignment.Right;
 
         dgOccupiedMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(dialSize).Item2;

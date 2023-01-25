@@ -112,18 +112,16 @@ public sealed class ChartDataInputController
             string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude!.GeoLongFullText + " " + fullGeoLatitude!.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             CelPointsRequest celPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
-            ChartAllPositionsResponse chartAllPositionsResponse = _chartAllPositionsApi.GetChart(celPointsRequest);
-            List<FullChartPointPos> celPointPositions = chartAllPositionsResponse.CelPointPositions;
-            FullHousesPositions _mundanePositions = chartAllPositionsResponse.MundanePositions!;
+            CalculatedChartPositions calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
+
             FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
-
-
             MetaData metaData = CreateMetaData(NameId, Description, Source, ChartCategory, RoddenRating);
             // Todo retrieve id from database, use local counter for tempId
             int id = 1000;
             int tempId = 1;
             ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
-            CalculatedChart chart = new(celPointPositions, _mundanePositions, chartData);
+
+            CalculatedChart chart = new(calculatedChartPositions, chartData);
             _dataVault.AddNewChart(chart);
             _dataVault.SetNewChartAdded(true);
             return true;

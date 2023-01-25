@@ -10,7 +10,6 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
@@ -48,7 +47,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     }
 
 
-    public CelPointsResponse CalcCelPoints(CelPointsRequest request)
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(CelPointsRequest request)
     {
         double julDay = request.JulianDayUt;
         double previousJd = julDay - 0.5;
@@ -62,17 +61,18 @@ public sealed class CelPointsHandler : ICelPointsHandler
             int idAyanamsa = request.CalculationPreferences.ActualAyanamsha.GetDetails().SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
         }
-        int _flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
-        int _flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
-        var _fullCelPoints = new List<FullChartPointPos>();
+        int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
+        int flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
+        var commonPoints = new Dictionary<ChartPoints, FullPointPos>();
         foreach (ChartPoints celPoint in request.CalculationPreferences.ActualChartPoints)
         {
-            CalculationTypes calculationType = _chartPointsMapping.CalculationTypeForPoint(celPoint);
-            if (calculationType == CalculationTypes.CelPointSE)
+            CalculationCats calculationCat = _chartPointsMapping.CalculationTypeForPoint(celPoint);
+            if (calculationCat == CalculationCats.CommonSE)
             {
-                _fullCelPoints.Add(CreatePosForSePoint(celPoint, julDay, location, _flagsEcliptical, _flagsEquatorial));
+                KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForSePoint(celPoint, julDay, location, flagsEcliptical, flagsEquatorial);
+                commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
             }
-            else if (calculationType == CalculationTypes.CelPointElements)
+            else if (calculationCat == CalculationCats.CommonElements)
             {
                 double[][] positions = CreatePosForElementBasedPoint(celPoint, julDay, obliquity);
                 double[][] previousPositions = CreatePosForElementBasedPoint(celPoint, previousJd, obliquity);
@@ -85,8 +85,13 @@ public sealed class CelPointsHandler : ICelPointsHandler
                 EclipticCoordinates eclCoordinates = new(positions[0][0], positions[0][1]);
                 HorizontalRequest horizontalRequest = new(julDay, request.Location, eclCoordinates);
                 HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
-                FullPointPos fullPointPos = new(longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, horCoord);
-                _fullCelPoints.Add(new FullChartPointPos(celPoint, distPosSpeed, fullPointPos));
+                PosSpeed aziPosSpeed = new(horCoord.Azimuth, 0.0);
+                PosSpeed altPosSpeed = new(horCoord.Altitude, 0.0);
+                PointPosSpeeds ppsEcliptical = new(longPosSpeed, latPosSpeed, distPosSpeed);
+                PointPosSpeeds ppsEquatorial = new(raPosSpeed, declPosSpeed, distPosSpeed);
+                PointPosSpeeds ppsHorizontal = new(aziPosSpeed, altPosSpeed, distPosSpeed);
+                FullPointPos fullPointPos = new(ppsEcliptical, ppsEquatorial, ppsHorizontal);
+                commonPoints.Add(celPoint, fullPointPos);
             } 
             // TODO add branch for numeric calculations
             else
@@ -94,13 +99,12 @@ public sealed class CelPointsHandler : ICelPointsHandler
                // throw new EnigmaException("Unrecognized calculationtype for chartpoint : " + celPoint);
             }
         }
-        bool success = true;
-        string errorText = "";
-        return new CelPointsResponse(_fullCelPoints, success, errorText);
+
+        return commonPoints;
     }
 
 
-    private FullChartPointPos CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
+    private KeyValuePair<ChartPoints,  FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
         PosSpeed longPosSpeed = eclipticPosSpeed[0];
@@ -112,8 +116,16 @@ public sealed class CelPointsHandler : ICelPointsHandler
         var eclCoordinates = new EclipticCoordinates(eclipticPosSpeed[0].Position, eclipticPosSpeed[1].Position);
         HorizontalRequest horizontalRequest = new(julDay, location, eclCoordinates);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
-        FullPointPos fullPointPos = new(longPosSpeed, latPosSpeed, raPosSpeed, declPosSpeed, horCoord);
-        return new FullChartPointPos(celPoint, distPosSpeed, fullPointPos);
+
+        PosSpeed aziPosSpeed = new(horCoord.Azimuth, 0.0);
+        PosSpeed altPosSpeed = new(horCoord.Altitude, 0.0);
+        PointPosSpeeds ppsEcliptical = new(longPosSpeed, latPosSpeed, distPosSpeed);
+        PointPosSpeeds ppsEquatorial = new(raPosSpeed, declPosSpeed, distPosSpeed);
+        PointPosSpeeds ppsHorizontal = new(aziPosSpeed, altPosSpeed, distPosSpeed);
+        FullPointPos fullPointPos = new(ppsEcliptical, ppsEquatorial, ppsHorizontal);
+
+        return new KeyValuePair<ChartPoints, FullPointPos>(celPoint, fullPointPos);
+
     }
 
 

@@ -6,8 +6,10 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Ui.Interfaces;
@@ -82,12 +84,12 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     private List<DrawableAspectCoordinatesCp> CreateSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesCp> drawableAspectCoordinatesSs = new();
-        double longAsc = currentChart.FullHousePositions.Ascendant.PointPos.Longitude.Position;
+        double longAsc = currentChart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
         DimPoint dimPoint = new(centerPoint);
-        foreach (var ssPointPos in currentChart.ChartPointPositions)
+        foreach (var ssPointPos in currentChart.Positions.CommonPoints)
         {
-            double longitude = ssPointPos.PointPos.Longitude.Position;
-            ChartPoints ssPos = ssPointPos.ChartPoint;
+            double longitude = ssPointPos.Value.Ecliptical.MainPosSpeed.Position;
+            ChartPoints ssPos = ssPointPos.Key;
             double posOnCircle = longitude - longAsc + 90.0;
             if (posOnCircle < 0.0) posOnCircle += 360.0;
             if (posOnCircle >= 360.0) posOnCircle -= 360.0;
@@ -102,14 +104,14 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     private List<DrawableAspectCoordinatesMu> CreateMuCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesMu> drawableAspectCoordinatesMu = new();
-        double longAsc = currentChart.FullHousePositions.Ascendant.PointPos.Longitude.Position;
+        double longAsc = currentChart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
         DimPoint dimPoint = new(centerPoint);
         // Asc
         double posOnCircle = 90.0;
         Point ascPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
         drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("Asc", ascPoint.X, ascPoint.Y));
         // MC
-        double longitudeMc = currentChart.FullHousePositions.Mc.PointPos.Longitude.Position;  
+        double longitudeMc = currentChart.Positions.Angles[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position;  
         posOnCircle = longitudeMc - longAsc + 90.0;
         if (posOnCircle < 0.0) posOnCircle += 360.0;
         if (posOnCircle >= 360.0) posOnCircle -= 360.0;

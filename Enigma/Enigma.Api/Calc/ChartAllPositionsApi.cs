@@ -21,7 +21,7 @@ public sealed class ChartAllPositionsApi : IChartAllPositionsApi
 
 
     /// <inheritdoc/>
-    public ChartAllPositionsResponse GetChart(CelPointsRequest request)
+    public CalculatedChartPositions GetChart(CelPointsRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.Location);

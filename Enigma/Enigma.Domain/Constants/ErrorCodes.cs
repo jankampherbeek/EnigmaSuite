@@ -5,7 +5,7 @@
 
 namespace Enigma.Domain.Constants;
 
-/// <summary>CelPointFormula errcodes.</summary>
+/// <summary>CommonFormula errcodes.</summary>
 public static class ErrorCodes
 {
     /// <summary>Indication that no error occurred.</summary>

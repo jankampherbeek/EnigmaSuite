@@ -21,7 +21,7 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
         _celPointFactory = celPointFactory;
     }
 
-    public List<GraphicCelPointPositions> CreateSortedList(List<FullChartPointPos> celPointPositions, double longitudeAsc, double minDistance)
+    public List<GraphicCelPointPositions> CreateSortedList(Dictionary<ChartPoints, FullPointPos> celPointPositions, double longitudeAsc, double minDistance)
     {
         List<GraphicCelPointPositions> graphPositions = CreateGraphicPositions(celPointPositions, longitudeAsc);
         graphPositions.Sort(delegate (GraphicCelPointPositions pos1, GraphicCelPointPositions pos2)
@@ -47,15 +47,15 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
     }
 
 
-    private List<GraphicCelPointPositions> CreateGraphicPositions(List<FullChartPointPos> fullPositions, double longitudeAsc)
+    private List<GraphicCelPointPositions> CreateGraphicPositions(Dictionary<ChartPoints, FullPointPos> fullPositions, double longitudeAsc)
     {
         List<GraphicCelPointPositions> graphPositions = new();
-        List<PresentableCelPointPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
+        List<PresentableCommonPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
         int count = 0;
-        foreach (FullChartPointPos celPointPos in fullPositions)
+        foreach (KeyValuePair<ChartPoints, FullPointPos> celPointPos in fullPositions)
         {
-            double longitude = celPointPos.PointPos.Longitude.Position;
-            ChartPoints celPoint = celPointPos.ChartPoint;
+            double longitude = celPointPos.Value.Ecliptical.MainPosSpeed.Position;
+            ChartPoints celPoint = celPointPos.Key;
             double mundanePos = longitude - longitudeAsc + 90.0;
             if (mundanePos < 0.0) mundanePos += 360.0;
             if (mundanePos >= 360.0) mundanePos -= 360.0;

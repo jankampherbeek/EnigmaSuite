@@ -10,13 +10,13 @@ using System.Runtime.InteropServices;
 namespace Enigma.Facades.Se;
 
 /// <summary>
-/// Initializer for the Swiss Ephemeris. Check the comments for the methods as they are partly required to run before using the CelPointSE.
+/// Initializer for the Swiss Ephemeris. Check the comments for the methods as they are partly required to run before using the CommonSE.
 /// </summary>
 public static class SeInitializer
 {
     /// <summary>Set location for Swiss Ephemeris files.</summary>
     /// <param name="path">Location, relative to the program.</param>
-    /// <remarks>This method must run before the CelPointSE can be used.</remarks>
+    /// <remarks>This method must run before the CommonSE can be used.</remarks>
     public static void SetEphePath(String path)
     {
         if (path != null)
@@ -48,9 +48,9 @@ public static class SeInitializer
 
 
     /// <summary>Define Ayanamsha for calculation of sidereal positions.</summary>
-    /// <param name="idAyanamsha">The id for the Ayanamsha as used by the CelPointSE.</param>
+    /// <param name="idAyanamsha">The id for the Ayanamsha as used by the CommonSE.</param>
     /// <remarks>Run this method if sidereal calculations will be used. If this method has not run during the current session, Fagan/Bradley is used as default ayanamsha.
-    /// The method from the CelPointSE dll is called using parameters t0 and t1 with the value 0, these will be ignored for all prdefined ayanamsha's.</remarks>
+    /// The method from the CommonSE dll is called using parameters t0 and t1 with the value 0, these will be ignored for all prdefined ayanamsha's.</remarks>
     public static void SetAyanamsha(int idAyanamsha)
     {
         if (idAyanamsha >= -1 && idAyanamsha <= 39)

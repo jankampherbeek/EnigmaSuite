@@ -62,7 +62,7 @@ public sealed class PointSelectController
         foreach (ChartPointConfigSpecs currentCPSpec in _astroConfig.ChartPoints)
         {
             PointCats cat = currentCPSpec.Point.GetDetails().PointCat;
-            if (currentCPSpec.IsUsed && cat != PointCats.Mundane && cat != PointCats.Cusp)
+            if (currentCPSpec.IsUsed && cat != PointCats.Angle && cat != PointCats.Cusp)
             {
                 PointDetails cpDetails = currentCPSpec.Point.GetDetails();
                 char glyph = currentCPSpec.Glyph;
@@ -77,7 +77,7 @@ public sealed class PointSelectController
         _selMPDetails = new();
         foreach (ChartPointConfigSpecs currentSpec in _astroConfig.ChartPoints)
         {
-            if (currentSpec.IsUsed && currentSpec.Point.GetDetails().PointCat == PointCats.Mundane)
+            if (currentSpec.IsUsed && currentSpec.Point.GetDetails().PointCat == PointCats.Angle)
             {
                 PointDetails mpDetails = currentSpec.Point.GetDetails();
                 _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.Point, Name = Rosetta.TextForId(mpDetails.TextId) });

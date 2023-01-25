@@ -22,8 +22,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointCelestialSe()
     {
         ChartPoints point = ChartPoints.Jupiter;
-        CalculationTypes expectedType = CalculationTypes.CelPointSE;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.CommonSE;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 
@@ -31,8 +31,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointCelestialElements()
     {
         ChartPoints point = ChartPoints.PersephoneRam;
-        CalculationTypes expectedType = CalculationTypes.CelPointElements;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.CommonElements;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 
@@ -40,8 +40,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointCelestialFormula()
     {
         ChartPoints point = ChartPoints.PersephoneCarteret;
-        CalculationTypes expectedType = CalculationTypes.CelPointFormula;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.CommonFormula;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 
@@ -49,8 +49,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointMundane()
     {
         ChartPoints point = ChartPoints.Ascendant;
-        CalculationTypes expectedType = CalculationTypes.Mundane;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.Mundane;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 
@@ -58,8 +58,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointCusp()
     {
         ChartPoints point = ChartPoints.Cusp17;
-        CalculationTypes expectedType = CalculationTypes.Mundane;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.Mundane;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 
@@ -67,8 +67,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointZodiac()
     {
         ChartPoints point = ChartPoints.ZeroAries;
-        CalculationTypes expectedType = CalculationTypes.Specific;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.Specific;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 
@@ -76,8 +76,8 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointArabic()
     {
         ChartPoints point = ChartPoints.FortunaNoSect;
-        CalculationTypes expectedType = CalculationTypes.Specific;
-        CalculationTypes actualType = _mapping.CalculationTypeForPoint(point);
+        CalculationCats expectedType = CalculationCats.Specific;
+        CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
 

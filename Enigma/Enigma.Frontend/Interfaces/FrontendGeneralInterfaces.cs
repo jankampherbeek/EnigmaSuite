@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -52,7 +52,7 @@ public interface IMidpointForDataGridFactory
 
 public interface ICelPointForDataGridFactory
 {
-    List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullChartPointPos> celPointPositions);
+    public List<PresentableCommonPositions> CreateCelPointPosForDataGrid(Dictionary<ChartPoints, FullPointPos> commonPositions);
 }
 
 
@@ -76,13 +76,13 @@ public interface IHarmonicForDataGridFactory
 
 public interface IHousePosForDataGridFactory
 {
-    List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fullHousesPositions);
+    public List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fullHousePositions);
 }
 
 
 public interface ISortedGraphicCelPointsFactory
 {
-    public List<GraphicCelPointPositions> CreateSortedList(List<FullChartPointPos> celPointPositions, double longitudeAsc, double minDistance);
+    public List<GraphicCelPointPositions> CreateSortedList(Dictionary<ChartPoints, FullPointPos> celPointPositions, double longitudeAsc, double minDistance);
 }
 
 

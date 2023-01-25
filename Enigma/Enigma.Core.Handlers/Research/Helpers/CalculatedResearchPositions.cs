@@ -50,10 +50,8 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             Location location = new("", inputItem.GeoLongitude, inputItem.GeoLatitude);
             double jdUt = CalcJdUt(inputItem);
             CelPointsRequest cpRequest = new(jdUt, location, calcPref);
-            ChartAllPositionsResponse response = _chartAllPositionsHandler.CalcFullChart(cpRequest);
-            // TODO check for null for MundanePositions.
-
-            calculatedCharts.Add(new CalculatedResearchChart(response.CelPointPositions, response.MundanePositions!, inputItem));
+            CalculatedChartPositions chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest);
+            calculatedCharts.Add(new CalculatedResearchChart(chartPositions, inputItem));
         }
         Log.Information("CalculatedResearchPositions: Calculation completed.");
         return calculatedCharts;
@@ -82,7 +80,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             if (cpSpec.IsUsed)
             {
                 PointCats pointCat = cpSpec.Point.GetDetails().PointCat;
-                if (pointCat == PointCats.Classic || pointCat == PointCats.Modern || pointCat == PointCats.MathPoint || pointCat == PointCats.Hypothetical || pointCat == PointCats.Minor)
+                if (pointCat == PointCats.Common)
                 {
                     celPoints.Add(cpSpec.Point);
                 }

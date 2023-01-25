@@ -46,11 +46,10 @@ public record ResearchCuspPoint(int Id, string Name) : ResearchPoint(Id, Name);
 public record ResearchPointsSelection(List<ChartPoints> SelectedPoints, List<ChartPoints> SelectedMundanePoints, bool IncludeCusps);
 
 
-/// <summary>Inputdata for a chart in a research project.</summary>
-/// <param name="CelPointPositions">All relevant positions for celstial points.</param>
-/// <param name="FullHousePositions">All relevant mundane positions including cusps.</param>
-/// <param name="InputItem"></param>
-public record CalculatedResearchChart(List<FullChartPointPos> CelPointPositions, FullHousesPositions FullHousePositions, StandardInputItem InputItem);
+/// <summary>Positions and inputdata for a chart in a research project.</summary>
+/// <param name="Positions">All relevant positions for celestial points.</param>
+/// <param name="InputItem">Inputted data.</param>
+public record CalculatedResearchChart(CalculatedChartPositions Positions, StandardInputItem InputItem);
 
 
 /// <summary>Instance of ResearchPoint with position.</summary>

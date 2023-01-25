@@ -44,13 +44,10 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
         int configCelPointSize = configSelectedChartPoints.Count;
         int[,] allCounts = new int[configCelPointSize, charts.Count];
 
-
-        
-
         int chartIndex = 0;
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            List<FullChartPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(config, calcResearchChart, configSelectedChartPoints, request.PointsSelection);
+            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();       // use empty list
             List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.BaseOrbAspects);     
@@ -68,12 +65,14 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
                 }
                 if (aspectCount == 0) 
                 {
-                    for (int i = 0; i < configCelPointSize; i++)
+                    int aspectIndex = 0;
+                    foreach (var rcpPos in relevantChartPointPositions)
                     {
-                        if (relevantChartPointPositions[i].ChartPoint == point)
+                        if (rcpPos.Key == point)
                         {
-                            allCounts[chartIndex, i]++;
+                            allCounts[chartIndex, aspectIndex]++;
                         }
+                        aspectIndex++;
                     }
                 }
             }

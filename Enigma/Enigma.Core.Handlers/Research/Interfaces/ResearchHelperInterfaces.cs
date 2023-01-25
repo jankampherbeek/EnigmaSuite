@@ -197,12 +197,10 @@ public interface IResearchMethodUtils
     public List<ChartPoints> DefineConfigSelectedChartPoints(AstroConfig config);
 
     /// <summary>Create list of positioned points according to a given selection of chart points.</summary>
-    /// <param name="config">The current configuration.</param>
     /// <param name="calcResearchChart">Calculated chart.</param>
-    /// <param name="selectedChartPoints">The selection of chart points.</param>
     /// <param name="pointsSelection">Selection of all points, including mundane points.</param>
     /// <returns>Positioned points that match wityh the selection.</returns>
-    public List<FullChartPointPos> DefineSelectedPointPositions(AstroConfig config, CalculatedResearchChart calcResearchChart, List<ChartPoints> selectedChartPoints, ResearchPointsSelection pointsSelection);
+    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointsSelection pointsSelection);
 
     /// <summary>Find the index for a chart point in a list with psotioned points.</summary>
     /// <param name="point">The chart point for which to find the index.</param>

@@ -48,25 +48,27 @@ public sealed class AspectsCounting: IAspectsCounting
         List<ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
-        int cuspSize = config.UseCuspsForAspects ? charts[0].FullHousePositions.Cusps.Count : 0;
+        int cuspSize = config.UseCuspsForAspects ? charts[0].Positions.Cusps.Count : 0;
         int aspectSize = configSelectedAspects.Count;
         int[,,] allCounts = new int[celPointSize, celPointSize + cuspSize, aspectSize];
         List<PositionedPoint> allPoints = new();
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            List<FullChartPointPos> chartPointPositions = calcResearchChart.CelPointPositions;
-            FullHousesPositions fullHousesPositions = calcResearchChart.FullHousePositions;
-            List<FullChartPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
+            Dictionary<ChartPoints, FullPointPos> commonPositions = calcResearchChart.Positions.CommonPoints;
+            Dictionary<ChartPoints, FullPointPos> angles = calcResearchChart.Positions.Angles;
+            
+            
+            Dictionary<ChartPoints, FullPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(commonPositions, angles, chartPointConfigSpecs);
             List<ChartPoints> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
 
-            List<FullChartPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(config, calcResearchChart, configSelectedChartPoints, request.PointsSelection);
+            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
 
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();
             if (request.PointsSelection.IncludeCusps)
             {
-                List<FullChartPointPos> relevantCusps = fullHousesPositions.Cusps;
+                Dictionary<ChartPoints, FullPointPos> relevantCusps = calcResearchChart.Positions.Cusps;
                 cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
             }
             selectedCelPointSize = relevantChartPointPositions.Count;

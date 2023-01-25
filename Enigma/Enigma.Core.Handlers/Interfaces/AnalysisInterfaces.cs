@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
@@ -33,11 +32,11 @@ public interface IDistanceCalculator
 public interface IAspectPointSelector
 {
     /// <summary>Selects points for aspects.</summary>
-    /// <param name="chartPointPositions">Available chartpoint positions (not including mundane positions).</param>
-    /// <param name="fullHousesPositions">Available mundane positions.</param>
+    /// <param name="chartPointPositions">Available chartpoint positions.</param>
+    /// <param name="anglePositions">Available mundane positions for angles.</param>
     /// <param name="chartPointConfigSpecs">Configuration data for chart points.</param>
     /// <returns>The relevant points for the calculation of aspects.</returns>
-    public List<FullChartPointPos> SelectPoints(List<FullChartPointPos> chartPointPositions, FullHousesPositions fullHousesPositions, List<ChartPointConfigSpecs> chartPointConfigSpecs);
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, List<ChartPointConfigSpecs> chartPointConfigSpecs);
 }
 
 

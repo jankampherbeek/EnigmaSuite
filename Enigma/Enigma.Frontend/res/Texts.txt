@@ -571,15 +571,12 @@ ref.enum.orbmethod.fixmajorminor = Fixed orb
 ref.enum.orbmethod.weighted = Weighted orb
 ref.enum.orbmethod.dynamic =  Dynamic/historical orb
 
-ref.enum.pointcats.classic = Classic planets
-ref.enum.pointcats.modern = Modern planets
-ref.enum.pointcats.math = Mathematical points
-ref.enum.pointcats.minor = Minor planets
-ref.enum.pointcats.hypothetical = Hypothetical points
-ref.enum.pointcats.mundane = Mundane points
-ref.enum.pointcats.cusp = Cusps
-ref.enum.pointcats.zodiac = Zodiac points
+ref.enum.pointcats.angle = Mundane angles
 ref.enum.pointcats.arabic = Arabic points
+ref.enum.pointcats.common = Planets and comparable points
+ref.enum.pointcats.cusp = Cusps
+ref.enum.pointcats.fixstar = Fix star
+ref.enum.pointcats.zodiac = Zodiac points
 
 ref.enum.projectiontype.twodimensional = Standard (two-dimensional)
 ref.enum.projectiontype.obliquelongitude = Oblique longitude

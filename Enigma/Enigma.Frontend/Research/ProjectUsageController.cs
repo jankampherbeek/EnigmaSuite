@@ -90,9 +90,62 @@ public class ProjectUsageController
 
     public void PerformRequest(ResearchMethods researchMethod)
     {
+        int minimalNrOfPoints = 0;
+        switch (researchMethod)
+        {
+            case ResearchMethods.None:
+                break;
+            case ResearchMethods.CountPosInSigns:
+                minimalNrOfPoints = 1;
+                break;
+            case ResearchMethods.CountPosInHouses:
+                minimalNrOfPoints = 1;
+                break;
+            case ResearchMethods.CountAspects:
+                minimalNrOfPoints = 2;
+                break;
+            case ResearchMethods.CountUnaspected:
+                minimalNrOfPoints = 1;
+                break;
+            case ResearchMethods.CountOccupiedMidpoints:
+                minimalNrOfPoints = 3;
+                break;
+            case ResearchMethods.CountHarmonicConjunctions:
+                minimalNrOfPoints = 2;
+                break;
+            default:
+                minimalNrOfPoints = 1;
+                break;
+        }
+
+
+
         if (researchMethod == ResearchMethods.CountUnaspected && _currentProject != null)
         {
-            ResearchPointsSelection pointsSelection = new(new List<ChartPoints>(), new List<ChartPoints>(), false);          // TODO, get rid of this dummy value
+            PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+            pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
+            pointSelectWindow.SetResearchMethod(researchMethod);
+            pointSelectWindow.ShowDialog();
+
+            List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
+            List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
+            bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
+            List<ChartPoints> celPoints = new();
+            List<ChartPoints> mundanePoints = new();
+            foreach (var point in selectedCelPoints)
+            {
+                celPoints.Add(point.ChartPoint);
+            }
+            if (researchMethod != ResearchMethods.CountPosInHouses)
+            {
+                foreach (var point in selectedMundanePoints)
+                {
+                    mundanePoints.Add(point.MundanePoint);
+                }
+                selectedUseCusps = pointSelectWindow.SelectedUseCusps;
+            }
+            ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
+
             bool useControlGroup = false;
             GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
             CountOfUnaspectedResponse responseTest = _researchPerformApi.PerformUnaspectedCount(request);
@@ -105,31 +158,6 @@ public class ProjectUsageController
         }
         else
         {
-            int minimalNrOfPoints = 0;
-            switch (researchMethod)
-            {
-                case ResearchMethods.None:
-                    break;
-                case ResearchMethods.CountPosInSigns:
-                    minimalNrOfPoints = 1;
-                    break;
-                case ResearchMethods.CountPosInHouses:
-                    minimalNrOfPoints = 1;
-                    break;
-                case ResearchMethods.CountAspects:
-                    minimalNrOfPoints = 2;
-                    break;
-                case ResearchMethods.CountOccupiedMidpoints:
-                    minimalNrOfPoints = 3;
-                    break;
-                case ResearchMethods.CountHarmonicConjunctions:
-                    minimalNrOfPoints = 2;
-                    break;
-                default:
-                    minimalNrOfPoints = 1;
-                    break;
-            }
-
             PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
             pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
             pointSelectWindow.SetResearchMethod(researchMethod);
@@ -183,8 +211,6 @@ public class ProjectUsageController
                     researchResultWindow.SetResults(responseTest, responseCg);
                     researchResultWindow.ShowDialog();
                 }
-
-
             }
         }
 

@@ -14,12 +14,12 @@ public interface IChartPointsMapping
     /// <summary>Find calculation type for a specific ChartPoint.</summary>
     /// <param name="point">The ChartPoint.</param>
     /// <returns>The calculationtype for the given ChartPoint.</returns>
-    public CalculationTypes CalculationTypeForPoint(ChartPoints point);
+    public CalculationCats CalculationTypeForPoint(ChartPoints point);
 
     /// <summary>Find the SeId (Siwss Ephemeris id) for a specific ChartPoint.</summary>
     /// <remarks>PRE: the chartpoint.
     /// POST: if the pre-condition is fullfilled the correct SeId is returned, otherwise an exception is thrown.</remarks>
-    /// <param name="point">The ChartPoint, it should be a celestial points that has a CalculationType CelPointSE.</param>
+    /// <param name="point">The ChartPoint, it should be a celestial points that has a CalculationType CommonSE.</param>
     /// <exception cref="EnigmaException">Is thrown if the ChartPoint is not supported.</exception>
     /// <returns></returns>
     public int SeIdForCelestialPoint(ChartPoints point);

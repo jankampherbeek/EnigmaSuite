@@ -15,30 +15,26 @@ public class AspectPointSelector : IAspectPointSelector
 {
 
     /// <inheritdoc/>
-    public List<FullChartPointPos> SelectPoints(List<FullChartPointPos> chartPointPositions, FullHousesPositions fullHousesPositions, List<ChartPointConfigSpecs> chartPointConfigSpecs)
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, List<ChartPointConfigSpecs> chartPointConfigSpecs)
     {
-        List<FullChartPointPos> relevantChartPointPositions = new();
-        foreach (FullChartPointPos fcpPos in chartPointPositions)
-        {
-            PointCats actualPointCat = fcpPos.ChartPoint.GetDetails().PointCat;
-            if (actualPointCat == PointCats.Classic || actualPointCat == PointCats.Modern || actualPointCat == PointCats.MathPoint || actualPointCat == PointCats.Minor || actualPointCat == PointCats.Hypothetical)
-            {
-                relevantChartPointPositions.Add(fcpPos);
-            }
-        }
-        relevantChartPointPositions.Add(fullHousesPositions.Mc);
-        relevantChartPointPositions.Add(fullHousesPositions.Ascendant);
+        Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = new();
+        
+        // two foreach loops to enforce that the sequence between commong points (first) and angles (second) is maintained.
         foreach (ChartPointConfigSpecs spec in chartPointConfigSpecs)
         {
-            if (spec.IsUsed && spec.Point == ChartPoints.Vertex)
+            if (spec.IsUsed && spec.Point.GetDetails().PointCat == PointCats.Common)
             {
-                relevantChartPointPositions.Add(fullHousesPositions.Vertex);
+                relevantChartPointPositions.Add(spec.Point, chartPointPositions[spec.Point]);
             }
-            if (spec.IsUsed && spec.Point == ChartPoints.EastPoint)
+
+        }
+        foreach (ChartPointConfigSpecs spec in chartPointConfigSpecs)
+        {
+            if (spec.IsUsed && spec.Point.GetDetails().PointCat == PointCats.Angle)
             {
-                relevantChartPointPositions.Add(fullHousesPositions.EastPoint);
+                relevantChartPointPositions.Add(spec.Point, anglePositions[spec.Point]);
             }
-        }        
+        }
         return relevantChartPointPositions;
     }
 

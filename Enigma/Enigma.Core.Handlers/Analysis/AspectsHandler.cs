@@ -34,15 +34,16 @@ public sealed class AspectsHandler : IAspectsHandler
     /// <inheritdoc/>
     public List<DefinedAspect> AspectsForChartPoints(AspectRequest request)
     {
-        List<FullChartPointPos> chartPointPositions = request.CalcChart.ChartPointPositions;
-        FullHousesPositions fullHousesPositions = request.CalcChart.FullHousePositions;
+        Dictionary<ChartPoints, FullPointPos> chartPointPositions = request.CalcChart.Positions.CommonPoints;
+        Dictionary<ChartPoints, FullPointPos> anglePositions = request.CalcChart.Positions.Angles;
         List<ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
-        List<FullChartPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
+
+        Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, anglePositions, chartPointConfigSpecs);
         List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
         List<PositionedPoint> cuspPoints = new();
         if (request.Config.UseCuspsForAspects)
         {
-            List<FullChartPointPos> relevantCusps = request.CalcChart.FullHousePositions.Cusps;
+            Dictionary<ChartPoints, FullPointPos> relevantCusps = request.CalcChart.Positions.Cusps;
             cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
         }
         List<AspectConfigSpecs> allAspects = request.Config.Aspects;

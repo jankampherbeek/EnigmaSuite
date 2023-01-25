@@ -15,7 +15,7 @@ namespace Enigma.Facades.Se;
 public class AzAltFacade : IAzAltFacade
 {
     /// <inheritdoc/>
-    /// <remarks>Throws SwissEphException if CelPointSE returns an error.</remarks>
+    /// <remarks>Throws SwissEphException if CommonSE returns an error.</remarks>
     public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags)
     {
 

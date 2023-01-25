@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -43,9 +43,9 @@ public interface IChartsWheelSigns
 
 public interface IChartsWheelCelPoints
 {
-    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant);
-    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant);
-    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, List<FullChartPointPos> celPoints, Point centerPoint, double longAscendant);
+    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant);
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
+    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
 }
 
 

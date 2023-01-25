@@ -11,6 +11,7 @@ using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
+using System.Collections.Generic;
 
 namespace Enigma.Core.Calc;
 
@@ -41,23 +42,29 @@ public sealed class HousesHandler : IHousesHandler
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
         double[][] _eclValues;
-        List<FullChartPointPos> allCusps = new();
+        Dictionary<ChartPoints, FullPointPos> allCusps = new();
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
         _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
         for (int n = 1; n < _eclValues[0].Length; n++)
         {
             int cuspIndex = 2000 + n;
             ChartPoints cusp = ChartPoints.None.PointForIndex(cuspIndex);
-            allCusps.Add(CreateFullChartPointPosForCusp(cusp, _eclValues[0][n], jdUt, obliquity, location));
+            KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, _eclValues[0][n], jdUt, obliquity, location);
+            allCusps.Add(cuspPos.Key, cuspPos.Value);
         }
-        FullChartPointPos ascendant = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
-        FullChartPointPos mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
-        FullChartPointPos vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][2], jdUt, obliquity, location);
-        FullChartPointPos eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
-        return new FullHousesPositions(allCusps, mc, ascendant, vertex, eastPoint);
+        Dictionary<ChartPoints, FullPointPos> angles = new();
+        KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
+        angles.Add(asc.Key, asc.Value);
+        KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
+        angles.Add(mc.Key, mc.Value);
+        KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][2], jdUt, obliquity, location);
+        angles.Add(vertex.Key, vertex.Value);
+        KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
+        angles.Add(eastPoint.Key, eastPoint.Value);
+        return new FullHousesPositions(angles, allCusps);
     }
 
-    private FullChartPointPos CreateFullChartPointPosForCusp(ChartPoints point, double longitude, double jdUt, double obliquity, Location location)
+    private KeyValuePair<ChartPoints, FullPointPos> CreateFullChartPointPosForCusp(ChartPoints point, double longitude, double jdUt, double obliquity, Location location)
     {
         double latitude = 0.0;
         double speed = 0.0;
@@ -65,13 +72,20 @@ public sealed class HousesHandler : IHousesHandler
         EclipticCoordinates eclCoord = new(longitude, latitude);
         EquatorialCoordinates eqCoord = CalcEquatorialCoordinates(eclCoord, obliquity);
         HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eclCoord);
+
         PosSpeed psLongitude = new(longitude, speed);
         PosSpeed psLatitude = new (latitude, speed);
         PosSpeed psRightAscension = new(eqCoord.RightAscension, speed);
         PosSpeed psDeclination = new (eqCoord.Declination, speed);
         PosSpeed psDistance = new(distance, speed);
-        FullPointPos fullPointPos = new(psLongitude, psLatitude, psRightAscension, psDeclination, horCoord);
-        return new FullChartPointPos(point, psDistance, fullPointPos);
+        PosSpeed psAzimuth = new(horCoord.Azimuth, speed);
+        PosSpeed psAltitude = new(horCoord.Altitude, speed);
+
+        PointPosSpeeds ppsEcliptical = new(psLongitude, psLatitude, psDistance);
+        PointPosSpeeds ppsEquatorial = new(psRightAscension, psDeclination, psDistance);
+        PointPosSpeeds ppsHorizontal = new(psAzimuth, psAltitude, psDistance);
+        FullPointPos fpPos = new(ppsEcliptical, ppsEquatorial, ppsHorizontal);
+        return new KeyValuePair<ChartPoints, FullPointPos>(point, fpPos);
     }
 
     private EquatorialCoordinates CalcEquatorialCoordinates(EclipticCoordinates eclCoord, double obliquity)

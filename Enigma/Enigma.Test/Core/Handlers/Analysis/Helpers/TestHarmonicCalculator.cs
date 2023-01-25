@@ -80,7 +80,7 @@ public class TestHarmonicCalculator
         });
     }
 
-    private List<double> CreateOriginalPositions()
+    private static List<double> CreateOriginalPositions()
     {
         return new List<double>() { 1.0, 22.234567, 345.67, 512.0 };
 

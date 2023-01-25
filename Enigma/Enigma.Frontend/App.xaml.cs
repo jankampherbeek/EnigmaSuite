@@ -36,9 +36,9 @@ public partial class App : Application
 
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
 
-        string pathToSeFiles = "";                    // TODO 0.1 make path to CelPointSE files configurable
+        string pathToSeFiles = "";                    // TODO 0.1 make path to CommonSE files configurable
         seApi.SetupSe(pathToSeFiles);
-        Log.Information("Using path to CelPointSE: {path}.", pathToSeFiles);
+        Log.Information("Using path to CommonSE: {path}.", pathToSeFiles);
          
         }
 

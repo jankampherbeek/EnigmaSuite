@@ -15,8 +15,8 @@ namespace Enigma.Api.Interfaces;
 /// <summary>API for managing the Swiss Ephemeris.</summary>
 public interface ISeApi
 {
-    /// <summary>Initialize the CelPointSE.</summary>
-    /// <param name="pathToSeFiles">Full path to datafiles for the CelPointSE.</param>
+    /// <summary>Initialize the CommonSE.</summary>
+    /// <param name="pathToSeFiles">Full path to datafiles for the CommonSE.</param>
     public void SetupSe(string pathToSeFiles);
 
     public void CloseSe();
@@ -29,8 +29,8 @@ public interface IChartAllPositionsApi
     /// <summary>Api call to calculate a full chart.</summary>
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
-    /// <returns>Response with instance of FullChart with all positionscoordinates, or an indication of errors that occurred.</returns>
-    public ChartAllPositionsResponse GetChart(CelPointsRequest request);
+    /// <returns>Response with all positions.</returns>
+    public CalculatedChartPositions GetChart(CelPointsRequest request);
 }
 
 /// <summary>API for conversion between coordinates.</summary>

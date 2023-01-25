@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
@@ -50,7 +51,7 @@ public class ChartPositionsController
         CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _housePosForDataGridFactory.CreateHousePosForDataGrid(_currentChart.FullHousePositions);
+            return _housePosForDataGridFactory.CreateHousePosForDataGrid(new FullHousesPositions(_currentChart.Positions.Angles, _currentChart.Positions.Cusps));
         }
         else
         {
@@ -58,16 +59,16 @@ public class ChartPositionsController
         }
     }
 
-    public List<PresentableCelPointPositions> GetCelPointPositionsCurrentChart()
+    public List<PresentableCommonPositions> GetCelPointPositionsCurrentChart()
     {
         CalculatedChart? _currentChart = _dataVault.GetLastChart();
         if (_currentChart != null)
         {
-            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.ChartPointPositions);
+            return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.Positions.CommonPoints);
         }
         else
         {
-            return new List<PresentableCelPointPositions>();
+            return new List<PresentableCommonPositions>();
         }
     }
 

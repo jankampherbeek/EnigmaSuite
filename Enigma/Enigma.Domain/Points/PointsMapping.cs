@@ -14,35 +14,34 @@ namespace Enigma.Core.Domain.Points;
 public sealed class PointsMapping: IPointsMapping
 {
     /// <inheritdoc/>
-    public PositionedPoint MapFullPointPos2PositionedPoint(FullChartPointPos fullCelPointPos, CoordinateSystems coordinateSystem, bool useMainCoordinate)
+    public PositionedPoint MapFullPointPos2PositionedPoint(KeyValuePair<ChartPoints, FullPointPos> position, CoordinateSystems coordinateSystem, bool useMainCoordinate)
     {
-        ChartPoints chartPoint = fullCelPointPos.ChartPoint;
-        FullPointPos fullPointPos = fullCelPointPos.PointPos;
-        double position = FindPositionForCoordinate(fullPointPos, coordinateSystem, useMainCoordinate);
-        return new PositionedPoint(chartPoint, position);
+        ChartPoints chartPoint = position.Key;
+        double positionValue = FindPositionForCoordinate(position, coordinateSystem, useMainCoordinate);
+        return new PositionedPoint(chartPoint, positionValue);
     }
 
     /// <inheritdoc/>
-    public List<PositionedPoint> MapFullPointPos2PositionedPoint(List<FullChartPointPos> fullCelPointPositions, CoordinateSystems coordinateSystem, bool useMainCoordinate)
+    public List<PositionedPoint> MapFullPointPos2PositionedPoint(Dictionary<ChartPoints, FullPointPos> positions, CoordinateSystems coordinateSystem, bool useMainCoordinate)
     {
         List<PositionedPoint> positionedPoints = new();
-        foreach (FullChartPointPos fullCelPointPos in fullCelPointPositions)
+        foreach (KeyValuePair<ChartPoints, FullPointPos> position in positions)
         {
-            positionedPoints.Add(MapFullPointPos2PositionedPoint(fullCelPointPos, coordinateSystem, useMainCoordinate));
+            positionedPoints.Add(MapFullPointPos2PositionedPoint(position, coordinateSystem, useMainCoordinate));
         }
         return positionedPoints;
     }
 
-    private static double FindPositionForCoordinate(FullPointPos generalPointPos, CoordinateSystems coordinateSystem, bool useMainCoordinate)
+    private static double FindPositionForCoordinate(KeyValuePair<ChartPoints, FullPointPos> position, CoordinateSystems coordinateSystem, bool useMainCoordinate)
     {
         switch (coordinateSystem)
         {
             case CoordinateSystems.Ecliptical:
-                if (useMainCoordinate) { return generalPointPos.Longitude.Position; } else { return generalPointPos.Latitude.Position; }
+                if (useMainCoordinate) { return position.Value.Ecliptical.MainPosSpeed.Position; } else { return position.Value.Ecliptical.DeviationPosSpeed.Position; }
             case CoordinateSystems.Equatorial:
-                if (useMainCoordinate) { return generalPointPos.RightAscension.Position; } else { return generalPointPos.Declination.Position; }
+                if (useMainCoordinate) { return position.Value.Equatorial.MainPosSpeed.Position; } else { return position.Value.Equatorial.DeviationPosSpeed.Position; }
             case CoordinateSystems.Horizontal:
-                if (useMainCoordinate) { return generalPointPos.AzimuthAltitude.Azimuth; } else { return generalPointPos.AzimuthAltitude.Altitude; }
+                if (useMainCoordinate) { return position.Value.Horizontal.MainPosSpeed.Position; } else { return position.Value.Horizontal.DeviationPosSpeed.Position; }
             default:
                 string errorText = "PointsMapping.FindPositionForCoordinate(): unknow coordinate system : " + coordinateSystem.ToString();
                 Log.Error(errorText);

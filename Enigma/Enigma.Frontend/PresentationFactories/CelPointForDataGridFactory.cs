@@ -26,43 +26,43 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
         _glyphsForChartPoints = new GlyphsForChartPoints();
     }
 
-    public List<PresentableCelPointPositions> CreateCelPointPosForDataGrid(List<FullChartPointPos> celPointPositions)
+    public List<PresentableCommonPositions> CreateCelPointPosForDataGrid(Dictionary<ChartPoints, FullPointPos> commonPositions)
     {
-        List<PresentableCelPointPositions> positions = new();
-        foreach (var celPos in celPointPositions)
+        List<PresentableCommonPositions> positions = new();
+        foreach (var celPos in commonPositions)
         {
             positions.Add(CreateSinglePos(celPos));
         }
         return positions;
     }
 
-    private PresentableCelPointPositions CreateSinglePos(FullChartPointPos celPointFullPos)
+    private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints,  FullPointPos> commonPos)
     {
-        char pointGlyph = _glyphsForChartPoints.FindGlyph(celPointFullPos.ChartPoint);
-        double tempPos = celPointFullPos.PointPos.Longitude.Position;
-        double tempSpeed = celPointFullPos.PointPos.Longitude.Speed;
-        string tempSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(tempSpeed);
+        char pointGlyph = _glyphsForChartPoints.FindGlyph(commonPos.Key);
+        double longPos = commonPos.Value.Ecliptical.MainPosSpeed.Position;
+        double longSpeed = commonPos.Value.Ecliptical.MainPosSpeed.Speed;
+        string longSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(longSpeed);
 
-        string tempPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(tempPos).longTxt;
-        char tempGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(tempPos).glyph;
+        string longPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).longTxt;
+        char longGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).glyph;
 
-        var eclipticalLong = new Tuple<string, char, string>(tempPosText, tempGlyph, tempSpeedText);
+        var eclipticalLong = new Tuple<string, char, string>(longPosText, longGlyph, longSpeedText);
         var eclipticalLat = new Tuple<string, string>(
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.Latitude.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.Latitude.Speed));
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Ecliptical.DeviationPosSpeed.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Ecliptical.DeviationPosSpeed.Speed));
         var equatorialRa = new Tuple<string, string>(
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.RightAscension.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.RightAscension.Speed));
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.MainPosSpeed.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.MainPosSpeed.Speed));
         var equatorialDecl = new Tuple<string, string>(
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.Declination.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.Declination.Speed));
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed.Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed.Speed));
         var distance = new Tuple<string, string>(
-            String.Format("{0:F8}", celPointFullPos.Distance.Position),
-            String.Format("{0:F8}", celPointFullPos.Distance.Speed));
-        string azimuth = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.AzimuthAltitude.Azimuth);
-        string altitude = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(celPointFullPos.PointPos.AzimuthAltitude.Altitude);
+            String.Format("{0:F8}", commonPos.Value.Equatorial.DistancePosSpeed.Position),
+            String.Format("{0:F8}", commonPos.Value.Equatorial.DistancePosSpeed.Speed));
+        string azimuth = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.MainPosSpeed.Position);
+        string altitude = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.DeviationPosSpeed.Position);
 
-        return new PresentableCelPointPositions(
+        return new PresentableCommonPositions(
             pointGlyph, eclipticalLong, eclipticalLat, equatorialRa, equatorialDecl, distance, azimuth, altitude);
     }
 

@@ -105,19 +105,19 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         int pointIndex = 0;
         foreach (ChartPoints selectedCelPoint in pointsSelection.SelectedPoints)
         {
-            foreach (FullChartPointPos chartCelPointPos in chart.CelPointPositions)
+            foreach (KeyValuePair<ChartPoints, FullPointPos> commonPointPos in chart.Positions.CommonPoints)
             {
                 int partIndex = -1;
-                if (chartCelPointPos.ChartPoint == selectedCelPoint)
+                if (commonPointPos.Key == selectedCelPoint)
                 {
-                    double longitude = chartCelPointPos.PointPos.Longitude.Position;
+                    double longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position;
                     switch (researchMethod)
                     {
                         case ResearchMethods.CountPosInSigns:
                             partIndex = SignIndex(longitude);
                             break;
                         case ResearchMethods.CountPosInHouses:
-                            partIndex = DefineHouseNr(longitude, nrOfParts, chart.FullHousePositions);
+                            partIndex = DefineHouseNr(longitude, nrOfParts, chart.Positions.Cusps);
                             break;
                         default:
                             break;
@@ -130,24 +130,31 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
         if (researchMethod != ResearchMethods.CountPosInHouses)
         {
+            double longMc = 0.0;
+            double longAsc = 0.0;
+            double longVertex = 0.0;
+            double longEastPoint = 0.0;
+            foreach (KeyValuePair<ChartPoints, FullPointPos> anglePos in chart.Positions.Angles)
+            {
+                if (anglePos.Key == ChartPoints.Mc) longMc = anglePos.Value.Ecliptical.MainPosSpeed.Position;
+                if (anglePos.Key == ChartPoints.Ascendant) longAsc = anglePos.Value.Ecliptical.MainPosSpeed.Position;
+                if (anglePos.Key == ChartPoints.Vertex) longVertex = anglePos.Value.Ecliptical.MainPosSpeed.Position;
+                if (anglePos.Key == ChartPoints.EastPoint) longEastPoint = anglePos.Value.Ecliptical.MainPosSpeed.Position;
+            }
             foreach (ChartPoints selectedMundanePoint in pointsSelection.SelectedMundanePoints)
             {
-                if (selectedMundanePoint == ChartPoints.Mc)
-                {
-                    allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Mc.PointPos.Longitude.Position)]++;
-                }
-                if (selectedMundanePoint == ChartPoints.Ascendant)
-                {
-                    allCounts[pointIndex].Counts[SignIndex(chart.FullHousePositions.Ascendant.PointPos.Longitude.Position)]++;
-                }
+                if (selectedMundanePoint == ChartPoints.Mc) allCounts[pointIndex].Counts[SignIndex(longMc)]++;
+                if (selectedMundanePoint == ChartPoints.Ascendant) allCounts[pointIndex].Counts[SignIndex(longAsc)]++;
+                if (selectedMundanePoint == ChartPoints.Vertex) allCounts[pointIndex].Counts[SignIndex(longMc)]++;
+                if (selectedMundanePoint == ChartPoints.Mc) allCounts[pointIndex].Counts[SignIndex(longMc)]++;
                 pointIndex++;
             }
 
             if (pointsSelection.IncludeCusps)
             {
-                foreach (var cusp in chart.FullHousePositions.Cusps)
+                foreach (var cusp in chart.Positions.Cusps)
                 {
-                    allCounts[pointIndex++].Counts[SignIndex(cusp.PointPos.Longitude.Position)]++;
+                    allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;
                 }
             }
         }
@@ -175,13 +182,12 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         return totals;
     }
 
-    private static int DefineHouseNr(double longitude, int nrOfCusps, FullHousesPositions fullHousePositions)  // returns housenr 0..11 of 0..nrOfHouses-1
+    private static int DefineHouseNr(double longitude, int nrOfCusps,  Dictionary<ChartPoints, FullPointPos> cusps)  // returns housenr 0..11 of 0..nrOfHouses-1
     {
-        List<FullChartPointPos> cusps = fullHousePositions.Cusps;
         List<double> cuspLongitudes = new();
         foreach (var cusp in cusps)
         {
-            cuspLongitudes.Add(cusp.PointPos.Longitude.Position);
+            cuspLongitudes.Add(cusp.Value.Ecliptical.MainPosSpeed.Position);
         }
         for (int i = 0; i < nrOfCusps; i++)
         {
@@ -196,6 +202,5 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         }
         return -1;
     }
-
 
 }

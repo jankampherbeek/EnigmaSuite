@@ -16,7 +16,7 @@ namespace Enigma.Core.Handlers.Interfaces;
 /// <summary>Handle calculation for a full chart with all positions.</summary>
 public interface IChartAllPositionsHandler
 {
-    public ChartAllPositionsResponse CalcFullChart(CelPointsRequest request);
+    public CalculatedChartPositions CalcFullChart(CelPointsRequest request);
 }
 
 
@@ -36,7 +36,7 @@ public interface IObliqueLongitudeHandler
 /// </summary>
 public interface ICelPointsHandler
 {
-    public CelPointsResponse CalcCelPoints(CelPointsRequest request);
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(CelPointsRequest request);
 }
 
 /// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
@@ -50,7 +50,7 @@ public interface ICalcChartsRangeHandler
 
 
 /// <summary>
-/// Calculate heliocentric rectangular positions for celestial points that are not supported by the CelPointSE.
+/// Calculate heliocentric rectangular positions for celestial points that are not supported by the CommonSE.
 /// </summary>
 public interface ICalcHelioPos
 {
@@ -74,7 +74,7 @@ public interface ICelPointSECalc
 }
 
 /// <summary>
-/// Calculate geocentric ecliptical position for celestial points that are not supported by the CelPointSE.
+/// Calculate geocentric ecliptical position for celestial points that are not supported by the CommonSE.
 /// </summary>
 public interface ICelPointsElementsCalc
 {
