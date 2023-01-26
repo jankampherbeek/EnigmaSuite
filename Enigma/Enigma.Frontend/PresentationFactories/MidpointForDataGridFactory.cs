@@ -6,7 +6,9 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
@@ -16,10 +18,12 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly GlyphsForChartPoints _glyphsForChartPoints;
 
     public MidpointForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
+        _glyphsForChartPoints = new GlyphsForChartPoints();     // TODO 0.3 replace with selection based on config.
     }
 
     /// <inheritdoc/>
@@ -46,28 +50,23 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 
     private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint)
     {
-        /*
-        string point1Glyph = midpoint.Point1.Glyph;
-        string point2Glyph = midpoint.Point2.Glyph; 
+        char point1Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point1.Point);
+        char point2Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point2.Point); 
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(midpoint.Position);
         string position = longTxt;
-        string signGlyph = glyph; */
-        char tempGlyph = ' ';
-        return new PresentableMidpoint(tempGlyph, tempGlyph, tempGlyph, "positionTxt");
+        char signGlyph = glyph; 
+        return new PresentableMidpoint(point1Glyph, point2Glyph, position, signGlyph);
 
     }
 
-    private PresentableOccupiedMidpoint CreatePresMidpoint(OccupiedMidpoint midpoint)
+    private PresentableOccupiedMidpoint CreatePresMidpoint(OccupiedMidpoint occMidpoint)
     {
-        /*
-              string point1Glyph = midpoint.Midpoint.Point1.Glyph;
-          string point2Glyph = midpoint.Midpoint.Point2.Glyph;
-          string pointOccGlyph = midpoint.OccupyingPoint.Glyph;
-        */
-        string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(midpoint.Orb);
-        string exactnessText = System.Math.Floor(midpoint.Exactness).ToString() + " %";
-        string tempGlyph = "";
-        return new PresentableOccupiedMidpoint(tempGlyph, tempGlyph, tempGlyph, orbText, exactnessText);
+        char point1Glyph = _glyphsForChartPoints.FindGlyph(occMidpoint.Midpoint.Point1.Point);
+        char point2Glyph = _glyphsForChartPoints.FindGlyph(occMidpoint.Midpoint.Point2.Point);
+        char pointOccGlyph = _glyphsForChartPoints.FindGlyph(occMidpoint.OccupyingPoint.Point);
+        string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(occMidpoint.Orb);
+        string exactnessText = System.Math.Floor(occMidpoint.Exactness).ToString() + " %";
+        return new PresentableOccupiedMidpoint(point1Glyph, point2Glyph, pointOccGlyph, orbText, exactnessText);
     }
 }
 

@@ -32,13 +32,26 @@ public sealed class PointsForMidpoints : IPointsForMidpoints            // TODO 
     public List<PositionedPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize)
     {
         // TODO 1.0.0 make pointgroups, coordinatesystems and maincoord for midpoints configurable.
-        //var pointGroups = new List<PointCats> { PointCats.Common, PointCats.Angle, PointCats.Zodiac };
 
         Dictionary<ChartPoints, FullPointPos> positions = new();
-        // define content for positions.............
-        
-        
-        
+        foreach (KeyValuePair<ChartPoints, FullPointPos> pos in chart.Positions.CommonPoints)
+        {
+            positions.Add(pos.Key, pos.Value);
+        }
+        foreach (KeyValuePair<ChartPoints, FullPointPos> pos in chart.Positions.Angles)
+        {
+            if (pos.Key != ChartPoints.Vertex && pos.Key != ChartPoints.EastPoint)    // TODO 0.6  remove condition if glyphs for Vertex and Eastpoint are available.
+            {
+                positions.Add(pos.Key, pos.Value);
+            }
+
+        }
+        foreach (KeyValuePair<ChartPoints, FullPointPos> pos in chart.Positions.ZodiacPoints)
+        {
+            positions.Add(pos.Key, pos.Value);
+        }
+
+
         CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
         List<PositionedPoint> pointsIn360Dial = _pointsMapping.MapFullPointPos2PositionedPoint(positions, coordSystem, mainCoord);
