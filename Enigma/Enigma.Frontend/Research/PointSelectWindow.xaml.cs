@@ -43,7 +43,14 @@ public partial class PointSelectWindow : Window
         if (_researchMethod == ResearchMethods.CountPosInHouses)
         {
             lbMundanePoints.IsEnabled = false;
+            cBoxAllMundanePoints.IsChecked = false;
             cBoxAllMundanePoints.IsEnabled = false;
+            cBoxIncludeAllCusps.IsChecked = false;
+            cBoxIncludeAllCusps.IsEnabled = false;
+        }
+        if (_researchMethod == ResearchMethods.CountOccupiedMidpoints)
+        {
+            cBoxIncludeAllCusps.IsChecked = false;
             cBoxIncludeAllCusps.IsEnabled = false;
         }
     }

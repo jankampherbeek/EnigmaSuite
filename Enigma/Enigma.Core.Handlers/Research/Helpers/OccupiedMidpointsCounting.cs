@@ -6,8 +6,8 @@
 using Enigma.Core.Domain.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
+using Enigma.Domain.Analysis;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
@@ -41,93 +41,52 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
     private CountOfOccupiedMidpointsResponse PerformCount(List<CalculatedResearchChart> charts, CountMidpointsPerformRequest request)
     {
         AstroConfig config = request.Config;
-        List<ThreePointCount> allCounts = new();
+        int nrOfPoints = request.PointsSelection.SelectedPoints.Count + request.PointsSelection.SelectedMundanePoints.Count;
+        var selectedPoints = new List<ChartPoints>(request.PointsSelection.SelectedPoints.Count + request.PointsSelection.SelectedMundanePoints.Count);
+        selectedPoints.AddRange(request.PointsSelection.SelectedPoints);
+        selectedPoints.AddRange(request.PointsSelection.SelectedMundanePoints);
+
+        Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
+
         double dialSize = 360.0 / request.DivisionForDial;
+        double orb = 1.6;           // todo 0.2 use orb from config
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-         //   _midpointsHandler.RetrieveOccupiedMidpoints(CalculatedChart, dialSize)
+            Dictionary<ChartPoints, FullPointPos> commonPositions = calcResearchChart.Positions.CommonPoints;
+            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
+            List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
+            List<OccupiedMidpoint> occupiedMidpoints = _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb);
 
-
-        }
-
-
-        /* List<AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
-
-         List<ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
-         int celPointSize = chartPointConfigSpecs.Count;
-         int selectedCelPointSize = 0;
-         int cuspSize = config.UseCuspsForAspects ? charts[0].FullHousePositions.Cusps.Count : 0;
-         int aspectSize = configSelectedAspects.Count;
-         int[,,] allCounts = new int[celPointSize, celPointSize + cuspSize, aspectSize];
-         List<PositionedPoint> allPoints = new();
-
-         foreach (CalculatedResearchChart calcResearchChart in charts)
-         {
-             List<FullChartPointPos> chartPointPositions = calcResearchChart.CelPointPositions;
-             FullHousesPositions fullHousesPositions = calcResearchChart.FullHousePositions;
-             List<FullChartPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, fullHousesPositions, chartPointConfigSpecs);
-             List<ChartPoints> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
-
-             List<FullChartPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(config, calcResearchChart, configSelectedChartPoints, request.PointsSelection);
-
-             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
-             List<PositionedPoint> cuspPoints = new();
-             if (request.PointsSelection.IncludeCusps)
-             {
-                 List<FullChartPointPos> relevantCusps = fullHousesPositions.Cusps;
-                 cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
-             }
-             selectedCelPointSize = relevantChartPointPositions.Count;
-             allPoints = new List<PositionedPoint>(posPoints.Count + cuspPoints.Count);
-             allPoints.AddRange(posPoints);
-             allPoints.AddRange(cuspPoints);
-
-             List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.BaseOrbAspects);
-             foreach (DefinedAspect defAspect in definedAspects)
-             {
-                 int index1 = _researchMethodUtils.FindIndexForPoint(defAspect.Point1, allPoints);
-                 int index2 = _researchMethodUtils.FindIndexForPoint(defAspect.Point2, allPoints);
-                 int index3 = _researchMethodUtils.FindIndexForAspectType(defAspect.Aspect.Aspect, configSelectedAspects);
-                 allCounts[index1, index2, index3] += 1;
-             }
-         }
-        */
-        return CreateResponse(request, allCounts);
-    }
-
-
-
-    private static CountOfOccupiedMidpointsResponse CreateResponse(CountMidpointsPerformRequest request, List<ThreePointCount> allCounts)
-    {
-/*        List<AspectTypes> aspectTypes = new();
-        foreach (AspectConfigSpecs acSpec in aspects)
-        {
-            aspectTypes.Add(acSpec.AspectType);
-        }
-        List<ChartPoints> chartPoints = new();
-        foreach (PositionedPoint posPoint in posPoints)
-        {
-            chartPoints.Add(posPoint.Point);
-        }
-        int[,] totalsPerPointCombi = new int[posPoints.Count, posPoints.Count];
-        int[] totalsPerAspect = new int[aspects.Count];
-
-        for (int i = 0; i < selectedCelPointSize; i++)
-        {
-            for (int j = 0; j < posPoints.Count; j++)
+            foreach (OccupiedMidpoint occupiedMidpoint in occupiedMidpoints)
             {
-                int total = 0;
-                for (int k = 0; k < aspects.Count; k++)         // will still work in case of overlapping orbs.
-                {
-                    total += allCounts[i, j, k];
-                    totalsPerAspect[k] += allCounts[i, j, k];
-                }
-                totalsPerPointCombi[i, j] += total;
+                OccupiedMidpointStructure mpStructure = new(occupiedMidpoint.Midpoint.Point1.Point, occupiedMidpoint.Midpoint.Point2.Point, occupiedMidpoint.OccupyingPoint.Point);
+                allCounts[mpStructure]++;
             }
         }
-*/
+
         return new CountOfOccupiedMidpointsResponse(request, allCounts);
     }
+
+
+    private static Dictionary<OccupiedMidpointStructure, int> InitializeAllCounts(List<ChartPoints> selectedPoints)
+    {
+        int countValue = 0;
+        Dictionary<OccupiedMidpointStructure, int> allCounts = new();
+        foreach (ChartPoints firstPoint in selectedPoints)
+        {
+            foreach (ChartPoints secondPoint in selectedPoints)
+            {
+                foreach (ChartPoints occupyingPoint in selectedPoints)
+                {
+                    allCounts.Add(new OccupiedMidpointStructure(firstPoint, secondPoint, occupyingPoint), countValue);
+                }
+            }
+        }
+        return allCounts;
+    }
+
+
+
 
 }

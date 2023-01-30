@@ -83,7 +83,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
-        serviceCollection.AddTransient<IOccupiedMidpoints, OccupiedMidpoints>();
+        serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();

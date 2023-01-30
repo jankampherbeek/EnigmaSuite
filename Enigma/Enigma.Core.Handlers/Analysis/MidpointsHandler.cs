@@ -16,12 +16,12 @@ public sealed class MidpointsHandler : IMidpointsHandler
 {
     private readonly IPointsForMidpoints _analysisPointsForMidpoints;
     private readonly IBaseMidpointsCreator _baseMidpointsCreator;
-    private readonly IOccupiedMidpoints _occupiedMidpoints;
+    private readonly IOccupiedMidpointsFinder _occupiedMidpoints;
 
 
     public MidpointsHandler(IPointsForMidpoints analysisPointsForMidpoints,
         IBaseMidpointsCreator baseMidpointsCreator,
-        IOccupiedMidpoints occupiedMidpoints)
+        IOccupiedMidpointsFinder occupiedMidpoints)
     {
         _analysisPointsForMidpoints = analysisPointsForMidpoints;
         _baseMidpointsCreator = baseMidpointsCreator;
@@ -41,4 +41,11 @@ public sealed class MidpointsHandler : IMidpointsHandler
     {
         return _occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize);
     }
+
+    /// <inheritdoc/>
+    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb)
+    {
+        return _occupiedMidpoints.CalculateOccupiedMidpoints(posPoints, dialSize, orb);
+    }
+
 }

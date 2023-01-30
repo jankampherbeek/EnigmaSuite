@@ -4,13 +4,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
+using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Support;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -52,6 +52,12 @@ public class ResearchResultController
         DefineUnaspectedResultTexts(responseTest, responseControl);
     }
 
+    public void SetMethodResponses(CountOfOccupiedMidpointsResponse responseTest, CountOfOccupiedMidpointsResponse responseControl)
+    {
+        DefineOccupiedMidpointsResultTexts(responseTest, responseControl);
+    }
+
+
 
     public void DefineUnaspectedResultTexts(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
     {
@@ -68,6 +74,16 @@ public class ResearchResultController
         CreateResultHeaders(responseTest.Request);
         WriteResults(responseTest.Request);
     }
+
+    private void DefineOccupiedMidpointsResultTexts(CountOfOccupiedMidpointsResponse responseTest, CountOfOccupiedMidpointsResponse responseControl)
+    {
+        Dictionary<OccupiedMidpointStructure, int> allCounts = responseTest.AllCounts;
+        TestResultText = CreateOccupiedMidpointsResultData(allCounts);
+        ControlResultText = CreateOccupiedMidpointsResultData(allCounts);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+
 
 
     public void DefinePartsResultTexts(CountOfPartsResponse responseTest, CountOfPartsResponse responseControl)
@@ -209,7 +225,7 @@ public class ResearchResultController
         string separatorLine = "--------------------------------------------------";        // 50 positions
         StringBuilder headerLine = new();
         headerLine.Append(spaces);   
-        headerLine.Append("Nr of charts without aspects.");   // TODO use RB
+        headerLine.Append("Nr of charts without aspects.");   // TODO 0.1 use RB
         resultData.AppendLine(headerLine.ToString());
         resultData.AppendLine(separatorLine);
         foreach (SimpleCount simpleCount in response.Counts)
@@ -219,6 +235,30 @@ public class ResearchResultController
         return resultData.ToString();
     }
 
+    private static string CreateOccupiedMidpointsResultData(Dictionary<OccupiedMidpointStructure, int> AllCounts)
+    {
+        StringBuilder resultData = new();
+        string spaces = "                    ";                                             // 20 spaces
+        string separatorLine = "--------------------------------------------------";        // 50 positions
+        StringBuilder headerLine = new();
+        headerLine.Append(spaces);
+        headerLine.Append("Occupied midpoints.");   // TODO 0.1 use RB
+        resultData.AppendLine(headerLine.ToString());
+        resultData.AppendLine(separatorLine);
+
+        foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in AllCounts)
+        {
+            if (midpoint.Value > 0)
+            {
+                string firstPointName = Rosetta.TextForId(midpoint.Key.FirstPoint.GetDetails().TextId);
+                string secondPointName = Rosetta.TextForId(midpoint.Key.SecondPoint.GetDetails().TextId);
+                string occPointName = Rosetta.TextForId(midpoint.Key.OccupyingPoint.GetDetails().TextId);
+                string midpointCount = midpoint.Value.ToString();
+                resultData.AppendLine((firstPointName + spaces)[..20] + " / " + (secondPointName + spaces)[..20] + " = " + (occPointName + spaces)[..20] + " " + midpointCount);
+            }
+        }
+        return resultData.ToString();
+    }
 
 
     public void ShowHelp()

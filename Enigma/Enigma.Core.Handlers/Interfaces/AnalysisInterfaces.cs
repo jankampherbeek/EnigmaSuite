@@ -78,11 +78,18 @@ public interface IMidpointsHandler
     /// <returns>All base midpoints.</returns>
     public List<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart);
 
-    /// <summary>Retrieve list with all occupied midpoints for a specifed dial.</summary>
+    /// <summary>Retrieve list with all occupied midpoints for a specified dial.</summary>
     /// <param name="chart">Calculated chart with positions.</param>
     /// <param name="dialSize">Degrees for specified dial.</param>
     /// <returns>All occupied midpoints.</returns>
     public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize);
+
+    /// <summary>Retrieve list with occupied midpoints for a given set of points and for a specified dial.</summary>
+    /// <param name="posPoints">List with points.</param>
+    /// <param name="dialSize">Degrees for specified dial.</param>
+    /// <param name="orb">User defined orb.</param>
+    /// <returns>Occupied midpoints for the given set of points.</returns>
+    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb);
 }
 
 
@@ -126,13 +133,20 @@ public interface IPointsForMidpoints
 }
 
 /// <summary>Handle the calculartion of occupied midpoints.</summary>
-public interface IOccupiedMidpoints
+public interface IOccupiedMidpointsFinder
 {
     /// <summary>Calculate occupied midpoints for a specific dial.</summary>
     /// <param name="chart">Calculated chart.</param>
     /// <param name="dialSize">Dial size in degrees.</param>
     /// <returns>Calculated occupied midpoints.</returns>
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize);
+
+    /// <summary>Calculate occupied midpoints for a specific dial.</summary>
+    /// <param name="posPoints">List with points.</param>
+    /// <param name="dialSize">Dial size in degrees.</param>
+    /// <param name="orb">Orb.</param>
+    /// <returns>Calculated occupied midpoints.</returns>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb);
 }
 
 /// <summary>

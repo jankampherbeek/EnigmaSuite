@@ -211,10 +211,27 @@ public class ProjectUsageController
                     researchResultWindow.SetResults(responseTest, responseCg);
                     researchResultWindow.ShowDialog();
                 }
+                if (researchMethod == ResearchMethods.CountOccupiedMidpoints)
+                {
+                    MidpointDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<MidpointDetailsWindow>();
+                    detailsWindow.ShowDialog();
+                    if (detailsWindow.IsCompleted())
+                    {
+                        int divisionForDial = detailsWindow.dialDivision;
+                        double orb = detailsWindow.orb;
+                        bool useControlGroup = false;
+                        CountMidpointsPerformRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                        CountOfOccupiedMidpointsResponse responseTest = _researchPerformApi.PerformOccupiedMidpointsCount(request);
+                        useControlGroup = true;
+                        request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                        CountOfOccupiedMidpointsResponse responseCg = _researchPerformApi.PerformOccupiedMidpointsCount(request);
+                        ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                        researchResultWindow.SetResults(responseTest, responseCg);
+                        researchResultWindow.ShowDialog();
+                    }
+                }
             }
         }
-
-
     }
 
     public void ShowConfig()

@@ -81,6 +81,8 @@ public partial class App : Application
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<MainController>();
         serviceCollection.AddTransient<MainWindow>();
+        serviceCollection.AddTransient<MidpointDetailsController>();
+        serviceCollection.AddTransient<MidpointDetailsWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<PointSelectController>();
         serviceCollection.AddTransient<PointSelectWindow>();

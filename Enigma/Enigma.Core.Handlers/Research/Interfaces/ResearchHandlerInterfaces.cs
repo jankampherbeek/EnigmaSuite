@@ -26,6 +26,11 @@ public interface IResearchMethodHandler
     /// <param name="request"/>
     /// <returns>Response with counted values.</returns>
     public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request);
+
+    /// <summary>Initiate a test that counts occupied midpoints.</summary>
+    /// <param name="request"/>
+    /// <returns>Response with counted values.</returns>
+    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountMidpointsPerformRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>

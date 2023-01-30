@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Points;
 
@@ -74,5 +75,5 @@ public record CountOfUnaspectedResponse(GeneralResearchRequest Request, List<Sim
 
 /// <summary>Response for counting occupied midpoints.</summary>
 /// <param name="Request">The original request.</param>
-/// <param name="Counts">List of record ThreePointCount, containing the points that form the midpoint, the point at the midpoint (Point3) and the number of occurrences.</param>
-public record CountOfOccupiedMidpointsResponse(CountMidpointsPerformRequest Request, List<ThreePointCount> Counts);
+/// <param name="AllCounts">Distionary with OccupiedMidpointStructure and the counts.</param>
+public record CountOfOccupiedMidpointsResponse(CountMidpointsPerformRequest Request, Dictionary<OccupiedMidpointStructure, int> AllCounts);

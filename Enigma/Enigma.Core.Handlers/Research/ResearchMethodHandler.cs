@@ -6,6 +6,7 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
+using Enigma.Domain.Analysis;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
@@ -25,6 +26,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     private readonly IResearchPaths _researchPaths;
     private readonly IAspectsCounting _aspectsCounting;
     private readonly IUnaspectedCounting _unaspectedCounting;
+    private readonly IOccupiedMidpointsCounting _occupiedMidpointsCounting;
 
 
     public ResearchMethodHandler(ICalculatedResearchPositions researchPositions,
@@ -33,7 +35,8 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         IResearchDataHandler researchDataHandler,
         IResearchPaths researchPaths,
         IAspectsCounting aspectsCounting,
-        IUnaspectedCounting unaspectedCounting)
+        IUnaspectedCounting unaspectedCounting,
+        IOccupiedMidpointsCounting occupiedMidpointsCounting)
     {
         _researchPositions = researchPositions;
         _pointsInPartsCounting = pointsInZodiacPartsCounting;
@@ -42,6 +45,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         _researchPaths = researchPaths;
         _aspectsCounting = aspectsCounting;
         _unaspectedCounting = unaspectedCounting;
+        _occupiedMidpointsCounting = occupiedMidpointsCounting;
     }
 
     /// <inheritdoc/>
@@ -84,10 +88,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         Log.Information("ResearchMethodHandler HandleTestForOccupiedMidpointMethod, using method {m} for project {p}", method, request.ProjectName);
         List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
         WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-
-        // todo call OccupiedMidpointsCounting
-
-        return null;
+        return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, request);
     }
 
 

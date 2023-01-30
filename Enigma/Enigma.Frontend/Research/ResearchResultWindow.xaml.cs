@@ -39,6 +39,12 @@ namespace Enigma.Frontend.Ui.Research
             PopulateData();
         }
 
+        public void SetResults(CountOfOccupiedMidpointsResponse responseTest, CountOfOccupiedMidpointsResponse responseControl)
+        {
+            _controller.SetMethodResponses(responseTest, responseControl);
+            PopulateData();
+        }
+
 
         private void PopulateTexts()
         {

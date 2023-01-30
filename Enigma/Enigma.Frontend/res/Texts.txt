@@ -305,6 +305,20 @@ mainwindow.title = Dashboard Enigma Astrology Research
 --mainwindow.researchexpl = Import data, create and use research projects
 --mainwindow.researchtitle = Research
 
+-------------------------------- Midpoint details window --------
+
+midpointdetailswindow.title = Details for midpoints
+midpointdetailswindow.formtitle = Enter details for midpoints
+midpointdetailswindow.explanation =  To research the effect of midpoints, you need to define the orb and the dial to be used. 
+midpointdetailswindow.dialsize = Dial
+midpointdetailswindow.dialsize360 = 360°
+midpointdetailswindow.dialsize90 = 90°
+midpointdetailswindow.dialsize45 = 45°
+midpointdetailswindow.orb = Orb
+midpointdetailswindow.orbdegrees = Degrees
+midpointdetailswindow.orbminutes = Minutes
+midpointdetailswindow.warningorb = The values for the orb are not correct. Please use positieve integers and an orb that is smaller than 10 degrees.
+
 -------------------------------- Point select window ---
 
 pointselectwindow.allcusps = Include all cusps

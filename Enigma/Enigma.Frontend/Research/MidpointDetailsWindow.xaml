@@ -1,0 +1,42 @@
+﻿<Window x:Class="Enigma.Frontend.Ui.Research.MidpointDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Research"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"          
+        Title="MidpointDetailsWindow" Height="350" Width="400">
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap" />
+        <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
+        <TextBlock Grid.Row="2" Margin="6" Name="tbDialSize" Text="tbDialSize"/>
+        <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"  Margin="6" Name="comboDialSize" Text="" IsEditable="True" IsReadOnly="True"/>
+        <TextBlock Grid.Row="3" Margin="6" Name="tbOrb" Text="tbOrb"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Margin="6" Name="tbOrbDegrees" Text="tbOrbDegrees"/>
+        <TextBlock Grid.Row="3" Grid.Column="3" Margin="6" Name="tbOrbMinutes" Text="tbOrbMinutes"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Margin="6" Name="tboxOrbDegrees" Text="tboxOrbDegrees"/>
+        <TextBox Grid.Row="4" Grid.Column="3" Margin="6" Name="tboxOrbMinutes" Text="tboxOrbMinutes"/>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+            <Button Name="btnHelp" Content="btnHelp" Click="HelpClick"/>
+            <Button Name="btnCancel" Content="btnCancel" Click="CancelClick"/>
+            <Button Name="btnOk" Content="btnOk" Click="OkClick"/>
+        </StackPanel>
+    </Grid>
+    
+</Window>

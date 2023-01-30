@@ -42,6 +42,11 @@ public interface IResearchPerformApi
     /// <param name="request">Research request.</param>
     /// <returns>The results as a CountOfUnaspectedResponse.</returns>
     public CountOfUnaspectedResponse PerformUnaspectedCount(GeneralResearchRequest request);
+
+    /// <summary>Perform a test to count occupied midpoints.</summary>
+    /// <param name="request">Research request.</param>
+    /// <returns>The result as an CountOfOccupiedMidpointsResponse.</returns>
+    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountMidpointsPerformRequest request);
 }
 
 public interface IResearchPathApi

@@ -38,7 +38,7 @@ public sealed class MidpointsApi : IMidpointsApi
     public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize)
     {
         Guard.Against.Null(chart);
-        Log.Information("MidpointsApi: OccupiedMidpoints in dial size {dialSize} for chart : {chartName} ", dialSize, chart.InputtedChartData.MetaData.Name);
+        Log.Information("MidpointsApi: OccupiedMidpointsFinder in dial size {dialSize} for chart : {chartName} ", dialSize, chart.InputtedChartData.MetaData.Name);
         return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize);
     }
 

@@ -49,4 +49,12 @@ public sealed class ResearchPerformApi : IResearchPerformApi
         return _researchMethodHandler.HandleTestForUnaspectedMethod(request);
     }
 
+    /// <inheritdoc/>
+    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountMidpointsPerformRequest request)
+    {
+        Guard.Against.Null(request);
+        Log.Information("ResearchPerformApi: PerformOccupiedMidpointsCount(): " + request.Method);
+        return _researchMethodHandler.HandleTestForOccupiedMidpoints(request);   
+    }
+
 }

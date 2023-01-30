@@ -22,3 +22,10 @@ public record BaseMidpoint(PositionedPoint Point1, PositionedPoint Point2, doubl
 /// <param name="Exactness">Percentage of Exactness, based on actual Orb.</param>
 public record OccupiedMidpoint(BaseMidpoint Midpoint, PositionedPoint OccupyingPoint, double Orb, double Exactness);
 
+
+/// <summary>An occupied midpoint structure without positions.</summary>
+/// <remarks>This record is mainly used to enable counting.</remarks>
+/// <param name="FirstPoint">One of the two points that form the midpoint.</param>
+/// <param name="SecondPoint">Another one of the two points that form the midpoint.</param>
+/// <param name="OccupyingPoint">The point that occupied the midpoint position.</param>
+public record OccupiedMidpointStructure(ChartPoints FirstPoint, ChartPoints SecondPoint, ChartPoints OccupyingPoint);
