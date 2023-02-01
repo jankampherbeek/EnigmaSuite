@@ -10,7 +10,8 @@
 <h2 id='about-enigma-research'>About Enigma Research</h2>
 <p>Enigma Research is free software to aid research into astrology. The program does support the calculation and analysis of horoscopes but its primary focus is research.</p>
 <p>Enigma Research supports the analysis of multiple charts. It uses control groups to support the validation of results and taking care of the pitfalls of both astronomical and demographic artifacts. The program also produces clear graphics that can be used in publications.</p>
-<p>This version 0.1 is a preliminary version. It is not public and only available to a select group of researchers.</p>
+<p>This version 0.1 is a preliminary version and soon will be followed with versions that have more functionality.</p>
+<p> </p>
 <h3 id='requirements'>Requirements</h3>
 <p>You need a computer that runs Windows. Enigma has been tested on Windows 11. It probably runs on older versions, but not older than Windows 7. Enigma will likely run in a Windows emulator on Apple hardware but that has not yet been tested.</p>
 <p>The program requires about 200 mb diskspace and about 4 GB internal memory (currently this is a very rough estimation).</p>
@@ -284,13 +285,13 @@ See the initial part of this paragraph in the User manual.</p>
 <p>&nbsp;</p>
 <h4 id='projects-overview'>Projects overview</h4>
 <p>After selecting Research in the dashboard, Enigma shows a screen with new screen to handle research projects.</p>
-<!-- html-help-begin [projectimport] -->
+<!-- html-help-begin [projectoverview] -->
 <p>This screen shows an overview of existing projects. If you did not yet define a project, the overview of projects will be empty.</p>
 <p>In the menu you can check the current settings: <strong>General - Settings</strong>, and check of change the Configuration: <strong>General - Configuration</strong>.</p>
 <p>To check the available data sets, use the menu <strong>Data - Available data sets</strong>. You can import a new data set via the menu <strong>Data - Import data</strong>. </p>
 <p>Before you can define a new project, you already must have imported a dataset. To define a new project use the menu <strong>Research Projects - Add new project</strong> or the button <strong>New</strong>. A project needs to have access to one data set. If you want to use multiple data sets you will need to define multiple projects.</p>
 <p>You can start research on an existing project by select the project in the list and clicking the button <strong>Open</strong>. A new screen will appear that will ask you to select a method to perform a test.</p>
-<!-- html-help-end [projectimport] -->
+<!-- html-help-end [projectoverview] -->
 <p>&nbsp;</p>
 <h4 id='test-with-project'>Test with project</h4>
 <!-- html-help-begin [testwithproject] -->
@@ -310,6 +311,67 @@ See the initial part of this paragraph in the User manual.</p>
 <h4 id='research-results'>Research results</h4>
 <p>The results of the research are show in tabular format. Of course these results depend on the type of test that you performed. You will see two tabs, one for <strong>Test data</strong> and one for <strong>Control data</strong>. Each of these tabs shows the result of the respective countings.</p>
 <p>These results are automatically saved to disk as a text file. At the bottom of the screen you will find the location of the files for test data and for control data.</p>
+<p>&nbsp;</p>
+<h3 id='details-per-test'>Details per test</h3>
+<p>The different tests have some screens in common, for instance for the definition of celestial points that will be part of the test. These screens have been described in the preceding paragraph. </p>
+<p>In this paragraph you will find specifics per type of test.</p>
+<p>&nbsp;</p>
+<h4 id='count-positions-in-signs'>Count positions in signs</h4>
+<p>todo</p>
+<h4 id='count-positions-in-houses'>Count positions in houses</h4>
+<p>todo</p>
+<h4 id='count-aspects'>Count aspects</h4>
+<p>todo</p>
+<h4 id='count-unaspected-celestial-points'>Count unaspected celestial points</h4>
+<p>todo</p>
+<h4 id='count-occupied-midpoints'>Count occupied midpoints</h4>
+<p>If you perform this test you will see the usual screen to select points to include in the test. The option &#39;Include all cusps&#39; will be disabled as Enigma does not calculate midpoints for cusps. You can select the mundane points MC and ascendant. If you selected Vertex and/or Eastpoint in the configuration you can also select these points.</p>
+<p>You need to select at least three points.</p>
+<h5 id='enter-details-for-midpoints'>Enter details for midpoints</h5>
+<!-- html-help-begin [midpointdetails] -->
+<p>In this screen you define additional details for midpoints. </p>
+<h6 id='dial-size'>Dial size</h6>
+<p>You can calculate midpoints in different <em>dials</em>. A dial is a division of the  zodiac in zero, 4 or 8 parts. A finer division is not yet possible in Enigma but  will be added in release 0.3.</p>
+<p>You can select one of the following dials: </p>
+<ul>
+<li><strong>360°</strong>: no division. </li>
+<li><strong>90°</strong>: a division by 4. </li>
+<li><strong>45°</strong>: a division by 8. </li>
+
+</ul>
+<h6 id='orb-1'>Orb</h6>
+<p>You can define your own orb. As the number of midpoints can be quite high, it  makes sense to use a relatively small orb, typically smaller than 2° if you use  a 360° dial and smaller for the other dials.</p>
+<p>The orb should be defined in positive numeric values, the minutes should be  between 0 and 59. The maximum total size is 9°59&#39;. However, such a large orb  probably does not make any sense. If your orb is not correctly defined you will  be warned with a popup after pressiong the OK-button. </p>
+<!-- html-help-end [midpointdetails] -->
+<h5 id='result-screen-1'>Result screen</h5>
+<p>After entering the details Enigma will calculate the occupied midpoints and show the results in a scrollable list. The format is as follows:</p>
+<p><code>Sun      / Jupiter       = Moon     12</code></p>
+<p>This indicates that the Moon is 12 times at the midpoint of Sun and Jupiter. </p>
+<p>Only midpoints with a count larger than zero are shown.</p>
+<p>The results are also saved to disk, for the location check the text at the bottom of the list.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4 id='count-harmonic-conjunctions'>Count harmonic conjunctions</h4>
+<p>Starting a test to count harmonic conjunctions will first show the usual screen to select points to include in the test. The option &#39;Include all cusps&#39; will be disabled as Enigma does not calculate harmonics for cusps. You can select the mundane points MC and ascendant. If you selected Vertex and/or Eastpoint in the configuration you can also select these points.</p>
+<p>You need to select at least one point.</p>
+<h5 id='enter-details-for-harmonics'>Enter details for harmonics</h5>
+<!-- html-help-begin [harmonicdetails] -->
+<p>In this screen you define additional details for harmonics. </p>
+<h6 id='harmonic-number'>Harmonic number</h6>
+<p>You need to enter the number of the harmonic. In most cases this will be an integer value but Enigma also supports fractional numbers. There is no limit,  you can calculate the harmonics in the range of thousands. Of course this might  effect the accuracy of the results.</p>
+<p>If your harmonic number is not correctly  defined you will be warned with a popup after pressing the OK-button. </p>
+<h6 id='orb-2'>Orb</h6>
+<p>You can define your own orb in positive numeric values, the minutes should be  between 0 and 59. The maximum total size is 9°59&#39;. </p>
+<p>If your orb is not correctly  defined you will be warned with a popup after pressing the OK-button. </p>
+<!-- html-help-end [harmonicdetails] -->
+<h5 id='result-screen-2'>Result screen</h5>
+<p>After entering the details Enigma will calculate the harmonic conjunctions and show the results in a scrollable list. The format is as follows:</p>
+<p><code>Harmonic Saturn      /  Radix Neptune     8</code></p>
+<p>This indicates that the harmonic position of Saturn forms a conjunction with the radix position of Neptune in 8 of the charts. </p>
+<p>Only harmonic conjunctions with a count larger than zero are shown.</p>
+<p>The results are also saved to disk, for the location check the text at the bottom of the list.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h2 id='cycles'>Cycles</h2>
 <p>&nbsp;</p>

@@ -10,7 +10,9 @@ Enigma Research is free software to aid research into astrology. The program doe
 
 Enigma Research supports the analysis of multiple charts. It uses control groups to support the validation of results and taking care of the pitfalls of both astronomical and demographic artifacts. The program also produces clear graphics that can be used in publications.
 
-This version 0.1 is a preliminary version. It is not public and only available to a select group of researchers.
+This version 0.1 is a preliminary version and soon will be followed with versions that have more functionality.
+
+ 
 
 ### Requirements
 
@@ -459,6 +461,120 @@ Click the button **OK** to start the calculations.
 The results of the research are show in tabular format. Of course these results depend on the type of test that you performed. You will see two tabs, one for **Test data** and one for **Control data**. Each of these tabs shows the result of the respective countings.
 
 These results are automatically saved to disk as a text file. At the bottom of the screen you will find the location of the files for test data and for control data.
+
+
+
+### Details per test
+
+The different tests have some screens in common, for instance for the definition of celestial points that will be part of the test. These screens have been described in the preceding paragraph. 
+
+In this paragraph you will find specifics per type of test.
+
+
+
+#### Count positions in signs
+
+todo
+
+#### Count positions in houses
+
+todo
+
+#### Count aspects
+
+todo
+
+#### Count unaspected celestial points
+
+todo
+
+#### Count occupied midpoints
+
+If you perform this test you will see the usual screen to select points to include in the test. The option 'Include all cusps' will be disabled as Enigma does not calculate midpoints for cusps. You can select the mundane points MC and ascendant. If you selected Vertex and/or Eastpoint in the configuration you can also select these points.
+
+You need to select at least three points.
+
+##### Enter details for midpoints
+
+<!-- html-help-begin [midpointdetails] -->
+
+In this screen you define additional details for midpoints. 
+
+###### Dial size
+
+You can calculate midpoints in different *dials*. A dial is a division of the  zodiac in zero, 4 or 8 parts. A finer division is not yet possible in Enigma but  will be added in release 0.3.
+
+You can select one of the following dials: 
+
+- **360°**: no division. 
+- **90°**: a division by 4. 
+- **45°**: a division by 8. 
+
+###### Orb
+
+You can define your own orb. As the number of midpoints can be quite high, it  makes sense to use a relatively small orb, typically smaller than 2° if you use  a 360° dial and smaller for the other dials.
+
+The orb should be defined in positive numeric values, the minutes should be  between 0 and 59. The maximum total size is 9°59'. However, such a large orb  probably does not make any sense. If your orb is not correctly defined you will  be warned with a popup after pressiong the OK-button. 
+
+<!-- html-help-end [midpointdetails] -->
+
+##### Result screen
+
+After entering the details Enigma will calculate the occupied midpoints and show the results in a scrollable list. The format is as follows:
+
+`Sun      / Jupiter       = Moon     12`
+
+This indicates that the Moon is 12 times at the midpoint of Sun and Jupiter. 
+
+Only midpoints with a count larger than zero are shown.
+
+The results are also saved to disk, for the location check the text at the bottom of the list.
+
+
+
+
+
+#### Count harmonic conjunctions
+
+Starting a test to count harmonic conjunctions will first show the usual screen to select points to include in the test. The option 'Include all cusps' will be disabled as Enigma does not calculate harmonics for cusps. You can select the mundane points MC and ascendant. If you selected Vertex and/or Eastpoint in the configuration you can also select these points.
+
+You need to select at least one point.
+
+##### Enter details for harmonics
+
+<!-- html-help-begin [harmonicdetails] -->
+
+In this screen you define additional details for harmonics. 
+
+###### Harmonic number
+
+You need to enter the number of the harmonic. In most cases this will be an integer value but Enigma also supports fractional numbers. There is no limit,  you can calculate the harmonics in the range of thousands. Of course this might  effect the accuracy of the results.
+
+If your harmonic number is not correctly  defined you will be warned with a popup after pressing the OK-button. 
+
+###### Orb
+
+You can define your own orb in positive numeric values, the minutes should be  between 0 and 59. The maximum total size is 9°59'. 
+
+If your orb is not correctly  defined you will be warned with a popup after pressing the OK-button. 
+
+<!-- html-help-end [harmonicdetails] -->
+
+##### Result screen
+
+After entering the details Enigma will calculate the harmonic conjunctions and show the results in a scrollable list. The format is as follows:
+
+`Harmonic Saturn      /  Radix Neptune     8`
+
+This indicates that the harmonic position of Saturn forms a conjunction with the radix position of Neptune in 8 of the charts. 
+
+Only harmonic conjunctions with a count larger than zero are shown.
+
+The results are also saved to disk, for the location check the text at the bottom of the list.
+
+
+
+
 
 
 

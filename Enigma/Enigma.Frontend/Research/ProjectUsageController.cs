@@ -148,10 +148,10 @@ public class ProjectUsageController
 
             bool useControlGroup = false;
             GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-            CountOfUnaspectedResponse responseTest = _researchPerformApi.PerformUnaspectedCount(request);
+            CountOfUnaspectedResponse responseTest = _researchPerformApi.PerformResearch(request) as CountOfUnaspectedResponse;
             useControlGroup = true;
             request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-            CountOfUnaspectedResponse responseCg = _researchPerformApi.PerformUnaspectedCount(request);
+            CountOfUnaspectedResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfUnaspectedResponse;
             ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
             researchResultWindow.SetResults(responseTest, responseCg);
             researchResultWindow.ShowDialog();
@@ -190,11 +190,11 @@ public class ProjectUsageController
                     GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
 
                     // fire request
-                    CountOfPartsResponse response = _researchPerformApi.PerformPartsCountTest(request);
+                    CountOfPartsResponse response = _researchPerformApi.PerformResearch(request) as CountOfPartsResponse;
 
                     useControlGroup = true;
                     request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                    CountOfPartsResponse responseCg = _researchPerformApi.PerformPartsCountTest(request);
+                    CountOfPartsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfPartsResponse;
                     ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
                     researchResultWindow.SetResults(response, responseCg);
                     researchResultWindow.ShowDialog();
@@ -203,10 +203,10 @@ public class ProjectUsageController
                 {
                     bool useControlGroup = false;
                     GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                    CountOfAspectsResponse responseTest = _researchPerformApi.PerformAspectCount(request);
+                    CountOfAspectsResponse responseTest = _researchPerformApi.PerformResearch(request) as CountOfAspectsResponse;
                     useControlGroup = true;
                     request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                    CountOfAspectsResponse responseCg = _researchPerformApi.PerformAspectCount(request);
+                    CountOfAspectsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfAspectsResponse;
                     ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
                     researchResultWindow.SetResults(responseTest, responseCg);
                     researchResultWindow.ShowDialog();
@@ -221,10 +221,10 @@ public class ProjectUsageController
                         double orb = detailsWindow.orb;
                         bool useControlGroup = false;
                         CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
-                        CountOfOccupiedMidpointsResponse responseTest = _researchPerformApi.PerformOccupiedMidpointsCount(request);
+                        CountOfOccupiedMidpointsResponse responseTest = _researchPerformApi.PerformResearch(request) as CountOfOccupiedMidpointsResponse;
                         useControlGroup = true;
                         request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
-                        CountOfOccupiedMidpointsResponse responseCg = _researchPerformApi.PerformOccupiedMidpointsCount(request);
+                        CountOfOccupiedMidpointsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfOccupiedMidpointsResponse;
                         ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
                         researchResultWindow.SetResults(responseTest, responseCg);
                         researchResultWindow.ShowDialog();
@@ -240,10 +240,10 @@ public class ProjectUsageController
                         double orb = detailsWindow.orb;
                         bool useControlGroup = false;
                         CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                        CountHarmonicConjunctionsResponse responseTest = _researchPerformApi.PerformHarmonicConjunctionsCount(request);
+                        CountHarmonicConjunctionsResponse responseTest = _researchPerformApi.PerformResearch(request) as CountHarmonicConjunctionsResponse;
                         useControlGroup = true;
                         request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                        CountHarmonicConjunctionsResponse responseCg = _researchPerformApi.PerformHarmonicConjunctionsCount(request);
+                        CountHarmonicConjunctionsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountHarmonicConjunctionsResponse;
                         ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
                         researchResultWindow.SetResults(responseTest, responseCg);
                         researchResultWindow.ShowDialog();

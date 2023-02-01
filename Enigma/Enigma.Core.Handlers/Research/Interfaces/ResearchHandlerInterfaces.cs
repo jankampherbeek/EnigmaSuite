@@ -12,30 +12,11 @@ namespace Enigma.Core.Handlers.Research.Interfaces;
 /// <summary>Handlers for performing research methods.</summary>
 public interface IResearchMethodHandler
 {
-    /// <summary>Initiate a test that implies counting of parts.</summary>
-    /// <param name="request"/>
-    /// <returns>Results of the counting.</returns>
-    public CountOfPartsResponse HandleTestForPartsMethod(GeneralResearchRequest request);
+    /// <summary>Start running a test.</summary>
+    /// <param name="request">Instance of GeneralResearchRequest or one of its children.</param>
+    /// <returns>Results of the test as instance of MethodResponse or one of its children.</returns>
+    public MethodResponse HandleResearch(GeneralResearchRequest request);
 
-    /// <summary>Initiate a test that implies counting of aspects.</summary>
-    /// <param name="request"/>
-    /// <returns>Response with counted aspects and totals.</returns>
-    public CountOfAspectsResponse HandleTestForAspectsMethod(GeneralResearchRequest request);
-
-    /// <summary>Initiate a test that counts unaspected points.</summary>
-    /// <param name="request"/>
-    /// <returns>Response with counted values.</returns>
-    public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request);
-
-    /// <summary>Initiate a test that counts occupied midpoints.</summary>
-    /// <param name="request"/>
-    /// <returns>Response with counted values.</returns>
-    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountOccupiedMidpointsRequest request);
-
-    /// <summary>Initiate a test that counts harmonic conjunctions.</summary>
-    /// <param name="request"/>
-    /// <returns>Response with counted values.</returns>
-    public CountHarmonicConjunctionsResponse HandleTestForHarmonicConjunctions(CountHarmonicConjunctionsRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>

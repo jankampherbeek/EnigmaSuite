@@ -40,6 +40,11 @@ public record TwoPointStructure(ChartPoints Point, ChartPoints Point2);
 public record ThreePointStructure(ChartPoints Point, ChartPoints Point2, ChartPoints Point3);
 
 
+/// <summary>Parent for a response from a performed test.</summary>
+/// <param name="Request">The original request.</param>
+public abstract record MethodResponse(GeneralResearchRequest Request);
+
+
 /// <summary>Response with totals for counts of aspects.</summary>
 /// <param name="Request">The original request.</param>
 /// <param name="AllCounts">Three dimension array with counts. Dimensions: 1. ChartPoints, 2. Chartpoints ossibly including cusps, 3. Aspects.</param>
@@ -48,12 +53,10 @@ public record ThreePointStructure(ChartPoints Point, ChartPoints Point2, ChartPo
 /// <param name="PointsUsed">The supported points.</param>
 /// <param name="AspectsUsed">The supported aspects.</param>
 /// <remarks>The sequence of ChartPoints in PointUsed is the same as in the first two dimensions of AllCounts. The sequence of Aspects in AspectsUsed is the same as in the thrid dimension of AllCounts.</remarks>
-public record CountOfAspectsResponse(GeneralResearchRequest Request, int[,,] AllCounts, int[,] TotalsPerPointCombi, int[] TotalsPerAspect, List<ChartPoints> PointsUsed, List<AspectTypes> AspectsUsed);
+public record CountOfAspectsResponse(GeneralResearchRequest Request, int[,,] AllCounts, int[,] TotalsPerPointCombi, int[] TotalsPerAspect, List<ChartPoints> PointsUsed, List<AspectTypes> AspectsUsed) : MethodResponse(Request);
 
 
-/// <summary>Parent for a response from a performed test.</summary>
-/// <param name="Request">The original request.</param>
-public abstract record MethodResponse(GeneralResearchRequest Request);
+
 
 
 /// <summary>Response for counting of parts.</summary>
@@ -69,12 +72,12 @@ public record CountOfPartsResponse(GeneralResearchRequest Request, List<CountOfP
 public record CountOfUnaspectedResponse(GeneralResearchRequest Request, List<SimpleCount> Counts) : MethodResponse(Request);
 
 /// <summary>Response for counting occupied midpoints.</summary>
-/// <param name="Request">The original request.</param>
+/// <param name="Request">The original request, instance of CountOccupiedMidpointsRequest.</param>
 /// <param name="AllCounts">Distionary with OccupiedMidpointStructure and the counts.</param>
-public record CountOfOccupiedMidpointsResponse(CountOccupiedMidpointsRequest Request, Dictionary<OccupiedMidpointStructure, int> AllCounts);
+public record CountOfOccupiedMidpointsResponse(GeneralResearchRequest Request, Dictionary<OccupiedMidpointStructure, int> AllCounts) : MethodResponse(Request);
 
 
 /// <summary>Response for counting conjunctions between harmonic and radix positions.</summary>
-/// <param name="Request">The original request.</param>
+/// <param name="Request">The original request, instnace of CountHarmonicConjunctionsRequest.</param>
 /// <param name="AllCounts">Dictionary with TwoPointStructure and the counts. TwoPointStructure contains respectively the harmonic point and the radix point.</param>
-public record CountHarmonicConjunctionsResponse(CountHarmonicConjunctionsRequest Request, Dictionary<TwoPointStructure, int> AllCounts);
+public record CountHarmonicConjunctionsResponse(GeneralResearchRequest Request, Dictionary<TwoPointStructure, int> AllCounts) : MethodResponse(Request as GeneralResearchRequest);

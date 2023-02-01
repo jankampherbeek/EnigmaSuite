@@ -7,6 +7,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
@@ -52,69 +53,40 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     }
 
     /// <inheritdoc/>
-    public CountOfPartsResponse HandleTestForPartsMethod(GeneralResearchRequest request)
+    public MethodResponse HandleResearch(GeneralResearchRequest request)
     {
-
         ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForPartsMethod, using method {m} for project {p}", method, request.ProjectName);
-
+        Log.Information("ResearchMethodHandler HandleResearch, using method {m} for project {p}", method, request.ProjectName);
         List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
         WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-
-        switch (method)
+        if (request is CountHarmonicConjunctionsRequest)
         {
-            case ResearchMethods.CountPosInSigns: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-            case ResearchMethods.CountPosInHouses: return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-            default:
-                string errorTxt = "An error occurred while using a testmethod in ResearchMethodHandler.HandleTestForPartsMethod(). An unsupported ResearchMethod was encountered.";
-                Log.Error(errorTxt);
-                throw new Exception(errorTxt);   // TODO create specific exception.
+            return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, request as CountHarmonicConjunctionsRequest);
+        } 
+        else if (request is CountOccupiedMidpointsRequest)
+        {
+            return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, request as CountOccupiedMidpointsRequest);
         }
-
+        else if (request is GeneralResearchRequest && method == ResearchMethods.CountUnaspected)
+        {
+            return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
+        }
+        else if (request is GeneralResearchRequest && method == ResearchMethods.CountAspects)
+        {
+            return _aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
+        }
+        else if (request is GeneralResearchRequest && method == ResearchMethods.CountPosInSigns)
+        {
+            return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+        }
+        else if (request is GeneralResearchRequest && method == ResearchMethods.CountPosInHouses)
+        {
+            return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+        }
+        string errorTxt = "ResearchMethodHandler.HandleResearch() received an unrecognized request : " + request;
+        Log.Error(errorTxt);
+        throw new EnigmaException(errorTxt);
     }
-
-
-    /// <inheritdoc/>
-    public CountOfUnaspectedResponse HandleTestForUnaspectedMethod(GeneralResearchRequest request)
-    {
-        ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForUnaspectedMethod, using method {m} for project {p}", method, request.ProjectName);
-        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
-        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-        return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
-    }
-
-    /// <inheritdoc/>
-    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountOccupiedMidpointsRequest request)
-    {
-        ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForOccupiedMidpoints, using method {m} for project {p}", method, request.ProjectName);
-        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
-        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-        return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, request);
-    }
-
-    /// <inheritdoc/>
-    public CountHarmonicConjunctionsResponse HandleTestForHarmonicConjunctions(CountHarmonicConjunctionsRequest request)
-    {
-        ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForHarmonicConjunctions, using method {m} for project {p}", method, request.ProjectName);
-        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
-        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-        return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, request);
-    }
-
-
-    /// <inheritdoc/>
-    public CountOfAspectsResponse HandleTestForAspectsMethod(GeneralResearchRequest request)
-    {
-        ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForAspectsMethod, using method {m} for project {p}", method, request.ProjectName);
-        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
-        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-        return _aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
-    }
-
 
     private List<CalculatedResearchChart> CalculateAllCharts(string projectName, bool controlGroup) {
         string fullPath = _researchPaths.DataPath(projectName, controlGroup);

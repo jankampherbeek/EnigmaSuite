@@ -28,31 +28,11 @@ public interface IProjectsOverviewApi
 /// <summary>Api for handling tests.</summary>
 public interface IResearchPerformApi
 {
-    /// <summary>Perform a test to perform a count of parts.</summary>
-    /// <param name="request">Research request.</param>
-    /// <returns>The results as a CountOfPartsResponse.</returns>
-    public CountOfPartsResponse PerformPartsCountTest(GeneralResearchRequest request);
 
-    /// <summary>Perform a test to count aspects.</summary>
-    /// <param name="request">Research request.</param>
-    /// <returns>The results as a CountOfAspectsResponse.</returns>
-    public CountOfAspectsResponse PerformAspectCount(GeneralResearchRequest request);
-
-    /// <summary>Perform a test to count unaspected points.</summary>
-    /// <param name="request">Research request.</param>
-    /// <returns>The results as a CountOfUnaspectedResponse.</returns>
-    public CountOfUnaspectedResponse PerformUnaspectedCount(GeneralResearchRequest request);
-
-    /// <summary>Perform a test to count occupied midpoints.</summary>
-    /// <param name="request">Research request.</param>
-    /// <returns>The result as a CountOfOccupiedMidpointsResponse.</returns>
-    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountOccupiedMidpointsRequest request);
-
-    /// <summary>Perform a test to count harmonic conjunctions</summary>
-    /// <param name="request">Research request.</param>
-    /// <returns>The result as a CountHarmonicConjunctionsResponse.</returns>
-    public CountHarmonicConjunctionsResponse PerformHarmonicConjunctionsCount(CountHarmonicConjunctionsRequest request);
-
+    /// <summary>Perform a test.</summary>
+    /// <param name="request">GeneralResearchRequest or one of its children.</param>
+    /// <returns>MethodResponse or one of its children.</returns>
+    public MethodResponse PerformResearch(GeneralResearchRequest request);
 }
 
 public interface IResearchPathApi

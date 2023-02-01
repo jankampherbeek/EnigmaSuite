@@ -29,7 +29,8 @@ public record GeneralResearchRequest(string ProjectName, ResearchMethods Method,
 /// <param name="PointsSelection">All points that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
 /// <param name="DivisionForDial">The division to construct the dial: 4 = 90 degrees etc.</param>
-public record CountOccupiedMidpointsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, int DivisionForDial, double orb) :
+/// <param name="Orb">Orb.</param>
+public record CountOccupiedMidpointsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, int DivisionForDial, double Orb) :
     GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
 
 /// <summary>Request to perform a test using harmonics. Checks for harmonic positions conjunct radix positions.</summary>

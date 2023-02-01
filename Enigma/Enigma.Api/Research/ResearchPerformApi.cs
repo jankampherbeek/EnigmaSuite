@@ -24,45 +24,12 @@ public sealed class ResearchPerformApi : IResearchPerformApi
         _researchMethodHandler = researchPerformHandler;
     }
 
-
     /// <inheritdoc/>
-    public CountOfPartsResponse PerformPartsCountTest(GeneralResearchRequest request)
+    public MethodResponse PerformResearch(GeneralResearchRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformPartsCountTest(): " + request.Method);
-        return _researchMethodHandler.HandleTestForPartsMethod(request);
-    }
-
-    /// <inheritdoc/>
-    public CountOfAspectsResponse PerformAspectCount(GeneralResearchRequest request)
-    {
-        Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformAspectCount(): " + request.Method);
-        return _researchMethodHandler.HandleTestForAspectsMethod(request);
-    }
-
-    /// <inheritdoc/>w
-    public CountOfUnaspectedResponse PerformUnaspectedCount(GeneralResearchRequest request)
-    {
-        Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformUnaspectedCount(): " + request.Method);
-        return _researchMethodHandler.HandleTestForUnaspectedMethod(request);
-    }
-
-    /// <inheritdoc/>
-    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountOccupiedMidpointsRequest request)
-    {
-        Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformOccupiedMidpointsCount(): " + request.Method);
-        return _researchMethodHandler.HandleTestForOccupiedMidpoints(request);   
-    }
-
-    /// <inheritdoc/>
-    public CountHarmonicConjunctionsResponse PerformHarmonicConjunctionsCount(CountHarmonicConjunctionsRequest request)
-    {
-        Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformHarmonicConjunctionsCount(): " + request.Method);
-        return _researchMethodHandler.HandleTestForHarmonicConjunctions(request);
+        Log.Information("ResearchPerformApi: PerformResearch(): " + request.Method);
+        return _researchMethodHandler.HandleResearch(request);
     }
 
 
