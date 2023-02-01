@@ -26,10 +26,6 @@ public class ProjectUsageController
     private AstroConfig _currentAstroConfig;
     private readonly IResearchPerformApi _researchPerformApi;
     private ResearchProject? _currentProject;
-    //private readonly PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-    //private readonly ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-    //private readonly AstroConfigWindow configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
-   // private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ProjectUsageController(IResearchPerformApi researchPerformApi)
     {
@@ -91,6 +87,8 @@ public class ProjectUsageController
     public void PerformRequest(ResearchMethods researchMethod)
     {
         int minimalNrOfPoints = 0;
+        MethodResponse? responseCg = null;
+        MethodResponse? responseTest = null;
         switch (researchMethod)
         {
             case ResearchMethods.None:
@@ -117,141 +115,86 @@ public class ProjectUsageController
                 minimalNrOfPoints = 1;
                 break;
         }
+        ResearchPointsSelection pointsSelection = SelectPoints(researchMethod, minimalNrOfPoints);
 
-
-
-        if (researchMethod == ResearchMethods.CountUnaspected && _currentProject != null)
+        if (_currentProject != null)
         {
-            PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-            pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
-            pointSelectWindow.SetResearchMethod(researchMethod);
-            pointSelectWindow.ShowDialog();
-
-            List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
-            List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
-            bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
-            List<ChartPoints> celPoints = new();
-            List<ChartPoints> mundanePoints = new();
-            foreach (var point in selectedCelPoints)
+            if (researchMethod == ResearchMethods.CountPosInSigns || researchMethod == ResearchMethods.CountPosInHouses || 
+                researchMethod == ResearchMethods.CountAspects || researchMethod == ResearchMethods.CountUnaspected)
             {
-                celPoints.Add(point.ChartPoint);
+                bool useControlGroup = false;
+                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                responseTest = _researchPerformApi.PerformResearch(request);
+                useControlGroup = true;
+                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                responseCg = _researchPerformApi.PerformResearch(request);
+
             }
-            if (researchMethod != ResearchMethods.CountPosInHouses)
+            else if (researchMethod == ResearchMethods.CountOccupiedMidpoints)
             {
-                foreach (var point in selectedMundanePoints)
+                MidpointDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<MidpointDetailsWindow>();
+                detailsWindow.ShowDialog();
+                if (detailsWindow.IsCompleted())
                 {
-                    mundanePoints.Add(point.MundanePoint);
+                    int divisionForDial = detailsWindow.dialDivision;
+                    double orb = detailsWindow.orb;
+                    bool useControlGroup = false;
+                    CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                    responseTest = _researchPerformApi.PerformResearch(request);
+                    useControlGroup = true;
+                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                    responseCg = _researchPerformApi.PerformResearch(request);
                 }
-                selectedUseCusps = pointSelectWindow.SelectedUseCusps;
             }
-            ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
-
-            bool useControlGroup = false;
-            GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-            CountOfUnaspectedResponse responseTest = _researchPerformApi.PerformResearch(request) as CountOfUnaspectedResponse;
-            useControlGroup = true;
-            request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-            CountOfUnaspectedResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfUnaspectedResponse;
-            ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-            researchResultWindow.SetResults(responseTest, responseCg);
-            researchResultWindow.ShowDialog();
-        }
-        else
-        {
-            PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-            pointSelectWindow.SetMinimalNrOfPoints(minimalNrOfPoints);
-            pointSelectWindow.SetResearchMethod(researchMethod);
-            pointSelectWindow.ShowDialog();
-
-            if (pointSelectWindow.IsCompleted() && _currentProject != null)
+            else if (researchMethod == ResearchMethods.CountHarmonicConjunctions)
             {
-                List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
-                List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
-                bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
-                List<ChartPoints> celPoints = new();
-                List<ChartPoints> mundanePoints = new();
-                foreach (var point in selectedCelPoints)
+                HarmonicDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<HarmonicDetailsWindow>();
+                detailsWindow.ShowDialog();
+                if (detailsWindow.IsCompleted())
                 {
-                    celPoints.Add(point.ChartPoint);
-                }
-                if (researchMethod != ResearchMethods.CountPosInHouses)
-                {
-                    foreach (var point in selectedMundanePoints)
-                    {
-                        mundanePoints.Add(point.MundanePoint);
-                    }
-                    selectedUseCusps = pointSelectWindow.SelectedUseCusps;
-                }
-                ResearchPointsSelection pointsSelection = new(celPoints, mundanePoints, selectedUseCusps);
-
-                if (researchMethod == ResearchMethods.CountPosInHouses || researchMethod == ResearchMethods.CountPosInSigns)
-                {
+                    double harmonicNumber = detailsWindow.harmonicNumber;
+                    double orb = detailsWindow.orb;
                     bool useControlGroup = false;
-                    GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-
-                    // fire request
-                    CountOfPartsResponse response = _researchPerformApi.PerformResearch(request) as CountOfPartsResponse;
-
+                    CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                    responseTest = _researchPerformApi.PerformResearch(request);
                     useControlGroup = true;
-                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                    CountOfPartsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfPartsResponse;
-                    ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                    researchResultWindow.SetResults(response, responseCg);
-                    researchResultWindow.ShowDialog();
+                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                    responseCg = _researchPerformApi.PerformResearch(request);
                 }
-                if (researchMethod == ResearchMethods.CountAspects)
-                {
-                    bool useControlGroup = false;
-                    GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                    CountOfAspectsResponse responseTest = _researchPerformApi.PerformResearch(request) as CountOfAspectsResponse;
-                    useControlGroup = true;
-                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                    CountOfAspectsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfAspectsResponse;
-                    ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                    researchResultWindow.SetResults(responseTest, responseCg);
-                    researchResultWindow.ShowDialog();
-                }
-                if (researchMethod == ResearchMethods.CountOccupiedMidpoints)
-                {
-                    MidpointDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<MidpointDetailsWindow>();
-                    detailsWindow.ShowDialog();
-                    if (detailsWindow.IsCompleted())
-                    {
-                        int divisionForDial = detailsWindow.dialDivision;
-                        double orb = detailsWindow.orb;
-                        bool useControlGroup = false;
-                        CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
-                        CountOfOccupiedMidpointsResponse responseTest = _researchPerformApi.PerformResearch(request) as CountOfOccupiedMidpointsResponse;
-                        useControlGroup = true;
-                        request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
-                        CountOfOccupiedMidpointsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountOfOccupiedMidpointsResponse;
-                        ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                        researchResultWindow.SetResults(responseTest, responseCg);
-                        researchResultWindow.ShowDialog();
-                    }
-                }
-                if (researchMethod == ResearchMethods.CountHarmonicConjunctions)
-                {
-                    HarmonicDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<HarmonicDetailsWindow>();
-                    detailsWindow.ShowDialog();
-                    if (detailsWindow.IsCompleted())
-                    {
-                        double harmonicNumber = detailsWindow.harmonicNumber;
-                        double orb = detailsWindow.orb;
-                        bool useControlGroup = false;
-                        CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                        CountHarmonicConjunctionsResponse responseTest = _researchPerformApi.PerformResearch(request) as CountHarmonicConjunctionsResponse;
-                        useControlGroup = true;
-                        request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                        CountHarmonicConjunctionsResponse responseCg = _researchPerformApi.PerformResearch(request) as CountHarmonicConjunctionsResponse;
-                        ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                        researchResultWindow.SetResults(responseTest, responseCg);
-                        researchResultWindow.ShowDialog();
-                    }
-                }
+            }
+            if (responseTest != null && responseCg != null)
+            {
+                ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                researchResultWindow.SetResults(responseTest, responseCg);
+                researchResultWindow.ShowDialog();
             }
         }
+
     }
+
+    private static ResearchPointsSelection SelectPoints(ResearchMethods researchMethod, int nrOfPoints)
+    {
+        PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+        pointSelectWindow.SetMinimalNrOfPoints(nrOfPoints);
+        pointSelectWindow.SetResearchMethod(researchMethod);
+        pointSelectWindow.ShowDialog();
+
+        List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
+        List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
+        List<ChartPoints> celPoints = new();
+        List<ChartPoints> mundanePoints = new();
+        foreach (var point in selectedCelPoints)
+        {
+            celPoints.Add(point.ChartPoint);
+        }
+        foreach (var point in selectedMundanePoints)
+        {
+            mundanePoints.Add(point.MundanePoint);
+        }
+        bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
+        return new ResearchPointsSelection(celPoints, mundanePoints, selectedUseCusps);
+    }
+
 
     public void ShowConfig()
     {

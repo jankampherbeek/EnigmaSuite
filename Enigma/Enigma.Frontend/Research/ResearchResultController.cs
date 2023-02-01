@@ -36,9 +36,28 @@ public class ResearchResultController
         _researchPathApi = researchPathApi;
     }
 
-    public void SetMethodResponses(CountOfAspectsResponse responseTest, CountOfAspectsResponse responseControl)
+    public void SetMethodResponses(MethodResponse responseTest, MethodResponse responseControl)
     {
-        DefineAspectsResultTexts(responseTest, responseControl);
+        if (responseTest is CountOfAspectsResponse)
+        {
+            DefineAspectsResultTexts(responseTest, responseControl);
+        }
+        else if (responseTest is CountOfUnaspectedResponse)
+        {
+            DefineUnaspectedResultTexts(responseTest, responseControl);
+        }
+        else if (responseTest is CountOfOccupiedMidpointsResponse)
+        {
+            DefineOccupiedMidpointsResultTexts(responseTest, responseControl);
+        }
+        else if (responseTest is CountHarmonicConjunctionsResponse)
+        {
+            DefineHarmonicConjunctionsResultTexts(responseTest, responseControl);
+        }
+        else if (responseTest is CountOfPartsResponse)
+        {
+            DefinePartsResultTexts(responseTest, responseControl);
+        }
     }
 
 
@@ -47,10 +66,10 @@ public class ResearchResultController
         DefinePartsResultTexts(responseTest, responseControl);
     }
 
-    public void SetMethodResponses(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
-    {
-        DefineUnaspectedResultTexts(responseTest, responseControl);
-    }
+   // public void SetMethodResponses(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
+   // {
+   //     DefineUnaspectedResultTexts(responseTest, responseControl);
+   // }
 
     public void SetMethodResponses(CountOfOccupiedMidpointsResponse responseTest, CountOfOccupiedMidpointsResponse responseControl)
     {
@@ -64,7 +83,7 @@ public class ResearchResultController
 
 
 
-    public void DefineUnaspectedResultTexts(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
+    public void DefineUnaspectedResultTexts(MethodResponse responseTest, MethodResponse responseControl)
     {
         TestResultText = CreateUnaspectedResultData(responseTest);
         ControlResultText = CreateUnaspectedResultData(responseControl);
@@ -72,7 +91,7 @@ public class ResearchResultController
         WriteResults(responseTest.Request);
     }
 
-    public void DefineAspectsResultTexts(CountOfAspectsResponse responseTest, CountOfAspectsResponse responseControl)
+    public void DefineAspectsResultTexts(MethodResponse responseTest, MethodResponse responseControl)
     {
         TestResultText = CreateAspectsResultData(responseTest);
         ControlResultText = CreateAspectsResultData(responseControl);
@@ -80,27 +99,25 @@ public class ResearchResultController
         WriteResults(responseTest.Request);
     }
 
-    private void DefineOccupiedMidpointsResultTexts(CountOfOccupiedMidpointsResponse responseTest, CountOfOccupiedMidpointsResponse responseControl)
+    private void DefineOccupiedMidpointsResultTexts(MethodResponse responseTest, MethodResponse responseControl)
     {
-        Dictionary<OccupiedMidpointStructure, int> allCounts = responseTest.AllCounts;
-        TestResultText = CreateOccupiedMidpointsResultData(allCounts);
-        ControlResultText = CreateOccupiedMidpointsResultData(allCounts);
+        TestResultText = CreateOccupiedMidpointsResultData(responseTest);
+        ControlResultText = CreateOccupiedMidpointsResultData(responseControl);
         CreateResultHeaders(responseTest.Request);
         WriteResults(responseTest.Request);
     }
 
-    private void DefineHarmonicConjunctionsResultTexts(CountHarmonicConjunctionsResponse responseTest, CountHarmonicConjunctionsResponse responseControl)
+    private void DefineHarmonicConjunctionsResultTexts(MethodResponse responseTest, MethodResponse responseControl)
     {
-        Dictionary<TwoPointStructure, int> allCounts = responseTest.AllCounts;
-        TestResultText = CreateHarmonicConjunctionsResultData(allCounts);
-        ControlResultText = CreateHarmonicConjunctionsResultData(allCounts);
+        TestResultText = CreateHarmonicConjunctionsResultData(responseTest);
+        ControlResultText = CreateHarmonicConjunctionsResultData(responseControl);
         CreateResultHeaders(responseTest.Request);
         WriteResults(responseTest.Request);
     }
 
 
 
-    public void DefinePartsResultTexts(CountOfPartsResponse responseTest, CountOfPartsResponse responseControl)
+    public void DefinePartsResultTexts(MethodResponse responseTest, MethodResponse responseControl)
     {
         TestResultText = CreatePartsResultData(responseTest);
         ControlResultText = CreatePartsResultData(responseControl);
@@ -133,165 +150,189 @@ public class ResearchResultController
 
 
 
-    private static string CreatePartsResultData(CountOfPartsResponse response)
+    private static string CreatePartsResultData(MethodResponse response)
     {
-        List<CountOfParts> countOfParts = response.Counts;
-        List<int> totals = response.Totals;
-        string spaces = "                    ";  // 20 spaces
-        string headerLine = string.Empty;
-        string separatorLine = "--------------------------------------------------------------------------------------------------------";
         StringBuilder resultData = new();
-        if (response.Request.Method == ResearchMethods.CountPosInSigns)
+        CountOfPartsResponse? qualifiedResponse = response as CountOfPartsResponse;
+        if (qualifiedResponse != null)
         {
-            headerLine = "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS";
-        }
-        else
-        if (response.Request.Method == ResearchMethods.CountPosInHouses)
-        {
-            headerLine = "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
-        }
-        resultData.AppendLine(headerLine);
-        resultData.AppendLine(separatorLine);
+            List<CountOfParts> countOfParts = qualifiedResponse.Counts;
+            List<int> totals = qualifiedResponse.Totals;
+            string spaces = "                    ";  // 20 spaces
+            string headerLine = string.Empty;
+            string separatorLine = "--------------------------------------------------------------------------------------------------------";
 
-        foreach (CountOfParts cop in countOfParts)
-        {
-            string name = cop.Point.ToString() + spaces;
-            resultData.Append(name[..20]);
-            foreach (int count in cop.Counts)
+            if (response.Request.Method == ResearchMethods.CountPosInSigns)
             {
-                resultData.Append((count.ToString() + spaces)[..7]);
+                headerLine = "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS";
+            }
+            else
+            if (response.Request.Method == ResearchMethods.CountPosInHouses)
+            {
+                headerLine = "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
+            }
+            resultData.AppendLine(headerLine);
+            resultData.AppendLine(separatorLine);
+
+            foreach (CountOfParts cop in countOfParts)
+            {
+                string name = cop.Point.ToString() + spaces;
+                resultData.Append(name[..20]);
+                foreach (int count in cop.Counts)
+                {
+                    resultData.Append((count.ToString() + spaces)[..7]);
+                }
+                resultData.AppendLine();
+            }
+            resultData.AppendLine(separatorLine);
+            resultData.Append(spaces);
+            foreach (int total in totals)
+            {
+                resultData.Append((total.ToString() + spaces)[..7]);
             }
             resultData.AppendLine();
         }
-        resultData.AppendLine(separatorLine);
-        resultData.Append(spaces);
-        foreach (int total in totals)
-        {
-            resultData.Append((total.ToString() + spaces)[..7]);
-        }
-        resultData.AppendLine();
         return resultData.ToString();
     }
 
 
-    private static string CreateAspectsResultData(CountOfAspectsResponse response)
+    private static string CreateAspectsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-
-        string spaces = "                                                  ";               // 50 spaces
-        string separatorLine = "--------------------------------------------------";        // 50 positions
-        string separatorFragment = "-------";                                               // 7 positions
-        StringBuilder headerLine = new();
-        headerLine.Append(spaces);   // 50 spaces offset to create space for two names for points.
-        foreach (AspectTypes asp in response.AspectsUsed)
+        CountOfAspectsResponse? qualifiedResponse = response as CountOfAspectsResponse;
+        if (qualifiedResponse != null)
         {
-            headerLine.Append((((int)asp.GetDetails().Angle).ToString() + spaces)[..7]);
+            string spaces = "                                                  ";               // 50 spaces
+            string separatorLine = "--------------------------------------------------";        // 50 positions
+            string separatorFragment = "-------";                                               // 7 positions
+            StringBuilder headerLine = new();
+            headerLine.Append(spaces);   // 50 spaces offset to create space for two names for points.
+            foreach (AspectTypes asp in qualifiedResponse.AspectsUsed)
+            {
+                headerLine.Append((((int)asp.GetDetails().Angle).ToString() + spaces)[..7]);
+                separatorLine += separatorFragment;
+            }
+            headerLine.Append("Totals");                // TODO 0.1 replce with text from RB
             separatorLine += separatorFragment;
-        }
-        headerLine.Append("Totals");                // TODO 0.1 replce with text from RB
-        separatorLine += separatorFragment;  
-        resultData.AppendLine(headerLine.ToString());
-        resultData.AppendLine(separatorLine);
-        int[,,] allCounts = response.AllCounts;
-        StringBuilder detailLine;
-        int nrOfCelPoints = 0;
-        foreach (var item in response.PointsUsed)
-        {
-            if (item.GetDetails().PointCat != PointCats.Cusp)
+            resultData.AppendLine(headerLine.ToString());
+            resultData.AppendLine(separatorLine);
+            int[,,] allCounts = qualifiedResponse.AllCounts;
+            StringBuilder detailLine;
+            int nrOfCelPoints = 0;
+            foreach (var item in qualifiedResponse.PointsUsed)
             {
-                nrOfCelPoints++;
-            }
-        }
-        for (int i = 0; i < nrOfCelPoints; i++)
-        {
-            for (int j = i+1; j < response.PointsUsed.Count; j++)
-            {
-                detailLine = new();
-                detailLine.Append(Rosetta.TextForId(response.PointsUsed[i].GetDetails().TextId).PadRight(25));
-                detailLine.Append(Rosetta.TextForId(response.PointsUsed[j].GetDetails().TextId).PadRight(25));
-                for (int k = 0; k < response.AspectsUsed.Count; k++)
+                if (item.GetDetails().PointCat != PointCats.Cusp)
                 {
-                    detailLine.Append((allCounts[i,j,k].ToString() + spaces)[..7]); 
+                    nrOfCelPoints++;
                 }
-                detailLine.Append((response.TotalsPerPointCombi[i, j].ToString() + spaces)[..7]);
-                resultData.AppendLine(detailLine.ToString());
             }
-        }
-        int totalOverall = 0;
-        detailLine = new();
-        detailLine.Append(("Totals" + spaces)[..50]);
-        foreach (int count in response.TotalsPerAspect)
-        {
-            detailLine.Append((count.ToString() + spaces)[..7]);
-            totalOverall += count;
-        }
-        detailLine.Append((totalOverall.ToString() + spaces)[..7]);
-        resultData.AppendLine(separatorLine);
-        resultData.AppendLine(detailLine.ToString());
-        return resultData.ToString();
-    }
-
-
-    private static string CreateUnaspectedResultData(CountOfUnaspectedResponse response)
-    {
-        StringBuilder resultData = new();
-        string spaces = "                    ";                                             // 20 spaces
-        string separatorLine = "--------------------------------------------------";        // 50 positions
-        StringBuilder headerLine = new();
-        headerLine.Append(spaces);   
-        headerLine.AppendLine("Nr of charts without aspects.");   // TODO 0.1 use RB
-        resultData.AppendLine(headerLine.ToString());
-        resultData.AppendLine(separatorLine);
-        foreach (SimpleCount simpleCount in response.Counts)
-        {
-            resultData.AppendLine((Rosetta.TextForId(simpleCount.Point.GetDetails().TextId) + spaces)[..20] + simpleCount.Count.ToString());
-        }
-        return resultData.ToString();
-    }
-
-    private static string CreateOccupiedMidpointsResultData(Dictionary<OccupiedMidpointStructure, int> allCounts)
-    {
-        StringBuilder resultData = new();
-        string spaces = "                    ";                                             // 20 spaces
-        string separatorLine = "--------------------------------------------------";        // 50 positions
-        StringBuilder headerLine = new();
-        headerLine.Append(spaces);
-        headerLine.AppendLine("Occupied midpoints.");   // TODO 0.1 use RB
-        resultData.AppendLine(headerLine.ToString());
-        resultData.AppendLine(separatorLine);
-
-        foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
-        {
-            if (midpoint.Value > 0)
+            for (int i = 0; i < nrOfCelPoints; i++)
             {
-                string firstPointName = Rosetta.TextForId(midpoint.Key.FirstPoint.GetDetails().TextId);
-                string secondPointName = Rosetta.TextForId(midpoint.Key.SecondPoint.GetDetails().TextId);
-                string occPointName = Rosetta.TextForId(midpoint.Key.OccupyingPoint.GetDetails().TextId);
-                string midpointCount = midpoint.Value.ToString();
-                resultData.AppendLine((firstPointName + spaces)[..20] + " / " + (secondPointName + spaces)[..20] + " = " + (occPointName + spaces)[..20] + " " + midpointCount);
+                for (int j = i + 1; j < qualifiedResponse.PointsUsed.Count; j++)
+                {
+                    detailLine = new();
+                    detailLine.Append(Rosetta.TextForId(qualifiedResponse.PointsUsed[i].GetDetails().TextId).PadRight(25));
+                    detailLine.Append(Rosetta.TextForId(qualifiedResponse.PointsUsed[j].GetDetails().TextId).PadRight(25));
+                    for (int k = 0; k < qualifiedResponse.AspectsUsed.Count; k++)
+                    {
+                        detailLine.Append((allCounts[i, j, k].ToString() + spaces)[..7]);
+                    }
+                    detailLine.Append((qualifiedResponse.TotalsPerPointCombi[i, j].ToString() + spaces)[..7]);
+                    resultData.AppendLine(detailLine.ToString());
+                }
+            }
+            int totalOverall = 0;
+            detailLine = new();
+            detailLine.Append(("Totals" + spaces)[..50]);
+            foreach (int count in qualifiedResponse.TotalsPerAspect)
+            {
+                detailLine.Append((count.ToString() + spaces)[..7]);
+                totalOverall += count;
+            }
+            detailLine.Append((totalOverall.ToString() + spaces)[..7]);
+            resultData.AppendLine(separatorLine);
+            resultData.AppendLine(detailLine.ToString());
+        }
+        return resultData.ToString();
+    }
+
+
+    private static string CreateUnaspectedResultData(MethodResponse response)
+    {
+        StringBuilder resultData = new();
+        CountOfUnaspectedResponse? qualifiedResponse = response as CountOfUnaspectedResponse;
+        if (qualifiedResponse != null)
+        {
+            string spaces = "                    ";                                             // 20 spaces
+            string separatorLine = "--------------------------------------------------";        // 50 positions
+            StringBuilder headerLine = new();
+            headerLine.Append(spaces);
+            headerLine.AppendLine("Nr of charts without aspects.");   // TODO 0.1 use RB
+            resultData.AppendLine(headerLine.ToString());
+            resultData.AppendLine(separatorLine);
+            foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
+            {
+                resultData.AppendLine((Rosetta.TextForId(simpleCount.Point.GetDetails().TextId) + spaces)[..20] + simpleCount.Count.ToString());
             }
         }
         return resultData.ToString();
     }
 
-    private static string CreateHarmonicConjunctionsResultData(Dictionary<TwoPointStructure, int> allCounts)
+    private static string CreateOccupiedMidpointsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-        string spaces = "                    ";                                             // 20 spaces
-        string separatorLine = "--------------------------------------------------";        // 50 positions
-        StringBuilder headerLine = new();
-        headerLine.Append(spaces);
-        headerLine.AppendLine("Harmonic conjunctions.");   // TODO 0.1 use RB
-        resultData.AppendLine(headerLine.ToString());
-        resultData.AppendLine(separatorLine);
-        foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)
+        CountOfOccupiedMidpointsResponse? qualifiedResponse = response as CountOfOccupiedMidpointsResponse;
+        if (qualifiedResponse != null )
         {
-            if (harmConj.Value > 0)
+            Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
+            string spaces = "                    ";                                             // 20 spaces
+            string separatorLine = "--------------------------------------------------";        // 50 positions
+            StringBuilder headerLine = new();
+            headerLine.Append(spaces);
+            headerLine.AppendLine("Occupied midpoints.");   // TODO 0.1 use RB
+            resultData.AppendLine(headerLine.ToString());
+            resultData.AppendLine(separatorLine);
+
+            foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
             {
-                string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().TextId);
-                string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().TextId);
-                string harmonicCount = harmConj.Value.ToString();
-                resultData.AppendLine(("Harmonic " + firstPointName + spaces)[..20] + " / " + (" Radix " + secondPointName + spaces)[..20] + " " + harmonicCount);    // TODO 0.1 use RB
+                if (midpoint.Value > 0)
+                {
+                    string firstPointName = Rosetta.TextForId(midpoint.Key.FirstPoint.GetDetails().TextId);
+                    string secondPointName = Rosetta.TextForId(midpoint.Key.SecondPoint.GetDetails().TextId);
+                    string occPointName = Rosetta.TextForId(midpoint.Key.OccupyingPoint.GetDetails().TextId);
+                    string midpointCount = midpoint.Value.ToString();
+                    resultData.AppendLine((firstPointName + spaces)[..20] + " / " + (secondPointName + spaces)[..20] + " = " + (occPointName + spaces)[..20] + " " + midpointCount);
+                }
+            }
+        }
+        return resultData.ToString();
+    }
+
+    private static string CreateHarmonicConjunctionsResultData(MethodResponse response)
+    {
+        StringBuilder resultData = new();
+
+        CountHarmonicConjunctionsResponse? qualifiedResponse = response as CountHarmonicConjunctionsResponse;
+        if (qualifiedResponse != null)
+        {
+            Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
+
+            string spaces = "                    ";                                             // 20 spaces
+            string separatorLine = "--------------------------------------------------";        // 50 positions
+            StringBuilder headerLine = new();
+            headerLine.Append(spaces);
+            headerLine.AppendLine("Harmonic conjunctions.");   // TODO 0.1 use RB
+            resultData.AppendLine(headerLine.ToString());
+            resultData.AppendLine(separatorLine);
+            foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)
+            {
+                if (harmConj.Value > 0)
+                {
+                    string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().TextId);
+                    string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().TextId);
+                    string harmonicCount = harmConj.Value.ToString();
+                    resultData.AppendLine(("Harmonic " + firstPointName + spaces)[..20] + " / " + (" Radix " + secondPointName + spaces)[..20] + " " + harmonicCount);    // TODO 0.1 use RB
+                }
             }
         }
         return resultData.ToString();

@@ -21,35 +21,12 @@ namespace Enigma.Frontend.Ui.Research
             PopulateTexts();
         }
 
-        public void SetResults(CountOfPartsResponse responseTest, CountOfPartsResponse responseControl)
+        public void SetResults(MethodResponse responseTest, MethodResponse responseControl)
         {
             _controller.SetMethodResponses(responseTest, responseControl);
             PopulateData();
         }
 
-        public void SetResults(CountOfAspectsResponse responseTest, CountOfAspectsResponse responseControl)
-        {
-            _controller.SetMethodResponses(responseTest, responseControl);
-            PopulateData();
-        }
-
-        public void SetResults(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
-        {
-            _controller.SetMethodResponses(responseTest, responseControl);
-            PopulateData();
-        }
-
-        public void SetResults(CountOfOccupiedMidpointsResponse responseTest, CountOfOccupiedMidpointsResponse responseControl)
-        {
-            _controller.SetMethodResponses(responseTest, responseControl);
-            PopulateData();
-        }
-
-        public void SetResults(CountHarmonicConjunctionsResponse responseTest, CountHarmonicConjunctionsResponse responseControl)
-        {
-            _controller.SetMethodResponses(responseTest, responseControl);
-            PopulateData();
-        }
 
         private void PopulateTexts()
         {
