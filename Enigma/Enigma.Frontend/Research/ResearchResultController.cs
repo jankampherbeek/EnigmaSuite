@@ -57,6 +57,11 @@ public class ResearchResultController
         DefineOccupiedMidpointsResultTexts(responseTest, responseControl);
     }
 
+    public void SetMethodResponses(CountHarmonicConjunctionsResponse responseTst, CountHarmonicConjunctionsResponse responseControl)
+    {
+        DefineHarmonicConjunctionsResultTexts(responseTst, responseControl);
+    }
+
 
 
     public void DefineUnaspectedResultTexts(CountOfUnaspectedResponse responseTest, CountOfUnaspectedResponse responseControl)
@@ -80,6 +85,15 @@ public class ResearchResultController
         Dictionary<OccupiedMidpointStructure, int> allCounts = responseTest.AllCounts;
         TestResultText = CreateOccupiedMidpointsResultData(allCounts);
         ControlResultText = CreateOccupiedMidpointsResultData(allCounts);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+
+    private void DefineHarmonicConjunctionsResultTexts(CountHarmonicConjunctionsResponse responseTest, CountHarmonicConjunctionsResponse responseControl)
+    {
+        Dictionary<TwoPointStructure, int> allCounts = responseTest.AllCounts;
+        TestResultText = CreateHarmonicConjunctionsResultData(allCounts);
+        ControlResultText = CreateHarmonicConjunctionsResultData(allCounts);
         CreateResultHeaders(responseTest.Request);
         WriteResults(responseTest.Request);
     }
@@ -225,7 +239,7 @@ public class ResearchResultController
         string separatorLine = "--------------------------------------------------";        // 50 positions
         StringBuilder headerLine = new();
         headerLine.Append(spaces);   
-        headerLine.Append("Nr of charts without aspects.");   // TODO 0.1 use RB
+        headerLine.AppendLine("Nr of charts without aspects.");   // TODO 0.1 use RB
         resultData.AppendLine(headerLine.ToString());
         resultData.AppendLine(separatorLine);
         foreach (SimpleCount simpleCount in response.Counts)
@@ -235,18 +249,18 @@ public class ResearchResultController
         return resultData.ToString();
     }
 
-    private static string CreateOccupiedMidpointsResultData(Dictionary<OccupiedMidpointStructure, int> AllCounts)
+    private static string CreateOccupiedMidpointsResultData(Dictionary<OccupiedMidpointStructure, int> allCounts)
     {
         StringBuilder resultData = new();
         string spaces = "                    ";                                             // 20 spaces
         string separatorLine = "--------------------------------------------------";        // 50 positions
         StringBuilder headerLine = new();
         headerLine.Append(spaces);
-        headerLine.Append("Occupied midpoints.");   // TODO 0.1 use RB
+        headerLine.AppendLine("Occupied midpoints.");   // TODO 0.1 use RB
         resultData.AppendLine(headerLine.ToString());
         resultData.AppendLine(separatorLine);
 
-        foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in AllCounts)
+        foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
         {
             if (midpoint.Value > 0)
             {
@@ -255,6 +269,29 @@ public class ResearchResultController
                 string occPointName = Rosetta.TextForId(midpoint.Key.OccupyingPoint.GetDetails().TextId);
                 string midpointCount = midpoint.Value.ToString();
                 resultData.AppendLine((firstPointName + spaces)[..20] + " / " + (secondPointName + spaces)[..20] + " = " + (occPointName + spaces)[..20] + " " + midpointCount);
+            }
+        }
+        return resultData.ToString();
+    }
+
+    private static string CreateHarmonicConjunctionsResultData(Dictionary<TwoPointStructure, int> allCounts)
+    {
+        StringBuilder resultData = new();
+        string spaces = "                    ";                                             // 20 spaces
+        string separatorLine = "--------------------------------------------------";        // 50 positions
+        StringBuilder headerLine = new();
+        headerLine.Append(spaces);
+        headerLine.AppendLine("Harmonic conjunctions.");   // TODO 0.1 use RB
+        resultData.AppendLine(headerLine.ToString());
+        resultData.AppendLine(separatorLine);
+        foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)
+        {
+            if (harmConj.Value > 0)
+            {
+                string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().TextId);
+                string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().TextId);
+                string harmonicCount = harmConj.Value.ToString();
+                resultData.AppendLine(("Harmonic " + firstPointName + spaces)[..20] + " / " + (" Radix " + secondPointName + spaces)[..20] + " " + harmonicCount);    // TODO 0.1 use RB
             }
         }
         return resultData.ToString();

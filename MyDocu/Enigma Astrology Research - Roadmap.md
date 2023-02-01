@@ -91,7 +91,7 @@ Adds harmonic and historical orb definitions, celestial objects, dials for midpo
 
 **General**:
 
-- Extend configuration with values for orb for midpoints, using different dials, with parameters for historical orbs, for using sect for Pars Fortunae and for rulerships.
+- Extend configuration with values for orb for midpoints and harmonics, using different dials, with parameters for historical orbs, for using sect for Pars Fortunae and for rulerships.
 - Automatic cleaning of old log files.
 - User defined selections for glyphs.
 

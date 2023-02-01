@@ -45,6 +45,11 @@ namespace Enigma.Frontend.Ui.Research
             PopulateData();
         }
 
+        public void SetResults(CountHarmonicConjunctionsResponse responseTest, CountHarmonicConjunctionsResponse responseControl)
+        {
+            _controller.SetMethodResponses(responseTest, responseControl);
+            PopulateData();
+        }
 
         private void PopulateTexts()
         {

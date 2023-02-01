@@ -27,6 +27,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     private readonly IAspectsCounting _aspectsCounting;
     private readonly IUnaspectedCounting _unaspectedCounting;
     private readonly IOccupiedMidpointsCounting _occupiedMidpointsCounting;
+    private readonly IHarmonicConjunctionsCounting _harmonicConjunctionsCounting;
 
 
     public ResearchMethodHandler(ICalculatedResearchPositions researchPositions,
@@ -36,7 +37,8 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         IResearchPaths researchPaths,
         IAspectsCounting aspectsCounting,
         IUnaspectedCounting unaspectedCounting,
-        IOccupiedMidpointsCounting occupiedMidpointsCounting)
+        IOccupiedMidpointsCounting occupiedMidpointsCounting,
+        IHarmonicConjunctionsCounting harmonicConjunctionsCounting)
     {
         _researchPositions = researchPositions;
         _pointsInPartsCounting = pointsInZodiacPartsCounting;
@@ -46,6 +48,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         _aspectsCounting = aspectsCounting;
         _unaspectedCounting = unaspectedCounting;
         _occupiedMidpointsCounting = occupiedMidpointsCounting;
+        _harmonicConjunctionsCounting = harmonicConjunctionsCounting;
     }
 
     /// <inheritdoc/>
@@ -81,16 +84,25 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
     }
 
-
-    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountMidpointsPerformRequest request)
+    /// <inheritdoc/>
+    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountOccupiedMidpointsRequest request)
     {
         ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleTestForOccupiedMidpointMethod, using method {m} for project {p}", method, request.ProjectName);
+        Log.Information("ResearchMethodHandler HandleTestForOccupiedMidpoints, using method {m} for project {p}", method, request.ProjectName);
         List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
         WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
         return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, request);
     }
 
+    /// <inheritdoc/>
+    public CountHarmonicConjunctionsResponse HandleTestForHarmonicConjunctions(CountHarmonicConjunctionsRequest request)
+    {
+        ResearchMethods method = request.Method;
+        Log.Information("ResearchMethodHandler HandleTestForHarmonicConjunctions, using method {m} for project {p}", method, request.ProjectName);
+        List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
+        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
+        return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, request);
+    }
 
 
     /// <inheritdoc/>

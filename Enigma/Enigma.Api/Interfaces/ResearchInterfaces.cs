@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -45,8 +45,14 @@ public interface IResearchPerformApi
 
     /// <summary>Perform a test to count occupied midpoints.</summary>
     /// <param name="request">Research request.</param>
-    /// <returns>The result as an CountOfOccupiedMidpointsResponse.</returns>
-    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountMidpointsPerformRequest request);
+    /// <returns>The result as a CountOfOccupiedMidpointsResponse.</returns>
+    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountOccupiedMidpointsRequest request);
+
+    /// <summary>Perform a test to count harmonic conjunctions</summary>
+    /// <param name="request">Research request.</param>
+    /// <returns>The result as a CountHarmonicConjunctionsResponse.</returns>
+    public CountHarmonicConjunctionsResponse PerformHarmonicConjunctionsCount(CountHarmonicConjunctionsRequest request);
+
 }
 
 public interface IResearchPathApi

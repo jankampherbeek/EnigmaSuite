@@ -36,4 +36,17 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
         return _calculator.CalculateHarmonics(originalPositions, harmonicNumber);
     }
 
+    /// <inheritdoc/>
+    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber)   // todo 0.1 test RetrieveHarmonicPositions.
+    {
+        Dictionary<ChartPoints, double> harmonicPositions = new();
+        foreach (PositionedPoint posPoint in posPoints)
+        {
+            double harmonic = _calculator.CalculateHarmonic(posPoint.Position, harmonicNumber);
+            harmonicPositions.Add(posPoint.Point, harmonic);
+        }
+        return harmonicPositions;
+    }
+
+
 }

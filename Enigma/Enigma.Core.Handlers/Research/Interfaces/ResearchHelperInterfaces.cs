@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Domain.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
@@ -60,8 +62,18 @@ public interface IOccupiedMidpointsCounting
     /// <param name="charts">The calculated charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
-    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountMidpointsPerformRequest request);
+    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request);
 }
+
+public interface IHarmonicConjunctionsCounting
+{
+    /// <summary>Perform a count for harmonic conunctions.</summary>
+    /// <param name="charts">The calculated charts to check.</param>
+    /// <param name="request">The original request.</param>
+    /// <returns>The calculated counts.</returns>
+    public CountHarmonicConjunctionsResponse CountHarmonicConjunctions(List<CalculatedResearchChart> charts, CountHarmonicConjunctionsRequest request);
+}
+
 
 public interface IControlGroupCreator
 {

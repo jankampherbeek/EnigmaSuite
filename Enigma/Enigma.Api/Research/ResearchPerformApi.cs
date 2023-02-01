@@ -50,11 +50,20 @@ public sealed class ResearchPerformApi : IResearchPerformApi
     }
 
     /// <inheritdoc/>
-    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountMidpointsPerformRequest request)
+    public CountOfOccupiedMidpointsResponse PerformOccupiedMidpointsCount(CountOccupiedMidpointsRequest request)
     {
         Guard.Against.Null(request);
         Log.Information("ResearchPerformApi: PerformOccupiedMidpointsCount(): " + request.Method);
         return _researchMethodHandler.HandleTestForOccupiedMidpoints(request);   
     }
+
+    /// <inheritdoc/>
+    public CountHarmonicConjunctionsResponse PerformHarmonicConjunctionsCount(CountHarmonicConjunctionsRequest request)
+    {
+        Guard.Against.Null(request);
+        Log.Information("ResearchPerformApi: PerformHarmonicConjunctionsCount(): " + request.Method);
+        return _researchMethodHandler.HandleTestForHarmonicConjunctions(request);
+    }
+
 
 }

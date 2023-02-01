@@ -30,7 +30,12 @@ public interface IResearchMethodHandler
     /// <summary>Initiate a test that counts occupied midpoints.</summary>
     /// <param name="request"/>
     /// <returns>Response with counted values.</returns>
-    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountMidpointsPerformRequest request);
+    public CountOfOccupiedMidpointsResponse HandleTestForOccupiedMidpoints(CountOccupiedMidpointsRequest request);
+
+    /// <summary>Initiate a test that counts harmonic conjunctions.</summary>
+    /// <param name="request"/>
+    /// <returns>Response with counted values.</returns>
+    public CountHarmonicConjunctionsResponse HandleTestForHarmonicConjunctions(CountHarmonicConjunctionsRequest request);
 }
 
 /// <summary>Handler for the creation of a research project.</summary>

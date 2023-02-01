@@ -22,6 +22,12 @@ public sealed class HarmonicsCalculator : IHarmonicsCalculator
         return harmonicPositions;
     }
 
+    /// <inheritdoc/>
+    public double CalculateHarmonic(double originalPosition, double harmonicNumber)         // TODO 0.1 test for CalculateHarmonic.
+    {
+        return InRange360(originalPosition * harmonicNumber);
+    }
+
     private static double InRange360(double originalValue)
     {
         double inRangeValue = originalValue;

@@ -30,16 +30,14 @@ public record SimpleCount(ChartPoints Point, int Count) : MethodCount(Point);
 /// <summary>Count result for two research points.</summary>
 /// <param name="Point">The first research point.</param>
 /// <param name="Point2">The second research point.</param>
-/// <param name="Count">The counted result.</param>
-public record TwoPointCount(ChartPoints Point, ChartPoints Point2, int Count) : MethodCount(Point);
+public record TwoPointStructure(ChartPoints Point, ChartPoints Point2);
 
 
 /// <summary>Count result for three research points.</summary>
 /// <param name="Point">The first research point.</param>
 /// <param name="Point2">The second research point.</param>
 /// <param name="Point3">The third research point.</param>
-/// <param name="Count">The counted result.</param>
-public record ThreePointCount(ChartPoints Point, ChartPoints Point2, ChartPoints Point3, int Count) : MethodCount(Point);
+public record ThreePointStructure(ChartPoints Point, ChartPoints Point2, ChartPoints Point3);
 
 
 /// <summary>Response with totals for counts of aspects.</summary>
@@ -65,9 +63,6 @@ public abstract record MethodResponse(GeneralResearchRequest Request);
 public record CountOfPartsResponse(GeneralResearchRequest Request, List<CountOfParts> Counts, List<int> Totals) : MethodResponse(Request);
 
 
-
-
-
 /// <summary>Response for counting unaspected points.</summary>
 /// <param name="Request">The original request.</param>
 /// <param name="Counts">All counted values.</param>
@@ -76,4 +71,10 @@ public record CountOfUnaspectedResponse(GeneralResearchRequest Request, List<Sim
 /// <summary>Response for counting occupied midpoints.</summary>
 /// <param name="Request">The original request.</param>
 /// <param name="AllCounts">Distionary with OccupiedMidpointStructure and the counts.</param>
-public record CountOfOccupiedMidpointsResponse(CountMidpointsPerformRequest Request, Dictionary<OccupiedMidpointStructure, int> AllCounts);
+public record CountOfOccupiedMidpointsResponse(CountOccupiedMidpointsRequest Request, Dictionary<OccupiedMidpointStructure, int> AllCounts);
+
+
+/// <summary>Response for counting conjunctions between harmonic and radix positions.</summary>
+/// <param name="Request">The original request.</param>
+/// <param name="AllCounts">Dictionary with TwoPointStructure and the counts. TwoPointStructure contains respectively the harmonic point and the radix point.</param>
+public record CountHarmonicConjunctionsResponse(CountHarmonicConjunctionsRequest Request, Dictionary<TwoPointStructure, int> AllCounts);

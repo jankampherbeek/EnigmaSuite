@@ -76,6 +76,8 @@ public partial class App : Application
         serviceCollection.AddTransient<DataFilesOverviewController>();
         serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
+        serviceCollection.AddTransient<HarmonicDetailsController>();
+        serviceCollection.AddTransient<HarmonicDetailsWindow>();
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();

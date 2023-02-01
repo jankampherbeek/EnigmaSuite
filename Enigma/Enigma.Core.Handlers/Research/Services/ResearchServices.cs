@@ -30,6 +30,7 @@ public static class ResearchServices
         serviceCollection.AddTransient<IControlDataCalendar, ControlDataCalendar>();
         serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();
         serviceCollection.AddTransient<IControlGroupRng, ControlGroupRng>();
+        serviceCollection.AddTransient<IHarmonicConjunctionsCounting, HarmonicConjunctionsCounting>();
         serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
         serviceCollection.AddTransient<IOccupiedMidpointsCounting, OccupiedMidpointsCounting>();
         serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();

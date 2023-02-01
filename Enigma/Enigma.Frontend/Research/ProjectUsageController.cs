@@ -111,7 +111,7 @@ public class ProjectUsageController
                 minimalNrOfPoints = 3;
                 break;
             case ResearchMethods.CountHarmonicConjunctions:
-                minimalNrOfPoints = 2;
+                minimalNrOfPoints = 1;
                 break;
             default:
                 minimalNrOfPoints = 1;
@@ -220,11 +220,30 @@ public class ProjectUsageController
                         int divisionForDial = detailsWindow.dialDivision;
                         double orb = detailsWindow.orb;
                         bool useControlGroup = false;
-                        CountMidpointsPerformRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                        CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                         CountOfOccupiedMidpointsResponse responseTest = _researchPerformApi.PerformOccupiedMidpointsCount(request);
                         useControlGroup = true;
                         request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                         CountOfOccupiedMidpointsResponse responseCg = _researchPerformApi.PerformOccupiedMidpointsCount(request);
+                        ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                        researchResultWindow.SetResults(responseTest, responseCg);
+                        researchResultWindow.ShowDialog();
+                    }
+                }
+                if (researchMethod == ResearchMethods.CountHarmonicConjunctions)
+                {
+                    HarmonicDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<HarmonicDetailsWindow>();
+                    detailsWindow.ShowDialog();
+                    if (detailsWindow.IsCompleted())
+                    {
+                        double harmonicNumber = detailsWindow.harmonicNumber;
+                        double orb = detailsWindow.orb;
+                        bool useControlGroup = false;
+                        CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                        CountHarmonicConjunctionsResponse responseTest = _researchPerformApi.PerformHarmonicConjunctionsCount(request);
+                        useControlGroup = true;
+                        request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                        CountHarmonicConjunctionsResponse responseCg = _researchPerformApi.PerformHarmonicConjunctionsCount(request);
                         ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
                         researchResultWindow.SetResults(responseTest, responseCg);
                         researchResultWindow.ShowDialog();

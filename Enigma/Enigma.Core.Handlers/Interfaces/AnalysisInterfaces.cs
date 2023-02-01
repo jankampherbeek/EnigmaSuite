@@ -63,11 +63,17 @@ public interface IAspectsHandler
 /// <summary>Handler for harmonics.</summary>
 public interface IHarmonicsHandler
 {
-    /// <summary>Define the harmonics for all positions in CalcualtedChart.</summary>
+    /// <summary>Define the harmonics for all positions in CalculatedChart.</summary>
     /// <param name="chart">Chart with all positions.</param>
     /// <param name="harmonicNumber">The harmonic number, this can also be a fractional number.</param>
     /// <returns>The calculated harmonic positions, all celestial points followed by Mc, Asc, Vertex, Eastpoint in that sequence.</returns>
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber);
+
+    /// <summary>Define the harmonics a list of PositionedPoint.</summary>
+    /// <param name="posPoints">The points to calculate.</param>
+    /// <param name="harmonicNumber">The multiplication factor for the harmonic.</param>
+    /// <returns>The calculated results.</returns>
+    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber);
 }
 
 /// <summary>Handler for midpoints.</summary>
@@ -99,9 +105,15 @@ public interface IHarmonicsCalculator
 {
     /// <summary>Calculate harmonics for a list of positions using a specified harmonic number.</summary>
     /// <param name="originalPositions">List of original positions.</param>
-    /// <param name="harmonicNumber">The number for the harmonic to calculate.</param>
+    /// <param name="harmonicNumber">The multiplication factor for the harmonic to calculate.</param>
     /// <returns>List with harmonic positions in the same sequence as the original positions.</returns>
     public List<double> CalculateHarmonics(List<double> originalPositions, double harmonicNumber);
+
+    /// <summary>Calculate harmonics for a single position using a specified harmonic number.</summary>
+    /// <param name="originalPosition">OriginalPosition.</param>
+    /// <param name="harmonicNumber">The multiplication factor for the harmonic to calculate.</param>
+    /// <returns>Value for the harmonic position in the range 0 <= value < 360.0.</returns>
+    public double CalculateHarmonic(double originalPosition, double harmonicNumber);
 }
 
 

@@ -250,6 +250,18 @@ file.import.ok = File successfully imported.
 file.import.csverror = Error in reading csv, check file errors.json.
 
 
+------------------------ Harmonic Details Window -------
+harmonicdetailswindow.title = Details for harmonics
+harmonicdetailswindow.formtitle = Enter details for harmonics
+harmonicdetailswindow.explanation = To research the effect of harmonics, you need to define the harmonic number and the orb to be used. 
+harmonicdetailswindow.harmonicnr = Harmonic number
+harmonicdetailswindow.orb = Orb
+harmonicdetailswindow.orbdegrees = Degrees
+harmonicdetailswindow.orbminutes = Minutes
+harmonicdetailswindow.warningharmonicnumber = The harmonic number is not correct. Please use numeric values larger than 1.
+harmonicdetailswindow.warningorb = The values for the orb are not correct. Please use positieve integers and an orb that is smaller than 10 degrees.
+
+
 
 -------------------------------- Main window -----------
 mainwindow.charts = Charts

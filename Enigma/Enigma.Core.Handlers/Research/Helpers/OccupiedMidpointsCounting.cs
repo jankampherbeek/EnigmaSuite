@@ -32,13 +32,13 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
 
 
     /// <inheritdoc/>
-    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountMidpointsPerformRequest request)
+    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
     {
         return PerformCount(charts, request);
     }
 
 
-    private CountOfOccupiedMidpointsResponse PerformCount(List<CalculatedResearchChart> charts, CountMidpointsPerformRequest request)
+    private CountOfOccupiedMidpointsResponse PerformCount(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
     {
         AstroConfig config = request.Config;
         int nrOfPoints = request.PointsSelection.SelectedPoints.Count + request.PointsSelection.SelectedMundanePoints.Count;
