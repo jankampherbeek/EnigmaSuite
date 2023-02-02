@@ -706,6 +706,8 @@ researchmainwindow.title = Projects: overview
 --------- ResearchResultWindow -------------------
 researchresultwindow.title = Research: results
 researchresultwindow.formtitle = Research results
+researchresultwindow.noaspects = Number of charts without aspects
 researchresultwindow.pathinfo = These results have been saved at : 
 researchresultwindow.tabtest = Test data
 researchresultwindow.tabcontrol = Control data
+researchresultwindow.totals = Totals
