@@ -182,6 +182,7 @@ common.btnsearch = Search
 common.calendar = Cal.
 common.calendar.full = Calendar
 common.date = Date (yyyy/mm/dd)
+common.error = An error occurred
 common.error.date = Please correct input for the date
 common.error.general = Enigma did find errors
 common.error.geolat = Please correct input for the latitude
@@ -345,15 +346,16 @@ pointselectwindow.warningnrofpoints = Please select more points. The minimal num
 
 -------------------------------- Project input window --
 
-projectinputwindow.formtitle = Create new project
-projectinputwindow.generalinfo = Name and description for project
-projectinputwindow.name = Name for project
-projectinputwindow.description = Description
 projectinputwindow.controlgroupinfo = Controlgroup
 projectinputwindow.controlgrouptype = Select the type of controlgroup
-projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
-projectinputwindow.datainfo = Datafile to be used
 projectinputwindow.datafile = Select the datafile
+projectinputwindow.datainfo = Datafile to be used
+projectinputwindow.description = Description
+projectinputwindow.formtitle = Create new project
+projectinputwindow.generalinfo = Name and description for project
+projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
+projectinputwindow.name = Name for project
+projectinputwindow.projectsaved = The project has been saved
 
 -------------------------------- Project usage window --
 projectusagewindow.title = Enigma Astrology Research: Test with project
@@ -707,7 +709,16 @@ researchmainwindow.title = Projects: overview
 researchresultwindow.title = Research: results
 researchresultwindow.formtitle = Research results
 researchresultwindow.noaspects = Number of charts without aspects
+researchresultwindow.orb = Orb
 researchresultwindow.pathinfo = These results have been saved at : 
+researchresultwindow.posharmonic = Harmonic
+researchresultwindow.posradix = Radix
 researchresultwindow.tabtest = Test data
 researchresultwindow.tabcontrol = Control data
+researchresultwindow.titleharmonicconjunctions = Harmonic conjunctions. Harmonic number
+researchresultwindow.titleoccupiedmidpoints = Occupied midpoints for dial division
 researchresultwindow.totals = Totals
+Occupied midpoints for dial division
+
+--------- StartWindow ----------------------------
+startwindow.checking = Checking for updates

@@ -16,8 +16,7 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
 
     private readonly IPointsForMidpoints _analysisPointsForMidpoints;
     private readonly IBaseMidpointsCreator _baseMidpointsCreator;
-    private readonly double maxOrb = 1.6;         // TODO 0.2.0 retrieve orb from configuration.
-
+  
     public OccupiedMidpointsFinder(IPointsForMidpoints analysisPointsForMidpoints, IBaseMidpointsCreator baseMidpointsCreator)
     {
         _analysisPointsForMidpoints = analysisPointsForMidpoints;

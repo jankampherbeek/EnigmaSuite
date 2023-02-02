@@ -8,6 +8,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
+using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.IO;
@@ -34,7 +35,7 @@ public partial class StartWindow : Window
 
     private void PopulateStaticTexts()
     {
-        tbExplanation.Text = "Checking for updates";   // TODO use resource bundle
+        tbExplanation.Text = Rosetta.TextForId("startwindow.checking"); 
     }
 
 

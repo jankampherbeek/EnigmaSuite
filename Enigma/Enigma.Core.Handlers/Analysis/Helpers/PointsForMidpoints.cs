@@ -12,9 +12,8 @@ using Enigma.Domain.Points;
 namespace Enigma.Core.Handlers.Analysis.Helpers;
 
 /// <inheritdoc/>
-public sealed class PointsForMidpoints : IPointsForMidpoints            // TODO define new solution for PointsForMidpoints
+public sealed class PointsForMidpoints : IPointsForMidpoints            
 {
-
     private readonly IPointsMapping _pointsMapping; 
 
     public PointsForMidpoints(IPointsMapping pointsMapping)
@@ -22,11 +21,6 @@ public sealed class PointsForMidpoints : IPointsForMidpoints            // TODO 
         _pointsMapping = pointsMapping;
     }
 
-
-
-
-
-    //Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, List<ChartPointConfigSpecs> chartPointConfigSpecs
 
     /// <inheritdoc/>
     public List<PositionedPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize)

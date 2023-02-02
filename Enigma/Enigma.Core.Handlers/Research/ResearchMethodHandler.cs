@@ -6,7 +6,6 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
@@ -61,25 +60,45 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
         if (request is CountHarmonicConjunctionsRequest)
         {
-            return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, request as CountHarmonicConjunctionsRequest);
+            CountHarmonicConjunctionsRequest? qualifiedRequest = request as CountHarmonicConjunctionsRequest;
+            if (qualifiedRequest != null)
+            {
+                return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, qualifiedRequest);
+            }
+            else
+            {
+                string errorText = "ResearchMethodHandler.HandleResearch() contains woring request for CountHarmonicConjunctions : " + request; 
+                Log.Error(errorText);   
+                throw new EnigmaException(errorText);
+            }
         } 
         else if (request is CountOccupiedMidpointsRequest)
         {
-            return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, request as CountOccupiedMidpointsRequest);
+            CountOccupiedMidpointsRequest? qualifiedRequest = request as CountOccupiedMidpointsRequest;
+            if (qualifiedRequest != null)
+            {
+                return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, qualifiedRequest);
+            }
+            else
+            {
+                string errorText = "ResearchMethodHandler.HandleResearch() contains woring request for CountOccupiedMIdpoints : " + request;
+                Log.Error(errorText);
+                throw new EnigmaException(errorText);
+            }
         }
-        else if (request is GeneralResearchRequest && method == ResearchMethods.CountUnaspected)
+        else if (request != null && method == ResearchMethods.CountUnaspected)
         {
             return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
         }
-        else if (request is GeneralResearchRequest && method == ResearchMethods.CountAspects)
+        else if (request!= null && method == ResearchMethods.CountAspects)
         {
             return _aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
         }
-        else if (request is GeneralResearchRequest && method == ResearchMethods.CountPosInSigns)
+        else if (request != null && method == ResearchMethods.CountPosInSigns)
         {
             return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
         }
-        else if (request is GeneralResearchRequest && method == ResearchMethods.CountPosInHouses)
+        else if (request != null && method == ResearchMethods.CountPosInHouses)
         {
             return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
         }

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,6 +8,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -78,12 +79,12 @@ public class ProjectInputController
             {
                 noErrors = false;
                 Log.Error("Error while creating project, Enigma errorcode: {errorCode}, project: {@project}", resultMessage.ErrorCode, project);
-                MessageBox.Show("An error occurred");         // TODO use RB
+                MessageBox.Show(Rosetta.TextForId("common.error"));
             }
             else
             {
                 Log.Information("Created project {projectName}", ProjectName);
-                MessageBox.Show("Project has been saved.");  // TODO use RB
+                MessageBox.Show(Rosetta.TextForId("projectinputwindow.projectsaved")); 
             }
         }
         return noErrors;

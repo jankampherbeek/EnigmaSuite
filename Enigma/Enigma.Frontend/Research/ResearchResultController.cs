@@ -301,7 +301,7 @@ public class ResearchResultController
             CountOccupiedMidpointsRequest? qualifiedRequest = response.Request as CountOccupiedMidpointsRequest;
             if (qualifiedRequest != null )
             {
-                resultData.AppendLine("Occupied midpoints for dial division " + qualifiedRequest.DivisionForDial + ". Orb: " + qualifiedRequest.Orb);   // TODO 0.1 use RB
+                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb); 
                 resultData.AppendLine((separatorLine + separatorLine)[..80]);
                 Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
@@ -341,7 +341,8 @@ public class ResearchResultController
             CountHarmonicConjunctionsRequest? qualifiedRequest = response.Request as CountHarmonicConjunctionsRequest;
             if (qualifiedRequest != null)
             {
-                resultData.AppendLine("Harmonic conjunctions. Harmonic number: " + qualifiedRequest.HarmonicNumber.ToString() + ". Orb: " + qualifiedRequest.Orb.ToString());       //  TODO 0.1 use RB
+                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleharmonicconjunctions") + ": " + qualifiedRequest.HarmonicNumber.ToString() 
+                    + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb.ToString());
                 resultData.AppendLine(separatorLine);
                 Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)
@@ -351,7 +352,8 @@ public class ResearchResultController
                         string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().TextId);
                         string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().TextId);
                         string harmonicCount = harmConj.Value.ToString();
-                        resultData.AppendLine(("Harmonic " + firstPointName + spaces)[..20] + " / " + (" Radix " + secondPointName + spaces)[..20] + " " + harmonicCount);    // TODO 0.1 use RB
+                        resultData.AppendLine((Rosetta.TextForId("researchresultwindow.posharmonic") + " " + firstPointName + spaces)[..20] + " / " 
+                            + (Rosetta.TextForId("researchresultwindow.posradix") +  " " + secondPointName + spaces)[..20] + " " + harmonicCount);
                     }
                 }
             }
