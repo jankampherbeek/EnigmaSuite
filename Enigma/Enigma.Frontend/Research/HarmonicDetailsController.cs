@@ -12,13 +12,11 @@ namespace Enigma.Frontend.Ui.Research;
 public class HarmonicDetailsController
 {
 
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-
-
-    public void ShowHelp()
+    public static void ShowHelp()
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("HarmonicDetails");
-        _helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("HarmonicDetails");
+        helpWindow.ShowDialog();
     }
 }

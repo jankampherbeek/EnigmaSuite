@@ -5,7 +5,7 @@
 
 using Serilog;
 
-namespace Enigma.Domain.Calc.ChartItems;
+namespace Enigma.Domain.Charts;
 
 /// <summary>Ratings according to Rodden and an added 'Undefined' rating.</summary>
 /// <remarks>

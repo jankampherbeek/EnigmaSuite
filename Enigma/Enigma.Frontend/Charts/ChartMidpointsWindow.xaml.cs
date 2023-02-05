@@ -108,12 +108,12 @@ public partial class ChartMidpointsWindow : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        Hide();
+        Close();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        ChartMidpointsController.ShowHelp();
     }
 
 

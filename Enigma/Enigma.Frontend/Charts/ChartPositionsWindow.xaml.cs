@@ -26,7 +26,7 @@ public partial class ChartPositionsWindow : Window
         _controller = App.ServiceProvider.GetRequiredService<ChartPositionsController>();
     }
 
-    public void PopulateAll()
+    public void Populate()
     {
         PopulateTexts();
         PopulateHouses();
@@ -36,6 +36,7 @@ public partial class ChartPositionsWindow : Window
 
     private void PopulateTexts()
     {
+        Title = Rosetta.TextForId("charts.positions.title");
         FormTitle.Text = Rosetta.TextForId("charts.positions.formtitle");
         _chartData = _controller.GetMeta();
         if (_chartData != null)

@@ -592,7 +592,7 @@
                     <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" Name="tbMajorAspects" Text="tbMajorAspects" FontSize="18.0" FontWeight="Bold" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="4" Name="tbMinorAspects" Text="tbMinorAspects" FontSize="18.0" FontWeight="Bold" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4" Name="tbAspectLabelLeft" Text="tbAspect" Margin="6,6,6,6"/>
-                    <TextBlock Grid.Column="4" Grid.Row="7" Name="tbOrbFactorLeft" Text="tbOrbFactor" Margin="6,6,6,6"/>
+                    <TextBlock Grid.Column="3" Grid.Row="7" Name="tbOrbFactorLeft" Text="tbOrbFactor" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="6" Grid.Row="7" Grid.ColumnSpan="3" Name="tbAspectLabelRight" Text="tbAspect" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="9" Grid.Row="7" Name="tbOrbFactorRight" Text="tbOrbFactor" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="10" Name="tbOrbMethodExpl" Text="tbOrbMethodExpl" Margin="6,6,6,6" TextWrapping="Wrap"/>

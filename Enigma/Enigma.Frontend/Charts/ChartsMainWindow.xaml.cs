@@ -88,7 +88,7 @@ public partial class ChartsMainWindow : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        // TODO check if chart was saved 0.2.0
+        // TODO check if chart was saved 0.1.0
         _controller.HandleClose();
         Close();
     }
@@ -145,7 +145,7 @@ public partial class ChartsMainWindow : Window
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Help about not yet implemented.");     // TODO implement handling of click
+        MessageBox.Show("Help about not yet implemented.");     // TODO 0.1 implement handling of click
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

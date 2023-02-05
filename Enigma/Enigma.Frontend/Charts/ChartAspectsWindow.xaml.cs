@@ -32,7 +32,7 @@ public partial class ChartAspectsWindow : Window
 
     private void PopulateTexts()
     {
-        this.Title = Rosetta.TextForId("charts.aspects.formtitle");
+        this.Title = Rosetta.TextForId("charts.aspects.title");
         FormTitle.Text = Rosetta.TextForId("charts.aspects.formtitle");
         SubTitleChartId.Text = _controller.GetChartIdName();
         BtnHelp.Content = Rosetta.TextForId("common.btnhelp");

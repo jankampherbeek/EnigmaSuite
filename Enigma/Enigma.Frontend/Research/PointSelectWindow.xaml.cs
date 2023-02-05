@@ -156,6 +156,6 @@ public partial class PointSelectWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        PointSelectController.ShowHelp();
     }
 }

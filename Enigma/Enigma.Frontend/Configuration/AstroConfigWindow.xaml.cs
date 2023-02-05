@@ -39,7 +39,7 @@ public partial class AstroConfigWindow : Window
     {
         // Overall
         Title = Rosetta.TextForId("astroconfigwindow.title");
-        FormTitle.Text = Rosetta.TextForId("astroconfigwindow.title");
+        FormTitle.Text = Rosetta.TextForId("astroconfigwindow.formtitle");
         TitleGeneral.Text = Rosetta.TextForId("astroconfigwindow.titlegeneral");
         tabGeneral.Header = Rosetta.TextForId("astroconfigwindow.tabgeneral");
         tabBasicPoints.Header = Rosetta.TextForId("astroconfigwindow.tabbasicpoints");
@@ -533,11 +533,11 @@ public partial class AstroConfigWindow : Window
 
     public void CancelClick(object sender, RoutedEventArgs e)
     {
-        Hide();
+        Close();
     }
     public void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        AstroConfigController.ShowHelp();
     }
 
     public void OkClick(object sender, RoutedEventArgs e)

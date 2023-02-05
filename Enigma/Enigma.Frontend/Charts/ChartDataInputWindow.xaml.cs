@@ -5,9 +5,9 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -19,6 +19,8 @@ namespace Enigma.Frontend.Ui.Charts;
 public partial class ChartDataInputWindow : Window
 {
     private readonly ChartDataInputController _controller;
+    private readonly List<RoddenRatingDetails> _ratingDetails = RoddenRatings.Unknown.AllDetails();
+    private readonly List<ChartCategoryDetails> _categoryDetails = ChartCategories.Unknown.AllDetails();
     private readonly List<CalendarDetails> _calendarDetails = Calendars.Gregorian.AllDetails();
     private readonly List<Directions4GeoLongDetails> _directions4GeoLongDetails = Directions4GeoLong.East.AllDetails();
     private readonly List<Directions4GeoLatDetails> _directions4GeoLatDetails = Directions4GeoLat.North.AllDetails();
@@ -37,9 +39,15 @@ public partial class ChartDataInputWindow : Window
 
     private void PopulateTexts()
     {
+        this.Title = Rosetta.TextForId("charts.datainput.title");
         FormTitle.Text = Rosetta.TextForId("charts.datainput.formtitle");
-        NameLocationTxt.Text = Rosetta.TextForId("charts.datainput.namelocation");
+        MetaTxt.Text = Rosetta.TextForId("charts.datainput.meta");
         NameIdTxt.Text = Rosetta.TextForId("charts.datainput.nameid");
+        SourceTxt.Text = Rosetta.TextForId("charts.datainput.source");
+        RatingTxt.Text = Rosetta.TextForId("charts.datainput.rating");
+        CategoryTxt.Text = Rosetta.TextForId("charts.datainput.category");
+        LocationTxt.Text = Rosetta.TextForId("charts.datainput.location");
+        LocationNameTxt.Text = Rosetta.TextForId("charts.datainput.locationname");
         LongitudeTxt.Text = Rosetta.TextForId("common.location.longitude");
         LatitudeTxt.Text = Rosetta.TextForId("common.location.latitude");
         DateTimeTxt.Text = Rosetta.TextForId("charts.datainput.datetime");
@@ -58,12 +66,35 @@ public partial class ChartDataInputWindow : Window
 
     private void PopulateLists()
     {
+        PopulateRatings();
+        PopulateCategories();
         PopulateCalendars();
         PopulateDirections4GeoLat();
         PopulateDirections4GeoLong();
         PopulateYearCounts();
         PopulateTimeZones();
     }
+
+    private void PopulateRatings()
+    {
+        comboRating.Items.Clear();
+        foreach (var ratingDetail in _ratingDetails)
+        {
+            comboRating.Items.Add(Rosetta.TextForId(ratingDetail.TextId));
+        }
+        comboRating.SelectedIndex = 0;
+    }
+
+    private void PopulateCategories()
+    {
+        comboCategory.Items.Clear();
+        foreach(var categoryDetail in _categoryDetails) 
+        { 
+            comboCategory.Items.Add(Rosetta.TextForId(categoryDetail.TextId));
+        }
+        comboCategory.SelectedIndex = 0;
+    }
+
 
     private void PopulateCalendars()
     {
@@ -164,7 +195,12 @@ public partial class ChartDataInputWindow : Window
 
     private void TransferValues()
     {
+        
         _controller.NameId = NameIdValue.Text;
+        _controller.Source = SourceValue.Text;
+        _controller.ChartCategory = _categoryDetails[comboCategory.SelectedIndex].Category;
+        _controller.RoddenRating = _ratingDetails[comboRating.SelectedIndex].Rating;
+        _controller.LocationName = LocationNameValue.Text;
         _controller.Longitude = LongitudeValue.Text;
         _controller.Latitude = LatitudeValue.Text;
         _controller.Direction4GeoLong = _directions4GeoLongDetails[comboLongDir.SelectedIndex].Direction;
@@ -187,10 +223,7 @@ public partial class ChartDataInputWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ChartsDataInput");
-        helpWindow.ShowDialog();
+        ChartDataInputController.ShowHelp();
     }
 
 }

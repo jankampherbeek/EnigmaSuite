@@ -27,6 +27,7 @@
                         <RowDefinition Height="6"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <Rectangle Grid.Row="3" Style="{StaticResource backgroundStyle}" />
                     <TextBlock Grid.Row="0" Name="tbTestProject" Text="tbTestProject" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <TextBlock Grid.Row="1" Name="tbTestMethod" Text="tbTestMethod" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Name="sv1">
@@ -42,6 +43,7 @@
                         <RowDefinition Height="6"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
+                    <Rectangle Grid.Row="3" Style="{StaticResource backgroundStyle}" />                    
                     <TextBlock Grid.Row="0" Name="tbControlProject" Text="tbControlProject" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <TextBlock Grid.Row="1" Name="tbControlMethod" Text="tbControlMethod" TextWrapping="Wrap" Margin="6" Style="{StaticResource subTitleStyle}"/>
                     <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Name="sv2">

@@ -44,7 +44,7 @@ public class AppSettingsController
 
     public static void ShowHelp()
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         helpWindow.SetHelpPage("Settings");
         helpWindow.ShowDialog();

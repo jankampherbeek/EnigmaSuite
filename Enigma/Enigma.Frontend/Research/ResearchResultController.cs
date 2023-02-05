@@ -375,7 +375,7 @@ public class ResearchResultController
 
 
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
         HelpWindow helpWindow = new();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;

@@ -1,8 +1,10 @@
 # Enigma Astrology Research - Roadmap
 
-*Jan Kampherbeek, 2022-12-5
+*Jan Kampherbeek, 2023-02-04*
 
 [TOC]
+
+This roadmap contains a description of the functionality in the first releases of *Enigma Astrology Research*. It gives insight in the direction I want to go with Enigma but it is flexible; changes are possible but only if there is a compelling reason for such a change.  
 
 ## Objectives
 
@@ -38,6 +40,7 @@ Basic functionality for charts (calculations, analysis) and research (data, simp
 
 - User manual and help system. Each window that is shown gives access to a help-page.
 - Installation program and automatic check for updates.
+- Database for charts.
 
 **Charts**:
 
@@ -46,6 +49,7 @@ Basic functionality for charts (calculations, analysis) and research (data, simp
 - High quality graphical presentation of the chart (no 'staircase effect'). The chart figure uses equal signs and variable houses, shows aspects, and is resizable.
 - Overview of all calculated positions, including longitude, latitude, right ascension, declination, distance, azimuth and altitude. The daily speed is also shown except for azimuth and altitude.
 - Analysis: aspects, a list with actual aspects, aspects to cusps. Midpoints in a 360° circle, represented as list and occupied midpoints for three dial sizes: 360°, 90° and 45°. The user can interactively change the dial size. Harmonics in the form of a list. The user can interactively define and change the harmonic number. There is no limit for the maximum number. Support for fractional harmonics.
+- Save charts into database and retrieve charts from database. Searchitem is name/id of chart owner. 
 
 **Research**:
 
@@ -67,15 +71,18 @@ Implementing a first set of progressive techniques.
 
 - Support for data that describes events. These events are linked to persons in the dataset as mentioned for release 0.1.
 - Add orbs for progressive techniques to configuration.
+- Add events to database.
 
 **Charts (progressive)**:
 
 - Primary directions. Support for Placidus semi-arc directions and directions under the pole, for Regiomontanus and Campanus, all mundane and zodiacal.  Time keys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc (40 possibe combinations). This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.  
+- Primary directions - optionally add support for Topocentric primary directions.
 - Secundary progressions with the following time keys:  astronomical days = astronomical year (tropical and sidereal), calendar days = calendar years (using mean calender and days defined in UT). 
 - Symbolic progressions. Solar arc directions and variants. Timekeys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc and user defined fixed values of any size. 
 - Transits. 
 - Solar returns, tropical and sidereal, supporting relocation.  
 - For al progressive techniques: includes matches between progressive and radix positions, defined in aspects, midpoints or harmonics.
+- Save events to database and search for events for a given chart.
 
 **Research**:
 
@@ -112,7 +119,7 @@ Adds harmonic and historical orb definitions, celestial objects, dials for midpo
 
 ### Release 0.4 - beta
 
-Support for English and Dutch. Adding a database, multiple configurations, including both standard and user definable configurations.
+Support for English and Dutch. Adding multiple configurations, including both standard and user definable configurations. Adding functionality for parans. Adding tags to charts in database.
 
 **General**:
 
@@ -123,7 +130,8 @@ Support for English and Dutch. Adding a database, multiple configurations, inclu
 
 **Charts**:
 
-- Charts can be saved into, and retrieved from a database. The user can add multiple tags to the saved charts, making it possible to search for specific criteria.
+- The user can add multiple tags to the saved charts, making it possible to search for specific criteria.
+- Support for parans, as in the current program Enigma Parans.
 
 **Research**:
 
@@ -199,14 +207,3 @@ The first non-beta release.
 - Show distances between specified celestial points in line diagram and a histogram of totals.
 - Support for approach by Robert Doolaard.
 
-
-
-### Backlog
-
-**Charts**:
-
-- Recognize aspect patterns.
-
-**Research**:
-
-- Count aspect patterns.

@@ -20,20 +20,11 @@
             <TextBlock Grid.Row="1" Name="tbSubTitle" Text="tbSubTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource subTitleStyle}"/>
             <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
                 <Button Margin="6" Width="160" Height="160"  Name="btnCharts" Click="ChartsClick">
-                    <Image Source="/Images/StartupCharts.jpg"/>
+                    <Image Source="/Images/Charts-txt.png"/>
                 </Button>
                 <Button Margin="6" Width="160" Height="160" Name="btnResearch" Click="ResearchClick">
-                    <Image Source="/Images/StartupResearch.jpg"/>
+                    <Image Source="/Images/Research-txt.png"/>
                 </Button>
-              </WrapPanel>
-
-            <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
-                <Grid Margin="6" Width="160" Height="160">
-                    <TextBlock Margin="6" Name="tbCharts" Text="tbCharts" Style="{StaticResource titleStyle}" Foreground="Goldenrod" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                </Grid>
-                <Grid Margin="6" Width="160" Height="160">
-                    <TextBlock Margin="6" Name="tbResearch" Text="tbResearch" Style="{StaticResource titleStyle}" Foreground="Goldenrod" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-                </Grid>
             </WrapPanel>
             <TextBlock Grid.Row="3" Name="tbExplanation" Text="tbExplanation" HorizontalAlignment="Center" Margin="6"/>
             <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">

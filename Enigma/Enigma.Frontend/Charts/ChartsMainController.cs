@@ -14,7 +14,7 @@ using System.Windows;
 namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>Controller for main chart window.</summary>
-public class ChartsMainController
+public sealed class ChartsMainController
 {
     private ChartsWheel? _chartsWheel;
     private ChartPositionsWindow? _chartPositionsWindow;
@@ -57,46 +57,56 @@ public class ChartsMainController
     /// <summary>Opens chart wheel for current chart.</summary>
     public void ShowCurrentChart()
     {
-        _chartsWheel = App.ServiceProvider.GetRequiredService<ChartsWheel>();
-        _openWindows.Add(_chartsWheel);
-        _chartsWheel.Show();
-        _chartsWheel.DrawChart();
-
+        if (_chartsWheel == null || !_chartsWheel.IsVisible)
+        {
+            _chartsWheel = App.ServiceProvider.GetRequiredService<ChartsWheel>();
+            OpenWindow(_chartsWheel);
+            _chartsWheel.Populate();
+        }
     }
 
     public void ShowPositions()
     {
-        _chartPositionsWindow = App.ServiceProvider.GetRequiredService<ChartPositionsWindow>();
-        _openWindows.Add(_chartPositionsWindow);
-        _chartPositionsWindow.Show();
-        _chartPositionsWindow.PopulateAll();
-
+        if (_chartPositionsWindow == null || !_chartPositionsWindow.IsVisible)
+        {
+            _chartPositionsWindow = App.ServiceProvider.GetRequiredService<ChartPositionsWindow>();
+            OpenWindow(_chartPositionsWindow);
+            _chartPositionsWindow.Populate();
+        }
     }
 
     public void ShowAspects()
     {
-        _chartAspectsWindow = App.ServiceProvider.GetRequiredService<ChartAspectsWindow>();
-        _openWindows.Add(_chartAspectsWindow);
-        _chartAspectsWindow.Show();
-        _chartAspectsWindow.Populate();
+        if (_chartAspectsWindow == null || !_chartAspectsWindow.IsVisible)
+        {
+            _chartAspectsWindow = App.ServiceProvider.GetRequiredService<ChartAspectsWindow>();
+            OpenWindow(_chartAspectsWindow);
+            _chartAspectsWindow.Populate();
+        }
     }
+
+
 
 
     /// <summary>Show form with midpoints.</summary>
     public void ShowMidpoints()
     {
-        _chartMidpointsWindow = App.ServiceProvider.GetRequiredService<ChartMidpointsWindow>();
-        _openWindows.Add(_chartMidpointsWindow);
-        _chartMidpointsWindow.Show();
-        _chartMidpointsWindow.Populate();
+        if (_chartMidpointsWindow == null || !_chartMidpointsWindow.IsVisible)
+        {
+            _chartMidpointsWindow = App.ServiceProvider.GetRequiredService<ChartMidpointsWindow>();
+            OpenWindow(_chartMidpointsWindow);
+            _chartMidpointsWindow.Populate();
+        }
     }
 
     public void ShowHarmonics()
     {
-        _chartHarmonicsWindow = App.ServiceProvider.GetRequiredService<ChartHarmonicsWindow>();
-        _openWindows.Add(_chartHarmonicsWindow);
-        _chartHarmonicsWindow.Show();
-        _chartHarmonicsWindow.Populate();
+        if (_chartHarmonicsWindow == null || !_chartHarmonicsWindow.IsVisible)
+        {
+            _chartHarmonicsWindow = App.ServiceProvider.GetRequiredService<ChartHarmonicsWindow>();
+            OpenWindow(_chartHarmonicsWindow);
+            _chartHarmonicsWindow.Populate();
+        }
     }
 
 
@@ -104,6 +114,16 @@ public class ChartsMainController
     {
         _aboutWindow.ShowDialog();
     }
+
+    private void OpenWindow(Window window)
+    {
+        if (!_openWindows.Contains(window))
+        {
+            _openWindows.Add(window);
+        }
+        window.Show();
+    }
+
 
     /// <summary>Closes all child windows of main chart window.</summary>
     public void HandleClose()

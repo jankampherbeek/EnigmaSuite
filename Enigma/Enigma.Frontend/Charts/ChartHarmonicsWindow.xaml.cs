@@ -48,7 +48,7 @@ public partial class ChartHarmonicsWindow
         bool result = double.TryParse(inputNumber, out double harmonicNumber);
         if (result)
         {
-            result = 1.0 <= harmonicNumber;
+            result = 1.0 < harmonicNumber;
         }
         if (!result)
         {
@@ -60,12 +60,12 @@ public partial class ChartHarmonicsWindow
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        Hide();
+        Close();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        ChartHarmonicsController.ShowHelp();
     }
 
     private void PopulateTexts()

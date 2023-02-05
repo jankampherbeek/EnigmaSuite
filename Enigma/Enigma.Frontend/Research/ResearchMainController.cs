@@ -18,7 +18,7 @@ public class ResearchMainController
 {
     private readonly IProjectsOverviewApi _projectsOverviewApi;
     private List<ResearchProject> _researchProjects = new();
-    private readonly List<Window> _openWindows = new();
+//    private readonly List<Window> _openWindows = new();
     private readonly AppSettingsWindow _appSettingsWindow = new();
     private readonly AstroConfigWindow _astroConfigWindow = new();
     private readonly ProjectInputWindow _projectInputWindow = new();
@@ -26,7 +26,6 @@ public class ResearchMainController
     private readonly DataFilesImportWindow _dataFilesImportWindow = new();
     private readonly ProjectUsageWindow _projectUsageWindow = new();
     private readonly AboutWindow _aboutWindow = new();
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ResearchMainController(IProjectsOverviewApi projectsOverviewApi)
     {
@@ -55,21 +54,21 @@ public class ResearchMainController
             if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
             {
                 
-                _openWindows.Add(_projectUsageWindow);
+         //       _openWindows.Add(_projectUsageWindow);
                 currentProject = project;
                 _projectUsageWindow.SetProject(currentProject);
-                _projectUsageWindow.Show();
+                _projectUsageWindow.ShowDialog();
             }
         }
     }
 
-    public void HandleClose()
+  /*  public void HandleClose()
     {
         foreach (Window window in _openWindows)
         {
             window.Close();
         }
-    }
+    } */
 
     public void ShowAppSettings()
     {
@@ -102,8 +101,9 @@ public class ResearchMainController
         _aboutWindow.ShowDialog();
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
+        HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         _helpWindow.SetHelpPage("TestwithProject");
         _helpWindow.ShowDialog();

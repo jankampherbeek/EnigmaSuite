@@ -16,9 +16,12 @@
     <None Remove="Images\archive.png" />
     <None Remove="Images\article.png" />
     <None Remove="Images\aspects.png" />
+    <None Remove="Images\Calculate-txt.png" />
     <None Remove="Images\calculations.png" />
+    <None Remove="Images\Charts-txt.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\configuration.png" />
+    <None Remove="Images\Cycles-txt.png" />
     <None Remove="Images\cycles.png" />
     <None Remove="Images\database.png" />
     <None Remove="Images\dataset.png" />
@@ -41,13 +44,10 @@
     <None Remove="Images\primary.png" />
     <None Remove="Images\print.png" />
     <None Remove="Images\reader.png" />
+    <None Remove="Images\Research-txt.png" />
     <None Remove="Images\secundary.png" />
     <None Remove="Images\settings.png" />
     <None Remove="Images\solar.png" />
-    <None Remove="Images\StartupCalculations.jpg" />
-    <None Remove="Images\StartupCharts.jpg" />
-    <None Remove="Images\StartupCycles.jpg" />
-    <None Remove="Images\StartupResearch.jpg" />
     <None Remove="Images\table.png" />
     <None Remove="Images\tertiary.png" />
     <None Remove="Images\transits.png" />
@@ -86,13 +86,22 @@
     <Resource Include="Images\aspects.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Calculate-txt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\calculations.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Charts-txt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\close.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\configuration.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\Cycles-txt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\cycles.png">
@@ -161,6 +170,9 @@
     <Resource Include="Images\reader.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\Research-txt.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\secundary.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -168,18 +180,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\solar.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\StartupCalculations.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\StartupCharts.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\StartupCycles.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\StartupResearch.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\table.png">
@@ -218,6 +218,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Images\StartupCalculations.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="res\help\CalcStart.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

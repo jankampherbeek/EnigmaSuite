@@ -4,15 +4,17 @@ aboutwindow.copyright.title = Open source
 aboutwindow.description = Enigma Astrology Research is a program for astrological research
 aboutwindow.moreinfo.text = See the manual when using Enigma Astrology Research. Programmers will find more information at: http://www.radixpro.org 
 aboutwindow.moreinfo.title = More information
-aboutwindow.title = About Enigma Astrology Research 0.1
+aboutwindow.formtitle = About Enigma Astrology Research
+aboutwindow.title = Enigma - About....
 
 --- App settings window -------------------------------
 appsettingswindow.explanation = The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations.
+appsettingswindow.formtitle = Application settings
 appsettingswindow.locdata = Data files
 appsettingswindow.locexport = Exported files
 appsettingswindow.locproject = Projects
 appsettingswindow.locswisseph = Swiss Ephemeris files
-appsettingswindow.title = Application settings
+appsettingswindow.title = Enigma - Application settings
 
 --- Astro Config Window -------------------------------
 astroconfigwindow.baseorbexpl = Base orb, the maximum allowed orb, from 0 to 30 degrees. For aspects, the actual orb will be modified by the weighting factors for celestial points and specific aspects.
@@ -31,6 +33,7 @@ astroconfigwindow.celpoint = Celestial point
 astroconfigwindow.centaurs = Centaurs
 astroconfigwindow.classicalpoints = Classic
 astroconfigwindow.errorsfound = There is an error in the input!
+astroconfigwindow.formtitle = Standard configuration
 astroconfigwindow.housesystem = House system
 astroconfigwindow.housesystemexpl = Select one of the available house systems. Both quadrant systems and non-quadrant systems can be used. Currently all supported housesystems consist of 12 houses.
 astroconfigwindow.hypotheticalpoints = Hypothetical points and planets
@@ -47,7 +50,7 @@ astroconfigwindow.modernpoints = Modern
 astroconfigwindow.mundanepoints = Mundane points
 astroconfigwindow.observerpos = Observer position
 astroconfigwindow.observerposexpl = The position of the observer defines if parallax is used. Select 'topocentric' if you want to take parallax into account. Select 'geocentric' if you do not want to use parallax.
-astroconfigwindow.orbfactor = Percentage for orb
+astroconfigwindow.orbfactor = Orb perc.
 astroconfigwindow.orbmethod = Method for defining orbs
 astroconfigwindow.orbmethodexpl = Select the way you want to handle orbs for aspects. Check the help page or the user manual for more information about the supported methods.
 astroconfigwindow.planetoids = Planetoids
@@ -60,7 +63,7 @@ astroconfigwindow.tabbasicpoints = Celestial points
 astroconfigwindow.tabgeneral = General
 astroconfigwindow.tabhypopoints = Hypothetical
 astroconfigwindow.tabminorpoints = Minor/mathematical
-astroconfigwindow.title = Standard configuration
+astroconfigwindow.title = Enigma - Configuration
 astroconfigwindow.titlegeneral = General selections
 astroconfigwindow.uranian_sieggrun = Uranian (Sieggrün)
 astroconfigwindow.uranian_witte = Uranian (Witte)
@@ -74,24 +77,31 @@ charts.aspects.datagrid.columns.orb = Orb
 charts.aspects.datagrid.columns.point1 = First point
 charts.aspects.datagrid.columns.point2 = Second point
 charts.aspects.formtitle = Aspects
+charts.aspects.title = Enigma - Aspects
 
 ---- ChartsDataInput ----------------------------------
+charts.datainput.category = Category
 charts.datainput.datetime = Date and time
 charts.datainput.formtitle = Enter data for new chart
+charts.datainput.location = Location
+charts.datainput.locationname = Description of the location
+charts.datainput.meta = General information
 charts.datainput.nameid = Unique name or id for chart
-charts.datainput.namelocation = Name and location
+charts.datainput.rating = Rodden Rating
+charts.datainput.source = Description of the source
+charts.datainput.title = Enigma - Data input
 
 ---- ChartsHarmonics ----------------------------------
 charts.harmonics.formtitle = Harmonics
 charts.harmonics.harmonicpos = Harmonic position
 charts.harmonics.inputharmonicnr = Enter number for new harmonic.
 charts.harmonics.radixpos = Radix position
-charts.harmonics.title = Enigma Astrology Research : Harmonics
+charts.harmonics.title = Enigma - Harmonics
 charts.harmonics.titlenumber = Positions for harmonic
 
 --- ChartsMain ----------------------------------------
 
-chartsmainwindow.title = Enigma Astrology Research : Charts
+chartsmainwindow.title = Enigma - Charts
 chartsmainwindow.formtitle = Charts
 chartsmainwindow.current = Current chart
 chartsmainwindow.btnwheel = Wheel
@@ -117,17 +127,17 @@ chartsmainwindow.newchart = New
 
 ---- ChartsMidpoints ----------------------------------
 charts.midpoints.formtitle = Midpoints
-charts.midpoints.title = Enigma Astrology Research : Midpoints
 charts.midpoints.allmidpoints = All midpoints
+charts.midpoints.dial360 = 360 degrees
+charts.midpoints.dial45 = 45 degrees
+charts.midpoints.dial90 = 90 degrees
+charts.midpoints.dialsize = Dial size
 charts.midpoints.header.exactness = Exactness
 charts.midpoints.header.orb = Orb
 charts.midpoints.header.position = Position
 charts.midpoints.occmidpoints = Occupied midpoints
-charts.midpoints.dialsize = Dial size
-charts.midpoints.dial360 = 360 degrees
-charts.midpoints.dial90 = 90 degrees
-charts.midpoints.dial45 = 45 degrees
 charts.midpoints.orbsize = Orbsize for selected dial:
+charts.midpoints.title = Enigma - Midpoints
 
 ---- ChartsPositions ----------------------------------
 charts.positions.chartgategory = Category:
@@ -148,6 +158,7 @@ charts.positions.datetime = Date and time:
 charts.positions.description.empty = No description
 charts.positions.formtitle = Radix positions
 charts.positions.location = Location:
+charts.positions.locationname.empty = No name for location
 -- charts.positions.menu.mianalysis = _Analysis
 -- charts.positions.menu.miaspects = _Aspects
 -- charts.positions.menu.miclose = _Close
@@ -163,7 +174,12 @@ charts.positions.location = Location:
 -- charts.positions.menu.mitransits = _Transits
 charts.positions.rating = Rodden Rating:
 charts.positions.source = Source:
-charts.positions.source.empty = Not defined
+charts.positions.source.empty = Source not defined
+charts.positions.title = Enigma - Radix positions
+
+-------------------------------- Charts Wheel ----------
+charts.wheel.title = Enigma - Chart wheel
+
 
 -------------------------------- Common ----------------
 common.btncancel = Cancel
@@ -241,18 +257,9 @@ datafilesimportwindow.title = Import data files
 datafilesoverviewwindow.dataname = Name of data
 datafilesoverviewwindow.title = Existing data files
 
--------------------------- HelpWindow -----------------
--- HelpWindow -----------------------------------------
-helpwindow.title = Help for Enigma Astrology Research
-
--------------------------- IO messages ----------------
-
-file.import.ok = File successfully imported.
-file.import.csverror = Error in reading csv, check file errors.json.
-
 
 ------------------------ Harmonic Details Window -------
-harmonicdetailswindow.title = Details for harmonics
+harmonicdetailswindow.title = Enigma - Details for harmonics
 harmonicdetailswindow.formtitle = Enter details for harmonics
 harmonicdetailswindow.explanation = To research the effect of harmonics, you need to define the harmonic number and the orb to be used. 
 harmonicdetailswindow.harmonicnr = Harmonic number
@@ -262,7 +269,14 @@ harmonicdetailswindow.orbminutes = Minutes
 harmonicdetailswindow.warningharmonicnumber = The harmonic number is not correct. Please use numeric values larger than 1.
 harmonicdetailswindow.warningorb = The values for the orb are not correct. Please use positieve integers and an orb that is smaller than 10 degrees.
 
+-------------------------- HelpWindow -----------------
+-- HelpWindow -----------------------------------------
+helpwindow.title = Enigma - Helppage
 
+-------------------------- IO messages ----------------
+
+file.import.ok = File successfully imported.
+file.import.csverror = Error in reading csv, check file errors.json.
 
 -------------------------------- Main window -----------
 mainwindow.charts = Charts
@@ -270,7 +284,7 @@ mainwindow.explanation = Click an image to continue
 mainwindow.formtitle = Enigma
 mainwindow.research = Research
 mainwindow.subtitle = Astrology Research
-mainwindow.title = Dashboard Enigma Astrology Research
+mainwindow.title = Enigma - Dashboard
 
 --mainwindow.btnchartsnew = New chart
 --mainwindow.btnchartssearch = Search chart
@@ -320,7 +334,7 @@ mainwindow.title = Dashboard Enigma Astrology Research
 
 -------------------------------- Midpoint details window --------
 
-midpointdetailswindow.title = Details for midpoints
+midpointdetailswindow.title = Enigma - Details for midpoints
 midpointdetailswindow.formtitle = Enter details for midpoints
 midpointdetailswindow.explanation =  To research the effect of midpoints, you need to define the orb and the dial to be used. 
 midpointdetailswindow.dialsize = Dial
@@ -341,7 +355,7 @@ pointselectwindow.checkallmundanepoints = Select all mundane points
 pointselectwindow.explanation = Select one or more points, either celestial or mundane. You can select multiple points.
 pointselectwindow.formtitle = Select points to include
 pointselectwindow.mundanepoints = Mundane points
-pointselectwindow.title = Select points
+pointselectwindow.title = Enigma - Point selection
 pointselectwindow.warningnrofpoints = Please select more points. The minimal number for the current method is
 
 -------------------------------- Project input window --
@@ -356,9 +370,10 @@ projectinputwindow.generalinfo = Name and description for project
 projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
 projectinputwindow.name = Name for project
 projectinputwindow.projectsaved = The project has been saved
+projectinputwindow.title = Enigma - Project creation
 
 -------------------------------- Project usage window --
-projectusagewindow.title = Enigma Astrology Research: Test with project
+projectusagewindow.title = Enigma - Projectbased tests
 projectusagewindow.formtitle = Test with project
 projectusagewindow.projdetails = Project details
 projectusagewindow.existingmethods = Existing test methods
@@ -689,7 +704,7 @@ ref.calendar.j = Jul.
 
 --------- ResearchMainWindow ----------------------
 researchmainwindow.expltext = Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project.
-researchmainwindow.formtitle = Available projects
+researchmainwindow.formtitle = Research
 researchmainwindow.menu.midata = Data
 researchmainwindow.menu.midata.overview = Available data sets
 researchmainwindow.menu.midata.import = Import data
@@ -703,10 +718,10 @@ researchmainwindow.menu.mihelp.page = Help for this window
 researchmainwindow.menu.mihelp.manual = User Manual
 researchmainwindow.menu.miprojects = Research Projects
 researchmainwindow.menu.miprojects.new = Add new project
-researchmainwindow.title = Projects: overview
+researchmainwindow.title = Enigma - Research
 
 --------- ResearchResultWindow -------------------
-researchresultwindow.title = Research: results
+researchresultwindow.title = Enigma - Research results
 researchresultwindow.formtitle = Research results
 researchresultwindow.noaspects = Number of charts without aspects
 researchresultwindow.orb = Orb

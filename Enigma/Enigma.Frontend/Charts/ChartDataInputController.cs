@@ -13,7 +13,10 @@ using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -115,8 +118,8 @@ public sealed class ChartDataInputController
             CalculatedChartPositions calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
 
             FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
-            MetaData metaData = CreateMetaData(NameId, Description, Source, ChartCategory, RoddenRating);
-            // Todo retrieve id from database, use local counter for tempId
+            MetaData metaData = CreateMetaData(NameId, Description, Source, LocationName, ChartCategory, RoddenRating);
+            // Todo 0.1   retrieve id from database, use local counter for tempId
             int id = 1000;
             int tempId = 1;
             ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
@@ -129,16 +132,23 @@ public sealed class ChartDataInputController
         else return false;
     }
 
-    private static MetaData CreateMetaData(string nameId, string description, string source, ChartCategories chartCategory, RoddenRatings rating)
+    private static MetaData CreateMetaData(string nameId, string description, string source, string locationName, ChartCategories chartCategory, RoddenRatings rating)
     {
-        string nameIdText = string.IsNullOrEmpty(nameId) ? Rosetta.TextForId("charts.positions.chartname.empty") : nameId;
-        string descriptionText = string.IsNullOrEmpty(description) ? Rosetta.TextForId("charts.positions.description.empty") : description;
-        string sourceText = string.IsNullOrEmpty(source) ? Rosetta.TextForId("charts.positions.source.empty") : source;
-        return new MetaData(nameIdText, descriptionText, sourceText, chartCategory, rating);
+        string nameIdText = string.IsNullOrWhiteSpace(nameId) ? Rosetta.TextForId("charts.positions.chartname.empty") : nameId;
+        string descriptionText = string.IsNullOrWhiteSpace(description) ? Rosetta.TextForId("charts.positions.description.empty") : description;
+        string sourceText = string.IsNullOrWhiteSpace(source) ? Rosetta.TextForId("charts.positions.source.empty") : source;
+        string locationNameText = string.IsNullOrWhiteSpace(locationName) ? Rosetta.TextForId("charts.positions.locationname.empty") : locationName; 
+        return new MetaData(nameIdText, descriptionText, sourceText, locationName, chartCategory, rating);
 
     }
 
-
+    public static void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ChartsDataInput");
+        helpWindow.ShowDialog();
+    }
 
 
 

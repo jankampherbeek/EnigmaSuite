@@ -28,8 +28,8 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         
-        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="7" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="10" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="6" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
         <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbProjDetails" Text="tbProjDetails" Style="{StaticResource subTitleStyle}" />
 

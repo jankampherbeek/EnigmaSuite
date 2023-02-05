@@ -5,15 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts"
         mc:Ignorable="d"
-        Title="WindowTitle" Height="750" Width="600"
+        Title="WindowTitle" Height="750" Width="540"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="500"/>
+            <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
+        <Rectangle Grid.Row="2" Style="{StaticResource backgroundStyle}" />
         <TextBlock Grid.Row="0" Name="FormTitle" Text="tbTitle" Margin="6" Style="{StaticResource titleStyle}"/>
         <TextBlock Grid.Row="1" Name="SubTitleChartId" Text="SubTitleChartId" Margin="6" Style="{StaticResource subTitleStyle}"/>
         <DataGrid Grid.Row="2" Name="dgSsAspects" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 

@@ -71,7 +71,8 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
             {
                 Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
                 Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
-                Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.CelPointConnectLineOpacity);
+                //Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.CelPointConnectLineOpacity);
+                Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.AspectOpacity);
                 aspectLines.Add(connectionLine);
 
             }

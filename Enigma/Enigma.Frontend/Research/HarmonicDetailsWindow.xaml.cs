@@ -64,7 +64,7 @@ public partial class HarmonicDetailsWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        HarmonicDetailsController.ShowHelp();
     }
 
     private void OkClick(object sender, RoutedEventArgs e)

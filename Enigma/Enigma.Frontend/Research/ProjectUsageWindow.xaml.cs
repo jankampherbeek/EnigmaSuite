@@ -88,7 +88,7 @@ namespace Enigma.Frontend.Ui.Research
 
         private void HelpClick(object sender, RoutedEventArgs e)
         {
-            _controller.ShowHelp(); ;
+            ProjectUsageController.ShowHelp(); ;
         }
     }
 }

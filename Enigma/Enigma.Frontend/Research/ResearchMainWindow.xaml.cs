@@ -96,18 +96,17 @@ public partial class ResearchMainWindow : Window
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        _controller.HandleClose();
         Close();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowHelp();
+        ResearchMainController.ShowHelp();
     }
 
     private void HelpManualClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Help - Manual not yet implemented.");
+        MessageBox.Show("Help - Manual not yet implemented.");      // TODO 0.1 add manual
     }
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)

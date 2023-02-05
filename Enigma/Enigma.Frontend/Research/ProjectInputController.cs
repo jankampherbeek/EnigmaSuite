@@ -38,7 +38,6 @@ public class ProjectInputController
         _fileManagementApi = fileManagementApi;
         _dataNameForDataGridFactory = dataNameForDataGridFactory;
         _projectCreationApi = projectCreationApi;
-
         ActualErrorCodes = new();
     }
 

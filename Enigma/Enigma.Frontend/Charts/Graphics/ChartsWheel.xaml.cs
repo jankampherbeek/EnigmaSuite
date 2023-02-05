@@ -1,8 +1,9 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Frontend.Helpers.Support;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -21,8 +22,9 @@ public partial class ChartsWheel : Window
         _controller = controller;
     }
 
-    public void DrawChart()
+    public void Populate()
     {
+        PopulateTexts();
         wheelCanvas.Children.Clear();
         _controller.PrepareDraw();
         DrawChartFrame();
@@ -31,6 +33,11 @@ public partial class ChartsWheel : Window
         DrawAspects();
     }
 
+
+    private void PopulateTexts()
+    {
+        Title = Rosetta.TextForId("charts.wheel.title");
+    }
 
     private void DrawChartFrame()
     {
@@ -93,7 +100,7 @@ public partial class ChartsWheel : Window
         _controller.Resize(minSize);
         wheelCanvas.Height = _controller.CanvasSize;
         wheelCanvas.Width = _controller.CanvasSize;
-        DrawChart();
+        Populate();
     }
 
 

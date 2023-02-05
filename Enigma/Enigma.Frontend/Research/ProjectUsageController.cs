@@ -203,7 +203,7 @@ public class ProjectUsageController
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;

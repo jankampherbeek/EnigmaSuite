@@ -1,20 +1,21 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Charts;
-using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Research;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
+using System.Windows;
 
 namespace Enigma.Frontend.Ui;
 
-
+/// <summary>Shows the initial dashboard and offers the posibility to start the different modules of Enigma.</summary>
 public class MainController
 {
-    private readonly ResearchMainWindow _researchMainWindow = new();
-    private readonly ChartsMainWindow _chartsMainWindow = new();
+
     public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
 
 
@@ -23,15 +24,26 @@ public class MainController
         AllCurrentCharts = new CurrentCharts();   // move to maincharts
     }
 
-
+    /// <summary>Show module for research.</summary>
     public void ShowResearchMain()
     {
+        ResearchMainWindow _researchMainWindow = new();
         _researchMainWindow.ShowDialog();
     }
 
+    /// <summary>Show module for charts.</summary>
     public void ShowChartsMain()
     {
+        ChartsMainWindow _chartsMainWindow = new();
         _chartsMainWindow.ShowDialog();
+    }
+
+    public static void HelpClick()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("MainWindow");
+        helpWindow.ShowDialog();
     }
 
 }

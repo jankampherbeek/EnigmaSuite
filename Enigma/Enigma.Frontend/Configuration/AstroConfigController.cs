@@ -20,7 +20,7 @@ public sealed class AstroConfigController
     private readonly IConfigurationApi _configApi;
     private readonly AstroConfig _astroConfig;
     private readonly GlyphsForChartPoints _glyphsForChartPoints;
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+
 
     public AstroConfigController(IConfigurationApi configApi)
     {
@@ -45,10 +45,11 @@ public sealed class AstroConfigController
         CurrentConfig.Instance.ChangeConfig(astroConfig);
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("Configurations");
-        _helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("Configurations");
+        helpWindow.ShowDialog();
     }
 }

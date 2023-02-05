@@ -75,6 +75,7 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
+        <Rectangle Grid.Row="3" Style="{StaticResource backgroundStyle}" />
 
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbFormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
         <TextBlock Grid.Row="2" Margin="6" Name="tbExplText" Text="ExplText" TextWrapping="Wrap"/>

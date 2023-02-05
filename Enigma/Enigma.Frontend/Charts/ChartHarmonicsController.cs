@@ -21,7 +21,6 @@ public sealed class ChartHarmonicsController
     private readonly IHarmonicsApi _harmonicsApi;
     private readonly IHarmonicForDataGridFactory _dataGridFactory;
     private readonly DataVault _dataVault;
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
 
     public ChartHarmonicsController(IHarmonicsApi harmonicsApi, IHarmonicForDataGridFactory dataGridFactory)
     {
@@ -52,10 +51,11 @@ public sealed class ChartHarmonicsController
         return presHarmonics;
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("Harmonics");
-        _helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("Harmonics");
+        helpWindow.ShowDialog();
     }
 }

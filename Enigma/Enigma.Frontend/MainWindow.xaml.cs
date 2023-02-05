@@ -36,10 +36,7 @@ public partial class MainWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("MainWindow");
-        helpWindow.ShowDialog();
+        MainController.HelpClick();
     }
 
 
@@ -55,8 +52,8 @@ public partial class MainWindow : Window
         tbFormTitle.Text = Rosetta.TextForId("mainwindow.formtitle");
         tbSubTitle.Text = Rosetta.TextForId("mainwindow.subtitle");
         tbExplanation.Text = Rosetta.TextForId("mainwindow.explanation");
-        tbCharts.Text = Rosetta.TextForId("mainwindow.charts");
-        tbResearch.Text = Rosetta.TextForId("mainwindow.research");
+  //      tbCharts.Text = Rosetta.TextForId("mainwindow.charts");
+  //      tbResearch.Text = Rosetta.TextForId("mainwindow.research");
 
 
         /*    tbChartsTitle.Text = Rosetta.TextForId("mainwindow.chartstitle");

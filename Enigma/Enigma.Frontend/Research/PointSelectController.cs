@@ -21,8 +21,6 @@ public sealed class PointSelectController
     private AstroConfig? _astroConfig;
     private List<SelectableCelPointDetails> _selCPDetails = new();
     private List<SelectableMundanePointDetails> _selMPDetails = new();
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-
 
     public List<SelectableCelPointDetails> GetAllCelPointDetails()
     {
@@ -85,10 +83,11 @@ public sealed class PointSelectController
         }
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("SelectPointsForTest");
-        _helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("SelectPointsForTest");
+        helpWindow.ShowDialog();
     }
 }

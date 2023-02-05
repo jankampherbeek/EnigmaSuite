@@ -20,7 +20,8 @@ public partial class AboutWindow : Window
     }
     private void PopulateTexts()
     {
-        FormTitle.Text = Rosetta.TextForId("aboutwindow.title");
+        Title = Rosetta.TextForId("aboutwindow.title");
+        FormTitle.Text = Rosetta.TextForId("aboutwindow.formtitle");
         Description.Text = Rosetta.TextForId("aboutwindow.description");
         CopyrightTitle.Text = Rosetta.TextForId("aboutwindow.copyright.title");
         CopyrightText.Text = Rosetta.TextForId("aboutwindow.copyright.text");

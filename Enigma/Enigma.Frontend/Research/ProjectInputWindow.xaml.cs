@@ -51,6 +51,7 @@ namespace Enigma.Frontend.Ui.Research
 
         private void PopulateTexts()
         {
+            Title = Rosetta.TextForId("projectinputwindow.title");
             FormTitle.Text = Rosetta.TextForId("projectinputwindow.formtitle");
             GeneralInfoTxt.Text = Rosetta.TextForId("projectinputwindow.generalinfo");
             NameTxt.Text = Rosetta.TextForId("projectinputwindow.name");

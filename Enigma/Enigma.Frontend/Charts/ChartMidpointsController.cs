@@ -22,7 +22,7 @@ public class ChartMidpointsController
     private readonly IMidpointForDataGridFactory _midpointForDataGridFactory;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly DataVault _dataVault;
-    private readonly HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+
 
     // TODO make it possible to work with a new chart without overwriting screens with data from the previous chart.
     public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions)
@@ -64,11 +64,12 @@ public class ChartMidpointsController
         return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(value);
     }
 
-    public void ShowHelp()
+    public static void ShowHelp()
     {
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("Midpoints");
-        _helpWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("Midpoints");
+        helpWindow.ShowDialog();
     }
 
 }

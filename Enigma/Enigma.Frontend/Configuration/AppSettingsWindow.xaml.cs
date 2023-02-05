@@ -24,7 +24,8 @@ public partial class AppSettingsWindow : Window
     }
     private void PopulateTexts()
     {
-        FormTitle.Text = Rosetta.TextForId("appsettingswindow.title");
+        Title = Rosetta.TextForId("appsettingswindow.title");
+        FormTitle.Text = Rosetta.TextForId("appsettingswindow.formtitle");
         Explanation.Text = Rosetta.TextForId("appsettingswindow.explanation");
         LocData.Text = Rosetta.TextForId("appsettingswindow.locdata");
         LocExport.Text = Rosetta.TextForId("appsettingswindow.locexport");

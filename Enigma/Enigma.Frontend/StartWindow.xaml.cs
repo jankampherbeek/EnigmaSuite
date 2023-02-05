@@ -47,7 +47,7 @@ public partial class StartWindow : Window
         // Thread.Sleep(500);
         // TODO check for update
         Hide();
-        MainWindow mainWindow = new();
+        MainWindow mainWindow = new();              // Todo 0.1 add check for exceptions and show warning to user if an exception occurs.
         mainWindow.ShowDialog();
         Application.Current.Shutdown(0);
     }

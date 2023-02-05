@@ -31,6 +31,7 @@ public sealed class ChartsWheelMetrics
     public double CuspLineOpacity { get; } = 0.5;
     public double CuspTextOpacity { get; } = 1.0;
     public double CelPointConnectLineOpacity { get; } = 0.25;
+    public double AspectOpacity { get; } = 0.4;
 
     // Circles and radiuses
     public double OuterCircle { get; private set; }
