@@ -44,10 +44,7 @@ public partial class DataFilesOverviewWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        HelpWindow? helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("DataFilesOverview");
-        helpWindow.ShowDialog();
+        DataFilesOverviewController.ShowHelp();
     }
 
     private void CloseClick(object sender, RoutedEventArgs e)

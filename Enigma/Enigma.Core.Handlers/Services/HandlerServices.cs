@@ -9,6 +9,7 @@ using Enigma.Core.Handlers.Analysis.Helpers;
 using Enigma.Core.Handlers.Calc;
 using Enigma.Core.Handlers.Calc.Celestialpoints;
 using Enigma.Core.Handlers.Calc.CelestialPoints;
+using Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 using Enigma.Core.Handlers.Calc.Coordinates;
 using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Core.Handlers.Calc.DateTime;
@@ -89,6 +90,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
+        serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
         serviceCollection.RegisterResearchServices();
 

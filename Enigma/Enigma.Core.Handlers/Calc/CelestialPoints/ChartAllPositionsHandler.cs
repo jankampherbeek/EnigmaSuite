@@ -15,12 +15,14 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
 
     private readonly ICelPointsHandler _celPointsHandler;
     private readonly IHousesHandler _housesHandler;
+    private readonly IZodiacPointsCalc _zodiacPointCalc;
 
 
-    public ChartAllPositionsHandler(ICelPointsHandler celPointsHandler, IHousesHandler housesHandler)
+    public ChartAllPositionsHandler(ICelPointsHandler celPointsHandler, IHousesHandler housesHandler, IZodiacPointsCalc zodiacPointsCalc)
     {
         _celPointsHandler = celPointsHandler;
         _housesHandler = housesHandler;
+        _zodiacPointCalc = zodiacPointsCalc;
     }
 
     public CalculatedChartPositions CalcFullChart(CelPointsRequest request)
@@ -34,5 +36,21 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
         return new CalculatedChartPositions(commonPositions, mundane.Angles, mundane.Cusps, zodiacPoints, arabicPoints, fixStars);
     }
 
+    private Dictionary<ChartPoints, FullPointPos> CalcZodiacPoints(CelPointsRequest request)
+    {
+        Dictionary<ChartPoints, FullPointPos> zodiacPoints = new();
+        if (request.CalculationPreferences.ActualZodiacType == ZodiacTypes.Tropical && request.CalculationPreferences.CoordinateSystem == CoordinateSystems.Ecliptical)
+        {
+            if (request.CalculationPreferences.ActualChartPoints.Contains(ChartPoints.ZeroAries))
+            {
+                zodiacPoints.Add(ChartPoints.ZeroAries, _zodiacPointCalc.DefineZeroAries(request));
+            }
+            if (request.CalculationPreferences.ActualChartPoints.Contains(ChartPoints.ZeroCancer))
+            {
+                zodiacPoints.Add(ChartPoints.ZeroAries, _zodiacPointCalc.DefineZeroCancer(request));
+            }
+        }
+        return zodiacPoints;
+    }
 }
 

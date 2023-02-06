@@ -45,7 +45,7 @@
 <ul>
 <li><strong>Location of data files</strong>: <code>c:\enigma_ar\data</code>  Data files contain data, currently only in csv-format,  that can be used by projects.</li>
 <li><strong>Location of project files</strong>: <code>c:\enigma_ar\project</code> Project files include files with description of projects and files that are converted to Json format.</li>
-<li><strong>Location of export files</strong>: <code>c:\enigma_ar\export</code> Files that you export, currently only in csv-format.</li>
+<li><strong>Location of export files</strong>: <code>c:\enigma_ar\export</code> Files that you export.</li>
 <li><strong>Location of Swiss Ephemeris files</strong>: <code>c:\enigma_ar\se</code> The files as supplied by the Swiss Ephemeris that contain the data for the calculations. These files will (almost) never change.</li>
 
 </ul>
@@ -81,7 +81,7 @@
 <h4 id='celestial-points'>Celestial points</h4>
 <p>The tab <em>Celestial points</em> is the first of three tabs where you can define points for your chart.</p>
 <p>For each point you will find a checkbox. Check this box if you want to take the celestial point into account, deselect it if you do not want to use it. </p>
-<p>There is also a value <em>Percentage for orb</em> that you can change. You can enter a percentage from 0 up to 100, make sure you use only whole numbers. It is possible to define a percentage for a point that is not selected so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.</p>
+<p>There is also a value <em>Orb perc.</em> (Orb percentage) that you can change. You can enter a percentage from 0 up to 100, make sure you use only whole numbers. It is possible to define a percentage for a point that is not selected so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.</p>
 <p>In this tab you see four types of points: <em>Classic</em>, <em>Modern</em>, <em>Mundane points</em> and <em>Arabic Parts</em>. Please note that you cannot deselect the classic points and also not MC or Ascendant. </p>
 <p>See the paragraph <em>Celestial Points Overview</em> in the User Manual for an explanation for each point.</p>
 <p>&nbsp;</p>
@@ -107,6 +107,51 @@
 <p>&nbsp;</p>
 <h2 id='charts'>Charts</h2>
 <p>&nbsp;</p>
+<h3 id='calculating-a-chart'>Calculating a chart</h3>
+<!-- html-help-begin [chartsdatainput] -->
+<h4 id='input-for-the-calculation-of-a-chart'>Input for the calculation of a chart</h4>
+<p>In this sceen you will see three blocks: </p>
+<ul>
+<li><strong>General information</strong> is for data that is not required for the calculation but is used to identify a chart. </li>
+<li><strong>Location</strong> is for name and coordinates of the location.</li>
+<li><strong>Date and time</strong> is for all information about the birth-time or event-time. </li>
+
+</ul>
+<p>&nbsp;</p>
+<h5 id='general-information'>General information</h5>
+<p><strong>Unique name or id for chart</strong>. Enter an identification for this chart.  This can be a name, a number or some other identification.</p>
+<p><strong>Description of the source</strong>. A short explanation about the source of the data. </p>
+<p><strong>Rodden Rating</strong>. Select one of the Rodden Ratings or leave the default value <em>Unknown</em>.</p>
+<p><strong>Category</strong>. Indicate the subject for which the chart is calculated or leave the default value <em>Unknown</em>.</p>
+<p>&nbsp;</p>
+<h5 id='location'>Location</h5>
+<p><strong>Description of the location</strong>. A cityname, address or other identification for the  location. This field is optional.</p>
+<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. You can skip the seconds,  they will default to 0 seconds. So <em>145:15</em> is a valid indication for  <em>145°15&#39;00&quot;</em>. </p>
+<p>Use the scroll-downbox to select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em>. </p>
+<p><strong>Latitude</strong>. Geographic latitude in the format <em>dd:mm:ss</em>. For  <em>52°13&#39;30&quot;</em> you need to enter <em>52:13:30</em>. You can skip the seconds,  they will default to 0 seconds. So <em>45:15</em> is a valid indication for  <em>45°15&#39;00&quot;</em>. </p>
+<p>Use the scroll-downbox to select either <strong>N</strong> <em>(North)</em> or <strong>S</strong>  <em>(South)</em>. </p>
+<h5 id='date-and-time'>Date and time</h5>
+<p><strong>Date</strong>. Enter the date in the format <em>yyyy:mm:dd</em>, so June 16, 2022  would be entered as <em>2022/06/16</em>. Historical dates before the year 0 should  have a negative year if you select the Astronomical yearcount. Otherwise, all  years will be positive.</p>
+<p><strong>Cal. (Calendar)</strong>. The calendar that is applicable, select either  <strong>G</strong> <em>(Gregorian)</em> or <strong>J</strong> <em>(Julian)</em>. For recent dates you  will always need the Gregorian calendar.</p>
+<p><strong>Yearcount</strong>. There is a difference between a historical and an  astronomical yearcount. Historical dates do not recognize the year 0. So the  historical year 1 CE is preced by the year 1 BCE. The astronomical years would  be +1 for 1 CE, and 0 for 1 BCE, preceded by -1 for 2 BCE.</p>
+<p>For years after the year 0, astronomical and historical dates are the  same.</p>
+<p>Select one of the following values: </p>
+<ul>
+<li><strong>CE</strong>: Common Era (historical). Previously: AD. </li>
+<li><strong>BCE</strong>: Before Common Era (historical). Previously BC. </li>
+<li><strong>Astronomical</strong>: Positive and negative years. </li>
+
+</ul>
+<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour  notation. 2h38m30s PM would be <em>14:38:30</em>.</p>
+<p><strong>DST</strong>. Check the box DST if Daylight Saving Time is applicable.</p>
+<p><strong>TimeZone</strong>. Select one of the available timezones. The list contains the  offset from UT (Greenwich Time) and the name of the timezone. If the time does  not fit into one of the available timezones, select <em>LMT: Local Mean Time</em>.  You will get the possibility to define another offset from UT for the time  used.</p>
+<p><strong>LMT: difference with UT</strong>. This field becomes available if you selected  LMT as timezone. Here you can define the offset from UT (Greenwich) in hours,  minutes, and seconds, using the format hh:mm:ss in the same way as for entering  the clock-time. Also select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em> to indicate the direction for the offset.</p>
+<p>&nbsp;</p>
+<h5 id='start-the-calculation'>Start the calculation</h5>
+<p>Click the button <strong>Calculate</strong> to perform the calculation. If you made any  errors, the fields that contain an error will return yellow. Correct the input  and try again.</p>
+<p>Click the button <strong>Close</strong> if you do not want to continue.</p>
+<!-- html-help-end [chartsdatainput] -->
+<p>&nbsp;</p>
 <h3 id='analysis-of-radix-charts'>Analysis of radix charts</h3>
 <h4 id='aspects-2'>Aspects</h4>
 <p>&nbsp;</p>
@@ -117,7 +162,7 @@
 <p>In this window you will see two tables. The left table contains a list of all midpoints, regardless if they are occupied or not.  The table to the right shows occupied midpoints for a specific dial. </p>
 <p>Both tables will contain only celestial points that you selected in the configuration.</p>
 <p>For the occupied midpoints you will also see the actual orb and a percentage for the exactness of the midpoint. The higher the percentage, the smaller the orb.</p>
-<p>Default a dial of 360 degrees is used. You can change the dial with the radio buttons to the left of the two tables. Currently, the dials for 360 degrees, 90 degrees and 45 degrees are supported. The orb for all dials is the same.</p>
+<p>Default a dial of 360 degrees is used. You can change the dial with the radio buttons to the right of the two tables. Currently, the dials for 360 degrees, 90 degrees and 45 degrees are supported. The orb for all dials is the same.</p>
 <p>After changing the selection of the dial, the content of the table with Occupied midpoints will automatically update.</p>
 <!-- html-help-end [midpoints] -->
 <p>&nbsp;</p>
@@ -290,7 +335,7 @@ See the initial part of this paragraph in the User manual.</p>
 <p>In the menu you can check the current settings: <strong>General - Settings</strong>, and check of change the Configuration: <strong>General - Configuration</strong>.</p>
 <p>To check the available data sets, use the menu <strong>Data - Available data sets</strong>. You can import a new data set via the menu <strong>Data - Import data</strong>. </p>
 <p>Before you can define a new project, you already must have imported a dataset. To define a new project use the menu <strong>Research Projects - Add new project</strong> or the button <strong>New</strong>. A project needs to have access to one data set. If you want to use multiple data sets you will need to define multiple projects.</p>
-<p>You can start research on an existing project by select the project in the list and clicking the button <strong>Open</strong>. A new screen will appear that will ask you to select a method to perform a test.</p>
+<p>You can start research on an existing project by selecting the project in the list and clicking the button <strong>Open</strong>. A new screen will appear that will ask you to select a method to perform a test.</p>
 <!-- html-help-end [projectoverview] -->
 <p>&nbsp;</p>
 <h4 id='test-with-project'>Test with project</h4>
@@ -301,10 +346,10 @@ See the initial part of this paragraph in the User manual.</p>
 <!-- html-help-end [testwithproject] -->
 <h4 id='select-points-to-include-for-test'>Select points to include for test</h4>
 <!-- html-help-begin [selectpointsfortest] -->
-<p>For each test, you will need to define the points to include in the test. The screen shows Celestail Points (Lights, planets, minor planets, mathematical points) in the list to the left, and Mundane points (related to houses) in the list to the right.</p>
+<p>For each test, you will need to define the points to include in the test. The screen shows Celestial Points (Lights, planets, minor planets, mathematical points) in the list to the left, and Mundane points (related to houses) in the list to the right.</p>
 <p>Points that are not selected in the current configuration are not shown.  If you are missing a point you need to redefine the configuration: click the button <strong>Cancel</strong> to close this window and return to the overview of tests, where you can also open the configuration window.</p>
-<p>You can select one or more point by clicking them. Deselect by clicking again. You can select/deselect all celestial or all mundane points by clicking one of the checkboxes <strong>Select all celestail points</strong> or <strong>Select all mundane points</strong>.</p>
-<p>With the checkbox Include all cusps you can include all cusps into the research. This means you can count aspects to cusps or use cusps in midpoints, etc. Please note that Ascendant and MC can also be selected, for quadrant systems you have to be aware of this effect. </p>
+<p>You can select one or more points by clicking them. Deselect by clicking again. You can select/deselect all celestial or all mundane points by clicking one of the checkboxes <strong>Select all celestail points</strong> or <strong>Select all mundane points</strong>.</p>
+<p>With the checkbox <strong>Include all cusps</strong> you can include all cusps into the research. This means you can count aspects to cusps or use cusps in midpoints, etc. Please note that Ascendant and MC can also be selected, for quadrant systems you have to be aware of this effect. </p>
 <p>Click the button <strong>OK</strong> to start the calculations.</p>
 <!-- html-help-end [selectpointsfortest] -->
 <p>&nbsp;</p>
@@ -341,7 +386,7 @@ See the initial part of this paragraph in the User manual.</p>
 </ul>
 <h6 id='orb-1'>Orb</h6>
 <p>You can define your own orb. As the number of midpoints can be quite high, it  makes sense to use a relatively small orb, typically smaller than 2° if you use  a 360° dial and smaller for the other dials.</p>
-<p>The orb should be defined in positive numeric values, the minutes should be  between 0 and 59. The maximum total size is 9°59&#39;. However, such a large orb  probably does not make any sense. If your orb is not correctly defined you will  be warned with a popup after pressiong the OK-button. </p>
+<p>The orb should be defined in positive numeric values, the minutes should be  between 0 and 59. The maximum total size is 9°59&#39;. However, such a large orb  probably does not make any sense. If your orb is not correctly defined you will  be warned with a popup after pressing the OK-button. </p>
 <!-- html-help-end [midpointdetails] -->
 <h5 id='result-screen-1'>Result screen</h5>
 <p>After entering the details Enigma will calculate the occupied midpoints and show the results in a scrollable list. The format is as follows:</p>

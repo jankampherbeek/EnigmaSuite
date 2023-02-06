@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -46,7 +46,7 @@ public sealed class CurrentConfig
     {
         if (_currentConfig == null)
         {
-            IConfigReader configReader = App.ServiceProvider.GetRequiredService<IConfigReader>();
+            IConfigReader configReader = App.ServiceProvider.GetRequiredService<IConfigReader>();   // TODO 0.1 use API to read config
             _currentConfig = configReader.ReadConfig();
         }
         return _currentConfig;

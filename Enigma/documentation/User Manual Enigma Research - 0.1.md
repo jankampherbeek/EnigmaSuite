@@ -185,18 +185,29 @@ The aspects are divided into three categories: Major, Minor and Micro. For each 
 
 #### Input for the calculation of a chart
 
-In this sceen you will see two blocks: 
+In this sceen you will see three blocks: 
 
-- **Name and Location** covers the geographic longitude and latitude and  the possibility to enter a name or id for the chart. 
-- **Date and time** is for all information about the birth-time or  event-time. 
+- **General information** is for data that is not required for the calculation but is used to identify a chart. 
+- **Location** is for name and coordinates of the location.
+- **Date and time** is for all information about the birth-time or event-time. 
 
 
 
-##### Name and location
+##### General information
 
-**Unique name or id for chart**. Enter an identification for this chart.  This can be a name, a number or some other identification. 
+**Unique name or id for chart**. Enter an identification for this chart.  This can be a name, a number or some other identification.
 
-**Name for location**. A cityname, address or other identification for the  location. This field is optional.
+**Description of the source**. A short explanation about the source of the data. 
+
+**Rodden Rating**. Select one of the Rodden Ratings or leave the default value *Unknown*.
+
+**Category**. Indicate the subject for which the chart is calculated or leave the default value *Unknown*.
+
+
+
+##### Location
+
+**Description of the location**. A cityname, address or other identification for the  location. This field is optional.
 
 **Longitude**. Geographic longitude in the format *ddd:mm:ss*. For  *123°45'30"* you need to enter *123:45:30*. You can skip the seconds,  they will default to 0 seconds. So *145:15* is a valid indication for  *145°15'00"*. 
 

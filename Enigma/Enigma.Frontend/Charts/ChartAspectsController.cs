@@ -46,12 +46,6 @@ public sealed class ChartAspectsController
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 
-  //  public List<PresentableAspects> GetPresentableAspectsForMundanePoints()
-  //  {
-  //      List<DefinedAspect> effAspects = _aspectsApi.AspectsForMundanePoints(CreateRequest());
-  //      return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
- //   }
-
     public static void ShowHelp()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();

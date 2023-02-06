@@ -6,8 +6,10 @@
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Interfaces;
-
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace Enigma.Frontend.Ui.Research.DataFiles;
 public class DataFilesOverviewController
@@ -30,4 +32,11 @@ public class DataFilesOverviewController
         return _dataNameForDataGridFactory.CreateDataNamesForDataGrid(fullPathDataNames);
     }
 
+    public static void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("DataFilesOverview");
+        helpWindow.ShowDialog();
+    }
 }

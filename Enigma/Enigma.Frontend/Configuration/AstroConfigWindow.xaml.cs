@@ -459,9 +459,14 @@ public partial class AstroConfigWindow : Window
         {
             new ChartPointConfigSpecs(ChartPoints.ZeroAries, false, '1', 0)
         };
+
+        //        cboxMeanNode.IsChecked = chartConfigPoints[(int)ChartPoints.MeanNode].IsUsed;
+
+
         int offsetZodiac = 3001;
         tboxZeroAriesFactor.Text = chartZodiacConfigPoints[((int)ChartPoints.ZeroAries) - offsetZodiac].PercentageOrb.ToString();
         cboxZeroAries.IsChecked = chartZodiacConfigPoints[((int)ChartPoints.ZeroAries) - offsetZodiac].IsUsed;
+
         // TODO 0.1 add ZeroCancer
 
         List<ChartPointConfigSpecs> chartArabicConfigPoints = new()

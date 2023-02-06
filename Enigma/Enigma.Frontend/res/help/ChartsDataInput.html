@@ -5,52 +5,46 @@
 </head>
 	<body>
 	<h1>Input for the calculation of a chart</h1>
-	<p>In this sceen you will see two blocks:
-		<ul>
-			<li><b>Name and Location</b> covers the geographic longitude and latitude and the possibility to enter a name or id for the chart.</li>
-			<li><b>Date and time</b> is for all information about the birth-time or event-time.</li>
-		</ul>
-	</p>
-	<h2>Name and location</h2>
-	<p><b>Unique name or id for chart</b>. Enter an identification for this chart. 
-	This can be a name, a number or some other identification. 
-	</p>
-	<p><b>Name for location</b>. A cityname, address or other identification for the location. 
-	This field is optional.</p>
-	<p><b>Longitude</b>. Geographic longitude in the format <i>ddd:mm:ss</i>.
-	For <i>123&#176;45'30"</i> you need to enter <i>123:45:30</i>.
-    You can skip the seconds, they will default to 0 seconds. So <i>145:15</i> is a valid indication for <i>145&#176;15'00"</i>. </p>
-	<p>Use the scroll-downbox to select either <b>E</b> <i>(East)</i> or <b>W</b> <i>(West)</i>. 	
-	</p>
-	<p><b>Latitude</b>. Geographic latitude in the format <i>dd:mm:ss</i>.
-	For <i>52&#176;13'30"</i> you need to enter <i>52:13:30</i>.
-    You can skip the seconds, they will default to 0 seconds. So <i>45:15</i> is a valid indication for <i>45&#176;15'00"</i>. </p>
-	<p>Use the scroll-downbox to select either <b>N</b> <i>(North)</i> or <b>S</b> <i>(South)</i>. 	
-	</p>
+	<p>In this sceen you will see three blocks: </p>
+	<ul>
+	<li><strong>General information</strong> is for data that is not required for the calculation but is used to identify a chart. </li>
+	<li><strong>Location</strong> is for name and coordinates of the location.</li>
+	<li><strong>Date and time</strong> is for all information about the birth-time or event-time. </li>
 
-	<h2>Date and time</h2>
-	<p><b>Date</b>. Enter the date in the format <i>yyyy:mm:dd</i>, so June 16, 2022 would be entered as <i>2022/06/16</i>. Historical dates before the year 0 should have a negative year if you select the Astronomical yearcount. Otherwise, all years will be positive.</p>
-	<p><b>Cal. (Calendar)</b>. The calendar that is applicable, select either <b>G</b> <i>(Gregorian)</i> or <b>J</b> <i>(Julian)</i>. For recent dates you will always need the Gregorian calendar.</p>
-	<p><b>Yearcount</b>. There is a difference between a historical and an astronomical yearcount. Historical dates do not recognize the year 0. So the historical year 1 CE is preced by the year 1 BCE. The astronomical years would be +1 for 1 CE, and 0 for 1 BCE, preceded by -1 for 2 BCE.</p>
-	<p>For years after the year 0, astronomical and historical dates are the same.</p>
-	<p>Select one of the following values:
-		<ul>
-			<li><b>CE</b>: Common Era (historical). Previously: AD.</li>
-			<li><b>BCE</b>: Before Common Era (historical). Previously BC.</li>
-			<li><b>Astronomical</b>: Positive and negative years.</li>
-        </ul> 						
-	<p><b>Time</b>. Enter the time in the format <i>hh:mm:ss</i>, using 24 hour notation. 2h38m30s PM would be <i>14:38:30</i>.</p>
-	<p><b>DST</b>. Check the box DST if Daylight Saving Time is applicable.</p>
-	<p><b>TimeZone</b>. Select one of the available timezones. The list contains the offset from UT (Greenwich Time) and the name of the timezone. If the time does not fit into one of the available timezones, select <i>LMT: Local Mean Time</i>. You will get the possibility to define another offset from UT for the time used.</p>
-	<p><b>LMT: difference with UT</b>. This field becomes available if you selected LMT as timezone.
-	Here you can define the offset from UT (Greenwich) in hours, minutes, and seconds, using the format hh:mm:ss in the same way as for entering the clock-time. Also select either <b>E</b> <i>(East)</i> or <b>W</b> <i>(West)</i> to indicate the direction for the offset.</p>
-	<p><b></b></p>
+	</ul>
+	<p>&nbsp;</p>
+	<h5 id='general-information'>General information</h5>
+	<p><strong>Unique name or id for chart</strong>. Enter an identification for this chart.  This can be a name, a number or some other identification.</p>
+	<p><strong>Description of the source</strong>. A short explanation about the source of the data. </p>
+	<p><strong>Rodden Rating</strong>. Select one of the Rodden Ratings or leave the default value <em>Unknown</em>.</p>
+	<p><strong>Category</strong>. Indicate the subject for which the chart is calculated or leave the default value <em>Unknown</em>.</p>
+	<p>&nbsp;</p>
+	<h5 id='location'>Location</h5>
+	<p><strong>Description of the location</strong>. A cityname, address or other identification for the  location. This field is optional.</p>
+	<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. You can skip the seconds,  they will default to 0 seconds. So <em>145:15</em> is a valid indication for  <em>145°15&#39;00&quot;</em>. </p>
+	<p>Use the scroll-downbox to select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em>. </p>
+	<p><strong>Latitude</strong>. Geographic latitude in the format <em>dd:mm:ss</em>. For  <em>52°13&#39;30&quot;</em> you need to enter <em>52:13:30</em>. You can skip the seconds,  they will default to 0 seconds. So <em>45:15</em> is a valid indication for  <em>45°15&#39;00&quot;</em>. </p>
+	<p>Use the scroll-downbox to select either <strong>N</strong> <em>(North)</em> or <strong>S</strong>  <em>(South)</em>. </p>
+	<h5 id='date-and-time'>Date and time</h5>
+	<p><strong>Date</strong>. Enter the date in the format <em>yyyy:mm:dd</em>, so June 16, 2022  would be entered as <em>2022/06/16</em>. Historical dates before the year 0 should  have a negative year if you select the Astronomical yearcount. Otherwise, all  years will be positive.</p>
+	<p><strong>Cal. (Calendar)</strong>. The calendar that is applicable, select either  <strong>G</strong> <em>(Gregorian)</em> or <strong>J</strong> <em>(Julian)</em>. For recent dates you  will always need the Gregorian calendar.</p>
+	<p><strong>Yearcount</strong>. There is a difference between a historical and an  astronomical yearcount. Historical dates do not recognize the year 0. So the  historical year 1 CE is preced by the year 1 BCE. The astronomical years would  be +1 for 1 CE, and 0 for 1 BCE, preceded by -1 for 2 BCE.</p>
+	<p>For years after the year 0, astronomical and historical dates are the  same.</p>
+	<p>Select one of the following values: </p>
+	<ul>
+	<li><strong>CE</strong>: Common Era (historical). Previously: AD. </li>
+	<li><strong>BCE</strong>: Before Common Era (historical). Previously BC. </li>
+	<li><strong>Astronomical</strong>: Positive and negative years. </li>
 
-	<h2>Start the calculation</h2>
-	<p>Click the button <b>Calculate</b> to perform the calculation. If you made any errors, the fields that contain an error will return yellow. Correct the input and try again.</p>
-	<p>Click the button <b>Close</b> if you do not want to continue.</p>
-
-	<p></p>
+	</ul>
+	<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour  notation. 2h38m30s PM would be <em>14:38:30</em>.</p>
+	<p><strong>DST</strong>. Check the box DST if Daylight Saving Time is applicable.</p>
+	<p><strong>TimeZone</strong>. Select one of the available timezones. The list contains the  offset from UT (Greenwich Time) and the name of the timezone. If the time does  not fit into one of the available timezones, select <em>LMT: Local Mean Time</em>.  You will get the possibility to define another offset from UT for the time  used.</p>
+	<p><strong>LMT: difference with UT</strong>. This field becomes available if you selected  LMT as timezone. Here you can define the offset from UT (Greenwich) in hours,  minutes, and seconds, using the format hh:mm:ss in the same way as for entering  the clock-time. Also select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em> to indicate the direction for the offset.</p>
+	<p>&nbsp;</p>
+	<h5 id='start-the-calculation'>Start the calculation</h5>
+	<p>Click the button <strong>Calculate</strong> to perform the calculation. If you made any  errors, the fields that contain an error will return yellow. Correct the input  and try again.</p>
+	<p>Click the button <strong>Close</strong> if you do not want to continue.</p>
 
 </body>
 </html>

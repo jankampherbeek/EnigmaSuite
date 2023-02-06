@@ -63,12 +63,12 @@ public partial class ResearchMainWindow : Window
 
     private void GeneralSettingsClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowAppSettings();
+        ResearchMainController.ShowAppSettings();
     }
 
     private void GeneralConfigurationClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowAstroConfig();
+        ResearchMainController.ShowAstroConfig();
     }
 
     private void GeneralCloseClick(object sender, RoutedEventArgs e)
@@ -78,17 +78,17 @@ public partial class ResearchMainWindow : Window
 
     private void ProjectsNewClick(object sender, RoutedEventArgs e)
     {
-        _controller.NewProject();
+        ResearchMainController.NewProject();
     }
 
     private void DataOverviewClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowDataOverview();
+        ResearchMainController.ShowDataOverview();
     }
 
     private void DataImportClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowDataImport();
+        ResearchMainController.ShowDataImport();
     }
 
 
@@ -111,7 +111,7 @@ public partial class ResearchMainWindow : Window
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowAbout();
+        ResearchMainController.ShowAbout();
     }
 
     private void OpenClick(object sender, RoutedEventArgs e)
@@ -124,7 +124,7 @@ public partial class ResearchMainWindow : Window
 
     private void NewClick(object sender, RoutedEventArgs e)
     {
-        _controller.NewProject();
+        ResearchMainController.NewProject();
         PopulateData();
     }
 

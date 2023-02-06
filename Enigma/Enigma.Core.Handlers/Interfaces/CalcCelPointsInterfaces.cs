@@ -94,3 +94,17 @@ public interface ISeFlags
     /// <returns>Combined value for flags.</returns>
     public int DefineFlags(CoordinateSystems coordinateSystem, ObserverPositions observerPosition, ZodiacTypes zodiacType);
 }
+
+/// <summary>Calculate positions for specific zodiac points.</summary>
+public interface IZodiacPointsCalc
+{
+    /// <summary>Calculate full position for zero Aries.</summary>
+    /// <param name="request"/>
+    /// <returns>Fully defined position.</returns>
+    public FullPointPos DefineZeroAries(CelPointsRequest request);
+
+    /// <summary>Calculate full position for zero Cancer.</summary>
+    /// <param name="request"/>
+    /// <returns>Fully defined position.</returns>
+    public FullPointPos DefineZeroCancer(CelPointsRequest request);
+}

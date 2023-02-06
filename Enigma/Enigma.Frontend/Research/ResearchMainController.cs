@@ -18,14 +18,7 @@ public class ResearchMainController
 {
     private readonly IProjectsOverviewApi _projectsOverviewApi;
     private List<ResearchProject> _researchProjects = new();
-//    private readonly List<Window> _openWindows = new();
-    private readonly AppSettingsWindow _appSettingsWindow = new();
-    private readonly AstroConfigWindow _astroConfigWindow = new();
-    private readonly ProjectInputWindow _projectInputWindow = new();
-    private readonly DataFilesOverviewWindow _dataFilesOverviewWindow = new();
-    private readonly DataFilesImportWindow _dataFilesImportWindow = new();
     private readonly ProjectUsageWindow _projectUsageWindow = new();
-    private readonly AboutWindow _aboutWindow = new();
 
     public ResearchMainController(IProjectsOverviewApi projectsOverviewApi)
     {
@@ -53,8 +46,6 @@ public class ResearchMainController
         {
             if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
             {
-                
-         //       _openWindows.Add(_projectUsageWindow);
                 currentProject = project;
                 _projectUsageWindow.SetProject(currentProject);
                 _projectUsageWindow.ShowDialog();
@@ -62,43 +53,41 @@ public class ResearchMainController
         }
     }
 
-  /*  public void HandleClose()
+    public static void ShowAppSettings()
     {
-        foreach (Window window in _openWindows)
-        {
-            window.Close();
-        }
-    } */
-
-    public void ShowAppSettings()
-    {
-        _appSettingsWindow.ShowDialog();
+        AppSettingsWindow appSettingsWindow = new();
+        appSettingsWindow.ShowDialog();
     }
 
-    public void ShowAstroConfig()
+    public static void ShowAstroConfig()
     {
-        _astroConfigWindow.ShowDialog();
+        AstroConfigWindow astroConfigWindow = new();
+        astroConfigWindow.ShowDialog();
     }
 
-    public void NewProject()
+    public static void NewProject()
     {
-        _projectInputWindow.ShowDialog();
+        ProjectInputWindow projectInputWindow = new();
+        projectInputWindow.ShowDialog();
     }
 
-    public void ShowDataOverview()
+    public static void ShowDataOverview()
     {
-        _dataFilesOverviewWindow.ShowDialog();
+        DataFilesOverviewWindow dataFilesOverviewWindow = new();
+        dataFilesOverviewWindow.ShowDialog();
     }
 
 
-    public void ShowDataImport()
+    public static void ShowDataImport()
     {
-        _dataFilesImportWindow.ShowDialog();
+        DataFilesImportWindow dataFilesImportWindow = new();
+        dataFilesImportWindow.ShowDialog();
     }
 
-    public void ShowAbout()
+    public static void ShowAbout()
     {
-        _aboutWindow.ShowDialog();
+        AboutWindow aboutWindow = new AboutWindow();
+        aboutWindow.ShowDialog();
     }
 
     public static void ShowHelp()
