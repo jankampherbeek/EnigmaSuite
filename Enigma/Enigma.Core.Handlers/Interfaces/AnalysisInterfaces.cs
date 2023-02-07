@@ -36,7 +36,7 @@ public interface IAspectPointSelector
     /// <param name="anglePositions">Available mundane positions for angles.</param>
     /// <param name="chartPointConfigSpecs">Configuration data for chart points.</param>
     /// <returns>The relevant points for the calculation of aspects.</returns>
-    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, List<ChartPointConfigSpecs> chartPointConfigSpecs);
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
 }
 
 
@@ -55,7 +55,7 @@ public interface IAspectsHandler
     /// <param name="relevantAspects">Supported aspects as defined in configuration.</param>
     /// <param name="baseOrb">Base orb for aspects.</param>
     /// <returns>List with aspects between celestial points and between celestial points and cusps. Aspects between cusps are omitted.</returns>
-    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, List<AspectConfigSpecs> relevantAspects, double baseOrb);
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, double baseOrb);
 }
 
 

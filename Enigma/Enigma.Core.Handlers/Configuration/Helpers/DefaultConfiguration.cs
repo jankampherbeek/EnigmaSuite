@@ -29,8 +29,8 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         OrbMethods orbMethod = OrbMethods.Weighted;
-        List<ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
-        List<AspectConfigSpecs> aspectSpecs = CreateAspects();
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
+        Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = CreateAspects();
 
         double baseOrbAspects = 10.0;
         double baseOrbMidpoints = 1.6;
@@ -39,98 +39,98 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             chartPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
     }
 
-    private static List<ChartPointConfigSpecs> CreateChartPoints()
+    private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()
     {
-        List<ChartPointConfigSpecs> chartPointConfigSpecs = new()
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = new()
         {
-            new ChartPointConfigSpecs(ChartPoints.Sun, true, 'a', 100),
-            new ChartPointConfigSpecs(ChartPoints.Moon, true, 'b', 100),
-            new ChartPointConfigSpecs(ChartPoints.Mercury,  true, 'c',80),
-            new ChartPointConfigSpecs(ChartPoints.Venus,  true, 'd',80),
-            new ChartPointConfigSpecs(ChartPoints.Earth,  false, 'e',100),
-            new ChartPointConfigSpecs(ChartPoints.Mars,  true, 'f',80),
-            new ChartPointConfigSpecs(ChartPoints.Jupiter,  true, 'g',65),
-            new ChartPointConfigSpecs(ChartPoints.Saturn,  true, 'h',65),
-            new ChartPointConfigSpecs(ChartPoints.Uranus,  true, 'i',50),
-            new ChartPointConfigSpecs(ChartPoints.Neptune,  true, 'j',50),
-            new ChartPointConfigSpecs(ChartPoints.Pluto,  true, 'k',50),
-            new ChartPointConfigSpecs(ChartPoints.MeanNode,  true, '{',65),
-            new ChartPointConfigSpecs(ChartPoints.TrueNode,  true, '}',65),
-            new ChartPointConfigSpecs(ChartPoints.Chiron,  true, 'w',65),
-            new ChartPointConfigSpecs(ChartPoints.PersephoneRam, false, '/', 40),
-            new ChartPointConfigSpecs(ChartPoints.HermesRam, false, '<', 40),
-            new ChartPointConfigSpecs(ChartPoints.DemeterRam, false, '>', 40),
-            new ChartPointConfigSpecs(ChartPoints.CupidoUra, false, 'y', 40),
-            new ChartPointConfigSpecs(ChartPoints.HadesUra, false, 'z', 40),
-            new ChartPointConfigSpecs(ChartPoints.ZeusUra, false, '!', 40),
-            new ChartPointConfigSpecs(ChartPoints.KronosUra, false, '@', 40),
-            new ChartPointConfigSpecs(ChartPoints.ApollonUra, false, '#', 40),
-            new ChartPointConfigSpecs(ChartPoints.AdmetosUra, false, '$', 40),
-            new ChartPointConfigSpecs(ChartPoints.VulcanusUra, false, '%', 40),
-            new ChartPointConfigSpecs(ChartPoints.PoseidonUra, false, '&', 40),
-            new ChartPointConfigSpecs(ChartPoints.Eris, false, '*', 40),
-            new ChartPointConfigSpecs(ChartPoints.Pholus, false, ')', 40),
-            new ChartPointConfigSpecs(ChartPoints.Ceres, false, '_', 40),
-            new ChartPointConfigSpecs(ChartPoints.Pallas, false, 'û', 40),
-            new ChartPointConfigSpecs(ChartPoints.Juno, false, 'ü', 40),
-            new ChartPointConfigSpecs(ChartPoints.Vesta, false, 'À', 40),
-            new ChartPointConfigSpecs(ChartPoints.Isis, false, 'â', 40),
-            new ChartPointConfigSpecs(ChartPoints.Nessus, false, '(', 40),
-            new ChartPointConfigSpecs(ChartPoints.Huya, false, 'ï', 40),
-            new ChartPointConfigSpecs(ChartPoints.Varuna, false, 'ò', 40),
-            new ChartPointConfigSpecs(ChartPoints.Ixion, false, 'ó', 40),
-            new ChartPointConfigSpecs(ChartPoints.Quaoar, false, 'ô', 40),
-            new ChartPointConfigSpecs(ChartPoints.Haumea, false, 'í', 40),
-            new ChartPointConfigSpecs(ChartPoints.Orcus, false, 'ù', 40),
-            new ChartPointConfigSpecs(ChartPoints.Makemake, false, 'î', 40),
-            new ChartPointConfigSpecs(ChartPoints.Sedna, false, 'ö', 40),
-            new ChartPointConfigSpecs(ChartPoints.Hygieia, false, 'Á', 40),
-            new ChartPointConfigSpecs(ChartPoints.Astraea, false, 'Ã', 40),
-            new ChartPointConfigSpecs(ChartPoints.ApogeeMean, false, ',', 65),
-            new ChartPointConfigSpecs(ChartPoints.ApogeeCorrected, false, '.', 65),
-            new ChartPointConfigSpecs(ChartPoints.ApogeeInterpolated, false, '.', 65),
-            new ChartPointConfigSpecs(ChartPoints.ApogeeDuval, false, '.', 65),
-            new ChartPointConfigSpecs(ChartPoints.PersephoneCarteret, false, 'à', 40),
-            new ChartPointConfigSpecs(ChartPoints.VulcanusCarteret, false, 'Ï', 40),
-            new ChartPointConfigSpecs(ChartPoints.ZeroAries, false, '1', 0),
-            new ChartPointConfigSpecs(ChartPoints.ZeroCancer, false, '4', 0),
-            new ChartPointConfigSpecs(ChartPoints.FortunaNoSect, false, 'e', 40),
-            new ChartPointConfigSpecs(ChartPoints.FortunaSect, false, 'e', 40),
-            new ChartPointConfigSpecs(ChartPoints.Ascendant, true, 'A', 100),
-            new ChartPointConfigSpecs(ChartPoints.Mc, true, 'M', 100),
-            new ChartPointConfigSpecs(ChartPoints.EastPoint, false, ' ', 20),
-            new ChartPointConfigSpecs(ChartPoints.Vertex, false, ' ', 0)
+            { ChartPoints.Sun,  new ChartPointConfigSpecs(true, 'a', 100) },
+            { ChartPoints.Moon, new ChartPointConfigSpecs(true, 'b', 100) },
+            { ChartPoints.Mercury,  new ChartPointConfigSpecs(true, 'c',80) },
+            { ChartPoints.Venus,  new ChartPointConfigSpecs(true, 'd',80) },
+            { ChartPoints.Earth,  new ChartPointConfigSpecs(false, 'e',100) },
+            { ChartPoints.Mars,  new ChartPointConfigSpecs(true, 'f',80) },
+            { ChartPoints.Jupiter,  new ChartPointConfigSpecs(true, 'g',65) },
+            { ChartPoints.Saturn,  new ChartPointConfigSpecs(true, 'h',65) },
+            { ChartPoints.Uranus,  new ChartPointConfigSpecs(true, 'i',50) },
+            { ChartPoints.Neptune,  new ChartPointConfigSpecs(true, 'j',50) },
+            { ChartPoints.Pluto,  new ChartPointConfigSpecs(true, 'k',50) },
+            { ChartPoints.MeanNode,  new ChartPointConfigSpecs(true, '{',65) },
+            { ChartPoints.TrueNode,  new ChartPointConfigSpecs(true, '}',65) },
+            { ChartPoints.Chiron,  new ChartPointConfigSpecs(true, 'w',65) },
+            { ChartPoints.PersephoneRam, new ChartPointConfigSpecs(false, '/', 40) },
+            { ChartPoints.HermesRam, new ChartPointConfigSpecs(false, '<', 40) },
+            { ChartPoints.DemeterRam, new ChartPointConfigSpecs(false, '>', 40) },
+            { ChartPoints.CupidoUra, new ChartPointConfigSpecs(false, 'y', 40) },
+            { ChartPoints.HadesUra, new ChartPointConfigSpecs(false, 'z', 40) },
+            { ChartPoints.ZeusUra, new ChartPointConfigSpecs(false, '!', 40) },
+            { ChartPoints.KronosUra, new ChartPointConfigSpecs(false, '@', 40) },
+            { ChartPoints.ApollonUra, new ChartPointConfigSpecs(false, '#', 40) },
+            { ChartPoints.AdmetosUra, new ChartPointConfigSpecs(false, '$', 40) },
+            { ChartPoints.VulcanusUra, new ChartPointConfigSpecs(false, '%', 40) },
+            { ChartPoints.PoseidonUra, new ChartPointConfigSpecs(false, '&', 40) },
+            { ChartPoints.Eris, new ChartPointConfigSpecs(false, '*', 40) },
+            { ChartPoints.Pholus, new ChartPointConfigSpecs(false, ')', 40) },
+            { ChartPoints.Ceres, new ChartPointConfigSpecs(false, '_', 40) },
+            { ChartPoints.Pallas, new ChartPointConfigSpecs(false, 'û', 40) },
+            { ChartPoints.Juno, new ChartPointConfigSpecs(false, 'ü', 40) },
+            { ChartPoints.Vesta, new ChartPointConfigSpecs(false, 'À', 40) },
+            { ChartPoints.Isis, new ChartPointConfigSpecs(false, 'â', 40) },
+            { ChartPoints.Nessus, new ChartPointConfigSpecs(false, '(', 40) },
+            { ChartPoints.Huya, new ChartPointConfigSpecs(false, 'ï', 40) },
+            { ChartPoints.Varuna, new ChartPointConfigSpecs(false, 'ò', 40) },
+            { ChartPoints.Ixion, new ChartPointConfigSpecs(false, 'ó', 40) },
+            { ChartPoints.Quaoar, new ChartPointConfigSpecs(false, 'ô', 40) },
+            { ChartPoints.Haumea, new ChartPointConfigSpecs(false, 'í', 40) },
+            { ChartPoints.Orcus, new ChartPointConfigSpecs(false, 'ù', 40) },
+            { ChartPoints.Makemake, new ChartPointConfigSpecs(false, 'î', 40) },
+            { ChartPoints.Sedna, new ChartPointConfigSpecs(false, 'ö', 40) },
+            { ChartPoints.Hygieia, new ChartPointConfigSpecs(false, 'Á', 40) },
+            { ChartPoints.Astraea, new ChartPointConfigSpecs(false, 'Ã', 40) },
+            { ChartPoints.ApogeeMean, new ChartPointConfigSpecs(false, ',', 65) },
+            { ChartPoints.ApogeeCorrected, new ChartPointConfigSpecs(false, '.', 65) },
+            { ChartPoints.ApogeeInterpolated, new ChartPointConfigSpecs(false, '.', 65) },
+            { ChartPoints.ApogeeDuval, new ChartPointConfigSpecs(false, '.', 65) },
+            { ChartPoints.PersephoneCarteret, new ChartPointConfigSpecs(false, 'à', 40) },
+            { ChartPoints.VulcanusCarteret, new ChartPointConfigSpecs(false, 'Ï', 40) },
+            { ChartPoints.ZeroAries, new ChartPointConfigSpecs(false, '1', 0) },
+            { ChartPoints.ZeroCancer, new ChartPointConfigSpecs(false, '4', 0) },
+            { ChartPoints.FortunaNoSect, new ChartPointConfigSpecs(false, 'e', 40) },
+            { ChartPoints.FortunaSect, new ChartPointConfigSpecs(false, 'e', 40) },
+            { ChartPoints.Ascendant, new ChartPointConfigSpecs(true, 'A', 100) },
+            { ChartPoints.Mc, new ChartPointConfigSpecs(true, 'M', 100) },
+            { ChartPoints.EastPoint, new ChartPointConfigSpecs(false, ' ', 20) },
+            { ChartPoints.Vertex, new ChartPointConfigSpecs(false, ' ', 0) }
         };
 
         return chartPointConfigSpecs;
     }
 
-    private static List<AspectConfigSpecs> CreateAspects()
+    private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects()
     {
-        List<AspectConfigSpecs> aspectConfigSpecs = new()
+        Dictionary<AspectTypes, AspectConfigSpecs> aspectConfigSpecs = new()
         {
-            new AspectConfigSpecs(AspectTypes.Conjunction, true, 'B', 100),
-            new AspectConfigSpecs(AspectTypes.Opposition, true, 'C', 100),
-            new AspectConfigSpecs(AspectTypes.Triangle, true, 'D', 85),
-            new AspectConfigSpecs(AspectTypes.Square, true, 'E', 85),
-            new AspectConfigSpecs(AspectTypes.Septile, false, 'N', 30),
-            new AspectConfigSpecs(AspectTypes.Sextile, true, 'F', 70),
-            new AspectConfigSpecs(AspectTypes.Quintile, false, 'Q', 30),
-            new AspectConfigSpecs(AspectTypes.SemiSextile, false, 'G', 30),
-            new AspectConfigSpecs(AspectTypes.SemiSquare, false, 'I', 30),
-            new AspectConfigSpecs(AspectTypes.SemiQuintile, false, 'Ô', 30),
-            new AspectConfigSpecs(AspectTypes.BiQuintile, false, 'L', 30),
-            new AspectConfigSpecs(AspectTypes.Inconjunct, false, 'H', 30),
-            new AspectConfigSpecs(AspectTypes.SesquiQuadrate, false, 'J', 30),
-            new AspectConfigSpecs(AspectTypes.TriDecile, false, 'Õ', 15),
-            new AspectConfigSpecs(AspectTypes.BiSeptile, false, 'Ú', 15),
-            new AspectConfigSpecs(AspectTypes.TriSeptile, false, 'Û', 15),
-            new AspectConfigSpecs(AspectTypes.Novile, false, 'Ü', 15),
-            new AspectConfigSpecs(AspectTypes.BiNovile, false, 'Ñ', 15),
-            new AspectConfigSpecs(AspectTypes.QuadraNovile, false, '|', 15),
-            new AspectConfigSpecs(AspectTypes.Undecile, false, 'ç', 15),
-            new AspectConfigSpecs(AspectTypes.Centile, false, 'Ç', 15),
-            new AspectConfigSpecs(AspectTypes.Vigintile, false, 'Ï', 15)
+            { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100) },
+            { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100) },
+            { AspectTypes.Triangle, new AspectConfigSpecs(true, 'D', 85) },
+            { AspectTypes.Square, new AspectConfigSpecs(true, 'E', 85) },
+            { AspectTypes.Septile, new AspectConfigSpecs(false, 'N', 30) },
+            { AspectTypes.Sextile, new AspectConfigSpecs(true, 'F', 70) },
+            { AspectTypes.Quintile, new AspectConfigSpecs(false, 'Q', 30) },
+            { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 30) },
+            { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 30) },
+            { AspectTypes.SemiQuintile, new AspectConfigSpecs(false, 'Ô', 30) },
+            { AspectTypes.BiQuintile, new AspectConfigSpecs(false, 'L', 30) },
+            { AspectTypes.Inconjunct, new AspectConfigSpecs(false, 'H', 30) },
+            { AspectTypes.SesquiQuadrate, new AspectConfigSpecs(false, 'J', 30) },
+            { AspectTypes.TriDecile, new AspectConfigSpecs(false, 'Õ', 15) },
+            { AspectTypes.BiSeptile, new AspectConfigSpecs(false, 'Ú', 15) },
+            { AspectTypes.TriSeptile, new AspectConfigSpecs(false, 'Û', 15) },
+            { AspectTypes.Novile, new AspectConfigSpecs(false, 'Ü', 15) },
+            { AspectTypes.BiNovile, new AspectConfigSpecs(false, 'Ñ', 15) },
+            { AspectTypes.QuadraNovile, new AspectConfigSpecs(false, '|', 15) },
+            { AspectTypes.Undecile, new AspectConfigSpecs(false, 'ç', 15) },
+            { AspectTypes.Centile, new AspectConfigSpecs(false, 'Ç', 15) },
+            { AspectTypes.Vigintile, new AspectConfigSpecs(false, 'Ï', 15) }
         };
         return aspectConfigSpecs;
     }

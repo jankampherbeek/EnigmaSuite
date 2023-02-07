@@ -201,12 +201,12 @@ public interface IResearchMethodUtils
     /// <summary>Create list of aspects as defined in configuration.</summary>
     /// <param name="config">The configuration to check.</param>
     /// <returns>The aspects that are found.</returns>
-    public List<AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config);
+    public Dictionary<AspectTypes, AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config);
 
     /// <summary>Create list of chart points as defined in configuration.</summary>
     /// <param name="config">The configuration to check.</param>
-    /// <returns>The chart points that5 are found.</returns>
-    public List<ChartPoints> DefineConfigSelectedChartPoints(AstroConfig config);
+    /// <returns>The chart points that are found.</returns>
+    public Dictionary<ChartPoints, ChartPointConfigSpecs> DefineConfigSelectedChartPoints(AstroConfig config);
 
     /// <summary>Create list of positioned points according to a given selection of chart points.</summary>
     /// <param name="calcResearchChart">Calculated chart.</param>
@@ -226,5 +226,5 @@ public interface IResearchMethodUtils
     /// <param name="allAspects">Aspect config specs.</param>
     /// <exception cref="EnigmaException">Is thrown if index was not found.</exception>
     /// <returns>If found: the index.</returns>
-    public int FindIndexForAspectType(AspectTypes aspectType, List<AspectConfigSpecs> allAspects);
+    public int FindIndexForAspectType(AspectTypes aspectType, Dictionary<AspectTypes, AspectConfigSpecs> allAspects);
 }

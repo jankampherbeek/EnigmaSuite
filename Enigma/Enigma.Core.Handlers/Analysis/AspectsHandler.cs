@@ -36,7 +36,7 @@ public sealed class AspectsHandler : IAspectsHandler
     {
         Dictionary<ChartPoints, FullPointPos> chartPointPositions = request.CalcChart.Positions.CommonPoints;
         Dictionary<ChartPoints, FullPointPos> anglePositions = request.CalcChart.Positions.Angles;
-        List<ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
 
         Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, anglePositions, chartPointConfigSpecs);
         List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
@@ -46,17 +46,17 @@ public sealed class AspectsHandler : IAspectsHandler
             Dictionary<ChartPoints, FullPointPos> relevantCusps = request.CalcChart.Positions.Cusps;
             cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
         }
-        List<AspectConfigSpecs> allAspects = request.Config.Aspects;
-        List<AspectConfigSpecs> relevantAspects = new();
-        foreach (AspectConfigSpecs acSpec in allAspects)
+        Dictionary<AspectTypes, AspectConfigSpecs> allAspects = request.Config.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects = new();
+        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> acSpec in allAspects)
         {
-            if (acSpec.IsUsed) relevantAspects.Add(acSpec);
+            if (acSpec.Value.IsUsed) relevantAspects.Add(acSpec.Key, acSpec.Value);
         }
         return AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, request.Config.BaseOrbAspects);
     }
 
     /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, List<AspectConfigSpecs> relevantAspects, double baseOrb)
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, double baseOrb)
     {
 
         List<DistanceBetween2Points> pointDistances = _distanceCalculator.FindShortestDistances(posPoints);
@@ -71,10 +71,10 @@ public sealed class AspectsHandler : IAspectsHandler
         List<DefinedAspect> definedAspects = new();
         foreach (DistanceBetween2Points distance in allDistances)
         {
-            foreach (AspectConfigSpecs aspect in relevantAspects)
+            foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> aspectConfigSpec in relevantAspects)
             {
-                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspect.PercentageOrb / 100.0, baseOrb);
-                AspectTypes aspectType = aspect.AspectType;
+                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspectConfigSpec.Value.PercentageOrb / 100.0, baseOrb);
+                AspectTypes aspectType = aspectConfigSpec.Key;
                 double aspectDistance = aspectType.GetDetails().Angle;
                 double actualOrb = Math.Abs(distance.Distance - aspectDistance);
                 if (actualOrb <= maxOrb)

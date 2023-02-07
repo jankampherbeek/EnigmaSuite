@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Configuration;
@@ -16,28 +15,28 @@ using Serilog;
 namespace Enigma.Core.Handlers.Research.Helpers;
 
 /// <inheritdoc/>
-public class ResearchMethodUtils: IResearchMethodUtils {
+public sealed class ResearchMethodUtils: IResearchMethodUtils {
 
     /// <inheritdoc/>
-    public List<AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
+    public Dictionary<AspectTypes,AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
     {
-        List<AspectConfigSpecs> allAspects = config.Aspects;
-        List<AspectConfigSpecs> selectedAspects = new();
-        foreach (AspectConfigSpecs acSpec in allAspects)
+        Dictionary<AspectTypes, AspectConfigSpecs> allAspects = config.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs> selectedAspects = new();
+        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> acSpec in allAspects)
         {
-            if (acSpec.IsUsed) selectedAspects.Add(acSpec);
+            if (acSpec.Value.IsUsed) selectedAspects.Add(acSpec.Key, acSpec.Value);
         }
         return selectedAspects;
     }
 
     /// <inheritdoc/>
-    public List<ChartPoints> DefineConfigSelectedChartPoints(AstroConfig config)
+    public Dictionary<ChartPoints, ChartPointConfigSpecs> DefineConfigSelectedChartPoints(AstroConfig config)
     {
-        List<ChartPointConfigSpecs> allChartPoints = config.ChartPoints;
-        List<ChartPoints> selectedPoints = new();
-        foreach (ChartPointConfigSpecs cpConfigSpec in allChartPoints)
+        Dictionary<ChartPoints, ChartPointConfigSpecs> allChartPoints = config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> selectedPoints = new();
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> cpConfigSpec in allChartPoints)
         {
-            if (cpConfigSpec.IsUsed) selectedPoints.Add(cpConfigSpec.Point);
+            if (cpConfigSpec.Value.IsUsed) selectedPoints.Add(cpConfigSpec.Key, cpConfigSpec.Value);
         }
         return selectedPoints;
     }
@@ -75,15 +74,17 @@ public class ResearchMethodUtils: IResearchMethodUtils {
     }
 
     /// <inheritdoc/>
-    public int FindIndexForAspectType(AspectTypes aspectType, List<AspectConfigSpecs> allAspects)
+    public int FindIndexForAspectType(AspectTypes aspectType, Dictionary<AspectTypes,AspectConfigSpecs> allAspects)
     {
-        for (int i = 0; i < allAspects.Count; i++)
+        int counter = 0;
+        foreach (var item in allAspects)
         {
-            if (allAspects[i].AspectType == aspectType) return i;
+            if (item.Key == aspectType) return counter;
+            counter++;
         }
         string errorText = "AspectsCounting.FindIndexForAspectType(). Could not find index for AspectType : " + aspectType;
         Log.Error(errorText);
         throw new EnigmaException(errorText);
     }
-
+ 
 }

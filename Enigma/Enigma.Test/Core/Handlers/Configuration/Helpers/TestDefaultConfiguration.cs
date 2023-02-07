@@ -82,12 +82,11 @@ public class TestDefaultConfiguration
     [Test]
     public void TestCelPoints()
     {
-        List<ChartPointConfigSpecs> celPoints = _astroConfig.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> celPoints = _astroConfig.ChartPoints;
 
-        ChartPointConfigSpecs celPointSpecs = celPoints[0];     // Sun
+        ChartPointConfigSpecs celPointSpecs = celPoints[ChartPoints.Sun];     
         Assert.Multiple(() =>
         {
-            Assert.That(celPointSpecs.Point, Is.EqualTo(ChartPoints.Sun));
             Assert.That(celPointSpecs.IsUsed, Is.True);
             Assert.That(celPointSpecs.PercentageOrb, Is.EqualTo(100).Within(_delta));
         });
@@ -96,13 +95,12 @@ public class TestDefaultConfiguration
     [Test]
     public void TestAspects()
     {
-        List<AspectConfigSpecs> aspects = _astroConfig.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs> aspects = _astroConfig.Aspects;
         Assert.That(_astroConfig.Aspects, Has.Count.EqualTo(22));
 
-        AspectConfigSpecs aspectSpecs = aspects[1];           // Opposition
+        AspectConfigSpecs aspectSpecs = aspects[AspectTypes.Opposition];
         Assert.Multiple(() =>
         {
-            Assert.That(aspectSpecs.AspectType, Is.EqualTo(AspectTypes.Opposition));
             Assert.That(aspectSpecs.IsUsed, Is.True);
             Assert.That(aspectSpecs.PercentageOrb, Is.EqualTo(100));
         });

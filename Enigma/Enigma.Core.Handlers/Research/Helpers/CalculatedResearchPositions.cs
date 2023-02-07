@@ -73,16 +73,16 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
     private CalculationPreferences DefinePreferences()
     {
         AstroConfig config = _configurationHandler.ReadConfig();
-        List<ChartPointConfigSpecs> cpSpecs = config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> cpSpecs = config.ChartPoints;
         List<ChartPoints> celPoints = new();
-        foreach (ChartPointConfigSpecs cpSpec in cpSpecs)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> cpSpec in cpSpecs)
         {
-            if (cpSpec.IsUsed)
+            if (cpSpec.Value.IsUsed)
             {
-                PointCats pointCat = cpSpec.Point.GetDetails().PointCat;
+                PointCats pointCat = cpSpec.Key.GetDetails().PointCat;
                 if (pointCat == PointCats.Common)
                 {
-                    celPoints.Add(cpSpec.Point);
+                    celPoints.Add(cpSpec.Key);
                 }
             }
         }

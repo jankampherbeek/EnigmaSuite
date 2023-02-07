@@ -72,11 +72,11 @@ public sealed class ChartDataInputController
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
         List<ChartPoints> celPoints = new(); 
-        foreach (ChartPointConfigSpecs spec in _config.ChartPoints)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in _config.ChartPoints)
         {
-            if (spec.IsUsed)
+            if (spec.Value.IsUsed)
             {
-                celPoints.Add(spec.Point);
+                celPoints.Add(spec.Key);
             }
         }
         return new CalculationPreferences(celPoints, _config.ZodiacType, _config.Ayanamsha, CoordinateSystems.Ecliptical, _config.ObserverPosition, _config.ProjectionType, _config.HouseSystem);
@@ -138,7 +138,7 @@ public sealed class ChartDataInputController
         string descriptionText = string.IsNullOrWhiteSpace(description) ? Rosetta.TextForId("charts.positions.description.empty") : description;
         string sourceText = string.IsNullOrWhiteSpace(source) ? Rosetta.TextForId("charts.positions.source.empty") : source;
         string locationNameText = string.IsNullOrWhiteSpace(locationName) ? Rosetta.TextForId("charts.positions.locationname.empty") : locationName; 
-        return new MetaData(nameIdText, descriptionText, sourceText, locationName, chartCategory, rating);
+        return new MetaData(nameIdText, descriptionText, sourceText, locationNameText, chartCategory, rating);
 
     }
 

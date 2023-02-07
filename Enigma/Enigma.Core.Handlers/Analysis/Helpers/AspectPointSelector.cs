@@ -15,24 +15,24 @@ public class AspectPointSelector : IAspectPointSelector
 {
 
     /// <inheritdoc/>
-    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, List<ChartPointConfigSpecs> chartPointConfigSpecs)
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = new();
         
-        // two foreach loops to enforce that the sequence between commong points (first) and angles (second) is maintained.
-        foreach (ChartPointConfigSpecs spec in chartPointConfigSpecs)
+        // two foreach loops to enforce that the sequence between common points (first) and angles (second) is maintained.
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in chartPointConfigSpecs)
         {
-            if (spec.IsUsed && spec.Point.GetDetails().PointCat == PointCats.Common)
+            if (spec.Key.GetDetails().PointCat == PointCats.Common && spec.Value.IsUsed)
             {
-                relevantChartPointPositions.Add(spec.Point, chartPointPositions[spec.Point]);
+                relevantChartPointPositions.Add(spec.Key, chartPointPositions[spec.Key]);
             }
 
         }
-        foreach (ChartPointConfigSpecs spec in chartPointConfigSpecs)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in chartPointConfigSpecs)
         {
-            if (spec.IsUsed && spec.Point.GetDetails().PointCat == PointCats.Angle)
+            if (spec.Key.GetDetails().PointCat == PointCats.Angle && spec.Value.IsUsed)
             {
-                relevantChartPointPositions.Add(spec.Point, anglePositions[spec.Point]);
+                relevantChartPointPositions.Add(spec.Key, chartPointPositions[spec.Key]);
             }
         }
         return relevantChartPointPositions;

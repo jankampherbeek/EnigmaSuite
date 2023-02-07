@@ -57,13 +57,13 @@ public sealed class PointSelectController
     {
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selCPDetails = new();
-        foreach (ChartPointConfigSpecs currentCPSpec in _astroConfig.ChartPoints)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCPSpec in _astroConfig.ChartPoints)
         {
-            PointCats cat = currentCPSpec.Point.GetDetails().PointCat;
-            if (currentCPSpec.IsUsed && cat != PointCats.Angle && cat != PointCats.Cusp)
+            PointCats cat = currentCPSpec.Key.GetDetails().PointCat;
+            if (currentCPSpec.Value.IsUsed && cat != PointCats.Angle && cat != PointCats.Cusp)
             {
-                PointDetails cpDetails = currentCPSpec.Point.GetDetails();
-                char glyph = currentCPSpec.Glyph;
+                PointDetails cpDetails = currentCPSpec.Key.GetDetails();
+                char glyph = currentCPSpec.Value.Glyph;
                 _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
             }
         }
@@ -73,11 +73,11 @@ public sealed class PointSelectController
     {
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selMPDetails = new();
-        foreach (ChartPointConfigSpecs currentSpec in _astroConfig.ChartPoints)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentSpec in _astroConfig.ChartPoints)
         {
-            if (currentSpec.IsUsed && currentSpec.Point.GetDetails().PointCat == PointCats.Angle)
+            if (currentSpec.Value.IsUsed && currentSpec.Key.GetDetails().PointCat == PointCats.Angle)
             {
-                PointDetails mpDetails = currentSpec.Point.GetDetails();
+                PointDetails mpDetails = currentSpec.Key.GetDetails();
                 _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.Point, Name = Rosetta.TextForId(mpDetails.TextId) });
             }
         }

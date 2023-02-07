@@ -43,9 +43,9 @@ public sealed class AspectsCounting: IAspectsCounting
     private CountOfAspectsResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
         AstroConfig config = request.Config;
-        List<AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
+        Dictionary<AspectTypes, AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
 
-        List<ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
         int cuspSize = config.UseCuspsForAspects ? charts[0].Positions.Cusps.Count : 0;
@@ -60,7 +60,7 @@ public sealed class AspectsCounting: IAspectsCounting
             
             
             Dictionary<ChartPoints, FullPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(commonPositions, angles, chartPointConfigSpecs);
-            List<ChartPoints> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
+            Dictionary<ChartPoints, ChartPointConfigSpecs> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
 
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
 
@@ -90,12 +90,12 @@ public sealed class AspectsCounting: IAspectsCounting
 
 
 
-    private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize, int[,,] allCounts, List<PositionedPoint> posPoints, List<AspectConfigSpecs> aspects)
+    private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize, int[,,] allCounts, List<PositionedPoint> posPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects)
     {
         List<AspectTypes> aspectTypes = new();
-        foreach (AspectConfigSpecs acSpec in aspects)
+        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> acSpec in aspects)
         {
-            aspectTypes.Add(acSpec.AspectType);
+            aspectTypes.Add(acSpec.Key);
         }
         List<ChartPoints> chartPoints = new();
         foreach (PositionedPoint posPoint in posPoints)
