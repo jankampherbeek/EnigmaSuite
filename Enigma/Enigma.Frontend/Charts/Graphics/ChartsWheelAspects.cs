@@ -6,10 +6,8 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Ui.Interfaces;
@@ -71,7 +69,6 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
             {
                 Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
                 Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
-                //Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.CelPointConnectLineOpacity);
                 Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.AspectOpacity);
                 aspectLines.Add(connectionLine);
 
@@ -85,23 +82,26 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     private List<DrawableAspectCoordinatesCp> CreateSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesCp> drawableAspectCoordinatesSs = new();
-        double longAsc = currentChart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
+        double longAsc = currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
         DimPoint dimPoint = new(centerPoint);
-        foreach (var ssPointPos in currentChart.Positions.CommonPoints)
+        foreach (var ssPointPos in currentChart.Positions)
         {
-            double longitude = ssPointPos.Value.Ecliptical.MainPosSpeed.Position;
-            ChartPoints ssPos = ssPointPos.Key;
-            double posOnCircle = longitude - longAsc + 90.0;
-            if (posOnCircle < 0.0) posOnCircle += 360.0;
-            if (posOnCircle >= 360.0) posOnCircle -= 360.0;
-            Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
-            drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesCp(ssPos, newPoint.X, newPoint.Y));
+            if (ssPointPos.Key.GetDetails().PointCat == PointCats.Common || ssPointPos.Key == ChartPoints.Mc || ssPointPos.Key == ChartPoints.Ascendant)
+            {
+                double longitude = ssPointPos.Value.Ecliptical.MainPosSpeed.Position;
+                ChartPoints ssPos = ssPointPos.Key;
+                double posOnCircle = longitude - longAsc + 90.0;
+                if (posOnCircle < 0.0) posOnCircle += 360.0;
+                if (posOnCircle >= 360.0) posOnCircle -= 360.0;
+                Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
+                drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesCp(ssPos, newPoint.X, newPoint.Y));
+            }
         }
         return drawableAspectCoordinatesSs;
     }
 
 
-
+    /*
     private List<DrawableAspectCoordinatesMu> CreateMuCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesMu> drawableAspectCoordinatesMu = new();
@@ -120,5 +120,5 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("MC", mcPoint.X, mcPoint.Y));
         return drawableAspectCoordinatesMu;
     }
-
+    */
 }

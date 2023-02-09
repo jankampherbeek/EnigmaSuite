@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,6 +7,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Points;
 using Serilog;
 
 namespace Enigma.Api.Astron;
@@ -21,7 +22,7 @@ public sealed class ChartAllPositionsApi : IChartAllPositionsApi
 
 
     /// <inheritdoc/>
-    public CalculatedChartPositions GetChart(CelPointsRequest request)
+    public Dictionary<ChartPoints, FullPointPos> GetChart(CelPointsRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.Location);

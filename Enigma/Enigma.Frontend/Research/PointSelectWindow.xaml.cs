@@ -16,12 +16,10 @@ public partial class PointSelectWindow : Window
 {
     private readonly PointSelectController _controller;
     private bool _allCelPointsSelected = false;
-    private bool _allMundanePointsSelected = false;
     private bool _completed = false;
     private int _minimalNrOfPoints = 1;
     private ResearchMethods _researchMethod = ResearchMethods.None;
-    public List<SelectableCelPointDetails> SelectedCelPoints { get; } = new();
-    public List<SelectableMundanePointDetails> SelectedMundanePoints { get; } = new();
+    public List<SelectableChartPointDetails> SelectedCelPoints { get; } = new();
     public bool SelectedUseCusps { get; set; } = false;
 
     public PointSelectWindow(PointSelectController controller)
@@ -29,7 +27,6 @@ public partial class PointSelectWindow : Window
         InitializeComponent();
         _controller = controller;
         PopulateTexts();
-        PopulateData();
     }
 
     public void SetMinimalNrOfPoints(int minNumber)
@@ -40,20 +37,7 @@ public partial class PointSelectWindow : Window
     public void SetResearchMethod(ResearchMethods researchMethod)
     {
         _researchMethod = researchMethod;
-        if (_researchMethod == ResearchMethods.CountPosInHouses)
-        {
-            lbMundanePoints.IsEnabled = false;
-            cBoxAllMundanePoints.IsChecked = false;
-            cBoxAllMundanePoints.IsEnabled = false;
-            cBoxIncludeAllCusps.IsChecked = false;
-            cBoxIncludeAllCusps.IsEnabled = false;
-        }
-        if (_researchMethod == ResearchMethods.CountOccupiedMidpoints)
-        {
-            cBoxIncludeAllCusps.IsChecked = false;
-            cBoxIncludeAllCusps.IsEnabled = false;
-        }
-    }
+     }
 
 
     public bool IsCompleted()
@@ -65,26 +49,21 @@ public partial class PointSelectWindow : Window
     {
         Title = Rosetta.TextForId("pointselectwindow.title");
         tbFormTitle.Text = Rosetta.TextForId("pointselectwindow.formtitle");
-        tbCelPoints.Text = Rosetta.TextForId("pointselectwindow.celpoints");
-        tbMundanePoints.Text = Rosetta.TextForId("pointselectwindow.mundanepoints");
         tbExplanation.Text = Rosetta.TextForId("pointselectwindow.explanation");
         cBoxAllCelPoints.Content = Rosetta.TextForId("pointselectwindow.checkallcelpoints");
-        cBoxAllMundanePoints.Content = Rosetta.TextForId("pointselectwindow.checkallmundanepoints");
         cBoxIncludeAllCusps.Content = Rosetta.TextForId("pointselectwindow.allcusps");
-
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");
         btnCancel.Content = Rosetta.TextForId("common.btncancel");
         btnOk.Content = Rosetta.TextForId("common.btnok");
     }
 
-    private void PopulateData()
+    public void PopulateData()
     {
-        List<SelectableCelPointDetails> celPointDetails = _controller.GetAllCelPointDetails();
+        List<SelectableChartPointDetails> celPointDetails = _controller.GetAllCelPointDetails(_researchMethod);
         lbCelPoints.ItemsSource = celPointDetails;
-        List<SelectableMundanePointDetails> mundanePointDetails = _controller.GetAllMundanePointDetails();
-        lbMundanePoints.ItemsSource = mundanePointDetails;
         cBoxAllCelPoints.IsChecked = false;
-        cBoxIncludeAllCusps.IsChecked = _controller.IncludeCuspsForAspects();
+        cBoxIncludeAllCusps.IsChecked = false;
+        cBoxIncludeAllCusps.IsEnabled = _controller.enableCusps;
     }
 
     private void AllCelPointsClick(object sender, RoutedEventArgs e)
@@ -101,20 +80,6 @@ public partial class PointSelectWindow : Window
         }
     }
 
-    private void AllMundanePointsClick(object sender, RoutedEventArgs e)
-    {
-        if (_allMundanePointsSelected)
-        {
-            lbMundanePoints.UnselectAll();
-            _allMundanePointsSelected = false;
-        }
-        else
-        {
-            lbMundanePoints.SelectAll();
-            _allMundanePointsSelected = true;
-        }
-    }
-
     private void OkClick(object sender, RoutedEventArgs e)
     {
         int countOfPoints = 0;
@@ -122,15 +87,7 @@ public partial class PointSelectWindow : Window
         var selectedCPs = lbCelPoints.SelectedItems;
         foreach (var selectedCP in selectedCPs)
         {
-            SelectedCelPoints.Add((SelectableCelPointDetails)selectedCP);
-            countOfPoints++;
-        }
-
-        SelectedMundanePoints.Clear();
-        var selectedMPs = lbMundanePoints.SelectedItems;
-        foreach (var selectedMP in selectedMPs)
-        {
-            SelectedMundanePoints.Add((SelectableMundanePointDetails)selectedMP);
+            SelectedCelPoints.Add((SelectableChartPointDetails)selectedCP);
             countOfPoints++;
         }
 

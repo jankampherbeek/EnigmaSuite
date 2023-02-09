@@ -6,6 +6,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.Specials;
+using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints;
 
@@ -33,7 +34,7 @@ public sealed class CalcChartsRangeHandler : ICalcChartsRangeHandler
         {
             double jdUt = _julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt;
             CelPointsRequest celPointsRequest = new(jdUt, calcDataItem.Location, preferences);
-            CalculatedChartPositions chartPositions = _chartAllPositionsHandler.CalcFullChart(celPointsRequest);
+            Dictionary<ChartPoints, FullPointPos> chartPositions = _chartAllPositionsHandler.CalcFullChart(celPointsRequest);
             fullChartForResearchItems.Add(new FullChartForResearchItem(calcDataItem.Id, chartPositions));
         }
         return fullChartForResearchItems;

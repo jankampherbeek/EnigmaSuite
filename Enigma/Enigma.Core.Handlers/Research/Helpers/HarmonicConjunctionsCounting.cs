@@ -6,7 +6,6 @@
 using Enigma.Core.Domain.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
@@ -38,16 +37,13 @@ public sealed class HarmonicConjunctionsCounting : IHarmonicConjunctionsCounting
 
     private CountHarmonicConjunctionsResponse PerformCount(List<CalculatedResearchChart> charts, CountHarmonicConjunctionsRequest request)
     { 
-        var selectedPoints = new List<ChartPoints>(request.PointsSelection.SelectedPoints.Count + request.PointsSelection.SelectedMundanePoints.Count);
-        selectedPoints.AddRange(request.PointsSelection.SelectedPoints);
-        selectedPoints.AddRange(request.PointsSelection.SelectedMundanePoints);
+        List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
         Dictionary<TwoPointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
         double orb = request.Orb;
         double harmonicNr = request.HarmonicNumber;
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> commonPositions = calcResearchChart.Positions.CommonPoints;
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
 

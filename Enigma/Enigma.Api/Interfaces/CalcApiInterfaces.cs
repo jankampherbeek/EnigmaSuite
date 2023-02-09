@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,6 +8,7 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Calc.Specials;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Api.Interfaces;
@@ -30,7 +31,7 @@ public interface IChartAllPositionsApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Response with all positions.</returns>
-    public CalculatedChartPositions GetChart(CelPointsRequest request);
+    public Dictionary<ChartPoints, FullPointPos> GetChart(CelPointsRequest request);
 }
 
 /// <summary>API for conversion between coordinates.</summary>
@@ -62,7 +63,7 @@ public interface IHousesApi
     /// <param name="request"/>
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
     /// <returns>Instance of FullHousesPosResponse with all coordinates for cusps, MC, Ascendant, EastPoint and Vertex.</returns>
-    public FullHousesPositions GetHouses(FullHousesPosRequest request);
+    public Dictionary<ChartPoints, FullPointPos> GetHouses(FullHousesPosRequest request);
 }
 
 /// <summary>API for calculation of pblique longitude (True place for the WvA)</summary>

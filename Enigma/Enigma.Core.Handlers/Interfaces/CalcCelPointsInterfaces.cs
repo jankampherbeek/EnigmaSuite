@@ -16,7 +16,7 @@ namespace Enigma.Core.Handlers.Interfaces;
 /// <summary>Handle calculation for a full chart with all positions.</summary>
 public interface IChartAllPositionsHandler
 {
-    public CalculatedChartPositions CalcFullChart(CelPointsRequest request);
+    public Dictionary<ChartPoints, FullPointPos> CalcFullChart(CelPointsRequest request);
 }
 
 

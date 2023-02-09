@@ -27,24 +27,11 @@ public sealed class PointsForMidpoints : IPointsForMidpoints
     {
         // TODO 1.0.0 make pointgroups, coordinatesystems and maincoord for midpoints configurable.
 
-        Dictionary<ChartPoints, FullPointPos> positions = new();
-        foreach (KeyValuePair<ChartPoints, FullPointPos> pos in chart.Positions.CommonPoints)
-        {
-            positions.Add(pos.Key, pos.Value);
-        }
-        foreach (KeyValuePair<ChartPoints, FullPointPos> pos in chart.Positions.Angles)
-        {
-            if (pos.Key != ChartPoints.Vertex && pos.Key != ChartPoints.EastPoint)    // TODO 0.6  remove condition if glyphs for Vertex and Eastpoint are available.
-            {
-                positions.Add(pos.Key, pos.Value);
-            }
-
-        }
-        foreach (KeyValuePair<ChartPoints, FullPointPos> pos in chart.Positions.ZodiacPoints)
-        {
-            positions.Add(pos.Key, pos.Value);
-        }
-
+        Dictionary<ChartPoints, FullPointPos> positions = (
+            from posPoint in chart.Positions 
+            where posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle ||
+                (posPoint.Key.GetDetails().PointCat == PointCats.Zodiac && posPoint.Key == ChartPoints.ZeroAries)
+            select posPoint).ToDictionary(x => x.Key, x => x.Value);
 
         CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;

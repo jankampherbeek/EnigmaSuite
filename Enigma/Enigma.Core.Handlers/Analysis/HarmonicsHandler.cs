@@ -23,15 +23,10 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber)
     {
         List<double> originalPositions = new();
-        
-        
-        foreach (KeyValuePair<ChartPoints, FullPointPos> celPoint in chart.Positions.CommonPoints)
+        var allPoints = from point in chart.Positions where (point.Key.GetDetails().PointCat == PointCats.Common) || (point.Key.GetDetails().PointCat == PointCats.Angle) select point;
+        foreach (var item in allPoints)
         {
-            originalPositions.Add(celPoint.Value.Ecliptical.MainPosSpeed.Position);
-        }
-        foreach (KeyValuePair<ChartPoints, FullPointPos> housePosition in chart.Positions.Angles)
-        {
-            originalPositions.Add(housePosition.Value.Ecliptical.MainPosSpeed.Position);
+            originalPositions.Add(item.Value.Ecliptical.MainPosSpeed.Position);
         }
         return _calculator.CalculateHarmonics(originalPositions, harmonicNumber);
     }
@@ -47,6 +42,4 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
         }
         return harmonicPositions;
     }
-
-
 }

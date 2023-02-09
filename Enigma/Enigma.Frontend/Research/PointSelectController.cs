@@ -5,10 +5,13 @@
 
 
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
+using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Research.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -16,70 +19,51 @@ using System.Windows;
 namespace Enigma.Frontend.Ui.Research;
 public sealed class PointSelectController
 {
+    private readonly IPointsExclusionManager _pointsExclusionManager;
+    public PointSelectController(IPointsExclusionManager pointsExclusionManager)
+    {
+        _pointsExclusionManager = pointsExclusionManager;
+    }
 
+    public bool enableCusps = false;
 
     private AstroConfig? _astroConfig;
-    private List<SelectableCelPointDetails> _selCPDetails = new();
-    private List<SelectableMundanePointDetails> _selMPDetails = new();
+    private List<SelectableChartPointDetails> _selCPDetails = new();
+   
 
-    public List<SelectableCelPointDetails> GetAllCelPointDetails()
+    public List<SelectableChartPointDetails> GetAllCelPointDetails(ResearchMethods method)
     {
-        DefineCelPoints();
+        DefineChartPoints(method);
         return _selCPDetails;
     }
 
-    public List<SelectableMundanePointDetails> GetAllMundanePointDetails()
-    {
-        DefineMundanePoints();
-        return _selMPDetails;
-    }
-
-    public bool IncludeCuspsForAspects()
+    public bool IncludeCusps()
     {
         return _astroConfig!.UseCuspsForAspects;
     }
 
-    public class SelectableCelPointDetails
+    public class SelectableChartPointDetails
     {
         public ChartPoints ChartPoint { get; set; }
         public char? Glyph { get; set; }
         public string? Name { get; set; }
     }
 
-    public class SelectableMundanePointDetails
-    {
-        public ChartPoints MundanePoint { get; set; }
-        public string? Name { get; set; }
-    }
 
-
-    private void DefineCelPoints()
+    private void DefineChartPoints(ResearchMethods method)
     {
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selCPDetails = new();
+        PointsToExclude pointsToExclude = _pointsExclusionManager.DefineExclusions(method);
+        enableCusps = !pointsToExclude.ExcludeCusps;
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCPSpec in _astroConfig.ChartPoints)
         {
-            PointCats cat = currentCPSpec.Key.GetDetails().PointCat;
-            if (currentCPSpec.Value.IsUsed && cat != PointCats.Angle && cat != PointCats.Cusp)
+            if (currentCPSpec.Value.IsUsed &&  !pointsToExclude.ExcludedPoints.Contains(currentCPSpec.Key) && !(currentCPSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps)) 
             {
                 PointDetails cpDetails = currentCPSpec.Key.GetDetails();
                 char glyph = currentCPSpec.Value.Glyph;
-                _selCPDetails.Add(new SelectableCelPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
-            }
-        }
-    }
-
-    private void DefineMundanePoints()
-    {
-        _astroConfig = CurrentConfig.Instance.GetConfig();
-        _selMPDetails = new();
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentSpec in _astroConfig.ChartPoints)
-        {
-            if (currentSpec.Value.IsUsed && currentSpec.Key.GetDetails().PointCat == PointCats.Angle)
-            {
-                PointDetails mpDetails = currentSpec.Key.GetDetails();
-                _selMPDetails.Add(new SelectableMundanePointDetails() { MundanePoint = mpDetails.Point, Name = Rosetta.TextForId(mpDetails.TextId) });
-            }
+                _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
+            } 
         }
     }
 

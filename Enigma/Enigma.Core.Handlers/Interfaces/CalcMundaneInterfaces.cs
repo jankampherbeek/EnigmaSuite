@@ -5,6 +5,7 @@
 
 
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Handlers.Interfaces;
@@ -16,7 +17,7 @@ public interface IHousesHandler
     /// <summary>Calculates all mundane positions.</summary>
     /// <param name="request"></param>
     /// <returns></returns>
-    public FullHousesPositions CalcHouses(FullHousesPosRequest request);
+    public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request);
 }
 
 

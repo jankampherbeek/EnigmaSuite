@@ -34,16 +34,24 @@ public sealed class AspectsHandler : IAspectsHandler
     /// <inheritdoc/>
     public List<DefinedAspect> AspectsForChartPoints(AspectRequest request)
     {
-        Dictionary<ChartPoints, FullPointPos> chartPointPositions = request.CalcChart.Positions.CommonPoints;
-        Dictionary<ChartPoints, FullPointPos> anglePositions = request.CalcChart.Positions.Angles;
+        Dictionary<ChartPoints, FullPointPos> chartPointPositions =  
+            (from posPoint in request.CalcChart.Positions 
+            where posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle
+            select posPoint)
+            .ToDictionary(x => x.Key, x => x.Value);
+
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
 
-        Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, anglePositions, chartPointConfigSpecs);
+        Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, chartPointConfigSpecs);
         List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
         List<PositionedPoint> cuspPoints = new();
         if (request.Config.UseCuspsForAspects)
         {
-            Dictionary<ChartPoints, FullPointPos> relevantCusps = request.CalcChart.Positions.Cusps;
+            Dictionary<ChartPoints, FullPointPos> relevantCusps =
+                (from posPoint in request.CalcChart.Positions
+                where posPoint.Key.GetDetails().PointCat == PointCats.Cusp
+                select posPoint)
+                .ToDictionary(x => x.Key, x => x.Value);
             cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
         }
         Dictionary<AspectTypes, AspectConfigSpecs> allAspects = request.Config.Aspects;

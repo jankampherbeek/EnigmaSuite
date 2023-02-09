@@ -7,7 +7,6 @@ using Enigma.Api.Astron;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Moq;
@@ -20,7 +19,7 @@ public class TestHousesApi
 {
     private readonly double _jdUt = 123456.789;
     private FullHousesPosRequest _housesRequest;
-    private FullHousesPositions _fullHousesPositions;
+    private Dictionary<ChartPoints, FullPointPos> _fullHousesPositions;
     private Mock<IHousesHandler> _mockHousesHandler;
     private readonly HouseSystems _houseSystem = HouseSystems.Apc;
 
@@ -59,29 +58,23 @@ public class TestHousesApi
         Assert.That(() => _api.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
-    private static FullHousesPositions CreateResponse()
+    private static Dictionary<ChartPoints, FullPointPos> CreateResponse()
     {
         FullPointPos posCusp5 = CreateFullPointPos(100.0, 101.1, 2.2, 99.9, 3.3);
         FullPointPos posCusp6 = CreateFullPointPos(130.0, 131.1, 2.3, 119.9, 2.2);
-        var cusps = new Dictionary<ChartPoints, FullPointPos>
-        {
-            { ChartPoints.Cusp5, posCusp5 },
-            { ChartPoints.Cusp6, posCusp6 }
-        };
-
         FullPointPos posMc = CreateFullPointPos(290.0, 292.1, 2.3, 310.9, 1.2);
         FullPointPos posAscendant = CreateFullPointPos(20.0, 22.2, -1.1, 40.9, -3.5);
         FullPointPos posVertex = CreateFullPointPos(205.0, 202.2, -1.14, 220.9, -5.5);
         FullPointPos posEastPoint = CreateFullPointPos(25.0, 27.2, -1.1, 45.9, -0.5);
-        var angles = new Dictionary<ChartPoints, FullPointPos>
+        return new Dictionary<ChartPoints, FullPointPos>
         {
             { ChartPoints.Mc, posMc },
             { ChartPoints.Ascendant, posAscendant },
             { ChartPoints.Vertex, posVertex },
-            { ChartPoints.EastPoint, posEastPoint }
+            { ChartPoints.EastPoint, posEastPoint },
+            { ChartPoints.Cusp5, posCusp5 },
+            { ChartPoints.Cusp6, posCusp6 }
         };
-
-        return new FullHousesPositions(angles, cusps);
     }
 
 

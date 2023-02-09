@@ -9,6 +9,7 @@ using Enigma.Api.Services;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Services;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Configuration;
@@ -94,6 +95,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ResearchMainWindow>();
         serviceCollection.AddTransient<ResearchResultController>();
         serviceCollection.AddTransient<ResearchResultWindow>();
+        serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<ProjectUsageController>();
         serviceCollection.AddTransient<ProjectUsageWindow>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();

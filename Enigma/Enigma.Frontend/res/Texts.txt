@@ -349,12 +349,9 @@ midpointdetailswindow.warningorb = The values for the orb are not correct. Pleas
 -------------------------------- Point select window ---
 
 pointselectwindow.allcusps = Include all cusps
-pointselectwindow.celpoints = Celestial points
 pointselectwindow.checkallcelpoints = Select all celestial points
-pointselectwindow.checkallmundanepoints = Select all mundane points
 pointselectwindow.explanation = Select one or more points, either celestial or mundane. You can select multiple points.
 pointselectwindow.formtitle = Select points to include
-pointselectwindow.mundanepoints = Mundane points
 pointselectwindow.title = Enigma - Point selection
 pointselectwindow.warningnrofpoints = Please select more points. The minimal number for the current method is
 

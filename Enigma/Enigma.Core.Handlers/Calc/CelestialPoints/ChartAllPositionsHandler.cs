@@ -25,18 +25,21 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
         _zodiacPointCalc = zodiacPointsCalc;
     }
 
-    public CalculatedChartPositions CalcFullChart(CelPointsRequest request)
+    public Dictionary<ChartPoints, FullPointPos> CalcFullChart(CelPointsRequest request)
     {
         Dictionary<ChartPoints, FullPointPos> commonPositions = _celPointsHandler.CalcCommonPoints(request);
         FullHousesPosRequest housesRequest = new(request.JulianDayUt, request.Location, request.CalculationPreferences.ActualHouseSystem);
-        FullHousesPositions mundane = _housesHandler.CalcHouses(housesRequest);
+        Dictionary<ChartPoints, FullPointPos> mundanePositions = _housesHandler.CalcHouses(housesRequest);
         Dictionary<ChartPoints, FullPointPos> zodiacPoints = new();         // TODO 0.1 Add zodiacal points to ChartAllPositionsHandler.
         Dictionary<ChartPoints, FullPointPos> arabicPoints = new();         // TODO 0.1 Add pars fortunae to ChartAllPositionsHandler.
         Dictionary<ChartPoints, FullPointPos> fixStars = new();             // TODO backlog Add FixStars for ChartAllPositionsHandler.
-        return new CalculatedChartPositions(commonPositions, mundane.Angles, mundane.Cusps, zodiacPoints, arabicPoints, fixStars);
+
+        var allPositions = commonPositions.Concat(mundanePositions).GroupBy(i => i.Key).ToDictionary(group => group.Key, group => group.First().Value);     // todo 0.1 check result and sequence of positions.
+
+        return allPositions;
     }
 
-    private Dictionary<ChartPoints, FullPointPos> CalcZodiacPoints(CelPointsRequest request)
+    private Dictionary<ChartPoints, FullPointPos> CalcZodiacPoints(CelPointsRequest request)   // TODO 0.1 handle calculation of zodiac points
     {
         Dictionary<ChartPoints, FullPointPos> zodiacPoints = new();
         if (request.CalculationPreferences.ActualZodiacType == ZodiacTypes.Tropical && request.CalculationPreferences.CoordinateSystem == CoordinateSystems.Ecliptical)

@@ -76,7 +76,7 @@ public interface IHarmonicForDataGridFactory
 
 public interface IHousePosForDataGridFactory
 {
-    public List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fullHousePositions);
+    public List<PresentableHousePositions> CreateHousePosForDataGrid(Dictionary<ChartPoints, FullPointPos> positions);
 }
 
 

@@ -115,7 +115,7 @@ public sealed class ChartDataInputController
             string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude!.GeoLongFullText + " " + fullGeoLatitude!.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             CelPointsRequest celPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
-            CalculatedChartPositions calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
+            Dictionary<ChartPoints, FullPointPos>  calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
 
             FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
             MetaData metaData = CreateMetaData(NameId, Description, Source, LocationName, ChartCategory, RoddenRating);

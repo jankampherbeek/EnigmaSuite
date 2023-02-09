@@ -41,11 +41,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
     private CountOfOccupiedMidpointsResponse PerformCount(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
     {
         AstroConfig config = request.Config;
-        int nrOfPoints = request.PointsSelection.SelectedPoints.Count + request.PointsSelection.SelectedMundanePoints.Count;
-        var selectedPoints = new List<ChartPoints>(request.PointsSelection.SelectedPoints.Count + request.PointsSelection.SelectedMundanePoints.Count);
-        selectedPoints.AddRange(request.PointsSelection.SelectedPoints);
-        selectedPoints.AddRange(request.PointsSelection.SelectedMundanePoints);
-
+        List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
 
         double dialSize = 360.0 / request.DivisionForDial;
@@ -53,7 +49,10 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> commonPositions = calcResearchChart.Positions.CommonPoints;
+            Dictionary<ChartPoints, FullPointPos> commonPositions = (
+                from posPoint in calcResearchChart.Positions 
+                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle) 
+                select posPoint).ToDictionary(x => x.Key, x => x.Value);
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<OccupiedMidpoint> occupiedMidpoints = _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb);
@@ -64,7 +63,6 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
                 allCounts[mpStructure]++;
             }
         }
-
         return new CountOfOccupiedMidpointsResponse(request, allCounts);
     }
 

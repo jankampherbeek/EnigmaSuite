@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Research"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"          
-        Title="PointSelectWindow" Height="700" Width="600">
+        Title="PointSelectWindow" Height="800" Width="600">
     <Grid Margin="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
@@ -14,22 +14,14 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="30*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="12"/>
-            <RowDefinition Height="25*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="77*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1" Grid.RowSpan="6" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="1"  Style="{StaticResource backgroundStyle}" />
         <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
-        <TextBlock Grid.Row="1" Margin="6" Name="tbCelPoints" Text="tbCelPoints" Style="{StaticResource subTitleStyle}" />
-        <TextBlock Grid.Column="2" Grid.Row="1" Margin="6" Name="tbMundanePoints" Text="tbMundanePoints" Style="{StaticResource subTitleStyle}" />
-        <CheckBox Grid.Row="2" Margin="6" Name="cBoxAllCelPoints" Content="cBoxAllCelPoints" Click="AllCelPointsClick"/>
-        <ListBox Grid.Row="3" Grid.RowSpan="4" Margin="6" Name="lbCelPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+        <ListBox Grid.Row="1" Margin="6" Name="lbCelPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -43,21 +35,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <CheckBox Grid.Column="2" Grid.Row="2" Margin="6" Name="cBoxAllMundanePoints" Content="cBoxAllMundanePoints" Click="AllMundanePointsClick"/>
-        <ListBox Grid.Column="2" Grid.Row="3" Margin="6" Name="lbMundanePoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <CheckBox Grid.Column="2" Grid.Row="4" Margin="6" Name="cBoxIncludeAllCusps" Content="cBoxIncludeALlCusps"/>
-        <TextBlock Grid.Column="2" Grid.Row="6" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap"/>
+        <TextBlock Grid.Column="2" Grid.Row="1" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap"/>
+        <CheckBox Grid.Row="2" Margin="6" Name="cBoxAllCelPoints" Content="cBoxAllCelPoints" Click="AllCelPointsClick"/>
+        <CheckBox Grid.Column="2" Grid.Row="2" Margin="6" Name="cBoxIncludeAllCusps" Content="cBoxIncludeALlCusps"/>
+
         <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Name="btnHelp" Content="btnHelp" Click="HelpClick"/>
             <Button Name="btnCancel" Content="btnCancel" Click="CancelClick"/>

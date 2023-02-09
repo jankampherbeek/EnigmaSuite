@@ -12,6 +12,7 @@ using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using Serilog;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -31,14 +32,11 @@ public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
     /// <inheritdoc/>
     public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart)
     {
-        if (harmonicPositions.Count != chart.Positions.CommonPoints.Count + 4)
-        {
-            Log.Error("ERROR in HarmonicDataGridFactory. Count for harmonicPositions = " + harmonicPositions.Count + " and count for celestial points = "
-                + harmonicPositions.Count + ". The harmonicPositions should have a count that is 4 larger than the count for celestial points");
-            throw new EnigmaException("Error in Enigma. Please check the log file.");   
-        }
         List<PresentableHarmonic> presentableHarmonics = new();
-        Dictionary<ChartPoints, FullPointPos> celPoints = chart.Positions.CommonPoints;
+        Dictionary<ChartPoints, FullPointPos> celPoints = (
+            from posPoint in chart.Positions 
+            where posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle
+            select posPoint).ToDictionary(x => x.Key, x => x.Value);
         int counterCelPoints = 0;
         foreach (KeyValuePair<ChartPoints, FullPointPos> celPoint in celPoints)
         {
@@ -47,8 +45,6 @@ public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
             double harmonicPos = harmonicPositions[counterCelPoints++];
             presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
         }
-        presentableHarmonics.Add(CreatePresHarmonic('A', chart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position, harmonicPositions[counterCelPoints++]));
-        presentableHarmonics.Add(CreatePresHarmonic('M', chart.Positions.Angles[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position, harmonicPositions[counterCelPoints]));
         return presentableHarmonics;
     }
 

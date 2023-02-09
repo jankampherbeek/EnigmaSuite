@@ -13,7 +13,7 @@ namespace Enigma.Domain.Calc.Specials;
 /// <summary>Calculated data for a chart for a specific research item (person, event).</summary>
 /// <param name="Id">The id for the item.</param>
 /// <param name="Positions">All positions.</param>
-public record FullChartForResearchItem(string Id, CalculatedChartPositions Positions);
+public record FullChartForResearchItem(string Id, Dictionary<ChartPoints, FullPointPos> Positions);
 
 /// <summary>Inputdata for the calculation of  a single item that is is used in a Charts Range.</summary>
 /// <param name="Id">Id for the item.</param>

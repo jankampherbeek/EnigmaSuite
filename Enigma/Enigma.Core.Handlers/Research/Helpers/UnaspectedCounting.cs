@@ -40,9 +40,8 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
         AstroConfig config = request.Config;
 
         Dictionary<AspectTypes, AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
-        Dictionary<ChartPoints, ChartPointConfigSpecs> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
-        int configCelPointSize = configSelectedChartPoints.Count;
-        int[,] allCounts = new int[configCelPointSize, charts.Count];
+        int selectedCelPointSize = request.PointsSelection.SelectedPoints.Count;
+        int[,] allCounts = new int[selectedCelPointSize, charts.Count];
 
         int chartIndex = 0;
         foreach (CalculatedResearchChart calcResearchChart in charts)
@@ -70,7 +69,7 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
                     {
                         if (rcpPos.Key == point)
                         {
-                            allCounts[chartIndex, aspectIndex]++;
+                            allCounts[aspectIndex, chartIndex]++;
                         }
                         aspectIndex++;
                     }
@@ -79,14 +78,10 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
             chartIndex++;
         }
         List<SimpleCount> resultingCounts = new();
-        
-        
-        
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartConfigPoints = config.ChartPoints;
+        List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
         int i = 0;
-        foreach (var ccPoint in chartConfigPoints)
+        foreach (var point in selectedPoints)
         {
-            ChartPoints point = ccPoint.Key;
             int unaspectedCount = 0;
             for (int j = 0; j < charts.Count; j++)
             {

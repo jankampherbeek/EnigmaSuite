@@ -7,6 +7,7 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
@@ -22,21 +23,25 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
         _doubleToDmsConversions = doubleToDmsConversions;
     }
 
-    public List<PresentableHousePositions> CreateHousePosForDataGrid(FullHousesPositions fhPositions)
+    public List<PresentableHousePositions> CreateHousePosForDataGrid(Dictionary<ChartPoints, FullPointPos> positions)
     {
-        List<PresentableHousePositions> positions = new()
+        List<PresentableHousePositions> presPositions = new()
         {
-            CreateSingleCuspPos("MC", fhPositions.Angles[ChartPoints.Mc]),
-            CreateSingleCuspPos("Asc", fhPositions.Angles[ChartPoints.Ascendant])
+            CreateSingleCuspPos("MC", positions[ChartPoints.Mc]),
+            CreateSingleCuspPos("Asc", positions[ChartPoints.Ascendant])
         };
-        int index = 1;
-        foreach (var cusp in fhPositions.Cusps)
+
+        foreach (var item in positions)
         {
-            positions.Add(CreateSingleCuspPos(index++.ToString(), cusp.Value));
+            if (item.Key.GetDetails().PointCat == PointCats.Cusp)
+            {
+                string descr = Rosetta.TextForId(item.Key.GetDetails().TextId);
+                presPositions.Add(CreateSingleCuspPos(descr, item.Value));
+            }
         }
-        positions.Add(CreateSingleCuspPos("Vertex",   fhPositions.Angles[ChartPoints.Vertex]));
-        positions.Add(CreateSingleCuspPos("East point", fhPositions.Angles[ChartPoints.EastPoint]));
-        return positions;
+        presPositions.Add(CreateSingleCuspPos("Vertex",   positions[ChartPoints.Vertex]));          // todo 0.1 check if Vertex and Eastpoint should be automatically added to presentable house positions.
+        presPositions.Add(CreateSingleCuspPos("East point", positions[ChartPoints.EastPoint]));
+        return presPositions;
     }
 
 

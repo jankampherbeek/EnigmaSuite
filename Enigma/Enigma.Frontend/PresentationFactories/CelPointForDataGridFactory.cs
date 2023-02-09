@@ -26,14 +26,17 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
         _glyphsForChartPoints = new GlyphsForChartPoints();
     }
 
-    public List<PresentableCommonPositions> CreateCelPointPosForDataGrid(Dictionary<ChartPoints, FullPointPos> commonPositions)
+    public List<PresentableCommonPositions> CreateCelPointPosForDataGrid(Dictionary<ChartPoints, FullPointPos> positions)
     {
-        List<PresentableCommonPositions> positions = new();
-        foreach (var celPos in commonPositions)
+        List<PresentableCommonPositions> presPositions = new();
+        foreach (var celPos in positions)
         {
-            positions.Add(CreateSinglePos(celPos));
+            if (celPos.Key.GetDetails().PointCat == PointCats.Common)
+            {
+                presPositions.Add(CreateSinglePos(celPos));
+            }
         }
-        return positions;
+        return presPositions;
     }
 
     private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints,  FullPointPos> commonPos)

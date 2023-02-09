@@ -50,7 +50,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             Location location = new("", inputItem.GeoLongitude, inputItem.GeoLatitude);
             double jdUt = CalcJdUt(inputItem);
             CelPointsRequest cpRequest = new(jdUt, location, calcPref);
-            CalculatedChartPositions chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest);
+            Dictionary<ChartPoints, FullPointPos> chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest);
             calculatedCharts.Add(new CalculatedResearchChart(chartPositions, inputItem));
         }
         Log.Information("CalculatedResearchPositions: Calculation completed.");

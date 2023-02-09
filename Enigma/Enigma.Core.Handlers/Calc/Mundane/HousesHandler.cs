@@ -33,7 +33,7 @@ public sealed class HousesHandler : IHousesHandler
 
 
     /// <inheritdoc/>
-    public FullHousesPositions CalcHouses(FullHousesPosRequest request)
+    public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request)
     {
         HouseSystems houseSystem = request.HouseSystem;
         HouseSystemDetails houseDetails = houseSystem.GetDetails();
@@ -42,26 +42,30 @@ public sealed class HousesHandler : IHousesHandler
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
         double[][] _eclValues;
-        Dictionary<ChartPoints, FullPointPos> allCusps = new();
+        Dictionary<ChartPoints, FullPointPos> mundanePositions = new();
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
         _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
+
+        KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
+        mundanePositions.Add(asc.Key, asc.Value);
+        KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
+        mundanePositions.Add(mc.Key, mc.Value);
+        KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][2], jdUt, obliquity, location);
+        mundanePositions.Add(vertex.Key, vertex.Value);
+        KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
+        mundanePositions.Add(eastPoint.Key, eastPoint.Value);
+
+
         for (int n = 1; n < _eclValues[0].Length; n++)
         {
             int cuspIndex = 2000 + n;
             ChartPoints cusp = ChartPoints.None.PointForIndex(cuspIndex);
             KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, _eclValues[0][n], jdUt, obliquity, location);
-            allCusps.Add(cuspPos.Key, cuspPos.Value);
+            mundanePositions.Add(cuspPos.Key, cuspPos.Value);
         }
-        Dictionary<ChartPoints, FullPointPos> angles = new();
-        KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
-        angles.Add(asc.Key, asc.Value);
-        KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
-        angles.Add(mc.Key, mc.Value);
-        KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][2], jdUt, obliquity, location);
-        angles.Add(vertex.Key, vertex.Value);
-        KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
-        angles.Add(eastPoint.Key, eastPoint.Value);
-        return new FullHousesPositions(angles, allCusps);
+        
+
+        return mundanePositions;
     }
 
     private KeyValuePair<ChartPoints, FullPointPos> CreateFullChartPointPosForCusp(ChartPoints point, double longitude, double jdUt, double obliquity, Location location)

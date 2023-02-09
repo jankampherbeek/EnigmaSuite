@@ -15,7 +15,7 @@ public class AspectPointSelector : IAspectPointSelector
 {
 
     /// <inheritdoc/>
-    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> positions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = new();
         
@@ -24,7 +24,7 @@ public class AspectPointSelector : IAspectPointSelector
         {
             if (spec.Key.GetDetails().PointCat == PointCats.Common && spec.Value.IsUsed)
             {
-                relevantChartPointPositions.Add(spec.Key, chartPointPositions[spec.Key]);
+                relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);
             }
 
         }
@@ -32,7 +32,7 @@ public class AspectPointSelector : IAspectPointSelector
         {
             if (spec.Key.GetDetails().PointCat == PointCats.Angle && spec.Value.IsUsed)
             {
-                relevantChartPointPositions.Add(spec.Key, chartPointPositions[spec.Key]);
+                relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);       
             }
         }
         return relevantChartPointPositions;

@@ -12,47 +12,27 @@ namespace Enigma.Research.Domain;
 
 // TODO 0.1 Analysis
 
-/*
-/// <summary>Abstract definition for a point that can be the result of a research test.</summary>
-/// <param name="Id">Id that identifies the point.</param>
-public abstract record ResearchPoint(int Id, string Name);
-
-
-/// <summary>Define a celestial point that can be the result of a research test.</summary>
-/// <param name="Id">Id that identifies the point.</param>
-/// <param name="Point">The celestial point.</param>
-public record ResearchCelPoint(int Id, ChartPoints Point) : ResearchPoint(Id, Point.ToString());
-
-
-/// <summary>Define a mundane point that can be the result of a research test.</summary>
-/// <param name="Id">Id that identifies the point.</param>
-/// <param name="MundanePoint">The mundane point.</param>
-public record ResearchMundanePoint(int Id, ChartPoints MundanePoint) : ResearchPoint(Id, MundanePoint.ToString());
-
-
-/// <summary>Define a cusp that can be the result of a research test.</summary>
-/// <param name="Id">Number for the cusp.</param>
-/// <param name="Name">Name for the cusp, e.g. 'Cusp 1'.</param>
-public record ResearchCuspPoint(int Id, string Name) : ResearchPoint(Id, Name);
-*/
-
-
 
 
 /// <summary>Selection of points to use in research.</summary>
-/// <param name="SelectedPoints">Selected celestial points.</param>
-/// <param name="SelectedMundanePoints">Selected mundane points.</param>
+/// <param name="SelectedPoints">Selected chart points.</param>
 /// <param name="IncludeCusps">True if all cusps are used, otherwise false.</param>
-public record ResearchPointsSelection(List<ChartPoints> SelectedPoints, List<ChartPoints> SelectedMundanePoints, bool IncludeCusps);
+public record ResearchPointsSelection(List<ChartPoints> SelectedPoints, bool IncludeCusps);
 
 
 /// <summary>Positions and inputdata for a chart in a research project.</summary>
 /// <param name="Positions">All relevant positions for celestial points.</param>
 /// <param name="InputItem">Inputted data.</param>
-public record CalculatedResearchChart(CalculatedChartPositions Positions, StandardInputItem InputItem);
+public record CalculatedResearchChart(Dictionary<ChartPoints, FullPointPos> Positions, StandardInputItem InputItem);
 
 
 /// <summary>Instance of ResearchPoint with position.</summary>
 /// <param name="Point">The research point.</param>
 /// <param name="Position">The position.</param>
 public record PositionedResearchPoint(ChartPoints Point, double Position);
+
+/// <summary>Definition of points that should be excluded when performing a research action.</summary>
+/// <remarks>One of these records should be used to specify the exclusions when using a specific research method.</remarks>
+/// <param name="ExcludedPoints">List of ChartPoints to exclude.</param>
+/// <param name="ExcludeCusps">True if cusps should be excluded. Angles are defined as part of the excludedpoints.</param>
+public record PointsToExclude(List<ChartPoints> ExcludedPoints, bool ExcludeCusps);

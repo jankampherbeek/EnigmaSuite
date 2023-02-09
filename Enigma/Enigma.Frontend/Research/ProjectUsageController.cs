@@ -175,24 +175,19 @@ public class ProjectUsageController
     private static ResearchPointsSelection SelectPoints(ResearchMethods researchMethod, int nrOfPoints)
     {
         PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-        pointSelectWindow.SetMinimalNrOfPoints(nrOfPoints);
         pointSelectWindow.SetResearchMethod(researchMethod);
+        pointSelectWindow.PopulateData();
+        pointSelectWindow.SetMinimalNrOfPoints(nrOfPoints);
         pointSelectWindow.ShowDialog();
 
-        List<SelectableCelPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
-        List<SelectableMundanePointDetails> selectedMundanePoints = pointSelectWindow.SelectedMundanePoints;
+        List<SelectableChartPointDetails> selectedCelPoints = pointSelectWindow.SelectedCelPoints;
         List<ChartPoints> celPoints = new();
-        List<ChartPoints> mundanePoints = new();
         foreach (var point in selectedCelPoints)
         {
             celPoints.Add(point.ChartPoint);
         }
-        foreach (var point in selectedMundanePoints)
-        {
-            mundanePoints.Add(point.MundanePoint);
-        }
         bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
-        return new ResearchPointsSelection(celPoints, mundanePoints, selectedUseCusps);
+        return new ResearchPointsSelection(celPoints, selectedUseCusps);
     }
 
 

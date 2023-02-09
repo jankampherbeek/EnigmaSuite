@@ -36,7 +36,7 @@ public interface IAspectPointSelector
     /// <param name="anglePositions">Available mundane positions for angles.</param>
     /// <param name="chartPointConfigSpecs">Configuration data for chart points.</param>
     /// <returns>The relevant points for the calculation of aspects.</returns>
-    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> chartPointPositions, Dictionary<ChartPoints, FullPointPos> anglePositions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> positions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
 }
 
 
