@@ -13,7 +13,7 @@ using System.Collections.Generic;
 namespace Enigma.Frontend.Ui.Charts;
 
 /// <summary>Controller (according to MVC pattern) for the view ChartPositionsWindow.</summary>
-public class ChartPositionsController
+public sealed class ChartPositionsController
 {
 
     private readonly ChartAspectsWindow _chartAspectsWindow;
@@ -33,7 +33,7 @@ public class ChartPositionsController
 
     public ChartData? GetMeta()
     {
-        CalculatedChart? _currentChart = _dataVault.GetLastChart();
+        CalculatedChart? _currentChart = _dataVault.GetCurrentChart();
         if (_currentChart != null)
         {
             return _currentChart.InputtedChartData;
@@ -47,7 +47,7 @@ public class ChartPositionsController
 
     public List<PresentableHousePositions> GetHousePositionsCurrentChart()
     {
-        CalculatedChart? _currentChart = _dataVault.GetLastChart();
+        CalculatedChart? _currentChart = _dataVault.GetCurrentChart();
         if (_currentChart != null)
         {
             return _housePosForDataGridFactory.CreateHousePosForDataGrid(_currentChart.Positions);
@@ -60,7 +60,7 @@ public class ChartPositionsController
 
     public List<PresentableCommonPositions> GetCelPointPositionsCurrentChart()
     {
-        CalculatedChart? _currentChart = _dataVault.GetLastChart();
+        CalculatedChart? _currentChart = _dataVault.GetCurrentChart();
         if (_currentChart != null)
         {
             return _celPointForDataGridFactory.CreateCelPointPosForDataGrid(_currentChart.Positions);
@@ -73,7 +73,7 @@ public class ChartPositionsController
 
     public CalculatedChart? GetCalculatedChart()
     {
-        return _dataVault.GetLastChart();
+        return _dataVault.GetCurrentChart();
     }
 
     public void ShowAspects()

@@ -19,9 +19,10 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="20*"/>            
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="2"  Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="2"  Style="{StaticResource backgroundStyle}" />
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Name="FormTitle" Text="Form Title" Margin="6" Style="{StaticResource titleStyle}"/>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="Explanation" Text="Explanation" Margin="6" TextWrapping="Wrap"/>
 
@@ -37,7 +38,10 @@
         <TextBlock Grid.Row="5" Name="LocSwissEph" Text="Loc swiss eph" Margin="6"/>
         <TextBlock Grid.Column="1" Grid.Row="5" Name="LocSwissEphValue" Text="Loc swiss eph value" Margin="6"/>
 
-        <StackPanel Grid.Column="2" Grid.Row="6" Orientation="Horizontal">
+        <TextBlock Grid.Row="6" Name="LocDatabase" Text="Loc database" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="6" Name="LocDatabaseValue" Text="Loc database value" Margin="6"/>
+
+        <StackPanel Grid.Column="2" Grid.Row="7" Orientation="Horizontal">
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Name="BtnHelp" Content="BtnHelp" Click="BtnHelpClick"/>
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Name="BtnClose" Content="BtnClose" Click="BtnCloseClick"/>
         </StackPanel>

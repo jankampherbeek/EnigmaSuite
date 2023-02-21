@@ -31,7 +31,7 @@ public sealed class ChartHarmonicsController
 
     public String RetrieveChartName()
     {
-        var chart = _dataVault.GetLastChart();
+        var chart = _dataVault.GetCurrentChart();
         if (chart != null)
         {
             return chart.InputtedChartData.MetaData.Name;
@@ -41,7 +41,7 @@ public sealed class ChartHarmonicsController
 
     public List<PresentableHarmonic> RetrieveAndFormatHarmonics(double harmonicNr)
     {
-        var chart = _dataVault.GetLastChart();
+        var chart = _dataVault.GetCurrentChart();
         List<PresentableHarmonic> presHarmonics = new();
         if (chart != null)
         {

@@ -35,7 +35,7 @@ public class ChartMidpointsController
 
     public String RetrieveChartName()
     {
-        var chart = _dataVault.GetLastChart();
+        var chart = _dataVault.GetCurrentChart();
         if (chart != null)
         {
             return chart.InputtedChartData.MetaData.Name;
@@ -44,7 +44,7 @@ public class ChartMidpointsController
     }
     public Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> RetrieveAndFormatMidpoints(double dialSize)
     {
-        var chart = _dataVault.GetLastChart();
+        var chart = _dataVault.GetCurrentChart();
         List<PresentableMidpoint> presMidpoints = new();
         List<PresentableOccupiedMidpoint> presOccMidpoints = new();
         if (chart != null)

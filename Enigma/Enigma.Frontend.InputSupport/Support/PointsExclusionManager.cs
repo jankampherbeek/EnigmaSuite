@@ -40,6 +40,8 @@ public class PointsExclusionManager: IPointsExclusionManager
     {
         List<ChartPoints> exclusionPoints = new()
         {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint,
             ChartPoints.ZeroAries,
             ChartPoints.ZeroCancer
         };
@@ -51,6 +53,8 @@ public class PointsExclusionManager: IPointsExclusionManager
     {
         List<ChartPoints> exclusionPoints = new()
         {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint,
             ChartPoints.ZeroAries,
             ChartPoints.ZeroCancer,
             ChartPoints.Mc,
@@ -66,6 +70,8 @@ public class PointsExclusionManager: IPointsExclusionManager
     {
         List<ChartPoints> exclusionPoints = new()
         {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint,
             ChartPoints.ZeroAries,
             ChartPoints.ZeroCancer,
             ChartPoints.FortunaNoSect,
@@ -77,14 +83,22 @@ public class PointsExclusionManager: IPointsExclusionManager
 
     private static PointsToExclude ExclusionForAspectsCounting()
     {
-        List<ChartPoints> exclusionPoints = new();
+        List<ChartPoints> exclusionPoints = new()
+        {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint
+        };
         bool excludeCusps = false;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
     private static PointsToExclude ExclusionForUnAspectedCounting()
     {
-        List<ChartPoints> exclusionPoints = new();
+        List<ChartPoints> exclusionPoints = new()
+        {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint
+        };
         bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }

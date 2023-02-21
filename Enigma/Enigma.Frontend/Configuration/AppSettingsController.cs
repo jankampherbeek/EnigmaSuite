@@ -42,6 +42,11 @@ public class AppSettingsController
         return _applicationSettings.LocationSeFiles;
     }
 
+    public string LocationOfDatabase()
+    {
+        return _applicationSettings.LocationDatabase;
+    }
+
     public static void ShowHelp()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();

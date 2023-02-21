@@ -166,3 +166,44 @@ public interface ILocationCheckedConversion
     /// <returns>Calculated value and an indication of errors. If errors did occutr the value will be zero.</returns>
     public Tuple<double, bool> StandardCsvToLatitude(string csvLocation);
 }
+
+
+/// <summary>DAO for chart data.</summary>
+public interface IChartDataDao
+{
+    /// <summary>Count all records.</summary>
+    /// <returns>The total number of records.</returns>
+    public int CountRecords();
+
+    /// <summary>Define the highest index as used by the records.</summary>
+    /// <returns>Value of the highest index.</returns>
+    public int HighestIndex();
+
+    /// <summary>Read chartdata for a given index.</summary>
+    /// <param name="index">The index to check.</param>
+    /// <returns>If found: the record that corresponds to the given index, otherwise null.</returns>
+    public PersistableChartData? ReadChartData(int index);
+
+    /// <summary>Search for records using a part of the name as searchargument.</summary>
+    /// <remarks>Search is case-insensitive.</remarks>
+    /// <param name="partOfName">The search argument.</param>
+    /// <returns>List with zero or more records that are found.</returns>
+    public List<PersistableChartData> SearchChartData(string partOfName);
+
+    /// <summary>Read all chartdata.</summary>
+    /// <returns>List with all records.</returns>
+    public List<PersistableChartData> ReadAllChartData();
+
+    /// <summary>Insert a new record.</summary>
+    /// <param name="chartData">The record to insert.</param>
+    /// <remarks>The id of the record is overwritten with the first available new index.</remarks>
+    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
+    public int AddChartData(PersistableChartData chartData);
+
+    /// <summary>Delete a record.</summary>
+    /// <param name="index">The index of the record to delete.</param>
+    /// <returns>True if the record was deleted, false if the record was not found.</returns>
+    public bool DeleteChartData(int index);
+
+}
+    

@@ -3,11 +3,15 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Charts;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 using System.Windows;
-
+using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -27,17 +31,21 @@ public partial class ChartsMainWindow : Window
         _controller = App.ServiceProvider.GetRequiredService<ChartsMainController>();
         PopulateTexts();
         PopulateMenu();
-        DisableOrEnable(false);
+        PopulateData();
+        DisableOrEnable();
     }
 
     private void PopulateTexts()
     {
         Title = Rosetta.TextForId("chartsmainwindow.title");
         tbFormTitle.Text = Rosetta.TextForId("chartsmainwindow.formtitle");
-        tbCurrent.Text = Rosetta.TextForId("chartsmainwindow.current");
-        btnWheel.Content = Rosetta.TextForId("chartsmainwindow.btnwheel");
+        tbAvailable.Text = Rosetta.TextForId("chartsmainwindow.available");
         btnPositions.Content = Rosetta.TextForId("chartsmainwindow.btnpositions");
+        btnWheel.Content = Rosetta.TextForId("chartsmainwindow.btnwheel");
         btnNew.Content = Rosetta.TextForId("chartsmainwindow.newchart");
+        btnSearch.Content = Rosetta.TextForId("common.btnsearch");
+        btnSave.Content = Rosetta.TextForId("common.btnsave");
+        btnDelete.Content = Rosetta.TextForId("common.btndelete");
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");
         btnClose.Content = Rosetta.TextForId("common.btnclose");
     }
@@ -48,10 +56,14 @@ public partial class ChartsMainWindow : Window
         miGeneralClose.Header = Rosetta.TextForId("chartsmainwindow.menu.close");
         miGeneralConfiguration.Header = Rosetta.TextForId("chartsmainwindow.menu.migeneral.configuration");
         miGeneralSettings.Header = Rosetta.TextForId("chartsmainwindow.menu.migeneral.settings");
+
         miCharts.Header = Rosetta.TextForId("chartsmainwindow.menu.charts");
         miChartsNew.Header = Rosetta.TextForId("chartsmainwindow.menu.newchart");
+        miChartsSearch.Header = Rosetta.TextForId("chartsmainwindow.menu.chartsearch");
+        miChartsDelete.Header = Rosetta.TextForId("chartsmainwindow.menu.chartdelete");
         miChartsWheel.Header = Rosetta.TextForId("chartsmainwindow.menu.wheel");
         miChartsPositions.Header = Rosetta.TextForId("chartsmainwindow.menu.positions");
+
         miAnalysis.Header = Rosetta.TextForId("chartsmainwindow.menu.analysis");
         miAnalysisAspects.Header = Rosetta.TextForId("chartsmainwindow.menu.aspects");
         miAnalysisHarmonics.Header = Rosetta.TextForId("chartsmainwindow.menu.harmonics");
@@ -62,21 +74,42 @@ public partial class ChartsMainWindow : Window
         miHelpPage.Header = Rosetta.TextForId("chartsmainwindow.menu.helppage");
         miHelpManual.Header = Rosetta.TextForId("chartsmainwindow.menu.manual");
 
-
-
-
     }
 
-    private void DisableOrEnable(bool able)
+    private void PopulateData()
     {
+        tbNrOfCharts.Text = Rosetta.TextForId("chartsmainwindow.nrofcharts") + " " + _controller.NrOfChartsInDatabase().ToString();
+        tbLastChart.Text = Rosetta.TextForId("chartsmainwindow.lastchart") + " " + _controller.MostRecentChart();
+        tbActiveChart.Text = Rosetta.TextForId("chartsmainwindow.activechart") + " " + _controller.CurrentChartName();
+    }
+
+    private void PopulateAvailableCharts()
+    {
+        dgCurrent.ItemsSource = _controller.AllChartData();
+        dgCurrent.GridLinesVisibility = DataGridGridLinesVisibility.None;
+        dgCurrent.Columns[0].Header = Rosetta.TextForId("chartsmainwindow.availablechartid");
+        dgCurrent.Columns[1].Header = Rosetta.TextForId("chartsmainwindow.availablechartname");
+        dgCurrent.Columns[2].Header = Rosetta.TextForId("chartsmainwindow.availablechartdescr");
+        dgCurrent.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
+        dgCurrent.Columns[1].CellStyle = FindResource("nameColumnStyle") as Style;
+        dgCurrent.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
+    }
+
+
+    private void DisableOrEnable()
+    {
+        bool able = _dataVault.GetCurrentChart() != null;
         miChartsPositions.IsEnabled = able;
         miChartsWheel.IsEnabled = able;
+        miChartsDelete.IsEnabled = able;    
         miAnalysis.IsEnabled = able;
         miAnalysisAspects.IsEnabled = able;
         miAnalysisHarmonics.IsEnabled = able;
         miAnalysisMidpoints.IsEnabled = able;
         btnPositions.IsEnabled = able;
         btnWheel.IsEnabled = able;
+        btnDelete.IsEnabled = able;
+        btnSave.IsEnabled = able;
     }
 
 
@@ -86,9 +119,43 @@ public partial class ChartsMainWindow : Window
     }
 
 
+    private void SearchClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowSearch();
+        PopulateData();
+        PopulateAvailableCharts();
+        DisableOrEnable();
+    }
+
+    private void SaveClick(object sender, RoutedEventArgs e)
+    {
+        _controller.SaveCurrentChart();
+    }
+
+    private void DeleteClick(object sender, RoutedEventArgs e)
+    {
+        string name = _controller.CurrentChartName();
+        if (MessageBox.Show(Rosetta.TextForId("chartsmainwindow.msg.confirmdeletechart").Replace("[name]", name),
+                            Rosetta.TextForId("chartsmainwindow.msg.confirmdeletetitle"),
+                            MessageBoxButton.YesNo,
+                            MessageBoxImage.Question) == MessageBoxResult.Yes)
+        {
+            if (_controller.DeleteCurrentChart())
+            {
+                MessageBox.Show(Rosetta.TextForId("chartsmainwindow.msg.deleteresultpositive").Replace("[name]", name), 
+                                Rosetta.TextForId("chartsmainwindow.msg.deleteresulttitle"));
+            }
+            else
+            {
+                MessageBox.Show(Rosetta.TextForId("chartsmainwindow.msg.deleteresultnegative").Replace("[name]", name),
+                                Rosetta.TextForId("chartsmainwindow.msg.deleteresulttitle"));
+            }
+        }
+    }
+
+
     private void CloseClick(object sender, RoutedEventArgs e)
     {
-        // TODO check if chart was saved 0.1.0
         _controller.HandleClose();
         Close();
     }
@@ -119,14 +186,28 @@ public partial class ChartsMainWindow : Window
     private void ChartsNewClick(object sender, RoutedEventArgs e)
     {
         _controller.NewChart();
-        bool newChartAdded = _dataVault.GetNewChartAdded();
-        DisableOrEnable(newChartAdded);
+    //    bool newChartAdded = _dataVault.GetNewChartAdded();
+        DisableOrEnable();
+        PopulateAvailableCharts();
     }
 
     private void ChartsOverviewClick(object sender, RoutedEventArgs e)
     {
         MessageBox.Show("Charts overview not yet implemented.");    // TODO implement handling of click
     }
+
+    private void NewSelection(object sender, RoutedEventArgs e)
+    {
+        if (sender is DataGrid dataGrid)
+        {
+            PresentableChartData? rowView = (PresentableChartData)dataGrid.SelectedItem;
+            int index = int.Parse(rowView.Id);
+            _controller.SearchAndSetActiveChart(index);
+            PopulateData();
+        }
+        DisableOrEnable();
+    }
+
 
     private void AspectsClick(object sender, RoutedEventArgs e)
     {
@@ -157,8 +238,5 @@ public partial class ChartsMainWindow : Window
     {
         MessageBox.Show("Help manual not yet implemented.");    // TODO implement handling of click
     }
-
-
-
 
 }

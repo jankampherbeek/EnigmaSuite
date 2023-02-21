@@ -89,7 +89,7 @@ public sealed class ChartsWheelController
 
     private void HandleAspects()
     {
-        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetLastChart()!, _metrics, _centerPoint);
+        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetCurrentChart()!, _metrics, _centerPoint);
     }
 
     public double GetAscendantLongitude()
@@ -106,7 +106,7 @@ public sealed class ChartsWheelController
     public List<double> GetHouseLongitudesCurrentChart()
     {
         List<double> longitudes = new();
-        _currentChart = _dataVault.GetLastChart();
+        _currentChart = _dataVault.GetCurrentChart();
         if (_currentChart != null)
         {
             foreach (var cusp in _currentChart.Positions)
@@ -121,7 +121,7 @@ public sealed class ChartsWheelController
 
     public Dictionary<ChartPoints, FullPointPos> GetCommonPointsCurrentChart()
     {
-        _currentChart = _dataVault.GetLastChart();
+        _currentChart = _dataVault.GetCurrentChart();
         if (_currentChart != null)
         {
             Dictionary<ChartPoints, FullPointPos> commonPoints = new();
@@ -150,7 +150,7 @@ public sealed class ChartsWheelController
 
     public void PrepareDraw()
     {
-        _currentChart = _dataVault.GetLastChart();
+        _currentChart = _dataVault.GetCurrentChart();
         HandleCircles();
         HandleSigns();
         HandleCusps();

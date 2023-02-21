@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -37,7 +37,7 @@ public sealed class ChartsWheelSigns : IChartsWheelSigns
             angle += 90.0;
             point1 = dimPoint.CreatePoint(angle, hypothenusa1);
             point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-            allSeparators.Add(dimLine.CreateLine(point1, point2, metrics.StrokeSize, Colors.SlateBlue, 1.0));
+            allSeparators.Add(dimLine.CreateLine(point1, point2, metrics.StrokeSize, Colors.MediumBlue, 1.0));
         }
         return allSeparators;
     }
@@ -52,7 +52,7 @@ public sealed class ChartsWheelSigns : IChartsWheelSigns
         int indexFirstGlyph = (int)((longAscendant / 30.0) + 1);
         int glyphIndex = indexFirstGlyph;
         DimPoint dimPoint = new(centerPoint);
-        DimTextBlock dimTextBlock = new(metrics.GlyphsFontFamily, fontSize, 0.7, Colors.SlateBlue);
+        DimTextBlock dimTextBlock = new(metrics.GlyphsFontFamily, fontSize, 1.0, Colors.MediumBlue);
         List<TextBlock> glyphList = new();
         for (int i = 0; i < 12; i++)
         {

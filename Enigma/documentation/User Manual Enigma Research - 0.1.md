@@ -78,6 +78,7 @@ The current locations are:
 - **Location of project files**: `c:\enigma_ar\project` Project files include files with description of projects and files that are converted to Json format.
 - **Location of export files**: `c:\enigma_ar\export` Files that you export.
 - **Location of Swiss Ephemeris files**: `c:\enigma_ar\se` The files as supplied by the Swiss Ephemeris that contain the data for the calculations. These files will (almost) never change.
+- **Location of database**: <code>c:\enigma_ar\database</code> Database for the calculated charts in Json format. 
 
 *Csv* (comma delimited values) is the format that is used by spreadsheet software like Microsoft Excel and Libre Office Calc to export data.
 
@@ -516,13 +517,13 @@ Please note that your options will be limited to the definitions as defined in t
 
 <!-- html-help-begin [selectpointsfortest] -->
 
-For each test, you will need to define the points to include in the test. The screen shows Celestial Points (Lights, planets, minor planets, mathematical points) in the list to the left, and Mundane points (related to houses) in the list to the right.
+For each test, you will need to define the points to include in the test. The screen shows all points in a list, points that are not selected in the current configuration are not shown.  
 
-Points that are not selected in the current configuration are not shown.  If you are missing a point you need to redefine the configuration: click the button **Cancel** to close this window and return to the overview of tests, where you can also open the configuration window.
+If you are missing a point you need to redefine the configuration: click the button **Cancel** to close this window and return to the overview of tests, where you can also open the configuration window.
 
-You can select one or more points by clicking them. Deselect by clicking again. You can select/deselect all celestial or all mundane points by clicking one of the checkboxes **Select all celestail points** or **Select all mundane points**.
+You can select one or more points by clicking them. Deselect by clicking again. You can select/deselect all  points by clicking the checkbox **Select all points**.
 
-With the checkbox **Include all cusps** you can include all cusps into the research. This means you can count aspects to cusps or use cusps in midpoints, etc. Please note that Ascendant and MC can also be selected, for quadrant systems you have to be aware of this effect. 
+With the checkbox **Include all cusps** you can include all cusps but this option is only available for specific types of research. Please note that Ascendant and MC can also be selected, for quadrant systems you have to be aware of this effect. 
 
 Click the button **OK** to start the calculations.
 

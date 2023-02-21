@@ -39,7 +39,7 @@ internal sealed class DimDegreeIndications
             actualHypo = (i % 5 == 0) ? _hypo5Degree : _hypoDegree;
             point1 = new DimPoint(_centerPoint).CreatePoint(angle, actualHypo);
             point2 = new DimPoint(_centerPoint).CreatePoint(angle, _hypoStart);
-            degreeIndications.Add(new DimLine().CreateLine(point1, point2, 1, Colors.SlateBlue, 1.0));
+            degreeIndications.Add(new DimLine().CreateLine(point1, point2, 1, Colors.MediumBlue, 1.0));
             angle += 1.0;
             if (angle >= 360.0) angle -= 360.0;
         }

@@ -5,12 +5,10 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
-using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +16,7 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 
 
 
-public class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
+public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly GlyphsForChartPoints _glyphsForChartPoints;

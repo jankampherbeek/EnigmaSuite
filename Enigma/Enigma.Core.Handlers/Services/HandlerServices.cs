@@ -23,6 +23,7 @@ using Enigma.Core.Handlers.Configuration.Helpers;
 using Enigma.Core.Handlers.Configuration.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
+using Enigma.Core.Handlers.Persistency.Daos;
 using Enigma.Core.Handlers.Persistency.Helpers;
 using Enigma.Core.Handlers.Research.Services;
 using EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
@@ -51,6 +52,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<ICelPointsElementsCalc, CelPointsElementsCalc>();
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
+        serviceCollection.AddTransient<IChartDataDao, ChartDataDao>();
         serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
         serviceCollection.AddTransient<IConfigReader, ConfigReader>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();

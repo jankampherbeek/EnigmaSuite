@@ -12,6 +12,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,37 +50,19 @@ public sealed class ChartDataInputController
     private readonly IGeoLatInputParser _geoLatInputParser;
     private readonly IGeoLongInputParser _geoLongInputParser;
     private readonly IJulianDayApi _julianDayApi;
-    private readonly IChartAllPositionsApi _chartAllPositionsApi;
     private readonly DataVault _dataVault;
-    private static readonly AstroConfig _config = CurrentConfig.Instance.GetConfig();
+    private readonly IChartCalculation _chartCalculation;
 
     public ChartDataInputController(IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IGeoLatInputParser geoLatInputParser, IGeoLongInputParser geoLongInputParser,
-                                    IJulianDayApi julianDayApi, IChartAllPositionsApi chartAllPositionsApi)
+                                    IJulianDayApi julianDayApi, IChartCalculation chartCalculation)
     {
         _dateInputParser = dateInputParser;
         _timeInputParser = timeInputParser;
         _geoLatInputParser = geoLatInputParser;
         _geoLongInputParser = geoLongInputParser;
         _julianDayApi = julianDayApi;
-        _chartAllPositionsApi = chartAllPositionsApi;
         _dataVault = DataVault.Instance;
-    }
-
-    /// <summary>
-    /// Retrieve calculation preferences from active modus. Currently uses hardcoded values.
-    /// </summary>
-    /// TODO: add CoordinateSystem to the configuration ???? Or use it without config but only as ad hoc setting?.
-    private static CalculationPreferences RetrieveCalculationPreferences()
-    {
-        List<ChartPoints> celPoints = new(); 
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in _config.ChartPoints)
-        {
-            if (spec.Value.IsUsed)
-            {
-                celPoints.Add(spec.Key);
-            }
-        }
-        return new CalculationPreferences(celPoints, _config.ZodiacType, _config.Ayanamsha, CoordinateSystems.Ecliptical, _config.ObserverPosition, _config.ProjectionType, _config.HouseSystem);
+        _chartCalculation = chartCalculation;
     }
 
     public void InitializeDataVault()
@@ -114,17 +97,13 @@ public sealed class ChartDataInputController
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
             string fullLocationName = locNameCheckedForEmpty + fullGeoLongitude!.GeoLongFullText + " " + fullGeoLatitude!.GeoLatFullText;
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
-            CelPointsRequest celPointsRequest = new(julianDayUt, location, RetrieveCalculationPreferences());
-            Dictionary<ChartPoints, FullPointPos>  calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
-
             FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
             MetaData metaData = CreateMetaData(NameId, Description, Source, LocationName, ChartCategory, RoddenRating);
             // Todo 0.1   retrieve id from database, use local counter for tempId
-            int id = 1000;
+            int id = ChartsIndexSequence.NewSequenceId();
             int tempId = 1;
             ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
-
-            CalculatedChart chart = new(calculatedChartPositions, chartData);
+            CalculatedChart chart = _chartCalculation.CalculateChart(chartData);
             _dataVault.AddNewChart(chart);
             _dataVault.SetNewChartAdded(true);
             return true;

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 202, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -16,8 +16,8 @@ public sealed class DataVault
 {
     private static readonly DataVault instance = new();
 
-    private readonly List<CalculatedChart> _allCharts = new();
-    private CalculatedChart? _lastChart;
+    private List<CalculatedChart> _allCharts = new();
+    private CalculatedChart? _currentChart;
     private bool NewChartAdded = false;
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
@@ -39,20 +39,48 @@ public sealed class DataVault
 
     public void AddNewChart(CalculatedChart newChart)
     {
+        CalculatedChart? chartToRemove = null;
+        foreach (var chart in _allCharts)
+        {
+            if (chart.InputtedChartData.Id == newChart.InputtedChartData.Id)
+            {
+                chartToRemove = chart; 
+            }
+        }
+        if (chartToRemove != null)
+        {
+            _allCharts.Remove(chartToRemove);
+        }
         _allCharts.Add(newChart);
-        _lastChart = newChart;
+        _currentChart = newChart;
     }
 
 
-    public CalculatedChart? GetLastChart()
+    public CalculatedChart? GetCurrentChart()
     {
-        if (_lastChart != null) return _lastChart;
+        if (_currentChart != null) return _currentChart;
         else
         {
-            Log.Error("No chart available while using GetLastChart() in DataVault.");
+            Log.Error("No chart available while using GetCurrentChart() in DataVault.");
             return null;
         }
     }
+
+    public void SetCurrentChart(int id)
+    {
+        foreach (var chart in _allCharts)
+        {
+            if (chart.InputtedChartData.Id == id)
+            {
+                _currentChart = chart;
+            }
+        }
+    }
+
+    public List<CalculatedChart> GetAllCharts()
+    {
+        return _allCharts;
+    } 
 
     public void SetNewChartAdded(bool newStatus)
     {

@@ -25,6 +25,7 @@
     <None Remove="Images\cycles.png" />
     <None Remove="Images\database.png" />
     <None Remove="Images\dataset.png" />
+    <None Remove="Images\delete.png" />
     <None Remove="Images\download.png" />
     <None Remove="Images\Enigma.jpg" />
     <None Remove="Images\ephemeris.png" />
@@ -111,6 +112,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\dataset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\download.png">

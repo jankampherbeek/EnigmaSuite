@@ -18,7 +18,7 @@ public sealed class ChartsWheelMetrics
     public FontFamily GlyphsFontFamily { get; } = new FontFamily("EnigmaAstrology");
     public FontFamily PositionTextsFontFamily { get; } = new FontFamily("Calibri");
     // Colors
-    public Color CuspLineColor { get; } = Colors.Gray;
+    public Color CuspLineColor { get; } = Colors.SteelBlue;
     public Color CuspTextColor { get; } = Colors.SaddleBrown;
     public Color CelPointColor { get; } = Colors.DarkSlateBlue;
     public Color CelPointConnectLineColor { get; } = Colors.DarkSlateBlue;

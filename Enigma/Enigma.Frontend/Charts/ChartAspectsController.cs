@@ -36,7 +36,7 @@ public sealed class ChartAspectsController
 
     public string GetChartIdName()
     {
-        var chart = _dataVault.GetLastChart();
+        var chart = _dataVault.GetCurrentChart();
         return chart == null ? "" : chart.InputtedChartData.MetaData.Name;
     }
 
@@ -57,7 +57,7 @@ public sealed class ChartAspectsController
 
     private AspectRequest CreateRequest()
     {
-        CalculatedChart? currentChart = _dataVault.GetLastChart();
+        CalculatedChart? currentChart = _dataVault.GetCurrentChart();
         AstroConfig config = CurrentConfig.Instance.GetConfig();
         return new AspectRequest(currentChart!, config);
     }

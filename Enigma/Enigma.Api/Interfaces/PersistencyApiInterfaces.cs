@@ -1,9 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Persistency;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Api.Interfaces;
@@ -50,6 +51,43 @@ public interface IFileAccessApi
     /// <param name="path">Full path for the file.</param>
     /// <returns>Content of the file.</returns>
     public string ReadFile(string path);
-
-
 }
+
+/// <summary>AI for persistency ChartData.</summary>
+public interface IChartDataPersistencyApi
+{
+    /// <summary>Calculate number of records in Json file.</summary>
+    /// <returns>The number of records</returns>
+    public int NumberOfRecords();
+
+    /// <summary>Define the highest index that is currently in use.</summary>
+    /// <returns>The highest index.</returns>
+    public int HighestIndex();
+
+    /// <summary>Read a specific record.</summary>
+    /// <param name="index">The unique index for the record.</param>
+    /// <returns>If found: the record. Otherwise: null.</returns>
+    public PersistableChartData? ReadChartData(int index);
+
+    /// <summary>Read records that correspond (partly) with a given searchterm for the name.</summary>
+    /// <param name="partOfName">The search term.</param>
+    /// <returns>List with zero or more results.</returns>
+    public List<PersistableChartData> SearchChartData(string partOfName);
+
+    /// <summary>Read all records.</summary>
+    /// <returns>List with zero or more results.</returns>
+    public List<PersistableChartData> ReadAllChartData();
+
+    /// <summary>Add a record.</summary>
+    /// <param name="chartData">The record to insert.</param>
+    /// <returns>The index for the inserted record, -1 if the record could not be inserted.</returns>
+    public int AddChartData(PersistableChartData chartData);
+
+    /// <summary>Dele a record.</summary>
+    /// <param name="index">Id of the record to delete.</param>
+    /// <returns>True if the record was deleted, false if the record does not exist.</returns>
+    public bool DeleteChartData(int index);
+}
+
+
+

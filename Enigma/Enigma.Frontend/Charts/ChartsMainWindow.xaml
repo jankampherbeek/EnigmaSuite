@@ -10,18 +10,23 @@
         Title="ChartsMain" Height="450" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="50*"/>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="22"/>
             <RowDefinition Height="44"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="36"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.RowSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
-
+        <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Row="6" Grid.Column="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Row="6" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Name="miGeneral" Header="miGeneral">
                 <MenuItem Name="miGeneralSettings" Header="miGeneralSettings" Click="GeneralSettingsClick">
@@ -44,6 +49,16 @@
                 <MenuItem Name="miChartsNew" Header="miChartsNew" Click="ChartsNewClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/newchart.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miChartsSearch" Header="miChartsSearch" Click="SearchClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/occurrences.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miChartsDelete" Header="miChartsDelete" Click="DeleteClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/delete.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
@@ -95,17 +110,23 @@
             </MenuItem>
         </Menu>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Row="2" Grid.ColumnSpan="1" Name="tbCurrent" Text="tbCurrent" Margin="6" Style="{StaticResource subTitleStyle}"/>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Name="tbNrOfCharts" Text="tbNrOfCharts" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Name="tbLastChart" Text="tbLastChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Name="tbActiveChart" Text="tbActiveChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Name="tbAvailable" Text="tbAvailable" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <StackPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
             <Button Name="btnNew" Content="btnNew" Click="ChartsNewClick"/>
+            <Button Name="btnSearch" Content="btnSearch" Click="SearchClick"/>
+            <Button Name="btnSave" Content="btnSave" Click="SaveClick"/>
+            <Button Name="btnDelete" Content="btnDelete" Click="DeleteClick"/>
             <Button Name="btnWheel" Content="btnWheel" Click="ShowWheelClick"/>
             <Button Name="btnPositions" Content="btnPositions" Click="ShowPositionsClick"/>
         </StackPanel>
-        <DataGrid Grid.Row="3" Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
-                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Row">
-        </DataGrid>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
+        <DataGrid Grid.Row="6" Grid.ColumnSpan="2"  Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
+                  SelectionChanged="NewSelection"/>
+        <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
             <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
             <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>

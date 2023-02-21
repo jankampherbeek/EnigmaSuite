@@ -22,9 +22,9 @@ public sealed class ChartsWheelCircles : IChartsWheelCircles
         List<Ellipse> allCircles = new()
         {  // todo move definitions for colors to metrics
             dimCircle.CreateCircle(metrics.OuterRadius, 0.0, Colors.AliceBlue, Colors.White),
-            dimCircle.CreateCircle(metrics.OuterSignRadius, metrics.StrokeSize, Colors.PaleTurquoise, Colors.CornflowerBlue),
-            dimCircle.CreateCircle(metrics.OuterHouseRadius, metrics.StrokeSize, Colors.AntiqueWhite, Colors.CornflowerBlue),
-            dimCircle.CreateCircle(metrics.OuterAspectRadius, metrics.StrokeSize, Colors.AliceBlue, Colors.CornflowerBlue)
+            dimCircle.CreateCircle(metrics.OuterSignRadius, metrics.StrokeSize, Colors.PaleTurquoise, Colors.MediumBlue),
+            dimCircle.CreateCircle(metrics.OuterHouseRadius, metrics.StrokeSize, Colors.FloralWhite, Colors.MediumBlue),
+            dimCircle.CreateCircle(metrics.OuterAspectRadius, metrics.StrokeSize, Colors.AliceBlue, Colors.MediumBlue)
         };
         return allCircles;
     }

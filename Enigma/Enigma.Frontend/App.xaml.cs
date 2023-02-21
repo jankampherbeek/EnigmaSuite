@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,6 +18,8 @@ using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.SUpport;
+using Enigma.Frontend.Uit.Charts;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
@@ -34,14 +36,11 @@ public partial class App : Application
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
-
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
-
         string pathToSeFiles = "";                    // TODO 0.1 make path to CommonSE files configurable
         seApi.SetupSe(pathToSeFiles);
         Log.Information("Using path to CommonSE: {path}.", pathToSeFiles);
-         
-        }
+    }
 
     protected static ServiceProvider HandleRegistrationForDI()
     {
@@ -56,6 +55,9 @@ public partial class App : Application
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartAspectsController>();
         serviceCollection.AddTransient<ChartAspectsWindow>();
+        serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
+        serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
+        serviceCollection.AddTransient<IChartDataForDataGridFactory, ChartDataForDataGridFactory>();
         serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartHarmonicsController>();
         serviceCollection.AddTransient<ChartHarmonicsWindow>();
@@ -82,22 +84,25 @@ public partial class App : Application
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpWindow>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
+        serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
         serviceCollection.AddTransient<MainController>();
         serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<MidpointDetailsController>();
         serviceCollection.AddTransient<MidpointDetailsWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
+        serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<PointSelectController>();
         serviceCollection.AddTransient<PointSelectWindow>();
+        serviceCollection.AddTransient<ProjectUsageController>();
+        serviceCollection.AddTransient<ProjectUsageWindow>();
         serviceCollection.AddTransient<ProjectInputController>();
         serviceCollection.AddTransient<ResearchMainController>();
         serviceCollection.AddTransient<ResearchMainController>();
         serviceCollection.AddTransient<ResearchMainWindow>();
         serviceCollection.AddTransient<ResearchResultController>();
         serviceCollection.AddTransient<ResearchResultWindow>();
-        serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
-        serviceCollection.AddTransient<ProjectUsageController>();
-        serviceCollection.AddTransient<ProjectUsageWindow>();
+        serviceCollection.AddTransient<SearchChartController>();
+        serviceCollection.AddTransient<SearchChartWindow>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
 
         // Handle services from other projects.
@@ -115,5 +120,6 @@ public partial class App : Application
             .WriteTo.File("logs\\enigma_.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();
     }
-}
+
+   }
 

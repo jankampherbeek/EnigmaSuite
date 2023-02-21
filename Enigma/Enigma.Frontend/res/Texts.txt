@@ -11,6 +11,7 @@ aboutwindow.title = Enigma - About....
 appsettingswindow.explanation = The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations.
 appsettingswindow.formtitle = Application settings
 appsettingswindow.locdata = Data files
+appsettingswindow.locdatabase = Database
 appsettingswindow.locexport = Exported files
 appsettingswindow.locproject = Projects
 appsettingswindow.locswisseph = Swiss Ephemeris files
@@ -101,14 +102,20 @@ charts.harmonics.titlenumber = Positions for harmonic
 
 --- ChartsMain ----------------------------------------
 
-chartsmainwindow.title = Enigma - Charts
-chartsmainwindow.formtitle = Charts
-chartsmainwindow.current = Current chart
-chartsmainwindow.btnwheel = Wheel
+chartsmainwindow.activechart = Currently selected :
+chartsmainwindow.available = Available charts
+chartsmainwindow.availablechartid = Internal id
+chartsmainwindow.availablechartname = Name or id
+chartsmainwindow.availablechartdescr = Description
 chartsmainwindow.btnpositions = Positions
+chartsmainwindow.btnwheel = Wheel
+chartsmainwindow.formtitle = Charts
+chartsmainwindow.lastchart = Last added to database :
 chartsmainwindow.menu.analysis = Analysis
 chartsmainwindow.menu.aspects = Aspects
+chartsmainwindow.menu.chartdelete = Delete chart
 chartsmainwindow.menu.charts = Charts
+chartsmainwindow.menu.chartsearch = Search for chart
 chartsmainwindow.menu.close = Close charts
 chartsmainwindow.menu.general = General
 chartsmainwindow.menu.migeneral.close = Close Charts
@@ -123,7 +130,14 @@ chartsmainwindow.menu.midpoints = Midpoints
 chartsmainwindow.menu.newchart = New chart
 chartsmainwindow.menu.positions = Show positions
 chartsmainwindow.menu.wheel = Show wheel
+chartsmainwindow.msg.confirmdeletechart = Do you want to delete the chart for [name] from the database?
+chartsmainwindow.msg.confirmdeletetitle = Delete chart.
+chartsmainwindow.msg.deleteresultnegative = The chart for [name] was not found and could not be deleted.
+chartsmainwindow.msg.deleteresultpositive = The chart for [name] was succesfully deleted.
+chartsmainwindow.msg.deleteresulttitle = Result of delete.
 chartsmainwindow.newchart = New
+chartsmainwindow.nrofcharts = Nr. of charts in database :
+chartsmainwindow.title = Enigma - Charts
 
 ---- ChartsMidpoints ----------------------------------
 charts.midpoints.formtitle = Midpoints
@@ -185,6 +199,7 @@ charts.wheel.title = Enigma - Chart wheel
 common.btncancel = Cancel
 common.btncalc = Calculate
 common.btnclose = Close
+common.btndelete = Delete
 common.btndetailedsearch = Detailed search
 common.btnexit = Exit
 common.btnhelp = Help
@@ -217,6 +232,7 @@ common.location.name = Name for location (optional)
 common.location.noname = No name for location
 common.location.latitude = Latitude (dd:mm:ss)
 common.location.longitude = Longitude (ddd:mm:ss)
+common.location.noname = Unnamed location
 common.time.dst = DST
 common.time.dst.notused = no DST
 common.time.dst.used = DST applied
@@ -349,8 +365,8 @@ midpointdetailswindow.warningorb = The values for the orb are not correct. Pleas
 -------------------------------- Point select window ---
 
 pointselectwindow.allcusps = Include all cusps
-pointselectwindow.checkallcelpoints = Select all celestial points
-pointselectwindow.explanation = Select one or more points, either celestial or mundane. You can select multiple points.
+pointselectwindow.checkallcelpoints = Select all points
+pointselectwindow.explanation = Select one or more points. You can select a point by clicking it in the list. The selected points will have a distinct background color.
 pointselectwindow.formtitle = Select points to include
 pointselectwindow.title = Enigma - Point selection
 pointselectwindow.warningnrofpoints = Please select more points. The minimal number for the current method is
@@ -521,6 +537,9 @@ ref.enum.chartcategories.horary = Horary
 ref.enum.chartcategories.male = Male
 ref.enum.chartcategories.unknown = Unknown
 
+ref.enum.controlgrouptypes.standardshift = Standard shifting of location, date, and time
+ref.enum.controlgrouptypes.groupmembershift = Shift members of groups
+
 ref.enum.cusps.1 = Cusp 1
 ref.enum.cusps.2 = Cusp 2
 ref.enum.cusps.3 = Cusp 3
@@ -557,9 +576,6 @@ ref.enum.cusps.33 = Cusp 33
 ref.enum.cusps.34 = Cusp 34
 ref.enum.cusps.35 = Cusp 35
 ref.enum.cusps.36 = Cusp 36
-
-ref.enum.controlgrouptypes.standardshift = Standard shifting of location, date, and time
-ref.enum.controlgrouptypes.groupmembershift = Shift members of groups
 
 ref.enum.direction4geolat.north = N
 ref.enum.direction4geolat.south = S
@@ -729,8 +745,17 @@ researchresultwindow.tabtest = Test data
 researchresultwindow.tabcontrol = Control data
 researchresultwindow.titleharmonicconjunctions = Harmonic conjunctions. Harmonic number
 researchresultwindow.titleoccupiedmidpoints = Occupied midpoints for dial division
-researchresultwindow.totals = Totals
-Occupied midpoints for dial division
+researchresultwindow.totals = Totals Occupied midpoints for dial division
+
+--------- SearchCriteriaWindow -------------------
+searchchartwindow.btnsearch = Search
+searchchartwindow.colid = Id
+searchchartwindow.colname = Name
+searchchartwindow.coldescription = Description
+searchchartwindow.explanation = Enter a part of the name to search for a chart. Enigma searches for charts that have the text you entered somewhere in the name: at the beginning, the end, or in the middle. The search is case-insensitive. Leave the field empty to find all charts. After searching, click one of the charts to start working on it. 
+searchchartwindow.formtitle = Search for chart
+searchchartwindow.searchresults = Search results
+searchchartwindow.title = Enigma - Search for chart
 
 --------- StartWindow ----------------------------
 startwindow.checking = Checking for updates
