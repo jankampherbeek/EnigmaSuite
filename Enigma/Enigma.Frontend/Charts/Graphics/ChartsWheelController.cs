@@ -7,6 +7,8 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,6 +42,7 @@ public sealed class ChartsWheelController
     private readonly IChartsWheelCusps _chartsWheelCusps;
     private readonly IChartsWheelCircles _chartsWheelCircles;
     private readonly IChartsWheelAspects _chartsWheelAspects;
+    private readonly IDescriptiveChartText _descriptiveChartText;
 
     private CalculatedChart? _currentChart;
 
@@ -48,7 +51,8 @@ public sealed class ChartsWheelController
         IChartsWheelSigns chartsWheelSigns,
         IChartsWheelCusps chartsWheelCusps,
         IChartsWheelCircles chartsWheelCircles,
-        IChartsWheelAspects chartsWheelAspects)
+        IChartsWheelAspects chartsWheelAspects,
+        IDescriptiveChartText descriptiveChartText)
     {
         _dataVault = DataVault.Instance;
         _chartsWheelCelPoints = chartsWheelCelPoints;
@@ -57,6 +61,7 @@ public sealed class ChartsWheelController
         _chartsWheelCusps = chartsWheelCusps;
         _chartsWheelCircles = chartsWheelCircles;
         _chartsWheelAspects = chartsWheelAspects;
+        _descriptiveChartText = descriptiveChartText;
     }
 
     private void HandleCircles()
@@ -158,4 +163,24 @@ public sealed class ChartsWheelController
         HandleAspects();
     }
 
+    public string DescriptiveText()
+    {
+        string descText = "";
+        var chart = _dataVault.GetCurrentChart();
+        var config = CurrentConfig.Instance.GetConfig();
+        if (chart != null)
+        {
+            descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
+        }
+        return descText;
+    }
+
+
+    public static void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ChartsWheel");
+        helpWindow.ShowDialog();
+    }
 }

@@ -35,9 +35,9 @@ public partial class ChartMidpointsWindow : Window
     // TODO split in two methodes
     public void PopulateData(double dialSize)
     {
+        tbDescriptionText.Text = _controller.DescriptiveText();
         string orbSize = Rosetta.TextForId("charts.midpoints.orbsize");
-        double actualOrb = 1.6;                             // TODO 0.2.0 retrieve orb from settings
-
+        double actualOrb = 1.6;                             // TODO 0.2.0 retrieve Orb from settings
         string orbText = _controller.DegreesToDms(actualOrb);
         tbOrbSize.Text = orbSize + "\n" + orbText;
         dgAllMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(360.0).Item1;
@@ -63,7 +63,7 @@ public partial class ChartMidpointsWindow : Window
         dgOccupiedMidpoints.Columns[2].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[3].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[4].Header = _emptyHeader;
-        dgOccupiedMidpoints.Columns[5].Header = Rosetta.TextForId("charts.midpoints.header.orb");
+        dgOccupiedMidpoints.Columns[5].Header = Rosetta.TextForId("charts.midpoints.header.Orb");
         dgOccupiedMidpoints.Columns[6].Header = Rosetta.TextForId("charts.midpoints.header.exactness");
         dgOccupiedMidpoints.Columns[0].MaxWidth = 20;
         dgOccupiedMidpoints.Columns[1].MaxWidth = 12;

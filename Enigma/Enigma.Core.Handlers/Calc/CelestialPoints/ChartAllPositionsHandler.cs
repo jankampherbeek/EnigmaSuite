@@ -28,7 +28,7 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
     public Dictionary<ChartPoints, FullPointPos> CalcFullChart(CelPointsRequest request)
     {
         Dictionary<ChartPoints, FullPointPos> commonPositions = _celPointsHandler.CalcCommonPoints(request);
-        FullHousesPosRequest housesRequest = new(request.JulianDayUt, request.Location, request.CalculationPreferences.ActualHouseSystem);
+        FullHousesPosRequest housesRequest = new(request.JulianDayUt, request.Location, request.CalculationPreferences);
         Dictionary<ChartPoints, FullPointPos> mundanePositions = _housesHandler.CalcHouses(housesRequest);
         Dictionary<ChartPoints, FullPointPos> zodiacPoints = new();         // TODO 0.1 Add zodiacal points to ChartAllPositionsHandler.
         Dictionary<ChartPoints, FullPointPos> arabicPoints = new();         // TODO 0.1 Add pars fortunae to ChartAllPositionsHandler.

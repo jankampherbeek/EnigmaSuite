@@ -5,6 +5,7 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
 using Newtonsoft.Json;
 using Serilog;
@@ -13,14 +14,14 @@ using Serilog;
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
 /// <inheritdoc/>
-public sealed class ChartDataDao: IChartDataDao           // TODO 0.1 refactor
+public sealed class ChartDataDao: IChartDataDao 
 {
-    readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + @"/ChartsDatabase.json";     // todo 0.1, move database name to constants
+    readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
 
     /// <inheritdoc/>
     public int CountRecords()
     {
-        return PerformCount();
+        return ReadRecordsFromJson().Count; 
     }
 
     /// <inheritdoc/>
@@ -44,7 +45,7 @@ public sealed class ChartDataDao: IChartDataDao           // TODO 0.1 refactor
     /// <inheritdoc/>
     public List<PersistableChartData> ReadAllChartData()
     {
-        return PerformReadAll();
+        return ReadRecordsFromJson();
     }
 
     /// <inheritdoc/>
@@ -59,75 +60,24 @@ public sealed class ChartDataDao: IChartDataDao           // TODO 0.1 refactor
         return PerformDelete(index);
     }
 
- 
-    private int PerformCount()
-    {
-        int count = 0;
-        if (CheckDatabase())
-        {
-            var json = File.ReadAllText(dbFullPath);
-            try
-            {
-                var records = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
-                count = records.Length;
-            }
-            catch (Exception ex) 
-            {
-                string errorTxt = "ChartDataDao.PerformCount() encountered an exception.";
-                Log.Error(errorTxt, ex );
-                throw new Exception(errorTxt, ex);
-            };
-        }
-        return count;
-    }
-
 
     private int SearchHighestIndex()
     {
         int index = 0;
-        if (CheckDatabase())
+        var records = ReadRecordsFromJson();
+        foreach (var item in records)
         {
-            var json = File.ReadAllText(dbFullPath);
-            try
-            {
-                var records = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
-                foreach (var item in records)
-                {
-                    if (item.Id > index) index = item.Id;
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "ChartDataDao.SearchHighestIndex() encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
+            if (item.Id > index) index = item.Id;
         }
         return index;
     }
 
     private PersistableChartData? PerformRead(int index)
     {
-        if (CheckDatabase())
+        var records = ReadRecordsFromJson();
+        foreach (var record in records)
         {
-            var json = File.ReadAllText(dbFullPath);
-            try
-            {
-                var records = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
-                foreach (var record in records)
-                {
-                    if (record.Id == index)
-                    {
-                        return record;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "ChartDataDao.ReadChartData() encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
+            if (record.Id == index) return record;
         }
         return null;
     }
@@ -135,48 +85,10 @@ public sealed class ChartDataDao: IChartDataDao           // TODO 0.1 refactor
     private List<PersistableChartData> PerformSearch(string partOfName)
     {
         List<PersistableChartData> recordsFound = new();
-        if (CheckDatabase())
+        var records = ReadRecordsFromJson();
+        foreach (var record in records)
         {
-            var json = File.ReadAllText(dbFullPath);
-            try
-            {
-                var records = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
-                foreach (var record in records)
-                {
-                    if (record.Name.ToLower().Contains(partOfName.ToLower()))
-                    {
-                        recordsFound.Add(record);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "ChartDataDao.PerformSearch() using argument " + partOfName + "encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
-        }
-        return recordsFound;
-    }
-
-
-    private List<PersistableChartData> PerformReadAll()
-    {
-        List<PersistableChartData> recordsFound = new();
-        if (CheckDatabase())
-        {
-            var json = File.ReadAllText(dbFullPath);
-            try
-            {
-                var records = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
-                recordsFound = records.ToList();
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "ChartDataDao.PerformReadAll() encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
+            if (record.Name.ToLower().Contains(partOfName.ToLower())) recordsFound.Add(record);
         }
         return recordsFound;
     }
@@ -184,21 +96,16 @@ public sealed class ChartDataDao: IChartDataDao           // TODO 0.1 refactor
 
     private int PerformInsert(PersistableChartData chartData)
     {
-        int newIndex = -1;
-        List<PersistableChartData> recordsAsList = new();
-        if (CheckDatabase())
-        {
-            var json = File.ReadAllText(dbFullPath);
-            recordsAsList = JsonConvert.DeserializeObject<PersistableChartData[]>(json).ToList();
-        }
+        List<PersistableChartData> recordsAsList = ReadRecordsFromJson();
         try
         {
-            newIndex = SearchHighestIndex() + 1;
+            int newIndex = SearchHighestIndex() + 1;
             chartData.Id = newIndex;
             recordsAsList.Add(chartData);
             PersistableChartData[] extendedRecords = recordsAsList.ToArray();
             var newJson = JsonConvert.SerializeObject(extendedRecords);
             File.WriteAllText(dbFullPath, newJson);
+            return newIndex;
         }
         catch (Exception ex)
         {
@@ -206,47 +113,54 @@ public sealed class ChartDataDao: IChartDataDao           // TODO 0.1 refactor
             Log.Error(errorTxt, ex);
             throw new Exception(errorTxt, ex);
         };
-        return newIndex;
     }
 
 
     private bool PerformDelete(int index)
     {
         bool success = false;
+        List<PersistableChartData> newRecordSet = new();
+        var records = ReadRecordsFromJson();
+        foreach (var record in records)
+        {
+            if (record.Id == index) success = true;
+            else newRecordSet.Add(record);
+        }
+        try
+        {
+            PersistableChartData[] newRecords = newRecordSet.ToArray();
+            var newJson = JsonConvert.SerializeObject(newRecords);
+            File.WriteAllText(dbFullPath, newJson);
+        }
+        catch (Exception ex)
+        {
+            string errorTxt = "ChartDataDao.PerformDelete() using index " + index.ToString() + "encountered an exception.";
+            Log.Error(errorTxt, ex);
+            throw new Exception(errorTxt, ex);
+        };
+        return success;
+    }
+
+    private List<PersistableChartData> ReadRecordsFromJson()
+    {
+        List<PersistableChartData> records = new();
         if (CheckDatabase())
         {
             var json = File.ReadAllText(dbFullPath);
             try
             {
-                List<PersistableChartData> newRecordSet = new();
-                var records = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
-
-                foreach (var record in records)
-                {
-                    if (record.Id == index)
-                    {
-                        success = true;
-                    }
-                    else
-                    {
-                        newRecordSet.Add(record);
-                    }
-                }
-                PersistableChartData[] newRecords = newRecordSet.ToArray();
-                var newJson = JsonConvert.SerializeObject(newRecords);
-                File.WriteAllText(dbFullPath, newJson);
+                PersistableChartData[] persistableChartDatas = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
+                records = persistableChartDatas.ToList();
             }
             catch (Exception ex)
             {
-                string errorTxt = "ChartDataDao.PerformDelete() using index " + index.ToString() + "encountered an exception.";
+                string errorTxt = "ChartDataDao.ReadRecordsFromJson() encountered an exception.";
                 Log.Error(errorTxt, ex);
                 throw new Exception(errorTxt, ex);
             };
         }
-        return success;
+        return records;
     }
-
-
 
     private bool CheckDatabase()
     {

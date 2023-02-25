@@ -136,8 +136,8 @@ public class ProjectUsageController
                 detailsWindow.ShowDialog();
                 if (detailsWindow.IsCompleted())
                 {
-                    int divisionForDial = detailsWindow.dialDivision;
-                    double orb = detailsWindow.orb;
+                    int divisionForDial = detailsWindow.DialDivision;
+                    double orb = detailsWindow.Orb;
                     bool useControlGroup = false;
                     CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                     responseTest = _researchPerformApi.PerformResearch(request);
@@ -152,8 +152,8 @@ public class ProjectUsageController
                 detailsWindow.ShowDialog();
                 if (detailsWindow.IsCompleted())
                 {
-                    double harmonicNumber = detailsWindow.harmonicNumber;
-                    double orb = detailsWindow.orb;
+                    double harmonicNumber = detailsWindow.HarmonicNumber;
+                    double orb = detailsWindow.Orb;
                     bool useControlGroup = false;
                     CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
                     responseTest = _researchPerformApi.PerformResearch(request);

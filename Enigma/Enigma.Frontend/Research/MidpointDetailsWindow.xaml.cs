@@ -13,18 +13,16 @@ namespace Enigma.Frontend.Ui.Research;
 /// <summary>Code-behind for MidPointDetails.</summary>
 public partial class MidpointDetailsWindow : Window
 {
-    private readonly MidpointDetailsController _controller;
     private readonly AstroConfig _astroConfig;
     private bool _completed = false;
-    public int dialDivision { get; set; } = 1;
-    public double orb { get; set; }
+    public int DialDivision { get; set; } = 1;
+    public double Orb { get; set; }
 
-    public MidpointDetailsWindow(MidpointDetailsController controller)
+    public MidpointDetailsWindow()
     {
         InitializeComponent();
         _astroConfig = CurrentConfig.Instance.GetConfig();
-        _controller = controller;
-        PopulateTexts();
+         PopulateTexts();
         PopulateData();
     }
 
@@ -40,7 +38,7 @@ public partial class MidpointDetailsWindow : Window
         tbFormTitle.Text = Rosetta.TextForId("midpointdetailswindow.formtitle");
         tbExplanation.Text = Rosetta.TextForId("midpointdetailswindow.explanation");
         tbDialSize.Text = Rosetta.TextForId("midpointdetailswindow.dialsize");
-        tbOrb.Text = Rosetta.TextForId("midpointdetailswindow.orb");
+        tbOrb.Text = Rosetta.TextForId("midpointdetailswindow.Orb");
         tbOrbDegrees.Text = Rosetta.TextForId("midpointdetailswindow.orbdegrees");
         tbOrbMinutes.Text = Rosetta.TextForId("midpointdetailswindow.orbminutes");
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");
@@ -76,15 +74,15 @@ public partial class MidpointDetailsWindow : Window
 
     private void OkClick(object sender, RoutedEventArgs e)
     {
-        if (comboDialSize.SelectedIndex == 1) dialDivision = 4;
-        if (comboDialSize.SelectedIndex == 2) dialDivision = 8;
+        if (comboDialSize.SelectedIndex == 1) DialDivision = 4;
+        if (comboDialSize.SelectedIndex == 2) DialDivision = 8;
         string degreeTxt = tboxOrbDegrees.Text;
         string minuteTxt = tboxOrbMinutes.Text;
         bool degreeCorrect = int.TryParse(degreeTxt, out int degreeValue);
         bool minuteCorrect = int.TryParse(minuteTxt, out int minuteValue);
         if (degreeCorrect && minuteCorrect && degreeValue >= 0 && degreeValue < 10 && minuteValue >= 0 && minuteValue < 60)
         {
-            orb = degreeValue + minuteValue / 60.0;
+            Orb = degreeValue + minuteValue / 60.0;
             _completed = true;
             Close();
         }

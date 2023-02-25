@@ -86,7 +86,7 @@ public class ResearchMainController
 
     public static void ShowAbout()
     {
-        AboutWindow aboutWindow = new AboutWindow();
+        AboutWindow aboutWindow = new ();
         aboutWindow.ShowDialog();
     }
 

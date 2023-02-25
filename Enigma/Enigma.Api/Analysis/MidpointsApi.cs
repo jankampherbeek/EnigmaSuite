@@ -35,11 +35,11 @@ public sealed class MidpointsApi : IMidpointsApi
 
 
     /// <inheritdoc/>
-    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize)
+    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
     {
         Guard.Against.Null(chart);
         Log.Information("MidpointsApi: OccupiedMidpointsFinder in dial size {dialSize} for chart : {chartName} ", dialSize, chart.InputtedChartData.MetaData.Name);
-        return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize);
+        return _midpointsHandler.RetrieveOccupiedMidpoints(chart, dialSize, orb);
     }
 
 }

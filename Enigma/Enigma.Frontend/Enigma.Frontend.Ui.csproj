@@ -237,6 +237,9 @@
     <None Update="res\help\ChartsPositions.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="res\help\ChartsWheel.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="res\help\Configurations.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

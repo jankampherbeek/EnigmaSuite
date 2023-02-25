@@ -16,34 +16,36 @@
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48"/>
-            <RowDefinition Height="36"/>
-            <RowDefinition Height="28"/>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="28"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="72*"/>
+            <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="2" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="2" Grid.Column="4" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="3" Grid.Column="4" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
 
         <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Name="tbFormTitle" Text="tbTitle" Margin="6" Style="{StaticResource titleStyle}"/>
         <TextBlock Grid.Row="1" Grid.ColumnSpan="5" Name="tbSubTitleChartId" Text="tbSubTitleChartId" Margin="6" Style="{StaticResource subTitleStyle}"/>
-        <TextBlock Grid.Row="2" Name="tbAllMidpoints" Text="tbAllMidpoints" Margin="6" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2" Grid.Column="2" Name="tbOccupiedMidpoints" Text="tbOccupiedMidpoints" Margin="6" FontWeight="Bold"/>
-        <TextBlock Grid.Row="2" Grid.Column="4" Name="tbDialSize" Text="tbDialSize" Margin="6" FontWeight="Bold"/>
-        <DataGrid Grid.Row="3" Name="dgAllMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Name="tbDescriptionText" Text="tbDescriptionText" Margin="6" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="3" Name="tbAllMidpoints" Text="tbAllMidpoints" Margin="6" FontWeight="Bold"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Name="tbOccupiedMidpoints" Text="tbOccupiedMidpoints" Margin="6" FontWeight="Bold"/>
+        <TextBlock Grid.Row="3" Grid.Column="4" Name="tbDialSize" Text="tbDialSize" Margin="6" FontWeight="Bold"/>
+        <DataGrid Grid.Row="4" Name="dgAllMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   HorizontalAlignment="Left"/>
-        <DataGrid Grid.Row="3" Grid.Column="2" Name="dgOccupiedMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <DataGrid Grid.Row="4" Grid.Column="2" Name="dgOccupiedMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   HorizontalAlignment="Left"/>
-        <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Vertical" Margin="6">
+        <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Vertical" Margin="6">
             <RadioButton Name="rbDial360" Content="rbDial360" GroupName="rbgDialSize" Margin="6" IsChecked="True" Checked="RbDial360Checked"/>
             <RadioButton Name="rbDial90" Content="rbDial90" GroupName="rbgDialSize" Margin="6" Checked="RbDial90Checked"/>
             <RadioButton Name="rbDial45" Content="rbDial45" GroupName="rbgDialSize" Margin="6" Checked="RbDial45Checked"/>
             <TextBlock Name="tbOrbSize" Text="tbOrbSize" Margin="6" TextWrapping="Wrap"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
             <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>

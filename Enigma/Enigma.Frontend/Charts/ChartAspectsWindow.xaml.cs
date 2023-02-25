@@ -26,7 +26,7 @@ public partial class ChartAspectsWindow : Window
     public void Populate()
     {
         PopulateTexts();
-        PopulateCelPointAspects();
+        PopulateData();
     }
 
 
@@ -40,8 +40,9 @@ public partial class ChartAspectsWindow : Window
     }
 
 
-    private void PopulateCelPointAspects()
+    private void PopulateData()
     {
+        tbDescriptionText.Text = _controller.DescriptiveText();
         dgSsAspects.ItemsSource = _controller.GetPresentableAspectsForChartPoints();
         dgSsAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgSsAspects.Columns[0].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point1");
@@ -50,7 +51,7 @@ public partial class ChartAspectsWindow : Window
         dgSsAspects.Columns[3].Header = _emptyHeader;
         dgSsAspects.Columns[4].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point2");
         dgSsAspects.Columns[5].Header = _emptyHeader;
-        dgSsAspects.Columns[6].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.orb");
+        dgSsAspects.Columns[6].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.Orb");
         dgSsAspects.Columns[7].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.exactness");
 
 

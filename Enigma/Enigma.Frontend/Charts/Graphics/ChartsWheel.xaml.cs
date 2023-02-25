@@ -36,7 +36,12 @@ public partial class ChartsWheel : Window
 
     private void PopulateTexts()
     {
+        tbDetails.Text = _controller.DescriptiveText();
         Title = Rosetta.TextForId("charts.wheel.title");
+        btnClose.Content = Rosetta.TextForId("common.btnclose");
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+
+
     }
 
     private void DrawChartFrame()
@@ -95,7 +100,7 @@ public partial class ChartsWheel : Window
 
     private void WheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 80.0;
+        double availHeight = Height - 120.0;
         double minSize = Math.Min(availHeight, Width);
         _controller.Resize(minSize);
         wheelCanvas.Height = _controller.CanvasSize;
@@ -103,5 +108,15 @@ public partial class ChartsWheel : Window
         Populate();
     }
 
+
+    private void CloseClick(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+
+    private void HelpClick(object sender, RoutedEventArgs e)
+    {
+        ChartsWheelController.ShowHelp();
+    }
 
 }

@@ -61,6 +61,12 @@ public sealed class CelPointsHandler : ICelPointsHandler
             int idAyanamsa = request.CalculationPreferences.ActualAyanamsha.GetDetails().SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
         }
+        if (request.CalculationPreferences.ActualObserverPosition == ObserverPositions.TopoCentric)
+        {
+            SeInitializer.SetTopocentric(request.Location.GeoLong, request.Location.GeoLat, 0.0);  // TODO backlog optionally replace 0.0 with value for altitude above sealevel in meters. 
+        }
+
+
         int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
         int flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
         var commonPoints = new Dictionary<ChartPoints, FullPointPos>();

@@ -49,7 +49,7 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();       // use empty list
-            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.BaseOrbAspects);     
+            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);     
             
             foreach (PositionedPoint posPoint in posPoints)
             {

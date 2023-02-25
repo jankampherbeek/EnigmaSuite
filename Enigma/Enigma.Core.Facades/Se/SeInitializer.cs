@@ -36,6 +36,14 @@ public static class SeInitializer
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
     private extern static void ext_swe_set_ephe_path(String path);
 
+    public static void SetTopocentric(double geoLong, double geoLat, double altitudeMeters)
+    {
+        ext_swe_set_topo(geoLong, geoLat, altitudeMeters);
+    }
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_topo")]
+    private extern static void ext_swe_set_topo(double geoLong, double geoLatr, double altitudeMeters);
+
+
     /// <summary>Close Swiss Ephemeris and release all allocated memory and resources.</summary>
     /// <remarks>Use ony at end of application or test. To reuse, call SetEphePath().</remarks>
     public static void CloseEphemeris()

@@ -15,8 +15,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="22"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="25*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="35*"/>
             <RowDefinition Height="10*"/>
@@ -34,8 +34,8 @@
 
         </DataGrid>
         <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="BtnHelp" Content="BtnHelp" Margin="6" Click="HelpClick"/>
-            <Button Name="BtnClose" Content="BtnClose" Margin="6" Click="CloseClick"/>
+            <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
+            <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>
         
     </Grid>

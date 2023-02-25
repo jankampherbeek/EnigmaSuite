@@ -23,15 +23,16 @@ public sealed class ChartAspectsController
 {
     private readonly IAspectForDataGridFactory _aspectForDataGridFactory;
     private readonly IAspectsApi _aspectsApi;
+    private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly DataVault _dataVault;
 
 
-    public ChartAspectsController(IAspectForDataGridFactory aspectForDataGridFactory, IAspectsApi aspectsApi)
+    public ChartAspectsController(IAspectForDataGridFactory aspectForDataGridFactory, IAspectsApi aspectsApi, IDescriptiveChartText descriptiveChartText)
     {
         _dataVault = DataVault.Instance;
         _aspectForDataGridFactory = aspectForDataGridFactory;
         _aspectsApi = aspectsApi;
-
+        _descriptiveChartText = descriptiveChartText;
     }
 
     public string GetChartIdName()
@@ -46,6 +47,17 @@ public sealed class ChartAspectsController
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 
+    public string DescriptiveText()
+    {
+        string descText = "";
+        var chart = _dataVault.GetCurrentChart();
+        var config = CurrentConfig.Instance.GetConfig();
+        if (chart != null)
+        {
+            descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
+        }
+        return descText;
+    }
     public static void ShowHelp()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();

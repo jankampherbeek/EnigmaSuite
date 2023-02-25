@@ -173,11 +173,17 @@ public partial class ChartsMainWindow : Window
 
     private void ShowWheelClick(object sender, RoutedEventArgs e)
     {
+        PresentableChartData? rowView = (PresentableChartData)dgCurrent.SelectedItem;
+        int index = int.Parse(rowView.Id);
+        _controller.SearchAndSetActiveChart(index);
         ShowCurrentChart();
     }
 
     private void ShowPositionsClick(object sender, RoutedEventArgs e)
     {
+        PresentableChartData? rowView = (PresentableChartData)dgCurrent.SelectedItem;
+        int index = int.Parse(rowView.Id);
+        _controller.SearchAndSetActiveChart(index);
         _controller.ShowPositions();
     }
 

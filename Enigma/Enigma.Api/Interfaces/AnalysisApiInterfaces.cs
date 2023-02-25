@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -32,8 +32,9 @@ public interface IMidpointsApi
     /// <summary>Return all occupied midpoints for a specific dial.</summary>
     /// <param name="chart">Chart with positions.</param>
     /// <param name="dialSize">Size of dial in degrees.</param>
+    /// <param name="orb">Base orb from configuration.</param>
     /// <returns>All occupied midpoints.</returns>
-    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize);
+    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize, double orb);
 }
 
 /// <summary>Api for the calculation of harmonics.</summary>

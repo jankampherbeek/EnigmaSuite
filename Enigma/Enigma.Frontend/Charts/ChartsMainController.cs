@@ -84,15 +84,12 @@ public sealed class ChartsMainController
     public string MostRecentChart()
     {
         int highestIndex = _chartDataPersistencyApi.HighestIndex();
-        if (highestIndex == 0)
+        if (highestIndex != 0)
         {
-            return "-";
+            PersistableChartData? chartData = _chartDataPersistencyApi.ReadChartData(highestIndex);
+            if (chartData != null) { return chartData.Name; }
         }
-        else
-        {
-            PersistableChartData chartData = _chartDataPersistencyApi.ReadChartData(highestIndex);
-            return chartData.Name;
-        }
+        return "-";
     }
 
     public void SaveCurrentChart()
@@ -102,7 +99,7 @@ public sealed class ChartsMainController
         {
             ChartData chartData = currentChart.InputtedChartData;
             PersistableChartData persistableChartData = _chartDataConverter.ToPersistableChartData(chartData);
-            int newIndex = _chartDataPersistencyApi.AddChartData(persistableChartData);
+            var _ = _chartDataPersistencyApi.AddChartData(persistableChartData);
         }
 
     }
@@ -145,6 +142,7 @@ public sealed class ChartsMainController
             ShowCurrentChart();
         }
     }
+
 
     public string CurrentChartName()
     {

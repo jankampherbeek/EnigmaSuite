@@ -55,7 +55,7 @@ public interface IAspectsHandler
     /// <param name="relevantAspects">Supported aspects as defined in configuration.</param>
     /// <param name="baseOrb">Base orb for aspects.</param>
     /// <returns>List with aspects between celestial points and between celestial points and cusps. Aspects between cusps are omitted.</returns>
-    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, double baseOrb);
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb);
 }
 
 
@@ -87,8 +87,9 @@ public interface IMidpointsHandler
     /// <summary>Retrieve list with all occupied midpoints for a specified dial.</summary>
     /// <param name="chart">Calculated chart with positions.</param>
     /// <param name="dialSize">Degrees for specified dial.</param>
+    /// <param name="orb">Base orb from configuration.</param>
     /// <returns>All occupied midpoints.</returns>
-    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize);
+    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb);
 
     /// <summary>Retrieve list with occupied midpoints for a given set of points and for a specified dial.</summary>
     /// <param name="posPoints">List with points.</param>
@@ -150,8 +151,9 @@ public interface IOccupiedMidpointsFinder
     /// <summary>Calculate occupied midpoints for a specific dial.</summary>
     /// <param name="chart">Calculated chart.</param>
     /// <param name="dialSize">Dial size in degrees.</param>
+    /// <param name="baseOrb">Base orb from configuration.</param>
     /// <returns>Calculated occupied midpoints.</returns>
-    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize);
+    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize, double baseOrb);
 
     /// <summary>Calculate occupied midpoints for a specific dial.</summary>
     /// <param name="posPoints">List with points.</param>
@@ -167,7 +169,7 @@ public interface IOccupiedMidpointsFinder
 public interface IAspectOrbConstructor
 {
     /// <summary>Define orb between two celestial points for a given aspect.</summary>
-    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor);
+    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
 }
 
 

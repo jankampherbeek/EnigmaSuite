@@ -37,9 +37,9 @@ public sealed class MidpointsHandler : IMidpointsHandler
     }
 
     /// <inheritdoc/>
-    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize)
+    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
     {
-        return _occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize);
+        return _occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize, orb);
     }
 
     /// <inheritdoc/>

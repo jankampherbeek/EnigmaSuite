@@ -82,6 +82,7 @@ public partial class ChartHarmonicsWindow
 
     private void PopulateData(double harmonicNumber)
     {
+        tbDescriptionText.Text = _controller.DescriptiveText();
         tbSubTitleHarmonicNumber.Text = Rosetta.TextForId("charts.harmonics.titlenumber") + " " + harmonicNumber;
         dgHarmonics.ItemsSource = _controller.RetrieveAndFormatHarmonics(harmonicNumber);
         dgHarmonics.GridLinesVisibility = dgHarmonics.GridLinesVisibility = DataGridGridLinesVisibility.None;

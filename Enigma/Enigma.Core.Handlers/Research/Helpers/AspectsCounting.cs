@@ -78,7 +78,7 @@ public sealed class AspectsCounting: IAspectsCounting
             allPoints.AddRange(posPoints);
             allPoints.AddRange(cuspPoints);
 
-            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.BaseOrbAspects);
+            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, chartPointConfigSpecs, config.BaseOrbAspects);
             foreach (DefinedAspect defAspect in definedAspects)
             {
                 int index1 = _researchMethodUtils.FindIndexForPoint(defAspect.Point1, allPoints);

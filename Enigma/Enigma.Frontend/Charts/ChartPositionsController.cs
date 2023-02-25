@@ -19,16 +19,19 @@ public sealed class ChartPositionsController
     private readonly ChartAspectsWindow _chartAspectsWindow;
     private readonly IHousePosForDataGridFactory _housePosForDataGridFactory;
     private readonly ICelPointForDataGridFactory _celPointForDataGridFactory;
+    private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly DataVault _dataVault;
 
     public ChartPositionsController(IHousePosForDataGridFactory housePosForDataGridFactory,
         ICelPointForDataGridFactory celPointForDataGridFactory,
-        ChartAspectsWindow chartAspectsWindow)
+        ChartAspectsWindow chartAspectsWindow,
+        IDescriptiveChartText descriptiveChartText)
     {
         _dataVault = DataVault.Instance;
         _housePosForDataGridFactory = housePosForDataGridFactory;
         _celPointForDataGridFactory = celPointForDataGridFactory;
         _chartAspectsWindow = chartAspectsWindow;
+        _descriptiveChartText = descriptiveChartText;
     }
 
     public ChartData? GetMeta()
@@ -42,6 +45,18 @@ public sealed class ChartPositionsController
         {
             return null;
         }
+    }
+
+    public string DescriptiveText()
+    {
+        string descText = "";
+        var chart = _dataVault.GetCurrentChart();
+        var config = CurrentConfig.Instance.GetConfig();
+        if (chart != null)
+        {
+            descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
+        }
+        return descText;
     }
 
 

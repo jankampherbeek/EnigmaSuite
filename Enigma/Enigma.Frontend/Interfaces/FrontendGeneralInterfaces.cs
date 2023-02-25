@@ -6,6 +6,7 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
 using System.Collections.Generic;
@@ -136,4 +137,21 @@ public interface IChartCalculation
     public CalculatedChart CalculateChart(ChartData chartData);
 }
 
+/// <summary>Create descriptive texts that can be added to forms about a chart.</summary>
+public interface IDescriptiveChartText
+{
+    /// <summary>A short descriptive text: name and configuration.</summary>
+    /// <param name="config">The configuration to use.</param>
+    /// <param name="meta">Metadata for the chart.</param>
+    /// <returns>A string with the descrption.</returns>
+    public string ShortDescriptiveText(AstroConfig config, MetaData meta);
+
+    /// <summary>A longer descriptive text, Name, date, time, location and configuration.</summary>
+    /// <param name="config">The configuration to use.</param>
+    /// <param name="chartData">Data for the chart.</param>
+    /// <returns>A string with the descrption.</returns>
+    public string FullDescriptiveText(AstroConfig config, ChartData chartData);
+
+
+}
 

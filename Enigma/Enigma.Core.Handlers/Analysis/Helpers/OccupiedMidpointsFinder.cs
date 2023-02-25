@@ -6,6 +6,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Analysis.Helpers;
@@ -24,11 +25,10 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
     }
 
     /// <inheritdoc/>
-    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize)
+    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize, double baseOrb)
     {
-        double orb = 1.6;  // todo 0.2 use orb from config
         List<PositionedPoint> analysisPointsInActualDial = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
-        return CalculateOccupiedMidpoints(analysisPointsInActualDial, dialSize, orb);
+        return CalculateOccupiedMidpoints(analysisPointsInActualDial, dialSize, baseOrb);
     }
 
     /// <inheritdoc/>

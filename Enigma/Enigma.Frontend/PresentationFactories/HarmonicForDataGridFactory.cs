@@ -38,10 +38,13 @@ public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
         int counterCelPoints = 0;
         foreach (KeyValuePair<ChartPoints, FullPointPos> celPoint in celPoints)
         {
-            char glyph = _glyphsForChartPoints.FindGlyph(celPoint.Key);
-            double radixPos = celPoint.Value.Ecliptical.MainPosSpeed.Position;
-            double harmonicPos = harmonicPositions[counterCelPoints++];
-            presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
+            if (celPoint.Key != ChartPoints.EastPoint && celPoint.Key != ChartPoints.Vertex)
+            {
+                char glyph = _glyphsForChartPoints.FindGlyph(celPoint.Key);
+                double radixPos = celPoint.Value.Ecliptical.MainPosSpeed.Position;
+                double harmonicPos = harmonicPositions[counterCelPoints++];
+                presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));
+            }
         }
         return presentableHarmonics;
     }

@@ -20,13 +20,15 @@ public sealed class ChartHarmonicsController
 {
     private readonly IHarmonicsApi _harmonicsApi;
     private readonly IHarmonicForDataGridFactory _dataGridFactory;
+    private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly DataVault _dataVault;
 
-    public ChartHarmonicsController(IHarmonicsApi harmonicsApi, IHarmonicForDataGridFactory dataGridFactory)
+    public ChartHarmonicsController(IHarmonicsApi harmonicsApi, IHarmonicForDataGridFactory dataGridFactory, IDescriptiveChartText descriptiveChartText)
     {
         _dataVault = DataVault.Instance;
         _harmonicsApi = harmonicsApi;
         _dataGridFactory = dataGridFactory;
+        _descriptiveChartText = descriptiveChartText;
     }
 
     public String RetrieveChartName()
@@ -49,6 +51,18 @@ public sealed class ChartHarmonicsController
             presHarmonics = _dataGridFactory.CreateHarmonicForDataGrid(harmonicPositions, chart);
         }
         return presHarmonics;
+    }
+
+    public string DescriptiveText()
+    {
+        string descText = "";
+        var chart = _dataVault.GetCurrentChart();
+        var config = CurrentConfig.Instance.GetConfig();
+        if (chart != null)
+        {
+            descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
+        }
+        return descText;
     }
 
     public static void ShowHelp()

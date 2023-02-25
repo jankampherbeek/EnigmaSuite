@@ -60,11 +60,11 @@ public sealed class AspectsHandler : IAspectsHandler
         {
             if (acSpec.Value.IsUsed) relevantAspects.Add(acSpec.Key, acSpec.Value);
         }
-        return AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, request.Config.BaseOrbAspects);
+        return AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, request.Config.ChartPoints, request.Config.BaseOrbAspects);
     }
 
     /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, double baseOrb)
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb)
     {
 
         List<DistanceBetween2Points> pointDistances = _distanceCalculator.FindShortestDistances(posPoints);
@@ -81,7 +81,7 @@ public sealed class AspectsHandler : IAspectsHandler
         {
             foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> aspectConfigSpec in relevantAspects)
             {
-                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspectConfigSpec.Value.PercentageOrb / 100.0, baseOrb);
+                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspectConfigSpec.Value.PercentageOrb / 100.0, baseOrb, chartPointConfigSpecs);
                 AspectTypes aspectType = aspectConfigSpec.Key;
                 double aspectDistance = aspectType.GetDetails().Angle;
                 double actualOrb = Math.Abs(distance.Distance - aspectDistance);

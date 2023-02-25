@@ -41,14 +41,15 @@ public partial class ChartPositionsWindow : Window
         _chartData = _controller.GetMeta();
         if (_chartData != null)
         {
-            ChartName.Text = _chartData.MetaData.Name;
-            Details.Text = _chartData.MetaData.Description + _newLine +
-                _chartData.Location.LocationFullName + _newLine +
+            ChartName.Text = _controller.DescriptiveText();
+            Details.Text = _chartData.Location.LocationFullName + _newLine +
                 ParseDateText(_chartData.FullDateTime.DateText) + _space + ParseTimeText(_chartData.FullDateTime.TimeText) + _newLine +
                 Rosetta.TextForId("charts.positions.chartgategory") + _space + _chartData.MetaData.ChartCategory + _newLine +
                 Rosetta.TextForId("charts.positions.rating") + _space + _chartData.MetaData.RoddenRating + _newLine +
                 Rosetta.TextForId("charts.positions.source") + _space + _chartData.MetaData.Source;
         }
+        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        btnClose.Content = Rosetta.TextForId("common.btnclose");
     }
 
 

@@ -21,16 +21,17 @@ public class ChartMidpointsController
     private readonly IMidpointsApi _midpointsApi;
     private readonly IMidpointForDataGridFactory _midpointForDataGridFactory;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly DataVault _dataVault;
 
 
-    // TODO make it possible to work with a new chart without overwriting screens with data from the previous chart.
-    public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions)
+    public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions, IDescriptiveChartText descriptiveChartText)
     {
         _dataVault = DataVault.Instance;
         _midpointsApi = midpointsApi;
         _midpointForDataGridFactory = midpointForDataGridFactory;
         _doubleToDmsConversions = doubleToDmsConversions;
+        _descriptiveChartText = descriptiveChartText;
     }
 
     public String RetrieveChartName()
@@ -49,14 +50,26 @@ public class ChartMidpointsController
         List<PresentableOccupiedMidpoint> presOccMidpoints = new();
         if (chart != null)
         {
+            double orb = CurrentConfig.Instance.GetConfig().BaseOrbMidpoints;
             List<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
             presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
-            List<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize);
+            List<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
             presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
         }
         return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
     }
 
+    public string DescriptiveText()
+    {
+        string descText = "";
+        var chart = _dataVault.GetCurrentChart();
+        var config = CurrentConfig.Instance.GetConfig();
+        if (chart != null)
+        {
+            descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
+        }
+        return descText;
+    }
 
 
     public string DegreesToDms(double value)

@@ -16,7 +16,7 @@ public sealed class DataVault
 {
     private static readonly DataVault instance = new();
 
-    private List<CalculatedChart> _allCharts = new();
+    private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
     private bool NewChartAdded = false;
 

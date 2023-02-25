@@ -7,7 +7,6 @@ using Enigma.Domain.Charts;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Uit.Charts;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,7 +17,7 @@ namespace Enigma.Frontend.Ui.Charts;
 /// </summary>
 public partial class SearchChartWindow : Window
 {
-    private SearchChartController _controller;
+    private readonly SearchChartController _controller;
 
 
 
@@ -49,8 +48,7 @@ public partial class SearchChartWindow : Window
 
     public void ChartSelectedClick(object sender, RoutedEventArgs e)
     {
-        DataGrid? dataGrid = sender as DataGrid;
-        if (dataGrid != null)
+        if (sender is DataGrid dataGrid)
         {
             PresentableChartData? rowView = (PresentableChartData)dataGrid.SelectedItem;
             if (rowView != null)

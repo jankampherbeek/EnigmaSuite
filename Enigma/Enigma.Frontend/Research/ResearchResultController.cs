@@ -301,7 +301,7 @@ public class ResearchResultController
             CountOccupiedMidpointsRequest? qualifiedRequest = response.Request as CountOccupiedMidpointsRequest;
             if (qualifiedRequest != null )
             {
-                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb); 
+                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.Orb") + ": " + qualifiedRequest.Orb); 
                 resultData.AppendLine((separatorLine + separatorLine)[..80]);
                 Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
@@ -342,7 +342,7 @@ public class ResearchResultController
             if (qualifiedRequest != null)
             {
                 resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleharmonicconjunctions") + ": " + qualifiedRequest.HarmonicNumber.ToString() 
-                    + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb.ToString());
+                    + ". " + Rosetta.TextForId("researchresultwindow.Orb") + ": " + qualifiedRequest.Orb.ToString());
                 resultData.AppendLine(separatorLine);
                 Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)

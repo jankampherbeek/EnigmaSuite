@@ -12,15 +12,13 @@ namespace Enigma.Frontend.Ui.Research;
 /// <summary>Code-behind for HarmonicDetails.</summary>
 public partial class HarmonicDetailsWindow : Window
 {
-    private readonly HarmonicDetailsController _controller;
     private bool _completed = false;
-    public double harmonicNumber { get; set; }
-    public double orb { get; set; }
+    public double HarmonicNumber { get; set; }
+    public double Orb { get; set; }
 
-    public HarmonicDetailsWindow(HarmonicDetailsController controller)
+    public HarmonicDetailsWindow()
     {
         InitializeComponent();
-        _controller = controller;
         PopulateTexts();
         PopulateData();
     }
@@ -37,7 +35,7 @@ public partial class HarmonicDetailsWindow : Window
         tbFormTitle.Text = Rosetta.TextForId("harmonicdetailswindow.formtitle");
         tbExplanation.Text = Rosetta.TextForId("harmonicdetailswindow.explanation");
         tbHarmonicNumber.Text = Rosetta.TextForId("harmonicdetailswindow.harmonicnr");
-        tbOrb.Text = Rosetta.TextForId("harmonicdetailswindow.orb");
+        tbOrb.Text = Rosetta.TextForId("harmonicdetailswindow.Orb");
         tbOrbDegrees.Text = Rosetta.TextForId("harmonicdetailswindow.orbdegrees");
         tbOrbMinutes.Text = Rosetta.TextForId("harmonicdetailswindow.orbminutes");
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");
@@ -48,7 +46,7 @@ public partial class HarmonicDetailsWindow : Window
 
     private void PopulateData()
     {
-        double orb = 1.0;       // TODO  0.3 use orb from configuration
+        double orb = 1.0;       // TODO  0.3 use Orb from configuration
         string degreeText = ((int)orb).ToString();
         string minuteText = ((int)((orb - ((int)orb)) * 60.0)).ToString();
         tboxOrbDegrees.Text = degreeText;
@@ -81,8 +79,8 @@ public partial class HarmonicDetailsWindow : Window
         {
             if (degreeCorrect && minuteCorrect && degreeValue >= 0 && degreeValue < 10 && minuteValue >= 0 && minuteValue < 60)
             {
-                harmonicNumber = harmNrValue;
-                orb = degreeValue + minuteValue / 60.0;
+                HarmonicNumber = harmNrValue;
+                Orb = degreeValue + minuteValue / 60.0;
                 _completed = true;
                 Close();
             }

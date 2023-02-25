@@ -11,6 +11,7 @@ using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
+using Enigma.Facades.Se;
 using System.Collections.Generic;
 
 namespace Enigma.Core.Calc;
@@ -35,7 +36,7 @@ public sealed class HousesHandler : IHousesHandler
     /// <inheritdoc/>
     public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request)
     {
-        HouseSystems houseSystem = request.HouseSystem;
+        HouseSystems houseSystem = request.calcPrefs.ActualHouseSystem;
         HouseSystemDetails houseDetails = houseSystem.GetDetails();
         char houseId4Se = houseDetails.SeId;
         int _flags = EnigmaConstants.SEFLG_SWIEPH;
@@ -44,6 +45,14 @@ public sealed class HousesHandler : IHousesHandler
         double[][] _eclValues;
         Dictionary<ChartPoints, FullPointPos> mundanePositions = new();
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
+
+        if (request.calcPrefs.ActualZodiacType == ZodiacTypes.Sidereal)
+        {
+            _flags += EnigmaConstants.SEFLG_SIDEREAL;
+            int idAyanamsa = request.calcPrefs.ActualAyanamsha.GetDetails().SeId;
+            SeInitializer.SetAyanamsha(idAyanamsa);
+        }
+
         _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
 
         KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
