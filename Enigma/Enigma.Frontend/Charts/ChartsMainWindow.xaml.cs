@@ -7,11 +7,8 @@ using Enigma.Domain.Charts;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -173,17 +170,11 @@ public partial class ChartsMainWindow : Window
 
     private void ShowWheelClick(object sender, RoutedEventArgs e)
     {
-        PresentableChartData? rowView = (PresentableChartData)dgCurrent.SelectedItem;
-        int index = int.Parse(rowView.Id);
-        _controller.SearchAndSetActiveChart(index);
         ShowCurrentChart();
     }
 
     private void ShowPositionsClick(object sender, RoutedEventArgs e)
     {
-        PresentableChartData? rowView = (PresentableChartData)dgCurrent.SelectedItem;
-        int index = int.Parse(rowView.Id);
-        _controller.SearchAndSetActiveChart(index);
         _controller.ShowPositions();
     }
 
@@ -232,7 +223,7 @@ public partial class ChartsMainWindow : Window
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Help about not yet implemented.");     // TODO 0.1 implement handling of click
+        _controller.ShowAbout();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

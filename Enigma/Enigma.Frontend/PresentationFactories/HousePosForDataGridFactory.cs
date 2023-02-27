@@ -30,6 +30,16 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
             CreateSingleCuspPos("MC", positions[ChartPoints.Mc]),
             CreateSingleCuspPos("Asc", positions[ChartPoints.Ascendant])
         };
+        if (positions.ContainsKey(ChartPoints.Vertex)) {
+            string descr = Rosetta.TextForId(ChartPoints.Vertex.GetDetails().TextId);
+            presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.Vertex]));
+        }
+        if (positions.ContainsKey(ChartPoints.EastPoint))
+        {
+            string descr = Rosetta.TextForId(ChartPoints.EastPoint.GetDetails().TextId);
+            presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.EastPoint]));
+        }
+
 
         foreach (var item in positions)
         {
@@ -39,8 +49,6 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
                 presPositions.Add(CreateSingleCuspPos(descr, item.Value));
             }
         }
-        presPositions.Add(CreateSingleCuspPos("Vertex",   positions[ChartPoints.Vertex]));          // todo 0.1 check if Vertex and Eastpoint should be automatically added to presentable house positions.
-        presPositions.Add(CreateSingleCuspPos("East point", positions[ChartPoints.EastPoint]));
         return presPositions;
     }
 

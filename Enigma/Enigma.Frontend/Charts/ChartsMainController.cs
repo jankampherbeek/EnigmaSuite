@@ -11,6 +11,7 @@ using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -28,7 +29,6 @@ public sealed class ChartsMainController
     private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
     private readonly AppSettingsWindow _appSettingsWindow = new();
-    private readonly AboutWindow _aboutWindow = new();
     private AstroConfigWindow _astroConfigWindow = new();
     private SearchChartWindow _searchChartWindow = new();
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
@@ -139,7 +139,7 @@ public sealed class ChartsMainController
         {
             _dataVault.AddNewChart(calculatedChart);
             _dataVault.SetNewChartAdded(true);
-            ShowCurrentChart();
+         //   ShowCurrentChart();
         }
     }
 
@@ -183,8 +183,12 @@ public sealed class ChartsMainController
 
     public void ShowAbout()
     {
-        _aboutWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("AboutCharts");
+        helpWindow.ShowDialog();
     }
+
 
     public void ShowSearch()
     {

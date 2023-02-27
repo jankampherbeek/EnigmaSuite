@@ -83,12 +83,14 @@ public static class HandlerServices
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
+        serviceCollection.AddTransient<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>();
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
+        serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();

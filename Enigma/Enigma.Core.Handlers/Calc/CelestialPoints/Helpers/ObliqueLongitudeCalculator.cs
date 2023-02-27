@@ -6,7 +6,9 @@
 using Enigma.Core.Handlers.Calc.Util;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
+using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
@@ -56,6 +58,16 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         {
             correctedV = latPl > 0.0 ? absoluteV : -absoluteV;
         }
+        Log.Information("---------- DEBUG --------------");
+        Log.Information("Body: " + namedEclipticCoordinate.CelPoint.GetDetails().TextId);
+        Log.Information("Body longitude: " + longPl);
+        Log.Information("Body latitude: " + latPl);
+        Log.Information("Soutpoint longitude: " + longSp);
+        Log.Information("Soutpoint lat: " + southPoint.Latitude);
+        Log.Information("V: " + v);
+        Log.Information("Corrected V: " + correctedV);
+
+
         return RangeUtil.ValueToRange(longPl + correctedV, 0.0, 360.0);
     }
 

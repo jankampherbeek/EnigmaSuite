@@ -86,8 +86,10 @@ public class ResearchMainController
 
     public static void ShowAbout()
     {
-        AboutWindow aboutWindow = new ();
-        aboutWindow.ShowDialog();
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("AboutResearch");
+        helpWindow.ShowDialog();
     }
 
     public static void ShowHelp()

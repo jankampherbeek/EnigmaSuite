@@ -18,6 +18,13 @@ public interface IHousesHandler
     /// <param name="request"></param>
     /// <returns></returns>
     public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request);
+
+    /// <summary>Calculate the right ascension of the MC.</summary>
+    /// <param name="jdUt">Julian day.</param>
+    /// <param name="obliquity">Obliquity.</param>
+    /// <param name="location">Actual location.</param>
+    /// <returns>The ramc in decimal degrees.</returns>
+    public double CalcArmc(double jdUt, double obliquity, Location location);
 }
 
 

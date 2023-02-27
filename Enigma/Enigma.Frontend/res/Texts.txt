@@ -1,12 +1,4 @@
-﻿--- About window --------------------------------------
-aboutwindow.copyright.text = Enigma is written by Jan Kampherbeek. The program is free and open source. See the file copyright.txt in the root of the application for more details.
-aboutwindow.copyright.title = Open source
-aboutwindow.description = Enigma Astrology Research is a program for astrological research
-aboutwindow.moreinfo.text = See the manual when using Enigma Astrology Research. Programmers will find more information at: http://www.radixpro.org 
-aboutwindow.moreinfo.title = More information
-aboutwindow.formtitle = About Enigma Astrology Research
-aboutwindow.title = Enigma - About....
-
+﻿
 --- App settings window -------------------------------
 appsettingswindow.explanation = The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations.
 appsettingswindow.formtitle = Application settings
@@ -123,7 +115,7 @@ chartsmainwindow.menu.migeneral.configuration = Configuration
 chartsmainwindow.menu.migeneral.settings = Settings
 chartsmainwindow.menu.harmonics = Harmonics
 chartsmainwindow.menu.help = Help
-chartsmainwindow.menu.helpabout = About charts
+chartsmainwindow.menu.helpabout = About Enigma Charts
 chartsmainwindow.menu.helppage = Help for this window
 chartsmainwindow.menu.manual = User manual
 chartsmainwindow.menu.midpoints = Midpoints
@@ -726,7 +718,7 @@ researchmainwindow.menu.migeneral.close = Close Research
 researchmainwindow.menu.migeneral.configuration = Configuration
 researchmainwindow.menu.migeneral.settings = Settings
 researchmainwindow.menu.mihelp = Help
-researchmainwindow.menu.mihelp.about = About Enigma
+researchmainwindow.menu.mihelp.about = About Enigma Research
 researchmainwindow.menu.mihelp.page = Help for this window
 researchmainwindow.menu.mihelp.manual = User Manual
 researchmainwindow.menu.miprojects = Research Projects

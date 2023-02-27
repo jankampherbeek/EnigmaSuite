@@ -12,7 +12,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Facades.Se;
-using System.Collections.Generic;
+
 
 namespace Enigma.Core.Calc;
 
@@ -32,6 +32,12 @@ public sealed class HousesHandler : IHousesHandler
         _coordinateConversionHandler = coordinateConversionHandler;
     }
 
+    public double CalcArmc(double jdUt, double obliquity, Location location)
+    {
+        int flags = EnigmaConstants.SEFLG_SWIEPH;
+        double[][] houses = _housesCalc.CalculateHouses(jdUt, obliquity, location, 'W', flags);
+        return houses[1][2];
+    }
 
     /// <inheritdoc/>
     public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request)
@@ -59,10 +65,16 @@ public sealed class HousesHandler : IHousesHandler
         mundanePositions.Add(asc.Key, asc.Value);
         KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
         mundanePositions.Add(mc.Key, mc.Value);
-        KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][2], jdUt, obliquity, location);
-        mundanePositions.Add(vertex.Key, vertex.Value);
-        KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
-        mundanePositions.Add(eastPoint.Key, eastPoint.Value);
+        if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.Vertex)) {
+            KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][3], jdUt, obliquity, location);
+            mundanePositions.Add(vertex.Key, vertex.Value);
+        }
+        if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.EastPoint))
+        {
+            KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
+            mundanePositions.Add(eastPoint.Key, eastPoint.Value);
+        }
+
 
 
         for (int n = 1; n < _eclValues[0].Length; n++)
@@ -72,8 +84,6 @@ public sealed class HousesHandler : IHousesHandler
             KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, _eclValues[0][n], jdUt, obliquity, location);
             mundanePositions.Add(cuspPos.Key, cuspPos.Value);
         }
-        
-
         return mundanePositions;
     }
 
