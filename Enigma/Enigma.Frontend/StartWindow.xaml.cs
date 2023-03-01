@@ -4,14 +4,18 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Api.Communication;
 using Enigma.Api.Interfaces;
+using Enigma.Domain.Communication;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
 using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.IO;
+using System.Printing;
 using System.Windows;
 
 
@@ -44,8 +48,24 @@ public partial class StartWindow : Window
         Show();
         HandleCheckForConfig();
         HandleCheckDirForSettings();
-        // Thread.Sleep(500);
-        // TODO check for update
+        ICommunicationApi communicationApi = App.ServiceProvider.GetRequiredService<ICommunicationApi>();
+
+        ReleaseInfo releaseInfo = communicationApi.LatestAvaialableRelease();
+        if (releaseInfo.Version == "")
+        {
+            Log.Error("Could not check for updates as creating an internet connection failed.");
+        } else
+        {
+            Log.Information("Info about latest release : " + releaseInfo);
+            if (releaseInfo.Version != EnigmaConstants.ENIGMA_VERSION)
+            {
+                Log.Information("New release found, showing downloadpage");
+                HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+                helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                helpWindow.SetExternalPage("https://radixpro.com/rel/releaseinfo.html");
+                helpWindow.ShowDialog();
+            }
+        }
         Hide();
         MainWindow mainWindow = new();              // Todo 0.1 add check for exceptions and show warning to user if an exception occurs.
         mainWindow.ShowDialog();

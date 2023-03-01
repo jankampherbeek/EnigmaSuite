@@ -7,6 +7,7 @@ using Enigma.Frontend.Helpers.Support;
 using Serilog;
 using System;
 using System.IO;
+using System.Security.Policy;
 using System.Windows;
 
 
@@ -37,6 +38,11 @@ public partial class HelpWindow : Window
         {
             Log.Error("Could not find helpfile {rp}. This results in a blank help screen but the program continues.", relativePath);
         }
+    }
+
+    public void SetExternalPage(string url)
+    {
+        HtmlFrame.Source = new Uri(url);
     }
 
     private void ClickClose(object sender, RoutedEventArgs e)

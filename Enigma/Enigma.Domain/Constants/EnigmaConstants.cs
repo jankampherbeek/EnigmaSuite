@@ -197,4 +197,7 @@ public static class EnigmaConstants
     public const string CONFIG_LOCATION = @"./enigmaconfig.json";
     /// <summary>Name of database.</summary>
     public const string DATABASE_NAME = @"/ChartsDatabase.json";
+    /// <summary>Url to find latest release information.</summary>
+    public const string RELEASE_CHECK_URL = @"http://radixpro.com/rel/enigma-ar-latest.json";
+
 }

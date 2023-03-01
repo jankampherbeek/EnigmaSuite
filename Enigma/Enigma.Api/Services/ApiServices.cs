@@ -7,6 +7,7 @@ using Enigma.Api.Analysis;
 using Enigma.Api.Astron;
 using Enigma.Api.Calc;
 using Enigma.Api.Calc.CalcChartsRangeApi;
+using Enigma.Api.Communication;
 using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Persistency;
@@ -27,6 +28,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
         serviceCollection.AddTransient<IChartDataPersistencyApi, ChartDataPersistencyApi>();
+        serviceCollection.AddTransient<ICommunicationApi, CommunicationApi>();
         serviceCollection.AddTransient<IConfigurationApi, ConfigurationApi>();
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();

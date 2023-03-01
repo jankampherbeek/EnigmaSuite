@@ -18,6 +18,8 @@ using Enigma.Core.Handlers.Calc.Helpers;
 using Enigma.Core.Handlers.Calc.Mundane.Helpers;
 using Enigma.Core.Handlers.Calc.Specials;
 using Enigma.Core.Handlers.Calc.Specials.Helpers;
+using Enigma.Core.Handlers.Communication;
+using Enigma.Core.Handlers.Communication.Helpers;
 using Enigma.Core.Handlers.Configuration;
 using Enigma.Core.Handlers.Configuration.Helpers;
 using Enigma.Core.Handlers.Configuration.Interfaces;
@@ -54,6 +56,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<IChartDataDao, ChartDataDao>();
         serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
+        serviceCollection.AddTransient<ICommunicationHandler, CommunicationHandler>();
         serviceCollection.AddTransient<IConfigReader, ConfigReader>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
@@ -79,6 +82,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IHorizontalHandler, HorizontalHandler>();
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
+        serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
