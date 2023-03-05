@@ -58,8 +58,8 @@ public class TestSeFlags
     [Test]
     public void TestCombinedFlags()
     {
-        int expectedFlags = 2 + 256 + 2048 + 32 * 1024 + 64 * 1024;
-        int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Equatorial, ObserverPositions.TopoCentric, ZodiacTypes.Sidereal);
+        int expectedFlags = 2 + 256 + 2048 + 32 * 1024;
+        int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Equatorial, ObserverPositions.TopoCentric, ZodiacTypes.Sidereal);   // equatorial should be ignored if ZodiacTypoe is Sidereal
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
 

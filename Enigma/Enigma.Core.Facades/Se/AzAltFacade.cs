@@ -16,18 +16,18 @@ public class AzAltFacade : IAzAltFacade
 {
     /// <inheritdoc/>
     /// <remarks>Throws SwissEphException if CommonSE returns an error.</remarks>
-    public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags)
+    public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] equCoordinates, int flags)
     {
 
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
-        int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, eclipticCoordinates, horizontalCoordinates);
+        int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
         if (result < 0)
         {
             string geoGraphCoordinatesText = geoGraphicCoordinates.Length == 3 ? string.Format("geoGraphicCoordinates: {0}, {1}, {2}", geoGraphicCoordinates[0], geoGraphicCoordinates[1], geoGraphicCoordinates[2]) :
                  string.Format("Number of geographicCoordinates is {0}.", geoGraphicCoordinates.Length);
-            string eclCoordinatesText = eclipticCoordinates.Length == 3 ? string.Format("eclipticCoordinates: {0}, {1}, {2}", eclipticCoordinates[0], eclipticCoordinates[1], eclipticCoordinates[2]) :
-                string.Format("Number of eclipticCoordinates is {0}.", eclipticCoordinates.Length);
-            string paramsSummary = string.Format($"julianDayUt: {0}, geoGraphicCoordinates: {1}, eclipticCoordinates: {2}, flags: {3}.", julianDayUt, geoGraphCoordinatesText, eclCoordinatesText, flags);
+            string eclCoordinatesText = equCoordinates.Length == 3 ? string.Format("equCoordinates: {0}, {1}, {2}", equCoordinates[0], equCoordinates[1], equCoordinates[2]) :
+                string.Format("Number of equCoordinates is {0}.", equCoordinates.Length);
+            string paramsSummary = string.Format($"julianDayUt: {0}, geoGraphicCoordinates: {1}, equCoordinates: {2}, flags: {3}.", julianDayUt, geoGraphCoordinatesText, eclCoordinatesText, flags);
             throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "CalculateHorizontalCoordinatesFacade.CalculateHorizontalCoordinat", paramsSummary));
         }
         return new double[] { horizontalCoordinates[0], horizontalCoordinates[1] };

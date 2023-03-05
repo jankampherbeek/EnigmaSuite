@@ -7,9 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
@@ -76,13 +74,14 @@ public sealed class ChartDataInputController
         ActualErrorCodes = new List<int>();
         Calendars cal = Calendar;
 
-        // todo validate and define lmtoffset
-        double lmtOffset = 0.0;
+
         bool dateSuccess = _dateInputParser.HandleGeoLong(InputDate, Calendar, YearCount, out FullDate? fullDate);
-        bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, out FullTime? fullTime);
         bool geoLongSuccess = _geoLongInputParser.HandleGeoLong(Longitude, Direction4GeoLong, out FullGeoLongitude? fullGeoLongitude);
         bool geoLatSuccess = _geoLatInputParser.HandleGeoLat(Latitude, Direction4GeoLat, out FullGeoLatitude? fullGeoLatitude);
-        bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? _);
+        bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? fullGeoLongForLmt);
+        double lmtOffset = 0.0;
+        if (lmtSuccess && fullGeoLongForLmt != null) lmtOffset = ParseLmtOffset(fullGeoLongForLmt);
+        bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, Dst, out FullTime? fullTime);
 
         if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
         if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
@@ -92,6 +91,7 @@ public sealed class ChartDataInputController
 
         if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && fullDate != null && fullTime != null)
         {
+
             SimpleDateTime dateTime = new(fullDate.YearMonthDay[0], fullDate.YearMonthDay[1], fullDate.YearMonthDay[2], fullTime.Ut, cal);
             double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;
             string locNameCheckedForEmpty = string.IsNullOrEmpty(LocationName) ? "" : LocationName + " ";
@@ -111,6 +111,11 @@ public sealed class ChartDataInputController
         else return false;
     }
 
+    private double ParseLmtOffset(FullGeoLongitude fullGeoLongitude)
+    {
+        return fullGeoLongitude.Longitude / 15.0;
+    }
+
     private static MetaData CreateMetaData(string nameId, string description, string source, string locationName, ChartCategories chartCategory, RoddenRatings rating)
     {
         string nameIdText = string.IsNullOrWhiteSpace(nameId) ? Rosetta.TextForId("charts.positions.chartname.empty") : nameId;
@@ -128,8 +133,5 @@ public sealed class ChartDataInputController
         helpWindow.SetHelpPage("ChartsDataInput");
         helpWindow.ShowDialog();
     }
-
-
-
 
 }

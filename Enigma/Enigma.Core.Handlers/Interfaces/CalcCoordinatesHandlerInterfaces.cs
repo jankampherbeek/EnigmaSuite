@@ -45,8 +45,8 @@ public interface IHorizontalCalc
     /// <summary>Perform the calculation of the horizontal coordinates.</summary>
     /// <param name="jdUt">Julian day for UT.</param>
     /// <param name="location"/>
-    /// <param name="eclipticCoordinates"/>
+    /// <param name="equCoordinates"/>
     /// <param name="flags">Flags for the SE.</param>
     /// <returns>Calculated horizontal coordinates (azimuth and altitude).</returns>
-    public double[] CalculateHorizontal(double jdUt, Location location, EclipticCoordinates eclipticCoordinates, int flags);
+    public double[] CalculateHorizontal(double jdUt, Location location, EquatorialCoordinates equCoordinates, int flags);
 }

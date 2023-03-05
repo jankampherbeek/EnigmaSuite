@@ -13,4 +13,5 @@ namespace Enigma.Domain.RequestResponse;
 /// <param name="Obliquity">True Obliquity of the earths axis.</param>
 /// <param name="GeoLat">Geographic latitude.</param>
 /// <param name="CelPointCoordinates">Celestial point for which to calculate the oblique longitude, incoluding their ecliptical coordinates.</param>
-public record ObliqueLongitudeRequest(double Armc, double Obliquity, double GeoLat, List<NamedEclipticCoordinates> CelPointCoordinates);
+/// <param name="AyanamshaOffset">Offset for ayanamsha, zero for tropical calculations.</param>
+public record ObliqueLongitudeRequest(double Armc, double Obliquity, double GeoLat, List<NamedEclipticCoordinates> CelPointCoordinates, double AyanamshaOffset);

@@ -80,8 +80,9 @@ public interface ICelPointsElementsCalc
 {
     /// <param name="planet">Currently supported hypothetical planets: Persephone, Hermes, Demeter (School of Ram).</param>
     /// <param name="jdUt">Julian day for UT.</param>
+    /// <param name="observerPosition">Geocentric/topcentric or heliocentric. No difference for topocentric because ofd the large distance of the planets involved.</param>
     /// <returns>Array with longitude, latitude and distance in that sequence.</returns>
-    public double[] Calculate(ChartPoints planet, double jdUt);
+    public double[] Calculate(ChartPoints planet, double jdUt, ObserverPositions observerPosition);
 }
 
 /// <summary>Definitons for flags.</summary>

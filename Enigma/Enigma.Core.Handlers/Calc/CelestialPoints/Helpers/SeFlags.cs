@@ -27,7 +27,7 @@ public sealed class SeFlags : ISeFlags
         {
             flags += (32 * 1024);   // use topocentric position (apply parallax)
         }
-        if (zodiacType == ZodiacTypes.Sidereal)
+        if (zodiacType == ZodiacTypes.Sidereal && coordinateSystem == CoordinateSystems.Ecliptical)
         {
             flags += (64 * 1024);   // use sidereal zodiac
         }

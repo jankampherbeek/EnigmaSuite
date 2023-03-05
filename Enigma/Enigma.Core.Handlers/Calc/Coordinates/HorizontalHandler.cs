@@ -7,6 +7,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Constants;
 
 namespace Enigma.Core.Handlers.Calc.Coordinates;
 
@@ -19,8 +20,8 @@ public sealed class HorizontalHandler : IHorizontalHandler
 
     public HorizontalCoordinates CalcHorizontal(HorizontalRequest request)
     {
-        int flags = 0;    // flags for horizontal coordinates.
-        double[] azimuthAltitude = _horizontalCalc.CalculateHorizontal(request.JdUt, request.Location, request.EclipticCoordinates, flags);
+        int flags = EnigmaConstants.SEFLG_EQUATORIAL;    // flags for horizontal coordinates, only equatorial is used.
+        double[] azimuthAltitude = _horizontalCalc.CalculateHorizontal(request.JdUt, request.Location, request.EquCoordinates, flags);
         return new HorizontalCoordinates(azimuthAltitude[0], azimuthAltitude[1]);
     }
 

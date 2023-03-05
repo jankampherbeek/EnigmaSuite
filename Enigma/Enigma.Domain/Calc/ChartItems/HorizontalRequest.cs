@@ -11,5 +11,5 @@ namespace Enigma.Domain.Calc.ChartItems;
 /// <summary>Request to calculate horizontal positions.</summary>
 /// <param name="JdUt"/>
 /// <param name="Location"/>
-/// <param name="EclipticCoordinates">Longitude and latitude in tropical zodiac.</param>
-public record HorizontalRequest(double JdUt, Location Location, EclipticCoordinates EclipticCoordinates);
+/// <param name="EquCoordinates">RA and declination.</param>
+public record HorizontalRequest(double JdUt, Location Location, EquatorialCoordinates EquCoordinates);

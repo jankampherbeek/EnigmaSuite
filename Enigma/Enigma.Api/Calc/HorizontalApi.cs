@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -25,7 +25,7 @@ public sealed class HorizontalApi : IHorizontalApi
     public HorizontalCoordinates GetHorizontal(HorizontalRequest request)
     {
         Guard.Against.Null(request);
-        Guard.Against.Null(request.EclipticCoordinates);
+        Guard.Against.Null(request.EquCoordinates);
         Guard.Against.Null(request.Location);
         Log.Information("HorizontalApi GetHorizontal");
         return _horizontalHandler.CalcHorizontal(request);

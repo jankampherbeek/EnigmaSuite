@@ -7,6 +7,7 @@
 
 
 using Enigma.Core.Handlers.Calc.Util;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Points;
 
@@ -25,11 +26,19 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
     }
 
     /// <inheritdoc/>
-    public double[] Calculate(ChartPoints planet, double jdUt)
+    public double[] Calculate(ChartPoints planet, double jdUt, ObserverPositions observerPosition)
     {
         double centuryFractionT = FactorT(jdUt);
-        PolarCoordinates polarPlanetGeo = CalcGeoPolarCoord(planet, centuryFractionT);
-        return DefinePosition(polarPlanetGeo);
+        if (observerPosition == ObserverPositions.GeoCentric || observerPosition == ObserverPositions.TopoCentric)  // no difference for plantes with a large distance.
+        {
+            PolarCoordinates polarPlanetGeo = CalcGeoPolarCoord(planet, centuryFractionT);
+            return DefinePosition(polarPlanetGeo);
+        } 
+        else
+        {
+            PolarCoordinates polarPlanetHelio = CalcHelioPolarCoord(planet, centuryFractionT);
+            return DefinePosition(polarPlanetHelio);
+        }
     }
 
 
@@ -39,6 +48,12 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
         RectAngCoordinates rectAngPlanetHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(planet));
         RectAngCoordinates rectAngPlanetGeo = new(rectAngPlanetHelio.XCoord - rectAngEarthHelio.XCoord, rectAngPlanetHelio.YCoord - rectAngEarthHelio.YCoord, rectAngPlanetHelio.ZCoord - rectAngEarthHelio.ZCoord);
         return MathExtra.Rectangular2Polar(rectAngPlanetGeo);
+    }
+
+    private PolarCoordinates CalcHelioPolarCoord(ChartPoints planet, double centuryFractionT)
+    {
+        RectAngCoordinates rectAngPlanetHelio = _calcHelioPos.CalcEclipticPosition(centuryFractionT, DefineOrbitDefinition(planet));
+        return MathExtra.Rectangular2Polar(rectAngPlanetHelio);
     }
 
 

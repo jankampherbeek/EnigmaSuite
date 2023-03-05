@@ -49,29 +49,34 @@ public sealed class HousesHandler : IHousesHandler
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
         double[][] _eclValues;
+        double[][] tropicalValues;
         Dictionary<ChartPoints, FullPointPos> mundanePositions = new();
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
-
+        tropicalValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
         if (request.calcPrefs.ActualZodiacType == ZodiacTypes.Sidereal)
         {
-            _flags += EnigmaConstants.SEFLG_SIDEREAL;
             int idAyanamsa = request.calcPrefs.ActualAyanamsha.GetDetails().SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
+            _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags + EnigmaConstants.SEFLG_SIDEREAL);
+        }
+        else
+        {
+            _eclValues = tropicalValues;
         }
 
-        _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
+        
 
-        KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, _eclValues[1][0], jdUt, obliquity, location);
+        KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, tropicalValues[1][0], _eclValues[1][0], jdUt, obliquity, location);
         mundanePositions.Add(asc.Key, asc.Value);
-        KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, _eclValues[1][1], jdUt, obliquity, location);
+        KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, tropicalValues[1][1], _eclValues[1][1], jdUt, obliquity, location);
         mundanePositions.Add(mc.Key, mc.Value);
         if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.Vertex)) {
-            KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, _eclValues[1][3], jdUt, obliquity, location);
+            KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, tropicalValues[1][3], _eclValues[1][3], jdUt, obliquity, location);
             mundanePositions.Add(vertex.Key, vertex.Value);
         }
         if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.EastPoint))
         {
-            KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, _eclValues[1][4], jdUt, obliquity, location);
+            KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, tropicalValues[1][4], _eclValues[1][4], jdUt, obliquity, location);
             mundanePositions.Add(eastPoint.Key, eastPoint.Value);
         }
 
@@ -81,20 +86,20 @@ public sealed class HousesHandler : IHousesHandler
         {
             int cuspIndex = 2000 + n;
             ChartPoints cusp = ChartPoints.None.PointForIndex(cuspIndex);
-            KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, _eclValues[0][n], jdUt, obliquity, location);
+            KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, tropicalValues[0][n], _eclValues[0][n], jdUt, obliquity, location);
             mundanePositions.Add(cuspPos.Key, cuspPos.Value);
         }
         return mundanePositions;
     }
 
-    private KeyValuePair<ChartPoints, FullPointPos> CreateFullChartPointPosForCusp(ChartPoints point, double longitude, double jdUt, double obliquity, Location location)
+    private KeyValuePair<ChartPoints, FullPointPos> CreateFullChartPointPosForCusp(ChartPoints point, double tropLongitude, double longitude, double jdUt, double obliquity, Location location)
     {
         double latitude = 0.0;
         double speed = 0.0;
         double distance = 0.0;
-        EclipticCoordinates eclCoord = new(longitude, latitude);
+        EclipticCoordinates eclCoord = new(tropLongitude, latitude);
         EquatorialCoordinates eqCoord = CalcEquatorialCoordinates(eclCoord, obliquity);
-        HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eclCoord);
+        HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eqCoord);
 
         PosSpeed psLongitude = new(longitude, speed);
         PosSpeed psLatitude = new (latitude, speed);
@@ -117,9 +122,9 @@ public sealed class HousesHandler : IHousesHandler
         return _coordinateConversionHandler.HandleConversion(coordConvRequest);
     }
 
-    private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EclipticCoordinates eclCoord)
+    private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EquatorialCoordinates equCoord)
     {
-        HorizontalRequest horizontalRequest = new(jdUt, location, eclCoord);
+        HorizontalRequest horizontalRequest = new(jdUt, location, equCoord);
         return _horizontalHandler.CalcHorizontal(horizontalRequest);
     }
 

@@ -432,8 +432,8 @@ public partial class AstroConfigWindow : Window
         cboxAsc.IsChecked = true;
         tboxMcFactor.Text = chartConfigPoints[ChartPoints.Mc].PercentageOrb.ToString();
         cboxMc.IsChecked = true;
-     //   tboxEastpointFactor.Text = chartConfigPoints[ChartPoints.EastPoint].PercentageOrb.ToString();
-     //   cboxEastpoint.IsChecked = chartConfigPoints[ChartPoints.EastPoint].IsUsed;
+        tboxEastpointFactor.Text = chartConfigPoints[ChartPoints.EastPoint].PercentageOrb.ToString();
+        cboxEastpoint.IsChecked = chartConfigPoints[ChartPoints.EastPoint].IsUsed;
         tboxVertexFactor.Text = chartConfigPoints[ChartPoints.Vertex].PercentageOrb.ToString();
         cboxVertex.IsChecked = chartConfigPoints[ChartPoints.Vertex].IsUsed;
         tboxZeroAriesFactor.Text = chartConfigPoints[ChartPoints.ZeroAries].PercentageOrb.ToString();

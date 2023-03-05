@@ -112,7 +112,8 @@ public partial class ChartPositionsWindow : Window
         int startIndex = inputTimeText.IndexOf("[");
         int endIndex = inputTimeText.LastIndexOf("]");
         string timeZoneId = inputTimeText.Substring(startIndex + 1, endIndex - startIndex - 1);
-        return string.Concat(inputTimeText.AsSpan(0, startIndex - 1), Rosetta.TextForId(timeZoneId));
+        string dst = inputTimeText.Substring(endIndex + 1);
+        return string.Concat(inputTimeText.AsSpan(0, startIndex - 1), Rosetta.TextForId(timeZoneId), dst);
     }
 
 

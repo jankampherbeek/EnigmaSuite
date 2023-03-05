@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -21,10 +21,10 @@ public sealed class HorizontalCalc : IHorizontalCalc
 
 
     /// <inheritdoc/>
-    public double[] CalculateHorizontal(double jdUt, Location location, EclipticCoordinates eclipticCoordinates, int flags)
+    public double[] CalculateHorizontal(double jdUt, Location location, EquatorialCoordinates equCoordinates, int flags)
     {
         var geoGraphicLonLat = new double[] { location.GeoLong, location.GeoLat };
-        var eclipticLonLat = new double[] { eclipticCoordinates.Longitude, eclipticCoordinates.Latitude };
-        return _azAltFacade.RetrieveHorizontalCoordinates(jdUt, geoGraphicLonLat, eclipticLonLat, flags);
+        var equatRaDecl = new double[] { equCoordinates.RightAscension, equCoordinates.Declination};
+        return _azAltFacade.RetrieveHorizontalCoordinates(jdUt, geoGraphicLonLat, equatRaDecl, flags);
     }
 }

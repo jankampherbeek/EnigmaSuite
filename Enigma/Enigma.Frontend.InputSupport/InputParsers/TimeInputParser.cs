@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,14 +23,14 @@ public class TimeInputParser : ITimeInputParser
     }
 
 
-    public bool HandleTime(string inputTime, TimeZones timeZone, double lmtOffset, out FullTime? fullTime)
+    public bool HandleTime(string inputTime, TimeZones timeZone, double lmtOffset, bool dst, out FullTime? fullTime)
     {
         fullTime = null;
         bool validationSuccess;
         (int[] timeValues, bool timeSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputTime, EnigmaConstants.SEPARATOR_TIME);
         if (timeSuccess)
         {
-            validationSuccess = _timeValidator.CreateCheckedTime(timeValues, timeZone, lmtOffset, out fullTime);
+            validationSuccess = _timeValidator.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime);
         }
         else
         {

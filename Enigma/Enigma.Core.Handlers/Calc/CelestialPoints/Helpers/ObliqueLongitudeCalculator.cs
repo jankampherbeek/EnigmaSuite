@@ -27,17 +27,17 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         EclipticCoordinates southPoint = _southPointCalculator.CalculateSouthPoint(request.Armc, request.Obliquity, request.GeoLat);
         foreach (NamedEclipticCoordinates celPointCoordinate in request.CelPointCoordinates)
         {
-            double oblLong = OblLongForCelPoint(celPointCoordinate, southPoint);
+            double oblLong = OblLongForCelPoint(celPointCoordinate, southPoint, request.AyanamshaOffset) - request.AyanamshaOffset ;
             oblLongitudes.Add(new NamedEclipticLongitude(celPointCoordinate.CelPoint, oblLong));
         }
         return oblLongitudes;
     }
 
-    private static double OblLongForCelPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint)
+    private static double OblLongForCelPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint, double ayanamshaOffset)
     {
         double absLatSp = Math.Abs(southPoint.Latitude);
         double longSp = southPoint.Longitude;
-        double longPl = namedEclipticCoordinate.EclipticCoordinate.Longitude;
+        double longPl = namedEclipticCoordinate.EclipticCoordinate.Longitude + ayanamshaOffset;
         double latPl = namedEclipticCoordinate.EclipticCoordinate.Latitude;
         double longSouthPMinusPlanet = Math.Abs(longSp - longPl);
         double longPlanetMinusSouthP = Math.Abs(longPl - longSp);
@@ -58,16 +58,6 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         {
             correctedV = latPl > 0.0 ? absoluteV : -absoluteV;
         }
-        Log.Information("---------- DEBUG --------------");
-        Log.Information("Body: " + namedEclipticCoordinate.CelPoint.GetDetails().TextId);
-        Log.Information("Body longitude: " + longPl);
-        Log.Information("Body latitude: " + latPl);
-        Log.Information("Soutpoint longitude: " + longSp);
-        Log.Information("Soutpoint lat: " + southPoint.Latitude);
-        Log.Information("V: " + v);
-        Log.Information("Corrected V: " + correctedV);
-
-
         return RangeUtil.ValueToRange(longPl + correctedV, 0.0, 360.0);
     }
 

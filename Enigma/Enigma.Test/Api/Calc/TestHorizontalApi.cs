@@ -21,7 +21,7 @@ public class TestHorizontalApi
     private readonly double _expectedAzimuth = 222.2;
     private readonly double _expectedAltitude = 45.45;
     private readonly Location _location = new("Anywhere", 55.5, 22.2);
-    private readonly EclipticCoordinates _eclCoordinates = new(111.1, 2.2);
+    private readonly EquatorialCoordinates _equCoordinates = new(111.1, 2.2);
     private IHorizontalApi _api;
 
     [SetUp]
@@ -37,7 +37,7 @@ public class TestHorizontalApi
     [Test]
     public void TestHorizontalHappyFlow()
     {
-        var _horizontalRequest = new HorizontalRequest(_jdUt, _location, _eclCoordinates);
+        var _horizontalRequest = new HorizontalRequest(_jdUt, _location, _equCoordinates);
         HorizontalCoordinates horCoordinates = _api.GetHorizontal(_horizontalRequest);
         Assert.Multiple(() =>
         {
@@ -57,14 +57,14 @@ public class TestHorizontalApi
     public void TestHorizontalLocationNullRequest()
     {
         Location? location = null;
-        HorizontalRequest request = new(_jdUt, location!, _eclCoordinates);
+        HorizontalRequest request = new(_jdUt, location!, _equCoordinates);
         Assert.That(() => _api.GetHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestHorizontalEclcoordinatesNullRequest()
     {
-        EclipticCoordinates? coordinates = null;
+        EquatorialCoordinates? coordinates = null;
         HorizontalRequest request = new(_jdUt, _location, coordinates!);
         Assert.That(() => _api.GetHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }

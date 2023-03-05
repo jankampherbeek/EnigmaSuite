@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,7 +20,7 @@ public class TestHorizontalCalc
     private readonly double _julianDay = 123456.789;
     private readonly double[] _geoGraphicCoordinates = { 10.0, 50.0 };
     private readonly Location _location = new("Anywhere", 10.0, 50.0);
-    private EclipticCoordinates _eclipticCoordinates;
+    private EquatorialCoordinates _equCoordinates;
     private readonly double[] _eclipticValues = { 200.0, -2.0 };
     private readonly double[] _expectedHorCoord = { 222.2, 44.4 };
     private double[] _actualResults;
@@ -30,7 +30,7 @@ public class TestHorizontalCalc
     [SetUp]
     public void SetUp()
     {
-        _eclipticCoordinates = new EclipticCoordinates(200.0, -2.0);
+        _equCoordinates = new EquatorialCoordinates(200.0, -2.0);
         PerformCalculation();
     }
 
@@ -52,7 +52,7 @@ public class TestHorizontalCalc
         var mockFacade = new Mock<IAzAltFacade>();
         mockFacade.Setup(p => p.RetrieveHorizontalCoordinates(_julianDay, _geoGraphicCoordinates, _eclipticValues, _flags)).Returns(_expectedHorCoord);
         var _horizontalCalc = new HorizontalCalc(mockFacade.Object);
-        _actualResults = _horizontalCalc.CalculateHorizontal(_julianDay, _location, _eclipticCoordinates, _flags);
+        _actualResults = _horizontalCalc.CalculateHorizontal(_julianDay, _location, _equCoordinates, _flags);
     }
 
 

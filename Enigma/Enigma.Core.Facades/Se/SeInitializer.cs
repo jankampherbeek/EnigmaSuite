@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Exceptions;
 using Serilog;
 using System.Runtime.InteropServices;
@@ -69,4 +70,9 @@ public static class SeInitializer
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_sid_mode")]
     private extern static void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
+
+    public static void SetAyanamsha(Ayanamshas fagan)
+    {
+        throw new NotImplementedException();
+    }
 }

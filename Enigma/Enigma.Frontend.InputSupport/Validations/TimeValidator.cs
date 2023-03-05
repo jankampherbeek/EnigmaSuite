@@ -1,11 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 
 namespace Enigma.Frontend.Helpers.Validations;
 
@@ -19,7 +20,7 @@ public class TimeValidator : ITimeValidator
 
 
     /// <inheritdoc/>
-    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime)
+    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, bool dst, out FullTime fullTime)
     {
 
         string _fullText = "";
@@ -35,23 +36,26 @@ public class TimeValidator : ITimeValidator
         }
         if (success)
         {
-            CalculateUtAndCorrectionForDay(timezone, lmtOffset);
-            _fullText = CreateFullText(timezone, lmtOffset);
+            CalculateUtAndCorrectionForDay(timezone, lmtOffset, dst);
+            _fullText = CreateFullText(timezone, lmtOffset, dst);
         }
         fullTime = new FullTime(this.timeValues, _ut, _correctionForDay, _fullText);
 
         return success;
     }
 
-    private string CreateFullText(TimeZones timezone, double lmtOffset)
+    private string CreateFullText(TimeZones timezone, double lmtOffset, bool dst)
     {
         string _timeZoneTextId = timezone.GetDetails().TextId;
-        string _fullText = $"{timeValues[0]:d2}:{timeValues[1]:d2}:{timeValues[2]:d2} [{_timeZoneTextId}]";
-
+        string dstText = dst ? Rosetta.TextForId("common.dst.used") : Rosetta.TextForId("common.dst.notused");
+        string lmtOffsetText = "";
         if (timezone == TimeZones.LMT)
         {
-            _fullText += lmtOffset.ToString();
+            lmtOffsetText = " " + lmtOffset.ToString();
         }
+        string _fullText = $"{timeValues[0]:d2}:{timeValues[1]:d2}:{timeValues[2]:d2} [{_timeZoneTextId}]{lmtOffsetText} {dstText}";
+
+
         return _fullText;
     }
 
@@ -64,12 +68,13 @@ public class TimeValidator : ITimeValidator
         return result;
     }
 
-    private void CalculateUtAndCorrectionForDay(TimeZones timezone, double lmtOffset)
+    private void CalculateUtAndCorrectionForDay(TimeZones timezone, double lmtOffset, bool dst)
     {
         double _offset;
         _ut = timeValues[0] + ((double)timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE);
         _offset = timezone == TimeZones.LMT ? lmtOffset : timezone.GetDetails().OffsetFromUt;
         _ut -= _offset;
+        if (dst) _ut++;
         if (_ut < 0.0)
         {
             _ut += 24.0;

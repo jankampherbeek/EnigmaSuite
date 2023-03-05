@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -62,6 +62,7 @@ public interface ITimeValidator
     /// <param name="timezone">The timezone that is used.</param>
     /// <param name="lmtOffset">If TimeZone is LMT this parameter contains a value for the time offset. Will be zero if TimeZone != LMT.</param>
     /// <param name="fullTime">Resulting record FullTime.</param>
+    /// <param name="dst">True if daylight saving tme is used, otherwise false. Dst is considered to be always 1 hour.</param>
     /// <returns>True if no error was found, otherwise false.</returns>
-    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, out FullTime fullTime);
+    public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, bool dst, out FullTime fullTime);
 }

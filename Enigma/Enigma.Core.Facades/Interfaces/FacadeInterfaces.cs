@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -21,10 +21,10 @@ public interface IAzAltFacade
     /// </remarks>
     /// <param name="julianDayUt">Julian day in universal time.</param>
     /// <param name="geoGraphicCoordinates">Geographic coordinates: gepgraphic longitude, geographic latitude and height (meters), in that sequence.</param>
-    /// <param name="eclipticCoordinates">Ecliptic coordinates: longitude, latitude and distance, in that sequence.</param>
+    /// <param name="equCoordinates">Equatorial coordinates: ra, declination and distance, in that sequence.</param>
     /// <param name="flags">Combined values that contain settings.</param>
-    /// <returns>Array with azimuth and altitude in that seqwuence.</returns>
-    public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] eclipticCoordinates, int flags);
+    /// <returns>Array with azimuth and altitude in that sequence.</returns>
+    public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] equCoordinates, int flags);
 }
 
 
@@ -95,7 +95,16 @@ public interface IRevJulFacade
 }
 
 
-
+/// <summary>Facade for retrieving the value of hte current Ayanamsha offset.</summary>
+/// <remarks>The SE must have been initialized to use a specific ayanamsha.</remarks>
+public interface IAyanamshaFacade
+{
+    /// <summary>Calculate the Ayanamsa</summary>
+    /// <remarks>Throws EnigmaException if an error occurs.</remarks>
+    /// <param name="jdUt">Julian Day for UT.</param>
+    /// <returns>The offseet for the ayanamsha.</returns>
+    public double GetAyanamshaOffset(double jdUt);
+}
 
 
 

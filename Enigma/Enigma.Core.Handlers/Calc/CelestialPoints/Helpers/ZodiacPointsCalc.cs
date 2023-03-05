@@ -49,8 +49,8 @@ public sealed class ZodiacPointsCalc: IZodiacPointsCalc
         double ra = equatorialPos[0];
         double decl = equatorialPos[1];
 
-        EclipticCoordinates eclCoordinates = new(longitude, latitude);
-        HorizontalRequest horizontalRequest = new(julDay, request.Location, eclCoordinates);
+        EquatorialCoordinates equCoordinates = new(ra, decl);
+        HorizontalRequest horizontalRequest = new(julDay, request.Location, equCoordinates);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
         PosSpeed aziPosSpeed = new(horCoord.Azimuth, 0.0);
         PosSpeed altPosSpeed = new(horCoord.Altitude, 0.0);
