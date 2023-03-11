@@ -112,50 +112,10 @@ public partial class ChartPositionsWindow : Window
         int startIndex = inputTimeText.IndexOf("[");
         int endIndex = inputTimeText.LastIndexOf("]");
         string timeZoneId = inputTimeText.Substring(startIndex + 1, endIndex - startIndex - 1);
-        string dst = inputTimeText.Substring(endIndex + 1);
+        string dst = inputTimeText[(endIndex + 1)..];
         return string.Concat(inputTimeText.AsSpan(0, startIndex - 1), Rosetta.TextForId(timeZoneId), dst);
     }
 
-
-    private void AspectsClick(object sender, RoutedEventArgs e)
-    {
-        _controller.ShowAspects();
-    }
-
-    private void DeclinationsClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Declinations not yet implemented.");
-    }
-
-    private void HarmonicsClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Harmonics not yet implemented.");
-    }
-
-    private void MidpointsClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Midpoints not yet implemented.");
-    }
-
-    private void PrimaryClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Primary directions not yet implemented.");
-    }
-
-    private void SecundaryClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Secundary progressions not yet implemented.");
-    }
-
-    private void TransitsClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Transits not yet implemented.");
-    }
-
-    private void SolarreturnClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Solar return not yet implemented.");
-    }
 
     private void CloseClick(object sender, RoutedEventArgs e)
     {

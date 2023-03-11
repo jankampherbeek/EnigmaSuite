@@ -686,9 +686,7 @@ ref.enum.yearcount.bce = BCE
 ref.enum.yearcount.astronomical = Astronomical
 
 ref.enum.zodiacpoints.id.zeroar = Zero Aries
-ref.enum.zodiacpoints.id.zerocn = Zero Cancer
 ref.enum.zodiacpoints.idabbr.zeroar = 0\u00B0Ar
-ref.enum.zodiacpoints.idabbr.zerocn = 0\u00B0Cn
 
 ref.enum.zodiactype.sidereal = Sideral
 ref.enum.zodiactype.tropical = Tropical

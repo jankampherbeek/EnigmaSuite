@@ -5,8 +5,11 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
+using Enigma.Facades.Interfaces;
+using Enigma.Facades.Se;
 
 namespace Enigma.Core.Handlers.Calc.Celestialpoints;
 
@@ -16,44 +19,70 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
     private readonly ICelPointsHandler _celPointsHandler;
     private readonly IHousesHandler _housesHandler;
     private readonly IZodiacPointsCalc _zodiacPointCalc;
+    private readonly IObliquityHandler _obliquityHandler;
+    private readonly IAyanamshaFacade _ayanamshaFacade;
+    private readonly ILotsCalculator _lotsCalculator;
 
 
-    public ChartAllPositionsHandler(ICelPointsHandler celPointsHandler, IHousesHandler housesHandler, IZodiacPointsCalc zodiacPointsCalc)
+    public ChartAllPositionsHandler(ICelPointsHandler celPointsHandler, IHousesHandler housesHandler, IZodiacPointsCalc zodiacPointsCalc, IObliquityHandler obliquityHandler, IAyanamshaFacade ayanamshaFacade, ILotsCalculator lotsCalculator)
     {
         _celPointsHandler = celPointsHandler;
         _housesHandler = housesHandler;
         _zodiacPointCalc = zodiacPointsCalc;
+        _obliquityHandler = obliquityHandler;
+        _ayanamshaFacade = ayanamshaFacade;
+        _lotsCalculator = lotsCalculator;
     }
 
-    public Dictionary<ChartPoints, FullPointPos> CalcFullChart(CelPointsRequest request)
+    public Dictionary<ChartPoints, FullPointPos> CalcFullChart(CelPointsRequest celPointsRequest)
     {
-        Dictionary<ChartPoints, FullPointPos> commonPositions = _celPointsHandler.CalcCommonPoints(request);
-        FullHousesPosRequest housesRequest = new(request.JulianDayUt, request.Location, request.CalculationPreferences);
+        double jdUt = celPointsRequest.JulianDayUt;
+        CalculationPreferences prefs = celPointsRequest.CalculationPreferences;
+        Location location = celPointsRequest.Location;
+        double obliquity = CalcObliquity(jdUt);
+        double ayanamshaOffset = PrepareAyanamsha(celPointsRequest);
+
+        FullHousesPosRequest housesRequest = new(jdUt, location, prefs);
         Dictionary<ChartPoints, FullPointPos> mundanePositions = _housesHandler.CalcHouses(housesRequest);
-        Dictionary<ChartPoints, FullPointPos> zodiacPoints = new();         // TODO 0.1 Add zodiacal points to ChartAllPositionsHandler.
-        Dictionary<ChartPoints, FullPointPos> arabicPoints = new();         // TODO 0.1 Add pars fortunae to ChartAllPositionsHandler.
-        Dictionary<ChartPoints, FullPointPos> fixStars = new();             // TODO backlog Add FixStars for ChartAllPositionsHandler.
+        double armc = mundanePositions[ChartPoints.Mc].Equatorial.MainPosSpeed.Position;
 
-        var allPositions = commonPositions.Concat(mundanePositions).GroupBy(i => i.Key).ToDictionary(group => group.Key, group => group.First().Value);     // todo 0.1 check result and sequence of positions.
+        Dictionary<ChartPoints, FullPointPos> commonPositions = _celPointsHandler.CalcCommonPoints(jdUt, obliquity, ayanamshaOffset, armc, location, prefs);
+        Dictionary<ChartPoints, FullPointPos> lots = _lotsCalculator.CalculateAllLots(commonPositions, mundanePositions, prefs, jdUt, obliquity, location);
+        Dictionary<ChartPoints, FullPointPos> zodiacPoints = _zodiacPointCalc.CalculateAllZodiacalPoints(prefs, jdUt, obliquity, location) ;
 
-        return allPositions;
+        // TODO backlog Add calculation of fixstars.
+
+        List<Dictionary<ChartPoints, FullPointPos>> dictionaries = new()
+        {
+            commonPositions,
+            mundanePositions,
+            lots,
+            zodiacPoints
+        };
+        return MergeDirectories(dictionaries);
     }
 
-    private Dictionary<ChartPoints, FullPointPos> CalcZodiacPoints(CelPointsRequest request)   // TODO 0.1 handle calculation of zodiac points
+    private static Dictionary<ChartPoints, FullPointPos> MergeDirectories(IEnumerable<Dictionary<ChartPoints, FullPointPos>> dictionaries)
     {
-        Dictionary<ChartPoints, FullPointPos> zodiacPoints = new();
-        if (request.CalculationPreferences.ActualZodiacType == ZodiacTypes.Tropical && request.CalculationPreferences.CoordinateSystem == CoordinateSystems.Ecliptical)
+        return dictionaries.SelectMany(x => x).ToDictionary(x => x.Key, y => y.Value);
+    }
+
+
+    private double CalcObliquity(double jdUt)
+    {
+        ObliquityRequest obliquityRequest = new(jdUt, true);
+        return _obliquityHandler.CalcObliquity(obliquityRequest);
+    }
+
+    private double PrepareAyanamsha(CelPointsRequest request)
+    {
+        double ayanamshaOffset = 0.0;
+        if (request.CalculationPreferences.ActualZodiacType == ZodiacTypes.Sidereal)
         {
-            if (request.CalculationPreferences.ActualChartPoints.Contains(ChartPoints.ZeroAries))
-            {
-                zodiacPoints.Add(ChartPoints.ZeroAries, _zodiacPointCalc.DefineZeroAries(request));
-            }
-            if (request.CalculationPreferences.ActualChartPoints.Contains(ChartPoints.ZeroCancer))
-            {
-                zodiacPoints.Add(ChartPoints.ZeroAries, _zodiacPointCalc.DefineZeroCancer(request));
-            }
+            SeInitializer.SetAyanamsha(request.CalculationPreferences.ActualAyanamsha.GetDetails().SeId);
+            ayanamshaOffset = _ayanamshaFacade.GetAyanamshaOffset(request.JulianDayUt);
         }
-        return zodiacPoints;
+        return ayanamshaOffset;
     }
 }
 

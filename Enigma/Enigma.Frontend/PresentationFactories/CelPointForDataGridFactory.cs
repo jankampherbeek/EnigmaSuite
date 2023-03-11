@@ -31,7 +31,7 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
         List<PresentableCommonPositions> presPositions = new();
         foreach (var celPos in positions)
         {
-            if (celPos.Key.GetDetails().PointCat == PointCats.Common)
+            if (celPos.Key.GetDetails().PointCat == PointCats.Common || celPos.Key.GetDetails().PointCat == PointCats.Zodiac || celPos.Key.GetDetails().PointCat == PointCats.Lots)
             {
                 presPositions.Add(CreateSinglePos(celPos));
             }

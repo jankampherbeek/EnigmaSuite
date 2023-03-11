@@ -139,7 +139,6 @@ public sealed class ChartsMainController
         {
             _dataVault.AddNewChart(calculatedChart);
             _dataVault.SetNewChartAdded(true);
-         //   ShowCurrentChart();
         }
     }
 

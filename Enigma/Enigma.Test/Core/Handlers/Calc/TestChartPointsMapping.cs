@@ -67,7 +67,7 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointZodiac()
     {
         ChartPoints point = ChartPoints.ZeroAries;
-        CalculationCats expectedType = CalculationCats.Specific;
+        CalculationCats expectedType = CalculationCats.Lots;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }
@@ -76,7 +76,7 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointArabic()
     {
         ChartPoints point = ChartPoints.FortunaNoSect;
-        CalculationCats expectedType = CalculationCats.Specific;
+        CalculationCats expectedType = CalculationCats.Lots;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(expectedType, Is.EqualTo(actualType));
     }

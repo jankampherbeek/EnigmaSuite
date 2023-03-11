@@ -33,7 +33,7 @@ public sealed class ChartPointsMapping : IChartPointsMapping
         {
             return CalculationCats.Mundane;
         }
-        else return CalculationCats.Specific;      // specific points
+        else return CalculationCats.Lots;      // specific points
     }
 
     /// <inheritdoc/>

@@ -44,7 +44,7 @@ public class TestPointCats
     {
         int index = 4;
         PointCats cat = PointCats.None.PointCatForIndex(index);
-        Assert.That(cat, Is.EqualTo(PointCats.Arabic));
+        Assert.That(cat, Is.EqualTo(PointCats.Lots));
     }
 
     [Test]

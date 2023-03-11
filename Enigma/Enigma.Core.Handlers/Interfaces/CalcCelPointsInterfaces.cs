@@ -36,7 +36,7 @@ public interface IObliqueLongitudeHandler
 /// </summary>
 public interface ICelPointsHandler
 {
-    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(CelPointsRequest request);
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs);
 }
 
 /// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
@@ -99,13 +99,23 @@ public interface ISeFlags
 /// <summary>Calculate positions for specific zodiac points.</summary>
 public interface IZodiacPointsCalc
 {
-    /// <summary>Calculate full position for zero Aries.</summary>
-    /// <param name="request"/>
-    /// <returns>Fully defined position.</returns>
-    public FullPointPos DefineZeroAries(CelPointsRequest request);
+    public Dictionary<ChartPoints, FullPointPos> CalculateAllZodiacalPoints(CalculationPreferences prefs, double jdUt, double obliquity, Location location);
+}
 
-    /// <summary>Calculate full position for zero Cancer.</summary>
-    /// <param name="request"/>
-    /// <returns>Fully defined position.</returns>
-    public FullPointPos DefineZeroCancer(CelPointsRequest request);
+/// <summary>Factory for the construction of an instance of FullPointPos.</summary>
+public interface IFullPointPosFactory
+{
+    /// <summary>Constract instance of FullPointPos.</summary>
+    /// <param name="eclipticPosSpeed">Eclitpical vlaues: longitude, latitude, distance.</param>
+    /// <param name="equatorialPosSpeed">Equatorial values: right ascension, declination, distance.</param>
+    /// <param name="horCoord">Horizontal coordinates: azimuth and altitude.</param>
+    /// <returns>Instance of FullPointPos.</returns>
+    public FullPointPos CreateFullPointPos(PosSpeed[] eclipticPosSpeed, PosSpeed[] equatorialPosSpeed, HorizontalCoordinates horCoord);
+}
+
+/// <summary>Calculator for Hellenistic lots.</summary>
+public interface ILotsCalculator
+{
+    public Dictionary<ChartPoints, FullPointPos> CalculateAllLots(Dictionary<ChartPoints, FullPointPos> commonPositions, Dictionary<ChartPoints, FullPointPos> mundanePositions, CalculationPreferences prefs,
+       double jdUt, double obliquity, Location location);
 }

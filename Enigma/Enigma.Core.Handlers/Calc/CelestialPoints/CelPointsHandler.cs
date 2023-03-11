@@ -8,8 +8,6 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
-using Enigma.Domain.Calc.Specials;
-using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Facades.Interfaces;
@@ -25,66 +23,49 @@ public sealed class CelPointsHandler : ICelPointsHandler
     private readonly ICelPointSECalc _celPointSECalc;
     private readonly ICelPointsElementsCalc _celPointElementsCalc;
     private readonly ICoTransFacade _coordinateConversionFacade;
-    private readonly IAyanamshaFacade _ayanamshaFacade;
-    private readonly IObliquityHandler _obliquityHandler;
     private readonly IHorizontalHandler _horizontalHandler;
     private readonly IChartPointsMapping _chartPointsMapping;
     private readonly IObliqueLongitudeHandler _obliqueLongitudeHandler;
-    private readonly IHousesHandler _housesHandler;
+    private readonly IFullPointPosFactory _fullPointPosFactory;
 
 
     public CelPointsHandler(ISeFlags seFlags,
                                ICelPointSECalc positionCelPointSECalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
                                ICoTransFacade coordinateConversionFacade,
-                               IAyanamshaFacade ayanamshaFacade,
-                               IObliquityHandler obliquityHandler,
                                IHorizontalHandler horizontalHandler,
                                IChartPointsMapping chartPointsMapping,
                                IObliqueLongitudeHandler obliqueLongitudeHandler,
-                               IHousesHandler housesHandler)
+                               IFullPointPosFactory fullPointPosFactory)
     {
         _seFlags = seFlags;
         _celPointSECalc = positionCelPointSECalc;
         _celPointElementsCalc = posCelPointsElementsCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
-        _ayanamshaFacade = ayanamshaFacade;
-        _obliquityHandler = obliquityHandler;
         _horizontalHandler = horizontalHandler;
         _chartPointsMapping = chartPointsMapping;
         _obliqueLongitudeHandler = obliqueLongitudeHandler;
-        _housesHandler = housesHandler;
+        _fullPointPosFactory = fullPointPosFactory;
     }
 
 
-    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(CelPointsRequest request)
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs)    
     {
-        double ayanamshaOffset = 0.0;
-        List<ChartPoints> celPoints = request.CalculationPreferences.ActualChartPoints;
-        ObserverPositions observerPosition = request.CalculationPreferences.ActualObserverPosition;
-        double julDay = request.JulianDayUt;
+        List<ChartPoints> celPoints = prefs.ActualChartPoints;
+        ObserverPositions observerPosition = prefs.ActualObserverPosition;
+        double julDay = jdUt;
         double previousJd = julDay - 0.5;
         double futureJd = julDay + 0.5;
-        Location location = request.Location;
-        var obliquityRequest = new ObliquityRequest(julDay, true);
 
-
-        double obliquity = _obliquityHandler.CalcObliquity(obliquityRequest);
-        if (request.CalculationPreferences.ActualZodiacType == ZodiacTypes.Sidereal)
+        if (prefs.ActualObserverPosition == ObserverPositions.TopoCentric)
         {
-            int idAyanamsa = request.CalculationPreferences.ActualAyanamsha.GetDetails().SeId;
-            SeInitializer.SetAyanamsha(idAyanamsa);
-            ayanamshaOffset = _ayanamshaFacade.GetAyanamshaOffset(julDay);
-        }
-        if (request.CalculationPreferences.ActualObserverPosition == ObserverPositions.TopoCentric)
-        {
-            SeInitializer.SetTopocentric(request.Location.GeoLong, request.Location.GeoLat, 0.0);  // TODO backlog optionally replace 0.0 with value for altitude above sealevel in meters. 
+            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);  // TODO backlog optionally replace 0.0 with value for altitude above sealevel in meters. 
         }
 
-        int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
-        int flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, request.CalculationPreferences.ActualObserverPosition, request.CalculationPreferences.ActualZodiacType);
+        int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, prefs.ActualObserverPosition, prefs.ActualZodiacType);
+        int flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, prefs.ActualObserverPosition, prefs.ActualZodiacType);
         var commonPoints = new Dictionary<ChartPoints, FullPointPos>();
-        foreach (ChartPoints celPoint in celPoints)
+        foreach (ChartPoints celPoint in celPoints)   // only handle calculations using CalculationCats.CommonSE and CommonElements
         {
             CalculationCats calculationCat = _chartPointsMapping.CalculationTypeForPoint(celPoint);
             if (calculationCat == CalculationCats.CommonSE)
@@ -100,29 +81,20 @@ public sealed class CelPointsHandler : ICelPointsHandler
                 PosSpeed longPosSpeed = new(positions[0][0] - ayanamshaOffset, futurePositions[0][0] - previousPositions[0][0]);
                 PosSpeed latPosSpeed = new(positions[0][1], futurePositions[0][1] - previousPositions[0][1]);
                 PosSpeed distPosSpeed = new(positions[0][2], futurePositions[0][2] - previousPositions[0][2]);
+                PosSpeed[] eclipticPosSpeeds = {longPosSpeed, latPosSpeed, distPosSpeed }; 
                 PosSpeed raPosSpeed = new(positions[1][0], futurePositions[1][0] - previousPositions[1][0]);
                 PosSpeed declPosSpeed = new(positions[1][1], futurePositions[1][1] - previousPositions[1][1]);
-                //EclipticCoordinates eclCoordinates = new(positions[0][0], positions[0][1]);
+                PosSpeed[] equatorialPosSpeeds = {raPosSpeed, declPosSpeed, distPosSpeed };
                 EquatorialCoordinates equCoordinates = new(positions[1][0], positions[1][1]);
-                HorizontalRequest horizontalRequest = new(julDay, request.Location, equCoordinates);
+                HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
                 HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
-                PosSpeed aziPosSpeed = new(horCoord.Azimuth, 0.0);
-                PosSpeed altPosSpeed = new(horCoord.Altitude, 0.0);
-                PointPosSpeeds ppsEcliptical = new(longPosSpeed, latPosSpeed, distPosSpeed);
-                PointPosSpeeds ppsEquatorial = new(raPosSpeed, declPosSpeed, distPosSpeed);
-                PointPosSpeeds ppsHorizontal = new(aziPosSpeed, altPosSpeed, distPosSpeed);
-                FullPointPos fullPointPos = new(ppsEcliptical, ppsEquatorial, ppsHorizontal);
+
+                FullPointPos fullPointPos = _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeeds, equatorialPosSpeeds, horCoord);
                 commonPoints.Add(celPoint, fullPointPos);
             }
-            // TODO add branch for numeric calculations
-            else
-            {
-                // throw new EnigmaException("Unrecognized calculationtype for chartpoint : " + celPoint);
-            }
         }
-        if (request.CalculationPreferences.ActualProjectionType == ProjectionTypes.ObliqueLongitude)
+        if (prefs.ActualProjectionType == ProjectionTypes.ObliqueLongitude)
         {
-            double armc = _housesHandler.CalcArmc(julDay, obliquity, location);
             ObliqueLongitudeRequest obliqueLongitudeRequest = CreateObliqueLongitudeRequest(commonPoints, armc, obliquity, location, ayanamshaOffset);
             List<NamedEclipticLongitude> obliqueLongitudes = _obliqueLongitudeHandler.CalcObliqueLongitude(obliqueLongitudeRequest);
             Dictionary<ChartPoints, FullPointPos> obliqueLongitudePoints = CreateObliqueLongitudePoints(commonPoints, obliqueLongitudes);
@@ -131,7 +103,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
         return commonPoints;
     }
 
-    private ObliqueLongitudeRequest CreateObliqueLongitudeRequest(Dictionary<ChartPoints, FullPointPos> calculatedPoints, double armc, double obliquity, Location location, double ayanamshaOffset)
+    private static ObliqueLongitudeRequest CreateObliqueLongitudeRequest(Dictionary<ChartPoints, FullPointPos> calculatedPoints, double armc, double obliquity, Location location, double ayanamshaOffset)
     {
         List<NamedEclipticCoordinates> coordinates = new();
         foreach (var calcPoint in calculatedPoints)
@@ -141,7 +113,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
         return new ObliqueLongitudeRequest(armc, obliquity, location.GeoLat, coordinates, ayanamshaOffset);
     }
 
-    private Dictionary<ChartPoints, FullPointPos> CreateObliqueLongitudePoints(Dictionary<ChartPoints, FullPointPos> commonPoints, List<NamedEclipticLongitude> obliqueLongitudes)
+    private static Dictionary<ChartPoints, FullPointPos> CreateObliqueLongitudePoints(Dictionary<ChartPoints, FullPointPos> commonPoints, List<NamedEclipticLongitude> obliqueLongitudes)
     {
         Dictionary<ChartPoints, FullPointPos> obliqueLongitudePoints = new();
 
@@ -165,23 +137,11 @@ public sealed class CelPointsHandler : ICelPointsHandler
     private KeyValuePair<ChartPoints,  FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
-        PosSpeed longPosSpeed = eclipticPosSpeed[0];
-        PosSpeed latPosSpeed = eclipticPosSpeed[1];
-        PosSpeed distPosSpeed = eclipticPosSpeed[2];
         PosSpeed[] equatorialPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);
-        PosSpeed raPosSpeed = equatorialPosSpeed[0];
-        PosSpeed declPosSpeed = equatorialPosSpeed[1];
         var equCoordinates = new EquatorialCoordinates(equatorialPosSpeed[0].Position, equatorialPosSpeed[1].Position);
         HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
-
-        PosSpeed aziPosSpeed = new(horCoord.Azimuth, 0.0);
-        PosSpeed altPosSpeed = new(horCoord.Altitude, 0.0);
-        PointPosSpeeds ppsEcliptical = new(longPosSpeed, latPosSpeed, distPosSpeed);
-        PointPosSpeeds ppsEquatorial = new(raPosSpeed, declPosSpeed, distPosSpeed);
-        PointPosSpeeds ppsHorizontal = new(aziPosSpeed, altPosSpeed, distPosSpeed);
-        FullPointPos fullPointPos = new(ppsEcliptical, ppsEquatorial, ppsHorizontal);
-
+        FullPointPos fullPointPos = _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeed, equatorialPosSpeed, horCoord);
         return new KeyValuePair<ChartPoints, FullPointPos>(celPoint, fullPointPos);
 
     }

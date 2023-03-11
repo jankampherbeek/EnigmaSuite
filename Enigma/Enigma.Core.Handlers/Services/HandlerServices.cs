@@ -76,6 +76,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
+        serviceCollection.AddTransient<IFullPointPosFactory, FullPointPosFactory>();
         serviceCollection.AddTransient<IHarmonicsCalculator, HarmonicsCalculator>();
         serviceCollection.AddTransient<IHarmonicsHandler, HarmonicsHandler>();
         serviceCollection.AddTransient<IHorizontalCalc, HorizontalCalc>();
@@ -86,6 +87,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
+        serviceCollection.AddTransient<ILotsCalculator, LotsCalculator>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
         serviceCollection.AddTransient<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>();
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();

@@ -75,14 +75,14 @@ Implementing a first set of progressive techniques.
 
 **Charts (progressive)**:
 
-- Primary directions. Support for Placidus semi-arc directions and directions under the pole, for Regiomontanus and Campanus, all mundane and zodiacal.  Time keys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc (40 possibe combinations). This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.  
+- Primary directions. Support for Placidus semi-arc directions and directions under the pole, for Regiomontanus and Campanus, all mundane and zodiacal.  Time keys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc (40 possible combinations). This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.  
 - Primary directions - optionally add support for Topocentric primary directions.
 - Secundary progressions with the following time keys:  astronomical days = astronomical year (tropical and sidereal), calendar days = calendar years (using mean calender and days defined in UT). 
 - Symbolic progressions. Solar arc directions and variants. Timekeys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc and user defined fixed values of any size. 
 - Transits. 
 - Solar returns, tropical and sidereal, supporting relocation.  
-- For al progressive techniques: includes matches between progressive and radix positions, defined in aspects, midpoints or harmonics.
-- Save events to database and search for events for a given chart.
+- For all progressive techniques: includes matches between progressive and radix positions, defined in aspects, midpoints or harmonics.
+- Save events to database and search for events for a chart.
 
 **Research**:
 
@@ -197,13 +197,25 @@ The first non-beta release.
 **Charts**:
 
 - Full support for micro astrology.
-- Show additional information with chartwheel, using mouse-over. The content is configurable.
+- Show additional information with chart wheel, using mouse-over. The content is configurable.
 - Solution for showing a large amount of celestial points in the chart wheel (to be defined).
 
 **Cycles**:
 
-- Calculate timeseries of positions in tropical or sidereal positions, geocentric of heliocentric.
+- Calculate time series of positions in tropical or sidereal positions, geocentric of heliocentric.
 - Show positions in line diagram and a histogram of totals.
 - Show distances between specified celestial points in line diagram and a histogram of totals.
 - Support for approach by Robert Doolaard.
 
+
+
+### Backlog
+
+- Prenatal positions according to Eg Sneek.
+- Prenatal positions according to Leo Knegt.
+- Logarithmic Time Scale according to Tad Mann.
+- Age point, according to Louise and Bruno Huber.
+- Arabic points
+- KAS
+- Rationelle astrologie Hof
+- 

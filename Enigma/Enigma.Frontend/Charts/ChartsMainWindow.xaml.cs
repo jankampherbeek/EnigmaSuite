@@ -183,14 +183,8 @@ public partial class ChartsMainWindow : Window
     private void ChartsNewClick(object sender, RoutedEventArgs e)
     {
         _controller.NewChart();
-    //    bool newChartAdded = _dataVault.GetNewChartAdded();
         DisableOrEnable();
         PopulateAvailableCharts();
-    }
-
-    private void ChartsOverviewClick(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Charts overview not yet implemented.");    // TODO implement handling of click
     }
 
     private void NewSelection(object sender, RoutedEventArgs e)

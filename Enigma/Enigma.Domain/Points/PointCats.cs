@@ -15,12 +15,12 @@ namespace Enigma.Domain.Points;
 /// Angle: specific mundane points like Mc, Ascendant and Vertex.
 /// Cusp: housecusps.
 /// Zodiac: specific zodiac points like Zero Aries.
-/// Arabic: Arabic points.
+/// Lots: Lots points.
 /// FixStar: stars and comparable objects, like nebulae.
 /// </remarks>
 public enum PointCats
 {
-    None = -1, Common = 0, Angle = 1, Cusp = 2, Zodiac = 3, Arabic = 4, FixStar = 5
+    None = -1, Common = 0, Angle = 1, Cusp = 2, Zodiac = 3, Lots = 4, FixStar = 5
 }
 
 
@@ -45,7 +45,7 @@ public static class PointCatsExtensions
             PointCats.Angle => new PointCatDetails(cat, "ref.enum.pointcats.angle"),
             PointCats.Cusp => new PointCatDetails(cat, "ref.enum.pointcats.cusp"),
             PointCats.Zodiac => new PointCatDetails(cat, "ref.enum.pointcats.zodiac"),
-            PointCats.Arabic => new PointCatDetails(cat, "ref.enum.pointcats.arabic"),
+            PointCats.Lots => new PointCatDetails(cat, "ref.enum.pointcats.arabic"),
             PointCats.FixStar => new PointCatDetails(cat, "ref.enum.pointcats.fixstar"),
             _ => throw new ArgumentException("PointCat unknown : " + cat.ToString())
         };
