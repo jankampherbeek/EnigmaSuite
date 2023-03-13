@@ -43,7 +43,7 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         double longPlanetMinusSouthP = Math.Abs(longPl - longSp);
         double latSouthPMinusPlanet = absLatSp - latPl;
         double latSouthPPLusPlanet = absLatSp + latPl;
-        double s = Math.Min(longSouthPMinusPlanet, longPlanetMinusSouthP) / 2;
+        double s = Math.Min(longSouthPMinusPlanet, longPlanetMinusSouthP) / 2.0;
         double tanSRad = Math.Tan(MathExtra.DegToRad(s));
         double qRad = Math.Sin(MathExtra.DegToRad(latSouthPMinusPlanet)) / Math.Sin(MathExtra.DegToRad(latSouthPPLusPlanet));
         double v = MathExtra.RadToDeg(Math.Atan(tanSRad * qRad)) - s;

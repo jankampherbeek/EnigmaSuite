@@ -99,10 +99,8 @@ public sealed class ChartDataInputController
             Location location = new(fullLocationName, fullGeoLongitude.Longitude, fullGeoLatitude.Latitude);
             FullDateTime fullDateTime = new(fullDate.DateFullText, fullTime.TimeFullText, julianDayUt);
             MetaData metaData = CreateMetaData(NameId, Description, Source, LocationName, ChartCategory, RoddenRating);
-            // Todo 0.1   retrieve id from database, use local counter for tempId
             int id = ChartsIndexSequence.NewSequenceId();
-            int tempId = 1;
-            ChartData chartData = new(id, tempId, metaData, location, fullDateTime);
+            ChartData chartData = new(id, metaData, location, fullDateTime);
             CalculatedChart chart = _chartCalculation.CalculateChart(chartData);
             _dataVault.AddNewChart(chart);
             _dataVault.SetNewChartAdded(true);

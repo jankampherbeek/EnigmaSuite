@@ -65,7 +65,8 @@ public sealed class ChartsMainController
         if (_dataVault.GetNewChartAdded())
         {
             // enable relevant menuitems and buttons
-            SaveCurrentChart();
+            int newIndex = SaveCurrentChart();
+            _dataVault.GetCurrentChart().InputtedChartData.Id = newIndex;
             ShowCurrentChart();
         }
     }
@@ -92,16 +93,17 @@ public sealed class ChartsMainController
         return "-";
     }
 
-    public void SaveCurrentChart()
+    public int SaveCurrentChart()
     {
+        int newIndex = -1;
         var currentChart = _dataVault.GetCurrentChart();
         if (currentChart != null)
         {
             ChartData chartData = currentChart.InputtedChartData;
             PersistableChartData persistableChartData = _chartDataConverter.ToPersistableChartData(chartData);
-            var _ = _chartDataPersistencyApi.AddChartData(persistableChartData);
+            newIndex = _chartDataPersistencyApi.AddChartData(persistableChartData);
         }
-
+        return newIndex;
     }
 
     public bool DeleteCurrentChart()

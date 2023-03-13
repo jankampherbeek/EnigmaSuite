@@ -38,7 +38,6 @@ public class TestDescriptiveChartText
     private readonly double _baseOrbMidpoints = 1.6;
     private readonly bool _useCuspsForAspects = false;
     private readonly int _id = 123;
-    private readonly int _tempId = -1;
     private readonly double _geoLong = 12.25;
     private readonly double _geoLat = 30.5;
     private readonly string _dateText = "2023/02/22";
@@ -85,7 +84,7 @@ public class TestDescriptiveChartText
 
     private ChartData CreateChartData()
     {
-        return new ChartData(_id, _tempId, CreateMetaData(), CreateLocation(), CreateFullDateTime());
+        return new ChartData(_id, CreateMetaData(), CreateLocation(), CreateFullDateTime());
     }
 }
 

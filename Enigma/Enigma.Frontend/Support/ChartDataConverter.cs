@@ -47,7 +47,7 @@ public sealed class ChartDataConverter: IChartDataConverter
         string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableChartData.GeoLat, persistableChartData.GeoLong); 
         Location location = new(locationFullName, persistableChartData.GeoLong, persistableChartData.GeoLat);
         FullDateTime fullDateTime = new(persistableChartData.DateText, persistableChartData.TimeText, persistableChartData.JulianDayEt);
-        return new ChartData(persistableChartData.Id, 0, metaData, location, fullDateTime);
+        return new ChartData(persistableChartData.Id, metaData, location, fullDateTime);
     }
 
     private static PersistableChartData HandleConversion (ChartData chartData)

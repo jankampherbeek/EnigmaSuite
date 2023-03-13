@@ -76,7 +76,7 @@ public class TestChartDataConverter
         string locationFullName = _locationFullName;
         Location location = new(locationFullName, _geoLong, _geoLat);
         FullDateTime fullDateTime = new(_dateText, _timeText, _jdEt);
-        return new ChartData(_id, 0, metaData, location, fullDateTime);
+        return new ChartData(_id, metaData, location, fullDateTime);
     }
 
     private PersistableChartData CreatePersistableChartData()
