@@ -438,7 +438,6 @@ public partial class AstroConfigWindow : Window
         cboxVertex.IsChecked = chartConfigPoints[ChartPoints.Vertex].IsUsed;
         tboxZeroAriesFactor.Text = chartConfigPoints[ChartPoints.ZeroAries].PercentageOrb.ToString();
         cboxZeroAries.IsChecked = chartConfigPoints[ChartPoints.ZeroAries].IsUsed;
-        // TODO 0.1 add ZeroCancer
         tboxParsSectFactor.Text = chartConfigPoints[ChartPoints.FortunaSect].PercentageOrb.ToString();
         cboxParsSect.IsChecked = chartConfigPoints[ChartPoints.FortunaSect].IsUsed;
         tboxParsNoSectFactor.Text = chartConfigPoints[ChartPoints.FortunaNoSect].PercentageOrb.ToString();

@@ -37,6 +37,14 @@ public sealed class DataVault
         }
     }
 
+    public void ClearExistingCharts()
+    {
+        _allCharts.Clear();
+        _currentChart = null;
+        NewChartAdded = false;
+    }
+
+
     public void AddNewChart(CalculatedChart newChart)
     {
         CalculatedChart? chartToRemove = null;

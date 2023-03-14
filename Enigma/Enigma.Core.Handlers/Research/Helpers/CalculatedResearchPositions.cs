@@ -19,7 +19,6 @@ namespace Enigma.Core.Handlers.Research.Helpers;
 /// <inheritdoc/>
 public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
 {
-    // TODO 0.1 Analysis
     private readonly IConfigurationHandler _configurationHandler;
     private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
     private readonly IJulDayHandler _julDayHandler;

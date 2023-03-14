@@ -12,8 +12,6 @@ using System.Windows.Controls;
 
 namespace Enigma.Frontend.Ui.Charts;
 
-// TODO 0.1 finish ChartsMainWindow
-
 
 /// <summary>Main window with dashboard for charts.</summary>
 public partial class ChartsMainWindow : Window
@@ -160,6 +158,9 @@ public partial class ChartsMainWindow : Window
     private void GeneralConfigurationClick(object sender, RoutedEventArgs e)
     {
         _controller.ShowAstroConfig();
+        DisableOrEnable();
+        PopulateData();
+        PopulateAvailableCharts();
     }
 
     private void GeneralSettingsClick(object sender, RoutedEventArgs e)
@@ -192,8 +193,11 @@ public partial class ChartsMainWindow : Window
         if (sender is DataGrid dataGrid)
         {
             PresentableChartData? rowView = (PresentableChartData)dataGrid.SelectedItem;
-            int index = int.Parse(rowView.Id);
-            _controller.SearchAndSetActiveChart(index);
+            if (rowView != null)
+            {
+                int index = int.Parse(rowView.Id);
+                _controller.SearchAndSetActiveChart(index);
+            }
             PopulateData();
         }
         DisableOrEnable();
@@ -217,7 +221,7 @@ public partial class ChartsMainWindow : Window
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowAbout();
+        ChartsMainController.ShowAbout();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

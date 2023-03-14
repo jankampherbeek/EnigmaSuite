@@ -43,6 +43,7 @@ public sealed class AstroConfigController
     {
         _configApi.WriteConfig(astroConfig);
         CurrentConfig.Instance.ChangeConfig(astroConfig);
+        DataVault.Instance.ClearExistingCharts();
     }
 
     public static void ShowHelp()

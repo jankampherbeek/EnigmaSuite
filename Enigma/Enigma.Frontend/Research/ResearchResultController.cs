@@ -377,8 +377,10 @@ public class ResearchResultController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = new();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        HelpWindow helpWindow = new()
+        {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen
+        };
         helpWindow.SetHelpPage("ResearchResults");
         helpWindow.ShowDialog();
     }

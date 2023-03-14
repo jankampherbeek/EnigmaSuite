@@ -20,8 +20,6 @@ using System.Windows.Shapes;
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
 
-// TODO 0.1 Analysis, check aspects in chart
-
 public sealed class ChartsWheelAspects : IChartsWheelAspects
 {
     private readonly IAspectsApi _aspectsApi;
@@ -79,7 +77,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     }
 
 
-    private List<DrawableAspectCoordinatesCp> CreateSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
+    private static List<DrawableAspectCoordinatesCp> CreateSsCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
     {
         List<DrawableAspectCoordinatesCp> drawableAspectCoordinatesSs = new();
         double longAsc = currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
@@ -100,25 +98,4 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         return drawableAspectCoordinatesSs;
     }
 
-
-    /*
-    private List<DrawableAspectCoordinatesMu> CreateMuCoordinates(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint)
-    {
-        List<DrawableAspectCoordinatesMu> drawableAspectCoordinatesMu = new();
-        double longAsc = currentChart.Positions.Angles[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
-        DimPoint dimPoint = new(centerPoint);
-        // Asc
-        double posOnCircle = 90.0;
-        Point ascPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
-        drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("Asc", ascPoint.X, ascPoint.Y));
-        // MC
-        double longitudeMc = currentChart.Positions.Angles[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position;  
-        posOnCircle = longitudeMc - longAsc + 90.0;
-        if (posOnCircle < 0.0) posOnCircle += 360.0;
-        if (posOnCircle >= 360.0) posOnCircle -= 360.0;
-        Point mcPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
-        drawableAspectCoordinatesMu.Add(new DrawableAspectCoordinatesMu("MC", mcPoint.X, mcPoint.Y));
-        return drawableAspectCoordinatesMu;
-    }
-    */
 }

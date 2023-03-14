@@ -14,7 +14,6 @@ using System.Collections.Generic;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
-// TODO 0.1 Analysis
 public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;

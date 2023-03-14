@@ -9,11 +9,6 @@ using Enigma.Domain.Points;
 
 namespace Enigma.Research.Domain;
 
-
-// TODO 0.1 Analysis
-
-
-
 /// <summary>Selection of points to use in research.</summary>
 /// <param name="SelectedPoints">Selected chart points.</param>
 /// <param name="IncludeCusps">True if all cusps are used, otherwise false.</param>

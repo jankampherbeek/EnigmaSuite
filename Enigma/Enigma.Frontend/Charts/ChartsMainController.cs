@@ -64,10 +64,11 @@ public sealed class ChartsMainController
         chartDataInputWindow.ShowDialog();
         if (_dataVault.GetNewChartAdded())
         {
-            // enable relevant menuitems and buttons
             int newIndex = SaveCurrentChart();
-            _dataVault.GetCurrentChart().InputtedChartData.Id = newIndex;
-            ShowCurrentChart();
+            if (_dataVault.GetCurrentChart() != null && _dataVault.GetCurrentChart()!.InputtedChartData != null) {
+                _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
+                ShowCurrentChart();
+            }
         }
     }
 
@@ -182,7 +183,7 @@ public sealed class ChartsMainController
     }
 
 
-    public void ShowAbout()
+    public static void ShowAbout()
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
