@@ -37,9 +37,9 @@ public class AppSettingsController
         return _applicationSettings.LocationExportFiles;
     }
 
-    public string LocationOfSeFiles()
+    public string LocationOfLogFiles()
     {
-        return _applicationSettings.LocationSeFiles;
+        return _applicationSettings.LocationLogFiles;
     }
 
     public string LocationOfDatabase()

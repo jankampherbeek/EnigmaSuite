@@ -51,7 +51,7 @@ public partial class ChartAspectsWindow : Window
         dgSsAspects.Columns[3].Header = _emptyHeader;
         dgSsAspects.Columns[4].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point2");
         dgSsAspects.Columns[5].Header = _emptyHeader;
-        dgSsAspects.Columns[6].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.Orb");
+        dgSsAspects.Columns[6].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.orb");
         dgSsAspects.Columns[7].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.exactness");
 
 

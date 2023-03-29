@@ -21,7 +21,7 @@
         <DataGrid Grid.Row="1" Margin="6" Name="dgDataNames" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="False" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="chartname-x" Binding="{Binding ChartName}" Width="Auto"/>
+                <DataGridTextColumn Header="chartname-x" Binding="{Binding DataName}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">

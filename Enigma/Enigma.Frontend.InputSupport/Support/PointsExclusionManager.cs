@@ -42,8 +42,7 @@ public class PointsExclusionManager: IPointsExclusionManager
         {
             ChartPoints.Vertex,
             ChartPoints.EastPoint,
-            ChartPoints.ZeroAries,
-            ChartPoints.ZeroCancer
+            ChartPoints.ZeroAries
         };
         bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
@@ -56,7 +55,6 @@ public class PointsExclusionManager: IPointsExclusionManager
             ChartPoints.Vertex,
             ChartPoints.EastPoint,
             ChartPoints.ZeroAries,
-            ChartPoints.ZeroCancer,
             ChartPoints.Mc,
             ChartPoints.Ascendant,
             ChartPoints.EastPoint,
@@ -73,7 +71,6 @@ public class PointsExclusionManager: IPointsExclusionManager
             ChartPoints.Vertex,
             ChartPoints.EastPoint,
             ChartPoints.ZeroAries,
-            ChartPoints.ZeroCancer,
             ChartPoints.FortunaNoSect,
             ChartPoints.FortunaSect
         };

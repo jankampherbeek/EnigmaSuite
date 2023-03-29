@@ -70,7 +70,6 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
             ChartPoints.Ascendant => 'A',
             ChartPoints.Mc => 'M',
             ChartPoints.ZeroAries => '1',
-            ChartPoints.ZeroCancer => '4',
             ChartPoints.FortunaSect => 'e',
             ChartPoints.FortunaNoSect => 'e',
             _ => _emptyGlyph,

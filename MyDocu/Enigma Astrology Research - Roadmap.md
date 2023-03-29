@@ -1,31 +1,31 @@
 # Enigma Astrology Research - Roadmap
 
-*Jan Kampherbeek, 2023-02-04*
+*Jan Kampherbeek, 2023-03-17*
 
 [TOC]
 
-This roadmap contains a description of the functionality in the first releases of *Enigma Astrology Research*. It gives insight in the direction I want to go with Enigma but it is flexible; changes are possible but only if there is a compelling reason for such a change.  
+This roadmap contains a description of the functionality in the first releases of *Enigma Astrology Research*. It gives insight into the direction I want to go with Enigma, but it is flexible; changes are possible, but only if there is an important reason for such a change.  
 
 ## Objectives
 
-The initial versions of Enigma will supply general support for calculating and analyzing charts but will also have a focus on five specific projects:
+The initial versions of Enigma will supply general support for calculating and analyzing charts, but will also have a focus on five specific projects:
 
 - Research into suicide (Vivian Muller).
 - Research into explosions (Frank Vernooij).
-- Research into fybromialgia (Herman Oldenburger and Vivian Muller).
+- Research into fybromialgia (Herman Oldenburger, Vivian Muller and Truus van Leeuwen).
 - Harmonical aspect theory (Albert Bredenhoff).
 - School of Ram techniques (Paula Schreurs).
 - Micro astrology (Cemal Cicek).
 
-Support for these projects and methods will be added step-by-step to Enigma. 
+I will add support for these projects and methods step-by-step to Enigma. 
 
 
 
 ## Planned releases
 
-This roadmap describes the expected functionality in the first 7 releases. 
+This roadmap outlines the features expected for the initial 7 releases. 
 
-A point by point description of the functionality of each planned release:
+A point-by-point description of the functionality of each planned release:
 
 ### Release 0.1 - beta
 
@@ -36,7 +36,7 @@ Basic functionality for charts (calculations, analysis) and research (data, simp
 - User definable configuration for house systems, zodiac (tropical/sidereal), ayanamsha, observer position, projection to the ecliptic, celestial points to include, aspects to use, orbs for aspects/celestial points.
 - Font with astrological symbols.
 
-- Logging of possible errors.
+- Logging of errors.
 
 - User manual and help system. Each window that is shown gives access to a help-page.
 - Installation program and automatic check for updates.
@@ -44,22 +44,26 @@ Basic functionality for charts (calculations, analysis) and research (data, simp
 
 **Charts**:
 
-- Calculation, support for 21 house systems, tropical/sideral zodiac, 40 ayanamsha's, observer position (geocentric, heliocentric, topocentric [using parallax]), classic/modern planets, Chiron, Nessus, Pholus, 9 plutoïds, 6 planetoïds, hypothetical planets (School of Ram (3), Uranian astrology (8) and Transpluto), mathematical points (lunar node (true and mean), apogee (Black Moon, mean and corrected according to the Swiss Ephemeris), Vertex and Eastpoint. Support for oblique longitude (true astrological place, School of Ram). The user still needs to enter location coordinates and timezone manually. 
-- Covered period for calculation from 13000 BCE up to 16800 CE (almost 30000 years) for most important celestial points. Chiron however is only supported from 675 CE up to 4650 CE. Several other smaller bodies are supported from 3000 BCE up to 3000 CE.
+- Calculation, support for 21 house systems, tropical/sideral zodiac, 40 ayanamsha's, observer position (geocentric, heliocentric, topocentric [using parallax]), classic/modern planets, Chiron, Nessus, Pholus, 9 plutoïds, 6 planetoïds, hypothetical planets (School of Ram (3), Uranian astrology (8) and Transpluto), mathematical points (lunar node (true and mean), apogee (Black Moon, mean and corrected according to the Swiss Ephemeris), Vertex and Eastpoint. Support for oblique longitude (true astrological place, School of Ram). The user still needs to enter location coordinates and time-zone manually. 
+- Covered period for calculation from 13000 BCE up to 16800 CE (almost 30000 years) for most important celestial points. Calculation of Chiron is only possible from from 675 CE up to 4650 CE. Enigma supports several other smaller bodies only from 3000 BCE up to 3000 CE.
 - High quality graphical presentation of the chart (no 'staircase effect'). The chart figure uses equal signs and variable houses, shows aspects, and is resizable.
-- Overview of all calculated positions, including longitude, latitude, right ascension, declination, distance, azimuth and altitude. The daily speed is also shown except for azimuth and altitude.
-- Analysis: aspects, a list with actual aspects, aspects to cusps. Midpoints in a 360° circle, represented as list and occupied midpoints for three dial sizes: 360°, 90° and 45°. The user can interactively change the dial size. Harmonics in the form of a list. The user can interactively define and change the harmonic number. There is no limit for the maximum number. Support for fractional harmonics.
-- Save charts into database and retrieve charts from database. Searchitem is name/id of chart owner. 
+- Overview of all calculated positions, including longitude, latitude, right ascension, declination, distance, azimuth and altitude. It also shows the daily speed except for azimuth and altitude.
+- Analysis
+  - Aspects, a list with actual aspects, aspects to cusps. 
+  - Midpoints in a 360° circle, represented as list and occupied midpoints for three dial sizes: 360°, 90° and 45°. The user can interactively change the dial size. 
+  - Harmonics in the form of a list. The user can interactively define and change the harmonic number. There is no limit for the maximum number. Support for fractional harmonics.
+
+- Save charts into the database, and retrieve charts from the database. Searchitem is name/id of the chart owner. 
 
 **Research**:
 
 - Import csv-data from a specific format and convert it into Json format.
 
-- Create control groups by shuffling the imported data. Optionally the items in the control group can be multiplied. 
+- Create control groups by shuffling the imported data. You can optionally multiply the items in the control group. 
 
-- Use a real random number generator (not a pseudo random number generator).
+- Use a real random number generator (not a pseudo-random number generator).
 
-- Create projects that support research. Within these projects it is possible to calculate a large range of charts, based on inputted data or on data from the control group. The research projects allow some simple countings: positions is signs, positions in houses, aspects, unaspected celestial points, occupied midpoints and harmonic positions that are conjunct radix positions.
+- Create projects that support research. Within these projects, it is possible to calculate a large range of charts, based on inputted data or on data from the control group. The research projects allow some simple counting: positions in signs, positions in houses, aspects, unaspected celestial points, occupied midpoints and harmonic positions that are conjunct radix positions.
 
   
 
@@ -70,12 +74,13 @@ Implementing a first set of progressive techniques.
 **General**:
 
 - Support for data that describes events. These events are linked to persons in the dataset as mentioned for release 0.1.
+- Import data from opengauquelin.org .
 - Add orbs for progressive techniques to configuration.
 - Add events to database.
 
 **Charts (progressive)**:
 
-- Primary directions. Support for Placidus semi-arc directions and directions under the pole, for Regiomontanus and Campanus, all mundane and zodiacal.  Time keys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc (40 possible combinations). This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.  
+- Primary directions. Support for Placidus semi-arc directions and directions under the pole, for Regiomontanus and Campanus, all mundane and zodiacal.  Time keys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc (tropical and sidereal) (56 possible combinations). This includes support for the system by Wim van Dam (semi-arc, zodiacal, true solar arc). Supports calculation of a 'calendar' with date and time of exactness and also supports the calculation for a specific date/time with matches that are within orb.  
 - Primary directions - optionally add support for Topocentric primary directions.
 - Secundary progressions with the following time keys:  astronomical days = astronomical year (tropical and sidereal), calendar days = calendar years (using mean calender and days defined in UT). 
 - Symbolic progressions. Solar arc directions and variants. Timekeys: Naibod, Cardan, Ptolemy, true solar arc and mean solar arc and user defined fixed values of any size. 

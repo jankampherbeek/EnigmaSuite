@@ -37,7 +37,7 @@ public partial class SearchChartWindow : Window
 
     public void BtnHelpClick(object sender, RoutedEventArgs e)
     {
-        // handle help
+        SearchChartController.ShowHelp();
     }
 
     public void BtnSearchClick(object sender, RoutedEventArgs e)

@@ -8,7 +8,7 @@ using Enigma.Domain.Calc.DateTime;
 
 namespace Enigma.Domain.RequestResponse;
 
-public record DateTimeResponse
+public record DateTimeResponse    // TODO 0.1 remove DateTimeResponse and replcae with SimpleDateTime
 {
     public SimpleDateTime DateTime { get; }
 

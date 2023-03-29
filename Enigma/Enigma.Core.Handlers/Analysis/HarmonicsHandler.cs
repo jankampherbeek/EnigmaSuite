@@ -33,7 +33,7 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
     }
 
     /// <inheritdoc/>
-    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber)   // todo 0.1 test RetrieveHarmonicPositions.
+    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber)   
     {
         Dictionary<ChartPoints, double> harmonicPositions = new();
         foreach (PositionedPoint posPoint in posPoints)

@@ -16,7 +16,7 @@ public class ApplicationSettings
     public string LocationDataFiles { get; set; } = @"c:\enigma_ar\data";
     public string LocationProjectFiles { get; set; } = @"c:\enigma_ar\project";
     public string LocationExportFiles { get; set; } = @"c:\enigma_ar\export";
-    public string LocationSeFiles { get; set; } = @"c:\enigma_ar\se";
+    public string LocationLogFiles { get; set; } = @"c:\enigma_ar\logs";
     public string LocationDatabase { get; set; } = @"c:\enigma_ar\database";
 
 

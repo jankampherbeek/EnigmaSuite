@@ -7,6 +7,7 @@ using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Services;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Services;
 using Enigma.Frontend.Helpers.Support;
@@ -31,15 +32,15 @@ public partial class App : Application
 {
     public static ServiceProvider ServiceProvider { get; private set; } = HandleRegistrationForDI();
 
+    private static string EnigmaLogRoot = ApplicationSettings.Instance.LocationLogFiles;
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
-        ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
-        string pathToSeFiles = "";                    // TODO 0.1 make path to CommonSE files configurable
-        seApi.SetupSe(pathToSeFiles);
-        Log.Information("Using path to CommonSE: {path}.", pathToSeFiles);
+        ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();     
+        seApi.SetupSe("");
     }
 
     protected static ServiceProvider HandleRegistrationForDI()
@@ -118,7 +119,7 @@ public partial class App : Application
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
-            .WriteTo.File("logs\\enigma_.log", rollingInterval: RollingInterval.Day)
+            .WriteTo.File(EnigmaLogRoot + @"/enigma_.log", rollingInterval: RollingInterval.Day)
             .CreateLogger();
     }
 

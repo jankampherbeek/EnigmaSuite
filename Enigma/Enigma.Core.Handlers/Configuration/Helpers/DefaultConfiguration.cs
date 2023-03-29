@@ -93,7 +93,6 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { ChartPoints.PersephoneCarteret, new ChartPointConfigSpecs(false, 'à', 40) },
             { ChartPoints.VulcanusCarteret, new ChartPointConfigSpecs(false, 'Ï', 40) },
             { ChartPoints.ZeroAries, new ChartPointConfigSpecs(false, '1', 0) },
-            { ChartPoints.ZeroCancer, new ChartPointConfigSpecs(false, '4', 0) },
             { ChartPoints.FortunaNoSect, new ChartPointConfigSpecs(false, 'e', 40) },
             { ChartPoints.FortunaSect, new ChartPointConfigSpecs(false, 'e', 40) },
             { ChartPoints.Ascendant, new ChartPointConfigSpecs(true, 'A', 100) },

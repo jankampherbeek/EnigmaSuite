@@ -63,7 +63,7 @@ public partial class ChartMidpointsWindow : Window
         dgOccupiedMidpoints.Columns[2].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[3].Header = _emptyHeader;
         dgOccupiedMidpoints.Columns[4].Header = _emptyHeader;
-        dgOccupiedMidpoints.Columns[5].Header = Rosetta.TextForId("charts.midpoints.header.Orb");
+        dgOccupiedMidpoints.Columns[5].Header = Rosetta.TextForId("charts.midpoints.header.orb");
         dgOccupiedMidpoints.Columns[6].Header = Rosetta.TextForId("charts.midpoints.header.exactness");
         dgOccupiedMidpoints.Columns[0].MaxWidth = 20;
         dgOccupiedMidpoints.Columns[1].MaxWidth = 12;

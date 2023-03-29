@@ -27,7 +27,7 @@ public enum ChartPoints
     Cusp10 = 2010, Cusp11 = 2011, Cusp12 = 2012, Cusp13 = 2013, Cusp14 = 2014, Cusp15 = 2015, Cusp16 = 2016, Cusp17 = 2017, Cusp18 = 2018,
     Cusp19 = 2019, Cusp20 = 2020, Cusp21 = 2021, Cusp22 = 2022, Cusp23 = 2023, Cusp24 = 2024, Cusp25 = 2025, Cusp26 = 2026, Cusp27 = 2027,
     Cusp28 = 2028, Cusp29 = 2029, Cusp30 = 2030, Cusp31 = 2031, Cusp32 = 2032, Cusp33 = 2033, Cusp34 = 2034, Cusp35 = 2035, Cusp36 = 2036,
-    ZeroAries = 3001, ZeroCancer = 3002,
+    ZeroAries = 3001, 
     FortunaSect = 4001, FortunaNoSect = 4002
 }
 

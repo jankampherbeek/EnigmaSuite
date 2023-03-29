@@ -191,6 +191,14 @@ public sealed class ChartsMainController
         helpWindow.ShowDialog();
     }
 
+    public static void ShowHelp()
+    {
+        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
+        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        helpWindow.SetHelpPage("ChartsMain");
+        helpWindow.ShowDialog();
+    }
+
 
     public void ShowSearch()
     {

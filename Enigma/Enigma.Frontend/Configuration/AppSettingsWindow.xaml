@@ -35,8 +35,8 @@
         <TextBlock Grid.Row="4" Name="LocExport" Text="Loc export" Margin="6"/>
         <TextBlock Grid.Column="1" Grid.Row="4" Name="LocExportValue" Text="Loc export value" Margin="6"/>
 
-        <TextBlock Grid.Row="5" Name="LocSwissEph" Text="Loc swiss eph" Margin="6"/>
-        <TextBlock Grid.Column="1" Grid.Row="5" Name="LocSwissEphValue" Text="Loc swiss eph value" Margin="6"/>
+        <TextBlock Grid.Row="5" Name="LocLogfiles" Text="Loc logfiles" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="5" Name="LocLogfilesValue" Text="Loc logfiles value" Margin="6"/>
 
         <TextBlock Grid.Row="6" Name="LocDatabase" Text="Loc database" Margin="6"/>
         <TextBlock Grid.Column="1" Grid.Row="6" Name="LocDatabaseValue" Text="Loc database value" Margin="6"/>

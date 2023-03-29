@@ -30,14 +30,14 @@ public partial class AppSettingsWindow : Window
         LocData.Text = Rosetta.TextForId("appsettingswindow.locdata");
         LocExport.Text = Rosetta.TextForId("appsettingswindow.locexport");
         LocProject.Text = Rosetta.TextForId("appsettingswindow.locproject");
-        LocSwissEph.Text = Rosetta.TextForId("appsettingswindow.locswisseph");
+        LocLogfiles.Text = Rosetta.TextForId("appsettingswindow.loclogfiles");
         LocDatabase.Text = Rosetta.TextForId("appsettingswindow.locdatabase");
         BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
         BtnClose.Content = Rosetta.TextForId("common.btnclose");
         LocDataValue.Text = _controller.LocationOfDataFiles();
         LocExportValue.Text = _controller.LocationOfExportFiles();
         LocProjectValue.Text = _controller.LocationOfProjectFiles();
-        LocSwissEphValue.Text = _controller.LocationOfSeFiles();
+        LocLogfilesValue.Text = _controller.LocationOfLogFiles();
         LocDatabaseValue.Text = _controller.LocationOfDatabase();
     }
 

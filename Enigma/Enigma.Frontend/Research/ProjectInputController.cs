@@ -93,7 +93,7 @@ public class ProjectInputController
     {
         HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
         helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ProjectImport");
+        helpWindow.SetHelpPage("ProjectNew");
         helpWindow.ShowDialog();
     }
 }

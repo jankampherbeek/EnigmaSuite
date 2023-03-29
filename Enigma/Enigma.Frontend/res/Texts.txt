@@ -5,8 +5,8 @@ appsettingswindow.formtitle = Application settings
 appsettingswindow.locdata = Data files
 appsettingswindow.locdatabase = Database
 appsettingswindow.locexport = Exported files
+appsettingswindow.loclogfiles = Log files
 appsettingswindow.locproject = Projects
-appsettingswindow.locswisseph = Swiss Ephemeris files
 appsettingswindow.title = Enigma - Application settings
 
 --- Astro Config Window -------------------------------
@@ -295,52 +295,6 @@ mainwindow.formtitle = Enigma
 mainwindow.research = Research
 mainwindow.subtitle = Astrology Research
 mainwindow.title = Enigma - Dashboard
-
---mainwindow.btnchartsnew = New chart
---mainwindow.btnchartssearch = Search chart
---mainwindow.btnconversions = Conversions
---mainwindow.btncyclenew = New cycle
---mainwindow.btncyclesearch = Search cycle
---mainwindow.btndatanew = New data
---mainwindow.btnephemerisnew = New ephemeris
---mainwindow.btnevents = Events
---mainwindow.btnother = Other
---mainwindow.btnparans = Parans
---mainwindow.btnprojectnew = New project
---mainwindow.btnprojectsearch = Search project
---mainwindow.calculatorsexpl = Support for several types of calculations (not available in version 0.1.0)
---mainwindow.calculatorstitle = Calculators
---mainwindow.chartsexpl = Calculate, analyze and progress charts
---mainwindow.chartsnew = Calculate a new chart
---mainwindow.chartstitle = Charts
---mainwindow.cyclenew = Create new cycle
---mainwindow.datanew = Import new data
---mainwindow.ephemerisnew = Create new ephemeris
---mainwindow.menu.micharts = Charts
---mainwindow.menu.micharts.new = New chart
---mainwindow.menu.micharts.overview = Overview of charts
---mainwindow.menu.migeneral = General
---mainwindow.menu.migeneral.close = Exit Enigma
---mainwindow.menu.migeneral.configuration = Configuration
---mainwindow.menu.migeneral.settings = Settings
---mainwindow.menu.mihelp = Help
---mainwindow.menu.mihelp.about = About
---mainwindow.menu.mihelp.page = Help about this window
---mainwindow.menu.mihelp.manual = User manual 
---mainwindow.menu.miperiodical = Periods
---mainwindow.menu.miperiodical.cycles = Cycles
---mainwindow.menu.miperiodical.ephemeris = Ephemerides
---mainwindow.menu.miperiodical.occurrences = Occurrences
---mainwindow.menu.miresearch = Research
---mainwindow.menu.miresearch.dataimport = Import data file
---mainwindow.menu.miresearch.dataoverview = Overview data files
---mainwindow.menu.miresearch.projectsnew = New project
---mainwindow.menu.miresearch.projectsopen = Open project
---mainwindow.periodicalexpl = Cycles and ephemerides (not available in version 0.1.0)
---mainwindow.periodicaltitle = Periods and cycles
---mainwindow.projectnew = Create a new project
---mainwindow.researchexpl = Import data, create and use research projects
---mainwindow.researchtitle = Research
 
 -------------------------------- Midpoint details window --------
 

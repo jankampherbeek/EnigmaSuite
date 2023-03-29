@@ -99,7 +99,7 @@ public partial class StartWindow : Window
         if (!Directory.Exists(settings.LocationExportFiles)) Directory.CreateDirectory(settings.LocationExportFiles);
         if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);
         if (!Directory.Exists(settings.LocationDataFiles)) Directory.CreateDirectory(settings.LocationDataFiles);
-        if (!Directory.Exists(settings.LocationSeFiles)) Directory.CreateDirectory(settings.LocationSeFiles);
+        if (!Directory.Exists(settings.LocationLogFiles)) Directory.CreateDirectory(settings.LocationLogFiles);
     }
 
 }

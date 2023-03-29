@@ -34,7 +34,7 @@
                   ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column" SelectionChanged="ChartSelectedClick"/>
         <StackPanel Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Margin="6" Width="70" Name="btnClose" Content="btnClose" Click="BtnCloseClick"/>
-            <Button Margin="6" Width="70" Name="btnHelp" Content="btnHelp" Click="BtnSearchClick"/>
+            <Button Margin="6" Width="70" Name="btnHelp" Content="btnHelp" Click="BtnHelpClick"/>
         </StackPanel>
     </Grid>
 </Window>

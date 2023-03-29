@@ -37,6 +37,9 @@
                 <Trigger Property="IsFocused" Value="True">
                     <Setter Property="Background" Value="#788BCC"/>
                 </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="LightGray"/>
+                </Trigger>
             </Style.Triggers>
         </Style>
         <Style x:Key="actionButtonStyle" TargetType="{x:Type Button}">

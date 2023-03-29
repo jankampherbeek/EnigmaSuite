@@ -12,7 +12,7 @@ namespace Enigma.Core.Handlers.Calc;
 /// <summary>Handles initialization of the Swiss Ephemeris (SE).</summary>
 public sealed class SeHandler : ISeHandler
 {
-    /// <summary>Initializes the SE and defiens the path to the SE files.</summary>
+    /// <summary>Initializes the SE and defines the path to the SE files.</summary>
     /// <param name="pathToSeFiles"></param>
     public void SetupSe(string pathToSeFiles)
     {

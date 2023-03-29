@@ -59,7 +59,7 @@ public class TestChartPoints
         List<PointDetails> allDetails = ChartPoints.None.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(93));
+            Assert.That(allDetails, Has.Count.EqualTo(92));
 
             Assert.That(allDetails[0].PointCat, Is.EqualTo(PointCats.Common));
             Assert.That(allDetails[3].TextId, Is.EqualTo("ref.enum.celpoint.venus"));

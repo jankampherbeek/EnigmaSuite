@@ -8,6 +8,8 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Points;
 
+namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
+
 public class FullPointPosFactory: IFullPointPosFactory
 {
 

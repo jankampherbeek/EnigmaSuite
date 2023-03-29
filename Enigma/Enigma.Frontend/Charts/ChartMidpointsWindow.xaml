@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts"
         mc:Ignorable="d"
-        Title="ChartMidpointsWindow" Height="750" Width="600"
+        Title="ChartMidpointsWindow" Height="750" Width="640"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="6" HorizontalAlignment="Left">
         <Grid.ColumnDefinitions>

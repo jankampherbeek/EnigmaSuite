@@ -79,6 +79,17 @@ public class TestHarmonicCalculator
             Assert.That(harmonics[3], Is.EqualTo(326.4).Within(_delta));
         });
     }
+    [Test]
+    public void TestSingleHarmonicHappyFlow()
+    {
+        double position = 100.0;
+        double harmonic = 5;
+        double expected = 140.0;
+        double result = _harmonicCalculator.CalculateHarmonic(position, harmonic);
+        Assert.That(result, Is.EqualTo(expected).Within(_delta));
+    }
+
+
 
     private static List<double> CreateOriginalPositions()
     {

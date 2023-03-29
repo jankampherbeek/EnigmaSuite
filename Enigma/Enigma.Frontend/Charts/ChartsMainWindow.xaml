@@ -118,7 +118,6 @@
         <StackPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
             <Button Name="btnNew" Content="btnNew" Click="ChartsNewClick"/>
             <Button Name="btnSearch" Content="btnSearch" Click="SearchClick"/>
-            <Button Name="btnSave" Content="btnSave" Click="SaveClick"/>
             <Button Name="btnDelete" Content="btnDelete" Click="DeleteClick"/>
             <Button Name="btnWheel" Content="btnWheel" Click="ShowWheelClick"/>
             <Button Name="btnPositions" Content="btnPositions" Click="ShowPositionsClick"/>

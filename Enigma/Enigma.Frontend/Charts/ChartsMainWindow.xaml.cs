@@ -39,7 +39,6 @@ public partial class ChartsMainWindow : Window
         btnWheel.Content = Rosetta.TextForId("chartsmainwindow.btnwheel");
         btnNew.Content = Rosetta.TextForId("chartsmainwindow.newchart");
         btnSearch.Content = Rosetta.TextForId("common.btnsearch");
-        btnSave.Content = Rosetta.TextForId("common.btnsave");
         btnDelete.Content = Rosetta.TextForId("common.btndelete");
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");
         btnClose.Content = Rosetta.TextForId("common.btnclose");
@@ -104,7 +103,6 @@ public partial class ChartsMainWindow : Window
         btnPositions.IsEnabled = able;
         btnWheel.IsEnabled = able;
         btnDelete.IsEnabled = able;
-        btnSave.IsEnabled = able;
     }
 
 
@@ -120,11 +118,6 @@ public partial class ChartsMainWindow : Window
         PopulateData();
         PopulateAvailableCharts();
         DisableOrEnable();
-    }
-
-    private void SaveClick(object sender, RoutedEventArgs e)
-    {
-        _controller.SaveCurrentChart();
     }
 
     private void DeleteClick(object sender, RoutedEventArgs e)
@@ -186,6 +179,7 @@ public partial class ChartsMainWindow : Window
         _controller.NewChart();
         DisableOrEnable();
         PopulateAvailableCharts();
+        PopulateData();
     }
 
     private void NewSelection(object sender, RoutedEventArgs e)
@@ -226,7 +220,7 @@ public partial class ChartsMainWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Help not yet implemented.");           // TODO implement handling of click
+       ChartsMainController.ShowHelp();
     }
 
     private void HelpManualClick(object sender, RoutedEventArgs e)
