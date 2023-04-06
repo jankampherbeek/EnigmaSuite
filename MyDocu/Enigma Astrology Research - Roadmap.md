@@ -1,6 +1,6 @@
 # Enigma Astrology Research - Roadmap
 
-*Jan Kampherbeek, 2023-03-17*
+*Jan Kampherbeek, 2023-04-02*
 
 [TOC]
 
@@ -8,7 +8,7 @@ This roadmap contains a description of the functionality in the first releases o
 
 ## Objectives
 
-The initial versions of Enigma will supply general support for calculating and analyzing charts, but will also have a focus on five specific projects:
+The initial versions of Enigma will supply general support for calculating and analyzing charts, but will also have a focus on seven specific projects:
 
 - Research into suicide (Vivian Muller).
 - Research into explosions (Frank Vernooij).
@@ -16,6 +16,7 @@ The initial versions of Enigma will supply general support for calculating and a
 - Harmonical aspect theory (Albert Bredenhoff).
 - School of Ram techniques (Paula Schreurs).
 - Micro astrology (Cemal Cicek).
+- 3D-astrology (3D Astrology Technical Working Group).
 
 I will add support for these projects and methods step-by-step to Enigma. 
 
@@ -69,7 +70,7 @@ Basic functionality for charts (calculations, analysis) and research (data, simp
 
 ### Release 0.2 - beta
 
-Implementing a first set of progressive techniques.
+Implementing a first set of progressive techniques. First attempt with 3d charts.
 
 **General**:
 
@@ -88,6 +89,10 @@ Implementing a first set of progressive techniques.
 - Solar returns, tropical and sidereal, supporting relocation.  
 - For all progressive techniques: includes matches between progressive and radix positions, defined in aspects, midpoints or harmonics.
 - Save events to database and search for events for a chart.
+
+**Charts (3D):**
+
+- First attempt of showing a chart that takes 3d aspects into account for a specific house system (to be defined).
 
 **Research**:
 
@@ -114,11 +119,12 @@ Adds harmonic and historical orb definitions, celestial objects, dials for midpo
 - Dynamic orbs, an approach to take the development of the orb during a given timespan into account (to be defined in cooperation with Frank Vernooij).
 - Midpoints: introducing configurable orb for each dial and adding dials for 22°15' and 11°7'30".
 - School of Ram: spiderweb, short path and house-cycles, including images.
+- More versions of 3D charts: supporting more house systems. Trying to support Alcabitius, Regiomontanus, Campanus and Placidus.
 
 **Research**:
 
 - Countings for celestial points at corners, elevation (close to MC), prominence (several rulesets, to be defined), principles (combination of sign, house and planet, e.g. Taurus, II and Venus), maximality (to be defined, configurable conditions) and short path (school of Ram).
-- Paging function to browse through the calculated charts.
+- Paging function to browse through the calculated charts. 
 
 
 
@@ -137,6 +143,7 @@ Support for English and Dutch. Adding multiple configurations, including both st
 
 - The user can add multiple tags to the saved charts, making it possible to search for specific criteria.
 - Support for parans, as in the current program Enigma Parans.
+- 3D charts for ecliptical systems (where relevant).
 
 **Research**:
 
@@ -188,6 +195,7 @@ Usability.
 
 - Declinations: longitude equivalent (according to Kt Boehrer).
 - Declinations: declination diagram (according to Kt Boehrer).
+- Attempt to construct 3d charts for topocentric houses. Depends on complexity, consider this as optional).
 
 **Calculators:**
 
@@ -204,6 +212,7 @@ The first non-beta release.
 - Full support for micro astrology.
 - Show additional information with chart wheel, using mouse-over. The content is configurable.
 - Solution for showing a large amount of celestial points in the chart wheel (to be defined).
+- 3d charts for Krusinski.
 
 **Cycles**:
 

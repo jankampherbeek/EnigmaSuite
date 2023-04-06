@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -62,7 +62,7 @@ public class TestHouseSystemSpecifications
         List<HouseSystemDetails> allDetails = HouseSystems.NoHouses.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(22));
+            Assert.That(allDetails, Has.Count.EqualTo(25));
             Assert.That(allDetails[1].CounterClockWise, Is.EqualTo(true));
             Assert.That(allDetails[5].QuadrantSystem, Is.EqualTo(true));
             Assert.That(allDetails[8].SeSupported, Is.EqualTo(true));

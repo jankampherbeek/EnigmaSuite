@@ -38,7 +38,7 @@ public partial class MidpointDetailsWindow : Window
         tbFormTitle.Text = Rosetta.TextForId("midpointdetailswindow.formtitle");
         tbExplanation.Text = Rosetta.TextForId("midpointdetailswindow.explanation");
         tbDialSize.Text = Rosetta.TextForId("midpointdetailswindow.dialsize");
-        tbOrb.Text = Rosetta.TextForId("midpointdetailswindow.Orb");
+        tbOrb.Text = Rosetta.TextForId("midpointdetailswindow.orb");
         tbOrbDegrees.Text = Rosetta.TextForId("midpointdetailswindow.orbdegrees");
         tbOrbMinutes.Text = Rosetta.TextForId("midpointdetailswindow.orbminutes");
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");

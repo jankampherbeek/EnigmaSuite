@@ -14,7 +14,9 @@ namespace Enigma.Domain.Calc.ChartItems;
 public enum HouseSystems
 {
     NoHouses = 0, Placidus = 1, Koch = 2, Porphyri = 3, Regiomontanus = 4, Campanus = 5, Alcabitius = 6, TopoCentric = 7, Krusinski = 8, Apc = 9, Morin = 10,
-    WholeSign = 11, EqualAsc = 12, EqualMc = 13, EqualAries = 14, Vehlow = 15, Axial = 16, Horizon = 17, Carter = 18, Gauquelin = 19, SunShine = 20, SunShineTreindl = 21
+    WholeSign = 11, EqualAsc = 12, EqualMc = 13, EqualAries = 14, Vehlow = 15, Axial = 16, Horizon = 17, Carter = 18, Gauquelin = 19, SunShine = 20, SunShineTreindl = 21,
+    PullenSD = 22, PullenSR = 23, Sripati = 24
+
 }
 
 /// <summary>Details for a house system.</summary>
@@ -60,6 +62,9 @@ public static class HouseSystemsExtensions
             HouseSystems.Gauquelin => new HouseSystemDetails(system, true, 'G', 36, true, false, "ref.enum.housesystemgauquelin"),
             HouseSystems.SunShine => new HouseSystemDetails(system, true, 'i', 12, true, false, "ref.enum.housesystemsunshine"),
             HouseSystems.SunShineTreindl => new HouseSystemDetails(system, true, 'I', 12, true, false, "ref.enum.housesystemsunshinetreindl"),
+            HouseSystems.PullenSD => new HouseSystemDetails(system, true, 'L', 12, true, true, "ref.enum.housesystempullensd"),
+            HouseSystems.PullenSR => new HouseSystemDetails(system, true, 'Q', 12, true, true, "ref.enum.housesystempullensr"),
+            HouseSystems.Sripati => new HouseSystemDetails(system, true, 'S', 12, true, false, "ref.enum.housesystemsripati"),
             _ => new HouseSystemDetails(system, true, 'W', 0, false, false, "ref.enum.housesystemnohouses")
         };
     }

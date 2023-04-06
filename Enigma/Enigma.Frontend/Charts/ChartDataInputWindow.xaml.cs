@@ -43,6 +43,7 @@ public partial class ChartDataInputWindow : Window
         FormTitle.Text = Rosetta.TextForId("charts.datainput.formtitle");
         MetaTxt.Text = Rosetta.TextForId("charts.datainput.meta");
         NameIdTxt.Text = Rosetta.TextForId("charts.datainput.nameid");
+        DescriptionTxt.Text = Rosetta.TextForId("charts.datainput.description");
         SourceTxt.Text = Rosetta.TextForId("charts.datainput.source");
         RatingTxt.Text = Rosetta.TextForId("charts.datainput.rating");
         CategoryTxt.Text = Rosetta.TextForId("charts.datainput.category");
@@ -197,6 +198,7 @@ public partial class ChartDataInputWindow : Window
     {
         
         _controller.NameId = NameIdValue.Text;
+        _controller.Description = DescriptionValue.Text;
         _controller.Source = SourceValue.Text;
         _controller.ChartCategory = _categoryDetails[comboCategory.SelectedIndex].Category;
         _controller.RoddenRating = _ratingDetails[comboRating.SelectedIndex].Rating;

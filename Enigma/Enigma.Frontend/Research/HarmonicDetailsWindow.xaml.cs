@@ -35,7 +35,7 @@ public partial class HarmonicDetailsWindow : Window
         tbFormTitle.Text = Rosetta.TextForId("harmonicdetailswindow.formtitle");
         tbExplanation.Text = Rosetta.TextForId("harmonicdetailswindow.explanation");
         tbHarmonicNumber.Text = Rosetta.TextForId("harmonicdetailswindow.harmonicnr");
-        tbOrb.Text = Rosetta.TextForId("harmonicdetailswindow.Orb");
+        tbOrb.Text = Rosetta.TextForId("harmonicdetailswindow.orb");
         tbOrbDegrees.Text = Rosetta.TextForId("harmonicdetailswindow.orbdegrees");
         tbOrbMinutes.Text = Rosetta.TextForId("harmonicdetailswindow.orbminutes");
         btnHelp.Content = Rosetta.TextForId("common.btnhelp");

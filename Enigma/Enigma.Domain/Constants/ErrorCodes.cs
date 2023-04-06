@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -50,4 +50,7 @@ public static class ErrorCodes
     public const int ERR_RESEARCH_CANNOT_WRITE_JSON_4_PROJECT = 1017;
     /// <summary>Error: could not copy datafile to project.</summary>
     public const int ERR_RESEARCH_CANNOT_COPY_DATAFILE = 1018;
+    /// <summary>Error: could not create results folder as subfolder in projectfolder.</summary>
+    public const int ERR_RESEARCH_CANNOT_CREATE_RESULTSFOLDER = 1019;
+
 }

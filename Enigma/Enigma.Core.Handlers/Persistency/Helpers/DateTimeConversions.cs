@@ -8,6 +8,7 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
+using System.Globalization;
 
 namespace Enigma.Core.Handlers.Persistency.Helpers;
 
@@ -64,7 +65,14 @@ public class TimeCheckedConversion : ITimeCheckedConversion
     {
         bool noErrors = true;
         var time = new PersistableTime(0, 0, 0, 0.0, 0.0);
+
+        if (csvTime.LastIndexOf(':') == csvTime.IndexOf(':'))   // check for seconds
+        {
+            csvTime += ":0";
+        }
+
         string[] items = csvTime.Trim().Split(":");
+
         if (items.Length == 3)
         {
             bool result;
@@ -74,13 +82,18 @@ public class TimeCheckedConversion : ITimeCheckedConversion
             if (!result || minute < EnigmaConstants.MINUTE_MIN || minute > EnigmaConstants.MINUTE_MAX) noErrors = false;
             result = int.TryParse(items[2], out int second);
             if (!result || second < EnigmaConstants.SECOND_MIN || second > EnigmaConstants.SECOND_MAX) noErrors = false;
-            result = double.TryParse(zoneOffset, out double offsetValue);
-            if (!result || offsetValue < EnigmaConstants.TIMEZONE_MIN || offsetValue > EnigmaConstants.TIMEZONE_MAX) noErrors = false;
+            double offsetValue = double.Parse(zoneOffset, CultureInfo.InvariantCulture);            // CultureInfo is required to handle decimal point on Localities that use a comma instead.
+            if (offsetValue < EnigmaConstants.TIMEZONE_MIN || offsetValue > EnigmaConstants.TIMEZONE_MAX) noErrors = false;
             result = double.TryParse(dst, out double dstValue);
             if (!result || dstValue < EnigmaConstants.DST_MIN || dstValue > EnigmaConstants.DST_MAX) noErrors = false;
             if (noErrors) time = new PersistableTime(hour, minute, second, offsetValue, dstValue);
+        } 
+        else
+        {
+            noErrors = false;
         }
         return new Tuple<PersistableTime, bool>(time, noErrors);
+        
     }
 }
 

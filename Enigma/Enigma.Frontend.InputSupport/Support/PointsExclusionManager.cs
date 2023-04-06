@@ -25,7 +25,7 @@ public class PointsExclusionManager: IPointsExclusionManager
             case ResearchMethods.CountPosInHouses: return ExclusionForHousesOnly();
             case ResearchMethods.CountAspects: return ExclusionForAspectsCounting();
             case ResearchMethods.CountUnaspected: return ExclusionForUnAspectedCounting();
-            case ResearchMethods.CountOccupiedMidpoints: return ExclusionForHousesOnly();
+            case ResearchMethods.CountOccupiedMidpoints: return ExclusionForMidpoints();
             case ResearchMethods.CountHarmonicConjunctions: return ExclusionForHarmonics();
             default:
                 {
@@ -63,6 +63,18 @@ public class PointsExclusionManager: IPointsExclusionManager
         bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
+
+    private static PointsToExclude ExclusionForMidpoints()
+    {
+        List<ChartPoints> exclusionPoints = new()
+        {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint
+        };
+        bool excludeCusps = true;
+        return new PointsToExclude(exclusionPoints, excludeCusps);
+    }
+
 
     private static PointsToExclude ExclusionForHarmonics()
     {

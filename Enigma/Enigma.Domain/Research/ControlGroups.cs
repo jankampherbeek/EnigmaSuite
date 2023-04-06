@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -9,8 +9,8 @@ namespace Enigma.Domain.Research;
 /// <summary>Types of controlgroups.</summary>
 public enum ControlGroupTypes
 {
-    StandardShift = 1,
-    GroupMemberShift = 2
+    StandardShift = 0
+ //  ,  GroupMemberShift = 1     // TODO 0.2 add controlgroup GroupMemberShift
 }
 
 
@@ -30,7 +30,7 @@ public static class ControlGroupTypesExtensions
         return cgType switch
         {
             ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.standardshift"),
-            ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),
+   //         ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),   // TODO 0.2 add check for GroupMemberShift
             _ => throw new ArgumentException("Controlgroup type unknown : " + cgType.ToString())
         };
     }

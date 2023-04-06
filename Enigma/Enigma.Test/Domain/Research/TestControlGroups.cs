@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -40,9 +40,9 @@ public class TestControlGroupTypes
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int controlGroupTypeIndex = 2;
+        int controlGroupTypeIndex = 0;
         ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(controlGroupTypeIndex);
-        Assert.That(controlGroupType, Is.EqualTo(ControlGroupTypes.GroupMemberShift));
+        Assert.That(controlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
     }
 
     [Test]
@@ -58,9 +58,8 @@ public class TestControlGroupTypes
         List<ControlGroupTypeDetails> allDetails = ControlGroupTypes.StandardShift.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(2));
+            Assert.That(allDetails, Has.Count.EqualTo(1));
             Assert.That(allDetails[0].ControlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
-            Assert.That(allDetails[1].ControlGroupType, Is.EqualTo(ControlGroupTypes.GroupMemberShift));
         });
     }
 }

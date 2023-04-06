@@ -219,7 +219,7 @@ public class ResearchResultController
                 headerLine.Append((((int)asp.GetDetails().Angle).ToString() + spaces)[..7]);
                 aspectSeparatorLine += separatorFragment;
             }
-            headerLine.Append(Rosetta.TextForId("researchresultwindow.totals"));   
+            headerLine.Append(Rosetta.TextForId("researchresultwindow.totalsaspects"));   
             aspectSeparatorLine += separatorFragment;
             resultData.AppendLine(headerLine.ToString());
             resultData.AppendLine(aspectSeparatorLine);
@@ -250,7 +250,7 @@ public class ResearchResultController
             }
             int totalOverall = 0;
             detailLine = new();
-            detailLine.Append((Rosetta.TextForId("researchresultwindow.totals") + spaces + spaces + spaces)[..50]);
+            detailLine.Append((Rosetta.TextForId("researchresultwindow.totalsaspects") + spaces + spaces + spaces)[..50]);
             foreach (int count in qualifiedResponse.TotalsPerAspect)
             {
                 detailLine.Append((count.ToString() + spaces)[..7]);
@@ -301,7 +301,7 @@ public class ResearchResultController
             CountOccupiedMidpointsRequest? qualifiedRequest = response.Request as CountOccupiedMidpointsRequest;
             if (qualifiedRequest != null )
             {
-                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.Orb") + ": " + qualifiedRequest.Orb); 
+                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb); 
                 resultData.AppendLine((separatorLine + separatorLine)[..80]);
                 Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)

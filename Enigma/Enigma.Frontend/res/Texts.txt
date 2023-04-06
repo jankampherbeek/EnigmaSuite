@@ -75,13 +75,14 @@ charts.aspects.title = Enigma - Aspects
 ---- ChartsDataInput ----------------------------------
 charts.datainput.category = Category
 charts.datainput.datetime = Date and time
+charts.datainput.description = Description
 charts.datainput.formtitle = Enter data for new chart
 charts.datainput.location = Location
-charts.datainput.locationname = Description of the location
+charts.datainput.locationname = Name of location
 charts.datainput.meta = General information
 charts.datainput.nameid = Unique name or id for chart
 charts.datainput.rating = Rodden Rating
-charts.datainput.source = Description of the source
+charts.datainput.source = Source
 charts.datainput.title = Enigma - Data input
 
 ---- ChartsHarmonics ----------------------------------
@@ -328,7 +329,7 @@ projectinputwindow.datainfo = Datafile to be used
 projectinputwindow.description = Description
 projectinputwindow.formtitle = Create new project
 projectinputwindow.generalinfo = Name and description for project
-projectinputwindow.multiplication = Mulitplication for controlgroup (minimal 1)
+projectinputwindow.multiplication = Multiplication controlgroup
 projectinputwindow.name = Name for project
 projectinputwindow.projectsaved = The project has been saved
 projectinputwindow.title = Enigma - Project creation
@@ -345,7 +346,7 @@ projectusagewindow.details.description = Description
 projectusagewindow.details.date = Creation date
 projectusagewindow.details.dataname = Name of dataset
 projectusagewindow.details.controlgrouptype = Type of control group
-projectusagewindow.details.multiplication = Multiplication for controlgroup
+projectusagewindow.details.multiplication = Multiplication controlgroup
 
 -------------------------------- References ------------
 
@@ -383,7 +384,7 @@ ref.enum.ayanamsha.deluce = DeLuce
 ref.enum.ayanamsha.raman = Raman
 ref.enum.ayanamsha.ushashashi = UshaShashi
 ref.enum.ayanamsha.krishnamurti = Krishnamurti
-ref.enum.ayanamsha.djwhalkhul = DjwhalKhul
+ref.enum.ayanamsha.djwhalkhul = Djwhal Khul
 ref.enum.ayanamsha.yukteshwar = Yukteshwar
 ref.enum.ayanamsha.bhasin = Bhasin
 ref.enum.ayanamsha.kugler1 = Kugler (version 1)
@@ -404,7 +405,7 @@ ref.enum.ayanamsha.aryabhata = Aryabhata
 ref.enum.ayanamsha.aryabhatameansun = Aryabhata Mean Sun
 ref.enum.ayanamsha.ssrevati = Ss Revati
 ref.enum.ayanamsha.sscitra = SsCitra
-ref.enum.ayanamsha.truecitra = True Citra
+ref.enum.ayanamsha.truecitra = True Citrapaksha
 ref.enum.ayanamsha.truerevati = True Revati
 ref.enum.ayanamsha.truepushya = True Pushya
 ref.enum.ayanamsha.galacticctrbrand = Galactic Center (Brand)
@@ -534,28 +535,32 @@ ref.enum.midpoint.dial360 = Dial 360\u00B0
 ref.enum.midpoint.dial90 = Dial 90\u00B0
 ref.enum.midpoint.dial45 = Dial 45\u00B0
 
-ref.enum.housesystemnohouses = None
-ref.enum.housesystemplacidus = Placidus
-ref.enum.housesystemkoch = GOH/Koch
-ref.enum.housesystemporphyri = Porphyri
-ref.enum.housesystemregiomontanus = Regiomontanus
-ref.enum.housesystemcampanus = Campanus
 ref.enum.housesystemalcabitius = Alcabitius
-ref.enum.housesystemtopocentric = Topocentric
-ref.enum.housesystemkrusinski = Krusinski
-ref.enum.housesystemapc = APC/Abenragel
-ref.enum.housesystemmorin = Morin
-ref.enum.housesystemwholesign = WholeSign
+ref.enum.housesystemapc = APC
+ref.enum.housesystemaxial = Axial rotation
+ref.enum.housesystemcampanus = Campanus
+ref.enum.housesystemcarter = Carter
+ref.enum.housesystemequalaries = Equal from 0 Aries
 ref.enum.housesystemequalasc = Equal from Ascendant
 ref.enum.housesystemequalmc = Equal from MC
-ref.enum.housesystemequalaries = Equal from Aries
-ref.enum.housesystemvehlow = Vehlow
-ref.enum.housesystemhorizon = Horizontal
-ref.enum.housesystemaxial = Axial rotation
-ref.enum.housesystemcarter = Carter
 ref.enum.housesystemgauquelin = Gauquelin
+ref.enum.housesystemhorizon = Horizontal
+ref.enum.housesystemkoch = Koch
+ref.enum.housesystemkrusinski = Krusinski
+ref.enum.housesystemmorin = Morin
+ref.enum.housesystemnohouses = None
+ref.enum.housesystemplacidus = Placidus
+ref.enum.housesystemporphyri = Porphyri
+ref.enum.housesystemregiomontanus = Regiomontanus
+ref.enum.housesystemsripati = Sripati
+ref.enum.housesystemtopocentric = Topocentric
+ref.enum.housesystemvehlow = Vehlow
+ref.enum.housesystemwholesign = WholeSign
+
 ref.enum.housesystemsunshine = SunShine
 ref.enum.housesystemsunshinetreindl = SunShine (Treindl)
+ref.enum.housesystempullensd = Pullen (sinusoidal delta)
+ref.enum.housesystempullensr = Pullen (sinusoidal ratio)
 
 ref.enum.mundanepoint.id.asc = Ascendant
 ref.enum.mundanepoint.id.eastpoint = Eastpoint
@@ -691,7 +696,8 @@ researchresultwindow.tabtest = Test data
 researchresultwindow.tabcontrol = Control data
 researchresultwindow.titleharmonicconjunctions = Harmonic conjunctions. Harmonic number
 researchresultwindow.titleoccupiedmidpoints = Occupied midpoints for dial division
-researchresultwindow.totals = Totals Occupied midpoints for dial division
+researchresultwindow.totalsaspects = Totals of aspects
+researchresultwindow.totalsmidpoints = Totals Occupied midpoints for dial division
 
 --------- SearchCriteriaWindow -------------------
 searchchartwindow.btnsearch = Search

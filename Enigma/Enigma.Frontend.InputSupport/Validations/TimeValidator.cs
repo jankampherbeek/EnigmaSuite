@@ -74,7 +74,7 @@ public class TimeValidator : ITimeValidator
         _ut = timeValues[0] + ((double)timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE);
         _offset = timezone == TimeZones.LMT ? lmtOffset : timezone.GetDetails().OffsetFromUt;
         _ut -= _offset;
-        if (dst) _ut++;
+        if (dst) _ut--;
         if (_ut < 0.0)
         {
             _ut += 24.0;

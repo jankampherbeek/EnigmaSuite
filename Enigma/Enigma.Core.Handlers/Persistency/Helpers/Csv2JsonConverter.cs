@@ -39,7 +39,7 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
             processedLine = ProcessLine(csvLines[i]);
             if (!processedLine.Item2 || processedLine.Item1 == null)
             {
-                resultLines.Add("Error: " + processedLine.Item1);
+                resultLines.Add("Error: " + csvLines[i]);
                 noErrors = false;
             }
             else

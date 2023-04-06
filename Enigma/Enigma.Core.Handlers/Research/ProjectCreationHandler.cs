@@ -51,6 +51,11 @@ public sealed class ProjectCreationHandler : IProjectCreationHandler
             errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_CREATE_PROJFOLDER;
             return false;
         }
+        if (!CreateFolder(project.Name + @"\results"))
+        {
+            errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_CREATE_RESULTSFOLDER;
+            return false;
+        }
         if (!ParseJson(project, out string jsonText))
         {
             errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_PARSE_PROJECT_2_JSON;
@@ -67,14 +72,7 @@ public sealed class ProjectCreationHandler : IProjectCreationHandler
             return false;
         }
         string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
-
-
-
-
-        // lees datafile (naam staat in project)
         string inputData = _textFileReader.ReadFile(projDataPath);
-
-        // converteer van Json naar InputItems
         StandardInput standardInput = _inputDataConverter.UnMarshallStandardInput(inputData);
         List<StandardInputItem> allInputItems = standardInput.ChartData;
 

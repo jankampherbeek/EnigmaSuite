@@ -81,7 +81,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         }
 /*        if (request.Method != ResearchMethods.CountPosInHouses)
         {
-            foreach (ChartPoints selectedMundanePoint in request.PointsSelection.SelectedMundanePoints)
+            foreach (ChartPoints selectedMundanePoint in request.PointsSelection   SelectedMundanePoints)
             {
                 allCounts.Add(new(selectedMundanePoint, tempCounts.ToList()));
             }
@@ -95,7 +95,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
                     allCounts.Add(new(cusp, tempCounts.ToList()));
                 }
             }
-        } */
+        }  */ 
         return allCounts;
     }
 
@@ -107,7 +107,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         {
             Dictionary<ChartPoints, FullPointPos> pointPositions = (
                 from posPoint in chart.Positions 
-                where (posPoint.Key.GetDetails().PointCat == PointCats.Common) 
+                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle) 
                 select posPoint).ToDictionary(x => x.Key, x => x.Value);
 
             foreach (KeyValuePair<ChartPoints, FullPointPos> commonPointPos in pointPositions)
@@ -133,16 +133,16 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
             pointIndex++;
         }
 
- /*           if (pointsSelection.IncludeCusps)
+        if (pointsSelection.IncludeCusps)
+        {
+            foreach (var cusp in chart.Positions)
             {
-                foreach (var cusp in chart.Positions)
+                if (cusp.Key.GetDetails().PointCat == PointCats.Cusp)
                 {
-                    if (cusp.Key.GetDetails().PointCat == PointCats.Cusp)
-                    {
-                        allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;
-                    }
+                    allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;
                 }
-            }  */
+            }
+        } 
     }
 
 

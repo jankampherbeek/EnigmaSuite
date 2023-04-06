@@ -31,7 +31,7 @@ public sealed class DataImportHandler : IDataImportHandler
     {
         string fullCsvPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
         string fullJsonPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
-        string fullErrorPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + "errors.json";
+        string fullErrorPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
         _fileCopier.CopyFile(fullPathSource, fullCsvPath);
         List<string> csvLines = _textFileReader.ReadAllLines(fullCsvPath);
         Tuple<bool, string, List<string>> conversionResult = _csv2JsonConverter.ConvertStandardDataCsvToJson(csvLines, dataName);
@@ -39,13 +39,14 @@ public sealed class DataImportHandler : IDataImportHandler
         {
             string jsonText = conversionResult.Item2;
             _textFileWriter.WriteFile(fullJsonPath, jsonText);
+            _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); // TODO use RB
             return new ResultMessage(0, "File successfully imported.");       // TODO use RB
         }
         else
         {
             List<string> errorLines = conversionResult.Item3;
             _textFileWriter.WriteFile(fullErrorPath, errorLines);
-            return new ResultMessage(1, "Error in reading csv, check file errors.json.");    // TODO use RB
+            return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);    // TODO use RB
         }
 
     }
