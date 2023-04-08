@@ -89,8 +89,8 @@ public partial class ChartDataInputWindow : Window
     private void PopulateCategories()
     {
         comboCategory.Items.Clear();
-        foreach(var categoryDetail in _categoryDetails) 
-        { 
+        foreach (var categoryDetail in _categoryDetails)
+        {
             comboCategory.Items.Add(Rosetta.TextForId(categoryDetail.TextId));
         }
         comboCategory.SelectedIndex = 0;
@@ -196,7 +196,7 @@ public partial class ChartDataInputWindow : Window
 
     private void TransferValues()
     {
-        
+
         _controller.NameId = NameIdValue.Text;
         _controller.Description = DescriptionValue.Text;
         _controller.Source = SourceValue.Text;

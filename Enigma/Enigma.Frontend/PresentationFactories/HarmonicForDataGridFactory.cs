@@ -32,7 +32,7 @@ public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
     {
         List<PresentableHarmonic> presentableHarmonics = new();
         Dictionary<ChartPoints, FullPointPos> celPoints = (
-            from posPoint in chart.Positions 
+            from posPoint in chart.Positions
             where posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle
             select posPoint).ToDictionary(x => x.Key, x => x.Value);
         int counterCelPoints = 0;

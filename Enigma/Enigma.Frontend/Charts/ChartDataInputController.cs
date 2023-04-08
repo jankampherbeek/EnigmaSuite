@@ -109,7 +109,7 @@ public sealed class ChartDataInputController
         else return false;
     }
 
-    private double ParseLmtOffset(FullGeoLongitude fullGeoLongitude)
+    private static double ParseLmtOffset(FullGeoLongitude fullGeoLongitude)
     {
         return fullGeoLongitude.Longitude / 15.0;
     }
@@ -119,7 +119,7 @@ public sealed class ChartDataInputController
         string nameIdText = string.IsNullOrWhiteSpace(nameId) ? Rosetta.TextForId("charts.positions.chartname.empty") : nameId;
         string descriptionText = string.IsNullOrWhiteSpace(description) ? Rosetta.TextForId("charts.positions.description.empty") : description;
         string sourceText = string.IsNullOrWhiteSpace(source) ? Rosetta.TextForId("charts.positions.source.empty") : source;
-        string locationNameText = string.IsNullOrWhiteSpace(locationName) ? Rosetta.TextForId("charts.positions.locationname.empty") : locationName; 
+        string locationNameText = string.IsNullOrWhiteSpace(locationName) ? Rosetta.TextForId("charts.positions.locationname.empty") : locationName;
         return new MetaData(nameIdText, descriptionText, sourceText, locationNameText, chartCategory, rating);
 
     }

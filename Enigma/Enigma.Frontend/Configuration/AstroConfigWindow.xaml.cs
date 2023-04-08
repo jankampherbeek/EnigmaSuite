@@ -512,7 +512,7 @@ public partial class AstroConfigWindow : Window
     {
         if (HandleInput())
         {
-            Close(); 
+            Close();
 
         }
         else
@@ -554,7 +554,7 @@ public partial class AstroConfigWindow : Window
             ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(comboProjectionType.SelectedIndex);
             OrbMethods orbMethod = OrbMethods.Weighted.OrbMethodForIndex(comboOrbMethod.SelectedIndex);
 
-            if (observerPosition == ObserverPositions.HelioCentric) 
+            if (observerPosition == ObserverPositions.HelioCentric)
             {
                 helioFlag = true;
                 cboxSun.IsChecked = false;
@@ -573,6 +573,10 @@ public partial class AstroConfigWindow : Window
                 cboxParsSect.IsChecked = false;
                 cboxZeroAries.IsChecked = false;
             }
+            if (zodiacType == ZodiacTypes.Sidereal)
+            {
+                cboxZeroAries.IsChecked = false;
+            }
 
             Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointSpecs = DefineChartPointSpecs();
 
@@ -587,7 +591,7 @@ public partial class AstroConfigWindow : Window
             Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = DefineAspectSpecs();
 
 
-            bool useCuspsForAspects = cboxIncludeCusps.IsChecked ?? false;               
+            bool useCuspsForAspects = cboxIncludeCusps.IsChecked ?? false;
             AstroConfig astroConfig = new(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod, chartPointSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
             Log.Information("Created new configuration: {@astroConfig}", astroConfig);
             _controller.UpdateConfig(astroConfig);
@@ -610,7 +614,7 @@ public partial class AstroConfigWindow : Window
             { ChartPoints.Sun, new ChartPointConfigSpecs(cboxSun.IsChecked ?? false, 'a', NumericFactor(tboxSunFactor.Text)) },
             { ChartPoints.Moon, new ChartPointConfigSpecs(cboxMoon.IsChecked ?? false, 'a', NumericFactor(tboxMoonFactor.Text)) },
             { ChartPoints.Mercury, new ChartPointConfigSpecs(cboxMercury.IsChecked ?? false, 'a', NumericFactor(tboxMercuryFactor.Text)) },
-            { ChartPoints.Venus, new ChartPointConfigSpecs(cboxVenus.IsChecked ?? false, 'd', NumericFactor(tboxVenusFactor.Text))},    
+            { ChartPoints.Venus, new ChartPointConfigSpecs(cboxVenus.IsChecked ?? false, 'd', NumericFactor(tboxVenusFactor.Text))},
             { ChartPoints.Mars, new ChartPointConfigSpecs(cboxMars.IsChecked ?? false, 'f', NumericFactor(tboxMarsFactor.Text))},
             { ChartPoints.Jupiter, new ChartPointConfigSpecs(cboxJupiter.IsChecked ?? false, 'g', NumericFactor(tboxJupiterFactor.Text))},
             { ChartPoints.Saturn, new ChartPointConfigSpecs(cboxSaturn.IsChecked ?? false, 'h', NumericFactor(tboxSaturnFactor.Text))},

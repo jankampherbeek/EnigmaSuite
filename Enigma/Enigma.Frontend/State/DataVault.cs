@@ -52,7 +52,7 @@ public sealed class DataVault
         {
             if (chart.InputtedChartData.Id == newChart.InputtedChartData.Id)
             {
-                chartToRemove = chart; 
+                chartToRemove = chart;
             }
         }
         if (chartToRemove != null)
@@ -88,7 +88,7 @@ public sealed class DataVault
     public List<CalculatedChart> GetAllCharts()
     {
         return _allCharts;
-    } 
+    }
 
     public void SetNewChartAdded(bool newStatus)
     {

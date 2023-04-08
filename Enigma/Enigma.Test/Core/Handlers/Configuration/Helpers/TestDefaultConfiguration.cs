@@ -84,7 +84,7 @@ public class TestDefaultConfiguration
     {
         Dictionary<ChartPoints, ChartPointConfigSpecs> celPoints = _astroConfig.ChartPoints;
 
-        ChartPointConfigSpecs celPointSpecs = celPoints[ChartPoints.Sun];     
+        ChartPointConfigSpecs celPointSpecs = celPoints[ChartPoints.Sun];
         Assert.Multiple(() =>
         {
             Assert.That(celPointSpecs.IsUsed, Is.True);

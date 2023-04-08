@@ -87,13 +87,13 @@ public class TimeCheckedConversion : ITimeCheckedConversion
             result = double.TryParse(dst, out double dstValue);
             if (!result || dstValue < EnigmaConstants.DST_MIN || dstValue > EnigmaConstants.DST_MAX) noErrors = false;
             if (noErrors) time = new PersistableTime(hour, minute, second, offsetValue, dstValue);
-        } 
+        }
         else
         {
             noErrors = false;
         }
         return new Tuple<PersistableTime, bool>(time, noErrors);
-        
+
     }
 }
 

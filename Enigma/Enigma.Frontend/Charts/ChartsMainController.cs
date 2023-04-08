@@ -65,7 +65,8 @@ public sealed class ChartsMainController
         if (_dataVault.GetNewChartAdded())
         {
             int newIndex = SaveCurrentChart();
-            if (_dataVault.GetCurrentChart() != null && _dataVault.GetCurrentChart()!.InputtedChartData != null) {
+            if (_dataVault.GetCurrentChart() != null && _dataVault.GetCurrentChart()!.InputtedChartData != null)
+            {
                 _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
                 ShowCurrentChart();
             }

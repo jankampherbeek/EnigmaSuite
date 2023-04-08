@@ -87,7 +87,7 @@ public class TestTimeInputParser
         _mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(timeInput, _separator)).Returns(rangeResult);
         var _mockTimeValidator = new Mock<ITimeValidator>();
         FullTime? fullTime;
-        _mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst,out fullTime)).Returns(false);
+        _mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(false);
         ITimeInputParser parser = new TimeInputParser(_mockValueRangeConverter.Object, _mockTimeValidator.Object);
 
         Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out fullTime), Is.False);

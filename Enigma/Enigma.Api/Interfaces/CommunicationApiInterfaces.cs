@@ -5,6 +5,8 @@
 
 using Enigma.Domain.Communication;
 
+namespace Enigma.Api.Interfaces;
+
 /// <summary>API for communication over the internet.</summary>
 public interface ICommunicationApi
 {

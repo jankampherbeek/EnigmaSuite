@@ -95,7 +95,7 @@ public partial class ChartsMainWindow : Window
         bool able = _dataVault.GetCurrentChart() != null;
         miChartsPositions.IsEnabled = able;
         miChartsWheel.IsEnabled = able;
-        miChartsDelete.IsEnabled = able;    
+        miChartsDelete.IsEnabled = able;
         miAnalysis.IsEnabled = able;
         miAnalysisAspects.IsEnabled = able;
         miAnalysisHarmonics.IsEnabled = able;
@@ -130,7 +130,7 @@ public partial class ChartsMainWindow : Window
         {
             if (_controller.DeleteCurrentChart())
             {
-                MessageBox.Show(Rosetta.TextForId("chartsmainwindow.msg.deleteresultpositive").Replace("[name]", name), 
+                MessageBox.Show(Rosetta.TextForId("chartsmainwindow.msg.deleteresultpositive").Replace("[name]", name),
                                 Rosetta.TextForId("chartsmainwindow.msg.deleteresulttitle"));
             }
             else
@@ -220,7 +220,7 @@ public partial class ChartsMainWindow : Window
 
     private void HelpClick(object sender, RoutedEventArgs e)
     {
-       ChartsMainController.ShowHelp();
+        ChartsMainController.ShowHelp();
     }
 
     private void HelpManualClick(object sender, RoutedEventArgs e)

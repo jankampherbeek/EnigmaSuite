@@ -67,18 +67,18 @@ public class TestDescriptiveChartText
 
     private AstroConfig CreateConfig()
     {
-        return new (_houseSystem, _ayanamsha, _observerPos, _zodiacType, _projType, _orbMethod, _chartPoints, _aspects, _baseOrbAspects, _baseOrbMidpoints, _useCuspsForAspects);
+        return new(_houseSystem, _ayanamsha, _observerPos, _zodiacType, _projType, _orbMethod, _chartPoints, _aspects, _baseOrbAspects, _baseOrbMidpoints, _useCuspsForAspects);
     }
 
 
     private Location CreateLocation()
     {
-        return new (_locationName, _geoLong, _geoLat);
+        return new(_locationName, _geoLong, _geoLat);
     }
 
     private FullDateTime CreateFullDateTime()
     {
-        return new (_dateText, _timeText, _jdUt);
+        return new(_dateText, _timeText, _jdUt);
     }
 
 

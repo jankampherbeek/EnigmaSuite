@@ -30,7 +30,8 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
             CreateSingleCuspPos("MC", positions[ChartPoints.Mc]),
             CreateSingleCuspPos("Asc", positions[ChartPoints.Ascendant])
         };
-        if (positions.ContainsKey(ChartPoints.Vertex)) {
+        if (positions.ContainsKey(ChartPoints.Vertex))
+        {
             string descr = Rosetta.TextForId(ChartPoints.Vertex.GetDetails().TextId);
             presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.Vertex]));
         }

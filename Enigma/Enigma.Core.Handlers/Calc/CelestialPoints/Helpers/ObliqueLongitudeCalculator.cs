@@ -6,9 +6,7 @@
 using Enigma.Core.Handlers.Calc.Util;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
-using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
-using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
@@ -27,7 +25,7 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         EclipticCoordinates southPoint = _southPointCalculator.CalculateSouthPoint(request.Armc, request.Obliquity, request.GeoLat);
         foreach (NamedEclipticCoordinates celPointCoordinate in request.CelPointCoordinates)
         {
-            double oblLong = OblLongForCelPoint(celPointCoordinate, southPoint, request.AyanamshaOffset) - request.AyanamshaOffset ;
+            double oblLong = OblLongForCelPoint(celPointCoordinate, southPoint, request.AyanamshaOffset) - request.AyanamshaOffset;
             oblLongitudes.Add(new NamedEclipticLongitude(celPointCoordinate.CelPoint, oblLong));
         }
         return oblLongitudes;
@@ -48,7 +46,7 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
         double qRad = Math.Sin(MathExtra.DegToRad(latSouthPMinusPlanet)) / Math.Sin(MathExtra.DegToRad(latSouthPPLusPlanet));
         double v = MathExtra.RadToDeg(Math.Atan(tanSRad * qRad)) - s;
         double absoluteV = RangeUtil.ValueToRange(Math.Abs(v), -90.0, 90.0);
-        absoluteV = Math.Abs(absoluteV); // TODO Check if this is required, copied this from my original Java version. It partially repeats the line above.
+        absoluteV = Math.Abs(absoluteV); // TODO 0.2 Check if this is required, copied this from my original Java version. It partially repeats the line above.
         double correctedV;
         if (IsRising(longSp, longPl))
         {

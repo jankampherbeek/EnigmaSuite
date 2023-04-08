@@ -10,7 +10,7 @@ namespace Enigma.Domain.Research;
 public enum ControlGroupTypes
 {
     StandardShift = 0
- //  ,  GroupMemberShift = 1     // TODO 0.2 add controlgroup GroupMemberShift
+    //  ,  GroupMemberShift = 1     // TODO 0.2 add controlgroup GroupMemberShift
 }
 
 
@@ -30,7 +30,7 @@ public static class ControlGroupTypesExtensions
         return cgType switch
         {
             ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.standardshift"),
-   //         ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),   // TODO 0.2 add check for GroupMemberShift
+            //         ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),   // TODO 0.2 add check for GroupMemberShift
             _ => throw new ArgumentException("Controlgroup type unknown : " + cgType.ToString())
         };
     }

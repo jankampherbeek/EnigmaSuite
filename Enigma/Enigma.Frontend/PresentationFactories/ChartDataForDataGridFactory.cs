@@ -11,19 +11,19 @@ using System.Collections.Generic;
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
 /// <inherritdoc/>
-public sealed class ChartDataForDataGridFactory: IChartDataForDataGridFactory
+public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
 {
 
     /// <inherritdoc/>
     public List<PresentableChartData> CreateChartDataForDataGrid(List<CalculatedChart> charts)
     {
         List<PresentableChartData> chartData = new();
-        foreach (var chart in charts) 
-        { 
+        foreach (var chart in charts)
+        {
             string id = chart.InputtedChartData.Id.ToString();
             string name = chart.InputtedChartData.MetaData.Name;
             string description = chart.InputtedChartData.MetaData.Description;
-            chartData.Add(new(id, name, description)); 
+            chartData.Add(new(id, name, description));
         }
         return chartData;
     }

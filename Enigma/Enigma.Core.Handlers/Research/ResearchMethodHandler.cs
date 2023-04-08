@@ -67,11 +67,11 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
             }
             else
             {
-                string errorText = "ResearchMethodHandler.HandleResearch() contains woring request for CountHarmonicConjunctions : " + request; 
-                Log.Error(errorText);   
+                string errorText = "ResearchMethodHandler.HandleResearch() contains woring request for CountHarmonicConjunctions : " + request;
+                Log.Error(errorText);
                 throw new EnigmaException(errorText);
             }
-        } 
+        }
         else if (request is CountOccupiedMidpointsRequest)
         {
             CountOccupiedMidpointsRequest? qualifiedRequest = request as CountOccupiedMidpointsRequest;
@@ -90,7 +90,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         {
             return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
         }
-        else if (request!= null && method == ResearchMethods.CountAspects)
+        else if (request != null && method == ResearchMethods.CountAspects)
         {
             return _aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
         }
@@ -107,7 +107,8 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         throw new EnigmaException(errorTxt);
     }
 
-    private List<CalculatedResearchChart> CalculateAllCharts(string projectName, bool controlGroup) {
+    private List<CalculatedResearchChart> CalculateAllCharts(string projectName, bool controlGroup)
+    {
         string fullPath = _researchPaths.DataPath(projectName, controlGroup);
         Log.Information("Reading Json from path : {fp}.", fullPath);
         string json = _filePersistencyHandler.ReadFile(fullPath);

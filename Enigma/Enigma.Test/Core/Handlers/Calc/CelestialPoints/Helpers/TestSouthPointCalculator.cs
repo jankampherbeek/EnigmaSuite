@@ -15,10 +15,10 @@ namespace Enigma.Test.Core.Handlers.Calc.CelestialPoints.Helpers;
 public class TestSouthPointCalculator
 {
 
-    // TODO check differences
+    // TODO 0.2 check differences
 
 
-    private readonly double _delta = 0.001;     // TODO enlarge value for _delta.
+    private readonly double _delta = 0.001;     // TODO 0.2 enlarge value for _delta.
 
     [Test]
     public void TestHappyFlow()
@@ -44,11 +44,8 @@ public class TestSouthPointCalculator
         double obliquity = 23.449614320676233;  // mean obliquity
         double geoLat = -48.8333333333333;
         ISouthPointCalculator calculator = new SouthPointCalculator();
-        // double expectedLong = 318.50043580207006;
         double expectedLong = 174.53494810489755;
-        // double expectedLat = -27.562090280566338;
         double expectedLat = -48.16467239725159;
-        // TODO check values for southern latitude
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
         Assert.Multiple(() =>
         {

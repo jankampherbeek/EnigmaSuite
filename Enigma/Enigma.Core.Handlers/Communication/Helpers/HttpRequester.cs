@@ -10,13 +10,13 @@ using System.Net;
 namespace Enigma.Core.Handlers.Communication.Helpers;
 
 /// <inheritdoc/>
-public class HttpRequester: IHttpRequester
+public class HttpRequester : IHttpRequester
 {
 
     /// <inheritdoc/>
     public string GetHttpRequest(string url)
     {
-       return ReadJsonFromSite(url);
+        return ReadJsonFromSite(url);
     }
 
     private static string ReadJsonFromSite(string url)
@@ -30,7 +30,7 @@ public class HttpRequester: IHttpRequester
             using var reader = new StreamReader(webStream);
             var data = reader.ReadToEnd();
             return data;
-        } 
+        }
         catch (Exception e)     // System.Net.WebException  and   HttpRequestException
         {
             Log.Error("HttpRequester.ReadJsonFromSite using url : " + url + " . Exception occurred, probably no internet connection. Exception message : " + e.Message);

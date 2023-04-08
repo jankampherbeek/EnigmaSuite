@@ -19,7 +19,7 @@ public class ValueRangeConverter : IValueRangeConverter
         return CreateNumerics(strings);
     }
 
-    private static  (int[] numbers, bool success) CreateNumerics(string[] strings)
+    private static (int[] numbers, bool success) CreateNumerics(string[] strings)
     {
         bool success = true;
         int[] numbers = new int[strings.Length];

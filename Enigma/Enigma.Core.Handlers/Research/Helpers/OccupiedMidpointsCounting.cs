@@ -50,8 +50,8 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
             Dictionary<ChartPoints, FullPointPos> commonPositions = (
-                from posPoint in calcResearchChart.Positions 
-                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle) 
+                from posPoint in calcResearchChart.Positions
+                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
                 select posPoint).ToDictionary(x => x.Key, x => x.Value);
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);

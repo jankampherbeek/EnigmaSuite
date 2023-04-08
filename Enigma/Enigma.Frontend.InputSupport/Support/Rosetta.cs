@@ -14,7 +14,7 @@ public static class Rosetta
 {
     private static bool _initialized = false;
     private static readonly ITextFileReaderFE _fileReader = new TextFileReader();
-    private static readonly List<KeyValuePair<string, string>> _texts = new(); 
+    private static readonly List<KeyValuePair<string, string>> _texts = new();
 
     private static void CheckInit()
     {
@@ -23,7 +23,7 @@ public static class Rosetta
             ReadTextsFromFile();
             _initialized = true;
         }
-    } 
+    }
 
 
     public static string TextForId(string id)

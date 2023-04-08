@@ -15,10 +15,11 @@ using Serilog;
 namespace Enigma.Core.Handlers.Research.Helpers;
 
 /// <inheritdoc/>
-public sealed class ResearchMethodUtils: IResearchMethodUtils {
+public sealed class ResearchMethodUtils : IResearchMethodUtils
+{
 
     /// <inheritdoc/>
-    public Dictionary<AspectTypes,AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
+    public Dictionary<AspectTypes, AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
     {
         Dictionary<AspectTypes, AspectConfigSpecs> allAspects = config.Aspects;
         Dictionary<AspectTypes, AspectConfigSpecs> selectedAspects = new();
@@ -45,7 +46,7 @@ public sealed class ResearchMethodUtils: IResearchMethodUtils {
     public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointsSelection pointsSelection)
     {
         Dictionary<ChartPoints, FullPointPos> chartPointPositions = calcResearchChart.Positions;
-         Dictionary<ChartPoints, FullPointPos> selectedChartPointPositions = new();
+        Dictionary<ChartPoints, FullPointPos> selectedChartPointPositions = new();
         foreach (ChartPoints point in pointsSelection.SelectedPoints)
         {
             selectedChartPointPositions.Add(point, chartPointPositions[point]);
@@ -69,7 +70,7 @@ public sealed class ResearchMethodUtils: IResearchMethodUtils {
     }
 
     /// <inheritdoc/>
-    public int FindIndexForAspectType(AspectTypes aspectType, Dictionary<AspectTypes,AspectConfigSpecs> allAspects)
+    public int FindIndexForAspectType(AspectTypes aspectType, Dictionary<AspectTypes, AspectConfigSpecs> allAspects)
     {
         int counter = 0;
         foreach (var item in allAspects)
@@ -81,5 +82,5 @@ public sealed class ResearchMethodUtils: IResearchMethodUtils {
         Log.Error(errorText);
         throw new EnigmaException(errorText);
     }
- 
+
 }

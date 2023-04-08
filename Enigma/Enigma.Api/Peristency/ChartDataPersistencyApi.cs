@@ -12,7 +12,7 @@ using Serilog;
 namespace Enigma.Api.Persistency;
 
 /// <inheritdoc/>
-public class ChartDataPersistencyApi: IChartDataPersistencyApi
+public class ChartDataPersistencyApi : IChartDataPersistencyApi
 {
     private readonly IChartDataDao _chartDataDao;
 
@@ -52,7 +52,7 @@ public class ChartDataPersistencyApi: IChartDataPersistencyApi
 
     /// <inheritdoc/>
     public List<PersistableChartData> ReadAllChartData()
-    { 
+    {
         Log.Information("ChartDataPersistencyApi.readAllChartData() requested.");
         return _chartDataDao.ReadAllChartData();
     }

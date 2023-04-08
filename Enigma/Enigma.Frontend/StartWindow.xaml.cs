@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Api.Communication;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Communication;
 using Enigma.Domain.Configuration;
@@ -15,7 +14,6 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.IO;
-using System.Printing;
 using System.Windows;
 
 
@@ -39,7 +37,7 @@ public partial class StartWindow : Window
 
     private void PopulateStaticTexts()
     {
-        tbExplanation.Text = Rosetta.TextForId("startwindow.checking"); 
+        tbExplanation.Text = Rosetta.TextForId("startwindow.checking");
     }
 
 
@@ -54,7 +52,8 @@ public partial class StartWindow : Window
         if (releaseInfo.Version == "")
         {
             Log.Error("Could not check for updates as creating an internet connection failed.");
-        } else
+        }
+        else
         {
             Log.Information("Info about latest release : " + releaseInfo);
             if (releaseInfo.Version != EnigmaConstants.ENIGMA_VERSION)
@@ -67,7 +66,7 @@ public partial class StartWindow : Window
             }
         }
         Hide();
-        MainWindow mainWindow = new();              // Todo 0.1 add check for exceptions and show warning to user if an exception occurs.
+        MainWindow mainWindow = new();              // Todo 0.2 add check for exceptions and show warning to user if an exception occurs.
         mainWindow.ShowDialog();
         Application.Current.Shutdown(0);
     }
@@ -92,7 +91,7 @@ public partial class StartWindow : Window
 
     }
 
-    private static void HandleCheckDirForSettings()        // todo move to backend
+    private static void HandleCheckDirForSettings()        // todo 0.2 move to backend
     {
         ApplicationSettings? settings = ApplicationSettings.Instance;
         if (!Directory.Exists(settings.LocationEnigmaRoot)) Directory.CreateDirectory(settings.LocationEnigmaRoot);

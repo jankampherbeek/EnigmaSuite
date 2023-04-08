@@ -22,7 +22,7 @@ public sealed class ResearchDataHandler : IResearchDataHandler
     /// <inheritdoc/>
     public StandardInput GetStandardInputFromJson(string json)
     {
-        // TODO handler errors   
+        // TODO 0.2 handler errors   
         return _inputDataConverter.UnMarshallStandardInput(json);
     }
 

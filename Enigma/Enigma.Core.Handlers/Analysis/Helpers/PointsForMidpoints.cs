@@ -8,14 +8,13 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
-using System.Drawing;
 
 namespace Enigma.Core.Handlers.Analysis.Helpers;
 
 /// <inheritdoc/>
-public sealed class PointsForMidpoints : IPointsForMidpoints            
+public sealed class PointsForMidpoints : IPointsForMidpoints
 {
-    private readonly IPointsMapping _pointsMapping; 
+    private readonly IPointsMapping _pointsMapping;
 
     public PointsForMidpoints(IPointsMapping pointsMapping)
     {
@@ -32,7 +31,7 @@ public sealed class PointsForMidpoints : IPointsForMidpoints
             from posPoint in chart.Positions    // TODO 0.6 remove restrictions for EstPoint and Vertex as glyphs for these points have been implemented.
             where posPoint.Key.GetDetails().PointCat == PointCats.Common || (posPoint.Key.GetDetails().PointCat == PointCats.Angle && posPoint.Key != ChartPoints.Vertex && posPoint.Key != ChartPoints.EastPoint) ||
         (posPoint.Key.GetDetails().PointCat == PointCats.Zodiac && posPoint.Key == ChartPoints.ZeroAries)
-        select posPoint).ToDictionary(x => x.Key, x => x.Value);
+            select posPoint).ToDictionary(x => x.Key, x => x.Value);
 
         CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
         bool mainCoord = true;
@@ -42,8 +41,8 @@ public sealed class PointsForMidpoints : IPointsForMidpoints
         {
             double pos = point.Position;
             while (pos >= dialSize) pos -= dialSize;
-                pointsInActualDial.Add(new PositionedPoint(point.Point, pos));
-            }
+            pointsInActualDial.Add(new PositionedPoint(point.Point, pos));
+        }
         return pointsInActualDial;
     }
 

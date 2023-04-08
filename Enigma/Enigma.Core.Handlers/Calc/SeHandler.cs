@@ -21,7 +21,8 @@ public sealed class SeHandler : ISeHandler
         Log.Information("SE initialized.");
     }
 
-    public void CloseSe(){
+    public void CloseSe()
+    {
         Log.Information("Closing SE");
         SeInitializer.CloseEphemeris();
         Log.Information("SE closed.");

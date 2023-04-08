@@ -43,7 +43,7 @@ public interface IAspectPointSelector
 /// <summary>Handler for aspects.</summary>
 public interface IAspectsHandler
 {
-  
+
     /// <summary>Find aspects between chart points.</summary>
     /// <param name="request">Request with positions.</param>
     /// <returns>Aspects found.</returns>

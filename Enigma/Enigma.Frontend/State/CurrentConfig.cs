@@ -46,7 +46,7 @@ public sealed class CurrentConfig
     {
         if (_currentConfig == null)
         {
-            IConfigReader configReader = App.ServiceProvider.GetRequiredService<IConfigReader>();   // TODO 0.1 use API to read config
+            IConfigReader configReader = App.ServiceProvider.GetRequiredService<IConfigReader>();   // TODO 0.2 use API to read config
             _currentConfig = configReader.ReadConfig();
         }
         return _currentConfig;

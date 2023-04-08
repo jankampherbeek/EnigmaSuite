@@ -19,7 +19,7 @@ public record ChartPointOrb(ChartPoints Point, double OrbFactor);
 public class OrbDefinitions : IOrbDefinitions
 {
 
-    public ChartPointOrb DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs) 
+    public ChartPointOrb DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         double orbForChartPoint = 0.0;
         foreach (var spec in chartPointConfigSpecs)

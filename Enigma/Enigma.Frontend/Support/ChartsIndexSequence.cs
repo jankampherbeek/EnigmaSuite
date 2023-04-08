@@ -9,7 +9,7 @@ namespace Enigma.Frontend.Ui.Support;
 /// <remarks>The sequence is only valid during the active session.</remarks>
 public sealed class ChartsIndexSequence
 {
-    
+
 
     private static int _lastIndex = 0;
 

@@ -6,7 +6,6 @@
 using Enigma.Core.Domain.Interfaces;
 using Enigma.Core.Domain.Points;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Points;
 
 namespace Enigma.Test.Domain.Points;
@@ -26,7 +25,7 @@ public class TestPointsMapping
     [Test]
     public void TestSinglePointLongitude()
     {
-        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new (ChartPoints.Jupiter, CreateFullPointPos());
+        KeyValuePair<ChartPoints, FullPointPos> fullCommonPos = new(ChartPoints.Jupiter, CreateFullPointPos());
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Ecliptical, true);
         Assert.Multiple(() =>
         {
@@ -98,10 +97,12 @@ public class TestPointsMapping
     [Test]
     public void TestMultiplePoints()
     {
-        Dictionary<ChartPoints, FullPointPos> positions = new();
-        positions.Add(ChartPoints.Mars, CreateFullPointPos());
-        positions.Add(ChartPoints.Jupiter, CreateFullPointPos());
-        
+        Dictionary<ChartPoints, FullPointPos> positions = new()
+        {
+            { ChartPoints.Mars, CreateFullPointPos() },
+            { ChartPoints.Jupiter, CreateFullPointPos() }
+        };
+
         List<PositionedPoint> posPoints = _mapping.MapFullPointPos2PositionedPoint(positions, CoordinateSystems.Equatorial, true);
         Assert.Multiple(() =>
         {
@@ -115,8 +116,8 @@ public class TestPointsMapping
     private FullPointPos CreateFullPointPos()
     {
         PosSpeed psDistance = new(1.0, 1.5);
-        PosSpeed psLongitude = new (_longitude, 2.5);
-        PosSpeed psLatitude = new (_latitude, 3.5);
+        PosSpeed psLongitude = new(_longitude, 2.5);
+        PosSpeed psLatitude = new(_latitude, 3.5);
         PosSpeed psRightAscension = new(_rightAscension, 4.5);
         PosSpeed psDeclination = new(_declination, 5.5);
         PosSpeed psAzimuth = new(_azimuth, 0.0);

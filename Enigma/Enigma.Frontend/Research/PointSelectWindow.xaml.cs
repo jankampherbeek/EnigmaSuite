@@ -37,7 +37,7 @@ public partial class PointSelectWindow : Window
     public void SetResearchMethod(ResearchMethods researchMethod)
     {
         _researchMethod = researchMethod;
-     }
+    }
 
 
     public bool IsCompleted()

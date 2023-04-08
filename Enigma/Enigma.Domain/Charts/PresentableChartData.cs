@@ -9,4 +9,4 @@ namespace Enigma.Domain.Charts;
 /// <param name="Id">Unique id for the chart.</param>
 /// <param name="Name">Name or id for the chart owner / chart event.</param>
 /// <param name="Description">Descriptive text, can be empty.</param>
-public record PresentableChartData (string Id, string Name, string Description);
+public record PresentableChartData(string Id, string Name, string Description);

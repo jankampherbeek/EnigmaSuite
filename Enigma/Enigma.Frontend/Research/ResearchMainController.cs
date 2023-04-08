@@ -18,7 +18,6 @@ public class ResearchMainController
 {
     private readonly IProjectsOverviewApi _projectsOverviewApi;
     private List<ResearchProject> _researchProjects = new();
-    private readonly ProjectUsageWindow _projectUsageWindow = new();
 
     public ResearchMainController(IProjectsOverviewApi projectsOverviewApi)
     {
@@ -47,8 +46,9 @@ public class ResearchMainController
             if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
             {
                 currentProject = project;
-                _projectUsageWindow.SetProject(currentProject);
-                _projectUsageWindow.ShowDialog();
+                ProjectUsageWindow projectUsageWindow = new ProjectUsageWindow();
+                projectUsageWindow.SetProject(currentProject);
+                projectUsageWindow.ShowDialog();
             }
         }
     }

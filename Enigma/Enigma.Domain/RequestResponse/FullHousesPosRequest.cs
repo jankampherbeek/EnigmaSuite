@@ -10,5 +10,5 @@ namespace Enigma.Domain.RequestResponse;
 /// <summary>Request to calculate a complete set of fully defined mundane positions./// </summary>
 /// <param name="JdUt">Julian Day for UT.</param>
 /// <param name="ChartLocation">The location with the correct coordinates.</param>
-/// <param name="HouseSystem">The HouseSystem to use.</param>
-public record FullHousesPosRequest(double JdUt, Location ChartLocation, CalculationPreferences calcPrefs);
+/// <param name="CalcPrefs">Calculation preferences.</param>
+public record FullHousesPosRequest(double JdUt, Location ChartLocation, CalculationPreferences CalcPrefs);

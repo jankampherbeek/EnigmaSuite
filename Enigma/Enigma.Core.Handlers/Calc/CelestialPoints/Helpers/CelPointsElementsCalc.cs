@@ -33,7 +33,7 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
         {
             PolarCoordinates polarPlanetGeo = CalcGeoPolarCoord(planet, centuryFractionT);
             return DefinePosition(polarPlanetGeo);
-        } 
+        }
         else
         {
             PolarCoordinates polarPlanetHelio = CalcHelioPolarCoord(planet, centuryFractionT);

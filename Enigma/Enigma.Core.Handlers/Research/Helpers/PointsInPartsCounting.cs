@@ -79,23 +79,23 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         {
             allCounts.Add(new(selectedCelPoint, tempCounts.ToList()));
         }
-/*        if (request.Method != ResearchMethods.CountPosInHouses)
-        {
-            foreach (ChartPoints selectedMundanePoint in request.PointsSelection   SelectedMundanePoints)
-            {
-                allCounts.Add(new(selectedMundanePoint, tempCounts.ToList()));
-            }
-            if (request.PointsSelection.IncludeCusps)
-            {
-                int nrOfCusps = request.Config.HouseSystem.GetDetails().NrOfCusps;
-                for (int i = 0; i < nrOfCusps; i++)
+        /*        if (request.Method != ResearchMethods.CountPosInHouses)
                 {
-                    int index = i + 1;
-                    ChartPoints cusp = ChartPoints.None.PointForIndex(index + 2000);
-                    allCounts.Add(new(cusp, tempCounts.ToList()));
-                }
-            }
-        }  */ 
+                    foreach (ChartPoints selectedMundanePoint in request.PointsSelection   SelectedMundanePoints)
+                    {
+                        allCounts.Add(new(selectedMundanePoint, tempCounts.ToList()));
+                    }
+                    if (request.PointsSelection.IncludeCusps)
+                    {
+                        int nrOfCusps = request.Config.HouseSystem.GetDetails().NrOfCusps;
+                        for (int i = 0; i < nrOfCusps; i++)
+                        {
+                            int index = i + 1;
+                            ChartPoints cusp = ChartPoints.None.PointForIndex(index + 2000);
+                            allCounts.Add(new(cusp, tempCounts.ToList()));
+                        }
+                    }
+                }  */
         return allCounts;
     }
 
@@ -106,8 +106,8 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         foreach (ChartPoints selectedCelPoint in pointsSelection.SelectedPoints)
         {
             Dictionary<ChartPoints, FullPointPos> pointPositions = (
-                from posPoint in chart.Positions 
-                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle) 
+                from posPoint in chart.Positions
+                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
                 select posPoint).ToDictionary(x => x.Key, x => x.Value);
 
             foreach (KeyValuePair<ChartPoints, FullPointPos> commonPointPos in pointPositions)
@@ -142,7 +142,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
                     allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;
                 }
             }
-        } 
+        }
     }
 
 
@@ -167,7 +167,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         return totals;
     }
 
-    private static int DefineHouseNr(double longitude, int nrOfCusps,  Dictionary<ChartPoints, FullPointPos> positions)  // returns housenr 0..11 of 0..nrOfHouses-1
+    private static int DefineHouseNr(double longitude, int nrOfCusps, Dictionary<ChartPoints, FullPointPos> positions)  // returns housenr 0..11 of 0..nrOfHouses-1
     {
         Dictionary<ChartPoints, FullPointPos> cusps = (from posPoint in positions where (posPoint.Key.GetDetails().PointCat == PointCats.Cusp) select posPoint).ToDictionary(x => x.Key, x => x.Value);
         List<double> cuspLongitudes = new();

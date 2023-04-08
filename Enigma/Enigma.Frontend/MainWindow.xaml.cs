@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
@@ -52,8 +51,8 @@ public partial class MainWindow : Window
         tbFormTitle.Text = Rosetta.TextForId("mainwindow.formtitle");
         tbSubTitle.Text = Rosetta.TextForId("mainwindow.subtitle");
         tbExplanation.Text = Rosetta.TextForId("mainwindow.explanation");
-  //      tbCharts.Text = Rosetta.TextForId("mainwindow.charts");
-  //      tbResearch.Text = Rosetta.TextForId("mainwindow.research");
+        //      tbCharts.Text = Rosetta.TextForId("mainwindow.charts");
+        //      tbResearch.Text = Rosetta.TextForId("mainwindow.research");
 
 
         /*    tbChartsTitle.Text = Rosetta.TextForId("mainwindow.chartstitle");

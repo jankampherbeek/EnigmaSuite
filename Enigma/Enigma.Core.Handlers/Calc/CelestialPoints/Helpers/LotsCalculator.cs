@@ -8,10 +8,9 @@ using Enigma.Domain.Calc;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Points;
-using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
-public class LotsCalculator: ILotsCalculator
+public class LotsCalculator : ILotsCalculator
 {
     private readonly IHousesHandler _housesHandler;
     private readonly IFullPointPosFactory _fullPointPosFactory;
@@ -42,7 +41,7 @@ public class LotsCalculator: ILotsCalculator
     }
 
 
-    private FullPointPos CalculateLotPosition(ChartPoints lot, double jdUt, double obliquity, Location location, CalculationPreferences calcPrefs, 
+    private FullPointPos CalculateLotPosition(ChartPoints lot, double jdUt, double obliquity, Location location, CalculationPreferences calcPrefs,
         Dictionary<ChartPoints, FullPointPos> commonPoints, Dictionary<ChartPoints, FullPointPos> mundanePoints)
     {
         double lotLongitude = 0.0;
@@ -50,9 +49,10 @@ public class LotsCalculator: ILotsCalculator
         double sun = commonPoints[ChartPoints.Sun].Ecliptical.MainPosSpeed.Position;
         bool dayLight = commonPoints[ChartPoints.Sun].Horizontal.DeviationPosSpeed.Position >= 0.0;
         double moon = commonPoints[ChartPoints.Moon].Ecliptical.MainPosSpeed.Position;
-        switch (lot) {
+        switch (lot)
+        {
             case ChartPoints.FortunaNoSect: lotLongitude = ascendant + moon - sun; break;
-            case ChartPoints.FortunaSect: lotLongitude = dayLight ? ascendant + moon - sun : ascendant - moon + sun; break;    
+            case ChartPoints.FortunaSect: lotLongitude = dayLight ? ascendant + moon - sun : ascendant - moon + sun; break;
             default: break;
         }
         while (lotLongitude >= 360.0)
@@ -63,24 +63,24 @@ public class LotsCalculator: ILotsCalculator
         {
             lotLongitude += 360.0;
         }
-        return ConstructFullPointPos(lotLongitude, jdUt, obliquity, location );
+        return ConstructFullPointPos(lotLongitude, jdUt, obliquity, location);
 
     }
 
     private FullPointPos ConstructFullPointPos(double longitude, double jdUt, double obliquity, Location location)
     {
-        PosSpeed longPosSpeed = new(longitude, 0.0);         
+        PosSpeed longPosSpeed = new(longitude, 0.0);
         PosSpeed latPosSpeed = new(0.0, 0.0);
         PosSpeed distPosSpeed = new(0.0, 0.0);
-        PosSpeed[] eclipticPosSpeed = {longPosSpeed, latPosSpeed, distPosSpeed };
+        PosSpeed[] eclipticPosSpeed = { longPosSpeed, latPosSpeed, distPosSpeed };
         EclipticCoordinates eclCoord = new(longitude, 0.0);
         EquatorialCoordinates equCoord = _coordinateConversionCalc.PerformConversion(eclCoord, obliquity);
         PosSpeed raPosSpeed = new(equCoord.RightAscension, 0.0);
         PosSpeed declPosSpeed = new(equCoord.Declination, 0.0);
-        PosSpeed[] equatorialPosSpeed = {raPosSpeed, declPosSpeed, distPosSpeed };
+        PosSpeed[] equatorialPosSpeed = { raPosSpeed, declPosSpeed, distPosSpeed };
         HorizontalRequest horizontalRequest = new(jdUt, location, equCoord);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
         return _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeed, equatorialPosSpeed, horCoord);
-   }
+    }
 
 }

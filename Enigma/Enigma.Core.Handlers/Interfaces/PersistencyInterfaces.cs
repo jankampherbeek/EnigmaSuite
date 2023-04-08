@@ -206,4 +206,3 @@ public interface IChartDataDao
     public bool DeleteChartData(int index);
 
 }
-    

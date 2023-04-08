@@ -75,7 +75,7 @@ public partial class HarmonicDetailsWindow : Window
         string minuteTxt = tboxOrbMinutes.Text;
         bool degreeCorrect = int.TryParse(degreeTxt, out int degreeValue);
         bool minuteCorrect = int.TryParse(minuteTxt, out int minuteValue);
-        if (harmNrCorrect && harmNrValue > 1.0 )
+        if (harmNrCorrect && harmNrValue > 1.0)
         {
             if (degreeCorrect && minuteCorrect && degreeValue >= 0 && degreeValue < 10 && minuteValue >= 0 && minuteValue < 60)
             {

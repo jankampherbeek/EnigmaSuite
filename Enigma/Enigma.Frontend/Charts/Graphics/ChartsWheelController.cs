@@ -116,9 +116,10 @@ public sealed class ChartsWheelController
         {
             foreach (var cusp in _currentChart.Positions)
             {
-                if (cusp.Key.GetDetails().PointCat == PointCats.Cusp) {
+                if (cusp.Key.GetDetails().PointCat == PointCats.Cusp)
+                {
                     longitudes.Add(cusp.Value.Ecliptical.MainPosSpeed.Position);
-                } 
+                }
             }
         }
         return longitudes;

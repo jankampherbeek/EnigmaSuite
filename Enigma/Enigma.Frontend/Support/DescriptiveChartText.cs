@@ -12,7 +12,7 @@ using System.Text;
 
 namespace Enigma.Frontend.Ui.Support;
 
-public class DescriptiveChartText: IDescriptiveChartText
+public class DescriptiveChartText : IDescriptiveChartText
 {
 
     public string ShortDescriptiveText(AstroConfig config, MetaData meta)

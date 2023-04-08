@@ -47,7 +47,7 @@ public partial class ChartAspectsWindow : Window
         dgSsAspects.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgSsAspects.Columns[0].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point1");
         dgSsAspects.Columns[1].Header = _emptyHeader;
-        dgSsAspects.Columns[2].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.aspect"); 
+        dgSsAspects.Columns[2].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.aspect");
         dgSsAspects.Columns[3].Header = _emptyHeader;
         dgSsAspects.Columns[4].Header = Rosetta.TextForId("charts.aspects.datagrid.columns.point2");
         dgSsAspects.Columns[5].Header = _emptyHeader;

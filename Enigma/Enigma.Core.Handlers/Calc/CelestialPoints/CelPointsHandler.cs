@@ -49,7 +49,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     }
 
 
-    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs)    
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs)
     {
         List<ChartPoints> celPoints = prefs.ActualChartPoints;
         ObserverPositions observerPosition = prefs.ActualObserverPosition;
@@ -81,10 +81,10 @@ public sealed class CelPointsHandler : ICelPointsHandler
                 PosSpeed longPosSpeed = new(positions[0][0] - ayanamshaOffset, futurePositions[0][0] - previousPositions[0][0]);
                 PosSpeed latPosSpeed = new(positions[0][1], futurePositions[0][1] - previousPositions[0][1]);
                 PosSpeed distPosSpeed = new(positions[0][2], futurePositions[0][2] - previousPositions[0][2]);
-                PosSpeed[] eclipticPosSpeeds = {longPosSpeed, latPosSpeed, distPosSpeed }; 
+                PosSpeed[] eclipticPosSpeeds = { longPosSpeed, latPosSpeed, distPosSpeed };
                 PosSpeed raPosSpeed = new(positions[1][0], futurePositions[1][0] - previousPositions[1][0]);
                 PosSpeed declPosSpeed = new(positions[1][1], futurePositions[1][1] - previousPositions[1][1]);
-                PosSpeed[] equatorialPosSpeeds = {raPosSpeed, declPosSpeed, distPosSpeed };
+                PosSpeed[] equatorialPosSpeeds = { raPosSpeed, declPosSpeed, distPosSpeed };
                 EquatorialCoordinates equCoordinates = new(positions[1][0], positions[1][1]);
                 HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
                 HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
@@ -134,7 +134,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     }
 
 
-    private KeyValuePair<ChartPoints,  FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
+    private KeyValuePair<ChartPoints, FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
         PosSpeed[] equatorialPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);

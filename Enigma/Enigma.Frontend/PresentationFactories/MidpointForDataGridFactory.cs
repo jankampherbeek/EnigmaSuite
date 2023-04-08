@@ -6,7 +6,6 @@
 
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
@@ -50,10 +49,10 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
     private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint)
     {
         char point1Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point1.Point);
-        char point2Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point2.Point); 
+        char point2Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point2.Point);
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(midpoint.Position);
         string position = longTxt;
-        char signGlyph = glyph; 
+        char signGlyph = glyph;
         return new PresentableMidpoint(point1Glyph, point2Glyph, position, signGlyph);
 
     }

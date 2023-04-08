@@ -18,7 +18,7 @@ internal sealed class DimDegreeIndications
     private readonly double _hypoStart;
     private readonly double _hypoDegree;
     private readonly double _hypo5Degree;
-    public DimDegreeIndications(Point centerPoint, double offsetAsc, double hypoStart, double hypoDegree, double hypo5Degree)  // todo use metrics as a parameter
+    public DimDegreeIndications(Point centerPoint, double offsetAsc, double hypoStart, double hypoDegree, double hypo5Degree)  // todo 0.2 use metrics as a parameter
     {
         _centerPoint = centerPoint;
         _offsetAsc = offsetAsc;

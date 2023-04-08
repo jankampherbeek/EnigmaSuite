@@ -10,7 +10,7 @@ using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
-public class FullPointPosFactory: IFullPointPosFactory
+public class FullPointPosFactory : IFullPointPosFactory
 {
 
     public FullPointPos CreateFullPointPos(PosSpeed[] eclipticPosSpeed, PosSpeed[] equatorialPosSpeed, HorizontalCoordinates horCoord)

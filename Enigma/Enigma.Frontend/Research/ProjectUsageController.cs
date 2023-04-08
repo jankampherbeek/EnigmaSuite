@@ -119,7 +119,7 @@ public class ProjectUsageController
 
         if (_currentProject != null)
         {
-            if (researchMethod == ResearchMethods.CountPosInSigns || researchMethod == ResearchMethods.CountPosInHouses || 
+            if (researchMethod == ResearchMethods.CountPosInSigns || researchMethod == ResearchMethods.CountPosInHouses ||
                 researchMethod == ResearchMethods.CountAspects || researchMethod == ResearchMethods.CountUnaspected)
             {
                 bool useControlGroup = false;

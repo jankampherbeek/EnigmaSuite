@@ -15,7 +15,7 @@ using System.Collections.Generic;
 namespace Enigma.Frontend.Ui.Support;
 
 /// <inheritdoc/>
-public sealed class ChartCalculation: IChartCalculation
+public sealed class ChartCalculation : IChartCalculation
 {
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
 
@@ -39,7 +39,6 @@ public sealed class ChartCalculation: IChartCalculation
     /// <summary>
     /// Retrieve calculation preferences from active modus. 
     /// </summary>
-    /// TODO: add CoordinateSystem to the configuration ???? Or use it without config but only as ad hoc setting?.
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
         AstroConfig config = CurrentConfig.Instance.GetConfig();

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 namespace Enigma.Core.Handlers.Communication;
 
 /// <inheritdoc/>
-public class CommunicationHandler: ICommunicationHandler
+public class CommunicationHandler : ICommunicationHandler
 {
     private readonly IHttpRequester _httpRequester;
 
@@ -24,7 +24,8 @@ public class CommunicationHandler: ICommunicationHandler
     public ReleaseInfo FindLatestRelease()
     {
         string json = _httpRequester.GetHttpRequest(EnigmaConstants.RELEASE_CHECK_URL);
-        if (json == "") {
+        if (json == "")
+        {
             return new ReleaseInfo("", "", "", "", "");
         }
         else

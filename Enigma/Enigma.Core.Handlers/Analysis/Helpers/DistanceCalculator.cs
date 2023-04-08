@@ -10,7 +10,7 @@ using Enigma.Domain.Points;
 namespace Enigma.Core.Handlers.Analysis.Helpers;
 
 /// <inheritdoc/>
-public class DistanceCalculator: IDistanceCalculator
+public class DistanceCalculator : IDistanceCalculator
 {
 
     /// <inheritdoc/>
@@ -32,12 +32,12 @@ public class DistanceCalculator: IDistanceCalculator
     }
 
     /// <inheritdoc/>
-    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(List<PositionedPoint> allPoints, List<PositionedPoint> allCusps) 
+    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(List<PositionedPoint> allPoints, List<PositionedPoint> allCusps)
     {
         List<DistanceBetween2Points> allDistances = new();
         foreach (PositionedPoint point in allPoints)
         {
-            foreach(PositionedPoint cusp in allCusps)
+            foreach (PositionedPoint cusp in allCusps)
             {
                 double distance = NormalizeShortestDistance(point.Position - cusp.Position);
                 allDistances.Add(new DistanceBetween2Points(point, cusp, distance));

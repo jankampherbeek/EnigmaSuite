@@ -17,7 +17,7 @@ using Enigma.Research.Domain;
 namespace Enigma.Core.Handlers.Research.Helpers;
 
 /// <inheritdoc/>
-public sealed class AspectsCounting: IAspectsCounting
+public sealed class AspectsCounting : IAspectsCounting
 {
     private readonly IAspectsHandler _aspectsHandler;
     private readonly IAspectPointSelector _aspectPointSelector;
@@ -59,8 +59,8 @@ public sealed class AspectsCounting: IAspectsCounting
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> positions = calcResearchChart.Positions;      
-            
+            Dictionary<ChartPoints, FullPointPos> positions = calcResearchChart.Positions;
+
             Dictionary<ChartPoints, FullPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(positions, chartPointConfigSpecs);
             Dictionary<ChartPoints, ChartPointConfigSpecs> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
 
@@ -70,11 +70,11 @@ public sealed class AspectsCounting: IAspectsCounting
             List<PositionedPoint> cuspPoints = new();
             if (request.PointsSelection.IncludeCusps)
             {
-                var relevantCusps = (from posPoint in calcResearchChart.Positions where (posPoint.Key.GetDetails().PointCat == PointCats.Cusp) select posPoint).ToDictionary(x => x.Key, x=> x.Value);
+                var relevantCusps = (from posPoint in calcResearchChart.Positions where (posPoint.Key.GetDetails().PointCat == PointCats.Cusp) select posPoint).ToDictionary(x => x.Key, x => x.Value);
                 cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
             }
             selectedCelPointSize = relevantChartPointPositions.Count;
-            allPoints = new List<PositionedPoint> (posPoints.Count + cuspPoints.Count);
+            allPoints = new List<PositionedPoint>(posPoints.Count + cuspPoints.Count);
             allPoints.AddRange(posPoints);
             allPoints.AddRange(cuspPoints);
 
@@ -84,7 +84,7 @@ public sealed class AspectsCounting: IAspectsCounting
                 int index1 = _researchMethodUtils.FindIndexForPoint(defAspect.Point1, allPoints);
                 int index2 = _researchMethodUtils.FindIndexForPoint(defAspect.Point2, allPoints);
                 int index3 = _researchMethodUtils.FindIndexForAspectType(defAspect.Aspect.Aspect, configSelectedAspects);
-                allCounts[index1, index2, index3] += 1;    
+                allCounts[index1, index2, index3] += 1;
             }
         }
         return CreateResponse(request, selectedCelPointSize, allCounts, allPoints, configSelectedAspects);

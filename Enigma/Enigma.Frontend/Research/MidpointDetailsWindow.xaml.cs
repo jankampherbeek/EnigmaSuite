@@ -22,7 +22,7 @@ public partial class MidpointDetailsWindow : Window
     {
         InitializeComponent();
         _astroConfig = CurrentConfig.Instance.GetConfig();
-         PopulateTexts();
+        PopulateTexts();
         PopulateData();
     }
 

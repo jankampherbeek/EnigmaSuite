@@ -13,7 +13,7 @@ using Enigma.Facades.Interfaces;
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
 /// <inheritdoc/>
-public sealed class ZodiacPointsCalc: IZodiacPointsCalc
+public sealed class ZodiacPointsCalc : IZodiacPointsCalc
 {
     private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IHorizontalHandler _horizontalHandler;
@@ -45,11 +45,12 @@ public sealed class ZodiacPointsCalc: IZodiacPointsCalc
     }
 
 
-    private FullPointPos CalculateZodiacFixedPoint(double longitude, double jdUt, double obliquity, Location location) {
+    private FullPointPos CalculateZodiacFixedPoint(double longitude, double jdUt, double obliquity, Location location)
+    {
 
 
         PosSpeed[] eclipticPosSpeed = { new PosSpeed(longitude, 0.0), new PosSpeed(0.0, 0.0), new PosSpeed(0.0, 0.0) };
-        
+
         double latitude = 0.0;
         double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new double[] { longitude, latitude }, obliquity);
         double ra = equatorialPos[0];

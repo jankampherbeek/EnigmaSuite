@@ -64,13 +64,14 @@ public sealed class HousesHandler : IHousesHandler
             _eclValues = tropicalValues;
         }
 
-        
+
 
         KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, tropicalValues[1][0], _eclValues[1][0], jdUt, obliquity, location);
         mundanePositions.Add(asc.Key, asc.Value);
         KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, tropicalValues[1][1], _eclValues[1][1], jdUt, obliquity, location);
         mundanePositions.Add(mc.Key, mc.Value);
-        if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.Vertex)) {
+        if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.Vertex))
+        {
             KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, tropicalValues[1][3], _eclValues[1][3], jdUt, obliquity, location);
             mundanePositions.Add(vertex.Key, vertex.Value);
         }
@@ -102,9 +103,9 @@ public sealed class HousesHandler : IHousesHandler
         HorizontalCoordinates horCoord = CalcHorizontalCoordinates(jdUt, location, eqCoord);
 
         PosSpeed psLongitude = new(longitude, speed);
-        PosSpeed psLatitude = new (latitude, speed);
+        PosSpeed psLatitude = new(latitude, speed);
         PosSpeed psRightAscension = new(eqCoord.RightAscension, speed);
-        PosSpeed psDeclination = new (eqCoord.Declination, speed);
+        PosSpeed psDeclination = new(eqCoord.Declination, speed);
         PosSpeed psDistance = new(distance, speed);
         PosSpeed psAzimuth = new(horCoord.Azimuth, speed);
         PosSpeed psAltitude = new(horCoord.Altitude, speed);

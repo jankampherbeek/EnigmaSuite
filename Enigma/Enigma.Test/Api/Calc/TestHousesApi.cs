@@ -14,7 +14,7 @@ using Moq;
 namespace Enigma.Test.Api.Astron;
 
 
-[TestFixture]   
+[TestFixture]
 public class TestHousesApi
 {
     private readonly double _jdUt = 123456.789;
@@ -80,7 +80,7 @@ public class TestHousesApi
 
     private static FullPointPos CreateFullPointPos(double longitude, double ra, double decl, double azimuth, double altitude)
     {
-        PosSpeed psDistance = new (0.0, 0.0);
+        PosSpeed psDistance = new(0.0, 0.0);
         PosSpeed psLongitude = new(longitude, 0.0);
         PosSpeed psLatitude = new(0.0, 0.0);
         PosSpeed psRightAscension = new(ra, 0.0);
@@ -91,7 +91,7 @@ public class TestHousesApi
         PointPosSpeeds ppsEquatorial = new(psRightAscension, psDeclination, psDistance);
         PointPosSpeeds ppsHorizontal = new(psAzimuth, psAltitude, psDistance);
         return new FullPointPos(ppsEcliptical, ppsEquatorial, ppsHorizontal);
-    }  
+    }
 
     private static CalculationPreferences CreateCalculationPreferences()
     {

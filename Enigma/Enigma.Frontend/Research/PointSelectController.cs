@@ -29,7 +29,7 @@ public sealed class PointSelectController
 
     private AstroConfig? _astroConfig;
     private List<SelectableChartPointDetails> _selCPDetails = new();
-   
+
 
     public List<SelectableChartPointDetails> GetAllCelPointDetails(ResearchMethods method)
     {
@@ -58,12 +58,12 @@ public sealed class PointSelectController
         enableCusps = !pointsToExclude.ExcludeCusps;
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCPSpec in _astroConfig.ChartPoints)
         {
-            if (currentCPSpec.Value.IsUsed &&  !pointsToExclude.ExcludedPoints.Contains(currentCPSpec.Key) && !(currentCPSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps)) 
+            if (currentCPSpec.Value.IsUsed && !pointsToExclude.ExcludedPoints.Contains(currentCPSpec.Key) && !(currentCPSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps))
             {
                 PointDetails cpDetails = currentCPSpec.Key.GetDetails();
                 char glyph = currentCPSpec.Value.Glyph;
                 _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
-            } 
+            }
         }
     }
 

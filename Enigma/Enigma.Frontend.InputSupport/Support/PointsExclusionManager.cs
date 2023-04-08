@@ -13,7 +13,7 @@ using Serilog;
 namespace Enigma.Frontend.Helpers.Support;
 
 /// <inheritdoc/>
-public class PointsExclusionManager: IPointsExclusionManager
+public class PointsExclusionManager : IPointsExclusionManager
 {
 
     /// <inheritdoc/>

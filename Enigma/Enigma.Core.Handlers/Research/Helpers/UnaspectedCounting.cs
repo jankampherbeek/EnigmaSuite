@@ -17,7 +17,7 @@ using Enigma.Research.Domain;
 namespace Enigma.Core.Handlers.Research.Helpers;
 
 
-public sealed class UnaspectedCounting: IUnaspectedCounting
+public sealed class UnaspectedCounting : IUnaspectedCounting
 {
     private readonly IAspectsHandler _aspectsHandler;
     private readonly IPointsMapping _pointsMapping;
@@ -49,8 +49,8 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();       // use empty list
-            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);     
-            
+            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);
+
             foreach (PositionedPoint posPoint in posPoints)
             {
                 ChartPoints point = posPoint.Point;
@@ -62,7 +62,7 @@ public sealed class UnaspectedCounting: IUnaspectedCounting
                         aspectCount++;
                     }
                 }
-                if (aspectCount == 0) 
+                if (aspectCount == 0)
                 {
                     int aspectIndex = 0;
                     foreach (var rcpPos in relevantChartPointPositions)

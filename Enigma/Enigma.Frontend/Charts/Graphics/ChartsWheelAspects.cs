@@ -39,7 +39,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         AspectRequest request = new(currentChart, config);
         List<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
         List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
-  //      List<DefinedAspect> defMuAspects = _aspectsApi.AspectsForMundanePoints(request);                                  // todo 0.1 add mundane aspects to chartwheel
+        //      List<DefinedAspect> defMuAspects = _aspectsApi.AspectsForMundanePoints(request);                                  // todo 0.1 add mundane aspects to chartwheel
         DimLine dimLine = new();
         foreach (var drawSsAspect in drawSsAspects)
         {

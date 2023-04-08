@@ -16,7 +16,7 @@ namespace Enigma.Frontend.Ui;
 public class MainController
 {
 
-    public CurrentCharts AllCurrentCharts { get; set; }         // Todo move to ChartsMainController
+    public CurrentCharts AllCurrentCharts { get; set; }         // Todo 0.2 move to ChartsMainController
 
 
     public MainController()

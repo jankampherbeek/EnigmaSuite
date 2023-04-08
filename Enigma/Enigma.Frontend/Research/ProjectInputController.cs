@@ -83,7 +83,7 @@ public class ProjectInputController
             else
             {
                 Log.Information("Created project {projectName}", ProjectName);
-                MessageBox.Show(Rosetta.TextForId("projectinputwindow.projectsaved")); 
+                MessageBox.Show(Rosetta.TextForId("projectinputwindow.projectsaved"));
             }
         }
         return noErrors;

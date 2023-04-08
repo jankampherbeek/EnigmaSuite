@@ -32,14 +32,14 @@ public partial class App : Application
 {
     public static ServiceProvider ServiceProvider { get; private set; } = HandleRegistrationForDI();
 
-    private static string EnigmaLogRoot = ApplicationSettings.Instance.LocationLogFiles;
+    private static readonly string EnigmaLogRoot = ApplicationSettings.Instance.LocationLogFiles;
 
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
-        ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();     
+        ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("");
     }
 
@@ -123,5 +123,5 @@ public partial class App : Application
             .CreateLogger();
     }
 
-   }
+}
 

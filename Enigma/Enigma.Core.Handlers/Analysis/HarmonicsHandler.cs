@@ -24,7 +24,8 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
     {
         List<double> originalPositions = new();
         var allPoints = from point in chart.Positions           // TODO 0.6 remove restriction for Vertex and Easpoint as new glyphs are available
-                        where (point.Key.GetDetails().PointCat == PointCats.Common) || (point.Key.GetDetails().PointCat == PointCats.Angle && point.Key != ChartPoints.Vertex && point.Key != ChartPoints.EastPoint) select point;
+                        where (point.Key.GetDetails().PointCat == PointCats.Common) || (point.Key.GetDetails().PointCat == PointCats.Angle && point.Key != ChartPoints.Vertex && point.Key != ChartPoints.EastPoint)
+                        select point;
         foreach (var item in allPoints)
         {
             originalPositions.Add(item.Value.Ecliptical.MainPosSpeed.Position);
@@ -33,7 +34,7 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
     }
 
     /// <inheritdoc/>
-    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber)   
+    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber)
     {
         Dictionary<ChartPoints, double> harmonicPositions = new();
         foreach (PositionedPoint posPoint in posPoints)

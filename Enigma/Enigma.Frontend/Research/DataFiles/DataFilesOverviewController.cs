@@ -18,7 +18,7 @@ public class DataFilesOverviewController
 
     private readonly IDataNameForDataGridFactory _dataNameForDataGridFactory;
 
-    // TODO move functionality to separate class that is also used by ProjectInputController
+    // TODO 0.2 move functionality to separate class that is also used by ProjectInputController
 
     public DataFilesOverviewController(IDataFileManagementApi fileManagementApi, IDataNameForDataGridFactory dataNameForDataGridFactory)
     {

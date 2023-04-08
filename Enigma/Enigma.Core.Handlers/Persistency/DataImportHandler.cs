@@ -39,14 +39,14 @@ public sealed class DataImportHandler : IDataImportHandler
         {
             string jsonText = conversionResult.Item2;
             _textFileWriter.WriteFile(fullJsonPath, jsonText);
-            _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); // TODO use RB
-            return new ResultMessage(0, "File successfully imported.");       // TODO use RB
+            _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); // TODO 0.2 use RB
+            return new ResultMessage(0, "File successfully imported.");       // TODO 0.2 use RB
         }
         else
         {
             List<string> errorLines = conversionResult.Item3;
             _textFileWriter.WriteFile(fullErrorPath, errorLines);
-            return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);    // TODO use RB
+            return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);    // TODO 0.2 use RB
         }
 
     }

@@ -32,7 +32,7 @@ public partial class ChartMidpointsWindow : Window
 
 
 
-    // TODO split in two methodes
+    // TODO 0.2 split in two methods
     public void PopulateData(double dialSize)
     {
         tbDescriptionText.Text = _controller.DescriptiveText();

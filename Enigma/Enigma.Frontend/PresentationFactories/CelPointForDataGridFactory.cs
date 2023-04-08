@@ -39,7 +39,7 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
         return presPositions;
     }
 
-    private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints,  FullPointPos> commonPos)
+    private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints, FullPointPos> commonPos)
     {
         char pointGlyph = _glyphsForChartPoints.FindGlyph(commonPos.Key);
         double longPos = commonPos.Value.Ecliptical.MainPosSpeed.Position;

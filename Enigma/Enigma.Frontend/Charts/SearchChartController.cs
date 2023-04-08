@@ -41,7 +41,7 @@ public sealed class SearchChartController
 
     public List<PresentableChartData> SearchedChartData()
     {
-        return _chartDataForDataGridFactory.CreateChartDataForDataGrid(chartsFound); 
+        return _chartDataForDataGridFactory.CreateChartDataForDataGrid(chartsFound);
     }
 
     public void AddFoundChartToDataVault(PresentableChartData presentableChartData)

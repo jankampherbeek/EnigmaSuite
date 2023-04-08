@@ -18,7 +18,7 @@ public class AspectPointSelector : IAspectPointSelector
     public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> positions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = new();
-        
+
         // two foreach loops to enforce that the sequence between common points (first) and angles (second) is maintained.
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in chartPointConfigSpecs)
         {
@@ -32,7 +32,7 @@ public class AspectPointSelector : IAspectPointSelector
         {
             if (spec.Key.GetDetails().PointCat == PointCats.Angle && spec.Value.IsUsed)
             {
-                relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);       
+                relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);
             }
         }
         return relevantChartPointPositions;

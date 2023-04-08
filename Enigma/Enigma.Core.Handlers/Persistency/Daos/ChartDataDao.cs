@@ -14,14 +14,14 @@ using Serilog;
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
 /// <inheritdoc/>
-public sealed class ChartDataDao: IChartDataDao 
+public sealed class ChartDataDao : IChartDataDao
 {
     readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
 
     /// <inheritdoc/>
     public int CountRecords()
     {
-        return ReadRecordsFromJson().Count; 
+        return ReadRecordsFromJson().Count;
     }
 
     /// <inheritdoc/>

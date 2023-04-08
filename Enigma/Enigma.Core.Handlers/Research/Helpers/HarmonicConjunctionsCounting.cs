@@ -36,7 +36,7 @@ public sealed class HarmonicConjunctionsCounting : IHarmonicConjunctionsCounting
     }
 
     private CountHarmonicConjunctionsResponse PerformCount(List<CalculatedResearchChart> charts, CountHarmonicConjunctionsRequest request)
-    { 
+    {
         List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
         Dictionary<TwoPointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
         double orb = request.Orb;
@@ -63,7 +63,7 @@ public sealed class HarmonicConjunctionsCounting : IHarmonicConjunctionsCounting
                         allCounts[structure]++;
                     }
                 }
-            }  
+            }
         }
         return new CountHarmonicConjunctionsResponse(request, allCounts);
     }

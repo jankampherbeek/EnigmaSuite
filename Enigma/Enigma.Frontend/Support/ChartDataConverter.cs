@@ -14,7 +14,7 @@ using Enigma.Frontend.Ui.Interfaces;
 namespace Enigma.Frontend.Ui.SUpport;
 
 /// <inheritdoc/>
-public sealed class ChartDataConverter: IChartDataConverter
+public sealed class ChartDataConverter : IChartDataConverter
 {
     private readonly ILocationConversion _locationConversion;
 
@@ -44,15 +44,15 @@ public sealed class ChartDataConverter: IChartDataConverter
         ChartCategories chartCategory = persistableChartData.ChartCategory;
         RoddenRatings rating = persistableChartData.Rating;
         MetaData metaData = new(name, description, source, locationName, chartCategory, rating);
-        string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableChartData.GeoLat, persistableChartData.GeoLong); 
+        string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableChartData.GeoLat, persistableChartData.GeoLong);
         Location location = new(locationFullName, persistableChartData.GeoLong, persistableChartData.GeoLat);
         FullDateTime fullDateTime = new(persistableChartData.DateText, persistableChartData.TimeText, persistableChartData.JulianDayEt);
         return new ChartData(persistableChartData.Id, metaData, location, fullDateTime);
     }
 
-    private static PersistableChartData HandleConversion (ChartData chartData)
+    private static PersistableChartData HandleConversion(ChartData chartData)
     {
-        return new PersistableChartData (
+        return new PersistableChartData(
             chartData.Id,
             chartData.MetaData.Name,
             chartData.MetaData.Description,
@@ -69,4 +69,4 @@ public sealed class ChartDataConverter: IChartDataConverter
     }
 
 
-} 
+}

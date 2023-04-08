@@ -23,7 +23,7 @@ public sealed class HarmonicsCalculator : IHarmonicsCalculator
     }
 
     /// <inheritdoc/>
-    public double CalculateHarmonic(double originalPosition, double harmonicNumber)        
+    public double CalculateHarmonic(double originalPosition, double harmonicNumber)
     {
         return InRange360(originalPosition * harmonicNumber);
     }

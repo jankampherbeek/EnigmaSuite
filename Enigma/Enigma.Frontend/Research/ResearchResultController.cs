@@ -213,13 +213,13 @@ public class ResearchResultController
             string aspectSeparatorLine = separatorLine;
             string separatorFragment = separatorLine[..7];
             StringBuilder headerLine = new();
-            headerLine.Append(aspectSpaces);  
+            headerLine.Append(aspectSpaces);
             foreach (AspectTypes asp in qualifiedResponse.AspectsUsed)
             {
                 headerLine.Append((((int)asp.GetDetails().Angle).ToString() + spaces)[..7]);
                 aspectSeparatorLine += separatorFragment;
             }
-            headerLine.Append(Rosetta.TextForId("researchresultwindow.totalsaspects"));   
+            headerLine.Append(Rosetta.TextForId("researchresultwindow.totalsaspects"));
             aspectSeparatorLine += separatorFragment;
             resultData.AppendLine(headerLine.ToString());
             resultData.AppendLine(aspectSeparatorLine);
@@ -296,12 +296,12 @@ public class ResearchResultController
     {
         StringBuilder resultData = new();
         CountOfOccupiedMidpointsResponse? qualifiedResponse = response as CountOfOccupiedMidpointsResponse;
-        if (qualifiedResponse != null )
+        if (qualifiedResponse != null)
         {
             CountOccupiedMidpointsRequest? qualifiedRequest = response.Request as CountOccupiedMidpointsRequest;
-            if (qualifiedRequest != null )
+            if (qualifiedRequest != null)
             {
-                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb); 
+                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleoccupiedmidpoints") + " " + qualifiedRequest.DivisionForDial + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb);
                 resultData.AppendLine((separatorLine + separatorLine)[..80]);
                 Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
@@ -341,7 +341,7 @@ public class ResearchResultController
             CountHarmonicConjunctionsRequest? qualifiedRequest = response.Request as CountHarmonicConjunctionsRequest;
             if (qualifiedRequest != null)
             {
-                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleharmonicconjunctions") + ": " + qualifiedRequest.HarmonicNumber.ToString() 
+                resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleharmonicconjunctions") + ": " + qualifiedRequest.HarmonicNumber.ToString()
                     + ". " + Rosetta.TextForId("researchresultwindow.Orb") + ": " + qualifiedRequest.Orb.ToString());
                 resultData.AppendLine(separatorLine);
                 Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
@@ -352,8 +352,8 @@ public class ResearchResultController
                         string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().TextId);
                         string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().TextId);
                         string harmonicCount = harmConj.Value.ToString();
-                        resultData.AppendLine((Rosetta.TextForId("researchresultwindow.posharmonic") + " " + firstPointName + spaces)[..20] + " / " 
-                            + (Rosetta.TextForId("researchresultwindow.posradix") +  " " + secondPointName + spaces)[..20] + " " + harmonicCount);
+                        resultData.AppendLine((Rosetta.TextForId("researchresultwindow.posharmonic") + " " + firstPointName + spaces)[..20] + " / "
+                            + (Rosetta.TextForId("researchresultwindow.posradix") + " " + secondPointName + spaces)[..20] + " " + harmonicCount);
                     }
                 }
             }
@@ -363,7 +363,7 @@ public class ResearchResultController
                 Log.Error(errorTxt);
                 throw new EnigmaException(errorTxt);
             }
-        } 
+        }
         else
         {
             string errorTxt = "ResearchResultController.CreateHarmonicConjunctionsResultData() used a wrong response : " + response;

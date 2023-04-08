@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,7 +12,6 @@ namespace Enigma.Test.Domain.Configuration;
 public class TestApplicationSettings
 {
     private readonly string _defaultLocData = @"c:\enigma_ar\data";
-    private readonly string _defaultLocSe = @"c:\enigma_ar\se";
     private readonly string _newProjData = @"d:\somewhere\projdata";
 
     [Test]

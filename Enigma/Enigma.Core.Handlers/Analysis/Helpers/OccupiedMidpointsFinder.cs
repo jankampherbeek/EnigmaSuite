@@ -6,18 +6,17 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Analysis.Helpers;
 
 /// <inheritdoc/>
-public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder  
+public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
 {
 
     private readonly IPointsForMidpoints _analysisPointsForMidpoints;
     private readonly IBaseMidpointsCreator _baseMidpointsCreator;
-  
+
     public OccupiedMidpointsFinder(IPointsForMidpoints analysisPointsForMidpoints, IBaseMidpointsCreator baseMidpointsCreator)
     {
         _analysisPointsForMidpoints = analysisPointsForMidpoints;

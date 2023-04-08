@@ -3,8 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Domain.Interfaces;
-using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
@@ -164,7 +162,7 @@ public interface IInputDataConverter
 }
 
 /// <summary>File paths for research.</summary>
-public interface IResearchPaths                       // todo combine with handler
+public interface IResearchPaths                    
 {
     /// <summary>Path to data files.</summary>
     /// <param name="projName">Name for project.</param>

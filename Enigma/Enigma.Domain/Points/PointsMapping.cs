@@ -11,7 +11,7 @@ using Serilog;
 namespace Enigma.Core.Domain.Points;
 
 /// <inheritdoc/>
-public sealed class PointsMapping: IPointsMapping
+public sealed class PointsMapping : IPointsMapping
 {
     /// <inheritdoc/>
     public PositionedPoint MapFullPointPos2PositionedPoint(KeyValuePair<ChartPoints, FullPointPos> position, CoordinateSystems coordinateSystem, bool useMainCoordinate)
