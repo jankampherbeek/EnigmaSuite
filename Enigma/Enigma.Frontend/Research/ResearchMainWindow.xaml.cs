@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
@@ -106,7 +107,7 @@ public partial class ResearchMainWindow : Window
 
     private void HelpManualClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Help - Manual not yet implemented.");      // TODO 0.1 add manual
+        MessageBox.Show(Rosetta.TextForId("helpwindow.manual"));
     }
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)

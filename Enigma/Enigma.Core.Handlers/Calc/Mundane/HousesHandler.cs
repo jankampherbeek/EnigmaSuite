@@ -42,7 +42,7 @@ public sealed class HousesHandler : IHousesHandler
     /// <inheritdoc/>
     public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request)
     {
-        HouseSystems houseSystem = request.calcPrefs.ActualHouseSystem;
+        HouseSystems houseSystem = request.CalcPrefs.ActualHouseSystem;
         HouseSystemDetails houseDetails = houseSystem.GetDetails();
         char houseId4Se = houseDetails.SeId;
         int _flags = EnigmaConstants.SEFLG_SWIEPH;
@@ -53,9 +53,9 @@ public sealed class HousesHandler : IHousesHandler
         Dictionary<ChartPoints, FullPointPos> mundanePositions = new();
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
         tropicalValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags);
-        if (request.calcPrefs.ActualZodiacType == ZodiacTypes.Sidereal)
+        if (request.CalcPrefs.ActualZodiacType == ZodiacTypes.Sidereal)
         {
-            int idAyanamsa = request.calcPrefs.ActualAyanamsha.GetDetails().SeId;
+            int idAyanamsa = request.CalcPrefs.ActualAyanamsha.GetDetails().SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
             _eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, _flags + EnigmaConstants.SEFLG_SIDEREAL);
         }
@@ -70,12 +70,12 @@ public sealed class HousesHandler : IHousesHandler
         mundanePositions.Add(asc.Key, asc.Value);
         KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, tropicalValues[1][1], _eclValues[1][1], jdUt, obliquity, location);
         mundanePositions.Add(mc.Key, mc.Value);
-        if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.Vertex))
+        if (request.CalcPrefs.ActualChartPoints.Contains(ChartPoints.Vertex))
         {
             KeyValuePair<ChartPoints, FullPointPos> vertex = CreateFullChartPointPosForCusp(ChartPoints.Vertex, tropicalValues[1][3], _eclValues[1][3], jdUt, obliquity, location);
             mundanePositions.Add(vertex.Key, vertex.Value);
         }
-        if (request.calcPrefs.ActualChartPoints.Contains(ChartPoints.EastPoint))
+        if (request.CalcPrefs.ActualChartPoints.Contains(ChartPoints.EastPoint))
         {
             KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, tropicalValues[1][4], _eclValues[1][4], jdUt, obliquity, location);
             mundanePositions.Add(eastPoint.Key, eastPoint.Value);

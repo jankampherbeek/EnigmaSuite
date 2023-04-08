@@ -26,7 +26,7 @@ public sealed class HousesApi : IHousesApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.ChartLocation);
-        Log.Information("HousesApi GetHouses using house system {hs}.", request.calcPrefs.ActualHouseSystem);
+        Log.Information("HousesApi GetHouses using house system {hs}.", request.CalcPrefs.ActualHouseSystem);
         return _housesHandler.CalcHouses(request);
     }
 

@@ -225,7 +225,7 @@ public partial class ChartsMainWindow : Window
 
     private void HelpManualClick(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Help manual not yet implemented.");    // TODO implement handling of click
+        MessageBox.Show(Rosetta.TextForId("helpwindow.manual"));   
     }
 
 }
