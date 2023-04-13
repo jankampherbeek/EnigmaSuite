@@ -3,9 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Exceptions;
 using Enigma.Facades.Interfaces;
-using Serilog;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Facades.Se;
@@ -19,24 +17,7 @@ public class AzAltFacade : IAzAltFacade
     {
 
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
-        int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
-
-        if (result < 0)
-        {
-            string geoCoordinatesText = string.Format("Number of geographicCoordinates is {0:D}.", geoGraphicCoordinates.Length);
-            if (geoGraphicCoordinates.Length > 1)
-            {
-                geoCoordinatesText = string.Format("geoGraphicCoordinates: {0}, {1}", geoGraphicCoordinates[0], geoGraphicCoordinates[1]);
-            }
-            string equCoordinatesOk = string.Format("equCoordinates: {0}, {1}", equCoordinates[0], equCoordinates[1]);
-            string equCoordinatesWrong = string.Format("Number of equCoordinates is {0}.", equCoordinates.Length);
-            string equCoordinatesText = equCoordinates.Length > 1 ? equCoordinatesOk : equCoordinatesWrong;
-            string jdText = julianDayUt.ToString();
-            string flagText = flags.ToString();
-            string errorText = "Exception thrown: AzAltFacade.RetrieveHorizontalCoordinates: jd : " + jdText + " " + geoCoordinatesText + " " + equCoordinatesText + " Flags: " + flagText + " Returncode " + result.ToString();
-            Log.Error(errorText);
-            throw new SwissEphException(errorText);
-        }
+        _ = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
         return new double[] { horizontalCoordinates[0], horizontalCoordinates[1] };
 
     }
