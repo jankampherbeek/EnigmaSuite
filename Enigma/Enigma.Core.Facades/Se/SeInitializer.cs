@@ -71,8 +71,4 @@ public static class SeInitializer
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_sid_mode")]
     private extern static void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
 
-    public static void SetAyanamsha(Ayanamshas fagan)
-    {
-        throw new NotImplementedException();
-    }
 }
