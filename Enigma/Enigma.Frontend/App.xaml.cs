@@ -40,7 +40,7 @@ public partial class App : Application
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
-        seApi.SetupSe("");
+        seApi.SetupSe("se");
     }
 
     protected static ServiceProvider HandleRegistrationForDI()
