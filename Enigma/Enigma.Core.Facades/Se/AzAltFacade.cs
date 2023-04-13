@@ -15,11 +15,9 @@ public class AzAltFacade : IAzAltFacade
     /// <remarks>Throws SwissEphException if CommonSE returns an error.</remarks>
     public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] equCoordinates, int flags)
     {
-
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
-        _ = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
+        ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
         return new double[] { horizontalCoordinates[0], horizontalCoordinates[1] };
-
     }
 
     /// <summary>
@@ -34,5 +32,5 @@ public class AzAltFacade : IAzAltFacade
     /// <param name="horizontalCoordinates">Resulting values for azimuth, true altitude and apparent altitude.</param>
     /// <returns>An indication if the calculation was successful. Negative values indicate an error.</returns>
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_azalt")]
-    private extern static int ext_swe_azalt(double tjd, long iflag, double[] geoCoordinates, double atPress, double atTemp, double[] equatorialCoordinates, double[] horizontalCoordinates);
+    private extern static void ext_swe_azalt(double tjd, long iflag, double[] geoCoordinates, double atPress, double atTemp, double[] equatorialCoordinates, double[] horizontalCoordinates);
 }
