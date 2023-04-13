@@ -34,14 +34,14 @@ public static class SeInitializer
         }
 
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_ephe_path")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_ephe_path")]
     private extern static void ext_swe_set_ephe_path(String path);
 
     public static void SetTopocentric(double geoLong, double geoLat, double altitudeMeters)
     {
         ext_swe_set_topo(geoLong, geoLat, altitudeMeters);
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_topo")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_topo")]
     private extern static void ext_swe_set_topo(double geoLong, double geoLatr, double altitudeMeters);
 
 
@@ -51,7 +51,7 @@ public static class SeInitializer
     {
         ext_swe_close();
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_close")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_close")]
     private extern static void ext_swe_close();
 
 

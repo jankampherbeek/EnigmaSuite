@@ -23,7 +23,7 @@ public sealed class DateConversionFacade : IDateConversionFacade
 
     }
 
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_date_conversion")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_date_conversion")]
     private extern static int ext_swe_date_conversion(int year, int month, int day, double time, char calendar, ref double julianday);
 
 }

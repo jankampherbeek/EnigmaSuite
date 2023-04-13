@@ -31,7 +31,7 @@ public class AyanamshaFacade : IAyanamshaFacade
         return ayanamshaValue;
     }
 
-    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_get_ayanamsa_ex_ut")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_get_ayanamsa_ex_ut")]
     private extern static int ext_swe_get_ayanamsa_ex_ut(double jdUt, int epheFlag, ref double ayanamshaValue, StringBuilder serr);
 
 }
