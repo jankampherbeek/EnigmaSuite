@@ -342,7 +342,7 @@ public class ResearchResultController
             if (qualifiedRequest != null)
             {
                 resultData.AppendLine(Rosetta.TextForId("researchresultwindow.titleharmonicconjunctions") + ": " + qualifiedRequest.HarmonicNumber.ToString()
-                    + ". " + Rosetta.TextForId("researchresultwindow.Orb") + ": " + qualifiedRequest.Orb.ToString());
+                    + ". " + Rosetta.TextForId("researchresultwindow.orb") + ": " + qualifiedRequest.Orb.ToString());
                 resultData.AppendLine(separatorLine);
                 Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)

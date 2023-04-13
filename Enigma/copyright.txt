@@ -1,4 +1,4 @@
- Enigma Astrology Research - Copyright (C) 2022 RadixPro/Jan Kampherbeek (http://radixpro.com).
+ Enigma Astrology Research - Copyright (C) 2022, 2023 RadixPro/Jan Kampherbeek (http://radixpro.com).
 
  This program is free software; you can redistribute it and/or
  modify it under the terms of both the GNU General Public License (GPL).
