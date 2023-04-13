@@ -218,9 +218,10 @@ public sealed class ChartsMainController
     }
 
 
-    /// <summary>Closes all child windows of main chart window.</summary>
+    /// <summary>Closes all child windows of main chart window. Clears all charts in DataVault.</summary>
     public void HandleClose()
     {
+        _dataVault.ClearExistingCharts();
         foreach (Window window in _openWindows)
         {
             window.Close();
