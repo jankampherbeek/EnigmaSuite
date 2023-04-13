@@ -28,7 +28,8 @@ public sealed class ObliquityHandler : IObliquityHandler
         double obliquity;
         try
         {
-            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, obliquityRequest.TrueObliquity);
+            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, false);        // always use mean obliquity
+            // TODO 0.2 remove option for true obliquity from Obliquityrequest.
         }
         catch (SwissEphException see)
         {

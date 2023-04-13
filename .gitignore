@@ -367,3 +367,5 @@ GeneratedDocu
 /E4C/se/*.eph
 /E4C/se/*.memo
 /icons-not-yet-in-use
+/Enigma/installer/Output/*.exe
+/Enigma/installer/*.iss

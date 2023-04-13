@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -98,6 +98,7 @@ public partial class StartWindow : Window
         if (!Directory.Exists(settings.LocationExportFiles)) Directory.CreateDirectory(settings.LocationExportFiles);
         if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);
         if (!Directory.Exists(settings.LocationDataFiles)) Directory.CreateDirectory(settings.LocationDataFiles);
+        if (!Directory.Exists(settings.LocationDatabase)) Directory.CreateDirectory(settings.LocationDatabase);
         if (!Directory.Exists(settings.LocationLogFiles)) Directory.CreateDirectory(settings.LocationLogFiles);
     }
 

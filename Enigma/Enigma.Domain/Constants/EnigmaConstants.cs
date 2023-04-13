@@ -6,7 +6,7 @@
 namespace Enigma.Domain.Constants;
 
 /// <summary>Global constants.</summary>
-/// <remarks>Constants for the Swiss Ephemeris are prefixed by 'CommonSE'.</remarks>
+/// <remarks>Constants for the Swiss Ephemeris are prefixed by 'SE'.</remarks>
 public static class EnigmaConstants
 {
     // Version info
@@ -14,97 +14,97 @@ public static class EnigmaConstants
     // CommonSE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;
-    /// <summary>CommonSE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_APOLLON_URA = 44;
-    /// <summary>CommonSE id for Astraea.</summary>
+    /// <summary>SE id for Astraea.</summary>
     public const int SE_ASTRAEA = 10005;
-    /// <summary>CommonSE id to identify the planetoid Ceres.</summary>
+    /// <summary>SE id to identify the planetoid Ceres.</summary>
     public const int SE_CERES = 17;
-    /// <summary>CommonSE id to identify Chiron.</summary>
+    /// <summary>SE id to identify Chiron.</summary>
     public const int SE_CHIRON = 15;
-    /// <summary>CommonSE id to identify Cupido, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Cupido, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_CUPIDO_URA = 40;
     /// <summary>Demeter, hypothetical planet, School of Ram.</summary>
     public const int SE_DEMETER_RAM = 51;
-    /// <summary>CommonSE id to identify Earth.</summary>
+    /// <summary>SE id to identify Earth.</summary>
     public const int SE_EARTH = 14;
-    /// <summary>CommonSE id to identify obliquity and nutation.</summary>
+    /// <summary>SE id to identify obliquity and nutation.</summary>
     public const int SE_ECL_NUT = -1;
-    /// <summary>CommonSE id to identify Eris.</summary>
+    /// <summary>SE id to identify Eris.</summary>
     public const int SE_ERIS = 1009001;
-    /// <summary>CommonSE id to identify Hades, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Hades, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_HADES_URA = 41;
-    /// <summary>CommonSE id for Haumea.</summary>
+    /// <summary>SE id for Haumea.</summary>
     public const int SE_HAUMEA = 146108;
     /// <summary>Hermes, hypothetical planet, School of Ram.</summary>
     public const int SE_HERMES_RAM = 50;
-    /// <summary>CommonSE id for Huya.</summary>
+    /// <summary>SE id for Huya.</summary>
     public const int SE_HUYA = 48628;
-    /// <summary>CommonSE id for Hygieia.</summary>
+    /// <summary>SE id for Hygieia.</summary>
     public const int SE_HYGIEIA = 10010;
-    /// <summary>CommonSE id to identify the interpolated Apogee.</summary>
+    /// <summary>SE id to identify the interpolated Apogee.</summary>
     public const int SE_INTP_APOG = 21;
-    /// <summary>CommonSE id to identify the hypothetical planet Isis/Transpluto.</summary>
+    /// <summary>SE id to identify the hypothetical planet Isis/Transpluto.</summary>
     public const int SE_ISIS = 48;
-    /// <summary>CommonSE id for Ixion.</summary>
+    /// <summary>SE id for Ixion.</summary>
     public const int SE_IXION = 38978;
-    /// <summary>CommonSE id to identify the planetoid Juno.</summary>
+    /// <summary>SE id to identify the planetoid Juno.</summary>
     public const int SE_JUNO = 19;
-    /// <summary>CommonSE id to identify Jupiter.</summary>
+    /// <summary>SE id to identify Jupiter.</summary>
     public const int SE_JUPITER = 5;
-    /// <summary>CommonSE id to identify Kronos, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Kronos, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_KRONOS_URA = 43;
     /// <summary>Se id for Makemake.</summary>
     public const int SE_MAKEMAKE = 146472;
-    /// <summary>CommonSE id to identify Mars.</summary>
+    /// <summary>SE id to identify Mars.</summary>
     public const int SE_MARS = 4;
-    /// <summary>CommonSE id to identify the mean Apogee.</summary>
+    /// <summary>SE id to identify the mean Apogee.</summary>
     public const int SE_MEAN_APOGEE = 12;
-    /// <summary>CommonSE id to identify the Mean node.</summary>
+    /// <summary>SE id to identify the Mean node.</summary>
     public const int SE_MEAN_NODE = 10;
-    /// <summary>CommonSE id to identify Mercury.</summary>
+    /// <summary>SE id to identify Mercury.</summary>
     public const int SE_MERCURY = 2;
-    /// <summary>CommonSE id to identify the Moon.</summary>
+    /// <summary>SE id to identify the Moon.</summary>
     public const int SE_MOON = 1;
-    /// <summary>CommonSE id to identify Neptune.</summary>
+    /// <summary>SE id to identify Neptune.</summary>
     public const int SE_NEPTUNE = 8;
-    /// <summary>CommonSE id for Nessus.</summary>
+    /// <summary>SE id for Nessus.</summary>
     public const int SE_NESSUS = 17066;
-    /// <summary>CommonSE id to identify Orcus.</summary>
+    /// <summary>SE id to identify Orcus.</summary>
     public const int SE_ORCUS = 100482;
-    /// <summary>CommonSE id to identify the osculating Apogee.</summary>
+    /// <summary>SE id to identify the osculating Apogee.</summary>
     public const int SE_OSCU_APOG = 13;
-    /// <summary>CommonSE id to identify the centaur Pallas.</summary>
+    /// <summary>SE id to identify the centaur Pallas.</summary>
     public const int SE_PALLAS = 18;
     /// <summary>Persephone, hypothetical planet, School of Ram.</summary>
     public const int SE_PERSEPHONE_RAM = 49;
-    /// <summary>CommonSE id to identify the centaur Pholus.</summary>
+    /// <summary>SE id to identify the centaur Pholus.</summary>
     public const int SE_PHOLUS = 16;
-    /// <summary>CommonSE id to identify Pluto.</summary>
+    /// <summary>SE id to identify Pluto.</summary>
     public const int SE_PLUTO = 9;
-    /// <summary>CommonSE id to identify Poseidon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Poseidon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_POSEIDON_URA = 47;
-    /// <summary>CommonSE id to identify Quaoar.</summary>
+    /// <summary>SE id to identify Quaoar.</summary>
     public const int SE_QUAOAR = 60000;
-    /// <summary>CommonSE id to identify Saturn.</summary>
+    /// <summary>SE id to identify Saturn.</summary>
     public const int SE_SATURN = 6;
-    /// <summary>CommonSE id to identify Sedna.</summary>
+    /// <summary>SE id to identify Sedna.</summary>
     public const int SE_SEDNA = 100377;
-    /// <summary>CommonSE id to identify the Sun.</summary>
+    /// <summary>SE id to identify the Sun.</summary>
     public const int SE_SUN = 0;
-    /// <summary>CommonSE id to identify the oscilating (true) lunar node.</summary>
+    /// <summary>SE id to identify the oscilating (true) lunar node.</summary>
     public const int SE_TRUE_NODE = 11;
-    /// <summary>CommonSE id to identify Uranus.</summary>
+    /// <summary>SE id to identify Uranus.</summary>
     public const int SE_URANUS = 7;
-    /// <summary>CommonSE id to identify Varuna.</summary>
+    /// <summary>SE id to identify Varuna.</summary>
     public const int SE_VARUNA = 30000;
-    /// <summary>CommonSE id to identify Venus.</summary>
+    /// <summary>SE id to identify Venus.</summary>
     public const int SE_VENUS = 3;
-    /// <summary>CommonSE id to identify the planetoid Vesta.</summary>
+    /// <summary>SE id to identify the planetoid Vesta.</summary>
     public const int SE_VESTA = 20;
-    /// <summary>CommonSE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_VULCANUS_URA = 46;
-    /// <summary>CommonSE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
+    /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ZEUS_URA = 42;
 
 
@@ -194,7 +194,7 @@ public static class EnigmaConstants
 
     // Locations
     /// <summary>Location of configuration file, contains path and filename.</summary>
-    public const string CONFIG_LOCATION = @"./enigmaconfig.json";
+    public const string CONFIG_LOCATION = @"c:/enigma_ar/enigmaconfig.json";
     /// <summary>Name of database.</summary>
     public const string DATABASE_NAME = @"/ChartsDatabase.json";
     /// <summary>Url to find latest release information.</summary>
