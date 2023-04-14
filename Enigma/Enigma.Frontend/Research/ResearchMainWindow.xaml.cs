@@ -60,6 +60,7 @@ public partial class ResearchMainWindow : Window
     {
         List<ProjectItem> projects = _controller.GetAllProjectItems();
         lbProjects.ItemsSource = projects;
+        btnOpen.IsEnabled = projects.Count > 0;
     }
 
     private void GeneralSettingsClick(object sender, RoutedEventArgs e)
