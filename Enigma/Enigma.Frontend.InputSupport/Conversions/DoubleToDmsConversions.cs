@@ -51,7 +51,9 @@ public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
     public string ConvertDoubleToPositionsDmsText(double position)
     {
         string minusSign = position < 0.0 ? "-" : "";
-        double remaining = Math.Abs(position);
+        double correctionForDouble = 0.00000001;    // correction to prevent double values like 0.99999999999
+        double remaining = Math.Abs(position) + correctionForDouble;
+        if (remaining >= 360.0) remaining-= 360.0;
         int degrees = (int)remaining;
         remaining -= degrees;
         int minutes = (int)(remaining * 60.0);

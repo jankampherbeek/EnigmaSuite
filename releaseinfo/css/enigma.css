@@ -1,0 +1,17 @@
+﻿/* Enigma.css, 2022-5-13 */
+html, body {
+    font-family: "Liberation sans", Verdana, sans-serif;
+    margin: 10px 0; 
+    line-height:1.5;
+}
+html{overflow-x:hidden}
+body{
+    background-color:#eef1f9;
+    margin: 20px;
+}
+hr{
+    border:0;
+    border-top:1px solid #334687;
+    margin:20px 0;
+}
+
