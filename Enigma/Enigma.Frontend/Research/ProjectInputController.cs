@@ -78,7 +78,7 @@ public class ProjectInputController
             {
                 noErrors = false;
                 Log.Error("Error while creating project, Enigma errorcode: {errorCode}, project: {@project}", resultMessage.ErrorCode, project);
-                MessageBox.Show(Rosetta.TextForId("common.error"));
+                MessageBox.Show(Rosetta.TextForId("projectinputwindow.nameexists"));
             }
             else
             {

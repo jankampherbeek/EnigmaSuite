@@ -332,6 +332,7 @@ projectinputwindow.formtitle = Create new project
 projectinputwindow.generalinfo = Name and description for project
 projectinputwindow.multiplication = Multiplication control group
 projectinputwindow.name = Name for project
+projectinputwindow.nameexists = Name for project already exists
 projectinputwindow.projectsaved = The project has been saved
 projectinputwindow.title = Enigma - Project creation
 
