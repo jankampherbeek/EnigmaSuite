@@ -323,14 +323,14 @@ pointselectwindow.warningnrofpoints = Please select more points. The minimal num
 
 -------------------------------- Project input window --
 
-projectinputwindow.controlgroupinfo = Controlgroup
-projectinputwindow.controlgrouptype = Select the type of controlgroup
-projectinputwindow.datafile = Select the datafile
-projectinputwindow.datainfo = Datafile to be used
+projectinputwindow.controlgroupinfo = Control group
+projectinputwindow.controlgrouptype = Select the type of control group
+projectinputwindow.datafile = Select the data file
+projectinputwindow.datainfo = Data file to be used
 projectinputwindow.description = Description
 projectinputwindow.formtitle = Create new project
 projectinputwindow.generalinfo = Name and description for project
-projectinputwindow.multiplication = Multiplication controlgroup
+projectinputwindow.multiplication = Multiplication control group
 projectinputwindow.name = Name for project
 projectinputwindow.projectsaved = The project has been saved
 projectinputwindow.title = Enigma - Project creation
@@ -345,9 +345,9 @@ projectusagewindow.btnperformtest = Perform test
 projectusagewindow.details.name = Project name
 projectusagewindow.details.description = Description
 projectusagewindow.details.date = Creation date
-projectusagewindow.details.dataname = Name of dataset
+projectusagewindow.details.dataname = Name of data set
 projectusagewindow.details.controlgrouptype = Type of control group
-projectusagewindow.details.multiplication = Multiplication controlgroup
+projectusagewindow.details.multiplication = Multiplication control group
 
 -------------------------------- References ------------
 
