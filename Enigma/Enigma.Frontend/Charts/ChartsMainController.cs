@@ -28,7 +28,6 @@ public sealed class ChartsMainController
     private ChartHarmonicsWindow? _chartHarmonicsWindow;
     private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
-    private readonly AppSettingsWindow _appSettingsWindow = new();
     private AstroConfigWindow _astroConfigWindow = new();
     private SearchChartWindow _searchChartWindow = new();
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
@@ -46,6 +45,7 @@ public sealed class ChartsMainController
 
     public void ShowAppSettings()
     {
+        AppSettingsWindow _appSettingsWindow = new();
         _appSettingsWindow.ShowDialog();
     }
 

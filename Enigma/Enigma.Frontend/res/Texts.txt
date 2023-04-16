@@ -283,7 +283,7 @@ harmonicdetailswindow.warningorb = The values for the orb are not correct. Pleas
 -------------------------- HelpWindow -----------------
 -- HelpWindow -----------------------------------------
 helpwindow.title = Enigma - Helppage
-helpwindow.manual = The User Manual is available at c:\enigma_ar\UserManual_0.1.pdf
+helpwindow.manual = The User Manual is available in the folder doc in the folder where Enigma is installed, typically C:\Program Files (x86)\Enigma Astrology Research\doc
 
 -------------------------- IO messages ----------------
 
