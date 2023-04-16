@@ -27,6 +27,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     private readonly IChartPointsMapping _chartPointsMapping;
     private readonly IObliqueLongitudeHandler _obliqueLongitudeHandler;
     private readonly IFullPointPosFactory _fullPointPosFactory;
+    private readonly IPeriodSupportChecker _periodSupportChecker;
 
 
     public CelPointsHandler(ISeFlags seFlags,
@@ -36,7 +37,8 @@ public sealed class CelPointsHandler : ICelPointsHandler
                                IHorizontalHandler horizontalHandler,
                                IChartPointsMapping chartPointsMapping,
                                IObliqueLongitudeHandler obliqueLongitudeHandler,
-                               IFullPointPosFactory fullPointPosFactory)
+                               IFullPointPosFactory fullPointPosFactory,
+                               IPeriodSupportChecker periodSupportChecker)
     {
         _seFlags = seFlags;
         _celPointSECalc = positionCelPointSECalc;
@@ -46,12 +48,18 @@ public sealed class CelPointsHandler : ICelPointsHandler
         _chartPointsMapping = chartPointsMapping;
         _obliqueLongitudeHandler = obliqueLongitudeHandler;
         _fullPointPosFactory = fullPointPosFactory;
+        _periodSupportChecker = periodSupportChecker;
     }
 
 
     public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs)
     {
-        List<ChartPoints> celPoints = prefs.ActualChartPoints;
+        List<ChartPoints> allCelPoints = prefs.ActualChartPoints;
+        List<ChartPoints> celPoints = new();
+        foreach (ChartPoints point in allCelPoints)     // check if calculation for given jd is possible.
+        {
+            if (_periodSupportChecker.IsSupported(point, jdUt)) celPoints.Add(point);
+        }
         ObserverPositions observerPosition = prefs.ActualObserverPosition;
         double julDay = jdUt;
         double previousJd = julDay - 0.5;

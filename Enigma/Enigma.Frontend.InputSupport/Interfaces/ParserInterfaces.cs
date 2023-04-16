@@ -14,7 +14,7 @@ namespace Enigma.Frontend.Helpers.Interfaces;
 /// <summary>Parse, validate and convert input for a date.</summary>
 public interface IDateInputParser
 {
-    public bool HandleGeoLong(string inputDate, Calendars calendar, YearCounts yearCount, out FullDate? fullDate);
+    public bool HandleDate(string inputDate, Calendars calendar, YearCounts yearCount, out FullDate? fullDate);
 }
 
 /// <summary>Parse, validate and convert input for geographic longitude.</summary>

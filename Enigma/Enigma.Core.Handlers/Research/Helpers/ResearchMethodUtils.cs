@@ -49,7 +49,7 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
         Dictionary<ChartPoints, FullPointPos> selectedChartPointPositions = new();
         foreach (ChartPoints point in pointsSelection.SelectedPoints)
         {
-            selectedChartPointPositions.Add(point, chartPointPositions[point]);
+            if (chartPointPositions.ContainsKey(point)) selectedChartPointPositions.Add(point, chartPointPositions[point]);
         }
         return selectedChartPointPositions;
     }

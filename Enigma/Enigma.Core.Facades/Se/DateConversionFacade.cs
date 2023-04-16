@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Constants;
 using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 
@@ -19,7 +20,8 @@ public sealed class DateConversionFacade : IDateConversionFacade
         double _julianDay = 0.0;
         char _calendar = dateTime.Calendar == Calendars.Gregorian ? 'g' : 'j';
         int _result = ext_swe_date_conversion(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _calendar, ref _julianDay);
-        return (_result == 0) && (0.0 <= dateTime.Ut) && (dateTime.Ut < 24.0);
+        bool validPeriod = (_julianDay >= EnigmaConstants.PERIOD_TOTAL_START && _julianDay < EnigmaConstants.PERIOD_TOTAL_END);
+        return (_result == 0) && (0.0 <= dateTime.Ut) && (dateTime.Ut < 24.0) && validPeriod;
 
     }
 

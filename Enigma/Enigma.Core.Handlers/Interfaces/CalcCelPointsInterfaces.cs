@@ -119,3 +119,14 @@ public interface ILotsCalculator
     public Dictionary<ChartPoints, FullPointPos> CalculateAllLots(Dictionary<ChartPoints, FullPointPos> commonPositions, Dictionary<ChartPoints, FullPointPos> mundanePositions, CalculationPreferences prefs,
        double jdUt, double obliquity, Location location);
 }
+
+
+/// <summary>Support supported period for ChartPoints.</summary>
+public interface IPeriodSupportChecker
+{
+    /// <summary>Checks if the calculation of a ChartPoint for a specific date is supported.</summary>
+    /// <param name="chartPoint">The chart point to check.</param>
+    /// <param name="jdnr">The julian day number for the given date.</param>
+    /// <returns>True if the ChartPoint can be calculated for the given date, otherwise false.</returns>
+    public bool IsSupported(ChartPoints chartPoint, double jdnr);
+}

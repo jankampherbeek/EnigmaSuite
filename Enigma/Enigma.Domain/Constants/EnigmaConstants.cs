@@ -131,6 +131,7 @@ public static class EnigmaConstants
     public const int SEFLG_TOPOCTR = 32 * 1024;
     /// <summary>Flag: indication to use sidereal positions.</summary>
     public const int SEFLG_SIDEREAL = 64 * 1024;
+
     // Limits
     /// <summary>Maximum value for daylight saving time.</summary>
     public const double DST_MAX = 3.0;
@@ -161,6 +162,31 @@ public static class EnigmaConstants
     /// <summary>Minimum value for timezone. </summary>
     public const double TIMEZONE_MIN = -12.0;
 
+
+    // Supported periods
+    /// <summary>Julian day of start supported period for Ceres and Vesta.</summary>
+    public const double PERIOD_CERES_VESTA_START = -3026613.5;
+    /// <summary>Julian day of end supported period for Ceres and Cesta.</summary>
+    public const double PERIOD_CERES_VESTA_END = 5224242.5;
+    /// <summary>Julian day of start supported period for Chiron.</summary>
+    public const double PERIOD_CHIRON_START = 1967601.5;
+    /// <summary>Julian day of end supported period for Chiron.</summary>
+    public const double PERIOD_CHIRON_END = 3419437.5;
+    /// <summary>Julian day of start supported period for Nessus, Huya, Ixion, Orcus, Varuna, Makemake, Haumea, Quaoar, Eris and Sedna.</summary>
+    public const double PERIOD_NESSUS_HUYA_ETC_START = 625384.5;
+    /// <summary>Julian day of end supported period for Nessus, Huya, Ixion, Orcus, Varuna, Makemake, Haumea, Quaoar, Eris and Sedna.</summary>
+    public const double PERIOD_NESSUS_HUYA_ETC_END = 2816291.5;
+    /// <summary>Julian day of start supported period for Pholus.</summary>
+    public const double PERIOD_PHOLUS_START = 640648.5;
+    /// <summary>Julian day of end supported period for Pholus.</summary>
+    public const double PERIOD_PHOLUS_END = 4390615.5;
+    /// <summary>Julian day of start supported period for calculations in general.</summary>
+    public const double PERIOD_TOTAL_START = -3026613.5;
+    /// <summary>Julian day of end supported period for calculations in general.</summary>
+    public const double PERIOD_TOTAL_END = 7857131.5;
+
+
+
     // Conversion factors
     /// <summary>Numer of seconds in a day.</summary>
     public const int SECONDS_PER_DAY = 86400;
@@ -174,6 +200,7 @@ public static class EnigmaConstants
     public const int SECONDS_PER_HOUR_DEGREE = 3600;
     /// <summary>Number of seconds in one degree.</summary>
     public const int SECONDS_PER_MINUTE_DEGREE = 60;
+
     // Characters
     /// <summary>Small elevated circle to identify degrees.</summary>
     public const char DEGREE_SIGN = '\u00B0';

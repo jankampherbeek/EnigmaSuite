@@ -22,7 +22,7 @@ public class AspectPointSelector : IAspectPointSelector
         // two foreach loops to enforce that the sequence between common points (first) and angles (second) is maintained.
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in chartPointConfigSpecs)
         {
-            if (spec.Key.GetDetails().PointCat == PointCats.Common && spec.Value.IsUsed)
+            if (spec.Key.GetDetails().PointCat == PointCats.Common && spec.Value.IsUsed && positions.ContainsKey(spec.Key))
             {
                 relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);
             }

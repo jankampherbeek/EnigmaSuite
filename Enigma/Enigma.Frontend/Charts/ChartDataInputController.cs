@@ -75,7 +75,7 @@ public sealed class ChartDataInputController
         Calendars cal = Calendar;
 
 
-        bool dateSuccess = _dateInputParser.HandleGeoLong(InputDate, Calendar, YearCount, out FullDate? fullDate);
+        bool dateSuccess = _dateInputParser.HandleDate(InputDate, Calendar, YearCount, out FullDate? fullDate);
         bool geoLongSuccess = _geoLongInputParser.HandleGeoLong(Longitude, Direction4GeoLong, out FullGeoLongitude? fullGeoLongitude);
         bool geoLatSuccess = _geoLatInputParser.HandleGeoLat(Latitude, Direction4GeoLat, out FullGeoLatitude? fullGeoLatitude);
         bool lmtSuccess = _geoLongInputParser.HandleGeoLong(LmtOffset, LmtDirection4GeoLong, out FullGeoLongitude? fullGeoLongForLmt);

@@ -25,7 +25,7 @@ public class DateInputParser : IDateInputParser
     }
 
 
-    public bool HandleGeoLong(string inputDate, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
+    public bool HandleDate(string inputDate, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
     {
         fullDate = null;
         bool validationSuccess;

@@ -67,7 +67,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
             }
             else
             {
-                string errorText = "ResearchMethodHandler.HandleResearch() contains woring request for CountHarmonicConjunctions : " + request;
+                string errorText = "ResearchMethodHandler.HandleResearch() contains wrong request for CountHarmonicConjunctions : " + request;
                 Log.Error(errorText);
                 throw new EnigmaException(errorText);
             }
@@ -81,7 +81,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
             }
             else
             {
-                string errorText = "ResearchMethodHandler.HandleResearch() contains woring request for CountOccupiedMIdpoints : " + request;
+                string errorText = "ResearchMethodHandler.HandleResearch() contains wrong request for CountOccupiedMIdpoints : " + request;
                 Log.Error(errorText);
                 throw new EnigmaException(errorText);
             }
