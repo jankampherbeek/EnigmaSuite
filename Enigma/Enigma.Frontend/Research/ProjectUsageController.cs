@@ -116,60 +116,61 @@ public class ProjectUsageController
                 break;
         }
         ResearchPointsSelection pointsSelection = SelectPoints(researchMethod, minimalNrOfPoints);
-
-        if (_currentProject != null)
+        if (pointsSelection.SelectedPoints != null && pointsSelection.SelectedPoints.Count > 0)         // prevent processing is user closed window without entering data
         {
-            if (researchMethod == ResearchMethods.CountPosInSigns || researchMethod == ResearchMethods.CountPosInHouses ||
-                researchMethod == ResearchMethods.CountAspects || researchMethod == ResearchMethods.CountUnaspected)
+            if (_currentProject != null)
             {
-                bool useControlGroup = false;
-                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                responseTest = _researchPerformApi.PerformResearch(request);
-                useControlGroup = true;
-                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
-                responseCg = _researchPerformApi.PerformResearch(request);
+                if (researchMethod == ResearchMethods.CountPosInSigns || researchMethod == ResearchMethods.CountPosInHouses ||
+                    researchMethod == ResearchMethods.CountAspects || researchMethod == ResearchMethods.CountUnaspected)
+                {
+                    bool useControlGroup = false;
+                    GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                    responseTest = _researchPerformApi.PerformResearch(request);
+                    useControlGroup = true;
+                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                    responseCg = _researchPerformApi.PerformResearch(request);
 
-            }
-            else if (researchMethod == ResearchMethods.CountOccupiedMidpoints)
-            {
-                MidpointDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<MidpointDetailsWindow>();
-                detailsWindow.ShowDialog();
-                if (detailsWindow.IsCompleted())
-                {
-                    int divisionForDial = detailsWindow.DialDivision;
-                    double orb = detailsWindow.Orb;
-                    bool useControlGroup = false;
-                    CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
-                    responseTest = _researchPerformApi.PerformResearch(request);
-                    useControlGroup = true;
-                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
-                    responseCg = _researchPerformApi.PerformResearch(request);
                 }
-            }
-            else if (researchMethod == ResearchMethods.CountHarmonicConjunctions)
-            {
-                HarmonicDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<HarmonicDetailsWindow>();
-                detailsWindow.ShowDialog();
-                if (detailsWindow.IsCompleted())
+                else if (researchMethod == ResearchMethods.CountOccupiedMidpoints)
                 {
-                    double harmonicNumber = detailsWindow.HarmonicNumber;
-                    double orb = detailsWindow.Orb;
-                    bool useControlGroup = false;
-                    CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                    responseTest = _researchPerformApi.PerformResearch(request);
-                    useControlGroup = true;
-                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                    responseCg = _researchPerformApi.PerformResearch(request);
+                    MidpointDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<MidpointDetailsWindow>();
+                    detailsWindow.ShowDialog();
+                    if (detailsWindow.IsCompleted())
+                    {
+                        int divisionForDial = detailsWindow.DialDivision;
+                        double orb = detailsWindow.Orb;
+                        bool useControlGroup = false;
+                        CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                        responseTest = _researchPerformApi.PerformResearch(request);
+                        useControlGroup = true;
+                        request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                        responseCg = _researchPerformApi.PerformResearch(request);
+                    }
                 }
-            }
-            if (responseTest != null && responseCg != null)
-            {
-                ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
-                researchResultWindow.SetResults(responseTest, responseCg);
-                researchResultWindow.ShowDialog();
+                else if (researchMethod == ResearchMethods.CountHarmonicConjunctions)
+                {
+                    HarmonicDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<HarmonicDetailsWindow>();
+                    detailsWindow.ShowDialog();
+                    if (detailsWindow.IsCompleted())
+                    {
+                        double harmonicNumber = detailsWindow.HarmonicNumber;
+                        double orb = detailsWindow.Orb;
+                        bool useControlGroup = false;
+                        CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                        responseTest = _researchPerformApi.PerformResearch(request);
+                        useControlGroup = true;
+                        request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                        responseCg = _researchPerformApi.PerformResearch(request);
+                    }
+                }
+                if (responseTest != null && responseCg != null)
+                {
+                    ResearchResultWindow researchResultWindow = App.ServiceProvider.GetRequiredService<ResearchResultWindow>();
+                    researchResultWindow.SetResults(responseTest, responseCg);
+                    researchResultWindow.ShowDialog();
+                }
             }
         }
-
     }
 
     private static ResearchPointsSelection SelectPoints(ResearchMethods researchMethod, int nrOfPoints)
