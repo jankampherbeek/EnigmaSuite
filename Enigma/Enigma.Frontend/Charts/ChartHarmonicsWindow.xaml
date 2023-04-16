@@ -32,7 +32,7 @@
         <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Name="tbSubTitleHarmonicNumber" Text="tbSubTitleHarmonicNumber" Margin="6" Style="{StaticResource subTitleStyle}"/>
         <DataGrid Grid.Row="4" Grid.RowSpan="4" Name="dgHarmonics" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
-                  HorizontalAlignment="Left"/>
+                  HorizontalAlignment="Left" CanUserSortColumns="False"/>
         <TextBlock Grid.Row="4" Grid.Column="2" Name="tbInputHarmonicNr" Text="tbInputHarmonicNumber" Margin="6"/>
         <TextBox Grid.Row="5" Grid.Column="2" Name ="tboxInputHarmonicNr" Margin="6"/>
         <Button Grid.Row="6" Grid.Column="2" Name="btnCalculate" Content="btnCalculate" Margin="6" HorizontalAlignment="Right" Click="CalcCLick"/>

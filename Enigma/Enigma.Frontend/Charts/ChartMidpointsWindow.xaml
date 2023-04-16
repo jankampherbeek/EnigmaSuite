@@ -35,10 +35,10 @@
         <TextBlock Grid.Row="3" Grid.Column="4" Name="tbDialSize" Text="tbDialSize" Margin="6" FontWeight="Bold"/>
         <DataGrid Grid.Row="4" Name="dgAllMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
-                  HorizontalAlignment="Left"/>
+                  HorizontalAlignment="Left" CanUserSortColumns="False"/>
         <DataGrid Grid.Row="4" Grid.Column="2" Name="dgOccupiedMidpoints" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
-                  HorizontalAlignment="Left"/>
+                  HorizontalAlignment="Left" CanUserSortColumns="False"/>
         <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Vertical" Margin="6">
             <RadioButton Name="rbDial360" Content="rbDial360" GroupName="rbgDialSize" Margin="6" IsChecked="True" Checked="RbDial360Checked"/>
             <RadioButton Name="rbDial90" Content="rbDial90" GroupName="rbgDialSize" Margin="6" Checked="RbDial90Checked"/>
