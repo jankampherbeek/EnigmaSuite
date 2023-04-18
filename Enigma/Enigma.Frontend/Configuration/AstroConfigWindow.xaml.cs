@@ -552,7 +552,7 @@ public partial class AstroConfigWindow : Window
             Ayanamshas ayanamsha = Ayanamshas.None.AyanamshaForIndex(comboAyanamsha.SelectedIndex);
             ObserverPositions observerPosition = ObserverPositions.GeoCentric.ObserverPositionForIndex(comboObserverPos.SelectedIndex);
             ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(comboProjectionType.SelectedIndex);
-            OrbMethods orbMethod = OrbMethods.Weighted.OrbMethodForIndex(comboOrbMethod.SelectedIndex);
+            OrbMethods orbMethod = OrbMethods.Weighted; 
 
             if (observerPosition == ObserverPositions.HelioCentric)
             {

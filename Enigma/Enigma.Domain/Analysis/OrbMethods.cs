@@ -7,7 +7,7 @@ namespace Enigma.Domain.Analysis;
 
 public enum OrbMethods
 {
-    FixMajorMinor = 0,
+   // FixMajorMinor = 0,
     Weighted = 1
 }
 
@@ -27,7 +27,7 @@ public static class OrbMethodsExtensions
     {
         return orbMethod switch
         {
-            OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
+       //     OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
             OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.weighted"),
             _ => throw new ArgumentException("OrbMethod unknown : " + orbMethod.ToString())
         };

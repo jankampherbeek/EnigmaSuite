@@ -209,3 +209,4 @@ In the backlog, a list of items I hope to realize in releases that I did not yet
 - Babylonian approach.
 - Hellenistic approach.
 - Team functionality: sharing data and results via the Internet.
+- Apparent diameter of celestial bodies.
