@@ -1,11 +1,11 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Persistency;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Persistency.Helpers;
 
@@ -52,7 +52,8 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
         {
             string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             StandardInput standardInput = new(dataName, creation, allInput);
-            jsonText = JsonConvert.SerializeObject(standardInput, Formatting.Indented);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            jsonText = JsonSerializer.Serialize(standardInput, options);
         }
         return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
     }

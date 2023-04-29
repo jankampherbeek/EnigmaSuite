@@ -5,7 +5,7 @@
 
 using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Research;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
@@ -17,13 +17,14 @@ public sealed class ResearchProjectParser : IResearchProjectParser
     /// <inheritdoc/>
     public string Marshall(ResearchProject project)
     {
-        return JsonConvert.SerializeObject(project, Formatting.Indented);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        return JsonSerializer.Serialize(project, options);
     }
 
     /// <inheritdoc/>
     public ResearchProject UnMarshall(string jsonString)
     {
-        return JsonConvert.DeserializeObject<ResearchProject>(jsonString)!;
+        return JsonSerializer.Deserialize<ResearchProject>(jsonString)!;
     }
 
 }

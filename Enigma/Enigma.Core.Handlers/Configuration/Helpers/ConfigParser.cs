@@ -5,7 +5,7 @@
 
 using Enigma.Core.Handlers.Configuration.Interfaces;
 using Enigma.Domain.Configuration;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Configuration.Helpers;
 
@@ -16,13 +16,14 @@ public sealed class AstroConfigParser : IAstroConfigParser
     /// <inheritdoc/>
     public string Marshall(AstroConfig astroConfig)
     {
-        return JsonConvert.SerializeObject(astroConfig, Formatting.Indented);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        return JsonSerializer.Serialize(astroConfig, options);
     }
 
     /// <inheritdoc/>
     public AstroConfig UnMarshall(string jsonString)
     {
-        return JsonConvert.DeserializeObject<AstroConfig>(jsonString)!;
+        return JsonSerializer.Deserialize<AstroConfig>(jsonString)!;
     }
 
 }

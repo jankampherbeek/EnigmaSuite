@@ -9,8 +9,8 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
-using Newtonsoft.Json;
 using Serilog;
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
@@ -48,7 +48,8 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         List<int> totals = CountTotals(allCounts);
         CountOfPartsResponse response = new(request, allCounts, totals);
 
-        string jsonText = JsonConvert.SerializeObject(response, Formatting.Indented);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string jsonText = JsonSerializer.Serialize(response, options);
         string pathForResults = _researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
         _filePersistencyHandler.WriteFile(pathForResults, jsonText);
         Log.Information("Json with countings written to {path}.", pathForResults);
@@ -79,23 +80,6 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         {
             allCounts.Add(new(selectedCelPoint, tempCounts.ToList()));
         }
-        /*        if (request.Method != ResearchMethods.CountPosInHouses)
-                {
-                    foreach (ChartPoints selectedMundanePoint in request.PointsSelection   SelectedMundanePoints)
-                    {
-                        allCounts.Add(new(selectedMundanePoint, tempCounts.ToList()));
-                    }
-                    if (request.PointsSelection.IncludeCusps)
-                    {
-                        int nrOfCusps = request.Config.HouseSystem.GetDetails().NrOfCusps;
-                        for (int i = 0; i < nrOfCusps; i++)
-                        {
-                            int index = i + 1;
-                            ChartPoints cusp = ChartPoints.None.PointForIndex(index + 2000);
-                            allCounts.Add(new(cusp, tempCounts.ToList()));
-                        }
-                    }
-                }  */
         return allCounts;
     }
 

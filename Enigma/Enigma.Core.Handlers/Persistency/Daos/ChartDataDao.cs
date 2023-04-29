@@ -7,9 +7,8 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
-using Newtonsoft.Json;
 using Serilog;
-
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
@@ -103,7 +102,8 @@ public sealed class ChartDataDao : IChartDataDao
             chartData.Id = newIndex;
             recordsAsList.Add(chartData);
             PersistableChartData[] extendedRecords = recordsAsList.ToArray();
-            var newJson = JsonConvert.SerializeObject(extendedRecords);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var newJson = JsonSerializer.Serialize(extendedRecords, options);
             File.WriteAllText(dbFullPath, newJson);
             return newIndex;
         }
@@ -129,7 +129,8 @@ public sealed class ChartDataDao : IChartDataDao
         try
         {
             PersistableChartData[] newRecords = newRecordSet.ToArray();
-            var newJson = JsonConvert.SerializeObject(newRecords);
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var newJson = JsonSerializer.Serialize(newRecords, options);
             File.WriteAllText(dbFullPath, newJson);
         }
         catch (Exception ex)
@@ -149,7 +150,7 @@ public sealed class ChartDataDao : IChartDataDao
             var json = File.ReadAllText(dbFullPath);
             try
             {
-                PersistableChartData[] persistableChartDatas = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
+                PersistableChartData[] persistableChartDatas = JsonSerializer.Deserialize<PersistableChartData[]>(json)!;
                 records = persistableChartDatas.ToList();
             }
             catch (Exception ex)

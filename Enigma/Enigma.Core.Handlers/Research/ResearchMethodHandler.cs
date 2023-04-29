@@ -10,9 +10,8 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Research;
 using Enigma.Research.Domain;
-using Newtonsoft.Json;
 using Serilog;
-
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Research;
 
@@ -120,7 +119,8 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
 
     private void WriteCalculatedChartsToJson(string projectName, string methodName, bool controlGroup, List<CalculatedResearchChart> allCharts)
     {
-        string jsonText = JsonConvert.SerializeObject(allCharts, Formatting.Indented);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        string jsonText = JsonSerializer.Serialize(allCharts, options);
         string pathForResults = _researchPaths.ResultPath(projectName, methodName, controlGroup);
         _filePersistencyHandler.WriteFile(pathForResults, jsonText);
         Log.Information("Json with positions written to {path}.", pathForResults);
