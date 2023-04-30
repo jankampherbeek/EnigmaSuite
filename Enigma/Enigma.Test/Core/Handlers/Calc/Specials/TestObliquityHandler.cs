@@ -18,7 +18,6 @@ public class TestObliquityHandler
     private readonly double _jdUt = 123456.789;
     private readonly double _delta = 0.00000001;
     private readonly double _expectedMeanObliquity = 23.447;
-    private readonly double _expectedTrueObliquity = 23.448;
     private readonly string _errorText = "Description of problem.";
 
     [Test]
@@ -30,27 +29,18 @@ public class TestObliquityHandler
         Assert.That(resultMeanObliquity, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
     }
 
-    [Test]
-    public void TestHappyFlow()
-    {
-        Mock<IObliquityCalc> calcMock = CreateCalcMock();
-        IObliquityHandler handler = new ObliquityHandler(calcMock.Object);
-        double resultTrueObliquity = handler.CalcObliquity(new ObliquityRequest(_jdUt, true));
-        Assert.That(resultTrueObliquity, Is.EqualTo(_expectedTrueObliquity).Within(_delta));
-    }
 
     [Test]
     public void TextSeException()
     {
         Mock<IObliquityCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IObliquityHandler handler = new ObliquityHandler(calcExceptionMock.Object);
-        var _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(_jdUt, true)));
+        var _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(_jdUt, false)));
     }
 
     private Mock<IObliquityCalc> CreateCalcMock()
     {
         var mock = new Mock<IObliquityCalc>();
-        mock.Setup(p => p.CalculateObliquity(_jdUt, true)).Returns(_expectedTrueObliquity);
         mock.Setup(p => p.CalculateObliquity(_jdUt, false)).Returns(_expectedMeanObliquity);
         return mock;
     }
@@ -59,7 +49,7 @@ public class TestObliquityHandler
     {
         var mock = new Mock<IObliquityCalc>();
         var exception = new SwissEphException(_errorText);
-        mock.Setup(p => p.CalculateObliquity(_jdUt, true)).Throws(exception);
+        mock.Setup(p => p.CalculateObliquity(_jdUt, false)).Throws(exception);
         return mock;
     }
 

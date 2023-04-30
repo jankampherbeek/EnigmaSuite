@@ -102,7 +102,7 @@ public sealed class ChartDataDao : IChartDataDao
             chartData.Id = newIndex;
             recordsAsList.Add(chartData);
             PersistableChartData[] extendedRecords = recordsAsList.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true };
+            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
             var newJson = JsonSerializer.Serialize(extendedRecords, options);
             File.WriteAllText(dbFullPath, newJson);
             return newIndex;
@@ -129,7 +129,7 @@ public sealed class ChartDataDao : IChartDataDao
         try
         {
             PersistableChartData[] newRecords = newRecordSet.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true };
+            var options = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true };
             var newJson = JsonSerializer.Serialize(newRecords, options);
             File.WriteAllText(dbFullPath, newJson);
         }

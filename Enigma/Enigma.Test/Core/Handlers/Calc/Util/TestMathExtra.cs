@@ -74,5 +74,29 @@ internal class TestMathExtra
         Assert.That(MathExtra.RadToDeg(radians), Is.EqualTo(expectedDegrees).Within(_delta));
     }
 
+    [Test]
+    public void TestAscensionalDifference()
+    {
+        // Values based on example by Gansten in Primary Directions, p. 151.
+        double decl = 18.16666666667;
+        double geoLat = 58.2666666666667;
+        double expected = 32.04675727201;
+        double actual = MathExtra.AscensionalDifference(geoLat, decl);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestObliqueAscension()
+    {
+        // Values based on example by Gansten in Primary Directions, p. 151.
+        double geoLat = 58.2666666666667;
+        double raMc = 337.966666666667;
+        double raPoint = 130.83333333333;
+        double ascDiff = 32.04675727201;
+        double expected = 98.78657606132;
+        double actual = MathExtra.ObliqueAscension(raPoint, ascDiff, raMc, geoLat);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
 }
 

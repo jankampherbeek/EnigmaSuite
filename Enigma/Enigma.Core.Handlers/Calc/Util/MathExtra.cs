@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.Util;
@@ -111,5 +112,41 @@ public static class MathExtra
         double rectAngZCoord = rCoord * Math.Sin(thetaCoord);
         return new RectAngCoordinates(rectAngXCoord, rectAngYCoord, rectAngZCoord);
     }
+
+
+    /// <summary>Calculate ascensional difference (AD). Uses the formula AD = arcsin(tan(decl) * tan(geoLat).</summary>
+    /// <param name="decl">Declination.</param>
+    /// <param name="geoLat">Geographic latitude.</param>
+    /// <returns>Calculated ascensional difference.</returns>
+    public static double AscensionalDifference(double decl, double geoLat)
+    {
+        double declRad = DegToRad(decl);
+        double latRad = DegToRad(geoLat);
+        double adRad = Math.Asin(Math.Tan(declRad) * Math.Tan(latRad));
+        return RadToDeg(adRad);
+    }
+
+    /// <summary>Calculate oblique ascension.</summary>
+    /// <param name="raPoint">Right ascention of point.</param>
+    /// <param name="ascDiff">Ascension difference of point.</param>
+    /// <param name="raMc">Right ascension of MC.</param>
+    /// <param name="geoLat">Geographic latitude.</param>
+    /// <returns><Calculated oblique ascension./returns>
+    public static double ObliqueAscension(double raPoint, double ascDiff, double raMc, double geoLat)
+    {
+        bool north = geoLat > 0.0;
+        double raDiff = raMc - raPoint;
+        if (raDiff < 0.0) raDiff += 360.0;
+        bool east = raDiff < 180.0;
+        if ((north && east) || (!north && !east))
+        {
+            return RangeUtil.ValueToRange(raPoint + ascDiff, 0.0, 360.0);
+        } 
+        else
+        {
+            return RangeUtil.ValueToRange(raPoint - ascDiff, 0.0, 360.0);
+        }
+    }
+   
 
 }
