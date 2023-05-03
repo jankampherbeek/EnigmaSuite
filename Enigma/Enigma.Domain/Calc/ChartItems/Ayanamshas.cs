@@ -94,7 +94,7 @@ public static class AyanamshaExtensions
     /// <summary>Find ayanamsha for a given index.</summary>
     /// <param name="index">The index.</param>
     /// <returns>The ayanamsha.</returns>
-    /// <exception cref="ArgumentException">Thrown if the ayanamsha could not be foound.</exception>
+    /// <exception cref="ArgumentException">Thrown if the ayanamsha could not be found.</exception>
     public static Ayanamshas AyanamshaForIndex(this Ayanamshas _, int index)
     {
         foreach (Ayanamshas ayanamshaCurrent in Enum.GetValues(typeof(Ayanamshas)))

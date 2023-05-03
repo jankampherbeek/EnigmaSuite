@@ -588,6 +588,24 @@ ref.enum.pointcats.cusp = Cusps
 ref.enum.pointcats.fixstar = Fix star
 ref.enum.pointcats.zodiac = Zodiac points
 
+ref.enum.primarykey.brahelong = Brahe (Longitude)
+ref.enum.primarykey.brahera = Brahe (RA)
+ref.enum.primarykey.naibodlong = Naibod (Longitude)
+ref.enum.primarykey.naibodra = Naibod (RA)
+ref.enum.primarykey.placiduslong = Placidus (Longitude)
+ref.enum.primarykey.placidusra = Placidus (RA)
+ref.enum.primarykey.ptolemylong = Ptolemy (Longitude)
+ref.enum.primarykey.ptolemyra = Ptolemy (RA)
+
+ref.enum.primarysystem.campanusmun = Campanus (mundane)
+ref.enum.primarysystem.campanuszod = Campanus (zodiacal)
+ref.enum.primarysystem.placidusmun  = Placidus (mundane)
+ref.enum.primarysystem.placiduszod  = Placidus (zodiacal)
+ref.enum.primarysystem.placidusunderpolemun  = Placidus under the pole (mundane)
+ref.enum.primarysystem.placidusunderpolezod  = Placidus under the pole (zodiacal)
+ref.enum.primarysystem.regiomontanusmun = Regiomontanus (mundane)
+ref.enum.primarysystem.regiomontanuszod = Regiomontanus (zodiacal)
+
 ref.enum.projectiontype.twodimensional = Standard (two-dimensional)
 ref.enum.projectiontype.obliquelongitude = Oblique longitude
 

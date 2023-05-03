@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.Util;
@@ -126,27 +125,81 @@ public static class MathExtra
         return RadToDeg(adRad);
     }
 
-    /// <summary>Calculate oblique ascension.</summary>
+    /// <summary>Calculate oblique ascension (or descension).</summary>
     /// <param name="raPoint">Right ascention of point.</param>
     /// <param name="ascDiff">Ascension difference of point.</param>
-    /// <param name="raMc">Right ascension of MC.</param>
-    /// <param name="geoLat">Geographic latitude.</param>
+    /// <param name="east">Indicates if point is in easterh hemisphere,</param>
+    /// <param name="north">Indficates if point is in northern hemisphere.</param>
     /// <returns><Calculated oblique ascension./returns>
-    public static double ObliqueAscension(double raPoint, double ascDiff, double raMc, double geoLat)
+    public static double ObliqueAscension(double raPoint, double ascDiff, bool east, bool north)
     {
-        bool north = geoLat > 0.0;
-        double raDiff = raMc - raPoint;
-        if (raDiff < 0.0) raDiff += 360.0;
-        bool east = raDiff < 180.0;
         if ((north && east) || (!north && !east))
         {
-            return RangeUtil.ValueToRange(raPoint + ascDiff, 0.0, 360.0);
-        } 
-        else
-        {
             return RangeUtil.ValueToRange(raPoint - ascDiff, 0.0, 360.0);
-        }
+        } 
+        return RangeUtil.ValueToRange(raPoint + ascDiff, 0.0, 360.0);
     }
    
+
+    /// <summary>Calculates horizontal distance for a point.</summary>
+    /// <param name="oaPoint">Oblique ascension for the point.</param>
+    /// <param name="oaAsc">Oblique ascension for the ascendant.</param>
+    /// <param name="easternHemiSphere">True if point is in the eastern hemisphere, otherwise false.</param>
+    /// <returns>Calculated value for horizontal distance.</returns>
+    public static double HorizontalDistance(double oaPoint, double oaAsc, bool easternHemiSphere)
+    {
+        if (easternHemiSphere) {
+            return oaPoint - oaAsc;
+        }
+        return RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0);
+    }
+
+    /// <summary>Checks if a point is in the eastern hemisphere.</summary>
+    /// <param name="raPoint">Rightn ascension of the point to check.</param>
+    /// <param name="raMc">Right ascension of the MC.</param>
+    /// <returns>True if the point is in the eastern hemisphere, ot6herwise false.</returns>
+    public static bool IsEasternHemiSphere(double raPoint, double raMc)
+    {
+        double raDiff = raPoint - raMc;
+        if (raDiff < 0.0) raDiff += 360.0;
+        return raDiff < 180.0;
+    }
+
+    /// <summary>Calculate pole for use in Regiomontanian primary directtions.</summary>
+    /// <remarks>See Martin Gansten, Primary directiopns, p. 165.</remarks>/// 
+    /// <param name="geoLat">Geographic latitude.</param>
+    /// <param name="declFixPoint">Declination of the fixded point.</param>
+    /// <param name="upperMdFixPoint">Upper meridian for the fixed point.</param>
+    /// <returns>The calculated pole.</returns>
+    public static double RegiomontanianPole(double geoLat, double declFixPoint, double upperMdFixPoint)
+    {
+        double radGeoLat = DegToRad(geoLat);
+        double radDecl = DegToRad(declFixPoint);
+        double radUpperMd = DegToRad(Math.Abs(upperMdFixPoint));
+        double factorX = Math.Atan(Math.Tan(radDecl) / Math.Cos(radUpperMd));
+        double factorY = radGeoLat - factorX;
+        double factorZ = Math.Atan(Math.Cos(factorY) / (Math.Tan(radUpperMd) * Math.Cos(factorX)));
+        double radPolar = Math.Asin(Math.Sin(radGeoLat) * Math.Cos(factorZ));
+        return RadToDeg(radPolar);
+    }
+
+
+    /// <summary>Calculates the latitude to be used in primary directions, according to Bianchini.</summary>
+    /// <remarks>See Martin Gansten, Primary directiopns, p. 69.</remarks>
+    /// <param name="pointLatitude"></param>
+    /// <param name="angle"></param>
+    /// <returns>The calcularted latitude.</returns>
+    public static double BianchinianLatitude(double pointLatitude, double angle)
+    {
+        double calculatedLatitude = 0.0;
+        if (angle <= 90.0) {
+            calculatedLatitude = (1 - angle / 90.0) * pointLatitude;
+        }
+        else
+        {
+            calculatedLatitude = -1 * ( 1 - (180.0 - angle) / 90.0) * pointLatitude;
+        }
+        return calculatedLatitude;
+    }
 
 }

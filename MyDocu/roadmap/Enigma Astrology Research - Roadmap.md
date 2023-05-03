@@ -208,3 +208,4 @@ In the backlog, a list of items I hope to realize in releases that I did not yet
 - Framing (encadrement Volguine).
 - Babylonian approach.
 - Hellenistic approach.
+- Chart wheels with concentric circles for progressions, synastry and harmonics.
