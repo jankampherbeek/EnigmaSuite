@@ -122,6 +122,14 @@ chartsmainwindow.menu.manual = User manual
 chartsmainwindow.menu.midpoints = Midpoints
 chartsmainwindow.menu.newchart = New chart
 chartsmainwindow.menu.positions = Show positions
+
+chartsmainwindow.menu.progressive = Progressive
+chartsmainwindow.menu.progressivepd = Primary directions
+chartsmainwindow.menu.progressivesolar = Solar returns
+chartsmainwindow.menu.progressivesp = Secundary progressions
+chartsmainwindow.menu.progressivesym = Symbolic directions
+chartsmainwindow.menu.progressivetrans = Transits
+
 chartsmainwindow.menu.wheel = Show wheel
 chartsmainwindow.msg.confirmdeletechart = Do you want to delete the chart for [name] from the database?
 chartsmainwindow.msg.confirmdeletetitle = Delete chart.
@@ -283,7 +291,7 @@ harmonicdetailswindow.warningorb = The values for the orb are not correct. Pleas
 -------------------------- HelpWindow -----------------
 -- HelpWindow -----------------------------------------
 helpwindow.title = Enigma - Helppage
-helpwindow.manual = The User Manual is available at c:\enigma_ar\UserManual_0.1.pdf
+helpwindow.manual = The User Manual is available at c:\enigma_ar\UserManual_0.2.pdf
 
 -------------------------- IO messages ----------------
 

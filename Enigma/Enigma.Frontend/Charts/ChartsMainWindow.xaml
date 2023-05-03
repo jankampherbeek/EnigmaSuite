@@ -91,6 +91,33 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
+            <MenuItem Name="miProgressive" Header="miProgressive">
+                <MenuItem Name="miProgressivePD" Header="miProgressivePD" Click="PrimDirClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/primary.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miProgressiveSP" Header="miProgressiveSP" Click="SecProgClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/secundary.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miProgressiveTrans" Header="miProgressiveTrans" Click="TransClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/transits.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miProgressiveSym" Header="miProgressiveSym" Click="SymDirClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/symbolic.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="miProgressiveSolar" Header="miProgressiveSolar" Click="SolarClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/solar.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
             <MenuItem Name="miHelp" Header="miHelp">
                 <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick">
                     <MenuItem.Icon>

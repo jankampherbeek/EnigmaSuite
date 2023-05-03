@@ -1,0 +1,12 @@
+﻿<Window x:Class="Enigma.Frontend.Ui.Charts.Progressive.ChartProgTransInput"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive"
+        mc:Ignorable="d"
+        Title="ChartProgTransInput" Height="450" Width="800">
+    <Grid>
+        <TextBlock Grid.Row="0" Name="FormTitle" Text="Placeholder input transits" Margin="6" Style="{StaticResource titleStyle}"/>
+    </Grid>
+</Window>
