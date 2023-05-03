@@ -7,6 +7,7 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Calc.Progressive;
 using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Configuration;
@@ -22,9 +23,9 @@ public sealed class AstroConfig
     public bool UseCuspsForAspects { get; }
     public Dictionary<ChartPoints, ChartPointConfigSpecs> ChartPoints;
     public Dictionary<AspectTypes, AspectConfigSpecs> Aspects;
-
     public double BaseOrbAspects { get; }
     public double BaseOrbMidpoints { get; }
+
 
     public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects, double baseOrbAspects, double baseOrbMidpoints, bool useCuspsForAspects)
