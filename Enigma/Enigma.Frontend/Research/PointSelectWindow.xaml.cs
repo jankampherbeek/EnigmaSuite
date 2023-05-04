@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
+using Enigma.Frontend.Ui.Support;
 using System.Collections.Generic;
 using System.Windows;
 using static Enigma.Frontend.Ui.Research.PointSelectController;

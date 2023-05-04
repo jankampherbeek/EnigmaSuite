@@ -192,6 +192,33 @@ charts.positions.source = Source:
 charts.positions.source.empty = Source not defined
 charts.positions.title = Enigma - Radix positions
 
+-------------------------------- Charts Prog -----------
+charts.prog.priminput.aspects = Aspects, click checkbox for all
+charts.prog.priminput.converse = Include converse directions
+charts.prog.priminput.formtitle = Primary directions
+charts.prog.priminput.moment1 = Date moment/start period (yyyy/mm/dd)
+charts.prog.priminput.moment2 = Optional date end period (yyyy/mm/dd)
+charts.prog.priminput.orbaspects = Orb for aspects (d:mm:ss, or d:mm)
+charts.prog.priminput.primdirtype = Primary direction type
+charts.prog.priminput.promissors = Promissors, click checkbox for all
+charts.prog.priminput.selections = Overview of selections
+charts.prog.priminput.significators = Significators, click checkbox for all
+charts.prog.priminput.timekey = Time key
+charts.prog.priminput.title =  Enigma - Input primary directions
+charts.prog.secinput.aspects =  Aspects, click checkbox for all
+charts.prog.secinput.formtitle = Secundary progressions
+charts.prog.secinput.moment =  Date event (yyyy/mm/dd)
+charts.prog.secinput.orbaspects =  Orb for aspects (d:mm:ss, or d:mm)
+charts.prog.secinput.secpoints = Prog. points, click checkbox for all
+charts.prog.secinput.title Enigma - Input secundary progressions
+charts.prog.transitinput.aspects = Aspects, click checkbox for all
+charts.prog.transitinput.formtitle = Transits
+charts.prog.transitinput.moment = Date event (yyyy/mm/dd)
+charts.prog.transitinput.orbaspects = Orb for aspects (d:mm:ss, or d:mm)
+charts.prog.transitinput.title = Enigma - Input transits
+charts.prog.transitinput.transitpoints = Prog. points, click checkbox for all
+
+
 -------------------------------- Charts Wheel ----------
 charts.wheel.title = Enigma - Chart wheel
 

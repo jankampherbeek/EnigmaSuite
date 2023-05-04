@@ -188,7 +188,7 @@ public sealed class ChartsMainController
     {
         ChartProgPrimInput primInput = new ChartProgPrimInput();
         OpenWindow(primInput);
-       // populate
+        primInput.Populate();
     }
 
 
@@ -196,14 +196,14 @@ public sealed class ChartsMainController
     {
         ChartProgSecInput secInput = new ChartProgSecInput();
         OpenWindow(secInput);
-        // populate
+        secInput.Populate();
     }
 
     public void ShowInputTransProg()
     {
         ChartProgTransInput transInput = new ChartProgTransInput();
         OpenWindow(transInput);
-        // populate
+        transInput.Populate();
     }
 
 

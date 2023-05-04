@@ -42,12 +42,7 @@ public sealed class PointSelectController
         return _astroConfig!.UseCuspsForAspects;
     }
 
-    public class SelectableChartPointDetails
-    {
-        public ChartPoints ChartPoint { get; set; }
-        public char? Glyph { get; set; }
-        public string? Name { get; set; }
-    }
+
 
 
     private void DefineChartPoints(ResearchMethods method)

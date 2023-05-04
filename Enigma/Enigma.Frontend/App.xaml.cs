@@ -13,6 +13,7 @@ using Enigma.Frontend.Helpers.Services;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
+using Enigma.Frontend.Ui.Charts.Progressive;
 using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
@@ -66,6 +67,9 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartMidpointsWindow>();
         serviceCollection.AddTransient<ChartPositionsWindow>();
         serviceCollection.AddTransient<ChartPositionsController>();
+        serviceCollection.AddTransient<ChartProgPrimInputController>();
+        serviceCollection.AddTransient<ChartProgSecInputController>();
+        serviceCollection.AddTransient<ChartProgTransInputController>();
         serviceCollection.AddTransient<ChartsMainController>();
         serviceCollection.AddTransient<ChartsWheel>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();

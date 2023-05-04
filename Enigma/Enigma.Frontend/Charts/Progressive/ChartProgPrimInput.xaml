@@ -5,11 +5,103 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      WindowStartupLocation="CenterScreen"          
+      Height="720" Width="600"
       Title="ChartProgPrimInput">
 
     <Grid>
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="Placeholder input prim dir" Margin="6" Style="{StaticResource titleStyle}"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="24*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="5"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2"  Grid.RowSpan="3" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.ColumnSpan="2"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbPrDirType" Text="tbPrDirType" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbTimeKey" Text="tbTimeKey" VerticalAlignment="Bottom" />
+        <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Margin="6" SelectedItem="2" Name="comboPrDirType" Text="" Style="{DynamicResource ComboBoxStyle1}" SelectionChanged="PrDirTypeChanged" IsEditable="True" IsReadOnly="True"/>
+        <ComboBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" SelectedItem="2" Name="comboTimeKey" Text="" Style="{DynamicResource ComboBoxStyle1}" SelectionChanged="TimeKeyChanged" IsEditable="True" IsReadOnly="True"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="tbMoment1" Text="tbMoment1" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbMoment2" Text="tbMoment2" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="4" Grid.ColumnSpan="2" Margin="6" Name="tbMoment1Value" Text="" VerticalAlignment="Top" />
+        <TextBox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbMoment2Value" Text="" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="5" Margin="6" Name="tbConverse" Text="tbConverse" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="5" Grid.Column="1" Margin="6" Name="checkConverse" HorizontalAlignment="Right" IsTabStop="False"/>
+        <TextBlock Grid.Row="6" Margin="6" Name="tbPromissors" Text="tbPromissors" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="6" Grid.Column="1" Margin="6" Name="checkAllPromissors" HorizontalAlignment="Right" IsTabStop="False"/>
+        <TextBlock Grid.Row="6" Grid.Column="3" Margin="6" Name="tbSignificators" Text="tbSignificators" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="6" Grid.Column="4" Margin="6" Name="checkAllSignificators" HorizontalAlignment="Right" IsTabStop="False"/>
+        <ListBox Grid.Row="7" Grid.ColumnSpan="2"  Margin="6" Name="lbPromissors" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="80*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Glyph}" FontFamily="EnigmaAstrology" FontSize="14" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="lbSignificators" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="80*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Glyph}" FontFamily="EnigmaAstrology" FontSize="14" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Grid.Row="8" Margin="6" Name="tbAspects" Text="tbAspects" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="8" Grid.Column="1" Margin="6" Name="checkAllAspects" HorizontalAlignment="Right" IsTabStop="False"/>
+        <TextBlock Grid.Row="8" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbSelections" Text="tbSelections" VerticalAlignment="Bottom" />
+        <ListBox Grid.Row="9" Grid.ColumnSpan="2"  Margin="6" Name="lbAspects" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="80*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Glyph}" FontFamily="EnigmaAstrology" FontSize="14" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock Grid.Row="9" Grid.Column="3" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="6" Name="tbSelectionsValue" Text=""/>
+        <TextBlock Grid.Row="10" Grid.ColumnSpan="2" Margin="6" Name="tbOrbAspects" Text="tbOrbAspects" VerticalAlignment="Top" />
+        <TextBox Grid.Row="11" Grid.ColumnSpan="2" Margin="6" Name="tbOrbAspectsValue" Text="" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="12" Grid.ColumnSpan="5" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="BtnCancel" Content="BtnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+            <Button Margin="6" Name="BtnCalculate" Content="BtnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
+        </StackPanel>
     </Grid>
 </Window>

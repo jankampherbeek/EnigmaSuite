@@ -5,9 +5,68 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive"
         mc:Ignorable="d"
-        Title="ChartProgSecInput" Height="450" Width="800">
+        Title="ChartProgSecInput" Height="480" Width="500"
+        WindowStartupLocation="CenterScreen">
+        
     <Grid>
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="Placeholder input sec prog" Margin="6" Style="{StaticResource titleStyle}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="8*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbMoment" Text="tbMoment" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbOrbAspects" Text="tbOrbAspects" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" Margin="6" Name="tbMomentValue" Text="" VerticalAlignment="Top" />
+        <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbOrbAspectsValue" Text="" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Margin="6" Name="tbSecPoints" Text="tbSecPoints" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="3" Grid.Column="1" Margin="6" Name="checkAllSecPoints" HorizontalAlignment="Right" IsTabStop="False"/>
+        <TextBlock Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbAspects" Text="tbAspects" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="3" Grid.Column="4" Margin="6" Name="checkAllAspects" HorizontalAlignment="Right" IsTabStop="False"/>
+        <ListBox Grid.Row="4" Grid.ColumnSpan="2"  Margin="6" Name="lbSecPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="80*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Glyph}" FontFamily="EnigmaAstrology" FontSize="14" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="lbAspects" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="80*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Glyph}" FontFamily="EnigmaAstrology" FontSize="14" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="5" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="BtnCancel" Content="BtnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+            <Button Margin="6" Name="BtnCalculate" Content="BtnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
+        </StackPanel>
     </Grid>
 </Window>
