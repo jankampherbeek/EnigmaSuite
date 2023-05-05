@@ -211,13 +211,13 @@ public sealed class ChartsMainController
     {
         ChartProgSymInput symInput = new ChartProgSymInput();
         OpenWindow(symInput);
-        // populate
+        symInput.Populate();
     }
     public void ShowInputSolarProg()
     {
         ChartProgSolarInput solarInput = new ChartProgSolarInput();
         OpenWindow(solarInput);
-        // populate
+        solarInput.Populate();
     }
 
     public static void ShowAbout()

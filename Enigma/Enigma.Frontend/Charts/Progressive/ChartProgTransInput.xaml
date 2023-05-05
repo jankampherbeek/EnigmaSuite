@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive"
         mc:Ignorable="d"
-        Title="ChartProgTransInput" Height="480" Width="500">
+        Title="ChartProgTransInput" WindowStartupLocation="CenterScreen" Height="480" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="40*"/>

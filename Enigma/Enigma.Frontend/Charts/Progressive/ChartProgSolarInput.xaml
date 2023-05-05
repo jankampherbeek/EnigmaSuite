@@ -5,8 +5,44 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive"
         mc:Ignorable="d"
-        Title="ChartProgSolarInput" Height="450" Width="800">
+        Title="ChartProgSolarInput"  WindowStartupLocation="CenterScreen" Height="360" Width="500">
     <Grid>
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="Placeholder solar returns" Margin="6" Style="{StaticResource titleStyle}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="12*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="12*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="5" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="4" Grid.ColumnSpan="5" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="5" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbAge" Text="tbAge" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbOrbAspects" Text="tbOrbAspects" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" Margin="6" Name="tbAgeValue" Text="" VerticalAlignment="Top" />
+        <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbOrbAspectsValue" Text="" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="5" Margin="6" Name="tbRelocation" Text="tbRelocation" Style="{StaticResource subTitleStyle}" />
+        <TextBlock Grid.Row="4" Margin="6" Grid.ColumnSpan="2" Name="tbGeoLong" Text="tbGeoLOng" VerticalAlignment="Bottom"/>
+        <TextBlock Grid.Row="4" Grid.Column="3" Margin="6" Grid.ColumnSpan="2" Name="tbGeoLat" Text="tbGelOlat" VerticalAlignment="Bottom"/>
+        <TextBox Grid.Row="5" Margin="6" Name="tbGeoLongValue" Text="" VerticalAlignment="Top" />
+        <ComboBox Grid.Row="5" Grid.Column="1" Margin="6" Name="comboLongDir" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <ComboBox Grid.Row="5" Grid.Column="4" Margin="6" Name="comboLatDir" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <TextBox Grid.Row="5" Grid.Column="3" Margin="6" Name="tbGeoLatValue" Text="" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="6" Grid.ColumnSpan="5" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="BtnCancel" Content="BtnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+            <Button Margin="6" Name="BtnCalculate" Content="BtnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
+        </StackPanel>
+
+
     </Grid>
 </Window>

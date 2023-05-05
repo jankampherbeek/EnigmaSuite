@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive"
         mc:Ignorable="d"
-        Title="ChartProgSymInput" Height="450" Width="800">
+        Title="ChartProgSymInput" WindowStartupLocation="CenterScreen" Height="300" Width="500">
     <Grid>
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="Placeholder input symbolic directions" Margin="6" Style="{StaticResource titleStyle}"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="48*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Margin="6" Name="tbRate" Text="tbRate" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="1" Grid.Column="2" Margin="6" Name="tbOrbAspects" Text="tbOrbAspects" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="2" Margin="6" Name="tbRateValue" Text="" VerticalAlignment="Top" />
+        <TextBox Grid.Row="2" Grid.Column="2" Margin="6" Name="tbOrbAspectsValue" Text="" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="3" Margin="6" Name="tbMoment" Text="tbMoment" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="4" Margin="6" Name="tbMomentValue" Text="" VerticalAlignment="Top" />
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="BtnCancel" Content="BtnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+            <Button Margin="6" Name="BtnCalculate" Content="BtnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
+        </StackPanel>
     </Grid>
 </Window>

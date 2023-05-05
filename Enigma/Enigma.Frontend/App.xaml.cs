@@ -69,6 +69,7 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartPositionsController>();
         serviceCollection.AddTransient<ChartProgPrimInputController>();
         serviceCollection.AddTransient<ChartProgSecInputController>();
+        serviceCollection.AddTransient<ChartProgInputSolarController>();
         serviceCollection.AddTransient<ChartProgTransInputController>();
         serviceCollection.AddTransient<ChartsMainController>();
         serviceCollection.AddTransient<ChartsWheel>();
