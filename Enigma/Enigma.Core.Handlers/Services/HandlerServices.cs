@@ -16,6 +16,7 @@ using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Calc.DateTime.Helpers;
 using Enigma.Core.Handlers.Calc.Helpers;
 using Enigma.Core.Handlers.Calc.Mundane.Helpers;
+using Enigma.Core.Handlers.Calc.Progressive;
 using Enigma.Core.Handlers.Calc.Specials;
 using Enigma.Core.Handlers.Calc.Specials.Helpers;
 using Enigma.Core.Handlers.Communication;
@@ -75,6 +76,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IDistanceCalculator, DistanceCalculator>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
+        serviceCollection.AddTransient<IFixedTimeKey, FixedTimeKey>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IFullPointPosFactory, FullPointPosFactory>();
         serviceCollection.AddTransient<IHarmonicsCalculator, HarmonicsCalculator>();
@@ -94,12 +96,16 @@ public static class HandlerServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IPlacidusTimeKey, PlacidusTimeKey>();
+        serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
+        serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
         serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
+        serviceCollection.AddTransient<ITimeKeyCalculator, TimeKeyCalculator>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
         serviceCollection.RegisterResearchServices();

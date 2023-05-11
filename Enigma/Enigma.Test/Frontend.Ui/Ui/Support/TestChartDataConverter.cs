@@ -21,14 +21,14 @@ public class TestChartDataConverter
     private readonly string _name = "Chart Name";
     private readonly string _description = "Chart Description";
     private readonly string _source = "Chart Source";
-    private readonly string _locationName = "Some location";
+    private readonly string _locationName = "Some _location";
     private readonly ChartCategories _chartCategory = ChartCategories.Election;
     private readonly RoddenRatings _rating = RoddenRatings.DD;
     private readonly int _id = 123;
     private readonly double _jdEt = 123456.789;
     private readonly string _dateText = "2023-02-2023";
     private readonly string _timeText = "21:24:30";
-    private readonly string _locationFullName = "Some location 12.5 N / 13.66666666667 W";
+    private readonly string _locationFullName = "Some _location 12.5 N / 13.66666666667 W";
     private readonly double _geoLong = -13.66666666667;
     private readonly double _geoLat = 12.5;
 

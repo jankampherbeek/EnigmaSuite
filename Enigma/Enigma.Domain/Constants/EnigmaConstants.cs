@@ -200,4 +200,6 @@ public static class EnigmaConstants
     /// <summary>Url to find latest release information.</summary>
     public const string RELEASE_CHECK_URL = @"http://radixpro.com/rel/enigma-ar-latest.json";
 
+    /// <summary>Timekey according to Naibod.</summary>
+    public const double NAIBOD = 0.985647222;
 }
