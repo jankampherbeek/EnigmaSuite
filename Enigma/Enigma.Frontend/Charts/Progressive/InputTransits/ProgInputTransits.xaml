@@ -1,0 +1,60 @@
+﻿<Window x:Class="Enigma.Frontend.Ui.Charts.Progressive.InputTransits.ProgInputTransits"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive.InputTransits"
+        mc:Ignorable="d"
+        Title="ProgInputTransits" WindowStartupLocation="CenterScreen" Height="460" Width="360">
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="5" Style="{StaticResource backgroundStyle}" />
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="2" Grid.RowSpan="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Center">
+            <Button Margin="6" Name="btnPeriod" Content="btnPeriod" HorizontalAlignment="Right"/>
+            <Button Margin="6" Name="btnEvent" Content="btnEvent" HorizontalAlignment="Right"/>
+            <Button Margin="6" Name="btnSearchEvent" Content="btnSearchEvent" HorizontalAlignment="Right"/>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Grid.Column="2" Margin="6" Name="tbCelPoints" Text="tbCelPoints" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Row="2" Grid.Column="3" Margin="6" Name="checkAllPoints" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <ListBox Grid.Row="3" Grid.Column="2"  Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="6" Name="lbCelPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20*" />
+                            <ColumnDefinition Width="80*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Glyph}" FontFamily="EnigmaAstrology" FontSize="14" />
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="15" Grid.ColumnSpan="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="btnHelp" Content="btnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="btnCancel" Content="btnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+            <Button Margin="6" Name="btnCalculate" Content="btnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
+
+    

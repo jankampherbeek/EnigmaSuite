@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis.Aspects;
+using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Support;
@@ -11,13 +12,13 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using System.Collections.Generic;
 
-namespace Enigma.Frontend.Ui.Charts.Progressive;
+namespace Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 
-class ChartProgTransInputController
+class ProgInputTransitsController
 {
     private AstroConfig? _astroConfig;
     private List<SelectableChartPointDetails> _selCPDetails = new();
-    private List<SelectableAspectDetails> _selAspectDetails = new();
+
 
     public List<SelectableChartPointDetails> GetChartPointDetails()
     {
@@ -25,11 +26,6 @@ class ChartProgTransInputController
         return _selCPDetails;
     }
 
-    public List<SelectableAspectDetails> GetAspectDetails()
-    {
-        DefineAspects();
-        return _selAspectDetails;
-    }
 
 
     private void DefineChartPoints()
@@ -47,18 +43,6 @@ class ChartProgTransInputController
         }
     }
 
-    private void DefineAspects()
-    {
-        _astroConfig = CurrentConfig.Instance.GetConfig();
-        _selAspectDetails = new();
-        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> currentAspectSpec in _astroConfig.Aspects)
-        {
-            if (currentAspectSpec.Value.IsUsed)
-            {
-                AspectDetails aspectDetails = currentAspectSpec.Key.GetDetails();
-                char glyph = currentAspectSpec.Value.Glyph;
-                _selAspectDetails.Add(new SelectableAspectDetails() { Aspect = aspectDetails.Aspect, Glyph = glyph, Name = Rosetta.TextForId(aspectDetails.TextId) });
-            }
-        }
-    }
+
+
 }

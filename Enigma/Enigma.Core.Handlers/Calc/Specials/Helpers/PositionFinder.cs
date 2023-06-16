@@ -19,10 +19,11 @@ public sealed class PositionFinder: IPositionFinder
     private readonly ISeFlags _seFlags;
     private readonly IChartPointsMapping _mapping;
 
-    public PositionFinder(ICalcUtFacade calcUtFacade, ISeFlags seFlags)
+    public PositionFinder(ICalcUtFacade calcUtFacade, ISeFlags seFlags, IChartPointsMapping mapping)
     {
         _calcUtFacade = calcUtFacade;
         _seFlags = seFlags;
+        _mapping = mapping;
     }
 
     /// <inheritdoc/>

@@ -14,6 +14,8 @@ using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Charts.Progressive;
+using Enigma.Frontend.Ui.Charts.Progressive.InputPeriod;
+using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
@@ -70,7 +72,6 @@ public partial class App : Application
         serviceCollection.AddTransient<ChartProgPrimInputController>();
         serviceCollection.AddTransient<ChartProgSecInputController>();
         serviceCollection.AddTransient<ChartProgInputSolarController>();
-        serviceCollection.AddTransient<ChartProgTransInputController>();
         serviceCollection.AddTransient<ChartsMainController>();
         serviceCollection.AddTransient<ChartsWheel>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
@@ -100,6 +101,8 @@ public partial class App : Application
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<PointSelectController>();
         serviceCollection.AddTransient<PointSelectWindow>();
+        serviceCollection.AddTransient<ProgInputPeriodController>();
+        serviceCollection.AddTransient<ProgInputTransitsController>();
         serviceCollection.AddTransient<ProjectUsageController>();
         serviceCollection.AddTransient<ProjectUsageWindow>();
         serviceCollection.AddTransient<ProjectInputController>();

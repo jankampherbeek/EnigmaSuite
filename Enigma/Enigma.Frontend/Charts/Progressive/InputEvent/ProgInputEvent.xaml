@@ -1,0 +1,76 @@
+﻿<Window x:Class="Enigma.Frontend.Ui.Charts.Progressive.InputEvent.ProgInputEvent"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive.InputEvent"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen" 
+        Title="ProgInputEvent" Height="600" Width="360">
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="14*"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="5" Grid.RowSpan="4" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.RowSpan="8" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
+
+
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap" />
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="4" Margin="6" Name="tbDescription" Text="tbDescription" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="3" Grid.ColumnSpan="4" Margin="6" Name="tbDescriptionValue" Height="40" TextWrapping="Wrap" Text="" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="5" Grid.ColumnSpan="4" Margin="6" Name="tbLocation" Text="tbLocation" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="6" Grid.ColumnSpan="4" Margin="6" Name="tbLocationValue" Text="" VerticalAlignment="Top" />
+        <TextBlock Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"  Margin="6" Name="tbGeoLong" Text="tbGeoLong" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2"  Margin="6" Name="tbGeoLat" Text="tbGeoLat" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="8" Grid.Column="0" Margin="6" Name="tbGeoLongValue" Text="" VerticalAlignment="Top" />
+        <ComboBox Grid.Row="8" Grid.Column="1" Margin="6" Name="comboLongDir" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <TextBox Grid.Row="8" Grid.Column="2" Margin="6" Name="LatitudeValue" Text="" VerticalAlignment="Top" />
+        <ComboBox Grid.Row="8" Grid.Column="3" Margin="6" Name="comboLatDir" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+
+        <TextBlock Grid.Row="10" Grid.ColumnSpan="2" Margin="6" Name="tbDate" Text="tbDate" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="10" Grid.Column="2" Margin="6" Name="tbCalendar" Text="tbCalendar" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="11" Grid.ColumnSpan="2" Margin="6" Name="tbDateValue" Text="" VerticalAlignment="Top" />
+        <ComboBox Grid.Row="11" Grid.Column="2" Margin="6" Name="comboCalendar" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <TextBlock Grid.Row="12" Grid.ColumnSpan="2" Margin="6" Name="tbTime" Text="tbTime" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="12" Grid.Column="2" Margin="6" Name="tbDst" Text="tbDst" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="13" Grid.ColumnSpan="2" Margin="6" Name="tbTimeValue" Text="" VerticalAlignment="Top" />
+        <CheckBox Grid.Row="13" Grid.Column="2" Margin="6" Name="checkDst" IsTabStop="False"/>
+        <TextBlock Grid.Row="14" Grid.ColumnSpan="4" Margin="6" Name="tbTimezone" Text="tbTimezone" VerticalAlignment="Bottom" />
+        <ComboBox Grid.Row="15" Grid.ColumnSpan="4" Margin="6" Name="comboTimezone" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <TextBlock Grid.Row="16" Grid.ColumnSpan="2" Margin="6" Name="tbGeoLongLmt" Text="tbGeoLonLmt" VerticalAlignment="Bottom" />
+        <TextBox Grid.Row="17" Margin="6" Name="tbGeoLongLmtValue" Text="" VerticalAlignment="Top" />
+        <ComboBox Grid.Row="17" Grid.Column="1" Margin="6" Name="comboLongDirLmt" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+
+        <StackPanel Grid.Row="18" Grid.ColumnSpan="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="btnHelp" Content="btnHelp" HorizontalAlignment="Right"/>
+            <Button Margin="6" Name="btnCancel" Content="btnCancel" HorizontalAlignment="Right"/>
+            <Button Margin="6" Name="btnOk" Content="btnOk" HorizontalAlignment="Right"/>
+        </StackPanel>
+    </Grid>
+</Window>

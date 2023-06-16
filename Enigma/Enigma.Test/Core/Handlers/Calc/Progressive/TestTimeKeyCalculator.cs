@@ -8,7 +8,6 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Core.Handlers.Calc.Progressive;
 using Moq;
-using Enigma.Domain.Calc.Progressive;
 
 namespace Enigma.Test.Core.Handlers.Calc.Progressive;
 

@@ -92,5 +92,41 @@ public interface ITimeKeyCalculator
     /// <returns>The calculated number of days.</returns>
     public double CalculateDaysFromTotalKey(PrimaryKeys primaryKey, double totalKey, FullPointPos positionSun, double jdRadix, CoordinateSystems coordSys, ObserverPositions observerPos, Location location);
 
+}
+
+
+public interface ISpeculum
+{
+    /// <summary>System for the calculartion of primary directions.</summary>
+    public PrimarySystems PrimarySystem { get; }
+    /// <summary>Geographic latitude.</summary>
+    public double GeoLat { get; }
+    /// <summary>Right ascension of the MC.</summary>
+    public double RaMc { get; }
+    /// <summary>Right ascension of the IC.</summary>
+    public double RaIc { get; }
+    /// <summary>Oblique ascension of the ascendant.</summary>
+    public double OblAscAscendant { get; }
+    /// <summary>Oblique descension of the descendant.</summary>
+    public double OblDescDescendant { get; }
+    /// <summary>Celestial points</summary>
+    public List<ISpeculumItem> SpeculumItems { get; }
+}
+
+
+
+/// <summary>Constructs and holds data for a speculum item.</summary>
+public interface ISpeculumItem
+{
+    /// <summary>Right ascension in degrees.</summary>
+    public double RightAscension { get; }
+    /// <summary>Declination, north is +, south = - .</summary>
+    public double Declination { get; }
+    /// <summary>Meridian distance MC.</summary>
+    public double MeridianDistanceMc { get; }
+    /// <summary>Meridian distance IC.</summary>
+    public double MeridianDistanceIc { get; }
+    /// <summary>Ascensional difference.</summary>
+    public double AscensionalDifference { get; }
 
 }

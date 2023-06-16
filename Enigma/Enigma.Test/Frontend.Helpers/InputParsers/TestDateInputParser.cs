@@ -32,7 +32,7 @@ public class TestDateInputParser
         _mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, cal, yearCount, out fullDate)).Returns(true);
         var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
 
-        Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate), Is.True);
+        Assert.That(_parser.HandleDate(dateInput, cal, yearCount, out fullDate), Is.True);
     }
 
     [Test]
@@ -46,7 +46,7 @@ public class TestDateInputParser
         var _mockDateValidator = new Mock<IDateValidator>();
         var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
 
-        Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out FullDate? fullDate), Is.False);
+        Assert.That(_parser.HandleDate(dateInput, cal, yearCount, out FullDate? fullDate), Is.False);
     }
 
     [Test]
@@ -62,7 +62,7 @@ public class TestDateInputParser
         _mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, cal, yearCount, out fullDate)).Returns(false);
         var _parser = new DateInputParser(_mockValueRangeConverter.Object, _mockDateValidator.Object);
 
-        Assert.That(_parser.HandleGeoLong(dateInput, cal, yearCount, out fullDate), Is.False);
+        Assert.That(_parser.HandleDate(dateInput, cal, yearCount, out fullDate), Is.False);
     }
 
 }

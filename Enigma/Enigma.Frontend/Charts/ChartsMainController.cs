@@ -9,6 +9,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Charts.Progressive;
+using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
@@ -201,7 +202,7 @@ public sealed class ChartsMainController
 
     public void ShowInputTransProg()
     {
-        ChartProgTransInput transInput = new ChartProgTransInput();
+        ProgInputTransits transInput = new();
         OpenWindow(transInput);
         transInput.Populate();
     }

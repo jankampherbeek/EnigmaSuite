@@ -193,6 +193,34 @@ charts.positions.source.empty = Source not defined
 charts.positions.title = Enigma - Radix positions
 
 -------------------------------- Charts Prog -----------
+charts.prog.event.calendar = Cal.
+charts.prog.event.date = Date (yyyy:mm:dd)
+charts.prog.event.description = Description for the event
+charts.prog.event.dst = DST
+charts.prog.event.explanation = Enter data for an event that you want to analyse. The event will remain available for other progressieve techniques for the same chart.
+charts.prog.event.formtitle = Define event
+charts.prog.event.geoLat = Geographic latitu7de (dd:mm:ss)
+charts.prog.event.geolong = Geographic longitude (ddd:mm:ss)
+charts.prog.event.geolonglmt = Offset LMT (ddd:mm:ss)
+charts.prog.event.location = NAme or description for location
+charts.prog.event.time = Time (hh:mm:ss)
+charts.prog.event.timezone = Timezone
+charts.prog.event.title = Event for progressive calculations
+charts.prog.period.enddate = End date of period (yyyy:mm:dd)
+charts.prog.period.explanation = Enter the start date and the end date for the period that you want to calculate progressive positions for. Dates start at 0:00 UT and end at 24:00 UT.
+charts.prog.period.formtitle = Define period
+charts.prog.period.startdate = Start date of period (yyyy:mm:dd)
+charts.prog.period.title = Period for progressive calculations
+
+
+
+
+charts.prog.allpoints = Check to select all points
+charts.prog.exactdate = Date (yyyy:mm:dd)
+charts.prog.exacttime = Time (hh:mm:ss)
+charts.prog.startdate = Start of period (yyyy:mm:dd)
+charts.prog.enddate = End of period (yyyy:mm:dd)
+
 charts.prog.priminput.aspects = Aspects, click checkbox for all
 charts.prog.priminput.converse = Include converse directions
 charts.prog.priminput.formtitle = Primary directions
@@ -223,12 +251,14 @@ charts.prog.syminput.moment = Date event (yyyy/mm/dd)
 charts.prog.syminput.orbaspects  =  Orb for aspects (d:mm:ss)
 charts.prog.syminput.rate = Yearly progression  (d:mm:ss)
 charts.prog.syminput.title =  Enigma - Input symbolic directions
-charts.prog.transitinput.aspects = Aspects, click checkbox for all
+
+
+charts.prog.transitinput.celpoints = Transiting points
+charts.prog.transitinput.exactdatetitle = Select date/time
 charts.prog.transitinput.formtitle = Transits
-charts.prog.transitinput.moment = Date event (yyyy/mm/dd)
-charts.prog.transitinput.orbaspects = Orb for aspects (d:mm:ss)
+charts.prog.transitinput.periodtitle = Define period
 charts.prog.transitinput.title = Enigma - Input transits
-charts.prog.transitinput.transitpoints = Prog. points, click checkbox for all
+
 
 
 -------------------------------- Charts Wheel ----------
