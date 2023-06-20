@@ -15,7 +15,7 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 /// <inheritdoc/>
 public sealed class ChartDataDao : IChartDataDao
 {
-    readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
+    readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_CHARTS;
 
     /// <inheritdoc/>
     public int CountRecords()

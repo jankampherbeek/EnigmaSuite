@@ -15,6 +15,10 @@ public sealed class ProgInputPeriodController
     public List<int> ActualErrorCodes { get; set; } = new();
     public string InputStartDate { get; set; } = "";
     public string InputEndDate { get; set; } = "";
+    public FullDate? FullStartDate { get; set; }
+    public FullDate? FullEndDate { get; set; }
+    public Calendars Calendar { get; set; }
+    public YearCounts YearCount { get; set; }
 
     private readonly IDateInputParser _dateInputParser;
 
@@ -25,19 +29,16 @@ public sealed class ProgInputPeriodController
 
     public bool ProcessInput()
     {
-        Calendars calendar = Calendars.Gregorian;
-        YearCounts yearCount = YearCounts.CE;
-
         ActualErrorCodes = new List<int>();
-        bool startDateSuccess = _dateInputParser.HandleDate(InputStartDate, calendar, yearCount, out FullDate? fullStartDate);
-        bool endDateSuccess = _dateInputParser.HandleDate(InputEndDate, calendar, yearCount, out FullDate? fullEndDate);
+        bool startDateSuccess = _dateInputParser.HandleDate(InputStartDate, Calendar, YearCount, out FullDate? fullStartDate);
+        bool endDateSuccess = _dateInputParser.HandleDate(InputEndDate, Calendar, YearCount, out FullDate? fullEndDate);
         if (!startDateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_STARTDATE);
         if (!endDateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_ENDDATE);
 
-        if (startDateSuccess && endDateSuccess)
+        if (startDateSuccess && endDateSuccess && fullStartDate != null && fullEndDate != null)
         {
-            // TODO functionality: define simpledate, jd etc.
-
+            FullStartDate = fullStartDate;
+            FullEndDate = fullEndDate;
             return true;
         }
         else return false;

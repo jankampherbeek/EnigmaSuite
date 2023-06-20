@@ -50,13 +50,15 @@
         <TextBlock Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2"  Margin="6" Name="tbGeoLat" Text="tbGeoLat" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="8" Grid.Column="0" Margin="6" Name="tbGeoLongValue" Text="" VerticalAlignment="Top" />
         <ComboBox Grid.Row="8" Grid.Column="1" Margin="6" Name="comboLongDir" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
-        <TextBox Grid.Row="8" Grid.Column="2" Margin="6" Name="LatitudeValue" Text="" VerticalAlignment="Top" />
+        <TextBox Grid.Row="8" Grid.Column="2" Margin="6" Name="tbGeoLatValue" Text="" VerticalAlignment="Top" />
         <ComboBox Grid.Row="8" Grid.Column="3" Margin="6" Name="comboLatDir" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
 
-        <TextBlock Grid.Row="10" Grid.ColumnSpan="2" Margin="6" Name="tbDate" Text="tbDate" VerticalAlignment="Bottom" />
-        <TextBlock Grid.Row="10" Grid.Column="2" Margin="6" Name="tbCalendar" Text="tbCalendar" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="10" Margin="6" Name="tbDate" Text="tbDate" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="10" Grid.Column="1" Margin="6" Name="tbCal" Text="tbCal" VerticalAlignment="Bottom" />
+        <TextBlock Grid.Row="10" Grid.Column="2" Grid.ColumnSpan="2" Margin="6" Name="tbYearCount" Text="tbYearCount" VerticalAlignment="Bottom"/>
         <TextBox Grid.Row="11" Grid.ColumnSpan="2" Margin="6" Name="tbDateValue" Text="" VerticalAlignment="Top" />
-        <ComboBox Grid.Row="11" Grid.Column="2" Margin="6" Name="comboCalendar" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <ComboBox Grid.Row="11" Grid.Column="1" Margin="6" Name="comboCal" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
+        <ComboBox Grid.Row="11" Grid.Column="2" Grid.ColumnSpan="2" Margin="6" Name="comboYearCount" Text="" Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>
         <TextBlock Grid.Row="12" Grid.ColumnSpan="2" Margin="6" Name="tbTime" Text="tbTime" VerticalAlignment="Bottom" />
         <TextBlock Grid.Row="12" Grid.Column="2" Margin="6" Name="tbDst" Text="tbDst" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="13" Grid.ColumnSpan="2" Margin="6" Name="tbTimeValue" Text="" VerticalAlignment="Top" />

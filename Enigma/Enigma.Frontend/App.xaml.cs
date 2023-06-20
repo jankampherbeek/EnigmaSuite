@@ -14,6 +14,7 @@ using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Charts.Progressive;
+using Enigma.Frontend.Ui.Charts.Progressive.InputEvent;
 using Enigma.Frontend.Ui.Charts.Progressive.InputPeriod;
 using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 using Enigma.Frontend.Ui.Configuration;
@@ -101,6 +102,7 @@ public partial class App : Application
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<PointSelectController>();
         serviceCollection.AddTransient<PointSelectWindow>();
+        serviceCollection.AddTransient<ProgInputEventController>();
         serviceCollection.AddTransient<ProgInputPeriodController>();
         serviceCollection.AddTransient<ProgInputTransitsController>();
         serviceCollection.AddTransient<ProjectUsageController>();

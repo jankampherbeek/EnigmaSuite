@@ -33,6 +33,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
+        serviceCollection.AddTransient<IEventDataPersistencyApi, IEventDataPersistencyApi>();
         serviceCollection.AddTransient<IFileAccessApi, FileAccessApi>();
         serviceCollection.AddTransient<IDataFileManagementApi, DataFileManagementApi>();
         serviceCollection.AddTransient<IHarmonicsApi, HarmonicsApi>();

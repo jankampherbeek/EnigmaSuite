@@ -195,8 +195,12 @@ public static class EnigmaConstants
     // Locations
     /// <summary>Location of configuration file, contains path and filename.</summary>
     public const string CONFIG_LOCATION = @"c:/enigma_ar/enigmaconfig.json";
-    /// <summary>Name of database.</summary>
-    public const string DATABASE_NAME = @"/ChartsDatabase.json";
+    /// <summary>Name of database for charts.</summary>
+    public const string DATABASE_NAME_CHARTS = @"/ChartsDatabase.json";
+    /// <summary>Name of database for events.</summary>
+    public const string DATABASE_NAME_EVENTS = @"/EventsDatabase.json";
+    /// <summary>Name of database for intersections between charts and events.</summary>
+    public const string DATABASE_NAME_INTER_CHARTS_EVENTS = @"/InterChartsEventsDatabase.json";
     /// <summary>Url to find latest release information.</summary>
     public const string RELEASE_CHECK_URL = @"http://radixpro.com/rel/enigma-ar-latest.json";
 

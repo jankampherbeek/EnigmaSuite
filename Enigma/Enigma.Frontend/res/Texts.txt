@@ -195,6 +195,8 @@ charts.positions.title = Enigma - Radix positions
 -------------------------------- Charts Prog -----------
 charts.prog.event.calendar = Cal.
 charts.prog.event.date = Date (yyyy:mm:dd)
+charts.prog.event.defaultdescription = Event for
+charts.prog.event.defaultlocationname = Unnamed location
 charts.prog.event.description = Description for the event
 charts.prog.event.dst = DST
 charts.prog.event.explanation = Enter data for an event that you want to analyse. The event will remain available for other progressieve techniques for the same chart.
@@ -206,6 +208,7 @@ charts.prog.event.location = NAme or description for location
 charts.prog.event.time = Time (hh:mm:ss)
 charts.prog.event.timezone = Timezone
 charts.prog.event.title = Event for progressive calculations
+
 charts.prog.period.enddate = End date of period (yyyy:mm:dd)
 charts.prog.period.explanation = Enter the start date and the end date for the period that you want to calculate progressive positions for. Dates start at 0:00 UT and end at 24:00 UT.
 charts.prog.period.formtitle = Define period
