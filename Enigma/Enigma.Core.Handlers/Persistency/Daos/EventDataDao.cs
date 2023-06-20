@@ -15,9 +15,15 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 /// <inheritdoc/>
 public sealed class EventDataDao : IEventDataDao
 {
+    private readonly IInterChartEventDao _intersectionDao;
 
     readonly string dbEventsFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_EVENTS;
-    readonly string dbInterChartsEventsFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_INTER_CHARTS_EVENTS;
+
+    EventDataDao(IInterChartEventDao intersectionDao)
+    {
+        _intersectionDao = intersectionDao;
+    }
+
 
     /// <inheritdoc/>
     public int CountRecords()
@@ -69,7 +75,7 @@ public sealed class EventDataDao : IEventDataDao
     public int AddEventData(PersistableEventData eventData, int idChart)
     {
         int idEvent = PerformInsert(eventData);
-        PerformInsertIntersection(idChart, idEvent);
+        _intersectionDao.Insert(idChart, idEvent);
         return idEvent;
     }
 
@@ -84,10 +90,7 @@ public sealed class EventDataDao : IEventDataDao
         return File.Exists(dbEventsFullPath);
     }
 
-    private bool CheckDatabaseInterChartsEvents()
-    {
-        return File.Exists(dbInterChartsEventsFullPath);
-    }
+
 
     private int SearchHighestIndex()
     {
@@ -125,7 +128,7 @@ public sealed class EventDataDao : IEventDataDao
     {
         List<PersistableEventData> recordsFound = new();
         var records = ReadRecordsFromJson();
-        var intersections = ReadInterChartEventRecordsFromJson(); 
+        var intersections = _intersectionDao.ReadAll(); 
         foreach (var record in records)
         {
             foreach (var intersection in intersections)
@@ -162,24 +165,6 @@ public sealed class EventDataDao : IEventDataDao
         };
     }
 
-    private void PerformInsertIntersection(int chartId, int eventId) { 
-        List<InterChartEvent> recordsAsList = ReadInterChartEventRecordsFromJson();
-        try
-        {
-            recordsAsList.Add(new InterChartEvent(chartId, eventId));
-
-            InterChartEvent[] extendedRecords = recordsAsList.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-            var newJson = JsonSerializer.Serialize(extendedRecords, options);
-            File.WriteAllText(dbInterChartsEventsFullPath, newJson);
-        }
-        catch (Exception ex)
-        {
-            string errorTxt = "ChartEventDao.PerformInsertIntersection() using chartId " + chartId + " and eventId " + eventId + "encountered an exception.";
-            Log.Error(errorTxt, ex);
-            throw new Exception(errorTxt, ex);
-        };
-    }
 
     private bool PerformDelete(int index)
     {
@@ -215,7 +200,7 @@ public sealed class EventDataDao : IEventDataDao
     {
         bool success = false;
         List<InterChartEvent> newRecordSet = new();
-        var records = ReadInterChartEventRecordsFromJson();
+        var records = _intersectionDao.ReadAll();
         foreach (var record in records)
         {
             if (record.EventId == eventIndex)
@@ -262,31 +247,12 @@ public sealed class EventDataDao : IEventDataDao
         return records;
     }
 
-    private List<InterChartEvent> ReadInterChartEventRecordsFromJson()
-    {
-        List<InterChartEvent> records = new();
-        if (CheckDatabaseInterChartsEvents())
-        {
-            var json = File.ReadAllText(dbInterChartsEventsFullPath);
-            try
-            {
-                InterChartEvent[] persistableInterChartEventDatas = JsonSerializer.Deserialize<InterChartEvent[]>(json)!;
-                records = persistableInterChartEventDatas.ToList();
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "EventDataDao.ReadInterChartEventRecordsFromJson() encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
-        }
-        return records;
-    }
+
 
     private List<PersistableEventData> ReadEventsForChartFromJsn(int chartId)
     {
         List<PersistableEventData> allEvents = ReadRecordsFromJson();
-        List<InterChartEvent> allIntersections = ReadInterChartEventRecordsFromJson();
+        List<InterChartEvent> allIntersections = _intersectionDao.ReadAll();
         List<PersistableEventData> eventsForChart = new();
         foreach (var eventData in allEvents) {
             foreach (var intersection in allIntersections)

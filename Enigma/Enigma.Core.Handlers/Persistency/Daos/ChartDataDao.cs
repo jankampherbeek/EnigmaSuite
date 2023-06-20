@@ -16,6 +16,13 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 public sealed class ChartDataDao : IChartDataDao
 {
     readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_CHARTS;
+    readonly IInterChartEventDao _intersectionDao;
+
+
+    ChartDataDao(IInterChartEventDao intersectionDao)
+    {
+        _intersectionDao = intersectionDao;
+    }
 
     /// <inheritdoc/>
     public int CountRecords()
@@ -118,6 +125,7 @@ public sealed class ChartDataDao : IChartDataDao
 
     private bool PerformDelete(int index)
     {
+
         bool success = false;
         List<PersistableChartData> newRecordSet = new();
         var records = ReadRecordsFromJson();
@@ -132,6 +140,7 @@ public sealed class ChartDataDao : IChartDataDao
             var options = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true };
             var newJson = JsonSerializer.Serialize(newRecords, options);
             File.WriteAllText(dbFullPath, newJson);
+            _intersectionDao.Delete(index);
         }
         catch (Exception ex)
         {
