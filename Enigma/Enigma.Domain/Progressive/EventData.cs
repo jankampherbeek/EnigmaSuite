@@ -16,7 +16,7 @@ using Enigma.Domain.Calc.DateTime;
 /// <param name="LocationName">Name/description for the location.</param>
 /// <param name="Location">Location related data.</param>
 /// <param name="FullDateTime">Date/time related data.</param>
-public record ChartData
+public record EventData
 {
     public int Id { get; set; }
     public string Description { get; }
@@ -24,12 +24,12 @@ public record ChartData
     public Location Location { get; }
     public FullDateTime FullDateTime { get; }
 
-    public ChartData(int id, string description, string locationName, Location location, FullDateTime fullDateTime)
+    public EventData(int id, string description, string locationName, Location location, FullDateTime fullDateTime)
     {
         Id = id;
         Description = description;
         LocationName = locationName;    
-        Location = Location;
+        Location = location;
         FullDateTime = fullDateTime;
     }
 
