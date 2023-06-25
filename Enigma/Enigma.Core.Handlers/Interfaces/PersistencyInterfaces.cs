@@ -265,19 +265,19 @@ public interface IEventDataDao
 
 /// <summary>DAO for intersection between chart and event.</summary>
 /// <remarks>Should only accessed from other DAO's.</remarks>
-internal interface IInterChartEventDao
+public interface IInterChartEventDao
 {
     /// <summary>Insert intersection.</summary>
     /// <param name="chartId">Id for the chart.</param>
     /// <param name="eventId">Id for the event.</param>
-    void Insert(int chartId, int eventId);
+    public void Insert(int chartId, int eventId);
 
     /// <summary>Read all interesections.</summary>
     /// <returns>List with all intersections.</returns>
-    List<InterChartEvent> ReadAll();
+    public List<InterChartEvent> ReadAll();
 
     /// <summary>Delete all intersections for a specific chart.</summary>
     /// <param name="chartId"></param>
     /// <returns>True if delete was successful.</returns>
-    bool Delete(int chartId);
+    public bool Delete(int chartId);
 }

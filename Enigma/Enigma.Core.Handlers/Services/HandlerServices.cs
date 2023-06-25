@@ -74,6 +74,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDistanceCalculator, DistanceCalculator>();
+        serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
         serviceCollection.AddTransient<IFixedTimeKey, FixedTimeKey>();

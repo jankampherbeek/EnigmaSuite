@@ -19,7 +19,7 @@ public sealed class ChartDataDao : IChartDataDao
     readonly IInterChartEventDao _intersectionDao;
 
 
-    ChartDataDao(IInterChartEventDao intersectionDao)
+    public ChartDataDao(IInterChartEventDao intersectionDao)
     {
         _intersectionDao = intersectionDao;
     }

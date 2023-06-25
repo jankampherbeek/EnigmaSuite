@@ -13,23 +13,23 @@ using System.Text.Json;
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
 /// <inheritdoc/>
-internal sealed class InterChartEventDao: IInterChartEventDao
+public sealed class InterChartEventDao: IInterChartEventDao
 {
     readonly string dbInterChartsEventsFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_INTER_CHARTS_EVENTS;
 
     /// <inheritdoc/>
-    void IInterChartEventDao.Insert(int chartId, int eventId)
+    public void Insert(int chartId, int eventId)
     {
         PerformInsert(chartId, eventId);
     }
 
     /// <inheritdoc/>
-    List<InterChartEvent> IInterChartEventDao.ReadAll()
+    public List<InterChartEvent> ReadAll()
     {
         return ReadRecordsFromJson();
     }
 
-    bool IInterChartEventDao.Delete(int chartId)
+    public bool Delete(int chartId)
     {
         return PerformDelete(chartId);
     }

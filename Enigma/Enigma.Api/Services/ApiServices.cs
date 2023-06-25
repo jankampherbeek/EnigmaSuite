@@ -10,6 +10,7 @@ using Enigma.Api.Calc.CalcChartsRangeApi;
 using Enigma.Api.Communication;
 using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
+using Enigma.Api.Peristency;
 using Enigma.Api.Persistency;
 using Enigma.Api.Research;
 using Enigma.Core.Handlers.Services;
@@ -33,7 +34,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
-        serviceCollection.AddTransient<IEventDataPersistencyApi, IEventDataPersistencyApi>();
+        serviceCollection.AddTransient<IEventDataPersistencyApi, EventDataPersistencyApi>();
         serviceCollection.AddTransient<IFileAccessApi, FileAccessApi>();
         serviceCollection.AddTransient<IDataFileManagementApi, DataFileManagementApi>();
         serviceCollection.AddTransient<IHarmonicsApi, HarmonicsApi>();
