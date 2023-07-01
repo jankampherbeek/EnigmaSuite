@@ -612,8 +612,8 @@ public partial class AstroConfigWindow : Window
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointSpecs = new()
         {
             { ChartPoints.Sun, new ChartPointConfigSpecs(cboxSun.IsChecked ?? false, 'a', NumericFactor(tboxSunFactor.Text)) },
-            { ChartPoints.Moon, new ChartPointConfigSpecs(cboxMoon.IsChecked ?? false, 'a', NumericFactor(tboxMoonFactor.Text)) },
-            { ChartPoints.Mercury, new ChartPointConfigSpecs(cboxMercury.IsChecked ?? false, 'a', NumericFactor(tboxMercuryFactor.Text)) },
+            { ChartPoints.Moon, new ChartPointConfigSpecs(cboxMoon.IsChecked ?? false, 'b', NumericFactor(tboxMoonFactor.Text)) },
+            { ChartPoints.Mercury, new ChartPointConfigSpecs(cboxMercury.IsChecked ?? false, 'c', NumericFactor(tboxMercuryFactor.Text)) },
             { ChartPoints.Venus, new ChartPointConfigSpecs(cboxVenus.IsChecked ?? false, 'd', NumericFactor(tboxVenusFactor.Text))},
             { ChartPoints.Mars, new ChartPointConfigSpecs(cboxMars.IsChecked ?? false, 'f', NumericFactor(tboxMarsFactor.Text))},
             { ChartPoints.Jupiter, new ChartPointConfigSpecs(cboxJupiter.IsChecked ?? false, 'g', NumericFactor(tboxJupiterFactor.Text))},

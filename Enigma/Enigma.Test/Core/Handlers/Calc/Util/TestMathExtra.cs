@@ -74,5 +74,117 @@ internal class TestMathExtra
         Assert.That(MathExtra.RadToDeg(radians), Is.EqualTo(expectedDegrees).Within(_delta));
     }
 
+    [Test]
+    public void TestAscensionalDifference()
+    {
+        // Values based on example by Gansten in Primary Directions, p. 151.
+        double decl = 18.16666666667;
+        double geoLat = 58.2666666666667;
+        double expected = 32.04675727201;
+        double actual = MathExtra.AscensionalDifference(geoLat, decl);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestObliqueAscension()
+    {
+        // Values based on example by Gansten in Primary Directions, p. 151.
+        bool north = true;
+        bool east = true;
+        double raPoint = 130.83333333333;
+        double ascDiff = 32.04675727201;
+        double expected = 98.78657606132;
+        double actual = MathExtra.ObliqueAscension(raPoint, ascDiff, east, north);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestHorizontalDistance()
+    {
+        bool easternHemiSphere = false;
+        double oaPoint = 288.0;
+        double oaAsc = 247.0;
+        double expected = 41.0;
+        double actual = MathExtra.HorizontalDistance(oaPoint, oaAsc, easternHemiSphere);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestIsEasternHemiSphereIsTrue()
+    {
+        double raMc = 337.966666666667;
+        double raPoint = 130.83333333333;
+        Assert.That(MathExtra.IsEasternHemiSphere(raPoint, raMc), Is.True);
+    }
+
+    [Test]
+    public void TestIsEasternHemiSphereIsFalse()
+    {
+        double raMc = 337.966666666667;
+        double raPoint = 230.83333333333;
+        Assert.That(MathExtra.IsEasternHemiSphere(raPoint, raMc), Is.False);
+    }
+
+    [Test]
+    public void TestRegiomontanianPole()
+    {
+        double declFixPoint = 18.166666666667;
+        double upperMdFixPoint = 152.866666666667;
+        double geoLat = 58.2666666666667;
+        double expected = 51.78626254060;
+        double actual = MathExtra.RegiomontanianPole(geoLat, declFixPoint, upperMdFixPoint);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestBianchinianLatitude()
+    {
+        double angle = 20.0;
+        double latitude = 3;
+        double expected = 2.33333333333;
+        double actual = MathExtra.BianchinianLatitude(latitude, angle);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestBianchinianLatitudeForSquare()
+    {
+        double angle = 90.0;
+        double latitude = 3;
+        double expected = 0.0;
+        double actual = MathExtra.BianchinianLatitude(latitude, angle);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestBianchinianLatitudeForSextile()
+    {
+        double angle = 60.0;
+        double latitude = 3;
+        double expected = 1.0;
+        double actual = MathExtra.BianchinianLatitude(latitude, angle);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestBianchinianLatitudeForTrine()
+    {
+        double angle = 120.0;
+        double latitude = 3;
+        double expected = -1.0;
+        double actual = MathExtra.BianchinianLatitude(latitude, angle);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
+    [Test]
+    public void TestBianchinianLatitudeForOpposition()
+    {
+        double angle = 180.0;
+        double latitude = 3;
+        double expected = -3.0;
+        double actual = MathExtra.BianchinianLatitude(latitude, angle);
+        Assert.That(actual, Is.EqualTo(expected).Within(_delta));
+    }
+
 }
 

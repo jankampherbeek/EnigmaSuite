@@ -29,6 +29,7 @@ public static class ErrorCodes
     /// <summary>Error: conversion from csv to Json was invalid.</summary>
     public const int ERR_CSV_JSON_CONVERSION = 1008;
 
+
     // errors for research project
     /// <summary>Error: research name is invalid. </summary>
     public const int ERR_RESEARCH_NAME_INVALID = 1009;
@@ -53,4 +54,10 @@ public static class ErrorCodes
     /// <summary>Error: could not create results folder as subfolder in projectfolder.</summary>
     public const int ERR_RESEARCH_CANNOT_CREATE_RESULTSFOLDER = 1019;
 
+    // general errors
+
+    /// <summary>Error: startdate is invalid.</summary>
+    public const int ERR_INVALID_STARTDATE = 1020;
+    /// <summary>Error: enddate is invalid.</summary>
+    public const int ERR_INVALID_ENDDATE = 1021;
 }

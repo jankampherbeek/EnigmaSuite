@@ -122,6 +122,14 @@ chartsmainwindow.menu.manual = User manual
 chartsmainwindow.menu.midpoints = Midpoints
 chartsmainwindow.menu.newchart = New chart
 chartsmainwindow.menu.positions = Show positions
+
+chartsmainwindow.menu.progressive = Progressive
+chartsmainwindow.menu.progressivepd = Primary directions
+chartsmainwindow.menu.progressivesolar = Solar returns
+chartsmainwindow.menu.progressivesp = Secundary progressions
+chartsmainwindow.menu.progressivesym = Symbolic directions
+chartsmainwindow.menu.progressivetrans = Transits
+
 chartsmainwindow.menu.wheel = Show wheel
 chartsmainwindow.msg.confirmdeletechart = Do you want to delete the chart for [name] from the database?
 chartsmainwindow.msg.confirmdeletetitle = Delete chart.
@@ -183,6 +191,78 @@ charts.positions.rating = Rodden Rating:
 charts.positions.source = Source:
 charts.positions.source.empty = Source not defined
 charts.positions.title = Enigma - Radix positions
+
+-------------------------------- Charts Prog -----------
+charts.prog.event.calendar = Cal.
+charts.prog.event.date = Date (yyyy:mm:dd)
+charts.prog.event.defaultdescription = Event for
+charts.prog.event.defaultlocationname = Unnamed location
+charts.prog.event.description = Description for the event
+charts.prog.event.dst = DST
+charts.prog.event.explanation = Enter data for an event that you want to analyse. The event will remain available for other progressieve techniques for the same chart.
+charts.prog.event.formtitle = Define event
+charts.prog.event.geoLat = Geographic latitu7de (dd:mm:ss)
+charts.prog.event.geolong = Geographic longitude (ddd:mm:ss)
+charts.prog.event.geolonglmt = Offset LMT (ddd:mm:ss)
+charts.prog.event.location = NAme or description for location
+charts.prog.event.time = Time (hh:mm:ss)
+charts.prog.event.timezone = Timezone
+charts.prog.event.title = Event for progressive calculations
+
+charts.prog.period.enddate = End date of period (yyyy:mm:dd)
+charts.prog.period.explanation = Enter the start date and the end date for the period that you want to calculate progressive positions for. Dates start at 0:00 UT and end at 24:00 UT.
+charts.prog.period.formtitle = Define period
+charts.prog.period.startdate = Start date of period (yyyy:mm:dd)
+charts.prog.period.title = Period for progressive calculations
+
+
+
+
+charts.prog.allpoints = Check to select all points
+charts.prog.exactdate = Date (yyyy:mm:dd)
+charts.prog.exacttime = Time (hh:mm:ss)
+charts.prog.startdate = Start of period (yyyy:mm:dd)
+charts.prog.enddate = End of period (yyyy:mm:dd)
+
+charts.prog.priminput.aspects = Aspects, click checkbox for all
+charts.prog.priminput.converse = Include converse directions
+charts.prog.priminput.formtitle = Primary directions
+charts.prog.priminput.moment1 = Date moment/start period (yyyy/mm/dd)
+charts.prog.priminput.moment2 = Optional date end period (yyyy/mm/dd)
+charts.prog.priminput.orbaspects = Orb for aspects (d:mm:ss)
+charts.prog.priminput.primdirtype = Primary direction type
+charts.prog.priminput.promissors = Promissors, click checkbox for all
+charts.prog.priminput.selections = Overview of selections
+charts.prog.priminput.significators = Significators, click checkbox for all
+charts.prog.priminput.timekey = Time key
+charts.prog.priminput.title =  Enigma - Input primary directions
+charts.prog.secinput.aspects =  Aspects, click checkbox for all
+charts.prog.secinput.formtitle = Secundary progressions
+charts.prog.secinput.moment =  Date event (yyyy/mm/dd)
+charts.prog.secinput.orbaspects =  Orb for aspects (d:mm:ss)
+charts.prog.secinput.secpoints = Prog. points, click checkbox for all
+charts.prog.secinput.title Enigma - Input secundary progressions
+charts.prog.solarinput.age = Age (in years)
+charts.prog.solarinput.title = Enigma - solar return
+charts.prog.solarinput.formtitle = Solar return
+charts.prog.solarinput.geolat = Geographic latitude (dd:mm:ss)
+charts.prog.solarinput.geolong = Geographic longitude (ddd:mm:ss)
+charts.prog.solarinput.orbaspects = Orb for aspects (d:mm:ss)
+charts.prog.solarinput.relocation = Optional relocation
+charts.prog.syminput.formtitle = Symbolic directions
+charts.prog.syminput.moment = Date event (yyyy/mm/dd)
+charts.prog.syminput.orbaspects  =  Orb for aspects (d:mm:ss)
+charts.prog.syminput.rate = Yearly progression  (d:mm:ss)
+charts.prog.syminput.title =  Enigma - Input symbolic directions
+
+
+charts.prog.transitinput.celpoints = Transiting points
+charts.prog.transitinput.exactdatetitle = Select date/time
+charts.prog.transitinput.formtitle = Transits
+charts.prog.transitinput.periodtitle = Define period
+charts.prog.transitinput.title = Enigma - Input transits
+
+
 
 -------------------------------- Charts Wheel ----------
 charts.wheel.title = Enigma - Chart wheel
@@ -283,7 +363,7 @@ harmonicdetailswindow.warningorb = The values for the orb are not correct. Pleas
 -------------------------- HelpWindow -----------------
 -- HelpWindow -----------------------------------------
 helpwindow.title = Enigma - Helppage
-helpwindow.manual = The User Manual is available in the folder doc in the folder where Enigma is installed, typically C:\Program Files (x86)\Enigma Astrology Research\doc
+helpwindow.manual = The User Manual is available at c:\enigma_ar\UserManual_0.2.pdf
 
 -------------------------- IO messages ----------------
 
@@ -323,16 +403,15 @@ pointselectwindow.warningnrofpoints = Please select more points. The minimal num
 
 -------------------------------- Project input window --
 
-projectinputwindow.controlgroupinfo = Control group
-projectinputwindow.controlgrouptype = Select the type of control group
-projectinputwindow.datafile = Select the data file
-projectinputwindow.datainfo = Data file to be used
+projectinputwindow.controlgroupinfo = Controlgroup
+projectinputwindow.controlgrouptype = Select the type of controlgroup
+projectinputwindow.datafile = Select the datafile
+projectinputwindow.datainfo = Datafile to be used
 projectinputwindow.description = Description
 projectinputwindow.formtitle = Create new project
 projectinputwindow.generalinfo = Name and description for project
-projectinputwindow.multiplication = Multiplication control group
+projectinputwindow.multiplication = Multiplication controlgroup
 projectinputwindow.name = Name for project
-projectinputwindow.nameexists = Name for project already exists
 projectinputwindow.projectsaved = The project has been saved
 projectinputwindow.title = Enigma - Project creation
 
@@ -346,9 +425,9 @@ projectusagewindow.btnperformtest = Perform test
 projectusagewindow.details.name = Project name
 projectusagewindow.details.description = Description
 projectusagewindow.details.date = Creation date
-projectusagewindow.details.dataname = Name of data set
+projectusagewindow.details.dataname = Name of dataset
 projectusagewindow.details.controlgrouptype = Type of control group
-projectusagewindow.details.multiplication = Multiplication control group
+projectusagewindow.details.multiplication = Multiplication controlgroup
 
 -------------------------------- References ------------
 
@@ -588,6 +667,24 @@ ref.enum.pointcats.common = Planets and comparable points
 ref.enum.pointcats.cusp = Cusps
 ref.enum.pointcats.fixstar = Fix star
 ref.enum.pointcats.zodiac = Zodiac points
+
+ref.enum.primarykey.brahelong = Brahe (Longitude)
+ref.enum.primarykey.brahera = Brahe (RA)
+ref.enum.primarykey.naibodlong = Naibod (Longitude)
+ref.enum.primarykey.naibodra = Naibod (RA)
+ref.enum.primarykey.placiduslong = Placidus (Longitude)
+ref.enum.primarykey.placidusra = Placidus (RA)
+ref.enum.primarykey.ptolemylong = Ptolemy (Longitude)
+ref.enum.primarykey.ptolemyra = Ptolemy (RA)
+
+ref.enum.primarysystem.campanusmun = Campanus (mundane)
+ref.enum.primarysystem.campanuszod = Campanus (zodiacal)
+ref.enum.primarysystem.placidusmun  = Placidus (mundane)
+ref.enum.primarysystem.placiduszod  = Placidus (zodiacal)
+ref.enum.primarysystem.placidusunderpolemun  = Placidus under the pole (mundane)
+ref.enum.primarysystem.placidusunderpolezod  = Placidus under the pole (zodiacal)
+ref.enum.primarysystem.regiomontanusmun = Regiomontanus (mundane)
+ref.enum.primarysystem.regiomontanuszod = Regiomontanus (zodiacal)
 
 ref.enum.projectiontype.twodimensional = Standard (two-dimensional)
 ref.enum.projectiontype.obliquelongitude = Oblique longitude

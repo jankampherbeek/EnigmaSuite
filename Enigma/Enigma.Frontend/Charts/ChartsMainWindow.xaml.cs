@@ -63,6 +63,13 @@ public partial class ChartsMainWindow : Window
         miAnalysisHarmonics.Header = Rosetta.TextForId("chartsmainwindow.menu.harmonics");
         miAnalysisMidpoints.Header = Rosetta.TextForId("chartsmainwindow.menu.midpoints");
 
+        miProgressive.Header = Rosetta.TextForId("chartsmainwindow.menu.progressive");
+        miProgressivePD.Header = Rosetta.TextForId("chartsmainwindow.menu.progressivepd");
+        miProgressiveSP.Header = Rosetta.TextForId("chartsmainwindow.menu.progressivesp");
+        miProgressiveTrans.Header = Rosetta.TextForId("chartsmainwindow.menu.progressivetrans");
+        miProgressiveSym.Header = Rosetta.TextForId("chartsmainwindow.menu.progressivesym");
+        miProgressiveSolar.Header = Rosetta.TextForId("chartsmainwindow.menu.progressivesolar");
+
         miHelp.Header = Rosetta.TextForId("chartsmainwindow.menu.help");
         miHelpAbout.Header = Rosetta.TextForId("chartsmainwindow.menu.helpabout");
         miHelpPage.Header = Rosetta.TextForId("chartsmainwindow.menu.helppage");
@@ -212,6 +219,33 @@ public partial class ChartsMainWindow : Window
     {
         _controller.ShowMidpoints();
     }
+
+
+    private void PrimDirClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowInputPrimDir();
+    }
+
+    private void SecProgClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowInputSecProg();
+    }
+
+    private void TransClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowInputTransProg();
+    }
+
+    private void SymDirClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowInputSymProg();
+    }
+
+    private void SolarClick(object sender, RoutedEventArgs e)
+    {
+        _controller.ShowInputSolarProg();
+    }
+
 
     private void HelpAboutClick(object sender, RoutedEventArgs e)
     {

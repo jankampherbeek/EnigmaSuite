@@ -16,6 +16,7 @@ using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Calc.DateTime.Helpers;
 using Enigma.Core.Handlers.Calc.Helpers;
 using Enigma.Core.Handlers.Calc.Mundane.Helpers;
+using Enigma.Core.Handlers.Calc.Progressive;
 using Enigma.Core.Handlers.Calc.Specials;
 using Enigma.Core.Handlers.Calc.Specials.Helpers;
 using Enigma.Core.Handlers.Communication;
@@ -28,7 +29,6 @@ using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Persistency.Daos;
 using Enigma.Core.Handlers.Persistency.Helpers;
 using Enigma.Core.Handlers.Research.Services;
-using Enigma.Frontend.Ui.Support;
 using EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -74,8 +74,10 @@ public static class HandlerServices
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDistanceCalculator, DistanceCalculator>();
+        serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
+        serviceCollection.AddTransient<IFixedTimeKey, FixedTimeKey>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IFullPointPosFactory, FullPointPosFactory>();
         serviceCollection.AddTransient<IHarmonicsCalculator, HarmonicsCalculator>();
@@ -85,6 +87,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
+        serviceCollection.AddTransient<IInterChartEventDao, InterChartEventDao>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
@@ -95,13 +98,16 @@ public static class HandlerServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
-        serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
+        serviceCollection.AddTransient<IPlacidusTimeKey, PlacidusTimeKey>();
+        serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
+        serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
         serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
+        serviceCollection.AddTransient<ITimeKeyCalculator, TimeKeyCalculator>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
         serviceCollection.RegisterResearchServices();

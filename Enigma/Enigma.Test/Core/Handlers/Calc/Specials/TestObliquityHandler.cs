@@ -30,10 +30,26 @@ public class TestObliquityHandler
     }
 
 
+    [Test]
+    public void TextSeException()
+    {
+        Mock<IObliquityCalc> calcExceptionMock = CreateCalcMockThrowingException();
+        IObliquityHandler handler = new ObliquityHandler(calcExceptionMock.Object);
+        var _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(_jdUt, false)));
+    }
+
     private Mock<IObliquityCalc> CreateCalcMock()
     {
         var mock = new Mock<IObliquityCalc>();
         mock.Setup(p => p.CalculateObliquity(_jdUt, false)).Returns(_expectedMeanObliquity);
+        return mock;
+    }
+
+    private Mock<IObliquityCalc> CreateCalcMockThrowingException()
+    {
+        var mock = new Mock<IObliquityCalc>();
+        var exception = new SwissEphException(_errorText);
+        mock.Setup(p => p.CalculateObliquity(_jdUt, false)).Throws(exception);
         return mock;
     }
 

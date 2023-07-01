@@ -206,3 +206,78 @@ public interface IChartDataDao
     public bool DeleteChartData(int index);
 
 }
+
+/// <summary>DAO for event data.</summary>
+public interface IEventDataDao
+{
+    /// <summary>Count all records.</summary>
+    /// <returns>The total number of records.</returns>
+    public int CountRecords();
+
+    /// <summary>Count all records that have an intersection with a specific chart.</summary>
+    /// <returns>The total number of records.</returns>
+    public int CountRecords(int chartId);
+
+    /// <summary>Define the highest index as used by the records.</summary>
+    /// <returns>Value of the highest index.</returns>
+    public int HighestIndex();
+
+    /// <summary>Read event data for a given index.</summary>
+    /// <param name="index">The index to check.</param>
+    /// <returns>If found: the record that corresponds to the given index, otherwise null.</returns>
+    public PersistableEventData? ReadEventData(int index);
+
+    /// <summary>Read event data that are connected to a specific chart.</summary>
+    /// <param name="chartId">Id of hte chart.</param>
+    /// <returns>List with zero or more records that are found.</returns>
+    public List<PersistableEventData> SearchEventData(int chartId);
+
+    /// <summary>Search for records using a part of the description as searchargument.</summary>
+    /// <remarks>Search is case-insensitive.</remarks>
+    /// <param name="partOfDescription">The search argument.</param>
+    /// <returns>List with zero or more records that are found.</returns>
+    public List<PersistableEventData> SearchEventData(string partOfDescription);
+
+    /// <summary>Read all eventdata.</summary>
+    /// <returns>List with all records.</returns>
+    public List<PersistableEventData> ReadAllEventData();
+
+    /// <summary>Insert a new record.</summary>
+    /// <param name="eventData">The record to insert.</param>
+    /// <remarks>The id of the record is overwritten with the first available new index.</remarks>
+    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
+    public int AddEventData(PersistableEventData eventData);
+
+    /// <summary>Insert a new record and add an intersection.</summary>
+    /// <param name="eventData">The record to insert.</param>
+    /// <param name="idChart">Id of the chart that will be added to the intersection.</param>
+    /// <remarks>The id of the record is overwritten with the first available new index.</remarks>
+    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
+    public int AddEventData(PersistableEventData eventData, int idChart);
+
+    /// <summary>Delete a record for an event and any intersection records that refer to this event.</summary>
+    /// <param name="index">The index of the record to delete.</param>
+    /// <returns>True if the record was deleted, false if the record was not found.</returns>
+    public bool DeleteEventData(int index);
+
+}
+
+
+/// <summary>DAO for intersection between chart and event.</summary>
+/// <remarks>Should only accessed from other DAO's.</remarks>
+public interface IInterChartEventDao
+{
+    /// <summary>Insert intersection.</summary>
+    /// <param name="chartId">Id for the chart.</param>
+    /// <param name="eventId">Id for the event.</param>
+    public void Insert(int chartId, int eventId);
+
+    /// <summary>Read all interesections.</summary>
+    /// <returns>List with all intersections.</returns>
+    public List<InterChartEvent> ReadAll();
+
+    /// <summary>Delete all intersections for a specific chart.</summary>
+    /// <param name="chartId"></param>
+    /// <returns>True if delete was successful.</returns>
+    public bool Delete(int chartId);
+}

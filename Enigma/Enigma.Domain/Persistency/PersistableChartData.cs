@@ -10,7 +10,7 @@ namespace Enigma.Domain.Persistency;
 
 /// <summary>Representation of chartdata to be saved in Json format</summary>
 /// <remarks>The format is flat to simplify the corresponding Json structure.</remarks>
-public class PersistableChartData
+public sealed class PersistableChartData
 {
     /// <summary>Unique id for the chart.</summary>
     public int Id { get; set; }

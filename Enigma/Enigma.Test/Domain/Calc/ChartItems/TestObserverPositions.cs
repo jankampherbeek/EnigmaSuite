@@ -33,9 +33,12 @@ public class TestObserverPositionSpecifications
     {
         foreach (ObserverPositions position in Enum.GetValues(typeof(ObserverPositions)))
         {
-            ObserverPositionDetails details = position.GetDetails();
-            Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            if (position != ObserverPositions.None)
+            {
+                ObserverPositionDetails details = position.GetDetails();
+                Assert.That(details, Is.Not.Null);
+                Assert.That(details.TextId, Is.Not.Empty);
+            }
         }
     }
 
@@ -62,9 +65,9 @@ public class TestObserverPositionSpecifications
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));
-            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.observerposition.heliocentric"));
-            Assert.That(allDetails[1].Position, Is.EqualTo(ObserverPositions.GeoCentric));
-            Assert.That(allDetails[2].ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
+            Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.observerposition.heliocentric"));
+            Assert.That(allDetails[0].Position, Is.EqualTo(ObserverPositions.GeoCentric));
+            Assert.That(allDetails[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
         });
     }
 

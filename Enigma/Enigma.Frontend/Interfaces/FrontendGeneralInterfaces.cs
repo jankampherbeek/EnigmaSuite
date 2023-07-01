@@ -9,6 +9,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
+using Enigma.Domain.Progressive;
 using System.Collections.Generic;
 
 namespace Enigma.Frontend.Ui.Interfaces;
@@ -124,6 +125,21 @@ public interface IChartDataConverter
     /// <param name="chartData"/>
     /// <returns>Resulting PersistableChartData.</returns>
     public PersistableChartData ToPersistableChartData(ChartData chartData);
+
+}
+
+/// <summary>Conversion to and from EventData/PersistebleEventData.</summary>
+public interface IEventDataConverter
+{
+    /// <summary>Convert PersistableEventData to EventData.</summary>
+    /// <param name="persistableEventData"/>
+    /// <returns>Resulting EventData.</returns>
+    public EventData FromPersistableEventData(PersistableEventData persistableeventData);
+
+    /// <summary>Convert EventData to PersistableEventData.</summary>
+    /// <param name="eventData"/>
+    /// <returns>Resulting PersistableEventData.</returns>
+    public PersistableEventData ToPersistableEventData(EventData eventData);
 
 }
 

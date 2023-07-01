@@ -11,7 +11,7 @@ namespace Enigma.Domain.Calc.ChartItems;
 /// <summary>Observer positions, the center points for the calculation of positions of celestial bodies.</summary>
 public enum ObserverPositions
 {
-    HelioCentric = 0, GeoCentric = 1, TopoCentric = 2
+    None = 0, GeoCentric = 1, TopoCentric = 2, HelioCentric = 3
 }
 
 /// <summary>Details for an observer Position.</summary>
@@ -47,7 +47,10 @@ public static class ObserverPositionsExtensions
         var allDetails = new List<ObserverPositionDetails>();
         foreach (ObserverPositions currentPosition in Enum.GetValues(typeof(ObserverPositions)))
         {
-            allDetails.Add(currentPosition.GetDetails());
+            if (currentPosition != ObserverPositions.None) 
+            {
+                allDetails.Add(currentPosition.GetDetails());
+            }
         }
         return allDetails;
     }
@@ -60,7 +63,7 @@ public static class ObserverPositionsExtensions
     {
         foreach (ObserverPositions currentObsPos in Enum.GetValues(typeof(ObserverPositions)))
         {
-            if ((int)currentObsPos == index) return currentObsPos;
+            if ((int)currentObsPos == index && currentObsPos != ObserverPositions.None) return currentObsPos;
         }
         string errorText = "ObserverPositions.ObserverPositionForIndex(): Could not find Observer Position for index : " + index;
         Log.Error(errorText);

@@ -7,16 +7,22 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
-using Newtonsoft.Json;
 using Serilog;
-
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
 /// <inheritdoc/>
 public sealed class ChartDataDao : IChartDataDao
 {
-    readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
+    readonly string dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_CHARTS;
+    readonly IInterChartEventDao _intersectionDao;
+
+
+    public ChartDataDao(IInterChartEventDao intersectionDao)
+    {
+        _intersectionDao = intersectionDao;
+    }
 
     /// <inheritdoc/>
     public int CountRecords()
@@ -103,7 +109,8 @@ public sealed class ChartDataDao : IChartDataDao
             chartData.Id = newIndex;
             recordsAsList.Add(chartData);
             PersistableChartData[] extendedRecords = recordsAsList.ToArray();
-            var newJson = JsonConvert.SerializeObject(extendedRecords);
+            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
+            var newJson = JsonSerializer.Serialize(extendedRecords, options);
             File.WriteAllText(dbFullPath, newJson);
             return newIndex;
         }
@@ -118,6 +125,7 @@ public sealed class ChartDataDao : IChartDataDao
 
     private bool PerformDelete(int index)
     {
+
         bool success = false;
         List<PersistableChartData> newRecordSet = new();
         var records = ReadRecordsFromJson();
@@ -129,8 +137,10 @@ public sealed class ChartDataDao : IChartDataDao
         try
         {
             PersistableChartData[] newRecords = newRecordSet.ToArray();
-            var newJson = JsonConvert.SerializeObject(newRecords);
+            var options = new JsonSerializerOptions { WriteIndented = true , IncludeFields = true };
+            var newJson = JsonSerializer.Serialize(newRecords, options);
             File.WriteAllText(dbFullPath, newJson);
+            _intersectionDao.Delete(index);
         }
         catch (Exception ex)
         {
@@ -149,7 +159,7 @@ public sealed class ChartDataDao : IChartDataDao
             var json = File.ReadAllText(dbFullPath);
             try
             {
-                PersistableChartData[] persistableChartDatas = JsonConvert.DeserializeObject<PersistableChartData[]>(json);
+                PersistableChartData[] persistableChartDatas = JsonSerializer.Deserialize<PersistableChartData[]>(json)!;
                 records = persistableChartDatas.ToList();
             }
             catch (Exception ex)

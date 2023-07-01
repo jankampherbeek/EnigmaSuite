@@ -6,7 +6,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Communication;
 using Enigma.Domain.Constants;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Communication;
 
@@ -30,7 +30,7 @@ public class CommunicationHandler : ICommunicationHandler
         }
         else
         {
-            return JsonConvert.DeserializeObject<ReleaseInfo>(json);
+            return JsonSerializer.Deserialize<ReleaseInfo>(json)!;
         }
     }
 

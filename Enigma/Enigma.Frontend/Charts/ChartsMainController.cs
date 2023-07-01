@@ -8,6 +8,8 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Charts.Graphics;
+using Enigma.Frontend.Ui.Charts.Progressive;
+using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
@@ -183,6 +185,41 @@ public sealed class ChartsMainController
         _chartHarmonicsWindow.Populate();
     }
 
+    public void ShowInputPrimDir()
+    {
+        ChartProgPrimInput primInput = new ChartProgPrimInput();
+        OpenWindow(primInput);
+        primInput.Populate();
+    }
+
+
+    public void ShowInputSecProg()
+    {
+        ChartProgSecInput secInput = new ChartProgSecInput();
+        OpenWindow(secInput);
+        secInput.Populate();
+    }
+
+    public void ShowInputTransProg()
+    {
+        ProgInputTransits transInput = new();
+        OpenWindow(transInput);
+        transInput.Populate();
+    }
+
+
+    public void ShowInputSymProg()
+    {
+        ChartProgSymInput symInput = new ChartProgSymInput();
+        OpenWindow(symInput);
+        symInput.Populate();
+    }
+    public void ShowInputSolarProg()
+    {
+        ChartProgSolarInput solarInput = new ChartProgSolarInput();
+        OpenWindow(solarInput);
+        solarInput.Populate();
+    }
 
     public static void ShowAbout()
     {

@@ -5,7 +5,7 @@
 
 using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Persistency;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
@@ -14,30 +14,29 @@ namespace Enigma.Core.Handlers.Research.Helpers;
 /// <inheritdoc/>
 public sealed class InputDataConverter : IInputDataConverter
 {
+
     /// <inheritdoc/>
     public string MarshallInputItem(StandardInputItem inputItem)
     {
-        return JsonConvert.SerializeObject(inputItem, Formatting.Indented);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        return JsonSerializer.Serialize(inputItem, options);
     }
 
     /// <inheritdoc/>
     public StandardInputItem UnMarshallInputItem(string jsonString)
     {
-        return JsonConvert.DeserializeObject<StandardInputItem>(jsonString)!;
+        return JsonSerializer.Deserialize<StandardInputItem>(jsonString)!;
     }
 
     public string MarshallStandardInput(StandardInput standardInput)
     {
-        return JsonConvert.SerializeObject(standardInput, Formatting.Indented);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        return JsonSerializer.Serialize(standardInput, options);
     }
 
     public StandardInput UnMarshallStandardInput(string jsonString)
     {
-        return JsonConvert.DeserializeObject<StandardInput>(jsonString)!;
+        return JsonSerializer.Deserialize<StandardInput>(jsonString)!;
     }
-
-
-
-
 
 }
