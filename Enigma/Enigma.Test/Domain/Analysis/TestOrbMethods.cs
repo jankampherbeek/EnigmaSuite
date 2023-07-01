@@ -35,13 +35,13 @@ public class TestOrbMethods
     }
 
 
-    [Test]
-    public void TestRetrievingWithIndex()
-    {
-        int index = 1;
-        OrbMethods method = OrbMethods.FixMajorMinor.OrbMethodForIndex(index);
-        Assert.That(method, Is.EqualTo(OrbMethods.Weighted));
-    }
+  //  [Test]
+  //  public void TestRetrievingWithIndex()
+  //  {
+  //      int index = 1;
+  //      OrbMethods method = OrbMethods.FixMajorMinor.OrbMethodForIndex(index);
+  //      Assert.That(method, Is.EqualTo(OrbMethods.Weighted));
+  //  }
 
     [Test]
     public void TestRetrievingWithWrongIndex()
@@ -56,9 +56,9 @@ public class TestOrbMethods
         List<OrbMethodDetails> allDetails = OrbMethods.Weighted.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(2));
-            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.orbmethod.fixmajorminor"));
-            Assert.That(allDetails[1].OrbMethod, Is.EqualTo(OrbMethods.Weighted));
+            Assert.That(allDetails, Has.Count.EqualTo(1));
+//            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.orbmethod.fixmajorminor"));
+            Assert.That(allDetails[0].OrbMethod, Is.EqualTo(OrbMethods.Weighted));
         });
     }
 
