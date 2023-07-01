@@ -29,6 +29,7 @@ using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Persistency.Daos;
 using Enigma.Core.Handlers.Persistency.Helpers;
 using Enigma.Core.Handlers.Research.Services;
+using Enigma.Frontend.Ui.Support;
 using EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -98,6 +99,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
         serviceCollection.AddTransient<IPlacidusTimeKey, PlacidusTimeKey>();
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
