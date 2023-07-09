@@ -47,7 +47,7 @@ public partial class MainWindow : Window
 
     private void PopulateTexts()
     {
-        Title = Rosetta.TextForId("mainwindow.title") + " " + EnigmaConstants.ENIGMA_VERSION;
+        Title = Rosetta.TextForId("mainwindow.title") + " " + EnigmaConstants.EnigmaVersion;
         tbFormTitle.Text = Rosetta.TextForId("mainwindow.formtitle");
         tbSubTitle.Text = Rosetta.TextForId("mainwindow.subtitle");
         tbExplanation.Text = Rosetta.TextForId("mainwindow.explanation");

@@ -10,7 +10,6 @@ using Enigma.Api.Calc.CalcChartsRangeApi;
 using Enigma.Api.Communication;
 using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
-using Enigma.Api.Peristency;
 using Enigma.Api.Persistency;
 using Enigma.Api.Research;
 using Enigma.Core.Handlers.Services;

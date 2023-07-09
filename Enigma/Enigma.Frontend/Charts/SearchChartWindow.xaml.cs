@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Uit.Charts;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 using System.Windows.Controls;

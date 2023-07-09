@@ -59,7 +59,7 @@ public class GeoLatValidator : IGeoLatValidator
     private void CalculateLatitude()
     {
         int factor = _direction == Directions4GeoLat.North ? 1 : -1;
-        _latitude = (_latValues[0] + ((double)_latValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)_latValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE)) * factor;
+        _latitude = (_latValues[0] + ((double)_latValues[1] / EnigmaConstants.MinutesPerHourDegree) + ((double)_latValues[2] / EnigmaConstants.SecondsPerHourDegree)) * factor;
 
     }
 }

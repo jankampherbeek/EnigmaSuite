@@ -64,7 +64,7 @@ public class TestCelPointCalc
     {
         var _location = new Location("", 52.0, 6.0);
         var _mockCalcUtFacade = new Mock<ICalcUtFacade>();
-        _mockCalcUtFacade.Setup(p => p.PositionFromSe(_julianDayUt, EnigmaConstants.SE_MARS, _flagsEcliptical)).Returns(new double[] { _longitude, _latitude, _distance, _longSpeed, _latSpeed, _distSpeed });
+        _mockCalcUtFacade.Setup(p => p.PositionFromSe(_julianDayUt, EnigmaConstants.SeMars, _flagsEcliptical)).Returns(new double[] { _longitude, _latitude, _distance, _longSpeed, _latSpeed, _distSpeed });
         ICelPointSECalc _calc = new CelPointSECalc(_mockCalcUtFacade.Object, new ChartPointsMapping());
         return _calc.CalculateCelPoint(ChartPoints.Mars, _julianDayUt, _location, _flagsEcliptical);
     }

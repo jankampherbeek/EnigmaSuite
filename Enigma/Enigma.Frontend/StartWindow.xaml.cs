@@ -56,7 +56,7 @@ public partial class StartWindow : Window
         else
         {
             Log.Information("Info about latest release : " + releaseInfo);
-            if (releaseInfo.Version != EnigmaConstants.ENIGMA_VERSION)
+            if (releaseInfo.Version != EnigmaConstants.EnigmaVersion)
             {
                 Log.Information("New release found, showing downloadpage");
                 HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
@@ -76,7 +76,7 @@ public partial class StartWindow : Window
     private static void HandleCheckForConfig()
     {
         bool result = true;
-        if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
+        if (!File.Exists(EnigmaConstants.ConfigLocation))
         {
             IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
             AstroConfig config = configApi.GetDefaultConfiguration();

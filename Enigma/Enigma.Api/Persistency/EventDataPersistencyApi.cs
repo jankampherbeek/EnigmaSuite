@@ -9,8 +9,7 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Persistency;
 using Serilog;
 
-
-namespace Enigma.Api.Peristency;
+namespace Enigma.Api.Persistency;
 
 /// <inheritdoc/>
 public sealed class EventDataPersistencyApi : IEventDataPersistencyApi
@@ -59,7 +58,7 @@ public sealed class EventDataPersistencyApi : IEventDataPersistencyApi
     }
 
     /// <inheritdoc/>
-    public List<PersistableEventData> SearchEventData(string partOfDescription)
+    public List<PersistableEventData> SearchEventData(string? partOfDescription)
     {
         Guard.Against.NullOrEmpty(partOfDescription);
         Log.Information("EventDataPersistencyApi.SearchEventData() for searchterm " + partOfDescription + " requested.");

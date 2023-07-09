@@ -33,8 +33,8 @@ public static class ObserverPositionsExtensions
         {
             // No specific flags for geocentric.
             ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "ref.enum.observerposition.geocentric"),
-            ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "ref.enum.observerposition.heliocentric"),
-            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "ref.enum.observerposition.topocentric"),
+            ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SeflgHelctr, "ref.enum.observerposition.heliocentric"),
+            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SeflgTopoctr, "ref.enum.observerposition.topocentric"),
             _ => throw new ArgumentException("Observer Position unknown : " + obsPos.ToString())
         };
     }

@@ -28,7 +28,7 @@ public sealed class ConfigWriter : IConfigWriter
     public bool WriteConfig(AstroConfig astroConfig)
     {
         string parsedConfig = _configParser.Marshall(astroConfig);
-        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_LOCATION, parsedConfig);
+        return _textFileWriter.WriteFile(EnigmaConstants.ConfigLocation, parsedConfig);
     }
 
 }
@@ -49,7 +49,7 @@ public sealed class ConfigReader : IConfigReader
     /// <inheritdoc/>
     public AstroConfig ReadConfig()
     {
-        string configText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_LOCATION);
+        string configText = _textFileReader.ReadFile(EnigmaConstants.ConfigLocation);
         return _configParser.UnMarshall(configText);
     }
 }

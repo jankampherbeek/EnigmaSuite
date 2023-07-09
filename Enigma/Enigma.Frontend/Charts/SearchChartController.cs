@@ -3,18 +3,17 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
+using System.Windows;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Persistency;
-using Enigma.Frontend.Ui;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
-using System.Windows;
 
-namespace Enigma.Frontend.Uit.Charts;
+namespace Enigma.Frontend.Ui.Charts;
 
 public sealed class SearchChartController
 {
@@ -24,8 +23,11 @@ public sealed class SearchChartController
     private readonly IChartDataConverter _chartDataConverter;
     private readonly DataVault _dataVault = DataVault.Instance;
 
-    private List<PersistableChartData> chartsFound = new();
-    public SearchChartController(IChartDataPersistencyApi chartDataPersistencyApi, IChartDataForDataGridFactory chartDataForDataGridFactory, IChartCalculation chartCalculation, IChartDataConverter chartDataConverter)
+    private List<PersistableChartData>? chartsFound = new();
+    public SearchChartController(IChartDataPersistencyApi chartDataPersistencyApi, 
+        IChartDataForDataGridFactory chartDataForDataGridFactory, 
+        IChartCalculation chartCalculation, 
+        IChartDataConverter chartDataConverter)
     {
         _chartDataPersistencyApi = chartDataPersistencyApi;
         _chartDataForDataGridFactory = chartDataForDataGridFactory;
@@ -33,10 +35,9 @@ public sealed class SearchChartController
         _chartDataConverter = chartDataConverter;
     }
 
-    public void PerformSearch(string searchArgument)
+    public void PerformSearch(string? searchArgument)
     {
-        if (string.IsNullOrEmpty(searchArgument)) chartsFound = _chartDataPersistencyApi.ReadAllChartData();
-        else chartsFound = _chartDataPersistencyApi.SearchChartData(searchArgument);
+        chartsFound = string.IsNullOrEmpty(searchArgument) ? _chartDataPersistencyApi.ReadAllChartData() : _chartDataPersistencyApi.SearchChartData(searchArgument);
     }
 
     public List<PresentableChartData> SearchedChartData()

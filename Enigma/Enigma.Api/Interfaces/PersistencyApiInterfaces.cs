@@ -72,11 +72,11 @@ public interface IChartDataPersistencyApi
     /// <summary>Read records that correspond (partly) with a given searchterm for the name.</summary>
     /// <param name="partOfName">The search term.</param>
     /// <returns>List with zero or more results.</returns>
-    public List<PersistableChartData> SearchChartData(string partOfName);
+    public List<PersistableChartData>? SearchChartData(string? partOfName);
 
     /// <summary>Read all records.</summary>
     /// <returns>List with zero or more results.</returns>
-    public List<PersistableChartData> ReadAllChartData();
+    public List<PersistableChartData>? ReadAllChartData();
 
     /// <summary>Add a record.</summary>
     /// <param name="chartData">The record to insert.</param>
@@ -116,7 +116,7 @@ public interface IEventDataPersistencyApi
     /// <summary>Read records that correspond (partly) with a given searchterm for the description of the event.</summary>
     /// <param name="partOfDescription">The search term.</param>
     /// <returns>List with zero or more results.</returns>
-    public List<PersistableEventData> SearchEventData(string partOfdescription);
+    public List<PersistableEventData> SearchEventData(string? partOfdescription);
 
     /// <summary>Read records of events that have an intersection with a given chart.</summary>
     /// <param name="chartId">Id of the chart.</param>

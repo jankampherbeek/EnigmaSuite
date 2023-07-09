@@ -7,71 +7,73 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
+using LiteDB;
 using Serilog;
-using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
-/// <inheritdoc/>
+/// <inheritdoc />
 public sealed class EventDataDao : IEventDataDao
 {
+    private const string COL_INTERSECTION = "chartevents";
+    private const string COL_EVENTS = "events";
+    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
     private readonly IInterChartEventDao _intersectionDao;
 
-    readonly string dbEventsFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_EVENTS;
-
-    EventDataDao(IInterChartEventDao intersectionDao)
+    public EventDataDao(IInterChartEventDao intersectionDao)
     {
         _intersectionDao = intersectionDao;
     }
 
-
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public int CountRecords()
     {
-        return ReadRecordsFromJson().Count;
+        return ReadRecordsFromDatabase().Count;
     }
 
     public int CountRecords(int chartId)
     {
-        return ReadEventsForChartFromJsn(chartId).Count;
+        return ReadEventsForChartFromDatabase(chartId).Count;
     }
 
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public int HighestIndex()
     {
         return SearchHighestIndex();
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public PersistableEventData? ReadEventData(int index)
     {
         return PerformRead(index);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public List<PersistableEventData> ReadAllEventData()
     {
-        return ReadRecordsFromJson();
+        return ReadRecordsFromDatabase();
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public List<PersistableEventData> SearchEventData(int chartId)
     {
         return PerformSearch(chartId);
     }
 
-    /// <inheritdoc/>
-    public List<PersistableEventData> SearchEventData(string partOfDescription)
+    /// <inheritdoc />
+    public List<PersistableEventData> SearchEventData(string? partOfDescription)
     {
         return PerformSearch(partOfDescription);
     }
 
+    /// <inheritdoc />
     public int AddEventData(PersistableEventData eventData)
     {
         return PerformInsert(eventData);
     }
 
+    /// <inheritdoc />
     public int AddEventData(PersistableEventData eventData, int idChart)
     {
         int idEvent = PerformInsert(eventData);
@@ -79,192 +81,107 @@ public sealed class EventDataDao : IEventDataDao
         return idEvent;
     }
 
-
+    /// <inheritdoc />
     public bool DeleteEventData(int index)
     {
         return PerformDelete(index);
     }
 
-    private bool CheckDatabaseEvents()
-    {
-        return File.Exists(dbEventsFullPath);
-    }
-
-
-
     private int SearchHighestIndex()
     {
-        int index = 0;
-        var records = ReadRecordsFromJson();
-        foreach (var item in records)
-        {
-            if (item.Id > index) index = item.Id;
-        }
-        return index;
+        List<PersistableEventData> records = ReadRecordsFromDatabase();
+        return records.Select(item => item.Id).Prepend(0).Max();
     }
 
     private PersistableEventData? PerformRead(int index)
     {
-        var records = ReadRecordsFromJson();
-        foreach (var record in records)
-        {
-            if (record.Id == index) return record;
-        }
-        return null;
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<PersistableEventData> col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        col.EnsureIndex(x => x.Id);
+        PersistableEventData? result = col.FindOne(x => x.Id.Equals(index));
+        return result;
     }
 
-    private List<PersistableEventData> PerformSearch(string partOfdescription)
+    private List<PersistableEventData> PerformSearch(string? partOfDescription)
     {
-        List<PersistableEventData> recordsFound = new();
-        var records = ReadRecordsFromJson();
-        foreach (var record in records)
-        {
-            if (record.Description.ToLower().Contains(partOfdescription.ToLower())) recordsFound.Add(record);
-        }
-        return recordsFound;
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        List<PersistableEventData> records = col.Query()
+            .Where(x => partOfDescription != null && x.Description.ToUpper().Contains(partOfDescription.ToUpper()))
+            .OrderBy(x => x.JulianDayEt)
+            .Limit(100)
+            .ToList();
+        return records;
     }
 
     private List<PersistableEventData> PerformSearch(int chartId)
     {
-        List<PersistableEventData> recordsFound = new();
-        var records = ReadRecordsFromJson();
-        var intersections = _intersectionDao.ReadAll(); 
-        foreach (var record in records)
-        {
-            foreach (var intersection in intersections)
-            {
-                if (intersection.ChartId == chartId)
-                {
-                    var eventFound = PerformRead(intersection.EventId);
-                    if (eventFound != null) records.Add(eventFound);
-                }
-            }
-        }
-        return recordsFound;
+        List<PersistableEventData> allRecords = new();
+        List<InterChartEvent> intersections = _intersectionDao.Read(chartId);
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        foreach (List<PersistableEventData> records in intersections.Select(intersection => col.Query()
+                     .Where(x => x.Id.Equals(intersection.ChartId))
+                     .OrderBy(x => x.JulianDayEt)
+                     .Limit(100)
+                     .ToList()))
+            allRecords.AddRange(records);
+
+        return allRecords;
     }
 
     private int PerformInsert(PersistableEventData eventData)
     {
-        List<PersistableEventData> recordsAsList = ReadRecordsFromJson();
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
         try
         {
-            int newIndex = SearchHighestIndex() + 1;
-            eventData.Id = newIndex;
-            recordsAsList.Add(eventData);
-            PersistableEventData[] extendedRecords = recordsAsList.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-            var newJson = JsonSerializer.Serialize(extendedRecords, options);
-            File.WriteAllText(dbEventsFullPath, newJson);
-            return newIndex;
+            col.Insert(eventData);
+            Log.Information("Inserted event {Event}", eventData.Id);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            string errorTxt = "ChartEventDao.PerformInsert() using eventData " + eventData + "encountered an exception.";
-            Log.Error(errorTxt, ex);
-            throw new Exception(errorTxt, ex);
-        };
+            Log.Error(
+                "EventDataDao.PerformInsert: trying to insert event with existing id {Id} results in exception {Ex}",
+                eventData.Id, e.Message);
+            return 0;
+        }
+
+        return eventData.Id;
     }
 
 
     private bool PerformDelete(int index)
     {
-        bool success = false;
-        List<PersistableEventData> newRecordSet = new();
-        var records = ReadRecordsFromJson();
-        foreach (var record in records)
-        {
-            if (record.Id == index)
-            {
-                success = true;
-                PerformDeleteIntersection(index);       // also remove intersections for this event. 
-            }
-            else newRecordSet.Add(record);
-        }
-        try
-        {
-            PersistableEventData[] newRecords = newRecordSet.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-            var newJson = JsonSerializer.Serialize(newRecords, options);
-            File.WriteAllText(dbEventsFullPath, newJson);
-        }
-        catch (Exception ex)
-        {
-            string errorTxt = "EventDataDao.PerformDelete() using index " + index.ToString() + "encountered an exception.";
-            Log.Error(errorTxt, ex);
-            throw new Exception(errorTxt, ex);
-        };
-        return success;
-    }
-
-    private bool PerformDeleteIntersection(int eventIndex)
-    {
-        bool success = false;
-        List<InterChartEvent> newRecordSet = new();
-        var records = _intersectionDao.ReadAll();
-        foreach (var record in records)
-        {
-            if (record.EventId == eventIndex)
-            {
-                success = true;
-            }
-            else newRecordSet.Add(record);
-        }
-        try
-        {
-            InterChartEvent[] newRecords = newRecordSet.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-            var newJson = JsonSerializer.Serialize(newRecords, options);
-            File.WriteAllText(dbEventsFullPath, newJson);
-        }
-        catch (Exception ex)
-        {
-            string errorTxt = "EventDataDao.PerformDeleteIntersection() using eventIndex " + eventIndex.ToString() + "encountered an exception.";
-            Log.Error(errorTxt, ex);
-            throw new Exception(errorTxt, ex);
-        };
-        return success;
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        ILiteCollection<InterChartEvent>? colIntersections = db.GetCollection<InterChartEvent>(COL_INTERSECTION);
+        bool result = col.Delete(index);
+        int deletedCount = 0;
+        if (result) deletedCount = colIntersections.DeleteMany(x => x.ChartId.Equals(index));
+        Log.Information("Deleted event {Event} and related {ICount} intersections, success {Success}", index,
+            deletedCount, result);
+        return result;
     }
 
 
-    private List<PersistableEventData> ReadRecordsFromJson()
+    private List<PersistableEventData> ReadRecordsFromDatabase()
     {
-        List<PersistableEventData> records = new();
-        if (CheckDatabaseEvents())
-        {
-            var json = File.ReadAllText(dbEventsFullPath);
-            try
-            {
-                PersistableEventData[] persistableEventDatas = JsonSerializer.Deserialize<PersistableEventData[]>(json)!;
-                records = persistableEventDatas.ToList();
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "EventDataDao.ReadRecordsFromJson() encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
-        }
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        List<PersistableEventData> records = col.FindAll().ToList();
         return records;
     }
 
 
-
-    private List<PersistableEventData> ReadEventsForChartFromJsn(int chartId)
+    private List<PersistableEventData> ReadEventsForChartFromDatabase(int chartId)
     {
-        List<PersistableEventData> allEvents = ReadRecordsFromJson();
+        List<PersistableEventData> allEvents = ReadRecordsFromDatabase();
         List<InterChartEvent> allIntersections = _intersectionDao.ReadAll();
-        List<PersistableEventData> eventsForChart = new();
-        foreach (var eventData in allEvents) {
-            foreach (var intersection in allIntersections)
-            {
-                if (eventData.Id == intersection.EventId && chartId == intersection.ChartId)
-                {
-                    eventsForChart.Add(eventData);
-                }
-            }
-        }
-        return eventsForChart;
+
+        return (from eventData in allEvents
+            from intersection in allIntersections
+            where eventData.Id == intersection.EventId && chartId == intersection.ChartId
+            select eventData).ToList();
     }
-
-
 }

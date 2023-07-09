@@ -20,7 +20,7 @@ public class TestEventDataConverter
     private IEventDataConverter _eventDataConverter;
     private readonly string _description = "Event Description";
     private readonly string _locationName = "Some location";
-    private readonly int _id = 456;
+    private const int ID = 456;
     private readonly double _jdEt = 123456.789;
     private readonly string _dateText = "2023-02-2023";
     private readonly string _timeText = "21:24:30";
@@ -62,7 +62,6 @@ public class TestEventDataConverter
             Assert.That(expected.Description, Is.EqualTo(result.Description));
             Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(_delta));
             Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(_delta));
-            Assert.That(expected.Id, Is.EqualTo(result.Id));
         });
     }
 
@@ -71,13 +70,12 @@ public class TestEventDataConverter
         string locationFullName = _locationFullName;
         Location location = new(locationFullName, _geoLong, _geoLat);
         FullDateTime fullDateTime = new(_dateText, _timeText, _jdEt);
-        return new EventData(_id, _description, _locationName, location, fullDateTime);
+        return new EventData(ID, _description, _locationName, location, fullDateTime);
     }
 
     private PersistableEventData CreatePersistableEventData()
     {
         return new PersistableEventData(
-            _id,
             _description,
             _jdEt,
             _dateText,

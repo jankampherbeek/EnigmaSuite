@@ -24,36 +24,36 @@ public class ChartDataPersistencyApi : IChartDataPersistencyApi
     /// <inheritdoc/>
     public int NumberOfRecords()
     {
-        Log.Information("ChartDataPersistencyApi.NumberOfRecords() requested.");
+        Log.Information("ChartDataPersistencyApi.NumberOfRecords() requested");
         return _chartDataDao.CountRecords();
     }
 
     /// <inheritdoc/>
     public int HighestIndex()
     {
-        Log.Information("ChartDataPersistencyApi.HighestIndex() requested.");
+        Log.Information("ChartDataPersistencyApi.HighestIndex() requested");
         return _chartDataDao.HighestIndex();
     }
 
     /// <inheritdoc/>
     public PersistableChartData? ReadChartData(int index)
     {
-        Log.Information("ChartDataPersistencyApi.ReadChartData() requested for index : " + index.ToString());
+        Log.Information("ChartDataPersistencyApi.ReadChartData() requested for index : {Index}", index);
         return _chartDataDao.ReadChartData(index);
     }
 
     /// <inheritdoc/>
-    public List<PersistableChartData> SearchChartData(string partOfName)
+    public List<PersistableChartData>? SearchChartData(string? partOfName)
     {
         Guard.Against.NullOrEmpty(partOfName);
-        Log.Information("ChartDataPersistencyApi.SearchChartData() requested with argument : " + partOfName);
+        Log.Information("ChartDataPersistencyApi.SearchChartData() requested with argument {PartOfName}", partOfName);
         return _chartDataDao.SearchChartData(partOfName);
     }
 
     /// <inheritdoc/>
-    public List<PersistableChartData> ReadAllChartData()
+    public List<PersistableChartData>? ReadAllChartData()
     {
-        Log.Information("ChartDataPersistencyApi.readAllChartData() requested.");
+        Log.Information("ChartDataPersistencyApi.readAllChartData() requested");
         return _chartDataDao.ReadAllChartData();
     }
 
@@ -61,16 +61,15 @@ public class ChartDataPersistencyApi : IChartDataPersistencyApi
     public int AddChartData(PersistableChartData chartData)
     {
         Guard.Against.Null(chartData);
-        Log.Information("ChartDataPersistencyApi.AddChartData() requested using name: " + chartData.Name);
+        Log.Information("ChartDataPersistencyApi.AddChartData() requested using name: {Name}", chartData.Name);
         return _chartDataDao.AddChartData(chartData);
     }
 
     /// <inheritdoc/>
     public bool DeleteChartData(int index)
     {
-        Log.Information("ChartDataPersistencyApi.DeleteChartData() requested for index: " + index.ToString());
+        Log.Information("ChartDataPersistencyApi.DeleteChartData() requested for index: {Index}", index);
         return _chartDataDao.DeleteChartData(index);
     }
-
-
+    
 }

@@ -60,7 +60,7 @@ public class GeoLongValidator : IGeoLongValidator
     private void CalculateLongitude()
     {
         int factor = _direction == Directions4GeoLong.East ? 1 : -1;
-        _longitude = (_longValues[0] + ((double)_longValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)_longValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE)) * factor;
+        _longitude = (_longValues[0] + ((double)_longValues[1] / EnigmaConstants.MinutesPerHourDegree) + ((double)_longValues[2] / EnigmaConstants.SecondsPerHourDegree)) * factor;
 
     }
 }

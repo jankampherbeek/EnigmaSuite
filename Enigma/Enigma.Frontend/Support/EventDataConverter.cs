@@ -47,8 +47,7 @@ public sealed class EventDataConverter : IEventDataConverter
 
     private static PersistableEventData HandleConversion(EventData eventData)
     {
-        return new PersistableEventData( 
-            eventData.Id,
+        return new PersistableEventData(
             eventData.Description,
             eventData.FullDateTime.JulianDayForEt,
             eventData.FullDateTime.DateText,

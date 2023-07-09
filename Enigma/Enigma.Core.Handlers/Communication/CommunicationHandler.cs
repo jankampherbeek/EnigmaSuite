@@ -23,7 +23,7 @@ public class CommunicationHandler : ICommunicationHandler
     /// <inheritdoc/>
     public ReleaseInfo FindLatestRelease()
     {
-        string json = _httpRequester.GetHttpRequest(EnigmaConstants.RELEASE_CHECK_URL);
+        string json = _httpRequester.GetHttpRequest(EnigmaConstants.ReleaseCheckUrl);
         if (json == "")
         {
             return new ReleaseInfo("", "", "", "", "");

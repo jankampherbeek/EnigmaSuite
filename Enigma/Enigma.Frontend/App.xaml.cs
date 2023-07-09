@@ -24,7 +24,6 @@ using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.SUpport;
-using Enigma.Frontend.Uit.Charts;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;

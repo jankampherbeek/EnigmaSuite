@@ -24,7 +24,7 @@ public sealed class JulDayFacade : IJulDayFacade
     /// <inheritdoc/>
     public double DeltaTFromSe(double JulianDayUT)
     {
-        int flag = EnigmaConstants.SEFLG_SWIEPH;
+        int flag = EnigmaConstants.SeflgSwieph;
         return ext_swe_deltat_ex(JulianDayUT, flag);
     }
 

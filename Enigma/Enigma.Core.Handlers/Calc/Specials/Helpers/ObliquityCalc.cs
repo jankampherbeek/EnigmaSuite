@@ -22,7 +22,7 @@ public sealed class ObliquityCalc : IObliquityCalc
     public double CalculateObliquity(double julianDayUt, bool useTrueObliquity)
     {
         int flags = 0;
-        double[] positions = _calcUtFacade.PositionFromSe(julianDayUt, EnigmaConstants.SE_ECL_NUT, flags);
+        double[] positions = _calcUtFacade.PositionFromSe(julianDayUt, EnigmaConstants.SeEclNut, flags);
         return useTrueObliquity ? positions[1] : positions[0];
     }
 }

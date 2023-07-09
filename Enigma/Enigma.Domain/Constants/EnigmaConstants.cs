@@ -10,227 +10,229 @@ namespace Enigma.Domain.Constants;
 public static class EnigmaConstants
 {
     // Version info
-    public const string ENIGMA_VERSION = "0.1.0";
+    public const string EnigmaVersion = "0.1.0";
     // CommonSE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_ADMETOS_URA = 45;
+    public const int SeAdmetosUra = 45;
     /// <summary>SE id to identify Apollon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_APOLLON_URA = 44;
+    public const int SeApollonUra = 44;
     /// <summary>SE id for Astraea.</summary>
-    public const int SE_ASTRAEA = 10005;
+    public const int SeAstraea = 10005;
     /// <summary>SE id to identify the planetoid Ceres.</summary>
-    public const int SE_CERES = 17;
+    public const int SeCeres = 17;
     /// <summary>SE id to identify Chiron.</summary>
-    public const int SE_CHIRON = 15;
+    public const int SeChiron = 15;
     /// <summary>SE id to identify Cupido, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_CUPIDO_URA = 40;
+    public const int SeCupidoUra = 40;
     /// <summary>Demeter, hypothetical planet, School of Ram.</summary>
-    public const int SE_DEMETER_RAM = 51;
+    public const int SeDemeterRam = 51;
     /// <summary>SE id to identify Earth.</summary>
-    public const int SE_EARTH = 14;
+    public const int SeEarth = 14;
     /// <summary>SE id to identify obliquity and nutation.</summary>
-    public const int SE_ECL_NUT = -1;
+    public const int SeEclNut = -1;
     /// <summary>SE id to identify Eris.</summary>
-    public const int SE_ERIS = 1009001;
+    public const int SeEris = 1009001;
     /// <summary>SE id to identify Hades, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_HADES_URA = 41;
+    public const int SeHadesUra = 41;
     /// <summary>SE id for Haumea.</summary>
-    public const int SE_HAUMEA = 146108;
+    public const int SeHaumea = 146108;
     /// <summary>Hermes, hypothetical planet, School of Ram.</summary>
-    public const int SE_HERMES_RAM = 50;
+    public const int SeHermesRam = 50;
     /// <summary>SE id for Huya.</summary>
-    public const int SE_HUYA = 48628;
+    public const int SeHuya = 48628;
     /// <summary>SE id for Hygieia.</summary>
-    public const int SE_HYGIEIA = 10010;
+    public const int SeHygieia = 10010;
     /// <summary>SE id to identify the interpolated Apogee.</summary>
-    public const int SE_INTP_APOG = 21;
+    public const int SeIntpApog = 21;
     /// <summary>SE id to identify the hypothetical planet Isis/Transpluto.</summary>
-    public const int SE_ISIS = 48;
+    public const int SeIsis = 48;
     /// <summary>SE id for Ixion.</summary>
-    public const int SE_IXION = 38978;
+    public const int SeIxion = 38978;
     /// <summary>SE id to identify the planetoid Juno.</summary>
-    public const int SE_JUNO = 19;
+    public const int SeJuno = 19;
     /// <summary>SE id to identify Jupiter.</summary>
-    public const int SE_JUPITER = 5;
+    public const int SeJupiter = 5;
     /// <summary>SE id to identify Kronos, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_KRONOS_URA = 43;
+    public const int SeKronosUra = 43;
     /// <summary>Se id for Makemake.</summary>
-    public const int SE_MAKEMAKE = 146472;
+    public const int SeMakemake = 146472;
     /// <summary>SE id to identify Mars.</summary>
-    public const int SE_MARS = 4;
+    public const int SeMars = 4;
     /// <summary>SE id to identify the mean Apogee.</summary>
-    public const int SE_MEAN_APOGEE = 12;
+    public const int SeMeanApogee = 12;
     /// <summary>SE id to identify the Mean node.</summary>
-    public const int SE_MEAN_NODE = 10;
+    public const int SeMeanNode = 10;
     /// <summary>SE id to identify Mercury.</summary>
-    public const int SE_MERCURY = 2;
+    public const int SeMercury = 2;
     /// <summary>SE id to identify the Moon.</summary>
-    public const int SE_MOON = 1;
+    public const int SeMoon = 1;
     /// <summary>SE id to identify Neptune.</summary>
-    public const int SE_NEPTUNE = 8;
+    public const int SeNeptune = 8;
     /// <summary>SE id for Nessus.</summary>
-    public const int SE_NESSUS = 17066;
+    public const int SeNessus = 17066;
     /// <summary>SE id to identify Orcus.</summary>
-    public const int SE_ORCUS = 100482;
+    public const int SeOrcus = 100482;
     /// <summary>SE id to identify the osculating Apogee.</summary>
-    public const int SE_OSCU_APOG = 13;
+    public const int SeOscuApog = 13;
     /// <summary>SE id to identify the centaur Pallas.</summary>
-    public const int SE_PALLAS = 18;
+    public const int SePallas = 18;
     /// <summary>Persephone, hypothetical planet, School of Ram.</summary>
-    public const int SE_PERSEPHONE_RAM = 49;
+    public const int SePersephoneRam = 49;
     /// <summary>SE id to identify the centaur Pholus.</summary>
-    public const int SE_PHOLUS = 16;
+    public const int SePholus = 16;
     /// <summary>SE id to identify Pluto.</summary>
-    public const int SE_PLUTO = 9;
+    public const int SePluto = 9;
     /// <summary>SE id to identify Poseidon, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_POSEIDON_URA = 47;
+    public const int SePoseidonUra = 47;
     /// <summary>SE id to identify Quaoar.</summary>
-    public const int SE_QUAOAR = 60000;
+    public const int SeQuaoar = 60000;
     /// <summary>SE id to identify Saturn.</summary>
-    public const int SE_SATURN = 6;
+    public const int SeSaturn = 6;
     /// <summary>SE id to identify Sedna.</summary>
-    public const int SE_SEDNA = 100377;
+    public const int SeSedna = 100377;
     /// <summary>SE id to identify the Sun.</summary>
-    public const int SE_SUN = 0;
+    public const int SeSun = 0;
     /// <summary>SE id to identify the oscilating (true) lunar node.</summary>
-    public const int SE_TRUE_NODE = 11;
+    public const int SeTrueNode = 11;
     /// <summary>SE id to identify Uranus.</summary>
-    public const int SE_URANUS = 7;
+    public const int SeUranus = 7;
     /// <summary>SE id to identify Varuna.</summary>
-    public const int SE_VARUNA = 30000;
+    public const int SeVaruna = 30000;
     /// <summary>SE id to identify Venus.</summary>
-    public const int SE_VENUS = 3;
+    public const int SeVenus = 3;
     /// <summary>SE id to identify the planetoid Vesta.</summary>
-    public const int SE_VESTA = 20;
+    public const int SeVesta = 20;
     /// <summary>SE id to identify Vulcanus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_VULCANUS_URA = 46;
+    public const int SeVulcanusUra = 46;
     /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
-    public const int SE_ZEUS_URA = 42;
+    public const int SeZeusUra = 42;
 
 
     // Celestial points that are not calculated with the Swiss Ephemeris
     /// <summary>Apogee, approximately according to Max Duval, formula's by Cees Jansen.</summary>
-    public const int NON_SE_DUVAL_APOGEE = 105;
+    public const int NonSeDuvalApogee = 105;
     /// <summary>Persephone according to Carteret.</summary>
-    public const int NON_SE_PERSEPHONE_CARTERET = 104;
+    public const int NonSePersephoneCarteret = 104;
     /// <summary>Vulcanus according to Carteret.</summary>
-    public const int NON_SE_VULCANUS_CARTERET = 103;
+    public const int NonSeVulcanusCarteret = 103;
     /// <summary>Spring equinox/zero degrees Aries.</summary>
-    public const int NON_SE_ZEROARIES = 106;
+    public const int NonSeZeroaries = 106;
 
     // CommonSE flags
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>
-    public const int SEFLG_SWIEPH = 2;
+    public const int SeflgSwieph = 2;
     /// <summary>Flag: indication to calculate heliocentric positions.</summary>
-    public const int SEFLG_HELCTR = 8;
+    public const int SeflgHelctr = 8;
     /// <summary>Flag: indication to also calculate the speed.</summary>
-    public const int SEFLG_SPEED = 256;
+    public const int SeflgSpeed = 256;
     /// <summary>Flag: indication to calculate equatorial positions.</summary>
-    public const int SEFLG_EQUATORIAL = 2048;
+    public const int SeflgEquatorial = 2048;
     /// <summary>Flag: indication to calculate topocentric positions.</summary>
-    public const int SEFLG_TOPOCTR = 32 * 1024;
+    public const int SeflgTopoctr = 32 * 1024;
     /// <summary>Flag: indication to use sidereal positions.</summary>
-    public const int SEFLG_SIDEREAL = 64 * 1024;
+    public const int SeflgSidereal = 64 * 1024;
 
     // Limits
     /// <summary>Maximum value for daylight saving time.</summary>
-    public const double DST_MAX = 3.0;
+    public const double DstMax = 3.0;
     /// <summary>Minimum value for daylight saving time.</summary>
-    public const double DST_MIN = 0.0;
+    public const double DstMin = 0.0;
     /// <summary>Maximum amount of degrees for geographic latitude.</summary>
-    public const int GEOLAT_DEGREE_MAX = 89;
+    public const int GeolatDegreeMax = 89;
     /// <summary>Minimum amount of degrees for geographic latitude.</summary>
-    public const int GEOLAT_DEGREE_MIN = 0;
+    public const int GeolatDegreeMin = 0;
     /// <summary>Maximum amount of degrees for geographic longitude.</summary>
-    public const int GEOLON_DEGREE_MAX = 180;
+    public const int GeolonDegreeMax = 180;
     /// <summary>Minimum amount of degrees for geographic longitude.</summary>
-    public const int GEOLON_DEGREE_MIN = 0;
+    public const int GeolonDegreeMin = 0;
     /// <summary>Maximum amount of hours.</summary>
-    public const int HOUR_MAX = 23;
+    public const int HourMax = 23;
     /// <summary>Minimum amount of hours.</summary>
-    public const int HOUR_MIN = 0;
+    public const int HourMin = 0;
     /// <summary>Maximum amount of minutes.</summary>
-    public const int MINUTE_MAX = 59;
+    public const int MinuteMax = 59;
     /// <summary>Minimum amount of minutes.</summary>
-    public const int MINUTE_MIN = 0;
+    public const int MinuteMin = 0;
     /// <summary>Maximum amount of seconds.</summary>
-    public const int SECOND_MAX = 59;
+    public const int SecondMax = 59;
     /// <summary>Minimum amount of seconds.</summary>
-    public const int SECOND_MIN = 0;
+    public const int SecondMin = 0;
     /// <summary>Maximum value for timezone. </summary>
-    public const double TIMEZONE_MAX = 12.0;
+    public const double TimezoneMax = 12.0;
     /// <summary>Minimum value for timezone. </summary>
-    public const double TIMEZONE_MIN = -12.0;
+    public const double TimezoneMin = -12.0;
 
 
     // Supported periods
     /// <summary>Julian day of start supported period for Ceres and Vesta.</summary>
-    public const double PERIOD_CERES_VESTA_START = -3026613.5;
+    public const double PeriodCeresVestaStart = -3026613.5;
     /// <summary>Julian day of end supported period for Ceres and Cesta.</summary>
-    public const double PERIOD_CERES_VESTA_END = 5224242.5;
+    public const double PeriodCeresVestaEnd = 5224242.5;
     /// <summary>Julian day of start supported period for Chiron.</summary>
-    public const double PERIOD_CHIRON_START = 1967601.5;
+    public const double PeriodChironStart = 1967601.5;
     /// <summary>Julian day of end supported period for Chiron.</summary>
-    public const double PERIOD_CHIRON_END = 3419437.5;
+    public const double PeriodChironEnd = 3419437.5;
     /// <summary>Julian day of start supported period for Nessus, Huya, Ixion, Orcus, Varuna, Makemake, Haumea, Quaoar, Eris and Sedna.</summary>
-    public const double PERIOD_NESSUS_HUYA_ETC_START = 625384.5;
+    public const double PeriodNessusHuyaEtcStart = 625384.5;
     /// <summary>Julian day of end supported period for Nessus, Huya, Ixion, Orcus, Varuna, Makemake, Haumea, Quaoar, Eris and Sedna.</summary>
-    public const double PERIOD_NESSUS_HUYA_ETC_END = 2816291.5;
+    public const double PeriodNessusHuyaEtcEnd = 2816291.5;
     /// <summary>Julian day of start supported period for Pholus.</summary>
-    public const double PERIOD_PHOLUS_START = 640648.5;
+    public const double PeriodPholusStart = 640648.5;
     /// <summary>Julian day of end supported period for Pholus.</summary>
-    public const double PERIOD_PHOLUS_END = 4390615.5;
+    public const double PeriodPholusEnd = 4390615.5;
     /// <summary>Julian day of start supported period for calculations in general.</summary>
-    public const double PERIOD_TOTAL_START = -3026613.5;
+    public const double PeriodTotalStart = -3026613.5;
     /// <summary>Julian day of end supported period for calculations in general.</summary>
-    public const double PERIOD_TOTAL_END = 7857131.5;
+    public const double PeriodTotalEnd = 7857131.5;
 
 
 
     // Conversion factors
     /// <summary>Numer of seconds in a day.</summary>
-    public const int SECONDS_PER_DAY = 86400;
+    public const int SecondsPerDay = 86400;
     /// <summary>Number of hours in one day.</summary>
-    public const int HOURS_PER_DAY = 24;
+    public const int HoursPerDay = 24;
     /// <summary>Number of minutes in one day.</summary>
-    public const int MINUTES_PER_DAY = 1440;
+    public const int MinutesPerDay = 1440;
     /// <summary>Number of minutes in one hour.</summary>
-    public const int MINUTES_PER_HOUR_DEGREE = 60;
+    public const int MinutesPerHourDegree = 60;
     /// <summary>Number of seconds in one hour.</summary>
-    public const int SECONDS_PER_HOUR_DEGREE = 3600;
+    public const int SecondsPerHourDegree = 3600;
     /// <summary>Number of seconds in one degree.</summary>
-    public const int SECONDS_PER_MINUTE_DEGREE = 60;
+    public const int SecondsPerMinuteDegree = 60;
 
     // Characters
     /// <summary>Small elevated circle to identify degrees.</summary>
-    public const char DEGREE_SIGN = '\u00B0';
+    public const char DegreeSign = '\u00B0';
     /// <summary>Apostroph-like identification for positional minutes.</summary>
-    public const char MINUTE_SIGN = '\u2032';
+    public const char MinuteSign = '\u2032';
     /// <summary>Quote-like identification for postional seconds.</summary>
-    public const char SECOND_SIGN = '\u2033';
+    public const char SecondSign = '\u2033';
     /// <summary>Separator for date input.</summary>
-    public const char SEPARATOR_DATE = '/';
+    public const char SeparatorDate = '/';
     /// <summary>Separator for time input.</summary>
-    public const char SEPARATOR_TIME = ':';
+    public const char SeparatorTime = ':';
     /// <summary>Separator for geographic longitude input.</summary>
-    public const char SEPARATOR_GEOLONG = ':';
+    public const char SeparatorGeolong = ':';
     /// <summary>Separator for geographic latitude input.</summary>
-    public const char SEPARATOR_GEOLAT = ':';
+    public const char SeparatorGeolat = ':';
     /// <summary>Character for line-end (new line).</summary>
-    public const char NEW_LINE = '\n';
+    public const char NewLine = '\n';
 
     // Locations
     /// <summary>Location of configuration file, contains path and filename.</summary>
-    public const string CONFIG_LOCATION = @"c:/enigma_ar/enigmaconfig.json";
+    public const string ConfigLocation = @"c:/enigma_ar/enigmaconfig.json";
     /// <summary>Name of database for charts.</summary>
-    public const string DATABASE_NAME_CHARTS = @"/ChartsDatabase.json";
+    public const string DatabaseName = @"/Enigma.db";
+    /// <summary>Name of database for charts.</summary>
+    public const string DatabaseNameCharts = @"/ChartsDatabase.json";
     /// <summary>Name of database for events.</summary>
-    public const string DATABASE_NAME_EVENTS = @"/EventsDatabase.json";
+    public const string DatabaseNameEvents = @"/EventsDatabase.json";
     /// <summary>Name of database for intersections between charts and events.</summary>
-    public const string DATABASE_NAME_INTER_CHARTS_EVENTS = @"/InterChartsEventsDatabase.json";
+    public const string DatabaseNameInterChartsEvents = @"/InterChartsEventsDatabase.json";
     /// <summary>Url to find latest release information.</summary>
-    public const string RELEASE_CHECK_URL = @"http://radixpro.com/rel/enigma-ar-latest.json";
+    public const string ReleaseCheckUrl = @"http://radixpro.com/rel/enigma-ar-latest.json";
 
     /// <summary>Timekey according to Naibod.</summary>
-    public const double NAIBOD = 0.985647222;
+    public const double Naibod = 0.985647222;
 }

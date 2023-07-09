@@ -53,7 +53,7 @@ public sealed class ChartDataConverter : IChartDataConverter
     private static PersistableChartData HandleConversion(ChartData chartData)
     {
         return new PersistableChartData(
-            chartData.Id,
+         //   chartData.Id,
             chartData.MetaData.Name,
             chartData.MetaData.Description,
             chartData.MetaData.Source,

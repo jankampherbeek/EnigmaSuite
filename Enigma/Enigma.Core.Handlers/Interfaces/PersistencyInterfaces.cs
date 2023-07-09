@@ -188,11 +188,11 @@ public interface IChartDataDao
     /// <remarks>Search is case-insensitive.</remarks>
     /// <param name="partOfName">The search argument.</param>
     /// <returns>List with zero or more records that are found.</returns>
-    public List<PersistableChartData> SearchChartData(string partOfName);
+    public List<PersistableChartData>? SearchChartData(string? partOfName);
 
     /// <summary>Read all chartdata.</summary>
     /// <returns>List with all records.</returns>
-    public List<PersistableChartData> ReadAllChartData();
+    public List<PersistableChartData>? ReadAllChartData();
 
     /// <summary>Insert a new record.</summary>
     /// <param name="chartData">The record to insert.</param>
@@ -236,7 +236,7 @@ public interface IEventDataDao
     /// <remarks>Search is case-insensitive.</remarks>
     /// <param name="partOfDescription">The search argument.</param>
     /// <returns>List with zero or more records that are found.</returns>
-    public List<PersistableEventData> SearchEventData(string partOfDescription);
+    public List<PersistableEventData> SearchEventData(string? partOfDescription);
 
     /// <summary>Read all eventdata.</summary>
     /// <returns>List with all records.</returns>
@@ -276,6 +276,11 @@ public interface IInterChartEventDao
     /// <returns>List with all intersections.</returns>
     public List<InterChartEvent> ReadAll();
 
+    /// <summary>Read all intersections for a specific chart.</summary>
+    /// <param name="chartId"></param>
+    /// <returns>Lidt with intersections for the chart..</returns>
+    public List<InterChartEvent> Read(int chartId);
+    
     /// <summary>Delete all intersections for a specific chart.</summary>
     /// <param name="chartId"></param>
     /// <returns>True if delete was successful.</returns>

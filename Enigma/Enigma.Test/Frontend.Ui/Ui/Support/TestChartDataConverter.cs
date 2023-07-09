@@ -66,7 +66,6 @@ public class TestChartDataConverter
             Assert.That(expected.MetaData.Name, Is.EqualTo(result.MetaData.Name));
             Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(_delta));
             Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(_delta));
-            Assert.That(expected.Id, Is.EqualTo(result.Id));
         });
     }
 
@@ -82,7 +81,6 @@ public class TestChartDataConverter
     private PersistableChartData CreatePersistableChartData()
     {
         return new PersistableChartData(
-            _id,
             _name,
             _description,
             _source,

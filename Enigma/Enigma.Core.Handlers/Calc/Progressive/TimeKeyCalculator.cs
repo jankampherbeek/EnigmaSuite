@@ -151,7 +151,7 @@ public sealed class TimeKeyCalculator: ITimeKeyCalculator
                     break;
                 case PrimaryKeys.NaibodRa:
                 case PrimaryKeys.NaibodLongitude:
-                    totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, EnigmaConstants.NAIBOD);
+                    totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, EnigmaConstants.Naibod);
                     break;
                 case PrimaryKeys.BraheRa:
                     totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, positionSun.Equatorial.MainPosSpeed.Speed);
@@ -186,7 +186,7 @@ public sealed class TimeKeyCalculator: ITimeKeyCalculator
                     break;
                 case PrimaryKeys.NaibodRa:
                 case PrimaryKeys.NaibodLongitude:
-                    timespanInDays = _fixedTimeKey.DaysFromArc(totalKey, EnigmaConstants.NAIBOD);
+                    timespanInDays = _fixedTimeKey.DaysFromArc(totalKey, EnigmaConstants.Naibod);
                     break;
                 case PrimaryKeys.BraheRa:
                     timespanInDays = _fixedTimeKey.DaysFromArc(totalKey, positionSun.Equatorial.MainPosSpeed.Speed);

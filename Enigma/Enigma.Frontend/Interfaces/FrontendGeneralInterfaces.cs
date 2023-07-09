@@ -98,7 +98,7 @@ public interface IChartDataForDataGridFactory
     /// <summary>Create list with PresentableChartData from list with PersistableChartData.</summary>
     /// <param name="charts">The cahrts to create presentable versions for.</param>
     /// <returns>The presentable versions of the charts data.</returns>
-    public List<PresentableChartData> CreateChartDataForDataGrid(List<PersistableChartData> charts);
+    public List<PresentableChartData> CreateChartDataForDataGrid(List<PersistableChartData>? charts);
 }
 
 /// <summary>Textual conversions ofr location and coördinates.</summary>

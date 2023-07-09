@@ -7,26 +7,32 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Persistency;
+using LiteDB;
 using Serilog;
-using System.Text.Json;
 
 namespace Enigma.Core.Handlers.Persistency.Daos;
 
-/// <inheritdoc/>
-public sealed class InterChartEventDao: IInterChartEventDao
+/// <inheritdoc />
+public sealed class InterChartEventDao : IInterChartEventDao
 {
-    readonly string dbInterChartsEventsFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME_INTER_CHARTS_EVENTS;
+    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
+    private const string COLLECTION = "chartevents";
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public void Insert(int chartId, int eventId)
     {
         PerformInsert(chartId, eventId);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public List<InterChartEvent> ReadAll()
     {
-        return ReadRecordsFromJson();
+        return ReadRecordsFromDatabase();
+    }
+
+    public List<InterChartEvent> Read(int chartId)
+    {
+        return ReadRecordsForChart(chartId);
     }
 
     public bool Delete(int chartId)
@@ -34,81 +40,49 @@ public sealed class InterChartEventDao: IInterChartEventDao
         return PerformDelete(chartId);
     }
 
-    private bool CheckDatabaseInterChartsEvents()
+
+    private List<InterChartEvent> ReadRecordsFromDatabase()
     {
-        return File.Exists(dbInterChartsEventsFullPath);
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
+        List<InterChartEvent> records = col.FindAll().ToList();
+        return records;
+    }
+
+    private List<InterChartEvent> ReadRecordsForChart(int chartId)
+    {
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
+        List<InterChartEvent> records = col.Find(x => x.ChartId.Equals(chartId)).ToList();
+        return records;
     }
 
     private void PerformInsert(int chartId, int eventId)
     {
-        List<InterChartEvent> recordsAsList = ReadRecordsFromJson();
+        var chartEvent = new InterChartEvent(chartId, eventId);
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
         try
         {
-            recordsAsList.Add(new InterChartEvent(chartId, eventId));
-
-            InterChartEvent[] extendedRecords = recordsAsList.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-            var newJson = JsonSerializer.Serialize(extendedRecords, options);
-            File.WriteAllText(dbInterChartsEventsFullPath, newJson);
+            col.Insert(chartEvent);
+            Log.Information("Inserted chartEvent for chart {Chart} and event {Event}",
+                chartEvent.ChartId, chartEvent.EventId);
         }
-        catch (Exception ex)
+        catch (Exception e)
         {
-            string errorTxt = "InterChartEventDao.PerformInsert() using chartId " + chartId + " and eventId " + eventId + "encountered an exception.";
-            Log.Error(errorTxt, ex);
-            throw new Exception(errorTxt, ex);
-        };
+            Log.Error(
+                "ChartDataDao.PerformInsert: trying to insert chartEvent for chart {Chart} and event {Event} results in exception {Ex}",
+                chartEvent.ChartId, chartEvent.EventId, e.Message);
+        }
     }
 
 
-
-    private List<InterChartEvent> ReadRecordsFromJson()
+    private bool PerformDelete(int index)
     {
-        List<InterChartEvent> records = new();
-        if (CheckDatabaseInterChartsEvents())
-        {
-            var json = File.ReadAllText(dbInterChartsEventsFullPath);
-            try
-            {
-                InterChartEvent[] persistableInterChartEventDatas = JsonSerializer.Deserialize<InterChartEvent[]>(json)!;
-                records = persistableInterChartEventDatas.ToList();
-            }
-            catch (Exception ex)
-            {
-                string errorTxt = "InterChartEventDataDao.ReadRecordsFromJson() encountered an exception.";
-                Log.Error(errorTxt, ex);
-                throw new Exception(errorTxt, ex);
-            };
-        }
-        return records;
+        using var db = new LiteDatabase(_dbFullPath);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
+        bool result = col.Delete(index);
+        Log.Information("Deleted eventChart for id {Id}, success {Success}", index, result);
+        return result;
     }
-
-    private bool PerformDelete(int chartId)
-    {
-        bool success = false;
-        List<InterChartEvent> newRecordSet = new();
-        var records = ReadRecordsFromJson();
-        foreach (var record in records)
-        {
-            if (record.ChartId == chartId)
-            {
-                success = true;
-            }
-            else newRecordSet.Add(record);
-        }
-        try
-        {
-            InterChartEvent[] newRecords = newRecordSet.ToArray();
-            var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-            var newJson = JsonSerializer.Serialize(newRecords, options);
-            File.WriteAllText(dbInterChartsEventsFullPath, newJson);
-        }
-        catch (Exception ex)
-        {
-            string errorTxt = "InterChartEventDataDao.PerformDelete() using chartId " + chartId.ToString() + "encountered an exception.";
-            Log.Error(errorTxt, ex);
-            throw new Exception(errorTxt, ex);
-        };
-        return success;
-    }
-
 }

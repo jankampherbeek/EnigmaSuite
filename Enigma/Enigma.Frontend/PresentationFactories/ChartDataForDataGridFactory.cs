@@ -7,6 +7,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -17,29 +18,24 @@ public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
     /// <inherritdoc/>
     public List<PresentableChartData> CreateChartDataForDataGrid(List<CalculatedChart> charts)
     {
-        List<PresentableChartData> chartData = new();
-        foreach (var chart in charts)
-        {
-            string id = chart.InputtedChartData.Id.ToString();
-            string name = chart.InputtedChartData.MetaData.Name;
-            string description = chart.InputtedChartData.MetaData.Description;
-            chartData.Add(new(id, name, description));
-        }
-        return chartData;
+        return (from chart in charts 
+            let id = chart.InputtedChartData.Id.ToString() 
+            let name = chart.InputtedChartData.MetaData.Name 
+            let description = chart.InputtedChartData.MetaData.Description 
+            select new PresentableChartData(id, name, description)).ToList();
     }
 
 
     /// <inherritdoc/>
-    public List<PresentableChartData> CreateChartDataForDataGrid(List<PersistableChartData> charts)
+    public List<PresentableChartData> CreateChartDataForDataGrid(List<PersistableChartData>? charts)
     {
         List<PresentableChartData> chartData = new();
-        foreach (var chart in charts)
-        {
-            string id = chart.Id.ToString();
-            string name = chart.Name;
-            string description = chart.Description;
-            chartData.Add(new(id, name, description));
-        }
+        if (charts != null) chartData.AddRange(
+            from chart in charts 
+            let id = chart.Id.ToString() 
+            let name = chart.Name 
+            let description = chart.Description 
+            select new PresentableChartData(id, name, description));
         return chartData;
     }
 }
