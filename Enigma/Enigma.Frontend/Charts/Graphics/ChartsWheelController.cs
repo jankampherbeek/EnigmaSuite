@@ -10,6 +10,7 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
@@ -97,60 +98,40 @@ public sealed class ChartsWheelController
         AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetCurrentChart()!, _metrics, _centerPoint);
     }
 
-    public double GetAscendantLongitude()
+    private double GetAscendantLongitude()
     {
         return _currentChart != null ? _currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position : 0.0;
     }
 
-    public double GetMcLongitude()
+    private double GetMcLongitude()
     {
         return _currentChart != null ? _currentChart.Positions[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position : 0.0;
     }
 
 
-    public List<double> GetHouseLongitudesCurrentChart()
+    private List<double> GetHouseLongitudesCurrentChart()
     {
         List<double> longitudes = new();
         _currentChart = _dataVault.GetCurrentChart();
-        if (_currentChart != null)
-        {
-            foreach (var cusp in _currentChart.Positions)
-            {
-                if (cusp.Key.GetDetails().PointCat == PointCats.Cusp)
-                {
-                    longitudes.Add(cusp.Value.Ecliptical.MainPosSpeed.Position);
-                }
-            }
-        }
+        if (_currentChart == null) return longitudes;
+        longitudes.AddRange(from cusp in _currentChart.Positions 
+            where cusp.Key.GetDetails().PointCat == PointCats.Cusp 
+            select cusp.Value.Ecliptical.MainPosSpeed.Position);
         return longitudes;
     }
 
-    public Dictionary<ChartPoints, FullPointPos> GetCommonPointsCurrentChart()
+    private Dictionary<ChartPoints, FullPointPos> GetCommonPointsCurrentChart()
     {
         _currentChart = _dataVault.GetCurrentChart();
-        if (_currentChart != null)
-        {
-            Dictionary<ChartPoints, FullPointPos> commonPoints = new();
-            foreach (var item in _currentChart.Positions)
-            {
-                if (item.Key.GetDetails().PointCat == PointCats.Common)
-                {
-                    commonPoints.Add(item.Key, item.Value);
-                }
-            }
-            return commonPoints;
-        }
-        else
-        {
-            return new Dictionary<ChartPoints, FullPointPos>();
-        }
+        return _currentChart != null ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common).ToDictionary(item => item.Key, item => item.Value) : 
+            new Dictionary<ChartPoints, FullPointPos>();
     }
 
     public void Resize(double minSize)
     {
         _metrics.SetSizeFactor(minSize / 740.0);
         CanvasSize = _metrics.GridSize;
-        _centerPoint = new(_metrics.GridSize / 2, _metrics.GridSize / 2);
+        _centerPoint = new Point(_metrics.GridSize / 2, _metrics.GridSize / 2);
         PrepareDraw();
     }
 

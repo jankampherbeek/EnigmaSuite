@@ -31,9 +31,9 @@ using System.Windows;
 namespace Enigma.Frontend.Ui;
 
 
-public partial class App : Application
+public partial class App
 {
-    public static ServiceProvider ServiceProvider { get; private set; } = HandleRegistrationForDI();
+    public static ServiceProvider ServiceProvider { get; } = HandleRegistrationForDi();
 
     private static readonly string EnigmaLogRoot = ApplicationSettings.Instance.LocationLogFiles;
 
@@ -46,7 +46,7 @@ public partial class App : Application
         seApi.SetupSe("se");
     }
 
-    protected static ServiceProvider HandleRegistrationForDI()
+    private static ServiceProvider HandleRegistrationForDi()
     {
         var serviceCollection = new ServiceCollection();
 
@@ -124,7 +124,7 @@ public partial class App : Application
         return serviceCollection.BuildServiceProvider(true);
     }
 
-    public static void DefineLogging()
+    private static void DefineLogging()
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()

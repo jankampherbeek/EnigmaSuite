@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -31,7 +31,7 @@ public sealed class ChartsWheelCircles : IChartsWheelCircles
 
     public List<Line> CreateDegreeLines(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant)
     {
-        double offsetAsc = 30.0 - (longAscendant % 30.0);
+        double offsetAsc = 30.0 - longAscendant % 30.0;
         DimDegreeIndications dimDegreeIndications = new(centerPoint, offsetAsc, metrics.OuterHouseRadius, metrics.DegreesRadius, metrics.Degrees5Radius);
         return dimDegreeIndications.CreateDegreeIndications();
     }

@@ -27,15 +27,15 @@ public class MainController
     /// <summary>Show module for research.</summary>
     public void ShowResearchMain()
     {
-        ResearchMainWindow _researchMainWindow = new();
-        _researchMainWindow.ShowDialog();
+        ResearchMainWindow researchMainWindow = new();
+        researchMainWindow.ShowDialog();
     }
 
     /// <summary>Show module for charts.</summary>
     public void ShowChartsMain()
     {
-        ChartsMainWindow _chartsMainWindow = new();
-        _chartsMainWindow.ShowDialog();
+        ChartsMainWindow chartsMainWindow = new();
+        chartsMainWindow.ShowDialog();
     }
 
     public static void HelpClick()

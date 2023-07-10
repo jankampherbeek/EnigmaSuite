@@ -12,7 +12,7 @@ using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
-public partial class ChartsWheel : Window
+public partial class ChartsWheel
 {
     private readonly ChartsWheelController _controller;
 
@@ -25,7 +25,7 @@ public partial class ChartsWheel : Window
     public void Populate()
     {
         PopulateTexts();
-        wheelCanvas.Children.Clear();
+        WheelCanvas.Children.Clear();
         _controller.PrepareDraw();
         DrawChartFrame();
         DrawCusps();
@@ -36,12 +36,10 @@ public partial class ChartsWheel : Window
 
     private void PopulateTexts()
     {
-        tbDetails.Text = _controller.DescriptiveText();
+        TbDetails.Text = _controller.DescriptiveText();
         Title = Rosetta.TextForId("charts.wheel.title");
-        btnClose.Content = Rosetta.TextForId("common.btnclose");
-        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
-
-
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
     }
 
     private void DrawChartFrame()
@@ -77,7 +75,7 @@ public partial class ChartsWheel : Window
     {
         foreach (var textBlock in textBlocks)
         {
-            wheelCanvas.Children.Add(textBlock);
+            WheelCanvas.Children.Add(textBlock);
         }
     }
 
@@ -85,7 +83,7 @@ public partial class ChartsWheel : Window
     {
         foreach (var line in lines)
         {
-            wheelCanvas.Children.Add(line);
+            WheelCanvas.Children.Add(line);
         }
     }
 
@@ -93,18 +91,17 @@ public partial class ChartsWheel : Window
     {
         foreach (var circle in circles)
         {
-            wheelCanvas.Children.Add(circle);
+            WheelCanvas.Children.Add(circle);
         }
     }
-
 
     private void WheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         double availHeight = Height - 120.0;
         double minSize = Math.Min(availHeight, Width);
         _controller.Resize(minSize);
-        wheelCanvas.Height = _controller.CanvasSize;
-        wheelCanvas.Width = _controller.CanvasSize;
+        WheelCanvas.Height = _controller.CanvasSize;
+        WheelCanvas.Width = _controller.CanvasSize;
         Populate();
     }
 

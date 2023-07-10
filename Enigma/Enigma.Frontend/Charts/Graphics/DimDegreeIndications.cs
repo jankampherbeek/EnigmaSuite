@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -30,16 +30,13 @@ internal sealed class DimDegreeIndications
     public List<Line> CreateDegreeIndications()
     {
         List<Line> degreeIndications = new();
-        Point point1;
-        Point point2;
         double angle = _offsetAsc;
-        double actualHypo;
         for (int i = 0; i < 360; i++)
         {
-            actualHypo = (i % 5 == 0) ? _hypo5Degree : _hypoDegree;
-            point1 = new DimPoint(_centerPoint).CreatePoint(angle, actualHypo);
-            point2 = new DimPoint(_centerPoint).CreatePoint(angle, _hypoStart);
-            degreeIndications.Add(new DimLine().CreateLine(point1, point2, 1, Colors.MediumBlue, 1.0));
+            double actualHypo = (i % 5 == 0) ? _hypo5Degree : _hypoDegree;
+            Point point1 = new DimPoint(_centerPoint).CreatePoint(angle, actualHypo);
+            Point point2 = new DimPoint(_centerPoint).CreatePoint(angle, _hypoStart);
+            degreeIndications.Add(DimLine.CreateLine(point1, point2, 1, Colors.MediumBlue, 1.0));
             angle += 1.0;
             if (angle >= 360.0) angle -= 360.0;
         }

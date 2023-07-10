@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
@@ -18,7 +17,6 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
-
 
 public sealed class ChartsWheelAspects : IChartsWheelAspects
 {
@@ -39,38 +37,45 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         AspectRequest request = new(currentChart, config);
         List<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
         List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
-        //      List<DefinedAspect> defMuAspects = _aspectsApi.AspectsForMundanePoints(request);                                  // todo 0.1 add mundane aspects to chartwheel
-        DimLine dimLine = new();
-        foreach (var drawSsAspect in drawSsAspects)
+        foreach ((ChartPoints point1, ChartPoints point2, double exactness, AspectTypes aspectTypes) in drawSsAspects)
         {
-            Color aspectColor = metrics.MinorAspectsColor;
-            if (drawSsAspect.AspectType == AspectTypes.Square || drawSsAspect.AspectType == AspectTypes.Opposition) aspectColor = metrics.HardAspectsColor;
-            if (drawSsAspect.AspectType == AspectTypes.Triangle || drawSsAspect.AspectType == AspectTypes.Sextile) aspectColor = metrics.SoftAspectsColor;
-            double lineWidth = metrics.AspectLineSize * drawSsAspect.Exactness / 100.0;
+            Color aspectColor;
+            switch (aspectTypes)
+            {
+                case AspectTypes.Square:
+                case AspectTypes.Opposition:
+                    aspectColor = metrics.HardAspectsColor;
+                    break;
+                case AspectTypes.Triangle:
+                case AspectTypes.Sextile:
+                    aspectColor = metrics.SoftAspectsColor;
+                    break;
+                default:
+                    aspectColor = metrics.MinorAspectsColor;
+                    break;
+            }
+
+            double lineWidth = metrics.AspectLineSize * exactness / 100.0;
             if (lineWidth < 0.5) lineWidth = 0.5;
-            ChartPoints point1 = drawSsAspect.Point1;
-            ChartPoints point2 = drawSsAspect.Point2;
             DrawableAspectCoordinatesCp? drawCoordSs1 = null;
             DrawableAspectCoordinatesCp? drawCoordSs2 = null;
             foreach (var coord in ssCoordinates)
             {
                 if (coord.CelPoint == point1)
                 {
-                    drawCoordSs1 = new(point1, coord.XCoordinate, coord.YCoordinate);
+                    drawCoordSs1 = coord with { CelPoint = point1 };
                 }
                 if (coord.CelPoint == point2)
                 {
-                    drawCoordSs2 = new(point2, coord.XCoordinate, coord.YCoordinate);
+                    drawCoordSs2 = coord with { CelPoint = point2 };
                 }
             }
-            if (drawCoordSs1 != null && drawCoordSs2 != null)
-            {
-                Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
-                Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
-                Line connectionLine = dimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.AspectOpacity);
-                aspectLines.Add(connectionLine);
 
-            }
+            if (drawCoordSs1 == null || drawCoordSs2 == null) continue;
+            Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
+            Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
+            Line connectionLine = DimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.AspectOpacity);
+            aspectLines.Add(connectionLine);
 
         }
         return aspectLines;
@@ -84,16 +89,15 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         DimPoint dimPoint = new(centerPoint);
         foreach (var ssPointPos in currentChart.Positions)
         {
-            if (ssPointPos.Key.GetDetails().PointCat == PointCats.Common || ssPointPos.Key == ChartPoints.Mc || ssPointPos.Key == ChartPoints.Ascendant)
-            {
-                double longitude = ssPointPos.Value.Ecliptical.MainPosSpeed.Position;
-                ChartPoints ssPos = ssPointPos.Key;
-                double posOnCircle = longitude - longAsc + 90.0;
-                if (posOnCircle < 0.0) posOnCircle += 360.0;
-                if (posOnCircle >= 360.0) posOnCircle -= 360.0;
-                Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
-                drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesCp(ssPos, newPoint.X, newPoint.Y));
-            }
+            if (ssPointPos.Key.GetDetails().PointCat != PointCats.Common && ssPointPos.Key != ChartPoints.Mc &&
+                ssPointPos.Key != ChartPoints.Ascendant) continue;
+            double longitude = ssPointPos.Value.Ecliptical.MainPosSpeed.Position;
+            ChartPoints ssPos = ssPointPos.Key;
+            double posOnCircle = longitude - longAsc + 90.0;
+            if (posOnCircle < 0.0) posOnCircle += 360.0;
+            if (posOnCircle >= 360.0) posOnCircle -= 360.0;
+            Point newPoint = dimPoint.CreatePoint(posOnCircle, metrics.OuterAspectRadius);
+            drawableAspectCoordinatesSs.Add(new DrawableAspectCoordinatesCp(ssPos, newPoint.X, newPoint.Y));
         }
         return drawableAspectCoordinatesSs;
     }

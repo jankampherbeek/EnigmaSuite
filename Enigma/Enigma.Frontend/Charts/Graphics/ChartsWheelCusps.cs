@@ -31,7 +31,7 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
 
-            double width = ((i % 3) == 0) ? metrics.StrokeSizeDouble : metrics.StrokeSize;
+            double width = i % 3 == 0 ? metrics.StrokeSizeDouble : metrics.StrokeSize;
             cuspLines.Add(CreateSingleCuspLine(metrics, centerPoint, angle, metrics.OuterAspectRadius, metrics.OuterHouseRadius, width));
         }
         return cuspLines;
@@ -60,10 +60,9 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
     private static Line CreateSingleCuspLine(ChartsWheelMetrics metrics, Point centerPoint, double angle, double hypothenusa1, double hypothenusa2, double strokeSize)
     {
         DimPoint dimPoint = new(centerPoint);
-        DimLine dimLine = new();
         Point point1 = dimPoint.CreatePoint(angle, hypothenusa1);
         Point point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-        return dimLine.CreateLine(point1, point2, strokeSize, metrics.CuspLineColor, metrics.CuspLineOpacity);
+        return DimLine.CreateLine(point1, point2, strokeSize, metrics.CuspLineColor, metrics.CuspLineOpacity);
     }
 
     public List<TextBlock> CreateCardinalIndicators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant, double longMc)
@@ -109,17 +108,16 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
         List<TextBlock> cuspTexts = new();
         DimPoint dimPoint = new(centerPoint);
         DimTextBlock cuspsDimTextBlock = new(metrics.PositionTextsFontFamily, metrics.PositionTextSize, metrics.CuspTextOpacity, metrics.CuspTextColor);
-        for (int i = 0; i < housePositions.Count; i++)
+        foreach (double t in housePositions)
         {
-            double angle = housePositions[i] - longAscendant + 90.0;
+            double angle = t - longAscendant + 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
             RotateTransform rotateTransform = new();
             double rotateAngle;
-            double swapAngle;
             double yOffset;
             double textOffsetDegrees;
-            if (angle <= 90.0 || angle > 270.0)
+            if (angle is <= 90.0 or > 270.0)
             {
                 rotateAngle = angle - 90.0;
                 yOffset = 0.0;
@@ -132,11 +130,11 @@ public sealed class ChartsWheelCusps : IChartsWheelCusps
                 textOffsetDegrees = -3.0;
             }
             Point point1 = dimPoint.CreatePoint(angle + textOffsetDegrees, metrics.CuspTextRadius + yOffset);
-            swapAngle = 90.0 - rotateAngle;
+            double swapAngle = 90.0 - rotateAngle;
             rotateTransform.Angle = 180.0 + swapAngle;
             if (rotateTransform.Angle < 0.0) rotateTransform.Angle += 360.0;
             if (rotateTransform.Angle >= 360.0) rotateTransform.Angle -= 360.0;
-            string text = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(housePositions[i]);
+            string text = _doubleToDmsConversions.ConvertDoubleToDmInSignNoGlyph(t);
             TextBlock posText = cuspsDimTextBlock.CreateTextBlock(text, point1.X, point1.Y, rotateTransform);
             cuspTexts.Add(posText);
         }

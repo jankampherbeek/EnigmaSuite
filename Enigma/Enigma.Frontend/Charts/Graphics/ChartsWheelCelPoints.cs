@@ -9,6 +9,7 @@ using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -29,7 +30,7 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
     {
         _sortedGraphicCelPointsFactory = sortedGraphicCelPointsFactory;
         _doubleToDmsConversions = doubleToDmsConversions;
-        _glyphsForChartPoints = new();
+        _glyphsForChartPoints = new GlyphsForChartPoints();
     }
 
 
@@ -52,8 +53,8 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
                 FontSize = fontSize,
                 Foreground = new SolidColorBrush(metrics.CelPointColor)
             };
-            Canvas.SetLeft(glyph, point1.X - (fontSize / 3));
-            Canvas.SetTop(glyph, point1.Y - (fontSize / 1.8));
+            Canvas.SetLeft(glyph, point1.X - fontSize / 3);
+            Canvas.SetTop(glyph, point1.Y - fontSize / 1.8);
             glyphs.Add(glyph);
         }
         return glyphs;
@@ -61,18 +62,12 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
 
     public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
-        List<Line> connectLines = new();
         List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
-        DimLine dimLine = new();
         DimPoint dimPoint = new(centerPoint);
-        foreach (var graphPoint in graphicCelPointsPositions)
-        {
-            Point point1 = dimPoint.CreatePoint(graphPoint.PlotPos, metrics.OuterConnectionRadius);
-            Point point2 = dimPoint.CreatePoint(graphPoint.MundanePos, metrics.OuterAspectRadius);
-            Line connectionLine = dimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.CelPointConnectLineColor, metrics.CelPointConnectLineOpacity);
-            connectLines.Add(connectionLine);
-        }
-        return connectLines;
+        return (from graphPoint in graphicCelPointsPositions 
+            let point1 = dimPoint.CreatePoint(graphPoint.PlotPos, metrics.OuterConnectionRadius) 
+            let point2 = dimPoint.CreatePoint(graphPoint.MundanePos, metrics.OuterAspectRadius) 
+            select DimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.CelPointConnectLineColor, metrics.CelPointConnectLineOpacity)).ToList();
     }
 
     public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)

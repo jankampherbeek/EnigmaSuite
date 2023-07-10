@@ -22,13 +22,13 @@ namespace Enigma.Frontend.Ui;
 
 /// <summary>Splash window, starts the application.</summary>
 /// <remarks>No separate controller for this view.</remarks>
-public partial class StartWindow : Window
+public partial class StartWindow
 {
 
     public StartWindow()
     {
         InitializeComponent();
-        this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        WindowStartupLocation = WindowStartupLocation.CenterScreen;
         PopulateStaticTexts();
         ShowSplashAndFinishView();
 
@@ -82,18 +82,17 @@ public partial class StartWindow : Window
             AstroConfig config = configApi.GetDefaultConfiguration();
             result = configApi.WriteConfig(config);
         }
-        if (!result)
-        {
-            string errorText = "Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk.";
-            Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): " + errorText);
-            throw new EnigmaException(errorText);
-        }
+
+        if (result) return;
+        const string errorText = "Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk";
+        Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): " + errorText);
+        throw new EnigmaException(errorText);
 
     }
 
     private static void HandleCheckDirForSettings()        // todo 0.2 move to backend
     {
-        ApplicationSettings? settings = ApplicationSettings.Instance;
+        ApplicationSettings settings = ApplicationSettings.Instance;
         if (!Directory.Exists(settings.LocationEnigmaRoot)) Directory.CreateDirectory(settings.LocationEnigmaRoot);
         if (!Directory.Exists(settings.LocationExportFiles)) Directory.CreateDirectory(settings.LocationExportFiles);
         if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);

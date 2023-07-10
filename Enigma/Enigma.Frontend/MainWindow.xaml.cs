@@ -12,7 +12,7 @@ using System.Windows;
 namespace Enigma.Frontend.Ui;
 
 /// <summary>Main view for the application.</summary>
-public partial class MainWindow : Window
+public partial class MainWindow
 {
     private readonly MainController _controller;
 
@@ -30,7 +30,7 @@ public partial class MainWindow : Window
 
     private void ResearchClick(object sender, RoutedEventArgs e)
     {
-        _controller.ShowResearchMain();
+         _controller.ShowResearchMain();
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

@@ -20,31 +20,26 @@ public sealed class ChartsWheelSigns : IChartsWheelSigns
     public List<Line> CreateSignSeparators(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant)
     {
         List<Line> allSeparators = new();
-        double offsetAsc = 30.0 - (longAscendant % 30.0);
-        DimLine dimLine = new();
+        double offsetAsc = 30.0 - longAscendant % 30.0;
         DimPoint dimPoint = new(centerPoint);
-        Point point1;
-        Point point2;
-        double angle;
         double hypothenusa1 = metrics.OuterHouseRadius;
         double hypothenusa2 = metrics.OuterSignRadius;
         for (int i = 0; i < 12; i++)
         {
-            angle = (i * 30) + offsetAsc;
+            double angle = i * 30 + offsetAsc;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
 
             angle += 90.0;
-            point1 = dimPoint.CreatePoint(angle, hypothenusa1);
-            point2 = dimPoint.CreatePoint(angle, hypothenusa2);
-            allSeparators.Add(dimLine.CreateLine(point1, point2, metrics.StrokeSize, Colors.MediumBlue, 1.0));
+            Point point1 = dimPoint.CreatePoint(angle, hypothenusa1);
+            Point point2 = dimPoint.CreatePoint(angle, hypothenusa2);
+            allSeparators.Add(DimLine.CreateLine(point1, point2, metrics.StrokeSize, Colors.MediumBlue, 1.0));
         }
         return allSeparators;
     }
 
     public List<TextBlock> CreateSignGlyphs(ChartsWheelMetrics metrics, Point centerPoint, double longAscendant)
     {
-        Point point1;
         double offsetAsc = 30.0 - (longAscendant % 30.0);
         double hypothenusa = metrics.SignGlyphRadius;
         double fontSize = metrics.SignGlyphSize;
@@ -57,11 +52,11 @@ public sealed class ChartsWheelSigns : IChartsWheelSigns
         for (int i = 0; i < 12; i++)
         {
             if (glyphIndex > 11) glyphIndex = 0;
-            double angle = (i * 30) + offsetAsc + 90.0 + 15.0;
+            double angle = i * 30 + offsetAsc + 90.0 + 15.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
-            point1 = dimPoint.CreatePoint(angle, hypothenusa);
-            glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - (fontSize / 3), point1.Y - (fontSize / 1.8)));
+            Point point1 = dimPoint.CreatePoint(angle, hypothenusa);
+            glyphList.Add(dimTextBlock.CreateTextBlock(glyphs[glyphIndex], point1.X - fontSize / 3, point1.Y - fontSize / 1.8));
             glyphIndex++;
         }
         return glyphList;

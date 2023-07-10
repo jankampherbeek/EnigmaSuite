@@ -15,8 +15,8 @@ public sealed class ChartsWheelMetrics
     // Fixed values
     public double MinDistance { get; } = 6.0;
     // Fonts
-    public FontFamily GlyphsFontFamily { get; } = new FontFamily("EnigmaAstrology");
-    public FontFamily PositionTextsFontFamily { get; } = new FontFamily("Calibri");
+    public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrology");
+    public FontFamily PositionTextsFontFamily { get; } = new ("Calibri");
     // Colors
     public Color CuspLineColor { get; } = Colors.SteelBlue;
     public Color CuspTextColor { get; } = Colors.SaddleBrown;
@@ -28,10 +28,10 @@ public sealed class ChartsWheelMetrics
     public Color MinorAspectsColor { get; } = Colors.Gray;
 
     // Opacities
-    public double CuspLineOpacity { get; } = 0.5;
-    public double CuspTextOpacity { get; } = 1.0;
-    public double CelPointConnectLineOpacity { get; } = 0.25;
-    public double AspectOpacity { get; } = 0.4;
+    public double CuspLineOpacity => 0.5;
+    public double CuspTextOpacity => 1.0;
+    public double CelPointConnectLineOpacity => 0.25;
+    public double AspectOpacity => 0.4;
 
     // Circles and radiuses
     public double OuterCircle { get; private set; }
@@ -60,18 +60,18 @@ public sealed class ChartsWheelMetrics
     public double CardinalIndicatorRadius { get; private set; }
 
 
-    private readonly double OuterCircleInitial = 0.98;
-    private readonly double CardinalIndicatorCircleInitial = 0.93;
-    private readonly double OuterSignCircleInitial = 0.89;
-    private readonly double OuterHouseCircleInitial = 0.79;
-    private readonly double OuterAspectCircleInitial = 0.44;
-    private readonly double CuspTextCircleInitial = 0.76;
-    private readonly double SignGlyphCircleInitial = 0.84;
-    private readonly double CelPointTextCircleInitial = 0.64;
-    private readonly double OuterConnectionCircleInitial = 0.48;
-    private readonly double DegreesCircleInitial = 0.775;
-    private readonly double Degrees5CircleInitial = 0.76;
-    private readonly double CelPointGlyphCircleInitial = 0.54;
+    private const double OUTER_CIRCLE_INITIAL = 0.98;
+    private const double CARDINAL_INDICATOR_CIRCLE_INITIAL = 0.93;
+    private const double OUTER_SIGN_CIRCLE_INITIAL = 0.89;
+    private const double OUTER_HOUSE_CIRCLE_INITIAL = 0.79;
+    private const double OUTER_ASPECT_CIRCLE_INITIAL = 0.44;
+    private const double CUSP_TEXT_CIRCLE_INITIAL = 0.76;
+    private const double SIGN_GLYPH_CIRCLE_INITIAL = 0.84;
+    private const double CEL_POINT_TEXT_CIRCLE_INITIAL = 0.64;
+    private const double OUTER_CONNECTION_CIRCLE_INITIAL = 0.48;
+    private const double DEGREES_CIRCLE_INITIAL = 0.775;
+    private const double DEGREES5_CIRCLE_INITIAL = 0.76;
+    private const double CEL_POINT_GLYPH_CIRCLE_INITIAL = 0.54;
 
 
     // --------------------------------------------------
@@ -99,15 +99,14 @@ public sealed class ChartsWheelMetrics
     public double AspectLineSize { get; private set; }
 
 
-
-    private readonly double SignGlyphSizeInitial = 28.0;
-    private readonly double CelPointGlyphSizeInitial = 24.0;
-    private readonly double CardinalFontSizeInitial = 16.0;
-    private readonly double CelPointTextEastOffsetInitial = 8.0;
-    private readonly double CelPointTextWestOffsetInitial = -20.0;
-    private readonly double PositionTextSizeInitial = 10.0;
-    private readonly double GlyphXOffsetInitial = 0.0;
-    private readonly double GlyphYOffsetInitial = 0.0;
+    private const double SIGN_GLYPH_SIZE_INITIAL = 28.0;
+    private const double CEL_POINT_GLYPH_SIZE_INITIAL = 24.0;
+    private const double CARDINAL_FONT_SIZE_INITIAL = 16.0;
+    private const double CEL_POINT_TEXT_EAST_OFFSET_INITIAL = 8.0;
+    private const double CEL_POINT_TEXT_WEST_OFFSET_INITIAL = -20.0;
+    private const double POSITION_TEXT_SIZE_INITIAL = 10.0;
+    private const double GLYPH_X_OFFSET_INITIAL = 0.0;
+    private const double GLYPH_Y_OFFSET_INITIAL = 0.0;
 
     public ChartsWheelMetrics()
     {
@@ -131,53 +130,53 @@ public sealed class ChartsWheelMetrics
         StrokeSizeDouble = StrokeSize * 2.0;
         ConnectLineSize = _baseConnectLineSize * SizeFactor;
         AspectLineSize = _baseAspectLineSize * SizeFactor;
-        GlyphXOffset = GlyphXOffsetInitial * GridSize;
-        GlyphYOffset = GlyphYOffsetInitial * GridSize;
-        SignGlyphSize = SignGlyphSizeInitial * (GridSize / 700.0);
-        CelPointGlyphSize = CelPointGlyphSizeInitial * (GridSize / 700.0);
-        CardinalFontSize = CardinalFontSizeInitial * (GridSize / 700.0);
-        CelPointTextEastOffset = CelPointTextEastOffsetInitial * SizeFactor;
-        CelPointTextWestOffset = CelPointTextWestOffsetInitial * SizeFactor;
-        PositionTextSize = PositionTextSizeInitial * (GridSize / 700.0);
+        GlyphXOffset = GLYPH_X_OFFSET_INITIAL * GridSize;
+        GlyphYOffset = GLYPH_Y_OFFSET_INITIAL * GridSize;
+        SignGlyphSize = SIGN_GLYPH_SIZE_INITIAL * (GridSize / 700.0);
+        CelPointGlyphSize = CEL_POINT_GLYPH_SIZE_INITIAL * (GridSize / 700.0);
+        CardinalFontSize = CARDINAL_FONT_SIZE_INITIAL * (GridSize / 700.0);
+        CelPointTextEastOffset = CEL_POINT_TEXT_EAST_OFFSET_INITIAL * SizeFactor;
+        CelPointTextWestOffset = CEL_POINT_TEXT_WEST_OFFSET_INITIAL * SizeFactor;
+        PositionTextSize = POSITION_TEXT_SIZE_INITIAL * (GridSize / 700.0);
 
     }
 
     private void DefineCircleSizes()
     {
-        OuterCircle = OuterCircleInitial * GridSize;
+        OuterCircle = OUTER_CIRCLE_INITIAL * GridSize;
         OuterRadius = OuterCircle / 2;
 
-        OuterSignCircle = OuterSignCircleInitial * GridSize;
+        OuterSignCircle = OUTER_SIGN_CIRCLE_INITIAL * GridSize;
         OuterSignRadius = OuterSignCircle / 2;
 
-        OuterHouseCircle = OuterHouseCircleInitial * GridSize;
+        OuterHouseCircle = OUTER_HOUSE_CIRCLE_INITIAL * GridSize;
         OuterHouseRadius = OuterHouseCircle / 2;
 
-        OuterAspectCircle = OuterAspectCircleInitial * GridSize;
+        OuterAspectCircle = OUTER_ASPECT_CIRCLE_INITIAL * GridSize;
         OuterAspectRadius = OuterAspectCircle / 2;
 
-        SignGlyphCircle = SignGlyphCircleInitial * GridSize;
+        SignGlyphCircle = SIGN_GLYPH_CIRCLE_INITIAL * GridSize;
         SignGlyphRadius = SignGlyphCircle / 2;
 
-        CuspTextCircle = CuspTextCircleInitial * GridSize;
+        CuspTextCircle = CUSP_TEXT_CIRCLE_INITIAL * GridSize;
         CuspTextRadius = CuspTextCircle / 2;
 
-        CelPointGlyphCircle = CelPointGlyphCircleInitial * GridSize;
+        CelPointGlyphCircle = CEL_POINT_GLYPH_CIRCLE_INITIAL * GridSize;
         CelPointGlyphRadius = CelPointGlyphCircle / 2;
 
-        OuterConnectionCircle = OuterConnectionCircleInitial * GridSize;
+        OuterConnectionCircle = OUTER_CONNECTION_CIRCLE_INITIAL * GridSize;
         OuterConnectionRadius = OuterConnectionCircle / 2;
 
-        DegreesCircle = DegreesCircleInitial * GridSize;
+        DegreesCircle = DEGREES_CIRCLE_INITIAL * GridSize;
         DegreesRadius = DegreesCircle / 2;
 
-        Degrees5Circle = Degrees5CircleInitial * GridSize;
+        Degrees5Circle = DEGREES5_CIRCLE_INITIAL * GridSize;
         Degrees5Radius = Degrees5Circle / 2;
 
-        CelPointTextCircle = CelPointTextCircleInitial * GridSize;
+        CelPointTextCircle = CEL_POINT_TEXT_CIRCLE_INITIAL * GridSize;
         CelPointTextRadius = CelPointTextCircle / 2;
 
-        CardinalIndicatorCircle = CardinalIndicatorCircleInitial * GridSize;
+        CardinalIndicatorCircle = CARDINAL_INDICATOR_CIRCLE_INITIAL * GridSize;
         CardinalIndicatorRadius = CardinalIndicatorCircle / 2;
     }
 

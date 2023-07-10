@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -24,7 +24,7 @@ internal sealed class DimLine
     /// <param name="lineColor">The color for the line</param>
     /// <param name="opacity">The opacity of the line in values from 0 .. 1</param>
     /// <returns></returns>
-    public Line CreateLine(Point point1, Point point2, double lineWidth, Color lineColor, double opacity)
+    public static Line CreateLine(Point point1, Point point2, double lineWidth, Color lineColor, double opacity)
     {
         Line line = new()
         {
