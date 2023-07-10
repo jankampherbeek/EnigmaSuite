@@ -12,15 +12,15 @@ namespace Enigma.Test.Frontend.Ui.Conversions;
 [TestFixture]
 public class TestValueRangeConverter
 {
-    readonly IValueRangeConverter Converter = new ValueRangeConverter();
+    private readonly IValueRangeConverter _converter = new ValueRangeConverter();
 
 
     [Test]
     public void TestHappyFlow()
     {
-        string text = "12-14-18";
-        char separator = '-';
-        (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        const string text = "12-14-18";
+        const char separator = '-';
+        (int[] numbers, bool success) = _converter.ConvertStringRangeToIntRange(text, separator);
         Assert.Multiple(() =>
         {
             Assert.That(success, Is.True);
@@ -34,9 +34,9 @@ public class TestValueRangeConverter
     [Test]
     public void TestSingleItem()
     {
-        string text = "12";
-        char separator = '-';
-        (int[] numbers, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        const string text = "12";
+        const char separator = '-';
+        (int[] numbers, bool success) = _converter.ConvertStringRangeToIntRange(text, separator);
         Assert.Multiple(() =>
         {
             Assert.That(success, Is.True);
@@ -48,9 +48,9 @@ public class TestValueRangeConverter
     [Test]
     public void TestEmptyString()
     {
-        string text = "";
-        char separator = '-';
-        (_, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        const string text = "";
+        const char separator = '-';
+        (_, bool success) = _converter.ConvertStringRangeToIntRange(text, separator);
         Assert.That(success, Is.False);
     }
 
@@ -58,25 +58,25 @@ public class TestValueRangeConverter
     public void TestNullString()
     {
         string? text = null;
-        char separator = '-';
-        _ = Assert.Throws<NullReferenceException>(() => Converter.ConvertStringRangeToIntRange(text!, separator));
+        const char separator = '-';
+        _ = Assert.Throws<NullReferenceException>(() => _converter.ConvertStringRangeToIntRange(text!, separator));
     }
 
     [Test]
     public void TestNonNumeric()
     {
-        string text = "aa-12-22";
-        char separator = '-';
-        (_, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        const string text = "aa-12-22";
+        const char separator = '-';
+        (_, bool success) = _converter.ConvertStringRangeToIntRange(text, separator);
         Assert.That(success, Is.False);
     }
 
     [Test]
     public void TestWrongSeparator()
     {
-        string text = "3-12-22";
-        char separator = '|';
-        (_, bool success) = Converter.ConvertStringRangeToIntRange(text, separator);
+        const string text = "3-12-22";
+        const char separator = '|';
+        (_, bool success) = _converter.ConvertStringRangeToIntRange(text, separator);
         Assert.That(success, Is.False);
     }
 

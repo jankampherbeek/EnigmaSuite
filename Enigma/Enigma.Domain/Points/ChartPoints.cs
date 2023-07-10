@@ -155,15 +155,9 @@ public static class PointsExtensions
     /// <returns>All details.</returns>
     public static List<PointDetails> AllDetails(this ChartPoints _)
     {
-        var allDetails = new List<PointDetails>();
-        foreach (ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints)))
-        {
-            if (currentPoint != ChartPoints.None)
-            {
-                allDetails.Add(currentPoint.GetDetails());
-            }
-        }
-        return allDetails;
+        return (from ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints)) 
+            where currentPoint != ChartPoints.None 
+            select currentPoint.GetDetails()).ToList();
     }
 
 

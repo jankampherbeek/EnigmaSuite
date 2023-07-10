@@ -13,14 +13,10 @@ public class SwissEphException : Exception
 {
     public readonly string message;
 
-    /// <summary>
-    /// Empty constructor.
-    /// </summary>
     public SwissEphException()
     {
         message = string.Empty;
     }
-
 
     public SwissEphException(string text) : base(text)
     {

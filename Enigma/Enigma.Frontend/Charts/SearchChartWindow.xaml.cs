@@ -14,7 +14,7 @@ namespace Enigma.Frontend.Ui.Charts;
 /// <summary>
 /// Interaction logic for SearchCriteria.xaml
 /// </summary>
-public partial class SearchChartWindow : Window
+public partial class SearchChartWindow
 {
     private readonly SearchChartController _controller;
 
@@ -29,33 +29,29 @@ public partial class SearchChartWindow : Window
     }
 
 
-    public void BtnCloseClick(object sender, RoutedEventArgs e)
+    private void BtnCloseClick(object sender, RoutedEventArgs e)
     {
         Close();
     }
 
-    public void BtnHelpClick(object sender, RoutedEventArgs e)
+    private void BtnHelpClick(object sender, RoutedEventArgs e)
     {
         SearchChartController.ShowHelp();
     }
 
-    public void BtnSearchClick(object sender, RoutedEventArgs e)
+    private void BtnSearchClick(object sender, RoutedEventArgs e)
     {
-        _controller.PerformSearch(tboxSearchArgument.Text);
+        _controller.PerformSearch(TboxSearchArgument.Text);
         PopulateData();
     }
 
-    public void ChartSelectedClick(object sender, RoutedEventArgs e)
+    private void ChartSelectedClick(object sender, RoutedEventArgs e)
     {
-        if (sender is DataGrid dataGrid)
-        {
-            PresentableChartData? rowView = (PresentableChartData)dataGrid.SelectedItem;
-            if (rowView != null)
-            {
-                _controller.AddFoundChartToDataVault(rowView);
-                Close();
-            }
-        }
+        if (sender is not DataGrid dataGrid) return;
+        PresentableChartData? rowView = (PresentableChartData)dataGrid.SelectedItem;
+        if (rowView == null) return;
+        _controller.AddFoundChartToDataVault(rowView);
+        Close();
     }
 
 
@@ -63,24 +59,24 @@ public partial class SearchChartWindow : Window
     private void PopulateTexts()
     {
         Title = Rosetta.TextForId("searchchartwindow.title");
-        tbFormTitle.Text = Rosetta.TextForId("searchchartwindow.formtitle");
-        tbExplanation.Text = Rosetta.TextForId("searchchartwindow.explanation");
-        tbSearchResults.Text = Rosetta.TextForId("searchchartwindow.searchresults");
-        btnClose.Content = Rosetta.TextForId("common.btnclose");
-        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
-        btnSearch.Content = Rosetta.TextForId("searchchartwindow.btnsearch");
+        TbFormTitle.Text = Rosetta.TextForId("searchchartwindow.formtitle");
+        TbExplanation.Text = Rosetta.TextForId("searchchartwindow.explanation");
+        TbSearchResults.Text = Rosetta.TextForId("searchchartwindow.searchresults");
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        BtnSearch.Content = Rosetta.TextForId("searchchartwindow.btnsearch");
     }
 
     private void PopulateData()
     {
-        dgSearchResults.ItemsSource = _controller.SearchedChartData();
-        dgSearchResults.GridLinesVisibility = DataGridGridLinesVisibility.None;
-        dgSearchResults.Columns[0].Header = Rosetta.TextForId("searchchartwindow.colid");
-        dgSearchResults.Columns[1].Header = Rosetta.TextForId("searchchartwindow.colname");
-        dgSearchResults.Columns[2].Header = Rosetta.TextForId("searchchartwindow.coldescription");
-        dgSearchResults.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
-        dgSearchResults.Columns[1].CellStyle = FindResource("nameColumnStyle") as Style;
-        dgSearchResults.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
+        DgSearchResults.ItemsSource = _controller.SearchedChartData();
+        DgSearchResults.GridLinesVisibility = DataGridGridLinesVisibility.None;
+        DgSearchResults.Columns[0].Header = Rosetta.TextForId("searchchartwindow.colid");
+        DgSearchResults.Columns[1].Header = Rosetta.TextForId("searchchartwindow.colname");
+        DgSearchResults.Columns[2].Header = Rosetta.TextForId("searchchartwindow.coldescription");
+        DgSearchResults.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
+        DgSearchResults.Columns[1].CellStyle = FindResource("nameColumnStyle") as Style;
+        DgSearchResults.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
     }
 
 

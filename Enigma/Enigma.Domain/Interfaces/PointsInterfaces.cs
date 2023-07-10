@@ -6,7 +6,7 @@
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 
-namespace Enigma.Core.Domain.Interfaces;
+namespace Enigma.Domain.Interfaces;
 
 /// <summary>Mapping between different types of points.</summary>
 public interface IPointsMapping

@@ -3,10 +3,10 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Domain.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Analysis.Helpers;

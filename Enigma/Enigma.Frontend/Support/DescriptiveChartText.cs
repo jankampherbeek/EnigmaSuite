@@ -45,7 +45,7 @@ public class DescriptiveChartText : IDescriptiveChartText
         constructedText.Append(", ");
         constructedText.Append(meta.Description);
         constructedText.Append(' ');
-        return constructedText.ToString() + "\n";
+        return constructedText + "\n";
     }
 
     private static string ConfigText(AstroConfig config)
@@ -63,6 +63,6 @@ public class DescriptiveChartText : IDescriptiveChartText
         constructedText.Append(Rosetta.TextForId(config.ObserverPosition.GetDetails().TextId));
         constructedText.Append(' ');
         constructedText.Append(Rosetta.TextForId(config.ProjectionType.GetDetails().TextId));
-        return constructedText.ToString() + "\n";
+        return constructedText + "\n";
     }
 }

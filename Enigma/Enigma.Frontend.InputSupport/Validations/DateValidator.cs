@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,32 +23,30 @@ public class DateValidator : IDateValidator
 
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
     {
-        bool success = dateValues != null && dateValues.Length == 3 && CheckCalendarRules(dateValues, calendar, yearCount);
+        bool success = dateValues is { Length: 3 } && CheckCalendarRules(dateValues, calendar, yearCount);
         fullDate = null;
 
-        if (success)
-        {
-            string _fullDateText = CreateFullDateText(dateValues!, calendar);
-            fullDate = new FullDate(dateValues!, calendar, _fullDateText);
-        }
+        if (!success) return success;
+        string fullDateText = CreateFullDateText(dateValues!, calendar);
+        fullDate = new FullDate(dateValues!, calendar, fullDateText);
         return success;
     }
 
     private static string CreateFullDateText(int[] dateValues, Calendars calendar)
     {
-        string _yearText = $"{dateValues[0]:D4}";
+        string yearText = $"{dateValues[0]:D4}";
         if (dateValues[0] > 9999 || dateValues[0] < -9999)
         {
-            _yearText = $"{dateValues[0]:D5}";
+            yearText = $"{dateValues[0]:D5}";
         }
-        string _monthText = GetPostFixIdForResourceBundle(dateValues[1]);
-        string _calendarText = calendar == Calendars.Gregorian ? "g" : "j";
-        return $"[{_monthText}] {_yearText}, {dateValues[2]} [{_calendarText}]";
+        string monthText = GetPostFixIdForResourceBundle(dateValues[1]);
+        string calendarText = calendar == Calendars.Gregorian ? "g" : "j";
+        return $"[{monthText}] {yearText}, {dateValues[2]} [{calendarText}]";
     }
 
     private static string GetPostFixIdForResourceBundle(int monthId)
     {
-        string[] postFixes = new string[] { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+        string[] postFixes = new[] { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
         return postFixes[monthId - 1];
     }
 

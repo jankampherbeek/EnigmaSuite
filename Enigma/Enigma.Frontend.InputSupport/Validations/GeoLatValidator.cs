@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,33 +12,33 @@ namespace Enigma.Frontend.Helpers.Validations;
 /// <inheritdoc/>
 public class GeoLatValidator : IGeoLatValidator
 {
-    private readonly int[] _latValues = new int[] { 0, 0, 0 };
-    private double _latitude = 0.0;
+    private readonly int[] _latValues = { 0, 0, 0 };
+    private double _latitude;
     private Directions4GeoLat _direction;
 
     /// <inheritdoc/>
     public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude)
     {
         _direction = direction;
-        string _fullText = "";
-        bool _success = (inputLatValues.Length == 3) || (inputLatValues.Length == 2);
+        string fullText = "";
+        bool success = inputLatValues.Length is 3 or 2;
 
-        if (_success)
+        if (success)
         {
             for (int i = 0; i < inputLatValues.Length; i++)
             {
                 _latValues[i] = inputLatValues[i];
             }
-            _success = CheckMinAndMaxValues(_latValues);
+            success = CheckMinAndMaxValues(_latValues);
         }
 
-        if (_success)
+        if (success)
         {
             CalculateLatitude();
-            _fullText = CreateFullText();
+            fullText = CreateFullText();
         }
-        fullLatitude = new(_latValues, _latitude, _direction, _fullText);
-        return _success;
+        fullLatitude = new FullGeoLatitude(_latValues, _latitude, _direction, fullText);
+        return success;
     }
 
     private string CreateFullText()
@@ -49,8 +49,7 @@ public class GeoLatValidator : IGeoLatValidator
 
     private static bool CheckMinAndMaxValues(int[] valuesToCheck)
     {
-        bool result = true;
-        if (valuesToCheck[0] < 0 || valuesToCheck[0] > 89) result = false;
+        bool result = !(valuesToCheck[0] < 0 || valuesToCheck[0] > 89);
         if (valuesToCheck[1] < 0 || valuesToCheck[1] > 59) result = false;
         if (valuesToCheck[2] < 0 || valuesToCheck[2] > 59) result = false;
         return result;

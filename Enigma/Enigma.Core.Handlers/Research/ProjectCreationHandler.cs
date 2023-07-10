@@ -43,32 +43,32 @@ public sealed class ProjectCreationHandler : IProjectCreationHandler
         errorCode = 0;
         if (FolderExists(project.Name))
         {
-            errorCode = ErrorCodes.ERR_RESEARCH_PROJFOLDER_EXISTS;
+            errorCode = ErrorCodes.ResearchProjfolderExists;
             return false;
         }
         if (!CreateFolder(project.Name))
         {
-            errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_CREATE_PROJFOLDER;
+            errorCode = ErrorCodes.ResearchCannotCreateProjfolder;
             return false;
         }
         if (!CreateFolder(project.Name + @"\results"))
         {
-            errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_CREATE_RESULTSFOLDER;
+            errorCode = ErrorCodes.ResearchCannotCreateResultsfolder;
             return false;
         }
         if (!ParseJson(project, out string jsonText))
         {
-            errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_PARSE_PROJECT_2_JSON;
+            errorCode = ErrorCodes.ResearchCannotParseProject2Json;
             return false;
         }
         if (!WriteJsonToFile(jsonText, project))
         {
-            errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_WRITE_JSON_4_PROJECT;
+            errorCode = ErrorCodes.ResearchCannotWriteJson4Project;
             return false;
         }
         if (!CopyDataFile(project))
         {
-            errorCode = ErrorCodes.ERR_RESEARCH_CANNOT_COPY_DATAFILE;
+            errorCode = ErrorCodes.ResearchCannotCopyDatafile;
             return false;
         }
         string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";

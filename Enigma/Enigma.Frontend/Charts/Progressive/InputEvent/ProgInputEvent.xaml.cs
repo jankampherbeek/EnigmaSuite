@@ -166,11 +166,11 @@ public partial class ProgInputEvent : Window
 
     private void HandleErrors()
     {
-        tbDateValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_DATE) ? Brushes.Yellow : Brushes.White;
-        tbGeoLongValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_GEOLON) ? Brushes.Yellow : Brushes.White;
-        tbGeoLatValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_GEOLAT) ? Brushes.Yellow : Brushes.White;
-        tbTimeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_TIME) ? Brushes.Yellow : Brushes.White;
-        tbGeoLongLmtValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ERR_INVALID_GEOLON_LMT) ? Brushes.Yellow : Brushes.White;
+        tbDateValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidDate) ? Brushes.Yellow : Brushes.White;
+        tbGeoLongValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidGeolon) ? Brushes.Yellow : Brushes.White;
+        tbGeoLatValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidGeolat) ? Brushes.Yellow : Brushes.White;
+        tbTimeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidTime) ? Brushes.Yellow : Brushes.White;
+        tbGeoLongLmtValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidGeolonLmt) ? Brushes.Yellow : Brushes.White;
 
     }
 

@@ -11,7 +11,7 @@ public sealed class ChartsIndexSequence
 {
 
 
-    private static int _lastIndex = 0;
+    private static int _lastIndex;
 
     /// <summary>Return new id.</summary>
     /// <returns>New id, always a negative number.</returns>

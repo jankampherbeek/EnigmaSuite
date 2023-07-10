@@ -14,13 +14,13 @@ namespace Enigma.Frontend.Ui.Support;
 
 
 /// <summary>Show help text.</summary>
-public partial class HelpWindow : Window
+public partial class HelpWindow
 {
     public HelpWindow()
     {
         InitializeComponent();
         Title = Rosetta.TextForId("helpwindow.title");
-        btnClose.Content = Rosetta.TextForId("common.btnclose");
+        BtnClose.Content = Rosetta.TextForId("common.btnclose");
     }
 
     /// <summary>Define html file to be shown as help text.</summary>
@@ -35,7 +35,7 @@ public partial class HelpWindow : Window
         }
         else
         {
-            Log.Error("Could not find helpfile {rp}. This results in a blank help screen but the program continues.", relativePath);
+            Log.Error("Could not find helpfile {RelPath}. This results in a blank help screen but the program continues", relativePath);
         }
     }
 
@@ -46,6 +46,6 @@ public partial class HelpWindow : Window
 
     private void ClickClose(object sender, RoutedEventArgs e)
     {
-        this.Close();
+        Close();
     }
 }

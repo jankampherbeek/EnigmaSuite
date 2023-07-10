@@ -42,7 +42,7 @@ public class DataFilesImportController
     {
         string dataPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
         ResultMessage receivedResultMessage = _fileManagementApi.CreateFoldersForData(dataPath);
-        if (receivedResultMessage.ErrorCode > ErrorCodes.ERR_NONE)
+        if (receivedResultMessage.ErrorCode > ErrorCodes.None)
         {
             return receivedResultMessage;
 

@@ -23,7 +23,7 @@ public sealed class SearchChartController
     private readonly IChartDataConverter _chartDataConverter;
     private readonly DataVault _dataVault = DataVault.Instance;
 
-    private List<PersistableChartData>? chartsFound = new();
+    private List<PersistableChartData>? _chartsFound = new();
     public SearchChartController(IChartDataPersistencyApi chartDataPersistencyApi, 
         IChartDataForDataGridFactory chartDataForDataGridFactory, 
         IChartCalculation chartCalculation, 
@@ -37,24 +37,22 @@ public sealed class SearchChartController
 
     public void PerformSearch(string? searchArgument)
     {
-        chartsFound = string.IsNullOrEmpty(searchArgument) ? _chartDataPersistencyApi.ReadAllChartData() : _chartDataPersistencyApi.SearchChartData(searchArgument);
+        _chartsFound = string.IsNullOrEmpty(searchArgument) ? _chartDataPersistencyApi.ReadAllChartData() : _chartDataPersistencyApi.SearchChartData(searchArgument);
     }
 
-    public List<PresentableChartData> SearchedChartData()
+    public IEnumerable<PresentableChartData> SearchedChartData()
     {
-        return _chartDataForDataGridFactory.CreateChartDataForDataGrid(chartsFound);
+        return _chartDataForDataGridFactory.CreateChartDataForDataGrid(_chartsFound);
     }
 
     public void AddFoundChartToDataVault(PresentableChartData presentableChartData)
     {
         int id = int.Parse(presentableChartData.Id);
         PersistableChartData? persistableChartData = _chartDataPersistencyApi.ReadChartData(id);
-        if (persistableChartData != null)
-        {
-            ChartData chartData = _chartDataConverter.FromPersistableChartData(persistableChartData);
-            CalculatedChart calcChart = _chartCalculation.CalculateChart(chartData);
-            _dataVault.AddNewChart(calcChart);
-        }
+        if (persistableChartData == null) return;
+        ChartData chartData = _chartDataConverter.FromPersistableChartData(persistableChartData);
+        CalculatedChart calcChart = _chartCalculation.CalculateChart(chartData);
+        _dataVault.AddNewChart(calcChart);
     }
 
     public static void ShowHelp()

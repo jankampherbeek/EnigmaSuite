@@ -20,46 +20,46 @@ public class TestDateValidator
         int year = 2022;
         int month = 5;
         int day = 23;
-        int[] DateInput = new int[] { year, month, day };
+        int[] dateInput = { year, month, day };
         var mockDateTimeApi = new Mock<IDateTimeApi>();
         mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(true);
         var dateValidator = new DateValidator(mockDateTimeApi.Object);
-        bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
+        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.True);
             Assert.That(fullDate, Is.Not.Null);
             Assert.That(year, Is.EqualTo(fullDate!.YearMonthDay[0]));
-            Assert.That(month, Is.EqualTo(fullDate!.YearMonthDay[1]));
-            Assert.That(day, Is.EqualTo(fullDate!.YearMonthDay[2]));
+            Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
+            Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
         });
     }
 
     [Test]
     public void TestMonthTooLarge()
     {
-        int year = 2022;
-        int month = 15;
-        int day = 23;
-        int[] DateInput = new int[] { year, month, day };
+        const int year = 2022;
+        const int month = 15;
+        const int day = 23;
+        int[] dateInput = { year, month, day };
         var mockDateTimeApi = new Mock<IDateTimeApi>();
         mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(false);
         var dateValidator = new DateValidator(mockDateTimeApi.Object);
-        bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
+        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.False);
     }
 
     [Test]
     public void TestDayTooSmall()
     {
-        int year = 2022;
-        int month = 15;
-        int day = -1;
-        int[] DateInput = new int[] { year, month, day };
+        const int year = 2022;
+        const int month = 15;
+        const int day = -1;
+        int[] dateInput = { year, month, day };
         var mockDateTimeApi = new Mock<IDateTimeApi>();
         mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(false);
         var dateValidator = new DateValidator(mockDateTimeApi.Object);
-        bool result = dateValidator.CreateCheckedDate(DateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
+        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.That(result, Is.False);
     }
 

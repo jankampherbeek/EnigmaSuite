@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,16 +13,16 @@ namespace Enigma.Frontend.Helpers.Validations;
 /// <inheritdoc/>
 public class GeoLongValidator : IGeoLongValidator
 {
-    private readonly int[] _longValues = new int[] { 0, 0, 0 };
-    private double _longitude = 0.0;
+    private readonly int[] _longValues = { 0, 0, 0 };
+    private double _longitude;
     private Directions4GeoLong _direction;
 
     /// <inheritdoc/>
     public bool CreateCheckedLongitude(int[] inputLongValues, Directions4GeoLong direction, out FullGeoLongitude fullLongitude)
     {
         _direction = direction;
-        string _fullText = "";
-        bool success = (inputLongValues.Length == 3) || (inputLongValues.Length == 2);
+        string fullText = "";
+        bool success = inputLongValues.Length is 3 or 2;
 
         if (success)
         {
@@ -35,9 +35,9 @@ public class GeoLongValidator : IGeoLongValidator
         if (success)
         {
             CalculateLongitude();
-            _fullText = CreateFullText();
+            fullText = CreateFullText();
         }
-        fullLongitude = new(_longValues, _longitude, _direction, _fullText);
+        fullLongitude = new FullGeoLongitude(_longValues, _longitude, _direction, fullText);
         return success;
     }
 
@@ -49,8 +49,7 @@ public class GeoLongValidator : IGeoLongValidator
 
     private static bool CheckMinAndMaxValues(int[] valuesToCheck)
     {
-        bool result = true;
-        if (valuesToCheck[0] < 0 || valuesToCheck[0] > 180) result = false;
+        bool result = !(valuesToCheck[0] < 0 || valuesToCheck[0] > 180);
         if (valuesToCheck[1] < 0 || valuesToCheck[1] > 59) result = false;
         if (valuesToCheck[2] < 0 || valuesToCheck[2] > 59) result = false;
         if (valuesToCheck[0] == 180 && (valuesToCheck[1] > 0 || valuesToCheck[2] > 0)) result = false;

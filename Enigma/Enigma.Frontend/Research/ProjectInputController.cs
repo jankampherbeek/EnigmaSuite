@@ -55,20 +55,20 @@ public class ProjectInputController
         if (ProjectName == null || ProjectName.Trim().Length == 0)
         {
             noErrors = false;
-            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_NAME_INVALID);
+            ActualErrorCodes.Add(ErrorCodes.ResearchNameInvalid);
             ProjectName = "";
         }
         if (ProjectDescription == null || ProjectDescription.Trim().Length == 0)
         {
             noErrors = false;
-            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_DESCRIPTION);
+            ActualErrorCodes.Add(ErrorCodes.ResearchDescription);
             ProjectDescription = "";
         }
         bool isNumeric = int.TryParse(ControlGroupMultiplication, out int multiplication);
         if (!isNumeric || 0 >= multiplication || multiplication > 10)
         {
             noErrors = false;
-            ActualErrorCodes.Add(ErrorCodes.ERR_RESEARCH_MULTIPLICATION);
+            ActualErrorCodes.Add(ErrorCodes.ResearchMultiplication);
         }
         if (noErrors)
         {

@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts"
       mc:Ignorable="d" 
       WindowStartupLocation="CenterScreen"
       Title="SearchCriteria" Height="600" Width="400">
@@ -21,20 +20,20 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Name="tbFormTitle" Text="Form Title" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="tbExplanation" Text="Explanation" Margin="6" TextWrapping="Wrap"/>
-        <TextBox Grid.Row="2" Name="tboxSearchArgument" Margin="6" />
-        <Button Grid.Row="2" Width="70" Grid.Column="1" Margin="6" Name="btnSearch" Content="btnSearch" Click="BtnSearchClick"/>
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" Name="tbSearchResults" Text="tbSearchResults" Margin="6" Style="{StaticResource subTitleStyle}"/>
-        <DataGrid Grid.Row="4" Grid.ColumnSpan="2" Margin="6" Name="dgSearchResults" AlternatingRowBackground="AliceBlue" AlternationCount="2" 
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="TbFormTitle" Text="TbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="TbExplanation" Text="TbExplanation" Margin="6" TextWrapping="Wrap"/>
+        <TextBox Grid.Column="0" Grid.Row="2" Name="TboxSearchArgument" Margin="6" />
+        <Button Grid.Row="2" Width="70" Grid.Column="1" Margin="6" Name="BtnSearch" Content="BtnSearch" Click="BtnSearchClick"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Name="TbSearchResults" Text="TbSearchResults" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="6" Name="DgSearchResults" AlternatingRowBackground="AliceBlue" AlternationCount="2" 
                   AutoGenerateColumns="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                   ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column" SelectionChanged="ChartSelectedClick"/>
-        <StackPanel Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Margin="6" Width="70" Name="btnClose" Content="btnClose" Click="BtnCloseClick"/>
-            <Button Margin="6" Width="70" Name="btnHelp" Content="btnHelp" Click="BtnHelpClick"/>
+        <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button Margin="6" Width="70" Name="BtnClose" Content="BtnClose" Click="BtnCloseClick"/>
+            <Button Margin="6" Width="70" Name="BtnHelp" Content="BtnHelp" Click="BtnHelpClick"/>
         </StackPanel>
     </Grid>
 </Window>

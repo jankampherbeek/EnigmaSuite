@@ -9,9 +9,7 @@ using System.Windows.Shapes;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
-/// <summary>
-/// A graphic line with the correct coordinates, color and linewidth.
-/// </summary>
+/// <summary>A graphic line with the correct coordinates, color and linewidth</summary>
 internal sealed class DimLine
 {
 

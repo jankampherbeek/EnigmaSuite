@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Points;
 

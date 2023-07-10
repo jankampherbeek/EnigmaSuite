@@ -83,11 +83,11 @@ public sealed class ChartDataInputController
         if (lmtSuccess && fullGeoLongForLmt != null) lmtOffset = ParseLmtOffset(fullGeoLongForLmt);
         bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, Dst, out FullTime? fullTime);
 
-        if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_DATE);
-        if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_TIME);
-        if (!geoLongSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON);
-        if (!geoLatSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLAT);
-        if (!lmtSuccess) ActualErrorCodes.Add(ErrorCodes.ERR_INVALID_GEOLON_LMT);
+        if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidDate);
+        if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidTime);
+        if (!geoLongSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidGeolon);
+        if (!geoLatSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidGeolat);
+        if (!lmtSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidGeolonLmt);
 
         if (dateSuccess && timeSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && fullDate != null && fullTime != null)
         {
