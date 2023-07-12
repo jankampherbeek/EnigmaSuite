@@ -20,6 +20,7 @@ using System.Windows;
 using Enigma.Frontend.Ui.Charts.Progressive.InputEvent;
 using Enigma.Frontend.Ui.Charts.Progressive.InputPeriod;
 using Enigma.Frontend.Ui.Charts.Shared;
+using Enigma.Frontend.Ui.Views;
 using JetBrains.Annotations;
 
 namespace Enigma.Frontend.Ui.Charts;
@@ -202,7 +203,7 @@ public sealed class ChartsMainController
     public void ShowSearchEvent()
     {
         // todo create and handle search event
-        CalYearCountWindow tempWindow = new();
+        LmtWindow tempWindow = new();
         tempWindow.ShowDialog();
     }
 
