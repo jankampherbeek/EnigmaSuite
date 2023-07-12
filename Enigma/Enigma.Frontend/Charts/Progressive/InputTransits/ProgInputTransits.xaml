@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts.Progressive.InputTransits"
         mc:Ignorable="d"
         Title="ProgInputTransits" WindowStartupLocation="CenterScreen" Height="460" Width="360">
     <Grid Margin="6">
@@ -22,20 +21,20 @@
             <RowDefinition Height="25*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="2" Grid.Column="2" Grid.RowSpan="4" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="5" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="2" Grid.Row="2" Grid.RowSpan="4" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="5" Style="{StaticResource backgroundStyle}" />
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap" />
-        <StackPanel Grid.Row="2" Grid.RowSpan="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Center">
-            <Button Margin="6" Name="btnPeriod" Content="btnPeriod" HorizontalAlignment="Right"/>
-            <Button Margin="6" Name="btnEvent" Content="btnEvent" HorizontalAlignment="Right"/>
-            <Button Margin="6" Name="btnSearchEvent" Content="btnSearchEvent" HorizontalAlignment="Right"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="TbFormTitle" Text="TbFormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="TbExplanation" Text="TbExplanation" TextWrapping="Wrap" />
+        <StackPanel Grid.Column="0" Grid.Row="2" Grid.RowSpan="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Center">
+            <Button Margin="6" Name="BtnPeriod" Content="BtnPeriod" HorizontalAlignment="Right"/>
+            <Button Margin="6" Name="BtnEvent" Content="BtnEvent" HorizontalAlignment="Right"/>
+            <Button Margin="6" Name="BtnSearchEvent" Content="BtnSearchEvent" HorizontalAlignment="Right"/>
         </StackPanel>
-        <TextBlock Grid.Row="2" Grid.Column="2" Margin="6" Name="tbCelPoints" Text="tbCelPoints" VerticalAlignment="Bottom" />
-        <CheckBox Grid.Row="2" Grid.Column="3" Margin="6" Name="checkAllPoints" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
-        <ListBox Grid.Row="3" Grid.Column="2"  Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="6" Name="lbCelPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
+        <TextBlock Grid.Column="2" Grid.Row="2" Margin="6" Name="TbCelPoints" Text="TbCelPoints" VerticalAlignment="Bottom" />
+        <CheckBox Grid.Column="3" Grid.Row="2" Margin="6" Name="CheckAllPoints" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+        <ListBox Grid.Column="2" Grid.Row="3" Grid.ColumnSpan="2" Grid.RowSpan="3" Margin="6" Name="LbCelPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
@@ -49,10 +48,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="15" Grid.ColumnSpan="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="6" Name="btnHelp" Content="btnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
-            <Button Margin="6" Name="btnCancel" Content="btnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
-            <Button Margin="6" Name="btnCalculate" Content="btnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
+        <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Name="BtnHelp" Content="BtnHelp" HorizontalAlignment="Right" Click="HelpClick"/>
+            <Button Margin="6" Name="BtnCancel" Content="BtnCancel" HorizontalAlignment="Right" Click="CancelClick"/>
+            <Button Margin="6" Name="BtnCalculate" Content="BtnCalculate" HorizontalAlignment="Right" Click="CalculateClick"/>
         </StackPanel>
     </Grid>
 </Window>

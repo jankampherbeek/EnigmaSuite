@@ -124,6 +124,9 @@ chartsmainwindow.menu.newchart = New chart
 chartsmainwindow.menu.positions = Show positions
 
 chartsmainwindow.menu.progressive = Progressive
+chartsmainwindow.menu.progressivenewevent = New event
+chartsmainwindow.menu.progressivesearchevent = Search event
+chartsmainwindow.menu.progressivedaterange = Date range
 chartsmainwindow.menu.progressivepd = Primary directions
 chartsmainwindow.menu.progressivesolar = Solar returns
 chartsmainwindow.menu.progressivesp = Secundary progressions

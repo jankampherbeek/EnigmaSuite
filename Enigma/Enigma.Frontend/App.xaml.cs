@@ -27,6 +27,7 @@ using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
+using Enigma.Frontend.Ui.Charts.Shared;
 
 namespace Enigma.Frontend.Ui;
 
@@ -56,6 +57,7 @@ public partial class App
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<AstroConfigController>();
         serviceCollection.AddTransient<AstroConfigWindow>();
+        serviceCollection.AddTransient<CalYearCountController>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<ChartAspectsController>();
         serviceCollection.AddTransient<ChartAspectsWindow>();
@@ -101,6 +103,8 @@ public partial class App
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<PointSelectController>();
         serviceCollection.AddTransient<PointSelectWindow>();
+        serviceCollection.AddTransient<ProgInputPeriod>();
+        serviceCollection.AddTransient<ProgInputEvent>();
         serviceCollection.AddTransient<ProgInputEventController>();
         serviceCollection.AddTransient<ProgInputPeriodController>();
         serviceCollection.AddTransient<ProgInputTransitsController>();

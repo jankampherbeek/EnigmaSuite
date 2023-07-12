@@ -17,13 +17,13 @@ namespace Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 class ProgInputTransitsController
 {
     private AstroConfig? _astroConfig;
-    private List<SelectableChartPointDetails> _selCPDetails = new();
+    private List<SelectableChartPointDetails> _selCpDetails = new();
 
 
     public List<SelectableChartPointDetails> GetChartPointDetails()
     {
         DefineChartPoints();
-        return _selCPDetails;
+        return _selCpDetails;
     }
 
 
@@ -31,15 +31,13 @@ class ProgInputTransitsController
     private void DefineChartPoints()
     {
         _astroConfig = CurrentConfig.Instance.GetConfig();
-        _selCPDetails = new();
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCPSpec in _astroConfig.ChartPoints)
+        _selCpDetails = new List<SelectableChartPointDetails>();
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCpSpec in _astroConfig.ChartPoints)
         {
-            if (currentCPSpec.Value.IsUsed && currentCPSpec.Key.GetDetails().PointCat == PointCats.Common)
-            {
-                PointDetails cpDetails = currentCPSpec.Key.GetDetails();
-                char glyph = currentCPSpec.Value.Glyph;
-                _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
-            }
+            if (!currentCpSpec.Value.IsUsed || currentCpSpec.Key.GetDetails().PointCat != PointCats.Common) continue;
+            PointDetails cpDetails = currentCpSpec.Key.GetDetails();
+            char glyph = currentCpSpec.Value.Glyph;
+            _selCpDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
         }
     }
 

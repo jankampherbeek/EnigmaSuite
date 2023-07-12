@@ -34,22 +34,22 @@ public partial class ProgInputTransits : Window
     private void PopulateTexts()
     {
         this.Title = Rosetta.TextForId("charts.prog.transitinput.title");
-        FormTitle.Text = Rosetta.TextForId("charts.prog.transitinput.formtitle");
-        tbExplanation.Text = Rosetta.TextForId("charts.prog.transitinput.explanation");
-        btnPeriod.Content = Rosetta.TextForId("charts.prog.transitinput.btnperiod");
-        btnEvent.Content = Rosetta.TextForId("charts.prog.transitinput.btnevent");
-        btnSearchEvent.Content = Rosetta.TextForId("charts.prog.transitinput.btnsearchevent");
-        tbCelPoints.Text = Rosetta.TextForId("charts.prog.transitinput.celpoints");
-        btnCalculate.Content = Rosetta.TextForId("common.btncalc");
-        btnCancel.Content = Rosetta.TextForId("common.btncancel");
-        btnHelp.Content = Rosetta.TextForId("common.btnhelp");
+        TbFormTitle.Text = Rosetta.TextForId("charts.prog.transitinput.formtitle");
+        TbExplanation.Text = Rosetta.TextForId("charts.prog.transitinput.explanation");
+        BtnPeriod.Content = Rosetta.TextForId("charts.prog.transitinput.btnperiod");
+        BtnEvent.Content = Rosetta.TextForId("charts.prog.transitinput.btnevent");
+        BtnSearchEvent.Content = Rosetta.TextForId("charts.prog.transitinput.btnsearchevent");
+        TbCelPoints.Text = Rosetta.TextForId("charts.prog.transitinput.celpoints");
+        BtnCalculate.Content = Rosetta.TextForId("common.btncalc");
+        BtnCancel.Content = Rosetta.TextForId("common.btncancel");
+        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
     }
 
     public void PopulateData()
     {
 
     List<SelectableChartPointDetails> celPointDetails = _controller.GetChartPointDetails();
-    lbCelPoints.ItemsSource = celPointDetails;
+    LbCelPoints.ItemsSource = celPointDetails;
 
     }
 

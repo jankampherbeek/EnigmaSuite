@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Charts"
         mc:Ignorable="d"
         WindowStartupLocation="Manual"   
         Left="10" Top="10"
@@ -24,139 +23,152 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Rectangle Grid.Row="6" Grid.Column="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Rectangle Grid.Row="6" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Menu Grid.Row="0" Grid.ColumnSpan="2">
-            <MenuItem Name="miGeneral" Header="miGeneral">
-                <MenuItem Name="miGeneralSettings" Header="miGeneralSettings" Click="GeneralSettingsClick">
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Column="2" Grid.Row="6" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+            <MenuItem Name="MiGeneral" Header="MiGeneral">
+                <MenuItem Name="MiGeneralSettings" Header="MiGeneralSettings" Click="GeneralSettingsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/settings.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miGeneralConfiguration" Header="miGeneralConfiguration" Click="GeneralConfigurationClick">
+                <MenuItem Name="MiGeneralConfiguration" Header="MiGeneralConfiguration" Click="GeneralConfigurationClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/configuration.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miGeneralClose" Header="miGeneralClose" Click="CloseClick">
+                <MenuItem Name="MiGeneralClose" Header="MiGeneralClose" Click="CloseClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/close.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Name="miCharts" Header="miCharts">
-                <MenuItem Name="miChartsNew" Header="miChartsNew" Click="ChartsNewClick">
+            <MenuItem Name="MiCharts" Header="MiCharts">
+                <MenuItem Name="MiChartsNew" Header="MiChartsNew" Click="ChartsNewClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/newchart.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miChartsSearch" Header="miChartsSearch" Click="SearchClick">
+                <MenuItem Name="MiChartsSearch" Header="MiChartsSearch" Click="SearchClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/occurrences.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miChartsDelete" Header="miChartsDelete" Click="DeleteClick">
+                <MenuItem Name="MiChartsDelete" Header="MiChartsDelete" Click="DeleteClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/delete.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Name="miChartsWheel" Header="miChartsWheel" Click="ShowWheelClick">
+                <MenuItem Name="MiChartsWheel" Header="MiChartsWheel" Click="ShowWheelClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/wheel.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miChartsPositions" Header="miChartsPositions" Click="ShowPositionsClick">
+                <MenuItem Name="MiChartsPositions" Header="MiChartsPositions" Click="ShowPositionsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/table.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Name="miAnalysis" Header="miAnalysis">
-                <MenuItem Name="miAnalysisAspects" Header="miAnalysisAspects" Click="AspectsClick">
+            <MenuItem Name="MiAnalysis" Header="MiAnalysis">
+                <MenuItem Name="MiAnalysisAspects" Header="MiAnalysisAspects" Click="AspectsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/aspects.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miAnalysisHarmonics" Header="miAnalysisHarmonics" Click="HarmonicsClick">
+                <MenuItem Name="MiAnalysisHarmonics" Header="MiAnalysisHarmonics" Click="HarmonicsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/harmonics.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <Separator/>
-                <MenuItem Name="miAnalysisMidpoints" Header="miAnalysisMidpoints" Click="MidpointsClick">
+                <MenuItem Name="MiAnalysisMidpoints" Header="MiAnalysisMidpoints" Click="MidpointsClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/midpoints.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Name="miProgressive" Header="miProgressive">
-                <MenuItem Name="miProgressivePD" Header="miProgressivePD" Click="PrimDirClick">
+            <MenuItem Name="MiProgressive" Header="MiProgressive">
+                <MenuItem Name="MiProgressiveNewEvent" Header="MiProgressiveNewEvent" Click="NewEventClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/event.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="MiProgressiveSearchEvent" Header="MiPRogressiveSearchEvent" Click="SearchEventClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/search.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Name="MiProgressiveNewDaterange" Header="MiProgressiveNewDaterange" Click="DaterangeClick">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/daterange.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Name="MiProgressivePd" Header="MiProgressivePd" Click="PrimDirClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/primary.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miProgressiveSP" Header="miProgressiveSP" Click="SecProgClick">
+                <MenuItem Name="MiProgressiveSd" Header="MiProgressiveSd" Click="SecProgClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/secundary.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miProgressiveTrans" Header="miProgressiveTrans" Click="TransClick">
+                <MenuItem Name="MiProgressiveTrans" Header="MiProgressiveTrans" Click="TransClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/transits.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miProgressiveSym" Header="miProgressiveSym" Click="SymDirClick">
+                <MenuItem Name="MiProgressiveSym" Header="MiProgressiveSym" Click="SymDirClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/symbolic.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miProgressiveSolar" Header="miProgressiveSolar" Click="SolarClick">
+                <MenuItem Name="MiProgressiveSolar" Header="MiProgressiveSolar" Click="SolarClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/solar.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Name="miHelp" Header="miHelp">
-                <MenuItem Name="miHelpAbout" Header="miHelpAbout" Click="HelpAboutClick">
+            <MenuItem Name="MiHelp" Header="MiHelp">
+                <MenuItem Name="MiHelpAbout" Header="MiHelpAbout" Click="HelpAboutClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/help_2.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miHelpPage" Header="miHelpPage" Click="HelpClick">
+                <MenuItem Name="MiHelpPage" Header="MiHelpPage" Click="HelpClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/help.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Name="miHelpManual" Header="miHelpManual" Click="HelpManualClick">
+                <MenuItem Name="MiHelpManual" Header="MiHelpManual" Click="HelpManualClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/manual.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-
-        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Name="tbNrOfCharts" Text="tbNrOfCharts" Margin="12,6,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Name="tbLastChart" Text="tbLastChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="3" Name="tbActiveChart" Text="tbActiveChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="5" Grid.ColumnSpan="2" Name="tbAvailable" Text="tbAvailable" Margin="6" Style="{StaticResource subTitleStyle}"/>
-        <StackPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
-            <Button Name="btnNew" Content="btnNew" Click="ChartsNewClick"/>
-            <Button Name="btnSearch" Content="btnSearch" Click="SearchClick"/>
-            <Button Name="btnDelete" Content="btnDelete" Click="DeleteClick"/>
-            <Button Name="btnWheel" Content="btnWheel" Click="ShowWheelClick"/>
-            <Button Name="btnPositions" Content="btnPositions" Click="ShowPositionsClick"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="TbFormTitle" Text="TbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Name="TbNrOfCharts" Text="TbNrOfCharts" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Name="TbLastChart" Text="TbLastChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Name="TbActiveChart" Text="TbActiveChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="TbAvailable" Text="TbAvailable" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
+            <Button Name="BtnNew" Content="BtnNew" Click="ChartsNewClick"/>
+            <Button Name="BtnSearch" Content="BtnSearch" Click="SearchClick"/>
+            <Button Name="BtnDelete" Content="BtnDelete" Click="DeleteClick"/>
+            <Button Name="BtnWheel" Content="BtnWheel" Click="ShowWheelClick"/>
+            <Button Name="BtnPositions" Content="BtnPositions" Click="ShowPositionsClick"/>
         </StackPanel>
-        <DataGrid Grid.Row="6" Grid.ColumnSpan="2"  Margin="6" Name="dgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
+        <DataGrid Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"  Margin="6" Name="DgCurrent" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   SelectionChanged="NewSelection"/>
-        <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
-            <Button Name="btnHelp" Content="btnHelp" Margin="6" Click="HelpClick"/>
-            <Button Name="btnClose" Content="btnClose" Margin="6" Click="CloseClick"/>
+        <StackPanel Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
+            <Button Name="BtnHelp" Content="BtnHelp" Margin="6" Click="HelpClick"/>
+            <Button Name="BtnClose" Content="BtnClose" Margin="6" Click="CloseClick"/>
         </StackPanel>
-
-
     </Grid>
 </Window>
