@@ -203,6 +203,7 @@ public sealed class ChartsMainController
     public void ShowSearchEvent()
     {
         // todo create and handle search event
+        //CalYearCountWindow tempWindow = new();
         LmtWindow tempWindow = new();
         tempWindow.ShowDialog();
     }

@@ -103,9 +103,9 @@ public partial class App
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<PointSelectController>();
         serviceCollection.AddTransient<PointSelectWindow>();
-        serviceCollection.AddTransient<ProgInputPeriod>();
         serviceCollection.AddTransient<ProgInputEvent>();
         serviceCollection.AddTransient<ProgInputEventController>();
+        serviceCollection.AddTransient<ProgInputPeriod>();
         serviceCollection.AddTransient<ProgInputPeriodController>();
         serviceCollection.AddTransient<ProgInputTransitsController>();
         serviceCollection.AddTransient<ProjectUsageController>();

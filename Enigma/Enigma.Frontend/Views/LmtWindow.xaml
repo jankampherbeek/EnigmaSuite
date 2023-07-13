@@ -11,8 +11,8 @@
         <viewmodels:LmtViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <StackPanel DataContext="{StaticResource ViewModel}"  Orientation="Vertical" Margin="6">
-        <TextBlock Text="{Binding LmtDescription}"/>
-        <TextBox Text=""/>
-        <Button Margin="6" Content="Add LMT"/>
+        <TextBlock Text="{Binding Description}"/>
+        <TextBox Text="{Binding InputtedText, Mode=OneWay }"/>
+        <Button Margin="6" Content="Add LMT" Command="{Binding ClickCommand}"/>
     </StackPanel>
 </Window>
