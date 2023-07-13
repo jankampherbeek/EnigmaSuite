@@ -1,6 +1,6 @@
 # Enigma Astrology Research - Roadmap
 
-*Jan Kampherbeek, 2023-04-11*
+*Jan Kampherbeek, 2023-07-13*
 
 [TOC]
 
@@ -98,11 +98,11 @@ Adds harmonic and historical orb definitions, celestial objects, dials for midpo
 
 ### Release 0.4 - beta
 
-Support for English and Dutch. Adding multiple configurations, including both standard and user definable configurations. Adding functionality for parans. Adding tags to charts in database.
+~~Support for English and Dutch.~~ Adding multiple configurations, including both standard and user definable configurations. Adding functionality for parans. Adding tags to charts in database.
 
 **General**:
 
-- Bi-linguality: English and Dutch for all texts in the application, the help system, and the user manual.
+- ~~Bi-linguality: English and Dutch for all texts in the application, the help system, and the user manual.~~
 - User can define the location for files.
 - Support for multiple configurations. Introduces a set of standard configurations: Common western (western mainstream astrology), School of Ram, Micro astrology, Uranian astrology, Ebertin system, Hellenistic astrology. The user can define additional configurations based on one of the standard configurations.
 - Introduction of EAFS: Enigma Astrological Fact Sheets. Documentation for key aspects in astrology.

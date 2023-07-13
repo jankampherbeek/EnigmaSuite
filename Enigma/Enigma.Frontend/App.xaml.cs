@@ -28,6 +28,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Frontend.Ui.Charts.Shared;
+using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.ViewModels;
 
 namespace Enigma.Frontend.Ui;
 
@@ -52,7 +54,8 @@ public partial class App
         var serviceCollection = new ServiceCollection();
 
         // Handle services from project Enigma.Frontend.
-        serviceCollection.AddTransient<AppSettingsController>();
+        //serviceCollection.AddTransient<AppSettingsController>();
+        serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<AstroConfigController>();

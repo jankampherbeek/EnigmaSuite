@@ -54,7 +54,8 @@ public sealed class ChartsMainController
 
     public void ShowAppSettings()
     {
-        AppSettingsWindow _appSettingsWindow = new();
+        //AppSettingsWindow _appSettingsWindow = new();
+        AppSettingsWindow _appSettingsWindow = new AppSettingsWindow();
         _appSettingsWindow.ShowDialog();
     }
 

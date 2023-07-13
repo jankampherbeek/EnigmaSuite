@@ -1,22 +1,21 @@
-﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
+using System.Windows;
 using Enigma.Domain.Configuration;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
-using System.Windows;
 
-namespace Enigma.Frontend.Ui.Configuration;
+namespace Enigma.Frontend.Ui.Models;
 
-
-public class AppSettingsController
+public class AppSettingsModel
 {
-    private readonly ApplicationSettings _applicationSettings;
-
-    public AppSettingsController()
+    private ApplicationSettings _applicationSettings;
+    
+    
+    public AppSettingsModel()
     {
         _applicationSettings = ApplicationSettings.Instance;
     }
@@ -47,11 +46,5 @@ public class AppSettingsController
         return _applicationSettings.LocationDatabase;
     }
 
-    public static void ShowHelp()
-    {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("Settings");
-        helpWindow.ShowDialog();
-    }
+
 }

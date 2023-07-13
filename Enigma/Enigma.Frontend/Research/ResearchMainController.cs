@@ -11,6 +11,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Research;
 

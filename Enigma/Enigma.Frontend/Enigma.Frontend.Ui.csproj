@@ -850,14 +850,15 @@
     <Page Update="MainWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="Configuration\AppSettingsWindow.xaml">
-      <Generator></Generator>
-    </Page>
     <Page Update="Configuration\AstroConfigWindow.xaml">
       <Generator></Generator>
     </Page>
     <Page Update="StartWindow.xaml">
       <Generator></Generator>
+    </Page>
+    <Page Update="Views\AppSettingsWindow.xaml">
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
 
