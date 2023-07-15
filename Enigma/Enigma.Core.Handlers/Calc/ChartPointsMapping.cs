@@ -23,30 +23,26 @@ public sealed class ChartPointsMapping : IChartPointsMapping
     public CalculationCats CalculationTypeForPoint(ChartPoints point)
     {
         int pointId = (int)point;
-        if (pointId < 1000)                         // celestial points
+        return pointId switch
         {
-            if (_elementsCandidates.Contains(point)) return CalculationCats.CommonElements;
-            else if (_formulaCandidates.Contains(point)) return CalculationCats.CommonFormula;
-            else return CalculationCats.CommonSE;
-        }
-        else if (pointId < 3000)                    // mundane points or cusps
-        {
-            return CalculationCats.Mundane;
-        }
-        else return CalculationCats.Lots;      // specific points
+            // celestial points
+            < 1000 when _elementsCandidates.Contains(point) => CalculationCats.CommonElements,
+            < 1000 when _formulaCandidates.Contains(point) => CalculationCats.CommonFormula,
+            < 1000 => CalculationCats.CommonSE,
+            // mundane points or cusps
+            < 3000 => CalculationCats.Mundane,
+            _ => CalculationCats.Lots
+        };
     }
 
     /// <inheritdoc/>
     public int SeIdForCelestialPoint(ChartPoints point)
     {
         int seId = IdForPoint(point);
-        if (seId < 0)
-        {
-            string errorText = "ChartPointsMapping.SeIdForCelestialPoint() was called with with an unrecognized ChartPoint: " + point.ToString();
-            Log.Error(errorText);
-            throw new EnigmaException(errorText);
-        }
-        return seId;
+        if (seId >= 0) return seId;
+        string errorText = "ChartPointsMapping.SeIdForCelestialPoint() was called with with an unrecognized ChartPoint: " + point;
+        Log.Error(errorText);
+        throw new EnigmaException(errorText);
     }
 
     private static int IdForPoint(ChartPoints point)

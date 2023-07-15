@@ -38,7 +38,7 @@ public partial class DataFilesOverviewWindow : Window
         dgDataNames.ItemsSource = _controller.GetDataNames();
         dgDataNames.GridLinesVisibility = DataGridGridLinesVisibility.None;
         dgDataNames.Columns[0].Header = Rosetta.TextForId("datafilesoverviewwindow.dataname");
-        dgDataNames.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
+        dgDataNames.Columns[0].CellStyle = FindResource("NameColumnStyle") as Style;
     }
 
     private void HelpClick(object sender, RoutedEventArgs e)

@@ -42,7 +42,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="actionButtonStyle" TargetType="{x:Type Button}">
+        <Style x:Key="ActionButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="Foreground" Value="#FFFFFF" />
@@ -98,27 +98,27 @@
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Height" Value="22"/>            
         </Style>
-        <Style x:Key="backgroundStyle" TargetType="{x:Type Rectangle}">
+        <Style x:Key="BackgroundStyle" TargetType="{x:Type Rectangle}">
             <Setter Property="Fill" Value="#EEF1F9"/>
             <Setter Property="RadiusX" Value="6"/>
             <Setter Property="RadiusY" Value="6"/>
         </Style>
-        <Style x:Key="titleStyle" TargetType="{x:Type TextBlock}">
+        <Style x:Key="TitleStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="28"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="SteelBlue"/>
         </Style>
-        <Style x:Key="subTitleStyle" TargetType="{x:Type TextBlock}">
+        <Style x:Key="SubTitleStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="SteelBlue"/>            
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
-        <Style x:Key="largeTextStyle" TargetType="{x:Type TextBlock}">
+        <Style x:Key="LargeTextStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontWeight" Value="DemiBold"/>
         </Style>
-        <Style x:Key="rectangleDarkStyle" TargetType="{x:Type Rectangle}">
+        <Style x:Key="RectangleDarkStyle" TargetType="{x:Type Rectangle}">
             <Setter Property="Fill" Value="#DDE2F2"/>
             <Setter Property="RadiusX" Value="6"/>
             <Setter Property="RadiusY" Value="6"/>
@@ -128,12 +128,12 @@
             <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>            
         </Style>
-        <Style x:Key="nameColumnStyle" TargetType="{x:Type DataGridCell}">
+        <Style x:Key="NameColumnStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
-        <Style x:Key="glyphColumnStyle" TargetType="{x:Type DataGridCell}">
+        <Style x:Key="GlyphColumnStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="EnigmaAstrology"/>
         </Style>

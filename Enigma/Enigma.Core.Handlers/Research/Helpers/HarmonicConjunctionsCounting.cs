@@ -9,7 +9,6 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
-using Enigma.Research.Domain;
 
 
 namespace Enigma.Core.Handlers.Research.Helpers;

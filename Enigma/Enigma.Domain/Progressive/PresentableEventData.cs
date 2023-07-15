@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.Charts;
+namespace Enigma.Domain.Progressive;
 
 /// <summary>Event data to be shown in a data grid.</summary>
 /// <param name="Id">Unique id for the chart.</param>

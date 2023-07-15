@@ -5,17 +5,10 @@
 
 namespace Enigma.Domain.Progressive;
 
-using Enigma.Domain.Calc.ChartItems;
+using Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
 
 
-/// <summary>Data for an event.</summary>
-/// <remarks>Data required for calculations and data to be shown to the user.</remarks>
-/// <param name="Id">Unique Id that also serves as a primary key in the database.</param>
-/// <param name="Description">Description for this event.</param>
-/// <param name="LocationName">Name/description for the location.</param>
-/// <param name="Location">Location related data.</param>
-/// <param name="FullDateTime">Date/time related data.</param>
 public record EventData
 {
     public int Id { get; set; }

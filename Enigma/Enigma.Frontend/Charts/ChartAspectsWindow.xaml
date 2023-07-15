@@ -15,9 +15,9 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="3" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="tbTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Row="1" Name="SubTitleChartId" Text="SubTitleChartId" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <Rectangle Grid.Row="3" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Row="0" Name="FormTitle" Text="tbTitle" Margin="6" Style="{StaticResource TitleStyle}"/>
+        <TextBlock Grid.Row="1" Name="SubTitleChartId" Text="SubTitleChartId" Margin="6" Style="{StaticResource SubTitleStyle}"/>
         <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Name="tbDescriptionText" Text="tbDescriptionText" Margin="6" TextWrapping="Wrap"/>
         <DataGrid Grid.Row="3" Name="dgSsAspects" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" 

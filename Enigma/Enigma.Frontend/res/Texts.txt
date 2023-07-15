@@ -1,13 +1,4 @@
 ﻿
---- App settings window -------------------------------
---appsettingswindow.explanation = The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations.
---appsettingswindow.formtitle = Application settings
---appsettingswindow.locdata = Data files
---appsettingswindow.locdatabase = Database
---appsettingswindow.locexport = Exported files
---appsettingswindow.loclogfiles = Log files
---appsettingswindow.locproject = Projects
---appsettingswindow.title = Enigma - Application settings
 
 --- Astro Config Window -------------------------------
 astroconfigwindow.baseorbexpl = Base orb, the maximum allowed orb, from 0 to 30 degrees. For aspects, the actual orb will be modified by the weighting factors for celestial points and specific aspects.

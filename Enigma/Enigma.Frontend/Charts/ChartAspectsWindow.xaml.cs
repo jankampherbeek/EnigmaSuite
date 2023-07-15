@@ -58,12 +58,12 @@ public partial class ChartAspectsWindow : Window
         dgSsAspects.Columns[1].MaxWidth = 20;
         dgSsAspects.Columns[3].MaxWidth = 20;
         dgSsAspects.Columns[5].MaxWidth = 20;
-        dgSsAspects.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
-        dgSsAspects.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
-        dgSsAspects.Columns[4].CellStyle = FindResource("nameColumnStyle") as Style;
-        dgSsAspects.Columns[1].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgSsAspects.Columns[3].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgSsAspects.Columns[5].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgSsAspects.Columns[0].CellStyle = FindResource("NameColumnStyle") as Style;
+        dgSsAspects.Columns[2].CellStyle = FindResource("NameColumnStyle") as Style;
+        dgSsAspects.Columns[4].CellStyle = FindResource("NameColumnStyle") as Style;
+        dgSsAspects.Columns[1].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgSsAspects.Columns[3].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgSsAspects.Columns[5].CellStyle = FindResource("GlyphColumnStyle") as Style;
         dgSsAspects.HorizontalAlignment = HorizontalAlignment.Right;
     }
 

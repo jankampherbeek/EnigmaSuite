@@ -20,14 +20,14 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Style="{StaticResource BackgroundStyle}" />
 
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="TbFormTitle" Text="TbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="TbFormTitle" Text="TbFormTitle" Margin="6" Style="{StaticResource TitleStyle}"/>
         <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="TbExplanation" Text="TbExplanation" Margin="6" TextWrapping="Wrap"/>
         <TextBox Grid.Column="0" Grid.Row="2" Name="TboxSearchArgument" Margin="6" />
         <Button Grid.Row="2" Width="70" Grid.Column="1" Margin="6" Name="BtnSearch" Content="BtnSearch" Click="BtnSearchClick"/>
-        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Name="TbSearchResults" Text="TbSearchResults" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Name="TbSearchResults" Text="TbSearchResults" Margin="6" Style="{StaticResource SubTitleStyle}"/>
         <DataGrid Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="6" Name="DgSearchResults" AlternatingRowBackground="AliceBlue" AlternationCount="2" 
                   AutoGenerateColumns="True" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" 
                   ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column" SelectionChanged="ChartSelectedClick"/>

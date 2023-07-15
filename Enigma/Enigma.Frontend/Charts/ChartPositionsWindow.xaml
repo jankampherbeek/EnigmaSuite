@@ -21,8 +21,8 @@
             <RowDefinition Height="35*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}"/>
-        <Rectangle Grid.Row="2" Grid.RowSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource TitleStyle}"/>
+        <Rectangle Grid.Row="2" Grid.RowSpan="2" Margin="6" Style="{StaticResource BackgroundStyle}"/>
         <TextBlock Grid.Row="2" Margin="10" Name="ChartName" Text="ChartName" TextWrapping="Wrap"  />
         <TextBlock Grid.Row="3" Margin="10" Name="Details" Text="Details" TextWrapping="Wrap" />
         <DataGrid Grid.Row="2" Margin="6" Grid.Column="1" Grid.RowSpan="2" Name="DGHouses" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 

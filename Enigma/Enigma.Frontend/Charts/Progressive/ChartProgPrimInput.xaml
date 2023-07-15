@@ -32,10 +32,10 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1" Grid.ColumnSpan="5"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2"  Grid.RowSpan="3" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="10" Grid.ColumnSpan="2"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="5"  Grid.RowSpan="5" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Row="9" Grid.Column="3" Grid.ColumnSpan="2"  Grid.RowSpan="3" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.ColumnSpan="2"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource TitleStyle}" />
         <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbPrDirType" Text="tbPrDirType" VerticalAlignment="Bottom" />
         <TextBlock Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="6" Name="tbTimeKey" Text="tbTimeKey" VerticalAlignment="Bottom" />
         <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Margin="6" SelectedItem="2" Name="comboPrDirType" Text="" Style="{DynamicResource ComboBoxStyle1}" SelectionChanged="PrDirTypeChanged" IsEditable="True" IsReadOnly="True"/>

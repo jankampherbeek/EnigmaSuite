@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Research;
-using Enigma.Research.Domain;
 
 namespace Enigma.Domain.RequestResponse.Research;
 

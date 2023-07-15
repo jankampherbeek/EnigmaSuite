@@ -51,9 +51,9 @@ public partial class ChartMidpointsWindow : Window
         dgAllMidpoints.Columns[1].MaxWidth = 12;
         dgAllMidpoints.Columns[2].MaxWidth = 20;
         dgAllMidpoints.Columns[4].MaxWidth = 20;
-        dgAllMidpoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgAllMidpoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgAllMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgAllMidpoints.Columns[0].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgAllMidpoints.Columns[2].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgAllMidpoints.Columns[4].CellStyle = FindResource("GlyphColumnStyle") as Style;
         dgAllMidpoints.HorizontalAlignment = HorizontalAlignment.Right;
 
         dgOccupiedMidpoints.ItemsSource = _controller.RetrieveAndFormatMidpoints(dialSize).Item2;
@@ -70,9 +70,9 @@ public partial class ChartMidpointsWindow : Window
         dgOccupiedMidpoints.Columns[2].MaxWidth = 20;
         dgOccupiedMidpoints.Columns[3].MaxWidth = 12;
         dgOccupiedMidpoints.Columns[4].MaxWidth = 20;
-        dgOccupiedMidpoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgOccupiedMidpoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgOccupiedMidpoints.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgOccupiedMidpoints.Columns[0].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgOccupiedMidpoints.Columns[2].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgOccupiedMidpoints.Columns[4].CellStyle = FindResource("GlyphColumnStyle") as Style;
         dgOccupiedMidpoints.HorizontalAlignment = HorizontalAlignment.Right;
     }
 

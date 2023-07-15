@@ -98,7 +98,7 @@ Adds harmonic and historical orb definitions, celestial objects, dials for midpo
 
 ### Release 0.4 - beta
 
-~~Support for English and Dutch.~~ Adding multiple configurations, including both standard and user definable configurations. Adding functionality for parans. Adding tags to charts in database.
+~~Support for English and Dutch.~~ Adding multiple configurations, including both standard and user definable configurations. Adding functionality for parans. Adding tags to charts in database. <u>Modernized look and feel (using material design).</u>
 
 **General**:
 

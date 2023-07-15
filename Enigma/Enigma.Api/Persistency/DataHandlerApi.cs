@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,7 +23,7 @@ public sealed class DataHandlerApi : IDataHandlerApi
     public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName)
     {
         Guard.Against.NullOrEmpty(dataName);
-        Log.Information("DataHandlerApi ConvertDataFile2Json, using sourceFile {sf} and dataName {dn}.", sourceFile, dataName);
+        Log.Information("DataHandlerApi ConvertDataFile2Json, using sourceFile {Source} and dataName {Data}", sourceFile, dataName);
         return _dataImportHandler.ImportStandardData(sourceFile, dataName);
     }
 }
@@ -44,7 +44,7 @@ public sealed class DataFileManagementApi : IDataFileManagementApi
     public bool FolderIsAvailable(string fullPath)
     {
         Guard.Against.NullOrEmpty(fullPath);
-        Log.Information("DataFileManagementApi FolderIsAvailable, using fullPath : {fp}.", fullPath);
+        Log.Information("DataFileManagementApi FolderIsAvailable, using fullPath : {Path}", fullPath);
         return _preparationHandler.FolderNameAvailable(fullPath);
     }
 
@@ -52,14 +52,14 @@ public sealed class DataFileManagementApi : IDataFileManagementApi
     public ResultMessage CreateFoldersForData(string fullPath)
     {
         Guard.Against.NullOrEmpty(fullPath);
-        Log.Information("DataFileManagementApi CreateFoldersForData, using fullPath : {fp}.", fullPath);
+        Log.Information("DataFileManagementApi CreateFoldersForData, using fullPath : {Path}", fullPath);
         return _preparationHandler.MakeFolderStructure(fullPath);
     }
 
     /// <inheritdoc/>
     public List<string> GetDataNames()
     {
-        Log.Information("DataFileManagementApi GetDataNames.");
+        Log.Information("DataFileManagementApi GetDataNames");
         return _dataNamesHandler.GetExistingDataNames();
     }
 }

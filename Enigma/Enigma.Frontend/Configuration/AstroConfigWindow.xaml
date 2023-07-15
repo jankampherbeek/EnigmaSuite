@@ -16,7 +16,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="Form Title" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Row="0" Name="FormTitle" Text="Form Title" Margin="6" Style="{StaticResource TitleStyle}"/>
 
         <TabControl Grid.Row="1">
             <TabItem Name="tabGeneral" Header="TabGeneral">
@@ -50,34 +50,34 @@
 
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Name="TitleGeneral" Text="Title General" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Name="TitleGeneral" Text="Title General" Margin="6" Style="{StaticResource SubTitleStyle}"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}" />
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Name="tbHouseSystemExpl" Text="tbHouseSystemExpl" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Name="tbHouseSystem" Text="tbHouseSystem" FontWeight="Bold" Margin="6"/>
                     <ComboBox Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2"  Margin="6" Name="comboHouseSystem" Text="" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" Name="tbZodiacTypeExpl" Text="tbZodiacTypeExpl" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="tbZodiacType" Text="tbZodiacType" FontWeight="Bold" Margin="6"/>
                     <ComboBox Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="2"  Margin="6" Name="comboZodiacType" Text="" SelectionChanged="ZodiacTypeChanged" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="4" Name="tbAyanamshaExpl" Text="tbAyanamshaExpl" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2" Name="tbAyanamsha" Text="tbAynamsha" FontWeight="Bold" Margin="6"/>
                     <ComboBox Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2" Margin="6" Name="comboAyanamsha" Text="" SelectionChanged="AyanamshaChanged" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="4" Name="tbObserverPosExpl" Text="tbObserverPosExpl" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2" Name="tbObserverPos" Text="tbObserverPos" FontWeight="Bold" Margin="6"/>
                     <ComboBox Grid.Column="2" Grid.Row="11" Grid.ColumnSpan="2" Margin="6" Name="comboObserverPos" Text="" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="4" Name="tbProjectionTypeExpl" Text="tbProjectionTypeExpl" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2" Name="tbProjectionType" Text="tbProjectionType" FontWeight="Bold" Margin="6"/>
                     <ComboBox Grid.Column="2" Grid.Row="14" Grid.ColumnSpan="2" Margin="6" Name="comboProjectionType" Text="" IsEditable="True" IsReadOnly="True"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="4" Name="tbBaseOrbExpl" Text="tbBaseOrbExpl" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="17" Grid.ColumnSpan="1" Name="tbAspectBaseOrb" Text="tbAspectBaseOrb" FontWeight="Bold" Margin="6"/>
                     <TextBox Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="1" Margin="6" Name="tboxAspectBaseOrb" Text="tboxAspectBaseOrb"/>
@@ -118,13 +118,13 @@
                         <RowDefinition Height="20"/>
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleBasicCelPoints" Text="Title Basic CelPoints" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleBasicCelPoints" Text="Title Basic CelPoints" Margin="6" Style="{StaticResource SubTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9" Name="tbBasicExplanation" Text="tbExplanation" Margin="6" TextWrapping="Wrap"/>
 
-                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9" Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="5" Style="{StaticResource backgroundStyle}" />
-                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="3" Style="{StaticResource backgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9" Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5" Style="{StaticResource BackgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="5" Style="{StaticResource BackgroundStyle}" />
+                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="3" Style="{StaticResource BackgroundStyle}" />
 
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Name="tbClassical" Text="tbClassical" FontSize="18.0" FontWeight="Bold" Margin="6"/>
                     <TextBlock Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4" Name="tbModern" Text="tbModern" FontSize="18.0" FontWeight="Bold" Margin="6"/>
@@ -265,12 +265,12 @@
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
 
-                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9"  Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5"  Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="10"  Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="7"  Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="9"  Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="5"  Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="10"  Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="5" Grid.Row="12" Grid.ColumnSpan="4"  Grid.RowSpan="7"  Style="{StaticResource BackgroundStyle}"/>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleMathMinorPoints" Text="Title MathMinor Points" Margin="6" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="9" Name="TitleMathMinorPoints" Text="Title MathMinor Points" Margin="6" Style="{StaticResource SubTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="9" Name="tbMathMinorExplanation" Text="tbExplanation" Margin="6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Name="tbMathematical" Text="tbMathematical" FontSize="18.0" FontWeight="Bold" Margin="6"/>
                     <TextBlock Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4" Name="tbCentaurs" Text="tbCentaurs" FontSize="18.0" FontWeight="Bold" Margin="6"/>
@@ -447,13 +447,13 @@
 
                     </Grid.RowDefinitions>
 
-                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="6" Style="{StaticResource backgroundStyle}" />
-                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="5"  Grid.RowSpan="6" Style="{StaticResource backgroundStyle}" />
-                    <Rectangle Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="4"  Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
-                    <Rectangle Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="5"  Grid.RowSpan="3" Style="{StaticResource backgroundStyle}" />
-                    <Rectangle Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4"  Grid.RowSpan="6" Style="{StaticResource BackgroundStyle}" />
+                    <Rectangle Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="5"  Grid.RowSpan="6" Style="{StaticResource BackgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="4"  Grid.RowSpan="4" Style="{StaticResource BackgroundStyle}" />
+                    <Rectangle Grid.Column="5" Grid.Row="9" Grid.ColumnSpan="5"  Grid.RowSpan="3" Style="{StaticResource BackgroundStyle}" />
+                    <Rectangle Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="4"  Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}" />
 
-                    <TextBlock Grid.Column="0" Grid.ColumnSpan="10" Name="TitleHypotheticalPoints" Text="Title Hypothetical Points" Margin="6,0,6,0" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="10" Name="TitleHypotheticalPoints" Text="Title Hypothetical Points" Margin="6,0,6,0" Style="{StaticResource SubTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="10" Name="tbHypotheticalExplanation" Text="tbExplanation" Margin="6,6,6,6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Name="tbUranianWitte" Text="tbUranianWitte" FontSize="18.0" FontWeight="Bold" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="5" Name="tbUranianSieggrun" Text="tbUranianSieggrun" FontSize="18.0" FontWeight="Bold" Margin="6,6,6,6"/>
@@ -582,12 +582,12 @@
                         <RowDefinition Height="20"/>
                     </Grid.RowDefinitions>
 
-                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="10"  Grid.RowSpan="3" Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"  Grid.RowSpan="7" Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="5" Grid.Row="6" Grid.ColumnSpan="4"  Grid.RowSpan="9" Style="{StaticResource backgroundStyle}"/>
-                    <Rectangle Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="10"  Grid.RowSpan="6" Style="{StaticResource backgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="10"  Grid.RowSpan="3" Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="4"  Grid.RowSpan="7" Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="5" Grid.Row="6" Grid.ColumnSpan="4"  Grid.RowSpan="9" Style="{StaticResource BackgroundStyle}"/>
+                    <Rectangle Grid.Column="0" Grid.Row="16" Grid.ColumnSpan="10"  Grid.RowSpan="6" Style="{StaticResource BackgroundStyle}"/>
 
-                    <TextBlock Grid.Column="0" Grid.ColumnSpan="10" Name="TitleAspects" Text="Title Aspects" Margin="6,0,6,0" Style="{StaticResource subTitleStyle}"/>
+                    <TextBlock Grid.Column="0" Grid.ColumnSpan="10" Name="TitleAspects" Text="Title Aspects" Margin="6,0,6,0" Style="{StaticResource SubTitleStyle}"/>
                     <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="10" Name="tbAspectsExplanation" Text="tbExplanation" Margin="6,6,6,6" TextWrapping="Wrap"/>
                     <TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="5" Name="tbMajorAspects" Text="tbMajorAspects" FontSize="18.0" FontWeight="Bold" Margin="6,6,6,6"/>
                     <TextBlock Grid.Column="6" Grid.Row="6" Grid.ColumnSpan="4" Name="tbMinorAspects" Text="tbMinorAspects" FontSize="18.0" FontWeight="Bold" Margin="6,6,6,6"/>

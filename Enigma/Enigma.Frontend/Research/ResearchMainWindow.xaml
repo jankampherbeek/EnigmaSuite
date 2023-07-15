@@ -75,9 +75,9 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <Rectangle Grid.Row="3" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="3" Style="{StaticResource BackgroundStyle}" />
 
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbFormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbFormTitle" Text="FormTitle" Style="{StaticResource TitleStyle}" />
         <TextBlock Grid.Row="2" Margin="6" Name="tbExplText" Text="ExplText" TextWrapping="Wrap"/>
         <ListBox Grid.Row="3" Margin="6" Name="lbProjects" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>

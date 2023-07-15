@@ -80,4 +80,4 @@ public record CountOfOccupiedMidpointsResponse(GeneralResearchRequest Request, D
 /// <summary>Response for counting conjunctions between harmonic and radix positions.</summary>
 /// <param name="Request">The original request, instnace of CountHarmonicConjunctionsRequest.</param>
 /// <param name="AllCounts">Dictionary with TwoPointStructure and the counts. TwoPointStructure contains respectively the harmonic point and the radix point.</param>
-public record CountHarmonicConjunctionsResponse(GeneralResearchRequest Request, Dictionary<TwoPointStructure, int> AllCounts) : MethodResponse(Request as GeneralResearchRequest);
+public record CountHarmonicConjunctionsResponse(GeneralResearchRequest Request, Dictionary<TwoPointStructure, int> AllCounts) : MethodResponse(Request);

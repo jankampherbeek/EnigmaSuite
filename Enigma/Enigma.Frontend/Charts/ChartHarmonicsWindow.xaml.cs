@@ -94,9 +94,9 @@ public partial class ChartHarmonicsWindow
         dgHarmonics.Columns[0].MaxWidth = 20;
         dgHarmonics.Columns[2].MaxWidth = 20;
         dgHarmonics.Columns[4].MaxWidth = 20;
-        dgHarmonics.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgHarmonics.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
-        dgHarmonics.Columns[4].CellStyle = FindResource("glyphColumnStyle") as Style;
+        dgHarmonics.Columns[0].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgHarmonics.Columns[2].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        dgHarmonics.Columns[4].CellStyle = FindResource("GlyphColumnStyle") as Style;
         dgHarmonics.HorizontalAlignment = HorizontalAlignment.Right;
     }
 

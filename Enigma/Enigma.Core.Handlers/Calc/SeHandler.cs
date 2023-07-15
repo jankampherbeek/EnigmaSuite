@@ -18,14 +18,14 @@ public sealed class SeHandler : ISeHandler
     {
         Log.Information("Initializing SE using path: " + pathToSeFiles);
         SeInitializer.SetEphePath(pathToSeFiles);
-        Log.Information("SE initialized.");
+        Log.Information("SE initialized");
     }
 
     public void CloseSe()
     {
         Log.Information("Closing SE");
         SeInitializer.CloseEphemeris();
-        Log.Information("SE closed.");
+        Log.Information("SE closed");
     }
 
 }

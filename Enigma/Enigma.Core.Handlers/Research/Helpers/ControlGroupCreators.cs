@@ -16,16 +16,16 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
     private readonly IControlGroupRng _controlGroupRng;
     private readonly IControlDataCalendar _controlDataCalendar;
     private readonly List<StandardInputItem> _controlGroupItems = new();
-    private readonly List<int> years = new();
-    private readonly List<int> months = new();
-    private readonly List<int> days = new();
-    private readonly List<int> hours = new();
-    private readonly List<int> minutes = new();
-    private readonly List<int> seconds = new();
-    private readonly List<double> dsts = new();
-    private readonly List<double> zoneOffsets = new();
-    private readonly List<double> latitudes = new();
-    private readonly List<double> longitudes = new();
+    private readonly List<int> _years = new();
+    private readonly List<int> _months = new();
+    private readonly List<int> _days = new();
+    private readonly List<int> _hours = new();
+    private readonly List<int> _minutes = new();
+    private readonly List<int> _seconds = new();
+    private readonly List<double> _dsts = new();
+    private readonly List<double> _zoneOffsets = new();
+    private readonly List<double> _latitudes = new();
+    private readonly List<double> _longitudes = new();
 
     public StandardShiftControlGroupCreator(IControlGroupRng controlGroupRng, IControlDataCalendar controlDataCalendar)
     {
@@ -60,72 +60,72 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
 
     private void ProcessInputData(List<StandardInputItem> inputItems)
     {
-        years.Clear();
-        months.Clear();
-        days.Clear();
-        hours.Clear();
-        minutes.Clear();
-        seconds.Clear();
-        dsts.Clear();
-        zoneOffsets.Clear();
-        latitudes.Clear();
-        longitudes.Clear();
+        _years.Clear();
+        _months.Clear();
+        _days.Clear();
+        _hours.Clear();
+        _minutes.Clear();
+        _seconds.Clear();
+        _dsts.Clear();
+        _zoneOffsets.Clear();
+        _latitudes.Clear();
+        _longitudes.Clear();
 
 
         foreach (var inputItem in inputItems)
         {
             PersistableDate date = inputItem.Date!;
             PersistableTime time = inputItem.Time!;
-            years.Add(date.Year);
-            months.Add(date.Month);
-            days.Add(date.Day);
-            hours.Add(time.Hour);
-            minutes.Add(time.Minute);
-            seconds.Add(time.Second);
-            dsts.Add(time.Dst);
-            zoneOffsets.Add(time.ZoneOffset);
-            latitudes.Add(inputItem.GeoLatitude);
-            longitudes.Add(inputItem.GeoLongitude);
+            _years.Add(date.Year);
+            _months.Add(date.Month);
+            _days.Add(date.Day);
+            _hours.Add(time.Hour);
+            _minutes.Add(time.Minute);
+            _seconds.Add(time.Second);
+            _dsts.Add(time.Dst);
+            _zoneOffsets.Add(time.ZoneOffset);
+            _latitudes.Add(inputItem.GeoLatitude);
+            _longitudes.Add(inputItem.GeoLongitude);
         }
     }
 
     private void SortDaysAndShuffleOtherItems()
     {
-        days.Sort();
-        days.Reverse();
-        _controlGroupRng.ShuffleList(years);
-        _controlGroupRng.ShuffleList(months);
-        _controlGroupRng.ShuffleList(days);
-        _controlGroupRng.ShuffleList(hours);
-        _controlGroupRng.ShuffleList(minutes);
-        _controlGroupRng.ShuffleList(seconds);
-        _controlGroupRng.ShuffleList(dsts);
-        _controlGroupRng.ShuffleList(zoneOffsets);
-        _controlGroupRng.ShuffleList(latitudes);
-        _controlGroupRng.ShuffleList(longitudes);
+        _days.Sort();
+        _days.Reverse();
+        _controlGroupRng.ShuffleList(_years);
+        _controlGroupRng.ShuffleList(_months);
+        _controlGroupRng.ShuffleList(_days);
+        _controlGroupRng.ShuffleList(_hours);
+        _controlGroupRng.ShuffleList(_minutes);
+        _controlGroupRng.ShuffleList(_seconds);
+        _controlGroupRng.ShuffleList(_dsts);
+        _controlGroupRng.ShuffleList(_zoneOffsets);
+        _controlGroupRng.ShuffleList(_latitudes);
+        _controlGroupRng.ShuffleList(_longitudes);
     }
 
     private void ProcessData(int sequence)
     {
         int counter = 0;
-        while (years.Count > 0)
+        while (_years.Count > 0)
         {
-            int year = GetFromList(years);
-            int day = GetFromList(days);
+            int year = GetFromList(_years);
+            int day = GetFromList(_days);
             int month = FindMonth(day, year);
-            int hour = GetFromList(hours);
-            int minute = GetFromList(minutes);
-            int second = GetFromList(seconds);
-            double dst = GetFromList(dsts);
-            double zoneOffset = GetFromList(zoneOffsets);
-            double latitude = GetFromList(latitudes);
-            double longitude = GetFromList(longitudes);
+            int hour = GetFromList(_hours);
+            int minute = GetFromList(_minutes);
+            int second = GetFromList(_seconds);
+            double dst = GetFromList(_dsts);
+            double zoneOffset = GetFromList(_zoneOffsets);
+            double latitude = GetFromList(_latitudes);
+            double longitude = GetFromList(_longitudes);
 
             PersistableDate date = new(year, month, day, "G");      // TODO 0.2 add support for Julian? Or use always Gregorian?
             PersistableTime time = new(hour, minute, second, zoneOffset, dst);
             int id = counter++;
             string name = "Controldata " + sequence + "-" + id;
-            _controlGroupItems.Add(new StandardInputItem(sequence.ToString() + "-" + id.ToString(), name, longitude, latitude, date, time));
+            _controlGroupItems.Add(new StandardInputItem(sequence + "-" + id, name, longitude, latitude, date, time));
         }
     }
 
@@ -134,13 +134,13 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
         bool found = false;
         int month = 0;
         int counter = 0;
-        while (!found && counter < months.Count)
+        while (!found && counter < _months.Count)
         {
-            month = months[counter];
+            month = _months[counter];
             if (_controlDataCalendar.DayFitsInMonth(day, month, year))
             {
                 found = true;
-                months.RemoveAt(counter);
+                _months.RemoveAt(counter);
             }
             counter++;
         }

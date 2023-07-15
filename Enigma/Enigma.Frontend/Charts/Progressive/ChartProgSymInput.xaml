@@ -20,8 +20,8 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <Rectangle Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="4" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource TitleStyle}" />
         <TextBlock Grid.Row="1" Margin="6" Name="tbRate" Text="tbRate" VerticalAlignment="Bottom" />
         <TextBlock Grid.Row="1" Grid.Column="2" Margin="6" Name="tbOrbAspects" Text="tbOrbAspects" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="2" Margin="6" Name="tbRateValue" Text="" VerticalAlignment="Top" />

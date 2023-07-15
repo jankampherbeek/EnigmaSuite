@@ -6,7 +6,7 @@
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
 
-namespace Enigma.Research.Domain;
+namespace Enigma.Domain.Research;
 
 /// <summary>Selection of points to use in research.</summary>
 /// <param name="SelectedPoints">Selected chart points.</param>

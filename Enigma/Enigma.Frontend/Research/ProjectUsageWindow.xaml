@@ -28,10 +28,10 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         
-        <Rectangle Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="6" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="10" Grid.ColumnSpan="2" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbProjDetails" Text="tbProjDetails" Style="{StaticResource subTitleStyle}" />
+        <Rectangle Grid.Row="2" Grid.ColumnSpan="3" Grid.RowSpan="6" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.ColumnSpan="2" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource TitleStyle}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="tbProjDetails" Text="tbProjDetails" Style="{StaticResource SubTitleStyle}" />
 
         <TextBlock Grid.Row="2" Margin="6" Name="tbProjName" Text="tbProjName" FontWeight="Bold" />
         <TextBlock Grid.Row="2" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjNameValue" Text="tbProjNameValue" />
@@ -45,7 +45,7 @@
         <TextBlock Grid.Row="6" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjControlGroupTypeValue" Text="tbProjControlGroupTypeValue" />
         <TextBlock Grid.Row="7" Margin="6" Name="tbProjControlGroupMult" Text="tbProjControlGroupMult" FontWeight="Bold" />
         <TextBlock Grid.Row="7" Margin="6" Grid.Column="1" Grid.ColumnSpan="2" Name="tbProjControlGroupMultValue" Text="tbProjControlGroupMultValue" />
-        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Margin="6" Name="tbExistingMethods" Text="tbExistingMethods" Style="{StaticResource subTitleStyle}" />
+        <TextBlock Grid.Row="9" Grid.ColumnSpan="3" Margin="6" Name="tbExistingMethods" Text="tbExistingMethods" Style="{StaticResource SubTitleStyle}" />
         <ListBox Grid.Row="10" Grid.ColumnSpan="2" Margin="6" Name="lbExistingMethods" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>

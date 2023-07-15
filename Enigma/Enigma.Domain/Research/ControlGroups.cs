@@ -15,8 +15,8 @@ public enum ControlGroupTypes
 
 
 /// <summary>Details for ControlGroupTypes </summary>
-/// <param name="controlGroupType">Instance from enum ControlGroupTypes.</param>
-/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+/// <param name="ControlGroupType">Instance from enum ControlGroupTypes.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
 public record ControlGroupTypeDetails(ControlGroupTypes ControlGroupType, string TextId);
 
 /// <summary>Extension class for enum ControlGroupTypes.</summary>
@@ -31,7 +31,7 @@ public static class ControlGroupTypesExtensions
         {
             ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.standardshift"),
             //         ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),   // TODO 0.2 add check for GroupMemberShift
-            _ => throw new ArgumentException("Controlgroup type unknown : " + cgType.ToString())
+            _ => throw new ArgumentException("Controlgroup type unknown : " + cgType)
         };
     }
 
@@ -39,12 +39,7 @@ public static class ControlGroupTypesExtensions
     /// <returns>All details.</returns>
     public static List<ControlGroupTypeDetails> AllDetails(this ControlGroupTypes _)
     {
-        var allDetails = new List<ControlGroupTypeDetails>();
-        foreach (ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)))
-        {
-            allDetails.Add(currentCgType.GetDetails());
-        }
-        return allDetails;
+        return (from ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)) select currentCgType.GetDetails()).ToList();
     }
 
     /// <summary>Find control group type for an index.</summary>

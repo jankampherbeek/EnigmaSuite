@@ -40,7 +40,7 @@ public static class MathExtra
     /// <exception cref="ArgumentException">Thrown if rectangularValues is null or contains more or less than 3 values.</exception>
     public static double[] Rectangular2Polar(double[] rectangularValues)
     {
-        if ((rectangularValues == null) || (rectangularValues.Length != 3))
+        if (rectangularValues is not { Length: 3 })
         {
             string errorText = "MathExtra.Rectangular2Polar(): Invalud input for rectangularValues: " + rectangularValues;
             Log.Error(errorText);
@@ -55,7 +55,7 @@ public static class MathExtra
         double phi = Math.Atan2(y, x);
         double theta = Math.Asin(z / r);
 
-        return new double[] { phi, theta, r };
+        return new[] { phi, theta, r };
     }
 
     /// <summary>Convert record with rectangular coordinates to record with polar coordinates.</summary>
@@ -80,7 +80,7 @@ public static class MathExtra
     /// <returns>Rectangular coordinates, respectively x, y and z.</returns>
     public static double[] Polar2Rectangular(double[] polarValues)
     {
-        if ((polarValues == null) || (polarValues.Length != 3))
+        if (polarValues is not { Length: 3 })
         {
             string errorText = "MathExtra.Polar2Rectangular(): Invalud input for polar values: " + polarValues;
             Log.Error(errorText);
@@ -130,7 +130,7 @@ public static class MathExtra
     /// <param name="ascDiff">Ascension difference of point.</param>
     /// <param name="east">Indicates if point is in easterh hemisphere,</param>
     /// <param name="north">Indficates if point is in northern hemisphere.</param>
-    /// <returns><Calculated oblique ascension./returns>
+    /// <returns>Calculated oblique ascension.</returns>
     public static double ObliqueAscension(double raPoint, double ascDiff, bool east, bool north)
     {
         if ((north && east) || (!north && !east))
@@ -191,7 +191,7 @@ public static class MathExtra
     /// <returns>The calcularted latitude.</returns>
     public static double BianchinianLatitude(double pointLatitude, double angle)
     {
-        double calculatedLatitude = 0.0;
+        double calculatedLatitude;
         if (angle <= 90.0) {
             calculatedLatitude = (1 - angle / 90.0) * pointLatitude;
         }

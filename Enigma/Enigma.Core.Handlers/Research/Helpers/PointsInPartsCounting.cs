@@ -8,7 +8,6 @@ using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
-using Enigma.Research.Domain;
 using Serilog;
 using System.Text.Json;
 

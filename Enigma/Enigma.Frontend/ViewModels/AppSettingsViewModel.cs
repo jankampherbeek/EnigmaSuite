@@ -9,7 +9,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -34,7 +33,7 @@ public partial class AppSettingsViewModel: ObservableObject
        _locationOfLogFiles = model.LocationOfLogFiles();
     }
     
-    [RelayCommand] private void Help()
+    [RelayCommand] private static void Help()
     {
         ShowHelp();
     }

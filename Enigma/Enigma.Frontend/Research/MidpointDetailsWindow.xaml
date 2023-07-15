@@ -22,9 +22,9 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource TitleStyle}" />
         <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap" />
-        <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="4" Style="{StaticResource BackgroundStyle}" />
         <TextBlock Grid.Row="2" Margin="6" Name="tbDialSize" Text="tbDialSize"/>
         <ComboBox Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"  Margin="6" Name="comboDialSize" Text="" IsEditable="True" IsReadOnly="True"/>
         <TextBlock Grid.Row="3" Margin="6" Name="tbOrb" Text="tbOrb"/>

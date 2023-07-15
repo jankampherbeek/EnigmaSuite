@@ -19,8 +19,8 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1"  Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource titleStyle}" />
+        <Rectangle Grid.Row="1"  Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.ColumnSpan="3" Margin="6" Name="tbFormTitle" Text="tbFormTitle" Style="{StaticResource TitleStyle}" />
         <ListBox Grid.Row="1" Margin="6" Name="lbCelPoints" HorizontalContentAlignment="Stretch" SelectionMode="Multiple">
             <ListBox.ItemTemplate>
                 <DataTemplate>

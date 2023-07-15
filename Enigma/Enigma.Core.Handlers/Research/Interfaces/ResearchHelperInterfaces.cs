@@ -8,7 +8,6 @@ using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
-using Enigma.Research.Domain;
 
 namespace Enigma.Core.Handlers.Research.Interfaces;
 

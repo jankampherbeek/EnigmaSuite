@@ -35,12 +35,12 @@
             <RowDefinition Height="7*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="5" Grid.RowSpan="4" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="10" Grid.RowSpan="8" Grid.ColumnSpan="4" Style="{StaticResource backgroundStyle}" />
+        <Rectangle Grid.Row="2" Grid.RowSpan="2" Grid.ColumnSpan="4" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Row="5" Grid.RowSpan="4" Grid.ColumnSpan="4" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Row="10" Grid.RowSpan="8" Grid.ColumnSpan="4" Style="{StaticResource BackgroundStyle}" />
 
 
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource titleStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="4" Margin="6" Name="FormTitle" Text="FormTitle" Style="{StaticResource TitleStyle}" />
         <TextBlock Grid.Row="1" Grid.ColumnSpan="4" Margin="6" Name="tbExplanation" Text="tbExplanation" TextWrapping="Wrap" />
         <TextBlock Grid.Row="2" Grid.ColumnSpan="4" Margin="6" Name="tbDescription" Text="tbDescription" VerticalAlignment="Bottom" />
         <TextBox Grid.Row="3" Grid.ColumnSpan="4" Margin="6" Name="tbDescriptionValue" Height="40" TextWrapping="Wrap" Text="" VerticalAlignment="Top" />

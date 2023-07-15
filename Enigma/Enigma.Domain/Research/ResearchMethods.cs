@@ -42,8 +42,8 @@ public static class ResearchMethodsExtensions
             ResearchMethods.CountUnaspected => new ResearchMethodDetails(method, "ref.enum.researchmethods.countunaspected"),
             ResearchMethods.CountOccupiedMidpoints => new ResearchMethodDetails(method, "ref.enum.researchmethods.countoccupiedmidpoints"),
             ResearchMethods.CountHarmonicConjunctions => new ResearchMethodDetails(method, "ref.enum.researchmethods.countharmonicconjunctions"),
-            ResearchMethods.None => throw new ArgumentException("ResearchMethod unknown : " + method.ToString()),
-            _ => throw new ArgumentException("ResearchMethod unknown : " + method.ToString())
+            ResearchMethods.None => throw new ArgumentException("ResearchMethod unknown : " + method),
+            _ => throw new ArgumentException("ResearchMethod unknown : " + method)
         };
     }
 
@@ -52,15 +52,7 @@ public static class ResearchMethodsExtensions
     /// <returns>All details.</returns>
     public static List<ResearchMethodDetails> AllDetails(this ResearchMethods _)
     {
-        var allDetails = new List<ResearchMethodDetails>();
-        foreach (ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)))
-        {
-            if (methodCurrent != ResearchMethods.None)
-            {
-                allDetails.Add(methodCurrent.GetDetails());
-            }
-        }
-        return allDetails;
+        return (from ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)) where methodCurrent != ResearchMethods.None select methodCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find RedearchMethod for given index.</summary>

@@ -16,8 +16,8 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Row="0" Name="FormTitle" Text="FormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <Rectangle Grid.Row="1" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Row="0" Name="FormTitle" Text="FormTitle" Margin="6" Style="{StaticResource TitleStyle}"/>
         <DataGrid Grid.Row="1" Margin="6" Name="dgDataNames" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="False" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column">
             <DataGrid.Columns>

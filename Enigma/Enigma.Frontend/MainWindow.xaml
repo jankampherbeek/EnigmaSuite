@@ -16,8 +16,8 @@
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
-            <TextBlock Name="tbFormTitle" Text="tbFormTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource titleStyle}"/>
-            <TextBlock Grid.Row="1" Name="tbSubTitle" Text="tbSubTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource subTitleStyle}"/>
+            <TextBlock Name="tbFormTitle" Text="tbFormTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource TitleStyle}"/>
+            <TextBlock Grid.Row="1" Name="tbSubTitle" Text="tbSubTitle" Margin="6" HorizontalAlignment="Center" Style="{StaticResource SubTitleStyle}"/>
             <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
                 <Button Margin="6" Width="160" Height="160"  Name="btnCharts" Click="ChartsClick">
                     <Image Source="/Images/Charts-txt.png"/>

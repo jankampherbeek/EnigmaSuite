@@ -74,9 +74,9 @@ public partial class SearchChartWindow
         DgSearchResults.Columns[0].Header = Rosetta.TextForId("searchchartwindow.colid");
         DgSearchResults.Columns[1].Header = Rosetta.TextForId("searchchartwindow.colname");
         DgSearchResults.Columns[2].Header = Rosetta.TextForId("searchchartwindow.coldescription");
-        DgSearchResults.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
-        DgSearchResults.Columns[1].CellStyle = FindResource("nameColumnStyle") as Style;
-        DgSearchResults.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
+        DgSearchResults.Columns[0].CellStyle = FindResource("NameColumnStyle") as Style;
+        DgSearchResults.Columns[1].CellStyle = FindResource("NameColumnStyle") as Style;
+        DgSearchResults.Columns[2].CellStyle = FindResource("NameColumnStyle") as Style;
     }
 
 

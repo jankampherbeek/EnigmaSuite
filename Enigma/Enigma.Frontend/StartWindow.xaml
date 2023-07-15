@@ -9,6 +9,6 @@
         WindowStartupLocation="CenterScreen"        
         Height="160" Width="320">
     <Grid>
-        <TextBlock Grid.Row="1" Grid.Column="0" Name="tbExplanation" Text="tbExplanation" Style="{StaticResource subTitleStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6" TextWrapping="Wrap" />
+        <TextBlock Grid.Row="1" Grid.Column="0" Name="tbExplanation" Text="tbExplanation" Style="{StaticResource SubTitleStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6" TextWrapping="Wrap" />
     </Grid>
 </Window>

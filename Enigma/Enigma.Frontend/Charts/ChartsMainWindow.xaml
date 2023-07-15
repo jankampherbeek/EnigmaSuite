@@ -23,9 +23,9 @@
             <RowDefinition Height="70*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Rectangle Grid.Column="2" Grid.Row="6" Margin="6" Style="{StaticResource backgroundStyle}"/>
-        <Rectangle Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource backgroundStyle}"/>
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="3" Grid.ColumnSpan="3" Margin="6" Style="{StaticResource BackgroundStyle}"/>
+        <Rectangle Grid.Column="2" Grid.Row="6" Margin="6" Style="{StaticResource BackgroundStyle}"/>
+        <Rectangle Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="6" Style="{StaticResource BackgroundStyle}"/>
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Name="MiGeneral" Header="MiGeneral">
                 <MenuItem Name="MiGeneralSettings" Header="MiGeneralSettings" Click="GeneralSettingsClick">
@@ -151,11 +151,11 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="TbFormTitle" Text="TbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="TbFormTitle" Text="TbFormTitle" Margin="6" Style="{StaticResource TitleStyle}"/>
         <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Name="TbNrOfCharts" Text="TbNrOfCharts" Margin="12,6,6,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Name="TbLastChart" Text="TbLastChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Name="TbActiveChart" Text="TbActiveChart" Margin="12,6,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="TbAvailable" Text="TbAvailable" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Name="TbAvailable" Text="TbAvailable" Margin="6" Style="{StaticResource SubTitleStyle}"/>
         <StackPanel Grid.Row="6" Grid.Column="2" Orientation="Vertical" Margin="6" VerticalAlignment="Top">
             <Button Name="BtnNew" Content="BtnNew" Click="ChartsNewClick"/>
             <Button Name="BtnSearch" Content="BtnSearch" Click="SearchClick"/>

@@ -11,7 +11,6 @@ using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
-using Enigma.Research.Domain;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;

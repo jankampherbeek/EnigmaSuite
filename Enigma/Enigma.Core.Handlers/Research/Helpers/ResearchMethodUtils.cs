@@ -9,7 +9,7 @@ using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
-using Enigma.Research.Domain;
+using Enigma.Domain.Research;
 using Serilog;
 
 namespace Enigma.Core.Handlers.Research.Helpers;

@@ -11,7 +11,7 @@ using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
-using Enigma.Research.Domain;
+using Enigma.Domain.Research;
 using Serilog;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
@@ -22,8 +22,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
     private readonly IConfigurationHandler _configurationHandler;
     private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
     private readonly IJulDayHandler _julDayHandler;
-
-    /// <inheritdoc/>
+    
     public CalculatedResearchPositions(IConfigurationHandler configurationHandler,
         IChartAllPositionsHandler chartAllPositionsHandler,
         IJulDayHandler julDayHandler)
@@ -41,7 +40,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
 
     private List<CalculatedResearchChart> Calculate(StandardInput standardInput)
     {
-        Log.Information("CalculatedResearchPositions: Start of calculation.");
+        Log.Information("CalculatedResearchPositions: Start of calculation");
         List<CalculatedResearchChart> calculatedCharts = new();
         CalculationPreferences calcPref = DefinePreferences();
         foreach (StandardInputItem inputItem in standardInput.ChartData)
@@ -52,7 +51,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             Dictionary<ChartPoints, FullPointPos> chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest);
             calculatedCharts.Add(new CalculatedResearchChart(chartPositions, inputItem));
         }
-        Log.Information("CalculatedResearchPositions: Calculation completed.");
+        Log.Information("CalculatedResearchPositions: Calculation completed");
         return calculatedCharts;
     }
 
@@ -76,13 +75,11 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
         List<ChartPoints> celPoints = new();
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> cpSpec in cpSpecs)
         {
-            if (cpSpec.Value.IsUsed)
+            if (!cpSpec.Value.IsUsed) continue;
+            PointCats pointCat = cpSpec.Key.GetDetails().PointCat;
+            if (pointCat == PointCats.Common)
             {
-                PointCats pointCat = cpSpec.Key.GetDetails().PointCat;
-                if (pointCat == PointCats.Common)
-                {
-                    celPoints.Add(cpSpec.Key);
-                }
+                celPoints.Add(cpSpec.Key);
             }
         }
         return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, config.ObserverPosition, config.ProjectionType, config.HouseSystem);

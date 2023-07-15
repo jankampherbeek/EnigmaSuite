@@ -7,7 +7,6 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
-using Enigma.Research.Domain;
 using Serilog;
 
 namespace Enigma.Frontend.Helpers.Support;

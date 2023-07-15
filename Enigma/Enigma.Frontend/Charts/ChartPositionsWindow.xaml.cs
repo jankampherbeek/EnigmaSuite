@@ -66,8 +66,8 @@ public partial class ChartPositionsWindow : Window
         DGHouses.Columns[6].Header = Rosetta.TextForId("charts.positions.datagrid.columns.altitude");
         DGHouses.Columns[0].MaxWidth = 80;
         DGHouses.Columns[2].MaxWidth = 20;
-        DGHouses.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
-        DGHouses.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
+        DGHouses.Columns[0].CellStyle = FindResource("NameColumnStyle") as Style;
+        DGHouses.Columns[2].CellStyle = FindResource("GlyphColumnStyle") as Style;
         DGHouses.HorizontalAlignment = HorizontalAlignment.Right;
     }
 
@@ -90,8 +90,8 @@ public partial class ChartPositionsWindow : Window
         DGCelPoints.Columns[12].Header = Rosetta.TextForId("charts.positions.datagrid.columns.azimuth");
         DGCelPoints.Columns[13].Header = Rosetta.TextForId("charts.positions.datagrid.columns.altitude");
 
-        DGCelPoints.Columns[0].CellStyle = FindResource("glyphColumnStyle") as Style;
-        DGCelPoints.Columns[2].CellStyle = FindResource("glyphColumnStyle") as Style;
+        DGCelPoints.Columns[0].CellStyle = FindResource("GlyphColumnStyle") as Style;
+        DGCelPoints.Columns[2].CellStyle = FindResource("GlyphColumnStyle") as Style;
         DGCelPoints.HorizontalAlignment = HorizontalAlignment.Right;
     }
 

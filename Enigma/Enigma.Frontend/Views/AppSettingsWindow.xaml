@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Configuration"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         mc:Ignorable="d"
         WindowStartupLocation="CenterOwner"
@@ -26,9 +25,9 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="20*"/>            
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="2"  Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="FormTitle" Text="Application Settings" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Name="Explanation" 
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="2"  Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Application Settings" Margin="6" Style="{StaticResource TitleStyle}"/>
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  
                    Text="The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations." 
                    Margin="6" TextWrapping="Wrap"/>
 

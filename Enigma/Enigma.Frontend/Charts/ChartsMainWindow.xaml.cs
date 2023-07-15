@@ -92,9 +92,9 @@ public partial class ChartsMainWindow
         DgCurrent.Columns[0].Header = Rosetta.TextForId("chartsmainwindow.availablechartid");
         DgCurrent.Columns[1].Header = Rosetta.TextForId("chartsmainwindow.availablechartname");
         DgCurrent.Columns[2].Header = Rosetta.TextForId("chartsmainwindow.availablechartdescr");
-        DgCurrent.Columns[0].CellStyle = FindResource("nameColumnStyle") as Style;
-        DgCurrent.Columns[1].CellStyle = FindResource("nameColumnStyle") as Style;
-        DgCurrent.Columns[2].CellStyle = FindResource("nameColumnStyle") as Style;
+        DgCurrent.Columns[0].CellStyle = FindResource("NameColumnStyle") as Style;
+        DgCurrent.Columns[1].CellStyle = FindResource("NameColumnStyle") as Style;
+        DgCurrent.Columns[2].CellStyle = FindResource("NameColumnStyle") as Style;
     }
 
 

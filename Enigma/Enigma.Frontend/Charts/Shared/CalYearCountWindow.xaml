@@ -18,8 +18,8 @@
             <RowDefinition Height="12*"/>
             <RowDefinition Height="18*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="{Binding FormTitle, Mode=OneWay}" Style="{StaticResource titleStyle}" />
+        <Rectangle Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="6" Name="FormTitle" Text="{Binding FormTitle, Mode=OneWay}" Style="{StaticResource TitleStyle}" />
         <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Name="MetaTxt" Text="MetaTxt" FontWeight="Bold"  VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="2" Margin="6" Name="DateTimeTxt" Text="CalendarTxt" FontWeight="Bold"  VerticalAlignment="Center" />
         <ComboBox Grid.Column="1" Grid.Row="2" Margin="6" Name="ComboCalendar" Text=""  Style="{DynamicResource ComboBoxStyle1}" IsEditable="True" IsReadOnly="True"/>

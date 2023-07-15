@@ -24,12 +24,12 @@
             <RowDefinition Height="300"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="4" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource backgroundStyle}" />
-        <Rectangle Grid.Row="4" Grid.RowSpan="4" Style="{StaticResource backgroundStyle}" />
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource titleStyle}"/>
-        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Name="tbSubTitleChartId" Text="tbSubTitleChartId" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <Rectangle Grid.Row="4" Grid.Column="2" Grid.RowSpan="3" Style="{StaticResource BackgroundStyle}" />
+        <Rectangle Grid.Row="4" Grid.RowSpan="4" Style="{StaticResource BackgroundStyle}" />
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Name="tbFormTitle" Text="tbFormTitle" Margin="6" Style="{StaticResource TitleStyle}"/>
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Name="tbSubTitleChartId" Text="tbSubTitleChartId" Margin="6" Style="{StaticResource SubTitleStyle}"/>
         <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Name="tbDescriptionText" Text="tbDescriptionText" Margin="6" TextWrapping="Wrap"/>
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Name="tbSubTitleHarmonicNumber" Text="tbSubTitleHarmonicNumber" Margin="6" Style="{StaticResource subTitleStyle}"/>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" Name="tbSubTitleHarmonicNumber" Text="tbSubTitleHarmonicNumber" Margin="6" Style="{StaticResource SubTitleStyle}"/>
         <DataGrid Grid.Row="4" Grid.RowSpan="4" Name="dgHarmonics" Margin="6" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="True" 
                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" HeadersVisibility="Column"
                   HorizontalAlignment="Left" CanUserSortColumns="False"/>
