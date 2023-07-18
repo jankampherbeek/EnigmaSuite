@@ -29,16 +29,16 @@ namespace Enigma.Frontend.Ui.Charts;
 public sealed class ChartsMainController
 {
     private ChartsWheel? _chartsWheel;
-    private ChartPositionsWindow? _chartPositionsWindow;
-    private ChartAspectsWindow? _chartAspectsWindow;
-    private ChartMidpointsWindow? _chartMidpointsWindow;
-    private ChartHarmonicsWindow? _chartHarmonicsWindow;
+ //   private ChartPositionsWindow? _chartPositionsWindow;
+ //   private ChartHarmonicsWindow? _chartHarmonicsWindow;
     private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
     private AstroConfigWindow _astroConfigWindow = new();
     private SearchChartWindow _searchChartWindow = new();
     private ProgInputEvent _inputEventWindow = new();
     private ProgInputPeriod _inputDaterangeWindow = new();
+   // private RadixAspectsWindow? _aspectsWindow;
+   // private RadixMidpointsWindow? _midpointsWindow;    
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
     private readonly IChartDataForDataGridFactory _chartDataForDataGridFactory;
     private readonly IChartDataConverter _chartDataConverter;
@@ -50,6 +50,7 @@ public sealed class ChartsMainController
         _chartDataForDataGridFactory = chartDataForDataGridFactory;
         _chartDataConverter = chartDataConverter;
         _chartCalculation = chartCalculation;
+
     }
 
     public void ShowAppSettings()
@@ -163,34 +164,27 @@ public sealed class ChartsMainController
         return currentChart != null ? currentChart.InputtedChartData.MetaData.Name : "";
     }
 
-    public void ShowPositions()
-    {
-        _chartPositionsWindow = App.ServiceProvider.GetRequiredService<ChartPositionsWindow>();
-        OpenWindow(_chartPositionsWindow);
-        _chartPositionsWindow.Populate();
-
+    public void ShowPositions(){
+        new RadixPositionsWindow().Show();
     }
 
     public void ShowAspects()
     {
-        _chartAspectsWindow = App.ServiceProvider.GetRequiredService<ChartAspectsWindow>();
-        OpenWindow(_chartAspectsWindow);
-        _chartAspectsWindow.Populate();
+        RadixAspectsWindow aspectsWindow = new();
+        aspectsWindow.Show();
     }
 
     /// <summary>Show form with midpoints.</summary>
     public void ShowMidpoints()
     {
-        _chartMidpointsWindow = App.ServiceProvider.GetRequiredService<ChartMidpointsWindow>();
-        OpenWindow(_chartMidpointsWindow);
-        _chartMidpointsWindow.Populate();
+        RadixMidpointsWindow midpointsWindow = new();
+        midpointsWindow.Show();
     }
 
     public void ShowHarmonics()
     {
-        _chartHarmonicsWindow = App.ServiceProvider.GetRequiredService<ChartHarmonicsWindow>();
-        OpenWindow(_chartHarmonicsWindow);
-        _chartHarmonicsWindow.Populate();
+        RadixHarmonicsWindow harmonicsWindow = new();
+        harmonicsWindow.Show();
     }
 
 
@@ -205,8 +199,8 @@ public sealed class ChartsMainController
     {
         // todo create and handle search event
         //CalYearCountWindow tempWindow = new();
-        LmtWindow tempWindow = new();
-        tempWindow.ShowDialog();
+        //LmtWindow tempWindow = new();
+        //tempWindow.ShowDialog();
     }
 
     public void ShowInputDaterange()
@@ -256,20 +250,18 @@ public sealed class ChartsMainController
 
     public static void ShowAbout()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("AboutCharts");
+        DataVault.Instance.CurrentViewBase = "AboutCharts";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ChartsMain");
+        DataVault.Instance.CurrentViewBase = "ChartsMain";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
-
+    
 
     public void ShowSearch()
     {

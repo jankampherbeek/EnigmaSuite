@@ -9,16 +9,16 @@ namespace Enigma.Domain.Charts;
 /// <summary>Midpoint to be presented in a data grid.</summary>
 public record PresentableMidpoint
 {
-    public char Point1Glyph { get; }
-    public string Separator { get; } = "/";
-    public char Point2Glyph { get; }
-    public string Position { get; }
-    public char SignGlyph { get; }
+    public char Point1Glyph { get; set; }
+    public string Separator { get; set; } = "/";
+    public char Point2Glyph { get; set; }
+    public string Position { get; set; }
+    public char SignGlyph { get; set; }
 
-    /// <param name="Point1Glyph">Glyph of first point.</param>
-    /// <param name="Point2Glyph">Glyph of second point.</param>
-    /// <param name="SignGlyph">Glyph of sign.</param>
-    /// <param name="Position">Positions as text.</param>
+    /// <param name="point1Glyph">Glyph of first point.</param>
+    /// <param name="point2Glyph">Glyph of second point.</param>
+    /// <param name="signGlyph">Glyph of sign.</param>
+    /// <param name="position">Positions as text.</param>
     public PresentableMidpoint(char point1Glyph, char point2Glyph, string position, char signGlyph)
     {
         Point1Glyph = point1Glyph;
@@ -34,13 +34,13 @@ public record PresentableMidpoint
 /// <summary>Occupied midpoints to be shown in a datagrid.</summary>
 public record PresentableOccupiedMidpoint
 {
-    public char Point1Glyph { get; }
-    public string Separator { get; } = "/";
-    public char Point2Glyph { get; }
-    public string IsSign { get; } = "=";
-    public char PointOccGlyph { get; }
-    public string OrbText { get; }
-    public string ExactnessText { get; }
+    public char Point1Glyph { get; set; }
+    public string Separator { get; set; } = "/";
+    public char Point2Glyph { get; set; }
+    public string IsSign { get; set; } = "=";
+    public char PointOccGlyph { get; set; }
+    public string OrbText { get; set;  }
+    public string ExactnessText { get; set;  }
 
     /// <summary>Construct a record with data for occupied midpoints to be shown in a datagrid.</summary>
     /// <param name="point1Glyph">Glyph for the first point.</param>

@@ -570,8 +570,10 @@
     <PackageReference Include="CommunityToolkit.Common" Version="8.2.1" />
     <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.1" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.10.0-ci317" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="ShowMeTheXAML" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -760,13 +762,13 @@
     <None Update="res\help\ChartsMain.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsAspects.html">
+    <None Update="res\help\RadixAspects.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ChartsDataInput.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsPositions.html">
+    <None Update="res\help\RadixPositions.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ChartsSearch.html">
@@ -781,16 +783,16 @@
     <None Update="res\help\css\enigma.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\DataFilesOverview.html">
+    <None Update="res\help\DataFileOverview.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\DataImport.html">
+    <None Update="res\help\DatafileImport.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\HarmonicDetails.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\Harmonics.html">
+    <None Update="res\help\RadixHarmonics.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\img\Charts-txt.png">
@@ -799,13 +801,13 @@
     <None Update="res\help\img\Research-txt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\MainWindow.html">
+    <None Update="res\help\Main.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\MidpointDetails.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\Midpoints.html">
+    <None Update="res\help\RadixMidpoints.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ProjectNew.html">
@@ -832,19 +834,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Charts\ChartAspectsWindow.xaml">
-      <Generator></Generator>
-    </Page>
     <Page Update="Charts\ChartDataInputWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="Charts\ChartPositionsWindow.xaml">
-      <Generator></Generator>
-    </Page>
     <Page Update="Research\DataFiles\DataFilesImportWindow.xaml">
-      <Generator></Generator>
-    </Page>
-    <Page Update="Research\DataFiles\DataFilesOverviewWindow.xaml">
       <Generator></Generator>
     </Page>
     <Page Update="MainWindow.xaml">

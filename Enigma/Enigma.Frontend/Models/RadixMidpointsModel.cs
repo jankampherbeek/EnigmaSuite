@@ -1,22 +1,21 @@
-﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
+using System.Collections.Generic;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Support;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Windows;
 
-namespace Enigma.Frontend.Ui.Charts;
-public class ChartMidpointsController
+namespace Enigma.Frontend.Ui.Models;
+
+/// <summary>Model for midpoints in radix</summary>
+public sealed class RadixMidpointsModel
 {
     private readonly IMidpointsApi _midpointsApi;
     private readonly IMidpointForDataGridFactory _midpointForDataGridFactory;
@@ -25,7 +24,10 @@ public class ChartMidpointsController
     private readonly DataVault _dataVault;
 
 
-    public ChartMidpointsController(IMidpointsApi midpointsApi, IMidpointForDataGridFactory midpointForDataGridFactory, IDoubleToDmsConversions doubleToDmsConversions, IDescriptiveChartText descriptiveChartText)
+    public RadixMidpointsModel(IMidpointsApi midpointsApi, 
+        IMidpointForDataGridFactory midpointForDataGridFactory, 
+        IDoubleToDmsConversions doubleToDmsConversions, 
+        IDescriptiveChartText descriptiveChartText)
     {
         _dataVault = DataVault.Instance;
         _midpointsApi = midpointsApi;
@@ -34,31 +36,33 @@ public class ChartMidpointsController
         _descriptiveChartText = descriptiveChartText;
     }
 
-    public String RetrieveChartName()
+    public string RetrieveChartName()
     {
         var chart = _dataVault.GetCurrentChart();
-        if (chart != null)
-        {
-            return chart.InputtedChartData.MetaData.Name;
-        }
-        return "";
+        return chart != null ? chart.InputtedChartData.MetaData.Name : "";
     }
+    
+  /// <summary>Calculate midpoints in radix</summary>
+  /// <param name="dialSize">The size of the 'dial' to use.</param>
+  /// <returns>A tuple with a list of all midpoints and a list with occupied midpoints.
+  /// Takes the dialsize into account for the occupied midpoints.</returns>
     public Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> RetrieveAndFormatMidpoints(double dialSize)
     {
         var chart = _dataVault.GetCurrentChart();
         List<PresentableMidpoint> presMidpoints = new();
         List<PresentableOccupiedMidpoint> presOccMidpoints = new();
-        if (chart != null)
-        {
-            double orb = CurrentConfig.Instance.GetConfig().BaseOrbMidpoints;
-            List<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
-            presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
-            List<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
-            presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
-        }
+        if (chart == null)
+            return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
+        double orb = CurrentConfig.Instance.GetConfig().BaseOrbMidpoints;
+        List<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
+        presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
+        List<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
+        presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
         return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
     }
 
+  /// <summary>A description of the most relevant settings for this chart</summary>
+  /// <returns>Textual description</returns>
     public string DescriptiveText()
     {
         string descText = "";
@@ -75,14 +79,6 @@ public class ChartMidpointsController
     public string DegreesToDms(double value)
     {
         return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(value);
-    }
-
-    public static void ShowHelp()
-    {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("Midpoints");
-        helpWindow.ShowDialog();
     }
 
 }

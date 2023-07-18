@@ -16,6 +16,8 @@ using Serilog;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Research;
 
@@ -373,15 +375,11 @@ public class ResearchResultController
         return resultData.ToString();
     }
 
-
-
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = new()
-        {
-            WindowStartupLocation = WindowStartupLocation.CenterScreen
-        };
-        helpWindow.SetHelpPage("ResearchResults");
+        DataVault.Instance.CurrentViewBase = "ResearchResults";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
+
 }

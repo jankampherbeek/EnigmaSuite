@@ -9,6 +9,8 @@ using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui;
 
@@ -40,9 +42,8 @@ public class MainController
 
     public static void HelpClick()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("MainWindow");
+        DataVault.Instance.CurrentViewBase = "Main";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
 

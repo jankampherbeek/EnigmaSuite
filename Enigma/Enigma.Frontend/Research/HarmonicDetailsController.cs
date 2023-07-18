@@ -6,6 +6,8 @@
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Research;
 
@@ -14,9 +16,9 @@ public class HarmonicDetailsController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("HarmonicDetails");
+        DataVault.Instance.CurrentViewBase = "HarmonicDetails";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
+
 }

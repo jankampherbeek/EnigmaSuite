@@ -1,0 +1,75 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.RadixHarmonicsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Enigma - Harmonics" Height="700" Width="480"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <viewModels:RadixHarmonicsViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="60*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="40*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="60*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Padding="16" Mode="PrimaryMid">
+            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Harmonics"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Text="{Binding ChartId}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description}" Margin="6" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Text="{Binding HarmonicText}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+        <DataGrid Grid.Row="4" Grid.Column="0" Grid.RowSpan="3" Margin="6"
+                  materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                  CanUserAddRows="False" CanUserSortColumns="False" AutoGenerateColumns="False" HeadersVisibility="All"
+                  HorizontalAlignment="Left" VerticalAlignment="Top"
+                  ItemsSource="{Binding ActualHarmonics}"
+                  SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding PointTextGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding RadixPosText}" Header="Radix" CellStyle="{StaticResource NumberColumnStyle}"/>                  
+                <DataGridTextColumn Binding="{Binding RadixSignGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding HarmonicPosText}" Header="Harmonic" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding HarmonicPosGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+            </DataGrid.Columns>   
+        </DataGrid>
+        <TextBox Grid.Row="4" Grid.Column="2"  
+                 materialDesign:HintAssist.Hint="Harmonic number"
+                 VerticalAlignment="Center"  Margin="6 0"
+                 Text="{Binding HarmonicNumber, Mode=TwoWay}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" />  
+        <Button Grid.Row="5" Grid.Column="2" Content="Calculate" Margin="6" HorizontalAlignment="Right" VerticalAlignment="Top" Command="{Binding ReCalculateCommand}"/>
+        <StackPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
+            <Button Content="Close" Margin="6" Click="CloseClick"/>
+        </StackPanel>
+    </Grid>
+</Window>  
+<!-- charts.harmonics.formtitle = Harmonics
+charts.harmonics.harmonicpos = Harmonic position
+charts.harmonics.inputharmonicnr = Enter number for new harmonic.
+charts.harmonics.radixpos = Radix position
+charts.harmonics.title = Enigma - Harmonics
+charts.harmonics.titlenumber = Positions for harmonic
+-->

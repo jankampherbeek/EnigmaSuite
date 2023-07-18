@@ -15,6 +15,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
+using Enigma.Frontend.Ui.Views;
 using static Enigma.Frontend.Ui.Research.PointSelectController;
 
 namespace Enigma.Frontend.Ui.Research;
@@ -200,10 +201,10 @@ public class ProjectUsageController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ProjectOverview");
+        DataVault.Instance.CurrentViewBase = "ProjectOverview";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
+
 }
 

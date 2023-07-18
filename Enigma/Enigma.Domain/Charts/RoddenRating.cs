@@ -26,8 +26,8 @@ public enum RoddenRatings
 
 
 /// <summary>Details for the Category of a chart.</summary>
-/// <param name="rating">The standard acronym for the Rodden rating.</param>
-/// <param name="textId">Id to find a descriptive text in a resource bundle.</param>
+/// <param name="Rating">The standard acronym for the Rodden rating.</param>
+/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
 public record RoddenRatingDetails(RoddenRatings Rating, string TextId);
 
 
@@ -49,7 +49,7 @@ public static class RoddenRatingsExtensions
             RoddenRatings.DD => new RoddenRatingDetails(rating, "ref.enum.roddenrating.dd"),
             RoddenRatings.X => new RoddenRatingDetails(rating, "ref.enum.roddenrating.x"),
             RoddenRatings.XX => new RoddenRatingDetails(rating, "ref.enum.roddenrating.xx"),
-            _ => throw new ArgumentException("RoddenRatings unknown : " + rating.ToString())
+            _ => throw new ArgumentException("RoddenRatings unknown : " + rating)
         };
     }
 
@@ -57,12 +57,7 @@ public static class RoddenRatingsExtensions
     /// <returns>All details.</returns>
     public static List<RoddenRatingDetails> AllDetails(this RoddenRatings _)
     {
-        var allDetails = new List<RoddenRatingDetails>();
-        foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))
-        {
-            allDetails.Add(currentRating.GetDetails());
-        }
-        return allDetails;
+        return (from RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)) select currentRating.GetDetails()).ToList();
     }
 
 

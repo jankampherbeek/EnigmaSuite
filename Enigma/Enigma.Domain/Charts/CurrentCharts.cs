@@ -37,12 +37,9 @@ public sealed class CurrentCharts : ICurrentCharts
     /// <inheritdoc/>
     public void RemoveChart(int chartId)
     {
-        foreach (var chart in AllCurrentCharts)
+        foreach (CalculatedChart chart in AllCurrentCharts.Where(chart => chart.InputtedChartData.Id == chartId))
         {
-            if (chart.InputtedChartData.Id == chartId)
-            {
-                AllCurrentCharts.Remove(chart);
-            }
+            AllCurrentCharts.Remove(chart);
         }
     }
 

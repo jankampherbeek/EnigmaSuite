@@ -11,6 +11,7 @@ using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Charts;
@@ -57,9 +58,8 @@ public sealed class SearchChartController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ChartsSearch");
+        DataVault.Instance.CurrentViewBase = "ChartsSearch";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
 

@@ -7,7 +7,7 @@ using Enigma.Domain.Configuration;
 
 namespace Enigma.Frontend.Ui.Models;
 
-public class AppSettingsModel
+public sealed class AppSettingsModel
 {
     private readonly ApplicationSettings _applicationSettings;
     

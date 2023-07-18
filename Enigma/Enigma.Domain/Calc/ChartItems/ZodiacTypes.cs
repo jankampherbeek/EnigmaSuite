@@ -33,7 +33,7 @@ public static class ZodiacTypeExtensions
             // No specific flag for tropical.
             ZodiacTypes.Tropical => new ZodiacTypeDetails(zType, 0, "ref.enum.zodiactype.tropical"),
             ZodiacTypes.Sidereal => new ZodiacTypeDetails(zType, EnigmaConstants.SeflgSidereal, "ref.enum.zodiactype.sidereal"),
-            _ => throw new ArgumentException("Zodiactype unknown" + ": " + zType.ToString())
+            _ => throw new ArgumentException("Zodiactype unknown" + ": " + zType)
         };
     }
 
@@ -41,12 +41,7 @@ public static class ZodiacTypeExtensions
     /// <returns>All details.</returns>
     public static List<ZodiacTypeDetails> AllDetails(this ZodiacTypes _)
     {
-        var allDetails = new List<ZodiacTypeDetails>();
-        foreach (ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)))
-        {
-            allDetails.Add(currentZodT.GetDetails());
-        }
-        return allDetails;
+        return (from ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)) select currentZodT.GetDetails()).ToList();
     }
 
 

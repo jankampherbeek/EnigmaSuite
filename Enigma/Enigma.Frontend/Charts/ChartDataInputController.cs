@@ -16,6 +16,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -126,9 +127,8 @@ public sealed class ChartDataInputController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ChartsDataInput");
+        DataVault.Instance.CurrentViewBase = "ChartsDataInput";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
 

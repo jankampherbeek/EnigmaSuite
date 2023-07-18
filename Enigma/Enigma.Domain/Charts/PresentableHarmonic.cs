@@ -5,10 +5,10 @@
 
 namespace Enigma.Domain.Charts;
 
-/// <summary>Aspects to be shown in a data grid.</summary>
-/// <param name="point1TextGlyph">Glyph or test for the first point. A glyph for celestial points and a text for mundane points.</param>
-/// <param name="aspectGlyph">Glyph for the aspect.</param>
-/// <param name="point2Glyph">Glyph for the second point.</param>
-/// <param name="orbText">Text for the acual orb.</param>
-/// <param name="exactnessText">Text indicating the exactness of the aspect as a percentage.</param>
-public record PresentableHarmonic(char PointTextGlyph, string RadixPosTest, char RadixSignGlyph, string HarmonicPosText, char HarmonicPosGlyph);
+/// <summary>Harmonics in a presentable format. </summary>
+/// <param name="PointTextGlyph">Glyph or text fopr a point</param>
+/// <param name="RadixPosText">Radix position as text</param>
+/// <param name="RadixSignGlyph">Glyph for radix sign</param>
+/// <param name="HarmonicPosText">Harmonic position as text</param>
+/// <param name="HarmonicPosGlyph">Glyph for harmonic sign</param>
+public record PresentableHarmonic(char PointTextGlyph, string RadixPosText, char RadixSignGlyph, string HarmonicPosText, char HarmonicPosGlyph);

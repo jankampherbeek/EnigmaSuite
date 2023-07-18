@@ -54,14 +54,6 @@ astroconfigwindow.uranian_witte = Uranian (Witte)
 astroconfigwindow.zodiactype = Type of zodiac
 astroconfigwindow.zodiactypeexpl = Select a tropical or a sidereal type of zodiac. If you select a sidereal zodiac you can define the Ayanamsha below.
 
----- ChartsAspects ------------------------------------
-charts.aspects.datagrid.columns.aspect = Aspect
-charts.aspects.datagrid.columns.exactness = Exactness %
-charts.aspects.datagrid.columns.orb = Orb
-charts.aspects.datagrid.columns.point1 = First point
-charts.aspects.datagrid.columns.point2 = Second point
-charts.aspects.formtitle = Aspects
-charts.aspects.title = Enigma - Aspects
 
 ---- ChartsDataInput ----------------------------------
 charts.datainput.category = Category
@@ -75,14 +67,6 @@ charts.datainput.nameid = Unique name or id for chart
 charts.datainput.rating = Rodden Rating
 charts.datainput.source = Source
 charts.datainput.title = Enigma - Data input
-
----- ChartsHarmonics ----------------------------------
-charts.harmonics.formtitle = Harmonics
-charts.harmonics.harmonicpos = Harmonic position
-charts.harmonics.inputharmonicnr = Enter number for new harmonic.
-charts.harmonics.radixpos = Radix position
-charts.harmonics.title = Enigma - Harmonics
-charts.harmonics.titlenumber = Positions for harmonic
 
 --- ChartsMain ----------------------------------------
 
@@ -134,19 +118,6 @@ chartsmainwindow.newchart = New
 chartsmainwindow.nrofcharts = Nr. of charts in database :
 chartsmainwindow.title = Enigma - Charts
 
----- ChartsMidpoints ----------------------------------
-charts.midpoints.formtitle = Midpoints
-charts.midpoints.allmidpoints = All midpoints
-charts.midpoints.dial360 = 360 degrees
-charts.midpoints.dial45 = 45 degrees
-charts.midpoints.dial90 = 90 degrees
-charts.midpoints.dialsize = Dial size
-charts.midpoints.header.exactness = Exactness
-charts.midpoints.header.orb = Orb
-charts.midpoints.header.position = Position
-charts.midpoints.occmidpoints = Occupied midpoints
-charts.midpoints.orbsize = Orbsize for selected dial:
-charts.midpoints.title = Enigma - Midpoints
 
 ---- ChartsPositions ----------------------------------
 charts.positions.chartgategory = Category:
@@ -168,19 +139,6 @@ charts.positions.description.empty = No description
 charts.positions.formtitle = Radix positions
 charts.positions.location = Location:
 charts.positions.locationname.empty = No name for location
--- charts.positions.menu.mianalysis = _Analysis
--- charts.positions.menu.miaspects = _Aspects
--- charts.positions.menu.miclose = _Close
--- charts.positions.menu.mideclinations = _Declinations
--- charts.positions.menu.migeneral = _General
--- charts.positions.menu.miharmonics = _Harmonics
--- charts.positions.menu.mihelp = _Help
--- charts.positions.menu.mimidpoints = _Midpoints
--- charts.positions.menu.miprimary = _Primary
--- charts.positions.menu.miprogressive = _Progressive
--- charts.positions.menu.misecundary = _Secundary
--- charts.positions.menu.misolarreturn = Solar _Return
--- charts.positions.menu.mitransits = _Transits
 charts.positions.rating = Rodden Rating:
 charts.positions.source = Source:
 charts.positions.source.empty = Source not defined
@@ -324,24 +282,6 @@ dashboard.counts = Counts
 dashboard.calculations = Calculations
 dashboard.exit = Exit Enigma
 
-------------------------- DataFilesImportWindow -------
-datafilesimportwindow.btnbrowse = Browse for file
-datafilesimportwindow.btnimport = Import File
-datafilesimportwindow.errorsconversion = Errors when trying to perform conversion.
-datafilesimportwindow.errorscreatingdir = Error when creating directory:
-datafilesimportwindow.errorsdatanamenotunique = The name for the data is already in use.
-datafilesimportwindow.errorsnamepathfound = Define both the file to import and a name for the data.
-datafilesimportwindow.errorsproblemfilesystem = An error occurred while reading or writing the files.
-datafilesimportwindow.namefordata = Name for the data
-datafilesimportwindow.resultlabel = Result of the import
-datafilesimportwindow.resulttext = No import performed yet
-datafilesimportwindow.selectfile = Select the file with data
-datafilesimportwindow.title = Import data files
-
------------------------- DataFilesOverviewWindow -----
-datafilesoverviewwindow.dataname = Name of data
-datafilesoverviewwindow.title = Existing data files
-
 
 ------------------------ Harmonic Details Window -------
 harmonicdetailswindow.title = Enigma - Details for harmonics
@@ -354,10 +294,6 @@ harmonicdetailswindow.orbminutes = Minutes
 harmonicdetailswindow.warningharmonicnumber = The harmonic number is not correct. Please use numeric values larger than 1.
 harmonicdetailswindow.warningorb = The values for the orb are not correct. Please use positieve integers and an orb that is smaller than 10 degrees.
 
--------------------------- HelpWindow -----------------
--- HelpWindow -----------------------------------------
-helpwindow.title = Enigma - Helppage
-helpwindow.manual = The User Manual is available at c:\enigma_ar\UserManual_0.2.pdf
 
 -------------------------- IO messages ----------------
 

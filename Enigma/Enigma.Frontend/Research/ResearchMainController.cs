@@ -11,6 +11,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
+using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Research;
@@ -74,35 +75,30 @@ public class ResearchMainController
 
     public static void ShowDataOverview()
     {
-        DataFilesOverviewWindow dataFilesOverviewWindow = new();
-        dataFilesOverviewWindow.ShowDialog();
+        DatafileOverviewWindow dataFileOverviewWindow = new();
+        dataFileOverviewWindow.ShowDialog();
     }
 
 
     public static void ShowDataImport()
     {
-        DataFilesImportWindow dataFilesImportWindow = new();
+        DatafileImportWindow dataFilesImportWindow = new();
         dataFilesImportWindow.ShowDialog();
     }
 
     public static void ShowAbout()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("AboutResearch");
+        DataVault.Instance.CurrentViewBase = "AboutResearch";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
 
     public static void ShowHelp()
     {
-        HelpWindow _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        _helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        _helpWindow.SetHelpPage("TestwithProject");
-        _helpWindow.ShowDialog();
+        DataVault.Instance.CurrentViewBase = "TestWithProject";
+        HelpWindow helpWindow = new();
+        helpWindow.ShowDialog();
     }
-
-
-
 }
 
 public class ProjectItem

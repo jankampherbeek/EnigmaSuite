@@ -7,10 +7,16 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class LmtWindow : Window
+/// <summary>View for the overview of data files </summary>
+public partial class DatafileOverviewWindow
 {
-    public LmtWindow()
+    public DatafileOverviewWindow()
     {
         InitializeComponent();
+    }
+
+    private void CloseClick(object sender, RoutedEventArgs e)
+    {
+        Close();
     }
 }

@@ -1,0 +1,92 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.RadixMidpointsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        Title="Enigma - Midpoints" Height="750" Width="680"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <viewModels:RadixMidpointsViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="35*"/>
+            <ColumnDefinition Width="12"/>
+            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="12"/>            
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="72*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Padding="16" Mode="PrimaryMid">
+            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Midpoints"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="{Binding ChartId}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description}" Margin="6" TextWrapping="Wrap"/>       
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="All Midpoints" Margin="6" FontWeight="Bold"/>
+        <TextBlock Grid.Row="3" Grid.Column="2" Text="Occupied Midpoints" Margin="6" FontWeight="Bold"/>
+        <TextBlock Grid.Row="3" Grid.Column="4" Text="Dial Size" Margin="6" FontWeight="Bold"/>
+        
+        <DataGrid Grid.Row="4" Grid.Column="0" Margin="6"
+                  materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                  CanUserAddRows="False" CanUserSortColumns="False" AutoGenerateColumns="False" HeadersVisibility="All"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding ActualMidpoints, Mode=TwoWay}"
+                  SelectionUnit="{Binding ElementName=selectionUnitComboBox, Path=SelectedValue}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Point1Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Separator}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/>                  
+                <DataGridTextColumn Binding="{Binding Point2Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Position}" Header="Position" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+            </DataGrid.Columns>   
+        </DataGrid>
+        <DataGrid Grid.Row="4" Grid.Column="2" Margin="6"
+                  materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                  CanUserAddRows="False" CanUserSortColumns="False" AutoGenerateColumns="False" HeadersVisibility="All"
+                  HorizontalAlignment="Left"
+                  ItemsSource="{Binding ActualOccupiedMidpoints, Mode=TwoWay}"
+                  SelectionUnit="FullRow">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Point1Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Separator}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/>                
+                <DataGridTextColumn Binding="{Binding Point2Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding IsSign}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/> 
+                <DataGridTextColumn Binding="{Binding PointOccGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding OrbText}" Header="Orb" CellStyle="{StaticResource NumberColumnStyle}"/>                
+                <DataGridTextColumn Binding="{Binding ExactnessText}" Header="Exactness" CellStyle="{StaticResource NumberColumnStyle}"/>
+            </DataGrid.Columns>   
+        </DataGrid>
+        <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Vertical" Margin="6">
+            <RadioButton Content="360 degrees" GroupName="RbgDialSize" Margin="6" IsChecked="True" Command="{Binding ChangeDial360Command}" />
+            <RadioButton Content="90 degrees" GroupName="RbgDialSize" Margin="6" Command="{Binding ChangeDial90Command}" />
+            <RadioButton Content="45 degrees" GroupName="RbgDialSize" Margin="6" Command="{Binding ChangeDial45Command}"/>
+            <TextBlock Text="OrbSize for selected dial:" Margin="6" TextWrapping="Wrap"/>
+            <TextBlock Text="{Binding OrbSize}" Margin="6"/>
+
+        </StackPanel>
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
+            <Button Content="Close" Margin="6" Click="CloseClick"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

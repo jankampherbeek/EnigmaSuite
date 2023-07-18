@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Collections.Generic;
 using System.Windows;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Research;
 public class ProjectInputController
@@ -28,15 +30,15 @@ public class ProjectInputController
     public List<int> ActualErrorCodes { get; set; }
 
     private readonly IDataFileManagementApi _fileManagementApi;
-    private readonly IDataNameForDataGridFactory _dataNameForDataGridFactory;
+    private readonly IDataNameForPresentationFactory _dataNameForPresentationFactory;
     private readonly IProjectCreationApi _projectCreationApi;
 
     public ProjectInputController(IDataFileManagementApi fileManagementApi,
-        IDataNameForDataGridFactory dataNameForDataGridFactory,
+        IDataNameForPresentationFactory dataNameForPresentationFactory,
         IProjectCreationApi projectCreationApi)
     {
         _fileManagementApi = fileManagementApi;
-        _dataNameForDataGridFactory = dataNameForDataGridFactory;
+        _dataNameForPresentationFactory = dataNameForPresentationFactory;
         _projectCreationApi = projectCreationApi;
         ActualErrorCodes = new();
     }
@@ -44,7 +46,7 @@ public class ProjectInputController
     public List<PresentableDataName> GetDataNames()
     {
         List<string> fullPathDataNames = _fileManagementApi.GetDataNames();
-        return _dataNameForDataGridFactory.CreateDataNamesForDataGrid(fullPathDataNames);
+        return _dataNameForPresentationFactory.CreateDataNamesForDataGrid(fullPathDataNames);
     }
 
     public bool ProcessInput()
@@ -91,9 +93,9 @@ public class ProjectInputController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ProjectNew");
+        DataVault.Instance.CurrentViewBase = "ProjectNew";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
+
 }

@@ -9,20 +9,20 @@ namespace Enigma.Domain.Charts;
 /// <summary>Positions of celestial points to be shown in a datagrid.</summary>
 public record PresentableCommonPositions
 {
-    public char PointGlyph { get; }
-    public string LongText { get; }
-    public char SignGlyph { get; }
-    public string LongSpeedText { get; }
-    public string LatText { get; }
-    public string LatSpeedText { get; }
-    public string RightAscText { get; }
-    public string RightAscSpeedText { get; }
-    public string DeclText { get; }
-    public string DeclSpeedText { get; }
-    public string DistanceText { get; }
-    public string DistanceSpeedText { get; }
-    public string AzimuthText { get; }
-    public string AltitudeText { get; }
+    public char PointGlyph { get; set; }
+    public string LongText { get; set; }
+    public char SignGlyph { get; set; }
+    public string LongSpeedText { get; set; }
+    public string LatText { get; set; }
+    public string LatSpeedText { get; set; }
+    public string RightAscText { get; set; }
+    public string RightAscSpeedText { get; set; }
+    public string DeclText { get; set; }
+    public string DeclSpeedText { get; set; }
+    public string DistanceText { get; set; }
+    public string DistanceSpeedText { get; set; }
+    public string AzimuthText { get; set; }
+    public string AltitudeText { get; set; }
 
     /// <summary>Construct a record with positions for celestial points to be shown in a datagrid.</summary>
     /// <param name="pointGlyph">Glyph for celestial point.</param>
@@ -59,3 +59,4 @@ public record PresentableCommonPositions
     }
 
 }
+

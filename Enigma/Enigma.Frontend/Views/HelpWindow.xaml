@@ -1,0 +1,22 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Help" Height="750" Width="500">
+    <Window.Resources>
+        <viewModels:HelpViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <StackPanel DataContext="{StaticResource ViewModel}">
+        <Frame Source="{Binding Html}" Height="660" />
+        <Button Content="Close" Click="CloseClick"/>
+    </StackPanel>
+</Window>

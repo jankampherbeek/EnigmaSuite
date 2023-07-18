@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 202, 2023.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -19,6 +19,9 @@ public sealed class DataVault
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
     private bool NewChartAdded = false;
+
+    /// <summary>Base name for the current view (without the 'View' part)</summary>
+    public string CurrentViewBase { get; set; }
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
     static DataVault()

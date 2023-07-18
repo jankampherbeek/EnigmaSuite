@@ -14,6 +14,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Research;
 public sealed class PointSelectController
@@ -63,9 +64,9 @@ public sealed class PointSelectController
 
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("SelectPointsForTest");
+        DataVault.Instance.CurrentViewBase = "SelectPointsForTest";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
+
 }

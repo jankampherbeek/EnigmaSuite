@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"   
-        Left="10" Top="10"
         Title="ChartsMain" Height="450" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -14,7 +13,7 @@
             <ColumnDefinition Width="25*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="22"/>
+            <RowDefinition Height="42"/>
             <RowDefinition Height="44"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>

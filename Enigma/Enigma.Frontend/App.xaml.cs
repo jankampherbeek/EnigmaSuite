@@ -30,6 +30,7 @@ using System.Windows;
 using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.ViewModels;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui;
 
@@ -62,18 +63,10 @@ public partial class App
         serviceCollection.AddTransient<AstroConfigWindow>();
         serviceCollection.AddTransient<CalYearCountController>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
-        serviceCollection.AddTransient<ChartAspectsController>();
-        serviceCollection.AddTransient<ChartAspectsWindow>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
         serviceCollection.AddTransient<IChartDataForDataGridFactory, ChartDataForDataGridFactory>();
         serviceCollection.AddTransient<ChartDataInputController>();
-        serviceCollection.AddTransient<ChartHarmonicsController>();
-        serviceCollection.AddTransient<ChartHarmonicsWindow>();
-        serviceCollection.AddTransient<ChartMidpointsController>();
-        serviceCollection.AddTransient<ChartMidpointsWindow>();
-        serviceCollection.AddTransient<ChartPositionsWindow>();
-        serviceCollection.AddTransient<ChartPositionsController>();
         serviceCollection.AddTransient<ChartProgPrimInputController>();
         serviceCollection.AddTransient<ChartProgSecInputController>();
         serviceCollection.AddTransient<ChartProgInputSolarController>();
@@ -87,15 +80,15 @@ public partial class App
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
-        serviceCollection.AddTransient<DataFilesImportController>();
-        serviceCollection.AddTransient<DataFilesOverviewController>();
-        serviceCollection.AddTransient<IDataNameForDataGridFactory, DataNameForDataGridFactory>();
+        serviceCollection.AddTransient<DatafileOverviewModel>();
+        serviceCollection.AddTransient<DatafileImportModel>();
+        serviceCollection.AddTransient<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
         serviceCollection.AddTransient<HarmonicDetailsController>();
         serviceCollection.AddTransient<HarmonicDetailsWindow>();
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
-        serviceCollection.AddTransient<HelpWindow>();
+        serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
         serviceCollection.AddTransient<MainController>();
@@ -114,6 +107,10 @@ public partial class App
         serviceCollection.AddTransient<ProjectUsageController>();
         serviceCollection.AddTransient<ProjectUsageWindow>();
         serviceCollection.AddTransient<ProjectInputController>();
+        serviceCollection.AddTransient<RadixAspectsModel>();
+        serviceCollection.AddTransient<RadixHarmonicsModel>();
+        serviceCollection.AddTransient<RadixMidpointsModel>();
+        serviceCollection.AddTransient<RadixPositionsModel>();
         serviceCollection.AddTransient<ResearchMainController>();
         serviceCollection.AddTransient<ResearchMainController>();
         serviceCollection.AddTransient<ResearchMainWindow>();

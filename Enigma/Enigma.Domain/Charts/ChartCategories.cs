@@ -34,21 +34,16 @@ public static class ChartCategoriesExtensions
             ChartCategories.Horary => new ChartCategoryDetails(cat, "ref.enum.chartcategories.horary"),
             ChartCategories.Election => new ChartCategoryDetails(cat, "ref.enum.chartcategories.election"),
             ChartCategories.Unknown => new ChartCategoryDetails(cat, "ref.enum.chartcategories.unknown"),
-            _ => throw new ArgumentException("CelPointCats unknown : " + cat.ToString())
+            _ => throw new ArgumentException("CelPointCats unknown : " + cat)
         };
     }
 
     /// <summary>Retrieve details for items in the enum ChartCategories.</summary>
-    /// <param name="cat">The chart category, is automatically filled.</param>
+    /// <param name="_">The chart category, is automatically filled.</param>
     /// <returns>All details.</returns>
     public static List<ChartCategoryDetails> AllDetails(this ChartCategories _)
     {
-        var allDetails = new List<ChartCategoryDetails>();
-        foreach (ChartCategories chartCat in Enum.GetValues(typeof(ChartCategories)))
-        {
-            allDetails.Add(chartCat.GetDetails());
-        }
-        return allDetails;
+        return (from ChartCategories chartCat in Enum.GetValues(typeof(ChartCategories)) select chartCat.GetDetails()).ToList();
     }
 
     /// <summary>Find chart category for an index.</summary>

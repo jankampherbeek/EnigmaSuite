@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.IO;
 using System.Windows;
+using Enigma.Frontend.Ui.Views;
 
 
 namespace Enigma.Frontend.Ui;
@@ -59,9 +60,9 @@ public partial class StartWindow
             if (releaseInfo.Version != EnigmaConstants.EnigmaVersion)
             {
                 Log.Information("New release found, showing downloadpage");
-                HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-                helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-                helpWindow.SetExternalPage("https://radixpro.com/rel/releaseinfo.html");
+                HelpWindow helpWindow = new(); 
+                    // TODO 0.2 find a solution for the line with releaseinfo
+                // helpWindow.SetExternalPage("https://radixpro.com/rel/releaseinfo.html");
                 helpWindow.ShowDialog();
             }
         }

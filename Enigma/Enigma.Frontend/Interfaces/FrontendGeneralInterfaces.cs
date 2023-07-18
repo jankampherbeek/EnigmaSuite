@@ -58,12 +58,17 @@ public interface ICelPointForDataGridFactory
 }
 
 
-public interface IDataNameForDataGridFactory
+public interface IDataNameForPresentationFactory
 {
     /// <summary>Builds a presentable data name to be used in a grid.</summary>
     /// <param name="dataNames">List with datanames.</param>
     /// <returns>Presentable data names.</returns>
     List<PresentableDataName> CreateDataNamesForDataGrid(List<string> fullPathDataNames);
+
+    /// <summary>Find existing data files</summary>
+    /// <param name="fullPathDataNames">Path for the data files</param>
+    /// <returns>The names for the data files based on the file names</returns>
+    List<string> CreateDataNamesForListView(List<string> fullPathDataNames);
 }
 
 /// <summary>Factory to create presentable harmonic positions.</summary>

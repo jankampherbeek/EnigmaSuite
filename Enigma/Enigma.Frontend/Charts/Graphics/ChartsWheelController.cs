@@ -14,6 +14,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
@@ -79,18 +80,26 @@ public sealed class ChartsWheelController
 
     private void HandleCusps()
     {
-        CuspLines = _chartsWheelCusps.CreateCuspLines(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(), GetAscendantLongitude());
-        CuspCardinalLines = _chartsWheelCusps.CreateCardinalLines(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
-        CuspCardinalIndicators = _chartsWheelCusps.CreateCardinalIndicators(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
-        CuspTexts = _chartsWheelCusps.CreateCuspTexts(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(), GetAscendantLongitude());
+        CuspLines = _chartsWheelCusps.CreateCuspLines(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
+            GetAscendantLongitude());
+        CuspCardinalLines =
+            _chartsWheelCusps.CreateCardinalLines(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
+        CuspCardinalIndicators =
+            _chartsWheelCusps.CreateCardinalIndicators(_metrics, _centerPoint, GetAscendantLongitude(),
+                GetMcLongitude());
+        CuspTexts = _chartsWheelCusps.CreateCuspTexts(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
+            GetAscendantLongitude());
 
     }
 
     private void HandleCelPoints()
     {
-        CelPointGlyphs = _chartsWheelCelPoints.CreateCelPointGlyphs(_metrics, GetCommonPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
-        CelPointConnectLines = _chartsWheelCelPoints.CreateCelPointConnectLines(_metrics, GetCommonPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
-        CelPointTexts = _chartsWheelCelPoints.CreateCelPointTexts(_metrics, GetCommonPointsCurrentChart(), _centerPoint, GetAscendantLongitude());
+        CelPointGlyphs = _chartsWheelCelPoints.CreateCelPointGlyphs(_metrics, GetCommonPointsCurrentChart(),
+            _centerPoint, GetAscendantLongitude());
+        CelPointConnectLines = _chartsWheelCelPoints.CreateCelPointConnectLines(_metrics, GetCommonPointsCurrentChart(),
+            _centerPoint, GetAscendantLongitude());
+        CelPointTexts = _chartsWheelCelPoints.CreateCelPointTexts(_metrics, GetCommonPointsCurrentChart(), _centerPoint,
+            GetAscendantLongitude());
     }
 
     private void HandleAspects()
@@ -100,7 +109,9 @@ public sealed class ChartsWheelController
 
     private double GetAscendantLongitude()
     {
-        return _currentChart != null ? _currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position : 0.0;
+        return _currentChart != null
+            ? _currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position
+            : 0.0;
     }
 
     private double GetMcLongitude()
@@ -114,8 +125,8 @@ public sealed class ChartsWheelController
         List<double> longitudes = new();
         _currentChart = _dataVault.GetCurrentChart();
         if (_currentChart == null) return longitudes;
-        longitudes.AddRange(from cusp in _currentChart.Positions 
-            where cusp.Key.GetDetails().PointCat == PointCats.Cusp 
+        longitudes.AddRange(from cusp in _currentChart.Positions
+            where cusp.Key.GetDetails().PointCat == PointCats.Cusp
             select cusp.Value.Ecliptical.MainPosSpeed.Position);
         return longitudes;
     }
@@ -123,8 +134,10 @@ public sealed class ChartsWheelController
     private Dictionary<ChartPoints, FullPointPos> GetCommonPointsCurrentChart()
     {
         _currentChart = _dataVault.GetCurrentChart();
-        return _currentChart != null ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common).ToDictionary(item => item.Key, item => item.Value) : 
-            new Dictionary<ChartPoints, FullPointPos>();
+        return _currentChart != null
+            ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common)
+                .ToDictionary(item => item.Key, item => item.Value)
+            : new Dictionary<ChartPoints, FullPointPos>();
     }
 
     public void Resize(double minSize)
@@ -154,15 +167,15 @@ public sealed class ChartsWheelController
         {
             descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
         }
+
         return descText;
     }
 
-
     public static void ShowHelp()
     {
-        HelpWindow helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
-        helpWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-        helpWindow.SetHelpPage("ChartsWheel");
+        DataVault.Instance.CurrentViewBase = "ChartsWheel";
+        HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
+
 }
