@@ -18,39 +18,39 @@ public class TestSouthPointCalculator
     // TODO 0.2 check differences
 
 
-    private readonly double _delta = 0.001;     // TODO 0.2 enlarge value for _delta.
+    private const double Delta = 0.001; // TODO 0.2 enlarge value for _delta.
 
     [Test]
     public void TestHappyFlow()
     {
-        double armc = 331.883333333333;
-        double obliquity = 23.449614320676233;  // mean obliquity
-        double geoLat = 48.8333333333333;
+        const double armc = 331.883333333333;
+        const double obliquity = 23.449614320676233;  // mean obliquity
+        const double geoLat = 48.8333333333333;
         ISouthPointCalculator calculator = new SouthPointCalculator();
-        double expectedLong = 318.50043580207006;
-        double expectedLat = -27.562090280566338;
+        const double expectedLong = 318.50043580207006;
+        const double expectedLat = -27.562090280566338;
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(_delta));
-            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(_delta));
+            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(Delta));
+            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(Delta));
         });
     }
 
     [Test]
     public void TestSouthernHemisphere()
     {
-        double armc = 331.883333333333;
-        double obliquity = 23.449614320676233;  // mean obliquity
-        double geoLat = -48.8333333333333;
+        const double armc = 331.883333333333;
+        const double obliquity = 23.449614320676233;  // mean obliquity
+        const double geoLat = -48.8333333333333;
         ISouthPointCalculator calculator = new SouthPointCalculator();
-        double expectedLong = 174.53494810489755;
-        double expectedLat = -48.16467239725159;
+        const double expectedLong = 174.53494810489755;
+        const double expectedLat = -48.16467239725159;
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(_delta));
-            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(_delta));
+            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(Delta));
+            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(Delta));
         });
     }
 }

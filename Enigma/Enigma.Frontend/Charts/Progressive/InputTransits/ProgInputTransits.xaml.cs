@@ -17,7 +17,7 @@ namespace Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 public partial class ProgInputTransits : Window
 {
     private readonly ProgInputTransitsController _controller;
-    private List<TimeZoneDetails> _timeZoneDetails = TimeZones.UT.AllDetails();
+    private List<TimeZoneDetails> _timeZoneDetails = TimeZones.Ut.AllDetails();
 
     public ProgInputTransits()
     {

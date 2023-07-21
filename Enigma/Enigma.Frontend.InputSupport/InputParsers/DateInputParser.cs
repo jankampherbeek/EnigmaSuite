@@ -28,7 +28,7 @@ public class DateInputParser : IDateInputParser
     {
         fullDate = null;
         bool validationSuccess;
-        (int[] dateNumbers, bool dateSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputDate, EnigmaConstants.SeparatorDate);
+        (int[] dateNumbers, bool dateSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputDate, EnigmaConstants.SEPARATOR_DATE);
         if (dateSuccess)
         {
             validationSuccess = _dateValidator.CreateCheckedDate(dateNumbers, calendar, yearCount, out fullDate);

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -15,13 +15,13 @@ public class TestTestDirections4GeoLat
     [Test]
     public void TestRetrievingDetails()
     {
-        Directions4GeoLat direction = Directions4GeoLat.North;
+        const Directions4GeoLat direction = Directions4GeoLat.North;
         Directions4GeoLatDetails details = direction.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Direction, Is.EqualTo(direction));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.direction4geolat.north"));
+            Assert.That(details.Text, Is.EqualTo("North"));
         });
     }
 
@@ -31,14 +31,14 @@ public class TestTestDirections4GeoLat
         foreach (Directions4GeoLat direction in Enum.GetValues(typeof(Directions4GeoLat)))
         {
             Directions4GeoLatDetails details = direction.GetDetails();
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int directionIndex = -1;
+        const int directionIndex = -1;
         Directions4GeoLat direction = Directions4GeoLat.North.DirectionForIndex(directionIndex);
         Assert.That(direction, Is.EqualTo(Directions4GeoLat.South));
     }
@@ -46,7 +46,7 @@ public class TestTestDirections4GeoLat
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int directionIndex = 500;
+        const int directionIndex = 500;
         Assert.That(() => _ = Directions4GeoLat.North.DirectionForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
     }
 
@@ -58,7 +58,7 @@ public class TestTestDirections4GeoLat
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].Direction, Is.EqualTo(Directions4GeoLat.North));
-            Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.direction4geolat.south"));
+            Assert.That(allDetails[1].Text, Is.EqualTo("South"));
         });
     }
 }

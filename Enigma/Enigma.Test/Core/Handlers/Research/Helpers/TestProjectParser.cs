@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -14,12 +14,11 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 public class TestResearchProjectParser
 {
     private IResearchProjectParser _parser;
-    private readonly string _projectName = "TestProject";
-    private readonly string _description = "Description for test project.";
-    private readonly string _dataName = "This_datafile";
-    private readonly ControlGroupTypes _controlGroupType = ControlGroupTypes.StandardShift;
-    private readonly int _multiplFactor = 10;
-
+    private const string ProjectName = "TestProject";
+    private const string Description = "Description for test project.";
+    private const string DataName = "This_datafile";
+    private const ControlGroupTypes ControlGroupType = ControlGroupTypes.StandardShift;
+    private const int MultiplFactor = 10;
 
 
     [SetUp]
@@ -31,7 +30,7 @@ public class TestResearchProjectParser
     [Test]
     public void TestMarshallUnmarshall()
     {
-        ResearchProject project1 = new(_projectName, _description, _dataName, _controlGroupType, _multiplFactor);
+        ResearchProject project1 = new(ProjectName, Description, DataName, ControlGroupType, MultiplFactor);
         string jsonText = _parser.Marshall(project1);
         ResearchProject project2 = _parser.UnMarshall(jsonText);
         Assert.That(project2, Is.Not.Null);

@@ -19,7 +19,7 @@ public class ChartProgInputSolarController
         for (int i = 0; i < _directions4GeoLongDetails.Count; i++)
         {
             Directions4GeoLongDetails? direction4GeoLongDetail = _directions4GeoLongDetails[i];
-            geoLongDirections.Add(Rosetta.TextForId(direction4GeoLongDetail.TextId));
+            geoLongDirections.Add(Rosetta.TextForId(direction4GeoLongDetail.Text));
         }
         return geoLongDirections;
     }
@@ -31,7 +31,7 @@ public class ChartProgInputSolarController
         for (int i = 0; i < _directions4GeoLatDetails.Count; i++)
         {
             Directions4GeoLatDetails? direction4GeoLongDetail = _directions4GeoLatDetails[i];
-            geoLatDirections.Add(Rosetta.TextForId(direction4GeoLongDetail.TextId));
+            geoLatDirections.Add(Rosetta.TextForId(direction4GeoLongDetail.Text));
         }
         return geoLatDirections;
     }

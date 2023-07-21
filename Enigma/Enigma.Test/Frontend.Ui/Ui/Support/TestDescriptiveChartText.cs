@@ -20,29 +20,29 @@ public class TestDescriptiveChartText
 {
     private readonly IDescriptiveChartText _descriptiveChartText = new DescriptiveChartText();
 
-    private readonly string _name = "Some Name";
-    private readonly string _description = "Descriptive text";
-    private readonly string _source = "source";
-    private readonly string _locationName = "Somewhere";
-    private readonly ChartCategories _chartCategory = ChartCategories.Female;
-    private readonly RoddenRatings _rating = RoddenRatings.AA;
-    private readonly HouseSystems _houseSystem = HouseSystems.Alcabitius;
-    private readonly Ayanamshas _ayanamsha = Ayanamshas.None;
-    private readonly ObserverPositions _observerPos = ObserverPositions.GeoCentric;
-    private readonly ZodiacTypes _zodiacType = ZodiacTypes.Tropical;
-    private readonly ProjectionTypes _projType = ProjectionTypes.TwoDimensional;
-    private readonly OrbMethods _orbMethod = OrbMethods.Weighted;
+    private const string Name = "Some Name";
+    private const string Description = "Descriptive text";
+    private const string Source = "source";
+    private const string LocationName = "Somewhere";
+    private const ChartCategories ChartCategory = ChartCategories.Female;
+    private const RoddenRatings Rating = RoddenRatings.AA;
+    private const HouseSystems HouseSystem = HouseSystems.Alcabitius;
+    private const Ayanamshas Ayanamsha = Ayanamshas.None;
+    private const ObserverPositions ObserverPos = ObserverPositions.GeoCentric;
+    private const ZodiacTypes ZodiacType = ZodiacTypes.Tropical;
+    private const ProjectionTypes ProjType = ProjectionTypes.TwoDimensional;
+    private const OrbMethods OrbMethod = OrbMethods.Weighted;
     private readonly Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPoints = new();
     private readonly Dictionary<AspectTypes, AspectConfigSpecs> _aspects = new();
-    private readonly double _baseOrbAspects = 8.0;
-    private readonly double _baseOrbMidpoints = 1.6;
-    private readonly bool _useCuspsForAspects = false;
-    private readonly int _id = 123;
-    private readonly double _geoLong = 12.25;
-    private readonly double _geoLat = 30.5;
-    private readonly string _dateText = "2023/02/22";
-    private readonly string _timeText = "18:19:00";
-    private readonly double _jdUt = 123456.789;
+    private const double BaseOrbAspects = 8.0;
+    private const double BaseOrbMidpoints = 1.6;
+    private const bool UseCuspsForAspects = false;
+    private const int Id = 123;
+    private const double GeoLong = 12.25;
+    private const double GeoLat = 30.5;
+    private const string DateText = "2023/02/22";
+    private const string TimeText = "18:19:00";
+    private const double JdUt = 123456.789;
 
     [Test]
     public void TestShortDescriptiveText()
@@ -62,29 +62,29 @@ public class TestDescriptiveChartText
 
     private MetaData CreateMetaData()
     {
-        return new(_name, _description, _source, _locationName, _chartCategory, _rating);
+        return new(Name, Description, Source, LocationName, ChartCategory, Rating);
     }
 
     private AstroConfig CreateConfig()
     {
-        return new(_houseSystem, _ayanamsha, _observerPos, _zodiacType, _projType, _orbMethod, _chartPoints, _aspects, _baseOrbAspects, _baseOrbMidpoints, _useCuspsForAspects);
+        return new(HouseSystem, Ayanamsha, ObserverPos, ZodiacType, ProjType, OrbMethod, _chartPoints, _aspects, BaseOrbAspects, BaseOrbMidpoints, UseCuspsForAspects);
     }
 
 
     private Location CreateLocation()
     {
-        return new(_locationName, _geoLong, _geoLat);
+        return new(LocationName, GeoLong, GeoLat);
     }
 
     private FullDateTime CreateFullDateTime()
     {
-        return new(_dateText, _timeText, _jdUt);
+        return new(DateText, TimeText, JdUt);
     }
 
 
     private ChartData CreateChartData()
     {
-        return new ChartData(_id, CreateMetaData(), CreateLocation(), CreateFullDateTime());
+        return new ChartData(Id, CreateMetaData(), CreateLocation(), CreateFullDateTime());
     }
 }
 

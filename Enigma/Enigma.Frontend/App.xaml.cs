@@ -66,7 +66,6 @@ public partial class App
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
         serviceCollection.AddTransient<IChartDataForDataGridFactory, ChartDataForDataGridFactory>();
-        serviceCollection.AddTransient<ChartDataInputController>();
         serviceCollection.AddTransient<ChartProgPrimInputController>();
         serviceCollection.AddTransient<ChartProgSecInputController>();
         serviceCollection.AddTransient<ChartProgInputSolarController>();
@@ -91,8 +90,6 @@ public partial class App
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
-        serviceCollection.AddTransient<MainController>();
-        serviceCollection.AddTransient<MainWindow>();
         serviceCollection.AddTransient<MidpointDetailsController>();
         serviceCollection.AddTransient<MidpointDetailsWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
@@ -108,17 +105,17 @@ public partial class App
         serviceCollection.AddTransient<ProjectUsageWindow>();
         serviceCollection.AddTransient<ProjectInputController>();
         serviceCollection.AddTransient<RadixAspectsModel>();
+        serviceCollection.AddTransient<RadixDataInputModel>();
         serviceCollection.AddTransient<RadixHarmonicsModel>();
         serviceCollection.AddTransient<RadixMidpointsModel>();
         serviceCollection.AddTransient<RadixPositionsModel>();
-        serviceCollection.AddTransient<ResearchMainController>();
-        serviceCollection.AddTransient<ResearchMainController>();
-        serviceCollection.AddTransient<ResearchMainWindow>();
+        serviceCollection.AddTransient<ResearchMainModel>();
         serviceCollection.AddTransient<ResearchResultController>();
         serviceCollection.AddTransient<ResearchResultWindow>();
         serviceCollection.AddTransient<SearchChartController>();
         serviceCollection.AddTransient<SearchChartWindow>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
+        serviceCollection.AddTransient<StartModel>();
 
         // Handle services from other projects.
         serviceCollection.RegisterFrontendHelpersServices();

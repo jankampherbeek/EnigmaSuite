@@ -7,7 +7,7 @@
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 
-namespace Enigma.Test.Frontend.Ui.Support;
+namespace Enigma.Test.Frontend.Ui.Ui.Support;
 
 [TestFixture]
 public sealed class TestLocationConversion
@@ -18,10 +18,10 @@ public sealed class TestLocationConversion
     [Test]
     public void TestNorthEast()
     {
-        string locationName = "Enschede - Netherlands";
-        double latitude = 52.21666666667;
-        double longitude = 6.9;
-        string expectedValue = "Enschede - Netherlands 52.21666666667 N / 6.9 E";
+        const string locationName = "Enschede - Netherlands";
+        const double latitude = 52.21666666667;
+        const double longitude = 6.9;
+        const string expectedValue = "Enschede - Netherlands 52.21666666667 N / 6.9 E";
         string retrievedValue = _locationConversion.CreateLocationDescription(locationName, latitude, longitude);
         Assert.That(retrievedValue.Replace(',', '.'), Is.EqualTo(expectedValue.Replace(',', '.')));
     }
@@ -29,10 +29,10 @@ public sealed class TestLocationConversion
     [Test]
     public void TestSouthWest()
     {
-        string locationName = "Rio de Janeiro Brazil";
-        double latitude = -22.9;
-        double longitude = -43.23333333333;
-        string expectedValue = "Rio de Janeiro Brazil 22.9 S / 43.23333333333 W";
+        const string locationName = "Rio de Janeiro Brazil";
+        const double latitude = -22.9;
+        const double longitude = -43.23333333333;
+        const string expectedValue = "Rio de Janeiro Brazil 22.9 S / 43.23333333333 W";
         string retrievedValue = _locationConversion.CreateLocationDescription(locationName, latitude, longitude);
         Assert.That(retrievedValue.Replace(',', '.'), Is.EqualTo(expectedValue.Replace(',', '.')));
     }
@@ -40,10 +40,10 @@ public sealed class TestLocationConversion
     [Test]
     public void TestNoName()
     {
-        string locationName = "";
-        double latitude = 52.21666666667;
-        double longitude = 6.9;
-        string expectedValue = "No name for location 52.21666666667 N / 6.9 E";
+        const string locationName = "";
+        const double latitude = 52.21666666667;
+        const double longitude = 6.9;
+        const string expectedValue = "No name for location 52.21666666667 N / 6.9 E";
         string retrievedValue = _locationConversion.CreateLocationDescription(locationName, latitude, longitude);
         Assert.That(retrievedValue.Replace(',', '.'), Is.EqualTo(expectedValue.Replace(',', '.')));
     }

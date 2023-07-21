@@ -11,28 +11,28 @@ using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.SUpport;
 using Moq;
 
-namespace Enigma.Test.Frontend.Ui.Support;
+namespace Enigma.Test.Frontend.Ui.Ui.Support;
 
 [TestFixture]
 public class TestEventDataConverter
 {
-    private readonly double _delta = 0.00000001;
+    private const double Delta = 0.00000001;
     private IEventDataConverter _eventDataConverter;
-    private readonly string _description = "Event Description";
-    private readonly string _locationName = "Some location";
-    private const int ID = 456;
-    private readonly double _jdEt = 123456.789;
-    private readonly string _dateText = "2023-02-2023";
-    private readonly string _timeText = "21:24:30";
-    private readonly string _locationFullName = "Some location 12.5 N / 13.66666666667 W";
-    private readonly double _geoLong = -13.66666666667;
-    private readonly double _geoLat = 12.5;
+    private const string Description = "Event Description";
+    private const string LocationName = "Some location";
+    private const int Id = 456;
+    private const double JdEt = 123456.789;
+    private const string DateText = "2023-02-2023";
+    private const string TimeText = "21:24:30";
+    private const string LocationFullName = "Some location 12.5 N / 13.66666666667 W";
+    private const double GeoLong = -13.66666666667;
+    private const double GeoLat = 12.5;
 
     [SetUp]
     public void SetUp()
     {
         var locationConversionMock = new Mock<ILocationConversion>();
-        locationConversionMock.Setup(p => p.CreateLocationDescription(_locationName, _geoLat, _geoLong)).Returns(_locationFullName);
+        locationConversionMock.Setup(p => p.CreateLocationDescription(LocationName, GeoLat, GeoLong)).Returns(LocationFullName);
         _eventDataConverter = new EventDataConverter(locationConversionMock.Object);
 
     }
@@ -46,9 +46,9 @@ public class TestEventDataConverter
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
-            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(_delta));
-            Assert.That(expected.DateText, Is.EqualTo(_dateText));
-            Assert.That(expected.JulianDayEt, Is.EqualTo(_jdEt).Within(_delta));
+            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(Delta));
+            Assert.That(expected.DateText, Is.EqualTo(DateText));
+            Assert.That(expected.JulianDayEt, Is.EqualTo(JdEt).Within(Delta));
         });
     }
 
@@ -60,29 +60,28 @@ public class TestEventDataConverter
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
-            Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(_delta));
-            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(_delta));
+            Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(Delta));
+            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(Delta));
         });
     }
 
     private EventData CreateEventData()
     {
-        string locationFullName = _locationFullName;
-        Location location = new(locationFullName, _geoLong, _geoLat);
-        FullDateTime fullDateTime = new(_dateText, _timeText, _jdEt);
-        return new EventData(ID, _description, _locationName, location, fullDateTime);
+        Location location = new(LocationFullName, GeoLong, GeoLat);
+        FullDateTime fullDateTime = new(DateText, TimeText, JdEt);
+        return new EventData(Id, Description, LocationName, location, fullDateTime);
     }
 
     private PersistableEventData CreatePersistableEventData()
     {
         return new PersistableEventData(
-            _description,
-            _jdEt,
-            _dateText,
-            _timeText,
-            _locationFullName,
-            _geoLong,
-            _geoLat
+            Description,
+            JdEt,
+            DateText,
+            TimeText,
+            LocationFullName,
+            GeoLong,
+            GeoLat
         );
     }
 }

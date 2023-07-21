@@ -21,7 +21,7 @@ public class TestZodiacTypeSpecifications
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Type, Is.EqualTo(zodiacType));
-            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgSidereal));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_SIDEREAL));
             Assert.That(details.TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
         });
     }
@@ -35,7 +35,7 @@ public class TestZodiacTypeSpecifications
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Type, Is.EqualTo(zodiacType));
-            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgSidereal));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_SIDEREAL));
             Assert.That(details.TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
         });
     }
@@ -77,7 +77,7 @@ public class TestZodiacTypeSpecifications
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.zodiactype.sidereal"));
             Assert.That(allDetails[1].Type, Is.EqualTo(ZodiacTypes.Tropical));
-            Assert.That(allDetails[0].ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgSidereal));
+            Assert.That(allDetails[0].ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_SIDEREAL));
         });
     }
 

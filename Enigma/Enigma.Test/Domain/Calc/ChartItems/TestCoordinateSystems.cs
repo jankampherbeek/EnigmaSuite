@@ -20,7 +20,7 @@ public class TestCoordinateSystems
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.CoordSystem, Is.EqualTo(system));
-            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgEquatorial));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_EQUATORIAL));
             Assert.That(details.TextId, Is.EqualTo("coordinateSysEquatorial"));
         });
     }

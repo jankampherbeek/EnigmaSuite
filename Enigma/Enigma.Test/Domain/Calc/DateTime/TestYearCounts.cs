@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -21,7 +21,7 @@ public class TestYearCounts
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.YearCount, Is.EqualTo(yearCount));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.yearcount.bce"));
+            Assert.That(details.Text, Is.EqualTo("BCE"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestYearCounts
         foreach (YearCounts yearCount in Enum.GetValues(typeof(YearCounts)))
         {
             YearCountDetails details = yearCount.GetDetails();
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -59,7 +59,7 @@ public class TestYearCounts
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));
             Assert.That(allDetails[0].YearCount, Is.EqualTo(YearCounts.CE));
-            Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.yearcount.astronomical"));
+            Assert.That(allDetails[2].Text, Is.EqualTo("Astronomical"));
         });
     }
 }

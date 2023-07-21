@@ -11,32 +11,32 @@ using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.SUpport;
 using Moq;
 
-namespace Enigma.Test.Frontend.Ui.Support;
+namespace Enigma.Test.Frontend.Ui.Ui.Support;
 
 [TestFixture]
 public class TestChartDataConverter
 {
     private readonly double _delta = 0.00000001;
     private IChartDataConverter _chartDataConverter;
-    private readonly string _name = "Chart Name";
-    private readonly string _description = "Chart Description";
-    private readonly string _source = "Chart Source";
-    private readonly string _locationName = "Some _location";
-    private readonly ChartCategories _chartCategory = ChartCategories.Election;
-    private readonly RoddenRatings _rating = RoddenRatings.DD;
-    private readonly int _id = 123;
-    private readonly double _jdEt = 123456.789;
-    private readonly string _dateText = "2023-02-2023";
-    private readonly string _timeText = "21:24:30";
-    private readonly string _locationFullName = "Some _location 12.5 N / 13.66666666667 W";
-    private readonly double _geoLong = -13.66666666667;
-    private readonly double _geoLat = 12.5;
+    private const string Name = "Chart Name";
+    private const string Description = "Chart Description";
+    private const string Source = "Chart Source";
+    private const string LocationName = "Some _location";
+    private const ChartCategories ChartCategory = ChartCategories.Election;
+    private const RoddenRatings Rating = RoddenRatings.DD;
+    private const int Id = 123;
+    private const double JdEt = 123456.789;
+    private const string DateText = "2023-02-2023";
+    private const string TimeText = "21:24:30";
+    private const string LocationFullName = "Some _location 12.5 N / 13.66666666667 W";
+    private const double GeoLong = -13.66666666667;
+    private const double GeoLat = 12.5;
 
     [SetUp]
     public void SetUp()
     {
         var locationConversionMock = new Mock<ILocationConversion>();
-        locationConversionMock.Setup(p => p.CreateLocationDescription(_locationName, _geoLat, _geoLong)).Returns(_locationFullName);
+        locationConversionMock.Setup(p => p.CreateLocationDescription(LocationName, GeoLat, GeoLong)).Returns(LocationFullName);
         _chartDataConverter = new ChartDataConverter(locationConversionMock.Object);
 
     }
@@ -51,8 +51,8 @@ public class TestChartDataConverter
         {
             Assert.That(expected.Name, Is.EqualTo(result.Name));
             Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(_delta));
-            Assert.That(expected.DateText, Is.EqualTo(_dateText));
-            Assert.That(expected.JulianDayEt, Is.EqualTo(_jdEt).Within(_delta));
+            Assert.That(expected.DateText, Is.EqualTo(DateText));
+            Assert.That(expected.JulianDayEt, Is.EqualTo(JdEt).Within(_delta));
         });
     }
 
@@ -71,27 +71,27 @@ public class TestChartDataConverter
 
     private ChartData CreateChartData()
     {
-        MetaData metaData = new(_name, _description, _source, _locationName, _chartCategory, _rating);
-        string locationFullName = _locationFullName;
-        Location location = new(locationFullName, _geoLong, _geoLat);
-        FullDateTime fullDateTime = new(_dateText, _timeText, _jdEt);
-        return new ChartData(_id, metaData, location, fullDateTime);
+        MetaData metaData = new(Name, Description, Source, LocationName, ChartCategory, Rating);
+        string locationFullName = LocationFullName;
+        Location location = new(locationFullName, GeoLong, GeoLat);
+        FullDateTime fullDateTime = new(DateText, TimeText, JdEt);
+        return new ChartData(Id, metaData, location, fullDateTime);
     }
 
     private PersistableChartData CreatePersistableChartData()
     {
         return new PersistableChartData(
-            _name,
-            _description,
-            _source,
-            _chartCategory,
-            _rating,
-            _jdEt,
-            _dateText,
-            _timeText,
-            _locationFullName,
-            _geoLong,
-            _geoLat
+            Name,
+            Description,
+            Source,
+            ChartCategory,
+            Rating,
+            JdEt,
+            DateText,
+            TimeText,
+            LocationFullName,
+            GeoLong,
+            GeoLat
         );
     }
 }

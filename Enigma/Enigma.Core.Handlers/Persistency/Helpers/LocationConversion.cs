@@ -69,8 +69,8 @@ public sealed class LocationCheckedConversion : ILocationCheckedConversion
         result = int.TryParse(secondText, out int seconds);
         if (!result || (seconds < 0) || (seconds > 59)) noErrors = false;
         return new Tuple<double, bool>((double)degrees
-            + ((double)minutes / EnigmaConstants.MinutesPerHourDegree)
-            + ((double)seconds / EnigmaConstants.SecondsPerHourDegree),
+            + ((double)minutes / EnigmaConstants.MINUTES_PER_HOUR_DEGREE)
+            + ((double)seconds / EnigmaConstants.SECONDS_PER_HOUR_DEGREE),
             noErrors);
     }
 

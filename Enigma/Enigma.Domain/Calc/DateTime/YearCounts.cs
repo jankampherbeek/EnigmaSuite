@@ -13,10 +13,10 @@ public enum YearCounts
     CE = 0, BCE = 1, Astronomical = 2
 }
 
-/// <summary>Details for YearCounts.</summary>
-/// <param name="YearCount">The YearCount.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record YearCountDetails(YearCounts YearCount, string TextId);
+/// <summary>Details for YearCounts</summary>
+/// <param name="YearCount">The YearCount</param>
+/// <param name="Text">Descriptive text</param>
+public record YearCountDetails(YearCounts YearCount, string Text);
 
 /// <summary>Extension class for enum YearCounts.</summary>
 public static class YearCountsExtensions
@@ -28,9 +28,9 @@ public static class YearCountsExtensions
     {
         return yearCount switch
         {
-            YearCounts.CE => new YearCountDetails(yearCount, "ref.enum.yearcount.ce"),
-            YearCounts.BCE => new YearCountDetails(yearCount, "ref.enum.yearcount.bce"),
-            YearCounts.Astronomical => new YearCountDetails(yearCount, "ref.enum.yearcount.astronomical"),
+            YearCounts.CE => new YearCountDetails(yearCount, "CE"),
+            YearCounts.BCE => new YearCountDetails(yearCount, "BCE"),
+            YearCounts.Astronomical => new YearCountDetails(yearCount, "Astronomical"),
             _ => throw new ArgumentException("YearCount unknown : " + yearCount.ToString())
         };
     }
@@ -40,12 +40,7 @@ public static class YearCountsExtensions
     /// <returns>All details.</returns>
     public static List<YearCountDetails> AllDetails(this YearCounts _)
     {
-        var allDetails = new List<YearCountDetails>();
-        foreach (YearCounts currentYc in Enum.GetValues(typeof(YearCounts)))
-        {
-            allDetails.Add(currentYc.GetDetails());
-        }
-        return allDetails;
+        return (from YearCounts currentYc in Enum.GetValues(typeof(YearCounts)) select currentYc.GetDetails()).ToList();
     }
 
 
@@ -59,9 +54,8 @@ public static class YearCountsExtensions
         {
             if ((int)currentYc == index) return currentYc;
         }
-        string errorText = "YearCounts.YearCountForIndex(): Could not find YearCount for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("YearCounts.YearCountForIndex(): Could not find YearCount for index : {Index}", index);
+        throw new ArgumentException("Wrong YearCount");
     }
 
 }

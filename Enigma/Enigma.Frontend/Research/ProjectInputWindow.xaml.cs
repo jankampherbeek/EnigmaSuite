@@ -85,9 +85,9 @@ namespace Enigma.Frontend.Ui.Research
 
         private void HandleErrors()
         {
-            NameValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ResearchNameInvalid) ? Brushes.Yellow : Brushes.White;
-            DescrValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ResearchDescription) ? Brushes.Yellow : Brushes.White;
-            MultiplicValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.ResearchMultiplication) ? Brushes.Yellow : Brushes.White;
+            NameValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.RESEARCH_NAME_INVALID) ? Brushes.Yellow : Brushes.White;
+            DescrValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.RESEARCH_DESCRIPTION) ? Brushes.Yellow : Brushes.White;
+            MultiplicValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.RESEARCH_MULTIPLICATION) ? Brushes.Yellow : Brushes.White;
         }
 
         private void TransferValues()

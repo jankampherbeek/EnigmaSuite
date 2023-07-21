@@ -20,7 +20,7 @@ public sealed class DateConversionFacade : IDateConversionFacade
         double _julianDay = 0.0;
         char _calendar = dateTime.Calendar == Calendars.Gregorian ? 'g' : 'j';
         int _result = ext_swe_date_conversion(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, _calendar, ref _julianDay);
-        bool validPeriod = (_julianDay >= EnigmaConstants.PeriodTotalStart && _julianDay < EnigmaConstants.PeriodTotalEnd);
+        bool validPeriod = (_julianDay >= EnigmaConstants.PERIOD_TOTAL_START && _julianDay < EnigmaConstants.PERIOD_TOTAL_END);
         return (_result == 0) && (0.0 <= dateTime.Ut) && (dateTime.Ut < 24.0) && validPeriod;
 
     }

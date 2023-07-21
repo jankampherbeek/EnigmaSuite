@@ -17,17 +17,17 @@ public class TestDateCheckedConversion
     [Test]
     public void TestCsvToDateHappyFlow()
     {
-        string csvDateText = "2022/9/26";
-        string csvCalText = "G";
-        int year = 2022;
-        int month = 9;
-        int day = 26;
-        double ut = 0.0;
-        Calendars cal = Calendars.Gregorian;
+        const string csvDateText = "2022/9/26";
+        const string csvCalText = "G";
+        const int year = 2022;
+        const int month = 9;
+        const int day = 26;
+        const double ut = 0.0;
+        const Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        var _mockDateTimeValidator = new Mock<IDateTimeValidator>();
-        _mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(true);
-        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(_mockDateTimeValidator.Object);
+        var mockDateTimeValidator = new Mock<IDateTimeValidator>();
+        mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(true);
+        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(mockDateTimeValidator.Object);
         Tuple<PersistableDate, bool> result = dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.Multiple(() =>
         {
@@ -41,17 +41,17 @@ public class TestDateCheckedConversion
     [Test]
     public void TestCsvToDateInvalidDate()
     {
-        string csvDateText = "2022/9/31";
-        string csvCalText = "G";
-        int year = 2022;
-        int month = 9;
-        int day = 31;
-        double ut = 0.0;
-        Calendars cal = Calendars.Gregorian;
+        const string csvDateText = "2022/9/31";
+        const string csvCalText = "G";
+        const int year = 2022;
+        const int month = 9;
+        const int day = 31;
+        const double ut = 0.0;
+        const Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        var _mockDateTimeValidator = new Mock<IDateTimeValidator>();
-        _mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
-        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(_mockDateTimeValidator.Object);
+        var mockDateTimeValidator = new Mock<IDateTimeValidator>();
+        mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
+        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(mockDateTimeValidator.Object);
         Tuple<PersistableDate, bool> result = dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }
@@ -59,17 +59,17 @@ public class TestDateCheckedConversion
     [Test]
     public void TestCsvToDateNotNumeric()
     {
-        string csvDateText = "2022/9w/31";
-        string csvCalText = "G";
-        int year = 2022;
-        int month = 9;
-        int day = 26;
-        double ut = 0.0;
-        Calendars cal = Calendars.Gregorian;
+        const string csvDateText = "2022/9w/31";
+        const string csvCalText = "G";
+        const int year = 2022;
+        const int month = 9;
+        const int day = 26;
+        const double ut = 0.0;
+        const Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        var _mockDateTimeValidator = new Mock<IDateTimeValidator>();
-        _mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
-        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(_mockDateTimeValidator.Object);
+        var mockDateTimeValidator = new Mock<IDateTimeValidator>();
+        mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
+        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(mockDateTimeValidator.Object);
         Tuple<PersistableDate, bool> result = dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }
@@ -79,7 +79,7 @@ public class TestDateCheckedConversion
 [TestFixture]
 public class TestTimeCheckedConversion
 {
-    private readonly double _delta = 0.00000001;
+    private const double Delta = 0.00000001;
     private ITimeCheckedConversion _timeCheckedConversion;
 
     [SetUp]
@@ -91,9 +91,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeHappyFlow()
     {
-        string csvTime = "14:6:30";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "14:6:30";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.Multiple(() =>
         {
@@ -102,17 +102,17 @@ public class TestTimeCheckedConversion
             Assert.That(result.Item1.Hour, Is.EqualTo(14));
             Assert.That(result.Item1.Minute, Is.EqualTo(6));
             Assert.That(result.Item1.Second, Is.EqualTo(30));
-            Assert.That(result.Item1.ZoneOffset, Is.EqualTo(1.0).Within(_delta));
-            Assert.That(result.Item1.Dst, Is.EqualTo(0.0).Within(_delta));
+            Assert.That(result.Item1.ZoneOffset, Is.EqualTo(1.0).Within(Delta));
+            Assert.That(result.Item1.Dst, Is.EqualTo(0.0).Within(Delta));
         });
     }
 
     [Test]
     public void TestCsvToTimeHourTooLarge()
     {
-        string csvTime = "24:6:30";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "24:6:30";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
@@ -120,9 +120,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeHourTooSmall()
     {
-        string csvTime = "-1:6:30";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "-1:6:30";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
@@ -130,9 +130,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeMinuteTooLarge()
     {
-        string csvTime = "14:60:30";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "14:60:30";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
@@ -140,9 +140,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeMinuteTooSmall()
     {
-        string csvTime = "14:-2:30";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "14:-2:30";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
@@ -150,9 +150,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeSecondTooLarge()
     {
-        string csvTime = "14:16:60";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "14:16:60";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
@@ -160,9 +160,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeSecondTooSmall()
     {
-        string csvTime = "14:16:-6";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "14:16:-6";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
@@ -170,9 +170,9 @@ public class TestTimeCheckedConversion
     [Test]
     public void TestCsvToTimeNotNumeric()
     {
-        string csvTime = "14:r6:30";
-        string csvDst = "0";
-        string csvZoneOffset = "1";
+        const string csvTime = "14:r6:30";
+        const string csvDst = "0";
+        const string csvZoneOffset = "1";
         Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }

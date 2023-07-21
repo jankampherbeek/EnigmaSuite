@@ -16,10 +16,10 @@ public enum Directions4GeoLat
 }
 
 
-/// <summary>Details for the Directions of geographic latitude.</summary>
-/// <param name="Direction">Direction from the enum DirectionsGeo4Lat.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record Directions4GeoLatDetails(Directions4GeoLat Direction, string TextId);
+/// <summary>Details for the Directions of geographic latitude</summary>
+/// <param name="Direction">Direction from the enum DirectionsGeo4Lat</param>
+/// <param name="Text">Descriptive text</param>
+public record Directions4GeoLatDetails(Directions4GeoLat Direction, string Text);
 
 /// <summary>Extension class for enum Directions4GeoLat.</summary>
 public static class Directions4GeoLatExtensions
@@ -31,9 +31,9 @@ public static class Directions4GeoLatExtensions
     {
         return direction switch
         {
-            Directions4GeoLat.North => new Directions4GeoLatDetails(direction, "ref.enum.direction4geolat.north"),
-            Directions4GeoLat.South => new Directions4GeoLatDetails(direction, "ref.enum.direction4geolat.south"),
-            _ => throw new ArgumentException("Direction for latitude unknown : " + direction.ToString())
+            Directions4GeoLat.North => new Directions4GeoLatDetails(direction, "North"),
+            Directions4GeoLat.South => new Directions4GeoLatDetails(direction, "South"),
+            _ => throw new ArgumentException("Direction for latitude unknown : " + direction)
         };
     }
 
@@ -50,9 +50,10 @@ public static class Directions4GeoLatExtensions
     }
 
 
-    /// <summary>Find Directions4GeoLat for an index.</summary>
-    /// <param name="index">Index to look for.</param>
-    /// <returns>The Directions4GeoLat.</returns>
+    /// <summary>Find Directions4GeoLat for an index</summary>
+    /// <param name="_">Instance of enum Directions4GeoLat</param>
+    /// <param name="index">Index to look for</param>
+    /// <returns>The Directions4GeoLat</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
     public static Directions4GeoLat DirectionForIndex(this Directions4GeoLat _, int index)
     {
@@ -60,9 +61,8 @@ public static class Directions4GeoLatExtensions
         {
             if ((int)currentDir == index) return currentDir;
         }
-        string errorText = "Directions4GeoLat.DirectionFordex(): Could not find Directions4GeoLat for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("Directions4GeoLat.DirectionFordex(): Could not find Directions4GeoLat for index : {Index}", index);
+        throw new ArgumentException("Wrong direction for geographic latitude");
     }
 
 }

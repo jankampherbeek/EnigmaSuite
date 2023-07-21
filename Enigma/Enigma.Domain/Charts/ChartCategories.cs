@@ -13,10 +13,10 @@ public enum ChartCategories
     Unknown = 0, Female = 1, Male = 2, Event = 3, Horary = 4, Election = 5
 }
 
-/// <summary>Details for the Category of a chart.</summary>
-/// <param name="Category">The Category of the chart.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record ChartCategoryDetails(ChartCategories Category, string TextId);
+/// <summary>Details for the Category of a chart</summary>
+/// <param name="Category">The Category of the chart</param>
+/// <param name="Text">Descriptive text</param>
+public record ChartCategoryDetails(ChartCategories Category, string Text);
 
 
 /// <summary>Extension class for enum ChartCategories.</summary>
@@ -28,15 +28,16 @@ public static class ChartCategoriesExtensions
     {
         return cat switch
         {
-            ChartCategories.Female => new ChartCategoryDetails(cat, "ref.enum.chartcategories.female"),
-            ChartCategories.Male => new ChartCategoryDetails(cat, "ref.enum.chartcategories.male"),
-            ChartCategories.Event => new ChartCategoryDetails(cat, "ref.enum.chartcategories.event"),
-            ChartCategories.Horary => new ChartCategoryDetails(cat, "ref.enum.chartcategories.horary"),
-            ChartCategories.Election => new ChartCategoryDetails(cat, "ref.enum.chartcategories.election"),
-            ChartCategories.Unknown => new ChartCategoryDetails(cat, "ref.enum.chartcategories.unknown"),
+            ChartCategories.Female => new ChartCategoryDetails(cat, "Female"),
+            ChartCategories.Male => new ChartCategoryDetails(cat, "Male"),
+            ChartCategories.Event => new ChartCategoryDetails(cat, "Event"),
+            ChartCategories.Horary => new ChartCategoryDetails(cat, "Horary"),
+            ChartCategories.Election => new ChartCategoryDetails(cat, "Election"),
+            ChartCategories.Unknown => new ChartCategoryDetails(cat, "Unknown"),
             _ => throw new ArgumentException("CelPointCats unknown : " + cat)
         };
     }
+
 
     /// <summary>Retrieve details for items in the enum ChartCategories.</summary>
     /// <param name="_">The chart category, is automatically filled.</param>
@@ -47,6 +48,7 @@ public static class ChartCategoriesExtensions
     }
 
     /// <summary>Find chart category for an index.</summary>
+    /// <param name="_">Instance of enum ChartCategories</param>
     /// <param name="index">The index to look for.</param>
     /// <returns>The chart category for the index.</returns>
     /// <exception cref="ArgumentException">Thrown if no chart category exists for given index.</exception>
@@ -56,9 +58,9 @@ public static class ChartCategoriesExtensions
         {
             if ((int)chartCat == index) return chartCat;
         }
-        string errorText = "ChartCategories.ChartCategoryForIndex(): Could not find chart category for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+
+        Log.Error("ChartCategories.ChartCategoryForIndex(): Could not find chart category for index : {Index}", index);
+        throw new ArgumentException("Wrong Chart category");
     }
 
 }

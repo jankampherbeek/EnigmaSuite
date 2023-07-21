@@ -60,7 +60,7 @@ public partial class ProgInputPeriod : Window
         comboYearCount.Items.Clear();
         foreach (var yearCountDetail in _yearCountDetails)
         {
-            comboYearCount.Items.Add(Rosetta.TextForId(yearCountDetail.TextId));
+            comboYearCount.Items.Add(Rosetta.TextForId(yearCountDetail.Text));
         }
         comboYearCount.SelectedIndex = 0;
     }
@@ -70,7 +70,7 @@ public partial class ProgInputPeriod : Window
         comboCalendar.Items.Clear();
         foreach (var calendarDetail in _calendarDetails)
         {
-            comboCalendar.Items.Add(Rosetta.TextForId(calendarDetail.TextId));
+            comboCalendar.Items.Add(Rosetta.TextForId(calendarDetail.TextShort));
         }
         comboCalendar.SelectedIndex = 0;
     }
@@ -114,8 +114,8 @@ public partial class ProgInputPeriod : Window
 
     private void HandleErrors()
     {
-        tbStartDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidStartdate) ? Brushes.Yellow : Brushes.White;
-        tbEndDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidEnddate) ? Brushes.Yellow : Brushes.White;
+        tbStartDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_STARTDATE) ? Brushes.Yellow : Brushes.White;
+        tbEndDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_ENDDATE) ? Brushes.Yellow : Brushes.White;
     }
 
 }

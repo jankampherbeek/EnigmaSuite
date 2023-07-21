@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -61,10 +61,10 @@ public class TestInputDataConverter
     {
         PersistableDate date = new(2022, 11, 6, "G");
         PersistableTime time = new(12, 2, 30, 1.0, 0.0);
-        string id = "123x";
-        string name = "item1";
-        double geoLongitude = 52.0;
-        double geoLatitude = 7.0;
+        const string id = "123x";
+        const string name = "item1";
+        const double geoLongitude = 52.0;
+        const double geoLatitude = 7.0;
         return new StandardInputItem(id, name, geoLongitude, geoLatitude, date, time);
     }
 
@@ -72,10 +72,10 @@ public class TestInputDataConverter
     {
         PersistableDate date = new(2000, 1, 7, "G");
         PersistableTime time = new(18, 59, 30, 2.0, 1.0);
-        string id = "456b";
-        string name = "item2";
-        double geoLongitude = 32.0;
-        double geoLatitude = 17.0;
+        const string id = "456b";
+        const string name = "item2";
+        const double geoLongitude = 32.0;
+        const double geoLatitude = 17.0;
 
         List<StandardInputItem> items = new()
         {

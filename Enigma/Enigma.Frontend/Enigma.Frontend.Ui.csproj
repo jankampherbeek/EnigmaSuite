@@ -765,7 +765,7 @@
     <None Update="res\help\RadixAspects.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsDataInput.html">
+    <None Update="res\help\RadixDataInput.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\RadixPositions.html">
@@ -825,7 +825,7 @@
     <None Update="res\help\Settings.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\TestWithProject.html">
+    <None Update="res\help\ResearchMain.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\Texts.txt">
@@ -834,22 +834,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="Charts\ChartDataInputWindow.xaml">
-      <Generator></Generator>
-    </Page>
     <Page Update="Research\DataFiles\DataFilesImportWindow.xaml">
-      <Generator></Generator>
-    </Page>
-    <Page Update="MainWindow.xaml">
       <Generator></Generator>
     </Page>
     <Page Update="Configuration\AstroConfigWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="StartWindow.xaml">
-      <Generator></Generator>
-    </Page>
     <Page Update="Views\AppSettingsWindow.xaml">
+      <XamlRuntime>Wpf</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\StartWindow.xaml">
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>

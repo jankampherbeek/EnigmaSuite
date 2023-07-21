@@ -1,0 +1,53 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        WindowStartupLocation="CenterScreen"     
+        Title="Enigma - Dashboard" Height="430" Width="400">
+    <Window.Resources>
+        <viewModels:MainViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" 
+                  HorizontalAlignment="Center"
+                  DataContext="{StaticResource ViewModel}">
+        <Grid Margin="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Margin="6" Padding="16" Mode="PrimaryMid">
+                <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Text="Enigma"
+                           Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+            </materialDesign:ColorZone>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Astrology Research" HorizontalAlignment="Center" 
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap"/>
+           
+            <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ChartsModuleCommand}" >
+                    <Image Source="/Images/Charts-txt.png"/>
+                </Button>
+                <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ResearchModuleCommand}">
+                    <Image Source="/Images/Research-txt.png"/>
+                </Button>
+            </WrapPanel>
+            <TextBlock Grid.Row="3" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Margin="6" Content="Help" Command="{Binding HelpCommand}"/>
+                <Button Margin="6" Content="Exit" Click="CloseClick"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</Window>

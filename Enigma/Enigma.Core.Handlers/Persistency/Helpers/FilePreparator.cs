@@ -22,7 +22,7 @@ public sealed class DataFilePreparator : IDataFilePreparator
     /// <inheritdoc/>
     public ResultMessage MakeFolderStructure(string fullPath)
     {
-        int errorCode = ErrorCodes.None;
+        int errorCode = ErrorCodes.NONE;
         string resultTxt = "";
         try
         {
@@ -32,7 +32,7 @@ public sealed class DataFilePreparator : IDataFilePreparator
         }
         catch (Exception)
         {
-            errorCode = ErrorCodes.DirCouldNotBeCreated;
+            errorCode = ErrorCodes.DIR_COULD_NOT_BE_CREATED;
             resultTxt = fullPath;
         }
         return new ResultMessage(errorCode, resultTxt);

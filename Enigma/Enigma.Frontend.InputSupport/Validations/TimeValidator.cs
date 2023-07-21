@@ -46,10 +46,10 @@ public class TimeValidator : ITimeValidator
 
     private string CreateFullText(TimeZones timezone, double lmtOffset, bool dst)
     {
-        string timeZoneTextId = timezone.GetDetails().TextId;
+        string timeZoneTextId = timezone.GetDetails().Text;
         string dstText = dst ? Rosetta.TextForId("common.dst.used") : Rosetta.TextForId("common.dst.notused");
         string lmtOffsetText = "";
-        if (timezone == TimeZones.LMT)
+        if (timezone == TimeZones.Lmt)
         {
             lmtOffsetText = " " + lmtOffset;
         }
@@ -67,8 +67,8 @@ public class TimeValidator : ITimeValidator
 
     private void CalculateUtAndCorrectionForDay(TimeZones timezone, double lmtOffset, bool dst)
     {
-        _ut = _timeValues[0] + ((double)_timeValues[1] / EnigmaConstants.MinutesPerHourDegree) + ((double)_timeValues[2] / EnigmaConstants.SecondsPerHourDegree);
-        double offset = timezone == TimeZones.LMT ? lmtOffset : timezone.GetDetails().OffsetFromUt;
+        _ut = _timeValues[0] + ((double)_timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)_timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE);
+        double offset = timezone == TimeZones.Lmt ? lmtOffset : timezone.GetDetails().OffsetFromUt;
         _ut -= offset;
         if (dst) _ut--;
         switch (_ut)

@@ -85,7 +85,7 @@ public class TestChartPointMappings
     public void TestSeIdForPointHappyFlow()
     {
         ChartPoints point = ChartPoints.Juno;
-        int expectedId = EnigmaConstants.SeJuno;
+        int expectedId = EnigmaConstants.SE_JUNO;
         int actualId = _mapping.SeIdForCelestialPoint(point);
         Assert.That(expectedId, Is.EqualTo(actualId));
     }

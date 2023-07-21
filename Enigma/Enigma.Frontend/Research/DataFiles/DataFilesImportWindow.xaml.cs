@@ -75,7 +75,7 @@ namespace Enigma.Frontend.Ui.Research.DataFiles
                 if (_controller.CheckIfNameCanBeUsed(dataName))
                 {
                     ResultMessage resultMsg = _controller.PerformImport(inputFile, dataName);
-                    if (resultMsg.ErrorCode > ErrorCodes.None)
+                    if (resultMsg.ErrorCode > ErrorCodes.NONE)
                     {
                         MessageBox.Show(Rosetta.TextForId("datafilesimportwindow.errorsproblemfilesystem") + " " + resultMsg.Message);
                     }

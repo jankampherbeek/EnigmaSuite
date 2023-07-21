@@ -21,14 +21,15 @@ namespace Enigma.Domain.Charts;
 /// </remarks>
 public enum RoddenRatings
 {
+
     Unknown = 0, AA = 1, A = 2, B = 3, C = 4, DD = 5, X = 6, XX = 7
 }
 
 
-/// <summary>Details for the Category of a chart.</summary>
-/// <param name="Rating">The standard acronym for the Rodden rating.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record RoddenRatingDetails(RoddenRatings Rating, string TextId);
+/// <summary>Details for the Category of a chart</summary>
+/// <param name="Rating">The standard acronym for the Rodden rating</param>
+/// <param name="Text">Descriptive text</param>
+public record RoddenRatingDetails(RoddenRatings Rating, string Text);
 
 
 /// <summary>Extension class for enum RoddenRatings.</summary>
@@ -41,14 +42,14 @@ public static class RoddenRatingsExtensions
     {
         return rating switch
         {
-            RoddenRatings.Unknown => new RoddenRatingDetails(rating, "ref.enum.roddenrating.unknown"),
-            RoddenRatings.AA => new RoddenRatingDetails(rating, "ref.enum.roddenrating.aa"),
-            RoddenRatings.A => new RoddenRatingDetails(rating, "ref.enum.roddenrating.a"),
-            RoddenRatings.B => new RoddenRatingDetails(rating, "ref.enum.roddenrating.b"),
-            RoddenRatings.C => new RoddenRatingDetails(rating, "ref.enum.roddenrating.c"),
-            RoddenRatings.DD => new RoddenRatingDetails(rating, "ref.enum.roddenrating.dd"),
-            RoddenRatings.X => new RoddenRatingDetails(rating, "ref.enum.roddenrating.x"),
-            RoddenRatings.XX => new RoddenRatingDetails(rating, "ref.enum.roddenrating.xx"),
+            RoddenRatings.Unknown => new RoddenRatingDetails(rating, "Unknown"),
+            RoddenRatings.AA => new RoddenRatingDetails(rating, "AA - Accurate"),
+            RoddenRatings.A => new RoddenRatingDetails(rating, "A - Quoted"),
+            RoddenRatings.B => new RoddenRatingDetails(rating, "B - (Auto)biography"),
+            RoddenRatings.C => new RoddenRatingDetails(rating, "C - Caution, no source"),
+            RoddenRatings.DD => new RoddenRatingDetails(rating, "DD - Dirty data"),
+            RoddenRatings.X => new RoddenRatingDetails(rating, "X - No time of birth"),
+            RoddenRatings.XX => new RoddenRatingDetails(rating, "XX - No data of birth"),
             _ => throw new ArgumentException("RoddenRatings unknown : " + rating)
         };
     }
@@ -62,18 +63,19 @@ public static class RoddenRatingsExtensions
 
 
     /// <summary>Find Rodden rating for an index.</summary>
+    /// <param name="_">Instance of enum RoddenRatings</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The Rodden rating for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
     public static RoddenRatings RoddenRatingForIndex(this RoddenRatings _, int index)
     {
+        
         foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))
         {
             if ((int)currentRating == index) return currentRating;
         }
-        string errorText = "RoddenRating.RoddenRatingForIndex(): Could not find Rodden rating for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("RoddenRating.RoddenRatingForIndex(): Could not find Rodden rating for index : {Index}", index);
+        throw new ArgumentException("Wrong RoddenRating");
     }
 
 }

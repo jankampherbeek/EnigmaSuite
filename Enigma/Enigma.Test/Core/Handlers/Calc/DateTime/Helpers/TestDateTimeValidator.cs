@@ -19,7 +19,7 @@ public class TestDateTimeValidator
     [Test]
     public void TestValidDate()
     {
-        Calendars calendar = Calendars.Gregorian;
+        const Calendars calendar = Calendars.Gregorian;
         SimpleDateTime dateTime = new(2000, 1, 1, 12.0, calendar);
         var facadeMock = new Mock<IDateConversionFacade>();
         facadeMock.Setup(p => p.DateTimeIsValid(dateTime)).Returns(true);
@@ -30,7 +30,7 @@ public class TestDateTimeValidator
     [Test]
     public void TestInValidDate()
     {
-        Calendars calendar = Calendars.Gregorian;
+        const Calendars calendar = Calendars.Gregorian;
         SimpleDateTime dateTime = new(2000, 13, 1, 12.0, calendar);
         var facadeMock = new Mock<IDateConversionFacade>();
         facadeMock.Setup(p => p.DateTimeIsValid(dateTime)).Returns(false);

@@ -55,19 +55,6 @@ astroconfigwindow.zodiactype = Type of zodiac
 astroconfigwindow.zodiactypeexpl = Select a tropical or a sidereal type of zodiac. If you select a sidereal zodiac you can define the Ayanamsha below.
 
 
----- ChartsDataInput ----------------------------------
-charts.datainput.category = Category
-charts.datainput.datetime = Date and time
-charts.datainput.description = Description
-charts.datainput.formtitle = Enter data for new chart
-charts.datainput.location = Location
-charts.datainput.locationname = Name of location
-charts.datainput.meta = General information
-charts.datainput.nameid = Unique name or id for chart
-charts.datainput.rating = Rodden Rating
-charts.datainput.source = Source
-charts.datainput.title = Enigma - Data input
-
 --- ChartsMain ----------------------------------------
 
 chartsmainwindow.activechart = Currently selected :
@@ -300,13 +287,6 @@ harmonicdetailswindow.warningorb = The values for the orb are not correct. Pleas
 file.import.ok = File successfully imported.
 file.import.csverror = Error in reading csv, check file errors.json.
 
--------------------------------- Main window -----------
-mainwindow.charts = Charts
-mainwindow.explanation = Click an image to continue
-mainwindow.formtitle = Enigma
-mainwindow.research = Research
-mainwindow.subtitle = Astrology Research
-mainwindow.title = Enigma - Dashboard
 
 -------------------------------- Midpoint details window --------
 
@@ -430,11 +410,6 @@ ref.enum.ayanamsha.aryabhata522 = Aryabhata 522
 ref.enum.ayanamsha.britton = Britton
 ref.enum.ayanamsha.galacticctrOcap = Galactic Center 0 Cap.
 
-ref.enum.calendar.gregorian = G
-ref.enum.calendar.gregorian.full = Gregorian
-ref.enum.calendar.julian = J
-ref.enum.calendar.julian.full = Julian
-
 ref.enum.celpoint.admetos_ura = Ademetos (Uranian)
 ref.enum.celpoint.apogee_corrected = Corrected apogee
 ref.enum.celpoint.apogee_duval = Duval (approached) apogee (n/a)
@@ -489,13 +464,6 @@ ref.enum.celpoint.vesta = Vesta
 ref.enum.celpoint.vulcanus_carteret = Vulcanus (Carteret) (n/a)
 ref.enum.celpoint.vulcanus_ura = Vulcanus (Uranian)
 ref.enum.celpoint.zeus_ura = Zeus (Uranian)
-
-ref.enum.chartcategories.election = Election
-ref.enum.chartcategories.event = Event
-ref.enum.chartcategories.female = Female
-ref.enum.chartcategories.horary = Horary
-ref.enum.chartcategories.male = Male
-ref.enum.chartcategories.unknown = Unknown
 
 ref.enum.controlgrouptypes.standardshift = Standard shifting of location, date, and time
 ref.enum.controlgrouptypes.groupmembershift = Shift members of groups
@@ -626,53 +594,6 @@ ref.enum.researchmethods.countunaspected = Count unaspected celestial points
 ref.enum.researchmethods.countoccupiedmidpoints =  Count occupied midpoints
 ref.enum.researchmethods.countharmonicconjunctions = Count harmonic conjunctions
 
-ref.enum.roddenrating.aa = AA - Accurate. As recorded by family or state
-ref.enum.roddenrating.a = A - Quoted by the person, kin, friend, or associate
-ref.enum.roddenrating.b = B - Biography or autobiography
-ref.enum.roddenrating.c = C - Caution, no source
-ref.enum.roddenrating.dd = DD - Dirty data. Conflicting quotes that are unqualified
-ref.enum.roddenrating.unknown = Unknown
-ref.enum.roddenrating.x = X - No time of birth
-ref.enum.roddenrating.xx = XX - No date of birth
-
-ref.enum.timezone.ut = +00:00: UT/Universal Time, GMT/Greenwich Mean Time
-ref.enum.timezone.cet = +01:00: CET/Central European Time
-ref.enum.timezone.eet = +02:00: EET/Eastern European Time
-ref.enum.timezone.eat = +03:00: EAT/East African time, TRT/Turkey Time
-ref.enum.timezone.irst = +03:30: IRST/Iran Standard Time
-ref.enum.timezone.amt = +04:00: AMT/Armenia Time, MUT/Mauritius Time
-ref.enum.timezone.aft = +04:30: AFT/Afghanistan Time
-ref.enum.timezone.pkt = +05:00: PKT/Pakistan Standard Time, ORAT/Oral Time
-ref.enum.timezone.ist = +05:30: IST/Indian Standard Time
-ref.enum.timezone.iot = +06:00: IOT/Indian Chagos Time, OMST/Omsk Time
-ref.enum.timezone.mmt = +06:30: MMT/Myanmar Standard Time
-ref.enum.timezone.ict = +07:00: ICT/Indochina Time
-ref.enum.timezone.wst = +08:00: WST/Western Standard Time, CST/China Standard Time
-ref.enum.timezone.jst = +09:00: JST/Japan Standard Time
-ref.enum.timezone.acst = +09:30: ACST/Australian Central Standard Time
-ref.enum.timezone.aest = +10:00: AEST/Australian Eastern Standard Time
-ref.enum.timezone.lhst = +10:30: LHST/Lord Howe Standard Time
-ref.enum.timezone.nct = +11:00: NCT/New Caledonia Time
-ref.enum.timezone.nzst = +12:00: NZST/New Zealand Standard Time
-ref.enum.timezone.sst = -11:00: SST/Samoa Standard Time
-ref.enum.timezone.hast = -10:00: HAST/Hawaii-Aleutian Standard Time
-ref.enum.timezone.mart = -09:30: MART/Marquesas Islands Time
-ref.enum.timezone.akst = -09:00: AKST/Alaska Standard Time
-ref.enum.timezone.pst = -08:00: PST/Pacific Standard Time
-ref.enum.timezone.mst = -07:00: MST/Mountain Standard Time
-ref.enum.timezone.cst = -06:00: CST/Central Standard Time
-ref.enum.timezone.est = -05:00: EST/Eastern Standard Time
-ref.enum.timezone.ast = -04:00: AST Atlantic Standard Time
-ref.enum.timezone.nst = -03:30: NST/Newfoundland Standard Time
-ref.enum.timezone.brt = -03:00: BRT/Brasilia Time, ART/Argentina Time
-ref.enum.timezone.gst = -02:00: GST/South Georgia Time
-ref.enum.timezone.azot = -01:00: AZOT/Azores Standard Time
-ref.enum.timezone.lmt = LMT: Local Mean Time
-
-ref.enum.yearcount.ce = CE
-ref.enum.yearcount.bce = BCE
-ref.enum.yearcount.astronomical = Astronomical
-
 ref.enum.zodiacpoints.id.zeroar = Zero Aries
 ref.enum.zodiacpoints.idabbr.zeroar = 0\u00B0Ar
 
@@ -738,5 +659,3 @@ searchchartwindow.formtitle = Search for chart
 searchchartwindow.searchresults = Search results
 searchchartwindow.title = Enigma - Search for chart
 
---------- StartWindow ----------------------------
-startwindow.checking = Checking for updates

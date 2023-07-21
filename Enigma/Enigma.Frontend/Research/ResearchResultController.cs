@@ -136,8 +136,8 @@ public class ResearchResultController
         string pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         useControlGroup = true;
         string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
-        TestResultText += EnigmaConstants.NewLine + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NewLine + pathTest;
-        ControlResultText += EnigmaConstants.NewLine + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NewLine + pathControl;
+        TestResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathTest;
+        ControlResultText += EnigmaConstants.NEW_LINE + Rosetta.TextForId("researchresultwindow.pathinfo") + EnigmaConstants.NEW_LINE + pathControl;
         _fileAccessApi.WriteFile(pathTest, TestResultText);
         _fileAccessApi.WriteFile(pathControl, ControlResultText);
     }

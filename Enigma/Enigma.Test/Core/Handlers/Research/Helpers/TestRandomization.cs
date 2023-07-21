@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,7 +12,8 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 public class TestControlGroupRng
 {
     private IControlGroupRng _rng;
-
+    private const double Delta = 0.00000001;
+    
     [SetUp]
     public void SetUp()
     {
@@ -22,9 +23,9 @@ public class TestControlGroupRng
     [Test]
     public void TestGetIntegersRangeHappyFlow()
     {
-        int start = 10;
-        int end = 50;
-        int count = 100;
+        const int start = 10;
+        const int end = 50;
+        const int count = 100;
         List<int> result = _rng.GetIntegers(start, end, count);
         Assert.That(result, Has.Count.EqualTo(count));
         for (int i = 0; i < count; i++)
@@ -37,9 +38,9 @@ public class TestControlGroupRng
     [Test]
     public void TestGetIntegersDifferenceHappyFlow()
     {
-        int start = 10;
-        int end = 50;
-        int count = 100;
+        const int start = 10;
+        const int end = 50;
+        const int count = 100;
         List<int> result1 = _rng.GetIntegers(start, end, count);
         List<int> result2 = _rng.GetIntegers(start, end, count);
         bool listsAreEqual = true;
@@ -68,9 +69,9 @@ public class TestControlGroupRng
     [Test]
     public void TestGetIntegersZeroBasedRangeHappyFlow()
     {
-        int start = 0;
-        int end = 50;
-        int count = 100;
+        const int start = 0;
+        const int end = 50;
+        const int count = 100;
         List<int> result = _rng.GetIntegers(end, count);
         Assert.That(result, Has.Count.EqualTo(count));
         for (int i = 0; i < count; i++)
@@ -83,8 +84,8 @@ public class TestControlGroupRng
     [Test]
     public void TestGetIntegersZeroBasedDifferenceHappyFlow()
     {
-        int end = 50;
-        int count = 100;
+        const int end = 50;
+        const int count = 100;
         List<int> result1 = _rng.GetIntegers(end, count);
         List<int> result2 = _rng.GetIntegers(end, count);
         bool listsAreEqual = true;
@@ -129,7 +130,15 @@ public class TestControlGroupRng
         List<double> data = new();
         data.AddRange(dataItems);
         _rng.ShuffleList(data);
-        Assert.That(data, Has.Count.EqualTo(dataItems.Length));
-        Assert.That(data[0] != 1.1 || data[1] != 2.2 || data[2] != 3.3 || data[3] != 4.4 || data[4] != 5.5 || data[5] != 6.6);
+        Assert.Multiple(() =>
+        {
+            Assert.That(data, Has.Count.EqualTo(dataItems.Length));
+            Assert.That(Math.Abs(data[0] - 1.1) > Delta
+                        || Math.Abs(data[1] - 2.2) > Delta
+                        || Math.Abs(data[2] - 3.3) > Delta
+                        || Math.Abs(data[3] - 4.4) > Delta
+                        || Math.Abs(data[4] - 5.5) > Delta
+                        || Math.Abs(data[5] - 6.6) > Delta);
+        });
     }
 }

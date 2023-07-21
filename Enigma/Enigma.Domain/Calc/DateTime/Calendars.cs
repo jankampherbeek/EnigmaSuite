@@ -12,11 +12,11 @@ public enum Calendars
 }
 
 
-/// <summary>Details for a calendar.</summary>
-/// <param name="calendar">The calendar.</param>
-/// <param name="textId">Id to find a descriptive text in a resource bundle. Uses an abbreviated version.</param>
-/// <param name="textIdFull">Id to find a descriptive text in a resource bundle. Uses a full version.</param>
-public record CalendarDetails(Calendars Calendar, string TextId, string TextIdFull);
+/// <summary>Details for a calendar</summary>
+/// <param name="Calendar">The calendar</param>
+/// <param name="TextShort">Abbreviated descriptive text (one character)</param>
+/// <param name="TextFull">Descriptive text</param>
+public record CalendarDetails(Calendars Calendar, string TextShort, string TextFull);
 
 
 /// <summary>Extension class for enum Calendars.</summary>
@@ -29,8 +29,8 @@ public static class CalendarsExtensions
     {
         return cal switch
         {
-            Calendars.Gregorian => new CalendarDetails(cal, "ref.enum.calendar.gregorian", "ref.enum.calendar.gregorian.full"),
-            Calendars.Julian => new CalendarDetails(cal, "ref.enum.calendar.julian", "ref.enum.calendar.julian.full"),
+            Calendars.Gregorian => new CalendarDetails(cal, "G", "Gregorian"),
+            Calendars.Julian => new CalendarDetails(cal, "J", "Julian"),
             _ => throw new ArgumentException("Calendar unknown : " + cal.ToString())
         };
     }
@@ -39,12 +39,7 @@ public static class CalendarsExtensions
     /// <returns>All details.</returns>
     public static List<CalendarDetails> AllDetails(this Calendars _)
     {
-        var allDetails = new List<CalendarDetails>();
-        foreach (Calendars calendar in Enum.GetValues(typeof(Calendars)))
-        {
-            allDetails.Add(calendar.GetDetails());
-        }
-        return allDetails;
+        return (from Calendars calendar in Enum.GetValues(typeof(Calendars)) select calendar.GetDetails()).ToList();
     }
 }
 

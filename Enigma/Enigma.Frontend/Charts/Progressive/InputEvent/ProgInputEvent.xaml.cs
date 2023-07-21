@@ -27,7 +27,7 @@ public partial class ProgInputEvent : Window
     private readonly List<YearCountDetails> _yearCountDetails = YearCounts.CE.AllDetails();
     private readonly List<Directions4GeoLongDetails> _directions4GeoLongDetails = Directions4GeoLong.East.AllDetails();
     private readonly List<Directions4GeoLatDetails> _directions4GeoLatDetails = Directions4GeoLat.North.AllDetails();
-    private readonly List<TimeZoneDetails> _timeZoneDetails = TimeZones.UT.AllDetails();
+    private readonly List<TimeZoneDetails> _timeZoneDetails = TimeZones.Ut.AllDetails();
 
     public ProgInputEvent()
     {
@@ -73,7 +73,7 @@ public partial class ProgInputEvent : Window
         comboYearCount.Items.Clear();
         foreach (var yearCountDetail in _yearCountDetails)
         {
-            comboYearCount.Items.Add(Rosetta.TextForId(yearCountDetail.TextId));
+            comboYearCount.Items.Add(Rosetta.TextForId(yearCountDetail.Text));
         }
         comboYearCount.SelectedIndex = 0;
     }
@@ -83,7 +83,7 @@ public partial class ProgInputEvent : Window
         comboCal.Items.Clear();
         foreach (var calendarDetail in _calendarDetails)
         {
-            comboCal.Items.Add(Rosetta.TextForId(calendarDetail.TextId));
+            comboCal.Items.Add(Rosetta.TextForId(calendarDetail.TextShort));
         }
         comboCal.SelectedIndex = 0;
     }
@@ -95,8 +95,8 @@ public partial class ProgInputEvent : Window
         for (int i = 0; i < _directions4GeoLongDetails.Count; i++)
         {
             Directions4GeoLongDetails? direction4GeoLongDetail = _directions4GeoLongDetails[i];
-            comboLongDir.Items.Add(Rosetta.TextForId(direction4GeoLongDetail.TextId));
-            comboLongDirLmt.Items.Add(Rosetta.TextForId(direction4GeoLongDetail.TextId));
+            comboLongDir.Items.Add(Rosetta.TextForId(direction4GeoLongDetail.Text));
+            comboLongDirLmt.Items.Add(Rosetta.TextForId(direction4GeoLongDetail.Text));
         }
         comboLongDir.SelectedIndex = 0;
         comboLongDirLmt.SelectedIndex = 0;
@@ -107,7 +107,7 @@ public partial class ProgInputEvent : Window
         comboLatDir.Items.Clear();
         foreach (var direction4GeoLatDetail in _directions4GeoLatDetails)
         {
-            comboLatDir.Items.Add(Rosetta.TextForId(direction4GeoLatDetail.TextId));
+            comboLatDir.Items.Add(Rosetta.TextForId(direction4GeoLatDetail.Text));
         }
         comboLatDir.SelectedIndex = 0;
     }
@@ -160,17 +160,17 @@ public partial class ProgInputEvent : Window
         _controller.Dst = checkDst.IsChecked != null && checkDst.IsChecked == true;
         TimeZones timeZone = _timeZoneDetails[comboTimezone.SelectedIndex].TimeZone;
         _controller.TimeZone = timeZone;
-        _controller.LmtOffset = (timeZone == TimeZones.LMT) ? tbGeoLongLmt.Text : "00:00:00";
+        _controller.LmtOffset = (timeZone == TimeZones.Lmt) ? tbGeoLongLmt.Text : "00:00:00";
         _controller.LmtDirection4GeoLong = _directions4GeoLongDetails[comboLongDirLmt.SelectedIndex].Direction;
     }
 
     private void HandleErrors()
     {
-        tbDateValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidDate) ? Brushes.Yellow : Brushes.White;
-        tbGeoLongValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidGeolon) ? Brushes.Yellow : Brushes.White;
-        tbGeoLatValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidGeolat) ? Brushes.Yellow : Brushes.White;
-        tbTimeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidTime) ? Brushes.Yellow : Brushes.White;
-        tbGeoLongLmtValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidGeolonLmt) ? Brushes.Yellow : Brushes.White;
+        tbDateValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_DATE) ? Brushes.Yellow : Brushes.White;
+        tbGeoLongValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_GEOLON) ? Brushes.Yellow : Brushes.White;
+        tbGeoLatValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_GEOLAT) ? Brushes.Yellow : Brushes.White;
+        tbTimeValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_TIME) ? Brushes.Yellow : Brushes.White;
+        tbGeoLongLmtValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_GEOLON_LMT) ? Brushes.Yellow : Brushes.White;
 
     }
 

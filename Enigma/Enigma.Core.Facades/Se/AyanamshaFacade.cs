@@ -18,7 +18,7 @@ public class AyanamshaFacade : IAyanamshaFacade
 {
     public double GetAyanamshaOffset(double jdUt)
     {
-        int epheFlag = EnigmaConstants.SeflgSwieph;    // Value not parameterized as Enigma always uses this approach for calculations.
+        int epheFlag = EnigmaConstants.SEFLG_SWIEPH;    // Value not parameterized as Enigma always uses this approach for calculations.
         double ayanamshaValue = 0.0;
         StringBuilder serr = new(256);
         long result = ext_swe_get_ayanamsa_ex_ut(jdUt, epheFlag, ref ayanamshaValue, serr);

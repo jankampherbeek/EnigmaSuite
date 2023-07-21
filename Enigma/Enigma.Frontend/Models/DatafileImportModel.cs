@@ -40,7 +40,7 @@ public sealed class DatafileImportModel
     {
         string dataPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
         ResultMessage receivedResultMessage = _fileManagementApi.CreateFoldersForData(dataPath);
-        if (receivedResultMessage.ErrorCode > ErrorCodes.None)
+        if (receivedResultMessage.ErrorCode > ErrorCodes.NONE)
         {
             return receivedResultMessage;
 

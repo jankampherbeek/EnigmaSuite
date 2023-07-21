@@ -18,7 +18,7 @@ public class TestSeFlags
     [Test]
     public void TestDefaultFlags()
     {
-        int expectedFlags = 258;
+        const int expectedFlags = 258;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
@@ -26,7 +26,7 @@ public class TestSeFlags
     [Test]
     public void TestFlagsEquatorial()
     {
-        int expectedFlags = 2306;
+        const int expectedFlags = 2306;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Equatorial, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
@@ -34,7 +34,7 @@ public class TestSeFlags
     [Test]
     public void TestFlagsHelioCentric()
     {
-        int expectedFlags = 266;
+        const int expectedFlags = 266;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.HelioCentric, ZodiacTypes.Tropical);
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
@@ -42,7 +42,7 @@ public class TestSeFlags
     [Test]
     public void TestFlagsTopoCentric()
     {
-        int expectedFlags = 32 * 1024 + 2 + 256;
+        const int expectedFlags = 32 * 1024 + 2 + 256;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.TopoCentric, ZodiacTypes.Tropical);
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
@@ -50,7 +50,7 @@ public class TestSeFlags
     [Test]
     public void TestFlagsSidereal()
     {
-        int expectedFlags = 64 * 1024 + 2 + 256;
+        const int expectedFlags = 64 * 1024 + 2 + 256;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Sidereal);
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
@@ -58,7 +58,7 @@ public class TestSeFlags
     [Test]
     public void TestCombinedFlags()
     {
-        int expectedFlags = 2 + 256 + 2048 + 32 * 1024;
+        const int expectedFlags = 2 + 256 + 2048 + 32 * 1024;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Equatorial, ObserverPositions.TopoCentric, ZodiacTypes.Sidereal);   // equatorial should be ignored if ZodiacTypoe is Sidereal
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }

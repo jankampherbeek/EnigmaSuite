@@ -22,7 +22,7 @@ public class TestTimeValidator
         int[] timeInput = { hour, minute, second };
         const double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, dst, out FullTime? fullTime);
+        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.Ut, offsetLmt, dst, out FullTime? fullTime);
         Assert.Multiple(() =>
         {
             Assert.That(result, Is.True);
@@ -42,7 +42,7 @@ public class TestTimeValidator
         int[] timeInput = { hour, minute, second };
         const double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, dst, out FullTime? _);
+        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.Ut, offsetLmt, dst, out FullTime? _);
         Assert.That(result, Is.False);
     }
 
@@ -57,7 +57,7 @@ public class TestTimeValidator
         int[] timeInput = { hour, minute, second };
         const double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, dst, out FullTime? _);
+        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.Ut, offsetLmt, dst, out FullTime? _);
         Assert.That(result, Is.False);
     }
 
@@ -71,7 +71,7 @@ public class TestTimeValidator
         int[] timeInput = { hour, minute, second };
         const double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, dst, out FullTime? _);
+        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.Ut, offsetLmt, dst, out FullTime? _);
         Assert.That(result, Is.False);
     }
 
@@ -85,7 +85,7 @@ public class TestTimeValidator
         int[] timeInput = { hour, minute, second };
         const double offsetLmt = 0.0;
         var timeValidator = new TimeValidator();
-        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.UT, offsetLmt, dst, out FullTime? _);
+        bool result = timeValidator.CreateCheckedTime(timeInput, TimeZones.Ut, offsetLmt, dst, out FullTime? _);
         Assert.That(result, Is.False);
     }
 

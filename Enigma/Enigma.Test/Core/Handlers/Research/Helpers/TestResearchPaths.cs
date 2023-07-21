@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -24,42 +24,42 @@ public class TestResearchPaths
     [Test]
     public void TestDataPathNoControlGroup()
     {
-        string projName = "Project Name";
-        bool useControlGroup = false;
+        const string projName = "Project Name";
+        const bool useControlGroup = false;
         string pathText = _researchPaths.DataPath(projName, useControlGroup);
-        string expectedPathText = @"c:\enigma_ar\project\Project Name\testdata.json";
+        const string expectedPathText = @"c:\enigma_ar\project\Project Name\testdata.json";
         Assert.That(pathText, Is.EqualTo(expectedPathText));
     }
 
     [Test]
     public void TestDataPathWithControlGroup()
     {
-        string projName = "Project Name";
-        bool useControlGroup = true;
+        const string projName = "Project Name";
+        const bool useControlGroup = true;
         string pathText = _researchPaths.DataPath(projName, useControlGroup);
-        string expectedPathText = @"c:\enigma_ar\project\Project Name\controldata.json";
+        const string expectedPathText = @"c:\enigma_ar\project\Project Name\controldata.json";
         Assert.That(pathText, Is.EqualTo(expectedPathText));
     }
 
     [Test]
     public void TestResultPathNoControlGroup()
     {
-        string projName = "Project Name";
-        string methodName = "CountPosInSigns";
-        bool useControlGroup = false;
+        const string projName = "Project Name";
+        const string methodName = "CountPosInSigns";
+        const bool useControlGroup = false;
         string pathText = _researchPaths.ResultPath(projName, methodName, useControlGroup);
-        string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\testdataresult_";
+        const string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\testdataresult_";
         Assert.That(pathText, Does.Contain(expectedStartOfPathText));
     }
 
     [Test]
     public void TestResultPathWithControlGroup()
     {
-        string projName = "Project Name";
-        string methodName = "CountPosInSigns";
-        bool useControlGroup = true;
+        const string projName = "Project Name";
+        const string methodName = "CountPosInSigns";
+        const bool useControlGroup = true;
         string pathText = _researchPaths.ResultPath(projName, methodName, useControlGroup);
-        string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\controldataresult_";
+        const string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\controldataresult_";
         Assert.That(pathText, Does.Contain(expectedStartOfPathText));
     }
 }

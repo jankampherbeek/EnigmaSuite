@@ -71,17 +71,14 @@ public sealed class ChartsMainController
 
     public void NewChart()
     {
-        ChartDataInputWindow chartDataInputWindow = new();
-        chartDataInputWindow.ShowDialog();
-        if (_dataVault.GetNewChartAdded())
-        {
-            int newIndex = SaveCurrentChart();
-            if (_dataVault.GetCurrentChart() != null && _dataVault.GetCurrentChart()!.InputtedChartData != null)
-            {
-                _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
-                ShowCurrentChart();
-            }
-        }
+        RadixDataInputWindow window = new();
+        window.ShowDialog();
+        if (!_dataVault.GetNewChartAdded()) return;
+        int newIndex = SaveCurrentChart();
+        if (_dataVault.GetCurrentChart() == null || _dataVault.GetCurrentChart()!.InputtedChartData == null) return;
+        _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
+        ShowCurrentChart();
+
     }
 
     public List<PresentableChartData> AllChartData()

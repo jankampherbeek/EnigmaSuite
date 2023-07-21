@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,7 +20,7 @@ public class TestChartCategories
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Category, Is.EqualTo(chartCategory));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.chartcategories.election"));
+            Assert.That(details.Text, Is.EqualTo("Election"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestChartCategories
         {
             ChartCategoryDetails details = chartCategory.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -59,7 +59,7 @@ public class TestChartCategories
             Assert.That(allDetails, Has.Count.EqualTo(6));
             Assert.That(allDetails[0].Category, Is.EqualTo(ChartCategories.Unknown));
             Assert.That(allDetails[3].Category, Is.EqualTo(ChartCategories.Event));
-            Assert.That(allDetails[4].TextId, Is.EqualTo("ref.enum.chartcategories.horary"));
+            Assert.That(allDetails[4].Text, Is.EqualTo("Horary"));
         });
     }
 }

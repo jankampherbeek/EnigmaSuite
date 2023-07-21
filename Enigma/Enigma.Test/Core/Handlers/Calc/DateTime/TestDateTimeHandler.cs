@@ -14,16 +14,16 @@ namespace Enigma.Test.Core.Handlers.Calc.DateTime;
 [TestFixture]
 public class TestDateTimeHandler
 {
-    private readonly Calendars _calendar = Calendars.Gregorian;
-    private readonly double _jdUt = 123456.789;
-    private readonly bool _useJdForUt = true;
+    private const Calendars Calendar = Calendars.Gregorian;
+    private const double JdUt = 123456.789;
+    private const bool UseJdForUt = true;
     private SimpleDateTime _dateTime;
 
 
     [SetUp]
     public void SetUp()
     {
-        _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, _calendar);
+        _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, Calendar);
     }
 
 
@@ -33,7 +33,7 @@ public class TestDateTimeHandler
         Mock<IDateTimeCalc> calcMock = CreateCalcMock();
         Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
         IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorMock.Object);
-        DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(_jdUt, _useJdForUt, _calendar));
+        DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(JdUt, UseJdForUt, Calendar));
         Assert.That(response.DateTime, Is.EqualTo(_dateTime));
     }
 
@@ -41,7 +41,7 @@ public class TestDateTimeHandler
     private Mock<IDateTimeCalc> CreateCalcMock()
     {
         var mock = new Mock<IDateTimeCalc>();
-        mock.Setup(p => p.CalcDateTime(_jdUt, _calendar)).Returns(_dateTime);
+        mock.Setup(p => p.CalcDateTime(JdUt, Calendar)).Returns(_dateTime);
         return mock;
     }
 
