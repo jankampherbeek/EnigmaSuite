@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Calc;
-using Enigma.Core.Handlers.Calc.Helpers;
+using Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Constants;
@@ -65,7 +65,7 @@ public class TestCelPointCalc
         var location = new Location("", 52.0, 6.0);
         var mockCalcUtFacade = new Mock<ICalcUtFacade>();
         mockCalcUtFacade.Setup(p => p.PositionFromSe(JulianDayUt, EnigmaConstants.SE_MARS, FlagsEcliptical)).Returns(new double[] { Longitude, Latitude, Distance, LongSpeed, LatSpeed, DistSpeed });
-        ICelPointSECalc calc = new CelPointSECalc(mockCalcUtFacade.Object, new ChartPointsMapping());
+        ICelPointSECalc calc = new CelPointSeCalc(mockCalcUtFacade.Object, new ChartPointsMapping());
         return calc.CalculateCelPoint(ChartPoints.Mars, JulianDayUt, location, FlagsEcliptical);
     }
 

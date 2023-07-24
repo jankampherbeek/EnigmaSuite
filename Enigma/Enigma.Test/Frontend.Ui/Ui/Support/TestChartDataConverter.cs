@@ -16,7 +16,7 @@ namespace Enigma.Test.Frontend.Ui.Ui.Support;
 [TestFixture]
 public class TestChartDataConverter
 {
-    private readonly double _delta = 0.00000001;
+    private const double Delta = 0.00000001;
     private IChartDataConverter _chartDataConverter;
     private const string Name = "Chart Name";
     private const string Description = "Chart Description";
@@ -50,9 +50,9 @@ public class TestChartDataConverter
         Assert.Multiple(() =>
         {
             Assert.That(expected.Name, Is.EqualTo(result.Name));
-            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(_delta));
+            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(Delta));
             Assert.That(expected.DateText, Is.EqualTo(DateText));
-            Assert.That(expected.JulianDayEt, Is.EqualTo(JdEt).Within(_delta));
+            Assert.That(expected.JulianDayEt, Is.EqualTo(JdEt).Within(Delta));
         });
     }
 
@@ -64,21 +64,20 @@ public class TestChartDataConverter
         Assert.Multiple(() =>
         {
             Assert.That(expected.MetaData.Name, Is.EqualTo(result.MetaData.Name));
-            Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(_delta));
-            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(_delta));
+            Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(Delta));
+            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(Delta));
         });
     }
 
-    private ChartData CreateChartData()
+    private static ChartData CreateChartData()
     {
         MetaData metaData = new(Name, Description, Source, LocationName, ChartCategory, Rating);
-        string locationFullName = LocationFullName;
-        Location location = new(locationFullName, GeoLong, GeoLat);
+        Location location = new(LocationFullName, GeoLong, GeoLat);
         FullDateTime fullDateTime = new(DateText, TimeText, JdEt);
         return new ChartData(Id, metaData, location, fullDateTime);
     }
 
-    private PersistableChartData CreatePersistableChartData()
+    private static PersistableChartData CreatePersistableChartData()
     {
         return new PersistableChartData(
             Name,

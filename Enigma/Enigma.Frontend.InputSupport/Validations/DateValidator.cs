@@ -27,8 +27,8 @@ public class DateValidator : IDateValidator
         fullDate = null;
 
         if (!success) return success;
-        string fullDateText = CreateFullDateText(dateValues!, calendar);
-        fullDate = new FullDate(dateValues!, calendar, fullDateText);
+        string fullDateText = CreateFullDateText(dateValues, calendar);
+        fullDate = new FullDate(dateValues, calendar, fullDateText);
         return success;
     }
 
@@ -46,7 +46,7 @@ public class DateValidator : IDateValidator
 
     private static string GetPostFixIdForResourceBundle(int monthId)
     {
-        string[] postFixes = new[] { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
+        string[] postFixes = { "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec" };
         return postFixes[monthId - 1];
     }
 

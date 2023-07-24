@@ -9,16 +9,16 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Facades.Interfaces;
 
-namespace Enigma.Core.Handlers.Calc.Helpers;
+namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
 
 /// <inheritdoc/>
-public sealed class CelPointSECalc : ICelPointSECalc
+public sealed class CelPointSeCalc : ICelPointSECalc
 {
     private readonly ICalcUtFacade _calcUtFacade;
     private readonly IChartPointsMapping _mapping;
 
-    public CelPointSECalc(ICalcUtFacade calcUtFacade, IChartPointsMapping chartPointsMapping)
+    public CelPointSeCalc(ICalcUtFacade calcUtFacade, IChartPointsMapping chartPointsMapping)
     {
         _calcUtFacade = calcUtFacade;
         _mapping = chartPointsMapping;
@@ -32,7 +32,7 @@ public sealed class CelPointSECalc : ICelPointSECalc
         var mainPos = new PosSpeed(positions[0], positions[3]);
         var deviation = new PosSpeed(positions[1], positions[4]);
         var distance = new PosSpeed(positions[2], positions[5]);
-        return new PosSpeed[] { mainPos, deviation, distance };
+        return new[] { mainPos, deviation, distance };
     }
 
 }

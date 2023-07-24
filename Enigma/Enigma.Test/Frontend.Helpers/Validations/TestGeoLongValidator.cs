@@ -13,7 +13,7 @@ namespace Enigma.Test.Frontend.Helpers.Validations;
 public class TestGeoLongValidator
 {
     private readonly GeoLongValidator _geoLongValidator = new();
-    private const double DELTA = 0.00000001;
+    private const double Delta = 0.00000001;
 
     [Test]
     public void TestHappyFlow()
@@ -30,7 +30,7 @@ public class TestGeoLongValidator
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(DELTA));
+            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(Delta));
             Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
             Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
         });
@@ -51,7 +51,7 @@ public class TestGeoLongValidator
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(DELTA));
+            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(6.9).Within(Delta));
             Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.East));
             Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("+6:54:00"));
         });
@@ -72,7 +72,7 @@ public class TestGeoLongValidator
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
             Assert.That(fullGeoLongitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(-6.9).Within(DELTA));
+            Assert.That(fullGeoLongitude.Longitude, Is.EqualTo(-6.9).Within(Delta));
             Assert.That(fullGeoLongitude.Direction, Is.EqualTo(Directions4GeoLong.West));
             Assert.That(fullGeoLongitude.GeoLongFullText, Is.EqualTo("-6:54:00"));
         });

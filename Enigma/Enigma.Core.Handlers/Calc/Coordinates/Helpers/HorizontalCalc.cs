@@ -23,8 +23,8 @@ public sealed class HorizontalCalc : IHorizontalCalc
     /// <inheritdoc/>
     public double[] CalculateHorizontal(double jdUt, Location location, EquatorialCoordinates equCoordinates, int flags)
     {
-        var geoGraphicLonLat = new double[] { location.GeoLong, location.GeoLat };
-        var equatRaDecl = new double[] { equCoordinates.RightAscension, equCoordinates.Declination };
+        var geoGraphicLonLat = new[] { location.GeoLong, location.GeoLat };
+        var equatRaDecl = new[] { equCoordinates.RightAscension, equCoordinates.Declination };
         return _azAltFacade.RetrieveHorizontalCoordinates(jdUt, geoGraphicLonLat, equatRaDecl, flags);
     }
 }

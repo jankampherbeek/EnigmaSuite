@@ -11,8 +11,8 @@ namespace Enigma.Test.Domain.Configuration;
 [TestFixture]
 public class TestApplicationSettings
 {
-    private readonly string _defaultLocData = @"c:\enigma_ar\data";
-    private readonly string _newProjData = @"d:\somewhere\projdata";
+    private const string DefaultLocData = @"c:\enigma_ar\data";
+    private const string NewProjData = @"d:\somewhere\projdata";
 
     [Test]
     public void TestDefaultValues()
@@ -21,7 +21,7 @@ public class TestApplicationSettings
         Assert.Multiple(() =>
         {
             Assert.That(settings, Is.Not.Null);
-            Assert.That(_defaultLocData, Is.EqualTo(settings.LocationDataFiles));
+            Assert.That(settings.LocationDataFiles, Is.EqualTo(DefaultLocData));
         });
     }
 
@@ -29,17 +29,17 @@ public class TestApplicationSettings
     public void TestChangingData()
     {
         ApplicationSettings settings = ApplicationSettings.Instance;
-        settings.LocationProjectFiles = _newProjData;
-        Assert.That(_newProjData, Is.EqualTo(settings.LocationProjectFiles));
+        settings.LocationProjectFiles = NewProjData;
+        Assert.That(settings.LocationProjectFiles, Is.EqualTo(NewProjData));
     }
 
     [Test]
     public void TestChangeAfterNewRetrievalOfSingletonInstance()
     {
         ApplicationSettings settings = ApplicationSettings.Instance;
-        settings.LocationProjectFiles = _newProjData;
+        settings.LocationProjectFiles = NewProjData;
         ApplicationSettings newSettings = ApplicationSettings.Instance;
-        Assert.That(_newProjData, Is.EqualTo(newSettings.LocationProjectFiles));
+        Assert.That(newSettings.LocationProjectFiles, Is.EqualTo(NewProjData));
     }
 
 

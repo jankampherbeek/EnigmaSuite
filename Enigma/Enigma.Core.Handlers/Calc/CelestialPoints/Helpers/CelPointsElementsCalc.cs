@@ -7,11 +7,12 @@
 
 
 using Enigma.Core.Handlers.Calc.Util;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Points;
 
-namespace Enigma.Core.Handlers.Interfaces;
+namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
 
 /// <inheritdoc/>
@@ -29,16 +30,13 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
     public double[] Calculate(ChartPoints planet, double jdUt, ObserverPositions observerPosition)
     {
         double centuryFractionT = FactorT(jdUt);
-        if (observerPosition == ObserverPositions.GeoCentric || observerPosition == ObserverPositions.TopoCentric)  // no difference for plantes with a large distance.
+        if (observerPosition is ObserverPositions.GeoCentric or ObserverPositions.TopoCentric)  // no difference for plantes with a large distance.
         {
             PolarCoordinates polarPlanetGeo = CalcGeoPolarCoord(planet, centuryFractionT);
             return DefinePosition(polarPlanetGeo);
         }
-        else
-        {
-            PolarCoordinates polarPlanetHelio = CalcHelioPolarCoord(planet, centuryFractionT);
-            return DefinePosition(polarPlanetHelio);
-        }
+        PolarCoordinates polarPlanetHelio = CalcHelioPolarCoord(planet, centuryFractionT);
+        return DefinePosition(polarPlanetHelio);
     }
 
 
@@ -63,7 +61,7 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
         if (posLong < 0.0) posLong += 360.0;
         double posLat = MathExtra.RadToDeg(polarPlanetGeo.ThetaCoord);
         double posDist = MathExtra.RadToDeg(polarPlanetGeo.RCoord);
-        return new double[] { posLong, posLat, posDist };
+        return new[] { posLong, posLat, posDist };
     }
 
     private static double FactorT(double jdUt)
@@ -74,36 +72,36 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
     private static OrbitDefinition DefineOrbitDefinition(ChartPoints planet)
     {
         double[] meanAnomaly;
-        double[] eccentricAnomaly = new double[] { 0, 0, 0 };
-        double[] argumentPerihelion = new double[] { 0, 0, 0 };
-        double[] ascNode = new double[] { 0, 0, 0 };
-        double[] inclination = new double[] { 0, 0, 0 };
+        double[] eccentricAnomaly = { 0, 0, 0 };
+        double[] argumentPerihelion = { 0, 0, 0 };
+        double[] ascNode = { 0, 0, 0 };
+        double[] inclination = { 0, 0, 0 };
         double semiMajorAxis;
-        if (planet == ChartPoints.Earth)
+        switch (planet)
         {
-            meanAnomaly = new double[] { 358.47584, 35999.0498, -.00015 };
-            eccentricAnomaly = new double[] { .016751, -.41e-4, 0 };
-            semiMajorAxis = 1.00000013;
-            argumentPerihelion = new double[] { 101.22083, 1.71918, .00045 };
+            case ChartPoints.Earth:
+                meanAnomaly = new[] { 358.47584, 35999.0498, -.00015 };
+                eccentricAnomaly = new[] { .016751, -.41e-4, 0 };
+                semiMajorAxis = 1.00000013;
+                argumentPerihelion = new[] { 101.22083, 1.71918, .00045 };
+                break;
+            case ChartPoints.PersephoneRam:
+                meanAnomaly = new[] { 295.0, 60, 0 };
+                semiMajorAxis = 71.137866;
+                break;
+            case ChartPoints.HermesRam:
+                meanAnomaly = new[] { 134.7, 50.0, 0 };
+                semiMajorAxis = 80.331954;
+                break;
+            case ChartPoints.DemeterRam:
+                meanAnomaly = new[] { 114.6, 40, 0 };
+                semiMajorAxis = 93.216975;
+                ascNode = new double[] { 125, 0, 0 };
+                inclination = new double[] { 5.5, 0, 0 };
+                break;
+            default:
+                throw new ArgumentException($"Unrecognized planet for OrbitDefinition: {0}", planet.ToString());
         }
-        else if (planet == ChartPoints.PersephoneRam)
-        {
-            meanAnomaly = new double[] { 295.0, 60, 0 };
-            semiMajorAxis = 71.137866;
-        }
-        else if (planet == ChartPoints.HermesRam)
-        {
-            meanAnomaly = new double[] { 134.7, 50.0, 0 };
-            semiMajorAxis = 80.331954;
-        }
-        else if (planet == ChartPoints.DemeterRam)
-        {
-            meanAnomaly = new double[] { 114.6, 40, 0 };
-            semiMajorAxis = 93.216975;
-            ascNode = new double[] { 125, 0, 0 };
-            inclination = new double[] { 5.5, 0, 0 };
-        }
-        else throw new ArgumentException($"Unrecognized planet for OrbitDefinition: {0}", planet.ToString());
         return new OrbitDefinition(meanAnomaly, eccentricAnomaly, semiMajorAxis, argumentPerihelion, ascNode, inclination);
     }
 

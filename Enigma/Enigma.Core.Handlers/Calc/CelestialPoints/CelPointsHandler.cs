@@ -20,7 +20,7 @@ namespace Enigma.Core.Handlers.Calc.CelestialPoints;
 public sealed class CelPointsHandler : ICelPointsHandler
 {
     private readonly ISeFlags _seFlags;
-    private readonly ICelPointSECalc _celPointSECalc;
+    private readonly ICelPointSECalc _celPointSeCalc;
     private readonly ICelPointsElementsCalc _celPointElementsCalc;
     private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IHorizontalHandler _horizontalHandler;
@@ -31,7 +31,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
 
     public CelPointsHandler(ISeFlags seFlags,
-                               ICelPointSECalc positionCelPointSECalc,
+                               ICelPointSECalc positionCelPointSeCalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
                                ICoTransFacade coordinateConversionFacade,
                                IHorizontalHandler horizontalHandler,
@@ -41,7 +41,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
                                IPeriodSupportChecker periodSupportChecker)
     {
         _seFlags = seFlags;
-        _celPointSECalc = positionCelPointSECalc;
+        _celPointSeCalc = positionCelPointSeCalc;
         _celPointElementsCalc = posCelPointsElementsCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
         _horizontalHandler = horizontalHandler;
@@ -61,9 +61,8 @@ public sealed class CelPointsHandler : ICelPointsHandler
             if (_periodSupportChecker.IsSupported(point, jdUt)) celPoints.Add(point);
         }
         ObserverPositions observerPosition = prefs.ActualObserverPosition;
-        double julDay = jdUt;
-        double previousJd = julDay - 0.5;
-        double futureJd = julDay + 0.5;
+        double previousJd = jdUt - 0.5;
+        double futureJd = jdUt + 0.5;
 
         if (prefs.ActualObserverPosition == ObserverPositions.TopoCentric)
         {
@@ -76,39 +75,42 @@ public sealed class CelPointsHandler : ICelPointsHandler
         foreach (ChartPoints celPoint in celPoints)   // only handle calculations using CalculationCats.CommonSE and CommonElements
         {
             CalculationCats calculationCat = _chartPointsMapping.CalculationTypeForPoint(celPoint);
-            if (calculationCat == CalculationCats.CommonSE)
+            switch (calculationCat)
             {
-                KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForSePoint(celPoint, julDay, location, flagsEcliptical, flagsEquatorial);
-                commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
-            }
-            else if (calculationCat == CalculationCats.CommonElements)
-            {
-                double[][] positions = CreatePosForElementBasedPoint(celPoint, julDay, obliquity, observerPosition);
-                double[][] previousPositions = CreatePosForElementBasedPoint(celPoint, previousJd, obliquity, observerPosition);
-                double[][] futurePositions = CreatePosForElementBasedPoint(celPoint, futureJd, obliquity, observerPosition);
-                PosSpeed longPosSpeed = new(positions[0][0] - ayanamshaOffset, futurePositions[0][0] - previousPositions[0][0]);
-                PosSpeed latPosSpeed = new(positions[0][1], futurePositions[0][1] - previousPositions[0][1]);
-                PosSpeed distPosSpeed = new(positions[0][2], futurePositions[0][2] - previousPositions[0][2]);
-                PosSpeed[] eclipticPosSpeeds = { longPosSpeed, latPosSpeed, distPosSpeed };
-                PosSpeed raPosSpeed = new(positions[1][0], futurePositions[1][0] - previousPositions[1][0]);
-                PosSpeed declPosSpeed = new(positions[1][1], futurePositions[1][1] - previousPositions[1][1]);
-                PosSpeed[] equatorialPosSpeeds = { raPosSpeed, declPosSpeed, distPosSpeed };
-                EquatorialCoordinates equCoordinates = new(positions[1][0], positions[1][1]);
-                HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
-                HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
+                case CalculationCats.CommonSE:
+                {
+                    KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForSePoint(celPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
+                    commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
+                    break;
+                }
+                case CalculationCats.CommonElements:
+                {
+                    double[][] positions = CreatePosForElementBasedPoint(celPoint, jdUt, obliquity, observerPosition);
+                    double[][] previousPositions = CreatePosForElementBasedPoint(celPoint, previousJd, obliquity, observerPosition);
+                    double[][] futurePositions = CreatePosForElementBasedPoint(celPoint, futureJd, obliquity, observerPosition);
+                    PosSpeed longPosSpeed = new(positions[0][0] - ayanamshaOffset, futurePositions[0][0] - previousPositions[0][0]);
+                    PosSpeed latPosSpeed = new(positions[0][1], futurePositions[0][1] - previousPositions[0][1]);
+                    PosSpeed distPosSpeed = new(positions[0][2], futurePositions[0][2] - previousPositions[0][2]);
+                    PosSpeed[] eclipticPosSpeeds = { longPosSpeed, latPosSpeed, distPosSpeed };
+                    PosSpeed raPosSpeed = new(positions[1][0], futurePositions[1][0] - previousPositions[1][0]);
+                    PosSpeed declPosSpeed = new(positions[1][1], futurePositions[1][1] - previousPositions[1][1]);
+                    PosSpeed[] equatorialPosSpeeds = { raPosSpeed, declPosSpeed, distPosSpeed };
+                    EquatorialCoordinates equCoordinates = new(positions[1][0], positions[1][1]);
+                    HorizontalRequest horizontalRequest = new(jdUt, location, equCoordinates);
+                    HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
 
-                FullPointPos fullPointPos = _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeeds, equatorialPosSpeeds, horCoord);
-                commonPoints.Add(celPoint, fullPointPos);
+                    FullPointPos fullPointPos = _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeeds, equatorialPosSpeeds, horCoord);
+                    commonPoints.Add(celPoint, fullPointPos);
+                    break;
+                }
             }
         }
-        if (prefs.ActualProjectionType == ProjectionTypes.ObliqueLongitude)
-        {
-            ObliqueLongitudeRequest obliqueLongitudeRequest = CreateObliqueLongitudeRequest(commonPoints, armc, obliquity, location, ayanamshaOffset);
-            List<NamedEclipticLongitude> obliqueLongitudes = _obliqueLongitudeHandler.CalcObliqueLongitude(obliqueLongitudeRequest);
-            Dictionary<ChartPoints, FullPointPos> obliqueLongitudePoints = CreateObliqueLongitudePoints(commonPoints, obliqueLongitudes);
-            return obliqueLongitudePoints;
-        }
-        return commonPoints;
+
+        if (prefs.ActualProjectionType != ProjectionTypes.ObliqueLongitude) return commonPoints;
+        ObliqueLongitudeRequest obliqueLongitudeRequest = CreateObliqueLongitudeRequest(commonPoints, armc, obliquity, location, ayanamshaOffset);
+        List<NamedEclipticLongitude> obliqueLongitudes = _obliqueLongitudeHandler.CalcObliqueLongitude(obliqueLongitudeRequest);
+        Dictionary<ChartPoints, FullPointPos> obliqueLongitudePoints = CreateObliqueLongitudePoints(commonPoints, obliqueLongitudes);
+        return obliqueLongitudePoints;
     }
 
     private static ObliqueLongitudeRequest CreateObliqueLongitudeRequest(Dictionary<ChartPoints, FullPointPos> calculatedPoints, double armc, double obliquity, Location location, double ayanamshaOffset)
@@ -129,13 +131,11 @@ public sealed class CelPointsHandler : ICelPointsHandler
         {
             foreach (var oblLong in obliqueLongitudes)
             {
-                if (fullPos.Key == oblLong.CelPoint)
-                {
-                    PosSpeed oblEclPosSpeed = new(oblLong.EclipticLongitude, fullPos.Value.Ecliptical.MainPosSpeed.Speed);
-                    PointPosSpeeds eclPointPosSpeeds = new(oblEclPosSpeed, fullPos.Value.Ecliptical.DeviationPosSpeed, fullPos.Value.Ecliptical.DistancePosSpeed);
-                    FullPointPos positionValues = new(eclPointPosSpeeds, fullPos.Value.Equatorial, fullPos.Value.Horizontal);
-                    obliqueLongitudePoints.Add(fullPos.Key, positionValues);
-                }
+                if (fullPos.Key != oblLong.CelPoint) continue;
+                PosSpeed oblEclPosSpeed = fullPos.Value.Ecliptical.MainPosSpeed with { Position = oblLong.EclipticLongitude };
+                PointPosSpeeds eclPointPosSpeeds = new(oblEclPosSpeed, fullPos.Value.Ecliptical.DeviationPosSpeed, fullPos.Value.Ecliptical.DistancePosSpeed);
+                FullPointPos positionValues = fullPos.Value with { Ecliptical = eclPointPosSpeeds };
+                obliqueLongitudePoints.Add(fullPos.Key, positionValues);
             }
         }
         return obliqueLongitudePoints;
@@ -144,8 +144,8 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
     private KeyValuePair<ChartPoints, FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
     {
-        PosSpeed[] eclipticPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
-        PosSpeed[] equatorialPosSpeed = _celPointSECalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);
+        PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
+        PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);
         var equCoordinates = new EquatorialCoordinates(equatorialPosSpeed[0].Position, equatorialPosSpeed[1].Position);
         HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
         HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
@@ -158,7 +158,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     private double[][] CreatePosForElementBasedPoint(ChartPoints celPoint, double julDay, double obliquity, ObserverPositions observerPosition)
     {
         double[] eclipticPos = _celPointElementsCalc.Calculate(celPoint, julDay, observerPosition);
-        double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new double[] { eclipticPos[0], eclipticPos[1] }, obliquity);
-        return new double[][] { eclipticPos, equatorialPos };
+        double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new[] { eclipticPos[0], eclipticPos[1] }, obliquity);
+        return new[] { eclipticPos, equatorialPos };
     }
 }

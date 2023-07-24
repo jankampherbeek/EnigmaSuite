@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc;
 using Enigma.Core.Handlers.Analysis;
 using Enigma.Core.Handlers.Analysis.Helpers;
 using Enigma.Core.Handlers.Calc;
@@ -14,7 +13,7 @@ using Enigma.Core.Handlers.Calc.Coordinates;
 using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Core.Handlers.Calc.DateTime;
 using Enigma.Core.Handlers.Calc.DateTime.Helpers;
-using Enigma.Core.Handlers.Calc.Helpers;
+using Enigma.Core.Handlers.Calc.Mundane;
 using Enigma.Core.Handlers.Calc.Mundane.Helpers;
 using Enigma.Core.Handlers.Calc.Progressive;
 using Enigma.Core.Handlers.Calc.Specials;
@@ -29,8 +28,6 @@ using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Persistency.Daos;
 using Enigma.Core.Handlers.Persistency.Helpers;
 using Enigma.Core.Handlers.Research.Services;
-using Enigma.Frontend.Ui.Support;
-using EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Handlers.Services;
@@ -52,7 +49,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
-        serviceCollection.AddTransient<ICelPointSECalc, CelPointSECalc>();
+        serviceCollection.AddTransient<ICelPointSECalc, CelPointSeCalc>();
         serviceCollection.AddTransient<ICelPointsElementsCalc, CelPointsElementsCalc>();
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();

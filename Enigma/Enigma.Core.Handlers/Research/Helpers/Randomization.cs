@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -9,14 +9,13 @@ using System.Security.Cryptography;
 
 namespace Enigma.Core.Handlers.Research.Helpers;
 
-
-static class ExtensionsClass
+internal static class ExtensionsClass
 {
-    private static readonly IControlGroupRng controlGroupRng = new ControlGroupRng();
+    private static readonly IControlGroupRng ControlGroupRng = new ControlGroupRng();
     public static void Shuffle<T>(this IList<T> list)
     {
         int n = list.Count;
-        List<int> randomNumbers = controlGroupRng.GetIntegers(n - 1, n);
+        List<int> randomNumbers = ControlGroupRng.GetIntegers(n - 1, n);
 
         int index = 0;
         while (n > 1)

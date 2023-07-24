@@ -10,7 +10,7 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Serilog;
 
-namespace Enigma.Api.Astron;
+namespace Enigma.Api.Calc;
 
 /// <inheritdoc/>
 public sealed class ChartAllPositionsApi : IChartAllPositionsApi

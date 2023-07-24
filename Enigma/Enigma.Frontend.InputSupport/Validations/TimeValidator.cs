@@ -14,7 +14,7 @@ namespace Enigma.Frontend.Helpers.Validations;
 /// <inheritdoc/>
 public class TimeValidator : ITimeValidator
 {
-    private readonly int[] _timeValues = new[] { 0, 0, 0 };
+    private readonly int[] _timeValues = { 0, 0, 0 };
     private double _ut;
     private int _correctionForDay;
 
@@ -24,7 +24,7 @@ public class TimeValidator : ITimeValidator
     {
 
         string fullText = "";
-        bool success = (timeValues.Length == 3) || (timeValues.Length == 2);
+        bool success = timeValues.Length is 3 or 2;
 
         if (success)
         {

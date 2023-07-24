@@ -31,7 +31,7 @@ public sealed class ObliqueLongitudeHandler : IObliqueLongitudeHandler
         }
         catch (Exception ex)
         {
-            Log.Error("ObliqueLongitudeHandler.CalcObliqueLOngitude(): " + ex.Message);
+            Log.Error("ObliqueLongitudeHandler.CalcObliqueLOngitude(): {Msg}", ex.Message);
         }
         return longitudes;
     }

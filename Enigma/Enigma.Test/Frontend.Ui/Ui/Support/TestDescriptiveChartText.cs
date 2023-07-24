@@ -13,7 +13,7 @@ using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 
-namespace Enigma.Test.Frontend.Ui.Support;
+namespace Enigma.Test.Frontend.Ui.Ui.Support;
 
 [TestFixture]
 public class TestDescriptiveChartText
@@ -47,7 +47,7 @@ public class TestDescriptiveChartText
     [Test]
     public void TestShortDescriptiveText()
     {
-        string expected = "Some Name, Descriptive text \nAlcabitius Tropical Geocentric Standard (two-dimensional)\n";
+        const string expected = "Some Name, Descriptive text \nAlcabitius Tropical Geocentric Standard (two-dimensional)\n";
         string result = _descriptiveChartText.ShortDescriptiveText(CreateConfig(), CreateMetaData());
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -55,34 +55,34 @@ public class TestDescriptiveChartText
     [Test]
     public void TestLongDescriptiveText()
     {
-        string expected = "Some Name, Descriptive text \n2023/02/22 18:19:00 Somewhere\nAlcabitius Tropical Geocentric Standard (two-dimensional)\n";
+        const string expected = "Some Name, Descriptive text \n2023/02/22 18:19:00 Somewhere\nAlcabitius Tropical Geocentric Standard (two-dimensional)\n";
         string result = _descriptiveChartText.FullDescriptiveText(CreateConfig(), CreateChartData());
         Assert.That(result, Is.EqualTo(expected));
     }
 
-    private MetaData CreateMetaData()
+    private static MetaData CreateMetaData()
     {
-        return new(Name, Description, Source, LocationName, ChartCategory, Rating);
+        return new MetaData(Name, Description, Source, LocationName, ChartCategory, Rating);
     }
 
     private AstroConfig CreateConfig()
     {
-        return new(HouseSystem, Ayanamsha, ObserverPos, ZodiacType, ProjType, OrbMethod, _chartPoints, _aspects, BaseOrbAspects, BaseOrbMidpoints, UseCuspsForAspects);
+        return new AstroConfig(HouseSystem, Ayanamsha, ObserverPos, ZodiacType, ProjType, OrbMethod, _chartPoints, _aspects, BaseOrbAspects, BaseOrbMidpoints, UseCuspsForAspects);
     }
 
 
-    private Location CreateLocation()
+    private static Location CreateLocation()
     {
-        return new(LocationName, GeoLong, GeoLat);
+        return new Location(LocationName, GeoLong, GeoLat);
     }
 
-    private FullDateTime CreateFullDateTime()
+    private static FullDateTime CreateFullDateTime()
     {
-        return new(DateText, TimeText, JdUt);
+        return new FullDateTime(DateText, TimeText, JdUt);
     }
 
 
-    private ChartData CreateChartData()
+    private static ChartData CreateChartData()
     {
         return new ChartData(Id, CreateMetaData(), CreateLocation(), CreateFullDateTime());
     }

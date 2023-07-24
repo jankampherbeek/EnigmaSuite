@@ -61,17 +61,16 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
                         aspectCount++;
                     }
                 }
-                if (aspectCount == 0)
+
+                if (aspectCount != 0) continue;
+                int aspectIndex = 0;
+                foreach (var rcpPos in relevantChartPointPositions)
                 {
-                    int aspectIndex = 0;
-                    foreach (var rcpPos in relevantChartPointPositions)
+                    if (rcpPos.Key == point)
                     {
-                        if (rcpPos.Key == point)
-                        {
-                            allCounts[aspectIndex, chartIndex]++;
-                        }
-                        aspectIndex++;
+                        allCounts[aspectIndex, chartIndex]++;
                     }
+                    aspectIndex++;
                 }
             }
             chartIndex++;

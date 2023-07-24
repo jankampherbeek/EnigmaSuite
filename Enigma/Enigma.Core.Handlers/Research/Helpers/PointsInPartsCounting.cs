@@ -51,7 +51,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         string jsonText = JsonSerializer.Serialize(response, options);
         string pathForResults = _researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
         _filePersistencyHandler.WriteFile(pathForResults, jsonText);
-        Log.Information("Json with countings written to {path}.", pathForResults);
+        Log.Information("Json with countings written to {Path}", pathForResults);
         return response;
     }
 
@@ -64,9 +64,8 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
             case ResearchMethods.CountPosInHouses:
                 return request.Config.HouseSystem.GetDetails().NrOfCusps;
             default:
-                string error = "PointsInPartsCounting: unsupported method in request: " + request.Method.ToString();
-                Log.Error(error);
-                throw new ArgumentException(error);
+                Log.Error("PointsInPartsCounting: unsupported method in request: {Method}", request.Method);
+                throw new ArgumentException("Unsupported method in GeneralResearchRequest");
         }
     }
 
@@ -77,7 +76,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         int[] tempCounts = new int[nrOfParts];
         foreach (ChartPoints selectedCelPoint in request.PointsSelection.SelectedPoints)
         {
-            allCounts.Add(new(selectedCelPoint, tempCounts.ToList()));
+            allCounts.Add(new CountOfParts(selectedCelPoint, tempCounts.ToList()));
         }
         return allCounts;
     }
@@ -96,35 +95,28 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
             foreach (KeyValuePair<ChartPoints, FullPointPos> commonPointPos in pointPositions)
             {
                 int partIndex = -1;
-                if (commonPointPos.Key == selectedCelPoint)
+                if (commonPointPos.Key != selectedCelPoint) continue;
+                double longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position;
+                switch (researchMethod)
                 {
-                    double longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position;
-                    switch (researchMethod)
-                    {
-                        case ResearchMethods.CountPosInSigns:
-                            partIndex = SignIndex(longitude);
-                            break;
-                        case ResearchMethods.CountPosInHouses:
-                            partIndex = DefineHouseNr(longitude, nrOfParts, chart.Positions);
-                            break;
-                        default:
-                            break;
-                    }
-                    if (partIndex >= 0) allCounts[pointIndex].Counts[partIndex]++;
+                    case ResearchMethods.CountPosInSigns:
+                        partIndex = SignIndex(longitude);
+                        break;
+                    case ResearchMethods.CountPosInHouses:
+                        partIndex = DefineHouseNr(longitude, nrOfParts, chart.Positions);
+                        break;
+                    default:
+                        break;
                 }
+                if (partIndex >= 0) allCounts[pointIndex].Counts[partIndex]++;
             }
             pointIndex++;
         }
 
-        if (pointsSelection.IncludeCusps)
+        if (!pointsSelection.IncludeCusps) return;
+        foreach (KeyValuePair<ChartPoints, FullPointPos> cusp in chart.Positions.Where(cusp => cusp.Key.GetDetails().PointCat == PointCats.Cusp))
         {
-            foreach (var cusp in chart.Positions)
-            {
-                if (cusp.Key.GetDetails().PointCat == PointCats.Cusp)
-                {
-                    allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;
-                }
-            }
+            allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;
         }
     }
 

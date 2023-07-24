@@ -13,7 +13,7 @@ namespace Enigma.Core.Handlers.Research.Helpers;
 public sealed class ResearchPaths : IResearchPaths
 {
 
-    public string DataPath(String projName, bool useControlGroup)
+    public string DataPath(string projName, bool useControlGroup)
     {
         return ConstructDataPath(projName, useControlGroup);
     }
@@ -38,16 +38,16 @@ public sealed class ResearchPaths : IResearchPaths
 
     private static string ConstructDataPath(string projName, bool useControlGroup)
     {
-        ApplicationSettings _appSettings = ApplicationSettings.Instance;
-        string projFiles = _appSettings.LocationProjectFiles;
+        ApplicationSettings appSettings = ApplicationSettings.Instance;
+        string projFiles = appSettings.LocationProjectFiles;
         string dataFilename = useControlGroup ? "controldata" : "testdata";
         return projFiles + @"\" + projName + @"\" + dataFilename + ".json";
     }
 
     private static string ConstructResultPath(string projName, string methodName, bool useControlGroup)
     {
-        ApplicationSettings _appSettings = ApplicationSettings.Instance;
-        string projFiles = _appSettings.LocationProjectFiles;
+        ApplicationSettings appSettings = ApplicationSettings.Instance;
+        string projFiles = appSettings.LocationProjectFiles;
         string dateTimeStamp = ConstructDateTimeStamp();
         string prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
         return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_positions_" + dateTimeStamp + ".json";
@@ -55,8 +55,8 @@ public sealed class ResearchPaths : IResearchPaths
 
     private static string ConstructCountResultsPath(string projName, string methodName, bool useControlGroup)
     {
-        ApplicationSettings _appSettings = ApplicationSettings.Instance;
-        string projFiles = _appSettings.LocationProjectFiles;
+        ApplicationSettings appSettings = ApplicationSettings.Instance;
+        string projFiles = appSettings.LocationProjectFiles;
         string dateTimeStamp = ConstructDateTimeStamp();
         string prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
         return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".json";
@@ -64,8 +64,8 @@ public sealed class ResearchPaths : IResearchPaths
 
     private static string ConstructSummedResultsPath(string projName, string methodName, bool useControlGroup)
     {
-        ApplicationSettings _appSettings = ApplicationSettings.Instance;
-        string projFiles = _appSettings.LocationProjectFiles;
+        ApplicationSettings appSettings = ApplicationSettings.Instance;
+        string projFiles = appSettings.LocationProjectFiles;
         string dateTimeStamp = ConstructDateTimeStamp();
         string prefix = useControlGroup ? "controlsummedresult_" : "testsummedresult_";
         return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".txt";

@@ -9,7 +9,7 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.Specials;
 using Serilog;
 
-namespace Enigma.Api.Calc.CalcChartsRangeApi;
+namespace Enigma.Api.Calc;
 
 /// <inheritdoc/>
 public sealed class CalcChartsRangeApi : ICalcChartsRangeApi

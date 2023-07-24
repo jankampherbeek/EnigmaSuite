@@ -14,7 +14,7 @@ public class TestChartCategories
     [Test]
     public void TestRetrievingDetails()
     {
-        ChartCategories chartCategory = ChartCategories.Election;
+        const ChartCategories chartCategory = ChartCategories.Election;
         ChartCategoryDetails details = chartCategory.GetDetails();
         Assert.Multiple(() =>
         {
@@ -38,7 +38,7 @@ public class TestChartCategories
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int chartCategoryIndex = 3;
+        const int chartCategoryIndex = 3;
         ChartCategories chartCategory = ChartCategories.Election.ChartCategoryForIndex(chartCategoryIndex);
         Assert.That(chartCategory, Is.EqualTo(ChartCategories.Event));
     }
@@ -46,7 +46,7 @@ public class TestChartCategories
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int chartCategoryIndex = 500;
+        const int chartCategoryIndex = 500;
         Assert.That(() => _ = ChartCategories.Election.ChartCategoryForIndex(chartCategoryIndex), Throws.TypeOf<ArgumentException>());
     }
 

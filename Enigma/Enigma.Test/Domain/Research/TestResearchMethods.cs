@@ -15,7 +15,7 @@ public class TestResearchMethods
     [Test]
     public void TestRetrievingDetails()
     {
-        ResearchMethods method = ResearchMethods.CountAspects;
+        const ResearchMethods method = ResearchMethods.CountAspects;
         ResearchMethodDetails details = method.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
@@ -31,12 +31,10 @@ public class TestResearchMethods
     {
         foreach (ResearchMethods method in Enum.GetValues(typeof(ResearchMethods)))
         {
-            if (method != ResearchMethods.None)
-            {
-                ResearchMethodDetails details = method.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            if (method == ResearchMethods.None) continue;
+            ResearchMethodDetails details = method.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -44,7 +42,7 @@ public class TestResearchMethods
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 4;
+        const int index = 4;
         ResearchMethods method = ResearchMethods.None.ResearchMethodForIndex(index);
         Assert.That(method, Is.EqualTo(ResearchMethods.CountOccupiedMidpoints));
     }
@@ -53,7 +51,7 @@ public class TestResearchMethods
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = 5000;
+        const int index = 5000;
         Assert.That(() => _ = ResearchMethods.None.ResearchMethodForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

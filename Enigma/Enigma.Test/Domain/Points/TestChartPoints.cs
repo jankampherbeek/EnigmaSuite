@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,7 +13,7 @@ public class TestChartPoints
     [Test]
     public void TestRetrievingDetails()
     {
-        ChartPoints point = ChartPoints.Neptune;
+        const ChartPoints point = ChartPoints.Neptune;
         PointDetails details = point.GetDetails();
         Assert.Multiple(() =>
         {
@@ -29,19 +29,17 @@ public class TestChartPoints
     {
         foreach (ChartPoints point in Enum.GetValues(typeof(ChartPoints)))
         {
-            if (point != ChartPoints.None)
-            {
-                PointDetails details = point.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            if (point == ChartPoints.None) continue;
+            PointDetails details = point.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 9;
+        const int index = 9;
         ChartPoints chartPoint = ChartPoints.Moon.PointForIndex(index);
         Assert.That(chartPoint, Is.EqualTo(ChartPoints.Neptune));
     }
@@ -49,7 +47,7 @@ public class TestChartPoints
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = -100;
+        const int index = -100;
         Assert.That(() => _ = ChartPoints.None.PointForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

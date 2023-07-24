@@ -35,7 +35,7 @@ public sealed class DateTimeHandler : IDateTimeHandler
         catch (SwissEphException see)
         {
             errorText = see.Message;
-            Log.Error("DateTimeHandler.CalcDateTime() encountered an error : " + errorText);
+            Log.Error("DateTimeHandler.CalcDateTime() encountered an error : {Error}", errorText);
             success = false;
         }
         return new DateTimeResponse(dateTime, success, errorText);
@@ -50,7 +50,7 @@ public sealed class DateTimeHandler : IDateTimeHandler
         }
         catch (SwissEphException see)
         {
-            Log.Error("DateTimeHandler.CheckDateTime() encountered an error : " + see.Message);
+            Log.Error("DateTimeHandler.CheckDateTime() encountered an error : {Error}", see.Message);
             dateIsValid = false;
         }
         return dateIsValid;

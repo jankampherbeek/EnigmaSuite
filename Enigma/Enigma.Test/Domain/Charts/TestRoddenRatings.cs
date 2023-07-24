@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 
 namespace Enigma.Test.Domain.Charts;
@@ -16,7 +15,7 @@ public class TestRoddenRatings
     [Test]
     public void TestRetrievingDetails()
     {
-        RoddenRatings roddenRating = RoddenRatings.C;
+        const RoddenRatings roddenRating = RoddenRatings.C;
         RoddenRatingDetails details = roddenRating.GetDetails();
         Assert.Multiple(() =>
         {
@@ -39,7 +38,7 @@ public class TestRoddenRatings
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int roddenRatingIndex = 2;
+        const int roddenRatingIndex = 2;
         RoddenRatings roddenRating = RoddenRatings.C.RoddenRatingForIndex(roddenRatingIndex);
         Assert.That(roddenRating, Is.EqualTo(RoddenRatings.A));
     }
@@ -47,7 +46,7 @@ public class TestRoddenRatings
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int roddenRatingIndex = 1000;
+        const int roddenRatingIndex = 1000;
         Assert.That(() => _ = RoddenRatings.XX.RoddenRatingForIndex(roddenRatingIndex), Throws.TypeOf<ArgumentException>());
     }
 

@@ -6,7 +6,7 @@
 
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 
-namespace Enigma.Domain.RequestResponse;
+namespace Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 
 /// <summary>Request for the conversion of ecliptical coordinates to equatorial coordinates.</summary>
 /// <param name="EclCoord">Ecliptical coordinates.</param>

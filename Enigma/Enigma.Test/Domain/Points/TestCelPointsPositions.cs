@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,7 +13,7 @@ public class TestCelPointPosSpeeds
     [Test]
     public void TestConstructionWithArray()
     {
-        double delta = 0.00000001;
+        const double delta = 0.00000001;
         double[] values = { 1.0, 2.0, 3.0, 4.0, 5.0, 6.0 };
         PointPosSpeeds posSpeeds = new(values);
         Assert.Multiple(() =>
@@ -38,7 +38,7 @@ public class TestCelPointPosSpeeds
     [Test]
     public void TestConstructionWithPosSpeeds()
     {
-        double delta = 0.00000001;
+        const double delta = 0.00000001;
         PosSpeed mainPosSpeed = new(1.0, 2.0);
         PosSpeed deviationPosSpeed = new(3.0, 4.0);
         PosSpeed distancePosSpeed = new(5.0, 6.0);

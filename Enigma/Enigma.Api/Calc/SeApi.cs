@@ -18,7 +18,7 @@ public sealed class SeApi : ISeApi
 
 
     /// <inheritdoc/>
-    public void SetupSe(string pathToSeFiles)
+    public void SetupSe(string? pathToSeFiles)
     {
         Log.Information("SeApi SetupSe: Setting up CommonSE with path {p}.", pathToSeFiles);
         _seHandler.SetupSe(pathToSeFiles);

@@ -12,7 +12,7 @@ using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Moq;
 
-namespace Enigma.Test.Frontend.Ui.PresentationFactories;
+namespace Enigma.Test.Frontend.Ui.Ui.PresentationFactories;
 
 
 [TestFixture]

@@ -1,9 +1,8 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Exceptions;
 using Serilog;
 using System.Runtime.InteropServices;
@@ -18,31 +17,29 @@ public static class SeInitializer
     /// <summary>Set location for Swiss Ephemeris files.</summary>
     /// <param name="path">Location, relative to the program.</param>
     /// <remarks>This method must run before the CommonSE can be used.</remarks>
-    public static void SetEphePath(String path)
+    public static void SetEphePath(string? path)
     {
-        if (path != null)
+        if (path == null) return;
+        try
         {
-            try
-            {
-                ext_swe_set_ephe_path(path);
-            }
-            catch (DllNotFoundException)
-            {
-                Log.Error("SeInitializer could not find swedll64.dll. Throwing SwissEphException which should terminate the program.");
-                throw new SwissEphException("The swedll64.dll, which is an essential part of the Swiss Ephemeris, could not be found.");
-            }
+            ext_swe_set_ephe_path(path);
+        }
+        catch (DllNotFoundException)
+        {
+            Log.Error("SeInitializer could not find swedll64.dll. Throwing SwissEphException which should terminate the program");
+            throw new SwissEphException("The swedll64.dll, which is an essential part of the Swiss Ephemeris, could not be found");
         }
 
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_ephe_path")]
-    private extern static void ext_swe_set_ephe_path(String path);
+    private static extern void ext_swe_set_ephe_path(string? path);
 
     public static void SetTopocentric(double geoLong, double geoLat, double altitudeMeters)
     {
         ext_swe_set_topo(geoLong, geoLat, altitudeMeters);
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_topo")]
-    private extern static void ext_swe_set_topo(double geoLong, double geoLatr, double altitudeMeters);
+    private static extern void ext_swe_set_topo(double geoLong, double geoLatr, double altitudeMeters);
 
 
     /// <summary>Close Swiss Ephemeris and release all allocated memory and resources.</summary>
@@ -52,7 +49,7 @@ public static class SeInitializer
         ext_swe_close();
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_close")]
-    private extern static void ext_swe_close();
+    private static extern void ext_swe_close();
 
 
 
@@ -62,13 +59,13 @@ public static class SeInitializer
     /// The method from the CommonSE dll is called using parameters t0 and t1 with the value 0, these will be ignored for all prdefined ayanamsha's.</remarks>
     public static void SetAyanamsha(int idAyanamsha)
     {
-        if (idAyanamsha >= -1 && idAyanamsha <= 39)
+        if (idAyanamsha is >= -1 and <= 39)
         {
             ext_swe_set_sid_mode(idAyanamsha, 0, 0);
         }
 
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_sid_mode")]
-    private extern static void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
+    private static extern void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
 
 }

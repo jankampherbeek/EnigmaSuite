@@ -17,9 +17,9 @@ public class TestDateValidator
     [Test]
     public void TestHappyFlow()
     {
-        int year = 2022;
-        int month = 5;
-        int day = 23;
+        const int year = 2022;
+        const int month = 5;
+        const int day = 23;
         int[] dateInput = { year, month, day };
         var mockDateTimeApi = new Mock<IDateTimeApi>();
         mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(true);
@@ -45,7 +45,7 @@ public class TestDateValidator
         var mockDateTimeApi = new Mock<IDateTimeApi>();
         mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(false);
         var dateValidator = new DateValidator(mockDateTimeApi.Object);
-        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
+        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? _);
         Assert.That(result, Is.False);
     }
 
@@ -59,7 +59,7 @@ public class TestDateValidator
         var mockDateTimeApi = new Mock<IDateTimeApi>();
         mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(false);
         var dateValidator = new DateValidator(mockDateTimeApi.Object);
-        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
+        bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? _);
         Assert.That(result, Is.False);
     }
 

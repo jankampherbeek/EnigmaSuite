@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Calc.DateTime;
@@ -18,7 +19,7 @@ public interface ISeApi
 {
     /// <summary>Initialize the CommonSE.</summary>
     /// <param name="pathToSeFiles">Full path to datafiles for the CommonSE.</param>
-    public void SetupSe(string pathToSeFiles);
+    public void SetupSe(string? pathToSeFiles);
 
     public void CloseSe();
 }

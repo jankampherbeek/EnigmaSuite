@@ -53,66 +53,45 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     public MethodResponse HandleResearch(GeneralResearchRequest request)
     {
         ResearchMethods method = request.Method;
-        Log.Information("ResearchMethodHandler HandleResearch, using method {m} for project {p}", method, request.ProjectName);
+        Log.Information("ResearchMethodHandler HandleResearch, using method {M} for project {P}", method, request.ProjectName);
         List<CalculatedResearchChart> allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
         WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
-        if (request is CountHarmonicConjunctionsRequest)
+        switch (request)
         {
-            CountHarmonicConjunctionsRequest? qualifiedRequest = request as CountHarmonicConjunctionsRequest;
-            if (qualifiedRequest != null)
+            case CountHarmonicConjunctionsRequest conjunctionsRequest:
             {
-                return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, qualifiedRequest);
+                    return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, conjunctionsRequest); 
             }
-            else
+            case CountOccupiedMidpointsRequest midpointsRequest:
             {
-                string errorText = "ResearchMethodHandler.HandleResearch() contains wrong request for CountHarmonicConjunctions : " + request;
-                Log.Error(errorText);
-                throw new EnigmaException(errorText);
+                    return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, midpointsRequest);
             }
         }
-        else if (request is CountOccupiedMidpointsRequest)
+
+        switch (method)
         {
-            CountOccupiedMidpointsRequest? qualifiedRequest = request as CountOccupiedMidpointsRequest;
-            if (qualifiedRequest != null)
-            {
-                return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, qualifiedRequest);
-            }
-            else
-            {
-                string errorText = "ResearchMethodHandler.HandleResearch() contains wrong request for CountOccupiedMIdpoints : " + request;
-                Log.Error(errorText);
-                throw new EnigmaException(errorText);
-            }
+            case ResearchMethods.CountUnaspected:
+                return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
+            case ResearchMethods.CountAspects:
+                return _aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
+            case ResearchMethods.CountPosInSigns:
+                return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+            case ResearchMethods.CountPosInHouses:
+                return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+            default:
+                Log.Error("ResearchMethodHandler.HandleResearch() received an unrecognized request : {Request}", request);
+                throw new EnigmaException("Unrecognized request for ResearchMethodHandler");
         }
-        else if (request != null && method == ResearchMethods.CountUnaspected)
-        {
-            return _unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
-        }
-        else if (request != null && method == ResearchMethods.CountAspects)
-        {
-            return _aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
-        }
-        else if (request != null && method == ResearchMethods.CountPosInSigns)
-        {
-            return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-        }
-        else if (request != null && method == ResearchMethods.CountPosInHouses)
-        {
-            return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
-        }
-        string errorTxt = "ResearchMethodHandler.HandleResearch() received an unrecognized request : " + request;
-        Log.Error(errorTxt);
-        throw new EnigmaException(errorTxt);
     }
 
     private List<CalculatedResearchChart> CalculateAllCharts(string projectName, bool controlGroup)
     {
         string fullPath = _researchPaths.DataPath(projectName, controlGroup);
-        Log.Information("Reading Json from path : {fp}.", fullPath);
+        Log.Information("Reading Json from path : {Fp}", fullPath);
         string json = _filePersistencyHandler.ReadFile(fullPath);
         StandardInput standardInput = _researchDataHandler.GetStandardInputFromJson(json);
         List<CalculatedResearchChart> allCalculatedResearchCharts = _researchPositions.CalculatePositions(standardInput);
-        Log.Information("Calculation completed.");
+        Log.Information("Calculation completed");
         return allCalculatedResearchCharts;
     }
 
@@ -122,7 +101,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         string jsonText = JsonSerializer.Serialize(allCharts, options);
         string pathForResults = _researchPaths.ResultPath(projectName, methodName, controlGroup);
         _filePersistencyHandler.WriteFile(pathForResults, jsonText);
-        Log.Information("Json with positions written to {path}.", pathForResults);
+        Log.Information("Json with positions written to {Path}", pathForResults);
     }
 
 

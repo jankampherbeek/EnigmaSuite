@@ -20,7 +20,7 @@ public sealed class HorizontalHandler : IHorizontalHandler
 
     public HorizontalCoordinates CalcHorizontal(HorizontalRequest request)
     {
-        int flags = EnigmaConstants.SEFLG_EQUATORIAL;    // flags for horizontal coordinates, only equatorial is used.
+        const int flags = EnigmaConstants.SEFLG_EQUATORIAL;    // flags for horizontal coordinates, only equatorial is used.
         double[] azimuthAltitude = _horizontalCalc.CalculateHorizontal(request.JdUt, request.Location, request.EquCoordinates, flags);
         return new HorizontalCoordinates(azimuthAltitude[0], azimuthAltitude[1]);
     }

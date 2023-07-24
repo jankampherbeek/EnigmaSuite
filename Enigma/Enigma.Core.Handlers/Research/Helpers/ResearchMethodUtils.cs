@@ -49,7 +49,7 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
         Dictionary<ChartPoints, FullPointPos> selectedChartPointPositions = new();
         foreach (ChartPoints point in pointsSelection.SelectedPoints)
         {
-            if (chartPointPositions.ContainsKey(point)) selectedChartPointPositions.Add(point, chartPointPositions[point]);
+            if (chartPointPositions.TryGetValue(point, out FullPointPos? position)) selectedChartPointPositions.Add(point, position);
         }
         return selectedChartPointPositions;
     }
@@ -64,9 +64,8 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
         {
             if (allPoints[i].Point == point) return i;
         }
-        string errorText = "AspectsCounting.FindIndexForPoint(). Could not find index for ChartPoint : " + point;
-        Log.Error(errorText);
-        throw new EnigmaException(errorText);
+        Log.Error("AspectsCounting.FindIndexForPoint(). Could not find index for ChartPoint : {Point}", point);
+        throw new EnigmaException("Wrong chart point index for FindIndexForPoint()");
     }
 
     /// <inheritdoc/>
@@ -78,9 +77,8 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
             if (item.Key == aspectType) return counter;
             counter++;
         }
-        string errorText = "AspectsCounting.FindIndexForAspectType(). Could not find index for AspectType : " + aspectType;
-        Log.Error(errorText);
-        throw new EnigmaException(errorText);
+        Log.Error("AspectsCounting.FindIndexForAspectType(). Could not find index for AspectType : {AT}", aspectType);
+        throw new EnigmaException("Wrong aspect type index for FindIndexForAspoectType");
     }
 
 }

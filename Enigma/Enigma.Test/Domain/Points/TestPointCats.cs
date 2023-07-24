@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -14,7 +14,7 @@ public class TestPointCats
     [Test]
     public void TestRetrievingDetails()
     {
-        PointCats pointCat = PointCats.Common;
+        const PointCats pointCat = PointCats.Common;
         PointCatDetails details = pointCat.GetDetails();
         Assert.Multiple(() =>
         {
@@ -29,12 +29,10 @@ public class TestPointCats
     {
         foreach (PointCats category in Enum.GetValues(typeof(PointCats)))
         {
-            if (category != PointCats.None)
-            {
-                PointCatDetails details = category.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            if (category == PointCats.None) continue;
+            PointCatDetails details = category.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
@@ -42,7 +40,7 @@ public class TestPointCats
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 4;
+        const int index = 4;
         PointCats cat = PointCats.None.PointCatForIndex(index);
         Assert.That(cat, Is.EqualTo(PointCats.Lots));
     }
@@ -50,7 +48,7 @@ public class TestPointCats
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = 55000;
+        const int index = 55000;
         Assert.That(() => _ = PointCats.None.PointCatForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

@@ -11,7 +11,7 @@ namespace Enigma.Test.Frontend.Helpers.Validations;
 [TestFixture]
 public class TestGeoLatValidator
 {
-    private const double DELTA = 0.00000001;
+    private const double Delta = 0.00000001;
     private readonly GeoLatValidator _geoLatValidator = new();
 
     [Test]
@@ -29,7 +29,7 @@ public class TestGeoLatValidator
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(DELTA));
+            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(Delta));
             Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("+52:13:00"));
         });
     }
@@ -49,7 +49,7 @@ public class TestGeoLatValidator
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(DELTA));
+            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(52.216666666667).Within(Delta));
             Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("+52:13:00"));
         });
     }
@@ -69,7 +69,7 @@ public class TestGeoLatValidator
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[0], Is.EqualTo(degree));
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[1], Is.EqualTo(minute));
             Assert.That(fullGeoLatitude.DegreeMinuteSecond[2], Is.EqualTo(second));
-            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(-52.216666666667).Within(DELTA));
+            Assert.That(fullGeoLatitude.Latitude, Is.EqualTo(-52.216666666667).Within(Delta));
             Assert.That(fullGeoLatitude.GeoLatFullText, Is.EqualTo("-52:13:00"));
         });
     }

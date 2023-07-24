@@ -77,11 +77,9 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
     private double PrepareAyanamsha(CelPointsRequest request)
     {
         double ayanamshaOffset = 0.0;
-        if (request.CalculationPreferences.ActualZodiacType == ZodiacTypes.Sidereal)
-        {
-            SeInitializer.SetAyanamsha(request.CalculationPreferences.ActualAyanamsha.GetDetails().SeId);
-            ayanamshaOffset = _ayanamshaFacade.GetAyanamshaOffset(request.JulianDayUt);
-        }
+        if (request.CalculationPreferences.ActualZodiacType != ZodiacTypes.Sidereal) return ayanamshaOffset;
+        SeInitializer.SetAyanamsha(request.CalculationPreferences.ActualAyanamsha.GetDetails().SeId);
+        ayanamshaOffset = _ayanamshaFacade.GetAyanamshaOffset(request.JulianDayUt);
         return ayanamshaOffset;
     }
 }

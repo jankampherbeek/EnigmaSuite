@@ -16,7 +16,7 @@ public class TestControlGroupTypes
     [Test]
     public void TestRetrievingDetails()
     {
-        ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift;
+        const ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift;
         ControlGroupTypeDetails details = controlGroupType.GetDetails();
         Assert.Multiple(() =>
         {
@@ -40,7 +40,7 @@ public class TestControlGroupTypes
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int controlGroupTypeIndex = 0;
+        const int controlGroupTypeIndex = 0;
         ControlGroupTypes controlGroupType = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(controlGroupTypeIndex);
         Assert.That(controlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
     }
@@ -48,7 +48,7 @@ public class TestControlGroupTypes
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int controlGroupTypeIndex = 500;
+        const int controlGroupTypeIndex = 500;
         Assert.That(() => _ = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(controlGroupTypeIndex), Throws.TypeOf<ArgumentException>());
     }
 

@@ -33,15 +33,15 @@ public sealed class PointsForMidpoints : IPointsForMidpoints
         (posPoint.Key.GetDetails().PointCat == PointCats.Zodiac && posPoint.Key == ChartPoints.ZeroAries)
             select posPoint).ToDictionary(x => x.Key, x => x.Value);
 
-        CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
-        bool mainCoord = true;
+        const CoordinateSystems coordSystem = CoordinateSystems.Ecliptical;
+        const bool mainCoord = true;
         List<PositionedPoint> pointsIn360Dial = _pointsMapping.MapFullPointPos2PositionedPoint(positions, coordSystem, mainCoord);
         List<PositionedPoint> pointsInActualDial = new();
         foreach (var point in pointsIn360Dial)
         {
             double pos = point.Position;
             while (pos >= dialSize) pos -= dialSize;
-            pointsInActualDial.Add(new PositionedPoint(point.Point, pos));
+            pointsInActualDial.Add(point with { Position = pos });
         }
         return pointsInActualDial;
     }

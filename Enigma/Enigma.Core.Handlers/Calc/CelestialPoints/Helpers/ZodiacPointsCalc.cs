@@ -33,12 +33,10 @@ public sealed class ZodiacPointsCalc : IZodiacPointsCalc
         List<ChartPoints> allPoints = prefs.ActualChartPoints;
         foreach (var point in allPoints)
         {
-            if (point.GetDetails().CalculationCat == CalculationCats.ZodiacFixed)
-            {
-                double longitude = 0.0;
-                if (point == ChartPoints.ZeroAries) longitude = 0.0;                // TODO backlog add Zero Cancer
-                allZodiacalPointsLots.Add(point, CalculateZodiacFixedPoint(longitude, jdUt, obliquity, location));
-            }
+            if (point.GetDetails().CalculationCat != CalculationCats.ZodiacFixed) continue;
+            double longitude = 0.0;
+            if (point == ChartPoints.ZeroAries) longitude = 0.0;                // TODO backlog add Zero Cancer
+            allZodiacalPointsLots.Add(point, CalculateZodiacFixedPoint(longitude, jdUt, obliquity, location));
         }
         return allZodiacalPointsLots;
 
@@ -49,13 +47,13 @@ public sealed class ZodiacPointsCalc : IZodiacPointsCalc
     {
 
 
-        PosSpeed[] eclipticPosSpeed = { new PosSpeed(longitude, 0.0), new PosSpeed(0.0, 0.0), new PosSpeed(0.0, 0.0) };
+        PosSpeed[] eclipticPosSpeed = { new(longitude, 0.0), new(0.0, 0.0), new(0.0, 0.0) };
 
-        double latitude = 0.0;
-        double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new double[] { longitude, latitude }, obliquity);
+        const double latitude = 0.0;
+        double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new[] { longitude, latitude }, obliquity);
         double ra = equatorialPos[0];
         double decl = equatorialPos[1];
-        PosSpeed[] equatorialPosSpeed = { new PosSpeed(ra, 0.0), new PosSpeed(decl, 0.0), new PosSpeed(0.0, 0.0) };
+        PosSpeed[] equatorialPosSpeed = { new(ra, 0.0), new(decl, 0.0), new(0.0, 0.0) };
 
         EquatorialCoordinates equCoordinates = new(ra, decl);
         HorizontalRequest horizontalRequest = new(jdUt, location, equCoordinates);

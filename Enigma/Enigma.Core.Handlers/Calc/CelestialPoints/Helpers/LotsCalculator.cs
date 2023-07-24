@@ -53,7 +53,6 @@ public class LotsCalculator : ILotsCalculator
         {
             case ChartPoints.FortunaNoSect: lotLongitude = ascendant + moon - sun; break;
             case ChartPoints.FortunaSect: lotLongitude = dayLight ? ascendant + moon - sun : ascendant - moon + sun; break;
-            default: break;
         }
         while (lotLongitude >= 360.0)
         {

@@ -6,7 +6,7 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 
-namespace EnigmaCore.Handlers.Calc.CelestialPoints.Helpers;
+namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
 /// <inheritdoc/>
 public sealed class SeFlags : ISeFlags
@@ -19,14 +19,16 @@ public sealed class SeFlags : ISeFlags
         {
             flags += 2048;          // use equatorial positions    
         }
-        if (observerPosition == ObserverPositions.HelioCentric)
+        switch (observerPosition)
         {
-            flags += 8;             // use heliocentric positions
+            case ObserverPositions.HelioCentric:
+                flags += 8;             // use heliocentric positions
+                break;
+            case ObserverPositions.TopoCentric:
+                flags += (32 * 1024);   // use topocentric position (apply parallax)
+                break;
         }
-        if (observerPosition == ObserverPositions.TopoCentric)
-        {
-            flags += (32 * 1024);   // use topocentric position (apply parallax)
-        }
+
         if (zodiacType == ZodiacTypes.Sidereal && coordinateSystem == CoordinateSystems.Ecliptical)
         {
             flags += (64 * 1024);   // use sidereal zodiac

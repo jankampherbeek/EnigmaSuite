@@ -14,37 +14,32 @@ namespace Enigma.Core.Handlers.Calc.Progressive;
 
 public sealed class Speculum: ISpeculum
 {
-    public PrimarySystems PrimarySystem => _primSys;
-    public double GeoLat => _gl;
-    public double RaMc => _ramc;
-    public double RaIc => _raic;
-    public double OblAscAscendant => _oaasc;
-    public double OblDescDescendant => _oddesc;
+    public PrimarySystems PrimarySystem { get; }
 
-    public List<ISpeculumItem> SpeculumItems => _specItems;
+    public double GeoLat { get; }
 
-    private readonly PrimarySystems _primSys;
-    private readonly double _gl;                // geographic latitude
-    private readonly double _ramc;              // right ascension mc
-    private readonly double _raic;              // right ascension ic
-    private readonly double _oaasc;                      // oblique ascension ascendant
-    private readonly double _oddesc;                     // oblique ascension descendant
-    private readonly List<ISpeculumItem> _specItems;
+    public double RaMc { get; }
+
+    public double RaIc { get; }
+
+    public double OblAscAscendant { get; }
+
+    public double OblDescDescendant { get; }
+
+    public List<ISpeculumItem> SpeculumItems { get; }
 
     public Speculum(PrimarySystems primSys, CalculatedChart calcChart, List<ChartPoints> promissors, List<ChartPoints> significators)
     {
-        _primSys = primSys;
-        _gl = calcChart.InputtedChartData.Location.GeoLat;
+        PrimarySystem = primSys;
+        GeoLat = calcChart.InputtedChartData.Location.GeoLat;
 
         foreach (var position in calcChart.Positions)
         {
-            if (position.Key == ChartPoints.Mc)
-            {
-                _ramc = position.Value.Equatorial.MainPosSpeed.Position;
-                _raic = RangeUtil.ValueToRange(_ramc + 180.0, 0.0, 360.0);
-                _oaasc = RangeUtil.ValueToRange(_ramc + 90.0, 0.0, 360.0);
-                _oddesc = RangeUtil.ValueToRange(_ramc - 90.0, 0.0, 360.0);
-            }
+            if (position.Key != ChartPoints.Mc) continue;
+            RaMc = position.Value.Equatorial.MainPosSpeed.Position;
+            RaIc = RangeUtil.ValueToRange(RaMc + 180.0, 0.0, 360.0);
+            OblAscAscendant = RangeUtil.ValueToRange(RaMc + 90.0, 0.0, 360.0);
+            OblDescDescendant = RangeUtil.ValueToRange(RaMc - 90.0, 0.0, 360.0);
 
             // handle promissors/significators
         }
@@ -58,58 +53,58 @@ public sealed class Speculum: ISpeculum
 public abstract class SpeculumItem : ISpeculumItem
 {
     /// <inheritdoc/>
-    public double RightAscension => _raPlanet;
+    public double RightAscension => RaPlanet;
     /// <inheritdoc/>
-    public double Declination => _declPlanet;
+    public double Declination => DeclPlanet;
     /// <inheritdoc/>
-    public double MeridianDistanceMc => _mdmc;
+    public double MeridianDistanceMc => Mdmc;
     /// <inheritdoc/>
-    public double MeridianDistanceIc => _mdic;
+    public double MeridianDistanceIc => Mdic;
     /// <inheritdoc/>
-    public double AscensionalDifference => _ad;
+    public double AscensionalDifference => Ad;
     /// <summary>Oblique ascension of promissor.</summary>
-    public double ObliqueAscensionPromissor => _oadpl;
+    public double ObliqueAscensionPromissor => Oadpl;
     /// <summary>Horizontal distance</summary>
-    public double HorizontalDistance => _hd;
+    public double HorizontalDistance => Hd;
     /// <summary>Diurnal semi-arc</summary>
-    public double DiurnalSemiArc => _dsa;
+    public double DiurnalSemiArc => Dsa;
     /// <summary>Diurnal semi-arc</summary>
-    public double NocturnalSemiArc => _nsa;
+    public double NocturnalSemiArc => Nsa;
 
 
-    protected double _raPlanet;
-    protected double _declPlanet;
-    protected double _mdmc;                       // meridian distance from mc
-    protected double _mdic;                       // meridian distance from ic
-    protected double _ad;                         // ascensional difference
-    protected double _oadpl;                      // oblique ascension or descension planet
-    protected double _geoLat;
-    protected double _hd;                         // horizontal distance
-    protected double _dsa;                        // diurnal semi-arc
-    protected double _nsa;                        // nocturnal semi-arc
-    protected bool _east;
-    protected bool _north;
+    protected double RaPlanet;
+    protected double DeclPlanet;
+    protected double Mdmc;                       // meridian distance from mc
+    protected double Mdic;                       // meridian distance from ic
+    protected double Ad;                         // ascensional difference
+    protected double Oadpl;                      // oblique ascension or descension planet
+    protected double GeoLat;
+    protected double Hd;                         // horizontal distance
+    protected double Dsa;                        // diurnal semi-arc
+    protected double Nsa;                        // nocturnal semi-arc
+    protected bool East;
+    protected bool North;
 
     public SpeculumItem(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet)
     {
-        _raPlanet = raPlanet;
-        _declPlanet = declPlanet;
-        _geoLat = geoLat;
-        _mdmc = RangeUtil.ValueToRange(_raPlanet - raMc, 0.0, 360.0);
-        _mdic = RangeUtil.ValueToRange(_raPlanet - raIc, 0.0, 360.0);
-        _ad = MathExtra.AscensionalDifference(_declPlanet, geoLat);
-        _north = _geoLat >= 0.0;
-        _east = MathExtra.IsEasternHemiSphere(_raPlanet, raMc);
-        _oadpl = MathExtra.ObliqueAscension(_raPlanet, _ad, _east, _north);
-        if (_east)
+        RaPlanet = raPlanet;
+        DeclPlanet = declPlanet;
+        GeoLat = geoLat;
+        Mdmc = RangeUtil.ValueToRange(RaPlanet - raMc, 0.0, 360.0);
+        Mdic = RangeUtil.ValueToRange(RaPlanet - raIc, 0.0, 360.0);
+        Ad = MathExtra.AscensionalDifference(DeclPlanet, geoLat);
+        North = GeoLat >= 0.0;
+        East = MathExtra.IsEasternHemiSphere(RaPlanet, raMc);
+        Oadpl = MathExtra.ObliqueAscension(RaPlanet, Ad, East, North);
+        if (East)
         {
-            _hd = _oadpl - oaAsc;
+            Hd = Oadpl - oaAsc;
         } else
         {
-            _hd = RangeUtil.ValueToRange(_oadpl + 180.0, 0.0, 360.0) - odDesc;
+            Hd = RangeUtil.ValueToRange(Oadpl + 180.0, 0.0, 360.0) - odDesc;
         }
-        _dsa = RangeUtil.ValueToRange(Math.Abs(_hd) + Math.Abs(_mdmc), 0.0, 360.0);
-        _nsa = RangeUtil.ValueToRange(Math.Abs(_hd) + Math.Abs(_mdic), 0.0, 360.0);
+        Dsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdmc), 0.0, 360.0);
+        Nsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdic), 0.0, 360.0);
 
     }
 }
@@ -125,7 +120,7 @@ public class SpeculumItemPlacidus : SpeculumItem
     public SpeculumItemPlacidus(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet) :
         base(geoLat, raMc, raIc, oaAsc, odDesc, raPlanet, declPlanet)
     {
-        _psa = (_hd >= 0.0) ? _mdmc / _dsa : _mdic / _nsa;
+        _psa = (Hd >= 0.0) ? Mdmc / Dsa : Mdic / Nsa;
     }
 
 }
@@ -148,9 +143,9 @@ public class SpeculumItemRegiomontanus: SpeculumItem
 
     private void Calculate()
     {
-        double geoLatRad = MathExtra.DegToRad(_geoLat);
-        double declPlRad = MathExtra.DegToRad(_declPlanet);
-        double mdMcRad = MathExtra.DegToRad(_mdmc);
+        double geoLatRad = MathExtra.DegToRad(GeoLat);
+        double declPlRad = MathExtra.DegToRad(DeclPlanet);
+        double mdMcRad = MathExtra.DegToRad(Mdmc);
         double xRad = Math.Atan(Math.Tan(declPlRad) / Math.Cos(mdMcRad));
         double yRad = geoLatRad - xRad;
         double zRad = Math.Atan(Math.Cos(yRad) / (Math.Tan(mdMcRad) * Math.Cos(xRad)));
@@ -158,7 +153,7 @@ public class SpeculumItemRegiomontanus: SpeculumItem
         _pole = MathExtra.RadToDeg(poleRad);
         double adPoleRad = Math.Asin(Math.Tan(declPlRad) * Math.Tan(poleRad));
         _adPole = MathExtra.RadToDeg(adPoleRad);
-        _oadPole = _east ? _raPlanet - _adPole : _raPlanet + _adPole;
+        _oadPole = East ? RaPlanet - _adPole : RaPlanet + _adPole;
 
         // moving point needs additional calculation
     }

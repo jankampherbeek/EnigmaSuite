@@ -6,7 +6,6 @@
 using Enigma.Api.Analysis;
 using Enigma.Api.Astron;
 using Enigma.Api.Calc;
-using Enigma.Api.Calc.CalcChartsRangeApi;
 using Enigma.Api.Communication;
 using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;

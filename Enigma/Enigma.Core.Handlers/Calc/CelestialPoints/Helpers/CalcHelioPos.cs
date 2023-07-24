@@ -9,7 +9,7 @@ using Enigma.Core.Handlers.Calc.Util;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.Specials;
 
-namespace Enigma.Core.Handlers.Calc.Helpers;
+namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
 /// <inheritdoc/>
 public sealed class CalcHelioPos : ICalcHelioPos
@@ -48,7 +48,7 @@ public sealed class CalcHelioPos : ICalcHelioPos
     {
         double xCoord = orbitDefinition.SemiMajorAxis * (Math.Cos(_eccAnomaly) - _eccentricity);
         double yCoord = orbitDefinition.SemiMajorAxis * Math.Sin(_eccAnomaly) * Math.Sqrt(1 - (_eccentricity * _eccentricity));
-        double zCoord = 0.0;
+        const double zCoord = 0.0;
         RectAngCoordinates anomalyVec = new(xCoord, yCoord, zCoord);
         return MathExtra.Rectangular2Polar(anomalyVec);
     }
