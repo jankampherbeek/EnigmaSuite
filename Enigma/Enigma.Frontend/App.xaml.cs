@@ -109,11 +109,10 @@ public partial class App
         serviceCollection.AddTransient<RadixHarmonicsModel>();
         serviceCollection.AddTransient<RadixMidpointsModel>();
         serviceCollection.AddTransient<RadixPositionsModel>();
+        serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
         serviceCollection.AddTransient<ResearchResultController>();
         serviceCollection.AddTransient<ResearchResultWindow>();
-        serviceCollection.AddTransient<SearchChartController>();
-        serviceCollection.AddTransient<SearchChartWindow>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddTransient<StartModel>();
 

@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
+using System.Linq;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Research;
@@ -25,12 +26,12 @@ public class ResearchMainModel
     public List<ProjectItem> GetAllProjectItems()
     {
         List<ProjectItem> projectItems = new();
-        _researchProjects = new();
+        _researchProjects = new List<ResearchProject>();
         List<ResearchProject> allProjects = _projectsOverviewApi.GetDetailsForAllProjects();
         foreach (var project in allProjects)
         {
             _researchProjects.Add(project);
-            projectItems.Add(new ProjectItem() { ProjectName = project.Name, ProjectDescription = project.Description });
+            projectItems.Add(new ProjectItem { ProjectName = project.Name, ProjectDescription = project.Description });
         }
         return projectItems;
     }
@@ -38,17 +39,14 @@ public class ResearchMainModel
     
     public void OpenProject(ProjectItem projectItem)
     {
-
         ResearchProject? currentProject = null;
-        foreach (var project in _researchProjects)
+        // check for null to avoid adding multiple projects to usage window
+        foreach (ResearchProject project in _researchProjects.Where(project => project.Name.Equals(projectItem.ProjectName) && (currentProject is null)))
         {
-            if (project.Name.Equals(projectItem.ProjectName) && (currentProject is null))  // check for null to avoid adding multiple projects to usage window
-            {
-                currentProject = project;
-                ProjectUsageWindow projectUsageWindow = new ProjectUsageWindow();       // todo 0.2 move navigation out of model
-                projectUsageWindow.SetProject(currentProject);
-                projectUsageWindow.ShowDialog();
-            }
+            currentProject = project;
+            ProjectUsageWindow projectUsageWindow = new ProjectUsageWindow();       // todo 0.2 move navigation out of model
+            projectUsageWindow.SetProject(currentProject);
+            projectUsageWindow.ShowDialog();
         }
     }
     
@@ -58,6 +56,6 @@ public class ResearchMainModel
 
 public class ProjectItem
 {
-    public string? ProjectName { get; set; }
-    public string? ProjectDescription { get; set; }
+    public string? ProjectName { get; init; }
+    public string? ProjectDescription { get; init; }
 }

@@ -649,13 +649,5 @@ researchresultwindow.titleoccupiedmidpoints = Occupied midpoints for dial divisi
 researchresultwindow.totalsaspects = Totals of aspects
 researchresultwindow.totalsmidpoints = Totals Occupied midpoints for dial division
 
---------- SearchCriteriaWindow -------------------
-searchchartwindow.btnsearch = Search
-searchchartwindow.colid = Id
-searchchartwindow.colname = Name
-searchchartwindow.coldescription = Description
-searchchartwindow.explanation = Enter a part of the name to search for a chart. Enigma searches for charts that have the text you entered somewhere in the name: at the beginning, the end, or in the middle. The search is case-insensitive. Leave the field empty to find all charts. After searching, click one of the charts to start working on it. 
-searchchartwindow.formtitle = Search for chart
-searchchartwindow.searchresults = Search results
-searchchartwindow.title = Enigma - Search for chart
+
 

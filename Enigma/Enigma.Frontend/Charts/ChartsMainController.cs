@@ -22,6 +22,7 @@ using Enigma.Frontend.Ui.Charts.Progressive.InputPeriod;
 using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Views;
 using JetBrains.Annotations;
+using MaterialDesignThemes.Wpf;
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -34,7 +35,7 @@ public sealed class ChartsMainController
     private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
     private AstroConfigWindow _astroConfigWindow = new();
-    private SearchChartWindow _searchChartWindow = new();
+    //private SearchChartWindow _searchChartWindow = new();
     private ProgInputEvent _inputEventWindow = new();
     private ProgInputPeriod _inputDaterangeWindow = new();
    // private RadixAspectsWindow? _aspectsWindow;
@@ -262,8 +263,8 @@ public sealed class ChartsMainController
 
     public void ShowSearch()
     {
-        _searchChartWindow = new();
-        _searchChartWindow.ShowDialog();
+        RadixSearchWindow window = new();
+        window.ShowDialog();
 
     }
 

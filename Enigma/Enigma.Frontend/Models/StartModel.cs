@@ -18,7 +18,7 @@ namespace Enigma.Frontend.Ui.Models;
 public class StartModel
 {
     
-    public void HandleCheckDirForSettings()        // todo 0.2 move to backend
+    public static void HandleCheckDirForSettings()        // todo 0.2 move to backend
     {
         ApplicationSettings settings = ApplicationSettings.Instance;
         if (!Directory.Exists(settings.LocationEnigmaRoot)) Directory.CreateDirectory(settings.LocationEnigmaRoot);
@@ -29,7 +29,7 @@ public class StartModel
         if (!Directory.Exists(settings.LocationLogFiles)) Directory.CreateDirectory(settings.LocationLogFiles);
     }
 
-    public void HandleCheckForConfig()
+    public static void HandleCheckForConfig()
     {
         bool result = true;
         if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
@@ -41,11 +41,11 @@ public class StartModel
 
         if (result) return;
         const string errorText = "Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk";
-        Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): " + errorText);
+        Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): {EText}", errorText);
         throw new EnigmaException(errorText);
     }
 
-    public void HandleCheckNewVersion()
+    public static void HandleCheckNewVersion()
     {
         ICommunicationApi communicationApi = App.ServiceProvider.GetRequiredService<ICommunicationApi>();
         ReleaseInfo releaseInfo = communicationApi.LatestAvaialableRelease();
@@ -55,15 +55,13 @@ public class StartModel
         }
         else
         {
-            Log.Information("Info about latest release : " + releaseInfo);
-            if (releaseInfo.Version != EnigmaConstants.ENIGMA_VERSION)
-            {
-                Log.Information("New release found, showing downloadpage");
-                HelpWindow helpWindow = new(); 
-                // TODO 0.2 find a solution for the line with releaseinfo
-                // helpWindow.SetExternalPage("https://radixpro.com/rel/releaseinfo.html");
-                helpWindow.ShowDialog();
-            }
+            Log.Information("Info about latest release : {Info}", releaseInfo);
+            if (releaseInfo.Version == EnigmaConstants.ENIGMA_VERSION) return;
+            Log.Information("New release found, showing downloadpage");
+            HelpWindow helpWindow = new(); 
+            // TODO 0.2 find a solution for the line with releaseinfo
+            // helpWindow.SetExternalPage("https://radixpro.com/rel/releaseinfo.html");
+            helpWindow.ShowDialog();
         }
     }
     

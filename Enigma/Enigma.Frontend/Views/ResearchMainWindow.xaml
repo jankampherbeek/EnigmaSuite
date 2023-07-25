@@ -103,7 +103,7 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <materialDesign:ColorZone Grid.Row="3" Grid.Column="1" Padding="4" Mode="Light">
+        <materialDesign:ColorZone Grid.Row="3" Grid.Column="1" Padding="4" Mode="SecondaryMid">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                 <Button Margin="6" Content="Open" HorizontalAlignment="Right" 
                         Command="{Binding OpenProjectCommand}"

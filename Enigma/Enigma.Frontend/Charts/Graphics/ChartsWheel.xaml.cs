@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
@@ -16,10 +17,10 @@ public partial class ChartsWheel
 {
     private readonly ChartsWheelController _controller;
 
-    public ChartsWheel(ChartsWheelController controller)
+    public ChartsWheel()
     {
         InitializeComponent();
-        _controller = controller;
+        _controller = App.ServiceProvider.GetRequiredService<ChartsWheelController>();
     }
 
     public void Populate()

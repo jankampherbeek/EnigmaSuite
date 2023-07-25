@@ -14,14 +14,13 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class StartViewModel: ObservableObject
 {
-    private readonly StartModel _model = App.ServiceProvider.GetRequiredService<StartModel>();
-    
+  
     private void ShowSplashAndFinishView()
     {
         //Show();
-        _model.HandleCheckForConfig();
-        _model.HandleCheckDirForSettings();
-        _model.HandleCheckNewVersion();
+        StartModel.HandleCheckForConfig();
+        StartModel.HandleCheckDirForSettings();
+        StartModel.HandleCheckNewVersion();
         // Hide();
         MainWindow mainWindow = new();              // Todo 0.2 add check for exceptions and show warning to user if an exception occurs.
         mainWindow.ShowDialog();
