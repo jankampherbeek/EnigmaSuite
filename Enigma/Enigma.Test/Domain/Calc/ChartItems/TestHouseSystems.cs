@@ -24,7 +24,7 @@ public class TestHouseSystemSpecifications
             Assert.That(details.NrOfCusps, Is.EqualTo(12));
             Assert.That(details.CounterClockWise, Is.True);
             Assert.That(details.QuadrantSystem, Is.True);
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.housesystemregiomontanus"));
+            Assert.That(details.Text, Is.EqualTo("Regiomontanus"));
         });
     }
 
@@ -35,7 +35,7 @@ public class TestHouseSystemSpecifications
         {
             HouseSystemDetails details = system.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -69,7 +69,7 @@ public class TestHouseSystemSpecifications
             Assert.That(allDetails[8].NrOfCusps, Is.EqualTo(12));
             Assert.That(allDetails[19].NrOfCusps, Is.EqualTo(36));
             Assert.That(allDetails[12].SeId, Is.EqualTo('A'));
-            Assert.That(allDetails[3].TextId, Is.EqualTo("ref.enum.housesystemporphyri"));
+            Assert.That(allDetails[3].Text, Is.EqualTo("Porphyri"));
             Assert.That(allDetails[14].HouseSystem, Is.EqualTo(HouseSystems.EqualAries));
         });
     }

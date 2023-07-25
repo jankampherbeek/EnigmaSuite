@@ -20,7 +20,7 @@ public class TestChartPoints
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Point, Is.EqualTo(point));
             Assert.That(details.PointCat, Is.EqualTo(PointCats.Common));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.celpoint.neptune"));
+            Assert.That(details.Text, Is.EqualTo("Neptune"));
         });
     }
 
@@ -32,7 +32,7 @@ public class TestChartPoints
             if (point == ChartPoints.None) continue;
             PointDetails details = point.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -60,7 +60,7 @@ public class TestChartPoints
             Assert.That(allDetails, Has.Count.EqualTo(92));
 
             Assert.That(allDetails[0].PointCat, Is.EqualTo(PointCats.Common));
-            Assert.That(allDetails[3].TextId, Is.EqualTo("ref.enum.celpoint.venus"));
+            Assert.That(allDetails[3].Text, Is.EqualTo("Venus"));
         });
     }
 }

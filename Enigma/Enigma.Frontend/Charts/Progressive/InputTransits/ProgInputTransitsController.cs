@@ -37,7 +37,7 @@ class ProgInputTransitsController
             if (!currentCpSpec.Value.IsUsed || currentCpSpec.Key.GetDetails().PointCat != PointCats.Common) continue;
             PointDetails cpDetails = currentCpSpec.Key.GetDetails();
             char glyph = currentCpSpec.Value.Glyph;
-            _selCpDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
+            _selCpDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.Text)});
         }
     }
 

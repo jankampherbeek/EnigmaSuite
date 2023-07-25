@@ -6,7 +6,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.State;
@@ -42,8 +41,8 @@ public partial class ResearchMainViewModel: ObservableObject
     [RelayCommand]
     private static void Configuration()
     {
-        AstroConfigWindow astroConfigWindow = new();
-        astroConfigWindow.ShowDialog();
+        ConfigurationWindow configWindow = new();
+        configWindow.ShowDialog();
     }
 
     [RelayCommand]

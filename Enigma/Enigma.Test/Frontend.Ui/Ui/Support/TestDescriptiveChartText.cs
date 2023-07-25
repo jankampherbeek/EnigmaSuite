@@ -47,7 +47,7 @@ public class TestDescriptiveChartText
     [Test]
     public void TestShortDescriptiveText()
     {
-        const string expected = "Some Name, Descriptive text \nAlcabitius Tropical Geocentric Standard (two-dimensional)\n";
+        const string expected = "Some Name, Descriptive text \nAlcabitius Tropical Geocentric Standard (2-dimensional)\n";
         string result = _descriptiveChartText.ShortDescriptiveText(CreateConfig(), CreateMetaData());
         Assert.That(result, Is.EqualTo(expected));
     }
@@ -55,7 +55,7 @@ public class TestDescriptiveChartText
     [Test]
     public void TestLongDescriptiveText()
     {
-        const string expected = "Some Name, Descriptive text \n2023/02/22 18:19:00 Somewhere\nAlcabitius Tropical Geocentric Standard (two-dimensional)\n";
+        const string expected = "Some Name, Descriptive text \n2023/02/22 18:19:00 Somewhere\nAlcabitius Tropical Geocentric Standard (2-dimensional)\n";
         string result = _descriptiveChartText.FullDescriptiveText(CreateConfig(), CreateChartData());
         Assert.That(result, Is.EqualTo(expected));
     }

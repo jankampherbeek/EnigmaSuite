@@ -240,8 +240,8 @@ public class ResearchResultController
                 for (int j = i + 1; j < qualifiedResponse.PointsUsed.Count; j++)
                 {
                     detailLine = new();
-                    detailLine.Append(Rosetta.TextForId(qualifiedResponse.PointsUsed[i].GetDetails().TextId).PadRight(25));
-                    detailLine.Append(Rosetta.TextForId(qualifiedResponse.PointsUsed[j].GetDetails().TextId).PadRight(25));
+                    detailLine.Append(Rosetta.TextForId(qualifiedResponse.PointsUsed[i].GetDetails().Text).PadRight(25));
+                    detailLine.Append(Rosetta.TextForId(qualifiedResponse.PointsUsed[j].GetDetails().Text).PadRight(25));
                     for (int k = 0; k < qualifiedResponse.AspectsUsed.Count; k++)
                     {
                         detailLine.Append((allCounts[i, j, k].ToString() + spaces)[..7]);
@@ -282,7 +282,7 @@ public class ResearchResultController
             resultData.AppendLine(separatorLine);
             foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
             {
-                resultData.AppendLine((Rosetta.TextForId(simpleCount.Point.GetDetails().TextId) + spaces)[..20] + simpleCount.Count.ToString());
+                resultData.AppendLine((Rosetta.TextForId(simpleCount.Point.GetDetails().Text) + spaces)[..20] + simpleCount.Count.ToString());
             }
         }
         else
@@ -310,9 +310,9 @@ public class ResearchResultController
                 {
                     if (midpoint.Value > 0)
                     {
-                        string firstPointName = Rosetta.TextForId(midpoint.Key.FirstPoint.GetDetails().TextId);
-                        string secondPointName = Rosetta.TextForId(midpoint.Key.SecondPoint.GetDetails().TextId);
-                        string occPointName = Rosetta.TextForId(midpoint.Key.OccupyingPoint.GetDetails().TextId);
+                        string firstPointName = Rosetta.TextForId(midpoint.Key.FirstPoint.GetDetails().Text);
+                        string secondPointName = Rosetta.TextForId(midpoint.Key.SecondPoint.GetDetails().Text);
+                        string occPointName = Rosetta.TextForId(midpoint.Key.OccupyingPoint.GetDetails().Text);
                         string midpointCount = midpoint.Value.ToString();
                         resultData.AppendLine((firstPointName + spaces)[..20] + " / " + (secondPointName + spaces)[..20] + " = " + (occPointName + spaces)[..20] + " " + midpointCount);
                     }
@@ -351,8 +351,8 @@ public class ResearchResultController
                 {
                     if (harmConj.Value > 0)
                     {
-                        string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().TextId);
-                        string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().TextId);
+                        string firstPointName = Rosetta.TextForId(harmConj.Key.Point.GetDetails().Text);
+                        string secondPointName = Rosetta.TextForId(harmConj.Key.Point2.GetDetails().Text);
                         string harmonicCount = harmConj.Value.ToString();
                         resultData.AppendLine((Rosetta.TextForId("researchresultwindow.posharmonic") + " " + firstPointName + spaces)[..20] + " / "
                             + (Rosetta.TextForId("researchresultwindow.posradix") + " " + secondPointName + spaces)[..20] + " " + harmonicCount);

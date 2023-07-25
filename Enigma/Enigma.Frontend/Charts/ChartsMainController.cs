@@ -10,19 +10,15 @@ using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Charts.Progressive;
 using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
-using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
 using Enigma.Frontend.Ui.Charts.Progressive.InputEvent;
 using Enigma.Frontend.Ui.Charts.Progressive.InputPeriod;
-using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Views;
-using JetBrains.Annotations;
-using MaterialDesignThemes.Wpf;
+
 
 namespace Enigma.Frontend.Ui.Charts;
 
@@ -34,7 +30,7 @@ public sealed class ChartsMainController
  //   private ChartHarmonicsWindow? _chartHarmonicsWindow;
     private readonly List<Window> _openWindows = new();
     private readonly DataVault _dataVault = DataVault.Instance;
-    private AstroConfigWindow _astroConfigWindow = new();
+ //   private AstroConfigWindow _astroConfigWindow = new();
     //private SearchChartWindow _searchChartWindow = new();
     private ProgInputEvent _inputEventWindow = new();
     private ProgInputPeriod _inputDaterangeWindow = new();
@@ -63,11 +59,8 @@ public sealed class ChartsMainController
 
     public void ShowAstroConfig()
     {
-        if (!_astroConfigWindow.IsLoaded)
-        {
-            _astroConfigWindow = new();
-        }
-        _astroConfigWindow.ShowDialog();
+        ConfigurationWindow window = new();
+        window.ShowDialog();
     }
 
     public void NewChart()

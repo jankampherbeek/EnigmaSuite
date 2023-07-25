@@ -837,9 +837,6 @@
     <Page Update="Research\DataFiles\DataFilesImportWindow.xaml">
       <Generator></Generator>
     </Page>
-    <Page Update="Configuration\AstroConfigWindow.xaml">
-      <Generator></Generator>
-    </Page>
     <Page Update="Views\AppSettingsWindow.xaml">
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>

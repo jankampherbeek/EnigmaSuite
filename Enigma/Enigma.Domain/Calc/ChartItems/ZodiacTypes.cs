@@ -14,11 +14,11 @@ public enum ZodiacTypes
     Sidereal = 0, Tropical = 1
 }
 
-/// <summary>Details for a zodiac Type.</summary>
-/// <param name="Type">The zodiac Type.</param>
-/// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record ZodiacTypeDetails(ZodiacTypes Type, int ValueForFlag, string TextId);
+/// <summary>Details for a zodiac Type</summary>
+/// <param name="Type">The zodiac Type</param>
+/// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris</param>
+/// <param name="Text">Descriptive text</param>
+public record ZodiacTypeDetails(ZodiacTypes Type, int ValueForFlag, string Text);
 
 /// <summary>Extension class for enum ZodiacTypes.</summary>
 public static class ZodiacTypeExtensions
@@ -31,8 +31,8 @@ public static class ZodiacTypeExtensions
         return zType switch
         {
             // No specific flag for tropical.
-            ZodiacTypes.Tropical => new ZodiacTypeDetails(zType, 0, "ref.enum.zodiactype.tropical"),
-            ZodiacTypes.Sidereal => new ZodiacTypeDetails(zType, EnigmaConstants.SEFLG_SIDEREAL, "ref.enum.zodiactype.sidereal"),
+            ZodiacTypes.Tropical => new ZodiacTypeDetails(zType, 0, "Tropical"),
+            ZodiacTypes.Sidereal => new ZodiacTypeDetails(zType, EnigmaConstants.SEFLG_SIDEREAL, "Sidereal"),
             _ => throw new ArgumentException("Zodiactype unknown" + ": " + zType)
         };
     }

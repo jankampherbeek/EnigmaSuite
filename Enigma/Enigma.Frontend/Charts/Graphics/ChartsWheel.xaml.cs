@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Support;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -13,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
+/// <summary>View for chart wheel</summary>
+/// <remarks>Still using MVC instead of MVVM for this view as binding multiple visuals with a canvas is rather challenging</remarks>
 public partial class ChartsWheel
 {
     private readonly ChartsWheelController _controller;
@@ -38,9 +39,6 @@ public partial class ChartsWheel
     private void PopulateTexts()
     {
         TbDetails.Text = _controller.DescriptiveText();
-        Title = Rosetta.TextForId("charts.wheel.title");
-        BtnClose.Content = Rosetta.TextForId("common.btnclose");
-        BtnHelp.Content = Rosetta.TextForId("common.btnhelp");
     }
 
     private void DrawChartFrame()

@@ -7,8 +7,6 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Support;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -18,6 +16,8 @@ using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Charts.Graphics;
 
+/// <summary>Controller for charts wheel view</summary>
+/// <remarks>This view uses MVC instead of MVVM</remarks>
 public sealed class ChartsWheelController
 {
 

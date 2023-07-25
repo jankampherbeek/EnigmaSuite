@@ -14,8 +14,8 @@ public enum OrbMethods
 
 /// <summary>Details for an orb orbMethod.</summary>
 /// <param name="OrbMethod">The orb orbMethod.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record OrbMethodDetails(OrbMethods OrbMethod, string TextId);
+/// <param name="Text">Descriptive text.</param>
+public record OrbMethodDetails(OrbMethods OrbMethod, string Text);
 
 
 public static class OrbMethodsExtensions
@@ -28,8 +28,8 @@ public static class OrbMethodsExtensions
         return orbMethod switch
         {
        //     OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
-            OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.weighted"),
-            _ => throw new ArgumentException("OrbMethod unknown : " + orbMethod.ToString())
+            OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "Weighted"),
+            _ => throw new ArgumentException("OrbMethod unknown : " + orbMethod)
         };
     }
 
@@ -47,6 +47,7 @@ public static class OrbMethodsExtensions
 
 
     /// <summary>Find orb method for an index.</summary>
+    /// <param name="_">Any orb method.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The orb method for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
@@ -56,7 +57,7 @@ public static class OrbMethodsExtensions
         {
             if ((int)currentMethod == index) return currentMethod;
         }
-        throw new ArgumentException("Could not find Orb Method for index : " + index);
+        throw new ArgumentException("Could not find Orb Method.");
     }
 
 }

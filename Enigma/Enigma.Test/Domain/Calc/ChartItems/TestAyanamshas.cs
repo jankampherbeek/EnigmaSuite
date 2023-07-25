@@ -23,7 +23,7 @@ public class TestAyanamshaSpecifications
         {
             Assert.That(details.Ayanamsha, Is.EqualTo(Ayanamshas.Huber));
             Assert.That(details.SeId, Is.EqualTo(12));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.ayanamsha.huber"));
+            Assert.That(details.Text, Is.EqualTo("Huber"));
         });
     }
 
@@ -35,7 +35,7 @@ public class TestAyanamshaSpecifications
         {
             AyanamshaDetails details = ayanamsha.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -64,7 +64,7 @@ public class TestAyanamshaSpecifications
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(41));
-            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.ayanamsha.none"));
+            Assert.That(allDetails[0].Text, Is.EqualTo("None (Tropical zodiac)"));
             Assert.That(allDetails[10].SeId, Is.EqualTo(9));
             Assert.That(allDetails[20].Ayanamsha, Is.EqualTo(Ayanamshas.J1900));
         });

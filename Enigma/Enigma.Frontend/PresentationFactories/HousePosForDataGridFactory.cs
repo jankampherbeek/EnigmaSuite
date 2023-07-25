@@ -3,11 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 
@@ -32,12 +30,12 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
         };
         if (positions.ContainsKey(ChartPoints.Vertex))
         {
-            string descr = Rosetta.TextForId(ChartPoints.Vertex.GetDetails().TextId);
+            string descr = ChartPoints.Vertex.GetDetails().Text;
             presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.Vertex]));
         }
         if (positions.ContainsKey(ChartPoints.EastPoint))
         {
-            string descr = Rosetta.TextForId(ChartPoints.EastPoint.GetDetails().TextId);
+            string descr = ChartPoints.EastPoint.GetDetails().Text;
             presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.EastPoint]));
         }
 
@@ -46,7 +44,7 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
         {
             if (item.Key.GetDetails().PointCat == PointCats.Cusp)
             {
-                string descr = Rosetta.TextForId(item.Key.GetDetails().TextId);
+                string descr = item.Key.GetDetails().Text;
                 presPositions.Add(CreateSingleCuspPos(descr, item.Value));
             }
         }

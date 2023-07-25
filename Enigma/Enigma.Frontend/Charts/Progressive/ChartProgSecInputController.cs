@@ -42,7 +42,7 @@ class ChartProgSecInputController
             if (currentCPSpec.Value.IsUsed && currentCPSpec.Key.GetDetails().PointCat == PointCats.Common) {             
                 PointDetails cpDetails = currentCPSpec.Key.GetDetails();
                 char glyph = currentCPSpec.Value.Glyph;
-                _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
+                _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.Text) });
             }
         }
     }
@@ -57,7 +57,7 @@ class ChartProgSecInputController
             {
                 AspectDetails aspectDetails = currentAspectSpec.Key.GetDetails();
                 char glyph = currentAspectSpec.Value.Glyph;
-                _selAspectDetails.Add(new SelectableAspectDetails() { Aspect = aspectDetails.Aspect, Glyph = glyph, Name = Rosetta.TextForId(aspectDetails.TextId) });
+                _selAspectDetails.Add(new SelectableAspectDetails() { Aspect = aspectDetails.Aspect, Glyph = glyph, Name = Rosetta.TextForId(aspectDetails.Text) });
             }
         }
     }

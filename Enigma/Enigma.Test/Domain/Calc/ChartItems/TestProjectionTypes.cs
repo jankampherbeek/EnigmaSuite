@@ -19,7 +19,7 @@ public class TestProjectionTypes
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.ProjectionType, Is.EqualTo(ProjectionTypes.ObliqueLongitude));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.projectiontype.obliquelongitude"));
+            Assert.That(details.Text, Is.EqualTo("Oblique Longitude"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestProjectionTypes
         {
             ProjectionTypeDetails details = projType.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -60,7 +60,7 @@ public class TestProjectionTypes
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].ProjectionType, Is.EqualTo(ProjectionTypes.TwoDimensional));
             Assert.That(allDetails[1].ProjectionType, Is.EqualTo(ProjectionTypes.ObliqueLongitude));
-            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.projectiontype.twodimensional"));
+            Assert.That(allDetails[0].Text, Is.EqualTo("Standard (2-dimensional)"));
         });
     }
 }

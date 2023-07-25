@@ -57,7 +57,7 @@ public sealed class PointSelectController
             {
                 PointDetails cpDetails = currentCPSpec.Key.GetDetails();
                 char glyph = currentCPSpec.Value.Glyph;
-                _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.TextId) });
+                _selCPDetails.Add(new SelectableChartPointDetails() { ChartPoint = cpDetails.Point, Glyph = glyph, Name = Rosetta.TextForId(cpDetails.Text) });
             }
         }
     }

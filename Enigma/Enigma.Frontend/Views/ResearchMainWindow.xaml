@@ -21,8 +21,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="28*"/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="75*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="220"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
@@ -85,8 +85,8 @@
                        Text="Enigma Research"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
         </materialDesign:ColorZone>
-        <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" TextWrapping="Wrap"  
-                   Text="Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project."/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap"  
+                       Text="Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project."/>            
         <ListBox Grid.Row="3" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableProjects}"
                  SelectedIndex="{Binding ProjectIndex, Mode=TwoWay}">
@@ -103,11 +103,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <materialDesign:ColorZone Grid.Row="3" Grid.Column="1" Padding="4" Mode="SecondaryMid">
+        <materialDesign:ColorZone Grid.Row="3" Grid.Column="1" Padding="4" Mode="SecondaryMid" Height="220">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
                 <Button Margin="6" Content="Open" HorizontalAlignment="Right" 
-                        Command="{Binding OpenProjectCommand}"
-                        />
+                        Command="{Binding OpenProjectCommand}"/>
                 <Button Margin="6" Content="New" HorizontalAlignment="Right" 
                         Command="{Binding NewProjectCommand}"/>
             </StackPanel>

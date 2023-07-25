@@ -7,16 +7,17 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class RadixSearchWindow
+/// <summary>View for configuration</summary>
+public partial class ConfigurationWindow
 {
-    public RadixSearchWindow()
+    public ConfigurationWindow()
     {
         InitializeComponent();
     }
     
-        
     private void CloseClick(object sender, RoutedEventArgs e)
     {
         Close();
     }
+    
 }

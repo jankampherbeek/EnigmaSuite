@@ -17,11 +17,9 @@ using Enigma.Frontend.Ui.Charts.Progressive;
 using Enigma.Frontend.Ui.Charts.Progressive.InputEvent;
 using Enigma.Frontend.Ui.Charts.Progressive.InputPeriod;
 using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
-using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Research;
-using Enigma.Frontend.Ui.Research.DataFiles;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,8 +27,6 @@ using Serilog;
 using System.Windows;
 using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.ViewModels;
-using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui;
 
@@ -59,8 +55,6 @@ public partial class App
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
-        serviceCollection.AddTransient<AstroConfigController>();
-        serviceCollection.AddTransient<AstroConfigWindow>();
         serviceCollection.AddTransient<CalYearCountController>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
@@ -78,6 +72,7 @@ public partial class App
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
+        serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();

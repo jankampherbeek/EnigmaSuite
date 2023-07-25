@@ -32,7 +32,7 @@ public class DescriptiveChartText : IDescriptiveChartText
         constructedText.Append(' ');
         constructedText.Append(chartData.FullDateTime.TimeText);
         constructedText.Append(' ');
-        constructedText.Append(chartData.Location.LocationFullName.Replace("[N]", Rosetta.TextForId("")).Replace("[S]", Rosetta.TextForId("")).Replace("[E]", Rosetta.TextForId("")).Replace("[W]", Rosetta.TextForId("")));
+        constructedText.Append(chartData.Location.LocationFullName.Replace("[N]", "Unknown").Replace("[S]", "Unknnown").Replace("[E]", "Unknown")).Replace("[W]", "Unknown");
         constructedText.Append('\n');
         constructedText.Append(ConfigText(config));
         return constructedText.ToString();
@@ -51,18 +51,18 @@ public class DescriptiveChartText : IDescriptiveChartText
     private static string ConfigText(AstroConfig config)
     {
         StringBuilder constructedText = new();
-        constructedText.Append(Rosetta.TextForId(config.HouseSystem.GetDetails().TextId));
+        constructedText.Append(config.HouseSystem.GetDetails().Text);
         constructedText.Append(' ');
-        constructedText.Append(Rosetta.TextForId(config.ZodiacType.GetDetails().TextId));
+        constructedText.Append(config.ZodiacType.GetDetails().Text);
         constructedText.Append(' ');
         if (config.ZodiacType == ZodiacTypes.Sidereal)
         {
-            constructedText.Append(Rosetta.TextForId(config.Ayanamsha.GetDetails().TextId));
+            constructedText.Append(config.Ayanamsha.GetDetails().Text);
             constructedText.Append(' ');
         }
-        constructedText.Append(Rosetta.TextForId(config.ObserverPosition.GetDetails().TextId));
+        constructedText.Append(config.ObserverPosition.GetDetails().Text);
         constructedText.Append(' ');
-        constructedText.Append(Rosetta.TextForId(config.ProjectionType.GetDetails().TextId));
+        constructedText.Append(config.ProjectionType.GetDetails().Text);
         return constructedText + "\n";
     }
 }

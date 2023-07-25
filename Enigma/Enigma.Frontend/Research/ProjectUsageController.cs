@@ -9,14 +9,11 @@ using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Configuration;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
-using System.Windows;
 using Enigma.Frontend.Ui.Views;
-using static Enigma.Frontend.Ui.Research.PointSelectController;
 
 namespace Enigma.Frontend.Ui.Research;
 
@@ -194,7 +191,7 @@ public class ProjectUsageController
 
     public void ShowConfig()
     {
-        AstroConfigWindow configWindow = App.ServiceProvider.GetRequiredService<AstroConfigWindow>();
+        ConfigurationWindow configWindow = App.ServiceProvider.GetRequiredService<ConfigurationWindow>();
         configWindow.ShowDialog();
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
     }

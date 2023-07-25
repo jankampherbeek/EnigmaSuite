@@ -43,9 +43,9 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
         char point1Glyph = _glyphsForChartPoints.FindGlyph(effAspect.Point1);
         char point2Glyph = _glyphsForChartPoints.FindGlyph(effAspect.Point2);
         char aspectGlyph = effAspect.Aspect.Glyph;
-        string point1Text = Rosetta.TextForId(effAspect.Point1.GetDetails().TextId);
-        string point2Text = Rosetta.TextForId(effAspect.Point2.GetDetails().TextId);
-        string aspectText = Rosetta.TextForId(effAspect.Aspect.TextId);
+        string point1Text = Rosetta.TextForId(effAspect.Point1.GetDetails().Text);
+        string point2Text = Rosetta.TextForId(effAspect.Point2.GetDetails().Text);
+        string aspectText = Rosetta.TextForId(effAspect.Aspect.Text);
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.ActualOrb);
         double exactnessValue = 100 - (effAspect.ActualOrb / effAspect.MaxOrb * 100);
         string exactness = string.Format("{0:N}", exactnessValue).Replace(",", ".");

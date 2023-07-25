@@ -1,0 +1,165 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.ConfigurationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Configuration" Height="720" Width="420">
+    <Window.Resources>
+        <viewModels:ConfigurationViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="70*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Padding="16" Mode="PrimaryMid">
+            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Standard Configuration"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        </materialDesign:ColorZone>
+        <TabControl Grid.Row="1">
+            <TabItem Header="General">
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="6" Text="General selections" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                    <ComboBox Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="House system"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllHouses}" 
+                              SelectedIndex="{Binding HouseIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Row="2" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Type of zodiac"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllZodiacTypes}" 
+                              SelectedIndex="{Binding ZodiacTypeIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Row="3" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Ayanamsha"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllAyanamshas}" 
+                              SelectedIndex="{Binding AyanamshaIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Row="4" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Observer position"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllObserverPositions}" 
+                              SelectedIndex="{Binding ObserverPositionIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Row="5" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Projection type"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllProjectionTypes}" 
+                              SelectedIndex="{Binding ProjectionTypeIndex, Mode=TwoWay}" />
+                    <TextBox Grid.Row="6" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Base orb for aspects"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Background="{Binding BaseOrbAspectsValid}"
+                             Text="{Binding BaseOrbAspectsText, Mode=TwoWay}" />   
+                    <TextBox Grid.Row="7" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Base orb for midpoints"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Background="{Binding BaseOrbMidpointsValid}"
+                             Text="{Binding BaseOrbMidpointsText, Mode=TwoWay}" /> 
+                </Grid>
+            </TabItem>
+            <TabItem Header="Points">
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="90*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="6" Text="Celestial points" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+ 
+                    <DataGrid Grid.Row="1" Margin="6" HorizontalAlignment="Left"
+                              materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="All"
+                              ItemsSource="{Binding AllGeneralPoints}"
+                              SelectionUnit="FullRow">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"></DataGridCheckBoxColumn>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding PointName}" Header="Celestial and other points" CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <materialDesign:DataGridTextColumn Binding="{Binding OrbPercentage}"  
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                               Header="Orb%" IsReadOnly="False"/>
+                        </DataGrid.Columns>   
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Aspects">
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="6" Text="Aspects" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                    <ComboBox Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Orb method"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllOrbMethods}" 
+                              SelectedIndex="{Binding OrbMethodIndex, Mode=TwoWay}" />
+                    <CheckBox Grid.Row="2" VerticalAlignment="Center" IsTabStop="False" Content="Aspects to cusps"  
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              IsChecked="{Binding ApplyAspectsToCusps}" />
+         
+                    <DataGrid Grid.Row="3" Margin="6" HorizontalAlignment="Left"
+                              materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="All"
+                              ItemsSource="{Binding AllAspects}"
+                              SelectionUnit="FullRow">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"></DataGridCheckBoxColumn>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding AspectName}" Header="Name and size of aspect" CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <materialDesign:DataGridTextColumn Binding="{Binding OrbPercentage}"  
+                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                               Header="Orb%" IsReadOnly="False"/>
+                        </DataGrid.Columns>   
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
+            <Button Margin="6" Content="Ok" HorizontalAlignment="Right" 
+                    Command="{Binding SaveConfigCommand}" Click="CloseClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

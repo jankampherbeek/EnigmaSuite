@@ -33,7 +33,7 @@
                            Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
             </materialDesign:ColorZone>
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Astrology Research" HorizontalAlignment="Center" 
-                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap"/>
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" FontWeight="Bold" TextWrapping="Wrap"/>
            
             <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ChartsModuleCommand}" >

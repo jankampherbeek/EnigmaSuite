@@ -29,9 +29,9 @@ public class TestDateValidator
         {
             Assert.That(result, Is.True);
             Assert.That(fullDate, Is.Not.Null);
-            Assert.That(year, Is.EqualTo(fullDate!.YearMonthDay[0]));
-            Assert.That(month, Is.EqualTo(fullDate.YearMonthDay[1]));
-            Assert.That(day, Is.EqualTo(fullDate.YearMonthDay[2]));
+            Assert.That(fullDate!.YearMonthDay[0], Is.EqualTo(year));
+            Assert.That(fullDate.YearMonthDay[1], Is.EqualTo(month));
+            Assert.That(fullDate.YearMonthDay[2], Is.EqualTo(day));
         });
     }
 

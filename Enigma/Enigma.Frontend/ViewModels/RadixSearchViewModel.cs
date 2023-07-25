@@ -18,12 +18,12 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class RadixSearchViewModel: ObservableObject
 {
     
-    private RadixSearchModel _model = App.ServiceProvider.GetRequiredService<RadixSearchModel>();
+    private readonly RadixSearchModel _model = App.ServiceProvider.GetRequiredService<RadixSearchModel>();
     
     [ObservableProperty] private string _searchArgument = "";
     [NotifyCanExecuteChangedFor(nameof(SelectCommand))]
     [ObservableProperty] private int _chartIndex = -1;
-    [ObservableProperty] private ObservableCollection<PersistableChartData> _chartsFound;
+    [ObservableProperty] private ObservableCollection<PersistableChartData>? _chartsFound;
 
 
     [RelayCommand]

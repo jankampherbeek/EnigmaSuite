@@ -23,7 +23,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
-            <RowDefinition Height="24*"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="40*"/>
@@ -34,11 +34,9 @@
                        Text="Search for chart"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
         </materialDesign:ColorZone>
-        <materialDesign:ColorZone Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="16" Mode="SecondaryMid">
-        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="6" TextWrapping="Wrap"
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" TextWrapping="Wrap"
                    Text="Enter a part of the name to search for a chart. The search is case-insensitive. Leave the field empty to find all charts. Click one of the charts and the button 'Select' to start working on it. "/>
-        </materialDesign:ColorZone>
-   <TextBox Grid.Column="0" Grid.Row="2" Margin="6" VerticalAlignment="Center"  
+        <TextBox Grid.Column="0" Grid.Row="2" Margin="6" VerticalAlignment="Center"  
                  materialDesign:HintAssist.Hint="Search argument"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding SearchArgument, Mode=TwoWay}" />

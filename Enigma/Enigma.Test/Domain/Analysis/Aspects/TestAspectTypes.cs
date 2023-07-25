@@ -31,12 +31,9 @@ public class TestAspectTypes
     {
         foreach (AspectTypes aspectType in Enum.GetValues(typeof(AspectTypes)))
         {
-            if (aspectType != AspectTypes.None)
-            {
-                AspectDetails details = aspectType.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            AspectDetails details = aspectType.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 

@@ -15,19 +15,19 @@ public enum HouseSystems
 {
     NoHouses = 0, Placidus = 1, Koch = 2, Porphyri = 3, Regiomontanus = 4, Campanus = 5, Alcabitius = 6, TopoCentric = 7, Krusinski = 8, Apc = 9, Morin = 10,
     WholeSign = 11, EqualAsc = 12, EqualMc = 13, EqualAries = 14, Vehlow = 15, Axial = 16, Horizon = 17, Carter = 18, Gauquelin = 19, SunShine = 20, SunShineTreindl = 21,
-    PullenSD = 22, PullenSR = 23, Sripati = 24
+    PullenSd = 22, PullenSr = 23, Sripati = 24
 
 }
 
-/// <summary>Details for a house system.</summary>
-/// <param name="HouseSystem">The house system.</param>
-/// <param name="SeSupported">True if the house system is supported by the Swiss Ephyemeris.</param>
-/// <param name="SeId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored.</param>
-/// <param name="NrOfCusps">Number of cusps for this house system.</param>
-/// <param name="CounterClockWise">True if the cusps are counterclockwise, otherwise false.</param>
-/// <param name="QuadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10).</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record HouseSystemDetails(HouseSystems HouseSystem, bool SeSupported, char SeId, int NrOfCusps, bool CounterClockWise, bool QuadrantSystem, string TextId);
+/// <summary>Details for a house system</summary>
+/// <param name="HouseSystem">The house system</param>
+/// <param name="SeSupported">True if the house system is supported by the Swiss Ephemeris</param>
+/// <param name="SeId">A character that identifies the house system for the Swiss Ephemeris. If SeSuported = false, SeId will have the value 0 and is ignored</param>
+/// <param name="NrOfCusps">Number of cusps for this house system</param>
+/// <param name="CounterClockWise">True if the cusps are counterclockwise, otherwise false</param>
+/// <param name="QuadrantSystem">True if the system is a quadrant system (Asc. = cusp 1, MC = cusp 10)</param>
+/// <param name="Text">Name of the house system</param>
+public record HouseSystemDetails(HouseSystems HouseSystem, bool SeSupported, char SeId, int NrOfCusps, bool CounterClockWise, bool QuadrantSystem, string Text);
 
 
 /// <summary>Extension class for the enum HouseSystems.</summary>
@@ -40,35 +40,38 @@ public static class HouseSystemsExtensions
     {
         return system switch
         {
-            HouseSystems.NoHouses => new HouseSystemDetails(system, true, 'W', 0, false, false, "ref.enum.housesystemnohouses"),
-            HouseSystems.Placidus => new HouseSystemDetails(system, true, 'P', 12, true, true, "ref.enum.housesystemplacidus"),
-            HouseSystems.Koch => new HouseSystemDetails(system, true, 'K', 12, true, true, "ref.enum.housesystemkoch"),
-            HouseSystems.Porphyri => new HouseSystemDetails(system, true, 'O', 12, true, true, "ref.enum.housesystemporphyri"),
-            HouseSystems.Regiomontanus => new HouseSystemDetails(system, true, 'R', 12, true, true, "ref.enum.housesystemregiomontanus"),
-            HouseSystems.Campanus => new HouseSystemDetails(system, true, 'C', 12, true, true, "ref.enum.housesystemcampanus"),
-            HouseSystems.Alcabitius => new HouseSystemDetails(system, true, 'B', 12, true, true, "ref.enum.housesystemalcabitius"),
-            HouseSystems.TopoCentric => new HouseSystemDetails(system, true, 'T', 12, true, true, "ref.enum.housesystemtopocentric"),
-            HouseSystems.Krusinski => new HouseSystemDetails(system, true, 'U', 12, true, true, "ref.enum.housesystemkrusinski"),
-            HouseSystems.Apc => new HouseSystemDetails(system, true, 'Y', 12, true, true, "ref.enum.housesystemapc"),
-            HouseSystems.Morin => new HouseSystemDetails(system, true, 'M', 12, true, false, "ref.enum.housesystemmorin"),
-            HouseSystems.WholeSign => new HouseSystemDetails(system, true, 'W', 12, true, false, "ref.enum.housesystemwholesign"),
-            HouseSystems.EqualAsc => new HouseSystemDetails(system, true, 'A', 12, true, false, "ref.enum.housesystemequalasc"),
-            HouseSystems.EqualMc => new HouseSystemDetails(system, true, 'D', 12, true, false, "ref.enum.housesystemequalmc"),
-            HouseSystems.EqualAries => new HouseSystemDetails(system, true, 'N', 12, true, false, "ref.enum.housesystemequalaries"),
-            HouseSystems.Vehlow => new HouseSystemDetails(system, true, 'V', 12, true, false, "ref.enum.housesystemvehlow"),
-            HouseSystems.Axial => new HouseSystemDetails(system, true, 'X', 12, true, false, "ref.enum.housesystemaxial"),
-            HouseSystems.Horizon => new HouseSystemDetails(system, true, 'H', 12, true, false, "ref.enum.housesystemhorizon"),
-            HouseSystems.Carter => new HouseSystemDetails(system, true, 'F', 12, true, false, "ref.enum.housesystemcarter"),
-            HouseSystems.Gauquelin => new HouseSystemDetails(system, true, 'G', 36, true, false, "ref.enum.housesystemgauquelin"),
-            HouseSystems.SunShine => new HouseSystemDetails(system, true, 'i', 12, true, false, "ref.enum.housesystemsunshine"),
-            HouseSystems.SunShineTreindl => new HouseSystemDetails(system, true, 'I', 12, true, false, "ref.enum.housesystemsunshinetreindl"),
-            HouseSystems.PullenSD => new HouseSystemDetails(system, true, 'L', 12, true, true, "ref.enum.housesystempullensd"),
-            HouseSystems.PullenSR => new HouseSystemDetails(system, true, 'Q', 12, true, true, "ref.enum.housesystempullensr"),
-            HouseSystems.Sripati => new HouseSystemDetails(system, true, 'S', 12, true, false, "ref.enum.housesystemsripati"),
-            _ => new HouseSystemDetails(system, true, 'W', 0, false, false, "ref.enum.housesystemnohouses")
+            HouseSystems.NoHouses => new HouseSystemDetails(system, true, 'W', 0, false, false, "None"),
+            HouseSystems.Placidus => new HouseSystemDetails(system, true, 'P', 12, true, true, "Placidus"),
+            HouseSystems.Koch => new HouseSystemDetails(system, true, 'K', 12, true, true, "Koch"),
+            HouseSystems.Porphyri => new HouseSystemDetails(system, true, 'O', 12, true, true, "Porphyri"),
+            HouseSystems.Regiomontanus => new HouseSystemDetails(system, true, 'R', 12, true, true, "Regiomontanus"),
+            HouseSystems.Campanus => new HouseSystemDetails(system, true, 'C', 12, true, true, "Campanus"),
+            HouseSystems.Alcabitius => new HouseSystemDetails(system, true, 'B', 12, true, true, "Alcabitius"),
+            HouseSystems.TopoCentric => new HouseSystemDetails(system, true, 'T', 12, true, true, "Topocentric"),
+            HouseSystems.Krusinski => new HouseSystemDetails(system, true, 'U', 12, true, true, "Krusinski"),
+            HouseSystems.Apc => new HouseSystemDetails(system, true, 'Y', 12, true, true, "APC"),
+            HouseSystems.Morin => new HouseSystemDetails(system, true, 'M', 12, true, false, "Morin"),
+            HouseSystems.WholeSign => new HouseSystemDetails(system, true, 'W', 12, true, false, "Whole sign houses"),
+            HouseSystems.EqualAsc => new HouseSystemDetails(system, true, 'A', 12, true, false, "Equal from Ascendant"),
+            HouseSystems.EqualMc => new HouseSystemDetails(system, true, 'D', 12, true, false, "Equal from MC"),
+            HouseSystems.EqualAries => new HouseSystemDetails(system, true, 'N', 12, true, false, "Equal from 0 Aries"),
+            HouseSystems.Vehlow => new HouseSystemDetails(system, true, 'V', 12, true, false, "Vehlow"),
+            HouseSystems.Axial => new HouseSystemDetails(system, true, 'X', 12, true, false, "Axial rotation"),
+            HouseSystems.Horizon => new HouseSystemDetails(system, true, 'H', 12, true, false, "Horizon"),
+            HouseSystems.Carter => new HouseSystemDetails(system, true, 'F', 12, true, false, "Carter"),
+            HouseSystems.Gauquelin => new HouseSystemDetails(system, true, 'G', 36, true, false, "Gauquelin"),
+            HouseSystems.SunShine => new HouseSystemDetails(system, true, 'i', 12, true, false, "Sunshine"),
+            HouseSystems.SunShineTreindl => new HouseSystemDetails(system, true, 'I', 12, true, false, "Sunshine (Treindl)"),
+            HouseSystems.PullenSd => new HouseSystemDetails(system, true, 'L', 12, true, true, "Pullen (sinusoidal delta)"),
+            HouseSystems.PullenSr => new HouseSystemDetails(system, true, 'Q', 12, true, true, "Pullen (sinusoidal ratio)"),
+            HouseSystems.Sripati => new HouseSystemDetails(system, true, 'S', 12, true, false, "Sripati"),
+            _ => new HouseSystemDetails(system, true, 'W', 0, false, false, "None")
         };
     }
 
+    
+    
+    
     /// <summary>Find house system for a given index.</summary>
     /// <param name="index">The index.</param>
     /// <returns>The house system</returns>
