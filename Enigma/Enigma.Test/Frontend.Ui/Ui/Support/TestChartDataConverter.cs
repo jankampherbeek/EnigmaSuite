@@ -17,7 +17,7 @@ namespace Enigma.Test.Frontend.Ui.Ui.Support;
 public class TestChartDataConverter
 {
     private const double Delta = 0.00000001;
-    private IChartDataConverter _chartDataConverter;
+    private IChartDataConverter? _chartDataConverter;
     private const string Name = "Chart Name";
     private const string Description = "Chart Description";
     private const string Source = "Chart Source";

@@ -30,19 +30,17 @@ public class TestPrimarySystemSpecifications
     {
         foreach (PrimarySystems prSys in Enum.GetValues(typeof(PrimarySystems)))
         {
-            if (prSys != PrimarySystems.None)
-            {
-                PrimarySystemDetails details = prSys.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            if (prSys == PrimarySystems.None) continue;
+            PrimarySystemDetails details = prSys.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 3;
+        const int index = 3;
         PrimarySystems prSys = PrimarySystems.None.PrimarySystemsForIndex(index);
         Assert.That(prSys, Is.EqualTo(PrimarySystems.RegiomontanusMun));
     }
@@ -51,7 +49,7 @@ public class TestPrimarySystemSpecifications
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = 500;
+        const int index = 500;
         Assert.That(() => _ = PrimarySystems.None.PrimarySystemsForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

@@ -13,8 +13,8 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 [TestFixture]
 public class TestInputDataConverter
 {
-    private IInputDataConverter _converter;
-    private readonly double _delta = 0.00000001;
+    private IInputDataConverter? _converter;
+    private const double Delta = 0.00000001;
 
 
     [SetUp]
@@ -27,15 +27,15 @@ public class TestInputDataConverter
     public void TestMarshallUnmarshallInputDataItem()
     {
         StandardInputItem inputItem1 = CreateStandardInputItem();
-        string jsonText = _converter.MarshallInputItem(inputItem1);
+        string jsonText = _converter!.MarshallInputItem(inputItem1);
         StandardInputItem inputItem2 = _converter.UnMarshallInputItem(jsonText);
         Assert.That(inputItem2, Is.Not.Null);
         Assert.Multiple(() =>
         {
             Assert.That(inputItem2.Id, Is.EqualTo(inputItem1.Id));
             Assert.That(inputItem2.Name, Is.EqualTo(inputItem1.Name));
-            Assert.That(inputItem2.GeoLatitude, Is.EqualTo(inputItem1.GeoLatitude).Within(_delta));
-            Assert.That(inputItem2.GeoLongitude, Is.EqualTo(inputItem1.GeoLongitude).Within(_delta));
+            Assert.That(inputItem2.GeoLatitude, Is.EqualTo(inputItem1.GeoLatitude).Within(Delta));
+            Assert.That(inputItem2.GeoLongitude, Is.EqualTo(inputItem1.GeoLongitude).Within(Delta));
         });
     }
 
@@ -44,7 +44,7 @@ public class TestInputDataConverter
     {
         List<StandardInputItem> chartData = CreateMultipleStandardInputItems();
         StandardInput standardInput1 = new("test_data", "placeholder_for_date_time", chartData);
-        string jsonText = _converter.MarshallStandardInput(standardInput1);
+        string jsonText = _converter!.MarshallStandardInput(standardInput1);
         StandardInput standardInput2 = _converter.UnMarshallStandardInput(jsonText);
         Assert.That(standardInput2, Is.Not.Null);
         Assert.Multiple(() =>

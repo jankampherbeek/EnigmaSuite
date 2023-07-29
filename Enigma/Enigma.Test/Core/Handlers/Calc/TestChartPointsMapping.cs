@@ -21,79 +21,79 @@ public class TestChartPointMappings
     [Test]
     public void TestCalculationTypeForPointCelestialSe()
     {
-        ChartPoints point = ChartPoints.Jupiter;
-        CalculationCats expectedType = CalculationCats.CommonSE;
+        const ChartPoints point = ChartPoints.Jupiter;
+        const CalculationCats expectedType = CalculationCats.CommonSE;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestCalculationTypeForPointCelestialElements()
     {
-        ChartPoints point = ChartPoints.PersephoneRam;
-        CalculationCats expectedType = CalculationCats.CommonElements;
+        const ChartPoints point = ChartPoints.PersephoneRam;
+        const CalculationCats expectedType = CalculationCats.CommonElements;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestCalculationTypeForPointCelestialFormula()
     {
-        ChartPoints point = ChartPoints.PersephoneCarteret;
-        CalculationCats expectedType = CalculationCats.CommonFormula;
+        const ChartPoints point = ChartPoints.PersephoneCarteret;
+        const CalculationCats expectedType = CalculationCats.CommonFormula;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestCalculationTypeForPointMundane()
     {
-        ChartPoints point = ChartPoints.Ascendant;
-        CalculationCats expectedType = CalculationCats.Mundane;
+        const ChartPoints point = ChartPoints.Ascendant;
+        const CalculationCats expectedType = CalculationCats.Mundane;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestCalculationTypeForPointCusp()
     {
-        ChartPoints point = ChartPoints.Cusp17;
-        CalculationCats expectedType = CalculationCats.Mundane;
+        const ChartPoints point = ChartPoints.Cusp17;
+        const CalculationCats expectedType = CalculationCats.Mundane;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestCalculationTypeForPointZodiac()
     {
-        ChartPoints point = ChartPoints.ZeroAries;
-        CalculationCats expectedType = CalculationCats.Lots;
+        const ChartPoints point = ChartPoints.ZeroAries;
+        const CalculationCats expectedType = CalculationCats.Lots;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestCalculationTypeForPointArabic()
     {
-        ChartPoints point = ChartPoints.FortunaNoSect;
-        CalculationCats expectedType = CalculationCats.Lots;
+        const ChartPoints point = ChartPoints.FortunaNoSect;
+        const CalculationCats expectedType = CalculationCats.Lots;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
-        Assert.That(expectedType, Is.EqualTo(actualType));
+        Assert.That(actualType, Is.EqualTo(expectedType));
     }
 
     [Test]
     public void TestSeIdForPointHappyFlow()
     {
-        ChartPoints point = ChartPoints.Juno;
-        int expectedId = EnigmaConstants.SE_JUNO;
+        const ChartPoints point = ChartPoints.Juno;
+        const int expectedId = EnigmaConstants.SE_JUNO;
         int actualId = _mapping.SeIdForCelestialPoint(point);
-        Assert.That(expectedId, Is.EqualTo(actualId));
+        Assert.That(actualId, Is.EqualTo(expectedId));
     }
 
     [Test]
     public void TestSeIdForPointError()
     {
-        ChartPoints point = ChartPoints.Mc;
+        const ChartPoints point = ChartPoints.Mc;
         var _ = Assert.Throws<EnigmaException>(() => _mapping.SeIdForCelestialPoint(point));
     }
 

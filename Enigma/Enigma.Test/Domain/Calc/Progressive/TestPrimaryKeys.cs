@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.Progressive;
 
 namespace Enigma.Test.Domain.Calc.Progressive;
@@ -15,7 +14,7 @@ public class TestPrimaryKeySpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        PrimaryKeys key = PrimaryKeys.NaibodRa;
+        const PrimaryKeys key = PrimaryKeys.NaibodRa;
         PrimaryKeyDetails details = key.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
@@ -30,19 +29,17 @@ public class TestPrimaryKeySpecifications
     {
         foreach (PrimaryKeys keys in Enum.GetValues(typeof(PrimaryKeys)))
         {
-            if (keys != PrimaryKeys.None)
-            {
-                PrimaryKeyDetails details = keys.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            if (keys == PrimaryKeys.None) continue;
+            PrimaryKeyDetails details = keys.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 2;
+        const int index = 2;
         PrimaryKeys key = PrimaryKeys.None.PrimaryKeysForIndex(index);
         Assert.That(key, Is.EqualTo(PrimaryKeys.NaibodRa));
     }
@@ -51,7 +48,7 @@ public class TestPrimaryKeySpecifications
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = 500;
+        const int index = 500;
         Assert.That(() => _ = PrimaryKeys.None.PrimaryKeysForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

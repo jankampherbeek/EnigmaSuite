@@ -80,7 +80,7 @@ public class TestDateCheckedConversion
 public class TestTimeCheckedConversion
 {
     private const double Delta = 0.00000001;
-    private ITimeCheckedConversion _timeCheckedConversion;
+    private ITimeCheckedConversion? _timeCheckedConversion;
 
     [SetUp]
     public void SetUp()
@@ -94,7 +94,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "14:6:30";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(true));
@@ -113,7 +113,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "24:6:30";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 
@@ -123,7 +123,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "-1:6:30";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 
@@ -133,7 +133,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "14:60:30";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 
@@ -143,7 +143,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "14:-2:30";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 
@@ -153,7 +153,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "14:16:60";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 
@@ -163,7 +163,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "14:16:-6";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 
@@ -173,7 +173,7 @@ public class TestTimeCheckedConversion
         const string csvTime = "14:r6:30";
         const string csvDst = "0";
         const string csvZoneOffset = "1";
-        Tuple<PersistableTime, bool> result = _timeCheckedConversion.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
+        Tuple<PersistableTime, bool> result = _timeCheckedConversion!.StandardCsvToTime(csvTime, csvZoneOffset, csvDst);
         Assert.That(result.Item2, Is.EqualTo(false));
     }
 

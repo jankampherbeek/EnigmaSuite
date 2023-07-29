@@ -17,7 +17,7 @@ namespace Enigma.Test.Frontend.Ui.Ui.Support;
 public class TestEventDataConverter
 {
     private const double Delta = 0.00000001;
-    private IEventDataConverter _eventDataConverter;
+    private IEventDataConverter? _eventDataConverter;
     private const string Description = "Event Description";
     private const string LocationName = "Some location";
     private const int Id = 456;
@@ -65,14 +65,14 @@ public class TestEventDataConverter
         });
     }
 
-    private EventData CreateEventData()
+    private static EventData CreateEventData()
     {
         Location location = new(LocationFullName, GeoLong, GeoLat);
         FullDateTime fullDateTime = new(DateText, TimeText, JdEt);
         return new EventData(Id, Description, LocationName, location, fullDateTime);
     }
 
-    private PersistableEventData CreatePersistableEventData()
+    private static PersistableEventData CreatePersistableEventData()
     {
         return new PersistableEventData(
             Description,

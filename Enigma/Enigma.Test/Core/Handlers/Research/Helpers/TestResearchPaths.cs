@@ -12,7 +12,7 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 [TestFixture]
 public class TestResearchPaths
 {
-    private IResearchPaths _researchPaths;
+    private IResearchPaths? _researchPaths;
 
     [SetUp]
     public void SetUp()
@@ -26,7 +26,7 @@ public class TestResearchPaths
     {
         const string projName = "Project Name";
         const bool useControlGroup = false;
-        string pathText = _researchPaths.DataPath(projName, useControlGroup);
+        string pathText = _researchPaths!.DataPath(projName, useControlGroup);
         const string expectedPathText = @"c:\enigma_ar\project\Project Name\testdata.json";
         Assert.That(pathText, Is.EqualTo(expectedPathText));
     }

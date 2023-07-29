@@ -11,7 +11,7 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 [TestFixture]
 public class TestControlGroupRng
 {
-    private IControlGroupRng _rng;
+    private IControlGroupRng? _rng;
     private const double Delta = 0.00000001;
     
     [SetUp]
@@ -26,7 +26,7 @@ public class TestControlGroupRng
         const int start = 10;
         const int end = 50;
         const int count = 100;
-        List<int> result = _rng.GetIntegers(start, end, count);
+        List<int> result = _rng!.GetIntegers(start, end, count);
         Assert.That(result, Has.Count.EqualTo(count));
         for (int i = 0; i < count; i++)
         {
@@ -41,8 +41,8 @@ public class TestControlGroupRng
         const int start = 10;
         const int end = 50;
         const int count = 100;
-        List<int> result1 = _rng.GetIntegers(start, end, count);
-        List<int> result2 = _rng.GetIntegers(start, end, count);
+        List<int> result1 = _rng!.GetIntegers(start, end, count);
+        List<int> result2 = _rng!.GetIntegers(start, end, count);
         bool listsAreEqual = true;
         for (int i = 0; i < count; i++)
         {
@@ -55,14 +55,14 @@ public class TestControlGroupRng
     [Test]
     public void TestGetIntegersWrongSequenceOfParameters()
     {
-        List<int> result = _rng.GetIntegers(10, 2, 30);
+        List<int> result = _rng!.GetIntegers(10, 2, 30);
         Assert.That(result, Is.Empty);
     }
 
     [Test]
     public void TestGetIntegersInvalidCount()
     {
-        List<int> result = _rng.GetIntegers(10, 20, -1);
+        List<int> result = _rng!.GetIntegers(10, 20, -1);
         Assert.That(result, Is.Empty);
     }
 
@@ -72,7 +72,7 @@ public class TestControlGroupRng
         const int start = 0;
         const int end = 50;
         const int count = 100;
-        List<int> result = _rng.GetIntegers(end, count);
+        List<int> result = _rng!.GetIntegers(end, count);
         Assert.That(result, Has.Count.EqualTo(count));
         for (int i = 0; i < count; i++)
         {
@@ -86,8 +86,8 @@ public class TestControlGroupRng
     {
         const int end = 50;
         const int count = 100;
-        List<int> result1 = _rng.GetIntegers(end, count);
-        List<int> result2 = _rng.GetIntegers(end, count);
+        List<int> result1 = _rng!.GetIntegers(end, count);
+        List<int> result2 = _rng!.GetIntegers(end, count);
         bool listsAreEqual = true;
         for (int i = 0; i < count; i++)
         {
@@ -100,14 +100,14 @@ public class TestControlGroupRng
     [Test]
     public void TestGetIntegersZeroBasedMaxIsNegative()
     {
-        List<int> result = _rng.GetIntegers(-2, 30);
+        List<int> result = _rng!.GetIntegers(-2, 30);
         Assert.That(result, Is.Empty);
     }
 
     [Test]
     public void TestGetIntegersZeroBasedInvalidCount()
     {
-        List<int> result = _rng.GetIntegers(20, -1);
+        List<int> result = _rng!.GetIntegers(20, -1);
         Assert.That(result, Is.Empty);
     }
 
@@ -118,7 +118,7 @@ public class TestControlGroupRng
         int[] dataItems = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         List<int> data = new();
         data.AddRange(dataItems);
-        _rng.ShuffleList(data);
+        _rng!.ShuffleList(data);
         Assert.That(data, Has.Count.EqualTo(dataItems.Length));
         Assert.That(data[0] != 1 || data[1] != 2 || data[2] != 3 || data[3] != 4 || data[4] != 5 || data[5] != 6);
     }
@@ -129,7 +129,7 @@ public class TestControlGroupRng
         double[] dataItems = { 1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8, 9.9, 10.0, 11.1, 12.2 };
         List<double> data = new();
         data.AddRange(dataItems);
-        _rng.ShuffleList(data);
+        _rng!.ShuffleList(data);
         Assert.Multiple(() =>
         {
             Assert.That(data, Has.Count.EqualTo(dataItems.Length));

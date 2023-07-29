@@ -13,8 +13,8 @@ namespace Enigma.Test.Core.Handlers.Configuration.Helpers;
 [TestFixture]
 public class TestConfigParser
 {
-    private IAstroConfigParser _parser;
-    private IDefaultConfiguration _defaultConfig;
+    private IAstroConfigParser? _parser;
+    private IDefaultConfiguration? _defaultConfig;
 
     [SetUp]
     public void SetUp()
@@ -26,8 +26,8 @@ public class TestConfigParser
     [Test]
     public void TestMarshallUnmarshall()
     {
-        AstroConfig config = _defaultConfig.CreateDefaultConfig();
-        string jsonText = _parser.Marshall(config);
+        AstroConfig config = _defaultConfig!.CreateDefaultConfig();
+        string jsonText = _parser!.Marshall(config);
         AstroConfig parsedConfig = _parser.UnMarshall(jsonText);
         Assert.Multiple(() =>
         {

@@ -15,7 +15,7 @@ public class TestCalendars
     [Test]
     public void TestRetrievingDetails()
     {
-        Calendars calendar = Calendars.Julian;
+        const Calendars calendar = Calendars.Julian;
         CalendarDetails details = calendar.GetDetails();
         Assert.Multiple(() =>
         {

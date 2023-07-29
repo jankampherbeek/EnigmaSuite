@@ -15,7 +15,7 @@ public class TestYearCounts
     [Test]
     public void TestRetrievingDetails()
     {
-        YearCounts yearCount = YearCounts.BCE;
+        const YearCounts yearCount = YearCounts.BCE;
         YearCountDetails details = yearCount.GetDetails();
         Assert.Multiple(() =>
         {
@@ -38,7 +38,7 @@ public class TestYearCounts
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int yearCountIndex = 2;
+        const int yearCountIndex = 2;
         YearCounts yearCount = YearCounts.CE.YearCountForIndex(yearCountIndex);
         Assert.That(yearCount, Is.EqualTo(YearCounts.Astronomical));
     }
@@ -47,7 +47,7 @@ public class TestYearCounts
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int yearCountIndex = 44;
+        const int yearCountIndex = 44;
         Assert.That(() => _ = YearCounts.CE.YearCountForIndex(yearCountIndex), Throws.TypeOf<ArgumentException>());
     }
 

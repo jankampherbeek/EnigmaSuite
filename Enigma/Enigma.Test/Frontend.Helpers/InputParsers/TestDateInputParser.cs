@@ -14,9 +14,9 @@ namespace Enigma.Test.Frontend.Helpers.InputParsers;
 
 public class TestDateInputParser
 {
-    private readonly char _separator = '/';
-    private readonly Calendars _cal = Calendars.Gregorian;
-    private readonly YearCounts _yearCount = YearCounts.CE;
+    private const char Separator = '/';
+    private const Calendars Cal = Calendars.Gregorian;
+    private const YearCounts YearCount = YearCounts.CE;
 
 
     [Test]
@@ -26,13 +26,13 @@ public class TestDateInputParser
         int[] dateValues = { 2022, 6, 8 };
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (dateValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, _separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, Separator)).Returns(rangeResult);
         var mockDateValidator = new Mock<IDateValidator>();
         FullDate? fullDate;
-        mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, _cal, _yearCount, out fullDate)).Returns(true);
+        mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, Cal, YearCount, out fullDate)).Returns(true);
         var parser = new DateInputParser(mockValueRangeConverter.Object, mockDateValidator.Object);
 
-        Assert.That(parser.HandleDate(dateInput, _cal, _yearCount, out fullDate), Is.True);
+        Assert.That(parser.HandleDate(dateInput, Cal, YearCount, out fullDate), Is.True);
     }
 
     [Test]
@@ -42,11 +42,11 @@ public class TestDateInputParser
         int[] dateValues = Array.Empty<int>();
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (dateValues, false);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, _separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, Separator)).Returns(rangeResult);
         var mockDateValidator = new Mock<IDateValidator>();
         var parser = new DateInputParser(mockValueRangeConverter.Object, mockDateValidator.Object);
 
-        Assert.That(parser.HandleDate(dateInput, _cal, _yearCount, out FullDate? _), Is.False);
+        Assert.That(parser.HandleDate(dateInput, Cal, YearCount, out FullDate? _), Is.False);
     }
 
     [Test]
@@ -56,13 +56,13 @@ public class TestDateInputParser
         int[] dateValues = { 2022, 13, 8 };
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (dateValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, _separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(dateInput, Separator)).Returns(rangeResult);
         var mockDateValidator = new Mock<IDateValidator>();
         FullDate? fullDate;
-        mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, _cal, _yearCount, out fullDate)).Returns(false);
+        mockDateValidator.Setup(x => x.CreateCheckedDate(dateValues, Cal, YearCount, out fullDate)).Returns(false);
         var parser = new DateInputParser(mockValueRangeConverter.Object, mockDateValidator.Object);
 
-        Assert.That(parser.HandleDate(dateInput, _cal, _yearCount, out fullDate), Is.False);
+        Assert.That(parser.HandleDate(dateInput, Cal, YearCount, out fullDate), Is.False);
     }
 
 }

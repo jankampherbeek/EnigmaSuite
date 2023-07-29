@@ -15,7 +15,7 @@ public class TestDataNamesHandler
     [Test]
     public void TestGetExistingDataNamesHappyFlow()
     {
-        bool useSubFolders = false;
+        const bool useSubFolders = false;
         List<string> expectedDataNames = new()
         {
             "dataname-1",

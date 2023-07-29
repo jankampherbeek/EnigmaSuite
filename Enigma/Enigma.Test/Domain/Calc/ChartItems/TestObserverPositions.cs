@@ -16,7 +16,7 @@ public class TestObserverPositionSpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        ObserverPositions position = ObserverPositions.TopoCentric;
+        const ObserverPositions position = ObserverPositions.TopoCentric;
         ObserverPositionDetails details = position.GetDetails();
         Assert.Multiple(() =>
         {
@@ -43,7 +43,7 @@ public class TestObserverPositionSpecifications
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 0;
+        const int index = 0;
         ObserverPositions system = ObserverPositions.HelioCentric.ObserverPositionForIndex(index);
         Assert.That(system, Is.EqualTo(ObserverPositions.GeoCentric));
     }
@@ -51,7 +51,7 @@ public class TestObserverPositionSpecifications
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = 500;
+        const int index = 500;
         Assert.That(() => _ = ObserverPositions.HelioCentric.ObserverPositionForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

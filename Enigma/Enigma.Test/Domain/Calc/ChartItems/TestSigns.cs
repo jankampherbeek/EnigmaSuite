@@ -29,19 +29,17 @@ public class TestSigns
     {
         foreach (Signs sign in Enum.GetValues(typeof(Signs)))
         {
-            if (sign != Signs.None)
-            {
-                SignDetails details = sign.GetDetails();
-                Assert.That(details, Is.Not.Null);
-                Assert.That(details.TextId, Is.Not.Empty);
-            }
+            if (sign == Signs.None) continue;
+            SignDetails details = sign.GetDetails();
+            Assert.That(details, Is.Not.Null);
+            Assert.That(details.TextId, Is.Not.Empty);
         }
     }
 
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int signIndex = 2;
+        const int signIndex = 2;
         Signs sign = Signs.None.SignForIndex(signIndex);
         Assert.That(sign, Is.EqualTo(Signs.Taurus));
     }
@@ -49,7 +47,7 @@ public class TestSigns
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int signIndex = 300;
+        const int signIndex = 300;
         Assert.That(() => _ = Signs.None.SignForIndex(signIndex), Throws.TypeOf<ArgumentException>());
     }
 

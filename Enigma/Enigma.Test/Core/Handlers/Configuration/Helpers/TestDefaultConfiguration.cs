@@ -17,10 +17,9 @@ namespace Enigma.Test.Core.Handlers.Configuration.Helpers;
 public class TestDefaultConfiguration
 {
 
-    private IDefaultConfiguration _defaultConfiguration;
-    private AstroConfig _astroConfig;
-    private readonly double _delta = 0.00000001;
-
+    private IDefaultConfiguration? _defaultConfiguration;
+    private AstroConfig? _astroConfig;
+    private const double Delta = 0.00000001;
 
 
     [SetUp]
@@ -34,68 +33,68 @@ public class TestDefaultConfiguration
     [Test]
     public void TestHouseSystem()
     {
-        Assert.That(_astroConfig.HouseSystem, Is.EqualTo(HouseSystems.Placidus));
+        Assert.That(_astroConfig!.HouseSystem, Is.EqualTo(HouseSystems.Placidus));
     }
 
     [Test]
     public void TestAyanamsha()
     {
-        Assert.That(_astroConfig.Ayanamsha, Is.EqualTo(Ayanamshas.None));
+        Assert.That(_astroConfig!.Ayanamsha, Is.EqualTo(Ayanamshas.None));
     }
 
     [Test]
     public void TestZodiacType()
     {
-        Assert.That(_astroConfig.ZodiacType, Is.EqualTo(ZodiacTypes.Tropical));
+        Assert.That(_astroConfig!.ZodiacType, Is.EqualTo(ZodiacTypes.Tropical));
     }
 
     [Test]
     public void TestObserverPosition()
     {
-        Assert.That(_astroConfig.ObserverPosition, Is.EqualTo(ObserverPositions.GeoCentric));
+        Assert.That(_astroConfig!.ObserverPosition, Is.EqualTo(ObserverPositions.GeoCentric));
     }
 
     [Test]
     public void TestProjectionType()
     {
-        Assert.That(_astroConfig.ProjectionType, Is.EqualTo(ProjectionTypes.TwoDimensional));
+        Assert.That(_astroConfig!.ProjectionType, Is.EqualTo(ProjectionTypes.TwoDimensional));
     }
 
     [Test]
     public void TestOrbMethod()
     {
-        Assert.That(_astroConfig.OrbMethod, Is.EqualTo(OrbMethods.Weighted));
+        Assert.That(_astroConfig!.OrbMethod, Is.EqualTo(OrbMethods.Weighted));
     }
 
     [Test]
     public void TestBaseOrbAspects()
     {
-        Assert.That(_astroConfig.BaseOrbAspects, Is.EqualTo(10.0).Within(_delta));
+        Assert.That(_astroConfig!.BaseOrbAspects, Is.EqualTo(10.0).Within(Delta));
     }
 
     [Test]
     public void TestBaseOrbMidpoints()
     {
-        Assert.That(_astroConfig.BaseOrbMidpoints, Is.EqualTo(1.6).Within(_delta));
+        Assert.That(_astroConfig!.BaseOrbMidpoints, Is.EqualTo(1.6).Within(Delta));
     }
 
     [Test]
     public void TestCelPoints()
     {
-        Dictionary<ChartPoints, ChartPointConfigSpecs> celPoints = _astroConfig.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> celPoints = _astroConfig!.ChartPoints;
 
         ChartPointConfigSpecs celPointSpecs = celPoints[ChartPoints.Sun];
         Assert.Multiple(() =>
         {
             Assert.That(celPointSpecs.IsUsed, Is.True);
-            Assert.That(celPointSpecs.PercentageOrb, Is.EqualTo(100).Within(_delta));
+            Assert.That(celPointSpecs.PercentageOrb, Is.EqualTo(100).Within(Delta));
         });
     }
 
     [Test]
     public void TestAspects()
     {
-        Dictionary<AspectTypes, AspectConfigSpecs> aspects = _astroConfig.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs> aspects = _astroConfig!.Aspects;
         Assert.That(_astroConfig.Aspects, Has.Count.EqualTo(22));
 
         AspectConfigSpecs aspectSpecs = aspects[AspectTypes.Opposition];

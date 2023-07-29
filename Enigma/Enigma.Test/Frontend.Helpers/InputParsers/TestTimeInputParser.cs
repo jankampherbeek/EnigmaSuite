@@ -71,7 +71,7 @@ public class TestTimeInputParser
         var mockTimeValidator = new Mock<ITimeValidator>();
         ITimeInputParser parser = new TimeInputParser(mockValueRangeConverter.Object, mockTimeValidator.Object);
 
-        Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out FullTime? fullTime), Is.False);
+        Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out FullTime? _), Is.False);
     }
 
     [Test]

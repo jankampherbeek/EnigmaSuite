@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
 
 namespace Enigma.Test.Domain.Calc.ChartItems;
@@ -17,7 +16,7 @@ public class TestZodiacTypeSpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        ZodiacTypes zodiacType = ZodiacTypes.Sidereal;
+        const ZodiacTypes zodiacType = ZodiacTypes.Sidereal;
         ZodiacTypeDetails details = zodiacType.GetDetails();
         Assert.Multiple(() =>
         {
@@ -44,7 +43,7 @@ public class TestZodiacTypeSpecifications
     [Test]
     public void TestRetrievingWithIndex()
     {
-        int index = 1;
+        const int index = 1;
         ZodiacTypes system = ZodiacTypes.Sidereal.ZodiacTypeForIndex(index);
         Assert.That(system, Is.EqualTo(ZodiacTypes.Tropical));
     }
@@ -52,7 +51,7 @@ public class TestZodiacTypeSpecifications
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
-        int index = 500;
+        const int index = 500;
         Assert.That(() => _ = ZodiacTypes.Tropical.ZodiacTypeForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 

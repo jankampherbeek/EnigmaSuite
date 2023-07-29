@@ -113,7 +113,7 @@ public class TestPointsMapping
     }
 
 
-    private FullPointPos CreateFullPointPos()
+    private static FullPointPos CreateFullPointPos()
     {
         PosSpeed psDistance = new(1.0, 1.5);
         PosSpeed psLongitude = new(Longitude, 2.5);

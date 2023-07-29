@@ -13,7 +13,7 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 [TestFixture]
 public class TestResearchProjectParser
 {
-    private IResearchProjectParser _parser;
+    private IResearchProjectParser? _parser;
     private const string ProjectName = "TestProject";
     private const string Description = "Description for test project.";
     private const string DataName = "This_datafile";
@@ -31,7 +31,7 @@ public class TestResearchProjectParser
     public void TestMarshallUnmarshall()
     {
         ResearchProject project1 = new(ProjectName, Description, DataName, ControlGroupType, MultiplFactor);
-        string jsonText = _parser.Marshall(project1);
+        string jsonText = _parser!.Marshall(project1);
         ResearchProject project2 = _parser.UnMarshall(jsonText);
         Assert.That(project2, Is.Not.Null);
         Assert.Multiple(() =>

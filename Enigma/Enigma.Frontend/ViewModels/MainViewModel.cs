@@ -5,7 +5,6 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Enigma.Frontend.Ui.Charts;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 
@@ -19,15 +18,13 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void ChartsModule()
     {
-        ChartsMainWindow chartsWindow = new();
-        chartsWindow.ShowDialog();
+        new ChartsMainWindow().ShowDialog();
     }
 
     [RelayCommand]
     private static void ResearchModule()
     {
-        ResearchMainWindow researchWindow = new();
-        researchWindow.ShowDialog();
+        new ResearchMainWindow().ShowDialog();
     }
     
     
@@ -35,8 +32,7 @@ public partial class MainViewModel: ObservableObject
     private static void Help()
     {
         DataVault.Instance.CurrentViewBase = "Main";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
     
     
