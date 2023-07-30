@@ -18,12 +18,11 @@ namespace Enigma.Test.Api.Calc;
 public class TestHousesApi
 {
     private const double JdUt = 123456.789;
-    private FullHousesPosRequest _housesRequest;
-    private Dictionary<ChartPoints, FullPointPos> _fullHousesPositions;
-    private Mock<IHousesHandler> _mockHousesHandler;
-    private CalculationPreferences _calculationPreferences;
-
-    private IHousesApi _api;
+    private FullHousesPosRequest? _housesRequest;
+    private Dictionary<ChartPoints, FullPointPos>? _fullHousesPositions;
+    private Mock<IHousesHandler>? _mockHousesHandler;
+    private CalculationPreferences? _calculationPreferences;
+    private IHousesApi? _api;
 
 
     [SetUp]
@@ -42,20 +41,20 @@ public class TestHousesApi
     [Test]
     public void TestHousesHappyFlow()
     {
-        Assert.That(_api.GetHouses(_housesRequest), Is.EqualTo(_fullHousesPositions));
+        Assert.That(_api!.GetHouses(_housesRequest!), Is.EqualTo(_fullHousesPositions));
     }
 
     [Test]
     public void TestRequest()
     {
-        Assert.That(() => _api.GetHouses(null!), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _api!.GetHouses(null!), Throws.TypeOf<ArgumentNullException>());
     }
 
     [Test]
     public void TestNullLocation()
     {
-        FullHousesPosRequest errorRequest = new(JdUt, null!, _calculationPreferences);
-        Assert.That(() => _api.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
+        FullHousesPosRequest errorRequest = new(JdUt, null!, _calculationPreferences!);
+        Assert.That(() => _api!.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
     private static Dictionary<ChartPoints, FullPointPos> CreateResponse()
@@ -106,7 +105,9 @@ public class TestHousesApi
             ChartPoints.Cusp5,
             ChartPoints.Cusp6
         };
-        return new CalculationPreferences(points, ZodiacTypes.Tropical, Ayanamshas.None, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, HouseSystems.Apc);
+        return new CalculationPreferences(points, ZodiacTypes.Tropical, Ayanamshas.None, 
+            CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, 
+            HouseSystems.Apc);
     }
 
 }

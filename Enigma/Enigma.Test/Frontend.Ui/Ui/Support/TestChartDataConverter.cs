@@ -46,7 +46,7 @@ public class TestChartDataConverter
     public void TestChartDataToPersistableChartData()
     {
         PersistableChartData expected = CreatePersistableChartData();
-        PersistableChartData result = _chartDataConverter.ToPersistableChartData(CreateChartData());
+        PersistableChartData result = _chartDataConverter!.ToPersistableChartData(CreateChartData());
         Assert.Multiple(() =>
         {
             Assert.That(expected.Name, Is.EqualTo(result.Name));
@@ -60,7 +60,7 @@ public class TestChartDataConverter
     public void TestPersistableChartDataToChartData()
     {
         ChartData expected = CreateChartData();
-        ChartData result = _chartDataConverter.FromPersistableChartData(CreatePersistableChartData());
+        ChartData result = _chartDataConverter!.FromPersistableChartData(CreatePersistableChartData());
         Assert.Multiple(() =>
         {
             Assert.That(expected.MetaData.Name, Is.EqualTo(result.MetaData.Name));

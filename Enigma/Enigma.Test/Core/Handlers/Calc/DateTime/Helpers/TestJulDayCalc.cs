@@ -18,8 +18,8 @@ public class TestJulDayCalc
     private const double Delta = 0.00000001;
     private const double Jd = 12345.6789;
     private const double DeltaT = 0.000123;
-    private SimpleDateTime _dateTime;
-    private IJulDayCalc _jdCalc;
+    private SimpleDateTime? _dateTime;
+    private IJulDayCalc? _jdCalc;
 
     [SetUp]
     public void SetUp()
@@ -34,14 +34,14 @@ public class TestJulDayCalc
     [Test]
     public void TestCalcJulDay()
     {
-        double jdResult = _jdCalc.CalcJulDayUt(_dateTime);
+        double jdResult = _jdCalc!.CalcJulDayUt(_dateTime!);
         Assert.That(jdResult, Is.EqualTo(Jd).Within(Delta));
     }
 
     [Test]
     public void TestCalcDeltaT()
     {
-        double deltaTResult = _jdCalc.CalcDeltaT(Jd);
+        double deltaTResult = _jdCalc!.CalcDeltaT(Jd);
         Assert.That(deltaTResult, Is.EqualTo(DeltaT).Within(Delta));
     }
 

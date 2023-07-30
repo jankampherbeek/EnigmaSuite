@@ -7,7 +7,6 @@ using Enigma.Core.Handlers.Calc.Coordinates;
 using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems.Coordinates;
-using Enigma.Domain.RequestResponse;
 using Moq;
 
 namespace Enigma.Test.Core.Handlers.Calc.Coordinates;
@@ -35,7 +34,7 @@ public class TestCoordinateConversionHandler
     }
 
 
-    private Mock<ICoordinateConversionCalc> CreateCalcMock(EclipticCoordinates eclCoord, EquatorialCoordinates eqCoord)
+    private static Mock<ICoordinateConversionCalc> CreateCalcMock(EclipticCoordinates eclCoord, EquatorialCoordinates eqCoord)
     {
         var mock = new Mock<ICoordinateConversionCalc>();
         mock.Setup(p => p.PerformConversion(eclCoord, Obliquity)).Returns(eqCoord);

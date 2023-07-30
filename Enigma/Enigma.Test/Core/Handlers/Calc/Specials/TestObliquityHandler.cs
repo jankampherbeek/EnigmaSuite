@@ -15,18 +15,18 @@ namespace Enigma.Test.Core.Handlers.Calc.Specials;
 [TestFixture]
 public class TestObliquityHandler
 {
-    private readonly double _jdUt = 123456.789;
-    private readonly double _delta = 0.00000001;
-    private readonly double _expectedMeanObliquity = 23.447;
-    private readonly string _errorText = "Description of problem.";
+    private const double JdUt = 123456.789;
+    private const double Delta = 0.00000001;
+    private const double ExpectedMeanObliquity = 23.447;
+    private const string ErrorText = "Description of problem.";
 
     [Test]
     public void TestMeanObliquity()
     {
         Mock<IObliquityCalc> calcMock = CreateCalcMock();
         IObliquityHandler handler = new ObliquityHandler(calcMock.Object);
-        double resultMeanObliquity = handler.CalcObliquity(new ObliquityRequest(_jdUt, false));
-        Assert.That(resultMeanObliquity, Is.EqualTo(_expectedMeanObliquity).Within(_delta));
+        double resultMeanObliquity = handler.CalcObliquity(new ObliquityRequest(JdUt, false));
+        Assert.That(resultMeanObliquity, Is.EqualTo(ExpectedMeanObliquity).Within(Delta));
     }
 
 
@@ -35,21 +35,21 @@ public class TestObliquityHandler
     {
         Mock<IObliquityCalc> calcExceptionMock = CreateCalcMockThrowingException();
         IObliquityHandler handler = new ObliquityHandler(calcExceptionMock.Object);
-        var _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(_jdUt, false)));
+        var _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(JdUt, false)));
     }
 
-    private Mock<IObliquityCalc> CreateCalcMock()
+    private static Mock<IObliquityCalc> CreateCalcMock()
     {
         var mock = new Mock<IObliquityCalc>();
-        mock.Setup(p => p.CalculateObliquity(_jdUt, false)).Returns(_expectedMeanObliquity);
+        mock.Setup(p => p.CalculateObliquity(JdUt, false)).Returns(ExpectedMeanObliquity);
         return mock;
     }
 
-    private Mock<IObliquityCalc> CreateCalcMockThrowingException()
+    private static Mock<IObliquityCalc> CreateCalcMockThrowingException()
     {
         var mock = new Mock<IObliquityCalc>();
-        var exception = new SwissEphException(_errorText);
-        mock.Setup(p => p.CalculateObliquity(_jdUt, false)).Throws(exception);
+        var exception = new SwissEphException(ErrorText);
+        mock.Setup(p => p.CalculateObliquity(JdUt, false)).Throws(exception);
         return mock;
     }
 

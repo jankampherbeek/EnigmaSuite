@@ -42,7 +42,7 @@ public class TestEventDataConverter
     public void TestEventDataToPersistableEventData()
     {
         PersistableEventData expected = CreatePersistableEventData();
-        PersistableEventData result = _eventDataConverter.ToPersistableEventData(CreateEventData());
+        PersistableEventData result = _eventDataConverter!.ToPersistableEventData(CreateEventData());
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
@@ -56,7 +56,7 @@ public class TestEventDataConverter
     public void TestPersistableEventDataToEventData()
     {
         EventData expected = CreateEventData();
-        EventData result = _eventDataConverter.FromPersistableEventData(CreatePersistableEventData());
+        EventData result = _eventDataConverter!.FromPersistableEventData(CreatePersistableEventData());
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));

@@ -9,13 +9,13 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.DateTime;
 using Moq;
 
-namespace Enigma.Test.Api.Astron;
+namespace Enigma.Test.Api.Calc;
 
 [TestFixture]
 public class TestCheckDateTimeApi
 {
-    private SimpleDateTime _simpleDateTime;
-    private SimpleDateTime _simpleDateTimeError;
+    private SimpleDateTime? _simpleDateTime;
+    private SimpleDateTime? _simpleDateTimeError;
 
     [SetUp]
     public void SetUp()
@@ -29,14 +29,14 @@ public class TestCheckDateTimeApi
     public void TestHappyFlow()
     {
         IDateTimeApi api = new DateTimeApi(CreateHandlerMock());
-        Assert.That(api.CheckDateTime(_simpleDateTime), Is.True);
+        Assert.That(api.CheckDateTime(_simpleDateTime!), Is.True);
     }
 
     [Test]
     public void TestInvalidDate()
     {
         IDateTimeApi api = new DateTimeApi(CreateHandlerMockError());
-        Assert.That(api.CheckDateTime(_simpleDateTimeError), Is.False);
+        Assert.That(api.CheckDateTime(_simpleDateTimeError!), Is.False);
     }
 
     [Test]
@@ -50,14 +50,14 @@ public class TestCheckDateTimeApi
     private IDateTimeHandler CreateHandlerMock()
     {
         var handlerMock = new Mock<IDateTimeHandler>();
-        handlerMock.Setup(p => p.CheckDateTime(_simpleDateTime)).Returns(true);
+        handlerMock.Setup(p => p.CheckDateTime(_simpleDateTime!)).Returns(true);
         return handlerMock.Object;
     }
 
     private IDateTimeHandler CreateHandlerMockError()
     {
         var handlerMock = new Mock<IDateTimeHandler>();
-        handlerMock.Setup(p => p.CheckDateTime(_simpleDateTimeError)).Returns(false);
+        handlerMock.Setup(p => p.CheckDateTime(_simpleDateTimeError!)).Returns(false);
         return handlerMock.Object;
     }
 

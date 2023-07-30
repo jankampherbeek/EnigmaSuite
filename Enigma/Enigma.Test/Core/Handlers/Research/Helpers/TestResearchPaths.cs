@@ -36,7 +36,7 @@ public class TestResearchPaths
     {
         const string projName = "Project Name";
         const bool useControlGroup = true;
-        string pathText = _researchPaths.DataPath(projName, useControlGroup);
+        string pathText = _researchPaths!.DataPath(projName, useControlGroup);
         const string expectedPathText = @"c:\enigma_ar\project\Project Name\controldata.json";
         Assert.That(pathText, Is.EqualTo(expectedPathText));
     }
@@ -47,7 +47,7 @@ public class TestResearchPaths
         const string projName = "Project Name";
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = false;
-        string pathText = _researchPaths.ResultPath(projName, methodName, useControlGroup);
+        string pathText = _researchPaths!.ResultPath(projName, methodName, useControlGroup);
         const string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\testdataresult_";
         Assert.That(pathText, Does.Contain(expectedStartOfPathText));
     }
@@ -58,7 +58,7 @@ public class TestResearchPaths
         const string projName = "Project Name";
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = true;
-        string pathText = _researchPaths.ResultPath(projName, methodName, useControlGroup);
+        string pathText = _researchPaths!.ResultPath(projName, methodName, useControlGroup);
         const string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\controldataresult_";
         Assert.That(pathText, Does.Contain(expectedStartOfPathText));
     }

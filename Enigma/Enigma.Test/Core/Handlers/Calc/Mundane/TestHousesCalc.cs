@@ -14,20 +14,20 @@ namespace Enigma.Test.Core.Handlers.Calc.Mundane;
 [TestFixture]
 public class TestHousesCalc
 {
-    private readonly double _geoLat = 52.0;
-    private readonly double _geoLon = 6.53;
-    private readonly double _obliquity = 23.447;
-    private readonly char _houseSystemId = 'p';
-    private readonly int _flags = 0;
+    private const double GeoLat = 52.0;
+    private const double GeoLon = 6.53;
+    private const double Obliquity = 23.447;
+    private const char HouseSystemId = 'p';
+    private const int Flags = 0;
     private Location? _location;
-    private readonly double[] _cusps = new double[] { 0.0, 10.0, 40.0, 70.0, 100.0, 130.0, 160.0, 190.0, 220.0, 250.0, 280.0, 310.0, 340.0 };
-    private readonly double[] _otherPoints = new double[] { 10.0, 280.0, 281.0, 192.0, 12.0 };
+    private readonly double[] _cusps = { 0.0, 10.0, 40.0, 70.0, 100.0, 130.0, 160.0, 190.0, 220.0, 250.0, 280.0, 310.0, 340.0 };
+    private readonly double[] _otherPoints = { 10.0, 280.0, 281.0, 192.0, 12.0 };
     private double[][]? _calculatedResults;
 
     [SetUp]
     public void SetU()
     {
-        _location = new Location("LocationName", _geoLon, _geoLat);
+        _location = new Location("LocationName", GeoLon, GeoLat);
         _calculatedResults = PerformTestCalculateHouses();
     }
 
@@ -36,32 +36,32 @@ public class TestHousesCalc
     public void TestCusps()
     {
         Assert.That(_calculatedResults, Is.Not.Null);
-        Assert.That(_calculatedResults[0], Is.EqualTo(_cusps));
+        Assert.That(_calculatedResults![0], Is.EqualTo(_cusps));
     }
 
     [Test]
     public void TestOtherPoints()
     {
         Assert.That(_calculatedResults, Is.Not.Null);
-        Assert.That(_calculatedResults[1], Is.EqualTo(_otherPoints));
+        Assert.That(_calculatedResults![1], Is.EqualTo(_otherPoints));
     }
 
 
     private double[][] PerformTestCalculateHouses()
     {
-        double jd = 12345.678;
+        const double jd = 12345.678;
         IHousesCalc calc = CreateHousesCalc();
-        return calc.CalculateHouses(jd, _obliquity, _location!, _houseSystemId, _flags);
+        return calc.CalculateHouses(jd, Obliquity, _location!, HouseSystemId, Flags);
     }
 
     private IHousesCalc CreateHousesCalc()
     {
-        char houseSystemId = 'p';
-        int flags = 0;
-        double jd = 12345.678;
+        const char houseSystemId = 'p';
+        const int flags = 0;
+        const double jd = 12345.678;
         double[][] positions = { _cusps, _otherPoints };
         var mockFacade = new Mock<IHousesFacade>();
-        mockFacade.Setup(p => p.RetrieveHouses(jd, flags, _geoLat, _geoLon, houseSystemId)).Returns(positions);
+        mockFacade.Setup(p => p.RetrieveHouses(jd, flags, GeoLat, GeoLon, houseSystemId)).Returns(positions);
         HousesCalc calc = new(mockFacade.Object);
         return calc;
     }

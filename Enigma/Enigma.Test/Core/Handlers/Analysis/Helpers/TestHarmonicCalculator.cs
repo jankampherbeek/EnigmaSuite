@@ -12,7 +12,7 @@ namespace Enigma.Test.Core.Handlers.Analysis.Helpers;
 [TestFixture]
 public class TestHarmonicCalculator
 {
-    private readonly double _delta = 0.00000001;
+    private const double Delta = 0.00000001;
     private readonly IHarmonicsCalculator _harmonicCalculator = new HarmonicsCalculator();
 
     [Test]
@@ -21,10 +21,10 @@ public class TestHarmonicCalculator
         List<double> harmonics = _harmonicCalculator.CalculateHarmonics(CreateOriginalPositions(), 1);
         Assert.Multiple(() =>
         {
-            Assert.That(harmonics[0], Is.EqualTo(1.0).Within(_delta));
-            Assert.That(harmonics[1], Is.EqualTo(22.234567).Within(_delta));
-            Assert.That(harmonics[2], Is.EqualTo(345.67).Within(_delta));
-            Assert.That(harmonics[3], Is.EqualTo(152.0).Within(_delta));
+            Assert.That(harmonics[0], Is.EqualTo(1.0).Within(Delta));
+            Assert.That(harmonics[1], Is.EqualTo(22.234567).Within(Delta));
+            Assert.That(harmonics[2], Is.EqualTo(345.67).Within(Delta));
+            Assert.That(harmonics[3], Is.EqualTo(152.0).Within(Delta));
         });
     }
 
@@ -34,10 +34,10 @@ public class TestHarmonicCalculator
         List<double> harmonics = _harmonicCalculator.CalculateHarmonics(CreateOriginalPositions(), 2);
         Assert.Multiple(() =>
         {
-            Assert.That(harmonics[0], Is.EqualTo(2.0).Within(_delta));
-            Assert.That(harmonics[1], Is.EqualTo(44.469134).Within(_delta));
-            Assert.That(harmonics[2], Is.EqualTo(331.34).Within(_delta));
-            Assert.That(harmonics[3], Is.EqualTo(304.0).Within(_delta));
+            Assert.That(harmonics[0], Is.EqualTo(2.0).Within(Delta));
+            Assert.That(harmonics[1], Is.EqualTo(44.469134).Within(Delta));
+            Assert.That(harmonics[2], Is.EqualTo(331.34).Within(Delta));
+            Assert.That(harmonics[3], Is.EqualTo(304.0).Within(Delta));
         });
     }
 
@@ -47,10 +47,10 @@ public class TestHarmonicCalculator
         List<double> harmonics = _harmonicCalculator.CalculateHarmonics(CreateOriginalPositions(), 9);
         Assert.Multiple(() =>
         {
-            Assert.That(harmonics[0], Is.EqualTo(9.0).Within(_delta));
-            Assert.That(harmonics[1], Is.EqualTo(200.111103).Within(_delta));
-            Assert.That(harmonics[2], Is.EqualTo(231.03).Within(_delta));
-            Assert.That(harmonics[3], Is.EqualTo(288.0).Within(_delta));
+            Assert.That(harmonics[0], Is.EqualTo(9.0).Within(Delta));
+            Assert.That(harmonics[1], Is.EqualTo(200.111103).Within(Delta));
+            Assert.That(harmonics[2], Is.EqualTo(231.03).Within(Delta));
+            Assert.That(harmonics[3], Is.EqualTo(288.0).Within(Delta));
         });
     }
 
@@ -60,10 +60,10 @@ public class TestHarmonicCalculator
         List<double> harmonics = _harmonicCalculator.CalculateHarmonics(CreateOriginalPositions(), 2048);
         Assert.Multiple(() =>
         {
-            Assert.That(harmonics[0], Is.EqualTo(248.0).Within(_delta));
-            Assert.That(harmonics[1], Is.EqualTo(176.393216).Within(_delta));
-            Assert.That(harmonics[2], Is.EqualTo(172.16).Within(_delta));
-            Assert.That(harmonics[3], Is.EqualTo(256).Within(_delta));
+            Assert.That(harmonics[0], Is.EqualTo(248.0).Within(Delta));
+            Assert.That(harmonics[1], Is.EqualTo(176.393216).Within(Delta));
+            Assert.That(harmonics[2], Is.EqualTo(172.16).Within(Delta));
+            Assert.That(harmonics[3], Is.EqualTo(256).Within(Delta));
         });
     }
 
@@ -73,27 +73,27 @@ public class TestHarmonicCalculator
         List<double> harmonics = _harmonicCalculator.CalculateHarmonics(CreateOriginalPositions(), 3.45);
         Assert.Multiple(() =>
         {
-            Assert.That(harmonics[0], Is.EqualTo(3.45).Within(_delta));
-            Assert.That(harmonics[1], Is.EqualTo(76.70925615).Within(_delta));
-            Assert.That(harmonics[2], Is.EqualTo(112.5615).Within(_delta));
-            Assert.That(harmonics[3], Is.EqualTo(326.4).Within(_delta));
+            Assert.That(harmonics[0], Is.EqualTo(3.45).Within(Delta));
+            Assert.That(harmonics[1], Is.EqualTo(76.70925615).Within(Delta));
+            Assert.That(harmonics[2], Is.EqualTo(112.5615).Within(Delta));
+            Assert.That(harmonics[3], Is.EqualTo(326.4).Within(Delta));
         });
     }
     [Test]
     public void TestSingleHarmonicHappyFlow()
     {
-        double position = 100.0;
-        double harmonic = 5;
-        double expected = 140.0;
+        const double position = 100.0;
+        const double harmonic = 5;
+        const double expected = 140.0;
         double result = _harmonicCalculator.CalculateHarmonic(position, harmonic);
-        Assert.That(result, Is.EqualTo(expected).Within(_delta));
+        Assert.That(result, Is.EqualTo(expected).Within(Delta));
     }
 
 
 
     private static List<double> CreateOriginalPositions()
     {
-        return new List<double>() { 1.0, 22.234567, 345.67, 512.0 };
+        return new List<double> { 1.0, 22.234567, 345.67, 512.0 };
 
     }
 }

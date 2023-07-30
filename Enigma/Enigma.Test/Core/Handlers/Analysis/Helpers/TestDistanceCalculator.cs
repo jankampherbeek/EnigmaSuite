@@ -13,7 +13,7 @@ namespace Enigma.Test.Core.Handlers.Analysis.Helpers;
 [TestFixture]
 public class TestDistanceCalculator
 {
-    private readonly double _delta = 0.00000001;
+    private const double Delta = 0.00000001;
     private readonly IDistanceCalculator _distanceCalculator = new DistanceCalculator();
 
     [Test]
@@ -27,9 +27,9 @@ public class TestDistanceCalculator
             Assert.That(allDistances[0].Point1.Point, Is.EqualTo(ChartPoints.Sun));
             Assert.That(allDistances[0].Point2.Point, Is.EqualTo(ChartPoints.Moon));
             Assert.That(allDistances[2].Point2.Point, Is.EqualTo(ChartPoints.Jupiter));
-            Assert.That(allDistances[0].Distance, Is.EqualTo(20.0).Within(_delta));         // Sun Moon
-            Assert.That(allDistances[1].Distance, Is.EqualTo(160.5).Within(_delta));        // Sun Jupiter
-            Assert.That(allDistances[2].Distance, Is.EqualTo(179.5).Within(_delta));        // Moon Jupiter
+            Assert.That(allDistances[0].Distance, Is.EqualTo(20.0).Within(Delta));         // Sun Moon
+            Assert.That(allDistances[1].Distance, Is.EqualTo(160.5).Within(Delta));        // Sun Jupiter
+            Assert.That(allDistances[2].Distance, Is.EqualTo(179.5).Within(Delta));        // Moon Jupiter
         });
     }
 
@@ -45,9 +45,9 @@ public class TestDistanceCalculator
             Assert.That(allDistances, Has.Count.EqualTo(9));
             Assert.That(allDistances[0].Point1.Point, Is.EqualTo(ChartPoints.Sun));
             Assert.That(allDistances[1].Point2.Point, Is.EqualTo(ChartPoints.Cusp2));
-            Assert.That(allDistances[0].Distance, Is.EqualTo(10.0).Within(_delta));         // Sun Cusp1
-            Assert.That(allDistances[4].Distance, Is.EqualTo(60.0).Within(_delta));        // Moon Cusp2
-            Assert.That(allDistances[8].Distance, Is.EqualTo(89.5).Within(_delta));        // Jupiter Cusp3
+            Assert.That(allDistances[0].Distance, Is.EqualTo(10.0).Within(Delta));         // Sun Cusp1
+            Assert.That(allDistances[4].Distance, Is.EqualTo(60.0).Within(Delta));        // Moon Cusp2
+            Assert.That(allDistances[8].Distance, Is.EqualTo(89.5).Within(Delta));        // Jupiter Cusp3
         });
     }
 

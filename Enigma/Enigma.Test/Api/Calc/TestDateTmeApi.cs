@@ -10,7 +10,7 @@ using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.RequestResponse;
 using Moq;
 
-namespace Enigma.Test.Api.Astron;
+namespace Enigma.Test.Api.Calc;
 
 [TestFixture]
 public class TestDateTimeApi

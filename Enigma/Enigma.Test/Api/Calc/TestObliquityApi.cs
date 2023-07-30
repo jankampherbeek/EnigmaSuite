@@ -18,10 +18,9 @@ public class TestObliquityApi
     private const double JdUt = 123456.789;
     private const double Delta = 0.00000001;
     private const double ExpectedTrueObliquity = 23.447;
-    private ObliquityRequest _obliquityRequest;
-    private Mock<IObliquityHandler> _mockObliquityHandler;
-
-    private IObliquityApi _obliquityApi;
+    private ObliquityRequest? _obliquityRequest;
+    private Mock<IObliquityHandler>? _mockObliquityHandler;
+    private IObliquityApi? _obliquityApi;
 
 
     [SetUp]
@@ -37,7 +36,7 @@ public class TestObliquityApi
     [Test]
     public void TestObliquityHappyFlow()
     {
-        double response = _obliquityApi.GetObliquity(_obliquityRequest);
+        double response = _obliquityApi!.GetObliquity(_obliquityRequest!);
         Assert.That(response, Is.EqualTo(ExpectedTrueObliquity).Within(Delta));
     }
 
@@ -45,7 +44,7 @@ public class TestObliquityApi
     public void TestObliquityNullRequest()
     {
         ObliquityRequest? request = null;
-        Assert.That(() => _obliquityApi.GetObliquity(request!), Throws.TypeOf<ArgumentNullException>());
+        Assert.That(() => _obliquityApi!.GetObliquity(request!), Throws.TypeOf<ArgumentNullException>());
     }
 
 

@@ -15,7 +15,7 @@ public class TestPrimarySystemSpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        PrimarySystems prSys = PrimarySystems.PlacidusUnderPoleMun;
+        const PrimarySystems prSys = PrimarySystems.PlacidusUnderPoleMun;
         PrimarySystemDetails details = prSys.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>

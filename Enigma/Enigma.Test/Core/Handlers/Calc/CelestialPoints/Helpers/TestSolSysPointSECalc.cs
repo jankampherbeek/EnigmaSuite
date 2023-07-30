@@ -60,11 +60,11 @@ public class TestCelPointCalc
         });
     }
 
-    private PosSpeed[] CalculatePosSpeedForCelPoint()
+    private static PosSpeed[] CalculatePosSpeedForCelPoint()
     {
         var location = new Location("", 52.0, 6.0);
         var mockCalcUtFacade = new Mock<ICalcUtFacade>();
-        mockCalcUtFacade.Setup(p => p.PositionFromSe(JulianDayUt, EnigmaConstants.SE_MARS, FlagsEcliptical)).Returns(new double[] { Longitude, Latitude, Distance, LongSpeed, LatSpeed, DistSpeed });
+        mockCalcUtFacade.Setup(p => p.PositionFromSe(JulianDayUt, EnigmaConstants.SE_MARS, FlagsEcliptical)).Returns(new[] { Longitude, Latitude, Distance, LongSpeed, LatSpeed, DistSpeed });
         ICelPointSECalc calc = new CelPointSeCalc(mockCalcUtFacade.Object, new ChartPointsMapping());
         return calc.CalculateCelPoint(ChartPoints.Mars, JulianDayUt, location, FlagsEcliptical);
     }

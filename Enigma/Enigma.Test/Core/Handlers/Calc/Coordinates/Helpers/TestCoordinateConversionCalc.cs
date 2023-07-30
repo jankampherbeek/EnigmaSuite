@@ -15,33 +15,33 @@ namespace Enigma.Test.Core.Handlers.Calc.Coordinates.Helpers;
 [TestFixture]
 public class TestCoordinateConversionCalc
 {
-    private readonly double _longitude = 100.0;
-    private readonly double _latitude = -1.0;
-    private readonly double _expectedRightAsc = 99.0;
-    private readonly double _expectedDeclination = 2.2;
-    private readonly double _obliquity = 23.447;
-    private readonly double _delta = 0.00000001;
+    private const double Longitude = 100.0;
+    private const double Latitude = -1.0;
+    private const double ExpectedRightAsc = 99.0;
+    private const double ExpectedDeclination = 2.2;
+    private const double Obliquity = 23.447;
+    private const double Delta = 0.00000001;
 
     [Test]
     public void TestConversion()
     {
-        var ecliptical = new double[] { _longitude, _latitude };
-        var eclCoord = new EclipticCoordinates(_longitude, _latitude);
-        var equatorial = new double[] { _expectedRightAsc, _expectedDeclination };
+        var ecliptical = new[] { Longitude, Latitude };
+        var eclCoord = new EclipticCoordinates(Longitude, Latitude);
+        var equatorial = new[] { ExpectedRightAsc, ExpectedDeclination };
         Mock<ICoTransFacade> mockFacade = CreateFacadeMock(ecliptical, equatorial);
         ICoordinateConversionCalc convCalc = new CoordinateConversionCalc(mockFacade.Object);
-        EquatorialCoordinates equatCoord = convCalc.PerformConversion(eclCoord, _obliquity);
+        EquatorialCoordinates equatCoord = convCalc.PerformConversion(eclCoord, Obliquity);
         Assert.Multiple(() =>
         {
-            Assert.That(equatCoord.RightAscension, Is.EqualTo(_expectedRightAsc).Within(_delta));
-            Assert.That(equatCoord.Declination, Is.EqualTo(_expectedDeclination).Within(_delta));
+            Assert.That(equatCoord.RightAscension, Is.EqualTo(ExpectedRightAsc).Within(Delta));
+            Assert.That(equatCoord.Declination, Is.EqualTo(ExpectedDeclination).Within(Delta));
         });
     }
 
-    private Mock<ICoTransFacade> CreateFacadeMock(double[] ecliptical, double[] equatorial)
+    private static Mock<ICoTransFacade> CreateFacadeMock(double[] ecliptical, double[] equatorial)
     {
         var mock = new Mock<ICoTransFacade>();
-        mock.Setup(p => p.EclipticToEquatorial(ecliptical, _obliquity)).Returns(equatorial);
+        mock.Setup(p => p.EclipticToEquatorial(ecliptical, Obliquity)).Returns(equatorial);
         return mock;
     }
 

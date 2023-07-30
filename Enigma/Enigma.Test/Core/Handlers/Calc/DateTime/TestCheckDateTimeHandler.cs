@@ -17,7 +17,7 @@ namespace Enigma.Test.Core.Handlers.Calc.DateTime;
 public class TestCheckDateTimeHandler
 {
     private const Calendars Calendar = Calendars.Gregorian;
-    private SimpleDateTime _dateTime;
+    private SimpleDateTime? _dateTime;
 
 
     private const string ErrorText = "Description of problem.";
@@ -35,7 +35,7 @@ public class TestCheckDateTimeHandler
         Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
         Mock<IDateTimeCalc> calcMock = CreateCalcMock();
         IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorMock.Object);
-        Assert.That(handler.CheckDateTime(_dateTime), Is.True);
+        Assert.That(handler.CheckDateTime(_dateTime!), Is.True);
     }
 
     [Test]
@@ -44,21 +44,21 @@ public class TestCheckDateTimeHandler
         Mock<IDateTimeCalc> calcMock = CreateCalcMock();
         Mock<IDateTimeValidator> validatorExceptionMock = CreateCalcMockThrowingException();
         IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorExceptionMock.Object);
-        Assert.That(handler.CheckDateTime(_dateTime), Is.False);
+        Assert.That(handler.CheckDateTime(_dateTime!), Is.False);
     }
 
 
     private Mock<IDateTimeValidator> CreateValidatorMock()
     {
         var mock = new Mock<IDateTimeValidator>();
-        mock.Setup(p => p.ValidateDateTime(_dateTime)).Returns(true);
+        mock.Setup(p => p.ValidateDateTime(_dateTime!)).Returns(true);
         return mock;
     }
 
     private Mock<IDateTimeCalc> CreateCalcMock()
     {
         var mock = new Mock<IDateTimeCalc>();
-        mock.Setup(p => p.CalcDateTime(It.IsAny<double>(), It.IsAny<Calendars>())).Returns(_dateTime);
+        mock.Setup(p => p.CalcDateTime(It.IsAny<double>(), It.IsAny<Calendars>())).Returns(_dateTime!);
         return mock;
     }
 
@@ -67,7 +67,7 @@ public class TestCheckDateTimeHandler
     {
         var mock = new Mock<IDateTimeValidator>();
         var exception = new SwissEphException(ErrorText);
-        mock.Setup(p => p.ValidateDateTime(_dateTime)).Throws(exception);
+        mock.Setup(p => p.ValidateDateTime(_dateTime!)).Throws(exception);
         return mock;
     }
 

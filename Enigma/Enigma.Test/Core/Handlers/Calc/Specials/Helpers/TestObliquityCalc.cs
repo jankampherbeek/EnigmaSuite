@@ -13,35 +13,35 @@ namespace Enigma.Test.Core.Handlers.Calc.Specials.Helpers;
 [TestFixture]
 public class TestObliquityCalc
 {
-    readonly double delta = 0.00000001;
+    private const double Delta = 0.00000001;
 
     [Test]
     public void TestCalculateTrueObliquity()
     {
-        bool trueObliquity = true;
-        double expectedObliquity = 23.447;
-        double jd = 12345.678;
+        const bool trueObliquity = true;
+        const double expectedObliquity = 23.447;
+        const double jd = 12345.678;
         IObliquityCalc calc = CreateObliquityCalc();
         double result = calc.CalculateObliquity(jd, trueObliquity);
-        Assert.That(result, Is.EqualTo(expectedObliquity).Within(delta));
+        Assert.That(result, Is.EqualTo(expectedObliquity).Within(Delta));
     }
 
     [Test]
     public void TestCalculateMeanObliquity()
     {
-        bool trueObliquity = false;
-        double expectedObliquity = 23.448;
-        double jd = 12345.678;
+        const bool trueObliquity = false;
+        const double expectedObliquity = 23.448;
+        const double jd = 12345.678;
         IObliquityCalc calc = CreateObliquityCalc();
         double result = calc.CalculateObliquity(jd, trueObliquity);
-        Assert.That(result, Is.EqualTo(expectedObliquity).Within(delta));
+        Assert.That(result, Is.EqualTo(expectedObliquity).Within(Delta));
     }
 
     private static IObliquityCalc CreateObliquityCalc()
     {
-        int celpointId = -1;
-        int flags = 0;
-        double jd = 12345.678;
+        const int celpointId = -1;
+        const int flags = 0;
+        const double jd = 12345.678;
         double[] positions = { 23.448, 23.447, 0.0, 0.0, 0.0, 0.0 };
         var mock = new Mock<ICalcUtFacade>();
         mock.Setup(p => p.PositionFromSe(jd, celpointId, flags)).Returns(positions);
