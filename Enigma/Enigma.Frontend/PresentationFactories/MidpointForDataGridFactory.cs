@@ -51,9 +51,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
         char point1Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point1.Point);
         char point2Glyph = _glyphsForChartPoints.FindGlyph(midpoint.Point2.Point);
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(midpoint.Position);
-        string position = longTxt;
-        char signGlyph = glyph;
-        return new PresentableMidpoint(point1Glyph, point2Glyph, position, signGlyph);
+        return new PresentableMidpoint(point1Glyph, point2Glyph, longTxt, glyph);
 
     }
 
@@ -63,7 +61,7 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
         char point2Glyph = _glyphsForChartPoints.FindGlyph(occMidpoint.Midpoint.Point2.Point);
         char pointOccGlyph = _glyphsForChartPoints.FindGlyph(occMidpoint.OccupyingPoint.Point);
         string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(occMidpoint.Orb);
-        string exactnessText = System.Math.Floor(occMidpoint.Exactness).ToString() + " %";
+        string exactnessText = System.Math.Floor(occMidpoint.Exactness) + " %";
         return new PresentableOccupiedMidpoint(point1Glyph, point2Glyph, pointOccGlyph, orbText, exactnessText);
     }
 }

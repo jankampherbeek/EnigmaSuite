@@ -43,7 +43,7 @@ public static class SignsExtensions
             Signs.Capricorn => new SignDetails(Signs.Capricorn, "ref.enum.sign.capricorn.text", "ref.enum.sign.capricorn.abbr"),
             Signs.Aquarius => new SignDetails(Signs.Aquarius, "ref.enum.sign.aquarius.text", "ref.enum.sign.aquarius.abbr"),
             Signs.Pisces => new SignDetails(Signs.Pisces, "ref.enum.sign.pisces.text", "ref.enum.sign.pisces.abbr"),
-            _ => throw new ArgumentException("Sign unknown : " + sign.ToString())
+            _ => throw new ArgumentException("Sign unknown : " + sign)
         };
     }
 
@@ -51,16 +51,12 @@ public static class SignsExtensions
     /// <returns>All details.</returns>
     public static List<SignDetails> AllDetails(this Signs _)
     {
-        var allDetails = new List<SignDetails>();
-        foreach (Signs currentSign in Enum.GetValues(typeof(Signs)))
-        {
-            allDetails.Add(currentSign.GetDetails());
-        }
-        return allDetails;
+        return (from Signs currentSign in Enum.GetValues(typeof(Signs)) select currentSign.GetDetails()).ToList();
     }
 
 
     /// <summary>Find Sign for an index.</summary>
+    /// <param name="_">Any sign.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The Sign.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
@@ -70,9 +66,8 @@ public static class SignsExtensions
         {
             if ((int)currentSign == index) return currentSign;
         }
-        string errorText = "Signs.SingForIndex(): Could not find Sign for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("Signs.SignForIndex(): Could not find Sign for index : {Index}", index);
+        throw new ArgumentException("Sign for index not found");
     }
 
 }

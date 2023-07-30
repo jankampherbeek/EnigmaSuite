@@ -5,7 +5,7 @@
 
 using Enigma.Domain.Configuration;
 
-namespace Enigma.Core.Handlers.Configuration.Interfaces;
+namespace Enigma.Core.Handlers.Interfaces;
 
 /// <summary>Handler for configurations.</summary>
 public interface IConfigurationHandler

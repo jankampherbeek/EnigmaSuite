@@ -37,12 +37,8 @@ public static class OrbMethodsExtensions
     /// <returns>All details.</returns>
     public static List<OrbMethodDetails> AllDetails(this OrbMethods _)
     {
-        var allDetails = new List<OrbMethodDetails>();
-        foreach (OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)))
-        {
-            allDetails.Add(currentMethod.GetDetails());
-        }
-        return allDetails;
+        return (from OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)) 
+            select currentMethod.GetDetails()).ToList();
     }
 
 

@@ -83,9 +83,9 @@ public sealed class PlacidusTimeKey: IPlacidusTimeKey
 /// <inheritdoc/>
 public sealed class SolarArcCalculator: ISolarArcCalculator
 {
-    private readonly ICelPointSECalc _calculator;
+    private readonly ICelPointSeCalc _calculator;
 
-    public  SolarArcCalculator(ICelPointSECalc calc)
+    public  SolarArcCalculator(ICelPointSeCalc calc)
     {
         _calculator = calc;
     }

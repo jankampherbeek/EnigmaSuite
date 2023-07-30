@@ -6,6 +6,7 @@
 using Enigma.Domain.Charts;
 using Serilog;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.State;
 
@@ -18,7 +19,7 @@ public sealed class DataVault
 
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
-    private bool NewChartAdded = false;
+    private bool NewChartAdded;
 
     /// <summary>Base name for the current view (without the 'View' part)</summary>
     public string CurrentViewBase { get; set; }
@@ -32,13 +33,7 @@ public sealed class DataVault
     {
     }
 
-    public static DataVault Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+    public static DataVault Instance => instance;
 
     public void ClearExistingCharts()
     {
@@ -70,21 +65,15 @@ public sealed class DataVault
     public CalculatedChart? GetCurrentChart()
     {
         if (_currentChart != null) return _currentChart;
-        else
-        {
-            Log.Error("No chart available while using GetCurrentChart() in DataVault.");
-            return null;
-        }
+        Log.Error("No chart available while using GetCurrentChart() in DataVault");
+        return null;
     }
 
     public void SetCurrentChart(int id)
     {
-        foreach (var chart in _allCharts)
+        foreach (CalculatedChart chart in _allCharts.Where(chart => chart.InputtedChartData.Id == id))
         {
-            if (chart.InputtedChartData.Id == id)
-            {
-                _currentChart = chart;
-            }
+            _currentChart = chart;
         }
     }
 

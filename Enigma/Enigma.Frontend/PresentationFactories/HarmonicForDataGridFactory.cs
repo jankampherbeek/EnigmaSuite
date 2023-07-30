@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.ChartItems;
+
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
@@ -52,16 +52,9 @@ public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
     private PresentableHarmonic CreatePresHarmonic(char celPointGlyph, double radixPos, double harmonicPos)
     {
         var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(radixPos);
-        char radixSignGlyph = glyph;
-        string radixPosText = longTxt;
-        var harmonicPosPres = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(harmonicPos);
-        char harmonicSignGlyph = harmonicPosPres.glyph;
-        string harmonicPosText = harmonicPosPres.longTxt;
+        (string? harmonicPosText, char harmonicSignGlyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(harmonicPos);
 
-        return new PresentableHarmonic(celPointGlyph, radixPosText, radixSignGlyph, harmonicPosText, harmonicSignGlyph);
+        return new PresentableHarmonic(celPointGlyph, longTxt, glyph, harmonicPosText, harmonicSignGlyph);
     }
-
-
-
 
 }

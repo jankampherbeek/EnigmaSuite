@@ -8,6 +8,7 @@ using Enigma.Domain.Points;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -28,26 +29,20 @@ public class HousePosForDataGridFactory : IHousePosForDataGridFactory
             CreateSingleCuspPos("MC", positions[ChartPoints.Mc]),
             CreateSingleCuspPos("Asc", positions[ChartPoints.Ascendant])
         };
-        if (positions.ContainsKey(ChartPoints.Vertex))
+        if (positions.TryGetValue(ChartPoints.Vertex, out FullPointPos? position))
         {
             string descr = ChartPoints.Vertex.GetDetails().Text;
-            presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.Vertex]));
+            presPositions.Add(CreateSingleCuspPos(descr, position));
         }
-        if (positions.ContainsKey(ChartPoints.EastPoint))
+        if (positions.TryGetValue(ChartPoints.EastPoint, out FullPointPos? position1))
         {
             string descr = ChartPoints.EastPoint.GetDetails().Text;
-            presPositions.Add(CreateSingleCuspPos(descr, positions[ChartPoints.EastPoint]));
+            presPositions.Add(CreateSingleCuspPos(descr, position1));
         }
-
-
-        foreach (var item in positions)
-        {
-            if (item.Key.GetDetails().PointCat == PointCats.Cusp)
-            {
-                string descr = item.Key.GetDetails().Text;
-                presPositions.Add(CreateSingleCuspPos(descr, item.Value));
-            }
-        }
+        presPositions.AddRange(from item in positions 
+            where item.Key.GetDetails().PointCat == PointCats.Cusp 
+            let descr = item.Key.GetDetails().Text 
+            select CreateSingleCuspPos(descr, item.Value));
         return presPositions;
     }
 

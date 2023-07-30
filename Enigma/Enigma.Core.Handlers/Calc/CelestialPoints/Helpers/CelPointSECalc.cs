@@ -13,7 +13,7 @@ namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
 
 
 /// <inheritdoc/>
-public sealed class CelPointSeCalc : ICelPointSECalc
+public sealed class CelPointSeCalc : ICelPointSeCalc
 {
     private readonly ICalcUtFacade _calcUtFacade;
     private readonly IChartPointsMapping _mapping;

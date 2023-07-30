@@ -48,7 +48,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
         string aspectText = Rosetta.TextForId(effAspect.Aspect.Text);
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.ActualOrb);
         double exactnessValue = 100 - (effAspect.ActualOrb / effAspect.MaxOrb * 100);
-        string exactness = string.Format("{0:N}", exactnessValue).Replace(",", ".");
+        string exactness = $"{exactnessValue:N}".Replace(",", ".");
         return new PresentableAspects(point1Text, point1Glyph, aspectText, aspectGlyph, point2Text, point2Glyph, orb, exactness);
     }
 

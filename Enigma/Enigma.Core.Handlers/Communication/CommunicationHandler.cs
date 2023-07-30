@@ -24,14 +24,7 @@ public class CommunicationHandler : ICommunicationHandler
     public ReleaseInfo FindLatestRelease()
     {
         string json = _httpRequester.GetHttpRequest(EnigmaConstants.RELEASE_CHECK_URL);
-        if (json == "")
-        {
-            return new ReleaseInfo("", "", "", "", "");
-        }
-        else
-        {
-            return JsonSerializer.Deserialize<ReleaseInfo>(json)!;
-        }
+        return json == "" ? new ReleaseInfo("", "", "", "", "") : JsonSerializer.Deserialize<ReleaseInfo>(json)!;
     }
 
 

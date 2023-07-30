@@ -35,7 +35,7 @@ public static class ObserverPositionsExtensions
             ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "Geocentric"),
             ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "Heliocentric"),
             ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "Topocentric (with parallax)"),
-            _ => throw new ArgumentException("Observer Position unknown : " + obsPos.ToString())
+            _ => throw new ArgumentException("Observer Position unknown : " + obsPos)
         };
     }
 
@@ -44,15 +44,12 @@ public static class ObserverPositionsExtensions
     /// <returns>All details</returns>
     public static List<ObserverPositionDetails> AllDetails(this ObserverPositions _)
     {
-        var allDetails = new List<ObserverPositionDetails>();
-        foreach (ObserverPositions currentPosition in Enum.GetValues(typeof(ObserverPositions)))
-        {
-            allDetails.Add(currentPosition.GetDetails());
-        }
-        return allDetails;
+        return (from ObserverPositions currentPosition in Enum.GetValues(typeof(ObserverPositions)) 
+            select currentPosition.GetDetails()).ToList();
     }
 
     /// <summary>Find observer position for a given index</summary>
+    /// <param name="_">Any observer position</param>
     /// <param name="index">The index</param>
     /// <returns>The observer position</returns>
     /// <exception cref="ArgumentException">Thrown if the observer position was not found.</exception>
@@ -62,9 +59,8 @@ public static class ObserverPositionsExtensions
         {
             if ((int)currentObsPos == index ) return currentObsPos;
         }
-        string errorText = "ObserverPositions.ObserverPositionForIndex(): Could not find Observer Position for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("ObserverPositions.ObserverPositionForIndex(): Could not find Observer Position for index : {Index}", index );
+        throw new ArgumentException("No observer position for given index");
     }
 
 }

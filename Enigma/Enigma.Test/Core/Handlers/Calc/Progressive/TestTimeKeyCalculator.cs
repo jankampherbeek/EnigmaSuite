@@ -139,9 +139,9 @@ public class TestSolarArcCalculator
 
     }
 
-    private ICelPointSECalc CreateCelPointSeCalcMock()
+    private ICelPointSeCalc CreateCelPointSeCalcMock()
     {
-        var mockCalc = new Mock<ICelPointSECalc>();
+        var mockCalc = new Mock<ICelPointSeCalc>();
         mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JdRadix, _location, Flags)).Returns(_jdRadixEclSunPos);
         mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JdEvent, _location, Flags)).Returns(_jdEventEclSunPos);
         return mockCalc.Object;

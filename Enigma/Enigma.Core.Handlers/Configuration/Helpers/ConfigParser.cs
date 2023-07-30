@@ -3,9 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Configuration.Interfaces;
 using Enigma.Domain.Configuration;
 using System.Text.Json;
+using Enigma.Core.Handlers.Interfaces;
 
 namespace Enigma.Core.Handlers.Configuration.Helpers;
 

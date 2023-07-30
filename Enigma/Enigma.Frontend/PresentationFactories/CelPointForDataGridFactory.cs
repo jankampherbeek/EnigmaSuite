@@ -60,8 +60,8 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed.Position),
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed.Speed));
         var distance = new Tuple<string, string>(
-            String.Format("{0:F8}", commonPos.Value.Equatorial.DistancePosSpeed.Position),
-            String.Format("{0:F8}", commonPos.Value.Equatorial.DistancePosSpeed.Speed));
+            $"{commonPos.Value.Equatorial.DistancePosSpeed.Position:F8}",
+            $"{commonPos.Value.Equatorial.DistancePosSpeed.Speed:F8}");
         string azimuth = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.MainPosSpeed.Position);
         string altitude = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.DeviationPosSpeed.Position);
 

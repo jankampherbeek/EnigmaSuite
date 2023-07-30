@@ -19,7 +19,7 @@ public class DataNameForPresentationFactory : IDataNameForPresentationFactory
         List<PresentableDataName> presentableDataNames = new();
         foreach (var fullPathDataName in fullPathDataNames)
         {
-            int pos = fullPathDataName.LastIndexOf(@"\");
+            int pos = fullPathDataName.LastIndexOf(@"\", StringComparison.Ordinal);
             string dataName = fullPathDataName[(pos + 1)..];
             presentableDataNames.Add(new PresentableDataName(dataName));
         }

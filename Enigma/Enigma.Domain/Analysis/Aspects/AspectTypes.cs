@@ -75,7 +75,7 @@ public static class AspectTypesExtensions
             AspectTypes.Undecile => new AspectDetails(aspect, 33.0, "Undecile (33°)", 'ç', 0.0),
             AspectTypes.Centile => new AspectDetails(aspect, 100.0, "Centile (100°)", 'Ç', 0.0),
             AspectTypes.Vigintile => new AspectDetails(aspect, 18.0, "Vigintile (18°)", 'Ï', 0.0),
-            _ => throw new ArgumentException("Aspect unknown : " + aspect.ToString())
+            _ => throw new ArgumentException("Aspect unknown : " + aspect)
         };
     }
  

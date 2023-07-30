@@ -16,7 +16,7 @@ public sealed class SeHandler : ISeHandler
     /// <param name="pathToSeFiles"></param>
     public void SetupSe(string? pathToSeFiles)
     {
-        Log.Information("Initializing SE using path: " + pathToSeFiles);
+        Log.Information("Initializing SE using path: {Path}", pathToSeFiles);
         SeInitializer.SetEphePath(pathToSeFiles);
         Log.Information("SE initialized");
     }

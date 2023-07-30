@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Configuration.Interfaces;
+using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
@@ -23,18 +23,18 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
 
     private static AstroConfig CombineDefaultDetails()
     {
-        HouseSystems houseSystem = HouseSystems.Placidus;
-        Ayanamshas ayanamsha = Ayanamshas.None;
-        ObserverPositions observerPosition = ObserverPositions.GeoCentric;
-        ZodiacTypes zodiacType = ZodiacTypes.Tropical;
-        ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
-        OrbMethods orbMethod = OrbMethods.Weighted;
+        const HouseSystems houseSystem = HouseSystems.Placidus;
+        const Ayanamshas ayanamsha = Ayanamshas.None;
+        const ObserverPositions observerPosition = ObserverPositions.GeoCentric;
+        const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
+        const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
+        const OrbMethods orbMethod = OrbMethods.Weighted;
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
         Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = CreateAspects();
 
-        double baseOrbAspects = 10.0;
-        double baseOrbMidpoints = 1.6;
-        bool useCuspsForAspects = false;
+        const double baseOrbAspects = 10.0;
+        const double baseOrbMidpoints = 1.6;
+        const bool useCuspsForAspects = false;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             chartPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
     }

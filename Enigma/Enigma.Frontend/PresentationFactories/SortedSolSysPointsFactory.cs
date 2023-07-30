@@ -24,17 +24,13 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
     public List<GraphicCelPointPositions> CreateSortedList(Dictionary<ChartPoints, FullPointPos> celPointPositions, double longitudeAsc, double minDistance)
     {
         List<GraphicCelPointPositions> graphPositions = CreateGraphicPositions(celPointPositions, longitudeAsc);
-        graphPositions.Sort(delegate (GraphicCelPointPositions pos1, GraphicCelPointPositions pos2)
-        {
-            return pos1.MundanePos.CompareTo(pos2.MundanePos);
-        });
-        double actDistance = 0.0;
+        graphPositions.Sort((pos1, pos2) => pos1.MundanePos.CompareTo(pos2.MundanePos));
         GraphicCelPointPositions? lastPos = null;
         foreach (var pos in graphPositions)
         {
             if (lastPos != null)
             {
-                actDistance = pos.MundanePos - lastPos.PlotPos;
+                double actDistance = pos.MundanePos - lastPos.PlotPos;
                 if (actDistance < minDistance)
                 {
                     pos.PlotPos += minDistance - actDistance;

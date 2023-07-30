@@ -20,7 +20,7 @@ namespace Enigma.Core.Handlers.Calc.CelestialPoints;
 public sealed class CelPointsHandler : ICelPointsHandler
 {
     private readonly ISeFlags _seFlags;
-    private readonly ICelPointSECalc _celPointSeCalc;
+    private readonly ICelPointSeCalc _celPointSeCalc;
     private readonly ICelPointsElementsCalc _celPointElementsCalc;
     private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IHorizontalHandler _horizontalHandler;
@@ -31,7 +31,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
 
     public CelPointsHandler(ISeFlags seFlags,
-                               ICelPointSECalc positionCelPointSeCalc,
+                               ICelPointSeCalc positionCelPointSeCalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
                                ICoTransFacade coordinateConversionFacade,
                                IHorizontalHandler horizontalHandler,

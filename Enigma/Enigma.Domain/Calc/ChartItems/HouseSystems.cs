@@ -82,21 +82,16 @@ public static class HouseSystemsExtensions
         {
             if ((int)houseSystem == index) return houseSystem;
         }
-        string errorText = "HouseSystems.HouseSystemForIndex(): Could not find HouseSystem for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("HouseSystems.HouseSystemForIndex(): Could not find HouseSystem for index : {Index}", index);
+        throw new ArgumentException("No house system found for given index");
     }
 
     /// <summary>Creates list with all details for house systems.</summary>
     /// <returns>All details.</returns>
     public static List<HouseSystemDetails> AllDetails(this HouseSystems _)
     {
-        var allDetails = new List<HouseSystemDetails>();
-        foreach (HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)))
-        {
-            allDetails.Add(houseSystem.GetDetails());
-        }
-        return allDetails;
+        return (from HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)) 
+            select houseSystem.GetDetails()).ToList();
     }
 
 

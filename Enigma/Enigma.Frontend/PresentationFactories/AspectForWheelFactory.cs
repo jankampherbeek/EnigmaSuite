@@ -35,7 +35,7 @@ public class AspectForWheelFactory : IAspectForWheelFactory
         foreach (DefinedAspect defAspect in aspects)
         {
             double exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100);
-            drawables.Add(new DrawableCelPointAspect((ChartPoints)defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect));
+            drawables.Add(new DrawableCelPointAspect(defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect));
         }
         return drawables;
     }

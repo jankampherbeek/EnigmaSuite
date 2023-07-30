@@ -22,7 +22,6 @@ using Enigma.Core.Handlers.Communication;
 using Enigma.Core.Handlers.Communication.Helpers;
 using Enigma.Core.Handlers.Configuration;
 using Enigma.Core.Handlers.Configuration.Helpers;
-using Enigma.Core.Handlers.Configuration.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency;
 using Enigma.Core.Handlers.Persistency.Daos;
@@ -49,7 +48,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
-        serviceCollection.AddTransient<ICelPointSECalc, CelPointSeCalc>();
+        serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();
         serviceCollection.AddTransient<ICelPointsElementsCalc, CelPointsElementsCalc>();
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();

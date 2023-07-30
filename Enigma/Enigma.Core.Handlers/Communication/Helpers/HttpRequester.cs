@@ -33,7 +33,7 @@ public class HttpRequester : IHttpRequester
         }
         catch (Exception e)     // System.Net.WebException  and   HttpRequestException
         {
-            Log.Error("HttpRequester.ReadJsonFromSite using url : " + url + " . Exception occurred, probably no internet connection. Exception message : " + e.Message);
+            Log.Error("HttpRequester.ReadJsonFromSite using url : {Url}. Exception occurred, probably no internet connection. Exception message : {Msg} ", url, e.Message);
         }
         return "";
     }

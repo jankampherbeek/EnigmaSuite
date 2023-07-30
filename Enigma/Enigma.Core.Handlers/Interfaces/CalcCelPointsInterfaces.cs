@@ -62,7 +62,7 @@ public interface ICalcHelioPos
 
 
 /// <summary>Calculations for celestial points.</summary>
-public interface ICelPointSECalc
+public interface ICelPointSeCalc
 {
     /// <summary>Calculate a single celestial point.</summary>
     /// <param name="celPoint">The celestial point that will be calculated.</param>

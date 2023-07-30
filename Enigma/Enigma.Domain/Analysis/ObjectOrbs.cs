@@ -22,12 +22,10 @@ public class OrbDefinitions : IOrbDefinitions
     public ChartPointOrb DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         double orbForChartPoint = 0.0;
-        foreach (var spec in chartPointConfigSpecs)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec 
+                 in chartPointConfigSpecs.Where(spec => spec.Key == chartPoint))
         {
-            if (spec.Key == chartPoint)
-            {
-                orbForChartPoint = spec.Value.PercentageOrb / 100.0;
-            }
+            orbForChartPoint = spec.Value.PercentageOrb / 100.0;
         }
         return new ChartPointOrb(chartPoint, orbForChartPoint);
     }
