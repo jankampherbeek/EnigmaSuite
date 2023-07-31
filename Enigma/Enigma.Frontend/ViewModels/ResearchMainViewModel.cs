@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,10 +45,11 @@ public partial class ResearchMainViewModel: ObservableObject
     }
 
     [RelayCommand]
-    private static void NewProject()
+    private void NewProject()
     {
         ProjectInputWindow projectInputWindow = new();
         projectInputWindow.ShowDialog();
+        AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
     }
 
     [RelayCommand(CanExecute = nameof(IsProjectSelected))]

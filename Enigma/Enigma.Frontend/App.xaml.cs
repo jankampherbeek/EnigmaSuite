@@ -97,7 +97,7 @@ public partial class App
         serviceCollection.AddTransient<ProgInputTransitsController>();
         serviceCollection.AddTransient<ProjectUsageController>();
         serviceCollection.AddTransient<ProjectUsageWindow>();
-        serviceCollection.AddTransient<ProjectInputController>();
+        serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
         serviceCollection.AddTransient<RadixDataInputModel>();
         serviceCollection.AddTransient<RadixHarmonicsModel>();

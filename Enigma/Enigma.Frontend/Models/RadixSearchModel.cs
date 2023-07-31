@@ -43,6 +43,7 @@ public class RadixSearchModel
         ChartData chartData = _chartDataConverter.FromPersistableChartData(persistableChartData);
         CalculatedChart calcChart = _chartCalculation.CalculateChart(chartData);
         _dataVault.AddNewChart(calcChart);
+        _dataVault.SetCurrentChart(calcChart.InputtedChartData.Id);
     }
     
 }

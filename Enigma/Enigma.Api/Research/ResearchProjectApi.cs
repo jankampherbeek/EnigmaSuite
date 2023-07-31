@@ -23,17 +23,17 @@ public sealed class ProjectCreationApi : IProjectCreationApi
     public ResultMessage CreateProject(ResearchProject project)
     {
         Guard.Against.Null(project);
-        Log.Information("ProjectCreationApi CreateProject: about to create project {name}.", project.Name);
+        Log.Information("ProjectCreationApi CreateProject: about to create project {Name}", project.Name);
         bool success = _projectCreationHandler.CreateProject(project, out int errorCode);
         string msg = "Project created";
         if (success)
         {
-            Log.Information("ProjectCreationApi.CreateProject(): Project {name} successfully created.", project.Name);
+            Log.Information("ProjectCreationApi.CreateProject(): Project {Name} successfully created", project.Name);
         }
         else
         {
             msg = "An error occurred when trying to create a project.";
-            Log.Error("ProjectCreationApi.CreateProject(): An error occurred when creating project {name}, the errorCode is: {code}.", project.Name, errorCode);
+            Log.Error("ProjectCreationApi.CreateProject(): An error occurred when creating project {Name}, the errorCode is: {Code}", project.Name, errorCode);
         }
         return new ResultMessage(errorCode, msg);
     }
@@ -49,7 +49,7 @@ public sealed class ProjectsOverviewApi : IProjectsOverviewApi
     /// <inheritdoc/>
     public List<ResearchProject> GetDetailsForAllProjects()
     {
-        Log.Information("ProjectsOverviewApi.GetDetailsForAllProjects(). Returning list of projects.");
+        Log.Information("ProjectsOverviewApi.GetDetailsForAllProjects(). Returning list of projects");
         return _projectsOverviewHandler.ReadAllProjectDetails();
     }
 }

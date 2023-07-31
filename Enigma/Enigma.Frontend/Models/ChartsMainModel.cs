@@ -72,5 +72,11 @@ public sealed class ChartsMainModel
         var currentChart = _dataVault.GetCurrentChart();
         return currentChart != null ? currentChart.InputtedChartData.MetaData.Name : "";
     }
+
+    public PresentableChartData? CurrentChart()
+    {
+        var currentChart = _dataVault.GetCurrentChart();
+        return currentChart != null ? _chartDataForDataGridFactory.CreatePresentableChartData(currentChart) : null;
+    }
     
 }

@@ -4,9 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterOwner"
-        Title="Enigma - Application settings" Height="330" Width="450">
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Application settings" Height="360" Width="450">
     <Window.Resources>
         <viewModels:AppSettingsViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -16,41 +22,37 @@
             <ColumnDefinition Width="50*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="24*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="20*"/>            
+            <RowDefinition Height="18*"/>            
         </Grid.RowDefinitions>
-        <Rectangle Grid.Column="0" Grid.Row="2" Grid.RowSpan="5" Grid.ColumnSpan="2"  Style="{StaticResource BackgroundStyle}" />
-        <TextBlock Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="Application Settings" Margin="6" Style="{StaticResource TitleStyle}"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  
-                   Text="The locations for different types of files as used in Enigma Astrology Research. In future releases you will be able to change these locations." 
-                   Margin="6" TextWrapping="Wrap"/>
+        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="16" Mode="PrimaryMid">
+        <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Application Settings"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        </materialDesign:ColorZone>
+        <TextBlock Grid.Column="0" Grid.Row="1" Text="Data files" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LocationOfDataFiles, Mode=OneWay}" Margin="6"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="2" Text="Data files" Margin="6"/>
-        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding LocationOfDataFiles, Mode=OneWay}" Margin="6"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Projects" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding LocationOfProjectFiles, Mode=OneWay}" Margin="6"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="3" Text="Projects" Margin="6"/>
-        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding LocationOfProjectFiles, Mode=OneWay}" Margin="6"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Text="Exported files" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding LocationOfExportFiles, Mode=OneWay}" Margin="6"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="4" Text="Exported files" Margin="6"/>
-        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding LocationOfExportFiles, Mode=OneWay}" Margin="6"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="Logfiles" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="{Binding LocationOfLogFiles, Mode=OneWay}" Margin="6"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="5" Text="Logfiles" Margin="6"/>
-        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding LocationOfLogFiles, Mode=OneWay}" Margin="6"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Text="Database" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding LocationOfDatabase, Mode=OneWay}" Margin="6"/>
 
-        <TextBlock Grid.Column="0" Grid.Row="6" Text="Database" Margin="6"/>
-        <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding LocationOfDatabase, Mode=OneWay}" Margin="6"/>
-
-        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
+        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Close" Click="CloseClick"/>
         </StackPanel>
- 
-
     </Grid>
 </Window>

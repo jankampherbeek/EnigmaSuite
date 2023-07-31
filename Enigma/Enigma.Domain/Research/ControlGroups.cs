@@ -9,15 +9,15 @@ namespace Enigma.Domain.Research;
 /// <summary>Types of controlgroups.</summary>
 public enum ControlGroupTypes
 {
-    StandardShift = 0
-    //  ,  GroupMemberShift = 1     // TODO 0.2 add controlgroup GroupMemberShift
+    StandardShift = 0,  
+    GroupMemberShift = 1     
 }
 
 
 /// <summary>Details for ControlGroupTypes </summary>
 /// <param name="ControlGroupType">Instance from enum ControlGroupTypes.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record ControlGroupTypeDetails(ControlGroupTypes ControlGroupType, string TextId);
+/// <param name="Text">Descriptive text.</param>
+public record ControlGroupTypeDetails(ControlGroupTypes ControlGroupType, string Text);
 
 /// <summary>Extension class for enum ControlGroupTypes.</summary>
 public static class ControlGroupTypesExtensions
@@ -29,8 +29,8 @@ public static class ControlGroupTypesExtensions
     {
         return cgType switch
         {
-            ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.standardshift"),
-            //         ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "ref.enum.controlgrouptypes.groupmembershift"),   // TODO 0.2 add check for GroupMemberShift
+            ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "Standard shifting of location, date, and time"),
+            ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "Shift members of groups"),   
             _ => throw new ArgumentException("Controlgroup type unknown : " + cgType)
         };
     }
@@ -43,6 +43,7 @@ public static class ControlGroupTypesExtensions
     }
 
     /// <summary>Find control group type for an index.</summary>
+    /// <param name="_">Any control group</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The control group type for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>

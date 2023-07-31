@@ -38,12 +38,14 @@ public partial class ChartsMainViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(TransitsCommand))]
     [NotifyCanExecuteChangedFor(nameof(SymDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
+    [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
     [ObservableProperty] private string _lastAddedChart = string.Empty;
     [ObservableProperty] private string _currentlySelectedChart = string.Empty;
-    [ObservableProperty] private ObservableCollection<PresentableChartData> _availableCharts;   
-    
+    [ObservableProperty] private ObservableCollection<PresentableChartData> _availableCharts;
+    [NotifyPropertyChangedFor(nameof(ChartIndex))]
+    [ObservableProperty] private PresentableChartData? _selectedChart;
     public ChartsMainViewModel()
     {
         _model = App.ServiceProvider.GetRequiredService<ChartsMainModel>();
@@ -51,6 +53,10 @@ public partial class ChartsMainViewModel: ObservableObject
         _availableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
         PopulateData();
     }
+    
+
+    
+    
     
     private void OpenWindow(Window window)
     {
@@ -61,18 +67,28 @@ public partial class ChartsMainViewModel: ObservableObject
         window.Show();
     }
 
+    [RelayCommand]
+    private void ItemChanged()
+    {
+        SelectedChart = AvailableCharts[ChartIndex];
+        _dataVault.SetCurrentChart(ChartIndex);
+        PopulateData();
+    }
+
+    [RelayCommand]
     private void PopulateData()
     {
         NrOfChartsInDatabase = "Nr. of charts in database : " + _model.CountPersistedCharts();
         LastAddedChart = "Last added to database : " + _model.MostRecentChart();
         CurrentlySelectedChart = "Currently selected : " + _model.CurrentChartName();
+        SelectedChart = _model.CurrentChart();
     }
     
-    private void PopulateAvailableCharts()
+    public void PopulateAvailableCharts()
     {
         AvailableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
+        
     }
-    
     
     
     [RelayCommand]
@@ -108,7 +124,6 @@ public partial class ChartsMainViewModel: ObservableObject
         window.ShowDialog();
         PopulateData();
         PopulateAvailableCharts();
-       // DisableOrEnable();
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]

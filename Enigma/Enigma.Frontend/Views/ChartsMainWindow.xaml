@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -171,6 +172,11 @@
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableCharts}"
                  SelectedIndex="{Binding ChartIndex, Mode=TwoWay}">
+            <b:Interaction.Triggers>
+                <b:EventTrigger EventName="SelectionChanged">
+                    <b:InvokeCommandAction Command="{Binding ItemChangedCommand}" />
+                </b:EventTrigger>
+            </b:Interaction.Triggers>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
+/// <summary>ViewModel for application settings</summary>
 public partial class AppSettingsViewModel: ObservableObject
 {
 

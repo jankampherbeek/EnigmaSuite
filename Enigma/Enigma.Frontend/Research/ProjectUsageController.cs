@@ -50,7 +50,7 @@ public class ProjectUsageController
             details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.description"), Value = _currentProject.Description });
             details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.date"), Value = _currentProject.CreationDate });
             details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.dataname"), Value = _currentProject.DataName });
-            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.controlgrouptype"), Value = Rosetta.TextForId(_currentProject.ControlGroupType.GetDetails().TextId) });
+            details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.controlgrouptype"), Value = Rosetta.TextForId(_currentProject.ControlGroupType.GetDetails().Text) });
             details.Add(new PresentableProjectDetails() { Name = Rosetta.TextForId("projectusagewindow.details.multiplication"), Value = _currentProject.ControlGroupMultiplication.ToString() });
         }
         return details;

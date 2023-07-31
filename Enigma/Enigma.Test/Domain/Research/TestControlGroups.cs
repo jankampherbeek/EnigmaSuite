@@ -22,7 +22,7 @@ public class TestControlGroupTypes
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.ControlGroupType, Is.EqualTo(controlGroupType));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.controlgrouptypes.standardshift"));
+            Assert.That(details.Text, Is.EqualTo("Standard shifting of location, date, and time"));
         });
     }
 
@@ -33,7 +33,7 @@ public class TestControlGroupTypes
         {
             ControlGroupTypeDetails details = controlGroupType.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -58,7 +58,7 @@ public class TestControlGroupTypes
         List<ControlGroupTypeDetails> allDetails = ControlGroupTypes.StandardShift.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(1));
+            Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].ControlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
         });
     }

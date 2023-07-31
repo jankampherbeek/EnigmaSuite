@@ -61,7 +61,7 @@ public interface ICelPointForDataGridFactory
 public interface IDataNameForPresentationFactory
 {
     /// <summary>Builds a presentable data name to be used in a grid.</summary>
-    /// <param name="dataNames">List with datanames.</param>
+    /// <param name="fullPathDataNames">List with datanames.</param>
     /// <returns>Presentable data names.</returns>
     List<PresentableDataName> CreateDataNamesForDataGrid(List<string> fullPathDataNames);
 
@@ -96,14 +96,19 @@ public interface ISortedGraphicCelPointsFactory
 public interface IChartDataForDataGridFactory
 {
     /// <summary>Create list with PresentableChartData from list with CalculatedChart.</summary>
-    /// <param name="charts">The cahrts to create presentable versions for.</param>
+    /// <param name="charts">The charts for which to create presentable versions.</param>
     /// <returns>The presentable versions of the charts data.</returns>
     public List<PresentableChartData> CreateChartDataForDataGrid(List<CalculatedChart> charts);
 
     /// <summary>Create list with PresentableChartData from list with PersistableChartData.</summary>
-    /// <param name="charts">The cahrts to create presentable versions for.</param>
+    /// <param name="charts">The charts for which to create presentable versions.</param>
     /// <returns>The presentable versions of the charts data.</returns>
     public List<PresentableChartData> CreateChartDataForDataGrid(List<PersistableChartData>? charts);
+
+    /// <summary>Create instance of PresentableChartData from CalculatedChart.</summary>
+    /// <param name="chart">The chart for which to create a presentable version.</param>
+    /// <returns>TRhe presentable version of the chart data</returns>
+    public PresentableChartData? CreatePresentableChartData(CalculatedChart chart);
 }
 
 /// <summary>Textual conversions ofr location and coördinates.</summary>
@@ -139,7 +144,7 @@ public interface IEventDataConverter
     /// <summary>Convert PersistableEventData to EventData.</summary>
     /// <param name="persistableEventData"/>
     /// <returns>Resulting EventData.</returns>
-    public EventData FromPersistableEventData(PersistableEventData persistableeventData);
+    public EventData FromPersistableEventData(PersistableEventData persistableEventData);
 
     /// <summary>Convert EventData to PersistableEventData.</summary>
     /// <param name="eventData"/>

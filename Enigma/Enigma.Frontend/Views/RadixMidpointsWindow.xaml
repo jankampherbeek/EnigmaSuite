@@ -11,7 +11,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
-        Title="Enigma - Midpoints" Height="750" Width="680"
+        Title="Enigma - Midpoints" Height="750" Width="700"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <viewModels:RadixMidpointsViewModel x:Key="ViewModel"/>
@@ -20,7 +20,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="35*"/>
             <ColumnDefinition Width="12"/>
-            <ColumnDefinition Width="45*"/>
+            <ColumnDefinition Width="50*"/>
             <ColumnDefinition Width="12"/>            
             <ColumnDefinition Width="20*"/>
         </Grid.ColumnDefinitions>

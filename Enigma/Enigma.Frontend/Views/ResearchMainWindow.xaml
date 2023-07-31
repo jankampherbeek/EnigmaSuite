@@ -15,13 +15,12 @@
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80*"/>
-            <ColumnDefinition Width="20*"/>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="28*"/>
-            <RowDefinition Height="20*"/>
             <RowDefinition Height="220"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
@@ -85,9 +84,7 @@
                        Text="Enigma Research"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
         </materialDesign:ColorZone>
-            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap"  
-                       Text="Select one of the projects and click the button [Info] for more information or the button [Open] to start working with the project."/>            
-        <ListBox Grid.Row="3" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
+         <ListBox Grid.Row="2" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableProjects}"
                  SelectedIndex="{Binding ProjectIndex, Mode=TwoWay}">
             <ListBox.ItemTemplate>
@@ -103,17 +100,15 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <materialDesign:ColorZone Grid.Row="3" Grid.Column="1" Padding="4" Mode="SecondaryMid" Height="220">
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                <Button Margin="6" Content="Open" HorizontalAlignment="Right" 
-                        Command="{Binding OpenProjectCommand}"/>
-                <Button Margin="6" Content="New" HorizontalAlignment="Right" 
-                        Command="{Binding NewProjectCommand}"/>
-            </StackPanel>
-        </materialDesign:ColorZone>
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="Close" HorizontalAlignment="Right" Click="CloseClick"/>
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+            <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"
+                    Command="{Binding OpenProjectCommand}"/>
+            <Button Margin="0 3 0 3"  Content="New Project" HorizontalAlignment="Right" Width="120"
+                    Command="{Binding NewProjectCommand}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
+            <Button Margin="6 6 0 6" Content="Close" HorizontalAlignment="Right" Click="CloseClick"/>
         </StackPanel>
     </Grid>
 </Window>

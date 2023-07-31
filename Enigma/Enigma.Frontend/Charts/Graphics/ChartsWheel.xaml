@@ -9,16 +9,16 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="40"/>
             <RowDefinition Height="60"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
         <Grid SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
                 <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
         </Grid>
         <TextBlock Grid.Row="1" Margin="6" Name="TbDetails" Text="TbDetails" TextWrapping="Wrap" />
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Name="BtnHelp" Content="Help" Click="HelpClick"/>
-            <Button Name="BtnClose" Content="Close" Click="CloseClick"/>
+            <Button Content="Help" Margin="4" Click="HelpClick"/>
+            <Button Content="Close" Margin="4" Click="CloseClick"/>
         </StackPanel>
     </Grid>
     

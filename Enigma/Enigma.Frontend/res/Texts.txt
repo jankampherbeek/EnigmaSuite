@@ -247,19 +247,6 @@ pointselectwindow.formtitle = Select points to include
 pointselectwindow.title = Enigma - Point selection
 pointselectwindow.warningnrofpoints = Please select more points. The minimal number for the current method is
 
--------------------------------- Project input window --
-
-projectinputwindow.controlgroupinfo = Controlgroup
-projectinputwindow.controlgrouptype = Select the type of controlgroup
-projectinputwindow.datafile = Select the datafile
-projectinputwindow.datainfo = Datafile to be used
-projectinputwindow.description = Description
-projectinputwindow.formtitle = Create new project
-projectinputwindow.generalinfo = Name and description for project
-projectinputwindow.multiplication = Multiplication controlgroup
-projectinputwindow.name = Name for project
-projectinputwindow.projectsaved = The project has been saved
-projectinputwindow.title = Enigma - Project creation
 
 -------------------------------- Project usage window --
 projectusagewindow.title = Enigma - Projectbased tests
@@ -279,11 +266,6 @@ projectusagewindow.details.multiplication = Multiplication controlgroup
 
 ref.enum.arabicpoint.fortunasect = Pars Fortunae (sect)
 ref.enum.arabicpoint.fortunanosect = Pars Fortunae (no sect)
-
-
-
-ref.enum.controlgrouptypes.standardshift = Standard shifting of location, date, and time
-ref.enum.controlgrouptypes.groupmembershift = Shift members of groups
 
 ref.enum.direction4geolat.north = N
 ref.enum.direction4geolat.south = S

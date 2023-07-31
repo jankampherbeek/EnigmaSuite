@@ -25,6 +25,15 @@ public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
             select new PresentableChartData(id, name, description)).ToList();
     }
 
+    /// <inherritdoc/>
+    public PresentableChartData? CreatePresentableChartData(CalculatedChart chart)
+    {
+        string id = chart.InputtedChartData.Id.ToString();
+        string name = chart.InputtedChartData.MetaData.Name;
+        string description = chart.InputtedChartData.MetaData.Description; 
+        return new PresentableChartData(id, name, description);
+    }
+
 
     /// <inherritdoc/>
     public List<PresentableChartData> CreateChartDataForDataGrid(List<PersistableChartData>? charts)
