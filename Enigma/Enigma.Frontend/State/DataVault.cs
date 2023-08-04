@@ -7,6 +7,7 @@ using Enigma.Domain.Charts;
 using Serilog;
 using System.Collections.Generic;
 using System.Linq;
+using Enigma.Domain.Research;
 
 namespace Enigma.Frontend.Ui.State;
 
@@ -19,6 +20,15 @@ public sealed class DataVault
 
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
+    public ResearchProject? CurrentProject { get; set; }
+    public ResearchMethods ResearchMethod { get; set; } = ResearchMethods.None;
+    public ResearchPointsSelection? CurrentPointsSelection { get; set; }
+    public bool ResearchIncludeCusps { get; set; }
+    public MethodResponse? ResponseTest { get; set; }
+    public MethodResponse? ResponseCg { get; set; }
+    
+    
+    
     private bool NewChartAdded;
 
     /// <summary>Base name for the current view (without the 'View' part)</summary>

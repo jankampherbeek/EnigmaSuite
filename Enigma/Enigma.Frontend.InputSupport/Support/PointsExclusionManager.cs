@@ -43,7 +43,7 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.EastPoint,
             ChartPoints.ZeroAries
         };
-        bool excludeCusps = true;
+        const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
@@ -59,7 +59,7 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.EastPoint,
             ChartPoints.Vertex
         };
-        bool excludeCusps = true;
+        const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
@@ -70,7 +70,7 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.Vertex,
             ChartPoints.EastPoint
         };
-        bool excludeCusps = true;
+        const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
@@ -85,7 +85,7 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.FortunaNoSect,
             ChartPoints.FortunaSect
         };
-        bool excludeCusps = true;
+        const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
@@ -96,7 +96,7 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.Vertex,
             ChartPoints.EastPoint
         };
-        bool excludeCusps = false;
+        const bool excludeCusps = false;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
@@ -107,7 +107,7 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.Vertex,
             ChartPoints.EastPoint
         };
-        bool excludeCusps = true;
+        const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 }

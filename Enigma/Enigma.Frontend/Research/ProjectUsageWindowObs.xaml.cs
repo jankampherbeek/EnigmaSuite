@@ -8,25 +8,25 @@ using Enigma.Frontend.Helpers.Support;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Windows;
-using static Enigma.Frontend.Ui.Research.ProjectUsageController;
+using static Enigma.Frontend.Ui.Research.ProjectUsageControllerObs;
 
 namespace Enigma.Frontend.Ui.Research
 {
     /// <summary>Form for inputwindow for researchmethods.</summary>
-    public partial class ProjectUsageWindow : Window
+    public partial class ProjectUsageWindowObs : Window
     {
-        private readonly ProjectUsageController _controller;
+        private readonly ProjectUsageControllerObs _controllerObs;
 
-        public ProjectUsageWindow()
+        public ProjectUsageWindowObs()
         {
             InitializeComponent();
-            _controller = App.ServiceProvider.GetRequiredService<ProjectUsageController>();
+            _controllerObs = App.ServiceProvider.GetRequiredService<ProjectUsageControllerObs>();
             PopulateTexts();
         }
 
         public void SetProject(ResearchProject project)
         {
-            _controller.SetProject(project);
+            _controllerObs.SetProject(project);
             PopulateData(project);
         }
 
@@ -61,7 +61,7 @@ namespace Enigma.Frontend.Ui.Research
             tbProjControlGroupTypeValue.Text = project.ControlGroupType.ToString();
             tbProjControlGroupMultValue.Text = project.ControlGroupMultiplication.ToString();
 
-            List<PresentableMethodDetails> methodDetails = _controller.GetAllMethodDetails();
+            List<PresentableMethodDetails> methodDetails = _controllerObs.GetAllMethodDetails();
             lbExistingMethods.ItemsSource = methodDetails;
         }
 
@@ -72,13 +72,13 @@ namespace Enigma.Frontend.Ui.Research
             {
                 int index = lbExistingMethods.SelectedIndex;
                 ResearchMethods researchMethod = ResearchMethods.None.ResearchMethodForIndex(index);
-                _controller.PerformRequest(researchMethod);
+                _controllerObs.PerformRequest(researchMethod);
             }
         }
 
         private void ShowConfig(object sender, RoutedEventArgs e)
         {
-            _controller.ShowConfig();
+            _controllerObs.ShowConfig();
         }
 
         private void CloseClick(object sender, RoutedEventArgs e)
@@ -88,7 +88,7 @@ namespace Enigma.Frontend.Ui.Research
 
         private void HelpClick(object sender, RoutedEventArgs e)
         {
-            ProjectUsageController.ShowHelp(); ;
+            ProjectUsageControllerObs.ShowHelp(); ;
         }
     }
 }

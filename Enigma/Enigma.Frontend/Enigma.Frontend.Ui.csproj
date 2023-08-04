@@ -813,13 +813,13 @@
     <None Update="res\help\ProjectInput.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ProjectOverview.html">
+    <None Update="res\help\ProjectUsage.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ResearchResults.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\SelectPointsForTest.html">
+    <None Update="res\help\ResearchPointsSelection.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\Settings.html">

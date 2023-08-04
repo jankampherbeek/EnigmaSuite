@@ -7,7 +7,6 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;

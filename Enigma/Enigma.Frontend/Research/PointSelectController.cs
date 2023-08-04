@@ -47,6 +47,35 @@ public sealed class PointSelectController
 
     private void DefineChartPoints(ResearchMethods method)
     {
+        int minimalNrOfPoints;
+        switch (method)
+        {
+            case ResearchMethods.None:
+                break;
+            case ResearchMethods.CountPosInSigns:
+                minimalNrOfPoints = 1;
+                break;
+            case ResearchMethods.CountPosInHouses:
+                minimalNrOfPoints = 1;
+                break;
+            case ResearchMethods.CountAspects:
+                minimalNrOfPoints = 2;
+                break;
+            case ResearchMethods.CountUnaspected:
+                minimalNrOfPoints = 1;
+                break;
+            case ResearchMethods.CountOccupiedMidpoints:
+                minimalNrOfPoints = 3;
+                break;
+            case ResearchMethods.CountHarmonicConjunctions:
+                minimalNrOfPoints = 1;
+                break;
+            default:
+                minimalNrOfPoints = 1;
+                break;
+        }
+        
+        
         _astroConfig = CurrentConfig.Instance.GetConfig();
         _selCPDetails = new();
         PointsToExclude pointsToExclude = _pointsExclusionManager.DefineExclusions(method);

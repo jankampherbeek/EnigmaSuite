@@ -24,6 +24,7 @@ using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
+using Enigma.Core.Handlers.Configuration.Helpers;
 using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Models;
 
@@ -88,15 +89,12 @@ public partial class App
         serviceCollection.AddTransient<MidpointDetailsWindow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
-        serviceCollection.AddTransient<PointSelectController>();
-        serviceCollection.AddTransient<PointSelectWindow>();
         serviceCollection.AddTransient<ProgInputEvent>();
         serviceCollection.AddTransient<ProgInputEventController>();
         serviceCollection.AddTransient<ProgInputPeriod>();
         serviceCollection.AddTransient<ProgInputPeriodController>();
         serviceCollection.AddTransient<ProgInputTransitsController>();
-        serviceCollection.AddTransient<ProjectUsageController>();
-        serviceCollection.AddTransient<ProjectUsageWindow>();
+        serviceCollection.AddTransient<ProjectUsageModel>();
         serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
         serviceCollection.AddTransient<RadixDataInputModel>();
@@ -105,6 +103,7 @@ public partial class App
         serviceCollection.AddTransient<RadixPositionsModel>();
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
+        serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultController>();
         serviceCollection.AddTransient<ResearchResultWindow>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();

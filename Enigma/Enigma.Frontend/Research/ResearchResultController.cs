@@ -146,7 +146,7 @@ public class ResearchResultController
     private void CreateResultHeaders(GeneralResearchRequest request)
     {
         ProjectText = request.ProjectName;
-        string methodText = Rosetta.TextForId(request.Method.GetDetails().TextId);
+        string methodText = Rosetta.TextForId(request.Method.GetDetails().Text);
         TestMethodText = methodText + " - test data";
         ControlMethodText = methodText + " - control data";
     }

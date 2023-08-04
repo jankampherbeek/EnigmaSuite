@@ -32,11 +32,11 @@ public interface IDistanceCalculator
 public interface IAspectPointSelector
 {
     /// <summary>Selects points for aspects.</summary>
-    /// <param name="chartPointPositions">Available chartpoint positions.</param>
-    /// <param name="anglePositions">Available mundane positions for angles.</param>
+    /// <param name="positions">Available chartpoint positions.</param>
     /// <param name="chartPointConfigSpecs">Configuration data for chart points.</param>
     /// <returns>The relevant points for the calculation of aspects.</returns>
-    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> positions, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
+    public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> positions, 
+           Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
 }
 
 
@@ -113,7 +113,7 @@ public interface IHarmonicsCalculator
     /// <summary>Calculate harmonics for a single position using a specified harmonic number.</summary>
     /// <param name="originalPosition">OriginalPosition.</param>
     /// <param name="harmonicNumber">The multiplication factor for the harmonic to calculate.</param>
-    /// <returns>Value for the harmonic position in the range 0 <= value < 360.0.</returns>
+    /// <returns>Value for the harmonic position in the range 0 lt;= value lt; 360.0.</returns>
     public double CalculateHarmonic(double originalPosition, double harmonicNumber);
 }
 

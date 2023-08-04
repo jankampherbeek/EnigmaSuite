@@ -31,12 +31,11 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
     {
         bool noErrors = true;
         int count = csvLines.Count;
-        Tuple<StandardInputItem?, bool> processedLine;
         List<StandardInputItem> allInput = new();
         List<string> resultLines = new();
         for (int i = 1; i < count; i++)           // skip first line that contains header
         {
-            processedLine = ProcessLine(csvLines[i]);
+            Tuple<StandardInputItem?, bool> processedLine = ProcessLine(csvLines[i]);
             if (!processedLine.Item2 || processedLine.Item1 == null)
             {
                 resultLines.Add("Error: " + csvLines[i]);
@@ -48,13 +47,11 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
             }
         }
         string jsonText = "";
-        if (noErrors)
-        {
-            string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            StandardInput standardInput = new(dataName, creation, allInput);
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            jsonText = JsonSerializer.Serialize(standardInput, options);
-        }
+        if (!noErrors) return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
+        string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+        StandardInput standardInput = new(dataName, creation, allInput);
+        var options = new JsonSerializerOptions { WriteIndented = true };
+        jsonText = JsonSerializer.Serialize(standardInput, options);
         return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
     }
 
@@ -90,7 +87,7 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
             Tuple<PersistableTime, bool> timeResult = _timeCheckedConversion.StandardCsvToTime(timeText, zoneOffsetText, dstText);
             if (timeResult.Item2) time = timeResult.Item1;
             else noErrors = false;
-            inputItem = new(id, name, geoLongitude, geoLatitude, date, time);
+            inputItem = new StandardInputItem(id, name, geoLongitude, geoLatitude, date, time);
         }
         catch (Exception)
         {

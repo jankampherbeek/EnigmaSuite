@@ -5,6 +5,7 @@
 
 using Enigma.Core.Domain.Points;
 using Enigma.Domain.Analysis;
+using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,7 +15,6 @@ public static class DomainServices
 {
     public static void RegisterDomainServices(this ServiceCollection serviceCollection)
     {
-
         serviceCollection.AddTransient<IOrbDefinitions, OrbDefinitions>();
         serviceCollection.AddTransient<IPointsMapping, PointsMapping>();
     }

@@ -56,11 +56,9 @@ public sealed class HarmonicConjunctionsCounting : IHarmonicConjunctionsCounting
                     double difference = second - first;
 
                     if (difference > 180.0) difference = Math.Abs(difference - 360.0);
-                    if (difference < orb)
-                    {
-                        TwoPointStructure structure = new(harmonicPos.Key, posPoint.Point);
-                        allCounts[structure]++;
-                    }
+                    if (!(difference < orb)) continue;
+                    TwoPointStructure structure = new(harmonicPos.Key, posPoint.Point);
+                    allCounts[structure]++;
                 }
             }
         }
@@ -69,7 +67,7 @@ public sealed class HarmonicConjunctionsCounting : IHarmonicConjunctionsCounting
 
     private static Dictionary<TwoPointStructure, int> InitializeAllCounts(List<ChartPoints> selectedPoints)
     {
-        int countValue = 0;
+        const int countValue = 0;
         Dictionary<TwoPointStructure, int> allCounts = new();
         foreach (ChartPoints firstPoint in selectedPoints)
         {

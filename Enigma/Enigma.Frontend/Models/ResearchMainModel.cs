@@ -8,6 +8,7 @@ using System.Linq;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Research;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -15,43 +16,45 @@ namespace Enigma.Frontend.Ui.Models;
 public class ResearchMainModel
 {
     private readonly IProjectsOverviewApi _projectsOverviewApi;
-    private List<ResearchProject> _researchProjects = new();
+    public List<ResearchProject> ResearchProjects = new();
 
     public ResearchMainModel(IProjectsOverviewApi projectsOverviewApi)
     {
         _projectsOverviewApi = projectsOverviewApi;
     }
-    
-    
+
+
     public List<ProjectItem> GetAllProjectItems()
     {
         List<ProjectItem> projectItems = new();
-        _researchProjects = new List<ResearchProject>();
+        ResearchProjects = new List<ResearchProject>();
         List<ResearchProject> allProjects = _projectsOverviewApi.GetDetailsForAllProjects();
         foreach (var project in allProjects)
         {
-            _researchProjects.Add(project);
+            ResearchProjects.Add(project);
             projectItems.Add(new ProjectItem { ProjectName = project.Name, ProjectDescription = project.Description });
         }
+
         return projectItems;
     }
-    
-    
-    public void OpenProject(ProjectItem projectItem)
-    {
-        ResearchProject? currentProject = null;
-        // check for null to avoid adding multiple projects to usage window
-        foreach (ResearchProject project in _researchProjects.Where(project => project.Name.Equals(projectItem.ProjectName) && (currentProject is null)))
-        {
-            currentProject = project;
-            ProjectUsageWindow projectUsageWindow = new ProjectUsageWindow();       // todo 0.2 move navigation out of model
-            projectUsageWindow.SetProject(currentProject);
-            projectUsageWindow.ShowDialog();
-        }
-    }
-    
-}
 
+
+    // TODO remove outcommented method OpenProject from ResearchMainModel
+    /*   public void OpenProject()
+       {
+           
+           ResearchProject? currentProject = null;
+           // check for null to avoid adding multiple projects to usage window
+           foreach (ResearchProject project in _researchProjects.Where(project => project.Name.Equals(projectItem.ProjectName) && (currentProject is null)))
+           {
+               currentProject = project;
+               ProjectUsageWindow projectUsageWindow = new ProjectUsageWindow();       // todo 0.2 move navigation out of model
+               projectUsageWindow.ShowDialog();
+           }
+       }
+       
+   }*/
+}
 
 
 public class ProjectItem

@@ -47,9 +47,9 @@ public class DistanceCalculator : IDistanceCalculator
     }
 
 
-    private static double NormalizeShortestDistance(double InitialValue)
+    private static double NormalizeShortestDistance(double initialValue)
     {
-        double distance = InitialValue;
+        double distance = initialValue;
         if (distance < 0) distance += 360.0;
         if (distance > 180.0) distance = 360.0 - distance;
         return distance;

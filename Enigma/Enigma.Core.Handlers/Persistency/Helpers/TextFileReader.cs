@@ -26,7 +26,7 @@ public sealed class TextFileReader : ITextFileReader
         }
         catch (Exception e)
         {
-            Log.Error("An exception was thrown in TextFileReader.ReadFile() while reading all text from the file {location}, the msg of the exception: {msg}", location, e.Message);
+            Log.Error("An exception was thrown in TextFileReader.ReadFile() while reading all text from the file {Location}, the msg of the exception: {Msg}", location, e.Message);
             text = "";
         }
         return text;
@@ -45,7 +45,7 @@ public sealed class TextFileReader : ITextFileReader
         }
         catch (Exception e)
         {
-            Log.Error("An exception was thrown in TextFileReader.ReadAllLines() while reading separate lines from the file {location}, the msg of the exception: {msg}", location, e.Message);
+            Log.Error("An exception was thrown in TextFileReader.ReadAllLines() while reading separate lines from the file {Location}, the msg of the exception: {Msg}", location, e.Message);
         }
         return csvLines;
     }

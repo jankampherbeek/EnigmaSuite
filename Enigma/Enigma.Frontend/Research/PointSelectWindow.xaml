@@ -42,7 +42,7 @@
         <StackPanel Grid.Row="7" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Name="btnHelp" Content="btnHelp" Click="HelpClick"/>
             <Button Name="btnCancel" Content="btnCancel" Click="CancelClick"/>
-            <Button Name="btnOk" Content="btnOk" Click="OkClick"/>
+            <Button Name="btnOk" Content="btnOk"/>
         </StackPanel>
     </Grid>
 </Window>

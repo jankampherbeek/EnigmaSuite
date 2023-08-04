@@ -20,14 +20,15 @@ public enum ResearchMethods
 
 /// <summary>Specifications for a research method.</summary>
 /// <param name="ResearchMethod"/>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record ResearchMethodDetails(ResearchMethods ResearchMethod, string TextId);
+/// <param name="MinNumberOfPoints">Minimal number of points to be used for this method.</param>
+/// <param name="Text">Descriptive text.</param>
+public record ResearchMethodDetails(ResearchMethods ResearchMethod, int MinNumberOfPoints, string Text);
 
 
 /// <summary>Extension methods for ResearchMethods.</summary>
 public static class ResearchMethodsExtensions
 {
-
+ 
     /// <summary>Retrieve details for research method.</summary>
     /// <param name="method">The method.</param>
     /// <returns>Details for the method.</returns>
@@ -36,17 +37,16 @@ public static class ResearchMethodsExtensions
     {
         return method switch
         {
-            ResearchMethods.CountPosInSigns => new ResearchMethodDetails(method, "ref.enum.researchmethods.countposinsigns"),
-            ResearchMethods.CountPosInHouses => new ResearchMethodDetails(method, "ref.enum.researchmethods.countposinhouses"),
-            ResearchMethods.CountAspects => new ResearchMethodDetails(method, "ref.enum.researchmethods.countaspects"),
-            ResearchMethods.CountUnaspected => new ResearchMethodDetails(method, "ref.enum.researchmethods.countunaspected"),
-            ResearchMethods.CountOccupiedMidpoints => new ResearchMethodDetails(method, "ref.enum.researchmethods.countoccupiedmidpoints"),
-            ResearchMethods.CountHarmonicConjunctions => new ResearchMethodDetails(method, "ref.enum.researchmethods.countharmonicconjunctions"),
+            ResearchMethods.CountPosInSigns => new ResearchMethodDetails(method, 1, "Count positions in signs"),
+            ResearchMethods.CountPosInHouses => new ResearchMethodDetails(method, 1, "Count positions in houses"),
+            ResearchMethods.CountAspects => new ResearchMethodDetails(method, 2, "Count aspects"),
+            ResearchMethods.CountUnaspected => new ResearchMethodDetails(method, 1,"Count unaspected celestial points"),
+            ResearchMethods.CountOccupiedMidpoints => new ResearchMethodDetails(method, 3,"Count occupied midpoints"),
+            ResearchMethods.CountHarmonicConjunctions => new ResearchMethodDetails(method, 1,"Count harmonic conjunctions"),
             ResearchMethods.None => throw new ArgumentException("ResearchMethod unknown : " + method),
             _ => throw new ArgumentException("ResearchMethod unknown : " + method)
         };
     }
-
 
     /// <summary>Retrieve details for items in the enum ResearchMethods.</summary>
     /// <returns>All details.</returns>

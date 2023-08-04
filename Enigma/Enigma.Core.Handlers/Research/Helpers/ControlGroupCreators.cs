@@ -165,15 +165,15 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
 
 public class ControlDataCalendar : IControlDataCalendar
 {
-    private readonly int[] months31Array = { 2, 3, 5, 7, 8, 10, 12 };
-    private readonly int[] months30Array = { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+    private readonly int[] _months31Array = { 2, 3, 5, 7, 8, 10, 12 };
+    private readonly int[] _months30Array = { 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
     public bool DayFitsInMonth(int day, int month, int year)
     {
         List<int> months31 = new();
         List<int> months30 = new();
-        months31.AddRange(months31Array);
-        months30.AddRange(months30Array);
+        months31.AddRange(_months31Array);
+        months30.AddRange(_months30Array);
         return day < 29
             || (day == 29 && 2 != month)
             || (day == 30 && months30.Contains(month))

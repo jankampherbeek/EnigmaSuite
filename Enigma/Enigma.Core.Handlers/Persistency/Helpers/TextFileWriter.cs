@@ -24,7 +24,7 @@ public sealed class TextFileWriter : ITextFileWriter
         }
         catch (Exception e)
         {
-            Log.Error("An exception {e} was thrown when TextFileWriter was writing a text to file {location}. Text to write: {text}", e.Message, location, text);
+            Log.Error("An exception {E} was thrown when TextFileWriter was writing a text to file {Location}. Text to write: {Text}", e.Message, location, text);
             success = false;
         }
         return success;
@@ -39,7 +39,7 @@ public sealed class TextFileWriter : ITextFileWriter
         }
         catch (Exception e)
         {
-            Log.Error("An exception {e} ws thrown when TextFileWriter was writing several textlines to file {location}. Text to write: {@textLines}", e.Message, location, textLines);
+            Log.Error("An exception {E} ws thrown when TextFileWriter was writing several textlines to file {Location}. Text to write: {@TextLines}", e.Message, location, textLines);
             success = false;
         }
         return success;

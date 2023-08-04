@@ -72,18 +72,18 @@ public abstract class SpeculumItem : ISpeculumItem
     public double NocturnalSemiArc => Nsa;
 
 
-    protected double RaPlanet;
-    protected double DeclPlanet;
-    protected double Mdmc;                       // meridian distance from mc
-    protected double Mdic;                       // meridian distance from ic
-    protected double Ad;                         // ascensional difference
-    protected double Oadpl;                      // oblique ascension or descension planet
-    protected double GeoLat;
-    protected double Hd;                         // horizontal distance
-    protected double Dsa;                        // diurnal semi-arc
-    protected double Nsa;                        // nocturnal semi-arc
-    protected bool East;
-    protected bool North;
+    protected readonly double RaPlanet;
+    protected readonly double DeclPlanet;
+    protected readonly double Mdmc;                       // meridian distance from mc
+    protected readonly double Mdic;                       // meridian distance from ic
+    protected readonly double Ad;                         // ascensional difference
+    protected readonly double Oadpl;                      // oblique ascension or descension planet
+    protected readonly double GeoLat;
+    protected readonly double Hd;                         // horizontal distance
+    protected readonly double Dsa;                        // diurnal semi-arc
+    protected readonly double Nsa;                        // nocturnal semi-arc
+    protected readonly bool East;
+    protected readonly bool North;
 
     public SpeculumItem(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet)
     {

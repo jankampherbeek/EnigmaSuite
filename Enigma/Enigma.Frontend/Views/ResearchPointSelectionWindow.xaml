@@ -1,0 +1,54 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.ResearchPointSelectionWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
+        WindowStartupLocation="CenterScreen"          
+        Title="PointSelectWindow" Height="800" Width="440">
+    <Window.Resources>
+        <viewModels:ResearchPointSelectionViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="75*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Grid.Row="0" Margin="6" Padding="16" Mode="PrimaryMid">
+            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Select points to include"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        </materialDesign:ColorZone>
+        <DataGrid Grid.Row="1" Margin="6" 
+                  materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                  materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                  CanUserAddRows="False" CanUserSortColumns="False"
+                  AutoGenerateColumns="False"
+                  HeadersVisibility="None"
+                  ItemsSource="{Binding AllChartPointDetails, Mode=TwoWay}"
+                  SelectionUnit="Cell">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Binding="{Binding Selected}"></DataGridCheckBoxColumn>
+                <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
+                                    IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Name}" Header=" " CellStyle="{StaticResource NameColumnStyle}"
+                                    IsReadOnly="True"/>
+            </DataGrid.Columns>   
+        </DataGrid>
+        <CheckBox Grid.Row="2" Margin="6" Content="Include all cusps" IsEnabled="{Binding MethodSupportsCusps}" IsChecked="{Binding IncludeCusps}" />
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+            <Button Margin="4" Content="Help" Command="{Binding HelpCommand}"/>
+            <Button Margin="4" Content="Cancel" Click="CloseClick"/>
+            <Button Margin="4" Content="Ok" Command="{Binding CompleteSelectionCommand}" Click="CloseClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

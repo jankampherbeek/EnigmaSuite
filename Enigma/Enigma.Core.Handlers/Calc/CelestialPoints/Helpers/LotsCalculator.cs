@@ -49,11 +49,12 @@ public class LotsCalculator : ILotsCalculator
         double sun = commonPoints[ChartPoints.Sun].Ecliptical.MainPosSpeed.Position;
         bool dayLight = commonPoints[ChartPoints.Sun].Horizontal.DeviationPosSpeed.Position >= 0.0;
         double moon = commonPoints[ChartPoints.Moon].Ecliptical.MainPosSpeed.Position;
-        switch (lot)
+        lotLongitude = lot switch
         {
-            case ChartPoints.FortunaNoSect: lotLongitude = ascendant + moon - sun; break;
-            case ChartPoints.FortunaSect: lotLongitude = dayLight ? ascendant + moon - sun : ascendant - moon + sun; break;
-        }
+            ChartPoints.FortunaNoSect => ascendant + moon - sun,
+            ChartPoints.FortunaSect => dayLight ? ascendant + moon - sun : ascendant - moon + sun,
+            _ => lotLongitude
+        };
         while (lotLongitude >= 360.0)
         {
             lotLongitude -= 360.0;

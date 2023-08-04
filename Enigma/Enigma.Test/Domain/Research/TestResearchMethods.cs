@@ -21,7 +21,7 @@ public class TestResearchMethods
         Assert.Multiple(() =>
         {
             Assert.That(details.ResearchMethod, Is.EqualTo(ResearchMethods.CountAspects));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.researchmethods.countaspects"));
+            Assert.That(details.Text, Is.EqualTo("Count aspects"));
         });
     }
 
@@ -34,7 +34,7 @@ public class TestResearchMethods
             if (method == ResearchMethods.None) continue;
             ResearchMethodDetails details = method.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -63,7 +63,8 @@ public class TestResearchMethods
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));
-            Assert.That(allDetails[1].TextId, Is.EqualTo("ref.enum.researchmethods.countposinhouses"));
+            Assert.That(allDetails[1].Text, Is.EqualTo("Count positions in houses"));
+            Assert.That(allDetails[2].MinNumberOfPoints, Is.EqualTo(2));
             Assert.That(allDetails[3].ResearchMethod, Is.EqualTo(ResearchMethods.CountUnaspected));
         });
     }

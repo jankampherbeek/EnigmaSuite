@@ -6,6 +6,8 @@
 using Enigma.Domain.Research;
 using Enigma.Frontend.Helpers.Support;
 using System.Windows;
+using Enigma.Frontend.Ui.State;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Research
 {
@@ -14,16 +16,19 @@ namespace Enigma.Frontend.Ui.Research
     {
         private readonly ResearchResultController _controller;
 
-        public ResearchResultWindow(ResearchResultController controller)
+        public ResearchResultWindow()
         {
+            
             InitializeComponent();
-            _controller = controller;
+            _controller = App.ServiceProvider.GetRequiredService<ResearchResultController>();
             PopulateTexts();
+            SetResults();
         }
 
-        public void SetResults(MethodResponse responseTest, MethodResponse responseControl)
+        public void SetResults()
         {
-            _controller.SetMethodResponses(responseTest, responseControl);
+            DataVault dataVault = DataVault.Instance;
+            _controller.SetMethodResponses(dataVault.ResponseTest, dataVault.ResponseCg);
             PopulateData();
         }
 

@@ -29,9 +29,9 @@ public sealed class FixedTimeKey: IFixedTimeKey
 
 public sealed class PlacidusTimeKey: IPlacidusTimeKey
 {
-    private ISolarArcCalculator _calculator;
-    private ISeFlags _seFlags;
-    private IPositionFinder _positionFinder;    
+    private readonly ISolarArcCalculator _calculator;
+    private readonly ISeFlags _seFlags;
+    private readonly IPositionFinder _positionFinder;    
 
     public PlacidusTimeKey(ISolarArcCalculator calculator, ISeFlags seFlags, IPositionFinder positionFinder)
     {
@@ -50,8 +50,8 @@ public sealed class PlacidusTimeKey: IPlacidusTimeKey
     public double DaysFromArc(double jdRadix, FullPointPos progPosSun, CoordinateSystems coordSys, ObserverPositions observerPos, Location location)
     {
         CheckInput(observerPos, coordSys);
-        double startInterval = 1.0;
-        double maxMargin = 0.000001;
+        const double startInterval = 1.0;
+        const double maxMargin = 0.000001;
         double posToFind = coordSys == CoordinateSystems.Ecliptical ? progPosSun.Ecliptical.MainPosSpeed.Position : progPosSun.Equatorial.MainPosSpeed.Position;
         double jdForPosition = _positionFinder.FindJdForPositionSun(posToFind, jdRadix, startInterval, maxMargin, coordSys, observerPos, location);
         return jdForPosition - jdRadix;
@@ -59,7 +59,7 @@ public sealed class PlacidusTimeKey: IPlacidusTimeKey
 
     private void CheckInput(ObserverPositions observerPos, CoordinateSystems coordSys)
     {
-        string errorTxt = "";
+        string errorTxt = string.Empty;
         if (observerPos != ObserverPositions.GeoCentric && observerPos != ObserverPositions.TopoCentric)
         {
             errorTxt+= "PlacidusTimeKey received invalid observerposition: " + observerPos;
@@ -68,11 +68,10 @@ public sealed class PlacidusTimeKey: IPlacidusTimeKey
         if (coordSys != CoordinateSystems.Ecliptical && coordSys != CoordinateSystems.Equatorial) {
             errorTxt += "PlacidusTimeKey received invalid coordinate system: " + coordSys;
         }
-        if (errorTxt != "")
-        {
-            Log.Error(errorTxt);
-            throw new ArgumentException(errorTxt);
-        }
+
+        if (errorTxt == string.Empty) return;
+        Log.Error(errorTxt);
+        throw new ArgumentException(errorTxt);
     }
 
 }

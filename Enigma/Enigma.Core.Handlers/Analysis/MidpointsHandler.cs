@@ -31,7 +31,7 @@ public sealed class MidpointsHandler : IMidpointsHandler
     /// <inheritdoc/>
     public List<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart)
     {
-        double dialSize = 360.0;
+        const double dialSize = 360.0;
         List<PositionedPoint> analysisPoints = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
         return _baseMidpointsCreator.CreateBaseMidpoints(analysisPoints);
     }

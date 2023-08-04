@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 
@@ -22,9 +21,9 @@ public class AspectPointSelector : IAspectPointSelector
         // two foreach loops to enforce that the sequence between common points (first) and angles (second) is maintained.
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in chartPointConfigSpecs)
         {
-            if (spec.Key.GetDetails().PointCat == PointCats.Common && spec.Value.IsUsed && positions.ContainsKey(spec.Key))
+            if (spec.Key.GetDetails().PointCat == PointCats.Common && spec.Value.IsUsed && positions.TryGetValue(spec.Key, out FullPointPos? position))
             {
-                relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);
+                relevantChartPointPositions.Add(spec.Key, position);
             }
 
         }

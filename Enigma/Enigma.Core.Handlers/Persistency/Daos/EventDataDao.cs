@@ -15,8 +15,8 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 /// <inheritdoc />
 public sealed class EventDataDao : IEventDataDao
 {
-    private const string COL_INTERSECTION = "chartevents";
-    private const string COL_EVENTS = "events";
+    private const string ColIntersection = "chartevents";
+    private const string ColEvents = "events";
     private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
     private readonly IInterChartEventDao _intersectionDao;
 
@@ -96,7 +96,7 @@ public sealed class EventDataDao : IEventDataDao
     private PersistableEventData? PerformRead(int index)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData> col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        ILiteCollection<PersistableEventData> col = db.GetCollection<PersistableEventData>(ColEvents);
         col.EnsureIndex(x => x.Id);
         PersistableEventData? result = col.FindOne(x => x.Id.Equals(index));
         return result;
@@ -105,7 +105,7 @@ public sealed class EventDataDao : IEventDataDao
     private List<PersistableEventData> PerformSearch(string? partOfDescription)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(ColEvents);
         List<PersistableEventData> records = col.Query()
             .Where(x => partOfDescription != null && x.Description.ToUpper().Contains(partOfDescription.ToUpper()))
             .OrderBy(x => x.JulianDayEt)
@@ -119,7 +119,7 @@ public sealed class EventDataDao : IEventDataDao
         List<PersistableEventData> allRecords = new();
         List<InterChartEvent> intersections = _intersectionDao.Read(chartId);
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(ColEvents);
         foreach (List<PersistableEventData> records in intersections.Select(intersection => col.Query()
                      .Where(x => x.Id.Equals(intersection.ChartId))
                      .OrderBy(x => x.JulianDayEt)
@@ -133,7 +133,7 @@ public sealed class EventDataDao : IEventDataDao
     private int PerformInsert(PersistableEventData eventData)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(ColEvents);
         try
         {
             col.Insert(eventData);
@@ -154,8 +154,8 @@ public sealed class EventDataDao : IEventDataDao
     private bool PerformDelete(int index)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
-        ILiteCollection<InterChartEvent>? colIntersections = db.GetCollection<InterChartEvent>(COL_INTERSECTION);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(ColEvents);
+        ILiteCollection<InterChartEvent>? colIntersections = db.GetCollection<InterChartEvent>(ColIntersection);
         bool result = col.Delete(index);
         int deletedCount = 0;
         if (result) deletedCount = colIntersections.DeleteMany(x => x.ChartId.Equals(index));
@@ -168,7 +168,7 @@ public sealed class EventDataDao : IEventDataDao
     private List<PersistableEventData> ReadRecordsFromDatabase()
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(ColEvents);
         List<PersistableEventData> records = col.FindAll().ToList();
         return records;
     }

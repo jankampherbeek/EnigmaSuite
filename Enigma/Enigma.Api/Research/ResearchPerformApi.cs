@@ -28,7 +28,7 @@ public sealed class ResearchPerformApi : IResearchPerformApi
     public MethodResponse PerformResearch(GeneralResearchRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("ResearchPerformApi: PerformResearch(): " + request.Method);
+        Log.Information("ResearchPerformApi: PerformResearch(): {Method}", request.Method);
         return _researchMethodHandler.HandleResearch(request);
     }
 

@@ -18,13 +18,13 @@ using Enigma.Frontend.Ui.Views;
 namespace Enigma.Frontend.Ui.Research;
 
 
-public class ProjectUsageController
+public class ProjectUsageControllerObs
 {
     private AstroConfig _currentAstroConfig;
     private readonly IResearchPerformApi _researchPerformApi;
     private ResearchProject? _currentProject;
 
-    public ProjectUsageController(IResearchPerformApi researchPerformApi)
+    public ProjectUsageControllerObs(IResearchPerformApi researchPerformApi)
     {
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
         _researchPerformApi = researchPerformApi;
@@ -62,7 +62,7 @@ public class ProjectUsageController
         List<ResearchMethodDetails> methodDetails = ResearchMethods.None.AllDetails();
         foreach (var currentMethodDetails in methodDetails)
         {
-            details.Add(new PresentableMethodDetails() { MethodName = Rosetta.TextForId(currentMethodDetails.TextId) });
+            details.Add(new PresentableMethodDetails() { MethodName = Rosetta.TextForId(currentMethodDetails.Text) });
         }
         return details;
     }
@@ -112,7 +112,7 @@ public class ProjectUsageController
                 minimalNrOfPoints = 1;
                 break;
         }
-        ResearchPointsSelection pointsSelection = SelectPoints(researchMethod, minimalNrOfPoints);
+ /*       ResearchPointsSelection pointsSelection = SelectPoints(researchMethod, minimalNrOfPoints);
         if (pointsSelection.SelectedPoints != null && pointsSelection.SelectedPoints.Count > 0)         // prevent processing is user closed window without entering data
         {
             if (_currentProject != null)
@@ -167,13 +167,13 @@ public class ProjectUsageController
                     researchResultWindow.ShowDialog();
                 }
             }
-        }
+        } */
     }
 
-    private static ResearchPointsSelection SelectPoints(ResearchMethods researchMethod, int nrOfPoints)
-    {
-        PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
-        pointSelectWindow.SetResearchMethod(researchMethod);
+ //   private static ResearchPointsSelection SelectPoints(ResearchMethods researchMethod, int nrOfPoints)
+ //   {
+   /*     PointSelectWindow pointSelectWindow = App.ServiceProvider.GetRequiredService<PointSelectWindow>();
+      pointSelectWindow.SetResearchMethod(researchMethod);
         pointSelectWindow.PopulateData();
         pointSelectWindow.SetMinimalNrOfPoints(nrOfPoints);
         pointSelectWindow.ShowDialog();
@@ -185,8 +185,8 @@ public class ProjectUsageController
             celPoints.Add(point.ChartPoint);
         }
         bool selectedUseCusps = pointSelectWindow.SelectedUseCusps;
-        return new ResearchPointsSelection(celPoints, selectedUseCusps);
-    }
+        return new ResearchPointsSelection(celPoints, selectedUseCusps); */
+   // }
 
 
     public void ShowConfig()

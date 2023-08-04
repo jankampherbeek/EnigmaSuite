@@ -32,14 +32,8 @@ public partial class RadixAspectsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        ShowHelp();
-    }
-    
-    private static void ShowHelp()
-    {
         DataVault.Instance.CurrentViewBase = "RadixAspects";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
     
 }

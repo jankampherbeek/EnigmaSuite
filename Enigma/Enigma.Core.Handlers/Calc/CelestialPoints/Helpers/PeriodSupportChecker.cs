@@ -15,8 +15,13 @@ public sealed class PeriodSupportChecker: IPeriodSupportChecker
 
     public bool IsSupported(ChartPoints chartPoint, double jdnr)
     {
-        if (chartPoint == ChartPoints.Chiron) return jdnr is >= EnigmaConstants.PERIOD_CHIRON_START and < EnigmaConstants.PERIOD_CHIRON_END;
-        if (chartPoint == ChartPoints.Pholus) return jdnr is >= EnigmaConstants.PERIOD_PHOLUS_START and < EnigmaConstants.PERIOD_PHOLUS_END;
+        switch (chartPoint)
+        {
+            case ChartPoints.Chiron:
+                return jdnr is >= EnigmaConstants.PERIOD_CHIRON_START and < EnigmaConstants.PERIOD_CHIRON_END;
+            case ChartPoints.Pholus:
+                return jdnr is >= EnigmaConstants.PERIOD_PHOLUS_START and < EnigmaConstants.PERIOD_PHOLUS_END;
+        }
 
         ChartPoints[] ceresVesta = { ChartPoints.Ceres, ChartPoints.Vesta };
         if (ceresVesta.Contains(chartPoint))

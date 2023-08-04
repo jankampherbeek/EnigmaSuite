@@ -97,7 +97,7 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
                 meanAnomaly = new[] { 114.6, 40, 0 };
                 semiMajorAxis = 93.216975;
                 ascNode = new double[] { 125, 0, 0 };
-                inclination = new double[] { 5.5, 0, 0 };
+                inclination = new[] { 5.5, 0, 0 };
                 break;
             default:
                 throw new ArgumentException($"Unrecognized planet for OrbitDefinition: {0}", planet.ToString());

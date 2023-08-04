@@ -13,8 +13,8 @@ namespace Enigma.Core.Handlers.Analysis.Helpers;
 /// <inheritdoc/>
 public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
 {
-    private readonly double _halfCircle = 180.0;
-    private readonly double _fullCircle = 360.0;
+    private const double HalfCircle = 180.0;
+    private const double FullCircle = 360.0;
 
 
     /// <inheritdoc/>
@@ -41,7 +41,7 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
         {
             double pos = midpoint.Position;
             while (pos >= dialSize) pos -= dialSize;
-            convertedMidpoints.Add(new BaseMidpoint(midpoint.Point1, midpoint.Point2, pos));
+            convertedMidpoints.Add(midpoint with { Position = pos });
         }
         return convertedMidpoints;
     }
@@ -54,12 +54,12 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
         double smallPos = (pos1 < pos2) ? pos1 : pos2;
         double largePos = (pos1 < pos2) ? pos2 : pos1;
         double diff = largePos - smallPos;
-        double firstPosShortestArc = (diff < _halfCircle) ? smallPos : largePos;
-        double lastPosShortestArc = (diff < _halfCircle) ? largePos : smallPos;
+        double firstPosShortestArc = (diff < HalfCircle) ? smallPos : largePos;
+        double lastPosShortestArc = (diff < HalfCircle) ? largePos : smallPos;
         diff = lastPosShortestArc - firstPosShortestArc;
-        if (diff < 0.0) diff += _fullCircle;
+        if (diff < 0.0) diff += FullCircle;
         double mPos = (diff / 2) + firstPosShortestArc;
-        if (mPos >= _fullCircle) mPos -= _fullCircle;
+        if (mPos >= FullCircle) mPos -= FullCircle;
         return new BaseMidpoint(point1, point2, mPos);
     }
 

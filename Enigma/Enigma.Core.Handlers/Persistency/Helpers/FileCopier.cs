@@ -22,7 +22,7 @@ public sealed class FileCopier : IFileCopier
         }
         catch (Exception e)
         {
-            Log.Error("An exception was thrown in FileCopier when copying {source} to {destination}. The exception: {e}", source, destination, e.Message);
+            Log.Error("An exception was thrown in FileCopier when copying {Source} to {Destination}. The exception: {E}", source, destination, e.Message);
             success = false;
         }
         return success;

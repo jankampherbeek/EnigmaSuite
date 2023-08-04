@@ -6,11 +6,11 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
-using ProjectItem = Enigma.Frontend.Ui.Models.ProjectItem;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -26,9 +26,6 @@ public partial class ResearchMainViewModel: ObservableObject
         _model = App.ServiceProvider.GetRequiredService<ResearchMainModel>();
         AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
     }
-    
-    
-    
     
     [RelayCommand]
     private static void AppSettings()
@@ -55,8 +52,9 @@ public partial class ResearchMainViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsProjectSelected))]
     private void OpenProject()
     {
-        ProjectItem projectItem = _model.GetAllProjectItems()[ProjectIndex];
-        _model.OpenProject(projectItem);
+        ResearchProject project = _model.ResearchProjects[ProjectIndex];
+        DataVault.Instance.CurrentProject = project;
+        new ProjectUsageWindow().ShowDialog();
     }
 
     private bool IsProjectSelected()

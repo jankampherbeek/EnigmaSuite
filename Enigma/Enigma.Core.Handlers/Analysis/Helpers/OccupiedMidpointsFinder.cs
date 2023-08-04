@@ -43,11 +43,9 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
             foreach (var analysisPoint in posPoints)
             {
                 double actualOrb = MeasureMidpointDeviation(positionInDial, analysisPoint.Position, dialSize);
-                if (actualOrb <= orb)
-                {
-                    double exactness = 100.0 - (actualOrb / orb * 100.0);
-                    occupiedMidpoints.Add(new OccupiedMidpoint(baseMidpoint, analysisPoint, actualOrb, exactness));
-                }
+                if (!(actualOrb <= orb)) continue;
+                double exactness = 100.0 - (actualOrb / orb * 100.0);
+                occupiedMidpoints.Add(new OccupiedMidpoint(baseMidpoint, analysisPoint, actualOrb, exactness));
             }
         }
         return occupiedMidpoints;
