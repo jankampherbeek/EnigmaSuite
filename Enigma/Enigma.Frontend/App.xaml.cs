@@ -104,8 +104,7 @@ public partial class App
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
-        serviceCollection.AddTransient<ResearchResultController>();
-        serviceCollection.AddTransient<ResearchResultWindow>();
+        serviceCollection.AddTransient<ResearchResultModel>();
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddTransient<StartModel>();
 

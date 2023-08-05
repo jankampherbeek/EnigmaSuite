@@ -15,9 +15,9 @@ namespace Enigma.Test.Api.Calc;
 [TestFixture]
 public class TestObliquityApi
 {
-    private const double JdUt = 123456.789;
-    private const double Delta = 0.00000001;
-    private const double ExpectedTrueObliquity = 23.447;
+    private const double JD_UT = 123456.789;
+    private const double DELTA = 0.00000001;
+    private const double EXPECTED_TRUE_OBLIQUITY = 23.447;
     private ObliquityRequest? _obliquityRequest;
     private Mock<IObliquityHandler>? _mockObliquityHandler;
     private IObliquityApi? _obliquityApi;
@@ -26,9 +26,9 @@ public class TestObliquityApi
     [SetUp]
     public void SetUp()
     {
-        _obliquityRequest = new ObliquityRequest(JdUt, true);
+        _obliquityRequest = new ObliquityRequest(JD_UT, true);
         _mockObliquityHandler = new Mock<IObliquityHandler>();
-        _mockObliquityHandler.Setup(p => p.CalcObliquity(_obliquityRequest)).Returns(ExpectedTrueObliquity);
+        _mockObliquityHandler.Setup(p => p.CalcObliquity(_obliquityRequest)).Returns(EXPECTED_TRUE_OBLIQUITY);
         _obliquityApi = new ObliquityApi(_mockObliquityHandler.Object);
     }
 
@@ -37,7 +37,7 @@ public class TestObliquityApi
     public void TestObliquityHappyFlow()
     {
         double response = _obliquityApi!.GetObliquity(_obliquityRequest!);
-        Assert.That(response, Is.EqualTo(ExpectedTrueObliquity).Within(Delta));
+        Assert.That(response, Is.EqualTo(EXPECTED_TRUE_OBLIQUITY).Within(DELTA));
     }
 
     [Test]

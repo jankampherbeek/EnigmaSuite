@@ -32,7 +32,7 @@ public class StartModel
     public static void HandleCheckForConfig()
     {
         bool result = true;
-        if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
+        if (!File.Exists(EnigmaConstants.ConfigLocation))
         {
             IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
             AstroConfig config = configApi.GetDefaultConfiguration();
@@ -56,7 +56,7 @@ public class StartModel
         else
         {
             Log.Information("Info about latest release : {Info}", releaseInfo);
-            if (releaseInfo.Version == EnigmaConstants.ENIGMA_VERSION) return;
+            if (releaseInfo.Version == EnigmaConstants.EnigmaVersion) return;
             Log.Information("New release found, showing downloadpage");
             HelpWindow helpWindow = new(); 
             // TODO 0.2 find a solution for the line with releaseinfo

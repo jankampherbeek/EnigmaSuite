@@ -22,7 +22,7 @@ public class TestObserverPositionSpecifications
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Position, Is.EqualTo(position));
-            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgTopoctr));
             Assert.That(details.Text, Is.EqualTo("Topocentric (with parallax)"));
         });
     }
@@ -64,7 +64,7 @@ public class TestObserverPositionSpecifications
             Assert.That(allDetails, Has.Count.EqualTo(3));
             Assert.That(allDetails[2].Text, Is.EqualTo("Heliocentric"));
             Assert.That(allDetails[0].Position, Is.EqualTo(ObserverPositions.GeoCentric));
-            Assert.That(allDetails[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
+            Assert.That(allDetails[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgTopoctr));
         });
     }
 

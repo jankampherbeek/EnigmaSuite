@@ -14,11 +14,11 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 public class TestResearchProjectParser
 {
     private IResearchProjectParser? _parser;
-    private const string ProjectName = "TestProject";
-    private const string Description = "Description for test project.";
-    private const string DataName = "This_datafile";
-    private const ControlGroupTypes ControlGroupType = ControlGroupTypes.StandardShift;
-    private const int MultiplFactor = 10;
+    private const string PROJECT_NAME = "TestProject";
+    private const string DESCRIPTION = "Description for test project.";
+    private const string DATA_NAME = "This_datafile";
+    private const ControlGroupTypes CONTROL_GROUP_TYPE = ControlGroupTypes.StandardShift;
+    private const int MULTIPL_FACTOR = 10;
 
 
     [SetUp]
@@ -30,7 +30,7 @@ public class TestResearchProjectParser
     [Test]
     public void TestMarshallUnmarshall()
     {
-        ResearchProject project1 = new(ProjectName, Description, DataName, ControlGroupType, MultiplFactor);
+        ResearchProject project1 = new(PROJECT_NAME, DESCRIPTION, DATA_NAME, CONTROL_GROUP_TYPE, MULTIPL_FACTOR);
         string jsonText = _parser!.Marshall(project1);
         ResearchProject project2 = _parser.UnMarshall(jsonText);
         Assert.That(project2, Is.Not.Null);

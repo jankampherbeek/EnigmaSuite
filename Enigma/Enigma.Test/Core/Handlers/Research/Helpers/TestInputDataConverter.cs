@@ -14,7 +14,7 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 public class TestInputDataConverter
 {
     private IInputDataConverter? _converter;
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
 
     [SetUp]
@@ -34,8 +34,8 @@ public class TestInputDataConverter
         {
             Assert.That(inputItem2.Id, Is.EqualTo(inputItem1.Id));
             Assert.That(inputItem2.Name, Is.EqualTo(inputItem1.Name));
-            Assert.That(inputItem2.GeoLatitude, Is.EqualTo(inputItem1.GeoLatitude).Within(Delta));
-            Assert.That(inputItem2.GeoLongitude, Is.EqualTo(inputItem1.GeoLongitude).Within(Delta));
+            Assert.That(inputItem2.GeoLatitude, Is.EqualTo(inputItem1.GeoLatitude).Within(DELTA));
+            Assert.That(inputItem2.GeoLongitude, Is.EqualTo(inputItem1.GeoLongitude).Within(DELTA));
         });
     }
 

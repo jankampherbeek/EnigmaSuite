@@ -14,11 +14,11 @@ namespace Enigma.Test.Core.Handlers.Calc.Mundane;
 [TestFixture]
 public class TestHousesCalc
 {
-    private const double GeoLat = 52.0;
-    private const double GeoLon = 6.53;
-    private const double Obliquity = 23.447;
-    private const char HouseSystemId = 'p';
-    private const int Flags = 0;
+    private const double GEO_LAT = 52.0;
+    private const double GEO_LON = 6.53;
+    private const double OBLIQUITY = 23.447;
+    private const char HOUSE_SYSTEM_ID = 'p';
+    private const int FLAGS = 0;
     private Location? _location;
     private readonly double[] _cusps = { 0.0, 10.0, 40.0, 70.0, 100.0, 130.0, 160.0, 190.0, 220.0, 250.0, 280.0, 310.0, 340.0 };
     private readonly double[] _otherPoints = { 10.0, 280.0, 281.0, 192.0, 12.0 };
@@ -27,7 +27,7 @@ public class TestHousesCalc
     [SetUp]
     public void SetU()
     {
-        _location = new Location("LocationName", GeoLon, GeoLat);
+        _location = new Location("LocationName", GEO_LON, GEO_LAT);
         _calculatedResults = PerformTestCalculateHouses();
     }
 
@@ -51,7 +51,7 @@ public class TestHousesCalc
     {
         const double jd = 12345.678;
         IHousesCalc calc = CreateHousesCalc();
-        return calc.CalculateHouses(jd, Obliquity, _location!, HouseSystemId, Flags);
+        return calc.CalculateHouses(jd, OBLIQUITY, _location!, HOUSE_SYSTEM_ID, FLAGS);
     }
 
     private IHousesCalc CreateHousesCalc()
@@ -61,7 +61,7 @@ public class TestHousesCalc
         const double jd = 12345.678;
         double[][] positions = { _cusps, _otherPoints };
         var mockFacade = new Mock<IHousesFacade>();
-        mockFacade.Setup(p => p.RetrieveHouses(jd, flags, GeoLat, GeoLon, houseSystemId)).Returns(positions);
+        mockFacade.Setup(p => p.RetrieveHouses(jd, flags, GEO_LAT, GEO_LON, houseSystemId)).Returns(positions);
         HousesCalc calc = new(mockFacade.Object);
         return calc;
     }

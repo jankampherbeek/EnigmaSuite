@@ -13,7 +13,7 @@ namespace Enigma.Test.Frontend.Helpers;
 public class TestSexagesimalConversions
 {
     private readonly ISexagesimalConversions _conversions = new SexagesimalConversions();
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestInputGeoLatToDoubleHappyFlow()
@@ -21,7 +21,7 @@ public class TestSexagesimalConversions
         string[] inputLat = { "52", "13", "0" };
         const Directions4GeoLat direction = Directions4GeoLat.North;
         const double expected = 52.2166666667;
-        Assert.That(_conversions.InputGeoLatToDouble(inputLat, direction), Is.EqualTo(expected).Within(Delta));
+        Assert.That(_conversions.InputGeoLatToDouble(inputLat, direction), Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -30,7 +30,7 @@ public class TestSexagesimalConversions
         string[] inputLat = { "52", "13", "0" };
         const Directions4GeoLat direction = Directions4GeoLat.South;
         const double expected = -52.2166666667;
-        Assert.That(_conversions.InputGeoLatToDouble(inputLat, direction), Is.EqualTo(expected).Within(Delta));
+        Assert.That(_conversions.InputGeoLatToDouble(inputLat, direction), Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -47,7 +47,7 @@ public class TestSexagesimalConversions
         string[] inputLong = { "12", "15", "20" };
         const Directions4GeoLong direction = Directions4GeoLong.East;
         const double expected = 12.25555555556;
-        Assert.That(_conversions.InputGeoLongToDouble(inputLong, direction), Is.EqualTo(expected).Within(Delta));
+        Assert.That(_conversions.InputGeoLongToDouble(inputLong, direction), Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -56,7 +56,7 @@ public class TestSexagesimalConversions
         string[] inputLong = { "12", "15", "20" };
         const Directions4GeoLong direction = Directions4GeoLong.West;
         const double expected = -12.25555555556;
-        Assert.That(_conversions.InputGeoLongToDouble(inputLong, direction), Is.EqualTo(expected).Within(Delta));
+        Assert.That(_conversions.InputGeoLongToDouble(inputLong, direction), Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -72,7 +72,7 @@ public class TestSexagesimalConversions
     {
         string[] inputTime = { "8", "37", "30" };
         const double expected = 8.625;
-        Assert.That(_conversions.InputTimeToDoubleHours(inputTime), Is.EqualTo(expected).Within(Delta));
+        Assert.That(_conversions.InputTimeToDoubleHours(inputTime), Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]

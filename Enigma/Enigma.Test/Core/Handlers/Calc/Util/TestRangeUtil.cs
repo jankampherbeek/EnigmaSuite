@@ -12,7 +12,7 @@ namespace Enigma.Test.Core.Handlers.Calc.Util;
 
 public class TestRangeUtilNoChange
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestNoChange()
@@ -21,7 +21,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = 12.0;
         const double lowerLimit = 0.0;
         const double upperLimit = 360.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -31,7 +31,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = 350.0;
         const double lowerLimit = 0.0;
         const double upperLimit = 360.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -41,7 +41,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = 50.0;
         const double lowerLimit = 0.0;
         const double upperLimit = 360.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -51,7 +51,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = 0.0;
         const double lowerLimit = 0.0;
         const double upperLimit = 360.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -61,7 +61,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = 0.0;
         const double lowerLimit = 0.0;
         const double upperLimit = 360.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -71,7 +71,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = -45.0;
         const double lowerLimit = -90.0;
         const double upperLimit = 90.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -81,7 +81,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = 80.0;
         const double lowerLimit = -90.0;
         const double upperLimit = 90.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
     [Test]
@@ -91,7 +91,7 @@ public class TestRangeUtilNoChange
         const double expectedValue = -80.0;
         const double lowerLimit = -90.0;
         const double upperLimit = 90.0;
-        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(Delta));
+        Assert.That(RangeUtil.ValueToRange(testValue, lowerLimit, upperLimit), Is.EqualTo(expectedValue).Within(DELTA));
     }
 
 

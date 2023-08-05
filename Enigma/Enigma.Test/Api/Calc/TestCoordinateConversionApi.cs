@@ -16,8 +16,8 @@ namespace Enigma.Test.Api.Calc;
 [TestFixture]
 public class TestCoordinateConversionApi
 {
-    private const double Delta = 0.00000001;
-    private const double Obliquity = 23.447;
+    private const double DELTA = 0.00000001;
+    private const double OBLIQUITY = 23.447;
     private readonly EquatorialCoordinates _expectedEqCoord = new(221.1, 4.4);
     private ICoordinateConversionApi? _api;
 
@@ -35,7 +35,7 @@ public class TestCoordinateConversionApi
     {
         CoordinateConversionRequest coordConvRequest = CreateConvRequest();
         EquatorialCoordinates coordinates = _api!.GetEquatorialFromEcliptic(coordConvRequest);
-        Assert.That(coordinates.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(Delta));
+        Assert.That(coordinates.RightAscension, Is.EqualTo(_expectedEqCoord.RightAscension).Within(DELTA));
     }
 
     [Test]
@@ -49,13 +49,13 @@ public class TestCoordinateConversionApi
     public void TestCoordinateConversionNullCoordinates()
     {
         EclipticCoordinates? eclCoord = null;
-        CoordinateConversionRequest errorRequest = new(eclCoord!, Obliquity);
+        CoordinateConversionRequest errorRequest = new(eclCoord!, OBLIQUITY);
         Assert.That(() => _api!.GetEquatorialFromEcliptic(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 
     private static CoordinateConversionRequest CreateConvRequest()
     {
-        return new CoordinateConversionRequest(new EclipticCoordinates(222.2, 1.1), Obliquity);
+        return new CoordinateConversionRequest(new EclipticCoordinates(222.2, 1.1), OBLIQUITY);
     }
 }
 

@@ -7,18 +7,17 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Views;
 
-/// <summary>View for point selection</summary>
-public partial class ResearchPointSelectionWindow
+/// <summary>View for research result</summary>
+public partial class ResearchResultWindow
 {
-    public ResearchPointSelectionWindow()
+    public ResearchResultWindow()
     {
         InitializeComponent();
     }
     
-            
     private void CloseClick(object sender, RoutedEventArgs e)
     {
         Close();
     }
-
+    
 }

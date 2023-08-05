@@ -17,7 +17,7 @@ namespace Enigma.Test.Api.Calc;
 [TestFixture]
 public class TestHousesApi
 {
-    private const double JdUt = 123456.789;
+    private const double JD_UT = 123456.789;
     private FullHousesPosRequest? _housesRequest;
     private Dictionary<ChartPoints, FullPointPos>? _fullHousesPositions;
     private Mock<IHousesHandler>? _mockHousesHandler;
@@ -30,7 +30,7 @@ public class TestHousesApi
     {
         _calculationPreferences = CreateCalculationPreferences();
         var location = new Location("Anywhere", 50.0, 10.0);
-        _housesRequest = new FullHousesPosRequest(JdUt, location, _calculationPreferences);
+        _housesRequest = new FullHousesPosRequest(JD_UT, location, _calculationPreferences);
         _fullHousesPositions = CreateResponse();
         _mockHousesHandler = new Mock<IHousesHandler>();
         _mockHousesHandler.Setup(p => p.CalcHouses(_housesRequest)).Returns(_fullHousesPositions);
@@ -53,7 +53,7 @@ public class TestHousesApi
     [Test]
     public void TestNullLocation()
     {
-        FullHousesPosRequest errorRequest = new(JdUt, null!, _calculationPreferences!);
+        FullHousesPosRequest errorRequest = new(JD_UT, null!, _calculationPreferences!);
         Assert.That(() => _api!.GetHouses(errorRequest), Throws.TypeOf<ArgumentNullException>());
     }
 

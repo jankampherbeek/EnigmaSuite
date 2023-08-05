@@ -12,7 +12,7 @@ namespace Enigma.Test.Core.Handlers.Research.Helpers;
 public class TestControlGroupRng
 {
     private IControlGroupRng? _rng;
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
     
     [SetUp]
     public void SetUp()
@@ -133,12 +133,12 @@ public class TestControlGroupRng
         Assert.Multiple(() =>
         {
             Assert.That(data, Has.Count.EqualTo(dataItems.Length));
-            Assert.That(Math.Abs(data[0] - 1.1) > Delta
-                        || Math.Abs(data[1] - 2.2) > Delta
-                        || Math.Abs(data[2] - 3.3) > Delta
-                        || Math.Abs(data[3] - 4.4) > Delta
-                        || Math.Abs(data[4] - 5.5) > Delta
-                        || Math.Abs(data[5] - 6.6) > Delta);
+            Assert.That(Math.Abs(data[0] - 1.1) > DELTA
+                        || Math.Abs(data[1] - 2.2) > DELTA
+                        || Math.Abs(data[2] - 3.3) > DELTA
+                        || Math.Abs(data[3] - 4.4) > DELTA
+                        || Math.Abs(data[4] - 5.5) > DELTA
+                        || Math.Abs(data[5] - 6.6) > DELTA);
         });
     }
 }

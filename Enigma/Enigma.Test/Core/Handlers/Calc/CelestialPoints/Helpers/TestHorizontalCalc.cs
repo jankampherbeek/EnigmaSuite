@@ -16,15 +16,15 @@ namespace Enigma.Test.Core.Handlers.Calc.CelestialPoints.Helpers;
 [TestFixture]
 public class TestHorizontalCalc
 {
-    private const double Delta = 0.00000001;
-    private const double JulianDay = 123456.789;
+    private const double DELTA = 0.00000001;
+    private const double JULIAN_DAY = 123456.789;
     private readonly double[] _geoGraphicCoordinates = { 10.0, 50.0 };
     private readonly Location _location = new("Anywhere", 10.0, 50.0);
     private EquatorialCoordinates? _equCoordinates;
     private readonly double[] _eclipticValues = { 200.0, -2.0 };
     private readonly double[] _expectedHorCoord = { 222.2, 44.4 };
     private double[]? _actualResults;
-    private const int Flags = 0;
+    private const int FLAGS = 0;
 
 
     [SetUp]
@@ -37,22 +37,22 @@ public class TestHorizontalCalc
     [Test]
     public void TestResultForAzimuth()
     {
-        Assert.That(_actualResults![0], Is.EqualTo(_expectedHorCoord[0]).Within(Delta));
+        Assert.That(_actualResults![0], Is.EqualTo(_expectedHorCoord[0]).Within(DELTA));
     }
 
     [Test]
     public void TestResultForAltitude()
     {
-        Assert.That(_actualResults![1], Is.EqualTo(_expectedHorCoord[1]).Within(Delta));
+        Assert.That(_actualResults![1], Is.EqualTo(_expectedHorCoord[1]).Within(DELTA));
     }
 
 
     private void PerformCalculation()
     {
         var mockFacade = new Mock<IAzAltFacade>();
-        mockFacade.Setup(p => p.RetrieveHorizontalCoordinates(JulianDay, _geoGraphicCoordinates, _eclipticValues, Flags)).Returns(_expectedHorCoord);
+        mockFacade.Setup(p => p.RetrieveHorizontalCoordinates(JULIAN_DAY, _geoGraphicCoordinates, _eclipticValues, FLAGS)).Returns(_expectedHorCoord);
         var horizontalCalc = new HorizontalCalc(mockFacade.Object);
-        _actualResults = horizontalCalc.CalculateHorizontal(JulianDay, _location, _equCoordinates!, Flags);
+        _actualResults = horizontalCalc.CalculateHorizontal(JULIAN_DAY, _location, _equCoordinates!, FLAGS);
     }
 
 

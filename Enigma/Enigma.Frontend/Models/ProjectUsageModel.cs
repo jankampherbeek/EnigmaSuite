@@ -29,11 +29,11 @@ public class ProjectUsageModel
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
     }
     
-    public List<PresentableMethodDetails> GetAllMethodDetails()
+    public static List<PresentableMethodDetails> GetAllMethodDetails()
     {
         List<ResearchMethodDetails> methodDetails = ResearchMethods.None.AllDetails();
         return methodDetails.Select(methodDetail => 
-            new PresentableMethodDetails() { MethodName = methodDetail.Text }).ToList();
+            new PresentableMethodDetails { MethodName = methodDetail.Text }).ToList();
     }
     
     public void PerformRequest(ResearchMethods researchMethod)
@@ -55,7 +55,7 @@ public class ProjectUsageModel
                 GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
                 responseTest = _researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
+                request = new GeneralResearchRequest(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig);
                 responseCg = _researchPerformApi.PerformResearch(request);
                 break;
             }
@@ -71,7 +71,7 @@ public class ProjectUsageModel
                     CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                     responseTest = _researchPerformApi.PerformResearch(request);
                     useControlGroup = true;
-                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
+                    request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                     responseCg = _researchPerformApi.PerformResearch(request);
                 }
 
@@ -89,19 +89,18 @@ public class ProjectUsageModel
                     CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
                     responseTest = _researchPerformApi.PerformResearch(request);
                     useControlGroup = true;
-                    request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                    request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
                     responseCg = _researchPerformApi.PerformResearch(request);
                 }
 
                 break;
             }
         }
-        if (responseTest != null && responseCg != null)
-        {
-            (MethodResponse, MethodResponse) results = (responseTest, responseCg);
-            DataVault.Instance.ResponseTest = results.Item1;
-            DataVault.Instance.ResponseCg = results.Item2;
-        }
+
+        if (responseTest == null || responseCg == null) return;
+        (MethodResponse, MethodResponse) results = (responseTest, responseCg);
+        DataVault.Instance.ResponseTest = results.Item1;
+        DataVault.Instance.ResponseCg = results.Item2;
     }
 
    
@@ -110,5 +109,5 @@ public class ProjectUsageModel
 
 public class PresentableMethodDetails
 {
-    public string MethodName { get; set; }
+    public string MethodName { get; init; } = string.Empty;
 }

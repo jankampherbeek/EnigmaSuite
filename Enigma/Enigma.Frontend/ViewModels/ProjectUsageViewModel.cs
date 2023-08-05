@@ -36,7 +36,7 @@ public partial class ProjectUsageViewModel: ObservableObject
     {
         ResearchProject? currentProject = DataVault.Instance.CurrentProject;
         if (currentProject == null) return;
-        TestMethods = new ObservableCollection<PresentableMethodDetails>(_model.GetAllMethodDetails());
+        TestMethods = new ObservableCollection<PresentableMethodDetails>(ProjectUsageModel.GetAllMethodDetails());
         ProjectName = currentProject.Name;
         Description = currentProject.Description;
         StartDate = currentProject.CreationDate;

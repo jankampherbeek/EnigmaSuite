@@ -76,11 +76,11 @@ public sealed class ProgInputEventController
         if (lmtSuccess && fullGeoLongForLmt != null) lmtOffset = ParseLmtOffset(fullGeoLongForLmt);
         bool timeSuccess = _timeInputParser.HandleTime(InputTime, TimeZone, lmtOffset, Dst, out FullTime? fullTime);
 
-        if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_DATE);
-        if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_TIME);
-        if (!geoLongSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_GEOLON);
-        if (!geoLatSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_GEOLAT);
-        if (!lmtSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_GEOLON_LMT);
+        if (!dateSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidDate);
+        if (!timeSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidTime);
+        if (!geoLongSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidGeolon);
+        if (!geoLatSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidGeolat);
+        if (!lmtSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidGeolonLmt);
 
         if (dateSuccess && geoLongSuccess && geoLatSuccess && lmtSuccess && timeSuccess && fullDate != null && fullTime != null &&  fullGeoLongitude != null && fullGeoLatitude != null && fullGeoLongForLmt != null)
         {

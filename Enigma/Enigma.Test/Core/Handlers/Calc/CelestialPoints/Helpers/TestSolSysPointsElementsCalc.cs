@@ -12,7 +12,7 @@ namespace Enigma.Test.Core.Handlers.Calc.CelestialPoints.Helpers;
 [TestFixture]
 public class TestHypothetsRamCalc
 {
-    private const double Delta = 0.0000001;
+    private const double DELTA = 0.0000001;
 
     [Test]
     public void TestCalcHypRamEclPosPersephone()
@@ -20,7 +20,7 @@ public class TestHypothetsRamCalc
         var calculator = new CelPointsElementsCalc(new CalcHelioPos());
         const double jdUt = 2434406.817711;
         double[] result = calculator.Calculate(ChartPoints.PersephoneRam, jdUt, ObserverPositions.GeoCentric);
-        Assert.That(result[0], Is.EqualTo(326.6011343685).Within(Delta));
+        Assert.That(result[0], Is.EqualTo(326.6011343685).Within(DELTA));
     }
 
     [Test]
@@ -29,7 +29,7 @@ public class TestHypothetsRamCalc
         var calculator = new CelPointsElementsCalc(new CalcHelioPos());
         const double jdUt = 2434406.817711;
         double[] result = calculator.Calculate(ChartPoints.HermesRam, jdUt, ObserverPositions.GeoCentric);
-        Assert.That(result[0], Is.EqualTo(161.6211128197).Within(Delta));
+        Assert.That(result[0], Is.EqualTo(161.6211128197).Within(DELTA));
     }
 
     [Test]
@@ -38,7 +38,7 @@ public class TestHypothetsRamCalc
         var calculator = new CelPointsElementsCalc(new CalcHelioPos());
         const double jdUt = 2434406.817711;
         double[] result = calculator.Calculate(ChartPoints.DemeterRam, jdUt, ObserverPositions.GeoCentric);
-        Assert.That(result[0], Is.EqualTo(261.4081200589).Within(Delta));
+        Assert.That(result[0], Is.EqualTo(261.4081200589).Within(DELTA));
     }
 
 }

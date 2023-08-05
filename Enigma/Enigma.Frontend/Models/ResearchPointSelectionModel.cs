@@ -1,21 +1,24 @@
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2023.
+// All Enigma software is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
 using System.Collections.Generic;
-using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Models;
 
+/// <summary>Model for point selection</summary>
 public class ResearchPointSelectionModel
 {
 
-    public bool enableCusps = false;
-    public int minimalNrOfPoints;
+    public bool EnableCusps;
+    public int MinimalNrOfPoints;
     private AstroConfig? _astroConfig;
     private List<SelectableChartPointDetails> _selCpDetails = new();
     private readonly IPointsExclusionManager _pointsExclusionManager;
@@ -41,22 +44,20 @@ public class ResearchPointSelectionModel
     
     private List<SelectableChartPointDetails> DefineChartPoints(ResearchMethods method)
     {
-        if (method != ResearchMethods.None)
-        {
-            minimalNrOfPoints = method.GetDetails().MinNumberOfPoints;
+        if (method == ResearchMethods.None) return _selCpDetails;
+        MinimalNrOfPoints = method.GetDetails().MinNumberOfPoints;
         
-            _astroConfig = CurrentConfig.Instance.GetConfig();
-            _selCpDetails = new();
-            PointsToExclude pointsToExclude = _pointsExclusionManager.DefineExclusions(method);
-            enableCusps = !pointsToExclude.ExcludeCusps;
-            foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCpSpec in _astroConfig.ChartPoints)
-            {
-                if (!currentCpSpec.Value.IsUsed || pointsToExclude.ExcludedPoints.Contains(currentCpSpec.Key) ||
-                    currentCpSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps) continue;
-                PointDetails cpDetails = currentCpSpec.Key.GetDetails();
-                char glyph = currentCpSpec.Value.Glyph;
-                _selCpDetails.Add(new SelectableChartPointDetails() { Selected = false, ChartPoint = cpDetails.Point, Glyph = glyph, Name = cpDetails.Text});
-            }            
+        _astroConfig = CurrentConfig.Instance.GetConfig();
+        _selCpDetails = new List<SelectableChartPointDetails>();
+        PointsToExclude pointsToExclude = _pointsExclusionManager.DefineExclusions(method);
+        EnableCusps = !pointsToExclude.ExcludeCusps;
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCpSpec in _astroConfig.ChartPoints)
+        {
+            if (!currentCpSpec.Value.IsUsed || pointsToExclude.ExcludedPoints.Contains(currentCpSpec.Key) ||
+                currentCpSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps) continue;
+            PointDetails cpDetails = currentCpSpec.Key.GetDetails();
+            char glyph = currentCpSpec.Value.Glyph;
+            _selCpDetails.Add(new SelectableChartPointDetails { Selected = false, ChartPoint = cpDetails.Point, Glyph = glyph, Name = cpDetails.Text});
         }
         return _selCpDetails;
     }

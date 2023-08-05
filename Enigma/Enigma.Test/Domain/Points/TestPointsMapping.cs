@@ -13,14 +13,14 @@ namespace Enigma.Test.Domain.Points;
 [TestFixture]
 public class TestPointsMapping
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
     private readonly IPointsMapping _mapping = new PointsMapping();
-    private const double Longitude = 2.0;
-    private const double Latitude = 3.0;
-    private const double RightAscension = 4.0;
-    private const double Declination = 5.0;
-    private const double Azimuth = 6.0;
-    private const double Altitude = 6.5;
+    private const double LONGITUDE = 2.0;
+    private const double LATITUDE = 3.0;
+    private const double RIGHT_ASCENSION = 4.0;
+    private const double DECLINATION = 5.0;
+    private const double AZIMUTH = 6.0;
+    private const double ALTITUDE = 6.5;
 
     [Test]
     public void TestSinglePointLongitude()
@@ -29,7 +29,7 @@ public class TestPointsMapping
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Ecliptical, true);
         Assert.Multiple(() =>
         {
-            Assert.That(posPoint.Position, Is.EqualTo(Longitude).Within(Delta));
+            Assert.That(posPoint.Position, Is.EqualTo(LONGITUDE).Within(DELTA));
             Assert.That(posPoint.Point, Is.EqualTo(ChartPoints.Jupiter));
         });
     }
@@ -41,7 +41,7 @@ public class TestPointsMapping
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Ecliptical, false);
         Assert.Multiple(() =>
         {
-            Assert.That(posPoint.Position, Is.EqualTo(Latitude).Within(Delta));
+            Assert.That(posPoint.Position, Is.EqualTo(LATITUDE).Within(DELTA));
             Assert.That(posPoint.Point, Is.EqualTo(ChartPoints.Jupiter));
         });
     }
@@ -53,7 +53,7 @@ public class TestPointsMapping
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Equatorial, true);
         Assert.Multiple(() =>
         {
-            Assert.That(posPoint.Position, Is.EqualTo(RightAscension).Within(Delta));
+            Assert.That(posPoint.Position, Is.EqualTo(RIGHT_ASCENSION).Within(DELTA));
             Assert.That(posPoint.Point, Is.EqualTo(ChartPoints.Jupiter));
         });
     }
@@ -65,7 +65,7 @@ public class TestPointsMapping
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Equatorial, false);
         Assert.Multiple(() =>
         {
-            Assert.That(posPoint.Position, Is.EqualTo(Declination).Within(Delta));
+            Assert.That(posPoint.Position, Is.EqualTo(DECLINATION).Within(DELTA));
             Assert.That(posPoint.Point, Is.EqualTo(ChartPoints.Jupiter));
         });
     }
@@ -77,7 +77,7 @@ public class TestPointsMapping
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Horizontal, true);
         Assert.Multiple(() =>
         {
-            Assert.That(posPoint.Position, Is.EqualTo(Azimuth).Within(Delta));
+            Assert.That(posPoint.Position, Is.EqualTo(AZIMUTH).Within(DELTA));
             Assert.That(posPoint.Point, Is.EqualTo(ChartPoints.Jupiter));
         });
     }
@@ -89,7 +89,7 @@ public class TestPointsMapping
         PositionedPoint posPoint = _mapping.MapFullPointPos2PositionedPoint(fullCommonPos, CoordinateSystems.Horizontal, false);
         Assert.Multiple(() =>
         {
-            Assert.That(posPoint.Position, Is.EqualTo(Altitude).Within(Delta));
+            Assert.That(posPoint.Position, Is.EqualTo(ALTITUDE).Within(DELTA));
             Assert.That(posPoint.Point, Is.EqualTo(ChartPoints.Jupiter));
         });
     }
@@ -108,7 +108,7 @@ public class TestPointsMapping
         {
             Assert.That(posPoints, Has.Count.EqualTo(2));
             Assert.That(posPoints[1].Point, Is.EqualTo(ChartPoints.Jupiter));
-            Assert.That(posPoints[0].Position, Is.EqualTo(RightAscension).Within(Delta));
+            Assert.That(posPoints[0].Position, Is.EqualTo(RIGHT_ASCENSION).Within(DELTA));
         });
     }
 
@@ -116,12 +116,12 @@ public class TestPointsMapping
     private static FullPointPos CreateFullPointPos()
     {
         PosSpeed psDistance = new(1.0, 1.5);
-        PosSpeed psLongitude = new(Longitude, 2.5);
-        PosSpeed psLatitude = new(Latitude, 3.5);
-        PosSpeed psRightAscension = new(RightAscension, 4.5);
-        PosSpeed psDeclination = new(Declination, 5.5);
-        PosSpeed psAzimuth = new(Azimuth, 0.0);
-        PosSpeed psAltitude = new(Altitude, 0.0);
+        PosSpeed psLongitude = new(LONGITUDE, 2.5);
+        PosSpeed psLatitude = new(LATITUDE, 3.5);
+        PosSpeed psRightAscension = new(RIGHT_ASCENSION, 4.5);
+        PosSpeed psDeclination = new(DECLINATION, 5.5);
+        PosSpeed psAzimuth = new(AZIMUTH, 0.0);
+        PosSpeed psAltitude = new(ALTITUDE, 0.0);
         PointPosSpeeds ppsEcliptical = new(psLongitude, psLatitude, psDistance);
         PointPosSpeeds ppsEquatorial = new(psRightAscension, psDeclination, psDistance);
         PointPosSpeeds ppsHorizontal = new(psAzimuth, psAltitude, psDistance);

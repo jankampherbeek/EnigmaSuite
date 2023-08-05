@@ -67,7 +67,7 @@ public class TimeValidator : ITimeValidator
 
     private void CalculateUtAndCorrectionForDay(TimeZones timezone, double lmtOffset, bool dst)
     {
-        _ut = _timeValues[0] + ((double)_timeValues[1] / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + ((double)_timeValues[2] / EnigmaConstants.SECONDS_PER_HOUR_DEGREE);
+        _ut = _timeValues[0] + ((double)_timeValues[1] / EnigmaConstants.MinutesPerHourDegree) + ((double)_timeValues[2] / EnigmaConstants.SecondsPerHourDegree);
         double offset = timezone == TimeZones.Lmt ? lmtOffset : timezone.GetDetails().OffsetFromUt;
         _ut -= offset;
         if (dst) _ut--;

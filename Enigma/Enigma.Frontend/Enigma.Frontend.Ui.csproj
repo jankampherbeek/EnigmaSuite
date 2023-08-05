@@ -816,7 +816,7 @@
     <None Update="res\help\ProjectUsage.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchResults.html">
+    <None Update="res\help\ResearchResult.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ResearchPointsSelection.html">

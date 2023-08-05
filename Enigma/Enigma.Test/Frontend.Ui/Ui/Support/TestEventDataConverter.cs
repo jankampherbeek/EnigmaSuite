@@ -16,23 +16,23 @@ namespace Enigma.Test.Frontend.Ui.Ui.Support;
 [TestFixture]
 public class TestEventDataConverter
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
     private IEventDataConverter? _eventDataConverter;
-    private const string Description = "Event Description";
-    private const string LocationName = "Some location";
-    private const int Id = 456;
-    private const double JdEt = 123456.789;
-    private const string DateText = "2023-02-2023";
-    private const string TimeText = "21:24:30";
-    private const string LocationFullName = "Some location 12.5 N / 13.66666666667 W";
-    private const double GeoLong = -13.66666666667;
-    private const double GeoLat = 12.5;
+    private const string DESCRIPTION = "Event Description";
+    private const string LOCATION_NAME = "Some location";
+    private const int ID = 456;
+    private const double JD_ET = 123456.789;
+    private const string DATE_TEXT = "2023-02-2023";
+    private const string TIME_TEXT = "21:24:30";
+    private const string LOCATION_FULL_NAME = "Some location 12.5 N / 13.66666666667 W";
+    private const double GEO_LONG = -13.66666666667;
+    private const double GEO_LAT = 12.5;
 
     [SetUp]
     public void SetUp()
     {
         var locationConversionMock = new Mock<ILocationConversion>();
-        locationConversionMock.Setup(p => p.CreateLocationDescription(LocationName, GeoLat, GeoLong)).Returns(LocationFullName);
+        locationConversionMock.Setup(p => p.CreateLocationDescription(LOCATION_NAME, GEO_LAT, GEO_LONG)).Returns(LOCATION_FULL_NAME);
         _eventDataConverter = new EventDataConverter(locationConversionMock.Object);
 
     }
@@ -46,9 +46,9 @@ public class TestEventDataConverter
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
-            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(Delta));
-            Assert.That(expected.DateText, Is.EqualTo(DateText));
-            Assert.That(expected.JulianDayEt, Is.EqualTo(JdEt).Within(Delta));
+            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(DELTA));
+            Assert.That(expected.DateText, Is.EqualTo(DATE_TEXT));
+            Assert.That(expected.JulianDayEt, Is.EqualTo(JD_ET).Within(DELTA));
         });
     }
 
@@ -60,28 +60,28 @@ public class TestEventDataConverter
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
-            Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(Delta));
-            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(Delta));
+            Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(DELTA));
+            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(DELTA));
         });
     }
 
     private static EventData CreateEventData()
     {
-        Location location = new(LocationFullName, GeoLong, GeoLat);
-        FullDateTime fullDateTime = new(DateText, TimeText, JdEt);
-        return new EventData(Id, Description, LocationName, location, fullDateTime);
+        Location location = new(LOCATION_FULL_NAME, GEO_LONG, GEO_LAT);
+        FullDateTime fullDateTime = new(DATE_TEXT, TIME_TEXT, JD_ET);
+        return new EventData(ID, DESCRIPTION, LOCATION_NAME, location, fullDateTime);
     }
 
     private static PersistableEventData CreatePersistableEventData()
     {
         return new PersistableEventData(
-            Description,
-            JdEt,
-            DateText,
-            TimeText,
-            LocationFullName,
-            GeoLong,
-            GeoLat
+            DESCRIPTION,
+            JD_ET,
+            DATE_TEXT,
+            TIME_TEXT,
+            LOCATION_FULL_NAME,
+            GEO_LONG,
+            GEO_LAT
         );
     }
 }

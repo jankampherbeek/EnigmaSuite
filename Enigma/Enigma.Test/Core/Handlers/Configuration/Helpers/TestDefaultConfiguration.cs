@@ -19,7 +19,7 @@ public class TestDefaultConfiguration
 
     private IDefaultConfiguration? _defaultConfiguration;
     private AstroConfig? _astroConfig;
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
 
     [SetUp]
@@ -69,13 +69,13 @@ public class TestDefaultConfiguration
     [Test]
     public void TestBaseOrbAspects()
     {
-        Assert.That(_astroConfig!.BaseOrbAspects, Is.EqualTo(10.0).Within(Delta));
+        Assert.That(_astroConfig!.BaseOrbAspects, Is.EqualTo(10.0).Within(DELTA));
     }
 
     [Test]
     public void TestBaseOrbMidpoints()
     {
-        Assert.That(_astroConfig!.BaseOrbMidpoints, Is.EqualTo(1.6).Within(Delta));
+        Assert.That(_astroConfig!.BaseOrbMidpoints, Is.EqualTo(1.6).Within(DELTA));
     }
 
     [Test]
@@ -87,7 +87,7 @@ public class TestDefaultConfiguration
         Assert.Multiple(() =>
         {
             Assert.That(celPointSpecs.IsUsed, Is.True);
-            Assert.That(celPointSpecs.PercentageOrb, Is.EqualTo(100).Within(Delta));
+            Assert.That(celPointSpecs.PercentageOrb, Is.EqualTo(100).Within(DELTA));
         });
     }
 

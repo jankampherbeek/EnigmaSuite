@@ -14,7 +14,7 @@ namespace Enigma.Test.Frontend.Helpers.InputParsers;
 
 public class TestGeoLongInputParser
 {
-    private const char Separator = ':';
+    private const char SEPARATOR = ':';
 
 
 
@@ -26,7 +26,7 @@ public class TestGeoLongInputParser
         const Directions4GeoLong direction = Directions4GeoLong.East;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLongValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLongValidator = new Mock<IGeoLongValidator>();
         FullGeoLongitude? fullGeoLongitude;
         mockGeoLongValidator.Setup(x => x.CreateCheckedLongitude(geoLongValues, direction, out fullGeoLongitude)).Returns(true);
@@ -43,7 +43,7 @@ public class TestGeoLongInputParser
         const Directions4GeoLong direction = Directions4GeoLong.East;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLongValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLongValidator = new Mock<IGeoLongValidator>();
         FullGeoLongitude? fullGeoLongitude;
         mockGeoLongValidator.Setup(x => x.CreateCheckedLongitude(geoLongValues, direction, out fullGeoLongitude)).Returns(true);
@@ -61,7 +61,7 @@ public class TestGeoLongInputParser
         const Directions4GeoLong direction = Directions4GeoLong.East;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLongValues, false);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLongValidator = new Mock<IGeoLongValidator>();
         IGeoLongInputParser parser = new GeoLongInputParser(mockValueRangeConverter.Object, mockGeoLongValidator.Object);
 
@@ -76,7 +76,7 @@ public class TestGeoLongInputParser
         const Directions4GeoLong direction = Directions4GeoLong.East;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLongValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLongInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLongValidator = new Mock<IGeoLongValidator>();
         FullGeoLongitude? fullGeoLongitude;
         mockGeoLongValidator.Setup(x => x.CreateCheckedLongitude(geoLongValues, direction, out fullGeoLongitude)).Returns(false);

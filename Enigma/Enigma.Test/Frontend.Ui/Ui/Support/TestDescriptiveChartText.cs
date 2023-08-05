@@ -20,29 +20,29 @@ public class TestDescriptiveChartText
 {
     private readonly IDescriptiveChartText _descriptiveChartText = new DescriptiveChartText();
 
-    private const string Name = "Some Name";
-    private const string Description = "Descriptive text";
-    private const string Source = "source";
-    private const string LocationName = "Somewhere";
-    private const ChartCategories ChartCategory = ChartCategories.Female;
-    private const RoddenRatings Rating = RoddenRatings.AA;
-    private const HouseSystems HouseSystem = HouseSystems.Alcabitius;
-    private const Ayanamshas Ayanamsha = Ayanamshas.None;
-    private const ObserverPositions ObserverPos = ObserverPositions.GeoCentric;
-    private const ZodiacTypes ZodiacType = ZodiacTypes.Tropical;
-    private const ProjectionTypes ProjType = ProjectionTypes.TwoDimensional;
-    private const OrbMethods OrbMethod = OrbMethods.Weighted;
+    private const string NAME = "Some Name";
+    private const string DESCRIPTION = "Descriptive text";
+    private const string SOURCE = "source";
+    private const string LOCATION_NAME = "Somewhere";
+    private const ChartCategories CHART_CATEGORY = ChartCategories.Female;
+    private const RoddenRatings RATING = RoddenRatings.AA;
+    private const HouseSystems HOUSE_SYSTEM = HouseSystems.Alcabitius;
+    private const Ayanamshas AYANAMSHA = Ayanamshas.None;
+    private const ObserverPositions OBSERVER_POS = ObserverPositions.GeoCentric;
+    private const ZodiacTypes ZODIAC_TYPE = ZodiacTypes.Tropical;
+    private const ProjectionTypes PROJ_TYPE = ProjectionTypes.TwoDimensional;
+    private const OrbMethods ORB_METHOD = OrbMethods.Weighted;
     private readonly Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPoints = new();
     private readonly Dictionary<AspectTypes, AspectConfigSpecs> _aspects = new();
-    private const double BaseOrbAspects = 8.0;
-    private const double BaseOrbMidpoints = 1.6;
-    private const bool UseCuspsForAspects = false;
-    private const int Id = 123;
-    private const double GeoLong = 12.25;
-    private const double GeoLat = 30.5;
-    private const string DateText = "2023/02/22";
-    private const string TimeText = "18:19:00";
-    private const double JdUt = 123456.789;
+    private const double BASE_ORB_ASPECTS = 8.0;
+    private const double BASE_ORB_MIDPOINTS = 1.6;
+    private const bool USE_CUSPS_FOR_ASPECTS = false;
+    private const int ID = 123;
+    private const double GEO_LONG = 12.25;
+    private const double GEO_LAT = 30.5;
+    private const string DATE_TEXT = "2023/02/22";
+    private const string TIME_TEXT = "18:19:00";
+    private const double JD_UT = 123456.789;
 
     [Test]
     public void TestShortDescriptiveText()
@@ -62,29 +62,29 @@ public class TestDescriptiveChartText
 
     private static MetaData CreateMetaData()
     {
-        return new MetaData(Name, Description, Source, LocationName, ChartCategory, Rating);
+        return new MetaData(NAME, DESCRIPTION, SOURCE, LOCATION_NAME, CHART_CATEGORY, RATING);
     }
 
     private AstroConfig CreateConfig()
     {
-        return new AstroConfig(HouseSystem, Ayanamsha, ObserverPos, ZodiacType, ProjType, OrbMethod, _chartPoints, _aspects, BaseOrbAspects, BaseOrbMidpoints, UseCuspsForAspects);
+        return new AstroConfig(HOUSE_SYSTEM, AYANAMSHA, OBSERVER_POS, ZODIAC_TYPE, PROJ_TYPE, ORB_METHOD, _chartPoints, _aspects, BASE_ORB_ASPECTS, BASE_ORB_MIDPOINTS, USE_CUSPS_FOR_ASPECTS);
     }
 
 
     private static Location CreateLocation()
     {
-        return new Location(LocationName, GeoLong, GeoLat);
+        return new Location(LOCATION_NAME, GEO_LONG, GEO_LAT);
     }
 
     private static FullDateTime CreateFullDateTime()
     {
-        return new FullDateTime(DateText, TimeText, JdUt);
+        return new FullDateTime(DATE_TEXT, TIME_TEXT, JD_UT);
     }
 
 
     private static ChartData CreateChartData()
     {
-        return new ChartData(Id, CreateMetaData(), CreateLocation(), CreateFullDateTime());
+        return new ChartData(ID, CreateMetaData(), CreateLocation(), CreateFullDateTime());
     }
 }
 

@@ -15,7 +15,7 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 /// <inheritdoc />
 public sealed class ChartDataDao : IChartDataDao
 {
-    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
+    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
     private const string Collection = "charts";
     
     /// <inheritdoc />

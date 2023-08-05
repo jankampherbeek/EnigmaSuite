@@ -35,7 +35,7 @@ public static class CoordinateSystemsExtensions
         {
             // No specific flags for ecliptical and horizontal.
             CoordinateSystems.Ecliptical => new CoordinateSystemDetails(coordSys, 0, "coordinateSysEcliptic"),
-            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordSys, EnigmaConstants.SEFLG_EQUATORIAL, "coordinateSysEquatorial"),
+            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordSys, EnigmaConstants.SeflgEquatorial, "coordinateSysEquatorial"),
             CoordinateSystems.Horizontal => new CoordinateSystemDetails(coordSys, 0, "coordinateSysHorizontal"),
             _ => throw new ArgumentException("Coordinate system unknown : " + coordSys.ToString())
         };

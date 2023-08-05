@@ -11,7 +11,7 @@ namespace Enigma.Test.Core.Handlers.Calc.Util;
 [TestFixture]
 internal class TestMathExtra
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestRectangular2PolarHappyFlow()
@@ -22,9 +22,9 @@ internal class TestMathExtra
         double[] result = MathExtra.Rectangular2Polar(rectangularValues);
         Assert.Multiple(() =>
         {
-            Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(Delta));
-            Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(Delta));
-            Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(Delta));
+            Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(DELTA));
+            Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(DELTA));
+            Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(DELTA));
         });
     }
 
@@ -32,14 +32,14 @@ internal class TestMathExtra
     public void TestRectangular2PolarWrongLengthOfArray()
     {
         var rectangularValues = new[] { 1.0, 2.0 };
-        var _ = Assert.Throws<ArgumentException>(() => MathExtra.Rectangular2Polar(rectangularValues));
+        _ = Assert.Throws<ArgumentException>(() => MathExtra.Rectangular2Polar(rectangularValues));
     }
 
     [Test]
     public void TestRectangular2PolarNullArray()
     {
         double[]? rectangularValues = null;
-        var _ = Assert.Throws<ArgumentException>(() => MathExtra.Rectangular2Polar(rectangularValues!));
+        _ = Assert.Throws<ArgumentException>(() => MathExtra.Rectangular2Polar(rectangularValues!));
     }
 
 
@@ -52,9 +52,9 @@ internal class TestMathExtra
         double[] result = MathExtra.Polar2Rectangular(polarValues);
         Assert.Multiple(() =>
         {
-            Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(Delta));
-            Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(Delta));
-            Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(Delta));
+            Assert.That(result[0], Is.EqualTo(expectedValues[0]).Within(DELTA));
+            Assert.That(result[1], Is.EqualTo(expectedValues[1]).Within(DELTA));
+            Assert.That(result[2], Is.EqualTo(expectedValues[2]).Within(DELTA));
         });
     }
 
@@ -63,7 +63,7 @@ internal class TestMathExtra
     {
         const double degrees = 100.0;
         const double expectedRadians = 1.74532925199;
-        Assert.That(MathExtra.DegToRad(degrees), Is.EqualTo(expectedRadians).Within(Delta));
+        Assert.That(MathExtra.DegToRad(degrees), Is.EqualTo(expectedRadians).Within(DELTA));
     }
 
     [Test]
@@ -71,7 +71,7 @@ internal class TestMathExtra
     {
         const double radians = 2.0;
         const double expectedDegrees = 114.591559026;
-        Assert.That(MathExtra.RadToDeg(radians), Is.EqualTo(expectedDegrees).Within(Delta));
+        Assert.That(MathExtra.RadToDeg(radians), Is.EqualTo(expectedDegrees).Within(DELTA));
     }
 
     [Test]
@@ -82,7 +82,7 @@ internal class TestMathExtra
         const double geoLat = 58.2666666666667;
         const double expected = 32.04675727201;
         double actual = MathExtra.AscensionalDifference(geoLat, decl);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -95,7 +95,7 @@ internal class TestMathExtra
         const double ascDiff = 32.04675727201;
         const double expected = 98.78657606132;
         double actual = MathExtra.ObliqueAscension(raPoint, ascDiff, east, north);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -106,7 +106,7 @@ internal class TestMathExtra
         const double oaAsc = 247.0;
         const double expected = 41.0;
         double actual = MathExtra.HorizontalDistance(oaPoint, oaAsc, easternHemiSphere);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -133,7 +133,7 @@ internal class TestMathExtra
         const double geoLat = 58.2666666666667;
         const double expected = 51.78626254060;
         double actual = MathExtra.RegiomontanianPole(geoLat, declFixPoint, upperMdFixPoint);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -143,7 +143,7 @@ internal class TestMathExtra
         const double latitude = 3;
         const double expected = 2.33333333333;
         double actual = MathExtra.BianchinianLatitude(latitude, angle);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -153,7 +153,7 @@ internal class TestMathExtra
         const double latitude = 3;
         const double expected = 0.0;
         double actual = MathExtra.BianchinianLatitude(latitude, angle);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -163,7 +163,7 @@ internal class TestMathExtra
         const double latitude = 3;
         const double expected = 1.0;
         double actual = MathExtra.BianchinianLatitude(latitude, angle);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -173,7 +173,7 @@ internal class TestMathExtra
         const double latitude = 3;
         const double expected = -1.0;
         double actual = MathExtra.BianchinianLatitude(latitude, angle);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
     [Test]
@@ -183,7 +183,7 @@ internal class TestMathExtra
         const double latitude = 3;
         const double expected = -3.0;
         double actual = MathExtra.BianchinianLatitude(latitude, angle);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
 }

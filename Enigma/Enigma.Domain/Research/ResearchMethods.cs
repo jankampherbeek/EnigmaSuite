@@ -52,7 +52,8 @@ public static class ResearchMethodsExtensions
     /// <returns>All details.</returns>
     public static List<ResearchMethodDetails> AllDetails(this ResearchMethods _)
     {
-        return (from ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)) where methodCurrent != ResearchMethods.None select methodCurrent.GetDetails()).ToList();
+        return (from ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)) 
+            where methodCurrent != ResearchMethods.None select methodCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find RedearchMethod for given index.</summary>

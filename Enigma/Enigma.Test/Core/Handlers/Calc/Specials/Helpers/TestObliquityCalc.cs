@@ -13,7 +13,7 @@ namespace Enigma.Test.Core.Handlers.Calc.Specials.Helpers;
 [TestFixture]
 public class TestObliquityCalc
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestCalculateTrueObliquity()
@@ -23,7 +23,7 @@ public class TestObliquityCalc
         const double jd = 12345.678;
         IObliquityCalc calc = CreateObliquityCalc();
         double result = calc.CalculateObliquity(jd, trueObliquity);
-        Assert.That(result, Is.EqualTo(expectedObliquity).Within(Delta));
+        Assert.That(result, Is.EqualTo(expectedObliquity).Within(DELTA));
     }
 
     [Test]
@@ -34,7 +34,7 @@ public class TestObliquityCalc
         const double jd = 12345.678;
         IObliquityCalc calc = CreateObliquityCalc();
         double result = calc.CalculateObliquity(jd, trueObliquity);
-        Assert.That(result, Is.EqualTo(expectedObliquity).Within(Delta));
+        Assert.That(result, Is.EqualTo(expectedObliquity).Within(DELTA));
     }
 
     private static IObliquityCalc CreateObliquityCalc()

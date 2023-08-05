@@ -10,7 +10,7 @@ namespace Enigma.Test.Domain.Calc.DateTime;
 [TestFixture]
 public class TestTimeZones
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestRetrievingDetails()
@@ -21,7 +21,7 @@ public class TestTimeZones
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TimeZone, Is.EqualTo(timeZone));
-            Assert.That(details.OffsetFromUt, Is.EqualTo(-1.0).Within(Delta));
+            Assert.That(details.OffsetFromUt, Is.EqualTo(-1.0).Within(DELTA));
             Assert.That(details.Text, Is.EqualTo("-01:00: AZOT/Azores Standard Time"));
         });
     }
@@ -62,7 +62,7 @@ public class TestTimeZones
             Assert.That(allDetails[0].TimeZone, Is.EqualTo(TimeZones.Ut));
             Assert.That(allDetails[8].TimeZone, Is.EqualTo(TimeZones.Ist));
             Assert.That(allDetails[10].Text, Is.EqualTo("+06:30: MMT/Myanmar Standard Time"));
-            Assert.That(allDetails[20].OffsetFromUt, Is.EqualTo(-10.0).Within(Delta));
+            Assert.That(allDetails[20].OffsetFromUt, Is.EqualTo(-10.0).Within(DELTA));
         });
     }
 }

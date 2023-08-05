@@ -16,23 +16,23 @@ namespace Enigma.Test.Core.Handlers.Calc.Progressive;
 public class TestFixedTimeKey
 {
     private readonly IFixedTimeKey _timeKey = new FixedTimeKey();
-    private const double Days = 32.5;
-    private const double KeyLength = 0.99;
-    private const double Arc = 32.175;    // _days * _keyLength;
-    private const double Delta = 0.00000001;
+    private const double DAYS = 32.5;
+    private const double KEY_LENGTH = 0.99;
+    private const double ARC = 32.175;    // _days * _keyLength;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestArcFromDays()
     {
-        double actual = _timeKey.ArcFromDays(Days, KeyLength);
-        Assert.That(actual, Is.EqualTo(Arc).Within(Delta));
+        double actual = _timeKey.ArcFromDays(DAYS, KEY_LENGTH);
+        Assert.That(actual, Is.EqualTo(ARC).Within(DELTA));
     }
 
     [Test]
     public void TestDaysFromArc()
     {
-        double actual = _timeKey.DaysFromArc(Arc, KeyLength);
-        Assert.That(actual, Is.EqualTo(Days).Within(Delta));
+        double actual = _timeKey.DaysFromArc(ARC, KEY_LENGTH);
+        Assert.That(actual, Is.EqualTo(DAYS).Within(DELTA));
     }
 
 }
@@ -41,25 +41,25 @@ public class TestFixedTimeKey
 [TestFixture]
 public class TestPlacidusTimeKey
 {
-    private const double Arc = 38.5;
-    private const double Days = 38.0;
-    private const double JdRadix = 2200000;
-    private const int Flags = 258;
+    private const double ARC = 38.5;
+    private const double DAYS = 38.0;
+    private const double JD_RADIX = 2200000;
+    private const int FLAGS = 258;
     private readonly Location _location = new("", 0.0, 0.0);
     private PointPosSpeeds? _jdRadixEclSunPos;
     private PointPosSpeeds? _jdRadixEquSunPos;
     private PointPosSpeeds? _jdRadixHorSunPos;
     private FullPointPos? _progPosSun;
-    private const double Delta = 0.00000001;
-    private const double Zero = 0.0;
+    private const double DELTA = 0.00000001;
+    private const double ZERO = 0.0;
     private IPlacidusTimeKey? _placidusTimeKey;
 
     [SetUp]
     public void SetUp()
     {
-        _jdRadixEclSunPos = new PointPosSpeeds(new[] { 222.0, 1.01, Zero, Zero, Zero, Zero });
-        _jdRadixEquSunPos = new PointPosSpeeds(new[] { 221.0, 1.02, Zero, Zero, Zero, Zero });
-        _jdRadixHorSunPos = new PointPosSpeeds(new[] { Zero, Zero, Zero, Zero, Zero, Zero });
+        _jdRadixEclSunPos = new PointPosSpeeds(new[] { 222.0, 1.01, ZERO, ZERO, ZERO, ZERO });
+        _jdRadixEquSunPos = new PointPosSpeeds(new[] { 221.0, 1.02, ZERO, ZERO, ZERO, ZERO });
+        _jdRadixHorSunPos = new PointPosSpeeds(new[] { ZERO, ZERO, ZERO, ZERO, ZERO, ZERO });
         _progPosSun = new FullPointPos(_jdRadixEclSunPos, _jdRadixEquSunPos, _jdRadixHorSunPos);
         _placidusTimeKey = new PlacidusTimeKey(CreateSolarArcCalculatorMock(), CreateSeFlagsMock(), CreatePositionFinderMock());
     }
@@ -67,8 +67,8 @@ public class TestPlacidusTimeKey
     [Test]
     public void TestArcFromDays()
     {
-        double actual = _placidusTimeKey!.ArcFromDays(Days, JdRadix, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, _location);
-        Assert.That(actual, Is.EqualTo(Arc).Within(Delta));
+        double actual = _placidusTimeKey!.ArcFromDays(DAYS, JD_RADIX, CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, _location);
+        Assert.That(actual, Is.EqualTo(ARC).Within(DELTA));
     }
 
     [Test]
@@ -88,14 +88,14 @@ public class TestPlacidusTimeKey
     private ISolarArcCalculator CreateSolarArcCalculatorMock()
     {
         var mockCalc = new Mock<ISolarArcCalculator>();
-        mockCalc.Setup(p => p.CalcSolarArcForTimespan(It.IsAny<double>(), It.IsAny<double>(), _location, It.IsAny<int>())).Returns(Arc);
+        mockCalc.Setup(p => p.CalcSolarArcForTimespan(It.IsAny<double>(), It.IsAny<double>(), _location, It.IsAny<int>())).Returns(ARC);
         return mockCalc.Object;
     }
 
     private static ISeFlags CreateSeFlagsMock()
     {
         var mockFlags = new Mock<ISeFlags>();
-        mockFlags.Setup(p => p.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).Returns(Flags);
+        mockFlags.Setup(p => p.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).Returns(FLAGS);
         return mockFlags.Object;
     }
 
@@ -105,12 +105,12 @@ public class TestPlacidusTimeKey
 [TestFixture]
 public class TestSolarArcCalculator
 {
-    private const double Delta = 0.00000001;
-    private const double JdRadix = 2000000;
-    private const double JdEvent = 2000038;
-    private const double Timespan = 38.0;
+    private const double DELTA = 0.00000001;
+    private const double JD_RADIX = 2000000;
+    private const double JD_EVENT = 2000038;
+    private const double TIMESPAN = 38.0;
     private readonly Location _location = new("Anywhere", 0.0, 0.0);
-    private const int Flags = 258;
+    private const int FLAGS = 258;
     private readonly PosSpeed[] _jdRadixEclSunPos = new PosSpeed[3];
     private readonly PosSpeed[] _jdEventEclSunPos = new PosSpeed[3];
     private ISolarArcCalculator? _calculator;
@@ -135,16 +135,16 @@ public class TestSolarArcCalculator
     public void TestCalcSolarArcForTimespan()
     {
         const double expected = 38.1;
-        double actual = _calculator!.CalcSolarArcForTimespan(JdRadix, Timespan, _location, Flags);
-        Assert.That(actual, Is.EqualTo(expected).Within(Delta));
+        double actual = _calculator!.CalcSolarArcForTimespan(JD_RADIX, TIMESPAN, _location, FLAGS);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
 
     }
 
     private ICelPointSeCalc CreateCelPointSeCalcMock()
     {
         var mockCalc = new Mock<ICelPointSeCalc>();
-        mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JdRadix, _location, Flags)).Returns(_jdRadixEclSunPos);
-        mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JdEvent, _location, Flags)).Returns(_jdEventEclSunPos);
+        mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JD_RADIX, _location, FLAGS)).Returns(_jdRadixEclSunPos);
+        mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JD_EVENT, _location, FLAGS)).Returns(_jdEventEclSunPos);
         return mockCalc.Object;
     }
 

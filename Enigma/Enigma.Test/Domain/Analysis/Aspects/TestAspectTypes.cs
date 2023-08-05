@@ -10,7 +10,7 @@ namespace Enigma.Test.Domain.Analysis.Aspects;
 [TestFixture]
 public class TestAspectTypes
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestRetrievingDetails()
@@ -21,7 +21,7 @@ public class TestAspectTypes
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Aspect, Is.EqualTo(AspectTypes.BiQuintile));
-            Assert.That(details.Angle, Is.EqualTo(144.0).Within(Delta));
+            Assert.That(details.Angle, Is.EqualTo(144.0).Within(DELTA));
         });
     }
 

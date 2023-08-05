@@ -16,10 +16,10 @@ namespace Enigma.Test.Api.Calc;
 [TestFixture]
 public class TestHorizontalApi
 {
-    private const double JdUt = 123456.789;
-    private const double Delta = 0.00000001;
-    private const double ExpectedAzimuth = 222.2;
-    private const double ExpectedAltitude = 45.45;
+    private const double JD_UT = 123456.789;
+    private const double DELTA = 0.00000001;
+    private const double EXPECTED_AZIMUTH = 222.2;
+    private const double EXPECTED_ALTITUDE = 45.45;
     private readonly Location _location = new("Anywhere", 55.5, 22.2);
     private readonly EquatorialCoordinates _equCoordinates = new(111.1, 2.2);
     private IHorizontalApi? _api;
@@ -27,7 +27,7 @@ public class TestHorizontalApi
     [SetUp]
     public void SetUp()
     {
-        var horCoordinates = new HorizontalCoordinates(ExpectedAzimuth, ExpectedAltitude);
+        var horCoordinates = new HorizontalCoordinates(EXPECTED_AZIMUTH, EXPECTED_ALTITUDE);
         var mockHorHandler = new Mock<IHorizontalHandler>();
         mockHorHandler.Setup(p => p.CalcHorizontal(It.IsAny<HorizontalRequest>())).Returns(horCoordinates);
         _api = new HorizontalApi(mockHorHandler.Object);
@@ -37,12 +37,12 @@ public class TestHorizontalApi
     [Test]
     public void TestHorizontalHappyFlow()
     {
-        var horizontalRequest = new HorizontalRequest(JdUt, _location, _equCoordinates);
+        var horizontalRequest = new HorizontalRequest(JD_UT, _location, _equCoordinates);
         HorizontalCoordinates horCoordinates = _api!.GetHorizontal(horizontalRequest);
         Assert.Multiple(() =>
         {
-            Assert.That(horCoordinates.Azimuth, Is.EqualTo(ExpectedAzimuth).Within(Delta));
-            Assert.That(horCoordinates.Altitude, Is.EqualTo(ExpectedAltitude).Within(Delta));
+            Assert.That(horCoordinates.Azimuth, Is.EqualTo(EXPECTED_AZIMUTH).Within(DELTA));
+            Assert.That(horCoordinates.Altitude, Is.EqualTo(EXPECTED_ALTITUDE).Within(DELTA));
         });
     }
 
@@ -57,7 +57,7 @@ public class TestHorizontalApi
     public void TestHorizontalLocationNullRequest()
     {
         Location? location = null;
-        HorizontalRequest request = new(JdUt, location!, _equCoordinates);
+        HorizontalRequest request = new(JD_UT, location!, _equCoordinates);
         Assert.That(() => _api!.GetHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 
@@ -65,7 +65,7 @@ public class TestHorizontalApi
     public void TestHorizontalEclcoordinatesNullRequest()
     {
         EquatorialCoordinates? coordinates = null;
-        HorizontalRequest request = new(JdUt, _location, coordinates!);
+        HorizontalRequest request = new(JD_UT, _location, coordinates!);
         Assert.That(() => _api!.GetHorizontal(request), Throws.TypeOf<ArgumentNullException>());
     }
 

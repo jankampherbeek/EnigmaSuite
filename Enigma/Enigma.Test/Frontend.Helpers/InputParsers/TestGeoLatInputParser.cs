@@ -14,7 +14,7 @@ namespace Enigma.Test.Frontend.Helpers.InputParsers;
 
 public class TestGeoLatInputParser
 {
-    private const char Separator = ':';
+    private const char SEPARATOR = ':';
 
 
     [Test]
@@ -25,7 +25,7 @@ public class TestGeoLatInputParser
         const Directions4GeoLat direction = Directions4GeoLat.North;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLatValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLatValidator = new Mock<IGeoLatValidator>();
         FullGeoLatitude? fullGeoLatitude;
         mockGeoLatValidator.Setup(x => x.CreateCheckedLatitude(geoLatValues, direction, out fullGeoLatitude)).Returns(true);
@@ -42,7 +42,7 @@ public class TestGeoLatInputParser
         const Directions4GeoLat direction = Directions4GeoLat.North;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLatValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLatValidator = new Mock<IGeoLatValidator>();
         FullGeoLatitude? fullGeoLatitude;
         mockGeoLatValidator.Setup(x => x.CreateCheckedLatitude(geoLatValues, direction, out fullGeoLatitude)).Returns(true);
@@ -60,7 +60,7 @@ public class TestGeoLatInputParser
         const Directions4GeoLat direction = Directions4GeoLat.North;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLatValues, false);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLatValidator = new Mock<IGeoLatValidator>();
         IGeoLatInputParser parser = new GeoLatInputParser(mockValueRangeConverter.Object, mockGeoLatValidator.Object);
 
@@ -75,7 +75,7 @@ public class TestGeoLatInputParser
         const Directions4GeoLat direction = Directions4GeoLat.North;
         var mockValueRangeConverter = new Mock<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (geoLatValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, Separator)).Returns(rangeResult);
+        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(geoLatInput, SEPARATOR)).Returns(rangeResult);
         var mockGeoLatValidator = new Mock<IGeoLatValidator>();
         FullGeoLatitude? fullGeoLatitude;
         mockGeoLatValidator.Setup(x => x.CreateCheckedLatitude(geoLatValues, direction, out fullGeoLatitude)).Returns(false);

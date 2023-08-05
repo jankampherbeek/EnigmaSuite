@@ -15,9 +15,9 @@ using Moq;
 [TestFixture]
 public class TestJulDayHandler
 {
-    private const double ExpectedJd = 123456.789;
+    private const double EXPECTED_JD = 123456.789;
     private SimpleDateTime? _dateTime;
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
 
     [SetUp]
@@ -33,13 +33,13 @@ public class TestJulDayHandler
         Mock<IJulDayCalc> calcMock = CreateCalcMock();
         IJulDayHandler handler = new JulDayHandler(calcMock.Object);
         JulianDayResponse response = handler.CalcJulDay(_dateTime!);
-        Assert.That(response.JulDayUt, Is.EqualTo(ExpectedJd).Within(Delta));
+        Assert.That(response.JulDayUt, Is.EqualTo(EXPECTED_JD).Within(DELTA));
     }
 
     private Mock<IJulDayCalc> CreateCalcMock()
     {
         var mock = new Mock<IJulDayCalc>();
-        mock.Setup(p => p.CalcJulDayUt(_dateTime!)).Returns(ExpectedJd);
+        mock.Setup(p => p.CalcJulDayUt(_dateTime!)).Returns(EXPECTED_JD);
         return mock;
     }
 

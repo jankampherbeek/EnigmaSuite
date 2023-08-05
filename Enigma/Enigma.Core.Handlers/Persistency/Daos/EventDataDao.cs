@@ -17,7 +17,7 @@ public sealed class EventDataDao : IEventDataDao
 {
     private const string ColIntersection = "chartevents";
     private const string ColEvents = "events";
-    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DATABASE_NAME;
+    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
     private readonly IInterChartEventDao _intersectionDao;
 
     public EventDataDao(IInterChartEventDao intersectionDao)

@@ -16,17 +16,17 @@ namespace Enigma.Test.Core.Handlers.Calc.DateTime;
 [TestFixture]
 public class TestCheckDateTimeHandler
 {
-    private const Calendars Calendar = Calendars.Gregorian;
+    private const Calendars CALENDAR = Calendars.Gregorian;
     private SimpleDateTime? _dateTime;
 
 
-    private const string ErrorText = "Description of problem.";
+    private const string ERROR_TEXT = "Description of problem.";
 
 
     [SetUp]
     public void SetUp()
     {
-        _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, Calendar);
+        _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, CALENDAR);
     }
 
     [Test]
@@ -66,7 +66,7 @@ public class TestCheckDateTimeHandler
     private Mock<IDateTimeValidator> CreateCalcMockThrowingException()
     {
         var mock = new Mock<IDateTimeValidator>();
-        var exception = new SwissEphException(ErrorText);
+        var exception = new SwissEphException(ERROR_TEXT);
         mock.Setup(p => p.ValidateDateTime(_dateTime!)).Throws(exception);
         return mock;
     }

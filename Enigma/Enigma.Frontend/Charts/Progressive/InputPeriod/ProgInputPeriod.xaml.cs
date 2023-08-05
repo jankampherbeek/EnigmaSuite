@@ -114,8 +114,8 @@ public partial class ProgInputPeriod : Window
 
     private void HandleErrors()
     {
-        tbStartDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_STARTDATE) ? Brushes.Yellow : Brushes.White;
-        tbEndDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.INVALID_ENDDATE) ? Brushes.Yellow : Brushes.White;
+        tbStartDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidStartdate) ? Brushes.Yellow : Brushes.White;
+        tbEndDatePeriodValue.Background = _controller.ActualErrorCodes.Contains(ErrorCodes.InvalidEnddate) ? Brushes.Yellow : Brushes.White;
     }
 
 }

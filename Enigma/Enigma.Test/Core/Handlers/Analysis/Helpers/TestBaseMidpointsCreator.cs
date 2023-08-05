@@ -15,7 +15,7 @@ namespace Enigma.Test.Core.Handlers.Analysis.Helpers;
 public class TestBaseMidpointsCreator
 {
     private readonly IBaseMidpointsCreator _baseMidpointsCreator = new BaseMidpointsCreator();
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
     [Test]
     public void TestCreateBaseMidpointsHappyFlow()
@@ -24,12 +24,12 @@ public class TestBaseMidpointsCreator
         List<BaseMidpoint> baseMidpoints = _baseMidpointsCreator.CreateBaseMidpoints(positionedPoints);
         Assert.Multiple(() =>
         {
-            Assert.That(baseMidpoints[0].Position, Is.EqualTo(100.0).Within(Delta));
-            Assert.That(baseMidpoints[1].Position, Is.EqualTo(342.0).Within(Delta));
-            Assert.That(baseMidpoints[2].Position, Is.EqualTo(32.0).Within(Delta));
-            Assert.That(baseMidpoints[3].Position, Is.EqualTo(240.0).Within(Delta));
-            Assert.That(baseMidpoints[4].Position, Is.EqualTo(110.0).Within(Delta));
-            Assert.That(baseMidpoints[5].Position, Is.EqualTo(352.0).Within(Delta));
+            Assert.That(baseMidpoints[0].Position, Is.EqualTo(100.0).Within(DELTA));
+            Assert.That(baseMidpoints[1].Position, Is.EqualTo(342.0).Within(DELTA));
+            Assert.That(baseMidpoints[2].Position, Is.EqualTo(32.0).Within(DELTA));
+            Assert.That(baseMidpoints[3].Position, Is.EqualTo(240.0).Within(DELTA));
+            Assert.That(baseMidpoints[4].Position, Is.EqualTo(110.0).Within(DELTA));
+            Assert.That(baseMidpoints[5].Position, Is.EqualTo(352.0).Within(DELTA));
         });
     }
 
@@ -48,12 +48,12 @@ public class TestBaseMidpointsCreator
         List<BaseMidpoint> midpointsInDial = _baseMidpointsCreator.ConvertBaseMidpointsToDial(baseMidpoints, 360.0);
         Assert.Multiple(() =>
         {
-            Assert.That(midpointsInDial[0].Position, Is.EqualTo(100.0).Within(Delta));
-            Assert.That(midpointsInDial[1].Position, Is.EqualTo(342.0).Within(Delta));
-            Assert.That(midpointsInDial[2].Position, Is.EqualTo(32.0).Within(Delta));
-            Assert.That(midpointsInDial[3].Position, Is.EqualTo(240.0).Within(Delta));
-            Assert.That(midpointsInDial[4].Position, Is.EqualTo(110.0).Within(Delta));
-            Assert.That(midpointsInDial[5].Position, Is.EqualTo(352.0).Within(Delta));
+            Assert.That(midpointsInDial[0].Position, Is.EqualTo(100.0).Within(DELTA));
+            Assert.That(midpointsInDial[1].Position, Is.EqualTo(342.0).Within(DELTA));
+            Assert.That(midpointsInDial[2].Position, Is.EqualTo(32.0).Within(DELTA));
+            Assert.That(midpointsInDial[3].Position, Is.EqualTo(240.0).Within(DELTA));
+            Assert.That(midpointsInDial[4].Position, Is.EqualTo(110.0).Within(DELTA));
+            Assert.That(midpointsInDial[5].Position, Is.EqualTo(352.0).Within(DELTA));
         });
     }
 
@@ -64,12 +64,12 @@ public class TestBaseMidpointsCreator
         List<BaseMidpoint> midpointsInDial = _baseMidpointsCreator.ConvertBaseMidpointsToDial(baseMidpoints, 90.0);
         Assert.Multiple(() =>
         {
-            Assert.That(midpointsInDial[0].Position, Is.EqualTo(10.0).Within(Delta));
-            Assert.That(midpointsInDial[1].Position, Is.EqualTo(72.0).Within(Delta));
-            Assert.That(midpointsInDial[2].Position, Is.EqualTo(32.0).Within(Delta));
-            Assert.That(midpointsInDial[3].Position, Is.EqualTo(60.0).Within(Delta));
-            Assert.That(midpointsInDial[4].Position, Is.EqualTo(20.0).Within(Delta));
-            Assert.That(midpointsInDial[5].Position, Is.EqualTo(82.0).Within(Delta));
+            Assert.That(midpointsInDial[0].Position, Is.EqualTo(10.0).Within(DELTA));
+            Assert.That(midpointsInDial[1].Position, Is.EqualTo(72.0).Within(DELTA));
+            Assert.That(midpointsInDial[2].Position, Is.EqualTo(32.0).Within(DELTA));
+            Assert.That(midpointsInDial[3].Position, Is.EqualTo(60.0).Within(DELTA));
+            Assert.That(midpointsInDial[4].Position, Is.EqualTo(20.0).Within(DELTA));
+            Assert.That(midpointsInDial[5].Position, Is.EqualTo(82.0).Within(DELTA));
         });
     }
 
@@ -80,12 +80,12 @@ public class TestBaseMidpointsCreator
         List<BaseMidpoint> midpointsInDial = _baseMidpointsCreator.ConvertBaseMidpointsToDial(baseMidpoints, 45.0);
         Assert.Multiple(() =>
         {
-            Assert.That(midpointsInDial[0].Position, Is.EqualTo(10.0).Within(Delta));
-            Assert.That(midpointsInDial[1].Position, Is.EqualTo(27.0).Within(Delta));
-            Assert.That(midpointsInDial[2].Position, Is.EqualTo(32.0).Within(Delta));
-            Assert.That(midpointsInDial[3].Position, Is.EqualTo(15.0).Within(Delta));
-            Assert.That(midpointsInDial[4].Position, Is.EqualTo(20.0).Within(Delta));
-            Assert.That(midpointsInDial[5].Position, Is.EqualTo(37.0).Within(Delta));
+            Assert.That(midpointsInDial[0].Position, Is.EqualTo(10.0).Within(DELTA));
+            Assert.That(midpointsInDial[1].Position, Is.EqualTo(27.0).Within(DELTA));
+            Assert.That(midpointsInDial[2].Position, Is.EqualTo(32.0).Within(DELTA));
+            Assert.That(midpointsInDial[3].Position, Is.EqualTo(15.0).Within(DELTA));
+            Assert.That(midpointsInDial[4].Position, Is.EqualTo(20.0).Within(DELTA));
+            Assert.That(midpointsInDial[5].Position, Is.EqualTo(37.0).Within(DELTA));
         });
     }
 

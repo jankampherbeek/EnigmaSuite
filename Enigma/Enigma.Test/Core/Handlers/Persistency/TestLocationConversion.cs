@@ -11,7 +11,7 @@ namespace Enigma.Test.Core.Handlers.Persistency;
 [TestFixture]
 public class TestLocationConversion
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
     private ILocationCheckedConversion? _locationConversion;
 
     [SetUp]
@@ -30,7 +30,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(true));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -43,7 +43,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(true));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -56,7 +56,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(true));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -69,7 +69,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -82,7 +82,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -95,7 +95,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -108,7 +108,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -121,7 +121,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -134,7 +134,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -147,7 +147,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -160,7 +160,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLongitude).Within(DELTA));
         });
     }
 
@@ -173,7 +173,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -186,7 +186,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -199,7 +199,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -212,7 +212,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -225,7 +225,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -238,7 +238,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -251,7 +251,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 
@@ -264,7 +264,7 @@ public class TestLocationConversion
         Assert.Multiple(() =>
         {
             Assert.That(result.Item2, Is.EqualTo(false));
-            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(Delta));
+            Assert.That(result.Item1, Is.EqualTo(expectedLatitude).Within(DELTA));
         });
     }
 }

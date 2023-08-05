@@ -15,9 +15,9 @@ namespace Enigma.Test.Core.Handlers.Calc.DateTime.Helpers;
 [TestFixture]
 public class TestJulDayCalc
 {
-    private const double Delta = 0.00000001;
-    private const double Jd = 12345.6789;
-    private const double DeltaT = 0.000123;
+    private const double DELTA = 0.00000001;
+    private const double JD = 12345.6789;
+    private const double DELTA_T = 0.000123;
     private SimpleDateTime? _dateTime;
     private IJulDayCalc? _jdCalc;
 
@@ -26,8 +26,8 @@ public class TestJulDayCalc
     {
         _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, Calendars.Gregorian);
         var mock = new Mock<IJulDayFacade>();
-        mock.Setup(p => p.JdFromSe(_dateTime)).Returns(Jd);
-        mock.Setup(p => p.DeltaTFromSe(Jd)).Returns(DeltaT);
+        mock.Setup(p => p.JdFromSe(_dateTime)).Returns(JD);
+        mock.Setup(p => p.DeltaTFromSe(JD)).Returns(DELTA_T);
         _jdCalc = new JulDayCalc(mock.Object);
     }
 
@@ -35,14 +35,14 @@ public class TestJulDayCalc
     public void TestCalcJulDay()
     {
         double jdResult = _jdCalc!.CalcJulDayUt(_dateTime!);
-        Assert.That(jdResult, Is.EqualTo(Jd).Within(Delta));
+        Assert.That(jdResult, Is.EqualTo(JD).Within(DELTA));
     }
 
     [Test]
     public void TestCalcDeltaT()
     {
-        double deltaTResult = _jdCalc!.CalcDeltaT(Jd);
-        Assert.That(deltaTResult, Is.EqualTo(DeltaT).Within(Delta));
+        double deltaTResult = _jdCalc!.CalcDeltaT(JD);
+        Assert.That(deltaTResult, Is.EqualTo(DELTA_T).Within(DELTA));
     }
 
 }

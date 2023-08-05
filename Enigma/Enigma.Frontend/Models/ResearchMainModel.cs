@@ -4,11 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using System.Linq;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Ui.Research;
-using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.Models;
 

@@ -17,15 +17,15 @@ namespace Enigma.Test.Core.Handlers.Calc.CelestialPoints.Helpers;
 [TestFixture]
 public class TestCelPointCalc
 {
-    private const double JulianDayUt = 2123456.5;
-    private const double Longitude = 52.0;
-    private const double Latitude = 3.0;
-    private const double Distance = 2.0;
-    private const double LongSpeed = 0.7;
-    private const double LatSpeed = -0.1;
-    private const double DistSpeed = 0.02;
-    private const double Delta = 0.00000001;
-    private const int FlagsEcliptical = 0;
+    private const double JULIAN_DAY_UT = 2123456.5;
+    private const double LONGITUDE = 52.0;
+    private const double LATITUDE = 3.0;
+    private const double DISTANCE = 2.0;
+    private const double LONG_SPEED = 0.7;
+    private const double LAT_SPEED = -0.1;
+    private const double DIST_SPEED = 0.02;
+    private const double DELTA = 0.00000001;
+    private const int FLAGS_ECLIPTICAL = 0;
 
     [Test]
     public void TestCalculateCelPointLongitude()
@@ -33,8 +33,8 @@ public class TestCelPointCalc
         PosSpeed[] result = CalculatePosSpeedForCelPoint();
         Assert.Multiple(() =>
         {
-            Assert.That(result[0].Position, Is.EqualTo(Longitude).Within(Delta));
-            Assert.That(result[0].Speed, Is.EqualTo(LongSpeed).Within(Delta));
+            Assert.That(result[0].Position, Is.EqualTo(LONGITUDE).Within(DELTA));
+            Assert.That(result[0].Speed, Is.EqualTo(LONG_SPEED).Within(DELTA));
         });
     }
 
@@ -44,8 +44,8 @@ public class TestCelPointCalc
         PosSpeed[] result = CalculatePosSpeedForCelPoint();
         Assert.Multiple(() =>
         {
-            Assert.That(result[1].Position, Is.EqualTo(Latitude).Within(Delta));
-            Assert.That(result[1].Speed, Is.EqualTo(LatSpeed).Within(Delta));
+            Assert.That(result[1].Position, Is.EqualTo(LATITUDE).Within(DELTA));
+            Assert.That(result[1].Speed, Is.EqualTo(LAT_SPEED).Within(DELTA));
         });
     }
 
@@ -55,8 +55,8 @@ public class TestCelPointCalc
         PosSpeed[] result = CalculatePosSpeedForCelPoint();
         Assert.Multiple(() =>
         {
-            Assert.That(result[2].Position, Is.EqualTo(Distance).Within(Delta));
-            Assert.That(result[2].Speed, Is.EqualTo(DistSpeed).Within(Delta));
+            Assert.That(result[2].Position, Is.EqualTo(DISTANCE).Within(DELTA));
+            Assert.That(result[2].Speed, Is.EqualTo(DIST_SPEED).Within(DELTA));
         });
     }
 
@@ -64,9 +64,9 @@ public class TestCelPointCalc
     {
         var location = new Location("", 52.0, 6.0);
         var mockCalcUtFacade = new Mock<ICalcUtFacade>();
-        mockCalcUtFacade.Setup(p => p.PositionFromSe(JulianDayUt, EnigmaConstants.SE_MARS, FlagsEcliptical)).Returns(new[] { Longitude, Latitude, Distance, LongSpeed, LatSpeed, DistSpeed });
+        mockCalcUtFacade.Setup(p => p.PositionFromSe(JULIAN_DAY_UT, EnigmaConstants.SeMars, FLAGS_ECLIPTICAL)).Returns(new[] { LONGITUDE, LATITUDE, DISTANCE, LONG_SPEED, LAT_SPEED, DIST_SPEED });
         ICelPointSeCalc calc = new CelPointSeCalc(mockCalcUtFacade.Object, new ChartPointsMapping());
-        return calc.CalculateCelPoint(ChartPoints.Mars, JulianDayUt, location, FlagsEcliptical);
+        return calc.CalculateCelPoint(ChartPoints.Mars, JULIAN_DAY_UT, location, FLAGS_ECLIPTICAL);
     }
 
 }

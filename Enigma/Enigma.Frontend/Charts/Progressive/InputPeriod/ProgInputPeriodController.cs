@@ -32,8 +32,8 @@ public sealed class ProgInputPeriodController
         ActualErrorCodes = new List<int>();
         bool startDateSuccess = _dateInputParser.HandleDate(InputStartDate, Calendar, YearCount, out FullDate? fullStartDate);
         bool endDateSuccess = _dateInputParser.HandleDate(InputEndDate, Calendar, YearCount, out FullDate? fullEndDate);
-        if (!startDateSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_STARTDATE);
-        if (!endDateSuccess) ActualErrorCodes.Add(ErrorCodes.INVALID_ENDDATE);
+        if (!startDateSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidStartdate);
+        if (!endDateSuccess) ActualErrorCodes.Add(ErrorCodes.InvalidEnddate);
 
         if (startDateSuccess && endDateSuccess && fullStartDate != null && fullEndDate != null)
         {

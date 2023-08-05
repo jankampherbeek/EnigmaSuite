@@ -18,7 +18,7 @@ public class TestSouthPointCalculator
     // TODO 0.2 check differences
 
 
-    private const double Delta = 0.001; // TODO 0.2 enlarge value for _delta.
+    private const double DELTA = 0.001; // TODO 0.2 enlarge value for _delta.
 
     [Test]
     public void TestHappyFlow()
@@ -32,8 +32,8 @@ public class TestSouthPointCalculator
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(Delta));
-            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(Delta));
+            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(DELTA));
+            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(DELTA));
         });
     }
 
@@ -49,8 +49,8 @@ public class TestSouthPointCalculator
         EclipticCoordinates result = calculator.CalculateSouthPoint(armc, obliquity, geoLat);
         Assert.Multiple(() =>
         {
-            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(Delta));
-            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(Delta));
+            Assert.That(result.Longitude, Is.EqualTo(expectedLong).Within(DELTA));
+            Assert.That(result.Latitude, Is.EqualTo(expectedLat).Within(DELTA));
         });
     }
 }

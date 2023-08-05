@@ -79,7 +79,7 @@ public class TestDateCheckedConversion
 [TestFixture]
 public class TestTimeCheckedConversion
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
     private ITimeCheckedConversion? _timeCheckedConversion;
 
     [SetUp]
@@ -102,8 +102,8 @@ public class TestTimeCheckedConversion
             Assert.That(result.Item1.Hour, Is.EqualTo(14));
             Assert.That(result.Item1.Minute, Is.EqualTo(6));
             Assert.That(result.Item1.Second, Is.EqualTo(30));
-            Assert.That(result.Item1.ZoneOffset, Is.EqualTo(1.0).Within(Delta));
-            Assert.That(result.Item1.Dst, Is.EqualTo(0.0).Within(Delta));
+            Assert.That(result.Item1.ZoneOffset, Is.EqualTo(1.0).Within(DELTA));
+            Assert.That(result.Item1.Dst, Is.EqualTo(0.0).Within(DELTA));
         });
     }
 
