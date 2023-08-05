@@ -243,20 +243,5 @@ ref.calendar.g = Greg.
 ref.calendar.j = Jul.
 
 
---------- ResearchResultWindow -------------------
-researchresultwindow.title = Enigma - Research results
-researchresultwindow.formtitle = Research results
-researchresultwindow.noaspects = Number of charts without aspects
-researchresultwindow.orb = Orb
-researchresultwindow.pathinfo = These results have been saved at : 
-researchresultwindow.posharmonic = Harmonic
-researchresultwindow.posradix = Radix
-researchresultwindow.tabtest = Test data
-researchresultwindow.tabcontrol = Control data
-researchresultwindow.titleharmonicconjunctions = Harmonic conjunctions. Harmonic number
-researchresultwindow.titleoccupiedmidpoints = Occupied midpoints for dial division
-researchresultwindow.totalsaspects = Totals of aspects
-researchresultwindow.totalsmidpoints = Totals Occupied midpoints for dial division
-
 
 

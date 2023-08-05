@@ -77,9 +77,9 @@ public sealed class ChartsWheelMetrics
     // --------------------------------------------------
     public double BaseSize { get; private set; } = 700.0;
 
-    private readonly double _baseStrokeSize = 2.0;
-    private readonly double _baseConnectLineSize = 1.0;
-    private readonly double _baseAspectLineSize = 6.0;
+    private const double BASE_STROKE_SIZE = 2.0;
+    private const double BASE_CONNECT_LINE_SIZE = 1.0;
+    private const double BASE_ASPECT_LINE_SIZE = 6.0;
 
     public double SizeFactor { get; private set; }
 
@@ -126,10 +126,10 @@ public sealed class ChartsWheelMetrics
         DefineCircleSizes();
 
         GridSize = BaseSize * SizeFactor;
-        StrokeSize = _baseStrokeSize * SizeFactor;
+        StrokeSize = BASE_STROKE_SIZE * SizeFactor;
         StrokeSizeDouble = StrokeSize * 2.0;
-        ConnectLineSize = _baseConnectLineSize * SizeFactor;
-        AspectLineSize = _baseAspectLineSize * SizeFactor;
+        ConnectLineSize = BASE_CONNECT_LINE_SIZE * SizeFactor;
+        AspectLineSize = BASE_ASPECT_LINE_SIZE * SizeFactor;
         GlyphXOffset = GLYPH_X_OFFSET_INITIAL * GridSize;
         GlyphYOffset = GLYPH_Y_OFFSET_INITIAL * GridSize;
         SignGlyphSize = SIGN_GLYPH_SIZE_INITIAL * (GridSize / 700.0);

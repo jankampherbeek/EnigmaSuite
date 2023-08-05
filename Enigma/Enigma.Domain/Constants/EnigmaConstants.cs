@@ -221,17 +221,17 @@ public static class EnigmaConstants
 
     // Locations
     /// <summary>Location of configuration file, contains path and filename.</summary>
-    public const string ConfigLocation = @"c:/enigma_ar/enigmaconfig.json";
+    public const string ConfigLocation = "c:/enigma_ar/enigmaconfig.json";
     /// <summary>Name of database for charts.</summary>
-    public const string DatabaseName = @"/Enigma.db";
+    public const string DatabaseName = "/Enigma.db";
     /// <summary>Name of database for charts.</summary>
-    public const string DatabaseNameCharts = @"/ChartsDatabase.json";
+    public const string DatabaseNameCharts = "/ChartsDatabase.json";
     /// <summary>Name of database for events.</summary>
-    public const string DatabaseNameEvents = @"/EventsDatabase.json";
+    public const string DatabaseNameEvents = "/EventsDatabase.json";
     /// <summary>Name of database for intersections between charts and events.</summary>
-    public const string DatabaseNameInterChartsEvents = @"/InterChartsEventsDatabase.json";
+    public const string DatabaseNameInterChartsEvents = "/InterChartsEventsDatabase.json";
     /// <summary>Url to find latest release information.</summary>
-    public const string ReleaseCheckUrl = @"http://radixpro.com/rel/enigma-ar-latest.json";
+    public const string ReleaseCheckUrl = "http://radixpro.com/rel/enigma-ar-latest.json";
 
     /// <summary>Timekey according to Naibod.</summary>
     public const double Naibod = 0.985647222;

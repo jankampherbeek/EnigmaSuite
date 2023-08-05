@@ -77,7 +77,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
             CalculationCats calculationCat = _chartPointsMapping.CalculationTypeForPoint(celPoint);
             switch (calculationCat)
             {
-                case CalculationCats.CommonSE:
+                case CalculationCats.CommonSe:
                 {
                     KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForSePoint(celPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
                     commonPoints.Add(fullPointPos.Key, fullPointPos.Value);

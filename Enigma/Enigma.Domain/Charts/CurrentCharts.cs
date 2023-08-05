@@ -17,7 +17,7 @@ public sealed class CurrentCharts : ICurrentCharts
     /// <inheritdoc/>
     public int IdSecondaryChart { get; set; }
 
-    public List<CalculatedChart> AllCurrentCharts { get; set; }
+    private List<CalculatedChart> AllCurrentCharts { get; }
 
     public CurrentCharts()
     {

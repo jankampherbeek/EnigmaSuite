@@ -3,10 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Domain.Points;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Domain.Services;

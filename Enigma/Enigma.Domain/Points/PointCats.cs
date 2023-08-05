@@ -47,7 +47,7 @@ public static class PointCatsExtensions
             PointCats.Zodiac => new PointCatDetails(cat, "ref.enum.pointcats.zodiac"),
             PointCats.Lots => new PointCatDetails(cat, "ref.enum.pointcats.arabic"),
             PointCats.FixStar => new PointCatDetails(cat, "ref.enum.pointcats.fixstar"),
-            _ => throw new ArgumentException("PointCat unknown : " + cat.ToString())
+            _ => throw new ArgumentException("PointCat unknown : " + cat)
         };
     }
 
@@ -56,19 +56,13 @@ public static class PointCatsExtensions
     /// <returns>All details.</returns>
     public static List<PointCatDetails> AllDetails(this PointCats _)
     {
-        var allDetails = new List<PointCatDetails>();
-        foreach (PointCats currentCat in Enum.GetValues(typeof(PointCats)))
-        {
-            if (currentCat != PointCats.None)
-            {
-                allDetails.Add(currentCat.GetDetails());
-            }
-        }
-        return allDetails;
+        return (from PointCats currentCat in Enum.GetValues(typeof(PointCats)) 
+            where currentCat != PointCats.None select currentCat.GetDetails()).ToList();
     }
 
 
     /// <summary>Find point category for an index.</summary>
+    /// <param name="_">Any instance of PointCats.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The point category for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
@@ -78,9 +72,8 @@ public static class PointCatsExtensions
         {
             if ((int)currentCat == index) return currentCat;
         }
-        string errorText = "PointCats.PointCatForInedex(): Could not find point category for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("PointCats.PointCatForIndex(): Could not find point category for index : {Index}", index);
+        throw new ArgumentException("Wrong index for PointCats");
     }
 
 }

@@ -22,7 +22,7 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointCelestialSe()
     {
         const ChartPoints point = ChartPoints.Jupiter;
-        const CalculationCats expectedType = CalculationCats.CommonSE;
+        const CalculationCats expectedType = CalculationCats.CommonSe;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(actualType, Is.EqualTo(expectedType));
     }

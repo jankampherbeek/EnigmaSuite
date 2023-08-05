@@ -15,7 +15,7 @@ namespace Enigma.Domain.Calc;
 /// </remarks>
 public enum CalculationCats
 {
-    CommonSE = 0,
+    CommonSe = 0,
     CommonElements = 1,
     CommonFormula = 2,
     Mundane = 3,

@@ -56,7 +56,8 @@ public static class ResearchMethodsExtensions
             where methodCurrent != ResearchMethods.None select methodCurrent.GetDetails()).ToList();
     }
 
-    /// <summary>Find RedearchMethod for given index.</summary>
+    /// <summary>Find ResearchMethod for given index.</summary>
+    /// <param name="_">Any ResearchMethod.</param>
     /// <param name="index">The index to search for.</param>
     /// <returns>The ResearchMethod.</returns>
     /// <exception cref="ArgumentException">Is thrown if ResearchMethod for given index could not be found.</exception>

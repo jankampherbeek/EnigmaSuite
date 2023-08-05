@@ -6,7 +6,6 @@
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Helpers.Support;
 
 namespace Enigma.Frontend.Helpers.Validations;
 
@@ -23,7 +22,7 @@ public class TimeValidator : ITimeValidator
     public bool CreateCheckedTime(int[] timeValues, TimeZones timezone, double lmtOffset, bool dst, out FullTime fullTime)
     {
 
-        string fullText = "";
+        string fullText = string.Empty;
         bool success = timeValues.Length is 3 or 2;
 
         if (success)
@@ -32,14 +31,14 @@ public class TimeValidator : ITimeValidator
             {
                 _timeValues[i] = timeValues[i];
             }
-            success = CheckMinAndMaxValues(this._timeValues);
+            success = CheckMinAndMaxValues(_timeValues);
         }
         if (success)
         {
             CalculateUtAndCorrectionForDay(timezone, lmtOffset, dst);
             fullText = CreateFullText(timezone, lmtOffset, dst);
         }
-        fullTime = new FullTime(this._timeValues, _ut, _correctionForDay, fullText);
+        fullTime = new FullTime(_timeValues, _ut, _correctionForDay, fullText);
 
         return success;
     }
@@ -47,7 +46,7 @@ public class TimeValidator : ITimeValidator
     private string CreateFullText(TimeZones timezone, double lmtOffset, bool dst)
     {
         string timeZoneTextId = timezone.GetDetails().Text;
-        string dstText = dst ? Rosetta.TextForId("common.dst.used") : Rosetta.TextForId("common.dst.notused");
+        string dstText = dst ? "DST 1 hour" : "No DST";
         string lmtOffsetText = "";
         if (timezone == TimeZones.Lmt)
         {

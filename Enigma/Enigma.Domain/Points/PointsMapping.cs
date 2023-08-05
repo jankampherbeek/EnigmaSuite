@@ -5,10 +5,9 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Points;
 using Serilog;
 
-namespace Enigma.Core.Domain.Points;
+namespace Enigma.Domain.Points;
 
 /// <inheritdoc/>
 public sealed class PointsMapping : IPointsMapping
@@ -38,9 +37,8 @@ public sealed class PointsMapping : IPointsMapping
             case CoordinateSystems.Horizontal:
                 return useMainCoordinate ? position.Value.Horizontal.MainPosSpeed.Position : position.Value.Horizontal.DeviationPosSpeed.Position;
             default:
-                string errorText = "PointsMapping.FindPositionForCoordinate(): unknow coordinate system : " + coordinateSystem;
-                Log.Error(errorText);
-                throw new ArgumentException(errorText);
+                Log.Error("PointsMapping.FindPositionForCoordinate(): unknow coordinate system : {Cs}", coordinateSystem);
+                throw new ArgumentException("Unknown coordinate system");
         }
     }
 

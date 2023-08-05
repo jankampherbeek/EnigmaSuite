@@ -28,7 +28,7 @@ public sealed class ChartPointsMapping : IChartPointsMapping
             // celestial points
             < 1000 when _elementsCandidates.Contains(point) => CalculationCats.CommonElements,
             < 1000 when _formulaCandidates.Contains(point) => CalculationCats.CommonFormula,
-            < 1000 => CalculationCats.CommonSE,
+            < 1000 => CalculationCats.CommonSe,
             // mundane points or cusps
             < 3000 => CalculationCats.Mundane,
             _ => CalculationCats.Lots
