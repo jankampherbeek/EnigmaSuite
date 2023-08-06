@@ -16,7 +16,7 @@ namespace Enigma.Frontend.Helpers.Interfaces;
 }
 */
 
-public interface ITextFileReaderFE   // todo 0.2, check if this has the same functionality as textfilereader in persistency
+public interface ITextFileReaderFe   // todo 0.2, check if this has the same functionality as textfilereader in persistency
 {
     public IEnumerable<string> ReadSeparatedLines(string fileName);
     public string ReadAllText(string fileName);

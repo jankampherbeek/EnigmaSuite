@@ -10,7 +10,7 @@ using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Serilog;
 
-namespace Enigma.Api.Astron;
+namespace Enigma.Api.Calc;
 
 
 /// <inheritdoc/>
@@ -26,7 +26,7 @@ public sealed class HousesApi : IHousesApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.ChartLocation);
-        Log.Information("HousesApi GetHouses using house system {hs}.", request.CalcPrefs.ActualHouseSystem);
+        Log.Information("HousesApi GetHouses using house system {Hs}", request.CalcPrefs.ActualHouseSystem);
         return _housesHandler.CalcHouses(request);
     }
 

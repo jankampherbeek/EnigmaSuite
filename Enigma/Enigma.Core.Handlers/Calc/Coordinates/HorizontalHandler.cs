@@ -6,7 +6,6 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Constants;
 
 namespace Enigma.Core.Handlers.Calc.Coordinates;

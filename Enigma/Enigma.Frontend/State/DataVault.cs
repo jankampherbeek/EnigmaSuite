@@ -29,6 +29,9 @@ public sealed class DataVault
     
     public double ResearchHarmonicValue { get; set; }
     public double ResearchHarmonicOrb { get; set; }
+
+    public int ResearchMidpointDialDivision { get; set; }
+    public double ResearchMidpointOrb { get; set; }
     
     
     private bool NewChartAdded;

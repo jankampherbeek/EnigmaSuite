@@ -7,10 +7,9 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Serilog;
 
-namespace Enigma.Api.Astron;
+namespace Enigma.Api.Calc;
 
 
 /// <inheritdoc/>

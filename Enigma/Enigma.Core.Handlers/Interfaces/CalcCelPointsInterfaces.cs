@@ -6,7 +6,6 @@
 
 using Enigma.Core.Handlers.Calc.Util;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;

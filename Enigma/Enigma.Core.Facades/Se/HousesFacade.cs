@@ -3,9 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Facades.Se.Interfaces;
 using Enigma.Domain.Exceptions;
 using System.Runtime.InteropServices;
+using Enigma.Facades.Se.Interfaces;
 
 namespace Enigma.Facades.Se;
 

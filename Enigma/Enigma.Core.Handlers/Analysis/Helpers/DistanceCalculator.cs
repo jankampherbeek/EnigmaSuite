@@ -34,16 +34,10 @@ public class DistanceCalculator : IDistanceCalculator
     /// <inheritdoc/>
     public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(List<PositionedPoint> allPoints, List<PositionedPoint> allCusps)
     {
-        List<DistanceBetween2Points> allDistances = new();
-        foreach (PositionedPoint point in allPoints)
-        {
-            foreach (PositionedPoint cusp in allCusps)
-            {
-                double distance = NormalizeShortestDistance(point.Position - cusp.Position);
-                allDistances.Add(new DistanceBetween2Points(point, cusp, distance));
-            }
-        }
-        return allDistances;
+        return (from point in allPoints 
+            from cusp in allCusps 
+            let distance = NormalizeShortestDistance(point.Position - cusp.Position) 
+            select new DistanceBetween2Points(point, cusp, distance)).ToList();
     }
 
 

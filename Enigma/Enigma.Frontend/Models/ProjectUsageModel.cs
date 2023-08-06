@@ -8,10 +8,8 @@ using System.Linq;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Research;
-using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -62,19 +60,19 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountOccupiedMidpoints:
             {
-                MidpointDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<MidpointDetailsWindow>();
+                ResearchMidpointDetailsWindow detailsWindow = new();
                 detailsWindow.ShowDialog();
-                if (detailsWindow.IsCompleted())
-                {
-                    int divisionForDial = detailsWindow.DialDivision;
-                    double orb = detailsWindow.Orb;
+//                if (detailsWindow.IsCompleted())
+//                {
+                    int divisionForDial = _dataVault.ResearchMidpointDialDivision;
+                    double orb = _dataVault.ResearchMidpointOrb;
                     bool useControlGroup = false;
                     CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                     responseTest = _researchPerformApi.PerformResearch(request);
                     useControlGroup = true;
                     request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                     responseCg = _researchPerformApi.PerformResearch(request);
-                }
+ //               }
 
                 break;
             }

@@ -3,12 +3,12 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Facades.Se.Interfaces;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
+using Enigma.Facades.Se.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enigma.Facades.Services;
+namespace Enigma.Facades;
 
 
 /// <summary>

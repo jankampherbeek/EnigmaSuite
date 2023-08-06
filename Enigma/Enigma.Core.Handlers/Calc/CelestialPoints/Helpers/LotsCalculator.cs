@@ -6,7 +6,6 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
@@ -28,18 +27,10 @@ public class LotsCalculator : ILotsCalculator
     public Dictionary<ChartPoints, FullPointPos> CalculateAllLots(Dictionary<ChartPoints, FullPointPos> commonPositions, Dictionary<ChartPoints, FullPointPos> mundanePositions, CalculationPreferences prefs,
         double jdUt, double obliquity, Location location)
     {
-        Dictionary<ChartPoints, FullPointPos> allLots = new();
         List<ChartPoints> allPoints = prefs.ActualChartPoints;
-        foreach (var point in allPoints)
-        {
-            if (point.GetDetails().CalculationCat == CalculationCats.Lots)
-            {
-                allLots.Add(point, CalculateLotPosition(point, jdUt, obliquity, location, prefs, commonPositions, mundanePositions));
-            }
-        }
-        return allLots;
+        return allPoints.Where(point => point.GetDetails().CalculationCat == CalculationCats.Lots).ToDictionary(point => point, 
+            point => CalculateLotPosition(point, jdUt, obliquity, location, prefs, commonPositions, mundanePositions));
     }
-
 
     private FullPointPos CalculateLotPosition(ChartPoints lot, double jdUt, double obliquity, Location location, CalculationPreferences calcPrefs,
         Dictionary<ChartPoints, FullPointPos> commonPoints, Dictionary<ChartPoints, FullPointPos> mundanePoints)

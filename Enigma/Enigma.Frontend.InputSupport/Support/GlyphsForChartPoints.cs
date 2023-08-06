@@ -11,13 +11,13 @@ namespace Enigma.Frontend.Helpers.Support;
 /// <remarks>A temporary solution, ultimately the glyphs should be retrieved from the current configuration.</remarks>
 public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this solution with a configuration based solution.
 {
-    private readonly char _emptyGlyph = ' ';
+    private const char EMPTY_GLYPH = ' ';
 
     public char FindGlyph(ChartPoints point)
     {
         return point switch
         {
-            ChartPoints.None => _emptyGlyph,
+            ChartPoints.None => EMPTY_GLYPH,
             ChartPoints.Sun => 'a',
             ChartPoints.Moon => 'b',
             ChartPoints.Mercury => 'c',
@@ -72,7 +72,7 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
             ChartPoints.ZeroAries => '1',
             ChartPoints.FortunaSect => 'e',
             ChartPoints.FortunaNoSect => 'e',
-            _ => _emptyGlyph,
+            _ => EMPTY_GLYPH
         };
     }
 }

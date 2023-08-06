@@ -24,7 +24,8 @@ public sealed class JulianDayApi : IJulianDayApi
     public JulianDayResponse GetJulianDay(SimpleDateTime dateTime)
     {
         Guard.Against.Null(dateTime);
-        Log.Information("JulianDayApi.GetJulianDay() for {y}/{m}/{d} {ut}", dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut);
+        Log.Information("JulianDayApi.GetJulianDay() for {Y}/{M}/{D} {Ut}",
+            dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut);
         return _julDayHandler.CalcJulDay(dateTime);
     }
 

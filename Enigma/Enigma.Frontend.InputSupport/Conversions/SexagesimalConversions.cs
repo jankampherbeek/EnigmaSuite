@@ -41,7 +41,8 @@ public class SexagesimalConversions : ISexagesimalConversions
         }
         catch (Exception e)
         {
-            throw new ArgumentException("Error converting to decimal geoLong, using values : " + texts.ToString() + ". Original exception message : " + e.Message);
+            throw new ArgumentException("Error converting to decimal geoLong, using values : " + texts 
+                + ". Original exception message : " + e.Message);
         }
     }
 }

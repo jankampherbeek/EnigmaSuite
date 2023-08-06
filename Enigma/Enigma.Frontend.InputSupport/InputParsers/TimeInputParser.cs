@@ -28,14 +28,7 @@ public class TimeInputParser : ITimeInputParser
         fullTime = null;
         bool validationSuccess;
         (int[] timeValues, bool timeSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputTime, EnigmaConstants.SeparatorTime);
-        if (timeSuccess)
-        {
-            validationSuccess = _timeValidator.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime);
-        }
-        else
-        {
-            validationSuccess = false;
-        }
+        validationSuccess = timeSuccess && _timeValidator.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime);
         return validationSuccess;
     }
 }

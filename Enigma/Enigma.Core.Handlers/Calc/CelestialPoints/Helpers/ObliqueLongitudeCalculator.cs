@@ -5,7 +5,7 @@
 
 using Enigma.Core.Handlers.Calc.Util;
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
@@ -21,14 +21,10 @@ public sealed class ObliqueLongitudeCalculator : IObliqueLongitudeCalculator
     /// <inheritdoc/>
     public List<NamedEclipticLongitude> CalcObliqueLongitudes(ObliqueLongitudeRequest request)
     {
-        List<NamedEclipticLongitude> oblLongitudes = new();
         EclipticCoordinates southPoint = _southPointCalculator.CalculateSouthPoint(request.Armc, request.Obliquity, request.GeoLat);
-        foreach (NamedEclipticCoordinates celPointCoordinate in request.CelPointCoordinates)
-        {
-            double oblLong = OblLongForCelPoint(celPointCoordinate, southPoint, request.AyanamshaOffset) - request.AyanamshaOffset;
-            oblLongitudes.Add(new NamedEclipticLongitude(celPointCoordinate.CelPoint, oblLong));
-        }
-        return oblLongitudes;
+        return (from celPointCoordinate in request.CelPointCoordinates 
+            let oblLong = OblLongForCelPoint(celPointCoordinate, southPoint, request.AyanamshaOffset) - request.AyanamshaOffset 
+            select new NamedEclipticLongitude(celPointCoordinate.CelPoint, oblLong)).ToList();
     }
 
     private static double OblLongForCelPoint(NamedEclipticCoordinates namedEclipticCoordinate, EclipticCoordinates southPoint, double ayanamshaOffset)

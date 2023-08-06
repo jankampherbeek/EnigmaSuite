@@ -25,15 +25,9 @@ public sealed class ProjectsOverviewHandler : IProjectsOverviewHandler
     /// <inheritdoc/>
     public List<ResearchProject> ReadAllProjectDetails()
     {
-        List<ResearchProject> projects = new();
         string path = ApplicationSettings.Instance.LocationProjectFiles;
         List<string> projectNames = _foldersInfo.GetExistingFolderNames(path, false);
-        foreach (string proj in projectNames)
-        {
-            int startPos = proj.LastIndexOf(Path.DirectorySeparatorChar) + 1;
-            string projText = proj[startPos..];
-            projects.Add(_projectDetails.FindProjectDetails(projText));
-        }
-        return projects;
+        return (from proj in projectNames let startPos = proj.LastIndexOf(Path.DirectorySeparatorChar) + 1 
+            select proj[startPos..] into projText select _projectDetails.FindProjectDetails(projText)).ToList();
     }
 }

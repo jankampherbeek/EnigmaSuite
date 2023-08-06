@@ -21,7 +21,7 @@ public sealed class ObliquityCalc : IObliquityCalc
     /// <inheritdoc/>
     public double CalculateObliquity(double julianDayUt, bool useTrueObliquity)
     {
-        int flags = 0;
+        const int flags = 0;
         double[] positions = _calcUtFacade.PositionFromSe(julianDayUt, EnigmaConstants.SeEclNut, flags);
         return useTrueObliquity ? positions[1] : positions[0];
     }

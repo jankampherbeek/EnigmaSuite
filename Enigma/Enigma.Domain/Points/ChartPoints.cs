@@ -147,7 +147,7 @@ public static class PointsExtensions
             ChartPoints.FortunaSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, "Pars Fortunae (with sect)"),
             ChartPoints.FortunaNoSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, "Pars Fortunae (no sect)"),
 
-            _ => throw new ArgumentException("Point unknown : " + point.ToString())
+            _ => throw new ArgumentException("Point unknown : " + point)
         };
     }
 
@@ -162,6 +162,7 @@ public static class PointsExtensions
 
 
     /// <summary>Find point for an index.</summary>
+    /// <param name="_">Any instance of ChartPoints.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The point for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
@@ -171,9 +172,8 @@ public static class PointsExtensions
         {
             if ((int)currentPoint == index) return currentPoint;
         }
-        string errorText = "ChartPoints.PointForIndex(): Could not find point for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("ChartPoints.PointForIndex(): Could not find point for index : {Index}", index);
+        throw new ArgumentException("Wrong index for ChartPoints");
     }
 
 }

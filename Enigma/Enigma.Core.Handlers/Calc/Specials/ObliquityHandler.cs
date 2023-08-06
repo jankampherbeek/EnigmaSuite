@@ -33,9 +33,8 @@ public sealed class ObliquityHandler : IObliquityHandler
         }
         catch (SwissEphException see)
         {
-            string errorText = "ObliquityHandler.CalcObliquity(): received error: " + see.Message;
-            Log.Error(errorText);
-            throw new EnigmaException(errorText);
+            Log.Error( "ObliquityHandler.CalcObliquity(): received error: {Msg}", see.Message);
+            throw new EnigmaException("SE encounterd error when calculating obliquity");
         }
         return obliquity;
     }

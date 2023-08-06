@@ -31,5 +31,5 @@ public sealed class CalcUtFacade : ICalcUtFacade
     /// <param name="serr">Error text, if any.</param>
     /// <returns>An indication if the calculation was successful.</returns>
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_calc_ut")]
-    private extern static int ext_swe_calc_ut(double tjd, int ipl, long iflag, double[] xx, StringBuilder serr);
+    private static extern int ext_swe_calc_ut(double tjd, int ipl, long iflag, double[] xx, StringBuilder serr);
 }

@@ -7,14 +7,15 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Views;
 
-/// <summary>View for harmonic details in research</summary>
-public partial class ResearchHarmonicDetailsWindow
+/// <summary>View for midpoint details in research</summary>
+public partial class ResearchMidpointDetailsWindow
 {
-    public ResearchHarmonicDetailsWindow()
+    public ResearchMidpointDetailsWindow()
     {
         InitializeComponent();
     }
     
+        
     private void CloseClick(object sender, RoutedEventArgs e)
     {
         Close();

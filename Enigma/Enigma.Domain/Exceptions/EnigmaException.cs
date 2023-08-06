@@ -29,8 +29,7 @@ public sealed class EnigmaException : Exception
     public EnigmaException(string text) : base(text)
     {
         message = text;
-        string logText = "EnigmaException was thrown with the message: " + text;
-        Log.Error(logText);
+        Log.Error("EnigmaException was thrown with the message: {Text}", text);
     }
 
 

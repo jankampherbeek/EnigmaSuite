@@ -804,7 +804,7 @@
     <None Update="res\help\Main.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\MidpointDetails.html">
+    <None Update="res\help\ResearchMidpointDetails.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\RadixMidpoints.html">

@@ -8,7 +8,7 @@ using Enigma.Domain.Calc.DateTime;
 namespace Enigma.Facades.Interfaces;
 
 
-// <summary>
+/// <summary>
 /// Calculation for horizontal coordinates: azimuth and altitude.
 /// </summary>
 public interface IAzAltFacade
@@ -76,9 +76,9 @@ public interface IJulDayFacade
     public double JdFromSe(SimpleDateTime dateTime);
 
     /// <summary>Retrieve value for Delta T.</summary>
-    /// <param name="JulianDayUT">Value for Julian Day in UT.</param>
+    /// <param name="julianDayUt">Value for Julian Day in UT.</param>
     /// <returns>The value for Delta T in seconds and fractions of seconds.</returns>
-    public double DeltaTFromSe(double JulianDayUT);
+    public double DeltaTFromSe(double julianDayUt);
 }
 
 

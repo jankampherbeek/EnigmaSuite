@@ -40,9 +40,8 @@ public sealed class ChartPointsMapping : IChartPointsMapping
     {
         int seId = IdForPoint(point);
         if (seId >= 0) return seId;
-        string errorText = "ChartPointsMapping.SeIdForCelestialPoint() was called with with an unrecognized ChartPoint: " + point;
-        Log.Error(errorText);
-        throw new EnigmaException(errorText);
+        Log.Error("ChartPointsMapping.SeIdForCelestialPoint() was called with with an unrecognized ChartPoint: {Point}", point);
+        throw new EnigmaException("Wrong ChartPoint");
     }
 
     private static int IdForPoint(ChartPoints point)

@@ -40,16 +40,13 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
     private List<CalculatedResearchChart> Calculate(StandardInput standardInput)
     {
         Log.Information("CalculatedResearchPositions: Start of calculation");
-        List<CalculatedResearchChart> calculatedCharts = new();
         CalculationPreferences calcPref = DefinePreferences();
-        foreach (StandardInputItem inputItem in standardInput.ChartData)
-        {
-            Location location = new("", inputItem.GeoLongitude, inputItem.GeoLatitude);
-            double jdUt = CalcJdUt(inputItem);
-            CelPointsRequest cpRequest = new(jdUt, location, calcPref);
-            Dictionary<ChartPoints, FullPointPos> chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest);
-            calculatedCharts.Add(new CalculatedResearchChart(chartPositions, inputItem));
-        }
+        List<CalculatedResearchChart> calculatedCharts = (from inputItem in standardInput.ChartData 
+            let location = new Location("", inputItem.GeoLongitude, inputItem.GeoLatitude) 
+            let jdUt = CalcJdUt(inputItem) 
+            let cpRequest = new CelPointsRequest(jdUt, location, calcPref) 
+            let chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest) 
+            select new CalculatedResearchChart(chartPositions, inputItem)).ToList();
         Log.Information("CalculatedResearchPositions: Calculation completed");
         return calculatedCharts;
     }
@@ -71,17 +68,13 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
     {
         AstroConfig config = _configurationHandler.ReadConfig();
         Dictionary<ChartPoints, ChartPointConfigSpecs> cpSpecs = config.ChartPoints;
-        List<ChartPoints> celPoints = new();
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> cpSpec in cpSpecs)
-        {
-            if (!cpSpec.Value.IsUsed) continue;
-            PointCats pointCat = cpSpec.Key.GetDetails().PointCat;
-            if (pointCat == PointCats.Common)
-            {
-                celPoints.Add(cpSpec.Key);
-            }
-        }
-        return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
+        List<ChartPoints> celPoints = (from cpSpec in cpSpecs 
+            where cpSpec.Value.IsUsed 
+            let pointCat = cpSpec.Key.GetDetails().PointCat 
+            where pointCat == PointCats.Common 
+            select cpSpec.Key).ToList();
+        return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
+            config.ObserverPosition, config.ProjectionType, config.HouseSystem);
     }
 
 }

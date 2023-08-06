@@ -5,7 +5,7 @@
 
 using Enigma.Domain.Points;
 
-namespace Enigma.Domain.Calc.ChartItems.Coordinates;
+namespace Enigma.Domain.Calc.ChartItems;
 
 
 /// <summary>Ecliptic position, consisting of Longitude and Latitude.</summary>

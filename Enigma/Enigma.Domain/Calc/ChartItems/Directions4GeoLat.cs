@@ -41,12 +41,8 @@ public static class Directions4GeoLatExtensions
     /// <returns>All details.</returns>
     public static List<Directions4GeoLatDetails> AllDetails(this Directions4GeoLat _)
     {
-        var allDetails = new List<Directions4GeoLatDetails>();
-        foreach (Directions4GeoLat currentDir in Enum.GetValues(typeof(Directions4GeoLat)))
-        {
-            allDetails.Add(currentDir.GetDetails());
-        }
-        return allDetails;
+        return (from Directions4GeoLat currentDir in Enum.GetValues(typeof(Directions4GeoLat)) 
+            select currentDir.GetDetails()).ToList();
     }
 
 

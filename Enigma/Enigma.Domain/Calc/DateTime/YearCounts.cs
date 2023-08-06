@@ -31,7 +31,7 @@ public static class YearCountsExtensions
             YearCounts.CE => new YearCountDetails(yearCount, "CE"),
             YearCounts.BCE => new YearCountDetails(yearCount, "BCE"),
             YearCounts.Astronomical => new YearCountDetails(yearCount, "Astronomical"),
-            _ => throw new ArgumentException("YearCount unknown : " + yearCount.ToString())
+            _ => throw new ArgumentException("YearCount unknown : " + yearCount)
         };
     }
 
@@ -45,6 +45,7 @@ public static class YearCountsExtensions
 
 
     /// <summary>Find year count for an index.</summary>
+    /// <param name="_">Any instance of YearCounts.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The year count for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>

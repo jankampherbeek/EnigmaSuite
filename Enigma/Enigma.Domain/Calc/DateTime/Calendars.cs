@@ -31,7 +31,7 @@ public static class CalendarsExtensions
         {
             Calendars.Gregorian => new CalendarDetails(cal, "G", "Gregorian"),
             Calendars.Julian => new CalendarDetails(cal, "J", "Julian"),
-            _ => throw new ArgumentException("Calendar unknown : " + cal.ToString())
+            _ => throw new ArgumentException("Calendar unknown : " + cal)
         };
     }
 

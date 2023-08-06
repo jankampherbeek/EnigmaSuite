@@ -54,11 +54,9 @@ public sealed class AspectsHandler : IAspectsHandler
             cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
         }
         Dictionary<AspectTypes, AspectConfigSpecs> allAspects = request.Config.Aspects;
-        Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects = new();
-        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> acSpec in allAspects)
-        {
-            if (acSpec.Value.IsUsed) relevantAspects.Add(acSpec.Key, acSpec.Value);
-        }
+        Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects = allAspects.Where(acSpec 
+            => acSpec.Value.IsUsed).ToDictionary(acSpec => acSpec.Key, 
+            acSpec => acSpec.Value);
         return AspectsForPosPoints(posPoints, cuspPoints, relevantAspects, request.Config.ChartPoints, request.Config.BaseOrbAspects);
     }
 
@@ -75,22 +73,16 @@ public sealed class AspectsHandler : IAspectsHandler
         List<DistanceBetween2Points> allDistances = new(pointDistances.Count + cuspDistances.Count);
         allDistances.AddRange(pointDistances);
         allDistances.AddRange(cuspDistances);
-        List<DefinedAspect> definedAspects = new();
-        foreach (DistanceBetween2Points distance in allDistances)
-        {
-            foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> aspectConfigSpec in relevantAspects)
-            {
-                double maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, aspectConfigSpec.Value.PercentageOrb / 100.0, baseOrb, chartPointConfigSpecs);
-                AspectTypes aspectType = aspectConfigSpec.Key;
-                double aspectDistance = aspectType.GetDetails().Angle;
-                double actualOrb = Math.Abs(distance.Distance - aspectDistance);
-                if (actualOrb <= maxOrb)
-                {
-                    definedAspects.Add(new DefinedAspect(distance.Point1.Point, distance.Point2.Point, aspectType.GetDetails(), maxOrb, actualOrb));
-                }
-            }
-        }
-        return definedAspects;
+        return (from distance in allDistances 
+            from aspectConfigSpec in relevantAspects 
+            let maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, 
+                aspectConfigSpec.Value.PercentageOrb / 100.0, baseOrb, chartPointConfigSpecs) 
+            let aspectType = aspectConfigSpec.Key 
+            let aspectDistance = aspectType.GetDetails().Angle 
+            let actualOrb = Math.Abs(distance.Distance - aspectDistance) 
+            where actualOrb <= maxOrb 
+            select new DefinedAspect(distance.Point1.Point, distance.Point2.Point, aspectType.GetDetails(), 
+                maxOrb, actualOrb)).ToList();
     }
 
 

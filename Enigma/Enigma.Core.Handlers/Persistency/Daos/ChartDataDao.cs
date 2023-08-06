@@ -16,7 +16,7 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 public sealed class ChartDataDao : IChartDataDao
 {
     private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
-    private const string Collection = "charts";
+    private const string COLLECTION = "charts";
     
     /// <inheritdoc />
     public int CountRecords()
@@ -70,7 +70,7 @@ public sealed class ChartDataDao : IChartDataDao
     private PersistableChartData? PerformRead(int index)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(Collection);
+        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(COLLECTION);
         col.EnsureIndex(x => x.Id);
         PersistableChartData? result = col.FindOne(x => x.Id.Equals(index));
         return result;
@@ -79,7 +79,7 @@ public sealed class ChartDataDao : IChartDataDao
     private List<PersistableChartData>? PerformSearch(string? partOfName)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(Collection);
+        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(COLLECTION);
         List<PersistableChartData> records = col.Query()
             .Where(x => partOfName != null && x.Name.ToUpper().Contains(partOfName.ToUpper()))
             .OrderBy(x => x.Name)
@@ -91,7 +91,7 @@ public sealed class ChartDataDao : IChartDataDao
     private int PerformInsert(PersistableChartData chartData)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(Collection);
+        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(COLLECTION);
         try
         {
             col.Insert(chartData);
@@ -111,7 +111,7 @@ public sealed class ChartDataDao : IChartDataDao
     private bool PerformDelete(int index)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(Collection);
+        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(COLLECTION);
         bool result = col.Delete(index);
         Log.Information("Deleted chart {Chart}, success {Success}", index, result);
         return result;
@@ -120,7 +120,7 @@ public sealed class ChartDataDao : IChartDataDao
     private List<PersistableChartData> ReadRecordsFromDatabase()
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(Collection);
+        ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(COLLECTION);
         List<PersistableChartData> records = col.FindAll().ToList();
         return records;
     }

@@ -16,7 +16,7 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 public sealed class InterChartEventDao : IInterChartEventDao
 {
     private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
-    private const string Collection = "chartevents";
+    private const string COLLECTION = "chartevents";
 
     /// <inheritdoc />
     public void Insert(int chartId, int eventId)
@@ -44,7 +44,7 @@ public sealed class InterChartEventDao : IInterChartEventDao
     private List<InterChartEvent> ReadRecordsFromDatabase()
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(Collection);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
         List<InterChartEvent> records = col.FindAll().ToList();
         return records;
     }
@@ -52,7 +52,7 @@ public sealed class InterChartEventDao : IInterChartEventDao
     private List<InterChartEvent> ReadRecordsForChart(int chartId)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(Collection);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
         List<InterChartEvent> records = col.Find(x => x.ChartId.Equals(chartId)).ToList();
         return records;
     }
@@ -61,7 +61,7 @@ public sealed class InterChartEventDao : IInterChartEventDao
     {
         var chartEvent = new InterChartEvent(chartId, eventId);
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(Collection);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
         try
         {
             col.Insert(chartEvent);
@@ -80,7 +80,7 @@ public sealed class InterChartEventDao : IInterChartEventDao
     private bool PerformDelete(int index)
     {
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(Collection);
+        ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);
         bool result = col.Delete(index);
         Log.Information("Deleted eventChart for id {Id}, success {Success}", index, result);
         return result;

@@ -24,7 +24,7 @@ public sealed class DateTimeApi : IDateTimeApi
     public DateTimeResponse GetDateTime(DateTimeRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("DateTimeApi.GetDateTime() using julian day {jd}.", request.JulDay);
+        Log.Information("DateTimeApi.GetDateTime() using julian day {Jd}", request.JulDay);
         return _dateTimeHandler.CalcDateTime(request);
     }
 
@@ -32,7 +32,7 @@ public sealed class DateTimeApi : IDateTimeApi
     public bool CheckDateTime(SimpleDateTime dateTime)
     {
         Guard.Against.Null(dateTime);
-        Log.Information("DateTimeApi.CheckDateTime().");
+        Log.Information("DateTimeApi.CheckDateTime()");
         return _dateTimeHandler.CheckDateTime(dateTime);
     }
 

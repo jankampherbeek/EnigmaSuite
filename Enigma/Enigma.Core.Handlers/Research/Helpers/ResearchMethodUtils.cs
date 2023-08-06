@@ -22,24 +22,17 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
     public Dictionary<AspectTypes, AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
     {
         Dictionary<AspectTypes, AspectConfigSpecs> allAspects = config.Aspects;
-        Dictionary<AspectTypes, AspectConfigSpecs> selectedAspects = new();
-        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> acSpec in allAspects)
-        {
-            if (acSpec.Value.IsUsed) selectedAspects.Add(acSpec.Key, acSpec.Value);
-        }
-        return selectedAspects;
+        return allAspects.Where(acSpec => acSpec.Value.IsUsed).ToDictionary(acSpec 
+            => acSpec.Key, acSpec => acSpec.Value);
     }
 
     /// <inheritdoc/>
     public Dictionary<ChartPoints, ChartPointConfigSpecs> DefineConfigSelectedChartPoints(AstroConfig config)
     {
         Dictionary<ChartPoints, ChartPointConfigSpecs> allChartPoints = config.ChartPoints;
-        Dictionary<ChartPoints, ChartPointConfigSpecs> selectedPoints = new();
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> cpConfigSpec in allChartPoints)
-        {
-            if (cpConfigSpec.Value.IsUsed) selectedPoints.Add(cpConfigSpec.Key, cpConfigSpec.Value);
-        }
-        return selectedPoints;
+        return allChartPoints.Where(cpConfigSpec 
+            => cpConfigSpec.Value.IsUsed).ToDictionary(cpConfigSpec => cpConfigSpec.Key, 
+            cpConfigSpec => cpConfigSpec.Value);
     }
 
     /// <inheritdoc/>

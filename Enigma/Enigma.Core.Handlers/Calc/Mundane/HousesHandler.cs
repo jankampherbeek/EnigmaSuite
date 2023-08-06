@@ -7,7 +7,6 @@
 using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;

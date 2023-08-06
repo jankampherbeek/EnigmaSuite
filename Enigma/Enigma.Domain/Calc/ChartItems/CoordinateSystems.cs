@@ -46,12 +46,8 @@ public static class CoordinateSystemsExtensions
     /// <returns>All details.</returns>
     public static List<CoordinateSystemDetails> AllDetails(this CoordinateSystems _)
     {
-        var allDetails = new List<CoordinateSystemDetails>();
-        foreach (CoordinateSystems currentSys in Enum.GetValues(typeof(CoordinateSystems)))
-        {
-            allDetails.Add(currentSys.GetDetails());
-        }
-        return allDetails;
+        return (from CoordinateSystems currentSys in Enum.GetValues(typeof(CoordinateSystems)) 
+            select currentSys.GetDetails()).ToList();
     }
 
 
@@ -65,9 +61,8 @@ public static class CoordinateSystemsExtensions
         {
             if ((int)currentSys == index) return currentSys;
         }
-        string errorText = "CoordinateSystems.CoordinateSystemForIndex(): Could not find coordinate system for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("CoordinateSystems.CoordinateSystemForIndex(): Could not find coordinate system for index : {Index}", index );
+        throw new ArgumentException("Wrong index for CoordinateSystem");
     }
 
 }

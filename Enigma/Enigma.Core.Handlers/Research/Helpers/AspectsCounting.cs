@@ -47,11 +47,7 @@ public sealed class AspectsCounting : IAspectsCounting
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
-        int cuspSize = 0;
-        foreach (var item in charts[0].Positions)
-        {
-            if (item.Key.GetDetails().PointCat == PointCats.Cusp) cuspSize++;
-        }
+        int cuspSize = charts[0].Positions.Count(item => item.Key.GetDetails().PointCat == PointCats.Cusp);
         int aspectSize = configSelectedAspects.Count;
         int[,,] allCounts = new int[celPointSize, celPointSize + cuspSize, aspectSize];
         List<PositionedPoint> allPoints = new();
@@ -93,16 +89,8 @@ public sealed class AspectsCounting : IAspectsCounting
 
     private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize, int[,,] allCounts, List<PositionedPoint> posPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects)
     {
-        List<AspectTypes> aspectTypes = new();
-        foreach (KeyValuePair<AspectTypes, AspectConfigSpecs> acSpec in aspects)
-        {
-            aspectTypes.Add(acSpec.Key);
-        }
-        List<ChartPoints> chartPoints = new();
-        foreach (PositionedPoint posPoint in posPoints)
-        {
-            chartPoints.Add(posPoint.Point);
-        }
+        List<AspectTypes> aspectTypes = aspects.Select(acSpec => acSpec.Key).ToList();
+        List<ChartPoints> chartPoints = posPoints.Select(posPoint => posPoint.Point).ToList();
         int[,] totalsPerPointCombi = new int[posPoints.Count, posPoints.Count];
         int[] totalsPerAspect = new int[aspects.Count];
 

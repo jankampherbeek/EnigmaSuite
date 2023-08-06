@@ -31,9 +31,8 @@ public sealed class PositionFinder: IPositionFinder
     {
         if (coordSys != CoordinateSystems.Ecliptical && coordSys != CoordinateSystems.Equatorial) 
         {
-            string errorTxt = "PositionFinder.FindJdForPositionSun: Wrong coordinatesystem: " + coordSys;
-            Log.Error(errorTxt);
-            throw new ArgumentException(errorTxt);
+            Log.Error("PositionFinder.FindJdForPositionSun: Wrong coordinatesystem: {Csys}", coordSys);
+            throw new ArgumentException("Wrong coordinate system");
         }
         if (observerPos == ObserverPositions.TopoCentric)
         {
@@ -43,12 +42,11 @@ public sealed class PositionFinder: IPositionFinder
         int seId = _mapping.SeIdForCelestialPoint(ChartPoints.Sun);
         double newJd = startJd;
         double currentInterval = startInterval;
-        double newPos;
         double oldPos = CalcPos(seId, newJd, flags);
         bool checkForZeroAries = (oldPos - posToFind) > 180.0;
         while (true) {
             newJd += currentInterval;
-            newPos = CalcPos(seId, newJd, flags);
+            double newPos = CalcPos(seId, newJd, flags);
 
             if (!checkForZeroAries && (newPos - posToFind) < maxMargin)
             {

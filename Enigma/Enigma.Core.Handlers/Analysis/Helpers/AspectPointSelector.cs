@@ -27,12 +27,11 @@ public class AspectPointSelector : IAspectPointSelector
             }
 
         }
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in chartPointConfigSpecs)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec 
+                 in chartPointConfigSpecs.Where(spec 
+                     => spec.Key.GetDetails().PointCat == PointCats.Angle && spec.Value.IsUsed))
         {
-            if (spec.Key.GetDetails().PointCat == PointCats.Angle && spec.Value.IsUsed)
-            {
-                relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);
-            }
+            relevantChartPointPositions.Add(spec.Key, positions[spec.Key]);
         }
         return relevantChartPointPositions;
     }

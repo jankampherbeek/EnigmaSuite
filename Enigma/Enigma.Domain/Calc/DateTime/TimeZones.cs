@@ -66,7 +66,7 @@ public static class TimeZonesExtensions
             TimeZones.Gst => new TimeZoneDetails(timeZone, -2.0, "-02:00: GST/South Georgia Time"),
             TimeZones.Azot => new TimeZoneDetails(timeZone, -1.0, "-01:00: AZOT/Azores Standard Time"),
             TimeZones.Lmt => new TimeZoneDetails(timeZone, 0.0, "LMT: Local Mean Time"),
-            _ => throw new ArgumentException("TimeZones : " + timeZone.ToString())
+            _ => throw new ArgumentException("TimeZones : " + timeZone)
         };
     }
 

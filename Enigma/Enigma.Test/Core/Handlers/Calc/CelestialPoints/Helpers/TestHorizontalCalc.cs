@@ -6,7 +6,6 @@
 
 using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Facades.Interfaces;
 using Moq;
 

@@ -33,22 +33,16 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
     /// <inheritdoc/>
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb)
     {
-        List<OccupiedMidpoint> occupiedMidpoints = new();
         List<BaseMidpoint> baseMidpointsIn360Dial = _baseMidpointsCreator.CreateBaseMidpoints(posPoints);
         List<BaseMidpoint> baseMidpointsInActualDial = _baseMidpointsCreator.ConvertBaseMidpointsToDial(baseMidpointsIn360Dial, dialSize);
 
-        foreach (var baseMidpoint in baseMidpointsInActualDial)
-        {
-            double positionInDial = baseMidpoint.Position;
-            foreach (var analysisPoint in posPoints)
-            {
-                double actualOrb = MeasureMidpointDeviation(positionInDial, analysisPoint.Position, dialSize);
-                if (!(actualOrb <= orb)) continue;
-                double exactness = 100.0 - (actualOrb / orb * 100.0);
-                occupiedMidpoints.Add(new OccupiedMidpoint(baseMidpoint, analysisPoint, actualOrb, exactness));
-            }
-        }
-        return occupiedMidpoints;
+        return (from baseMidpoint in baseMidpointsInActualDial 
+            let positionInDial = baseMidpoint.Position 
+            from analysisPoint in posPoints 
+            let actualOrb = MeasureMidpointDeviation(positionInDial, analysisPoint.Position, dialSize) 
+            where actualOrb <= orb 
+            let exactness = 100.0 - (actualOrb / orb * 100.0) 
+            select new OccupiedMidpoint(baseMidpoint, analysisPoint, actualOrb, exactness)).ToList();
     }
 
 

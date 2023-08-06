@@ -83,12 +83,8 @@ public static class AyanamshaExtensions
     /// <returns>All details</returns>
     public static List<AyanamshaDetails> AllDetails(this Ayanamshas _)
     {
-        var allDetails = new List<AyanamshaDetails>();
-        foreach (Ayanamshas ayanamshaCurrent in Enum.GetValues(typeof(Ayanamshas)))
-        {
-            allDetails.Add(ayanamshaCurrent.GetDetails());
-        }
-        return allDetails;
+        return (from Ayanamshas ayanamshaCurrent in Enum.GetValues(typeof(Ayanamshas)) 
+            select ayanamshaCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find ayanamsha for a given index</summary>

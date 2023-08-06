@@ -21,14 +21,14 @@ public sealed class ConfigurationApi : IConfigurationApi
     /// <inheritdoc/>
     public AstroConfig GetDefaultConfiguration()
     {
-        Log.Information("ConfigurationApi GetDefaultConfiguration.");
+        Log.Information("ConfigurationApi GetDefaultConfiguration");
         return _handler.ConstructDefaultConfiguration();
     }
 
     /// <inheritdoc/>
     public bool DoesConfigExist()
     {
-        Log.Information("ConfigurationApi DoesConfigExist.");
+        Log.Information("ConfigurationApi DoesConfigExist");
         return _handler.DoesConfigExist();
     }
 
@@ -36,7 +36,7 @@ public sealed class ConfigurationApi : IConfigurationApi
     public bool WriteConfig(AstroConfig config)
     {
         Guard.Against.Null(config);
-        Log.Information("ConfigurationApi WriteConfig.");
+        Log.Information("ConfigurationApi WriteConfig");
         return _handler.WriteConfig(config);
     }
 

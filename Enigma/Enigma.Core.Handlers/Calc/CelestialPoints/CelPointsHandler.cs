@@ -7,7 +7,6 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 using Enigma.Facades.Interfaces;
@@ -55,11 +54,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs)
     {
         List<ChartPoints> allCelPoints = prefs.ActualChartPoints;
-        List<ChartPoints> celPoints = new();
-        foreach (ChartPoints point in allCelPoints)     // check if calculation for given jd is possible.
-        {
-            if (_periodSupportChecker.IsSupported(point, jdUt)) celPoints.Add(point);
-        }
+        List<ChartPoints> celPoints = allCelPoints.Where(point => _periodSupportChecker.IsSupported(point, jdUt)).ToList();
         ObserverPositions observerPosition = prefs.ActualObserverPosition;
         double previousJd = jdUt - 0.5;
         double futureJd = jdUt + 0.5;
@@ -115,26 +110,30 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
     private static ObliqueLongitudeRequest CreateObliqueLongitudeRequest(Dictionary<ChartPoints, FullPointPos> calculatedPoints, double armc, double obliquity, Location location, double ayanamshaOffset)
     {
-        List<NamedEclipticCoordinates> coordinates = new();
-        foreach (var calcPoint in calculatedPoints)
-        {
-            coordinates.Add(new NamedEclipticCoordinates(calcPoint.Key, new EclipticCoordinates(calcPoint.Value.Ecliptical.MainPosSpeed.Position, calcPoint.Value.Ecliptical.DeviationPosSpeed.Position)));
-        }
+        List<NamedEclipticCoordinates> coordinates = calculatedPoints.Select(calcPoint 
+            => new NamedEclipticCoordinates(calcPoint.Key, 
+                new EclipticCoordinates(calcPoint.Value.Ecliptical.MainPosSpeed.Position, 
+                    calcPoint.Value.Ecliptical.DeviationPosSpeed.Position))).ToList();
         return new ObliqueLongitudeRequest(armc, obliquity, location.GeoLat, coordinates, ayanamshaOffset);
     }
 
-    private static Dictionary<ChartPoints, FullPointPos> CreateObliqueLongitudePoints(Dictionary<ChartPoints, FullPointPos> commonPoints, List<NamedEclipticLongitude> obliqueLongitudes)
+    private static Dictionary<ChartPoints, FullPointPos> CreateObliqueLongitudePoints(Dictionary<ChartPoints, 
+        FullPointPos> commonPoints, List<NamedEclipticLongitude> obliqueLongitudes)
     {
         Dictionary<ChartPoints, FullPointPos> obliqueLongitudePoints = new();
 
         foreach (var fullPos in commonPoints)
         {
-            foreach (var oblLong in obliqueLongitudes)
+            foreach (FullPointPos positionValues in 
+                     from oblLong in obliqueLongitudes 
+                     where fullPos.Key == oblLong.CelPoint 
+                     select fullPos.Value.Ecliptical.MainPosSpeed with { Position = oblLong.EclipticLongitude } 
+                     into oblEclPosSpeed 
+                     select new PointPosSpeeds(oblEclPosSpeed, fullPos.Value.Ecliptical.DeviationPosSpeed, 
+                         fullPos.Value.Ecliptical.DistancePosSpeed) 
+                     into eclPointPosSpeeds 
+                     select fullPos.Value with { Ecliptical = eclPointPosSpeeds })
             {
-                if (fullPos.Key != oblLong.CelPoint) continue;
-                PosSpeed oblEclPosSpeed = fullPos.Value.Ecliptical.MainPosSpeed with { Position = oblLong.EclipticLongitude };
-                PointPosSpeeds eclPointPosSpeeds = new(oblEclPosSpeed, fullPos.Value.Ecliptical.DeviationPosSpeed, fullPos.Value.Ecliptical.DistancePosSpeed);
-                FullPointPos positionValues = fullPos.Value with { Ecliptical = eclPointPosSpeeds };
                 obliqueLongitudePoints.Add(fullPos.Key, positionValues);
             }
         }

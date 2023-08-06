@@ -56,9 +56,10 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<OccupiedMidpoint> occupiedMidpoints = _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb);
 
-            foreach (OccupiedMidpoint occupiedMidpoint in occupiedMidpoints)
+            foreach (OccupiedMidpointStructure mpStructure in occupiedMidpoints.Select(occupiedMidpoint 
+                         => new OccupiedMidpointStructure(occupiedMidpoint.Midpoint.Point1.Point, 
+                             occupiedMidpoint.Midpoint.Point2.Point, occupiedMidpoint.OccupyingPoint.Point)))
             {
-                OccupiedMidpointStructure mpStructure = new(occupiedMidpoint.Midpoint.Point1.Point, occupiedMidpoint.Midpoint.Point2.Point, occupiedMidpoint.OccupyingPoint.Point);
                 allCounts[mpStructure]++;
             }
         }

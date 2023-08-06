@@ -9,9 +9,6 @@ namespace Enigma.Domain.Configuration;
 /// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
 public class ApplicationSettings
 {
-
-    private static readonly ApplicationSettings instance = new();
-
     public string LocationEnigmaRoot { get; set; } = @"c:\enigma_ar";
     public string LocationDataFiles { get; set; } = @"c:\enigma_ar\data";
     public string LocationProjectFiles { get; set; } = @"c:\enigma_ar\project";
@@ -30,12 +27,5 @@ public class ApplicationSettings
     {
     }
 
-    public static ApplicationSettings Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
-
+    public static ApplicationSettings Instance { get; } = new();
 }

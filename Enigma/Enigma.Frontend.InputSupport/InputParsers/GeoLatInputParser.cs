@@ -29,14 +29,7 @@ public class GeoLatInputParser : IGeoLatInputParser
         fullGeoLatitude = null;
         bool validationSuccess;
         (int[] geoLatNumbers, bool geoLatSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputGeoLat, EnigmaConstants.SeparatorGeolat);
-        if (geoLatSuccess)
-        {
-            validationSuccess = _geoLatValidator.CreateCheckedLatitude(geoLatNumbers, direction, out fullGeoLatitude);
-        }
-        else
-        {
-            validationSuccess = false;
-        }
+        validationSuccess = geoLatSuccess && _geoLatValidator.CreateCheckedLatitude(geoLatNumbers, direction, out fullGeoLatitude);
         return validationSuccess;
     }
 }

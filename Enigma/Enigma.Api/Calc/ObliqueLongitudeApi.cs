@@ -6,11 +6,11 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
+using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.RequestResponse;
 using Serilog;
 
-namespace Enigma.Api.Astron;
+namespace Enigma.Api.Calc;
 
 
 /// <inheritdoc/>
@@ -25,7 +25,7 @@ public sealed class ObliqueLongitudeApi : IObliqueLongitudeApi
     {
         Guard.Against.Null(request);
         Guard.Against.NullOrEmpty(request.CelPointCoordinates);
-        Log.Information("ObliqueLongitudeApi GetObliqueLongitude.");
+        Log.Information("ObliqueLongitudeApi GetObliqueLongitude");
         return _handler.CalcObliqueLongitude(request);
     }
 }

@@ -9,7 +9,7 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.Specials;
 using Serilog;
 
-namespace Enigma.Api.Astron;
+namespace Enigma.Api.Calc;
 
 /// <inheritdoc/>
 public sealed class ObliquityApi : IObliquityApi
@@ -23,7 +23,7 @@ public sealed class ObliquityApi : IObliquityApi
     public double GetObliquity(ObliquityRequest request)
     {
         Guard.Against.Null(request);
-        Log.Information("ObliquityApi.GetObliquity() for julian day UT {jd}", request.JdUt);
+        Log.Information("ObliquityApi.GetObliquity() for julian day UT {Jd}", request.JdUt);
         return _obliquityHandler.CalcObliquity(request);
     }
 

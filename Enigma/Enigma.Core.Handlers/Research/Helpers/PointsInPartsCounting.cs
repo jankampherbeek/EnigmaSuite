@@ -72,13 +72,9 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
     private static List<CountOfParts> InitializeCounts(GeneralResearchRequest request, int nrOfParts)
     {
-        List<CountOfParts> allCounts = new();
         int[] tempCounts = new int[nrOfParts];
-        foreach (ChartPoints selectedCelPoint in request.PointsSelection.SelectedPoints)
-        {
-            allCounts.Add(new CountOfParts(selectedCelPoint, tempCounts.ToList()));
-        }
-        return allCounts;
+        return request.PointsSelection.SelectedPoints.Select(selectedCelPoint 
+            => new CountOfParts(selectedCelPoint, tempCounts.ToList())).ToList();
     }
 
 
@@ -105,8 +101,6 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
                     case ResearchMethods.CountPosInHouses:
                         partIndex = DefineHouseNr(longitude, nrOfParts, chart.Positions);
                         break;
-                    default:
-                        break;
                 }
                 if (partIndex >= 0) allCounts[pointIndex].Counts[partIndex]++;
             }
@@ -132,11 +126,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         int nrOfParts = allCounts.Count > 0 ? allCounts[0].Counts.Count : 0;
         for (int i = 0; i < nrOfParts; i++)
         {
-            int subTotal = 0;
-            foreach (CountOfParts cop in allCounts)
-            {
-                subTotal += cop.Counts[i];
-            }
+            int subTotal = allCounts.Sum(cop => cop.Counts[i]);
             totals.Add(subTotal);
         }
         return totals;
@@ -144,12 +134,10 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
     private static int DefineHouseNr(double longitude, int nrOfCusps, Dictionary<ChartPoints, FullPointPos> positions)  // returns housenr 0..11 of 0..nrOfHouses-1
     {
-        Dictionary<ChartPoints, FullPointPos> cusps = (from posPoint in positions where (posPoint.Key.GetDetails().PointCat == PointCats.Cusp) select posPoint).ToDictionary(x => x.Key, x => x.Value);
-        List<double> cuspLongitudes = new();
-        foreach (var cusp in cusps)
-        {
-            cuspLongitudes.Add(cusp.Value.Ecliptical.MainPosSpeed.Position);
-        }
+        Dictionary<ChartPoints, FullPointPos> cusps = (from posPoint in positions 
+            where (posPoint.Key.GetDetails().PointCat == PointCats.Cusp) 
+            select posPoint).ToDictionary(x => x.Key, x => x.Value);
+        List<double> cuspLongitudes = cusps.Select(cusp => cusp.Value.Ecliptical.MainPosSpeed.Position).ToList();
         for (int i = 0; i < nrOfCusps; i++)
         {
             double firstCusp = cuspLongitudes[i];

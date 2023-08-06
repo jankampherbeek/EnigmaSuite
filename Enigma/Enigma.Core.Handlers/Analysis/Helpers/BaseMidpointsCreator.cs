@@ -13,8 +13,8 @@ namespace Enigma.Core.Handlers.Analysis.Helpers;
 /// <inheritdoc/>
 public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
 {
-    private const double HalfCircle = 180.0;
-    private const double FullCircle = 360.0;
+    private const double HALF_CIRCLE = 180.0;
+    private const double FULL_CIRCLE = 360.0;
 
 
     /// <inheritdoc/>
@@ -54,12 +54,12 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
         double smallPos = (pos1 < pos2) ? pos1 : pos2;
         double largePos = (pos1 < pos2) ? pos2 : pos1;
         double diff = largePos - smallPos;
-        double firstPosShortestArc = (diff < HalfCircle) ? smallPos : largePos;
-        double lastPosShortestArc = (diff < HalfCircle) ? largePos : smallPos;
+        double firstPosShortestArc = (diff < HALF_CIRCLE) ? smallPos : largePos;
+        double lastPosShortestArc = (diff < HALF_CIRCLE) ? largePos : smallPos;
         diff = lastPosShortestArc - firstPosShortestArc;
-        if (diff < 0.0) diff += FullCircle;
+        if (diff < 0.0) diff += FULL_CIRCLE;
         double mPos = (diff / 2) + firstPosShortestArc;
-        if (mPos >= FullCircle) mPos -= FullCircle;
+        if (mPos >= FULL_CIRCLE) mPos -= FULL_CIRCLE;
         return new BaseMidpoint(point1, point2, mPos);
     }
 

@@ -25,19 +25,14 @@ public sealed class CalcChartsRangeHandler : ICalcChartsRangeHandler
     /// <inheritdoc/>
     public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request)
     {
-        List<FullChartForResearchItem> fullChartForResearchItems = new();
-
         CalculationPreferences preferences = request.Preferences;
         List<DataForCalculationOfRange> calcData = request.CalcData;
 
-        foreach (var calcDataItem in calcData)
-        {
-            double jdUt = _julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt;
-            CelPointsRequest celPointsRequest = new(jdUt, calcDataItem.Location, preferences);
-            Dictionary<ChartPoints, FullPointPos> chartPositions = _chartAllPositionsHandler.CalcFullChart(celPointsRequest);
-            fullChartForResearchItems.Add(new FullChartForResearchItem(calcDataItem.Id, chartPositions));
-        }
-        return fullChartForResearchItems;
+        return (from calcDataItem in calcData 
+            let jdUt = _julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt 
+            let celPointsRequest = new CelPointsRequest(jdUt, calcDataItem.Location, preferences) 
+            let chartPositions = _chartAllPositionsHandler.CalcFullChart(celPointsRequest) 
+            select new FullChartForResearchItem(calcDataItem.Id, chartPositions)).ToList();
     }
 
 }

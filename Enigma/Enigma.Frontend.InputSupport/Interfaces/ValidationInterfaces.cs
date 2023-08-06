@@ -17,11 +17,10 @@ public interface IDateValidator
     /// <summary>
     /// Validate input and create a record FullDate.
     /// </summary>
-    /// <param name="dateValues>Array with values for the date in the sequence: year, month, day.</param>
+    /// <param name="dateValues">Array with values for the date in the sequence: year, month, day.</param>
     /// <param name="calendar">The calendar that is used (Gregorian or Julian).</param>
     /// <param name="yearCount">The year count, this will be converted to an astronomical year count.</param>
     /// <param name="fullDate">The resulting record FullDate.</param>
-    /// <param name="errorCodes">Errorcodes, if any.</param> 
     /// <returns>True if no error occurred, otherwise false.</returns>
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate);
 }
@@ -33,7 +32,7 @@ public interface IGeoLatValidator
     /// <summary>
     /// Validate input and create a record FullGeoLatitude.
     /// </summary>
-    /// <param name="latValues">Array with integers for the latitude in the sequence degree, minute, second. The value for second is optional.</param>
+    /// <param name="inputLatValues">Array with integers for the latitude in the sequence degree, minute, second. The value for second is optional.</param>
     /// <param name="direction">The direction: north or south.</param>
     /// <param name="fullLatitude">Resulting record FullGeoLatitude.</param>
     /// <returns>True if no error was found, otherwise false.</returns>

@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Analysis;
-using Enigma.Api.Astron;
 using Enigma.Api.Calc;
 using Enigma.Api.Communication;
 using Enigma.Api.Configuration;
@@ -13,7 +12,7 @@ using Enigma.Api.Persistency;
 using Enigma.Api.Research;
 using Enigma.Core.Handlers.Services;
 using Enigma.Domain.Services;
-using Enigma.Facades.Services;
+using Enigma.Facades;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace

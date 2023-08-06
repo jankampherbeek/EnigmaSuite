@@ -42,9 +42,8 @@ public static class MathExtra
     {
         if (rectangularValues is not { Length: 3 })
         {
-            string errorText = "MathExtra.Rectangular2Polar(): Invalud input for rectangularValues: " + rectangularValues;
-            Log.Error(errorText);
-            throw new ArgumentException(errorText);
+            Log.Error("MathExtra.Rectangular2Polar(): Invalid input for rectangularValues: {RaValues}", rectangularValues);
+            throw new ArgumentException("Error in rectangular values");
         }
         double x = rectangularValues[0];
         double y = rectangularValues[1];
@@ -82,9 +81,9 @@ public static class MathExtra
     {
         if (polarValues is not { Length: 3 })
         {
-            string errorText = "MathExtra.Polar2Rectangular(): Invalud input for polar values: " + polarValues;
-            Log.Error(errorText);
-            throw new ArgumentException(errorText);
+            
+            Log.Error("MathExtra.Polar2Rectangular(): Invalid input for polar values: {Pv}", polarValues);
+            throw new ArgumentException("Error in polar values");
         }
         double phi = polarValues[0];
         double theta = polarValues[1];
@@ -93,7 +92,7 @@ public static class MathExtra
         double y = r * Math.Cos(theta) * Math.Sin(phi);
         double z = r * Math.Sin(theta);
 
-        return new double[] { x, y, z };
+        return new[] { x, y, z };
 
     }
 

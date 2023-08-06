@@ -7,7 +7,6 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.Progressive;
 using Enigma.Domain.Points;
 
 namespace Enigma.Domain.Configuration;

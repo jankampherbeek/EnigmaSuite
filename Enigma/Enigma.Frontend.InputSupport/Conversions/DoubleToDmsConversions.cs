@@ -51,7 +51,7 @@ public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
     public string ConvertDoubleToPositionsDmsText(double position)
     {
         string minusSign = position < 0.0 ? "-" : "";
-        double correctionForDouble = 0.00000001;    // correction to prevent double values like 0.99999999999
+        const double correctionForDouble = 0.00000001;    // correction to prevent double values like 0.99999999999
         double remaining = Math.Abs(position) + correctionForDouble;
         if (remaining >= 360.0) remaining-= 360.0;
         int degrees = (int)remaining;
@@ -66,22 +66,22 @@ public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
     private static string CreateDmsString(int degrees, int minutes, int seconds)
     {
         string degreeText = degrees.ToString();
-        string minuteText = string.Format("{0:00}", minutes);
-        string secondText = string.Format("{0:00}", seconds);
+        string minuteText = $"{minutes:00}";
+        string secondText = $"{seconds:00}";
         return degreeText + EnigmaConstants.DegreeSign + minuteText + EnigmaConstants.MinuteSign + secondText + EnigmaConstants.SecondSign;
     }
 
     private static string CreateDmString(int degrees, int minutes)
     {
         string degreeText = degrees.ToString();
-        string minuteText = string.Format("{0:00}", minutes);
+        string minuteText = $"{minutes:00}";
         return degreeText + EnigmaConstants.DegreeSign + minuteText + EnigmaConstants.MinuteSign;
     }
 
     private static char DefineGlyph(int nrOfSigns)
     {
-        var AllGlyphs = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=' };
-        return AllGlyphs[nrOfSigns - 1];
+        var allGlyphs = new[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=' };
+        return allGlyphs[nrOfSigns - 1];
     }
 
 

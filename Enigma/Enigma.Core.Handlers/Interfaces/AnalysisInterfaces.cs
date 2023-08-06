@@ -53,9 +53,12 @@ public interface IAspectsHandler
     /// <param name="posPoints">Celestial points with positions.</param>
     /// <param name="cuspPoints">Cusps with positions.</param>
     /// <param name="relevantAspects">Supported aspects as defined in configuration.</param>
+    /// <param name="chartPointConfigSpecs">Configuration for chartpoints.</param>
     /// <param name="baseOrb">Base orb for aspects.</param>
     /// <returns>List with aspects between celestial points and between celestial points and cusps. Aspects between cusps are omitted.</returns>
-    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb);
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, 
+           Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, 
+           Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb);
 }
 
 

@@ -14,12 +14,8 @@ public sealed class HarmonicsCalculator : IHarmonicsCalculator
     /// <inheritdoc/>
     public List<double> CalculateHarmonics(List<double> originalPositions, double harmonicNumber)
     {
-        List<double> harmonicPositions = new();
-        foreach (var originalPosition in originalPositions)
-        {
-            harmonicPositions.Add(InRange360(originalPosition * harmonicNumber));
-        }
-        return harmonicPositions;
+        return originalPositions.Select(originalPosition 
+            => InRange360(originalPosition * harmonicNumber)).ToList();
     }
 
     /// <inheritdoc/>

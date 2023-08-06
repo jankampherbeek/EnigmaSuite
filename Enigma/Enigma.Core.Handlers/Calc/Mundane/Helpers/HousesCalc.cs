@@ -4,9 +4,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Facades.Se.Interfaces;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Facades.Se.Interfaces;
 
 namespace Enigma.Core.Handlers.Calc.Mundane.Helpers;
 

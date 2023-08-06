@@ -5,7 +5,6 @@
 
 using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.ChartItems.Coordinates;
 
 namespace Enigma.Core.Handlers.Interfaces;
 

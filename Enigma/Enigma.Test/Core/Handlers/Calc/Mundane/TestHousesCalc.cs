@@ -3,10 +3,10 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Facades.Se.Interfaces;
 using Enigma.Core.Handlers.Calc.Mundane.Helpers;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Facades.Se.Interfaces;
 using Moq;
 
 namespace Enigma.Test.Core.Handlers.Calc.Mundane;

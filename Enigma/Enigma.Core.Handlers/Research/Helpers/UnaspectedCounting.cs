@@ -53,14 +53,7 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
             foreach (PositionedPoint posPoint in posPoints)
             {
                 ChartPoints point = posPoint.Point;
-                int aspectCount = 0;
-                foreach (DefinedAspect defAspect in definedAspects)
-                {
-                    if (defAspect.Point1 == point || defAspect.Point2 == point)
-                    {
-                        aspectCount++;
-                    }
-                }
+                int aspectCount = definedAspects.Count(defAspect => defAspect.Point1 == point || defAspect.Point2 == point);
 
                 if (aspectCount != 0) continue;
                 int aspectIndex = 0;
