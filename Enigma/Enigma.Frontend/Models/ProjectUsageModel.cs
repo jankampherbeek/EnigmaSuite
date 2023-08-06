@@ -10,6 +10,7 @@ using Enigma.Domain.Configuration;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -79,20 +80,14 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountHarmonicConjunctions:
             {
-                HarmonicDetailsWindow detailsWindow = App.ServiceProvider.GetRequiredService<HarmonicDetailsWindow>();
-                detailsWindow.ShowDialog();
-                if (detailsWindow.IsCompleted())
-                {
-                    double harmonicNumber = detailsWindow.HarmonicNumber;
-                    double orb = detailsWindow.Orb;
-                    bool useControlGroup = false;
-                    CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                    responseTest = _researchPerformApi.PerformResearch(request);
-                    useControlGroup = true;
-                    request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
-                    responseCg = _researchPerformApi.PerformResearch(request);
-                }
-
+                double harmonicNumber = _dataVault.ResearchHarmonicValue;
+                double orb = _dataVault.ResearchHarmonicOrb;
+                bool useControlGroup = false;
+                CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                responseTest = _researchPerformApi.PerformResearch(request);
+                useControlGroup = true;
+                request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
+                responseCg = _researchPerformApi.PerformResearch(request);
                 break;
             }
         }

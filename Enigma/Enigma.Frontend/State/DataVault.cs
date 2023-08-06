@@ -27,6 +27,8 @@ public sealed class DataVault
     public MethodResponse? ResponseTest { get; set; }
     public MethodResponse? ResponseCg { get; set; }
     
+    public double ResearchHarmonicValue { get; set; }
+    public double ResearchHarmonicOrb { get; set; }
     
     
     private bool NewChartAdded;

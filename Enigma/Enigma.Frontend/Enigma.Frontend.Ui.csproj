@@ -789,7 +789,7 @@
     <None Update="res\help\DatafileImport.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\HarmonicDetails.html">
+    <None Update="res\help\ResearchHarmonicDetails.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\RadixHarmonics.html">

@@ -79,8 +79,6 @@ public partial class App
         serviceCollection.AddTransient<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
-        serviceCollection.AddTransient<HarmonicDetailsController>();
-        serviceCollection.AddTransient<HarmonicDetailsWindow>();
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
@@ -102,6 +100,7 @@ public partial class App
         serviceCollection.AddTransient<RadixMidpointsModel>();
         serviceCollection.AddTransient<RadixPositionsModel>();
         serviceCollection.AddTransient<RadixSearchModel>();
+        serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();

@@ -138,7 +138,7 @@ public class ResearchResultModel
     }
 
 
-    private void CreateResultHeaders(GeneralResearchRequest request)
+    private static void CreateResultHeaders(GeneralResearchRequest request)
     {
         string methodText = request.Method.GetDetails().Text;
     }

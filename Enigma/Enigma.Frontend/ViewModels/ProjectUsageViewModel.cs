@@ -9,7 +9,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.Research;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -67,6 +66,12 @@ public partial class ProjectUsageViewModel: ObservableObject
             }
             MessageBox.Show("Please select at least " + minNumber + " points." );
         }
+
+        if (method == ResearchMethods.CountHarmonicConjunctions)
+        {
+            new ResearchHarmonicDetailsWindow().ShowDialog();
+        }
+        
         _model.PerformRequest(ResearchMethods.None.ResearchMethodForIndex(MethodIndex));
         new ResearchResultWindow().ShowDialog();
     }

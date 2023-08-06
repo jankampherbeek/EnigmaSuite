@@ -11,8 +11,10 @@
             <ResourceDictionary.MergedDictionaries>
                 <materialdesign:CustomColorTheme 
                     BaseTheme="Light" 
-                    PrimaryColor="#114164" 
-                    SecondaryColor="#8DC9F4" />
+                    PrimaryColor="#385276" 
+                    SecondaryColor="#B3D0F4"
+                    
+                    />
                 <!--                     PrimaryColor="#34B3FF" 
                     SecondaryColor="#1C5764" -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" /> 

@@ -1,0 +1,58 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.ResearchHarmonicDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"      
+        Title="Enigma - Details for harmonics" Height="300" Width="400">
+    <Window.Resources>
+        <viewModels:ResearchHarmonicDetailsViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}"> 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Padding="16" Mode="PrimaryMid">
+            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
+                       Text="Details for harmonics"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
+        </materialDesign:ColorZone>
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Harmonic number"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Background="{Binding HarmonicNrValid }"
+                 Text="{Binding HarmonicNumber, Mode = TwoWay}"/>
+        <TextBlock Grid.Row="2" Grid.Column="0"  Margin="6" Text="Orb" VerticalAlignment="Center" />
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Degrees"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Background="{Binding OrbDegreeValid }"
+                 Text="{Binding OrbDegrees, Mode = TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Minutes"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Background="{Binding OrbMinuteValid }"
+                 Text="{Binding OrbMinutes, Mode = TwoWay}"/>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+            <Button Margin="3" Content="Help" Command="{Binding HelpCommand}"/>
+            <Button Margin="3"  Content="Cancel" Click="CloseClick"/>
+            <Button Margin="3" Content="Continue" Command="{Binding ContinueCommand}" Click="CloseClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
