@@ -28,7 +28,8 @@ public sealed class CurrentConfig
     {
     }
 
-    public static CurrentConfig Instance => instance;
+    // ReSharper disable once ConvertToAutoProperty
+    public static CurrentConfig Instance => instance;       // instance is singleton
 
     public void ChangeConfig(AstroConfig newConfig)
     {

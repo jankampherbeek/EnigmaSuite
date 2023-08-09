@@ -5,9 +5,9 @@
 
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
-using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -17,27 +17,19 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class AspectForWheelFactory : IAspectForWheelFactory
 {
     /// <inheritdoc/>
-    public List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<DefinedAspect> aspects)
+    public List<DrawableMundaneAspect> CreateMundaneAspectForWheel(IEnumerable<DefinedAspect> aspects)
     {
-        List<DrawableMundaneAspect> drawables = new();
-        foreach (DefinedAspect defAspect in aspects)
-        {
-            double exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100);
-            drawables.Add(new DrawableMundaneAspect(defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect));
-        }
-        return drawables;
+        return (from defAspect in aspects 
+            let exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100) 
+            select new DrawableMundaneAspect(defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect)).ToList();
     }
 
     /// <inheritdoc/>
-    public List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<DefinedAspect> aspects)
+    public List<DrawableCelPointAspect> CreateCelPointAspectForWheel(IEnumerable<DefinedAspect> aspects)
     {
-        List<DrawableCelPointAspect> drawables = new();
-        foreach (DefinedAspect defAspect in aspects)
-        {
-            double exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100);
-            drawables.Add(new DrawableCelPointAspect(defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect));
-        }
-        return drawables;
+        return (from defAspect in aspects 
+            let exactness = 100 - (defAspect.ActualOrb / defAspect.MaxOrb * 100) 
+            select new DrawableCelPointAspect(defAspect.Point1, defAspect.Point2, exactness, defAspect.Aspect.Aspect)).ToList();
     }
 
 }

@@ -34,10 +34,10 @@ public sealed class DataVault
     public double ResearchMidpointOrb { get; set; }
     
     
-    private bool NewChartAdded;
+    private bool _newChartAdded;
 
     /// <summary>Base name for the current view (without the 'View' part)</summary>
-    public string CurrentViewBase { get; set; }
+    public string CurrentViewBase { get; set; } = string.Empty;
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
     static DataVault()
@@ -48,25 +48,24 @@ public sealed class DataVault
     {
     }
 
-    public static DataVault Instance => instance;
+    // ReSharper disable once ConvertToAutoProperty
+    public static DataVault Instance => instance;   // instance is a singleton
 
     public void ClearExistingCharts()
     {
         _allCharts.Clear();
         _currentChart = null;
-        NewChartAdded = false;
+        _newChartAdded = false;
     }
 
 
     public void AddNewChart(CalculatedChart newChart)
     {
         CalculatedChart? chartToRemove = null;
-        foreach (var chart in _allCharts)
+        foreach (CalculatedChart chart in _allCharts.Where(
+                     chart => chart.InputtedChartData.Id == newChart.InputtedChartData.Id))
         {
-            if (chart.InputtedChartData.Id == newChart.InputtedChartData.Id)
-            {
-                chartToRemove = chart;
-            }
+            chartToRemove = chart;
         }
         if (chartToRemove != null)
         {
@@ -99,11 +98,11 @@ public sealed class DataVault
 
     public void SetNewChartAdded(bool newStatus)
     {
-        NewChartAdded = newStatus;
+        _newChartAdded = newStatus;
     }
 
     public bool GetNewChartAdded()
     {
-        return NewChartAdded;
+        return _newChartAdded;
     }
 }

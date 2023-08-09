@@ -137,14 +137,6 @@ public static class EnigmaConstants
     public const double DstMax = 3.0;
     /// <summary>Minimum value for daylight saving time.</summary>
     public const double DstMin = 0.0;
-    /// <summary>Maximum amount of degrees for geographic latitude.</summary>
-    public const int GeolatDegreeMax = 89;
-    /// <summary>Minimum amount of degrees for geographic latitude.</summary>
-    public const int GeolatDegreeMin = 0;
-    /// <summary>Maximum amount of degrees for geographic longitude.</summary>
-    public const int GeolonDegreeMax = 180;
-    /// <summary>Minimum amount of degrees for geographic longitude.</summary>
-    public const int GeolonDegreeMin = 0;
     /// <summary>Maximum amount of hours.</summary>
     public const int HourMax = 23;
     /// <summary>Minimum amount of hours.</summary>
@@ -188,18 +180,10 @@ public static class EnigmaConstants
 
 
     // Conversion factors
-    /// <summary>Numer of seconds in a day.</summary>
-    public const int SecondsPerDay = 86400;
-    /// <summary>Number of hours in one day.</summary>
-    public const int HoursPerDay = 24;
-    /// <summary>Number of minutes in one day.</summary>
-    public const int MinutesPerDay = 1440;
     /// <summary>Number of minutes in one hour.</summary>
     public const int MinutesPerHourDegree = 60;
     /// <summary>Number of seconds in one hour.</summary>
     public const int SecondsPerHourDegree = 3600;
-    /// <summary>Number of seconds in one degree.</summary>
-    public const int SecondsPerMinuteDegree = 60;
 
     // Characters
     /// <summary>Small elevated circle to identify degrees.</summary>
@@ -224,12 +208,6 @@ public static class EnigmaConstants
     public const string ConfigLocation = "c:/enigma_ar/enigmaconfig.json";
     /// <summary>Name of database for charts.</summary>
     public const string DatabaseName = "/Enigma.db";
-    /// <summary>Name of database for charts.</summary>
-    public const string DatabaseNameCharts = "/ChartsDatabase.json";
-    /// <summary>Name of database for events.</summary>
-    public const string DatabaseNameEvents = "/EventsDatabase.json";
-    /// <summary>Name of database for intersections between charts and events.</summary>
-    public const string DatabaseNameInterChartsEvents = "/InterChartsEventsDatabase.json";
     /// <summary>Url to find latest release information.</summary>
     public const string ReleaseCheckUrl = "http://radixpro.com/rel/enigma-ar-latest.json";
 

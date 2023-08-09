@@ -14,20 +14,16 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class DataNameForPresentationFactory : IDataNameForPresentationFactory
 {
     // TODO remove method CreateDataNamesForDataGrid
-    public List<PresentableDataName> CreateDataNamesForDataGrid(List<string> fullPathDataNames)
+    public List<PresentableDataName> CreateDataNamesForDataGrid(IEnumerable<string> fullPathDataNames)
     {
-        List<PresentableDataName> presentableDataNames = new();
-        foreach (var fullPathDataName in fullPathDataNames)
-        {
-            int pos = fullPathDataName.LastIndexOf(@"\", StringComparison.Ordinal);
-            string dataName = fullPathDataName[(pos + 1)..];
-            presentableDataNames.Add(new PresentableDataName(dataName));
-        }
-        return presentableDataNames;
+        return (from fullPathDataName in fullPathDataNames 
+            let pos = fullPathDataName.LastIndexOf(@"\", StringComparison.Ordinal) 
+            select fullPathDataName[(pos + 1)..] into dataName 
+            select new PresentableDataName(dataName)).ToList();
     }
 
     /// <inheritdoc/>
-    public List<string> CreateDataNamesForListView(List<string> fullPathDataNames)
+    public List<string> CreateDataNamesForListView(IEnumerable<string> fullPathDataNames)
     {
         return (from fullPathDataName in fullPathDataNames 
             let pos = fullPathDataName.LastIndexOf(@"\", StringComparison.Ordinal) 

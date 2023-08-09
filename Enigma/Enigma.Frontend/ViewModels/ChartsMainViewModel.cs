@@ -10,7 +10,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
-using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
@@ -184,10 +183,7 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private void DateRange()
     {
-        DaterangeWindow window = new();
-        //OpenWindow(_inputDaterangeWindow);
-        window.ShowDialog();
-        // todo handle input event
+        // TODO handle DataRange
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
@@ -236,7 +232,7 @@ public partial class ChartsMainViewModel: ObservableObject
 
 
     [RelayCommand]
-    private void UserManual()
+    private static void UserManual()
     {
         // TODO use specific helpage for User Manual
         MessageBox.Show("helpwindow.manual");

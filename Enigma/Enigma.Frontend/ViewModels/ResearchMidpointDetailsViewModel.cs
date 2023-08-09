@@ -11,7 +11,6 @@ using CommunityToolkit.Mvvm.Input;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -29,8 +28,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _dialSizes;
     private int OrbDegreeValue { get; set; }
     private int OrbMinuteValue { get; set; }
-    
-    private readonly ResearchMidpointDetailsModel _model = App.ServiceProvider.GetRequiredService<ResearchMidpointDetailsModel>();
+
     
     public SolidColorBrush OrbDegreeValid => IsOrbDegreeValid() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbMinuteValid => IsOrbMinuteValid() ? Brushes.White : Brushes.Yellow;

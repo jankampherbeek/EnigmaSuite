@@ -10,7 +10,7 @@ namespace Enigma.Frontend.Ui.Support;
 
 public class SelectableChartPointDetails
 {
-    public ChartPoints ChartPoint { get; set; }
+    public ChartPoints ChartPoint { get; init; }
     public char? Glyph { get; set; }
     public string? Name { get; set; }
     public bool Selected { get; set; }

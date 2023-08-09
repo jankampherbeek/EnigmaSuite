@@ -11,6 +11,7 @@ using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.Support;
 
@@ -29,7 +30,8 @@ public sealed class ChartCalculation : IChartCalculation
     /// <inheritdoc/>
     public CalculatedChart CalculateChart(ChartData chartData)
     {
-        CelPointsRequest celPointsRequest = new(chartData.FullDateTime.JulianDayForEt, chartData.Location, RetrieveCalculationPreferences());
+        CelPointsRequest celPointsRequest = new(chartData.FullDateTime.JulianDayForEt, chartData.Location, 
+            RetrieveCalculationPreferences());
         Dictionary<ChartPoints, FullPointPos> calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
         return new CalculatedChart(calculatedChartPositions, chartData);
     }
@@ -42,14 +44,11 @@ public sealed class ChartCalculation : IChartCalculation
     private static CalculationPreferences RetrieveCalculationPreferences()
     {
         AstroConfig config = CurrentConfig.Instance.GetConfig();
-        List<ChartPoints> celPoints = new();
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec in config.ChartPoints)
-        {
-            if (spec.Value.IsUsed)
-            {
-                celPoints.Add(spec.Key);
-            }
-        }
-        return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
+        List<ChartPoints> celPoints = (
+            from spec in config.ChartPoints 
+            where spec.Value.IsUsed 
+            select spec.Key).ToList();
+        return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
+            config.ObserverPosition, config.ProjectionType, config.HouseSystem);
     }
 }

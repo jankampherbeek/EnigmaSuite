@@ -57,12 +57,9 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
             if (mundanePos >= 360.0) mundanePos -= 360.0;
             string longitudeText = presentablePositions[count].LongText;
 
-            GraphicCelPointPositions? graphicPos = new(celPoint, longitude, mundanePos, longitudeText);
-            if (graphicPos != null)
-            {
-                graphPositions.Add(graphicPos);
-                count++;
-            }
+            GraphicCelPointPositions graphicPos = new(celPoint, longitude, mundanePos, longitudeText);
+            graphPositions.Add(graphicPos);
+            count++;
         }
         return graphPositions;
     }

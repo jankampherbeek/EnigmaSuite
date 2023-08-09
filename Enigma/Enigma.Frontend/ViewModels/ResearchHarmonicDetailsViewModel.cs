@@ -26,8 +26,6 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     [NotifyPropertyChangedFor(nameof(OrbMinuteValid))]
     [ObservableProperty] private string _orbMinutes = "0";
     
-    private readonly ResearchHarmonicDetailsModel _model = App.ServiceProvider.GetRequiredService<ResearchHarmonicDetailsModel>();
-    
     private int OrbDegreeValue { get; set; }
     private int OrbMinuteValue { get; set; }
     private double HarmonicValue { get; set; }

@@ -57,7 +57,7 @@ public partial class ConfigurationViewModel: ObservableObject
     private readonly ConfigurationModel _model = App.ServiceProvider.GetRequiredService<ConfigurationModel>();
 
     public bool AyanamshaEnabled => ZodiacTypeIndex == (int)ZodiacTypes.Sidereal;
-    public bool BaseOrbAspectsIsValid => double.TryParse(BaseOrbAspectsText.Replace(',', '.'), out _baseOrbAspectsValue);
+
     public ConfigurationViewModel()
     {
         AllHouses = new ObservableCollection<string>(ConfigurationModel.AllHouses());

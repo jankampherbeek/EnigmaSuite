@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Analysis;
@@ -214,14 +215,7 @@ public class ResearchResultModel
             resultData.AppendLine(aspectSeparatorLine);
             int[,,] allCounts = qualifiedResponse.AllCounts;
             StringBuilder detailLine;
-            int nrOfCelPoints = 0;
-            foreach (var item in qualifiedResponse.PointsUsed)
-            {
-                if (item.GetDetails().PointCat != PointCats.Cusp)
-                {
-                    nrOfCelPoints++;
-                }
-            }
+            int nrOfCelPoints = qualifiedResponse.PointsUsed.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
             for (int i = 0; i < nrOfCelPoints; i++)
             {
                 for (int j = i + 1; j < qualifiedResponse.PointsUsed.Count; j++)

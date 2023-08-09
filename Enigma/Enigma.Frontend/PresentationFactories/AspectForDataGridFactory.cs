@@ -10,6 +10,7 @@ using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -27,15 +28,9 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
     }
 
     /// <inheritdoc/>
-    public List<PresentableAspects> CreateAspectForDataGrid(List<DefinedAspect> aspects)
+    public List<PresentableAspects> CreateAspectForDataGrid(IEnumerable<DefinedAspect> aspects)
     {
-        List<PresentableAspects> presentableAspects = new();
-        foreach (var aspect in aspects)
-        {
-            presentableAspects.Add(CreatePresAspect(aspect));
-        }
-        return presentableAspects;
-
+        return aspects.Select(CreatePresAspect).ToList();
     }
 
     private PresentableAspects CreatePresAspect(DefinedAspect effAspect)

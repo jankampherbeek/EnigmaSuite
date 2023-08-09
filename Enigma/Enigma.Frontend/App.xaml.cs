@@ -19,7 +19,6 @@ using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
-using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Models;
 
 namespace Enigma.Frontend.Ui;
@@ -49,7 +48,6 @@ public partial class App
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
-        serviceCollection.AddTransient<CalYearCountController>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();

@@ -11,6 +11,7 @@ using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -28,15 +29,10 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
 
     public List<PresentableCommonPositions> CreateCelPointPosForDataGrid(Dictionary<ChartPoints, FullPointPos> positions)
     {
-        List<PresentableCommonPositions> presPositions = new();
-        foreach (var celPos in positions)
-        {
-            if (celPos.Key.GetDetails().PointCat == PointCats.Common || celPos.Key.GetDetails().PointCat == PointCats.Zodiac || celPos.Key.GetDetails().PointCat == PointCats.Lots)
-            {
-                presPositions.Add(CreateSinglePos(celPos));
-            }
-        }
-        return presPositions;
+        return (from celPos in positions 
+            where celPos.Key.GetDetails().PointCat == PointCats.Common || celPos.Key.GetDetails().PointCat == PointCats.Zodiac 
+                                                                       || celPos.Key.GetDetails().PointCat == PointCats.Lots 
+            select CreateSinglePos(celPos)).ToList();
     }
 
     private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints, FullPointPos> commonPos)

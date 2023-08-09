@@ -19,7 +19,7 @@ public interface IAspectForDataGridFactory
     /// <summary>Builds a presentable aspect to be used in a grid.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Presentable aspects.</returns>
-    List<PresentableAspects> CreateAspectForDataGrid(List<DefinedAspect> aspects);
+    List<PresentableAspects> CreateAspectForDataGrid(IEnumerable<DefinedAspect> aspects);
 }
 
 
@@ -28,12 +28,12 @@ public interface IAspectForWheelFactory
     /// <summary>Builds a drawable aspect between two celestial points, that can be used in a wheel.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Drawable aspects.</returns>
-    List<DrawableCelPointAspect> CreateCelPointAspectForWheel(List<DefinedAspect> aspects);
+    List<DrawableCelPointAspect> CreateCelPointAspectForWheel(IEnumerable<DefinedAspect> aspects);
 
     /// <summary>Builds a drawable aspect between a mundane point and a celestial point, that can be used in a wheel.</summary>
     /// <param name="aspects">Calculated aspects.</param>
     /// <returns>Drawable aspects.</returns>
-    List<DrawableMundaneAspect> CreateMundaneAspectForWheel(List<DefinedAspect> aspects);
+    List<DrawableMundaneAspect> CreateMundaneAspectForWheel(IEnumerable<DefinedAspect> aspects);
 }
 
 /// <summary>Prepare midpoint values to be shown in a datagrid.</summary>
@@ -42,12 +42,12 @@ public interface IMidpointForDataGridFactory
     /// <summary>Builds a presentable midpoint to be used in a grid.</summary>
     /// <param name="midpoints">Calculated midpoints.</param>
     /// <returns>Presentable midpoints.</returns>
-    List<PresentableMidpoint> CreateMidpointsDataGrid(List<BaseMidpoint> midpoints);
+    List<PresentableMidpoint> CreateMidpointsDataGrid(IEnumerable<BaseMidpoint> midpoints);
 
     /// <summary>Builds a presentable occupied midpoint to be used in a grid.</summary>
     /// <param name="midpoints">Occupied midpoints.</param>
     /// <returns>Presentable occupied midpoints.</returns>
-    List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<OccupiedMidpoint> midpoints);
+    List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(IEnumerable<OccupiedMidpoint> midpoints);
 }
 
 
@@ -63,12 +63,12 @@ public interface IDataNameForPresentationFactory
     /// <summary>Builds a presentable data name to be used in a grid.</summary>
     /// <param name="fullPathDataNames">List with datanames.</param>
     /// <returns>Presentable data names.</returns>
-    List<PresentableDataName> CreateDataNamesForDataGrid(List<string> fullPathDataNames);
+    List<PresentableDataName> CreateDataNamesForDataGrid(IEnumerable<string> fullPathDataNames);
 
     /// <summary>Find existing data files</summary>
     /// <param name="fullPathDataNames">Path for the data files</param>
     /// <returns>The names for the data files based on the file names</returns>
-    List<string> CreateDataNamesForListView(List<string> fullPathDataNames);
+    List<string> CreateDataNamesForListView(IEnumerable<string> fullPathDataNames);
 }
 
 /// <summary>Factory to create presentable harmonic positions.</summary>

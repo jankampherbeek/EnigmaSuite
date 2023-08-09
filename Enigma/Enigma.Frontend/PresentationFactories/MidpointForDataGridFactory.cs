@@ -10,6 +10,7 @@ using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
@@ -25,25 +26,15 @@ public class MidpointForDataGridFactory : IMidpointForDataGridFactory
     }
 
     /// <inheritdoc/>
-    public List<PresentableMidpoint> CreateMidpointsDataGrid(List<BaseMidpoint> midpoints)
+    public List<PresentableMidpoint> CreateMidpointsDataGrid(IEnumerable<BaseMidpoint> midpoints)
     {
-        List<PresentableMidpoint> presentableMidpoints = new();
-        foreach (var midpoint in midpoints)
-        {
-            presentableMidpoints.Add(CreatePresMidpoint(midpoint));
-        }
-        return presentableMidpoints;
+        return midpoints.Select(CreatePresMidpoint).ToList();
     }
 
     /// <inheritdoc/>
-    public List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(List<OccupiedMidpoint> midpoints)
+    public List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(IEnumerable<OccupiedMidpoint> midpoints)
     {
-        List<PresentableOccupiedMidpoint> presentableOccMidpoints = new();
-        foreach (var midpoint in midpoints)
-        {
-            presentableOccMidpoints.Add(CreatePresMidpoint(midpoint));
-        }
-        return presentableOccMidpoints;
+        return midpoints.Select(CreatePresMidpoint).ToList();
     }
 
     private PresentableMidpoint CreatePresMidpoint(BaseMidpoint midpoint)

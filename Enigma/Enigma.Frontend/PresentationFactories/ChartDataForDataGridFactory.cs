@@ -26,7 +26,7 @@ public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
     }
 
     /// <inherritdoc/>
-    public PresentableChartData? CreatePresentableChartData(CalculatedChart chart)
+    public PresentableChartData CreatePresentableChartData(CalculatedChart chart)
     {
         string id = chart.InputtedChartData.Id.ToString();
         string name = chart.InputtedChartData.MetaData.Name;
