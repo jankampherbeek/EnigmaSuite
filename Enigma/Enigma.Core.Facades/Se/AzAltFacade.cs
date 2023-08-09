@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Enigma.Domain.Exceptions;
 using Enigma.Facades.Interfaces;
 using Serilog;
@@ -11,6 +13,7 @@ using System.Runtime.InteropServices;
 namespace Enigma.Facades.Se;
 
 /// <inheritdoc/>
+[SuppressMessage("Interoperability", "SYSLIB1054:Use \'LibraryImportAttribute\' instead of \'DllImportAttribute\' to generate P/Invoke marshalling code at compile time")]
 public class AzAltFacade : IAzAltFacade
 {
     /// <inheritdoc/>
@@ -20,20 +23,20 @@ public class AzAltFacade : IAzAltFacade
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
         int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
 
-        if (result >= 0) return new double[] { horizontalCoordinates[0], horizontalCoordinates[1] };
-        string geoCoordinatesText = string.Format("Number of geographicCoordinates is {0:D}.", geoGraphicCoordinates.Length);
+        if (result >= 0) return new[] { horizontalCoordinates[0], horizontalCoordinates[1] };
+        string geoCoordinatesText = $"Number of geographicCoordinates is {geoGraphicCoordinates.Length:D}.";
         if (geoGraphicCoordinates.Length > 1)
         {
-            geoCoordinatesText = string.Format("geoGraphicCoordinates: {0}, {1}", geoGraphicCoordinates[0], geoGraphicCoordinates[1]);
+            geoCoordinatesText = $"geoGraphicCoordinates: {geoGraphicCoordinates[0]}, {geoGraphicCoordinates[1]}";
         }
-        string equCoordinatesOk = string.Format("equCoordinates: {0}, {1}", equCoordinates[0], equCoordinates[1]);
-        string equCoordinatesWrong = string.Format("Number of equCoordinates is {0}.", equCoordinates.Length);
+        string equCoordinatesOk = $"equCoordinates: {equCoordinates[0]}, {equCoordinates[1]}";
+        string equCoordinatesWrong = $"Number of equCoordinates is {equCoordinates.Length}.";
         string equCoordinatesText = equCoordinates.Length > 1 ? equCoordinatesOk : equCoordinatesWrong;
-        string jdText = julianDayUt.ToString();
+        string jdText = julianDayUt.ToString(CultureInfo.InvariantCulture);
         string flagText = flags.ToString();
-        string errorText = "Exception thrown: AzAltFacade.RetrieveHorizontalCoordinates: jd : " + jdText + " " + geoCoordinatesText + " " + equCoordinatesText + " Flags: " + flagText + " Returncode " + result;
-        Log.Error(errorText);
-        throw new SwissEphException(errorText);
+        Log.Error("Exception thrown: AzAltFacade.RetrieveHorizontalCoordinates: jd : {JdText} {GeoCoordinatesText} {EquCoordinatesText} Flags: {FlagText} Returncode {Result}", 
+            jdText, geoCoordinatesText, equCoordinatesText, flagText, result);
+        throw new SwissEphException("Error in AzAltFacade.RetrieveHorizontalCoordinates");
     }
 
     /// <summary>

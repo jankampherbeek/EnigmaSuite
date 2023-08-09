@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Diagnostics.CodeAnalysis;
 using Enigma.Domain.Exceptions;
 using Serilog;
 using System.Runtime.InteropServices;
@@ -12,6 +13,8 @@ namespace Enigma.Facades.Se;
 /// <summary>
 /// Initializer for the Swiss Ephemeris. Check the comments for the methods as they are partly required to run before using the CommonSE.
 /// </summary>
+[SuppressMessage("Interoperability", "SYSLIB1054:Use \'LibraryImportAttribute\' instead of \'DllImportAttribute\' to generate P/Invoke marshalling code at compile time")]
+[SuppressMessage("Globalization", "CA2101:Specify marshaling for P/Invoke string arguments")]
 public static class SeInitializer
 {
     /// <summary>Set location for Swiss Ephemeris files.</summary>
@@ -31,6 +34,8 @@ public static class SeInitializer
         }
 
     }
+
+
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_ephe_path")]
     private static extern void ext_swe_set_ephe_path(string? path);
 
@@ -41,7 +46,6 @@ public static class SeInitializer
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_topo")]
     private static extern void ext_swe_set_topo(double geoLong, double geoLatr, double altitudeMeters);
 
-
     /// <summary>Close Swiss Ephemeris and release all allocated memory and resources.</summary>
     /// <remarks>Use ony at end of application or test. To reuse, call SetEphePath().</remarks>
     public static void CloseEphemeris()
@@ -50,8 +54,6 @@ public static class SeInitializer
     }
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_close")]
     private static extern void ext_swe_close();
-
-
 
     /// <summary>Define Ayanamsha for calculation of sidereal positions.</summary>
     /// <param name="idAyanamsha">The id for the Ayanamsha as used by the CommonSE.</param>
@@ -65,7 +67,7 @@ public static class SeInitializer
         }
 
     }
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_set_sid_mode")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Unicode, EntryPoint = "swe_set_sid_mode")]
     private static extern void ext_swe_set_sid_mode(int idAyanamsha, int t0, int t1);
 
 }

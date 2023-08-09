@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Diagnostics.CodeAnalysis;
 using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Enigma.Facades.Se;
 
 /// <inheritdoc/>
 /// <remarks>Throws a SwissEphException if the CommonSE returns an error.</remarks>
+[SuppressMessage("Globalization", "CA2101:Specify marshaling for P/Invoke string arguments")]
 public sealed class CalcUtFacade : ICalcUtFacade
 {
     /// <inheritdoc/>

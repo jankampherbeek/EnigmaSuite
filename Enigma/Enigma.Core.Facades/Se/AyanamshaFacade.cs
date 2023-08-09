@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Diagnostics.CodeAnalysis;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
 using Enigma.Facades.Interfaces;
@@ -14,6 +15,7 @@ namespace Enigma.Facades.Se;
 
 
 
+[SuppressMessage("Globalization", "CA2101:Specify marshaling for P/Invoke string arguments")]
 public class AyanamshaFacade : IAyanamshaFacade
 {
     public double GetAyanamshaOffset(double jdUt)
@@ -23,9 +25,9 @@ public class AyanamshaFacade : IAyanamshaFacade
         StringBuilder serr = new(256);
         long result = ext_swe_get_ayanamsa_ex_ut(jdUt, epheFlag, ref ayanamshaValue, serr);
         if (result >= 0) return ayanamshaValue;
-        string errorTxt = "AyanamshaFacade.GetAyanamsha(). Error " + result + " when calculating ayanamsha for jdUt " + jdUt + " . Errormessage from SE: " + serr;
-        Log.Error(errorTxt);
-        throw new EnigmaException(errorTxt);
+        Log.Error("AyanamshaFacade.GetAyanamsha(). Error {Result} when calculating ayanamsha for jdUt {JdUt}. Errormessage from SE: {Serr}",
+            result, jdUt, serr);
+        throw new EnigmaException("Error in AyanamshaFacade.GetAyanamsha()");
     }
 
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_get_ayanamsa_ex_ut")]

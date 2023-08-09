@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Diagnostics.CodeAnalysis;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
@@ -12,6 +13,7 @@ namespace Enigma.Facades.Se;
 
 
 /// <inheritdoc/>
+[SuppressMessage("Interoperability", "SYSLIB1054:Use \'LibraryImportAttribute\' instead of \'DllImportAttribute\' to generate P/Invoke marshalling code at compile time")]
 public sealed class RevJulFacade : IRevJulFacade
 {
 

@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Diagnostics.CodeAnalysis;
 using Enigma.Domain.Exceptions;
 using System.Runtime.InteropServices;
 using Enigma.Facades.Se.Interfaces;
@@ -11,6 +12,7 @@ namespace Enigma.Facades.Se;
 
 
 /// <inheritdoc/>
+[SuppressMessage("Interoperability", "SYSLIB1054:Use \'LibraryImportAttribute\' instead of \'DllImportAttribute\' to generate P/Invoke marshalling code at compile time")]
 public class HousesFacade : IHousesFacade
 {
     /// <inheritdoc/>
@@ -26,13 +28,12 @@ public class HousesFacade : IHousesFacade
         {
             string paramsSummary =
                 $"jdUt: {jdUt}, flags: {flags}, geoLat: {geoLat}, geoLon: {geoLon}, houseSystem: {houseSystem}.";
-            throw new SwissEphException(string.Format("{0}/{1}/{2}", result, "SePosHousesFacade.PosHousesFromSe", paramsSummary));
+            throw new SwissEphException($"{result}/SePosHousesFacade.PosHousesFromSe/{paramsSummary}");
         }
-
         double[][] positions = { cusps, mundanePoints };
         return positions;
-
     }
+    
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_houses_ex")]
     private static extern int ext_swe_houses_ex(double tjdut, int flags, double geolat, double geolon, int hsys, double[] hcusp0, double[] ascmc0);
 }
