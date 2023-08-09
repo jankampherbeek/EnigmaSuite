@@ -25,9 +25,8 @@ public class GeoLongInputParser : IGeoLongInputParser
     public bool HandleGeoLong(string inputGeoLong, Directions4GeoLong direction, out FullGeoLongitude? fullGeoLongitude)
     {
         fullGeoLongitude = null;
-        bool validationSuccess;
         (int[] geoLongNumbers, bool geoLongSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputGeoLong, EnigmaConstants.SeparatorGeolong);
-        validationSuccess = geoLongSuccess && _geoLongValidator.CreateCheckedLongitude(geoLongNumbers, direction, out fullGeoLongitude);
+        bool validationSuccess = geoLongSuccess && _geoLongValidator.CreateCheckedLongitude(geoLongNumbers, direction, out fullGeoLongitude);
         return validationSuccess;
     }
 }

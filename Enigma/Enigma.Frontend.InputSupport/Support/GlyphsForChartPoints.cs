@@ -13,7 +13,7 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
 {
     private const char EMPTY_GLYPH = ' ';
 
-    public char FindGlyph(ChartPoints point)
+    public static char FindGlyph(ChartPoints point)
     {
         return point switch
         {

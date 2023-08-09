@@ -47,7 +47,7 @@ public class GeoLatValidator : IGeoLatValidator
         return $"{directionIndicator}{_latValues[0]}:{_latValues[1]:d2}:{_latValues[2]:d2}";
     }
 
-    private static bool CheckMinAndMaxValues(int[] valuesToCheck)
+    private static bool CheckMinAndMaxValues(IReadOnlyList<int> valuesToCheck)
     {
         bool result = !(valuesToCheck[0] < 0 || valuesToCheck[0] > 89);
         if (valuesToCheck[1] < 0 || valuesToCheck[1] > 59) result = false;

@@ -40,8 +40,8 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
 
     private PresentableAspects CreatePresAspect(DefinedAspect effAspect)
     {
-        char point1Glyph = _glyphsForChartPoints.FindGlyph(effAspect.Point1);
-        char point2Glyph = _glyphsForChartPoints.FindGlyph(effAspect.Point2);
+        char point1Glyph = GlyphsForChartPoints.FindGlyph(effAspect.Point1);
+        char point2Glyph = GlyphsForChartPoints.FindGlyph(effAspect.Point2);
         char aspectGlyph = effAspect.Aspect.Glyph;
         string point1Text = effAspect.Point1.GetDetails().Text;
         string point2Text = effAspect.Point2.GetDetails().Text;

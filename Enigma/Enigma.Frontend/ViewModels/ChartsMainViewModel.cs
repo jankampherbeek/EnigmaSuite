@@ -10,9 +10,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Charts.Graphics;
-using Enigma.Frontend.Ui.Charts.Progressive;
-using Enigma.Frontend.Ui.Charts.Progressive.InputEvent;
-using Enigma.Frontend.Ui.Charts.Progressive.InputTransits;
 using Enigma.Frontend.Ui.Charts.Shared;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
@@ -175,8 +172,6 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private void NewEvent()
     {
-        ProgInputEvent inputEventWindow = new ProgInputEvent();
-        inputEventWindow.ShowDialog();
         // todo handle input event
     }
 
@@ -198,46 +193,31 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void PrimDir()
     {
-        // TODO convert method PrimDir to use window that confirms to mvm
-        ChartProgPrimInput primInput = new ();
-        OpenWindow(primInput);
-        primInput.Populate();
+        // TODO handle PrimDir
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void SecDir()
     {
-        // TODO convert method SecDir to use window that confirms to mvm
-        ChartProgSecInput secInput = new();
-        OpenWindow(secInput);
-        secInput.Populate();
+        // TODO handle SecDir
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Transits()
     {
-        // TODO convert method Transits to use window that confirms to mvm
-        ProgInputTransits transInput = new();
-        OpenWindow(transInput);
-        transInput.Populate();
+        // TODO handle transits
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void SymDir()
     {
-        // TODO convert method SymDir to use window that confirms to mvm
-        ChartProgSymInput symInput = new();
-        OpenWindow(symInput);
-        symInput.Populate();
+        // TODO handle SymDir
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Solar()
     {
-        // TODO convert method Solar to use window that confirms to mvm
-        ChartProgSolarInput solarInput = new();
-        OpenWindow(solarInput);
-        solarInput.Populate();
+        // TODO handle solar return ??
     }
 
     [RelayCommand]

@@ -47,7 +47,7 @@ public class GeoLongValidator : IGeoLongValidator
         return $"{directionIndicator}{_longValues[0]}:{_longValues[1]:d2}:{_longValues[2]:d2}";
     }
 
-    private static bool CheckMinAndMaxValues(int[] valuesToCheck)
+    private static bool CheckMinAndMaxValues(IReadOnlyList<int> valuesToCheck)
     {
         bool result = !(valuesToCheck[0] < 0 || valuesToCheck[0] > 180);
         if (valuesToCheck[1] < 0 || valuesToCheck[1] > 59) result = false;

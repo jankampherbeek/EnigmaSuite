@@ -30,7 +30,7 @@ public class SexagesimalConversions : ISexagesimalConversions
         return SexagesimalToDouble(inputTime);
     }
 
-    private static double SexagesimalToDouble(string[] texts)
+    private static double SexagesimalToDouble(IReadOnlyList<string> texts)
     {
         try
         {

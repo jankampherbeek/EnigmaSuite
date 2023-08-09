@@ -40,7 +40,7 @@ public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
         {
             if (celPoint.Key != ChartPoints.EastPoint && celPoint.Key != ChartPoints.Vertex)
             {
-                char glyph = _glyphsForChartPoints.FindGlyph(celPoint.Key);
+                char glyph = GlyphsForChartPoints.FindGlyph(celPoint.Key);
                 double radixPos = celPoint.Value.Ecliptical.MainPosSpeed.Position;
                 double harmonicPos = harmonicPositions[counterCelPoints++];
                 presentableHarmonics.Add(CreatePresHarmonic(glyph, radixPos, harmonicPos));

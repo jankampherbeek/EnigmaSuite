@@ -32,7 +32,7 @@ public class DateValidator : IDateValidator
         return success;
     }
 
-    private static string CreateFullDateText(int[] dateValues, Calendars calendar)
+    private static string CreateFullDateText(IReadOnlyList<int> dateValues, Calendars calendar)
     {
         string yearText = $"{dateValues[0]:D4}";
         if (dateValues[0] > 9999 || dateValues[0] < -9999)
@@ -50,7 +50,7 @@ public class DateValidator : IDateValidator
         return postFixes[monthId - 1];
     }
 
-    private bool CheckCalendarRules(int[] dateValues, Calendars calendar, YearCounts yearCount)
+    private bool CheckCalendarRules(IList<int> dateValues, Calendars calendar, YearCounts yearCount)
     {
         if (yearCount == YearCounts.BCE) dateValues[0] = -dateValues[0] + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);

@@ -26,12 +26,16 @@ public class PointsExclusionManager : IPointsExclusionManager
             case ResearchMethods.CountUnaspected: return ExclusionForUnAspectedCounting();
             case ResearchMethods.CountOccupiedMidpoints: return ExclusionForMidpoints();
             case ResearchMethods.CountHarmonicConjunctions: return ExclusionForHarmonics();
+            case ResearchMethods.None: 
+            {
+                Log.Error("PointsExclusionManager.DefineExclusions() encountered researchMethod None");
+                throw new EnigmaException("ResearchMethod None.");
+            }
             default:
-                {
-                    string errorTxt = "PointsExclusionManager.DefineExclusions(). Did not recognize researchMethod: " + researchMethod;
-                    Log.Error(errorTxt);
-                    throw new EnigmaException(errorTxt);
-                }
+            {
+                Log.Error("PointsExclusionManager.DefineExclusions(). Did not recognize researchMethod: {Method}", researchMethod);
+                throw new EnigmaException("Wrong ResearchMethod");
+            }
         }
     }
 

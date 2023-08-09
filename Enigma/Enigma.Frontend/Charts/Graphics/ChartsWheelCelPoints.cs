@@ -48,7 +48,7 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
             Point point1 = dimPoint.CreatePoint(angle, metrics.CelPointGlyphRadius);
             TextBlock glyph = new()
             {
-                Text = _glyphsForChartPoints.FindGlyph(graphPoint.CelPoint).ToString(),
+                Text = GlyphsForChartPoints.FindGlyph(graphPoint.CelPoint).ToString(),
                 FontFamily = metrics.GlyphsFontFamily,
                 FontSize = fontSize,
                 Foreground = new SolidColorBrush(metrics.CelPointColor)

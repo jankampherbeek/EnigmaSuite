@@ -104,6 +104,7 @@ public interface IControlGroupRng
     /// <returns>The generated values. If not maxExclusive > 0, or if count is invalid, an empty list is returned.</returns>
     List<int> GetIntegers(int maxExclusive, int count);
 
+    // TODO 0.2 check if SHuffleList is required. Currently, it is not used.
     List<int> ShuffleList(List<int> data);
     List<double> ShuffleList(List<double> data);
 }
@@ -149,7 +150,7 @@ public interface IInputDataConverter
 
 
     /// <summary>Create Json from StandardInput.</summary>
-    /// <param name="inputItem">The StandardInput to convert.</param>
+    /// <param name="standardInput">The StandardInput to convert.</param>
     /// <returns>The Json result.</returns>
     public string MarshallStandardInput(StandardInput standardInput);
 
@@ -167,7 +168,7 @@ public interface IResearchPaths
     /// <param name="projName">Name for project.</param>
     /// <param name="useControlGroup">True if data contains a controlgroup, false if data contains testcases.</param>
     /// <returns>String with full path to the required data, including the filename.</returns>
-    public string DataPath(String projName, bool useControlGroup);
+    public string DataPath(string projName, bool useControlGroup);
 
     /// <summary>Path to result files with positions.</summary>
     /// <param name="projName">Name for project.</param>
@@ -214,14 +215,12 @@ public interface IResearchMethodUtils
     /// <summary>Find the index for a chart point in a list with psotioned points.</summary>
     /// <param name="point">The chart point for which to find the index.</param>
     /// <param name="allPoints">Positioned points.</param>
-    /// <exception cref="EnigmaException">Is thrown if index was not found.</exception>
-    /// <returns>If found: the index.</returns>
+    /// <returns>If found: the index. Otherwise: throws EnigmaException.</returns>
     public int FindIndexForPoint(ChartPoints point, List<PositionedPoint> allPoints);
 
     /// <summary>Find the index for an aspect type in list with aspect config specs.</summary>
     /// <param name="aspectType">The aspect type for which to find the index.</param>
     /// <param name="allAspects">Aspect config specs.</param>
-    /// <exception cref="EnigmaException">Is thrown if index was not found.</exception>
-    /// <returns>If found: the index.</returns>
+    /// <returns>If found: the index.  Otherwise: throws EnigmaException.</returns>
     public int FindIndexForAspectType(AspectTypes aspectType, Dictionary<AspectTypes, AspectConfigSpecs> allAspects);
 }

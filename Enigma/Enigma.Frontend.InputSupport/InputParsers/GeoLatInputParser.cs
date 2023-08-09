@@ -27,9 +27,8 @@ public class GeoLatInputParser : IGeoLatInputParser
     public bool HandleGeoLat(string inputGeoLat, Directions4GeoLat direction, out FullGeoLatitude? fullGeoLatitude)
     {
         fullGeoLatitude = null;
-        bool validationSuccess;
         (int[] geoLatNumbers, bool geoLatSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputGeoLat, EnigmaConstants.SeparatorGeolat);
-        validationSuccess = geoLatSuccess && _geoLatValidator.CreateCheckedLatitude(geoLatNumbers, direction, out fullGeoLatitude);
+        bool validationSuccess = geoLatSuccess && _geoLatValidator.CreateCheckedLatitude(geoLatNumbers, direction, out fullGeoLatitude);
         return validationSuccess;
     }
 }

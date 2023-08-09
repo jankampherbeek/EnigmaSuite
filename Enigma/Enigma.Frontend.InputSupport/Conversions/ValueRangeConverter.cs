@@ -19,11 +19,11 @@ public class ValueRangeConverter : IValueRangeConverter
         return CreateNumerics(strings);
     }
 
-    private static (int[] numbers, bool success) CreateNumerics(string[] strings)
+    private static (int[] numbers, bool success) CreateNumerics(IReadOnlyList<string> strings)
     {
         bool success = true;
-        int[] numbers = new int[strings.Length];
-        for (int i = 0; i < strings.Length; i++)
+        int[] numbers = new int[strings.Count];
+        for (int i = 0; i < strings.Count; i++)
         {
             bool isValid = int.TryParse(strings[i], out numbers[i]);
             if (!isValid) success = false;

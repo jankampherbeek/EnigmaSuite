@@ -48,7 +48,7 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
     }
 
 
-    private List<StandardInputItem> CreateControlData(List<StandardInputItem> inputItems, int sequence)
+    private IEnumerable<StandardInputItem> CreateControlData(List<StandardInputItem> inputItems, int sequence)
     {
         _controlGroupItems.Clear();
         ProcessInputData(inputItems);
@@ -147,14 +147,14 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
         return month;
     }
 
-    private static int GetFromList(List<int> theList)
+    private static int GetFromList(IList<int> theList)
     {
         int result = theList[0];
         theList.RemoveAt(0);
         return result;
     }
 
-    private static double GetFromList(List<double> theList)
+    private static double GetFromList(IList<double> theList)
     {
         double result = theList[0];
         theList.RemoveAt(0);

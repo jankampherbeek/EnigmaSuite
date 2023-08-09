@@ -57,16 +57,14 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
     private static int DefineNumberOfParts(GeneralResearchRequest request)
     {
-        switch (request.Method)
-        {
-            case ResearchMethods.CountPosInSigns:
-                return 12;
-            case ResearchMethods.CountPosInHouses:
-                return request.Config.HouseSystem.GetDetails().NrOfCusps;
-            default:
-                Log.Error("PointsInPartsCounting: unsupported method in request: {Method}", request.Method);
-                throw new ArgumentException("Unsupported method in GeneralResearchRequest");
-        }
+        // ReSharper disable once ConvertIfStatementToSwitchStatement
+        if (request.Method == ResearchMethods.CountPosInSigns) return 12;
+        if (request.Method == ResearchMethods.CountPosInHouses)
+            return request.Config.HouseSystem.GetDetails().NrOfCusps;
+
+        Log.Error("PointsInPartsCounting: unsupported method in request: {Method}", request.Method);
+        throw new ArgumentException("Unsupported method in GeneralResearchRequest");
+
     }
 
 
@@ -88,21 +86,17 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
                 where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
                 select posPoint).ToDictionary(x => x.Key, x => x.Value);
 
-            foreach (KeyValuePair<ChartPoints, FullPointPos> commonPointPos in pointPositions)
+            foreach (int partIndex in from commonPointPos in pointPositions 
+                     let partIndex = -1 where commonPointPos.Key == selectedCelPoint 
+                     let longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position 
+                     select researchMethod switch
+                     {
+                         ResearchMethods.CountPosInSigns => SignIndex(longitude),
+                         ResearchMethods.CountPosInHouses => DefineHouseNr(longitude, nrOfParts, chart.Positions),
+                         _ => partIndex
+                     } into partIndex where partIndex >= 0 select partIndex)
             {
-                int partIndex = -1;
-                if (commonPointPos.Key != selectedCelPoint) continue;
-                double longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position;
-                switch (researchMethod)
-                {
-                    case ResearchMethods.CountPosInSigns:
-                        partIndex = SignIndex(longitude);
-                        break;
-                    case ResearchMethods.CountPosInHouses:
-                        partIndex = DefineHouseNr(longitude, nrOfParts, chart.Positions);
-                        break;
-                }
-                if (partIndex >= 0) allCounts[pointIndex].Counts[partIndex]++;
+                allCounts[pointIndex].Counts[partIndex]++;
             }
             pointIndex++;
         }
@@ -120,7 +114,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         return (int)longitude / 30;
     }
 
-    private static List<int> CountTotals(List<CountOfParts> allCounts)
+    private static List<int> CountTotals(IReadOnlyList<CountOfParts> allCounts)
     {
         List<int> totals = new();
         int nrOfParts = allCounts.Count > 0 ? allCounts[0].Counts.Count : 0;

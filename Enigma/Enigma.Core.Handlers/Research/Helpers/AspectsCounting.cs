@@ -87,7 +87,8 @@ public sealed class AspectsCounting : IAspectsCounting
 
 
 
-    private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize, int[,,] allCounts, List<PositionedPoint> posPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects)
+    private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize,
+        int[,,] allCounts, IReadOnlyCollection<PositionedPoint> posPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects)
     {
         List<AspectTypes> aspectTypes = aspects.Select(acSpec => acSpec.Key).ToList();
         List<ChartPoints> chartPoints = posPoints.Select(posPoint => posPoint.Point).ToList();

@@ -67,7 +67,7 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
                     return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, midpointsRequest);
             }
         }
-
+        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (method)
         {
             case ResearchMethods.CountUnaspected:
@@ -78,9 +78,12 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
                 return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
             case ResearchMethods.CountPosInHouses:
                 return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+            case ResearchMethods.None:
+                Log.Error("ResearchMethodHandler.HandleResearch() received a request with ResearchMethods.None");
+                throw new EnigmaException("ResearchMeethod.None in request for ResearchMethodHandler");
             default:
                 Log.Error("ResearchMethodHandler.HandleResearch() received an unrecognized request : {Request}", request);
-                throw new EnigmaException("Unrecognized request for ResearchMethodHandler");
+                throw new EnigmaException("Unrecognized ResearchMethod in request for ResearchMethodHandler");
         }
     }
 

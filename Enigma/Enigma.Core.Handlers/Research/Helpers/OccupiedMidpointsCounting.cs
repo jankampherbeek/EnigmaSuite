@@ -7,7 +7,6 @@ using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Research.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
 using Enigma.Domain.Research;
@@ -37,31 +36,30 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
     }
 
 
-    private CountOfOccupiedMidpointsResponse PerformCount(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
+    private CountOfOccupiedMidpointsResponse PerformCount(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
     {
-        AstroConfig config = request.Config;
         List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
 
         double dialSize = 360.0 / request.DivisionForDial;
-        double orb = 1.6;           // todo 0.2 use orb from config
+        const double orb = 1.6; // todo 0.2 use orb from config
 
-        foreach (CalculatedResearchChart calcResearchChart in charts)
+        foreach (OccupiedMidpointStructure mpStructure in from calcResearchChart in charts 
+                 let commonPositions = (
+                     from posPoint in calcResearchChart.Positions
+                     where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
+                     select posPoint).ToDictionary(x => x.Key, x => x.Value) 
+                 select _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection) 
+                 into relevantChartPointPositions 
+                 select _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true) 
+                 into posPoints select _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb) 
+                 into occupiedMidpoints 
+                 from mpStructure 
+                     in occupiedMidpoints.Select(occupiedMidpoint 
+                     => new OccupiedMidpointStructure(occupiedMidpoint.Midpoint.Point1.Point, 
+                         occupiedMidpoint.Midpoint.Point2.Point, occupiedMidpoint.OccupyingPoint.Point)) select mpStructure)
         {
-            Dictionary<ChartPoints, FullPointPos> commonPositions = (
-                from posPoint in calcResearchChart.Positions
-                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
-                select posPoint).ToDictionary(x => x.Key, x => x.Value);
-            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
-            List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
-            List<OccupiedMidpoint> occupiedMidpoints = _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb);
-
-            foreach (OccupiedMidpointStructure mpStructure in occupiedMidpoints.Select(occupiedMidpoint 
-                         => new OccupiedMidpointStructure(occupiedMidpoint.Midpoint.Point1.Point, 
-                             occupiedMidpoint.Midpoint.Point2.Point, occupiedMidpoint.OccupyingPoint.Point)))
-            {
-                allCounts[mpStructure]++;
-            }
+            allCounts[mpStructure]++;
         }
         return new CountOfOccupiedMidpointsResponse(request, allCounts);
     }
@@ -69,7 +67,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
 
     private static Dictionary<OccupiedMidpointStructure, int> InitializeAllCounts(List<ChartPoints> selectedPoints)
     {
-        int countValue = 0;
+        const int countValue = 0;
         Dictionary<OccupiedMidpointStructure, int> allCounts = new();
         foreach (ChartPoints firstPoint in selectedPoints)
         {

@@ -56,7 +56,7 @@ public class TimeValidator : ITimeValidator
         return fullText;
     }
 
-    private static bool CheckMinAndMaxValues(int[] valuesToCheck)
+    private static bool CheckMinAndMaxValues(IReadOnlyList<int> valuesToCheck)
     {
         bool result = !(valuesToCheck[0] < 0 || valuesToCheck[0] > 23);
         if (valuesToCheck[1] < 0 || valuesToCheck[1] > 59) result = false;

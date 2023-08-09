@@ -41,7 +41,7 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
 
     private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints, FullPointPos> commonPos)
     {
-        char pointGlyph = _glyphsForChartPoints.FindGlyph(commonPos.Key);
+        char pointGlyph = GlyphsForChartPoints.FindGlyph(commonPos.Key);
         double longPos = commonPos.Value.Ecliptical.MainPosSpeed.Position;
         double longSpeed = commonPos.Value.Ecliptical.MainPosSpeed.Speed;
         string longSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(longSpeed);

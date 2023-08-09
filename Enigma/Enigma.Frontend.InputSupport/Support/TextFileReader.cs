@@ -10,12 +10,7 @@ namespace Enigma.Frontend.Helpers.Support;
 
 public class TextFileReader : ITextFileReaderFe
 {
-    private IEnumerable<string> _lines;
-
-    public TextFileReader()
-    {
-        _lines = new List<string>();
-    }
+    private IEnumerable<string> _lines = new List<string>();
 
     public string ReadAllText(string fileName)
     {
@@ -25,10 +20,11 @@ public class TextFileReader : ITextFileReaderFe
 
     public IEnumerable<string> ReadSeparatedLines(string fileName)
     {
+        IEnumerable<string> readSeparatedLines = _lines.ToList();
         try
         {
             _lines = File.ReadLines(fileName);
-            return _lines;
+            return readSeparatedLines;
         }
         catch (FileNotFoundException e)
         {
@@ -38,9 +34,9 @@ public class TextFileReader : ITextFileReaderFe
         catch (IOException e)
         {
             Log.Error("An IOException was thrown while reading file {FileName}. The exception msg was : {Msg}", 
-                fileName, e);
+                fileName, e.Message);
         }
-        return _lines;
+        return readSeparatedLines;
 
     }
 }
