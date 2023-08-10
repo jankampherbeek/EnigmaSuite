@@ -28,7 +28,7 @@ public class TestAspectForDataGridFactory
         dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(10.0)).Returns("10" + EnigmaConstants.DegreeSign + "00" + EnigmaConstants.MinuteSign + "00" + EnigmaConstants.SecondSign);
         IAspectForDataGridFactory aspectForDataGridFactory = new AspectForDataGridFactory(dmsConversionsMock.Object);
 
-        List<DefinedAspect> definedAspects = CreateDefinedAspects();
+        IEnumerable<DefinedAspect> definedAspects = CreateDefinedAspects();
         List<PresentableAspects> presAspects = aspectForDataGridFactory.CreateAspectForDataGrid(definedAspects);
 
         Assert.Multiple(() =>
@@ -44,12 +44,12 @@ public class TestAspectForDataGridFactory
         });
     }
 
-    private static List<DefinedAspect> CreateDefinedAspects()
+    private static IEnumerable<DefinedAspect> CreateDefinedAspects()
     {
         List<DefinedAspect> definedAspects = new()
         {
-            new DefinedAspect(ChartPoints.Sun, ChartPoints.Moon, new AspectDetails(AspectTypes.Conjunction, 0.0, "ref.enum.aspect.conjunction", 'B', 1.0), 10.0, 3.0),
-            new DefinedAspect(ChartPoints.Ascendant, ChartPoints.Jupiter, new AspectDetails(AspectTypes.Square, 90.0, "ref.enum.aspect.square", 'E', 0.85), 10.0, 2.5)
+            new DefinedAspect(ChartPoints.Sun, ChartPoints.Moon, new AspectDetails(AspectTypes.Conjunction, 0.0, "Conjunction", 'B', 1.0), 10.0, 3.0),
+            new DefinedAspect(ChartPoints.Ascendant, ChartPoints.Jupiter, new AspectDetails(AspectTypes.Square, 90.0, "Square", 'E', 0.85), 10.0, 2.5)
         };
         return definedAspects;
 

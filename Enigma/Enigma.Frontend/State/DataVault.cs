@@ -21,7 +21,7 @@ public sealed class DataVault
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
     public ResearchProject? CurrentProject { get; set; }
-    public ResearchMethods ResearchMethod { get; set; } = ResearchMethods.None;
+    public ResearchMethods ResearchMethod { get; set; } 
     public ResearchPointsSelection? CurrentPointsSelection { get; set; }
     public bool ResearchIncludeCusps { get; set; }
     public MethodResponse? ResponseTest { get; set; }

@@ -13,7 +13,8 @@ namespace Enigma.Frontend.Ui.Charts.Graphics;
 public sealed class ChartsWheelMetrics
 {
     // Fixed values
-    public double MinDistance { get; } = 6.0;
+    public static double MinDistance => 6.0;
+
     // Fonts
     public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrology");
     public FontFamily PositionTextsFontFamily { get; } = new ("Calibri");
@@ -30,33 +31,33 @@ public sealed class ChartsWheelMetrics
     // Opacities
     public double CuspLineOpacity => 0.5;
     public double CuspTextOpacity => 1.0;
-    public double CelPointConnectLineOpacity => 0.25;
-    public double AspectOpacity => 0.4;
+    public static double CelPointConnectLineOpacity => 0.25;
+    public static double AspectOpacity => 0.4;
 
     // Circles and radiuses
-    public double OuterCircle { get; private set; }
+    private double OuterCircle { get; set; }
     public double OuterRadius { get; private set; }
-    public double OuterSignCircle { get; private set; }
+    private double OuterSignCircle { get; set; }
     public double OuterSignRadius { get; private set; }
-    public double OuterHouseCircle { get; private set; }
+    private double OuterHouseCircle { get; set; }
     public double OuterHouseRadius { get; private set; }
-    public double OuterAspectCircle { get; private set; }
+    private double OuterAspectCircle { get; set; }
     public double OuterAspectRadius { get; private set; }
-    public double SignGlyphCircle { get; private set; }
+    private double SignGlyphCircle { get; set; }
     public double SignGlyphRadius { get; private set; }
-    public double CuspTextCircle { get; private set; }
+    private double CuspTextCircle { get; set; }
     public double CuspTextRadius { get; private set; }
-    public double CelPointGlyphCircle { get; private set; }
+    private double CelPointGlyphCircle { get; set; }
     public double CelPointGlyphRadius { get; private set; }
-    public double OuterConnectionCircle { get; private set; }
+    private double OuterConnectionCircle { get; set; }
     public double OuterConnectionRadius { get; private set; }
-    public double DegreesCircle { get; private set; }
+    private double DegreesCircle { get; set; }
     public double DegreesRadius { get; private set; }
-    public double Degrees5Circle { get; private set; }
+    private double Degrees5Circle { get; set; }
     public double Degrees5Radius { get; private set; }
-    public double CelPointTextCircle { get; private set; }
+    private double CelPointTextCircle { get; set; }
     public double CelPointTextRadius { get; private set; }
-    public double CardinalIndicatorCircle { get; private set; }
+    private double CardinalIndicatorCircle { get; set; }
     public double CardinalIndicatorRadius { get; private set; }
 
 

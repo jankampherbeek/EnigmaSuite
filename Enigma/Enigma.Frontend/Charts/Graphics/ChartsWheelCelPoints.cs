@@ -39,7 +39,7 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
     {
         List<TextBlock> glyphs = new();
 
-        List<GraphicCelPointPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(commonPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(commonPoints, longAscendant, ChartsWheelMetrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         double fontSize = metrics.CelPointGlyphSize;
         foreach (var graphPoint in graphicSolCelPointsPositions)
@@ -62,18 +62,18 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
 
     public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
-        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, ChartsWheelMetrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         return (from graphPoint in graphicCelPointsPositions 
             let point1 = dimPoint.CreatePoint(graphPoint.PlotPos, metrics.OuterConnectionRadius) 
             let point2 = dimPoint.CreatePoint(graphPoint.MundanePos, metrics.OuterAspectRadius) 
-            select DimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.CelPointConnectLineColor, metrics.CelPointConnectLineOpacity)).ToList();
+            select DimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.CelPointConnectLineColor, ChartsWheelMetrics.CelPointConnectLineOpacity)).ToList();
     }
 
     public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> texts = new();
-        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, metrics.MinDistance);
+        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, ChartsWheelMetrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         foreach (var graphPoint in graphicCelPointsPositions)
         {

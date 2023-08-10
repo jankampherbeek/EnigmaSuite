@@ -44,7 +44,6 @@ public class ResearchPointSelectionModel
     
     private List<SelectableChartPointDetails> DefineChartPoints(ResearchMethods method)
     {
-        if (method == ResearchMethods.None) return _selCpDetails;
         MinimalNrOfPoints = method.GetDetails().MinNumberOfPoints;
         
         _astroConfig = CurrentConfig.Instance.GetConfig();

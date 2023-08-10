@@ -29,7 +29,7 @@ public class TestChartPoints
     {
         foreach (ChartPoints point in Enum.GetValues(typeof(ChartPoints)))
         {
-            if (point == ChartPoints.None) continue;
+            if (point == ChartPoints.Sun) continue;
             PointDetails details = point.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Text, Is.Not.Empty);
@@ -48,13 +48,13 @@ public class TestChartPoints
     public void TestRetrievingWithWrongIndex()
     {
         const int index = -100;
-        Assert.That(() => _ = ChartPoints.None.PointForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ChartPoints.Sun.PointForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllChartPointDetails()
     {
-        List<PointDetails> allDetails = ChartPoints.None.AllDetails();
+        List<PointDetails> allDetails = ChartPoints.Sun.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(92));

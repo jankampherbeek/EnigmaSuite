@@ -29,9 +29,9 @@ public record PointPosSpeeds
     public readonly PosSpeed DeviationPosSpeed;
     public readonly PosSpeed DistancePosSpeed;
 
-    public PointPosSpeeds(double[] values)
+    public PointPosSpeeds(IReadOnlyList<double> values)
     {
-        if (values.Length != 6) throw new ArgumentException("Wrong number of values for PointSpeeds.");
+        if (values.Count != 6) throw new ArgumentException("Wrong number of values for PointSpeeds.");
         MainPosSpeed = new PosSpeed(values[0], values[1]);
         DeviationPosSpeed = new PosSpeed(values[2], values[3]);
         DistancePosSpeed = new PosSpeed(values[4], values[5]);

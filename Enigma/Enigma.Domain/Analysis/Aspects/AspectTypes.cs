@@ -81,7 +81,7 @@ public static class AspectTypesExtensions
  
     /// <summary>Retrieve details for items in the enum AspectTypes.</summary>
     /// <returns>All details.</returns>
-    public static List<AspectDetails> AllDetails(this AspectTypes _)
+    public static IEnumerable<AspectDetails> AllDetails(this AspectTypes _)
     {
         return (from AspectTypes currentAspect in Enum.GetValues(typeof(AspectTypes)) select currentAspect.GetDetails()).ToList();
     }

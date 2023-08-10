@@ -14,21 +14,8 @@ namespace Enigma.Domain.Charts;
 /// <param name="MetaData">Metadata for this chart.</param>
 /// <param name="Location">Location related data.</param>
 /// <param name="FullDateTime">Date/time related data.</param>
-public record ChartData
+public record ChartData(int Id, MetaData MetaData, Location Location, FullDateTime FullDateTime)
 {
-    public int Id { get; set; }
-    public MetaData MetaData { get; }
-    public Location Location { get; }
-    public FullDateTime FullDateTime { get; }
-
-    public ChartData(int Id, MetaData MetaData, Location Location, FullDateTime FullDateTime)
-    {
-        this.Id = Id;
-        this.MetaData = MetaData;
-        this.Location = Location;
-        this.FullDateTime = FullDateTime;
-    }
-
-
+    public int Id { get; set; } = Id;
 }
 

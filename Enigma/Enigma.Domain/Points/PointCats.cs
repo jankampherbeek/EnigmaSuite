@@ -20,14 +20,14 @@ namespace Enigma.Domain.Points;
 /// </remarks>
 public enum PointCats
 {
-    None = -1, Common = 0, Angle = 1, Cusp = 2, Zodiac = 3, Lots = 4, FixStar = 5
+    Common = 0, Angle = 1, Cusp = 2, Zodiac = 3, Lots = 4, FixStar = 5
 }
 
 
 /// <summary>Details for the category of a point.</summary>
 /// <param name="Category">The category of the point.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record PointCatDetails(PointCats Category, string TextId);
+/// <param name="Text">Descriptive text.</param>
+public record PointCatDetails(PointCats Category, string Text);
 
 
 
@@ -41,23 +41,22 @@ public static class PointCatsExtensions
     {
         return cat switch
         {
-            PointCats.Common => new PointCatDetails(cat, "ref.enum.pointcats.common"),
-            PointCats.Angle => new PointCatDetails(cat, "ref.enum.pointcats.angle"),
-            PointCats.Cusp => new PointCatDetails(cat, "ref.enum.pointcats.cusp"),
-            PointCats.Zodiac => new PointCatDetails(cat, "ref.enum.pointcats.zodiac"),
-            PointCats.Lots => new PointCatDetails(cat, "ref.enum.pointcats.arabic"),
-            PointCats.FixStar => new PointCatDetails(cat, "ref.enum.pointcats.fixstar"),
+            PointCats.Common => new PointCatDetails(cat, "Planets and comparable points"),
+            PointCats.Angle => new PointCatDetails(cat, "Mundane angles"),
+            PointCats.Cusp => new PointCatDetails(cat, "Cusps"),
+            PointCats.Zodiac => new PointCatDetails(cat, "Zodiac points"),
+            PointCats.Lots => new PointCatDetails(cat, "Arabic points"),
+            PointCats.FixStar => new PointCatDetails(cat, "Fix star"),
             _ => throw new ArgumentException("PointCat unknown : " + cat)
         };
     }
-
 
     /// <summary>Retrieve details for items in the enum PointCats.</summary>
     /// <returns>All details.</returns>
     public static List<PointCatDetails> AllDetails(this PointCats _)
     {
         return (from PointCats currentCat in Enum.GetValues(typeof(PointCats)) 
-            where currentCat != PointCats.None select currentCat.GetDetails()).ToList();
+            select currentCat.GetDetails()).ToList();
     }
 
 

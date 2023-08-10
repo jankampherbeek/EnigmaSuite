@@ -74,7 +74,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
             if (drawCoordSs1 == null || drawCoordSs2 == null) continue;
             Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
             Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
-            Line connectionLine = DimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, metrics.AspectOpacity);
+            Line connectionLine = DimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, ChartsWheelMetrics.AspectOpacity);
             aspectLines.Add(connectionLine);
 
         }

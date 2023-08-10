@@ -20,7 +20,7 @@ public class TestPointCats
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Category, Is.EqualTo(pointCat));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.pointcats.common"));
+            Assert.That(details.Text, Is.EqualTo("Planets and comparable points"));
         });
     }
 
@@ -29,10 +29,9 @@ public class TestPointCats
     {
         foreach (PointCats category in Enum.GetValues(typeof(PointCats)))
         {
-            if (category == PointCats.None) continue;
             PointCatDetails details = category.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -41,7 +40,7 @@ public class TestPointCats
     public void TestRetrievingWithIndex()
     {
         const int index = 4;
-        PointCats cat = PointCats.None.PointCatForIndex(index);
+        PointCats cat = PointCats.Angle.PointCatForIndex(index);
         Assert.That(cat, Is.EqualTo(PointCats.Lots));
     }
 
@@ -49,18 +48,17 @@ public class TestPointCats
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 55000;
-        Assert.That(() => _ = PointCats.None.PointCatForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = PointCats.Angle.PointCatForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllPointCatDetails()
     {
-        List<PointCatDetails> allDetails = PointCats.None.AllDetails();
+        List<PointCatDetails> allDetails = PointCats.Angle.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));
-
-            Assert.That(allDetails[0].TextId, Is.EqualTo("ref.enum.pointcats.common"));
+            Assert.That(allDetails[0].Text, Is.EqualTo("Planets and comparable points"));
             Assert.That(allDetails[1].Category, Is.EqualTo(PointCats.Angle));
         });
     }

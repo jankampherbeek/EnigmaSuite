@@ -8,7 +8,6 @@ namespace Enigma.Domain.Research;
 /// <summary>Available methods to perform research.</summary>
 public enum ResearchMethods
 {
-    None = -1,               // empty placeholder to facilitate extension methods.
     CountPosInSigns = 0,
     CountPosInHouses = 1,
     CountAspects = 2,
@@ -43,7 +42,6 @@ public static class ResearchMethodsExtensions
             ResearchMethods.CountUnaspected => new ResearchMethodDetails(method, 1,"Count unaspected celestial points"),
             ResearchMethods.CountOccupiedMidpoints => new ResearchMethodDetails(method, 3,"Count occupied midpoints"),
             ResearchMethods.CountHarmonicConjunctions => new ResearchMethodDetails(method, 1,"Count harmonic conjunctions"),
-            ResearchMethods.None => throw new ArgumentException("ResearchMethod unknown : " + method),
             _ => throw new ArgumentException("ResearchMethod unknown : " + method)
         };
     }
@@ -53,7 +51,7 @@ public static class ResearchMethodsExtensions
     public static List<ResearchMethodDetails> AllDetails(this ResearchMethods _)
     {
         return (from ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)) 
-            where methodCurrent != ResearchMethods.None select methodCurrent.GetDetails()).ToList();
+            select methodCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find ResearchMethod for given index.</summary>

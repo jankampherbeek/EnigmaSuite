@@ -13,18 +13,12 @@ namespace Enigma.Domain.Charts;
 public sealed class CurrentCharts : ICurrentCharts
 {
     /// <inheritdoc/>
-    public int IdPrimaryChart { get; set; }
+    public int IdPrimaryChart { get; set; } = -1;
+
     /// <inheritdoc/>
-    public int IdSecondaryChart { get; set; }
+    public int IdSecondaryChart { get; set; } = -1;
 
-    private List<CalculatedChart> AllCurrentCharts { get; }
-
-    public CurrentCharts()
-    {
-        IdPrimaryChart = -1;
-        IdSecondaryChart = -1;
-        AllCurrentCharts = new List<CalculatedChart>();
-    }
+    private List<CalculatedChart> AllCurrentCharts { get; } = new();
 
     /// <inheritdoc/>
     public void AddChart(CalculatedChart newChart, bool isPrimary, bool isSecondary)

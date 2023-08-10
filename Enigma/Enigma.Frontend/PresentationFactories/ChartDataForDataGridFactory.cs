@@ -16,7 +16,7 @@ public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
 {
 
     /// <inherritdoc/>
-    public List<PresentableChartData> CreateChartDataForDataGrid(List<CalculatedChart> charts)
+    public List<PresentableChartData> CreateChartDataForDataGrid(IEnumerable<CalculatedChart> charts)
     {
         return (from chart in charts 
             let id = chart.InputtedChartData.Id.ToString() 

@@ -19,8 +19,8 @@ public class TestSigns
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Sign, Is.EqualTo(Signs.Cancer));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.sign.cancer.text"));
-            Assert.That(details.TextIdAbbreviated, Is.EqualTo("ref.enum.sign.cancer.abbr"));
+            Assert.That(details.Text, Is.EqualTo("Cancer"));
+            Assert.That(details.TextAbbreviated, Is.EqualTo("CAN"));
         });
     }
 
@@ -29,10 +29,9 @@ public class TestSigns
     {
         foreach (Signs sign in Enum.GetValues(typeof(Signs)))
         {
-            if (sign == Signs.None) continue;
             SignDetails details = sign.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -40,7 +39,7 @@ public class TestSigns
     public void TestRetrievingWithIndex()
     {
         const int signIndex = 2;
-        Signs sign = Signs.None.SignForIndex(signIndex);
+        Signs sign = Signs.Aries.SignForIndex(signIndex);
         Assert.That(sign, Is.EqualTo(Signs.Taurus));
     }
 
@@ -48,7 +47,7 @@ public class TestSigns
     public void TestRetrievingWithWrongIndex()
     {
         const int signIndex = 300;
-        Assert.That(() => _ = Signs.None.SignForIndex(signIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = Signs.Aries.SignForIndex(signIndex), Throws.TypeOf<ArgumentException>());
     }
 
 

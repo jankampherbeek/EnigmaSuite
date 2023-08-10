@@ -48,7 +48,7 @@ public partial class ProjectUsageViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsMethodSelected))]
     private void PerformTest()
     {
-        ResearchMethods method = ResearchMethods.None.ResearchMethodForIndex(MethodIndex);
+        ResearchMethods method = ResearchMethods.CountAspects.ResearchMethodForIndex(MethodIndex);
         DataVault.Instance.ResearchMethod = method;
         bool sufficientSelections = false;
         int minNumber = method.GetDetails().MinNumberOfPoints;
@@ -72,7 +72,7 @@ public partial class ProjectUsageViewModel: ObservableObject
             new ResearchHarmonicDetailsWindow().ShowDialog();
         }
         
-        _model.PerformRequest(ResearchMethods.None.ResearchMethodForIndex(MethodIndex));
+        _model.PerformRequest(ResearchMethods.CountAspects.ResearchMethodForIndex(MethodIndex));
         new ResearchResultWindow().ShowDialog();
     }
 

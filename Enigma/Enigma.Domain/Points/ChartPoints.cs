@@ -13,7 +13,7 @@ namespace Enigma.Domain.Points;
 /// <remarks>Any point that can be shown in a chart.</remarks>
 public enum ChartPoints
 {
-    None = -1, Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth = 4, Mars = 5, Jupiter = 6, Saturn = 7,
+    Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth = 4, Mars = 5, Jupiter = 6, Saturn = 7,
     Uranus = 8, Neptune = 9, Pluto = 10,
     MeanNode = 11, TrueNode = 12, Chiron = 13,
     PersephoneRam = 14, HermesRam = 15, DemeterRam = 16,
@@ -155,8 +155,7 @@ public static class PointsExtensions
     /// <returns>All details.</returns>
     public static List<PointDetails> AllDetails(this ChartPoints _)
     {
-        return (from ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints)) 
-            where currentPoint != ChartPoints.None 
+        return (from ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints))
             select currentPoint.GetDetails()).ToList();
     }
 

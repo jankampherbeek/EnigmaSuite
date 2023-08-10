@@ -17,7 +17,6 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
     {
         return point switch
         {
-            ChartPoints.None => EMPTY_GLYPH,
             ChartPoints.Sun => 'a',
             ChartPoints.Moon => 'b',
             ChartPoints.Mercury => 'c',
