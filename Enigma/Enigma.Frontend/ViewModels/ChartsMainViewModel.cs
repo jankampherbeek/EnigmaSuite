@@ -79,8 +79,8 @@ public partial class ChartsMainViewModel: ObservableObject
         CurrentlySelectedChart = "Currently selected : " + _model.CurrentChartName();
         SelectedChart = _model.CurrentChart();
     }
-    
-    public void PopulateAvailableCharts()
+
+    private void PopulateAvailableCharts()
     {
         AvailableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
         
@@ -110,7 +110,6 @@ public partial class ChartsMainViewModel: ObservableObject
         int newIndex = _model.SaveCurrentChart();
         if (_dataVault.GetCurrentChart() == null) return;
         _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
-        ShowCurrentChart();
     }
 
     [RelayCommand]

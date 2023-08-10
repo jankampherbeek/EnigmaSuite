@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Persistency;
-using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
@@ -38,8 +37,6 @@ public partial class RadixSearchViewModel: ObservableObject
     private void Select()
     {
         _model.AddFoundChartToDataVault(ChartIndex);
-        ChartsWheel wheel = new();
-        wheel.Show();
     }
 
     private bool IsChartSelected()
@@ -51,9 +48,8 @@ public partial class RadixSearchViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "DatafileOverview";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        DataVault.Instance.CurrentViewBase = "RadixSearch";
+        new HelpWindow().ShowDialog();
     }
     
 

@@ -26,7 +26,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="28*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="14*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="15*"/>
@@ -108,7 +108,12 @@
                         <Image Source="/Images/search.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Date range" Command="{Binding DateRangeCommand}">
+                <MenuItem Header="New date range" Command="{Binding NewDateRangeCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/daterange.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Search date range" Command="{Binding SearchDateRangeCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/daterange.png"/>
                     </MenuItem.Icon>
@@ -163,9 +168,9 @@
                        Text="Charts"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
         </materialDesign:ColorZone>
-        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding NrOfChartsInDatabase}" Margin="12,6,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding LastAddedChart}" Margin="12,6,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding CurrentlySelectedChart}" Margin="12,6,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding NrOfChartsInDatabase}" Margin="6,12,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding LastAddedChart}" Margin="6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding CurrentlySelectedChart}" Margin="6" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
                    Text="Available charts" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
         

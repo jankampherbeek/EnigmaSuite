@@ -771,7 +771,7 @@
     <None Update="res\help\RadixPositions.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsSearch.html">
+    <None Update="res\help\RadixSearch.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ChartsWheel.html">

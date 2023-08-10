@@ -12,7 +12,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"     
-        Title="Enigma - Dashboard" Height="430" Width="400">
+        Title="Enigma - Dashboard" Height="450" Width="400">
     <Window.Resources>
         <viewModels:MainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -21,11 +21,11 @@
                   DataContext="{StaticResource ViewModel}">
         <Grid Margin="6">
             <Grid.RowDefinitions>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="30"/>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
             <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Margin="6" Padding="16" Mode="PrimaryMid">
                 <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"
