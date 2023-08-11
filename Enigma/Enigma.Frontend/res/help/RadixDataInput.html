@@ -5,36 +5,51 @@
 </head>
 <body>
 	<h1>Input for the calculation of a chart</h1>
-	<p>In this sceen you will see three blocks: </p>
+	<p>In this screen you will see three sections: </p>
 	<ul>
-		<li><strong>General information</strong> is for data that is not required for the calculation but is used to identify a chart. </li>
+		<li><strong>General information</strong> is for data that is not required for the calculation but is used to 
+			identify a chart. </li>
 		<li><strong>Location</strong> is for name and coordinates of the location.</li>
 		<li><strong>Date and time</strong> is for all information about the birth-time or event-time. </li>
 
 	</ul>
 
 	<h2 id='general-information'>General information</h2>
-	<p><strong>Unique name or id for chart</strong>. Enter an identification for this chart.  This can be a name, a number or some other identification.</p>
+	<p><strong>Unique name or id for chart</strong>. Enter an identification for this chart.  
+		This can be a name, a number or some other identification.</p>
 	<p><strong>Description</strong>. Additional text about the person or event. </p>
 	<p><strong>Source</strong>. A short explanation about the source of the data. </p>
 	<p><strong>Rodden Rating</strong>. Select one of the Rodden Ratings or leave the default value <em>Unknown</em>.</p>
-	<p><strong>Category</strong>. Indicate the subject for which the chart is calculated or leave the default value <em>Unknown</em>.</p>
+	<p><strong>Category</strong>. Indicate the subject for which the chart is calculated or leave the default 
+		value <em>Unknown</em>.</p>
 
 	<h2 id='location'>Location</h2>
-	<p><strong>Location name</strong>. A cityname, address or other identification for the  location. This field is optional.</p>
-	<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. You can skip the seconds, they will default to 0 seconds. So <em>145:15</em> is a valid indication for  <em>145°15&#39;00&quot;</em>. </p>
+	<p><strong>Location name</strong>. A city name, address or other identification for the  location. This field is optional.</p>
+	<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. 
+		For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. 
+		You can skip the seconds, they will default to 0 seconds. 
+		So <em>145:15</em> is a valid indication for  <em>145°15&#39;00&quot;</em>. </p>
 	<p>Use the scroll-down box to select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em>. </p>
-	<p><strong>Latitude</strong>. Geographic latitude in the format <em>dd:mm:ss</em>. For  <em>52°13&#39;30&quot;</em> you need to enter <em>52:13:30</em>. You can skip the seconds, they will default to 0 seconds. So <em>45:15</em> is a valid indication for  <em>45°15&#39;00&quot;</em>. </p>
-	<p>Use the scroll-down box to select either <strong>N</strong> <em>(North)</em> or <strong>S</strong>  <em>(South)</em>. </p>
+	<p><strong>Latitude</strong>. Geographic latitude in the format <em>dd:mm:ss</em>. 
+		For <em>52°13&#39;30&quot;</em> you need to enter <em>52:13:30</em>. 
+		You can skip the seconds, they will default to 0 seconds. 
+		So <em>45:15</em> is a valid indication for <em>45°15&#39;00&quot;</em>. </p>
+	<p>Use the scroll-down box to select either <strong>N</strong> <em>(North)</em> or <strong>S</strong> <em>(South)</em>. </p>
 
 	<h2 id='date-and-time'>Date and time</h2>
 	<p>
-		<strong>Date</strong>. Enter the date in the format <em>yyyy:mm:dd</em>, so June 16, 2022  would be entered as <em>2022/06/16</em>.
-		Historical dates before the year 0 should have a negative year if you select the Astronomical yearcount. Otherwise, all years will be positive.
-		If the date is before 675 CE or after 4650 CE, check the <em>Appendx: Supported Periods</em> to see which points Enigma can calculate for this date.
+		<strong>Date</strong>. Enter the date in the format <em>yyyy:mm:dd</em>, so June 16, 2022  would be 
+		entered as <em>2022/06/16</em>.
+		Historical dates before the year 0 should have a negative year if you select the Astronomical year count. 
+		Otherwise, all years will be positive.
+		If the date is before 675 CE or after 4650 CE, check the <em>Appendix: Supported Periods</em> to see which 
+		points Enigma can calculate for this date.
 	</p>
-	<p><strong>Cal. (Calendar)</strong>. The calendar that is applicable, select either  <strong>G</strong> <em>(Gregorian)</em> or <strong>J</strong> <em>(Julian)</em>. For recent dates you will always need the Gregorian calendar.</p>
-	<p><strong>Yearcount</strong>. There is a difference between a historical and an  astronomical yearcount. Historical dates do not recognize the year 0. So the  historical year 1 CE is preced by the year 1 BCE. The astronomical years would  be +1 for 1 CE, and 0 for 1 BCE, preceded by -1 for 2 BCE.</p>
+	<p><strong>Calendar</strong>. The calendar that is applicable, select either  <strong>G</strong> <em>(Gregorian)</em> 
+		or <strong>J</strong> <em>(Julian)</em>. For recent dates you will always need the Gregorian calendar.</p>
+	<p><strong>Year count</strong>. There is a difference between a historical and an astronomical year count. 
+		Historical dates do not recognize the year 0. So the  historical year 1 CE is preceded by the year 1 BCE. 
+		The astronomical years would  be +1 for 1 CE, and 0 for 1 BCE, preceded by -1 for 2 BCE.</p>
 	<p>For years after the year 0, astronomical and historical dates are the same.</p>
 	<p>Select one of the following values: </p>
 	<ul>
@@ -43,14 +58,22 @@
 		<li><strong>Astronomical</strong>: Positive and negative years. </li>
 
 	</ul>
-	<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour  notation. 2h38m30s PM would be <em>14:38:30</em>.</p>
+	<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour notation. 
+		2h38m30s PM would be <em>14:38:30</em>.</p>
 	<p><strong>DST</strong>. Check the box DST if Daylight Saving Time is applicable.</p>
-	<p><strong>TimeZone</strong>. Select one of the available timezones. The list contains the  offset from UT (Greenwich Time) and the name of the timezone. If the time does  not fit into one of the available timezones, select <em>LMT: Local Mean Time</em>.  You will get the possibility to define another offset from UT for the time  used.</p>
-	<p><strong>LMT: difference with UT</strong>. This field becomes available if you selected  LMT as timezone. Here you can define the geographic longitude for the offset in degrees,  minutes, and seconds, using the format ddd:mm:ss in the same way as for entering the geographic llongitude for the location. 
-	Also select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em> to indicate the direction for the offset.</p>
+	<p><strong>TimeZone</strong>. Select one of the available timezones. 
+		The list contains the offset from UT (Greenwich Time) and the name of the timezone. 
+		If the time does  not fit into one of the available timezones, select <em>LMT: Local Mean Time</em>.  
+		You will get the possibility to define another offset from UT for the time  used.</p>
+	<p><strong>LMT: difference with UT</strong>. This field becomes available if you selected LMT as timezone. 
+		Here you can define the geographic longitude for the offset in degrees, minutes, and seconds, using the 
+		format ddd:mm:ss in the same way as for entering the geographic longitude for the location. 
+	Also select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em> to indicate 
+		the direction for the offset.</p>
 
 	<h2 id='start-the-calculation'>Start the calculation</h2>
-	<p>Click the button <strong>Calculate</strong> to perform the calculation. If you made any  errors, the fields that contain an error will return yellow. Correct the input  and try again.</p>
+	<p>Click the button <strong>Calculate</strong> to perform the calculation. 
+		If you made any errors or omitted relevant fields, the button will be inactive and you need to correct your input.</p>
 	<p>Click the button <strong>Close</strong> if you do not want to continue.</p>
 
 </body>

@@ -149,10 +149,13 @@
                   ItemsSource="{Binding AllLmtDirectionsForLongitude}"
                   SelectedIndex="{Binding LmtDirLongIndex, Mode=TwoWay}" 
                   IsEnabled="{Binding LmtEnabled}" />
-        <StackPanel Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
+        <StackPanel Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
+                    Command="{Binding HelpCommand}"/>
             <Button Margin="6" Content="Close" HorizontalAlignment="Right" Click="CloseClick"/>
-            <Button Margin="6" Content="Calculate" HorizontalAlignment="Right" Command="{Binding CalculateCommand}" Click="CloseClick"/>
+            <Button Margin="6" Content="Calculate" HorizontalAlignment="Right" 
+                    Command="{Binding CalculateCommand}" Click="CloseClick"/>
         </StackPanel>
         
         

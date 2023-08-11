@@ -17,7 +17,6 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class AppSettingsViewModel: ObservableObject
 {
 
-
     [ObservableProperty] private string _locationOfDataFiles;
     [ObservableProperty] private string _locationOfProjectFiles;
     [ObservableProperty] private string _locationOfDatabase;
@@ -36,14 +35,9 @@ public partial class AppSettingsViewModel: ObservableObject
     
     [RelayCommand] private static void Help()
     {
-        ShowHelp();
-    }
-    
-    private static void ShowHelp()
-    {
         DataVault.Instance.CurrentViewBase = "Settings";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
+
 
 }

@@ -88,8 +88,7 @@ public partial class RadixDataInputViewModel: ObservableObject
     private static void Help()
     {
         DataVault.Instance.CurrentViewBase = "RadixDataInput";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
     
     [RelayCommand(CanExecute = nameof(IsInputOk))]
