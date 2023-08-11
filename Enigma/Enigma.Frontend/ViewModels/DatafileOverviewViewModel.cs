@@ -27,14 +27,8 @@ public partial class DatafileOverviewViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        ShowHelp();
-    }
-    
-    private static void ShowHelp()
-    {
         DataVault.Instance.CurrentViewBase = "DatafileOverview";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 
 }

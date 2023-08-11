@@ -12,7 +12,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"        
-        Title="Enigma - Radix Positions" Height="700" Width="940">
+        Title="Enigma - Radix Positions" Height="760" Width="1000">
     <Window.Resources>
         <viewModels:RadixPositionsViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -51,17 +51,25 @@
                   CanUserSortColumns="False"
                   AutoGenerateColumns="False"
                   HeadersVisibility="All"
-                  HorizontalAlignment="Left"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
                   ItemsSource="{Binding ActualHousePositions}"
                   SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding PointName}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding LongText}" Header="Longitude" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding RightAscText}" Header="RA" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding DeclText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding AzimuthText}" Header="Azimuth" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding AltitudeText}" Header="Altitude" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding LongText}" Header="Longitude" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding RightAscText}" Header="RA" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding DeclText}" Header="Declination" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding AzimuthText}" Header="Azimuth" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding AltitudeText}" Header="Altitude" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
             </DataGrid.Columns>   
         </DataGrid>
 
@@ -72,23 +80,39 @@
                   CanUserSortColumns="False"
                   AutoGenerateColumns="False"
                   HeadersVisibility="All"
-                  HorizontalAlignment="Left"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top"
                   ItemsSource="{Binding ActualPointPositions}"
                   SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding PointGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding LongText}" Header="Longitude" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding LongSpeedText}" Header="RA" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding LatText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding RightAscText}" Header="Azimuth" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding RightAscSpeedText}" Header="Altitude" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding DeclText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding DeclSpeedText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding DistanceText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding DistanceSpeedText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding AzimuthText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding AltitudeText}" Header="Declination" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding PointGlyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding LongText}" Header="Longitude" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding LongSpeedText}" Header="Long speed" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding LatText}" Header="Latitude" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding LatSpeedText}" Header="Lat speed" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding RightAscText}" Header="RA" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding RightAscSpeedText}" Header="RA speed" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding DeclText}" Header="Declination" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding DeclSpeedText}" Header="Decl speed" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding DistanceText}" Header="Distance" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding DistanceSpeedText}" Header="Dist speed" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding AzimuthText}" Header="Azimuth" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding AltitudeText}" Header="Altitude" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
             </DataGrid.Columns>   
         </DataGrid>
 

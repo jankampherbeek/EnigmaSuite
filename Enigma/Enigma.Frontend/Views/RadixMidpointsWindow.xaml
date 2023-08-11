@@ -51,11 +51,16 @@
                   ItemsSource="{Binding ActualMidpoints, Mode=TwoWay}"
                   SelectionUnit="{Binding ElementName=selectionUnitComboBox, Path=SelectedValue}">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Point1Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding Separator}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/>                  
-                <DataGridTextColumn Binding="{Binding Point2Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding Position}" Header="Position" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Point1Glyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Separator}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>                  
+                <DataGridTextColumn Binding="{Binding Point2Glyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Position}" Header="Position" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
             </DataGrid.Columns>   
         </DataGrid>
         <DataGrid Grid.Row="4" Grid.Column="2" Margin="6"
@@ -66,13 +71,20 @@
                   ItemsSource="{Binding ActualOccupiedMidpoints, Mode=TwoWay}"
                   SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Point1Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding Separator}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/>                
-                <DataGridTextColumn Binding="{Binding Point2Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding IsSign}" Header=" " CellStyle="{StaticResource NameColumnStyle}"/> 
-                <DataGridTextColumn Binding="{Binding PointOccGlyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding OrbText}" Header="Orb" CellStyle="{StaticResource NumberColumnStyle}"/>                
-                <DataGridTextColumn Binding="{Binding ExactnessText}" Header="Exactness" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Point1Glyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Separator}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>                
+                <DataGridTextColumn Binding="{Binding Point2Glyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding IsSign}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/> 
+                <DataGridTextColumn Binding="{Binding PointOccGlyph}" Header=" " 
+                                    IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding OrbText}" Header="Orb" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>                
+                <DataGridTextColumn Binding="{Binding ExactnessText}" Header="Exactness" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
             </DataGrid.Columns>   
         </DataGrid>
         <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Vertical" Margin="6">

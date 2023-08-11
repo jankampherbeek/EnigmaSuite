@@ -43,8 +43,7 @@ public partial class RadixPositionsViewModel: ObservableObject
     private static void ShowHelp()
     {
         DataVault.Instance.CurrentViewBase = "RadixPositions";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 
 }

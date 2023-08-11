@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Charts;
@@ -20,9 +21,13 @@ public partial class RadixHarmonicsViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<PresentableHarmonic> _actualHarmonics;
     [ObservableProperty] private string _chartId;
     [ObservableProperty] private string _description;
+    [NotifyPropertyChangedFor(nameof(HarmonicValid))]
+    [NotifyCanExecuteChangedFor(nameof(ReCalculateCommand))]    
     [ObservableProperty] private double _harmonicNumber;
     [ObservableProperty] private string _harmonicText;
     private readonly RadixHarmonicsModel _model = App.ServiceProvider.GetRequiredService<RadixHarmonicsModel>();
+    
+    public SolidColorBrush HarmonicValid => IsHarmonicValid() ? Brushes.White : Brushes.Yellow;
     
     public RadixHarmonicsViewModel()
     {
@@ -33,25 +38,24 @@ public partial class RadixHarmonicsViewModel: ObservableObject
         _actualHarmonics = new ObservableCollection<PresentableHarmonic>(_model.RetrieveAndFormatHarmonics(HarmonicNumber));
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsHarmonicValid))]
     private void ReCalculate()
     {
         ActualHarmonics = new ObservableCollection<PresentableHarmonic>(_model.RetrieveAndFormatHarmonics(HarmonicNumber));
         HarmonicText = "Effective harmonic: " + HarmonicNumber;
     }
-    
+
+
+    private bool IsHarmonicValid()
+    {
+        return HarmonicNumber is > 1 and < 100_000;
+    }
     
     [RelayCommand]
     private static void Help()
     {
-        ShowHelp();
-    }
-    
-    private static void ShowHelp()
-    {
         DataVault.Instance.CurrentViewBase = "RadixHarmonics";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 
 }

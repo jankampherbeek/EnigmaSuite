@@ -12,6 +12,7 @@ using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -79,8 +80,7 @@ public partial class RadixMidpointsViewModel: ObservableObject
     private static void ShowHelp()
     {
         DataVault.Instance.CurrentViewBase = "RadixMidpoints";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 
     

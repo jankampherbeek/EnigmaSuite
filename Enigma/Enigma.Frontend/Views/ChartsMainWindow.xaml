@@ -90,7 +90,6 @@
                         <Image Source="/Images/harmonics.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <Separator/>
                 <MenuItem Header="Midpoints" Command="{Binding MidpointsCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/midpoints.png"/>

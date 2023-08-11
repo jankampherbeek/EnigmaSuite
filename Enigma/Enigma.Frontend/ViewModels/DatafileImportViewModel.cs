@@ -18,10 +18,10 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for the import of data files</summary>
 public partial class DatafileImportViewModel: ObservableObject
 {
-    [ObservableProperty] private string _datafileName = "";
-    [ObservableProperty] private string _datasetName = "";
-    [ObservableProperty] private string _resultText = "";
-    [ObservableProperty] private string _errorText = "";
+    [ObservableProperty] private string _datafileName = string.Empty;
+    [ObservableProperty] private string _datasetName = string.Empty;
+    [ObservableProperty] private string _resultText = string.Empty;
+    [ObservableProperty] private string _errorText = string.Empty;
     
     [RelayCommand]
     private static void Help()
@@ -87,8 +87,7 @@ public partial class DatafileImportViewModel: ObservableObject
     private static void ShowHelp()
     {
         DataVault.Instance.CurrentViewBase = "DatafileImport";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 
 }
