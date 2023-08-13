@@ -29,13 +29,13 @@
             <RowDefinition Height="40*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Test with project"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
-        
-        <materialDesign:ColorZone Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Padding="16" Mode="PrimaryLight">
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Test with project"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Padding="8" Margin="6"
+                             Background="#D5E6F2" UniformCornerRadius="6">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50*"/>
@@ -51,7 +51,8 @@
                     <RowDefinition Height="10*"/>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" 
-                           Text="Project details" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                           Text="Project details" Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                           Foreground="#2174B3" FontWeight="Bold"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Margin="6 3 6 3" Text="Project name" FontWeight="Bold" />
                 <TextBlock Grid.Row="1" Grid.Column="1" Margin="6 3 6 3" Text="{Binding ProjectName}" />
                 <TextBlock Grid.Row="2" Grid.Column="0" Margin="6 3 6 3" Text="Description" FontWeight="Bold" />
@@ -65,7 +66,7 @@
                 <TextBlock Grid.Row="6" Grid.Column="0" Margin="6 3 6 3" Text="Multiplication controlgroup" FontWeight="Bold" />
                 <TextBlock Grid.Row="6" Grid.Column="1" Margin="6 3 6 3" Text="{Binding MultiplFactor}" />
             </Grid>
-        </materialDesign:ColorZone>
+        </materialDesign:Card>
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="6 12 6 6" 
                    Text="Available test methods" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
         <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
@@ -82,8 +83,8 @@
         </ListBox>
         <StackPanel Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Orientation="Vertical" 
                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6">
-            <Button Content="Config" Margin="4" Command="{Binding ConfigCommand}"/>
             <Button Content="Perform Test" Margin="4" Command="{Binding PerformTestCommand}" />
+            <Button Content="Config" Margin="4" Command="{Binding ConfigCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" 
                     HorizontalAlignment="Right" Margin="6">

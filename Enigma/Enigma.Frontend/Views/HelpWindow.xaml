@@ -17,6 +17,6 @@
     </Window.Resources>
     <StackPanel DataContext="{StaticResource ViewModel}">
         <Frame Source="{Binding Html}" Height="660" />
-        <Button Content="Close" Click="CloseClick"/>
+        <Button Content="Close" Click="CloseClick" Width="120"/>
     </StackPanel>
 </Window>

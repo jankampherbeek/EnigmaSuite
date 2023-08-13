@@ -19,10 +19,11 @@
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="28*"/>
-            <RowDefinition Height="220"/>
-            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="General">
@@ -84,7 +85,11 @@
                    Text="Enigma Research"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    Foreground="#2174B3" FontWeight="Bold" />
-         <ListBox Grid.Row="2" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0"
+                   VerticalAlignment="Bottom"
+                   Text="Existing projects:" Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Foreground="#2174B3" FontWeight="Bold"/>
+         <ListBox Grid.Row="3" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableProjects}"
                  SelectedIndex="{Binding ProjectIndex, Mode=TwoWay}">
             <ListBox.ItemTemplate>
@@ -100,13 +105,13 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="2" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
             <Button Margin="0 3 0 3"  Content="New Project" HorizontalAlignment="Right" Width="120"
                     Command="{Binding NewProjectCommand}"/>
             <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"
                     Command="{Binding OpenProjectCommand}"/>
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" HorizontalAlignment="Right" Click="CloseClick"/>
         </StackPanel>

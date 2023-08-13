@@ -18,16 +18,16 @@
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="75*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Margin="6" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Select points to include"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="0" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Select points to include"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
         <DataGrid Grid.Row="1" Margin="6" 
                   materialDesign:DataGridAssist.CellPadding="4 4 4 4"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"

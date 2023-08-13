@@ -46,7 +46,6 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     private static void Help()
     {
         DataVault.Instance.CurrentViewBase = "ResearchPointsSelection";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 }
