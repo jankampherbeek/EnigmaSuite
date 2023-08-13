@@ -26,24 +26,26 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="12*"/>
-            <RowDefinition Height="6*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="72*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Midpoints"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
-        <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="{Binding ChartId}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Description}" Margin="6" TextWrapping="Wrap"/>       
-        <TextBlock Grid.Row="3" Grid.Column="0" Text="All Midpoints" Margin="6" FontWeight="Bold"/>
-        <TextBlock Grid.Row="3" Grid.Column="2" Text="Occupied Midpoints" Margin="6" FontWeight="Bold"/>
-        <TextBlock Grid.Row="3" Grid.Column="4" Text="Dial Size" Margin="6" FontWeight="Bold"/>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Midpoints"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Padding="8" Margin="6"
+                             Background="#D5E6F2" UniformCornerRadius="6">
+            <TextBlock Text="{Binding Description}" 
+                       Margin="6" TextWrapping="Wrap"/>
+        </materialDesign:Card>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="All Midpoints" Margin="6" Foreground="#2174B3" FontWeight="Bold"/>
+        <TextBlock Grid.Row="2" Grid.Column="2" Text="Occupied Midpoints" Margin="6" Foreground="#2174B3" FontWeight="Bold"/>
+        <TextBlock Grid.Row="2" Grid.Column="4" Text="Dial Size" Margin="6" Foreground="#2174B3" FontWeight="Bold"/>
         
-        <DataGrid Grid.Row="4" Grid.Column="0" Margin="6"
+        <DataGrid Grid.Row="3" Grid.Column="0" Margin="6"
                   materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                   CanUserAddRows="False" CanUserSortColumns="False" AutoGenerateColumns="False" HeadersVisibility="All"
@@ -63,7 +65,7 @@
                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
             </DataGrid.Columns>   
         </DataGrid>
-        <DataGrid Grid.Row="4" Grid.Column="2" Margin="6"
+        <DataGrid Grid.Row="3" Grid.Column="2" Margin="6"
                   materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                   CanUserAddRows="False" CanUserSortColumns="False" AutoGenerateColumns="False" HeadersVisibility="All"
@@ -87,7 +89,7 @@
                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
             </DataGrid.Columns>   
         </DataGrid>
-        <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Vertical" Margin="6">
+        <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Vertical" Margin="6">
             <RadioButton Content="360 degrees" GroupName="RbgDialSize" Margin="6" IsChecked="True" Command="{Binding ChangeDial360Command}" />
             <RadioButton Content="90 degrees" GroupName="RbgDialSize" Margin="6" Command="{Binding ChangeDial90Command}" />
             <RadioButton Content="45 degrees" GroupName="RbgDialSize" Margin="6" Command="{Binding ChangeDial45Command}"/>
@@ -95,7 +97,7 @@
             <TextBlock Text="{Binding OrbSize}" Margin="6"/>
 
         </StackPanel>
-        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="6" Click="CloseClick"/>
         </StackPanel>

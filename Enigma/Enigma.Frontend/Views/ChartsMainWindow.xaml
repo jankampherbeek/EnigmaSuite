@@ -33,7 +33,7 @@
             <RowDefinition Height="80*"/>
             <RowDefinition Height="24*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#D5E6F2 " VerticalAlignment="Stretch">
             <MenuItem Header="General">
                 <MenuItem Header="Settings" Command="{Binding AppSettingsCommand}">
                     <MenuItem.Icon>
@@ -162,16 +162,18 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <materialDesign:ColorZone Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Charts"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Charts"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
+       
         <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding NrOfChartsInDatabase}" Margin="6,12,6,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding LastAddedChart}" Margin="6" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding CurrentlySelectedChart}" Margin="6" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
-                   Text="Available charts" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+                   Text="Available charts" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold"/>
         
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableCharts}"

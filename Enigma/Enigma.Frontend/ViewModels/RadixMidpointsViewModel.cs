@@ -12,7 +12,6 @@ using Enigma.Domain.Charts;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
-using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -22,7 +21,6 @@ public partial class RadixMidpointsViewModel: ObservableObject
 {
     [ObservableProperty] private ObservableCollection<PresentableMidpoint> _actualMidpoints;
     [ObservableProperty] private ObservableCollection<PresentableOccupiedMidpoint> _actualOccupiedMidpoints;
-    [ObservableProperty] private string _chartId;
     [ObservableProperty] private string _description;
     [ObservableProperty] private string _orbSize;
     private int _dialSize;
@@ -32,7 +30,6 @@ public partial class RadixMidpointsViewModel: ObservableObject
     {
         _dialSize = 360;
         _model = App.ServiceProvider.GetRequiredService<RadixMidpointsModel>();
-        _chartId = _model.RetrieveChartName();
         _description = _model.DescriptiveText();
         const double actualOrb = 1.6;                             // TODO 0.2.0 retrieve Orb from settings
         OrbSize = _model.DegreesToDms(actualOrb);

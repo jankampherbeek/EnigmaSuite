@@ -30,13 +30,14 @@
             <RowDefinition Height="20*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Data File Import"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Data File Import"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
         <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Select the file with data"
                  VerticalAlignment="Center" Margin="6 0"
+                 IsReadOnly="True"
                  Text="{Binding DatafileName, Mode = TwoWay}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
         <Button Grid.Row="2" Grid.Column="1" Content="Browse" Margin="6" Command="{Binding BrowseCommand}" />

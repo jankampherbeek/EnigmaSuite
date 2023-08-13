@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -25,11 +24,10 @@
             <RowDefinition Height="60*"/>
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                Text="Existing data files"
-                Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Existing data files"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
         <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding DataNames}" />
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>

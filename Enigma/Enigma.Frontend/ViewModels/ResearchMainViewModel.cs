@@ -89,8 +89,7 @@ public partial class ResearchMainViewModel: ObservableObject
     private static void Help()
     {
         DataVault.Instance.CurrentViewBase = "ResearchMain";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
     }
 
     

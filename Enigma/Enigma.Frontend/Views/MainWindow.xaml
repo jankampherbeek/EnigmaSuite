@@ -23,19 +23,21 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
                 <RowDefinition Height="30*"/>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Margin="6" Padding="16" Mode="PrimaryMid">
-                <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Text="Enigma"
-                           Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-            </materialDesign:ColorZone>
+            <TextBlock Grid.Row="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Text="Enigma"
+                       Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
+                       Foreground="#2174B3" FontWeight="Bold" />
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Astrology Research" HorizontalAlignment="Center" 
-                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" FontWeight="Bold" TextWrapping="Wrap"/>
-           
-            <WrapPanel Grid.Row="2" Orientation="Horizontal" Margin="6">
+                       Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap"
+                       Foreground="#2174B3" FontWeight="Bold" />
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" Text="Version 0.2" HorizontalAlignment="Center" 
+                       TextWrapping="Wrap" Foreground="#2174B3" FontWeight="Bold" />
+            <WrapPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ChartsModuleCommand}" >
                     <Image Source="/Images/Charts-txt.png"/>
                 </Button>
@@ -43,8 +45,8 @@
                     <Image Source="/Images/Research-txt.png"/>
                 </Button>
             </WrapPanel>
-            <TextBlock Grid.Row="3" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Grid.Row="4" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
+            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Margin="6" Content="Help" Command="{Binding HelpCommand}"/>
                 <Button Margin="6" Content="Exit" Click="CloseClick"/>
             </StackPanel>

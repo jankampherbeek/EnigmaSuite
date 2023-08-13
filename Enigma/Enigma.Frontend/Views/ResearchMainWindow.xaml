@@ -79,11 +79,11 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <materialDesign:ColorZone Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Enigma Research"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Enigma Research"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
          <ListBox Grid.Row="2" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableProjects}"
                  SelectedIndex="{Binding ProjectIndex, Mode=TwoWay}">
@@ -101,10 +101,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="2" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
-            <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"
-                    Command="{Binding OpenProjectCommand}"/>
             <Button Margin="0 3 0 3"  Content="New Project" HorizontalAlignment="Right" Width="120"
                     Command="{Binding NewProjectCommand}"/>
+            <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"
+                    Command="{Binding OpenProjectCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>

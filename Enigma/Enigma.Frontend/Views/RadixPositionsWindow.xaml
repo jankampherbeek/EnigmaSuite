@@ -29,19 +29,18 @@
             <RowDefinition Height="35*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-      
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Margin="6" Grid.ColumnSpan="2" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Radix positions"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Midpoints"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="{Binding ChartId}" 
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" TextWrapping="Wrap"/>
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" TextWrapping="Wrap"
+                   Foreground="#2174B3"/>
         <materialDesign:Card Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Padding="8" Margin="6"
-                             Background="#B3D0F4" UniformCornerRadius="6">
-            <TextBlock
-                Text="{Binding Details}"
-                TextWrapping="Wrap" />
+                             Background="#D5E6F2" UniformCornerRadius="6">
+            <TextBlock Text="{Binding Details}" TextWrapping="Wrap" />
         </materialDesign:Card>
 
         <DataGrid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Margin="6"

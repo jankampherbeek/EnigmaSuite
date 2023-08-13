@@ -8,29 +8,24 @@
             <ResourceDictionary.MergedDictionaries>
                 <materialdesign:CustomColorTheme 
                     BaseTheme="Light" 
-                    PrimaryColor="#385276" 
-                    SecondaryColor="#B3D0F4"
-                    
-                    />
-                <!--                     PrimaryColor="#34B3FF" 
-                    SecondaryColor="#1C5764" -->
+                    PrimaryColor="#2174B3" 
+                    SecondaryColor="#D5E6F2" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" /> 
             </ResourceDictionary.MergedDictionaries>
-
+           
         <Style x:Key="BackgroundStyle" TargetType="{x:Type Rectangle}">
-            <Setter Property="Fill" Value="#EEF1F9"/>
+            <Setter Property="Fill" Value="#D5E6F2"/>
             <Setter Property="RadiusX" Value="6"/>
             <Setter Property="RadiusY" Value="6"/>
         </Style>
         <Style x:Key="TitleStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="28"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="SteelBlue"/>
+            <Setter Property="Foreground" Value="#2174B3"/>
         </Style>
         <Style x:Key="SubTitleStyle" TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Foreground" Value="SteelBlue"/>            
+            <Setter Property="Foreground" Value="#2174B3"/>        
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="LargeTextStyle" TargetType="{x:Type TextBlock}">
