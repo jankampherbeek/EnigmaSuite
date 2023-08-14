@@ -15,20 +15,12 @@ public sealed class SeFlags : ISeFlags
     public int DefineFlags(CoordinateSystems coordinateSystem, ObserverPositions observerPosition, ZodiacTypes zodiacType)
     {
         int flags = 2 + 256;              // use SE + speed
-        if (coordinateSystem == CoordinateSystems.Equatorial)
-        {
-            flags += 2048;          // use equatorial positions    
-        }
-        switch (observerPosition)
-        {
-            case ObserverPositions.HelioCentric:
-                flags += 8;             // use heliocentric positions
-                break;
-            case ObserverPositions.TopoCentric:
-                flags += (32 * 1024);   // use topocentric position (apply parallax)
-                break;
-        }
-
+        if (coordinateSystem == CoordinateSystems.Equatorial) flags += 2048;          // use equatorial positions
+        if (observerPosition == ObserverPositions.TopoCentric) flags += (32 * 1024); // use topocentric position (apply parallax)
+        //case ObserverPositions.HelioCentric:
+        //    flags += 8;             // use heliocentric positions
+        //    break;
+        
         if (zodiacType == ZodiacTypes.Sidereal && coordinateSystem == CoordinateSystems.Ecliptical)
         {
             flags += (64 * 1024);   // use sidereal zodiac

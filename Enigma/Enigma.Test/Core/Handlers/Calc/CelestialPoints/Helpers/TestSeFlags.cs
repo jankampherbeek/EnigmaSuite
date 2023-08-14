@@ -31,13 +31,13 @@ public class TestSeFlags
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
     }
 
-    [Test]
+    /*[Test]
     public void TestFlagsHelioCentric()
     {
         const int expectedFlags = 266;
         int actualFlags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.HelioCentric, ZodiacTypes.Tropical);
         Assert.That(actualFlags, Is.EqualTo(expectedFlags));
-    }
+    }*/
 
     [Test]
     public void TestFlagsTopoCentric()

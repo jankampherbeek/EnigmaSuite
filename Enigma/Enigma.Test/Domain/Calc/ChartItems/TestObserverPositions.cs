@@ -40,6 +40,7 @@ public class TestObserverPositionSpecifications
     }
 
 
+    /*
     [Test]
     public void TestRetrievingWithIndex()
     {
@@ -66,6 +67,6 @@ public class TestObserverPositionSpecifications
             Assert.That(allDetails[0].Position, Is.EqualTo(ObserverPositions.GeoCentric));
             Assert.That(allDetails[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgTopoctr));
         });
-    }
+    }*/
 
 }

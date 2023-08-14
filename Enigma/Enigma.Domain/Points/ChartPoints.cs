@@ -13,7 +13,7 @@ namespace Enigma.Domain.Points;
 /// <remarks>Any point that can be shown in a chart.</remarks>
 public enum ChartPoints
 {
-    Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth = 4, Mars = 5, Jupiter = 6, Saturn = 7,
+    Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth=4, Mars = 5, Jupiter = 6, Saturn = 7,
     Uranus = 8, Neptune = 9, Pluto = 10,
     MeanNode = 11, TrueNode = 12, Chiron = 13,
     PersephoneRam = 14, HermesRam = 15, DemeterRam = 16,
