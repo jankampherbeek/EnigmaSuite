@@ -23,6 +23,7 @@ public sealed class DataVault
     public ResearchProject? CurrentProject { get; set; }
     public ResearchMethods ResearchMethod { get; set; } 
     public ResearchPointsSelection? CurrentPointsSelection { get; set; }
+    public bool ResearchCanceled { get; set; } 
     public bool ResearchIncludeCusps { get; set; }
     public MethodResponse? ResponseTest { get; set; }
     public MethodResponse? ResponseCg { get; set; }

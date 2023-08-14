@@ -30,6 +30,7 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
 
     public ResearchPointSelectionViewModel()
     {
+        _dataVault.ResearchCanceled = true;
         var model = App.ServiceProvider.GetRequiredService<ResearchPointSelectionModel>();
         _allChartPointDetails =  new ObservableCollection<SelectableChartPointDetails>(model.GetAllCelPointDetails());
     }
@@ -37,9 +38,16 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     [RelayCommand]
     private void CompleteSelection()
     {
+        _dataVault.ResearchCanceled = false;
         List<ChartPoints> selectedPoints = (from item in AllChartPointDetails 
             where item.Selected select item.ChartPoint).ToList();
         _dataVault.CurrentPointsSelection = new ResearchPointsSelection(selectedPoints, IncludeCusps);
+    }
+
+    [RelayCommand]
+    private void Cancel()
+    {
+        _dataVault.ResearchCanceled = true;
     }
     
     [RelayCommand]

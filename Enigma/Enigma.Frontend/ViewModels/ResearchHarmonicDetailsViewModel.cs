@@ -31,16 +31,29 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     public SolidColorBrush HarmonicNrValid => IsHarmonicNrValid() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbDegreeValid => IsOrbDegreeValid() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbMinuteValid => IsOrbMinuteValid() ? Brushes.White : Brushes.Yellow;
+
+    public ResearchHarmonicDetailsViewModel()
+    {
+        DataVault.Instance.ResearchCanceled = true;
+    }
     
     
     [RelayCommand(CanExecute = nameof(IsInputOk))]
     private void Continue()
     {
+        DataVault.Instance.ResearchCanceled = false;
         double orbValue = OrbDegreeValue + OrbMinuteValue / 60.0;        
         ResearchHarmonicDetailsModel.SaveOrbHarmonics(orbValue);
         ResearchHarmonicDetailsModel.SaveHarmonicNr(HarmonicValue);
     }
 
+    [RelayCommand]
+    private void Cancel()
+    {
+        DataVault.Instance.ResearchCanceled = true;
+    }
+    
+    
     [RelayCommand]
     private static void Help()
     {
@@ -58,7 +71,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     {
         bool isValid = false;
         bool isNumeric = double.TryParse(HarmonicNumber, out double value);
-        if (isNumeric) isValid = value > 0.0;
+        if (isNumeric) isValid = value is > 1.0 and <= 100_000;
         if (isValid) HarmonicValue = value;
         return isValid;
     }

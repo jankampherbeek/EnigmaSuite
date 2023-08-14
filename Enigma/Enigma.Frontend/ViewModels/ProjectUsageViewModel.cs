@@ -56,6 +56,7 @@ public partial class ProjectUsageViewModel: ObservableObject
         {
             ResearchPointSelectionWindow selectionWindow = new();
             selectionWindow.ShowDialog();
+            if (DataVault.Instance.ResearchCanceled) return;
             ResearchPointsSelection? selection = DataVault.Instance.CurrentPointsSelection;
             int selectedNumber = selection != null ? selection.SelectedPoints.Count : 0; 
             sufficientSelections = selectedNumber >= minNumber;
@@ -71,7 +72,12 @@ public partial class ProjectUsageViewModel: ObservableObject
         {
             new ResearchHarmonicDetailsWindow().ShowDialog();
         }
-        
+
+        if (method == ResearchMethods.CountOccupiedMidpoints)
+        {
+            new ResearchMidpointDetailsWindow().ShowDialog();
+        }
+        if (DataVault.Instance.ResearchCanceled) return;
         _model.PerformRequest(ResearchMethods.CountAspects.ResearchMethodForIndex(MethodIndex));
         new ResearchResultWindow().ShowDialog();
     }

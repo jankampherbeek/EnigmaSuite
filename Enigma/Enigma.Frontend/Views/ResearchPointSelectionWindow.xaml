@@ -47,7 +47,7 @@
         <CheckBox Grid.Row="2" Margin="6" Content="Include all cusps" IsEnabled="{Binding MethodSupportsCusps}" IsChecked="{Binding IncludeCusps}" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Margin="4" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="4" Content="Cancel" Click="CloseClick"/>
+            <Button Margin="4" Content="Cancel" Command="{Binding CancelCommand}" Click="CloseClick"/>
             <Button Margin="4" Content="Ok" Command="{Binding CompleteSelectionCommand}" Click="CloseClick"/>
         </StackPanel>
     </Grid>

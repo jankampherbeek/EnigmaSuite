@@ -14,43 +14,48 @@
         <viewModels:ResearchResultViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="65*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Research results"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
-        <TextBlock Grid.Row="1" Margin="6" Text="{Binding ProjectName}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
-        <TextBlock Grid.Row="2" Margin="6" Text="{Binding MethodName}" Style="{StaticResource MaterialDesignHeadline6TextBlock}" />
+        <TextBlock Grid.Row="0" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Research results"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
+        <TextBlock Grid.Row="1" Margin="6" Text="{Binding ProjectName}" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Foreground="#2174B3" FontWeight="Bold" />
+        <TextBlock Grid.Row="2" Margin="6" Text="{Binding MethodName}" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
 
-        <TabControl Grid.Row="3">
+        <TabControl Grid.Row="3" >
             <TabItem Header="Test results">
                 <Grid>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <TextBlock Text="{Binding TestResult}" TextWrapping="Wrap" Margin="6" FontFamily="Courier New"/>
+                        <TextBlock Text="{Binding TestResult}" TextWrapping="Wrap" 
+                                   Margin="6" FontFamily="Courier New"
+                                   Background="#D5E6F2" />
                     </ScrollViewer>
                 </Grid>
             </TabItem>
-            <TabItem Header="Results control group">
+            <TabItem Header="Results control group" >
                 <Grid>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
-                        <TextBlock Text="{Binding ControlResult}" TextWrapping="Wrap" Margin="6" FontFamily="Courier New"/>
+                        <TextBlock Text="{Binding ControlResult}" TextWrapping="Wrap" 
+                                   Margin="6" FontFamily="Courier New"
+                                   Background="#BFAE93"/>
                     </ScrollViewer>
                 </Grid>
             </TabItem>
         </TabControl>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
-            <Button Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Content="Close" Click="CloseClick" />
+            <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
+            <Button Content="Close" Margin="6" Click="CloseClick" />
         </StackPanel>
     </Grid>
 </Window>

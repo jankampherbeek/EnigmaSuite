@@ -23,16 +23,16 @@
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*"/>
+            <RowDefinition Height="12*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Padding="16" Mode="PrimaryMid">
-            <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Details for harmonics"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Details for harmonics"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Harmonic number"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -51,7 +51,7 @@
                  Text="{Binding OrbMinutes, Mode = TwoWay}"/>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Margin="3" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="3"  Content="Cancel" Click="CloseClick"/>
+            <Button Margin="3"  Content="Cancel" Command="{Binding CancelCommand}" Click="CloseClick"/>
             <Button Margin="3" Content="Continue" Command="{Binding ContinueCommand}" Click="CloseClick"/>
         </StackPanel>
     </Grid>
