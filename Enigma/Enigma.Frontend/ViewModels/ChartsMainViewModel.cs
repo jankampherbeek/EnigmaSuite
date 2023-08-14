@@ -233,8 +233,8 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private static void UserManual()
     {
-        // TODO use specific helpage for User Manual
-        MessageBox.Show("helpwindow.manual");
+        DataVault.Instance.CurrentViewBase = "UserManual";
+        new HelpWindow().ShowDialog();
     }
     
     /// <summary>Closes all child windows of main chart window. Clears all charts in DataVault.</summary>

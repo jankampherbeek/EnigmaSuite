@@ -81,7 +81,7 @@ public static class PointsExtensions
             ChartPoints.Pallas => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Pallas"),
             ChartPoints.Juno => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Juno"),
             ChartPoints.Vesta => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Vesta"),
-            ChartPoints.Isis => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Isis"),
+            ChartPoints.Isis => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Isis - Transpluto"),
             ChartPoints.Nessus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Nessus"),
             ChartPoints.Huya => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Huya"),
             ChartPoints.Varuna => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Varuna"),

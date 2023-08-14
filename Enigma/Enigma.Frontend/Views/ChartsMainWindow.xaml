@@ -154,7 +154,7 @@
                         <Image Source="/Images/help.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="User manual" Command="{Binding UserManualCommand}">
+                <MenuItem Header="User manual" Command="{Binding UserManualCommand }">
                     <MenuItem.Icon>
                         <Image Source="/Images/manual.png"/>
                     </MenuItem.Icon>

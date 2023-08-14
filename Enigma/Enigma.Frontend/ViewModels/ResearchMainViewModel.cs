@@ -81,8 +81,14 @@ public partial class ResearchMainViewModel: ObservableObject
     private static void About()
     {
         DataVault.Instance.CurrentViewBase = "AboutResearch";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        new HelpWindow().ShowDialog();
+    }
+    
+    [RelayCommand]
+    private static void UserManual()
+    {
+        DataVault.Instance.CurrentViewBase = "UserManual";
+        new HelpWindow().ShowDialog();
     }
     
     [RelayCommand]
