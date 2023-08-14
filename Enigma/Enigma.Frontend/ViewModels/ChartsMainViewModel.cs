@@ -110,6 +110,8 @@ public partial class ChartsMainViewModel: ObservableObject
         int newIndex = _model.SaveCurrentChart();
         if (_dataVault.GetCurrentChart() == null) return;
         _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
+        PopulateData();
+        PopulateAvailableCharts();
     }
 
     [RelayCommand]

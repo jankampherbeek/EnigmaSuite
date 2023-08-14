@@ -195,7 +195,8 @@ public class RadixDataInputModel
         double offsetLmt = 0.0;
         if (timeZone == TimeZones.Lmt)
         {
-            if (_fullGeoLongitude != null) offsetLmt = _fullGeoLongitude.Longitude / 15.0;
+            
+            if (_fullLmtGeoLongitude != null) offsetLmt = _fullLmtGeoLongitude.Longitude / 15.0;
         }
         bool isValid = _timeInputParser.HandleTime(inputTime, timeZone, offsetLmt, dst, out FullTime? fullTime);
         if (isValid) _fullTime = fullTime;

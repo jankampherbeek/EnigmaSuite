@@ -95,7 +95,8 @@ public partial class RadixDataInputViewModel: ObservableObject
     private void Calculate()
     {
         _model.CreateChartData(NameId, Description, Source, LocationName, 
-            ChartCategories.Unknown.ChartCategoryForIndex(CategoryIndex), RoddenRatings.Unknown.RoddenRatingForIndex(RatingIndex));
+            ChartCategories.Unknown.ChartCategoryForIndex(CategoryIndex), 
+            RoddenRatings.Unknown.RoddenRatingForIndex(RatingIndex));
     }
 
     private bool IsInputOk()
