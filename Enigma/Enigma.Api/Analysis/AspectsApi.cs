@@ -26,7 +26,7 @@ public sealed class AspectsApi : IAspectsApi
 
 
     /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForCelPoints(AspectRequest request)
+    public IEnumerable<DefinedAspect> AspectsForCelPoints(AspectRequest request)
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);

@@ -94,7 +94,7 @@ public sealed class ChartPointsMapping : IChartPointsMapping
             ChartPoints.ApogeeMean => EnigmaConstants.SeMeanApogee,
             ChartPoints.ApogeeCorrected => EnigmaConstants.SeOscuApog,
             ChartPoints.ApogeeInterpolated => EnigmaConstants.SeIntpApog,
-            _ => -1,
+            _ => -1
         };
     }
 }

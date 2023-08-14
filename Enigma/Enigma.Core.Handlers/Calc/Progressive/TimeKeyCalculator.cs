@@ -57,7 +57,7 @@ public sealed class PlacidusTimeKey: IPlacidusTimeKey
         return jdForPosition - jdRadix;
     }
 
-    private void CheckInput(ObserverPositions observerPos, CoordinateSystems coordSys)
+    private static void CheckInput(ObserverPositions observerPos, CoordinateSystems coordSys)
     {
         string errorTxt = string.Empty;
         if (observerPos != ObserverPositions.GeoCentric && observerPos != ObserverPositions.TopoCentric)
@@ -119,19 +119,17 @@ public sealed class TimeKeyCalculator: ITimeKeyCalculator
     {
         if (jdRadix >= jdProgressive)
         {
-            string errorTxt = "TimeKeyCalculator.CalculateTotalKey received jd for event (" + jdProgressive + ")that is earlier than jd for radix (" + jdRadix + ").";
-            Log.Error(errorTxt);
-            throw new ArgumentException(errorTxt);
+            Log.Error("TimeKeyCalculator.CalculateTotalKey received jd for event {JdPRogressive} that is earlier than jd for radix {JdRadix}", jdProgressive, jdRadix);
+            throw new ArgumentException("Wrong sequence of jdRadix and jdProgressive");
         }
         if (observerPosition != ObserverPositions.GeoCentric && observerPosition != ObserverPositions.TopoCentric)
         {
-            string errorTxt = "TimeKeyCalculator.CalculateTotalKey received invalid observeerposition: " + observerPosition;
-            Log.Error(errorTxt);
-            throw new ArgumentException(errorTxt);
+            Log.Error("TimeKeyCalculator.CalculateTotalKey received invalid observerposition: {ObsPos}", observerPosition);
+            throw new ArgumentException("Unknown observer position");
         }
 
         CoordinateSystems coordSys = CoordinateSystems.Ecliptical;
-        if ((primaryKey == PrimaryKeys.PtolemyRa) || (primaryKey == PrimaryKeys.PlacidusRa) || (primaryKey == PrimaryKeys.NaibodRa) || (primaryKey == PrimaryKeys.BraheRa))
+        if (primaryKey is PrimaryKeys.PtolemyRa or PrimaryKeys.PlacidusRa or PrimaryKeys.NaibodRa or PrimaryKeys.BraheRa)
         {
             coordSys = CoordinateSystems.Equatorial;
         }
@@ -140,39 +138,37 @@ public sealed class TimeKeyCalculator: ITimeKeyCalculator
         double timespanInDays = jdProgressive - jdRadix;
 
 
-        if (timespanInDays > 0.0)
+        if (!(timespanInDays > 0.0)) return totalKey;
+        switch (primaryKey)
         {
-            switch (primaryKey)
-            {
-                case PrimaryKeys.PtolemyLongitude:
-                case PrimaryKeys.PtolemyRa:
-                    totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, 1.0);
-                    break;
-                case PrimaryKeys.NaibodRa:
-                case PrimaryKeys.NaibodLongitude:
-                    totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, EnigmaConstants.Naibod);
-                    break;
-                case PrimaryKeys.BraheRa:
-                    totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, positionSun.Equatorial.MainPosSpeed.Speed);
-                    break;
-                case PrimaryKeys.BraheLongitude:
-                    totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, positionSun.Ecliptical.MainPosSpeed.Speed);
-                    break;
-                case PrimaryKeys.PlacidusRa:
-                case PrimaryKeys.PlacidusLongitude:
-                    totalKey = _placidusTimeKey.ArcFromDays(timespanInDays, jdRadix, coordSys, observerPosition, location); 
-                    break;
-                default:
-                    string errorTxt = "TimeKeyCalculator.CalculateTotalKey encountered an unknown key for primary directions: " + primaryKey;
-                    Log.Error(errorTxt);
-                    throw new ArgumentException(errorTxt);
-            }
+            case PrimaryKeys.PtolemyLongitude:
+            case PrimaryKeys.PtolemyRa:
+                totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, 1.0);
+                break;
+            case PrimaryKeys.NaibodRa:
+            case PrimaryKeys.NaibodLongitude:
+                totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, EnigmaConstants.Naibod);
+                break;
+            case PrimaryKeys.BraheRa:
+                totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, positionSun.Equatorial.MainPosSpeed.Speed);
+                break;
+            case PrimaryKeys.BraheLongitude:
+                totalKey = _fixedTimeKey.ArcFromDays(timespanInDays, positionSun.Ecliptical.MainPosSpeed.Speed);
+                break;
+            case PrimaryKeys.PlacidusRa:
+            case PrimaryKeys.PlacidusLongitude:
+                totalKey = _placidusTimeKey.ArcFromDays(timespanInDays, jdRadix, coordSys, observerPosition, location); 
+                break;
+            default:
+                Log.Error("TimeKeyCalculator.CalculateTotalKey encountered an unknown key for primary directions: {Key}", primaryKey);
+                throw new ArgumentException("Unknnown time key");
         }
         return totalKey;
     }
 
     /// <inheritdoc/>
-    public double CalculateDaysFromTotalKey(PrimaryKeys primaryKey, double totalKey, FullPointPos positionSun, double jdRadix, CoordinateSystems coordSys, ObserverPositions observerPos, Location location)
+    public double CalculateDaysFromTotalKey(PrimaryKeys primaryKey, double totalKey, FullPointPos positionSun, 
+        double jdRadix, CoordinateSystems coordSys, ObserverPositions observerPos, Location location)
     {
         double timespanInDays = 0.0;
 
@@ -197,9 +193,8 @@ public sealed class TimeKeyCalculator: ITimeKeyCalculator
                 timespanInDays = _placidusTimeKey.DaysFromArc(jdRadix, positionSun, coordSys, observerPos, location);
                 break;
             default:
-                string errorTxt = "TimeKeyCalculator.CalculateDaysFromTotalKey encountered an unknown key for primary directions: " + primaryKey;
-                Log.Error(errorTxt);
-                throw new ArgumentException(errorTxt);
+                Log.Error("TimeKeyCalculator.CalculateDaysFromTotalKey encountered an unknown key for primary directions: {Key}", primaryKey);
+                throw new ArgumentException("Unknown time key");
         }
         return timespanInDays;
     }

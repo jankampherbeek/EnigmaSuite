@@ -49,7 +49,7 @@ public static class PrimarySystemExtensions
             PrimarySystems.CampanusZod => new PrimarySystemDetails(primarySystem, "ref.enum.primarysystem.campanuszod"),
 
 
-            _ => throw new ArgumentException("Primary system unknown : " + primarySystem.ToString())
+            _ => throw new ArgumentException("Primary system unknown : " + primarySystem)
         };
     }
 
@@ -59,18 +59,12 @@ public static class PrimarySystemExtensions
     /// <returns>All details.</returns>
     public static List<PrimarySystemDetails> AllDetails(this PrimarySystems _)
     {
-        var allDetails = new List<PrimarySystemDetails>();
-        foreach (PrimarySystems primSysCurrent in Enum.GetValues(typeof(PrimarySystems)))
-        {
-            if (primSysCurrent != PrimarySystems.None)
-            {
-                allDetails.Add(primSysCurrent.GetDetails());
-            }
-        }
-        return allDetails;
+        return (from PrimarySystems primSysCurrent in Enum.GetValues(typeof(PrimarySystems)) 
+            where primSysCurrent != PrimarySystems.None select primSysCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find primary system for a given index.</summary>
+    /// <param name="_">Any instance of PrimarySystems.</param>
     /// <param name="index">The index.</param>
     /// <returns>The primary system.</returns>
     /// <exception cref="ArgumentException">Thrown if the primary system could not be found.</exception>
@@ -80,9 +74,8 @@ public static class PrimarySystemExtensions
         {
             if ((int)primSysCurrent == index) return primSysCurrent;
         }
-        string errorText = "PrimaryKeys.PrimarySystemsForIndex(): Could not find Primary System for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("PrimaryKeys.PrimarySystemsForIndex(): Could not find Primary System for index : {Index}", index);
+        throw new ArgumentException("Wrong index for primary directions system");
     }
 
 }

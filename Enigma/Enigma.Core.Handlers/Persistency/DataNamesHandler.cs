@@ -21,7 +21,7 @@ public sealed class DataNamesHandler : IDataNamesHandler
     /// <inheritdoc/>
     public List<string> GetExistingDataNames()
     {
-        string path = ApplicationSettings.Instance.LocationDataFiles;
+        string path = ApplicationSettings.LocationDataFiles;
         return _foldersInfo.GetExistingFolderNames(path, false);
     }
 

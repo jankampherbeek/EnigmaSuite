@@ -26,7 +26,7 @@ public sealed class MidpointsApi : IMidpointsApi
 
 
     /// <inheritdoc/>
-    public List<BaseMidpoint> AllMidpoints(CalculatedChart chart)
+    public IEnumerable<BaseMidpoint> AllMidpoints(CalculatedChart chart)
     {
         Guard.Against.Null(chart);
         Log.Information("MidpointsApi: AllMidpoints for chart : {ChartName} ", chart.InputtedChartData.MetaData.Name);
@@ -35,7 +35,7 @@ public sealed class MidpointsApi : IMidpointsApi
 
 
     /// <inheritdoc/>
-    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
+    public IEnumerable<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
     {
         Guard.Against.Null(chart);
         Log.Information("MidpointsApi: OccupiedMidpointsFinder in dial size {DialSize} for chart : {ChartName} ", dialSize, chart.InputtedChartData.MetaData.Name);

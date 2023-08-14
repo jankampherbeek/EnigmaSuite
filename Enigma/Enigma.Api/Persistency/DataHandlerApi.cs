@@ -57,7 +57,7 @@ public sealed class DataFileManagementApi : IDataFileManagementApi
     }
 
     /// <inheritdoc/>
-    public List<string> GetDataNames()
+    public IEnumerable<string> GetDataNames()
     {
         Log.Information("DataFileManagementApi GetDataNames");
         return _dataNamesHandler.GetExistingDataNames();

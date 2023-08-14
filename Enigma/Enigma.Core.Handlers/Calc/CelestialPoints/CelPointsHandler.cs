@@ -118,7 +118,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     }
 
     private static Dictionary<ChartPoints, FullPointPos> CreateObliqueLongitudePoints(Dictionary<ChartPoints, 
-        FullPointPos> commonPoints, List<NamedEclipticLongitude> obliqueLongitudes)
+        FullPointPos> commonPoints, IReadOnlyCollection<NamedEclipticLongitude> obliqueLongitudes)
     {
         Dictionary<ChartPoints, FullPointPos> obliqueLongitudePoints = new();
 

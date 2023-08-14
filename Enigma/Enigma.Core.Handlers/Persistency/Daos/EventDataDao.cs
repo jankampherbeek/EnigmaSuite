@@ -17,7 +17,7 @@ public sealed class EventDataDao : IEventDataDao
 {
     private const string COL_INTERSECTION = "chartevents";
     private const string COL_EVENTS = "events";
-    private readonly string _dbFullPath = ApplicationSettings.Instance.LocationDatabase + EnigmaConstants.DatabaseName;
+    private readonly string _dbFullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.DatabaseName;
     private readonly IInterChartEventDao _intersectionDao;
 
     public EventDataDao(IInterChartEventDao intersectionDao)
@@ -117,7 +117,7 @@ public sealed class EventDataDao : IEventDataDao
     private List<PersistableEventData> PerformSearch(int chartId)
     {
         List<PersistableEventData> allRecords = new();
-        List<InterChartEvent> intersections = _intersectionDao.Read(chartId);
+        IEnumerable<InterChartEvent> intersections = _intersectionDao.Read(chartId);
         using var db = new LiteDatabase(_dbFullPath);
         ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
         foreach (List<PersistableEventData> records in intersections.Select(intersection => col.Query()

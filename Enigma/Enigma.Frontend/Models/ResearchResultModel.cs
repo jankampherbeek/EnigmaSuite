@@ -149,10 +149,8 @@ public class ResearchResultModel
     private static string CreatePartsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-        if (response is CountOfPartsResponse qualifiedResponse)
+        if (response is CountOfPartsResponse(var generalResearchRequest, var countOfParts, var totals))
         {
-            List<CountOfParts> countOfParts = qualifiedResponse.Counts;
-            List<int> totals = qualifiedResponse.Totals;
             string headerLine = string.Empty;
             string longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..104];
 

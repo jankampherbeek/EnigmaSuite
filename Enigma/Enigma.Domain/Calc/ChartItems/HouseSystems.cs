@@ -69,10 +69,9 @@ public static class HouseSystemsExtensions
         };
     }
 
-    
-    
-    
+
     /// <summary>Find house system for a given index.</summary>
+    /// <param name="_">Any instance of HouseSystems.</param>
     /// <param name="index">The index.</param>
     /// <returns>The house system</returns>
     /// <exception cref="ArgumentException">Thrown if the house system could not be found.</exception>

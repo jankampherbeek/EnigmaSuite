@@ -19,7 +19,7 @@ public sealed class AppSettingsModel
 
     public string LocationOfDataFiles()
     {
-        return _applicationSettings.LocationDataFiles;
+        return ApplicationSettings.LocationDataFiles;
     }
 
     public string LocationOfProjectFiles()
@@ -29,17 +29,17 @@ public sealed class AppSettingsModel
 
     public string LocationOfExportFiles()
     {
-        return _applicationSettings.LocationExportFiles;
+        return ApplicationSettings.LocationExportFiles;
     }
 
     public string LocationOfLogFiles()
     {
-        return _applicationSettings.LocationLogFiles;
+        return ApplicationSettings.LocationLogFiles;
     }
 
     public string LocationOfDatabase()
     {
-        return _applicationSettings.LocationDatabase;
+        return ApplicationSettings.LocationDatabase;
     }
 
 

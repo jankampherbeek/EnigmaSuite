@@ -19,7 +19,7 @@ public class TestPrimaryKeySpecifications
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
         {
-            Assert.That(details.PrimaryKeys, Is.EqualTo(PrimaryKeys.NaibodRa));
+            Assert.That(details.PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodRa));
             Assert.That(details.TextId, Is.EqualTo("ref.enum.primarykey.naibodra"));
         });
     }
@@ -60,7 +60,7 @@ public class TestPrimaryKeySpecifications
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));
             Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.primarykey.brahera"));
-            Assert.That(allDetails[5].PrimaryKeys, Is.EqualTo(PrimaryKeys.NaibodLongitude));
+            Assert.That(allDetails[5].PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodLongitude));
         });
     }
 

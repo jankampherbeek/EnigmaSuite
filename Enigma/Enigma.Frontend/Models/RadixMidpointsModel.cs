@@ -54,9 +54,9 @@ public sealed class RadixMidpointsModel
         if (chart == null)
             return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
         double orb = CurrentConfig.Instance.GetConfig().BaseOrbMidpoints;
-        List<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
+        IEnumerable<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
         presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
-        List<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
+        IEnumerable<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
         presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
         return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
     }

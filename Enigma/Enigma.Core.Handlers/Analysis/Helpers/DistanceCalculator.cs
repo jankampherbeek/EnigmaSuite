@@ -32,7 +32,7 @@ public class DistanceCalculator : IDistanceCalculator
     }
 
     /// <inheritdoc/>
-    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(List<PositionedPoint> allPoints, List<PositionedPoint> allCusps)
+    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(IEnumerable<PositionedPoint> allPoints, List<PositionedPoint> allCusps)
     {
         return (from point in allPoints 
             from cusp in allCusps 

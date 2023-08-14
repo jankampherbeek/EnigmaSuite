@@ -28,7 +28,7 @@ public sealed class DatafileImportModel
     /// <returns>True if a directory for the data with the given name can be created, otherwise false.</returns>
     public bool CheckIfNameCanBeUsed(string dataName)
     {
-        string fullPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
+        string fullPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
         return _fileManagementApi.FolderIsAvailable(fullPath);
     }
 
@@ -38,7 +38,7 @@ public sealed class DatafileImportModel
     /// <returns>ResultMessage with a descriptive text and an error_code (possibly zero: no error).</returns>
     public ResultMessage PerformImport(string inputFile, string dataName)
     {
-        string dataPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
+        string dataPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
         ResultMessage receivedResultMessage = _fileManagementApi.CreateFoldersForData(dataPath);
         if (receivedResultMessage.ErrorCode > ErrorCodes.None)
         {

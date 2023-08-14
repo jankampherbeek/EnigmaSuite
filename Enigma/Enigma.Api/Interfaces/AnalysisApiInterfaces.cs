@@ -16,7 +16,7 @@ namespace Enigma.Api.Interfaces;
 public interface IAspectsApi
 {
     /// <summary>Aspects for celestial points.</summary>
-    public List<DefinedAspect> AspectsForCelPoints(AspectRequest request);
+    public IEnumerable<DefinedAspect> AspectsForCelPoints(AspectRequest request);
 
 }
 
@@ -27,14 +27,14 @@ public interface IMidpointsApi
     /// <summary>Return all base midpoints.</summary>
     /// <param name="chart">Calculated chart.</param>
     /// <returns>Midpoints in 360 degree dial, regardless of being occupied.</returns>
-    public List<BaseMidpoint> AllMidpoints(CalculatedChart chart);
+    public IEnumerable<BaseMidpoint> AllMidpoints(CalculatedChart chart);
 
     /// <summary>Return all occupied midpoints for a specific dial.</summary>
     /// <param name="chart">Chart with positions.</param>
     /// <param name="dialSize">Size of dial in degrees.</param>
     /// <param name="orb">Base orb from configuration.</param>
     /// <returns>All occupied midpoints.</returns>
-    public List<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize, double orb);
+    public IEnumerable<OccupiedMidpoint> OccupiedMidpoints(CalculatedChart chart, double dialSize, double orb);
 }
 
 /// <summary>Api for the calculation of harmonics.</summary>

@@ -44,7 +44,7 @@ public sealed class RadixAspectsModel
     /// <returns>Actual radix aspects formatted as Presentableaspects</returns>
     public List<PresentableAspects> GetPresentableAspectsForChartPoints()
     {
-        List<DefinedAspect> effAspects = _aspectsApi.AspectsForCelPoints(CreateRequest());
+        IEnumerable<DefinedAspect> effAspects = _aspectsApi.AspectsForCelPoints(CreateRequest());
         return _aspectForDataGridFactory.CreateAspectForDataGrid(effAspects);
     }
 

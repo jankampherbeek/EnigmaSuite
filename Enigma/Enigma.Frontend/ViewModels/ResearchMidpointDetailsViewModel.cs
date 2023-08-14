@@ -63,7 +63,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
     }
 
     [RelayCommand]
-    private void Cancel()
+    private static void Cancel()
     {
         DataVault.Instance.ResearchCanceled = true;
     }

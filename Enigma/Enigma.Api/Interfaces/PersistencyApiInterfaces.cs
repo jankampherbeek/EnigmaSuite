@@ -35,7 +35,7 @@ public interface IDataFileManagementApi
 
     /// <summary>Create a list of data names, based in folders in the file system.</summary>
     /// <returns>Dat names.</returns>
-    public List<string> GetDataNames();
+    public IEnumerable<string> GetDataNames();
 }
 
 /// <summary>API for simple read and write access to files.</summary>
@@ -116,7 +116,7 @@ public interface IEventDataPersistencyApi
     /// <summary>Read records that correspond (partly) with a given searchterm for the description of the event.</summary>
     /// <param name="partOfDescription">The search term.</param>
     /// <returns>List with zero or more results.</returns>
-    public List<PersistableEventData> SearchEventData(string? partOfdescription);
+    public List<PersistableEventData> SearchEventData(string? partOfDescription);
 
     /// <summary>Read records of events that have an intersection with a given chart.</summary>
     /// <param name="chartId">Id of the chart.</param>

@@ -48,7 +48,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     }
 
     [RelayCommand]
-    private void Cancel()
+    private static void Cancel()
     {
         DataVault.Instance.ResearchCanceled = true;
     }

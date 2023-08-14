@@ -29,20 +29,19 @@ public sealed class DataImportHandler : IDataImportHandler
     /// <inheritdoc/>
     public ResultMessage ImportStandardData(string fullPathSource, string dataName)
     {
-        string fullCsvPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
-        string fullJsonPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
-        string fullErrorPath = ApplicationSettings.Instance.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
+        string fullCsvPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
+        string fullJsonPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
+        string fullErrorPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
         _fileCopier.CopyFile(fullPathSource, fullCsvPath);
         List<string> csvLines = _textFileReader.ReadAllLines(fullCsvPath);
-        Tuple<bool, string, List<string>> conversionResult = _csv2JsonConverter.ConvertStandardDataCsvToJson(csvLines, dataName);
-        if (conversionResult.Item1)
+        (bool item1, string? jsonText, List<string>? errorLines) = _csv2JsonConverter.ConvertStandardDataCsvToJson(csvLines, dataName);
+        if (item1)
         {
-            string jsonText = conversionResult.Item2;
             _textFileWriter.WriteFile(fullJsonPath, jsonText);
             _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); // TODO 0.2 use RB
             return new ResultMessage(0, "File successfully imported.");       // TODO 0.2 use RB
         }
-        List<string> errorLines = conversionResult.Item3;
+
         _textFileWriter.WriteFile(fullErrorPath, errorLines);
         return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);    // TODO 0.2 use RB
     }

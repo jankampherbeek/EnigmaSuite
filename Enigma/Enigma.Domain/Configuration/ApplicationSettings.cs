@@ -9,12 +9,12 @@ namespace Enigma.Domain.Configuration;
 /// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
 public class ApplicationSettings
 {
-    public string LocationEnigmaRoot { get; } = @"c:\enigma_ar";
-    public string LocationDataFiles { get; } = @"c:\enigma_ar\data";
+    public static string LocationEnigmaRoot => @"c:\enigma_ar";
+    public static string LocationDataFiles => @"c:\enigma_ar\data";
     public string LocationProjectFiles { get; set; } = @"c:\enigma_ar\project";
-    public string LocationExportFiles { get; } = @"c:\enigma_ar\export";
-    public string LocationLogFiles { get; } = @"c:\enigma_ar\logs";
-    public string LocationDatabase { get; } = @"c:\enigma_ar\database";
+    public static string LocationExportFiles => @"c:\enigma_ar\export";
+    public static string LocationLogFiles => @"c:\enigma_ar\logs";
+    public static string LocationDatabase => @"c:\enigma_ar\database";
 
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit

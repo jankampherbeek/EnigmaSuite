@@ -100,7 +100,7 @@ public sealed class CelPointsElementsCalc : ICelPointsElementsCalc
                 inclination = new[] { 5.5, 0, 0 };
                 break;
             default:
-                throw new ArgumentException($"Unrecognized planet for OrbitDefinition: {0}", planet.ToString());
+                throw new ArgumentException("Unrecognized planet for OrbitDefinition: {0}", planet.ToString());
         }
         return new OrbitDefinition(meanAnomaly, eccentricAnomaly, semiMajorAxis, argumentPerihelion, ascNode, inclination);
     }

@@ -279,7 +279,7 @@ public interface IInterChartEventDao
     /// <summary>Read all intersections for a specific chart.</summary>
     /// <param name="chartId"></param>
     /// <returns>Lidt with intersections for the chart..</returns>
-    public List<InterChartEvent> Read(int chartId);
+    public IEnumerable<InterChartEvent> Read(int chartId);
     
     /// <summary>Delete all intersections for a specific chart.</summary>
     /// <param name="chartId"></param>

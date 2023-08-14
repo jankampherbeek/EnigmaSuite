@@ -52,6 +52,7 @@ public static class CoordinateSystemsExtensions
 
 
     /// <summary>Find coordinate system for an index.</summary>
+    /// <param name="_">Any instance of CoordinateSystems.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The coordinate systrem for the given index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>

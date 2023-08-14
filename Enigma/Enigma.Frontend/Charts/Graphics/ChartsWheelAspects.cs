@@ -35,7 +35,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         List<DrawableAspectCoordinatesCp> ssCoordinates = CreateSsCoordinates(currentChart, metrics, centerPoint);
         AstroConfig config = CurrentConfig.Instance.GetConfig();
         AspectRequest request = new(currentChart, config);
-        List<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
+        IEnumerable<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
         List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
         foreach ((ChartPoints point1, ChartPoints point2, double exactness, AspectTypes aspectTypes) in drawSsAspects)
         {

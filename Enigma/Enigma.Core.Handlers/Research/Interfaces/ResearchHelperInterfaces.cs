@@ -59,7 +59,7 @@ public interface IOccupiedMidpointsCounting
     /// <param name="charts">The calculated charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
-    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request);
+    public CountOfOccupiedMidpointsResponse CountMidpoints(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request);
 }
 
 public interface IHarmonicConjunctionsCounting

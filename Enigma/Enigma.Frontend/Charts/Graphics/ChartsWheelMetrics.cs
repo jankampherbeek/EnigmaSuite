@@ -76,7 +76,7 @@ public sealed class ChartsWheelMetrics
 
 
     // --------------------------------------------------
-    public double BaseSize { get; private set; } = 700.0;
+    public double BaseSize { get; } = 700.0;
 
     private const double BASE_STROKE_SIZE = 2.0;
     private const double BASE_CONNECT_LINE_SIZE = 1.0;

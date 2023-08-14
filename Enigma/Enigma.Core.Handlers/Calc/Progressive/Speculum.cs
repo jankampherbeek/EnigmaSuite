@@ -33,15 +33,13 @@ public sealed class Speculum: ISpeculum
         PrimarySystem = primSys;
         GeoLat = calcChart.InputtedChartData.Location.GeoLat;
 
-        foreach (var position in calcChart.Positions)
+        foreach (KeyValuePair<ChartPoints, FullPointPos> position 
+                 in calcChart.Positions.Where(position => position.Key == ChartPoints.Mc))
         {
-            if (position.Key != ChartPoints.Mc) continue;
             RaMc = position.Value.Equatorial.MainPosSpeed.Position;
             RaIc = RangeUtil.ValueToRange(RaMc + 180.0, 0.0, 360.0);
             OblAscAscendant = RangeUtil.ValueToRange(RaMc + 90.0, 0.0, 360.0);
             OblDescDescendant = RangeUtil.ValueToRange(RaMc - 90.0, 0.0, 360.0);
-
-            // handle promissors/significators
         }
 
     }
@@ -61,9 +59,9 @@ public abstract class SpeculumItem : ISpeculumItem
     /// <inheritdoc/>
     public double MeridianDistanceIc => Mdic;
     /// <inheritdoc/>
-    public double AscensionalDifference => Ad;
+    public double AscensionalDifference => _ad;
     /// <summary>Oblique ascension of promissor.</summary>
-    public double ObliqueAscensionPromissor => Oadpl;
+    public double ObliqueAscensionPromissor => _oadpl;
     /// <summary>Horizontal distance</summary>
     public double HorizontalDistance => Hd;
     /// <summary>Diurnal semi-arc</summary>
@@ -76,32 +74,32 @@ public abstract class SpeculumItem : ISpeculumItem
     protected readonly double DeclPlanet;
     protected readonly double Mdmc;                       // meridian distance from mc
     protected readonly double Mdic;                       // meridian distance from ic
-    protected readonly double Ad;                         // ascensional difference
-    protected readonly double Oadpl;                      // oblique ascension or descension planet
+    private readonly double _ad;                         // ascensional difference
+    private readonly double _oadpl;                      // oblique ascension or descension planet
     protected readonly double GeoLat;
     protected readonly double Hd;                         // horizontal distance
     protected readonly double Dsa;                        // diurnal semi-arc
     protected readonly double Nsa;                        // nocturnal semi-arc
     protected readonly bool East;
-    protected readonly bool North;
+    private readonly bool _north;
 
-    public SpeculumItem(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet)
+    protected SpeculumItem(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet)
     {
         RaPlanet = raPlanet;
         DeclPlanet = declPlanet;
         GeoLat = geoLat;
         Mdmc = RangeUtil.ValueToRange(RaPlanet - raMc, 0.0, 360.0);
         Mdic = RangeUtil.ValueToRange(RaPlanet - raIc, 0.0, 360.0);
-        Ad = MathExtra.AscensionalDifference(DeclPlanet, geoLat);
-        North = GeoLat >= 0.0;
+        _ad = MathExtra.AscensionalDifference(DeclPlanet, geoLat);
+        _north = GeoLat >= 0.0;
         East = MathExtra.IsEasternHemiSphere(RaPlanet, raMc);
-        Oadpl = MathExtra.ObliqueAscension(RaPlanet, Ad, East, North);
+        _oadpl = MathExtra.ObliqueAscension(RaPlanet, _ad, East, _north);
         if (East)
         {
-            Hd = Oadpl - oaAsc;
+            Hd = _oadpl - oaAsc;
         } else
         {
-            Hd = RangeUtil.ValueToRange(Oadpl + 180.0, 0.0, 360.0) - odDesc;
+            Hd = RangeUtil.ValueToRange(_oadpl + 180.0, 0.0, 360.0) - odDesc;
         }
         Dsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdmc), 0.0, 360.0);
         Nsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdic), 0.0, 360.0);
@@ -113,27 +111,23 @@ public class SpeculumItemPlacidus : SpeculumItem
 {
 
     /// <summary>Proportional semi arc</summary>
-    public double ProportionalSemiArc => _psa;
-
-    private double _psa;
+    public double ProportionalSemiArc { get; }
 
     public SpeculumItemPlacidus(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet) :
         base(geoLat, raMc, raIc, oaAsc, odDesc, raPlanet, declPlanet)
     {
-        _psa = (Hd >= 0.0) ? Mdmc / Dsa : Mdic / Nsa;
+        ProportionalSemiArc = (Hd >= 0.0) ? Mdmc / Dsa : Mdic / Nsa;
     }
 
 }
 
 public class SpeculumItemRegiomontanus: SpeculumItem
 {
-    public double Pole => _pole;
-    public double AdPole => _adPole;
-    public double OadPole => _oadPole;
+    public double Pole { get; private set; }
 
-    private double _pole;
-    private double _adPole;
-    private double _oadPole;
+    public double AdPole { get; private set; }
+
+    public double OadPole { get; private set; }
 
     public SpeculumItemRegiomontanus(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet) :
         base(geoLat, raMc, raIc, oaAsc, odDesc, raPlanet, declPlanet)
@@ -150,10 +144,10 @@ public class SpeculumItemRegiomontanus: SpeculumItem
         double yRad = geoLatRad - xRad;
         double zRad = Math.Atan(Math.Cos(yRad) / (Math.Tan(mdMcRad) * Math.Cos(xRad)));
         double poleRad = Math.Asin(Math.Sin(geoLatRad) * Math.Cos(zRad));
-        _pole = MathExtra.RadToDeg(poleRad);
+        Pole = MathExtra.RadToDeg(poleRad);
         double adPoleRad = Math.Asin(Math.Tan(declPlRad) * Math.Tan(poleRad));
-        _adPole = MathExtra.RadToDeg(adPoleRad);
-        _oadPole = East ? RaPlanet - _adPole : RaPlanet + _adPole;
+        AdPole = MathExtra.RadToDeg(adPoleRad);
+        OadPole = East ? RaPlanet - AdPole : RaPlanet + AdPole;
 
         // moving point needs additional calculation
     }

@@ -28,7 +28,7 @@ public partial class App
 {
     public static ServiceProvider ServiceProvider { get; } = HandleRegistrationForDi();
 
-    private static readonly string EnigmaLogRoot = ApplicationSettings.Instance.LocationLogFiles;
+    private static readonly string EnigmaLogRoot = ApplicationSettings.LocationLogFiles;
 
     protected override void OnStartup(StartupEventArgs e)
     {

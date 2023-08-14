@@ -21,7 +21,7 @@ public class TestApplicationSettings
         Assert.Multiple(() =>
         {
             Assert.That(settings, Is.Not.Null);
-            Assert.That(settings.LocationDataFiles, Is.EqualTo(DEFAULT_LOC_DATA));
+            Assert.That(ApplicationSettings.LocationDataFiles, Is.EqualTo(DEFAULT_LOC_DATA));
         });
     }
 

@@ -92,7 +92,7 @@ public sealed class DataVault
         }
     }
 
-    public List<CalculatedChart> GetAllCharts()
+    public IEnumerable<CalculatedChart> GetAllCharts()
     {
         return _allCharts;
     }

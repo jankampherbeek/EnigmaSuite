@@ -24,7 +24,7 @@ public enum PrimaryKeys
 /// <summary>Details for a primary time key.</summary>
 /// <param name="PrimaryKey">Time key.</param>
 /// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record PrimaryKeyDetails(PrimaryKeys PrimaryKeys, string TextId);
+public record PrimaryKeyDetails(PrimaryKeys PrimaryKey, string TextId);
 
 
 /// <summary>Extension class for enum PrimaryKeys.</summary>
@@ -45,7 +45,7 @@ public static class PrimaryKeyExtensions
             PrimaryKeys.NaibodLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.naibodlong"),
             PrimaryKeys.BraheLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.brahelong"),
             PrimaryKeys.PlacidusLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.placiduslong"),
-            _ => throw new ArgumentException("Primary time key unknown : " + primaryKey.ToString())
+            _ => throw new ArgumentException("Primary time key unknown : " + primaryKey)
         };
     }
 
@@ -55,18 +55,12 @@ public static class PrimaryKeyExtensions
     /// <returns>All details.</returns>
     public static List<PrimaryKeyDetails> AllDetails(this PrimaryKeys _)
     {
-        var allDetails = new List<PrimaryKeyDetails>();
-        foreach (PrimaryKeys primKeyCurrent in Enum.GetValues(typeof(PrimaryKeys)))
-        {
-            if (primKeyCurrent != PrimaryKeys.None)
-            {
-                allDetails.Add(primKeyCurrent.GetDetails());
-            }
-        }
-        return allDetails;
+        return (from PrimaryKeys primKeyCurrent in Enum.GetValues(typeof(PrimaryKeys)) 
+            where primKeyCurrent != PrimaryKeys.None select primKeyCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find primary time key for a given index.</summary>
+    /// <param name="_">Any instance of PrimaryKeys</param>
     /// <param name="index">The index.</param>
     /// <returns>The primary time key.</returns>
     /// <exception cref="ArgumentException">Thrown if the time key could not be found.</exception>
@@ -76,9 +70,8 @@ public static class PrimaryKeyExtensions
         {
             if ((int)primKeyCurrent == index) return primKeyCurrent;
         }
-        string errorText = "PrimaryKeys.PrimaryKeyForIndex(): Could not find Primary Key for index : " + index;
-        Log.Error(errorText);
-        throw new ArgumentException(errorText);
+        Log.Error("PrimaryKeys.PrimaryKeyForIndex(): Could not find Primary Key for index : {Index}", index);
+        throw new ArgumentException("Wrong index for primary key");
     }
 
 }

@@ -47,7 +47,7 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
     }
 
 
-    private BaseMidpoint ConstructEffectiveMidpointInDial(PositionedPoint point1, PositionedPoint point2)
+    private static BaseMidpoint ConstructEffectiveMidpointInDial(PositionedPoint point1, PositionedPoint point2)
     {
         double pos1 = point1.Position;
         double pos2 = point2.Position;

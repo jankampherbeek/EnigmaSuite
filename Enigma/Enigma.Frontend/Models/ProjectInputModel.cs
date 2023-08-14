@@ -31,7 +31,7 @@ public class ProjectInputModel
 
     public List<string> GetDataNames()
     {
-        List<string> fullPathDataNames = _fileManagementApi.GetDataNames();
+        IEnumerable<string> fullPathDataNames = _fileManagementApi.GetDataNames();
         return _dataNameForPresentationFactory.CreateDataNamesForListView(fullPathDataNames);
     }
     

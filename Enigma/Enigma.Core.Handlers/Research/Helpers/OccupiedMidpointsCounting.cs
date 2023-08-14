@@ -30,7 +30,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
 
 
     /// <inheritdoc/>
-    public CountOfOccupiedMidpointsResponse CountMidpoints(List<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
+    public CountOfOccupiedMidpointsResponse CountMidpoints(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
     {
         return PerformCount(charts, request);
     }

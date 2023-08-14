@@ -25,7 +25,7 @@ public interface IDistanceCalculator
     /// <param name="allPoints">All points except the cusps.</param>
     /// <param name="allCusps">The cusps.</param>
     /// <returns>List of shortest distances between a non-cusp (first position in distance) and a cusp (second position).</returns>
-    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(List<PositionedPoint> allPoints, List<PositionedPoint> allCusps);
+    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(IEnumerable<PositionedPoint> allPoints, List<PositionedPoint> allCusps);
 }
 
 /// <summary>Selector for points that can be used to calculate aspects.</summary>
@@ -111,7 +111,7 @@ public interface IHarmonicsCalculator
     /// <param name="originalPositions">List of original positions.</param>
     /// <param name="harmonicNumber">The multiplication factor for the harmonic to calculate.</param>
     /// <returns>List with harmonic positions in the same sequence as the original positions.</returns>
-    public List<double> CalculateHarmonics(List<double> originalPositions, double harmonicNumber);
+    public List<double> CalculateHarmonics(IEnumerable<double> originalPositions, double harmonicNumber);
 
     /// <summary>Calculate harmonics for a single position using a specified harmonic number.</summary>
     /// <param name="originalPosition">OriginalPosition.</param>

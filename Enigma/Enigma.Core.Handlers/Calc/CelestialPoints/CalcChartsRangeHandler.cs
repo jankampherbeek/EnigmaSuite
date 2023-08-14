@@ -6,7 +6,6 @@
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.Specials;
-using Enigma.Domain.Points;
 
 namespace Enigma.Core.Handlers.Calc.CelestialPoints;
 

@@ -48,10 +48,9 @@ public class SortedGraphicCelPointsFactory : ISortedGraphicCelPointsFactory
         List<GraphicCelPointPositions> graphPositions = new();
         List<PresentableCommonPositions> presentablePositions = _celPointFactory.CreateCelPointPosForDataGrid(fullPositions);
         int count = 0;
-        foreach (KeyValuePair<ChartPoints, FullPointPos> celPointPos in fullPositions)
+        foreach ((ChartPoints celPoint, FullPointPos? value) in fullPositions)
         {
-            double longitude = celPointPos.Value.Ecliptical.MainPosSpeed.Position;
-            ChartPoints celPoint = celPointPos.Key;
+            double longitude = value.Ecliptical.MainPosSpeed.Position;
             double mundanePos = longitude - longitudeAsc + 90.0;
             if (mundanePos < 0.0) mundanePos += 360.0;
             if (mundanePos >= 360.0) mundanePos -= 360.0;

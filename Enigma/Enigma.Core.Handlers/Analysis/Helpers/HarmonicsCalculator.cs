@@ -12,7 +12,7 @@ namespace Enigma.Core.Handlers.Analysis.Helpers;
 public sealed class HarmonicsCalculator : IHarmonicsCalculator
 {
     /// <inheritdoc/>
-    public List<double> CalculateHarmonics(List<double> originalPositions, double harmonicNumber)
+    public List<double> CalculateHarmonics(IEnumerable<double> originalPositions, double harmonicNumber)
     {
         return originalPositions.Select(originalPosition 
             => InRange360(originalPosition * harmonicNumber)).ToList();

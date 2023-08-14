@@ -78,7 +78,7 @@ public sealed class CalcHelioPos : ICalcHelioPos
         if (Math.Abs(factorVDeg - _semiAxis) > 10.0) _semiAxis -= 180.0;
     }
 
-    private static double ProcessTermsForFractionT(double fractionT, double[] elements)
+    private static double ProcessTermsForFractionT(double fractionT, IReadOnlyList<double> elements)
     {
         return elements[0] + (elements[1] * fractionT) + (elements[2] * fractionT * fractionT);
     }

@@ -149,7 +149,7 @@ public sealed class ProjectCreationHandler : IProjectCreationHandler
 
     private bool CopyDataFile(ResearchProject project)
     {
-        string dataPath = _applicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
+        string dataPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
         string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
         try
         {
