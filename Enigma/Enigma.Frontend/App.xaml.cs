@@ -35,6 +35,9 @@ public partial class App
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
+        StartModel.HandleCheckForConfig();
+        StartModel.HandleCheckDirForSettings();
+        //    StartModel.HandleCheckNewVersion();
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }

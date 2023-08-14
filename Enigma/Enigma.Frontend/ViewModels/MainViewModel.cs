@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Frontend.Ui.State;
@@ -19,6 +20,7 @@ public partial class MainViewModel: ObservableObject
     private static void ChartsModule()
     {
         new ChartsMainWindow().ShowDialog();
+        Application.Current.Shutdown(0);
     }
 
     [RelayCommand]
