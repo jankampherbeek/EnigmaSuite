@@ -40,7 +40,7 @@ public class TestChartPoints
     public void TestRetrievingWithIndex()
     {
         const int index = 9;
-        ChartPoints chartPoint = ChartPoints.Moon.PointForIndex(index);
+        ChartPoints chartPoint = PointsExtensions.PointForIndex(index);
         Assert.That(chartPoint, Is.EqualTo(ChartPoints.Neptune));
     }
 
@@ -48,13 +48,13 @@ public class TestChartPoints
     public void TestRetrievingWithWrongIndex()
     {
         const int index = -100;
-        Assert.That(() => _ = ChartPoints.Sun.PointForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = PointsExtensions.PointForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllChartPointDetails()
     {
-        List<PointDetails> allDetails = ChartPoints.Sun.AllDetails();
+        List<PointDetails> allDetails = PointsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(92));

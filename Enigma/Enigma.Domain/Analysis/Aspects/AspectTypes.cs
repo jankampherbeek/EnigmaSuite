@@ -81,18 +81,17 @@ public static class AspectTypesExtensions
  
     /// <summary>Retrieve details for items in the enum AspectTypes.</summary>
     /// <returns>All details.</returns>
-    public static IEnumerable<AspectDetails> AllDetails(this AspectTypes _)
+    public static IEnumerable<AspectDetails> AllDetails()
     {
         return (from AspectTypes currentAspect in Enum.GetValues(typeof(AspectTypes)) select currentAspect.GetDetails()).ToList();
     }
 
 
     /// <summary>Find aspect type for an index.</summary>
-    /// <param name="_">Any AspectType.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The aspect type for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static AspectTypes AspectTypeForIndex(this AspectTypes _, int index)
+    public static AspectTypes AspectTypeForIndex(int index)
     {
         foreach (AspectTypes currAspect in Enum.GetValues(typeof(AspectTypes)))
         {

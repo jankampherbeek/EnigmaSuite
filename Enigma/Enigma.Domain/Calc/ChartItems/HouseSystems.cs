@@ -71,11 +71,10 @@ public static class HouseSystemsExtensions
 
 
     /// <summary>Find house system for a given index.</summary>
-    /// <param name="_">Any instance of HouseSystems.</param>
     /// <param name="index">The index.</param>
     /// <returns>The house system</returns>
     /// <exception cref="ArgumentException">Thrown if the house system could not be found.</exception>
-    public static HouseSystems HouseSystemForIndex(this HouseSystems _, int index)
+    public static HouseSystems HouseSystemForIndex(int index)
     {
         foreach (HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)))
         {
@@ -87,7 +86,7 @@ public static class HouseSystemsExtensions
 
     /// <summary>Creates list with all details for house systems.</summary>
     /// <returns>All details.</returns>
-    public static List<HouseSystemDetails> AllDetails(this HouseSystems _)
+    public static List<HouseSystemDetails> AllDetails()
     {
         return (from HouseSystems houseSystem in Enum.GetValues(typeof(HouseSystems)) 
             select houseSystem.GetDetails()).ToList();

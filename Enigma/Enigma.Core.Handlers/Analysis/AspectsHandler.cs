@@ -31,7 +31,7 @@ public sealed class AspectsHandler : IAspectsHandler
     }
 
     /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForChartPoints(AspectRequest request)
+    public IEnumerable<DefinedAspect> AspectsForChartPoints(AspectRequest request)
     {
         Dictionary<ChartPoints, FullPointPos> chartPointPositions =
             (from posPoint in request.CalcChart.Positions

@@ -7,7 +7,6 @@
 using Enigma.Frontend.Helpers.Conversions;
 using Enigma.Frontend.Helpers.InputParsers;
 using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Helpers.Validations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -25,7 +24,6 @@ public static class FrontendHelpersServices
         serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();
         serviceCollection.AddSingleton<IGeoLongValidator, GeoLongValidator>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();
-        serviceCollection.AddTransient<ITextFileReaderFe, TextFileReader>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
         serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();

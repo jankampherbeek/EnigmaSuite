@@ -84,7 +84,7 @@ public sealed class HousesHandler : IHousesHandler
         for (int n = 1; n < eclValues[0].Length; n++)
         {
             int cuspIndex = 2000 + n;
-            ChartPoints cusp = ChartPoints.Sun.PointForIndex(cuspIndex);
+            ChartPoints cusp = PointsExtensions.PointForIndex(cuspIndex);
             KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, tropicalValues[0][n], eclValues[0][n], jdUt, obliquity, location);
             mundanePositions.Add(cuspPos.Key, cuspPos.Value);
         }

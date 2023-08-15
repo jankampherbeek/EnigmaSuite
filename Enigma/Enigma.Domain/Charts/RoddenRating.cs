@@ -56,18 +56,17 @@ public static class RoddenRatingsExtensions
 
     /// <summary>Retrieve details for items in the enum RoddenRatings.</summary>
     /// <returns>All details.</returns>
-    public static List<RoddenRatingDetails> AllDetails(this RoddenRatings _)
+    public static List<RoddenRatingDetails> AllDetails()
     {
         return (from RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)) select currentRating.GetDetails()).ToList();
     }
 
 
     /// <summary>Find Rodden rating for an index.</summary>
-    /// <param name="_">Instance of enum RoddenRatings</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The Rodden rating for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static RoddenRatings RoddenRatingForIndex(this RoddenRatings _, int index)
+    public static RoddenRatings RoddenRatingForIndex(int index)
     {
         
         foreach (RoddenRatings currentRating in Enum.GetValues(typeof(RoddenRatings)))

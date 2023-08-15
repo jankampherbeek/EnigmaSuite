@@ -29,7 +29,6 @@ public class TestPrimaryKeySpecifications
     {
         foreach (PrimaryKeys keys in Enum.GetValues(typeof(PrimaryKeys)))
         {
-            if (keys == PrimaryKeys.None) continue;
             PrimaryKeyDetails details = keys.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.TextId, Is.Not.Empty);
@@ -40,7 +39,7 @@ public class TestPrimaryKeySpecifications
     public void TestRetrievingWithIndex()
     {
         const int index = 2;
-        PrimaryKeys key = PrimaryKeys.None.PrimaryKeysForIndex(index);
+        PrimaryKeys key = PrimaryKeyExtensions.PrimaryKeysForIndex(index);
         Assert.That(key, Is.EqualTo(PrimaryKeys.NaibodRa));
     }
 
@@ -49,13 +48,13 @@ public class TestPrimaryKeySpecifications
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = PrimaryKeys.None.PrimaryKeysForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = PrimaryKeyExtensions.PrimaryKeysForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllPrimaryKeyDetails()
     {
-        List<PrimaryKeyDetails> allDetails = PrimaryKeys.None.AllDetails();
+        List<PrimaryKeyDetails> allDetails = PrimaryKeyExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));

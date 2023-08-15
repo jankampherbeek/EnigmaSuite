@@ -44,7 +44,7 @@ public static class CoordinateSystemsExtensions
 
     /// <summary>Retrieve details for all items in the enum CoordinateSystems.</summary>
     /// <returns>All details.</returns>
-    public static List<CoordinateSystemDetails> AllDetails(this CoordinateSystems _)
+    public static List<CoordinateSystemDetails> AllDetails()
     {
         return (from CoordinateSystems currentSys in Enum.GetValues(typeof(CoordinateSystems)) 
             select currentSys.GetDetails()).ToList();
@@ -52,11 +52,10 @@ public static class CoordinateSystemsExtensions
 
 
     /// <summary>Find coordinate system for an index.</summary>
-    /// <param name="_">Any instance of CoordinateSystems.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The coordinate systrem for the given index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static CoordinateSystems CoordinateSystemForIndex(this CoordinateSystems _, int index)
+    public static CoordinateSystems CoordinateSystemForIndex(int index)
     {
         foreach (CoordinateSystems currentSys in Enum.GetValues(typeof(CoordinateSystems)))
         {

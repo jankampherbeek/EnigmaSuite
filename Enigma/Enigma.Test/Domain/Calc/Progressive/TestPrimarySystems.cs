@@ -41,7 +41,7 @@ public class TestPrimarySystemSpecifications
     public void TestRetrievingWithIndex()
     {
         const int index = 3;
-        PrimarySystems prSys = PrimarySystems.None.PrimarySystemsForIndex(index);
+        PrimarySystems prSys = PrimarySystemExtensions.PrimarySystemsForIndex(index);
         Assert.That(prSys, Is.EqualTo(PrimarySystems.RegiomontanusMun));
     }
 
@@ -50,13 +50,13 @@ public class TestPrimarySystemSpecifications
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = PrimarySystems.None.PrimarySystemsForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = PrimarySystemExtensions.PrimarySystemsForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllPrimarySystemDetails()
     {
-        List<PrimarySystemDetails> allDetails = PrimarySystems.None.AllDetails();
+        List<PrimarySystemDetails> allDetails = PrimarySystemExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));

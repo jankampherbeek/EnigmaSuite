@@ -33,7 +33,7 @@ public class LotsCalculator : ILotsCalculator
     }
 
     private FullPointPos CalculateLotPosition(ChartPoints lot, double jdUt, double obliquity, Location location, CalculationPreferences calcPrefs,
-        IReadOnlyDictionary<ChartPoints, FullPointPos> commonPoints, Dictionary<ChartPoints, FullPointPos> mundanePoints)
+        IReadOnlyDictionary<ChartPoints, FullPointPos> commonPoints, IReadOnlyDictionary<ChartPoints, FullPointPos> mundanePoints)
     {
         double lotLongitude = 0.0;
         double ascendant = mundanePoints[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;

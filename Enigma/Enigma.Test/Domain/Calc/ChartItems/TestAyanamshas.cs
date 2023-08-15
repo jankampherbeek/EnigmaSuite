@@ -44,7 +44,7 @@ public class TestAyanamshaSpecifications
     public void TestRetrievingWithIndex()
     {
         const int index = 1;
-        Ayanamshas ayanamsha = Ayanamshas.None.AyanamshaForIndex(index);
+        Ayanamshas ayanamsha = AyanamshaExtensions.AyanamshaForIndex(index);
         Assert.That(ayanamsha, Is.EqualTo(Ayanamshas.Fagan));
     }
 
@@ -53,14 +53,14 @@ public class TestAyanamshaSpecifications
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = Ayanamshas.None.AyanamshaForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = AyanamshaExtensions.AyanamshaForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
 
     [Test]
     public void TestAllAyanamshaDetails()
     {
-        List<AyanamshaDetails> allDetails = Ayanamshas.None.AllDetails();
+        List<AyanamshaDetails> allDetails = AyanamshaExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(41));

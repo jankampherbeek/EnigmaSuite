@@ -54,11 +54,6 @@ public sealed class AspectsCounting : IAspectsCounting
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> positions = calcResearchChart.Positions;
-
-       //     Dictionary<ChartPoints, FullPointPos> configChartPointPositions = _aspectPointSelector.SelectPoints(positions, chartPointConfigSpecs);
-       //     Dictionary<ChartPoints, ChartPointConfigSpecs> configSelectedChartPoints = _researchMethodUtils.DefineConfigSelectedChartPoints(config);
-
             Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
 
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);

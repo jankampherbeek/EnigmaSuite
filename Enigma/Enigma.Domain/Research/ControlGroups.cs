@@ -37,17 +37,16 @@ public static class ControlGroupTypesExtensions
 
     /// <summary>Retrieve details for items in the enum ControlGroupTypes.</summary>
     /// <returns>All details.</returns>
-    public static List<ControlGroupTypeDetails> AllDetails(this ControlGroupTypes _)
+    public static List<ControlGroupTypeDetails> AllDetails()
     {
         return (from ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)) select currentCgType.GetDetails()).ToList();
     }
 
     /// <summary>Find control group type for an index.</summary>
-    /// <param name="_">Any control group</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The control group type for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static ControlGroupTypes ControlGroupTypeForIndex(this ControlGroupTypes _, int index)
+    public static ControlGroupTypes ControlGroupTypeForIndex(int index)
     {
         foreach (ControlGroupTypes currentCgType in Enum.GetValues(typeof(ControlGroupTypes)))
         {

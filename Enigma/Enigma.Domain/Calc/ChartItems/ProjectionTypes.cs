@@ -45,18 +45,17 @@ public static class ProjectionTypesExtensions
 
     /// <summary>Retrieve details for items in the enum ProjectionTypes</summary>
     /// <returns>All details</returns>
-    public static List<ProjectionTypeDetails> AllDetails(this ProjectionTypes _)
+    public static List<ProjectionTypeDetails> AllDetails()
     {
         return (from ProjectionTypes currentProjType in Enum.GetValues(typeof(ProjectionTypes)) select currentProjType.GetDetails()).ToList();
     }
 
 
     /// <summary>Find projection type for an index</summary>
-    /// <param name="_">Any instance of Projection Types</param>
     /// <param name="index">Index to look for</param>
     /// <returns>The projection type for the index</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given</exception>
-    public static ProjectionTypes ProjectionTypeForIndex(this ProjectionTypes _, int index)
+    public static ProjectionTypes ProjectionTypeForIndex(int index)
     {
         foreach (ProjectionTypes projectionType in Enum.GetValues(typeof(ProjectionTypes)))
         {

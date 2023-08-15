@@ -38,18 +38,17 @@ public static class YearCountsExtensions
 
     /// <summary>Retrieve details for items in the enum YearCounts.</summary>
     /// <returns>All details.</returns>
-    public static List<YearCountDetails> AllDetails(this YearCounts _)
+    public static List<YearCountDetails> AllDetails()
     {
         return (from YearCounts currentYc in Enum.GetValues(typeof(YearCounts)) select currentYc.GetDetails()).ToList();
     }
 
 
     /// <summary>Find year count for an index.</summary>
-    /// <param name="_">Any instance of YearCounts.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The year count for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static YearCounts YearCountForIndex(this YearCounts _, int index)
+    public static YearCounts YearCountForIndex(int index)
     {
         foreach (YearCounts currentYc in Enum.GetValues(typeof(YearCounts)))
         {

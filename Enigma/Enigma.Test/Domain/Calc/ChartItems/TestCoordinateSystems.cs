@@ -40,7 +40,7 @@ public class TestCoordinateSystems
     public void TestRetrievingWithIndex()
     {
         const int index = 1;
-        CoordinateSystems system = CoordinateSystems.Ecliptical.CoordinateSystemForIndex(index);
+        CoordinateSystems system = CoordinateSystemsExtensions.CoordinateSystemForIndex(index);
         Assert.That(system, Is.EqualTo(CoordinateSystems.Equatorial));
     }
 
@@ -48,13 +48,13 @@ public class TestCoordinateSystems
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = CoordinateSystems.Ecliptical.CoordinateSystemForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = CoordinateSystemsExtensions.CoordinateSystemForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllCoordinateSystemDetails()
     {
-        List<CoordinateSystemDetails> allDetails = CoordinateSystems.Horizontal.AllDetails();
+        List<CoordinateSystemDetails> allDetails = CoordinateSystemsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));

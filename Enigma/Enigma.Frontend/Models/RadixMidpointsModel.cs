@@ -36,13 +36,7 @@ public sealed class RadixMidpointsModel
         _descriptiveChartText = descriptiveChartText;
     }
 
-    public string RetrieveChartName()
-    {
-        var chart = _dataVault.GetCurrentChart();
-        return chart != null ? chart.InputtedChartData.MetaData.Name : "";
-    }
-    
-  /// <summary>Calculate midpoints in radix</summary>
+    /// <summary>Calculate midpoints in radix</summary>
   /// <param name="dialSize">The size of the 'dial' to use.</param>
   /// <returns>A tuple with a list of all midpoints and a list with occupied midpoints.
   /// Takes the dialsize into account for the occupied midpoints.</returns>

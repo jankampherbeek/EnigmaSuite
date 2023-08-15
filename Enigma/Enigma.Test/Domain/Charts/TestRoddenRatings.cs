@@ -39,7 +39,7 @@ public class TestRoddenRatings
     public void TestRetrievingWithIndex()
     {
         const int roddenRatingIndex = 2;
-        RoddenRatings roddenRating = RoddenRatings.C.RoddenRatingForIndex(roddenRatingIndex);
+        RoddenRatings roddenRating = RoddenRatingsExtensions.RoddenRatingForIndex(roddenRatingIndex);
         Assert.That(roddenRating, Is.EqualTo(RoddenRatings.A));
     }
 
@@ -47,13 +47,13 @@ public class TestRoddenRatings
     public void TestRetrievingWithWrongIndex()
     {
         const int roddenRatingIndex = 1000;
-        Assert.That(() => _ = RoddenRatings.XX.RoddenRatingForIndex(roddenRatingIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = RoddenRatingsExtensions.RoddenRatingForIndex(roddenRatingIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDetailsForRating()
     {
-        List<RoddenRatingDetails> allDetails = RoddenRatings.AA.AllDetails();
+        List<RoddenRatingDetails> allDetails = RoddenRatingsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));

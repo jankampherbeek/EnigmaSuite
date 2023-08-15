@@ -37,7 +37,7 @@ public static class CalendarsExtensions
 
     /// <summary>Retrieve details for items in the enum Calendars.</summary>
     /// <returns>All details.</returns>
-    public static List<CalendarDetails> AllDetails(this Calendars _)
+    public static List<CalendarDetails> AllDetails()
     {
         return (from Calendars calendar in Enum.GetValues(typeof(Calendars)) select calendar.GetDetails()).ToList();
     }

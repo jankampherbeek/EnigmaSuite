@@ -39,13 +39,13 @@ public class TestOrbMethods
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = OrbMethods.Weighted.OrbMethodForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = OrbMethodsExtensions.OrbMethodForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllOrbMethodDetails()
     {
-        List<OrbMethodDetails> allDetails = OrbMethods.Weighted.AllDetails();
+        List<OrbMethodDetails> allDetails = OrbMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(1));

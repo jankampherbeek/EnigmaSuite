@@ -39,18 +39,17 @@ public static class ZodiacTypeExtensions
 
     /// <summary>Retrieve details for items in the enum ZodiacTypes.</summary>
     /// <returns>All details.</returns>
-    public static List<ZodiacTypeDetails> AllDetails(this ZodiacTypes _)
+    public static List<ZodiacTypeDetails> AllDetails()
     {
         return (from ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)) select currentZodT.GetDetails()).ToList();
     }
 
 
     /// <summary>Find zodiac type for an index.</summary>
-    /// <param name="_">Any zodiac type.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The zodiac type for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static ZodiacTypes ZodiacTypeForIndex(this ZodiacTypes _, int index)
+    public static ZodiacTypes ZodiacTypeForIndex(int index)
     {
         foreach (ZodiacTypes currentZodT in Enum.GetValues(typeof(ZodiacTypes)))
         {

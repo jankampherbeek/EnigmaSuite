@@ -104,11 +104,11 @@ public partial class ConfigurationViewModel: ObservableObject
     [RelayCommand]
     private void SaveConfig()
     {
-        HouseSystems houseSystem = HouseSystems.NoHouses.HouseSystemForIndex(HouseIndex);
-        Ayanamshas ayanamsha = Ayanamshas.None.AyanamshaForIndex(AyanamshaIndex);
-        ObserverPositions observerPosition = ObserverPositions.GeoCentric.ObserverPositionForIndex(ObserverPositionIndex);
-        ZodiacTypes zodiacType = ZodiacTypes.Tropical.ZodiacTypeForIndex(ZodiacTypeIndex);
-        ProjectionTypes projectionType = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(ProjectionTypeIndex);
+        HouseSystems houseSystem = HouseSystemsExtensions.HouseSystemForIndex(HouseIndex);
+        Ayanamshas ayanamsha = AyanamshaExtensions.AyanamshaForIndex(AyanamshaIndex);
+        ObserverPositions observerPosition = ObserverPositionsExtensions.ObserverPositionForIndex(ObserverPositionIndex);
+        ZodiacTypes zodiacType = ZodiacTypeExtensions.ZodiacTypeForIndex(ZodiacTypeIndex);
+        ProjectionTypes projectionType = ProjectionTypesExtensions.ProjectionTypeForIndex(ProjectionTypeIndex);
         const OrbMethods orbMethod = OrbMethods.Weighted;
         Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
         Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();

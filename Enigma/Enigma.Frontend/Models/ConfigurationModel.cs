@@ -48,37 +48,37 @@ public class ConfigurationModel
 
     public static List<string> AllHouses()
     {
-        return HouseSystems.NoHouses.AllDetails().Select(detail => detail.Text).ToList();
+        return HouseSystemsExtensions.AllDetails().Select(detail => detail.Text).ToList();
     }
 
     public static List<string> AllZodiacTypes()
     {
-        return ZodiacTypes.Tropical.AllDetails().Select(  detail => detail.Text).ToList();
+        return ZodiacTypeExtensions.AllDetails().Select(  detail => detail.Text).ToList();
     }
 
     public static List<string> AllAyanamshas()
     {
-        return Ayanamshas.None.AllDetails().Select(detail => detail.Text).ToList();
+        return AyanamshaExtensions.AllDetails().Select(detail => detail.Text).ToList();
     }
 
     public static List<string> AllObserverPositions()
     {
-        return ObserverPositions.GeoCentric.AllDetails().Select(detail => detail.Text).ToList();
+        return ObserverPositionsExtensions.AllDetails().Select(detail => detail.Text).ToList();
     }
 
     public static List<string> AllProjectionTypes()
     {
-        return ProjectionTypes.TwoDimensional.AllDetails().Select(detail => detail.Text).ToList();
+        return ProjectionTypesExtensions.AllDetails().Select(detail => detail.Text).ToList();
     }
 
     public static List<string> AllOrbMethods()
     {
-        return OrbMethods.Weighted.AllDetails().Select(detail => detail.Text).ToList();
+        return OrbMethodsExtensions.AllDetails().Select(detail => detail.Text).ToList();
     }
 
     public static List<GeneralPoint> AllGeneralPoints()
     {
-        return (from point in ChartPoints.Sun.AllDetails() 
+        return (from point in PointsExtensions.AllDetails() 
                 from configPoint in CurrentConfig.Instance.GetConfig().ChartPoints 
                 where configPoint.Key == point.Point 
                 select new GeneralPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text, configPoint.Value.PercentageOrb)).ToList();
@@ -86,7 +86,7 @@ public class ConfigurationModel
     
     public static List<GeneralAspect> AllAspects()
     {
-        return (from aspect in AspectTypes.Conjunction.AllDetails()
+        return (from aspect in AspectTypesExtensions.AllDetails()
                 from configAspect in CurrentConfig.Instance.GetConfig().Aspects
                 where configAspect.Key == aspect.Aspect
                 select new GeneralAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, aspect.Text, configAspect.Value.PercentageOrb)).ToList();

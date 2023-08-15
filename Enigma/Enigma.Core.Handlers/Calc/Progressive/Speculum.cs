@@ -59,9 +59,11 @@ public abstract class SpeculumItem : ISpeculumItem
     /// <inheritdoc/>
     public double MeridianDistanceIc => Mdic;
     /// <inheritdoc/>
-    public double AscensionalDifference => _ad;
+    public double AscensionalDifference { get; }
+
     /// <summary>Oblique ascension of promissor.</summary>
-    public double ObliqueAscensionPromissor => _oadpl;
+    public double ObliqueAscensionPromissor { get; }
+
     /// <summary>Horizontal distance</summary>
     public double HorizontalDistance => Hd;
     /// <summary>Diurnal semi-arc</summary>
@@ -74,8 +76,6 @@ public abstract class SpeculumItem : ISpeculumItem
     protected readonly double DeclPlanet;
     protected readonly double Mdmc;                       // meridian distance from mc
     protected readonly double Mdic;                       // meridian distance from ic
-    private readonly double _ad;                         // ascensional difference
-    private readonly double _oadpl;                      // oblique ascension or descension planet
     protected readonly double GeoLat;
     protected readonly double Hd;                         // horizontal distance
     protected readonly double Dsa;                        // diurnal semi-arc
@@ -90,16 +90,16 @@ public abstract class SpeculumItem : ISpeculumItem
         GeoLat = geoLat;
         Mdmc = RangeUtil.ValueToRange(RaPlanet - raMc, 0.0, 360.0);
         Mdic = RangeUtil.ValueToRange(RaPlanet - raIc, 0.0, 360.0);
-        _ad = MathExtra.AscensionalDifference(DeclPlanet, geoLat);
+        AscensionalDifference = MathExtra.AscensionalDifference(DeclPlanet, geoLat);
         _north = GeoLat >= 0.0;
         East = MathExtra.IsEasternHemiSphere(RaPlanet, raMc);
-        _oadpl = MathExtra.ObliqueAscension(RaPlanet, _ad, East, _north);
+        ObliqueAscensionPromissor = MathExtra.ObliqueAscension(RaPlanet, AscensionalDifference, East, _north);
         if (East)
         {
-            Hd = _oadpl - oaAsc;
+            Hd = ObliqueAscensionPromissor - oaAsc;
         } else
         {
-            Hd = RangeUtil.ValueToRange(_oadpl + 180.0, 0.0, 360.0) - odDesc;
+            Hd = RangeUtil.ValueToRange(ObliqueAscensionPromissor + 180.0, 0.0, 360.0) - odDesc;
         }
         Dsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdmc), 0.0, 360.0);
         Nsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdic), 0.0, 360.0);

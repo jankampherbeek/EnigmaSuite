@@ -41,7 +41,7 @@ public class TestTimeZones
     public void TestRetrievingWithIndex()
     {
         const int timeZoneIndex = 29;
-        TimeZones timeZone = TimeZones.Cet.TimeZoneForIndex(timeZoneIndex);
+        TimeZones timeZone = TimeZonesExtensions.TimeZoneForIndex(timeZoneIndex);
         Assert.That(timeZone, Is.EqualTo(TimeZones.Brt));
     }
 
@@ -49,13 +49,13 @@ public class TestTimeZones
     public void TestRetrievingWithWrongIndex()
     {
         const int timeZoneIndex = -100;
-        Assert.That(() => _ = TimeZones.Mst.TimeZoneForIndex(timeZoneIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = TimeZonesExtensions.TimeZoneForIndex(timeZoneIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllTimeZoneDetails()
     {
-        List<TimeZoneDetails> allDetails = TimeZones.Ut.AllDetails();
+        List<TimeZoneDetails> allDetails = TimeZonesExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(33));

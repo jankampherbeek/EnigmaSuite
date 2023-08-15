@@ -47,7 +47,7 @@ public interface IAspectsHandler
     /// <summary>Find aspects between chart points.</summary>
     /// <param name="request">Request with positions.</param>
     /// <returns>Aspects found.</returns>
-    public List<DefinedAspect> AspectsForChartPoints(AspectRequest request);
+    public IEnumerable<DefinedAspect> AspectsForChartPoints(AspectRequest request);
 
     /// <summary>Find aspects between chart points.</summary>
     /// <param name="posPoints">Celestial points with positions.</param>
@@ -85,14 +85,14 @@ public interface IMidpointsHandler
     /// <summary>Retrieve list with all base midpoints between two items, regardless if the midpoint is occupied.</summary>
     /// <param name="chart">Calculated chart with positions.</param>
     /// <returns>All base midpoints.</returns>
-    public List<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart);
+    public IEnumerable<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart);
 
     /// <summary>Retrieve list with all occupied midpoints for a specified dial.</summary>
     /// <param name="chart">Calculated chart with positions.</param>
     /// <param name="dialSize">Degrees for specified dial.</param>
     /// <param name="orb">Base orb from configuration.</param>
     /// <returns>All occupied midpoints.</returns>
-    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb);
+    public IEnumerable<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb);
 
     /// <summary>Retrieve list with occupied midpoints for a given set of points and for a specified dial.</summary>
     /// <param name="posPoints">List with points.</param>

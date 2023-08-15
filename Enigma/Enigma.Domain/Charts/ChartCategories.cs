@@ -40,19 +40,17 @@ public static class ChartCategoriesExtensions
 
 
     /// <summary>Retrieve details for items in the enum ChartCategories.</summary>
-    /// <param name="_">The chart category, is automatically filled.</param>
     /// <returns>All details.</returns>
-    public static List<ChartCategoryDetails> AllDetails(this ChartCategories _)
+    public static List<ChartCategoryDetails> AllDetails()
     {
         return (from ChartCategories chartCat in Enum.GetValues(typeof(ChartCategories)) select chartCat.GetDetails()).ToList();
     }
 
     /// <summary>Find chart category for an index.</summary>
-    /// <param name="_">Instance of enum ChartCategories</param>
     /// <param name="index">The index to look for.</param>
     /// <returns>The chart category for the index.</returns>
     /// <exception cref="ArgumentException">Thrown if no chart category exists for given index.</exception>
-    public static ChartCategories ChartCategoryForIndex(this ChartCategories _, int index)
+    public static ChartCategories ChartCategoryForIndex(int index)
     {
         foreach (ChartCategories chartCat in Enum.GetValues(typeof(ChartCategories)))
         {

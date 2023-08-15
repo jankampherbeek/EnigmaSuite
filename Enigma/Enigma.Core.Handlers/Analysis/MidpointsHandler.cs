@@ -29,7 +29,7 @@ public sealed class MidpointsHandler : IMidpointsHandler
     }
 
     /// <inheritdoc/>
-    public List<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart)
+    public IEnumerable<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart)
     {
         const double dialSize = 360.0;
         List<PositionedPoint> analysisPoints = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
@@ -37,7 +37,7 @@ public sealed class MidpointsHandler : IMidpointsHandler
     }
 
     /// <inheritdoc/>
-    public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
+    public IEnumerable<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
     {
         return _occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize, orb);
     }

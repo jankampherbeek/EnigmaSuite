@@ -10,7 +10,6 @@ namespace Enigma.Domain.Calc.Progressive;
 /// <summary>Time keys for primary directions.</summary>
 public enum PrimaryKeys
 {
-    None = 0,
     PtolemyRa = 1,
     NaibodRa = 2,
     BraheRa = 3,
@@ -53,18 +52,17 @@ public static class PrimaryKeyExtensions
 
     /// <summary>Retrieve details for items in the enum PrimaryKeys.</summary>
     /// <returns>All details.</returns>
-    public static List<PrimaryKeyDetails> AllDetails(this PrimaryKeys _)
+    public static List<PrimaryKeyDetails> AllDetails()
     {
         return (from PrimaryKeys primKeyCurrent in Enum.GetValues(typeof(PrimaryKeys)) 
-            where primKeyCurrent != PrimaryKeys.None select primKeyCurrent.GetDetails()).ToList();
+            select primKeyCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find primary time key for a given index.</summary>
-    /// <param name="_">Any instance of PrimaryKeys</param>
     /// <param name="index">The index.</param>
     /// <returns>The primary time key.</returns>
     /// <exception cref="ArgumentException">Thrown if the time key could not be found.</exception>
-    public static PrimaryKeys PrimaryKeysForIndex(this PrimaryKeys _, int index)
+    public static PrimaryKeys PrimaryKeysForIndex(int index)
     {
         foreach (PrimaryKeys primKeyCurrent in Enum.GetValues(typeof(PrimaryKeys)))
         {

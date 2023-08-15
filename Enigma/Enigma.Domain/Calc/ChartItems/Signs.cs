@@ -49,18 +49,17 @@ public static class SignsExtensions
 
     /// <summary>Retrieve details for items in the enum Signs.</summary>
     /// <returns>All details.</returns>
-    public static List<SignDetails> AllDetails(this Signs _)
+    public static List<SignDetails> AllDetails()
     {
         return (from Signs currentSign in Enum.GetValues(typeof(Signs)) select currentSign.GetDetails()).ToList();
     }
 
 
     /// <summary>Find Sign for an index.</summary>
-    /// <param name="_">Any sign.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The Sign.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static Signs SignForIndex(this Signs _, int index)
+    public static Signs SignForIndex(int index)
     {
         foreach (Signs currentSign in Enum.GetValues(typeof(Signs)))
         {

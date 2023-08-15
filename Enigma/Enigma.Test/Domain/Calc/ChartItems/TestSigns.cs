@@ -39,7 +39,7 @@ public class TestSigns
     public void TestRetrievingWithIndex()
     {
         const int signIndex = 2;
-        Signs sign = Signs.Aries.SignForIndex(signIndex);
+        Signs sign = SignsExtensions.SignForIndex(signIndex);
         Assert.That(sign, Is.EqualTo(Signs.Taurus));
     }
 
@@ -47,7 +47,7 @@ public class TestSigns
     public void TestRetrievingWithWrongIndex()
     {
         const int signIndex = 300;
-        Assert.That(() => _ = Signs.Aries.SignForIndex(signIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = SignsExtensions.SignForIndex(signIndex), Throws.TypeOf<ArgumentException>());
     }
 
 

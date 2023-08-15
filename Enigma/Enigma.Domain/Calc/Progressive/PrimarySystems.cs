@@ -57,18 +57,17 @@ public static class PrimarySystemExtensions
 
     /// <summary>Retrieve details for items in the enum PrimarySystems.</summary>
     /// <returns>All details.</returns>
-    public static List<PrimarySystemDetails> AllDetails(this PrimarySystems _)
+    public static List<PrimarySystemDetails> AllDetails()
     {
         return (from PrimarySystems primSysCurrent in Enum.GetValues(typeof(PrimarySystems)) 
             where primSysCurrent != PrimarySystems.None select primSysCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find primary system for a given index.</summary>
-    /// <param name="_">Any instance of PrimarySystems.</param>
     /// <param name="index">The index.</param>
     /// <returns>The primary system.</returns>
     /// <exception cref="ArgumentException">Thrown if the primary system could not be found.</exception>
-    public static PrimarySystems PrimarySystemsForIndex(this PrimarySystems _, int index)
+    public static PrimarySystems PrimarySystemsForIndex(int index)
     {
         foreach (PrimarySystems primSysCurrent in Enum.GetValues(typeof(PrimarySystems)))
         {

@@ -44,7 +44,7 @@ public class TestHouseSystemSpecifications
     public void TestRetrievingWithIndex()
     {
         const int index = 5;
-        HouseSystems system = HouseSystems.NoHouses.HouseSystemForIndex(index);
+        HouseSystems system = HouseSystemsExtensions.HouseSystemForIndex(index);
         Assert.That(system, Is.EqualTo(HouseSystems.Campanus));
     }
 
@@ -53,13 +53,13 @@ public class TestHouseSystemSpecifications
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 1000;
-        Assert.That(() => _ = HouseSystems.NoHouses.HouseSystemForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = HouseSystemsExtensions.HouseSystemForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDetailsForHouseSystems()
     {
-        List<HouseSystemDetails> allDetails = HouseSystems.NoHouses.AllDetails();
+        List<HouseSystemDetails> allDetails = HouseSystemsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(25));

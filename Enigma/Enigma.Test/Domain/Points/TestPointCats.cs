@@ -40,7 +40,7 @@ public class TestPointCats
     public void TestRetrievingWithIndex()
     {
         const int index = 4;
-        PointCats cat = PointCats.Angle.PointCatForIndex(index);
+        PointCats cat = PointCatsExtensions.PointCatForIndex(index);
         Assert.That(cat, Is.EqualTo(PointCats.Lots));
     }
 
@@ -48,13 +48,13 @@ public class TestPointCats
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 55000;
-        Assert.That(() => _ = PointCats.Angle.PointCatForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = PointCatsExtensions.PointCatForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllPointCatDetails()
     {
-        List<PointCatDetails> allDetails = PointCats.Angle.AllDetails();
+        List<PointCatDetails> allDetails = PointCatsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));

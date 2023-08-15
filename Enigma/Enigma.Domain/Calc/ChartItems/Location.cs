@@ -14,8 +14,7 @@ public sealed class Location
     public double GeoLong { get; }
     /// <summary>Decimal value for geographic latitude.</summary>
     public double GeoLat { get; }
-    /// <summary>East or west for geographic longitude.</summary>
-    public Directions4GeoLong DirLong { get; }
+
     /// <summary>North or south for geographic latitude.</summary>
     public Directions4GeoLat DirLat { get; }
 
@@ -27,7 +26,6 @@ public sealed class Location
         LocationFullName = locationFullName;
         GeoLong = geoLong;
         GeoLat = geoLat;
-        DirLong = GeoLong >= 0.0 ? Directions4GeoLong.East : Directions4GeoLong.West;
         DirLat = GeoLat >= 0.0 ? Directions4GeoLat.North : Directions4GeoLat.South;
     }
 

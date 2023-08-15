@@ -40,7 +40,7 @@ public class TestAspectTypes
     public void TestRetrievingWithIndex()
     {
         const int index = 1;
-        AspectTypes aspectType = AspectTypes.Square.AspectTypeForIndex(index);
+        AspectTypes aspectType = AspectTypesExtensions.AspectTypeForIndex(index);
         Assert.That(aspectType, Is.EqualTo(AspectTypes.Opposition));
     }
 
@@ -48,6 +48,6 @@ public class TestAspectTypes
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 300;
-        Assert.That(() => _ = AspectTypes.Centile.AspectTypeForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = AspectTypesExtensions.AspectTypeForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 }

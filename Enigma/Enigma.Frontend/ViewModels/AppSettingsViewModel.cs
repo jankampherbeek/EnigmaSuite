@@ -26,11 +26,11 @@ public partial class AppSettingsViewModel: ObservableObject
     public AppSettingsViewModel()
     {
        AppSettingsModel model = App.ServiceProvider.GetRequiredService<AppSettingsModel>();
-       _locationOfDataFiles = model.LocationOfDataFiles();
+       _locationOfDataFiles = AppSettingsModel.LocationOfDataFiles();
        _locationOfProjectFiles = model.LocationOfProjectFiles();
-       _locationOfDatabase = model.LocationOfDatabase();
-       _locationOfExportFiles = model.LocationOfExportFiles();
-       _locationOfLogFiles = model.LocationOfLogFiles();
+       _locationOfDatabase = AppSettingsModel.LocationOfDatabase();
+       _locationOfExportFiles = AppSettingsModel.LocationOfExportFiles();
+       _locationOfLogFiles = AppSettingsModel.LocationOfLogFiles();
     }
     
     [RelayCommand] private static void Help()

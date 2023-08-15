@@ -153,7 +153,7 @@ public static class PointsExtensions
 
     /// <summary>Retrieve details for items in the enum ChartPoints.</summary>
     /// <returns>All details.</returns>
-    public static List<PointDetails> AllDetails(this ChartPoints _)
+    public static List<PointDetails> AllDetails()
     {
         return (from ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints))
             select currentPoint.GetDetails()).ToList();
@@ -161,11 +161,10 @@ public static class PointsExtensions
 
 
     /// <summary>Find point for an index.</summary>
-    /// <param name="_">Any instance of ChartPoints.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The point for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static ChartPoints PointForIndex(this ChartPoints _, int index)
+    public static ChartPoints PointForIndex(int index)
     {
         foreach (ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints)))
         {

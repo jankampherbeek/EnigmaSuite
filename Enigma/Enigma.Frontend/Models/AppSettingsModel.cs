@@ -10,14 +10,9 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>ViewModel for application settings</summary>
 public sealed class AppSettingsModel
 {
-    private readonly ApplicationSettings _applicationSettings;
-    
-    public AppSettingsModel()
-    {
-        _applicationSettings = ApplicationSettings.Instance;
-    }
+    private readonly ApplicationSettings _applicationSettings = ApplicationSettings.Instance;
 
-    public string LocationOfDataFiles()
+    public static string LocationOfDataFiles()
     {
         return ApplicationSettings.LocationDataFiles;
     }
@@ -27,17 +22,17 @@ public sealed class AppSettingsModel
         return _applicationSettings.LocationProjectFiles;
     }
 
-    public string LocationOfExportFiles()
+    public static string LocationOfExportFiles()
     {
         return ApplicationSettings.LocationExportFiles;
     }
 
-    public string LocationOfLogFiles()
+    public static string LocationOfLogFiles()
     {
         return ApplicationSettings.LocationLogFiles;
     }
 
-    public string LocationOfDatabase()
+    public static string LocationOfDatabase()
     {
         return ApplicationSettings.LocationDatabase;
     }

@@ -37,7 +37,7 @@ public class ProjectInputModel
     
     public static List<string> GetControlGroupTypeNames()
     {
-        return ControlGroupTypes.StandardShift.AllDetails().Select(cGroup => cGroup.Text).ToList();
+        return ControlGroupTypesExtensions.AllDetails().Select(cGroup => cGroup.Text).ToList();
     }
 
     public ResultMessage SaveProject(ResearchProject project)

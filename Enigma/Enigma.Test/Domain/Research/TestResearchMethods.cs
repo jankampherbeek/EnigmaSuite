@@ -42,7 +42,7 @@ public class TestResearchMethods
     public void TestRetrievingWithIndex()
     {
         const int index = 4;
-        ResearchMethods method = ResearchMethods.CountAspects.ResearchMethodForIndex(index);
+        ResearchMethods method = ResearchMethodsExtensions.ResearchMethodForIndex(index);
         Assert.That(method, Is.EqualTo(ResearchMethods.CountOccupiedMidpoints));
     }
 
@@ -51,14 +51,14 @@ public class TestResearchMethods
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 5000;
-        Assert.That(() => _ = ResearchMethods.CountAspects.ResearchMethodForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ResearchMethodsExtensions.ResearchMethodForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
 
     [Test]
     public void TestAllResearchMethodDetails()
     {
-        List<ResearchMethodDetails> allDetails = ResearchMethods.CountAspects.AllDetails();
+        List<ResearchMethodDetails> allDetails = ResearchMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));

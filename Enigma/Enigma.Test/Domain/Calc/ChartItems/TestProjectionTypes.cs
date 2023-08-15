@@ -39,7 +39,7 @@ public class TestProjectionTypes
     public void TestRetrievingWithIndex()
     {
         const int index = 0;
-        ProjectionTypes projType = ProjectionTypes.ObliqueLongitude.ProjectionTypeForIndex(index);
+        ProjectionTypes projType = ProjectionTypesExtensions.ProjectionTypeForIndex(index);
         Assert.That(projType, Is.EqualTo(ProjectionTypes.TwoDimensional));
     }
 
@@ -47,14 +47,14 @@ public class TestProjectionTypes
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = ProjectionTypes.TwoDimensional.ProjectionTypeForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ProjectionTypesExtensions.ProjectionTypeForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
 
     [Test]
     public void TestAllPrfojectionTypeDetails()
     {
-        List<ProjectionTypeDetails> allDetails = ProjectionTypes.TwoDimensional.AllDetails();
+        List<ProjectionTypeDetails> allDetails = ProjectionTypesExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

@@ -44,7 +44,7 @@ public class TestZodiacTypeSpecifications
     public void TestRetrievingWithIndex()
     {
         const int index = 1;
-        ZodiacTypes system = ZodiacTypes.Sidereal.ZodiacTypeForIndex(index);
+        ZodiacTypes system = ZodiacTypeExtensions.ZodiacTypeForIndex(index);
         Assert.That(system, Is.EqualTo(ZodiacTypes.Tropical));
     }
 
@@ -52,13 +52,13 @@ public class TestZodiacTypeSpecifications
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = ZodiacTypes.Tropical.ZodiacTypeForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ZodiacTypeExtensions.ZodiacTypeForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllZodiacTypeDetails()
     {
-        List<ZodiacTypeDetails> allDetails = ZodiacTypes.Tropical.AllDetails();
+        List<ZodiacTypeDetails> allDetails = ZodiacTypeExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

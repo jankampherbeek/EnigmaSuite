@@ -35,7 +35,7 @@ public static class OrbMethodsExtensions
 
     /// <summary>Retrieve details for items in the enum OrbMethods.</summary>
     /// <returns>All details.</returns>
-    public static List<OrbMethodDetails> AllDetails(this OrbMethods _)
+    public static List<OrbMethodDetails> AllDetails()
     {
         return (from OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)) 
             select currentMethod.GetDetails()).ToList();
@@ -43,11 +43,10 @@ public static class OrbMethodsExtensions
 
 
     /// <summary>Find orb method for an index.</summary>
-    /// <param name="_">Any orb method.</param>
     /// <param name="index">Index to look for.</param>
     /// <returns>The orb method for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static OrbMethods OrbMethodForIndex(this OrbMethods _, int index)
+    public static OrbMethods OrbMethodForIndex(int index)
     {
         foreach (OrbMethods currentMethod in Enum.GetValues(typeof(OrbMethods)))
         {

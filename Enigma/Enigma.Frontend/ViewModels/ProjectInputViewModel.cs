@@ -67,7 +67,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsInputOk))]
     private void SaveProject()
     {
-        ControlGroupTypes cgType = ControlGroupTypes.StandardShift.ControlGroupTypeForIndex(ControlGroupIndex);
+        ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
         ResearchProject project = new(ProjectName, Description, AvailableDatafileNames[DatafileIndex], cgType, _multiplicationValue);
         
         ResultMessage resultMessage =  _model.SaveProject(project);

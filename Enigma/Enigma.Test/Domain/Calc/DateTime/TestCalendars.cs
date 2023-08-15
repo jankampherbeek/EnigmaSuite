@@ -41,7 +41,7 @@ public class TestCalendars
     [Test]
     public void TestAllCalendarDetails()
     {
-        List<CalendarDetails> allDetails = Calendars.Gregorian.AllDetails();
+        List<CalendarDetails> allDetails = CalendarsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

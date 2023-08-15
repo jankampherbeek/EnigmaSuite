@@ -48,18 +48,17 @@ public static class ResearchMethodsExtensions
 
     /// <summary>Retrieve details for items in the enum ResearchMethods.</summary>
     /// <returns>All details.</returns>
-    public static List<ResearchMethodDetails> AllDetails(this ResearchMethods _)
+    public static List<ResearchMethodDetails> AllDetails()
     {
         return (from ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)) 
             select methodCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find ResearchMethod for given index.</summary>
-    /// <param name="_">Any ResearchMethod.</param>
     /// <param name="index">The index to search for.</param>
     /// <returns>The ResearchMethod.</returns>
     /// <exception cref="ArgumentException">Is thrown if ResearchMethod for given index could not be found.</exception>
-    public static ResearchMethods ResearchMethodForIndex(this ResearchMethods _, int index)
+    public static ResearchMethods ResearchMethodForIndex(int index)
     {
         foreach (ResearchMethods methodCurrent in Enum.GetValues(typeof(ResearchMethods)))
         {

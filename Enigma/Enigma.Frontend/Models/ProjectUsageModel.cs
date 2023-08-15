@@ -29,7 +29,7 @@ public class ProjectUsageModel
     
     public static List<PresentableMethodDetails> GetAllMethodDetails()
     {
-        List<ResearchMethodDetails> methodDetails = ResearchMethods.CountAspects.AllDetails();
+        List<ResearchMethodDetails> methodDetails = ResearchMethodsExtensions.AllDetails();
         return methodDetails.Select(methodDetail => 
             new PresentableMethodDetails { MethodName = methodDetail.Text }).ToList();
     }

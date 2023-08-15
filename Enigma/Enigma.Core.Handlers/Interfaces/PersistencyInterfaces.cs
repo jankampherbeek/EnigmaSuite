@@ -248,13 +248,6 @@ public interface IEventDataDao
     /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
     public int AddEventData(PersistableEventData eventData);
 
-    /// <summary>Insert a new record and add an intersection.</summary>
-    /// <param name="eventData">The record to insert.</param>
-    /// <param name="idChart">Id of the chart that will be added to the intersection.</param>
-    /// <remarks>The id of the record is overwritten with the first available new index.</remarks>
-    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
-    public int AddEventData(PersistableEventData eventData, int idChart);
-
     /// <summary>Delete a record for an event and any intersection records that refer to this event.</summary>
     /// <param name="index">The index of the record to delete.</param>
     /// <returns>True if the record was deleted, false if the record was not found.</returns>

@@ -95,8 +95,8 @@ public partial class RadixDataInputViewModel: ObservableObject
     private void Calculate()
     {
         _model.CreateChartData(NameId, Description, Source, LocationName, 
-            ChartCategories.Unknown.ChartCategoryForIndex(CategoryIndex), 
-            RoddenRatings.Unknown.RoddenRatingForIndex(RatingIndex));
+            ChartCategoriesExtensions.ChartCategoryForIndex(CategoryIndex), 
+            RoddenRatingsExtensions.RoddenRatingForIndex(RatingIndex));
     }
 
     private bool IsInputOk()
@@ -133,13 +133,13 @@ public partial class RadixDataInputViewModel: ObservableObject
     {
         if (Date == string.Empty) return true;
         Calendars cal = CalendarIndex == 0 ? Calendars.Gregorian : Calendars.Julian;
-        YearCounts yCount = YearCounts.Astronomical.YearCountForIndex(YearCountIndex);
+        YearCounts yCount = YearCountsExtensions.YearCountForIndex(YearCountIndex);
         return _model.IsDateValid(Date, cal, yCount);
     }
     
     private bool IsTimeValid()
     {
-        TimeZones timeZone = TimeZones.Ut.TimeZoneForIndex(TimeZoneIndex);
+        TimeZones timeZone = TimeZonesExtensions.TimeZoneForIndex(TimeZoneIndex);
         
         return Time == string.Empty || _model.IsTimeValid(Time, timeZone, ApplyDst);
     }

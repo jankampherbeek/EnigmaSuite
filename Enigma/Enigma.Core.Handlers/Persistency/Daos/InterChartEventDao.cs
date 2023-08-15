@@ -49,7 +49,7 @@ public sealed class InterChartEventDao : IInterChartEventDao
         return records;
     }
 
-    private List<InterChartEvent> ReadRecordsForChart(int chartId)
+    private IEnumerable<InterChartEvent> ReadRecordsForChart(int chartId)
     {
         using var db = new LiteDatabase(_dbFullPath);
         ILiteCollection<InterChartEvent>? col = db.GetCollection<InterChartEvent>(COLLECTION);

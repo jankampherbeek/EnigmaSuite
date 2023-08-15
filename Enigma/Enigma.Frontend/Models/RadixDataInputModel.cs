@@ -101,7 +101,7 @@ public class RadixDataInputModel
     
     private void PopulateRatings()
     {
-        List<RoddenRatingDetails> ratingDetails = RoddenRatings.Unknown.AllDetails();
+        List<RoddenRatingDetails> ratingDetails = RoddenRatingsExtensions.AllDetails();
         foreach (var ratingDetail in ratingDetails)
         {
             AllRatings.Add(ratingDetail.Text);
@@ -110,7 +110,7 @@ public class RadixDataInputModel
 
     private void PopulateCategories()
     {
-        List<ChartCategoryDetails> catDetails = ChartCategories.Unknown.AllDetails();
+        List<ChartCategoryDetails> catDetails = ChartCategoriesExtensions.AllDetails();
         foreach (var catDetail in catDetails)
         {
             AllCategories.Add(catDetail.Text);
@@ -119,7 +119,7 @@ public class RadixDataInputModel
 
     private void PopulateDirectionsForLatitude()
     {
-        List<Directions4GeoLatDetails> geoLatDetails = Directions4GeoLat.North.AllDetails();
+        List<Directions4GeoLatDetails> geoLatDetails = Directions4GeoLatExtensions.AllDetails();
         foreach (var geoLatDetail in geoLatDetails)
         {
             AllDirectionsForLatitude.Add(geoLatDetail.Text);
@@ -128,7 +128,7 @@ public class RadixDataInputModel
     
     private void PopulateDirectionsForLongitude()
     {
-        List<Directions4GeoLongDetails> geoLongDetails = Directions4GeoLong.East.AllDetails();
+        List<Directions4GeoLongDetails> geoLongDetails = Directions4GeoLongExtensions.AllDetails();
         foreach (var geoLongDetail in geoLongDetails)
         {
             AllDirectionsForLongitude.Add(geoLongDetail.Text);
@@ -137,7 +137,7 @@ public class RadixDataInputModel
 
     private void PopulateCalendars()
     {
-        List<CalendarDetails> calDetails = Calendars.Gregorian.AllDetails();
+        List<CalendarDetails> calDetails = CalendarsExtensions.AllDetails();
         foreach (var calDetail in calDetails)
         {
             AllCalendars.Add(calDetail.TextFull);
@@ -146,7 +146,7 @@ public class RadixDataInputModel
 
     private void PopulateYearCounts()
     {
-        List<YearCountDetails> ycDetails = YearCounts.Astronomical.AllDetails();
+        List<YearCountDetails> ycDetails = YearCountsExtensions.AllDetails();
         foreach (var ycDetail in ycDetails)
         {
             AllYearCounts.Add(ycDetail.Text);
@@ -155,7 +155,7 @@ public class RadixDataInputModel
 
     private void PopulateTimezones()
     {
-        List<TimeZoneDetails> tzDetails = TimeZones.Ut.AllDetails();
+        List<TimeZoneDetails> tzDetails = TimeZonesExtensions.AllDetails();
         foreach (var tzDetail in tzDetails)
         {
             AllTimeZones.Add(tzDetail.Text);

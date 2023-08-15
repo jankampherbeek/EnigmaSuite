@@ -81,18 +81,17 @@ public static class AyanamshaExtensions
 
     /// <summary>Retrieve details for items in the enum Ayanamshas</summary>
     /// <returns>All details</returns>
-    public static List<AyanamshaDetails> AllDetails(this Ayanamshas _)
+    public static List<AyanamshaDetails> AllDetails()
     {
         return (from Ayanamshas ayanamshaCurrent in Enum.GetValues(typeof(Ayanamshas)) 
             select ayanamshaCurrent.GetDetails()).ToList();
     }
 
     /// <summary>Find ayanamsha for a given index</summary>
-    /// <param name="_">Any Ayanamsha to access the enum </param>
     /// <param name="index">The index</param>
     /// <returns>The ayanamsha</returns>
     /// <exception cref="ArgumentException">Thrown if the ayanamsha could not be found</exception>
-    public static Ayanamshas AyanamshaForIndex(this Ayanamshas _, int index)
+    public static Ayanamshas AyanamshaForIndex(int index)
     {
         foreach (Ayanamshas ayanamshaCurrent in Enum.GetValues(typeof(Ayanamshas)))
         {

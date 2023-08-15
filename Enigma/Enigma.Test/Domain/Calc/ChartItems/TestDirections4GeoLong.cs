@@ -39,7 +39,7 @@ public class TestTestDirections4GeoLong
     public void TestRetrievingWithIndex()
     {
         const int directionIndex = -1;
-        Directions4GeoLong direction = Directions4GeoLong.West.DirectionForIndex(directionIndex);
+        Directions4GeoLong direction = Directions4GeoLongExtensions.DirectionForIndex(directionIndex);
         Assert.That(direction, Is.EqualTo(Directions4GeoLong.West));
     }
 
@@ -47,13 +47,13 @@ public class TestTestDirections4GeoLong
     public void TestRetrievingWithWrongIndex()
     {
         const int directionIndex = 500;
-        Assert.That(() => _ = Directions4GeoLong.East.DirectionForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = Directions4GeoLongExtensions.DirectionForIndex(directionIndex), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllDirectionDetails()
     {
-        List<Directions4GeoLongDetails> allDetails = Directions4GeoLong.East.AllDetails();
+        List<Directions4GeoLongDetails> allDetails = Directions4GeoLongExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));

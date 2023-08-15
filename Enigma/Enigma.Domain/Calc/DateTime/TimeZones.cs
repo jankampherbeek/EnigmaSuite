@@ -72,18 +72,17 @@ public static class TimeZonesExtensions
 
     /// <summary>Retrieve details for items in the enum TimeZones.</summary>
     /// <returns>All details.</returns>
-    public static List<TimeZoneDetails> AllDetails(this TimeZones _)
+    public static List<TimeZoneDetails> AllDetails()
     {
         return (from TimeZones currentTz in Enum.GetValues(typeof(TimeZones)) select GetDetails(currentTz)).ToList();
     }
 
 
     /// <summary>Find time zone for an index</summary>
-    /// <param name="_">Instance of enum TimeZones</param>
     /// <param name="index">Index to look for</param>
     /// <returns>The time zone for the index</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static TimeZones TimeZoneForIndex(this TimeZones _, int index)
+    public static TimeZones TimeZoneForIndex(int index)
     {
         foreach (TimeZones currentTz in Enum.GetValues(typeof(TimeZones)))
         {

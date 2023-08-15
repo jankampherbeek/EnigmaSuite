@@ -141,7 +141,7 @@ public class ResearchResultModel
 
     private static void CreateResultHeaders(GeneralResearchRequest request)
     {
-        string methodText = request.Method.GetDetails().Text;
+        _ = request.Method.GetDetails().Text;
     }
 
 
@@ -149,7 +149,7 @@ public class ResearchResultModel
     private static string CreatePartsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-        if (response is CountOfPartsResponse(var generalResearchRequest, var countOfParts, var totals))
+        if (response is CountOfPartsResponse(_, var countOfParts, var totals))
         {
             string headerLine = string.Empty;
             string longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..104];
@@ -195,14 +195,15 @@ public class ResearchResultModel
     private static string CreateAspectsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-        if (response is CountOfAspectsResponse qualifiedResponse)
+        if (response is CountOfAspectsResponse(var generalResearchRequest, var allCounts, 
+            var totalsPerPointCombi, var totalsPerAspect, var chartPointsList, var aspectTypesList))
         {
             string aspectSpaces = (SPACES + SPACES + SPACES)[..50];
             string aspectSeparatorLine = SEPARATOR_LINE;
             string separatorFragment = SEPARATOR_LINE[..7];
             StringBuilder headerLine = new();
             headerLine.Append(aspectSpaces);
-            foreach (AspectTypes asp in qualifiedResponse.AspectsUsed)
+            foreach (AspectTypes asp in aspectTypesList)
             {
                 headerLine.Append((((int)asp.GetDetails().Angle) + SPACES)[..7]);
                 aspectSeparatorLine += separatorFragment;
@@ -211,28 +212,27 @@ public class ResearchResultModel
             aspectSeparatorLine += separatorFragment;
             resultData.AppendLine(headerLine.ToString());
             resultData.AppendLine(aspectSeparatorLine);
-            int[,,] allCounts = qualifiedResponse.AllCounts;
             StringBuilder detailLine;
-            int nrOfCelPoints = qualifiedResponse.PointsUsed.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
+            int nrOfCelPoints = chartPointsList.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
             for (int i = 0; i < nrOfCelPoints; i++)
             {
-                for (int j = i + 1; j < qualifiedResponse.PointsUsed.Count; j++)
+                for (int j = i + 1; j < chartPointsList.Count; j++)
                 {
                     detailLine = new StringBuilder();
-                    detailLine.Append(qualifiedResponse.PointsUsed[i].GetDetails().Text.PadRight(25));
-                    detailLine.Append(qualifiedResponse.PointsUsed[j].GetDetails().Text.PadRight(25));
-                    for (int k = 0; k < qualifiedResponse.AspectsUsed.Count; k++)
+                    detailLine.Append(chartPointsList[i].GetDetails().Text.PadRight(25));
+                    detailLine.Append(chartPointsList[j].GetDetails().Text.PadRight(25));
+                    for (int k = 0; k < aspectTypesList.Count; k++)
                     {
                         detailLine.Append((allCounts[i, j, k] + SPACES)[..7]);
                     }
-                    detailLine.Append((qualifiedResponse.TotalsPerPointCombi[i, j] + SPACES)[..7]);
+                    detailLine.Append((totalsPerPointCombi[i, j] + SPACES)[..7]);
                     resultData.AppendLine(detailLine.ToString());
                 }
             }
             int totalOverall = 0;
             detailLine = new StringBuilder();
             detailLine.Append(("Totals of aspects" + SPACES + SPACES + SPACES)[..50]);
-            foreach (int count in qualifiedResponse.TotalsPerAspect)
+            foreach (int count in totalsPerAspect)
             {
                 detailLine.Append((count + SPACES)[..7]);
                 totalOverall += count;
