@@ -24,37 +24,37 @@ public sealed class EventDataConverter : IEventDataConverter
 
 
     /// <inheritdoc/>
-    public EventData FromPersistableEventData(PersistableEventData persistableEventData)
+    public ProgEvent FromPersistableEventData(PersistableEventData persistableEventData)
     {
         return HandleConversion(persistableEventData);
     }
 
     /// <inheritdoc/>
-    public PersistableEventData ToPersistableEventData(EventData eventData)
+    public PersistableEventData ToPersistableEventData(ProgEvent progEvent)
     {
-        return HandleConversion(eventData);
+        return HandleConversion(progEvent);
     }
 
-    private EventData HandleConversion(PersistableEventData persistableEventData)
+    private ProgEvent HandleConversion(PersistableEventData persistableEventData)
     {
         string description = persistableEventData.Description;
         string locationName = persistableEventData.LocationName;
         string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableEventData.GeoLat, persistableEventData.GeoLong);
         Location location = new(locationFullName, persistableEventData.GeoLong, persistableEventData.GeoLat);
         FullDateTime fullDateTime = new(persistableEventData.DateText, persistableEventData.TimeText, persistableEventData.JulianDayEt);
-        return new EventData(persistableEventData.Id, description, locationName, location, fullDateTime);
+        return new ProgEvent(persistableEventData.Id, description, locationName, location, fullDateTime);
     }
 
-    private static PersistableEventData HandleConversion(EventData eventData)
+    private static PersistableEventData HandleConversion(ProgEvent progEvent)
     {
         return new PersistableEventData(
-            eventData.Description,
-            eventData.FullDateTime.JulianDayForEt,
-            eventData.FullDateTime.DateText,
-            eventData.FullDateTime.TimeText,
-            eventData.LocationName,
-            eventData.Location.GeoLong,
-            eventData.Location.GeoLat
+            progEvent.Description,
+            progEvent.StartDateTime.JulianDayForEt,
+            progEvent.StartDateTime.DateText,
+            progEvent.StartDateTime.TimeText,
+            progEvent.LocationName,
+            progEvent.Location.GeoLong,
+            progEvent.Location.GeoLat
         );
     }
 }

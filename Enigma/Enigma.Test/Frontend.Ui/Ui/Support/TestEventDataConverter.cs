@@ -55,21 +55,21 @@ public class TestEventDataConverter
     [Test]
     public void TestPersistableEventDataToEventData()
     {
-        EventData expected = CreateEventData();
-        EventData result = _eventDataConverter!.FromPersistableEventData(CreatePersistableEventData());
+        ProgEvent expected = CreateEventData();
+        ProgEvent result = _eventDataConverter!.FromPersistableEventData(CreatePersistableEventData());
         Assert.Multiple(() =>
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
             Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(DELTA));
-            Assert.That(expected.FullDateTime.JulianDayForEt, Is.EqualTo(result.FullDateTime.JulianDayForEt).Within(DELTA));
+            Assert.That(expected.StartDateTime.JulianDayForEt, Is.EqualTo(result.StartDateTime.JulianDayForEt).Within(DELTA));
         });
     }
 
-    private static EventData CreateEventData()
+    private static ProgEvent CreateEventData()
     {
         Location location = new(LOCATION_FULL_NAME, GEO_LONG, GEO_LAT);
         FullDateTime fullDateTime = new(DATE_TEXT, TIME_TEXT, JD_ET);
-        return new EventData(ID, DESCRIPTION, LOCATION_NAME, location, fullDateTime);
+        return new ProgEvent(ID, DESCRIPTION, LOCATION_NAME, location, fullDateTime);
     }
 
     private static PersistableEventData CreatePersistableEventData()

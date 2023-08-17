@@ -170,9 +170,9 @@ public partial class ChartsMainViewModel: ObservableObject
     }
 
     [RelayCommand]
-    private void NewEvent()
+    private static void NewEvent()
     {
-        // todo handle input event
+        new ProgEventWindow().ShowDialog();
     }
 
     [RelayCommand]

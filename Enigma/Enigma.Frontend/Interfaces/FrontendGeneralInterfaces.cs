@@ -144,12 +144,12 @@ public interface IEventDataConverter
     /// <summary>Convert PersistableEventData to EventData.</summary>
     /// <param name="persistableEventData"/>
     /// <returns>Resulting EventData.</returns>
-    public EventData FromPersistableEventData(PersistableEventData persistableEventData);
+    public ProgEvent FromPersistableEventData(PersistableEventData persistableEventData);
 
     /// <summary>Convert EventData to PersistableEventData.</summary>
-    /// <param name="eventData"/>
+    /// <param name="progEvent"/>
     /// <returns>Resulting PersistableEventData.</returns>
-    public PersistableEventData ToPersistableEventData(EventData eventData);
+    public PersistableEventData ToPersistableEventData(ProgEvent progEvent);
 
 }
 

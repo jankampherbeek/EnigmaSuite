@@ -1,0 +1,132 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.ProgEventWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"        
+        Title="Enigma - Event for progressions" Height="660" Width="520">
+    <Window.Resources>
+        <viewModels:ProgEventViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="78*"/>
+            <ColumnDefinition Width="22*"/>
+        </Grid.ColumnDefinitions>            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="8*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Define and save event"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
+        <TextBox Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 " VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Description of event" 
+                 TextWrapping="Wrap" Height="80"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Description, Mode = TwoWay}"/>
+        
+        <!-- Location, incl. default values is location is not used -->
+        <TextBlock Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 18 6 0" 
+                   Text="Location" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold"/>
+        <TextBox Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Name of location"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding LocationName, Mode=TwoWay}" />   
+        <TextBox Grid.Row="4"  Grid.Column="0" Margin="6 0" VerticalAlignment="Center"   
+                 materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 Background="{Binding GeoLongValid}"
+                 Text="{Binding GeoLong}"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="East/West"
+                  VerticalAlignment="Center" Margin="6 0"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  ItemsSource="{Binding AllDirectionsForLongitude}"
+                  SelectedIndex="{Binding DirLongIndex, Mode=TwoWay}" />
+        <TextBox Grid.Row="5" Grid.Column="0"  
+                 materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
+                 VerticalAlignment="Center" Margin="6 0"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Background="{Binding GeoLatValid}"
+                 Text="{Binding GeoLat}"/>
+        <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="North/South"
+                  VerticalAlignment="Center" Margin="6 0"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  ItemsSource="{Binding AllDirectionsForLatitude}"
+                  SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
+        
+        <!-- Date and time -->
+        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 18 6 0" 
+                   Text="Date and time" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold"/>
+        <TextBox Grid.Row="7" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  Grid.ColumnSpan="2"                  
+                 materialDesign:HintAssist.Hint="Date yyyy/mm/ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 Background="{Binding DateValid}"
+                 Text="{Binding Date}"/>  
+        <TextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Time hh:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Background="{Binding TimeValid}"
+                 Text="{Binding Time}"/>  
+        <ComboBox Grid.Row="9" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                  IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="TimeZone"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  ItemsSource="{Binding AllTimeZones}"
+                  SelectedIndex="{Binding TimeZoneIndex, Mode=TwoWay}" />       
+        <CheckBox Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"  
+                  Style="{StaticResource MaterialDesignCheckBox}"
+                  IsChecked="{Binding ApplyDst}" />
+        <TextBox Grid.Row="10" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  
+                 materialDesign:HintAssist.Hint="Longitude for LMT ddd:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 Text="{Binding LmtGeoLong}"
+                 Background="{Binding LmtGeoLongValid}"
+                 IsEnabled="{Binding LmtEnabled}" />
+        <ComboBox Grid.Row="10" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"   
+                  IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="East/West"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  ItemsSource="{Binding AllLmtDirectionsForLongitude}"
+                  SelectedIndex="{Binding LmtDirLongIndex, Mode=TwoWay}" 
+                  IsEnabled="{Binding LmtEnabled}" />
+        <StackPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
+                    Command="{Binding HelpCommand}"/>
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
+            <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
+                    Command="{Binding SaveCommand}" />
+        </StackPanel>
+
+        
+        
+        
+        
+        
+    </Grid>
+</Window>

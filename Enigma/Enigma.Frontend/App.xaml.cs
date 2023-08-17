@@ -77,6 +77,7 @@ public partial class App
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
+        serviceCollection.AddTransient<ProgEventModel>();
         serviceCollection.AddTransient<ProjectUsageModel>();
         serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
