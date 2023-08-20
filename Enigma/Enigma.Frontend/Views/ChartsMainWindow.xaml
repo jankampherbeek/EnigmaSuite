@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -12,15 +13,15 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"   
-        Title="Enigma - Charts" Height="540" Width="600">
+        Title="Enigma - Charts" Height="600" Width="600">
     <Window.Resources>
         <viewModels:ChartsMainViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="25*"/>
-            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="22*"/>
+            <ColumnDefinition Width="28*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
@@ -30,6 +31,7 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="80*"/>
+            <RowDefinition Height="24*"/>
             <RowDefinition Height="24*"/>
         </Grid.RowDefinitions>
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#D5E6F2 " VerticalAlignment="Stretch">
@@ -96,50 +98,9 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Progressive">
-                <MenuItem Header="New Event" Command="{Binding NewEventCommand}">
+                <MenuItem Header="Open window for progressions" Command="{Binding ProgressionsCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/event.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Search Event" Command="{Binding SearchEventCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/search.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="New date range" Command="{Binding NewDateRangeCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/daterange.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Search date range" Command="{Binding SearchDateRangeCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/daterange.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <Separator/>
-                <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/primary.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Secundary Directions" Command="{Binding SecDirCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/secundary.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Transits" Command="{Binding TransitsCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/transits.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Symbolic directions" Command="{Binding SymDirCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/symbolic.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Solar returns" Command="{Binding SolarCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/solar.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
@@ -197,16 +158,22 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
-        <StackPanel Grid.Row="6" Grid.Column="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
-            <Button Margin="0 3 0 3" Content="New" Command="{Binding NewChartCommand}"/>
-            <Button Margin="0 3 0 3" Content="Search" Command="{Binding SearchChartCommand}"/>
-            <Button Margin="0 3 0 3" Content="Delete" Command="{Binding DeleteChartCommand}"/>
-            <Button Margin="0 3 0 3" Content="Wheel" Command="{Binding ShowWheelCommand}"/>
-            <Button Margin="0 3 0 3" Content="Positions" Command="{Binding ShowPositionsCommand}"/>
-        </StackPanel>
+        <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="3" Padding="2" Margin="6" HorizontalAlignment="Center"
+                             Background="#D5E6F2" UniformCornerRadius="6">
+            <StackPanel Grid.Row="6" Grid.Column="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+                <Button Margin="0 3 0 3" Content="Wheel" Command="{Binding ShowWheelCommand}"/>
+                <Button Margin="0 3 0 3" Content="Positions" Command="{Binding ShowPositionsCommand}"/>
+                <Button Margin="0 3 0 3" Content="Progressions" Command="{Binding ProgressionsCommand}"/>
+            </StackPanel>
+        </materialDesign:Card>
         
-        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        
+
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Margin="6" Content="New Chart" Command="{Binding NewChartCommand}"/>
+            <Button Margin="6" Content="Search Chart" Command="{Binding SearchChartCommand}"/>
+            <Button Margin="6" Content="Delete Chart" Command="{Binding DeleteChartCommand}"/>        </StackPanel>        
+        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding HandleCloseCommand}" Click="CloseClick"/>
         </StackPanel>

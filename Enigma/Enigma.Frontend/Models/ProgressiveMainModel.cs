@@ -10,6 +10,6 @@ namespace Enigma.Frontend.Ui.Models;
 
 public class ProgressiveMainModel
 {
-    public List<PresentableProgresData> AvailableEvents { get; set; }
-    public List<PresentableProgresData> AvailablePeriods { get; set; }
+    public List<PresentableProgresData> AvailableEvents { get; set; } = new();
+    public List<PresentableProgresData> AvailablePeriods { get; set; } = new();
 }

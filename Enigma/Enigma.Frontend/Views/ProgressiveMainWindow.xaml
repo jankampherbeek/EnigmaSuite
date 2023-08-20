@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -20,7 +21,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="25*"/>
-                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="15*"/>
@@ -30,10 +31,10 @@
                 <RowDefinition Height="8*"/>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="15*"/>
+                <RowDefinition Height="18*"/>
                 <RowDefinition Height="15*"/>
                 <RowDefinition Height="40*"/>
-                <RowDefinition Height="15*"/>
+                <RowDefinition Height="18*"/>
                 <RowDefinition Height="24*"/>
             </Grid.RowDefinitions>
      <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#D5E6F2 " VerticalAlignment="Stretch">
@@ -195,15 +196,18 @@
         </StackPanel>
         
         
+        <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="6" Padding="2" Margin="6" HorizontalAlignment="Center"
+                             Background="#D5E6F2" UniformCornerRadius="6">
+            <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="5" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+                <Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/>
+                <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>
+                <Button Margin="0 3 0 3" Content="Transits" Command="{Binding TransitsCommand}"/>
+                <Button Margin="0 3 0 3" Content="Symbolic dir." Command="{Binding SymbDirCommand}"/>
+                <Button Margin="0 3 0 3" Content="Solar" Command="{Binding SolarCommand}"/>
+            </StackPanel>
+        </materialDesign:Card>
         
-        
-        <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="5" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
-            <Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/>
-            <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>
-            <Button Margin="0 3 0 3" Content="Transits" Command="{Binding TransitsCommand}"/>
-            <Button Margin="0 3 0 3" Content="Symbolic dir." Command="{Binding SymbDirCommand}"/>
-            <Button Margin="0 3 0 3" Content="Solar" Command="{Binding SolarCommand}"/>
-        </StackPanel>
+
 
 
         <StackPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">

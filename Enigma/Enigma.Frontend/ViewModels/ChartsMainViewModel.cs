@@ -110,6 +110,12 @@ public partial class ChartsMainViewModel: ObservableObject
     }
 
     [RelayCommand]
+    private void Progressions()
+    {
+        OpenWindow(new ProgressiveMainWindow());
+    }
+    
+    [RelayCommand]
     private void SearchChart()
     {
         RadixSearchWindow window = new();
