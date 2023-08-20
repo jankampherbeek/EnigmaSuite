@@ -17,15 +17,21 @@ public sealed class ChartsMainModel
 {
     private readonly DataVault _dataVault;
     private readonly IChartDataConverter _chartDataConverter;
+    private readonly IEventDataConverter _eventDataConverter;
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
+    private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
     private readonly IChartDataForDataGridFactory _chartDataForDataGridFactory;
     
     public ChartsMainModel(IChartDataConverter chartDataConverter,
+                           IEventDataConverter eventDataConverter, 
                            IChartDataPersistencyApi chartDataPersistencyApi,
+                           IEventDataPersistencyApi eventDataPersistencyApi,
                            IChartDataForDataGridFactory chartDataForDataGridFactory)
     {
         _chartDataConverter = chartDataConverter;
+        _eventDataConverter = eventDataConverter;
         _chartDataPersistencyApi = chartDataPersistencyApi;
+        _eventDataPersistencyApi = eventDataPersistencyApi;
         _chartDataForDataGridFactory = chartDataForDataGridFactory;
         _dataVault = DataVault.Instance;
     }
@@ -79,4 +85,14 @@ public sealed class ChartsMainModel
         return currentChart != null ? _chartDataForDataGridFactory.CreatePresentableChartData(currentChart) : null;
     }
     
+    
+    public int SaveCurrentEvent()
+    {
+        int newIndex = -1;
+        var currentEvent = _dataVault.CurrentProgEvent;
+        if (currentEvent == null) return newIndex;
+        PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(currentEvent);
+        newIndex = _eventDataPersistencyApi.AddEventData(persEvent);
+        return newIndex;
+    }
 }

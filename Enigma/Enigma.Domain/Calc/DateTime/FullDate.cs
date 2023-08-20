@@ -11,6 +11,6 @@ namespace Enigma.Domain.Calc.DateTime;
 /// <remarks>Assumes an astronomical year count.</remarks>
 /// <param name="YearMonthDay">Texts for year, month and day, in that sequence.</param>
 /// <param name="Calendar">Instance of enu Calendars.</param>
-/// <param name="DateFullText">Text for the date, includes texts between [] that needs to be replaced with texts from Rosetta.</param>
+/// <param name="DateFullText">Text for the date, includes texts between [] that needs to be replaced.</param>
 public record FullDate(int[] YearMonthDay, Calendars Calendar, string DateFullText);
 

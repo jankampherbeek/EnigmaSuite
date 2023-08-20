@@ -61,7 +61,7 @@ public class TestEventDataConverter
         {
             Assert.That(expected.Description, Is.EqualTo(result.Description));
             Assert.That(expected.Location.GeoLong, Is.EqualTo(result.Location.GeoLong).Within(DELTA));
-            Assert.That(expected.StartDateTime.JulianDayForEt, Is.EqualTo(result.StartDateTime.JulianDayForEt).Within(DELTA));
+            Assert.That(expected.DateTime.JulianDayForEt, Is.EqualTo(result.DateTime.JulianDayForEt).Within(DELTA));
         });
     }
 

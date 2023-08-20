@@ -146,7 +146,6 @@ public sealed class EventDataDao : IEventDataDao
                 eventData.Id, e.Message);
             return 0;
         }
-
         return eventData.Id;
     }
 

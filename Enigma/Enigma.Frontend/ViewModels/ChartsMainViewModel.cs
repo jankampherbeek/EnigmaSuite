@@ -29,11 +29,6 @@ public partial class ChartsMainViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(AspectsCommand))]
     [NotifyCanExecuteChangedFor(nameof(MidpointsCommand))]
     [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
-    [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
-    [NotifyCanExecuteChangedFor(nameof(SecDirCommand))]
-    [NotifyCanExecuteChangedFor(nameof(TransitsCommand))]
-    [NotifyCanExecuteChangedFor(nameof(SymDirCommand))]
-    [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
@@ -169,54 +164,7 @@ public partial class ChartsMainViewModel: ObservableObject
         OpenWindow(new RadixMidpointsWindow());
     }
 
-    [RelayCommand]
-    private static void NewEvent()
-    {
-        new ProgEventWindow().ShowDialog();
-    }
-
-    [RelayCommand]
-    private void SearchEvent()
-    {
-        // TODO handle SearchEvent
-    }
-
-    [RelayCommand]
-    private void DateRange()
-    {
-        // TODO handle DataRange
-    }
-
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void PrimDir()
-    {
-        // TODO handle PrimDir
-    }
     
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void SecDir()
-    {
-        // TODO handle SecDir
-    }
-    
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void Transits()
-    {
-        // TODO handle transits
-    }
-    
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void SymDir()
-    {
-        // TODO handle SymDir
-    }
-    
-    [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void Solar()
-    {
-        // TODO handle solar return ??
-    }
-
     [RelayCommand]
     private void About()
     {

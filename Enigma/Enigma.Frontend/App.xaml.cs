@@ -71,6 +71,7 @@ public partial class App
         serviceCollection.AddTransient<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
+        serviceCollection.AddTransient<IEventDataConverter, EventDataConverter>();
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
@@ -78,6 +79,7 @@ public partial class App
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<ProgEventModel>();
+        serviceCollection.AddTransient<ProgressiveMainModel>();
         serviceCollection.AddTransient<ProjectUsageModel>();
         serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();

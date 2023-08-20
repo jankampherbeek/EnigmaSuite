@@ -6,6 +6,11 @@
 namespace Enigma.Domain.Progressive;
 
 /// <summary>Event data to be shown in a data grid.</summary>
-/// <param name="Id">Unique id for the chart.</param>
-/// <param name="Description">Descriptive text, can be empty.</param>
-public record PresentableEventData(string Id, string Description);
+/// <param name="Id">Unique id for the event.</param>
+/// <param name="Description">Descriptive text.</param>
+public record PresentableProgresData(string Id, string Description);
+
+
+
+
+

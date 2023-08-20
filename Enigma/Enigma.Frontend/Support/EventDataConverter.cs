@@ -49,9 +49,9 @@ public sealed class EventDataConverter : IEventDataConverter
     {
         return new PersistableEventData(
             progEvent.Description,
-            progEvent.StartDateTime.JulianDayForEt,
-            progEvent.StartDateTime.DateText,
-            progEvent.StartDateTime.TimeText,
+            progEvent.DateTime.JulianDayForEt,
+            progEvent.DateTime.DateText,
+            progEvent.DateTime.TimeText,
             progEvent.LocationName,
             progEvent.Location.GeoLong,
             progEvent.Location.GeoLat

@@ -7,9 +7,9 @@ using System.Windows;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class ProgEventWindow : Window
+public partial class ProgressiveMainWindow : Window
 {
-    public ProgEventWindow()
+    public ProgressiveMainWindow()
     {
         InitializeComponent();
     }

@@ -49,6 +49,7 @@ public sealed class HousesHandler : IHousesHandler
         double jdUt = request.JdUt;
         double[][] eclValues;
         Dictionary<ChartPoints, FullPointPos> mundanePositions = new();
+        
         double obliquity = _obliquityHandler.CalcObliquity(new ObliquityRequest(request.JdUt, true));
         double[][] tropicalValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, flags);
         if (request.CalcPrefs.ActualZodiacType == ZodiacTypes.Sidereal)
@@ -61,9 +62,7 @@ public sealed class HousesHandler : IHousesHandler
         {
             eclValues = tropicalValues;
         }
-
-
-
+        
         KeyValuePair<ChartPoints, FullPointPos> asc = CreateFullChartPointPosForCusp(ChartPoints.Ascendant, tropicalValues[1][0], eclValues[1][0], jdUt, obliquity, location);
         mundanePositions.Add(asc.Key, asc.Value);
         KeyValuePair<ChartPoints, FullPointPos> mc = CreateFullChartPointPosForCusp(ChartPoints.Mc, tropicalValues[1][1], eclValues[1][1], jdUt, obliquity, location);
@@ -78,15 +77,15 @@ public sealed class HousesHandler : IHousesHandler
             KeyValuePair<ChartPoints, FullPointPos> eastPoint = CreateFullChartPointPosForCusp(ChartPoints.EastPoint, tropicalValues[1][4], eclValues[1][4], jdUt, obliquity, location);
             mundanePositions.Add(eastPoint.Key, eastPoint.Value);
         }
-
-
-
-        for (int n = 1; n < eclValues[0].Length; n++)
+        if (houseSystem != HouseSystems.NoHouses)
         {
-            int cuspIndex = 2000 + n;
-            ChartPoints cusp = PointsExtensions.PointForIndex(cuspIndex);
-            KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, tropicalValues[0][n], eclValues[0][n], jdUt, obliquity, location);
-            mundanePositions.Add(cuspPos.Key, cuspPos.Value);
+            for (int n = 1; n < eclValues[0].Length; n++)
+            {
+                int cuspIndex = 2000 + n;
+                ChartPoints cusp = PointsExtensions.PointForIndex(cuspIndex);
+                KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, tropicalValues[0][n], eclValues[0][n], jdUt, obliquity, location);
+                mundanePositions.Add(cuspPos.Key, cuspPos.Value);
+            }            
         }
         return mundanePositions;
     }
