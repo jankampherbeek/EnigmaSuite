@@ -86,13 +86,5 @@ public sealed class ChartsMainModel
     }
     
     
-    public int SaveCurrentEvent()
-    {
-        int newIndex = -1;
-        var currentEvent = _dataVault.CurrentProgEvent;
-        if (currentEvent == null) return newIndex;
-        PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(currentEvent);
-        newIndex = _eventDataPersistencyApi.AddEventData(persEvent);
-        return newIndex;
-    }
+
 }

@@ -14,6 +14,7 @@ public abstract class DateTimeLocationModelBase
     private readonly IGeoLongInputParser _geoLongInputParser;
     private readonly IGeoLatInputParser _geoLatInputParser;
     protected FullDate? FullDate;
+    protected FullDate? SecondFullDate;
     protected FullTime? FullTime;
     private FullGeoLongitude? _fullLmtGeoLongitude;
     protected FullGeoLongitude? FullGeoLongitude;

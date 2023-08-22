@@ -36,6 +36,12 @@ A point-by-point description of the functionality of each planned release:
 
 
 
+### Some additional stuff
+
+Request by Mark Harris (2023/8/22): use different colors for progressions and radix positions in an Uranian disk. Can also be used for a plain chart.
+
+
+
 ### Release 0.2 - beta
 
 Implementing a first set of progressive techniques. First attempt with 3d charts.

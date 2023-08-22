@@ -20,7 +20,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ProgressiveMainViewModel: ObservableObject
 {
     private readonly List<Window> _openWindows = new();
-    private DataVault _dataVault = DataVault.Instance;
+    private readonly DataVault _dataVault = DataVault.Instance;
     private CalculatedChart? _currentChart;
     [ObservableProperty] private int _eventIndex = -1;
     [ObservableProperty] private int _periodIndex = -1;
@@ -35,7 +35,6 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [ObservableProperty] private PresentableProgresData? _selectedPeriod;
     
     private readonly ProgressiveMainModel _model;
-    
     
     public ProgressiveMainViewModel()
     {
@@ -84,11 +83,13 @@ public partial class ProgressiveMainViewModel: ObservableObject
     }
     
     [RelayCommand]
-    private static void NewEvent()
+    private void NewEvent()
     {
         new ProgEventWindow().ShowDialog();
-        // todo check for cancel
-        // save chart, new index is returned
+        if (_dataVault.CurrentProgEvent != null)
+        {
+            _model.SaveCurrentEvent();
+        }
         // show event
     }
     
@@ -105,9 +106,15 @@ public partial class ProgressiveMainViewModel: ObservableObject
     }
     
     [RelayCommand]
-    private static void NewPeriod()
+    private void NewPeriod()
     {
-        MessageBox.Show("Not implemented yet");
+        new ProgPeriodWindow().ShowDialog();
+        if (_dataVault.CurrentProgPeriod != null)
+        {
+            _model.SaveCurrentPeriod();
+        }
+        // show event        
+        
     }
     
     [RelayCommand]

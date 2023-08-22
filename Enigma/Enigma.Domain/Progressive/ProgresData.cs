@@ -25,7 +25,7 @@ public record ProgEvent(int Id, string Description, string LocationName, Locatio
 /// <param name="Description">Description for the period.</param>
 /// <param name="StartDate">First date of the period.</param>
 /// <param name="EndDate">Last date of the period.</param>
-public record ProgPeriod(int Id, string Description, FullDate StartDate, FullDate EndDate)
+public record ProgPeriod(int Id, string Description, FullDateTime StartDate, FullDateTime EndDate)
 {
     public int Id { get; set; } = Id;
 }

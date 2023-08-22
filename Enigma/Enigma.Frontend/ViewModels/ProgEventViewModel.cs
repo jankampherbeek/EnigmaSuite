@@ -9,6 +9,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
@@ -21,25 +22,25 @@ public partial class ProgEventViewModel: ObservableObject
     [ObservableProperty] private string _description = string.Empty;
     [ObservableProperty] private string _locationName = "No location";
     [NotifyPropertyChangedFor(nameof(GeoLatValid))]
-    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [ObservableProperty] private string _geoLat = "00:00:00";
-    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
     [ObservableProperty] private string _geoLong = "000:00:00";
-    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
     [ObservableProperty] private string _lmtGeoLong = "";
-    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(DateValid))]
     [ObservableProperty] private string _date = "";
-    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(TimeValid))]
     [ObservableProperty] private string _time = "12:00:00";
     [ObservableProperty] private bool _applyDst;
     [ObservableProperty] private int _dirLatIndex;
     [ObservableProperty] private int _dirLongIndex;
     [ObservableProperty] private int _lmtDirLongIndex;
-    [NotifyCanExecuteChangedFor(nameof(SaveCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(LmtEnabled))]
     [ObservableProperty] private int _timeZoneIndex;
     [ObservableProperty] private ObservableCollection<string> _allDirectionsForLatitude;
@@ -48,8 +49,10 @@ public partial class ProgEventViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allCalendars;
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
     [ObservableProperty] private ObservableCollection<string> _allTimeZones;
+
     private readonly int _enumIndexForLmt;
     private readonly ProgEventModel _model = App.ServiceProvider.GetRequiredService<ProgEventModel>();
+
     
     public bool LmtEnabled => TimeZoneIndex == _enumIndexForLmt;
     public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.White : Brushes.Yellow;
@@ -68,9 +71,9 @@ public partial class ProgEventViewModel: ObservableObject
     }
     
     [RelayCommand(CanExecute = nameof(IsInputOk))]
-    private void Save()
+    private void FinalizeEvent()
     {
-        // call model to perform save
+        _model.CreateEventData(Description, LocationName);
     }
     
     private bool IsInputOk()
@@ -119,7 +122,7 @@ public partial class ProgEventViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "RadixDataInput";
+        DataVault.Instance.CurrentViewBase = "RadixEventInput";    // TODO create helppage
         new HelpWindow().ShowDialog();
     }
     

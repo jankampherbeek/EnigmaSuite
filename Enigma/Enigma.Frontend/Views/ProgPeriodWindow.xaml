@@ -1,0 +1,56 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.ProgPeriodWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"       
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"        
+        Title="Enigma - Period for progressions" Height="360" Width="420">
+    <Window.Resources>
+        <viewModels:ProgPeriodViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Define and save period"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
+        <TextBox Grid.Row="1"  Grid.Column="0" Margin="6 " VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Description of period" 
+                 TextWrapping="Wrap" Height="80"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Description, Mode = TwoWay}"/>
+        <TextBox Grid.Row="2" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"                  
+                 materialDesign:HintAssist.Hint="Start date yyyy/mm/dd"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 Background="{Binding StartDateValid}"
+                 Text="{Binding StartDate}"/>         
+        <TextBox Grid.Row="3" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"                  
+                 materialDesign:HintAssist.Hint="End date yyyy/mm/dd"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 Background="{Binding EndDateValid}"
+                 Text="{Binding EndDate}"/>  
+        <StackPanel Grid.Row="4" Grid.Column="0" Margin="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
+                    Command="{Binding HelpCommand}"/>
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
+            <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
+                    Command="{Binding FinalizePeriodCommand}" Click="CloseClick" />
+        </StackPanel>        
+    </Grid>
+</Window>
