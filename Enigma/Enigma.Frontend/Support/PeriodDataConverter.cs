@@ -22,7 +22,7 @@ public class PeriodDataConverter: IPeriodDataConverter
     }
 
     /// <inheritdoc/>
-    public PersistablePeriodData ToPersistableEventData(ProgPeriod progPeriod)
+    public PersistablePeriodData ToPersistablePeriodData(ProgPeriod progPeriod)
     {
         return HandleConversion(progPeriod);
     }

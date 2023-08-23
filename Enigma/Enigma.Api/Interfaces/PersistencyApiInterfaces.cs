@@ -94,11 +94,11 @@ public interface IChartDataPersistencyApi
 /// <summary>AI for persistency Event data.</summary>
 public interface IEventDataPersistencyApi
 {
-    /// <summary>Calculate number of records in Json file.</summary>
+    /// <summary>Calculate number of records in database.</summary>
     /// <returns>The number of records</returns>
     public int NumberOfRecords();
 
-    /// <summary>Calculate number of event records in Json file that have an intersection with a specific chart.</summary>
+    /// <summary>Calculate number of event records in database that have an intersection with a specific chart.</summary>
     /// <param name="chartId">Index for the chart.</param>
     /// <returns>The number of records.</returns>
     public int NumberOfRecords(int chartId);
@@ -139,6 +139,59 @@ public interface IEventDataPersistencyApi
     /// <returns>True if the record was deleted, false if the record does not exist.</returns>
     public bool DeleteEventData(int index);
 }
+
+
+
+
+/// <summary>AI for persistency Period data.</summary>
+public interface IPeriodDataPersistencyApi
+{
+    /// <summary>Calculate number of records in database.</summary>
+    /// <returns>The number of records</returns>
+    public int NumberOfRecords();
+
+    /// <summary>Calculate number of period records in database that have an intersection with a specific chart.</summary>
+    /// <param name="chartId">Index for the chart.</param>
+    /// <returns>The number of records.</returns>
+    public int NumberOfRecords(int chartId);
+
+
+    /// <summary>Define the highest index that is currently in use.</summary>
+    /// <returns>The highest index.</returns>
+    public int HighestIndex();
+
+    /// <summary>Read a specific record.</summary>
+    /// <param name="index">The unique index for the record.</param>
+    /// <returns>If found: the record. Otherwise: null.</returns>
+    public PersistablePeriodData? ReadPeriodData(int index);
+
+    /// <summary>Read records that correspond (partly) with a given searchterm for the description of the event.</summary>
+    /// <param name="partOfDescription">The search term.</param>
+    /// <returns>List with zero or more results.</returns>
+    public List<PersistablePeriodData> SearchPeriodData(string? partOfDescription);
+
+    /// <summary>Read records of events that have an intersection with a given chart.</summary>
+    /// <param name="chartId">Id of the chart.</param>
+    /// <returns>List with zero or more results.</returns>
+    public List<PersistablePeriodData> SearchPeriodData(int chartId);
+
+
+    /// <summary>Read all records.</summary>
+    /// <returns>List with zero or more results.</returns>
+    public List<PersistablePeriodData> ReadAllPeriodData();
+
+    /// <summary>Add a record.</summary>
+    /// <param name="periodData">The record to insert.</param>
+    /// <returns>The index for the inserted record, -1 if the record could not be inserted.</returns>
+    public int AddPeriodData(PersistablePeriodData periodData);
+
+    /// <summary>Dele a record for a period.</summary>
+    /// <remarks>Also deletes entries for this period in the intersections.</remarks>
+    /// <param name="index">Id of the record to delete.</param>
+    /// <returns>True if the record was deleted, false if the record does not exist.</returns>
+    public bool DeletePeriodData(int index);
+}
+
 
 
 

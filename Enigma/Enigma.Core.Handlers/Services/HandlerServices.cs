@@ -95,6 +95,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IPeriodDataDao, PeriodDataDao>();
         serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
         serviceCollection.AddTransient<IPlacidusTimeKey, PlacidusTimeKey>();
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();

@@ -10,10 +10,13 @@ using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Persistency;
 using Enigma.Api.Research;
+using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Handlers.Persistency.Daos;
 using Enigma.Core.Handlers.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace
     Enigma.Api.Services;
@@ -41,6 +44,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
+        serviceCollection.AddTransient<IPeriodDataPersistencyApi, PeriodDataPersistencyApi>();
         serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<IResearchPerformApi, ResearchPerformApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();

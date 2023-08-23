@@ -23,23 +23,31 @@ public partial class ProgPeriodViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(FinalizePeriodCommand))]
     [NotifyPropertyChangedFor(nameof(EndDateValid))]
     [ObservableProperty] private string _endDate = "";
+    [NotifyCanExecuteChangedFor(nameof(FinalizePeriodCommand))]
+    [NotifyPropertyChangedFor(nameof(DescriptionValid))]
+    [ObservableProperty] private string _description = "";
+    
     
     public SolidColorBrush StartDateValid => IsStartDateValid() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush EndDateValid => IsEndDateValid() ? Brushes.White : Brushes.Yellow;
+    public SolidColorBrush DescriptionValid => IsDescriptionValid() ? Brushes.White : Brushes.Yellow;
+    
     
     private readonly ProgPeriodModel _model = App.ServiceProvider.GetRequiredService<ProgPeriodModel>();
     
     [RelayCommand(CanExecute = nameof(IsInputOk))]
     private void FinalizePeriod()
     {
-        //_model.CreatePeriodData(Description);
+        _model.CreatePeriodData(Description, StartDate, EndDate);
     }
     
     private bool IsInputOk()
     {
-        if (StartDate == string.Empty || EndDate == string.Empty) return false;
+        if (StartDate == string.Empty || EndDate == string.Empty || Description == string.Empty) return false;
         if (!IsStartDateValid() || !IsEndDateValid()) return false;
-        return string.Compare(EndDate, StartDate, StringComparison.Ordinal) == -1;
+        if (!IsDescriptionValid()) return false;
+        return true;
+        // return string.Compare(EndDate, StartDate, StringComparison.Ordinal) == 1;
     }
     
     private bool IsStartDateValid()
@@ -50,7 +58,13 @@ public partial class ProgPeriodViewModel: ObservableObject
     private bool IsEndDateValid()
     {
         if (EndDate == string.Empty) return true;
-        return _model.IsDateValid(EndDate, Calendars.Gregorian, YearCounts.CE);
+        return _model.IsSecondDateValid(EndDate, Calendars.Gregorian, YearCounts.CE);
+    }
+
+    private bool IsDescriptionValid()
+    {
+        if (Description == string.Empty) return true;
+        return Description.Trim().Length > 0;
     }
     
     [RelayCommand]

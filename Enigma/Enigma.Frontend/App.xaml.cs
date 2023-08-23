@@ -77,6 +77,7 @@ public partial class App
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
+        serviceCollection.AddTransient<IPeriodDataConverter, PeriodDataConverter>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<ProgEventModel>();
         serviceCollection.AddTransient<ProgPeriodModel>();

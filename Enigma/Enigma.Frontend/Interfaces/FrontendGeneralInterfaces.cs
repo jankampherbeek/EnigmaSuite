@@ -164,7 +164,7 @@ public interface IPeriodDataConverter
     /// <summary>Convert PeriodData to PersistablePeriodData.</summary>
     /// <param name="progPeriod"/>
     /// <returns>Resulting PersistablePeriodData.</returns>
-    public PersistablePeriodData ToPersistableEventData(ProgPeriod progPeriod);
+    public PersistablePeriodData ToPersistablePeriodData(ProgPeriod progPeriod);
 
 }
 

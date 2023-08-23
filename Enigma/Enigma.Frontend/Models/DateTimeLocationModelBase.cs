@@ -55,6 +55,13 @@ public abstract class DateTimeLocationModelBase
         return isValid;
     }
     
+    public bool IsSecondDateValid(string inputDate, Calendars calendar, YearCounts yearCount)
+    {
+        bool isValid = _dateInputParser.HandleDate(inputDate, calendar, yearCount, out FullDate? fullDate);
+        if (isValid) SecondFullDate = fullDate;
+        return isValid;
+    }
+    
     public bool IsTimeValid(string inputTime, TimeZones timeZone, bool dst)
     {
         double offsetLmt = 0.0;

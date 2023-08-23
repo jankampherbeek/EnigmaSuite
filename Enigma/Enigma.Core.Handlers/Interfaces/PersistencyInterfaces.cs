@@ -256,6 +256,56 @@ public interface IEventDataDao
 }
 
 
+/// <summary>DAO for period data.</summary>
+public interface IPeriodDataDao
+{
+    /// <summary>Count all records.</summary>
+    /// <returns>The total number of records.</returns>
+    public int CountRecords();
+
+    /// <summary>Count all records that have an intersection with a specific chart.</summary>
+    /// <returns>The total number of records.</returns>
+    public int CountRecords(int chartId);
+
+    /// <summary>Define the highest index as used by the records.</summary>
+    /// <returns>Value of the highest index.</returns>
+    public int HighestIndex();
+
+    /// <summary>Read period data for a given index.</summary>
+    /// <param name="index">The index to check.</param>
+    /// <returns>If found: the record that corresponds to the given index, otherwise null.</returns>
+    public PersistablePeriodData? ReadPeriodData(int index);
+
+    /// <summary>Read period data that are connected to a specific chart.</summary>
+    /// <param name="chartId">Id of the chart.</param>
+    /// <returns>List with zero or more records that are found.</returns>
+    public List<PersistablePeriodData> SearchPeriodData(int chartId);
+
+    /// <summary>Search for records using a part of the description as searchargument.</summary>
+    /// <remarks>Search is case-insensitive.</remarks>
+    /// <param name="partOfDescription">The search argument.</param>
+    /// <returns>List with zero or more records that are found.</returns>
+    public List<PersistablePeriodData> SearchPeriodData(string? partOfDescription);
+
+    /// <summary>Read all perioddata.</summary>
+    /// <returns>List with all records.</returns>
+    public List<PersistablePeriodData> ReadAllPeriodData();
+
+    /// <summary>Insert a new record.</summary>
+    /// <param name="periodData">The record to insert.</param>
+    /// <remarks>The id of the record is overwritten with the first available new index.</remarks>
+    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
+    public int AddPeriodData(PersistablePeriodData periodData);
+
+    /// <summary>Delete a record for a period and any intersection records that refer to this period.</summary>
+    /// <param name="index">The index of the record to delete.</param>
+    /// <returns>True if the record was deleted, false if the record was not found.</returns>
+    public bool DeletePeriodData(int index);
+
+}
+
+
+
 /// <summary>DAO for intersection between chart and event.</summary>
 /// <remarks>Should only accessed from other DAO's.</remarks>
 public interface IInterChartEventDao

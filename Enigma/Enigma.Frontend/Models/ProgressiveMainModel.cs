@@ -14,16 +14,23 @@ namespace Enigma.Frontend.Ui.Models;
 
 public class ProgressiveMainModel
 {
-    private IEventDataConverter _eventDataConverter;
-    private IEventDataPersistencyApi _eventDataPersistencyApi;
+    private readonly IEventDataConverter _eventDataConverter;
+    private readonly IPeriodDataConverter _periodDataConverter;
+    private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
+    private IPeriodDataPersistencyApi _periodDataPersistencyApi;
     public List<PresentableProgresData> AvailableEvents { get; set; } = new();
     public List<PresentableProgresData> AvailablePeriods { get; set; } = new();
-    private DataVault _dataVault = DataVault.Instance;
+    private readonly DataVault _dataVault = DataVault.Instance;
 
-    public ProgressiveMainModel(IEventDataConverter eventDataConverter, IEventDataPersistencyApi eventDataPersistencyApi)
+    public ProgressiveMainModel(IEventDataConverter eventDataConverter, 
+        IPeriodDataConverter periodDataConverter,
+        IEventDataPersistencyApi eventDataPersistencyApi,
+        IPeriodDataPersistencyApi periodDataPersistencyApi)
     {
         _eventDataConverter = eventDataConverter;
+        _periodDataConverter = periodDataConverter;
         _eventDataPersistencyApi = eventDataPersistencyApi;
+        _periodDataPersistencyApi = periodDataPersistencyApi;
     }
     
         
@@ -42,8 +49,8 @@ public class ProgressiveMainModel
         int newIndex = -1;
         var currentPeriod = _dataVault.CurrentProgPeriod;
         if (currentPeriod == null) return newIndex;
-        // todo define PersistablePeriode
-        // call api to save
+        PersistablePeriodData persPeriod = _periodDataConverter.ToPersistablePeriodData(currentPeriod);
+        newIndex = _periodDataPersistencyApi.AddPeriodData(persPeriod);
         return newIndex;
     }
     

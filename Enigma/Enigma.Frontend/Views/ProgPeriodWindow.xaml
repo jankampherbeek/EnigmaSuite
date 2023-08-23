@@ -23,7 +23,7 @@
             <RowDefinition Height="20*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
+            <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Define and save period"
@@ -33,6 +33,7 @@
                  materialDesign:HintAssist.Hint="Description of period" 
                  TextWrapping="Wrap" Height="80"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Background="{Binding DescriptionValid}"                 
                  Text="{Binding Description, Mode = TwoWay}"/>
         <TextBox Grid.Row="2" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"                  
                  materialDesign:HintAssist.Hint="Start date yyyy/mm/dd"
