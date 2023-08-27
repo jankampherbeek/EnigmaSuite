@@ -27,8 +27,8 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [ObservableProperty] private string _currentEventName = "No event defined";
     [ObservableProperty] private string _currentPeriodName = "No period defined";
     [ObservableProperty] private string _currentChartName = string.Empty;
-    [ObservableProperty] private ObservableCollection<PresentableProgresData> _availableEvents;
-    [ObservableProperty] private ObservableCollection<PresentableProgresData> _availablePeriods;
+    [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEvents;
+    [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentablePeriods;
     [NotifyPropertyChangedFor(nameof(EventIndex))]
     [ObservableProperty] private PresentableProgresData? _selectedEvent;
     [NotifyPropertyChangedFor(nameof(PeriodIndex))]
@@ -39,8 +39,8 @@ public partial class ProgressiveMainViewModel: ObservableObject
     public ProgressiveMainViewModel()
     {
         _model = App.ServiceProvider.GetRequiredService<ProgressiveMainModel>();
-        _availableEvents = new ObservableCollection<PresentableProgresData>(_model.AvailableEvents);
-        _availablePeriods = new ObservableCollection<PresentableProgresData>(_model.AvailablePeriods);
+        _presentableEvents = new ObservableCollection<PresentableProgresData>(_model.PresentableEvents);
+        _presentablePeriods = new ObservableCollection<PresentableProgresData>(_model.PresentablePeriods);
         PopulateData();
     }
 
@@ -62,7 +62,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private void EventItemChanged()
     {
-        SelectedEvent = AvailableEvents[EventIndex];
+        SelectedEvent = PresentableEvents[EventIndex];
       //  _dataVault.SetCurrentEvent(EventIndex);
         PopulateData();
     }
@@ -70,7 +70,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private void PeriodItemChanged()
     {
-        SelectedPeriod = AvailablePeriods[PeriodIndex];
+        SelectedPeriod = PresentablePeriods[PeriodIndex];
         //  _dataVault.SetCurrentPeriod(PeriodIndex);
         PopulateData();
     }

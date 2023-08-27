@@ -52,13 +52,11 @@ public partial class ProgPeriodViewModel: ObservableObject
     
     private bool IsStartDateValid()
     {
-        if (StartDate == string.Empty) return true;
-        return _model.IsDateValid(StartDate, Calendars.Gregorian, YearCounts.CE);
+        return StartDate == string.Empty || _model.IsDateValid(StartDate, Calendars.Gregorian, YearCounts.CE);
     }
     private bool IsEndDateValid()
     {
-        if (EndDate == string.Empty) return true;
-        return _model.IsSecondDateValid(EndDate, Calendars.Gregorian, YearCounts.CE);
+        return EndDate == string.Empty || _model.IsSecondDateValid(EndDate, Calendars.Gregorian, YearCounts.CE);
     }
 
     private bool IsDescriptionValid()

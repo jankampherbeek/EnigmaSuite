@@ -30,11 +30,10 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="18*"/>            
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Padding="16" Mode="PrimaryMid">
-        <TextBlock Margin="16,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left"
-                       Text="Application Settings"
-                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" />
-        </materialDesign:ColorZone>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Application Settings"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   Foreground="#2174B3" FontWeight="Bold" />
         <TextBlock Grid.Column="0" Grid.Row="1" Text="Data files" Margin="6"/>
         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding LocationOfDataFiles, Mode=OneWay}" Margin="6"/>
 

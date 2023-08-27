@@ -133,6 +133,12 @@ public interface IEventDataPersistencyApi
     /// <returns>The index for the inserted record, -1 if the record could not be inserted.</returns>
     public int AddEventData(PersistableEventData eventData);
 
+    /// <summary>Add a record and an intersection.</summary>
+    /// <param name="eventData">The record to insert.</param>
+    /// <param name="chartId">Id of the chart that will be coupled to the event.</param>
+    /// <returns>The index for the inserted record, -1 if the record could not be inserted.</returns>
+    public int AddEventData(PersistableEventData eventData, int chartId);
+    
     /// <summary>Dele a record for an event.</summary>
     /// <remarks>Also deletes entries for this event in the intersections.</remarks>
     /// <param name="index">Id of the record to delete.</param>
@@ -184,6 +190,13 @@ public interface IPeriodDataPersistencyApi
     /// <param name="periodData">The record to insert.</param>
     /// <returns>The index for the inserted record, -1 if the record could not be inserted.</returns>
     public int AddPeriodData(PersistablePeriodData periodData);
+    
+    /// <summary>Add a record and an intersection.</summary>
+    /// <param name="periodData">The record to insert.</param>
+    /// <param name="chartId">Id of the chart that will be coupled to the period.</param>
+    /// <returns>The index for the inserted record, -1 if the record could not be inserted.</returns>
+    public int AddPeriodData(PersistablePeriodData periodData, int chartId);
+    
 
     /// <summary>Dele a record for a period.</summary>
     /// <remarks>Also deletes entries for this period in the intersections.</remarks>

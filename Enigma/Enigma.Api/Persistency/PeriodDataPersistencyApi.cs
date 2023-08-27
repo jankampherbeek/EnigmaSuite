@@ -81,6 +81,16 @@ public class PeriodDataPersistencyApi: IPeriodDataPersistencyApi
     }
 
     /// <inheritdoc/>
+    public int AddPeriodData(PersistablePeriodData periodData, int chartId)
+    {
+        Guard.Against.Null(periodData);
+        Log.Information(
+            "PeriodDataPersistencyApi.AddPeriodData() for periodData with id {PeriodData} and chartId {ChartId} requested", 
+            periodData.Id, chartId);
+        return _periodDataDao.AddPeriodData(periodData, chartId);
+    }
+
+    /// <inheritdoc/>
     public bool DeletePeriodData(int index)
     {
         Log.Information("PeriodDataPersistencyApi.DeletePeriodData() for index {Index} requested", index);

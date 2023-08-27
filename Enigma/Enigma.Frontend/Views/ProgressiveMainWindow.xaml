@@ -37,7 +37,7 @@
                 <RowDefinition Height="18*"/>
                 <RowDefinition Height="24*"/>
             </Grid.RowDefinitions>
-     <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#D5E6F2 " VerticalAlignment="Stretch">
+     <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#FFC773" VerticalAlignment="Stretch">
             <MenuItem Header="General">
                 <MenuItem Header="Configuration" Command="{Binding ConfigurationCommand}">
                     <MenuItem.Icon>
@@ -139,7 +139,7 @@
                    Text="Available events" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    Foreground="#2174B3" FontWeight="Bold"/>
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
-                 ItemsSource="{Binding AvailableEvents}"
+                 ItemsSource="{Binding PresentableEvents}"
                  SelectedIndex="{Binding EventIndex, Mode=TwoWay}">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectionChanged">
@@ -169,7 +169,7 @@
                    Foreground="#2174B3" FontWeight="Bold"/>
         
         <ListBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
-                 ItemsSource="{Binding AvailablePeriods}"
+                 ItemsSource="{Binding PresentablePeriods}"
                  SelectedIndex="{Binding PeriodIndex, Mode=TwoWay}">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectionChanged">
@@ -197,7 +197,7 @@
         
         
         <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="6" Padding="2" Margin="6" HorizontalAlignment="Center"
-                             Background="#D5E6F2" UniformCornerRadius="6">
+                             Background="#BFAE93" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="5" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/>
                 <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>

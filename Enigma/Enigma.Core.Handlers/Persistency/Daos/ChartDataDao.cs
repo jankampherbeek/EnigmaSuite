@@ -90,22 +90,23 @@ public sealed class ChartDataDao : IChartDataDao
 
     private int PerformInsert(PersistableChartData chartData)
     {
+        int idNewChart = 0;
         using var db = new LiteDatabase(_dbFullPath);
         ILiteCollection<PersistableChartData>? col = db.GetCollection<PersistableChartData>(COLLECTION);
         try
         {
             col.Insert(chartData);
-            Log.Information("Inserted chart {Chart}", chartData.Id);
+            idNewChart = HighestIndex();
+            Log.Information("Inserted chart {Chart}", idNewChart);
         }
         catch (Exception e)
         {
             Log.Error(
-                "ChartDataDao.PerformInsert: trying to insert chart with existing id {Id} results in exception {Ex}",
-                chartData.Id, e.Message);
-            return 0;
+                "ChartDataDao.PerformInsert: trying to insert chart results in exception {Ex}", e.Message);
+            idNewChart = 0;
         }
 
-        return chartData.Id;
+        return idNewChart;
     }
 
     private bool PerformDelete(int index)

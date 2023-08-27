@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using LiteDB;
+
 namespace Enigma.Domain.Persistency;
 
 /// <summary>Representation of periopd data to be saved in Json format.</summary>
@@ -28,13 +30,16 @@ public sealed class PersistablePeriodData
     /// <remarks>Only for presentational purposes.</remarks>
     public string EndDateText { get; }
     
-    public PersistablePeriodData(string description, double startJd, double endJd,   string startDateText, string endDateText)
+    [BsonCtor]
+    public PersistablePeriodData(string description, double startJd, double endJd, string startDateText, 
+        string endDateText, int id = 0)
     {
         StartJulianDayEt = startJd;
         EndJulianDayEt = endJd;
         Description = description;
         StartDateText = startDateText;
         EndDateText = endDateText;
+        Id = id;
     }
 
     

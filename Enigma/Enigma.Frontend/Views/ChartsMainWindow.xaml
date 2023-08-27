@@ -34,7 +34,7 @@
             <RowDefinition Height="24*"/>
             <RowDefinition Height="24*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#D5E6F2 " VerticalAlignment="Stretch">
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#BFAE93" VerticalAlignment="Stretch">
             <MenuItem Header="General">
                 <MenuItem Header="Settings" Command="{Binding AppSettingsCommand}">
                     <MenuItem.Icon>
@@ -159,7 +159,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="3" Padding="2" Margin="6" HorizontalAlignment="Center"
-                             Background="#D5E6F2" UniformCornerRadius="6">
+                             Background="#BFAE93" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="Wheel" Command="{Binding ShowWheelCommand}"/>
                 <Button Margin="0 3 0 3" Content="Positions" Command="{Binding ShowPositionsCommand}"/>

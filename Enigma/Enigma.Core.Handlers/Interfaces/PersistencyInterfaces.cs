@@ -248,6 +248,12 @@ public interface IEventDataDao
     /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
     public int AddEventData(PersistableEventData eventData);
 
+    /// <summary>Insert a new record and an intersection.</summary>
+    /// <param name="eventData">The record to insert.</param>
+    /// <param name="chartId">The id of an existing saved chart.</param>
+    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
+    public int AddEventData(PersistableEventData eventData, int chartId);
+
     /// <summary>Delete a record for an event and any intersection records that refer to this event.</summary>
     /// <param name="index">The index of the record to delete.</param>
     /// <returns>True if the record was deleted, false if the record was not found.</returns>
@@ -297,6 +303,12 @@ public interface IPeriodDataDao
     /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
     public int AddPeriodData(PersistablePeriodData periodData);
 
+    /// <summary>Insert a new record and intersection.</summary>
+    /// <param name="periodData"></param>
+    /// <param name="idChart"></param>
+    /// <returns>The id for the inserted record or -1 if the insert could not be fullfilled.</returns>
+    public int AddPeriodData(PersistablePeriodData periodData, int idChart);
+
     /// <summary>Delete a record for a period and any intersection records that refer to this period.</summary>
     /// <param name="index">The index of the record to delete.</param>
     /// <returns>True if the record was deleted, false if the record was not found.</returns>
@@ -323,6 +335,31 @@ public interface IInterChartEventDao
     /// <param name="chartId"></param>
     /// <returns>Lidt with intersections for the chart..</returns>
     public IEnumerable<InterChartEvent> Read(int chartId);
+    
+    /// <summary>Delete all intersections for a specific chart.</summary>
+    /// <param name="chartId"></param>
+    /// <returns>True if delete was successful.</returns>
+    public bool Delete(int chartId);
+}
+
+
+/// <summary>DAO for intersection between chart and period.</summary>
+/// <remarks>Should only be accessed from other DAO's.</remarks>
+public interface IInterChartPeriodDao
+{
+    /// <summary>Insert intersection.</summary>
+    /// <param name="chartId">Id for the chart.</param>
+    /// <param name="periodId">Id for the period.</param>
+    public void Insert(int chartId, int periodId);
+
+    /// <summary>Read all interesections.</summary>
+    /// <returns>List with all intersections.</returns>
+    public List<InterChartPeriod> ReadAll();
+
+    /// <summary>Read all intersections for a specific chart.</summary>
+    /// <param name="chartId"></param>
+    /// <returns>List with intersections for the chart.</returns>
+    public IEnumerable<InterChartPeriod> Read(int chartId);
     
     /// <summary>Delete all intersections for a specific chart.</summary>
     /// <param name="chartId"></param>

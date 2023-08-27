@@ -16,13 +16,15 @@ namespace Enigma.Core.Handlers.Persistency.Daos;
 /// <inheritdoc />
 public class PeriodDataDao: IPeriodDataDao
 {
-    
-    // TODO add code to handle intersections
-    
+    private const string COL_INTERSECTION = "chartperiods";
     private const string COL_PERIODS = "periods";
     private readonly string _dbFullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.DatabaseName;
-    
-    
+    private readonly IInterChartPeriodDao _interChartPeriodDao;
+
+    public PeriodDataDao(IInterChartPeriodDao interChartPeriodDao)
+    {
+        _interChartPeriodDao = interChartPeriodDao;
+    }
     
     /// <inheritdoc />
     public int CountRecords()
@@ -73,6 +75,15 @@ public class PeriodDataDao: IPeriodDataDao
     }
 
     /// <inheritdoc />
+    public int AddPeriodData(PersistablePeriodData periodData, int idChart)
+    {
+        int idPeriod = PerformInsert(periodData);
+        int newId = HighestIndex();
+        _interChartPeriodDao.Insert(idChart, newId);
+        return idPeriod;
+    }
+
+    /// <inheritdoc />
     public bool DeletePeriodData(int index)
     {
         return PerformDelete(index);
@@ -109,53 +120,64 @@ public class PeriodDataDao: IPeriodDataDao
     private List<PersistablePeriodData> PerformSearch(int chartId)
     {
         List<PersistablePeriodData> allRecords = new();
-        // TODO apply intersections
-        /*
-        IEnumerable<InterChartPeriod> intersections = _intersectionDao.Read(chartId);
+        IEnumerable<InterChartPeriod> intersections = _interChartPeriodDao.Read(chartId);
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistablePeriodData>? col = db.GetCollection<PersistablePeriodData>(COL_PERIODS);
-        foreach (List<PersistablePeriodData> records in intersections.Select(intersection => col.Query()
-                     .Where(x => x.Id.Equals(intersection.ChartId))
-                     .OrderBy(x => x.StartJulianDayEt)
-                     .Limit(100)
-                     .ToList()))
-            allRecords.AddRange(records);
-            */
-
+        var col = db.GetCollection<PersistablePeriodData>(COL_PERIODS);
+        col.EnsureIndex(x => x.Id);
+        foreach (var intersection in intersections)
+        {
+            int periodId = intersection.PeriodId;
+            var periodItems = col.Query()
+                .Where(x => x.Id == periodId)
+                .OrderBy(x => x.Id)
+                .Select(x => new { x.Description, x.StartJulianDayEt, x.EndJulianDayEt, 
+                    x.StartDateText, x.EndDateText, x.Id })
+                .Limit(100)
+                .ToList();
+            
+            
+            //    public PersistablePeriodData(string description, double startJd, double endJd, string startDateText, string endDateText, int id = 0)
+            foreach (var periodItem in periodItems)
+            {
+                PersistablePeriodData periodData = new(periodItem.Description, periodItem.StartJulianDayEt, 
+                    periodItem.EndJulianDayEt, periodItem.StartDateText, periodItem.EndDateText, periodItem.Id);
+                allRecords.Add(periodData);
+            }
+        }
         return allRecords;
     }
 
     private int PerformInsert(PersistablePeriodData periodData)
     {
+        int idNewPeriod = 0;
         using var db = new LiteDatabase(_dbFullPath);
         ILiteCollection<PersistablePeriodData>? col = db.GetCollection<PersistablePeriodData>(COL_PERIODS);
         try
         {
             col.Insert(periodData);
-            Log.Information("Inserted period {Period}", periodData.Id);
+            idNewPeriod = HighestIndex();
+            Log.Information("Inserted period {IdPeriod}", idNewPeriod);
         }
         catch (Exception e)
         {
             Log.Error(
-                "PeriodDataDao.PerformInsert: trying to insert period with existing id {Id} results in exception {Ex}",
-                periodData.Id, e.Message);
-            return 0;
+                "PeriodDataDao.PerformInsert: trying to insert period results in exception {Ex}", e.Message);
+            idNewPeriod = 0;
         }
-        return periodData.Id;
+        return idNewPeriod;
     }
 
 
     private bool PerformDelete(int index)
     {
-        bool result = true;  // todo apply intersection    
-        /*using var db = new LiteDatabase(_dbFullPath);
+        using var db = new LiteDatabase(_dbFullPath);
         ILiteCollection<PersistablePeriodData>? col = db.GetCollection<PersistablePeriodData>(COL_PERIODS);
         ILiteCollection<InterChartPeriod>? colIntersections = db.GetCollection<InterChartPeriod>(COL_INTERSECTION);
         bool result = col.Delete(index);
         int deletedCount = 0;
         if (result) deletedCount = colIntersections.DeleteMany(x => x.ChartId.Equals(index));
         Log.Information("Deleted period {Period} and related {ICount} intersections, success {Success}", index,
-            deletedCount, result);*/
+            deletedCount, result);
         return result;
     }
 
@@ -172,13 +194,12 @@ public class PeriodDataDao: IPeriodDataDao
     private List<PersistablePeriodData> ReadPeriodsForChartFromDatabase(int chartId)
     {
         List<PersistablePeriodData> allPeriods = ReadRecordsFromDatabase();
-        return allPeriods;    // TODO apply intersection
-        /*List<InterChartPeriod> allIntersections = _intersectionDao.ReadAll();
+        List<InterChartPeriod> allIntersections = _interChartPeriodDao.ReadAll();
 
         return (from periodData in allPeriods
             from intersection in allIntersections
             where periodData.Id == intersection.PeriodId && chartId == intersection.ChartId
-            select periodData).ToList();*/
+            select periodData).ToList();
     }
     
     

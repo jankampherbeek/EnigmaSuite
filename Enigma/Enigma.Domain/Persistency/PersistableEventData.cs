@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using LiteDB;
+
 namespace Enigma.Domain.Persistency;
 
 /// <summary>Representation of event data to be saved in Json format</summary>
@@ -30,8 +32,9 @@ public sealed class PersistableEventData
     public double GeoLat { get; }
 
 
-
-    public PersistableEventData(string description, double julianDayEt, string dateText, string timeText, string locationName, double geoLong, double geoLat)
+    [BsonCtor]
+    public PersistableEventData(string description, double julianDayEt, string dateText, string timeText, 
+        string locationName, double geoLong, double geoLat, int id = 0)
     {
         Description = description;
         JulianDayEt = julianDayEt;
@@ -40,6 +43,7 @@ public sealed class PersistableEventData
         LocationName = locationName;
         GeoLong = geoLong;
         GeoLat = geoLat;
+        Id = id;
     }
 
 

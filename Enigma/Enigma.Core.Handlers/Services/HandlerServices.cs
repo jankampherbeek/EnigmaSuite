@@ -85,6 +85,7 @@ public static class HandlerServices
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
         serviceCollection.AddTransient<IInterChartEventDao, InterChartEventDao>();
+        serviceCollection.AddTransient<IInterChartPeriodDao, InterChartPeriodDao>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();

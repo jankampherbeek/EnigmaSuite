@@ -81,6 +81,16 @@ public sealed class EventDataPersistencyApi : IEventDataPersistencyApi
     }
 
     /// <inheritdoc/>
+    public int AddEventData(PersistableEventData eventData, int chartId)
+    {
+        Guard.Against.Null(eventData);
+        Log.Information(
+            "EventDataPersistencyApi.AddEventData() for eventData with id {EventData} and chartId {ChartId} requested", 
+            eventData.Id, chartId);
+        return _eventDataDao.AddEventData(eventData, chartId);
+    }
+
+    /// <inheritdoc/>
     public bool DeleteEventData(int index)
     {
         Log.Information("EventDataPersistencyApi.DeleteEventData() for index {Index} requested", index);

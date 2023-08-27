@@ -24,7 +24,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFC773">
             <MenuItem Header="General">
                 <MenuItem Header="Settings" Command="{Binding AppSettingsCommand}">
                     <MenuItem.Icon>
@@ -104,7 +104,8 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="3" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right"
+                    Background="#BFAE93">
             <Button Margin="0 3 0 3"  Content="New Project" HorizontalAlignment="Right" Width="120"
                     Command="{Binding NewProjectCommand}"/>
             <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"

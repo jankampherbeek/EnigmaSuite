@@ -77,7 +77,8 @@ public sealed class EventDataDao : IEventDataDao
     public int AddEventData(PersistableEventData eventData, int idChart)
     {
         int idEvent = PerformInsert(eventData);
-        _intersectionDao.Insert(idChart, idEvent);
+        int newId = HighestIndex();
+        _intersectionDao.Insert(idChart, newId);
         return idEvent;
     }
 
@@ -119,34 +120,48 @@ public sealed class EventDataDao : IEventDataDao
         List<PersistableEventData> allRecords = new();
         IEnumerable<InterChartEvent> intersections = _intersectionDao.Read(chartId);
         using var db = new LiteDatabase(_dbFullPath);
-        ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
-        foreach (List<PersistableEventData> records in intersections.Select(intersection => col.Query()
-                     .Where(x => x.Id.Equals(intersection.ChartId))
-                     .OrderBy(x => x.JulianDayEt)
-                     .Limit(100)
-                     .ToList()))
-            allRecords.AddRange(records);
-
+        var col = db.GetCollection<PersistableEventData>(COL_EVENTS);
+        col.EnsureIndex(x => x.Id);
+        
+        foreach (var intersection in intersections)
+        {
+            int eventId = intersection.EventId;
+            var eventItems = col.Query()
+                .Where(x => x.Id == eventId)
+                .OrderBy(x => x.Id)
+                .Select(x => new { x.Description, x.JulianDayEt, x.DateText, x.TimeText, 
+                    x.LocationName, x.GeoLong, x.GeoLat, x.Id })
+                .Limit(100)
+                .ToList();
+            foreach (var eventItem in eventItems)
+            {
+                PersistableEventData eventData = new(eventItem.Description, eventItem.JulianDayEt, eventItem.DateText,
+                    eventItem.TimeText, eventItem.LocationName, eventItem.GeoLong, eventItem.GeoLat, eventItem.Id);
+                allRecords.Add(eventData);
+            }
+        }
         return allRecords;
     }
 
     private int PerformInsert(PersistableEventData eventData)
     {
         using var db = new LiteDatabase(_dbFullPath);
+        int idNewEvent = 0;
         ILiteCollection<PersistableEventData>? col = db.GetCollection<PersistableEventData>(COL_EVENTS);
         try
         {
             col.Insert(eventData);
-            Log.Information("Inserted event {Event}", eventData.Id);
+            idNewEvent = HighestIndex();
+            Log.Information("Inserted event {EventId}", idNewEvent);
         }
         catch (Exception e)
         {
             Log.Error(
-                "EventDataDao.PerformInsert: trying to insert event with existing id {Id} results in exception {Ex}",
-                eventData.Id, e.Message);
-            return 0;
+                "EventDataDao.PerformInsert: trying to insert event with existing id results in exception {Ex}",
+                e.Message);
+            idNewEvent = 0;
         }
-        return eventData.Id;
+        return idNewEvent;
     }
 
 
