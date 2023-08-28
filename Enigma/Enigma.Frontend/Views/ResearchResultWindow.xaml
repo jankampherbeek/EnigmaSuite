@@ -22,23 +22,21 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Research results"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
-        <TextBlock Grid.Row="1" Margin="6" Text="{Binding ProjectName}" 
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                   Foreground="#2174B3" FontWeight="Bold" />
-        <TextBlock Grid.Row="2" Margin="6" Text="{Binding MethodName}" 
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Research results" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
+        <TextBlock Grid.Row="1" Margin="6" Text="{Binding ProjectName}"
+                   Name="SubHeaderProject" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
+        <TextBlock Grid.Row="2" Margin="6" Text="{Binding MethodName}"
+                   Name="SubHeaderMethod"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
 
         <TabControl Grid.Row="3" >
             <TabItem Header="Test results">
                 <Grid>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                         <TextBlock Text="{Binding TestResult}" TextWrapping="Wrap" 
-                                   Margin="6" FontFamily="Courier New"
-                                   Background="#D5E6F2" />
+                                   Name="TestData" Margin="6" FontFamily="Courier New" />
                     </ScrollViewer>
                 </Grid>
             </TabItem>
@@ -46,8 +44,7 @@
                 <Grid>
                     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" >
                         <TextBlock Text="{Binding ControlResult}" TextWrapping="Wrap" 
-                                   Margin="6" FontFamily="Courier New"
-                                   Background="#BFAE93"/>
+                                   Name="ControlData" Margin="6" FontFamily="Courier New" />
                     </ScrollViewer>
                 </Grid>
             </TabItem>

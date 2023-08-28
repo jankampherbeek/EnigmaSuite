@@ -26,9 +26,8 @@
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Define and save period"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Define and save period" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBox Grid.Row="1"  Grid.Column="0" Margin="6 " VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Description of period" 
                  TextWrapping="Wrap" Height="80"

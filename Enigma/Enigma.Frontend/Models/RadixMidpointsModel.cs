@@ -60,7 +60,7 @@ public sealed class RadixMidpointsModel
     public string DescriptiveText()
     {
         string descText = "";
-        var chart = _dataVault.GetCurrentChart();
+        CalculatedChart? chart = _dataVault.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {

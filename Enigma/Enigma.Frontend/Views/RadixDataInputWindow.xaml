@@ -41,12 +41,11 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                 Text="Enter data for new chart"
-                 Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                  Foreground="#2174B3" FontWeight="Bold" />
+                 Text="Enter data for new chart" Name="Header"
+                 Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
-                 Text="General information" Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                 Foreground="#2174B3" FontWeight="Bold"/>
+                 Text="General information" Name="SubHeaderGeneral" 
+                 Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Unique name or id for chart" 
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -73,8 +72,8 @@
                   SelectedIndex="{Binding CategoryIndex, Mode=TwoWay}" />
         <!-- Location -->
         <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
-                   Text="Location" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold"/>
+                   Text="Location" Name="SubHeaderLocation"  
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Name of location"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -104,8 +103,8 @@
                   SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
         <!-- Date and time -->
         <TextBlock Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
-                   Text="Date and time" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold"/>
+                   Text="Date and time" Name="SubHeaderDateTime" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="11" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  Grid.ColumnSpan="2"                  
                  materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 

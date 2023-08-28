@@ -25,9 +25,8 @@
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Existing data files"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Existing data files" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding DataNames}" />
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>

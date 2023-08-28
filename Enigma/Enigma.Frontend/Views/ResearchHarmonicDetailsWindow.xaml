@@ -30,9 +30,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Details for harmonics"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Details for harmonics" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Harmonic number"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"

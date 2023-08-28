@@ -34,7 +34,7 @@
             <RowDefinition Height="24*"/>
             <RowDefinition Height="24*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="#BFAE93" VerticalAlignment="Stretch">
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Name="MainMenu"   VerticalAlignment="Stretch">
             <MenuItem Header="General">
                 <MenuItem Header="Settings" Command="{Binding AppSettingsCommand}">
                     <MenuItem.Icon>
@@ -124,16 +124,16 @@
         </Menu>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Charts"
+                   Text="Charts" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   FontWeight="Bold" />
        
         <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding NrOfChartsInDatabase}" Margin="6,12,6,6" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding LastAddedChart}" Margin="6" VerticalAlignment="Center"/>
         <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding CurrentlySelectedChart}" Margin="6" VerticalAlignment="Center"/>
         <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
                    Text="Available charts" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold"/>
+                   Name="SubHeaderAvailableCharts" FontWeight="Bold"/>
         
         <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableCharts}"
@@ -158,17 +158,14 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="3" Padding="2" Margin="6" HorizontalAlignment="Center"
-                             Background="#BFAE93" UniformCornerRadius="6">
+        <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="3" Padding="2" Margin="6" 
+                             HorizontalAlignment="Center" Name="ActionButtonBlock" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="Wheel" Command="{Binding ShowWheelCommand}"/>
                 <Button Margin="0 3 0 3" Content="Positions" Command="{Binding ShowPositionsCommand}"/>
                 <Button Margin="0 3 0 3" Content="Progressions" Command="{Binding ProgressionsCommand}"/>
             </StackPanel>
         </materialDesign:Card>
-        
-        
-
         <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Left">
             <Button Margin="6" Content="New Chart" Command="{Binding NewChartCommand}"/>
             <Button Margin="6" Content="Search Chart" Command="{Binding SearchChartCommand}"/>

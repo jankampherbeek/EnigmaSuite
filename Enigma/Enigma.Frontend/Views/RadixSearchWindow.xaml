@@ -30,22 +30,21 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Search for chart"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Search for chart" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="6" Margin="6"
-                             Background="#D5E6F2" UniformCornerRadius="6">
+                             Name="DescriptionBlock" UniformCornerRadius="6">
             <TextBlock Text="Enter a part of the name to search for a chart. The search is case-insensitive. Leave the field empty to find all charts. Click one of the charts and the button 'Select' to start working on it. "
-                                  Margin="6" TextWrapping="Wrap"/>
+                             Margin="6" TextWrapping="Wrap"/>
         </materialDesign:Card>
-        <TextBox Grid.Column="0" Grid.Row="2" Margin="6" VerticalAlignment="Center"  
+        <TextBox Grid.Column="0" Grid.Row="2" Margin="6" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Search argument"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding SearchArgument, Mode=TwoWay}" />
         <Button Grid.Row="2" Grid.Column="1" Margin="6" Content="Search" Command="{Binding SearchCommand}"/>
         <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
-                   Text="Search results" Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Search results" Name="SubHeaderResults" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
         <ListBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
                  VerticalAlignment="Top"
                  ItemsSource="{Binding ChartsFound}"

@@ -32,9 +32,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Data File Import"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Data File Import" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Select the file with data"
                  VerticalAlignment="Center" Margin="6 0"
                  IsReadOnly="True"

@@ -30,9 +30,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Details for midpoints"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Details for midpoints" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <ComboBox Grid.Row="1" Grid.Column="0" Margin="6 0" Grid.ColumnSpan="3" VerticalAlignment="Center" 
                   Text=""  IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Dial size"

@@ -28,9 +28,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="New Project"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="New Project" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Name for project"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"

@@ -32,14 +32,13 @@
         
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Midpoints"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Radix Positions" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="{Binding ChartId}" 
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" TextWrapping="Wrap"
-                   Foreground="#2174B3"/>
+                   Name="SubHeaderChartId"/>
         <materialDesign:Card Grid.Row="2" Grid.Column="0" Grid.RowSpan="2" Padding="8" Margin="6"
-                             Background="#D5E6F2" UniformCornerRadius="6">
+                   Name="DescriptionBlock" UniformCornerRadius="6">
             <TextBlock Text="{Binding Details}" TextWrapping="Wrap" />
         </materialDesign:Card>
 

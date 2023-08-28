@@ -30,21 +30,18 @@
             <RowDefinition Height="60*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Rectangle Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource BackgroundStyle}" />
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Harmonics"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Harmonics" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Padding="8" Margin="6"
-                             Background="#D5E6F2" UniformCornerRadius="6">
+                             Name="DescriptionBlock" UniformCornerRadius="6">
             <TextBlock Text="{Binding Description}" 
                        Margin="6" TextWrapping="Wrap"/>
         </materialDesign:Card>
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin=" 6  12" 
-                   Text="{Binding HarmonicText}" 
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="{Binding HarmonicText}" Name="SubHeaderEffective" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
         <DataGrid Grid.Row="3" Grid.Column="0" Grid.RowSpan="3" Margin="6"
                   materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                   materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"

@@ -24,7 +24,7 @@
             <RowDefinition Height="50*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
-        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#FFC773">
+        <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Name="MainMenu">
             <MenuItem Header="General">
                 <MenuItem Header="Settings" Command="{Binding AppSettingsCommand}">
                     <MenuItem.Icon>
@@ -81,13 +81,12 @@
         </Menu>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Enigma Research"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Enigma Research" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0"
-                   VerticalAlignment="Bottom"
+                   VerticalAlignment="Bottom" Name="SubHeaderExistingProjects"
                    Text="Existing projects:" Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                   Foreground="#2174B3" FontWeight="Bold"/>
+                   FontWeight="Bold"/>
          <ListBox Grid.Row="3" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableProjects}"
                  SelectedIndex="{Binding ProjectIndex, Mode=TwoWay}">
@@ -105,7 +104,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Row="3" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Right"
-                    Background="#BFAE93">
+                    Name="ActionButtonBlock">
             <Button Margin="0 3 0 3"  Content="New Project" HorizontalAlignment="Right" Width="120"
                     Command="{Binding NewProjectCommand}"/>
             <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"

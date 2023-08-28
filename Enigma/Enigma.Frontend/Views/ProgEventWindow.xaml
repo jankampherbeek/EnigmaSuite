@@ -37,9 +37,8 @@
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Define and save event"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold" />
+                   Text="Define and save event" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TextBox Grid.Row="1"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 " VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Description of event" 
                  TextWrapping="Wrap" Height="80"
@@ -48,8 +47,8 @@
         
         <!-- Location, incl. default values is location is not used -->
         <TextBlock Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 18 6 0" 
-                   Text="Location" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold"/>
+                   Text="Location" Name="SubHeaderLocation"  
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="3"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Name of location"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -80,8 +79,8 @@
         
         <!-- Date and time -->
         <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 18 6 0" 
-                   Text="Date and time" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                   Foreground="#2174B3" FontWeight="Bold"/>
+                   Text="Date and time" Name="SubHeaderDateTime" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="7" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  Grid.ColumnSpan="2"                  
                  materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
