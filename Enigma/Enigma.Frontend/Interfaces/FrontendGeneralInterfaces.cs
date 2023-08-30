@@ -59,23 +59,13 @@ public interface ICelPointForDataGridFactory
 
 
 /// <summary>Prepare event to be shown in UI.</summary>
-public interface IProgEventForPresentationFactory
+public interface IProgDatesForPresentationFactory
 {
-    /// <summary>Builds a presentable version of events to be shown in the UI.</summary>
-    /// <param name="progEvents">The events to convert.</param>
-    /// <returns>Presentable events.</returns>
-    public List<PresentableProgresData> CreatePresentableProgresData(IEnumerable<ProgEvent> progEvents);
+    /// <summary>Builds a presentable version of progressive dates to be shown in the UI.</summary>
+    /// <param name="progDates">The dates to convert.</param>
+    /// <returns>Presentable progressive dates.</returns>
+    public List<PresentableProgresData> CreatePresentableProgresData(IEnumerable<ProgDates> progDates);
 }
-
-/// <summary>Prepare period to be shown in UI.</summary>
-public interface IProgPeriodForPresentationFactory
-{
-    /// <summary>Builds a presentable version of periods to be shown in the UI.</summary>
-    /// <param name="progPeriods">The periods to convert.</param>
-    /// <returns>Presentable periods.</returns>
-    public List<PresentableProgresData> CreatePresentableProgresData(IEnumerable<ProgPeriod> progPeriods);
-}
-
 
 public interface IDataNameForPresentationFactory
 {

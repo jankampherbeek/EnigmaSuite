@@ -8,6 +8,15 @@ namespace Enigma.Domain.Progressive;
 using Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
 
+/// <summary>Parent for dates that are used in progressive techniques.</summary>
+/// <param name="Id">Unique Id</param>
+/// <param name="Description">Description for the date(s).</param>
+public abstract record ProgDates(int Id, string Description)
+{ 
+    public int Id { get; set; } = Id;
+}
+
+
 
 /// <summary>Event for progressive analysis. </summary>
 /// <param name="Id">Unique id.</param>
@@ -15,17 +24,14 @@ using Enigma.Domain.Calc.DateTime;
 /// <param name="LocationName">Name for the location.</param>
 /// <param name="Location">Datails for the location.</param>
 /// <param name="DateTime">Date and time for the event.</param>
-public record ProgEvent(int Id, string Description, string LocationName, Location Location, FullDateTime DateTime)
-{
-    public int Id { get; set; } = Id;
-}
+public record ProgEvent
+(int Id, string Description, string LocationName, Location Location,
+    FullDateTime DateTime) : ProgDates(Id, Description);
 
 /// <summary>Period for progressive analysis. </summary>
 /// <param name="Id">Unique id</param>
 /// <param name="Description">Description for the period.</param>
 /// <param name="StartDate">First date of the period.</param>
 /// <param name="EndDate">Last date of the period.</param>
-public record ProgPeriod(int Id, string Description, FullDateTime StartDate, FullDateTime EndDate)
-{
-    public int Id { get; set; } = Id;
-}
+public record ProgPeriod(int Id, string Description, FullDateTime StartDate, FullDateTime EndDate) : ProgDates(Id,
+    Description);

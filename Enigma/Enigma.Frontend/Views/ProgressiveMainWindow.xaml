@@ -19,25 +19,20 @@
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="70*"/>
                 <ColumnDefinition Width="30*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="24*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="10*"/>
+                <RowDefinition Height="80*"/>
                 <RowDefinition Height="12*"/>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="8*"/>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="40*"/>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="15*"/>
-                <RowDefinition Height="40*"/>
-                <RowDefinition Height="18*"/>
-                <RowDefinition Height="24*"/>
             </Grid.RowDefinitions>
-     <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" VerticalAlignment="Stretch" Name="MainMenu">
+     <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Name="MainMenu">
             <MenuItem Header="General">
                 <MenuItem Header="Configuration" Command="{Binding ConfigurationCommand}">
                     <MenuItem.Icon>
@@ -50,7 +45,7 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Events">
+            <MenuItem Header="Events and periods">
                 <MenuItem Header="New Event" Command="{Binding NewEventCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/event.png"/>
@@ -61,30 +56,23 @@
                         <Image Source="/Images/search.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Delete Event" Command="{Binding DeleteEventCommand}">
+                <MenuItem Header="New Period" Command="{Binding NewPeriodCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/daterange.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Search Period" Command="{Binding SearchPeriodCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/search.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>                
+                <MenuItem Header="Delete Event or Period" Command="{Binding DeleteCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/delete.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-         <MenuItem Header="Periods">
-             <MenuItem Header="New Period" Command="{Binding NewPeriodCommand}">
-                 <MenuItem.Icon>
-                     <Image Source="/Images/daterange.png"/>
-                 </MenuItem.Icon>
-             </MenuItem>
-             <MenuItem Header="Search Period" Command="{Binding SearchPeriodCommand}">
-                 <MenuItem.Icon>
-                     <Image Source="/Images/search.png"/>
-                 </MenuItem.Icon>
-             </MenuItem>
-             <MenuItem Header="Delete Period" Command="{Binding DeletePeriodCommand}">
-                 <MenuItem.Icon>
-                     <Image Source="/Images/delete.png"/>
-                 </MenuItem.Icon>
-             </MenuItem>
-         </MenuItem>
-         <MenuItem Header="Techniques">
+            <MenuItem Header="Techniques">
                 <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/primary.png"/>
@@ -124,77 +112,44 @@
                 </MenuItem>
             </MenuItem>
         </Menu>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0, 6" 
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Progressive" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
-        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="6,12,6,6" 
+        <TextBlock Grid.Column="0" Grid.Row="2" Margin="6,12,6,6" 
                    VerticalAlignment="Center" Text="{Binding CurrentChartName}" />
-        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" Margin="6"  
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="6"  
                    VerticalAlignment="Center" Text="{Binding CurrentEventName}" />
-        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="6" 
+        <TextBlock Grid.Column="0" Grid.Row="4" Margin="6" 
                    VerticalAlignment="Center" Text="{Binding CurrentPeriodName}" />
-        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
-                   Text="Available events" Name="SubHeaderEvents" 
+        <TextBlock Grid.Row="5" Grid.Column="0" Margin="6 12 6 6" 
+                   Text="Available events and periods" Name="SubHeaderEventsPeriods" 
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
-                 ItemsSource="{Binding PresentableEvents}"
-                 SelectedIndex="{Binding EventIndex, Mode=TwoWay}">
+        <ListBox Grid.Row="6" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
+                 ItemsSource="{Binding PresentableEventsPeriods}"
+                 SelectedIndex="{Binding EventPeriodIndex, Mode=TwoWay}">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectionChanged">
-                    <b:InvokeCommandAction Command="{Binding EventItemChangedCommand}" />
+                    <b:InvokeCommandAction Command="{Binding DatesItemChangedCommand}" />
                 </b:EventTrigger>
             </b:Interaction.Triggers>
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5*" />
                             <ColumnDefinition Width="10*" />
-                            <ColumnDefinition Width="90*" />
+                            <ColumnDefinition Width="85*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding   Id}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Description}" />
+                        <TextBlock Grid.Column="0" Text="{Binding   DateType}" />
+                        <TextBlock Grid.Column="1" Text="{Binding   Id}" />
+                        <TextBlock Grid.Column="2" Text="{Binding Description}" />
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Margin="6 6 0 6" Content="New Event" Command="{Binding NewEventCommand}"/>
-            <Button Margin="6 6 0 6" Content="Search Event" Command="{Binding SearchEventCommand}"/>
-            <Button Margin="6 6 0 6" Content="Delete Event" Command="{Binding DeleteEventCommand}"/>
-        </StackPanel>
-        <TextBlock Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
-                   Text="Available periods" Name="SubHeaderPeriods" 
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <ListBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
-                 ItemsSource="{Binding PresentablePeriods}"
-                 SelectedIndex="{Binding PeriodIndex, Mode=TwoWay}">
-            <b:Interaction.Triggers>
-                <b:EventTrigger EventName="SelectionChanged">
-                    <b:InvokeCommandAction Command="{Binding PeriodItemChangedCommand}" />
-                </b:EventTrigger>
-            </b:Interaction.Triggers>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="10*" />
-                            <ColumnDefinition Width="90*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="{Binding Id}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Description}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Margin="6 6 0 6" Content="New Period" Command="{Binding NewPeriodCommand}"/>
-            <Button Margin="6 6 0 6" Content="Search Period" Command="{Binding SearchPeriodCommand}"/>
-            <Button Margin="6 6 0 6" Content="Delete Period" Command="{Binding DeletePeriodCommand}"/>
-        </StackPanel>
-        
-        
-        <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="6" Padding="2" Margin="6" HorizontalAlignment="Center"
+       
+        <materialDesign:Card Grid.Row="5" Grid.Column="1" Grid.RowSpan="2" Padding="2" Margin="6" HorizontalAlignment="Right"
                              Background="#BFAE93" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="5" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/>
@@ -204,11 +159,8 @@
                 <Button Margin="0 3 0 3" Content="Solar" Command="{Binding SolarCommand}"/>
             </StackPanel>
         </materialDesign:Card>
-        
 
-
-
-        <StackPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding HandleCloseCommand}" Click="CloseClick"/>
         </StackPanel>

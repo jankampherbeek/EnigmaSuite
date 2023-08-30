@@ -29,6 +29,7 @@ public partial class ChartsMainViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(AspectsCommand))]
     [NotifyCanExecuteChangedFor(nameof(MidpointsCommand))]
     [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ProgressionsCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
@@ -45,10 +46,6 @@ public partial class ChartsMainViewModel: ObservableObject
         PopulateData();
     }
     
-
-    
-    
-    
     private void OpenWindow(Window window)
     {
         if (!_openWindows.Contains(window))
@@ -62,8 +59,10 @@ public partial class ChartsMainViewModel: ObservableObject
     private void ItemChanged()
     {
         SelectedChart = AvailableCharts[ChartIndex];
-        _dataVault.SetCurrentChart(ChartIndex);
+        //_dataVault.SetCurrentChart(ChartIndex);
+        _dataVault.SetIndexCurrentChart(ChartIndex);
         PopulateData();
+        PopulateAvailableCharts();
     }
 
     [RelayCommand]
@@ -72,6 +71,7 @@ public partial class ChartsMainViewModel: ObservableObject
         NrOfChartsInDatabase = "Nr. of charts in database : " + _model.CountPersistedCharts();
         LastAddedChart = "Last added to database : " + _model.MostRecentChart();
         CurrentlySelectedChart = "Currently selected : " + _model.CurrentChartName();
+
         SelectedChart = _model.CurrentChart();
     }
 
@@ -109,7 +109,7 @@ public partial class ChartsMainViewModel: ObservableObject
         PopulateAvailableCharts();
     }
 
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Progressions()
     {
         OpenWindow(new ProgressiveMainWindow());

@@ -18,30 +18,29 @@ public class ProgressiveMainModel
     private readonly IEventDataConverter _eventDataConverter;
     private readonly IPeriodDataConverter _periodDataConverter;
     private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
-    private readonly IProgEventForPresentationFactory _progEventForPresentationFactory;
-    private readonly IProgPeriodForPresentationFactory _progPeriodForPresentationFactory;
+    private readonly IProgDatesForPresentationFactory _progDatesForPresentationFactory;
     private IPeriodDataPersistencyApi _periodDataPersistencyApi;
-    public List<ProgEvent> AvailableEvents = new();
-    public List<ProgPeriod> AvailablePeriods = new();
-    public List<PresentableProgresData> PresentableEvents { get; set; } = new();
-    public List<PresentableProgresData> PresentablePeriods { get; set; } = new();
+    public List<ProgDates> AvailableEventsPeriods = new();
+    /*public List<ProgEvent> AvailableEvents = new();
+    public List<ProgPeriod> AvailablePeriods = new();*/
+    public List<PresentableProgresData> PresentableEventsPeriods { get; set; } = new();
+//    public List<PresentableProgresData> PresentablePeriods { get; set; } = new();
     private readonly DataVault _dataVault = DataVault.Instance;
 
     public ProgressiveMainModel(IEventDataConverter eventDataConverter, 
         IPeriodDataConverter periodDataConverter,
         IEventDataPersistencyApi eventDataPersistencyApi,
         IPeriodDataPersistencyApi periodDataPersistencyApi,
-        IProgEventForPresentationFactory progEventForPresentationFactory,
-        IProgPeriodForPresentationFactory progPeriodForPresentationFactory)
+        IProgDatesForPresentationFactory progDatesForPresentationFactory)
     {
         _eventDataConverter = eventDataConverter;
         _periodDataConverter = periodDataConverter;
         _eventDataPersistencyApi = eventDataPersistencyApi;
         _periodDataPersistencyApi = periodDataPersistencyApi;
-        _progEventForPresentationFactory = progEventForPresentationFactory;
-        _progPeriodForPresentationFactory = progPeriodForPresentationFactory;
+        _progDatesForPresentationFactory = progDatesForPresentationFactory;
         ReadCurrentEvents();
         ReadCurrentPeriods();
+        PresentableEventsPeriods = _progDatesForPresentationFactory.CreatePresentableProgresData(AvailableEventsPeriods);
     }
     
         
@@ -80,9 +79,9 @@ public class ProgressiveMainModel
         foreach (ProgEvent? progEventData in persistableEventData.Select(item 
                      => _eventDataConverter.FromPersistableEventData(item)))
         {
-            AvailableEvents.Add(progEventData);
+            AvailableEventsPeriods.Add(progEventData);
         }
-        PresentableEvents = _progEventForPresentationFactory.CreatePresentableProgresData(AvailableEvents);
+        
     }
 
     private void ReadCurrentPeriods()
@@ -94,9 +93,8 @@ public class ProgressiveMainModel
         foreach (ProgPeriod? progPeriodData in persistablePeriodData.Select(item 
                      => _periodDataConverter.FromPersistablePeriodData(item)))
         {
-            AvailablePeriods.Add(progPeriodData);
+            AvailableEventsPeriods.Add(progPeriodData);
         }
-        PresentablePeriods = _progPeriodForPresentationFactory.CreatePresentableProgresData(AvailablePeriods);
     }
     
 }

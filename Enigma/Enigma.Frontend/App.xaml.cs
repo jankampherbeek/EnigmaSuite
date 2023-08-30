@@ -79,9 +79,9 @@ public partial class App
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPeriodDataConverter, PeriodDataConverter>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
-        serviceCollection.AddTransient<IProgEventForPresentationFactory, ProgEventForPresentationFactory>();
+        serviceCollection.AddTransient<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
         serviceCollection.AddTransient<ProgEventModel>();
-        serviceCollection.AddTransient<IProgPeriodForPresentationFactory, ProgPeriodForPresentationFactory>();
+        serviceCollection.AddTransient<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
         serviceCollection.AddTransient<ProgPeriodModel>();
         serviceCollection.AddTransient<ProgressiveMainModel>();
         serviceCollection.AddTransient<ProjectUsageModel>();

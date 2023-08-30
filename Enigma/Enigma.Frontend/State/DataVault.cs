@@ -95,6 +95,11 @@ public sealed class DataVault
         }
     }
 
+    public void SetIndexCurrentChart(int index)
+    {
+        if (_allCharts.Count > index) _currentChart = _allCharts[index];
+    }
+    
     public IEnumerable<CalculatedChart> GetAllCharts()
     {
         return _allCharts;
