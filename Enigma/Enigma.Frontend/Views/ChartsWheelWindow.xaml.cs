@@ -17,91 +17,69 @@ namespace Enigma.Frontend.Ui.Views;
 /// <remarks>Still using MVC instead of MVVM for this view as binding multiple visuals with a canvas is rather challenging</remarks>
 public partial class ChartsWheelWindow
 {
-    private readonly ChartsWheelController _controller;
+    private readonly ChartsWheelCanvasController _canvasController;
 
     public ChartsWheelWindow()
     {
         InitializeComponent();
-        _controller = App.ServiceProvider.GetRequiredService<ChartsWheelController>();
+        _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
     }
 
     public void Populate()
     {
-        PopulateTexts();
         WheelCanvas.Children.Clear();
-        _controller.PrepareDraw();
+        _canvasController.PrepareDraw();
         DrawChartFrame();
         DrawCusps();
         DrawCelPoints();
         DrawAspects();
     }
-
-
-    private void PopulateTexts()
-    {
-        TbDetails.Text = _controller.DescriptiveText();
-    }
+    
 
     private void DrawChartFrame()
     {
-        AddToWheel(_controller.WheelCircles);
-        AddToWheel(_controller.SignSeparators);
-        AddToWheel(_controller.SignGlyphs);
-        AddToWheel(_controller.DegreeLines);
+        AddToWheel(new List<UIElement>(_canvasController.WheelCircles));
+        AddToWheel(new List<UIElement>(_canvasController.SignSeparators));
+        AddToWheel(new List<UIElement>(_canvasController.SignGlyphs));
+        AddToWheel(new List<UIElement>(_canvasController.DegreeLines));
     }
 
 
     private void DrawCusps()
     {
-        AddToWheel(_controller.CuspLines);
-        AddToWheel(_controller.CuspCardinalLines);
-        AddToWheel(_controller.CuspTexts);
-        AddToWheel(_controller.CuspCardinalIndicators);
+        AddToWheel(new List<UIElement>(_canvasController.CuspLines));
+        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalLines));
+        AddToWheel(new List<UIElement>(_canvasController.CuspTexts));
+        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalIndicators));
     }
 
     private void DrawCelPoints()
     {
-        AddToWheel(_controller.CelPointGlyphs);
-        AddToWheel(_controller.CelPointConnectLines);
-        AddToWheel(_controller.CelPointTexts);
+        AddToWheel(new List<UIElement>(_canvasController.CelPointGlyphs));
+        AddToWheel(new List<UIElement>(_canvasController.CelPointConnectLines));
+        AddToWheel(new List<UIElement>(_canvasController.CelPointTexts));
     }
 
     private void DrawAspects()
     {
-        AddToWheel(_controller.AspectLines);
+        AddToWheel(new List<UIElement>(_canvasController.AspectLines));
     }
 
-    private void AddToWheel(List<TextBlock> textBlocks)
+    private void AddToWheel(List<UIElement> uiElements)
     {
-        foreach (var textBlock in textBlocks)
+        foreach (var uiElement in uiElements)
         {
-            WheelCanvas.Children.Add(textBlock);
-        }
-    }
-
-    private void AddToWheel(List<Line> lines)
-    {
-        foreach (var line in lines)
-        {
-            WheelCanvas.Children.Add(line);
-        }
-    }
-
-    private void AddToWheel(List<Ellipse> circles)
-    {
-        foreach (var circle in circles)
-        {
-            WheelCanvas.Children.Add(circle);
-        }
+            WheelCanvas.Children.Add(uiElement);
+        }        
     }
 
     private void WheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
         double availHeight = Height - 120.0;
         double minSize = Math.Min(availHeight, Width);
-        _controller.Resize(minSize);
-        WheelCanvas.Height = _controller.CanvasSize;
-        WheelCanvas.Width = _controller.CanvasSize;
+        _canvasController.Resize(minSize);
+        WheelCanvas.Height = _canvasController.CanvasSize;
+        WheelCanvas.Width = _canvasController.CanvasSize;
         Populate();
     }
 
@@ -111,9 +89,5 @@ public partial class ChartsWheelWindow
         Close();
     }
 
-    private void HelpClick(object sender, RoutedEventArgs e)
-    {
-        ChartsWheelController.ShowHelp();
-    }
 
 }

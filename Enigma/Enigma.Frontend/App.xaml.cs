@@ -61,7 +61,7 @@ public partial class App
         serviceCollection.AddTransient<ChartsWheelWindow>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
         serviceCollection.AddTransient<IChartsWheelCircles, ChartsWheelCircles>();
-        serviceCollection.AddTransient<ChartsWheelController>();
+        serviceCollection.AddTransient<ChartsWheelCanvasController>();
         serviceCollection.AddTransient<IChartsWheelCusps, ChartsWheelCusps>();
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
