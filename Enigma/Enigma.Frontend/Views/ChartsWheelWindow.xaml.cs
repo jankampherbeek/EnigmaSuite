@@ -8,17 +8,18 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enigma.Frontend.Ui.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Views;
 
 /// <summary>View for chart wheel</summary>
 /// <remarks>Still using MVC instead of MVVM for this view as binding multiple visuals with a canvas is rather challenging</remarks>
-public partial class ChartsWheel
+public partial class ChartsWheelWindow
 {
     private readonly ChartsWheelController _controller;
 
-    public ChartsWheel()
+    public ChartsWheelWindow()
     {
         InitializeComponent();
         _controller = App.ServiceProvider.GetRequiredService<ChartsWheelController>();

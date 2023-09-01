@@ -11,7 +11,6 @@ using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Helpers.Services;
 using Enigma.Frontend.Helpers.Support;
-using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
@@ -19,7 +18,10 @@ using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
+using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.ViewModels;
+using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui;
 
@@ -56,7 +58,7 @@ public partial class App
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
         serviceCollection.AddTransient<IChartDataForDataGridFactory, ChartDataForDataGridFactory>();
         serviceCollection.AddTransient<ChartsMainModel>();
-        serviceCollection.AddTransient<ChartsWheel>();
+        serviceCollection.AddTransient<ChartsWheelWindow>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
         serviceCollection.AddTransient<IChartsWheelCircles, ChartsWheelCircles>();
         serviceCollection.AddTransient<ChartsWheelController>();

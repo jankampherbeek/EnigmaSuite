@@ -5,7 +5,7 @@
 
 using System.Windows.Media;
 
-namespace Enigma.Frontend.Ui.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Graphics;
 
 /// <summary>
 /// Metrics used in drawing a graphic wheel.

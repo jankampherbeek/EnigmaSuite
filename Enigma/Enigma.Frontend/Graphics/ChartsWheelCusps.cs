@@ -3,15 +3,15 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Helpers.Interfaces;
-using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 
-namespace Enigma.Frontend.Ui.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Graphics;
 
 public sealed class ChartsWheelCusps : IChartsWheelCusps
 {

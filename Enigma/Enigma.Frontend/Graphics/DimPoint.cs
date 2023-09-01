@@ -3,11 +3,11 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Calc.Util;
 using System;
 using System.Windows;
+using Enigma.Core.Handlers.Calc.Util;
 
-namespace Enigma.Frontend.Ui.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Graphics;
 
 /// <summary>General reference point with the correct X-Y-coördinates. Is used by shapes to define their positions on the canvas</summary>
 internal sealed class DimPoint

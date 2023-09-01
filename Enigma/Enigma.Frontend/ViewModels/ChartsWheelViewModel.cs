@@ -3,18 +3,19 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Charts;
-using Enigma.Domain.Points;
-using Enigma.Frontend.Ui.Interfaces;
-using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Enigma.Domain.Charts;
+using Enigma.Domain.Points;
+using Enigma.Frontend.Ui.Graphics;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 
-namespace Enigma.Frontend.Ui.Charts.Graphics;
+namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>Controller for charts wheel view</summary>
 /// <remarks>This view uses MVC instead of MVVM</remarks>

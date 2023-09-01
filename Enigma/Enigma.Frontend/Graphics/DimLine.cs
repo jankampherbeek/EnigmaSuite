@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace Enigma.Frontend.Ui.Charts.Graphics;
+namespace Enigma.Frontend.Ui.Graphics;
 
 /// <summary>A graphic line with the correct coordinates, color and linewidth</summary>
 internal sealed class DimLine

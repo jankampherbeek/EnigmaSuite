@@ -5,11 +5,11 @@
 
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
-using Enigma.Frontend.Ui.Charts.Graphics;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Enigma.Frontend.Ui.Graphics;
 
 namespace Enigma.Frontend.Ui.Interfaces;
 

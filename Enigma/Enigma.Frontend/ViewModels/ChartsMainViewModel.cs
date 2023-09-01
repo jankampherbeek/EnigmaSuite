@@ -9,7 +9,6 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Charts;
-using Enigma.Frontend.Ui.Charts.Graphics;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
@@ -214,9 +213,9 @@ public partial class ChartsMainViewModel: ObservableObject
     /// <summary>Opens chart wheel for current chart.</summary>
     private void ShowCurrentChart()
     {
-        ChartsWheel wheel = new();
-        OpenWindow(wheel);
-        wheel.Populate();
+        ChartsWheelWindow wheelWindow = new();
+        OpenWindow(wheelWindow);
+        wheelWindow.Populate();
     }
     
 
