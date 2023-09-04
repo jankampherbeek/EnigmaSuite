@@ -19,11 +19,13 @@ namespace Enigma.Frontend.Ui.Support;
 public sealed class ChartCalculation : IChartCalculation
 {
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
+    private readonly IConfigPreferencesConverter _configPrefsConverter;
 
 
-    public ChartCalculation(IChartAllPositionsApi chartAllPositionsApi)
+    public ChartCalculation(IChartAllPositionsApi chartAllPositionsApi, IConfigPreferencesConverter configPrefsConverter)
     {
         _chartAllPositionsApi = chartAllPositionsApi;
+        _configPrefsConverter = configPrefsConverter;
     }
 
 
@@ -31,24 +33,9 @@ public sealed class ChartCalculation : IChartCalculation
     public CalculatedChart CalculateChart(ChartData chartData)
     {
         CelPointsRequest celPointsRequest = new(chartData.FullDateTime.JulianDayForEt, chartData.Location, 
-            RetrieveCalculationPreferences());
+            _configPrefsConverter.RetrieveCalculationPreferences());
         Dictionary<ChartPoints, FullPointPos> calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
         return new CalculatedChart(calculatedChartPositions, chartData);
     }
 
-
-
-    /// <summary>
-    /// Retrieve calculation preferences from active modus. 
-    /// </summary>
-    private static CalculationPreferences RetrieveCalculationPreferences()
-    {
-        AstroConfig config = CurrentConfig.Instance.GetConfig();
-        List<ChartPoints> celPoints = (
-            from spec in config.ChartPoints 
-            where spec.Value.IsUsed 
-            select spec.Key).ToList();
-        return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
-            config.ObserverPosition, config.ProjectionType, config.HouseSystem);
-    }
 }

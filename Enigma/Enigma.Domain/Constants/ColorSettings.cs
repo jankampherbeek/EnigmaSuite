@@ -3,7 +3,7 @@ namespace Enigma.Domain.Constants;
 public static class ColorSettings
 {
     public const string MENU_COLOR = "#FFC773";
-    public const string ACTION_BUTTON_BLOCK_COLOR = "#BFAE93";
+    public const string ACTION_BUTTON_BLOCK_COLOR = "#D5E6F2";               // "#BFAE93";
     public const string HEADER_COLOR = "#2174B3";
     public const string SUB_HEADER_COLOR = "#2174B3";
     public const string DESCRIPTION_BLOCK_COLOR = "#D5E6F2";

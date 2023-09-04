@@ -117,6 +117,7 @@ public interface ICalcChartsRangeApi
 {
     /// <summary>Calculate range of charts.</summary>
     /// <param name="request">Request with data and settings.</param>
-    /// <returns>Calculatred charts.</returns>
+    /// <returns>Calculated charts.</returns>
     public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
 }
+

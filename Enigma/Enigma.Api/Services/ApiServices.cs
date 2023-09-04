@@ -9,6 +9,7 @@ using Enigma.Api.Communication;
 using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Persistency;
+using Enigma.Api.Prog;
 using Enigma.Api.Research;
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Core.Handlers.Persistency.Daos;
@@ -27,6 +28,7 @@ public static class ApiServices
     {
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
+        serviceCollection.AddTransient<ICalcTransitsEventApi, CalcTransitsEventApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
         serviceCollection.AddTransient<IChartDataPersistencyApi, ChartDataPersistencyApi>();
         serviceCollection.AddTransient<ICommunicationApi, CommunicationApi>();

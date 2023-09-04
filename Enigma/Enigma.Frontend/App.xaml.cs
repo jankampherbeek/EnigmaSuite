@@ -18,6 +18,7 @@ using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
+using Enigma.Api.Prog;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.ViewModels;
@@ -53,6 +54,7 @@ public partial class App
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
+        serviceCollection.AddTransient<ICalcTransitsEventApi, CalcTransitsEventApi>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
@@ -66,6 +68,7 @@ public partial class App
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
+        serviceCollection.AddTransient<IConfigPreferencesConverter, ConfigPreferencesConverter>();
         serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
@@ -83,8 +86,9 @@ public partial class App
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
         serviceCollection.AddTransient<ProgEventModel>();
-        serviceCollection.AddTransient<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
+        serviceCollection.AddTransient<ProgEventResultsModel>();
         serviceCollection.AddTransient<ProgPeriodModel>();
+        serviceCollection.AddTransient<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();
         serviceCollection.AddTransient<ProgressiveMainModel>();
         serviceCollection.AddTransient<ProjectUsageModel>();
         serviceCollection.AddTransient<ProjectInputModel>();
@@ -105,8 +109,7 @@ public partial class App
         // Handle services from other projects.
         serviceCollection.RegisterFrontendHelpersServices();
         serviceCollection.RegisterApiServices();
-
-
+        
         return serviceCollection.BuildServiceProvider(true);
     }
 

@@ -7,6 +7,7 @@
 using Enigma.Frontend.Helpers.Conversions;
 using Enigma.Frontend.Helpers.InputParsers;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Helpers.Validations;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,6 +24,7 @@ public static class FrontendHelpersServices
         serviceCollection.AddSingleton<IGeoLatValidator, GeoLatValidator>();
         serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();
         serviceCollection.AddSingleton<IGeoLongValidator, GeoLongValidator>();
+        serviceCollection.AddTransient<GlyphsForChartPoints>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();

@@ -65,7 +65,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     private void DatesItemChanged()
     {
         SelectedProgDate = PresentableEventsPeriods[EventPeriodIndex];
-      //  _dataVault.SetCurrentEvent(EventIndex);
+        _dataVault.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventPeriodIndex];
         PopulateData();
     }
 
@@ -132,9 +132,10 @@ public partial class ProgressiveMainViewModel: ObservableObject
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
-    private static void Transits()
+    private void Transits()
     {
-        MessageBox.Show("Not implemented yet");
+        _dataVault.CurrentProgresMethod = ProgresMethods.Transits;
+        new ProgEventResultsWindow().ShowDialog();
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]

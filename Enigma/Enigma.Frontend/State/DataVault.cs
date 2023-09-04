@@ -21,6 +21,7 @@ public sealed class DataVault
 
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
+    public ProgresMethods CurrentProgresMethod { get; set; } = ProgresMethods.Undefined;
     public ProgEvent? CurrentProgEvent { get; set; }
     public ProgPeriod? CurrentProgPeriod { get; set; }
     public ResearchProject? CurrentProject { get; set; }

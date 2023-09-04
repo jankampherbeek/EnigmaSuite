@@ -11,6 +11,7 @@ using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
 using Enigma.Domain.Progressive;
 using System.Collections.Generic;
+using Enigma.Domain.Calc.ChartItems;
 
 namespace Enigma.Frontend.Ui.Interfaces;
 
@@ -206,3 +207,19 @@ public interface IDescriptiveChartText
 }
 
 
+/// <summary>Conversions between Configuration and CalculationPreferences.</summary>
+public interface IConfigPreferencesConverter
+{
+    /// <summary>Create CalculationPreferences from current configuration.</summary>
+    /// <returns>The constructed calculation preferences.</returns>
+    public CalculationPreferences RetrieveCalculationPreferences();
+}
+
+/// <summary>Conversions for presentable progressive positions.</summary>
+public interface IProgPositionsForPresentationFactory
+{
+    /// <summary>Convert celestable point positions to PresentableProgPositions.</summary>
+    /// <param name="positions">The positions to convert.</param>
+    /// <returns>The resulting PresentableProgPositions.</returns>
+    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, FullPointPos> positions);
+}

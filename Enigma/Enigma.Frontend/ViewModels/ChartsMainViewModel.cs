@@ -58,7 +58,6 @@ public partial class ChartsMainViewModel: ObservableObject
     private void ItemChanged()
     {
         SelectedChart = AvailableCharts[ChartIndex];
-        //_dataVault.SetCurrentChart(ChartIndex);
         _dataVault.SetIndexCurrentChart(ChartIndex);
         PopulateData();
         PopulateAvailableCharts();
