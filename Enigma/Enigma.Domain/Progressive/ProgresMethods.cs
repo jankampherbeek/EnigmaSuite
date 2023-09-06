@@ -10,3 +10,4 @@ public enum ProgresMethods
 {
     Undefined=0, Primary=1, Secundary=2, Transits=3, Symbolic=4, Solar=5 
 }
+

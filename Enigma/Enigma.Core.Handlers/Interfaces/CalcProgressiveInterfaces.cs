@@ -4,8 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.Progressive;
 using Enigma.Domain.Points;
+using Enigma.Domain.Progressive;
 
 namespace Enigma.Core.Handlers.Interfaces;
 
@@ -97,8 +97,8 @@ public interface ITimeKeyCalculator
 
 public interface ISpeculum
 {
-    /// <summary>System for the calculartion of primary directions.</summary>
-    public PrimarySystems PrimarySystem { get; }
+    /// <summary>System for the calculation of primary directions.</summary>
+    public PrimaryMethods PrimaryMethod { get; }
     /// <summary>Geographic latitude.</summary>
     public double GeoLat { get; }
     /// <summary>Right ascension of the MC.</summary>

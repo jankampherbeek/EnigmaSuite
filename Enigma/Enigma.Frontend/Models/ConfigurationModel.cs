@@ -11,7 +11,10 @@ using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
+using Enigma.Domain.Progressive;
+using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -92,7 +95,27 @@ public class ConfigurationModel
                 select new GeneralAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, aspect.Text, configAspect.Value.PercentageOrb)).ToList();
     }
 
+
+    public static List<string> AllPrimDirMethods()
+    {
+        return PrimaryMethodsExtensions.AllDetails().Select(method => method.MethodName).ToList();
+    }
+    
+    public static List<string> AllPrimDirKeys()
+    {
+        return PrimaryKeyExtensions.AllDetails().Select(key => key.TextId).ToList();
+    }
+
+    public static List<SelectableChartPointDetails> AllSignificators(IEnumerable<GeneralPoint> generalPoints)
+    {
+        return (from generalPoint in generalPoints 
+            where generalPoint.IsUsed let isSelected = false 
+            select new SelectableChartPointDetails { Selected = isSelected, ChartPoint = generalPoint.ChartPoint, 
+                Glyph = generalPoint.Glyph, Name = generalPoint.PointName }).ToList();
+    }
+    
 }
+
 
 public class GeneralPoint
 {
@@ -129,3 +152,4 @@ public class GeneralAspect
         OrbPercentage = orbPercentage;
     }
 }
+

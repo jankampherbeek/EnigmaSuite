@@ -3,9 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.Progressive;
+using Enigma.Domain.Progressive;
 
-namespace Enigma.Test.Domain.Calc.Progressive;
+namespace Enigma.Test.Domain.Progressive;
 
 [ TestFixture]
 public class TestPrimaryKeySpecifications
@@ -20,7 +20,7 @@ public class TestPrimaryKeySpecifications
         Assert.Multiple(() =>
         {
             Assert.That(details.PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodRa));
-            Assert.That(details.TextId, Is.EqualTo("ref.enum.primarykey.naibodra"));
+            Assert.That(details.TextId, Is.EqualTo("Naibod (RA)"));
         });
     }
 
@@ -58,7 +58,7 @@ public class TestPrimaryKeySpecifications
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));
-            Assert.That(allDetails[2].TextId, Is.EqualTo("ref.enum.primarykey.brahera"));
+            Assert.That(allDetails[2].TextId, Is.EqualTo("Brahe (RA)"));
             Assert.That(allDetails[5].PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodLongitude));
         });
     }

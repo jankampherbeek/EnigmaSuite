@@ -5,7 +5,7 @@
 
 using Serilog;
 
-namespace Enigma.Domain.Calc.Progressive;
+namespace Enigma.Domain.Progressive;
 
 /// <summary>Time keys for primary directions.</summary>
 public enum PrimaryKeys
@@ -36,18 +36,17 @@ public static class PrimaryKeyExtensions
     {
         return primaryKey switch
         {
-            PrimaryKeys.PtolemyRa => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.ptolemyra"),
-            PrimaryKeys.NaibodRa => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.naibodra"),
-            PrimaryKeys.BraheRa => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.brahera"),
-            PrimaryKeys.PlacidusRa => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.placidusra"),
-            PrimaryKeys.PtolemyLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.ptolemylong"),
-            PrimaryKeys.NaibodLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.naibodlong"),
-            PrimaryKeys.BraheLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.brahelong"),
-            PrimaryKeys.PlacidusLongitude => new PrimaryKeyDetails(primaryKey, "ref.enum.primarykey.placiduslong"),
+            PrimaryKeys.PtolemyRa => new PrimaryKeyDetails(primaryKey, "Ptolemy (RA)"),
+            PrimaryKeys.NaibodRa => new PrimaryKeyDetails(primaryKey, "Naibod (RA)"),
+            PrimaryKeys.BraheRa => new PrimaryKeyDetails(primaryKey, "Brahe (RA)"),
+            PrimaryKeys.PlacidusRa => new PrimaryKeyDetails(primaryKey, "Placidus (RA)"),
+            PrimaryKeys.PtolemyLongitude => new PrimaryKeyDetails(primaryKey, "Ptolemy (Longitude)"),
+            PrimaryKeys.NaibodLongitude => new PrimaryKeyDetails(primaryKey, "Naibod (Longitude)"),
+            PrimaryKeys.BraheLongitude => new PrimaryKeyDetails(primaryKey, "Brahe (Longitude)"),
+            PrimaryKeys.PlacidusLongitude => new PrimaryKeyDetails(primaryKey, "Placidus (Longitude)"),
             _ => throw new ArgumentException("Primary time key unknown : " + primaryKey)
         };
     }
-
 
 
     /// <summary>Retrieve details for items in the enum PrimaryKeys.</summary>

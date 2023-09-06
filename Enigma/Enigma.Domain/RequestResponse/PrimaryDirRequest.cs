@@ -5,14 +5,14 @@
 
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.DateTime;
-using Enigma.Domain.Calc.Progressive;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
+using Enigma.Domain.Progressive;
 
 namespace Enigma.Domain.RequestResponse;
 
 /// <summary>Request for the calculation of primary directions.</summary>
-/// <param name="PdSystem">System of primary directions.</param>
+/// <param name="PdMethod">Method for primary directions.</param>
 /// <param name="PdKeys">Time key.</param>
 /// <param name="Chart">Calculated chart.</param>
 /// <param name="Promissors">List of promissors, Enigma uses only promissors that are available in the Chart.</param>
@@ -22,7 +22,7 @@ namespace Enigma.Domain.RequestResponse;
 /// <param name="FirstDateTime">Start date for the calculations or time of event if LastDateTime is null.</param>
 /// <param name="LastDateTime">End date for the calculations, null if the calculations are for an event.</param>
 public record PrimaryDirRequest(
-    PrimarySystems PdSystem,
+    PrimaryMethods PdMethod,
     PrimaryKeys PdKeys,
     CalculatedChart Chart,
     List<ChartPoints> Promissors,

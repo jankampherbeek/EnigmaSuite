@@ -5,9 +5,9 @@
 
 using Enigma.Core.Handlers.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.Progressive;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
+using Enigma.Domain.Progressive;
 using Serilog;
 
 namespace Enigma.Core.Handlers.Calc.Progressive;

@@ -5,16 +5,16 @@
 
 using Enigma.Core.Handlers.Calc.Util;
 using Enigma.Core.Handlers.Interfaces;
-using Enigma.Domain.Calc.Progressive;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
+using Enigma.Domain.Progressive;
 
 namespace Enigma.Core.Handlers.Calc.Progressive;
 
 
 public sealed class Speculum: ISpeculum
 {
-    public PrimarySystems PrimarySystem { get; }
+    public PrimaryMethods PrimaryMethod { get; }
 
     public double GeoLat { get; }
 
@@ -28,9 +28,9 @@ public sealed class Speculum: ISpeculum
 
     public List<ISpeculumItem> SpeculumItems { get; }
 
-    public Speculum(PrimarySystems primSys, CalculatedChart calcChart, List<ChartPoints> promissors, List<ChartPoints> significators)
+    public Speculum(PrimaryMethods primMethod, CalculatedChart calcChart, List<ChartPoints> promissors, List<ChartPoints> significators)
     {
-        PrimarySystem = primSys;
+        PrimaryMethod = primMethod;
         GeoLat = calcChart.InputtedChartData.Location.GeoLat;
 
         foreach (KeyValuePair<ChartPoints, FullPointPos> position 
