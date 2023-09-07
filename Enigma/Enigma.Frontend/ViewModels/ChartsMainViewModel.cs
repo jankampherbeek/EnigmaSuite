@@ -83,22 +83,25 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private static void AppSettings()
     {
-        AppSettingsWindow appSettingsWindow = new();
-        appSettingsWindow.ShowDialog();
+        new AppSettingsWindow().ShowDialog();
     }
         
     [RelayCommand]
     private static void Configuration()
     {
-        ConfigurationWindow configWindow = new();
-        configWindow.ShowDialog();
+        new ConfigurationWindow().ShowDialog();
+    }
+    
+    [RelayCommand]
+    private static void ConfigProg()
+    {
+        new ConfigProgWindow().ShowDialog();
     }
 
     [RelayCommand]
     private void NewChart()
     {
-        RadixDataInputWindow dataInputWindow = new();
-        dataInputWindow.ShowDialog();
+        new RadixDataInputWindow().ShowDialog();
         if (!_dataVault.GetNewChartAdded()) return;
         int newIndex = _model.SaveCurrentChart();
         if (_dataVault.GetCurrentChart() == null) return;
@@ -116,8 +119,7 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private void SearchChart()
     {
-        RadixSearchWindow window = new();
-        window.ShowDialog();
+        new RadixSearchWindow().ShowDialog();
         PopulateData();
         PopulateAvailableCharts();
     }
