@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Api", "Enigma.Api\En
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Facades", "Enigma.Core.Facades\Enigma.Facades.csproj", "{01E1C88C-786A-4D19-80DB-128F846C554C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core.Handlers", "Enigma.Core.Handlers\Enigma.Core.Handlers.csproj", "{8F9B3CF9-98AE-4311-9EFC-1698EE80610C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Core", "Enigma.Core\Enigma.Core.csproj", "{8F9B3CF9-98AE-4311-9EFC-1698EE80610C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

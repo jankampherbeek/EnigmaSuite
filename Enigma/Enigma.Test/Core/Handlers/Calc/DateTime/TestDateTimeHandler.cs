@@ -3,8 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Calc.DateTime;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Calc.DateTime;
+using Enigma.Core.Interfaces;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.RequestResponse;
 using Moq;

@@ -5,8 +5,8 @@
 
 using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Calc.Coordinates.Helpers;
+using Enigma.Core.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Moq;
 

@@ -4,8 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Handlers.Research.Helpers;
-using Enigma.Core.Handlers.Research.Interfaces;
+using Enigma.Core.Research.Helpers;
+using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Research;
 
 namespace Enigma.Test.Core.Handlers.Research.Helpers;

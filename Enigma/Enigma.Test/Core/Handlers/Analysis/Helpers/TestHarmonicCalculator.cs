@@ -4,8 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Handlers.Analysis.Helpers;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Analysis.Helpers;
+using Enigma.Core.Interfaces;
 
 namespace Enigma.Test.Core.Handlers.Analysis.Helpers;
 

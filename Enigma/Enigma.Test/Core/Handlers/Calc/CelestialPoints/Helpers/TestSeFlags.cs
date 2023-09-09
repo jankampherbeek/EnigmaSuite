@@ -4,8 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Handlers.Calc.CelestialPoints.Helpers;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Calc.CelestialPoints.Helpers;
+using Enigma.Core.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 
 namespace Enigma.Test.Core.Handlers.Calc.CelestialPoints.Helpers;

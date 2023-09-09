@@ -3,8 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Interfaces;
-using Enigma.Core.Handlers.Persistency;
+using Enigma.Core.Interfaces;
+using Enigma.Core.Persistency;
 using Moq;
 
 namespace Enigma.Test.Core.Handlers.Persistency;

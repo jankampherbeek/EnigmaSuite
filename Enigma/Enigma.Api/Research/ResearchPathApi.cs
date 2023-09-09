@@ -5,7 +5,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers.Research.Interfaces;
+using Enigma.Core.Research.Interfaces;
 
 namespace Enigma.Api.Research;
 

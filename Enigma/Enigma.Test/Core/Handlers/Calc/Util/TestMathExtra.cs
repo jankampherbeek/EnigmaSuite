@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Calc.Util;
+using Enigma.Core.Calc.Util;
 
 namespace Enigma.Test.Core.Handlers.Calc.Util;
 

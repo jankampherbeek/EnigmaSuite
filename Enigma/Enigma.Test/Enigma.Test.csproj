@@ -32,7 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Enigma.Api\Enigma.Api.csproj" />
     <ProjectReference Include="..\Enigma.Core.Facades\Enigma.Facades.csproj" />
-    <ProjectReference Include="..\Enigma.Core.Handlers\Enigma.Core.Handlers.csproj" />
+    <ProjectReference Include="..\Enigma.Core\Enigma.Core.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
     <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
     <ProjectReference Include="..\Enigma.Frontend\Enigma.Frontend.Ui.csproj" />

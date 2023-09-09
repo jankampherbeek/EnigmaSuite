@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Handlers.Calc.Coordinates.Helpers;
+using Enigma.Core.Calc.Coordinates.Helpers;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Calc.Specials;

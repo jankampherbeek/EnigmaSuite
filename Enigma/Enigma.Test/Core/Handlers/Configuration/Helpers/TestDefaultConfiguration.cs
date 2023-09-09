@@ -3,8 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers.Configuration.Helpers;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Configuration.Helpers;
+using Enigma.Core.Interfaces;
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;

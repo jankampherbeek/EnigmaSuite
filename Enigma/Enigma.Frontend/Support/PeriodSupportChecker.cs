@@ -5,7 +5,7 @@
 
 
 using System.Linq;
-using Enigma.Core.Handlers.Interfaces;
+using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 
