@@ -14,7 +14,6 @@ using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.SUpport;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
@@ -70,6 +69,7 @@ public partial class App
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
         serviceCollection.AddTransient<IConfigPreferencesConverter, ConfigPreferencesConverter>();
         serviceCollection.AddTransient<ConfigurationModel>();
+        serviceCollection.AddTransient<ConfigProgModel>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();

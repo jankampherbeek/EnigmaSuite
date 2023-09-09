@@ -62,4 +62,52 @@ public class TestResearchPaths
         const string expectedStartOfPathText = @"c:\enigma_ar\project\Project Name\results\controldataresult_";
         Assert.That(pathText, Does.Contain(expectedStartOfPathText));
     }
+
+    [Test]
+    public void TestCountResultsPathNoControlGroup()
+    {
+        const string projName = "Project Name";
+        const string methodName = "CountPosInSigns";
+        const bool useControlGroup = false;
+        string pathText = _researchPaths!.CountResultsPath(projName, methodName, useControlGroup);
+        const string expectedStartOfPathText = 
+            @"c:\enigma_ar\project\Project Name\results\testdataresult_CountPosInSigns_counts_";
+        Assert.That(pathText, Does.Contain(expectedStartOfPathText));
+    }
+    
+    [Test]
+    public void TestCountResultsPathWithControlGroup()
+    {
+        const string projName = "Project Name";
+        const string methodName = "CountPosInSigns";
+        const bool useControlGroup = true;
+        string pathText = _researchPaths!.CountResultsPath(projName, methodName, useControlGroup);
+        const string expectedStartOfPathText = 
+            @"c:\enigma_ar\project\Project Name\results\controldataresult_CountPosInSigns_counts_";
+        Assert.That(pathText, Does.Contain(expectedStartOfPathText));
+    }
+    
+    [Test]
+    public void TestSummedResultsPathNoControlGroup()
+    {
+        const string projName = "Project Name";
+        const string methodName = "CountPosInSigns";
+        const bool useControlGroup = false;
+        string pathText = _researchPaths!.SummedResultsPath(projName, methodName, useControlGroup);
+        const string expectedStartOfPathText = 
+            @"c:\enigma_ar\project\Project Name\results\testsummedresult_CountPosInSigns_counts_";
+        Assert.That(pathText, Does.Contain(expectedStartOfPathText));
+    }
+    
+    [Test]
+    public void TestSummedResultsPathWithControlGroup()
+    {
+        const string projName = "Project Name";
+        const string methodName = "CountPosInSigns";
+        const bool useControlGroup = true;
+        string pathText = _researchPaths!.SummedResultsPath(projName, methodName, useControlGroup);
+        const string expectedStartOfPathText = 
+            @"c:\enigma_ar\project\Project Name\results\controlsummedresult_CountPosInSigns_counts_";
+        Assert.That(pathText, Does.Contain(expectedStartOfPathText));
+    }
 }

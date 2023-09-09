@@ -13,7 +13,7 @@ using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 
-namespace Enigma.Test.Frontend.Ui.Ui.Support;
+namespace Enigma.Test.Frontend.Ui.Support;
 
 [TestFixture]
 public class TestDescriptiveChartText

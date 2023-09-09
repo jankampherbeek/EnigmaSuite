@@ -8,7 +8,7 @@ using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.Persistency;
 using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Interfaces;
-using Enigma.Frontend.Ui.SUpport;
+using Enigma.Frontend.Ui.Support;
 using Moq;
 
 namespace Enigma.Test.Frontend.Ui.Ui.Support;

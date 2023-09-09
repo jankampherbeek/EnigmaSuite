@@ -40,6 +40,7 @@
 
   <ItemGroup>
     <Folder Include="Domain\Calc\Specials\" />
+    <Folder Include="Frontend.Ui\Models\" />
   </ItemGroup>
 
 </Project>

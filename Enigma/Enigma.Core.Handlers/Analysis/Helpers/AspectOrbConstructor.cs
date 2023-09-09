@@ -19,7 +19,8 @@ public sealed class AspectOrbConstructor : IAspectOrbConstructor
     public AspectOrbConstructor(IOrbDefinitions orbDefinitions) { _orbDefinitions = orbDefinitions; }
 
     // <inheritdoc/>
-    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
+    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, 
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         double factor1 = _orbDefinitions.DefineChartPointOrb(point1, chartPointConfigSpecs).OrbFactor;
         double factor2 = _orbDefinitions.DefineChartPointOrb(point2, chartPointConfigSpecs).OrbFactor;

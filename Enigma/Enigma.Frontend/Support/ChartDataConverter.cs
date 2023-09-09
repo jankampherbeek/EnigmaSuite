@@ -11,7 +11,7 @@ using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Interfaces;
 
 
-namespace Enigma.Frontend.Ui.SUpport;
+namespace Enigma.Frontend.Ui.Support;
 
 /// <inheritdoc/>
 public sealed class ChartDataConverter : IChartDataConverter

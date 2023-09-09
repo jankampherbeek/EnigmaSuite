@@ -10,7 +10,7 @@ using Enigma.Domain.Persistency;
 using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Interfaces;
 
-namespace Enigma.Frontend.Ui.SUpport;
+namespace Enigma.Frontend.Ui.Support;
 
 /// <inheritdoc/>
 public sealed class EventDataConverter : IEventDataConverter
