@@ -65,7 +65,7 @@ public partial class DatafileImportViewModel: ObservableObject
             if (model.CheckIfNameCanBeUsed(DatasetName))
             {
                 ResultMessage resultMsg = model.PerformImport(DatafileName, DatasetName);
-                if (resultMsg.ErrorCode > ErrorCodes.None)
+                if (resultMsg.ErrorCode > ResultCodes.OK)
                 {
                     ErrorText = "Error";
                     ResultText = "An error occurred while reading or writing the files " + resultMsg.Message;

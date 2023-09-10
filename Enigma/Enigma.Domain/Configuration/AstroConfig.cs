@@ -5,9 +5,9 @@
 
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 
 namespace Enigma.Domain.Configuration;
 

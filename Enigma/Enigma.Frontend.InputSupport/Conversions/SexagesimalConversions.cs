@@ -37,7 +37,7 @@ public class SexagesimalConversions : ISexagesimalConversions
             double value1 = double.Parse(texts[0]);
             double value2 = double.Parse(texts[1]);
             double value3 = double.Parse(texts[2]);
-            return value1 + (value2 / EnigmaConstants.MinutesPerHourDegree) + (value3 / EnigmaConstants.SecondsPerHourDegree);
+            return value1 + (value2 / EnigmaConstants.MINUTES_PER_HOUR_DEGREE) + (value3 / EnigmaConstants.SECONDS_PER_HOUR_DEGREE);
         }
         catch (Exception e)
         {

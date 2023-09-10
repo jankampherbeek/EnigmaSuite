@@ -5,11 +5,12 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Analysis;
@@ -18,14 +19,14 @@ namespace Enigma.Core.Analysis;
 public sealed class AspectsHandler : IAspectsHandler
 {
     private readonly IPointsMapping _pointsMapping;
-    private readonly IDistanceCalculator _distanceCalculator;
+    private readonly ICalculatedDistance _calculatedDistance;
     private readonly IAspectPointSelector _aspectPointSelector;
     private readonly IAspectOrbConstructor _aspectOrbConstructor;
 
-    public AspectsHandler(IPointsMapping pointsMapping, IDistanceCalculator distanceCalculator, IAspectPointSelector aspectPointSelector, IAspectOrbConstructor aspectOrbConstructor)
+    public AspectsHandler(IPointsMapping pointsMapping, ICalculatedDistance calculatedDistance, IAspectPointSelector aspectPointSelector, IAspectOrbConstructor aspectOrbConstructor)
     {
         _pointsMapping = pointsMapping;
-        _distanceCalculator = distanceCalculator;
+        _calculatedDistance = calculatedDistance;
         _aspectPointSelector = aspectPointSelector;
         _aspectOrbConstructor = aspectOrbConstructor;
     }
@@ -64,11 +65,11 @@ public sealed class AspectsHandler : IAspectsHandler
     public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb)
     {
 
-        List<DistanceBetween2Points> pointDistances = _distanceCalculator.FindShortestDistances(posPoints);
+        List<DistanceBetween2Points> pointDistances = _calculatedDistance.ShortestDistances(posPoints);
         List<DistanceBetween2Points> cuspDistances = new();
         if (cuspPoints.Count > 0)
         {
-            cuspDistances = _distanceCalculator.FindShortestDistanceBetweenPointsAndCusps(posPoints, cuspPoints);
+            cuspDistances = _calculatedDistance.ShortestDistanceBetweenPointsAndCusps(posPoints, cuspPoints);
         }
         List<DistanceBetween2Points> allDistances = new(pointDistances.Count + cuspDistances.Count);
         allDistances.AddRange(pointDistances);

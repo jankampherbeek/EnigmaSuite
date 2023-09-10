@@ -32,7 +32,7 @@ public static class ZodiacTypeExtensions
         {
             // No specific flag for tropical.
             ZodiacTypes.Tropical => new ZodiacTypeDetails(zType, 0, "Tropical"),
-            ZodiacTypes.Sidereal => new ZodiacTypeDetails(zType, EnigmaConstants.SeflgSidereal, "Sidereal"),
+            ZodiacTypes.Sidereal => new ZodiacTypeDetails(zType, EnigmaConstants.SEFLG_SIDEREAL, "Sidereal"),
             _ => throw new ArgumentException("Zodiactype unknown" + ": " + zType)
         };
     }

@@ -33,7 +33,7 @@ public sealed class HousesHandler : IHousesHandler
 
     public double CalcArmc(double jdUt, double obliquity, Location location)
     {
-        const int flags = EnigmaConstants.SeflgSwieph;
+        const int flags = EnigmaConstants.SEFLG_SWIEPH;
         double[][] houses = _housesCalc.CalculateHouses(jdUt, obliquity, location, 'W', flags);
         return houses[1][2];
     }
@@ -44,7 +44,7 @@ public sealed class HousesHandler : IHousesHandler
         HouseSystems houseSystem = request.CalcPrefs.ActualHouseSystem;
         HouseSystemDetails houseDetails = houseSystem.GetDetails();
         char houseId4Se = houseDetails.SeId;
-        const int flags = EnigmaConstants.SeflgSwieph;
+        const int flags = EnigmaConstants.SEFLG_SWIEPH;
         Location location = request.ChartLocation;
         double jdUt = request.JdUt;
         double[][] eclValues;
@@ -56,7 +56,7 @@ public sealed class HousesHandler : IHousesHandler
         {
             int idAyanamsa = request.CalcPrefs.ActualAyanamsha.GetDetails().SeId;
             SeInitializer.SetAyanamsha(idAyanamsa);
-            eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, flags + EnigmaConstants.SeflgSidereal);
+            eclValues = _housesCalc.CalculateHouses(request.JdUt, obliquity, request.ChartLocation, houseId4Se, flags + EnigmaConstants.SEFLG_SIDEREAL);
         }
         else
         {

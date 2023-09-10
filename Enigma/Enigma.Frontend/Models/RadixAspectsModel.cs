@@ -5,9 +5,9 @@
 
 using System.Collections.Generic;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.RequestResponse;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;

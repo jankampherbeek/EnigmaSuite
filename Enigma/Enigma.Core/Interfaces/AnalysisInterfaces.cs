@@ -4,29 +4,52 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Core.Interfaces;
 
 
 /// <summary>Helper class for the calculation of distances.</summary>
-public interface IDistanceCalculator
+public interface ICalculatedDistance
 {
-    /// <summary>Calculates the shortest distance bwetween two points.</summary>
+    /// <summary>Calculates the shortest distance between two positions.</summary>
+    /// <remarks>PRE: pos1 and pos2 &gt;= 0.0 and pos1 and pos2 &lt; 360.0</remarks>
+    /// <param name="pos1">First position.</param>
+    /// <param name="pos2">Second position.</param>
+    /// <returns>Shortest distance between pos1 and pos2.</returns>
+    public double ShortestDistance(double pos1, double pos2);
+    
+    /// <summary>Calculates the shortest distance between several combinations of two points.</summary>
     /// <param name="allPoints">List of points.</param>
     /// <returns>List of shortest distances between each pair of points.</returns>
-    public List<DistanceBetween2Points> FindShortestDistances(List<PositionedPoint> allPoints);
+    public List<DistanceBetween2Points> ShortestDistances(List<PositionedPoint> allPoints);
 
-    /// <summary>Calculates the shortest distances between two points, the first point is not a cusp (but could be Mc or Asc), the second point is a cusp.</summary>
+    /// <summary>Calculates the shortest distances between several combinations of two points,
+    /// the first point is not a cusp (but could be Mc or Asc), the second point is a cusp.</summary>
     /// <param name="allPoints">All points except the cusps.</param>
     /// <param name="allCusps">The cusps.</param>
     /// <returns>List of shortest distances between a non-cusp (first position in distance) and a cusp (second position).</returns>
-    public List<DistanceBetween2Points> FindShortestDistanceBetweenPointsAndCusps(IEnumerable<PositionedPoint> allPoints, List<PositionedPoint> allCusps);
+    public List<DistanceBetween2Points> ShortestDistanceBetweenPointsAndCusps(IEnumerable<PositionedPoint> allPoints, List<PositionedPoint> allCusps);
 }
+
+/// <summary>Helper class for finding aspects for progressions.</summary>
+public interface ICheckedProgAspects
+{
+    /// <summary>Check if a given distance is within orb for one or more aspects.</summary>
+    /// <remarks>PRE: Distance positive and distance max 180.0, orb positive and max 30.0,
+    /// supportedAspects contains minimal one aspect.</remarks>
+    /// <param name="distance">The distance to check.</param>
+    /// <param name="orb">The orb to apply.</param>
+    /// <param name="supportedAspects">The aspects to check.</param>
+    /// <returns>Zero, one or more aspects that are within orb for the given distance.</returns>
+    Dictionary<AspectTypes, double> CheckAspects(double distance, double orb, List<AspectTypes> supportedAspects);
+}
+
 
 /// <summary>Selector for points that can be used to calculate aspects.</summary>
 public interface IAspectPointSelector

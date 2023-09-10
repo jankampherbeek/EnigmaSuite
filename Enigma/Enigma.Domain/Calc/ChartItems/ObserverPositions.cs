@@ -34,7 +34,7 @@ public static class ObserverPositionsExtensions
             // No specific flags for geocentric.
             ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "Geocentric"),
           //  ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SeflgHelctr, "Heliocentric"),
-            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SeflgTopoctr, "Topocentric (with parallax)"),
+            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "Topocentric (with parallax)"),
             _ => throw new ArgumentException("Observer Position unknown : " + obsPos)
         };
     }

@@ -15,7 +15,7 @@ namespace Enigma.Core.Persistency.Daos;
 /// <inheritdoc />
 public sealed class InterChartEventDao : IInterChartEventDao
 {
-    private readonly string _dbFullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.DatabaseName;
+    private readonly string _dbFullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.DATABASE_NAME;
     private const string COLLECTION = "chartevents";
 
     /// <inheritdoc />

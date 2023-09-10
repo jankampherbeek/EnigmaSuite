@@ -75,15 +75,15 @@ public class TimeCheckedConversion : ITimeCheckedConversion
         if (items.Length == 3)
         {
             bool result = int.TryParse(items[0], out int hour);
-            if (!result || hour < EnigmaConstants.HourMin || hour > EnigmaConstants.HourMax) noErrors = false;
+            if (!result || hour < EnigmaConstants.HOUR_MIN || hour > EnigmaConstants.HOUR_MAX) noErrors = false;
             result = int.TryParse(items[1], out int minute);
-            if (!result || minute < EnigmaConstants.MinuteMin || minute > EnigmaConstants.MinuteMax) noErrors = false;
+            if (!result || minute < EnigmaConstants.MINUTE_MIN || minute > EnigmaConstants.MINUTE_MAX) noErrors = false;
             result = int.TryParse(items[2], out int second);
-            if (!result || second < EnigmaConstants.SecondMin || second > EnigmaConstants.SecondMax) noErrors = false;
+            if (!result || second < EnigmaConstants.SECOND_MIN || second > EnigmaConstants.SECOND_MAX) noErrors = false;
             double offsetValue = double.Parse(zoneOffset, CultureInfo.InvariantCulture);            // CultureInfo is required to handle decimal point on Localities that use a comma instead.
-            if (offsetValue is < EnigmaConstants.TimezoneMin or > EnigmaConstants.TimezoneMax) noErrors = false;
+            if (offsetValue is < EnigmaConstants.TIMEZONE_MIN or > EnigmaConstants.TIMEZONE_MAX) noErrors = false;
             result = double.TryParse(dst, out double dstValue);
-            if (!result || dstValue < EnigmaConstants.DstMin || dstValue > EnigmaConstants.DstMax) noErrors = false;
+            if (!result || dstValue < EnigmaConstants.DST_MIN || dstValue > EnigmaConstants.DST_MAX) noErrors = false;
             if (noErrors) time = new PersistableTime(hour, minute, second, offsetValue, dstValue);
         }
         else

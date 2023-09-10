@@ -5,9 +5,11 @@
 
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Api.Interfaces;
 
@@ -18,6 +20,15 @@ public interface IAspectsApi
     /// <summary>Aspects for celestial points.</summary>
     public IEnumerable<DefinedAspect> AspectsForCelPoints(AspectRequest request);
 
+}
+
+/// <summary>Api for finding aspects between progresive and radix positions.</summary>
+public interface IProgAspectsApi
+{
+    /// <summary>Find aspects.</summary>
+    /// <param name="request">Definitions for radix pints, progressive oints, aspects and orb.</param>
+    /// <returns>Resulting aspects and result code.</returns>
+    public ProgAspectsResponse FindProgAspects(ProgAspectsRequest request);
 }
 
 

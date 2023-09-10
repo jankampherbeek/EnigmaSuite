@@ -68,14 +68,14 @@ public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
         string degreeText = degrees.ToString();
         string minuteText = $"{minutes:00}";
         string secondText = $"{seconds:00}";
-        return degreeText + EnigmaConstants.DegreeSign + minuteText + EnigmaConstants.MinuteSign + secondText + EnigmaConstants.SecondSign;
+        return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN + secondText + EnigmaConstants.SECOND_SIGN;
     }
 
     private static string CreateDmString(int degrees, int minutes)
     {
         string degreeText = degrees.ToString();
         string minuteText = $"{minutes:00}";
-        return degreeText + EnigmaConstants.DegreeSign + minuteText + EnigmaConstants.MinuteSign;
+        return degreeText + EnigmaConstants.DEGREE_SIGN + minuteText + EnigmaConstants.MINUTE_SIGN;
     }
 
     private static char DefineGlyph(int nrOfSigns)

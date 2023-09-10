@@ -45,6 +45,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
         serviceCollection.AddTransient<IPeriodDataPersistencyApi, PeriodDataPersistencyApi>();
+        serviceCollection.AddTransient<IProgAspectsApi, ProgAspectsApi>();
         serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<IResearchPerformApi, ResearchPerformApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();

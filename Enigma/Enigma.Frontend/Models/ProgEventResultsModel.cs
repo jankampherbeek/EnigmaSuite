@@ -6,11 +6,16 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using Enigma.Api.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.Progressive;
+using Enigma.Domain.References;
 using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.ViewModels;
@@ -21,6 +26,7 @@ public class ProgEventResultsModel
 {
     private IDescriptiveChartText _descriptiveChartText;
     private ICalcTransitsEventApi _calcTransitsEventApi;
+    private IProgAspectsApi _progAspectsApi;
     private readonly IConfigPreferencesConverter _configPrefsConverter;
     private readonly IProgPositionsForPresentationFactory _progPosPresFactory;
     public string MethodName { get; set; }
@@ -28,18 +34,20 @@ public class ProgEventResultsModel
     public string EventDescription { get; set; }
     public string EventDateTime { get; set; }
     public readonly List<PresentableProgPosition> presProgPositions;
-    
+    public readonly List<PresentableProgAspect> presProgAspects;
     private readonly Dictionary<ChartPoints, FullPointPos> _progPositions;
-    
+    private readonly List<DefinedAspect> _progAspects;
     private readonly DataVault _dataVault = DataVault.Instance;
     
     public ProgEventResultsModel(IDescriptiveChartText descriptiveChartText, 
         ICalcTransitsEventApi calcTransitsEventApi,
+        IProgAspectsApi progAspectsApi,
         IConfigPreferencesConverter configPreferencesConverter,
         IProgPositionsForPresentationFactory progPosPresFactory)
     {
         _descriptiveChartText = descriptiveChartText;
         _calcTransitsEventApi = calcTransitsEventApi;
+        _progAspectsApi = progAspectsApi;
         _configPrefsConverter = configPreferencesConverter;
         _progPosPresFactory = progPosPresFactory;
         MethodName = DefineMethodName();
@@ -47,6 +55,7 @@ public class ProgEventResultsModel
         EventDescription = DefineEventDescription();
         EventDateTime = DefineEventDateTime();
         _progPositions = CalculateTransits();
+        _progAspects = FindProgAspects();
         presProgPositions = progPosPresFactory.CreatePresProgPos(_progPositions);
     }
 
@@ -98,5 +107,14 @@ public class ProgEventResultsModel
         TransitsEventRequest request = new(jdUt, location, prefs);
         return _calcTransitsEventApi.CalculateTransits(request);
     }
+
+    private List<DefinedAspect> FindProgAspects()
+    {
+        
+       // ProgAspectsRequest request = new(ChartPoints, ProgPoints, new List<AspectTypes>(, orb))
+       return new List<DefinedAspect>();
+    }
+    
+    
     
 }

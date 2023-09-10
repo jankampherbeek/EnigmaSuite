@@ -18,7 +18,7 @@ public class PeriodDataDao: IPeriodDataDao
 {
     private const string COL_INTERSECTION = "chartperiods";
     private const string COL_PERIODS = "periods";
-    private readonly string _dbFullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.DatabaseName;
+    private readonly string _dbFullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.DATABASE_NAME;
     private readonly IInterChartPeriodDao _interChartPeriodDao;
 
     public PeriodDataDao(IInterChartPeriodDao interChartPeriodDao)

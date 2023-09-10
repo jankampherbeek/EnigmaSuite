@@ -22,7 +22,7 @@ public class TestObserverPositionSpecifications
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Position, Is.EqualTo(position));
-            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgTopoctr));
+            Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
             Assert.That(details.Text, Is.EqualTo("Topocentric (with parallax)"));
         });
     }

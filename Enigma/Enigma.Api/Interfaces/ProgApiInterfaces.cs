@@ -7,6 +7,8 @@
 using Enigma.Domain.Points;
 using Enigma.Domain.RequestResponse;
 
+namespace Enigma.Api.Interfaces;
+
 /// <summary>API for the calculation of transits for a given event.</summary>
 public interface ICalcTransitsEventApi
 {

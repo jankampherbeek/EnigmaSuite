@@ -3,10 +3,11 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
@@ -23,9 +24,9 @@ public class TestAspectForDataGridFactory
     public void TestHappyFlow()
     {
         var dmsConversionsMock = new Mock<IDoubleToDmsConversions>();
-        dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(3.0)).Returns("3" + EnigmaConstants.DegreeSign + "00" + EnigmaConstants.MinuteSign + "00" + EnigmaConstants.SecondSign);
-        dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(2.5)).Returns("2" + EnigmaConstants.DegreeSign + "30" + EnigmaConstants.MinuteSign + "00" + EnigmaConstants.SecondSign);
-        dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(10.0)).Returns("10" + EnigmaConstants.DegreeSign + "00" + EnigmaConstants.MinuteSign + "00" + EnigmaConstants.SecondSign);
+        dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(3.0)).Returns("3" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN);
+        dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(2.5)).Returns("2" + EnigmaConstants.DEGREE_SIGN + "30" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN);
+        dmsConversionsMock.Setup(p => p.ConvertDoubleToPositionsDmsText(10.0)).Returns("10" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" + EnigmaConstants.SECOND_SIGN);
         IAspectForDataGridFactory aspectForDataGridFactory = new AspectForDataGridFactory(dmsConversionsMock.Object);
 
         IEnumerable<DefinedAspect> definedAspects = CreateDefinedAspects();

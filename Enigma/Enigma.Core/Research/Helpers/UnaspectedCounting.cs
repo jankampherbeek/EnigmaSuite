@@ -6,11 +6,12 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 
 namespace Enigma.Core.Research.Helpers;

@@ -5,10 +5,10 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 
 namespace Enigma.Core.Configuration.Helpers;
 

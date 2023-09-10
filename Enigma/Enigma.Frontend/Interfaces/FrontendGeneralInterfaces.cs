@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Analysis;
-using Enigma.Domain.Analysis.Aspects;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Persistency;
@@ -12,6 +11,7 @@ using Enigma.Domain.Points;
 using Enigma.Domain.Progressive;
 using System.Collections.Generic;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Frontend.Ui.Interfaces;
 

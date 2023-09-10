@@ -32,7 +32,7 @@ public sealed class ConfigurationHandler : IConfigurationHandler
     /// <inheritdoc/>
     public bool DoesConfigExist()
     {
-        return File.Exists(EnigmaConstants.ConfigLocation);
+        return File.Exists(EnigmaConstants.CONFIG_LOCATION);
     }
 
     /// <inheritdoc/>

@@ -11,7 +11,7 @@ using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 using Moq;
 
-namespace Enigma.Test.Frontend.Ui.Ui.Support;
+namespace Enigma.Test.Frontend.Ui.Support;
 
 [TestFixture]
 public class TestEventDataConverter

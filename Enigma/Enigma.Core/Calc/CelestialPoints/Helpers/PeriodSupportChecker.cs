@@ -18,21 +18,21 @@ public sealed class PeriodSupportChecker: IPeriodSupportChecker
         switch (chartPoint)
         {
             case ChartPoints.Chiron:
-                return jdnr is >= EnigmaConstants.PeriodChironStart and < EnigmaConstants.PeriodChironEnd;
+                return jdnr is >= EnigmaConstants.PERIOD_CHIRON_START and < EnigmaConstants.PERIOD_CHIRON_END;
             case ChartPoints.Pholus:
-                return jdnr is >= EnigmaConstants.PeriodPholusStart and < EnigmaConstants.PeriodPholusEnd;
+                return jdnr is >= EnigmaConstants.PERIOD_PHOLUS_START and < EnigmaConstants.PERIOD_PHOLUS_END;
         }
 
         ChartPoints[] ceresVesta = { ChartPoints.Ceres, ChartPoints.Vesta };
         if (ceresVesta.Contains(chartPoint))
         {
-            return jdnr is >= EnigmaConstants.PeriodCeresVestaStart and < EnigmaConstants.PeriodCeresVestaEnd;
+            return jdnr is >= EnigmaConstants.PERIOD_CERES_VESTA_START and < EnigmaConstants.PERIOD_CERES_VESTA_END;
         }
 
         ChartPoints[] nessusAndOthers = {ChartPoints.Nessus, ChartPoints.Huya, ChartPoints.Ixion, ChartPoints.Orcus, ChartPoints.Varuna, ChartPoints.Makemake, ChartPoints.Haumea,
                 ChartPoints.Quaoar, ChartPoints.Eris, ChartPoints.Sedna};
         if (nessusAndOthers.Contains(chartPoint)) {
-            return jdnr is >= EnigmaConstants.PeriodNessusHuyaEtcStart and < EnigmaConstants.PeriodNessusHuyaEtcEnd;
+            return jdnr is >= EnigmaConstants.PERIOD_NESSUS_HUYA_ETC_START and < EnigmaConstants.PERIOD_NESSUS_HUYA_ETC_END;
         }
 
         return true;
