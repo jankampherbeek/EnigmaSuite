@@ -7,6 +7,7 @@
 using Enigma.Domain.Analysis;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 
 namespace Enigma.Domain.Interfaces;
 

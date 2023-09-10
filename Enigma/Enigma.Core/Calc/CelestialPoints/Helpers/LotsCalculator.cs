@@ -7,6 +7,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Calc;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 
 namespace Enigma.Core.Calc.CelestialPoints.Helpers;
 public class LotsCalculator : ILotsCalculator

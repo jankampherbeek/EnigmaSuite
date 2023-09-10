@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 
 namespace Enigma.Domain.Interfaces;
 

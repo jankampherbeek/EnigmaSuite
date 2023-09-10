@@ -8,6 +8,7 @@ using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Points;
 using Enigma.Domain.Progressive;
+using Enigma.Domain.References;
 using Serilog;
 
 namespace Enigma.Core.Calc.Progressive;

@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;

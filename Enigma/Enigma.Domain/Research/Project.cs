@@ -4,6 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.References;
+
 namespace Enigma.Domain.Research;
 
 /// <summary>Representation of ResearchProject. Also used for persistency with JSON.</summary>

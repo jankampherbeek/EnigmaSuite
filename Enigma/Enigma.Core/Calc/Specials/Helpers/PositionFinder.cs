@@ -6,6 +6,7 @@
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
 using Serilog;

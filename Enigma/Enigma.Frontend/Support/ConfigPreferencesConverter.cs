@@ -3,6 +3,7 @@ using System.Linq;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 

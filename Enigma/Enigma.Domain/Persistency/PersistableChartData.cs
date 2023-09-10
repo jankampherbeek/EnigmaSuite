@@ -5,6 +5,7 @@
 
 
 using Enigma.Domain.Charts;
+using Enigma.Domain.References;
 using LiteDB;
 
 namespace Enigma.Domain.Persistency;

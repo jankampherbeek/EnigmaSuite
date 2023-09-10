@@ -6,6 +6,7 @@
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Serilog;
 

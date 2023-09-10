@@ -5,6 +5,7 @@
 
 using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 
 namespace Enigma.Core.Research.Helpers;

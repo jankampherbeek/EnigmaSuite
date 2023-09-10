@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
+using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Graphics;
 
 namespace Enigma.Frontend.Ui.Interfaces;

@@ -8,6 +8,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Text;
+using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Ui.Support;
 

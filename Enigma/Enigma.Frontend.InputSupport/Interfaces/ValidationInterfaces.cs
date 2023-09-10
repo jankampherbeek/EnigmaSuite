@@ -6,6 +6,7 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Helpers.Interfaces;
 

@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.References;
+
 namespace Enigma.Domain.Calc.DateTime;
 
 /// <summary>Request to calculate day and time from Julian Day.</summary>

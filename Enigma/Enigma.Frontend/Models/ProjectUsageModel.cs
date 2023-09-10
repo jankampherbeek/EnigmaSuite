@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Configuration;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.State;
 

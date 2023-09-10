@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;

@@ -6,6 +6,7 @@
 
 using Enigma.Core.Research.Helpers;
 using Enigma.Core.Research.Interfaces;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 
 namespace Enigma.Test.Core.Research.Helpers;

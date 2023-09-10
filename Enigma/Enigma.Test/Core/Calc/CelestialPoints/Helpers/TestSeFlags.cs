@@ -7,6 +7,7 @@
 using Enigma.Core.Calc.CelestialPoints.Helpers;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.References;
 
 namespace Enigma.Test.Core.Calc.CelestialPoints.Helpers;
 

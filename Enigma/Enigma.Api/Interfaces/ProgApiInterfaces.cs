@@ -5,6 +5,7 @@
 
 
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 using Enigma.Domain.RequestResponse;
 
 namespace Enigma.Api.Interfaces;

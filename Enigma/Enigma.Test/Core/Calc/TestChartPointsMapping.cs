@@ -9,6 +9,7 @@ using Enigma.Domain.Calc;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
+using Enigma.Domain.References;
 
 namespace Enigma.Test.Core.Calc;
 

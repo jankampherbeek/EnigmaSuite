@@ -12,6 +12,7 @@ using Enigma.Domain.Progressive;
 using System.Collections.Generic;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Ui.Interfaces;
 

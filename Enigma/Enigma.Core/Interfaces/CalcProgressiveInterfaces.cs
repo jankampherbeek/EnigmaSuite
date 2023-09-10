@@ -6,6 +6,7 @@
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Points;
 using Enigma.Domain.Progressive;
+using Enigma.Domain.References;
 
 namespace Enigma.Core.Interfaces;
 

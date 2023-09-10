@@ -9,6 +9,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Serilog;
 

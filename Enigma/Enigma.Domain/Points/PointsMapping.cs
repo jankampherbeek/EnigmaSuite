@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Interfaces;
+using Enigma.Domain.References;
 using Serilog;
 
 namespace Enigma.Domain.Points;
