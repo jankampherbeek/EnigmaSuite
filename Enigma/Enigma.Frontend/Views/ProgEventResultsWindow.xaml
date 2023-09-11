@@ -53,17 +53,17 @@
                                   ItemsSource="{Binding PresProgPositions}"
                                   SelectionUnit="FullRow">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding pointGlyph}" Header=" " 
+                                <DataGridTextColumn Binding="{Binding PointGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding longitude}" Header="Longitude" 
+                                <DataGridTextColumn Binding="{Binding Longitude}" Header="Longitude" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding signGlyph}" Header=" " 
+                                <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding longSpeed}" Header="Long speed" 
+                                <DataGridTextColumn Binding="{Binding LongSpeed}" Header="Long speed" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding declination}" Header="Declination" 
+                                <DataGridTextColumn Binding="{Binding Declination}" Header="Declination" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding declSpeed}" Header="Decl speed" 
+                                <DataGridTextColumn Binding="{Binding DeclSpeed}" Header="Decl speed" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
                             </DataGrid.Columns>   
                         </DataGrid>

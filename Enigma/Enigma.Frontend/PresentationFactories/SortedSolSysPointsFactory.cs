@@ -7,6 +7,7 @@ using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;

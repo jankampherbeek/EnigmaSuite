@@ -15,6 +15,7 @@ public class CalculatedDistance : ICalculatedDistance
     private const double Zero = 0.0;
     private const double SemiCircle = 180.0;
     private const double FullCircle = 360.0;
+    
     /// <inheritdoc/>
     public double ShortestDistance(double pos1, double pos2)
     {

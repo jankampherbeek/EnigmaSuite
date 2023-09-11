@@ -18,7 +18,8 @@ public interface IOrbDefinitions
     /// <param name="chartPoint">The ChartPoint.</param>
     /// <param name="chartPointConfigSpecs">Orbs per chartpoint.</param>
     /// <returns>The defined orb.</returns>
-    public ChartPointOrb DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
+    public KeyValuePair<ChartPoints, double> DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, 
+        ChartPointConfigSpecs> chartPointConfigSpecs);
 
 }
 

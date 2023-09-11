@@ -11,5 +11,6 @@ namespace Enigma.Domain.Points;
 /// <summary>A GenericPoint combined with a single position.</summary>
 /// <param name="Point">The point.</param>
 /// <param name="Position">The position in decimal degrees.</param>
+/// [Obsolete("Use Key Value pair instead")]
 public record PositionedPoint(ChartPoints Point, double Position);
 

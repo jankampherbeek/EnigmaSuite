@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Points;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.Progressive;
 using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;

@@ -5,7 +5,7 @@
 
 using Enigma.Domain.References;
 
-namespace Enigma.Domain.Calc.DateTime;
+namespace Enigma.Domain.Requests;
 
 /// <summary>Request to calculate day and time from Julian Day.</summary>
 /// <param name="JulDay"/>

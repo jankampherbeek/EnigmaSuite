@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.Charts;
+namespace Enigma.Domain.Presentables;
 
 
 /// <summary>Positions of celestial points to be shown in a datagrid.</summary>

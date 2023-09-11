@@ -10,17 +10,10 @@ using Enigma.Domain.References;
 
 namespace Enigma.Domain.Analysis;
 
-
-/// <summary>Default orb factor for a chart point.</summary>
-/// <param name="Point">The chart point.</param>
-/// <param name="OrbFactor">Factor for the orb.</param>
-public record ChartPointOrb(ChartPoints Point, double OrbFactor);
-
-
 public class OrbDefinitions : IOrbDefinitions
 {
-
-    public ChartPointOrb DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
+    public KeyValuePair<ChartPoints, double> DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, 
+        ChartPointConfigSpecs> chartPointConfigSpecs)
     {
         double orbForChartPoint = 0.0;
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec 
@@ -28,8 +21,6 @@ public class OrbDefinitions : IOrbDefinitions
         {
             orbForChartPoint = spec.Value.PercentageOrb / 100.0;
         }
-        return new ChartPointOrb(chartPoint, orbForChartPoint);
+        return new KeyValuePair<ChartPoints, double>(chartPoint, orbForChartPoint);
     }
 }
-
-

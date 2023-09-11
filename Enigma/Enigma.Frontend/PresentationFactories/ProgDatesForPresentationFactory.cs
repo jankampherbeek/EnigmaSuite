@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Interfaces;
 

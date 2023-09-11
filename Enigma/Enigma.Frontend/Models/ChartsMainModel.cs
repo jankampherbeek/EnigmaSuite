@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Persistency;
+using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 

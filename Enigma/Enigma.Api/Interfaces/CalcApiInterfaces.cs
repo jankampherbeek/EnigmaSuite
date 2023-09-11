@@ -11,6 +11,7 @@ using Enigma.Domain.Calc.Specials;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Requests;
 
 namespace Enigma.Api.Interfaces;
 

@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-namespace Enigma.Domain.Progressive;
+namespace Enigma.Domain.Presentables;
 
 /// <summary>Event data to be shown in a data grid.</summary>
 /// <param name="DateType">Type of date, e.g. 'p' for period or 'e' for event.</param>

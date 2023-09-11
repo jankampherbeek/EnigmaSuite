@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-namespace Enigma.Domain.Charts;
+namespace Enigma.Domain.Presentables;
 
 
 /// <summary>Positions of houses to be shown in a datagrid.</summary>
@@ -15,4 +15,5 @@ namespace Enigma.Domain.Charts;
 /// <param name="DeclText">Sexagesimal declination, positive or negative.</param>
 /// <param name="AzimuthText">Sexagesimal azimuth.</param>
 /// <param name="AltitudeText">Sexagesimal altitude, positive or negative.</param> 
-public record PresentableHousePositions(string PointName, string LongText, char SignGlyph, string RightAscText, string DeclText, string AzimuthText, string AltitudeText);
+public record PresentableHousePositions(string PointName, string LongText, char SignGlyph, string RightAscText, 
+    string DeclText, string AzimuthText, string AltitudeText);
