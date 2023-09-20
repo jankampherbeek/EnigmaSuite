@@ -5,8 +5,8 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.Conversions;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Test.Frontend.Helpers;
 

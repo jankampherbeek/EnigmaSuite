@@ -3,14 +3,14 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Serilog;
 
-namespace Enigma.Frontend.Helpers.Support;
+namespace Enigma.Frontend.Ui.Support;
 
 /// <inheritdoc/>
 public class PointsExclusionManager : IPointsExclusionManager

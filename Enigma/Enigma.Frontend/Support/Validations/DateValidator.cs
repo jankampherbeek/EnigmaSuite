@@ -4,12 +4,13 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Collections.Generic;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.Frontend.Helpers.Validations;
+namespace Enigma.Frontend.Ui.Support.Validations;
 
 
 public class DateValidator : IDateValidator

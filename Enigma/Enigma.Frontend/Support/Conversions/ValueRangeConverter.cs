@@ -3,9 +3,10 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.Frontend.Helpers.Conversions;
+namespace Enigma.Frontend.Ui.Support.Conversions;
 
 
 

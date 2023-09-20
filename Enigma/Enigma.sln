@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Test", "Enigma.Test\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Domain", "Enigma.Domain\Enigma.Domain.csproj", "{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Frontend.Helpers", "Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj", "{3E47014A-23B9-42CD-9B75-3DD661C17395}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Api", "Enigma.Api\Enigma.Api.csproj", "{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Enigma.Facades", "Enigma.Core.Facades\Enigma.Facades.csproj", "{01E1C88C-786A-4D19-80DB-128F846C554C}"
@@ -35,10 +33,6 @@ Global
 		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9ABB75A-30D1-474E-9ECD-29F5EE6E2F14}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E47014A-23B9-42CD-9B75-3DD661C17395}.Release|Any CPU.Build.0 = Release|Any CPU
 		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{096413C4-7AFA-4CF2-9A2C-433D8AACEFE3}.Release|Any CPU.ActiveCfg = Release|Any CPU

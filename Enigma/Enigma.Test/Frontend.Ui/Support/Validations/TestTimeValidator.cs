@@ -5,7 +5,7 @@
 
 using Enigma.Domain.Calc.DateTime;
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.Validations;
+using Enigma.Frontend.Ui.Support.Validations;
 
 namespace Enigma.Test.Frontend.Helpers.Validations;
 

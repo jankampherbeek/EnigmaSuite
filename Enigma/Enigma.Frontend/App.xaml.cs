@@ -9,8 +9,6 @@ using Enigma.Api.Services;
 using Enigma.Domain.Charts;
 using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
-using Enigma.Frontend.Helpers.Services;
-using Enigma.Frontend.Helpers.Support;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
@@ -18,8 +16,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Api.Prog;
+using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.Support.Conversions;
+using Enigma.Frontend.Ui.Support.Parsers;
+using Enigma.Frontend.Ui.Support.Validations;
 using Enigma.Frontend.Ui.ViewModels;
 using Enigma.Frontend.Ui.Views;
 
@@ -50,6 +52,7 @@ public partial class App
 
         // Handle services from project Enigma.Frontend.
         //serviceCollection.AddTransient<AppSettingsController>();
+        
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
@@ -73,10 +76,18 @@ public partial class App
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();
+        serviceCollection.AddSingleton<IDateInputParser, DateInputParser>();
         serviceCollection.AddTransient<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
+        serviceCollection.AddSingleton<IDateValidator, DateValidator>();
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
+        serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions>();
         serviceCollection.AddTransient<IEventDataConverter, EventDataConverter>();
+        serviceCollection.AddSingleton<IGeoLatInputParser, GeoLatInputParser>();
+        serviceCollection.AddSingleton<IGeoLatValidator, GeoLatValidator>();
+        serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();
+        serviceCollection.AddSingleton<IGeoLongValidator, GeoLongValidator>();   
+        serviceCollection.AddTransient<GlyphsForChartPoints>();
         serviceCollection.AddTransient<IHarmonicForDataGridFactory, HarmonicForDataGridFactory>();
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
@@ -103,11 +114,16 @@ public partial class App
         serviceCollection.AddTransient<ResearchMidpointDetailsModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();
+        serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();        
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddTransient<StartModel>();
+        serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
+        serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
+        serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();
 
+        
+        
         // Handle services from other projects.
-        serviceCollection.RegisterFrontendHelpersServices();
         serviceCollection.RegisterApiServices();
         
         return serviceCollection.BuildServiceProvider(true);

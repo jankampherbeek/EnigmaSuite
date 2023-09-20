@@ -3,10 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 
-namespace Enigma.Frontend.Helpers.Support;
+namespace Enigma.Frontend.Ui.Support;
 
 /// <summary>Returns default glyph for a given chart point.</summary>
 /// <remarks>A temporary solution, ultimately the glyphs should be retrieved from the current configuration.</remarks>

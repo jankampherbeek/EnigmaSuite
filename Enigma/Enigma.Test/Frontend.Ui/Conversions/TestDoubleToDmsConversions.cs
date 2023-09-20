@@ -4,8 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Frontend.Helpers.Conversions;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Test.Frontend.Ui.Conversions;
 

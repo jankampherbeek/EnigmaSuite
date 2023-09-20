@@ -3,12 +3,13 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.Frontend.Helpers.Validations;
+namespace Enigma.Frontend.Ui.Support.Validations;
 
 
 /// <inheritdoc/>

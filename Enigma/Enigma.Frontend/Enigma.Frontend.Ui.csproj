@@ -587,7 +587,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Enigma.Api\Enigma.Api.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
-    <ProjectReference Include="..\Enigma.Frontend.InputSupport\Enigma.Frontend.Helpers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -8,7 +8,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
 
-namespace Enigma.Frontend.Helpers.InputParsers;
+namespace Enigma.Frontend.Ui.Support.Parsers;
 
 
 /// <inheritdoc/>

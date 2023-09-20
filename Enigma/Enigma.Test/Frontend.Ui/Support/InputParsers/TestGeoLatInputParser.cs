@@ -5,8 +5,8 @@
 
 using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.InputParsers;
 using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Support.Parsers;
 using Moq;
 
 namespace Enigma.Test.Frontend.Helpers.InputParsers;
