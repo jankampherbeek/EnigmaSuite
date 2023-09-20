@@ -4,8 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Helpers.Interfaces;

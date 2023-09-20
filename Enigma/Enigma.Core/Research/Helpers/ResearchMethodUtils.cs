@@ -5,11 +5,9 @@
 
 
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
 using Serilog;
 
 namespace Enigma.Core.Research.Helpers;

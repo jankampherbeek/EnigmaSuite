@@ -5,7 +5,7 @@
 
 using Enigma.Core.Calc.Mundane.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Dtos;
 using Enigma.Facades.Se.Interfaces;
 using Moq;
 

@@ -6,10 +6,10 @@
 using System.Text.Json;
 using Enigma.Core.Interfaces;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
+using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 using Serilog;
 
 namespace Enigma.Core.Research.Helpers;

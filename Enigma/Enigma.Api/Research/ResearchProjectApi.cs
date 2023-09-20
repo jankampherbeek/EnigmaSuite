@@ -6,8 +6,8 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
+using Enigma.Domain.Responses;
 using Serilog;
 
 namespace Enigma.Api.Research;

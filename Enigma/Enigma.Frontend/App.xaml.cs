@@ -6,8 +6,6 @@
 using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Services;
-using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
@@ -16,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Api.Prog;
+using Enigma.Domain.Dtos;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;

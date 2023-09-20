@@ -5,7 +5,7 @@
 
 
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Research.Helpers;
 

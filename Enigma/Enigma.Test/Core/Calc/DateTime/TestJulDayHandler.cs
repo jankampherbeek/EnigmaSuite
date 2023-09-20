@@ -4,10 +4,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.DateTime;
+using Enigma.Core.Handlers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Responses;
 using Moq;
 
 namespace Enigma.Test.Core.Calc.DateTime;

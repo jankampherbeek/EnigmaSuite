@@ -5,10 +5,7 @@
 
 using Enigma.Core.Configuration.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Configuration;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Test.Core.Configuration.Helpers;

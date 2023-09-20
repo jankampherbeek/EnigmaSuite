@@ -6,11 +6,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
-using Enigma.Domain.Progressive;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.State;

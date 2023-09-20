@@ -8,7 +8,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
-using Enigma.Domain.Charts;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Graphics;

@@ -5,10 +5,8 @@
 
 using Enigma.Core.Analysis.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Moq;
 

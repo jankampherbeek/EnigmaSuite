@@ -6,7 +6,8 @@
 using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Requests;
 using Moq;
 
 namespace Enigma.Test.Api.Calc;

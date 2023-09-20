@@ -5,8 +5,8 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
-using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;

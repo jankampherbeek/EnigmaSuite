@@ -1,7 +1,7 @@
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using LiteDB;
 using Serilog;
 

@@ -6,8 +6,7 @@
 
 using Enigma.Core.Analysis.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Test.Core.Analysis.Helpers;

@@ -5,9 +5,7 @@
 
 using Enigma.Core.Calc.Util;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Charts;
-using Enigma.Domain.Points;
-using Enigma.Domain.Progressive;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Calc.Progressive;

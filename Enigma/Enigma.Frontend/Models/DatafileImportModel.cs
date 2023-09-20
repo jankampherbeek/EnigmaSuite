@@ -5,9 +5,9 @@
 
 using System.IO;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Frontend.Ui.Models;
 

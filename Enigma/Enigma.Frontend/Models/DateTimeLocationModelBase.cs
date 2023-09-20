@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
 

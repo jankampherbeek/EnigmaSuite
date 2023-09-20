@@ -7,7 +7,7 @@
 
 using Enigma.Core.Calc.Util;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.Specials;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Calc.CelestialPoints.Helpers;
 

@@ -6,7 +6,6 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Enigma.Domain.Charts;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;

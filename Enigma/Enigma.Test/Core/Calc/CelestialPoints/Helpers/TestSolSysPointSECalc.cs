@@ -6,9 +6,8 @@
 using Enigma.Core.Calc;
 using Enigma.Core.Calc.CelestialPoints.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Facades.Interfaces;
 using Moq;

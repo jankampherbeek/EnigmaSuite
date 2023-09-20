@@ -6,9 +6,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
-using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 

@@ -4,9 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Calc.DateTime;
-using Enigma.Domain.Persistency;
-using Enigma.Domain.Progressive;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support;

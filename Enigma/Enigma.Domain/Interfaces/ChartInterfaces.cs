@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Charts;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Domain.Interfaces;
 

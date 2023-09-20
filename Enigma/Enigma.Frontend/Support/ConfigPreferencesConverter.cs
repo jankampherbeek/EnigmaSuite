@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;

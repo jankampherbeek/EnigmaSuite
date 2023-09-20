@@ -3,11 +3,11 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Charts;
-using Enigma.Domain.Persistency;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;

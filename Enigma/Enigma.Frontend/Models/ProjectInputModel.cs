@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.References;
-using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Research;
+using Enigma.Domain.Responses;
 using Enigma.Frontend.Ui.Interfaces;
 
 

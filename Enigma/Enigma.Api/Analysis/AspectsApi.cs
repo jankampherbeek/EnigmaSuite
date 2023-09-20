@@ -7,7 +7,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Requests;
 using Serilog;
 
 namespace Enigma.Api.Analysis;

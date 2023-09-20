@@ -4,9 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
 
 namespace Enigma.Core.Research.Helpers;
 

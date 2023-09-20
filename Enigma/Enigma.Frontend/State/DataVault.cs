@@ -3,13 +3,13 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Charts;
 using Serilog;
 using System.Collections.Generic;
 using System.Linq;
-using Enigma.Domain.Progressive;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Frontend.Ui.State;
 

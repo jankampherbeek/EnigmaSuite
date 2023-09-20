@@ -4,8 +4,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Persistables;
+using Enigma.Domain.Requests;
 using Enigma.Domain.Research;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Research.Interfaces;
 

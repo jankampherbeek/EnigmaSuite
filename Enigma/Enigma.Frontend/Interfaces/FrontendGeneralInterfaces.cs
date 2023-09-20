@@ -3,15 +3,11 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
-using Enigma.Domain.Persistency;
 using Enigma.Domain.Points;
-using Enigma.Domain.Progressive;
 using System.Collections.Generic;
-using Enigma.Domain.Calc.ChartItems;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Graphics;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 

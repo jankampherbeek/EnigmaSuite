@@ -5,7 +5,7 @@
 
 using System.Text.Json;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Persistables;
 
 namespace Enigma.Core.Research.Helpers;
 

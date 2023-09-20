@@ -4,15 +4,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Points;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using System.Collections.Generic;
 using System.Linq;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Enigma.Domain.Requests;
 
 namespace Enigma.Frontend.Ui.Support;
 

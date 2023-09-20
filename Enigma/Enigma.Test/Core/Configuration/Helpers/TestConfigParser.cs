@@ -5,7 +5,7 @@
 
 using Enigma.Core.Configuration.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Test.Core.Configuration.Helpers;
 

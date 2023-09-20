@@ -8,7 +8,6 @@ using Enigma.Core.Handlers;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;

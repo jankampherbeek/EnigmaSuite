@@ -5,8 +5,7 @@
 
 using Enigma.Core.Calc.Progressive;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Moq;
 

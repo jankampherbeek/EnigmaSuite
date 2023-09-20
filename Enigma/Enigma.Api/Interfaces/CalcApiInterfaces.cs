@@ -5,13 +5,11 @@
 
 
 using Enigma.Core.Calc.Coordinates.Helpers;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.DateTime;
-using Enigma.Domain.Calc.Specials;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
-using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Api.Interfaces;
 

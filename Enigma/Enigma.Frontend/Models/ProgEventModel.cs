@@ -4,10 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.DateTime;
-using Enigma.Domain.Persistency;
-using Enigma.Domain.Progressive;
+using Enigma.Domain.Dtos;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.State;
 

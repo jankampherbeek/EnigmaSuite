@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Analysis;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
+using Enigma.Domain.Requests;
 using Enigma.Domain.Research;
+using Enigma.Domain.Responses;
 using Enigma.Frontend.Ui.State;
 using Serilog;
 

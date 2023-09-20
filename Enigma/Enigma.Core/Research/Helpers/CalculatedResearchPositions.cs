@@ -5,13 +5,10 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.DateTime;
-using Enigma.Domain.Configuration;
-using Enigma.Domain.Persistency;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
+using Enigma.Domain.Requests;
 using Serilog;
 
 namespace Enigma.Core.Research.Helpers;

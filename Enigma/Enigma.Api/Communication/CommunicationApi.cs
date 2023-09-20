@@ -5,7 +5,7 @@
 
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Communication;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Api.Communication;
 

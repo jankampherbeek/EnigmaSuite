@@ -6,9 +6,8 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
-using Enigma.Domain.Progressive;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;

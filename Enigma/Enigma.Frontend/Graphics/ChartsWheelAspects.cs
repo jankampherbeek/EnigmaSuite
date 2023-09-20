@@ -8,12 +8,11 @@ using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Charts;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Graphics;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 

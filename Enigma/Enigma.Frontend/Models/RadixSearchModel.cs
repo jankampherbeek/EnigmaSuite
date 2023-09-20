@@ -5,8 +5,8 @@
 
 using System.Collections.Generic;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Charts;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 

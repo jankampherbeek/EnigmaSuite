@@ -5,11 +5,9 @@
 
 
 using Enigma.Core.Calc.Util;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Calc.Specials;
-using Enigma.Domain.Points;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Requests;
 
 namespace Enigma.Core.Interfaces;
 

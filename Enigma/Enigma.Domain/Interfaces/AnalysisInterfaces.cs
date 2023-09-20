@@ -4,8 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
 

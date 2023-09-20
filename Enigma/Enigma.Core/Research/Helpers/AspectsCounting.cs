@@ -5,13 +5,11 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Interfaces;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
+using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Research.Helpers;
 

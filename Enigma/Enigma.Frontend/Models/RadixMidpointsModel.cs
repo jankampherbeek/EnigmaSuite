@@ -6,8 +6,7 @@
 using System;
 using System.Collections.Generic;
 using Enigma.Api.Interfaces;
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Charts;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;

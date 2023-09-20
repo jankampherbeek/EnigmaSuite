@@ -6,7 +6,7 @@
 using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Persistables;
 using Serilog;
 
 namespace Enigma.Api.Persistency;

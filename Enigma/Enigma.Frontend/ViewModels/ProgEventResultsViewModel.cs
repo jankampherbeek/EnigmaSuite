@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Enigma.Domain.Presentables;
-using Enigma.Domain.Progressive;
 using Enigma.Frontend.Ui.Models;
 using Microsoft.Extensions.DependencyInjection;
 

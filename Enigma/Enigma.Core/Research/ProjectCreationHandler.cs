@@ -5,9 +5,9 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Configuration;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.Research;
 using Serilog;
 

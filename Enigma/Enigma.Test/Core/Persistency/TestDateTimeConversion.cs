@@ -5,8 +5,8 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency.Helpers;
-using Enigma.Domain.Calc.DateTime;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
 using Moq;
 

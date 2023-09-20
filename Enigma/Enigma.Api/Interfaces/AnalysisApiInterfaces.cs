@@ -4,10 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Domain.Analysis;
-using Enigma.Domain.Charts;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 

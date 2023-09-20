@@ -5,7 +5,7 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
-using Enigma.Domain.RequestResponse;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Persistency.Helpers;
 

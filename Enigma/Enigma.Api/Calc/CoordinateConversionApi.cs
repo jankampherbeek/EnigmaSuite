@@ -7,7 +7,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Calc.Coordinates.Helpers;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Dtos;
 using Serilog;
 
 namespace Enigma.Api.Calc;

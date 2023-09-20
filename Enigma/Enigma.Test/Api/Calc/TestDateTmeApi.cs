@@ -6,10 +6,10 @@
 using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Calc.DateTime;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Domain.RequestResponse;
 using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 using Moq;
 
 namespace Enigma.Test.Api.Calc;

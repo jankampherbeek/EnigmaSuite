@@ -4,7 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc.Coordinates.Helpers;
-using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.Requests;
 
 namespace Enigma.Core.Interfaces;
 

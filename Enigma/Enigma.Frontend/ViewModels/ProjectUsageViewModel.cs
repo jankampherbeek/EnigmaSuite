@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Models;

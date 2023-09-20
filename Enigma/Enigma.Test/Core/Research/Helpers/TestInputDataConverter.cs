@@ -6,7 +6,7 @@
 
 using Enigma.Core.Research.Helpers;
 using Enigma.Core.Research.Interfaces;
-using Enigma.Domain.Persistency;
+using Enigma.Domain.Persistables;
 
 namespace Enigma.Test.Core.Research.Helpers;
 

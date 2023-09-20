@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Calc.ChartItems;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.References;
 using Serilog;
@@ -11,6 +11,7 @@ using Serilog;
 namespace Enigma.Domain.Points;
 
 /// <inheritdoc/>
+///  TODO remove to specific Mapping namespace, probably in Frontend.Ui
 public sealed class PointsMapping : IPointsMapping
 {
     /// <inheritdoc/>
