@@ -6,26 +6,11 @@
 using Enigma.Core.Analysis;
 using Enigma.Core.Analysis.Helpers;
 using Enigma.Core.Calc;
-using Enigma.Core.Calc.CelestialPoints;
-using Enigma.Core.Calc.CelestialPoints.Helpers;
-using Enigma.Core.Calc.Coordinates;
-using Enigma.Core.Calc.Coordinates.Helpers;
-using Enigma.Core.Calc.DateTime;
-using Enigma.Core.Calc.DateTime.Helpers;
-using Enigma.Core.Calc.Mundane;
-using Enigma.Core.Calc.Mundane.Helpers;
-using Enigma.Core.Calc.Progressive;
-using Enigma.Core.Calc.Specials;
-using Enigma.Core.Calc.Specials.Helpers;
 using Enigma.Core.Communication;
-using Enigma.Core.Communication.Helpers;
 using Enigma.Core.Configuration;
-using Enigma.Core.Configuration.Helpers;
 using Enigma.Core.Handlers;
 using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency;
-using Enigma.Core.Persistency.Daos;
-using Enigma.Core.Persistency.Helpers;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
 

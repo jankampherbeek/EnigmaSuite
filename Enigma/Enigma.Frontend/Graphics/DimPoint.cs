@@ -5,7 +5,7 @@
 
 using System;
 using System.Windows;
-using Enigma.Core.Calc.Util;
+using Enigma.Core.Calc;
 
 namespace Enigma.Frontend.Ui.Graphics;
 

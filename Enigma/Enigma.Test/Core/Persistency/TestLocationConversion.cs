@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Interfaces;
-using Enigma.Core.Persistency.Helpers;
+using Enigma.Core.Persistency;
 
 namespace Enigma.Test.Core.Persistency;
 

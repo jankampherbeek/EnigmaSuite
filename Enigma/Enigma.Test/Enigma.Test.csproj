@@ -11,11 +11,11 @@
   <ItemGroup>
     <Compile Remove="Core\Analysis\**" />
     <Compile Remove="Core\Handlers\Analysis\Midpoints\**" />
-    <Compile Include="Core\Analysis\Helpers\TestAspectOrbConstructor.cs" />
-    <Compile Include="Core\Analysis\Helpers\TestBaseMidpointsCreator.cs" />
-    <Compile Include="Core\Analysis\Helpers\TestHarmonicCalculator.cs" />
+    <Compile Include="Core\Analysis\TestAspectOrbConstructor.cs" />
+    <Compile Include="Core\Analysis\TestBaseMidpointsCreator.cs" />
     <Compile Include="Core\Analysis\TestCalculatedDistance.cs" />
     <Compile Include="Core\Analysis\TestCheckedProgAspects.cs" />
+    <Compile Include="Core\Analysis\TestHarmonicCalculator.cs" />
     <EmbeddedResource Remove="Core\Analysis\**" />
     <EmbeddedResource Remove="Core\Handlers\Analysis\Midpoints\**" />
     <None Remove="Core\Analysis\**" />
