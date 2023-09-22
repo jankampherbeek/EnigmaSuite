@@ -11,7 +11,7 @@ using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Api.Calc;
+namespace Enigma.Api;
 
 
 /// <inheritdoc/>

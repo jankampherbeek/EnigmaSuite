@@ -8,7 +8,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 
-namespace Enigma.Api.Analysis;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public class ProgAspectsApi: IProgAspectsApi

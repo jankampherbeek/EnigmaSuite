@@ -9,7 +9,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Persistables;
 using Serilog;
 
-namespace Enigma.Api.Persistency;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class EventDataPersistencyApi : IEventDataPersistencyApi

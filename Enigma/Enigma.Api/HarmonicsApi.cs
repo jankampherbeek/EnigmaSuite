@@ -9,7 +9,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 using Serilog;
 
-namespace Enigma.Api.Analysis;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class HarmonicsApi : IHarmonicsApi

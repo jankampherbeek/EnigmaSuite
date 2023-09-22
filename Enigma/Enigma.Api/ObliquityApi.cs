@@ -9,7 +9,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Requests;
 using Serilog;
 
-namespace Enigma.Api.Calc;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class ObliquityApi : IObliquityApi

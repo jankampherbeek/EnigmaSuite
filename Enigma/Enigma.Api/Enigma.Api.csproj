@@ -14,7 +14,10 @@
   <ItemGroup>
     <ProjectReference Include="..\Enigma.Core\Enigma.Core.csproj" />
     <ProjectReference Include="..\Enigma.Domain\Enigma.Domain.csproj" />
+
   </ItemGroup>
+
+
 
 
 </Project>

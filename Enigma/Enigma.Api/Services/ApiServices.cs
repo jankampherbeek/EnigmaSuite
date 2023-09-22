@@ -3,14 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Analysis;
-using Enigma.Api.Calc;
-using Enigma.Api.Communication;
-using Enigma.Api.Configuration;
 using Enigma.Api.Interfaces;
-using Enigma.Api.Persistency;
-using Enigma.Api.Prog;
-using Enigma.Api.Research;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;

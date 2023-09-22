@@ -7,7 +7,7 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Research.Interfaces;
 
-namespace Enigma.Api.Research;
+namespace Enigma.Api;
 
 public sealed class ResearchPathApi : IResearchPathApi
 {

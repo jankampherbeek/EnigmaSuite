@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Calc;
+using Enigma.Api;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Calc;
 using Enigma.Core.Interfaces;

@@ -10,7 +10,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
 using Serilog;
 
-namespace Enigma.Api.Analysis;
+namespace Enigma.Api;
 
 
 /// <inheritdoc/>

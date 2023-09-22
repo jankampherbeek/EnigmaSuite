@@ -7,7 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 using Serilog;
 
-namespace Enigma.Api.Calc;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class SeApi : ISeApi

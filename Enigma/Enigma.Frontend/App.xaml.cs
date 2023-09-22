@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Calc;
 using Enigma.Api.Interfaces;
 using Enigma.Api.Services;
 using Enigma.Domain.Interfaces;
@@ -13,7 +12,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
-using Enigma.Api.Prog;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Graphics;

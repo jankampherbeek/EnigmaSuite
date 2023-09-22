@@ -10,7 +10,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Api.Calc;
+namespace Enigma.Api;
 
 
 /// <inheritdoc/>

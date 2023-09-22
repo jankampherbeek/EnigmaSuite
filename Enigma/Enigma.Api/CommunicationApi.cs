@@ -7,7 +7,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
-namespace Enigma.Api.Communication;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public class CommunicationApi : ICommunicationApi

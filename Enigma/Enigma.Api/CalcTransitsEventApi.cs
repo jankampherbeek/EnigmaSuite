@@ -7,11 +7,10 @@
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 
-namespace Enigma.Api.Prog;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public class CalcTransitsEventApi: ICalcTransitsEventApi

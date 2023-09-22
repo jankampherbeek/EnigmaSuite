@@ -7,12 +7,11 @@ using Ardalis.GuardClauses;
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Serilog;
 
-namespace Enigma.Api.Calc;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class ChartAllPositionsApi : IChartAllPositionsApi

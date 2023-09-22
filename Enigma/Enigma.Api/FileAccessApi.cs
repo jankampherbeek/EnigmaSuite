@@ -6,7 +6,7 @@
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 
-namespace Enigma.Api.Persistency;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class FileAccessApi : IFileAccessApi

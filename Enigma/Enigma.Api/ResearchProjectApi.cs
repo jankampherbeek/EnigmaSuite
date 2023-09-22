@@ -10,7 +10,7 @@ using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Api.Research;
+namespace Enigma.Api;
 
 /// <inheritdoc/>
 public sealed class ProjectCreationApi : IProjectCreationApi
