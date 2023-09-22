@@ -10,7 +10,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Moq;
 
-namespace Enigma.Test.Api.Calc;
+namespace Enigma.Test.Api;
 
 [TestFixture]
 public class TestCheckDateTimeApi

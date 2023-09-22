@@ -11,7 +11,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Moq;
 
-namespace Enigma.Test.Api.Calc;
+namespace Enigma.Test.Api;
 
 
 [TestFixture]

@@ -9,7 +9,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Requests;
 using Moq;
 
-namespace Enigma.Test.Api.Calc;
+namespace Enigma.Test.Api;
 
 
 [TestFixture]
