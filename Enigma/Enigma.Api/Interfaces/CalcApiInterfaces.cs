@@ -66,7 +66,7 @@ public interface IHousesApi
     public Dictionary<ChartPoints, FullPointPos> GetHouses(FullHousesPosRequest request);
 }
 
-/// <summary>API for calculation of pblique longitude (True place for the WvA)</summary>
+/// <summary>API for calculation of oblique longitude (True place for the WvA)</summary>
 public interface IObliqueLongitudeApi
 {
     /// <summary>Calculate oblique longitude.</summary>

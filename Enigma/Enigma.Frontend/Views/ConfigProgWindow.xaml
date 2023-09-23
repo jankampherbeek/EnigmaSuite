@@ -28,7 +28,7 @@
                    Text="Configuration progressive" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TabControl Grid.Row="1">
-            <TabItem Header="Progressive">
+            <TabItem Header="Transits">
                 <Grid Margin="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -36,9 +36,85 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="6" Text="Transits" 
+                               Name="SubHeaderTransit" 
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />   
+                    <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Orb"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Background="{Binding OrbTransitValid}"
+                             Text="{Binding OrbTransitText, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Margin="6" Text="Transiting points" 
+                               Name="TransitingPoints" FontWeight="Bold" />
+                    <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
+                              materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="None"
+                              ItemsSource="{Binding AllTransitingPoints, Mode=TwoWay}"
+                              SelectionUnit="Cell">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding SelectedTransPoints}"/>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
+                                                CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                                                CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>   
+                    </DataGrid>                    
                 </Grid>
             </TabItem>
-            <TabItem Header="Primary dir">
+            <TabItem Header="Sec dir">
+                <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Secundary directions" 
+                               Name="SubHeaderSecDir" 
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
+                    <TextBox Grid.Row="1" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Orb"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Background="{Binding OrbSecDirValid}"
+                             Text="{Binding OrbSecDirText, Mode=TwoWay}" />
+                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Time key"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllSecDirKeys}" 
+                              SelectedIndex="{Binding SecDirKeyIndex, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Secundary points" 
+                               Name="SecundaryPoints" FontWeight="Bold" />
+                    <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
+                              materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="None"
+                              ItemsSource="{Binding AllSecundaryPoints, Mode=TwoWay}"
+                              SelectionUnit="Cell">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding SelectedSecundaryPoints}"/>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
+                                                CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                                                CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>   
+                    </DataGrid>                      
+                </Grid>
+            </TabItem>
+            <TabItem Header="Prim dir">
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*"/>
@@ -118,7 +194,77 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-
+            <TabItem Header="Symb dir">
+               <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Symbolic directions" 
+                               Name="SubHeaderSymbDir" 
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
+                    <TextBox Grid.Row="1" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Orb"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             Background="{Binding OrbSymbolicValid}"
+                             Text="{Binding OrbSymbolicText, Mode=TwoWay}" />
+                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Time key"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllSymbolicKeys}" 
+                              SelectedIndex="{Binding SymbolicKeyIndex, Mode=TwoWay}" />
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Symbolic points" 
+                               Name="SymbDirPoints" FontWeight="Bold" />
+                    <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
+                              materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="None"
+                              ItemsSource="{Binding AllSymbplicPoints, Mode=TwoWay}"
+                              SelectionUnit="Cell">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding SelectedSymbolic}"/>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
+                                                CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                                                CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>   
+                    </DataGrid>                      
+                </Grid>                    
+            </TabItem>
+            <TabItem Header="Solar">
+                <Grid Margin="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Margin="6" Text="Solar return" 
+                               Name="SubHeaderSolar" 
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />   
+                    <ComboBox Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Method"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllSolarMethods}" 
+                              SelectedIndex="{Binding SolarMethodIndex, Mode=TwoWay}" />
+                    <CheckBox Grid.Row="2" VerticalAlignment="Center" IsTabStop="False" 
+                              Content="Apply relocation" 
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              IsChecked="{Binding ApplyRelocation}" />                    
+                </Grid>
+            </TabItem>
  
             
             
