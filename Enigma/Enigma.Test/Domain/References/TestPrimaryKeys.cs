@@ -7,7 +7,7 @@ using Enigma.Domain.References;
 
 namespace Enigma.Test.Domain.References;
 
-[ TestFixture]
+[TestFixture]
 public class TestPrimaryKeySpecifications
 {
 
@@ -20,7 +20,7 @@ public class TestPrimaryKeySpecifications
         Assert.Multiple(() =>
         {
             Assert.That(details.PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodRa));
-            Assert.That(details.TextId, Is.EqualTo("Naibod (RA)"));
+            Assert.That(details.Text, Is.EqualTo("Naibod (RA)"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestPrimaryKeySpecifications
         {
             PrimaryKeyDetails details = keys.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextId, Is.Not.Empty);
+            Assert.That(details.Text, Is.Not.Empty);
         }
     }
 
@@ -58,7 +58,7 @@ public class TestPrimaryKeySpecifications
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(8));
-            Assert.That(allDetails[2].TextId, Is.EqualTo("Brahe (RA)"));
+            Assert.That(allDetails[2].Text, Is.EqualTo("Brahe (RA)"));
             Assert.That(allDetails[5].PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodLongitude));
         });
     }

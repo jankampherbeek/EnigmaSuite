@@ -47,6 +47,7 @@ public sealed class AstroConfig
 public record ChartPointConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb);
 
 
+
 /// <summary>Details for an aspect to be used in a configuration.</summary>
 /// <param name="IsUsed">True if selected, otherwise false.</param>
 /// <param name="Glyph">Character for the glyph, space if no glyph is available.</param>

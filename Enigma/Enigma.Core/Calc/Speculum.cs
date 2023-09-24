@@ -12,7 +12,7 @@ namespace Enigma.Core.Calc;
 
 public sealed class Speculum: ISpeculum
 {
-    public PrimaryMethods PrimaryMethod { get; }
+    public PrimaryDirMethods PrimaryDirMethod { get; }
 
     public double GeoLat { get; }
 
@@ -26,9 +26,9 @@ public sealed class Speculum: ISpeculum
 
     public List<ISpeculumItem> SpeculumItems { get; }
 
-    public Speculum(PrimaryMethods primMethod, CalculatedChart calcChart, List<ChartPoints> promissors, List<ChartPoints> significators)
+    public Speculum(PrimaryDirMethods primDirMethod, CalculatedChart calcChart, List<ChartPoints> promissors, List<ChartPoints> significators)
     {
-        PrimaryMethod = primMethod;
+        PrimaryDirMethod = primDirMethod;
         GeoLat = calcChart.InputtedChartData.Location.GeoLat;
 
         foreach (KeyValuePair<ChartPoints, FullPointPos> position 

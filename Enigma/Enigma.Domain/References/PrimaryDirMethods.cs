@@ -7,47 +7,47 @@ using Serilog;
 
 namespace Enigma.Domain.References;
 
-public enum PrimaryMethods
+public enum PrimaryDirMethods
 {
     PlacidusMundane = 0, PlacidusEcliptical = 1, RegiomontanusMundane = 2, RegiomontanusEcliptical = 3 
 }
 
-public enum PrimaryCoordinateSystem
+public enum PrimaryDirCoordinateSystem
 {
     Mundane = 0, Ecliptical = 1
 }
 
 
-public record PrimaryMethodDetails(PrimaryMethods Method, PrimaryCoordinateSystem CoordSystem, string MethodName);
+public record PrimaryDirMethodDetails(PrimaryDirMethods DirMethod, PrimaryDirCoordinateSystem CoordSystem, string MethodName);
 
 
 /// <summary>Extension class for PrimaryMethods.</summary>
-public static class PrimaryMethodsExtensions
+public static class PrimaryDirMethodsExtensions
 {
     /// <summary>Retrieve details for a primary method.</summary>
-    /// <param name="method">The primary method.</param>
+    /// <param name="dirMethod">The primary method.</param>
     /// <returns>Details for the primary method.</returns>
-    public static PrimaryMethodDetails GetDetails(this PrimaryMethods method)
+    public static PrimaryDirMethodDetails GetDetails(this PrimaryDirMethods dirMethod)
     {
-        return method switch
+        return dirMethod switch
         {
-            PrimaryMethods.PlacidusMundane => new PrimaryMethodDetails(method, PrimaryCoordinateSystem.Mundane,
+            PrimaryDirMethods.PlacidusMundane => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Mundane,
                 "Placidus - mundane"),
-            PrimaryMethods.PlacidusEcliptical => new PrimaryMethodDetails(method, PrimaryCoordinateSystem.Ecliptical,
+            PrimaryDirMethods.PlacidusEcliptical => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Ecliptical,
                 "Placidus - ecliptical"),
-            PrimaryMethods.RegiomontanusMundane => new PrimaryMethodDetails(method, PrimaryCoordinateSystem.Mundane,
+            PrimaryDirMethods.RegiomontanusMundane => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Mundane,
                 "Regiomontanus - mundane"),
-            PrimaryMethods.RegiomontanusEcliptical => new PrimaryMethodDetails(method,
-                PrimaryCoordinateSystem.Ecliptical, "Regiomontanus - ecliptical"),
-            _ => throw new ArgumentException("Primary method unknown : " + method)
+            PrimaryDirMethods.RegiomontanusEcliptical => new PrimaryDirMethodDetails(dirMethod,
+                PrimaryDirCoordinateSystem.Ecliptical, "Regiomontanus - ecliptical"),
+            _ => throw new ArgumentException("Primary method unknown : " + dirMethod)
         };
     }
 
     /// <summary>Retrieve details for items in the enum PrimaryMethods.</summary>
     /// <returns>All details.</returns>
-    public static List<PrimaryMethodDetails> AllDetails()
+    public static List<PrimaryDirMethodDetails> AllDetails()
     {
-        return (from PrimaryMethods currentMethod in Enum.GetValues(typeof(PrimaryMethods))
+        return (from PrimaryDirMethods currentMethod in Enum.GetValues(typeof(PrimaryDirMethods))
             select currentMethod.GetDetails()).ToList();
     }
 
@@ -55,9 +55,9 @@ public static class PrimaryMethodsExtensions
     /// <param name="index">Index to look for.</param>
     /// <returns>The method for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static PrimaryMethods MethodForIndex(int index)
+    public static PrimaryDirMethods MethodForIndex(int index)
     {
-        foreach (PrimaryMethods currentMethod in Enum.GetValues(typeof(PrimaryMethods)))
+        foreach (PrimaryDirMethods currentMethod in Enum.GetValues(typeof(PrimaryDirMethods)))
         {
             if ((int)currentMethod == index) return currentMethod;
         }

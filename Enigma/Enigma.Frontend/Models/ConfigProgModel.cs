@@ -20,12 +20,12 @@ public class ConfigProgModel
     
     public static List<string> AllPrimDirMethods()
     {
-        return PrimaryMethodsExtensions.AllDetails().Select(method => method.MethodName).ToList();
+        return PrimaryDirMethodsExtensions.AllDetails().Select(method => method.MethodName).ToList();
     }
     
     public static List<string> AllPrimDirKeys()
     {
-        return PrimaryKeyExtensions.AllDetails().Select(key => key.TextId).ToList();
+        return PrimaryKeyExtensions.AllDetails().Select(key => key.Text).ToList();
     }
 
     public static List<SelectableChartPointDetails> AllSignificators()

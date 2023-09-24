@@ -22,8 +22,8 @@ public enum PrimaryKeys
 
 /// <summary>Details for a primary time key.</summary>
 /// <param name="PrimaryKey">Time key.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record PrimaryKeyDetails(PrimaryKeys PrimaryKey, string TextId);
+/// <param name="Text">Descriptive text.</param>
+public record PrimaryKeyDetails(PrimaryKeys PrimaryKey, string Text);
 
 
 /// <summary>Extension class for enum PrimaryKeys.</summary>

@@ -9,7 +9,7 @@ using Enigma.Domain.References;
 namespace Enigma.Domain.Requests;
 
 /// <summary>Request for the calculation of primary directions.</summary>
-/// <param name="PdMethod">Method for primary directions.</param>
+/// <param name="PdDirMethod">Method for primary directions.</param>
 /// <param name="PdKeys">Time key.</param>
 /// <param name="Chart">Calculated chart.</param>
 /// <param name="Promissors">List of promissors, Enigma uses only promissors that are available in the Chart.</param>
@@ -19,7 +19,7 @@ namespace Enigma.Domain.Requests;
 /// <param name="FirstDateTime">Start date for the calculations or time of event if LastDateTime is null.</param>
 /// <param name="LastDateTime">End date for the calculations, null if the calculations are for an event.</param>
 public record PrimaryDirRequest(
-    PrimaryMethods PdMethod,
+    PrimaryDirMethods PdDirMethod,
     PrimaryKeys PdKeys,
     CalculatedChart Chart,
     List<ChartPoints> Promissors,

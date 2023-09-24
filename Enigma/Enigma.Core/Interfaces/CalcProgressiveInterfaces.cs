@@ -97,7 +97,7 @@ public interface ITimeKeyCalculator
 public interface ISpeculum
 {
     /// <summary>System for the calculation of primary directions.</summary>
-    public PrimaryMethods PrimaryMethod { get; }
+    public PrimaryDirMethods PrimaryDirMethod { get; }
     /// <summary>Geographic latitude.</summary>
     public double GeoLat { get; }
     /// <summary>Right ascension of the MC.</summary>

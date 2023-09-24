@@ -15,12 +15,12 @@ public class TestPrimarySystemSpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        const PrimaryMethods prMethod = PrimaryMethods.PlacidusEcliptical;
-        PrimaryMethodDetails details = prMethod.GetDetails();
+        const PrimaryDirMethods prMethod = PrimaryDirMethods.PlacidusEcliptical;
+        PrimaryDirMethodDetails details = prMethod.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
         {
-            Assert.That(details.Method, Is.EqualTo(PrimaryMethods.PlacidusEcliptical));
+            Assert.That(details.DirMethod, Is.EqualTo(PrimaryDirMethods.PlacidusEcliptical));
             Assert.That(details.MethodName, Is.EqualTo("Placidus - ecliptical"));
         });
     }
@@ -28,9 +28,9 @@ public class TestPrimarySystemSpecifications
     [Test]
     public void TestAvailabilityOfDetailsForAllEnums()
     {
-        foreach (PrimaryMethods prMethod in Enum.GetValues(typeof(PrimaryMethods)))
+        foreach (PrimaryDirMethods prMethod in Enum.GetValues(typeof(PrimaryDirMethods)))
         {
-            PrimaryMethodDetails details = prMethod.GetDetails();
+            PrimaryDirMethodDetails details = prMethod.GetDetails();
             Assert.That(details, Is.Not.Null);
             Assert.That(details.MethodName, Is.Not.Empty);
         }
@@ -40,26 +40,26 @@ public class TestPrimarySystemSpecifications
     public void TestRetrievingWithIndex()
     {
         const int index = 1;
-        PrimaryMethods prMethod = PrimaryMethodsExtensions.MethodForIndex(index);
-        Assert.That(prMethod, Is.EqualTo(PrimaryMethods.PlacidusEcliptical));
+        PrimaryDirMethods prDirMethod = PrimaryDirMethodsExtensions.MethodForIndex(index);
+        Assert.That(prDirMethod, Is.EqualTo(PrimaryDirMethods.PlacidusEcliptical));
     }
 
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = PrimaryMethodsExtensions.MethodForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = PrimaryDirMethodsExtensions.MethodForIndex(index), Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllPrimarySystemDetails()
     {
-        List<PrimaryMethodDetails> allDetails = PrimaryMethodsExtensions.AllDetails();
+        List<PrimaryDirMethodDetails> allDetails = PrimaryDirMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(4));
             Assert.That(allDetails[1].MethodName, Is.EqualTo("Placidus - ecliptical"));
-            Assert.That(allDetails[2].Method, Is.EqualTo(PrimaryMethods.RegiomontanusMundane));
+            Assert.That(allDetails[2].DirMethod, Is.EqualTo(PrimaryDirMethods.RegiomontanusMundane));
         });
     }
 
