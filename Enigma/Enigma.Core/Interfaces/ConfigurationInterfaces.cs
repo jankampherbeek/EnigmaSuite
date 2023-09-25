@@ -35,12 +35,20 @@ public interface IConfigurationHandler
 }
 
 
-/// <summary>Create default configuration.</summary>
+/// <summary>Create default configuration for radix.</summary>
 public interface IDefaultConfiguration
 {
-    /// <returns>Default configuration.</returns>
+    /// <returns>Default configuration for radix.</returns>
     public AstroConfig CreateDefaultConfig();
 }
+
+/// <summary>Create default configuration for progressions.</summary>
+public interface IDefaultProgConfiguration
+{
+    /// <returns>Default configuration for progressions.</returns>
+    public ConfigProg CreateDefaultConfig();
+}
+
 
 /// <summary>Parser for a configuration.</summary>
 public interface IAstroConfigParser
