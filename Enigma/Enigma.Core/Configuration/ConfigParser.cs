@@ -11,20 +11,33 @@ namespace Enigma.Core.Configuration;
 
 
 /// <inheritdoc/>
-public sealed class AstroConfigParser : IAstroConfigParser
+public sealed class ConfigParser : IConfigParser
 {
     /// <inheritdoc/>
-    public string Marshall(AstroConfig astroConfig)
+    public string MarshallConfig(AstroConfig astroConfig)
     {
         var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
         return JsonSerializer.Serialize(astroConfig, options);
     }
 
     /// <inheritdoc/>
-    public AstroConfig UnMarshall(string jsonString)
+    public string MarshallConfig(ConfigProg configProg)
+    {
+        var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
+        return JsonSerializer.Serialize(configProg, options);
+    }
+
+    /// <inheritdoc/>
+    public AstroConfig UnMarshallAstroConfig(string jsonString)
     {
         var options = new JsonSerializerOptions { IncludeFields = true };
         return JsonSerializer.Deserialize<AstroConfig>(jsonString, options)!;
     }
 
+    /// <inheritdoc/>
+    public ConfigProg UnMarshallConfigProg(string jsonString)
+    {
+        var options = new JsonSerializerOptions { IncludeFields = true };
+        return JsonSerializer.Deserialize<ConfigProg>(jsonString, options)!;
+    }
 }

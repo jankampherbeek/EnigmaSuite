@@ -31,8 +31,6 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private int _observerPositionIndex;
     [ObservableProperty] private int _projectionTypeIndex;
     [ObservableProperty] private int _orbMethodIndex;
-    [ObservableProperty] private int _primDirMethodIndex;
-    [ObservableProperty] private int _primDirKeyIndex;
     [NotifyPropertyChangedFor(nameof(BaseOrbAspectsValid))]
     [ObservableProperty] private string _baseOrbAspectsText;
     [NotifyPropertyChangedFor(nameof(BaseOrbMidpointsValid))]
@@ -88,12 +86,14 @@ public partial class ConfigurationViewModel: ObservableObject
     }
     
     private bool CheckBaseOrbAspects() {
-        return double.TryParse(BaseOrbAspectsText.Replace(',', '.'), out _baseOrbAspectsValue);
+        return double.TryParse(BaseOrbAspectsText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _baseOrbAspectsValue);
     }
     
     private bool CheckBaseOrbMidpoints()
     {
-        return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), out _baseOrbMidpointsValue);
+        return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
     }
 
      private Dictionary<AspectTypes, AspectConfigSpecs> DefineAspectSpecs()

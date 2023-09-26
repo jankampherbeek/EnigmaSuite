@@ -30,16 +30,25 @@ public class StartModel
 
     public static void HandleCheckForConfig()
     {
-        bool result = true;
+        bool resultConfig = true;
+        bool resultConfigProg = true;
         if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
         {
             IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
             AstroConfig config = configApi.GetDefaultConfiguration();
-            result = configApi.WriteConfig(config);
+            resultConfig = configApi.WriteConfig(config);
+        }
+        if (!File.Exists(EnigmaConstants.CONFIG_PROG_LOCATION))
+        {
+            IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
+            ConfigProg config = configApi.GetDefaultProgConfiguration();
+            resultConfigProg = configApi.WriteConfig(config);
         }
 
-        if (result) return;
-        const string errorText = "Could not start Enigma Astrology Research. There is a problem with the configuration file. Please check if you have write access to the disk";
+        if (resultConfig && resultConfigProg) return;
+        const string errorText = "Could not start Enigma Astrology Research. " +
+                                 "There is a problem with one opr more of the configuration files. " +
+                                 "Please check if you have write access to the disk";
         Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): {EText}", errorText);
         throw new EnigmaException(errorText);
     }

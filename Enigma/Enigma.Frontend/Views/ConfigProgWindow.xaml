@@ -52,14 +52,14 @@
                               CanUserAddRows="False" CanUserSortColumns="False"
                               AutoGenerateColumns="False"
                               HeadersVisibility="None"
-                              ItemsSource="{Binding AllTransitingPoints, Mode=TwoWay}"
+                              ItemsSource="{Binding AllTransitPoints, Mode=TwoWay}"
                               SelectionUnit="Cell">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding SelectedTransPoints}"/>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed }"/>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
                                                 CellStyle="{StaticResource GlyphColumnStyle}"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
                                                 CellStyle="{StaticResource NameColumnStyle}"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>   
@@ -68,46 +68,36 @@
             </TabItem>
             <TabItem Header="Sec dir">
                 <Grid Margin="6">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Secundary directions" 
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" Text="Secundary directions" 
                                Name="SubHeaderSecDir" 
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
-                    <TextBox Grid.Row="1" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                    <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
                              materialDesign:HintAssist.Hint="Orb"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Background="{Binding OrbSecDirValid}"
                              Text="{Binding OrbSecDirText, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="1" Grid.Column="1" Margin="6 0 " VerticalAlignment="Center"   
-                              IsEditable="True" IsReadOnly="True"
-                              materialDesign:HintAssist.Hint="Time key"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                              ItemsSource="{Binding AllSecDirKeys}" 
-                              SelectedIndex="{Binding SecDirKeyIndex, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Secundary points" 
+                    <TextBlock Grid.Row="2" Margin="6" Text="Secundary points" 
                                Name="SecundaryPoints" FontWeight="Bold" />
-                    <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
+                    <DataGrid Grid.Row="3" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
                               CanUserAddRows="False" CanUserSortColumns="False"
                               AutoGenerateColumns="False"
                               HeadersVisibility="None"
-                              ItemsSource="{Binding AllSecundaryPoints, Mode=TwoWay}"
+                              ItemsSource="{Binding AllSecDirPoints, Mode=TwoWay}"
                               SelectionUnit="Cell">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding SelectedSecundaryPoints}"/>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
                                                 CellStyle="{StaticResource GlyphColumnStyle}"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
                                                 CellStyle="{StaticResource NameColumnStyle}"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>   
@@ -165,11 +155,11 @@
                               ItemsSource="{Binding AllSignificators, Mode=TwoWay}"
                               SelectionUnit="Cell">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding SelectedSignificators}"/>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
                                                 CellStyle="{StaticResource GlyphColumnStyle}"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
                                                 CellStyle="{StaticResource NameColumnStyle}"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>   
@@ -180,14 +170,14 @@
                               CanUserAddRows="False" CanUserSortColumns="False"
                               AutoGenerateColumns="False"
                               HeadersVisibility="None"
-                              ItemsSource="{Binding PromissorDetails, Mode=TwoWay}"
+                              ItemsSource="{Binding AllPromissors, Mode=TwoWay}"
                               SelectionUnit="Cell">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding SelectedPromissors}"/>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
                                                 CellStyle="{StaticResource GlyphColumnStyle}"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
                                                 CellStyle="{StaticResource NameColumnStyle}"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>   
@@ -212,14 +202,14 @@
                     <TextBox Grid.Row="1" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                              materialDesign:HintAssist.Hint="Orb"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Background="{Binding OrbSymbolicValid}"
-                             Text="{Binding OrbSymbolicText, Mode=TwoWay}" />
+                             Background="{Binding OrbSymDirValid}"
+                             Text="{Binding OrbSymDirText, Mode=TwoWay}" />
                     <ComboBox Grid.Row="1" Grid.Column="1" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Time key"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                              ItemsSource="{Binding AllSymbolicKeys}" 
-                              SelectedIndex="{Binding SymbolicKeyIndex, Mode=TwoWay}" />
+                              ItemsSource="{Binding AllSymDirKeys}" 
+                              SelectedIndex="{Binding SymDirKeyIndex, Mode=TwoWay}" />
                     <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Symbolic points" 
                                Name="SymbDirPoints" FontWeight="Bold" />
                     <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
@@ -228,14 +218,14 @@
                               CanUserAddRows="False" CanUserSortColumns="False"
                               AutoGenerateColumns="False"
                               HeadersVisibility="None"
-                              ItemsSource="{Binding AllSymbplicPoints, Mode=TwoWay}"
+                              ItemsSource="{Binding AllSymDirPoints, Mode=TwoWay}"
                               SelectionUnit="Cell">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Binding="{Binding SelectedSymbolic}"/>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
                                                 CellStyle="{StaticResource GlyphColumnStyle}"
                                                 IsReadOnly="True"/>
-                            <DataGridTextColumn Binding="{Binding Name}" Header=" " 
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
                                                 CellStyle="{StaticResource NameColumnStyle}"
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>   

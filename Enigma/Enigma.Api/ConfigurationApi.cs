@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -25,6 +25,12 @@ public sealed class ConfigurationApi : IConfigurationApi
         return _handler.ConstructDefaultConfiguration();
     }
 
+    public ConfigProg GetDefaultProgConfiguration()
+    {
+        Log.Information("ConfigurationApi GetDefaultProgConfiguration");
+        return _handler.ConstructDefaultProgConfiguration();
+    }
+
     /// <inheritdoc/>
     public bool DoesConfigExist()
     {
@@ -32,14 +38,23 @@ public sealed class ConfigurationApi : IConfigurationApi
         return _handler.DoesConfigExist();
     }
 
+    public bool DoesConfigProgExist()
+    {
+        Log.Information("ConfigurationApi DoesConfigProgExist");
+        return _handler.DoesProgConfigExist();
+    }
+
     /// <inheritdoc/>
     public bool WriteConfig(AstroConfig config)
     {
-        Guard.Against.Null(config);
-        Log.Information("ConfigurationApi WriteConfig");
+        Log.Information("ConfigurationApi WriteConfig for standard config");
         return _handler.WriteConfig(config);
     }
 
+    public bool WriteConfig(ConfigProg config)
+    {
+        Log.Information("ConfigurationApi WriteConfig for progressive config");
+        return _handler.WriteConfig(config);
+    }
+    
 }
-
-

@@ -29,7 +29,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
-        serviceCollection.AddTransient<IAstroConfigParser, AstroConfigParser>();
+        serviceCollection.AddTransient<IConfigParser, ConfigParser>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
@@ -57,6 +57,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
+        serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
         serviceCollection.AddTransient<ICalculatedDistance, CalculatedDistance>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();

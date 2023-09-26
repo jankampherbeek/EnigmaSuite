@@ -109,6 +109,8 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         progPoints[ChartPoints.Pluto] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Pluto].Glyph);
         progPoints[ChartPoints.Chiron] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Chiron].Glyph);
         progPoints[ChartPoints.TrueNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.TrueNode].Glyph);
+        progPoints[ChartPoints.Mc] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Mc].Glyph);
+        progPoints[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Ascendant].Glyph);
         return new ConfigProgSymDir(orb, timeKey, progPoints);
     }
     
@@ -174,8 +176,8 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
             { ChartPoints.VulcanusCarteret, new ProgPointConfigSpecs(false, 'Ï') },
             { ChartPoints.FortunaNoSect, new ProgPointConfigSpecs(false, 'e') },
             { ChartPoints.FortunaSect, new ProgPointConfigSpecs(false, 'e') },
-            { ChartPoints.Ascendant, new ProgPointConfigSpecs(true, 'A') },
-            { ChartPoints.Mc, new ProgPointConfigSpecs(true, 'M') },
+            { ChartPoints.Ascendant, new ProgPointConfigSpecs(false, 'A') },
+            { ChartPoints.Mc, new ProgPointConfigSpecs(false, 'M') },
             { ChartPoints.EastPoint, new ProgPointConfigSpecs(false, ' ') },
             { ChartPoints.Vertex, new ProgPointConfigSpecs(false, ' ') }
         };

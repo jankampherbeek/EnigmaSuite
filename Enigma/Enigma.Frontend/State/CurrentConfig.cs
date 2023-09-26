@@ -18,6 +18,7 @@ public sealed class CurrentConfig
 
 
     private AstroConfig? _currentConfig;
+    private ConfigProg? _currentConfigProg;    
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
     static CurrentConfig()
@@ -36,6 +37,10 @@ public sealed class CurrentConfig
         _currentConfig = newConfig;
     }
 
+    public void ChangeConfigProg(ConfigProg newConfig)
+    {
+        _currentConfigProg = newConfig;
+    }
 
     public AstroConfig GetConfig()
     {
@@ -45,6 +50,14 @@ public sealed class CurrentConfig
         return _currentConfig;
     }
 
+    public ConfigProg GetConfigProg()
+    {
+        if (_currentConfigProg != null) return _currentConfigProg;
+        IConfigReader configReader = App.ServiceProvider.GetRequiredService<IConfigReader>();   // TODO 0.2 use API to read config
+        _currentConfigProg = configReader.ReadProgConfig();
+        return _currentConfigProg;
+    }
+    
 }
 
 

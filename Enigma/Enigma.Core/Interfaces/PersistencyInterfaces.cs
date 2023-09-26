@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.Responses;
 
@@ -365,4 +366,32 @@ public interface IInterChartPeriodDao
     /// <param name="chartId"></param>
     /// <returns>True if delete was successful.</returns>
     public bool Delete(int chartId);
+}
+
+
+
+/// <summary>Handles writing a configuration to a disk file.</summary>
+public interface IConfigWriter
+{
+    /// <param name="astroConfig">The configuration to write.</param>
+    /// <returns>True if the write was succesfull, otherwise false.</returns>
+    public bool WriteConfig(AstroConfig astroConfig);
+    
+    /// <param name="configProg">The ptogressive configuration to write.</param>
+    /// <returns>True if the write was succesfull, otherwise false.</returns>
+    public bool WriteConfig(ConfigProg configProg);
+    
+}
+
+
+/// <summary>Handles reading a configuration from a disk file.</summary>
+public interface IConfigReader
+{
+    /// <summary>Reads a configuration from a disk file.</summary>
+    /// <returns>The configuration that was read.</returns>
+    public AstroConfig ReadConfig();
+    
+    /// <summary>Reads a progressive configuration from a disk file.</summary>
+    /// <returns>The configuration that was read.</returns>
+    public ConfigProg ReadProgConfig();
 }

@@ -206,6 +206,8 @@ public static class EnigmaConstants
     // Locations
     /// <summary>Location of configuration file, contains path and filename.</summary>
     public const string CONFIG_LOCATION = "c:/enigma_ar/enigmaconfig.json";
+    /// <summary>Location of progressive configuration file, contains path and filename.</summary>
+    public const string CONFIG_PROG_LOCATION = "c:/enigma_ar/enigmaprogconfig.json";    
     /// <summary>Name of database for charts.</summary>
     public const string DATABASE_NAME = "/Enigma.db";
     /// <summary>Url to find latest release information.</summary>
