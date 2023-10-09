@@ -8,9 +8,9 @@ namespace Enigma.Domain.Presentables;
 /// <summary>Presentable progressive positions.</summary>
 /// <param name="PointGlyph">Glyph for the pogressive point.</param>
 /// <param name="Longitude">Sexagesimal longitude - within the sign - for the progressive point.</param>
-/// <param name="LongSpeed">Sexagesimal speel in longitude.</param>
 /// <param name="SignGlyph">Glyph for the sign of the progressive point.</param>
+/// <param name="Latitude">Sexagesimal latitude.</param>
+/// <param name="Ra">Sexagesimal right ascension</param>
 /// <param name="Declination">Sexagesimal declination.</param>
-/// <param name="DeclSpeed">Sexagesimal speed in declination.</param>
-public record PresentableProgPosition(char PointGlyph, string Longitude, char SignGlyph, string LongSpeed, 
-    string Declination, string DeclSpeed);
+public record PresentableProgPosition(char PointGlyph, string Longitude, char SignGlyph, string Latitude, 
+    string Ra, string Declination);

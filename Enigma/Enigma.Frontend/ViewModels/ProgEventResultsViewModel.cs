@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Enigma.Domain.Presentables;
+using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Models;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,8 @@ public partial class ProgEventResultsViewModel: ObservableObject
     [ObservableProperty] private string _eventDescription;
     [ObservableProperty] private string _eventDateTime;
     [ObservableProperty] private List<PresentableProgPosition> _presProgPositions;
+    [ObservableProperty] private List<PresentableProgAspect> _presProgAspects;
+    
     public ProgEventResultsViewModel()
     {
         var model = App.ServiceProvider.GetRequiredService<ProgEventResultsModel>();
@@ -25,13 +28,8 @@ public partial class ProgEventResultsViewModel: ObservableObject
         Details = model.Details;
         EventDescription = model.EventDescription;
         EventDateTime = model.EventDateTime;
-        PresProgPositions = model.presProgPositions;
-        // define current event
-        // read config
-        // construct request
-        // fire request,    check ChartCalculation in Support, change to CalcHelper and add progressive calculations.
-        // set results in DataVault
-        // define results as latest added
-        // open resultswindow
+        PresProgPositions = model.HandleTransits();
+        model.HandleAspects(ProgresMethods.Transits);
+        _presProgAspects = model.presProgAspects;
     }
 }

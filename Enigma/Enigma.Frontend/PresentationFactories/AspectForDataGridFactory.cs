@@ -20,7 +20,7 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 public class AspectForDataGridFactory : IAspectForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly GlyphsForChartPoints _glyphsForChartPoints;            // TODO 0.3 replace GlyphsForChartPoints with a solution that uses the configuration.
+    private readonly GlyphsForChartPoints _glyphsForChartPoints;            // TODO replace GlyphsForChartPoints with a solution that uses the configuration.
 
     public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {

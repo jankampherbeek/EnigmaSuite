@@ -32,12 +32,12 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private int _projectionTypeIndex;
     [ObservableProperty] private int _orbMethodIndex;
     [NotifyPropertyChangedFor(nameof(BaseOrbAspectsValid))]
+    [NotifyCanExecuteChangedFor(nameof(SaveConfigCommand))]
     [ObservableProperty] private string _baseOrbAspectsText;
     [NotifyPropertyChangedFor(nameof(BaseOrbMidpointsValid))]
+    [NotifyCanExecuteChangedFor(nameof(SaveConfigCommand))]
     [ObservableProperty] private string _baseOrbMidpointsText;
-
     [ObservableProperty] private bool _applyAspectsToCusps;
-
     [ObservableProperty] private ObservableCollection<string> _allHouses;
     [ObservableProperty] private ObservableCollection<string> _allZodiacTypes;
     [ObservableProperty] private ObservableCollection<string> _allAyanamshas;
@@ -53,9 +53,8 @@ public partial class ConfigurationViewModel: ObservableObject
 
     
     
-    public SolidColorBrush BaseOrbAspectsValid => CheckBaseOrbAspects() ? Brushes.White : Brushes.Yellow;
-    public SolidColorBrush BaseOrbMidpointsValid => CheckBaseOrbMidpoints() ? Brushes.White : Brushes.Yellow;
-
+    public SolidColorBrush BaseOrbAspectsValid => IsBaseOrbAspectsValid() ? Brushes.White : Brushes.Yellow;
+    public SolidColorBrush BaseOrbMidpointsValid => IsBaseOrbMidpointsValid() ? Brushes.White : Brushes.Yellow;
 
     
     private readonly ConfigurationModel _model = App.ServiceProvider.GetRequiredService<ConfigurationModel>();
@@ -85,16 +84,7 @@ public partial class ConfigurationViewModel: ObservableObject
 
     }
     
-    private bool CheckBaseOrbAspects() {
-        return double.TryParse(BaseOrbAspectsText.Replace(',', '.'), NumberStyles.Any, 
-            CultureInfo.InvariantCulture, out _baseOrbAspectsValue);
-    }
-    
-    private bool CheckBaseOrbMidpoints()
-    {
-        return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), NumberStyles.Any, 
-            CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
-    }
+
 
      private Dictionary<AspectTypes, AspectConfigSpecs> DefineAspectSpecs()
      {
@@ -109,7 +99,7 @@ public partial class ConfigurationViewModel: ObservableObject
      }
     
     
-    [RelayCommand]
+    [RelayCommand(CanExecute = nameof(IsInputOk))]
     private void SaveConfig()
     {
         HouseSystems houseSystem = HouseSystemsExtensions.HouseSystemForIndex(HouseIndex);
@@ -125,6 +115,23 @@ public partial class ConfigurationViewModel: ObservableObject
         AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
         _model.UpdateConfig(config);
+    }
+
+    private bool IsBaseOrbAspectsValid()
+    {
+        return double.TryParse(BaseOrbAspectsText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _baseOrbAspectsValue);
+    }
+
+    private bool IsBaseOrbMidpointsValid()
+    {
+        return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
+    }
+   
+    private bool IsInputOk()
+    {
+       return IsBaseOrbAspectsValid() && IsBaseOrbMidpointsValid();
     }
     
     

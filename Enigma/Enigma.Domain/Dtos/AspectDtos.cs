@@ -10,8 +10,8 @@ namespace Enigma.Domain.Dtos;
 
 
 /// <summary>Details for an actual aspect and its forming partners.</summary>
-/// <param name="Point1">The first point.</param>
-/// <param name="Point2">The second point or a progressive point.</param>
+/// <param name="Point1">The first point, in progressions the prog point.</param>
+/// <param name="Point2">The second point, in progressions the radix point.</param>
 /// <param name="Aspect">Details about the aspect.</param>
 /// <param name="MaxOrb">Max allowed orb.</param>
 /// <param name="ActualOrb">Actual orb.</param>

@@ -30,4 +30,10 @@ public static class ResultCodes
     /// <summary>Error: could not create results folder as subfolder in projectfolder.</summary>
     public const int RESEARCH_CANNOT_CREATE_RESULTSFOLDER = 1019;
 
+    
+    // errors for progressions
+    // Request for progresions contains no points.
+    public const int PROG_NO_POINTS = 2100;
+    
+
 }

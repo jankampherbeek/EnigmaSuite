@@ -219,5 +219,14 @@ public interface IProgPositionsForPresentationFactory
     /// <summary>Convert celestable point positions to PresentableProgPositions.</summary>
     /// <param name="positions">The positions to convert.</param>
     /// <returns>The resulting PresentableProgPositions.</returns>
-    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, FullPointPos> positions);
+    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, ProgPositions> positions);
+}
+
+/// <summary>Conversions for presentable progressive aspects.</summary>
+public interface IProgAspectForPresentationFactory
+{
+    /// <summary>Convert Defined Aspects to PresentableProgaspects.</summary>
+    /// <param name="definedAspects">Aspect definitions.</param>
+    /// <returns>The resulting PresentableProgAspects.</returns>
+    public List<PresentableProgAspect> CreatePresProgAspect(List<DefinedAspect> definedAspects);
 }

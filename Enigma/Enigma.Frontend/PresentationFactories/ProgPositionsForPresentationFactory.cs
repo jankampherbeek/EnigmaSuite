@@ -30,7 +30,7 @@ public sealed class ProgPositionsForPresentationFactory:IProgPositionsForPresent
     }
     
     /// <inheritdoc/>
-    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, FullPointPos> positions)
+    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, ProgPositions> positions)
     {
         return (from celPos in positions 
             where celPos.Key.GetDetails().PointCat == PointCats.Common  
@@ -38,21 +38,20 @@ public sealed class ProgPositionsForPresentationFactory:IProgPositionsForPresent
     }
 
     
-    private PresentableProgPosition CreateSinglePos(KeyValuePair<ChartPoints, FullPointPos> commonPos)
+    private PresentableProgPosition CreateSinglePos(KeyValuePair<ChartPoints, ProgPositions> progPos)
     {
-        char pointGlyph = GlyphsForChartPoints.FindGlyph(commonPos.Key);
+        double longPos = progPos.Value.Longitude;
+        double latPos = progPos.Value.Latitude;
+        double raPos = progPos.Value.Ra;
+        double declPos = progPos.Value.Declination;
         
-        double longPos = commonPos.Value.Ecliptical.MainPosSpeed.Position;
-        double longPosSpeed = commonPos.Value.Ecliptical.MainPosSpeed.Speed;
-        double declPos = commonPos.Value.Equatorial.DeviationPosSpeed.Position;
-        double declSpeed = commonPos.Value.Equatorial.DeviationPosSpeed.Speed;
-        
+        char pointGlyph = GlyphsForChartPoints.FindGlyph(progPos.Key);
         string longPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).longTxt;
-        string longPosSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(longPosSpeed);
         char longGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).glyph;
+        string latPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(latPos);
+        string raPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(raPos);
         string declPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(declPos);
-        string declSpeedText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(declSpeed);
-        return new PresentableProgPosition(pointGlyph, longPosText, longGlyph,  longPosSpeedText, declPosText, declSpeedText);
+        return new PresentableProgPosition(pointGlyph, longPosText, longGlyph,  latPosText, raPosText, declPosText);
     }
     
 }

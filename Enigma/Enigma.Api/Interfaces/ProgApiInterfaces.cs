@@ -8,14 +8,13 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Api.Interfaces;
 
 /// <summary>API for the calculation of transits for a given event.</summary>
 public interface ICalcTransitsEventApi
 {
-    /// <summary>Calculates transits.</summary>
-    /// <param name="request">Request with data and settings.</param>
-    /// <returns>Calculated positions.</returns>
-    public Dictionary<ChartPoints, FullPointPos> CalculateTransits(TransitsEventRequest request);
+    public TransitsEventResponse CalcTransits(TransitsEventRequest request);
+
 }

@@ -3,11 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Windows.Input;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -15,7 +13,6 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,9 +28,6 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private string _orbSymDirText;
     [NotifyPropertyChangedFor(nameof(OrbTransitValid))]
     [ObservableProperty] private string _orbTransitText;
-
-
-    
     [ObservableProperty] private bool _includeConverseDirections;
     [ObservableProperty] private bool _applyRelocation;
     [ObservableProperty] private ObservableCollection<string> _allPrimDirMethods;
@@ -61,9 +55,6 @@ public partial class ConfigProgViewModel:ObservableObject
     public SolidColorBrush OrbSecDirValid => CheckOrbSecDir() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbSymDirValid => CheckOrbSymDir() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbTransitValid => CheckOrbTransit() ? Brushes.White : Brushes.Yellow;
-    
-    
-    
     
     public ConfigProgViewModel()
     {
@@ -145,11 +136,9 @@ public partial class ConfigProgViewModel:ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ConfigurationsProg";   // TODO create help file
+        DataVault.Instance.CurrentViewBase = "ConfigurationsProg";   // TODO create help file for prog configuration
         HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }
-
-
-
+    
 }

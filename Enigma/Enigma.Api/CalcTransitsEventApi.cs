@@ -9,20 +9,22 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Api;
 
 /// <inheritdoc/>
 public class CalcTransitsEventApi: ICalcTransitsEventApi
 {
-    private readonly IChartAllPositionsHandler _handler;
-    
-    public CalcTransitsEventApi(IChartAllPositionsHandler handler) => _handler = handler;
-    
-    /// <inheritdoc/>
-    public Dictionary<ChartPoints, FullPointPos> CalculateTransits(TransitsEventRequest request)
+
+    private readonly ICalcTransitsHandler _handler;
+
+    public CalcTransitsEventApi(ICalcTransitsHandler handler)
     {
-        CelPointsRequest cpRequest = new(request.JulianDayUt, request.Location, request.CalculationPreferences);
-        return _handler.CalcFullChart(cpRequest);        
+        _handler = handler;
+    }
+    public TransitsEventResponse CalcTransits(TransitsEventRequest request)
+    {
+        return _handler.CalculateTransits(request);
     }
 }

@@ -33,6 +33,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
+        serviceCollection.AddTransient<ICalcTransitsHandler, CalcTransitsHandler>();
         serviceCollection.AddTransient<ICalculatedDistance, CalculatedDistance>();
         serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();
         serviceCollection.AddTransient<ICelPointsElementsCalc, CelPointsElementsCalc>();

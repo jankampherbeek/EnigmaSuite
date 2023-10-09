@@ -98,7 +98,8 @@
                               AutoGenerateColumns="False"
                               HeadersVisibility="All"
                               ItemsSource="{Binding AllGeneralPoints}"
-                              SelectionUnit="FullRow">
+                              SelectionUnit="FullRow"
+                              Background="{Binding CelPointsValid}" >
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{Binding IsUsed}"></DataGridCheckBoxColumn>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
@@ -161,7 +162,7 @@
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
             <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
-            <Button Margin="6" Content="Ok" HorizontalAlignment="Right" 
+            <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
                     Command="{Binding SaveConfigCommand}" Click="CloseClick"/>
         </StackPanel>
     </Grid>
