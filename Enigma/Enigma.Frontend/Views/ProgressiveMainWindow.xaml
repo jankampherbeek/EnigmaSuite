@@ -39,6 +39,11 @@
                         <Image Source="/Images/configuration.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Config progressions" Command="{Binding ConfigProgCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/configuration.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>  
                 <MenuItem Header="Close Charts" Click="CloseClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/close.png"/>

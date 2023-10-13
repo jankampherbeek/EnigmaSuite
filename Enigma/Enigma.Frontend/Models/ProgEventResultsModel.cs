@@ -26,35 +26,29 @@ namespace Enigma.Frontend.Ui.Models;
 
 public class ProgEventResultsModel
 {
-    private IDescriptiveChartText _descriptiveChartText;
-    private ICalcTransitsEventApi _calcTransitsEventApi;
-    private IProgAspectsApi _progAspectsApi;
-    private readonly IConfigPreferencesConverter _configPrefsConverter;
+    private readonly IDescriptiveChartText _descriptiveChartText;
+    private readonly ICalcTransitsEventApi _calcTransitsEventApi;
+    private readonly IProgAspectsApi _progAspectsApi;
     private readonly IProgPositionsForPresentationFactory _progPosPresFactory;
     private readonly IProgAspectForPresentationFactory _progAspectPresFactory;
     public string MethodName { get; set; }
     public string Details { get; set; }
     public string EventDescription { get; set; }
     public string EventDateTime { get; set; }
-    public Dictionary<ChartPoints, double> _progPositions = null;
-    private Dictionary<ChartPoints, ProgPositions> _transitProgPositions = new();
-    //public readonly List<PresentableProgPosition> presProgPositions;
-    public List<PresentableProgAspect> presProgAspects;
-    //private readonly Dictionary<ChartPoints, ProgPositions> _progPositions;
-    private readonly List<DefinedAspect> _progAspects;
+    private Dictionary<ChartPoints, double> _progPositions = new();
+    public List<PresentableProgAspect> PresProgAspects;
+    public List<PresentableProgPosition> PresProgPositions;
     private readonly DataVault _dataVault = DataVault.Instance;
     
     public ProgEventResultsModel(IDescriptiveChartText descriptiveChartText, 
         ICalcTransitsEventApi calcTransitsEventApi,
         IProgAspectsApi progAspectsApi,
-        IConfigPreferencesConverter configPreferencesConverter,
         IProgPositionsForPresentationFactory progPosPresFactory,
         IProgAspectForPresentationFactory progAspectForPresentationFactory)
     {
         _descriptiveChartText = descriptiveChartText;
         _calcTransitsEventApi = calcTransitsEventApi;
         _progAspectsApi = progAspectsApi;
-        _configPrefsConverter = configPreferencesConverter;
         _progPosPresFactory = progPosPresFactory;
         _progAspectPresFactory = progAspectForPresentationFactory;
         MethodName = DefineMethodName();
@@ -63,56 +57,72 @@ public class ProgEventResultsModel
         EventDateTime = DefineEventDateTime();
     }
 
-    public List<PresentableProgPosition> HandleTransits()
+
+     public void HandleTransits()
+     {
+         Dictionary<ChartPoints, ProgPositions> calculatedPositions = CalculateTransits();
+         _progPositions = CreateProgPositions(calculatedPositions);
+         PresProgPositions = CreatePresentableProgPositions(calculatedPositions);
+         HandleAspects(ProgresMethods.Transits);
+     }
+
+     private void HandleAspects(ProgresMethods progMethod)
+     {
+         CalculatedChart? radix = DataVault.Instance.GetCurrentChart();
+         if (radix == null) return;
+         Dictionary<ChartPoints, double> radixPositions = DefineRadixPositions(radix);
+         ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
+         AstroConfig astroConfig = CurrentConfig.Instance.GetConfig();
+         Dictionary<AspectTypes, AspectConfigSpecs> configAspects = astroConfig.Aspects;
+         List<AspectTypes> selectedAspects = (from configAspect in configAspects 
+             where configAspect.Value.IsUsed select configAspect.Key).ToList();
+         double orb = DefineOrb(progMethod, configProg); 
+         ProgAspectsRequest request = new(radixPositions, _progPositions, selectedAspects, orb);
+         ProgAspectsResponse response = _progAspectsApi.FindProgAspects(request);
+         if (response.ResultCode == ResultCodes.OK)
+         {
+             PresProgAspects = CreatePresentableProgAspects(response.Aspects);
+         }
+     }
+     
+     private Dictionary<ChartPoints, double> CreateProgPositions(Dictionary<ChartPoints, ProgPositions> calculatedPositions)
+     {
+         return calculatedPositions.ToDictionary(calcPos => calcPos.Key, 
+             calcPos => calcPos.Value.Longitude);
+     }
+     
+     private List<PresentableProgPosition> CreatePresentableProgPositions(Dictionary<ChartPoints, ProgPositions> positions)
+     {
+         return _progPosPresFactory.CreatePresProgPos(positions);
+     }
+
+     private List<PresentableProgAspect> CreatePresentableProgAspects(List<DefinedAspect> aspects)
+     {
+         return _progAspectPresFactory.CreatePresProgAspect(aspects);
+     }
+     
+    private Dictionary<ChartPoints, double> DefineRadixPositions(CalculatedChart radix)
     {
-        _transitProgPositions = CalculateTransits();
-        // TODO make the following a separate method
-        _progPositions = new();
-        foreach (var transitProgPos in _transitProgPositions)
-        {
-            _progPositions.Add(transitProgPos.Key, transitProgPos.Value.Longitude);
-        }
-        List<PresentableProgPosition> presTransitPositions = _progPosPresFactory.CreatePresProgPos(_transitProgPositions);
-        return presTransitPositions;
+        Dictionary<ChartPoints, FullPointPos> fullPositions = radix.Positions;
+        return (from fullPos in fullPositions let cPoint = fullPos.Key 
+            where cPoint.GetDetails().PointCat == PointCats.Common || cPoint.GetDetails().PointCat == PointCats.Angle 
+            select fullPos).ToDictionary(fullPos => fullPos.Key, 
+            fullPos => fullPos.Value.Ecliptical.MainPosSpeed.Position);
     }
 
-
-    public void HandleAspects(ProgresMethods progMethod)
+    private double DefineOrb(ProgresMethods progMethod,  ConfigProg configProg)
     {
-        CalculatedChart? radix = DataVault.Instance.GetCurrentChart();
-        if (radix != null)
+        return progMethod switch
         {
-            Dictionary<ChartPoints, FullPointPos> fullPositions = radix.Positions;
-            Dictionary<ChartPoints, double> radixPositions = 
-                fullPositions.ToDictionary(fullPos => fullPos.Key, 
-                    fullPos => fullPos.Value.Ecliptical.MainPosSpeed.Position);
-            ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
-            AstroConfig astroConfig = CurrentConfig.Instance.GetConfig();
-            Dictionary<AspectTypes, AspectConfigSpecs> configAspects = astroConfig.Aspects;
-            List<AspectTypes> selectedAspects = 
-                configAspects.Select(configAspect => configAspect.Key).ToList();
-            double orb = progMethod switch
-            {
-                ProgresMethods.Transits => configProg.ConfigTransits.Orb,
-                ProgresMethods.Primary => configProg.ConfigPrimDir.Orb,
-                ProgresMethods.Secundary => configProg.ConfigSecDir.Orb,
-                ProgresMethods.Symbolic => configProg.ConfigSymDir.Orb,
-                ProgresMethods.Solar => 0.0,                // No orb for solar
-                ProgresMethods.Undefined => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null),
-                _ => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null)
-            };
-            ProgAspectsRequest request = new(radixPositions, _progPositions, selectedAspects, orb);
-            ProgAspectsResponse response = _progAspectsApi.FindProgAspects(request);
-            if (response.ResultCode == ResultCodes.OK)
-            {
-                presProgAspects = _progAspectPresFactory.CreatePresProgAspect(response.Aspects);
-            }
-         
-            // TODO decouple the presentation part
-        }
+            ProgresMethods.Transits => configProg.ConfigTransits.Orb,
+            ProgresMethods.Primary => configProg.ConfigPrimDir.Orb,
+            ProgresMethods.Secundary => configProg.ConfigSecDir.Orb,
+            ProgresMethods.Symbolic => configProg.ConfigSymDir.Orb,
+            ProgresMethods.Solar => 0.0,                // No orb for solar
+            ProgresMethods.Undefined => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null),
+            _ => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null)
+        };
     }
-    
-    
     
     private string DefineMethodName()
     {
@@ -161,7 +171,7 @@ public class ProgEventResultsModel
         ConfigProgTransits configTransits = CurrentConfig.Instance.GetConfigProg().ConfigTransits;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         TransitsEventRequest request = new(jdUt, location, configTransits, configRadix.Ayanamsha, configRadix.ObserverPosition);
-        TransitsEventResponse response = _calcTransitsEventApi.CalcTransits(request);
+        ProgRealPointsResponse response = _calcTransitsEventApi.CalcTransits(request);
         if (response.ResultCode == 0) positions = response.Positions;
         else
         {
@@ -171,12 +181,6 @@ public class ProgEventResultsModel
         return positions;
     }
 
-    private List<DefinedAspect> FindProgAspects()
-    {
-        
-       // ProgAspectsRequest request = new(ChartPoints, ProgPoints, new List<AspectTypes>(, orb))
-       return new List<DefinedAspect>();
-    }
     
     
     

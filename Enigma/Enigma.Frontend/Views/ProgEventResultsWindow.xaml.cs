@@ -25,4 +25,10 @@ public partial class ProgEventResultsWindow : Window
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
         DescriptionBlock.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.DESCRIPTION_BLOCK_COLOR)!;
     }
+    
+    private void CloseClick(object sender, RoutedEventArgs e)
+    {
+        Close();
+    }
+    
 }

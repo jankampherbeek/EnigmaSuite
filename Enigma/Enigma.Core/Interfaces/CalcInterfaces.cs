@@ -24,6 +24,6 @@ public interface IChartPointsMapping
     /// <returns></returns>
     public int SeIdForCelestialPoint(ChartPoints point);
 
-
-
 }
+
+

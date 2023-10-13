@@ -15,6 +15,6 @@ namespace Enigma.Api.Interfaces;
 /// <summary>API for the calculation of transits for a given event.</summary>
 public interface ICalcTransitsEventApi
 {
-    public TransitsEventResponse CalcTransits(TransitsEventRequest request);
+    public ProgRealPointsResponse CalcTransits(TransitsEventRequest request);
 
 }

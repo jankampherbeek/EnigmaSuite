@@ -28,6 +28,7 @@
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="20*"/>
                 <RowDefinition Height="85*"/>
+                <RowDefinition Height="15*"/>                
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" Text="{Binding MethodName}" 
                  Name="Header" Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
@@ -83,17 +84,17 @@
                                   ItemsSource="{Binding PresProgAspects}"
                                   SelectionUnit="FullRow">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding RadixGlyph}" Header=" " 
+                                <DataGridTextColumn Binding="{Binding ProgGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding RadixName}" Header="Radix" 
+                                <DataGridTextColumn Binding="{Binding ProgName}" Header="Progressive" 
                                                     IsReadOnly="True" />
                                 <DataGridTextColumn Binding="{Binding AspectGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding AspectName}" Header="Aspect" 
                                                     IsReadOnly="True"/>
-                                <DataGridTextColumn Binding="{Binding ProgGlyph}" Header=" " 
+                                <DataGridTextColumn Binding="{Binding RadixGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>                                
-                                <DataGridTextColumn Binding="{Binding ProgName}" Header="Progressive" 
+                                <DataGridTextColumn Binding="{Binding RadixName}" Header="Radix" 
                                                     IsReadOnly="True"/>
                                 <DataGridTextColumn Binding="{Binding OrbText}" Header="Effective orb" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
@@ -102,5 +103,9 @@
                     </Grid>
                 </TabItem>
             </TabControl>
+            <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
+                <Button Margin="6" Content="Close" HorizontalAlignment="Right" Click="CloseClick" />
+            </StackPanel>
     </Grid>
 </Window>

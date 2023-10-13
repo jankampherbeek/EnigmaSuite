@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Interfaces;
 
@@ -128,4 +129,18 @@ public interface ISpeculumItem
     /// <summary>Ascensional difference.</summary>
     public double AscensionalDifference { get; }
 
+}
+
+/// <summary>Calculator for progressive points based on real movements, e.g. transits and secundary directions.</summary>
+public interface IProgRealPointCalc
+{
+    /// <summary>Calculates progressive positions.</summary>
+    /// <param name="ayanamsha">Ayanamsha to use, 'None' for tropical calculations.</param>
+    /// <param name="observerPos">Position of observer.</param>
+    /// <param name="location">Location.</param>
+    /// <param name="julianDayUt">Julian day number.</param>
+    /// <param name="progPoints">Dictionary with supported points.</param>
+    /// <returns></returns>
+    public ProgRealPointsResponse CalculateTransits(Ayanamshas ayanamsha, ObserverPositions observerPos,
+        Location location, double julianDayUt, Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints);
 }

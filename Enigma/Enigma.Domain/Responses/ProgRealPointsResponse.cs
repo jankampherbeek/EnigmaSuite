@@ -8,7 +8,7 @@ using Enigma.Domain.References;
 
 namespace Enigma.Domain.Responses;
 
-/// <summary>Response for the calculation of transit positions.</summary>
+/// <summary>Response for the calculation of real positions of points (typically transits and secundary directions).</summary>
 /// <param name="Positions">Positions for each point.</param>
 /// <param name="ResultCode">Defines success or any failure.</param>
-public record TransitsEventResponse(Dictionary<ChartPoints, ProgPositions> Positions, int ResultCode);
+public record ProgRealPointsResponse(Dictionary<ChartPoints, ProgPositions> Positions, int ResultCode);

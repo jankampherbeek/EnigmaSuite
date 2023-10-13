@@ -91,6 +91,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
+        serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();

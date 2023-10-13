@@ -41,11 +41,11 @@ public class TestProgAspectsHandler
         {
             Assert.That(aspectsFound, Has.Count.EqualTo(4));
             Assert.That(aspectsFound[0].Aspect.Aspect, Is.EqualTo(AspectTypes.Conjunction));
-            Assert.That(aspectsFound[0].Point1, Is.EqualTo(ChartPoints.Sun));
-            Assert.That(aspectsFound[0].Point2, Is.EqualTo(ChartPoints.Uranus));
+            Assert.That(aspectsFound[0].Point1, Is.EqualTo(ChartPoints.Uranus));
+            Assert.That(aspectsFound[0].Point2, Is.EqualTo(ChartPoints.Sun));
             Assert.That(aspectsFound[0].ActualOrb, Is.EqualTo(3.0).Within(Delta));
             Assert.That(aspectsFound[1].Aspect.Aspect, Is.EqualTo(AspectTypes.Opposition));
-            Assert.That(aspectsFound[3].Point2, Is.EqualTo(ChartPoints.Makemake));
+            Assert.That(aspectsFound[3].Point2, Is.EqualTo(ChartPoints.Chiron));
         });
     }
 
@@ -74,12 +74,12 @@ public class TestProgAspectsHandler
             Assert.That(response.ResultCode, Is.EqualTo(ResultCodes.OK));
             Assert.That(aspectsFound, Has.Count.EqualTo(2));            
             Assert.That(aspectsFound[0].Aspect.Aspect, Is.EqualTo(AspectTypes.Square));
-            Assert.That(aspectsFound[0].Point1, Is.EqualTo(ChartPoints.Sun));
-            Assert.That(aspectsFound[0].Point2, Is.EqualTo(ChartPoints.Saturn));
+            Assert.That(aspectsFound[0].Point1, Is.EqualTo(ChartPoints.Saturn));
+            Assert.That(aspectsFound[0].Point2, Is.EqualTo(ChartPoints.Sun));
             Assert.That(aspectsFound[0].ActualOrb, Is.EqualTo(11.0).Within(Delta));
             Assert.That(aspectsFound[1].Aspect.Aspect, Is.EqualTo(AspectTypes.Quintile));
-            Assert.That(aspectsFound[1].Point1, Is.EqualTo(ChartPoints.Sun));
-            Assert.That(aspectsFound[1].Point2, Is.EqualTo(ChartPoints.Saturn));
+            Assert.That(aspectsFound[1].Point1, Is.EqualTo(ChartPoints.Saturn));
+            Assert.That(aspectsFound[1].Point2, Is.EqualTo(ChartPoints.Sun));
             Assert.That(aspectsFound[1].ActualOrb, Is.EqualTo(7.0).Within(Delta));
         });
     }

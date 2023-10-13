@@ -23,7 +23,7 @@ public class CalcTransitsEventApi: ICalcTransitsEventApi
     {
         _handler = handler;
     }
-    public TransitsEventResponse CalcTransits(TransitsEventRequest request)
+    public ProgRealPointsResponse CalcTransits(TransitsEventRequest request)
     {
         return _handler.CalculateTransits(request);
     }

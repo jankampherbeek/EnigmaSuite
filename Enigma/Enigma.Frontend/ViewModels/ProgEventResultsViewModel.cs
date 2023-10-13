@@ -5,9 +5,12 @@
 
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -28,8 +31,17 @@ public partial class ProgEventResultsViewModel: ObservableObject
         Details = model.Details;
         EventDescription = model.EventDescription;
         EventDateTime = model.EventDateTime;
-        PresProgPositions = model.HandleTransits();
-        model.HandleAspects(ProgresMethods.Transits);
-        _presProgAspects = model.presProgAspects;
+        model.HandleTransits();
+        PresProgPositions = model.PresProgPositions;
+        PresProgAspects = model.PresProgAspects;
     }
+    
+    
+    [RelayCommand]
+    private static void Help()
+    {
+        DataVault.Instance.CurrentViewBase = "ProgEventResults";    // TODO create helppage ProgEventResults
+        new HelpWindow().ShowDialog();
+    }
+    
 }

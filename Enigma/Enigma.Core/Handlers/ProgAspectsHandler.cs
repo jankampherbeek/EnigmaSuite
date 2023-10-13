@@ -41,7 +41,7 @@ public class ProgAspectsHandler: IProgAspectsHandler
                 where aspectsFound.Count > 0 
                 from aspectFound in aspectsFound 
                 let aspectDetails = aspectFound.Key.GetDetails() 
-                select new DefinedAspect(radixPoint.Key, progPoint.Key, aspectDetails, orb, aspectFound.Value));
+                select new DefinedAspect(progPoint.Key, radixPoint.Key, aspectDetails, orb, aspectFound.Value));
         }
         catch (ArgumentException e)
         {

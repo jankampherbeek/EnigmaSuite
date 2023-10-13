@@ -19,5 +19,5 @@ public interface ICalcTransitsHandler
     /// <summary>Handles calculation of transits for a specific event.</summary>
     /// <param name="request">Request with config items, date/time etc.</param>
     /// <returns>Calculated positions.</returns>
-    public TransitsEventResponse CalculateTransits(TransitsEventRequest request);
+    public ProgRealPointsResponse CalculateTransits(TransitsEventRequest request);
 }

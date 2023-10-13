@@ -44,4 +44,3 @@ public sealed class ProgAspectForPresentationFactory: IProgAspectForPresentation
         return new PresentableProgAspect(radixGlyph, radixName, aspectGlyph, aspectName, progGlyph, progName, orbText);
     }
 }
-

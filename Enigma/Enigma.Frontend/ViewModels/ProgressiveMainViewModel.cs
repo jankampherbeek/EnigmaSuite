@@ -79,6 +79,12 @@ public partial class ProgressiveMainViewModel: ObservableObject
     }
     
     [RelayCommand]
+    private static void ConfigProg()
+    {
+        new ConfigProgWindow().ShowDialog();
+    }
+    
+    [RelayCommand]
     private void NewEvent()
     {
         new ProgEventWindow().ShowDialog();
