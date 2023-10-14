@@ -215,4 +215,10 @@ public static class EnigmaConstants
 
     /// <summary>Timekey according to Naibod.</summary>
     public const double NAIBOD = 0.985647222;
-}
+    /// <summary>Length of tropical year measured in tropical days.</summary>
+    /// <remarks>According to: NASA 365 days, 5 hours, 48 minutes, and 46 seconds,
+    /// https://www.grc.nasa.gov/www/k-12/Numbers/Math/Mathematical_Thinking/calendar_calculations.htm</remarks>
+    public const double TROPICAL_YEAR_IN_DAYS = 365.242199074;  
+    
+}  
+    

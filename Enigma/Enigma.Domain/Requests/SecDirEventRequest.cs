@@ -8,12 +8,14 @@ using Enigma.Domain.References;
 
 namespace Enigma.Domain.Requests;
 
-/// <summary>Data for a request to calculate transits.</summary>
-/// <param name="JulianDayUt">Julian day for universal time.</param>
+
+/// <summary>Data for a request to calculate secundary directions.</summary>
+/// <param name="JdRadix">Julian day for the radix.</param>
+/// <param name="JdEvent">Julian day for the event.</param>
 /// <param name="Location">Location (only latitude and longitude are used).</param>
-/// <param name="ConfigTransits">User preferences for the calculation of transits.</param>
+/// <param name="ConfigSecDir">User preferences for the calculation of secundary directions.</param>
 /// <param name="Ayanamsha">The Ayanamsha as defined in the user preferences, 'None' for tropical positions.</param>
 /// <param name="ObserverPos">The observer position as defined in the user preferences.</param>
-public record TransitsEventRequest(double JulianDayUt, Location Location, ConfigProgTransits ConfigTransits,
+public record SecDirEventRequest(double JdRadix,  double JdEvent, Location Location, ConfigProgSecDir ConfigSecDir,
     Ayanamshas Ayanamsha, ObserverPositions ObserverPos);
 

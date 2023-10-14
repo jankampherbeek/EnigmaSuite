@@ -15,6 +15,18 @@ namespace Enigma.Api.Interfaces;
 /// <summary>API for the calculation of transits for a given event.</summary>
 public interface ICalcTransitsEventApi
 {
+    /// <summary>Calculate transits.</summary>
+    /// <param name="request">Request with date, time and settings.</param>
+    /// <returns>Calculated positions.</returns>
     public ProgRealPointsResponse CalcTransits(TransitsEventRequest request);
 
+}
+
+/// <summary>API for the calculation of secundary directions for a given event.</summary>
+public interface ICalcSecDirEventApi
+{
+    /// <summary>Calculate secundary directions.</summary>
+    /// <param name="request">Request with date, time and settings.</param>
+    /// <returns>Calculated positions.</returns>
+    public ProgRealPointsResponse CalcSecDir(SecDirEventRequest request);
 }

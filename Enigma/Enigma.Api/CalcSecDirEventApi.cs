@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using Enigma.Api.Interfaces;
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Requests;
@@ -12,17 +11,18 @@ using Enigma.Domain.Responses;
 namespace Enigma.Api;
 
 /// <inheritdoc/>
-public class CalcTransitsEventApi: ICalcTransitsEventApi
+public sealed class CalcSecDirEventApi: ICalcSecDirEventApi
 {
+    private readonly ICalcSecDirHandler _handler;
 
-    private readonly ICalcTransitsHandler _handler;
-
-    public CalcTransitsEventApi(ICalcTransitsHandler handler)
+    public CalcSecDirEventApi(ICalcSecDirHandler handler)
     {
         _handler = handler;
     }
-    public ProgRealPointsResponse CalcTransits(TransitsEventRequest request)
+
+    /// <inheritdoc/>
+    public ProgRealPointsResponse CalcSecDir(SecDirEventRequest request)
     {
-        return _handler.CalculateTransits(request);
+        return _handler.CalculateSecDir(request);
     }
 }

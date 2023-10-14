@@ -31,7 +31,9 @@ public partial class ProgEventResultsViewModel: ObservableObject
         Details = model.Details;
         EventDescription = model.EventDescription;
         EventDateTime = model.EventDateTime;
-        model.HandleTransits();
+        var method = DataVault.Instance.CurrentProgresMethod;
+        if (method == ProgresMethods.Transits) model.HandleTransits();
+        if (method == ProgresMethods.Secundary) model.HandleSecDir();
         PresProgPositions = model.PresProgPositions;
         PresProgAspects = model.PresProgAspects;
     }

@@ -29,10 +29,10 @@ public static class CoreServices
         serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
-        serviceCollection.AddTransient<IConfigParser, ConfigParser>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
+        serviceCollection.AddTransient<ICalcSecDirHandler, CalcSecDirHandler>();
         serviceCollection.AddTransient<ICalcTransitsHandler, CalcTransitsHandler>();
         serviceCollection.AddTransient<ICalculatedDistance, CalculatedDistance>();
         serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();
@@ -43,6 +43,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
         serviceCollection.AddTransient<ICheckedProgAspects, CheckedProgAspects>();
         serviceCollection.AddTransient<ICommunicationHandler, CommunicationHandler>();
+        serviceCollection.AddTransient<IConfigParser, ConfigParser>(); 
         serviceCollection.AddTransient<IConfigReader, ConfigReader>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
@@ -59,7 +60,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
-        serviceCollection.AddTransient<ICalculatedDistance, CalculatedDistance>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();

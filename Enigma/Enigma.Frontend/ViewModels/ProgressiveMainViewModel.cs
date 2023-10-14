@@ -133,9 +133,10 @@ public partial class ProgressiveMainViewModel: ObservableObject
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
-    private static void SecDir()
+    private void SecDir()
     {
-        MessageBox.Show("Not implemented yet");
+        _dataVault.CurrentProgresMethod = ProgresMethods.Secundary;
+        new ProgEventResultsWindow().ShowDialog();
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]

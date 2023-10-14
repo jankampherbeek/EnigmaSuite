@@ -28,6 +28,7 @@ public class ProgEventResultsModel
 {
     private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly ICalcTransitsEventApi _calcTransitsEventApi;
+    private readonly ICalcSecDirEventApi _calcSecDirEventApi;
     private readonly IProgAspectsApi _progAspectsApi;
     private readonly IProgPositionsForPresentationFactory _progPosPresFactory;
     private readonly IProgAspectForPresentationFactory _progAspectPresFactory;
@@ -42,12 +43,14 @@ public class ProgEventResultsModel
     
     public ProgEventResultsModel(IDescriptiveChartText descriptiveChartText, 
         ICalcTransitsEventApi calcTransitsEventApi,
+        ICalcSecDirEventApi calcSecDirEventApi,
         IProgAspectsApi progAspectsApi,
         IProgPositionsForPresentationFactory progPosPresFactory,
         IProgAspectForPresentationFactory progAspectForPresentationFactory)
     {
         _descriptiveChartText = descriptiveChartText;
         _calcTransitsEventApi = calcTransitsEventApi;
+        _calcSecDirEventApi = calcSecDirEventApi;
         _progAspectsApi = progAspectsApi;
         _progPosPresFactory = progPosPresFactory;
         _progAspectPresFactory = progAspectForPresentationFactory;
@@ -66,6 +69,15 @@ public class ProgEventResultsModel
          HandleAspects(ProgresMethods.Transits);
      }
 
+     public void HandleSecDir()
+     {
+         Dictionary<ChartPoints, ProgPositions> calculatedPositions = CalculateSecDir();
+         _progPositions = CreateProgPositions(calculatedPositions);
+         PresProgPositions = CreatePresentableProgPositions(calculatedPositions);
+         HandleAspects(ProgresMethods.Secundary);
+     }
+     
+     
      private void HandleAspects(ProgresMethods progMethod)
      {
          CalculatedChart? radix = DataVault.Instance.GetCurrentChart();
@@ -181,7 +193,25 @@ public class ProgEventResultsModel
         return positions;
     }
 
-    
+    private Dictionary<ChartPoints, ProgPositions> CalculateSecDir()
+    {
+        Dictionary<ChartPoints, ProgPositions> positions = new();
+        ProgEvent? progEvent = _dataVault.CurrentProgEvent;
+        if (progEvent == null) return positions;
+        double jdEvent = _dataVault.CurrentProgEvent.DateTime.JulianDayForEt;   // TODO check ET vs UT!
+        double jdRadix = _dataVault.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
+        Location location = _dataVault.CurrentProgEvent.Location;
+        ConfigProgSecDir configSecDir = CurrentConfig.Instance.GetConfigProg().ConfigSecDir;
+        AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
+        SecDirEventRequest request = new(jdRadix, jdEvent, location, configSecDir, configRadix.Ayanamsha, configRadix.ObserverPosition);
+        ProgRealPointsResponse response = _calcSecDirEventApi.CalcSecDir(request);
+        if (response.ResultCode == 0) positions = response.Positions;
+        else
+        {
+            Log.Error("Resultcode when calculating secundary directions {ResultCode}", response.ResultCode);
+        }
+        return positions;
+    }
     
     
 }
