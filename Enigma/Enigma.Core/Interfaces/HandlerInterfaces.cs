@@ -30,3 +30,12 @@ public interface ICalcSecDirHandler
     /// <returns>Calculated positions.</returns>
     public ProgRealPointsResponse CalculateSecDir(SecDirEventRequest request);
 }
+
+/// <summary>Handles calculation of symbolic directions.</summary>
+public interface ICalcSymDirHandler
+{
+    /// <summary>Handles calculation of symbolic directions for a specific event.</summary>
+    /// <param name="request">Request with config items, date/time etc.</param>
+    /// <returns>Calculated positions.</returns>
+    public ProgRealPointsResponse CalculateSymDir(SymDirEventRequest request);
+}

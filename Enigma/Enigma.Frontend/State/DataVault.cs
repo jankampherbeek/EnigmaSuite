@@ -18,6 +18,9 @@ namespace Enigma.Frontend.Ui.State;
 /// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
 public sealed class DataVault
 {
+    // TODO Too many global vars, restrict to a minimum.
+    
+    
     private static readonly DataVault instance = new();
 
     private readonly List<CalculatedChart> _allCharts = new();

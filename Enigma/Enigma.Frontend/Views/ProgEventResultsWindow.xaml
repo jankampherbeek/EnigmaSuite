@@ -87,15 +87,15 @@
                                 <DataGridTextColumn Binding="{Binding ProgGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding ProgName}" Header="Progressive" 
-                                                    IsReadOnly="True" />
+                                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding AspectGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding AspectName}" Header="Aspect" 
-                                                    IsReadOnly="True"/>
+                                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding RadixGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>                                
                                 <DataGridTextColumn Binding="{Binding RadixName}" Header="Radix" 
-                                                    IsReadOnly="True"/>
+                                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding OrbText}" Header="Effective orb" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
                             </DataGrid.Columns>   

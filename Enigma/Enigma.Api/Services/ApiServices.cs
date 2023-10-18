@@ -20,6 +20,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
         serviceCollection.AddTransient<ICalcSecDirEventApi, CalcSecDirEventApi>();
+        serviceCollection.AddTransient<ICalcSymDirEventApi, CalcSymDirEventApi>();
         serviceCollection.AddTransient<ICalcTransitsEventApi, CalcTransitsEventApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
         serviceCollection.AddTransient<IChartDataPersistencyApi, ChartDataPersistencyApi>();
