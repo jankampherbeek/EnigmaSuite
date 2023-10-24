@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
@@ -106,30 +107,14 @@ public interface ISpeculum
     /// <summary>Right ascension of the IC.</summary>
     public double RaIc { get; }
     /// <summary>Oblique ascension of the ascendant.</summary>
-    public double OblAscAscendant { get; }
+    public double OaAscendant { get; }
     /// <summary>Oblique descension of the descendant.</summary>
-    public double OblDescDescendant { get; }
+    public double OdDescendant { get; }
     /// <summary>Celestial points</summary>
-    public List<ISpeculumItem> SpeculumItems { get; }
+    public Dictionary<ChartPoints, SpeculumItem> SpeculumItems { get; }
 }
 
 
-
-/// <summary>Constructs and holds data for a speculum item.</summary>
-public interface ISpeculumItem
-{
-    /// <summary>Right ascension in degrees.</summary>
-    public double RightAscension { get; }
-    /// <summary>Declination, north is +, south = - .</summary>
-    public double Declination { get; }
-    /// <summary>Meridian distance MC.</summary>
-    public double MeridianDistanceMc { get; }
-    /// <summary>Meridian distance IC.</summary>
-    public double MeridianDistanceIc { get; }
-    /// <summary>Ascensional difference.</summary>
-    public double AscensionalDifference { get; }
-
-}
 
 /// <summary>Calculator for progressive points based on real movements, e.g. transits and secundary directions.</summary>
 public interface IProgRealPointCalc

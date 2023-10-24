@@ -19,7 +19,7 @@ namespace Enigma.Frontend.Ui.State;
 public sealed class DataVault
 {
     // TODO Too many global vars, restrict to a minimum.
-    
+    // TODO separate DataVaults for Charts and for Research
     
     private static readonly DataVault instance = new();
 

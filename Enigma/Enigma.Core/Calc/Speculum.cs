@@ -20,14 +20,16 @@ public sealed class Speculum: ISpeculum
 
     public double RaIc { get; }
 
-    public double OblAscAscendant { get; }
+    public double OaAscendant { get; }
 
-    public double OblDescDescendant { get; }
+    public double OdDescendant { get; }
 
-    public List<ISpeculumItem> SpeculumItems { get; }
+    public Dictionary<ChartPoints, SpeculumItem> SpeculumItems { get; }
 
     public Speculum(PrimaryDirMethods primDirMethod, CalculatedChart calcChart, List<ChartPoints> promissors, List<ChartPoints> significators)
     {
+        // TODO support different methods, for now use SA mundane
+        
         PrimaryDirMethod = primDirMethod;
         GeoLat = calcChart.InputtedChartData.Location.GeoLat;
 
@@ -36,89 +38,59 @@ public sealed class Speculum: ISpeculum
         {
             RaMc = position.Value.Equatorial.MainPosSpeed.Position;
             RaIc = RangeUtil.ValueToRange(RaMc + 180.0, 0.0, 360.0);
-            OblAscAscendant = RangeUtil.ValueToRange(RaMc + 90.0, 0.0, 360.0);
-            OblDescDescendant = RangeUtil.ValueToRange(RaMc - 90.0, 0.0, 360.0);
+            OaAscendant = RangeUtil.ValueToRange(RaMc + 90.0, 0.0, 360.0);
+            OdDescendant = RangeUtil.ValueToRange(RaMc - 90.0, 0.0, 360.0);
+        }
+
+        Dictionary<ChartPoints, SpeculumItem> speculumItems = new();
+        foreach (KeyValuePair<ChartPoints, FullPointPos> position in calcChart.Positions)
+        {
+            ChartPoints point = position.Key;
+            SpeculumItem specItem = CreateSpeculumItemPlacidus(position.Value);
+            speculumItems.Add(point, specItem);
         }
 
     }
-}
-
-
-
-/// <summary>Speculum for Placidean directions, using the semi-arc.</summary>
-public abstract class SpeculumItem : ISpeculumItem
-{
-    /// <inheritdoc/>
-    public double RightAscension => RaPlanet;
-    /// <inheritdoc/>
-    public double Declination => DeclPlanet;
-    /// <inheritdoc/>
-    public double MeridianDistanceMc => Mdmc;
-    /// <inheritdoc/>
-    public double MeridianDistanceIc => Mdic;
-    /// <inheritdoc/>
-    public double AscensionalDifference { get; }
-
-    /// <summary>Oblique ascension of promissor.</summary>
-    public double ObliqueAscensionPromissor { get; }
-
-    /// <summary>Horizontal distance</summary>
-    public double HorizontalDistance => Hd;
-    /// <summary>Diurnal semi-arc</summary>
-    public double DiurnalSemiArc => Dsa;
-    /// <summary>Diurnal semi-arc</summary>
-    public double NocturnalSemiArc => Nsa;
-
-
-    protected readonly double RaPlanet;
-    protected readonly double DeclPlanet;
-    protected readonly double Mdmc;                       // meridian distance from mc
-    protected readonly double Mdic;                       // meridian distance from ic
-    protected readonly double GeoLat;
-    protected readonly double Hd;                         // horizontal distance
-    protected readonly double Dsa;                        // diurnal semi-arc
-    protected readonly double Nsa;                        // nocturnal semi-arc
-    protected readonly bool East;
-    private readonly bool _north;
-
-    protected SpeculumItem(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet)
+    
+    private SpeculumItem CreateSpeculumItemPlacidus(FullPointPos fullPointPos)
     {
-        RaPlanet = raPlanet;
-        DeclPlanet = declPlanet;
-        GeoLat = geoLat;
-        Mdmc = RangeUtil.ValueToRange(RaPlanet - raMc, 0.0, 360.0);
-        Mdic = RangeUtil.ValueToRange(RaPlanet - raIc, 0.0, 360.0);
-        AscensionalDifference = MathExtra.AscensionalDifference(DeclPlanet, geoLat);
-        _north = GeoLat >= 0.0;
-        East = MathExtra.IsEasternHemiSphere(RaPlanet, raMc);
-        ObliqueAscensionPromissor = MathExtra.ObliqueAscension(RaPlanet, AscensionalDifference, East, _north);
-        if (East)
-        {
-            Hd = ObliqueAscensionPromissor - oaAsc;
-        } else
-        {
-            Hd = RangeUtil.ValueToRange(ObliqueAscensionPromissor + 180.0, 0.0, 360.0) - odDesc;
-        }
-        Dsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdmc), 0.0, 360.0);
-        Nsa = RangeUtil.ValueToRange(Math.Abs(Hd) + Math.Abs(Mdic), 0.0, 360.0);
+        double ra = fullPointPos.Equatorial.MainPosSpeed.Position;
+        double decl = fullPointPos.Equatorial.DeviationPosSpeed.Position;
+        bool easternHemisphere = MathExtra.IsEasternHemiSphere(ra, RaMc);
+        double mdmc = RangeUtil.ValueToRange(ra - RaMc, 0.0, 360.0);
+        double mdic = RangeUtil.ValueToRange(ra - RaIc, 0.0, 360.0);
+        double ad = MathExtra.AscensionalDifference(decl, GeoLat);
+        bool northLatitude = GeoLat > 0.0;
+        double oa = MathExtra.ObliqueAscension(ra, ad, easternHemisphere, northLatitude);
+        double hd = easternHemisphere
+            ? oa - OaAscendant
+            : RangeUtil.ValueToRange(oa + 180.0, 0.0, 360.0) - OdDescendant;
+        double dsa = RangeUtil.ValueToRange(Math.Abs(hd) + Math.Abs(mdmc), 0.0, 360.0);
+        double nsa = RangeUtil.ValueToRange(Math.Abs(hd) + Math.Abs(mdic), 0.0, 360.0);
+        double propSa = (hd >= 0.0) ? mdmc / dsa : mdic / nsa;
 
+        return new SpeculumItem(ra, decl, mdmc, mdic, ad, oa, hd, dsa, nsa, propSa);
     }
 }
 
-public class SpeculumItemPlacidus : SpeculumItem
-{
 
-    /// <summary>Proportional semi arc</summary>
-    public double ProportionalSemiArc { get; }
 
-    public SpeculumItemPlacidus(double geoLat, double raMc, double raIc, double oaAsc, double odDesc, double raPlanet, double declPlanet) :
-        base(geoLat, raMc, raIc, oaAsc, odDesc, raPlanet, declPlanet)
-    {
-        ProportionalSemiArc = (Hd >= 0.0) ? Mdmc / Dsa : Mdic / Nsa;
-    }
+/// <summary>Speculumitem with astronomical details for a specific point as used in SA directions.</summary>
+/// <param name="Ra">Right ascension.</param>
+/// <param name="Declination">Declination.</param>
+/// <param name="MdMc">Meridian distance to Mc.</param>
+/// <param name="MdIc">Meridian distance to Ic.</param>
+/// <param name="Ad">Ascensional difference.</param>
+/// <param name="Oa">Oblique ascension.</param>
+/// <param name="Hd">Horizontal difference.</param>
+/// <param name="Dsa">Diurnal semi-arc.</param>
+/// <param name="Nsa">Nocturnal semi-arc.</param>
+/// <param name="PropSa">Proportional semi-arc.</param>
+public record SpeculumItem(double Ra, double Declination, double MdMc, double MdIc, double Ad, double Oa, double Hd,
+    double Dsa, double Nsa, double PropSa);
 
-}
 
+/*
 public class SpeculumItemRegiomontanus: SpeculumItem
 {
     public double Pole { get; private set; }
@@ -151,5 +123,5 @@ public class SpeculumItemRegiomontanus: SpeculumItem
     }
 
 }
-
+*/
 
