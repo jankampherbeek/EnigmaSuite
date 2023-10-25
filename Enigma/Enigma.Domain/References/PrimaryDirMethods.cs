@@ -9,12 +9,12 @@ namespace Enigma.Domain.References;
 
 public enum PrimaryDirMethods
 {
-    PlacidusMundane = 0, PlacidusEcliptical = 1, RegiomontanusMundane = 2, RegiomontanusEcliptical = 3 
+    SemiArcMundane = 0, SemiArcZodiacal = 1 
 }
 
 public enum PrimaryDirCoordinateSystem
 {
-    Mundane = 0, Ecliptical = 1
+    Mundane = 0, Zodiacal = 1
 }
 
 
@@ -31,14 +31,10 @@ public static class PrimaryDirMethodsExtensions
     {
         return dirMethod switch
         {
-            PrimaryDirMethods.PlacidusMundane => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Mundane,
-                "Placidus - mundane"),
-            PrimaryDirMethods.PlacidusEcliptical => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Ecliptical,
-                "Placidus - ecliptical"),
-            PrimaryDirMethods.RegiomontanusMundane => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Mundane,
-                "Regiomontanus - mundane"),
-            PrimaryDirMethods.RegiomontanusEcliptical => new PrimaryDirMethodDetails(dirMethod,
-                PrimaryDirCoordinateSystem.Ecliptical, "Regiomontanus - ecliptical"),
+            PrimaryDirMethods.SemiArcMundane => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Mundane,
+                "Semi-arc mundane"),
+            PrimaryDirMethods.SemiArcZodiacal => new PrimaryDirMethodDetails(dirMethod, PrimaryDirCoordinateSystem.Zodiacal,
+                "Semi-arc zodiacal"),
             _ => throw new ArgumentException("Primary method unknown : " + dirMethod)
         };
     }

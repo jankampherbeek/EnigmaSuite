@@ -34,13 +34,13 @@ public class TestDefaultProgConfiguration
     [Test]
     public void TestPrimaryTimeKey()
     {
-        Assert.That(_configProg!.ConfigPrimDir.TimeKey, Is.EqualTo(PrimaryKeys.NaibodRa));
+        Assert.That(_configProg!.ConfigPrimDir.TimeKey, Is.EqualTo(PrimaryKeys.Naibod));
     }
     
     [Test]
     public void TestPrimaryMethod()
     {
-        Assert.That(_configProg!.ConfigPrimDir.DirMethod, Is.EqualTo(PrimaryDirMethods.PlacidusMundane));
+        Assert.That(_configProg!.ConfigPrimDir.DirMethod, Is.EqualTo(PrimaryDirMethods.SemiArcMundane));
     }
 
     [Test]

@@ -87,11 +87,10 @@ public interface ITimeKeyCalculator
     /// <param name="totalKey">Total key.</param>
     /// <param name="positionSun">Full position of the Sun.</param>
     /// <param name="jdRadix">Julian Day Number for the radix.</param>
-    /// <param name="coordSys">Coordinate system, only ecliptical and equatorial allowed.</param>
     /// <param name="observerPos">Observer position, only geocentric and topocentric allowed.</param>
     /// <param name="location">Location (only used for topocentric positions).</param>
     /// <returns>The calculated number of days.</returns>
-    public double CalculateDaysFromTotalKey(PrimaryKeys primaryKey, double totalKey, FullPointPos positionSun, double jdRadix, CoordinateSystems coordSys, ObserverPositions observerPos, Location location);
+    public double CalculateDaysFromTotalKey(PrimaryKeys primaryKey, double totalKey, FullPointPos positionSun, double jdRadix, ObserverPositions observerPos, Location location);
 
 }
 

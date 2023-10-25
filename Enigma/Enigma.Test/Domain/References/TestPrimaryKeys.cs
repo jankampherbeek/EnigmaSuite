@@ -14,13 +14,13 @@ public class TestPrimaryKeySpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        const PrimaryKeys key = PrimaryKeys.NaibodRa;
+        const PrimaryKeys key = PrimaryKeys.Naibod;
         PrimaryKeyDetails details = key.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
         {
-            Assert.That(details.PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodRa));
-            Assert.That(details.Text, Is.EqualTo("Naibod (RA)"));
+            Assert.That(details.PrimaryKey, Is.EqualTo(PrimaryKeys.Naibod));
+            Assert.That(details.Text, Is.EqualTo("Naibod"));
         });
     }
 
@@ -40,7 +40,7 @@ public class TestPrimaryKeySpecifications
     {
         const int index = 2;
         PrimaryKeys key = PrimaryKeyExtensions.PrimaryKeysForIndex(index);
-        Assert.That(key, Is.EqualTo(PrimaryKeys.NaibodRa));
+        Assert.That(key, Is.EqualTo(PrimaryKeys.Naibod));
     }
 
 
@@ -57,9 +57,9 @@ public class TestPrimaryKeySpecifications
         List<PrimaryKeyDetails> allDetails = PrimaryKeyExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(8));
-            Assert.That(allDetails[2].Text, Is.EqualTo("Brahe (RA)"));
-            Assert.That(allDetails[5].PrimaryKey, Is.EqualTo(PrimaryKeys.NaibodLongitude));
+            Assert.That(allDetails, Has.Count.EqualTo(5));
+            Assert.That(allDetails[2].Text, Is.EqualTo("Brahe"));
+            Assert.That(allDetails[4].PrimaryKey, Is.EqualTo(PrimaryKeys.VanDam));
         });
     }
 

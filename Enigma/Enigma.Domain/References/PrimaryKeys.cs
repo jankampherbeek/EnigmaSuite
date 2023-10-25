@@ -10,14 +10,11 @@ namespace Enigma.Domain.References;
 /// <summary>Time keys for primary directions.</summary>
 public enum PrimaryKeys
 {
-    PtolemyRa = 1,
-    NaibodRa = 2,
-    BraheRa = 3,
-    PlacidusRa = 4,
-    PtolemyLongitude = 5,
-    NaibodLongitude = 6,
-    BraheLongitude = 7,
-    PlacidusLongitude = 8
+    Ptolemy = 1,        // 1 degree longitude
+    Naibod = 2,         // mean daily movement of Sun in longitude
+    Brahe = 3,          // equatorial solar arc at birthday
+    Placidus = 4,       // equatorial secundary solar arc 
+    VanDam = 5          // ecliptical secundary solar arc
 }
 
 /// <summary>Details for a primary time key.</summary>
@@ -36,14 +33,11 @@ public static class PrimaryKeyExtensions
     {
         return primaryKey switch
         {
-            PrimaryKeys.PtolemyRa => new PrimaryKeyDetails(primaryKey, "Ptolemy (RA)"),
-            PrimaryKeys.NaibodRa => new PrimaryKeyDetails(primaryKey, "Naibod (RA)"),
-            PrimaryKeys.BraheRa => new PrimaryKeyDetails(primaryKey, "Brahe (RA)"),
-            PrimaryKeys.PlacidusRa => new PrimaryKeyDetails(primaryKey, "Placidus (RA)"),
-            PrimaryKeys.PtolemyLongitude => new PrimaryKeyDetails(primaryKey, "Ptolemy (Longitude)"),
-            PrimaryKeys.NaibodLongitude => new PrimaryKeyDetails(primaryKey, "Naibod (Longitude)"),
-            PrimaryKeys.BraheLongitude => new PrimaryKeyDetails(primaryKey, "Brahe (Longitude)"),
-            PrimaryKeys.PlacidusLongitude => new PrimaryKeyDetails(primaryKey, "Placidus (Longitude)"),
+            PrimaryKeys.Ptolemy => new PrimaryKeyDetails(primaryKey, "Ptolemy"),
+            PrimaryKeys.Naibod => new PrimaryKeyDetails(primaryKey, "Naibod"),
+            PrimaryKeys.Brahe => new PrimaryKeyDetails(primaryKey, "Brahe"),
+            PrimaryKeys.Placidus => new PrimaryKeyDetails(primaryKey, "Placidus"),
+            PrimaryKeys.VanDam => new PrimaryKeyDetails(primaryKey, "Van Dam"),
             _ => throw new ArgumentException("Primary time key unknown : " + primaryKey)
         };
     }

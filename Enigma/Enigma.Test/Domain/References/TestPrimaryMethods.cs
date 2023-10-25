@@ -15,13 +15,13 @@ public class TestPrimarySystemSpecifications
     [Test]
     public void TestRetrievingDetails()
     {
-        const PrimaryDirMethods prMethod = PrimaryDirMethods.PlacidusEcliptical;
+        const PrimaryDirMethods prMethod = PrimaryDirMethods.SemiArcZodiacal;
         PrimaryDirMethodDetails details = prMethod.GetDetails();
         Assert.That(details, Is.Not.Null);
         Assert.Multiple(() =>
         {
-            Assert.That(details.DirMethod, Is.EqualTo(PrimaryDirMethods.PlacidusEcliptical));
-            Assert.That(details.MethodName, Is.EqualTo("Placidus - ecliptical"));
+            Assert.That(details.DirMethod, Is.EqualTo(PrimaryDirMethods.SemiArcZodiacal));
+            Assert.That(details.MethodName, Is.EqualTo("Semi-arc zodiacal"));
         });
     }
 
@@ -41,7 +41,7 @@ public class TestPrimarySystemSpecifications
     {
         const int index = 1;
         PrimaryDirMethods prDirMethod = PrimaryDirMethodsExtensions.MethodForIndex(index);
-        Assert.That(prDirMethod, Is.EqualTo(PrimaryDirMethods.PlacidusEcliptical));
+        Assert.That(prDirMethod, Is.EqualTo(PrimaryDirMethods.SemiArcZodiacal));
     }
 
     [Test]
@@ -57,9 +57,9 @@ public class TestPrimarySystemSpecifications
         List<PrimaryDirMethodDetails> allDetails = PrimaryDirMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(4));
-            Assert.That(allDetails[1].MethodName, Is.EqualTo("Placidus - ecliptical"));
-            Assert.That(allDetails[2].DirMethod, Is.EqualTo(PrimaryDirMethods.RegiomontanusMundane));
+            Assert.That(allDetails, Has.Count.EqualTo(2));
+            Assert.That(allDetails[0].MethodName, Is.EqualTo("Semi-arc mundane"));
+            Assert.That(allDetails[1].DirMethod, Is.EqualTo(PrimaryDirMethods.SemiArcZodiacal));
         });
     }
 

@@ -62,8 +62,8 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
     {
         const double orb = 1.0;
         const bool includeConverse = false;
-        const PrimaryKeys timeKey = PrimaryKeys.NaibodRa;
-        const PrimaryDirMethods method = PrimaryDirMethods.PlacidusMundane;
+        const PrimaryKeys timeKey = PrimaryKeys.Naibod;
+        const PrimaryDirMethods method = PrimaryDirMethods.SemiArcMundane;
         Dictionary<ChartPoints, ProgPointConfigSpecs> promissors = CreateProgPoints();
         Dictionary<ChartPoints, ProgPointConfigSpecs> significators = CreateProgPoints();
 
