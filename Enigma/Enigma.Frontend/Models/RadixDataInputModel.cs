@@ -51,9 +51,9 @@ public class RadixDataInputModel: DateTimeLocationModelBase
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ChartData chartData = new(id, metaData, location, fullDateTime);
         CalculatedChart chart = _chartCalculation.CalculateChart(chartData);
-        DataVault dataVault = DataVault.Instance;
-        dataVault.AddNewChart(chart);
-        dataVault.SetNewChartAdded(true);
+        DataVaultCharts dataVaultCharts = DataVaultCharts.Instance;
+        dataVaultCharts.AddNewChart(chart);
+        dataVaultCharts.SetNewChartAdded(true);
     }
 
     private static MetaData CreateMetaData(string nameId, string description, string source, string locationName, 

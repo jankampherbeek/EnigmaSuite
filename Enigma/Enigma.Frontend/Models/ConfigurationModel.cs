@@ -43,7 +43,7 @@ public class ConfigurationModel
     {
         _configApi.WriteConfig(astroConfig);
         CurrentConfig.Instance.ChangeConfig(astroConfig);
-        DataVault.Instance.ClearExistingCharts();
+        DataVaultCharts.Instance.ClearExistingCharts();
     }
 
     public static List<string> AllHouses()

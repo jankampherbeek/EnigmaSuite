@@ -35,7 +35,7 @@ public partial class ProjectUsageViewModel: ObservableObject
 
     public ProjectUsageViewModel()
     {
-        ResearchProject? currentProject = DataVault.Instance.CurrentProject;
+        ResearchProject? currentProject = DataVaultResearch.Instance.CurrentProject;
         if (currentProject == null) return;
         TestMethods = new ObservableCollection<PresentableMethodDetails>(ProjectUsageModel.GetAllMethodDetails());
         ProjectName = currentProject.Name;
@@ -51,15 +51,15 @@ public partial class ProjectUsageViewModel: ObservableObject
     private void PerformTest()
     {
         ResearchMethods method = ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex);
-        DataVault.Instance.ResearchMethod = method;
+        DataVaultResearch.Instance.ResearchMethod = method;
         bool sufficientSelections = false;
         int minNumber = method.GetDetails().MinNumberOfPoints;
         while (!sufficientSelections)
         {
             ResearchPointSelectionWindow selectionWindow = new();
             selectionWindow.ShowDialog();
-            if (DataVault.Instance.ResearchCanceled) return;
-            ResearchPointsSelection? selection = DataVault.Instance.CurrentPointsSelection;
+            if (DataVaultResearch.Instance.ResearchCanceled) return;
+            ResearchPointsSelection? selection = DataVaultResearch.Instance.CurrentPointsSelection;
             int selectedNumber = selection != null ? selection.SelectedPoints.Count : 0; 
             sufficientSelections = selectedNumber >= minNumber;
             if (sufficientSelections)
@@ -79,7 +79,7 @@ public partial class ProjectUsageViewModel: ObservableObject
         {
             new ResearchMidpointDetailsWindow().ShowDialog();
         }
-        if (DataVault.Instance.ResearchCanceled) return;
+        if (DataVaultResearch.Instance.ResearchCanceled) return;
         _model.PerformRequest(ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex));
         new ResearchResultWindow().ShowDialog();
     }
@@ -94,7 +94,7 @@ public partial class ProjectUsageViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ProjectUsage";
+        DataVaultGeneral.Instance.CurrentViewBase = "ProjectUsage";
         new HelpWindow().ShowDialog();
     }
 

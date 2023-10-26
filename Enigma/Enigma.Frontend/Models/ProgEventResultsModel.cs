@@ -24,7 +24,8 @@ public class ProgEventResultsModel
     private readonly ICalcSecDirEventApi _calcSecDirEventApi;
     private readonly ICalcSymDirEventApi _calcSymDirEventApi;
     private readonly ICalcTransitsEventApi _calcTransitsEventApi;
-    private readonly DataVault _dataVault = DataVault.Instance;
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
+    private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly IProgAspectForPresentationFactory _progAspectPresFactory;
     private readonly IProgAspectsApi _progAspectsApi;
@@ -91,7 +92,7 @@ public class ProgEventResultsModel
 
     private void HandleAspects(ProgresMethods progMethod)
     {
-        CalculatedChart? radix = DataVault.Instance.GetCurrentChart();
+        CalculatedChart? radix = DataVaultCharts.Instance.GetCurrentChart();
         if (radix == null) return;
         Dictionary<ChartPoints, double> radixPositions = DefineRadixPositions(radix);
         ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
@@ -153,7 +154,7 @@ public class ProgEventResultsModel
 
     private string DefineMethodName()
     {
-        var method = _dataVault.CurrentProgresMethod;
+        var method = _dataVaultProg.CurrentProgresMethod;
         return method switch
         {
             ProgresMethods.Transits => "Transits",
@@ -168,7 +169,7 @@ public class ProgEventResultsModel
 
     private string DefineDetails()
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         return chart != null
             ? _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData)
@@ -177,25 +178,25 @@ public class ProgEventResultsModel
 
     private string DefineEventDescription()
     {
-        return _dataVault.CurrentProgEvent != null
-            ? _dataVault.CurrentProgEvent.Description
+        return _dataVaultProg.CurrentProgEvent != null
+            ? _dataVaultProg.CurrentProgEvent.Description
             : "No description for event.";
     }
 
     private string DefineEventDateTime()
     {
-        if (_dataVault.CurrentProgEvent == null) return "No date and time for event.";
-        FullDateTime fullDate = _dataVault.CurrentProgEvent.DateTime;
+        if (_dataVaultProg.CurrentProgEvent == null) return "No date and time for event.";
+        FullDateTime fullDate = _dataVaultProg.CurrentProgEvent.DateTime;
         return fullDate.DateText + "\n" + fullDate.TimeText;
     }
 
     private Dictionary<ChartPoints, ProgPositions> CalculateTransits()
     {
         Dictionary<ChartPoints, ProgPositions> positions = new();
-        ProgEvent? progEvent = _dataVault.CurrentProgEvent;
+        ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
-        double jdUt = _dataVault.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
-        Location location = _dataVault.CurrentProgEvent.Location;
+        double jdUt = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
+        Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgTransits configTransits = CurrentConfig.Instance.GetConfigProg().ConfigTransits;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         TransitsEventRequest request = new(jdUt, location, configTransits, configRadix.Ayanamsha,
@@ -212,11 +213,11 @@ public class ProgEventResultsModel
     private Dictionary<ChartPoints, ProgPositions> CalculateSecDir()
     {
         Dictionary<ChartPoints, ProgPositions> positions = new();
-        ProgEvent? progEvent = _dataVault.CurrentProgEvent;
+        ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
-        double jdEvent = _dataVault.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
-        double jdRadix = _dataVault.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
-        Location location = _dataVault.CurrentProgEvent.Location;
+        double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
+        double jdRadix = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
+        Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSecDir configSecDir = CurrentConfig.Instance.GetConfigProg().ConfigSecDir;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         SecDirEventRequest request = new(jdRadix, jdEvent, location, configSecDir, configRadix.Ayanamsha,
@@ -233,14 +234,14 @@ public class ProgEventResultsModel
     private Dictionary<ChartPoints, ProgPositions> CalculateSymDir()
     {
         Dictionary<ChartPoints, ProgPositions> positions = new();
-        ProgEvent? progEvent = _dataVault.CurrentProgEvent;
+        ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
-        double jdEvent = _dataVault.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
-        double jdRadix = _dataVault.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
-        Location location = _dataVault.CurrentProgEvent.Location;
+        double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
+        double jdRadix = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
+        Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSymDir configSymDir = CurrentConfig.Instance.GetConfigProg().ConfigSymDir;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
-        var FullPositions = DataVault.Instance.GetCurrentChart().Positions;
+        var FullPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
         Dictionary<ChartPoints, double> radixPositions = 
             FullPositions.ToDictionary(fullPos => fullPos.Key, 
                 fullPos => fullPos.Value.Ecliptical.MainPosSpeed.Position);

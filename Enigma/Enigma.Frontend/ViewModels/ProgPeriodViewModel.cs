@@ -68,7 +68,7 @@ public partial class ProgPeriodViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ProgPeriodInput";    // TODO create helppage
+        DataVaultGeneral.Instance.CurrentViewBase = "ProgPeriodInput";    // TODO create helppage
         new HelpWindow().ShowDialog();
     }
     

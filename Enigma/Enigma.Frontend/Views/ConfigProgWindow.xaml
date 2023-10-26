@@ -137,10 +137,6 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              Background="{Binding OrbPrimDirValid}"
                              Text="{Binding OrbPrimDirText, Mode=TwoWay}" /> 
-                    <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" 
-                              Content="Include converse directions" 
-                              Style="{StaticResource MaterialDesignCheckBox}"
-                              IsChecked="{Binding IncludeConverseDirections}" />
                     <TextBlock Grid.Row="3" Grid.Column="0" Margin="6" Text="Significators" 
                                Name="SubHeaderSignificators" FontWeight="Bold" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Margin="6" Text="Promissors" 

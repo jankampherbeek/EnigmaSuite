@@ -17,13 +17,13 @@ public sealed class RadixPositionsModel
     private readonly IHousePosForDataGridFactory _housePosForDataGridFactory;
     private readonly ICelPointForDataGridFactory _celPointForDataGridFactory;
     private readonly IDescriptiveChartText _descriptiveChartText;
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
 
     public RadixPositionsModel(IHousePosForDataGridFactory housePosForDataGridFactory,
         ICelPointForDataGridFactory celPointForDataGridFactory,
         IDescriptiveChartText descriptiveChartText)
     {
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
         _housePosForDataGridFactory = housePosForDataGridFactory;
         _celPointForDataGridFactory = celPointForDataGridFactory;
         _descriptiveChartText = descriptiveChartText;
@@ -31,7 +31,7 @@ public sealed class RadixPositionsModel
 
     private ChartData? GetChartData()
     {
-        CalculatedChart? currentChart = _dataVault.GetCurrentChart();
+        CalculatedChart? currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart?.InputtedChartData;
     }
 
@@ -43,7 +43,7 @@ public sealed class RadixPositionsModel
     
     public string DescriptiveText()
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         return chart != null
             ? _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData)
@@ -53,20 +53,20 @@ public sealed class RadixPositionsModel
 
     public List<PresentableHousePositions> GetHousePositionsCurrentChart()
     {
-        CalculatedChart? currentChart = _dataVault.GetCurrentChart();
+        CalculatedChart? currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart != null ? _housePosForDataGridFactory.CreateHousePosForDataGrid(currentChart.Positions) 
             : new List<PresentableHousePositions>();
     }
 
     public List<PresentableCommonPositions> GetCelPointPositionsCurrentChart()
     {
-        CalculatedChart? currentChart = _dataVault.GetCurrentChart();
+        CalculatedChart? currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart != null ? _celPointForDataGridFactory.CreateCelPointPosForDataGrid(currentChart.Positions) 
             : new List<PresentableCommonPositions>();
     }
 
     public CalculatedChart? GetCalculatedChart()
     {
-        return _dataVault.GetCurrentChart();
+        return _dataVaultCharts.GetCurrentChart();
     }
 }

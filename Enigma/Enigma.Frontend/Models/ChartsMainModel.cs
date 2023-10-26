@@ -16,7 +16,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for main charts screen</summary>
 public sealed class ChartsMainModel
 {
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
     private readonly IChartDataConverter _chartDataConverter;
     private readonly IEventDataConverter _eventDataConverter;
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
@@ -34,18 +34,18 @@ public sealed class ChartsMainModel
         _chartDataPersistencyApi = chartDataPersistencyApi;
         _eventDataPersistencyApi = eventDataPersistencyApi;
         _chartDataForDataGridFactory = chartDataForDataGridFactory;
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
     }
 
     public List<PresentableChartData> AvailableCharts()
     {
-        return _chartDataForDataGridFactory.CreateChartDataForDataGrid(_dataVault.GetAllCharts());
+        return _chartDataForDataGridFactory.CreateChartDataForDataGrid(_dataVaultCharts.GetAllCharts());
     }
     
     public int SaveCurrentChart()
     {
         int newIndex = -1;
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
         ChartData chartData = currentChart.InputtedChartData;
         PersistableChartData persistableChartData = _chartDataConverter.ToPersistableChartData(chartData);
@@ -55,7 +55,7 @@ public sealed class ChartsMainModel
     
     public bool DeleteCurrentChart()
     {
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return false;
         int id = currentChart.InputtedChartData.Id;
         return _chartDataPersistencyApi.DeleteChartData(id);
@@ -76,13 +76,13 @@ public sealed class ChartsMainModel
     
     public string CurrentChartName()
     {
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart != null ? currentChart.InputtedChartData.MetaData.Name : "";
     }
 
     public PresentableChartData? CurrentChart()
     {
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart != null ? _chartDataForDataGridFactory.CreatePresentableChartData(currentChart) : null;
     }
     

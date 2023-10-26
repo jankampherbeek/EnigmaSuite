@@ -18,7 +18,7 @@ public class RadixSearchModel
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
     private readonly IChartCalculation _chartCalculation;
     private readonly IChartDataConverter _chartDataConverter;
-    private readonly DataVault _dataVault = DataVault.Instance;
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     
 
     public RadixSearchModel(IChartDataPersistencyApi chartDataPersistencyApi, 
@@ -42,8 +42,8 @@ public class RadixSearchModel
         PersistableChartData persistableChartData = ChartsFound[chartId];
         ChartData chartData = _chartDataConverter.FromPersistableChartData(persistableChartData);
         CalculatedChart calcChart = _chartCalculation.CalculateChart(chartData);
-        _dataVault.AddNewChart(calcChart);
-        _dataVault.SetCurrentChart(calcChart.InputtedChartData.Id);
+        _dataVaultCharts.AddNewChart(calcChart);
+        _dataVaultCharts.SetCurrentChart(calcChart.InputtedChartData.Id);
     }
     
 }

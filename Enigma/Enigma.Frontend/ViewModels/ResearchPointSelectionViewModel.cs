@@ -28,11 +28,11 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     [ObservableProperty] private bool _includeCusps;
     [ObservableProperty] private ObservableCollection<SelectableChartPointDetails> _allChartPointDetails;
     
-    private readonly DataVault _dataVault = DataVault.Instance;
+    private readonly DataVaultResearch _dataVaultResearch = DataVaultResearch.Instance;
 
     public ResearchPointSelectionViewModel()
     {
-        _dataVault.ResearchCanceled = true;
+        _dataVaultResearch.ResearchCanceled = true;
         var model = App.ServiceProvider.GetRequiredService<ResearchPointSelectionModel>();
         _allChartPointDetails =  new ObservableCollection<SelectableChartPointDetails>(model.GetAllCelPointDetails());
     }
@@ -40,22 +40,22 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     [RelayCommand]
     private void CompleteSelection()
     {
-        _dataVault.ResearchCanceled = false;
+        _dataVaultResearch.ResearchCanceled = false;
         List<ChartPoints> selectedPoints = (from item in AllChartPointDetails 
             where item.Selected select item.ChartPoint).ToList();
-        _dataVault.CurrentPointsSelection = new ResearchPointsSelection(selectedPoints, IncludeCusps);
+        _dataVaultResearch.CurrentPointsSelection = new ResearchPointsSelection(selectedPoints, IncludeCusps);
     }
 
     [RelayCommand]
     private void Cancel()
     {
-        _dataVault.ResearchCanceled = true;
+        _dataVaultResearch.ResearchCanceled = true;
     }
     
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ResearchPointsSelection";
+        DataVaultGeneral.Instance.CurrentViewBase = "ResearchPointsSelection";
         new HelpWindow().ShowDialog();
     }
 }

@@ -33,7 +33,7 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "Main";
+        DataVaultGeneral.Instance.CurrentViewBase = "Main";
         new HelpWindow().ShowDialog();
     }
     

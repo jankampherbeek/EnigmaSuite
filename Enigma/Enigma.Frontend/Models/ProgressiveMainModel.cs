@@ -26,7 +26,8 @@ public class ProgressiveMainModel
     public List<ProgPeriod> AvailablePeriods = new();*/
     public List<PresentableProgresData> PresentableEventsPeriods { get; set; } = new();
 //    public List<PresentableProgresData> PresentablePeriods { get; set; } = new();
-    private readonly DataVault _dataVault = DataVault.Instance;
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
+    private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
 
     public ProgressiveMainModel(IEventDataConverter eventDataConverter, 
         IPeriodDataConverter periodDataConverter,
@@ -48,9 +49,9 @@ public class ProgressiveMainModel
     public int SaveCurrentEvent()
     {
         int newIndex = -1;
-        var currentEvent = _dataVault.CurrentProgEvent;
+        var currentEvent = _dataVaultProg.CurrentProgEvent;
         if (currentEvent == null) return newIndex;
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
         int chartId = currentChart.InputtedChartData.Id;
         PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(currentEvent);
@@ -61,9 +62,9 @@ public class ProgressiveMainModel
     public int SaveCurrentPeriod()
     {
         int newIndex = -1;
-        var currentPeriod = _dataVault.CurrentProgPeriod;
+        var currentPeriod = _dataVaultProg.CurrentProgPeriod;
         if (currentPeriod == null) return newIndex;
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
         int chartId = currentChart.InputtedChartData.Id;
         PersistablePeriodData persPeriod = _periodDataConverter.ToPersistablePeriodData(currentPeriod);
@@ -73,7 +74,7 @@ public class ProgressiveMainModel
 
     private void ReadCurrentEvents()
     {
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return;
         int chartId = currentChart.InputtedChartData.Id;
         var persistableEventData = _eventDataPersistencyApi.SearchEventData(chartId);
@@ -87,7 +88,7 @@ public class ProgressiveMainModel
 
     private void ReadCurrentPeriods()
     {
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return;
         int chartId = currentChart.InputtedChartData.Id;
         var persistablePeriodData = _periodDataPersistencyApi.SearchPeriodData(chartId);

@@ -16,12 +16,12 @@ public class ResearchHarmonicDetailsModel
 
     public static void SaveOrbHarmonics(double orb)
     {
-        DataVault.Instance.ResearchHarmonicOrb = orb;
+        DataVaultResearch.Instance.ResearchHarmonicOrb = orb;
     }
 
     public static void SaveHarmonicNr(double harmonicNr)
     {
-        DataVault.Instance.ResearchHarmonicValue = harmonicNr;
+        DataVaultResearch.Instance.ResearchHarmonicValue = harmonicNr;
     }
 
 

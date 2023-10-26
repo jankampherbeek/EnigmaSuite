@@ -87,7 +87,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ProjectInput";
+        DataVaultGeneral.Instance.CurrentViewBase = "ProjectInput";
         new HelpWindow().ShowDialog();
     }
 

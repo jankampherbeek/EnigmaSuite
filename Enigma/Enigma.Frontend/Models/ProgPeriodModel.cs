@@ -38,7 +38,7 @@ public class ProgPeriodModel: DateTimeLocationModelBase
         FullDateTime startFullDateTime = new(startDateText, timeText, startJd);
         FullDateTime endFullDateTime = new(endDateText, timeText, endJd);
         ProgPeriod progPeriod = new(0, description, startFullDateTime, endFullDateTime);
-        DataVault.Instance.CurrentProgPeriod = progPeriod;
+        DataVaultProg.Instance.CurrentProgPeriod = progPeriod;
     }
     
     

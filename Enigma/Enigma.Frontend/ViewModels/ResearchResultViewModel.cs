@@ -33,7 +33,7 @@ public partial class ResearchResultViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ResearchResult";
+        DataVaultGeneral.Instance.CurrentViewBase = "ResearchResult";
         new HelpWindow().ShowDialog();
     }
 }

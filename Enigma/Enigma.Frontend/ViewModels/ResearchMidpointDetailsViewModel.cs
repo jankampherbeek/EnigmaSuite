@@ -35,7 +35,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
 
     public ResearchMidpointDetailsViewModel()
     {
-        DataVault.Instance.ResearchCanceled = true;
+        DataVaultResearch.Instance.ResearchCanceled = true;
         List<string> dialSizeList = new()
         {
             "Dial 360\u00B0",
@@ -49,7 +49,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsInputOk))]
     private void Continue()
     {
-        DataVault.Instance.ResearchCanceled = false;
+        DataVaultResearch.Instance.ResearchCanceled = false;
         double orbValue = OrbDegreeValue + OrbMinuteValue / 60.0;        
         ResearchMidpointDetailsModel.SaveOrbMidpoints(orbValue);
         int dialDivision = DialIndex switch
@@ -65,13 +65,13 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Cancel()
     {
-        DataVault.Instance.ResearchCanceled = true;
+        DataVaultResearch.Instance.ResearchCanceled = true;
     }
     
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ResearchMidpointDetails";
+        DataVaultGeneral.Instance.CurrentViewBase = "ResearchMidpointDetails";
         new HelpWindow().ShowDialog();
     }
     

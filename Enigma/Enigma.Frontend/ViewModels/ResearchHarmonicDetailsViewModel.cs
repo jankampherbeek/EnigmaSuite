@@ -34,14 +34,14 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
 
     public ResearchHarmonicDetailsViewModel()
     {
-        DataVault.Instance.ResearchCanceled = true;
+        DataVaultResearch.Instance.ResearchCanceled = true;
     }
     
     
     [RelayCommand(CanExecute = nameof(IsInputOk))]
     private void Continue()
     {
-        DataVault.Instance.ResearchCanceled = false;
+        DataVaultResearch.Instance.ResearchCanceled = false;
         double orbValue = OrbDegreeValue + OrbMinuteValue / 60.0;        
         ResearchHarmonicDetailsModel.SaveOrbHarmonics(orbValue);
         ResearchHarmonicDetailsModel.SaveHarmonicNr(HarmonicValue);
@@ -50,14 +50,14 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Cancel()
     {
-        DataVault.Instance.ResearchCanceled = true;
+        DataVaultResearch.Instance.ResearchCanceled = true;
     }
     
     
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ResearchHarmonicDetails";
+        DataVaultGeneral.Instance.CurrentViewBase = "ResearchHarmonicDetails";
         new HelpWindow().ShowDialog();
     }
     

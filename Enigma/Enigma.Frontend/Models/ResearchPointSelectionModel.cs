@@ -31,7 +31,7 @@ public class ResearchPointSelectionModel
 
     public List<SelectableChartPointDetails> GetAllCelPointDetails()
     {
-        ResearchMethods method = DataVault.Instance.ResearchMethod;
+        ResearchMethods method = DataVaultResearch.Instance.ResearchMethod;
         return DefineChartPoints(method);
     }
 

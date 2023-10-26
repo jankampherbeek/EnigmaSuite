@@ -15,11 +15,11 @@ public class ResearchMidpointDetailsModel
 
     public static void SaveOrbMidpoints(double orb)
     {
-        DataVault.Instance.ResearchMidpointOrb = orb;
+        DataVaultResearch.Instance.ResearchMidpointOrb = orb;
     }
 
     public static void SaveDialDivision(int dialDivision)
     {
-        DataVault.Instance.ResearchMidpointDialDivision = dialDivision;
+        DataVaultResearch.Instance.ResearchMidpointDialDivision = dialDivision;
     }
 }

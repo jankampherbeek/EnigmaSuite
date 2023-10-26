@@ -35,7 +35,7 @@ public partial class AppSettingsViewModel: ObservableObject
     
     [RelayCommand] private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "Settings";
+        DataVaultGeneral.Instance.CurrentViewBase = "Settings";
         new HelpWindow().ShowDialog();
     }
 

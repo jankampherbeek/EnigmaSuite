@@ -48,7 +48,7 @@ public partial class RadixSearchViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "RadixSearch";
+        DataVaultGeneral.Instance.CurrentViewBase = "RadixSearch";
         new HelpWindow().ShowDialog();
     }
     

@@ -28,7 +28,7 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private string _orbSymDirText;
     [NotifyPropertyChangedFor(nameof(OrbTransitValid))]
     [ObservableProperty] private string _orbTransitText;
-    [ObservableProperty] private bool _includeConverseDirections;
+    private bool _includeConverseDirections;
     [ObservableProperty] private bool _applyRelocation;
     [ObservableProperty] private ObservableCollection<string> _allPrimDirMethods;
     [ObservableProperty] private ObservableCollection<string> _allSolarMethods;
@@ -79,7 +79,7 @@ public partial class ConfigProgViewModel:ObservableObject
         OrbSecDirText = _orbSecDirValue.ToString((CultureInfo.InvariantCulture));
         OrbSymDirText = _orbSymDirValue.ToString((CultureInfo.InvariantCulture));
         OrbTransitText = _orbTransitValue.ToString((CultureInfo.InvariantCulture));
-        IncludeConverseDirections = _model.UseConversePrimDir;
+        _includeConverseDirections = false;
         ApplyRelocation = _model.UseRelocation;
     }
     
@@ -118,7 +118,7 @@ public partial class ConfigProgViewModel:ObservableObject
         ConfigProgPrimDir configPrimDir = new(_orbPrimDirValue,
             PrimaryKeyExtensions.PrimaryKeysForIndex(PrimDirKeyIndex), 
             PrimaryDirMethodsExtensions.MethodForIndex(PrimDirMethodIndex),
-            IncludeConverseDirections,
+            _includeConverseDirections,
             AllPromissors.ToDictionary(point => point.ChartPoint,
                 point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
             AllSignificators.ToDictionary(point => point.ChartPoint,
@@ -136,7 +136,7 @@ public partial class ConfigProgViewModel:ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ConfigurationsProg";   // TODO create help file for prog configuration
+        DataVaultGeneral.Instance.CurrentViewBase = "ConfigurationsProg";   // TODO create help file for prog configuration
         HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }

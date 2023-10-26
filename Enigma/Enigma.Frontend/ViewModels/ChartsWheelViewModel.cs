@@ -22,7 +22,7 @@ public partial class ChartsWheelViewModel: ObservableObject
     private string DescriptiveText()
     {
         string descText = "";
-        var chart = DataVault.Instance.GetCurrentChart();
+        var chart = DataVaultCharts.Instance.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {
@@ -35,7 +35,7 @@ public partial class ChartsWheelViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ChartsWheel";
+        DataVaultGeneral.Instance.CurrentViewBase = "ChartsWheel";
         HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }

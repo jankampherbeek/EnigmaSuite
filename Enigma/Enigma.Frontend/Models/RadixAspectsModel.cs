@@ -19,13 +19,13 @@ public sealed class RadixAspectsModel
     private readonly IAspectForDataGridFactory _aspectForDataGridFactory;
     private readonly IAspectsApi _aspectsApi;
     private readonly IDescriptiveChartText _descriptiveChartText;
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
 
 
     public RadixAspectsModel(IAspectForDataGridFactory aspectForDataGridFactory, IAspectsApi aspectsApi,
         IDescriptiveChartText descriptiveChartText)
     {
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
         _aspectForDataGridFactory = aspectForDataGridFactory;
         _aspectsApi = aspectsApi;
         _descriptiveChartText = descriptiveChartText;
@@ -35,7 +35,7 @@ public sealed class RadixAspectsModel
     /// <returns>Name/id as entered by user.</returns>
     public string GetChartIdName()
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         return chart == null ? "" : chart.InputtedChartData.MetaData.Name;
     }
 
@@ -52,7 +52,7 @@ public sealed class RadixAspectsModel
     public string DescriptiveText()
     {
         string descText = "";
-        CalculatedChart? chart = _dataVault.GetCurrentChart();
+        CalculatedChart? chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {
@@ -63,7 +63,7 @@ public sealed class RadixAspectsModel
 
     private AspectRequest CreateRequest()
     {
-        CalculatedChart? currentChart = _dataVault.GetCurrentChart();
+        CalculatedChart? currentChart = _dataVaultCharts.GetCurrentChart();
         AstroConfig config = CurrentConfig.Instance.GetConfig();
         return new AspectRequest(currentChart!, config);
     }

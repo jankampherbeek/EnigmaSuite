@@ -76,7 +76,7 @@ public partial class RadixMidpointsViewModel: ObservableObject
 
     private static void ShowHelp()
     {
-        DataVault.Instance.CurrentViewBase = "RadixMidpoints";
+        DataVaultGeneral.Instance.CurrentViewBase = "RadixMidpoints";
         new HelpWindow().ShowDialog();
     }
 

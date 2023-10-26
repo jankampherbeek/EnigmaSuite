@@ -138,7 +138,7 @@ public partial class ConfigurationViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "Configurations";
+        DataVaultGeneral.Instance.CurrentViewBase = "Configurations";
         HelpWindow helpWindow = new();
         helpWindow.ShowDialog();
     }

@@ -86,7 +86,7 @@ public partial class DatafileImportViewModel: ObservableObject
 
     private static void ShowHelp()
     {
-        DataVault.Instance.CurrentViewBase = "DatafileImport";
+        DataVaultGeneral.Instance.CurrentViewBase = "DatafileImport";
         new HelpWindow().ShowDialog();
     }
 

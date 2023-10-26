@@ -40,7 +40,7 @@ public class ChartsWheelCanvasController
     private Point _centerPoint;
 
     private readonly ChartsWheelMetrics _metrics;
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
     private readonly IChartsWheelCelPoints _chartsWheelCelPoints;
     private readonly IChartsWheelSigns _chartsWheelSigns;
     private readonly IChartsWheelCusps _chartsWheelCusps;
@@ -57,7 +57,7 @@ public class ChartsWheelCanvasController
         IChartsWheelCircles chartsWheelCircles,
         IChartsWheelAspects chartsWheelAspects)
     {
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
         _chartsWheelCelPoints = chartsWheelCelPoints;
         _metrics = metrics;
         _chartsWheelSigns = chartsWheelSigns;
@@ -104,7 +104,7 @@ public class ChartsWheelCanvasController
 
     private void HandleAspects()
     {
-        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVault.GetCurrentChart()!, _metrics, _centerPoint);
+        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVaultCharts.GetCurrentChart()!, _metrics, _centerPoint);
     }
 
     private double GetAscendantLongitude()
@@ -123,7 +123,7 @@ public class ChartsWheelCanvasController
     private List<double> GetHouseLongitudesCurrentChart()
     {
         List<double> longitudes = new();
-        _currentChart = _dataVault.GetCurrentChart();
+        _currentChart = _dataVaultCharts.GetCurrentChart();
         if (_currentChart == null) return longitudes;
         longitudes.AddRange(from cusp in _currentChart.Positions
             where cusp.Key.GetDetails().PointCat == PointCats.Cusp
@@ -133,7 +133,7 @@ public class ChartsWheelCanvasController
 
     private Dictionary<ChartPoints, FullPointPos> GetCommonPointsCurrentChart()
     {
-        _currentChart = _dataVault.GetCurrentChart();
+        _currentChart = _dataVaultCharts.GetCurrentChart();
         return _currentChart != null
             ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common)
                 .ToDictionary(item => item.Key, item => item.Value)
@@ -150,7 +150,7 @@ public class ChartsWheelCanvasController
 
     public void PrepareDraw()
     {
-        _currentChart = _dataVault.GetCurrentChart();
+        _currentChart = _dataVaultCharts.GetCurrentChart();
         HandleCircles();
         HandleSigns();
         HandleCusps();

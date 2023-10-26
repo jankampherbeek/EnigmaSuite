@@ -18,7 +18,7 @@ public class HelpModel
     /// <summary>Define html file to be shown as help text.</summary>
     private static Uri? HelpPageUri()
     {
-        string currentViewBase = DataVault.Instance.CurrentViewBase;  // Name of file without the .html extension. File should be in the folder res/help/
+        string currentViewBase = DataVaultGeneral.Instance.CurrentViewBase;  // Name of file without the .html extension. File should be in the folder res/help/
 
         string currentDir = AppDomain.CurrentDomain.BaseDirectory;
         string relativePath = currentDir + @"res\help\" + currentViewBase + ".html";    

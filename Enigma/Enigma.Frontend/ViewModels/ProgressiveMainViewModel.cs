@@ -21,7 +21,9 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ProgressiveMainViewModel: ObservableObject
 {
     private readonly List<Window> _openWindows = new();
-    private readonly DataVault _dataVault = DataVault.Instance;
+    private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
+    private readonly DataVaultGeneral _dataVaultGeneral = DataVaultGeneral.Instance;
     private CalculatedChart? _currentChart;
     [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
     [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
@@ -58,7 +60,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     
     private void PopulateData()
     {
-        _currentChart = _dataVault.GetCurrentChart();
+        _currentChart = _dataVaultCharts.GetCurrentChart();
         if (_currentChart != null) CurrentChartName = _currentChart.InputtedChartData.MetaData.Name;
     }
     
@@ -66,9 +68,11 @@ public partial class ProgressiveMainViewModel: ObservableObject
     private void DatesItemChanged()
     {
         SelectedProgDate = PresentableEventsPeriods[EventPeriodIndex];
-        _dataVault.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventPeriodIndex];
+        _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventPeriodIndex];
         PopulateData();
     }
+    
+    
 
     
     [RelayCommand]
@@ -88,7 +92,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     private void NewEvent()
     {
         new ProgEventWindow().ShowDialog();
-        if (_dataVault.CurrentProgEvent != null)
+        if (_dataVaultProg.CurrentProgEvent != null)
         {
             _model.SaveCurrentEvent();
         }
@@ -111,7 +115,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     private void NewPeriod()
     {
         new ProgPeriodWindow().ShowDialog();
-        if (_dataVault.CurrentProgPeriod != null)
+        if (_dataVaultProg.CurrentProgPeriod != null)
         {
             _model.SaveCurrentPeriod();
         }
@@ -135,21 +139,21 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SecDir()
     {
-        _dataVault.CurrentProgresMethod = ProgresMethods.Secundary;
+        _dataVaultProg.CurrentProgresMethod = ProgresMethods.Secundary;
         new ProgEventResultsWindow().ShowDialog();
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void Transits()
     {
-        _dataVault.CurrentProgresMethod = ProgresMethods.Transits;
+        _dataVaultProg.CurrentProgresMethod = ProgresMethods.Transits;
         new ProgEventResultsWindow().ShowDialog();
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SymbDir()
     {
-        _dataVault.CurrentProgresMethod = ProgresMethods.Symbolic;
+        _dataVaultProg.CurrentProgresMethod = ProgresMethods.Symbolic;
         new ProgEventResultsWindow().ShowDialog();
     }
     
@@ -162,7 +166,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private void Help()
     {
-        _dataVault.CurrentViewBase = "ProgressiveMain";    // TODO create helppage progressive main
+        _dataVaultGeneral.CurrentViewBase = "ProgressiveMain";    // TODO create helppage progressive main
         new HelpWindow().ShowDialog();
     }
 
@@ -170,7 +174,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private static void UserManual()
     {
-        DataVault.Instance.CurrentViewBase = "UserManual";
+        DataVaultGeneral.Instance.CurrentViewBase = "UserManual";
         new HelpWindow().ShowDialog();
     }
     

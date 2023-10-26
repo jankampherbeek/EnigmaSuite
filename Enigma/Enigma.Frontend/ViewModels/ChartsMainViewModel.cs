@@ -20,7 +20,8 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ChartsMainViewModel: ObservableObject
 {
     private readonly ChartsMainModel _model;
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
+    private readonly DataVaultGeneral _dataVaultGeneral;
     private readonly List<Window> _openWindows = new();
     [NotifyCanExecuteChangedFor(nameof(DeleteChartCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowWheelCommand))]
@@ -37,10 +38,11 @@ public partial class ChartsMainViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<PresentableChartData> _availableCharts;
     [NotifyPropertyChangedFor(nameof(ChartIndex))]
     [ObservableProperty] private PresentableChartData? _selectedChart;
+    
     public ChartsMainViewModel()
     {
         _model = App.ServiceProvider.GetRequiredService<ChartsMainModel>();
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
         _availableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
         PopulateData();
     }
@@ -58,7 +60,7 @@ public partial class ChartsMainViewModel: ObservableObject
     private void ItemChanged()
     {
         SelectedChart = AvailableCharts[ChartIndex];
-        _dataVault.SetIndexCurrentChart(ChartIndex);
+        _dataVaultCharts.SetIndexCurrentChart(ChartIndex);
         PopulateData();
         PopulateAvailableCharts();
     }
@@ -102,10 +104,10 @@ public partial class ChartsMainViewModel: ObservableObject
     private void NewChart()
     {
         new RadixDataInputWindow().ShowDialog();
-        if (!_dataVault.GetNewChartAdded()) return;
+        if (!_dataVaultCharts.GetNewChartAdded()) return;
         int newIndex = _model.SaveCurrentChart();
-        if (_dataVault.GetCurrentChart() == null) return;
-        _dataVault.GetCurrentChart()!.InputtedChartData.Id = newIndex;
+        if (_dataVaultCharts.GetCurrentChart() == null) return;
+        _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
         PopulateData();
         PopulateAvailableCharts();
     }
@@ -127,7 +129,7 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void DeleteChart()
     {
-        var currentChart = _dataVault.GetCurrentChart();
+        var currentChart = _dataVaultCharts.GetCurrentChart();
         string name = currentChart != null ? currentChart.InputtedChartData.MetaData.Name : "";
         if (MessageBox.Show("Do you want to delete the chart for  "+ name + " from the database?",
                 "Delete chart",
@@ -174,14 +176,14 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private void About()
     {
-        _dataVault.CurrentViewBase = "AboutCharts";
+        _dataVaultGeneral.CurrentViewBase = "AboutCharts";
         new HelpWindow().ShowDialog();
     }
     
     [RelayCommand]
     private void Help()
     {
-        _dataVault.CurrentViewBase = "ChartsMain";
+        _dataVaultGeneral.CurrentViewBase = "ChartsMain";
         new HelpWindow().ShowDialog();
     }
 
@@ -189,7 +191,7 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private static void UserManual()
     {
-        DataVault.Instance.CurrentViewBase = "UserManual";
+        DataVaultGeneral.Instance.CurrentViewBase = "UserManual";
         new HelpWindow().ShowDialog();
     }
     
@@ -197,7 +199,7 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private void HandleClose()
     {
-        _dataVault.ClearExistingCharts();
+        _dataVaultCharts.ClearExistingCharts();
         foreach (Window window in _openWindows)
         {
             window.Close();

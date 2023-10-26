@@ -23,7 +23,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for research result</summary>
 public class ResearchResultModel
 {
-    private readonly DataVault _dataVault = DataVault.Instance;
+    private readonly DataVaultResearch _dataVaultResearch = DataVaultResearch.Instance;
     private readonly IFileAccessApi _fileAccessApi;
     private readonly IResearchPathApi _researchPathApi;
     private const string SPACES = "                    "; // 20 spaces
@@ -43,15 +43,15 @@ public class ResearchResultModel
     {
         _fileAccessApi = fileAccessApi;
         _researchPathApi = researchPathApi;
-        ResearchProject? project = _dataVault.CurrentProject;
+        ResearchProject? project = _dataVaultResearch.CurrentProject;
         if (project != null)
         {
             ProjectName = project.Name;     
         }
-        ResearchMethods method = _dataVault.ResearchMethod;
+        ResearchMethods method = _dataVaultResearch.ResearchMethod;
         MethodName = method.GetDetails().Text;
-        MethodResponse? responseTest = _dataVault.ResponseTest;
-        MethodResponse? responseCg = _dataVault.ResponseCg;
+        MethodResponse? responseTest = _dataVaultResearch.ResponseTest;
+        MethodResponse? responseCg = _dataVaultResearch.ResponseCg;
         if (responseTest != null && responseCg != null)
         {
             SetMethodResponses(responseTest, responseCg);

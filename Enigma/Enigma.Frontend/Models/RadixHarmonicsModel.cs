@@ -17,11 +17,11 @@ public sealed class RadixHarmonicsModel
     private readonly IHarmonicsApi _harmonicsApi;
     private readonly IHarmonicForDataGridFactory _dataGridFactory;
     private readonly IDescriptiveChartText _descriptiveChartText;
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
 
     public RadixHarmonicsModel(IHarmonicsApi harmonicsApi, IHarmonicForDataGridFactory dataGridFactory, IDescriptiveChartText descriptiveChartText)
     {
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
         _harmonicsApi = harmonicsApi;
         _dataGridFactory = dataGridFactory;
         _descriptiveChartText = descriptiveChartText;
@@ -29,13 +29,13 @@ public sealed class RadixHarmonicsModel
 
     public string RetrieveChartName()
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         return chart != null ? chart.InputtedChartData.MetaData.Name : "";
     }
 
     public List<PresentableHarmonic> RetrieveAndFormatHarmonics(double harmonicNr)
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         List<PresentableHarmonic> presHarmonics = new();
         if (chart == null) return presHarmonics;
         List<double> harmonicPositions = _harmonicsApi.Harmonics(chart, harmonicNr);
@@ -45,7 +45,7 @@ public sealed class RadixHarmonicsModel
 
     public string DescriptiveText()
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         return chart != null
             ? _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData)

@@ -53,7 +53,7 @@ public partial class ResearchMainViewModel: ObservableObject
     private void OpenProject()
     {
         ResearchProject project = _model.ResearchProjects[ProjectIndex];
-        DataVault.Instance.CurrentProject = project;
+        DataVaultResearch.Instance.CurrentProject = project;
         new ProjectUsageWindow().ShowDialog();
     }
 
@@ -80,21 +80,21 @@ public partial class ResearchMainViewModel: ObservableObject
     [RelayCommand]
     private static void About()
     {
-        DataVault.Instance.CurrentViewBase = "AboutResearch";
+        DataVaultGeneral.Instance.CurrentViewBase = "AboutResearch";
         new HelpWindow().ShowDialog();
     }
     
     [RelayCommand]
     private static void UserManual()
     {
-        DataVault.Instance.CurrentViewBase = "UserManual";
+        DataVaultGeneral.Instance.CurrentViewBase = "UserManual";
         new HelpWindow().ShowDialog();
     }
     
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ResearchMain";
+        DataVaultGeneral.Instance.CurrentViewBase = "ResearchMain";
         new HelpWindow().ShowDialog();
     }
 

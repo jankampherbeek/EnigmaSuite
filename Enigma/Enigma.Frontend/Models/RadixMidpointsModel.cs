@@ -21,7 +21,7 @@ public sealed class RadixMidpointsModel
     private readonly IMidpointForDataGridFactory _midpointForDataGridFactory;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly IDescriptiveChartText _descriptiveChartText;
-    private readonly DataVault _dataVault;
+    private readonly DataVaultCharts _dataVaultCharts;
 
 
     public RadixMidpointsModel(IMidpointsApi midpointsApi, 
@@ -29,7 +29,7 @@ public sealed class RadixMidpointsModel
         IDoubleToDmsConversions doubleToDmsConversions, 
         IDescriptiveChartText descriptiveChartText)
     {
-        _dataVault = DataVault.Instance;
+        _dataVaultCharts = DataVaultCharts.Instance;
         _midpointsApi = midpointsApi;
         _midpointForDataGridFactory = midpointForDataGridFactory;
         _doubleToDmsConversions = doubleToDmsConversions;
@@ -42,7 +42,7 @@ public sealed class RadixMidpointsModel
   /// Takes the dialsize into account for the occupied midpoints.</returns>
     public Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> RetrieveAndFormatMidpoints(double dialSize)
     {
-        var chart = _dataVault.GetCurrentChart();
+        var chart = _dataVaultCharts.GetCurrentChart();
         List<PresentableMidpoint> presMidpoints = new();
         List<PresentableOccupiedMidpoint> presOccMidpoints = new();
         if (chart == null)
@@ -60,7 +60,7 @@ public sealed class RadixMidpointsModel
     public string DescriptiveText()
     {
         string descText = "";
-        CalculatedChart? chart = _dataVault.GetCurrentChart();
+        CalculatedChart? chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {

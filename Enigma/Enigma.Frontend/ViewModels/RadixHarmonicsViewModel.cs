@@ -54,7 +54,7 @@ public partial class RadixHarmonicsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "RadixHarmonics";
+        DataVaultGeneral.Instance.CurrentViewBase = "RadixHarmonics";
         new HelpWindow().ShowDialog();
     }
 

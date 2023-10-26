@@ -16,49 +16,28 @@ namespace Enigma.Frontend.Ui.State;
 
 /// <summary>Central vault for calculated charts and other data.</summary>
 /// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
-public sealed class DataVault
+public sealed class DataVaultCharts
 {
-    // TODO Too many global vars, restrict to a minimum.
-    // TODO separate DataVaults for Charts and for Research
-    
-    private static readonly DataVault instance = new();
+   
+    private static readonly DataVaultCharts instance = new();
 
     private readonly List<CalculatedChart> _allCharts = new();
     private CalculatedChart? _currentChart;
-    public ProgresMethods CurrentProgresMethod { get; set; } = ProgresMethods.Undefined;
-    public ProgEvent? CurrentProgEvent { get; set; }
-    public ProgPeriod? CurrentProgPeriod { get; set; }
-    public ResearchProject? CurrentProject { get; set; }
-    public ResearchMethods ResearchMethod { get; set; } 
-    public ResearchPointsSelection? CurrentPointsSelection { get; set; }
-    public bool ResearchCanceled { get; set; } 
-    public bool ResearchIncludeCusps { get; set; }
-    public MethodResponse? ResponseTest { get; set; }
-    public MethodResponse? ResponseCg { get; set; }
-    
-    public double ResearchHarmonicValue { get; set; }
-    public double ResearchHarmonicOrb { get; set; }
-
-    public int ResearchMidpointDialDivision { get; set; }
-    public double ResearchMidpointOrb { get; set; }
-    
-    
     private bool _newChartAdded;
 
-    /// <summary>Base name for the current view (without the 'View' part)</summary>
-    public string CurrentViewBase { get; set; } = string.Empty;
+
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
-    static DataVault()
+    static DataVaultCharts()
     {
     }
 
-    private DataVault()
+    private DataVaultCharts()
     {
     }
 
     // ReSharper disable once ConvertToAutoProperty
-    public static DataVault Instance => instance;   // instance is a singleton
+    public static DataVaultCharts Instance => instance;   // instance is a singleton
 
     public void ClearExistingCharts()
     {

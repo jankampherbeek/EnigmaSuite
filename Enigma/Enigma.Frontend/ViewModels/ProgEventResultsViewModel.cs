@@ -31,7 +31,7 @@ public partial class ProgEventResultsViewModel: ObservableObject
         Details = model.Details;
         EventDescription = model.EventDescription;
         EventDateTime = model.EventDateTime;
-        var method = DataVault.Instance.CurrentProgresMethod;
+        var method = DataVaultProg.Instance.CurrentProgresMethod;
         if (method == ProgresMethods.Transits) model.HandleTransits();
         if (method == ProgresMethods.Secundary) model.HandleSecDir();
         if (method == ProgresMethods.Symbolic) model.HandleSymDir();
@@ -43,7 +43,7 @@ public partial class ProgEventResultsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "ProgEventResults";    // TODO create helppage ProgEventResults
+        DataVaultGeneral.Instance.CurrentViewBase = "ProgEventResults";    // TODO create helppage ProgEventResults
         new HelpWindow().ShowDialog();
     }
     

@@ -44,7 +44,7 @@ public class ConfigProgModel
         SymDirTimeKeyIndex = (int)_configProg.ConfigSymDir.TimeKey;
         PrimDirMethodIndex = (int)_configProg.ConfigPrimDir.DirMethod;
         SolarMethodIndex = (int)_configProg.ConfigSolar.SolarMethod;
-        UseConversePrimDir = _configProg.ConfigPrimDir.IncludeConverse;
+        UseConversePrimDir = true;
         UseRelocation = _configProg.ConfigSolar.Relocate;
     }
     

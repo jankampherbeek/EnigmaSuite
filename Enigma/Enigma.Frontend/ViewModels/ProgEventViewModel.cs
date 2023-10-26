@@ -120,7 +120,7 @@ public partial class ProgEventViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVault.Instance.CurrentViewBase = "RadixEventInput";    // TODO create helppage
+        DataVaultGeneral.Instance.CurrentViewBase = "RadixEventInput";    // TODO create helppage
         new HelpWindow().ShowDialog();
     }
     
