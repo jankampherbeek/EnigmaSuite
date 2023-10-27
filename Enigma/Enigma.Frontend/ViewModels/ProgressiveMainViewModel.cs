@@ -31,13 +31,13 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(SymbDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(TransitsCommand))]
     [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
-    [ObservableProperty] private int _eventPeriodIndex = -1;
-    [ObservableProperty] private int _periodIndex = -1;
+    [ObservableProperty] private int _eventIndex = -1;
+ //   [ObservableProperty] private int _periodIndex = -1;
     [ObservableProperty] private string _currentEventName = "No event defined";
-    [ObservableProperty] private string _currentPeriodName = "No period defined";
+ //   [ObservableProperty] private string _currentPeriodName = "No period defined";
     [ObservableProperty] private string _currentChartName = string.Empty;
     [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEventsPeriods;
-    [NotifyPropertyChangedFor(nameof(EventPeriodIndex))]
+    [NotifyPropertyChangedFor(nameof(EventIndex))]
     [ObservableProperty] private PresentableProgresData? _selectedProgDate;
     
     private readonly ProgressiveMainModel _model;
@@ -67,8 +67,8 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private void DatesItemChanged()
     {
-        SelectedProgDate = PresentableEventsPeriods[EventPeriodIndex];
-        _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventPeriodIndex];
+        SelectedProgDate = PresentableEventsPeriods[EventIndex];
+        _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventIndex];
         PopulateData();
     }
     
@@ -111,7 +111,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
         MessageBox.Show("Not implemented yet");
     }
     
-    [RelayCommand]
+    /*[RelayCommand]
     private void NewPeriod()
     {
         new ProgPeriodWindow().ShowDialog();
@@ -121,13 +121,15 @@ public partial class ProgressiveMainViewModel: ObservableObject
         }
         // show event        
         
-    }
+    }*/
     
+    /*
     [RelayCommand]
     private static void SearchPeriod()
     {
         MessageBox.Show("Not implemented yet");
     }
+    */
     
 
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
@@ -191,7 +193,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     
     private bool IsProgDateSelected()
     {
-        return EventPeriodIndex >= 0;
+        return EventIndex >= 0;
     }
     
 

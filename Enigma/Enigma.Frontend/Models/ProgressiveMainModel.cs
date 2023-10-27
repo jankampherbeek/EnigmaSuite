@@ -17,10 +17,10 @@ namespace Enigma.Frontend.Ui.Models;
 public class ProgressiveMainModel
 {
     private readonly IEventDataConverter _eventDataConverter;
-    private readonly IPeriodDataConverter _periodDataConverter;
+  //  private readonly IPeriodDataConverter _periodDataConverter;
     private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
     private readonly IProgDatesForPresentationFactory _progDatesForPresentationFactory;
-    private IPeriodDataPersistencyApi _periodDataPersistencyApi;
+//    private IPeriodDataPersistencyApi _periodDataPersistencyApi;
     public List<ProgDates> AvailableEventsPeriods = new();
     /*public List<ProgEvent> AvailableEvents = new();
     public List<ProgPeriod> AvailablePeriods = new();*/
@@ -36,12 +36,12 @@ public class ProgressiveMainModel
         IProgDatesForPresentationFactory progDatesForPresentationFactory)
     {
         _eventDataConverter = eventDataConverter;
-        _periodDataConverter = periodDataConverter;
+//        _periodDataConverter = periodDataConverter;
         _eventDataPersistencyApi = eventDataPersistencyApi;
-        _periodDataPersistencyApi = periodDataPersistencyApi;
+//        _periodDataPersistencyApi = periodDataPersistencyApi;
         _progDatesForPresentationFactory = progDatesForPresentationFactory;
         ReadCurrentEvents();
-        ReadCurrentPeriods();
+//        ReadCurrentPeriods();
         PresentableEventsPeriods = _progDatesForPresentationFactory.CreatePresentableProgresData(AvailableEventsPeriods);
     }
     
@@ -59,7 +59,7 @@ public class ProgressiveMainModel
         return newIndex;
     }
 
-    public int SaveCurrentPeriod()
+    /*public int SaveCurrentPeriod()
     {
         int newIndex = -1;
         var currentPeriod = _dataVaultProg.CurrentProgPeriod;
@@ -70,7 +70,7 @@ public class ProgressiveMainModel
         PersistablePeriodData persPeriod = _periodDataConverter.ToPersistablePeriodData(currentPeriod);
         newIndex = _periodDataPersistencyApi.AddPeriodData(persPeriod, chartId);
         return newIndex;
-    }
+    }*/
 
     private void ReadCurrentEvents()
     {
@@ -86,7 +86,7 @@ public class ProgressiveMainModel
         
     }
 
-    private void ReadCurrentPeriods()
+    /*private void ReadCurrentPeriods()
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return;
@@ -97,6 +97,6 @@ public class ProgressiveMainModel
         {
             AvailableEventsPeriods.Add(progPeriodData);
         }
-    }
+    }*/
     
 }
