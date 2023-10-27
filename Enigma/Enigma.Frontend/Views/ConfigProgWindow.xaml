@@ -114,7 +114,6 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Grid.ColumnSpan="2"  Margin="6" Text="Primary directions" 
@@ -132,17 +131,12 @@
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllPrimDirKeys}" 
                               SelectedIndex="{Binding PrimDirKeyIndex, Mode=TwoWay}" />
-                    <TextBox Grid.Row="2" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
-                             materialDesign:HintAssist.Hint="Orb"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Background="{Binding OrbPrimDirValid}"
-                             Text="{Binding OrbPrimDirText, Mode=TwoWay}" /> 
-                    <TextBlock Grid.Row="3" Grid.Column="0" Margin="6" Text="Significators" 
+                    <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" Text="Significators" 
                                Name="SubHeaderSignificators" FontWeight="Bold" />
-                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="6" Text="Promissors" 
+                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="6" Text="Promissors" 
                                Name="SubHeaderPromissors" FontWeight="Bold" />
                     
-                    <DataGrid Grid.Row="4" Grid.Column="0" Margin="6" 
+                    <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
                               CanUserAddRows="False" CanUserSortColumns="False"
@@ -160,7 +154,7 @@
                                                 IsReadOnly="True"/>
                         </DataGrid.Columns>   
                     </DataGrid>
-                    <DataGrid Grid.Row="4" Grid.Column="1" Margin="6" 
+                    <DataGrid Grid.Row="3" Grid.Column="1" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
                               CanUserAddRows="False" CanUserSortColumns="False"

@@ -20,8 +20,6 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class ConfigProgViewModel:ObservableObject
 {
-    [NotifyPropertyChangedFor(nameof(OrbPrimDirValid))]
-    [ObservableProperty] private string _orbPrimDirText;
     [NotifyPropertyChangedFor(nameof(OrbSecDirValid))]
     [ObservableProperty] private string _orbSecDirText;
     [NotifyPropertyChangedFor(nameof(OrbSymDirValid))]
@@ -44,14 +42,12 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private int _primDirKeyIndex;
     [ObservableProperty] private int _symDirKeyIndex;
     
-    private double _orbPrimDirValue;
     private double _orbSecDirValue;
     private double _orbSymDirValue;
     private double _orbTransitValue;
     
     private readonly ConfigProgModel _model = App.ServiceProvider.GetRequiredService<ConfigProgModel>();
     
-    public SolidColorBrush OrbPrimDirValid => CheckOrbPrimDir() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbSecDirValid => CheckOrbSecDir() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbSymDirValid => CheckOrbSymDir() ? Brushes.White : Brushes.Yellow;
     public SolidColorBrush OrbTransitValid => CheckOrbTransit() ? Brushes.White : Brushes.Yellow;
@@ -71,22 +67,14 @@ public partial class ConfigProgViewModel:ObservableObject
         SymDirKeyIndex = _model.SymDirTimeKeyIndex;
         SolarMethodIndex = _model.SolarMethodIndex;
         PrimDirMethodIndex = _model.PrimDirMethodIndex;
-        _orbPrimDirValue = _model.PrimDirOrb;
         _orbSecDirValue = _model.SecDirOrb;
         _orbSymDirValue = _model.SymDirOrb;
         _orbTransitValue = _model.TransitOrb;
-        OrbPrimDirText = _orbPrimDirValue.ToString(CultureInfo.InvariantCulture);
         OrbSecDirText = _orbSecDirValue.ToString((CultureInfo.InvariantCulture));
         OrbSymDirText = _orbSymDirValue.ToString((CultureInfo.InvariantCulture));
         OrbTransitText = _orbTransitValue.ToString((CultureInfo.InvariantCulture));
         _includeConverseDirections = false;
         ApplyRelocation = _model.UseRelocation;
-    }
-    
-    private bool CheckOrbPrimDir()
-    {
-        return double.TryParse(OrbPrimDirText.Replace(',', '.'), NumberStyles.Any, 
-            CultureInfo.InvariantCulture, out _orbPrimDirValue);
     }
     
     private bool CheckOrbSecDir()
@@ -115,8 +103,7 @@ public partial class ConfigProgViewModel:ObservableObject
             point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
         ConfigProgSecDir configSecDir = new (_orbSecDirValue, AllSecDirPoints.ToDictionary(point => point.ChartPoint, 
             point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
-        ConfigProgPrimDir configPrimDir = new(_orbPrimDirValue,
-            PrimaryKeyExtensions.PrimaryKeysForIndex(PrimDirKeyIndex), 
+        ConfigProgPrimDir configPrimDir = new(PrimaryKeyExtensions.PrimaryKeysForIndex(PrimDirKeyIndex), 
             PrimaryDirMethodsExtensions.MethodForIndex(PrimDirMethodIndex),
             _includeConverseDirections,
             AllPromissors.ToDictionary(point => point.ChartPoint,

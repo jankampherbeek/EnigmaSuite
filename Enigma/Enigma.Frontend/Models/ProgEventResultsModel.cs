@@ -143,7 +143,7 @@ public class ProgEventResultsModel
         return progMethod switch
         {
             ProgresMethods.Transits => configProg.ConfigTransits.Orb,
-            ProgresMethods.Primary => configProg.ConfigPrimDir.Orb,
+            ProgresMethods.Primary => 0.0,  // No orb for primary directions
             ProgresMethods.Secundary => configProg.ConfigSecDir.Orb,
             ProgresMethods.Symbolic => configProg.ConfigSymDir.Orb,
             ProgresMethods.Solar => 0.0, // No orb for solar

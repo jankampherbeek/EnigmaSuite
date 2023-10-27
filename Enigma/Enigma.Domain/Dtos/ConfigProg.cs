@@ -40,13 +40,12 @@ public record ConfigProgTransits(double Orb, Dictionary<ChartPoints, ProgPointCo
 public record ConfigProgSecDir(double Orb, Dictionary<ChartPoints, ProgPointConfigSpecs> ProgPoints);
 
 /// <summary>Configuration for primary directions.</summary>
-/// <param name="Orb">Orb between progressive and radix contacts.</param>
 /// <param name="TimeKey">Time key for primary directions/</param>
 /// <param name="DirMethod">Method for primary directions.</param>
 /// <param name="IncludeConverse">True if converse directions should be included, otherwise false.</param>
 /// <param name="Promissors">Available promissors.</param>
 /// <param name="Significators">Available significators.</param>
-public record ConfigProgPrimDir(double Orb, PrimaryKeys TimeKey, PrimaryDirMethods DirMethod, bool IncludeConverse,
+public record ConfigProgPrimDir(PrimaryKeys TimeKey, PrimaryDirMethods DirMethod, bool IncludeConverse,
     Dictionary<ChartPoints, ProgPointConfigSpecs> Promissors,
     Dictionary<ChartPoints, ProgPointConfigSpecs> Significators);
 

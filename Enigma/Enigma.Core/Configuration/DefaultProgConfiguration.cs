@@ -60,7 +60,6 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
     
     private static ConfigProgPrimDir CreateConfigPrimDir()
     {
-        const double orb = 1.0;
         const bool includeConverse = false;
         const PrimaryKeys timeKey = PrimaryKeys.Naibod;
         const PrimaryDirMethods method = PrimaryDirMethods.SemiArcMundane;
@@ -89,7 +88,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         significators[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, significators[ChartPoints.Ascendant].Glyph);
         significators[ChartPoints.FortunaSect] = new ProgPointConfigSpecs(true, promissors[ChartPoints.FortunaSect].Glyph);
         
-        return new ConfigProgPrimDir(orb, timeKey, method, includeConverse, promissors, significators);
+        return new ConfigProgPrimDir(timeKey, method, includeConverse, promissors, significators);
     }
     
     private static ConfigProgSymDir CreateConfigSymDir()

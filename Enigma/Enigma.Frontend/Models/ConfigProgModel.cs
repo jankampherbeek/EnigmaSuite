@@ -23,7 +23,6 @@ public class ConfigProgModel
     private readonly IConfigurationApi _configApi;
     public double TransitOrb { get; }
     public double SecDirOrb { get; }
-    public double PrimDirOrb { get; }
     public double SymDirOrb { get; }
     public int PrimDirTimeKeyIndex { get; }
     public int PrimDirMethodIndex { get; }
@@ -38,7 +37,6 @@ public class ConfigProgModel
         _configProg = CurrentConfig.Instance.GetConfigProg();
         TransitOrb = _configProg.ConfigTransits.Orb;
         SecDirOrb = _configProg.ConfigSecDir.Orb;
-        PrimDirOrb = _configProg.ConfigPrimDir.Orb;
         SymDirOrb = _configProg.ConfigSymDir.Orb;
         PrimDirTimeKeyIndex = (int)_configProg.ConfigPrimDir.TimeKey;
         SymDirTimeKeyIndex = (int)_configProg.ConfigSymDir.TimeKey;
