@@ -11,18 +11,22 @@ using Enigma.Domain.Responses;
 namespace Enigma.Api;
 
 /// <inheritdoc/>
-public sealed class CalcSecDirEventApi: ICalcSecDirEventApi
+public class ProgPrimDirApi: IProgPrimDirApi
 {
-    private readonly ICalcSecDirHandler _handler;
 
-    public CalcSecDirEventApi(ICalcSecDirHandler handler)
+    private readonly IProgPrimDirHandler _handler;
+
+
+    public ProgPrimDirApi(IProgPrimDirHandler handler)
     {
         _handler = handler;
     }
-
+    
     /// <inheritdoc/>
-    public ProgRealPointsResponse CalcSecDir(SecDirEventRequest request)
+    public ProgPrimDirResponse CalcPrimDir(ProgPrimDirRequest request)
     {
-        return _handler.CalculateSecDir(request);
+        return _handler.CalculatePrimDir(request);
     }
+    
+    
 }

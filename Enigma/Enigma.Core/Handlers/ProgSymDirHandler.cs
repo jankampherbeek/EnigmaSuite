@@ -14,11 +14,11 @@ using Serilog;
 
 namespace Enigma.Core.Handlers;
 
-public sealed class CalcSymDirHandler: ICalcSymDirHandler
+public sealed class ProgSymDirHandler: ICalcSymDirHandler
 {
     private readonly IProgRealPointCalc _progRealPointCalc;
 
-    public CalcSymDirHandler(IProgRealPointCalc progRealPointCalc)
+    public ProgSymDirHandler(IProgRealPointCalc progRealPointCalc)
     {
         _progRealPointCalc = progRealPointCalc;
     }

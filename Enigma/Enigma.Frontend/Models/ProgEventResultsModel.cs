@@ -21,9 +21,9 @@ namespace Enigma.Frontend.Ui.Models;
 
 public class ProgEventResultsModel
 {
-    private readonly ICalcSecDirEventApi _calcSecDirEventApi;
-    private readonly ICalcSymDirEventApi _calcSymDirEventApi;
-    private readonly ICalcTransitsEventApi _calcTransitsEventApi;
+    private readonly IProgSecDirEventApi _progSecDirEventApi;
+    private readonly IProgSymDirEventApi _progSymDirEventApi;
+    private readonly IProgTransitsEventApi _progTransitsEventApi;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly IDescriptiveChartText _descriptiveChartText;
@@ -35,17 +35,17 @@ public class ProgEventResultsModel
     public List<PresentableProgPosition> PresProgPositions;
 
     public ProgEventResultsModel(IDescriptiveChartText descriptiveChartText,
-        ICalcTransitsEventApi calcTransitsEventApi,
-        ICalcSecDirEventApi calcSecDirEventApi,
-        ICalcSymDirEventApi calcSymDirEventApi,
+        IProgTransitsEventApi progTransitsEventApi,
+        IProgSecDirEventApi progSecDirEventApi,
+        IProgSymDirEventApi progSymDirEventApi,
         IProgAspectsApi progAspectsApi,
         IProgPositionsForPresentationFactory progPosPresFactory,
         IProgAspectForPresentationFactory progAspectForPresentationFactory)
     {
         _descriptiveChartText = descriptiveChartText;
-        _calcTransitsEventApi = calcTransitsEventApi;
-        _calcSecDirEventApi = calcSecDirEventApi;
-        _calcSymDirEventApi = calcSymDirEventApi;
+        _progTransitsEventApi = progTransitsEventApi;
+        _progSecDirEventApi = progSecDirEventApi;
+        _progSymDirEventApi = progSymDirEventApi;
         _progAspectsApi = progAspectsApi;
         _progPosPresFactory = progPosPresFactory;
         _progAspectPresFactory = progAspectForPresentationFactory;
@@ -201,7 +201,7 @@ public class ProgEventResultsModel
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         TransitsEventRequest request = new(jdUt, location, configTransits, configRadix.Ayanamsha,
             configRadix.ObserverPosition);
-        ProgRealPointsResponse response = _calcTransitsEventApi.CalcTransits(request);
+        ProgRealPointsResponse response = _progTransitsEventApi.CalcTransits(request);
         if (response.ResultCode == 0) positions = response.Positions;
         else
         {
@@ -222,7 +222,7 @@ public class ProgEventResultsModel
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         SecDirEventRequest request = new(jdRadix, jdEvent, location, configSecDir, configRadix.Ayanamsha,
             configRadix.ObserverPosition);
-        ProgRealPointsResponse response = _calcSecDirEventApi.CalcSecDir(request);
+        ProgRealPointsResponse response = _progSecDirEventApi.CalcSecDir(request);
         if (response.ResultCode == 0) positions = response.Positions;
         else
         {
@@ -246,7 +246,7 @@ public class ProgEventResultsModel
             FullPositions.ToDictionary(fullPos => fullPos.Key, 
                 fullPos => fullPos.Value.Ecliptical.MainPosSpeed.Position);
         SymDirEventRequest request = new(jdRadix, jdEvent, configSymDir, radixPositions);
-        ProgRealPointsResponse response = _calcSymDirEventApi.CalcSymDir(request);
+        ProgRealPointsResponse response = _progSymDirEventApi.CalcSymDir(request);
         if (response.ResultCode == 0) positions = response.Positions;
         else
         {

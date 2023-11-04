@@ -11,11 +11,11 @@ using Enigma.Domain.Responses;
 namespace Enigma.Api;
 
 /// <inheritdoc/>
-public sealed class CalcSymDirEventApi: ICalcSymDirEventApi
+public sealed class ProgSymDirEventApi: IProgSymDirEventApi
 {
     private readonly ICalcSymDirHandler _calcSymDirHandler;
 
-    public CalcSymDirEventApi(ICalcSymDirHandler calcSymDirHandler)
+    public ProgSymDirEventApi(ICalcSymDirHandler calcSymDirHandler)
     {
         _calcSymDirHandler = calcSymDirHandler;
     }

@@ -40,15 +40,20 @@ public interface IPlacidusTimeKey
     /// <returns>The calculated arc.</returns>
     public double ArcFromDays(double days, double jdRadix, CoordinateSystems coordSys, ObserverPositions observerPos, Location location);
 
-    /// <summary>Calculate the days (including fraction) that are needed for the Sun to reach a defined position.</summary>
+
+    /// <summary>Calculate the days (including fraction) that are needed for the Sun to reach a position that equals
+    /// the radix position plus a given arc.</summary>
     /// <param name="jdRadix">Julian Day Number for the readix.</param>
-    /// <param name="progPosSun">Full position for the Sun on the progressed day and time.</param>
+    /// <param name="arcInDegrees">The arc that needs to be added to the radix position of the Sun.</param>
+    /// <param name="radixSun">Fully defined position of the Sun.</param>
     /// <param name="coordSys">Coordinate system. Should be ecliptic or equatorial.</param>
     /// <param name="observerPos">Observer position. SHould be geocentric or topocentric.</param>
     /// <param name="location">Location for birth.</param>
-    /// <exception cref="ArgumentException">Is thrown for two conditions: observerpositions is not geocentric or topocentric, or Coordinate system is not ecliptic or equatorial.</exception>
+    /// <exception cref="ArgumentException">Is thrown for two conditions: observerpositions is not geocentric or
+    /// topocentric, or Coordinate system is not ecliptic or equatorial.</exception>
     /// <returns>The calculated numer of days.</returns>
-    public double DaysFromArc(double jdRadix, FullPointPos progPosSun, CoordinateSystems coordSys, ObserverPositions observerPos, Location location);
+    public double DaysFromArc(double jdRadix, double arcInDegrees, FullPointPos radixSun, CoordinateSystems coordSys,
+        ObserverPositions observerPos, Location location);
 }
 
 
@@ -94,23 +99,17 @@ public interface ITimeKeyCalculator
 
 }
 
-
-public interface ISpeculum
+/// <summary>Calculates a speculum and its values.</summary>
+public interface ISpeculumCreator
 {
-    /// <summary>System for the calculation of primary directions.</summary>
-    public PrimaryDirMethods PrimaryDirMethod { get; }
-    /// <summary>Geographic latitude.</summary>
-    public double GeoLat { get; }
-    /// <summary>Right ascension of the MC.</summary>
-    public double RaMc { get; }
-    /// <summary>Right ascension of the IC.</summary>
-    public double RaIc { get; }
-    /// <summary>Oblique ascension of the ascendant.</summary>
-    public double OaAscendant { get; }
-    /// <summary>Oblique descension of the descendant.</summary>
-    public double OdDescendant { get; }
-    /// <summary>Celestial points</summary>
-    public Dictionary<ChartPoints, SpeculumItem> SpeculumItems { get; }
+    /// <summary>Create a speculum.</summary>
+    /// <param name="primDirMethod">Method for primary directions.</param>
+    /// <param name="calcChart">A calculated chart.</param>
+    /// <param name="promissors">All promissors.</param>
+    /// <param name="significators">All significators.</param>
+    /// <returns>Populated speculum.</returns>
+    public Speculum CreateSpeculum(PrimaryDirMethods primDirMethod, CalculatedChart calcChart,
+        List<ChartPoints> promissors, List<ChartPoints> significators);
 }
 
 

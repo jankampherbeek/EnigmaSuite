@@ -45,15 +45,16 @@ public sealed class PlacidusTimeKey: IPlacidusTimeKey
         int flags = _seFlags.DefineFlags(coordSys, observerPos, ZodiacTypes.Tropical);
         return _calculator.CalcSolarArcForTimespan(jdRadix, days, location, flags);
     }
-
-    public double DaysFromArc(double jdRadix, FullPointPos progPosSun, CoordinateSystems coordSys, ObserverPositions observerPos, Location location)
+    public double DaysFromArc(double jdRadix, double arcInDegrees, FullPointPos radixSun, CoordinateSystems coordSys, ObserverPositions observerPos, Location location)
     {
         CheckInput(observerPos, coordSys);
         const double startInterval = 1.0;
         const double maxMargin = 0.000001;
-        double posToFind = coordSys == CoordinateSystems.Ecliptical ? progPosSun.Ecliptical.MainPosSpeed.Position : progPosSun.Equatorial.MainPosSpeed.Position;
+        double posSunRadix = coordSys == CoordinateSystems.Ecliptical ? radixSun.Ecliptical.MainPosSpeed.Position : radixSun.Equatorial.MainPosSpeed.Position;
+        double posToFind = RangeUtil.ValueToRange(posSunRadix + arcInDegrees, 0.0, 360.0);
         double jdForPosition = _positionFinder.FindJdForPositionSun(posToFind, jdRadix, startInterval, maxMargin, coordSys, observerPos, location);
         return jdForPosition - jdRadix;
+        
     }
 
     private static void CheckInput(ObserverPositions observerPos, CoordinateSystems coordSys)
@@ -174,13 +175,16 @@ public sealed class TimeKeyCalculator: ITimeKeyCalculator
                 timespanInDays = _fixedTimeKey.DaysFromArc(totalKey, positionSun.Equatorial.MainPosSpeed.Speed);
                 break;
             case PrimaryKeys.Placidus:
-                timespanInDays = _placidusTimeKey.DaysFromArc(jdRadix, positionSun, CoordinateSystems.Equatorial, observerPos, location);
+                timespanInDays = _placidusTimeKey.DaysFromArc(jdRadix, totalKey, positionSun, 
+                    CoordinateSystems.Equatorial, observerPos, location);
                 break;
             case PrimaryKeys.VanDam:
-                timespanInDays = _placidusTimeKey.DaysFromArc(jdRadix, positionSun, CoordinateSystems.Ecliptical, observerPos, location);
+                timespanInDays = _placidusTimeKey.DaysFromArc(jdRadix, totalKey, positionSun, 
+                    CoordinateSystems.Ecliptical, observerPos, location);
                 break;            
             default:
-                Log.Error("TimeKeyCalculator.CalculateDaysFromTotalKey encountered an unknown key for primary directions: {Key}", primaryKey);
+                Log.Error("TimeKeyCalculator.CalculateDaysFromTotalKey encountered an unknown key for " +
+                          "primary directions: {Key}", primaryKey);
                 throw new ArgumentException("Unknown time key");
         }
         return timespanInDays;

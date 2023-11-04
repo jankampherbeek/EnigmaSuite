@@ -4,6 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
+using Enigma.Core.Handlers;
+using Enigma.Core.Interfaces;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -19,9 +21,6 @@ public static class ApiServices
     {
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
-        serviceCollection.AddTransient<ICalcSecDirEventApi, CalcSecDirEventApi>();
-        serviceCollection.AddTransient<ICalcSymDirEventApi, CalcSymDirEventApi>();
-        serviceCollection.AddTransient<ICalcTransitsEventApi, CalcTransitsEventApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
         serviceCollection.AddTransient<IChartDataPersistencyApi, ChartDataPersistencyApi>();
         serviceCollection.AddTransient<ICommunicationApi, CommunicationApi>();
@@ -41,6 +40,10 @@ public static class ApiServices
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
         serviceCollection.AddTransient<IPeriodDataPersistencyApi, PeriodDataPersistencyApi>();
         serviceCollection.AddTransient<IProgAspectsApi, ProgAspectsApi>();
+        serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>(); 
+        serviceCollection.AddTransient<IProgSecDirEventApi, ProgSecDirEventApi>();
+        serviceCollection.AddTransient<IProgSymDirEventApi, ProgSymDirEventApi>();
+        serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
         serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<IResearchPerformApi, ResearchPerformApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();

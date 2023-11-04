@@ -32,9 +32,9 @@ public static class CoreServices
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
-        serviceCollection.AddTransient<ICalcSecDirHandler, CalcSecDirHandler>();
-        serviceCollection.AddTransient<ICalcSymDirHandler, CalcSymDirHandler>();
-        serviceCollection.AddTransient<ICalcTransitsHandler, CalcTransitsHandler>();
+        serviceCollection.AddTransient<ICalcSecDirHandler, ProgSecDirHandler>();
+        serviceCollection.AddTransient<ICalcSymDirHandler, ProgSymDirHandler>();
+        serviceCollection.AddTransient<ICalcTransitsHandler, ProgTransitsHandler>();
         serviceCollection.AddTransient<ICalculatedDistance, CalculatedDistance>();
         serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();
         serviceCollection.AddTransient<ICelPointsElementsCalc, CelPointsElementsCalc>();
@@ -92,6 +92,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
+        serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
