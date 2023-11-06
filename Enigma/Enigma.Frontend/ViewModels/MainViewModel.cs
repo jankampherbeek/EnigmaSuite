@@ -29,6 +29,18 @@ public partial class MainViewModel: ObservableObject
         new ResearchMainWindow().ShowDialog();
     }
     
+    [RelayCommand]
+    private static void CyclesModule()
+    {
+        new CyclesMainWindow().ShowDialog();
+    }
+    
+    [RelayCommand]
+    private static void CalculateModule()
+    {
+        new CalculateMainWindow().ShowDialog();
+    }
+    
     
     [RelayCommand]
     private static void Help()

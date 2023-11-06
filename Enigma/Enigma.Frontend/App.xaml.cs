@@ -55,6 +55,7 @@ public partial class App
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
+        serviceCollection.AddTransient<CalculateMainModel>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
@@ -72,6 +73,7 @@ public partial class App
         serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ConfigProgModel>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
+        serviceCollection.AddTransient<CyclesMainModel>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();
         serviceCollection.AddSingleton<IDateInputParser, DateInputParser>();
