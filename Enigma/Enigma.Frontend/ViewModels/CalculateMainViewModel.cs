@@ -8,6 +8,7 @@ using CommunityToolkit.Mvvm.Input;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -22,13 +23,13 @@ public partial class CalculateMainViewModel: ObservableObject
     [RelayCommand]
     private void CompareHouses()
     {
-        // TODO open view for compare houses
+        new CalcHouseComparisonWindow().ShowDialog();
     }
 
     [RelayCommand]
-    private void Helical()
+    private void Heliacal()
     {
-        // TODO open view for heliacal
+        new CalcHeliacalWindow().ShowDialog();
     }
     
     [RelayCommand]

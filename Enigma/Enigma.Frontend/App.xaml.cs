@@ -55,6 +55,7 @@ public partial class App
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
+        serviceCollection.AddTransient<CalcHouseComparisonModel>();
         serviceCollection.AddTransient<CalculateMainModel>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
@@ -121,8 +122,6 @@ public partial class App
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
         serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();
-
-        
         
         // Handle services from other projects.
         serviceCollection.RegisterApiServices();

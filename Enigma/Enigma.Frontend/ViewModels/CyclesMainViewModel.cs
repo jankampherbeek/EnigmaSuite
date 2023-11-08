@@ -21,13 +21,13 @@ public partial class CyclesMainViewModel: ObservableObject
     [RelayCommand]
     private void Waves()
     {
-        // TODO open view for waves
+        new CyclesDoolaardWindow().ShowDialog();
     }
     
     [RelayCommand]
     private void PlotPositions()
     {
-        // TODO open view for plot positions
+        new CyclesPositionsGraphWindow().ShowDialog();
     }
     
     
