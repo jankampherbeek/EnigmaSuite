@@ -51,12 +51,10 @@
         <TextBox Grid.Row="4" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Geographic latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding GeoLatValid}"
                  Text="{Binding GeoLat, Mode=TwoWay}" />  
         <TextBox Grid.Row="5" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding DateValid}"
                  Text="{Binding Date}" />
         
         <StackPanel Grid.Row="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -64,7 +62,7 @@
                     Command="{Binding HelpCommand}"/>
             <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
             <Button Margin="6" Content="Compare" HorizontalAlignment="Right" 
-                    Command="{Binding CompareCommand}" Click="CloseClick"/>
+                    Command="{Binding CompareCommand}"/>
         </StackPanel>
         
     </Grid>

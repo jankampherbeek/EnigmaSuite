@@ -3,10 +3,14 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.ObjectModel;
+using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
@@ -17,53 +21,63 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class CalcHouseComparisonViewModel: ObservableObject
 {
-    [ObservableProperty] private int _houseIndex1;
-    [ObservableProperty] private int _houseIndex2;
-    [NotifyPropertyChangedFor(nameof(GeoLatValid))]
-    [NotifyCanExecuteChangedFor(nameof(CompareCommand))]
-    [NotifyPropertyChangedFor(nameof(DateValid))]
+    private const string ERROR_HOUSE_SYSTEM_SELECTION = "Select two different housesystems to compare.";
+    private const string ERROR_GEOGRAPHIC_LATITUDE = "Enter a correct value for the geographic latitude.";
+    private const string ERROR_DATE = "Enter a correct value for the date.";
+    private const string TITLE_ERROR = "Something is wrong.";
+
     [ObservableProperty] private string _date = "";
-    [NotifyCanExecuteChangedFor(nameof(CompareCommand))]
     [ObservableProperty] private string _geoLat = "";
     [ObservableProperty] private ObservableCollection<string> _allQuadrantHouses1;
     [ObservableProperty] private ObservableCollection<string> _allQuadrantHouses2;
+    [ObservableProperty] private int _houseIndex1 = 0;
+    [ObservableProperty] private int _houseIndex2 = 3;
+    
     private readonly CalcHouseComparisonModel _model = App.ServiceProvider.GetRequiredService<CalcHouseComparisonModel>();
- 
-    public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.White : Brushes.Yellow; 
-    public SolidColorBrush DateValid => IsDateValid() ? Brushes.White : Brushes.Yellow;
-
+    
     public CalcHouseComparisonViewModel()
     {
         AllQuadrantHouses1 = new ObservableCollection<string>(_model.AllQuadrantHouses);
         AllQuadrantHouses2 = new ObservableCollection<string>(_model.AllQuadrantHouses);
     }
     
-    [RelayCommand(CanExecute = nameof(IsInputOk))]
+
+    [RelayCommand]
     private void Compare()
     {
-        _model.CompareSystems(HouseSystemsExtensions.HouseSystemForIndex(HouseIndex1), 
-            HouseSystemsExtensions.HouseSystemForIndex(HouseIndex2));
+        string errors = FindErrors();
+        if (string.IsNullOrEmpty(errors)) 
+            _model.CompareSystems(HouseSystemsExtensions.HouseSystemForIndex(HouseIndex1), 
+                HouseSystemsExtensions.HouseSystemForIndex(HouseIndex2));            
+        else MessageBox.Show(errors, TITLE_ERROR);
     }
-    
-    private bool IsInputOk()
+
+    private string FindErrors()
     {
-        if (GeoLat == string.Empty || Date == string.Empty) return false;
-        return IsGeoLatValid() && IsDateValid();
+        StringBuilder errorsText = new();
+        if (!IsHouseSystemSelectionValid()) 
+            errorsText.Append(ERROR_HOUSE_SYSTEM_SELECTION + EnigmaConstants.NEW_LINE);
+        if (!IsGeoLatValid()) 
+            errorsText.Append(ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
+        if (!IsDateValid()) 
+            errorsText.Append(ERROR_DATE + EnigmaConstants.NEW_LINE);
+        return errorsText.ToString();
     }
-    
     
     private bool IsGeoLatValid()
     {
-        if (GeoLat == string.Empty) return true;
-        return _model.IsGeoLatValid(GeoLat);
+        return GeoLat != string.Empty && _model.IsGeoLatValid(GeoLat);
     }
     
     private bool IsDateValid()
     {
-        if (Date == string.Empty) return true;
-        return _model.IsDateValid(Date);
+        return Date != string.Empty && _model.IsDateValid(Date);
     }
-    
+
+    private bool IsHouseSystemSelectionValid()
+    {
+        return HouseIndex1 != HouseIndex2;
+    }
 
     
     [RelayCommand]
