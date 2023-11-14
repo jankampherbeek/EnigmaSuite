@@ -55,6 +55,7 @@ public partial class App
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
+        serviceCollection.AddTransient<CalcHeliacalModel>();
         serviceCollection.AddTransient<CalcHouseComparisonModel>();
         serviceCollection.AddTransient<CalculateMainModel>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();

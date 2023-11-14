@@ -106,7 +106,7 @@ public static class EnigmaConstants
     public const int SE_VULCANUS_URA = 46;
     /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ZEUS_URA = 42;
-
+    
 
     // Celestial points that are not calculated with the Swiss Ephemeris
     /// <summary>Apogee, approximately according to Max Duval, formula's by Cees Jansen.</summary>
@@ -132,6 +132,14 @@ public static class EnigmaConstants
     /// <summary>Flag: indication to use sidereal positions.</summary>
     public const int SEFLG_SIDEREAL = 64 * 1024;
 
+    // SE values for heliacal rising
+    public const int SE_HELIACAL_RISING = 1;
+    public const int SE_HELIACAL_SETTING = 2;
+    public const int SE_EVENING_FIRST = 3;
+    public const int SE_MORNING_LAST = 4;
+    
+    
+    
     // Limits
     /// <summary>Maximum value for daylight saving time.</summary>
     public const double DST_MAX = 3.0;
@@ -154,6 +162,10 @@ public static class EnigmaConstants
     /// <summary>Minimum value for timezone. </summary>
     public const double TIMEZONE_MIN = -12.0;
 
+    /// <summary>Maximum altitude for observer, expressed in meters.</summary>
+    public const int ALTITUDE_OBSERVER_MAX = 8850; // Mount Everest is 8848 meters, added 2 meters for eye height.
+    /// <summary>Minimum altitude for observer, expressed in meters.</summary>
+    public const int ALTITUDE_OBSERVER_MIN = -420; // Borders of the Dead Sea.
 
     // Supported periods
     /// <summary>Julian day of start supported period for Ceres and Vesta.</summary>

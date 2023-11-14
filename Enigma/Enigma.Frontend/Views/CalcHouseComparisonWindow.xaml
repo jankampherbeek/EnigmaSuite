@@ -40,21 +40,25 @@
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="First house system"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                  BorderBrush="{Binding HouseSystemSelectionValid}"
                   ItemsSource="{Binding AllQuadrantHouses1}" 
                   SelectedIndex="{Binding HouseIndex1, Mode=TwoWay}" />
         <ComboBox Grid.Row="3" Margin="6 0" VerticalAlignment="Center"   
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Second house system"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                  BorderBrush="{Binding HouseSystemSelectionValid}"
                   ItemsSource="{Binding AllQuadrantHouses2}" 
                   SelectedIndex="{Binding HouseIndex2, Mode=TwoWay}" />
         <TextBox Grid.Row="4" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Geographic latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 BorderBrush="{Binding GeoLatValid}"
                  Text="{Binding GeoLat, Mode=TwoWay}" />  
         <TextBox Grid.Row="5" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 BorderBrush="{Binding DateValid}"
                  Text="{Binding Date}" />
         
         <StackPanel Grid.Row="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">

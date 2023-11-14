@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
@@ -21,19 +20,29 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class CalcHouseComparisonViewModel: ObservableObject
 {
+    private readonly CalcHouseComparisonModel _model = App.ServiceProvider.GetRequiredService<CalcHouseComparisonModel>();
+    private bool _compareClicked;
     private const string ERROR_HOUSE_SYSTEM_SELECTION = "Select two different housesystems to compare.";
     private const string ERROR_GEOGRAPHIC_LATITUDE = "Enter a correct value for the geographic latitude.";
     private const string ERROR_DATE = "Enter a correct value for the date.";
     private const string TITLE_ERROR = "Something is wrong.";
 
+    [NotifyPropertyChangedFor(nameof(DateValid))]   
     [ObservableProperty] private string _date = "";
+    [NotifyPropertyChangedFor(nameof(GeoLatValid))]   
     [ObservableProperty] private string _geoLat = "";
     [ObservableProperty] private ObservableCollection<string> _allQuadrantHouses1;
     [ObservableProperty] private ObservableCollection<string> _allQuadrantHouses2;
+    [NotifyPropertyChangedFor(nameof(HouseSystemSelectionValid))]
     [ObservableProperty] private int _houseIndex1 = 0;
+    [NotifyPropertyChangedFor(nameof(HouseSystemSelectionValid))]
     [ObservableProperty] private int _houseIndex2 = 3;
     
-    private readonly CalcHouseComparisonModel _model = App.ServiceProvider.GetRequiredService<CalcHouseComparisonModel>();
+    public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush HouseSystemSelectionValid => IsHouseSystemSelectionValid() ? Brushes.Gray : Brushes.Red;
+    
+
     
     public CalcHouseComparisonViewModel()
     {
@@ -45,6 +54,7 @@ public partial class CalcHouseComparisonViewModel: ObservableObject
     [RelayCommand]
     private void Compare()
     {
+        _compareClicked = true;
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors)) 
             _model.CompareSystems(HouseSystemsExtensions.HouseSystemForIndex(HouseIndex1), 
@@ -66,11 +76,13 @@ public partial class CalcHouseComparisonViewModel: ObservableObject
     
     private bool IsGeoLatValid()
     {
+        if (string.IsNullOrEmpty(GeoLat) && !_compareClicked) return true;
         return GeoLat != string.Empty && _model.IsGeoLatValid(GeoLat);
     }
     
     private bool IsDateValid()
     {
+        if (string.IsNullOrEmpty(Date) && !_compareClicked) return true;
         return Date != string.Empty && _model.IsDateValid(Date);
     }
 
@@ -83,7 +95,6 @@ public partial class CalcHouseComparisonViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        // todo create helppage for CalcHouseComparison
         DataVaultGeneral.Instance.CurrentViewBase = "CalcHouseComparison";
         new HelpWindow().ShowDialog();
     }

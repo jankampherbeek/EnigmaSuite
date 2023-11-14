@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <title>Calculate heliacal risings and settings</title>
+        <link rel="stylesheet" type="text/css" href="css\enigma.css">
+    </head>
+    <body>
+        <h1>Heliacal risings and settings</h1>
+        <p>Heliacal risings and settings were an important technique in ancient astrology. 
+            Enigma supports the calculation of these events for the visible planets (including the Moon). 
+            Fixed stars are not yet supported.</p>
+        <h2>Celestial object</h2>
+        <p>Select Moon, Mercury, Venus, Mars, Jupiter or Saturn.</p>
+        <h2>Type of event</h2>
+        <p>Select one of the following event types:</p>
+        <ul>
+            <li><strong>Heliacal rising</strong>, the first visibility of a celestial object before sunrise.</li>
+            <li><strong>Heliacal setting</strong>, the last visibility of a celestial object after sunset.</li>
+            <li><strong>Evening first (Mercury, Venus, Moon)</strong>, the first visibility after sunset. 
+                Only possible for Mercury, Venus and Moon.</li>
+            <li><strong>Morning last (Mercury, Venus, Moon)</strong>, the last visibility after sunrise.
+                Only possible for Mercury, Venus and Moon.</li>
+        </ul>
+        <h2>Start date</h2>
+        <p>Enigma calculates the heliacal events after the start date.
+            Enter the start date in the format <strong>yyyy/mm/dd</strong> and select the correct calendar.
+            The date is always assumed to be an astronomical date.</p>        
+        <h2>Longitude</h2>
+            <p>Enter the geographic longitude in the format <strong>ddd:mm:ss</strong> and select 
+                <strong>East</strong> or <strong>West</strong>.</p>
+        <h2>Latitude</h2>
+        <p>Enter the geographic latitude in the format <strong>dd:mm:ss</strong> and select
+            <strong>North</strong> or <strong>South</strong>.</p>
+        <h2>Altitude in meters</h2>
+        <p>For enhanced precision, Enigma asks you to enter the altitude. 
+            You need to enter the values in meters. Negative values are allowed but do not use fractions.
+            The altitude should be larger than -420 meter and smaller than 8850 meter. 
+            In case you are wondering: these are respectively the lowest point on Earth (borders of the Dead Sea) 
+            and the highest point on earth (the peak of the Mount Everest with a small margin added for eye sight).</p>
+        <p>See the user manual to learn more about finding the correct altitude.</p>
+        <h2>Calculate</h2>
+        <p>Click the button <strong>Calculate</strong> to start the calculation.
+            If you did not enter all required information, or if you used a wrong format,
+            you will get a popup window with an explanation of what is wrong.
+            You will need to fix the input to start the comparison.</p>
+    </body>
+</html>
