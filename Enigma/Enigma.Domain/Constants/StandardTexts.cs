@@ -11,7 +11,9 @@ public static class StandardTexts
     public const string ERROR_GEOGRAPHIC_LATITUDE = "Enter a correct value for the geographic latitude.";
     public const string ERROR_GEOGRAPHIC_LONGITUDE = "Enter a correct value for the geographic longitude.";
     public const string ERROR_HELIACAL_COMBI_CELBODY_METHOD = "Select a correct combination for Celestial Object and Type of Event.";    
+    public const string ERROR_HOUSE_COMPARE_SELECTION = "Select two different housesystems to compare.";
     public const string ERROR_OBSERVER_ALTITUDE = "Enter a correct value for the altitude of the observer.";
+
 
     
     public const string TITLE_ERROR = "Something is wrong.";

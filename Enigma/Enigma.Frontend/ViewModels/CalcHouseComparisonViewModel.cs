@@ -22,11 +22,6 @@ public partial class CalcHouseComparisonViewModel: ObservableObject
 {
     private readonly CalcHouseComparisonModel _model = App.ServiceProvider.GetRequiredService<CalcHouseComparisonModel>();
     private bool _compareClicked;
-    private const string ERROR_HOUSE_SYSTEM_SELECTION = "Select two different housesystems to compare.";
-    private const string ERROR_GEOGRAPHIC_LATITUDE = "Enter a correct value for the geographic latitude.";
-    private const string ERROR_DATE = "Enter a correct value for the date.";
-    private const string TITLE_ERROR = "Something is wrong.";
-
     [NotifyPropertyChangedFor(nameof(DateValid))]   
     [ObservableProperty] private string _date = "";
     [NotifyPropertyChangedFor(nameof(GeoLatValid))]   
@@ -34,7 +29,7 @@ public partial class CalcHouseComparisonViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allQuadrantHouses1;
     [ObservableProperty] private ObservableCollection<string> _allQuadrantHouses2;
     [NotifyPropertyChangedFor(nameof(HouseSystemSelectionValid))]
-    [ObservableProperty] private int _houseIndex1 = 0;
+    [ObservableProperty] private int _houseIndex1;
     [NotifyPropertyChangedFor(nameof(HouseSystemSelectionValid))]
     [ObservableProperty] private int _houseIndex2 = 3;
     
@@ -59,18 +54,18 @@ public partial class CalcHouseComparisonViewModel: ObservableObject
         if (string.IsNullOrEmpty(errors)) 
             _model.CompareSystems(HouseSystemsExtensions.HouseSystemForIndex(HouseIndex1), 
                 HouseSystemsExtensions.HouseSystemForIndex(HouseIndex2));            
-        else MessageBox.Show(errors, TITLE_ERROR);
+        else MessageBox.Show(errors, StandardTexts.TITLE_ERROR);
     }
 
     private string FindErrors()
     {
         StringBuilder errorsText = new();
         if (!IsHouseSystemSelectionValid()) 
-            errorsText.Append(ERROR_HOUSE_SYSTEM_SELECTION + EnigmaConstants.NEW_LINE);
+            errorsText.Append(StandardTexts.ERROR_HOUSE_COMPARE_SELECTION + EnigmaConstants.NEW_LINE);
         if (!IsGeoLatValid()) 
-            errorsText.Append(ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
+            errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
         if (!IsDateValid()) 
-            errorsText.Append(ERROR_DATE + EnigmaConstants.NEW_LINE);
+            errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
         return errorsText.ToString();
     }
     

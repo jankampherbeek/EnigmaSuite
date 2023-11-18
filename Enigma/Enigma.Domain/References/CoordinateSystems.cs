@@ -19,8 +19,8 @@ public enum CoordinateSystems
 /// <summary>Details for a coordinate system.</summary>
 /// <param name="CoordSystem">The coordinate system.</param>
 /// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
-/// <param name="TextId">Id to find a descriptive text in a resource bundle.</param>
-public record CoordinateSystemDetails(CoordinateSystems CoordSystem, int ValueForFlag, string TextId);
+/// <param name="Text">Descriptive text.</param>
+public record CoordinateSystemDetails(CoordinateSystems CoordSystem, int ValueForFlag, string Text);
 
 
 /// <summary>Extension class for enum CoordinateSystems.</summary>

@@ -5,21 +5,31 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using Enigma.Frontend.Ui.Models;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Messages;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class CyclesMainViewModel: ObservableObject
+/// <summary>View model for cycles.</summary>
+/// <remarks>Simple frontend for Cycles, does not use a Model.</remarks>
+public partial class CyclesMainViewModel: ObservableObject, IRecipient<CancelMessage>, IRecipient<ContinueMessage>
 {
-    private readonly CyclesMainModel _model = App.ServiceProvider.GetRequiredService<CyclesMainModel>();
+
     private readonly DataVaultGeneral _dataVaultGeneral = DataVaultGeneral.Instance;
 
+    private CyclesSinglePositionsWindow _cyclesSinglePositionsWindow;
 
+
+    public CyclesMainViewModel()
+    {
+       WeakReferenceMessenger.Default.Register<CancelMessage>(this);
+    }
+    
+    
     [RelayCommand]
-    private void Waves()
+    private static void Waves()
     {
         new CyclesDoolaardWindow().ShowDialog();
     }
@@ -27,8 +37,16 @@ public partial class CyclesMainViewModel: ObservableObject
     [RelayCommand]
     private void PlotPositions()
     {
-        new CyclesPositionsGraphWindow().ShowDialog();
+        _cyclesSinglePositionsWindow = new();
+        _cyclesSinglePositionsWindow.ShowDialog();
     }
+
+    [RelayCommand]
+    private static void PlotPairs()
+    {
+        // todo new CyclesCombinationsGraphWindow
+    }
+    
     
     
     [RelayCommand]
@@ -38,7 +56,15 @@ public partial class CyclesMainViewModel: ObservableObject
         _dataVaultGeneral.CurrentViewBase = "CyclesMain";
         new HelpWindow().ShowDialog();
     }
-    
-    
-    
+
+
+    public void Receive(CancelMessage message)
+    {
+        _cyclesSinglePositionsWindow.Close();
+    }
+
+    public void Receive(ContinueMessage message)
+    {
+        throw new System.NotImplementedException();
+    }
 }
