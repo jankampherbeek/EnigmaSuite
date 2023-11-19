@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -38,34 +38,36 @@ public class TestObserverPositionSpecifications
         }
     }
 
-
-    /*
+    
     [Test]
     public void TestRetrievingWithIndex()
     {
         const int index = 0;
-        ObserverPositions system = ObserverPositions.HelioCentric.ObserverPositionForIndex(index);
+        ObserverPositions system = ObserverPositionsExtensions.ObserverPositionForIndex(index);
         Assert.That(system, Is.EqualTo(ObserverPositions.GeoCentric));
     }
-
+    
+    
     [Test]
     public void TestRetrievingWithWrongIndex()
     {
         const int index = 500;
-        Assert.That(() => _ = ObserverPositions.HelioCentric.ObserverPositionForIndex(index), Throws.TypeOf<ArgumentException>());
+        Assert.That(() => _ = ObserverPositionsExtensions.ObserverPositionForIndex(index), 
+            Throws.TypeOf<ArgumentException>());
     }
 
     [Test]
     public void TestAllObserverPositionDetails()
     {
-        List<ObserverPositionDetails> allDetails = ObserverPositions.HelioCentric.AllDetails();
+        IEnumerable<ObserverPositionDetails> allDetails = ObserverPositionsExtensions.AllDetails();
+        List<ObserverPositionDetails> detailList = new List<ObserverPositionDetails>(allDetails);
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(3));
-            Assert.That(allDetails[2].Text, Is.EqualTo("Heliocentric"));
-            Assert.That(allDetails[0].Position, Is.EqualTo(ObserverPositions.GeoCentric));
-            Assert.That(allDetails[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SeflgTopoctr));
+            Assert.That(detailList, Has.Count.EqualTo(3));
+            Assert.That(detailList[2].Text, Is.EqualTo("Heliocentric"));
+            Assert.That(detailList[0].Position, Is.EqualTo(ObserverPositions.GeoCentric));
+            Assert.That(detailList[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
         });
-    }*/
+    }
 
 }

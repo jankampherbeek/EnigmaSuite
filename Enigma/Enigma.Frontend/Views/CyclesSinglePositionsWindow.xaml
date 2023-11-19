@@ -61,6 +61,7 @@
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Coordinate"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  BorderBrush="{Binding CombinationObsPosCoordinateValid}"
                   ItemsSource="{Binding AllCoordinates}"
                   SelectedIndex="{Binding CoordinateIndex, Mode=TwoWay}" />
         <ComboBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="6 0" VerticalAlignment="Center" 
@@ -73,6 +74,7 @@
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Position of observer"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  BorderBrush="{Binding CombinationObsPosCoordinateValid}"                  
                   ItemsSource="{Binding AllObserverPositions}"
                   SelectedIndex="{Binding ObserverPositionIndex, Mode=TwoWay}" />
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">

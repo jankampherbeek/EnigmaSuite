@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
+using System.Linq;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Helpers.Interfaces;
@@ -16,6 +17,10 @@ public class CyclesSinglePositionsModel
     public FullDate EndDate { get; set; }
     public List<string> AllCalendars { get; set; } = new();
     public List<string> AllCoordinates { get; set; } = new();
+
+    public List<string> AllAyanamshas { get; set; } = new();
+    
+    public List<string> AllObserverPositions { get; set; } = new();
     
     private readonly IDateInputParser _dateInputParser;
     
@@ -24,7 +29,8 @@ public class CyclesSinglePositionsModel
         _dateInputParser = dateInputParser;
         PopulateCalendars();
         PopulateCoordinates();
-        
+        PopulateAyanamshas();
+        PopulateObserverPositions();
     }
     
     public bool IsStartDateValid(string inputStartDate, Calendars calendar)
@@ -52,10 +58,32 @@ public class CyclesSinglePositionsModel
     
     private void PopulateCoordinates()
     {
-        List<CoordinateSystemDetails> coordDetails = CoordinateSystemsExtensions.AllDetails();
-        foreach (var coordDetail in coordDetails)
+        List<CoordinateDetails> coordDetails = CoordinatesExtensions.AllDetails();
+        foreach (CoordinateDetails coordDetail in 
+                 coordDetails.Where(coordDetail => coordDetail.CoordinateSystem 
+                     is CoordinateSystems.Ecliptical or CoordinateSystems.Equatorial))
         {
             AllCoordinates.Add(coordDetail.Text);
+        }
+    }
+    
+    private void PopulateAyanamshas()
+    {
+        List<AyanamshaDetails> ayanamshaDetails = AyanamshaExtensions.AllDetails();
+        foreach (var ayanamshaDetail in ayanamshaDetails)
+        {
+            AllAyanamshas.Add(ayanamshaDetail.Text);
+        }
+    }
+    
+    private void PopulateObserverPositions()
+    {
+        IEnumerable<ObserverPositionDetails> obsPosDetails = ObserverPositionsExtensions.AllDetails();
+        IEnumerable<ObserverPositionDetails> obsPosList = obsPosDetails.ToList();
+        foreach (ObserverPositionDetails obsPosDetail in obsPosList.Where(obsPosDetail =>
+                     obsPosDetail.Position is ObserverPositions.GeoCentric or ObserverPositions.HelioCentric))
+        {
+            AllObserverPositions.Add(obsPosDetail.Text);             
         }
     }
     

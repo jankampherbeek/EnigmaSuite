@@ -23,7 +23,7 @@ public class PointsExclusionManager : IPointsExclusionManager
         switch (researchMethod)
         {
             case ResearchMethods.CountPosInSigns: return ExclusionForEclipticCounting();
-            case ResearchMethods.CountPosInHouses: return ExclusionForHousesOnly();
+            case ResearchMethods.CountPosInHouses: return ExclusionHouses();
             case ResearchMethods.CountAspects: return ExclusionForAspectsCounting();
             case ResearchMethods.CountUnaspected: return ExclusionForUnAspectedCounting();
             case ResearchMethods.CountOccupiedMidpoints: return ExclusionForMidpoints();
@@ -35,6 +35,17 @@ public class PointsExclusionManager : IPointsExclusionManager
             }
         }
     }
+
+    public PointsToExclude DefineHelioExclusions()
+    {
+        return ExclusionForHeliocentric();
+    }
+
+    public PointsToExclude DefineCycleExclusions()
+    {
+        return ExclusionHouses();
+    }
+
 
     private static PointsToExclude ExclusionForEclipticCounting()
     {
@@ -48,7 +59,7 @@ public class PointsExclusionManager : IPointsExclusionManager
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
-    private static PointsToExclude ExclusionForHousesOnly()
+    private static PointsToExclude ExclusionHouses()
     {
         List<ChartPoints> exclusionPoints = new()
         {
@@ -107,6 +118,28 @@ public class PointsExclusionManager : IPointsExclusionManager
         {
             ChartPoints.Vertex,
             ChartPoints.EastPoint
+        };
+        const bool excludeCusps = true;
+        return new PointsToExclude(exclusionPoints, excludeCusps);
+    }
+
+    private static PointsToExclude ExclusionForHeliocentric()
+    {
+        List<ChartPoints> exclusionPoints = new()
+        {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint,
+            ChartPoints.FortunaSect,
+            ChartPoints.Ascendant,
+            ChartPoints.Mc,
+            ChartPoints.Sun,
+            ChartPoints.Moon,
+            ChartPoints.MeanNode,
+            ChartPoints.TrueNode,
+            ChartPoints.ApogeeMean,
+            ChartPoints.ApogeeCorrected,
+            ChartPoints.ApogeeDuval,
+            ChartPoints.ApogeeInterpolated
         };
         const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);

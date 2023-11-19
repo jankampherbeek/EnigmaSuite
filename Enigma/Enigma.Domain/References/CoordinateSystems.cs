@@ -34,9 +34,9 @@ public static class CoordinateSystemsExtensions
         return coordSys switch
         {
             // No specific flags for ecliptical and horizontal.
-            CoordinateSystems.Ecliptical => new CoordinateSystemDetails(coordSys, 0, "coordinateSysEcliptic"),
-            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordSys, EnigmaConstants.SEFLG_EQUATORIAL, "coordinateSysEquatorial"),
-            CoordinateSystems.Horizontal => new CoordinateSystemDetails(coordSys, 0, "coordinateSysHorizontal"),
+            CoordinateSystems.Ecliptical => new CoordinateSystemDetails(coordSys, 0, "Ecliptic"),
+            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordSys, EnigmaConstants.SEFLG_EQUATORIAL, "Equatorial"),
+            CoordinateSystems.Horizontal => new CoordinateSystemDetails(coordSys, 0, "Horizontal"),
             _ => throw new ArgumentException("Coordinate system unknown : " + coordSys)
         };
     }

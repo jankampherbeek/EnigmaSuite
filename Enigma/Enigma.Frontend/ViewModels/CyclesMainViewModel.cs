@@ -19,7 +19,7 @@ public partial class CyclesMainViewModel: ObservableObject, IRecipient<CancelMes
 
     private readonly DataVaultGeneral _dataVaultGeneral = DataVaultGeneral.Instance;
 
-    private CyclesSinglePositionsWindow _cyclesSinglePositionsWindow;
+    private CyclesSinglePositionsWindow? _cyclesSinglePositionsWindow;
 
 
     public CyclesMainViewModel()

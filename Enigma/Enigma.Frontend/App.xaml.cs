@@ -57,6 +57,7 @@ public partial class App
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
         serviceCollection.AddTransient<CalcHeliacalModel>();
         serviceCollection.AddTransient<CalcHouseComparisonModel>();
+        serviceCollection.AddTransient<CelestialObjectsSelectionModel>();        
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();

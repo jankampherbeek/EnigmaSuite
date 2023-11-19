@@ -21,7 +21,7 @@ public class TestCoordinateSystems
             Assert.That(details, Is.Not.Null);
             Assert.That(details.CoordSystem, Is.EqualTo(system));
             Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_EQUATORIAL));
-            Assert.That(details.Text, Is.EqualTo("coordinateSysEquatorial"));
+            Assert.That(details.Text, Is.EqualTo("Equatorial"));
         });
     }
 
@@ -58,7 +58,7 @@ public class TestCoordinateSystems
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));
-            Assert.That(allDetails[0].Text, Is.EqualTo("coordinateSysEcliptic"));
+            Assert.That(allDetails[0].Text, Is.EqualTo("Ecliptic"));
             Assert.That(allDetails[1].CoordSystem, Is.EqualTo(CoordinateSystems.Equatorial));
             Assert.That(allDetails[2].ValueForFlag, Is.EqualTo(0));
         });
