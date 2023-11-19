@@ -13,7 +13,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"   
-        Title="Enigma - Progressive" Height="840" Width="600">
+        Title="Enigma - Progressive" Height="540" Width="600">
     <Window.Resources>
         <viewModels:ProgressiveMainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -77,11 +77,11 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Techniques">
-                <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
+                <!-- MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/primary.png"/>
                     </MenuItem.Icon>
-                </MenuItem>
+                </-->
                 <MenuItem Header="Secundary Directions" Command="{Binding SecDirCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/secundary.png"/>
@@ -97,11 +97,11 @@
                         <Image Source="/Images/symbolic.png"/>
                     </MenuItem.Icon>
                 </MenuItem >
-                <MenuItem Header="Solar returns" Command="{Binding SolarCommand}">
+                <!-- MenuItem Header="Solar returns" Command="{Binding SolarCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/solar.png"/>
                     </MenuItem.Icon>
-                </MenuItem>
+                </-->
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="Help for this window" Command="{Binding HelpCommand}">
@@ -156,11 +156,11 @@
         <materialDesign:Card Grid.Row="5" Grid.Column="1" Padding="2" Margin="6" HorizontalAlignment="Right"
                              Background="#BFAE93" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="5" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
-                <Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/>
+                <!-- Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/ -->
                 <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>
                 <Button Margin="0 3 0 3" Content="Transits" Command="{Binding TransitsCommand}"/>
                 <Button Margin="0 3 0 3" Content="Symbolic dir." Command="{Binding SymbDirCommand}"/>
-                <Button Margin="0 3 0 3" Content="Solar" Command="{Binding SolarCommand}"/>
+                <!-- Button Margin="0 3 0 3" Content="Solar" Command="{Binding SolarCommand}"/ -->
             </StackPanel>
         </materialDesign:Card>
 

@@ -63,8 +63,8 @@ public class TestObserverPositionSpecifications
         List<ObserverPositionDetails> detailList = new List<ObserverPositionDetails>(allDetails);
         Assert.Multiple(() =>
         {
-            Assert.That(detailList, Has.Count.EqualTo(3));
-            Assert.That(detailList[2].Text, Is.EqualTo("Heliocentric"));
+            Assert.That(detailList, Has.Count.EqualTo(2));
+      //      Assert.That(detailList[2].Text, Is.EqualTo("Heliocentric"));
             Assert.That(detailList[0].Position, Is.EqualTo(ObserverPositions.GeoCentric));
             Assert.That(detailList[1].ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
         });

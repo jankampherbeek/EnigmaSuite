@@ -80,11 +80,11 @@ public class CyclesSinglePositionsModel
     {
         IEnumerable<ObserverPositionDetails> obsPosDetails = ObserverPositionsExtensions.AllDetails();
         IEnumerable<ObserverPositionDetails> obsPosList = obsPosDetails.ToList();
-        foreach (ObserverPositionDetails obsPosDetail in obsPosList.Where(obsPosDetail =>
-                     obsPosDetail.Position is ObserverPositions.GeoCentric or ObserverPositions.HelioCentric))
-        {
-            AllObserverPositions.Add(obsPosDetail.Text);             
-        }
+ //       foreach (ObserverPositionDetails obsPosDetail in obsPosList.Where(obsPosDetail =>
+ //                    obsPosDetail.Position is ObserverPositions.GeoCentric or ObserverPositions.HelioCentric))
+ //       {
+ //           AllObserverPositions.Add(obsPosDetail.Text);             
+ //       }
     }
     
 }

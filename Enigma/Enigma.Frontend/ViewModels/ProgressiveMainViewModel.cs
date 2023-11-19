@@ -26,11 +26,11 @@ public partial class ProgressiveMainViewModel: ObservableObject
     private readonly DataVaultGeneral _dataVaultGeneral = DataVaultGeneral.Instance;
     private CalculatedChart? _currentChart;
     [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
-    [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
+ //   [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(SecDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(SymbDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(TransitsCommand))]
-    [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
+ //   [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
     [ObservableProperty] private int _eventIndex = -1;
  //   [ObservableProperty] private int _periodIndex = -1;
     [ObservableProperty] private string _currentEventName = "No event defined";
@@ -132,11 +132,11 @@ public partial class ProgressiveMainViewModel: ObservableObject
     */
     
 
-    [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
+    /*[RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private static void PrimDir()
     {
         MessageBox.Show("Not implemented yet");
-    }
+    }*/
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SecDir()
@@ -158,12 +158,13 @@ public partial class ProgressiveMainViewModel: ObservableObject
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Symbolic;
         new ProgEventResultsWindow().ShowDialog();
     }
+
     
-    [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
+    /*[RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private static void Solar()
     {
         MessageBox.Show("Not implemented yet");
-    }
+    }*/
     
     [RelayCommand]
     private void Help()

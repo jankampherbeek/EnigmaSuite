@@ -11,7 +11,7 @@ namespace Enigma.Domain.References;
 /// <summary>Observer positions, the center points for the calculation of positions of celestial bodies</summary>
 public enum ObserverPositions
 {
-    GeoCentric = 0, TopoCentric = 1, HelioCentric = 2
+    GeoCentric = 0, TopoCentric = 1   //, HelioCentric = 2
 }
 
 /// <summary>Details for an observer Position</summary>
@@ -33,9 +33,8 @@ public static class ObserverPositionsExtensions
         {
             // No specific flags for geocentric.
             ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "Geocentric"),
-          //  ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SeflgHelctr, "Heliocentric"),
             ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "Topocentric (with parallax)"),
-            ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "Heliocentric"),
+      //      ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "Heliocentric"),
             _ => throw new ArgumentException("Observer Position unknown : " + obsPos)
         };
     }

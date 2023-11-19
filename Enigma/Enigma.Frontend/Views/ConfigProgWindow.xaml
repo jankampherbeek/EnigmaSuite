@@ -104,6 +104,7 @@
                     </DataGrid>                      
                 </Grid>
             </TabItem>
+            <!--
             <TabItem Header="Prim dir">
                 <Grid Margin="6">
                     <Grid.ColumnDefinitions>
@@ -174,6 +175,7 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+            -->
             <TabItem Header="Symb dir">
                <Grid Margin="6">
                     <Grid.ColumnDefinitions>
@@ -222,6 +224,7 @@
                     </DataGrid>                      
                 </Grid>                    
             </TabItem>
+            <!--
             <TabItem Header="Solar">
                 <Grid Margin="6">
                     <Grid.RowDefinitions>
@@ -245,7 +248,7 @@
                               IsChecked="{Binding ApplyRelocation}" />                    
                 </Grid>
             </TabItem>
- 
+            -->
             
             
             

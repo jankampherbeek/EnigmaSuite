@@ -11,7 +11,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"     
-        Title="Enigma - Dashboard" Height="480" Width="800">
+        Title="Enigma - Dashboard" Height="480" Width="440">
     <Window.Resources>
         <viewModels:MainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -43,12 +43,12 @@
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ResearchModuleCommand}">
                     <Image Source="/Images/Research-txt.png"/>
                 </Button>
-                <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CyclesModuleCommand}">
+                <!-- Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CyclesModuleCommand}">
                     <Image Source="/Images/Cycles-txt.png"/>
-                </Button>
-                <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CalculateModuleCommand}">
+                </-->
+                <!--Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CalculateModuleCommand}">
                     <Image Source="/Images/Calculate-txt.png"/>
-                </Button>
+                </-->
             </WrapPanel>
             <TextBlock Grid.Row="4" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
             <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
