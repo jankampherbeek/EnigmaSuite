@@ -6,7 +6,10 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Research;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
@@ -15,16 +18,20 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for main research page</summary>
-public partial class ResearchMainViewModel: ObservableObject
+public partial class ResearchMainViewModel: ObservableObject, IRecipient<CompletedMessage>
 {
     private readonly ResearchMainModel _model;
+    private readonly IMsgAgent _researchMsgAgent;
     [ObservableProperty] private ObservableCollection<ProjectItem> _availableProjects;   
     [NotifyCanExecuteChangedFor(nameof(OpenProjectCommand))]
     [ObservableProperty] private int _projectIndex = -1;
     public ResearchMainViewModel()
     {
+      //  _researchMsgAgent = researchMsgAgent;
+      _researchMsgAgent = App.ServiceProvider.GetRequiredService<IResearchMsgAgent>();
         _model = App.ServiceProvider.GetRequiredService<ResearchMainModel>();
         AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
+        WeakReferenceMessenger.Default.Register<CompletedMessage>(this);        
     }
     
     [RelayCommand]
@@ -44,9 +51,11 @@ public partial class ResearchMainViewModel: ObservableObject
     [RelayCommand]
     private void NewProject()
     {
-        ProjectInputWindow projectInputWindow = new();
+        WeakReferenceMessenger.Default.Send(new OpenMessage("ResearchMain", "ProjectInput")); 
+        
+        /*ProjectInputWindow projectInputWindow = new();
         projectInputWindow.ShowDialog();
-        AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
+        AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());*/
     }
 
     [RelayCommand(CanExecute = nameof(IsProjectSelected))]
@@ -98,6 +107,12 @@ public partial class ResearchMainViewModel: ObservableObject
         new HelpWindow().ShowDialog();
     }
 
-    
-    
+
+    public void Receive(CompletedMessage message)
+    {
+        if (message.Value == "ProjectInput")
+        {
+            AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());            
+        }
+    }
 }

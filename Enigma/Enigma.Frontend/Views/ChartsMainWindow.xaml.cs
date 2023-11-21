@@ -23,7 +23,8 @@ public partial class ChartsMainWindow
         MainMenu.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.MENU_COLOR)!;
         ActionButtonBlock.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.ACTION_BUTTON_BLOCK_COLOR)!;
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
-        SubHeaderAvailableCharts.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;        
+        SubHeaderAvailableCharts.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;    
+        DescriptionBlock.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.DESCRIPTION_BLOCK_COLOR)!;        
     }
     
     private void CloseClick(object sender, RoutedEventArgs e)

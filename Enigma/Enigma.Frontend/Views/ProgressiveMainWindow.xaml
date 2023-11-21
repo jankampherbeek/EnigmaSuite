@@ -13,7 +13,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"   
-        Title="Enigma - Progressive" Height="540" Width="600">
+        Title="Enigma - Progressive" Height="640" Width="600">
     <Window.Resources>
         <viewModels:ProgressiveMainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -24,12 +24,13 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="15*"/>
                 <RowDefinition Height="10*"/>
-                <RowDefinition Height="5*"/>
-                <RowDefinition Height="5*"/>
+                <RowDefinition Height="10*"/>
                 <RowDefinition Height="10*"/>
                 <RowDefinition Height="80*"/>
-                <RowDefinition Height="12*"/>
+                <RowDefinition Height="16*"/>
             </Grid.RowDefinitions>
      <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Stretch" Name="MainMenu">
             <MenuItem Header="General">
@@ -53,11 +54,6 @@
                 <MenuItem Header="New Event" Command="{Binding NewEventCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/event.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Search Event" Command="{Binding SearchEventCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/search.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <!--<MenuItem Header="New Period" Command="{Binding NewPeriodCommand}">
@@ -120,16 +116,23 @@
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Progressive" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
-        <TextBlock Grid.Column="0" Grid.Row="2" Margin="6,12,6,6" 
+        <materialDesign:Card Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Padding="3" Margin="6"
+                             VerticalAlignment="Center"
+                             Name="DescriptionBlock" UniformCornerRadius="6">
+            <TextBlock Text="Create or select an event first ." TextWrapping="Wrap" />
+        </materialDesign:Card>
+        
+        
+        <TextBlock Grid.Column="0" Grid.Row="3" Margin="6,12,6,6" 
                    VerticalAlignment="Center" Text="{Binding CurrentChartName}" />
-        <TextBlock Grid.Column="0" Grid.Row="3" Margin="6"  
+        <TextBlock Grid.Column="0" Grid.Row="4" Margin="6"  
                    VerticalAlignment="Center" Text="{Binding CurrentEventName}" />
         <!--<TextBlock Grid.Column="0" Grid.Row="4" Margin="6" 
                    VerticalAlignment="Center" Text="{Binding CurrentPeriodName}" />-->
-        <TextBlock Grid.Row="4" Grid.Column="0" Margin="6 12 6 6" 
+        <TextBlock Grid.Row="5" Grid.Column="0" Margin="6 12 6 6" 
                    Text="Available events" Name="SubHeaderEventsPeriods" 
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <ListBox Grid.Row="5" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
+        <ListBox Grid.Row="6" Grid.Column="0" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding PresentableEventsPeriods}"
                  SelectedIndex="{Binding EventIndex, Mode=TwoWay}">
             <b:Interaction.Triggers>
@@ -153,9 +156,11 @@
             </ListBox.ItemTemplate>
         </ListBox>
        
-        <materialDesign:Card Grid.Row="5" Grid.Column="1" Padding="2" Margin="6" HorizontalAlignment="Right"
-                             Background="#BFAE93" UniformCornerRadius="6">
+        <materialDesign:Card Grid.Row="6" Grid.Column="1" Padding="2" Margin="6" HorizontalAlignment="Right"
+                             Name = "ActionButtonBlock" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="5" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+                <Button Margin="0 3 0 3" Content="New event" Command="{Binding NewEventCommand}"/>
+                <Button Margin="0 3 0 3" Content="Delete event" Command="{Binding DeleteCommand}"/>
                 <!-- Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/ -->
                 <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>
                 <Button Margin="0 3 0 3" Content="Transits" Command="{Binding TransitsCommand}"/>
@@ -164,7 +169,7 @@
             </StackPanel>
         </materialDesign:Card>
 
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding HandleCloseCommand}" Click="CloseClick"/>
         </StackPanel>

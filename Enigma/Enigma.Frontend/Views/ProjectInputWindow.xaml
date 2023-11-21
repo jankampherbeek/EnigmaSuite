@@ -12,13 +12,14 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"      
-        Title="Enigma - New Project" Height="450" Width="400">
+        Title="Enigma - New Project" Height="560" Width="400">
     <Window.Resources>
         <viewModels:ProjectInputViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}"> 
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*"/> 
+            <RowDefinition Height="12*"/> 
+            <RowDefinition Height="10*"/>             
             <RowDefinition Height="8*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="8*"/>
@@ -30,37 +31,50 @@
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="New Project" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
-        <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
+        
+        <materialDesign:Card Grid.Row="1" Padding="3" Margin="6"
+                             VerticalAlignment="Center"
+                             Name="DescriptionBlock" UniformCornerRadius="6">
+            <TextBlock Text="Make sure you alread defined a data file: Menu: Data - Import Data. The name and description are obligatory." TextWrapping="Wrap" />
+        </materialDesign:Card>
+        
+        
+        
+        <TextBox Grid.Row="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Name for project"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 BorderBrush="{Binding ProjectNameValid}"                 
                  Text="{Binding ProjectName, Mode = TwoWay}"/>
-        <TextBox Grid.Row="2" Margin="6 0" VerticalAlignment="Center" 
+        <TextBox Grid.Row="3" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Description"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding Description, Mode = TwoWay}"/>
-        <ComboBox Grid.Row="3" Margin="6 0 " VerticalAlignment="Center"   
+                 BorderBrush="{Binding ProjectDescriptionValid}"
+                 Text="{Binding ProjectDescription, Mode = TwoWay}"/>
+        <ComboBox Grid.Row="4" Margin="6 0 " VerticalAlignment="Center"   
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Type of control group"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                   ItemsSource="{Binding AvailableControlGroupTypes}" 
                   SelectedIndex="{Binding ControlGroupIndex, Mode=TwoWay}" />
-        <TextBox Grid.Row="4" Margin="6 0" VerticalAlignment="Center" 
-                 materialDesign:HintAssist.Hint="Multiplication control group"
+        <TextBox Grid.Row="5" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Multiplication control group (1..10)"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding MultiplicationValid}"
+                 BorderBrush="{Binding MultiplicationValid}"                 
                  Text="{Binding Multiplication, Mode = TwoWay}"/>
-        <ComboBox Grid.Row="5" Margin="6 0 " VerticalAlignment="Center"   
+        <ComboBox Grid.Row="6" Margin="6 0 " VerticalAlignment="Center"   
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Data file to be used"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                  BorderBrush="{Binding DatafileValid}"
                   ItemsSource="{Binding AvailableDatafileNames}"
                   SelectedIndex="{Binding DatafileIndex, Mode=TwoWay}" />
-        <StackPanel Grid.Row="6" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="7" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" 
+                    Command="{Binding CancelCommand}"/>
             <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
-                    Command="{Binding SaveProjectCommand}" Click="CloseClick"/>
+                    Command="{Binding SaveProjectCommand}"/>
         </StackPanel>        
     </Grid>
 </Window>

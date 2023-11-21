@@ -13,7 +13,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"   
-        Title="Enigma - Charts" Height="600" Width="600">
+        Title="Enigma - Charts" Height="700" Width="600">
     <Window.Resources>
         <viewModels:ChartsMainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -26,13 +26,13 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="28*"/>
+            <RowDefinition Height="20*"/>            
             <RowDefinition Height="14*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="80*"/>
-            <RowDefinition Height="24*"/>
-            <RowDefinition Height="24*"/>
+            <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
         <Menu Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Name="MainMenu"   VerticalAlignment="Stretch">
             <MenuItem Header="General">
@@ -133,14 +133,23 @@
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    FontWeight="Bold" />
        
-        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Text="{Binding NrOfChartsInDatabase}" Margin="6,12,6,6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding LastAddedChart}" Margin="6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding CurrentlySelectedChart}" Margin="6" VerticalAlignment="Center"/>
-        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
+        
+        <materialDesign:Card Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Padding="3" Margin="6"
+                             VerticalAlignment="Center"
+                             Name="DescriptionBlock" UniformCornerRadius="6">
+            <TextBlock Text="Create a new chart or search for an existing chart first." TextWrapping="Wrap" />
+        </materialDesign:Card>
+        
+        
+        
+        <TextBlock Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Text="{Binding NrOfChartsInDatabase}" Margin="6,12,6,6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="3" Text="{Binding LastAddedChart}" Margin="6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="3" Text="{Binding CurrentlySelectedChart}" Margin="6" VerticalAlignment="Center"/>
+        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 6" 
                    Text="Available charts" Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    Name="SubHeaderAvailableCharts" FontWeight="Bold"/>
         
-        <ListBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
+        <ListBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
                  ItemsSource="{Binding AvailableCharts}"
                  SelectedIndex="{Binding ChartIndex, Mode=TwoWay}">
             <b:Interaction.Triggers>
@@ -163,23 +172,22 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <materialDesign:Card Grid.Row="5" Grid.Column="2" Grid.RowSpan="3" Padding="2" Margin="6" 
+        <materialDesign:Card Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" Padding="2" Margin="6" 
                              HorizontalAlignment="Center" Name="ActionButtonBlock" UniformCornerRadius="6">
             <StackPanel Grid.Row="6" Grid.Column="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+                <Button Margin="0 3 0 3" Content="New Chart" Command="{Binding NewChartCommand}"/>
+                <Button Margin="0 3 0 3" Content="Search Chart" Command="{Binding SearchChartCommand}"/>
+                <Button Margin="0 3 0 3" Content="Delete Chart" Command="{Binding DeleteChartCommand}"/>   
                 <Button Margin="0 3 0 3" Content="Wheel" Command="{Binding ShowWheelCommand}"/>
                 <Button Margin="0 3 0 3" Content="Positions" Command="{Binding ShowPositionsCommand}"/>
                 <Button Margin="0 3 0 3" Content="Progressions" Command="{Binding ProgressionsCommand}"/>
             </StackPanel>
         </materialDesign:Card>
-        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Left">
-            <Button Margin="6" Content="New Chart" Command="{Binding NewChartCommand}"/>
-            <Button Margin="6" Content="Search Chart" Command="{Binding SearchChartCommand}"/>
-            <Button Margin="6" Content="Delete Chart" Command="{Binding DeleteChartCommand}"/>        </StackPanel>        
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6 6 0 6" Content="Close" Command="{Binding HandleCloseCommand}" Click="CloseClick"/>
         </StackPanel>
-
+         
     </Grid>
 </Window>
 

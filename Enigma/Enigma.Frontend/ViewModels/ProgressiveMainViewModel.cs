@@ -98,13 +98,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
         }
         // show event
     }
-    
-    [RelayCommand]
-    private static void SearchEvent()
-    {
-        MessageBox.Show("Not implemented yet");
-    }
-    
+
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private static void Delete()
     {

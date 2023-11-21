@@ -16,16 +16,14 @@ public partial class ProjectInputWindow
     public ProjectInputWindow()
     {
         InitializeComponent();
+        DefineColors();
     }
     
     [SuppressMessage("Performance", "CA1822:Mark members as static")]
     private void DefineColors()
     {
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        DescriptionBlock.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.DESCRIPTION_BLOCK_COLOR)!;              
     }
     
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
 }

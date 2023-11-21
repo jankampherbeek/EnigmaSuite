@@ -12,7 +12,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Constants;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Messages;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Microsoft.Extensions.DependencyInjection;
 

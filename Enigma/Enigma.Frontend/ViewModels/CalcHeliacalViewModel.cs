@@ -57,9 +57,7 @@ public partial class CalcHeliacalViewModel:ObservableObject
         AllDirectionsForLongitude = new ObservableCollection<string>(_model.AllDirectionsForLongitude);
         AllEventTypes = new ObservableCollection<string>(_model.AllEventTypes);
         AllHeliacalObjects = new ObservableCollection<string>(_model.AllHeliacalObjects);
-
     }
-    
     
     private bool IsDateValid()
     {

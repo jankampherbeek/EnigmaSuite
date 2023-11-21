@@ -58,7 +58,7 @@ public class TestControlGroupTypes
         List<ControlGroupTypeDetails> allDetails = ControlGroupTypesExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(2));
+            Assert.That(allDetails, Has.Count.EqualTo(1));
             Assert.That(allDetails[0].ControlGroupType, Is.EqualTo(ControlGroupTypes.StandardShift));
         });
     }

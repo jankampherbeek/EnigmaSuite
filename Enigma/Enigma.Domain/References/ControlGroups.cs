@@ -9,8 +9,9 @@ namespace Enigma.Domain.References;
 /// <summary>Types of controlgroups.</summary>
 public enum ControlGroupTypes
 {
-    StandardShift = 0,  
-    GroupMemberShift = 1     
+    StandardShift = 0
+    //,  
+    //GroupMemberShift = 1     
 }
 
 
@@ -30,7 +31,7 @@ public static class ControlGroupTypesExtensions
         return cgType switch
         {
             ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "Standard shifting of location, date, and time"),
-            ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "Shift members of groups"),   
+      //      ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "Shift members of groups"),   
             _ => throw new ArgumentException("Controlgroup type unknown : " + cgType)
         };
     }

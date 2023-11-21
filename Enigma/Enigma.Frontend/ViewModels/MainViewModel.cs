@@ -6,8 +6,12 @@
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -16,6 +20,13 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class MainViewModel: ObservableObject
 {
 
+    private IMsgAgent _generalMsgAgent;
+
+    public MainViewModel()
+    {
+        _generalMsgAgent = App.ServiceProvider.GetRequiredService<IMsgAgent>();
+    }
+    
     [RelayCommand]
     private static void ChartsModule()
     {
@@ -26,7 +37,8 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void ResearchModule()
     {
-        new ResearchMainWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ResearchMain"));
+       // new ResearchMainWindow().ShowDialog();
     }
     
     [RelayCommand]

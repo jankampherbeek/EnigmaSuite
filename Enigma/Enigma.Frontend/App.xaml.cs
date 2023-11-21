@@ -16,6 +16,7 @@ using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Graphics;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
@@ -94,6 +95,7 @@ public partial class App
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
+        serviceCollection.AddTransient<IMsgAgent, GeneralMsgAgent>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPeriodDataConverter, PeriodDataConverter>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
@@ -114,6 +116,7 @@ public partial class App
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
+        serviceCollection.AddTransient<IResearchMsgAgent, ResearchMsgAgent>();
         serviceCollection.AddTransient<ResearchMidpointDetailsModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();
