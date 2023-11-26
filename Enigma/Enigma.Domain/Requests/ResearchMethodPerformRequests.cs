@@ -14,9 +14,9 @@ namespace Enigma.Domain.Requests;
 /// <param name="ProjectName">Name for project, used to find data files.</param>
 /// <param name="Method">The research method to be used.</param>
 /// <param name="UseControlGroup">True if controlgroup data needs to be calculated, false for test data.</param>
-/// <param name="PointsSelection">All points that need to be tested.</param>
+/// <param name="PointSelection">All points that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
-public record GeneralResearchRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config);
+public record GeneralResearchRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointSelection PointSelection, AstroConfig Config);
 
 
 
@@ -25,21 +25,21 @@ public record GeneralResearchRequest(string ProjectName, ResearchMethods Method,
 /// <param name="ProjectName">Name for project, used to find data files.</param>
 /// <param name="Method">The research method to be used.</param>
 /// <param name="UseControlGroup">True if controlgroup data needs to be calculated, false for test data.</param>
-/// <param name="PointsSelection">All points that need to be tested.</param>
+/// <param name="PointSelection">All points that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
 /// <param name="DivisionForDial">The division to construct the dial: 4 = 90 degrees etc.</param>
 /// <param name="Orb">Orb.</param>
-public record CountOccupiedMidpointsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, int DivisionForDial, double Orb) :
-    GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
+public record CountOccupiedMidpointsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointSelection PointSelection, AstroConfig Config, int DivisionForDial, double Orb) :
+    GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointSelection, Config);
 
 /// <summary>Request to perform a test using harmonics. Checks for harmonic positions conjunct radix positions.</summary>
 /// <param name="ProjectName">Name for project, used to find data files.</param>
 /// <param name="Method">The research method to be used.</param>
 /// <param name="UseControlGroup">True if controlgroup data needs to be calculated, false for test data.</param>
-/// <param name="PointsSelection">All points that need to be tested.</param>
+/// <param name="PointSelection">All points that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
 /// <param name="HarmonicNumber">The harmonic number.</param>
 /// <param name="Orb">Orb.</param>
-public record CountHarmonicConjunctionsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, AstroConfig Config, double HarmonicNumber, double Orb) :
-    GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointsSelection, Config);
+public record CountHarmonicConjunctionsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointSelection PointSelection, AstroConfig Config, double HarmonicNumber, double Orb) :
+    GeneralResearchRequest(ProjectName, Method, UseControlGroup, PointSelection, Config);
 

@@ -23,6 +23,7 @@ using Enigma.Frontend.Ui.Support.Parsers;
 using Enigma.Frontend.Ui.Support.Validations;
 using Enigma.Frontend.Ui.ViewModels;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 
 namespace Enigma.Frontend.Ui;
 
@@ -86,6 +87,7 @@ public partial class App
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
         serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions>();
         serviceCollection.AddTransient<IEventDataConverter, EventDataConverter>();
+        serviceCollection.AddSingleton<GeneralWindowsFlow>();
         serviceCollection.AddSingleton<IGeoLatInputParser, GeoLatInputParser>();
         serviceCollection.AddSingleton<IGeoLatValidator, GeoLatValidator>();
         serviceCollection.AddSingleton<IGeoLongInputParser, GeoLongInputParser>();
@@ -95,7 +97,7 @@ public partial class App
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
-        serviceCollection.AddTransient<IMsgAgent, GeneralMsgAgent>();
+        serviceCollection.AddTransient<IWindowsFlow, GeneralWindowsFlow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPeriodDataConverter, PeriodDataConverter>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
@@ -116,7 +118,7 @@ public partial class App
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
-        serviceCollection.AddTransient<IResearchMsgAgent, ResearchMsgAgent>();
+        serviceCollection.AddTransient<IResearchWindowsFlow, ResearchWindowsFlow>();
         serviceCollection.AddTransient<ResearchMidpointDetailsModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();
@@ -126,6 +128,8 @@ public partial class App
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
         serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();
+
+        serviceCollection.AddTransient<HelpWindow>();
         
         // Handle services from other projects.
         serviceCollection.RegisterApiServices();

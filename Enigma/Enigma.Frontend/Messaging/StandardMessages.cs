@@ -5,6 +5,7 @@
 
 
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Frontend.Ui.Messaging;
 
@@ -28,6 +29,16 @@ public class CancelMessage : ValueChangedMessage<string>
         
     }
 }
+
+/// <summary>Message indicating that the Close-button has been clicked.</summary>
+public class CloseMessage : ValueChangedMessage<string>
+{
+    public CloseMessage(string value) : base(value)
+    {
+        
+    }
+}
+
 
 /// <summary>Message indicating that the OK-button has been clicked.</summary>
 public class OkMessage : ValueChangedMessage<string>
@@ -57,3 +68,28 @@ public class CompletedMessage : ValueChangedMessage<string>
     }
 }
 
+/// <summary>Message to show a help page. The value contains the name of the help file without the extension.</summary>
+public class HelpMessage : ValueChangedMessage<string>
+{
+    public HelpMessage(string value) : base(value)
+    {
+        
+    }
+}
+
+public class HarmonicDetailsMessage : ValueChangedMessage<HarmonicDetailsSelection>
+{
+    public HarmonicDetailsMessage(HarmonicDetailsSelection selection): base(selection)
+    {
+        
+    }
+}
+
+public class MidpointDetailsMessage : ValueChangedMessage<MidpointDetailsSelection>
+{
+    public MidpointDetailsMessage(MidpointDetailsSelection selection): base(selection)
+    {
+        
+    }
+    
+}

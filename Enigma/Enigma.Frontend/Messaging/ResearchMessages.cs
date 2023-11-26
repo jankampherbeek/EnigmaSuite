@@ -5,16 +5,16 @@
 
 
 using CommunityToolkit.Mvvm.Messaging.Messages;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Frontend.Ui.Messaging;
 
 // Messages that are specific for the Research module..
 
-/// <summary>Message indicating that a research result is available.</summary>
-public class ResearchResultMessage : ValueChangedMessage<string>
+public class ResearchPointSelectionMessage: ValueChangedMessage<ResearchPointSelection>
 {
-    public ResearchResultMessage(string sender) : base(sender)
-    {
-        
-    }
+        public ResearchPointSelectionMessage(ResearchPointSelection selection) : base(selection)
+        {
+        }
 }
+

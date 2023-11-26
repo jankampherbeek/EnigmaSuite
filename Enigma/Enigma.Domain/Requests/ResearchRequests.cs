@@ -14,7 +14,7 @@ namespace Enigma.Domain.Requests;
 /// <param name="ProjectName">Name for project, used to find data files.</param>
 /// <param name="Method">The research method to be used.</param>
 /// <param name="UseControlGroup">True if controlgroup data needs to be calculated, false for test data.</param>
-/// <param name="PointsSelection">All points that need to be tested.</param>
+/// <param name="PointSelection">All points that need to be tested.</param>
 /// <param name="Aspects">All aspects that need to be tested.</param>
 /// <param name="Config">Currently active configuration.</param>
-public record CountAspectsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointsSelection PointsSelection, List<AspectConfigSpecs> Aspects, AstroConfig Config);
+public record CountAspectsRequest(string ProjectName, ResearchMethods Method, bool UseControlGroup, ResearchPointSelection PointSelection, List<AspectConfigSpecs> Aspects, AstroConfig Config);

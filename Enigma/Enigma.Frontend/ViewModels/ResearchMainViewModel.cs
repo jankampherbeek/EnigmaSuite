@@ -13,6 +13,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -20,15 +21,16 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for main research page</summary>
 public partial class ResearchMainViewModel: ObservableObject, IRecipient<CompletedMessage>
 {
+    private const string VM_IDENTIFICATION = "ResearchMain";
     private readonly ResearchMainModel _model;
-    private readonly IMsgAgent _researchMsgAgent;
+    private readonly IWindowsFlow _researchWindowsFlow;
     [ObservableProperty] private ObservableCollection<ProjectItem> _availableProjects;   
     [NotifyCanExecuteChangedFor(nameof(OpenProjectCommand))]
     [ObservableProperty] private int _projectIndex = -1;
     public ResearchMainViewModel()
     {
       //  _researchMsgAgent = researchMsgAgent;
-      _researchMsgAgent = App.ServiceProvider.GetRequiredService<IResearchMsgAgent>();
+      _researchWindowsFlow = App.ServiceProvider.GetRequiredService<IResearchWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ResearchMainModel>();
         AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);        
@@ -75,15 +77,13 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     [RelayCommand]
     private static void DataOverview()
     {
-        DatafileOverviewWindow dataFileOverviewWindow = new();
-        dataFileOverviewWindow.ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage("ResearchMain", ResearchWindowsFlow.DATAFILE_OVERVIEW)); 
     }
 
     [RelayCommand]
     private static void DataImport()
     {
-        DatafileImportWindow dataFilesImportWindow = new();
-        dataFilesImportWindow.ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage("ResearchMain", "DatafileImport")); 
     }
     
     [RelayCommand]
@@ -103,8 +103,7 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ResearchMain";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 

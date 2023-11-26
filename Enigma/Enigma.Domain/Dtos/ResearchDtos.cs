@@ -11,7 +11,7 @@ namespace Enigma.Domain.Dtos;
 /// <summary>Selection of points to use in research.</summary>
 /// <param name="SelectedPoints">Selected chart points.</param>
 /// <param name="IncludeCusps">True if all cusps are used, otherwise false.</param>
-public record ResearchPointsSelection(List<ChartPoints> SelectedPoints, bool IncludeCusps);
+public record ResearchPointSelection(List<ChartPoints> SelectedPoints, bool IncludeCusps);
 
 
 /// <summary>Positions and inputdata for a chart in a research project.</summary>

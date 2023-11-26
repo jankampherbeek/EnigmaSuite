@@ -12,14 +12,4 @@ public class ResearchMidpointDetailsModel
 {
     public static int MaxOrbMidpoints => 10;
 
-
-    public static void SaveOrbMidpoints(double orb)
-    {
-        DataVaultResearch.Instance.ResearchMidpointOrb = orb;
-    }
-
-    public static void SaveDialDivision(int dialDivision)
-    {
-        DataVaultResearch.Instance.ResearchMidpointDialDivision = dialDivision;
-    }
 }

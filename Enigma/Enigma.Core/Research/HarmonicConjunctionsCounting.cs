@@ -36,14 +36,14 @@ public sealed class HarmonicConjunctionsCounting : IHarmonicConjunctionsCounting
 
     private CountHarmonicConjunctionsResponse PerformCount(List<CalculatedResearchChart> charts, CountHarmonicConjunctionsRequest request)
     {
-        List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
+        List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
         Dictionary<TwoPointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
         double orb = request.Orb;
         double harmonicNr = request.HarmonicNumber;
 
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
+            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
 
             Dictionary<ChartPoints, double> harmonicPositions = _harmonicsHandler.RetrieveHarmonicPositions(posPoints, harmonicNr);

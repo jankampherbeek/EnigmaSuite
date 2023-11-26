@@ -30,7 +30,7 @@
         <ListView Grid.Row="1" Grid.Column="0" ItemsSource="{Binding DataNames}" />
         <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="6" HorizontalAlignment="Right">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
-            <Button Content="Close" Margin="6" Click="CloseClick"/>
+            <Button Content="Close" Margin="6" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

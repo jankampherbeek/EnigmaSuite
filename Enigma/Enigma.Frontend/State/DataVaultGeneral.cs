@@ -3,6 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Messaging;
+
 namespace Enigma.Frontend.Ui.State;
 
 public class DataVaultGeneral
@@ -12,6 +15,7 @@ public class DataVaultGeneral
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
     static DataVaultGeneral()
     {
+        
     }
 
     private DataVaultGeneral()
@@ -24,5 +28,5 @@ public class DataVaultGeneral
     
     /// <summary>Base name for the current view (without the 'View' part)</summary>
     public string CurrentViewBase { get; set; } = string.Empty;
-    
+
 }

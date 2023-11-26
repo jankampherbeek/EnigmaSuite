@@ -16,8 +16,7 @@ using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -26,8 +25,9 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for input new project</summary>
 public partial class ProjectInputViewModel: ObservableObject
 {
-    private const string VM_IDENTIFICATION = "ProjectInput";    // identification of ViewModel
+    private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_INPUT;
     private const string ERROR_PROJECT_IN_USE = "Projectname is already in use.";
+    private const string RESULTMSG_PROJECT_SAVED = "Project has been saved.";
     private const int MAX_MULTIPLICATION = 10;
     private const int MIN_MULTIPLICATION = 1;
 
@@ -106,7 +106,7 @@ public partial class ProjectInputViewModel: ObservableObject
             else
             {
                 Log.Information("Created project {ProjectName}", ProjectName);
-                MessageBox.Show("Project has been saved.");
+                MessageBox.Show(RESULTMSG_PROJECT_SAVED);
                 WeakReferenceMessenger.Default.Send(new CompletedMessage(VM_IDENTIFICATION)); 
             }
         }
@@ -139,8 +139,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = VM_IDENTIFICATION;
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 }

@@ -9,6 +9,7 @@
 	<ApplicationIcon>Images\app.ico</ApplicationIcon>
 	<StartupObject>Enigma.Frontend.Ui.App</StartupObject>
 	<AssemblyName>Enigma</AssemblyName>	
+	<LangVersion>11</LangVersion>	
   </PropertyGroup>
 
   <ItemGroup>

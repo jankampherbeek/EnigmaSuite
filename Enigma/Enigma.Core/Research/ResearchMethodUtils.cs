@@ -34,11 +34,11 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
     }
 
     /// <inheritdoc/>
-    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointsSelection pointsSelection)
+    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointSelection pointSelection)
     {
         Dictionary<ChartPoints, FullPointPos> chartPointPositions = calcResearchChart.Positions;
         Dictionary<ChartPoints, FullPointPos> selectedChartPointPositions = new();
-        foreach (ChartPoints point in pointsSelection.SelectedPoints)
+        foreach (ChartPoints point in pointSelection.SelectedPoints)
         {
             if (chartPointPositions.TryGetValue(point, out FullPointPos? position)) selectedChartPointPositions.Add(point, position);
         }

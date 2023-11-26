@@ -7,19 +7,28 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for project usage</summary>
-public partial class ProjectUsageViewModel: ObservableObject
+public partial class ProjectUsageViewModel: ObservableObject, 
+    IRecipient<HarmonicDetailsMessage>,
+    IRecipient<MidpointDetailsMessage>,
+    IRecipient<CancelMessage>,
+    IRecipient<CompletedMessage>
 {
+    private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_USAGE;
+    private bool _testCanceled;
     [ObservableProperty] private string _projectName = string.Empty;
     [ObservableProperty] private string _description = string.Empty;
     [ObservableProperty] private string _startDate = string.Empty;
@@ -58,8 +67,8 @@ public partial class ProjectUsageViewModel: ObservableObject
         {
             ResearchPointSelectionWindow selectionWindow = new();
             selectionWindow.ShowDialog();
-            if (DataVaultResearch.Instance.ResearchCanceled) return;
-            ResearchPointsSelection? selection = DataVaultResearch.Instance.CurrentPointsSelection;
+            if (_testCanceled) return;
+            ResearchPointSelection? selection = DataVaultResearch.Instance.CurrentPointsSelection;
             int selectedNumber = selection != null ? selection.SelectedPoints.Count : 0; 
             sufficientSelections = selectedNumber >= minNumber;
             if (sufficientSelections)
@@ -72,18 +81,29 @@ public partial class ProjectUsageViewModel: ObservableObject
 
         if (method == ResearchMethods.CountHarmonicConjunctions)
         {
-            new ResearchHarmonicDetailsWindow().ShowDialog();
+            _testCanceled = false;
+            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_HARMONIC_DETAILS)); 
+            
+            // new ResearchHarmonicDetailsWindow().ShowDialog();
         }
 
         if (method == ResearchMethods.CountOccupiedMidpoints)
         {
+            _testCanceled = false;
             new ResearchMidpointDetailsWindow().ShowDialog();
         }
-        if (DataVaultResearch.Instance.ResearchCanceled) return;
-        _model.PerformRequest(ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex));
-        new ResearchResultWindow().ShowDialog();
+        if (_testCanceled) return;
+       
+        
+
     }
 
+    private void CompleteRequest()
+    {
+        _model.PerformRequest(ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex));
+        new ResearchResultWindow().ShowDialog();        
+    }
+    
     
     [RelayCommand]
     private static void Config()
@@ -103,7 +123,26 @@ public partial class ProjectUsageViewModel: ObservableObject
     {
         return MethodIndex >= 0;
     }
-    
-    
+
+
+    public void Receive(HarmonicDetailsMessage message)
+    {
+        _model.HarmonicDetailsSelection = message.Value;
+    }
+
+    public void Receive(MidpointDetailsMessage message)
+    {
+        _model.MidpointDetailsSelection = message.Value;
+    }
+
+    public void Receive(CancelMessage message)
+    {
+        _testCanceled = true;
+    }
+
+    public void Receive(CompletedMessage message)
+    { 
+        CompleteRequest();
+    }
 }
 

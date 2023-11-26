@@ -38,13 +38,13 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
         AstroConfig config = request.Config;
 
         Dictionary<AspectTypes, AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
-        int selectedCelPointSize = request.PointsSelection.SelectedPoints.Count;
+        int selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
         int[,] allCounts = new int[selectedCelPointSize, charts.Count];
 
         int chartIndex = 0;
         foreach (CalculatedResearchChart calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection);
+            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
             List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
             List<PositionedPoint> cuspPoints = new();       // use empty list
             List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);
@@ -68,7 +68,7 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
             chartIndex++;
         }
         List<SimpleCount> resultingCounts = new();
-        List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
+        List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
         int i = 0;
         foreach (var point in selectedPoints)
         {

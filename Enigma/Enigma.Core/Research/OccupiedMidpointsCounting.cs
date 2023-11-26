@@ -37,7 +37,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
 
     private CountOfOccupiedMidpointsResponse PerformCount(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
     {
-        List<ChartPoints> selectedPoints = request.PointsSelection.SelectedPoints;
+        List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
 
         double dialSize = 360.0 / request.DivisionForDial;
@@ -48,7 +48,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
                      from posPoint in calcResearchChart.Positions
                      where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
                      select posPoint).ToDictionary(x => x.Key, x => x.Value) 
-                 select _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointsSelection) 
+                 select _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection) 
                  into relevantChartPointPositions 
                  select _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true) 
                  into posPoints select _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb) 

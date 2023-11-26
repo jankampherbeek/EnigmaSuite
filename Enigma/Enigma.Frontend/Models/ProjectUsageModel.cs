@@ -22,6 +22,8 @@ public class ProjectUsageModel
     private ResearchProject? _currentProject;
     private readonly AstroConfig _currentAstroConfig;
     private readonly IResearchPerformApi _researchPerformApi;
+    public HarmonicDetailsSelection HarmonicDetailsSelection { get; set; }
+    public MidpointDetailsSelection MidpointDetailsSelection { get; set; }
     
     public ProjectUsageModel(IResearchPerformApi researchPerformApi)
     {
@@ -42,7 +44,7 @@ public class ProjectUsageModel
         _currentProject = _dataVaultResearch.CurrentProject;
         MethodResponse? responseCg = null;
         MethodResponse? responseTest = null;
-        ResearchPointsSelection? pointsSelection = _dataVaultResearch.CurrentPointsSelection;
+        ResearchPointSelection? pointsSelection = _dataVaultResearch.CurrentPointsSelection;
         if (pointsSelection == null || pointsSelection.SelectedPoints.Count <= 0) return;    // prevent processing if user closed window without entering data
         if (_currentProject == null) return;
         switch (researchMethod)
@@ -62,8 +64,9 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountOccupiedMidpoints:
             {
-                int divisionForDial = _dataVaultResearch.ResearchMidpointDialDivision;
-                double orb = _dataVaultResearch.ResearchMidpointOrb;
+                // todo check for null
+                int divisionForDial = MidpointDetailsSelection.DialDivision;
+                double orb = MidpointDetailsSelection.Orb;
                 bool useControlGroup = false;
                 CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, divisionForDial, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);
@@ -74,8 +77,9 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountHarmonicConjunctions:
             {
-                double harmonicNumber = _dataVaultResearch.ResearchHarmonicValue;
-                double orb = _dataVaultResearch.ResearchHarmonicOrb;
+                // todo check for null
+                double harmonicNumber = HarmonicDetailsSelection.HarmonicNumber;
+                double orb = HarmonicDetailsSelection.Orb;
                 bool useControlGroup = false;
                 CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, pointsSelection, _currentAstroConfig, harmonicNumber, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);

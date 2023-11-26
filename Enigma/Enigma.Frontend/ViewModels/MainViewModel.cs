@@ -20,11 +20,11 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class MainViewModel: ObservableObject
 {
 
-    private IMsgAgent _generalMsgAgent;
+    private IWindowsFlow _generalWindowsFlow;
 
     public MainViewModel()
     {
-        _generalMsgAgent = App.ServiceProvider.GetRequiredService<IMsgAgent>();
+        _generalWindowsFlow = App.ServiceProvider.GetRequiredService<IWindowsFlow>();
     }
     
     [RelayCommand]
@@ -38,7 +38,6 @@ public partial class MainViewModel: ObservableObject
     private static void ResearchModule()
     {
         WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ResearchMain"));
-       // new ResearchMainWindow().ShowDialog();
     }
     
     [RelayCommand]

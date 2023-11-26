@@ -35,23 +35,23 @@
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Harmonic number"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding HarmonicNrValid }"
+                 BorderBrush="{Binding HarmonicNrValid }"
                  Text="{Binding HarmonicNumber, Mode = TwoWay}"/>
         <TextBlock Grid.Row="2" Grid.Column="0"  Margin="6" Text="Orb" VerticalAlignment="Center" />
         <TextBox Grid.Row="2" Grid.Column="1" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Degrees"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding OrbDegreeValid }"
+                 BorderBrush="{Binding OrbDegreeValid }"
                  Text="{Binding OrbDegrees, Mode = TwoWay}"/>
         <TextBox Grid.Row="2" Grid.Column="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Minutes"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding OrbMinuteValid }"
+                 BorderBrush="{Binding OrbMinuteValid }"
                  Text="{Binding OrbMinutes, Mode = TwoWay}"/>
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Margin="3" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="3"  Content="Cancel" Command="{Binding CancelCommand}" Click="CloseClick"/>
-            <Button Margin="3" Content="Continue" Command="{Binding ContinueCommand}" Click="CloseClick"/>
+            <Button Margin="3"  Content="Cancel" Command="{Binding CancelCommand}"/>
+            <Button Margin="3" Content="Continue" Command="{Binding ContinueCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

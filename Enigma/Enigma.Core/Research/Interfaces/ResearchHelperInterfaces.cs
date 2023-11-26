@@ -209,9 +209,9 @@ public interface IResearchMethodUtils
 
     /// <summary>Create list of positioned points according to a given selection of chart points.</summary>
     /// <param name="calcResearchChart">Calculated chart.</param>
-    /// <param name="pointsSelection">Selection of all points, including mundane points.</param>
+    /// <param name="pointSelection">Selection of all points, including mundane points.</param>
     /// <returns>Positioned points that match wityh the selection.</returns>
-    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointsSelection pointsSelection);
+    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointSelection pointSelection);
 
     /// <summary>Find the index for a chart point in a list with psotioned points.</summary>
     /// <param name="point">The chart point for which to find the index.</param>

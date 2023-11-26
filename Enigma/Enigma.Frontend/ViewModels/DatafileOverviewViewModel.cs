@@ -6,9 +6,12 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -16,6 +19,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for an overview of data files</summary>
 public partial class DatafileOverviewViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = ResearchWindowsFlow.DATAFILE_OVERVIEW;
     [ObservableProperty] private ObservableCollection<string> _dataNames;    
 
     public DatafileOverviewViewModel()
@@ -23,12 +27,17 @@ public partial class DatafileOverviewViewModel: ObservableObject
         DatafileOverviewModel model = App.ServiceProvider.GetRequiredService<DatafileOverviewModel>();
         _dataNames = new ObservableCollection<string>(model.GetDataNames());
     }
+
+    [RelayCommand]
+    private static void Close()
+    {
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION)); 
+    }
     
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "DatafileOverview";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 }

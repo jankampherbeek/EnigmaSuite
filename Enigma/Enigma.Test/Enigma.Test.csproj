@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
 	<EnableTypeInfoReflection>false</EnableTypeInfoReflection>		
+	<LangVersion>11</LangVersion>		
   </PropertyGroup>
 
   <ItemGroup>

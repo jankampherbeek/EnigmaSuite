@@ -8,7 +8,9 @@ using Enigma.Frontend.Ui.Messaging;
 
 namespace Enigma.Frontend.Ui.Interfaces;
 
-public interface IMsgAgent: IRecipient<CancelMessage>, 
+public interface IWindowsFlow: 
+    IRecipient<CancelMessage>, 
+    IRecipient<CloseMessage>,
     IRecipient<OpenMessage>, 
     IRecipient<OkMessage>, 
     IRecipient<ContinueMessage>
@@ -16,8 +18,7 @@ public interface IMsgAgent: IRecipient<CancelMessage>,
 }
 
 
-public interface IResearchMsgAgent : IMsgAgent, 
-    IRecipient<ResearchResultMessage>, 
+public interface IResearchWindowsFlow : IWindowsFlow, 
     IRecipient<CompletedMessage>
 {
 }

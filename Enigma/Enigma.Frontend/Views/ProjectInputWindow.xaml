@@ -31,15 +31,11 @@
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="New Project" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
-        
         <materialDesign:Card Grid.Row="1" Padding="3" Margin="6"
                              VerticalAlignment="Center"
                              Name="DescriptionBlock" UniformCornerRadius="6">
             <TextBlock Text="Make sure you alread defined a data file: Menu: Data - Import Data. The name and description are obligatory." TextWrapping="Wrap" />
         </materialDesign:Card>
-        
-        
-        
         <TextBox Grid.Row="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Name for project"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"

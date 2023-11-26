@@ -5,21 +5,23 @@
 
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for help files</summary>
-public partial class HelpViewModel: ObservableObject
+public partial class HelpViewModel: ObservableObject 
 {
     [ObservableProperty] private Uri? _html;
 
+    private HelpModel _model = App.ServiceProvider.GetRequiredService<HelpModel>();  
+    
     public HelpViewModel()
     {
-        HelpModel model = App.ServiceProvider.GetRequiredService<HelpModel>();
-        Html = model.HtmlUri;
+        Html = _model.HtmlUri;
     }
-    
-    
+
 }

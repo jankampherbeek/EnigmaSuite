@@ -38,11 +38,11 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
         ResearchMethods researchMethod = request.Method;
         int nrOfParts = DefineNumberOfParts(request);
         List<CountOfParts> allCounts = InitializeCounts(request, nrOfParts);
-        ResearchPointsSelection pointsSelection = request.PointsSelection;
+        ResearchPointSelection pointSelection = request.PointSelection;
 
         foreach (CalculatedResearchChart chart in charts)
         {
-            HandleChart(researchMethod, chart, pointsSelection, nrOfParts, ref allCounts);
+            HandleChart(researchMethod, chart, pointSelection, nrOfParts, ref allCounts);
         }
 
         List<int> totals = CountTotals(allCounts);
@@ -72,15 +72,15 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
     private static List<CountOfParts> InitializeCounts(GeneralResearchRequest request, int nrOfParts)
     {
         int[] tempCounts = new int[nrOfParts];
-        return request.PointsSelection.SelectedPoints.Select(selectedCelPoint 
+        return request.PointSelection.SelectedPoints.Select(selectedCelPoint 
             => new CountOfParts(selectedCelPoint, tempCounts.ToList())).ToList();
     }
 
 
-    private static void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointsSelection pointsSelection, int nrOfParts, ref List<CountOfParts> allCounts)
+    private static void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointSelection pointSelection, int nrOfParts, ref List<CountOfParts> allCounts)
     {
         int pointIndex = 0;
-        foreach (ChartPoints selectedCelPoint in pointsSelection.SelectedPoints)
+        foreach (ChartPoints selectedCelPoint in pointSelection.SelectedPoints)
         {
             Dictionary<ChartPoints, FullPointPos> pointPositions = (
                 from posPoint in chart.Positions
@@ -102,7 +102,7 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
             pointIndex++;
         }
 
-        if (!pointsSelection.IncludeCusps) return;
+        if (!pointSelection.IncludeCusps) return;
         foreach (KeyValuePair<ChartPoints, FullPointPos> cusp in chart.Positions.Where(cusp => cusp.Key.GetDetails().PointCat == PointCats.Cusp))
         {
             allCounts[pointIndex++].Counts[SignIndex(cusp.Value.Ecliptical.MainPosSpeed.Position)]++;

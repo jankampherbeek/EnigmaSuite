@@ -43,7 +43,6 @@ public sealed class DatafileImportModel
         if (receivedResultMessage.ErrorCode > ResultCodes.OK)
         {
             return receivedResultMessage;
-
         }
         receivedResultMessage = _dataHandlerApi.ConvertDataFile2Json(inputFile, dataName);
         return receivedResultMessage;

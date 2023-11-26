@@ -5,6 +5,8 @@
 
 using System;
 using System.IO;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Serilog;
 
@@ -13,7 +15,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for help files</summary>
 public class HelpModel
 {
-    public Uri? HtmlUri { get; } = HelpPageUri();
+    public Uri? HtmlUri { get; set; } = HelpPageUri();
 
     /// <summary>Define html file to be shown as help text.</summary>
     private static Uri? HelpPageUri()

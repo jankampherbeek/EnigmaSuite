@@ -16,6 +16,7 @@ using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -23,6 +24,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for point selection</summary>
 public partial class ResearchPointSelectionViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_POINT_SELECTION;
     
     [ObservableProperty] private bool _methodSupportsCusps;
     [ObservableProperty] private bool _includeCusps;
@@ -32,7 +34,7 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
 
     public ResearchPointSelectionViewModel()
     {
-        _dataVaultResearch.ResearchCanceled = true;
+        //_dataVaultResearch.ResearchCanceled = true;
         var model = App.ServiceProvider.GetRequiredService<ResearchPointSelectionModel>();
         _allChartPointDetails =  new ObservableCollection<SelectableChartPointDetails>(model.GetAllCelPointDetails());
     }
@@ -40,10 +42,11 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     [RelayCommand]
     private void CompleteSelection()
     {
-        _dataVaultResearch.ResearchCanceled = false;
+        // _dataVaultResearch.ResearchCanceled = false;
         List<ChartPoints> selectedPoints = (from item in AllChartPointDetails 
             where item.Selected select item.ChartPoint).ToList();
-        _dataVaultResearch.CurrentPointsSelection = new ResearchPointsSelection(selectedPoints, IncludeCusps);
+        
+        _dataVaultResearch.CurrentPointsSelection = new ResearchPointSelection(selectedPoints, IncludeCusps);
     }
 
     [RelayCommand]
@@ -55,7 +58,7 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ResearchPointsSelection";
+        DataVaultGeneral.Instance.CurrentViewBase = "ResearchPointsSelection";   // todo fix name
         new HelpWindow().ShowDialog();
     }
 }

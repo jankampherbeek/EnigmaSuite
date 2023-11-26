@@ -14,16 +14,4 @@ public class ResearchHarmonicDetailsModel
     public static int MaxOrbHarmonic => 10;
 
 
-    public static void SaveOrbHarmonics(double orb)
-    {
-        DataVaultResearch.Instance.ResearchHarmonicOrb = orb;
-    }
-
-    public static void SaveHarmonicNr(double harmonicNr)
-    {
-        DataVaultResearch.Instance.ResearchHarmonicValue = harmonicNr;
-    }
-
-
-
 }
