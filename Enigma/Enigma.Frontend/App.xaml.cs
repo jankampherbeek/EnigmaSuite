@@ -97,7 +97,6 @@ public partial class App
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
-        serviceCollection.AddTransient<IWindowsFlow, GeneralWindowsFlow>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddTransient<IPeriodDataConverter, PeriodDataConverter>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
@@ -118,7 +117,7 @@ public partial class App
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
-        serviceCollection.AddTransient<IResearchWindowsFlow, ResearchWindowsFlow>();
+        serviceCollection.AddTransient<ResearchWindowsFlow>();
         serviceCollection.AddTransient<ResearchMidpointDetailsModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();

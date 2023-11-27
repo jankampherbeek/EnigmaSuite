@@ -30,10 +30,10 @@ public partial class ProjectInputViewModel: ObservableObject
     private const string RESULTMSG_PROJECT_SAVED = "Project has been saved.";
     private const int MAX_MULTIPLICATION = 10;
     private const int MIN_MULTIPLICATION = 1;
-
     
     private readonly ProjectInputModel _model = App.ServiceProvider.GetRequiredService<ProjectInputModel>();
     private bool _saveClicked;
+    
     private int _multiplicationValue = 1;
     [NotifyPropertyChangedFor(nameof(ProjectNameValid))]   
     [ObservableProperty] private string _projectName = string.Empty;
@@ -119,7 +119,9 @@ public partial class ProjectInputViewModel: ObservableObject
     {
         StringBuilder errorsText = new();
         if (!IsProjectNameValid())
+        {
             errorsText.Append(StandardTexts.ERROR_NAME + EnigmaConstants.NEW_LINE);
+        }
         if (!IsProjectDescriptionValid())
             errorsText.Append(StandardTexts.ERROR_DESCRIPTION + EnigmaConstants.NEW_LINE);
         if (!IsMultiplicationValid())

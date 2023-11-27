@@ -27,10 +27,4 @@ public partial class ResearchResultWindow
         ControlData.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.CONTROLDATA_RESULTS_COLOR)!;
     } 
 
-    
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-    
 }

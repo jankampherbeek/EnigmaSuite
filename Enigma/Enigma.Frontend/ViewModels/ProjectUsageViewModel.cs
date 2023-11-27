@@ -28,7 +28,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     IRecipient<CompletedMessage>
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_USAGE;
-    private bool _testCanceled;
+ //   private bool _testCanceled;
     [ObservableProperty] private string _projectName = string.Empty;
     [ObservableProperty] private string _description = string.Empty;
     [ObservableProperty] private string _startDate = string.Empty;
@@ -67,7 +67,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
         {
             ResearchPointSelectionWindow selectionWindow = new();
             selectionWindow.ShowDialog();
-            if (_testCanceled) return;
+  //          if (_testCanceled) return;
             ResearchPointSelection? selection = DataVaultResearch.Instance.CurrentPointsSelection;
             int selectedNumber = selection != null ? selection.SelectedPoints.Count : 0; 
             sufficientSelections = selectedNumber >= minNumber;
@@ -78,23 +78,30 @@ public partial class ProjectUsageViewModel: ObservableObject,
             }
             MessageBox.Show("Please select at least " + minNumber + " points." );
         }
-
-        if (method == ResearchMethods.CountHarmonicConjunctions)
+        /*
+        if (method == ResearchMethods.CountPosInSigns)
         {
             _testCanceled = false;
+          
+        }
+        */
+        
+        
+        if (method == ResearchMethods.CountHarmonicConjunctions)
+        {
+//            _testCanceled = false;
             WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_HARMONIC_DETAILS)); 
-            
-            // new ResearchHarmonicDetailsWindow().ShowDialog();
         }
 
         if (method == ResearchMethods.CountOccupiedMidpoints)
         {
-            _testCanceled = false;
+//            _testCanceled = false;
             new ResearchMidpointDetailsWindow().ShowDialog();
         }
-        if (_testCanceled) return;
+//        if (_testCanceled) return;
        
-        
+        _model.PerformRequest(method);
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_RESULT));         
 
     }
 
@@ -137,7 +144,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
 
     public void Receive(CancelMessage message)
     {
-        _testCanceled = true;
+        WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));      
     }
 
     public void Receive(CompletedMessage message)

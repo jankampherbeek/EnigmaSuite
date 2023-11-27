@@ -23,21 +23,34 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for research result</summary>
 public class ResearchResultModel
 {
+    private const int COLUMN_SIZE = 7;
+    private const int START_COLUMN_SIZE = 20;
+    private const int START_COLUMN_ASPECTS_SIZE = 50;
+    private const int MAX_LINE_SIZE = 104;
+    private const int MIDPOINT_SEPARATOR_SIZE = 80;
+    private const string SPACES = "                    "; // 20 spaces
+    private const string SEPARATOR_LINE = "--------------------------------------------------"; // 50 positions
+    private const string HEADER_SIGNS =
+        "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS";
+    private const string HEADER_HOUSES =
+        "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
+    private const string HARMONIC_CONJUNCTIONS = "Harmonic conjunctions. Harmonic number: ";
+    private const string OCCUPIED_MIDPOINTS = "Occupied midpoints for dial division";
+    private const string CHARTS_WITHOUT_ASPECTS = "Number of charts without aspects";
+    private const string ASPECT_TOTALS = "Totals of aspects";
+    private const string ORB = "Orb";
+    private const string RESULTS_SAVED_AT = "These results have been saved at : ";
+ 
     private readonly DataVaultResearch _dataVaultResearch = DataVaultResearch.Instance;
     private readonly IFileAccessApi _fileAccessApi;
     private readonly IResearchPathApi _researchPathApi;
-    private const string SPACES = "                    "; // 20 spaces
-    private const string SEPARATOR_LINE = "--------------------------------------------------"; // 50 positions
+    
     public string ProjectName { get; } = string.Empty;
     public string MethodName { get; }
     public string TestResult { get; private set; } = string.Empty;
     public string ControlResult { get; private set; } = string.Empty;
     private string TestResultText { get; set; } = string.Empty;
     private string ControlResultText { get; set; } = string.Empty;
-    
-    
-    
-    
     
     public ResearchResultModel(IFileAccessApi fileAccessApi, IResearchPathApi researchPathApi)
     {
@@ -132,8 +145,8 @@ public class ResearchResultModel
         string pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         useControlGroup = true;
         string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
-        TestResultText += EnigmaConstants.NEW_LINE + "These results have been saved at : " + EnigmaConstants.NEW_LINE + pathTest;
-        ControlResultText += EnigmaConstants.NEW_LINE + "These results have been saved at : " + EnigmaConstants.NEW_LINE + pathControl;
+        TestResultText += EnigmaConstants.NEW_LINE + RESULTS_SAVED_AT + EnigmaConstants.NEW_LINE + pathTest;
+        ControlResultText += EnigmaConstants.NEW_LINE + RESULTS_SAVED_AT + EnigmaConstants.NEW_LINE + pathControl;
         _fileAccessApi.WriteFile(pathTest, TestResultText);
         _fileAccessApi.WriteFile(pathControl, ControlResultText);
         TestResult = TestResultText;
@@ -154,14 +167,12 @@ public class ResearchResultModel
         if (response is CountOfPartsResponse(_, var countOfParts, var totals))
         {
             string headerLine = string.Empty;
-            string longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..104];
+            string longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..MAX_LINE_SIZE];
 
             headerLine = response.Request.Method switch
             {
-                ResearchMethods.CountPosInSigns =>
-                    "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS",
-                ResearchMethods.CountPosInHouses =>
-                    "                    1      2      3      4      5      6      7      8      9      10     11     12 ",
+                ResearchMethods.CountPosInSigns => HEADER_SIGNS,
+                ResearchMethods.CountPosInHouses => HEADER_HOUSES,
                 _ => headerLine
             };
             resultData.AppendLine(headerLine);
@@ -170,10 +181,10 @@ public class ResearchResultModel
             foreach (CountOfParts cop in countOfParts)
             {
                 string name = cop.Point + SPACES;
-                resultData.Append(name[..20]);
+                resultData.Append(name[..START_COLUMN_SIZE]);
                 foreach (int count in cop.Counts)
                 {
-                    resultData.Append((count + SPACES)[..7]);
+                    resultData.Append((count + SPACES)[..COLUMN_SIZE]);
                 }
                 resultData.AppendLine();
             }
@@ -181,7 +192,7 @@ public class ResearchResultModel
             resultData.Append(SPACES);
             foreach (int total in totals)
             {
-                resultData.Append((total + SPACES)[..7]);
+                resultData.Append((total + SPACES)[..COLUMN_SIZE]);
             }
             resultData.AppendLine();
         }
@@ -200,17 +211,17 @@ public class ResearchResultModel
         if (response is CountOfAspectsResponse(var generalResearchRequest, var allCounts, 
             var totalsPerPointCombi, var totalsPerAspect, var chartPointsList, var aspectTypesList))
         {
-            string aspectSpaces = (SPACES + SPACES + SPACES)[..50];
+            string aspectSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
             string aspectSeparatorLine = SEPARATOR_LINE;
-            string separatorFragment = SEPARATOR_LINE[..7];
+            string separatorFragment = SEPARATOR_LINE[..COLUMN_SIZE];
             StringBuilder headerLine = new();
             headerLine.Append(aspectSpaces);
             foreach (AspectTypes asp in aspectTypesList)
             {
-                headerLine.Append((((int)asp.GetDetails().Angle) + SPACES)[..7]);
+                headerLine.Append((((int)asp.GetDetails().Angle) + SPACES)[..COLUMN_SIZE]);
                 aspectSeparatorLine += separatorFragment;
             }
-            headerLine.Append("Totals of aspects");
+            headerLine.Append(ASPECT_TOTALS);
             aspectSeparatorLine += separatorFragment;
             resultData.AppendLine(headerLine.ToString());
             resultData.AppendLine(aspectSeparatorLine);
@@ -225,21 +236,21 @@ public class ResearchResultModel
                     detailLine.Append(chartPointsList[j].GetDetails().Text.PadRight(25));
                     for (int k = 0; k < aspectTypesList.Count; k++)
                     {
-                        detailLine.Append((allCounts[i, j, k] + SPACES)[..7]);
+                        detailLine.Append((allCounts[i, j, k] + SPACES)[..COLUMN_SIZE]);
                     }
-                    detailLine.Append((totalsPerPointCombi[i, j] + SPACES)[..7]);
+                    detailLine.Append((totalsPerPointCombi[i, j] + SPACES)[..COLUMN_SIZE]);
                     resultData.AppendLine(detailLine.ToString());
                 }
             }
             int totalOverall = 0;
             detailLine = new StringBuilder();
-            detailLine.Append(("Totals of aspects" + SPACES + SPACES + SPACES)[..50]);
+            detailLine.Append(("Totals of aspects" + SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE]);
             foreach (int count in totalsPerAspect)
             {
-                detailLine.Append((count + SPACES)[..7]);
+                detailLine.Append((count + SPACES)[..COLUMN_SIZE]);
                 totalOverall += count;
             }
-            detailLine.Append((totalOverall + SPACES)[..7]);
+            detailLine.Append((totalOverall + SPACES)[..COLUMN_SIZE]);
             resultData.AppendLine(aspectSeparatorLine);
             resultData.AppendLine(detailLine.ToString());
         }
@@ -257,11 +268,11 @@ public class ResearchResultModel
         StringBuilder resultData = new();
         if (response is CountOfUnaspectedResponse qualifiedResponse)
         {
-            resultData.AppendLine("Number of charts without aspects");
+            resultData.AppendLine(CHARTS_WITHOUT_ASPECTS);
             resultData.AppendLine(SEPARATOR_LINE);
             foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
             {
-                resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..20] + simpleCount.Count);
+                resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..COLUMN_SIZE] + simpleCount.Count);
             }
         }
         else
@@ -279,9 +290,9 @@ public class ResearchResultModel
         {
             if (response.Request is CountOccupiedMidpointsRequest qualifiedRequest)
             {
-                resultData.AppendLine("Occupied midpoints for dial division" + " " + qualifiedRequest.DivisionForDial 
-                                      + ". " + "Orb" + ": " + qualifiedRequest.Orb);
-                resultData.AppendLine((SEPARATOR_LINE + SEPARATOR_LINE)[..80]);
+                resultData.AppendLine(OCCUPIED_MIDPOINTS + " " + qualifiedRequest.DivisionForDial 
+                                      + ". " + ORB + ": " + qualifiedRequest.Orb);
+                resultData.AppendLine((SEPARATOR_LINE + SEPARATOR_LINE)[..MIDPOINT_SEPARATOR_SIZE]);
                 Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
                 {
@@ -290,8 +301,8 @@ public class ResearchResultModel
                     string secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
                     string occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
                     string midpointCount = midpoint.Value.ToString();
-                    resultData.AppendLine((firstPointName + SPACES)[..20] + " / " + (secondPointName + SPACES)[..20] 
-                                          + " = " + (occPointName + SPACES)[..20] + " " + midpointCount);
+                    resultData.AppendLine((firstPointName + SPACES)[..COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
+                                          + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
                 }
             }
             else
@@ -315,8 +326,8 @@ public class ResearchResultModel
         {
             if (response.Request is CountHarmonicConjunctionsRequest qualifiedRequest)
             {
-                resultData.AppendLine("Harmonic conjunctions. Harmonic number" + ": " + qualifiedRequest.HarmonicNumber
-                    + ". " + "Orb" + ": " + qualifiedRequest.Orb);
+                resultData.AppendLine(HARMONIC_CONJUNCTIONS + qualifiedRequest.HarmonicNumber
+                    + ". " + ORB + ": " + qualifiedRequest.Orb);
                 resultData.AppendLine(SEPARATOR_LINE);
                 Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
                 foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)
@@ -325,8 +336,8 @@ public class ResearchResultModel
                     string firstPointName = harmConj.Key.Point.GetDetails().Text;
                     string secondPointName = harmConj.Key.Point2.GetDetails().Text;
                     string harmonicCount = harmConj.Value.ToString();
-                    resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..20] + " / "
-                        + ("Radix" + " " + secondPointName + SPACES)[..20] + " " + harmonicCount);
+                    resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..COLUMN_SIZE] + " / "
+                        + ("Radix" + " " + secondPointName + SPACES)[..COLUMN_SIZE] + " " + harmonicCount);
                 }
             }
             else

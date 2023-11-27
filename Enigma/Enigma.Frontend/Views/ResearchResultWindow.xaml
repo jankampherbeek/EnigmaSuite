@@ -51,7 +51,7 @@
         </TabControl>
         <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
-            <Button Content="Close" Margin="6" Click="CloseClick" />
+            <Button Content="Close" Margin="6" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

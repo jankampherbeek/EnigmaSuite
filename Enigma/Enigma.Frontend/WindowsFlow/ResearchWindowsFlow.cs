@@ -10,7 +10,13 @@ using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.WindowsFlow;
 
-public class ResearchWindowsFlow: IResearchWindowsFlow
+public class ResearchWindowsFlow: 
+    IRecipient<CancelMessage>, 
+    IRecipient<CloseMessage>,
+    IRecipient<OpenMessage>, 
+    IRecipient<OkMessage>, 
+    IRecipient<ContinueMessage>,
+    IRecipient<CompletedMessage>
 {
     // Constants for the names of views in the research module. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
     public const string DATAFILE_IMPORT = "DatafileImport";
@@ -22,19 +28,15 @@ public class ResearchWindowsFlow: IResearchWindowsFlow
     public const string RESEARCH_MIDPOINT_DETAILS = "ResearchMidpointDetails";
     public const string RESEARCH_POINT_SELECTION = "ResearchPointSelection";
     public const string RESEARCH_RESULT = "ResearchResult";
-    
-    
-    
-    
-    
-    
-    
+    public const string PROECT_USAGE = "ProjectUsage";
     
     private ProjectInputWindow? _projectInputWindow;
+    private ProjectUsageWindow? _projectUsageWindow;
     private DatafileOverviewWindow? _datafileOverviewWindow;
     private DatafileImportWindow? _datafileImportWindow;
     private ResearchHarmonicDetailsWindow? _researchHarmonicDetailsWindow;
     private ResearchMidpointDetailsWindow? _researchMidpointDetailsWindow;
+    private ResearchResultWindow? _researchResultWindow;
     
     
     public ResearchWindowsFlow()
@@ -45,7 +47,6 @@ public class ResearchWindowsFlow: IResearchWindowsFlow
         WeakReferenceMessenger.Default.Register<CloseMessage>(this);
         WeakReferenceMessenger.Default.Register<OkMessage>(this);
         WeakReferenceMessenger.Default.Register<ContinueMessage>(this);
-//        WeakReferenceMessenger.Default.Register<ResearchResultMessage>(this);
     }
     
     
@@ -62,6 +63,9 @@ public class ResearchWindowsFlow: IResearchWindowsFlow
             case RESEARCH_MIDPOINT_DETAILS:
                 _researchMidpointDetailsWindow?.Close();
                 break;
+            case PROJECT_USAGE:
+                _projectUsageWindow?.Close();
+                break;
         }
     }
 
@@ -73,6 +77,10 @@ public class ResearchWindowsFlow: IResearchWindowsFlow
                 _projectInputWindow = new ProjectInputWindow();
                 _projectInputWindow.ShowDialog();
                 break;
+            case PROJECT_USAGE:
+                _projectUsageWindow = new ProjectUsageWindow();
+                _projectUsageWindow.ShowDialog();
+                break;
             case DATAFILE_OVERVIEW:
                 _datafileOverviewWindow = new DatafileOverviewWindow();
                 _datafileOverviewWindow.ShowDialog();
@@ -80,6 +88,10 @@ public class ResearchWindowsFlow: IResearchWindowsFlow
             case DATAFILE_IMPORT:
                 _datafileImportWindow = new DatafileImportWindow();
                 _datafileImportWindow.ShowDialog();
+                break;
+            case RESEARCH_RESULT:
+                _researchResultWindow = new ResearchResultWindow();
+                _researchResultWindow.ShowDialog();
                 break;
             case RESEARCH_MIDPOINT_DETAILS:
                 _researchMidpointDetailsWindow = new ResearchMidpointDetailsWindow();
@@ -121,6 +133,9 @@ public class ResearchWindowsFlow: IResearchWindowsFlow
                 break;
             case DATAFILE_IMPORT:
                 _datafileImportWindow?.Close();
+                break;
+            case RESEARCH_RESULT:
+                _researchResultWindow?.Close();
                 break;
         }
     }

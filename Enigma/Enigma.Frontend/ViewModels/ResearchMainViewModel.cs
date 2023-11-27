@@ -23,14 +23,14 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
 {
     private const string VM_IDENTIFICATION = "ResearchMain";
     private readonly ResearchMainModel _model;
-    private readonly IWindowsFlow _researchWindowsFlow;
+    private readonly ResearchWindowsFlow _researchWindowsFlow;
     [ObservableProperty] private ObservableCollection<ProjectItem> _availableProjects;   
     [NotifyCanExecuteChangedFor(nameof(OpenProjectCommand))]
     [ObservableProperty] private int _projectIndex = -1;
     public ResearchMainViewModel()
     {
       //  _researchMsgAgent = researchMsgAgent;
-      _researchWindowsFlow = App.ServiceProvider.GetRequiredService<IResearchWindowsFlow>();
+      _researchWindowsFlow = App.ServiceProvider.GetRequiredService<ResearchWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ResearchMainModel>();
         AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);        

@@ -11,6 +11,7 @@ using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -20,11 +21,11 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class MainViewModel: ObservableObject
 {
 
-    private IWindowsFlow _generalWindowsFlow;
+    private GeneralWindowsFlow _generalWindowsFlow;
 
     public MainViewModel()
     {
-        _generalWindowsFlow = App.ServiceProvider.GetRequiredService<IWindowsFlow>();
+        _generalWindowsFlow = App.ServiceProvider.GetRequiredService<GeneralWindowsFlow>();
     }
     
     [RelayCommand]

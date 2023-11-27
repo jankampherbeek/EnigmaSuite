@@ -4,18 +4,23 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.WindowsFlow;
 
-public class GeneralWindowsFlow: IWindowsFlow, IRecipient<HelpMessage>
+public class GeneralWindowsFlow:     
+    IRecipient<CancelMessage>, 
+    IRecipient<CloseMessage>,
+    IRecipient<OpenMessage>, 
+    IRecipient<OkMessage>, 
+    IRecipient<ContinueMessage>,
+    IRecipient<HelpMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
-    public const string HELP = "Help";
+    private const string HELP = "Help";
+    
     private HelpWindow? _helpWindow;
     
     
@@ -27,15 +32,15 @@ public class GeneralWindowsFlow: IWindowsFlow, IRecipient<HelpMessage>
         WeakReferenceMessenger.Default.Register<HelpMessage>(this);
         WeakReferenceMessenger.Default.Register<OkMessage>(this);   
         WeakReferenceMessenger.Default.Register<OpenMessage>(this);
-
-        
-        //     _helpWindow = App.ServiceProvider.GetRequiredService<HelpWindow>();
     }
     
     
     public void Receive(CancelMessage message)
     {
-        throw new System.NotImplementedException();
+        if (message.Value == "xxx")
+        {
+            // todo complete this
+        }
     }
 
     public void Receive(OpenMessage message)
