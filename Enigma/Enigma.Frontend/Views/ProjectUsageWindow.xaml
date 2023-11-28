@@ -82,7 +82,7 @@
         </ListBox>
         <StackPanel Grid.Row="3" Grid.Column="2" Grid.RowSpan="2" Orientation="Vertical" Name="ActionButtonBlock"
                     HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6">
-            <Button Content="Perform Test" Margin="4" Command="{Binding PerformTestCommand}" />
+            <Button Content="Perform Test" Margin="4" Command="{Binding PrepareTestCommand}" />
             <Button Content="Config" Margin="4" Command="{Binding ConfigCommand}"/>
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" 

@@ -16,7 +16,6 @@ using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -98,8 +97,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ResearchMidpointDetails";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     private bool IsOrbDegreeValid()

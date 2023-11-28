@@ -24,7 +24,6 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ProjectUsageViewModel: ObservableObject, 
     IRecipient<HarmonicDetailsMessage>,
     IRecipient<MidpointDetailsMessage>,
-    IRecipient<CancelMessage>,
     IRecipient<CompletedMessage>
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_USAGE;
@@ -35,7 +34,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     [ObservableProperty] private string _dataSetName = string.Empty;
     [ObservableProperty] private string _controlGroupType = string.Empty;
     [ObservableProperty] private string _multiplFactor = string.Empty;
-    [NotifyCanExecuteChangedFor(nameof(PerformTestCommand))]
+    [NotifyCanExecuteChangedFor(nameof(PrepareTestCommand))]
     [ObservableProperty] private int _methodIndex = -1;
     [ObservableProperty] private ObservableCollection<PresentableMethodDetails> _testMethods = new();
     
@@ -44,6 +43,10 @@ public partial class ProjectUsageViewModel: ObservableObject,
 
     public ProjectUsageViewModel()
     {
+        WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
+        WeakReferenceMessenger.Default.Register<HarmonicDetailsMessage>(this);
+        WeakReferenceMessenger.Default.Register<MidpointDetailsMessage>(this);
+        
         ResearchProject? currentProject = DataVaultResearch.Instance.CurrentProject;
         if (currentProject == null) return;
         TestMethods = new ObservableCollection<PresentableMethodDetails>(ProjectUsageModel.GetAllMethodDetails());
@@ -57,7 +60,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
 
     
     [RelayCommand(CanExecute = nameof(IsMethodSelected))]
-    private void PerformTest()
+    private void PrepareTest()
     {
         ResearchMethods method = ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex);
         DataVaultResearch.Instance.ResearchMethod = method;
@@ -96,19 +99,24 @@ public partial class ProjectUsageViewModel: ObservableObject,
         if (method == ResearchMethods.CountOccupiedMidpoints)
         {
 //            _testCanceled = false;
-            new ResearchMidpointDetailsWindow().ShowDialog();
+            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_MIDPOINT_DETAILS)); 
         }
 //        if (_testCanceled) return;
        
-        _model.PerformRequest(method);
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_RESULT));         
+
 
     }
 
+    private void PerformTest(ResearchMethods method)
+    {
+        _model.PerformRequest(method);
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_RESULT));         
+    }
+    
+    
     private void CompleteRequest()
     {
         _model.PerformRequest(ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex));
-        new ResearchResultWindow().ShowDialog();        
     }
     
     
@@ -135,18 +143,15 @@ public partial class ProjectUsageViewModel: ObservableObject,
     public void Receive(HarmonicDetailsMessage message)
     {
         _model.HarmonicDetailsSelection = message.Value;
+        PerformTest(ResearchMethods.CountHarmonicConjunctions);
     }
 
     public void Receive(MidpointDetailsMessage message)
     {
         _model.MidpointDetailsSelection = message.Value;
+        PerformTest(ResearchMethods.CountOccupiedMidpoints);
     }
-
-    public void Receive(CancelMessage message)
-    {
-        WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));      
-    }
-
+    
     public void Receive(CompletedMessage message)
     { 
         CompleteRequest();

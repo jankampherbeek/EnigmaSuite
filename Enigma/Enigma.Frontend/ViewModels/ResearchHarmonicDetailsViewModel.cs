@@ -13,8 +13,6 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Views;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -65,8 +63,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ResearchHarmonicDetails";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     private string FindErrors()

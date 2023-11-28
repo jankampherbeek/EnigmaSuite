@@ -24,7 +24,7 @@ namespace Enigma.Frontend.Ui.Models;
 public class ResearchResultModel
 {
     private const int COLUMN_SIZE = 7;
-    private const int START_COLUMN_SIZE = 20;
+    private const int LARGE_COLUMN_SIZE = 20;
     private const int START_COLUMN_ASPECTS_SIZE = 50;
     private const int MAX_LINE_SIZE = 104;
     private const int MIDPOINT_SEPARATOR_SIZE = 80;
@@ -181,7 +181,7 @@ public class ResearchResultModel
             foreach (CountOfParts cop in countOfParts)
             {
                 string name = cop.Point + SPACES;
-                resultData.Append(name[..START_COLUMN_SIZE]);
+                resultData.Append(name[..LARGE_COLUMN_SIZE]);
                 foreach (int count in cop.Counts)
                 {
                     resultData.Append((count + SPACES)[..COLUMN_SIZE]);
@@ -272,7 +272,7 @@ public class ResearchResultModel
             resultData.AppendLine(SEPARATOR_LINE);
             foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
             {
-                resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..COLUMN_SIZE] + simpleCount.Count);
+                resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
             }
         }
         else
@@ -301,7 +301,7 @@ public class ResearchResultModel
                     string secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
                     string occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
                     string midpointCount = midpoint.Value.ToString();
-                    resultData.AppendLine((firstPointName + SPACES)[..COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
+                    resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
                 }
             }
@@ -336,8 +336,8 @@ public class ResearchResultModel
                     string firstPointName = harmConj.Key.Point.GetDetails().Text;
                     string secondPointName = harmConj.Key.Point2.GetDetails().Text;
                     string harmonicCount = harmConj.Value.ToString();
-                    resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..COLUMN_SIZE] + " / "
-                        + ("Radix" + " " + secondPointName + SPACES)[..COLUMN_SIZE] + " " + harmonicCount);
+                    resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / "
+                        + ("Radix" + " " + secondPointName + SPACES)[..LARGE_COLUMN_SIZE] + " " + harmonicCount);
                 }
             }
             else

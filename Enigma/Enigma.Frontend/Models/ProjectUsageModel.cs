@@ -5,18 +5,22 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for project usage</summary>
-public class ProjectUsageModel
+public class ProjectUsageModel: 
+    IRecipient<HarmonicDetailsMessage>,
+    IRecipient<MidpointDetailsMessage>
 {
     private readonly DataVaultResearch _dataVaultResearch;
     private ResearchProject? _currentProject;
@@ -30,6 +34,9 @@ public class ProjectUsageModel
         _dataVaultResearch = DataVaultResearch.Instance;
         _researchPerformApi = researchPerformApi;
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
+        
+        WeakReferenceMessenger.Default.Register<HarmonicDetailsMessage>(this);
+        WeakReferenceMessenger.Default.Register<MidpointDetailsMessage>(this);
     }
     
     public static List<PresentableMethodDetails> GetAllMethodDetails()
@@ -95,9 +102,17 @@ public class ProjectUsageModel
         DataVaultResearch.Instance.ResponseTest = results.Item1;
         DataVaultResearch.Instance.ResponseCg = results.Item2;
     }
-
-   
     
+
+    public void Receive(HarmonicDetailsMessage message)
+    {
+        HarmonicDetailsSelection = message.Value;
+    }
+
+    public void Receive(MidpointDetailsMessage message)
+    {
+        MidpointDetailsSelection = message.Value;
+    }
 }
 
 public class PresentableMethodDetails

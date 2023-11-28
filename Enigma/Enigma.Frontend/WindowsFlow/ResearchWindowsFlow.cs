@@ -106,9 +106,17 @@ public class ResearchWindowsFlow:
 
     public void Receive(CompletedMessage message)
     {
-        if (message.Value == PROJECT_INPUT)
+        switch (message.Value)
         {
-            _projectInputWindow?.Close();
+            case PROJECT_INPUT:
+                _projectInputWindow?.Close();
+                break;
+            case RESEARCH_HARMONIC_DETAILS:
+                _researchHarmonicDetailsWindow?.Close();
+                break;
+            case RESEARCH_MIDPOINT_DETAILS:
+                _researchMidpointDetailsWindow?.Close();
+                break;
         }
     }
     
