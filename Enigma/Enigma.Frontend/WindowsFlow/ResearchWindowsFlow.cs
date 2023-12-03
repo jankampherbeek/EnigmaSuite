@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Views;
 
@@ -28,7 +27,6 @@ public class ResearchWindowsFlow:
     public const string RESEARCH_MIDPOINT_DETAILS = "ResearchMidpointDetails";
     public const string RESEARCH_POINT_SELECTION = "ResearchPointSelection";
     public const string RESEARCH_RESULT = "ResearchResult";
-    public const string PROECT_USAGE = "ProjectUsage";
     
     private ProjectInputWindow? _projectInputWindow;
     private ProjectUsageWindow? _projectUsageWindow;
@@ -37,6 +35,7 @@ public class ResearchWindowsFlow:
     private ResearchHarmonicDetailsWindow? _researchHarmonicDetailsWindow;
     private ResearchMidpointDetailsWindow? _researchMidpointDetailsWindow;
     private ResearchResultWindow? _researchResultWindow;
+    private ResearchPointSelectionWindow? _researchPointSelectionWindow;
     
     
     public ResearchWindowsFlow()
@@ -62,6 +61,9 @@ public class ResearchWindowsFlow:
                 break;
             case RESEARCH_MIDPOINT_DETAILS:
                 _researchMidpointDetailsWindow?.Close();
+                break;
+            case RESEARCH_POINT_SELECTION:
+                _researchPointSelectionWindow?.Close();
                 break;
             case PROJECT_USAGE:
                 _projectUsageWindow?.Close();
@@ -101,6 +103,10 @@ public class ResearchWindowsFlow:
                 _researchHarmonicDetailsWindow = new ResearchHarmonicDetailsWindow();
                 _researchHarmonicDetailsWindow.ShowDialog();
                 break;
+            case RESEARCH_POINT_SELECTION:
+                _researchPointSelectionWindow = new ResearchPointSelectionWindow();
+                _researchPointSelectionWindow.ShowDialog();
+                break;
         }
     }
 
@@ -116,6 +122,9 @@ public class ResearchWindowsFlow:
                 break;
             case RESEARCH_MIDPOINT_DETAILS:
                 _researchMidpointDetailsWindow?.Close();
+                break;
+            case RESEARCH_POINT_SELECTION:
+                _researchPointSelectionWindow?.Close();
                 break;
         }
     }
@@ -141,6 +150,9 @@ public class ResearchWindowsFlow:
                 break;
             case DATAFILE_IMPORT:
                 _datafileImportWindow?.Close();
+                break;
+            case RESEARCH_POINT_SELECTION:
+                _researchPointSelectionWindow?.Close();
                 break;
             case RESEARCH_RESULT:
                 _researchResultWindow?.Close();

@@ -20,7 +20,8 @@ using Enigma.Frontend.Ui.WindowsFlow;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for midpoint details in research</summary>
+/// <summary>ViewModel for midpoint details in research. Collects user input about the orb and midpoint dial.
+/// Sends messages: MidpointDetailsMessage, CompletedMessage, CancelMessage and HelpMessage.</summary>
 public partial class ResearchMidpointDetailsViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_MIDPOINT_DETAILS;

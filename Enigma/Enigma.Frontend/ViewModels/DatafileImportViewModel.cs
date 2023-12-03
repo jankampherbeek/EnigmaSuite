@@ -18,7 +18,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for the import of data files</summary>
+/// <summary>ViewModel for the import of data files.
+/// Uses standard Windows file dialog to import datafiles. Saves imported files.
+/// Sends messages: CloseMessage and HelpMessage.</summary>
 public partial class DatafileImportViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.DATAFILE_IMPORT;

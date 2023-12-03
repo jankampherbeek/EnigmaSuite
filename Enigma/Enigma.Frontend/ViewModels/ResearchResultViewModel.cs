@@ -15,7 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for research result</summary>
+/// <summary>ViewModel for research result. Shows the results of a test for both test data and controlgroup data.
+/// Sends messages: CloseMessage and HelpMessage.</summary>
 public partial class ResearchResultViewModel: ObservableObject
 {
     private static string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_RESULT;

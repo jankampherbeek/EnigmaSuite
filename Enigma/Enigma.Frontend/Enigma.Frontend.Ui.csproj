@@ -834,7 +834,7 @@
     <None Update="res\help\ResearchResult.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchPointsSelection.html">
+    <None Update="res\help\ResearchPointSelection.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\Settings.html">

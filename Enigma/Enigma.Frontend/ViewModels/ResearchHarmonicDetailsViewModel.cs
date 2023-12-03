@@ -16,7 +16,8 @@ using Enigma.Frontend.Ui.Models;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for harmonic details in research</summary>
+/// <summary>ViewModel for harmonic details in research. Collects user input about org and harmonic number.
+/// Sends messages: HarmonicDetailsMessage, CompletedMessage, CancelMessage and HelpMessage.</summary>
 public partial class ResearchHarmonicDetailsViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = "ResearchHarmonicDetails";    // identification of ViewModel

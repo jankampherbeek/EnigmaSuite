@@ -8,14 +8,13 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,36 +28,32 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     [ObservableProperty] private bool _methodSupportsCusps;
     [ObservableProperty] private bool _includeCusps;
     [ObservableProperty] private ObservableCollection<SelectableChartPointDetails> _allChartPointDetails;
-    
-    private readonly DataVaultResearch _dataVaultResearch = DataVaultResearch.Instance;
 
     public ResearchPointSelectionViewModel()
     {
-        //_dataVaultResearch.ResearchCanceled = true;
         var model = App.ServiceProvider.GetRequiredService<ResearchPointSelectionModel>();
         _allChartPointDetails =  new ObservableCollection<SelectableChartPointDetails>(model.GetAllCelPointDetails());
     }
   
     [RelayCommand]
-    private void CompleteSelection()
+    private void Continue()
     {
-        // _dataVaultResearch.ResearchCanceled = false;
         List<ChartPoints> selectedPoints = (from item in AllChartPointDetails 
             where item.Selected select item.ChartPoint).ToList();
-        
-        _dataVaultResearch.CurrentPointsSelection = new ResearchPointSelection(selectedPoints, IncludeCusps);
+        ResearchPointSelection selection = new(selectedPoints, IncludeCusps);
+        WeakReferenceMessenger.Default.Send(new ResearchPointSelectionMessage(selection));
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 
     [RelayCommand]
-    private void Cancel()
+    private static void Cancel()
     {
-        _dataVaultResearch.ResearchCanceled = true;
+        WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ResearchPointsSelection";   // todo fix name
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 }

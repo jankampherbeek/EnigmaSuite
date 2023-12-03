@@ -16,7 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for an overview of data files</summary>
+/// <summary>ViewModel for an overview of data files.
+/// Shows names of datafiles and takes no further action. Messages: CloseMessage and HelpMessage.</summary>
 public partial class DatafileOverviewViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.DATAFILE_OVERVIEW;

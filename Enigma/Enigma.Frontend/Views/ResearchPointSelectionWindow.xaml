@@ -37,17 +37,21 @@
                   SelectionUnit="Cell">
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn Binding="{Binding Selected}"></DataGridCheckBoxColumn>
-                <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
+                <DataGridTextColumn Binding="{Binding Glyph}" 
+                                    Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Name}" Header=" " CellStyle="{StaticResource NameColumnStyle}"
+                <DataGridTextColumn Binding="{Binding Name}" 
+                                    Header=" " CellStyle="{StaticResource NameColumnStyle}"
                                     IsReadOnly="True"/>
             </DataGrid.Columns>   
         </DataGrid>
-        <CheckBox Grid.Row="2" Margin="6" Content="Include all cusps" IsEnabled="{Binding MethodSupportsCusps}" IsChecked="{Binding IncludeCusps}" />
+        <CheckBox Grid.Row="2" Margin="6" Content="Include all cusps" 
+                  IsEnabled="{Binding MethodSupportsCusps}" 
+                  IsChecked="{Binding IncludeCusps}" />
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Margin="4" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="4" Content="Cancel" Command="{Binding CancelCommand}" Click="CloseClick"/>
-            <Button Margin="4" Content="Ok" Command="{Binding CompleteSelectionCommand}" Click="CloseClick"/>
+            <Button Margin="4" Content="Cancel" Command="{Binding CancelCommand}"/>
+            <Button Margin="4" Content="Continue" Command="{Binding ContinueCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -24,10 +24,12 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ProjectUsageViewModel: ObservableObject, 
     IRecipient<HarmonicDetailsMessage>,
     IRecipient<MidpointDetailsMessage>,
-    IRecipient<CompletedMessage>
+    IRecipient<ResearchPointSelectionMessage>,
+    IRecipient<CompletedMessage>,
+    IRecipient<CancelMessage>
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_USAGE;
- //   private bool _testCanceled;
+
     [ObservableProperty] private string _projectName = string.Empty;
     [ObservableProperty] private string _description = string.Empty;
     [ObservableProperty] private string _startDate = string.Empty;
@@ -38,12 +40,15 @@ public partial class ProjectUsageViewModel: ObservableObject,
     [ObservableProperty] private int _methodIndex = -1;
     [ObservableProperty] private ObservableCollection<PresentableMethodDetails> _testMethods = new();
     
-    
     private readonly ProjectUsageModel _model = App.ServiceProvider.GetRequiredService<ProjectUsageModel>();
-
+    private bool _sufficientSelections;
+    private bool _testCanceled;
+    
     public ProjectUsageViewModel()
     {
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
+        WeakReferenceMessenger.Default.Register<CancelMessage>(this);
+        WeakReferenceMessenger.Default.Register<ResearchPointSelectionMessage>(this);
         WeakReferenceMessenger.Default.Register<HarmonicDetailsMessage>(this);
         WeakReferenceMessenger.Default.Register<MidpointDetailsMessage>(this);
         
@@ -62,48 +67,41 @@ public partial class ProjectUsageViewModel: ObservableObject,
     [RelayCommand(CanExecute = nameof(IsMethodSelected))]
     private void PrepareTest()
     {
+        _testCanceled = false;
+        _sufficientSelections = false;
         ResearchMethods method = ResearchMethodsExtensions.ResearchMethodForIndex(MethodIndex);
         DataVaultResearch.Instance.ResearchMethod = method;
-        bool sufficientSelections = false;
+        
         int minNumber = method.GetDetails().MinNumberOfPoints;
-        while (!sufficientSelections)
+        while (!_sufficientSelections && !_testCanceled)
         {
-            ResearchPointSelectionWindow selectionWindow = new();
-            selectionWindow.ShowDialog();
-  //          if (_testCanceled) return;
-            ResearchPointSelection? selection = DataVaultResearch.Instance.CurrentPointsSelection;
+            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,
+                ResearchWindowsFlow.RESEARCH_POINT_SELECTION));
+            ResearchPointSelection selection = _model.ResearchPointSelection;
             int selectedNumber = selection != null ? selection.SelectedPoints.Count : 0; 
-            sufficientSelections = selectedNumber >= minNumber;
-            if (sufficientSelections)
+            _sufficientSelections = selectedNumber >= minNumber;
+            if (_sufficientSelections || _testCanceled)
             {
-                selectionWindow.Close();
                 continue;
             }
             MessageBox.Show("Please select at least " + minNumber + " points." );
         }
-        /*
-        if (method == ResearchMethods.CountPosInSigns)
-        {
-            _testCanceled = false;
-          
-        }
-        */
-        
-        
         if (method == ResearchMethods.CountHarmonicConjunctions)
         {
-//            _testCanceled = false;
             WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_HARMONIC_DETAILS)); 
         }
-
         if (method == ResearchMethods.CountOccupiedMidpoints)
         {
-//            _testCanceled = false;
             WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_MIDPOINT_DETAILS)); 
         }
-//        if (_testCanceled) return;
-       
 
+        if (method is ResearchMethods.CountPosInSigns or ResearchMethods.CountPosInHouses or ResearchMethods.CountAspects 
+            or ResearchMethods.CountUnaspected)    
+        {
+            _model.PerformRequest(method);
+            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,
+                ResearchWindowsFlow.RESEARCH_RESULT));
+        }
 
     }
 
@@ -155,6 +153,19 @@ public partial class ProjectUsageViewModel: ObservableObject,
     public void Receive(CompletedMessage message)
     { 
         CompleteRequest();
+    }
+
+    public void Receive(ResearchPointSelectionMessage message)
+    {
+        _model.ResearchPointSelection = message.Value;
+    }
+
+    public void Receive(CancelMessage message)
+    {
+        if (message.Value == ResearchWindowsFlow.RESEARCH_POINT_SELECTION)
+        {
+            _testCanceled = true;
+        }
     }
 }
 

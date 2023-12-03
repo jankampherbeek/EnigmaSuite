@@ -22,7 +22,9 @@ using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for input new project</summary>
+/// <summary>ViewModel for input new project. Collects user input and sends a request to save the project.
+/// Sends messages: CompletedMessage, CancelMessage, HelpMessage.
+/// </summary>
 public partial class ProjectInputViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_INPUT;
