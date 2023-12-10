@@ -68,7 +68,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
                 _ => 1
             };
             MidpointDetailsSelection selection = new(dialDivision, OrbDegreeValue + OrbMinuteValue / 60.0);
-            WeakReferenceMessenger.Default.Send(new MidpointDetailsMessage(selection));
+            DataVaultResearch.Instance.CurrenMidpointDetailsSelection = selection;
             WeakReferenceMessenger.Default.Send(new CompletedMessage(VM_IDENTIFICATION));
         }
         else

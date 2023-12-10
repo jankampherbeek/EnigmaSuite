@@ -38,7 +38,7 @@
                         <Image Source="/Images/configuration.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Close" Click="CloseClick">
+                <MenuItem Header="Close" Command="{Binding CloseCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/close.png"/>
                     </MenuItem.Icon>
@@ -121,7 +121,7 @@
         </materialDesign:Card>
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
-            <Button Margin="6 6 0 6" Content="Close" HorizontalAlignment="Right" Click="CloseClick"/>
+            <Button Margin="6 6 0 6" Content="Close" HorizontalAlignment="Right" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

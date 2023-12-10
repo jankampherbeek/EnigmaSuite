@@ -19,11 +19,16 @@ public class GeneralWindowsFlow:
     IRecipient<HelpMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
-    private const string HELP = "Help";
+    public const string HELP = "Help";
+    public const string RESEARCH_MAIN = "ResearchMain";
+    public const string CONFIGURATION = "Configuration";
+    public const string APP_SETTINGS = "AppSettings";
+    
     
     private HelpWindow? _helpWindow;
-    
-    
+    private ConfigurationWindow? _configurationWindow;
+    private AppSettingsWindow? _appSettingsWindow;
+    private ResearchMainWindow? _researchMainWindow;
     public GeneralWindowsFlow()
     {
         WeakReferenceMessenger.Default.Register<CancelMessage>(this);
@@ -45,9 +50,20 @@ public class GeneralWindowsFlow:
 
     public void Receive(OpenMessage message)
     {
-        if (message.ViewToOpen == "ResearchMain")
+        switch (message.ViewToOpen)
         {
-            new ResearchMainWindow().ShowDialog();
+            case RESEARCH_MAIN:
+                _researchMainWindow = new ResearchMainWindow();
+                _researchMainWindow.ShowDialog();
+                break;
+            case CONFIGURATION:
+                _configurationWindow = new ConfigurationWindow();
+                _configurationWindow.ShowDialog();
+                break;
+            case APP_SETTINGS:
+                _appSettingsWindow = new AppSettingsWindow();
+                _appSettingsWindow.ShowDialog();
+                break;
         }
     }
 
@@ -65,6 +81,9 @@ public class GeneralWindowsFlow:
     {
         switch (message.Value)
         {
+            case RESEARCH_MAIN:
+                _researchMainWindow?.Close();
+                break;
             case HELP:
                 _helpWindow?.Close();
                 break;

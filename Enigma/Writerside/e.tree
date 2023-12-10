@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="e"
+                 name="EnigmaDoc"
+                 start-page="starter-topic.md">
+
+    <toc-element topic="UserManual.md"/>
+    <toc-element topic="Programmers-Manual.md"/>
+    <toc-element topic="starter-topic.md"/>
+</instance-profile>

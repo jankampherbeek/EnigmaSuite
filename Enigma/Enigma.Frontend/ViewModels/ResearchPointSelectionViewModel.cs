@@ -20,7 +20,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-/// <summary>ViewModel for point selection</summary>
+/// <summary>ViewModel for point selection. Collects user input about the celestial points to use and for the optional
+/// inclusion of cusps.
+/// Sends messages: CloseMessage, CancelMessage and HelpMessage.</summary>
 public partial class ResearchPointSelectionViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_POINT_SELECTION;
@@ -41,7 +43,7 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
         List<ChartPoints> selectedPoints = (from item in AllChartPointDetails 
             where item.Selected select item.ChartPoint).ToList();
         ResearchPointSelection selection = new(selectedPoints, IncludeCusps);
-        WeakReferenceMessenger.Default.Send(new ResearchPointSelectionMessage(selection));
+        DataVaultResearch.Instance.CurrentPointsSelection = selection;
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 

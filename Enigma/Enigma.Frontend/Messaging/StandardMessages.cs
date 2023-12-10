@@ -77,19 +77,4 @@ public class HelpMessage : ValueChangedMessage<string>
     }
 }
 
-public class HarmonicDetailsMessage : ValueChangedMessage<HarmonicDetailsSelection>
-{
-    public HarmonicDetailsMessage(HarmonicDetailsSelection selection): base(selection)
-    {
-        
-    }
-}
 
-public class MidpointDetailsMessage : ValueChangedMessage<MidpointDetailsSelection>
-{
-    public MidpointDetailsMessage(MidpointDetailsSelection selection): base(selection)
-    {
-        
-    }
-    
-}

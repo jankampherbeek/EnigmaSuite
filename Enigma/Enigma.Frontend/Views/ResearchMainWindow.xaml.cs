@@ -26,9 +26,5 @@ public partial class ResearchMainWindow
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
         SubHeaderExistingProjects.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;        
     }
-    
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+
 }

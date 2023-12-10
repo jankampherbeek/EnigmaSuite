@@ -13,6 +13,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.State;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -45,7 +46,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
         if (string.IsNullOrEmpty(errors))
         {
             HarmonicDetailsSelection selection = new(HarmonicValue, OrbDegreeValue + OrbMinuteValue / 60.0);
-            WeakReferenceMessenger.Default.Send(new HarmonicDetailsMessage(selection));
+            DataVaultResearch.Instance.CurrentHarmonicDetailsSelection = selection;
             WeakReferenceMessenger.Default.Send(new CompletedMessage(VM_IDENTIFICATION));
         }
         else

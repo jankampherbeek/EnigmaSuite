@@ -9,7 +9,7 @@ using Enigma.Domain.Research;
 
 namespace Enigma.Frontend.Ui.Models;
 
-/// <summary>Model for main research page</summary>
+/// <summary>Model for main research page.</summary>
 public class ResearchMainModel
 {
     private readonly IProjectsOverviewApi _projectsOverviewApi;
@@ -35,27 +35,11 @@ public class ResearchMainModel
         return projectItems;
     }
 
-
-    // TODO remove outcommented method OpenProject from ResearchMainModel
-    /*   public void OpenProject()
-       {
-           
-           ResearchProject? currentProject = null;
-           // check for null to avoid adding multiple projects to usage window
-           foreach (ResearchProject project in _researchProjects.Where(project => project.Name.Equals(projectItem.ProjectName) && (currentProject is null)))
-           {
-               currentProject = project;
-               ProjectUsageWindow projectUsageWindow = new ProjectUsageWindow();       // todo 0.2 move navigation out of model
-               projectUsageWindow.ShowDialog();
-           }
-       }
-       
-   }*/
 }
 
 
+/// <summary>DTO for a single project item.</summary>
 public class ProjectItem
-{
-    public string? ProjectName { get; init; }
+{ public string? ProjectName { get; init; }
     public string? ProjectDescription { get; init; }
 }

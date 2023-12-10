@@ -88,7 +88,7 @@
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" 
                     HorizontalAlignment="Right" Margin="6">
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
-            <Button Content="Close" Margin="4" Click="CloseClick"/>
+            <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

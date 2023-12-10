@@ -5,39 +5,32 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
-using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for project usage</summary>
-public class ProjectUsageModel: 
-    IRecipient<HarmonicDetailsMessage>,
-    IRecipient<MidpointDetailsMessage>
+public class ProjectUsageModel
 {
     private readonly DataVaultResearch _dataVaultResearch;
-    private ResearchProject? _currentProject;
+    private ResearchProject? _currentProject; 
     private readonly AstroConfig _currentAstroConfig;
     private readonly IResearchPerformApi _researchPerformApi;
     public HarmonicDetailsSelection HarmonicDetailsSelection { get; set; }
     public MidpointDetailsSelection MidpointDetailsSelection { get; set; }
-    public ResearchPointSelection ResearchPointSelection { get; set; }
-    
+    public ResearchPointSelection? CurrenPointSelection { get; set; }
+
     public ProjectUsageModel(IResearchPerformApi researchPerformApi)
     {
         _dataVaultResearch = DataVaultResearch.Instance;
         _researchPerformApi = researchPerformApi;
         _currentAstroConfig = CurrentConfig.Instance.GetConfig();
-        
-        WeakReferenceMessenger.Default.Register<HarmonicDetailsMessage>(this);
-        WeakReferenceMessenger.Default.Register<MidpointDetailsMessage>(this);
     }
     
     public static List<PresentableMethodDetails> GetAllMethodDetails()
@@ -52,7 +45,7 @@ public class ProjectUsageModel:
         _currentProject = _dataVaultResearch.CurrentProject;
         MethodResponse? responseCg = null;
         MethodResponse? responseTest = null;
-        if (ResearchPointSelection == null || ResearchPointSelection.SelectedPoints.Count <= 0) return;    // prevent processing if user closed window without entering data
+        if (CurrenPointSelection == null || CurrenPointSelection.SelectedPoints.Count <= 0) return;    // prevent processing if user closed window without entering data
         if (_currentProject == null) return;
         switch (researchMethod)
         {
@@ -62,36 +55,38 @@ public class ProjectUsageModel:
             case ResearchMethods.CountUnaspected:
             {
                 bool useControlGroup = false;
-                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, ResearchPointSelection, _currentAstroConfig);
+                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig);
                 responseTest = _researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new GeneralResearchRequest(_currentProject.Name, researchMethod, useControlGroup, ResearchPointSelection, _currentAstroConfig);
+                request = new GeneralResearchRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig);
                 responseCg = _researchPerformApi.PerformResearch(request);
                 break;
             }
             case ResearchMethods.CountOccupiedMidpoints:
             {
-                // todo check for null
-                int divisionForDial = MidpointDetailsSelection.DialDivision;
-                double orb = MidpointDetailsSelection.Orb;
+                MidpointDetailsSelection mpSelection = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
+                int divisionForDial = mpSelection.DialDivision;
+                double orb = mpSelection.Orb;
                 bool useControlGroup = false;
-                CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, ResearchPointSelection, _currentAstroConfig, divisionForDial, orb);
+                CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, ResearchPointSelection, _currentAstroConfig, divisionForDial, orb);
+                request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
                 responseCg = _researchPerformApi.PerformResearch(request);
                 break;
             }
             case ResearchMethods.CountHarmonicConjunctions:
             {
                 // todo check for null
-                double harmonicNumber = HarmonicDetailsSelection.HarmonicNumber;
-                double orb = HarmonicDetailsSelection.Orb;
+                HarmonicDetailsSelection hmSelection =
+                    DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
+                double harmonicNumber = hmSelection.HarmonicNumber;
+                double orb = hmSelection.Orb;
                 bool useControlGroup = false;
-                CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, ResearchPointSelection, _currentAstroConfig, harmonicNumber, orb);
+                CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, ResearchPointSelection, _currentAstroConfig, harmonicNumber, orb);
+                request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
                 responseCg = _researchPerformApi.PerformResearch(request);
                 break;
             }
@@ -104,15 +99,7 @@ public class ProjectUsageModel:
     }
     
 
-    public void Receive(HarmonicDetailsMessage message)
-    {
-        HarmonicDetailsSelection = message.Value;
-    }
 
-    public void Receive(MidpointDetailsMessage message)
-    {
-        MidpointDetailsSelection = message.Value;
-    }
 }
 
 public class PresentableMethodDetails

@@ -27,9 +27,5 @@ public partial class ProjectUsageWindow
         SubHeaderProjectDetails.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;
         SubHeaderAvailableMethods.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;
     }
-       
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+
 }
