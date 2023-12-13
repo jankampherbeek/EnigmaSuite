@@ -51,7 +51,7 @@
 
         <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Close" Click="CloseClick"/>
+            <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Close" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -8,10 +8,13 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Presentables;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -19,6 +22,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for main charts screen</summary>
 public partial class ChartsMainViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = GeneralWindowsFlow.CHARTS_MAIN;
     private readonly ChartsMainModel _model;
     private readonly DataVaultCharts _dataVaultCharts;
     private readonly DataVaultGeneral _dataVaultGeneral;
@@ -85,19 +89,19 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private static void AppSettings()
     {
-        new AppSettingsWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.APP_SETTINGS));
     }
         
     [RelayCommand]
     private static void Configuration()
     {
-        new ConfigurationWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIGURATION));
     }
     
     [RelayCommand]
     private static void ConfigProg()
     {
-        new ConfigProgWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIG_PROG));
     }
 
     [RelayCommand]

@@ -7,16 +7,18 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -24,6 +26,8 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for configuration</summary>
 public partial class ConfigurationViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = GeneralWindowsFlow.CONFIGURATION;
+    private const string CONFIGURATION_SAVED = "The configuration was successfully saved.";    
     [ObservableProperty] private int _houseIndex;
     [NotifyPropertyChangedFor(nameof(AyanamshaEnabled))]
     [ObservableProperty] private int _zodiacTypeIndex;
@@ -48,13 +52,14 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allOrbMethods;
 
     
+    
     private double _baseOrbAspectsValue;
     private double _baseOrbMidpointsValue;
-
+    private bool _saveClicked;
     
     
-    public SolidColorBrush BaseOrbAspectsValid => IsBaseOrbAspectsValid() ? Brushes.White : Brushes.Yellow;
-    public SolidColorBrush BaseOrbMidpointsValid => IsBaseOrbMidpointsValid() ? Brushes.White : Brushes.Yellow;
+    public SolidColorBrush BaseOrbAspectsValid => IsBaseOrbAspectsValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush BaseOrbMidpointsValid => IsBaseOrbMidpointsValid() ? Brushes.Gray : Brushes.Red;
 
     
     private readonly ConfigurationModel _model = App.ServiceProvider.GetRequiredService<ConfigurationModel>();
@@ -71,7 +76,6 @@ public partial class ConfigurationViewModel: ObservableObject
         AllGeneralPoints = new ObservableCollection<GeneralPoint>(ConfigurationModel.AllGeneralPoints());
         AllAspects = new ObservableCollection<GeneralAspect>(ConfigurationModel.AllAspects());
         AllOrbMethods = new ObservableCollection<string>(ConfigurationModel.AllOrbMethods());
-
         
         HouseIndex = _model.HouseIndex;
         ZodiacTypeIndex = _model.ZodiacTypeIndex;
@@ -99,47 +103,70 @@ public partial class ConfigurationViewModel: ObservableObject
      }
     
     
-    [RelayCommand(CanExecute = nameof(IsInputOk))]
+    [RelayCommand]
     private void SaveConfig()
     {
-        HouseSystems houseSystem = HouseSystemsExtensions.HouseSystemForIndex(HouseIndex);
-        Ayanamshas ayanamsha = AyanamshaExtensions.AyanamshaForIndex(AyanamshaIndex);
-        ObserverPositions observerPosition = ObserverPositionsExtensions.ObserverPositionForIndex(ObserverPositionIndex);
-        ZodiacTypes zodiacType = ZodiacTypeExtensions.ZodiacTypeForIndex(ZodiacTypeIndex);
-        ProjectionTypes projectionType = ProjectionTypesExtensions.ProjectionTypeForIndex(ProjectionTypeIndex);
-        const OrbMethods orbMethod = OrbMethods.Weighted;
-        Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
-        Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();
-        bool useCuspsForAspects = ApplyAspectsToCusps;
+        _saveClicked = true;
+        string errors = FindErrors();
+        if (string.IsNullOrEmpty(errors))
+        {
+            HouseSystems houseSystem = HouseSystemsExtensions.HouseSystemForIndex(HouseIndex);
+            Ayanamshas ayanamsha = AyanamshaExtensions.AyanamshaForIndex(AyanamshaIndex);
+            ObserverPositions observerPosition = ObserverPositionsExtensions.ObserverPositionForIndex(ObserverPositionIndex);
+            ZodiacTypes zodiacType = ZodiacTypeExtensions.ZodiacTypeForIndex(ZodiacTypeIndex);
+            ProjectionTypes projectionType = ProjectionTypesExtensions.ProjectionTypeForIndex(ProjectionTypeIndex);
+            const OrbMethods orbMethod = OrbMethods.Weighted;
+            Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
+            Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();
+            bool useCuspsForAspects = ApplyAspectsToCusps;
         
-        AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-            configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
-        _model.UpdateConfig(config);
+            AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
+                configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
+            _model.UpdateConfig(config);
+            MessageBox.Show(CONFIGURATION_SAVED, StandardTexts.TITLE_ERROR);
+            WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+        }
+        else
+        {
+            MessageBox.Show(errors, StandardTexts.TITLE_ERROR);
+        }
     }
 
     private bool IsBaseOrbAspectsValid()
-    {
+    {   
+        if (string.IsNullOrEmpty(BaseOrbAspectsText) && !_saveClicked) return true; 
         return double.TryParse(BaseOrbAspectsText.Replace(',', '.'), NumberStyles.Any, 
             CultureInfo.InvariantCulture, out _baseOrbAspectsValue);
     }
 
     private bool IsBaseOrbMidpointsValid()
     {
+        if (string.IsNullOrEmpty(BaseOrbMidpointsText) && !_saveClicked) return true;
         return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), NumberStyles.Any, 
             CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
     }
-   
-    private bool IsInputOk()
+    
+    private string FindErrors()
     {
-       return IsBaseOrbAspectsValid() && IsBaseOrbMidpointsValid();
+        StringBuilder errorsText = new();
+        if (!IsBaseOrbAspectsValid())
+        {
+            errorsText.Append(StandardTexts.ERROR_ORB_ASPECTS + EnigmaConstants.NEW_LINE);
+        }
+        if (!IsBaseOrbMidpointsValid())
+        {
+            errorsText.Append(StandardTexts.ERROR_ORB_MIDPOINTS + EnigmaConstants.NEW_LINE);
+        }
+        return errorsText.ToString();
     }
     
-    
-    [RelayCommand]
-    private static void Help()
+    [RelayCommand] private static void Close()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "Configurations";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+    }
+    
+    [RelayCommand] private static void Help()
+    {
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 }

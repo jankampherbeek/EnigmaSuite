@@ -74,12 +74,12 @@
                     <TextBox Grid.Row="6" Margin="6 0" VerticalAlignment="Center" 
                              materialDesign:HintAssist.Hint="Base orb for aspects"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Background="{Binding BaseOrbAspectsValid}"
+                             BorderBrush="{Binding BaseOrbAspectsValid}"
                              Text="{Binding BaseOrbAspectsText, Mode=TwoWay}" />   
                     <TextBox Grid.Row="7" Margin="6 0" VerticalAlignment="Center" 
                              materialDesign:HintAssist.Hint="Base orb for midpoints"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             Background="{Binding BaseOrbMidpointsValid}"
+                             BorderBrush="{Binding BaseOrbMidpointsValid}"
                              Text="{Binding BaseOrbMidpointsText, Mode=TwoWay}" /> 
                 </Grid>
             </TabItem>
@@ -161,9 +161,8 @@
         </TabControl>
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
-            <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
-                    Command="{Binding SaveConfigCommand}" Click="CloseClick"/>
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Command="{Binding CloseCommand}"/>
+            <Button Margin="6" Content="Save" HorizontalAlignment="Right" Command="{Binding SaveConfigCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

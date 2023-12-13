@@ -19,14 +19,16 @@ public class GeneralWindowsFlow:
     IRecipient<HelpMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
+    public const string APP_SETTINGS = "AppSettings";
+    public const string CHARTS_MAIN = "ChartsMain";
+    public const string CONFIGURATION = "Configuration";
+    public const string CONFIG_PROG = "ConfigProg";
     public const string HELP = "Help";
     public const string RESEARCH_MAIN = "ResearchMain";
-    public const string CONFIGURATION = "Configuration";
-    public const string APP_SETTINGS = "AppSettings";
-    
     
     private HelpWindow? _helpWindow;
     private ConfigurationWindow? _configurationWindow;
+    private ConfigProgWindow? _configProgWindow;
     private AppSettingsWindow? _appSettingsWindow;
     private ResearchMainWindow? _researchMainWindow;
     public GeneralWindowsFlow()
@@ -60,6 +62,10 @@ public class GeneralWindowsFlow:
                 _configurationWindow = new ConfigurationWindow();
                 _configurationWindow.ShowDialog();
                 break;
+            case CONFIG_PROG:
+                _configProgWindow = new ConfigProgWindow();
+                _configProgWindow.ShowDialog();
+                break;
             case APP_SETTINGS:
                 _appSettingsWindow = new AppSettingsWindow();
                 _appSettingsWindow.ShowDialog();
@@ -83,6 +89,15 @@ public class GeneralWindowsFlow:
         {
             case RESEARCH_MAIN:
                 _researchMainWindow?.Close();
+                break;
+            case APP_SETTINGS:
+                _appSettingsWindow?.Close();
+                break;
+            case CONFIGURATION:
+                _configurationWindow?.Close();
+                break;
+            case CONFIG_PROG:
+                _configProgWindow?.Close();
                 break;
             case HELP:
                 _helpWindow?.Close();

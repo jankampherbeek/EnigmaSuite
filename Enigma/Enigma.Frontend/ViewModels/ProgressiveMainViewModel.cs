@@ -8,18 +8,23 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class ProgressiveMainViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
+    
     private readonly List<Window> _openWindows = new();
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
@@ -78,8 +83,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private static void Configuration()
     {
-        ConfigurationWindow configWindow = new();
-        configWindow.ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIGURATION));
     }
     
     [RelayCommand]

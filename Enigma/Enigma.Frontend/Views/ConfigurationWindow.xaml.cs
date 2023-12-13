@@ -27,10 +27,5 @@ public partial class ConfigurationWindow
         SubHeaderPoints.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!; 
         SubHeaderAspects.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!; 
     }
-    
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-    
+
 }

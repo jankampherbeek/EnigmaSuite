@@ -579,6 +579,9 @@
     <None Update="res\help\CyclesMain.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="res\help\ConfigProg.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -792,7 +795,7 @@
     <None Update="res\help\ChartsWheel.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\Configurations.html">
+    <None Update="res\help\Configuration.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\css\enigma.css">
@@ -837,7 +840,7 @@
     <None Update="res\help\ResearchPointSelection.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\Settings.html">
+    <None Update="res\help\AppSettings.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\ResearchMain.html">
