@@ -4,13 +4,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 using System.Windows.Media;
 using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Views;
 
 /// <summary>View for configuration</summary>
-public partial class ConfigurationWindow
+public partial class ConfigurationWindow: Window
 {
     public ConfigurationWindow()
     {
