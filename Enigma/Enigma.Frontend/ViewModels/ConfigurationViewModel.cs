@@ -123,7 +123,8 @@ public partial class ConfigurationViewModel: ObservableObject
             AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
                 configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
             _model.UpdateConfig(config);
-            MessageBox.Show(CONFIGURATION_SAVED, StandardTexts.TITLE_ERROR);
+            MessageBox.Show(CONFIGURATION_SAVED);
+            WeakReferenceMessenger.Default.Send((new ConfigUpdatedMessage(VM_IDENTIFICATION)));
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
         else

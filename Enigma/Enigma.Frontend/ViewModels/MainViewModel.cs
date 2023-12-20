@@ -20,7 +20,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <remarks>There is no model for this ViewModel</remarks>
 public partial class MainViewModel: ObservableObject
 {
-
+    private const string VM_IDENTIFICATION = GeneralWindowsFlow.MAIN;
     private GeneralWindowsFlow _generalWindowsFlow;
 
     public MainViewModel()
@@ -31,8 +31,12 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void ChartsModule()
     {
+        /*
         new ChartsMainWindow().ShowDialog();
         Application.Current.Shutdown(0);
+        */
+        WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ChartsMain"));
+        
     }
 
     [RelayCommand]
@@ -40,7 +44,7 @@ public partial class MainViewModel: ObservableObject
     {
         WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ResearchMain"));
     }
-    
+    /*
     [RelayCommand]
     private static void CyclesModule()
     {
@@ -52,13 +56,13 @@ public partial class MainViewModel: ObservableObject
     {
         new CalculateMainWindow().ShowDialog();
     }
-    
+*/
+
     
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "Main";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     

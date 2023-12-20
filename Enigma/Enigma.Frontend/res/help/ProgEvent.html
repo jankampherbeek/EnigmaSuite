@@ -1,0 +1,54 @@
+﻿<html>
+<head>
+  <title>Input for an event</title>
+  <link rel="stylesheet" type="text/css" href="css\enigma.css">
+</head>
+<body>
+	<h1>Input for an event</h1>
+	<p>In this screen you define an event that can be analysed with progressive techniques.</p>
+	<p><strong>Description</strong>. A descriptive text for the progressive event.</p>
+	<h2 id='location'>Location</h2>
+	<p>The information about the location is optional. In most cases it would not make a difference.
+	If you use parallax, the position of the Moon will be effected.
+	</p>
+	<p><strong>Name of location</strong>. A city name, address or other identification for the  location. 
+		The default value is <em>No location</em>.</p>
+	<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. 
+		For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. 
+		You can skip the seconds, they will default to 0 seconds. 
+		So <em>145:15</em> is a valid indication for  <em>145°15&#39;00&quot;</em>. </p>
+	<p>Use the scroll-down box to select either <strong>East</strong> or <strong>West</strong>. </p>
+	<p><strong>Latitude</strong>. Geographic latitude in the format <em>dd:mm:ss</em>. 
+		For <em>52°13&#39;30&quot;</em> you need to enter <em>52:13:30</em>. 
+		You can skip the seconds, they will default to 0 seconds. 
+		So <em>45:15</em> is a valid indication for <em>45°15&#39;00&quot;</em>. </p>
+	<p>Use the scroll-down box to select either <strong>North</strong> or <strong>South</strong>.</p>
+
+	<h2 id='date-and-time'>Date and time</h2>
+	<p>
+		<strong>Date</strong>. Enter the date in the format <em>yyyy:mm:dd</em>, so June 16, 2022  would be 
+		entered as <em>2022/06/16</em>.
+	</p>
+	<p>Enigma assumes all dates for events are relatively recent. Therefore the Gregorian Calendar is used.
+	If you really want to calculate the progressions for ancient periods, make sure to convert the Gregorian calendar
+		to Julian and to apply the astronomical yearcount before the year 0.
+	</p>
+	<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour notation. 
+		2h38m30s PM would be <em>14:38:30</em>. You can also leave the default time of 12:00.</p>
+	<p><strong>TimeZone</strong>. Select one of the available timezones. 
+		The list contains the offset from UT (Greenwich Time) and the name of the timezone. 
+		If the time does not match with one of the available timezones, select <em>LMT: Local Mean Time</em>.  
+		You will get the possibility to define another offset from UT for the time  used.</p>
+	<p><strong>Apply DST</strong>. Check the box <em>Apply DST</em> if Daylight Saving Time is applicable.</p>
+	<p><strong>Longitude for LMT</strong>. This field becomes available if you selected LMT as timezone. 
+		Here you can define the geographic longitude for the offset in degrees, minutes, and seconds, using the 
+		format ddd:mm:ss in the same way as for entering the geographic longitude for the location. 
+	Also select either <strong>East</strong> or <strong>West</strong> to indicate the direction for the offset.</p>
+	<h2 id='start-the-calculation'>Finish the definition of the event</h2>
+	<p>Click the button <strong>Save</strong> to finish the definition of the event. 
+		If you made any errors, Enigma will show a popup with information about those errors. 
+		After you corrected the errors, you can again click <strong>Save</strong>.</p>
+	<p>Click the button <strong>Cancel</strong> if you do not want to continue.</p>
+
+</body>
+</html>

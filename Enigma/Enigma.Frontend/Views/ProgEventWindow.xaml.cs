@@ -26,9 +26,4 @@ public partial class ProgEventWindow : Window
         SubHeaderDateTime.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!; 
     }
     
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-    
 }

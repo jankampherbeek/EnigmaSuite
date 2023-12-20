@@ -9,6 +9,7 @@ using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Views;
 
+/// <summary>View for searchscreen for charts.</summary>
 public partial class RadixSearchWindow
 {
     public RadixSearchWindow()
@@ -23,9 +24,5 @@ public partial class RadixSearchWindow
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
         SubHeaderResults.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;
     }    
-    
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+
 }

@@ -1,14 +1,19 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class ChartsWheelViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_POSITIONS;
+    private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     private readonly IDescriptiveChartText _descriptiveChartText;
 
     [ObservableProperty] private string _descriptionOfChart;
@@ -31,13 +36,16 @@ public partial class ChartsWheelViewModel: ObservableObject
         return descText;
     }
     
+    [RelayCommand]
+    private void Close()
+    {
+        WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
+    }
     
     [RelayCommand]
     private static void Help()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ChartsWheel";
-        HelpWindow helpWindow = new();
-        helpWindow.ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     

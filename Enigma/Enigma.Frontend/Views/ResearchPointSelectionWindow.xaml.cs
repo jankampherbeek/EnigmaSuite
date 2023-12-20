@@ -24,10 +24,5 @@ public partial class ResearchPointSelectionWindow
     {
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     } 
-            
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
 
 }

@@ -8,10 +8,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Presentables;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -19,6 +22,8 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for midpoints in radix</summary>
 public partial class RadixMidpointsViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_MIDPOINTS;
+    private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     [ObservableProperty] private ObservableCollection<PresentableMidpoint> _actualMidpoints;
     [ObservableProperty] private ObservableCollection<PresentableOccupiedMidpoint> _actualOccupiedMidpoints;
     [ObservableProperty] private string _description;
@@ -31,7 +36,7 @@ public partial class RadixMidpointsViewModel: ObservableObject
         _dialSize = 360;
         _model = App.ServiceProvider.GetRequiredService<RadixMidpointsModel>();
         _description = _model.DescriptiveText();
-        const double actualOrb = 1.6;                             // TODO 0.2.0 retrieve Orb from settings
+        const double actualOrb = 1.6;                             // TODO retrieve Orb from settings
         OrbSize = _model.DegreesToDms(actualOrb);
         Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> midpoints = _model.RetrieveAndFormatMidpoints(_dialSize);
         ActualMidpoints = new ObservableCollection<PresentableMidpoint>(midpoints.Item1);
@@ -71,13 +76,13 @@ public partial class RadixMidpointsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        ShowHelp();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
-
-    private static void ShowHelp()
+    
+    [RelayCommand]
+    private void Close()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "RadixMidpoints";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
     }
 
     

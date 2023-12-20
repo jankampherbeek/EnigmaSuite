@@ -19,6 +19,7 @@ public static class StandardTexts
     public const string ERROR_HARMONIC_NR = "Enter a proper positive number - 2..100000 - for the harmonic.";
     public const string ERROR_HELIACAL_COMBI_CELBODY_METHOD = "Select a correct combination for Celestial Object and Type of Event.";    
     public const string ERROR_HOUSE_COMPARE_SELECTION = "Select two different housesystems to compare.";
+    public const string ERROR_LMT_LONGITUDE = "Enter a correct value for the longitude for LMT.";
     public const string ERROR_MINUTE = "Enter a proper value for the minutes.";
     public const string ERROR_MULTIPLICATION_INT = "Enter a integer value 1 .. 10 for the multiplication.";
     public const string ERROR_NAME = "Enter a value for the name.";
@@ -28,6 +29,7 @@ public static class StandardTexts
     public const string ERROR_ORB_SECDIR = "Enter a proper value for the orbs for secundary directions.";
     public const string ERROR_ORB_SYMDIR = "Enter a proper value for the orbs for symbolic directions.";
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
+    public const string ERROR_TIME = "Enter a correct value for the time.";
     
     public const string TITLE_ERROR = "Something is wrong.";
  

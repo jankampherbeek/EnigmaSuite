@@ -32,7 +32,6 @@ public partial class ConfigProgWindow : Window
         TransitingPoints.Foreground  = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;
         SecundaryPoints.Foreground  = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;
         SymbDirPoints.Foreground  = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.SUB_HEADER_COLOR)!;
-        
     }
 
 }

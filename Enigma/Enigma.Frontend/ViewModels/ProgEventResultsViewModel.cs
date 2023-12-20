@@ -6,17 +6,22 @@
 using System.Collections.Generic;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class ProgEventResultsViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.PROG_EVENT_RESULTS;
+    private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     [ObservableProperty] private string _methodName;
     [ObservableProperty] private string _details;
     [ObservableProperty] private string _eventDescription;
@@ -39,12 +44,17 @@ public partial class ProgEventResultsViewModel: ObservableObject
         PresProgAspects = model.PresProgAspects;
     }
     
+    [RelayCommand]
+    private static void Help()  // TODO create helppage ProgEventResults
+    {
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
+    }
     
     [RelayCommand]
-    private static void Help()
+    private void Close()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "ProgEventResults";    // TODO create helppage ProgEventResults
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
     }
+
     
 }

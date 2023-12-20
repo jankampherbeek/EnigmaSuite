@@ -16,7 +16,6 @@ using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Graphics;
-using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
@@ -41,7 +40,7 @@ public partial class App
         Log.Information("********************** Enigma starting ***********************");
         StartModel.HandleCheckForConfig();
         StartModel.HandleCheckDirForSettings();
-        //    StartModel.HandleCheckNewVersion();
+        //    StartModel.HandleCheckNewVersion();   // todo enable check for new version
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }
@@ -49,10 +48,7 @@ public partial class App
     private static ServiceProvider HandleRegistrationForDi()
     {
         var serviceCollection = new ServiceCollection();
-
         // Handle services from project Enigma.Frontend.
-        //serviceCollection.AddTransient<AppSettingsController>();
-        
         serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
@@ -73,6 +69,7 @@ public partial class App
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
+        serviceCollection.AddSingleton<ChartsWindowsFlow>();
         serviceCollection.AddTransient<IConfigPreferencesConverter, ConfigPreferencesConverter>();
         serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ConfigProgModel>();
@@ -117,7 +114,7 @@ public partial class App
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
         serviceCollection.AddTransient<ResearchMainModel>();
-        serviceCollection.AddTransient<ResearchWindowsFlow>();
+        serviceCollection.AddSingleton<ResearchWindowsFlow>();
         serviceCollection.AddTransient<ResearchMidpointDetailsModel>();
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();

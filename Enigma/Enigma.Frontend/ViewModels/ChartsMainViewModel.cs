@@ -20,10 +20,18 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for main charts screen</summary>
-public partial class ChartsMainViewModel: ObservableObject
+public partial class ChartsMainViewModel: ObservableObject, 
+    IRecipient<NewChartMessage>, 
+    IRecipient<FoundChartMessage>,
+    IRecipient<ConfigUpdatedMessage>
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.CHARTS_MAIN;
+    private const string USER_MANUAL = "UserManual";
+    private const string ABOUT_CHARTS = "AboutCharts";
     private readonly ChartsMainModel _model;
+    // ReSharper disable once NotAccessedField.Local  An instance of ChartsWindowsFlow must be instantiated so it can
+    // handle incoming messages.
+    private readonly ChartsWindowsFlow _chartsWindowsFlow;    
     private readonly DataVaultCharts _dataVaultCharts;
     private readonly DataVaultGeneral _dataVaultGeneral;
     private readonly List<Window> _openWindows = new();
@@ -45,6 +53,10 @@ public partial class ChartsMainViewModel: ObservableObject
     
     public ChartsMainViewModel()
     {
+        WeakReferenceMessenger.Default.Register<NewChartMessage>(this);
+        WeakReferenceMessenger.Default.Register<FoundChartMessage>(this);
+        WeakReferenceMessenger.Default.Register<ConfigUpdatedMessage>(this);
+        _chartsWindowsFlow = App.ServiceProvider.GetRequiredService<ChartsWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ChartsMainModel>();
         _dataVaultCharts = DataVaultCharts.Instance;
         _availableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
@@ -63,10 +75,13 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand]
     private void ItemChanged()
     {
-        SelectedChart = AvailableCharts[ChartIndex];
-        _dataVaultCharts.SetIndexCurrentChart(ChartIndex);
+        if (ChartIndex >= 0)
+        {
+            SelectedChart = AvailableCharts[ChartIndex];
+            _dataVaultCharts.SetIndexCurrentChart(ChartIndex);
+        }
         PopulateData();
-        PopulateAvailableCharts();
+        PopulateAvailableCharts();     
     }
 
     [RelayCommand]
@@ -82,7 +97,6 @@ public partial class ChartsMainViewModel: ObservableObject
     private void PopulateAvailableCharts()
     {
         AvailableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
-        
     }
     
     
@@ -105,29 +119,21 @@ public partial class ChartsMainViewModel: ObservableObject
     }
 
     [RelayCommand]
-    private void NewChart()
+    private static void NewChart()
     {
-        new RadixDataInputWindow().ShowDialog();
-        if (!_dataVaultCharts.GetNewChartAdded()) return;
-        int newIndex = _model.SaveCurrentChart();
-        if (_dataVaultCharts.GetCurrentChart() == null) return;
-        _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
-        PopulateData();
-        PopulateAvailableCharts();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_DATA_INPUT));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Progressions()
     {
-        OpenWindow(new ProgressiveMainWindow());
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROGRESSIVE_MAIN));
     }
     
     [RelayCommand]
-    private void SearchChart()
+    private static void SearchChart()
     {
-        new RadixSearchWindow().ShowDialog();
-        PopulateData();
-        PopulateAvailableCharts();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_SEARCH));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
@@ -149,65 +155,60 @@ public partial class ChartsMainViewModel: ObservableObject
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void ShowWheel()
     {
-        ShowCurrentChart();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.CHARTS_WHEEL));
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void ShowPositions()
     {
-        OpenWindow(new RadixPositionsWindow());
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_POSITIONS));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Aspects()
     {
-        OpenWindow(new RadixAspectsWindow());
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_ASPECTS));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Harmonics()
     {
-        OpenWindow((new RadixHarmonicsWindow()));
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_HARMONICS));
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Midpoints()
     {
-        OpenWindow(new RadixMidpointsWindow());
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_MIDPOINTS));
     }
 
     
     [RelayCommand]
     private void About()
     {
-        _dataVaultGeneral.CurrentViewBase = "AboutCharts";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT_CHARTS));
     }
     
     [RelayCommand]
-    private void Help()
+    private static void Help()
     {
-        _dataVaultGeneral.CurrentViewBase = "ChartsMain";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 
     [RelayCommand]
     private static void UserManual()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "UserManual";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(USER_MANUAL));
     }
     
     /// <summary>Closes all child windows of main chart window. Clears all charts in DataVault.</summary>
     [RelayCommand]
-    private void HandleClose()
+    private void Close()
     {
         _dataVaultCharts.ClearExistingCharts();
-        foreach (Window window in _openWindows)
-        {
-            window.Close();
-        }
+        WeakReferenceMessenger.Default.Send(new CloseChildWindowsMessage(VM_IDENTIFICATION));
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
 
@@ -216,14 +217,26 @@ public partial class ChartsMainViewModel: ObservableObject
         return ChartIndex >= 0;
     }
     
-    
-    /// <summary>Opens chart wheel for current chart.</summary>
-    private void ShowCurrentChart()
-    {
-        ChartsWheelWindow wheelWindow = new();
-        OpenWindow(wheelWindow);
-        wheelWindow.Populate();
-    }
-    
 
+    public void Receive(NewChartMessage message)
+    {
+        if (!_dataVaultCharts.GetNewChartAdded()) return;
+        int newIndex = _model.SaveCurrentChart();
+        if (_dataVaultCharts.GetCurrentChart() == null) return;
+        _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
+        PopulateData();
+        PopulateAvailableCharts();
+    }
+
+    public void Receive(FoundChartMessage message)
+    {
+        PopulateData();
+        PopulateAvailableCharts();
+    }
+
+    public void Receive(ConfigUpdatedMessage message)
+    {
+        PopulateData();
+        PopulateAvailableCharts();
+    }
 }

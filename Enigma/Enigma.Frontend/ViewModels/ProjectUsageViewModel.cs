@@ -120,7 +120,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     [RelayCommand]
     private static void Help()
     {
-        WeakReferenceMessenger.Default.Send(new HelpMessage(ResearchWindowsFlow.PROJECT_USAGE));
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 

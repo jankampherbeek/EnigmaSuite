@@ -4,8 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Windows;
 using CommunityToolkit.Mvvm.Messaging.Messages;
-using Enigma.Domain.Dtos;
 
 namespace Enigma.Frontend.Ui.Messaging;
 
@@ -14,9 +14,12 @@ namespace Enigma.Frontend.Ui.Messaging;
 /// <summary>Message indicating that a new view should be opened.</summary>
 public class OpenMessage : ValueChangedMessage<string>
 {
-    public string ViewToOpen { get; set; }
+    public string ParentView { get; }
+    public string ViewToOpen { get; }
+    
     public OpenMessage(string value, string viewToOpen) : base(value)
     {
+        ParentView = value;
         ViewToOpen = viewToOpen;
     }
 }
@@ -39,6 +42,27 @@ public class CloseMessage : ValueChangedMessage<string>
     }
 }
 
+/// <summary>Message indicating that the Close-button has been clicked in a window that is non-dialog.</summary>
+public class CloseNonDlgMessage : ValueChangedMessage<string>
+{
+    public int WindowId { get; }
+    public string WindowToClose { get; }
+    public CloseNonDlgMessage(string value, int windowId) : base(value)
+    {
+        WindowId = windowId;
+        WindowToClose = value;
+    }
+}
+
+
+/// <summary>Close all child windows for the parentwindow as defined with the windowid in 'value'.</summary>
+public class CloseChildWindowsMessage : ValueChangedMessage<string>
+{
+    public CloseChildWindowsMessage(string value) : base(value)
+    {
+
+    }
+}
 
 /// <summary>Message indicating that the OK-button has been clicked.</summary>
 public class OkMessage : ValueChangedMessage<string>
@@ -77,4 +101,36 @@ public class HelpMessage : ValueChangedMessage<string>
     }
 }
 
+/// <summary>Message that a new chart has been calculated.</summary>
+public class NewChartMessage : ValueChangedMessage<string>
+{
+    public NewChartMessage(string value) : base(value)
+    {
+        
+    }
+}
 
+/// <summary>Message that a chart has been found.</summary>
+public class FoundChartMessage : ValueChangedMessage<string>
+{
+    public FoundChartMessage(string value) : base(value)
+    {
+        
+    }
+}
+
+public class EventCompletedMessage : ValueChangedMessage<string>
+{
+    public EventCompletedMessage(string value) : base(value)
+    {
+        
+    }
+}
+
+public class ConfigUpdatedMessage : ValueChangedMessage<string>
+{
+    public ConfigUpdatedMessage(string value) : base(value)
+    {
+        
+    }
+}

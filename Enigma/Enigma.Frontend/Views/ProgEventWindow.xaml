@@ -5,7 +5,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
-        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -56,7 +55,7 @@
         <TextBox Grid.Row="4"  Grid.Column="0" Margin="6 0" VerticalAlignment="Center"   
                  materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Background="{Binding GeoLongValid}"
+                 BorderBrush="{Binding GeoLongValid}"
                  Text="{Binding GeoLong}"/>
         <ComboBox Grid.Row="4" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="East/West"
@@ -68,7 +67,7 @@
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
                  VerticalAlignment="Center" Margin="6 0"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding GeoLatValid}"
+                 BorderBrush="{Binding GeoLatValid}"
                  Text="{Binding GeoLat}"/>
         <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="North/South"
@@ -84,12 +83,12 @@
         <TextBox Grid.Row="7" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  Grid.ColumnSpan="2"                  
                  materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Background="{Binding DateValid}"
+                 BorderBrush="{Binding DateValid}"
                  Text="{Binding Date}"/>  
         <TextBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Time hh:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Background="{Binding TimeValid}"
+                 BorderBrush="{Binding TimeValid}"
                  Text="{Binding Time}"/>  
         <ComboBox Grid.Row="9" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                   IsEditable="True" IsReadOnly="True"
@@ -104,7 +103,7 @@
                  materialDesign:HintAssist.Hint="Longitude for LMT ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  Text="{Binding LmtGeoLong}"
-                 Background="{Binding LmtGeoLongValid}"
+                 BorderBrush="{Binding LmtGeoLongValid}"
                  IsEnabled="{Binding LmtEnabled}" />
         <ComboBox Grid.Row="10" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"   
                   IsEditable="True" IsReadOnly="True"
@@ -117,9 +116,10 @@
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" Click="CloseClick" />
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" 
+                    Command="{Binding CancelCommand}"/>
             <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
-                    Command="{Binding FinalizeEventCommand}" Click="CloseClick" />
+                    Command="{Binding FinalizeEventCommand}" />
         </StackPanel>
     </Grid>
 </Window>

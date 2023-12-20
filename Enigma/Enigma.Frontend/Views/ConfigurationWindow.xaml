@@ -98,8 +98,7 @@
                               AutoGenerateColumns="False"
                               HeadersVisibility="All"
                               ItemsSource="{Binding AllGeneralPoints}"
-                              SelectionUnit="FullRow"
-                              Background="{Binding CelPointsValid}" >
+                              SelectionUnit="FullRow">
                         <DataGrid.Columns>
                             <DataGridCheckBoxColumn Binding="{Binding IsUsed}"></DataGridCheckBoxColumn>
                             <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"

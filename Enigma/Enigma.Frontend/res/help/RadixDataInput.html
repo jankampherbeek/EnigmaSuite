@@ -24,7 +24,7 @@
 		value <em>Unknown</em>.</p>
 
 	<h2 id='location'>Location</h2>
-	<p><strong>Location name</strong>. A city name, address or other identification for the  location. This field is optional.</p>
+	<p><strong>Name of location</strong>. A city name, address or other identification for the  location. This field is optional.</p>
 	<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. 
 		For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. 
 		You can skip the seconds, they will default to 0 seconds. 
@@ -45,9 +45,9 @@
 		If the date is before 675 CE or after 4650 CE, check the <em>Appendix: Supported Periods</em> to see which 
 		points Enigma can calculate for this date.
 	</p>
-	<p><strong>Calendar</strong>. The calendar that is applicable, select either  <strong>G</strong> <em>(Gregorian)</em> 
-		or <strong>J</strong> <em>(Julian)</em>. For recent dates you will always need the Gregorian calendar.</p>
-	<p><strong>Year count</strong>. There is a difference between a historical and an astronomical year count. 
+	<p><strong>Calendar</strong>. The calendar that is applicable, select either <strong>Gregorian</strong>  
+		or <strong>Julian</strong>. For recent dates you will always need the Gregorian calendar.</p>
+	<p><strong>Yearcount</strong>. There is a difference between a historical and an astronomical yearcount. 
 		Historical dates do not recognize the year 0. So the  historical year 1 CE is preceded by the year 1 BCE. 
 		The astronomical years would  be +1 for 1 CE, and 0 for 1 BCE, preceded by -1 for 2 BCE.</p>
 	<p>For years after the year 0, astronomical and historical dates are the same.</p>
@@ -60,12 +60,12 @@
 	</ul>
 	<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour notation. 
 		2h38m30s PM would be <em>14:38:30</em>.</p>
-	<p><strong>DST</strong>. Check the box DST if Daylight Saving Time is applicable.</p>
+	<p><strong>Apply DST</strong>. Check the box Apply DST if Daylight Saving Time is applicable.</p>
 	<p><strong>TimeZone</strong>. Select one of the available timezones. 
 		The list contains the offset from UT (Greenwich Time) and the name of the timezone. 
 		If the time does  not fit into one of the available timezones, select <em>LMT: Local Mean Time</em>.  
 		You will get the possibility to define another offset from UT for the time  used.</p>
-	<p><strong>LMT: difference with UT</strong>. This field becomes available if you selected LMT as timezone. 
+	<p><strong>Longitude for LMT</strong>. This field becomes available if you selected LMT as timezone. 
 		Here you can define the geographic longitude for the offset in degrees, minutes, and seconds, using the 
 		format ddd:mm:ss in the same way as for entering the geographic longitude for the location. 
 	Also select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em> to indicate 
@@ -73,7 +73,8 @@
 
 	<h2 id='start-the-calculation'>Start the calculation</h2>
 	<p>Click the button <strong>Calculate</strong> to perform the calculation. 
-		If you made any errors or omitted relevant fields, the button will be inactive and you need to correct your input.</p>
+		If you made any errors, Enigma will show a popup with information about those errors. 
+		After you corrcted the errors, you can again click <strong>Calculate</strong>.</p>
 	<p>Click the button <strong>Close</strong> if you do not want to continue.</p>
 
 </body>

@@ -36,7 +36,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     public SolidColorBrush HarmonicNrValid => IsHarmonicNrValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush OrbDegreeValid => IsOrbDegreeValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush OrbMinuteValid => IsOrbMinuteValid() ? Brushes.Gray : Brushes.Red;
-    
+
     
     [RelayCommand]
     private void Continue()

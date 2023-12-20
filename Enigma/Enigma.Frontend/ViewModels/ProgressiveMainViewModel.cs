@@ -21,10 +21,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class ProgressiveMainViewModel: ObservableObject
+public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<EventCompletedMessage>
 {
     private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
-    
+    private const string USER_MANUAL = "UserManual";
     private readonly List<Window> _openWindows = new();
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
@@ -49,20 +49,13 @@ public partial class ProgressiveMainViewModel: ObservableObject
     
     public ProgressiveMainViewModel()
     {
+        WeakReferenceMessenger.Default.Register<EventCompletedMessage>(this);
         _model = App.ServiceProvider.GetRequiredService<ProgressiveMainModel>();
         _presentableEventsPeriods = new ObservableCollection<PresentableProgresData>(_model.PresentableEventsPeriods);
         PopulateData();
     }
-
-    private void OpenWindow(Window window)
-    {
-        if (!_openWindows.Contains(window))
-        {
-            _openWindows.Add(window);
-        }
-        window.Show();
-    }
     
+   
     private void PopulateData()
     {
         _currentChart = _dataVaultCharts.GetCurrentChart();
@@ -89,18 +82,13 @@ public partial class ProgressiveMainViewModel: ObservableObject
     [RelayCommand]
     private static void ConfigProg()
     {
-        new ConfigProgWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.CONFIG_PROG));
     }
     
     [RelayCommand]
-    private void NewEvent()
+    private static void NewEvent()
     {
-        new ProgEventWindow().ShowDialog();
-        if (_dataVaultProg.CurrentProgEvent != null)
-        {
-            _model.SaveCurrentEvent();
-        }
-        // show event
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT));
     }
 
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
@@ -140,21 +128,21 @@ public partial class ProgressiveMainViewModel: ObservableObject
     private void SecDir()
     {
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Secundary;
-        new ProgEventResultsWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void Transits()
     {
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Transits;
-        new ProgEventResultsWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SymbDir()
     {
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Symbolic;
-        new ProgEventResultsWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
 
     
@@ -165,35 +153,37 @@ public partial class ProgressiveMainViewModel: ObservableObject
     }*/
     
     [RelayCommand]
-    private void Help()
+    private static void Help()
     {
-        _dataVaultGeneral.CurrentViewBase = "ProgressiveMain";    // TODO create helppage progressive main
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 
     [RelayCommand]
     private static void UserManual()
     {
-        DataVaultGeneral.Instance.CurrentViewBase = "UserManual";
-        new HelpWindow().ShowDialog();
+        WeakReferenceMessenger.Default.Send(new HelpMessage(USER_MANUAL));
     }
     
-    /// <summary>Closes all child windows of main progressive window. Clears all events and periods in DataVault.</summary>
     [RelayCommand]
-    private void HandleClose()
+    private static void Close()
     {
-        //_dataVault.ClearExistingEvents();
-        foreach (Window window in _openWindows)
-        {
-            window.Close();
-        }
+        WeakReferenceMessenger.Default.Send(new CloseChildWindowsMessage(VM_IDENTIFICATION));
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
     private bool IsProgDateSelected()
     {
         return EventIndex >= 0;
     }
-    
 
+
+    public void Receive(EventCompletedMessage message)
+    {
+        if (_dataVaultProg.CurrentProgEvent != null)
+        {
+            _model.SaveCurrentEvent();
+        }
+        // show event
+    }
 }

@@ -11,7 +11,6 @@ using Enigma.Frontend.Ui.Views;
 namespace Enigma.Frontend.Ui.WindowsFlow;
 
 public class GeneralWindowsFlow:     
-    IRecipient<CancelMessage>, 
     IRecipient<CloseMessage>,
     IRecipient<OpenMessage>, 
     IRecipient<OkMessage>, 
@@ -23,17 +22,20 @@ public class GeneralWindowsFlow:
     public const string CHARTS_MAIN = "ChartsMain";
     public const string CONFIGURATION = "Configuration";
     public const string CONFIG_PROG = "ConfigProg";
-    public const string HELP = "Help";
+    public const string MAIN = "Main";
     public const string RESEARCH_MAIN = "ResearchMain";
+    
+    private const string HELP = "Help";
     
     private HelpWindow? _helpWindow;
     private ConfigurationWindow? _configurationWindow;
     private ConfigProgWindow? _configProgWindow;
     private AppSettingsWindow? _appSettingsWindow;
+    private ChartsMainWindow? _chartsMainWindow;
     private ResearchMainWindow? _researchMainWindow;
+    private MainWindow? _mainWindow;
     public GeneralWindowsFlow()
     {
-        WeakReferenceMessenger.Default.Register<CancelMessage>(this);
         WeakReferenceMessenger.Default.Register<CloseMessage>(this);
         WeakReferenceMessenger.Default.Register<ContinueMessage>(this);
         WeakReferenceMessenger.Default.Register<HelpMessage>(this);
@@ -41,22 +43,21 @@ public class GeneralWindowsFlow:
         WeakReferenceMessenger.Default.Register<OpenMessage>(this);
     }
     
-    
-    public void Receive(CancelMessage message)
-    {
-        if (message.Value == "xxx")
-        {
-            // todo complete this
-        }
-    }
-
     public void Receive(OpenMessage message)
     {
         switch (message.ViewToOpen)
         {
+            case MAIN:
+                _mainWindow = new MainWindow();
+                _mainWindow.ShowDialog();
+                break;
             case RESEARCH_MAIN:
                 _researchMainWindow = new ResearchMainWindow();
                 _researchMainWindow.ShowDialog();
+                break;
+            case CHARTS_MAIN:
+                _chartsMainWindow = new ChartsMainWindow();
+                _chartsMainWindow.ShowDialog();
                 break;
             case CONFIGURATION:
                 _configurationWindow = new ConfigurationWindow();
@@ -90,6 +91,9 @@ public class GeneralWindowsFlow:
             case RESEARCH_MAIN:
                 _researchMainWindow?.Close();
                 break;
+            case CHARTS_MAIN:
+                _chartsMainWindow?.Close();
+                break;
             case APP_SETTINGS:
                 _appSettingsWindow?.Close();
                 break;
@@ -109,7 +113,7 @@ public class GeneralWindowsFlow:
     {
         DataVaultGeneral dataVault = DataVaultGeneral.Instance;
         dataVault.CurrentViewBase = message.Value;
-        _helpWindow = new();
+        _helpWindow = new HelpWindow();
         _helpWindow.ShowDialog();
     }
 }

@@ -18,7 +18,8 @@ namespace Enigma.Frontend.Ui.State;
 /// <remarks>Implemented as singleton, based on code by Jon Skeet: https://csharpindepth.com/articles/singleton .</remarks>
 public sealed class DataVaultCharts
 {
-   
+
+    public int LastWindowId { get; set; }
     private static readonly DataVaultCharts instance = new();
 
     private readonly List<CalculatedChart> _allCharts = new();

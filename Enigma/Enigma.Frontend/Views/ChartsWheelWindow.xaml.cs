@@ -6,8 +6,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Shapes;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -82,12 +80,5 @@ public partial class ChartsWheelWindow
         WheelCanvas.Width = _canvasController.CanvasSize;
         Populate();
     }
-
-
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-
 
 }

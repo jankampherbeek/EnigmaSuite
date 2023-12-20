@@ -4,13 +4,17 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.ObjectModel;
+using System.Text;
+using System.Windows;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Domain.Constants;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -18,6 +22,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for data input for a chart</summary>
 public partial class RadixDataInputViewModel: ObservableObject
 {
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_DATA_INPUT;
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
     [ObservableProperty] private string _source = "";
@@ -59,14 +64,13 @@ public partial class RadixDataInputViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allTimeZones;
     private readonly int _enumIndexForLmt;
     private readonly RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
-
+    private bool _calculateClicked;
     public bool LmtEnabled => TimeZoneIndex == _enumIndexForLmt;
-    public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.White : Brushes.Yellow;
-    public SolidColorBrush GeoLongValid => IsGeoLongValid() ? Brushes.White : Brushes.Yellow;
-    public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.White : Brushes.Yellow;
-    public SolidColorBrush DateValid => IsDateValid() ? Brushes.White : Brushes.Yellow;
-    public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.White : Brushes.Yellow;
-
+    public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush GeoLongValid => IsGeoLongValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
     
     public RadixDataInputViewModel()
     {
@@ -82,54 +86,70 @@ public partial class RadixDataInputViewModel: ObservableObject
     }
     
 
-    [RelayCommand]
-    private static void Help()
-    {
-        DataVaultGeneral.Instance.CurrentViewBase = "RadixDataInput";
-        new HelpWindow().ShowDialog();
-    }
+
     
-    [RelayCommand(CanExecute = nameof(IsInputOk))]
+    [RelayCommand]
     private void Calculate()
     {
-        _model.CreateChartData(NameId, Description, Source, LocationName, 
-            ChartCategoriesExtensions.ChartCategoryForIndex(CategoryIndex), 
-            RoddenRatingsExtensions.RoddenRatingForIndex(RatingIndex));
+        _calculateClicked = true;
+        string errors = FindErrors();
+        if (string.IsNullOrEmpty(errors))
+        {
+            _model.CreateChartData(NameId, Description, Source, LocationName, 
+                ChartCategoriesExtensions.ChartCategoryForIndex(CategoryIndex), 
+                RoddenRatingsExtensions.RoddenRatingForIndex(RatingIndex));
+            WeakReferenceMessenger.Default.Send(new NewChartMessage(VM_IDENTIFICATION));
+            WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+        }
+        else
+        {
+            MessageBox.Show(errors, StandardTexts.TITLE_ERROR);
+        }
     }
 
-    private bool IsInputOk()
+    private string FindErrors()
     {
-        if (GeoLat == string.Empty || GeoLong == string.Empty || Date == string.Empty ||
-            Time == string.Empty) return false;
-        if (_enumIndexForLmt == TimeZoneIndex && LmtGeoLong == string.Empty) return false;
-        return IsGeoLatValid() && IsGeoLongValid() && IsLmtGeoLongValid() && IsDateValid() && IsTimeValid();
+        StringBuilder errorsText = new();
+        if (!IsGeoLatValid())
+            errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
+        if (!IsGeoLongValid())
+            errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LONGITUDE + EnigmaConstants.NEW_LINE);
+        if (!IsLmtGeoLongValid())
+            errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
+        if (!IsDateValid())
+            errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
+        if (!IsTimeValid())
+            errorsText.Append(StandardTexts.ERROR_TIME + EnigmaConstants.NEW_LINE);
+        return errorsText.ToString();
     }
     
     
     private bool IsGeoLatValid()
     {
-        if (GeoLat == string.Empty) return true;
+        if (string.IsNullOrEmpty(GeoLat) && !_calculateClicked) return true; 
         Directions4GeoLat dir = DirLatIndex == 0 ? Directions4GeoLat.North : Directions4GeoLat.South; 
         return _model.IsGeoLatValid(GeoLat, dir);
     }
     
     private bool IsGeoLongValid()
     {
-        if (GeoLong == string.Empty) return true;
+        if (string.IsNullOrEmpty(GeoLong) && !_calculateClicked) return true; 
         Directions4GeoLong dir = DirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
         return _model.IsGeoLongValid(GeoLong, dir);
     }
 
     private bool IsLmtGeoLongValid()
     {
-        if (LmtGeoLong == string.Empty) return true;
+        if (string.IsNullOrEmpty(LmtGeoLong) && !_calculateClicked) return true;
+        if (_enumIndexForLmt != TimeZoneIndex) return true;
+        if (LmtGeoLong == string.Empty) return false;
         Directions4GeoLong dir = LmtDirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
         return _model.IsLmtGeoLongValid(LmtGeoLong, dir);
     }
     
     private bool IsDateValid()
     {
-        if (Date == string.Empty) return true;
+        if (string.IsNullOrEmpty(Date) && !_calculateClicked) return true; 
         Calendars cal = CalendarIndex == 0 ? Calendars.Gregorian : Calendars.Julian;
         YearCounts yCount = YearCountsExtensions.YearCountForIndex(YearCountIndex);
         return _model.IsDateValid(Date, cal, yCount);
@@ -137,8 +157,20 @@ public partial class RadixDataInputViewModel: ObservableObject
     
     private bool IsTimeValid()
     {
+        if (string.IsNullOrEmpty(Time) && !_calculateClicked) return true; 
         TimeZones timeZone = TimeZonesExtensions.TimeZoneForIndex(TimeZoneIndex);
-        
-        return Time == string.Empty || _model.IsTimeValid(Time, timeZone, ApplyDst);
+        return _model.IsTimeValid(Time, timeZone, ApplyDst);
+    }
+    
+    [RelayCommand]
+    private static void Help()
+    {
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
+    }
+    
+    [RelayCommand]
+    private static void Close()
+    {
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 }

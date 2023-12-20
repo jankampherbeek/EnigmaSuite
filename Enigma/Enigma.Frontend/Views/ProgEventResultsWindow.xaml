@@ -4,9 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
-        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -105,7 +103,7 @@
             </TabControl>
             <StackPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
                 <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
-                <Button Margin="6" Content="Close" HorizontalAlignment="Right" Click="CloseClick" />
+                <Button Margin="6" Content="Close" HorizontalAlignment="Right" Command="{Binding CloseCommand}"/>
             </StackPanel>
     </Grid>
 </Window>

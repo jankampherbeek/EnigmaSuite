@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -28,7 +27,7 @@
         <TextBlock Grid.Row="1" Margin="6" Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
-            <Button Content="Close" Margin="4" Click="CloseClick"/>
+            <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>
         </StackPanel>
     </Grid>
     

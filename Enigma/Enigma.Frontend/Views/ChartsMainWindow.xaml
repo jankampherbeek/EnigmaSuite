@@ -174,7 +174,7 @@
         </ListBox>
         <materialDesign:Card Grid.Row="6" Grid.Column="2" Grid.RowSpan="2" Padding="2" Margin="6" 
                              HorizontalAlignment="Center" Name="ActionButtonBlock" UniformCornerRadius="6">
-            <StackPanel Grid.Row="6" Grid.Column="2" Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
+            <StackPanel Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="New Chart" Command="{Binding NewChartCommand}"/>
                 <Button Margin="0 3 0 3" Content="Search Chart" Command="{Binding SearchChartCommand}"/>
                 <Button Margin="0 3 0 3" Content="Delete Chart" Command="{Binding DeleteChartCommand}"/>   
@@ -185,7 +185,7 @@
         </materialDesign:Card>
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="6 6 0 6" Content="Close" Command="{Binding HandleCloseCommand}" Click="CloseClick"/>
+            <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
         </StackPanel>
          
     </Grid>

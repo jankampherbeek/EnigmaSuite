@@ -65,9 +65,9 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"  HorizontalAlignment="Right" Orientation="Horizontal">
-            <Button Margin="6" Content="Close" Click="CloseClick"/>
+            <Button Margin="6" Content="Close" Command="{Binding CloseCommand}"/>
             <Button Margin="6" Content="Help" Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="Select" Command="{Binding SelectCommand}" Click="CloseClick"/>
+            <Button Margin="6" Content="Select" Command="{Binding SelectCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -6,17 +6,21 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Persistables;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
+/// <summary>ViewModel for searchscreen for charts.</summary>
 public partial class RadixSearchViewModel: ObservableObject
 {
-    
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_SEARCH;
     private readonly RadixSearchModel _model = App.ServiceProvider.GetRequiredService<RadixSearchModel>();
     
     [ObservableProperty] private string _searchArgument = "";
@@ -37,11 +41,19 @@ public partial class RadixSearchViewModel: ObservableObject
     private void Select()
     {
         _model.AddFoundChartToDataVault(ChartIndex);
+        WeakReferenceMessenger.Default.Send(new FoundChartMessage(VM_IDENTIFICATION));
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 
     private bool IsChartSelected()
     {
         return ChartIndex >= 0;
+    }
+    
+    [RelayCommand]
+    private static void Close()
+    {
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
     

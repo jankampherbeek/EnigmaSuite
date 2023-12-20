@@ -12,6 +12,7 @@ using Enigma.Frontend.Ui.State;
 
 namespace Enigma.Frontend.Ui.Models;
 
+/// <summary>View for searchscreen for charts.</summary>
 public class RadixSearchModel
 {
     public List<PersistableChartData>? ChartsFound { get; private set; }

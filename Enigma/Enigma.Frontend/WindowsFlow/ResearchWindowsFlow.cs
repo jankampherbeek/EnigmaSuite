@@ -13,7 +13,6 @@ public class ResearchWindowsFlow:
     IRecipient<CancelMessage>, 
     IRecipient<CloseMessage>,
     IRecipient<OpenMessage>, 
-    IRecipient<OkMessage>, 
     IRecipient<ContinueMessage>,
     IRecipient<CompletedMessage>
 {
@@ -23,11 +22,9 @@ public class ResearchWindowsFlow:
     public const string PROJECT_INPUT = "ProjectInput";
     public const string PROJECT_USAGE = "ProjectUsage";
     public const string RESEARCH_HARMONIC_DETAILS = "ResearchHarmonicDetails";
-    public const string RESEARCH_MAIN = "ResearchMain";
     public const string RESEARCH_MIDPOINT_DETAILS = "ResearchMidpointDetails";
     public const string RESEARCH_POINT_SELECTION = "ResearchPointSelection";
     public const string RESEARCH_RESULT = "ResearchResult";
-    public const string CONFIG_PROG = "ConfigProg";
     
     private ProjectInputWindow? _projectInputWindow;
     private ProjectUsageWindow? _projectUsageWindow;
@@ -37,7 +34,6 @@ public class ResearchWindowsFlow:
     private ResearchMidpointDetailsWindow? _researchMidpointDetailsWindow;
     private ResearchResultWindow? _researchResultWindow;
     private ResearchPointSelectionWindow? _researchPointSelectionWindow;
-    private ConfigProgWindow? _configProgWindow;
     
     
     public ResearchWindowsFlow()
@@ -46,7 +42,6 @@ public class ResearchWindowsFlow:
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
         WeakReferenceMessenger.Default.Register<CancelMessage>(this);
         WeakReferenceMessenger.Default.Register<CloseMessage>(this);
-        WeakReferenceMessenger.Default.Register<OkMessage>(this);
         WeakReferenceMessenger.Default.Register<ContinueMessage>(this);
     }
     
@@ -74,10 +69,6 @@ public class ResearchWindowsFlow:
     {
         switch (message.ViewToOpen)
         {
-            case CONFIG_PROG:
-                _configProgWindow = new ConfigProgWindow();
-                _configProgWindow.ShowDialog();
-                break;
             case PROJECT_INPUT:
                 _projectInputWindow = new ProjectInputWindow();
                 _projectInputWindow.ShowDialog();
@@ -132,16 +123,6 @@ public class ResearchWindowsFlow:
         }
     }
     
-
-    public void Receive(OkMessage message)
-    {
-        switch (message.Value)
-        {
-            case CONFIG_PROG:
-                _configProgWindow?.Close();
-                break;
-        }
-    }
 
     public void Receive(ContinueMessage message)
     {

@@ -23,9 +23,5 @@ public partial class RadixAspectsWindow
         DescriptionBlock.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.DESCRIPTION_BLOCK_COLOR)!;
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     }
-    
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+
 }

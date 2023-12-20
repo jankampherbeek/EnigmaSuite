@@ -26,9 +26,4 @@ public partial class ProgEventResultsWindow : Window
         DescriptionBlock.Background = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.DESCRIPTION_BLOCK_COLOR)!;
     }
     
-    private void CloseClick(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
-    
 }

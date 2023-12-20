@@ -171,7 +171,6 @@ public partial class ConfigProgViewModel:ObservableObject
     private static void Help()
     {
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));        
-        // TODO create help file for prog configuration
     }
     
 }
