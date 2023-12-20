@@ -12,7 +12,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 
 public sealed class UnaspectedCounting : IUnaspectedCounting

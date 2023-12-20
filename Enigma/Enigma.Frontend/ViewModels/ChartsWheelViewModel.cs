@@ -5,7 +5,6 @@ using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 
 namespace Enigma.Frontend.Ui.ViewModels;

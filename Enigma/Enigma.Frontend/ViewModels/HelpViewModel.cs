@@ -5,8 +5,6 @@
 
 using System;
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;

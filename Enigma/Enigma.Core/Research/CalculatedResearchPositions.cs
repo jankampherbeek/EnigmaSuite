@@ -11,7 +11,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Serilog;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 /// <inheritdoc/>
 public sealed class CalculatedResearchPositions : ICalculatedResearchPositions

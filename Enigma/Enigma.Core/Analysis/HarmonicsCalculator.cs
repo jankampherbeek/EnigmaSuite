@@ -6,7 +6,7 @@
 
 using Enigma.Core.Interfaces;
 
-namespace Enigma.Core.Analysis.Helpers;
+namespace Enigma.Core.Analysis;
 
 /// <inheritdoc/>
 public sealed class HarmonicsCalculator : IHarmonicsCalculator

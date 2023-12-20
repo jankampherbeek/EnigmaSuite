@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers;
-using Enigma.Core.Research.Helpers;
 using Enigma.Core.Research.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Research.Helpers;
+using Enigma.Core.Research;
 using Enigma.Core.Research.Interfaces;
 
 namespace Enigma.Test.Core.Research;

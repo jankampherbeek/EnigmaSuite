@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Analysis;
-using Enigma.Core.Analysis.Helpers;
 using Enigma.Core.Calc;
 using Enigma.Core.Communication;
 using Enigma.Core.Configuration;

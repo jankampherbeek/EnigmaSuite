@@ -10,7 +10,6 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Research;

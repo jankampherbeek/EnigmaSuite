@@ -4,12 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Dtos;
-using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
-using Enigma.Facades.Interfaces;
-using Enigma.Facades.Se;
 
 namespace Enigma.Core.Handlers;
 

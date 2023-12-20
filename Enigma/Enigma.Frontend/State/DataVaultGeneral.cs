@@ -3,9 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Frontend.Ui.Messaging;
-
 namespace Enigma.Frontend.Ui.State;
 
 public class DataVaultGeneral

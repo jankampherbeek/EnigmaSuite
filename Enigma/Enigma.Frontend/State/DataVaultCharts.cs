@@ -7,9 +7,6 @@ using Serilog;
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.References;
-using Enigma.Domain.Research;
-using Enigma.Domain.Responses;
 
 namespace Enigma.Frontend.Ui.State;
 

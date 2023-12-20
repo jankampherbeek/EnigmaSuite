@@ -5,7 +5,6 @@
 
 using Enigma.Core.Handlers;
 using Enigma.Core.Interfaces;
-using Enigma.Core.Persistency;
 using Moq;
 
 namespace Enigma.Test.Core.Persistency;

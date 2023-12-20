@@ -7,7 +7,7 @@
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
-namespace Enigma.Frontend.Helpers.Interfaces;
+namespace Enigma.Frontend.Ui.Interfaces;
 
 // Interfaces for validators.
 

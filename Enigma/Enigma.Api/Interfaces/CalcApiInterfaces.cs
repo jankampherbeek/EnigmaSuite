@@ -6,7 +6,6 @@
 
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;

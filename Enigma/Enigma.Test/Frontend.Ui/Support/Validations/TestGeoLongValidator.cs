@@ -7,8 +7,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support.Validations;
 
-
-namespace Enigma.Test.Frontend.Helpers.Validations;
+namespace Enigma.Test.Frontend.Ui.Support.Validations;
 
 [TestFixture]
 public class TestGeoLongValidator

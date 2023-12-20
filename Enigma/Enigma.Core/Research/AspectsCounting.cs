@@ -11,7 +11,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 /// <inheritdoc/>
 public sealed class AspectsCounting : IAspectsCounting

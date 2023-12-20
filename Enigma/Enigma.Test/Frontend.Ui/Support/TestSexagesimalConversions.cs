@@ -4,10 +4,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support.Conversions;
 
-namespace Enigma.Test.Frontend.Helpers;
+namespace Enigma.Test.Frontend.Ui.Support;
 
 [TestFixture]
 public class TestSexagesimalConversions

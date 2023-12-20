@@ -7,7 +7,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
-namespace Enigma.Core.Analysis.Helpers;
+namespace Enigma.Core.Analysis;
 
 /// <inheritdoc/>
 public class AspectPointSelector : IAspectPointSelector

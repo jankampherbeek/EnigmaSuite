@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Validations;
 

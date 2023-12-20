@@ -5,7 +5,7 @@
 
 using System;
 using Enigma.Domain.Constants;
-using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Conversions;
 

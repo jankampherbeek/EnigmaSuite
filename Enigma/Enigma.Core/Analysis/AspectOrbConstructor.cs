@@ -8,7 +8,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Interfaces;
 using Enigma.Domain.References;
 
-namespace Enigma.Core.Analysis.Helpers;
+namespace Enigma.Core.Analysis;
 
 
 public sealed class AspectOrbConstructor : IAspectOrbConstructor

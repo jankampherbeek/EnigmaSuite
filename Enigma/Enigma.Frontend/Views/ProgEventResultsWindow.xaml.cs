@@ -10,7 +10,7 @@ using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class ProgEventResultsWindow : Window
+public partial class ProgEventResultsWindow
 {
     public ProgEventResultsWindow()
     {

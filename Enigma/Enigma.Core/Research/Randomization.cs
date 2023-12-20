@@ -7,7 +7,7 @@
 using System.Security.Cryptography;
 using Enigma.Core.Research.Interfaces;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 internal static class ExtensionsClass
 {

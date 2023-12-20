@@ -6,7 +6,7 @@
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
-namespace Enigma.Core.Analysis.Helpers;
+namespace Enigma.Core.Analysis;
 
 /// <inheritdoc/>
 public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder

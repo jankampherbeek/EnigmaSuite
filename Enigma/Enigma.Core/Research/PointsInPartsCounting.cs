@@ -12,7 +12,7 @@ using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 /// <inheritdoc/>
 public sealed class PointsInPartsCounting : IPointsInPartsCounting

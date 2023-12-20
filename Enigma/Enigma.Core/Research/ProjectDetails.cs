@@ -9,7 +9,7 @@ using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Research;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 /// <inheritdoc/>
 public sealed class ProjectDetails : IProjectDetails

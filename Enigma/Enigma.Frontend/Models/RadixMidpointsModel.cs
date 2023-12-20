@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 

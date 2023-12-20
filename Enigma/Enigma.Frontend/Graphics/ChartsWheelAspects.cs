@@ -10,7 +10,6 @@ using System.Windows.Shapes;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Graphics;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.Interfaces;

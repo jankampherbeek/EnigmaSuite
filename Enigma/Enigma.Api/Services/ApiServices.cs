@@ -10,7 +10,6 @@ using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace
     Enigma.Api.Services;

@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Domain.Research;
 
 namespace Enigma.Domain.Interfaces;
 

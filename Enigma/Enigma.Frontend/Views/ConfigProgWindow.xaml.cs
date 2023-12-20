@@ -10,7 +10,7 @@ using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class ConfigProgWindow : Window
+public partial class ConfigProgWindow
 {
     public ConfigProgWindow()
     {

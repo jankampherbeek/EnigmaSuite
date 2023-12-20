@@ -12,7 +12,6 @@ namespace Enigma.Frontend.Ui.State;
 
 public sealed class DataVaultResearch
 {
-    
         
     private static readonly DataVaultResearch instance = new();
     

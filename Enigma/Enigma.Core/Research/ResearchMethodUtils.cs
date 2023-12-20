@@ -10,7 +10,7 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
 using Serilog;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 /// <inheritdoc/>
 public sealed class ResearchMethodUtils : IResearchMethodUtils

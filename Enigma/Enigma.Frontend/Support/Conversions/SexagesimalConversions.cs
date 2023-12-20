@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using Enigma.Domain.Constants;
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Conversions;
 

@@ -4,16 +4,11 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Windows.Documents;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Support;
-using Enigma.Frontend.Ui.ViewModels;
 
 namespace Enigma.Frontend.Ui.Models;
 

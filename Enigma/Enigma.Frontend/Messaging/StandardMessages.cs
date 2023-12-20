@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using System.Windows;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace Enigma.Frontend.Ui.Messaging;

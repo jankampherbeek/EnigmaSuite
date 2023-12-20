@@ -3,14 +3,10 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Messaging;
-using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 

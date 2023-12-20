@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using Enigma.Frontend.Helpers.Interfaces;
+using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Conversions;
 

@@ -7,7 +7,7 @@ using System.Text.Json;
 using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Research;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 
 

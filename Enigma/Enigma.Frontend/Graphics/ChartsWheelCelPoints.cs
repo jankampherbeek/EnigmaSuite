@@ -11,9 +11,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Graphics;
-using Enigma.Domain.Points;
 using Enigma.Domain.References;
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 

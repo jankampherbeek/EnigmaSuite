@@ -7,7 +7,7 @@ using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
 
-namespace Enigma.Core.Research.Helpers;
+namespace Enigma.Core.Research;
 
 
 

@@ -5,7 +5,7 @@
 
 using Enigma.Domain.References;
 
-namespace Enigma.Frontend.Helpers.Interfaces;
+namespace Enigma.Frontend.Ui.Interfaces;
 
 // interfaces for conversions of inputted data.
 

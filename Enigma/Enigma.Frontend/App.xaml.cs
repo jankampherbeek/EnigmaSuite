@@ -14,7 +14,6 @@ using Serilog;
 using System.Windows;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
-using Enigma.Frontend.Helpers.Interfaces;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Support.Conversions;

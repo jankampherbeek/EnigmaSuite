@@ -9,7 +9,7 @@ using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class CyclesSinglePositionsWindow : Window
+public partial class CyclesSinglePositionsWindow
 {
     public CyclesSinglePositionsWindow()
     {
