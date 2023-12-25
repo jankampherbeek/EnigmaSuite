@@ -90,16 +90,16 @@ public partial class ConfigurationViewModel: ObservableObject
     
 
 
-     private Dictionary<AspectTypes, AspectConfigSpecs> DefineAspectSpecs()
+     private Dictionary<AspectTypes, AspectConfigSpecs?> DefineAspectSpecs()
      {
          return AllAspects.ToDictionary(aspect => aspect.AspectType, 
-             aspect => new AspectConfigSpecs(aspect.IsUsed, aspect.Glyph, aspect.OrbPercentage));
+             aspect => new AspectConfigSpecs(aspect.IsUsed, aspect.Glyph, aspect.OrbPercentage, aspect.ShowInChart));
      }
 
-     private Dictionary<ChartPoints, ChartPointConfigSpecs> DefineChartPointSpecs()
+     private Dictionary<ChartPoints, ChartPointConfigSpecs?> DefineChartPointSpecs()
      {
          return AllGeneralPoints.ToDictionary(point => point.ChartPoint, 
-             point => new ChartPointConfigSpecs(point.IsUsed, point.Glyph, point.OrbPercentage));
+             point => new ChartPointConfigSpecs(point.IsUsed, point.Glyph, point.OrbPercentage, point.ShowInChart));
      }
     
     
@@ -116,8 +116,8 @@ public partial class ConfigurationViewModel: ObservableObject
             ZodiacTypes zodiacType = ZodiacTypeExtensions.ZodiacTypeForIndex(ZodiacTypeIndex);
             ProjectionTypes projectionType = ProjectionTypesExtensions.ProjectionTypeForIndex(ProjectionTypeIndex);
             const OrbMethods orbMethod = OrbMethods.Weighted;
-            Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
-            Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();
+            Dictionary<ChartPoints, ChartPointConfigSpecs?> configChartPoints = DefineChartPointSpecs();
+            Dictionary<AspectTypes, AspectConfigSpecs?> configAspects = DefineAspectSpecs();
             bool useCuspsForAspects = ApplyAspectsToCusps;
         
             AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,

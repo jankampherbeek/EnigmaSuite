@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -30,7 +30,7 @@ public class TestDefaultConfiguration
     [Test]
     public void TestHouseSystem()
     {
-        Assert.That(_astroConfig!.HouseSystem, Is.EqualTo(HouseSystems.Placidus));
+        Assert.That(_astroConfig!.HouseSystem, Is.EqualTo(HouseSystems.Regiomontanus));
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class TestDefaultConfiguration
     [Test]
     public void TestObserverPosition()
     {
-        Assert.That(_astroConfig!.ObserverPosition, Is.EqualTo(ObserverPositions.GeoCentric));
+        Assert.That(_astroConfig!.ObserverPosition, Is.EqualTo(ObserverPositions.TopoCentric));
     }
 
     [Test]
@@ -78,9 +78,9 @@ public class TestDefaultConfiguration
     [Test]
     public void TestCelPoints()
     {
-        Dictionary<ChartPoints, ChartPointConfigSpecs> celPoints = _astroConfig!.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs?> celPoints = _astroConfig!.ChartPoints;
 
-        ChartPointConfigSpecs celPointSpecs = celPoints[ChartPoints.Sun];
+        ChartPointConfigSpecs? celPointSpecs = celPoints[ChartPoints.Sun];
         Assert.Multiple(() =>
         {
             Assert.That(celPointSpecs.IsUsed, Is.True);
@@ -91,10 +91,10 @@ public class TestDefaultConfiguration
     [Test]
     public void TestAspects()
     {
-        Dictionary<AspectTypes, AspectConfigSpecs> aspects = _astroConfig!.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs?> aspects = _astroConfig!.Aspects;
         Assert.That(_astroConfig.Aspects, Has.Count.EqualTo(22));
 
-        AspectConfigSpecs aspectSpecs = aspects[AspectTypes.Opposition];
+        AspectConfigSpecs? aspectSpecs = aspects[AspectTypes.Opposition];
         Assert.Multiple(() =>
         {
             Assert.That(aspectSpecs.IsUsed, Is.True);

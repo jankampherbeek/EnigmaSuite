@@ -49,7 +49,7 @@ public class ResearchPointSelectionModel
         _selCpDetails = new List<SelectableChartPointDetails>();
         PointsToExclude pointsToExclude = _pointsExclusionManager.DefineExclusions(method);
         EnableCusps = !pointsToExclude.ExcludeCusps;
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCpSpec in _astroConfig.ChartPoints)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs?> currentCpSpec in _astroConfig.ChartPoints)
         {
             if (!currentCpSpec.Value.IsUsed || pointsToExclude.ExcludedPoints.Contains(currentCpSpec.Key) ||
                 currentCpSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps) continue;

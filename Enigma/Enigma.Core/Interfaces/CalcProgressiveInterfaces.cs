@@ -70,49 +70,6 @@ public interface ISolarArcCalculator
 }
 
 
-/// <summary>Calculations for time keys.</summary>
-public interface ITimeKeyCalculator
-{
-
-    /// <summary>Calculates the resulting arc given a timekey and two julian dates.</summary>
-    /// <remarks>Use this for primary directions.</remarks>
-    /// <param name="primaryKey">The type of key.</param>
-    /// <param name="jdRadix">Julian day number for the radix.</param>
-    /// <param name="jdProgressive">Julian day number for the event.</param>
-    /// <param name="location">Location (only used for topocentric positions).</param>
-    /// <param name="positionSun">The full positions of the radix Sun, is only used for the speed.</param>
-    /// <param name="observerPosition">The observerposition, should be geocentric or topocentric.</param>
-    /// <exception cref="ArgumentException">Is thrown if primary key is unknown or if observerpositions is not geocentric or topocentric.</exception>
-    /// <returns>The calculated arc.</returns>
-    public double CalculateTotalKey(PrimaryKeys primaryKey, double jdRadix, double jdProgressive, Location location, FullPointPos positionSun, ObserverPositions observerPosition);
-
-    /// <summary>Calculates the jd that results from the radix jd and the given total arc for a timekey.</summary>
-    /// <param name="primaryKey">The typenof time key.</param>
-    /// <param name="totalKey">Total key.</param>
-    /// <param name="positionSun">Full position of the Sun.</param>
-    /// <param name="jdRadix">Julian Day Number for the radix.</param>
-    /// <param name="observerPos">Observer position, only geocentric and topocentric allowed.</param>
-    /// <param name="location">Location (only used for topocentric positions).</param>
-    /// <returns>The calculated number of days.</returns>
-    public double CalculateDaysFromTotalKey(PrimaryKeys primaryKey, double totalKey, FullPointPos positionSun, double jdRadix, ObserverPositions observerPos, Location location);
-
-}
-
-/// <summary>Calculates a speculum and its values.</summary>
-public interface ISpeculumCreator
-{
-    /// <summary>Create a speculum.</summary>
-    /// <param name="primDirMethod">Method for primary directions.</param>
-    /// <param name="calcChart">A calculated chart.</param>
-    /// <param name="promissors">All promissors.</param>
-    /// <param name="significators">All significators.</param>
-    /// <returns>Populated speculum.</returns>
-    public Speculum CreateSpeculum(PrimaryDirMethods primDirMethod, CalculatedChart calcChart,
-        List<ChartPoints> promissors, List<ChartPoints> significators);
-}
-
-
-
 /// <summary>Calculator for progressive points based on real movements, e.g. transits and secundary directions.</summary>
 public interface IProgRealPointCalc
 {

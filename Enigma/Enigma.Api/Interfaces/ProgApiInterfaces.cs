@@ -36,12 +36,3 @@ public interface IProgSymDirEventApi
     /// <returns>Calculated positions.</returns>
     public ProgRealPointsResponse CalcSymDir(SymDirEventRequest request);
 }
-
-/// <summary>API for the calculation of primary directions.</summary>
-public interface IProgPrimDirApi
-{
-    /// <summary>Calculate primary directions.</summary>
-    /// <param name="request">Request with date, time and settings.</param>
-    /// <returns>Calculated results.</returns>
-    public ProgPrimDirResponse CalcPrimDir(ProgPrimDirRequest request);
-}

@@ -43,7 +43,8 @@ public sealed class AstroConfig
 /// <param name="IsUsed">True if selected, otherwise false.</param>
 /// <param name="Glyph">Character for the glyph, space if no glyph is available.</param>
 /// <param name="PercentageOrb">Factor to calculate the orb.</param>
-public record ChartPointConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb);
+/// <param name="ShowInChart">True if chart point should be visible in chart, otherwise false.</param>
+public record ChartPointConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb, bool ShowInChart);
 
 
 
@@ -51,8 +52,8 @@ public record ChartPointConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb);
 /// <param name="IsUsed">True if selected, otherwise false.</param>
 /// <param name="Glyph">Character for the glyph, space if no glyph is available.</param>
 /// <param name="PercentageOrb">Factor to calculate the orb.</param>
-
-public record AspectConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb);
+/// <param name="ShowInChart">True if aspect should be visible in chart, otherwise false.</param>
+public record AspectConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb, bool ShowInChart);
 
 
 

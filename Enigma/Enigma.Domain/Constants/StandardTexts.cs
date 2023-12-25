@@ -7,6 +7,9 @@ namespace Enigma.Domain.Constants;
 
 public static class StandardTexts
 {
+    // Error texts
+    public const string TITLE_ERROR = "Something is wrong.";
+    
     public const string ERROR_CYCLES_COMBI_OBSPOS_COORDINATE = "Heliocentric positions are not possible for the selectede coordinate.";
     public const string ERROR_DATAFILE_MISSING = "There is no datafile available. Please import a datafile.";
     public const string ERROR_DATE = "Enter a correct value for the date.";
@@ -31,7 +34,19 @@ public static class StandardTexts
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
     public const string ERROR_TIME = "Enter a correct value for the time.";
     
-    public const string TITLE_ERROR = "Something is wrong.";
- 
+    // Texts for the configureation
+    public const string CFG_HOUSE_SYSTEM = "HouseSystem";
+    public const string CFG_AYANAMSHA = "Ayanamsha";
+    public const string CFG_OBSERVER_POSITION = "ObserverPosition";
+    public const string CFG_ZODIAC_TYPE = "ZodiacType";
+    public const string CFG_PROJECTION_TYPE = "ProjectionType";
+    public const string CFG_ORB_METHOD = "OrbMethod";
+    public const string CFG_BASE_ORB_ASPECTS = "BaseOrbAspects";
+    public const string CFG_BASE_ORB_MIDPOINTS = "BaseOrbMidpoints";
+    public const string CFG_USE_CUSPS_FOR_ASPECTS = "UseCuspsForAspects";
+
     
+    
+
+
 }

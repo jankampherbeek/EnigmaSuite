@@ -64,8 +64,8 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
 
     private CalculationPreferences DefinePreferences()
     {
-        AstroConfig config = _configurationHandler.ReadConfig();
-        Dictionary<ChartPoints, ChartPointConfigSpecs> cpSpecs = config.ChartPoints;
+        AstroConfig config = _configurationHandler.ReadCurrentConfig();
+        Dictionary<ChartPoints, ChartPointConfigSpecs?> cpSpecs = config.ChartPoints;
         List<ChartPoints> celPoints = (from cpSpec in cpSpecs 
             where cpSpec.Value.IsUsed 
             let pointCat = cpSpec.Key.GetDetails().PointCat 

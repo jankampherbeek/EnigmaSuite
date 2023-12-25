@@ -42,7 +42,7 @@ public sealed class AspectsCounting : IAspectsCounting
         AstroConfig config = request.Config;
         Dictionary<AspectTypes, AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
 
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
         int cuspSize = charts[0].Positions.Count(item => item.Key.GetDetails().PointCat == PointCats.Cusp);

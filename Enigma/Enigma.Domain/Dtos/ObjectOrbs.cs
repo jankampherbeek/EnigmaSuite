@@ -10,8 +10,7 @@ namespace Enigma.Domain.Dtos;
 
 public class OrbDefinitions : IOrbDefinitions
 {
-    public KeyValuePair<ChartPoints, double> DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, 
-        ChartPointConfigSpecs> chartPointConfigSpecs)
+    public KeyValuePair<ChartPoints, double> DefineChartPointOrb(ChartPoints chartPoint, Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs)
     {
         double orbForChartPoint = 0.0;
         foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> spec 

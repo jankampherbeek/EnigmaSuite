@@ -12,6 +12,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Enigma.Core.Services;
 
@@ -24,7 +25,7 @@ public static class CoreServices
 {
     public static void RegisterHandlerServices(this ServiceCollection serviceCollection)
     {
-
+        serviceCollection.AddTransient<IActualConfigCreator, ActualConfigCreator>();
         serviceCollection.AddTransient<IAspectOrbConstructor, AspectOrbConstructor>();
         serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
@@ -45,6 +46,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ICommunicationHandler, CommunicationHandler>();
         serviceCollection.AddTransient<IConfigParser, ConfigParser>(); 
         serviceCollection.AddTransient<IConfigReader, ConfigReader>();
+        serviceCollection.AddTransient<IConfigurationDelta, ConfigurationDelta>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
@@ -60,10 +62,10 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
+        serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
-        serviceCollection.AddTransient<IFixedTimeKey, FixedTimeKey>();
         serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IFullPointPosFactory, FullPointPosFactory>();
         serviceCollection.AddTransient<IHarmonicsCalculator, HarmonicsCalculator>();
@@ -87,11 +89,9 @@ public static class CoreServices
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
         serviceCollection.AddTransient<IPeriodDataDao, PeriodDataDao>();
         serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
-        serviceCollection.AddTransient<IPlacidusTimeKey, PlacidusTimeKey>();
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
-        serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
@@ -100,7 +100,6 @@ public static class CoreServices
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
-        serviceCollection.AddTransient<ITimeKeyCalculator, TimeKeyCalculator>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
         serviceCollection.RegisterResearchServices();

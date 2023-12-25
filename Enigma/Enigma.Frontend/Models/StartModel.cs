@@ -28,31 +28,6 @@ public class StartModel
         if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
     }
 
-    public static void HandleCheckForConfig()
-    {
-        bool resultConfig = true;
-        bool resultConfigProg = true;
-        if (!File.Exists(EnigmaConstants.CONFIG_LOCATION))
-        {
-            IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
-            AstroConfig config = configApi.GetDefaultConfiguration();
-            resultConfig = configApi.WriteConfig(config);
-        }
-        if (!File.Exists(EnigmaConstants.CONFIG_PROG_LOCATION))
-        {
-            IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
-            ConfigProg config = configApi.GetDefaultProgConfiguration();
-            resultConfigProg = configApi.WriteConfig(config);
-        }
-
-        if (resultConfig && resultConfigProg) return;
-        const string errorText = "Could not start Enigma Astrology Research. " +
-                                 "There is a problem with one opr more of the configuration files. " +
-                                 "Please check if you have write access to the disk";
-        Log.Error("StartWindow.xaml.cs.HandleCheckForConfig(): {EText}", errorText);
-        throw new EnigmaException(errorText);
-    }
-
     public static void HandleCheckNewVersion()
     {
         ICommunicationApi communicationApi = App.ServiceProvider.GetRequiredService<ICommunicationApi>();

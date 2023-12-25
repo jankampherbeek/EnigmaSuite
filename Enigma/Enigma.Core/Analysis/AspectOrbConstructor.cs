@@ -20,7 +20,7 @@ public sealed class AspectOrbConstructor : IAspectOrbConstructor
 
     // <inheritdoc/>
     public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, 
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs)
+        Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs)
     {
         double factor1 = _orbDefinitions.DefineChartPointOrb(point1, chartPointConfigSpecs).Value;
         double factor2 = _orbDefinitions.DefineChartPointOrb(point2, chartPointConfigSpecs).Value;

@@ -32,20 +32,10 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private string _orbSymDirText;
     [NotifyPropertyChangedFor(nameof(OrbTransitValid))]
     [ObservableProperty] private string _orbTransitText;
-    private bool _includeConverseDirections;
-    [ObservableProperty] private bool _applyRelocation;
-    [ObservableProperty] private ObservableCollection<string> _allPrimDirMethods;
-    [ObservableProperty] private ObservableCollection<string> _allSolarMethods;
-    [ObservableProperty] private ObservableCollection<string> _allPrimDirKeys;
     [ObservableProperty] private ObservableCollection<string> _allSymDirKeys;
-    [ObservableProperty] private ObservableCollection<ProgPoint> _allSignificators;
-    [ObservableProperty] private ObservableCollection<ProgPoint> _allPromissors;    
     [ObservableProperty] private ObservableCollection<ProgPoint> _allTransitPoints;
     [ObservableProperty] private ObservableCollection<ProgPoint> _allSecDirPoints;
     [ObservableProperty] private ObservableCollection<ProgPoint> _allSymDirPoints;
-    [ObservableProperty] private int _primDirMethodIndex;
-    [ObservableProperty] private int _solarMethodIndex;
-    [ObservableProperty] private int _primDirKeyIndex;
     [ObservableProperty] private int _symDirKeyIndex;
     
     private double _orbSecDirValue;
@@ -62,27 +52,17 @@ public partial class ConfigProgViewModel:ObservableObject
     
     public ConfigProgViewModel()
     {
-        AllPrimDirMethods = new ObservableCollection<string>(_model.AllPrimDirMethods());
-        AllSolarMethods = new ObservableCollection<string>(_model.AllSolarMethods());
-        AllPrimDirKeys = new ObservableCollection<string>(_model.AllPrimDirKeys());
         AllSymDirKeys =  new ObservableCollection<string>(_model.AllSymDirKeys());
-        AllSignificators = new ObservableCollection<ProgPoint>(_model.AllSignificators());
-        AllPromissors = new ObservableCollection<ProgPoint>(_model.AllPromissors());
         AllTransitPoints = new ObservableCollection<ProgPoint>(_model.AllTransitPoints());
         AllSecDirPoints = new ObservableCollection<ProgPoint>(_model.AllSecDirPoints());
         AllSymDirPoints = new ObservableCollection<ProgPoint>(_model.AllSymDirPoints());
-        PrimDirKeyIndex = _model.PrimDirTimeKeyIndex;
-        SymDirKeyIndex = _model.SymDirTimeKeyIndex;
-        SolarMethodIndex = _model.SolarMethodIndex;
-        PrimDirMethodIndex = _model.PrimDirMethodIndex;
+        _symDirKeyIndex = _model.SymDirTimeKeyIndex;
         _orbSecDirValue = _model.SecDirOrb;
         _orbSymDirValue = _model.SymDirOrb;
         _orbTransitValue = _model.TransitOrb;
         OrbSecDirText = _orbSecDirValue.ToString((CultureInfo.InvariantCulture));
         OrbSymDirText = _orbSymDirValue.ToString((CultureInfo.InvariantCulture));
         OrbTransitText = _orbTransitValue.ToString((CultureInfo.InvariantCulture));
-        _includeConverseDirections = false;
-        ApplyRelocation = _model.UseRelocation;
     }
     
     private bool CheckOrbSecDir()
@@ -133,23 +113,16 @@ public partial class ConfigProgViewModel:ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
+            SymDirKeyIndex = _model.SymDirTimeKeyIndex;
             ConfigProgTransits configTransits = new(_orbTransitValue, AllTransitPoints.ToDictionary(point => point.ChartPoint, 
                 point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
             ConfigProgSecDir configSecDir = new (_orbSecDirValue, AllSecDirPoints.ToDictionary(point => point.ChartPoint, 
                 point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
-            ConfigProgPrimDir configPrimDir = new(PrimaryKeyExtensions.PrimaryKeysForIndex(PrimDirKeyIndex), 
-                PrimaryDirMethodsExtensions.MethodForIndex(PrimDirMethodIndex),
-                _includeConverseDirections,
-                AllPromissors.ToDictionary(point => point.ChartPoint,
-                    point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
-                AllSignificators.ToDictionary(point => point.ChartPoint,
-                    point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
             ConfigProgSymDir configSymDir = new(_orbSymDirValue,
                 SymbolicKeyExtensions.SymbolicKeysForIndex(SymDirKeyIndex),
                 AllSymDirPoints.ToDictionary(point => point.ChartPoint, 
                     point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
-            ConfigProgSolar configSolar = new(SolarMethodsExtensions.MethodForIndex(SolarMethodIndex), ApplyRelocation); 
-            ConfigProg configProg = new(configTransits, configSecDir, configPrimDir, configSymDir, configSolar); 
+            ConfigProg configProg = new(configTransits, configSecDir, configSymDir); 
             _model.UpdateConfig(configProg);
             MessageBox.Show(PROG_CONFIG_SAVED, StandardTexts.TITLE_ERROR);
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));

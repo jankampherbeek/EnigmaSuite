@@ -373,25 +373,29 @@ public interface IInterChartPeriodDao
 /// <summary>Handles writing a configuration to a disk file.</summary>
 public interface IConfigWriter
 {
-    /// <param name="astroConfig">The configuration to write.</param>
+
+    /// <summary>Writes the configuration, defined as deltas from the default configuration, to disk.</summary>
+    /// <param name="deltas">Dictionary with thedeltas.</param>
     /// <returns>True if the write was succesfull, otherwise false.</returns>
-    public bool WriteConfig(AstroConfig astroConfig);
+    public bool WriteConfigDeltas(Dictionary<string, string> deltas);
     
-    /// <param name="configProg">The ptogressive configuration to write.</param>
+    /// <summary>Writes the configuration, defined as deltas from the default configuration for progressions, to disk.</summary>
+    /// <param name="deltas">Dictionary with the deltas.</param>
     /// <returns>True if the write was succesfull, otherwise false.</returns>
-    public bool WriteConfig(ConfigProg configProg);
-    
+    public bool WriteConfigDeltasProg(Dictionary<string, string> deltas);
 }
 
 
 /// <summary>Handles reading a configuration from a disk file.</summary>
 public interface IConfigReader
 {
-    /// <summary>Reads a configuration from a disk file.</summary>
-    /// <returns>The configuration that was read.</returns>
-    public AstroConfig ReadConfig();
+
+    /// <summary>Reads the deltas for the configuration.</summary>
+    /// <returns>The deltas that were read.</returns>
+    public Dictionary<string, string> ReadDeltasForConfig();
+
+    /// <summary>Reads the deltas for the configuration for progressions.</summary>
+    /// <returns>The deltas that were read.</returns>
+    public Dictionary<string, string> ReadDeltasForConfigProg();
     
-    /// <summary>Reads a progressive configuration from a disk file.</summary>
-    /// <returns>The configuration that was read.</returns>
-    public ConfigProg ReadProgConfig();
 }

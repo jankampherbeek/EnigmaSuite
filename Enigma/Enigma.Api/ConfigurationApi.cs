@@ -18,12 +18,27 @@ public sealed class ConfigurationApi : IConfigurationApi
     public ConfigurationApi(IConfigurationHandler handler) => _handler = handler;
 
     /// <inheritdoc/>
+    public AstroConfig GetCurrentConfiguration()
+    {
+        Log.Information("ConfigurationApi GetCurrentConfiguration");
+        return _handler.ReadCurrentConfig();
+    }
+
+    /// <inheritdoc/>
+    public ConfigProg GetCurrentProgConfiguration()
+    {
+        Log.Information("ConfigurationApi GetCurrentProgConfiguration");
+        return _handler.ReadCurrentConfigProg();
+    }
+    
+    /// <inheritdoc/>
     public AstroConfig GetDefaultConfiguration()
     {
         Log.Information("ConfigurationApi GetDefaultConfiguration");
         return _handler.ConstructDefaultConfiguration();
     }
 
+    /// <inheritdoc/>
     public ConfigProg GetDefaultProgConfiguration()
     {
         Log.Information("ConfigurationApi GetDefaultProgConfiguration");
@@ -31,29 +46,17 @@ public sealed class ConfigurationApi : IConfigurationApi
     }
 
     /// <inheritdoc/>
-    public bool DoesConfigExist()
+    public bool WriteDeltasForConfig(AstroConfig config)
     {
-        Log.Information("ConfigurationApi DoesConfigExist");
-        return _handler.DoesConfigExist();
+        Log.Information("ConfigurationApi WriteDeltasForConfig for astroconfig");
+        return _handler.WriteDeltasForConfig(config);
     }
-
-    public bool DoesConfigProgExist()
-    {
-        Log.Information("ConfigurationApi DoesConfigProgExist");
-        return _handler.DoesProgConfigExist();
-    }
-
+    
     /// <inheritdoc/>
-    public bool WriteConfig(AstroConfig config)
+    public bool WriteDeltasForConfig(ConfigProg config)
     {
-        Log.Information("ConfigurationApi WriteConfig for standard config");
-        return _handler.WriteConfig(config);
-    }
-
-    public bool WriteConfig(ConfigProg config)
-    {
-        Log.Information("ConfigurationApi WriteConfig for progressive config");
-        return _handler.WriteConfig(config);
+        Log.Information("ConfigurationApi WriteDeltasForConfig for progressive config");
+        return _handler.WriteDeltasForConfig(config);
     }
     
 }

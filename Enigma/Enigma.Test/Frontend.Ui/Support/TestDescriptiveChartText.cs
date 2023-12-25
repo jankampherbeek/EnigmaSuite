@@ -27,8 +27,8 @@ public class TestDescriptiveChartText
     private const ZodiacTypes ZODIAC_TYPE = ZodiacTypes.Tropical;
     private const ProjectionTypes PROJ_TYPE = ProjectionTypes.TwoDimensional;
     private const OrbMethods ORB_METHOD = OrbMethods.Weighted;
-    private readonly Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPoints = new();
-    private readonly Dictionary<AspectTypes, AspectConfigSpecs> _aspects = new();
+    private readonly Dictionary<ChartPoints, ChartPointConfigSpecs?> _chartPoints = new();
+    private readonly Dictionary<AspectTypes, AspectConfigSpecs?> _aspects = new();
     private const double BASE_ORB_ASPECTS = 8.0;
     private const double BASE_ORB_MIDPOINTS = 1.6;
     private const bool USE_CUSPS_FOR_ASPECTS = false;

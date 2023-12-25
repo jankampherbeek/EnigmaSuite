@@ -40,11 +40,3 @@ public interface ICalcSymDirHandler
     public ProgRealPointsResponse CalculateSymDir(SymDirEventRequest request);
 }
 
-/// <summary>Handles calculation of primary directions.</summary>
-public interface IProgPrimDirHandler
-{
-    /// <summary>Calculates primary directions for a period of 10 years.</summary>
-    /// <param name="request">Request with config items, date/time etc.</param>
-    /// <returns>Dates and specs when primary directions do occur.</returns>
-    public ProgPrimDirResponse CalculatePrimDir(ProgPrimDirRequest request);
-}

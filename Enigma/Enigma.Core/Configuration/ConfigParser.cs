@@ -14,30 +14,18 @@ namespace Enigma.Core.Configuration;
 public sealed class ConfigParser : IConfigParser
 {
     /// <inheritdoc/>
-    public string MarshallConfig(AstroConfig astroConfig)
+    public string MarshallDeltasForConfig(Dictionary<string, string> deltas)
     {
         var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-        return JsonSerializer.Serialize(astroConfig, options);
+        return JsonSerializer.Serialize(deltas, options);
     }
 
     /// <inheritdoc/>
-    public string MarshallConfig(ConfigProg configProg)
+    public Dictionary<string, string> UnMarshallDeltasForConfig(string jsonString)
     {
+        if (string.IsNullOrWhiteSpace(jsonString)) return new Dictionary<string, string>();
         var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-        return JsonSerializer.Serialize(configProg, options);
+        return JsonSerializer.Deserialize<Dictionary<string, string>>(jsonString, options)!;        
     }
 
-    /// <inheritdoc/>
-    public AstroConfig UnMarshallAstroConfig(string jsonString)
-    {
-        var options = new JsonSerializerOptions { IncludeFields = true };
-        return JsonSerializer.Deserialize<AstroConfig>(jsonString, options)!;
-    }
-
-    /// <inheritdoc/>
-    public ConfigProg UnMarshallConfigProg(string jsonString)
-    {
-        var options = new JsonSerializerOptions { IncludeFields = true };
-        return JsonSerializer.Deserialize<ConfigProg>(jsonString, options)!;
-    }
 }

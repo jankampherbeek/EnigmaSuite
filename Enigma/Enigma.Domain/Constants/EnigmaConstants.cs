@@ -216,8 +216,10 @@ public static class EnigmaConstants
     public const char NEW_LINE = '\n';
 
     // Locations
-    /// <summary>Location of configuration file, contains path and filename.</summary>
-    public const string CONFIG_LOCATION = "c:/enigma_ar/enigmaconfig.json";
+    /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
+    public const string CONFIG_DELTA_LOCATION = "c:/enigma_ar/enigmacfgdelta.json";
+    /// <summary>Location of deltas for configuration file for rogressions, contains path and filename.</summary>
+    public const string CONFIG_PROG_DELTA_LOCATION = "c:/enigma_ar/enigmaprogcfgdelta.json";
     /// <summary>Location of progressive configuration file, contains path and filename.</summary>
     public const string CONFIG_PROG_LOCATION = "c:/enigma_ar/enigmaprogconfig.json";    
     /// <summary>Name of database for charts.</summary>

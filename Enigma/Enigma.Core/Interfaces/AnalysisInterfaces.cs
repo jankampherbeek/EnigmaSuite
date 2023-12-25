@@ -55,7 +55,7 @@ public interface IAspectPointSelector
     /// <param name="chartPointConfigSpecs">Configuration data for chart points.</param>
     /// <returns>The relevant points for the calculation of aspects.</returns>
     public Dictionary<ChartPoints, FullPointPos> SelectPoints(Dictionary<ChartPoints, FullPointPos> positions, 
-           Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
+           Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs);
 }
 
 
@@ -77,7 +77,7 @@ public interface IAspectsHandler
     /// <returns>List with aspects between celestial points and between celestial points and cusps. Aspects between cusps are omitted.</returns>
     public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, 
            Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, 
-           Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb);
+           Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs, double baseOrb);
 }
 
 
@@ -191,7 +191,7 @@ public interface IOccupiedMidpointsFinder
 public interface IAspectOrbConstructor
 {
     /// <summary>Define orb between two celestial points for a given aspect.</summary>
-    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs);
+    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs);
 }
 
 

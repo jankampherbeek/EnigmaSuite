@@ -39,7 +39,6 @@ public static class ApiServices
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
         serviceCollection.AddTransient<IPeriodDataPersistencyApi, PeriodDataPersistencyApi>();
         serviceCollection.AddTransient<IProgAspectsApi, ProgAspectsApi>();
-        serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>(); 
         serviceCollection.AddTransient<IProgSecDirEventApi, ProgSecDirEventApi>();
         serviceCollection.AddTransient<IProgSymDirEventApi, ProgSymDirEventApi>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();

@@ -38,7 +38,7 @@ public class ConfigurationModel
 
     public void UpdateConfig(AstroConfig astroConfig)
     {
-        _configApi.WriteConfig(astroConfig);
+        _configApi.WriteDeltasForConfig(astroConfig);
         CurrentConfig.Instance.ChangeConfig(astroConfig);
         DataVaultCharts.Instance.ClearExistingCharts();
     }
@@ -78,7 +78,8 @@ public class ConfigurationModel
         return (from point in PointsExtensions.AllDetails() 
                 from configPoint in CurrentConfig.Instance.GetConfig().ChartPoints 
                 where configPoint.Key == point.Point 
-                select new GeneralPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text, configPoint.Value.PercentageOrb)).ToList();
+                select new GeneralPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text, 
+                    configPoint.Value.PercentageOrb, configPoint.Value.ShowInChart)).ToList();
      }
     
     public static List<GeneralAspect> AllAspects()
@@ -86,7 +87,8 @@ public class ConfigurationModel
         return (from aspect in AspectTypesExtensions.AllDetails()
                 from configAspect in CurrentConfig.Instance.GetConfig().Aspects
                 where configAspect.Key == aspect.Aspect
-                select new GeneralAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, aspect.Text, configAspect.Value.PercentageOrb)).ToList();
+                select new GeneralAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, 
+                    aspect.Text, configAspect.Value.PercentageOrb, configAspect.Value.ShowInChart)).ToList();
     }
 
 
@@ -100,14 +102,16 @@ public class GeneralPoint
     public char Glyph { get; set; } 
     public string PointName { get; set; }
     public int OrbPercentage { get; set; }
-
-    public GeneralPoint(ChartPoints chartPoint, bool isUsed, char glyph, string pointName, int orbPercentage)
+    public bool ShowInChart { get; set; }   
+    public GeneralPoint(ChartPoints chartPoint, bool isUsed, char glyph, string pointName, int orbPercentage, bool showInChart)
     {
         ChartPoint = chartPoint;
         IsUsed = isUsed;
         Glyph = glyph;
         PointName = pointName;
         OrbPercentage = orbPercentage;
+        ShowInChart = showInChart;
+
     }
 }
 
@@ -118,14 +122,16 @@ public class GeneralAspect
     public char Glyph { get; set; } 
     public string AspectName { get; set; }
     public int OrbPercentage { get; set; }
+    public bool ShowInChart { get; set; }
 
-    public GeneralAspect(AspectTypes aspectType, bool isUsed, char glyph, string aspectName, int orbPercentage)
+    public GeneralAspect(AspectTypes aspectType, bool isUsed, char glyph, string aspectName, int orbPercentage, bool showInChart)
     {
         AspectType = aspectType;
         IsUsed = isUsed;
         Glyph = glyph;
         AspectName = aspectName;
         OrbPercentage = orbPercentage;
+        ShowInChart = showInChart;
     }
 }
 

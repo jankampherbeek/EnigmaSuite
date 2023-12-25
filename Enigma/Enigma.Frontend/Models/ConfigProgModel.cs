@@ -19,12 +19,8 @@ public class ConfigProgModel
     public double TransitOrb { get; }
     public double SecDirOrb { get; }
     public double SymDirOrb { get; }
-    public int PrimDirTimeKeyIndex { get; }
-    public int PrimDirMethodIndex { get; }
     public int SymDirTimeKeyIndex { get; }
-    public int SolarMethodIndex { get; }
-    public bool UseConversePrimDir { get; }
-    public bool UseRelocation { get; }
+
     private ConfigProg _configProg;
     public ConfigProgModel(IConfigurationApi configApi)
     {
@@ -33,46 +29,21 @@ public class ConfigProgModel
         TransitOrb = _configProg.ConfigTransits.Orb;
         SecDirOrb = _configProg.ConfigSecDir.Orb;
         SymDirOrb = _configProg.ConfigSymDir.Orb;
-        PrimDirTimeKeyIndex = (int)_configProg.ConfigPrimDir.TimeKey;
         SymDirTimeKeyIndex = (int)_configProg.ConfigSymDir.TimeKey;
-        PrimDirMethodIndex = (int)_configProg.ConfigPrimDir.DirMethod;
-        SolarMethodIndex = (int)_configProg.ConfigSolar.SolarMethod;
-        UseConversePrimDir = true;
-        UseRelocation = _configProg.ConfigSolar.Relocate;
     }
     
     public void UpdateConfig(ConfigProg configProg)
     {
-        _configApi.WriteConfig(configProg);
+        _configApi.WriteDeltasForConfig(configProg);
         CurrentConfig.Instance.ChangeConfigProg(configProg);
         // TODO: clear exixting progressions
     }
     
-    public List<string> AllPrimDirMethods()
-    {
-        return PrimaryDirMethodsExtensions.AllDetails().Select(method => method.MethodName).ToList();
-    }
-    
-    public List<string> AllPrimDirKeys()
-    {
-        return PrimaryKeyExtensions.AllDetails().Select(key => key.Text).ToList();
-    }
-
     public List<string> AllSymDirKeys()
     {
         return SymbolicKeyExtensions.AllDetails().Select(key => key.Text).ToList();
     }
 
-    public List<string> AllSolarMethods()
-    {
-        return SolarMethodsExtensions.AllDetails().Select(key => key.MethodName).ToList();
-    }
-
-  //  public Dictionary<ChartPoints, ProgPointConfigSpecs> AllTransitPoints()
-  //  {
-  //      return _configProg.ConfigTransits.ProgPoints;
-  //  }
-    
     public List<ProgPoint> AllTransitPoints()
     {
         return (from point in PointsExtensions.AllDetails() 
@@ -90,22 +61,6 @@ public class ConfigProgModel
             select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
     }
     
-    public List<ProgPoint> AllSignificators()
-    {
-        return (from point in PointsExtensions.AllDetails() 
-            from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigPrimDir.Significators 
-            where configPoint.Key == point.Point 
-            select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
-    }
-    
-    public List<ProgPoint> AllPromissors()
-    {
-        return (from point in PointsExtensions.AllDetails() 
-            from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigPrimDir.Promissors 
-            where configPoint.Key == point.Point 
-            select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
-    }
-    
     public List<ProgPoint> AllSymDirPoints() 
     {
         return (from point in PointsExtensions.AllDetails() 
@@ -113,9 +68,6 @@ public class ConfigProgModel
             where configPoint.Key == point.Point 
             select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
     }
-    
-    
-
 }
 
     

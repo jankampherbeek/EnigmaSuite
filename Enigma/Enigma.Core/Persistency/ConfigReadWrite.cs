@@ -22,19 +22,19 @@ public sealed class ConfigWriter : IConfigWriter
     }
 
     /// <inheritdoc/>
-    public bool WriteConfig(AstroConfig astroConfig)
+    public bool WriteConfigDeltas(Dictionary<string, string> deltas)
     {
-        string parsedConfig = _configParser.MarshallConfig(astroConfig);
-        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_LOCATION, parsedConfig);
+        string parsedDeltas = _configParser.MarshallDeltasForConfig(deltas);
+        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_DELTA_LOCATION, parsedDeltas);
     }
 
-    /// <inheritdoc/>
-    public bool WriteConfig(ConfigProg configProg)
+    public bool WriteConfigDeltasProg(Dictionary<string, string> deltas)
     {
-        string parsedConfig = _configParser.MarshallConfig(configProg);
-        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_PROG_LOCATION, parsedConfig);
+        string parsedDeltas = _configParser.MarshallDeltasForConfig(deltas);
+        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_PROG_DELTA_LOCATION, parsedDeltas);
     }
 }
+
 
 /// <inheritdoc/>
 public sealed class ConfigReader : IConfigReader
@@ -49,17 +49,15 @@ public sealed class ConfigReader : IConfigReader
         _configParser = configParser;
     }
 
-    /// <inheritdoc/>
-    public AstroConfig ReadConfig()
+    public Dictionary<string, string> ReadDeltasForConfig()
     {
-        string configText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_LOCATION);
-        return _configParser.UnMarshallAstroConfig(configText);
+        string deltaText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_DELTA_LOCATION);
+        return _configParser.UnMarshallDeltasForConfig(deltaText);
     }
 
-    /// <inheritdoc/>
-    public ConfigProg ReadProgConfig()
+    public Dictionary<string, string> ReadDeltasForConfigProg()
     {
-        string configText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_PROG_LOCATION);
-        return _configParser.UnMarshallConfigProg(configText);
+        string deltaText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_PROG_DELTA_LOCATION);
+        return _configParser.UnMarshallDeltasForConfig(deltaText);
     }
 }

@@ -204,17 +204,17 @@ Enigma uses two configurations: a configuration for general use and an additiona
 A standard configuration is defined and the user can change the configurations by defining delta's.
 To define the actual configuration, the standard configuration is corrected with these delta's.
 
-### Peristency of the general configuration
-The configuration is saved as a dictionary that is converted to Json. 
-The key-value pairs in the dictionary use a predefined key and a value that can consist of multiple values, 
-separated by two pipes (standing lines). It is not possible to use a single char as separator as all character are being used by the 
+The configuration is saved as a dictionary that is converted to Json.
+The key-value pairs in the dictionary use a predefined key and a value that can consist of multiple values,
+separated by two pipes (standing lines). It is not possible to use a single char as separator as all character are being used by the
 Enigma font, using one character would make interfere with the glyph for that character.
 
-There are three groups of keys:
-* _keys for chartpoints_, these are prefixed with <strong>cp_</strong>, followed by an index thar refers to the enum for chartpoints.
-* _keys for aspecttypes_, the prefix is <strong>at_</strong>, followed by the index for the enum aspecttypes.
-* _all other keys_, no specific prefix. The key cannot start with one of the prefixes mentioned above.
+### Peristency of the general configuration
 
+There are three groups of keys:
+* _keys for chartpoints_, these are prefixed with <strong>CP_</strong>, followed by an index thar refers to the enum for chartpoints.
+* _keys for aspecttypes_, the prefix is <strong>AT_</strong>, followed by the index for the enum aspecttypes.
+* _all other keys_, no specific prefix. The key cannot start with one of the prefixes mentioned above.
 
 The values for both chartpoints and aspecttypes have the following structure:
 
@@ -226,3 +226,35 @@ u||g||o||s
 
 An example: **y||a||100||y**  means: use this point or aspect, the glyph is 'a', the orb percentage is 100% and the 
 point/aspect should be shown in the chart drawing.
+
+### Persistency of the configuration for progressions
+
+The configuration supports three progressive techniques, each with a specific prefix:
+* _transits_, the prefix is <strong>TR_</strong>.
+* _secundary directions_, the prefix is <strong>SC_</strong>.
+* _symbolic directions_, with the prefix <strong>SM_</strong>
+
+For each progresive technique there is one orb, and an enumeration of supported chart points. 
+There is also a time-key for symbolic directions.
+* _orb:_ add <strong>ORB</strong> after the prefix of the progressive technique.
+* _chart point:_, add the prefix for the chartpoint, as defined in the previous paragraph, to the prefix of the progressive technique.
+* _time-key:_, add the prefix <strong>KEY</strong> after the prefix of the progressive technique. 
+
+
+The values for the orb contain only a number.
+The values for the chartpoints have the following structure:
+u||g
+* **u** means 'use', enter 'y' if the chartpoint should be used, otherwise 'n'.
+* **g** means 'glyph', enter the character or unicode for the glyph.
+
+A few lines with keys and values as an example
+
+`"TR_ORB", "1.5"
+
+"TR_KEY", 1
+
+"TR_CP_0", "y||a"`
+
+The orb for transits is 1.5 degrees, and the key is 1 (one degree, refers to the enum SymbolicKeys).
+For transits, the Sun is used and the glyph is 'a'.
+

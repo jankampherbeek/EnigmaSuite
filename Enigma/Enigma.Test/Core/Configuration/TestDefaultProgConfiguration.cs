@@ -31,24 +31,7 @@ public class TestDefaultProgConfiguration
         Assert.That(_configProg!.ConfigTransits.Orb, Is.EqualTo(1.0).Within(Delta));
     }
 
-    [Test]
-    public void TestPrimaryTimeKey()
-    {
-        Assert.That(_configProg!.ConfigPrimDir.TimeKey, Is.EqualTo(PrimaryKeys.Naibod));
-    }
-    
-    [Test]
-    public void TestPrimaryMethod()
-    {
-        Assert.That(_configProg!.ConfigPrimDir.DirMethod, Is.EqualTo(PrimaryDirMethods.SemiArcMundane));
-    }
-
-    [Test]
-    public void TestSolarMethod()
-    {
-        Assert.That(_configProg!.ConfigSolar.SolarMethod, Is.EqualTo(SolarMethods.TropicalNoParallax));
-    }
-    
+   
     [Test]
     public void TestProgPointsSymbolic()
     {
@@ -57,26 +40,6 @@ public class TestDefaultProgConfiguration
         Assert.That(progPointSpecsMars.IsUsed, Is.True);
         ProgPointConfigSpecs progPointSpecsMakeMake = progPoints[ChartPoints.Makemake];
         Assert.That(progPointSpecsMakeMake.IsUsed, Is.False);
-    }
-    
-    [Test]
-    public void TestSignificatorsy()
-    {
-        Dictionary<ChartPoints, ProgPointConfigSpecs> significators = _configProg!.ConfigPrimDir.Significators;
-        ProgPointConfigSpecs progPointSpecsMercury = significators[ChartPoints.Mercury];
-        Assert.That(progPointSpecsMercury.IsUsed, Is.True);
-        ProgPointConfigSpecs progPointSpecsPluto = significators[ChartPoints.Pluto];
-        Assert.That(progPointSpecsPluto.IsUsed, Is.False);
-    }
-    
-    [Test]
-    public void TestPromissors()
-    {
-        Dictionary<ChartPoints, ProgPointConfigSpecs> promissors = _configProg!.ConfigPrimDir.Promissors;
-        ProgPointConfigSpecs progPointSpecsFortunaSect = promissors[ChartPoints.FortunaSect];
-        Assert.That(progPointSpecsFortunaSect.IsUsed, Is.True);
-        ProgPointConfigSpecs progPointSpecsEris = promissors[ChartPoints.Eris];
-        Assert.That(progPointSpecsEris.IsUsed, Is.False);
     }
     
 }

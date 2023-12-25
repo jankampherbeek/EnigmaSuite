@@ -38,7 +38,7 @@ public class CelestialObjectsSelectionModel
         PointsToExclude pointsToExclude = _pointsExclusionManager.DefineHelioExclusions();
         PointsToExclude housesToExclude = _pointsExclusionManager.DefineCycleExclusions();
         // todo combine exclusions
-        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs> currentCpSpec in _astroConfig.ChartPoints)
+        foreach (KeyValuePair<ChartPoints, ChartPointConfigSpecs?> currentCpSpec in _astroConfig.ChartPoints)
         {
             if (!currentCpSpec.Value.IsUsed || pointsToExclude.ExcludedPoints.Contains(currentCpSpec.Key) ||
                 currentCpSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps) continue;

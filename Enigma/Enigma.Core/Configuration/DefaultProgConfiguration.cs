@@ -20,8 +20,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
 
     private static ConfigProg CombineDefaultDetails()
     {
-        return new ConfigProg(CreateConfigTransits(), CreateConfigSecDir(), CreateConfigPrimDir(), CreateConfigSymDir(), 
-            CreateConfigSolar());
+        return new ConfigProg(CreateConfigTransits(), CreateConfigSecDir(), CreateConfigSymDir());
     }
 
     private static ConfigProgTransits CreateConfigTransits()
@@ -58,38 +57,6 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         return new ConfigProgSecDir(orb, progPoints);
     }
     
-    private static ConfigProgPrimDir CreateConfigPrimDir()
-    {
-        const bool includeConverse = false;
-        const PrimaryKeys timeKey = PrimaryKeys.Naibod;
-        const PrimaryDirMethods method = PrimaryDirMethods.SemiArcMundane;
-        Dictionary<ChartPoints, ProgPointConfigSpecs> promissors = CreateProgPoints();
-        Dictionary<ChartPoints, ProgPointConfigSpecs> significators = CreateProgPoints();
-
-        promissors[ChartPoints.Sun] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Sun].Glyph);
-        promissors[ChartPoints.Moon] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Moon].Glyph);
-        promissors[ChartPoints.Mercury] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Mercury].Glyph);
-        promissors[ChartPoints.Venus] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Venus].Glyph);
-        promissors[ChartPoints.Mars] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Mars].Glyph);
-        promissors[ChartPoints.Jupiter] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Jupiter].Glyph);
-        promissors[ChartPoints.Saturn] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Saturn].Glyph);
-        promissors[ChartPoints.Mc] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Mc].Glyph);
-        promissors[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Ascendant].Glyph);
-        promissors[ChartPoints.FortunaSect] = new ProgPointConfigSpecs(true, promissors[ChartPoints.FortunaSect].Glyph);
-
-        significators[ChartPoints.Sun] = new ProgPointConfigSpecs(true, significators[ChartPoints.Sun].Glyph);
-        significators[ChartPoints.Moon] = new ProgPointConfigSpecs(true, significators[ChartPoints.Moon].Glyph);
-        significators[ChartPoints.Mercury] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mercury].Glyph);
-        significators[ChartPoints.Venus] = new ProgPointConfigSpecs(true, significators[ChartPoints.Venus].Glyph);
-        significators[ChartPoints.Mars] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mars].Glyph);
-        significators[ChartPoints.Jupiter] = new ProgPointConfigSpecs(true, significators[ChartPoints.Jupiter].Glyph);
-        significators[ChartPoints.Saturn] = new ProgPointConfigSpecs(true, significators[ChartPoints.Saturn].Glyph);
-        significators[ChartPoints.Mc] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mc].Glyph);
-        significators[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, significators[ChartPoints.Ascendant].Glyph);
-        significators[ChartPoints.FortunaSect] = new ProgPointConfigSpecs(true, promissors[ChartPoints.FortunaSect].Glyph);
-        
-        return new ConfigProgPrimDir(timeKey, method, includeConverse, promissors, significators);
-    }
     
     private static ConfigProgSymDir CreateConfigSymDir()
     {
@@ -113,13 +80,6 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         return new ConfigProgSymDir(orb, timeKey, progPoints);
     }
     
-    private static ConfigProgSolar CreateConfigSolar()
-    {
-        const SolarMethods method = SolarMethods.TropicalNoParallax;
-        const bool applyRelocation = false;
-        return new ConfigProgSolar(method, applyRelocation);
-    }
-
 
     private static Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints()
     {

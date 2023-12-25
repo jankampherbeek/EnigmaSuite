@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Handlers;
@@ -16,14 +15,19 @@ public sealed class ConfigurationHandler : IConfigurationHandler
     private readonly IDefaultProgConfiguration _defaultProgConfig;
     private readonly IConfigWriter _configWriter;
     private readonly IConfigReader _configReader;
+    private readonly IConfigurationDelta _configDelta;
+    private readonly IActualConfigCreator _configCreator;
 
     public ConfigurationHandler(IDefaultConfiguration defaultConfig, IDefaultProgConfiguration defaultProgCopnfig,
+        IConfigurationDelta configDelta, IActualConfigCreator configCreator,
         IConfigWriter configWriter, IConfigReader configReader)
     {
         _defaultConfig = defaultConfig;
         _defaultProgConfig = defaultProgCopnfig;
         _configWriter = configWriter;
         _configReader = configReader;
+        _configDelta = configDelta;
+        _configCreator = configCreator;
     }
 
     /// <inheritdoc/>
@@ -38,53 +42,36 @@ public sealed class ConfigurationHandler : IConfigurationHandler
         return _defaultProgConfig.CreateDefaultConfig();
     }
 
-    /// <inheritdoc/>
-    public bool DoesConfigExist()
+ /// <inheritdoc/>
+    public bool WriteDeltasForConfig(AstroConfig astroConfig)
     {
-        return File.Exists(EnigmaConstants.CONFIG_LOCATION);
+        AstroConfig defaultConfig = _defaultConfig.CreateDefaultConfig();
+        Dictionary<string, string> deltas = _configDelta.RetrieveTextsForDeltas(defaultConfig, astroConfig);
+        return _configWriter.WriteConfigDeltas(deltas);
     }
 
     /// <inheritdoc/>
-    public bool DoesProgConfigExist()
+    public bool WriteDeltasForConfig(ConfigProg configProg)
     {
-        return File.Exists(EnigmaConstants.CONFIG_PROG_LOCATION);
+        ConfigProg defaultConfig = _defaultProgConfig.CreateDefaultConfig();
+        Dictionary<string, string> deltas = _configDelta.RetrieveTextsForProgDeltas(defaultConfig, configProg);
+        return _configWriter.WriteConfigDeltasProg(deltas);
+    }
+
+
+    /// <inheritdoc/>
+    public AstroConfig ReadCurrentConfig()
+    {
+        AstroConfig defaultConfig = _defaultConfig.CreateDefaultConfig();
+        Dictionary<string, string> deltas = _configReader.ReadDeltasForConfig();
+        return _configCreator.CreateActualConfig(defaultConfig, deltas);
     }
 
     /// <inheritdoc/>
-    public bool WriteConfig(AstroConfig astroConfig)
+    public ConfigProg ReadCurrentConfigProg()
     {
-        return _configWriter.WriteConfig(astroConfig);
-    }
-
-    /// <inheritdoc/>
-    public bool WriteConfig(ConfigProg configProg)
-    {
-        return _configWriter.WriteConfig(configProg);
-    }
-
-    /// <inheritdoc/>
-    public bool WriteDefaultConfig()
-    {
-        AstroConfig config = _defaultConfig.CreateDefaultConfig();
-        return _configWriter.WriteConfig(config);
-    }
-
-    /// <inheritdoc/>
-    public bool WriteDefaultProgConfig()
-    {
-        ConfigProg config = _defaultProgConfig.CreateDefaultConfig();
-        return _configWriter.WriteConfig(config);
-    }
-
-    /// <inheritdoc/>
-    public AstroConfig ReadConfig()
-    {
-        return _configReader.ReadConfig();
-    }
-
-    /// <inheritdoc/>
-    public ConfigProg ReadConfigProg()
-    {
-        return _configReader.ReadProgConfig();
+        ConfigProg defaultConfig = _defaultProgConfig.CreateDefaultConfig();
+        Dictionary<string, string> deltas = _configReader.ReadDeltasForConfigProg();
+        return _configCreator.CreateActualProgConfig(defaultConfig, deltas);
     }
 }

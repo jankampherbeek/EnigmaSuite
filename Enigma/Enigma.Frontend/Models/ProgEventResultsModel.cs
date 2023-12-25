@@ -97,7 +97,7 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, double> radixPositions = DefineRadixPositions(radix);
         ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
         AstroConfig astroConfig = CurrentConfig.Instance.GetConfig();
-        Dictionary<AspectTypes, AspectConfigSpecs> configAspects = astroConfig.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs?> configAspects = astroConfig.Aspects;
         List<AspectTypes> selectedAspects = (from configAspect in configAspects
             where configAspect.Value.IsUsed
             select configAspect.Key).ToList();
@@ -143,10 +143,8 @@ public class ProgEventResultsModel
         return progMethod switch
         {
             ProgresMethods.Transits => configProg.ConfigTransits.Orb,
-            ProgresMethods.Primary => 0.0,  // No orb for primary directions
             ProgresMethods.Secundary => configProg.ConfigSecDir.Orb,
             ProgresMethods.Symbolic => configProg.ConfigSymDir.Orb,
-            ProgresMethods.Solar => 0.0, // No orb for solar
             ProgresMethods.Undefined => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null),
             _ => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null)
         };
@@ -158,11 +156,9 @@ public class ProgEventResultsModel
         return method switch
         {
             ProgresMethods.Transits => "Transits",
-            ProgresMethods.Primary => "Primary directions",
             ProgresMethods.Undefined => "No progressive method defined",
             ProgresMethods.Secundary => "Secundary directions",
             ProgresMethods.Symbolic => "Symbolic directions",
-            ProgresMethods.Solar => "Solar return",
             _ => throw new ArgumentOutOfRangeException()
         };
     }

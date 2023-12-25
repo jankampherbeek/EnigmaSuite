@@ -36,7 +36,7 @@ public sealed class AspectsHandler : IAspectsHandler
              select posPoint)
             .ToDictionary(x => x.Key, x => x.Value);
 
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = request.Config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs = request.Config.ChartPoints;
 
         Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, chartPointConfigSpecs);
         List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
@@ -50,7 +50,7 @@ public sealed class AspectsHandler : IAspectsHandler
                 .ToDictionary(x => x.Key, x => x.Value);
             cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
         }
-        Dictionary<AspectTypes, AspectConfigSpecs> allAspects = request.Config.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs?> allAspects = request.Config.Aspects;
         Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects = allAspects.Where(acSpec 
             => acSpec.Value.IsUsed).ToDictionary(acSpec => acSpec.Key, 
             acSpec => acSpec.Value);
@@ -58,7 +58,7 @@ public sealed class AspectsHandler : IAspectsHandler
     }
 
     /// <inheritdoc/>
-    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb)
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs, double baseOrb)
     {
 
         List<DistanceBetween2Points> pointDistances = _calculatedDistance.ShortestDistances(posPoints);

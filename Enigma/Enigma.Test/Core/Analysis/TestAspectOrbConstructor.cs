@@ -22,7 +22,7 @@ public class TestAspectOrbConstructor
     private const ChartPoints Point2 = ChartPoints.Moon;
     private const double BaseOrb = 9.0;
     private const double AspectOrbFactor = 0.5; 
-    private readonly Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointConfigSpecs = new();
+    private readonly Dictionary<ChartPoints, ChartPointConfigSpecs?> _chartPointConfigSpecs = new();
     private readonly KeyValuePair<ChartPoints, double> _chartPointOrb1 = new(ChartPoints.Sun, 0.6);
     private readonly KeyValuePair<ChartPoints, double> _chartPointOrb2 = new(ChartPoints.Moon, 0.4);
     

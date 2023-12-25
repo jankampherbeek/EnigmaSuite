@@ -8,6 +8,6 @@ namespace Enigma.Domain.References;
 /// <summary>Supported progressive techniques.</summary>
 public enum ProgresMethods
 {
-    Undefined=0, Primary=1, Secundary=2, Transits=3, Symbolic=4, Solar=5 
+    Undefined=0, Secundary=2, Transits=3, Symbolic=4 
 }
 

@@ -1,20 +1,20 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Configuration;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Dtos;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace Enigma.Test.Core.Configuration;
 
 [TestFixture]
 public class TestConfigParser
 {
-    private IConfigParser? _parser;
+    private IConfigParser _parser;
     private IDefaultConfiguration? _defaultConfig;
-
+   
     [SetUp]
     public void SetUp()
     {
@@ -23,16 +23,24 @@ public class TestConfigParser
     }
 
     [Test]
-    public void TestMarshallUnmarshall()
+    public void TestParsingDeltas()
     {
-        AstroConfig config = _defaultConfig!.CreateDefaultConfig();
-        string jsonText = _parser!.MarshallConfig(config);
-        AstroConfig parsedConfig = _parser.UnMarshallAstroConfig(jsonText);
-        Assert.Multiple(() =>
+        Dictionary<string, string> deltas = CreateDeltas();
+        string jsonText = _parser.MarshallDeltasForConfig(deltas);
+        Dictionary<string, string> newDeltas = _parser.UnMarshallDeltasForConfig(jsonText);
+        Assert.That(newDeltas, Is.EqualTo(deltas));        
+        
+    }
+
+    private Dictionary<string, string> CreateDeltas()
+    {
+        return new Dictionary<string, string>
         {
-            Assert.That(parsedConfig, Is.Not.Null);
-            Assert.That(parsedConfig.ChartPoints, Is.EquivalentTo(config.ChartPoints));
-            Assert.That(parsedConfig.Ayanamsha, Is.EqualTo(config.Ayanamsha));
-        });
+            { "HouseSystem", "7" },
+            { "CP_11", "y||65||{||y\\" },
+            { "CP_12", "n||65||{||y\\" },
+            { "AT_6", "y||30||Q||y\\" },
+            { "AT_10", "y||30||L||y\\" }
+        };
     }
 }

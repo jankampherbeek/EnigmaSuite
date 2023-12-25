@@ -10,23 +10,24 @@ namespace Enigma.Api.Interfaces;
 /// <summary>Interface for configurations.</summary>
 public interface IConfigurationApi
 {
+
+    /// <summary>Retrieve current configuration (default with deltas applied).</summary>
+    /// <returns>Current configuration.</returns>
+    public AstroConfig GetCurrentConfiguration();
+    
     /// <returns>Default configuration.</returns>
     public AstroConfig GetDefaultConfiguration();
+
+    /// <summary>Retrieve current configuration for progressions (default with deltas applied).</summary>
+    /// <returns>Current configuration for progresions.</returns>
+    public ConfigProg GetCurrentProgConfiguration();
 
     /// <returns>Default progressive configuration.</returns>
     public ConfigProg GetDefaultProgConfiguration();
     
-    /// <returns>True if configuration file exists, otherwise false.</returns>
-    public bool DoesConfigExist();
-
-    /// <returns>True if progressive configuration file exists, otherwise false.</returns>
-    public bool DoesConfigProgExist();
-    
-    /// <summary>Save configuration.</summary>
-    /// <returns>True if save was successful, otherwise false.</returns>
-    public bool WriteConfig(AstroConfig config);
-    
     /// <summary>Save preogressive configuration.</summary>
     /// <returns>True if save was successful, otherwise false.</returns>
-    public bool WriteConfig(ConfigProg config);
+    public bool WriteDeltasForConfig(ConfigProg config);
+
+    public bool WriteDeltasForConfig(AstroConfig config);
 }
