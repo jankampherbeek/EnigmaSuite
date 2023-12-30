@@ -34,15 +34,6 @@ public sealed class DataVaultResearch
     public ResearchPointSelection? CurrentPointsSelection { get; set; }
     public MidpointDetailsSelection CurrenMidpointDetailsSelection { get; set; }
     public HarmonicDetailsSelection CurrentHarmonicDetailsSelection { get; set; }
-    
-    /*public double ResearchHarmonicValue { get; set; }
-    public double ResearchHarmonicOrb { get; set; }
-    public int ResearchMidpointDialDivision { get; set; }
-    public double ResearchMidpointOrb { get; set; }*/
-    
-    
-    public bool ResearchCanceled { get; set; } 
-  //  public bool ResearchIncludeCusps { get; set; }
     public MethodResponse? ResponseTest { get; set; }
     public MethodResponse? ResponseCg { get; set; }
     

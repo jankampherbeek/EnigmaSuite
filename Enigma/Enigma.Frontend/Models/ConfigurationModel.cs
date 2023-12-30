@@ -102,7 +102,7 @@ public class GeneralPoint
     public char Glyph { get; set; } 
     public string PointName { get; set; }
     public int OrbPercentage { get; set; }
-    public bool ShowInChart { get; set; }   
+    public bool ShowInChart { get; }   
     public GeneralPoint(ChartPoints chartPoint, bool isUsed, char glyph, string pointName, int orbPercentage, bool showInChart)
     {
         ChartPoint = chartPoint;
@@ -122,7 +122,7 @@ public class GeneralAspect
     public char Glyph { get; set; } 
     public string AspectName { get; set; }
     public int OrbPercentage { get; set; }
-    public bool ShowInChart { get; set; }
+    public bool ShowInChart { get; }
 
     public GeneralAspect(AspectTypes aspectType, bool isUsed, char glyph, string aspectName, int orbPercentage, bool showInChart)
     {

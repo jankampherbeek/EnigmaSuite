@@ -36,9 +36,19 @@ public partial class ProgEventResultsViewModel: ObservableObject
         EventDescription = model.EventDescription;
         EventDateTime = model.EventDateTime;
         var method = DataVaultProg.Instance.CurrentProgresMethod;
-        if (method == ProgresMethods.Transits) model.HandleTransits();
-        if (method == ProgresMethods.Secundary) model.HandleSecDir();
-        if (method == ProgresMethods.Symbolic) model.HandleSymDir();
+        switch (method)
+        {
+            case ProgresMethods.Transits:
+                model.HandleTransits();
+                break;
+            case ProgresMethods.Secundary:
+                model.HandleSecDir();
+                break;
+            case ProgresMethods.Symbolic:
+                model.HandleSymDir();
+                break;
+        }
+
         PresProgPositions = model.PresProgPositions;
         PresProgAspects = model.PresProgAspects;
     }

@@ -13,8 +13,6 @@ namespace Enigma.Frontend.Ui.WindowsFlow;
 public class GeneralWindowsFlow:     
     IRecipient<CloseMessage>,
     IRecipient<OpenMessage>, 
-    IRecipient<OkMessage>, 
-    IRecipient<ContinueMessage>,
     IRecipient<HelpMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
@@ -37,9 +35,7 @@ public class GeneralWindowsFlow:
     public GeneralWindowsFlow()
     {
         WeakReferenceMessenger.Default.Register<CloseMessage>(this);
-        WeakReferenceMessenger.Default.Register<ContinueMessage>(this);
         WeakReferenceMessenger.Default.Register<HelpMessage>(this);
-        WeakReferenceMessenger.Default.Register<OkMessage>(this);   
         WeakReferenceMessenger.Default.Register<OpenMessage>(this);
     }
     
@@ -72,16 +68,6 @@ public class GeneralWindowsFlow:
                 _appSettingsWindow.ShowDialog();
                 break;
         }
-    }
-
-    public void Receive(OkMessage message)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Receive(ContinueMessage message)
-    {
-        throw new System.NotImplementedException();
     }
 
     public void Receive(CloseMessage message)

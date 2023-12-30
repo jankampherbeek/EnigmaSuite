@@ -17,7 +17,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// Sends messages: CloseMessage and HelpMessage.</summary>
 public partial class ResearchResultViewModel: ObservableObject
 {
-    private static string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_RESULT;
+    private const string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_RESULT;
     
     [ObservableProperty] private string _projectName;
     [ObservableProperty] private string _methodName;

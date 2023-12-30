@@ -58,7 +58,7 @@ public class TestConfigurationDelta
     public void TestDeltaCount()
     {
         Dictionary<string, string> result = _configDelta.RetrieveTextsForDeltas(_configDefault, _configUpdated);
-        Assert.That(result.Count, Is.EqualTo(9));
+        Assert.That(result, Has.Count.EqualTo(9));
     }
     
     [Test]
@@ -199,8 +199,8 @@ public class TestConfigurationDelta
             ZodiacTypes.Sidereal, 
             ProjectionTypes.TwoDimensional, 
             OrbMethods.Weighted,
-            _chartPointsDefault!,
-            _aspectsDefault!,
+            _chartPointsDefault,
+            _aspectsDefault,
             10,
             3,
             true);
@@ -215,14 +215,14 @@ public class TestConfigurationDelta
             ZodiacTypes.Tropical,                         // different          
             ProjectionTypes.TwoDimensional,               // same
             OrbMethods.Weighted,                 // same
-            _chartPointsUpdated!,                         // different   
-            _aspectsUpdated!,                             // different   
+            _chartPointsUpdated,                          // different   
+            _aspectsUpdated,                              // different   
             8,                               // different
             3,                              // same
             false);                       // different
     }
 
-    private ConfigProg CreateDefaultProgConfig()
+    private static ConfigProg CreateDefaultProgConfig()
     {
         ConfigProgTransits configTransitsDefault = CreateConfigProgTransitsDefault();
         ConfigProgSecDir configSecDirDefault = CreateConfigProgSecDirDefault();
@@ -230,7 +230,7 @@ public class TestConfigurationDelta
         return new ConfigProg(configTransitsDefault, configSecDirDefault, configProgSymDirDefault);
     }
     
-    private ConfigProg CreateUpdatedProgConfig()
+    private static ConfigProg CreateUpdatedProgConfig()
     {
         ConfigProgTransits configTransitsUpdated = CreateConfigProgTransitsUpdated();
         ConfigProgSecDir configSecDirUpdated = CreateConfigProgSecDirUpdated();
@@ -293,7 +293,7 @@ public class TestConfigurationDelta
 
     private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPointsDefault()
     {
-        return new Dictionary<ChartPoints, ChartPointConfigSpecs>()
+        return new Dictionary<ChartPoints, ChartPointConfigSpecs>
         {
             { ChartPoints.Sun, new ChartPointConfigSpecs(true, 'a', 90, true) },
             { ChartPoints.Moon, new ChartPointConfigSpecs(true, 'x', 100, true) },
@@ -304,17 +304,17 @@ public class TestConfigurationDelta
     
     private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPointsUpdated()
     {
-        return new Dictionary<ChartPoints, ChartPointConfigSpecs>()
+        return new Dictionary<ChartPoints, ChartPointConfigSpecs>
         {
             { ChartPoints.Sun, new ChartPointConfigSpecs(true, 'a', 100, true) },
             { ChartPoints.Moon, new ChartPointConfigSpecs(true, 'b', 90, true) },
-            { ChartPoints.Mercury, new ChartPointConfigSpecs(true, 'c', 100, true) },
+            { ChartPoints.Mercury, new ChartPointConfigSpecs(true, 'c', 100, true) }
         };
     }
 
     private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspectsDefault()
     {
-        return new Dictionary<AspectTypes, AspectConfigSpecs>()
+        return new Dictionary<AspectTypes, AspectConfigSpecs>
         {
             { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100, true) },
             { AspectTypes.Opposition, new AspectConfigSpecs(true, 'x', 100, true) },
@@ -325,7 +325,7 @@ public class TestConfigurationDelta
     
     private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspectsUpdated()
     {
-        return new Dictionary<AspectTypes, AspectConfigSpecs>()
+        return new Dictionary<AspectTypes, AspectConfigSpecs>
         {
             { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100, true) },
             { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 90, true) },
@@ -342,69 +342,69 @@ public class TestConfigurationDelta
         {
             { ChartPoints.Mars, new ProgPointConfigSpecs(true, 'f') },
             { ChartPoints.Jupiter, new ProgPointConfigSpecs(true, 'g') },
-            { ChartPoints.Saturn, new ProgPointConfigSpecs(true, 'h') },
+            { ChartPoints.Saturn, new ProgPointConfigSpecs(true, 'h') }
         };
         return new ConfigProgTransits(orb, points);
     }
     
     private static ConfigProgTransits CreateConfigProgTransitsUpdated()
     {
-        double orb = 1.0;
+        const double orb = 1.0;
         Dictionary<ChartPoints, ProgPointConfigSpecs> points = new()
         {
             { ChartPoints.Mars, new ProgPointConfigSpecs(false, 'f') },
             { ChartPoints.Jupiter, new ProgPointConfigSpecs(true, 'g') },
-            { ChartPoints.Saturn, new ProgPointConfigSpecs(true, 'h') },
+            { ChartPoints.Saturn, new ProgPointConfigSpecs(true, 'h') }
         };
         return new ConfigProgTransits(orb, points);
     }
     
     private static ConfigProgSecDir CreateConfigProgSecDirDefault()
     {
-        double orb = 0.75;
+        const double orb = 0.75;
         Dictionary<ChartPoints, ProgPointConfigSpecs> points = new()
         {
             { ChartPoints.Sun, new ProgPointConfigSpecs(true, 'a') },
             { ChartPoints.Moon, new ProgPointConfigSpecs(true, 'b') },
-            { ChartPoints.Mercury, new ProgPointConfigSpecs(true, 'c') },
+            { ChartPoints.Mercury, new ProgPointConfigSpecs(true, 'c') }
         };
         return new ConfigProgSecDir(orb, points);
     }
 
     private static ConfigProgSecDir CreateConfigProgSecDirUpdated()
     {
-        double orb = 0.75;
+        const double orb = 0.75;
         Dictionary<ChartPoints, ProgPointConfigSpecs> points = new()
         {
             { ChartPoints.Sun, new ProgPointConfigSpecs(true, 'a') },
             { ChartPoints.Moon, new ProgPointConfigSpecs(true, 'b') },
-            { ChartPoints.Mercury, new ProgPointConfigSpecs(false, 'c') },
+            { ChartPoints.Mercury, new ProgPointConfigSpecs(false, 'c') }
         };
         return new ConfigProgSecDir(orb, points);
     }
     
     private static ConfigProgSymDir CreateConfigProgSymDirDefault()
     {
-        double orb = 0.9;
+        const double orb = 0.9;
         SymbolicKeys key = SymbolicKeys.MeanSun;
         Dictionary<ChartPoints, ProgPointConfigSpecs> points = new()
         {
             { ChartPoints.Ascendant, new ProgPointConfigSpecs(true, 'A') },
             { ChartPoints.Saturn, new ProgPointConfigSpecs(true, 'h') },
-            { ChartPoints.Chiron, new ProgPointConfigSpecs(true, 'w') },
+            { ChartPoints.Chiron, new ProgPointConfigSpecs(true, 'w') }
         };
         return new ConfigProgSymDir(orb, key, points);
     }
     
     private static ConfigProgSymDir CreateConfigProgSymDirUpdated()
     {
-        double orb = 1.1;
-        SymbolicKeys key = SymbolicKeys.TrueSun;
+        const double orb = 1.1;
+        const SymbolicKeys key = SymbolicKeys.TrueSun;
         Dictionary<ChartPoints, ProgPointConfigSpecs> points = new()
         {
             { ChartPoints.Ascendant, new ProgPointConfigSpecs(false, 'A') },
             { ChartPoints.Saturn, new ProgPointConfigSpecs(true, 'h') },
-            { ChartPoints.Chiron, new ProgPointConfigSpecs(true, 'w') },
+            { ChartPoints.Chiron, new ProgPointConfigSpecs(true, 'w') }
         };
         return new ConfigProgSymDir(orb, key, points);
     }

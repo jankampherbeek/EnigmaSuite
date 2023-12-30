@@ -55,10 +55,10 @@ public class ProgEventResultsModel
         EventDateTime = DefineEventDateTime();
     }
 
-    public string MethodName { get; set; }
-    public string Details { get; set; }
-    public string EventDescription { get; set; }
-    public string EventDateTime { get; set; }
+    public string MethodName { get; }
+    public string Details { get; }
+    public string EventDescription { get; }
+    public string EventDateTime { get; }
 
 
     public void HandleTransits()
@@ -110,7 +110,7 @@ public class ProgEventResultsModel
         }
     }
 
-    private Dictionary<ChartPoints, double> CreateProgPositions(
+    private static Dictionary<ChartPoints, double> CreateProgPositions(
         Dictionary<ChartPoints, ProgPositions> calculatedPositions)
     {
         return calculatedPositions.ToDictionary(calcPos => calcPos.Key,
@@ -128,7 +128,7 @@ public class ProgEventResultsModel
         return _progAspectPresFactory.CreatePresProgAspect(aspects);
     }
 
-    private Dictionary<ChartPoints, double> DefineRadixPositions(CalculatedChart radix)
+    private static Dictionary<ChartPoints, double> DefineRadixPositions(CalculatedChart radix)
     {
         Dictionary<ChartPoints, FullPointPos> fullPositions = radix.Positions;
         return (from fullPos in fullPositions

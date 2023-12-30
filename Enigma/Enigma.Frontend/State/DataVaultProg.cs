@@ -28,6 +28,6 @@ public sealed class DataVaultProg
     
     public ProgresMethods CurrentProgresMethod { get; set; } = ProgresMethods.Undefined;
     public ProgEvent? CurrentProgEvent { get; set; }
-    public ProgPeriod? CurrentProgPeriod { get; set; }
+
     
 }

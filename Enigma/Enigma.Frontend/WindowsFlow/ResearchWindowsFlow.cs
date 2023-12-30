@@ -13,7 +13,6 @@ public class ResearchWindowsFlow:
     IRecipient<CancelMessage>, 
     IRecipient<CloseMessage>,
     IRecipient<OpenMessage>, 
-    IRecipient<ContinueMessage>,
     IRecipient<CompletedMessage>
 {
     // Constants for the names of views in the research module. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
@@ -42,7 +41,6 @@ public class ResearchWindowsFlow:
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
         WeakReferenceMessenger.Default.Register<CancelMessage>(this);
         WeakReferenceMessenger.Default.Register<CloseMessage>(this);
-        WeakReferenceMessenger.Default.Register<ContinueMessage>(this);
     }
     
     
@@ -123,13 +121,6 @@ public class ResearchWindowsFlow:
         }
     }
     
-
-    public void Receive(ContinueMessage message)
-    {
-        throw new System.NotImplementedException();
-    }
-    
-
     public void Receive(CloseMessage message)
     {
         switch (message.Value)

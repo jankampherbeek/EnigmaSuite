@@ -13,7 +13,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for help files</summary>
 public class HelpModel
 {
-    public Uri? HtmlUri { get; set; } = HelpPageUri();
+    public Uri? HtmlUri { get; } = HelpPageUri();
 
     /// <summary>Define html file to be shown as help text.</summary>
     private static Uri? HelpPageUri()

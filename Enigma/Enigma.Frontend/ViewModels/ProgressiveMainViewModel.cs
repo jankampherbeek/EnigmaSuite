@@ -20,25 +20,19 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<EventCompletedMessage>
+public partial class ProgressiveMainViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
     private const string USER_MANUAL = "UserManual";
-    private readonly List<Window> _openWindows = new();
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
-    private readonly DataVaultGeneral _dataVaultGeneral = DataVaultGeneral.Instance;
     private CalculatedChart? _currentChart;
     [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
- //   [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(SecDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(SymbDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(TransitsCommand))]
- //   [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
     [ObservableProperty] private int _eventIndex = -1;
- //   [ObservableProperty] private int _periodIndex = -1;
     [ObservableProperty] private string _currentEventName = "No event defined";
- //   [ObservableProperty] private string _currentPeriodName = "No period defined";
     [ObservableProperty] private string _currentChartName = string.Empty;
     [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEventsPeriods;
     [NotifyPropertyChangedFor(nameof(EventIndex))]
@@ -48,7 +42,6 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     
     public ProgressiveMainViewModel()
     {
-        WeakReferenceMessenger.Default.Register<EventCompletedMessage>(this);
         _model = App.ServiceProvider.GetRequiredService<ProgressiveMainModel>();
         _presentableEventsPeriods = new ObservableCollection<PresentableProgresData>(_model.PresentableEventsPeriods);
         PopulateData();
@@ -68,9 +61,6 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
         _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventIndex];
         PopulateData();
     }
-    
-    
-
     
     [RelayCommand]
     private static void Configuration()
@@ -96,34 +86,7 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
         MessageBox.Show("Not implemented yet");
     }
     
-    /*[RelayCommand]
-    private void NewPeriod()
-    {
-        new ProgPeriodWindow().ShowDialog();
-        if (_dataVaultProg.CurrentProgPeriod != null)
-        {
-            _model.SaveCurrentPeriod();
-        }
-        // show event        
-        
-    }*/
-    
-    /*
-    [RelayCommand]
-    private static void SearchPeriod()
-    {
-        MessageBox.Show("Not implemented yet");
-    }
-    */
-    
-
-    /*[RelayCommand(CanExecute = nameof(IsProgDateSelected))]
-    private static void PrimDir()
-    {
-        MessageBox.Show("Not implemented yet");
-    }*/
-    
-    [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
+  [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SecDir()
     {
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Secundary;
@@ -176,13 +139,5 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
         return EventIndex >= 0;
     }
 
-
-    public void Receive(EventCompletedMessage message)
-    {
-        if (_dataVaultProg.CurrentProgEvent != null)
-        {
-            _model.SaveCurrentEvent();
-        }
-        // show event
-    }
+    
 }

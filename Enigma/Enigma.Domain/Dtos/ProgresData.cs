@@ -10,9 +10,8 @@ namespace Enigma.Domain.Dtos;
 /// <param name="Description">Description for the date(s).</param>
 public abstract record ProgDates(int Id, string Description)
 { 
-    public int Id { get; set; } = Id;
+    public int Id { get; } = Id;
 }
-
 
 
 /// <summary>Event for progressive analysis. </summary>

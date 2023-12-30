@@ -12,7 +12,6 @@ using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Enigma.Core.Services;
 
@@ -87,7 +86,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
-        serviceCollection.AddTransient<IPeriodDataDao, PeriodDataDao>();
         serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();

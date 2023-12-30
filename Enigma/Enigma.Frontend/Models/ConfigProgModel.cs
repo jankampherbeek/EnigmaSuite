@@ -39,12 +39,12 @@ public class ConfigProgModel
         // TODO: clear exixting progressions
     }
     
-    public List<string> AllSymDirKeys()
+    public static List<string> AllSymDirKeys()
     {
         return SymbolicKeyExtensions.AllDetails().Select(key => key.Text).ToList();
     }
 
-    public List<ProgPoint> AllTransitPoints()
+    public static List<ProgPoint> AllTransitPoints()
     {
         return (from point in PointsExtensions.AllDetails() 
             from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigTransits.ProgPoints 
@@ -53,7 +53,7 @@ public class ConfigProgModel
     }
     
     
-    public List<ProgPoint> AllSecDirPoints() 
+    public static List<ProgPoint> AllSecDirPoints() 
     {
         return (from point in PointsExtensions.AllDetails() 
             from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigSecDir.ProgPoints 
@@ -61,7 +61,7 @@ public class ConfigProgModel
             select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
     }
     
-    public List<ProgPoint> AllSymDirPoints() 
+    public static List<ProgPoint> AllSymDirPoints() 
     {
         return (from point in PointsExtensions.AllDetails() 
             from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigSymDir.ProgPoints 

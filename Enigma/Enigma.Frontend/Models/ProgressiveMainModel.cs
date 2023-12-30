@@ -21,10 +21,10 @@ public class ProgressiveMainModel
     private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
     private readonly IProgDatesForPresentationFactory _progDatesForPresentationFactory;
 //    private IPeriodDataPersistencyApi _periodDataPersistencyApi;
-    public List<ProgDates> AvailableEventsPeriods = new();
+    public readonly List<ProgDates> AvailableEventsPeriods = new();
     /*public List<ProgEvent> AvailableEvents = new();
     public List<ProgPeriod> AvailablePeriods = new();*/
-    public List<PresentableProgresData> PresentableEventsPeriods { get; set; } = new();
+    public List<PresentableProgresData> PresentableEventsPeriods { get; } = new();
 //    public List<PresentableProgresData> PresentablePeriods { get; set; } = new();
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;

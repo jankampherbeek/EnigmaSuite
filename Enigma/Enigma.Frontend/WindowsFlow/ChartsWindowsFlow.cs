@@ -48,7 +48,7 @@ public class ChartsWindowsFlow:
     
     // The tuple contains the id for window, the current window and the textid for the parent window.
     private readonly List<Tuple<int, Window, string>> _openWindows = new();
-    private int _windowCounter = 0;
+    private int _windowCounter;
     
     public ChartsWindowsFlow()
     {

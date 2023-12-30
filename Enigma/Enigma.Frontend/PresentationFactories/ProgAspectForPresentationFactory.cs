@@ -26,7 +26,7 @@ public sealed class ProgAspectForPresentationFactory: IProgAspectForPresentation
     /// <inheritdoc/>
     public List<PresentableProgAspect> CreatePresProgAspect(List<DefinedAspect> definedAspects)
     {
-        return definedAspects.Select(definedAspect => ConvertToPresentable(definedAspect)).ToList();
+        return definedAspects.Select(ConvertToPresentable).ToList();
     }
 
 

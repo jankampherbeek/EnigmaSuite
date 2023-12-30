@@ -53,7 +53,6 @@ public partial class App
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
         serviceCollection.AddTransient<CalcHeliacalModel>();
         serviceCollection.AddTransient<CalcHouseComparisonModel>();
-        serviceCollection.AddTransient<CelestialObjectsSelectionModel>();        
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
@@ -72,7 +71,6 @@ public partial class App
         serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ConfigProgModel>();
         serviceCollection.AddTransient<ICurrentCharts, CurrentCharts>();
-        serviceCollection.AddTransient<CyclesSinglePositionsModel>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();
         serviceCollection.AddSingleton<IDateInputParser, DateInputParser>();
@@ -93,13 +91,11 @@ public partial class App
         serviceCollection.AddTransient<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddTransient<ILocationConversion, LocationConversion>();
         serviceCollection.AddTransient<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
-        serviceCollection.AddTransient<IPeriodDataConverter, PeriodDataConverter>();
         serviceCollection.AddTransient<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddTransient<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddTransient<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
         serviceCollection.AddTransient<ProgEventModel>();
         serviceCollection.AddTransient<ProgEventResultsModel>();
-        serviceCollection.AddTransient<ProgPeriodModel>();
         serviceCollection.AddTransient<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();
         serviceCollection.AddTransient<ProgressiveMainModel>();
         serviceCollection.AddTransient<ProjectUsageModel>();

@@ -7,6 +7,8 @@
                  start-page="starter-topic.md">
 
     <toc-element topic="UserManual.md"/>
+    <toc-element topic="Installation-manual.md"/>
+    <toc-element topic="Release-notes.md"/>
     <toc-element topic="Programmers-Manual.md"/>
     <toc-element topic="starter-topic.md"/>
 </instance-profile>

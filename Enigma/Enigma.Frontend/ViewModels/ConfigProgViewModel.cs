@@ -52,10 +52,10 @@ public partial class ConfigProgViewModel:ObservableObject
     
     public ConfigProgViewModel()
     {
-        AllSymDirKeys =  new ObservableCollection<string>(_model.AllSymDirKeys());
-        AllTransitPoints = new ObservableCollection<ProgPoint>(_model.AllTransitPoints());
-        AllSecDirPoints = new ObservableCollection<ProgPoint>(_model.AllSecDirPoints());
-        AllSymDirPoints = new ObservableCollection<ProgPoint>(_model.AllSymDirPoints());
+        AllSymDirKeys =  new ObservableCollection<string>(ConfigProgModel.AllSymDirKeys());
+        AllTransitPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllTransitPoints());
+        AllSecDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSecDirPoints());
+        AllSymDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSymDirPoints());
         _symDirKeyIndex = _model.SymDirTimeKeyIndex;
         _orbSecDirValue = _model.SecDirOrb;
         _orbSymDirValue = _model.SymDirOrb;

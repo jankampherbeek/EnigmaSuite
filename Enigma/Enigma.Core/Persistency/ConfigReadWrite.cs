@@ -5,7 +5,6 @@
 
 using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Persistency;
 

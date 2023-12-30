@@ -15,7 +15,7 @@ public partial class HelpViewModel: ObservableObject
 {
     [ObservableProperty] private Uri? _html;
 
-    private HelpModel _model = App.ServiceProvider.GetRequiredService<HelpModel>();  
+    private readonly HelpModel _model = App.ServiceProvider.GetRequiredService<HelpModel>();  
     
     public HelpViewModel()
     {

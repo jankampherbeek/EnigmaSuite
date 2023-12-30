@@ -7,7 +7,6 @@ using System.IO;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Exceptions;
 using Enigma.Frontend.Ui.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;

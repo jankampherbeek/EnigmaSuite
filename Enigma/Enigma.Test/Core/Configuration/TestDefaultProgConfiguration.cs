@@ -15,7 +15,7 @@ public class TestDefaultProgConfiguration
 {
     private IDefaultProgConfiguration? _defaultProgConfiguration;
     private ConfigProg? _configProg;
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
 
 
     [SetUp]
@@ -28,7 +28,7 @@ public class TestDefaultProgConfiguration
     [Test]
     public void TestOrbTransits()
     {
-        Assert.That(_configProg!.ConfigTransits.Orb, Is.EqualTo(1.0).Within(Delta));
+        Assert.That(_configProg!.ConfigTransits.Orb, Is.EqualTo(1.0).Within(DELTA));
     }
 
    

@@ -82,15 +82,16 @@ public partial class ProjectUsageViewModel: ObservableObject,
         }
 
         if (_testCanceled) return;
-        if (method == ResearchMethods.CountHarmonicConjunctions)
+        switch (method)
         {
-            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_HARMONIC_DETAILS));
-            _model.HarmonicDetailsSelection = DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
-        }
-        if (method == ResearchMethods.CountOccupiedMidpoints)
-        {
-            WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_MIDPOINT_DETAILS));
-            _model.MidpointDetailsSelection = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
+            case ResearchMethods.CountHarmonicConjunctions:
+                WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_HARMONIC_DETAILS));
+                _model.HarmonicDetailsSelection = DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
+                break;
+            case ResearchMethods.CountOccupiedMidpoints:
+                WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_MIDPOINT_DETAILS));
+                _model.MidpointDetailsSelection = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
+                break;
         }
 
         _model.PerformRequest(method);

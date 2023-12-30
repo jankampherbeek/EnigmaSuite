@@ -5,7 +5,6 @@
 
 using System.Text.Json;
 using Enigma.Core.Interfaces;
-using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Configuration;
 

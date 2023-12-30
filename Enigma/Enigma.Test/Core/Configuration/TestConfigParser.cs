@@ -5,7 +5,6 @@
 
 using Enigma.Core.Configuration;
 using Enigma.Core.Interfaces;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace Enigma.Test.Core.Configuration;
 
@@ -32,7 +31,7 @@ public class TestConfigParser
         
     }
 
-    private Dictionary<string, string> CreateDeltas()
+    private static Dictionary<string, string> CreateDeltas()
     {
         return new Dictionary<string, string>
         {

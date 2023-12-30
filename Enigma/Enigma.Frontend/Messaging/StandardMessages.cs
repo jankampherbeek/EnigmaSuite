@@ -63,24 +63,7 @@ public class CloseChildWindowsMessage : ValueChangedMessage<string>
     }
 }
 
-/// <summary>Message indicating that the OK-button has been clicked.</summary>
-public class OkMessage : ValueChangedMessage<string>
-{
-    public OkMessage(string value) : base(value)
-    {
-        
-    }
-}
 
-
-/// <summary>Message indicating that the Continue-button has been clicked.</summary>
-public class ContinueMessage : ValueChangedMessage<string>
-{
-    public ContinueMessage(string value) : base(value)
-    {
-        
-    }
-}
 
 /// <summary>Message that indicates the successful completion of some action.</summary>
 public class CompletedMessage : ValueChangedMessage<string>
@@ -118,13 +101,6 @@ public class FoundChartMessage : ValueChangedMessage<string>
     }
 }
 
-public class EventCompletedMessage : ValueChangedMessage<string>
-{
-    public EventCompletedMessage(string value) : base(value)
-    {
-        
-    }
-}
 
 public class ConfigUpdatedMessage : ValueChangedMessage<string>
 {

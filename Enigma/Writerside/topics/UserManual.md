@@ -27,8 +27,6 @@ Jan Kampherbeek.
 
 This User Manual comprises the following parts:
 
-- **Installation**. Learn about the technical requirements and how to install Enigma.
-
 - **Configuration** and settings. You can tailor Enigma to your own preferences.
 
 - **Charts**. How to calculate and analyze a chart.
@@ -39,26 +37,169 @@ This User Manual comprises the following parts:
 
 - **Appendix**. Specifications and background information.
 
-## **Installation**
+### Related documents
+- **Installation manual** which leads through the installation process.
+- **Release notes**, an overview of add functionality in this and previous releases.
+- **Pogrammers manual**, a separate manual fort those that are interested in the source code of Enigma.
 
-### Requirements
+## General information
+Enigma consists of several modules, currently a module for charts and a module for research.
+In future releases, I will add more modules.
 
-You need a computer that runs Windows. 
-I have tested Enigma on Windows 11, it probably runs on older versions, but not older than Windows 7. 
-Enigma will probably run in a Windows emulator on Apple hardware, but I did not test that.
+### User assistance
+Enigma tries to help you when using the program. 
+It shows on-line help, checks your input, writes details to a log-file and prevents wrong results.
 
-The program requires about 150 mb disk space and about 4 GB internal memory.
+#### On-line help
 
-Preferably, use a full HD screen or larger.
+In almost all windows, Enigma shows a button **Help**. 
+If you click this button, the program shows specific information for the current window.
+To prevent cluttering the screen with many windows, you need to close the help window before you can continue.
 
-### Performing the installation
+#### Input check
+Where possible, Enigma checks your input. 
+It checks for the correct format and range for date, time and geographical coordinates. 
+It also checks if a date is valid and it takes leap years into account while doing so.
 
-Download the installation program from [*https://radixpro.com/enigma*](https://radixpro.com/downloads/enigma). You will receive a file 
-*enigma_ar_install.exe* which you can save anywhere on your computer.
+If you make an error, Enigma marks the entry with a red underlining. Just correct the input and click again.
 
-Double-click this file to start the installation.
+Please note that you enter numbers with fractions based on the ‘locality’ (language and other settings) of your computer. 
+If you normally use a dot to separate integer and fraction, you also need to use a dot in Enigma. 
+The same if your computer expects a comma by default.
 
-Enigma shows a license which you should accept to continue. Select *I accept the agreement* and click the button **Next**.
+#### Log-files
+Enigma writes information about its activities to log-files. 
+These files are in the folder *c:\enigma_ar\logs*. Each day, the program starts a new log. 
+If there are more than 31 log-files, the program deletes the oldest files. 
+In case of an error, the log-files can contain important information about the error. 
+I might ask you for these log-files if you report an error.
+
+#### Preventing wrong results
+Enigma supports almost 30,000 years of planetary calculations. 
+But for some celestial points, this period is much shorter. 
+Especially for Chiron, which you cannot calculate before 675 CE.
+
+The Swiss Ephemeris, which takes care of all the calculations in Enigma, does not object if a planet is out of the 
+supported range, it just returns a zero. 
+This translates to zero Aries, and you could happily use this point and calculate aspects and midpoints. 
+That makes little sense, so Enigma filters the results: if it cannot calculate a celestial point, it will just omit it.
+
+
+
+
+### Starting Enigma
+
+Click the Enigma icon to start the program.
+
+![](media/image8.png)
+
+You will see a window with two images, one labeled *Charts* and one labeled *Research*.
+
+![](media/image9.png)
+
+Click an image to go to the corresponding module. 
+If you finish working in a module, you will return to this start window and can make another selection.
+Both modules of Enigma use the same configuration and the same settings.
+
+The settings define the location of files that Enigma uses.
+The configuration gives you the opportunity to define how Enigma behaves astrologically: 
+which house system, which planets, aspects, and much more.
+
+### Settings
+You can access *Settings* from both modules *Charts* and *Research* and check them, 
+but in this release of Enigma, you can not change anything.
+
+Select the menu option **General - Settings**. 
+You will see a window with information about the location of the following files:
+
+- **Data files**. This folder contains the data files you imported.
+
+- The location of **Projects**. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.
+
+- Enigma does not yet use **Exported files**. In the future, it will contain the results of exporting data.
+
+- Enigma writes remarks to **Log files**. In case of an error, these log files will be helpful.
+
+- The folder **Database** contains data for calculated charts.
+
+### Configuration
+
+You can check and change the configuration via the module *Charts* or via the module *Research*.
+Select the menu option **General - Configuration**.
+
+This will show a window with a wide range of configurable items. The window comprises 5 tabs:
+
+- The tab **General** shows astronomical settings and settings for orbs.
+
+- **Celestial points** shows the most common planets and some other points.
+
+- **Minor/mathematical** shows Plutoids, Planetoids, Centaurs and mathematical points like nodes.
+
+- **Hypothetical** shows hypothetical planets.
+
+- **Aspects** show all available aspects.
+
+#### General selections
+
+If you select the tab *General* you can define the following preferences:
+
+**House system**. Currently, Enigma supports only house systems with 12 houses. 
+Select *None* if you do not want to use a house system.
+
+**Type of zodiac**. Select either *sidereal* or *tropical*. 
+If you select tropical, the Ayanamsha will always be None. 
+If you select another Ayanamsha, the setting for Type of zodiac will automatically change into *sidereal*.
+
+**Ayanamsha**. Select one of the available Ayanamshas. 
+In the paragraph *Appendix: Ayanamshas* you will find a brief explanation of the different possibilities. 
+See also the remarks at the point above: *Type of zodiac*.
+
+**Observer position**. The standard approach is *geocentric*. 
+If you want to take parallax into account select *topocentric*.
+
+**Type of projection to the ecliptic**. Select *Standard (two-dimensional)* for most approaches. 
+*Oblique longitude* provides an alternative calculation as supported by the School of Ram. 
+It is also called *True Astrological Longitude Location*.
+
+**Base orbs**. You can define orbs for aspects and for midpoints.
+The base orb for aspects will be corrected with the percentages for celestial bodies and aspects. 
+See the paragraph *Appendix: Defining orbs*. 
+The value shows the maximum orb for the most important aspect and the most important celestial body.
+
+The **Base orb for midpoints** is the effective orb for midpoints.
+
+#### Celestial points
+The tab *Points* gives access to the configuration fo all celestial points that Enigma supports.
+For each point you will find a checkbox. 
+Check this box if you want to take the celestial point into account, deselect it if you do not want to use it.
+
+There is also a value *Orb perc.* (Orb percentage) that you can change. 
+Click on the number for the orb and a small popup screen appears where you can edit the value.
+You can enter a percentage from 0 up to 100, make sure you use only whole numbers. 
+It is possible to define a percentage for a point that is not selected, 
+so it is easy to remember a percentage if you later decide to include the point. 
+If you want to use a point but not calculate aspects for that point, enter a percentage of zero.
+
+Please note that you cannot deselect the classic points and also not MC or Ascendant.
+
+See the paragraph *Appendix: Planets and other celestial points* for more information.
+
+#### Aspects
+*Aspects* is the last tab for the configuration. 
+At the top of the screen you can select the type of orb. 
+In the current release, there is only one method to define orbs: Weighted orb.
+It uses percentages for celestial bodies and for aspects to define the actual orb.
+You can leave it that way.
+
+Just as with celestial points, you can select and deselect the aspects you want to use.
+And there is also an orb-percentage that you can edit by clicking it. 
+
+
+
+See the paragraph *Appendix: Defining orbs* for more information.
+
+Enigma divides the aspects into three categories: Major, Minor and Micro. For each aspect you (de)select it, using the checkbox, and define the percentage for the orb.
+
 
 
 ## Appendix 

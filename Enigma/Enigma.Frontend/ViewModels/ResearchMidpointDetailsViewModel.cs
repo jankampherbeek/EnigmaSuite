@@ -42,7 +42,6 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
 
     public ResearchMidpointDetailsViewModel()
     {
-        DataVaultResearch.Instance.ResearchCanceled = true;
         List<string> dialSizeList = new()
         {
             "Dial 360\u00B0",

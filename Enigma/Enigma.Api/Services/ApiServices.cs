@@ -4,8 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Interfaces;
-using Enigma.Core.Handlers;
-using Enigma.Core.Interfaces;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -37,7 +35,6 @@ public static class ApiServices
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
-        serviceCollection.AddTransient<IPeriodDataPersistencyApi, PeriodDataPersistencyApi>();
         serviceCollection.AddTransient<IProgAspectsApi, ProgAspectsApi>();
         serviceCollection.AddTransient<IProgSecDirEventApi, ProgSecDirEventApi>();
         serviceCollection.AddTransient<IProgSymDirEventApi, ProgSymDirEventApi>();
