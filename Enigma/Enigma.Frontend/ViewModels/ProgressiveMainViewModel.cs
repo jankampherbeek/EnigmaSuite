@@ -1,9 +1,8 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -20,21 +19,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class ProgressiveMainViewModel: ObservableObject
+public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<EventCompletedMessage>
 {
     private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
     private const string USER_MANUAL = "UserManual";
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private CalculatedChart? _currentChart;
-    [NotifyCanExecuteChangedFor(nameof(DeleteCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeleteEventCommand))]
     [NotifyCanExecuteChangedFor(nameof(SecDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(SymbDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(TransitsCommand))]
     [ObservableProperty] private int _eventIndex = -1;
     [ObservableProperty] private string _currentEventName = "No event defined";
     [ObservableProperty] private string _currentChartName = string.Empty;
-    [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEventsPeriods;
+    [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEventsPeriods = new();
     [NotifyPropertyChangedFor(nameof(EventIndex))]
     [ObservableProperty] private PresentableProgresData? _selectedProgDate;
     
@@ -42,9 +41,10 @@ public partial class ProgressiveMainViewModel: ObservableObject
     
     public ProgressiveMainViewModel()
     {
+        WeakReferenceMessenger.Default.Register<EventCompletedMessage>(this);
         _model = App.ServiceProvider.GetRequiredService<ProgressiveMainModel>();
-        _presentableEventsPeriods = new ObservableCollection<PresentableProgresData>(_model.PresentableEventsPeriods);
         PopulateData();
+        PopulateEvents();
     }
     
    
@@ -53,13 +53,23 @@ public partial class ProgressiveMainViewModel: ObservableObject
         _currentChart = _dataVaultCharts.GetCurrentChart();
         if (_currentChart != null) CurrentChartName = _currentChart.InputtedChartData.MetaData.Name;
     }
+
+    private void PopulateEvents()
+    {
+        PresentableEventsPeriods = new ObservableCollection<PresentableProgresData>(_model.GetPresentableEventsPeriods());
+    }
     
     [RelayCommand]
     private void DatesItemChanged()
     {
-        SelectedProgDate = PresentableEventsPeriods[EventIndex];
-        _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventIndex];
+        if (EventIndex >= 0)    // Event not deleted
+        {
+            SelectedProgDate = PresentableEventsPeriods[EventIndex];
+            _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventIndex];
+        }
+
         PopulateData();
+        PopulateEvents();
     }
     
     [RelayCommand]
@@ -80,10 +90,22 @@ public partial class ProgressiveMainViewModel: ObservableObject
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT));
     }
 
+    
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
-    private static void Delete()
+    private void DeleteEvent()
     {
-        MessageBox.Show("Not implemented yet");
+        var currentEvent = _dataVaultProg.CurrentProgEvent;
+        string descr = currentEvent != null ? currentEvent.Description : "";
+        if (MessageBox.Show("Do you want to delete the event:  "+ descr + " from the database?",
+                "Delete event",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            MessageBox.Show(
+                _model.DeleteCurrentEvent(currentEvent.Id)
+                    ? "The event: "+ descr + " was succesfully deleted."
+                    : "The event: "+ descr + " was not found and could not be deleted.",
+                "Result of delete"); 
+        PopulateEvents();
     }
     
   [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
@@ -107,13 +129,7 @@ public partial class ProgressiveMainViewModel: ObservableObject
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
 
-    
-    /*[RelayCommand(CanExecute = nameof(IsProgDateSelected))]
-    private static void Solar()
-    {
-        MessageBox.Show("Not implemented yet");
-    }*/
-    
+   
     [RelayCommand]
     private static void Help()
     {
@@ -138,6 +154,14 @@ public partial class ProgressiveMainViewModel: ObservableObject
     {
         return EventIndex >= 0;
     }
-
+    public void Receive(EventCompletedMessage message)
+    {
+        if (_dataVaultProg.CurrentProgEvent != null)
+        {
+            _model.SaveCurrentEvent();
+        }
+        PopulateEvents();
+    }
+ 
     
 }

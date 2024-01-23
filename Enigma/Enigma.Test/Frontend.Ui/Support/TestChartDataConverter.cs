@@ -21,8 +21,8 @@ public class TestChartDataConverter
     private const string DESCRIPTION = "Chart Description";
     private const string SOURCE = "Chart Source";
     private const string LOCATION_NAME = "Some _location";
-    private const ChartCategories CHART_CATEGORY = ChartCategories.Election;
-    private const RoddenRatings RATING = RoddenRatings.DD;
+    private const int CHART_CATEGORY = 5;
+    private const int RATING = 6;
     private const int ID = 123;
     private const double JD_ET = 123456.789;
     private const string DATE_TEXT = "2023-02-2023";
@@ -48,10 +48,11 @@ public class TestChartDataConverter
         PersistableChartData result = _chartDataConverter!.ToPersistableChartData(CreateChartData());
         Assert.Multiple(() =>
         {
-            Assert.That(expected.Name, Is.EqualTo(result.Name));
-            Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(DELTA));
-            Assert.That(expected.DateText, Is.EqualTo(DATE_TEXT));
-            Assert.That(expected.JulianDayEt, Is.EqualTo(JD_ET).Within(DELTA));
+            // todo 0.3 expand tests to support multiple instances of DateTimeLocs.
+            Assert.That(expected.Identification.Name, Is.EqualTo(result.Identification.Name));
+            Assert.That(expected.DateTimeLocs[0].GeoLat, Is.EqualTo(result.DateTimeLocs[0].GeoLat).Within(DELTA));
+            Assert.That(expected.DateTimeLocs[0].DateText, Is.EqualTo(DATE_TEXT));
+            Assert.That(expected.DateTimeLocs[0].JdForEt, Is.EqualTo(JD_ET).Within(DELTA));
         });
     }
 
@@ -78,19 +79,25 @@ public class TestChartDataConverter
 
     private static PersistableChartData CreatePersistableChartData()
     {
-        return new PersistableChartData(
-            NAME,
-            DESCRIPTION,
-            SOURCE,
-            CHART_CATEGORY,
-            RATING,
-            JD_ET,
-            DATE_TEXT,
-            TIME_TEXT,
-            LOCATION_FULL_NAME,
-            GEO_LONG,
-            GEO_LAT
-        );
+        PersistableChartIdentification cIdent = new();
+        cIdent.Id = 13;
+        cIdent.Name = NAME;
+        cIdent.Description = DESCRIPTION;
+        cIdent.ChartCategoryId = CHART_CATEGORY;
+        PersistableChartDateTimeLocation dtLoc = new();
+        dtLoc.Id = -1;
+        dtLoc.ChartId = 13;
+        dtLoc.Source = SOURCE;
+        dtLoc.DateText = DATE_TEXT;               
+        dtLoc.TimeText = TIME_TEXT;
+        dtLoc.LocationName = LOCATION_FULL_NAME;
+        dtLoc.RatingId = RATING;
+        dtLoc.GeoLong = GEO_LONG;
+        dtLoc.GeoLat = GEO_LAT;
+        dtLoc.JdForEt = JD_ET;
+        List<PersistableChartDateTimeLocation> allDtLocs = new() { dtLoc };
+        return new PersistableChartData(cIdent, allDtLocs);
     }
+    
 }
 

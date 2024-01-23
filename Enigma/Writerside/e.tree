@@ -3,12 +3,8 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="e"
-                 name="EnigmaDoc"
-                 start-page="starter-topic.md">
+                 name="EnigmaAstrology Research 0.2"
+                 start-page="UserManual.md">
 
     <toc-element topic="UserManual.md"/>
-    <toc-element topic="Installation-manual.md"/>
-    <toc-element topic="Release-notes.md"/>
-    <toc-element topic="Programmers-Manual.md"/>
-    <toc-element topic="starter-topic.md"/>
 </instance-profile>

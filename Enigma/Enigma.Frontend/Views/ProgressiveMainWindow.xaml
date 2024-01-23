@@ -56,16 +56,6 @@
                         <Image Source="/Images/event.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <!--<MenuItem Header="New Period" Command="{Binding NewPeriodCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/daterange.png"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Search Period" Command="{Binding SearchPeriodCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/search.png"/>
-                    </MenuItem.Icon>
-                </MenuItem> -->               
                 <MenuItem Header="Delete Event" Command="{Binding DeleteCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/delete.png"/>
@@ -73,11 +63,6 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Techniques">
-                <!-- MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/primary.png"/>
-                    </MenuItem.Icon>
-                </-->
                 <MenuItem Header="Secundary Directions" Command="{Binding SecDirCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/secundary.png"/>
@@ -93,11 +78,6 @@
                         <Image Source="/Images/symbolic.png"/>
                     </MenuItem.Icon>
                 </MenuItem >
-                <!-- MenuItem Header="Solar returns" Command="{Binding SolarCommand}">
-                    <MenuItem.Icon>
-                        <Image Source="/Images/solar.png"/>
-                    </MenuItem.Icon>
-                </-->
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="Help for this window" Command="{Binding HelpCommand}">
@@ -160,12 +140,10 @@
                              Name = "ActionButtonBlock" UniformCornerRadius="6">
             <StackPanel Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="New event" Command="{Binding NewEventCommand}"/>
-                <Button Margin="0 3 0 3" Content="Delete event" Command="{Binding DeleteCommand}"/>
-                <!-- Button Margin="0 3 0 3" Content="Primary dir." Command="{Binding PrimDirCommand}"/ -->
+                <Button Margin="0 3 0 3" Content="Delete event" Command="{Binding DeleteEventCommand}"/>
                 <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>
                 <Button Margin="0 3 0 3" Content="Transits" Command="{Binding TransitsCommand}"/>
                 <Button Margin="0 3 0 3" Content="Symbolic dir." Command="{Binding SymbDirCommand}"/>
-                <!-- Button Margin="0 3 0 3" Content="Solar" Command="{Binding SolarCommand}"/ -->
             </StackPanel>
         </materialDesign:Card>
 

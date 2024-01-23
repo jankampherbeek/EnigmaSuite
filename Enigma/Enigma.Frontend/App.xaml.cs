@@ -39,6 +39,7 @@ public partial class App
         Log.Information("********************** Enigma starting ***********************");
         StartModel.HandleCheckDirForSettings();
         //    StartModel.HandleCheckNewVersion();   // todo enable check for new version
+        bool rdbmsOk = StartModel.HandleCheckRdbms();  // todo handle situations where rdbms was not properly handled.
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }

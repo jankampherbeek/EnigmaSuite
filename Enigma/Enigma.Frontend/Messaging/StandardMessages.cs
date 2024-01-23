@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -95,12 +95,21 @@ public class NewChartMessage : ValueChangedMessage<string>
 /// <summary>Message that a chart has been found.</summary>
 public class FoundChartMessage : ValueChangedMessage<string>
 {
-    public FoundChartMessage(string value) : base(value)
+    public long ChartId;
+    public FoundChartMessage(string value, long chartId) : base(value)
+    {
+        ChartId = chartId;
+    }
+}
+
+
+public class EventCompletedMessage : ValueChangedMessage<string>
+{
+    public EventCompletedMessage(string value) : base(value)
     {
         
     }
 }
-
 
 public class ConfigUpdatedMessage : ValueChangedMessage<string>
 {

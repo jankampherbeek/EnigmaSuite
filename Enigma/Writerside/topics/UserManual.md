@@ -1,5 +1,4 @@
-# User Manual Enigma Astrology Research
-## Version 0.2
+# User Manual Enigma Astrology Research - release 0.2
 
 ## Introduction
 
@@ -91,11 +90,11 @@ That makes little sense, so Enigma filters the results: if it cannot calculate a
 
 Click the Enigma icon to start the program.
 
-![](media/image8.png)
+![](start-icon.png)
 
 You will see a window with two images, one labeled *Charts* and one labeled *Research*.
 
-![](media/image9.png)
+![](dashboard.png)
 
 Click an image to go to the corresponding module. 
 If you finish working in a module, you will return to this start window and can make another selection.
@@ -112,6 +111,8 @@ but in this release of Enigma, you can not change anything.
 Select the menu option **General - Settings**. 
 You will see a window with information about the location of the following files:
 
+![](settings.png)
+
 - **Data files**. This folder contains the data files you imported.
 
 - The location of **Projects**. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.
@@ -127,19 +128,19 @@ You will see a window with information about the location of the following files
 You can check and change the configuration via the module *Charts* or via the module *Research*.
 Select the menu option **General - Configuration**.
 
-This will show a window with a wide range of configurable items. The window comprises 5 tabs:
+![](configuration-general.png)
 
-- The tab **General** shows astronomical settings and settings for orbs.
 
-- **Celestial points** shows the most common planets and some other points.
+This will show a window with a wide range of configurable items. The window comprises 3 tabs:
 
-- **Minor/mathematical** shows Plutoids, Planetoids, Centaurs and mathematical points like nodes.
+- The tab **General** shows astronomical settings and settings for orbs. This tab is initially shown.
 
-- **Hypothetical** shows hypothetical planets.
+- **Points** shows the most planets and other points.
 
-- **Aspects** show all available aspects.
+- **Aspects** shows all available aspects.
 
 #### General selections
+
 
 If you select the tab *General* you can define the following preferences:
 
@@ -157,23 +158,26 @@ See also the remarks at the point above: *Type of zodiac*.
 **Observer position**. The standard approach is *geocentric*. 
 If you want to take parallax into account select *topocentric*.
 
-**Type of projection to the ecliptic**. Select *Standard (two-dimensional)* for most approaches. 
+**Projection type**. Select *Standard (two-dimensional)* for most approaches. 
 *Oblique longitude* provides an alternative calculation as supported by the School of Ram. 
 It is also called *True Astrological Longitude Location*.
 
-**Base orbs**. You can define orbs for aspects and for midpoints.
-The base orb for aspects will be corrected with the percentages for celestial bodies and aspects. 
+**Base orb for aspects**. The base orb for aspects will be corrected with the percentages for celestial bodies and aspects. 
 See the paragraph *Appendix: Defining orbs*. 
 The value shows the maximum orb for the most important aspect and the most important celestial body.
 
 The **Base orb for midpoints** is the effective orb for midpoints.
 
-#### Celestial points
+
+#### Points
+
+![](configuration-points.png)
+
 The tab *Points* gives access to the configuration fo all celestial points that Enigma supports.
 For each point you will find a checkbox. 
 Check this box if you want to take the celestial point into account, deselect it if you do not want to use it.
 
-There is also a value *Orb perc.* (Orb percentage) that you can change. 
+There is also a value *Orb%* (Orb percentage) that you can change. 
 Click on the number for the orb and a small popup screen appears where you can edit the value.
 You can enter a percentage from 0 up to 100, make sure you use only whole numbers. 
 It is possible to define a percentage for a point that is not selected, 
@@ -185,6 +189,9 @@ Please note that you cannot deselect the classic points and also not MC or Ascen
 See the paragraph *Appendix: Planets and other celestial points* for more information.
 
 #### Aspects
+
+![](configuration-aspects.png)
+
 *Aspects* is the last tab for the configuration. 
 At the top of the screen you can select the type of orb. 
 In the current release, there is only one method to define orbs: Weighted orb.
@@ -194,11 +201,65 @@ You can leave it that way.
 Just as with celestial points, you can select and deselect the aspects you want to use.
 And there is also an orb-percentage that you can edit by clicking it. 
 
-
-
 See the paragraph *Appendix: Defining orbs* for more information.
 
-Enigma divides the aspects into three categories: Major, Minor and Micro. For each aspect you (de)select it, using the checkbox, and define the percentage for the orb.
+## The Charts module
+
+The Charts module supports calculation and analysis of charts. 
+You can start it by clicking the charts module in the startup screen.
+This will open the following screen:
+
+-- TODO image
+
+The very first time you start the Charts module, Enigma will not know which charts you want to use.
+You first need to create one or more new charts. Enigma will save all new charts automatically in a database.
+You can always delete a chart from the database.
+
+If you entered a new chart, the name of the chart will show underneath **Available charts**.
+After selecting the chart by clicking on the name, you can use all buttons to the right and all options in the menu.
+The database will remember all charts you added, except the charts you deleted.
+You can always retrieve an existing chart from the database by searching for it.
+
+The functions of the buttons and the menu partly overlap. You can perform the most common actions with the buttons.
+The menu provides the same actions and somme additional functionality.
+
+### Create a new chart
+To create a new chart  you can click the button **New Chart** or select the menu item **Charts** -> **New Chart**.
+This action will open a new screen where you can enter the data:
+
+![](data-input.png)
+
+You need to enter the required data and click the button **Calculate**. 
+If you made an error, Enigma will show a popup with information about what went wrong.
+Also, if an error is detected, the underlining of the input field will turn red.
+
+Use the button **Help** for advise on the different fields.
+
+After clicking the button **Calculate**, the newly entered chart can be selected and analysed.
+
+### Retrieve an existing chart from the database
+The main screen for the Charts module shows information about the charts in the database.
+The last added chart is mentioned and also the number of charts in the database.
+
+To retrieve a chart from the database you can click the button **Search Chart** or select the menu item **Charts** -> **Search for Chart**.
+This opens the following screen:
+
+![](search-chart.png)
+
+In the field _Search argument_ you can enter a (part of) a name, or just leave the field empty.
+After clicking the button **Search**, Enigma will show all charts that have the search argument in the name.
+It ignores a difference in lowercase or uppercase.
+If you did not enter a search argument, Enigma will show al charts from the database.
+However, the number of charts is limited to 100. 
+So you always need to enter a searchargument if the number of charts in the dtabase is larger. 
+
+Use the button **Help** for more details.
+
+If you select one of the found charts, the button **Select** becomes available. 
+Click this button to start working with the selected chart. 
+The search window will close and the chart will be available in the main screen for the Charts module.
+
+
 
 
 
@@ -289,7 +350,7 @@ The most important ones are:
 For more information, check the documentation of the Swiss Ephemeris at [*https://www.astro.com/swisseph/swisseph.htm*](https://www.astro.com/swisseph/swisseph.htm) , chapter 2.8 *Sidereal Ephemerides for Astrology*.
 
 
-## Observer positions
+### Observer positions
 
 Enigma supports three *observer positions*. An observer position is the location of a (fictive) observer that registers the positions of the celestial bodies.
 
@@ -300,9 +361,9 @@ You can select one of the following observer positions:
 - **Topocentric**: the observer stands firmly on the earth crest. This is the only position that is physically possible. The positions of the celestial bodies will differ slightly from the geocentric position because of the effect of parallax. It will affect the Moon (up to about a degree) most. The other celestial bodies will differ only a few arc seconds or less.
 
 - **Heliocentric**: Enigma calculates the positions as seen from the Sun. The positions of the houses, Sun, Moon, lunar nodes and lunar apsides (Black Moon) are not available, but the Earth is.
- 
 
-## Projection to the ecliptic
+
+### Projection to the ecliptic
 
 We calculate the ecliptical position of a celestial body by projecting this body to the ecliptic, using an arc that is perpendicular to the ecliptic.
 
@@ -311,7 +372,7 @@ There is one exception to this rule. The Dutch *School of Ram* calculates the po
 If you want to use the techniques of the School of Ram, you can select in the configuration **Oblique Longitude** as *Type of projection to the ecliptic*. In all other cases, select **Standard (two-dimensional)**.
 
 
-## Planets and other celestial points
+### Planets and other celestial points
 
 Enigma will always calculate the **classical planets** (Sun up to Saturn), MC and Ascendant. All other points are optional.
 
@@ -353,9 +414,9 @@ Enigma can calculate all planets and most other points for a period of almost 30
 | Nessus, Huya, Ixion, Orcus, Varuna, MakeMake, Haumea, Quaoar, Eris, Sedna | -3000/03/18  | 2998/08/23  |
 | Ceres, Vesta                                                              | -12999/08/02 | 9591/05/23  |
 
-## Defining orbs
+### Defining orbs
 
-### Orbs for aspects
+#### Orbs for aspects
 
 An orb for an aspect can depend on many factors. Enigma takes two of these factors into account: the points that form an aspect and the aspect itself.
 
@@ -383,17 +444,17 @@ Uranus: 50%, Eris 40% —\> 50% for the points.
 
 Semi-quintile: 30%, effective orb 15% of 10 degrees is 1.5 degree.
 
-### Orbs for midpoints
+#### Orbs for midpoints
 
 Enigma supports a configurable base orb for midpoints. In a later version, it will be possible to define different orbs for different midpoint dials.
 
-### Orbs in research
+#### Orbs in research
 
 If you perform a test with harmonics, you can enter the orb that you want to use in your research.
 
 In other research projects, you use the orbs as defined in the configuration.
 
-## Format for data-files
+### Format for data-files
 
 Enigma supports only one type of data-file. Please note that the format as used in version 0.1 has been changed in version 0.2.
 
@@ -446,7 +507,7 @@ You can use a spreadsheet to create a data file. Spreadsheets can read csv files
 
 Make sure that you use a comma as a separator and do not use quotes.
 
-## Result files
+### Result files
 
 If you perform a test, Enigma will create several result files. You can find these files in the folder *c:\enigma_ar\project\\projectname\]\results .*
 

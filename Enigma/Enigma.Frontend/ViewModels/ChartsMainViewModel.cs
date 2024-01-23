@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -31,9 +31,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     // ReSharper disable once NotAccessedField.Local  An instance of ChartsWindowsFlow must be instantiated so it can
     // handle incoming messages.
     private readonly ChartsWindowsFlow _chartsWindowsFlow;    
-    private readonly DataVaultCharts _dataVaultCharts;
-    private readonly DataVaultGeneral _dataVaultGeneral;
-    private readonly List<Window> _openWindows = new();
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     [NotifyCanExecuteChangedFor(nameof(DeleteChartCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowWheelCommand))]
     [NotifyCanExecuteChangedFor(nameof(ShowPositionsCommand))]
@@ -46,7 +44,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
     [ObservableProperty] private string _lastAddedChart = string.Empty;
     [ObservableProperty] private string _currentlySelectedChart = string.Empty;
-    [ObservableProperty] private ObservableCollection<PresentableChartData> _availableCharts;
+    [ObservableProperty] private ObservableCollection<PresentableChartData> _availableCharts = new();
     [NotifyPropertyChangedFor(nameof(ChartIndex))]
     [ObservableProperty] private PresentableChartData? _selectedChart;
     
@@ -57,18 +55,7 @@ public partial class ChartsMainViewModel: ObservableObject,
         WeakReferenceMessenger.Default.Register<ConfigUpdatedMessage>(this);
         _chartsWindowsFlow = App.ServiceProvider.GetRequiredService<ChartsWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ChartsMainModel>();
-        _dataVaultCharts = DataVaultCharts.Instance;
-        _availableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
-        PopulateData();
-    }
-    
-    private void OpenWindow(Window window)
-    {
-        if (!_openWindows.Contains(window))
-        {
-            _openWindows.Add(window);
-        }
-        window.Show();
+        Populate();
     }
 
     [RelayCommand]
@@ -77,26 +64,23 @@ public partial class ChartsMainViewModel: ObservableObject,
         if (ChartIndex >= 0)
         {
             SelectedChart = AvailableCharts[ChartIndex];
-            _dataVaultCharts.SetIndexCurrentChart(ChartIndex);
+            _model.SetCurrentChartId(ChartIndex);
         }
-        PopulateData();
-        PopulateAvailableCharts();     
+        Populate();
     }
 
     [RelayCommand]
-    private void PopulateData()
+    private void Populate()
     {
         NrOfChartsInDatabase = "Nr. of charts in database : " + _model.CountPersistedCharts();
         LastAddedChart = "Last added to database : " + _model.MostRecentChart();
         CurrentlySelectedChart = "Currently selected : " + _model.CurrentChartName();
-
-        SelectedChart = _model.CurrentChart();
-    }
-
-    private void PopulateAvailableCharts()
-    {
+        SelectedChart = _model.GetCurrentChart();
+        
         AvailableCharts = new ObservableCollection<PresentableChartData>(_model.AvailableCharts());
+        ChartIndex = _model.IndexCurrentChart();
     }
+
     
     
     [RelayCommand]
@@ -220,22 +204,20 @@ public partial class ChartsMainViewModel: ObservableObject,
     public void Receive(NewChartMessage message)
     {
         if (!_dataVaultCharts.GetNewChartAdded()) return;
-        int newIndex = _model.SaveCurrentChart();
+        long newIndex = _model.SaveCurrentChart();
         if (_dataVaultCharts.GetCurrentChart() == null) return;
         _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
-        PopulateData();
-        PopulateAvailableCharts();
+        Populate();
     }
 
     public void Receive(FoundChartMessage message)
     {
-        PopulateData();
-        PopulateAvailableCharts();
+        Populate();
+        DataVaultCharts.Instance.SetCurrentChart(message.ChartId);
     }
 
     public void Receive(ConfigUpdatedMessage message)
     {
-        PopulateData();
-        PopulateAvailableCharts();
+        Populate();
     }
 }

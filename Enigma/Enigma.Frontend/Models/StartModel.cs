@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.IO;
+using Enigma.Api;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
@@ -27,6 +28,13 @@ public class StartModel
         if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
     }
 
+    public static bool HandleCheckRdbms()
+    {
+        IRdbmsPrepApi rdbmsPrepApi = App.ServiceProvider.GetRequiredService<IRdbmsPrepApi>();
+        return rdbmsPrepApi.PrepareRdbms();
+    }
+    
+    
     public static void HandleCheckNewVersion()
     {
         ICommunicationApi communicationApi = App.ServiceProvider.GetRequiredService<ICommunicationApi>();

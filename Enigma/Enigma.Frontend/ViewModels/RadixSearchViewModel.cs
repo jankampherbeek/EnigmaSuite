@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -26,7 +26,7 @@ public partial class RadixSearchViewModel: ObservableObject
     [ObservableProperty] private string _searchArgument = "";
     [NotifyCanExecuteChangedFor(nameof(SelectCommand))]
     [ObservableProperty] private int _chartIndex = -1;
-    [ObservableProperty] private ObservableCollection<PersistableChartData>? _chartsFound;
+    [ObservableProperty] private ObservableCollection<PersistableChartIdentification>? _chartsFound;
 
 
     [RelayCommand]
@@ -34,14 +34,14 @@ public partial class RadixSearchViewModel: ObservableObject
     {
         _model.PerformSearch(SearchArgument);
         if (_model.ChartsFound != null)
-            ChartsFound = new ObservableCollection<PersistableChartData>(_model.ChartsFound);
+            ChartsFound = new ObservableCollection<PersistableChartIdentification>(_model.ChartsFound);
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Select()
     {
         _model.AddFoundChartToDataVault(ChartIndex);
-        WeakReferenceMessenger.Default.Send(new FoundChartMessage(VM_IDENTIFICATION));
+        WeakReferenceMessenger.Default.Send(new FoundChartMessage(VM_IDENTIFICATION, _chartsFound[ChartIndex].Id));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 

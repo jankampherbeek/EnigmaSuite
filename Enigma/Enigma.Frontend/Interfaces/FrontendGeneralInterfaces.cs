@@ -160,20 +160,6 @@ public interface IEventDataConverter
 
 }
 
-/// <summary>Conversion to and from PeriodData/PersisteblePeriodData.</summary>
-public interface IPeriodDataConverter
-{
-    /// <summary>Convert PersistablePeriodData to PeriodData.</summary>
-    /// <param name="persistablePeriodData"/>
-    /// <returns>Resulting PeriodData.</returns>
-    public ProgPeriod FromPersistablePeriodData(PersistablePeriodData persistablePeriodData);
-
-    /// <summary>Convert PeriodData to PersistablePeriodData.</summary>
-    /// <param name="progPeriod"/>
-    /// <returns>Resulting PersistablePeriodData.</returns>
-    public PersistablePeriodData ToPersistablePeriodData(ProgPeriod progPeriod);
-
-}
 
 /// <summary>Calculation for a single chart.</summary>
 public interface IChartCalculation

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -72,14 +72,14 @@ public class TestEventDataConverter
 
     private static PersistableEventData CreatePersistableEventData()
     {
-        return new PersistableEventData(
-            DESCRIPTION,
-            JD_ET,
-            DATE_TEXT,
-            TIME_TEXT,
-            LOCATION_FULL_NAME,
-            GEO_LONG,
-            GEO_LAT
-        );
+        PersistableEventData persEventData = new();
+        persEventData.Description = DESCRIPTION;
+        persEventData.DateText = DATE_TEXT;
+        persEventData.TimeText = TIME_TEXT;
+        persEventData.JulianDayEt = JD_ET;
+        persEventData.LocationName = LOCATION_FULL_NAME;
+        persEventData.GeoLat = GEO_LAT;
+        persEventData.GeoLong = GEO_LONG;
+        return persEventData;
     }
 }

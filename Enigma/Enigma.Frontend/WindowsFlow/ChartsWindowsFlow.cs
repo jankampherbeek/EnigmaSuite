@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,17 +23,19 @@ public class ChartsWindowsFlow:
     IRecipient<OpenMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
-    public const string RADIX_DATA_INPUT = "RadixDataInput";
+    public const string CHARTS_WHEEL = "ChartsWheel";
+    public const string CONFIG_PROG = "ConfigProg";
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
     public const string RADIX_POSITIONS = "RadixPositions";
     public const string RADIX_SEARCH = "RadixSearch";
     public const string RADIX_ASPECTS = "RadixAspects";
+    public const string RADIX_DATA_INPUT = "RadixDataInput";
     public const string RADIX_MIDPOINTS = "RadixMidpoints";
     public const string RADIX_HARMONICS = "RadixHarmonics";
-    public const string CHARTS_WHEEL = "ChartsWheel";
-    public const string CONFIG_PROG = "ConfigProg";
+
+
     
     private RadixDataInputWindow? _radixDataInputWindow;
     private RadixSearchWindow? _radixSearchWindow;

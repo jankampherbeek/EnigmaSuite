@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -95,9 +95,7 @@ public partial class RadixDataInputViewModel: ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
-            _model.CreateChartData(NameId, Description, Source, LocationName, 
-                ChartCategoriesExtensions.ChartCategoryForIndex(CategoryIndex), 
-                RoddenRatingsExtensions.RoddenRatingForIndex(RatingIndex));
+            _model.CreateChartData(NameId, Description, Source, LocationName, CategoryIndex, RatingIndex);
             WeakReferenceMessenger.Default.Send(new NewChartMessage(VM_IDENTIFICATION));
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }

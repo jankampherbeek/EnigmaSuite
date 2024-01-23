@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -222,8 +222,10 @@ public static class EnigmaConstants
     public const string CONFIG_PROG_DELTA_LOCATION = "c:/enigma_ar/enigmaprogcfgdelta.json";
     /// <summary>Location of progressive configuration file, contains path and filename.</summary>
     public const string CONFIG_PROG_LOCATION = "c:/enigma_ar/enigmaprogconfig.json";    
-    /// <summary>Name of database for charts.</summary>
-    public const string DATABASE_NAME = "/Enigma.db";
+    /// <summary>Name of json database for charts.</summary>
+    public const string DATABASE_CONNECT = "/Enigma.db; connection=shared";
+    /// <summary>Name of relational database.</summary>   
+    public const string RDBMS_NAME = "/EnigmaRDBMS.sqlite";
     /// <summary>Url to find latest release information.</summary>
     public const string RELEASE_CHECK_URL = "http://radixpro.com/rel/enigma-ar-latest.json";
 

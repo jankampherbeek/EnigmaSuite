@@ -54,7 +54,7 @@ The UI is based on the MVVM pattern. This is implemented with the NuGet package 
 Enigma uses some aspects from Material Design, using the NuGet package MaterialDesignThemes
 
 #### Persistency
-The database is created with LiteDB, also accessible via Nuget.
+The database is created with SQLite. Dapper is used as a minimal ORM. Both are accessible via Nuget.
 
 #### Logging
 Serilog takes care of the logging, you can find it in NuGet Serilog.Sinks.File.
@@ -257,4 +257,14 @@ A few lines with keys and values as an example
 
 The orb for transits is 1.5 degrees, and the key is 1 (one degree, refers to the enum SymbolicKeys).
 For transits, the Sun is used and the glyph is 'a'.
+
+## Database
+
+The database for Enigma is a RDBMS, a standard relational database. 
+It is implemented with SQLite and uses Dapper as ORM. Dapper allows for working with plain SQL.
+
+### Data model
+
+![data_model.png](data_model.png)
+
 

@@ -1,11 +1,11 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
 using System.Linq;
-using Enigma.Api.Interfaces;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
@@ -17,66 +17,59 @@ namespace Enigma.Frontend.Ui.Models;
 public class ProgressiveMainModel
 {
     private readonly IEventDataConverter _eventDataConverter;
-  //  private readonly IPeriodDataConverter _periodDataConverter;
     private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
     private readonly IProgDatesForPresentationFactory _progDatesForPresentationFactory;
-//    private IPeriodDataPersistencyApi _periodDataPersistencyApi;
     public readonly List<ProgDates> AvailableEventsPeriods = new();
-    /*public List<ProgEvent> AvailableEvents = new();
-    public List<ProgPeriod> AvailablePeriods = new();*/
+
     public List<PresentableProgresData> PresentableEventsPeriods { get; } = new();
-//    public List<PresentableProgresData> PresentablePeriods { get; set; } = new();
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
 
     public ProgressiveMainModel(IEventDataConverter eventDataConverter, 
-        IPeriodDataConverter periodDataConverter,
         IEventDataPersistencyApi eventDataPersistencyApi,
-        IPeriodDataPersistencyApi periodDataPersistencyApi,
         IProgDatesForPresentationFactory progDatesForPresentationFactory)
     {
         _eventDataConverter = eventDataConverter;
-//        _periodDataConverter = periodDataConverter;
         _eventDataPersistencyApi = eventDataPersistencyApi;
-//        _periodDataPersistencyApi = periodDataPersistencyApi;
         _progDatesForPresentationFactory = progDatesForPresentationFactory;
         ReadCurrentEvents();
-//        ReadCurrentPeriods();
-        PresentableEventsPeriods = _progDatesForPresentationFactory.CreatePresentableProgresData(AvailableEventsPeriods);
+        PresentableEventsPeriods = GetPresentableEventsPeriods();
     }
-    
-        
-    public int SaveCurrentEvent()
+
+    public List<PresentableProgresData> GetPresentableEventsPeriods()
     {
-        int newIndex = -1;
+        ReadCurrentEvents();
+        return _progDatesForPresentationFactory.CreatePresentableProgresData(AvailableEventsPeriods);
+    } 
+    
+    
+    /// <summary>Delete event from database.</summary>
+    /// <param name="eventId">Id for the event.</param>
+    /// <returns>True if the deleteion was successful, otherwise false.</returns>
+    public bool DeleteCurrentEvent(long eventId)
+    {
+        return _eventDataPersistencyApi.DeleteEventData(eventId);
+    }    
+    
+    public long SaveCurrentEvent()
+    {
+        long newIndex = -1;
         var currentEvent = _dataVaultProg.CurrentProgEvent;
         if (currentEvent == null) return newIndex;
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
-        int chartId = currentChart.InputtedChartData.Id;
+        long chartId = currentChart.InputtedChartData.Id;
         PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(currentEvent);
         newIndex = _eventDataPersistencyApi.AddEventData(persEvent, chartId);
         return newIndex;
     }
 
-    /*public int SaveCurrentPeriod()
-    {
-        int newIndex = -1;
-        var currentPeriod = _dataVaultProg.CurrentProgPeriod;
-        if (currentPeriod == null) return newIndex;
-        var currentChart = _dataVaultCharts.GetCurrentChart();
-        if (currentChart == null) return newIndex;
-        int chartId = currentChart.InputtedChartData.Id;
-        PersistablePeriodData persPeriod = _periodDataConverter.ToPersistablePeriodData(currentPeriod);
-        newIndex = _periodDataPersistencyApi.AddPeriodData(persPeriod, chartId);
-        return newIndex;
-    }*/
-
     private void ReadCurrentEvents()
     {
+        AvailableEventsPeriods.Clear();
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return;
-        int chartId = currentChart.InputtedChartData.Id;
+        long chartId = currentChart.InputtedChartData.Id;
         var persistableEventData = _eventDataPersistencyApi.SearchEventData(chartId);
         foreach (ProgEvent? progEventData in persistableEventData.Select(item 
                      => _eventDataConverter.FromPersistableEventData(item)))
@@ -85,18 +78,5 @@ public class ProgressiveMainModel
         }
         
     }
-
-    /*private void ReadCurrentPeriods()
-    {
-        var currentChart = _dataVaultCharts.GetCurrentChart();
-        if (currentChart == null) return;
-        int chartId = currentChart.InputtedChartData.Id;
-        var persistablePeriodData = _periodDataPersistencyApi.SearchPeriodData(chartId);
-        foreach (ProgPeriod? progPeriodData in persistablePeriodData.Select(item 
-                     => _periodDataConverter.FromPersistablePeriodData(item)))
-        {
-            AvailableEventsPeriods.Add(progPeriodData);
-        }
-    }*/
     
 }

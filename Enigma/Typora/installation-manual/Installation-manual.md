@@ -17,7 +17,8 @@ You will receive a file e*nigma_ar_install.exe* which you can save anywhere on y
 
 Double-click this file to start the installation.
 
-![](media/image1.png)Enigma shows a license which you should accept to continue. 
+License image
+Enigma shows a license which you should accept to continue. 
 Select *I accept the agreement* and click the button **Next**.
 
 
@@ -58,30 +59,29 @@ TODO
 
 ## Installation screens
 
-![](media/image1.png)The installer shows a license which you should accept to continue. 
+The installer shows a license which you should accept to continue. 
 Select *I accept the agreement* and click the button **Next**.
 
-![](media/image2.png)On this window, you can select the folder where you want to install Enigma. 
+On this window, you can select the folder where you want to install Enigma. 
 I advise to use the default location.
 
 Click the button **Next**.
 
-![](media/image3.png)
 
 Enigma uses *RadixPro* as the start menu folder, but you can change this if you prefer another folder.
 
 Click the button **Next**.
 
-![](media/image4.png)If you select the checkbox *Create a desktop shortcut*, the installer will create an icon on your 
+If you select the checkbox *Create a desktop shortcut*, the installer will create an icon on your 
 desktop to start Enigma.
 
 Click the button **Next**.
 
-![](media/image5.png)Review your selections and click the button **Install**.
+Review your selections and click the button **Install**.
 
-![](media/image6.png)You will see a progress bar during installation.
+You will see a progress bar during installation.
 
-![](media/image7.png)If you see this window, the installer completed its task. Optionally, select the checkbox *Launch Enigma Astrology Research* to start Enigma.
+If you see this window, the installer completed its task. Optionally, select the checkbox *Launch Enigma Astrology Research* to start Enigma.
 
 Click the button **Finish**.
 

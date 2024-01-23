@@ -1,10 +1,10 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using Enigma.Api.Interfaces;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
@@ -18,21 +18,15 @@ public sealed class ChartsMainModel
 {
     private readonly DataVaultCharts _dataVaultCharts;
     private readonly IChartDataConverter _chartDataConverter;
-    private readonly IEventDataConverter _eventDataConverter;
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
-    private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
     private readonly IChartDataForDataGridFactory _chartDataForDataGridFactory;
     
     public ChartsMainModel(IChartDataConverter chartDataConverter,
-                           IEventDataConverter eventDataConverter, 
                            IChartDataPersistencyApi chartDataPersistencyApi,
-                           IEventDataPersistencyApi eventDataPersistencyApi,
                            IChartDataForDataGridFactory chartDataForDataGridFactory)
     {
         _chartDataConverter = chartDataConverter;
-        _eventDataConverter = eventDataConverter;
         _chartDataPersistencyApi = chartDataPersistencyApi;
-        _eventDataPersistencyApi = eventDataPersistencyApi;
         _chartDataForDataGridFactory = chartDataForDataGridFactory;
         _dataVaultCharts = DataVaultCharts.Instance;
     }
@@ -42,9 +36,9 @@ public sealed class ChartsMainModel
         return _chartDataForDataGridFactory.CreateChartDataForDataGrid(_dataVaultCharts.GetAllCharts());
     }
     
-    public int SaveCurrentChart()
+    public long SaveCurrentChart()
     {
-        int newIndex = -1;
+        long newIndex = -1;
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
         ChartData chartData = currentChart.InputtedChartData;
@@ -57,21 +51,21 @@ public sealed class ChartsMainModel
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return false;
-        int id = currentChart.InputtedChartData.Id;
+        long id = currentChart.InputtedChartData.Id;
         return _chartDataPersistencyApi.DeleteChartData(id);
     }
 
-    public int CountPersistedCharts()
+    public long CountPersistedCharts()
     {
         return _chartDataPersistencyApi.NumberOfRecords();
     }
     
     public string MostRecentChart()
     {
-        int highestIndex = _chartDataPersistencyApi.HighestIndex();
+        long highestIndex = _chartDataPersistencyApi.HighestIndex();
         if (highestIndex == 0) return "-";
         PersistableChartData? chartData = _chartDataPersistencyApi.ReadChartData(highestIndex);
-        return chartData != null ? chartData.Name : "-";
+        return chartData != null ? chartData.Identification.Name : "-";
     }
     
     public string CurrentChartName()
@@ -80,12 +74,21 @@ public sealed class ChartsMainModel
         return currentChart != null ? currentChart.InputtedChartData.MetaData.Name : "";
     }
 
-    public PresentableChartData? CurrentChart()
+    public PresentableChartData? GetCurrentChart()
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart != null ? _chartDataForDataGridFactory.CreatePresentableChartData(currentChart) : null;
     }
-    
-    
+
+    public void SetCurrentChartId(int id)
+    {
+        _dataVaultCharts.SetCurrentChart(id);
+        _dataVaultCharts.SetIndexCurrentChart(id);
+    }
+
+    public int IndexCurrentChart()
+    {
+        return _dataVaultCharts.GetIndexCurrentChart();
+    }
 
 }

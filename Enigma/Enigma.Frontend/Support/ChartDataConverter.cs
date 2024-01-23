@@ -1,9 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
@@ -26,6 +27,7 @@ public sealed class ChartDataConverter : IChartDataConverter
     public ChartData FromPersistableChartData(PersistableChartData persistableChartData)
     {
         return HandleConversion(persistableChartData);
+        
     }
 
     /// <inheritdoc/>
@@ -33,39 +35,49 @@ public sealed class ChartDataConverter : IChartDataConverter
     {
         return HandleConversion(chartData);
     }
-
+    
     private ChartData HandleConversion(PersistableChartData persistableChartData)
     {
-        string name = persistableChartData.Name;
-        string description = persistableChartData.Description;
-        string source = persistableChartData.Source;
-        string locationName = persistableChartData.LocationName;
-        ChartCategories chartCategory = persistableChartData.ChartCategory;
-        RoddenRatings rating = persistableChartData.Rating;
+        PersistableChartIdentification cIdent = persistableChartData.Identification;
+        PersistableChartDateTimeLocation dtLoc = persistableChartData.DateTimeLocs[0];  // TODO 0. 3 support multiple instances of DateTimeLoc 
+        string name = cIdent.Name;
+        string description = cIdent.Description;
+        string source = dtLoc.Source;               
+        string locationName =dtLoc.LocationName;
+        long chartCategory = cIdent.ChartCategoryId;
+        long rating = dtLoc.RatingId;
         MetaData metaData = new(name, description, source, locationName, chartCategory, rating);
-        string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableChartData.GeoLat, persistableChartData.GeoLong);
-        Location location = new(locationFullName, persistableChartData.GeoLong, persistableChartData.GeoLat);
-        FullDateTime fullDateTime = new(persistableChartData.DateText, persistableChartData.TimeText, persistableChartData.JulianDayEt);
-        return new ChartData(persistableChartData.Id, metaData, location, fullDateTime);
+        string locationFullName = _locationConversion.CreateLocationDescription(locationName, dtLoc.GeoLat, dtLoc.GeoLong);
+        Location location = new(locationFullName, dtLoc.GeoLong, dtLoc.GeoLat);
+        FullDateTime fullDateTime = new(dtLoc.DateText, dtLoc.TimeText, dtLoc.JdForEt);
+        return new ChartData(cIdent.Id, metaData, location, fullDateTime);
     }
 
     private static PersistableChartData HandleConversion(ChartData chartData)
     {
-        return new PersistableChartData(
-         //   chartData.Id,
-            chartData.MetaData.Name,
-            chartData.MetaData.Description,
-            chartData.MetaData.Source,
-            chartData.MetaData.ChartCategory,
-            chartData.MetaData.RoddenRating,
-            chartData.FullDateTime.JulianDayForEt,
-            chartData.FullDateTime.DateText,
-            chartData.FullDateTime.TimeText,
-            chartData.Location.LocationFullName,
-            chartData.Location.GeoLong,
-            chartData.Location.GeoLat
-        );
+        var meta = chartData.MetaData;
+        var dTime = chartData.FullDateTime;
+        var loc = chartData.Location;
+        /*PersistableChartIdentification cIdent = new(chartData.Id, chartData.MetaData.Name, chartData.MetaData.Description,
+            chartData.MetaData.ChartCategory);*/
+        PersistableChartIdentification cIdent = new();
+        cIdent.Id = chartData.Id;
+        cIdent.Name = chartData.MetaData.Name;
+        cIdent.Description = chartData.MetaData.Description;
+        cIdent.ChartCategoryId = chartData.MetaData.ChartCategory;
+        PersistableChartDateTimeLocation dtLoc = new();
+        dtLoc.Id = -1;
+        dtLoc.ChartId = chartData.Id;
+        dtLoc.Source = meta.Source;
+        dtLoc.DateText = dTime.DateText;
+        dtLoc.TimeText = dTime.TimeText;
+        dtLoc.LocationName = loc.LocationFullName;
+        dtLoc.RatingId = meta.RoddenRating;
+        dtLoc.GeoLong = loc.GeoLong;
+        dtLoc.GeoLat = loc.GeoLat;
+        dtLoc.JdForEt = dTime.JulianDayForEt;
+        List<PersistableChartDateTimeLocation> allDtLocs = new() { dtLoc };
+        return new PersistableChartData(cIdent, allDtLocs);
     }
-
-
+    
 }

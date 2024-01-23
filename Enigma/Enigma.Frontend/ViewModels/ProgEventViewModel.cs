@@ -81,6 +81,7 @@ public partial class ProgEventViewModel: ObservableObject
         if (string.IsNullOrEmpty(errors))
         {
             _model.CreateEventData(Description, LocationName);
+            WeakReferenceMessenger.Default.Send(new EventCompletedMessage(VM_IDENTIFICATION));
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
         else

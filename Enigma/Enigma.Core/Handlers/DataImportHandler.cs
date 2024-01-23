@@ -1,13 +1,26 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Interfaces;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Handlers;
+
+
+/// <summary>Handles the import and conversion to Json of a csv datafile.</summary>
+public interface IDataImportHandler
+{
+    /// <summary>Import a datafile in standard csv and convert it to Json.</summary>
+    /// <param name="fullPathSource">Full path to the file to read.</param>
+    /// <param name="dataName">Name for the data.</param>
+    /// <returns>Resultmessage with a description of the action.</returns>
+    public ResultMessage ImportStandardData(string fullPathSource, string dataName);
+}
+
 
 /// <inheritdoc/>
 public sealed class DataImportHandler : IDataImportHandler
@@ -37,11 +50,12 @@ public sealed class DataImportHandler : IDataImportHandler
         if (item1)
         {
             _textFileWriter.WriteFile(fullJsonPath, jsonText);
-            _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); // TODO 0.2 use RB
-            return new ResultMessage(0, "File successfully imported.");       // TODO 0.2 use RB
+            _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); 
+            return new ResultMessage(0, "File successfully imported."); 
         }
-
         _textFileWriter.WriteFile(fullErrorPath, errorLines);
-        return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);    // TODO 0.2 use RB
+        return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);
     }
+
+    
 }

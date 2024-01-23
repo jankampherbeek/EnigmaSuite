@@ -8,9 +8,9 @@ namespace Enigma.Domain.Dtos;
 /// <summary>Parent for dates that are used in progressive techniques.</summary>
 /// <param name="Id">Unique Id</param>
 /// <param name="Description">Description for the date(s).</param>
-public abstract record ProgDates(int Id, string Description)
+public abstract record ProgDates(long Id, string Description)
 { 
-    public int Id { get; } = Id;
+    public long Id { get; } = Id;
 }
 
 
@@ -20,13 +20,12 @@ public abstract record ProgDates(int Id, string Description)
 /// <param name="LocationName">Name for the location.</param>
 /// <param name="Location">Datails for the location.</param>
 /// <param name="DateTime">Date and time for the event.</param>
-public record ProgEvent(int Id, string Description, string LocationName, Location Location,
+public record ProgEvent(long Id, string Description, string LocationName, Location Location,
     FullDateTime DateTime) : ProgDates(Id, Description);
 
-/// <summary>Period for progressive analysis. </summary>
-/// <param name="Id">Unique id</param>
-/// <param name="Description">Description for the period.</param>
-/// <param name="StartDate">First date of the period.</param>
-/// <param name="EndDate">Last date of the period.</param>
-public record ProgPeriod(int Id, string Description, FullDateTime StartDate, FullDateTime EndDate) : ProgDates(Id,
-    Description);
+/// <summary>Event for progressive analysis. </summary>
+/// <param name="Description">Description for the event.</param>
+/// <param name="LocationName">Name for the location.</param>
+/// <param name="Location">Datails for the location.</param>
+/// <param name="DateTime">Date and time for the event.</param>
+public record ShortProgEvent(string Description, string LocationName, Location Location, DateTime DateTime);

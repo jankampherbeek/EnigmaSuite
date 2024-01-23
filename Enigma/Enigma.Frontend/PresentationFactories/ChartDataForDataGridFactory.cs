@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -19,11 +19,12 @@ public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
     /// <inherritdoc/>
     public List<PresentableChartData> CreateChartDataForDataGrid(IEnumerable<CalculatedChart> charts)
     {
-        return (from chart in charts 
+        var x = (from chart in charts 
             let id = chart.InputtedChartData.Id.ToString() 
             let name = chart.InputtedChartData.MetaData.Name 
             let description = chart.InputtedChartData.MetaData.Description 
             select new PresentableChartData(id, name, description)).ToList();
+        return x;
     }
 
     /// <inherritdoc/>
@@ -42,9 +43,9 @@ public sealed class ChartDataForDataGridFactory : IChartDataForDataGridFactory
         List<PresentableChartData> chartData = new();
         if (charts != null) chartData.AddRange(
             from chart in charts 
-            let id = chart.Id.ToString() 
-            let name = chart.Name 
-            let description = chart.Description 
+            let id = chart.Identification.Id.ToString() 
+            let name = chart.Identification.Name 
+            let description = chart.Identification.Description 
             select new PresentableChartData(id, name, description));
         return chartData;
     }

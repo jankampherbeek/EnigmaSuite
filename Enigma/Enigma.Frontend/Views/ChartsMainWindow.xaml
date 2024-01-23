@@ -150,7 +150,7 @@
                    Name="SubHeaderAvailableCharts" FontWeight="Bold"/>
         
         <ListBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" HorizontalContentAlignment="Stretch" 
-                 ItemsSource="{Binding AvailableCharts}"
+                 ItemsSource="{Binding AvailableCharts, Mode=TwoWay}"
                  SelectedIndex="{Binding ChartIndex, Mode=TwoWay}">
             <b:Interaction.Triggers>
                 <b:EventTrigger EventName="SelectionChanged">

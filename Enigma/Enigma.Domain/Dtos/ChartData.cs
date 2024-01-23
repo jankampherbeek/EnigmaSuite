@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -11,8 +11,9 @@ namespace Enigma.Domain.Dtos;
 /// <param name="MetaData">Metadata for this chart.</param>
 /// <param name="Location">Location related data.</param>
 /// <param name="FullDateTime">Date/time related data.</param>
-public record ChartData(int Id, MetaData MetaData, Location Location, FullDateTime FullDateTime)
+public record ChartData(long Id, MetaData MetaData, Location Location, FullDateTime FullDateTime)
 {
-    public int Id { get; set; } = Id;
+    // TODO 0.3 add support for multiple versions of DateTimeLoc.
+    public long Id { get; set; } = Id;
 }
 

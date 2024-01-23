@@ -1,9 +1,10 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
+using Enigma.Api;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
@@ -15,7 +16,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>View for searchscreen for charts.</summary>
 public class RadixSearchModel
 {
-    public List<PersistableChartData>? ChartsFound { get; private set; }
+    public List<PersistableChartIdentification>? ChartsFound { get; private set; }
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
     private readonly IChartCalculation _chartCalculation;
     private readonly IChartDataConverter _chartDataConverter;
@@ -37,11 +38,13 @@ public class RadixSearchModel
             : _chartDataPersistencyApi.SearchChartData(searchArgument);
     }
     
-    public void AddFoundChartToDataVault(int chartId)
+    public void AddFoundChartToDataVault(int index)
     {
         if (ChartsFound == null) return;
-        PersistableChartData persistableChartData = ChartsFound[chartId];
-        ChartData chartData = _chartDataConverter.FromPersistableChartData(persistableChartData);
+        long chartId = ChartsFound[index].Id;
+        PersistableChartData? persChartData = _chartDataPersistencyApi.ReadChartData(chartId);
+        if (persChartData is null) return;
+        ChartData chartData = _chartDataConverter.FromPersistableChartData(persChartData);
         CalculatedChart calcChart = _chartCalculation.CalculateChart(chartData);
         _dataVaultCharts.AddNewChart(calcChart);
         _dataVaultCharts.SetCurrentChart(calcChart.InputtedChartData.Id);

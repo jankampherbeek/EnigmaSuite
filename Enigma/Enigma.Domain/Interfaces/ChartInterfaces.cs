@@ -13,10 +13,10 @@ public interface ICurrentCharts
 {
 
     /// <summary>Id for the chart that is currently active.</summary>
-    public int IdPrimaryChart { get; set; }
+    public long IdPrimaryChart { get; set; }
 
     /// <summary>Id for a chart that is compared with the primary chart.</summary>
-    public int IdSecondaryChart { get; set; }
+    public long IdSecondaryChart { get; set; }
 
     /// <summary>Add a chart to the set of current charts.</summary>
     /// <param name="newChart">The chart.</param>
@@ -26,6 +26,6 @@ public interface ICurrentCharts
 
     /// <summary>Remove chart from the set of current charts.</summary>
     /// <param name="chartId">Id of the chart.</param>
-    public void RemoveChart(int chartId);
+    public void RemoveChart(long chartId);
 
 }

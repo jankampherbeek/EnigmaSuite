@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,6 +12,7 @@ using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Enigma.Core.Services;
 
@@ -74,8 +75,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
-        serviceCollection.AddTransient<IInterChartEventDao, InterChartEventDao>();
-        serviceCollection.AddTransient<IInterChartPeriodDao, InterChartPeriodDao>();
+        serviceCollection.AddTransient<IChartsEventsDao, ChartsEventsDao>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
@@ -91,6 +91,8 @@ public static class CoreServices
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
+        serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
+        serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();

@@ -1,8 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Interfaces;
@@ -18,10 +19,12 @@ public class ProgEventModel: DateTimeLocationModelBase
         IGeoLatInputParser geoLatInputParser,
         IDateInputParser dateInputParser, 
         ITimeInputParser timeInputParser, 
-        IJulianDayApi julianDayApi) 
+        IJulianDayApi julianDayApi,
+        IEventDataPersistencyApi eventDataPersistencyApi) 
         : base(dateInputParser, timeInputParser, geoLongInputParser, geoLatInputParser)
     {
         _julianDayApi = julianDayApi;
+        
     }
 
     public void CreateEventData(string description, string locationName)
@@ -43,8 +46,5 @@ public class ProgEventModel: DateTimeLocationModelBase
         ProgEvent progEvent = new(0, description, locationName, location, fullDateTime);
         DataVaultProg.Instance.CurrentProgEvent = progEvent;
     }
-
-
-    
     
 }

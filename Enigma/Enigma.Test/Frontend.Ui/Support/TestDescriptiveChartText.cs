@@ -19,8 +19,8 @@ public class TestDescriptiveChartText
     private const string DESCRIPTION = "Descriptive text";
     private const string SOURCE = "source";
     private const string LOCATION_NAME = "Somewhere";
-    private const ChartCategories CHART_CATEGORY = ChartCategories.Female;
-    private const RoddenRatings RATING = RoddenRatings.AA;
+    private const int CHART_CATEGORY = 1;
+    private const int RATING = 2;
     private const HouseSystems HOUSE_SYSTEM = HouseSystems.Alcabitius;
     private const Ayanamshas AYANAMSHA = Ayanamshas.None;
     private const ObserverPositions OBSERVER_POS = ObserverPositions.GeoCentric;

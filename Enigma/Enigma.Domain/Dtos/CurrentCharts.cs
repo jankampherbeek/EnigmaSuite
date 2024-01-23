@@ -13,10 +13,10 @@ namespace Enigma.Domain.Dtos;
 public sealed class CurrentCharts : ICurrentCharts
 {
     /// <inheritdoc/>
-    public int IdPrimaryChart { get; set; } = -1;
+    public long IdPrimaryChart { get; set; } = -1L;
 
     /// <inheritdoc/>
-    public int IdSecondaryChart { get; set; } = -1;
+    public long IdSecondaryChart { get; set; } = -1L;
 
     private List<CalculatedChart> AllCurrentCharts { get; } = new();
 
@@ -29,7 +29,7 @@ public sealed class CurrentCharts : ICurrentCharts
     }
 
     /// <inheritdoc/>
-    public void RemoveChart(int chartId)
+    public void RemoveChart(long chartId)
     {
         foreach (CalculatedChart chart in AllCurrentCharts.Where(chart => chart.InputtedChartData.Id == chartId))
         {

@@ -1,9 +1,11 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
+using System.Linq;
+using Enigma.Api;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -16,19 +18,22 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for data input for a chart</summary>
 public class RadixDataInputModel: DateTimeLocationModelBase
 {
+    private Dictionary<long, string> _retrievedRatings = new();
+    private Dictionary<long, string> _retrievedCats = new();
     public List<string> AllRatings { get; }
     public List<string> AllCategories { get; }
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartCalculation _chartCalculation;
-
+    private readonly IReferencesApi _referencesApi;
 
     public RadixDataInputModel(IGeoLongInputParser geoLongInputParser, IGeoLatInputParser geoLatInputParser,
         IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IJulianDayApi julianDayApi,
-        IChartCalculation chartCalculation) : 
+        IChartCalculation chartCalculation, IReferencesApi referencesApi) : 
         base(dateInputParser, timeInputParser, geoLongInputParser, geoLatInputParser)
     {
         _julianDayApi = julianDayApi;
         _chartCalculation = chartCalculation;
+        _referencesApi = referencesApi;
         AllRatings = new List<string>();
         AllCategories = new List<string>();
 
@@ -36,11 +41,13 @@ public class RadixDataInputModel: DateTimeLocationModelBase
         PopulateCategories();
     }
 
-    public void CreateChartData(string nameId, string description, string source, string locationName, ChartCategories chartCat, RoddenRatings rating)
+    public void CreateChartData(string nameId, string description, string source, string locationName, int chartCat, int rating)
     {
+        long catId = _retrievedCats.Keys.ToList()[chartCat];
+        long ratingId = _retrievedRatings.Keys.ToList()[rating];
         if (FullDate == null || FullTime == null) return;
         int id = ChartsIndexSequence.NewSequenceId();
-        MetaData metaData = CreateMetaData(nameId, description, source, locationName, chartCat, rating);
+        MetaData metaData = CreateMetaData(nameId, description, source, locationName, catId, ratingId);
         SimpleDateTime dateTime = new(FullDate.YearMonthDay[0], FullDate.YearMonthDay[1], FullDate.YearMonthDay[2], 
             FullTime.Ut, FullDate.Calendar);
         double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;         
@@ -56,7 +63,7 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     }
 
     private static MetaData CreateMetaData(string nameId, string description, string source, string locationName, 
-        ChartCategories chartCategory, RoddenRatings rating)
+        long chartCategory, long rating)
     {
         string nameIdText = string.IsNullOrWhiteSpace(nameId) ? "Anonymous" : nameId;
         string descriptionText = string.IsNullOrWhiteSpace(description) ? "No description" : description;
@@ -67,19 +74,21 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     
     private void PopulateRatings()
     {
-        List<RoddenRatingDetails> ratingDetails = RoddenRatingsExtensions.AllDetails();
-        foreach (var ratingDetail in ratingDetails)
+        AllRatings.Clear();
+        _retrievedRatings = _referencesApi.ReadAllRatings();
+        foreach (var rating in _retrievedRatings)
         {
-            AllRatings.Add(ratingDetail.Text);
+            AllRatings.Add(rating.Value);
         }
     }
 
     private void PopulateCategories()
     {
-        List<ChartCategoryDetails> catDetails = ChartCategoriesExtensions.AllDetails();
-        foreach (var catDetail in catDetails)
+        AllCategories.Clear();
+        _retrievedCats = _referencesApi.ReadAllChartCategories();
+        foreach (var cat in _retrievedCats)
         {
-            AllCategories.Add(catDetail.Text);
+            AllCategories.Add(cat.Value);
         }
     }
     
