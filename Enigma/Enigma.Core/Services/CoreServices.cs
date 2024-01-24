@@ -12,7 +12,6 @@ using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Enigma.Core.Services;
 

@@ -11,7 +11,7 @@ using Enigma.Domain.Constants;
 namespace Enigma.Frontend.Ui.Views;
 
 /// <summary>View for configuration</summary>
-public partial class ConfigurationWindow: Window
+public partial class ConfigurationWindow
 {
     public ConfigurationWindow()
     {

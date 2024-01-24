@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,12 +18,6 @@ public record ResearchPointSelection(List<ChartPoints> SelectedPoints, bool Incl
 /// <param name="Positions">All relevant positions for celestial points.</param>
 /// <param name="InputItem">Inputted data.</param>
 public record CalculatedResearchChart(Dictionary<ChartPoints, FullPointPos> Positions, StandardInputItem InputItem);
-
-
-/// <summary>Instance of ResearchPoint with position.</summary>
-/// <param name="Point">The research point.</param>
-/// <param name="Position">The position.</param>
-public record PositionedResearchPoint(ChartPoints Point, double Position);
 
 /// <summary>Definition of points that should be excluded when performing a research action.</summary>
 /// <remarks>One of these records should be used to specify the exclusions when using a specific research method.</remarks>

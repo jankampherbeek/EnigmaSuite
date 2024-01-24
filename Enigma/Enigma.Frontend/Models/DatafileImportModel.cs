@@ -5,7 +5,6 @@
 
 using System.IO;
 using Enigma.Api;
-using Enigma.Api.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Responses;

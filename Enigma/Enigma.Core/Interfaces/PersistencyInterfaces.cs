@@ -148,34 +148,6 @@ public interface ILocationCheckedConversion
 }
 
 
-
-
-/// <summary>DAO for intersection between chart and period.</summary>
-/// <remarks>Should only be accessed from other DAO's.</remarks>
-public interface IInterChartPeriodDao
-{
-    /// <summary>Insert intersection.</summary>
-    /// <param name="chartId">Id for the chart.</param>
-    /// <param name="periodId">Id for the period.</param>
-    public void Insert(int chartId, int periodId);
-
-    /// <summary>Read all interesections.</summary>
-    /// <returns>List with all intersections.</returns>
-    public List<InterChartPeriod> ReadAll();
-
-    /// <summary>Read all intersections for a specific chart.</summary>
-    /// <param name="chartId"></param>
-    /// <returns>List with intersections for the chart.</returns>
-    public IEnumerable<InterChartPeriod> Read(int chartId);
-    
-    /// <summary>Delete all intersections for a specific chart.</summary>
-    /// <param name="chartId"></param>
-    /// <returns>True if delete was successful.</returns>
-    public bool Delete(int chartId);
-}
-
-
-
 /// <summary>Handles writing a configuration to a disk file.</summary>
 public interface IConfigWriter
 {

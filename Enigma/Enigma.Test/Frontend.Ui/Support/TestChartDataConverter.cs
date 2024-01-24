@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
-using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 using Moq;

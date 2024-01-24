@@ -35,7 +35,6 @@ public class TestAspectForDataGridFactory
             Assert.That(presAspects, Has.Count.EqualTo(2));
             Assert.That(presAspects[0].AspectGlyph, Is.EqualTo('B'));
             Assert.That(presAspects[1].AspectGlyph, Is.EqualTo('E'));
-            //         Assert.That(presAspects[0].Point1Text, Is.EqualTo('a'));  // TODO 0.1 fix test
             Assert.That(presAspects[0].Point2Glyph, Is.EqualTo('b'));
             Assert.That(presAspects[1].Point2Glyph, Is.EqualTo('g'));
             Assert.That(presAspects[0].OrbText, Is.EqualTo("3°00′00″"));

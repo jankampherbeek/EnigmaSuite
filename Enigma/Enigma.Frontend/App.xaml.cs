@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -37,9 +37,9 @@ public partial class App
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
-        StartModel.HandleCheckDirForSettings();
+      //  StartModel.HandleCheckDirForSettings();
         //    StartModel.HandleCheckNewVersion();   // todo enable check for new version
-        bool rdbmsOk = StartModel.HandleCheckRdbms();  // todo handle situations where rdbms was not properly handled.
+      //  bool rdbmsOk = StartModel.HandleCheckRdbms();  // todo handle situations where rdbms was not properly handled.
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }
@@ -52,8 +52,6 @@ public partial class App
         serviceCollection.AddTransient<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddTransient<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
-        serviceCollection.AddTransient<CalcHeliacalModel>();
-        serviceCollection.AddTransient<CalcHouseComparisonModel>();
         serviceCollection.AddTransient<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
@@ -115,7 +113,6 @@ public partial class App
         serviceCollection.AddTransient<ResearchResultModel>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();        
         serviceCollection.AddTransient<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
-        serviceCollection.AddTransient<StartModel>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
         serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();

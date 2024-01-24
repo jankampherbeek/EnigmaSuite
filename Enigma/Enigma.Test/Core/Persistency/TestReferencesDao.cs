@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Persistency;
-using Enigma.Domain.Persistables;
 
 namespace Enigma.Test.Core.Persistency;
 

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,9 +23,3 @@ public abstract record ProgDates(long Id, string Description)
 public record ProgEvent(long Id, string Description, string LocationName, Location Location,
     FullDateTime DateTime) : ProgDates(Id, Description);
 
-/// <summary>Event for progressive analysis. </summary>
-/// <param name="Description">Description for the event.</param>
-/// <param name="LocationName">Name for the location.</param>
-/// <param name="Location">Datails for the location.</param>
-/// <param name="DateTime">Date and time for the event.</param>
-public record ShortProgEvent(string Description, string LocationName, Location Location, DateTime DateTime);

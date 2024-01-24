@@ -31,8 +31,8 @@ public class ProgEventResultsModel
     private readonly IProgAspectsApi _progAspectsApi;
     private readonly IProgPositionsForPresentationFactory _progPosPresFactory;
     private Dictionary<ChartPoints, double> _progPositions = new();
-    public List<PresentableProgAspect> PresProgAspects;
-    public List<PresentableProgPosition> PresProgPositions;
+    public List<PresentableProgAspect> PresProgAspects = new();
+    public List<PresentableProgPosition> PresProgPositions = new();
 
     public ProgEventResultsModel(IDescriptiveChartText descriptiveChartText,
         IProgTransitsEventApi progTransitsEventApi,
@@ -81,9 +81,9 @@ public class ProgEventResultsModel
     {
         Dictionary<ChartPoints, ProgPositions> calculatedPositions = CalculateSymDir();
         _progPositions = CreateProgPositions(calculatedPositions);
-        List<PresentableProgPosition> RawPresProgPositions = CreatePresentableProgPositions(calculatedPositions);
+        List<PresentableProgPosition> rawPresProgPositions = CreatePresentableProgPositions(calculatedPositions);
         PresProgPositions = new();
-        foreach (var presProgPos in RawPresProgPositions)
+        foreach (var presProgPos in rawPresProgPositions)
         {
             PresProgPositions.Add(new PresentableProgPosition(presProgPos.PointGlyph, presProgPos.Longitude, presProgPos.SignGlyph, "-", "-", "-"));            
         }
@@ -97,7 +97,7 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, double> radixPositions = DefineRadixPositions(radix);
         ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
         AstroConfig astroConfig = CurrentConfig.Instance.GetConfig();
-        Dictionary<AspectTypes, AspectConfigSpecs?> configAspects = astroConfig.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs> configAspects = astroConfig.Aspects;
         List<AspectTypes> selectedAspects = (from configAspect in configAspects
             where configAspect.Value.IsUsed
             select configAspect.Key).ToList();
@@ -237,9 +237,9 @@ public class ProgEventResultsModel
         Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSymDir configSymDir = CurrentConfig.Instance.GetConfigProg().ConfigSymDir;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
-        var FullPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
+        var fullPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
         Dictionary<ChartPoints, double> radixPositions = 
-            FullPositions.ToDictionary(fullPos => fullPos.Key, 
+            fullPositions.ToDictionary(fullPos => fullPos.Key, 
                 fullPos => fullPos.Value.Ecliptical.MainPosSpeed.Position);
         SymDirEventRequest request = new(jdRadix, jdEvent, configSymDir, radixPositions);
         ProgRealPointsResponse response = _progSymDirEventApi.CalcSymDir(request);

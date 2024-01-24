@@ -26,6 +26,7 @@
                 <RowDefinition Height="30*"/>
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="10*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Center"
                        Text="Enigma"
@@ -43,15 +44,12 @@
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ResearchModuleCommand}">
                     <Image Source="/Images/Research-txt.png"/>
                 </Button>
-                <!-- Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CyclesModuleCommand}">
-                    <Image Source="/Images/Cycles-txt.png"/>
-                </-->
-                <!--Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CalculateModuleCommand}">
-                    <Image Source="/Images/Calculate-txt.png"/>
-                </-->
             </WrapPanel>
             <TextBlock Grid.Row="4" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
-            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Grid.Row="5" Text="{Binding VersionText}" HorizontalAlignment="Center" TextWrapping="Wrap"
+                       Background="{Binding VersionTextBrush}"
+                       />
+            <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Margin="6" Content="Help" Command="{Binding HelpCommand}"/>
                 <Button Margin="6" Content="Exit" Click="CloseClick"/>
             </StackPanel>

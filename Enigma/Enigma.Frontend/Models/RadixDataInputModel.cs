@@ -8,7 +8,6 @@ using System.Linq;
 using Enigma.Api;
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;

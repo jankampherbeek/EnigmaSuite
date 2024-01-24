@@ -49,8 +49,6 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
         Dictionary<ChartPoints, FullPointPos> lots = _lotsCalculator.CalculateAllLots(commonPositions, mundanePositions, prefs, jdUt, obliquity, location);
         Dictionary<ChartPoints, FullPointPos> zodiacPoints = _zodiacPointCalc.CalculateAllZodiacalPoints(prefs, jdUt, obliquity, location);
 
-        // TODO backlog Add calculation of fixstars.
-
         List<Dictionary<ChartPoints, FullPointPos>> dictionaries = new()
         {
             commonPositions,

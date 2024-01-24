@@ -13,10 +13,6 @@ public record PersistableChartData(PersistableChartIdentification Identification
     List<PersistableChartDateTimeLocation> DateTimeLocs);
 
 /// <summary>Persistable identification part of a chart.</summary>
-/// <param name="Id">The id in the database, automatically defined during insert.</param>
-/// <param name="Name">Name for the chart.</param>
-/// <param name="Description">Description of the chart.</param>
-/// <param name="ChartCategoryId">Id for the chart category.</param>
 public class PersistableChartIdentification
 {
     public long Id { get; set; }
@@ -26,16 +22,6 @@ public class PersistableChartIdentification
 };
 
 /// <summary>Persistable date, time and location for a chart.</summary>
-/// <param name="Id">The id in the database, automatically defined during insert.</param>
-/// <param name="ChartId">Id of the rtelated chart.</param>
-/// <param name="Source">Description of the source.</param>
-/// <param name="DateText">Textual presentation of the date.</param>
-/// <param name="TimeText">Textual presentation of the time.</param>
-/// <param name="LocationName">Name of the location.</param>
-/// <param name="RatingId">Id of the relevant rating.</param>
-/// <param name="GeoLong">Geographic longitude.</param>
-/// <param name="GeoLat">Geographic latitiude.</param>
-/// <param name="JdForEt">Julian day for Ephemeris Time.</param>
 public class PersistableChartDateTimeLocation
 {
     public long Id { get; set; }

@@ -60,7 +60,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
         if (prefs.ActualObserverPosition == ObserverPositions.TopoCentric)
         {
-            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);  // TODO backlog optionally replace 0.0 with value for altitude above sealevel in meters. 
+            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0); 
         }
 
         int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, prefs.ActualObserverPosition, prefs.ActualZodiacType);

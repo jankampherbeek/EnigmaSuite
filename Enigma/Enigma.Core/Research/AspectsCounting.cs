@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -17,14 +17,12 @@ namespace Enigma.Core.Research;
 public sealed class AspectsCounting : IAspectsCounting
 {
     private readonly IAspectsHandler _aspectsHandler;
-    private readonly IAspectPointSelector _aspectPointSelector;
     private readonly IPointsMapping _pointsMapping;
     private readonly IResearchMethodUtils _researchMethodUtils;
 
-    public AspectsCounting(IAspectsHandler aspectsHandler, IAspectPointSelector aspectPointSelector, IPointsMapping pointsMapping, IResearchMethodUtils researchMethodUtils)
+    public AspectsCounting(IAspectsHandler aspectsHandler, IPointsMapping pointsMapping, IResearchMethodUtils researchMethodUtils)
     {
         _aspectsHandler = aspectsHandler;
-        _aspectPointSelector = aspectPointSelector;
         _pointsMapping = pointsMapping;
         _researchMethodUtils = researchMethodUtils;
     }
@@ -42,7 +40,7 @@ public sealed class AspectsCounting : IAspectsCounting
         AstroConfig config = request.Config;
         Dictionary<AspectTypes, AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
 
-        Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs = config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
         int cuspSize = charts[0].Positions.Count(item => item.Key.GetDetails().PointCat == PointCats.Cusp);

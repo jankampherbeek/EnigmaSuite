@@ -36,7 +36,7 @@ public sealed class PositionFinder: IPositionFinder
         }
         if (observerPos == ObserverPositions.TopoCentric)
         {
-            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);      // TODO backlog optionally replace 0.0 with value for altitude above sealevel in meters. 
+            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);    
         }
         int flags = _seFlags.DefineFlags(coordSys, observerPos, ZodiacTypes.Tropical);
         int seId = _mapping.SeIdForCelestialPoint(ChartPoints.Sun);

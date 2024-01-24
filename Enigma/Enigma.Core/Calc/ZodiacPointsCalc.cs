@@ -34,7 +34,7 @@ public sealed class ZodiacPointsCalc : IZodiacPointsCalc
         {
             if (point.GetDetails().CalculationCat != CalculationCats.ZodiacFixed) continue;
             double longitude = 0.0;
-            if (point == ChartPoints.ZeroAries) longitude = 0.0;                // TODO backlog add Zero Cancer
+            if (point == ChartPoints.ZeroAries) longitude = 0.0;            
             allZodiacalPointsLots.Add(point, CalculateZodiacFixedPoint(longitude, jdUt, obliquity, location));
         }
         return allZodiacalPointsLots;

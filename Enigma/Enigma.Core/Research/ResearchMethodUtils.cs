@@ -19,7 +19,7 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
     /// <inheritdoc/>
     public Dictionary<AspectTypes, AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config)
     {
-        Dictionary<AspectTypes, AspectConfigSpecs?> allAspects = config.Aspects;
+        Dictionary<AspectTypes, AspectConfigSpecs> allAspects = config.Aspects;
         return allAspects.Where(acSpec => acSpec.Value.IsUsed).ToDictionary(acSpec 
             => acSpec.Key, acSpec => acSpec.Value);
     }
@@ -27,7 +27,7 @@ public sealed class ResearchMethodUtils : IResearchMethodUtils
     /// <inheritdoc/>
     public Dictionary<ChartPoints, ChartPointConfigSpecs> DefineConfigSelectedChartPoints(AstroConfig config)
     {
-        Dictionary<ChartPoints, ChartPointConfigSpecs?> allChartPoints = config.ChartPoints;
+        Dictionary<ChartPoints, ChartPointConfigSpecs> allChartPoints = config.ChartPoints;
         return allChartPoints.Where(cpConfigSpec 
             => cpConfigSpec.Value.IsUsed).ToDictionary(cpConfigSpec => cpConfigSpec.Key, 
             cpConfigSpec => cpConfigSpec.Value);
