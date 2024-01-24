@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -89,12 +89,20 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
 
     private List<CalculatedResearchChart> CalculateAllCharts(string projectName, bool controlGroup)
     {
+        List<CalculatedResearchChart> allCalculatedResearchCharts = new();
         string fullPath = _researchPaths.DataPath(projectName, controlGroup);
         Log.Information("Reading Json from path : {Fp}", fullPath);
         string json = _filePersistencyHandler.ReadFile(fullPath);
-        StandardInput standardInput = _researchDataHandler.GetStandardInputFromJson(json);
-        List<CalculatedResearchChart> allCalculatedResearchCharts = _researchPositions.CalculatePositions(standardInput);
-        Log.Information("Calculation completed");
+        if (json != "")
+        {
+            StandardInput standardInput = _researchDataHandler.GetStandardInputFromJson(json);
+            allCalculatedResearchCharts = _researchPositions.CalculatePositions(standardInput);
+            Log.Information("Calculation completed");            
+        }
+        else
+        {
+            Log.Error("Could not find data for project {ProjName}", projectName);
+        }
         return allCalculatedResearchCharts;
     }
 
