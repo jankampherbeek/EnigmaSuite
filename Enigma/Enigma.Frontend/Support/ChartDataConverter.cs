@@ -59,22 +59,26 @@ public sealed class ChartDataConverter : IChartDataConverter
         var loc = chartData.Location;
         /*PersistableChartIdentification cIdent = new(chartData.Id, chartData.MetaData.Name, chartData.MetaData.Description,
             chartData.MetaData.ChartCategory);*/
-        PersistableChartIdentification cIdent = new();
-        cIdent.Id = chartData.Id;
-        cIdent.Name = chartData.MetaData.Name;
-        cIdent.Description = chartData.MetaData.Description;
-        cIdent.ChartCategoryId = chartData.MetaData.ChartCategory;
-        PersistableChartDateTimeLocation dtLoc = new();
-        dtLoc.Id = -1;
-        dtLoc.ChartId = chartData.Id;
-        dtLoc.Source = meta.Source;
-        dtLoc.DateText = dTime.DateText;
-        dtLoc.TimeText = dTime.TimeText;
-        dtLoc.LocationName = loc.LocationFullName;
-        dtLoc.RatingId = meta.RoddenRating;
-        dtLoc.GeoLong = loc.GeoLong;
-        dtLoc.GeoLat = loc.GeoLat;
-        dtLoc.JdForEt = dTime.JulianDayForEt;
+        PersistableChartIdentification cIdent = new()
+        {
+            Id = chartData.Id,
+            Name = chartData.MetaData.Name,
+            Description = chartData.MetaData.Description,
+            ChartCategoryId = chartData.MetaData.ChartCategory
+        };
+        PersistableChartDateTimeLocation dtLoc = new()
+        {
+            Id = -1,
+            ChartId = chartData.Id,
+            Source = meta.Source,
+            DateText = dTime.DateText,
+            TimeText = dTime.TimeText,
+            LocationName = loc.LocationFullName,
+            RatingId = meta.RoddenRating,
+            GeoLong = loc.GeoLong,
+            GeoLat = loc.GeoLat,
+            JdForEt = dTime.JulianDayForEt
+        };
         List<PersistableChartDateTimeLocation> allDtLocs = new() { dtLoc };
         return new PersistableChartData(cIdent, allDtLocs);
     }

@@ -22,6 +22,7 @@ public partial class AppSettingsViewModel: ObservableObject
     [ObservableProperty] private string _locationOfDatabase;
     [ObservableProperty] private string _locationOfExportFiles;
     [ObservableProperty] private string _locationOfLogFiles;
+    [ObservableProperty] private string _locationOfDocs;
     
     public AppSettingsViewModel()
     {
@@ -31,6 +32,7 @@ public partial class AppSettingsViewModel: ObservableObject
        _locationOfDatabase = AppSettingsModel.LocationOfDatabase();
        _locationOfExportFiles = AppSettingsModel.LocationOfExportFiles();
        _locationOfLogFiles = AppSettingsModel.LocationOfLogFiles();
+       _locationOfDocs = AppSettingsModel.LocationOfDocs();
     }
 
     [RelayCommand] private static void Close()

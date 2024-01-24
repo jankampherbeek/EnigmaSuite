@@ -13,7 +13,6 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
-using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -33,6 +32,9 @@ public partial class MainViewModel: ObservableObject
     public MainViewModel()
     {
         _generalWindowsFlow = App.ServiceProvider.GetRequiredService<GeneralWindowsFlow>();
+        HandleCheckNewVersion();
+        HandleCheckDirForSettings();
+        HandleCheckRdbms();
     }
 
     private static bool HandleCheckRdbms()
@@ -59,7 +61,17 @@ public partial class MainViewModel: ObservableObject
         }
     }
     
-    
+    private static void HandleCheckDirForSettings()     
+    {
+        ApplicationSettings settings = ApplicationSettings.Instance;
+        if (!Directory.Exists(ApplicationSettings.LocationEnigmaRoot)) Directory.CreateDirectory(ApplicationSettings.LocationEnigmaRoot);
+        if (!Directory.Exists(ApplicationSettings.LocationExportFiles)) Directory.CreateDirectory(ApplicationSettings.LocationExportFiles);
+        if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);
+        if (!Directory.Exists(ApplicationSettings.LocationDataFiles)) Directory.CreateDirectory(ApplicationSettings.LocationDataFiles);
+        if (!Directory.Exists(ApplicationSettings.LocationDatabase)) Directory.CreateDirectory(ApplicationSettings.LocationDatabase);
+        if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
+        if (!Directory.Exists(ApplicationSettings.LocationDocs)) Directory.CreateDirectory(ApplicationSettings.LocationDocs);
+    }
     
     
     [RelayCommand]

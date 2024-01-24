@@ -23,7 +23,6 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<EventCompletedMessage>
 {
     private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
-    private const string USER_MANUAL = "UserManual";
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private CalculatedChart? _currentChart;

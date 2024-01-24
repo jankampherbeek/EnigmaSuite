@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -82,10 +82,10 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, ProgPositions> calculatedPositions = CalculateSymDir();
         _progPositions = CreateProgPositions(calculatedPositions);
         List<PresentableProgPosition> rawPresProgPositions = CreatePresentableProgPositions(calculatedPositions);
-        PresProgPositions = new();
+        PresProgPositions = new List<PresentableProgPosition>();
         foreach (var presProgPos in rawPresProgPositions)
         {
-            PresProgPositions.Add(new PresentableProgPosition(presProgPos.PointGlyph, presProgPos.Longitude, presProgPos.SignGlyph, "-", "-", "-"));            
+            PresProgPositions.Add(presProgPos with { Latitude = "-", Ra = "-", Declination = "-" });            
         }
         HandleAspects(ProgresMethods.Symbolic);
     }

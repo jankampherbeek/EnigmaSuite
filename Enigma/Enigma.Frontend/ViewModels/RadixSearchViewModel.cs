@@ -41,7 +41,7 @@ public partial class RadixSearchViewModel: ObservableObject
     private void Select()
     {
         _model.AddFoundChartToDataVault(ChartIndex);
-        WeakReferenceMessenger.Default.Send(new FoundChartMessage(VM_IDENTIFICATION, _chartsFound[ChartIndex].Id));
+        WeakReferenceMessenger.Default.Send(new FoundChartMessage(VM_IDENTIFICATION, ChartsFound[ChartIndex].Id));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 

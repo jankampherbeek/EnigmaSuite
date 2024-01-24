@@ -27,6 +27,7 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
+            <RowDefinition Height="10*"/>
             <RowDefinition Height="18*"/>            
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -48,7 +49,11 @@
         <TextBlock Grid.Column="0" Grid.Row="5" Text="Database" Margin="6"/>
         <TextBlock Grid.Column="1" Grid.Row="5" Text="{Binding LocationOfDatabase, Mode=OneWay}" Margin="6"/>
 
-        <StackPanel Grid.Column="1" Grid.Row="6" Orientation="Horizontal">
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Documentation" Margin="6"/>
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="{Binding LocationOfDocs, Mode=OneWay}" Margin="6"/>
+
+        
+        <StackPanel Grid.Column="1" Grid.Row="7" Orientation="Horizontal">
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="6" Width="80" HorizontalAlignment="Right" Content="Close" Command="{Binding CloseCommand}"/>
         </StackPanel>

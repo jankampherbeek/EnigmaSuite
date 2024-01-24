@@ -33,7 +33,7 @@ public sealed class DataVaultResearch
     
     public ResearchPointSelection? CurrentPointsSelection { get; set; }
     public MidpointDetailsSelection CurrenMidpointDetailsSelection { get; set; }
-    public HarmonicDetailsSelection CurrentHarmonicDetailsSelection { get; set; }
+    public HarmonicDetailsSelection CurrentHarmonicDetailsSelection { get; set; } 
     public MethodResponse? ResponseTest { get; set; }
     public MethodResponse? ResponseCg { get; set; }
     

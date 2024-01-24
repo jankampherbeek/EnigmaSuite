@@ -20,7 +20,7 @@ namespace Enigma.Test.Core.Handlers;
 [TestFixture]
 public class TestProgAspectsHandler
 {
-    private const double Delta = 0.00000001;
+    private const double DELTA = 0.00000001;
     private readonly IProgAspectsHandler _handler = 
         new ProgAspectsHandler(new CalculatedDistance(), new CheckedProgAspects());
     
@@ -29,21 +29,20 @@ public class TestProgAspectsHandler
     {
         const double orb = 10.0;
         ProgAspectsRequest request = new(CreateChartPoints(), CreateProgPoints(), CreateAspectTypes(), orb);
-        ProgAspectsResponse response = _handler.FindProgAspects(request);
-        Assert.That(response.ResultCode, Is.EqualTo(ResultCodes.OK));
+        (List<DefinedAspect>? aspectsFound, int resultCode) = _handler.FindProgAspects(request);
+        Assert.That(resultCode, Is.EqualTo(ResultCodes.OK));
         // expected aspects:
         // r Sun conj p Uranus
         // r Moon opp p Saturn
         // r Moon quintile p Uranus
         // r Chiron conj p MakeMake
-        List<DefinedAspect> aspectsFound = response.Aspects;
         Assert.Multiple(() =>
         {
             Assert.That(aspectsFound, Has.Count.EqualTo(4));
             Assert.That(aspectsFound[0].Aspect.Aspect, Is.EqualTo(AspectTypes.Conjunction));
             Assert.That(aspectsFound[0].Point1, Is.EqualTo(ChartPoints.Uranus));
             Assert.That(aspectsFound[0].Point2, Is.EqualTo(ChartPoints.Sun));
-            Assert.That(aspectsFound[0].ActualOrb, Is.EqualTo(3.0).Within(Delta));
+            Assert.That(aspectsFound[0].ActualOrb, Is.EqualTo(3.0).Within(DELTA));
             Assert.That(aspectsFound[1].Aspect.Aspect, Is.EqualTo(AspectTypes.Opposition));
             Assert.That(aspectsFound[3].Point2, Is.EqualTo(ChartPoints.Chiron));
         });
@@ -67,20 +66,19 @@ public class TestProgAspectsHandler
             AspectTypes.Quintile
         };
         ProgAspectsRequest request = new(cPoints, pPoints, aspectTypes, orb);
-        ProgAspectsResponse response = _handler.FindProgAspects(request);
-        List<DefinedAspect> aspectsFound = response.Aspects;
+        (List<DefinedAspect>? aspectsFound, int resultCode) = _handler.FindProgAspects(request);
         Assert.Multiple(() =>
         {
-            Assert.That(response.ResultCode, Is.EqualTo(ResultCodes.OK));
+            Assert.That(resultCode, Is.EqualTo(ResultCodes.OK));
             Assert.That(aspectsFound, Has.Count.EqualTo(2));            
             Assert.That(aspectsFound[0].Aspect.Aspect, Is.EqualTo(AspectTypes.Square));
             Assert.That(aspectsFound[0].Point1, Is.EqualTo(ChartPoints.Saturn));
             Assert.That(aspectsFound[0].Point2, Is.EqualTo(ChartPoints.Sun));
-            Assert.That(aspectsFound[0].ActualOrb, Is.EqualTo(11.0).Within(Delta));
+            Assert.That(aspectsFound[0].ActualOrb, Is.EqualTo(11.0).Within(DELTA));
             Assert.That(aspectsFound[1].Aspect.Aspect, Is.EqualTo(AspectTypes.Quintile));
             Assert.That(aspectsFound[1].Point1, Is.EqualTo(ChartPoints.Saturn));
             Assert.That(aspectsFound[1].Point2, Is.EqualTo(ChartPoints.Sun));
-            Assert.That(aspectsFound[1].ActualOrb, Is.EqualTo(7.0).Within(Delta));
+            Assert.That(aspectsFound[1].ActualOrb, Is.EqualTo(7.0).Within(DELTA));
         });
     }
 
@@ -93,7 +91,7 @@ public class TestProgAspectsHandler
         Assert.That(response.ResultCode, Is.EqualTo(ResultCodes.WRONG_ARGUMENTS));
     }
     
-    private Dictionary<ChartPoints, double> CreateChartPoints()
+    private static Dictionary<ChartPoints, double> CreateChartPoints()
     {
         Dictionary<ChartPoints, double> cPoints = new()
         {

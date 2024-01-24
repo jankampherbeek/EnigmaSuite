@@ -140,9 +140,9 @@ public class TestActualConfigCreator
             chartPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
     }
 
-    private Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()
+    private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()
     {
-        return new Dictionary<ChartPoints, ChartPointConfigSpecs>()
+        return new Dictionary<ChartPoints, ChartPointConfigSpecs>
         {
             { ChartPoints.Sun, new ChartPointConfigSpecs(true, 'a', 100, true) },
             { ChartPoints.Moon, new ChartPointConfigSpecs(true, 'b', 100, true) },
@@ -151,9 +151,9 @@ public class TestActualConfigCreator
         };
     }
 
-    private Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects()
+    private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects()
     {
-        return new Dictionary<AspectTypes, AspectConfigSpecs>()
+        return new Dictionary<AspectTypes, AspectConfigSpecs>
         {
             { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100, true) },
             { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100, true) },
@@ -164,7 +164,7 @@ public class TestActualConfigCreator
     
     private static Dictionary<string, string> CreateDeltas()
     {
-        return new Dictionary<string, string>()
+        return new Dictionary<string, string>
         {
             { StandardTexts.CFG_HOUSE_SYSTEM, "15" },       // Vehlow
             { StandardTexts.CFG_AYANAMSHA, "2" },           // Lahiri
@@ -172,7 +172,7 @@ public class TestActualConfigCreator
             { StandardTexts.CFG_BASE_ORB_ASPECTS, "7" },    // base orb aspects, changed
             { "CP_0", "y||a||90||y" },                      // Sun - changed
             { "CP_1", "y||b||90||y" },                      // Moon - changed
-            { "AT_0", "y||B||90||y" },                      // Conjunction - changed
+            { "AT_0", "y||B||90||y" }                       // Conjunction - changed
         };
 
     }

@@ -25,7 +25,6 @@ public partial class ChartsMainViewModel: ObservableObject,
     IRecipient<ConfigUpdatedMessage>
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.CHARTS_MAIN;
-    private const string USER_MANUAL = "UserManual";
     private const string ABOUT_CHARTS = "AboutCharts";
     private readonly ChartsMainModel _model;
     // ReSharper disable once NotAccessedField.Local  An instance of ChartsWindowsFlow must be instantiated so it can
@@ -167,7 +166,7 @@ public partial class ChartsMainViewModel: ObservableObject,
 
     
     [RelayCommand]
-    private void About()
+    private static void About()
     {
         WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT_CHARTS));
     }

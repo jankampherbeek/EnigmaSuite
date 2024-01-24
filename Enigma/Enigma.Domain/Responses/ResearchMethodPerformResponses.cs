@@ -33,13 +33,6 @@ public record SimpleCount(ChartPoints Point, int Count) : MethodCount(Point);
 public record TwoPointStructure(ChartPoints Point, ChartPoints Point2);
 
 
-/// <summary>Count result for three research points.</summary>
-/// <param name="Point">The first research point.</param>
-/// <param name="Point2">The second research point.</param>
-/// <param name="Point3">The third research point.</param>
-public record ThreePointStructure(ChartPoints Point, ChartPoints Point2, ChartPoints Point3);
-
-
 /// <summary>Parent for a response from a performed test.</summary>
 /// <param name="Request">The original request.</param>
 public abstract record MethodResponse(GeneralResearchRequest Request);

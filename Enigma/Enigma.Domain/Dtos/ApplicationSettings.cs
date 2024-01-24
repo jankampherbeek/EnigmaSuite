@@ -15,7 +15,7 @@ public class ApplicationSettings
     public static string LocationExportFiles => @"c:\enigma_ar\export";
     public static string LocationLogFiles => @"c:\enigma_ar\logs";
     public static string LocationDatabase => @"c:\enigma_ar\database";
-
+    public static string LocationDocs => @"c:\enigma_ar\docs";
 
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
     static ApplicationSettings()

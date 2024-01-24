@@ -106,25 +106,10 @@ public static class EnigmaConstants
     public const int SE_VULCANUS_URA = 46;
     /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ZEUS_URA = 42;
-    
-
-    // Celestial points that are not calculated with the Swiss Ephemeris
-    /// <summary>Apogee, approximately according to Max Duval, formula's by Cees Jansen.</summary>
-    public const int NON_SE_DUVAL_APOGEE = 105;
-    /// <summary>Persephone according to Carteret.</summary>
-    public const int NON_SE_PERSEPHONE_CARTERET = 104;
-    /// <summary>Vulcanus according to Carteret.</summary>
-    public const int NON_SE_VULCANUS_CARTERET = 103;
-    /// <summary>Spring equinox/zero degrees Aries.</summary>
-    public const int NON_SE_ZEROARIES = 106;
 
     // CommonSE flags
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>
     public const int SEFLG_SWIEPH = 2;
-    /// <summary>Flag: indication to calculate heliocentric positions.</summary>
-    public const int SEFLG_HELCTR = 8;
-    /// <summary>Flag: indication to also calculate the speed.</summary>
-    public const int SEFLG_SPEED = 256;
     /// <summary>Flag: indication to calculate equatorial positions.</summary>
     public const int SEFLG_EQUATORIAL = 2048;
     /// <summary>Flag: indication to calculate topocentric positions.</summary>
@@ -132,14 +117,7 @@ public static class EnigmaConstants
     /// <summary>Flag: indication to use sidereal positions.</summary>
     public const int SEFLG_SIDEREAL = 64 * 1024;
 
-    // SE values for heliacal rising
-    public const int SE_HELIACAL_RISING = 1;
-    public const int SE_HELIACAL_SETTING = 2;
-    public const int SE_EVENING_FIRST = 3;
-    public const int SE_MORNING_LAST = 4;
-    
-    
-    
+   
     // Limits
     /// <summary>Maximum value for daylight saving time.</summary>
     public const double DST_MAX = 3.0;
@@ -161,11 +139,6 @@ public static class EnigmaConstants
     public const double TIMEZONE_MAX = 12.0;
     /// <summary>Minimum value for timezone. </summary>
     public const double TIMEZONE_MIN = -12.0;
-
-    /// <summary>Maximum altitude for observer, expressed in meters.</summary>
-    public const int ALTITUDE_OBSERVER_MAX = 8850; // Mount Everest is 8848 meters, added 2 meters for eye height.
-    /// <summary>Minimum altitude for observer, expressed in meters.</summary>
-    public const int ALTITUDE_OBSERVER_MIN = -420; // Borders of the Dead Sea.
 
     // Supported periods
     /// <summary>Julian day of start supported period for Ceres and Vesta.</summary>
@@ -216,22 +189,16 @@ public static class EnigmaConstants
     public const char NEW_LINE = '\n';
 
     // Locations
-    public const string USER_MANUAL = @"C:\enigma_ar\docs\UserManual.html";
+    public const string USER_MANUAL = "https://radixpro.com/usermanual/index.html";
     /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
     public const string CONFIG_DELTA_LOCATION = "c:/enigma_ar/enigmacfgdelta.json";
     /// <summary>Location of deltas for configuration file for rogressions, contains path and filename.</summary>
     public const string CONFIG_PROG_DELTA_LOCATION = "c:/enigma_ar/enigmaprogcfgdelta.json";
-    /// <summary>Location of progressive configuration file, contains path and filename.</summary>
-    public const string CONFIG_PROG_LOCATION = "c:/enigma_ar/enigmaprogconfig.json";    
-    /// <summary>Name of json database for charts.</summary>
-    public const string DATABASE_CONNECT = "/Enigma.db; connection=shared";
     /// <summary>Name of relational database.</summary>   
     public const string RDBMS_NAME = "/EnigmaRDBMS.sqlite";
     /// <summary>Url to find latest release information.</summary>
     public const string RELEASE_CHECK_URL = "http://radixpro.com/rel/enigma-ar-latest.json";
 
-    /// <summary>Timekey according to Naibod.</summary>
-    public const double NAIBOD = 0.985647222;
     /// <summary>Length of tropical year measured in tropical days.</summary>
     /// <remarks>According to: NASA 365 days, 5 hours, 48 minutes, and 46 seconds,
     /// https://www.grc.nasa.gov/www/k-12/Numbers/Math/Mathematical_Thinking/calendar_calculations.htm</remarks>

@@ -64,9 +64,7 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountOccupiedMidpoints:
             {
-                MidpointDetailsSelection mpSelection = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
-                int divisionForDial = mpSelection.DialDivision;
-                double orb = mpSelection.Orb;
+                (int divisionForDial, double orb) = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
                 bool useControlGroup = false;
                 CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);
@@ -78,10 +76,7 @@ public class ProjectUsageModel
             case ResearchMethods.CountHarmonicConjunctions:
             {
                 // todo check for null
-                HarmonicDetailsSelection hmSelection =
-                    DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
-                double harmonicNumber = hmSelection.HarmonicNumber;
-                double orb = hmSelection.Orb;
+                (double harmonicNumber, double orb) = DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
                 bool useControlGroup = false;
                 CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);

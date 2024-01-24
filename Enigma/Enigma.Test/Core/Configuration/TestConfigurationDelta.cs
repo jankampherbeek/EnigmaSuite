@@ -17,18 +17,6 @@ public class TestConfigurationDelta
 {
     private IConfigurationDelta _configDelta;
     private IDeltaTexts _deltaTextsMock;
-
-    private readonly ChartPointConfigSpecs _configSun = new(true, 'a', 100, true);
-    private readonly ChartPointConfigSpecs _configMoon = new(true, 'b', 90, true);
-    private readonly ChartPointConfigSpecs _configMercury = new(true, 'c', 100, true);
-    private readonly Tuple<string, string> _resultTextsSun = new("CP_0", "y||a||100||y");
-    private readonly Tuple<string, string> _resultTextsMoon = new("CP_1", "y||b||100||y");
-    private readonly Tuple<string, string> _resultTextsMercury = new("CP_2", "y||c||100||y");
-
-    private readonly AspectConfigSpecs _configConjunction = new(true, 'B', 100, true);
-    private readonly AspectConfigSpecs _configOpposition = new(true, 'C', 90, true);
-    private readonly AspectConfigSpecs _configTriangle = new(true, 'D', 100, true);
-    
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsDefault;
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsUpdated;
     private Dictionary<AspectTypes, AspectConfigSpecs> _aspectsDefault;
@@ -386,7 +374,7 @@ public class TestConfigurationDelta
     private static ConfigProgSymDir CreateConfigProgSymDirDefault()
     {
         const double orb = 0.9;
-        SymbolicKeys key = SymbolicKeys.MeanSun;
+        const SymbolicKeys key = SymbolicKeys.MeanSun;
         Dictionary<ChartPoints, ProgPointConfigSpecs> points = new()
         {
             { ChartPoints.Ascendant, new ProgPointConfigSpecs(true, 'A') },

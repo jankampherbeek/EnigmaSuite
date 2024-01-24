@@ -45,14 +45,16 @@ public sealed class EventDataConverter : IEventDataConverter
 
     private static PersistableEventData HandleConversion(ProgEvent progEvent)
     {
-        PersistableEventData persEventData = new();
-        persEventData.Description = progEvent.Description;
-        persEventData.LocationName = progEvent.LocationName;
-        persEventData.JulianDayEt = progEvent.DateTime.JulianDayForEt;
-        persEventData.DateText = progEvent.DateTime.DateText;
-        persEventData.TimeText = progEvent.DateTime.TimeText;
-        persEventData.GeoLat = progEvent.Location.GeoLat;
-        persEventData.GeoLong = progEvent.Location.GeoLong;
+        PersistableEventData persEventData = new()
+        {
+            Description = progEvent.Description,
+            LocationName = progEvent.LocationName,
+            JulianDayEt = progEvent.DateTime.JulianDayForEt,
+            DateText = progEvent.DateTime.DateText,
+            TimeText = progEvent.DateTime.TimeText,
+            GeoLat = progEvent.Location.GeoLat,
+            GeoLong = progEvent.Location.GeoLong
+        };
         return persEventData;
     }
 }

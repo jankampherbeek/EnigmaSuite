@@ -37,5 +37,9 @@ public sealed class AppSettingsModel
         return ApplicationSettings.LocationDatabase;
     }
 
-
+    public static string LocationOfDocs()
+    {
+        return ApplicationSettings.LocationDocs;
+    }
+    
 }

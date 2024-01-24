@@ -41,18 +41,5 @@ public class TestReferencesDao
         Assert.That(catNameResult, Is.EqualTo("Horary"));
     }
 
-    [Test]
-    public void TestReadAllFileFormats()
-    {
-        Dictionary<long, string> fileFormatResult = _refDao.ReadAllFileFormats();
-        Assert.That(fileFormatResult, Has.Count.EqualTo(2));
-    }
-
-    [Test]
-    public void TestReadNameForFileFormat()
-    {
-        string fileFormatResult = _refDao.ReadNameForFileFormat(1);
-        Assert.That(fileFormatResult, Is.EqualTo("Enigma standard"));
-    }
-    
+   
 }

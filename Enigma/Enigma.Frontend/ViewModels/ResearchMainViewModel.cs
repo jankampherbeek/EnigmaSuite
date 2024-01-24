@@ -24,7 +24,6 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.RESEARCH_MAIN;
     private const string ABOUT_RESEARCH = "AboutResearch";
-    private const string USER_MANUAL = "UserManual";
     private readonly ResearchMainModel _model;
     // ReSharper disable once NotAccessedField.Local  An instance of ResearchWindowsFlow must be instantiated so it can
     // handle incoming messages.
