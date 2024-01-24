@@ -25,28 +25,14 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class MainViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.MAIN;
+    private GeneralWindowsFlow _generalWindowsFlow;
 
     [ObservableProperty] private string _versionText = "Current version is up to date";
     private bool _isVersionOk = true;
     public SolidColorBrush VersionTextBrush => _isVersionOk ? Brushes.White : Brushes.Orange;
     public MainViewModel()
     {
-        HandleCheckNewVersion();
-        HandleCheckDirForSettings();
-        HandleCheckRdbms();
-    }
-    
-    
-    // Startup checks 
-    private static void HandleCheckDirForSettings()        // todo 0.2 move to backend
-    {
-        ApplicationSettings settings = ApplicationSettings.Instance;
-        if (!Directory.Exists(ApplicationSettings.LocationEnigmaRoot)) Directory.CreateDirectory(ApplicationSettings.LocationEnigmaRoot);
-        if (!Directory.Exists(ApplicationSettings.LocationExportFiles)) Directory.CreateDirectory(ApplicationSettings.LocationExportFiles);
-        if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);
-        if (!Directory.Exists(ApplicationSettings.LocationDataFiles)) Directory.CreateDirectory(ApplicationSettings.LocationDataFiles);
-        if (!Directory.Exists(ApplicationSettings.LocationDatabase)) Directory.CreateDirectory(ApplicationSettings.LocationDatabase);
-        if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
+        _generalWindowsFlow = App.ServiceProvider.GetRequiredService<GeneralWindowsFlow>();
     }
 
     private static bool HandleCheckRdbms()

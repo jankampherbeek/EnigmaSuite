@@ -7,4 +7,8 @@
                  start-page="UserManual.md">
 
     <toc-element topic="UserManual.md"/>
+    <toc-element topic="Configuration-and-settings.md"/>
+    <toc-element topic="General.md"/>
+    <toc-element topic="Module-Research.md"/>
+    <toc-element topic="Appendix.md"/>
 </instance-profile>

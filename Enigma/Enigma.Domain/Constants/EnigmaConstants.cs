@@ -10,7 +10,7 @@ namespace Enigma.Domain.Constants;
 public static class EnigmaConstants
 {
     // Version info
-    public const string ENIGMA_VERSION = "0.1.0";
+    public const string ENIGMA_VERSION = "0.2.0";
     // CommonSE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;
@@ -216,6 +216,7 @@ public static class EnigmaConstants
     public const char NEW_LINE = '\n';
 
     // Locations
+    public const string USER_MANUAL = @"C:\enigma_ar\docs\UserManual.html";
     /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
     public const string CONFIG_DELTA_LOCATION = "c:/enigma_ar/enigmacfgdelta.json";
     /// <summary>Location of deltas for configuration file for rogressions, contains path and filename.</summary>

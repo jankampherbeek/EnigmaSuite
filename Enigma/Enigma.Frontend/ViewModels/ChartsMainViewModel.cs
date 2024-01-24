@@ -12,6 +12,7 @@ using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -181,7 +182,8 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand]
     private static void UserManual()
     {
-        WeakReferenceMessenger.Default.Send(new HelpMessage(USER_MANUAL));
+       UserManual userManual = new();
+       userManual.ShowUserManual();
     }
     
     /// <summary>Closes all child windows of main chart window. Clears all charts in DataVault.</summary>

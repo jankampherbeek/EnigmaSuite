@@ -14,6 +14,7 @@ using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -140,7 +141,8 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     [RelayCommand]
     private static void UserManual()
     {
-        WeakReferenceMessenger.Default.Send(new HelpMessage(USER_MANUAL));
+        UserManual userManual = new();
+        userManual.ShowUserManual();
     }
     
     [RelayCommand]
