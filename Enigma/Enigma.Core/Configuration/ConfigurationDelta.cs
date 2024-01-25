@@ -97,7 +97,7 @@ public class ConfigurationDelta: IConfigurationDelta
             bool found = newConf.ConfigSecDir.ProgPoints.TryGetValue(pointKey, out ProgPointConfigSpecs? newPointValue);
             if (!found || newPointValue is null || newPointValue.Equals(value)) continue;
             Tuple<string, string> deltaForPoint = _deltaTexts.CreateDeltaForProgChartPoint(
-                ProgresMethods.Secundary, pointKey, newPointValue);
+                ProgresMethods.Secondary, pointKey, newPointValue);
             allDeltas.Add(deltaForPoint.Item1, deltaForPoint.Item2);
         }
         foreach ((ChartPoints pointKey, ProgPointConfigSpecs? value) in defConf.ConfigSymDir.ProgPoints)
@@ -162,7 +162,7 @@ public class DeltaTexts: IDeltaTexts
         string prefix = progresMethod switch
         {
             ProgresMethods.Transits => "TR_CP_",
-            ProgresMethods.Secundary => "SC_CP_",
+            ProgresMethods.Secondary => "SC_CP_",
             ProgresMethods.Symbolic => "SM_CP_",
             _ => ""
         };
@@ -182,7 +182,7 @@ public class DeltaTexts: IDeltaTexts
         string keyTxt = progresMethod switch
         {
             ProgresMethods.Transits => "TR_ORB",
-            ProgresMethods.Secundary => "SC_ORB",
+            ProgresMethods.Secondary => "SC_ORB",
             ProgresMethods.Symbolic => "SM_ORB",
             _ => ""
         };

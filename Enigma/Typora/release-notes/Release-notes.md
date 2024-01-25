@@ -1,32 +1,41 @@
 # Release notes Enigma Astrology Research
 
-## Release 0.2 beta - February 1, 2024
-**Updated user interface**. Enigma now supports a more modern style, based on the _Material Design_ approach by Google.
+## Release 0.2 beta - February 15, 2024
 
-**Updated database**. The Json database from release 0.1 is replaced with a standard database.
+Support for several progressive techniques.
 
-**Updated user configuration**. The configuration can now handle updates in future versions. 
-This means that an update of the configuration from this release (0.2) to release 0.3 will be performed automatically. 
-It is not possible to automatically update from the configuration in release 0.1 to release 0.2
+### General
 
-**Added configuration for progressive techniques**. 
-It is now possible to define a configuration for progressive techniques. 
+**Updated user interface**. A modern style, based on the _Material Design_ approach by Google.
 
-**Events for progressive techniques**.
-It is now possible to enter events that can be (re-)used in progressive techniques.
-These events are automatically saved in the database. 
-This means that the user can enter one event and use it within several progressive techniques.
+**Updated database**. Replaced the Json database from release 0.1 with a standard database.
 
-**Calculationa and analysis for transits**. The user can calculate transits for a given event. 
-Enigma shows the resuls in a table and als calculated the aspects between transits and points in the radix.
+**Updated user configuration**. The configuration can now handle updates for future releases. 
+This means that the system will automatically perform an update of the configuration from release 0.2 to release 0.3. 
+It is not possible to update automatically from the configuration in release 0.1 to release 0.2.
 
-**Calculation and analysis for secundary directions**. Also secundary directions can new be calculated.
-Results of the positions and of aspects with points in the radix are shown in separate tables.
+**Added configuration for progressive techniques**. It is now possible to define a configuration for progressive techniques. 
 
-**Calculation and analysis for symbolic directions**. 
-A third progressive technique, symbolic directions, is now also supported. 
-The user can select from three time keys. 
-1 degree per year, mean daily movement of the Sun per year, and the real movement of the Sun in days, used for each year.
+**Integrated user manual**. The user manual is available in both PDF and HTML format. The HTML version is on line and accessible from the application menu.
+
+
+
+### Charts progressive
+
+**Events for progressive techniques**. It is now possible to enter events that can be (re-)used in progressive techniques. Enigma saves these events automatically in the database. This means that the user can enter one event and use it with several progressive techniques.
+
+**Calculation and analysis for transits**. The user can calculate transits for an event. 
+Enigma shows the results in a table and also calculates the aspects between transits and points in the radix.
+
+**Calculation and analysis for secondary directions**. It is also possible to calculate secondary directions.
+Enigma uses separate tables to show the results of the positions and of aspects with points in the radix.
+
+**Calculation and analysis for symbolic directions**. Support for symbolic directions. The user can select from three time keys. 
+1 degree per year, mean daily movement of the Sun per year, and the actual movement of the Sun in days, used for each year.
+
+
+
+
 
 
 ## Release 0.1 beta - April 25, 2023 

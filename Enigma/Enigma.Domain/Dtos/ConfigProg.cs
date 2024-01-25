@@ -29,7 +29,7 @@ public sealed class ConfigProg
 /// <param name="ProgPoints">Avaialable points.</param>
 public record ConfigProgTransits(double Orb, Dictionary<ChartPoints, ProgPointConfigSpecs> ProgPoints);
 
-/// <summary>Configuration for secundary progressions.</summary>
+/// <summary>Configuration for secondary progressions.</summary>
 /// <param name="Orb">Orb between progressive and radix contacts.</param>
 /// <param name="ProgPoints">Avaialable points.</param>
 public record ConfigProgSecDir(double Orb, Dictionary<ChartPoints, ProgPointConfigSpecs> ProgPoints);

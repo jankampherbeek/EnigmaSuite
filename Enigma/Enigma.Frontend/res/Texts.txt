@@ -45,11 +45,11 @@ charts.prog.priminput.significators = Significators, click checkbox for all
 charts.prog.priminput.timekey = Time key
 charts.prog.priminput.title =  Enigma - Input primary directions
 charts.prog.secinput.aspects =  Aspects, click checkbox for all
-charts.prog.secinput.formtitle = Secundary progressions
+charts.prog.secinput.formtitle = Secondary progressions
 charts.prog.secinput.moment =  Date event (yyyy/mm/dd)
 charts.prog.secinput.orbaspects =  Orb for aspects (d:mm:ss)
 charts.prog.secinput.secpoints = Prog. points, click checkbox for all
-charts.prog.secinput.title Enigma - Input secundary progressions
+charts.prog.secinput.title Enigma - Input secondary progressions
 charts.prog.solarinput.age = Age (in years)
 charts.prog.solarinput.title = Enigma - solar return
 charts.prog.solarinput.formtitle = Solar return

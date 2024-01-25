@@ -63,9 +63,9 @@
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="Techniques">
-                <MenuItem Header="Secundary Directions" Command="{Binding SecDirCommand}">
+                <MenuItem Header="Secondary Directions" Command="{Binding SecDirCommand}">
                     <MenuItem.Icon>
-                        <Image Source="/Images/secundary.png"/>
+                        <Image Source="/Images/secondary.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Header="Transits" Command="{Binding TransitsCommand}">
@@ -141,7 +141,7 @@
             <StackPanel Margin="6" Orientation="Vertical" HorizontalAlignment="Right">
                 <Button Margin="0 3 0 3" Content="New event" Command="{Binding NewEventCommand}"/>
                 <Button Margin="0 3 0 3" Content="Delete event" Command="{Binding DeleteEventCommand}"/>
-                <Button Margin="0 3 0 3" Content="Secundary dir." Command="{Binding SecDirCommand}"/>
+                <Button Margin="0 3 0 3" Content="Secondary dir." Command="{Binding SecDirCommand}"/>
                 <Button Margin="0 3 0 3" Content="Transits" Command="{Binding TransitsCommand}"/>
                 <Button Margin="0 3 0 3" Content="Symbolic dir." Command="{Binding SymbDirCommand}"/>
             </StackPanel>

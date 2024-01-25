@@ -74,7 +74,7 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, ProgPositions> calculatedPositions = CalculateSecDir();
         _progPositions = CreateProgPositions(calculatedPositions);
         PresProgPositions = CreatePresentableProgPositions(calculatedPositions);
-        HandleAspects(ProgresMethods.Secundary);
+        HandleAspects(ProgresMethods.Secondary);
     }
 
     public void HandleSymDir()
@@ -143,7 +143,7 @@ public class ProgEventResultsModel
         return progMethod switch
         {
             ProgresMethods.Transits => configProg.ConfigTransits.Orb,
-            ProgresMethods.Secundary => configProg.ConfigSecDir.Orb,
+            ProgresMethods.Secondary => configProg.ConfigSecDir.Orb,
             ProgresMethods.Symbolic => configProg.ConfigSymDir.Orb,
             ProgresMethods.Undefined => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null),
             _ => throw new ArgumentOutOfRangeException(nameof(progMethod), progMethod, null)
@@ -157,7 +157,7 @@ public class ProgEventResultsModel
         {
             ProgresMethods.Transits => "Transits",
             ProgresMethods.Undefined => "No progressive method defined",
-            ProgresMethods.Secundary => "Secundary directions",
+            ProgresMethods.Secondary => "Secondary directions",
             ProgresMethods.Symbolic => "Symbolic directions",
             _ => throw new ArgumentOutOfRangeException()
         };
@@ -222,7 +222,7 @@ public class ProgEventResultsModel
         if (response.ResultCode == 0) positions = response.Positions;
         else
         {
-            Log.Error("Resultcode when calculating secundary directions {ResultCode}", response.ResultCode);
+            Log.Error("Resultcode when calculating secondary directions {ResultCode}", response.ResultCode);
         }
         return positions;
     }

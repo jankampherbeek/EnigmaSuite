@@ -111,7 +111,7 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
   [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SecDir()
     {
-        _dataVaultProg.CurrentProgresMethod = ProgresMethods.Secundary;
+        _dataVaultProg.CurrentProgresMethod = ProgresMethods.Secondary;
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
     

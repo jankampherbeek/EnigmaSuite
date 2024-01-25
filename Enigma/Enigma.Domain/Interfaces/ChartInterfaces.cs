@@ -21,7 +21,7 @@ public interface ICurrentCharts
     /// <summary>Add a chart to the set of current charts.</summary>
     /// <param name="newChart">The chart.</param>
     /// <param name="isPrimary">True if this is the primary chart.</param>
-    /// <param name="isSecondary">True if this is the secundary chart.</param>
+    /// <param name="isSecondary">True if this is the secondary chart.</param>
     public void AddChart(CalculatedChart newChart, bool isPrimary, bool isSecondary);
 
     /// <summary>Remove chart from the set of current charts.</summary>

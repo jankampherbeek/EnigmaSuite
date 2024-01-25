@@ -62,12 +62,12 @@ public sealed class ProgSymDirHandler: ICalcSymDirHandler
             case SymbolicKeys.TrueSun:
             {
                 double sunRadix = request.RadixPoints[ChartPoints.Sun];
-                double secundaryJd = request.JdRadix + timeSpanInYears;
+                double secondaryJd = request.JdRadix + timeSpanInYears;
                 Location dummyLocation = new("", 0.0, 0);
                 Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints = new();
                 progPoints.Add(ChartPoints.Sun, new ProgPointConfigSpecs(true, 'a'));
                 ProgRealPointsResponse response = _progRealPointCalc.CalculateTransits(Ayanamshas.None, 
-                    ObserverPositions.GeoCentric, dummyLocation, secundaryJd, progPoints );
+                    ObserverPositions.GeoCentric, dummyLocation, secondaryJd, progPoints );
                 ProgPositions positions;
                 if (response.Positions.TryGetValue(ChartPoints.Sun, out positions))
                 {

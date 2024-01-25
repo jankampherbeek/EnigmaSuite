@@ -22,10 +22,10 @@ public interface ICalcTransitsHandler
     public ProgRealPointsResponse CalculateTransits(TransitsEventRequest request);
 }
 
-/// <summary>Handles calculation of secundary directions.</summary>
+/// <summary>Handles calculation of secondary directions.</summary>
 public interface ICalcSecDirHandler
 {
-    /// <summary>Handles calculation of secundary directions for a specific event.</summary>
+    /// <summary>Handles calculation of secondary directions for a specific event.</summary>
     /// <param name="request">Request with config items, date/time etc.</param>
     /// <returns>Calculated positions.</returns>
     public ProgRealPointsResponse CalculateSecDir(SecDirEventRequest request);

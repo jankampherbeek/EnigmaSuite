@@ -65,7 +65,7 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
             CreateProgPoints(ProgresMethods.Transits, defaultConfig.ConfigTransits.ProgPoints, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> secDirPoints = 
-            CreateProgPoints(ProgresMethods.Secundary, defaultConfig.ConfigSecDir.ProgPoints, deltas);
+            CreateProgPoints(ProgresMethods.Secondary, defaultConfig.ConfigSecDir.ProgPoints, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> symDirPoints = 
             CreateProgPoints(ProgresMethods.Symbolic, defaultConfig.ConfigSymDir.ProgPoints, deltas);
         ConfigProgTransits cfgTransits = new(orbTransits, transitPoints);
@@ -114,7 +114,7 @@ public class ActualConfigCreator: IActualConfigCreator
             string prefix = progresMethod switch
             {
                 ProgresMethods.Transits => "TR_",
-                ProgresMethods.Secundary => "SC_",
+                ProgresMethods.Secondary => "SC_",
                 ProgresMethods.Symbolic => "SM_",
                 _ => ""
             };

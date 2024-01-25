@@ -73,7 +73,7 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" Text="Secundary directions" 
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" Text="Secondary directions" 
                                Name="SubHeaderSecDir" 
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
                     <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
@@ -81,8 +81,8 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              BorderBrush="{Binding OrbSecDirValid}"
                              Text="{Binding OrbSecDirText, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Margin="6" Text="Secundary points" 
-                               Name="SecundaryPoints" FontWeight="Bold" />
+                    <TextBlock Grid.Row="2" Margin="6" Text="Secondary points" 
+                               Name="SecondaryPoints" FontWeight="Bold" />
                     <DataGrid Grid.Row="3" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
@@ -223,35 +223,6 @@
                     </DataGrid>                      
                 </Grid>                    
             </TabItem>
-            <!--
-            <TabItem Header="Solar">
-                <Grid Margin="6">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="10*"/>
-                        <RowDefinition Height="80*"/>
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="6" Text="Solar return" 
-                               Name="SubHeaderSolar" 
-                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />   
-                    <ComboBox Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
-                              IsEditable="True" IsReadOnly="True"
-                              materialDesign:HintAssist.Hint="Method"
-                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                              ItemsSource="{Binding AllSolarMethods}" 
-                              SelectedIndex="{Binding SolarMethodIndex, Mode=TwoWay}" />
-                    <CheckBox Grid.Row="2" VerticalAlignment="Center" IsTabStop="False" 
-                              Content="Apply relocation" 
-                              Style="{StaticResource MaterialDesignCheckBox}"
-                              IsChecked="{Binding ApplyRelocation}" />                    
-                </Grid>
-            </TabItem>
-            -->
-            
-            
-            
-            
         </TabControl>
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>

@@ -100,7 +100,7 @@ public class TestDeltaTexts
     [Test]
     public void TestProgSecDirPoint()
     {
-        const ProgresMethods method = ProgresMethods.Secundary;
+        const ProgresMethods method = ProgresMethods.Secondary;
         const ChartPoints chartPoint = ChartPoints.Moon;
         ProgPointConfigSpecs specs = new(true, 'b');
         Tuple<string, string> deltaTexts = _deltaTexts.CreateDeltaForProgChartPoint(method, chartPoint, specs);

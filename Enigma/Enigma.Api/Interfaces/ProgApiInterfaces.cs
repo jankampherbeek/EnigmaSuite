@@ -19,10 +19,10 @@ public interface IProgTransitsEventApi
 
 }
 
-/// <summary>API for the calculation of secundary directions for a given event.</summary>
+/// <summary>API for the calculation of secondary directions for a given event.</summary>
 public interface IProgSecDirEventApi
 {
-    /// <summary>Calculate secundary directions.</summary>
+    /// <summary>Calculate secondary directions.</summary>
     /// <param name="request">Request with date, time and settings.</param>
     /// <returns>Calculated positions.</returns>
     public ProgRealPointsResponse CalcSecDir(SecDirEventRequest request);

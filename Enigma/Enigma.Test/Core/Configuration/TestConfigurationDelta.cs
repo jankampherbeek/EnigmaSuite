@@ -269,7 +269,7 @@ public class TestConfigurationDelta
             .Returns(resultTextsSymDirOrb);
         mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Transits, ChartPoints.Mars, configTransitMars))
             .Returns(resultTextsTransitMars);
-        mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Secundary, ChartPoints.Mercury, configSecDirMercury))
+        mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Secondary, ChartPoints.Mercury, configSecDirMercury))
             .Returns(resultTextsSecDirMercury);
         mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Symbolic, ChartPoints.Ascendant, configSymDirAsc))
             .Returns(resultTextsSymDirAsc);

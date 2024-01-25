@@ -70,7 +70,7 @@ public interface ISolarArcCalculator
 }
 
 
-/// <summary>Calculator for progressive points based on real movements, e.g. transits and secundary directions.</summary>
+/// <summary>Calculator for progressive points based on real movements, e.g. transits and secondary directions.</summary>
 public interface IProgRealPointCalc
 {
     /// <summary>Calculates progressive positions.</summary>

@@ -23,7 +23,7 @@ public static class StandardTexts
     public const string ERROR_NAME = "Enter a value for the name.";
     public const string ERROR_ORB_ASPECTS = "Enter a proper value for the orbs for aspects";
     public const string ERROR_ORB_MIDPOINTS = "Enter a proper value for the orbs for midpoints.";
-    public const string ERROR_ORB_SECDIR = "Enter a proper value for the orbs for secundary directions.";
+    public const string ERROR_ORB_SECDIR = "Enter a proper value for the orbs for secondary directions.";
     public const string ERROR_ORB_SYMDIR = "Enter a proper value for the orbs for symbolic directions.";
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
     public const string ERROR_TIME = "Enter a correct value for the time.";

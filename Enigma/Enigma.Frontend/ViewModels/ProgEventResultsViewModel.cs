@@ -41,7 +41,7 @@ public partial class ProgEventResultsViewModel: ObservableObject
             case ProgresMethods.Transits:
                 model.HandleTransits();
                 break;
-            case ProgresMethods.Secundary:
+            case ProgresMethods.Secondary:
                 model.HandleSecDir();
                 break;
             case ProgresMethods.Symbolic:
