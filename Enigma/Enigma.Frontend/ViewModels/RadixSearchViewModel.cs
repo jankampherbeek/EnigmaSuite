@@ -14,6 +14,7 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -41,6 +42,7 @@ public partial class RadixSearchViewModel: ObservableObject
     private void Select()
     {
         _model.AddFoundChartToDataVault(ChartIndex);
+        Log.Information("RadixSearchViewModel.Select(): send FoundChartMessage and CloseMessage");        
         WeakReferenceMessenger.Default.Send(new FoundChartMessage(VM_IDENTIFICATION, ChartsFound[ChartIndex].Id));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
@@ -53,6 +55,7 @@ public partial class RadixSearchViewModel: ObservableObject
     [RelayCommand]
     private static void Close()
     {
+        Log.Information("RadixSearchViewModel.Close(): send CloseMessage");               
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
@@ -60,6 +63,7 @@ public partial class RadixSearchViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        // TODO use messaging to open help
         DataVaultGeneral.Instance.CurrentViewBase = "RadixSearch";
         new HelpWindow().ShowDialog();
     }

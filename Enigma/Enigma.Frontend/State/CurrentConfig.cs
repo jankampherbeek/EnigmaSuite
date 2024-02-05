@@ -6,6 +6,7 @@
 using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.State;
 
@@ -45,6 +46,7 @@ public sealed class CurrentConfig
     public AstroConfig GetConfig()
     {
         IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
+        Log.Information("CurrentConfig.GetConfig(): requesting config from config api");
         return _currentConfig ?? configApi.GetCurrentConfiguration();
     }
 

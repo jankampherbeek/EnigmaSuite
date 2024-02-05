@@ -6,6 +6,7 @@
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Views;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.WindowsFlow;
 
@@ -65,6 +66,7 @@ public class ResearchWindowsFlow:
 
     public void Receive(OpenMessage message)
     {
+        Log.Information("ResearchWindowsFlow.Receive(OpenMessage) with value {Value}", message.Value);        
         switch (message.ViewToOpen)
         {
             case PROJECT_INPUT:
@@ -104,6 +106,7 @@ public class ResearchWindowsFlow:
 
     public void Receive(CompletedMessage message)
     {
+        Log.Information("ResearchWindowsFlow.Receive(CompletedMessage) with value {Value}", message.Value); 
         switch (message.Value)
         {
             case PROJECT_INPUT:
@@ -123,6 +126,7 @@ public class ResearchWindowsFlow:
     
     public void Receive(CloseMessage message)
     {
+        Log.Information("ResearchWindowsFlow.Receive(CloseMessage) with value {Value}", message.Value); 
         switch (message.Value)
         {
  

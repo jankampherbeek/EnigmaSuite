@@ -77,6 +77,7 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void ChartsModule()
     {
+        Log.Information("MainViewModel.ChartsModule(): send OpenMessage for ChartsMain"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ChartsMain"));
         
     }
@@ -84,6 +85,7 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void ResearchModule()
     {
+        Log.Information("MainViewModel.ResearchModule(): send OpenMessage for ResearchMain");
         WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ResearchMain"));
     }
     
@@ -92,6 +94,7 @@ public partial class MainViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("MainViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     

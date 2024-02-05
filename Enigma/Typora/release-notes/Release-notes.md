@@ -77,12 +77,15 @@ and altitude. It also shows the daily speed, except for azimuth and altitude.
 ### Analysis
 **Aspects**, a list with actual aspects, aspects to cusps.
 
-**Midpoints in a 360° circle**, represented as list and occupied midpoints for three dial sizes: 360°, 90° and 45°. 
+**Midpoints**, represented as list and occupied midpoints for three dial sizes: 360°, 90° and 45°. 
 The user can interactively change the dial size. 
 
 **Harmonics** as a list. The user can interactively define and change the harmonic number. 
 There is no limit for the maximum number. Support for fractional harmonics.
-Save charts in the Json database, and retrieve charts from the database.
+
+### Database
+
+Save charts in the database, and retrieve charts from the database.
 
 ### Research
 

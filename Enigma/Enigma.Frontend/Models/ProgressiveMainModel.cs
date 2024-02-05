@@ -11,6 +11,7 @@ using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -59,6 +60,7 @@ public class ProgressiveMainModel
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
         long chartId = currentChart.InputtedChartData.Id;
+        Log.Information("ProgressiveMainModel.SaveCurrentEvent(): Requesting PersitableEventData to save event");
         PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(currentEvent);
         newIndex = _eventDataPersistencyApi.AddEventData(persEvent, chartId);
         return newIndex;

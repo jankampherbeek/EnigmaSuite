@@ -19,6 +19,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -125,6 +126,7 @@ public partial class ConfigProgViewModel:ObservableObject
             ConfigProg configProg = new(configTransits, configSecDir, configSymDir); 
             _model.UpdateConfig(configProg);
             MessageBox.Show(PROG_CONFIG_SAVED, StandardTexts.TITLE_ERROR);
+            Log.Information("ConfigProgViewModel.SaveConfig(): send CloseMessage");
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
         else
@@ -135,12 +137,14 @@ public partial class ConfigProgViewModel:ObservableObject
     
     [RelayCommand] private static void Close()
     {
+        Log.Information("ConfigProgViewModel.Close(): send CloseMessage");        
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ConfigProgViewModel.Help(): send HelpMessage");        
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));        
     }
     

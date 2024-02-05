@@ -14,6 +14,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -47,6 +48,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
         {
             HarmonicDetailsSelection selection = new(HarmonicValue, OrbDegreeValue + OrbMinuteValue / 60.0);
             DataVaultResearch.Instance.CurrentHarmonicDetailsSelection = selection;
+            Log.Information("ResearchHarmonicDetailsViewModel.Continue(): send CompletedMessage");              
             WeakReferenceMessenger.Default.Send(new CompletedMessage(VM_IDENTIFICATION));
         }
         else
@@ -58,6 +60,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Cancel()
     {
+        Log.Information("ResearchHarmonicDetailsViewModel.Cancel(): send CancelMessage");          
         WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));
     }
     
@@ -65,6 +68,7 @@ public partial class ResearchHarmonicDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ResearchHarmonicDetailsViewModel.Help(): send HelpMessage");          
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     

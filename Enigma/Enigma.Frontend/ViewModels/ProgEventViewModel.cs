@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
@@ -16,6 +17,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -81,6 +83,7 @@ public partial class ProgEventViewModel: ObservableObject
         if (string.IsNullOrEmpty(errors))
         {
             _model.CreateEventData(Description, LocationName);
+            Log.Information("ProgEventViewModel.FinalizeEvent(): send EventCompletedMessage and CloseMessage");
             WeakReferenceMessenger.Default.Send(new EventCompletedMessage(VM_IDENTIFICATION));
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
@@ -146,12 +149,14 @@ public partial class ProgEventViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ProgEventViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Cancel()
     {
+        Log.Information("ProgEventViewModel.Cancel(): send CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     

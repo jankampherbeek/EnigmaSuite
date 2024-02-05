@@ -15,6 +15,7 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -54,6 +55,7 @@ public partial class ChartsMainViewModel: ObservableObject,
         WeakReferenceMessenger.Default.Register<ConfigUpdatedMessage>(this);
         _chartsWindowsFlow = App.ServiceProvider.GetRequiredService<ChartsWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ChartsMainModel>();
+        Log.Information("ChartsMainviewModel constructor: calling Populate()");
         Populate();
     }
 
@@ -65,12 +67,14 @@ public partial class ChartsMainViewModel: ObservableObject,
             SelectedChart = AvailableCharts[ChartIndex];
             _model.SetCurrentChartId(ChartIndex);
         }
+        Log.Information("ChartsMainviewModel.ItemChanged(): calling Populate()");
         Populate();
     }
 
     [RelayCommand]
     private void Populate()
     {
+        Log.Information("ChartsMainViewModel.Populate()");
         NrOfChartsInDatabase = "Nr. of charts in database : " + _model.CountPersistedCharts();
         LastAddedChart = "Last added to database : " + _model.MostRecentChart();
         CurrentlySelectedChart = "Currently selected : " + _model.CurrentChartName();
@@ -85,42 +89,49 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand]
     private static void AppSettings()
     {
+        Log.Information("ChartsMainViewModel.AppSettings(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.APP_SETTINGS));
     }
         
     [RelayCommand]
     private static void Configuration()
     {
+        Log.Information("ChartsMainViewModel.Configuration(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIGURATION));
     }
     
     [RelayCommand]
     private static void ConfigProg()
     {
+        Log.Information("ChartsMainViewModel.ConfigProg(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIG_PROG));
     }
 
     [RelayCommand]
     private static void NewChart()
     {
+        Log.Information("ChartsMainViewModel.NewChart(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_DATA_INPUT));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Progressions()
     {
+        Log.Information("ChartsMainViewModel.Progressions(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROGRESSIVE_MAIN));
     }
     
     [RelayCommand]
     private static void SearchChart()
     {
+        Log.Information("ChartsMainViewModel.SearchChart(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_SEARCH));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void DeleteChart()
     {
+        Log.Information("ChartsMainViewModel.DeleteChart(): send OpenMessage");
         var currentChart = _dataVaultCharts.GetCurrentChart();
         string name = currentChart != null ? currentChart.InputtedChartData.MetaData.Name : "";
         if (MessageBox.Show("Do you want to delete the chart for  "+ name + " from the database?",
@@ -132,35 +143,42 @@ public partial class ChartsMainViewModel: ObservableObject,
                     ? "The chart for "+ name + " was succesfully deleted."
                     : "The chart for  "+ name + " was not found and could not be deleted.",
                 "Result of delete");
+        Log.Information("ChartsMainviewModel.DeleteChart(): calling Populate()");        
+        Populate();
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void ShowWheel()
     {
+        Log.Information("ChartsMainViewModel.ShowWheel(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.CHARTS_WHEEL));
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void ShowPositions()
     {
+        Log.Information("ChartsMainViewModel.ShowPositions(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_POSITIONS));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Aspects()
     {
+        Log.Information("ChartsMainViewModel.Aspects(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_ASPECTS));
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Harmonics()
     {
+        Log.Information("ChartsMainViewModel.Harmonics(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_HARMONICS));
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void Midpoints()
     {
+        Log.Information("ChartsMainViewModel.Midpoints(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_MIDPOINTS));
     }
 
@@ -168,12 +186,14 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand]
     private static void About()
     {
+        Log.Information("ChartsMainViewModel.About(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT_CHARTS));
     }
     
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ChartsMainViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
@@ -190,6 +210,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     private void Close()
     {
         _dataVaultCharts.ClearExistingCharts();
+        Log.Information("ChartsMainViewModel.Close(): send CloseChildWindowsMessage amd CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseChildWindowsMessage(VM_IDENTIFICATION));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
@@ -203,21 +224,27 @@ public partial class ChartsMainViewModel: ObservableObject,
 
     public void Receive(NewChartMessage message)
     {
+        Log.Information("ChartsMainViewModel.Receive(NewChartMessage) with value {Value}", message.Value);
+        
         if (!_dataVaultCharts.GetNewChartAdded()) return;
+        Log.Information("ChartsMainViewModel.Receive(NewChartMessage): calls model.SaveCurrentChart");
         long newIndex = _model.SaveCurrentChart();
         if (_dataVaultCharts.GetCurrentChart() == null) return;
         _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
+        Log.Information("ChartsMainviewModel.Receive(NewChartMessage): calling Populate()");        
         Populate();
     }
 
     public void Receive(FoundChartMessage message)
     {
+        Log.Information("ChartsMainviewModel.Receive(FoundChartMessage): calling Populate()");            
         Populate();
         DataVaultCharts.Instance.SetCurrentChart(message.ChartId);
     }
 
     public void Receive(ConfigUpdatedMessage message)
     {
+        Log.Information("ChartsMainviewModel.Receive(ConfigUpdatedMessage): calling Populate()");    
         Populate();
     }
 }

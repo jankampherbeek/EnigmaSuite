@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -50,6 +51,7 @@ public abstract class DateTimeLocationModelBase
     
     public bool IsDateValid(string inputDate, Calendars calendar, YearCounts yearCount)
     {
+        Log.Information("DateTimeLocationModelBase.IsDateValid(): calls DateInputParser.HandleDate()");
         bool isValid = _dateInputParser.HandleDate(inputDate, calendar, yearCount, out FullDate? fullDate);
         if (isValid) FullDate = fullDate;
         return isValid;

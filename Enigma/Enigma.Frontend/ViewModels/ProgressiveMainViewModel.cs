@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -17,6 +18,7 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -36,7 +38,7 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEventsPeriods = new();
     [NotifyPropertyChangedFor(nameof(EventIndex))]
     [ObservableProperty] private PresentableProgresData? _selectedProgDate;
-    
+    private DateTime _dateTimeLastMsg = DateTime.Now;
     private readonly ProgressiveMainModel _model;
     
     public ProgressiveMainViewModel()
@@ -75,18 +77,21 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     [RelayCommand]
     private static void Configuration()
     {
+        Log.Information("ProgressiveMainViewModel.Configuration(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIGURATION));
     }
     
     [RelayCommand]
     private static void ConfigProg()
     {
+        Log.Information("ProgressiveMainViewModel.ConfigProg(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.CONFIG_PROG));
     }
     
     [RelayCommand]
     private static void NewEvent()
     {
+        Log.Information("ProgressiveMainViewModel.NewEvent(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT));
     }
 
@@ -112,6 +117,7 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     private void SecDir()
     {
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Secondary;
+        Log.Information("ProgressiveMainViewModel.SecDir(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
     
@@ -119,12 +125,14 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     private void Transits()
     {
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Transits;
+        Log.Information("ProgressiveMainViewModel.Transits(): send OpenMessage");        
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
     
     [RelayCommand(CanExecute = nameof(IsProgDateSelected))]
     private void SymbDir()
     {
+        Log.Information("ProgressiveMainViewModel.SymbDir(): send OpenMessage");
         _dataVaultProg.CurrentProgresMethod = ProgresMethods.Symbolic;
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT_RESULTS));
     }
@@ -147,6 +155,7 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     [RelayCommand]
     private static void Close()
     {
+        Log.Information("ProgressiveMainViewModel.Close(): send CloseChildWindowsMessage and CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseChildWindowsMessage(VM_IDENTIFICATION));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
@@ -155,13 +164,27 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     {
         return EventIndex >= 0;
     }
+
     public void Receive(EventCompletedMessage message)
     {
-        if (_dataVaultProg.CurrentProgEvent != null)
+        Log.Information("ProgressiveMainViewModel.Receive(EventCompletedMessage)");
+
+        DateTime newMsgTime = DateTime.Now;
+        TimeSpan interval = newMsgTime - _dateTimeLastMsg;
+        double millisecInBetween = interval.TotalMilliseconds;
+        Log.Information("DEBUG: ProgressiveMainViewModel.Receive(EventCompletedMessage), milliseconds in between: {MsInBetween}", millisecInBetween);
+    if (millisecInBetween > 100)
         {
-            _model.SaveCurrentEvent();
+            if (_dataVaultProg.CurrentProgEvent != null)
+            {
+                _model.SaveCurrentEvent();
+            }
+            PopulateEvents();
+            _dateTimeLastMsg = DateTime.Now;
+        } else
+        {
+            Log.Error("ProgressiveMainViewModel.Receive(EventCompletedMessage) occurred twice within {MSec} milliseconds. Ignored msg", millisecInBetween);
         }
-        PopulateEvents();
     }
  
     

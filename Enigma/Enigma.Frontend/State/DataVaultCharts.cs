@@ -62,7 +62,13 @@ public sealed class DataVaultCharts
         _currentChart = newChart;
     }
 
-
+    public void RemoveDeletedChart()
+    {
+        _allCharts.Remove(GetCurrentChart());
+        _currentChart = null;
+    }
+    
+    
     public CalculatedChart? GetCurrentChart()
     {
         if (_currentChart != null) return _currentChart;

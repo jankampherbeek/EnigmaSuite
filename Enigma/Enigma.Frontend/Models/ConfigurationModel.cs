@@ -9,6 +9,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -75,6 +76,7 @@ public class ConfigurationModel
 
     public static List<GeneralPoint> AllGeneralPoints()
     {
+        Log.Information("ConfigurationModel.AllGeneralPoints: retrieving chartpoints from CurrentConfig");
         return (from point in PointsExtensions.AllDetails() 
                 from configPoint in CurrentConfig.Instance.GetConfig().ChartPoints 
                 where configPoint.Key == point.Point 
@@ -84,6 +86,7 @@ public class ConfigurationModel
     
     public static List<GeneralAspect> AllAspects()
     {
+        Log.Information("ConfigurationModel.AllGeneralPoints: retrieving aspects from CurrentConfig");
         return (from aspect in AspectTypesExtensions.AllDetails()
                 from configAspect in CurrentConfig.Instance.GetConfig().Aspects
                 where configAspect.Key == aspect.Aspect

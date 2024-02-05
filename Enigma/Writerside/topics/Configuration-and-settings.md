@@ -8,7 +8,7 @@ but in this release of Enigma, you can not change anything.
 Select the menu option **General - Settings**.
 You will see a window with information about the location of the following files:
 
-![](settings.png)
+![](settings.png) {width="400"}
 
 - **Data files**. This folder contains the data files you imported.
 
@@ -20,12 +20,12 @@ You will see a window with information about the location of the following files
 
 - The folder **Database** contains data for calculated charts.
 
-## Configuration
+## Standard configuration
 
 You can check and change the configuration via the module *Charts* or via the module *Research*.
 Select the menu option **General - Configuration**.
 
-![](configuration-general.png)
+![](configuration-general.png) {width="400"}
 
 
 This will show a window with a wide range of configurable items. The window comprises 3 tabs:
@@ -41,7 +41,8 @@ This will show a window with a wide range of configurable items. The window comp
 
 If you select the tab *General* you can define the following preferences:
 
-**House system**. Currently, Enigma supports only house systems with 12 houses.
+**House system**. Currently, Enigma supports only house systems with 12 houses. 
+The default selection is Regiomontanus.
 Select *None* if you do not want to use a house system.
 
 **Type of zodiac**. Select either *sidereal* or *tropical*.
@@ -52,8 +53,8 @@ If you select another Ayanamsha, the setting for Type of zodiac will automatical
 In the paragraph *Appendix: Ayanamshas* you will find a brief explanation of the different possibilities.
 See also the remarks at the point above: *Type of zodiac*.
 
-**Observer position**. The standard approach is *geocentric*.
-If you want to take parallax into account select *topocentric*.
+**Observer position**. The standard approach is *topocentric*, so Enigma takes parallax into account.
+If you do not want to use parallax correction, select *geocentric*.
 
 **Projection type**. Select *Standard (two-dimensional)* for most approaches.
 *Oblique longitude* provides an alternative calculation as supported by the School of Ram.
@@ -68,7 +69,7 @@ The **Base orb for midpoints** is the effective orb for midpoints.
 
 ### Points
 
-![](configuration-points.png)
+![](configuration-points.png) {width="400"}
 
 The tab *Points* gives access to the configuration fo all celestial points that Enigma supports.
 For each point you will find a checkbox.
@@ -87,7 +88,7 @@ See the paragraph *Appendix: Planets and other celestial points* for more inform
 
 ### Aspects
 
-![](configuration-aspects.png)
+![](configuration-aspects.png) {width="400"}
 
 *Aspects* is the last tab for the configuration.
 At the top of the screen you can select the type of orb.
@@ -99,3 +100,28 @@ Just as with celestial points, you can select and deselect the aspects you want 
 And there is also an orb-percentage that you can edit by clicking it.
 
 See the paragraph *Appendix: Defining orbs* for more information.
+
+## Configuration for progressive astrology
+
+You can access the configuration for progressive astrology via the module Charts or via the module Research. 
+Select the menu option **General** - **Config progressions**.
+
+You will see a window with three tabs.
+In the tab _Transits_ you define which celestial points you want to include in transits.
+You can also define the orb for transits.
+
+![transits.png](transits.png) {width="400"}
+
+
+The tab _Sec dir_ shows the configuration for secondary directions.
+It works the same as for transits. 
+You can select celstial points and define an orb.
+
+![secondary-directions.png](secondary-directions.png) {width="400"}
+
+The third tab _Symb dir_ gives access to the configuration for symbolic directions.
+Just as with secondary directions andt transits, you can select celestial points that you want to use and an orb.
+You can also define a time key in the roll-down menu.
+
+![symbolic-directions.png](symbolic-directions.png) {width="400"}
+

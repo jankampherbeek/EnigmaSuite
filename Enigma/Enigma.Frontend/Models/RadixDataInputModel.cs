@@ -11,6 +11,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -47,14 +48,17 @@ public class RadixDataInputModel: DateTimeLocationModelBase
         if (FullDate == null || FullTime == null) return;
         int id = ChartsIndexSequence.NewSequenceId();
         MetaData metaData = CreateMetaData(nameId, description, source, locationName, catId, ratingId);
+       
         SimpleDateTime dateTime = new(FullDate.YearMonthDay[0], FullDate.YearMonthDay[1], FullDate.YearMonthDay[2], 
             FullTime.Ut, FullDate.Calendar);
-        double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;         
+        double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt + FullTime.CorrectionForDay; 
+        
         string locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "" : locationName + " ";        
         string fullLocationName = locNameCheckedForEmpty + FullGeoLongitude!.GeoLongFullText + " " + FullGeoLatitude!.GeoLatFullText;        
         Location location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);        
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ChartData chartData = new(id, metaData, location, fullDateTime);
+        Log.Information("RadixDataInputModel.CreateChartData(): calculating chart via ChartCalculation");
         CalculatedChart chart = _chartCalculation.CalculateChart(chartData);
         DataVaultCharts dataVaultCharts = DataVaultCharts.Instance;
         dataVaultCharts.AddNewChart(chart);

@@ -10,6 +10,7 @@ using Enigma.Domain.Presentables;
 using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -53,6 +54,7 @@ public sealed class RadixAspectsModel
     {
         string descText = "";
         CalculatedChart? chart = _dataVaultCharts.GetCurrentChart();
+        Log.Information("RadixAspectsModel.DescriptiveText(): Retrieving config from CurrentConfig");
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {

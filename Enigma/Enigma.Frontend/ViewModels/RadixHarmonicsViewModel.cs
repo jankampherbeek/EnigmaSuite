@@ -16,6 +16,7 @@ using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -66,12 +67,14 @@ public partial class RadixHarmonicsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("RadixHarmonicsViewModel.Help(): send HelpMessage");  
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private void Close()
     {
+        Log.Information("RadixHarmonicsViewModel.Close(): send ClosNonDlgMessage"); 
         WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
     }
 

@@ -16,7 +16,7 @@ public sealed class PersistableEventData
     public string Description { get; set; } = "";
 
     /// <summary>Julian day number for ephemeris time.</summary>
-    public double JulianDayEt { get; set; }
+    public double JdForEt { get; set; }
 
     /// <summary>Date as text.</summary>
     /// <remarks>Only for presentational purposes.</remarks>

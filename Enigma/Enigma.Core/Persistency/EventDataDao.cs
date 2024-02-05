@@ -92,11 +92,11 @@ public sealed class EventDataDao : IEventDataDao
         var dpChart = new DynamicParameters();
         dpChart.Add("@Description", eventData.Description, DbType.AnsiString, ParameterDirection.Input);
         dpChart.Add("@LocationName", eventData.LocationName, DbType.AnsiString, ParameterDirection.Input);
-        dpChart.Add("@GeoLong", eventData.GeoLong, DbType.VarNumeric, ParameterDirection.Input);
-        dpChart.Add("@GeoLat", eventData.GeoLat, DbType.VarNumeric, ParameterDirection.Input);
+        dpChart.Add("@GeoLong", eventData.GeoLong, DbType.Double, ParameterDirection.Input);
+        dpChart.Add("@GeoLat", eventData.GeoLat, DbType.Double, ParameterDirection.Input);
         dpChart.Add("@DateText", eventData.DateText, DbType.AnsiString, ParameterDirection.Input);
         dpChart.Add("@TimeText", eventData.TimeText, DbType.AnsiString, ParameterDirection.Input);
-        dpChart.Add("@JdForEt", eventData.JulianDayEt, DbType.VarNumeric, ParameterDirection.Input);
+        dpChart.Add("@JdForEt", eventData.JdForEt, DbType.Double, ParameterDirection.Input);
         try
         {
             using var cnn = dbConnection;
@@ -167,7 +167,8 @@ public sealed class EventDataDao : IEventDataDao
         {
             SQLiteConnection dbConnection = new(_fullPath);
             const string sql = """
-                               SELECT * FROM EVENTS WHERE id in (
+                               SELECT id, description, locationName, geoLong, geoLat, dateText, timeText, jdForEt 
+                               FROM EVENTS WHERE id in (
                                   SELECT eventId from ChartsEvents WHERE chartId = @ChartId)
                                """;
             var dp = new DynamicParameters();

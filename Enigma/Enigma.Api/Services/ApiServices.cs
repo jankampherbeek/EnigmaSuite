@@ -15,7 +15,7 @@ namespace
 public static class ApiServices
 {
     public static void RegisterApiServices(this ServiceCollection serviceCollection)
-    {
+    {        
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();

@@ -29,7 +29,7 @@ public class TestDeltaTexts
         Assert.Multiple(() =>
         {
             Assert.That(deltaTexts.Item1, Is.EqualTo("CP_0"));
-            Assert.That(deltaTexts.Item2, Is.EqualTo("y||100||a||y"));
+            Assert.That(deltaTexts.Item2, Is.EqualTo("y||a||100||y"));
         });
     }
 
@@ -46,7 +46,7 @@ public class TestDeltaTexts
         Assert.Multiple(() =>
         {
             Assert.That(deltaTexts.Item1, Is.EqualTo("CP_1004"));
-            Assert.That(deltaTexts.Item2, Is.EqualTo("y||50|| ||n"));
+            Assert.That(deltaTexts.Item2, Is.EqualTo("y|| ||50||n"));
         });
     }
 
@@ -63,7 +63,7 @@ public class TestDeltaTexts
         Assert.Multiple(() =>
         {
             Assert.That(deltaTexts.Item1, Is.EqualTo("AT_1"));
-            Assert.That(deltaTexts.Item2, Is.EqualTo("y||100||C||y"));
+            Assert.That(deltaTexts.Item2, Is.EqualTo("y||C||100||y"));
         });
     }
 
@@ -80,7 +80,7 @@ public class TestDeltaTexts
         Assert.Multiple(() =>
         {
             Assert.That(deltaTexts.Item1, Is.EqualTo("AT_21"));
-            Assert.That(deltaTexts.Item2, Is.EqualTo("n||0||Ï||n"));
+            Assert.That(deltaTexts.Item2, Is.EqualTo("n||Ï||0||n"));
         });
     }
 

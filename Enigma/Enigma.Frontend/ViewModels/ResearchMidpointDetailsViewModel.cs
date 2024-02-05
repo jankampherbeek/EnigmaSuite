@@ -17,6 +17,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.WindowsFlow;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -68,6 +69,7 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
             };
             MidpointDetailsSelection selection = new(dialDivision, OrbDegreeValue + OrbMinuteValue / 60.0);
             DataVaultResearch.Instance.CurrenMidpointDetailsSelection = selection;
+            Log.Information("ResearchMidpointDetailsViewModel.Continue(): send CompletedMessage"); 
             WeakReferenceMessenger.Default.Send(new CompletedMessage(VM_IDENTIFICATION));
         }
         else
@@ -91,12 +93,14 @@ public partial class ResearchMidpointDetailsViewModel: ObservableObject
     [RelayCommand]
     private static void Cancel()
     {
+        Log.Information("ResearchMidpointDetailsViewModel.Cancel(): send CancelMessage"); 
         WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ResearchMidpointDetailsViewModel.Help(): send HelpMessage"); 
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     

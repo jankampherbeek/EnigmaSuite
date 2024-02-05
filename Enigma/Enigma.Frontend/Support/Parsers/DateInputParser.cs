@@ -7,6 +7,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Support.Parsers;
 
@@ -29,6 +30,7 @@ public class DateInputParser : IDateInputParser
     {
         fullDate = null;
         (int[] dateNumbers, bool dateSuccess) = _valueRangeConverter.ConvertStringRangeToIntRange(inputDate, EnigmaConstants.SEPARATOR_DATE);
+        Log.Information("DateInputParser.HandleDate(): calls DateValidator.CreateCheckedDate()");
         bool validationSuccess = dateSuccess && _dateValidator.CreateCheckedDate(dateNumbers, calendar, yearCount, out fullDate);
         return validationSuccess;
     }

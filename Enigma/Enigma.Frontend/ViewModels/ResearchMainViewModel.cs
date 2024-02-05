@@ -14,6 +14,7 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -43,18 +44,21 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     [RelayCommand]
     private static void AppSettings()
     {
+        Log.Information("ResearchMainViewModel.AppSettings(): send OpenMessage");  
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,GeneralWindowsFlow.APP_SETTINGS));
     }
     
     [RelayCommand]
     private static void Configuration()
     {
+        Log.Information("ResearchMainViewModel.Configuration(): send OpenMessage"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIGURATION));
     }
 
     [RelayCommand]
     private static void NewProject()
     {
+        Log.Information("ResearchMainViewModel.NewProject(): send OpenMessage"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.PROJECT_INPUT)); 
     }
 
@@ -63,6 +67,7 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     {
         ResearchProject project = _model.ResearchProjects[ProjectIndex];
         DataVaultResearch.Instance.CurrentProject = project;
+        Log.Information("ResearchMainViewModel.OpenProject(): send OpenMessage"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.PROJECT_USAGE));
     }
 
@@ -75,24 +80,28 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     [RelayCommand]
     private static void DataOverview()
     {
+        Log.Information("ResearchMainViewModel.DataOverview(): send OpenMessage"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.DATAFILE_OVERVIEW)); 
     }
 
     [RelayCommand]
     private static void DataImport()
     {
+        Log.Information("ResearchMainViewModel.DataImport(): send OpenMessage"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.DATAFILE_IMPORT)); 
     }
 
     [RelayCommand]
     private static void Close()
     {
+        Log.Information("ResearchMainViewModel.Close(): send CloseMessage"); 
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void About()
     {
+        Log.Information("ResearchMainViewModel.About(): send HelpMessage"); 
         WeakReferenceMessenger.Default.Send(new HelpMessage(ABOUT_RESEARCH));
     }
     
@@ -106,12 +115,14 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ResearchMainViewModel.Help(): send HelpMessage"); 
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
 
     public void Receive(CompletedMessage message)
     {
+        Log.Information("ResearchMainViewModel.Receive(CompletedMessage) with value {Value}", message.Value);
         if (message.Value == ResearchWindowsFlow.PROJECT_INPUT)
         {
             AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());            

@@ -109,6 +109,7 @@ public partial class ProjectInputViewModel: ObservableObject
             {
                 Log.Information("Created project {ProjectName}", ProjectName);
                 MessageBox.Show(RESULTMSG_PROJECT_SAVED);
+                Log.Information("ProjectInputViewModel.SaveProject(): send CompletedMessage");                
                 WeakReferenceMessenger.Default.Send(new CompletedMessage(VM_IDENTIFICATION)); 
             }
         }
@@ -136,6 +137,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [RelayCommand]
     private static void Cancel()
     {
+        Log.Information("ProjectInputViewModel.Cancel(): send CancelMessage");  
         WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));
     }
     
@@ -143,6 +145,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ProjectInputViewModel.Help(): send HelpMessage");  
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 

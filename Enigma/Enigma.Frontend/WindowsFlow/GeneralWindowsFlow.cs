@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.WindowsFlow;
 
@@ -72,6 +73,7 @@ public class GeneralWindowsFlow:
 
     public void Receive(CloseMessage message)
     {
+        Log.Information("GeneralWindowsFlow.Receive(CloseMessage) with value {Value}", message.Value);
         switch (message.Value)
         {
             case RESEARCH_MAIN:
@@ -97,6 +99,7 @@ public class GeneralWindowsFlow:
 
     public void Receive(HelpMessage message)
     {
+        Log.Information("GeneralWindowsFlow.Receive(HelpMessage) with value {Value}", message.Value);        
         DataVaultGeneral dataVault = DataVaultGeneral.Instance;
         dataVault.CurrentViewBase = message.Value;
         _helpWindow = new HelpWindow();

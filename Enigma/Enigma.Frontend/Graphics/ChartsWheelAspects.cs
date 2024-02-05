@@ -14,6 +14,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Graphics;
 
@@ -32,6 +33,7 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     {
         List<Line> aspectLines = new();
         List<DrawableAspectCoordinatesCp> ssCoordinates = CreateSsCoordinates(currentChart, metrics, centerPoint);
+        Log.Information("ChartsWheelaspect.CreateAspectLines(): retrieving config from CurrentConfig");
         AstroConfig config = CurrentConfig.Instance.GetConfig();
         AspectRequest request = new(currentChart, config);
         IEnumerable<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);

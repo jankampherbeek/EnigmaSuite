@@ -10,6 +10,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -37,11 +38,13 @@ public partial class AppSettingsViewModel: ObservableObject
 
     [RelayCommand] private static void Close()
     {
+        Log.Information("AppSettingsViewModel.Close(): send CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand] private static void Help()
     {
+        Log.Information("AppSettingsViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 

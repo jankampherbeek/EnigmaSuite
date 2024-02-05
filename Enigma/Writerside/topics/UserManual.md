@@ -1,4 +1,4 @@
-# User Manual Enigma Astrology Research - release 0.2
+# User Manual Enigma Astrology Research - Release 0.2
 
 ## Introduction
 
@@ -28,18 +28,16 @@ This User Manual comprises the following parts:
 
 - **Configuration** and settings. You can tailor Enigma to your own preferences.
 
-- **Charts**. How to calculate and analyze a chart.
+- **Module Charts**. How to calculate and analyze a chart and how to use progressive techniques.
 
-- **Progressions**. How to use progressive techniques.
-
-- **Research**. How to set up and perform research.
+- **Module Research**. How to set up and perform research.
 
 - **Appendix**. Specifications and background information.
 
 ### Related documents
-- **Installation manual** which leads through the installation process.
-- **Release notes**, an overview of add functionality in this and previous releases.
-- **Pogrammers manual**, a separate manual fort those that are interested in the source code of Enigma.
+- **Installation manual** which leads you through the installation process.
+- **Release notes**, an overview of added functionality in this and previous releases.
+- **Pogrammers manual**, a separate manual for those that are interested in the source code of Enigma.
 
 ## General information
 Enigma consists of several modules, currently a module for charts and a module for research.
@@ -50,7 +48,6 @@ Enigma tries to help you when using the program.
 It shows on-line help, checks your input, writes details to a log-file and prevents wrong results.
 
 #### On-line help
-
 In almost all windows, Enigma shows a button **Help**. 
 If you click this button, the program shows specific information for the current window.
 To prevent cluttering the screen with many windows, you need to close the help window before you can continue.
@@ -84,8 +81,6 @@ This translates to zero Aries, and you could happily use this point and calculat
 That makes little sense, so Enigma filters the results: if it cannot calculate a celestial point, it will just omit it.
 
 
-
-
 ### Starting Enigma
 
 Click the Enigma icon to start the program.
@@ -94,7 +89,7 @@ Click the Enigma icon to start the program.
 
 You will see a window with two images, one labeled *Charts* and one labeled *Research*.
 
-![](dashboard.png)
+![](start.png){width="400"}
 
 Click an image to go to the corresponding module. 
 If you finish working in a module, you will return to this start window and can make another selection.
@@ -103,3 +98,6 @@ Both modules of Enigma use the same configuration and the same settings.
 The settings define the location of files that Enigma uses.
 The configuration gives you the opportunity to define how Enigma behaves astrologically: 
 which house system, which planets, aspects, and much more.
+
+#### Checking for new releases
+Enigma automatically checks for new releases. If a new release is available, it shows a message in the start window.

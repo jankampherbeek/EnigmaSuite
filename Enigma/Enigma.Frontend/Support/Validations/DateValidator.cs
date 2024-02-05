@@ -9,6 +9,7 @@ using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Interfaces;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Support.Validations;
 
@@ -25,6 +26,7 @@ public class DateValidator : IDateValidator
 
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
     {
+        Log.Information("DateValidator.CreateCheckedDate(): calls private method CheckCalendarRules()");
         bool success = dateValues is { Length: 3 } && CheckCalendarRules(dateValues, calendar, yearCount);
         fullDate = null;
 
@@ -56,6 +58,7 @@ public class DateValidator : IDateValidator
     {
         if (yearCount == YearCounts.BCE) dateValues[0] = -dateValues[0] + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
+        Log.Information("DateValidator.CheckCalendarRules(): calling DateTaimeApi.CheckDateTime()");
         return _dateTimeApi.CheckDateTime(simpleDateTime);
     }
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Support;
 
@@ -31,6 +32,7 @@ public sealed class ChartCalculation : IChartCalculation
     {
         CelPointsRequest celPointsRequest = new(chartData.FullDateTime.JulianDayForEt, chartData.Location, 
             _configPrefsConverter.RetrieveCalculationPreferences());
+        Log.Information("ChartCalculation.CalculateChart(): retrieving calculated chart from ChartAllpositionsApi");
         Dictionary<ChartPoints, FullPointPos> calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
         return new CalculatedChart(calculatedChartPositions, chartData);
     }

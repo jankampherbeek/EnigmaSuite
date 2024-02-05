@@ -46,7 +46,7 @@ public class TestEventDataConverter
             Assert.That(expected.Description, Is.EqualTo(result.Description));
             Assert.That(expected.GeoLat, Is.EqualTo(result.GeoLat).Within(DELTA));
             Assert.That(expected.DateText, Is.EqualTo(DATE_TEXT));
-            Assert.That(expected.JulianDayEt, Is.EqualTo(JD_ET).Within(DELTA));
+            Assert.That(expected.JdForEt, Is.EqualTo(JD_ET).Within(DELTA));
         });
     }
 
@@ -76,7 +76,7 @@ public class TestEventDataConverter
         persEventData.Description = DESCRIPTION;
         persEventData.DateText = DATE_TEXT;
         persEventData.TimeText = TIME_TEXT;
-        persEventData.JulianDayEt = JD_ET;
+        persEventData.JdForEt = JD_ET;
         persEventData.LocationName = LOCATION_FULL_NAME;
         persEventData.GeoLat = GEO_LAT;
         persEventData.GeoLong = GEO_LONG;

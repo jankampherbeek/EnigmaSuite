@@ -39,7 +39,7 @@ public sealed class EventDataConverter : IEventDataConverter
         string locationName = persistableEventData.LocationName;
         string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableEventData.GeoLat, persistableEventData.GeoLong);
         Location location = new(locationFullName, persistableEventData.GeoLong, persistableEventData.GeoLat);
-        FullDateTime fullDateTime = new(persistableEventData.DateText, persistableEventData.TimeText, persistableEventData.JulianDayEt);
+        FullDateTime fullDateTime = new(persistableEventData.DateText, persistableEventData.TimeText, persistableEventData.JdForEt);
         return new ProgEvent(persistableEventData.Id, description, locationName, location, fullDateTime);
     }
 
@@ -49,7 +49,7 @@ public sealed class EventDataConverter : IEventDataConverter
         {
             Description = progEvent.Description,
             LocationName = progEvent.LocationName,
-            JulianDayEt = progEvent.DateTime.JulianDayForEt,
+            JdForEt = progEvent.DateTime.JulianDayForEt,
             DateText = progEvent.DateTime.DateText,
             TimeText = progEvent.DateTime.TimeText,
             GeoLat = progEvent.Location.GeoLat,

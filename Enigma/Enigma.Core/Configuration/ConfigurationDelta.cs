@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -129,9 +129,9 @@ public class DeltaTexts: IDeltaTexts
         keyTxt.Append((int)point);
         valueTxt.Append(pointSpecs.IsUsed ? "y" : "n");
         valueTxt.Append(SEPARATOR);
-        valueTxt.Append(pointSpecs.PercentageOrb);
-        valueTxt.Append(SEPARATOR);
         valueTxt.Append((pointSpecs.Glyph));
+        valueTxt.Append(SEPARATOR);
+        valueTxt.Append(pointSpecs.PercentageOrb);
         valueTxt.Append(SEPARATOR);
         valueTxt.Append(pointSpecs.ShowInChart ? "y" : "n");
         return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
@@ -148,9 +148,9 @@ public class DeltaTexts: IDeltaTexts
         keyTxt.Append((int)aspect);
         valueTxt.Append(aspectSpecs.IsUsed ? "y" : "n");
         valueTxt.Append(SEPARATOR);
-        valueTxt.Append(aspectSpecs.PercentageOrb);
+        valueTxt.Append((aspectSpecs.Glyph));        
         valueTxt.Append(SEPARATOR);
-        valueTxt.Append((aspectSpecs.Glyph));
+        valueTxt.Append(aspectSpecs.PercentageOrb);
         valueTxt.Append(SEPARATOR);
         valueTxt.Append(aspectSpecs.ShowInChart ? "y" : "n");
         return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());

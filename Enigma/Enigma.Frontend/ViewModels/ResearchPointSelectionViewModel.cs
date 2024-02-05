@@ -17,6 +17,7 @@ using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -44,18 +45,21 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
             where item.Selected select item.ChartPoint).ToList();
         ResearchPointSelection selection = new(selectedPoints, IncludeCusps);
         DataVaultResearch.Instance.CurrentPointsSelection = selection;
+        Log.Information("ResearchPointSelectionViewModel.Continue(): send CloseMessage");         
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 
     [RelayCommand]
     private static void Cancel()
     {
+        Log.Information("ResearchPointSelectionViewModel.Cancel(): send CancelMessage"); 
         WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("ResearchPointSelectionViewModel.Help(): send HelpMessage"); 
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 }

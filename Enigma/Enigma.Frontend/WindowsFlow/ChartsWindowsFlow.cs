@@ -11,6 +11,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.WindowsFlow;
 
@@ -153,6 +154,7 @@ public class ChartsWindowsFlow:
     
     public void Receive(CloseNonDlgMessage message)
     {
+        Log.Information("ChartsWindowsFlow.Receive(CloseNonDlgMessage) with value {Value}", message.Value);
         int windowId = message.WindowId;
         Tuple<int, Window, string>? windowToRemove = null;
         foreach (Tuple<int, Window, string> openWindow in _openWindows.Where(openWindow => 
@@ -167,6 +169,7 @@ public class ChartsWindowsFlow:
 
     public void Receive(CloseChildWindowsMessage message)
     {
+        Log.Information("ChartsWindowsFlow.Receive(CloseChildWindowsMessage) with value {Value}", message.Value);        
         List<Tuple<int, Window, string>> windowsToRemove = new();
         foreach (Tuple<int, Window, string>? openWindow in _openWindows.Where(window => 
                      message.Value == window.Item3))

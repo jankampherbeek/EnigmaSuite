@@ -16,6 +16,7 @@ using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -137,6 +138,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     
     public void Receive(CancelMessage message)
     {
+        Log.Information("ProjectUsageViewModel.Receive(CompletedMessage) with value {Value}", message.Value);
         if (message.Value == ResearchWindowsFlow.RESEARCH_POINT_SELECTION)
         {
             _testCanceled = true;

@@ -16,6 +16,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -95,7 +96,9 @@ public partial class RadixDataInputViewModel: ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
+            Log.Information("RadixDataInputViewModel.Calculate(): starting alculation of chart");
             _model.CreateChartData(NameId, Description, Source, LocationName, CategoryIndex, RatingIndex);
+            Log.Information("RadixDataInputViewModel.Calculate(): send NewChartMessage and CloseMessage");  
             WeakReferenceMessenger.Default.Send(new NewChartMessage(VM_IDENTIFICATION));
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
@@ -150,6 +153,7 @@ public partial class RadixDataInputViewModel: ObservableObject
         if (string.IsNullOrEmpty(Date) && !_calculateClicked) return true; 
         Calendars cal = CalendarIndex == 0 ? Calendars.Gregorian : Calendars.Julian;
         YearCounts yCount = YearCountsExtensions.YearCountForIndex(YearCountIndex);
+        Log.Information("RadixDataInputViewModel.IsDateValid() calls RadixDataInputModel.IsDateValid()");
         return _model.IsDateValid(Date, cal, yCount);
     }
     
@@ -163,12 +167,14 @@ public partial class RadixDataInputViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
+        Log.Information("RadixDataInputViewModel.Help(): send HelpMessage");  
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Close()
     {
+        Log.Information("RadixDataInputViewModel.Close(): send CloseMessage");  
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 }

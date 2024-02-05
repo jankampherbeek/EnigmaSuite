@@ -20,6 +20,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -124,6 +125,7 @@ public partial class ConfigurationViewModel: ObservableObject
                 configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
             _model.UpdateConfig(config);
             MessageBox.Show(CONFIGURATION_SAVED);
+            Log.Information("ConfigurationViewModel.SaveConfig(): send ConfigUpdatedMessage and CloseMessage");
             WeakReferenceMessenger.Default.Send((new ConfigUpdatedMessage(VM_IDENTIFICATION)));
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
@@ -163,11 +165,13 @@ public partial class ConfigurationViewModel: ObservableObject
     
     [RelayCommand] private static void Close()
     {
+        Log.Information("ConfigurationViewModel.Close(): send CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand] private static void Help()
     {
+        Log.Information("ConfigurationViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 }

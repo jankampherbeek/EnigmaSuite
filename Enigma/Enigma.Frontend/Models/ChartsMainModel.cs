@@ -10,6 +10,7 @@ using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -43,6 +44,7 @@ public sealed class ChartsMainModel
         if (currentChart == null) return newIndex;
         ChartData chartData = currentChart.InputtedChartData;
         PersistableChartData persistableChartData = _chartDataConverter.ToPersistableChartData(chartData);
+        Log.Information("ChartsMainModel.SaveCurrentChart(): calls ChartDataPersistencyApi.AddChartData()");
         newIndex = _chartDataPersistencyApi.AddChartData(persistableChartData);
         return newIndex;
     }
@@ -52,11 +54,14 @@ public sealed class ChartsMainModel
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return false;
         long id = currentChart.InputtedChartData.Id;
-        return _chartDataPersistencyApi.DeleteChartData(id);
+        bool deleteOk = _chartDataPersistencyApi.DeleteChartData(id);
+        if (deleteOk) _dataVaultCharts.RemoveDeletedChart();
+        return deleteOk;
     }
 
     public long CountPersistedCharts()
     {
+        Log.Information("ChartsMainModel.CountPersistedCharts(): requesting number of records from chartdata persistency api");
         return _chartDataPersistencyApi.NumberOfRecords();
     }
     

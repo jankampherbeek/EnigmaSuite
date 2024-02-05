@@ -140,11 +140,14 @@ You can add many other points to the calculation:
 
 ## Supported periods for calculations
 
-Enigma can calculate all planets and most other points for a period of almost 30000 years. For some celestial bodies, this period is shorter. Astronomers do not have enough data to calculate these celestial bodies for all periods. If Enigma cannot calculate a point for a specific date, it will omit this point.
+Enigma can calculate all planets and most other points for a period of almost 30000 years. 
+For some celestial bodies, this period is shorter. 
+Astronomers do not have enough data to calculate these celestial bodies for all periods. 
+If Enigma cannot calculate a point for a specific date, it will omit this point.
 
 | Celestial points                                                          | From         | Until       |
 |---------------------------------------------------------------------------|--------------|-------------|
-| Sun, Moon and planets and all points not in the others rows of this table | -12999/08/02 | 16799/12/30 |
+| Sun, Moon and planets and all points not in the other rows of this table  | -12999/08/02 | 16799/12/30 |
 | Chiron                                                                    | 0675/01/01   | 4650/01/01  |
 | Pholus                                                                    | -2958/01/01  | 7308/12/30  |
 | Nessus, Huya, Ixion, Orcus, Varuna, MakeMake, Haumea, Quaoar, Eris, Sedna | -3000/03/18  | 2998/08/23  |
@@ -152,9 +155,9 @@ Enigma can calculate all planets and most other points for a period of almost 30
 
 
 
-### Defining orbs
+## Defining orbs
 
-#### Orbs for aspects
+### Orbs for aspects
 
 An orb for an aspect can depend on many factors. Enigma takes two of these factors into account: the points that form an aspect and the aspect itself.
 
@@ -182,21 +185,22 @@ Uranus: 50%, Eris 40% —\> 50% for the points.
 
 Semi-quintile: 30%, effective orb 15% of 10 degrees is 1.5 degree.
 
-#### Orbs for midpoints
+### Orbs for midpoints
 
 Enigma supports a configurable base orb for midpoints. In a later version, it will be possible to define different orbs for different midpoint dials.
 
-#### Orbs in research
+### Orbs in research
 
 If you perform a test with harmonics, you can enter the orb that you want to use in your research.
 
 In other research projects, you use the orbs as defined in the configuration.
 
-### Format for data-files
+## Format for data-files
 
-Enigma supports only one type of data-file. Please note that the format as used in version 0.1 has been changed in version 0.2.
+Enigma supports only one type of data-file. 
 
-Later versions will add support for data from the Gauquelin archives and data for progressions.
+Later versions will add support for data from the Gauquelin archives and data for progressions. 
+Exchanging data between Enigma and PlanetDance will also be supported.
 
 You can create your own data-file using the csv format (Comma Separated Values). This is a simple text file with one line per chart. You need to separate the different values with a comma. Make sure you use a real text-editor and not Word, LibreOffice Text or another word processor. Examples of a text-editor: NotePad (available in Windows), Notepad++ (more powerful, download it for free from: [*https://notepad-plus-plus.org*](https://notepad-plus-plus.org)).
 
@@ -239,13 +243,13 @@ Save your data-file, preferably with the extension .csv at a location of your li
 
 You can download an example file from [*https://radixpro.com/enigma*](https://radixpro.com/enigma). This file contains the data of 42 visual artists.
 
-### Using Excel or Libre Office
+## Using Excel or Libre Office
 
 You can use a spreadsheet to create a data file. Spreadsheets can read csv files, so you can try it with the example file mentioned above.
 
 Make sure that you use a comma as a separator and do not use quotes.
 
-### Result files
+## Result files
 
 If you perform a test, Enigma will create several result files. You can find these files in the folder *c:\enigma_ar\project\\projectname\]\results .*
 
