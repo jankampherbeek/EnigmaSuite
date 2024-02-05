@@ -100,7 +100,7 @@ public partial class RadixDataInputViewModel: ObservableObject
             _model.CreateChartData(NameId, Description, Source, LocationName, CategoryIndex, RatingIndex);
             Log.Information("RadixDataInputViewModel.Calculate(): send NewChartMessage and CloseMessage");  
             WeakReferenceMessenger.Default.Send(new NewChartMessage(VM_IDENTIFICATION));
-            WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+            WeakReferenceMessenger.Default.Send(new CloseRadixDataInputViewMessage(VM_IDENTIFICATION));
         }
         else
         {
@@ -174,7 +174,7 @@ public partial class RadixDataInputViewModel: ObservableObject
     [RelayCommand]
     private static void Close()
     {
-        Log.Information("RadixDataInputViewModel.Close(): send CloseMessage");  
-        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+   //     Log.Information("RadixDataInputViewModel.Close(): send CloseMessage");  
+        WeakReferenceMessenger.Default.Send(new CloseRadixDataInputViewMessage(VM_IDENTIFICATION));
     }
 }

@@ -45,6 +45,7 @@ public class ProgEventModel: DateTimeLocationModelBase
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ProgEvent progEvent = new(0, description, locationName, location, fullDateTime);
         DataVaultProg.Instance.CurrentProgEvent = progEvent;
+        
     }
     
 }

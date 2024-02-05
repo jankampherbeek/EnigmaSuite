@@ -15,6 +15,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -83,14 +84,13 @@ public partial class ProgEventViewModel: ObservableObject
         if (string.IsNullOrEmpty(errors))
         {
             _model.CreateEventData(Description, LocationName);
-            Log.Information("ProgEventViewModel.FinalizeEvent(): send EventCompletedMessage and CloseMessage");
-            WeakReferenceMessenger.Default.Send(new EventCompletedMessage(VM_IDENTIFICATION));
-            WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+            WeakReferenceMessenger.Default.Send(new CloseProgEventViewMessage(VM_IDENTIFICATION));
         }
         else
         {
             MessageBox.Show(errors, StandardTexts.TITLE_ERROR);
         }
+
     }
     
     private string FindErrors()

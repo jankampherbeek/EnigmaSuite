@@ -9,7 +9,9 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -17,6 +19,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for main charts screen</summary>
 public sealed class ChartsMainModel
 {
+    private RadixDataInputWindow? _radixDataInputWindow;
     private readonly DataVaultCharts _dataVaultCharts;
     private readonly IChartDataConverter _chartDataConverter;
     private readonly IChartDataPersistencyApi _chartDataPersistencyApi;
@@ -35,6 +38,20 @@ public sealed class ChartsMainModel
     public List<PresentableChartData> AvailableCharts()
     {
         return _chartDataForDataGridFactory.CreateChartDataForDataGrid(_dataVaultCharts.GetAllCharts());
+    }
+    
+    public bool CreateNewChart()
+    {
+        _radixDataInputWindow = new RadixDataInputWindow();
+        _radixDataInputWindow.ShowDialog();
+        if (DataVaultCharts.Instance.GetCurrentChart() is null) return false;
+        SaveCurrentChart();
+        return true;
+    }
+
+    public void CloseRadixDataInputWindow()
+    {
+        _radixDataInputWindow?.Close();
     }
     
     public long SaveCurrentChart()

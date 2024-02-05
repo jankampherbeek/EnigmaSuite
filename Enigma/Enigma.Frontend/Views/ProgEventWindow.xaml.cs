@@ -11,12 +11,14 @@ namespace Enigma.Frontend.Ui.Views;
 
 public partial class ProgEventWindow
 {
+    
+    
     public ProgEventWindow()
     {
         InitializeComponent();
         DefineColors();
     }
-    
+
     [SuppressMessage("Performance", "CA1822:Mark members as static")]
     private void DefineColors()
     {

@@ -23,7 +23,8 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class ChartsMainViewModel: ObservableObject, 
     IRecipient<NewChartMessage>, 
     IRecipient<FoundChartMessage>,
-    IRecipient<ConfigUpdatedMessage>
+    IRecipient<ConfigUpdatedMessage>,
+    IRecipient<CloseRadixDataInputViewMessage>
 {
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.CHARTS_MAIN;
     private const string ABOUT_CHARTS = "AboutCharts";
@@ -53,6 +54,7 @@ public partial class ChartsMainViewModel: ObservableObject,
         WeakReferenceMessenger.Default.Register<NewChartMessage>(this);
         WeakReferenceMessenger.Default.Register<FoundChartMessage>(this);
         WeakReferenceMessenger.Default.Register<ConfigUpdatedMessage>(this);
+        WeakReferenceMessenger.Default.Register<CloseRadixDataInputViewMessage>(this);
         _chartsWindowsFlow = App.ServiceProvider.GetRequiredService<ChartsWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ChartsMainModel>();
         Log.Information("ChartsMainviewModel constructor: calling Populate()");
@@ -108,10 +110,9 @@ public partial class ChartsMainViewModel: ObservableObject,
     }
 
     [RelayCommand]
-    private static void NewChart()
+    private void NewChart()
     {
-        Log.Information("ChartsMainViewModel.NewChart(): send OpenMessage");
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_DATA_INPUT));
+        if (_model.CreateNewChart()) Populate();
     }
 
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
@@ -246,5 +247,10 @@ public partial class ChartsMainViewModel: ObservableObject,
     {
         Log.Information("ChartsMainviewModel.Receive(ConfigUpdatedMessage): calling Populate()");    
         Populate();
+    }
+
+    public void Receive(CloseRadixDataInputViewMessage message)
+    {
+        _model.CloseRadixDataInputWindow();
     }
 }

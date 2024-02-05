@@ -3,20 +3,27 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using CommunityToolkit.Mvvm.ComponentModel;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Views;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
 public class ProgressiveMainModel
 {
+    private ProgEventWindow? _progEventWindow;
     private readonly IEventDataConverter _eventDataConverter;
     private readonly IEventDataPersistencyApi _eventDataPersistencyApi;
     private readonly IProgDatesForPresentationFactory _progDatesForPresentationFactory;
@@ -25,7 +32,8 @@ public class ProgressiveMainModel
     public List<PresentableProgresData> PresentableEventsPeriods { get; } = new();
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
-
+    private ProgEvent _currentEvent;
+ //   private readonly ChartsStateMachine _stateMachine = App.ServiceProvider.GetRequiredService<ChartsStateMachine>();
     public ProgressiveMainModel(IEventDataConverter eventDataConverter, 
         IEventDataPersistencyApi eventDataPersistencyApi,
         IProgDatesForPresentationFactory progDatesForPresentationFactory)
@@ -41,27 +49,43 @@ public class ProgressiveMainModel
     {
         ReadCurrentEvents();
         return _progDatesForPresentationFactory.CreatePresentableProgresData(AvailableEventsPeriods);
-    } 
-    
+    }
+
     
     /// <summary>Delete event from database.</summary>
     /// <param name="eventId">Id for the event.</param>
-    /// <returns>True if the deleteion was successful, otherwise false.</returns>
+    /// <returns>True if the deletion was successful, otherwise false.</returns>
     public bool DeleteCurrentEvent(long eventId)
     {
         return _eventDataPersistencyApi.DeleteEventData(eventId);
-    }    
+    }
+
+    public bool CreateNewEvent()
+    {
+        _progEventWindow = new();
+        _progEventWindow.ShowDialog();
+        
+        if (DataVaultProg.Instance.CurrentProgEvent is null) return false;
+        SaveCurrentEvent();
+        return true;
+    }
+
+    public void CloseProgEventWindow()
+    {
+        _progEventWindow?.Close();
+    }
+    
     
     public long SaveCurrentEvent()
     {
         long newIndex = -1;
-        var currentEvent = _dataVaultProg.CurrentProgEvent;
-        if (currentEvent == null) return newIndex;
+        _currentEvent = _dataVaultProg.CurrentProgEvent;
+        if (_currentEvent == null) return newIndex;
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return newIndex;
         long chartId = currentChart.InputtedChartData.Id;
         Log.Information("ProgressiveMainModel.SaveCurrentEvent(): Requesting PersitableEventData to save event");
-        PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(currentEvent);
+        PersistableEventData persEvent = _eventDataConverter.ToPersistableEventData(_currentEvent);
         newIndex = _eventDataPersistencyApi.AddEventData(persEvent, chartId);
         return newIndex;
     }
@@ -80,5 +104,5 @@ public class ProgressiveMainModel
         }
         
     }
-    
+
 }

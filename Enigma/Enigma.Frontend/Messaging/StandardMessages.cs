@@ -118,3 +118,19 @@ public class ConfigUpdatedMessage : ValueChangedMessage<string>
         
     }
 }
+
+public class CloseProgEventViewMessage : ValueChangedMessage<string>
+{
+    public CloseProgEventViewMessage(string value) : base(value)
+    {
+        
+    }
+}
+
+public class CloseRadixDataInputViewMessage : ValueChangedMessage<string>
+{
+    public CloseRadixDataInputViewMessage(string value) : base(value)
+    {
+        
+    }
+}

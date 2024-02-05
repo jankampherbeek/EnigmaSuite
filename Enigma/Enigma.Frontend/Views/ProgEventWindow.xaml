@@ -44,7 +44,7 @@
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Description, Mode = TwoWay}"/>
         
-        <!-- Location, incl. default values is location is not used -->
+        <!-- Location, incl. default values if location is not used -->
         <TextBlock Grid.Row="2"  Grid.Column="0" Grid.ColumnSpan="2" Margin="6 18 6 0" 
                    Text="Location" Name="SubHeaderLocation"  
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
@@ -118,8 +118,10 @@
                     Command="{Binding HelpCommand}"/>
             <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" 
                     Command="{Binding CancelCommand}"/>
-            <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
-                    Command="{Binding FinalizeEventCommand}" />
+            <Button Name="SaveButton"
+                    Margin="6" Content="Save" HorizontalAlignment="Right" 
+                    Command="{Binding FinalizeEventCommand}"/>
         </StackPanel>
+        
     </Grid>
 </Window>

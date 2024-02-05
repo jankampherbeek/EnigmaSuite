@@ -16,13 +16,14 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<EventCompletedMessage>
+public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<CloseProgEventViewMessage>
 {
     private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
@@ -38,18 +39,16 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     [ObservableProperty] private ObservableCollection<PresentableProgresData> _presentableEventsPeriods = new();
     [NotifyPropertyChangedFor(nameof(EventIndex))]
     [ObservableProperty] private PresentableProgresData? _selectedProgDate;
-    private DateTime _dateTimeLastMsg = DateTime.Now;
     private readonly ProgressiveMainModel _model;
     
     public ProgressiveMainViewModel()
     {
-        WeakReferenceMessenger.Default.Register<EventCompletedMessage>(this);
+        WeakReferenceMessenger.Default.Register<CloseProgEventViewMessage>(this);
         _model = App.ServiceProvider.GetRequiredService<ProgressiveMainModel>();
         PopulateData();
         PopulateEvents();
     }
-    
-   
+
     private void PopulateData()
     {
         _currentChart = _dataVaultCharts.GetCurrentChart();
@@ -69,7 +68,6 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
             SelectedProgDate = PresentableEventsPeriods[EventIndex];
             _dataVaultProg.CurrentProgEvent = (ProgEvent?)_model.AvailableEventsPeriods[EventIndex];
         }
-
         PopulateData();
         PopulateEvents();
     }
@@ -89,10 +87,9 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
     }
     
     [RelayCommand]
-    private static void NewEvent()
+    private void NewEvent()
     {
-        Log.Information("ProgressiveMainViewModel.NewEvent(): send OpenMessage");
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_EVENT));
+        if (_model.CreateNewEvent()) PopulateEvents();
     }
 
     
@@ -165,27 +162,8 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Even
         return EventIndex >= 0;
     }
 
-    public void Receive(EventCompletedMessage message)
+    public void Receive(CloseProgEventViewMessage message)
     {
-        Log.Information("ProgressiveMainViewModel.Receive(EventCompletedMessage)");
-
-        DateTime newMsgTime = DateTime.Now;
-        TimeSpan interval = newMsgTime - _dateTimeLastMsg;
-        double millisecInBetween = interval.TotalMilliseconds;
-        Log.Information("DEBUG: ProgressiveMainViewModel.Receive(EventCompletedMessage), milliseconds in between: {MsInBetween}", millisecInBetween);
-    if (millisecInBetween > 100)
-        {
-            if (_dataVaultProg.CurrentProgEvent != null)
-            {
-                _model.SaveCurrentEvent();
-            }
-            PopulateEvents();
-            _dateTimeLastMsg = DateTime.Now;
-        } else
-        {
-            Log.Error("ProgressiveMainViewModel.Receive(EventCompletedMessage) occurred twice within {MSec} milliseconds. Ignored msg", millisecInBetween);
-        }
+        _model.CloseProgEventWindow();
     }
- 
-    
 }
