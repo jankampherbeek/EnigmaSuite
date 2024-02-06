@@ -21,7 +21,6 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for main charts screen</summary>
 public partial class ChartsMainViewModel: ObservableObject, 
-    IRecipient<NewChartMessage>, 
     IRecipient<FoundChartMessage>,
     IRecipient<ConfigUpdatedMessage>,
     IRecipient<CloseRadixDataInputViewMessage>
@@ -51,7 +50,6 @@ public partial class ChartsMainViewModel: ObservableObject,
     
     public ChartsMainViewModel()
     {
-        WeakReferenceMessenger.Default.Register<NewChartMessage>(this);
         WeakReferenceMessenger.Default.Register<FoundChartMessage>(this);
         WeakReferenceMessenger.Default.Register<ConfigUpdatedMessage>(this);
         WeakReferenceMessenger.Default.Register<CloseRadixDataInputViewMessage>(this);
@@ -222,19 +220,6 @@ public partial class ChartsMainViewModel: ObservableObject,
         return ChartIndex >= 0;
     }
     
-
-    public void Receive(NewChartMessage message)
-    {
-        Log.Information("ChartsMainViewModel.Receive(NewChartMessage) with value {Value}", message.Value);
-        
-        if (!_dataVaultCharts.GetNewChartAdded()) return;
-        Log.Information("ChartsMainViewModel.Receive(NewChartMessage): calls model.SaveCurrentChart");
-        long newIndex = _model.SaveCurrentChart();
-        if (_dataVaultCharts.GetCurrentChart() == null) return;
-        _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
-        Log.Information("ChartsMainviewModel.Receive(NewChartMessage): calling Populate()");        
-        Populate();
-    }
 
     public void Receive(FoundChartMessage message)
     {

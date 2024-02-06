@@ -76,7 +76,7 @@ public class TestConfigurationDelta
         Assert.Multiple(() =>
         {
             Assert.That(result.Keys, Does.Contain("SM_KEY"));
-            Assert.That(result["SM_KEY"], Is.EqualTo("2"));
+            Assert.That(result["SM_KEY"], Is.EqualTo("1"));
         });        
     }
     

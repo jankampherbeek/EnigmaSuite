@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -83,6 +83,8 @@ public partial class ConfigurationViewModel: ObservableObject
         AyanamshaIndex = _model.AyanamshaIndex;
         ObserverPositionIndex = _model.ObserverPositionIndex;
         _baseOrbAspectsValue = _model.AspectBaseOrb;
+        ProjectionTypeIndex = _model.ProjectionTypeIndex;
+        
         BaseOrbAspectsText = _baseOrbAspectsValue.ToString(CultureInfo.InvariantCulture);
         _baseOrbMidpointsValue = _model.MidpointBaseOrb;
         BaseOrbMidpointsText = _baseOrbMidpointsValue.ToString(CultureInfo.InvariantCulture);

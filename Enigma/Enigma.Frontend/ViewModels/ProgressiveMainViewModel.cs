@@ -23,7 +23,8 @@ using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<CloseProgEventViewMessage>
+public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<CloseProgEventViewMessage>,
+    IRecipient<ProgConfigUpdatedMessage>
 {
     private const string VM_IDENTIFICATION = "ProgressiveMain";  // todo read value from ChartsWindowsFlow
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
@@ -44,6 +45,7 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Clos
     public ProgressiveMainViewModel()
     {
         WeakReferenceMessenger.Default.Register<CloseProgEventViewMessage>(this);
+        WeakReferenceMessenger.Default.Register<ProgConfigUpdatedMessage>(this);
         _model = App.ServiceProvider.GetRequiredService<ProgressiveMainModel>();
         PopulateData();
         PopulateEvents();
@@ -165,5 +167,11 @@ public partial class ProgressiveMainViewModel: ObservableObject, IRecipient<Clos
     public void Receive(CloseProgEventViewMessage message)
     {
         _model.CloseProgEventWindow();
+    }
+
+    public void Receive(ProgConfigUpdatedMessage message)
+    {
+        PopulateData();
+        PopulateEvents();
     }
 }

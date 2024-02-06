@@ -119,7 +119,7 @@ public class TestDeltaTexts
         Assert.Multiple(() =>
         {
             Assert.That(deltaTexts.Item1, Is.EqualTo("SM_KEY"));
-            Assert.That(deltaTexts.Item2, Is.EqualTo("3"));
+            Assert.That(deltaTexts.Item2, Is.EqualTo("2"));
         });
     }
 }

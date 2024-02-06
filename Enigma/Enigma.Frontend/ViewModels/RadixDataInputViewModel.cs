@@ -99,7 +99,6 @@ public partial class RadixDataInputViewModel: ObservableObject
             Log.Information("RadixDataInputViewModel.Calculate(): starting alculation of chart");
             _model.CreateChartData(NameId, Description, Source, LocationName, CategoryIndex, RatingIndex);
             Log.Information("RadixDataInputViewModel.Calculate(): send NewChartMessage and CloseMessage");  
-            WeakReferenceMessenger.Default.Send(new NewChartMessage(VM_IDENTIFICATION));
             WeakReferenceMessenger.Default.Send(new CloseRadixDataInputViewMessage(VM_IDENTIFICATION));
         }
         else

@@ -22,6 +22,8 @@ public class ConfigurationModel
     public int ZodiacTypeIndex { get; }
     public int AyanamshaIndex { get; }
     public int ObserverPositionIndex { get; }
+    
+    public int ProjectionTypeIndex { get; }
     public double AspectBaseOrb { get; }
     public double MidpointBaseOrb { get; }
     
@@ -33,6 +35,7 @@ public class ConfigurationModel
         ZodiacTypeIndex = (int)currentConfig.ZodiacType;
         AyanamshaIndex = (int)currentConfig.Ayanamsha;
         ObserverPositionIndex = (int)currentConfig.ObserverPosition;
+        ProjectionTypeIndex = (int)currentConfig.ProjectionType;
         AspectBaseOrb = currentConfig.BaseOrbAspects;
         MidpointBaseOrb = currentConfig.BaseOrbMidpoints;
     }

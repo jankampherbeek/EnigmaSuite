@@ -20,7 +20,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="75*"/>
-            <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Margin="6,0,0, 6" 
@@ -45,10 +44,7 @@
                                     IsReadOnly="True"/>
             </DataGrid.Columns>   
         </DataGrid>
-        <CheckBox Grid.Row="2" Margin="6" Content="Include all cusps" 
-                  IsEnabled="{Binding MethodSupportsCusps}" 
-                  IsChecked="{Binding IncludeCusps}" />
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="6">
             <Button Margin="4" Content="Help" Command="{Binding HelpCommand}"/>
             <Button Margin="4" Content="Cancel" Command="{Binding CancelCommand}"/>
             <Button Margin="4" Content="Continue" Command="{Binding ContinueCommand}"/>

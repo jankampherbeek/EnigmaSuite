@@ -83,15 +83,6 @@ public class HelpMessage : ValueChangedMessage<string>
     }
 }
 
-/// <summary>Message that a new chart has been calculated.</summary>
-public class NewChartMessage : ValueChangedMessage<string>
-{
-    public NewChartMessage(string value) : base(value)
-    {
-        
-    }
-}
-
 /// <summary>Message that a chart has been found.</summary>
 public class FoundChartMessage : ValueChangedMessage<string>
 {
@@ -114,6 +105,14 @@ public class EventCompletedMessage : ValueChangedMessage<string>
 public class ConfigUpdatedMessage : ValueChangedMessage<string>
 {
     public ConfigUpdatedMessage(string value) : base(value)
+    {
+        
+    }
+}
+
+public class ProgConfigUpdatedMessage : ValueChangedMessage<string>
+{
+    public ProgConfigUpdatedMessage(string value) : base(value)
     {
         
     }

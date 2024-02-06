@@ -38,7 +38,7 @@ public class TestSymbolicKeys
     [Test]
     public void TestRetrievingWithIndex()
     {
-        const int index = 2;
+        const int index = 1;
         SymbolicKeys key = SymbolicKeyExtensions.SymbolicKeysForIndex(index);
         Assert.That(key, Is.EqualTo(SymbolicKeys.TrueSun));
     }

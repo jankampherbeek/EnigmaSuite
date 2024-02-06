@@ -172,6 +172,7 @@ public sealed class ChartDataDao : IChartDataDao
         {
             SQLiteConnection dbConnection = new(_fullPath);
             const string sql = """
+                               DELETE FROM Events WHERE id IN (SELECT eventId FROM ChartsEvents WHERE ChartId = @Id);
                                DELETE FROM ChartsEvents WHERE ChartId = @Id; 
                                DELETE FROM DateLocations WHERE ChartId = @Id;
                                DELETE FROM Charts WHERE Id = @Id;

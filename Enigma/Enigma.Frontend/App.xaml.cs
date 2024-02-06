@@ -66,9 +66,9 @@ public partial class App
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
         serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
         serviceCollection.AddSingleton<ChartsWindowsFlow>();
-        serviceCollection.AddSingleton<IConfigPreferencesConverter, ConfigPreferencesConverter>();
-        serviceCollection.AddSingleton<ConfigurationModel>();
-        serviceCollection.AddSingleton<ConfigProgModel>();
+        serviceCollection.AddTransient<IConfigPreferencesConverter, ConfigPreferencesConverter>();
+        serviceCollection.AddTransient<ConfigurationModel>();
+        serviceCollection.AddTransient<ConfigProgModel>();
         serviceCollection.AddSingleton<ICurrentCharts, CurrentCharts>();
         serviceCollection.AddSingleton<DatafileOverviewModel>();
         serviceCollection.AddSingleton<DatafileImportModel>();

@@ -63,6 +63,7 @@ public sealed class ChartsMainModel
         PersistableChartData persistableChartData = _chartDataConverter.ToPersistableChartData(chartData);
         Log.Information("ChartsMainModel.SaveCurrentChart(): calls ChartDataPersistencyApi.AddChartData()");
         newIndex = _chartDataPersistencyApi.AddChartData(persistableChartData);
+        _dataVaultCharts.GetCurrentChart()!.InputtedChartData.Id = newIndex;
         return newIndex;
     }
     

@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -36,7 +36,7 @@ public class ConfigProgModel
     {
         _configApi.WriteDeltasForConfig(configProg);
         CurrentConfig.Instance.ChangeConfigProg(configProg);
-        // TODO: clear exixting progressions
+        DataVaultCharts.Instance.ClearExistingCharts();
     }
     
     public static List<string> AllSymDirKeys()

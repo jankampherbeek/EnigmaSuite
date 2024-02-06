@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -28,8 +28,8 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.RESEARCH_POINT_SELECTION;
     
-    [ObservableProperty] private bool _methodSupportsCusps;
-    [ObservableProperty] private bool _includeCusps;
+  //  [ObservableProperty] private bool _methodSupportsCusps;
+    private readonly bool _includeCusps = false;
     [ObservableProperty] private ObservableCollection<SelectableChartPointDetails> _allChartPointDetails;
 
     public ResearchPointSelectionViewModel()
@@ -43,7 +43,7 @@ public partial class ResearchPointSelectionViewModel: ObservableObject
     {
         List<ChartPoints> selectedPoints = (from item in AllChartPointDetails 
             where item.Selected select item.ChartPoint).ToList();
-        ResearchPointSelection selection = new(selectedPoints, IncludeCusps);
+        ResearchPointSelection selection = new(selectedPoints, _includeCusps);
         DataVaultResearch.Instance.CurrentPointsSelection = selection;
         Log.Information("ResearchPointSelectionViewModel.Continue(): send CloseMessage");         
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));

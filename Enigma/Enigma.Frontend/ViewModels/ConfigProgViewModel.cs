@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -37,7 +37,7 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private ObservableCollection<ProgPoint> _allTransitPoints;
     [ObservableProperty] private ObservableCollection<ProgPoint> _allSecDirPoints;
     [ObservableProperty] private ObservableCollection<ProgPoint> _allSymDirPoints;
-    [ObservableProperty] private int _symDirKeyIndex;
+    [ObservableProperty] private int _symDirTimeKeyIndex;
     
     private double _orbSecDirValue;
     private double _orbSymDirValue;
@@ -57,7 +57,7 @@ public partial class ConfigProgViewModel:ObservableObject
         AllTransitPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllTransitPoints());
         AllSecDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSecDirPoints());
         AllSymDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSymDirPoints());
-        _symDirKeyIndex = _model.SymDirTimeKeyIndex;
+        SymDirTimeKeyIndex = _model.SymDirTimeKeyIndex;
         _orbSecDirValue = _model.SecDirOrb;
         _orbSymDirValue = _model.SymDirOrb;
         _orbTransitValue = _model.TransitOrb;
@@ -114,19 +114,20 @@ public partial class ConfigProgViewModel:ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
-            SymDirKeyIndex = _model.SymDirTimeKeyIndex;
+         //   SymDirKeyIndex = _model.SymDirTimeKeyIndex;
             ConfigProgTransits configTransits = new(_orbTransitValue, AllTransitPoints.ToDictionary(point => point.ChartPoint, 
                 point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
             ConfigProgSecDir configSecDir = new (_orbSecDirValue, AllSecDirPoints.ToDictionary(point => point.ChartPoint, 
                 point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
             ConfigProgSymDir configSymDir = new(_orbSymDirValue,
-                SymbolicKeyExtensions.SymbolicKeysForIndex(SymDirKeyIndex),
+                SymbolicKeyExtensions.SymbolicKeysForIndex(SymDirTimeKeyIndex),
                 AllSymDirPoints.ToDictionary(point => point.ChartPoint, 
                     point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
             ConfigProg configProg = new(configTransits, configSecDir, configSymDir); 
             _model.UpdateConfig(configProg);
             MessageBox.Show(PROG_CONFIG_SAVED, StandardTexts.TITLE_ERROR);
             Log.Information("ConfigProgViewModel.SaveConfig(): send CloseMessage");
+            WeakReferenceMessenger.Default.Send((new ProgConfigUpdatedMessage(VM_IDENTIFICATION)));            
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
         }
         else

@@ -10,9 +10,9 @@ namespace Enigma.Domain.References;
 /// <summary>Time keys for symbolic directions.</summary>
 public enum SymbolicKeys
 {
-    OneDegree = 1,
-    TrueSun = 2,
-    MeanSun = 3
+    OneDegree = 0,
+    TrueSun = 1,
+    MeanSun = 2
 }
 
 
