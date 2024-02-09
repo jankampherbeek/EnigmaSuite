@@ -20,13 +20,6 @@ public interface ICsv2JsonConverter
     /// and a list with csv-lines that caused an error. It the first item is true, the list with error-lines should be empty.</returns>
     public Tuple<bool, string, List<string>> ConvertStandardDataCsvToJson(List<string> csvLines, string dataName);
     
-    
-    /// <summary>Processes data in the csv-format as exported by PlanetDance and converts it to Json.</summary>
-    /// <param name="csvLines">The csv lines to convert.</param>
-    /// <param name="dataName">Name for the data.</param>
-    /// <returns>Tuple with three items: a boolean that indicates if the conversion was succesfull, a string with the json,  
-    /// and a list with csv-lines that caused an error. It the first item is true, the list with error-lines should be empty.</returns>
-    public Tuple<bool, string, List<string>>ConvertPlanetDanceCsvToJson(List<string>csvLines, string dataName);
 }
 
 /// <inheritdoc/>
@@ -73,11 +66,6 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
         var options = new JsonSerializerOptions { WriteIndented = true };
         jsonText = JsonSerializer.Serialize(standardInput, options);
         return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
-    }
-
-    public Tuple<bool, string, List<string>> ConvertPlanetDanceCsvToJson(List<string> csvLines, string dataName)
-    {
-        throw new NotImplementedException();
     }
 
     private Tuple<StandardInputItem?, bool> ProcessStandardLine(string csvLine)

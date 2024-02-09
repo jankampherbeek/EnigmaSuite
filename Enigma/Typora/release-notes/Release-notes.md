@@ -1,6 +1,6 @@
 # Release notes Enigma Astrology Research
 
-## Release 0.2 beta - February 15, 2024
+## Release 0.2.0 beta - February 10, 2024
 
 Support for several progressive techniques.
 

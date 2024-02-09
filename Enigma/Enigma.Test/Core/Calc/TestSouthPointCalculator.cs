@@ -14,11 +14,7 @@ namespace Enigma.Test.Core.Calc;
 [TestFixture]
 public class TestSouthPointCalculator
 {
-
-    // TODO 0.2 check differences
-
-
-    private const double DELTA = 0.001; // TODO 0.2 enlarge value for _delta.
+    private const double DELTA = 0.001; // TODO 0.3 enlarge value for _delta and check differences.
 
     [Test]
     public void TestHappyFlow()

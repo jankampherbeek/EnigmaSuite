@@ -55,7 +55,7 @@ public partial class ProgEventResultsViewModel: ObservableObject
     }
     
     [RelayCommand]
-    private static void Help()  // TODO create helppage ProgEventResults
+    private static void Help() 
     {
         Log.Information("ProgEventResultsViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));

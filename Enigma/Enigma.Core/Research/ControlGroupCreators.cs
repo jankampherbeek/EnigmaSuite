@@ -121,7 +121,7 @@ public sealed class StandardShiftControlGroupCreator : IControlGroupCreator
             double latitude = GetFromList(_latitudes);
             double longitude = GetFromList(_longitudes);
 
-            PersistableDate date = new(year, month, day, "G");      // TODO 0.2 add support for Julian? Or use always Gregorian?
+            PersistableDate date = new(year, month, day, "G");      // TODO 0.3 add support for Julian? Or use always Gregorian?
             PersistableTime time = new(hour, minute, second, zoneOffset, dst);
             int id = counter++;
             string name = "Controldata " + sequence + "-" + id;

@@ -18,7 +18,7 @@ You will see a window with information about the location of the following files
 
 - Enigma writes remarks to **Log files**. In case of an error, these log files will be helpful.
 
-- The folder **Database** contains data for calculated charts.
+- The folder **Database** contains database for calculated charts and other relevant data.
 
 ## Standard configuration
 
@@ -30,7 +30,7 @@ Select the menu option **General - Configuration**.
 
 This will show a window with a wide range of configurable items. The window comprises 3 tabs:
 
-- The tab **General** shows astronomical settings and settings for orbs. This tab is initially shown.
+- The tab **General** shows astronomical settings and settings for orbs. Enigma initially shows this tab.
 
 - **Points** shows the most planets and other points.
 
@@ -39,7 +39,7 @@ This will show a window with a wide range of configurable items. The window comp
 ### General selections
 
 
-If you select the tab *General* you can define the following preferences:
+If you select the tab *General*, you can define the following preferences:
 
 **House system**. Currently, Enigma supports only house systems with 12 houses. 
 The default selection is Regiomontanus.
@@ -50,7 +50,7 @@ If you select tropical, the Ayanamsha will always be None.
 If you select another Ayanamsha, the setting for Type of zodiac will automatically change into *sidereal*.
 
 **Ayanamsha**. Select one of the available Ayanamshas.
-In the paragraph *Appendix: Ayanamshas* you will find a brief explanation of the different possibilities.
+In the paragraph *Appendix: Ayanamshas*, you will find a brief explanation of the distinct possibilities.
 See also the remarks at the point above: *Type of zodiac*.
 
 **Observer position**. The standard approach is *topocentric*, so Enigma takes parallax into account.
@@ -60,7 +60,7 @@ If you do not want to use parallax correction, select *geocentric*.
 *Oblique longitude* provides an alternative calculation as supported by the School of Ram.
 It is also called *True Astrological Longitude Location*.
 
-**Base orb for aspects**. The base orb for aspects will be corrected with the percentages for celestial bodies and aspects.
+**Base orb for aspects**. Enigma corrects the base orb for aspects with the percentages for celestial bodies and aspects.
 See the paragraph *Appendix: Defining orbs*.
 The value shows the maximum orb for the most important aspect and the most important celestial body.
 
@@ -71,12 +71,12 @@ The **Base orb for midpoints** is the effective orb for midpoints.
 
 ![](configuration-points.png) {width="400"}
 
-The tab *Points* gives access to the configuration fo all celestial points that Enigma supports.
-For each point you will find a checkbox.
+The tab *Points* gives access to the configuration for all celestial points that Enigma supports.
+For each point, you will find a checkbox.
 Check this box if you want to take the celestial point into account, deselect it if you do not want to use it.
 
 There is also a value *Orb%* (Orb percentage) that you can change.
-Click on the number for the orb and a small popup screen appears where you can edit the value.
+Click on the number for the orb and a small pop-up screen appears where you can edit the value.
 You can enter a percentage from 0 up to 100, make sure you use only whole numbers.
 It is possible to define a percentage for a point that is not selected,
 so it is easy to remember a percentage if you later decide to include the point.
@@ -91,7 +91,7 @@ See the paragraph *Appendix: Planets and other celestial points* for more inform
 ![](configuration-aspects.png) {width="400"}
 
 *Aspects* is the last tab for the configuration.
-At the top of the screen you can select the type of orb.
+At the top of the screen, you can select the type of orb.
 In the current release, there is only one method to define orbs: Weighted orb.
 It uses percentages for celestial bodies and for aspects to define the actual orb.
 You can leave it that way.
@@ -107,20 +107,19 @@ You can access the configuration for progressive astrology via the module Charts
 Select the menu option **General** - **Config progressions**.
 
 You will see a window with three tabs.
-In the tab _Transits_ you define which celestial points you want to include in transits.
+In the tab _Transits_, you define which celestial points you want to include in transits.
 You can also define the orb for transits.
 
 ![transits.png](transits.png) {width="400"}
 
-
 The tab _Sec dir_ shows the configuration for secondary directions.
 It works the same as for transits. 
-You can select celstial points and define an orb.
+You can select celestial points and define an orb.
 
 ![secondary-directions.png](secondary-directions.png) {width="400"}
 
 The third tab _Symb dir_ gives access to the configuration for symbolic directions.
-Just as with secondary directions andt transits, you can select celestial points that you want to use and an orb.
+Just as with secondary directions and transits, you can select celestial points that you want to use and an orb.
 You can also define a time key in the roll-down menu.
 
 ![symbolic-directions.png](symbolic-directions.png) {width="400"}

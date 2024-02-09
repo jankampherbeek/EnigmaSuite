@@ -13,7 +13,6 @@ namespace Enigma.Domain.Dtos;
 /// <param name="FullDateTime">Date/time related data.</param>
 public record ChartData(long Id, MetaData MetaData, Location Location, FullDateTime FullDateTime)
 {
-    // TODO 0.3 add support for multiple versions of DateTimeLoc.
     public long Id { get; set; } = Id;
 }
 

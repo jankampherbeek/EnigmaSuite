@@ -41,7 +41,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
 
         double dialSize = 360.0 / request.DivisionForDial;
-        const double orb = 1.6; // todo 0.2 use orb from config
+        const double orb = 1.6; // todo 0.3 use orb from config
 
         foreach (OccupiedMidpointStructure mpStructure in from calcResearchChart in charts 
                  let commonPositions = (

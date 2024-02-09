@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -64,7 +64,9 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountOccupiedMidpoints:
             {
-                (int divisionForDial, double orb) = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
+                MidpointDetailsSelection? selection = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
+                if (selection is null) return;
+                (int divisionForDial, double orb) = selection;
                 bool useControlGroup = false;
                 CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);
@@ -75,14 +77,15 @@ public class ProjectUsageModel
             }
             case ResearchMethods.CountHarmonicConjunctions:
             {
-                // todo check for null
-                (double harmonicNumber, double orb) = DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
+                HarmonicDetailsSelection? selection = DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
+                if (selection is null) return;
+                (double harmonicNumber, double orb) = selection;
                 bool useControlGroup = false;
                 CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
                 responseTest = _researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
                 request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
-                responseCg = _researchPerformApi.PerformResearch(request);
+                responseCg = _researchPerformApi.PerformResearch(request);                    
                 break;
             }
         }

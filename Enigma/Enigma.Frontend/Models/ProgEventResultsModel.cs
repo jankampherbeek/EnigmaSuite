@@ -191,7 +191,7 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, ProgPositions> positions = new();
         ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
-        double jdUt = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
+        double jdUt = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; 
         Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgTransits configTransits = CurrentConfig.Instance.GetConfigProg().ConfigTransits;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
@@ -211,7 +211,7 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, ProgPositions> positions = new();
         ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
-        double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
+        double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt;
         double jdRadix = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
         Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSecDir configSecDir = CurrentConfig.Instance.GetConfigProg().ConfigSecDir;
@@ -232,7 +232,7 @@ public class ProgEventResultsModel
         Dictionary<ChartPoints, ProgPositions> positions = new();
         ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
-        double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; // TODO check ET vs UT!
+        double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; 
         double jdRadix = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
         Location location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSymDir configSymDir = CurrentConfig.Instance.GetConfigProg().ConfigSymDir;

@@ -7,7 +7,7 @@ You need a computer that runs Windows.
 I have tested Enigma on Windows 11, it probably runs on older versions, but not older than Windows 7. 
 Enigma will probably run in a Windows emulator on Apple hardware, but I did not test that.
 
-The program requires about 150 mb disk space and about 4 GB internal memory.
+The program requires about 160 mb disk space and about 4 GB internal memory.
 Preferably, use a full HD screen or larger.
 
 ## Performing the installation
@@ -52,12 +52,8 @@ computer?* Just click *Yes*.
 
 
 
-## Adding .Net Framework
 
-TODO
- 
-
-## Installation screens
+## Installation
 
 The installer shows a license which you should accept to continue. 
 Select *I accept the agreement* and click the button **Next**.
@@ -72,8 +68,7 @@ Enigma uses *RadixPro* as the start menu folder, but you can change this if you 
 
 Click the button **Next**.
 
-If you select the checkbox *Create a desktop shortcut*, the installer will create an icon on your 
-desktop to start Enigma.
+If you select the checkbox *Create a desktop shortcut*, the installer will create an icon on your desktop to start Enigma.
 
 Click the button **Next**.
 
@@ -87,13 +82,12 @@ Click the button **Finish**.
 
 The installer made the following changes to your system:
 
-- It installed Enigma in *C:\Program Files (x86)\Enigma Astrology Research*. This folder also contains a sub-folder *se* with the required files from the Swiss Ephemeris.
+- It installed Enigma in *C:\Program Files (x86)\Enigma Astrology Research*. This folder also contains a sub-folder *se* with the required files from the Swiss Ephemeris, a sub-folder *res* with help-files, and a sub-folder *runtimes* that contains logic for the database. You should never change anything in these folders.
+- The font *EnigmaAstrology* is available. You can use this font also in other applications. For more information, check [*http://radixpro.com/downloads/font*](http://radixpro.com/downloads/font)/
 
-- The file *User Manual Enigma Research - 0.1.pdf* is in the same location.
+Enigma uses the folder c:/enigma_ar and its sub-folders. After starting, Enigma creates these folders automatically, if they do not yet exist.
 
-- The font *EnigmaAstrology* is now available. You can use this font also in other applications. For more information, check [*http://radixpro.com/downloads/font*](http://radixpro.com/downloads/font)/
 
-Enigma used the folder c:/enigma_ar and its sub-folders. After starting Enigma, these folders are created automatically.
 
 ## Removing Enigma
 

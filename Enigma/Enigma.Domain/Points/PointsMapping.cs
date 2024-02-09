@@ -11,7 +11,6 @@ using Serilog;
 namespace Enigma.Domain.Points;
 
 /// <inheritdoc/>
-///  TODO remove to specific Mapping namespace, probably in Frontend.Ui
 public sealed class PointsMapping : IPointsMapping
 {
     /// <inheritdoc/>

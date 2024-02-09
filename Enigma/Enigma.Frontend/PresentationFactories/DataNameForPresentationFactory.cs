@@ -13,7 +13,7 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 
 public class DataNameForPresentationFactory : IDataNameForPresentationFactory
 {
-    // TODO remove method CreateDataNamesForDataGrid
+    // TODO 0.3 remove method CreateDataNamesForDataGrid
     public List<PresentableDataName> CreateDataNamesForDataGrid(IEnumerable<string> fullPathDataNames)
     {
         return (from fullPathDataName in fullPathDataNames 

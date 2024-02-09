@@ -34,7 +34,7 @@ public sealed class ProgAspectForPresentationFactory: IProgAspectForPresentation
     {
         char aspectGlyph = definedAspect.Aspect.Glyph;
         char progGlyph = GlyphsForChartPoints.FindGlyph(definedAspect.Point1); 
-        // TODO replace GlyphsForChartPoints with a solution that uses the configuration.
+        // TODO 0.3 replace GlyphsForChartPoints with a solution that uses the configuration.
         char radixGlyph = GlyphsForChartPoints.FindGlyph(definedAspect.Point2);
         string aspectName = definedAspect.Aspect.Text;
         string progName = definedAspect.Point1.GetDetails().Text;

@@ -11,7 +11,7 @@ It will produce a chart wheel and perform the most important analysis.
 The program also supports several types of research: counting aspects, occupied midpoints and more. 
 And it generates control groups so that you can cancel out artifacts.
 
-Several other releases will follow and each new release will add more functionality.
+Several other releases will follow, and each new release will add more functionality.
 
 Enigma is free: you do not have to pay for it. 
 And Enigma is open source: I published all code, and anybody can download it. 
@@ -35,9 +35,10 @@ This User Manual comprises the following parts:
 - **Appendix**. Specifications and background information.
 
 ### Related documents
+You can download the following documents from https://radixpro.com/enigma . After installation, you will find them at your hard drive in the folder c:\enigma_ar\docs .
 - **Installation manual** which leads you through the installation process.
 - **Release notes**, an overview of added functionality in this and previous releases.
-- **Pogrammers manual**, a separate manual for those that are interested in the source code of Enigma.
+- **Developers manual**, a separate manual for those that are interested in the source code of Enigma.
 
 ## General information
 Enigma consists of several modules, currently a module for charts and a module for research.
@@ -50,7 +51,7 @@ It shows on-line help, checks your input, writes details to a log-file and preve
 #### On-line help
 In almost all windows, Enigma shows a button **Help**. 
 If you click this button, the program shows specific information for the current window.
-To prevent cluttering the screen with many windows, you need to close the help window before you can continue.
+You need to close the help window before you can continue.
 
 #### Input check
 Where possible, Enigma checks your input. 
@@ -83,7 +84,7 @@ That makes little sense, so Enigma filters the results: if it cannot calculate a
 
 ### Starting Enigma
 
-Click the Enigma icon to start the program.
+Click the Enigma icon to start the program, or search for Enigma in your windows apps and start it from there.
 
 ![](start-icon.png)
 

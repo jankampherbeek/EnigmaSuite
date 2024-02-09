@@ -55,7 +55,6 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
         PersistableDate date = inputItem.Date!;
 
         double ut = time.Hour + time.Minute / 60.0 + time.Second / 3600.0 - time.Dst - time.ZoneOffset;
-        // TODO 0.2 check for overflow
         Calendars cal = date.Calendar == "G" ? Calendars.Gregorian : Calendars.Julian;
         SimpleDateTime simpleDateTime = new(date.Year, date.Month, date.Day, ut, cal);
         return _julDayHandler.CalcJulDay(simpleDateTime).JulDayUt;

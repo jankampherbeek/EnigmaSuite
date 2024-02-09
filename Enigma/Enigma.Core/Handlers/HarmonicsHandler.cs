@@ -22,7 +22,7 @@ public sealed class HarmonicsHandler : IHarmonicsHandler
     /// <inheritdoc/>
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber)
     {
-        var allPoints = from point in chart.Positions           // TODO 0.6 remove restriction for Vertex and Easpoint as new glyphs are available
+        var allPoints = from point in chart.Positions           // TODO remove restriction for Vertex and Eastpoint as new glyphs are available
                         where (point.Key.GetDetails().PointCat == PointCats.Common) || (point.Key.GetDetails().PointCat == PointCats.Angle && point.Key != ChartPoints.Vertex && point.Key != ChartPoints.EastPoint)
                         select point;
         List<double> originalPositions = allPoints.Select(item => item.Value.Ecliptical.MainPosSpeed.Position).ToList();

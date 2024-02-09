@@ -105,7 +105,7 @@ public interface IControlGroupRng
     /// <returns>The generated values. If not maxExclusive > 0, or if count is invalid, an empty list is returned.</returns>
     List<int> GetIntegers(int maxExclusive, int count);
 
-    // TODO 0.2 check if SHuffleList is required. Currently, it is not used.
+    // TODO 0.3 check if ShuffleList is required. Currently, it is not used.
     List<int> ShuffleList(List<int> data);
     List<double> ShuffleList(List<double> data);
 }

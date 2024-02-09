@@ -36,7 +36,7 @@ public partial class RadixMidpointsViewModel: ObservableObject
         _dialSize = 360;
         _model = App.ServiceProvider.GetRequiredService<RadixMidpointsModel>();
         _description = _model.DescriptiveText();
-        const double actualOrb = 1.6;                             // TODO retrieve Orb from settings
+        const double actualOrb = 1.6;                             // TODO 0.3 retrieve Orb from settings
         OrbSize = _model.DegreesToDms(actualOrb);
         Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> midpoints = _model.RetrieveAndFormatMidpoints(_dialSize);
         ActualMidpoints = new ObservableCollection<PresentableMidpoint>(midpoints.Item1);

@@ -38,9 +38,6 @@ public partial class App
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
-      //  StartModel.HandleCheckDirForSettings();
-        //    StartModel.HandleCheckNewVersion();   // todo enable check for new version
-      //  bool rdbmsOk = StartModel.HandleCheckRdbms();  // todo handle situations where rdbms was not properly handled.
         ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }
@@ -49,14 +46,14 @@ public partial class App
     {
         var serviceCollection = new ServiceCollection();
         // Handle services from project Enigma.Frontend.
-        serviceCollection.AddSingleton<AppSettingsModel>();
+        serviceCollection.AddTransient<AppSettingsModel>();
         serviceCollection.AddSingleton<IAspectForDataGridFactory, AspectForDataGridFactory>();
         serviceCollection.AddSingleton<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddSingleton<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
-        serviceCollection.AddSingleton<IChartCalculation, ChartCalculation>();
-        serviceCollection.AddSingleton<IChartDataConverter, ChartDataConverter>();
+        serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
+        serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
         serviceCollection.AddSingleton<IChartDataForDataGridFactory, ChartDataForDataGridFactory>();
-        serviceCollection.AddSingleton<ChartsMainModel>();
+        serviceCollection.AddTransient<ChartsMainModel>();
         serviceCollection.AddTransient<ChartsWheelWindow>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();
         serviceCollection.AddTransient<IChartsWheelCircles, ChartsWheelCircles>();
@@ -70,12 +67,12 @@ public partial class App
         serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ConfigProgModel>();
         serviceCollection.AddSingleton<ICurrentCharts, CurrentCharts>();
-        serviceCollection.AddSingleton<DatafileOverviewModel>();
-        serviceCollection.AddSingleton<DatafileImportModel>();
-        serviceCollection.AddSingleton<IDateInputParser, DateInputParser>();
+        serviceCollection.AddTransient<DatafileOverviewModel>();
+        serviceCollection.AddTransient<DatafileImportModel>();
+        serviceCollection.AddTransient<IDateInputParser, DateInputParser>();
         serviceCollection.AddSingleton<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddSingleton<IDateValidator, DateValidator>();
-        serviceCollection.AddSingleton<IDescriptiveChartText, DescriptiveChartText>();
+        serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
         serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions>();
         serviceCollection.AddSingleton<IEventDataConverter, EventDataConverter>();
         serviceCollection.AddSingleton<GeneralWindowsFlow>();
@@ -95,20 +92,20 @@ public partial class App
         serviceCollection.AddSingleton<ProgEventModel>();
         serviceCollection.AddTransient<ProgEventResultsModel>();
         serviceCollection.AddSingleton<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();
-        serviceCollection.AddSingleton<ProgressiveMainModel>();
-        serviceCollection.AddSingleton<ProjectUsageModel>();
-        serviceCollection.AddSingleton<ProjectInputModel>();
+        serviceCollection.AddTransient<ProgressiveMainModel>();
+        serviceCollection.AddTransient<ProjectUsageModel>();
+        serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
-        serviceCollection.AddSingleton<RadixDataInputModel>();
+        serviceCollection.AddTransient<RadixDataInputModel>();
         serviceCollection.AddTransient<RadixHarmonicsModel>();
         serviceCollection.AddTransient<RadixMidpointsModel>();
         serviceCollection.AddTransient<RadixPositionsModel>();
-        serviceCollection.AddSingleton<RadixSearchModel>();
-        serviceCollection.AddSingleton<ResearchHarmonicDetailsModel>();
-        serviceCollection.AddSingleton<ResearchMainModel>();
+        serviceCollection.AddTransient<RadixSearchModel>();
+        serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
+        serviceCollection.AddTransient<ResearchMainModel>();
         serviceCollection.AddSingleton<ResearchWindowsFlow>();
-        serviceCollection.AddSingleton<ResearchMidpointDetailsModel>();
-        serviceCollection.AddSingleton<ResearchPointSelectionModel>();
+        serviceCollection.AddTransient<ResearchMidpointDetailsModel>();
+        serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();        
         serviceCollection.AddSingleton<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();

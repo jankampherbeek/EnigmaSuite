@@ -38,7 +38,7 @@ public sealed class ChartDataConverter : IChartDataConverter
     private ChartData HandleConversion(PersistableChartData persistableChartData)
     {
         PersistableChartIdentification cIdent = persistableChartData.Identification;
-        PersistableChartDateTimeLocation dtLoc = persistableChartData.DateTimeLocs[0];  // TODO 0. 3 support multiple instances of DateTimeLoc 
+        PersistableChartDateTimeLocation dtLoc = persistableChartData.DateTimeLocs[0];  
         string name = cIdent.Name;
         string description = cIdent.Description;
         string source = dtLoc.Source;               
@@ -57,8 +57,6 @@ public sealed class ChartDataConverter : IChartDataConverter
         var meta = chartData.MetaData;
         var dTime = chartData.FullDateTime;
         var loc = chartData.Location;
-        /*PersistableChartIdentification cIdent = new(chartData.Id, chartData.MetaData.Name, chartData.MetaData.Description,
-            chartData.MetaData.ChartCategory);*/
         PersistableChartIdentification cIdent = new()
         {
             Id = chartData.Id,

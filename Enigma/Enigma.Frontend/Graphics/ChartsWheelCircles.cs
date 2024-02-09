@@ -20,7 +20,7 @@ public sealed class ChartsWheelCircles : IChartsWheelCircles
     {
         DimCircle dimCircle = new(metrics.BaseSize, metrics.SizeFactor);
         List<Ellipse> allCircles = new()
-        {  // 0.2 or 0.3 todo move definitions for colors to metrics
+        {  // todo 0.3 move definitions for colors to metrics
             dimCircle.CreateCircle(metrics.OuterRadius, 0.0, Colors.AliceBlue, Colors.White),
             dimCircle.CreateCircle(metrics.OuterSignRadius, metrics.StrokeSize, Colors.PaleTurquoise, Colors.MediumBlue),
             dimCircle.CreateCircle(metrics.OuterHouseRadius, metrics.StrokeSize, Colors.FloralWhite, Colors.MediumBlue),

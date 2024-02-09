@@ -24,8 +24,6 @@ public sealed class PointsForMidpoints : IPointsForMidpoints
     /// <inheritdoc/>
     public List<PositionedPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize)
     {
-        // TODO 1.0.0 make pointgroups, coordinatesystems and maincoord for midpoints configurable.
-
         Dictionary<ChartPoints, FullPointPos> positions = (
             from posPoint in chart.Positions    // TODO 0.6 remove restrictions for EstPoint and Vertex as glyphs for these points have been implemented.
             where posPoint.Key.GetDetails().PointCat == PointCats.Common || (posPoint.Key.GetDetails().PointCat == PointCats.Angle && posPoint.Key != ChartPoints.Vertex && posPoint.Key != ChartPoints.EastPoint) ||

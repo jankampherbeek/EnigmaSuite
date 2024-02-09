@@ -23,7 +23,7 @@ public class HttpRequester : IHttpRequester
     {
         try
         {
-            var request = WebRequest.Create(url);               // TODO 0.2 find alternative for WebRequest.
+            var request = WebRequest.Create(url);               // TODO 0.3 find alternative for WebRequest.
             request.Method = "GET";
             using var webResponse = request.GetResponse();
             using var webStream = webResponse.GetResponseStream();

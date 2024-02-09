@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -88,13 +88,16 @@ public partial class ProjectUsageViewModel: ObservableObject,
             case ResearchMethods.CountHarmonicConjunctions:
                 WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_HARMONIC_DETAILS));
                 _model.HarmonicDetailsSelection = DataVaultResearch.Instance.CurrentHarmonicDetailsSelection;
+                if (_model.HarmonicDetailsSelection is null) _testCanceled = true;
                 break;
             case ResearchMethods.CountOccupiedMidpoints:
                 WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.RESEARCH_MIDPOINT_DETAILS));
                 _model.MidpointDetailsSelection = DataVaultResearch.Instance.CurrenMidpointDetailsSelection;
+                if (_model.MidpointDetailsSelection is null) _testCanceled = true;
                 break;
         }
-
+        if (_testCanceled) return;
+        
         _model.PerformRequest(method);
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,
             ResearchWindowsFlow.RESEARCH_RESULT));
@@ -108,7 +111,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     
     
     [RelayCommand]
-    private static void Config()    // todo check if progconfig must be used
+    private static void Config()   
     {
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIGURATION));
     }
