@@ -1,13 +1,22 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Serilog;
 
 namespace Enigma.Core.Persistency;
 
+
+/// <summary>Copy a file in the file system.</summary>
+public interface IFileCopier
+{
+    /// <summary>Performs a copy.</summary>
+    /// <param name="source">Full path for the original file.</param>
+    /// <param name="destination">Full path for the new location of the file.</param>
+    /// <returns>True if the copy was successful, otherwise false.</returns>
+    public bool CopyFile(string source, string destination);
+}
 
 /// <inheritdoc/>
 public sealed class FileCopier : IFileCopier

@@ -5,7 +5,6 @@
 
 
 using Enigma.Core.Research;
-using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
 

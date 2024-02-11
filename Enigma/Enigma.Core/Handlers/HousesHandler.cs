@@ -1,11 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using Enigma.Core.Calc;
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -13,6 +12,22 @@ using Enigma.Domain.Requests;
 using Enigma.Facades.Se;
 
 namespace Enigma.Core.Handlers;
+
+/// <summary>Starts the calculations for mundane positions and cusps.</summary>
+public interface IHousesHandler
+{
+    /// <summary>Calculates all mundane positions.</summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
+    public Dictionary<ChartPoints, FullPointPos> CalcHouses(FullHousesPosRequest request);
+
+    /// <summary>Calculate the right ascension of the MC.</summary>
+    /// <param name="jdUt">Julian day.</param>
+    /// <param name="obliquity">Obliquity.</param>
+    /// <param name="location">Actual location.</param>
+    /// <returns>The ramc in decimal degrees.</returns>
+    public double CalcArmc(double jdUt, double obliquity, Location location);
+}
 
 /// <inheritdoc/>
 public sealed class HousesHandler : IHousesHandler

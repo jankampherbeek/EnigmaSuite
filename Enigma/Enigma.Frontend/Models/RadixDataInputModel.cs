@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api;
-using Enigma.Api.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;

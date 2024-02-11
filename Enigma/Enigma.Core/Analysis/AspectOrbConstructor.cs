@@ -1,15 +1,21 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Analysis;
 
+/// <summary>
+/// Define actual orb for an aspect.
+/// </summary>
+public interface IAspectOrbConstructor
+{
+    /// <summary>Define orb between two celestial points for a given aspect.</summary>
+    public double DefineOrb(ChartPoints point1, ChartPoints point2, double baseOrb, double aspectOrbFactor, Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs);
+}
 
 public sealed class AspectOrbConstructor : IAspectOrbConstructor
 {

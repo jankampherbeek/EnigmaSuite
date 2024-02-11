@@ -3,9 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Interfaces;
 using Enigma.Api.Services;
-using Enigma.Domain.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
@@ -16,7 +14,6 @@ using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
 using Enigma.Frontend.Ui.Support.Validations;

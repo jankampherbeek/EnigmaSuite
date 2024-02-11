@@ -1,15 +1,25 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Interfaces;
-using Enigma.Core.Research.Interfaces;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Research;
 
 namespace Enigma.Core.Research;
+
+
+/// <summary>Retrieve details for a project.</summary>
+public interface IProjectDetails
+{
+    /// <summary>Read the details for a specific project.</summary>
+    /// <param name="projectName">The project for which the details are required.</param>
+    /// <returns>Instance of ResearchProject with the details.</returns>
+    public ResearchProject FindProjectDetails(string projectName);
+
+}
 
 /// <inheritdoc/>
 public sealed class ProjectDetails : IProjectDetails

@@ -1,15 +1,31 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Serilog;
 
 namespace Enigma.Core.Configuration;
+
+
+/// <summary>Create actual configuration.</summary>
+public interface IActualConfigCreator
+{
+    /// <summary>Combine default configuration and deltas into actual configuration.</summary>
+    /// <param name="defaultConfig">The default configuration.</param>
+    /// <param name="deltas">Dictionary with the deltas.</param>
+    /// <returns>Actual config.</returns>
+    public AstroConfig CreateActualConfig(AstroConfig defaultConfig, Dictionary<string, string> deltas);
+
+    /// <summary>Combine default configuration for progressions and deltas into actual configuration for progressions.</summary>
+    /// <param name="defaultConfig">The default configuration.</param>
+    /// <param name="deltas">Dictionary with the deltas.</param>
+    /// <returns>Actual config for progressions.</returns>
+    public ConfigProg CreateActualProgConfig(ConfigProg defaultConfig, Dictionary<string, string> deltas);
+}
 
 /// <inheritdoc/>
 public class ActualConfigCreator: IActualConfigCreator

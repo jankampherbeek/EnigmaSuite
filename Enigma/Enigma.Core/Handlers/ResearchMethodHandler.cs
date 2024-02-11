@@ -5,8 +5,7 @@
 
 
 using System.Text.Json;
-using Enigma.Core.Interfaces;
-using Enigma.Core.Research.Interfaces;
+using Enigma.Core.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistables;
@@ -17,6 +16,16 @@ using Newtonsoft.Json;
 using Serilog;
 
 namespace Enigma.Core.Handlers;
+
+/// <summary>Handlers for performing research methods.</summary>
+public interface IResearchMethodHandler
+{
+    /// <summary>Start running a test.</summary>
+    /// <param name="request">Instance of GeneralResearchRequest or one of its children.</param>
+    /// <returns>Results of the test as instance of MethodResponse or one of its children.</returns>
+    public MethodResponse HandleResearch(GeneralResearchRequest request);
+
+}
 
 /// <inheritdoc/>
 public sealed class ResearchMethodHandler : IResearchMethodHandler

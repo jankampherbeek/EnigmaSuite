@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
@@ -15,7 +14,6 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;

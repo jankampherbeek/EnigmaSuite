@@ -1,15 +1,23 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Api.Interfaces;
-using Enigma.Core.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Serilog;
 
 namespace Enigma.Api;
+
+/// <summary>API for the calculation of a range of charts.</summary>
+public interface ICalcChartsRangeApi
+{
+    /// <summary>Calculate range of charts.</summary>
+    /// <param name="request">Request with data and settings.</param>
+    /// <returns>Calculated charts.</returns>
+    public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
+}
 
 /// <inheritdoc/>
 public sealed class CalcChartsRangeApi : ICalcChartsRangeApi

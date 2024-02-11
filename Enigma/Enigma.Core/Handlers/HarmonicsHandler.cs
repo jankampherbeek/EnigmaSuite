@@ -1,13 +1,29 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Handlers;
+
+/// <summary>Handler for harmonics.</summary>
+public interface IHarmonicsHandler
+{
+    /// <summary>Define the harmonics for all positions in CalculatedChart.</summary>
+    /// <param name="chart">Chart with all positions.</param>
+    /// <param name="harmonicNumber">The harmonic number, this can also be a fractional number.</param>
+    /// <returns>The calculated harmonic positions, all celestial points followed by Mc, Asc, Vertex, Eastpoint in that sequence.</returns>
+    public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber);
+
+    /// <summary>Define the harmonics a list of PositionedPoint.</summary>
+    /// <param name="posPoints">The points to calculate.</param>
+    /// <param name="harmonicNumber">The multiplication factor for the harmonic.</param>
+    /// <returns>The calculated results.</returns>
+    public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber);
+}
 
 /// <inheritdoc/>
 public sealed class HarmonicsHandler : IHarmonicsHandler

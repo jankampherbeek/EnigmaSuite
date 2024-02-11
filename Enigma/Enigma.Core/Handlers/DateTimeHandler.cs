@@ -1,9 +1,9 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
@@ -13,6 +13,12 @@ using Serilog;
 
 namespace Enigma.Core.Handlers;
 
+/// <summary>Handler for calculation of date and time from JD nr.</summary>
+public interface IDateTimeHandler
+{
+    public DateTimeResponse CalcDateTime(DateTimeRequest request);
+    bool CheckDateTime(SimpleDateTime dateTime);
+}
 
 public sealed class DateTimeHandler : IDateTimeHandler
 {

@@ -1,16 +1,48 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
 using Serilog;
 
 namespace Enigma.Core.Research;
+
+
+/// <summary>Utilities for research methods.</summary>
+public interface IResearchMethodUtils
+{
+    /// <summary>Create list of aspects as defined in configuration.</summary>
+    /// <param name="config">The configuration to check.</param>
+    /// <returns>The aspects that are found.</returns>
+    public Dictionary<AspectTypes, AspectConfigSpecs> DefineConfigSelectedAspects(AstroConfig config);
+
+    /// <summary>Create list of chart points as defined in configuration.</summary>
+    /// <param name="config">The configuration to check.</param>
+    /// <returns>The chart points that are found.</returns>
+    public Dictionary<ChartPoints, ChartPointConfigSpecs> DefineConfigSelectedChartPoints(AstroConfig config);
+
+    /// <summary>Create list of positioned points according to a given selection of chart points.</summary>
+    /// <param name="calcResearchChart">Calculated chart.</param>
+    /// <param name="pointSelection">Selection of all points, including mundane points.</param>
+    /// <returns>Positioned points that match wityh the selection.</returns>
+    public Dictionary<ChartPoints, FullPointPos> DefineSelectedPointPositions(CalculatedResearchChart calcResearchChart, ResearchPointSelection pointSelection);
+
+    /// <summary>Find the index for a chart point in a list with psotioned points.</summary>
+    /// <param name="point">The chart point for which to find the index.</param>
+    /// <param name="allPoints">Positioned points.</param>
+    /// <returns>If found: the index. Otherwise: throws EnigmaException.</returns>
+    public int FindIndexForPoint(ChartPoints point, List<PositionedPoint> allPoints);
+
+    /// <summary>Find the index for an aspect type in list with aspect config specs.</summary>
+    /// <param name="aspectType">The aspect type for which to find the index.</param>
+    /// <param name="allAspects">Aspect config specs.</param>
+    /// <returns>If found: the index.  Otherwise: throws EnigmaException.</returns>
+    public int FindIndexForAspectType(AspectTypes aspectType, Dictionary<AspectTypes, AspectConfigSpecs> allAspects);
+}
+
 
 /// <inheritdoc/>
 public sealed class ResearchMethodUtils : IResearchMethodUtils

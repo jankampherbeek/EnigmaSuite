@@ -1,14 +1,22 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 
 namespace Enigma.Core.Calc;
+
+/// <summary>Calculator for Hellenistic lots.</summary>
+public interface ILotsCalculator
+{
+    public Dictionary<ChartPoints, FullPointPos> CalculateAllLots(Dictionary<ChartPoints, FullPointPos> commonPositions, Dictionary<ChartPoints, FullPointPos> mundanePositions, CalculationPreferences prefs,
+        double jdUt, double obliquity, Location location);
+}
+
 public class LotsCalculator : ILotsCalculator
 {
     private readonly IHousesHandler _housesHandler;

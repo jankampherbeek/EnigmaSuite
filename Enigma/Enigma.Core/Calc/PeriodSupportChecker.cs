@@ -1,14 +1,22 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Calc;
+
+/// <summary>Support supported period for ChartPoints.</summary>
+public interface IPeriodSupportChecker
+{
+    /// <summary>Checks if the calculation of a ChartPoint for a specific date is supported.</summary>
+    /// <param name="chartPoint">The chart point to check.</param>
+    /// <param name="jdnr">The julian day number for the given date.</param>
+    /// <returns>True if the ChartPoint can be calculated for the given date, otherwise false.</returns>
+    public bool IsSupported(ChartPoints chartPoint, double jdnr);
+}
 
 public sealed class PeriodSupportChecker: IPeriodSupportChecker
 {

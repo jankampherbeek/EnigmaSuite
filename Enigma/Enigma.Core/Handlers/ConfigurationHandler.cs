@@ -1,12 +1,49 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Configuration;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Handlers;
+
+
+/// <summary>Handler for configurations.</summary>
+public interface IConfigurationHandler
+{
+
+    /// <summary>Defines a default configuration.</summary>
+    /// <returns>Default configuration.</returns>
+    public AstroConfig ConstructDefaultConfiguration();
+
+    /// <summary>Defines a default configuration for progressions.</summary>
+    /// <returns>Default progressive configuration.</returns>
+    public ConfigProg ConstructDefaultProgConfiguration();
+    
+    /// <summary>Write deltas for configuration to file.</summary>
+    /// <param name="astroConfig">The configuration.</param>
+    /// <returns>True if no error occurred, otherwise false.</returns>
+    public bool WriteDeltasForConfig(AstroConfig astroConfig);
+    
+    
+    /// <summary>Write progressive configuration to file.</summary>
+    /// <param name="configProg">The progressive configuration.</param>
+    /// <returns>True if no error occurred, otherwise false.</returns>
+    public bool WriteDeltasForConfig(ConfigProg configProg);
+    
+    /// <summary>Read current configuration.</summary>
+    /// <returns>Configuration: default with applied deltas.</returns>
+    public AstroConfig ReadCurrentConfig();
+
+    /// <summary>Read current configuration for progressions.</summary>
+    /// <returns>Default configurationf or progressions with applied deltas.</returns>
+    public ConfigProg ReadCurrentConfigProg();
+
+
+}
+
 
 /// <inheritdoc/>
 public sealed class ConfigurationHandler : IConfigurationHandler

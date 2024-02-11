@@ -1,11 +1,9 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using Enigma.Domain.Exceptions;
 using Enigma.Facades.Interfaces;
 using Serilog;
 using System.Runtime.InteropServices;
@@ -22,21 +20,8 @@ public class AzAltFacade : IAzAltFacade
     {
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
         int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
-
-        if (result >= 0) return new[] { horizontalCoordinates[0], horizontalCoordinates[1] };
-        string geoCoordinatesText = $"Number of geographicCoordinates is {geoGraphicCoordinates.Length:D}.";
-        if (geoGraphicCoordinates.Length > 1)
-        {
-            geoCoordinatesText = $"geoGraphicCoordinates: {geoGraphicCoordinates[0]}, {geoGraphicCoordinates[1]}";
-        }
-        string equCoordinatesOk = $"equCoordinates: {equCoordinates[0]}, {equCoordinates[1]}";
-        string equCoordinatesWrong = $"Number of equCoordinates is {equCoordinates.Length}.";
-        string equCoordinatesText = equCoordinates.Length > 1 ? equCoordinatesOk : equCoordinatesWrong;
-        string jdText = julianDayUt.ToString(CultureInfo.InvariantCulture);
-        string flagText = flags.ToString();
-        Log.Error("Exception thrown: AzAltFacade.RetrieveHorizontalCoordinates: jd : {JdText} {GeoCoordinatesText} {EquCoordinatesText} Flags: {FlagText} Returncode {Result}", 
-            jdText, geoCoordinatesText, equCoordinatesText, flagText, result);
-        throw new SwissEphException("Error in AzAltFacade.RetrieveHorizontalCoordinates");
+        if (result >= 0) Log.Error("AzAltFace.RetrieveHorizontalCoordinates returns a negative result {Result}", result); 
+        return new[] { horizontalCoordinates[0], horizontalCoordinates[1] };
     }
 
     /// <summary>

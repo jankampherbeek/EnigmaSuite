@@ -1,14 +1,25 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Analysis;
+
+/// <summary>Handle points to be used for the calculation of midpoints.</summary>
+public interface IPointsForMidpoints
+{
+    /// <summary>Create analysispoints for a specific dial.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <param name="dialSize">Dial size in degrees.</param>
+    /// <returns>Constructed AnalysisPoints.</returns>
+    public List<PositionedPoint> CreateAnalysisPoints(CalculatedChart chart, double dialSize);
+}
+
+
 
 /// <inheritdoc/>
 public sealed class PointsForMidpoints : IPointsForMidpoints

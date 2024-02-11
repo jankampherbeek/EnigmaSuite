@@ -1,13 +1,26 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Analysis;
 
+/// <summary>Create list with all base midpoints.</summary>
+public interface IBaseMidpointsCreator
+{
+    /// <summary>Find basemidpoints for list with AnalysisPoint.</summary>
+    /// <param name="positionedPoints">Positions that will be combined to midpoints.</param>
+    /// <returns>List with base midpoints.</returns>
+    public List<BaseMidpoint> CreateBaseMidpoints(List<PositionedPoint> positionedPoints);
+
+    /// <summary>Convert list with BaseMidpoint to a list with the same midpoints but with the position converted to a specific dial.</summary>
+    /// <param name="baseMidpoints">The original base midpoints.</param>
+    /// <param name="dialSize">Degrees of the dial.</param>
+    /// <returns>Midpoints with a position that fits in the specified dial.</returns>
+    public List<BaseMidpoint> ConvertBaseMidpointsToDial(List<BaseMidpoint> baseMidpoints, double dialSize);
+}
 
 /// <inheritdoc/>
 public sealed class BaseMidpointsCreator : IBaseMidpointsCreator

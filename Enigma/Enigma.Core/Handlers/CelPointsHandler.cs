@@ -1,10 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
@@ -13,6 +13,22 @@ using Enigma.Facades.Se;
 
 namespace Enigma.Core.Handlers;
 
+/// <summary>
+/// Handler for the calculation of one or more celestial points.
+/// </summary>
+public interface ICelPointsHandler
+{
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs);
+}
+
+/// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
+public interface ICalcChartsRangeHandler
+{
+    /// <summary>Calculate a range of charts.</summary>
+    /// <param name="request">Request with the data and the settings.</param>
+    /// <returns>The calculated result.</returns>
+    public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
+}
 
 /// <inheritdoc/>
 public sealed class CelPointsHandler : ICelPointsHandler

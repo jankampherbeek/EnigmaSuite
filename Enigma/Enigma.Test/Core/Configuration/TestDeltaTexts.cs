@@ -5,7 +5,6 @@
 
 
 using Enigma.Core.Configuration;
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 

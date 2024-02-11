@@ -5,7 +5,6 @@
 
 using System.Collections.Generic;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Interfaces;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Enigma.Api.Interfaces;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Graphics;
 using Enigma.Domain.References;

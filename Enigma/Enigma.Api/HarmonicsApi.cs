@@ -1,15 +1,26 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Api.Interfaces;
-using Enigma.Core.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Serilog;
 
 namespace Enigma.Api;
+
+
+/// <summary>Api for the calculation of harmonics.</summary>
+public interface IHarmonicsApi
+{
+    /// <summary>Calculate harmonic positions using the given harmonic number.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <param name="harmonicNumber">Number for the harmonic, a fractional number is possible.</param>
+    /// <returns>List with harmnc positions, the celestial points in the same sequence as in the calculated chart,
+    /// followed by Mc, Asc, Vertex and Eastpoint (in that sequence).</returns>
+    public List<double> Harmonics(CalculatedChart chart, double harmonicNumber);
+}
 
 /// <inheritdoc/>
 public sealed class HarmonicsApi : IHarmonicsApi

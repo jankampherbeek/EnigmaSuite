@@ -1,12 +1,35 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Analysis;
+
+
+/// <summary>Helper class for the calculation of distances.</summary>
+public interface ICalculatedDistance
+{
+    /// <summary>Calculates the shortest distance between two positions.</summary>
+    /// <remarks>PRE: pos1 and pos2 &gt;= 0.0 and pos1 and pos2 &lt; 360.0</remarks>
+    /// <param name="pos1">First position.</param>
+    /// <param name="pos2">Second position.</param>
+    /// <returns>Shortest distance between pos1 and pos2.</returns>
+    public double ShortestDistance(double pos1, double pos2);
+    
+    /// <summary>Calculates the shortest distance between several combinations of two points.</summary>
+    /// <param name="allPoints">List of points.</param>
+    /// <returns>List of shortest distances between each pair of points.</returns>
+    public List<DistanceBetween2Points> ShortestDistances(List<PositionedPoint> allPoints);
+
+    /// <summary>Calculates the shortest distances between several combinations of two points,
+    /// the first point is not a cusp (but could be Mc or Asc), the second point is a cusp.</summary>
+    /// <param name="allPoints">All points except the cusps.</param>
+    /// <param name="allCusps">The cusps.</param>
+    /// <returns>List of shortest distances between a non-cusp (first position in distance) and a cusp (second position).</returns>
+    public List<DistanceBetween2Points> ShortestDistanceBetweenPointsAndCusps(IEnumerable<PositionedPoint> allPoints, List<PositionedPoint> allCusps);
+}
 
 /// <inheritdoc/>
 public class CalculatedDistance : ICalculatedDistance

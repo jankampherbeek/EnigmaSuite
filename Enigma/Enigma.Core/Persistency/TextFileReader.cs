@@ -1,13 +1,28 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Serilog;
 
 namespace Enigma.Core.Persistency;
 
+
+/// <summary>
+/// Read text from a file.
+/// </summary>
+public interface ITextFileReader
+{
+    /// <summary>Read all text from a file into a string.</summary>
+    /// <param name="location">Full path to the text file </param>
+    /// <returns>If the file is found and no exception occured: the content of the file. Otherwise: an empty string.</returns>
+    public string ReadFile(string location);
+
+    /// <summary>Read all lines from a text file into a list.</summary>
+    /// <param name="location">Full path to the text file </param>
+    /// <returns>If the file is found and no exception occured: all lines from the file. Otherwise: an empty list.</returns>
+    public List<string> ReadAllLines(string location);
+}
 
 /// <inheritdoc/>
 public sealed class TextFileReader : ITextFileReader

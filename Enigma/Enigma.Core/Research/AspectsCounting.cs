@@ -3,15 +3,24 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
-using Enigma.Core.Research.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Research;
+
+/// <summary>Counting for aspects.</summary>
+public interface IAspectsCounting
+{
+    /// <summary>Perform a count of aspects.</summary>
+    /// <param name="charts">The calculated charts to check.</param>
+    /// <param name="request">The original request.</param>
+    /// <returns>The calculated counts.</returns>
+    public CountOfAspectsResponse CountAspects(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
+}
 
 /// <inheritdoc/>
 public sealed class AspectsCounting : IAspectsCounting

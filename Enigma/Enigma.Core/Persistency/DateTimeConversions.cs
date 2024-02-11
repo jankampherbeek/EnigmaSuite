@@ -1,17 +1,30 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using System.Globalization;
-using Enigma.Core.Interfaces;
+using Enigma.Core.Calc;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Persistency;
+
+/// <summary>Conversions to date for csv-data.</summary>
+public interface IDateCheckedConversion
+{
+    public Tuple<PersistableDate, bool> StandardCsvToDate(string csvDate, string csvCalendar);
+}
+
+
+/// <summary>Conversions to time for csv-data.</summary>
+public interface ITimeCheckedConversion
+{
+    public Tuple<PersistableTime, bool> StandardCsvToTime(string csvTime, string zoneOffset, string dst);
+}
+
 
 
 public sealed class DateCheckedConversion : IDateCheckedConversion

@@ -1,14 +1,27 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Persistency;
 
+/// <summary>Handle directories for storing datafiles.</summary>
+public interface IDataFilePreparator
+{
+    /// <summary>Checks if new folder can be created.</summary>
+    /// <param name="fullPath">Path to the folder for the data to import.</param>
+    /// <returns>True if folder does not exist, otherwise false.</returns>
+    bool FolderNameAvailable(string fullPath);
+
+    /// <summary>Create folder structure for data files, including subfolders.</summary>
+    /// <param name="fullPath">Path to the folder for the data.</param>
+    /// <returns>ResultMessage, containing errorcode > zero if an error occurred. 
+    /// In case of an error the errorText contains the path of the directory that could not be created.</returns>
+    ResultMessage MakeFolderStructure(string fullPath);
+}
 
 /// <inheritdoc/>
 public sealed class DataFilePreparator : IDataFilePreparator

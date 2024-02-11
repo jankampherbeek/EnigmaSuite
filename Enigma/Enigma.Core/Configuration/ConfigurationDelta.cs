@@ -5,12 +5,67 @@
 
 using System.Globalization;
 using System.Text;
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Configuration;
+
+/// <summary>Helper for creating texts that describe the delta in a configuration.</summary>
+public interface IDeltaTexts
+{
+    /// <summary>Handle the delta for a chart point.</summary>
+    /// <param name="point">The chart point.</param>
+    /// <param name="pointSpecs">Specifications for the updated chart point.</param>
+    /// <returns>A key and value for the delta of a chart point.</returns>
+    public Tuple<string, string> CreateDeltaForPoint(ChartPoints point, ChartPointConfigSpecs? pointSpecs);
+    
+    /// <summary>Handle the delta for an aspect.</summary>
+    /// <param name="aspect">The aspect.</param>
+    /// <param name="aspectSpecs">Specifications for the updated aspect.</param>
+    /// <returns>A key and value for the delta of an aspect.</returns>
+    public Tuple<string, string> CreateDeltaForAspect(AspectTypes aspect, AspectConfigSpecs? aspectSpecs);
+
+    /// <summary>Handle the delta for a chartpoint for a specific progression method.</summary>
+    /// <param name="progresMethod">The progression method.</param>
+    /// <param name="point">The chart point.</param>
+    /// <param name="pointSpecs">Specifications for the chart point.</param>
+    /// <returns>A key and value for the delta of a chart point.</returns>
+    public Tuple<string, string> CreateDeltaForProgChartPoint(ProgresMethods progresMethod, ChartPoints point,
+        ProgPointConfigSpecs? pointSpecs);
+
+    /// <summary>Handle the delta for a progressive orb.</summary>
+    /// <param name="progresMethod">The progression method.</param>
+    /// <param name="orb">Value for the orb.</param>
+    /// <returns>A key and value for the orb.</returns>
+    public Tuple<string, string> CreateDeltaForProgOrb(ProgresMethods progresMethod, double orb);
+
+    /// <summary>Handle the delta for a timekey for symbolic directions.</summary>
+    /// <param name="key">The key</param>
+    /// <returns>Key and value for the timekey.</returns>
+    public Tuple<string, string> CreateDeltaForProgSymKey(SymbolicKeys timeKey);
+
+}
+
+
+
+/// <summary>Handles the delta's between the default configuration and an updated configuration.</summary>
+public interface IConfigurationDelta
+{
+    /// <summary>Create a dictionary with delta's that can be saved as the configuration delta file.</summary>
+    /// <param name="defaultConfig">The default config.</param>
+    /// <param name="updatedConfig">The config with the updates.</param>
+    /// <returns>Dictionary with key values for configuration delta's.</returns>
+    public Dictionary<string, string> RetrieveTextsForDeltas(AstroConfig defaultConfig, AstroConfig updatedConfig);
+
+    /// <summary>Create a dictionary with delta's that can be saved as the configuration delta file for progressions.</summary>
+    /// <param name="defaultProgConfig">The default config,</param>
+    /// <param name="updatedProgConfig">The config with the updates.</param>
+    /// <returns>Dictionary with key values for progressive configuration delta's.</returns>
+    public Dictionary<string, string> RetrieveTextsForProgDeltas(ConfigProg defaultProgConfig,
+        ConfigProg updatedProgConfig);
+}
+
 
 /// <inheritdoc/>
 public class ConfigurationDelta: IConfigurationDelta

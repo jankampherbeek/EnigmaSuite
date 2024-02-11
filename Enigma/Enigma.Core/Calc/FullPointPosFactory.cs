@@ -1,13 +1,22 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Calc;
+
+/// <summary>Factory for the construction of an instance of FullPointPos.</summary>
+public interface IFullPointPosFactory
+{
+    /// <summary>Constract instance of FullPointPos.</summary>
+    /// <param name="eclipticPosSpeed">Eclitpical vlaues: longitude, latitude, distance.</param>
+    /// <param name="equatorialPosSpeed">Equatorial values: right ascension, declination, distance.</param>
+    /// <param name="horCoord">Horizontal coordinates: azimuth and altitude.</param>
+    /// <returns>Instance of FullPointPos.</returns>
+    public FullPointPos CreateFullPointPos(PosSpeed[] eclipticPosSpeed, PosSpeed[] equatorialPosSpeed, HorizontalCoordinates horCoord);
+}
 
 public class FullPointPosFactory : IFullPointPosFactory
 {

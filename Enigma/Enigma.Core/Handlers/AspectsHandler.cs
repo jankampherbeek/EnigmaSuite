@@ -1,15 +1,39 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Interfaces;
+using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 
 namespace Enigma.Core.Handlers;
+
+
+/// <summary>Handler for aspects.</summary>
+public interface IAspectsHandler
+{
+
+    /// <summary>Find aspects between chart points.</summary>
+    /// <param name="request">Request with positions.</param>
+    /// <returns>Aspects found.</returns>
+    public IEnumerable<DefinedAspect> AspectsForChartPoints(AspectRequest request);
+
+    /// <summary>Find aspects between chart points.</summary>
+    /// <param name="posPoints">Celestial points with positions.</param>
+    /// <param name="cuspPoints">Cusps with positions.</param>
+    /// <param name="relevantAspects">Supported aspects as defined in configuration.</param>
+    /// <param name="chartPointConfigSpecs">Configuration for chartpoints.</param>
+    /// <param name="baseOrb">Base orb for aspects.</param>
+    /// <returns>List with aspects between celestial points and between celestial points and cusps. Aspects between cusps are omitted.</returns>
+    public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, 
+        Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, 
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs, double baseOrb);
+}
+
+
 
 /// <inheritdoc/>
 public sealed class AspectsHandler : IAspectsHandler

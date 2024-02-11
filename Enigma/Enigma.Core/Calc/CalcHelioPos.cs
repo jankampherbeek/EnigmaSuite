@@ -1,14 +1,24 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 // The code in this file is based on an example in C++ by Ingmar de Boer.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Calc;
+
+/// <summary>
+/// Calculate heliocentric rectangular positions for celestial points that are not supported by the CommonSE.
+/// </summary>
+public interface ICalcHelioPos
+{
+    /// <param name="factorT">Fraction of century, mostly simply called 'T'.</param>
+    /// <param name="orbitDefinition">Orbital elements to calculate the position.</param>
+    /// <returns>Calculated rectangualr coördinates.</returns>
+    public RectAngCoordinates CalcEclipticPosition(double factorT, OrbitDefinition orbitDefinition);
+}
 
 /// <inheritdoc/>
 public sealed class CalcHelioPos : ICalcHelioPos

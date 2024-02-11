@@ -3,8 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc;
 using Enigma.Core.Handlers;
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Requests;
 using Moq;

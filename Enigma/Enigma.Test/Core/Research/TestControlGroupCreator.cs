@@ -5,7 +5,6 @@
 
 
 using Enigma.Core.Research;
-using Enigma.Core.Research.Interfaces;
 
 namespace Enigma.Test.Core.Research;
 

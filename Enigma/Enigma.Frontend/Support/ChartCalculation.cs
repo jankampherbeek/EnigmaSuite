@@ -3,9 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api.Interfaces;
 using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;

@@ -1,14 +1,18 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Facades.Interfaces;
 
 namespace Enigma.Core.Calc;
+
+/// <summary>Calculations for Julian Day.</summary>
+public interface IDateTimeValidator
+{
+    public bool ValidateDateTime(SimpleDateTime dateTime);
+}
 
 
 /// <inheritdoc/>

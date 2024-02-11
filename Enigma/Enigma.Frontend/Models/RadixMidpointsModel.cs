@@ -5,7 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using Enigma.Api.Interfaces;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;

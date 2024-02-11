@@ -1,17 +1,27 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 // The code in this file is based on an example in C++ by Ingmar de Boer.
 
-
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Calc;
 
+
+/// <summary>
+/// Calculate geocentric ecliptical position for celestial points that are not supported by the CommonSE.
+/// </summary>
+public interface ICelPointsElementsCalc
+{
+    /// <param name="planet">Currently supported hypothetical planets: Persephone, Hermes, Demeter (School of Ram).</param>
+    /// <param name="jdUt">Julian day for UT.</param>
+    /// <param name="observerPosition">Geocentric/topcentric or heliocentric. No difference for topocentric because ofd the large distance of the planets involved.</param>
+    /// <returns>Array with longitude, latitude and distance in that sequence.</returns>
+    public double[] Calculate(ChartPoints planet, double jdUt, ObserverPositions observerPosition);
+}
 
 /// <inheritdoc/>
 public sealed class CelPointsElementsCalc : ICelPointsElementsCalc

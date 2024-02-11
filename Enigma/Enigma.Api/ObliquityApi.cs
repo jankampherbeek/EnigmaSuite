@@ -1,15 +1,24 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Api.Interfaces;
-using Enigma.Core.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Requests;
 using Serilog;
 
 namespace Enigma.Api;
+
+/// <summary>API for calculation of the obliquity of the earth's axis.</summary>
+public interface IObliquityApi
+{
+    /// <summary>Api call to retrieve obliquity.</summary>
+    /// <param name="request"/>
+    /// <remarks>Throws ArgumentNullException if the request is null.</remarks>
+    /// <returns>Value for the obliquity of the earth's axis.</returns>
+    public double GetObliquity(ObliquityRequest request);
+}
 
 /// <inheritdoc/>
 public sealed class ObliquityApi : IObliquityApi

@@ -9,7 +9,6 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api;
-using Enigma.Api.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;

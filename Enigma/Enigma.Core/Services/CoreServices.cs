@@ -8,7 +8,6 @@ using Enigma.Core.Calc;
 using Enigma.Core.Communication;
 using Enigma.Core.Configuration;
 using Enigma.Core.Handlers;
-using Enigma.Core.Interfaces;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;

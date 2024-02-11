@@ -1,13 +1,27 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Research.Interfaces;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Research;
+
+public interface IControlGroupCreator
+{
+    public List<StandardInputItem> CreateMultipleControlData(List<StandardInputItem> inputItems,
+        ControlGroupTypes controlGroupType,
+        int multiplicity);
+
+}
+
+public interface IControlDataCalendar
+{
+    public bool DayFitsInMonth(int day, int month, int year);
+}
+
+
 
 
 

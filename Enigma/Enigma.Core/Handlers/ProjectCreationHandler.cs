@@ -1,10 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
-using Enigma.Core.Research.Interfaces;
+using Enigma.Core.Persistency;
+using Enigma.Core.Research;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
@@ -12,6 +12,16 @@ using Enigma.Domain.Research;
 using Serilog;
 
 namespace Enigma.Core.Handlers;
+
+/// <summary>Handler for the creation of a research project.</summary>
+public interface IProjectCreationHandler
+{
+    /// <summary>Handles the creation of a research project and the accompanying controlgroup.</summary>
+    /// <param name="project">Definition of the project.</param>
+    /// <param name="errorCode">Resulting errorcode.</param>
+    /// <returns>True if no error occurred.</returns>
+    public bool CreateProject(ResearchProject project, out int errorCode);
+}
 
 public sealed class ProjectCreationHandler : IProjectCreationHandler
 {

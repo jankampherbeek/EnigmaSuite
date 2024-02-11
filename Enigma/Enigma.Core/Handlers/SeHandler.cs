@@ -1,13 +1,22 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Facades.Se;
 using Serilog;
 
 namespace Enigma.Core.Handlers;
+
+/// <summary>Interfaces for handlers that manage the Swiss Ephemeris.</summary>
+public interface ISeHandler
+{
+    /// <summary>Initialize the Se.</summary>
+    /// <param name="pathToSeFiles">Full path to the CommonSE data files.</param>
+    public void SetupSe(string? pathToSeFiles);
+
+    public void CloseSe();
+}
 
 /// <summary>Handles initialization of the Swiss Ephemeris (SE).</summary>
 public sealed class SeHandler : ISeHandler

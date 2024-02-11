@@ -5,7 +5,6 @@
 
 
 using Enigma.Core.Calc;
-using Enigma.Core.Interfaces;
 using Enigma.Domain.References;
 
 namespace Enigma.Test.Core.Calc;

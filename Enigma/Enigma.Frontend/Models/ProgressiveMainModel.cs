@@ -3,12 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using CommunityToolkit.Mvvm.ComponentModel;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
@@ -16,7 +12,6 @@ using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Views;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;

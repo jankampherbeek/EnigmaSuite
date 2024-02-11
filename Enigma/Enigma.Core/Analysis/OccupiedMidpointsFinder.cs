@@ -1,12 +1,29 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Analysis;
+
+/// <summary>Handle the calculartion of occupied midpoints.</summary>
+public interface IOccupiedMidpointsFinder
+{
+    /// <summary>Calculate occupied midpoints for a specific dial.</summary>
+    /// <param name="chart">Calculated chart.</param>
+    /// <param name="dialSize">Dial size in degrees.</param>
+    /// <param name="baseOrb">Base orb from configuration.</param>
+    /// <returns>Calculated occupied midpoints.</returns>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize, double baseOrb);
+
+    /// <summary>Calculate occupied midpoints for a specific dial.</summary>
+    /// <param name="posPoints">List with points.</param>
+    /// <param name="dialSize">Dial size in degrees.</param>
+    /// <param name="orb">Orb.</param>
+    /// <returns>Calculated occupied midpoints.</returns>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb);
+}
 
 /// <inheritdoc/>
 public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder

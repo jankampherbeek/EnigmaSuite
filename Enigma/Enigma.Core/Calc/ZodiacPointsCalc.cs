@@ -1,15 +1,21 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Facades.Interfaces;
 
 namespace Enigma.Core.Calc;
+
+/// <summary>Calculate positions for specific zodiac points.</summary>
+public interface IZodiacPointsCalc
+{
+    public Dictionary<ChartPoints, FullPointPos> CalculateAllZodiacalPoints(CalculationPreferences prefs, double jdUt, double obliquity, Location location);
+}
 
 /// <inheritdoc/>
 public sealed class ZodiacPointsCalc : IZodiacPointsCalc
@@ -44,10 +50,7 @@ public sealed class ZodiacPointsCalc : IZodiacPointsCalc
 
     private FullPointPos CalculateZodiacFixedPoint(double longitude, double jdUt, double obliquity, Location location)
     {
-
-
         PosSpeed[] eclipticPosSpeed = { new(longitude, 0.0), new(0.0, 0.0), new(0.0, 0.0) };
-
         const double latitude = 0.0;
         double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new[] { longitude, latitude }, obliquity);
         double ra = equatorialPos[0];

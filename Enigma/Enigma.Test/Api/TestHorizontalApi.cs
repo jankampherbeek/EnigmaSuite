@@ -4,8 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api;
-using Enigma.Api.Interfaces;
-using Enigma.Core.Interfaces;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
 using Moq;

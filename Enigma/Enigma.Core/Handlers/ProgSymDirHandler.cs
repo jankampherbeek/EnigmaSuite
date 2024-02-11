@@ -1,10 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
-using Enigma.Core.Interfaces;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -13,6 +12,16 @@ using Enigma.Domain.Responses;
 using Serilog;
 
 namespace Enigma.Core.Handlers;
+
+/// <summary>Handles calculation of symbolic directions.</summary>
+public interface ICalcSymDirHandler
+{
+    /// <summary>Handles calculation of symbolic directions for a specific event.</summary>
+    /// <param name="request">Request with config items, date/time etc.</param>
+    /// <returns>Calculated positions.</returns>
+    public ProgRealPointsResponse CalculateSymDir(SymDirEventRequest request);
+}
+
 
 public sealed class ProgSymDirHandler: ICalcSymDirHandler
 {

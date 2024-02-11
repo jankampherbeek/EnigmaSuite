@@ -5,7 +5,6 @@
 
 
 using Enigma.Core.Analysis;
-using Enigma.Core.Interfaces;
 
 namespace Enigma.Test.Core.Analysis;
 

@@ -4,7 +4,6 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Configuration;
-using Enigma.Core.Interfaces;
 
 namespace Enigma.Test.Core.Configuration;
 
