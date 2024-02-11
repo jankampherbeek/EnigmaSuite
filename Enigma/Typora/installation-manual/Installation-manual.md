@@ -89,6 +89,10 @@ Enigma uses the folder c:/enigma_ar and its sub-folders. After starting, Enigma 
 
 
 
+## After installation
+
+If you start Enigma the first time after installation, you might get a request to install *.Net Runtime*. This is additional software from MicroSoft that is required to run the program. If this Runtime is already available on your computer, you will not see this request. Click the download link in the window about this Runtime. After downloading it, you can click the downloaded file to install the Runtime.
+
 ## Removing Enigma
 
 It is easy to remove Enigma. In the settings of Windows, you can select an overview of installed apps. 
