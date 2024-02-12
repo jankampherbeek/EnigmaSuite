@@ -1,14 +1,32 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
 using System.Text;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Frontend.Ui.Support;
+
+/// <summary>Create descriptive texts that can be added to forms about a chart.</summary>
+public interface IDescriptiveChartText
+{
+    /// <summary>A short descriptive text: name and configuration.</summary>
+    /// <param name="config">The configuration to use.</param>
+    /// <param name="meta">Metadata for the chart.</param>
+    /// <returns>A string with the descrption.</returns>
+    public string ShortDescriptiveText(AstroConfig config, MetaData meta);
+
+    /// <summary>A longer descriptive text, Name, date, time, location and configuration.</summary>
+    /// <param name="config">The configuration to use.</param>
+    /// <param name="chartData">Data for the chart.</param>
+    /// <returns>A string with the descrption.</returns>
+    public string FullDescriptiveText(AstroConfig config, ChartData chartData);
+
+
+}
+
 
 public class DescriptiveChartText : IDescriptiveChartText
 {

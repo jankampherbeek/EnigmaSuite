@@ -1,15 +1,21 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Support.Conversions;
+using Enigma.Frontend.Ui.Support.Validations;
 
 namespace Enigma.Frontend.Ui.Support.Parsers;
 
+/// <summary>Parse, validate and convert input for a date.</summary>
+public interface ITimeInputParser
+{
+    public bool HandleTime(string inputTime, TimeZones timeZone, double lmtOffset, bool dst, out FullTime? fullTime);
+}
 
 /// <inheritdoc/>
 public class TimeInputParser : ITimeInputParser

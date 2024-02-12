@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.Support.Parsers;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;

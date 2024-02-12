@@ -11,7 +11,6 @@ using System.Windows.Shapes;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Graphics;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
 
 namespace Enigma.Frontend.Ui.ViewModels;

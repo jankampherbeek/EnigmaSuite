@@ -9,7 +9,7 @@ using Enigma.Api;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
 
 
 namespace Enigma.Frontend.Ui.Models;

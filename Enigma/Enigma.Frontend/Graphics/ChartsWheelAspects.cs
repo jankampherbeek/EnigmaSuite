@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,11 +12,17 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Graphics;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Graphics;
+
+// Interfaces for frontend graphics.
+public interface IChartsWheelAspects
+{
+    public List<Line> CreateAspectLines(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint);
+}
 
 public sealed class ChartsWheelAspects : IChartsWheelAspects
 {

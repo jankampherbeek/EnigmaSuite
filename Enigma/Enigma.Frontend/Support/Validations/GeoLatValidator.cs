@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,9 +7,21 @@ using System.Collections.Generic;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Validations;
+
+public interface IGeoLatValidator
+{
+    /// <summary>
+    /// Validate input and create a record FullGeoLatitude.
+    /// </summary>
+    /// <param name="inputLatValues">Array with integers for the latitude in the sequence degree, minute, second. The value for second is optional.</param>
+    /// <param name="direction">The direction: north or south.</param>
+    /// <param name="fullLatitude">Resulting record FullGeoLatitude.</param>
+    /// <returns>True if no error was found, otherwise false.</returns>
+    public bool CreateCheckedLatitude(int[] inputLatValues, Directions4GeoLat direction, out FullGeoLatitude fullLatitude);
+}
+
 
 /// <inheritdoc/>
 public class GeoLatValidator : IGeoLatValidator

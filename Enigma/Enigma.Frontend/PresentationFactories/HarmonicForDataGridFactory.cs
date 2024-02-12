@@ -1,20 +1,27 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
-
+/// <summary>Factory to create presentable harmonic positions.</summary>
+public interface IHarmonicForDataGridFactory
+{
+    /// <summary>Create a presentabe list with combined radix and harmonic positions.</summary>
+    /// <param name="harmonicPositions">List with all harmonic positions in the same sequence as the celestial points in chart, and followed by respectively Mc, Asc, Vertex and Eastpoint.</param>
+    /// <param name="chart">Calculated chart.</param>
+    /// <returns>The presentable positions.</returns>
+    public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart);
+}
 
 public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
 {

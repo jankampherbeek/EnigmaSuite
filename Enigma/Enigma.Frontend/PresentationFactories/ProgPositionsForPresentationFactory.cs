@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,10 +8,19 @@ using System.Linq;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
+
+/// <summary>Conversions for presentable progressive positions.</summary>
+public interface IProgPositionsForPresentationFactory
+{
+    /// <summary>Convert celestable point positions to PresentableProgPositions.</summary>
+    /// <param name="positions">The positions to convert.</param>
+    /// <returns>The resulting PresentableProgPositions.</returns>
+    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, ProgPositions> positions);
+}
 
 /// <inheritdoc/>
 public sealed class ProgPositionsForPresentationFactory:IProgPositionsForPresentationFactory

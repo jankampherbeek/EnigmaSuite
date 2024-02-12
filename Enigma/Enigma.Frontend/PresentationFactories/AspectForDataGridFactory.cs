@@ -1,19 +1,25 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
-
+public interface IAspectForDataGridFactory
+{
+    /// <summary>Builds a presentable aspect to be used in a grid.</summary>
+    /// <param name="aspects">Calculated aspects.</param>
+    /// <returns>Presentable aspects.</returns>
+    List<PresentableAspects> CreateAspectForDataGrid(IEnumerable<DefinedAspect> aspects);
+}
 
 public class AspectForDataGridFactory : IAspectForDataGridFactory
 {

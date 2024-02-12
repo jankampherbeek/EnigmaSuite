@@ -3,12 +3,25 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
-using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support;
+
+/// <summary>Conversion to and from EventData/PersistebleEventData.</summary>
+public interface IEventDataConverter
+{
+    /// <summary>Convert PersistableEventData to EventData.</summary>
+    /// <param name="persistableEventData"/>
+    /// <returns>Resulting EventData.</returns>
+    public ProgEvent FromPersistableEventData(PersistableEventData persistableEventData);
+
+    /// <summary>Convert EventData to PersistableEventData.</summary>
+    /// <param name="progEvent"/>
+    /// <returns>Resulting PersistableEventData.</returns>
+    public PersistableEventData ToPersistableEventData(ProgEvent progEvent);
+
+}
 
 /// <inheritdoc/>
 public sealed class EventDataConverter : IEventDataConverter

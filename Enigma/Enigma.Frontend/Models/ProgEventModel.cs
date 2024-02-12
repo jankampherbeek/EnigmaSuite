@@ -5,8 +5,8 @@
 
 using Enigma.Api;
 using Enigma.Domain.Dtos;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support.Parsers;
 
 namespace Enigma.Frontend.Ui.Models;
 

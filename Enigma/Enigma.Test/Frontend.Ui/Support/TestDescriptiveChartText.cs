@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.Support;
 
 namespace Enigma.Test.Frontend.Ui.Support;

@@ -1,14 +1,27 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Conversions;
 
-
+/// <summary>
+/// Convert array with range of values from one type to another type.
+/// </summary>
+public interface IValueRangeConverter
+{
+    /// <summary>
+    /// Convert a string with a separator character to a range of integers.
+    /// </summary>
+    /// <param name="text">The string containing the substrings with the values, separated with the separator char.
+    /// An empty or null string is considered an error.</param>
+    /// <param name="separator">The character that separates the parts in the string 'text'.</param>
+    /// <returns>A tuple with the converted numbers and an indication if the conversions was successful. 
+    /// If the conversion was not successful the value of the numbers can be undefined.</returns>
+    public (int[] numbers, bool success) ConvertStringRangeToIntRange(string text, char separator);
+}
 
 /// <inheritdoc/>
 public class ValueRangeConverter : IValueRangeConverter

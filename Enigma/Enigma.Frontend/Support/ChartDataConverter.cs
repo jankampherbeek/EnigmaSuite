@@ -3,14 +3,26 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
-using Enigma.Frontend.Ui.Interfaces;
-
 
 namespace Enigma.Frontend.Ui.Support;
+
+/// <summary>Conversion to and from ChartData/PersistebleChartData.</summary>
+public interface IChartDataConverter
+{
+    /// <summary>Convert PersistableChartData to ChartData.</summary>
+    /// <param name="persistableChartData"/>
+    /// <returns>Resulting ChartData.</returns>
+    public ChartData FromPersistableChartData(PersistableChartData persistableChartData);
+
+    /// <summary>Convert ChartData to PersistableChartData.</summary>
+    /// <param name="chartData"/>
+    /// <returns>Resulting PersistableChartData.</returns>
+    public PersistableChartData ToPersistableChartData(ChartData chartData);
+
+}
 
 /// <inheritdoc/>
 public sealed class ChartDataConverter : IChartDataConverter

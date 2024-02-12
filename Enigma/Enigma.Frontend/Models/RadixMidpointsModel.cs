@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.Models;
 

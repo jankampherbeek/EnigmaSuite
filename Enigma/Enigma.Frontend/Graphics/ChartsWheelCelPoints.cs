@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,11 +12,18 @@ using System.Windows.Shapes;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Graphics;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.Graphics;
 
+public interface IChartsWheelCelPoints
+{
+    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant);
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
+    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
+}
 
 public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
 {

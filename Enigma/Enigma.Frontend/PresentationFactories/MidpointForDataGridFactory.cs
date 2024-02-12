@@ -1,17 +1,33 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
+
+/// <summary>Prepare midpoint values to be shown in a datagrid.</summary>
+public interface IMidpointForDataGridFactory
+{
+    /// <summary>Builds a presentable midpoint to be used in a grid.</summary>
+    /// <param name="midpoints">Calculated midpoints.</param>
+    /// <returns>Presentable midpoints.</returns>
+    List<PresentableMidpoint> CreateMidpointsDataGrid(IEnumerable<BaseMidpoint> midpoints);
+
+    /// <summary>Builds a presentable occupied midpoint to be used in a grid.</summary>
+    /// <param name="midpoints">Occupied midpoints.</param>
+    /// <returns>Presentable occupied midpoints.</returns>
+    List<PresentableOccupiedMidpoint> CreateMidpointsDataGrid(IEnumerable<OccupiedMidpoint> midpoints);
+}
+
+
+
 
 public class MidpointForDataGridFactory : IMidpointForDataGridFactory
 {

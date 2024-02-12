@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 using Enigma.Api;
-using Enigma.Frontend.Ui.Interfaces;
+using Enigma.Frontend.Ui.PresentationFactories;
 
 namespace Enigma.Frontend.Ui.Models;
 

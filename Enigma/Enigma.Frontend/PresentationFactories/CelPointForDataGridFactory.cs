@@ -1,10 +1,8 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Frontend.Ui.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +10,14 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.PresentationFactories;
 
+public interface ICelPointForDataGridFactory
+{
+    public List<PresentableCommonPositions> CreateCelPointPosForDataGrid(Dictionary<ChartPoints, FullPointPos> commonPositions);
+}
 
 public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
 {

@@ -1,14 +1,45 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
 using Enigma.Domain.Constants;
-using Enigma.Frontend.Ui.Interfaces;
 
 namespace Enigma.Frontend.Ui.Support.Conversions;
 
+/// <summary>
+/// Converter from double values to presentable strings.
+/// </summary>
+public interface IDoubleToDmsConversions
+{
+    /// <summary>
+    /// Convert value for longitude to longitude in degrees and minutes, within a sign (0..29 degrees) but without a glyph.
+    /// </summary>
+    /// <param name="position">Longitude.</param>
+    /// <returns>Text for longitude in degrees (0 .. 29) and minutes.</returns>
+    public string ConvertDoubleToDmInSignNoGlyph(double position);
+    /// <summary>
+    /// Convert value for longitude to longitude in degrees, minutes and seconds, within a sign, accompanied with a string for a glyph.
+    /// </summary>
+    /// <param name="position">Longitude.</param>
+    /// <returns>Tuple with text for longitude in degrees (0 .. 29), minutes and seconds and a string for the glyph.</returns>
+    public (string longTxt, char glyph) ConvertDoubleToDmsWithGlyph(double position);
+
+    /// <summary>
+    /// Convert value for longitude to longitude in degrees, minutes and seconds, within a sign (0..29 degrees) but without a glyph.
+    /// </summary>
+    /// <param name="position">Longitude.</param>
+    /// <returns>Text for longitude in degrees (0 .. 29), minutes and seconds.</returns>
+    public string ConvertDoubleToDmsInSignNoGlyph(double position);
+
+    /// <summary>
+    /// Convert value to sexagesimal text. Negative values are indicated with a minus sign.
+    /// </summary>
+    /// <param name="position">The value to convert.</param>
+    /// <returns>The saexagesimal result in degrees, minutes and seconds.</returns>
+    public string ConvertDoubleToPositionsDmsText(double position);
+}
 
 /// <inheritdoc/>
 public sealed class DoubleToDmsConversions : IDoubleToDmsConversions

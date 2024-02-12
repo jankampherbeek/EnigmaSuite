@@ -1,9 +1,8 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Frontend.Ui.Interfaces;
 using System.Collections.Generic;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
@@ -12,6 +11,16 @@ using Enigma.Domain.Requests;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Support;
+
+/// <summary>Calculation for a single chart.</summary>
+public interface IChartCalculation
+{
+
+    /// <summary>Calculate the chart based on the current configuration.</summary>
+    /// <param name="chartData">ChartData with all the required input.</param>
+    /// <returns>The calculated chart.</returns>
+    public CalculatedChart CalculateChart(ChartData chartData);
+}
 
 /// <inheritdoc/>
 public sealed class ChartCalculation : IChartCalculation

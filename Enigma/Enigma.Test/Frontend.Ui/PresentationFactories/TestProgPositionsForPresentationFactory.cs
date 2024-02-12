@@ -7,9 +7,9 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 using Moq;
 
 namespace Enigma.Test.Frontend.Ui.PresentationFactories;

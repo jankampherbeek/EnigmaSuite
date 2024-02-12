@@ -7,8 +7,8 @@ using System.Collections.Generic;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
-using Enigma.Frontend.Ui.Interfaces;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 
 namespace Enigma.Frontend.Ui.Models;
 
