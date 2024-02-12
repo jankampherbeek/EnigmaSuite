@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Dtos;
-using Enigma.Facades.Se.Interfaces;
+using Enigma.Facades.Se;
 
 namespace Enigma.Core.Calc;
 

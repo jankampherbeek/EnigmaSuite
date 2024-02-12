@@ -1,19 +1,27 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Diagnostics.CodeAnalysis;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;
-using Enigma.Facades.Interfaces;
 using Serilog;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Enigma.Facades.Se;
 
-
+/// <summary>Facade for retrieving the value of hte current Ayanamsha offset.</summary>
+/// <remarks>The SE must have been initialized to use a specific ayanamsha.</remarks>
+public interface IAyanamshaFacade
+{
+    /// <summary>Calculate the Ayanamsa</summary>
+    /// <remarks>Throws EnigmaException if an error occurs.</remarks>
+    /// <param name="jdUt">Julian Day for UT.</param>
+    /// <returns>The offseet for the ayanamsha.</returns>
+    public double GetAyanamshaOffset(double jdUt);
+}
 
 [SuppressMessage("Globalization", "CA2101:Specify marshaling for P/Invoke string arguments")]
 public class AyanamshaFacade : IAyanamshaFacade

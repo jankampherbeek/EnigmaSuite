@@ -1,16 +1,26 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
 using System.Diagnostics.CodeAnalysis;
-using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Facades.Se;
+
+/// <summary>Facade for retrieving date and time from a Julian Day number, using the Swiss Ephemeris.</summary>
+/// <remarks>Enables accessing the CommonSE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
+public interface IRevJulFacade
+{
+
+    /// <summary>Retrieve date and time (UT) from a given Julian Day Number.</summary>
+    /// <param name="julianDayNumber"/>
+    /// <param name="calendar">Gregorian or Julian calendar.</param>
+    /// <returns>An instance of SimpleDateTime that reflects the Julian Day nr and the calendar.</returns>
+    public SimpleDateTime DateTimeFromJd(double julianDayNumber, Calendars calendar);
+}
 
 
 /// <inheritdoc/>

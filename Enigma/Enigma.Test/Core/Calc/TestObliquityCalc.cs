@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
-using Enigma.Facades.Interfaces;
+using Enigma.Facades.Se;
 using Moq;
 
 namespace Enigma.Test.Core.Calc;

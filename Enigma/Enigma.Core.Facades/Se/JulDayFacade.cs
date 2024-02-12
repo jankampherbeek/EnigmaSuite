@@ -1,17 +1,30 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Diagnostics.CodeAnalysis;
 using Enigma.Domain.Constants;
-using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Facades.Se;
 
+/// <summary>Facade for retrieving Julian Day number from date and time, using the Swiss Ephemeris.</summary>
+/// <remarks>Enables accessing the CommonSE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
+public interface IJulDayFacade
+{
+    /// <summary>Retrieve Julian Day number from Swiss Ephemeris.</summary>
+    /// <param name="dateTime">Date, time and calendar.</param>
+    /// <returns>The calculated Julian Day number.</returns>
+    public double JdFromSe(SimpleDateTime dateTime);
+
+    /// <summary>Retrieve value for Delta T.</summary>
+    /// <param name="julianDayUt">Value for Julian Day in UT.</param>
+    /// <returns>The value for Delta T in seconds and fractions of seconds.</returns>
+    public double DeltaTFromSe(double julianDayUt);
+}
 
 /// <inheritdoc/>
 [SuppressMessage("Interoperability", "SYSLIB1054:Use \'LibraryImportAttribute\' instead of \'DllImportAttribute\' to generate P/Invoke marshalling code at compile time")]

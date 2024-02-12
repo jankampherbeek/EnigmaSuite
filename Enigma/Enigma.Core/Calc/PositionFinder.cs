@@ -5,7 +5,6 @@
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
 using Serilog;
 

@@ -4,11 +4,29 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Diagnostics.CodeAnalysis;
-using Enigma.Facades.Interfaces;
 using Serilog;
 using System.Runtime.InteropServices;
 
 namespace Enigma.Facades.Se;
+
+/// <summary>
+/// Calculation for horizontal coordinates: azimuth and altitude.
+/// </summary>
+public interface IAzAltFacade
+{
+    /// <summary>
+    /// Calculate azimuth and altitude.
+    /// </summary>
+    /// <remarks>
+    /// Assumes zero for atmospheric pressure and temperature. 
+    /// </remarks>
+    /// <param name="julianDayUt">Julian day in universal time.</param>
+    /// <param name="geoGraphicCoordinates">Geographic coordinates: gepgraphic longitude, geographic latitude and height (meters), in that sequence.</param>
+    /// <param name="equCoordinates">Equatorial coordinates: ra, declination and distance, in that sequence.</param>
+    /// <param name="flags">Combined values that contain settings.</param>
+    /// <returns>Array with azimuth and altitude in that sequence.</returns>
+    public double[] RetrieveHorizontalCoordinates(double julianDayUt, double[] geoGraphicCoordinates, double[] equCoordinates, int flags);
+}
 
 /// <inheritdoc/>
 [SuppressMessage("Interoperability", "SYSLIB1054:Use \'LibraryImportAttribute\' instead of \'DllImportAttribute\' to generate P/Invoke marshalling code at compile time")]

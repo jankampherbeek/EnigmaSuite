@@ -1,15 +1,29 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
 using System.Diagnostics.CodeAnalysis;
-using Enigma.Facades.Interfaces;
 using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Enigma.Facades.Se;
+
+
+/// <summary>Facade for the calculation of the positions of celestial points (planets, nodes etc.).</summary> 
+/// <remarks>Enables accessing the CommonSE dll. Passes any result without checking, exceptions are automatically propagated.</remarks>
+public interface ICalcUtFacade
+{
+    /// <summary>Retrieve positions for a celestial point.</summary>
+    /// <remarks>Calls the function ext_swe_calc_ut from the CommonSE.</remarks>
+    /// <param name="julianDay">Julian day calculated for UT.</param>
+    /// <param name="seCelPointId">Identifier for the celestial point as used by the CommonSE.</param>
+    /// <param name="flags">Combined value for flags to define the desired calculation.</param>
+    /// <returns>Array with 6 positions, subsequently: longitude, latitude, distance, longitude speed, latitude speed and distance speed.</returns>
+    public double[] PositionFromSe(double julianDay, int seCelPointId, int flags);
+}
+
 
 /// <inheritdoc/>
 /// <remarks>Throws a SwissEphException if the CommonSE returns an error.</remarks>

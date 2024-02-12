@@ -5,7 +5,7 @@
 
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
-using Enigma.Facades.Interfaces;
+using Enigma.Facades.Se;
 using Moq;
 
 namespace Enigma.Test.Core.Calc;

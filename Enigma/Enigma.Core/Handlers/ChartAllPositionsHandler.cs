@@ -7,7 +7,6 @@ using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
-using Enigma.Facades.Interfaces;
 using Enigma.Facades.Se;
 
 namespace Enigma.Core.Handlers;
