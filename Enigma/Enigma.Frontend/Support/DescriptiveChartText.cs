@@ -48,7 +48,8 @@ public class DescriptiveChartText : IDescriptiveChartText
         constructedText.Append(' ');
         constructedText.Append(chartData.FullDateTime.TimeText);
         constructedText.Append(' ');
-        constructedText.Append(chartData.Location.LocationFullName.Replace("[N]", "Unknown").Replace("[S]", "Unknnown").Replace("[E]", "Unknown")).Replace("[W]", "Unknown");
+//        constructedText.Append(chartData.Location.LocationFullName.Replace("[N]", "Unknown").Replace("[S]", "Unknnown").Replace("[E]", "Unknown")).Replace("[W]", "Unknown");
+        constructedText.Append(chartData.Location.LocationFullName);
         constructedText.Append('\n');
         constructedText.Append(ConfigText(config));
         return constructedText.ToString();

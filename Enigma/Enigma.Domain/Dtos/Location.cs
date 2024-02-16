@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,7 +20,7 @@ public sealed class Location
     /// <summary>North or south for geographic latitude.</summary>
     public Directions4GeoLat DirLat { get; }
 
-    /// <param name="locationFullName">Name and sexagesimal coordinatevalues for a location. Directions are defined between [] and need to be replaced with texts from Rosetta.</param>
+    /// <param name="locationFullName">Name and sexagesimal coordinatevalues for a location.</param>
     /// <param name="geoLong">Value for geographic longitude.</param>
     /// <param name="geoLat">Value for geographic latitude.</param>
     public Location(string locationFullName, double geoLong, double geoLat)

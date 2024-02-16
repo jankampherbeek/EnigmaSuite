@@ -49,6 +49,7 @@ public partial class App
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();
         serviceCollection.AddSingleton<IChartDataForDataGridFactory, ChartDataForDataGridFactory>();
+        serviceCollection.AddTransient<ChartsImportModel>();
         serviceCollection.AddTransient<ChartsMainModel>();
         serviceCollection.AddTransient<ChartsWheelWindow>();
         serviceCollection.AddTransient<IChartsWheelAspects, ChartsWheelAspects>();

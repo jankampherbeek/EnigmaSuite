@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Text;
 using Serilog;
 
 namespace Enigma.Core.Persistency;
@@ -50,17 +51,13 @@ public sealed class TextFileReader : ITextFileReader
     public List<string> ReadAllLines(string location)
     {
         List<string> csvLines = new();
-        try
+        if (File.Exists(location))
         {
-            if (File.Exists(location))
+            using StreamReader reader = new StreamReader(location, Encoding.GetEncoding("iso-8859-1"));
+            while (reader.Peek() >= 0)
             {
-                string[] allLines = File.ReadAllLines(location);
-                csvLines.AddRange(allLines);
+                csvLines.Add(reader.ReadLine());
             }
-        }
-        catch (Exception e)
-        {
-            Log.Error("An exception was thrown in TextFileReader.ReadAllLines() while reading separate lines from the file {Location}, the msg of the exception: {Msg}", location, e.Message);
         }
         return csvLines;
     }

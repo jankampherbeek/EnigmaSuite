@@ -40,6 +40,14 @@ public interface IDataFileManagementApi
 }
 
 
+/// <summary>Api for import from, and export to PlanetDance data.</summary>
+public interface IPdDataImportExportApi
+{
+    /// <summary>Import Planet Dance data to RDBMS.</summary>
+    /// <param name="csvFilename">Full path of the csv file.</param>
+    /// <returns>True if no errors occurred, otherwise false.</returns>
+    public bool ImportPdDataToRdbms(string csvFilename);
+}
 
 
 /// <inheritdoc/>
@@ -92,6 +100,23 @@ public sealed class DataFileManagementApi : IDataFileManagementApi
     {
         Log.Information("DataFileManagementApi GetDataNames");
         return _dataNamesHandler.GetExistingDataNames();
+    }
+}
+
+
+/// <inheritdoc/>
+public sealed class PdDataImportExportApi : IPdDataImportExportApi
+{
+    private readonly IPdDataFromToRdbmsHandler _handler;
+
+    public PdDataImportExportApi(IPdDataFromToRdbmsHandler handler)
+    {
+        _handler = handler;
+    }
+    
+    public bool ImportPdDataToRdbms(string csvFilename)
+    {
+        return _handler.ImportPdDataToRdbms(csvFilename);
     }
 }
 

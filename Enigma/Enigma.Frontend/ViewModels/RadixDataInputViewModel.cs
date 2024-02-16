@@ -14,6 +14,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -65,6 +66,7 @@ public partial class RadixDataInputViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allTimeZones;
     private readonly int _enumIndexForLmt;
     private readonly RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
+    
     private bool _calculateClicked;
     public bool LmtEnabled => TimeZoneIndex == _enumIndexForLmt;
     public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;

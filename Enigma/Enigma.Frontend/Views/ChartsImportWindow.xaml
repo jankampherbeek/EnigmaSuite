@@ -1,0 +1,59 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.ChartsImportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Import charts" Height="400" Width="540">
+    <Window.Resources>
+        <viewModels:ChartsImportViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80*"/>
+            <ColumnDefinition Width="20*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="12*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6,0,0, 6" 
+                   Text="Import of charts" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
+        <materialDesign:Card Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="3" Margin="6"
+                             VerticalAlignment="Center"
+                             Name="DescriptionBlock" UniformCornerRadius="6">
+            <TextBlock Text="Import data from PlanetDance. See the helpfile for more information." TextWrapping="Wrap" />
+        </materialDesign:Card>
+        <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Select the file with data"
+                 VerticalAlignment="Center" Margin="6 0"
+                 IsReadOnly="True"
+                 Text="{Binding DatafileName, Mode = TwoWay}"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="Browse" Margin="6" Command="{Binding BrowseCommand}" />
+        <Button Grid.Row="3" Grid.Column="1" Content="Import" Margin="6" Command="{Binding ImportCommand}" />
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Foreground="Red" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   Text="{Binding ErrorText}"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" TextWrapping="Wrap" 
+                   Text="{Binding ResultText, Mode=OneWay}"/>
+        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
+            <Button Content="Close" Margin="6" Click="CloseClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

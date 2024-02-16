@@ -24,6 +24,7 @@ public class ChartsWindowsFlow:
     IRecipient<OpenMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
+    public const string CHARTS_IMPORT = "ChartsImport";
     public const string CHARTS_WHEEL = "ChartsWheel";
     public const string CONFIG_PROG = "ConfigProg";
     public const string PROG_EVENT = "ProgEvent";

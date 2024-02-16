@@ -51,7 +51,14 @@
                         <Image Source="/Images/configuration.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Close Charts" Click="CloseClick">
+                <Separator/>
+                <MenuItem Header="Import charts" Command="{Binding ImportChartsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/download.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator/>
+                <MenuItem Header="Close module Charts" Click="CloseClick">
                     <MenuItem.Icon>
                         <Image Source="/Images/close.png"/>
                     </MenuItem.Icon>

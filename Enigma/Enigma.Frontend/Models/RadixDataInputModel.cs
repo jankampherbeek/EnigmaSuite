@@ -23,13 +23,15 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     public List<string> AllCategories { get; }
     private readonly IJulianDayApi _julianDayApi;
     private readonly IChartCalculation _chartCalculation;
+    private readonly ILocationConversion _locationConversion;
     private readonly IReferencesApi _referencesApi;
 
     public RadixDataInputModel(IGeoLongInputParser geoLongInputParser, IGeoLatInputParser geoLatInputParser,
         IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IJulianDayApi julianDayApi,
-        IChartCalculation chartCalculation, IReferencesApi referencesApi) : 
+        IChartCalculation chartCalculation, ILocationConversion locationConversion, IReferencesApi referencesApi) : 
         base(dateInputParser, timeInputParser, geoLongInputParser, geoLatInputParser)
     {
+        _locationConversion = locationConversion;
         _julianDayApi = julianDayApi;
         _chartCalculation = chartCalculation;
         _referencesApi = referencesApi;
@@ -50,10 +52,12 @@ public class RadixDataInputModel: DateTimeLocationModelBase
        
         SimpleDateTime dateTime = new(FullDate.YearMonthDay[0], FullDate.YearMonthDay[1], FullDate.YearMonthDay[2], 
             FullTime.Ut, FullDate.Calendar);
-        double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt + FullTime.CorrectionForDay; 
+        double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt + FullTime.CorrectionForDay;
+        string locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "Location undefined " : locationName + " ";        
+        string fullLocationName = _locationConversion.CreateLocationDescription(locNameCheckedForEmpty, 
+            FullGeoLatitude.Latitude, FullGeoLongitude.Longitude);
         
-        string locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "" : locationName + " ";        
-        string fullLocationName = locNameCheckedForEmpty + FullGeoLongitude!.GeoLongFullText + " " + FullGeoLatitude!.GeoLatFullText;        
+        
         Location location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);        
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ChartData chartData = new(id, metaData, location, fullDateTime);

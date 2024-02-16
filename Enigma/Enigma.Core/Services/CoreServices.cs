@@ -84,6 +84,8 @@ public static class CoreServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IPdDataFromToRdbmsHandler, PdDataFromToRdbmsHandler>();
+        serviceCollection.AddTransient<IPdDataFromToPersistableConverter, PdDataFromToPersistableConverter>();
         serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();

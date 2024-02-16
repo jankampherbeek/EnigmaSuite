@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.using System;
 
 using System;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.Support;
 /// <summary>Textual conversions ofr location and coördinates.</summary>
@@ -14,19 +15,28 @@ public interface ILocationConversion
     /// <param name="locationName">Name for the location.</param>
     /// <param name="geoLat">Geographic latitude.</param>
     /// <param name="geoLong">Geographic longitude.</param>
-    /// <returns>A text in the form: Enschede 52.21666666667 N / 6.9 E .</returns>
+    /// <returns>Formatted text.</returns>
     public string CreateLocationDescription(string locationName, double geoLat, double geoLong);
 }
 
 public sealed class LocationConversion : ILocationConversion
 {
+    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
+    public LocationConversion(IDoubleToDmsConversions doubleToDmsConversions)
+    {
+        _doubleToDmsConversions = doubleToDmsConversions;
+    }
+    
+    
     public string CreateLocationDescription(string locationName, double geoLat, double geoLong)
     {
         string qualifiedLocationName = locationName is null or "" ? "No name for location" : locationName;
         string latDir = geoLat >= 0.0 ? "N" : "S";
         string longDir = geoLong >= 0.0 ? "E" : "W";
-        return qualifiedLocationName + " " + Math.Abs(geoLat) + " " + latDir + " / " + Math.Abs(geoLong) + " " + longDir;
+        string latSexag = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(Math.Abs(geoLat));
+        string longSexag = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(Math.Abs(geoLong));
+        return qualifiedLocationName + " " + latSexag + " " + latDir + " / " + longSexag + " " + longDir;
     }
 
 }

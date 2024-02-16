@@ -13,6 +13,7 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -106,6 +107,14 @@ public partial class ChartsMainViewModel: ObservableObject,
         Log.Information("ChartsMainViewModel.ConfigProg(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, GeneralWindowsFlow.CONFIG_PROG));
     }
+
+    [RelayCommand]
+    private static void ImportCharts()
+    {
+        ChartsImportWindow importWindow = new ChartsImportWindow();
+        importWindow.Show();
+    }
+    
 
     [RelayCommand]
     private void NewChart()
