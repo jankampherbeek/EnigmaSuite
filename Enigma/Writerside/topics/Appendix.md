@@ -195,11 +195,17 @@ In other research projects, you use the orbs as defined in the configuration.
 
 ## Format for data-files
 
-Enigma supports only one type of data-file. 
+Enigma supports a proprietary data-file and also the import of data from PlanetDance. 
+Later versions will add support for data for progressive techniques.
 
-Later versions will add support for data from the Gauquelin archives and data for progressions and also for exchanging data between Enigma and PlanetDance.
+### Enigma proprietary format 
 
-You can create your own data-file using the csv format (Comma Separated Values). This is a simple text file with one line per chart. You need to separate the different values with a comma. Make sure you use a real text-editor and not Word, LibreOffice Text or another word processor. Examples of a text-editor: NotePad (available in Windows), Notepad++ (more powerful, download it for free from: [*https://notepad-plus-plus.org*](https://notepad-plus-plus.org)).
+You can create your own data-file using the csv format (Comma Separated Values). 
+This is a simple text file with one line per chart. 
+You need to separate the different values with a comma. 
+Make sure you use a real text-editor and not Word, LibreOffice Text or another word processor. 
+Examples of a text-editor: NotePad (available in Windows), Notepad++ (more powerful, download it for 
+free from: [*https://notepad-plus-plus.org*](https://notepad-plus-plus.org)).
 
 An example of the first lines of a data-file:
 
@@ -363,6 +369,23 @@ For the control group type *Standard shifting of location, date, and time*, Enig
     - Combine the elements at the top of each collection into a new chart. Make sure that only applicable months combine with dates larger than 28.
 
     - Remove the used elements.
+      
+## Format in exported file from PlanetDance
+   
+   The first lines from a file as exported from PlanetDance:
+
+   Name;Year;Month;Day;Hour;Min;Sec;Place;Country;Lon;Lat;Zone;
+
+   Alistair Crowley;1875;10;12;23;30;0;Leamington;United Kingdom;-1.533333;52.300000;0.000000;
+   Allen, Woody;1935;12;1;22;55;0;Bronxville NY;United States;-73.833333;40.933333;-5.000000;
+
+The first line contains descriptive labels, the second line is empty, and the following files contain data. 
+You will find the following items:
+•	The name.
+•	Year, month, day, hour, min, and sec, all as integers.
+•	Place and country
+•	Longitude and latitude as floating point decimals
+•	The time zone, defined as a floating point decimal with the difference between clock time and universal time.
 
 ## More information
 

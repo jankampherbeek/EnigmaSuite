@@ -68,6 +68,54 @@ If you confirm, it deletes the data and you can only restore it by reentering th
 Alternatively, you can use the menu option **Charts** - **Delete chart**.
 
 
+## Importing charts from PlanetDance
+
+You can import charts from a database in _PlanetDance_ and store them in the Enigma database.  
+PlaneDance is a well know free astrology program, created by Jean Cremers. 
+After an import, the charts are available for use like any other chart you created.
+
+You have to export the files from PlanetDance first. 
+In PlanetDance, select in the menu bar **File – Open**. 
+This results in a changed menu with the option _Database_. 
+Select **Database – Application – Import export – Excel**. 
+Do not use the option _Enigma_ after the Import export option. 
+The Enigma option exports to a previous format, used by a predecessor of the current Enigma, called EnigmaDedVM.
+
+![export_from_pd.png](export_from_pd.png) {width="300"}
+
+In the Excel screen you need to check _Header_ and _Birth info_. 
+Checking _Delete old_ makes sense if you want to overwrite previous exports. 
+Make sure you do not check any other option.
+
+You need to select the database that you want to export. 
+Select in the menu **Export – Export source**. Select the database that you want to export. 
+The default database is _planetdance.db_, but you can select another database. Click the **ok**-option in the  menu bar.
+
+Next define where to save the exported charts. Select in the Menu **Export – Export Destination**. 
+You can select a folder via the menu option _Browse_. Again click the **ok**-option in the menu bar.
+
+Use the menu option **Separator** to define a character, that separates the different fields with information. 
+Make sure this is a semi-colon ‘;’.
+
+To perform the export, select the **Export – Execute**.
+
+You can close PlanetDance now and go back to Enigma.
+
+In the Charts Module, you need to select the menu option **General – Import Charts**.  
+
+![import_charts.png](import_charts.png) {width="300"}
+
+This opens a screen where you can select the exported data from PlanetDance via the **Browse** button. 
+After selecting the file, click the button **Import**. 
+If everything goes well, Enigma confirms that the data has been imported. 
+In case of an error you will see a warning. 
+Any conflicting lines from the exported data are saved in the file C:\enigma_ar\data\errors.txt
+
+If the import was successful, you can now select the charts via the button **Search Chart** in the Charts main screen.
+In the Appendix, you will find a description of the exported data. 
+However, you do not need that information to perform a successful import.
+
+
 ## Showing the chart wheel
 If you created a new chart, or retrieved a chart from the database, you can now show a graphic chart wheel. 
 Select the chart in the left column and click the button **Wheel**, or use the menu option **Charts** - **Show wheel**.

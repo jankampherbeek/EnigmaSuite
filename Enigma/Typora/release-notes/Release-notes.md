@@ -1,5 +1,47 @@
 # Release notes Enigma Astrology Research
 
+
+
+## Release 0.3.0 beta - March 10, 2024
+
+Data import from PlanetDance, additional calculated points, configurable colors for aspects, and bug fixes.
+
+
+
+### Data import
+
+You can now import the charts from a database in PlanetDance into the Enigma database.
+
+
+
+### Supported celestial points
+
+The calculation of the Apogee according to Max Duval is now supported, using a calculation as proposed by Cees Jansen - TODO.
+
+The calculation of the hypothetical planets as proposed by Jean Carteret is now supported. - TODO
+
+### Small improvements
+
+The chart wheel now shows more information about the chart, including date, time and location.
+
+You can now define the colors for aspect lines - TODO
+
+
+
+### Bug fixes
+
+The icon in the menu for secondary directions is now shown.
+
+No conjunctions in progressive aspects - TODO
+
+
+
+
+
+
+
+
+
 ## Release 0.2.0 beta - February 10, 2024
 
 Support for several progressive techniques.

@@ -29,7 +29,6 @@ public partial class ChartsWheelViewModel: ObservableObject
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {
-       //     descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
        descText = _descriptiveChartText.FullDescriptiveText(config, chart.InputtedChartData);
         }
         return descText;

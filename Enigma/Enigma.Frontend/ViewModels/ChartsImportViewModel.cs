@@ -13,13 +13,13 @@ using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class ChartsImportViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.CHARTS_IMPORT;
+    private const string ERROR_MISSING_FILE = "Please first select a file to import.";    
     [ObservableProperty] private string _datafileName = string.Empty;
     [ObservableProperty] private string _resultText = string.Empty;
    
@@ -48,15 +48,22 @@ public partial class ChartsImportViewModel: ObservableObject
 
     private void TryImport()
     {
-        ChartsImportModel model = App.ServiceProvider.GetRequiredService<ChartsImportModel>();
-        ResultText = model.PerformImport(DatafileName);
+        ResultText = "";
+        if (string.IsNullOrWhiteSpace(DatafileName))
+        {
+            MessageBox.Show(ERROR_MISSING_FILE);
+        }
+        else
+        {
+            ChartsImportModel model = App.ServiceProvider.GetRequiredService<ChartsImportModel>();
+            ResultText = model.PerformImport(DatafileName);            
+        }
     }
 
     
     [RelayCommand]
     private static void Help()
     {
-        Log.Information("DatafileImportViewModel.Help(): send HelpMessage");   
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 }

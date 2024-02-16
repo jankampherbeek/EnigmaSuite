@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -47,7 +47,7 @@ public sealed class RadixPositionsModel
         var chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         return chart != null
-            ? _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData)
+            ? _descriptiveChartText.FullDescriptiveText(config, chart.InputtedChartData)
             : "";
     }
 
