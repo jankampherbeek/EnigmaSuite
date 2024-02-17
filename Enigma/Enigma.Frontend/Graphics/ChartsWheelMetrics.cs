@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -27,6 +27,8 @@ public sealed class ChartsWheelMetrics
     public Color HardAspectsColor { get; } = Colors.Red;
     public Color SoftAspectsColor { get; } = Colors.Green;
     public Color MinorAspectsColor { get; } = Colors.Gray;
+
+    public Color InconjunctColor { get; } = Colors.Purple;
 
     // Opacities
     public double CuspLineOpacity => 0.5;

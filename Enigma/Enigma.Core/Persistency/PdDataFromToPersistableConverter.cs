@@ -71,7 +71,7 @@ public class PdDataFromToPersistableConverter: IPdDataFromToPersistableConverter
             PersistableChartIdentification pcIdent = new();
             pcIdent.Id = -1;
             pcIdent.ChartCategoryId = chartCategoryId;
-            pcIdent.Description = "Imported from PlanetDance";
+            pcIdent.Description = "";
             pcIdent.Name = elements[0];
             PersistableChartDateTimeLocation pcChartDTL = new();
             pcChartDTL.Id = -1;
@@ -103,12 +103,24 @@ public class PdDataFromToPersistableConverter: IPdDataFromToPersistableConverter
     private bool ConstructTimeText(string hourTxt, string minuteTxt, string secTxt, string offSetTxt, out string timeTxt)
     {
         string sep = ":";
+        double offSetValue = 0.0;
         if (secTxt.Length == 0) secTxt = "0";
         if (offSetTxt.Length == 0) offSetTxt = "0";
-        timeTxt = hourTxt + sep + minuteTxt + sep + secTxt + " " + "Offset: " + offSetTxt;
+        else
+        {
+            bool success = double.TryParse(offSetTxt.Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out offSetValue);
+            int hour = (int)Math.Floor(offSetValue);
+            double fullMinute = Math.Floor((offSetValue - hour) * 60.0); 
+            int minute = (int)fullMinute;
+            int second = (int)Math.Floor((fullMinute - minute) * 60.0);
+            string plusMinus = offSetValue >= 0.0 ? "+" : "-";
+            offSetTxt = plusMinus + " " + hour + sep + minute + sep + second;
+        }
+        timeTxt = hourTxt + sep + minuteTxt + sep + secTxt + " " + "Zone: " + offSetTxt;
         return hourTxt.Length > 0 && minuteTxt.Length > 0;
     }
-
+    
+    
     private bool ConstructLocationName(string city, string country, double geoLong, double geoLat, out string locationName)
     {
         // TODO a lot of repeated code, move conversions to backend.
@@ -163,7 +175,7 @@ public class PdDataFromToPersistableConverter: IPdDataFromToPersistableConverter
         success = success && int.TryParse(hourTxt, out hourValue);
         success = success && int.TryParse(minuteTxt, out minuteValue);
         success = success && int.TryParse(secTxt, out secValue);
-        success = success && double.TryParse(offsetTxt, out offsetValue);
+        success = success && double.TryParse(offsetTxt.Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out offsetValue);
         if (!success) return success;
         double correctionForDayChange = 0.0;
         double ut = hourValue + minuteValue / 60.0 + secValue / 3600.0 - offsetValue;    

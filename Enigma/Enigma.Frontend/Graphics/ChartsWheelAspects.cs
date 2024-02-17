@@ -57,6 +57,9 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
                 case AspectTypes.Sextile:
                     aspectColor = metrics.SoftAspectsColor;
                     break;
+                case AspectTypes.Inconjunct:
+                    aspectColor = metrics.InconjunctColor;
+                    break;
                 default:
                     aspectColor = metrics.MinorAspectsColor;
                     break;
