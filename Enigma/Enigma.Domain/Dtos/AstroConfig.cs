@@ -1,8 +1,9 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Drawing;
 using Enigma.Domain.References;
 
 namespace Enigma.Domain.Dtos;
@@ -18,12 +19,15 @@ public sealed class AstroConfig
     public bool UseCuspsForAspects { get; }
     public Dictionary<ChartPoints, ChartPointConfigSpecs> ChartPoints;
     public Dictionary<AspectTypes, AspectConfigSpecs> Aspects;
+    public Dictionary<AspectTypes, string> AspectColors;
     public double BaseOrbAspects { get; }
     public double BaseOrbMidpoints { get; }
 
 
-    public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects, double baseOrbAspects, double baseOrbMidpoints, bool useCuspsForAspects)
+    public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, 
+        ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects,
+        Dictionary<AspectTypes, string> aspectColors, double baseOrbAspects, double baseOrbMidpoints, bool useCuspsForAspects)
     {
         HouseSystem = houseSystem;
         Ayanamsha = ayanamsha;
@@ -33,6 +37,7 @@ public sealed class AstroConfig
         OrbMethod = orbMethod;
         ChartPoints = chartPoints;
         Aspects = aspects;
+        AspectColors = aspectColors;
         BaseOrbAspects = baseOrbAspects;
         BaseOrbMidpoints = baseOrbMidpoints;
         UseCuspsForAspects = useCuspsForAspects;
@@ -54,6 +59,4 @@ public record ChartPointConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb, 
 /// <param name="PercentageOrb">Factor to calculate the orb.</param>
 /// <param name="ShowInChart">True if aspect should be visible in chart, otherwise false.</param>
 public record AspectConfigSpecs(bool IsUsed, char Glyph, int PercentageOrb, bool ShowInChart);
-
-
 

@@ -46,46 +46,35 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
         List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
         foreach ((ChartPoints point1, ChartPoints point2, double exactness, AspectTypes aspectTypes) in drawSsAspects)
         {
-            Color aspectColor;
-            switch (aspectTypes)
-            {
-                case AspectTypes.Square:
-                case AspectTypes.Opposition:
-                    aspectColor = metrics.HardAspectsColor;
-                    break;
-                case AspectTypes.Triangle:
-                case AspectTypes.Sextile:
-                    aspectColor = metrics.SoftAspectsColor;
-                    break;
-                case AspectTypes.Inconjunct:
-                    aspectColor = metrics.InconjunctColor;
-                    break;
-                default:
-                    aspectColor = metrics.MinorAspectsColor;
-                    break;
-            }
 
-            double lineWidth = metrics.AspectLineSize * exactness / 100.0;
-            if (lineWidth < 0.5) lineWidth = 0.5;
-            DrawableAspectCoordinatesCp? drawCoordSs1 = null;
-            DrawableAspectCoordinatesCp? drawCoordSs2 = null;
-            foreach (var coord in ssCoordinates)
-            {
-                if (coord.CelPoint == point1)
-                {
-                    drawCoordSs1 = coord with { CelPoint = point1 };
-                }
-                if (coord.CelPoint == point2)
-                {
-                    drawCoordSs2 = coord with { CelPoint = point2 };
-                }
-            }
 
-            if (drawCoordSs1 == null || drawCoordSs2 == null) continue;
-            Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
-            Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
-            Line connectionLine = DimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor, ChartsWheelMetrics.AspectOpacity);
-            aspectLines.Add(connectionLine);
+            if (config.AspectColors.TryGetValue(aspectTypes, out string value))
+            {
+                Color aspectColor = (Color)ColorConverter.ConvertFromString(value);
+                double lineWidth = metrics.AspectLineSize * exactness / 100.0;
+                if (lineWidth < 0.5) lineWidth = 0.5;
+                DrawableAspectCoordinatesCp? drawCoordSs1 = null;
+                DrawableAspectCoordinatesCp? drawCoordSs2 = null;
+                foreach (var coord in ssCoordinates)
+                {
+                    if (coord.CelPoint == point1)
+                    {
+                        drawCoordSs1 = coord with { CelPoint = point1 };
+                    }
+
+                    if (coord.CelPoint == point2)
+                    {
+                        drawCoordSs2 = coord with { CelPoint = point2 };
+                    }
+                }
+
+                if (drawCoordSs1 == null || drawCoordSs2 == null) continue;
+                Point firstPoint = new(drawCoordSs1.XCoordinate, drawCoordSs1.YCoordinate);
+                Point secondPoint = new(drawCoordSs2.XCoordinate, drawCoordSs2.YCoordinate);
+                Line connectionLine = DimLine.CreateLine(firstPoint, secondPoint, lineWidth, aspectColor,
+                    ChartsWheelMetrics.AspectOpacity);
+                aspectLines.Add(connectionLine);
+            }
 
         }
         return aspectLines;

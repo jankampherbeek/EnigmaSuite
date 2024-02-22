@@ -1,10 +1,13 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using Dapper;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -89,7 +92,7 @@ public class ConfigurationModel
     
     public static List<GeneralAspect> AllAspects()
     {
-        Log.Information("ConfigurationModel.AllGeneralPoints: retrieving aspects from CurrentConfig");
+        Log.Information("ConfigurationModel.AllAspects: retrieving aspects from CurrentConfig");
         return (from aspect in AspectTypesExtensions.AllDetails()
                 from configAspect in CurrentConfig.Instance.GetConfig().Aspects
                 where configAspect.Key == aspect.Aspect
@@ -97,8 +100,20 @@ public class ConfigurationModel
                     aspect.Text, configAspect.Value.PercentageOrb, configAspect.Value.ShowInChart)).ToList();
     }
 
-
+    public static List<AspectColor> AllAspectColors()
+    {
+        var configColors = CurrentConfig.Instance.GetConfig().AspectColors.AsList();
+        return (from aspect in AspectTypesExtensions.AllDetails()
+            from configColorAspect in CurrentConfig.Instance.GetConfig().AspectColors
+            where configColorAspect.Key == aspect.Aspect
+            select new AspectColor(aspect.Aspect, aspect.Glyph, aspect.Text, configColorAspect.Value)).ToList();
+    }
+    
+    
 }
+
+
+
 
 
 public class GeneralPoint
@@ -140,4 +155,21 @@ public class GeneralAspect
         ShowInChart = showInChart;
     }
 }
+
+public class AspectColor
+{
+    public AspectTypes AspectType {get; }
+    public char Glyph { get; set; } 
+    public string AspectName { get; set; }
+    public string LineColor { get; set; }
+    public AspectColor(AspectTypes aspectType, char glyph, string aspectName, string lineColor)
+    {
+        AspectType = aspectType;
+        Glyph = glyph;
+        AspectName = aspectName;
+        LineColor = lineColor;
+    }
+
+}
+
 

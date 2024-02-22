@@ -1,9 +1,10 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Drawing;
 using Enigma.Core.Configuration;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -74,7 +75,7 @@ public class TestDeltaTexts
         const char glyph = 'Ï';
         const int percentageOrb = 0;
         const bool showInChart = false;
-        AspectConfigSpecs specs = new(isUsed, glyph, percentageOrb, showInChart);
+        AspectConfigSpecs specs = new(isUsed, glyph, percentageOrb, showInChart );
         Tuple<string, string> deltaTexts = _deltaTexts.CreateDeltaForAspect(aspect, specs);
         Assert.Multiple(() =>
         {

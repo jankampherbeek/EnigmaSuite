@@ -50,6 +50,7 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allProjectionTypes;
     [ObservableProperty] private ObservableCollection<GeneralPoint> _allGeneralPoints;
     [ObservableProperty] private ObservableCollection<GeneralAspect> _allAspects;
+    [ObservableProperty] private ObservableCollection<AspectColor> _allAspectColors;
     [ObservableProperty] private ObservableCollection<string> _allOrbMethods;
 
     
@@ -75,6 +76,7 @@ public partial class ConfigurationViewModel: ObservableObject
         AllObserverPositions = new ObservableCollection<string>(ConfigurationModel.AllObserverPositions());
         AllProjectionTypes = new ObservableCollection<string>(ConfigurationModel.AllProjectionTypes());
         AllGeneralPoints = new ObservableCollection<GeneralPoint>(ConfigurationModel.AllGeneralPoints());
+        AllAspectColors = new ObservableCollection<AspectColor>(ConfigurationModel.AllAspectColors());
         AllAspects = new ObservableCollection<GeneralAspect>(ConfigurationModel.AllAspects());
         AllOrbMethods = new ObservableCollection<string>(ConfigurationModel.AllOrbMethods());
         
@@ -104,7 +106,19 @@ public partial class ConfigurationViewModel: ObservableObject
          return AllGeneralPoints.ToDictionary(point => point.ChartPoint, 
              point => new ChartPointConfigSpecs(point.IsUsed, point.Glyph, point.OrbPercentage, point.ShowInChart));
      }
-    
+
+     private Dictionary<AspectTypes, string> DefineAspectColorSpecs()
+     {
+         Dictionary<AspectTypes, string> allColors = new Dictionary<AspectTypes, string>();
+         foreach (var aspectColor in AllAspectColors)
+         {
+             AspectTypes aspect = aspectColor.AspectType;
+             string color = aspectColor.LineColor;
+             allColors.Add(aspect, color);
+         }
+         return allColors;
+     }
+   
     
     [RelayCommand]
     private void SaveConfig()
@@ -121,10 +135,11 @@ public partial class ConfigurationViewModel: ObservableObject
             const OrbMethods orbMethod = OrbMethods.Weighted;
             Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
             Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();
+            Dictionary<AspectTypes, string> configAspectColors = DefineAspectColorSpecs();
             bool useCuspsForAspects = ApplyAspectsToCusps;
         
             AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-                configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
+                configChartPoints, configAspects, configAspectColors, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
             _model.UpdateConfig(config);
             MessageBox.Show(CONFIGURATION_SAVED);
             Log.Information("ConfigurationViewModel.SaveConfig(): send ConfigUpdatedMessage and CloseMessage");

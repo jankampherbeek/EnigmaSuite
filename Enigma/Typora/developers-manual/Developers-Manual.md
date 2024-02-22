@@ -1,6 +1,6 @@
 # Developers Documentation Enigma Research
 
-## Version 0.2
+## Version 0.3
 
 ## Enigma Research - introduction
 
@@ -202,15 +202,26 @@ The program saves the configuration as a dictionary. The key-value pairs in the 
 There are three groups of keys:
 * _keys for chart points_, these are prefixed with <strong>CP_</strong>, followed by an index that refers to the enum for chartpoints.
 * _keys for aspect types_, the prefix is <strong>AT_</strong>, followed by the index for the enum aspecttypes.
+* *keys for aspect line colors*, the prefix is **AC_**, followed by the index for the enum aspecttypes.
 * _all other keys_, no specific prefix. The key cannot start with one of the prefixes mentioned above.
 
-The values for both chart points and aspect types have the following structure:
+The values for both chart points and aspects uses the following structure:
 
 u||g||o||s
+
+The values for colors only shows the full name of the color:
+
+YellowGreen
+
 * **u** means 'use', enter 'y' if the chart point or aspect type should be used, otherwise 'n'.
+
 * **g** means 'glyph', enter the character or unicode for the glyph.
+
 * **o** means 'orb percentage', enter a value of 100 or lower.
+
 * **s** means 'show', enter 'y' if the chart point or aspect type should show in the graphic chart, otherwise 'n'. Enigma will support this in future releases.
+
+  
 
 An example: **y||a||100||y**  means: use this point or aspect, the glyph is 'a', the orb percentage is 100% and the chart drawing should show the point/aspect.
 

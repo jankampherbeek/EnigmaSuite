@@ -32,7 +32,7 @@ You can now define the colors for aspect lines - TODO
 
 The icon in the menu for secondary directions is now shown.
 
-No conjunctions in progressive aspects - TODO
+The positions for Hygeia and Astraea are now calculated.
 
 
 

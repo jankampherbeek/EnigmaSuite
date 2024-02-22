@@ -1,8 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Drawing;
 using Enigma.Core.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
@@ -20,6 +21,8 @@ public class TestConfigurationDelta
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsUpdated;
     private Dictionary<AspectTypes, AspectConfigSpecs> _aspectsDefault;
     private Dictionary<AspectTypes, AspectConfigSpecs> _aspectsUpdated;
+    private Dictionary<AspectTypes, string> _aspectColorsDefault;
+    private Dictionary<AspectTypes, string> _aspectColorsUpdated;
     
     private ConfigProg _configProgDefault;
     private ConfigProg _configProgUpdated;
@@ -35,6 +38,8 @@ public class TestConfigurationDelta
         _chartPointsUpdated = CreateChartPointsUpdated();
         _aspectsDefault = CreateAspectsDefault();
         _aspectsUpdated = CreateAspectsUpdated();
+        _aspectColorsDefault = CreateAspectColorsDefault();
+        _aspectColorsUpdated = CreateAspectColorsUpdated();
         _configDefault = CreateDefaultConfig();
         _configUpdated = CreateUpdatedConfig();
         _configProgDefault = CreateDefaultProgConfig();
@@ -188,6 +193,7 @@ public class TestConfigurationDelta
             OrbMethods.Weighted,
             _chartPointsDefault,
             _aspectsDefault,
+            _aspectColorsDefault,
             10,
             3,
             true);
@@ -203,7 +209,8 @@ public class TestConfigurationDelta
             ProjectionTypes.TwoDimensional,               // same
             OrbMethods.Weighted,                 // same
             _chartPointsUpdated,                          // different   
-            _aspectsUpdated,                              // different   
+            _aspectsUpdated,                              // different
+            _aspectColorsUpdated,                         // different  
             8,                               // different
             3,                              // same
             false);                       // different
@@ -320,7 +327,29 @@ public class TestConfigurationDelta
             { AspectTypes.Square, new AspectConfigSpecs(true, 'E', 100, true) }
         };
     }
+
+
+    private static Dictionary<AspectTypes, string> CreateAspectColorsDefault()
+    {
+        return new Dictionary<AspectTypes, string>
+        {
+            { AspectTypes.Conjunction, "Blue" },
+            { AspectTypes.Opposition, "Red" },
+            { AspectTypes.Triangle, "Green" },
+            { AspectTypes.Square, "Red" }
+        };
+    }
     
+    private static Dictionary<AspectTypes, string> CreateAspectColorsUpdated()
+    {
+        return new Dictionary<AspectTypes, string>
+        {
+            { AspectTypes.Conjunction, "Blue" },
+            { AspectTypes.Opposition, "Red" },
+            { AspectTypes.Triangle, "Gold" },
+            { AspectTypes.Square, "Red" }
+        };
+    }
     
     private static ConfigProgTransits CreateConfigProgTransitsDefault()
     {
