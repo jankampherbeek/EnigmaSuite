@@ -63,9 +63,9 @@ public class PdDataFromToPersistableConverter: IPdDataFromToPersistableConverter
         success = success && double.TryParse(elements[10].Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out geoLat);
         success = success && ConstructLocationName(elements[7], elements[8], geoLong, geoLat, out locationName); // city, country, longitude, latitude
         success = success && CalculateJd(elements[1],elements[2],elements[3],elements[4],elements[5],elements[6],elements[11], out jdForEt);  // y,m,d,h,m,s,offset
-        string source = "Not defined";
-        long chartCategoryId = 7;       // Undefined
-        long ratingId = 1;              // Unknown
+        const string source = "Not defined";
+        const long chartCategoryId = 7; // Undefined
+        const long ratingId = 1; // Unknown
         if (success)
         {
             PersistableChartIdentification pcIdent = new();
