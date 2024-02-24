@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
+using Enigma.Core.Calc;
 using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Support.Conversions;
@@ -53,8 +54,9 @@ public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
     /// <inheritdoc/>
     public string ConvertDoubleToDmInSignNoGlyph(double position)
     {
-        double remaining = Math.Abs(position);
-        int degrees = (int)position;
+        double posInRange = RangeUtil.ValueToRange(position, 0.0, 360.0);
+        double remaining = posInRange;
+        int degrees = (int)posInRange;
         int nrOfSigns = 1 + (degrees / 30);
         int degreesInSign = degrees - ((nrOfSigns - 1) * 30);
         remaining = Math.Abs(remaining - degrees);
@@ -65,8 +67,9 @@ public sealed class DoubleToDmsConversions : IDoubleToDmsConversions
     /// <inheritdoc/>
     public (string longTxt, char glyph) ConvertDoubleToDmsWithGlyph(double position)
     {
-        double remaining = position;
-        int degrees = (int)position;
+        double posInRange = RangeUtil.ValueToRange(position, 0.0, 360.0);
+        double remaining = posInRange;
+        int degrees = (int)posInRange;
         int nrOfSigns = 1 + (degrees / 30);
         int degreesInSign = degrees - ((nrOfSigns - 1) * 30);
         remaining = Math.Abs(remaining - degrees);

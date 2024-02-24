@@ -10,7 +10,7 @@ using Serilog;
 
 namespace Enigma.Core.Calc;
 
-/// <summary>Search for positions for  aspecific ChartPoint.</summary>
+/// <summary>Search for positions for a specific ChartPoint.</summary>
 public interface IPositionFinder
 {
     /// <summary>Search for a position for the Sun.</summary>

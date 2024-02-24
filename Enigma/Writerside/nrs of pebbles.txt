@@ -1,0 +1,17 @@
+
+s136108 Haumea
+s136199 Eris
+s136472 Makemake
+s999001 ?
+se07066 Nessus
+se20000 Varuna
+se28978 Ixion
+se38628 Huya
+se50000 Quaoar
+se90377 Sedna
+se90482 Orcus
+
+se10199 Chariklo  
+
+ 000005  Astraea
+ 000010  Hygiea

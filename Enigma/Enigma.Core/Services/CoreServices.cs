@@ -34,6 +34,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ICalcSymDirHandler, ProgSymDirHandler>();
         serviceCollection.AddTransient<ICalcTransitsHandler, ProgTransitsHandler>();
         serviceCollection.AddTransient<ICalculatedDistance, CalculatedDistance>();
+        serviceCollection.AddTransient<ICelPointFormulaCalc, CelPointFormulaCalc>();        
         serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();
         serviceCollection.AddTransient<ICelPointsElementsCalc, CelPointsElementsCalc>();
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
