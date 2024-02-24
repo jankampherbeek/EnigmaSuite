@@ -165,6 +165,37 @@ public partial class ConfigurationViewModel: ObservableObject
         return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), NumberStyles.Any, 
             CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
     }
+
+    private bool AreAspectLineColorsValid()
+    {
+        bool noErrors = true;
+        List<string> supportedColors = new()
+        {
+            "YellowGreen",
+            "Green",
+            "SpringGreen",
+            "Red",
+            "Magenta",
+            "Purple",
+            "Blue",
+            "DeepSkyBlue",
+            "CornflowerBlue",
+            "Gold",
+            "Orange",
+            "Gray",
+            "Silver",
+            "Black",
+            "Goldenrod"
+        };
+        foreach (var aspectColor in AllAspectColors)
+        {
+            if (!supportedColors.Contains(aspectColor.LineColor))
+            {
+                noErrors = false;
+            }
+        }
+        return noErrors;
+    }
     
     private string FindErrors()
     {
@@ -176,6 +207,11 @@ public partial class ConfigurationViewModel: ObservableObject
         if (!IsBaseOrbMidpointsValid())
         {
             errorsText.Append(StandardTexts.ERROR_ORB_MIDPOINTS + EnigmaConstants.NEW_LINE);
+        }
+
+        if (!AreAspectLineColorsValid())
+        {
+            errorsText.Append(StandardTexts.ERROR_ASPECT_COLORLINE + EnigmaConstants.NEW_LINE);
         }
         return errorsText.ToString();
     }

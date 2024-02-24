@@ -9,7 +9,8 @@ public static class StandardTexts
 {
     // Error texts
     public const string TITLE_ERROR = "Something is wrong.";
-    
+
+    public const string ERROR_ASPECT_COLORLINE = "Make sure all new colors are correctly spelled.";
     public const string ERROR_DATAFILE_MISSING = "There is no datafile available. Please import a datafile.";
     public const string ERROR_DATE = "Enter a correct value for the date.";
     public const string ERROR_DEGREE = "Enter a proper value for the degrees.";
