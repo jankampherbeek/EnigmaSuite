@@ -109,11 +109,7 @@ public class ConfigurationModel
             select new AspectColor(aspect.Aspect, aspect.Glyph, aspect.Text, configColorAspect.Value)).ToList();
     }
     
-    
 }
-
-
-
 
 
 public class GeneralPoint

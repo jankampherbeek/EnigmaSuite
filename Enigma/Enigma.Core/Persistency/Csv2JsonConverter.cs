@@ -3,8 +3,12 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Globalization;
 using System.Text.Json;
+using Enigma.Core.Handlers;
 using Enigma.Domain.Persistables;
+using Enigma.Domain.References;
+using Serilog;
 
 namespace Enigma.Core.Persistency;
 
@@ -15,9 +19,12 @@ public interface ICsv2JsonConverter
     /// <remarks>Creates a list of lines that could not be processed.</remarks>
     /// <param name="csvLines">The csv lines to convert.</param>
     /// <param name="dataName">Name for the data.</param>
-    /// <returns>Tuple with three items: a boolean that indicates if the conversion was succesfull, a string with the json,  
-    /// and a list with csv-lines that caused an error. It the first item is true, the list with error-lines should be empty.</returns>
-    public Tuple<bool, string, List<string>> ConvertStandardDataCsvToJson(List<string> csvLines, string dataName);
+    /// <param name="dataType">Type of research data.</param>
+    /// <returns>Tuple with three items: a boolean that indicates if the conversion was succesfull,
+    /// a string with the json, and a list with csv-lines that caused an error.
+    /// If the first item is true, the list with error-lines should be empty.</returns>
+    public Tuple<bool, string, List<string>> ConvertResearchDataCsvToJson(List<string> csvLines, string dataName, 
+        ResearchDataTypes dataType);
     
 }
 
@@ -39,7 +46,7 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
 
    
     /// <inheritdoc/>
-    public Tuple<bool, string, List<string>> ConvertStandardDataCsvToJson(List<string> csvLines, string dataName)
+    public Tuple<bool, string, List<string>> ConvertResearchDataCsvToJson(List<string> csvLines, string dataName, ResearchDataTypes dataType)
     {
         bool noErrors = true;
         int count = csvLines.Count;
@@ -47,7 +54,22 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
         List<string> resultLines = new();
         for (int i = 1; i < count; i++)           // skip first line that contains header
         {
-            Tuple<StandardInputItem?, bool> processedLine = ProcessStandardLine(csvLines[i]);
+            if (dataType == ResearchDataTypes.PlanetDance && i <= 1) continue; // skip second line from PlanetDance data
+            Tuple<StandardInputItem?, bool> processedLine;
+            switch (dataType)
+            {
+
+                case ResearchDataTypes.StandardEnigma:
+                    processedLine = ProcessStandardLine(csvLines[i]);
+                    break;
+                case ResearchDataTypes.PlanetDance:
+                    processedLine = ProcessPlanetDanceLine(csvLines[i]);                        
+                    break;
+                default:
+                    Log.Error("Csv2JsonConverter.ConvertResearchDataToJson receive an unsupported instance of ResearchDataTypes: {DataType}", dataType);
+                    throw new ArgumentException("Unknown type for research data.");
+            }
+            
             if (!processedLine.Item2 || processedLine.Item1 == null)
             {
                 resultLines.Add("Error: " + csvLines[i]);
@@ -108,50 +130,51 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
         return new Tuple<StandardInputItem?, bool>(inputItem, noErrors);
     }
 
-    /*Id,Name,longitude,latitude,date,cal,time,zone,dst
-107, Leonardo da Vinci, 10:55:0:E, 43:47:0:N, 1452/4/14, J, 21:40, 0.7277778, 0
-108, Albrecht Dürer, 11:04:0:E, 49:27:0:N, 1471/5/21, J, 11:00, 0.7377778, 0
-109, Michelangelo Buonarotti, 11:59:0:E, 43:39:0:N, 1475/3/6, J, 1:45, 0.7988888, 0*/
 
     private Tuple<StandardInputItem?, bool> ProcessPlanetDanceLine(string csvLine)
     {
-        bool noErrors = true;
+        bool success = true;
         StandardInputItem? inputItem = null;
         try
-        {
-            string[] csvElements = csvLine.Split(",");
+        {   // Rumen Kolev;1960;11;29;3;0;50;Varna;Bulgaria;27.916667;43.216667;2.000000;
+            
+            
+            
+            string[] csvElements = csvLine.Split(";");
             string id = csvElements[0];
-            string name = csvElements[1];
-            string geoLongText = csvElements[2];
-            string geoLatText = csvElements[3];
-            string dateText = csvElements[4];
-            string calendarText = csvElements[5];
-            string timeText = csvElements[6];
-            string zoneOffsetText = csvElements[7];
-            string dstText = csvElements[8];
-            Tuple<double, bool> result = _locationCheckedConversion.StandardCsvToLongitude(geoLongText);
-            double geoLongitude = 0.0;
-            if (result.Item2) geoLongitude = result.Item1;
-            else noErrors = false;
-            result = _locationCheckedConversion.StandardCsvToLatitude(geoLatText);
-            double geoLatitude = 0.0;
-            if (result.Item2) geoLatitude = result.Item1;
-            else noErrors = false;
+            string name = csvElements[0];
+            success = double.TryParse(csvElements[9].Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out double geoLong);
+            double geoLat = 0.0;
+            success = success && double.TryParse(csvElements[10].Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out geoLat);
+            string yearTxt = csvElements[1];    
+            string monthTxt = csvElements[2];
+            string dayTxt = csvElements[3];
+            string dateTxt = yearTxt + "/" + monthTxt + "/" + dayTxt;
+            string hourTxt = csvElements[4];
+            string minuteTxt = csvElements[5];
+            string secondTxt = csvElements[6];
+            string timeTxt = hourTxt + ":" + minuteTxt + ":" + secondTxt;
+            string calendarTxt = "G";
+            string zoneOffsetTxt = csvElements[11];
+            string dstTxt = "0";        // the DST is already included in the offset
+            
             PersistableDate? date = null;
-            Tuple<PersistableDate, bool> dateResult = _dateCheckedConversion.StandardCsvToDate(dateText, calendarText);
+            Tuple<PersistableDate, bool> dateResult = _dateCheckedConversion.StandardCsvToDate(dateTxt, calendarTxt);
             if (dateResult.Item2) date = dateResult.Item1;
-            else noErrors = false;
+            else success = false;
             PersistableTime? time = null;
-            Tuple<PersistableTime, bool> timeResult = _timeCheckedConversion.StandardCsvToTime(timeText, zoneOffsetText, dstText);
+            Tuple<PersistableTime, bool> timeResult = _timeCheckedConversion.StandardCsvToTime(timeTxt, zoneOffsetTxt, dstTxt);
             if (timeResult.Item2) time = timeResult.Item1;
-            else noErrors = false;
-            inputItem = new StandardInputItem(id, name, geoLongitude, geoLatitude, date, time);
+            else success = false;
+            if (success) inputItem = new StandardInputItem(id, name, geoLong, geoLat, date, time);
         }
         catch (Exception)
         {
-            noErrors = false;
+            success = false;
         }
-        return new Tuple<StandardInputItem?, bool>(inputItem, noErrors);
+        return new Tuple<StandardInputItem?, bool>(inputItem, success);
     }
+    
+
 }
 

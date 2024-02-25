@@ -5,6 +5,7 @@
 
 using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Handlers;
@@ -16,8 +17,9 @@ public interface IDataImportHandler
     /// <summary>Import a datafile in standard csv and convert it to Json.</summary>
     /// <param name="fullPathSource">Full path to the file to read.</param>
     /// <param name="dataName">Name for the data.</param>
+    /// <param name="dataType">Type of research data.</param>
     /// <returns>Resultmessage with a description of the action.</returns>
-    public ResultMessage ImportStandardData(string fullPathSource, string dataName);
+    public ResultMessage ImportStandardData(string fullPathSource, string dataName, ResearchDataTypes dataType);
 }
 
 
@@ -29,7 +31,8 @@ public sealed class DataImportHandler : IDataImportHandler
     private readonly ITextFileWriter _textFileWriter;
     private readonly ICsv2JsonConverter _csv2JsonConverter;
 
-    public DataImportHandler(IFileCopier fileCopier, ITextFileReader textFileReader, ITextFileWriter textFileWriter, ICsv2JsonConverter csv2JsonConverter)
+    public DataImportHandler(IFileCopier fileCopier, ITextFileReader textFileReader, ITextFileWriter textFileWriter, 
+        ICsv2JsonConverter csv2JsonConverter)
     {
         _fileCopier = fileCopier;
         _textFileReader = textFileReader;
@@ -38,14 +41,17 @@ public sealed class DataImportHandler : IDataImportHandler
     }
 
     /// <inheritdoc/>
-    public ResultMessage ImportStandardData(string fullPathSource, string dataName)
+    public ResultMessage ImportStandardData(string fullPathSource, string dataName, ResearchDataTypes dataType)
     {
-        string fullCsvPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
-        string fullJsonPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
+        string fullCsvPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
+                             Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
+        string fullJsonPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
+                              Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
         string fullErrorPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
         _fileCopier.CopyFile(fullPathSource, fullCsvPath);
         List<string> csvLines = _textFileReader.ReadAllLines(fullCsvPath);
-        (bool item1, string? jsonText, List<string>? errorLines) = _csv2JsonConverter.ConvertStandardDataCsvToJson(csvLines, dataName);
+        (bool item1, string? jsonText, List<string>? errorLines) = 
+            _csv2JsonConverter.ConvertResearchDataCsvToJson(csvLines, dataName, dataType);
         if (item1)
         {
             _textFileWriter.WriteFile(fullJsonPath, jsonText);
