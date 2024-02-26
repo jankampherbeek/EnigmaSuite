@@ -1,4 +1,4 @@
-# User Manual Enigma Astrology Research - Release 0.2
+# User Manual Enigma Astrology Research - Release 0.3
 
 ## Introduction
 
@@ -90,7 +90,7 @@ Click the Enigma icon to start the program, or search for Enigma in your windows
 
 You will see a window with two images, one labeled *Charts* and one labeled *Research*.
 
-![](start.png){width="400"}
+![](start.png){width="300"}
 
 Click an image to go to the corresponding module. 
 If you finish working in a module, you will return to this start window and can make another selection.

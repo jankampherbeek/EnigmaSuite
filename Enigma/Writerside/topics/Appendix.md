@@ -118,7 +118,8 @@ You can add many other points to the calculation:
 
 - **Arabic parts**: Pars Fortunae, both with and without sect.
 
-- **Mathematical points**: Mean Node and True Node, the vernal point (Zero Aries) and three calculations for the apogee of the Moon: Mean, Corrected and Interpolated. The corrected version is according to the most recent lunar theories. I will add the apogee according to Duval in a later release (approximated calculation by Cees Jansen).
+- **Mathematical points**: Mean Node and True Node, the vernal point (Zero Aries) and foour calculations for the apogee of the Moon: 
+- Mean, Corrected, Interpolated and according to Duval (calculation by Cees Jansen).
 
 - **Centaurs**: Chiron, Nessus and Pholus.
 
@@ -134,7 +135,7 @@ You can add many other points to the calculation:
 
     - **Transpluto**, also called Isis, as described by Theodor Landscheidt.
 
-    - **Carteret**: Vulcanus and Perpsephone, as proposed by Jean Carteret, will be available in a future release.
+    - **Carteret**: Vulcanus and Perpsephone, as proposed by Jean Carteret.
 
 ## Supported periods for calculations
 
@@ -198,7 +199,7 @@ In other research projects, you use the orbs as defined in the configuration.
 Enigma supports a proprietary data-file and also the import of data from PlanetDance. 
 Later versions will add support for data for progressive techniques.
 
-### Enigma proprietary format 
+### Enigma standard data 
 
 You can create your own data-file using the csv format (Comma Separated Values). 
 This is a simple text file with one line per chart. 
@@ -257,6 +258,25 @@ Make sure that you use a comma as a separator and do not use quotes.
 If you perform a test, Enigma will create several result files. You can find these files in the folder *c:\enigma_ar\project\\[projectname\]\results .*
 
 Replace \[projectname\] with the name you used for the project.
+
+## Format in exported file from PlanetDance
+
+The first lines from a file as exported from PlanetDance:
+
+Name;Year;Month;Day;Hour;Min;Sec;Place;Country;Lon;Lat;Zone;
+
+Alistair Crowley;1875;10;12;23;30;0;Leamington;United Kingdom;-1.533333;52.300000;0.000000;
+Allen, Woody;1935;12;1;22;55;0;Bronxville NY;United States;-73.833333;40.933333;-5.000000;
+
+The first line contains descriptive labels, the second line is empty, and the following files contain data.
+You will find the following items:
+•	The name.
+•	Year, month, day, hour, min, and sec, all as integers.
+•	Place and country
+•	Longitude and latitude as floating point decimals
+•	The time zone, defined as a floating point decimal with the difference between clock time and universal time.
+
+
 
 **Counts**
 
@@ -369,23 +389,9 @@ For the control group type *Standard shifting of location, date, and time*, Enig
     - Combine the elements at the top of each collection into a new chart. Make sure that only applicable months combine with dates larger than 28.
 
     - Remove the used elements.
+  
       
-## Format in exported file from PlanetDance
-   
-   The first lines from a file as exported from PlanetDance:
 
-   Name;Year;Month;Day;Hour;Min;Sec;Place;Country;Lon;Lat;Zone;
-
-   Alistair Crowley;1875;10;12;23;30;0;Leamington;United Kingdom;-1.533333;52.300000;0.000000;
-   Allen, Woody;1935;12;1;22;55;0;Bronxville NY;United States;-73.833333;40.933333;-5.000000;
-
-The first line contains descriptive labels, the second line is empty, and the following files contain data. 
-You will find the following items:
-•	The name.
-•	Year, month, day, hour, min, and sec, all as integers.
-•	Place and country
-•	Longitude and latitude as floating point decimals
-•	The time zone, defined as a floating point decimal with the difference between clock time and universal time.
 
 ## More information
 

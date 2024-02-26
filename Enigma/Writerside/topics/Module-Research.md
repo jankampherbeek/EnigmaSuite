@@ -9,7 +9,7 @@ This will open the start screen for this module.
 
 Initially, the screen will not show any projects as you need to create these projects first. 
 And a project requires data. A data file needs to have a specific format.
-In the _Appendix - Format for data files_ in this manual, you will find a definition of this format.
+In the _Appendix - Format for data files_ in this manual, you will find a definition for all supported formats.
 
 After reading a data file, Enigma converts it into an internal format.
 
@@ -20,8 +20,12 @@ Click the menu option **Data** - **Import data**. You will see the screen _Data 
 
 ![data-file-import.png](data-file-import.png) {width="400"}
 
-Select your data file by clicking the button **Browse**. 
-Also, enter a name for your dataset and click the button **Import**.
+Enigma supports two types of data:
+- Enigma standard format
+- PlanetDance: exported data
+
+Select the type of data. Also select your data file by clicking the button **Browse**. 
+Enter a name for your dataset and click the button **Import**.
 
 Enigma saves all files in the folder c:\enigma_ar\data. It creates a separate folder for each data file.
 In each of these folders, you will see the sub-folders _csv_ and _json_. 

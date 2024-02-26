@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Data File Import" Height="380" Width="540">
+        Title="Enigma - Data File Import" Height="440" Width="540">
     <Window.Resources>
         <viewModels:DatafileImportViewModel x:Key="ViewModel"/>
     </Window.Resources>
