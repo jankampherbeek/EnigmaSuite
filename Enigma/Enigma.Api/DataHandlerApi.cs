@@ -5,6 +5,7 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Handlers;
+using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 using Serilog;
 
@@ -17,8 +18,11 @@ public interface IDataHandlerApi
     /// <remarks>Locations for the files are retrieved from the application settings.</remarks>
     /// <param name="sourceFile">Path to the source file.</param>
     /// <param name="dataName">Name for the datafile.</param>
+    /// <param name="dataType">Type of research data.</param>
     /// <returns>Resultmessage with info about this action.</returns>
-    public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName);
+    public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName, ResearchDataTypes dataType);
+
+
 }
 
 /// <summary>Api for managing the file system.</summary>
@@ -59,11 +63,11 @@ public sealed class DataHandlerApi : IDataHandlerApi
 
 
     /// <inheritdoc/>
-    public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName)
+    public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName, ResearchDataTypes dataType)
     {
         Guard.Against.NullOrEmpty(dataName);
         Log.Information("DataHandlerApi ConvertDataFile2Json, using sourceFile {Source} and dataName {Data}", sourceFile, dataName);
-        return _dataImportHandler.ImportStandardData(sourceFile, dataName);
+        return _dataImportHandler.ImportStandardData(sourceFile, dataName, dataType);
     }
 }
 

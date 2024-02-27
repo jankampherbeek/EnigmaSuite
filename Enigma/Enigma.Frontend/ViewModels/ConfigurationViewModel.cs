@@ -50,6 +50,7 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allProjectionTypes;
     [ObservableProperty] private ObservableCollection<GeneralPoint> _allGeneralPoints;
     [ObservableProperty] private ObservableCollection<GeneralAspect> _allAspects;
+    [ObservableProperty] private ObservableCollection<AspectColor> _allAspectColors;
     [ObservableProperty] private ObservableCollection<string> _allOrbMethods;
 
     
@@ -75,6 +76,7 @@ public partial class ConfigurationViewModel: ObservableObject
         AllObserverPositions = new ObservableCollection<string>(ConfigurationModel.AllObserverPositions());
         AllProjectionTypes = new ObservableCollection<string>(ConfigurationModel.AllProjectionTypes());
         AllGeneralPoints = new ObservableCollection<GeneralPoint>(ConfigurationModel.AllGeneralPoints());
+        AllAspectColors = new ObservableCollection<AspectColor>(ConfigurationModel.AllAspectColors());
         AllAspects = new ObservableCollection<GeneralAspect>(ConfigurationModel.AllAspects());
         AllOrbMethods = new ObservableCollection<string>(ConfigurationModel.AllOrbMethods());
         
@@ -104,7 +106,19 @@ public partial class ConfigurationViewModel: ObservableObject
          return AllGeneralPoints.ToDictionary(point => point.ChartPoint, 
              point => new ChartPointConfigSpecs(point.IsUsed, point.Glyph, point.OrbPercentage, point.ShowInChart));
      }
-    
+
+     private Dictionary<AspectTypes, string> DefineAspectColorSpecs()
+     {
+         Dictionary<AspectTypes, string> allColors = new Dictionary<AspectTypes, string>();
+         foreach (var aspectColor in AllAspectColors)
+         {
+             AspectTypes aspect = aspectColor.AspectType;
+             string color = aspectColor.LineColor;
+             allColors.Add(aspect, color);
+         }
+         return allColors;
+     }
+   
     
     [RelayCommand]
     private void SaveConfig()
@@ -121,10 +135,11 @@ public partial class ConfigurationViewModel: ObservableObject
             const OrbMethods orbMethod = OrbMethods.Weighted;
             Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
             Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();
+            Dictionary<AspectTypes, string> configAspectColors = DefineAspectColorSpecs();
             bool useCuspsForAspects = ApplyAspectsToCusps;
         
             AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-                configChartPoints, configAspects, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
+                configChartPoints, configAspects, configAspectColors, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
             _model.UpdateConfig(config);
             MessageBox.Show(CONFIGURATION_SAVED);
             Log.Information("ConfigurationViewModel.SaveConfig(): send ConfigUpdatedMessage and CloseMessage");
@@ -150,6 +165,37 @@ public partial class ConfigurationViewModel: ObservableObject
         return double.TryParse(BaseOrbMidpointsText.Replace(',', '.'), NumberStyles.Any, 
             CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
     }
+
+    private bool AreAspectLineColorsValid()
+    {
+        bool noErrors = true;
+        List<string> supportedColors = new()
+        {
+            "YellowGreen",
+            "Green",
+            "SpringGreen",
+            "Red",
+            "Magenta",
+            "Purple",
+            "Blue",
+            "DeepSkyBlue",
+            "CornflowerBlue",
+            "Gold",
+            "Orange",
+            "Gray",
+            "Silver",
+            "Black",
+            "Goldenrod"
+        };
+        foreach (var aspectColor in AllAspectColors)
+        {
+            if (!supportedColors.Contains(aspectColor.LineColor))
+            {
+                noErrors = false;
+            }
+        }
+        return noErrors;
+    }
     
     private string FindErrors()
     {
@@ -161,6 +207,11 @@ public partial class ConfigurationViewModel: ObservableObject
         if (!IsBaseOrbMidpointsValid())
         {
             errorsText.Append(StandardTexts.ERROR_ORB_MIDPOINTS + EnigmaConstants.NEW_LINE);
+        }
+
+        if (!AreAspectLineColorsValid())
+        {
+            errorsText.Append(StandardTexts.ERROR_ASPECT_COLORLINE + EnigmaConstants.NEW_LINE);
         }
         return errorsText.ToString();
     }

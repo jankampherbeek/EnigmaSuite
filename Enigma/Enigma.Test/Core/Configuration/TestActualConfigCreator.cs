@@ -1,8 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Drawing;
 using Enigma.Core.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
@@ -132,11 +133,12 @@ public class TestActualConfigCreator
         const OrbMethods orbMethod = OrbMethods.Weighted;
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
         Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = CreateAspects();
+        Dictionary<AspectTypes, string> aspectColorSpecs = CreateAspectColors();
         const double baseOrbAspects = 10.0;
         const double baseOrbMidpoints = 1.6;
         const bool useCuspsForAspects = false;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-            chartPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
+            chartPointsSpecs, aspectSpecs, aspectColorSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
     }
 
     private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()
@@ -159,7 +161,16 @@ public class TestActualConfigCreator
             { AspectTypes.Triangle, new AspectConfigSpecs(true, 'D', 85, true) }
         };
     }
-    
+
+    private static Dictionary<AspectTypes, string> CreateAspectColors()
+    {
+        return new Dictionary<AspectTypes, string>
+        {
+            { AspectTypes.Conjunction, "Blue" },
+            { AspectTypes.Opposition, "Red" },
+            { AspectTypes.Triangle, "Green" }
+        };
+    }
     
     private static Dictionary<string, string> CreateDeltas()
     {

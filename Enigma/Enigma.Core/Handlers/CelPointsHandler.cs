@@ -32,9 +32,11 @@ public interface ICalcChartsRangeHandler
 /// <inheritdoc/>
 public sealed class CelPointsHandler : ICelPointsHandler
 {
+    private const double ZERO = 0.0;
     private readonly ISeFlags _seFlags;
     private readonly ICelPointSeCalc _celPointSeCalc;
     private readonly ICelPointsElementsCalc _celPointElementsCalc;
+    private readonly ICelPointFormulaCalc _celPointFormulaCalc;
     private readonly ICoTransFacade _coordinateConversionFacade;
     private readonly IHorizontalHandler _horizontalHandler;
     private readonly IChartPointsMapping _chartPointsMapping;
@@ -46,6 +48,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     public CelPointsHandler(ISeFlags seFlags,
                                ICelPointSeCalc positionCelPointSeCalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
+                               ICelPointFormulaCalc celPointFormulaCalc,
                                ICoTransFacade coordinateConversionFacade,
                                IHorizontalHandler horizontalHandler,
                                IChartPointsMapping chartPointsMapping,
@@ -56,6 +59,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
         _seFlags = seFlags;
         _celPointSeCalc = positionCelPointSeCalc;
         _celPointElementsCalc = posCelPointsElementsCalc;
+        _celPointFormulaCalc = celPointFormulaCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
         _horizontalHandler = horizontalHandler;
         _chartPointsMapping = chartPointsMapping;
@@ -65,7 +69,8 @@ public sealed class CelPointsHandler : ICelPointsHandler
     }
 
 
-    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs)
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, 
+        double armc, Location location, CalculationPreferences prefs)
     {
         List<ChartPoints> allCelPoints = prefs.ActualChartPoints;
         List<ChartPoints> celPoints = allCelPoints.Where(point => _periodSupportChecker.IsSupported(point, jdUt)).ToList();
@@ -110,6 +115,17 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
                     FullPointPos fullPointPos = _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeeds, equatorialPosSpeeds, horCoord);
                     commonPoints.Add(celPoint, fullPointPos);
+                    break;
+                }
+                case CalculationCats.CommonFormula:
+                {
+                    double longitude = CreateLongitudeForFormulaPoint(celPoint, jdUt);
+                    List<double> posSpeedValues = new() { longitude, ZERO, ZERO, ZERO, ZERO, ZERO };
+                    List<double> emptyPosSpeedValues = new() { ZERO, ZERO, ZERO, ZERO, ZERO, ZERO };
+                    PointPosSpeeds posSpeeds = new PointPosSpeeds(posSpeedValues);
+                    PointPosSpeeds emptyPosSpeeds = new PointPosSpeeds(emptyPosSpeedValues);
+                    FullPointPos fpPos = new FullPointPos(posSpeeds, emptyPosSpeeds, emptyPosSpeeds);
+                    commonPoints.Add(celPoint, fpPos);
                     break;
                 }
             }
@@ -173,5 +189,11 @@ public sealed class CelPointsHandler : ICelPointsHandler
         double[] eclipticPos = _celPointElementsCalc.Calculate(celPoint, julDay, observerPosition);
         double[] equatorialPos = _coordinateConversionFacade.EclipticToEquatorial(new[] { eclipticPos[0], eclipticPos[1] }, obliquity);
         return new[] { eclipticPos, equatorialPos };
+    }
+    
+    private double CreateLongitudeForFormulaPoint(ChartPoints celPoint, double julDay)
+    {
+        return _celPointFormulaCalc.Calculate(celPoint, julDay);
+
     }
 }

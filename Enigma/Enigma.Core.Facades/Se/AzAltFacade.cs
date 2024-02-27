@@ -38,7 +38,7 @@ public class AzAltFacade : IAzAltFacade
     {
         double[] horizontalCoordinates = new double[3];  // at index 2 the apparent altitude is given, which is ignored.
         int result = ext_swe_azalt(julianDayUt, flags, geoGraphicCoordinates, 0, 0, equCoordinates, horizontalCoordinates);
-        if (result >= 0) Log.Error("AzAltFace.RetrieveHorizontalCoordinates returns a negative result {Result}", result); 
+        if (result < 0) Log.Error("AzAltFace.RetrieveHorizontalCoordinates returns a negative result {Result}", result); 
         return new[] { horizontalCoordinates[0], horizontalCoordinates[1] };
     }
 

@@ -1,6 +1,6 @@
 # Developers Documentation Enigma Research
 
-## Version 0.2
+## Version 0.3
 
 ## Enigma Research - introduction
 
@@ -89,7 +89,7 @@ The code of Enigma comprises 6 separate projects:
 The frontend uses WPF and XAML. I also considered Avalonia, which supports multiple environments and improves the XAML syntax. But Avalonia does not support as many NuGet packages as plain WPF does. It does not support the material design package, which was a no-go for me.
 
 #### Frontend specifics
-The frontend uses the MVVM pattern. Navigation between views in the frontend goes primarily via messaging.
+The frontend uses the MVVM pattern. Navigation between views in the frontend goes partly via messaging.
 The look-and-feel is loosely based on Material Design.
 
 #### Separation of frontend and backend
@@ -103,6 +103,10 @@ Separate classes, that react on messages, handle the creation and termination of
 I use NUnit for unit testing. I believe testing is very important though I am not religious about Test Driven Development.
 Enigma does not yet support integration tests but I want to add that in a future release.
 
+#### Interfacing
+
+Most classes are based on an interface. Interfaces and classes share the same file. 
+
 
 
 ### Using the Swiss Ephemeris
@@ -111,11 +115,9 @@ For astronomical calculations, I use the Swiss Ephemeris (SE). The SE comprises 
 As an example for the definitions I used the file swissdelphi.pas that Pierre Fontaine and others created to access 
 the same dll from Delphi.
 
-
-
 ### Icons
 
-All icons in Enigma, except the main icon that appears on the screen, are from the icon set by Google, used for 
+All icons in Enigma, except the main icon that appears on the Windows screen, are from the icon set by Google, used for 
 Material Design. You can download the originals at https://fonts.google.com/icons .
 
 
@@ -174,6 +176,28 @@ The School of Ram supports a solution for the projection of the solar system bod
 
 Enigma implements a dedicated calculation of this oblique longitude. 
 
+### Black Lights Astrology: hypothetical planets
+
+Black Lights Astrology is a system based on the astrology of Dom Neroman, Jean Carteret, and George Bode. Jean Carteret introduced two hypothetical planets: Persephone and Vulcanus. There are no orbital elements known, only a short ephemeris with yearly positions. You can find this ephemeris in: *De Nieuwe Planeten* by George Bode (Dutch, Amsterdam, 1981). The ephemeris show a fully linear orbit for both hypothetical planets. Bode also mentions that an insecurity of 3 degrees should be taken into account. These bodies obviously do not adhere to the laws of Kepler and do not show retrogradation. That could be explained by considering them as non-material points.
+
+The calculation is based on the positions at Jan. 1, 1900 0:00 . For Persephone, that is 2°00' Scorpio, for Vulcanus 15°42' Aries.
+
+The yearly speed for Persephone is exactly 1°00', for Vulcanus 0°33'. For the calculations. The ephemeris uses a calendar year, Enigma uses the mean length of a year instead.
+
+### Black Lights Astrology: corrected Apogee
+
+The lunar Apogee, also called *Black Moon*, is an important point in Black Lights Astrology. Due to the extremely irregular orbit of the moon, the calculation is not straightforward. Several solutions for the calculation of a corrected position have been suggested. For an in depth discussion I highly recommend *Lilith und Priapus - die "Schalen" des Menschen* by Dieter Koch and Bernhard Rindgen (German, Frankfurt a.M., 2000) .
+
+The most popular calculation in Black Lights Astrology is the ony as described by Max Duval and calculated by Jean-Marc Font, for which an ephemeris is available: *Tables do Noeud Lunaire, de Lilith et du Soleil Noir* (French, Paris, 1988). Unfortunately, Duval refused to publish the astronomical theory and the formulas that he used. However, in 2021 Cees Jansen published an article *Over het Apogeum van de Maan en de Gecorrigeerde Zwarte Maan* (Dutch, in NVWOA Nieuwsbrief vol. 26, no. 5, may 2021. https://www.nvwoa.nl/nb/2021nb26-5.pdf ) in which he presented a formula that almost exactly replicates the positions as calculated by Duval and Font. In this formula, he uses the distance between Moon and the uncorrected lunar apogee to calculate a correction factor that is algebraically added to the uncorrected position. 
+
+The formula is: 
+$$
+φcD = 12.37 . sin [2(φ - 11.726 . sin(2φ))] + (8.8/60) . sin(6φ)
+$$
+φcD is the correction to the uncorrected longitude of the apogee, φ is the distance between Sun and uncorrected apogee.
+
+
+
 
 
 ## Research
@@ -202,15 +226,26 @@ The program saves the configuration as a dictionary. The key-value pairs in the 
 There are three groups of keys:
 * _keys for chart points_, these are prefixed with <strong>CP_</strong>, followed by an index that refers to the enum for chartpoints.
 * _keys for aspect types_, the prefix is <strong>AT_</strong>, followed by the index for the enum aspecttypes.
+* *keys for aspect line colors*, the prefix is **AC_**, followed by the index for the enum aspecttypes.
 * _all other keys_, no specific prefix. The key cannot start with one of the prefixes mentioned above.
 
-The values for both chart points and aspect types have the following structure:
+The values for both chart points and aspects uses the following structure:
 
 u||g||o||s
+
+The values for colors only shows the full name of the color:
+
+YellowGreen
+
 * **u** means 'use', enter 'y' if the chart point or aspect type should be used, otherwise 'n'.
+
 * **g** means 'glyph', enter the character or unicode for the glyph.
+
 * **o** means 'orb percentage', enter a value of 100 or lower.
+
 * **s** means 'show', enter 'y' if the chart point or aspect type should show in the graphic chart, otherwise 'n'. Enigma will support this in future releases.
+
+  
 
 An example: **y||a||100||y**  means: use this point or aspect, the glyph is 'a', the orb percentage is 100% and the chart drawing should show the point/aspect.
 
@@ -274,9 +309,8 @@ Enigma is in beta. There is plenty of room for improvement. I intend to finish t
    1. Improving the coverage for unit tests.
    2. Adding integration tests.
 3. Code:
-   1. Combining interfaces and implementations in the same file.
-   2. Replacing several enums with lookup tables in the database.
-   3. Solving most warnings.
+   1. Replacing several enums with lookup tables in the database.
+   2. Solving most warnings.
 
 
 

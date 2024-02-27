@@ -41,7 +41,7 @@ public sealed class ChartPointsMapping : IChartPointsMapping
         int pointId = (int)point;
         return pointId switch
         {
-            // celestial points
+            // celestial points, < 1000 to avoid cusps etc.
             < 1000 when _elementsCandidates.Contains(point) => CalculationCats.CommonElements,
             < 1000 when _formulaCandidates.Contains(point) => CalculationCats.CommonFormula,
             < 1000 => CalculationCats.CommonSe,

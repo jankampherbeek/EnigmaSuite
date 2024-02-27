@@ -155,8 +155,68 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
-             
-            
+            <TabItem Header="Colors">
+                <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75*"/>
+                        <ColumnDefinition Width="25*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="6*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Colors" Name="SubHeaderColors"
+                        Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
+                    <DataGrid Grid.Row="1" Grid.Column="0" Grid.RowSpan="15" Margin="6" HorizontalAlignment="Left"
+                        materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                        materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                        CanUserAddRows="False" CanUserSortColumns="False"
+                        AutoGenerateColumns="False"
+                        HeadersVisibility="All"
+                        ItemsSource="{Binding AllAspectColors}"
+                        SelectionUnit="FullRow">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Glyph}" Header=" " CellStyle="{StaticResource GlyphColumnStyle}"
+                                            IsReadOnly="True"/>
+                        <DataGridTextColumn Binding="{Binding AspectName}" Header="Aspect" CellStyle="{StaticResource NameColumnStyle}"
+                                            IsReadOnly="True"/>
+                        <materialDesign:DataGridTextColumn Binding="{Binding LineColor}"  
+                                                           EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                           ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                           Header="Color" IsReadOnly="False"/>
+                        </DataGrid.Columns>   
+                    </DataGrid>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Padding="3" VerticalAlignment="Center" Text="Black" Name="ColorBlack" FontWeight="Bold" />                    
+                    <TextBlock Grid.Row="2" Grid.Column="1" Padding="3" VerticalAlignment="Center" Text="Gray" Name="ColorGray" FontWeight="Bold" />
+                    <TextBlock Grid.Row="3" Grid.Column="1" Padding="3" VerticalAlignment="Center" Text="Silver" Name="ColorSilver" FontWeight="Bold" />
+                    <TextBlock Grid.Row="4" Grid.Column="1" Padding="3" VerticalAlignment="Center" Text="Red" Name="ColorRed" FontWeight="Bold" />
+                    <TextBlock Grid.Row="5" Grid.Column="1" Padding="3" VerticalAlignment="Center" Text="Orange" Name="ColorOrange" FontWeight="Bold" />
+                    <TextBlock Grid.Row="6" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="Gold" Name="ColorGold" FontWeight="Bold" />
+                    <TextBlock Grid.Row="7" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="Goldenrod" Name="ColorGoldenrod" FontWeight="Bold" />
+                    <TextBlock Grid.Row="8" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="YellowGreen" Name="ColorYellowGreen" FontWeight="Bold" />
+                    <TextBlock Grid.Row="9" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="SpringGreen" Name="ColorSpringGreen" FontWeight="Bold" />
+                    <TextBlock Grid.Row="10" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="Green" Name="ColorGreen" FontWeight="Bold" />
+                    <TextBlock Grid.Row="11" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="Blue" Name="ColorBlue" FontWeight="Bold" />
+                    <TextBlock Grid.Row="12" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="DeepSkyBlue" Name="ColorDeepSkyBlue" FontWeight="Bold" />
+                    <TextBlock Grid.Row="13" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="CornflowerBlue" Name="ColorCornflowerBlue" FontWeight="Bold" />
+                    <TextBlock Grid.Row="14" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="Magenta" Name="ColorMagenta" FontWeight="Bold" />
+                    <TextBlock Grid.Row="15" Grid.Column="1" Padding="3" VerticalAlignment="Center"  Text="Purple" Name="ColorPurple" FontWeight="Bold" />
+                </Grid>
+            </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>

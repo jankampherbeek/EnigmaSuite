@@ -28,6 +28,7 @@ public class TestDescriptiveChartText
     private const OrbMethods ORB_METHOD = OrbMethods.Weighted;
     private readonly Dictionary<ChartPoints, ChartPointConfigSpecs?> _chartPoints = new();
     private readonly Dictionary<AspectTypes, AspectConfigSpecs?> _aspects = new();
+    private readonly Dictionary<AspectTypes, string> _aspectColors = new();
     private const double BASE_ORB_ASPECTS = 8.0;
     private const double BASE_ORB_MIDPOINTS = 1.6;
     private const bool USE_CUSPS_FOR_ASPECTS = false;
@@ -61,7 +62,7 @@ public class TestDescriptiveChartText
 
     private AstroConfig CreateConfig()
     {
-        return new AstroConfig(HOUSE_SYSTEM, AYANAMSHA, OBSERVER_POS, ZODIAC_TYPE, PROJ_TYPE, ORB_METHOD, _chartPoints, _aspects, BASE_ORB_ASPECTS, BASE_ORB_MIDPOINTS, USE_CUSPS_FOR_ASPECTS);
+        return new AstroConfig(HOUSE_SYSTEM, AYANAMSHA, OBSERVER_POS, ZODIAC_TYPE, PROJ_TYPE, ORB_METHOD, _chartPoints, _aspects, _aspectColors, BASE_ORB_ASPECTS, BASE_ORB_MIDPOINTS, USE_CUSPS_FOR_ASPECTS);
     }
 
 

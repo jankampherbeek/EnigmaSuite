@@ -12,7 +12,7 @@ namespace Enigma.Core.Calc;
 
 
 /// <summary>
-/// Calculate geocentric ecliptical position for celestial points that are not supported by the CommonSE.
+/// Calculate geocentric ecliptical position for celestial points that are not supported by the CommonSE, using orbital elements.
 /// </summary>
 public interface ICelPointsElementsCalc
 {

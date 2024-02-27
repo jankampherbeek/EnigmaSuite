@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Drawing;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -63,8 +64,10 @@ public class ActualConfigCreator: IActualConfigCreator
         
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints = CreateChartPoints(defaultConfig.ChartPoints, deltas);
         Dictionary<AspectTypes, AspectConfigSpecs> aspectTypes = CreateAspects(defaultConfig.Aspects, deltas);
+        Dictionary<AspectTypes, string> aspectColors = CreateAspectColors(defaultConfig.AspectColors, deltas);
+        
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-            chartPoints, aspectTypes, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
+            chartPoints, aspectTypes, aspectColors, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
     }
 
     public ConfigProg CreateActualProgConfig(ConfigProg defaultConfig, Dictionary<string, string> deltas)
@@ -90,7 +93,7 @@ public class ActualConfigCreator: IActualConfigCreator
         return new ConfigProg(cfgTransits, cfgSecDir, cfgSymDir);
     }
 
-    private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints(
+    private Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints(
         Dictionary<ChartPoints, ChartPointConfigSpecs> defChartPoints, 
         IReadOnlyDictionary<string, string> deltas)
     {
@@ -119,7 +122,7 @@ public class ActualConfigCreator: IActualConfigCreator
         return actualChartPoints;
     }
 
-    private static Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints(
+    private Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints(
         ProgresMethods progresMethod,
         Dictionary<ChartPoints, ProgPointConfigSpecs> defChartPoints, 
         IReadOnlyDictionary<string, string> deltas)
@@ -158,7 +161,7 @@ public class ActualConfigCreator: IActualConfigCreator
     }
     
 
-    private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects(
+    private Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects(
         Dictionary<AspectTypes, AspectConfigSpecs> defAspectTypes, 
         IReadOnlyDictionary<string, string> deltas)
     {
@@ -170,7 +173,7 @@ public class ActualConfigCreator: IActualConfigCreator
             {
                 try
                 {
-                    Tuple<bool, char, int, bool> cfgParts = DefineElementsForConfig(newConfigTxt);
+                    Tuple<bool, char, int, bool> cfgParts = DefineElementsForAspectConfig(newConfigTxt);
                     AspectConfigSpecs newConfigSpecs = new(cfgParts.Item1, cfgParts.Item2, cfgParts.Item3, cfgParts.Item4);
                     actualAspectTypes.Add(defAspect.Key, newConfigSpecs);
                 }
@@ -187,8 +190,21 @@ public class ActualConfigCreator: IActualConfigCreator
         return actualAspectTypes;
     }
 
-
-    private static Tuple<bool, char, int, bool> DefineElementsForConfig(string configTxt)
+    private Dictionary<AspectTypes, string> CreateAspectColors(Dictionary<AspectTypes, string> defAspectColors,
+        IReadOnlyDictionary<string, string> deltas)
+    {
+        Dictionary<AspectTypes, string> actualAspectColors = new();
+        foreach (var defAspectColor in defAspectColors)
+        {
+            string acKey = "AC_" + (int)defAspectColor.Key;
+            actualAspectColors.Add(defAspectColor.Key,
+                deltas.TryGetValue(acKey, out string? newConfigTxt) ? newConfigTxt : defAspectColor.Value);
+        }
+        return actualAspectColors;
+    }
+    
+    
+    private Tuple<bool, char, int, bool> DefineElementsForConfig(string configTxt)
     {
         string[] configElements = configTxt.Split("||");
         bool isUsed = configElements[0].Equals("y");
@@ -198,7 +214,17 @@ public class ActualConfigCreator: IActualConfigCreator
         return new Tuple<bool, char, int, bool>(isUsed, glyph, percentageOrb, showInChart); 
     }
     
-    private static Tuple<bool, char> DefineElementsForProgConfig(string configTxt)
+    private Tuple<bool, char, int, bool> DefineElementsForAspectConfig(string configTxt)
+    {
+        string[] configElements = configTxt.Split("||");
+        bool isUsed = configElements[0].Equals("y");
+        char glyph = char.Parse(configElements[1]);
+        int percentageOrb = int.Parse(configElements[2]);
+        bool showInChart = configElements[3].Equals("y");
+        return new Tuple<bool, char, int, bool>(isUsed, glyph, percentageOrb, showInChart); 
+    }
+    
+    private Tuple<bool, char> DefineElementsForProgConfig(string configTxt)
     {
         string[] configElements = configTxt.Split("||");
         bool isUsed = configElements[0].Equals("y");

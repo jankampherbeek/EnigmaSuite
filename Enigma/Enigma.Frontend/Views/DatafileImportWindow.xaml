@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Data File Import" Height="360" Width="540">
+        Title="Enigma - Data File Import" Height="440" Width="540">
     <Window.Resources>
         <viewModels:DatafileImportViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -26,6 +26,7 @@
             <RowDefinition Height="6*"/>
             <RowDefinition Height="15*"/>
             <RowDefinition Height="15*"/>
+            <RowDefinition Height="15*"/>
             <RowDefinition Height="12*"/>
             <RowDefinition Height="20*"/>
             <RowDefinition Height="20*"/>
@@ -34,23 +35,29 @@
                    VerticalAlignment="Center" HorizontalAlignment="Left"
                    Text="Data File Import" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
-        <TextBox Grid.Row="2" Grid.Column="0" materialDesign:HintAssist.Hint="Select the file with data"
+        <ComboBox Grid.Row="2" Grid.Column="0" Margin="6 0 " VerticalAlignment="Center"   
+                  IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="Type of research data"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                  ItemsSource="{Binding AllDataTypes}" 
+                  SelectedIndex="{Binding DataTypeIndex, Mode=TwoWay}" />
+        <TextBox Grid.Row="3" Grid.Column="0" materialDesign:HintAssist.Hint="Select the file with data"
                  VerticalAlignment="Center" Margin="6 0"
                  IsReadOnly="True"
                  Text="{Binding DatafileName, Mode = TwoWay}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-        <Button Grid.Row="2" Grid.Column="1" Content="Browse" Margin="6" Command="{Binding BrowseCommand}" />
-        <TextBox Grid.Row="3" Grid.Column="0"  materialDesign:HintAssist.Hint="Name for the data"
+        <Button Grid.Row="3" Grid.Column="1" Content="Browse" Margin="6" Command="{Binding BrowseCommand}" />
+        <TextBox Grid.Row="4" Grid.Column="0"  materialDesign:HintAssist.Hint="Name for the data"
                  VerticalAlignment="Center" Margin="6 0"
                  Text="{Binding DatasetName, Mode = TwoWay}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Import" Margin="6" Command="{Binding ImportCommand}" />
-        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Foreground="Red" 
+        <Button Grid.Row="4" Grid.Column="1" Content="Import" Margin="6" Command="{Binding ImportCommand}" />
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Foreground="Red" 
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    Text="{Binding ErrorText}"/>
-        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" TextWrapping="Wrap" 
+        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" TextWrapping="Wrap" 
                    Text="{Binding ResultText, Mode=OneWay}"/>
-        <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+        <StackPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="6" Command="{Binding CloseCommand}"/>
         </StackPanel>

@@ -28,13 +28,12 @@ Select the menu option **General - Configuration**.
 ![](configuration-general.png) {width="400"}
 
 
-This will show a window with a wide range of configurable items. The window comprises 3 tabs:
+This will show a window with a wide range of configurable items. The window comprises 4 tabs:
 
 - The tab **General** shows astronomical settings and settings for orbs. Enigma initially shows this tab.
-
 - **Points** shows the most planets and other points.
-
 - **Aspects** shows all available aspects.
+- **Colors** shows the colors for aspect lines.
 
 ### General selections
 
@@ -90,7 +89,7 @@ See the paragraph *Appendix: Planets and other celestial points* for more inform
 
 ![](configuration-aspects.png) {width="400"}
 
-*Aspects* is the last tab for the configuration.
+*Aspects* is the third tab for the configuration.
 At the top of the screen, you can select the type of orb.
 In the current release, there is only one method to define orbs: Weighted orb.
 It uses percentages for celestial bodies and for aspects to define the actual orb.
@@ -100,6 +99,23 @@ Just as with celestial points, you can select and deselect the aspects you want 
 And there is also an orb-percentage that you can edit by clicking it.
 
 See the paragraph *Appendix: Defining orbs* for more information.
+
+### Aspect colors
+
+![configuration-colors.png](configuration-colors.png) {width="400"}
+
+The last tab is *Aspect colors*. 
+Here you can define the color that you want to use for each separate aspect in the chart wheel. 
+Enigma uses 15 colors that are all clearly visible in a drawing. 
+You can define colors for all aspects, even if you do not use them. 
+If you change the configuration and include an aspect, the selected color will automatically be used.
+The right column shows the available colors. 
+You can change the colors in the middle column, with the label *Color*, by typing the color name. 
+You need to type the name of the color exactly as shown in the right column, including the used capitalization. 
+There is never a space in a color name.
+
+Enigma checks the color names before saving the configuration and shows a warning if it sees a typo.
+
 
 ## Configuration for progressive astrology
 

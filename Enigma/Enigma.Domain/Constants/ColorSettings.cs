@@ -14,5 +14,4 @@ public static class ColorSettings
     public const string DESCRIPTION_BLOCK_COLOR = "#D5E6F2";
     public const string TESTDATA_RESULTS_COLOR = "#D5E6F2";
     public const string CONTROLDATA_RESULTS_COLOR = "#BFAE93";
-
 }

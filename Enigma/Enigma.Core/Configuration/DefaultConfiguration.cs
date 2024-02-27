@@ -32,19 +32,20 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         const OrbMethods orbMethod = OrbMethods.Weighted;
-        Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointsSpecs = CreateChartPoints();
-        Dictionary<AspectTypes, AspectConfigSpecs?> aspectSpecs = CreateAspects();
-
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
+        Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = CreateAspects();
+        Dictionary<AspectTypes, string> aspectColorSpecs = CreateAspectColors(); 
+        
         const double baseOrbAspects = 10.0;
         const double baseOrbMidpoints = 1.6;
         const bool useCuspsForAspects = false;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-            chartPointsSpecs, aspectSpecs, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
+            chartPointsSpecs, aspectSpecs, aspectColorSpecs,baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
     }
 
-    private static Dictionary<ChartPoints, ChartPointConfigSpecs?> CreateChartPoints()
+    private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()
     {
-        Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs = new()
+        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = new()
         {
             { ChartPoints.Sun,  new ChartPointConfigSpecs(true, 'a', 100, true) },
             { ChartPoints.Moon, new ChartPointConfigSpecs(true, 'b', 100, true) },
@@ -107,9 +108,9 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         return chartPointConfigSpecs;
     }
 
-    private static Dictionary<AspectTypes, AspectConfigSpecs?> CreateAspects()
+    private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects()
     {
-        Dictionary<AspectTypes, AspectConfigSpecs?> aspectConfigSpecs = new()
+        Dictionary<AspectTypes, AspectConfigSpecs> aspectConfigSpecs = new()
         {
             { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100, true) },
             { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100, true) },
@@ -119,7 +120,7 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { AspectTypes.Sextile, new AspectConfigSpecs(true, 'F', 70, true) },
             { AspectTypes.Quintile, new AspectConfigSpecs(false, 'Q', 30, true) },
             { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 30, true) },
-            { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 30, true) },
+            { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 30, true)},
             { AspectTypes.SemiQuintile, new AspectConfigSpecs(false, 'Ô', 30, true) },
             { AspectTypes.BiQuintile, new AspectConfigSpecs(false, 'L', 30, true) },
             { AspectTypes.Inconjunct, new AspectConfigSpecs(false, 'H', 30, true) },
@@ -137,5 +138,34 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         return aspectConfigSpecs;
     }
 
+    private static Dictionary<AspectTypes, string> CreateAspectColors()
+    {
+        Dictionary<AspectTypes, string> aspectColors = new()
+        {
+            { AspectTypes.Conjunction, "Blue" },
+            { AspectTypes.Opposition, "Red" },
+            { AspectTypes.Triangle, "Green" },
+            { AspectTypes.Square, "Red" },
+            { AspectTypes.Septile, "Gray" },
+            { AspectTypes.Sextile, "Green" },
+            { AspectTypes.Quintile, "CornflowerBlue" },
+            { AspectTypes.SemiSextile, "Gray" },
+            { AspectTypes.SemiSquare, "Orange" },
+            { AspectTypes.SemiQuintile, "CornflowerBlue" },
+            { AspectTypes.BiQuintile, "CornflowerBlue" },
+            { AspectTypes.Inconjunct, "Purple" },
+            { AspectTypes.SesquiQuadrate, "Orange" },
+            { AspectTypes.TriDecile, "Gray" },
+            { AspectTypes.BiSeptile, "Gray" },
+            { AspectTypes.TriSeptile, "Gray" },
+            { AspectTypes.Novile, "Gray" },
+            { AspectTypes.BiNovile, "Gray" },
+            { AspectTypes.QuadraNovile, "Gray" },
+            { AspectTypes.Undecile, "Gray" },
+            { AspectTypes.Centile, "Gray" },
+            { AspectTypes.Vigintile, "Gray" }
+        };
+        return aspectColors;
+    }
 
 }

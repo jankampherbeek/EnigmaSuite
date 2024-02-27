@@ -1,8 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.ObjectModel;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -32,8 +33,18 @@ public partial class DatafileImportViewModel: ObservableObject
     [ObservableProperty] private string _datasetName = string.Empty;
     [ObservableProperty] private string _resultText = string.Empty;
     [ObservableProperty] private string _errorText = string.Empty;
+    [ObservableProperty] private int _dataTypeIndex = 0;    
+    [ObservableProperty] private ObservableCollection<string> _allDataTypes;
+    private DatafileImportModel _model;
     
-
+    public DatafileImportViewModel()
+    { 
+        _model = App.ServiceProvider.GetRequiredService<DatafileImportModel>();
+        AllDataTypes = new ObservableCollection<string>(_model.AllDataTypes());
+    }
+    
+    
+    
     [RelayCommand]
     private void Import()
     {
@@ -65,10 +76,10 @@ public partial class DatafileImportViewModel: ObservableObject
         }
         else
         {
-            DatafileImportModel model = App.ServiceProvider.GetRequiredService<DatafileImportModel>();
-            if (model.CheckIfNameCanBeUsed(DatasetName))
+            
+            if (_model.CheckIfNameCanBeUsed(DatasetName))
             {
-                ResultMessage resultMsg = model.PerformImport(DatafileName, DatasetName);
+                ResultMessage resultMsg = _model.PerformImport(DatafileName, DatasetName, DataTypeIndex);
                 if (resultMsg.ErrorCode > ResultCodes.OK)
                 {
                     ErrorText = ERROR;

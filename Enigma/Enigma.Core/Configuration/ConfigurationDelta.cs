@@ -26,6 +26,12 @@ public interface IDeltaTexts
     /// <returns>A key and value for the delta of an aspect.</returns>
     public Tuple<string, string> CreateDeltaForAspect(AspectTypes aspect, AspectConfigSpecs? aspectSpecs);
 
+    /// <summary>Handle the eelta for an aspect line color.</summary>
+    /// <param name="aspect">The aspect.</param>
+    /// <param name="color">Name of te color.</param>
+    /// <returns>A key and value for the delta of an aspect line color.</returns>
+    public Tuple<string, string> CreateDeltaForaspectcolor(AspectTypes aspect, string color);
+    
     /// <summary>Handle the delta for a chartpoint for a specific progression method.</summary>
     /// <param name="progresMethod">The progression method.</param>
     /// <param name="point">The chart point.</param>
@@ -84,6 +90,7 @@ public class ConfigurationDelta: IConfigurationDelta
         return CompareAndCreateDeltaTexts(defaultConfig, updatedConfig);
     }
 
+    /// <inheritdoc/>
     public Dictionary<string, string> RetrieveTextsForProgDeltas(ConfigProg defaultProgConfig,
         ConfigProg updatedProgConfig)
     {
@@ -124,6 +131,14 @@ public class ConfigurationDelta: IConfigurationDelta
             if (!found || newAspectValue is null || newAspectValue.Equals(value)) continue;
             Tuple<string, string> deltaForAspect = _deltaTexts.CreateDeltaForAspect(aspectKey, newAspectValue);
             allDeltas.Add(deltaForAspect.Item1, deltaForAspect.Item2);
+        }
+
+        foreach ((AspectTypes aspectKey, string color) in defConf.AspectColors)
+        {
+            bool found = newConf.AspectColors.TryGetValue(aspectKey, out string newColor);
+            if (!found || string.IsNullOrEmpty(newColor) || newColor == color) continue;
+            Tuple<string, string> deltaForAspectColor = _deltaTexts.CreateDeltaForaspectcolor(aspectKey, newColor);
+            allDeltas.Add(deltaForAspectColor.Item1, deltaForAspectColor.Item2);
         }
         return allDeltas;
     }
@@ -211,6 +226,19 @@ public class DeltaTexts: IDeltaTexts
         return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
     }
 
+    /// <inheritdoc/>
+    public Tuple<string, string> CreateDeltaForaspectcolor(AspectTypes aspect, string color)
+    {
+        const string prefix = "AC_";
+        StringBuilder keyTxt = new("");
+        StringBuilder valueTxt = new("");
+        if (string.IsNullOrEmpty(color)) return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
+        keyTxt.Append(prefix);
+        keyTxt.Append((int)aspect);
+        valueTxt.Append(color);
+        return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
+    }
+    
     public Tuple<string, string> CreateDeltaForProgChartPoint(ProgresMethods progresMethod, ChartPoints point,
         ProgPointConfigSpecs? pointSpecs)
     {

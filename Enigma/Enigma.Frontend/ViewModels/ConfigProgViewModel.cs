@@ -114,7 +114,6 @@ public partial class ConfigProgViewModel:ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
-         //   SymDirKeyIndex = _model.SymDirTimeKeyIndex;
             ConfigProgTransits configTransits = new(_orbTransitValue, AllTransitPoints.ToDictionary(point => point.ChartPoint, 
                 point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
             ConfigProgSecDir configSecDir = new (_orbSecDirValue, AllSecDirPoints.ToDictionary(point => point.ChartPoint, 

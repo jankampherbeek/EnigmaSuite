@@ -40,6 +40,7 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
 
     private PresentableCommonPositions CreateSinglePos(KeyValuePair<ChartPoints, FullPointPos> commonPos)
     {
+        const string noData = "--";
         char pointGlyph = GlyphsForChartPoints.FindGlyph(commonPos.Key);
         double longPos = commonPos.Value.Ecliptical.MainPosSpeed.Position;
         double longSpeed = commonPos.Value.Ecliptical.MainPosSpeed.Speed;
@@ -50,20 +51,38 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
 
         var eclipticalLong = new Tuple<string, char, string>(longPosText, longGlyph, longSpeedText);
         var eclipticalLat = new Tuple<string, string>(
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Ecliptical.DeviationPosSpeed.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Ecliptical.DeviationPosSpeed.Speed));
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Ecliptical.DeviationPosSpeed
+                .Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Ecliptical.DeviationPosSpeed
+                .Speed));
         var equatorialRa = new Tuple<string, string>(
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.MainPosSpeed.Position),
             _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.MainPosSpeed.Speed));
         var equatorialDecl = new Tuple<string, string>(
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed.Position),
-            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed.Speed));
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed
+                .Position),
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Equatorial.DeviationPosSpeed
+                .Speed));
         var distance = new Tuple<string, string>(
             $"{commonPos.Value.Equatorial.DistancePosSpeed.Position:F8}",
             $"{commonPos.Value.Equatorial.DistancePosSpeed.Speed:F8}");
-        string azimuth = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.MainPosSpeed.Position);
-        string altitude = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.DeviationPosSpeed.Position);
+        string azimuth =
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.MainPosSpeed.Position);
+        string altitude =
+            _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(commonPos.Value.Horizontal.DeviationPosSpeed
+                .Position);
 
+        if (commonPos.Key == ChartPoints.VulcanusCarteret || commonPos.Key == ChartPoints.PersephoneCarteret ||
+            commonPos.Key == ChartPoints.ApogeeDuval)
+        {
+            eclipticalLong = new Tuple<string, char, string>(longPosText, longGlyph, noData);
+            eclipticalLat = new Tuple<string, string>(noData, noData);
+            equatorialRa = new Tuple<string, string>(noData, noData);
+            equatorialDecl = new Tuple<string, string>(noData, noData);
+            distance = new Tuple<string, string>(noData, noData);
+            azimuth = noData;
+            altitude = noData;
+        }
         return new PresentableCommonPositions(
             pointGlyph, eclipticalLong, eclipticalLat, equatorialRa, equatorialDecl, distance, azimuth, altitude);
     }

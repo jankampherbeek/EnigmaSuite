@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,6 +20,7 @@ public class TestConfigurationDelta
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsUpdated;
     private Dictionary<AspectTypes, AspectConfigSpecs> _aspectsDefault;
     private Dictionary<AspectTypes, AspectConfigSpecs> _aspectsUpdated;
+    private Dictionary<AspectTypes, string> _aspectColorsDefault;
     
     private ConfigProg _configProgDefault;
     private ConfigProg _configProgUpdated;
@@ -35,6 +36,7 @@ public class TestConfigurationDelta
         _chartPointsUpdated = CreateChartPointsUpdated();
         _aspectsDefault = CreateAspectsDefault();
         _aspectsUpdated = CreateAspectsUpdated();
+        _aspectColorsDefault = CreateAspectColorsDefault();
         _configDefault = CreateDefaultConfig();
         _configUpdated = CreateUpdatedConfig();
         _configProgDefault = CreateDefaultProgConfig();
@@ -188,6 +190,7 @@ public class TestConfigurationDelta
             OrbMethods.Weighted,
             _chartPointsDefault,
             _aspectsDefault,
+            _aspectColorsDefault,
             10,
             3,
             true);
@@ -203,7 +206,8 @@ public class TestConfigurationDelta
             ProjectionTypes.TwoDimensional,               // same
             OrbMethods.Weighted,                 // same
             _chartPointsUpdated,                          // different   
-            _aspectsUpdated,                              // different   
+            _aspectsUpdated,                              // different
+            _aspectColorsDefault,                         // same  
             8,                               // different
             3,                              // same
             false);                       // different
@@ -233,6 +237,10 @@ public class TestConfigurationDelta
         AspectConfigSpecs configConjunction = new(true, 'B', 100, true);
         AspectConfigSpecs configOpposition = new(true, 'C', 90, true);
         AspectConfigSpecs configTriangle = new(true, 'D', 100, true);
+        string colorConjunction = "Blue";
+        string colorTriangle = "Green";
+        string colorSquare = "Red";
+        string colorOpposition = "Red";
         ProgPointConfigSpecs configTransitMars = new(false, 'f');
         ProgPointConfigSpecs configSecDirMercury = new(false, 'c');
         ProgPointConfigSpecs configSymDirAsc = new(false, 'A');
@@ -242,13 +250,16 @@ public class TestConfigurationDelta
         Tuple<string, string> resultTextsConjunction = new("AT_0", "y||B||100||y");
         Tuple<string, string> resultTextsOpposition = new("AT_1", "y||C||90||y");
         Tuple<string, string> resultTextsTriangle = new("AT_2", "y||D||100||y");
+        Tuple<string, string> resultTextsColorConjunction = new("AC_0", "Blue");
+        Tuple<string, string> resultTextsColorOpposition = new("AC_1", "red");
+        Tuple<string, string> resultTextsColorTriangle = new("AC_2", "Green");
+        Tuple<string, string> resultTextsColorSquare = new("AC_3", "Red");
         Tuple<string, string> resultTextsTransitOrb = new("TR_ORB", "1.0");
         Tuple<string, string> resultTextsSymDirOrb = new("SM_ORB", "1.1");
         Tuple<string, string> resultTextsTransitMars = new("TR_CP_5", "n||f");
         Tuple<string, string> resultTextsSecDirMercury = new("SC_CP_2", "n||c");
         Tuple<string, string> resultTextsSymDirAsc = new("SM_CP_1001", "n||A");
         Tuple<string, string> resultTextsSymDirKey = new("SM_KEY", "2");
-        
         var mock = new Mock<IDeltaTexts>();
         mock.Setup((p => p.CreateDeltaForPoint(ChartPoints.Sun, configSun )))
             .Returns(resultTextsSun);
@@ -262,6 +273,12 @@ public class TestConfigurationDelta
             .Returns(resultTextsOpposition);
         mock.Setup((p => p.CreateDeltaForAspect(AspectTypes.Triangle, configTriangle )))
             .Returns(resultTextsTriangle);
+        
+        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Conjunction, colorConjunction)).Returns(resultTextsColorConjunction);
+        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Opposition, colorOpposition)).Returns(resultTextsColorOpposition);
+        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Triangle, colorTriangle)).Returns(resultTextsColorTriangle);
+        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Square, colorSquare)).Returns(resultTextsColorSquare);
+        
         mock.Setup(p => p.CreateDeltaForProgOrb(ProgresMethods.Transits, 1.0))
             .Returns(resultTextsTransitOrb);
         mock.Setup(p => p.CreateDeltaForProgOrb(ProgresMethods.Symbolic, 1.1))
@@ -318,6 +335,18 @@ public class TestConfigurationDelta
             { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 90, true) },
             { AspectTypes.Triangle, new AspectConfigSpecs(true, 'D', 100, true) },
             { AspectTypes.Square, new AspectConfigSpecs(true, 'E', 100, true) }
+        };
+    }
+
+
+    private static Dictionary<AspectTypes, string> CreateAspectColorsDefault()
+    {
+        return new Dictionary<AspectTypes, string>
+        {
+            { AspectTypes.Conjunction, "Blue" },
+            { AspectTypes.Opposition, "Red" },
+            { AspectTypes.Triangle, "Green" },
+            { AspectTypes.Square, "Red" }
         };
     }
     
