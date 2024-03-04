@@ -108,11 +108,40 @@
                         <Image Source="/Images/midpoints.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-            </MenuItem>
+                <!--
+                <MenuItem Header="Declinations">
+                    <MenuItem Header = "Diagram" Command="{Binding DeclDiagramCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/wheel.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>                    
+                    <MenuItem Header = "Decl ladder" Command="{Binding DeclLadderCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/ladder.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem> 
+                    <MenuItem Header = "Parallels" Command="{Binding DeclParallelsCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/parallels.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header = "Decl midpoints" Command="{Binding DeclMidpointsCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/midpoints.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                -->
+            </MenuItem>    
             <MenuItem Header="Progressive">
                 <MenuItem Header="Open window for progressions" Command="{Binding ProgressionsCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/event.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="OOB Calendar" Command="{Binding OobCalendarCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/calendar.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

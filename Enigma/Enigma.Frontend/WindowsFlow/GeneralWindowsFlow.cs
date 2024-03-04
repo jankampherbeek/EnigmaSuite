@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,6 +23,7 @@ public class GeneralWindowsFlow:
     public const string CONFIG_PROG = "ConfigProg";
     public const string MAIN = "Main";
     public const string RESEARCH_MAIN = "ResearchMain";
+    public const string CYCLES_MAIN = "CyclesMain";
     
     private const string HELP = "Help";
     
@@ -32,6 +33,7 @@ public class GeneralWindowsFlow:
     private AppSettingsWindow? _appSettingsWindow;
     private ChartsMainWindow? _chartsMainWindow;
     private ResearchMainWindow? _researchMainWindow;
+    private CyclesMainWindow? _cyclesMainWindow;
     private MainWindow? _mainWindow;
     public GeneralWindowsFlow()
     {
@@ -51,6 +53,10 @@ public class GeneralWindowsFlow:
             case RESEARCH_MAIN:
                 _researchMainWindow = new ResearchMainWindow();
                 _researchMainWindow.ShowDialog();
+                break;
+            case CYCLES_MAIN:
+                _cyclesMainWindow = new CyclesMainWindow();
+                _cyclesMainWindow.ShowDialog();
                 break;
             case CHARTS_MAIN:
                 _chartsMainWindow = new ChartsMainWindow();
@@ -81,6 +87,9 @@ public class GeneralWindowsFlow:
                 break;
             case CHARTS_MAIN:
                 _chartsMainWindow?.Close();
+                break;
+            case CYCLES_MAIN:
+                _cyclesMainWindow?.Close();
                 break;
             case APP_SETTINGS:
                 _appSettingsWindow?.Close();

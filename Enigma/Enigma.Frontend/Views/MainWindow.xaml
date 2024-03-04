@@ -11,7 +11,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"     
-        Title="Enigma - Dashboard" Height="480" Width="440">
+        Title="Enigma - Dashboard" Height="480" Width="600">
     <Window.Resources>
         <viewModels:MainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -35,7 +35,8 @@
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Astrology Research" HorizontalAlignment="Center" 
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap"
                        Foreground="#2174B3" FontWeight="Bold" />
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" Text="Release 0.3.0" HorizontalAlignment="Center" 
+            
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" Text="Release 0.3.1" HorizontalAlignment="Center" 
                        TextWrapping="Wrap" Foreground="#2174B3" FontWeight="Bold" />
             <WrapPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ChartsModuleCommand}" >
@@ -44,6 +45,11 @@
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ResearchModuleCommand}">
                     <Image Source="/Images/Research-txt.png"/>
                 </Button>
+                <!--
+                <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CyclesModuleCommand}">
+                    <Image Source="/Images/Cycles-txt.png"/>
+                </Button>
+                -->
             </WrapPanel>
             <TextBlock Grid.Row="4" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
             <TextBlock Grid.Row="5" Text="{Binding VersionText}" HorizontalAlignment="Center" TextWrapping="Wrap"

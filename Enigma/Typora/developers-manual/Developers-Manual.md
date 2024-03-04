@@ -46,6 +46,10 @@ The UI uses the MVVM pattern. I implemented this with the NuGet package *Communi
 #### Material Design
 Enigma uses some aspects from Material Design, via the NuGet package *MaterialDesignTheme*s.
 
+#### Graphics
+
+For graphics, I use ScottPlot 5.0, also a NuGet package.
+
 #### Persistency
 The database is a *SQLite* instance. As a minimal ORM, I use *Dapper*. Both are accessible via Nuget.
 

@@ -39,6 +39,12 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(AspectsCommand))]
     [NotifyCanExecuteChangedFor(nameof(MidpointsCommand))]
     [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeclDiagramCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeclLadderCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeclMidpointsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeclParallelsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(OobCalendarCommand))]
     [NotifyCanExecuteChangedFor(nameof(ProgressionsCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
@@ -190,6 +196,35 @@ public partial class ChartsMainViewModel: ObservableObject,
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_MIDPOINTS));
     }
 
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void DeclDiagram()
+    {
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.DECL_DIAGRAM));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void DeclLadder()
+    {
+        MessageBox.Show("Decl ladder not yet implemented.");
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void DeclMidpoints()
+    {
+        MessageBox.Show("Decl midpoints not yet implemented.");
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void DeclParallels()
+    {
+        MessageBox.Show("Parallels not yet implemented.");
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void OobCalendar()
+    {
+        MessageBox.Show("OobCalendar not yet implemented.");
+    }
     
     [RelayCommand]
     private static void About()

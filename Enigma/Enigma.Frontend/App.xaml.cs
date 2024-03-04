@@ -65,11 +65,14 @@ public partial class App
         serviceCollection.AddTransient<ConfigurationModel>();
         serviceCollection.AddTransient<ConfigProgModel>();
         serviceCollection.AddSingleton<ICurrentCharts, CurrentCharts>();
+        serviceCollection.AddTransient<CyclesMainModel>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();
         serviceCollection.AddTransient<IDateInputParser, DateInputParser>();
         serviceCollection.AddSingleton<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddSingleton<IDateValidator, DateValidator>();
+        serviceCollection.AddTransient<DeclDiagramCanvasController>();
+        serviceCollection.AddTransient<DeclDiagramMetrics>();
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
         serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions>();
         serviceCollection.AddSingleton<IEventDataConverter, EventDataConverter>();
