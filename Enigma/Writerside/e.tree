@@ -3,7 +3,7 @@
         SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
 
 <instance-profile id="e"
-                 name="EnigmaAstrology Research 0.2"
+                 name="EnigmaAstrology Research"
                  start-page="UserManual.md">
 
     <toc-element topic="UserManual.md"/>

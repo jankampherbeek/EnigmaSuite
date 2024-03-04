@@ -26,12 +26,15 @@ public interface IChartCalculation
 public sealed class ChartCalculation : IChartCalculation
 {
     private readonly IChartAllPositionsApi _chartAllPositionsApi;
+    private readonly IObliquityApi _obliquityApi;
     private readonly IConfigPreferencesConverter _configPrefsConverter;
 
 
-    public ChartCalculation(IChartAllPositionsApi chartAllPositionsApi, IConfigPreferencesConverter configPrefsConverter)
+    public ChartCalculation(IChartAllPositionsApi chartAllPositionsApi, IConfigPreferencesConverter configPrefsConverter,
+        IObliquityApi obliquityApi)
     {
         _chartAllPositionsApi = chartAllPositionsApi;
+        _obliquityApi = obliquityApi;
         _configPrefsConverter = configPrefsConverter;
     }
 
@@ -43,7 +46,9 @@ public sealed class ChartCalculation : IChartCalculation
             _configPrefsConverter.RetrieveCalculationPreferences());
         Log.Information("ChartCalculation.CalculateChart(): retrieving calculated chart from ChartAllpositionsApi");
         Dictionary<ChartPoints, FullPointPos> calculatedChartPositions = _chartAllPositionsApi.GetChart(celPointsRequest);
-        return new CalculatedChart(calculatedChartPositions, chartData);
+        ObliquityRequest obliquityRequest = new(chartData.FullDateTime.JulianDayForEt, true);
+        double obliquity = _obliquityApi.GetObliquity(obliquityRequest); 
+        return new CalculatedChart(calculatedChartPositions, chartData, obliquity);
     }
 
 }

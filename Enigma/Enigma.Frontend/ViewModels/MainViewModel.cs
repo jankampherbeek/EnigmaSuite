@@ -88,8 +88,14 @@ public partial class MainViewModel: ObservableObject
         WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "ResearchMain"));
     }
     
-
-    
+/*
+    [RelayCommand]
+    private static void CyclesModule()
+    {
+        Log.Information("MainViewModel.CyclesModule(): send OpenMessage for CyclesMain");
+        WeakReferenceMessenger.Default.Send(new OpenMessage("MainView", "CyclesMain"));
+    }
+  */  
     [RelayCommand]
     private static void Help()
     {
