@@ -34,8 +34,7 @@ public sealed class ParallelsHandler: IParallelsHandler
     /// <inheritdoc/>
     public IEnumerable<DefinedParallel> ParallelsForChartPoints(ParallelRequest request)
     {
-        // double orb = request.Config.BaseOrbParallels;     TODO use orb from config for parallels
-        double maxOrb = 1.0;
+        double maxOrb = request.Config.OrbParallels;
         List<Tuple<ChartPoints, double>> chartPointDeclinations = new();
         foreach (var posPoint in request.CalcChart.Positions)
         {

@@ -29,6 +29,10 @@ public class ConfigurationModel
     public int ProjectionTypeIndex { get; }
     public double AspectBaseOrb { get; }
     public double MidpointBaseOrb { get; }
+
+    public double OrbParallels { get; }
+
+    public double OrbMidpointsDecl { get; }
     
     public ConfigurationModel(IConfigurationApi configApi)
     {
@@ -41,6 +45,8 @@ public class ConfigurationModel
         ProjectionTypeIndex = (int)currentConfig.ProjectionType;
         AspectBaseOrb = currentConfig.BaseOrbAspects;
         MidpointBaseOrb = currentConfig.BaseOrbMidpoints;
+        OrbParallels = currentConfig.OrbParallels;
+        OrbMidpointsDecl = currentConfig.OrbMidpointsDecl;
     }
 
     public void UpdateConfig(AstroConfig astroConfig)

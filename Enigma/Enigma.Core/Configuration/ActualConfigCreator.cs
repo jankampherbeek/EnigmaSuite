@@ -59,6 +59,11 @@ public class ActualConfigCreator: IActualConfigCreator
                                 double.TryParse(aspOrbTxt, out double aspOrb) ? aspOrb : defaultConfig.BaseOrbAspects;
         double baseOrbMidpoints = deltas.TryGetValue(StandardTexts.CFG_BASE_ORB_MIDPOINTS, out string? mpOrbTxt) && 
                                   double.TryParse(mpOrbTxt, out double mpOrb) ? mpOrb : defaultConfig.BaseOrbMidpoints;
+        double orbParallels =  deltas.TryGetValue(StandardTexts.CFG_ORB_PARALLELS, out string? parOrbTxt) && 
+                               double.TryParse(parOrbTxt, out double parOrb) ? parOrb : defaultConfig.OrbParallels;
+        double orbMidpointsDecl =  deltas.TryGetValue(StandardTexts.CFG_ORB_MIDPOINTS_DECL, out string? mpdOrbTxt) && 
+                               double.TryParse(mpdOrbTxt, out double mpdOrb) ? mpdOrb : defaultConfig.OrbMidpointsDecl;
+        
         bool useCuspsForAspects = deltas.TryGetValue(StandardTexts.CFG_USE_CUSPS_FOR_ASPECTS, out string? useCTxt) && 
                                   bool.TryParse(useCTxt, out bool useC) ? useC : defaultConfig.UseCuspsForAspects;
         
@@ -67,7 +72,8 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<AspectTypes, string> aspectColors = CreateAspectColors(defaultConfig.AspectColors, deltas);
         
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-            chartPoints, aspectTypes, aspectColors, baseOrbAspects, baseOrbMidpoints, useCuspsForAspects);
+            chartPoints, aspectTypes, aspectColors, baseOrbAspects, baseOrbMidpoints, orbParallels, orbMidpointsDecl, 
+            useCuspsForAspects);
     }
 
     public ConfigProg CreateActualProgConfig(ConfigProg defaultConfig, Dictionary<string, string> deltas)

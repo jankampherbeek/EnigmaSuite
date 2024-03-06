@@ -22,12 +22,14 @@ public sealed class AstroConfig
     public Dictionary<AspectTypes, string> AspectColors;
     public double BaseOrbAspects { get; }
     public double BaseOrbMidpoints { get; }
-
+    public double OrbMidpointsDecl { get; }
+    public double OrbParallels { get; }
 
     public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, 
         ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects,
-        Dictionary<AspectTypes, string> aspectColors, double baseOrbAspects, double baseOrbMidpoints, bool useCuspsForAspects)
+        Dictionary<AspectTypes, string> aspectColors, double baseOrbAspects, double baseOrbMidpoints, double orbParallels, 
+        double orbMidpointsDecl, bool useCuspsForAspects)
     {
         HouseSystem = houseSystem;
         Ayanamsha = ayanamsha;
@@ -40,6 +42,8 @@ public sealed class AstroConfig
         AspectColors = aspectColors;
         BaseOrbAspects = baseOrbAspects;
         BaseOrbMidpoints = baseOrbMidpoints;
+        OrbMidpointsDecl = orbMidpointsDecl;
+        OrbParallels = orbParallels;
         UseCuspsForAspects = useCuspsForAspects;
     }
 }

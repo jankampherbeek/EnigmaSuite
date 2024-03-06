@@ -193,6 +193,8 @@ public class TestConfigurationDelta
             _aspectColorsDefault,
             10,
             3,
+            1,
+            0.5,
             true);
     }
 
@@ -210,6 +212,8 @@ public class TestConfigurationDelta
             _aspectColorsDefault,                         // same  
             8,                               // different
             3,                              // same
+            0.8,                                 // different
+            0.4,                            // different
             false);                       // different
     }
 

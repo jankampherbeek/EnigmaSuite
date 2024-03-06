@@ -40,8 +40,12 @@ public partial class ConfigurationViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(SaveConfigCommand))]
     [ObservableProperty] private string _baseOrbAspectsText;
     [NotifyPropertyChangedFor(nameof(BaseOrbMidpointsValid))]
+    [NotifyPropertyChangedFor(nameof(OrbParallelsValid))]
+    [NotifyPropertyChangedFor(nameof(OrbMidpointsDeclValid))]
     [NotifyCanExecuteChangedFor(nameof(SaveConfigCommand))]
     [ObservableProperty] private string _baseOrbMidpointsText;
+    [ObservableProperty] private string _orbParallelsText;
+    [ObservableProperty] private string _orbMidpointsDeclText;
     [ObservableProperty] private bool _applyAspectsToCusps;
     [ObservableProperty] private ObservableCollection<string> _allHouses;
     [ObservableProperty] private ObservableCollection<string> _allZodiacTypes;
@@ -57,12 +61,15 @@ public partial class ConfigurationViewModel: ObservableObject
     
     private double _baseOrbAspectsValue;
     private double _baseOrbMidpointsValue;
+    private double _orbParallelsValue;
+    private double _orbMidpointsDeclValue;
     private bool _saveClicked;
     
     
     public SolidColorBrush BaseOrbAspectsValid => IsBaseOrbAspectsValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush BaseOrbMidpointsValid => IsBaseOrbMidpointsValid() ? Brushes.Gray : Brushes.Red;
-
+    public SolidColorBrush OrbMidpointsDeclValid => IsOrbMidpointsDeclValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush OrbParallelsValid => IsOrbParallelsValid() ? Brushes.Gray : Brushes.Red;
     
     private readonly ConfigurationModel _model = App.ServiceProvider.GetRequiredService<ConfigurationModel>();
 
@@ -84,13 +91,15 @@ public partial class ConfigurationViewModel: ObservableObject
         ZodiacTypeIndex = _model.ZodiacTypeIndex;
         AyanamshaIndex = _model.AyanamshaIndex;
         ObserverPositionIndex = _model.ObserverPositionIndex;
-        _baseOrbAspectsValue = _model.AspectBaseOrb;
         ProjectionTypeIndex = _model.ProjectionTypeIndex;
-        
+        _baseOrbAspectsValue = _model.AspectBaseOrb;
         BaseOrbAspectsText = _baseOrbAspectsValue.ToString(CultureInfo.InvariantCulture);
         _baseOrbMidpointsValue = _model.MidpointBaseOrb;
         BaseOrbMidpointsText = _baseOrbMidpointsValue.ToString(CultureInfo.InvariantCulture);
-
+        _orbParallelsValue = _model.OrbParallels;
+        OrbParallelsText = _orbParallelsValue.ToString(CultureInfo.InvariantCulture);
+        _orbMidpointsDeclValue = _model.OrbMidpointsDecl;
+        OrbMidpointsDeclText = _orbMidpointsDeclValue.ToString((CultureInfo.InvariantCulture));
     }
     
 
@@ -139,7 +148,8 @@ public partial class ConfigurationViewModel: ObservableObject
             bool useCuspsForAspects = ApplyAspectsToCusps;
         
             AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
-                configChartPoints, configAspects, configAspectColors, _baseOrbAspectsValue, _baseOrbMidpointsValue, useCuspsForAspects);
+                configChartPoints, configAspects, configAspectColors, _baseOrbAspectsValue, _baseOrbMidpointsValue, 
+                _orbParallelsValue, _orbMidpointsDeclValue, useCuspsForAspects);
             _model.UpdateConfig(config);
             MessageBox.Show(CONFIGURATION_SAVED);
             Log.Information("ConfigurationViewModel.SaveConfig(): send ConfigUpdatedMessage and CloseMessage");
@@ -166,6 +176,20 @@ public partial class ConfigurationViewModel: ObservableObject
             CultureInfo.InvariantCulture, out _baseOrbMidpointsValue);
     }
 
+    private bool IsOrbParallelsValid()
+    {
+        if (string.IsNullOrEmpty(OrbParallelsText) && !_saveClicked) return true;
+        return double.TryParse(OrbParallelsText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _orbParallelsValue);
+    }
+    
+    private bool IsOrbMidpointsDeclValid()
+    {
+        if (string.IsNullOrEmpty(OrbMidpointsDeclText) && !_saveClicked) return true;
+        return double.TryParse(OrbMidpointsDeclText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _orbMidpointsDeclValue);
+    }
+    
     private bool AreAspectLineColorsValid()
     {
         bool noErrors = true;
@@ -208,7 +232,14 @@ public partial class ConfigurationViewModel: ObservableObject
         {
             errorsText.Append(StandardTexts.ERROR_ORB_MIDPOINTS + EnigmaConstants.NEW_LINE);
         }
-
+        if (!IsOrbParallelsValid())
+        {
+            errorsText.Append(StandardTexts.ERROR_ORB_PARALLELS + EnigmaConstants.NEW_LINE);
+        }
+        if (!IsOrbMidpointsDeclValid())
+        {
+            errorsText.Append(StandardTexts.ERROR_ORB_MIDPOINTS_DECL + EnigmaConstants.NEW_LINE);
+        }
         if (!AreAspectLineColorsValid())
         {
             errorsText.Append(StandardTexts.ERROR_ASPECT_COLORLINE + EnigmaConstants.NEW_LINE);

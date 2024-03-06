@@ -24,6 +24,8 @@ public static class StandardTexts
     public const string ERROR_NAME = "Enter a value for the name.";
     public const string ERROR_ORB_ASPECTS = "Enter a proper value for the orbs for aspects";
     public const string ERROR_ORB_MIDPOINTS = "Enter a proper value for the orbs for midpoints.";
+    public const string ERROR_ORB_MIDPOINTS_DECL = "Enter a proper value for the orbs for declination midpoints.";
+    public const string ERROR_ORB_PARALLELS = "Enter a proper value for the orbs for parallels.";
     public const string ERROR_ORB_SECDIR = "Enter a proper value for the orbs for secondary directions.";
     public const string ERROR_ORB_SYMDIR = "Enter a proper value for the orbs for symbolic directions.";
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
@@ -36,6 +38,8 @@ public static class StandardTexts
     public const string CFG_ZODIAC_TYPE = "ZodiacType";
     public const string CFG_PROJECTION_TYPE = "ProjectionType";
     public const string CFG_ORB_METHOD = "OrbMethod";
+    public const string CFG_ORB_PARALLELS = "OrbParallels";    
+    public const string CFG_ORB_MIDPOINTS_DECL = "OrbDeclMidpoints"; 
     public const string CFG_BASE_ORB_ASPECTS = "BaseOrbAspects";
     public const string CFG_BASE_ORB_MIDPOINTS = "BaseOrbMidpoints";
     public const string CFG_USE_CUSPS_FOR_ASPECTS = "UseCuspsForAspects";
