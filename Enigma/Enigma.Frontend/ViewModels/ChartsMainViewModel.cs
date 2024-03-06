@@ -217,8 +217,15 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void DeclParallels()
     {
-        MessageBox.Show("Parallels not yet implemented.");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_PARALLELS));
     }
+
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void DeclLongEquiv()
+    {
+        MessageBox.Show("Longitude equivalents not yet implemented.");
+    }
+    
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void OobCalendar()

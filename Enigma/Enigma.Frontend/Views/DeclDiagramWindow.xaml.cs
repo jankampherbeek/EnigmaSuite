@@ -30,40 +30,19 @@ public partial class DeclDiagramWindow
         DiagramCanvas.Children.Clear();
         _canvasController.PrepareDraw();
         DrawPolygons();
-        DrawTestLine();
-
+        DrawLines();
     }
 
     private void DrawPolygons()
     {
-        AddToWheel(new List<UIElement>(_canvasController.Polygons));
+       AddToDiagram(new List<UIElement>(_canvasController.Polygons));
     }
 
-    private void DrawTestLine()
+    private void DrawLines()
     {
-        Line line1 = new()
-        {
-            X1 = 100,
-            X2 = 150,
-            Y1 = 300,
-            Y2 = 500,
-            Stroke = new SolidColorBrush(Colors.Aqua),
-            StrokeThickness = 6
-        };
-        Line line2 = new()
-        {
-            X1 = 120,
-            X2 = 170,
-            Y1 = 350,
-            Y2 = 540,
-            Stroke = new SolidColorBrush(Colors.Magenta),
-            StrokeThickness = 6
-        };
-        List<Line> lines = new();
-        lines.Add(line1);
-        lines.Add(line2);
-        AddToWheel(new List<UIElement>(lines));
+        AddToDiagram((new List<UIElement>(_canvasController.Lines)));
     }
+
     
     
 /*
@@ -96,7 +75,7 @@ public partial class DeclDiagramWindow
         AddToWheel(new List<UIElement>(_canvasController.AspectLines));
     }
 */
-    private void AddToWheel(List<UIElement> uiElements)
+    private void AddToDiagram(List<UIElement> uiElements)
     {
         foreach (var uiElement in uiElements)
         {

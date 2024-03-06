@@ -45,11 +45,9 @@
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ResearchModuleCommand}">
                     <Image Source="/Images/Research-txt.png"/>
                 </Button>
-                <!--
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding CyclesModuleCommand}">
                     <Image Source="/Images/Cycles-txt.png"/>
                 </Button>
-                -->
             </WrapPanel>
             <TextBlock Grid.Row="4" Text="Click an image to continue" HorizontalAlignment="Center" Margin="6"/>
             <TextBlock Grid.Row="5" Text="{Binding VersionText}" HorizontalAlignment="Center" TextWrapping="Wrap"

@@ -31,16 +31,17 @@ public class ChartsWindowsFlow:
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
-    public const string RADIX_POSITIONS = "RadixPositions";
-    public const string RADIX_SEARCH = "RadixSearch";
     public const string RADIX_ASPECTS = "RadixAspects";
     public const string RADIX_DATA_INPUT = "RadixDataInput";
-    public const string RADIX_MIDPOINTS = "RadixMidpoints";
     public const string RADIX_HARMONICS = "RadixHarmonics";
-
+    public const string RADIX_MIDPOINTS = "RadixMidpoints";
+    public const string RADIX_PARALLELS = "RadixParallels";
+    public const string RADIX_POSITIONS = "RadixPositions";
+    public const string RADIX_SEARCH = "RadixSearch";
 
     
     private RadixDataInputWindow? _radixDataInputWindow;
+    private RadixParallelsWindow? _radixParallelsWindow;
     private RadixSearchWindow? _radixSearchWindow;
     private ProgEventWindow? _progEventWindow;
     private ProgEventResultsWindow? _progEventResultsWindow;
@@ -150,6 +151,11 @@ public class ChartsWindowsFlow:
                 _radixMidpointsWindow = new RadixMidpointsWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _radixMidpointsWindow, parentView));
                 _radixMidpointsWindow.Show();
+                break;
+            case RADIX_PARALLELS:
+                _radixParallelsWindow = new RadixParallelsWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _radixParallelsWindow, parentView));
+                _radixParallelsWindow.Show();
                 break;
             case DECL_DIAGRAM:
                 _declDiagramWindow = new DeclDiagramWindow();

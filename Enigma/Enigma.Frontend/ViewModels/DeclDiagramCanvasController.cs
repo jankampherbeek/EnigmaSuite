@@ -22,6 +22,7 @@ public class DeclDiagramCanvasController
     private readonly DataVaultCharts _dataVaultCharts;
 
     public List<Polygon> Polygons { get; private set; } = new();
+    public List<Line> Lines { get; set; } = new();
     public double CanvasSize { get; private set; }
     private CalculatedChart? _currentChart;
    
@@ -45,18 +46,28 @@ public class DeclDiagramCanvasController
     public void PrepareDraw()
     {
         _currentChart = _dataVaultCharts.GetCurrentChart();
+        HandleDebugLine();
         HandlePolygons();
     }
 
+    private void HandleDebugLine()
+    {
+        Line debugLine = new Line
+        {
+            X1 = 10.0,
+            Y1 = 10.0,
+            X2 = 900.0,
+            Y2 = 10.0
+        };
+        debugLine.Stroke = Brushes.Aqua;
+        debugLine.StrokeThickness = 4;
+        Lines.Add(debugLine);
+    }
+    
     private void HandlePolygons()
     {
         double obliquity = _dataVaultCharts.GetCurrentChart().Obliquity;
         Tuple<List<Point>, List<Point>> polygonPoints = _metrics.GetPolygonPoints(obliquity);
-        
-        
-        
-        
-        
         List<Point> pointsCompletePolygonNorth = polygonPoints.Item1;
         pointsCompletePolygonNorth.Add(pointsCompletePolygonNorth[0]);    // close polygon
         List<Point> pointsCompletePolygonSouth = polygonPoints.Item2;
@@ -65,15 +76,15 @@ public class DeclDiagramCanvasController
         {
             Stroke = Brushes.Coral,
             Fill = Brushes.Bisque,
-            StrokeThickness = 2
+            StrokeThickness = 1
         };
         Polygon polygonSouth = new()
         {
             Stroke = Brushes.Teal,
             Fill = Brushes.Azure,
-            StrokeThickness = 2
+            StrokeThickness = 1
         };
-
+        
         PointCollection pointCollectionNorth = new PointCollection();
         foreach (Point point in pointsCompletePolygonNorth)
         {

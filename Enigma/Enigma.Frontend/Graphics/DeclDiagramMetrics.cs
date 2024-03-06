@@ -17,10 +17,10 @@ namespace Enigma.Frontend.Ui.Graphics;
 public class DeclDiagramMetrics
 {
 
-    private const double POLYGON_WIDTH_FACTOR_INITIAL = 0.80;
+    private const double POLYGON_WIDTH_FACTOR_INITIAL = 1.0;
     private const double MARGIN_X_AXIS = 0.1;
     private const double MARGIN_Y_AXIS = 0.1;
-    private const double RASTER_FACTOR_HOR_VERT = 4.0;
+    private const double RASTER_FACTOR_HOR_VERT = 2.0;
     
     
     // Fixed values
@@ -32,7 +32,7 @@ public class DeclDiagramMetrics
     public Color CelPointConnectLineColor { get; } = Colors.DarkSlateBlue;
     public Color CelPointTextColor { get; } = Colors.DarkSlateBlue;
     
-    public double BaseSize { get; } = 700.0;
+    public double BaseSize { get; } = 900.0;
     public double SizeFactor { get; private set; }
     public double GridSize { get; private set; }
     public double RasterCellSizeHorizontal { get; private set; }
@@ -45,7 +45,7 @@ public class DeclDiagramMetrics
     
     public DeclDiagramMetrics()
     {
-        GridSize = 700.0;
+        GridSize = 900.0;
         SizeFactor = 1.0;
         DefineSizes();
     }
@@ -80,14 +80,23 @@ public class DeclDiagramMetrics
         List<Point> PolygonPointsNorth = new List<Point>();
         List<Point> PolygonPointsSouth = new List<Point>();
         double degreeSize = RasterCellSizeHorizontal;
+        double verticalOffset = 300.0;
+        double horizontalOffset = 50.0;
         for (int i = 0; i <= 180; i++)
         {
-            double decl = Math.Asin(Math.Cos(MathExtra.DegToRad(i)) * Math.Cos(MathExtra.DegToRad(obliquity)));
-            double offset = decl * RASTER_FACTOR_HOR_VERT;
-            PolygonPointsNorth.Add(new Point(i * degreeSize, offset * degreeSize));
-            PolygonPointsSouth.Add(new Point(i * degreeSize, -offset * degreeSize));
+            double decl = CalcDecl(i, obliquity);
+            double declOffsetNorth = verticalOffset + (decl * degreeSize * RASTER_FACTOR_HOR_VERT);
+            double declOffsetSouth = verticalOffset - (decl * degreeSize * RASTER_FACTOR_HOR_VERT);
+            double longOffset = horizontalOffset + (i * degreeSize);
+            PolygonPointsNorth.Add(new Point(longOffset, declOffsetNorth));
+            PolygonPointsSouth.Add(new Point(longOffset, declOffsetSouth));
         }
         return new Tuple<List<Point>, List<Point>>(PolygonPointsNorth, PolygonPointsSouth);
     }
-    
+
+    private double CalcDecl(double longitude, double obliquity)
+    {
+        
+        return  MathExtra.RadToDeg(Math.Asin(Math.Sin(MathExtra.DegToRad(longitude)) * Math.Sin(MathExtra.DegToRad(obliquity))));
+    }
 }

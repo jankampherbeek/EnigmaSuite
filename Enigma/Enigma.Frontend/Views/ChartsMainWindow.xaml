@@ -108,11 +108,10 @@
                         <Image Source="/Images/midpoints.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <!--
                 <MenuItem Header="Declinations">
                     <MenuItem Header = "Diagram" Command="{Binding DeclDiagramCommand}">
                         <MenuItem.Icon>
-                            <Image Source="/Images/wheel.png"/>
+                            <Image Source="/Images/decldiagram.png"/>
                         </MenuItem.Icon>
                     </MenuItem>                    
                     <MenuItem Header = "Decl ladder" Command="{Binding DeclLadderCommand}">
@@ -125,13 +124,17 @@
                             <Image Source="/Images/parallels.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
+                    <MenuItem Header = "Longitude equivalents" Command="{Binding DeclLongEquivCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Images/longitudeequivalents.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                     <MenuItem Header = "Decl midpoints" Command="{Binding DeclMidpointsCommand}">
                         <MenuItem.Icon>
                             <Image Source="/Images/midpoints.png"/>
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
-                -->
             </MenuItem>    
             <MenuItem Header="Progressive">
                 <MenuItem Header="Open window for progressions" Command="{Binding ProgressionsCommand}">

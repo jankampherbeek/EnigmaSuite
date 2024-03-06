@@ -55,19 +55,33 @@ public class PdDataFromToPersistableConverter: IPdDataFromToPersistableConverter
         double jdForEt = 0.0;
         double geoLong = 0.0;
         double geoLat = 0.0;
-        
+
         string[] elements = csvLine.Split(';');
-        success = success && ConstructDateText(elements[1], elements[2], elements[3], out dateText);    // year, month, day
-        success = success && ConstructTimeText(elements[4], elements[5], elements[6], elements[11], out timeText);   // hour, minute, second, offset
-        success = success && double.TryParse(elements[9].Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out geoLong);
-        success = success && double.TryParse(elements[10].Replace(',', '.'), System.Globalization.NumberStyles.Any, CultureInfo.InvariantCulture, out geoLat);
-        success = success && ConstructLocationName(elements[7], elements[8], geoLong, geoLat, out locationName); // city, country, longitude, latitude
-        success = success && CalculateJd(elements[1],elements[2],elements[3],elements[4],elements[5],elements[6],elements[11], out jdForEt);  // y,m,d,h,m,s,offset
-        const string source = "Not defined";
-        const long chartCategoryId = 7; // Undefined
-        const long ratingId = 1; // Unknown
+        try
+        {
+            success = success &&
+               ConstructDateText(elements[1], elements[2], elements[3], out dateText); // year, month, day
+            success = success && ConstructTimeText(elements[4], elements[5], elements[6], elements[11],
+                          out timeText); // hour, minute, second, offset
+            success = success && double.TryParse(elements[9].Replace(',', '.'), System.Globalization.NumberStyles.Any,
+                CultureInfo.InvariantCulture, out geoLong);
+            success = success && double.TryParse(elements[10].Replace(',', '.'), System.Globalization.NumberStyles.Any,
+                CultureInfo.InvariantCulture, out geoLat);
+            success = success &&
+                      ConstructLocationName(elements[7], elements[8], geoLong, geoLat,
+                          out locationName); // city, country, longitude, latitude
+            success = success && CalculateJd(elements[1], elements[2], elements[3], elements[4], elements[5],
+                elements[6], elements[11], out jdForEt); // y,m,d,h,m,s,offset
+        }
+        catch (Exception e)
+        {
+            success = false;
+        }
         if (success)
         {
+            const string source = "Not defined";
+            const long chartCategoryId = 7; // Undefined
+            const long ratingId = 1; // Unknown
             PersistableChartIdentification pcIdent = new();
             pcIdent.Id = -1;
             pcIdent.ChartCategoryId = chartCategoryId;

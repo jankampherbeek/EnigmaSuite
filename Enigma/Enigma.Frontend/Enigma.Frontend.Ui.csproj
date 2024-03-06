@@ -790,6 +790,14 @@
     <Resource Include="Images\calendar.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <None Remove="Images\decldiagram.png" />
+    <Resource Include="Images\decldiagram.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <None Remove="Images\longitudeequivalents.png" />
+    <Resource Include="Images\longitudeequivalents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
