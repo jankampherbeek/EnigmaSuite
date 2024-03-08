@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,7 +7,7 @@ using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support.Validations;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Frontend.Ui.Support.Validations;
 
@@ -22,9 +22,9 @@ public class TestDateValidator
         const int month = 5;
         const int day = 23;
         int[] dateInput = { year, month, day };
-        var mockDateTimeApi = new Mock<IDateTimeApi>();
-        mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(true);
-        var dateValidator = new DateValidator(mockDateTimeApi.Object);
+        var dateTimeApiFake = A.Fake<IDateTimeApi>();
+        A.CallTo(() => dateTimeApiFake.CheckDateTime(A<SimpleDateTime>._)).Returns(true);
+        var dateValidator = new DateValidator(dateTimeApiFake);
         bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? fullDate);
         Assert.Multiple(() =>
         {
@@ -43,9 +43,9 @@ public class TestDateValidator
         const int month = 15;
         const int day = 23;
         int[] dateInput = { year, month, day };
-        var mockDateTimeApi = new Mock<IDateTimeApi>();
-        mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(false);
-        var dateValidator = new DateValidator(mockDateTimeApi.Object);
+        var dateTimeApiFake = A.Fake<IDateTimeApi>();
+        A.CallTo(() => dateTimeApiFake.CheckDateTime(A<SimpleDateTime>._)).Returns(false);
+        var dateValidator = new DateValidator(dateTimeApiFake);
         bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? _);
         Assert.That(result, Is.False);
     }
@@ -57,9 +57,9 @@ public class TestDateValidator
         const int month = 15;
         const int day = -1;
         int[] dateInput = { year, month, day };
-        var mockDateTimeApi = new Mock<IDateTimeApi>();
-        mockDateTimeApi.Setup(x => x.CheckDateTime(It.IsAny<SimpleDateTime>())).Returns(false);
-        var dateValidator = new DateValidator(mockDateTimeApi.Object);
+        var dateTimeApiFake = A.Fake<IDateTimeApi>();
+        A.CallTo(() => dateTimeApiFake.CheckDateTime(A<SimpleDateTime>._)).Returns(false);
+        var dateValidator = new DateValidator(dateTimeApiFake);
         bool result = dateValidator.CreateCheckedDate(dateInput, Calendars.Gregorian, YearCounts.Astronomical, out FullDate? _);
         Assert.That(result, Is.False);
     }

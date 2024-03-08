@@ -1,11 +1,11 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers;
 using Enigma.Core.Persistency;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Persistency;
 
@@ -21,9 +21,10 @@ public class TestDataNamesHandler
             "dataname-1",
             "dataname-2"
         };
-        var mock = new Mock<IFoldersInfo>();
-        mock.Setup(p => p.GetExistingFolderNames(It.IsAny<string>(), useSubFolders)).Returns(expectedDataNames);
-        IDataNamesHandler handler = new DataNamesHandler(mock.Object);
+        var foldersInfoFake = A.Fake<IFoldersInfo>();
+        A.CallTo(() => foldersInfoFake.GetExistingFolderNames(A<string>._, useSubFolders))
+            .Returns(expectedDataNames);
+        IDataNamesHandler handler = new DataNamesHandler(foldersInfoFake);
         List<string> resultDataNames = handler.GetExistingDataNames();
         Assert.Multiple(() =>
         {

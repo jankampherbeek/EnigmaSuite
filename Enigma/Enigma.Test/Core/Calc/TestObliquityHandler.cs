@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,7 +7,7 @@ using Enigma.Core.Calc;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Requests;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -23,8 +23,8 @@ public class TestObliquityHandler
     [Test]
     public void TestMeanObliquity()
     {
-        Mock<IObliquityCalc> calcMock = CreateCalcMock();
-        IObliquityHandler handler = new ObliquityHandler(calcMock.Object);
+        IObliquityCalc calcFake = CreateCalcFake();
+        IObliquityHandler handler = new ObliquityHandler(calcFake);
         double resultMeanObliquity = handler.CalcObliquity(new ObliquityRequest(JD_UT, false));
         Assert.That(resultMeanObliquity, Is.EqualTo(EXPECTED_MEAN_OBLIQUITY).Within(DELTA));
     }
@@ -33,24 +33,25 @@ public class TestObliquityHandler
     [Test]
     public void TextSeException()
     {
-        Mock<IObliquityCalc> calcExceptionMock = CreateCalcMockThrowingException();
-        IObliquityHandler handler = new ObliquityHandler(calcExceptionMock.Object);
+        IObliquityCalc calcExceptionFake = CreateCalcFakeThrowingException();
+        IObliquityHandler handler = new ObliquityHandler(calcExceptionFake);
         _ = Assert.Throws<EnigmaException>(() => handler.CalcObliquity(new ObliquityRequest(JD_UT, false)));
     }
 
-    private static Mock<IObliquityCalc> CreateCalcMock()
+    private static IObliquityCalc CreateCalcFake()
     {
-        var mock = new Mock<IObliquityCalc>();
-        mock.Setup(p => p.CalculateObliquity(JD_UT, false)).Returns(EXPECTED_MEAN_OBLIQUITY);
-        return mock;
+        var calcFake = A.Fake<IObliquityCalc>();
+        
+        A.CallTo(() => calcFake.CalculateObliquity(JD_UT, false)).Returns(EXPECTED_MEAN_OBLIQUITY);
+        return calcFake;
     }
 
-    private static Mock<IObliquityCalc> CreateCalcMockThrowingException()
+    private static IObliquityCalc CreateCalcFakeThrowingException()
     {
-        var mock = new Mock<IObliquityCalc>();
+        var calcFake = A.Fake<IObliquityCalc>();
         var exception = new SwissEphException(ERROR_TEXT);
-        mock.Setup(p => p.CalculateObliquity(JD_UT, false)).Throws(exception);
-        return mock;
+        A.CallTo(() => calcFake.CalculateObliquity(JD_UT, false)).Throws(exception);
+        return calcFake;
     }
 
 }

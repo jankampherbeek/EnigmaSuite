@@ -1,12 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Handlers;
 
@@ -22,8 +22,8 @@ public class TestCoordinateConversionHandler
         var eclCoord = new EclipticCoordinates(222.2, 1.1);
         var eqCoord = new EquatorialCoordinates(223.3, -3.3);
         var request = new CoordinateConversionRequest(eclCoord, OBLIQUITY);
-        Mock<ICoordinateConversionCalc> calcMock = CreateCalcMock(eclCoord, eqCoord);
-        ICoordinateConversionHandler handler = new CoordinateConversionHandler(calcMock.Object);
+        var calcFake = CreateCalcFake(eclCoord, eqCoord);
+        ICoordinateConversionHandler handler = new CoordinateConversionHandler(calcFake);
         EquatorialCoordinates coordinates = handler.HandleConversion(request);
         Assert.Multiple(() =>
         {
@@ -33,11 +33,11 @@ public class TestCoordinateConversionHandler
     }
 
 
-    private static Mock<ICoordinateConversionCalc> CreateCalcMock(EclipticCoordinates eclCoord, EquatorialCoordinates eqCoord)
+    private static ICoordinateConversionCalc CreateCalcFake(EclipticCoordinates eclCoord, EquatorialCoordinates eqCoord)
     {
-        var mock = new Mock<ICoordinateConversionCalc>();
-        mock.Setup(p => p.PerformConversion(eclCoord, OBLIQUITY)).Returns(eqCoord);
-        return mock;
+        var calcFake = A.Fake<ICoordinateConversionCalc>();
+        A.CallTo(() => calcFake.PerformConversion(eclCoord, OBLIQUITY)).Returns(eqCoord);
+        return calcFake;
     }
 
 }

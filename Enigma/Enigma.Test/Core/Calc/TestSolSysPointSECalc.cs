@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Facades.Se;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -61,9 +61,10 @@ public class TestCelPointCalc
     private static PosSpeed[] CalculatePosSpeedForCelPoint()
     {
         var location = new Location("", 52.0, 6.0);
-        var mockCalcUtFacade = new Mock<ICalcUtFacade>();
-        mockCalcUtFacade.Setup(p => p.PositionFromSe(JULIAN_DAY_UT, EnigmaConstants.SE_MARS, FLAGS_ECLIPTICAL)).Returns(new[] { LONGITUDE, LATITUDE, DISTANCE, LONG_SPEED, LAT_SPEED, DIST_SPEED });
-        ICelPointSeCalc calc = new CelPointSeCalc(mockCalcUtFacade.Object, new ChartPointsMapping());
+        var calcUtFacadeFake = A.Fake<ICalcUtFacade>();
+        A.CallTo(() => calcUtFacadeFake.PositionFromSe(JULIAN_DAY_UT, EnigmaConstants.SE_MARS, FLAGS_ECLIPTICAL)).
+            Returns(new[] { LONGITUDE, LATITUDE, DISTANCE, LONG_SPEED, LAT_SPEED, DIST_SPEED });
+        ICelPointSeCalc calc = new CelPointSeCalc(calcUtFacadeFake, new ChartPointsMapping());
         return calc.CalculateCelPoint(ChartPoints.Mars, JULIAN_DAY_UT, location, FLAGS_ECLIPTICAL);
     }
 

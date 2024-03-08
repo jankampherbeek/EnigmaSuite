@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -10,7 +10,7 @@ using Enigma.Domain.References;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Support.Conversions;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Frontend.Ui.PresentationFactories;
 
@@ -21,23 +21,22 @@ public class TestProgPositionsForPresentationFactory
     [Test]
     public void TestHappyFlow()
     {
-        var dmsConversionsMock = new Mock<IDoubleToDmsConversions>();
+        var dmsConversionsFake = A.Fake<IDoubleToDmsConversions>();
         string longTxt = "10" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "00" +
                         EnigmaConstants.SECOND_SIGN;
         char glyph = '4';     // glyph for Cancer
-        dmsConversionsMock.Setup(p => p.ConvertDoubleToDmsWithGlyph(100.0)).Returns((longTxt, glyph));
+        A.CallTo(() => dmsConversionsFake.ConvertDoubleToDmsWithGlyph(100.0)).Returns((longTxt, glyph));
         glyph = '7';        // glyph for Libra
         longTxt = "10" + EnigmaConstants.DEGREE_SIGN + "00" + EnigmaConstants.MINUTE_SIGN + "30" +
                          EnigmaConstants.SECOND_SIGN;
-        dmsConversionsMock.Setup(p => p.ConvertDoubleToDmsWithGlyph(190.5)).Returns((longTxt, glyph));
+        A.CallTo(() => dmsConversionsFake.ConvertDoubleToDmsWithGlyph(190.5)).Returns((longTxt, glyph));
         glyph = '=';        // glyph for Pisces
         longTxt = "20" + EnigmaConstants.DEGREE_SIGN + "12" + EnigmaConstants.MINUTE_SIGN + "48" +
                   EnigmaConstants.SECOND_SIGN;
-        dmsConversionsMock.Setup(p => p.ConvertDoubleToDmsWithGlyph(350.2133333333333333333)).Returns((longTxt, glyph));
+        A.CallTo(() => dmsConversionsFake.ConvertDoubleToDmsWithGlyph(350.2133333333333333333)).Returns((longTxt, glyph));
         Dictionary<ChartPoints, ProgPositions> progPos = CreateProgPositions();
         IProgPositionsForPresentationFactory factory =
-            new ProgPositionsForPresentationFactory(dmsConversionsMock.Object, new GlyphsForChartPoints());
-
+            new ProgPositionsForPresentationFactory(dmsConversionsFake, new GlyphsForChartPoints());
         List<PresentableProgPosition> presProgPos = factory.CreatePresProgPos(progPos);
         Assert.That(presProgPos, Has.Count.EqualTo(3));
         Assert.That(presProgPos[0].SignGlyph, Is.EqualTo('4'));      // glyph for Cancer

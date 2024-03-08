@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Api;
 
@@ -22,7 +22,7 @@ public class TestJulianDayApi
     [Test]
     public void TestHappyFlow()
     {
-        IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
+        IJulianDayApi api = new JulianDayApi(CreateHandlerFake());
         JulianDayResponse actualResponse = api.GetJulianDay(_dateTime);
         Assert.That(_jdResponse, Is.EqualTo(actualResponse));
     }
@@ -30,17 +30,17 @@ public class TestJulianDayApi
     [Test]
     public void TestRequestDateTimeNull()
     {
-        IJulianDayApi api = new JulianDayApi(CreateHandlerMock());
+        IJulianDayApi api = new JulianDayApi(CreateHandlerFake());
         SimpleDateTime? errorDateTime = null;
         Assert.That(() => api.GetJulianDay(errorDateTime!), Throws.TypeOf<ArgumentNullException>());
     }
 
 
-    private IJulDayHandler CreateHandlerMock()
+    private IJulDayHandler CreateHandlerFake()
     {
-        var handlerMock = new Mock<IJulDayHandler>();
-        handlerMock.Setup(p => p.CalcJulDay(_dateTime)).Returns(_jdResponse);
-        return handlerMock.Object;
+        var handlerFake = A.Fake<IJulDayHandler>();
+        A.CallTo(() => handlerFake.CalcJulDay(_dateTime)).Returns(_jdResponse);
+        return handlerFake;
     }
 
 }

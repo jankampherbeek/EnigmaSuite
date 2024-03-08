@@ -1,14 +1,13 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
-
 
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Facades.Se;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -25,10 +24,10 @@ public class TestJulDayCalc
     public void SetUp()
     {
         _dateTime = new SimpleDateTime(2000, 1, 1, 12.0, Calendars.Gregorian);
-        var mock = new Mock<IJulDayFacade>();
-        mock.Setup(p => p.JdFromSe(_dateTime)).Returns(JD);
-        mock.Setup(p => p.DeltaTFromSe(JD)).Returns(DELTA_T);
-        _jdCalc = new JulDayCalc(mock.Object);
+        var facadeMock = A.Fake<IJulDayFacade>();
+        A.CallTo(() => facadeMock.JdFromSe(_dateTime)).Returns(JD);
+        A.CallTo(() => facadeMock.DeltaTFromSe(JD)).Returns(DELTA_T);
+        _jdCalc = new JulDayCalc(facadeMock);
     }
 
     [Test]

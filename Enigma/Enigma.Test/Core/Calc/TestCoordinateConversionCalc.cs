@@ -1,12 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Facades.Se;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -26,8 +26,8 @@ public class TestCoordinateConversionCalc
         var ecliptical = new[] { LONGITUDE, LATITUDE };
         var eclCoord = new EclipticCoordinates(LONGITUDE, LATITUDE);
         var equatorial = new[] { EXPECTED_RIGHT_ASC, EXPECTED_DECLINATION };
-        Mock<ICoTransFacade> mockFacade = CreateFacadeMock(ecliptical, equatorial);
-        ICoordinateConversionCalc convCalc = new CoordinateConversionCalc(mockFacade.Object);
+        ICoTransFacade facadeFake = CreateFacadeFake(ecliptical, equatorial);
+        ICoordinateConversionCalc convCalc = new CoordinateConversionCalc(facadeFake);
         EquatorialCoordinates equatCoord = convCalc.PerformConversion(eclCoord, OBLIQUITY);
         Assert.Multiple(() =>
         {
@@ -36,11 +36,11 @@ public class TestCoordinateConversionCalc
         });
     }
 
-    private static Mock<ICoTransFacade> CreateFacadeMock(double[] ecliptical, double[] equatorial)
+    private static ICoTransFacade CreateFacadeFake(double[] ecliptical, double[] equatorial)
     {
-        var mock = new Mock<ICoTransFacade>();
-        mock.Setup(p => p.EclipticToEquatorial(ecliptical, OBLIQUITY)).Returns(equatorial);
-        return mock;
+        var fake = A.Fake<ICoTransFacade>();
+        A.CallTo(() => fake.EclipticToEquatorial(ecliptical, OBLIQUITY)).Returns(equatorial);
+        return fake;
     }
 
 }

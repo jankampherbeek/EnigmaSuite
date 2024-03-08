@@ -7,7 +7,7 @@ using Enigma.Core.Configuration;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Configuration;
 
@@ -15,7 +15,7 @@ namespace Enigma.Test.Core.Configuration;
 public class TestConfigurationDelta
 {
     private IConfigurationDelta _configDelta;
-    private IDeltaTexts _deltaTextsMock;
+    private IDeltaTexts _deltaTextsFake;
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsDefault;
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsUpdated;
     private Dictionary<AspectTypes, AspectConfigSpecs> _aspectsDefault;
@@ -30,8 +30,8 @@ public class TestConfigurationDelta
     [SetUp]
     public void SetUp()
     {
-        _deltaTextsMock = CreateDeltaTextsMock();
-        _configDelta = new ConfigurationDelta(_deltaTextsMock);
+        _deltaTextsFake = CreateDeltaTextsMock();
+        _configDelta = new ConfigurationDelta(_deltaTextsFake);
         _chartPointsDefault = CreateChartPointsDefault();
         _chartPointsUpdated = CreateChartPointsUpdated();
         _aspectsDefault = CreateAspectsDefault();
@@ -47,7 +47,7 @@ public class TestConfigurationDelta
     public void TestDeltaCount()
     {
         Dictionary<string, string> result = _configDelta.RetrieveTextsForDeltas(_configDefault, _configUpdated);
-        Assert.That(result, Has.Count.EqualTo(9));
+        Assert.That(result, Has.Count.EqualTo(11));
     }
     
     [Test]
@@ -264,39 +264,40 @@ public class TestConfigurationDelta
         Tuple<string, string> resultTextsSecDirMercury = new("SC_CP_2", "n||c");
         Tuple<string, string> resultTextsSymDirAsc = new("SM_CP_1001", "n||A");
         Tuple<string, string> resultTextsSymDirKey = new("SM_KEY", "2");
-        var mock = new Mock<IDeltaTexts>();
-        mock.Setup((p => p.CreateDeltaForPoint(ChartPoints.Sun, configSun )))
+        var deltaTextsFake = A.Fake<IDeltaTexts>();
+        A.CallTo(() => deltaTextsFake.CreateDeltaForPoint(ChartPoints.Sun, configSun ))
             .Returns(resultTextsSun);
-        mock.Setup((p => p.CreateDeltaForPoint(ChartPoints.Moon, configMoon )))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForPoint(ChartPoints.Moon, configMoon ))
             .Returns(resultTextsMoon);
-        mock.Setup((p => p.CreateDeltaForPoint(ChartPoints.Mercury, configMercury)))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForPoint(ChartPoints.Mercury, configMercury))
             .Returns(resultTextsMercury);
-        mock.Setup((p => p.CreateDeltaForAspect(AspectTypes.Conjunction, configConjunction )))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForAspect(AspectTypes.Conjunction, configConjunction ))
             .Returns(resultTextsConjunction);
-        mock.Setup((p => p.CreateDeltaForAspect(AspectTypes.Opposition, configOpposition )))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForAspect(AspectTypes.Opposition, configOpposition ))
             .Returns(resultTextsOpposition);
-        mock.Setup((p => p.CreateDeltaForAspect(AspectTypes.Triangle, configTriangle )))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForAspect(AspectTypes.Triangle, configTriangle ))
             .Returns(resultTextsTriangle);
-        
-        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Conjunction, colorConjunction)).Returns(resultTextsColorConjunction);
-        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Opposition, colorOpposition)).Returns(resultTextsColorOpposition);
-        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Triangle, colorTriangle)).Returns(resultTextsColorTriangle);
-        mock.Setup(p => p.CreateDeltaForaspectcolor(AspectTypes.Square, colorSquare)).Returns(resultTextsColorSquare);
-        
-        mock.Setup(p => p.CreateDeltaForProgOrb(ProgresMethods.Transits, 1.0))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForaspectcolor(AspectTypes.Conjunction, colorConjunction))
+            .Returns(resultTextsColorConjunction);
+        A.CallTo(() => deltaTextsFake.CreateDeltaForaspectcolor(AspectTypes.Opposition, colorOpposition))
+            .Returns(resultTextsColorOpposition);
+        A.CallTo(() => deltaTextsFake.CreateDeltaForaspectcolor(AspectTypes.Triangle, colorTriangle))
+            .Returns(resultTextsColorTriangle);
+        A.CallTo(() => deltaTextsFake.CreateDeltaForaspectcolor(AspectTypes.Square, colorSquare))
+            .Returns(resultTextsColorSquare);
+        A.CallTo(() => deltaTextsFake.CreateDeltaForProgOrb(ProgresMethods.Transits, 1.0))
             .Returns(resultTextsTransitOrb);
-        mock.Setup(p => p.CreateDeltaForProgOrb(ProgresMethods.Symbolic, 1.1))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForProgOrb(ProgresMethods.Symbolic, 1.1))
             .Returns(resultTextsSymDirOrb);
-        mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Transits, ChartPoints.Mars, configTransitMars))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForProgChartPoint(ProgresMethods.Transits, ChartPoints.Mars, configTransitMars))
             .Returns(resultTextsTransitMars);
-        mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Secondary, ChartPoints.Mercury, configSecDirMercury))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForProgChartPoint(ProgresMethods.Secondary, ChartPoints.Mercury, configSecDirMercury))
             .Returns(resultTextsSecDirMercury);
-        mock.Setup(p => p.CreateDeltaForProgChartPoint(ProgresMethods.Symbolic, ChartPoints.Ascendant, configSymDirAsc))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForProgChartPoint(ProgresMethods.Symbolic, ChartPoints.Ascendant, configSymDirAsc))
             .Returns(resultTextsSymDirAsc);
-        mock.Setup(p => p.CreateDeltaForProgSymKey(SymbolicKeys.TrueSun))
+        A.CallTo(() => deltaTextsFake.CreateDeltaForProgSymKey(SymbolicKeys.TrueSun))
             .Returns(resultTextsSymDirKey);
-        
-        return mock.Object;
+        return deltaTextsFake;
     }
 
     private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPointsDefault()

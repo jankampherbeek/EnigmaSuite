@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Persistency;
 
@@ -26,9 +26,9 @@ public class TestDateCheckedConversion
         const double ut = 0.0;
         const Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        var mockDateTimeValidator = new Mock<IDateTimeValidator>();
-        mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(true);
-        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(mockDateTimeValidator.Object);
+        var dateTimeValidatorFake = A.Fake<IDateTimeValidator>();
+        A.CallTo(() => dateTimeValidatorFake.ValidateDateTime(simpleDateTime)).Returns(true);
+        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(dateTimeValidatorFake);
         Tuple<PersistableDate, bool> result = dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.Multiple(() =>
         {
@@ -50,9 +50,9 @@ public class TestDateCheckedConversion
         const double ut = 0.0;
         const Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        var mockDateTimeValidator = new Mock<IDateTimeValidator>();
-        mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
-        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(mockDateTimeValidator.Object);
+        var dateTimeValidatorFake = A.Fake<IDateTimeValidator>();
+        A.CallTo(() => dateTimeValidatorFake.ValidateDateTime(simpleDateTime)).Returns(false);
+        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(dateTimeValidatorFake);
         Tuple<PersistableDate, bool> result = dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }
@@ -68,9 +68,9 @@ public class TestDateCheckedConversion
         const double ut = 0.0;
         const Calendars cal = Calendars.Gregorian;
         SimpleDateTime simpleDateTime = new(year, month, day, ut, cal);
-        var mockDateTimeValidator = new Mock<IDateTimeValidator>();
-        mockDateTimeValidator.Setup(p => p.ValidateDateTime(simpleDateTime)).Returns(false);
-        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(mockDateTimeValidator.Object);
+        var dateTimeValidatorFake = A.Fake<IDateTimeValidator>();
+        A.CallTo(() => dateTimeValidatorFake.ValidateDateTime(simpleDateTime)).Returns(false);
+        IDateCheckedConversion dateCheckedConversion = new DateCheckedConversion(dateTimeValidatorFake);
         Tuple<PersistableDate, bool> result = dateCheckedConversion.StandardCsvToDate(csvDateText, csvCalText);
         Assert.That(!result.Item2);
     }

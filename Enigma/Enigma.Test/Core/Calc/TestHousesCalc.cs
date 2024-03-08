@@ -1,12 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Facades.Se;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -59,9 +59,9 @@ public class TestHousesCalc
         const int flags = 0;
         const double jd = 12345.678;
         double[][] positions = { _cusps, _otherPoints };
-        var mockFacade = new Mock<IHousesFacade>();
-        mockFacade.Setup(p => p.RetrieveHouses(jd, flags, GEO_LAT, GEO_LON, houseSystemId)).Returns(positions);
-        HousesCalc calc = new(mockFacade.Object);
+        var facadeFake = A.Fake<IHousesFacade>();
+        A.CallTo(() => facadeFake.RetrieveHouses(jd, flags, GEO_LAT, GEO_LON, houseSystemId)).Returns(positions);
+        HousesCalc calc = new(facadeFake);
         return calc;
     }
 }

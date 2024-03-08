@@ -65,6 +65,7 @@ The value shows the maximum orb for the most important aspect and the most impor
 
 The **Base orb for midpoints** is the effective orb for midpoints.
 
+The orbs for **Parallels** and **Declination midpoints** are also effective orbs and do not depend on other values.
 
 ### Points
 

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -30,17 +30,17 @@ public class TestJulDayHandler
     [Test]
     public void TestHappyFlow()
     {
-        Mock<IJulDayCalc> calcMock = CreateCalcMock();
-        IJulDayHandler handler = new JulDayHandler(calcMock.Object);
+        IJulDayCalc calcFake = CreateCalcFake();
+        IJulDayHandler handler = new JulDayHandler(calcFake);
         JulianDayResponse response = handler.CalcJulDay(_dateTime!);
         Assert.That(response.JulDayUt, Is.EqualTo(EXPECTED_JD).Within(DELTA));
     }
 
-    private Mock<IJulDayCalc> CreateCalcMock()
+    private IJulDayCalc CreateCalcFake()
     {
-        var mock = new Mock<IJulDayCalc>();
-        mock.Setup(p => p.CalcJulDayUt(_dateTime!)).Returns(EXPECTED_JD);
-        return mock;
+        var fake = A.Fake<IJulDayCalc>();
+        A.CallTo(() => fake.CalcJulDayUt(_dateTime!)).Returns(EXPECTED_JD);
+        return fake;
     }
 
 }
