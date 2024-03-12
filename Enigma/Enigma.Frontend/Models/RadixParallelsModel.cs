@@ -17,8 +17,6 @@ namespace Enigma.Frontend.Ui.Models;
 
 public class RadixParallelsModel
 {
-
-    
     private readonly IParallelsForDataGridFactory _parallelForDataGridFactory;
     private readonly IParallelsApi _parallelsApi;
     private readonly IDescriptiveChartText _descriptiveChartText;

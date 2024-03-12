@@ -207,6 +207,24 @@ The right column shows the occupied midpoints.
 In the image, you see Uranus is at the midpoint of Sun and Saturn. 
 The orb is over 24 minutes, which results in an exactness percentage of 74%.
 
+## Analysis: parallels
+
+Use the menu option **Analysis – Declinations – Parallels** for the calculation of parallels. 
+The results include contra-parallels.
+For each parallel, Enigma shows the actual orb and the percentage of exactness.
+The default orb is 1°, you change that value in the configuration.
+
+![parallels.png](../../Typora/user-manual/parallels.png) {width="400"}
+
+
+## Analysis: midpoints in declination
+
+You can calculate midpoints in declination via the menu option **Analysis – Declinations – Decl midpoints**.
+Enigma shows the occupied midpoints, gives the actual orb and shows the percentage of exactness.
+The default orb is 0.6° (0°36’), you can change that value in the configuration.
+
+![decl-midpoints.png](../../Typora/user-manual/decl-midpoints.png) {width="400"}
+
 ## Progressive techniques
 
 If you select a chart from the start-window for charts, you can click the button **Progressions**.

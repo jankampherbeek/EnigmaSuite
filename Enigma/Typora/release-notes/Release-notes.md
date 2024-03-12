@@ -2,6 +2,29 @@
 
 
 
+## Release 0.4.0 beta - May 31, 2024
+
+Declinations and cycles.
+
+### Declinations
+
+New functionality, added:
+
+- Parallels in declination.
+- Midpoints in declination.
+- Longitude equivalents according to Kt Boehrer.
+
+
+
+
+
+## Release 0.3.1 beta - March 5, 2024
+
+Minor fixes: 
+
+- added missing icon in menu for secundary directions.
+- removed premature functionality that should have waited for release 0.4.0.
+
 ## Release 0.3.0 beta - March 4, 2024
 
 Data import from PlanetDance, additional calculated points, configurable colors for aspects, and bug fixes.

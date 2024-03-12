@@ -14,7 +14,8 @@ namespace
 public static class ApiServices
 {
     public static void RegisterApiServices(this ServiceCollection serviceCollection)
-    {        
+    {
+        serviceCollection.AddTransient<IAnalysisSingleValuesApi, AnalysisSingleValuesApi>();
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
@@ -24,6 +25,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();
+        serviceCollection.AddTransient<IDeclMidpointsApi, DeclMidpointsApi>();
         serviceCollection.AddTransient<IEventDataPersistencyApi, EventDataPersistencyApi>();
         serviceCollection.AddTransient<IFileAccessApi, FileAccessApi>();
         serviceCollection.AddTransient<IDataFileManagementApi, DataFileManagementApi>();

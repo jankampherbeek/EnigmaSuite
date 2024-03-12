@@ -86,6 +86,7 @@ public partial class App
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddSingleton<ILocationConversion, LocationConversion>();
+        serviceCollection.AddSingleton<ILongitudeEquivalentsForDataGridFactory, LongitudeEquivalentsForDataGridFactory>();
         serviceCollection.AddSingleton<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
         serviceCollection.AddSingleton<IParallelsForDataGridFactory, ParallelsForDataGridFactory>();
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
@@ -99,7 +100,9 @@ public partial class App
         serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
         serviceCollection.AddTransient<RadixDataInputModel>();
+        serviceCollection.AddTransient<RadixDeclMidpointsModel>();
         serviceCollection.AddTransient<RadixHarmonicsModel>();
+        serviceCollection.AddTransient<RadixLongitudeEquivalentsModel>();
         serviceCollection.AddTransient<RadixMidpointsModel>();
         serviceCollection.AddTransient<RadixParallelsModel>();
         serviceCollection.AddTransient<RadixPositionsModel>();

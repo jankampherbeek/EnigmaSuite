@@ -36,6 +36,66 @@ public class TestCoordinateConversionCalc
         });
     }
 
+    [Test]
+    public void TestDeclinationToLongitudeHappyFLow()
+    {
+        IDirectConversionCalc convCalc = new DirectConversionCalc();
+        const double obliquity = 23.447;
+        const double declination = 5.0;
+        const double expectedLe = 12.65259427;
+        double longitudeEquivalent = convCalc.DeclinationToLongitude(obliquity, declination);
+        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestDeclinationToLongitudeZeroDecl()
+    {
+        IDirectConversionCalc convCalc = new DirectConversionCalc();
+        const double obliquity = 23.447;
+        const double declination = 0.0;
+        const double expectedLe = 0.0;
+        double longitudeEquivalent = convCalc.DeclinationToLongitude(obliquity, declination);
+        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestDeclinationToLongitudeNegativeDecl()
+    {
+        IDirectConversionCalc convCalc = new DirectConversionCalc();
+        const double obliquity = 23.447;
+        const double declination = -5.0;
+        const double expectedLe = -12.65259427;
+        double longitudeEquivalent = convCalc.DeclinationToLongitude(obliquity, declination);
+        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestDeclinationToLongitudeMaxDecl()
+    {
+        IDirectConversionCalc convCalc = new DirectConversionCalc();
+        const double obliquity = 23.447;
+        const double declination = 23.447;
+        const double expectedLe = 90.0;
+        double longitudeEquivalent = convCalc.DeclinationToLongitude(obliquity, declination);
+        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(DELTA));
+    }
+
+    [Test]
+    public void TestDeclinationToLongitudeForPointWithZeroLatitude()
+    {
+        IDirectConversionCalc convCalc = new DirectConversionCalc();
+        const double meanObliquity = 23.447072302623031;
+        const double trueObliquity = 23.44538400133418;
+        const double declination = -17.983487996715873;
+        const double expectedLe = 309.1192883474571 - 360.0;
+        double longitudeEquivalent = convCalc.DeclinationToLongitude(meanObliquity, declination);
+        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(DELTA));
+        
+        // true obliquity: Off by:   0.013272381444934922d
+        // mean obliquity: Off by:   0.0084837114662050794d
+    }
+    
+    
     private static ICoTransFacade CreateFacadeFake(double[] ecliptical, double[] equatorial)
     {
         var fake = A.Fake<ICoTransFacade>();

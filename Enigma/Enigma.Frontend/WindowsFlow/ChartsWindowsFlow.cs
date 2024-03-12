@@ -6,10 +6,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Windows;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.ViewModels;
 using Enigma.Frontend.Ui.Views;
 using Serilog;
 
@@ -33,7 +35,9 @@ public class ChartsWindowsFlow:
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
     public const string RADIX_ASPECTS = "RadixAspects";
     public const string RADIX_DATA_INPUT = "RadixDataInput";
+    public const string RADIX_DECL_MIDPOINTS = "RadixDeclMidpoints";
     public const string RADIX_HARMONICS = "RadixHarmonics";
+    public const string RADIX_LONGITUDE_EQUIVALENTS = "RadixLongitudeEquivalents";
     public const string RADIX_MIDPOINTS = "RadixMidpoints";
     public const string RADIX_PARALLELS = "RadixParallels";
     public const string RADIX_POSITIONS = "RadixPositions";
@@ -41,6 +45,7 @@ public class ChartsWindowsFlow:
 
     
     private RadixDataInputWindow? _radixDataInputWindow;
+    private RadixDeclMidpointsWindow? _radixDeclMidpointsWindow;
     private RadixParallelsWindow? _radixParallelsWindow;
     private RadixSearchWindow? _radixSearchWindow;
     private ProgEventWindow? _progEventWindow;
@@ -49,6 +54,7 @@ public class ChartsWindowsFlow:
     private RadixPositionsWindow? _radixPositionsWindow;
     private ChartsWheelWindow? _chartsWheelWindow;
     private RadixAspectsWindow? _radixAspectsWindow;
+    private RadixLongitudeEquivalentsWindow? _radixLongitudeEquivalentsWindow;
     private RadixMidpointsWindow? _radixMidpointsWindow;
     private RadixHarmonicsWindow? _radixHarmonicsWindow;
     private DeclDiagramWindow? _declDiagramWindow;
@@ -142,10 +148,20 @@ public class ChartsWindowsFlow:
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _radixAspectsWindow, parentView));
                 _radixAspectsWindow.Show();
                 break;
+            case RADIX_DECL_MIDPOINTS:
+                _radixDeclMidpointsWindow = new RadixDeclMidpointsWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _radixDeclMidpointsWindow, parentView));
+                _radixDeclMidpointsWindow.Show();
+                break;
             case RADIX_HARMONICS:
                 _radixHarmonicsWindow = new RadixHarmonicsWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _radixHarmonicsWindow, parentView));
                 _radixHarmonicsWindow.Show();
+                break;
+            case RADIX_LONGITUDE_EQUIVALENTS:
+                _radixLongitudeEquivalentsWindow = new RadixLongitudeEquivalentsWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _radixLongitudeEquivalentsWindow, parentView));
+                _radixLongitudeEquivalentsWindow.Show();
                 break;
             case RADIX_MIDPOINTS:
                 _radixMidpointsWindow = new RadixMidpointsWindow();
@@ -196,6 +212,5 @@ public class ChartsWindowsFlow:
             _openWindows.Remove(windowToRemove);
         }
     }
-
   
 }
