@@ -79,7 +79,8 @@ public class DeclDiagramCanvasController
         {
             Fill = Brushes.LightBlue,
             Height = _metrics.CanvasSizeVertical,
-            Width = _metrics.CanvasSizeHorizontal
+            Width = _metrics.CanvasSizeHorizontal, 
+            Opacity = 1.0 
         };
         Canvas.SetLeft(backgroundForDiagram, 0.0);
         Canvas.SetTop(backgroundForDiagram, 0.0);
@@ -94,12 +95,57 @@ public class DeclDiagramCanvasController
         {
             Fill = Brushes.LightCyan,
             Height = heightForInBoundsRegion,
-            Width = _metrics.CanvasSizeHorizontal
+            Width = _metrics.CanvasSizeHorizontal,
+            Opacity = 1
         };
         Canvas.SetLeft(backgroundForInBoundsRegion, 0.0);
         Canvas.SetTop(backgroundForInBoundsRegion, offsetBgInBoundsRegion);
         
         Rectangles.Add(backgroundForInBoundsRegion);
+
+        for (int i = 0; i < 3; i++)
+        {
+            double xPos = _metrics.DiagramOffsetLeft + (i * _metrics.SignWidth * 2);
+            double yPosTop = 0.0;
+            double yPosBottom = _metrics.CanvasSizeVertical;
+            Rectangle signBarTop = new()
+            {
+                Fill = Brushes.Khaki,
+                Height = offsetBgInBoundsRegion,
+                Width = _metrics.SignWidth,
+                Opacity = 0.5
+            };
+            Canvas.SetLeft(signBarTop, xPos);
+            Canvas.SetTop(signBarTop, yPosTop);
+            Rectangles.Add(signBarTop);
+            yPosBottom = _metrics.CanvasSizeVertical - offsetBgInBoundsRegion;
+            Rectangle signBarBottom = new()
+            {
+                Fill = Brushes.Khaki,
+                Height = offsetBgInBoundsRegion,
+                Width = _metrics.SignWidth,
+                Opacity = 0.5
+            };
+            Canvas.SetLeft(signBarBottom, xPos);
+            Canvas.SetTop(signBarBottom, yPosBottom);
+
+            Rectangles.Add(signBarBottom);
+            yPosBottom = offsetBgInBoundsRegion;
+            Rectangle signBarCenter = new()
+            {
+                Fill = Brushes.Khaki,
+                Height = _metrics.CanvasSizeVertical - (2 * offsetBgInBoundsRegion),
+                Width = _metrics.SignWidth,
+                Opacity = 0.5
+            };
+            Canvas.SetLeft(signBarCenter, xPos);
+            Canvas.SetTop(signBarCenter, yPosBottom);
+            Rectangles.Add(signBarCenter);
+
+        }
+        
+        
+        
     }
     
     
@@ -262,13 +308,17 @@ public class DeclDiagramCanvasController
         {
             Stroke = Brushes.Coral,
             Fill = Brushes.Bisque,
-            StrokeThickness = 1
+            //Fill = Brushes.Coral,
+            StrokeThickness = 1,
+            Opacity = 0.5
         };
         Polygon polygonSouth = new()
         {
             Stroke = Brushes.Teal,
             Fill = Brushes.Azure,
-            StrokeThickness = 1
+            //Fill = Brushes.Teal,
+            StrokeThickness = 1,
+            Opacity = 0.5
         };
         
         PointCollection pointCollectionNorth = new PointCollection();
@@ -293,128 +343,56 @@ public class DeclDiagramCanvasController
 
     private void HandlePositions()
     {
-        List<GraphicCelPointForDeclDiagram> allPointsNorth = new();
-        List<GraphicCelPointForDeclDiagram> allPointsSouth = new();
-        foreach (KeyValuePair<ChartPoints, FullPointPos> pointPosition in 
-                 _currentChart.Positions.Where(pointPosition => 
-                     pointPosition.Key.GetDetails().PointCat == PointCats.Common || 
-                     pointPosition.Key.GetDetails().PointCat == PointCats.Angle))
-        {
-            if (pointPosition.Value.Equatorial.DeviationPosSpeed.Position >= 0.0)
-            {
-                allPointsNorth.Add(ConvertFullPosToGraphicForDeclDiagram(pointPosition));    
-            }
-            else
-            {
-                allPointsSouth.Add(ConvertFullPosToGraphicForDeclDiagram(pointPosition));
-            }
-        }
-  //      allPointsNorth.Sort((pos1, pos2) => pos1.Longitude.CompareTo(pos2.Longitude));
-  //      allPointsSouth.Sort((pos1, pos2) => pos2.Longitude.CompareTo(pos1.Longitude));
-
-        // for each point: check for available positions, plot cross, plot glyph, remember positions
+        List<GraphicCelPointForDeclDiagram> allPoints = 
+            _currentChart.Positions.Where(pointPosition => 
+                pointPosition.Key.GetDetails().PointCat == PointCats.Common 
+                || pointPosition.Key.GetDetails().PointCat == PointCats.Angle).
+                Select(pointPosition => 
+                    ConvertFullPosToGraphicForDeclDiagram(pointPosition)).ToList();
         double sizeOfHalfDiagram = (_metrics.CanvasSizeVertical / 2) - _metrics.DeclDegreeTopOffset;
-        double lineSize = _metrics.PositionMarkerSize;
-        
         double fontSize = _metrics.CelPointGlyphSize;
         DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, Colors.DarkSlateBlue);
         
-        foreach (var point in allPointsNorth)
+        foreach (var point in allPoints)
         {
-            double horizontalDistanceFromZero = point.Longitude * (_metrics.DiagramWidth / 180.0);
-            double verticalDistanceFromZero = point.Declination * (sizeOfHalfDiagram / 30.0);
-            double xPos = _metrics.DiagramOffsetLeft + horizontalDistanceFromZero;
-            double yPos = (_metrics.CanvasSizeVertical / 2) - verticalDistanceFromZero;
-            /*Line northDeclPositionLine = new Line
+            double declDegreeSize = sizeOfHalfDiagram / 30.0;
+            double longDegreeSize = _metrics.DiagramWidth / 180.0;
+            double longitude = point.Longitude;
+            double declination = point.Declination;
+            double degreeLongLinePosition = (longitude < 180.0) ? longitude : 360 - longitude;
+            double degreeDeclLinePosition =  30 - declination;
+            double yBorderForLongitude = point.Longitude < 180.0 ?_metrics.LongDegreeTopOffset : _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset;
+            
+            double horizontalDistanceFromLeft = degreeLongLinePosition * longDegreeSize;
+            double verticalDistanceFromTop = degreeDeclLinePosition * declDegreeSize;
+            double xPos = _metrics.DiagramOffsetLeft + horizontalDistanceFromLeft;
+            double yPos = _metrics.DeclDegreeTopOffset + verticalDistanceFromTop;
+            Line declPositionLine = new Line
             {
                 X1 = _metrics.DeclDegreeLeftOffset,
                 Y1 = yPos,
                 X2 = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset,
                 Y2 = yPos,
-                Stroke = Brushes.LightGray
+                Stroke = Brushes.Goldenrod,
+                Opacity = 0.7
             };
-            Lines.Add(northDeclPositionLine);
-            Line northLongPositionLine = new Line
+            Lines.Add(declPositionLine);
+            Line longPositionLine = new Line
             {
                 X1 = xPos,
-                Y1 = yPos,
+                Y1 = yBorderForLongitude,
                 X2 = xPos,
-                Y2 = _metrics.LongDegreeTopOffset,
-                Stroke = Brushes.LightGray
-            };
-            Lines.Add(northLongPositionLine);*/
-            /*Line northVerticalLineForCross= new Line
-            {
-                X1 = xPos,
-                Y1 = yPos - lineSize / 2,
-                X2 = xPos,
-                Y2 = yPos + lineSize / 2,
-                Stroke = Brushes.Crimson
-            };
-            Lines.Add(northVerticalLineForCross);
-            Line northHorizontalLineForCross = new Line
-            {
-                X1 = xPos - lineSize / 2,
-                Y1 = yPos,
-                X2 = xPos + lineSize / 2,
                 Y2 = yPos,
-                Stroke = Brushes.Crimson
+                Stroke = Brushes.Goldenrod,
+                Opacity = 0.7
             };
-            Lines.Add(northHorizontalLineForCross);*/
+            Lines.Add(longPositionLine);
             string glyph = point.Glyph.ToString();
             SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPos - fontSize / 1.8));        
         }
-        foreach (var point in allPointsSouth)
-        {
-            double horizontalDistanceFromZero = (360 - point.Longitude) * (_metrics.DiagramWidth / 180.0);
-            double verticalDistanceFromZero = Math.Abs(point.Declination) * (sizeOfHalfDiagram / 30.0);
-            double xPos = _metrics.DiagramOffsetLeft + horizontalDistanceFromZero;
-            double yPos = (_metrics.CanvasSizeVertical / 2) + verticalDistanceFromZero;
-            /*Line southDeclPositionLine = new Line
-            {
-                X1 = _metrics.DeclDegreeLeftOffset,
-                Y1 = yPos,
-                X2 = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset,
-                Y2 = yPos,
-                Stroke = Brushes.LightGray
-            };
-            Lines.Add(southDeclPositionLine);
-            Line southLongPositionLine = new Line
-            {
-                X1 = xPos,
-                Y1 = yPos,
-                X2 = xPos,
-                Y2 = _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset,
-                Stroke = Brushes.LightGray
-            };
-            Lines.Add(southLongPositionLine);*/
-            
-            /*Line southVerticalLineForCross = new Line
-            {
-                X1 = xPos,
-                Y1 = yPos - lineSize / 2,
-                X2 = xPos,
-                Y2 = yPos + lineSize / 2,
-                Stroke = Brushes.Crimson
-            };
-            Lines.Add(southVerticalLineForCross);
-            Line southHorizontalLineForCross = new Line
-            {
-                X1 = xPos - lineSize / 2,
-                Y1 = yPos,
-                X2 = xPos + lineSize / 2,
-                Y2 = yPos,
-                Stroke = Brushes.Crimson
-            };
-            Lines.Add(southHorizontalLineForCross);*/
-            string glyph = point.Glyph.ToString();
-            SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPos - fontSize / 1.8));               
-        }
-
-   
-        
     }
 
+    
     private void HandleSigns()
     {
         // draw separator lines
