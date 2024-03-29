@@ -314,9 +314,11 @@ public class DeclDiagramCanvasController
         };
         Polygon polygonSouth = new()
         {
-            Stroke = Brushes.Teal,
-            Fill = Brushes.Azure,
+         //   Stroke = Brushes.Teal,
+         //   Fill = Brushes.MediumAquamarine,
             //Fill = Brushes.Teal,
+            Stroke = Brushes.Coral,
+            Fill = Brushes.Bisque,            
             StrokeThickness = 1,
             Opacity = 0.5
         };
@@ -373,7 +375,8 @@ public class DeclDiagramCanvasController
                 Y1 = yPos,
                 X2 = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset,
                 Y2 = yPos,
-                Stroke = Brushes.Goldenrod,
+                Stroke = Brushes.DarkCyan,
+                StrokeThickness = 0.5,
                 Opacity = 0.7
             };
             Lines.Add(declPositionLine);
@@ -384,6 +387,7 @@ public class DeclDiagramCanvasController
                 X2 = xPos,
                 Y2 = yPos,
                 Stroke = Brushes.Goldenrod,
+                StrokeThickness = 0.5,
                 Opacity = 0.7
             };
             Lines.Add(longPositionLine);
