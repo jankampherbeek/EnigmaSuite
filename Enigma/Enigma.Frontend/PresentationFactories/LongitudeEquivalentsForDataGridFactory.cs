@@ -62,10 +62,20 @@ public class LongitudeEquivalentsForDataGridFactory:ILongitudeEquivalentsForData
             (string longitude, char longitudeGlyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(radixLongitude);
             string declination = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(radixDeclination);
             string coDeclination = "";
+            double coDeclValue = 0.0;
             if (equivalent.Item2)       // OOB
             {
-                double oobDiff = radixDeclination - obliquity;
-                double coDeclValue = obliquity - oobDiff;
+                double oobDiff = 0.0;
+                if (radixDeclination > 0)
+                {
+                    oobDiff = radixDeclination - obliquity;
+                    coDeclValue = obliquity - oobDiff;
+                }
+                else
+                {
+                    oobDiff = Math.Abs(radixDeclination) - obliquity;
+                    coDeclValue = oobDiff - obliquity;
+                }
                 coDeclination = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(coDeclValue);
             }
             (string longitudeEquivalent, char leGlyph) =

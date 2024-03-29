@@ -11,21 +11,31 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen" 
-        Title="Enigma - Declination Diagram (Kt Boehrer)" Height="740" Width="900" MinHeight="300" MinWidth="400">
+        Title="Enigma - Declination Diagram (Kt Boehrer)" Height="800" Width="1000" MinHeight="300" MinWidth="400">
     <Window.Resources>
         <viewModels:DeclDiagramViewModel x:Key="ViewModel"/>
     </Window.Resources>
-    <Grid Margin="6" DataContext="{StaticResource ViewModel}" >    
+    <Grid Margin="6" DataContext="{StaticResource ViewModel}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>    
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Grid SizeChanged="DiagramGridSizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
+        <Grid Grid.Row="0" Grid.Column="0" SizeChanged="DiagramGridSizeChanged" HorizontalAlignment="Left" 
+              Margin="0,0,0,121" Grid.RowSpan="2">
             <Canvas x:Name="DiagramCanvas" ClipToBounds="True"/>
         </Grid>
-        <TextBlock Grid.Row="1" Margin="6" Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
-        <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <DataGrid Grid.Row="0" Grid.Column="1">
+            
+        </DataGrid>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
+                   Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>
         </StackPanel>

@@ -58,7 +58,7 @@ public partial class App
         serviceCollection.AddTransient<IChartsWheelCusps, ChartsWheelCusps>();
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
-        serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
+        serviceCollection.AddTransient<IGraphicCelPoints, GraphicCelPoints>();
         serviceCollection.AddSingleton<ChartsWindowsFlow>();
         serviceCollection.AddSingleton<IColorMapper, ColorMapper>();
         serviceCollection.AddTransient<IConfigPreferencesConverter, ConfigPreferencesConverter>();

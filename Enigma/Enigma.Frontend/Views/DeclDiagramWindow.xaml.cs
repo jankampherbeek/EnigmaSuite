@@ -29,10 +29,19 @@ public partial class DeclDiagramWindow
     {
         DiagramCanvas.Children.Clear();
         _canvasController.PrepareDraw();
+        DrawRectangles();
         DrawPolygons();
         DrawLines();
+        DrawDegreeTexts();
+        DrawSignGlyphs();
     }
 
+
+    private void DrawRectangles()
+    {
+        AddToDiagram(new List<UIElement>(_canvasController.Rectangles));        
+    }
+    
     private void DrawPolygons()
     {
        AddToDiagram(new List<UIElement>(_canvasController.Polygons));
@@ -43,7 +52,15 @@ public partial class DeclDiagramWindow
         AddToDiagram((new List<UIElement>(_canvasController.Lines)));
     }
 
-    
+    private void DrawDegreeTexts()
+    {
+        AddToDiagram(new List<UIElement>(_canvasController.VerticalDegreesTexts));
+    }
+
+    private void DrawSignGlyphs()
+    {
+        AddToDiagram(new List<UIElement>(_canvasController.SignGlyphs));
+    }
     
 /*
     private void DrawChartFrame()

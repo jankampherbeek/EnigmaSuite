@@ -18,14 +18,14 @@ public interface ILongitudeEquivalentHandler
     public List<Tuple<PositionedPoint, bool>> DefineEquivalents(LongitudeEquivalentRequest request);
 }
 
-
+//////////// Implementation ////////////
 
 /// <inheritdoc/>
 
-public class LongitudeEquivalentHandler: ILongitudeEquivalentHandler
+public sealed class LongitudeEquivalentHandler: ILongitudeEquivalentHandler
 {
-    private IObliquityHandler _obliquityHandler;
-    private IDirectConversionCalc _directConversionCalc;
+    private readonly IObliquityHandler _obliquityHandler;
+    private readonly IDirectConversionCalc _directConversionCalc;
 
     public LongitudeEquivalentHandler(IObliquityHandler obliquityHandler, IDirectConversionCalc directConversionCalc)
     {
@@ -41,21 +41,24 @@ public class LongitudeEquivalentHandler: ILongitudeEquivalentHandler
         double obliquity = _obliquityHandler.CalcObliquity(obliquityRequest);
         foreach (var ppLongDecl in request.PointsPosLongDecl)
         {
-            double decl = ppLongDecl.Item3;
+            double radixDeclination = ppLongDecl.Item3;
+            double declination = radixDeclination;
+            double longitude = ppLongDecl.Item2;
             bool oob = false;
-            if (ppLongDecl.Item3 > obliquity)
+            if (Math.Abs(radixDeclination) > obliquity)     // OOB
             {
-                double oobPart = decl - obliquity;
-                decl-= oobPart;
+                double oobPart = Math.Abs(radixDeclination) - obliquity;
+                declination = radixDeclination > 0 ? obliquity - oobPart : oobPart - obliquity;
                 oob = true;
             }
-            double longitudeEquivalent = _directConversionCalc.DeclinationToLongitude(obliquity, decl);
-            // TODO correct for hemisphere
-            if (longitudeEquivalent < 0.0) longitudeEquivalent += 180.0;
-            double longitudeEquivalent2 = 180.0 - longitudeEquivalent;
-            double diff = Math.Abs(longitudeEquivalent - ppLongDecl.Item2);
-            double diff2 = Math.Abs(longitudeEquivalent2 - ppLongDecl.Item2);
-            if (diff2 < diff) longitudeEquivalent = longitudeEquivalent2;
+            double candidate1 = _directConversionCalc.DeclinationToLongitude(obliquity, declination);
+            if (candidate1 < 0.0) candidate1+= 360.0;
+            double candidate2 = longitude < 180.0 ? 90.0 + (90.0 - candidate1) : 270.0 + (270.0 - candidate1);
+
+            double diff1 = Math.Abs(candidate1 - longitude);
+            double diff2 = Math.Abs(candidate2 - longitude);
+            double longitudeEquivalent = diff1 < diff2 ? candidate1 : candidate2;
+
             longitudeEquivalents.Add(new Tuple<PositionedPoint, bool> 
                 (new PositionedPoint(ppLongDecl.Item1, longitudeEquivalent), oob));
         }

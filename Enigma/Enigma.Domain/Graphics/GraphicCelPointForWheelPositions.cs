@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,7 +12,9 @@ namespace Enigma.Domain.Graphics;
 /// <summary>
 /// Required data to plot a glyph for a celestial point in a chart wheel.
 /// </summary>
-public record GraphicCelPointPositions
+public record GraphicCelPointForWheelPositions
+
+
 {
     /// <summary>The celestial point to plot.</summary>
     public ChartPoints CelPoint { get; }
@@ -25,7 +27,7 @@ public record GraphicCelPointPositions
     /// <summary>Textual presentation of the longitude in degrees and minutes, (0 .. 29 degrees).</summary>
     public string LongitudeText { get; }
 
-    public GraphicCelPointPositions(ChartPoints celPoint, double eclipticPos, double mundanePos, string longitudeText)
+    public GraphicCelPointForWheelPositions(ChartPoints celPoint, double eclipticPos, double mundanePos, string longitudeText)
     {
         CelPoint = celPoint;
         EclipticPos = eclipticPos;
@@ -36,3 +38,13 @@ public record GraphicCelPointPositions
     }
 }
 
+
+/// <summary>Required data to plat a glyph and position in a declination diagram.</summary>
+/// <param name="Glyph">Symbol for the point.</param>
+/// <param name="Longitude">Ecliptical longitude.</param>
+/// <param name="Declination">Declination.</param>
+/// <param name="DeclinationSpeed">Daily speed of declination.</param>
+/// <param name="LongitudeText">Textual presentation of the longitude in degrees and minutes, (0 .. 29 degrees).</param>
+/// <param name="DeclinationText">Textual presentation of the longitude in degrees and minutes.</param>
+public record GraphicCelPointForDeclDiagram(char Glyph, double Longitude, double Declination, double DeclinationSpeed, 
+    string LongitudeText, string DeclinationText);

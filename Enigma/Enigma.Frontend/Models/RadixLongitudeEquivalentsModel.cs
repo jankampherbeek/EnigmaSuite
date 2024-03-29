@@ -73,12 +73,14 @@ public class RadixLongitudeEquivalentsModel
     
     private LongitudeEquivalentRequest CreateRequest(CalculatedChart currentChart)
     {
-
         double jd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
-        List<Tuple<ChartPoints, double, double>> pointsPosLongDecl = currentChart.Positions.Select(chartPointPos 
-            => new Tuple<ChartPoints, double, double>(chartPointPos.Key, 
-                chartPointPos.Value.Ecliptical.MainPosSpeed.Position, 
-                chartPointPos.Value.Equatorial.DeviationPosSpeed.Position)).ToList();
+        List<Tuple<ChartPoints, double, double>> pointsPosLongDecl = 
+            (from pointPos in currentChart.Positions 
+                let currentPoint = pointPos.Key 
+                where currentPoint.GetDetails().PointCat == PointCats.Common 
+                let longitude = pointPos.Value.Ecliptical.MainPosSpeed.Position 
+                let declination = pointPos.Value.Equatorial.DeviationPosSpeed.Position 
+                select new Tuple<ChartPoints, double, double>(currentPoint, longitude, declination)).ToList();
         return new LongitudeEquivalentRequest(jd, pointsPosLongDecl);
     }
     

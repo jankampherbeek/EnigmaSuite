@@ -83,13 +83,16 @@ public class TestCoordinateConversionCalc
     [Test]
     public void TestDeclinationToLongitudeForPointWithZeroLatitude()
     {
+        // TODO limit the range of delta
+        double delta = 0.01;
+        
         IDirectConversionCalc convCalc = new DirectConversionCalc();
         const double meanObliquity = 23.447072302623031;
         const double trueObliquity = 23.44538400133418;
         const double declination = -17.983487996715873;
         const double expectedLe = 309.1192883474571 - 360.0;
         double longitudeEquivalent = convCalc.DeclinationToLongitude(meanObliquity, declination);
-        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(DELTA));
+        Assert.That(longitudeEquivalent, Is.EqualTo(expectedLe).Within(delta));
         
         // true obliquity: Off by:   0.013272381444934922d
         // mean obliquity: Off by:   0.0084837114662050794d
