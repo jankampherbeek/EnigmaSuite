@@ -25,8 +25,6 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <remarks>This view uses MVC instead of MVVM</remarks>
 public class DeclDiagramCanvasController
 {
-    // TODO make decl degrees count in canvas controller a variable
-    private const int DECL_DEGREES_COUNT = 30;
     private const int LONG_DEGREES_COUNT = 180;
     private readonly DeclDiagramMetrics _metrics;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
@@ -68,6 +66,7 @@ public class DeclDiagramCanvasController
 
     public void PrepareDraw()
     {
+        DefineDeclRange();
         Rectangles.Clear();
         Lines.Clear();
         Polygons.Clear();
@@ -82,6 +81,21 @@ public class DeclDiagramCanvasController
         HandlePositions();
     }
 
+    private void DefineDeclRange()
+    {
+        int range = 30;
+        double maxDecl = _currentChart.Positions.Select(pointPosition => 
+            pointPosition.Value.Equatorial.DeviationPosSpeed.Position).Prepend(0.0).Max();
+        if (maxDecl > 30.0)
+        {
+            double delta = maxDecl - 30.0;
+            int factor5 = (int)delta / 5 + 1;
+            range = 30 + factor5 * 5;
+        }
+        _metrics.DeclDegreesCount = range;
+    }
+    
+    
     private void HandleRectangles()
     {
         Rectangle backgroundForDiagram = new()
@@ -97,7 +111,7 @@ public class DeclDiagramCanvasController
 
         double sizeFor60DegreesDeclination = _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset -
                                              _metrics.DeclDegreeBottomOffset;
-        double heightForInBoundsRegion = (_obliquity / DECL_DEGREES_COUNT) * sizeFor60DegreesDeclination;
+        double heightForInBoundsRegion = (_obliquity / _metrics.DeclDegreesCount) * sizeFor60DegreesDeclination;
         double offsetBgInBoundsRegion = (_metrics.CanvasHeight - heightForInBoundsRegion) / 2.0;
         
         Rectangle backgroundForInBoundsRegion = new()
@@ -234,11 +248,11 @@ public class DeclDiagramCanvasController
         Lines.Add(verticalDegreesLineLeft);
         double lengthOfDegreeLine =
             _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset - _metrics.DeclDegreeBottomOffset;
-        double verticalDegreeInterval = lengthOfDegreeLine / (DECL_DEGREES_COUNT * 2);
+        double verticalDegreeInterval = lengthOfDegreeLine / (_metrics.DeclDegreesCount * 2);
         double xStart = _metrics.DeclDegreeLeftOffset;
         double xEnd = xStart + _metrics.DegreeSizeSmall;
         double xEnd5Degrees = xStart + _metrics.DegreeSizeLarge;
-        for (int i = 0; i <= DECL_DEGREES_COUNT * 2; i++)
+        for (int i = 0; i <= _metrics.DeclDegreesCount * 2; i++)
         {
             double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval;
             Line degreeIndicatorLine = new Line
@@ -254,11 +268,11 @@ public class DeclDiagramCanvasController
         }
         DimTextBlock dimDegreeTextLeft = new(_metrics.DegreeTextsFontFamily, _metrics.DegreeTextSize,
             _metrics.DegreeTextOpacity, _metrics.DegreeTextColor);
-        for (int i = 0; i <= DECL_DEGREES_COUNT / 5; i++)
+        for (int i = 0; i <= _metrics.DeclDegreesCount / 5; i++)
         {
-            int degreeValue = DECL_DEGREES_COUNT - i * 10;
+            int degreeValue = _metrics.DeclDegreesCount - i * 10;
             double xPos = _metrics.DeclDegreeLeftOffset - _metrics.DeclDegreeCharacterLeftOffset;
-            double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval * 10 - 8;
+            double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval * 10 - verticalDegreeInterval * 0.8;
             RotateTransform rotateTransform = new(0.0);
             TextBlock degreeText = dimDegreeTextLeft.CreateTextBlock(degreeValue.ToString(), xPos, yPos, rotateTransform);
             VerticalDegreesTexts.Add(degreeText);
@@ -278,7 +292,7 @@ public class DeclDiagramCanvasController
         xStart = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset;
         xEnd = xStart - _metrics.DegreeSizeSmall;
         xEnd5Degrees = xStart - _metrics.DegreeSizeLarge;
-        for (int i = 0; i <= DECL_DEGREES_COUNT * 2; i++)
+        for (int i = 0; i <= _metrics.DeclDegreesCount * 2; i++)
         {
             double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval;
             Line degreeIndicatorLine = new Line
@@ -294,11 +308,11 @@ public class DeclDiagramCanvasController
         }
         DimTextBlock dimDegreeTextRight = new(_metrics.DegreeTextsFontFamily, _metrics.DegreeTextSize,
             _metrics.DegreeTextOpacity, _metrics.DegreeTextColor); 
-        for (int i = 0; i <= DECL_DEGREES_COUNT / 5; i++)
+        for (int i = 0; i <= _metrics.DeclDegreesCount / 5; i++)
         {
-            int degreeValue = DECL_DEGREES_COUNT - i * 10;
+            int degreeValue = _metrics.DeclDegreesCount - i * 10;
             double xPos = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset + _metrics.DeclDegreeCharacterRightOffset;
-            double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval * 10 - 8;
+            double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval * 10 - verticalDegreeInterval * 0.8;
             RotateTransform rotateTransform = new(0.0);
             TextBlock degreeText = dimDegreeTextRight.CreateTextBlock(degreeValue.ToString(), xPos, yPos, rotateTransform);
             VerticalDegreesTexts.Add(degreeText);
@@ -362,12 +376,12 @@ public class DeclDiagramCanvasController
         
         foreach (var point in allPoints)
         {
-            double declDegreeSize = sizeOfHalfDiagram / DECL_DEGREES_COUNT;
+            double declDegreeSize = sizeOfHalfDiagram / _metrics.DeclDegreesCount;
             double longDegreeSize = _metrics.DiagramWidth / 180.0;
             double longitude = point.Longitude;
             double declination = point.Declination;
             double degreeLongLinePosition = (longitude < 180.0) ? longitude : 360 - longitude;
-            double degreeDeclLinePosition =  DECL_DEGREES_COUNT - declination;
+            double degreeDeclLinePosition =  _metrics.DeclDegreesCount - declination;
             double yBorderForLongitude = point.Longitude < 180.0 ?_metrics.LongDegreeTopOffset : _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset;
             
             double horizontalDistanceFromLeft = degreeLongLinePosition * longDegreeSize;
@@ -480,10 +494,10 @@ public class DeclDiagramCanvasController
         List<Point> PolygonPointsNorth = new List<Point>();
         List<Point> PolygonPointsSouth = new List<Point>();
         double longDegreeSize = _metrics.DiagramWidth / LONG_DEGREES_COUNT;
-        double declDegreeSize = _metrics.DeclinationBarHeight / (DECL_DEGREES_COUNT * 2);
+        double declDegreeSize = _metrics.DeclinationBarHeight / (_metrics.DeclDegreesCount * 2);
         double sizeForDeclinationDegreeBar = _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset -
                                              _metrics.DeclDegreeBottomOffset;
-        double heightForInBoundsRegion = (_obliquity / DECL_DEGREES_COUNT) * sizeForDeclinationDegreeBar;
+        double heightForInBoundsRegion = (_obliquity / _metrics.DeclDegreesCount) * sizeForDeclinationDegreeBar;
         double offsetInBoundsRegion = (_metrics.CanvasHeight - heightForInBoundsRegion) / 2.0;
         double horizontalOffset =  _metrics.DiagramOffsetLeft;
         for (int i = 0; i <= 180; i++)

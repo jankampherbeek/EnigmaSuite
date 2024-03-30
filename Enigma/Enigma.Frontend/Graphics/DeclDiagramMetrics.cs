@@ -13,8 +13,7 @@ namespace Enigma.Frontend.Ui.Graphics;
 /// <summary>Metrics used in drawing a declination diagram.</summary>
 public class DeclDiagramMetrics
 {
-    // TODO make decl degrees count in metrics a variable
-    private const int DECL_DEGREES_COUNT = 30;         // Counted for north or south only.
+
     private const int LONGITUDE_DEGREES_COUNT = 180;     // Counted for 6 signs only.
     private const double BASE_WIDTH = 800.0;
     private const double BASE_HEIGHT = 640.0;
@@ -41,6 +40,7 @@ public class DeclDiagramMetrics
     public double WidthFactor { get; private set; }
     public double CanvasWidth { get; private set; }
     public double CanvasHeight { get; private set; }
+    public int DeclDegreesCount { get; set; } = 30;
     public double DiagramOffsetLeft { get; private set; }
     public double DiagramOffsetRight { get; private set; }
     public double DiagramHalfHeight { get; private set; }
@@ -114,7 +114,7 @@ public class DeclDiagramMetrics
         SignWidth = SIGN_WIDTH_FACTOR * CanvasWidth;
         PositionMarkerSize = POSITION_MARKER_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
         DeclinationBarHeight = CanvasHeight - DeclDegreeTopOffset - DeclDegreeBottomOffset;
-        DeclinationDegreeWidth = DiagramHalfHeight / DECL_DEGREES_COUNT;
+        DeclinationDegreeWidth = DiagramHalfHeight / DeclDegreesCount;
         LongitudeDegreeWidth = DiagramWidth / LONGITUDE_DEGREES_COUNT;
         PositionLineStrokeSize = 0.5 * Math.Max(HeightFactor, WidthFactor);
         if (PositionLineStrokeSize < 0.5) PositionLineStrokeSize = 0.5;
