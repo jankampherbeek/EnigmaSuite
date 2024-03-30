@@ -31,6 +31,7 @@ public class DeclDiagramCanvasController
     private readonly DeclDiagramMetrics _metrics;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly DataVaultCharts _dataVaultCharts;
+    public bool HidePositionLines { get; set; } = false;
     private double _obliquity;
     
     
@@ -373,28 +374,31 @@ public class DeclDiagramCanvasController
             double verticalDistanceFromTop = degreeDeclLinePosition * declDegreeSize;
             double xPos = _metrics.DiagramOffsetLeft + horizontalDistanceFromLeft;
             double yPos = _metrics.DeclDegreeTopOffset + verticalDistanceFromTop;
-            Line declPositionLine = new Line
+            if (!HidePositionLines)
             {
-                X1 = _metrics.DeclDegreeLeftOffset,
-                Y1 = yPos,
-                X2 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
-                Y2 = yPos,
-                Stroke = Brushes.DarkCyan,
-                StrokeThickness = _metrics.PositionLineStrokeSize,
-                Opacity = _metrics.PositionLineOpacity
-            };
-            Lines.Add(declPositionLine);
-            Line longPositionLine = new Line
-            {
-                X1 = xPos,
-                Y1 = yBorderForLongitude,
-                X2 = xPos,
-                Y2 = yPos,
-                Stroke = Brushes.Goldenrod,
-                StrokeThickness = _metrics.PositionLineStrokeSize,
-                Opacity = _metrics.PositionLineOpacity
-            };
-            Lines.Add(longPositionLine);
+                Line declPositionLine = new Line
+                {
+                    X1 = _metrics.DeclDegreeLeftOffset,
+                    Y1 = yPos,
+                    X2 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
+                    Y2 = yPos,
+                    Stroke = Brushes.DarkCyan,
+                    StrokeThickness = _metrics.PositionLineStrokeSize,
+                    Opacity = _metrics.PositionLineOpacity
+                };
+                Lines.Add(declPositionLine);
+                Line longPositionLine = new Line
+                {
+                    X1 = xPos,
+                    Y1 = yBorderForLongitude,
+                    X2 = xPos,
+                    Y2 = yPos,
+                    Stroke = Brushes.Goldenrod,
+                    StrokeThickness = _metrics.PositionLineStrokeSize,
+                    Opacity = _metrics.PositionLineOpacity
+                };
+                Lines.Add(longPositionLine);                
+            }
             string glyph = point.Glyph.ToString();
             SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPos - fontSize / 1.8));        
         }

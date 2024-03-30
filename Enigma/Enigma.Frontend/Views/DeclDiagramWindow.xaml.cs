@@ -21,16 +21,17 @@ public partial class DeclDiagramWindow
     {
         InitializeComponent();
         DefineColors();
-        _canvasController = App.ServiceProvider.GetRequiredService<DeclDiagramCanvasController>();
+        CanvasController = App.ServiceProvider.GetRequiredService<DeclDiagramCanvasController>();
     }
     
-   private readonly DeclDiagramCanvasController _canvasController;
+   private readonly DeclDiagramCanvasController CanvasController;
 
 
     public void Populate()
     {
+        CanvasController.HidePositionLines = CboxHidePositionLines.IsChecked == true;
         DiagramCanvas.Children.Clear();
-        _canvasController.PrepareDraw();
+        CanvasController.PrepareDraw();
         DrawRectangles();
         DrawPolygons();
         DrawLines();
@@ -38,30 +39,34 @@ public partial class DeclDiagramWindow
         DrawSignGlyphs();
     }
 
+    public void CheckBoxPositionLinesClick(object sender, RoutedEventArgs e)
+    {
+        Populate();
+    }
 
     private void DrawRectangles()
     {
-        AddToDiagram(new List<UIElement>(_canvasController.Rectangles));        
+        AddToDiagram(new List<UIElement>(CanvasController.Rectangles));        
     }
     
     private void DrawPolygons()
     {
-       AddToDiagram(new List<UIElement>(_canvasController.Polygons));
+       AddToDiagram(new List<UIElement>(CanvasController.Polygons));
     }
 
     private void DrawLines()
     {
-        AddToDiagram((new List<UIElement>(_canvasController.Lines)));
+        AddToDiagram((new List<UIElement>(CanvasController.Lines)));
     }
 
     private void DrawDegreeTexts()
     {
-        AddToDiagram(new List<UIElement>(_canvasController.VerticalDegreesTexts));
+        AddToDiagram(new List<UIElement>(CanvasController.VerticalDegreesTexts));
     }
 
     private void DrawSignGlyphs()
     {
-        AddToDiagram(new List<UIElement>(_canvasController.SignGlyphs));
+        AddToDiagram(new List<UIElement>(CanvasController.SignGlyphs));
     }
     
     private void AddToDiagram(List<UIElement> uiElements)
@@ -77,9 +82,9 @@ public partial class DeclDiagramWindow
     {
         double availHeight = Height - 200.0;            // subtract size of rows for description and buttons
         double availWidth = Width - 280;                // subtract size of right column
-        _canvasController.Resize(availHeight, availWidth);
-        DiagramCanvas.Height = _canvasController.CanvasHeightSize;
-        DiagramCanvas.Width = _canvasController.CanvasWidthSize;
+        CanvasController.Resize(availHeight, availWidth);
+        DiagramCanvas.Height = CanvasController.CanvasHeightSize;
+        DiagramCanvas.Width = CanvasController.CanvasWidthSize;
         DiagramCanvas.Children.Clear();
         Populate();
     }

@@ -23,7 +23,7 @@ public partial class DeclDiagramViewModel:ObservableObject
 
     [ObservableProperty] private string _descriptionOfChart;
     [ObservableProperty] private string _obliquityText;
-    
+    [ObservableProperty] private bool _applyHidingPositionLines;
     public DeclDiagramViewModel()
     {
         _descriptiveChartText = new DescriptiveChartText();
@@ -47,7 +47,7 @@ public partial class DeclDiagramViewModel:ObservableObject
         double obliquity = DataVaultCharts.Instance.GetCurrentChart().Obliquity;
         return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(obliquity);
     }
-    
+
     
     [RelayCommand]
     private void Close()

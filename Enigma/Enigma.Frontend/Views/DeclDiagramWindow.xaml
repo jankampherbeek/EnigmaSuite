@@ -33,8 +33,9 @@
             <TextBlock Margin="6" Text="Declination diagram" Name ="Header" TextWrapping="Wrap"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />  
             <CheckBox IsTabStop="True" Content="Hide position lines" Margin = "6,30, 6, 6" 
-                      Style="{StaticResource MaterialDesignCheckBox}"
-                      IsChecked="{Binding ApplyHidingPositionLines}" />
+                      Name="CboxHidePositionLines"
+                      Click="CheckBoxPositionLinesClick"
+                      Style="{StaticResource MaterialDesignCheckBox}" />
             <TextBlock Margin="6" 
                        Text="{Binding ObliquityText, Mode = OneWay}" TextWrapping="Wrap" />            
             <DataGrid Grid.Row="0" Grid.Column="1">
