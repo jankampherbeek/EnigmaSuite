@@ -41,8 +41,6 @@
             
             </DataGrid>            
         </StackPanel>
-        
-
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
                    Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap"
                    VerticalAlignment="Center"/>
