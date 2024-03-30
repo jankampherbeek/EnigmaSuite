@@ -25,6 +25,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <remarks>This view uses MVC instead of MVVM</remarks>
 public class DeclDiagramCanvasController
 {
+    // TODO make decl degrees count in canvas controller a variable
     private const int DECL_DEGREES_COUNT = 30;
     private const int LONG_DEGREES_COUNT = 180;
     private readonly DeclDiagramMetrics _metrics;
@@ -39,7 +40,8 @@ public class DeclDiagramCanvasController
     public List<Line> Lines { get; set; } = new();
     public List<TextBlock> VerticalDegreesTexts { get; } = new();
     public List<TextBlock> SignGlyphs { get; set; } = new();
-    public double CanvasSize { get; private set; }
+    public double CanvasWidthSize { get; private set; }
+    public double CanvasHeightSize { get; private set; }
     private CalculatedChart? _currentChart;
    
     
@@ -58,13 +60,21 @@ public class DeclDiagramCanvasController
     
     public void Resize(double minSize)
     {
-        _metrics.SetSizeFactor(minSize / 740.0);
-        CanvasSize = _metrics.CanvasSizeHorizontal;
+        _metrics.SetSizeFactor(minSize / 660.0);
+        CanvasWidthSize = _metrics.CanvasWidth;
+        CanvasHeightSize = _metrics.CanvasHeight;
         PrepareDraw();
+        
     }
 
     public void PrepareDraw()
     {
+        Rectangles.Clear();
+        Lines.Clear();
+        Polygons.Clear();
+        VerticalDegreesTexts.Clear();
+        SignGlyphs.Clear();
+        
         HandleRectangles();
         HandleHorizontalDegreeLines();
         HandleVerticalDegreeLine();
@@ -78,24 +88,24 @@ public class DeclDiagramCanvasController
         Rectangle backgroundForDiagram = new()
         {
             Fill = Brushes.LightBlue,
-            Height = _metrics.CanvasSizeVertical,
-            Width = _metrics.CanvasSizeHorizontal, 
+            Height = _metrics.CanvasHeight,
+            Width = _metrics.CanvasWidth, 
             Opacity = 1.0 
         };
         Canvas.SetLeft(backgroundForDiagram, 0.0);
         Canvas.SetTop(backgroundForDiagram, 0.0);
         Rectangles.Add(backgroundForDiagram);
 
-        double sizeFor60DegreesDeclination = _metrics.CanvasSizeVertical - _metrics.DeclDegreeTopOffset -
+        double sizeFor60DegreesDeclination = _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset -
                                              _metrics.DeclDegreeBottomOffset;
         double heightForInBoundsRegion = (_obliquity / DECL_DEGREES_COUNT) * sizeFor60DegreesDeclination;
-        double offsetBgInBoundsRegion = (_metrics.CanvasSizeVertical - heightForInBoundsRegion) / 2.0;
+        double offsetBgInBoundsRegion = (_metrics.CanvasHeight - heightForInBoundsRegion) / 2.0;
         
         Rectangle backgroundForInBoundsRegion = new()
         {
             Fill = Brushes.LightCyan,
             Height = heightForInBoundsRegion,
-            Width = _metrics.CanvasSizeHorizontal,
+            Width = _metrics.CanvasWidth,
             Opacity = 1
         };
         Canvas.SetLeft(backgroundForInBoundsRegion, 0.0);
@@ -107,7 +117,7 @@ public class DeclDiagramCanvasController
         {
             double xPos = _metrics.DiagramOffsetLeft + (i * _metrics.SignWidth * 2);
             double yPosTop = 0.0;
-            double yPosBottom = _metrics.CanvasSizeVertical;
+            double yPosBottom = _metrics.CanvasHeight;
             Rectangle signBarTop = new()
             {
                 Fill = Brushes.Khaki,
@@ -118,7 +128,7 @@ public class DeclDiagramCanvasController
             Canvas.SetLeft(signBarTop, xPos);
             Canvas.SetTop(signBarTop, yPosTop);
             Rectangles.Add(signBarTop);
-            yPosBottom = _metrics.CanvasSizeVertical - offsetBgInBoundsRegion;
+            yPosBottom = _metrics.CanvasHeight - offsetBgInBoundsRegion;
             Rectangle signBarBottom = new()
             {
                 Fill = Brushes.Khaki,
@@ -134,7 +144,7 @@ public class DeclDiagramCanvasController
             Rectangle signBarCenter = new()
             {
                 Fill = Brushes.Khaki,
-                Height = _metrics.CanvasSizeVertical - (2 * offsetBgInBoundsRegion),
+                Height = _metrics.CanvasHeight - (2 * offsetBgInBoundsRegion),
                 Width = _metrics.SignWidth,
                 Opacity = 0.5
             };
@@ -163,9 +173,9 @@ public class DeclDiagramCanvasController
         Line bottomDegreeLine = new Line
         {
             X1 = _metrics.DiagramOffsetLeft,
-            Y1 = _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset,
+            Y1 = _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset,
             X2 = _metrics.DiagramWidth + _metrics.DiagramOffsetLeft,
-            Y2 = _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset,
+            Y2 = _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset,
             Stroke = Brushes.Black
         };
         Lines.Add(bottomDegreeLine);
@@ -190,7 +200,7 @@ public class DeclDiagramCanvasController
             Lines.Add(degreeIndicatorLine);
         }
         // bottom line
-        yStart = _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset;
+        yStart = _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset;
         yEnd = yStart - _metrics.DegreeSizeSmall;
         yEnd5Degrees = yStart - _metrics.DegreeSizeLarge;
         for (int i = 0; i <= LONG_DEGREES_COUNT; i++)
@@ -219,12 +229,12 @@ public class DeclDiagramCanvasController
             X1 = _metrics.DeclDegreeLeftOffset,
             Y1 = _metrics.DeclDegreeTopOffset,
             X2 = _metrics.DeclDegreeLeftOffset,
-            Y2 = _metrics.CanvasSizeVertical - _metrics.DeclDegreeBottomOffset,
+            Y2 = _metrics.CanvasHeight - _metrics.DeclDegreeBottomOffset,
             Stroke = Brushes.Black
         };
         Lines.Add(verticalDegreesLineLeft);
         double lengthOfDegreeLine =
-            _metrics.CanvasSizeVertical - _metrics.DeclDegreeTopOffset - _metrics.DeclDegreeBottomOffset;
+            _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset - _metrics.DeclDegreeBottomOffset;
         double verticalDegreeInterval = lengthOfDegreeLine / (DECL_DEGREES_COUNT * 2);
         double xStart = _metrics.DeclDegreeLeftOffset;
         double xEnd = xStart + _metrics.DegreeSizeSmall;
@@ -244,10 +254,10 @@ public class DeclDiagramCanvasController
                
         }
         DimTextBlock dimDegreeTextLeft = new(_metrics.DegreeTextsFontFamily, _metrics.DegreeTextSize,
-            _metrics.DegreeTextOpacity, _metrics.DegreeTextColor); 
-        for (int i = 0; i < 7; i++)
+            _metrics.DegreeTextOpacity, _metrics.DegreeTextColor);
+        for (int i = 0; i <= DECL_DEGREES_COUNT / 5; i++)
         {
-            int degreeValue = 30 - i * 10;
+            int degreeValue = DECL_DEGREES_COUNT - i * 10;
             double xPos = _metrics.DeclDegreeLeftOffset - _metrics.DeclDegreeCharacterLeftOffset;
             double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval * 10 - 8;
             RotateTransform rotateTransform = new(0.0);
@@ -259,14 +269,14 @@ public class DeclDiagramCanvasController
         
         Line verticalDegreesLineRight = new Line
         {
-            X1 = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset,
+            X1 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
             Y1 = _metrics.DeclDegreeTopOffset,
-            X2 = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset,
-            Y2 = _metrics.CanvasSizeVertical - _metrics.DeclDegreeBottomOffset,
+            X2 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
+            Y2 = _metrics.CanvasHeight - _metrics.DeclDegreeBottomOffset,
             Stroke = Brushes.Black
         };
         Lines.Add(verticalDegreesLineRight);
-        xStart = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset;
+        xStart = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset;
         xEnd = xStart - _metrics.DegreeSizeSmall;
         xEnd5Degrees = xStart - _metrics.DegreeSizeLarge;
         for (int i = 0; i <= DECL_DEGREES_COUNT * 2; i++)
@@ -285,10 +295,10 @@ public class DeclDiagramCanvasController
         }
         DimTextBlock dimDegreeTextRight = new(_metrics.DegreeTextsFontFamily, _metrics.DegreeTextSize,
             _metrics.DegreeTextOpacity, _metrics.DegreeTextColor); 
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i <= DECL_DEGREES_COUNT / 5; i++)
         {
-            int degreeValue = 30 - i * 10;
-            double xPos = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset + _metrics.DeclDegreeCharacterRightOffset;
+            int degreeValue = DECL_DEGREES_COUNT - i * 10;
+            double xPos = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset + _metrics.DeclDegreeCharacterRightOffset;
             double yPos = _metrics.DeclDegreeTopOffset + i * verticalDegreeInterval * 10 - 8;
             RotateTransform rotateTransform = new(0.0);
             TextBlock degreeText = dimDegreeTextRight.CreateTextBlock(degreeValue.ToString(), xPos, yPos, rotateTransform);
@@ -317,8 +327,8 @@ public class DeclDiagramCanvasController
          //   Stroke = Brushes.Teal,
          //   Fill = Brushes.MediumAquamarine,
             //Fill = Brushes.Teal,
-            Stroke = Brushes.Coral,
-            Fill = Brushes.Bisque,            
+            Stroke = Brushes.CornflowerBlue,
+            Fill = Brushes.PaleTurquoise,            
             StrokeThickness = 1,
             Opacity = 0.5
         };
@@ -351,19 +361,19 @@ public class DeclDiagramCanvasController
                 || pointPosition.Key.GetDetails().PointCat == PointCats.Angle).
                 Select(pointPosition => 
                     ConvertFullPosToGraphicForDeclDiagram(pointPosition)).ToList();
-        double sizeOfHalfDiagram = (_metrics.CanvasSizeVertical / 2) - _metrics.DeclDegreeTopOffset;
+        double sizeOfHalfDiagram = (_metrics.CanvasHeight / 2) - _metrics.DeclDegreeTopOffset;
         double fontSize = _metrics.CelPointGlyphSize;
         DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, Colors.DarkSlateBlue);
         
         foreach (var point in allPoints)
         {
-            double declDegreeSize = sizeOfHalfDiagram / 30.0;
+            double declDegreeSize = sizeOfHalfDiagram / DECL_DEGREES_COUNT;
             double longDegreeSize = _metrics.DiagramWidth / 180.0;
             double longitude = point.Longitude;
             double declination = point.Declination;
             double degreeLongLinePosition = (longitude < 180.0) ? longitude : 360 - longitude;
-            double degreeDeclLinePosition =  30 - declination;
-            double yBorderForLongitude = point.Longitude < 180.0 ?_metrics.LongDegreeTopOffset : _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset;
+            double degreeDeclLinePosition =  DECL_DEGREES_COUNT - declination;
+            double yBorderForLongitude = point.Longitude < 180.0 ?_metrics.LongDegreeTopOffset : _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset;
             
             double horizontalDistanceFromLeft = degreeLongLinePosition * longDegreeSize;
             double verticalDistanceFromTop = degreeDeclLinePosition * declDegreeSize;
@@ -373,7 +383,7 @@ public class DeclDiagramCanvasController
             {
                 X1 = _metrics.DeclDegreeLeftOffset,
                 Y1 = yPos,
-                X2 = _metrics.CanvasSizeHorizontal - _metrics.DeclDegreeRightOffset,
+                X2 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
                 Y2 = yPos,
                 Stroke = Brushes.DarkCyan,
                 StrokeThickness = 0.5,
@@ -422,9 +432,9 @@ public class DeclDiagramCanvasController
             Line signSeparatorLineBottom = new Line
             {
                 X1 = xPos,
-                Y1 = _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset,
+                Y1 = _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset,
                 X2 = xPos,
-                Y2 = _metrics.CanvasSizeVertical,
+                Y2 = _metrics.CanvasHeight,
                 Stroke = Brushes.Black
             };
             Lines.Add(signSeparatorLineBottom);
@@ -441,7 +451,7 @@ public class DeclDiagramCanvasController
             double xPos = xPosStart + i * _metrics.SignWidth;            
             SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyphs[i], xPos - fontSize / 3, yPos - fontSize / 1.8));
         }
-        yPos = _metrics.CanvasSizeVertical - _metrics.LongDegreeBottomOffset / 2.0;
+        yPos = _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset / 2.0;
         for (int i = 0; i < 6; i++)
         {
             double xPos = xPosStart + i * _metrics.SignWidth;            
@@ -475,16 +485,16 @@ public class DeclDiagramCanvasController
         List<Point> PolygonPointsSouth = new List<Point>();
         double longDegreeSize = _metrics.DiagramWidth / LONG_DEGREES_COUNT;
         double declDegreeSize = _metrics.DeclinationBarHeight / (DECL_DEGREES_COUNT * 2);
-        double sizeFor60DegreesDeclination = _metrics.CanvasSizeVertical - _metrics.DeclDegreeTopOffset -
+        double sizeFor60DegreesDeclination = _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset -
                                              _metrics.DeclDegreeBottomOffset;
         double heightForInBoundsRegion = (_obliquity / DECL_DEGREES_COUNT) * sizeFor60DegreesDeclination;
-        double offsetInBoundsRegion = (_metrics.CanvasSizeVertical - heightForInBoundsRegion) / 2.0;
+        double offsetInBoundsRegion = (_metrics.CanvasHeight - heightForInBoundsRegion) / 2.0;
         double horizontalOffset =  _metrics.DiagramOffsetLeft;
         for (int i = 0; i <= 180; i++)
         {
             double decl = CalcDecl(i, _obliquity);
-            double declOffsetNorth = _metrics.CanvasSizeVertical / 2.0 - (decl * declDegreeSize);
-            double declOffsetSouth = _metrics.CanvasSizeVertical / 2.0 + (decl * declDegreeSize);
+            double declOffsetNorth = _metrics.CanvasHeight / 2.0 - (decl * declDegreeSize);
+            double declOffsetSouth = _metrics.CanvasHeight / 2.0 + (decl * declDegreeSize);
             double longOffset = horizontalOffset + (i * longDegreeSize);
             PolygonPointsNorth.Add(new Point(longOffset, declOffsetNorth));
             PolygonPointsSouth.Add(new Point(longOffset, declOffsetSouth));

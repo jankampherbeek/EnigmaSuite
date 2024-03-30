@@ -62,36 +62,6 @@ public partial class DeclDiagramWindow
         AddToDiagram(new List<UIElement>(_canvasController.SignGlyphs));
     }
     
-/*
-    private void DrawChartFrame()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.WheelCircles));
-        AddToWheel(new List<UIElement>(_canvasController.SignSeparators));
-        AddToWheel(new List<UIElement>(_canvasController.SignGlyphs));
-        AddToWheel(new List<UIElement>(_canvasController.DegreeLines));
-    }
-
-
-    private void DrawCusps()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.CuspLines));
-        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalLines));
-        AddToWheel(new List<UIElement>(_canvasController.CuspTexts));
-        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalIndicators));
-    }
-
-    private void DrawCelPoints()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.CelPointGlyphs));
-        AddToWheel(new List<UIElement>(_canvasController.CelPointConnectLines));
-        AddToWheel(new List<UIElement>(_canvasController.CelPointTexts));
-    }
-
-    private void DrawAspects()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.AspectLines));
-    }
-*/
     private void AddToDiagram(List<UIElement> uiElements)
     {
         foreach (var uiElement in uiElements)
@@ -101,13 +71,14 @@ public partial class DeclDiagramWindow
     }
 
 
-    private void DiagramGridSizeChanged(object sender, SizeChangedEventArgs e)
+    private void DiagramSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 120.0;
+        double availHeight = Height - 140.0;
         double minSize = Math.Min(availHeight, Width);
         _canvasController.Resize(minSize);
-        DiagramCanvas.Height = _canvasController.CanvasSize;
-        DiagramCanvas.Width = _canvasController.CanvasSize;
+        DiagramCanvas.Height = _canvasController.CanvasWidthSize;
+        DiagramCanvas.Width = _canvasController.CanvasWidthSize;
+        DiagramCanvas.Children.Clear();
         Populate();
     }
 

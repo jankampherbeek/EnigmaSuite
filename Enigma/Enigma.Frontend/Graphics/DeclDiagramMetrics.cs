@@ -16,6 +16,7 @@ namespace Enigma.Frontend.Ui.Graphics;
 /// <summary>Metrics used in drawing a declination diagram.</summary>
 public class DeclDiagramMetrics
 {
+    // TODO make decl degrees count in metrics a variable
     private const int DECL_DEGREES_COUNT = 30;         // Counted for north or south only.
     private const int LONGITUDE_DEGREES_COUNT = 180;     // Counted for 6 signs only.
     private const double BASE_WIDTH = 700.0;
@@ -42,8 +43,8 @@ public class DeclDiagramMetrics
     private const double SIGN_WIDTH_FACTOR = 0.14;
     private const double POSITION_MARKER_SIZE_FACTOR = 0.01;
     public double SizeFactor { get; private set; }    
-    public double CanvasSizeHorizontal { get; private set; }
-    public double CanvasSizeVertical { get; private set; }
+    public double CanvasWidth { get; private set; }
+    public double CanvasHeight { get; private set; }
     public double DiagramOffsetLeft { get; private set; }
     public double DiagramOffsetRight { get; private set; }
     public double DiagramHalfHeight { get; private set; }
@@ -59,7 +60,7 @@ public class DeclDiagramMetrics
     public double LongDegreeTopOffset { get; private set; }
     public double LongDegreeBottomOffset { get; private set; }
     public double SignWidth { get; private set; }
-    public double DeclinationDegreeWidth { get; private set; }
+    public double DeclinationDegreeWidth { get; private set; }  // todo remove
     public double LongitudeDegreeWidth { get; private set; } 
     public double DeclinationBarHeight { get; private set; }
     public double PositionMarkerSize { get; private set; }
@@ -141,33 +142,32 @@ public class DeclDiagramMetrics
     }
     private void DefineSizes()
     {
-        CanvasSizeHorizontal = BASE_WIDTH;
-        CanvasSizeVertical = BASE_HEIGHT;
-        DiagramOffsetLeft = DIAGRAM_OFFSET_LEFT_FACTOR * BASE_WIDTH;
-        DiagramOffsetRight = DIAGRAM_OFFSET_RIGHT_FACTOR * BASE_WIDTH;
-        DiagramHalfHeight = DIAGRAM_HALF_HEIGHT_FACTOR * BASE_HEIGHT;
-        DiagramWidth = DIAGRAM_WIDTH_FACTOR * BASE_WIDTH;
-        DegreeSizeLarge = DEGREE_SIZE_LARGE_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        DegreeSizeSmall = DEGREE_SIZE_SMALL_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        DeclDegreeCharacterLeftOffset = DECL_DEGREE_CHARACTER_OFFSET_LEFT_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        DeclDegreeCharacterRightOffset = DECL_DEGREE_CHARACTER_OFFSET_RIGHT_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        DeclDegreeTopOffset = DECL_DEGREE_TOP_OFFSET_FACTOR * BASE_HEIGHT;
-        DeclDegreeBottomOffset = DECL_DEGREE_BOTTOM_OFFSET_FACTOR * BASE_HEIGHT;
-        DeclDegreeLeftOffset = DECL_DEGREE_LEFT_OFFSET_FACTOR * BASE_WIDTH;
-        DeclDegreeRightOffset = DECL_DEGREE_RIGHT_OFFSET_FACTOR * BASE_WIDTH;
-        LongDegreeTopOffset = LONG_DEGREE_TOP_OFFSET_FACTOR * BASE_HEIGHT;
-        LongDegreeBottomOffset = LONG_DEGREE_BOTTOM_OFFSET_FACTOR * BASE_HEIGHT;
-        SignWidth = SIGN_WIDTH_FACTOR * BASE_WIDTH;
-        PositionMarkerSize = POSITION_MARKER_SIZE_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        DeclinationBarHeight = BASE_HEIGHT - DeclDegreeTopOffset - DeclDegreeBottomOffset;
-
+        CanvasWidth = BASE_WIDTH * SizeFactor;
+        CanvasHeight = BASE_HEIGHT * SizeFactor;
+        DiagramOffsetLeft = DIAGRAM_OFFSET_LEFT_FACTOR * CanvasWidth;
+        DiagramOffsetRight = DIAGRAM_OFFSET_RIGHT_FACTOR * CanvasWidth;
+        DiagramHalfHeight = DIAGRAM_HALF_HEIGHT_FACTOR * CanvasHeight;
+        DiagramWidth = DIAGRAM_WIDTH_FACTOR * CanvasWidth;
+        DegreeSizeLarge = DEGREE_SIZE_LARGE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        DegreeSizeSmall = DEGREE_SIZE_SMALL_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        DeclDegreeCharacterLeftOffset = DECL_DEGREE_CHARACTER_OFFSET_LEFT_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        DeclDegreeCharacterRightOffset = DECL_DEGREE_CHARACTER_OFFSET_RIGHT_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        DeclDegreeTopOffset = DECL_DEGREE_TOP_OFFSET_FACTOR * CanvasHeight;
+        DeclDegreeBottomOffset = DECL_DEGREE_BOTTOM_OFFSET_FACTOR * CanvasHeight;
+        DeclDegreeLeftOffset = DECL_DEGREE_LEFT_OFFSET_FACTOR * CanvasWidth;
+        DeclDegreeRightOffset = DECL_DEGREE_RIGHT_OFFSET_FACTOR * CanvasWidth;
+        LongDegreeTopOffset = LONG_DEGREE_TOP_OFFSET_FACTOR * CanvasHeight;
+        LongDegreeBottomOffset = LONG_DEGREE_BOTTOM_OFFSET_FACTOR * CanvasHeight;
+        SignWidth = SIGN_WIDTH_FACTOR * CanvasWidth;
+        PositionMarkerSize = POSITION_MARKER_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        DeclinationBarHeight = CanvasHeight - DeclDegreeTopOffset - DeclDegreeBottomOffset;
         DeclinationDegreeWidth = DiagramHalfHeight / DECL_DEGREES_COUNT;
         LongitudeDegreeWidth = DiagramWidth / LONGITUDE_DEGREES_COUNT;
         
         // Fonts and colors
-        DegreeTextSize = DEGREE_TEXT_SIZE_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        SignGlyphSize = SIGN_GLYPH_SIZE_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
-        CelPointGlyphSize = CELPOINT_GLYPH_SIZE_FACTOR * Math.Min(BASE_WIDTH, BASE_HEIGHT);
+        DegreeTextSize = DEGREE_TEXT_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        SignGlyphSize = SIGN_GLYPH_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        CelPointGlyphSize = CELPOINT_GLYPH_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
         
         // ==============================================
         /*GridCanvasSizeHorizontal = BaseSize * SizeFactor;

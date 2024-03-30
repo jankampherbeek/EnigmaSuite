@@ -25,13 +25,24 @@
             <RowDefinition Height="60"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" SizeChanged="DiagramGridSizeChanged" HorizontalAlignment="Left" 
+        <Grid Grid.Row="0" Grid.Column="0" SizeChanged="DiagramSizeChanged" HorizontalAlignment="Left" 
               Margin="0,0,0,121" Grid.RowSpan="2">
             <Canvas x:Name="DiagramCanvas" ClipToBounds="True"/>
         </Grid>
-        <DataGrid Grid.Row="0" Grid.Column="1">
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Left">
+            <TextBlock Margin="6" Text="Declination diagram" TextWrapping="Wrap"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />  
+            <CheckBox IsTabStop="True" Content="Hide position lines" Margin = "6,30, 6, 6" 
+                      Style="{StaticResource MaterialDesignCheckBox}"
+                      IsChecked="{Binding ApplyHidingPositionLines}" />
+            <TextBlock Margin="6" 
+                       Text="{Binding ObliquityText, Mode = OneWay}" TextWrapping="Wrap" />            
+            <DataGrid Grid.Row="0" Grid.Column="1">
             
-        </DataGrid>
+            </DataGrid>            
+        </StackPanel>
+        
+
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
                    Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
