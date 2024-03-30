@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,7 @@ public partial class DeclDiagramWindow
     public DeclDiagramWindow()
     {
         InitializeComponent();
+        DefineColors();
         _canvasController = App.ServiceProvider.GetRequiredService<DeclDiagramCanvasController>();
     }
     
@@ -73,13 +75,18 @@ public partial class DeclDiagramWindow
 
     private void DiagramSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 140.0;
-        double minSize = Math.Min(availHeight, Width);
-        _canvasController.Resize(minSize);
-        DiagramCanvas.Height = _canvasController.CanvasWidthSize;
+        double availHeight = Height - 200.0;            // subtract size of rows for description and buttons
+        double availWidth = Width - 280;                // subtract size of right column
+        _canvasController.Resize(availHeight, availWidth);
+        DiagramCanvas.Height = _canvasController.CanvasHeightSize;
         DiagramCanvas.Width = _canvasController.CanvasWidthSize;
         DiagramCanvas.Children.Clear();
         Populate();
     }
 
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+    }
+    
 }

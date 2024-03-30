@@ -56,11 +56,9 @@ public class DeclDiagramCanvasController
 
     }
     
-    
-    
-    public void Resize(double minSize)
+    public void Resize(double newHeight, double newWidth)
     {
-        _metrics.SetSizeFactor(minSize / 660.0);
+        _metrics.SetSizeFactors(newHeight / 640.0, newWidth / 800.0);
         CanvasWidthSize = _metrics.CanvasWidth;
         CanvasHeightSize = _metrics.CanvasHeight;
         PrepareDraw();
@@ -318,15 +316,11 @@ public class DeclDiagramCanvasController
         {
             Stroke = Brushes.Coral,
             Fill = Brushes.Bisque,
-            //Fill = Brushes.Coral,
             StrokeThickness = 1,
             Opacity = 0.5
         };
         Polygon polygonSouth = new()
         {
-         //   Stroke = Brushes.Teal,
-         //   Fill = Brushes.MediumAquamarine,
-            //Fill = Brushes.Teal,
             Stroke = Brushes.CornflowerBlue,
             Fill = Brushes.PaleTurquoise,            
             StrokeThickness = 1,
@@ -363,7 +357,7 @@ public class DeclDiagramCanvasController
                     ConvertFullPosToGraphicForDeclDiagram(pointPosition)).ToList();
         double sizeOfHalfDiagram = (_metrics.CanvasHeight / 2) - _metrics.DeclDegreeTopOffset;
         double fontSize = _metrics.CelPointGlyphSize;
-        DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, Colors.DarkSlateBlue);
+        DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, _metrics.CelPointGlyphColor);
         
         foreach (var point in allPoints)
         {
@@ -386,8 +380,8 @@ public class DeclDiagramCanvasController
                 X2 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
                 Y2 = yPos,
                 Stroke = Brushes.DarkCyan,
-                StrokeThickness = 0.5,
-                Opacity = 0.7
+                StrokeThickness = _metrics.PositionLineStrokeSize,
+                Opacity = _metrics.PositionLineOpacity
             };
             Lines.Add(declPositionLine);
             Line longPositionLine = new Line
@@ -397,8 +391,8 @@ public class DeclDiagramCanvasController
                 X2 = xPos,
                 Y2 = yPos,
                 Stroke = Brushes.Goldenrod,
-                StrokeThickness = 0.5,
-                Opacity = 0.7
+                StrokeThickness = _metrics.PositionLineStrokeSize,
+                Opacity = _metrics.PositionLineOpacity
             };
             Lines.Add(longPositionLine);
             string glyph = point.Glyph.ToString();
@@ -443,7 +437,7 @@ public class DeclDiagramCanvasController
         // draw sign glyphs
         string[] glyphs = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" };
         double fontSize = _metrics.SignGlyphSize;
-        DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, Colors.DarkSlateBlue);
+        DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, _metrics.SignGlyphColor);
         xPosStart = _metrics.DiagramOffsetLeft + _metrics.SignWidth / 2.0;
         yPos = _metrics.LongDegreeTopOffset / 2.0;
         for (int i = 0; i < 6; i++)
@@ -457,8 +451,6 @@ public class DeclDiagramCanvasController
             double xPos = xPosStart + i * _metrics.SignWidth;            
             SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyphs[11 - i], xPos - fontSize / 3, yPos - fontSize / 1.8));
         }
-        
-        
     }
     
     
@@ -485,9 +477,9 @@ public class DeclDiagramCanvasController
         List<Point> PolygonPointsSouth = new List<Point>();
         double longDegreeSize = _metrics.DiagramWidth / LONG_DEGREES_COUNT;
         double declDegreeSize = _metrics.DeclinationBarHeight / (DECL_DEGREES_COUNT * 2);
-        double sizeFor60DegreesDeclination = _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset -
+        double sizeForDeclinationDegreeBar = _metrics.CanvasHeight - _metrics.DeclDegreeTopOffset -
                                              _metrics.DeclDegreeBottomOffset;
-        double heightForInBoundsRegion = (_obliquity / DECL_DEGREES_COUNT) * sizeFor60DegreesDeclination;
+        double heightForInBoundsRegion = (_obliquity / DECL_DEGREES_COUNT) * sizeForDeclinationDegreeBar;
         double offsetInBoundsRegion = (_metrics.CanvasHeight - heightForInBoundsRegion) / 2.0;
         double horizontalOffset =  _metrics.DiagramOffsetLeft;
         for (int i = 0; i <= 180; i++)
@@ -504,7 +496,6 @@ public class DeclDiagramCanvasController
 
     private double CalcDecl(double longitude, double obliquity)
     {
-        
         return  MathExtra.RadToDeg(Math.Asin(Math.Sin(MathExtra.DegToRad(longitude)) * Math.Sin(MathExtra.DegToRad(obliquity))));
     }
     
