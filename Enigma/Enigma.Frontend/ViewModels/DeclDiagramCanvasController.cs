@@ -374,20 +374,58 @@ public class DeclDiagramCanvasController
         double fontSize = _metrics.CelPointGlyphSize;
         DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, _metrics.CelPointGlyphColor);
         
-        foreach (var point in allPoints)
+        List<List<GraphicCelPointForDeclDiagram>> columns = new();
+        for (int i = 0; i < 72; i++)
+        {
+            List<GraphicCelPointForDeclDiagram> column = allPoints.Where(point => point.Longitude > i * 10.0 
+                && point.Longitude < (i + 1) * 10.0).ToList();
+            column = column.OrderBy(p => p.Longitude).
+                ThenBy(p => Math.Abs(p.Declination)).ToList();
+            columns.Add(column);
+        }
+
+        double minDistance = 1.4;
+        for (int i = 0; i < 72; i++)
+        {
+            double lastPos = -100.0;
+            foreach (var position in columns[i])
+            {
+                double delta = Math.Abs(position.DeclDegreeForGlyph) - Math.Abs(lastPos); 
+                if (Math.Abs(delta) < minDistance)
+                {
+                    if (position.Declination >= 0.0) position.DeclDegreeForGlyph += minDistance - delta;
+                    else position.DeclDegreeForGlyph -= minDistance - delta;
+                }
+                lastPos = position.DeclDegreeForGlyph;
+            }
+        }
+
+        List<GraphicCelPointForDeclDiagram> plottablePoints = new();
+        for (int i = 0; i < 72; i++)
+        {
+            plottablePoints.AddRange(columns[i]);
+        }
+        
+        
+        
+        foreach (var point in plottablePoints)
         {
             double declDegreeSize = sizeOfHalfDiagram / _metrics.DeclDegreesCount;
             double longDegreeSize = _metrics.DiagramWidth / 180.0;
             double longitude = point.Longitude;
             double declination = point.Declination;
+            double declinationForGlyph = point.DeclDegreeForGlyph;
             double degreeLongLinePosition = (longitude < 180.0) ? longitude : 360 - longitude;
             double degreeDeclLinePosition =  _metrics.DeclDegreesCount - declination;
+            double glyphPosition = _metrics.DeclDegreesCount - declinationForGlyph;
             double yBorderForLongitude = point.Longitude < 180.0 ?_metrics.LongDegreeTopOffset : _metrics.CanvasHeight - _metrics.LongDegreeBottomOffset;
             
             double horizontalDistanceFromLeft = degreeLongLinePosition * longDegreeSize;
             double verticalDistanceFromTop = degreeDeclLinePosition * declDegreeSize;
+            double verticalDistanceFromTopForGlyph = glyphPosition * declDegreeSize;
             double xPos = _metrics.DiagramOffsetLeft + horizontalDistanceFromLeft;
             double yPos = _metrics.DeclDegreeTopOffset + verticalDistanceFromTop;
+            double yPosForGlyph = _metrics.DeclDegreeTopOffset + verticalDistanceFromTopForGlyph; 
             if (!HidePositionLines)
             {
                 Line declPositionLine = new Line
@@ -414,7 +452,7 @@ public class DeclDiagramCanvasController
                 Lines.Add(longPositionLine);                
             }
             string glyph = point.Glyph.ToString();
-            SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPos - fontSize / 1.8));        
+            SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPosForGlyph - fontSize / 1.8));        
         }
     }
 

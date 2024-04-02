@@ -41,7 +41,7 @@ public class TestObliquityCalc
         const int celpointId = -1;
         const int flags = 0;
         const double jd = 12345.678;
-        double[] positions = { 23.448, 23.447, 0.0, 0.0, 0.0, 0.0 };
+        double[] positions = { 23.447, 23.448, 0.0, 0.0, 0.0, 0.0 };
         var facadeFake = A.Fake<ICalcUtFacade>();
         A.CallTo(() => facadeFake.PositionFromSe(jd, celpointId, flags)).Returns(positions);
         ObliquityCalc calc = new(facadeFake);

@@ -4,6 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using System.Reflection.Metadata;
+using System.Security.AccessControl;
 using Enigma.Domain.References;
 
 namespace Enigma.Domain.Graphics;
@@ -34,7 +36,6 @@ public record GraphicCelPointForWheelPositions
         MundanePos = mundanePos;
         PlotPos = mundanePos;
         LongitudeText = longitudeText;
-
     }
 }
 
@@ -46,5 +47,14 @@ public record GraphicCelPointForWheelPositions
 /// <param name="DeclinationSpeed">Daily speed of declination.</param>
 /// <param name="LongitudeText">Textual presentation of the longitude in degrees and minutes, (0 .. 29 degrees).</param>
 /// <param name="DeclinationText">Textual presentation of the longitude in degrees and minutes.</param>
-public record GraphicCelPointForDeclDiagram(char Glyph, double Longitude, double Declination, double DeclinationSpeed, 
-    string LongitudeText, string DeclinationText);
+public record GraphicCelPointForDeclDiagram(
+    char Glyph,
+    double Longitude,
+    double Declination,
+    double DeclinationSpeed,
+    string LongitudeText,
+    string DeclinationText)
+{
+    public double DeclDegreeForGlyph { get; set; } = Declination;
+    
+};
