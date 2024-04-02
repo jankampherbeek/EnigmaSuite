@@ -205,20 +205,27 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void DeclLadder()
     {
-        MessageBox.Show("Decl ladder not yet implemented.");
+        MessageBox.Show("Declination ladder not yet implemented.");
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void DeclMidpoints()
     {
-        MessageBox.Show("Decl midpoints not yet implemented.");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_DECL_MIDPOINTS));
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void DeclParallels()
     {
-        MessageBox.Show("Parallels not yet implemented.");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_PARALLELS));
     }
+
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void DeclLongEquiv()
+    {
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_LONGITUDE_EQUIVALENTS));
+    }
+    
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void OobCalendar()

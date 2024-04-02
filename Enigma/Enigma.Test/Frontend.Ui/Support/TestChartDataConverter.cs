@@ -1,12 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Frontend.Ui.Support;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Frontend.Ui.Support;
 
@@ -32,10 +32,9 @@ public class TestChartDataConverter
     [SetUp]
     public void SetUp()
     {
-        var locationConversionMock = new Mock<ILocationConversion>();
-        locationConversionMock.Setup(p => p.CreateLocationDescription(LOCATION_NAME, GEO_LAT, GEO_LONG)).Returns(LOCATION_FULL_NAME);
-        _chartDataConverter = new ChartDataConverter(locationConversionMock.Object);
-
+        var locationConversionFake = A.Fake<ILocationConversion>();
+        A.CallTo(() => locationConversionFake.CreateLocationDescription(LOCATION_NAME, GEO_LAT, GEO_LONG)).Returns(LOCATION_FULL_NAME);
+        _chartDataConverter = new ChartDataConverter(locationConversionFake);
     }
 
 

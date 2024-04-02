@@ -31,6 +31,8 @@ public class TestDescriptiveChartText
     private readonly Dictionary<AspectTypes, string> _aspectColors = new();
     private const double BASE_ORB_ASPECTS = 8.0;
     private const double BASE_ORB_MIDPOINTS = 1.6;
+    private const double ORB_PARALLELS = 0.8;
+    private const double ORB_MIDPOINTS_DECL = 0.4;
     private const bool USE_CUSPS_FOR_ASPECTS = false;
     private const int ID = 123;
     private const double GEO_LONG = 12.25;
@@ -62,7 +64,9 @@ public class TestDescriptiveChartText
 
     private AstroConfig CreateConfig()
     {
-        return new AstroConfig(HOUSE_SYSTEM, AYANAMSHA, OBSERVER_POS, ZODIAC_TYPE, PROJ_TYPE, ORB_METHOD, _chartPoints, _aspects, _aspectColors, BASE_ORB_ASPECTS, BASE_ORB_MIDPOINTS, USE_CUSPS_FOR_ASPECTS);
+        return new AstroConfig(HOUSE_SYSTEM, AYANAMSHA, OBSERVER_POS, ZODIAC_TYPE, PROJ_TYPE, 
+            ORB_METHOD, _chartPoints, _aspects, _aspectColors, BASE_ORB_ASPECTS, BASE_ORB_MIDPOINTS, 
+            ORB_PARALLELS, ORB_MIDPOINTS_DECL, USE_CUSPS_FOR_ASPECTS);
     }
 
 

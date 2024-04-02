@@ -29,6 +29,10 @@
         <TabControl Grid.Row="1">
             <TabItem Header="General">
                 <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="10*"/>
@@ -41,46 +45,56 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Margin="6" Text="General selections" Name="SubHeaderGeneral"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
-                    <ComboBox Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="1" Grid.ColumnSpan="2" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="House system"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllHouses}" 
                               SelectedIndex="{Binding HouseIndex, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="2" Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="2" Grid.ColumnSpan="2" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Type of zodiac"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllZodiacTypes}" 
                               SelectedIndex="{Binding ZodiacTypeIndex, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="3" Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="3" Grid.ColumnSpan="2" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Ayanamsha"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllAyanamshas}" 
                               SelectedIndex="{Binding AyanamshaIndex, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="4" Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="4" Grid.ColumnSpan="2" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Observer position"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllObserverPositions}" 
                               SelectedIndex="{Binding ObserverPositionIndex, Mode=TwoWay}" />
-                    <ComboBox Grid.Row="5" Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="5" Grid.ColumnSpan="2" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Projection type"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllProjectionTypes}" 
                               SelectedIndex="{Binding ProjectionTypeIndex, Mode=TwoWay}" />
-                    <TextBox Grid.Row="6" Margin="6 0" VerticalAlignment="Center" 
+                    <TextBox Grid.Row="6" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                              materialDesign:HintAssist.Hint="Base orb for aspects"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              BorderBrush="{Binding BaseOrbAspectsValid}"
                              Text="{Binding BaseOrbAspectsText, Mode=TwoWay}" />   
-                    <TextBox Grid.Row="7" Margin="6 0" VerticalAlignment="Center" 
+                    <TextBox Grid.Row="6" Grid.Column="1" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Orb for parallels"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             BorderBrush="{Binding OrbParallelsValid}"
+                             Text="{Binding OrbParallelsText, Mode=TwoWay}" />   
+                    <TextBox Grid.Row="7" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                              materialDesign:HintAssist.Hint="Base orb for midpoints"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              BorderBrush="{Binding BaseOrbMidpointsValid}"
-                             Text="{Binding BaseOrbMidpointsText, Mode=TwoWay}" /> 
+                             Text="{Binding BaseOrbMidpointsText, Mode=TwoWay}" />
+                    <TextBox Grid.Row="7" Grid.Column="1" Margin="6 0" VerticalAlignment="Center" 
+                             materialDesign:HintAssist.Hint="Orb for declination midpoints"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             BorderBrush="{Binding OrbMidpointsDeclValid}"
+                             Text="{Binding OrbMidpointsDeclText, Mode=TwoWay}" /> 
                 </Grid>
             </TabItem>
             <TabItem Header="Points">

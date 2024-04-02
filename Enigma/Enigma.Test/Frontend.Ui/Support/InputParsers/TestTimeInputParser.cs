@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
 using Enigma.Frontend.Ui.Support.Validations;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Frontend.Ui.Support.InputParsers;
 
@@ -28,13 +28,13 @@ public class TestTimeInputParser
         int[] timeValues = { 10, 12, 0 };
         const double lmtOffset = 0.0;
         const TimeZones timeZone = TimeZones.Ut;
-        var mockValueRangeConverter = new Mock<IValueRangeConverter>();
+        var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
-        var mockTimeValidator = new Mock<ITimeValidator>();
+        A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
+        var timeValidatorFake = A.Fake<ITimeValidator>();
         FullTime? fullTime;
-        mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(true);
-        ITimeInputParser parser = new TimeInputParser(mockValueRangeConverter.Object, mockTimeValidator.Object);
+        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(true);
+        ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
         Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out _), Is.True);
     }
@@ -47,13 +47,13 @@ public class TestTimeInputParser
         int[] timeValues = { 10, 12 };
         const double lmtOffset = 0.0;
         const TimeZones timeZone = TimeZones.Ut;
-        var mockValueRangeConverter = new Mock<IValueRangeConverter>();
+        var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
-        var mockTimeValidator = new Mock<ITimeValidator>();
+        A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
+        var timeValidatorFake = A.Fake<ITimeValidator>();
         FullTime? fullTime;
-        mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(true);
-        ITimeInputParser parser = new TimeInputParser(mockValueRangeConverter.Object, mockTimeValidator.Object);
+        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(true);
+        ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
         Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out fullTime), Is.True);
     }
@@ -67,11 +67,11 @@ public class TestTimeInputParser
         int[] timeValues = Array.Empty<int>();
         const double lmtOffset = 0.0;
         const TimeZones timeZone = TimeZones.Ut;
-        var mockValueRangeConverter = new Mock<IValueRangeConverter>();
+        var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, false);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
-        var mockTimeValidator = new Mock<ITimeValidator>();
-        ITimeInputParser parser = new TimeInputParser(mockValueRangeConverter.Object, mockTimeValidator.Object);
+        A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
+        var timeValidatorFake = A.Fake<ITimeValidator>();
+        ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
         Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out FullTime? _), Is.False);
     }
@@ -84,13 +84,13 @@ public class TestTimeInputParser
         int[] timeValues = { 10, 72, 0 };
         const double lmtOffset = 0.0;
         const TimeZones timeZone = TimeZones.Ut;
-        var mockValueRangeConverter = new Mock<IValueRangeConverter>();
+        var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, true);
-        mockValueRangeConverter.Setup(x => x.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
-        var mockTimeValidator = new Mock<ITimeValidator>();
+        A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
+        var timeValidatorFake = A.Fake<ITimeValidator>();
         FullTime? fullTime;
-        mockTimeValidator.Setup(x => x.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(false);
-        ITimeInputParser parser = new TimeInputParser(mockValueRangeConverter.Object, mockTimeValidator.Object);
+        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(false);
+        ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
         Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out fullTime), Is.False);
     }

@@ -1,12 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -53,10 +53,10 @@ public class TestSolarArcCalculator
 
     private ICelPointSeCalc CreateCelPointSeCalcMock()
     {
-        var mockCalc = new Mock<ICelPointSeCalc>();
-        mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JD_RADIX, _location, FLAGS)).Returns(_jdRadixEclSunPos);
-        mockCalc.Setup(p => p.CalculateCelPoint(ChartPoints.Sun, JD_EVENT, _location, FLAGS)).Returns(_jdEventEclSunPos);
-        return mockCalc.Object;
+        var calcFake = A.Fake<ICelPointSeCalc>();
+        A.CallTo(() => calcFake.CalculateCelPoint(ChartPoints.Sun, JD_RADIX, _location, FLAGS)).Returns(_jdRadixEclSunPos);
+        A.CallTo(() => calcFake.CalculateCelPoint(ChartPoints.Sun, JD_EVENT, _location, FLAGS)).Returns(_jdEventEclSunPos);
+        return calcFake;
     }
 
 }

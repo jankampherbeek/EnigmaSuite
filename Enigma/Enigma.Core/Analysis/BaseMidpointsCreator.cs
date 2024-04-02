@@ -20,7 +20,16 @@ public interface IBaseMidpointsCreator
     /// <param name="dialSize">Degrees of the dial.</param>
     /// <returns>Midpoints with a position that fits in the specified dial.</returns>
     public List<BaseMidpoint> ConvertBaseMidpointsToDial(List<BaseMidpoint> baseMidpoints, double dialSize);
+
+    /// <summary>Find base midpoints in declination.</summary>
+    /// <param name="positionedPoints">Positions that will be combined to midpoints.</param>
+    /// <returns>List with base midpoints.</returns>
+    public List<BaseMidpoint> CreateBaseMidpointsInDeclination(List<PositionedPoint> positionedPoints);
 }
+
+
+////////// Implementation //////////
+
 
 /// <inheritdoc/>
 public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
@@ -44,6 +53,21 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
         return midpoints;
     }
 
+    /// <inheritdoc/>
+    public List<BaseMidpoint> CreateBaseMidpointsInDeclination(List<PositionedPoint> positionedPoints)
+    {
+        List<BaseMidpoint> midpoints = new();
+        int nrOfPoints = positionedPoints.Count;
+        for (int i = 0; i < nrOfPoints; i++)
+        {
+            for (int j = i + 1; j < nrOfPoints; j++)
+            {
+                midpoints.Add(ConstructEffectiveMidpointInDeclination(positionedPoints[i], positionedPoints[j]));
+            }
+        }
+        return midpoints;
+    }    
+    
 
     /// <inheritdoc/>
     public List<BaseMidpoint> ConvertBaseMidpointsToDial(List<BaseMidpoint> baseMidpoints, double dialSize)
@@ -57,6 +81,8 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
         }
         return convertedMidpoints;
     }
+
+
 
 
     private static BaseMidpoint ConstructEffectiveMidpointInDial(PositionedPoint point1, PositionedPoint point2)
@@ -75,5 +101,18 @@ public sealed class BaseMidpointsCreator : IBaseMidpointsCreator
         return new BaseMidpoint(point1, point2, mPos);
     }
 
+    private static BaseMidpoint ConstructEffectiveMidpointInDeclination(PositionedPoint point1, PositionedPoint point2)
+    {
+        // add 100.0 to positions to make it easier to calculate differences, as negatives do not occur.
+        const double shift = 100.0;
+        double pos1 = point1.Position + shift;
+        double pos2 = point2.Position + shift;
+        double smallPos = (pos1 < pos2) ? pos1 : pos2;
+        double largePos = (pos1 < pos2) ? pos2 : pos1;
+        double diff = largePos - smallPos;
+        double mPosShifted = largePos - diff / 2.0;
+        double mPos = mPosShifted - shift;              // remove 100.0 to get correct value for midpoint.
+        return new BaseMidpoint(point1, point2, mPos);
+    }
 
 }

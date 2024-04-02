@@ -32,6 +32,6 @@ public sealed class ObliquityCalc : IObliquityCalc
     {
         const int flags = 0;
         double[] positions = _calcUtFacade.PositionFromSe(julianDayUt, EnigmaConstants.SE_ECL_NUT, flags);
-        return useTrueObliquity ? positions[1] : positions[0];
+        return useTrueObliquity ? positions[0] : positions[1];
     }
 }

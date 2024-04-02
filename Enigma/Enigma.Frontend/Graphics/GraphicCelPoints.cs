@@ -18,21 +18,47 @@ using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.Graphics;
 
-public interface IChartsWheelCelPoints
+/// <summary>Graphic representations for celestial points.</summary>
+public interface IGraphicCelPoints
 {
-    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant);
-    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
-    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
+    /// <summary>Create a graphic representation of a celestial point glyph in a chart wheel.</summary>
+    /// <param name="metrics">Container for sizes.</param>
+    /// <param name="commonPoints">Points to show.</param>
+    /// <param name="centerPoint">Center point of the wheel.</param>
+    /// <param name="longAscendant">Longitude of the ascendant.</param>
+    /// <returns>Textblocks with the glyphs and positions.</returns>
+    public List<TextBlock> CreateCelPointGlyphsForWheel(ChartsWheelMetrics metrics, 
+        Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant);
+    
+    /// <summary>Create lines that connect glyphs for celestial points to the exact position in the ecliptic.</summary>
+    /// <param name="metrics">Container for sizes.</param>
+    /// <param name="celPoints">Points for which a connectline should be constructed.</param>
+    /// <param name="centerPoint">Center point of the wheel.</param>
+    /// <param name="longAscendant">Longitude of the ascendants.</param>
+    /// <returns>The lines for the connection between glyph and position.</returns>
+    public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, 
+        Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
+    
+    /// <summary>Create position texts for celestial points in a chart wheel.</summary>
+    /// <param name="metrics">Container for sizes.</param>
+    /// <param name="celPoints">Points for which a text should be constructed.</param>
+    /// <param name="centerPoint">Center point of the wheel.</param>
+    /// <param name="longAscendant">Longitude of the ascendant.</param>
+    /// <returns>Textblocks with the texts and positions.</returns>
+    public List<TextBlock> CreateCelPointTextsForWheel(ChartsWheelMetrics metrics, 
+        Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant);
+    
+    
 }
 
-public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
+/// <inheritdoc/>
+public sealed class GraphicCelPoints : IGraphicCelPoints
 {
-
     private readonly ISortedGraphicCelPointsFactory _sortedGraphicCelPointsFactory;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly GlyphsForChartPoints _glyphsForChartPoints;
 
-    public ChartsWheelCelPoints(ISortedGraphicCelPointsFactory sortedGraphicCelPointsFactory,
+    public GraphicCelPoints(ISortedGraphicCelPointsFactory sortedGraphicCelPointsFactory,
         IDoubleToDmsConversions doubleToDmsConversions)
     {
         _sortedGraphicCelPointsFactory = sortedGraphicCelPointsFactory;
@@ -41,12 +67,12 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
     }
 
 
-
-    public List<TextBlock> CreateCelPointGlyphs(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant)
+    /// <inheritdoc/>
+    public List<TextBlock> CreateCelPointGlyphsForWheel(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> commonPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> glyphs = new();
 
-        List<GraphicCelPointPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(commonPoints, longAscendant, ChartsWheelMetrics.MinDistance);
+        List<GraphicCelPointForWheelPositions> graphicSolCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedListForWheel(commonPoints, longAscendant, ChartsWheelMetrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         double fontSize = metrics.CelPointGlyphSize;
         foreach (var graphPoint in graphicSolCelPointsPositions)
@@ -67,9 +93,11 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
         return glyphs;
     }
 
+
+    /// <inheritdoc/>
     public List<Line> CreateCelPointConnectLines(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
-        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, ChartsWheelMetrics.MinDistance);
+        List<GraphicCelPointForWheelPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedListForWheel(celPoints, longAscendant, ChartsWheelMetrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         return (from graphPoint in graphicCelPointsPositions 
             let point1 = dimPoint.CreatePoint(graphPoint.PlotPos, metrics.OuterConnectionRadius) 
@@ -77,10 +105,11 @@ public sealed class ChartsWheelCelPoints : IChartsWheelCelPoints
             select DimLine.CreateLine(point1, point2, metrics.ConnectLineSize, metrics.CelPointConnectLineColor, ChartsWheelMetrics.CelPointConnectLineOpacity)).ToList();
     }
 
-    public List<TextBlock> CreateCelPointTexts(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
+    /// <inheritdoc/>
+    public List<TextBlock> CreateCelPointTextsForWheel(ChartsWheelMetrics metrics, Dictionary<ChartPoints, FullPointPos> celPoints, Point centerPoint, double longAscendant)
     {
         List<TextBlock> texts = new();
-        List<GraphicCelPointPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedList(celPoints, longAscendant, ChartsWheelMetrics.MinDistance);
+        List<GraphicCelPointForWheelPositions> graphicCelPointsPositions = _sortedGraphicCelPointsFactory.CreateSortedListForWheel(celPoints, longAscendant, ChartsWheelMetrics.MinDistance);
         DimPoint dimPoint = new(centerPoint);
         foreach (var graphPoint in graphicCelPointsPositions)
         {

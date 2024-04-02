@@ -113,9 +113,13 @@ public class ConfigurationDelta: IConfigurationDelta
         if (defConf.OrbMethod != newConf.OrbMethod) 
             allDeltas.Add(StandardTexts.CFG_ORB_METHOD,((int)newConf.OrbMethod).ToString());
         if (Math.Abs(defConf.BaseOrbAspects - newConf.BaseOrbAspects) > DELTA) 
-            allDeltas.Add(StandardTexts.CFG_BASE_ORB_ASPECTS,((int)newConf.BaseOrbAspects).ToString());
+            allDeltas.Add(StandardTexts.CFG_BASE_ORB_ASPECTS,((double)newConf.BaseOrbAspects).ToString(CultureInfo.InvariantCulture));
         if (Math.Abs(defConf.BaseOrbMidpoints - newConf.BaseOrbMidpoints) > DELTA) 
-            allDeltas.Add(StandardTexts.CFG_BASE_ORB_MIDPOINTS,((int)newConf.BaseOrbMidpoints).ToString());
+            allDeltas.Add(StandardTexts.CFG_BASE_ORB_MIDPOINTS,((double)newConf.BaseOrbMidpoints).ToString(CultureInfo.InvariantCulture));
+        if (Math.Abs(defConf.OrbParallels - newConf.OrbParallels) > DELTA) 
+            allDeltas.Add(StandardTexts.CFG_ORB_PARALLELS,((double)newConf.OrbParallels).ToString(CultureInfo.InvariantCulture));
+        if (Math.Abs(defConf.OrbMidpointsDecl - newConf.OrbMidpointsDecl) > DELTA) 
+            allDeltas.Add(StandardTexts.CFG_ORB_MIDPOINTS_DECL,((double)newConf.OrbMidpointsDecl).ToString(CultureInfo.InvariantCulture));
         if (defConf.UseCuspsForAspects != newConf.UseCuspsForAspects) 
             allDeltas.Add(StandardTexts.CFG_USE_CUSPS_FOR_ASPECTS,(newConf.UseCuspsForAspects).ToString());
         foreach ((ChartPoints pointKey, ChartPointConfigSpecs? value) in defConf.ChartPoints)
@@ -132,7 +136,6 @@ public class ConfigurationDelta: IConfigurationDelta
             Tuple<string, string> deltaForAspect = _deltaTexts.CreateDeltaForAspect(aspectKey, newAspectValue);
             allDeltas.Add(deltaForAspect.Item1, deltaForAspect.Item2);
         }
-
         foreach ((AspectTypes aspectKey, string color) in defConf.AspectColors)
         {
             bool found = newConf.AspectColors.TryGetValue(aspectKey, out string newColor);

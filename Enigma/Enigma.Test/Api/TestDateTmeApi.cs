@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -9,7 +9,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Api;
 
@@ -35,12 +35,11 @@ public class TestDateTimeApi
         Assert.That(() => api.GetDateTime(request!), Throws.TypeOf<ArgumentNullException>());
     }
 
-
     private IDateTimeHandler CreateHandlerMock()
     {
-        var handlerMock = new Mock<IDateTimeHandler>();
-        handlerMock.Setup(p => p.CalcDateTime(_dateTimeRequest)).Returns(_dateTimeResponse);
-        return handlerMock.Object;
+        var handlerFake = A.Fake<IDateTimeHandler>();
+        A.CallTo(() => handlerFake.CalcDateTime(_dateTimeRequest)).Returns(_dateTimeResponse);
+        return handlerFake;
     }
 
 }

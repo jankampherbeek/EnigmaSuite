@@ -11,6 +11,7 @@ using Enigma.Core.Handlers;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Enigma.Core.Services;
 
@@ -59,9 +60,11 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
+        serviceCollection.AddTransient<IDeclMidpointsHandler, DeclMidpointsHandler>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
+        serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
@@ -78,6 +81,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
+        serviceCollection.AddTransient<ILongitudeEquivalentHandler, LongitudeEquivalentHandler>();
         serviceCollection.AddTransient<ILotsCalculator, LotsCalculator>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
         serviceCollection.AddTransient<IObliqueLongitudeCalculator, ObliqueLongitudeCalculator>();
@@ -85,6 +89,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IParallelsHandler, ParallelsHandler>();
         serviceCollection.AddTransient<IPdDataFromToRdbmsHandler, PdDataFromToRdbmsHandler>();
         serviceCollection.AddTransient<IPdDataFromToPersistableConverter, PdDataFromToPersistableConverter>();
         serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();

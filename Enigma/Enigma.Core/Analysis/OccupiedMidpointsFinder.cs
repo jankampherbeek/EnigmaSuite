@@ -23,6 +23,19 @@ public interface IOccupiedMidpointsFinder
     /// <param name="orb">Orb.</param>
     /// <returns>Calculated occupied midpoints.</returns>
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb);
+
+    /// <summary>Calculate occupied midpoints in declination.</summary>
+    /// <param name="chart">Calculatred chart.</param>
+    /// <param name="orb">Orb.</param>
+    /// <returns>Calculated occupied midpoints in declination.</returns>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpointsInDeclination(CalculatedChart chart, double orb);
+
+    /// <summary>Calculate occupied midpoints in declination.</summary>
+    /// <param name="posPoints">The points.</param>
+    /// <param name="orb">Orb.</param>
+    /// <returns>Calculated occupied midpoints in declination.</returns>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpointsInDeclination(List<PositionedPoint> posPoints, double orb);
+
 }
 
 /// <inheritdoc/>
@@ -41,7 +54,7 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
     /// <inheritdoc/>
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize, double baseOrb)
     {
-        List<PositionedPoint> analysisPointsInActualDial = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
+        List<PositionedPoint> analysisPointsInActualDial = _analysisPointsForMidpoints.CreatePositionedPoints(chart, dialSize);
         return CalculateOccupiedMidpoints(analysisPointsInActualDial, dialSize, baseOrb);
     }
 
@@ -60,6 +73,24 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
             select new OccupiedMidpoint(baseMidpoint, analysisPoint, actualOrb, exactness)).ToList();
     }
 
+    public List<OccupiedMidpoint> CalculateOccupiedMidpointsInDeclination(CalculatedChart chart, double orb)
+    {
+        List<PositionedPoint> analysisPointsInDeclination = _analysisPointsForMidpoints.CreatePositionedPointsForDecl(chart);
+        return CalculateOccupiedMidpointsInDeclination(analysisPointsInDeclination, orb);
+    }
+
+    /// <inheritdoc/>
+    public List<OccupiedMidpoint> CalculateOccupiedMidpointsInDeclination(List<PositionedPoint> posPoints, double orb)
+    {
+        List<BaseMidpoint> baseMidpointsInDeclination = _baseMidpointsCreator.CreateBaseMidpointsInDeclination(posPoints);
+        return (from baseMidpoint in baseMidpointsInDeclination 
+            let positionInDial = baseMidpoint.Position 
+            from analysisPoint in posPoints 
+            let actualOrb = MeasureMidpointDeviation(positionInDial, analysisPoint.Position) 
+            where actualOrb <= orb 
+            let exactness = 100.0 - (actualOrb / orb * 100.0) 
+            select new OccupiedMidpoint(baseMidpoint, analysisPoint, actualOrb, exactness)).ToList();
+    }
 
     private static double MeasureMidpointDeviation(double midpointPos, double posCelPoint, double dialSize)
     {
@@ -68,5 +99,12 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
         double deviation = largePos - smallPos;
         if (deviation >= (dialSize / 2.0)) deviation = dialSize - deviation;
         return deviation;
+    }
+    
+    private static double MeasureMidpointDeviation(double midpointPos, double posCelPoint)
+    {
+        double smallPos = (posCelPoint < midpointPos) ? posCelPoint : midpointPos;
+        double largePos = (posCelPoint < midpointPos) ? midpointPos : posCelPoint;
+        return largePos - smallPos;
     }
 }

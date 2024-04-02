@@ -1,6 +1,6 @@
 # Developers Documentation Enigma Research
 
-## Version 0.3
+## Version 0.4
 
 ## Enigma Research - introduction
 
@@ -57,7 +57,7 @@ The database is a *SQLite* instance. As a minimal ORM, I use *Dapper*. Both are 
 *Serilo*g takes care of the logging, you can find it in NuGet Serilog.Sinks.File.
 
 #### Testing
-Unit testing is done with *NUnit* (NuGet NUnit). For mocking I use *Moq* (NuGet Mock).
+Unit testing is done with *NUnit* (NuGet NUnit). For mocking I replaced, starting with release 0.4, *Moq*  with *FakeItEasy*.
 
 #### Documentation
 

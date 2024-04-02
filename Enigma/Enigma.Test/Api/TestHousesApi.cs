@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Api;
 
@@ -19,7 +19,7 @@ public class TestHousesApi
     private const double JD_UT = 123456.789;
     private FullHousesPosRequest? _housesRequest;
     private Dictionary<ChartPoints, FullPointPos>? _fullHousesPositions;
-    private Mock<IHousesHandler>? _mockHousesHandler;
+    private IHousesHandler? _housesHandlerFake;
     private CalculationPreferences? _calculationPreferences;
     private IHousesApi? _api;
 
@@ -31,9 +31,9 @@ public class TestHousesApi
         var location = new Location("Anywhere", 50.0, 10.0);
         _housesRequest = new FullHousesPosRequest(JD_UT, location, _calculationPreferences);
         _fullHousesPositions = CreateResponse();
-        _mockHousesHandler = new Mock<IHousesHandler>();
-        _mockHousesHandler.Setup(p => p.CalcHouses(_housesRequest)).Returns(_fullHousesPositions);
-        _api = new HousesApi(_mockHousesHandler.Object);
+        _housesHandlerFake = A.Fake<IHousesHandler>();
+        A.CallTo(() => _housesHandlerFake.CalcHouses(_housesRequest)).Returns(_fullHousesPositions);
+        _api = new HousesApi(_housesHandlerFake);
     }
 
 

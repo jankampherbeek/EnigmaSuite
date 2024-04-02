@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,7 +7,7 @@ using Enigma.Api;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Api;
 
@@ -27,9 +27,9 @@ public class TestHorizontalApi
     public void SetUp()
     {
         var horCoordinates = new HorizontalCoordinates(EXPECTED_AZIMUTH, EXPECTED_ALTITUDE);
-        var mockHorHandler = new Mock<IHorizontalHandler>();
-        mockHorHandler.Setup(p => p.CalcHorizontal(It.IsAny<HorizontalRequest>())).Returns(horCoordinates);
-        _api = new HorizontalApi(mockHorHandler.Object);
+        var horHandlerFake = A.Fake<IHorizontalHandler>();
+        A.CallTo(()=> horHandlerFake.CalcHorizontal(A<HorizontalRequest>._)).Returns(horCoordinates);
+        _api = new HorizontalApi(horHandlerFake);
     }
 
 

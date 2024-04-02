@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -9,7 +9,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
 
@@ -32,28 +32,26 @@ public class TestDateTimeHandler
     [Test]
     public void TestHappyFlow()
     {
-        Mock<IDateTimeCalc> calcMock = CreateCalcMock();
-        Mock<IDateTimeValidator> validatorMock = CreateValidatorMock();
-        IDateTimeHandler handler = new DateTimeHandler(calcMock.Object, validatorMock.Object);
+        IDateTimeCalc calcFake = CreateCalcFake();
+        IDateTimeValidator validatorFake = CreateValidatorFake();
+        IDateTimeHandler handler = new DateTimeHandler(calcFake, validatorFake);
         DateTimeResponse response = handler.CalcDateTime(new DateTimeRequest(JD_UT, USE_JD_FOR_UT, CALENDAR));
         Assert.That(response.DateTime, Is.EqualTo(_dateTime));
     }
 
 
-    private Mock<IDateTimeCalc> CreateCalcMock()
+    private IDateTimeCalc CreateCalcFake()
     {
-        var mock = new Mock<IDateTimeCalc>();
-        mock.Setup(p => p.CalcDateTime(JD_UT, CALENDAR)).Returns(_dateTime!);
-        return mock;
+        var fake = A.Fake<IDateTimeCalc>();
+        A.CallTo(() => fake.CalcDateTime(JD_UT, CALENDAR)).Returns(_dateTime!);
+        return fake;
     }
 
-    private Mock<IDateTimeValidator> CreateValidatorMock()
+    private IDateTimeValidator CreateValidatorFake()
     {
-        var mock = new Mock<IDateTimeValidator>();
-
-        mock.Setup(p => p.ValidateDateTime(_dateTime!)).Returns(true);
-        return mock;
+        var fake = A.Fake<IDateTimeValidator>();
+        A.CallTo(() => fake.ValidateDateTime(_dateTime!)).Returns(true);
+        return fake;
     }
-
 
 }

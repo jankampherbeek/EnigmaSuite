@@ -3,8 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using System.Drawing;
 using Enigma.Core.Configuration;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;

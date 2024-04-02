@@ -53,7 +53,7 @@ public sealed class MidpointsHandler : IMidpointsHandler
     public IEnumerable<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart)
     {
         const double dialSize = 360.0;
-        List<PositionedPoint> analysisPoints = _analysisPointsForMidpoints.CreateAnalysisPoints(chart, dialSize);
+        List<PositionedPoint> analysisPoints = _analysisPointsForMidpoints.CreatePositionedPoints(chart, dialSize);
         return _baseMidpointsCreator.CreateBaseMidpoints(analysisPoints);
     }
 

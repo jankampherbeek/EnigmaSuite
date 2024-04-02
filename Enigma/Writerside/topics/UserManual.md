@@ -88,9 +88,9 @@ Click the Enigma icon to start the program, or search for Enigma in your windows
 
 ![](start-icon.png)
 
-You will see a window with two images, one labeled *Charts* and one labeled *Research*.
+You will see a window with three images, one labeled *Charts*, one labeled *Research*, and a third image laveled _Cycles_.
 
-![](start.png){width="300"}
+![](start.png){width="400"}
 
 Click an image to go to the corresponding module. 
 If you finish working in a module, you will return to this start window and can make another selection.

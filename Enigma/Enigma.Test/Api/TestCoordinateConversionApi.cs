@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,7 +7,7 @@ using Enigma.Api;
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Api;
 
@@ -24,9 +24,9 @@ public class TestCoordinateConversionApi
     public void SetUp()
     {
         CoordinateConversionRequest coordConvRequest = CreateConvRequest();
-        var mockCoordConvHandler = new Mock<ICoordinateConversionHandler>();
-        mockCoordConvHandler.Setup(p => p.HandleConversion(coordConvRequest)).Returns(_expectedEqCoord);
-        _api = new CoordinateConversionApi(mockCoordConvHandler.Object);
+        var coordConvHandlerFake = A.Fake<ICoordinateConversionHandler>();
+        A.CallTo(() => coordConvHandlerFake.HandleConversion(coordConvRequest)).Returns(_expectedEqCoord);
+        _api = new CoordinateConversionApi(coordConvHandlerFake);
     }
 
     [Test]

@@ -1,12 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Requests;
-using Moq;
+using FakeItEasy;
 
 namespace Enigma.Test.Api;
 
@@ -18,7 +18,7 @@ public class TestObliquityApi
     private const double DELTA = 0.00000001;
     private const double EXPECTED_TRUE_OBLIQUITY = 23.447;
     private ObliquityRequest? _obliquityRequest;
-    private Mock<IObliquityHandler>? _mockObliquityHandler;
+    private IObliquityHandler? _obliquityHandlerFake;
     private IObliquityApi? _obliquityApi;
 
 
@@ -26,9 +26,9 @@ public class TestObliquityApi
     public void SetUp()
     {
         _obliquityRequest = new ObliquityRequest(JD_UT, true);
-        _mockObliquityHandler = new Mock<IObliquityHandler>();
-        _mockObliquityHandler.Setup(p => p.CalcObliquity(_obliquityRequest)).Returns(EXPECTED_TRUE_OBLIQUITY);
-        _obliquityApi = new ObliquityApi(_mockObliquityHandler.Object);
+        _obliquityHandlerFake = A.Fake<IObliquityHandler>();
+        A.CallTo(() => _obliquityHandlerFake.CalcObliquity(_obliquityRequest)).Returns(EXPECTED_TRUE_OBLIQUITY);
+        _obliquityApi = new ObliquityApi(_obliquityHandlerFake);
     }
 
 

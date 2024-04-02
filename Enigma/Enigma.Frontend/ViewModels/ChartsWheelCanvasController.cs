@@ -38,7 +38,7 @@ public class ChartsWheelCanvasController
 
     private readonly ChartsWheelMetrics _metrics;
     private readonly DataVaultCharts _dataVaultCharts;
-    private readonly IChartsWheelCelPoints _chartsWheelCelPoints;
+    private readonly IGraphicCelPoints _graphicCelPoints;
     private readonly IChartsWheelSigns _chartsWheelSigns;
     private readonly IChartsWheelCusps _chartsWheelCusps;
     private readonly IChartsWheelCircles _chartsWheelCircles;
@@ -48,14 +48,14 @@ public class ChartsWheelCanvasController
     private CalculatedChart? _currentChart;
 
     public ChartsWheelCanvasController(ChartsWheelMetrics metrics,
-        IChartsWheelCelPoints chartsWheelCelPoints,
+        IGraphicCelPoints graphicCelPoints,
         IChartsWheelSigns chartsWheelSigns,
         IChartsWheelCusps chartsWheelCusps,
         IChartsWheelCircles chartsWheelCircles,
         IChartsWheelAspects chartsWheelAspects)
     {
         _dataVaultCharts = DataVaultCharts.Instance;
-        _chartsWheelCelPoints = chartsWheelCelPoints;
+        _graphicCelPoints = graphicCelPoints;
         _metrics = metrics;
         _chartsWheelSigns = chartsWheelSigns;
         _chartsWheelCusps = chartsWheelCusps;
@@ -91,11 +91,11 @@ public class ChartsWheelCanvasController
 
     private void HandleCelPoints()
     {
-        CelPointGlyphs = _chartsWheelCelPoints.CreateCelPointGlyphs(_metrics, GetCommonPointsCurrentChart(),
+        CelPointGlyphs = _graphicCelPoints.CreateCelPointGlyphsForWheel(_metrics, GetCommonPointsCurrentChart(),
             _centerPoint, GetAscendantLongitude());
-        CelPointConnectLines = _chartsWheelCelPoints.CreateCelPointConnectLines(_metrics, GetCommonPointsCurrentChart(),
+        CelPointConnectLines = _graphicCelPoints.CreateCelPointConnectLines(_metrics, GetCommonPointsCurrentChart(),
             _centerPoint, GetAscendantLongitude());
-        CelPointTexts = _chartsWheelCelPoints.CreateCelPointTexts(_metrics, GetCommonPointsCurrentChart(), _centerPoint,
+        CelPointTexts = _graphicCelPoints.CreateCelPointTextsForWheel(_metrics, GetCommonPointsCurrentChart(), _centerPoint,
             GetAscendantLongitude());
     }
 

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,84 +20,56 @@ public partial class DeclDiagramWindow
     public DeclDiagramWindow()
     {
         InitializeComponent();
-        _canvasController = App.ServiceProvider.GetRequiredService<DeclDiagramCanvasController>();
+        DefineColors();
+        CanvasController = App.ServiceProvider.GetRequiredService<DeclDiagramCanvasController>();
     }
     
-   private readonly DeclDiagramCanvasController _canvasController;
+   private readonly DeclDiagramCanvasController CanvasController;
 
 
     public void Populate()
     {
+        CanvasController.HidePositionLines = CboxHidePositionLines.IsChecked == true;
         DiagramCanvas.Children.Clear();
-        _canvasController.PrepareDraw();
+        CanvasController.PrepareDraw();
+        DrawRectangles();
         DrawPolygons();
-        DrawTestLine();
-
+        DrawLines();
+        DrawDegreeTexts();
+        DrawSignGlyphs();
     }
 
+    public void CheckBoxPositionLinesClick(object sender, RoutedEventArgs e)
+    {
+        Populate();
+    }
+
+    private void DrawRectangles()
+    {
+        AddToDiagram(new List<UIElement>(CanvasController.Rectangles));        
+    }
+    
     private void DrawPolygons()
     {
-        AddToWheel(new List<UIElement>(_canvasController.Polygons));
+       AddToDiagram(new List<UIElement>(CanvasController.Polygons));
     }
 
-    private void DrawTestLine()
+    private void DrawLines()
     {
-        Line line1 = new()
-        {
-            X1 = 100,
-            X2 = 150,
-            Y1 = 300,
-            Y2 = 500,
-            Stroke = new SolidColorBrush(Colors.Aqua),
-            StrokeThickness = 6
-        };
-        Line line2 = new()
-        {
-            X1 = 120,
-            X2 = 170,
-            Y1 = 350,
-            Y2 = 540,
-            Stroke = new SolidColorBrush(Colors.Magenta),
-            StrokeThickness = 6
-        };
-        List<Line> lines = new();
-        lines.Add(line1);
-        lines.Add(line2);
-        AddToWheel(new List<UIElement>(lines));
+        AddToDiagram((new List<UIElement>(CanvasController.Lines)));
+    }
+
+    private void DrawDegreeTexts()
+    {
+        AddToDiagram(new List<UIElement>(CanvasController.VerticalDegreesTexts));
+    }
+
+    private void DrawSignGlyphs()
+    {
+        AddToDiagram(new List<UIElement>(CanvasController.SignGlyphs));
     }
     
-    
-/*
-    private void DrawChartFrame()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.WheelCircles));
-        AddToWheel(new List<UIElement>(_canvasController.SignSeparators));
-        AddToWheel(new List<UIElement>(_canvasController.SignGlyphs));
-        AddToWheel(new List<UIElement>(_canvasController.DegreeLines));
-    }
-
-
-    private void DrawCusps()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.CuspLines));
-        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalLines));
-        AddToWheel(new List<UIElement>(_canvasController.CuspTexts));
-        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalIndicators));
-    }
-
-    private void DrawCelPoints()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.CelPointGlyphs));
-        AddToWheel(new List<UIElement>(_canvasController.CelPointConnectLines));
-        AddToWheel(new List<UIElement>(_canvasController.CelPointTexts));
-    }
-
-    private void DrawAspects()
-    {
-        AddToWheel(new List<UIElement>(_canvasController.AspectLines));
-    }
-*/
-    private void AddToWheel(List<UIElement> uiElements)
+    private void AddToDiagram(List<UIElement> uiElements)
     {
         foreach (var uiElement in uiElements)
         {
@@ -105,14 +78,20 @@ public partial class DeclDiagramWindow
     }
 
 
-    private void DiagramGridSizeChanged(object sender, SizeChangedEventArgs e)
+    private void DiagramSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 120.0;
-        double minSize = Math.Min(availHeight, Width);
-        _canvasController.Resize(minSize);
-        DiagramCanvas.Height = _canvasController.CanvasSize;
-        DiagramCanvas.Width = _canvasController.CanvasSize;
+        double availHeight = Height - 200.0;            // subtract size of rows for description and buttons
+        double availWidth = Width - 280;                // subtract size of right column
+        CanvasController.Resize(availHeight, availWidth);
+        DiagramCanvas.Height = CanvasController.CanvasHeightSize;
+        DiagramCanvas.Width = CanvasController.CanvasWidthSize;
+        DiagramCanvas.Children.Clear();
         Populate();
     }
 
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+    }
+    
 }

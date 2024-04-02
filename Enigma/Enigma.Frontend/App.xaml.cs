@@ -58,7 +58,7 @@ public partial class App
         serviceCollection.AddTransient<IChartsWheelCusps, ChartsWheelCusps>();
         serviceCollection.AddTransient<ChartsWheelMetrics>();
         serviceCollection.AddTransient<IChartsWheelSigns, ChartsWheelSigns>();
-        serviceCollection.AddTransient<IChartsWheelCelPoints, ChartsWheelCelPoints>();
+        serviceCollection.AddTransient<IGraphicCelPoints, GraphicCelPoints>();
         serviceCollection.AddSingleton<ChartsWindowsFlow>();
         serviceCollection.AddSingleton<IColorMapper, ColorMapper>();
         serviceCollection.AddTransient<IConfigPreferencesConverter, ConfigPreferencesConverter>();
@@ -86,7 +86,9 @@ public partial class App
         serviceCollection.AddTransient<HelpModel>();
         serviceCollection.AddSingleton<IHousePosForDataGridFactory, HousePosForDataGridFactory>();
         serviceCollection.AddSingleton<ILocationConversion, LocationConversion>();
+        serviceCollection.AddSingleton<ILongitudeEquivalentsForDataGridFactory, LongitudeEquivalentsForDataGridFactory>();
         serviceCollection.AddSingleton<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
+        serviceCollection.AddSingleton<IParallelsForDataGridFactory, ParallelsForDataGridFactory>();
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
@@ -98,8 +100,11 @@ public partial class App
         serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
         serviceCollection.AddTransient<RadixDataInputModel>();
+        serviceCollection.AddTransient<RadixDeclMidpointsModel>();
         serviceCollection.AddTransient<RadixHarmonicsModel>();
+        serviceCollection.AddTransient<RadixLongitudeEquivalentsModel>();
         serviceCollection.AddTransient<RadixMidpointsModel>();
+        serviceCollection.AddTransient<RadixParallelsModel>();
         serviceCollection.AddTransient<RadixPositionsModel>();
         serviceCollection.AddTransient<RadixSearchModel>();
         serviceCollection.AddTransient<ResearchHarmonicDetailsModel>();
