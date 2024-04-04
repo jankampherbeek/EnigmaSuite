@@ -3,14 +3,18 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Messaging;
+using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.WindowsFlow;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -24,8 +28,11 @@ public partial class DeclDiagramViewModel:ObservableObject
     [ObservableProperty] private string _descriptionOfChart;
     [ObservableProperty] private string _obliquityText;
     [ObservableProperty] private bool _applyHidingPositionLines;
+    [ObservableProperty] private ObservableCollection<PresentableDeclinationLongitude> _actualPositions;
     public DeclDiagramViewModel()
     {
+        var model = App.ServiceProvider.GetRequiredService<DeclDiagramModel>();
+        _actualPositions =  new ObservableCollection<PresentableDeclinationLongitude>(model.GetDeclinationLongitudePositions());
         _descriptiveChartText = new DescriptiveChartText();
         DescriptionOfChart = DescriptiveText();
         _doubleToDmsConversions = new DoubleToDmsConversions();
