@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -48,10 +48,6 @@ public abstract record MethodResponse(GeneralResearchRequest Request);
 /// <remarks>The sequence of ChartPoints in PointUsed is the same as in the first two dimensions of AllCounts. The sequence of Aspects in AspectsUsed is the same as in the thrid dimension of AllCounts.</remarks>
 public record CountOfAspectsResponse(GeneralResearchRequest Request, int[,,] AllCounts, int[,] TotalsPerPointCombi, int[] TotalsPerAspect, List<ChartPoints> PointsUsed, List<AspectTypes> AspectsUsed) : MethodResponse(Request);
 
-
-
-
-
 /// <summary>Response for counting of parts.</summary>
 /// <param name="Request">The original request.</param>
 /// <param name="Counts">All counted values.</param>
@@ -71,6 +67,12 @@ public record CountOfOccupiedMidpointsResponse(GeneralResearchRequest Request, D
 
 
 /// <summary>Response for counting conjunctions between harmonic and radix positions.</summary>
-/// <param name="Request">The original request, instnace of CountHarmonicConjunctionsRequest.</param>
+/// <param name="Request">The original request, instance of CountHarmonicConjunctionsRequest.</param>
 /// <param name="AllCounts">Dictionary with TwoPointStructure and the counts. TwoPointStructure contains respectively the harmonic point and the radix point.</param>
 public record CountHarmonicConjunctionsResponse(GeneralResearchRequest Request, Dictionary<TwoPointStructure, int> AllCounts) : MethodResponse(Request);
+
+
+/// <summary>Response for counting OOB positions.</summary>
+/// <param name="Request">The original request.</param>
+/// <param name="Counts">All counted values.</param>
+public record CountOobResponse(GeneralResearchRequest Request,  List<SimpleCount> Counts) : MethodResponse(Request);

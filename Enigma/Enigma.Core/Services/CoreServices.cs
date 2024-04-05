@@ -9,6 +9,7 @@ using Enigma.Core.Communication;
 using Enigma.Core.Configuration;
 using Enigma.Core.Handlers;
 using Enigma.Core.Persistency;
+using Enigma.Core.Research;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -89,6 +90,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IOobCounting, OobCounting>();
         serviceCollection.AddTransient<IParallelsHandler, ParallelsHandler>();
         serviceCollection.AddTransient<IPdDataFromToRdbmsHandler, PdDataFromToRdbmsHandler>();
         serviceCollection.AddTransient<IPdDataFromToPersistableConverter, PdDataFromToPersistableConverter>();

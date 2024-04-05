@@ -17,7 +17,7 @@ namespace Enigma.Core.Research;
 public interface IPointsInPartsCounting
 {
     /// <summary>Perform a count for points in parts of the zodiac or in the housesystem.</summary>
-    /// <param name="charts">The calculatred charts to check.</param>
+    /// <param name="charts">The calculated charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
     public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralResearchRequest request);

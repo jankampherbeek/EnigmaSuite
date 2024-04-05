@@ -53,6 +53,7 @@ public class ProjectUsageModel
             case ResearchMethods.CountPosInHouses:
             case ResearchMethods.CountAspects:
             case ResearchMethods.CountUnaspected:
+            case ResearchMethods.CountOob:
             {
                 bool useControlGroup = false;
                 GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig);

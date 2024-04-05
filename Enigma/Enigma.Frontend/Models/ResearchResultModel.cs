@@ -36,6 +36,7 @@ public class ResearchResultModel
     private const string HARMONIC_CONJUNCTIONS = "Harmonic conjunctions. Harmonic number: ";
     private const string OCCUPIED_MIDPOINTS = "Occupied midpoints for dial division";
     private const string CHARTS_WITHOUT_ASPECTS = "Number of charts without aspects";
+    private const string OOB_POSITIONS = "Celestial points that are OOB (Out of Bounds).";
     private const string ASPECT_TOTALS = "Totals of aspects";
     private const string ORB = "Orb";
     private const string RESULTS_SAVED_AT = "These results have been saved at : ";
@@ -91,6 +92,9 @@ public class ResearchResultModel
             case CountOfPartsResponse:
                 DefinePartsResultTexts(responseTest, responseControl);
                 break;
+            case CountOobResponse:
+                DefineOobResultTexts(responseTest, responseControl);
+                break;
         }
     }
 
@@ -132,6 +136,15 @@ public class ResearchResultModel
     {
         TestResultText = CreatePartsResultData(responseTest);
         ControlResultText = CreatePartsResultData(responseControl);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+
+
+    private void DefineOobResultTexts(MethodResponse responseTest, MethodResponse responseControl)
+    {
+        TestResultText = CreateOobResultData(responseTest);
+        ControlResultText = CreateOobResultData(responseControl);
         CreateResultHeaders(responseTest.Request);
         WriteResults(responseTest.Request);
     }
@@ -353,5 +366,24 @@ public class ResearchResultModel
         return resultData.ToString();
     }
 
+    private static string CreateOobResultData(MethodResponse response)
+    {
+        StringBuilder resultData = new();
+        if (response is CountOobResponse qualifiedResponse)
+        {
+            resultData.AppendLine(OOB_POSITIONS);
+            resultData.AppendLine(SEPARATOR_LINE);
+            foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
+            {
+                resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
+            }
+        }
+        else
+        {
+            Log.Error("ResearchResultController.CreateOobResultData() used a wrong response : {Response}", response);
+            throw new EnigmaException("ResearchResultController.CreateOobResultData() used a wrong response");
+        }
+        return resultData.ToString();
+    }
     
 }
