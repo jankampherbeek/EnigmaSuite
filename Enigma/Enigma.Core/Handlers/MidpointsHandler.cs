@@ -30,7 +30,17 @@ public interface IMidpointsHandler
     /// <param name="orb">User defined orb.</param>
     /// <returns>Occupied midpoints for the given set of points.</returns>
     public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb);
+
+    /// <summary>Retrieve list with occupied midpoints in declination for a given set  fpoints.</summary>
+    /// <param name="posPoints">List with points.</param>
+    /// <param name="orb">User defined orb.</param>
+    /// <returns>Occupied midpoints.</returns>
+    public List<OccupiedMidpoint> RetrieveOccupiedMidpointsInDeclination(List<PositionedPoint> posPoints, double orb);
+
 }
+
+
+// ======================= Implementation ======================================================
 
 /// <inheritdoc/>
 public sealed class MidpointsHandler : IMidpointsHandler
@@ -69,4 +79,8 @@ public sealed class MidpointsHandler : IMidpointsHandler
         return _occupiedMidpoints.CalculateOccupiedMidpoints(posPoints, dialSize, orb);
     }
 
+    public List<OccupiedMidpoint> RetrieveOccupiedMidpointsInDeclination(List<PositionedPoint> posPoints, double orb)
+    {
+        return _occupiedMidpoints.CalculateOccupiedMidpointsInDeclination(posPoints, orb);
+    }
 }

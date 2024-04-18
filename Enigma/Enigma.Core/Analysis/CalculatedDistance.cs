@@ -23,6 +23,11 @@ public interface ICalculatedDistance
     /// <returns>List of shortest distances between each pair of points.</returns>
     public List<DistanceBetween2Points> ShortestDistances(List<PositionedPoint> allPoints);
 
+    /// <summary>Calculates the shortest distance in declination between several combinations of two points.</summary>
+    /// <param name="allPoints">List of points.</param>
+    /// <returns>List of shortest distances in declination between each pair of points.</returns>
+    public List<DistanceBetween2Points> ShortestDistancesInDeclination(List<PositionedPoint> allPoints);
+    
     /// <summary>Calculates the shortest distances between several combinations of two points,
     /// the first point is not a cusp (but could be Mc or Asc), the second point is a cusp.</summary>
     /// <param name="allPoints">All points except the cusps.</param>
@@ -58,6 +63,24 @@ public class CalculatedDistance : ICalculatedDistance
             {
                 var pointPos2 = allPoints[j];
                 double distance = NormalizeShortestDistance(pointPos1.Position - pointPos2.Position);
+                allDistances.Add(new DistanceBetween2Points(pointPos1, pointPos2, distance));
+            }
+        }
+        return allDistances;
+    }
+
+    /// <inheritdoc/>
+    public List<DistanceBetween2Points> ShortestDistancesInDeclination(List<PositionedPoint> allPoints)
+    {
+        List<DistanceBetween2Points> allDistances = new();
+        int count = allPoints.Count;
+        for (int i = 0; i < count; i++)
+        {
+            PositionedPoint pointPos1 = allPoints[i];
+            for (int j = i + 1; j < count; j++)
+            {
+                var pointPos2 = allPoints[j];
+                double distance = Math.Abs(pointPos1.Position - pointPos2.Position);
                 allDistances.Add(new DistanceBetween2Points(pointPos1, pointPos2, distance));
             }
         }

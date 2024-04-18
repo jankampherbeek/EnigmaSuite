@@ -52,6 +52,7 @@ public class ProjectUsageModel
             case ResearchMethods.CountPosInSigns:
             case ResearchMethods.CountPosInHouses:
             case ResearchMethods.CountAspects:
+            case ResearchMethods.CountDeclinationParallels:    
             case ResearchMethods.CountUnaspected:
             case ResearchMethods.CountOob:
             {
@@ -73,6 +74,17 @@ public class ProjectUsageModel
                 responseTest = _researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
                 request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
+                responseCg = _researchPerformApi.PerformResearch(request);
+                break;
+            }
+            case ResearchMethods.CountDeclinationMidpoints:
+            {
+                double orb = 1.0;
+                bool useControlGroup = false;
+                CountOccupiedMidpointsDeclinationRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, orb);
+                responseTest = _researchPerformApi.PerformResearch(request);
+                useControlGroup = true;
+                request = new CountOccupiedMidpointsDeclinationRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, orb);
                 responseCg = _researchPerformApi.PerformResearch(request);
                 break;
             }

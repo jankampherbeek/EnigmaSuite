@@ -1,5 +1,5 @@
-﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,48 +12,55 @@ using Enigma.Domain.Responses;
 
 namespace Enigma.Core.Research;
 
-/// <summary>Counting for occupied midpoints.</summary>
-public interface IOccupiedMidpointsCounting
+/// <summary>Calculate midpoints in declination.</summary>
+public interface IOccupiedMidpointsDeclinationCounting
 {
-    /// <summary>Perform a count for occupied midpoints.</summary>
+    /// <summary>Perform a count for occupied midpoints in declination.</summary>
     /// <param name="charts">The calculated charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
-    public CountOfOccupiedMidpointsResponse CountMidpoints(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request);
+    public CountOfOccupiedMidpointsDeclResponse CountMidpointsInDeclination(
+        IEnumerable<CalculatedResearchChart> charts, 
+        CountOccupiedMidpointsDeclinationRequest request);
 }
 
 
-// ========================== Implementation ======================================
+// ====================================== Implementation ========================================================
+
 
 /// <inheritdoc/>
-public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
+public sealed class OccupiedMidpointsDeclinationCounting: IOccupiedMidpointsDeclinationCounting
 {
+    
     private readonly IMidpointsHandler _midpointsHandler;
     private readonly IPointsMapping _pointsMapping;
     private readonly IResearchMethodUtils _researchMethodUtils;
 
-    public OccupiedMidpointsCounting(IMidpointsHandler midpointsHandler, IPointsMapping pointsMapping, IResearchMethodUtils researchMethodUtils)
+
+    public OccupiedMidpointsDeclinationCounting(
+        IMidpointsHandler midpointsHandler, 
+        IPointsMapping pointsMapping, 
+        IResearchMethodUtils researchMethodUtils)
     {
         _midpointsHandler = midpointsHandler;
         _pointsMapping = pointsMapping;
         _researchMethodUtils = researchMethodUtils;
     }
-
-
+    
     /// <inheritdoc/>
-    public CountOfOccupiedMidpointsResponse CountMidpoints(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
+    public CountOfOccupiedMidpointsDeclResponse CountMidpointsInDeclination(
+        IEnumerable<CalculatedResearchChart> charts, 
+        CountOccupiedMidpointsDeclinationRequest request)
     {
         return PerformCount(charts, request);
     }
 
-
-    private CountOfOccupiedMidpointsResponse PerformCount(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsRequest request)
+    private CountOfOccupiedMidpointsDeclResponse PerformCount(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsDeclinationRequest request)
     {
         List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
-
-        double dialSize = 360.0 / request.DivisionForDial;
-        const double orb = 1.6; // todo 0.3 use orb from config
+        
+        const double orb = 1.0; // todo use orb from config
 
         foreach (OccupiedMidpointStructure mpStructure in from calcResearchChart in charts 
                  let commonPositions = (
@@ -62,8 +69,8 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
                      select posPoint).ToDictionary(x => x.Key, x => x.Value) 
                  select _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection) 
                  into relevantChartPointPositions 
-                 select _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true) 
-                 into posPoints select _midpointsHandler.RetrieveOccupiedMidpoints(posPoints, dialSize, orb) 
+                 select _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Equatorial, false) 
+                 into posPoints select _midpointsHandler.RetrieveOccupiedMidpointsInDeclination(posPoints, orb) 
                  into occupiedMidpoints 
                  from mpStructure 
                      in occupiedMidpoints.Select(occupiedMidpoint 
@@ -72,7 +79,7 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
         {
             allCounts[mpStructure]++;
         }
-        return new CountOfOccupiedMidpointsResponse(request, allCounts);
+        return new CountOfOccupiedMidpointsDeclResponse(request, allCounts);
     }
 
 
@@ -92,7 +99,6 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
         }
         return allCounts;
     }
-
 
 
 

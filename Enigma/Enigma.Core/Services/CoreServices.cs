@@ -61,6 +61,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
+        serviceCollection.AddTransient<IDeclinationParallelsCounting, DeclinationParallelsCounting>();
         serviceCollection.AddTransient<IDeclMidpointsHandler, DeclMidpointsHandler>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
@@ -89,6 +90,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IObliqueLongitudeHandler, ObliqueLongitudeHandler>();
         serviceCollection.AddTransient<IObliquityCalc, ObliquityCalc>();
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
+        serviceCollection.AddTransient<IOccupiedMidpointsDeclinationCounting, OccupiedMidpointsDeclinationCounting>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
         serviceCollection.AddTransient<IOobCounting, OobCounting>();
         serviceCollection.AddTransient<IParallelsHandler, ParallelsHandler>();
