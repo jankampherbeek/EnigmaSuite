@@ -41,7 +41,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
     [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclDiagramCommand))]
-    [NotifyCanExecuteChangedFor(nameof(DeclLadderCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeclStripCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclMidpointsCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclParallelsCommand))]
     [NotifyCanExecuteChangedFor(nameof(OobCalendarCommand))]
@@ -203,9 +203,9 @@ public partial class ChartsMainViewModel: ObservableObject,
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
-    private void DeclLadder()
+    private void DeclStrip()
     {
-        MessageBox.Show("Declination ladder not yet implemented.");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.DECL_STRIP));
     }
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]

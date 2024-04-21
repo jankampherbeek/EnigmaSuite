@@ -30,6 +30,7 @@ public class ChartsWindowsFlow:
     public const string CHARTS_WHEEL = "ChartsWheel";
     public const string CONFIG_PROG = "ConfigProg";
     public const string DECL_DIAGRAM = "DeclDiagram";
+    public const string DECL_STRIP = "DeclStrip";
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
@@ -58,6 +59,7 @@ public class ChartsWindowsFlow:
     private RadixMidpointsWindow? _radixMidpointsWindow;
     private RadixHarmonicsWindow? _radixHarmonicsWindow;
     private DeclDiagramWindow? _declDiagramWindow;
+    private DeclStripWindow? _declStripWindow;
     
     // The tuple contains the id for window, the current window and the textid for the parent window.
     private readonly List<Tuple<int, Window, string>> _openWindows = new();
@@ -177,6 +179,11 @@ public class ChartsWindowsFlow:
                 _declDiagramWindow = new DeclDiagramWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _declDiagramWindow, parentView));
                 _declDiagramWindow.Show();
+                break;
+            case DECL_STRIP:
+                _declStripWindow = new DeclStripWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _declStripWindow, parentView));
+                _declStripWindow.Show();
                 break;
         }
     }

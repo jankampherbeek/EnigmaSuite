@@ -2,7 +2,7 @@
 // Jan Kampherbeek, (c) 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
-// namespace Enigma.Frontend.Ui.Graphics;
+
 
 using System;
 using System.Windows.Media;
