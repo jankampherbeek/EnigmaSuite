@@ -14,15 +14,14 @@ public class DeclStripMetrics
     private const double BASE_HEIGHT = 640.0;
     private const double DEGREE_TEXT_SIZE_FACTOR = 0.03;
     private const double CELPOINT_GLYPH_SIZE_FACTOR = 0.06;
-
     private const double BAR_HEIGHT_FACTOR = 0.94;
     private const double BAR_WIDTH_FACTOR = 0.12;
     private const double NORTH_SOUTH_BAR_FACTOR = 0.03;
     
-    
-    
-    public double HeightFactor { get; private set; }
-    public double WidthFactor { get; private set; }
+    public double FullOpacity { get; }  = 1.0;
+
+    private double HeightFactor { get; set; }
+    private double WidthFactor { get; set; }
     public double CanvasWidth { get; private set; }
     public double CanvasHeight { get; private set; }
     public double BarHeight { get; private set; }
@@ -54,13 +53,9 @@ public class DeclStripMetrics
     public FontFamily DegreeTextsFontFamily { get; } = new ("Calibri");
     public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrology");
     public double DegreeTextSize { get; private set; }
-    
-    public double DegreeTextOpacity = 1.0;
-    public double SignGlyphSize { get; private set; }
+    public const double DEGREE_TEXT_OPACITY = 1.0;
     public double CelPointGlyphSize { get; private set; }
-    
     public Color CelPointGlyphColor { get; } = Colors.DarkSlateBlue;
-    public Color SignGlyphColor { get; } = Colors.DarkSlateBlue;
     public Color DegreeTextColor { get; } = Colors.DarkSlateBlue;
     
    public DeclStripMetrics()
@@ -87,12 +82,8 @@ public class DeclStripMetrics
         BarOffsetRight = BarOffsetLeft + BarWidth;
         BarX = BarOffsetLeft;
         BarY = CanvasHeight - BarHeight;
-        
-        
-        
         BarOffsetLeft = (CanvasWidth - BarWidth) / 2.0;
         BarOffsetRight = BarOffsetLeft + BarWidth;
-        
         NorthSouthBarHeight = CanvasHeight * NORTH_SOUTH_BAR_FACTOR;
         NorthSouthBarX = 0.0;
         NorthSouthBarY = CanvasHeight - NorthSouthBarHeight;
@@ -110,8 +101,6 @@ public class DeclStripMetrics
         PositionLineStrokeSize = 0.75 * Math.Max(HeightFactor, WidthFactor);
         if (PositionLineStrokeSize < 0.75) PositionLineStrokeSize = 0.75;
         if (PositionLineStrokeSize > 2.0) PositionLineStrokeSize = 2.0;
-        
-        
         
         // Fonts
         DegreeTextSize = DEGREE_TEXT_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);

@@ -10,21 +10,27 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Exceptions;
 using Enigma.Domain.Graphics;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Support.Conversions;
+using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
+/// <summary>Controller for DeclStrip view</summary>
+/// <remarks>This view uses MVC instead of MVVM</remarks>
 public class DeclStripCanvasController
 {
+    private const int INITIAL_DECL_RANGE = 30; 
+    private const int DECL_STEP_SIZE = 5;           // add to decl range in one step, if declination is very large. 
+    
     private readonly DeclStripMetrics _metrics;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly DataVaultCharts _dataVaultCharts;
-    private double _obliquity;
+    private readonly double _obliquity;
     public double CanvasWidthSize { get; private set; }
     public double CanvasHeightSize { get; private set; }
     public List<Rectangle> Rectangles { get; } = new();
@@ -33,18 +39,27 @@ public class DeclStripCanvasController
     public List<TextBlock> Directions { get; } = new();
     public List<TextBlock> Glyphs { get; } = new();
     
-    private CalculatedChart? _currentChart;
+    private readonly CalculatedChart? _currentChart;
     
     public DeclStripCanvasController(DeclStripMetrics metrics, IDoubleToDmsConversions doubleToDmsConversions)
     {
         _metrics = metrics;
         _doubleToDmsConversions = doubleToDmsConversions;
-        _dataVaultCharts = DataVaultCharts.Instance;
-        _currentChart = _dataVaultCharts.GetCurrentChart();
-        _obliquity = _currentChart.Obliquity; 
+        var dataVaultCharts = DataVaultCharts.Instance;
+        _currentChart = dataVaultCharts.GetCurrentChart();
+        if (_currentChart is null)
+        {
+            const string errorMsg = "No chart available when handling declination strip in DeclStripCanvasController";
+            Log.Error(errorMsg);
+            throw new EnigmaException(errorMsg);
+        }
+        _obliquity = _currentChart!.Obliquity; 
     }
 
     
+    /// <summary>Handles resizing of canvas.</summary>
+    /// <param name="newHeight">The new height.</param>
+    /// <param name="newWidth">The new width.</param>
     public void Resize(double newHeight, double newWidth)
     {
         _metrics.SetSizeFactors(newHeight / 640.0, newWidth / 800.0);
@@ -53,7 +68,8 @@ public class DeclStripCanvasController
         PrepareDraw();
         
     }
-
+    
+    /// <summary>Clear and redeine all components for the canvas.</summary>
     public void PrepareDraw()
     {
         DefineDeclRange();
@@ -77,7 +93,7 @@ public class DeclStripCanvasController
             Fill = Brushes.LightCyan,
             Height = _metrics.CanvasHeight,
             Width = _metrics.CanvasWidth, 
-            Opacity = 1.0 
+            Opacity = _metrics.FullOpacity
         };
         Canvas.SetLeft(backgroundForDiagram, 0.0);
         Canvas.SetTop(backgroundForDiagram, 0.0);
@@ -90,7 +106,7 @@ public class DeclStripCanvasController
             Fill = Brushes.LightBlue,
             Height = _metrics.CanvasHeight - heightForInBoundsRegion,
             Width = _metrics.CanvasWidth,
-            Opacity = 1
+            Opacity = _metrics.FullOpacity
         };
         Canvas.SetLeft(backgroundForOobRegion, 0.0);
         Canvas.SetTop(backgroundForOobRegion, 0.0);
@@ -101,7 +117,7 @@ public class DeclStripCanvasController
             Fill = Brushes.Khaki,
             Height = _metrics.BarHeight,
             Width = _metrics.BarWidth,
-            Opacity = 1.0
+            Opacity = _metrics.FullOpacity
         };
         Canvas.SetLeft(backGroundForBar, _metrics.BarX);
         Canvas.SetTop(backGroundForBar, _metrics.BarY);
@@ -112,7 +128,7 @@ public class DeclStripCanvasController
             Fill = Brushes.Khaki,
             Height = _metrics.NorthSouthBarHeight,
             Width = _metrics.CanvasWidth,
-            Opacity = 1.0
+            Opacity = _metrics.FullOpacity
         };
         Canvas.SetLeft(backGroundForBottomLine, _metrics.NorthSouthBarX);
         Canvas.SetTop(backGroundForBottomLine, _metrics.NorthSouthBarY);
@@ -138,7 +154,7 @@ public class DeclStripCanvasController
     private void HandleDegreeNumbers()
     {
         DimTextBlock dimDegreeTextLeft = new(_metrics.DegreeTextsFontFamily, _metrics.DegreeTextSize,
-            _metrics.DegreeTextOpacity, _metrics.DegreeTextColor);
+            DeclStripMetrics.DEGREE_TEXT_OPACITY, _metrics.DegreeTextColor);
         for (int i = 0; i < _metrics.DeclDegreesCount; i++)
         {
             int degreeValue = _metrics.DeclDegreesCount - i - 1;
@@ -154,11 +170,10 @@ public class DeclStripCanvasController
     private void HandlePositions()
     {
         List<GraphicCelPointForDeclDiagram> allPoints = 
-            _currentChart.Positions.Where(pointPosition => 
+            _currentChart!.Positions.Where(pointPosition => 
                 pointPosition.Key.GetDetails().PointCat == PointCats.Common 
                 || pointPosition.Key.GetDetails().PointCat == PointCats.Angle).
-                Select(pointPosition => 
-                    ConvertFullPosToGraphicForDeclDiagram(pointPosition)).ToList();
+                Select(ConvertFullPosToGraphicForDeclDiagram).ToList();
         double fontSize = _metrics.CelPointGlyphSize;
         DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, _metrics.CelPointGlyphColor);
         List<GraphicCelPointForDeclDiagram> pointsNorth = new();
@@ -230,7 +245,7 @@ public class DeclStripCanvasController
     
     private void HandleDirections() {
         DimTextBlock directionTextBlock = new(_metrics.DegreeTextsFontFamily, _metrics.DegreeTextSize,
-            _metrics.DegreeTextOpacity, _metrics.DegreeTextColor);
+            DeclStripMetrics.DEGREE_TEXT_OPACITY, _metrics.DegreeTextColor);
         double xPos = _metrics.LabelNorthXPos;
         double yPos = _metrics.CanvasHeight - _metrics.DegreesBottom;
         RotateTransform rotateTransform = new(0.0);
@@ -255,23 +270,17 @@ public class DeclStripCanvasController
         return new GraphicCelPointForDeclDiagram(glyph, longitude, declination, declSpeed, longitudeText,
             declinationText);
     }
-
-    
-    
-    
-    
-    
     
     private void DefineDeclRange()
     {
-        int range = 30;
-        double maxDecl = _currentChart.Positions.Select(pointPosition => 
+        int range = INITIAL_DECL_RANGE;
+        double maxDecl = _currentChart!.Positions.Select(pointPosition => 
             pointPosition.Value.Equatorial.DeviationPosSpeed.Position).Prepend(0.0).Max();
-        if (maxDecl > 30.0)
+        if (maxDecl > INITIAL_DECL_RANGE)
         {
-            double delta = maxDecl - 30.0;
-            int factor5 = (int)delta / 5 + 1;
-            range = 30 + factor5 * 5;
+            double delta = maxDecl - INITIAL_DECL_RANGE;
+            int stepCount = (int)delta / DECL_STEP_SIZE + 1;
+            range = INITIAL_DECL_RANGE + stepCount * DECL_STEP_SIZE;
         }
         _metrics.DeclDegreesCount = range;
     }

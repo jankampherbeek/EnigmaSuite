@@ -12,25 +12,27 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.Views;
 
-public partial class DeclStripWindow : Window
+/// <summary>View for declination strip</summary>
+public partial class DeclStripWindow
 {
-    private readonly DeclStripCanvasController CanvasController;
+    private readonly DeclStripCanvasController _canvasController;
+    private const int SPACE_FOR_DESCRIPTION_AND_BUTTONS = 300;
     
     public DeclStripWindow()
     {
         InitializeComponent();
         DefineColors();
-        CanvasController = App.ServiceProvider.GetRequiredService<DeclStripCanvasController>();
+        _canvasController = App.ServiceProvider.GetRequiredService<DeclStripCanvasController>();
     }
     
     private void DiagramSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 300;            // subtract size of rows for description and buttons
-        //double availWidth = Width - 280;                // subtract size of right column
-        double availWidth = Width;                // subtract size of right column
-        CanvasController.Resize(availHeight, availWidth);
-        StripCanvas.Height = CanvasController.CanvasHeightSize;
-        StripCanvas.Width = CanvasController.CanvasWidthSize;
+        double availHeight = Height - SPACE_FOR_DESCRIPTION_AND_BUTTONS;
+        double availWidth = Width;       
+        
+        _canvasController.Resize(availHeight, availWidth);
+        StripCanvas.Height = _canvasController.CanvasHeightSize;
+        StripCanvas.Width = _canvasController.CanvasWidthSize;
         StripCanvas.Children.Clear();
         Populate();
     }
@@ -38,15 +40,13 @@ public partial class DeclStripWindow : Window
     private void Populate()
     {
         StripCanvas.Children.Clear();
-        CanvasController.PrepareDraw();
-        AddToDiagram(new List<UIElement>(CanvasController.Rectangles));
-        AddToDiagram(new List<UIElement>(CanvasController.Lines));
-        AddToDiagram(new List<UIElement>(CanvasController.DegreeNumbers));
-        AddToDiagram(new List<UIElement>(CanvasController.Glyphs));
-        AddToDiagram(new List<UIElement>(CanvasController.Directions));
+        _canvasController.PrepareDraw();
+        AddToDiagram(new List<UIElement>(_canvasController.Rectangles));
+        AddToDiagram(new List<UIElement>(_canvasController.Lines));
+        AddToDiagram(new List<UIElement>(_canvasController.DegreeNumbers));
+        AddToDiagram(new List<UIElement>(_canvasController.Glyphs));
+        AddToDiagram(new List<UIElement>(_canvasController.Directions));
     }
-
-
     
     private void AddToDiagram(List<UIElement> uiElements)
     {

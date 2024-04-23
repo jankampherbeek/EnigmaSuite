@@ -5,7 +5,10 @@
 
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Presentables;
+using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
@@ -49,4 +52,17 @@ public partial class DeclStripViewModel: ObservableObject
         double obliquity = DataVaultCharts.Instance.GetCurrentChart().Obliquity;
         return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(obliquity);
     }
+    
+    [RelayCommand]
+    private void Close()
+    {
+        WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
+    }
+    
+    [RelayCommand]
+    private static void Help()
+    {
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
+    }
+    
 }
