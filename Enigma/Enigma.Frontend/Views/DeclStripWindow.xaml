@@ -1,8 +1,10 @@
-<Window x:Class="Enigma.Frontend.Ui.Views.DeclDiagramWindow"
+<Window x:Class="Enigma.Frontend.Ui.Views.DeclStripWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
+        mc:Ignorable="d"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Background="{DynamicResource MaterialDesignPaper}"
@@ -10,11 +12,10 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" 
-        Title="Enigma - Declination Diagram (Kt Boehrer)" Height="800" Width="1040" MinHeight="200" MinWidth="260">
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Declination Strip" Height="800" Width="600" MinHeight="200" MinWidth="200">
     <Window.Resources>
-        <viewModels:DeclDiagramViewModel x:Key="ViewModel"/>
+        <viewModels:DeclStripViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <Grid Margin="6" DataContext="{StaticResource ViewModel}" >
         <Grid.ColumnDefinitions>
@@ -26,17 +27,12 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" SizeChanged="DiagramSizeChanged"  
-           Margin="0,0,0,160" Grid.RowSpan="2">
-           <Canvas x:Name="DiagramCanvas" ClipToBounds="True" VerticalAlignment="Top"  />
+        <Grid Grid.Row="0" Grid.Column="0" SizeChanged="DiagramSizeChanged" Margin="0,0,0,160" >
+           <Canvas x:Name="StripCanvas" ClipToBounds="True" VerticalAlignment="Top"  />
         </Grid>
         <StackPanel Grid.Row="0" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Left">
-            <TextBlock Margin="6" Text="Declination diagram" Name ="Header" TextWrapping="Wrap"
+            <TextBlock Margin="6" Text="Declination strip" Name ="Header" TextWrapping="Wrap"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />  
-            <CheckBox IsTabStop="True" Content="Hide position lines" Margin = "6,30, 6, 6" 
-                      Name="CboxHidePositionLines"
-                      Click="CheckBoxPositionLinesClick"
-                      Style="{StaticResource MaterialDesignCheckBox}" />
             <TextBlock Margin="6" 
                        Text="{Binding ObliquityText, Mode = OneWay}" TextWrapping="Wrap" />            
         <DataGrid Grid.Row="1" Grid.Column="1" Margin="6"

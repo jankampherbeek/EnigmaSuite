@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,7 +13,10 @@ public enum ResearchMethods
     CountAspects = 2,
     CountUnaspected = 3,
     CountOccupiedMidpoints = 4,
-    CountHarmonicConjunctions = 5
+    CountHarmonicConjunctions = 5,
+    CountDeclinationParallels = 6,
+    CountDeclinationMidpoints = 7,
+    CountOob = 8
 }
 
 
@@ -42,6 +45,9 @@ public static class ResearchMethodsExtensions
             ResearchMethods.CountUnaspected => new ResearchMethodDetails(method, 1,"Count unaspected celestial points"),
             ResearchMethods.CountOccupiedMidpoints => new ResearchMethodDetails(method, 3,"Count occupied midpoints"),
             ResearchMethods.CountHarmonicConjunctions => new ResearchMethodDetails(method, 1,"Count harmonic conjunctions"),
+            ResearchMethods.CountDeclinationParallels => new ResearchMethodDetails(method, 2, "Count parallels"),
+            ResearchMethods.CountDeclinationMidpoints => new ResearchMethodDetails(method, 3, "Count midpoints in declination"),
+            ResearchMethods.CountOob => new ResearchMethodDetails(method, 1, "Count OOB (Out of bound) positions"),
             _ => throw new ArgumentException("ResearchMethod unknown : " + method)
         };
     }

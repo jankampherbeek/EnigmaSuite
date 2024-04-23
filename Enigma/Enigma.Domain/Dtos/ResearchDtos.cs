@@ -16,8 +16,9 @@ public record ResearchPointSelection(List<ChartPoints> SelectedPoints, bool Incl
 
 /// <summary>Positions and inputdata for a chart in a research project.</summary>
 /// <param name="Positions">All relevant positions for celestial points.</param>
+/// <param name="Obliquity">Obliquite.</param>
 /// <param name="InputItem">Inputted data.</param>
-public record CalculatedResearchChart(Dictionary<ChartPoints, FullPointPos> Positions, StandardInputItem InputItem);
+public record CalculatedResearchChart(Dictionary<ChartPoints, FullPointPos> Positions, double Obliquity, StandardInputItem InputItem);
 
 /// <summary>Definition of points that should be excluded when performing a research action.</summary>
 /// <remarks>One of these records should be used to specify the exclusions when using a specific research method.</remarks>

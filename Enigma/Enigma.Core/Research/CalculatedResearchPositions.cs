@@ -29,14 +29,17 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
     private readonly IConfigurationHandler _configurationHandler;
     private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
     private readonly IJulDayHandler _julDayHandler;
+    private readonly IObliquityHandler _obliquityHandler;
     
     public CalculatedResearchPositions(IConfigurationHandler configurationHandler,
         IChartAllPositionsHandler chartAllPositionsHandler,
-        IJulDayHandler julDayHandler)
+        IJulDayHandler julDayHandler,
+        IObliquityHandler obliquityHandler)
     {
         _configurationHandler = configurationHandler;
         _chartAllPositionsHandler = chartAllPositionsHandler;
         _julDayHandler = julDayHandler;
+        _obliquityHandler = obliquityHandler;
     }
 
     public List<CalculatedResearchChart> CalculatePositions(StandardInput standardInput)
@@ -52,9 +55,10 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
         List<CalculatedResearchChart> calculatedCharts = (from inputItem in standardInput.ChartData 
             let location = new Location("", inputItem.GeoLongitude, inputItem.GeoLatitude) 
             let jdUt = CalcJdUt(inputItem) 
+            let obliquity = CalcObliquity(jdUt)
             let cpRequest = new CelPointsRequest(jdUt, location, calcPref) 
             let chartPositions = _chartAllPositionsHandler.CalcFullChart(cpRequest) 
-            select new CalculatedResearchChart(chartPositions, inputItem)).ToList();
+            select new CalculatedResearchChart(chartPositions, obliquity, inputItem)).ToList();
         Log.Information("CalculatedResearchPositions: Calculation completed");
         return calculatedCharts;
     }
@@ -70,6 +74,11 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
         return _julDayHandler.CalcJulDay(simpleDateTime).JulDayUt;
     }
 
+    private double CalcObliquity(double jdNr)
+    {
+        ObliquityRequest request = new(jdNr, true);
+        return _obliquityHandler.CalcObliquity(request);
+    }
 
     private CalculationPreferences DefinePreferences()
     {

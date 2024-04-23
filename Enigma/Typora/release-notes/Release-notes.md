@@ -4,7 +4,7 @@
 
 ## Release 0.4.0 beta - May 31, 2024
 
-Declinations and cycles.
+Declinations and improvements for data import. New setup for user manual.
 
 ### Declinations
 
@@ -12,7 +12,23 @@ New functionality, added:
 
 - Parallels in declination.
 - Midpoints in declination.
+- OOB positions.
+- OOB calendar [TODO]
 - Longitude equivalents according to Kt Boehrer.
+- Declination diagram according to Kt Boehrer.
+- Diagram with declination ladder [TODO]
+- Research method for parallels in declination.
+- Research method for midpoints in declination.
+- Research method for OOB positions.
+
+### Data import
+
+- Improved speed of import [TODO]
+- Show the number of imported charts during import [TODO]
+
+### User manual
+
+Recreated HTML version of user manual so that it can be used offline. [TODO]
 
 
 

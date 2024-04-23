@@ -18,27 +18,25 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
-public partial class DeclDiagramViewModel:ObservableObject
+public partial class DeclStripViewModel: ObservableObject
 {
-    private const string VM_IDENTIFICATION = ChartsWindowsFlow.DECL_DIAGRAM;
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.DECL_STRIP;
     private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     private readonly IDescriptiveChartText _descriptiveChartText;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
 
     [ObservableProperty] private string _descriptionOfChart;
     [ObservableProperty] private string _obliquityText;
-    [ObservableProperty] private bool _applyHidingPositionLines;
     [ObservableProperty] private ObservableCollection<PresentableDeclinationLongitude> _actualPositions;
-    public DeclDiagramViewModel()
+    public DeclStripViewModel()
     {
-        var model = App.ServiceProvider.GetRequiredService<DeclDiagramModel>();
+        var model = App.ServiceProvider.GetRequiredService<DeclDiagramModel>();  
         _actualPositions =  new ObservableCollection<PresentableDeclinationLongitude>(model.GetDeclinationLongitudePositions());
         _descriptiveChartText = new DescriptiveChartText();
         DescriptionOfChart = DescriptiveText();
         _doubleToDmsConversions = new DoubleToDmsConversions();
-        ObliquityText = "Obliquity: " + ObliquityValueText();
+        ObliquityText = "Obliquity: " + ObliquityValueText();        
     }
-    
     
     private string DescriptiveText()
     {
@@ -54,7 +52,6 @@ public partial class DeclDiagramViewModel:ObservableObject
         double obliquity = DataVaultCharts.Instance.GetCurrentChart().Obliquity;
         return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(obliquity);
     }
-
     
     [RelayCommand]
     private void Close()
@@ -67,6 +64,5 @@ public partial class DeclDiagramViewModel:ObservableObject
     {
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
-    
     
 }

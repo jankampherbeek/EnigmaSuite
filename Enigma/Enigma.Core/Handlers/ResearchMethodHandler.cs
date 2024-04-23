@@ -39,6 +39,9 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
     private readonly IUnaspectedCounting _unaspectedCounting;
     private readonly IOccupiedMidpointsCounting _occupiedMidpointsCounting;
     private readonly IHarmonicConjunctionsCounting _harmonicConjunctionsCounting;
+    private readonly IOobCounting _oobCounting;
+    private readonly IOccupiedMidpointsDeclinationCounting _occupiedMidpointsDeclinationCounting;
+    private readonly IDeclinationParallelsCounting _declinationParallelsCounting;
 
 
     public ResearchMethodHandler(ICalculatedResearchPositions researchPositions,
@@ -49,7 +52,10 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         IAspectsCounting aspectsCounting,
         IUnaspectedCounting unaspectedCounting,
         IOccupiedMidpointsCounting occupiedMidpointsCounting,
-        IHarmonicConjunctionsCounting harmonicConjunctionsCounting)
+        IHarmonicConjunctionsCounting harmonicConjunctionsCounting,
+        IOobCounting oobCounting,
+        IOccupiedMidpointsDeclinationCounting occupiedMidpointsDeclinationCounting,
+        IDeclinationParallelsCounting declinationParallelsCounting)
     {
         _researchPositions = researchPositions;
         _pointsInPartsCounting = pointsInZodiacPartsCounting;
@@ -60,6 +66,9 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         _unaspectedCounting = unaspectedCounting;
         _occupiedMidpointsCounting = occupiedMidpointsCounting;
         _harmonicConjunctionsCounting = harmonicConjunctionsCounting;
+        _oobCounting = oobCounting;
+        _occupiedMidpointsDeclinationCounting = occupiedMidpointsDeclinationCounting;
+        _declinationParallelsCounting = declinationParallelsCounting;
     }
 
     /// <inheritdoc/>
@@ -72,13 +81,12 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         switch (request)
         {
             case CountHarmonicConjunctionsRequest conjunctionsRequest:
-            {
-                    return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, conjunctionsRequest); 
-            }
+                return _harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, conjunctionsRequest); 
             case CountOccupiedMidpointsRequest midpointsRequest:
-            {
-                    return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, midpointsRequest);
-            }
+                return _occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, midpointsRequest);
+            case CountOccupiedMidpointsDeclinationRequest midpointsDeclinationRequest:
+                return _occupiedMidpointsDeclinationCounting.CountMidpointsInDeclination(allCalculatedResearchCharts, midpointsDeclinationRequest );
+                
         }
         // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
         switch (method)
@@ -91,6 +99,10 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
                 return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
             case ResearchMethods.CountPosInHouses:
                 return _pointsInPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+            case ResearchMethods.CountOob:
+                return _oobCounting.CountOob(allCalculatedResearchCharts, request);
+            case ResearchMethods.CountDeclinationParallels:
+                return _declinationParallelsCounting.CountParallels(allCalculatedResearchCharts, request);
             default:
                 Log.Error("ResearchMethodHandler.HandleResearch() received an unrecognized request : {Request}", request);
                 throw new EnigmaException("Unrecognized ResearchMethod in request for ResearchMethodHandler");

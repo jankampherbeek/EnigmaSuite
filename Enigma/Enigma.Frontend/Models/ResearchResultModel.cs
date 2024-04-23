@@ -35,7 +35,9 @@ public class ResearchResultModel
         "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
     private const string HARMONIC_CONJUNCTIONS = "Harmonic conjunctions. Harmonic number: ";
     private const string OCCUPIED_MIDPOINTS = "Occupied midpoints for dial division";
+    private const string OCCUPIED_MIDPOINTS_DECL = "Occupied midpoints in declination";
     private const string CHARTS_WITHOUT_ASPECTS = "Number of charts without aspects";
+    private const string OOB_POSITIONS = "Celestial points that are OOB (Out of Bounds).";
     private const string ASPECT_TOTALS = "Totals of aspects";
     private const string ORB = "Orb";
     private const string RESULTS_SAVED_AT = "These results have been saved at : ";
@@ -85,11 +87,20 @@ public class ResearchResultModel
             case CountOfOccupiedMidpointsResponse:
                 DefineOccupiedMidpointsResultTexts(responseTest, responseControl);
                 break;
+            case CountOfOccupiedMidpointsDeclResponse:
+                DefineOccupiedMidpointsDeclResultTexts(responseTest, responseControl);
+                break;
+            case CountOfParallelsResponse:
+                DefineParallelsResultTexts(responseTest, responseControl);
+                break;
             case CountHarmonicConjunctionsResponse:
                 DefineHarmonicConjunctionsResultTexts(responseTest, responseControl);
                 break;
             case CountOfPartsResponse:
                 DefinePartsResultTexts(responseTest, responseControl);
+                break;
+            case CountOobResponse:
+                DefineOobResultTexts(responseTest, responseControl);
                 break;
         }
     }
@@ -119,6 +130,24 @@ public class ResearchResultModel
         WriteResults(responseTest.Request);
     }
 
+    private void DefineOccupiedMidpointsDeclResultTexts(MethodResponse responseTest, MethodResponse responseControl)
+    {
+        TestResultText = CreateOccupiedMidpointsDeclResultData(responseTest);
+        ControlResultText = CreateOccupiedMidpointsDeclResultData(responseControl);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+    
+    private void DefineParallelsResultTexts(MethodResponse responseTest, MethodResponse responseControl)
+    {
+        TestResultText = CreateParallelsResultData(responseTest);
+        ControlResultText = CreateParallelsResultData(responseControl);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+    
+    
+
     private void DefineHarmonicConjunctionsResultTexts(MethodResponse responseTest, MethodResponse responseControl)
     {
         TestResultText = CreateHarmonicConjunctionsResultData(responseTest);
@@ -132,6 +161,15 @@ public class ResearchResultModel
     {
         TestResultText = CreatePartsResultData(responseTest);
         ControlResultText = CreatePartsResultData(responseControl);
+        CreateResultHeaders(responseTest.Request);
+        WriteResults(responseTest.Request);
+    }
+
+
+    private void DefineOobResultTexts(MethodResponse responseTest, MethodResponse responseControl)
+    {
+        TestResultText = CreateOobResultData(responseTest);
+        ControlResultText = CreateOobResultData(responseControl);
         CreateResultHeaders(responseTest.Request);
         WriteResults(responseTest.Request);
     }
@@ -261,6 +299,66 @@ public class ResearchResultModel
         return resultData.ToString();
     }
 
+    
+    private static string CreateParallelsResultData(MethodResponse response)
+    {
+        StringBuilder resultData = new();
+        if (response is CountOfParallelsResponse(var generalResearchRequest, var allCounts, 
+            var totalsPerPointCombi, var totalsPerParallel, var chartPointsList))
+        {
+
+            string parallelSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
+            string parallelSeparatorLine = SEPARATOR_LINE;
+            string separatorFragment = SEPARATOR_LINE[..LARGE_COLUMN_SIZE];
+            StringBuilder headerLine = new();
+            headerLine.Append(parallelSpaces);
+            headerLine.Append("Par." + SPACES[..6]);
+            parallelSeparatorLine += separatorFragment;
+            headerLine.Append("Opp.Par." + SPACES[..2]);
+            headerLine.Append("Totals");
+            parallelSeparatorLine += separatorFragment;
+            resultData.AppendLine(headerLine.ToString());
+            resultData.AppendLine(parallelSeparatorLine);
+            StringBuilder detailLine;
+            int nrOfCelPoints = chartPointsList.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
+            for (int i = 0; i < nrOfCelPoints; i++)
+            {
+                for (int j = i + 1; j < chartPointsList.Count; j++)
+                {
+                    detailLine = new StringBuilder();
+                    detailLine.Append(chartPointsList[i].GetDetails().Text.PadRight(25));
+                    detailLine.Append(chartPointsList[j].GetDetails().Text.PadRight(25));
+                    for (int k = 0; k < 2; k++)
+                    {
+                        detailLine.Append((allCounts[i, j, k] + SPACES)[..10]);
+                    }
+                    detailLine.Append((totalsPerPointCombi[i, j] + SPACES)[..10]);
+                    resultData.AppendLine(detailLine.ToString());
+                }
+            }
+            int totalOverall = 0;
+            detailLine = new StringBuilder();
+            detailLine.Append(("Totals" + SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE]);
+            foreach (int count in totalsPerParallel)
+            {
+                detailLine.Append((count + SPACES)[..10]);
+                totalOverall += count;
+            }
+            detailLine.Append((totalOverall + SPACES)[..10]);
+            resultData.AppendLine(parallelSeparatorLine);
+            resultData.AppendLine(detailLine.ToString());
+        }
+        else
+        {
+            Log.Error("ResearchResultModel.CreateParallelsResultData() used a wrong response : {Response}", response);
+            throw new EnigmaException("Wrong result in ResearchResultModel");
+        }
+        return resultData.ToString();
+    }
+    
+    
+    
+    
 
     private static string CreateUnaspectedResultData(MethodResponse response)
     {
@@ -318,6 +416,43 @@ public class ResearchResultModel
         return resultData.ToString();
     }
 
+    private static string CreateOccupiedMidpointsDeclResultData(MethodResponse response)
+    {
+        StringBuilder resultData = new();
+        if (response is CountOfOccupiedMidpointsDeclResponse qualifiedResponse)
+        {
+            if (response.Request is CountOccupiedMidpointsDeclinationRequest qualifiedRequest)
+            {
+                resultData.AppendLine(OCCUPIED_MIDPOINTS_DECL + " " + ORB + ": " + qualifiedRequest.Orb);
+                resultData.AppendLine((SEPARATOR_LINE + SEPARATOR_LINE)[..MIDPOINT_SEPARATOR_SIZE]);
+                Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
+                foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
+                {
+                    if (midpoint.Value <= 0) continue;
+                    string firstPointName = midpoint.Key.FirstPoint.GetDetails().Text;
+                    string secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
+                    string occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
+                    string midpointCount = midpoint.Value.ToString();
+                    resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
+                                          + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
+                }
+            }
+            else
+            {
+                Log.Error("ResearchResultModel.CreateOccupiedMidpointsDeclResultData() used a wrong request : {Request}", response.Request);
+                throw new EnigmaException("Wrong request in ResearchResultModel");
+            }
+        }
+        else
+        {
+            Log.Error("ResearchResultModel.CreateOccupiedMidpointsDeclResultData() used a wrong response : {Response}", response);
+            throw new EnigmaException("Wrong response in ResearchResultModel");
+        }
+        return resultData.ToString();
+    }
+    
+    
+    
     private static string CreateHarmonicConjunctionsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
@@ -353,5 +488,24 @@ public class ResearchResultModel
         return resultData.ToString();
     }
 
+    private static string CreateOobResultData(MethodResponse response)
+    {
+        StringBuilder resultData = new();
+        if (response is CountOobResponse qualifiedResponse)
+        {
+            resultData.AppendLine(OOB_POSITIONS);
+            resultData.AppendLine(SEPARATOR_LINE);
+            foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
+            {
+                resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
+            }
+        }
+        else
+        {
+            Log.Error("ResearchResultController.CreateOobResultData() used a wrong response : {Response}", response);
+            throw new EnigmaException("ResearchResultController.CreateOobResultData() used a wrong response");
+        }
+        return resultData.ToString();
+    }
     
 }

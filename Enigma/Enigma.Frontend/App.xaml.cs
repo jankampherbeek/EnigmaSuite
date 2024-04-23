@@ -73,6 +73,11 @@ public partial class App
         serviceCollection.AddSingleton<IDateValidator, DateValidator>();
         serviceCollection.AddTransient<DeclDiagramCanvasController>();
         serviceCollection.AddTransient<DeclDiagramMetrics>();
+        serviceCollection.AddTransient<DeclDiagramModel>();
+        serviceCollection.AddTransient<IDeclinationLongitudeForDataGridFactory, DeclinationLongitudeForDataGridFactory>();
+        serviceCollection.AddTransient<DeclStripCanvasController>();
+        serviceCollection.AddTransient<DeclStripMetrics>();
+        serviceCollection.AddTransient<DeclStripModel>();
         serviceCollection.AddTransient<IDescriptiveChartText, DescriptiveChartText>();
         serviceCollection.AddSingleton<IDoubleToDmsConversions, DoubleToDmsConversions>();
         serviceCollection.AddSingleton<IEventDataConverter, EventDataConverter>();

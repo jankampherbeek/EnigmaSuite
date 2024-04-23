@@ -114,7 +114,7 @@ public sealed class ChartDataDao : IChartDataDao
         }
         catch (Exception e)
         {
-            // TODO 0.3 check if chart has been saved. If found, delete it.
+            // TODO check if chart has been saved. If found, delete it.
             Log.Error("ChartDataDao.PerformInsert. Could not insert chart or date/location. Msg: {Msg}", e.Message);   
         }
         return chartIndex;

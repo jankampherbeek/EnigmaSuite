@@ -46,6 +46,9 @@ public class PointsExclusionManager : IPointsExclusionManager
             case ResearchMethods.CountUnaspected: return ExclusionForUnAspectedCounting();
             case ResearchMethods.CountOccupiedMidpoints: return ExclusionForMidpoints();
             case ResearchMethods.CountHarmonicConjunctions: return ExclusionForHarmonics();
+            case ResearchMethods.CountOob: return ExclusionForOob();
+            case ResearchMethods.CountDeclinationMidpoints: return ExclusionForMidpoints();
+            case ResearchMethods.CountDeclinationParallels: return ExclusionForDeclinationParallelsCounting();
             default:
             {
                 Log.Error("PointsExclusionManager.DefineExclusions(). Did not recognize researchMethod: {Method}", researchMethod);
@@ -103,7 +106,7 @@ public class PointsExclusionManager : IPointsExclusionManager
         const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
-
+    
 
     private static PointsToExclude ExclusionForHarmonics()
     {
@@ -130,6 +133,17 @@ public class PointsExclusionManager : IPointsExclusionManager
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
+    private static PointsToExclude ExclusionForDeclinationParallelsCounting()
+    {
+        List<ChartPoints> exclusionPoints = new()
+        {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint
+        };
+        const bool excludeCusps = true;
+        return new PointsToExclude(exclusionPoints, excludeCusps);
+    }
+    
     private static PointsToExclude ExclusionForUnAspectedCounting()
     {
         List<ChartPoints> exclusionPoints = new()
@@ -141,6 +155,22 @@ public class PointsExclusionManager : IPointsExclusionManager
         return new PointsToExclude(exclusionPoints, excludeCusps);
     }
 
+    private static PointsToExclude ExclusionForOob()
+    {
+        List<ChartPoints> exclusionPoints = new()
+        {
+            ChartPoints.Vertex,
+            ChartPoints.EastPoint,
+            ChartPoints.Ascendant,
+            ChartPoints.Mc,
+            ChartPoints.Sun,
+            ChartPoints.MeanNode,
+            ChartPoints.TrueNode
+        };
+        const bool excludeCusps = true;
+        return new PointsToExclude(exclusionPoints, excludeCusps);
+    }
+    
     private static PointsToExclude ExclusionForHeliocentric()
     {
         List<ChartPoints> exclusionPoints = new()
