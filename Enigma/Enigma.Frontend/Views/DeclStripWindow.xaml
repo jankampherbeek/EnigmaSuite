@@ -13,7 +13,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"        
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Declination Strip" Height="800" Width="600" MinHeight="200" MinWidth="200">
+        Title="Enigma - Declination Strip" Height="800" Width="600" MinHeight="500" MinWidth="500">
     <Window.Resources>
         <viewModels:DeclStripViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -23,19 +23,21 @@
             <ColumnDefinition Width="240"/>
         </Grid.ColumnDefinitions>    
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="160"/>
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Grid.Column="0" SizeChanged="DiagramSizeChanged" Margin="0,0,0,160" >
+        <Grid Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" SizeChanged="DiagramSizeChanged" 
+              Margin="0,0,0,100" >
            <Canvas x:Name="StripCanvas" ClipToBounds="True" VerticalAlignment="Top"  />
         </Grid>
-        <StackPanel Grid.Row="0" Grid.Column="1" Margin="6" Orientation="Vertical" HorizontalAlignment="Left">
-            <TextBlock Margin="6" Text="Declination strip" Name ="Header" TextWrapping="Wrap"
+        <TextBlock Grid.Row="0" Grid.Column="1" Margin="6" Text="Declination strip" Name ="Header" TextWrapping="Wrap"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />  
-            <TextBlock Margin="6" 
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="6" 
                        Text="{Binding ObliquityText, Mode = OneWay}" TextWrapping="Wrap" />            
-        <DataGrid Grid.Row="1" Grid.Column="1" Margin="6"
+        <DataGrid Grid.Row="2" Grid.Column="1" Margin="6"
                 materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                 materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                 CanUserAddRows="False"
@@ -56,11 +58,11 @@
                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
              </DataGrid.Columns>   
         </DataGrid>           
-        </StackPanel>
-        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
+
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
                    Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap"
-                   VerticalAlignment="Center"/>
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                   VerticalAlignment="Bottom"/>
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>

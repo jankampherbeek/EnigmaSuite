@@ -25,11 +25,22 @@ public partial class DeclStripWindow
         _canvasController = App.ServiceProvider.GetRequiredService<DeclStripCanvasController>();
     }
     
+    /*private void window1_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        var a = window1.ActualHeight;
+        var b = window1.ActualWidth;
+        var c = window1.Height;
+        var d = window1.Width;
+    }*/
+    
+    
+    
     private void DiagramSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - SPACE_FOR_DESCRIPTION_AND_BUTTONS;
-        double availWidth = Width;       
-        
+        double availHeight = ActualHeight - SPACE_FOR_DESCRIPTION_AND_BUTTONS;
+        double availWidth = ActualWidth;
+        var height = Height;
+        var width = Width;
         _canvasController.Resize(availHeight, availWidth);
         StripCanvas.Height = _canvasController.CanvasHeightSize;
         StripCanvas.Width = _canvasController.CanvasWidthSize;

@@ -126,9 +126,10 @@ public sealed class ChartsWheelMetrics
 
     private void DefineSizes()
     {
+        GridSize = BaseSize * SizeFactor;
         DefineCircleSizes();
 
-        GridSize = BaseSize * SizeFactor;
+        
         StrokeSize = BASE_STROKE_SIZE * SizeFactor;
         StrokeSizeDouble = StrokeSize * 2.0;
         ConnectLineSize = BASE_CONNECT_LINE_SIZE * SizeFactor;
