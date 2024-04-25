@@ -42,7 +42,7 @@
             <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
         </Style>
-        <Style x:Key="NumberColumnStyle" TargetType="{x:Type DataGridCell}">
+      <Style x:Key="NumberColumnStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
@@ -51,6 +51,11 @@
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="EnigmaAstrology"/>
         </Style>
-        </ResourceDictionary>
+      <Style x:Key="NumberTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+      </Style>
+    </ResourceDictionary>
     </Application.Resources>
 </Application>
