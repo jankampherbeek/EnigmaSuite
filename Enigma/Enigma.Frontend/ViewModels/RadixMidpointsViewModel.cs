@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -25,7 +26,7 @@ public partial class RadixMidpointsViewModel: ObservableObject
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_MIDPOINTS;
     private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     [ObservableProperty] private ObservableCollection<PresentableMidpoint> _actualMidpoints;
-    [ObservableProperty] private ObservableCollection<PresentableOccupiedMidpoint> _actualOccupiedMidpoints;
+    [ObservableProperty] private ObservableCollection<NotifyingPresentableMidpoints> _actualOccupiedMidpoints;
     [ObservableProperty] private string _description;
     [ObservableProperty] private string _orbSize;
     private int _dialSize;
@@ -40,15 +41,14 @@ public partial class RadixMidpointsViewModel: ObservableObject
         OrbSize = _model.DegreesToDms(actualOrb);
         Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> midpoints = _model.RetrieveAndFormatMidpoints(_dialSize);
         ActualMidpoints = new ObservableCollection<PresentableMidpoint>(midpoints.Item1);
-        ActualOccupiedMidpoints =  new ObservableCollection<PresentableOccupiedMidpoint>(midpoints.Item2);        
-
+        ActualOccupiedMidpoints =  new ObservableCollection<NotifyingPresentableMidpoints>(midpoints.Item2.Select(midpoints => new NotifyingPresentableMidpoints(midpoints)));        
     }
 
     private void DefineMidpoints()
     {
         Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> midpoints = _model.RetrieveAndFormatMidpoints(_dialSize);
         ActualMidpoints = new ObservableCollection<PresentableMidpoint>(midpoints.Item1);
-        ActualOccupiedMidpoints =  new ObservableCollection<PresentableOccupiedMidpoint>(midpoints.Item2);
+        ActualOccupiedMidpoints =  new ObservableCollection<NotifyingPresentableMidpoints>(midpoints.Item2.Select(midpoints => new NotifyingPresentableMidpoints(midpoints)));   
     }
 
     

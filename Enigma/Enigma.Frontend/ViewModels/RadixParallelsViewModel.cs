@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.ObjectModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -22,18 +23,19 @@ public partial class RadixParallelsViewModel: ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_PARALLELS;
     private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
-    [ObservableProperty] private ObservableCollection<PresentableParallels> _actualParallels;
+    [ObservableProperty] private ObservableCollection<NotifyingPresentableParallels> _actualParallels;
     [ObservableProperty] private string _chartId;
     [ObservableProperty] private string _description;
     
     public RadixParallelsViewModel()
     {
         var model = App.ServiceProvider.GetRequiredService<RadixParallelsModel>();
-        _actualParallels =  new ObservableCollection<PresentableParallels>(model.GetPresentableParallelsForChartPoints());
+        _actualParallels =  new ObservableCollection<NotifyingPresentableParallels>(model.GetPresentableParallelsForChartPoints().
+            Select((parallels => new NotifyingPresentableParallels(parallels))));
         _chartId = model.GetChartIdName();
         _description = model.DescriptiveText();
     }
-    
+
     [RelayCommand]
     private static void Help()
     {

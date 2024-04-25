@@ -47,6 +47,11 @@
             <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
             <Setter Property="HorizontalAlignment" Value="Right"/>
         </Style>
+            <Style x:Key="NumberTextBoxForColumnStyle" TargetType="{x:Type TextBox}">
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="FontFamily" Value="DejaVu Sans Mono"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+            </Style>            
         <Style x:Key="GlyphColumnStyle" TargetType="{x:Type DataGridCell}">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="FontFamily" Value="EnigmaAstrology"/>

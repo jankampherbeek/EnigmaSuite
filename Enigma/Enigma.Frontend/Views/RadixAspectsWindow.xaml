@@ -62,7 +62,7 @@
           </DataGridTemplateColumn.CellTemplate>
           <DataGridTemplateColumn.CellEditingTemplate>
             <DataTemplate>
-              <TextBox Text="{Binding OrbExactness, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}%, Mode=TwoWay}" Style="{StaticResource NumberColumnStyle}"/>
+              <TextBox Text="{Binding OrbExactness, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}%, Mode=TwoWay}" Style="{StaticResource NumberTextBoxForColumnStyle}"/>
             </DataTemplate>
           </DataGridTemplateColumn.CellEditingTemplate>
         </DataGridTemplateColumn>
