@@ -13,7 +13,11 @@ public class DeclStripMetrics
     private const double BASE_WIDTH = 360.0;
     private const double BASE_HEIGHT = 640.0;
     private const double DEGREE_TEXT_SIZE_FACTOR = 0.03;
+    private const double DEGREE_TEXT_SIZE_MAX = 18.0;
+    private const double DEGREE_TEXT_SIZE_MIN = 8.0;
     private const double CELPOINT_GLYPH_SIZE_FACTOR = 0.06;
+    private const double CELPOINT_GLYPH_SIZE_MAX = 36.0;
+    private const double CELPOINT_GLYPH_SIZE_MIN = 10.0;
     private const double BAR_HEIGHT_FACTOR = 0.94;
     private const double BAR_WIDTH_FACTOR = 0.12;
     private const double NORTH_SOUTH_BAR_FACTOR = 0.03;
@@ -104,8 +108,11 @@ public class DeclStripMetrics
         
         // Fonts
         DegreeTextSize = DEGREE_TEXT_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
+        if (DegreeTextSize > DEGREE_TEXT_SIZE_MAX) DegreeTextSize = DEGREE_TEXT_SIZE_MAX;
+        if (DegreeTextSize < DEGREE_TEXT_SIZE_MIN) DegreeTextSize = DEGREE_TEXT_SIZE_MIN;
         CelPointGlyphSize = CELPOINT_GLYPH_SIZE_FACTOR * Math.Min(CanvasWidth, CanvasHeight);
-
+        if (CelPointGlyphSize > CELPOINT_GLYPH_SIZE_MAX) CelPointGlyphSize = CELPOINT_GLYPH_SIZE_MAX;
+        if (CelPointGlyphSize < CELPOINT_GLYPH_SIZE_MIN) CelPointGlyphSize = CELPOINT_GLYPH_SIZE_MIN;
     }
     
 }

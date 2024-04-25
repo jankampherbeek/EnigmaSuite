@@ -73,8 +73,8 @@ public partial class ChartsWheelWindow
 
     private void WheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 120.0;
-        double minSize = Math.Min(availHeight, Width);
+        double availHeight = ActualHeight - 120.0;
+        double minSize = Math.Min(availHeight, ActualWidth);
         _canvasController.Resize(minSize);
         WheelCanvas.Height = _canvasController.CanvasSize;
         WheelCanvas.Width = _canvasController.CanvasSize;

@@ -80,8 +80,8 @@ public partial class DeclDiagramWindow
 
     private void DiagramSizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = Height - 200.0;            // subtract size of rows for description and buttons
-        double availWidth = Width - 280;                // subtract size of right column
+        double availHeight = ActualHeight - 200.0;            // subtract size of rows for description and buttons
+        double availWidth = ActualWidth - 280;                // subtract size of right column
         CanvasController.Resize(availHeight, availWidth);
         DiagramCanvas.Height = CanvasController.CanvasHeightSize;
         DiagramCanvas.Width = CanvasController.CanvasWidthSize;
