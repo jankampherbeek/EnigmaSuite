@@ -1,9 +1,17 @@
-﻿using System.ComponentModel;
+﻿// Enigma Astrology Research.
+// Gökhan Yu, (c) 2024.
+// All Enigma software is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using System.ComponentModel;
 
 namespace Enigma.Domain.Presentables
 {
-  public class NotifyingPresentableAspects : INotifyPropertyChanged
+
+  /// <summary>Wrapper class to support sorting of aspects.</summary>
+  public sealed class NotifyingPresentableAspects : INotifyPropertyChanged
   {
+    private const double TOLERANCE = 0.00000001;
     private PresentableAspects _aspects;
 
     public NotifyingPresentableAspects(PresentableAspects aspects)
@@ -16,11 +24,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.Point1Text;
       set
       {
-        if (_aspects.Point1Text != value)
-        {
-          _aspects = _aspects with { Point1Text = value };
-          OnPropertyChanged(nameof(Point1Text));
-        }
+        if (_aspects.Point1Text == value) return;
+        _aspects = _aspects with { Point1Text = value };
+        OnPropertyChanged(nameof(Point1Text));
       }
     }
 
@@ -29,11 +35,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.Point1Glyph;
       set
       {
-        if (_aspects.Point1Glyph != value)
-        {
-          _aspects = _aspects with { Point1Glyph = value };
-          OnPropertyChanged(nameof(Point1Glyph));
-        }
+        if (_aspects.Point1Glyph == value) return;
+        _aspects = _aspects with { Point1Glyph = value };
+        OnPropertyChanged(nameof(Point1Glyph));
       }
     }
 
@@ -42,11 +46,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.AspectText;
       set
       {
-        if (_aspects.AspectText != value)
-        {
-          _aspects = _aspects with { AspectText = value };
-          OnPropertyChanged(nameof(AspectText));
-        }
+        if (_aspects.AspectText == value) return;
+        _aspects = _aspects with { AspectText = value };
+        OnPropertyChanged(nameof(AspectText));
       }
     }
 
@@ -55,11 +57,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.AspectGlyph;
       set
       {
-        if (_aspects.AspectGlyph != value)
-        {
-          _aspects = _aspects with { AspectGlyph = value };
-          OnPropertyChanged(nameof(AspectGlyph));
-        }
+        if (_aspects.AspectGlyph == value) return;
+        _aspects = _aspects with { AspectGlyph = value };
+        OnPropertyChanged(nameof(AspectGlyph));
       }
     }
 
@@ -68,11 +68,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.Point2Text;
       set
       {
-        if (_aspects.Point2Text != value)
-        {
-          _aspects = _aspects with { Point2Text = value };
-          OnPropertyChanged(nameof(Point2Text));
-        }
+        if (_aspects.Point2Text == value) return;
+        _aspects = _aspects with { Point2Text = value };
+        OnPropertyChanged(nameof(Point2Text));
       }
     }
 
@@ -81,11 +79,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.Point2Glyph;
       set
       {
-        if (_aspects.Point2Glyph != value)
-        {
-          _aspects = _aspects with { Point2Glyph = value };
-          OnPropertyChanged(nameof(Point2Glyph));
-        }
+        if (_aspects.Point2Glyph == value) return;
+        _aspects = _aspects with { Point2Glyph = value };
+        OnPropertyChanged(nameof(Point2Glyph));
       }
     }
 
@@ -94,11 +90,9 @@ namespace Enigma.Domain.Presentables
       get => _aspects.OrbText;
       set
       {
-        if (_aspects.OrbText != value)
-        {
-          _aspects = _aspects with { OrbText = value };
-          OnPropertyChanged(nameof(OrbText));
-        }
+        if (_aspects.OrbText == value) return;
+        _aspects = _aspects with { OrbText = value };
+        OnPropertyChanged(nameof(OrbText));
       }
     }
 
@@ -107,17 +101,15 @@ namespace Enigma.Domain.Presentables
       get => _aspects.OrbExactness;
       set
       {
-        if (_aspects.OrbExactness != value)
-        {
-          _aspects = _aspects with { OrbExactness = value };
-          OnPropertyChanged(nameof(OrbExactness));
-        }
+        if (Math.Abs(_aspects.OrbExactness - value) < TOLERANCE) return;
+        _aspects = _aspects with { OrbExactness = value };
+        OnPropertyChanged(nameof(OrbExactness));
       }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-    protected virtual void OnPropertyChanged(string propertyName)
+    private void OnPropertyChanged(string propertyName)
     {
       PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

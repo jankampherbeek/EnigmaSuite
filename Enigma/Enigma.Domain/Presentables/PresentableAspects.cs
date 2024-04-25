@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,6 +13,6 @@ namespace Enigma.Domain.Presentables;
 /// <param name="Point2Text">Text for the second point.</param>
 /// <param name="Point2Glyph">Glyph for the second point. Possibly empty string.</param>
 /// <param name="OrbText">Text for the acual orb.</param>
-/// <param name="OrbExactness">Double value indicating the exactness of the aspect as a percentage.</param> 
+/// <param name="OrbExactness">Value indicating the exactness of the aspect as a percentage.</param> 
 public record PresentableAspects(string Point1Text, char Point1Glyph, string AspectText, char AspectGlyph, 
     string Point2Text, char Point2Glyph, string OrbText, double OrbExactness);

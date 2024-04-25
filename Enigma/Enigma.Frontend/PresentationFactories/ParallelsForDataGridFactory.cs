@@ -47,8 +47,7 @@ public class ParallelsForDataGridFactory : IParallelsForDataGridFactory
         string point2Text = effParallel.Point2.GetDetails().Text;
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effParallel.ActualOrb);
         double exactnessValue = 100 - (effParallel.ActualOrb / effParallel.MaxOrb * 100);
-        string exactness = $"{exactnessValue:N}".Replace(",", ".");
-        return new PresentableParallels(point1Text, point1Glyph, typeGlyph, point2Text, point2Glyph, orb, exactness);
+        return new PresentableParallels(point1Text, point1Glyph, typeGlyph, point2Text, point2Glyph, orb, exactnessValue);
     }
 
 

@@ -13,6 +13,6 @@ namespace Enigma.Domain.Presentables;
 /// <param name="Point2Text">Text for the second point.</param>
 /// <param name="Point2Glyph">Glyph for the second point. Possibly empty string.</param>
 /// <param name="OrbText">Text for the actual orb.</param>
-/// <param name="ExactnessText">Text indicating the exactness of the aspect as a percentage.</param> 
+/// <param name="OrbExactness">Value indicating the exactness of the aspect as a percentage.</param> 
 public record PresentableParallels(string Point1Text, char Point1Glyph, char TypeGlyph, 
-    string Point2Text, char Point2Glyph, string OrbText, string ExactnessText);
+    string Point2Text, char Point2Glyph, string OrbText, double OrbExactness);

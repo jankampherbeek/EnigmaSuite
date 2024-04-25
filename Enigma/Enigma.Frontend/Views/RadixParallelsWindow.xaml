@@ -33,7 +33,7 @@
                 materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                 materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                 CanUserAddRows="False"
-                CanUserSortColumns="False"
+                CanUserSortColumns="True"
                 AutoGenerateColumns="False"
                 HeadersVisibility="All"
                 HorizontalAlignment="Left"
@@ -52,8 +52,18 @@
                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                 <DataGridTextColumn Binding="{Binding OrbText}" Header="Orb" 
                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding ExactnessText}" Header="Exactness %" 
-                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTemplateColumn Header="Exactness %" SortMemberPath="OrbExactness">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding OrbExactness, StringFormat={}{0:N2}%, Mode=OneWay}" Style="{StaticResource NumberTextBlockStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <TextBox Text="{Binding OrbExactness, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:N2}%, Mode=TwoWay}" Style="{StaticResource NumberTextBoxForColumnStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>                    
              </DataGrid.Columns>   
         </DataGrid>
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
