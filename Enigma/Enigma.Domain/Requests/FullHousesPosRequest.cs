@@ -11,4 +11,4 @@ namespace Enigma.Domain.Requests;
 /// <param name="JdUt">Julian Day for UT.</param>
 /// <param name="ChartLocation">The location with the correct coordinates.</param>
 /// <param name="CalcPrefs">Calculation preferences.</param>
-public record FullHousesPosRequest(double JdUt, Location ChartLocation, CalculationPreferences CalcPrefs);
+public record FullHousesPosRequest(double JdUt, Location? ChartLocation, CalculationPreferences CalcPrefs);

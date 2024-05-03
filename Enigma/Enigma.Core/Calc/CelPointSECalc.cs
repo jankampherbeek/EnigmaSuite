@@ -18,7 +18,7 @@ public interface ICelPointSeCalc
     /// <param name="location">Location with coordinates.</param>
     /// <param name="flags">Flags that contain the settings for ecliptic or equatorial based calculations.</param>
     /// <returns>Array with position and speed for mainposition, deviation and distance, in that sequence. Typically: longitude, latitude, distance or right ascension, declination and distance.</returns>
-    public PosSpeed[] CalculateCelPoint(ChartPoints celPoint, double jdnr, Location location, int flags);
+    public PosSpeed[] CalculateCelPoint(ChartPoints celPoint, double jdnr, Location? location, int flags);
 }
 
 /// <inheritdoc/>
@@ -34,7 +34,7 @@ public sealed class CelPointSeCalc : ICelPointSeCalc
     }
 
     /// <inheritdoc/>
-    public PosSpeed[] CalculateCelPoint(ChartPoints celPoint, double jdnr, Location location, int flags)
+    public PosSpeed[] CalculateCelPoint(ChartPoints celPoint, double jdnr, Location? location, int flags)
     {
         int pointId = _mapping.SeIdForCelestialPoint(celPoint);
         double[] positions = _calcUtFacade.PositionFromSe(jdnr, pointId, flags);

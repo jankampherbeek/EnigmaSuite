@@ -70,7 +70,7 @@ public class TestDescriptiveChartText
     }
 
 
-    private static Location CreateLocation()
+    private static Location? CreateLocation()
     {
         return new Location(LOCATION_NAME, GEO_LONG, GEO_LAT);
     }

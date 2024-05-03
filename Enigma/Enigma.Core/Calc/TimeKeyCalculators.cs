@@ -17,7 +17,7 @@ public interface ISolarArcCalculator
     /// <param name="location">The location is im,portant if the flags indicate the use of parallax, otherwise it is ignored.</param>
     /// <param name="flags">Combined value for the flags toa ccess the Swiss Ephemjeris.</param>
     /// <returns>The calculated solar arc.</returns>
-    public double CalcSolarArcForTimespan(double jdRadix, double timespan, Location location, int flags);
+    public double CalcSolarArcForTimespan(double jdRadix, double timespan, Location? location, int flags);
 }
 
 /// <inheritdoc/>
@@ -31,7 +31,7 @@ public sealed class SolarArcCalculator: ISolarArcCalculator
     }
 
     /// <inheritdoc/>
-    public double CalcSolarArcForTimespan(double jdRadix, double timespan, Location location, int flags)
+    public double CalcSolarArcForTimespan(double jdRadix, double timespan, Location? location, int flags)
     {
         PosSpeed[] sunStart = _calculator.CalculateCelPoint(ChartPoints.Sun, jdRadix, location, flags);
         PosSpeed[] sunEnd = _calculator.CalculateCelPoint(ChartPoints.Sun, jdRadix + timespan, location, flags);

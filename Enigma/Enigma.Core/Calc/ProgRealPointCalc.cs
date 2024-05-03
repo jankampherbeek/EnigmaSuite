@@ -24,7 +24,7 @@ public interface IProgRealPointCalc
     /// <param name="progPoints">Dictionary with supported points.</param>
     /// <returns></returns>
     public ProgRealPointsResponse CalculateTransits(Ayanamshas ayanamsha, ObserverPositions observerPos,
-        Location location, double julianDayUt, Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints);
+        Location? location, double julianDayUt, Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints);
 }
 
 public class ProgRealPointCalc: IProgRealPointCalc
@@ -55,7 +55,7 @@ public class ProgRealPointCalc: IProgRealPointCalc
     }
        
     public ProgRealPointsResponse CalculateTransits(Ayanamshas ayanamsha, ObserverPositions observerPos, 
-        Location location, double julianDayUt, Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints)
+        Location? location, double julianDayUt, Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints)
     {
         ZodiacTypes zodiacType = ayanamsha == Ayanamshas.None ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal;
         int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, observerPos, zodiacType);
@@ -100,7 +100,7 @@ public class ProgRealPointCalc: IProgRealPointCalc
     }
 
     private KeyValuePair<ChartPoints, ProgPositions> CreatePosForSePoint(ChartPoints celPoint, double julDay, 
-        Location location, int flagsEcl, int flagsEq)
+        Location? location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
         PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);

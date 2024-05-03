@@ -40,7 +40,7 @@ public class ProgEventModel: DateTimeLocationModelBase
         string locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "" : locationName + " ";
         string fullLocationName = locNameCheckedForEmpty + FullGeoLongitude!.GeoLongFullText + " " +
                                   FullGeoLatitude!.GeoLatFullText;
-        Location location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);
+        Location? location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ProgEvent progEvent = new(0, description, locationName, location, fullDateTime);
         DataVaultProg.Instance.CurrentProgEvent = progEvent;

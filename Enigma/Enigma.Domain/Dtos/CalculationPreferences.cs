@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,3 +23,52 @@ public record CalculationPreferences(List<ChartPoints> ActualChartPoints,
     ObserverPositions ActualObserverPosition,
     ProjectionTypes ActualProjectionType,
     HouseSystems ActualHouseSystem);
+
+
+/// <summary>Creates calculation preferences from a configuration.</summary>
+public interface ICalculationPreferencesCreator
+{
+    /// <summary>Create calculation preferences.</summary>
+    /// <param name="config">Configuration.</param>
+    /// <param name="coordSys">Coordinate system.</param>
+    /// <returns>The created calculation preferences.</returns>
+    public CalculationPreferences CreatePrefs(AstroConfig? config, CoordinateSystems coordSys);
+
+    /// <summary>Create calculation preferences for a single chart point.</summary>
+    /// <param name="point">The chart point.</param>
+    /// <param name="config">Configuration.</param>
+    /// <param name="coordSys">Coordinate system.</param>
+    /// <returns>The created calculation preferences, including only one chart point.</returns>
+    public CalculationPreferences CreatePrefsForSinglePoint(ChartPoints point, AstroConfig? config, CoordinateSystems coordSys);
+    
+}
+
+
+// =====================  Implementation ==================================================================
+
+/// <inheritdoc/>
+public class CalculationPreferencesCreator : ICalculationPreferencesCreator
+{
+    
+    /// <inheritdoc/>
+    public CalculationPreferences CreatePrefs(AstroConfig? config, CoordinateSystems coordSys)
+    {
+        List<ChartPoints> actualChartPoints = (
+            from point in config.ChartPoints 
+            where point.Value.IsUsed 
+            select point.Key).ToList();
+        return new CalculationPreferences(actualChartPoints, config.ZodiacType, config.Ayanamsha,
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
+    }
+
+    /// <inheritdoc/>
+    public CalculationPreferences CreatePrefsForSinglePoint(ChartPoints point, AstroConfig? config, CoordinateSystems coordSys)
+    {
+        List<ChartPoints> actualChartPoints = new() { point };
+        return new CalculationPreferences(actualChartPoints, config.ZodiacType, config.Ayanamsha,
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
+    }
+}
+
+
+

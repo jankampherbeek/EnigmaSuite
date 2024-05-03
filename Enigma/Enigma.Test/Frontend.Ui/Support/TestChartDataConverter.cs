@@ -69,7 +69,7 @@ public class TestChartDataConverter
     private static ChartData CreateChartData()
     {
         MetaData metaData = new(NAME, DESCRIPTION, SOURCE, LOCATION_NAME, CHART_CATEGORY, RATING);
-        Location location = new(LOCATION_FULL_NAME, GEO_LONG, GEO_LAT);
+        Location? location = new(LOCATION_FULL_NAME, GEO_LONG, GEO_LAT);
         FullDateTime fullDateTime = new(DATE_TEXT, TIME_TEXT, JD_ET);
         return new ChartData(ID, metaData, location, fullDateTime);
     }

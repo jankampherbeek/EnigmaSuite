@@ -51,7 +51,7 @@ public sealed class EventDataConverter : IEventDataConverter
         string description = persistableEventData.Description;
         string locationName = persistableEventData.LocationName;
         string locationFullName = _locationConversion.CreateLocationDescription(locationName, persistableEventData.GeoLat, persistableEventData.GeoLong);
-        Location location = new(locationFullName, persistableEventData.GeoLong, persistableEventData.GeoLat);
+        Location? location = new(locationFullName, persistableEventData.GeoLong, persistableEventData.GeoLat);
         FullDateTime fullDateTime = new(persistableEventData.DateText, persistableEventData.TimeText, persistableEventData.JdForEt);
         return new ProgEvent(persistableEventData.Id, description, locationName, location, fullDateTime);
     }

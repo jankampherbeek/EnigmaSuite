@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -61,7 +61,7 @@ public class TestResearchMethods
         List<ResearchMethodDetails> allDetails = ResearchMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(6));
+            Assert.That(allDetails, Has.Count.EqualTo(9));
             Assert.That(allDetails[1].Text, Is.EqualTo("Count positions in houses"));
             Assert.That(allDetails[2].MinNumberOfPoints, Is.EqualTo(2));
             Assert.That(allDetails[3].ResearchMethod, Is.EqualTo(ResearchMethods.CountUnaspected));

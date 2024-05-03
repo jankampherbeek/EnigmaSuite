@@ -193,7 +193,7 @@ public class ProgEventResultsModel
         ProgEvent? progEvent = _dataVaultProg.CurrentProgEvent;
         if (progEvent == null) return positions;
         double jdUt = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; 
-        Location location = _dataVaultProg.CurrentProgEvent.Location;
+        Location? location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgTransits configTransits = CurrentConfig.Instance.GetConfigProg().ConfigTransits;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         TransitsEventRequest request = new(jdUt, location, configTransits, configRadix.Ayanamsha,
@@ -214,7 +214,7 @@ public class ProgEventResultsModel
         if (progEvent == null) return positions;
         double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt;
         double jdRadix = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
-        Location location = _dataVaultProg.CurrentProgEvent.Location;
+        Location? location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSecDir configSecDir = CurrentConfig.Instance.GetConfigProg().ConfigSecDir;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         SecDirEventRequest request = new(jdRadix, jdEvent, location, configSecDir, configRadix.Ayanamsha,
@@ -235,7 +235,7 @@ public class ProgEventResultsModel
         if (progEvent == null) return positions;
         double jdEvent = _dataVaultProg.CurrentProgEvent.DateTime.JulianDayForEt; 
         double jdRadix = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;
-        Location location = _dataVaultProg.CurrentProgEvent.Location;
+        Location? location = _dataVaultProg.CurrentProgEvent.Location;
         ConfigProgSymDir configSymDir = CurrentConfig.Instance.GetConfigProg().ConfigSymDir;
         AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         var fullPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;

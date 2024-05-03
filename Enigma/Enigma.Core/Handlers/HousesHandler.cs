@@ -26,7 +26,7 @@ public interface IHousesHandler
     /// <param name="obliquity">Obliquity.</param>
     /// <param name="location">Actual location.</param>
     /// <returns>The ramc in decimal degrees.</returns>
-    public double CalcArmc(double jdUt, double obliquity, Location location);
+    public double CalcArmc(double jdUt, double obliquity, Location? location);
 }
 
 /// <inheritdoc/>
@@ -45,7 +45,7 @@ public sealed class HousesHandler : IHousesHandler
         _coordinateConversionHandler = coordinateConversionHandler;
     }
 
-    public double CalcArmc(double jdUt, double obliquity, Location location)
+    public double CalcArmc(double jdUt, double obliquity, Location? location)
     {
         const int flags = EnigmaConstants.SEFLG_SWIEPH;
         double[][] houses = _housesCalc.CalculateHouses(jdUt, obliquity, location, 'W', flags);
@@ -59,7 +59,7 @@ public sealed class HousesHandler : IHousesHandler
         HouseSystemDetails houseDetails = houseSystem.GetDetails();
         char houseId4Se = houseDetails.SeId;
         const int flags = EnigmaConstants.SEFLG_SWIEPH;
-        Location location = request.ChartLocation;
+        Location? location = request.ChartLocation;
         double jdUt = request.JdUt;
         double[][] eclValues;
         Dictionary<ChartPoints, FullPointPos> mundanePositions = new();
@@ -104,7 +104,7 @@ public sealed class HousesHandler : IHousesHandler
         return mundanePositions;
     }
 
-    private KeyValuePair<ChartPoints, FullPointPos> CreateFullChartPointPosForCusp(ChartPoints point, double tropLongitude, double longitude, double jdUt, double obliquity, Location location)
+    private KeyValuePair<ChartPoints, FullPointPos> CreateFullChartPointPosForCusp(ChartPoints point, double tropLongitude, double longitude, double jdUt, double obliquity, Location? location)
     {
         const double latitude = 0.0;
         const double speed = 0.0;
@@ -134,7 +134,7 @@ public sealed class HousesHandler : IHousesHandler
         return _coordinateConversionHandler.HandleConversion(coordConvRequest);
     }
 
-    private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location location, EquatorialCoordinates equCoord)
+    private HorizontalCoordinates CalcHorizontalCoordinates(double jdUt, Location? location, EquatorialCoordinates equCoord)
     {
         HorizontalRequest horizontalRequest = new(jdUt, location, equCoord);
         return _horizontalHandler.CalcHorizontal(horizontalRequest);

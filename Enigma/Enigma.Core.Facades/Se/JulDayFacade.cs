@@ -20,6 +20,12 @@ public interface IJulDayFacade
     /// <returns>The calculated Julian Day number.</returns>
     public double JdFromSe(SimpleDateTime dateTime);
 
+    /// <summary>Retrieve date and time from Julian Day number.</summary>
+    /// <param name="jd">Julian Day number</param>
+    /// <param name="cal">Calendar</param>
+    /// <returns>Date and time.</returns>
+    public SimpleDateTime DateTimeFromJd(double jd, Calendars cal);
+
     /// <summary>Retrieve value for Delta T.</summary>
     /// <param name="julianDayUt">Value for Julian Day in UT.</param>
     /// <returns>The value for Delta T in seconds and fractions of seconds.</returns>
@@ -38,12 +44,27 @@ public sealed class JulDayFacade : IJulDayFacade
     }
 
     /// <inheritdoc/>
+    public SimpleDateTime DateTimeFromJd(double jd, Calendars cal)
+    {
+        int calFlag = cal == Calendars.Gregorian ? 1 : 0;
+        /*double[] dateAndTime = new double[4];
+        ext_swe_revjul(jd, calFlag, dateAndTime );*/
+        int year = 0;
+        int month = 0;
+        int day = 0;
+        double hour = 0.0;
+        ext_swe_revjul(jd, calFlag, ref year, ref month, ref day, ref hour);        
+        
+        return new SimpleDateTime(year, month, day, hour, cal);
+    }
+
+    /// <inheritdoc/>
     public double DeltaTFromSe(double julianDayUt)
     {
         const int flag = EnigmaConstants.SEFLG_SWIEPH;
         return ext_swe_deltat_ex(julianDayUt, flag);
     }
-
+    
 
     /// <summary>Access dll to retrieve Julian Day number.</summary>
     /// <param name="year">The astronomical year.</param>
@@ -62,4 +83,11 @@ public sealed class JulDayFacade : IJulDayFacade
     /// <returns></returns>
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_deltat")]
     private static extern double ext_swe_deltat_ex(double julianDayUt, int flag);
+
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_revjul")]
+    private static extern void ext_swe_revjul(double julianDayUt, int gregFlag, ref int year, ref int month, ref int day, ref double hour);
+
+    
+    
+    
 }

@@ -12,4 +12,4 @@ namespace Enigma.Domain.Requests;
 /// <param name="JulianDayUt">Julian day for universal time.</param>
 /// <param name="Location">Location (only latitude and longitude are used).</param>
 /// <param name="CalculationPreferences">User preferences for the calculation.</param> 
-public record CelPointsRequest(double JulianDayUt, Location Location, CalculationPreferences CalculationPreferences);
+public record CelPointsRequest(double JulianDayUt, Location? Location, CalculationPreferences CalculationPreferences);

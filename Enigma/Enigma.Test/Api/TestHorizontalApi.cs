@@ -19,7 +19,7 @@ public class TestHorizontalApi
     private const double DELTA = 0.00000001;
     private const double EXPECTED_AZIMUTH = 222.2;
     private const double EXPECTED_ALTITUDE = 45.45;
-    private readonly Location _location = new("Anywhere", 55.5, 22.2);
+    private readonly Location? _location = new("Anywhere", 55.5, 22.2);
     private readonly EquatorialCoordinates _equCoordinates = new(111.1, 2.2);
     private IHorizontalApi? _api;
 

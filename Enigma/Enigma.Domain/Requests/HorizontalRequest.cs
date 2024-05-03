@@ -12,4 +12,4 @@ namespace Enigma.Domain.Requests;
 /// <param name="JdUt"/>
 /// <param name="Location"/>
 /// <param name="EquCoordinates">RA and declination.</param>
-public record HorizontalRequest(double JdUt, Location Location, EquatorialCoordinates EquCoordinates);
+public record HorizontalRequest(double JdUt, Location? Location, EquatorialCoordinates EquCoordinates);

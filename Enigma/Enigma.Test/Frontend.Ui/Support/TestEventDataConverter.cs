@@ -64,7 +64,7 @@ public class TestEventDataConverter
 
     private static ProgEvent CreateEventData()
     {
-        Location location = new(LOCATION_FULL_NAME, GEO_LONG, GEO_LAT);
+        Location? location = new(LOCATION_FULL_NAME, GEO_LONG, GEO_LAT);
         FullDateTime fullDateTime = new(DATE_TEXT, TIME_TEXT, JD_ET);
         return new ProgEvent(ID, DESCRIPTION, LOCATION_NAME, location, fullDateTime);
     }

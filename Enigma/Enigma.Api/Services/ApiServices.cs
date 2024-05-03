@@ -36,6 +36,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
         serviceCollection.AddTransient<IObliquityApi, ObliquityApi>();
+        serviceCollection.AddTransient<IOobCalApi, OobCalApi>();
         serviceCollection.AddTransient<IParallelsApi, ParallelsApi>();
         serviceCollection.AddTransient<IPdDataImportExportApi, PdDataImportExportApi>();             
         serviceCollection.AddTransient<IProgAspectsApi, ProgAspectsApi>();

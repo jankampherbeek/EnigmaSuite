@@ -72,7 +72,7 @@ public sealed class ProgSymDirHandler: ICalcSymDirHandler
             {
                 double sunRadix = request.RadixPoints[ChartPoints.Sun];
                 double secondaryJd = request.JdRadix + timeSpanInYears;
-                Location dummyLocation = new("", 0.0, 0);
+                Location? dummyLocation = new("", 0.0, 0);
                 Dictionary<ChartPoints, ProgPointConfigSpecs> progPoints = new();
                 progPoints.Add(ChartPoints.Sun, new ProgPointConfigSpecs(true, 'a'));
                 ProgRealPointsResponse response = _progRealPointCalc.CalculateTransits(Ayanamshas.None, 

@@ -58,7 +58,7 @@ public class RadixDataInputModel: DateTimeLocationModelBase
             FullGeoLatitude.Latitude, FullGeoLongitude.Longitude);
         
         
-        Location location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);        
+        Location? location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);        
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ChartData chartData = new(id, metaData, location, fullDateTime);
         Log.Information("RadixDataInputModel.CreateChartData(): calculating chart via ChartCalculation");

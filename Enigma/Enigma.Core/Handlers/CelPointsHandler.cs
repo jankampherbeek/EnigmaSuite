@@ -17,17 +17,20 @@ namespace Enigma.Core.Handlers;
 /// </summary>
 public interface ICelPointsHandler
 {
-    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, double armc, Location location, CalculationPreferences prefs);
+    public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, 
+        double armc, Location? location, CalculationPreferences prefs);
+
+    /// <summary>Calculate a single point, can only be used for SE calculations.</summary>
+    /// <param name="point">The chart point.</param>
+    /// <param name="jdUt">Julian Day.</param>
+    /// <param name="location">Location, only relevant for topocentric positions.</param>
+    /// <param name="prefs">Calculation preferences.</param>
+    /// <returns>Full point position for the given chart point.</returns>
+    public FullPointPos CalcSinglePointWithSe(ChartPoints point, double jdUt, Location location, CalculationPreferences prefs);
 }
 
-/// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
-public interface ICalcChartsRangeHandler
-{
-    /// <summary>Calculate a range of charts.</summary>
-    /// <param name="request">Request with the data and the settings.</param>
-    /// <returns>The calculated result.</returns>
-    public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
-}
+// ===================================== Implementation ============================================
+
 
 /// <inheritdoc/>
 public sealed class CelPointsHandler : ICelPointsHandler
@@ -70,7 +73,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
 
     public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, 
-        double armc, Location location, CalculationPreferences prefs)
+        double armc, Location? location, CalculationPreferences prefs)
     {
         List<ChartPoints> allCelPoints = prefs.ActualChartPoints;
         List<ChartPoints> celPoints = allCelPoints.Where(point => _periodSupportChecker.IsSupported(point, jdUt)).ToList();
@@ -138,7 +141,20 @@ public sealed class CelPointsHandler : ICelPointsHandler
         return obliqueLongitudePoints;
     }
 
-    private static ObliqueLongitudeRequest CreateObliqueLongitudeRequest(Dictionary<ChartPoints, FullPointPos> calculatedPoints, double armc, double obliquity, Location location, double ayanamshaOffset)
+    public FullPointPos CalcSinglePointWithSe(ChartPoints point, double jdUt, Location location, CalculationPreferences prefs)
+    {
+        ObserverPositions observerPosition = prefs.ActualObserverPosition;
+        if (prefs.ActualObserverPosition == ObserverPositions.TopoCentric)
+        {
+            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0); 
+        }
+        int flagsEcliptical = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, prefs.ActualObserverPosition, prefs.ActualZodiacType);
+        int flagsEquatorial = _seFlags.DefineFlags(CoordinateSystems.Equatorial, prefs.ActualObserverPosition, prefs.ActualZodiacType);
+        KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForSePoint(point, jdUt, location, flagsEcliptical, flagsEquatorial);
+        return fullPointPos.Value;
+    }
+
+    private static ObliqueLongitudeRequest CreateObliqueLongitudeRequest(Dictionary<ChartPoints, FullPointPos> calculatedPoints, double armc, double obliquity, Location? location, double ayanamshaOffset)
     {
         List<NamedEclipticCoordinates> coordinates = calculatedPoints.Select(calcPoint 
             => new NamedEclipticCoordinates(calcPoint.Key, 
@@ -171,7 +187,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     }
 
 
-    private KeyValuePair<ChartPoints, FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location location, int flagsEcl, int flagsEq)
+    private KeyValuePair<ChartPoints, FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location? location, int flagsEcl, int flagsEq)
     {
         PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint(celPoint, julDay, location, flagsEcl);
         PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint(celPoint, julDay, location, flagsEq);

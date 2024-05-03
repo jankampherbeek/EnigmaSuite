@@ -92,6 +92,8 @@ public static class CoreServices
         serviceCollection.AddTransient<IObliquityHandler, ObliquityHandler>();
         serviceCollection.AddTransient<IOccupiedMidpointsDeclinationCounting, OccupiedMidpointsDeclinationCounting>();
         serviceCollection.AddTransient<IOccupiedMidpointsFinder, OccupiedMidpointsFinder>();
+        serviceCollection.AddTransient<IOobCalendarCalc, OobCalendarCalc>();
+        serviceCollection.AddTransient<IOobCalHandler, OobCalHandler>();
         serviceCollection.AddTransient<IOobCounting, OobCounting>();
         serviceCollection.AddTransient<IParallelsHandler, ParallelsHandler>();
         serviceCollection.AddTransient<IPdDataFromToRdbmsHandler, PdDataFromToRdbmsHandler>();

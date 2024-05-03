@@ -14,6 +14,6 @@ namespace Enigma.Domain.Requests;
 /// <param name="ConfigTransits">User preferences for the calculation of transits.</param>
 /// <param name="Ayanamsha">The Ayanamsha as defined in the user preferences, 'None' for tropical positions.</param>
 /// <param name="ObserverPos">The observer position as defined in the user preferences.</param>
-public record TransitsEventRequest(double JulianDayUt, Location Location, ConfigProgTransits ConfigTransits,
+public record TransitsEventRequest(double JulianDayUt, Location? Location, ConfigProgTransits ConfigTransits,
     Ayanamshas Ayanamsha, ObserverPositions ObserverPos);
 

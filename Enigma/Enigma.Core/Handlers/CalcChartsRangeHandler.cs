@@ -8,6 +8,17 @@ using Enigma.Domain.Requests;
 
 namespace Enigma.Core.Handlers;
 
+/// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
+public interface ICalcChartsRangeHandler
+{
+    /// <summary>Calculate a range of charts.</summary>
+    /// <param name="request">Request with the data and the settings.</param>
+    /// <returns>The calculated result.</returns>
+    public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
+}
+
+// ======================= Implementation ===================================
+
 /// <inheritdoc/>
 public sealed class CalcChartsRangeHandler : ICalcChartsRangeHandler
 {

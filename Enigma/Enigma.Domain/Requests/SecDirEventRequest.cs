@@ -16,6 +16,6 @@ namespace Enigma.Domain.Requests;
 /// <param name="ConfigSecDir">User preferences for the calculation of secondary directions.</param>
 /// <param name="Ayanamsha">The Ayanamsha as defined in the user preferences, 'None' for tropical positions.</param>
 /// <param name="ObserverPos">The observer position as defined in the user preferences.</param>
-public record SecDirEventRequest(double JdRadix,  double JdEvent, Location Location, ConfigProgSecDir ConfigSecDir,
+public record SecDirEventRequest(double JdRadix,  double JdEvent, Location? Location, ConfigProgSecDir ConfigSecDir,
     Ayanamshas Ayanamsha, ObserverPositions ObserverPos);
 

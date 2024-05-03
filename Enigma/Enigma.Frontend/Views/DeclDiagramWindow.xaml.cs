@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Shapes;
 using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;

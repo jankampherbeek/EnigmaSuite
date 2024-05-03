@@ -6,17 +6,22 @@
 
 Declinations and improvements for data import. New setup for user manual.
 
+
+
+### General
+
+- All orbs and orb percentages are now sortable (Code by Gökhan Yu).
+
 ### Declinations
 
 New functionality, added:
 
 - Parallels in declination.
 - Midpoints in declination.
-- OOB positions.
-- OOB calendar [TODO]
 - Longitude equivalents according to Kt Boehrer.
 - Declination diagram according to Kt Boehrer.
-- Diagram with declination ladder [TODO]
+- Declination strip.
+- OOB calendar [TODO]
 - Research method for parallels in declination.
 - Research method for midpoints in declination.
 - Research method for OOB positions.

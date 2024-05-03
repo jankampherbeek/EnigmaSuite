@@ -11,7 +11,7 @@ namespace Enigma.Domain.Dtos;
 /// <param name="MetaData">Metadata for this chart.</param>
 /// <param name="Location">Location related data.</param>
 /// <param name="FullDateTime">Date/time related data.</param>
-public record ChartData(long Id, MetaData MetaData, Location Location, FullDateTime FullDateTime)
+public record ChartData(long Id, MetaData MetaData, Location? Location, FullDateTime FullDateTime)
 {
     public long Id { get; set; } = Id;
 }

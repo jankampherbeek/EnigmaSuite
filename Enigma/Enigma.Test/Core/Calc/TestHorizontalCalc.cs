@@ -17,7 +17,7 @@ public class TestHorizontalCalc
     private const double DELTA = 0.00000001;
     private const double JULIAN_DAY = 123456.789;
     private readonly double[] _geoGraphicCoordinates = { 10.0, 50.0 };
-    private readonly Location _location = new("Anywhere", 10.0, 50.0);
+    private readonly Location? _location = new("Anywhere", 10.0, 50.0);
     private EquatorialCoordinates? _equCoordinates;
     private readonly double[] _eclipticValues = { 200.0, -2.0 };
     private readonly double[] _expectedHorCoord = { 222.2, 44.4 };

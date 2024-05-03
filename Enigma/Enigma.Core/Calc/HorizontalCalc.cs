@@ -17,7 +17,7 @@ public interface IHorizontalCalc
     /// <param name="equCoordinates"/>
     /// <param name="flags">Flags for the SE.</param>
     /// <returns>Calculated horizontal coordinates (azimuth and altitude).</returns>
-    public double[] CalculateHorizontal(double jdUt, Location location, EquatorialCoordinates equCoordinates, int flags);
+    public double[] CalculateHorizontal(double jdUt, Location? location, EquatorialCoordinates equCoordinates, int flags);
 }
 
 /// <inheritdoc/>
@@ -29,7 +29,7 @@ public sealed class HorizontalCalc : IHorizontalCalc
 
 
     /// <inheritdoc/>
-    public double[] CalculateHorizontal(double jdUt, Location location, EquatorialCoordinates equCoordinates, int flags)
+    public double[] CalculateHorizontal(double jdUt, Location? location, EquatorialCoordinates equCoordinates, int flags)
     {
         var geoGraphicLonLat = new[] { location.GeoLong, location.GeoLat };
         var equatRaDecl = new[] { equCoordinates.RightAscension, equCoordinates.Declination };

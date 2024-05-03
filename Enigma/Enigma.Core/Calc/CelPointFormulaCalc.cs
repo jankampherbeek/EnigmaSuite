@@ -60,7 +60,7 @@ public sealed class CelPointFormulaCalc: ICelPointFormulaCalc
     
     private double CalcApogeeDuval(double jdUt)
     {
-        Location location = new Location("", 0.0, 0.0);     // dummy location
+        Location? location = new Location("", 0.0, 0.0);     // dummy location
         const int flagsEcl = 2 + 256; // use SE + speed
         double longSun = _celPointSeCalc.CalculateCelPoint(ChartPoints.Sun, jdUt, location, flagsEcl)[0].Position;
         double longApogeeMean = _celPointSeCalc.CalculateCelPoint(ChartPoints.ApogeeMean, jdUt, location, flagsEcl)[0].Position;
