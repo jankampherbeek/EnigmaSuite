@@ -10,8 +10,8 @@
 	<StartupObject>Enigma.Frontend.Ui.App</StartupObject>
 	<AssemblyName>Enigma</AssemblyName>	
 	<LangVersion>11</LangVersion>	
-	<PackageId>Enigma_0_2_0</PackageId>	
-	<Version>0.2.0</Version>	
+	<PackageId>Enigma_0_4_0</PackageId>	
+	<Version>0.4.0</Version>	
 	<Title>Enigma Astrology Research</Title>	
   </PropertyGroup>
 
@@ -611,6 +611,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\RadixDeclMidpoints.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\help\RadixLongitudeEquivalents.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\help\DeclDiagram.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\help\DeclStrip.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\help\OobCal.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

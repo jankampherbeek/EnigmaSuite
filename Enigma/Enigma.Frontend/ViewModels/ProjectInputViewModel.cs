@@ -36,20 +36,17 @@ public partial class ProjectInputViewModel: ObservableObject
     private readonly ProjectInputModel _model = App.ServiceProvider.GetRequiredService<ProjectInputModel>();
     private bool _saveClicked;
     
-    private int _multiplicationValue = 1;
     [NotifyPropertyChangedFor(nameof(ProjectNameValid))]   
     [ObservableProperty] private string _projectName = string.Empty;
     [NotifyPropertyChangedFor(nameof(ProjectDescriptionValid))]   
     [ObservableProperty] private string _projectDescription = string.Empty;
-    [NotifyPropertyChangedFor(nameof(MultiplicationValid))]
-    [ObservableProperty] private string _multiplication = "1";
     [ObservableProperty] private int _controlGroupIndex;
     [ObservableProperty] private int _datafileIndex;
+    [ObservableProperty] private int _cgMultiplicationIndex;
     [ObservableProperty] private ObservableCollection<string> _availableControlGroupTypes;
+    [ObservableProperty] private ObservableCollection<string> _controlGroupMultiplications;
     [ObservableProperty] private ObservableCollection<string> _availableDatafileNames;
-
     
-    public SolidColorBrush MultiplicationValid => IsMultiplicationValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush ProjectNameValid => IsProjectNameValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush ProjectDescriptionValid => IsProjectDescriptionValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DatafileValid => IsDatafileValid() ? Brushes.Gray : Brushes.Red;
@@ -58,6 +55,7 @@ public partial class ProjectInputViewModel: ObservableObject
     {
         AvailableControlGroupTypes = new ObservableCollection<string>(ProjectInputModel.GetControlGroupTypeNames());
         AvailableDatafileNames = new ObservableCollection<string>(_model.GetDataNames());
+        ControlGroupMultiplications = new ObservableCollection<string>(_model.GetCgMultiplicationFactors());
     }
     
     private bool IsProjectNameValid()
@@ -74,15 +72,6 @@ public partial class ProjectInputViewModel: ObservableObject
         return ProjectDescription != string.Empty;
     }
 
-    private bool IsMultiplicationValid()
-    {
-        if (string.IsNullOrEmpty(Multiplication) && !_saveClicked) return true;        
-        bool isNumeric = int.TryParse(Multiplication, out int multiplValue);
-        if (!isNumeric || multiplValue is < MIN_MULTIPLICATION or > MAX_MULTIPLICATION) return false;
-        _multiplicationValue = multiplValue;
-        return true;
-    }
-
     private bool IsDatafileValid()
     {
         return AvailableDatafileNames.Count > 0;
@@ -95,9 +84,11 @@ public partial class ProjectInputViewModel: ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
+            string multiplicationText = ControlGroupMultiplications[CgMultiplicationIndex]; 
+            int multiplicationValue = int.Parse(multiplicationText);
             ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
             ResearchProject project = new(ProjectName, ProjectDescription, 
-                AvailableDatafileNames[DatafileIndex], cgType, _multiplicationValue);
+                AvailableDatafileNames[DatafileIndex], cgType, multiplicationValue);
             ResultMessage resultMessage = _model.SaveProject(project);
             if (resultMessage.ErrorCode != 0)
             {
@@ -122,13 +113,9 @@ public partial class ProjectInputViewModel: ObservableObject
     {
         StringBuilder errorsText = new();
         if (!IsProjectNameValid())
-        {
             errorsText.Append(StandardTexts.ERROR_NAME + EnigmaConstants.NEW_LINE);
-        }
         if (!IsProjectDescriptionValid())
             errorsText.Append(StandardTexts.ERROR_DESCRIPTION + EnigmaConstants.NEW_LINE);
-        if (!IsMultiplicationValid())
-            errorsText.Append(StandardTexts.ERROR_MULTIPLICATION_INT + EnigmaConstants.NEW_LINE);
         if (!IsDatafileValid())
             errorsText.Append(StandardTexts.ERROR_DATAFILE_MISSING + EnigmaConstants.NEW_LINE);
         return errorsText.ToString();

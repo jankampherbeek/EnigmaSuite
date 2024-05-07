@@ -98,7 +98,8 @@ public sealed class OobCalendarCalc : IOobCalendarCalc
                     newPos = calcResult.DeclPos;
                     bool newOob = Math.Abs(newPos) > _obliquity;
                     bool prevOob = Math.Abs(prevPos) > _obliquity;
-                    if (newOob != prevOob) FirstDrillDown(pointSpec.Key, prevJd, prefs);
+                    if (newOob != prevOob || (Math.Abs(newPos) - _obliquity) < 0.5) FirstDrillDown(pointSpec.Key, prevJd, prefs);
+                    // todo add check for position close to oob
                     prevPos = newPos;
                 }
 
