@@ -17,6 +17,7 @@
     <Compile Include="Core\Analysis\TestCalculatedDistance.cs" />
     <Compile Include="Core\Analysis\TestCheckedProgAspects.cs" />
     <Compile Include="Core\Analysis\TestHarmonicCalculator.cs" />
+    <Compile Include="Core\Analysis\TestOccupiedMidpointsFinder.cs" />
     <EmbeddedResource Remove="Core\Analysis\**" />
     <EmbeddedResource Remove="Core\Handlers\Analysis\Midpoints\**" />
     <None Remove="Core\Analysis\**" />

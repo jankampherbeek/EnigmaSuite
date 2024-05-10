@@ -20,24 +20,18 @@ New functionality, added:
 - Longitude equivalents according to Kt Boehrer.
 - Declination diagram according to Kt Boehrer.
 - Declination strip.
-- OOB calendar [TODO]
+- OOB calendar.
 
 ### Research
 
 - Research method for parallels in declination.
 - Research method for midpoints in declination.
 - Research method for OOB positions.
-- The multiplication factor for control groups is now either 1, 10, 100 or 1000. [TODO].
-- Calculated results are now also saved in csv format, ready to be used by Excel. [TODO].
-
-### Data import
-
-- Improved speed of import [TODO]
-- Show the number of imported charts during import [TODO]
+- The multiplication factor for control groups is now either 1, 10, 100 or 1000.
 
 ### User manual
 
-Recreated HTML version of user manual so that it can be used offline. [TODO]
+Recreated HTML version of user manual so that it can be used offline.
 
 
 

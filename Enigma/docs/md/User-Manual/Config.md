@@ -6,13 +6,11 @@
 
 
 ## Settings
-You can access *Settings* from both modules *Charts* and *Research* and check them,
-but in this release of Enigma, you can not change anything.
+<img src="img/settings.png" style="zoom: 50%;" />
 
-Select the menu option **General - Settings**.
-You will see a window with information about the location of the following files:
+You can access *Settings* from both modules *Charts* and *Research* and check them, but in this release of Enigma, you can not change anything.
 
-<img src="img/settings.png" style="zoom:67%;" />
+Select the menu option **General - Settings**. You will see a window with information about the location of several files.
 
 - **Data files**. This folder contains the data files you imported.
 
@@ -24,15 +22,16 @@ You will see a window with information about the location of the following files
 
 - The folder **Database** contains database for calculated charts and other relevant data.
 
+- The **Documentation** includes HTML and PDF versions of the User Manual, Installation Manual, Release Notes and Programmers Manual.
+
+  
+
 ## Standard configuration
 
+<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\configuration-general.png" alt="configuration-general" style="zoom:50%;" />
+
 You can check and change the configuration via the module *Charts* or via the module *Research*.
-Select the menu option **General - Configuration**.
-
-<img src="img/configuration-general.png" style="zoom:67%;" /> 
-
-
-This will show a window with a wide range of configurable items. The window comprises 4 tabs:
+Select the menu option **General - Configuration**. This will show a window with a wide range of configurable items. The window comprises 4 tabs:
 
 - The tab **General** shows astronomical settings and settings for orbs. Enigma initially shows this tab.
 - **Points** shows the most planets and other points.
@@ -60,8 +59,7 @@ See also the remarks at the point above: *Type of zodiac*.
 If you do not want to use parallax correction, select *geocentric*.
 
 **Projection type**. Select *Standard (two-dimensional)* for most approaches.
-*Oblique longitude* provides an alternative calculation as supported by the School of Ram.
-It is also called *True Astrological Longitude Location*.
+*Oblique longitude* provides an alternative calculation as supported by the School of Ram. It is also called *True Astrological Longitude Location*.
 
 **Base orb for aspects**. Enigma corrects the base orb for aspects with the percentages for celestial bodies and aspects.
 See the paragraph *Appendix: Defining orbs*.
@@ -71,53 +69,41 @@ The **Base orb for midpoints** is the effective orb for midpoints.
 
 The orbs for **Parallels** and **Declination midpoints** are also effective orbs and do not depend on other values.
 
+
+
 ### Points
 
-<img src="img/configuration-points.png" style="zoom:67%;" />
+<img src="img/configuration-points.png" style="zoom: 50%;" />
 
 The tab *Points* gives access to the configuration for all celestial points that Enigma supports.
-For each point, you will find a checkbox.
-Check this box if you want to take the celestial point into account, deselect it if you do not want to use it.
+For each point, you will find a checkbox. Check this box if you want to take the celestial point into account, de-select it if you do not want to use it.
 
-There is also a value *Orb%* (Orb percentage) that you can change.
-Click on the number for the orb and a small pop-up screen appears where you can edit the value.
-You can enter a percentage from 0 up to 100, make sure you use only whole numbers.
-It is possible to define a percentage for a point that is not selected,
-so it is easy to remember a percentage if you later decide to include the point.
-If you want to use a point but not calculate aspects for that point, enter a percentage of zero.
+There is also a value *Orb%* (Orb percentage) that you can change. Click on the number for the orb and a small pop-up screen appears where you can edit the value. You can enter a percentage from 0 up to 100, make sure you use only whole numbers.
+It is possible to define a percentage for a point that is not selected, so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.
 
-Please note that you cannot deselect the classic points and also not MC or Ascendant.
+Please note that you cannot deselect the classic points and also not MC or Ascendant. See the Appendix, paragraph *Planets and other celestial points* for more information.
 
-See the paragraph *Appendix: Planets and other celestial points* for more information.
+
 
 ### Aspects
 
-<img src="img/configuration-aspects.png" style="zoom:67%;" />
+<img src="img/configuration-aspects.png" style="zoom: 50%;" />
 
 *Aspects* is the third tab for the configuration.
-At the top of the screen, you can select the type of orb.
-In the current release, there is only one method to define orbs: Weighted orb.
-It uses percentages for celestial bodies and for aspects to define the actual orb.
-You can leave it that way.
+At the top of the screen, you can select the type of orb. In the current release, there is only one method to define orbs: Weighted orb. It uses percentages for celestial bodies and for aspects to define the actual orb. You can leave it that way.
 
-Just as with celestial points, you can select and deselect the aspects you want to use.
-And there is also an orb-percentage that you can edit by clicking it.
+Just as with celestial points, you can select and deselect the aspects you want to use. And there is also an orb-percentage that you can edit by clicking it.
 
-See the paragraph *Appendix: Defining orbs* for more information.
+See the paragraph *Defining orbs* for more information in the Appendix.
+
+
 
 ### Aspect colors
 
-<img src="img/configuration-colors.png" style="zoom:67%;" />
+<img src="img/configuration-colors.png" style="zoom: 50%;" />
 
-The last tab is *Aspect colors*. 
-Here you can define the color that you want to use for each separate aspect in the chart wheel. 
-Enigma uses 15 colors that are all clearly visible in a drawing. 
-You can define colors for all aspects, even if you do not use them. 
-If you change the configuration and include an aspect, the selected color will automatically be used.
-The right column shows the available colors. 
-You can change the colors in the middle column, with the label *Color*, by typing the color name. 
-You need to type the name of the color exactly as shown in the right column, including the used capitalization. 
-There is never a space in a color name.
+The last tab is *Aspect colors*. Here you can define the color that you want to use for each separate aspect in the chart wheel. Enigma uses 15 colors that are all clearly visible in a drawing. You can define colors for all aspects, even if you do not use them. If you change the configuration and include an aspect, the selected color will automatically be used.
+The right column shows the available colors. You can change the colors in the middle column, with the label *Color*, by typing the color name. You need to type the name of the color exactly as shown in the right column, including the used capitalization. There is never a space in a color name.
 
 Enigma checks the color names before saving the configuration and shows a warning if it sees a typo.
 
@@ -125,23 +111,20 @@ Enigma checks the color names before saving the configuration and shows a warnin
 ## Configuration for progressive astrology
 
 You can access the configuration for progressive astrology via the module Charts or via the module Research. 
-Select the menu option **General** - **Config progressions**.
-
-You will see a window with three tabs.
+Select the menu option **General** - **Config progressions**. You will see a window with three tabs.
 In the tab _Transits_, you define which celestial points you want to include in transits.
 You can also define the orb for transits.
 
-<img src="img/config-transits.png" style="zoom:67%;" />
+<img src="img/config-transits.png" style="zoom: 50%;" />
 
-The tab _Sec dir_ shows the configuration for secondary directions.
-It works the same as for transits. 
+The tab _Sec dir_ shows the configuration for secondary directions. It works the same as for transits. 
 You can select celestial points and define an orb.
 
-<img src="img/config-secdir.png" style="zoom:67%;" />
+<img src="img/config-secdir.png" style="zoom: 50%;" />
 
-The third tab _Symb dir_ gives access to the configuration for symbolic directions.
-Just as with secondary directions and transits, you can select celestial points that you want to use and an orb.
+The third tab _Symb dir_ gives access to the configuration for symbolic directions. Just as with secondary directions and transits, you can select celestial points that you want to use and an orb. 
+
 You can also define a time key in the roll-down menu.
 
-<img src="img/config-symdir.png" style="zoom:67%;" />
+<img src="img/config-symdir.png" style="zoom: 50%;" />
 

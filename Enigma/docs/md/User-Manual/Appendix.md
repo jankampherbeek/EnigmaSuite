@@ -1,4 +1,4 @@
-# Appendix
+# Enigma 0.4 - Appendix
 
 [TOC]
 
@@ -405,6 +405,8 @@ For the control group type *Standard shifting of location, date, and time*, Enig
 ## More information
 
 ### Documentation
+
+- **Installation manual**. Instruction about installing Enigma.
 
 - **Release notes.** A description of the added functionality per release.
 

@@ -6,8 +6,7 @@ The Charts module supports calculation and analysis of charts.
 You can start it by clicking the charts module on the startup screen.
 This will open the following screen:
 
-<img src="img/charts-main.png" alt="charts-main.png" style="zoom:67%;" /> 
-
+<img src="img\charts-main.png" alt="charts-main" style="zoom:50%;" />
 
 The very first time you start the Charts module, Enigma will not know which charts you want to use.
 You first need to create one or more new charts. Enigma will save all new charts automatically in a database.
@@ -22,10 +21,10 @@ The functions of the buttons and the menu partly overlap. You can perform the mo
 The menu provides the same actions and some additional functionality.
 
 ## Create a new chart
+<img src="img/charts-main-with-data.png" style="zoom: 50%;" />
+
 To create a new chart, you can click the button **New Chart** or select the menu item **Charts** -> **New Chart**.
 This action will open a new screen where you can enter the data:
-
-<img src="img/data-input.png" style="zoom:67%;" /> 
 
 You need to enter the required data and click the button **Calculate**.
 If you made an error, Enigma will show a pop-up with information about what went wrong.
@@ -36,17 +35,16 @@ Use the button **Help** for advice on the different fields.
 After clicking the button **Calculate**, you will see the newly entered chart in the left column. 
 You can select and analyze it.
 
-<img src="img/charts-main-with-data.png" style="zoom:67%;" />
+
 
 
 ## Retrieve an existing chart from the database
+<img src="img/search-chart.png" style="zoom: 50%;" />
+
 The main screen for the Charts module shows information about the charts in the database.
 You see the last added chart and also the number of charts in the database.
 
 To retrieve a chart from the database, you can click the button **Search Chart** or select the menu item **Charts** -> **Search for Chart**.
-This opens the following screen:
-
-<img src="img/search-chart.png" style="zoom:67%;" />
 
 In the field _Search argument_, you can enter a (part of) a name, or just leave the field empty.
 After clicking the button **Search**, Enigma will show all charts that have the search argument in the name.
@@ -83,7 +81,7 @@ Select **Database – Application – Import export – Excel**.
 Do not use the option _Enigma_ after the Import export option. 
 The Enigma option exports to a previous format, used by a predecessor of the current Enigma, called EnigmaDedVM.
 
-<img src="img/export_from_pd.png" style="zoom:67%;" />
+<img src="img/export_from_pd.png" style="zoom: 50%;" />
 
 In the Excel screen you need to check _Header_ and _Birth info_. 
 Checking _Delete old_ makes sense if you want to overwrite previous exports. 
@@ -105,7 +103,7 @@ You can close PlanetDance now and go back to Enigma.
 
 In the Charts Module, you need to select the menu option **General – Import Charts**.  
 
-<img src="img/import_charts.png" style="zoom:67%;" />
+<img src="img/import_charts.png" style="zoom: 50%;" />
 
 This opens a screen where you can select the exported data from PlanetDance via the **Browse** button. 
 After selecting the file, click the button **Import**. 
@@ -119,18 +117,18 @@ However, you do not need that information to perform a successful import.
 
 
 ## Showing the chart wheel
+<img src="img/wheel-standard.png" style="zoom: 50%;" />
+
 If you created a new chart, or retrieved a chart from the database, you can now show a graphic chart wheel. 
 Select the chart in the left column and click the button **Wheel**, or use the menu option **Charts** - **Show wheel**.
-You will see the figure of the chart and the basic information about the chart. 
-Resize the window and the chart will automatically adjust. 
-You do not need to close the window with the wheel to continue. 
-It is possible to open wheels for different charts simultaneously.
-You can also have one or more windows for wheels open and at the same windows for analysis.
-You will recognize the chart owner as Enigma shows its name in each window.
+You will see the figure of the chart and the basic information about the chart. Resize the window and the chart will automatically adjust. You do not need to close the window with the wheel to continue. 
+It is possible to open wheels for different charts simultaneously. You can also have one or more windows for wheels open and at the same windows for analysis. You will recognize the chart owner as Enigma shows its name in each window.
 
-<img src="img/wheel-standard.png" style="zoom:67%;" />
+
 
 ## Showing the positions of a chart
+
+<img src="img/positions.png" style="zoom: 50%;" />
 
 You can also show the positions for a chart that you selected in the left column. 
 Press the button **Positions** or use the menu option **Charts** - **Show positions**.
@@ -143,9 +141,8 @@ There is also no daily speed for houses.
 
 You do not need to close the window with the positions to continue.
 
-<img src="img/positions.png" style="zoom:67%;" />
-
 A brief description of the column headers:
+
 * Longitude: ecliptical longitude, the usual position in the zodiac.
 * Long speed: daily speed in longitude. A negative value means retrogradation.
 * Latitude: ecliptical latitude, the deviation from the ecliptic. Positive is north, negative is south.
@@ -161,12 +158,12 @@ A brief description of the column headers:
 
 ## Analysis: aspects
 
-To calculate the aspects for a chart, you can use the menu option **Analysis** - **Aspects**.
-This results in a window with all aspects.
+<img src="img/aspects.png" style="zoom: 50%;" />
 
-<img src="img/aspects.png" style="zoom:67%;" />
+To calculate the aspects for a chart, you can use the menu option **Analysis** - **Aspects**. This results in a window with all aspects.
 
 In the columns you will find:
+
 * Name and glyph for the first point.
 * Name and glyph for the aspect.
 * Name and glyph for the second point.
@@ -178,13 +175,12 @@ You do not need to close the window with aspects to continue.
 
 ## Analysis: harmonics
 
-For harmonics, you will use the menu option **Analysis** - **Harmonics**.
-In the resulting window, you can define a value for a harmonic. The default value is 2.
-Recalculate the harmonic positions by clicking the button **Calculate**.
+<img src="img/harmonics.png" style="zoom: 50%;" />
 
-<img src="img/harmonics.png" style="zoom:67%;" />
+For harmonics, you will use the menu option **Analysis** - **Harmonics**. In the resulting window, you can define a value for a harmonic. The default value is 2. Recalculate the harmonic positions by clicking the button **Calculate**.
 
 You will see the results in three columns:
+
 * A glyph for the celestial point.
 * The positions in the radix .
 * The positions in the calculated harmonic.
@@ -198,29 +194,46 @@ You do not need to close the window with harmonics to continue.
 
 ## Analysis: midpoints
 
-To calculate midpoints, you will use the menu option **Analysis** - **Midpoints**.
-In the endpoints window you have the option between three dials: 360, 90 or 45 degrees.
-Enigma automatically recalculates the midpoints if you select another dial.
+<img src="img/midpoints.png" style="zoom: 50%;" />
 
-<img src="img/midpoints.png" style="zoom:67%;" />
+To calculate midpoints, you will use the menu option **Analysis** - **Midpoints**. In the midpoints window you can select one of three dials: 360, 90 or 45 degrees. Enigma automatically recalculates the midpoints if you select another dial.
 
-In the left column, you see all midpoints, indicated by a pair of celestial points and a position.
-The right column shows the occupied midpoints. 
-In the image, you see Uranus is at the midpoint of Sun and Saturn. 
-The orb is over 24 minutes, which results in an exactness percentage of 74%.
+In the left column, you see all midpoints, indicated by a pair of celestial points and a position. The right column shows the occupied midpoints. In the image, you see Uranus is at the midpoint of Sun and Saturn. The orb is over 24 minutes, which results in an exactness percentage of 74%.
+
+
+
+## Analysis: declination diagram
+
+<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\decl-diagram.png" alt="decl-diagram" style="zoom:50%;" />
+
+The declination diagram shows an overview of declinations and longitudes.  At the left and the right, the diagram shows the degrees in declination. In most cases the range will be from 30 to -30 (30 North to 30 South). If one of the points has a declination larger than 30 degrees, Enigma will extend that range. The zones at the bottom and the top, indicated by a darker color, indicate where a planet will be Out of Bounds. The outline of the oval form shows the typical declination of the Sun, and other points without latitude.  
+
+Enigma shows the zodiac signs using vertical bars. Horizontal (declination) and vertical (longitude) mark the exact location of the points in the graph.  You can hide the position lines by clicking the checkbox *Hide position lines*.
+
+
+
+## Analysis: declination strip
+
+<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\decl-strip.png" alt="decl-strip" style="zoom:50%;" />
+
+The declination strip shows the declinations, northern declinations at the left and southern declinations at the right. The Out of Bound region has a darker color blue. The diagram also shows the obliquity.
+
+
 
 ## Analysis: parallels
+
+<img src="img/parallels.png" style="zoom: 50%;" />
 
 Use the menu option **Analysis – Declinations – Parallels** for the calculation of parallels. 
 The results include contra-parallels.
 For each parallel, Enigma shows the actual orb and the percentage of exactness.
 The default orb is 1°, you change that value in the configuration.
 
-<img src="img/parallels.png" style="zoom:67%;" />
-
 
 
 ## Analysis: longitude equivalents
+
+<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\longitude-equiv.png" style="zoom: 50%;" />
 
 *Longitude equivalents* (LE) have been introduced by Kt. Boehrer. The idea is that you calculate the longitude that corresponds to the declination of a point, whereby you assume that the point has no latitude. For each declination there are two longitudes that qualify, the longitude that is the closest to the real longitude is used.
 
@@ -234,22 +247,22 @@ In the resulting screen you will see the points and their longitudes and declina
 
 
 
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\longitude-equiv.png" style="zoom:67%;" />
-
 ## Analysis: midpoints in declination
+
+<img src="img/decl-midpoints.png" style="zoom: 50%;" />
 
 You can calculate midpoints in declination via the menu option **Analysis – Declinations – Decl midpoints**.
 Enigma shows the occupied midpoints, gives the actual orb and shows the percentage of exactness.
 The default orb is 0.6° (0°36’), you can change that value in the configuration.
 
-<img src="img/decl-midpoints.png" style="zoom:67%;" />
+
 
 ## Progressive techniques
 
+<img src="img/prog-main.png" style="zoom: 50%;" />
+
 If you select a chart from the start-window for charts, you can click the button **Progressions**.
 This will open a window for progressive techniques for the current chart.
-
-<img src="img/prog-main.png" style="zoom:67%;" />
 
 For all progressive techniques, you need to define an event.
 
@@ -263,16 +276,12 @@ You can use the same event for all supported progressive techniques.
 The start-screen for progressive techniques shows all available events for the chart you are working on.
 
 ### Defining an event
-Click the button **New event** to define an event.
-You will see the screen _Define and save event_.
+<img src="img/define-event.png" style="zoom: 50%;" />
 
-<img src="img/define-event.png" style="zoom:67%;" />
-
-The functionality is the same as the data input for a chart. 
-The description of the event can comprise multiple lines.
+Click the button **New event** to define an event. You will see the screen _Define and save event_.The functionality is the same as the data input for a chart. The description of the event can comprise multiple lines.
 Click the button **Save** to put the event into the database.
 
-<img src="img/prog-main-with-event.png" style="zoom:67%;" />
+<img src="img/prog-main-with-event.png" style="zoom: 50%;" />
 
 Enigma adds the newly defined event automatically to the list of events.
 
@@ -281,49 +290,49 @@ Click the button **Delete** to remove the selected event from the database.
 
 ## Progressive: secondary directions
 
-Click the button **Secondary dir** to calculate the secondary directions.
+<img src="img/sec-dir-positions.png" style="zoom: 50%;" />
 
-You will see a screen with two tabs.
-
-<img src="img/sec-dir-positions.png" style="zoom:67%;" />
-
-The tab _Positions_ shows the positions for the celestial bodies that you defined in the configuration for progressive techniques.
+Click the button **Secondary dir** to calculate the secondary directions. You will see a screen with two tabs. The tab _Positions_ shows the positions for the celestial bodies that you defined in the configuration for progressive techniques.
 For each body, the programs shows longitude, latitude, right ascension, and declination.
 
-<img src="img/sec-dir-aspects.png" style="zoom:67%;" />
+<img src="img/sec-dir-aspects.png" style="zoom: 50%;" />
 
 The tab _Aspects with radix_ shows the aspects of the secondary positions with the radix positions and the orb of these aspects.
 
 ## Progressive: transits
 
-Click the button **Transits** to calculate the transits.
+<img src="img/transits_1.png" style="zoom: 50%;" />
 
-This works the same as with secondary directions. 
+Click the button **Transits** to calculate the transits. This works the same as with secondary directions. 
 
-There will be a screen with two tabs.
+There will be a screen with two tabs. The tab _Positions_ shows the positions, conforming to your definitions in the configuration, using longitude, latitude, right ascension and declination.
 
-<img src="img/transits_1.png" style="zoom:67%;" />
-
-The tab _Positions_ shows the positions, conforming to your definitions in the configuration, using longitude, latitude, right ascension and declination.
-
-<img src="img/transits-aspects.png" style="zoom:67%;" />
+<img src="img/transits-aspects.png" style="zoom: 50%;" />
 
 The tab _Aspects with radix_ shows the aspects of the transit positions with the radix positions and the orb of these aspects.
 
 ## Progressive: symbolic directions
 
-Click the button **Symbolic dir** to calculate symbolic directions.
+<img src="img/symbolic-directions_1.png" style="zoom: 50%;" />
 
-Again, you will see two tabs.
+Click the button **Symbolic dir** to calculate symbolic directions. Again, you will see two tabs. The tab _Positions_ is different, it only shows the longitude. The values for Latitude, Right ascension and Declination are not available. This is because of the nature of symbolic directions. The progressive position is not an astronomical position but the result of a simple addition. This means that it is not possible to calculate other coordinates than the directed longitude itself.
 
-<img src="img/symbolic-directions_1.png" style="zoom:67%;" />
-
-The tab _Positions_ is different, it only shows the longitude.
-The values for Latitude, Right ascension and Declination are not available.
-This is because of the nature of symbolic directions. 
-The progressive position is not an astronomical position but the result of a simple addition. 
-This means that it is not possible to calculate other coordinates than the directed longitude itself.
-
-<img src="img/sym-dir-aspects.png" style="zoom:67%;" />
+<img src="img/sym-dir-aspects.png" style="zoom: 50%;" />
 
 The tab _Aspects with radix_ shows the aspects between the symbolic positions and the radix positions.
+
+
+
+## Progressive: Out of Bounds Calendar
+
+<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\oobcal.png" alt="oobcal" style="zoom:50%;" />
+
+The Out of Bounds Calendar shows the start date and end date for OOB periods. It covers a period of 120 years and calculates the secondary positions, so the moments that a planet goes OOB or In Bounds again is calculated for the first 120 days of life and projected onto the first 120 years of life.
+
+The calendar shows the positions in the radix, followed by a list of OOB related events events in chronological sequence.
+
+Enigma omits points that have no latitude as they cannot be OOB. It also omits hypothetical planets because the declinations for these points are too unsure.
+
+The calculations are based on the true obliquity, the obliquity corrected for nutation. Enigma calculates the obliquity separately for each day. 
+
+Please note that the dates for slow moving planets like Pluto are not exact: there is a margin of a few days. 
