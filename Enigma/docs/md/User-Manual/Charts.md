@@ -168,7 +168,9 @@ In the columns you will find:
 * Name and glyph for the aspect.
 * Name and glyph for the second point.
 * The actual orb.
-* A percentage of the exactness of the orb. The percentage is based on the definitions in the configuration. A high percentage shows an exact aspect.
+* A percentage of the exactness of the orb. The percentage is based on the definitions in the configuration. A high percentage shows an exact aspect. 
+
+You can sort the columns by clicking on the header.
 
 You do not need to close the window with aspects to continue.
 
@@ -200,6 +202,8 @@ To calculate midpoints, you will use the menu option **Analysis** - **Midpoints*
 
 In the left column, you see all midpoints, indicated by a pair of celestial points and a position. The right column shows the occupied midpoints. In the image, you see Uranus is at the midpoint of Sun and Saturn. The orb is over 24 minutes, which results in an exactness percentage of 74%.
 
+You can sort the columns in the table *Occupied Midpoints* by clicking on the header.
+
 
 
 ## Analysis: declination diagram
@@ -225,9 +229,10 @@ The declination strip shows the declinations, northern declinations at the left 
 <img src="img/parallels.png" style="zoom: 50%;" />
 
 Use the menu option **Analysis – Declinations – Parallels** for the calculation of parallels. 
-The results include contra-parallels.
-For each parallel, Enigma shows the actual orb and the percentage of exactness.
+The results include contra-parallels. For each parallel, Enigma shows the actual orb and the percentage of exactness.
 The default orb is 1°, you change that value in the configuration.
+
+You can sort the columns by clicking on the header.
 
 
 
@@ -254,6 +259,8 @@ In the resulting screen you will see the points and their longitudes and declina
 You can calculate midpoints in declination via the menu option **Analysis – Declinations – Decl midpoints**.
 Enigma shows the occupied midpoints, gives the actual orb and shows the percentage of exactness.
 The default orb is 0.6° (0°36’), you can change that value in the configuration.
+
+You can sort the columns *Orb* and *Exactness* by clicking on the header.
 
 
 

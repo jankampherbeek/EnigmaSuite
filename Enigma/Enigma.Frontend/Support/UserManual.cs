@@ -16,7 +16,7 @@ public class UserManual
     {
         try
         {
-            Process.Start("explorer", EnigmaConstants.USER_MANUAL);
+           Process.Start("explorer", EnigmaConstants.USER_MANUAL);
         }
         catch (System.ComponentModel.Win32Exception noBrowser)
         {

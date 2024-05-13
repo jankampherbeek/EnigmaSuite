@@ -67,7 +67,7 @@ You can resize the window if not all text is visible.
 
 
 
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\project-use.png" style="zoom:50%;" />
+<img src="img\project-use.png" style="zoom:50%;" />
 
 Select one project on the start-screen for research and the button **Open Project** becomes available. Click this button and you will see the window _Test with project_.
 

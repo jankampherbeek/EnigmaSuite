@@ -28,7 +28,7 @@ Select the menu option **General - Settings**. You will see a window with inform
 
 ## Standard configuration
 
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\configuration-general.png" alt="configuration-general" style="zoom:50%;" />
+<img src="img\configuration-general.png" alt="configuration-general" style="zoom:50%;" />
 
 You can check and change the configuration via the module *Charts* or via the module *Research*.
 Select the menu option **General - Configuration**. This will show a window with a wide range of configurable items. The window comprises 4 tabs:
