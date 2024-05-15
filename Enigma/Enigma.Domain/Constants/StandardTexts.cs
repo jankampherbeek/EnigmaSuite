@@ -20,7 +20,6 @@ public static class StandardTexts
     public const string ERROR_HARMONIC_NR = "Enter a proper positive number - 2..100000 - for the harmonic.";
     public const string ERROR_LMT_LONGITUDE = "Enter a correct value for the longitude for LMT.";
     public const string ERROR_MINUTE = "Enter a proper value for the minutes.";
-    public const string ERROR_MULTIPLICATION_INT = "Enter a integer value 1 .. 10 for the multiplication.";
     public const string ERROR_NAME = "Enter a value for the name.";
     public const string ERROR_ORB_ASPECTS = "Enter a proper value for the orbs for aspects";
     public const string ERROR_ORB_MIDPOINTS = "Enter a proper value for the orbs for midpoints.";

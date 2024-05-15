@@ -230,7 +230,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void OobCalendar()
     {
-        MessageBox.Show("OobCalendar not yet implemented.");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.OOB_CAL));
     }
     
     [RelayCommand]

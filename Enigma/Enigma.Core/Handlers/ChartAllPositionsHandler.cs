@@ -42,7 +42,7 @@ public sealed class ChartAllPositionsHandler : IChartAllPositionsHandler
     {
         double jdUt = celPointsRequest.JulianDayUt;
         CalculationPreferences prefs = celPointsRequest.CalculationPreferences;
-        Location location = celPointsRequest.Location;
+        Location? location = celPointsRequest.Location;
         double obliquity = CalcObliquity(jdUt);
         double ayanamshaOffset = PrepareAyanamsha(celPointsRequest);
 

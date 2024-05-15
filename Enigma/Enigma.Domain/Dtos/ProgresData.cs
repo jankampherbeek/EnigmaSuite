@@ -20,6 +20,6 @@ public abstract record ProgDates(long Id, string Description)
 /// <param name="LocationName">Name for the location.</param>
 /// <param name="Location">Datails for the location.</param>
 /// <param name="DateTime">Date and time for the event.</param>
-public record ProgEvent(long Id, string Description, string LocationName, Location Location,
+public record ProgEvent(long Id, string Description, string LocationName, Location? Location,
     FullDateTime DateTime) : ProgDates(Id, Description);
 

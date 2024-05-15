@@ -20,7 +20,7 @@ public class TestSolarArcCalculator
     private const double JD_RADIX = 2000000;
     private const double JD_EVENT = 2000038;
     private const double TIMESPAN = 38.0;
-    private readonly Location _location = new("Anywhere", 0.0, 0.0);
+    private readonly Location? _location = new("Anywhere", 0.0, 0.0);
     private const int FLAGS = 258;
     private readonly PosSpeed[] _jdRadixEclSunPos = new PosSpeed[3];
     private readonly PosSpeed[] _jdEventEclSunPos = new PosSpeed[3];

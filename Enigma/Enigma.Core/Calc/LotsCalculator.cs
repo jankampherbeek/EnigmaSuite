@@ -14,7 +14,7 @@ namespace Enigma.Core.Calc;
 public interface ILotsCalculator
 {
     public Dictionary<ChartPoints, FullPointPos> CalculateAllLots(Dictionary<ChartPoints, FullPointPos> commonPositions, Dictionary<ChartPoints, FullPointPos> mundanePositions, CalculationPreferences prefs,
-        double jdUt, double obliquity, Location location);
+        double jdUt, double obliquity, Location? location);
 }
 
 public class LotsCalculator : ILotsCalculator
@@ -33,14 +33,14 @@ public class LotsCalculator : ILotsCalculator
     }
 
     public Dictionary<ChartPoints, FullPointPos> CalculateAllLots(Dictionary<ChartPoints, FullPointPos> commonPositions, Dictionary<ChartPoints, FullPointPos> mundanePositions, CalculationPreferences prefs,
-        double jdUt, double obliquity, Location location)
+        double jdUt, double obliquity, Location? location)
     {
         List<ChartPoints> allPoints = prefs.ActualChartPoints;
         return allPoints.Where(point => point.GetDetails().CalculationCat == CalculationCats.Lots).ToDictionary(point => point, 
             point => CalculateLotPosition(point, jdUt, obliquity, location, prefs, commonPositions, mundanePositions));
     }
 
-    private FullPointPos CalculateLotPosition(ChartPoints lot, double jdUt, double obliquity, Location location, CalculationPreferences calcPrefs,
+    private FullPointPos CalculateLotPosition(ChartPoints lot, double jdUt, double obliquity, Location? location, CalculationPreferences calcPrefs,
         IReadOnlyDictionary<ChartPoints, FullPointPos> commonPoints, IReadOnlyDictionary<ChartPoints, FullPointPos> mundanePoints)
     {
         double lotLongitude = 0.0;
@@ -66,7 +66,7 @@ public class LotsCalculator : ILotsCalculator
 
     }
 
-    private FullPointPos ConstructFullPointPos(double longitude, double jdUt, double obliquity, Location location)
+    private FullPointPos ConstructFullPointPos(double longitude, double jdUt, double obliquity, Location? location)
     {
         PosSpeed longPosSpeed = new(longitude, 0.0);
         PosSpeed latPosSpeed = new(0.0, 0.0);

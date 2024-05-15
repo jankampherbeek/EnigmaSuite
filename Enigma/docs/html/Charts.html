@@ -1,0 +1,661 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left: 0.25em solid rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
+
+
+import url(https://fonts.googleapis.com/css?family=Open%20Sans);
+:root {
+    --code-block-bg-color: inherit;//#f8f8f8;
+
+    --item-hover-bg-color: #0a0d16;
+    --control-text-color: #b7b7b7;
+    --control-text-hover-color: #eee;
+    --window-border: 1px dashed #9b9b9b;
+
+    --active-file-bg-color: #0070E0;
+    --active-file-border-color: #8d8df0;
+
+    --primary-color: #a3d5fe;
+
+    --active-file-text-color: #0070e0;
+    --item-hover-bg-color: #70717d;
+    --item-hover-text-color: white;
+    --primary-color: #6dc1e7;
+}
+
+html,
+body,
+#write{
+	color: #5e676d;
+	font-family: "Open Sans", "Clear Sans", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	/*font-weight: lighter;*/
+	font-weight: 100;
+	color: #5e676d;
+	font-family: "Open Sans", sans-serif;
+	margin: 0.5rem 0;
+}
+
+html {
+	font-size:16px;
+}
+
+#write {
+	max-width: 914px;
+	text-align: justify;
+}
+
+#write>h1:first-child {
+	margin-top: 2.75rem;
+}
+#write>h2:first-child {
+	margin-top: 1.75rem;
+}
+#write>h3:first-child {
+	margin-top: 1rem;
+}
+#write>h4:first-child {
+	margin-top: 0.5rem;
+}
+h1 {
+	margin: 1rem 0;
+	/*line-height: 4rem;
+	padding: 5px 30px;
+	text-align: center;
+	margin-top: 4rem;*/
+}
+h2 {
+	margin: 0.8rem 0;
+	/*
+	line-height: 3rem;
+	padding: 0 30px;
+	text-align: center;
+	margin-top: 3rem
+	*/
+}
+h3 {
+}
+h4 {
+}
+h5 {
+	font-size: 1.125rem;
+}
+h6 {
+	font-size: 1.1rem;
+}
+p {
+	color: #5e676d;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	margin: 0 0 1.25rem;
+}
+#write>h3.md-focus:before {
+	left: -1.875rem;
+	top: 0.5rem;
+	padding: 2px;
+}
+#write>h4.md-focus:before {
+	left: -1.875rem;
+	top: 0.3125rem;
+	padding: 2px;
+}
+#write>h5.md-focus:before {
+	left: -1.875rem;
+	top: 0.25rem;
+	padding: 2px;
+}
+#write>h6.md-focus:before {
+	left: -1.875rem;
+	top: .125rem;
+	padding: 2px;
+}
+/*@media screen and (min-width: 48em) {
+	.h1,
+	h1 {
+		font-size: 3.250rem;
+	}
+	.h2,
+	h2 {
+		font-size: 2.298rem;
+	}
+	.h3,
+	h3 {
+		font-size: 1.625rem;
+	}
+	.h4,
+	h4 {
+		font-size: 1.250rem;
+	}
+	.h5,
+	h5 {
+		font-size: 1.150rem;
+	}
+	.h6,
+	h6 {
+		font-size: 1rem;
+	}
+	#write>h4.md-focus:before,
+	#write>h5.md-focus:before,
+	#write>h6.md-focus:before {
+		top: 1px;
+	}
+	p {
+		font-size: 1.25rem;
+		line-height: 1.8;
+	}
+	table {
+		font-size: 1.25rem;
+	}
+}*/
+@media screen and (max-width: 48em) {
+	blockquote {
+		margin-left: 1rem;
+		margin-right: 0;
+		padding: 0.5em;
+	}
+	.h1,
+	h1 {
+		font-size: 2.827rem;
+	}
+	.h2,
+	h2 {
+		font-size: 1.999rem;
+	}
+	.h3,
+	h3 {
+		font-size: 1.413rem;
+	}
+	.h4,
+	h4 {
+		font-size: 1.250rem;
+	}
+	.h5,
+	h5 {
+		font-size: 1.150rem;
+	}
+	.h6,
+	h6 {
+		font-size: 1rem;
+	}
+}
+a,
+.md-def-url {
+	color: #007ee5;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+table {
+	border: 1px solid #e2e2e2;
+	margin-bottom: 20px
+}
+table th,
+table td {
+	padding: 8px;
+	line-height: 1.5rem;
+	vertical-align: top;
+	border: 1px solid #e2e2e2;
+}
+table th {
+	font-weight: normal;
+	background-color: #f0f7fd;
+}
+table thead th {
+	vertical-align: bottom
+}
+table caption+thead tr:first-child th,
+table caption+thead tr:first-child td,
+table colgroup+thead tr:first-child th,
+table colgroup+thead tr:first-child td,
+table thead:first-child tr:first-child th,
+table thead:first-child tr:first-child td {
+	border-top: 0
+}
+table tbody+tbody {
+	border-top: 2px solid #ddd
+}
+code, .md-fences {
+	padding: .5em;
+	background: #f6f9fc;
+	border: 1px solid #d0d4d9;
+	border-radius: 3px;
+	padding: .1em;
+	font-size: 0.9rem !important;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+.md-fences {
+	margin: 0 0 20px;
+	font-size: 1em;
+	padding: 0.3em 1em;
+  	padding-top: 0.4em;
+}
+.task-list{
+	padding-left: 0;
+}
+
+.task-list-item {
+	padding-left:2.125rem;
+}
+
+/* Chrome 29+ */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  and (min-resolution:.001dpcm) {
+    .task-list-item input:before {
+    	margin-top: -0.2rem;
+    }
+
+    .task-list-item input:checked:before,
+	.task-list-item input[checked]:before {
+		margin-top: -0.2rem;
+	}
+}
+
+blockquote {
+	margin: 0 0 1.11111rem;
+	padding: 0.5rem 1.11111rem 0 1.05556rem;
+	border-left: 2px solid rgba(0, 112, 224, 0.32);
+}
+blockquote,
+blockquote p {
+	line-height: 1.6;
+	color: #8f8f8f;
+}
+#write pre.md-meta-block {
+	min-height: 30px;
+	background: #f8f8f8;
+	padding: 1.5em;
+	font-weight: 300;
+	font-size: 1em;
+	padding-bottom: 1.5em;
+	padding-top: 3em;
+    margin-top: -1.5em;
+	color: #999;
+	border-left: 1000px #f8f8f8 solid;
+	margin-left: -1000px;
+	border-right: 1000px #f8f8f8 solid;
+	margin-right: -1000px;
+	margin-bottom: 2em;
+}
+.MathJax_Display {
+	font-size: 0.9em;
+	margin-top: 0.5em;
+	margin-bottom: 0;
+}
+p.mathjax-block,
+.mathjax-block {
+	padding-bottom: 0;
+}
+.mathjax-block>.code-tooltip {
+	bottom: 5px;
+	box-shadow: none;
+}
+.md-image>.md-meta {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+.md-image>img {
+	margin-top: 2px;
+}
+.md-image>.md-meta:first-of-type:before {
+	padding-left: 4px;
+}
+
+#typora-source {
+	color: #555;
+}
+
+/** ui for windows **/
+#md-searchpanel {
+    border-bottom: 1px solid #ccc;
+}
+
+#md-searchpanel .btn {
+    border: 1px solid #ccc;
+}
+
+#md-notification:before {
+	top: 14px;
+}
+
+#md-notification {
+	background: #eee;
+}
+
+.megamenu-menu-panel .btn {
+	border: 1px solid #ccc;
+}
+
+.mac-seamless-mode #typora-sidebar {
+  background-color: #f7f9fa;
+}
+
+.pin-outline .outline-active {
+  color: #0070E0; 
+}
+
+.file-list-item {
+  border-bottom: 1px solid;
+  border-color: #E6E8EB;
+}
+
+.file-list-item-summary {
+  font-weight: 400;
+  color: #637282; 
+}
+
+.file-list-item.active {
+  color: #0070E0;
+  background-color: #E6E8EB;
+}
+
+.file-tree-node.active>.file-node-background {
+  background-color: #E6E8EB;
+} 
+
+.file-tree-node.active>.file-node-content {
+  color: #0070E0;
+}
+
+.file-node-content {
+  color: #5e676d;
+}
+
+.sidebar-tab.active {
+  font-weight: 400;
+}
+
+code, kbd, pre, samp {
+  font-family: "Roboto Mono", Menlo, monospace;
+}
+
+
+
+</style><title>Charts</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='enigma-04---charts'><span>Enigma 0.4 - Charts</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#enigma-04---charts">Enigma 0.4 - Charts</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n8"><a class="md-toc-inner" href="#create-a-new-chart">Create a new chart</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n16"><a class="md-toc-inner" href="#retrieve-an-existing-chart-from-the-database">Retrieve an existing chart from the database</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n23"><a class="md-toc-inner" href="#deleting-a-chart">Deleting a chart</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n27"><a class="md-toc-inner" href="#importing-charts-from-planetdance">Importing charts from PlanetDance</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n42"><a class="md-toc-inner" href="#showing-the-chart-wheel">Showing the chart wheel</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n46"><a class="md-toc-inner" href="#showing-the-positions-of-a-chart">Showing the positions of a chart</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n77"><a class="md-toc-inner" href="#analysis-aspects">Analysis: aspects</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n95"><a class="md-toc-inner" href="#analysis-harmonics">Analysis: harmonics</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n109"><a class="md-toc-inner" href="#analysis-midpoints">Analysis: midpoints</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n115"><a class="md-toc-inner" href="#analysis-declination-diagram">Analysis: declination diagram</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n120"><a class="md-toc-inner" href="#analysis-declination-strip">Analysis: declination strip</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n124"><a class="md-toc-inner" href="#analysis-parallels">Analysis: parallels</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n129"><a class="md-toc-inner" href="#analysis-longitude-equivalents">Analysis: longitude equivalents</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n137"><a class="md-toc-inner" href="#analysis-midpoints-in-declination">Analysis: midpoints in declination</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n142"><a class="md-toc-inner" href="#progressive-techniques">Progressive techniques</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n146"><a class="md-toc-inner" href="#progressive-events">Progressive: events</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n149"><a class="md-toc-inner" href="#defining-an-event">Defining an event</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n154"><a class="md-toc-inner" href="#deleting-an-event">Deleting an event</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n156"><a class="md-toc-inner" href="#progressive-secondary-directions">Progressive: secondary directions</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n161"><a class="md-toc-inner" href="#progressive-transits">Progressive: transits</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n167"><a class="md-toc-inner" href="#progressive-symbolic-directions">Progressive: symbolic directions</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n173"><a class="md-toc-inner" href="#progressive-out-of-bounds-calendar">Progressive: Out of Bounds Calendar</a></span></p></div><p><span>The Charts module supports calculation and analysis of charts.</span>
+<span>You can start it by clicking the charts module on the startup screen.</span>
+<span>This will open the following screen:</span></p><p><img src="img\charts-main.png" alt="charts-main" style="zoom:50%;" /></p><p><span>The very first time you start the Charts module, Enigma will not know which charts you want to use.</span>
+<span>You first need to create one or more new charts. Enigma will save all new charts automatically in a database.</span>
+<span>You can always delete a chart from the database.</span></p><p><span>If you entered a new chart, the name of the chart will show underneath </span><strong><span>Available charts</span></strong><span>.</span>
+<span>After selecting the chart by clicking on the name, you can use all buttons to the right and all options in the menu.</span>
+<span>The database will remember all charts you added, except the charts you deleted.</span>
+<span>You can always retrieve an existing chart from the database by searching for it.</span></p><p><span>The functions of the buttons and the menu partly overlap. You can perform the most common actions with the buttons.</span>
+<span>The menu provides the same actions and some additional functionality.</span></p><h2 id='create-a-new-chart'><span>Create a new chart</span></h2><p><img src="img/charts-main-with-data.png" style="zoom: 50%;" /></p><p><span>To create a new chart, you can click the button </span><strong><span>New Chart</span></strong><span> or select the menu item </span><strong><span>Charts</span></strong><span> -&gt; </span><strong><span>New Chart</span></strong><span>.</span>
+<span>This action will open a new screen where you can enter the data:</span></p><p><span>You need to enter the required data and click the button </span><strong><span>Calculate</span></strong><span>.</span>
+<span>If you made an error, Enigma will show a pop-up with information about what went wrong.</span>
+<span>Also, if an error occurs, the underlining of the input field will turn red.</span></p><p><span>Use the button </span><strong><span>Help</span></strong><span> for advice on the different fields.</span></p><p><span>After clicking the button </span><strong><span>Calculate</span></strong><span>, you will see the newly entered chart in the left column. </span>
+<span>You can select and analyze it.</span></p><p>&nbsp;</p><h2 id='retrieve-an-existing-chart-from-the-database'><span>Retrieve an existing chart from the database</span></h2><p><img src="img/search-chart.png" style="zoom: 50%;" /></p><p><span>The main screen for the Charts module shows information about the charts in the database.</span>
+<span>You see the last added chart and also the number of charts in the database.</span></p><p><span>To retrieve a chart from the database, you can click the button </span><strong><span>Search Chart</span></strong><span> or select the menu item </span><strong><span>Charts</span></strong><span> -&gt; </span><strong><span>Search for Chart</span></strong><span>.</span></p><p><span>In the field </span><em><span>Search argument</span></em><span>, you can enter a (part of) a name, or just leave the field empty.</span>
+<span>After clicking the button </span><strong><span>Search</span></strong><span>, Enigma will show all charts that have the search argument in the name.</span>
+<span>It ignores a difference in lowercase or uppercase.</span>
+<span>If you did not enter a search argument, you will see all charts from the database.</span>
+<span>However, Enigma limits the number of charts to 100.</span>
+<span>So you always need to enter a search argument if the number of charts in the database is larger.</span></p><p><span>Use the button </span><strong><span>Help</span></strong><span> for more details.</span></p><p><span>If you select one of the found charts, the button </span><strong><span>Select</span></strong><span> becomes available.</span>
+<span>Click this button to work with the selected chart.</span>
+<span>The search window will close and the chart will be available on the main screen for the Charts module.</span></p><h2 id='deleting-a-chart'><span>Deleting a chart</span></h2><p><span>If you want to delete a chart from the database,you can use the button </span><strong><span>Delete</span></strong><span> to remove the selected chart. </span>
+<span>Enigma will ask for a confirmation. </span>
+<span>If you confirm, it deletes the data and you can only restore it by reentering the data.</span></p><p><span>Alternatively, you can use the menu option </span><strong><span>Charts</span></strong><span> - </span><strong><span>Delete chart</span></strong><span>.</span></p><h2 id='importing-charts-from-planetdance'><span>Importing charts from PlanetDance</span></h2><p><span>You can import charts from a database in </span><em><span>PlanetDance</span></em><span> and store them in the Enigma database.</span><br/><span>PlanetDance is a well know free astrology program, created by Jean Cremers. </span>
+<span>After an import, the charts are available for use like any other chart you created.</span></p><p><span>You have to export the files from PlanetDance first. </span>
+<span>In PlanetDance, select in the menu bar </span><strong><span>File – Open</span></strong><span>. </span>
+<span>This results in a changed menu with the option </span><em><span>Database</span></em><span>. </span>
+<span>Select </span><strong><span>Database – Application – Import export – Excel</span></strong><span>. </span>
+<span>Do not use the option </span><em><span>Enigma</span></em><span> after the Import export option. </span>
+<span>The Enigma option exports to a previous format, used by a predecessor of the current Enigma, called EnigmaDedVM.</span></p><p><img src="img/export_from_pd.png" style="zoom: 50%;" /></p><p><span>In the Excel screen you need to check </span><em><span>Header</span></em><span> and </span><em><span>Birth info</span></em><span>. </span>
+<span>Checking </span><em><span>Delete old</span></em><span> makes sense if you want to overwrite previous exports. </span>
+<span>Make sure you do not check any other option.</span></p><p><span>You need to select the database that you want to export. </span>
+<span>Select in the menu </span><strong><span>Export – Export source</span></strong><span>. Select the database that you want to export. </span>
+<span>The default database is </span><em><span>planetdance.db</span></em><span>, but you can select another database. Click the </span><strong><span>ok</span></strong><span>-option in the  menu bar.</span></p><p><span>Next define where to save the exported charts. Select in the Menu </span><strong><span>Export – Export Destination</span></strong><span>. </span>
+<span>You can select a folder via the menu option </span><em><span>Browse</span></em><span>. Again click the </span><strong><span>ok</span></strong><span>-option in the menu bar.</span></p><p><span>Use the menu option </span><strong><span>Separator</span></strong><span> to define a character, that separates the different fields with information. </span>
+<span>Make sure this is a semi-colon ‘;’.</span></p><p><span>To perform the export, select the </span><strong><span>Export – Execute</span></strong><span>.</span></p><p><span>You can close PlanetDance now and go back to Enigma.</span></p><p><span>In the Charts Module, you need to select the menu option </span><strong><span>General – Import Charts</span></strong><span>.  </span></p><p><img src="img/import_charts.png" style="zoom: 50%;" /></p><p><span>This opens a screen where you can select the exported data from PlanetDance via the </span><strong><span>Browse</span></strong><span> button. </span>
+<span>After selecting the file, click the button </span><strong><span>Import</span></strong><span>. </span>
+<span>If everything goes well, Enigma confirms that the data has been imported. </span>
+<span>In case of an error you will see a warning. </span>
+<span>Any conflicting lines from the exported data are saved in the file C:\enigma_ar\data\errors.txt</span></p><p><span>If the import was successful, you can now select the charts via the button </span><strong><span>Search Chart</span></strong><span> in the Charts main screen.</span>
+<span>In the Appendix, you will find a description of the exported data. </span>
+<span>However, you do not need that information to perform a successful import.</span></p><h2 id='showing-the-chart-wheel'><span>Showing the chart wheel</span></h2><p><img src="img/wheel-standard.png" style="zoom: 50%;" /></p><p><span>If you created a new chart, or retrieved a chart from the database, you can now show a graphic chart wheel. </span>
+<span>Select the chart in the left column and click the button </span><strong><span>Wheel</span></strong><span>, or use the menu option </span><strong><span>Charts</span></strong><span> - </span><strong><span>Show wheel</span></strong><span>.</span>
+<span>You will see the figure of the chart and the basic information about the chart. Resize the window and the chart will automatically adjust. You do not need to close the window with the wheel to continue. </span>
+<span>It is possible to open wheels for different charts simultaneously. You can also have one or more windows for wheels open and at the same windows for analysis. You will recognize the chart owner as Enigma shows its name in each window.</span></p><p>&nbsp;</p><h2 id='showing-the-positions-of-a-chart'><span>Showing the positions of a chart</span></h2><p><img src="img/positions.png" style="zoom: 50%;" /></p><p><span>You can also show the positions for a chart that you selected in the left column. </span>
+<span>Press the button </span><strong><span>Positions</span></strong><span> or use the menu option </span><strong><span>Charts</span></strong><span> - </span><strong><span>Show positions</span></strong><span>.</span>
+<span>The screen comprises ecliptical, equatorial and horizontal positions, and the distance, for all celestial bodies. </span>
+<span>You will also see the daily speed of the ecliptical and equatorial coordinates.</span></p><p><span>Enigma also shows a list of relevant positions for houses. </span>
+<span>This list does not show latitude, as this is always zero for houses.</span>
+<span>There is also no daily speed for houses. </span></p><p><span>You do not need to close the window with the positions to continue.</span></p><p><span>A brief description of the column headers:</span></p><ul><li><p><span>Longitude: ecliptical longitude, the usual position in the zodiac.</span></p></li><li><p><span>Long speed: daily speed in longitude. A negative value means retrogradation.</span></p></li><li><p><span>Latitude: ecliptical latitude, the deviation from the ecliptic. Positive is north, negative is south.</span></p></li><li><p><span>Lat speed: daily speed in latitude. A negative value means going from north to south, otherwise the direction is from south to north.</span></p></li><li><p><span>RA: right ascension, the position at the equator.</span></p></li><li><p><span>RA speed: daily speed in right ascension.</span></p></li><li><p><span>Declination: deviation from the equator. Positive is north, negative is south.</span></p></li><li><p><span>Decl speed: daily speed in declination. A negative value means going from north to south, otherwise the direction is from south to north.</span></p></li><li><p><span>Distance: the distance from the earth measured in AU (Astronomical Units, the mean distance from Earth to Sun).</span></p></li><li><p><span>Dist speed: the daily change in the distance.</span></p></li><li><p><span>Azimuth: the position at the horizon, measured from south toward the west, etc.</span></p></li><li><p><span>Altitude: the height - or elevation - above the horizon. A negative value shows a celestial point that is underneath the horizon.</span></p></li></ul><h2 id='analysis-aspects'><span>Analysis: aspects</span></h2><p><img src="img/aspects.png" style="zoom: 50%;" /></p><p><span>To calculate the aspects for a chart, you can use the menu option </span><strong><span>Analysis</span></strong><span> - </span><strong><span>Aspects</span></strong><span>. This results in a window with all aspects.</span></p><p><span>In the columns you will find:</span></p><ul><li><p><span>Name and glyph for the first point.</span></p></li><li><p><span>Name and glyph for the aspect.</span></p></li><li><p><span>Name and glyph for the second point.</span></p></li><li><p><span>The actual orb.</span></p></li><li><p><span>A percentage of the exactness of the orb. The percentage is based on the definitions in the configuration. A high percentage shows an exact aspect. </span></p></li></ul><p><span>You can sort the columns by clicking on the header.</span></p><p><span>You do not need to close the window with aspects to continue.</span></p><h2 id='analysis-harmonics'><span>Analysis: harmonics</span></h2><p><img src="img/harmonics.png" style="zoom: 50%;" /></p><p><span>For harmonics, you will use the menu option </span><strong><span>Analysis</span></strong><span> - </span><strong><span>Harmonics</span></strong><span>. In the resulting window, you can define a value for a harmonic. The default value is 2. Recalculate the harmonic positions by clicking the button </span><strong><span>Calculate</span></strong><span>.</span></p><p><span>You will see the results in three columns:</span></p><ul><li><p><span>A glyph for the celestial point.</span></p></li><li><p><span>The positions in the radix .</span></p></li><li><p><span>The positions in the calculated harmonic.</span></p></li></ul><p><span>A harmonic number does not need to be an integer. You can also enter floating points as harmonic number.</span></p><p><span>The harmonic number should be at least 1 (this would repeat the radix positions) and no larger than 100.000.</span>
+<span>If you choose such a large number, the results will suffer from a decrease in exactness. </span></p><p><span>You do not need to close the window with harmonics to continue.</span></p><h2 id='analysis-midpoints'><span>Analysis: midpoints</span></h2><p><img src="img/midpoints.png" style="zoom: 50%;" /></p><p><span>To calculate midpoints, you will use the menu option </span><strong><span>Analysis</span></strong><span> - </span><strong><span>Midpoints</span></strong><span>. In the midpoints window you can select one of three dials: 360, 90 or 45 degrees. Enigma automatically recalculates the midpoints if you select another dial.</span></p><p><span>In the left column, you see all midpoints, indicated by a pair of celestial points and a position. The right column shows the occupied midpoints. In the image, you see Uranus is at the midpoint of Sun and Saturn. The orb is over 24 minutes, which results in an exactness percentage of 74%.</span></p><p><span>You can sort the columns in the table </span><em><span>Occupied Midpoints</span></em><span> by clicking on the header.</span></p><p>&nbsp;</p><h2 id='analysis-declination-diagram'><span>Analysis: declination diagram</span></h2><p><img src="img\decl-diagram.png" alt="decl-diagram" style="zoom:50%;" /></p><p><span>The declination diagram shows an overview of declinations and longitudes.  At the left and the right, the diagram shows the degrees in declination. In most cases the range will be from 30 to -30 (30 North to 30 South). If one of the points has a declination larger than 30 degrees, Enigma will extend that range. The zones at the bottom and the top, indicated by a darker color, indicate where a planet will be Out of Bounds. The outline of the oval form shows the typical declination of the Sun, and other points without latitude.  </span></p><p><span>Enigma shows the zodiac signs using vertical bars. Horizontal (declination) and vertical (longitude) mark the exact location of the points in the graph.  You can hide the position lines by clicking the checkbox </span><em><span>Hide position lines</span></em><span>.</span></p><p>&nbsp;</p><h2 id='analysis-declination-strip'><span>Analysis: declination strip</span></h2><p><img src="img\decl-strip.png" alt="decl-strip" style="zoom:50%;" /></p><p><span>The declination strip shows the declinations, northern declinations at the left and southern declinations at the right. The Out of Bound region has a darker color blue. The diagram also shows the obliquity.</span></p><p>&nbsp;</p><h2 id='analysis-parallels'><span>Analysis: parallels</span></h2><p><img src="img/parallels.png" style="zoom: 50%;" /></p><p><span>Use the menu option </span><strong><span>Analysis – Declinations – Parallels</span></strong><span> for the calculation of parallels. </span>
+<span>The results include contra-parallels. For each parallel, Enigma shows the actual orb and the percentage of exactness.</span>
+<span>The default orb is 1°, you change that value in the configuration.</span></p><p><span>You can sort the columns by clicking on the header.</span></p><p>&nbsp;</p><h2 id='analysis-longitude-equivalents'><span>Analysis: longitude equivalents</span></h2><p><img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\longitude-equiv.png" style="zoom: 50%;" /></p><p><em><span>Longitude equivalents</span></em><span> (LE) have been introduced by Kt. Boehrer. The idea is that you calculate the longitude that corresponds to the declination of a point, whereby you assume that the point has no latitude. For each declination there are two longitudes that qualify, the longitude that is the closest to the real longitude is used.</span></p><p><span>Points that have no latitude (Sun, lunar nodes, etc.) have a LE that is the same as the longitude.</span></p><p><span>If a point is Out of Bounds (OOB) there is no corresponding latitude as no degree on the ecliptic has a declination larger than the obliquity of the earth, around 23.5 degrees. In these situations, you can use a </span><em><span>co-declination</span></em><span>. This is a fictive declination. You can find it by calculating the amount of OOB: the degrees in declination that the point is OOB, or, the difference between the declination and the obliquity. You need to subtract the result from the obliquity. An example: if a planet has a declination of 25 degrees, and the obliquity is 23.5 degrees, the difference is 1.5 degrees. The co-declination will be 22 degrees: 23.5 - 1.5.</span></p><p><span>To calculate the longitude equivalents you need to use the menu option </span><strong><span>Analysis - Declinations - Longitude equivalents</span></strong><span>. </span></p><p><span>In the resulting screen you will see the points and their longitudes and declinations. If a point is OOB, you will find the Co-Declination in the column with the same name. The last column Long. Equiv. contains the values for the Longitude Equivalents.</span></p><p>&nbsp;</p><h2 id='analysis-midpoints-in-declination'><span>Analysis: midpoints in declination</span></h2><p><img src="img/decl-midpoints.png" style="zoom: 50%;" /></p><p><span>You can calculate midpoints in declination via the menu option </span><strong><span>Analysis – Declinations – Decl midpoints</span></strong><span>.</span>
+<span>Enigma shows the occupied midpoints, gives the actual orb and shows the percentage of exactness.</span>
+<span>The default orb is 0.6° (0°36’), you can change that value in the configuration.</span></p><p><span>You can sort the columns </span><em><span>Orb</span></em><span> and </span><em><span>Exactness</span></em><span> by clicking on the header.</span></p><p>&nbsp;</p><h2 id='progressive-techniques'><span>Progressive techniques</span></h2><p><img src="img/prog-main.png" style="zoom: 50%;" /></p><p><span>If you select a chart from the start-window for charts, you can click the button </span><strong><span>Progressions</span></strong><span>.</span>
+<span>This will open a window for progressive techniques for the current chart.</span></p><p><span>For all progressive techniques, you need to define an event.</span></p><h2 id='progressive-events'><span>Progressive: events</span></h2><p><span>If you created a new chart, the window will not show any events. </span>
+<span>An event in Enigma describes the event in the life of the chart owner. </span>
+<span>You need to define an event only once. The program automatically saves it into the database, so you can reuse it in later sessions.</span>
+<span>You can use the same event for all supported progressive techniques.</span></p><p><span>The start-screen for progressive techniques shows all available events for the chart you are working on.</span></p><h3 id='defining-an-event'><span>Defining an event</span></h3><p><img src="img/define-event.png" style="zoom: 50%;" /></p><p><span>Click the button </span><strong><span>New event</span></strong><span> to define an event. You will see the screen </span><em><span>Define and save event</span></em><span>.The functionality is the same as the data input for a chart. The description of the event can comprise multiple lines.</span>
+<span>Click the button </span><strong><span>Save</span></strong><span> to put the event into the database.</span></p><p><img src="img/prog-main-with-event.png" style="zoom: 50%;" /></p><p><span>Enigma adds the newly defined event automatically to the list of events.</span></p><h3 id='deleting-an-event'><span>Deleting an event</span></h3><p><span>Click the button </span><strong><span>Delete</span></strong><span> to remove the selected event from the database.</span></p><h2 id='progressive-secondary-directions'><span>Progressive: secondary directions</span></h2><p><img src="img/sec-dir-positions.png" style="zoom: 50%;" /></p><p><span>Click the button </span><strong><span>Secondary dir</span></strong><span> to calculate the secondary directions. You will see a screen with two tabs. The tab </span><em><span>Positions</span></em><span> shows the positions for the celestial bodies that you defined in the configuration for progressive techniques.</span>
+<span>For each body, the programs shows longitude, latitude, right ascension, and declination.</span></p><p><img src="img/sec-dir-aspects.png" style="zoom: 50%;" /></p><p><span>The tab </span><em><span>Aspects with radix</span></em><span> shows the aspects of the secondary positions with the radix positions and the orb of these aspects.</span></p><h2 id='progressive-transits'><span>Progressive: transits</span></h2><p><img src="img/transits_1.png" style="zoom: 50%;" /></p><p><span>Click the button </span><strong><span>Transits</span></strong><span> to calculate the transits. This works the same as with secondary directions. </span></p><p><span>There will be a screen with two tabs. The tab </span><em><span>Positions</span></em><span> shows the positions, conforming to your definitions in the configuration, using longitude, latitude, right ascension and declination.</span></p><p><img src="img/transits-aspects.png" style="zoom: 50%;" /></p><p><span>The tab </span><em><span>Aspects with radix</span></em><span> shows the aspects of the transit positions with the radix positions and the orb of these aspects.</span></p><h2 id='progressive-symbolic-directions'><span>Progressive: symbolic directions</span></h2><p><img src="img/symbolic-directions_1.png" style="zoom: 50%;" /></p><p><span>Click the button </span><strong><span>Symbolic dir</span></strong><span> to calculate symbolic directions. Again, you will see two tabs. The tab </span><em><span>Positions</span></em><span> is different, it only shows the longitude. The values for Latitude, Right ascension and Declination are not available. This is because of the nature of symbolic directions. The progressive position is not an astronomical position but the result of a simple addition. This means that it is not possible to calculate other coordinates than the directed longitude itself.</span></p><p><img src="img/sym-dir-aspects.png" style="zoom: 50%;" /></p><p><span>The tab </span><em><span>Aspects with radix</span></em><span> shows the aspects between the symbolic positions and the radix positions.</span></p><p>&nbsp;</p><h2 id='progressive-out-of-bounds-calendar'><span>Progressive: Out of Bounds Calendar</span></h2><p><img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\oobcal.png" alt="oobcal" style="zoom:50%;" /></p><p><span>The Out of Bounds Calendar shows the start date and end date for OOB periods. It covers a period of 120 years and calculates the secondary positions, so the moments that a planet goes OOB or In Bounds again is calculated for the first 120 days of life and projected onto the first 120 years of life.</span></p><p><span>The calendar shows the positions in the radix, followed by a list of OOB related events events in chronological sequence.</span></p><p><span>Enigma omits points that have no latitude as they cannot be OOB. It also omits hypothetical planets because the declinations for these points are too unsure.</span></p><p><span>The calculations are based on the true obliquity, the obliquity corrected for nutation. Enigma calculates the obliquity separately for each day. </span></p><p><span>Please note that the dates for slow moving planets like Pluto are not exact: there is a margin of a few days. </span></p></div></div>
+</body>
+</html>

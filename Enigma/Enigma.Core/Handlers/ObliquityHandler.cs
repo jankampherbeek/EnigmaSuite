@@ -35,7 +35,7 @@ public sealed class ObliquityHandler : IObliquityHandler
         double obliquity;
         try
         {
-            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, false);        // always use mean obliquity
+            obliquity = _obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, true);        // always use true obliquity
             // TODO 0.3 remove option for true obliquity from Obliquityrequest.
         }
         catch (SwissEphException see)

@@ -58,7 +58,7 @@ public sealed class ChartDataConverter : IChartDataConverter
         long chartCategory = cIdent.ChartCategoryId;
         long rating = dtLoc.RatingId;
         MetaData metaData = new(name, description, source, locationName, chartCategory, rating);
-        Location location = new(locationName, dtLoc.GeoLong, dtLoc.GeoLat);
+        Location? location = new(locationName, dtLoc.GeoLong, dtLoc.GeoLat);
         FullDateTime fullDateTime = new(dtLoc.DateText, dtLoc.TimeText, dtLoc.JdForEt);
         return new ChartData(cIdent.Id, metaData, location, fullDateTime);
     }

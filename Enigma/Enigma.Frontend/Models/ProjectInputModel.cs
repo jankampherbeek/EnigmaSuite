@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Documents;
 using Enigma.Api;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
@@ -34,6 +35,17 @@ public class ProjectInputModel
     {
         IEnumerable<string> fullPathDataNames = _fileManagementApi.GetDataNames();
         return _dataNameForPresentationFactory.CreateDataNamesForListView(fullPathDataNames);
+    }
+
+    public List<string> GetCgMultiplicationFactors()
+    {
+        return new List<string> 
+        {
+            "1",
+            "10",
+            "100",
+            "1000"
+        };
     }
     
     public static List<string> GetControlGroupTypeNames()

@@ -31,6 +31,7 @@ public class ChartsWindowsFlow:
     public const string CONFIG_PROG = "ConfigProg";
     public const string DECL_DIAGRAM = "DeclDiagram";
     public const string DECL_STRIP = "DeclStrip";
+    public const string OOB_CAL = "OobCal";
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
@@ -60,6 +61,7 @@ public class ChartsWindowsFlow:
     private RadixHarmonicsWindow? _radixHarmonicsWindow;
     private DeclDiagramWindow? _declDiagramWindow;
     private DeclStripWindow? _declStripWindow;
+    private OobCalWindow? _oobCalWindow;
     
     // The tuple contains the id for window, the current window and the textid for the parent window.
     private readonly List<Tuple<int, Window, string>> _openWindows = new();
@@ -184,6 +186,11 @@ public class ChartsWindowsFlow:
                 _declStripWindow = new DeclStripWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _declStripWindow, parentView));
                 _declStripWindow.Show();
+                break;
+            case OOB_CAL:
+                _oobCalWindow = new OobCalWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _oobCalWindow, parentView));
+                _oobCalWindow.Show();
                 break;
         }
     }

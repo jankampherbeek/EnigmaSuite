@@ -1,0 +1,700 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+
+<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+.mac-os-11 { --title-bar-height: 28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+h1, h2, h3, h4, h5 { white-space: pre-wrap; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+thead, tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+svg { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; border-color: transparent !important; padding-top: 0px !important; padding-bottom: 0px !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  #write > p:nth-child(1) { margin-top: 0px; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+  figure { overflow-x: visible; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.reversefootnote { font-family: ui-monospace, sans-serif; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex: 2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; overflow-wrap: anywhere; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+mjx-container { break-inside: avoid; }
+.md-alert.md-alert-note { border-left-color: rgb(9, 105, 218); }
+.md-alert.md-alert-important { border-left-color: rgb(130, 80, 223); }
+.md-alert.md-alert-warning { border-left-color: rgb(154, 103, 0); }
+.md-alert.md-alert-tip { border-left-color: rgb(31, 136, 61); }
+.md-alert.md-alert-caution { border-left-color: rgb(207, 34, 46); }
+.md-alert { padding: 0px 1em; margin-bottom: 16px; color: inherit; border-left: 0.25em solid rgb(0, 0, 0); }
+.md-alert-text-note { color: rgb(9, 105, 218); }
+.md-alert-text-important { color: rgb(130, 80, 223); }
+.md-alert-text-warning { color: rgb(154, 103, 0); }
+.md-alert-text-tip { color: rgb(31, 136, 61); }
+.md-alert-text-caution { color: rgb(207, 34, 46); }
+.md-alert-text { font-size: 0.9rem; font-weight: 700; }
+.md-alert-text svg { fill: currentcolor; position: relative; top: 0.125em; margin-right: 1ch; overflow: visible; }
+.md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+import url(https://fonts.googleapis.com/css?family=Open%20Sans);
+:root {
+    --code-block-bg-color: inherit;//#f8f8f8;
+
+    --item-hover-bg-color: #0a0d16;
+    --control-text-color: #b7b7b7;
+    --control-text-hover-color: #eee;
+    --window-border: 1px dashed #9b9b9b;
+
+    --active-file-bg-color: #0070E0;
+    --active-file-border-color: #8d8df0;
+
+    --primary-color: #a3d5fe;
+
+    --active-file-text-color: #0070e0;
+    --item-hover-bg-color: #70717d;
+    --item-hover-text-color: white;
+    --primary-color: #6dc1e7;
+}
+
+html,
+body,
+#write{
+	color: #5e676d;
+	font-family: "Open Sans", "Clear Sans", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	/*font-weight: lighter;*/
+	font-weight: 100;
+	color: #5e676d;
+	font-family: "Open Sans", sans-serif;
+	margin: 0.5rem 0;
+}
+
+html {
+	font-size:16px;
+}
+
+#write {
+	max-width: 914px;
+	text-align: justify;
+}
+
+#write>h1:first-child {
+	margin-top: 2.75rem;
+}
+#write>h2:first-child {
+	margin-top: 1.75rem;
+}
+#write>h3:first-child {
+	margin-top: 1rem;
+}
+#write>h4:first-child {
+	margin-top: 0.5rem;
+}
+h1 {
+	margin: 1rem 0;
+	/*line-height: 4rem;
+	padding: 5px 30px;
+	text-align: center;
+	margin-top: 4rem;*/
+}
+h2 {
+	margin: 0.8rem 0;
+	/*
+	line-height: 3rem;
+	padding: 0 30px;
+	text-align: center;
+	margin-top: 3rem
+	*/
+}
+h3 {
+}
+h4 {
+}
+h5 {
+	font-size: 1.125rem;
+}
+h6 {
+	font-size: 1.1rem;
+}
+p {
+	color: #5e676d;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	margin: 0 0 1.25rem;
+}
+#write>h3.md-focus:before {
+	left: -1.875rem;
+	top: 0.5rem;
+	padding: 2px;
+}
+#write>h4.md-focus:before {
+	left: -1.875rem;
+	top: 0.3125rem;
+	padding: 2px;
+}
+#write>h5.md-focus:before {
+	left: -1.875rem;
+	top: 0.25rem;
+	padding: 2px;
+}
+#write>h6.md-focus:before {
+	left: -1.875rem;
+	top: .125rem;
+	padding: 2px;
+}
+/*@media screen and (min-width: 48em) {
+	.h1,
+	h1 {
+		font-size: 3.250rem;
+	}
+	.h2,
+	h2 {
+		font-size: 2.298rem;
+	}
+	.h3,
+	h3 {
+		font-size: 1.625rem;
+	}
+	.h4,
+	h4 {
+		font-size: 1.250rem;
+	}
+	.h5,
+	h5 {
+		font-size: 1.150rem;
+	}
+	.h6,
+	h6 {
+		font-size: 1rem;
+	}
+	#write>h4.md-focus:before,
+	#write>h5.md-focus:before,
+	#write>h6.md-focus:before {
+		top: 1px;
+	}
+	p {
+		font-size: 1.25rem;
+		line-height: 1.8;
+	}
+	table {
+		font-size: 1.25rem;
+	}
+}*/
+@media screen and (max-width: 48em) {
+	blockquote {
+		margin-left: 1rem;
+		margin-right: 0;
+		padding: 0.5em;
+	}
+	.h1,
+	h1 {
+		font-size: 2.827rem;
+	}
+	.h2,
+	h2 {
+		font-size: 1.999rem;
+	}
+	.h3,
+	h3 {
+		font-size: 1.413rem;
+	}
+	.h4,
+	h4 {
+		font-size: 1.250rem;
+	}
+	.h5,
+	h5 {
+		font-size: 1.150rem;
+	}
+	.h6,
+	h6 {
+		font-size: 1rem;
+	}
+}
+a,
+.md-def-url {
+	color: #007ee5;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+table {
+	border: 1px solid #e2e2e2;
+	margin-bottom: 20px
+}
+table th,
+table td {
+	padding: 8px;
+	line-height: 1.5rem;
+	vertical-align: top;
+	border: 1px solid #e2e2e2;
+}
+table th {
+	font-weight: normal;
+	background-color: #f0f7fd;
+}
+table thead th {
+	vertical-align: bottom
+}
+table caption+thead tr:first-child th,
+table caption+thead tr:first-child td,
+table colgroup+thead tr:first-child th,
+table colgroup+thead tr:first-child td,
+table thead:first-child tr:first-child th,
+table thead:first-child tr:first-child td {
+	border-top: 0
+}
+table tbody+tbody {
+	border-top: 2px solid #ddd
+}
+code, .md-fences {
+	padding: .5em;
+	background: #f6f9fc;
+	border: 1px solid #d0d4d9;
+	border-radius: 3px;
+	padding: .1em;
+	font-size: 0.9rem !important;
+	margin-left: 0.2em;
+	margin-right: 0.2em;
+}
+.md-fences {
+	margin: 0 0 20px;
+	font-size: 1em;
+	padding: 0.3em 1em;
+  	padding-top: 0.4em;
+}
+.task-list{
+	padding-left: 0;
+}
+
+.task-list-item {
+	padding-left:2.125rem;
+}
+
+/* Chrome 29+ */
+@media screen and (-webkit-min-device-pixel-ratio:0)
+  and (min-resolution:.001dpcm) {
+    .task-list-item input:before {
+    	margin-top: -0.2rem;
+    }
+
+    .task-list-item input:checked:before,
+	.task-list-item input[checked]:before {
+		margin-top: -0.2rem;
+	}
+}
+
+blockquote {
+	margin: 0 0 1.11111rem;
+	padding: 0.5rem 1.11111rem 0 1.05556rem;
+	border-left: 2px solid rgba(0, 112, 224, 0.32);
+}
+blockquote,
+blockquote p {
+	line-height: 1.6;
+	color: #8f8f8f;
+}
+#write pre.md-meta-block {
+	min-height: 30px;
+	background: #f8f8f8;
+	padding: 1.5em;
+	font-weight: 300;
+	font-size: 1em;
+	padding-bottom: 1.5em;
+	padding-top: 3em;
+    margin-top: -1.5em;
+	color: #999;
+	border-left: 1000px #f8f8f8 solid;
+	margin-left: -1000px;
+	border-right: 1000px #f8f8f8 solid;
+	margin-right: -1000px;
+	margin-bottom: 2em;
+}
+.MathJax_Display {
+	font-size: 0.9em;
+	margin-top: 0.5em;
+	margin-bottom: 0;
+}
+p.mathjax-block,
+.mathjax-block {
+	padding-bottom: 0;
+}
+.mathjax-block>.code-tooltip {
+	bottom: 5px;
+	box-shadow: none;
+}
+.md-image>.md-meta {
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+.md-image>img {
+	margin-top: 2px;
+}
+.md-image>.md-meta:first-of-type:before {
+	padding-left: 4px;
+}
+
+#typora-source {
+	color: #555;
+}
+
+/** ui for windows **/
+#md-searchpanel {
+    border-bottom: 1px solid #ccc;
+}
+
+#md-searchpanel .btn {
+    border: 1px solid #ccc;
+}
+
+#md-notification:before {
+	top: 14px;
+}
+
+#md-notification {
+	background: #eee;
+}
+
+.megamenu-menu-panel .btn {
+	border: 1px solid #ccc;
+}
+
+.mac-seamless-mode #typora-sidebar {
+  background-color: #f7f9fa;
+}
+
+.pin-outline .outline-active {
+  color: #0070E0; 
+}
+
+.file-list-item {
+  border-bottom: 1px solid;
+  border-color: #E6E8EB;
+}
+
+.file-list-item-summary {
+  font-weight: 400;
+  color: #637282; 
+}
+
+.file-list-item.active {
+  color: #0070E0;
+  background-color: #E6E8EB;
+}
+
+.file-tree-node.active>.file-node-background {
+  background-color: #E6E8EB;
+} 
+
+.file-tree-node.active>.file-node-content {
+  color: #0070E0;
+}
+
+.file-node-content {
+  color: #5e676d;
+}
+
+.sidebar-tab.active {
+  font-weight: 400;
+}
+
+code, kbd, pre, samp {
+  font-family: "Roboto Mono", Menlo, monospace;
+}
+
+
+
+</style><title>Appendix</title>
+</head>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><h1 id='enigma-04---appendix'><span>Enigma 0.4 - Appendix</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#enigma-04---appendix">Enigma 0.4 - Appendix</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n4"><a class="md-toc-inner" href="#house-systems">House systems</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n56"><a class="md-toc-inner" href="#ayanamshas">Ayanamshas</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n84"><a class="md-toc-inner" href="#observer-positions">Observer positions</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n93"><a class="md-toc-inner" href="#projection-to-the-ecliptic">Projection to the ecliptic</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n98"><a class="md-toc-inner" href="#obliquity">Obliquity</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n101"><a class="md-toc-inner" href="#planets-and-other-celestial-points">Planets and other celestial points</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n132"><a class="md-toc-inner" href="#supported-periods-for-calculations">Supported periods for calculations</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n160"><a class="md-toc-inner" href="#defining-orbs">Defining orbs</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n161"><a class="md-toc-inner" href="#orbs-for-aspects">Orbs for aspects</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n175"><a class="md-toc-inner" href="#orbs-for-midpoints">Orbs for midpoints</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n177"><a class="md-toc-inner" href="#orbs-in-research">Orbs in research</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n180"><a class="md-toc-inner" href="#format-for-data-files">Format for data-files</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n182"><a class="md-toc-inner" href="#enigma-standard-data">Enigma standard data </a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n213"><a class="md-toc-inner" href="#using-excel-or-libre-office">Using Excel or Libre Office</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n216"><a class="md-toc-inner" href="#result-files">Result files</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n219"><a class="md-toc-inner" href="#format-in-exported-file-from-planetdance">Format in exported file from PlanetDance</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n242"><a class="md-toc-inner" href="#folder-structure">Folder structure</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n257"><a class="md-toc-inner" href="#control-groups">Control groups</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n301"><a class="md-toc-inner" href="#more-information">More information</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n302"><a class="md-toc-inner" href="#documentation">Documentation</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n311"><a class="md-toc-inner" href="#facebook-group">Facebook group</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n314"><a class="md-toc-inner" href="#websites">Websites</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n316"><a class="md-toc-inner" href="#mailing-list">Mailing list</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n320"><a class="md-toc-inner" href="#source-code">Source code</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n325"><a class="md-toc-inner" href="#support">Support</a></span></p></div><p>&nbsp;</p><h2 id='house-systems'><span>House systems</span></h2><p><span>Enigma supports the following house systems:</span></p><ul><li><p><strong><span>Placidus</span></strong><span> is based on the proportional time that the point of the house cusp has traveled. Cusp 11, for instance, should have traveled 1/3 of the time it is above the horizon.</span></p></li><li><p><strong><span>Koch</span></strong><span>, also called </span><em><span>Birthplace Houses</span></em><span> or </span><em><span>GOH,</span></em><span> divides the time for daily movement of the MC and calculates the ascendant for each time.</span></p></li><li><p><strong><span>Porphyri</span></strong><span> trisects the longitudes of the quadrants that are formed by MC, Ascendant, IC and Descendant.</span></p></li><li><p><strong><span>Regiomontanus</span></strong><span> divides the equator in equal parts and draws great circles through the division points that intersect the ecliptic.</span></p></li><li><p><strong><span>Campanus</span></strong><span> divides the celestial globe into equal parts by drawing great circles from north to south. These circles intersect the ecliptic.</span></p></li><li><p><strong><span>Alcabitius</span></strong><span> is comparable to </span><em><span>Porphyri</span></em><span>, but it trisects the quadrants of the equator.</span></p></li><li><p><span>The </span><strong><span>Topocentric</span></strong><span> system constructs and divides a cone that represents the rotation of the earth.</span></p></li><li><p><strong><span>Krusinski</span></strong><span> is comparable to </span><em><span>Campanus</span></em><span>, but it divides the celestial globe, looking from points that are perpendicular to the ascendant-descendant.</span></p></li><li><p><strong><span>APC</span></strong><span> (Ascendant Parallel Circle) divides a small circle through the ascendant and parallel to the equator and projects the results to the ecliptic, looking from the north to the south. Cusps of this system are not oppositional.</span></p></li><li><p><strong><span>Morin</span></strong><span> divides the equator and draws great circles to the poles of the ecliptic. MC and ascendant are not equal to cusps 10 and 1, and the results do not change if the geographic latitude changes.</span></p></li><li><p><span>The </span><strong><span>Whole sign</span></strong><span> system uses the sign on the ascendant as the first house, and then subsequent signs as houses 2, etc. MC and ascendant will not be equal with cusp 10 and 1.</span></p></li><li><p><strong><span>Equal from Ascendant</span></strong><span> calculates houses of 30 degrees, starting from the ascendant. The MC is not equal to cusp 10.</span></p></li><li><p><strong><span>Equal from MC</span></strong><span> also calculates houses of 30 degrees, but starts with the MC. The ascendant is not equal to cusp 1.</span></p></li><li><p><strong><span>Equal from 0 Aries</span></strong><span> considers the houses to be equal to the signs and starts the first house with the sign Aries. MC and ascendant will not be equal with cusp 10 and 1.</span></p></li><li><p><strong><span>Vehlow</span></strong><span> is comparable with </span><em><span>Equal from Ascendant,</span></em><span> but it starts 15 degrees before the ascendant. MC and ascendant will not be equal with cusp 10 and 1.</span></p></li><li><p><strong><span>Axial Rotation</span></strong><span> (also called </span><em><span>Zariel</span></em><span>) divides the equator in 12 equal parts, starting from the right ascension of the MC. Position circles from the north and south and perpendicular to the equator, define the cusps. The ascendant is not equal to cusp 1. Geographic latitude does not affect the results.</span></p></li><li><p><span>The </span><strong><span>Horizon system</span></strong><span> (also called </span><em><span>Zenith system</span></em><span>) divides the horizon in equal parts, starting in the east. It defines the cusps by drawing great circles, perpendicular to the horizon. Cusp 1 is not equal to the ascendant, cusp 7 is the Vertex.</span></p></li><li><p><strong><span>Carter</span></strong><span> divides the equator into 12 equal parts, starting with the right ascension of the ascendant. It defines the cusps by converting the positions in right ascension to longitude. The MC is not equal to cusp 10.</span></p></li><li><p><strong><span>Gauquelin</span></strong><span> has the same approach as </span><em><span>Placidus,</span></em><span> but counts 36 houses and uses a clockwise direction.</span></p></li><li><p><span>The </span><strong><span>SunShine system</span></strong><span> by Bob Makranski trisects the semi arcs of the Sun and defines the cusps by drawing great circles from north to south and through the division points.</span></p></li><li><p><strong><span>SunShine (Treindl)</span></strong><span> has the same approach as the </span><em><span>SunShine system</span></em><span> with a slightly different approach by Alois Treindl.</span></p></li><li><p><strong><span>Pullen (sinusoidal delta)</span></strong><span>, an approach by Walter Pullen that is comparable to Porphyri. He bases the size of the succeeding houses 2, 5, 8 and 11 on a sine-wave, such that the size of the succeeding houses reflects the relative size of the quadrants.</span></p></li><li><p><strong><span>Pullen (sinusoidal ratio)</span></strong><span> is an improvement on </span><em><span>Pullen (sinusoidal delta)</span></em><span>.</span></p></li><li><p><strong><span>Sripati</span></strong><span>, as </span><em><span>Porphyri,</span></em><span> but with the cusps as midpoint between the last and the current house.</span></p></li></ul><p>&nbsp;</p><h2 id='ayanamshas'><span>Ayanamshas</span></h2><p><span>Enigma supports 40 different Ayanamshas.</span></p><p><span>The most important ones are:</span></p><ul><li><p><strong><span>Fagan</span></strong><span>, as proposed by Cyril Fagan and Ronald Bradley.</span></p></li><li><p><strong><span>Lahiri</span></strong><span>, official standard in India.</span></p></li><li><p><strong><span>DeLuce</span></strong><span>, based on the supposed birth date of Jesus.</span></p></li><li><p><strong><span>Raman</span></strong><span>, the ayanamsha according to B. V. Raman</span></p></li><li><p><strong><span>Krishnamurti</span></strong><span>, proposed by K. S. Krishnamurti, assumes that the ayanamsha was zero in 291 CE.</span></p></li><li><p><strong><span>Djwhal Kuhl</span></strong><span> assumes that the age of Aquarius starts in 2117.</span></p></li><li><p><strong><span>Huber</span></strong><span>. The mean ayanamsha as found in Babylonian texts and calculated by the historian Peter Huber.</span></p></li><li><p><strong><span>Galactic Center 0 Sag</span></strong><span>, Dieter Koch proposes to put the Galactic Center at 0 degrees Sagittarius.</span></p></li><li><p><strong><span>True Chitrapaksha</span></strong><span> starts at 180 degrees from the longitude of Spica.</span></p></li><li><p><strong><span>Galactic Center (Brand)</span></strong><span>. Rafael Gil Brand proposes to start with the Galactic Center and defines this as the golden section between 0 degrees Scorpio and zero degrees Aquarius.</span></p></li><li><p><strong><span>Galactic Center 0 Cap</span></strong><span>. David Cochrane puts the Galactic Center at 0 degrees Capricorn.</span></p></li></ul><p><span>For more information, check the documentation of the Swiss Ephemeris at </span><a href='https://www.astro.com/swisseph/swisseph.htm'><em><span>https://www.astro.com/swisseph/swisseph.htm</span></em></a><span>, chapter 2.8 </span><em><span>Sidereal Ephemerides for Astrology</span></em><span>.</span></p><h2 id='observer-positions'><span>Observer positions</span></h2><p><span>Enigma supports two </span><em><span>observer positions</span></em><span>. An observer position is the location of a (fictive) observer that registers the positions of the celestial bodies.</span></p><p><span>You can select one of the following observer positions:</span></p><ul><li><p><strong><span>Geocentric</span></strong><span>: the observer is in the center of the earth. A somewhat unlikely position, but it is the de facto standard in astrology.</span></p></li><li><p><strong><span>Topocentric</span></strong><span>: the observer stands firmly on the earth crest. This is the only position that is physically possible. The positions of the celestial bodies will differ slightly from the geocentric position because of the effect of parallax. It will affect the Moon (up to about a degree) most. The other celestial bodies will differ only a few arc seconds or less.</span></p></li></ul><h2 id='projection-to-the-ecliptic'><span>Projection to the ecliptic</span></h2><p><span>We calculate the ecliptical position of a celestial body by projecting this body to the ecliptic, using an arc that is perpendicular to the ecliptic.</span></p><p><span>There is one exception to this rule. The Dutch </span><em><span>School of Ram</span></em><span> calculates the positions with an arc that is oblique to the ecliptic and runs from the north point to the south point. The effect is that it will correctly place the planets in the houses; it solves the latitude problem. The consequence is that the ecliptical positions of planets with higher latitude, typically Moon and Pluto, will fluctuate during the day significantly.</span></p><p><span>If you want to use the techniques of the School of Ram, you can select in the configuration </span><strong><span>Oblique Longitude</span></strong><span> as </span><em><span>Type of projection to the ecliptic</span></em><span>. In all other cases, select </span><strong><span>Standard (two-dimensional)</span></strong><span>.</span></p><p>&nbsp;</p><h2 id='obliquity'><span>Obliquity</span></h2><p><span>Enigma uses true obliquity for all calculations. This means that the effects of nutation are taken into account.</span></p><h2 id='planets-and-other-celestial-points'><span>Planets and other celestial points</span></h2><p><span>Enigma will always calculate the </span><strong><span>classical planets</span></strong><span> (Sun up to Saturn), MC, and Ascendant. All other points are optional.</span></p><p><span>You can add many other points to the calculation:</span></p><ul><li><p><strong><span>Modern planets</span></strong><span>: Uranus, Neptune and Pluto. (I’ll call Pluto a planet).</span></p></li><li><p><strong><span>Mundane points</span></strong><span>: Vertex and Eastpoint.</span></p></li><li><p><strong><span>Arabic parts</span></strong><span>: Pars Fortunae, both with and without sect.</span></p></li><li><p><strong><span>Mathematical points</span></strong><span>: Mean Node and True Node, the vernal point (Zero Aries) and foour calculations for the apogee of the Moon: </span></p></li><li><p><span>Mean, Corrected, Interpolated and according to Duval (calculation by Cees Jansen).</span></p></li><li><p><strong><span>Centaurs</span></strong><span>: Chiron, Nessus and Pholus.</span></p></li><li><p><strong><span>Plutoids</span></strong><span>: Huya, Varuna, Ixion, Quaoar, Haumea, Eris, Sedna, Orcus and Makemake.</span></p></li><li><p><strong><span>Planetoids</span></strong><span>: Ceres, Pallas, Juno, Vesta, Hygieia and Astraea.</span></p></li><li><p><strong><span>Hypothetical points and planets</span></strong><span>:</span></p><ul><li><p><strong><span>Uranian</span></strong><span>: Cupido, Hades, Zeus and Kronos (according to Alfred Witte). Apollon, Ademetos, Vulcanus and Poseidon (according to Friedrich Sieggrün).</span></p></li><li><p><strong><span>School of Ram</span></strong><span>: Persephone, Hermes and Demeter.</span></p></li><li><p><strong><span>Transpluto</span></strong><span>, also called Isis, as described by Theodor Landscheidt.</span></p></li><li><p><strong><span>Carteret</span></strong><span>: Vulcanus and Perpsephone, as proposed by Jean Carteret.</span></p></li></ul></li></ul><h2 id='supported-periods-for-calculations'><span>Supported periods for calculations</span></h2><p><span>Enigma can calculate all planets and most other points for a period of almost 30000 years. </span>
+<span>For some celestial bodies, this period is shorter. </span>
+<span>Astronomers do not have enough data to calculate these celestial bodies for all periods. </span>
+<span>If Enigma cannot calculate a point for a specific date, it will omit this point.</span></p><figure class='table-figure'><table><thead><tr><th><span>Celestial points</span></th><th><span>From</span></th><th><span>Until</span></th></tr></thead><tbody><tr><td><span>Sun, Moon and planets and all points that are not in the other rows of this table</span></td><td><span>-12999/08/02</span></td><td><span>16799/12/30</span></td></tr><tr><td><span>Chiron</span></td><td><span>0675/01/01</span></td><td><span>4650/01/01</span></td></tr><tr><td><span>Pholus</span></td><td><span>-2958/01/01</span></td><td><span>7308/12/30</span></td></tr><tr><td><span>Nessus, Huya, Ixion, Orcus, Varuna, MakeMake, Haumea, Quaoar, Eris, Sedna</span></td><td><span>-3000/03/18</span></td><td><span>2998/08/23</span></td></tr><tr><td><span>Ceres, Vesta</span></td><td><span>-12999/08/02</span></td><td><span>9591/05/23</span></td></tr></tbody></table></figure><p>&nbsp;</p><h2 id='defining-orbs'><span>Defining orbs</span></h2><h3 id='orbs-for-aspects'><span>Orbs for aspects</span></h3><p><span>An orb for an aspect can depend on many factors. Enigma takes two of these factors into account: the points that form an aspect and the aspect itself.</span></p><p><span>In the configuration, you define a base orb (Configuration, tab general, Base orb for aspects). The base orb is the maximum orb that is possible.</span></p><p><span>Also, in the configuration, you define an orb percentage for each point in the chart. If you want to use the full orb, you enter 100, and for a smaller orb, a smaller percentage. You will probably use a large percentage for fast moving points and a smaller percentage for slower moving points.</span></p><p><span>To check if an aspect is within orb, Enigma combines the percentages of both points that form the aspect. It chooses the highest value. The speed of the fastest point defines the orb.</span></p><p><span>An example:</span></p><p><span>The Moon will have a large orb as it moves fast. Pluto will have a small orb. If the percentage of the Moon is 100% and the percentage for Pluto is 50%, you do not want the mean value of 75% as the speed of the Moon is defining the exactness of the aspect. Here we use the percentage of 100%.</span></p><p><span>Aspects also have an orb percentage that you define in the configuration.</span></p><p><span>The effective orb is the percentage of the point with the highest percentage, combined with the percentage of the aspect.</span></p><p><span>Some examples, using a base-orb of 10 degrees:</span></p><p><span>Sun: 100%, Neptune 50% —</span><span>&gt;</span><span> 100% for the points.</span></p><p><span>Conjunction: 100%, effective orb 100% of 10 degrees is 10 degrees.</span></p><p><span>Uranus: 50%, Eris 40% —</span><span>&gt;</span><span> 50% for the points.</span></p><p><span>Semi-quintile: 30%, effective orb 15% of 10 degrees is 1.5 degree.</span></p><h3 id='orbs-for-midpoints'><span>Orbs for midpoints</span></h3><p><span>Enigma supports a configurable base orb for midpoints. In a later version, it will be possible to define different orbs for different midpoint dials.</span></p><h3 id='orbs-in-research'><span>Orbs in research</span></h3><p><span>If you perform a test with harmonics or with midpoints, you can enter the orb that you want to use in your research.</span></p><p><span>In other research projects, you use the orbs as defined in the configuration.</span></p><h2 id='format-for-data-files'><span>Format for data-files</span></h2><p><span>Enigma supports a proprietary data-file and also the import of data from PlanetDance. </span>
+<span>Later versions will add support for data for progressive techniques.</span></p><h3 id='enigma-standard-data'><span>Enigma standard data </span></h3><p><span>You can create your own data-file using the csv format (Comma Separated Values). </span>
+<span>This is a simple text file with one line per chart. </span>
+<span>You need to separate the different values with a comma. </span>
+<span>Make sure you use a real text-editor and not Word, LibreOffice Text or another word processor. </span>
+<span>Examples of a text-editor: NotePad (available in Windows), Notepad++ (more powerful, download it for </span>
+<span>free from: </span><a href='https://notepad-plus-plus.org'><em><span>https://notepad-plus-plus.org</span></em></a><span>).</span></p><p><span>An example of the first lines of a data-file:</span></p><p><span>Id,Name,longitude,latitude,date,cal,time,zone,dst</span></p><p><span>107, Leonardo da Vinci, 10:55:0:E, 43:47:0:N, 1452/4/14, J, 21:40, 0.7277778, 0</span></p><p><span>108, Albrecht Dürer, 11:04:0:E, 49:27:0:N, 1471/5/21, J, 11:00, 0.7377778, 0</span></p><p><span>109, Michelangelo Buonarotti, 11:59:0:E, 43:39:0:N, 1475/3/6, J, 1:45, 0.7988888, 0</span></p><p><span>You can copy the first line. Do not skip it, as Enigma requires it.</span>
+<span>The lines starting with 107, 108 and 109 contain the real data.</span></p><p><span>Each line contains 9 fields that correspond to the labels used in the first line:</span></p><ul><li><p><strong><span>Id</span></strong><span>, a unique identifier. It can be a number or other identification.</span></p></li><li><p><strong><span>Name</span></strong><span>. A description for the chart. The name, or a code, if you would like to keep the data anonymous.</span></p></li><li><p><strong><span>Latitude</span></strong><span>. Geographical latitude in the format </span><em><span>dd:mm:ss:D</span></em><span>. For </span><em><span>dd</span></em><span>, enter the degrees (use 1 or 2 positions), for </span><em><span>mm</span></em><span> the minutes and for </span><em><span>ss</span></em><span> the seconds. Replace </span><em><span>D</span></em><span> with </span><em><span>‘E’</span></em><span> for eastern longitude or </span><em><span>‘W’</span></em><span> for western longitude. Use colons between all items.</span></p></li><li><p><strong><span>Longitude</span></strong><span>. Geographical longitude in almost the same format as for Latitude: ddd:mm:ss. For </span><em><span>dd</span></em><span> enter the degrees (use 1, 2 or 3 positions), for </span><em><span>mm</span></em><span> the minutes and for </span><em><span>ss</span></em><span> the seconds. Replace </span><em><span>D</span></em><span> with </span><em><span>‘N’</span></em><span> for northern latitude or </span><em><span>‘S’</span></em><span> for southern latitude.</span></p></li><li><p><strong><span>Date</span></strong><span>. Birthdate, or date for an event in the format </span><em><span>yyyy/mm/dd</span></em><span>. For </span><em><span>yyyy</span></em><span>, enter the year, for </span><em><span>mm</span></em><span> the month and for </span><em><span>dd</span></em><span> the date. Use a forward slash between all items for the data.</span></p></li><li><p><strong><span>Cal</span></strong><span>. The calendar. For most charts, this will be Gregorian: use the character </span><em><span>‘G’</span></em><span>. If the time reckoning was according to the Julian Calendar, use </span><em><span>‘J’</span></em><span>.</span></p></li><li><p><strong><span>Time</span></strong><span>. Time for the birth or for an event. Use the format </span><em><span>hh:mm:ss</span></em><span> or </span><em><span>hh:mm</span></em><span>. For </span><em><span>hh</span></em><span>, enter the hour, for </span><em><span>mm</span></em><span> the minutes and for </span><em><span>ss</span></em><span> the seconds. Seconds are optional. Use colons between all items for the time.</span></p></li><li><p><strong><span>Zone</span></strong><span>. Enter the correction for the time zone. This is a number, possibly with a fraction. This does not depend on the locality of your computer: always use a dot between integer part and fraction.</span></p></li><li><p><strong><span>DST</span></strong><span>. Shows if daylight saving time applies. Use </span><em><span>0</span></em><span> for no DST and </span><em><span>1</span></em><span> for DST.</span></p></li></ul><p><span>Save your data-file, preferably with the extension .csv at a location of your liking. You can import the data-file in Enigma. If one or more charts are using a wrong format, Enigma will recognize this and create a report with the offending lines at c:\enigma_ar\data\errors.txt.</span></p><p><strong><span>Example file</span></strong></p><p><span>You can download an example file from </span><a href='https://radixpro.com/enigma'><em><span>https://radixpro.com/enigma</span></em></a><span>. This file contains the data of 42 visual artists.</span></p><h2 id='using-excel-or-libre-office'><span>Using Excel or Libre Office</span></h2><p><span>You can use a spreadsheet to create a data file. Spreadsheets can read csv files, so you can try it with the example file mentioned above.</span></p><p><span>Make sure that you use a comma as a separator and do not use quotes.</span></p><h2 id='result-files'><span>Result files</span></h2><p><span>If you perform a test, Enigma will create several result files. You can find these files in the folder </span><em><span>c:\enigma_ar\project</span><span>\</span><span>[projectname</span><span>]</span><span>\results .</span></em></p><p><span>Replace </span><span>[</span><span>projectname</span><span>]</span><span> with the name you used for the project.</span></p><h2 id='format-in-exported-file-from-planetdance'><span>Format in exported file from PlanetDance</span></h2><p><span>The first lines from a file as exported from PlanetDance:</span></p><p><span>Name;Year;Month;Day;Hour;Min;Sec;Place;Country;Lon;Lat;Zone;</span></p><p><span>Alistair Crowley;1875;10;12;23;30;0;Leamington;United Kingdom;-1.533333;52.300000;0.000000;</span>
+<span>Allen, Woody;1935;12;1;22;55;0;Bronxville NY;United States;-73.833333;40.933333;-5.000000;</span></p><p><span>The first line contains descriptive labels, the second line is empty, and the following files contain data.</span>
+<span>You will find the following items:</span>
+<span>•</span><span>	</span><span>The name.</span>
+<span>•</span><span>	</span><span>Year, month, day, hour, min, and sec, all as integers.</span>
+<span>•</span><span>	</span><span>Place and country</span>
+<span>•</span><span>	</span><span>Longitude and latitude as floating point decimals</span>
+<span>•</span><span>	</span><span>The time zone, defined as a floating point decimal with the difference between clock time and universal time.</span></p><p>&nbsp;</p><p><strong><span>Counts</span></strong></p><p><span>The most important file is a text file that shows the counts for the performed test. This file has the same content as the result window that Enigma shows after performing a test.</span></p><p><span>The name is </span><em><span>[</span><span>type</span><span>]</span><span>summedresult</span><span>_</span><span>[</span><span>testmethod</span><span>]</span><span>_</span><span>counts</span><span>_</span><span>[</span><span>date and time</span><span>]</span><span>.text</span></em></p><ul><li><p><span>Replace </span><span>[</span><span>type</span><span>]</span><span> with test (for the test data) or control for the control data.</span></p></li><li><p><span>Replace </span><span>[</span><span>testmethod</span><span>]</span><span> with the name of the method.</span></p></li><li><p><span>Replace date and time with a representation of the actual date and time (during the test).</span></p></li></ul><p><span>An example of results for test data for the method CountOccupiedMidpoints:</span></p><p><em><span>Testsummedresult_CountOccupiedMidpoints_counts_2023-4-16 11-52-29</span></em></p><p><strong><span>Positions</span></strong></p><p><span>You can check the positions for the calculated charts. Enigma stores these positions in a JSON file, a verbose format, but it is readable for both humans and computers.</span></p><p><span>The name of the file is </span><em><span>[</span><span>type</span><span>]</span><span>dataresult</span><span>_</span><span>[</span><span>testmethod</span><span>]</span><span>_</span><span>positions</span><span>_</span><span>[</span><span>date and time</span><span>]</span><span>.json</span></em><span>.</span></p><p><span>Use the same replacements as described for the Counts file.</span></p><p><span>Please note that this file contains over 1000 lines per chart, you might not want to print it. The file contains the same information as given in the window with calculated positions. Each chart in the file starts with the positions, followed by name and other information about the chart.</span></p><h2 id='folder-structure'><span>Folder structure</span></h2><p><span>The application itself is by default in the folder </span><em><span>C:\Program Files (x86)\Enigma Astrology Research</span></em><span>, unless you defined another folder during installation.</span></p><p><span>In the folder where you installed Enigma is a sub-folder </span><strong><span>doc*</span></strong><span>.*</span></p><p><span>In this folder, you will find the </span><em><span>User Manual</span></em><span>, the </span><em><span>Release Notes</span></em><span> and the </span><em><span>Roadmap</span></em><span> for Enigma.</span></p><p><span>For data, Enigma uses a separate folder structure. These folders do not exist after install; Enigma creates them the first time you use the application.</span></p><p><span>The folder structure is:</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang=""><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 8.28125px; left: 4px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">C:\enigma_ar\data</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">\[dataname\] (multiple folders)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  \csv</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  \json</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">\database</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">\docs</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">\export</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">\logs</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">\project</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  \projectname\] (multiple folders\]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  \results</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 226px;"></div><div class="CodeMirror-gutters" style="display: none; height: 226px;"></div></div></div></pre><p><span>In </span><strong><span>enigma_ar</span></strong><span> you will find the files </span><em><span>enigmaconfig.json</span></em><span> and </span><em><span>enigmaprogconfig.json</span></em><span>. These files contain the configuration for Enigma. Please do not edit these files, but use Enigma itself to change the configuration. If you remove these files, Enigma automatically creates a new default configuration.</span></p><p><span>The folder </span><strong><span>data</span></strong><span> contains the imported data files. All data files have a sub-folder with the name you defined for the data. In the folder structure, this is </span><strong><span>[</span><span>dataname</span><span>]</span></strong><span>. The folders under [dataname] each have two sub-folders: </span><strong><span>csv</span></strong><span> and </span><strong><span>json</span></strong><span>. They contain respectively a copy of the imported file and the conversion to JSON format.</span></p><p><span>In </span><strong><span>database</span></strong><span> Enigma maintains a database with data for charts and events. It creates this database after the first calculation of a chart.</span></p><p><strong><span>Docs</span></strong><span> contains the user manual, installation guide, release notes and developerw manual, all in PDF format. </span></p><p><span>The folder </span><strong><span>export</span></strong><span> is for future use.</span></p><p><span>Enigma saves log files in the folder </span><strong><span>logs</span></strong><span>. Each day you use Enigma, it creates a new log file. If the number of log files is larger than 31, the program deletes the oldest log file.</span></p><p><span>The folder </span><strong><span>project</span></strong><span> contains sub-folders for each project you create. It uses the names for the projects. In the folder structure, you see </span><strong><span>[</span><span>projectname</span><span>]</span></strong><span> as placeholder for these names. This folder contains json files for the definition of the project, the test data, and the control data.</span></p><p><span>The sub-folder </span><strong><span>results</span></strong><span> contains the results of the different tests.</span></p><h2 id='control-groups'><span>Control groups</span></h2><p><span>If you create a project, Enigma will automatically add control groups.</span></p><p><span>Currently, Enigma supports one type of control group: </span><em><span>Standard shifting of location, date, and time</span></em><span>.</span></p><p><span>Enigma creates the control group by collecting all different parts of date, time, and location. It randomly combines these parts to new combinations.</span></p><p><span>Charts in a control group obviously do not describe real living persons or real existing situations. But they have a comparable distribution in date, time and location. This means that the control group reflects any artifacts, astronomically or demographically, that exist in the test data. A remarkable result in the test data should not show in the control group. If it does, it will probably be because of an artifact.</span></p><p><span>Optionally, you can multiply the number of combinations to create a larger control group. The maximum supported multiplication is 10.</span></p><p><span>For the control group type </span><em><span>Standard shifting of location, date, and time</span></em><span>, Enigma uses the following algorithm:</span></p><ul><li><p><span>Make separate collections of the following items:</span></p><ul><li><p><span>year</span></p></li><li><p><span>month</span></p></li><li><p><span>date</span></p></li><li><p><span>hour</span></p></li><li><p><span>minute</span></p></li><li><p><span>second</span></p></li><li><p><span>indications for the use of DST</span></p></li><li><p><span>time zones</span></p></li><li><p><span>geographic longitudes</span></p></li><li><p><span>geographic latitudes</span></p></li></ul></li><li><p><span>Sort the values for the days from large to small.</span></p></li><li><p><span>Shuffle all other items using a randomizer.</span></p></li><li><p><span>Repeat for each item in the test data, optionally multiplied with a factor to increase the control group:</span></p><ul><li><p><span>Combine the elements at the top of each collection into a new chart. Make sure that only applicable months combine with dates larger than 28.</span></p></li><li><p><span>Remove the used elements.</span></p><p>&nbsp;</p></li></ul></li></ul><h2 id='more-information'><span>More information</span></h2><h3 id='documentation'><span>Documentation</span></h3><ul><li><p><strong><span>Installation manual</span></strong><span>. Instruction about installing Enigma.</span></p></li><li><p><strong><span>Release notes.</span></strong><span> A description of the added functionality per release.</span></p></li><li><p><strong><span>Developers manual.</span></strong><span> Information for programmers.</span></p></li></ul><p><span>You can download all documentation from </span><a href='https://radixpro.com/enigma'><em><span>https://radixpro.com/enigma</span></em></a></p><h3 id='facebook-group'><span>Facebook group</span></h3><p><span>You can join the Facebook group for Enigma:</span></p><p><a href='https://www.facebook.com/groups/246475509388734'><em><span>https://www.facebook.com/groups/246475509388734</span></em></a></p><h3 id='websites'><span>Websites</span></h3><p><span>The website for Enigma - and for other astrological information - is </span><a href='https://radixpro.com/'><em><span>https://radixpro.com</span></em></a><span>, use </span><a href='https://radixpro.org/'><em><span>https://radixpro.org</span></em></a><span> for technical information for programmers.</span></p><h3 id='mailing-list'><span>Mailing list</span></h3><p><span>You can subscribe to a mailing list. I only send mails for new releases of Enigma.</span></p><p><span>To subscribe, send a mail with the subject ‘subscribe’ to </span><a href='mailto:enigma@radixpro.org' target='_blank' class='url'>enigma@radixpro.org</a></p><p><span>To stop a subscription, send ‘unsubscribe’ to the same address.</span></p><h3 id='source-code'><span>Source code</span></h3><p><span>Enigma is open source. You can use the source in your own open source projects but not in closed source projects. Your program does not have to be free to use the Enigma source, but it has to be open source.</span></p><p><span>Please look at the copyright details in the main folder of the source.</span></p><p><span>The source is available via github:</span></p><p><a href='https://github.com/jankampherbeek/EnigmaSuite'><em><span>https://github.com/jankampherbeek/EnigmaSuite</span></em></a></p><h3 id='support'><span>Support</span></h3><p><span>No software is without errors. I heavily tested Enigma, but that does not guarantee the absence of errors.</span></p><p><span>If you encounter an error, you can contact me at the email address </span><em><a href='mailto:enigma@radixpro.org' target='_blank' class='url'>enigma@radixpro.org</a></em></p></div></div>
+</body>
+</html>

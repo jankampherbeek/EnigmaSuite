@@ -52,17 +52,6 @@ public class OobCounting: IOobCounting
     private CountOobResponse PerformCounts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
         return HandleCount(charts, request);
-        /*List <SimpleCount> allCounts = new();
-        foreach (var chartPoint in request.PointSelection.SelectedPoints)
-        {
-            allCounts.Add(new SimpleCount(chartPoint, 0));
-        }
-
-        foreach (var chart in charts)
-        {
-            HandleChart(chart, request.PointSelection, ref allCounts);
-        }*/
-
     }
     
     

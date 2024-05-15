@@ -19,7 +19,7 @@ public interface IHousesCalc
     /// <param name="houseSystemId">Id for a housesystem as used by the SE.</param>
     /// <param name="flags"/>
     /// <returns>The calculated positions for the houses and other mundane points.</returns>
-    public double[][] CalculateHouses(double julianDayUt, double obliquity, Location location, char houseSystemId, int flags);
+    public double[][] CalculateHouses(double julianDayUt, double obliquity, Location? location, char houseSystemId, int flags);
 }
 
 /// <inheritdoc/>
@@ -33,7 +33,7 @@ public sealed class HousesCalc : IHousesCalc
     }
 
     /// <inheritdoc/>
-    public double[][] CalculateHouses(double julianDayUt, double obliquity, Location location, char houseSystemId, int flags)
+    public double[][] CalculateHouses(double julianDayUt, double obliquity, Location? location, char houseSystemId, int flags)
     {
         return _seHousesFacade.RetrieveHouses(julianDayUt, flags, location.GeoLat, location.GeoLong, houseSystemId);
     }

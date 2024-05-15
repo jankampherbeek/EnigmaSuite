@@ -18,7 +18,7 @@ public record FullChartForResearchItem(string Id, Dictionary<ChartPoints, FullPo
 /// <param name="Location">Location with coordinates.</param>
 /// <param name="DateTime">Date and time.</param>
 /// <param name="Cal">Calendar.</param>
-public record DataForCalculationOfRange(string Id, Location Location, SimpleDateTime DateTime, Calendar Cal);
+public record DataForCalculationOfRange(string Id, Location? Location, SimpleDateTime DateTime, Calendar Cal);
 
 /// <summary>Request for the calculation of a range of charts.</summary>
 /// <param name="CalcData">Inputdata for a set of single charts.</param>

@@ -52,11 +52,17 @@
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                   ItemsSource="{Binding AvailableControlGroupTypes}" 
                   SelectedIndex="{Binding ControlGroupIndex, Mode=TwoWay}" />
-        <TextBox Grid.Row="5" Margin="6 0" VerticalAlignment="Center" 
-                 materialDesign:HintAssist.Hint="Multiplication control group (1..10)"
+        <ComboBox Grid.Row="5" Margin="6 0 " VerticalAlignment="Center"   
+                  IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="Multiplication for control group"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                  ItemsSource="{Binding ControlGroupMultiplications}" 
+                  SelectedIndex="{Binding CgMultiplicationIndex, Mode=TwoWay}" />
+        <!--TextBox Grid.Row="5" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Multiplication control group (1, 10, 100 or 1000)"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding MultiplicationValid}"                 
-                 Text="{Binding Multiplication, Mode = TwoWay}"/>
+                 Text="{Binding Multiplication, Mode = TwoWay}"/ -->
         <ComboBox Grid.Row="6" Margin="6 0 " VerticalAlignment="Center"   
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Data file to be used"

@@ -93,6 +93,8 @@ public partial class App
         serviceCollection.AddSingleton<ILocationConversion, LocationConversion>();
         serviceCollection.AddSingleton<ILongitudeEquivalentsForDataGridFactory, LongitudeEquivalentsForDataGridFactory>();
         serviceCollection.AddSingleton<IMidpointForDataGridFactory, MidpointForDataGridFactory>();
+        serviceCollection.AddTransient<OobCalModel>();
+        serviceCollection.AddSingleton<IOobEventForDataGridFactory, OobEventForDataGridFactory>();
         serviceCollection.AddSingleton<IParallelsForDataGridFactory, ParallelsForDataGridFactory>();
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();

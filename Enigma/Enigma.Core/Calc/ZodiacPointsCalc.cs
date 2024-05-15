@@ -14,7 +14,7 @@ namespace Enigma.Core.Calc;
 /// <summary>Calculate positions for specific zodiac points.</summary>
 public interface IZodiacPointsCalc
 {
-    public Dictionary<ChartPoints, FullPointPos> CalculateAllZodiacalPoints(CalculationPreferences prefs, double jdUt, double obliquity, Location location);
+    public Dictionary<ChartPoints, FullPointPos> CalculateAllZodiacalPoints(CalculationPreferences prefs, double jdUt, double obliquity, Location? location);
 }
 
 /// <inheritdoc/>
@@ -32,7 +32,7 @@ public sealed class ZodiacPointsCalc : IZodiacPointsCalc
     }
 
 
-    public Dictionary<ChartPoints, FullPointPos> CalculateAllZodiacalPoints(CalculationPreferences prefs, double jdUt, double obliquity, Location location)
+    public Dictionary<ChartPoints, FullPointPos> CalculateAllZodiacalPoints(CalculationPreferences prefs, double jdUt, double obliquity, Location? location)
     {
         Dictionary<ChartPoints, FullPointPos> allZodiacalPointsLots = new();
         List<ChartPoints> allPoints = prefs.ActualChartPoints;
@@ -48,7 +48,7 @@ public sealed class ZodiacPointsCalc : IZodiacPointsCalc
     }
 
 
-    private FullPointPos CalculateZodiacFixedPoint(double longitude, double jdUt, double obliquity, Location location)
+    private FullPointPos CalculateZodiacFixedPoint(double longitude, double jdUt, double obliquity, Location? location)
     {
         PosSpeed[] eclipticPosSpeed = { new(longitude, 0.0), new(0.0, 0.0), new(0.0, 0.0) };
         const double latitude = 0.0;
