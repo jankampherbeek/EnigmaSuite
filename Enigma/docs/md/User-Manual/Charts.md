@@ -208,7 +208,7 @@ You can sort the columns in the table *Occupied Midpoints* by clicking on the he
 
 ## Analysis: declination diagram
 
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\decl-diagram.png" alt="decl-diagram" style="zoom:50%;" />
+<img src="img\decl-diagram.png" alt="decl-diagram" style="zoom:50%;" />
 
 The declination diagram shows an overview of declinations and longitudes.  At the left and the right, the diagram shows the degrees in declination. In most cases the range will be from 30 to -30 (30 North to 30 South). If one of the points has a declination larger than 30 degrees, Enigma will extend that range. The zones at the bottom and the top, indicated by a darker color, indicate where a planet will be Out of Bounds. The outline of the oval form shows the typical declination of the Sun, and other points without latitude.  
 
@@ -218,7 +218,7 @@ Enigma shows the zodiac signs using vertical bars. Horizontal (declination) and 
 
 ## Analysis: declination strip
 
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\decl-strip.png" alt="decl-strip" style="zoom:50%;" />
+<img src="img\decl-strip.png" alt="decl-strip" style="zoom:50%;" />
 
 The declination strip shows the declinations, northern declinations at the left and southern declinations at the right. The Out of Bound region has a darker color blue. The diagram also shows the obliquity.
 

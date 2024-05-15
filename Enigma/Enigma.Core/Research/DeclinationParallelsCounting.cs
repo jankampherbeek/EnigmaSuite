@@ -52,7 +52,7 @@ public class DeclinationParallelsCounting: IDeclinationParallelsCounting
     private CountOfParallelsResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
         AstroConfig config = request.Config;
-
+        double orb = config.OrbParallels;
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
         int celPointSize = chartPointConfigSpecs.Count;
         int selectedCelPointSize = 0;
@@ -70,10 +70,6 @@ public class DeclinationParallelsCounting: IDeclinationParallelsCounting
             selectedCelPointSize = relevantChartPointPositions.Count;
             allPoints = new List<PositionedPoint>(posPoints.Count);
             allPoints.AddRange(posPoints);
-
-
-
-            double orb = 1.0;    // todo use orb from config
             IEnumerable<DefinedParallel> definedParallels =
                 _parallelsHandler.ParallelsForPosPoints(allPoints, chartPointConfigSpecs, orb);
             foreach (DefinedParallel defParallel in definedParallels)

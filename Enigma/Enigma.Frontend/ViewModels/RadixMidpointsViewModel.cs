@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -28,7 +28,6 @@ public partial class RadixMidpointsViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<PresentableMidpoint> _actualMidpoints;
     [ObservableProperty] private ObservableCollection<NotifyingPresentableMidpoints> _actualOccupiedMidpoints;
     [ObservableProperty] private string _description;
-    [ObservableProperty] private string _orbSize;
     private int _dialSize;
     private readonly RadixMidpointsModel _model;
     
@@ -37,8 +36,6 @@ public partial class RadixMidpointsViewModel: ObservableObject
         _dialSize = 360;
         _model = App.ServiceProvider.GetRequiredService<RadixMidpointsModel>();
         _description = _model.DescriptiveText();
-        const double actualOrb = 1.6;                             // TODO 0.3 retrieve Orb from settings
-        OrbSize = _model.DegreesToDms(actualOrb);
         Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>> midpoints = _model.RetrieveAndFormatMidpoints(_dialSize);
         ActualMidpoints = new ObservableCollection<PresentableMidpoint>(midpoints.Item1);
         ActualOccupiedMidpoints =  new ObservableCollection<NotifyingPresentableMidpoints>(midpoints.Item2.Select(midpoints => new NotifyingPresentableMidpoints(midpoints)));        

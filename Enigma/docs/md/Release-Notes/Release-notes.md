@@ -2,7 +2,7 @@
 
 
 
-## Release 0.4.0 beta - May 31, 2024
+## Release 0.4.0 beta - May 17, 2024
 
 Focus on declinations and improvements for data import.
 

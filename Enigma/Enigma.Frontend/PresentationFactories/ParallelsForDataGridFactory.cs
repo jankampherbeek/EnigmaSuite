@@ -42,7 +42,7 @@ public class ParallelsForDataGridFactory : IParallelsForDataGridFactory
     {
         char point1Glyph = GlyphsForChartPoints.FindGlyph(effParallel.Point1);
         char point2Glyph = GlyphsForChartPoints.FindGlyph(effParallel.Point2);
-        char typeGlyph = effParallel.OppParallel ? 'O' : 'P';
+        char typeGlyph = effParallel.OppParallel ? 'P' : 'O';
         string point1Text = effParallel.Point1.GetDetails().Text;
         string point2Text = effParallel.Point2.GetDetails().Text;
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effParallel.ActualOrb);

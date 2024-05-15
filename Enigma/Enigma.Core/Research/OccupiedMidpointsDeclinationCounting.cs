@@ -59,8 +59,8 @@ public sealed class OccupiedMidpointsDeclinationCounting: IOccupiedMidpointsDecl
     {
         List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
-        
-        const double orb = 1.0; // todo use orb from config
+        AstroConfig config = request.Config;
+        double orb = config.OrbMidpointsDecl;
 
         foreach (OccupiedMidpointStructure mpStructure in from calcResearchChart in charts 
                  let commonPositions = (

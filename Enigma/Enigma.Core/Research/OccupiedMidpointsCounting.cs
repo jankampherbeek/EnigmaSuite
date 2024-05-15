@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Net.Cache;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
@@ -53,7 +54,8 @@ public sealed class OccupiedMidpointsCounting : IOccupiedMidpointsCounting
         Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
 
         double dialSize = 360.0 / request.DivisionForDial;
-        const double orb = 1.6; // todo 0.3 use orb from config
+        AstroConfig config = request.Config;
+        double orb = config.BaseOrbMidpoints; 
 
         foreach (OccupiedMidpointStructure mpStructure in from calcResearchChart in charts 
                  let commonPositions = (

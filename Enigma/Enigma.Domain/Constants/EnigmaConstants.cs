@@ -189,7 +189,6 @@ public static class EnigmaConstants
     public const char NEW_LINE = '\n';
 
     // Locations
-    //public const string USER_MANUAL = "https://radixpro.com/usermanual/index.html";
     public const string USER_MANUAL = "https://radixpro.com/usermanual/0_4/UserManual.html";
     /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
     public const string CONFIG_DELTA_LOCATION = "c:/enigma_ar/enigmacfgdelta.json";
