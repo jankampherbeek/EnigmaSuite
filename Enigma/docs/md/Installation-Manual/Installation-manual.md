@@ -1,4 +1,4 @@
-# Installation manual Enigma Astrology Research 0.3
+# Installation manual Enigma Astrology Research 0.4
 
 
 ## Requirements
