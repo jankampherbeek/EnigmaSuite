@@ -39,7 +39,7 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         const double baseOrbAspects = 10.0;
         const double baseOrbMidpoints = 1.6;
         const double orbParallels = 1.0;
-        const double orbMidpointsDecl = 0.6;
+        const double orbMidpointsDecl = 0.2;
         const bool useCuspsForAspects = false;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             chartPointsSpecs, aspectSpecs, aspectColorSpecs,baseOrbAspects, baseOrbMidpoints, orbParallels, 
