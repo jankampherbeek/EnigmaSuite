@@ -26,7 +26,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="6,6,0, 6" VerticalAlignment="Bottom" 
                    HorizontalAlignment="Left"
-                   Text="Out of Bounds Calendar" Name="Header"
+                   Text="{Binding Header}" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <materialDesign:Card Grid.Row="1" Grid.Column="0" Padding="8" Margin="6"
                              Name="DescriptionBlock" UniformCornerRadius="6">
@@ -44,17 +44,37 @@
                   ItemsSource="{Binding OobEvents}"
                   SelectionUnit="FullRow">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Year}" Header="Year" 
-                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding Month}" Header="Month" 
-                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding Day}" Header="Day"
-                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding Year}" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.YearTxt, 
+                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>                
+                <DataGridTextColumn Binding="{Binding Month}" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.MonthTxt, 
+                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Day}" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.DayTxt, 
+                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>    
                 <DataGridTextColumn Header=" "/>
                 <DataGridTextColumn Binding="{Binding Point}" Header=""
                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-                <DataGridTextColumn Binding="{Binding TypeOfChange}" Header="Type of Change" 
-                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                <DataGridTextColumn Binding="{Binding TypeOfChange}" 
+                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.TypeOfChange, 
+                        RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>    
             </DataGrid.Columns>   
         </DataGrid>
         <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Right">

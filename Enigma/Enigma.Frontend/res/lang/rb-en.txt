@@ -20,6 +20,12 @@ ref_oobeventtype_startnorth = Start of OOB (North)
 ref_oobeventtype_startsouth = Start of OOB (South)
 
 ### shr
+# Buttons
+shr_btn_calculate = Calculate
+shr_btn_cancel = Cancel
+shr_btn_close = Close
+shr_btn_help = Help
+shr_btn-ok = OK
 
 ### test
 test-line-1 = First line for testing
@@ -28,3 +34,9 @@ test-line-2 = Second line for testing
 ### txt
 
 ### vw
+# OOB Calendar View
+vw_oobcal_day = Day
+vw_oobcal_month = Month
+vw_oobcal_title = Out of bounds calendar
+vw_oobcal_type_of_chance = Type of change
+vw_oobcal_year = Year
