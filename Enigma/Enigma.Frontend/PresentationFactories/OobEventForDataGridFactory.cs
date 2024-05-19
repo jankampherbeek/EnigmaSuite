@@ -28,6 +28,8 @@ public interface IOobEventForDataGridFactory
 public class OobEventForDataGridFactory: IOobEventForDataGridFactory
 {
 
+    private readonly Rosetta _rosetta = Rosetta.Instance;
+    
     public List<PresentableOobEvents> CreateOobEventForDataGrid(IEnumerable<OobCalEvent> oobEvents)
     {
         return oobEvents.Select(CreatePresOobEvent).ToList();
@@ -37,8 +39,8 @@ public class OobEventForDataGridFactory: IOobEventForDataGridFactory
     private PresentableOobEvents CreatePresOobEvent(OobCalEvent oobEvent)
     {
         char pointglyph = GlyphsForChartPoints.FindGlyph(oobEvent.Point);
-        string TypeOfChange = oobEvent.EventType.GetDetails().Text;
-        return new PresentableOobEvents(oobEvent.Year, oobEvent.Month, oobEvent.Day, pointglyph, TypeOfChange);
+        string typeOfChange = _rosetta.GetText(oobEvent.EventType.GetDetails().RbKey);
+        return new PresentableOobEvents(oobEvent.Year, oobEvent.Month, oobEvent.Day, pointglyph, typeOfChange);
     }
     
   

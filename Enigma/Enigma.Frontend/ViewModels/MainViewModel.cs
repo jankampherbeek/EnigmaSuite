@@ -12,6 +12,7 @@ using Enigma.Api;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
+using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -34,6 +35,7 @@ public partial class MainViewModel: ObservableObject
         HandleCheckNewVersion();
         HandleCheckDirForSettings();
         HandleCheckRdbms();
+        Rosetta.Instance.SetLanguage("en");
     }
 
     private static bool HandleCheckRdbms()

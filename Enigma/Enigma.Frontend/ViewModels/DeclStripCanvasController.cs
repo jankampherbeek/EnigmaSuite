@@ -99,8 +99,10 @@ public class DeclStripCanvasController
         Canvas.SetTop(backgroundForDiagram, 0.0);
         Rectangles.Add(backgroundForDiagram);
         
-        double heightForInBoundsRegion = (_obliquity / _metrics.DeclDegreesCount) * _metrics.BarHeight;
-        
+        //double heightForInBoundsRegion = (_obliquity / _metrics.DeclDegreesCount) * _metrics.BarHeight;
+        // temporary solution to fix wrong height of in bounds region
+        // TODO make a permanent solution
+        double heightForInBoundsRegion = ((_obliquity / _metrics.DeclDegreesCount) * _metrics.BarHeight) / 0.99;
         Rectangle backgroundForOobRegion = new()
         {
             Fill = Brushes.LightBlue,

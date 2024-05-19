@@ -1,0 +1,30 @@
+# Resource bundle English. 
+# Enigma selects on 'is'-sign to parse a line, so do not use it in comments.
+# Items are in alphabetically order.
+# Categories:
+# ref : references.
+# shr : common texts that are shared, like 'OK' and 'Help' for buttons.
+# test : to support unit testing.
+# txt : constructed texts and messages.
+# vw : views.
+
+### ref
+# Ref OOB event types
+ref_oobeventtype_endnorth = End of OOB (North)
+ref_oobeventtype_endsouth = End of OOB (South)
+ref_oobeventtype_initinboundsnorth = Initial In Bounds (North)
+ref_oobeventtype_initinboundssouth = Initial In Bounds (South)
+ref_oobeventtype_initoobnorth = Initial OOB (North)
+ref_oobeventtype_initoobsouth = Initial OOB (South)
+ref_oobeventtype_startnorth = Start of OOB (North)
+ref_oobeventtype_startsouth = Start of OOB (South)
+
+### shr
+
+### test
+test-line-1 = First line for testing
+test-line-2 = Second line for testing
+
+### txt
+
+### vw

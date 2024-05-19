@@ -22,8 +22,8 @@ public enum OobEventTypes
 
 /// <summary>Details for an OobEventtype.</summary>
 /// <param name="OobEventType">The Out of bounds event type.</param>
-/// <param name="Text">Descriptive text.</param>
-public record OobEventTypesDetails(OobEventTypes OobEventType, string Text);
+/// <param name="RbKey">Key for descriptive text in rsource bundle.</param>
+public record OobEventTypesDetails(OobEventTypes OobEventType, string RbKey);
 
 
 public static class OobEventtypesExtensions
@@ -35,18 +35,18 @@ public static class OobEventtypesExtensions
     {
         return oobEventType switch
         {
-            OobEventTypes.StartOobNorth => new OobEventTypesDetails(oobEventType, "Start of OOB (North)"),
-            OobEventTypes.StartOobSouth => new OobEventTypesDetails(oobEventType, "Start of OOB (South)"),
-            OobEventTypes.EndOobNorth => new OobEventTypesDetails(oobEventType, "End of OOB (North)"),
-            OobEventTypes.EndOobSouth => new OobEventTypesDetails(oobEventType, "End of OOB (South)"),
-            OobEventTypes.InitialOobNorth => new OobEventTypesDetails(oobEventType, "Initial OOB (North)"),
-            OobEventTypes.InitialOobSouth => new OobEventTypesDetails(oobEventType, "Initial OOB (South"),
-            OobEventTypes.InitialInBoundsNorth => new OobEventTypesDetails(oobEventType, "Initial In Bounds (North)"),
-            OobEventTypes.InitialInBoundsSouth => new OobEventTypesDetails(oobEventType, "Initial In Bounds (South)"),
+            OobEventTypes.StartOobNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_startnorth"),
+            OobEventTypes.StartOobSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_startsouth"),
+            OobEventTypes.EndOobNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_endnorth"),
+            OobEventTypes.EndOobSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_endsouth"),
+            OobEventTypes.InitialOobNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initoobnorth"),
+            OobEventTypes.InitialOobSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initoobsouth"),
+            OobEventTypes.InitialInBoundsNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initinboundsnorth"),
+            OobEventTypes.InitialInBoundsSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initinboundssouth"),
             _ => throw new ArgumentException("OobEventTypes unknown : " + oobEventType)
         };
     }
-
+    
     /// <summary>Retrieve details for items in the enum OobEventTypes.</summary>
     /// <returns>All details.</returns>
     public static List<OobEventTypesDetails> AllDetails()

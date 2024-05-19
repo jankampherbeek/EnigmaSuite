@@ -2,6 +2,12 @@
 
 
 
+## Release 0.4.1 beta - May 18, 2024
+
+Corrected the size for the OOB region in the Declinatrion Strip. Thanks to Wendy guy for the tip.
+
+
+
 ## Release 0.4.0 beta - May 17, 2024
 
 Focus on declinations and improvements for data import.

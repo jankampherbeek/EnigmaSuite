@@ -10,8 +10,8 @@
 	<StartupObject>Enigma.Frontend.Ui.App</StartupObject>
 	<AssemblyName>Enigma</AssemblyName>	
 	<LangVersion>11</LangVersion>	
-	<PackageId>Enigma_0_4_0</PackageId>	
-	<Version>0.4.0</Version>	
+	<PackageId>Enigma_0_5_0</PackageId>	
+	<Version>0.5.0</Version>	
 	<Title>Enigma Astrology Research</Title>	
   </PropertyGroup>
 
@@ -571,34 +571,34 @@
     <None Update="se\seplm132.se1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\UserManual.html">
+    <None Update="res\help\UserManual-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\CalcHouseComparison.html">
+    <None Update="res\help\CalcHouseComparison-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\CalcHeliacal.html">
+    <None Update="res\help\CalcHeliacal-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\CalculateMain.html">
+    <None Update="res\help\CalculateMain-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\CyclesMain.html">
+    <None Update="res\help\CyclesMain-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ConfigProg.html">
+    <None Update="res\help\ConfigProg-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ProgEventResults.html">
+    <None Update="res\help\ProgEventResults-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ProgEvent.html">
+    <None Update="res\help\ProgEvent-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ProgressiveMain.html">
+    <None Update="res\help\ProgressiveMain-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsImport.html">
+    <None Update="res\help\ChartsImport-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="se\se00005.se1">
@@ -607,22 +607,28 @@
     <None Update="se\se00010.se1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixParallels.html">
+    <None Update="res\help\RadixParallels-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixDeclMidpoints.html">
+    <None Update="res\help\RadixDeclMidpoints-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixLongitudeEquivalents.html">
+    <None Update="res\help\RadixLongitudeEquivalents-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\DeclDiagram.html">
+    <None Update="res\help\DeclDiagram-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\DeclStrip.html">
+    <None Update="res\help\DeclStrip-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\OobCal.html">
+    <None Update="res\help\OobCal-en.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\lang\rb-nl.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\lang\rb-en.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -837,46 +843,46 @@
     <None Update="Images\StartupCalculations.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\AboutResearch.html">
+    <None Update="res\help\AboutResearch-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\AboutCharts.html">
+    <None Update="res\help\AboutCharts-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsMain.html">
+    <None Update="res\help\ChartsMain-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixAspects.html">
+    <None Update="res\help\RadixAspects-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixDataInput.html">
+    <None Update="res\help\RadixDataInput-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixPositions.html">
+    <None Update="res\help\RadixPositions-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixSearch.html">
+    <None Update="res\help\RadixSearch-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ChartsWheel.html">
+    <None Update="res\help\ChartsWheel-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\Configuration.html">
+    <None Update="res\help\Configuration-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\css\enigma.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\DataFileOverview.html">
+    <None Update="res\help\DataFileOverview-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\DatafileImport.html">
+    <None Update="res\help\DatafileImport-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchHarmonicDetails.html">
+    <None Update="res\help\ResearchHarmonicDetails-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixHarmonics.html">
+    <None Update="res\help\RadixHarmonics-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\help\img\Charts-txt.png">
@@ -885,31 +891,31 @@
     <None Update="res\help\img\Research-txt.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\Main.html">
+    <None Update="res\help\Main-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchMidpointDetails.html">
+    <None Update="res\help\ResearchMidpointDetails-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\RadixMidpoints.html">
+    <None Update="res\help\RadixMidpoints-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ProjectInput.html">
+    <None Update="res\help\ProjectInput-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ProjectUsage.html">
+    <None Update="res\help\ProjectUsage-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchResult.html">
+    <None Update="res\help\ResearchResult-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchPointSelection.html">
+    <None Update="res\help\ResearchPointSelection-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\AppSettings.html">
+    <None Update="res\help\AppSettings-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\help\ResearchMain.html">
+    <None Update="res\help\ResearchMain-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="res\Texts.txt">

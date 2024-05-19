@@ -21,7 +21,8 @@ public class HelpModel
         string currentViewBase = DataVaultGeneral.Instance.CurrentViewBase;  // Name of file without the .html extension. File should be in the folder res/help/
 
         string currentDir = AppDomain.CurrentDomain.BaseDirectory;
-        string relativePath = currentDir + @"res\help\" + currentViewBase + ".html";    
+        string languageIndicator = "-en";       // TODO use actual selected language 
+        string relativePath = currentDir + @"res\help\" + currentViewBase + languageIndicator + ".html";    
         if (File.Exists(relativePath))
         {
             return new Uri(relativePath);

@@ -1,4 +1,4 @@
-# Enigma 0.4 - Configuration and settings
+# Enigma 0.5 - Configuration and settings
 
 [TOC]
 

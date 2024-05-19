@@ -10,7 +10,7 @@ namespace Enigma.Domain.Constants;
 public static class EnigmaConstants
 {
     // Version info
-    public const string ENIGMA_VERSION = "0.4.0";
+    public const string ENIGMA_VERSION = "0.4.1";
     // CommonSE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;

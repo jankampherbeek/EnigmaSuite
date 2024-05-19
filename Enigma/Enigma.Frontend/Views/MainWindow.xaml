@@ -36,7 +36,7 @@
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}" TextWrapping="Wrap"
                        Foreground="#2174B3" FontWeight="Bold" />
             
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" Text="Release 0.4.0" HorizontalAlignment="Center" 
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="6" Text="Release 0.5.0" HorizontalAlignment="Center" 
                        TextWrapping="Wrap" Foreground="#2174B3" FontWeight="Bold" />
             <WrapPanel Grid.Row="3" Orientation="Horizontal" Margin="6">
                 <Button Margin="6" Width="160" Height="160" Padding="0" Command="{Binding ChartsModuleCommand}" >

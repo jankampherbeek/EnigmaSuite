@@ -1,6 +1,6 @@
 # Developers Documentation Enigma Research
 
-## Version 0.4
+## Version 0.5
 
 ## Enigma Research - introduction
 
@@ -61,7 +61,7 @@ Unit testing is done with *NUnit* (NuGet NUnit). For mocking I replaced, startin
 
 #### Documentation
 
-I created the HTML version of the user manual with *Writ*erside from JetBrains. 
+I created all documentation in .md format, using Typora. The results have been exported to PDF and for the user manual also to HTML. 
 
 
 
@@ -111,8 +111,6 @@ Enigma does not yet support integration tests but I want to add that in a future
 
 Most classes are based on an interface. Interfaces and classes share the same file. 
 
-
-
 ### Using the Swiss Ephemeris
 
 For astronomical calculations, I use the Swiss Ephemeris (SE). The SE comprises a set of data and a 64-bits dll: *swedll64.dll*. I use the attribute [DllImport] to access the dll. All imports from the dll are defined in facades. 
@@ -124,7 +122,11 @@ the same dll from Delphi.
 All icons in Enigma, except the main icon that appears on the Windows screen, are from the icon set by Google, used for 
 Material Design. You can download the originals at https://fonts.google.com/icons .
 
+### i18N
 
+Enigma will support internationalization in the future, supporting both English and Dutch. In release 0.5 I started implementing functionality for i18N. 
+
+  
 
 ## Installing the code
 

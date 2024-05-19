@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Handlers;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -46,6 +47,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IRdbmsPrepApi, RdbmsPrepApi>();
         serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<IResearchPerformApi, ResearchPerformApi>();
+        serviceCollection.AddTransient<IResourceBundleApi, ResourceBundleApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
         serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
         serviceCollection.AddTransient<IReferencesApi, ReferencesApi>();

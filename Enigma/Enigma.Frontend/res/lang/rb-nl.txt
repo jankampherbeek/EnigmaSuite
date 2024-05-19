@@ -1,0 +1,30 @@
+# Resource bundle Dutch (nl). 
+# Enigma selects on 'is'-sign to parse a line, so do not use it in comments.
+# Items are in alphabetically order.
+# Categories:
+# ref : references.
+# shr : common texts that are shared, like 'OK' and 'Help' for buttons.
+# test : to support unit testing.
+# txt : constructed texts and messages.
+# vw : views.
+
+### ref
+# Ref OOB event types
+ref_oobeventtype_endnorth = Einde OOB (Noord)
+ref_oobeventtype_endsouth = Einde OOB (Zuid)
+ref_oobeventtype_initinboundsnorth = Radix In Bounds (Noord)
+ref_oobeventtype_initinboundssouth = Radix In Bounds (Zuid)
+ref_oobeventtype_initoobnorth = Radix OOB (Noord)
+ref_oobeventtype_initoobsouth = Radix OOB (Zuid)
+ref_oobeventtype_startnorth = Begin OOB (Noord)
+ref_oobeventtype_startsouth = Begin OOB (Zuid)
+
+### shr
+
+### test
+test-line-1 = Eerste test regel
+test-line-2 = Tweede test regel
+
+### txt
+
+### vw

@@ -105,6 +105,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
         serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();
+        serviceCollection.AddTransient<IResourceBundleHandler, TestResourceBundleHandler>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
