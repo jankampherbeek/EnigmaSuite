@@ -30,6 +30,7 @@ public interface IDescriptiveChartText
 
 public class DescriptiveChartText : IDescriptiveChartText
 {
+    private Rosetta _rosetta = Rosetta.Instance;
 
     public string ShortDescriptiveText(AstroConfig config, MetaData meta)
     {
@@ -64,19 +65,20 @@ public class DescriptiveChartText : IDescriptiveChartText
         return constructedText + "\n";
     }
 
-    private static string ConfigText(AstroConfig config)
+    private string ConfigText(AstroConfig config)
     {
         StringBuilder constructedText = new();
-        constructedText.Append(config.HouseSystem.GetDetails().Text);
+        //constructedText.Append(config.HouseSystem.GetDetails().RbKey);
+        constructedText.Append(_rosetta.GetText(config.HouseSystem.GetDetails().RbKey));
         constructedText.Append(' ');
         constructedText.Append(config.ZodiacType.GetDetails().Text);
         constructedText.Append(' ');
         if (config.ZodiacType == ZodiacTypes.Sidereal)
         {
-            constructedText.Append(config.Ayanamsha.GetDetails().Text);
+            constructedText.Append(_rosetta.GetText(config.Ayanamsha.GetDetails().RbKey));
             constructedText.Append(' ');
         }
-        constructedText.Append(config.ObserverPosition.GetDetails().Text);
+        constructedText.Append(_rosetta.GetText(config.ObserverPosition.GetDetails().RbKey));
         constructedText.Append(' ');
         constructedText.Append(config.ProjectionType.GetDetails().Text);
         return constructedText + "\n";

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,17 +8,17 @@ using Serilog;
 
 namespace Enigma.Domain.References;
 
-/// <summary>Observer positions, the center points for the calculation of positions of celestial bodies</summary>
+/// <summary>Observer positions, the center points for the calculation of positions of celestial bodies.</summary>
 public enum ObserverPositions
 {
     GeoCentric = 0, TopoCentric = 1   //, HelioCentric = 2
 }
 
-/// <summary>Details for an observer Position</summary>
-/// <param name="Position">The observer Position</param>
-/// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris</param>
-/// <param name="Text">Descriptive text</param>
-public record ObserverPositionDetails(ObserverPositions Position, int ValueForFlag, string Text);
+/// <summary>Details for an observer Position.</summary>
+/// <param name="Position">The observer Position.</param>
+/// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
+/// <param name="RbKey">Key to descriptive text for this observer position in resource bundle.</param>
+public record ObserverPositionDetails(ObserverPositions Position, int ValueForFlag, string RbKey);
 
 
 /// <summary>Extension class for the enum ObserverPositions</summary>
@@ -32,13 +32,11 @@ public static class ObserverPositionsExtensions
         return obsPos switch
         {
             // No specific flags for geocentric.
-            ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "Geocentric"),
-            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "Topocentric (with parallax)"),
-      //      ObserverPositions.HelioCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_HELCTR, "Heliocentric"),
+            ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "ref_observerpos_geocentric"),
+            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "ref_observerpos_topocentric"),
             _ => throw new ArgumentException("Observer Position unknown : " + obsPos)
         };
     }
-
 
     /// <summary>Retrieve details for items in the enum ObserverPositions</summary>
     /// <returns>All details</returns>

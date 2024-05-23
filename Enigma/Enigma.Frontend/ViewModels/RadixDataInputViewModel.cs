@@ -87,8 +87,11 @@ public partial class RadixDataInputViewModel: ObservableObject
         AllTimeZones = new ObservableCollection<string>(_model.AllTimeZones);
         _enumIndexForLmt = (int)TimeZones.Lmt;
     }
-    
 
+    private void DefineTexts()
+    {
+        
+    }
 
     
     [RelayCommand]

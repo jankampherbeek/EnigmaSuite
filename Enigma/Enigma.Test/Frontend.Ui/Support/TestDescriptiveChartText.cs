@@ -40,7 +40,14 @@ public class TestDescriptiveChartText
     private const string DATE_TEXT = "2023/02/22";
     private const string TIME_TEXT = "18:19:00";
     private const double JD_UT = 123456.789;
-
+    
+    
+    [SetUp]
+    public void SetUp()
+    {
+        Rosetta.Instance.SetLanguage("en");    
+    }
+    
     [Test]
     public void TestShortDescriptiveText()
     {

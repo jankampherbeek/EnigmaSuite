@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -12,11 +12,11 @@ public enum Calendars
 }
 
 
-/// <summary>Details for a calendar</summary>
-/// <param name="Calendar">The calendar</param>
-/// <param name="TextShort">Abbreviated descriptive text (one character)</param>
-/// <param name="TextFull">Descriptive text</param>
-public record CalendarDetails(Calendars Calendar, string TextShort, string TextFull);
+/// <summary>Details for a calendar.</summary>
+/// <param name="Calendar">The calendar,</param>
+/// <param name="RbKeyShort">Key for abbreviated description (one character) in resourcebundle.</param>
+/// <param name="RbKey">Key for description in resource bundle.</param>
+public record CalendarDetails(Calendars Calendar, string RbKeyShort, string RbKey);
 
 
 /// <summary>Extension class for enum Calendars.</summary>
@@ -29,8 +29,8 @@ public static class CalendarsExtensions
     {
         return cal switch
         {
-            Calendars.Gregorian => new CalendarDetails(cal, "G", "Gregorian"),
-            Calendars.Julian => new CalendarDetails(cal, "J", "Julian"),
+            Calendars.Gregorian => new CalendarDetails(cal, "G", "ref_calendar_gregorian"),
+            Calendars.Julian => new CalendarDetails(cal, "J", "ref_calendar_julian"),
             _ => throw new ArgumentException("Calendar unknown : " + cal)
         };
     }

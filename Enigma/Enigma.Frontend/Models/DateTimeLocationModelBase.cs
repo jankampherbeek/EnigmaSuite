@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.Support.Parsers;
 using Serilog;
 
@@ -9,7 +10,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Parent for models that handle date, time and/or location. </summary>
 public abstract class DateTimeLocationModelBase
 {
-    
+    private Rosetta _rosetta = Rosetta.Instance;
     private readonly IDateInputParser _dateInputParser;
     private readonly ITimeInputParser _timeInputParser;
     private readonly IGeoLongInputParser _geoLongInputParser;
@@ -121,7 +122,7 @@ public abstract class DateTimeLocationModelBase
         List<CalendarDetails> calDetails = CalendarsExtensions.AllDetails();
         foreach (var calDetail in calDetails)
         {
-            AllCalendars.Add(calDetail.TextFull);
+            AllCalendars.Add(_rosetta.GetText(calDetail.RbKey));
         }
     }
 

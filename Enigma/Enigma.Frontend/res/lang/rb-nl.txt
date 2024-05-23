@@ -9,6 +9,113 @@
 # vw : views.
 
 ### ref
+# Ref AspectTypes
+ref_aspecttype_binovile = Bi-noviel (80°)
+ref_aspecttype_biquintile = Bi-quintiel (144°)
+ref_aspecttype_biseptile = Bi-septiel (102°51′26″)
+ref_aspecttype_centile = Centiel (100°)
+ref_aspecttype_conjunction = Conjunctie (0°)
+ref_aspecttype_inconjunct = Inconjunct (150°)
+ref_aspecttype_novile = Noviel (40°)
+ref_aspecttype_opposition = Oppositie (180°)
+ref_aspecttype_quadranovile = Quadra-noviel (160°)
+ref_aspecttype_quintile = Quintiel (72°)
+ref_aspecttype_semiquintile = Half-quintiel (36°)
+ref_aspecttype_semisextile = Half-sextiel (30°)
+ref_aspecttype_semisquare = Half-vierkant (45°)
+ref_aspecttype_septile = Septiel (51°25′43″)
+ref_aspecttype_sesquiquadrate = Anderhalf-vierkant (135°)
+ref_aspecttype_sextile = Sextiel (60°)
+ref_aspecttype_square = Vierkant (90°)
+ref_aspecttype_triangle = Driehoek (120°)
+ref_aspecttype_tridecile = Tri-deciel (108°)
+ref_aspecttype_triseptile = Tri-septiel (154°17′09″)
+ref_aspecttype_undecile = Undeciel (33°)
+ref_aspecttype_vigintile = Vigintiel (18°)
+# Ref Ayanamshas
+ref_ayanamsha_aldebaran15tau = Aldebaran 15 Stier
+ref_ayanamsha_aryabhata = Aryabhata
+ref_ayanamsha_aryabhatameansun = Aryabhata Gemiddelde Zon
+ref_ayanamsha_aryabhata522 = Aryabhata 522
+ref_ayanamsha_bhasin = Bhasin
+ref_ayanamsha_britton = Britton
+ref_ayanamsha_b1950 = B1950
+ref_ayanamsha_deluce = DeLuce
+ref_ayanamsha_dhruva = Dhruva
+ref_ayanamsha_djwhalkhul = Djwhal Khul
+ref_ayanamsha_etapiscium = Eta Piscium
+ref_ayanamsha_fagan = Fagan
+ref_ayanamsha_galcentbrand = Galactisch Centrum (Brand)
+ref_ayanamsha_galcentiau1958 = Galactisch Centrum IAU 1958
+ref_ayanamsha_galcent0cap = Galactisch Centrum 0 Steenbok
+ref_ayanamsha_galcent0sag = Galactisch Centrum 0 Boogschutter
+ref_ayanamsha_galequator = Galactische Equator
+ref_ayanamsha_galequatormidmula = Galactische Equator Mid Mula
+ref_ayanamsha_hipparchus = Hipparchus
+ref_ayanamsha_huber = Huber
+ref_ayanamsha_j1900 = J1900 
+ref_ayanamsha_j2000 = J2000
+ref_ayanamsha_krishnamurti = Krishnamurti
+ref_ayanamsha_kugler1 = Kugler (versie 1)
+ref_ayanamsha_kugler2 = Kugler (versie 2)
+ref_ayanamsha_kugler3 = Kugler (versie 3)
+ref_ayanamsha_lahiri = Lahiri
+ref_ayanamsha_none = Geen (Tropische dierenriem)
+ref_ayanamsha_raman = Raman
+ref_ayanamsha_sassanian = Sassanian
+ref_ayanamsha_skydram = Skydram
+ref_ayanamsha_sscitra = Ss Citra
+ref_ayanamsha_ssrevati = Ss Revati
+ref_ayanamsha_suryasiddhanta = SuryaSiddhanta
+ref_ayanamsha_suryasiddhantameansun = SuryaSiddhanta Gemiddelde Zon
+ref_ayanamsha_truecitrapaksha = Ware Citrapaksha
+ref_ayanamsha_truemula = Ware Mula
+ref_ayanamsha_truepushya = Ware Pushya
+ref_ayanamsha_truerevati = Ware Revati
+ref_ayanamsha_ushashashi = UshaShashi
+ref_ayanamsha_yukteshwar = Yukteshwar
+# Ref calendars
+ref_calendar_gregorian = Gregoriaans
+ref_calendar_gregorian_short = G
+ref_calendar_julian = Juliaans
+ref_calendar_julian_short = J
+# Ref Control group types
+ref_controlgrouptype_standardshift = Standaard schuiven met locatie, datum en tijd
+ref_coordinate_altitude = Altitude
+ref_coordinate_azimuth = Azimuth
+ref_coordinate_declination = Declinatie
+ref_coordinate_latitude = Breedte
+ref_coordinate_longitude = Lengte
+ref_coordinate_rightascension = Rechte Klimming
+# Ref House systems
+ref_housesys_alcabitius = Alcabitius
+ref_housesys_apc = APC
+ref_housesys_axial = Axiale rotatie
+ref_housesys_campanus = Campanus
+ref_housesys_carter = Carter
+ref_housesys_equalaries = Gelijk vanaf 0 Ram
+ref_housesys_equalasc = Gelijk vanaf Ascendant
+ref_housesys_equalmc = Gelijk vanaf MC
+ref_housesys_gauquelin = Gauquelin
+ref_housesys_horizon = Horizon
+ref_housesys_koch = Koch
+ref_housesys_krusinski = Krusinski
+ref_housesys_morin = Morinus
+ref_housesys_nohouses = Geen
+ref_housesys_placidus = Placidus
+ref_housesys_porphyri = Porphyrius
+ref_housesys_pullensd = Pullen (sinusoidaal delta)
+ref_housesys_pullensr = Pullen (sinusoidaal ratio)
+ref_housesys_regiomontanus = Regiomontanus 
+ref_housesys_sripati = Sripati
+ref_housesys_sunshine = Zonlicht
+ref_housesys_sunshinetreindl = Zonlicht (Treindl)
+ref_housesys_topocentric = Topocentrisch
+ref_housesys_vehlow = Vehlow
+ref_housesys_wholesign = Teken huizen
+# Ref Observer Positions
+ref_observerpos_geocentric = Geocentrisch
+ref_observerpos_topocentric = Topocentrisch (met parallax)
 # Ref OOB event types
 ref_oobeventtype_endnorth = Einde OOB (Noord)
 ref_oobeventtype_endsouth = Einde OOB (Zuid)
@@ -18,6 +125,13 @@ ref_oobeventtype_initoobnorth = Radix OOB (Noord)
 ref_oobeventtype_initoobsouth = Radix OOB (Zuid)
 ref_oobeventtype_startnorth = Begin OOB (Noord)
 ref_oobeventtype_startsouth = Begin OOB (Zuid)
+# Ref Point Categories (PointCats) 
+ref_pointcat_angle = Mundane hoeken
+ref_pointcat_common = Planeten en vergelijkbare punten
+ref_pointcat_cusp = Cuspen
+ref_pointcat_fixstar = Vaste sterren
+ref_pointcat_lots = Arabische punten
+ref_pointcat_zodiac = Zodiacale punten
 
 ### shr
 # Buttons

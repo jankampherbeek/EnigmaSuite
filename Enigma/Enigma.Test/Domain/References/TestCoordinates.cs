@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,7 +20,7 @@ public class TestCoordinates
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Coordinate, Is.EqualTo(coordinate));
             Assert.That(details.CoordinateSystem, Is.EqualTo(CoordinateSystems.Equatorial));
-            Assert.That(details.Text, Is.EqualTo("Right Ascension"));
+            Assert.That(details.RbKey, Is.EqualTo("ref_coordinate_rightascension"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestCoordinates
         {
             CoordinateDetails details = coordinate.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
@@ -57,7 +57,7 @@ public class TestCoordinates
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));
-            Assert.That(allDetails[0].Text, Is.EqualTo("Longitude"));
+            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref_coordinate_longitude"));
             Assert.That(allDetails[3].CoordinateSystem, Is.EqualTo(CoordinateSystems.Equatorial));
         });
     }

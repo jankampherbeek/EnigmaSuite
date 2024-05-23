@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -22,7 +22,7 @@ public class TestObserverPositionSpecifications
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Position, Is.EqualTo(position));
             Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
-            Assert.That(details.Text, Is.EqualTo("Topocentric (with parallax)"));
+            Assert.That(details.RbKey, Is.EqualTo("ref_observerpos_topocentric"));
         });
     }
 
@@ -34,7 +34,7 @@ public class TestObserverPositionSpecifications
         {
              ObserverPositionDetails details = position.GetDetails();
              Assert.That(details, Is.Not.Null);
-             Assert.That(details.Text, Is.Not.Empty);
+             Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 

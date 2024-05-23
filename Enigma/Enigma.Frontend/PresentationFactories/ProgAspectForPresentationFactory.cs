@@ -26,6 +26,7 @@ public interface IProgAspectForPresentationFactory
 public sealed class ProgAspectForPresentationFactory: IProgAspectForPresentationFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
     public ProgAspectForPresentationFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
@@ -45,7 +46,7 @@ public sealed class ProgAspectForPresentationFactory: IProgAspectForPresentation
         char progGlyph = GlyphsForChartPoints.FindGlyph(definedAspect.Point1); 
         // TODO 0.3 replace GlyphsForChartPoints with a solution that uses the configuration.
         char radixGlyph = GlyphsForChartPoints.FindGlyph(definedAspect.Point2);
-        string aspectName = definedAspect.Aspect.Text;
+        string aspectName = _rosetta.GetText(definedAspect.Aspect.RbKey);
         string progName = definedAspect.Point1.GetDetails().Text;
         string radixName = definedAspect.Point2.GetDetails().Text;
         string orbText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(definedAspect.ActualOrb);

@@ -21,7 +21,7 @@ public class TestCalendars
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Calendar, Is.EqualTo(calendar));
-            Assert.That(details.TextShort, Is.EqualTo("J"));
+            Assert.That(details.RbKeyShort, Is.EqualTo("J"));
         });
     }
 
@@ -33,7 +33,7 @@ public class TestCalendars
         {
             CalendarDetails details = calendar.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.TextShort, Is.Not.Empty);
+            Assert.That(details.RbKeyShort, Is.Not.Empty);
         }
     }
 
@@ -46,7 +46,7 @@ public class TestCalendars
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].Calendar, Is.EqualTo(Calendars.Gregorian));
-            Assert.That(allDetails[1].TextShort, Is.EqualTo("J"));
+            Assert.That(allDetails[1].RbKeyShort, Is.EqualTo("J"));
         });
     }
 

@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -17,11 +17,11 @@ public enum Coordinates
 }
 
 
-/// <summary>Details for Coordinates</summary>
-/// <param name="Coordinate">Instance from enum Coordinates</param>
-/// <param name="CoordinateSystem">Coordinate system where this coordinate is a part of</param>
-/// <param name="Text">Descriptive text</param>
-public record CoordinateDetails(Coordinates Coordinate, CoordinateSystems CoordinateSystem, string Text);
+/// <summary>Details for Coordinates.</summary>
+/// <param name="Coordinate">Instance from enum Coordinates.</param>
+/// <param name="CoordinateSystem">Coordinate system where this coordinate is a part of.</param>
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record CoordinateDetails(Coordinates Coordinate, CoordinateSystems CoordinateSystem, string RbKey);
 
 
 /// <summary>Extension class for enum Coordinates</summary>
@@ -34,16 +34,17 @@ public static class CoordinatesExtensions
     {
         return coordinate switch
         {
-            Coordinates.Longitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "Longitude"),
-            Coordinates.Latitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "Latitude"),
-            Coordinates.RightAscension => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "Right Ascension"),
-            Coordinates.Declination => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "Declination"),
-            Coordinates.Azimuth => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "Azimuth"),
-            Coordinates.Altitude => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "Altitude"),
+            Coordinates.Longitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "ref_coordinate_longitude"),
+            Coordinates.Latitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "ref_coordinate_latitude"),
+            Coordinates.RightAscension => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "ref_coordinate_rightascension"),
+            Coordinates.Declination => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "ref_coordinate_declination"),
+            Coordinates.Azimuth => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "ref_coordinate_azimuth"),
+            Coordinates.Altitude => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "ref_coordinate_altitude"),
             _ => throw new ArgumentException("Coordinate unknown : " + coordinate)
         };
     }
-
+    
+    
     /// <summary>Retrieve details for items in the enum Coordinates</summary>
     /// <returns>All details</returns>
     public static List<CoordinateDetails> AllDetails()

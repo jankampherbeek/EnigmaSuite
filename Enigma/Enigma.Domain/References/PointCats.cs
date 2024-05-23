@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -26,8 +26,8 @@ public enum PointCats
 
 /// <summary>Details for the category of a point.</summary>
 /// <param name="Category">The category of the point.</param>
-/// <param name="Text">Descriptive text.</param>
-public record PointCatDetails(PointCats Category, string Text);
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record PointCatDetails(PointCats Category, string RbKey);
 
 
 
@@ -41,16 +41,17 @@ public static class PointCatsExtensions
     {
         return cat switch
         {
-            PointCats.Common => new PointCatDetails(cat, "Planets and comparable points"),
-            PointCats.Angle => new PointCatDetails(cat, "Mundane angles"),
-            PointCats.Cusp => new PointCatDetails(cat, "Cusps"),
-            PointCats.Zodiac => new PointCatDetails(cat, "Zodiac points"),
-            PointCats.Lots => new PointCatDetails(cat, "Arabic points"),
-            PointCats.FixStar => new PointCatDetails(cat, "Fix star"),
+            PointCats.Common => new PointCatDetails(cat, "ref_pointcat_common"),
+            PointCats.Angle => new PointCatDetails(cat, "ref_pointcat_angle"),
+            PointCats.Cusp => new PointCatDetails(cat, "ref_pointcat_cusp"),
+            PointCats.Zodiac => new PointCatDetails(cat, "ref_pointcat_zodiac"),
+            PointCats.Lots => new PointCatDetails(cat, "ref_pointcat_lots"),
+            PointCats.FixStar => new PointCatDetails(cat, "ref_pointcat_fixstar"),
             _ => throw new ArgumentException("PointCat unknown : " + cat)
         };
     }
 
+    
     /// <summary>Retrieve details for items in the enum PointCats.</summary>
     /// <returns>All details.</returns>
     public static List<PointCatDetails> AllDetails()

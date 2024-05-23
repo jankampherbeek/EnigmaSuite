@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,7 +20,7 @@ public class TestPointCats
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Category, Is.EqualTo(pointCat));
-            Assert.That(details.Text, Is.EqualTo("Planets and comparable points"));
+            Assert.That(details.RbKey, Is.EqualTo("ref_pointcat_common"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestPointCats
         {
             PointCatDetails details = category.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
@@ -58,7 +58,7 @@ public class TestPointCats
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));
-            Assert.That(allDetails[0].Text, Is.EqualTo("Planets and comparable points"));
+            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref_pointcat_common"));
             Assert.That(allDetails[1].Category, Is.EqualTo(PointCats.Angle));
         });
     }

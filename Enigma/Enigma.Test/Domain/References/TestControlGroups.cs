@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -22,7 +22,7 @@ public class TestControlGroupTypes
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.ControlGroupType, Is.EqualTo(controlGroupType));
-            Assert.That(details.Text, Is.EqualTo("Standard shifting of location, date, and time"));
+            Assert.That(details.RbKey, Is.EqualTo("ref_controlgrouptype_standardshift"));
         });
     }
 
@@ -33,7 +33,7 @@ public class TestControlGroupTypes
         {
             ControlGroupTypeDetails details = controlGroupType.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 

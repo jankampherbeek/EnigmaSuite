@@ -12,6 +12,7 @@ using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -20,7 +21,7 @@ namespace Enigma.Frontend.Ui.Models;
 public class ConfigurationModel
 {
     private readonly IConfigurationApi _configApi;
-
+    private static readonly Rosetta _rosetta = Rosetta.Instance; 
     public int HouseIndex { get; }
     public int ZodiacTypeIndex { get; }
     public int AyanamshaIndex { get; }
@@ -58,7 +59,7 @@ public class ConfigurationModel
 
     public static List<string> AllHouses()
     {
-        return HouseSystemsExtensions.AllDetails().Select(detail => detail.Text).ToList();
+        return HouseSystemsExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
     }
 
     public static List<string> AllZodiacTypes()
@@ -68,12 +69,12 @@ public class ConfigurationModel
 
     public static List<string> AllAyanamshas()
     {
-        return AyanamshaExtensions.AllDetails().Select(detail => detail.Text).ToList();
+        return AyanamshaExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
     }
 
     public static List<string> AllObserverPositions()
     {
-        return ObserverPositionsExtensions.AllDetails().Select(detail => detail.Text).ToList();
+        return ObserverPositionsExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
     }
 
     public static List<string> AllProjectionTypes()
@@ -103,7 +104,8 @@ public class ConfigurationModel
                 from configAspect in CurrentConfig.Instance.GetConfig().Aspects
                 where configAspect.Key == aspect.Aspect
                 select new GeneralAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, 
-                    aspect.Text, configAspect.Value.PercentageOrb, configAspect.Value.ShowInChart)).ToList();
+                    _rosetta.GetText(aspect.RbKey), configAspect.Value.PercentageOrb, 
+                    configAspect.Value.ShowInChart)).ToList();
     }
 
     public static List<AspectColor> AllAspectColors()
@@ -112,7 +114,8 @@ public class ConfigurationModel
         return (from aspect in AspectTypesExtensions.AllDetails()
             from configColorAspect in CurrentConfig.Instance.GetConfig().AspectColors
             where configColorAspect.Key == aspect.Aspect
-            select new AspectColor(aspect.Aspect, aspect.Glyph, aspect.Text, configColorAspect.Value)).ToList();
+            select new AspectColor(aspect.Aspect, aspect.Glyph, _rosetta.GetText(aspect.RbKey), 
+                configColorAspect.Value)).ToList();
     }
     
 }

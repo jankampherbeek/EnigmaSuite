@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -21,8 +21,8 @@ public enum Ayanamshas
 /// <summary>Details for an ayanamsha</summary>
 /// <param name="Ayanamsha"/>
 /// <param name="SeId">Id that identifies the ayanamsha for the Swiss Ephemeris</param>
-/// <param name="Text">Descriptive text</param>
-public record AyanamshaDetails(Ayanamshas Ayanamsha, int SeId, string Text);
+/// <param name="RbKey">Key for descriptive text in resource bundle.</param>
+public record AyanamshaDetails(Ayanamshas Ayanamsha, int SeId, string RbKey);
 
 /// <summary>Extension class for enum Ayanamshas.</summary>
 public static class AyanamshaExtensions
@@ -34,47 +34,47 @@ public static class AyanamshaExtensions
     {
         return ayanamsha switch
         {
-            Ayanamshas.None => new AyanamshaDetails(ayanamsha, -1, "None (Tropical zodiac)"),
-            Ayanamshas.Fagan => new AyanamshaDetails(ayanamsha, 0, "Fagan"),
-            Ayanamshas.Lahiri => new AyanamshaDetails(ayanamsha, 1, "Lahiri"),
-            Ayanamshas.DeLuce => new AyanamshaDetails(ayanamsha, 2, "DeLuce"),
-            Ayanamshas.Raman => new AyanamshaDetails(ayanamsha, 3, "Raman"),
-            Ayanamshas.UshaShashi => new AyanamshaDetails(ayanamsha, 4, "UshaShashi"),
-            Ayanamshas.Krishnamurti => new AyanamshaDetails(ayanamsha, 5, "Krishnamurti"),
-            Ayanamshas.DjwhalKhul => new AyanamshaDetails(ayanamsha, 6, "Djwhal Khul"),
-            Ayanamshas.Yukteshwar => new AyanamshaDetails(ayanamsha, 7, "Yukteshwar"),
-            Ayanamshas.Bhasin => new AyanamshaDetails(ayanamsha, 8, "Bhasin"),
-            Ayanamshas.Kugler1 => new AyanamshaDetails(ayanamsha, 9, "Kugler (version 1)"),
-            Ayanamshas.Kugler2 => new AyanamshaDetails(ayanamsha, 10, "Kugler (version 2)"),
-            Ayanamshas.Kugler3 => new AyanamshaDetails(ayanamsha, 11, "Kugler (version 3)"),
-            Ayanamshas.Huber => new AyanamshaDetails(ayanamsha, 12, "Huber"),
-            Ayanamshas.EtaPiscium => new AyanamshaDetails(ayanamsha, 13, "Eta Piscium"),
-            Ayanamshas.Aldebaran15Tau => new AyanamshaDetails(ayanamsha, 14, "Aldebaran 15 Taurus"),
-            Ayanamshas.Hipparchus => new AyanamshaDetails(ayanamsha, 15, "Hipparchus"),
-            Ayanamshas.Sassanian => new AyanamshaDetails(ayanamsha, 16, "Sassanian"),
-            Ayanamshas.GalactCtr0Sag => new AyanamshaDetails(ayanamsha, 17, "Galactic Center 0 Sag."),
-            Ayanamshas.J2000 => new AyanamshaDetails(ayanamsha, 18, "J2000"),
-            Ayanamshas.J1900 => new AyanamshaDetails(ayanamsha, 19, "J1900"),
-            Ayanamshas.B1950 => new AyanamshaDetails(ayanamsha, 20, "B1950"),
-            Ayanamshas.SuryaSiddhanta => new AyanamshaDetails(ayanamsha, 21, "SuryaSiddhanta"),
-            Ayanamshas.SuryaSiddhantaMeanSun => new AyanamshaDetails(ayanamsha, 22, "SuryaSiddhantavMean Sun"),
-            Ayanamshas.Aryabhata => new AyanamshaDetails(ayanamsha, 23, "Aryabhata"),
-            Ayanamshas.AryabhataMeanSun => new AyanamshaDetails(ayanamsha, 24, "Aryabhata Mean Sun"),
-            Ayanamshas.SsRevati => new AyanamshaDetails(ayanamsha, 25, "Ss Revati"),
-            Ayanamshas.SsCitra => new AyanamshaDetails(ayanamsha, 26, "Ss Citra"),
-            Ayanamshas.TrueCitra => new AyanamshaDetails(ayanamsha, 27, "Trye Citrapaksha"),
-            Ayanamshas.TrueRevati => new AyanamshaDetails(ayanamsha, 28, "True Revati"),
-            Ayanamshas.TruePushya => new AyanamshaDetails(ayanamsha, 29, "True Pushya"),
-            Ayanamshas.GalacticCtrBrand => new AyanamshaDetails(ayanamsha, 30, "Galactic Center (Brand)"),
-            Ayanamshas.GalacticEqIau1958 => new AyanamshaDetails(ayanamsha, 31, "Galactic Center IAU 1958"),
-            Ayanamshas.GalacticEq => new AyanamshaDetails(ayanamsha, 32, "Galactic Equator"),
-            Ayanamshas.GalacticEqMidMula => new AyanamshaDetails(ayanamsha, 33, "Galactic Equator Mid Mula"),
-            Ayanamshas.Skydram => new AyanamshaDetails(ayanamsha, 34, "Skydram"),
-            Ayanamshas.TrueMula => new AyanamshaDetails(ayanamsha, 35, "True Mula"),
-            Ayanamshas.Dhruva => new AyanamshaDetails(ayanamsha, 36, "Dhruva"),
-            Ayanamshas.Aryabhata522 => new AyanamshaDetails(ayanamsha, 37, "Aryabhata 522"),
-            Ayanamshas.Britton => new AyanamshaDetails(ayanamsha, 38, "Britton"),
-            Ayanamshas.GalacticCtrOCap => new AyanamshaDetails(ayanamsha, 39, "Galactic Center 0 Capricornus"),
+            Ayanamshas.None => new AyanamshaDetails(ayanamsha, -1, "ref_ayanamsha_none"),
+            Ayanamshas.Fagan => new AyanamshaDetails(ayanamsha, 0, "ref_ayanamsha_fagan"),
+            Ayanamshas.Lahiri => new AyanamshaDetails(ayanamsha, 1, "ref_ayanamsha_lahiri"),
+            Ayanamshas.DeLuce => new AyanamshaDetails(ayanamsha, 2, "ref_ayanamsha_deluce"),
+            Ayanamshas.Raman => new AyanamshaDetails(ayanamsha, 3, "ref_ayanamsha_raman"),
+            Ayanamshas.UshaShashi => new AyanamshaDetails(ayanamsha, 4, "ref_ayanamsha_ushashashi"),
+            Ayanamshas.Krishnamurti => new AyanamshaDetails(ayanamsha, 5, "ref_ayanamsha_krishnamurti"),
+            Ayanamshas.DjwhalKhul => new AyanamshaDetails(ayanamsha, 6, "ref_ayanamsha_djwhalkhul"),
+            Ayanamshas.Yukteshwar => new AyanamshaDetails(ayanamsha, 7, "ref_ayanamsha_yukteshwar"),
+            Ayanamshas.Bhasin => new AyanamshaDetails(ayanamsha, 8, "ref_ayanamsha_bhasin"),
+            Ayanamshas.Kugler1 => new AyanamshaDetails(ayanamsha, 9, "ref_ayanamsha_kugler1"),
+            Ayanamshas.Kugler2 => new AyanamshaDetails(ayanamsha, 10, "ref_ayanamsha_kugler2"),
+            Ayanamshas.Kugler3 => new AyanamshaDetails(ayanamsha, 11, "ref_ayanamsha_kugler3"),
+            Ayanamshas.Huber => new AyanamshaDetails(ayanamsha, 12, "ref_ayanamsha_huber"),
+            Ayanamshas.EtaPiscium => new AyanamshaDetails(ayanamsha, 13, "ref_ayanamsha_etapiscium"),
+            Ayanamshas.Aldebaran15Tau => new AyanamshaDetails(ayanamsha, 14, "ref_ayanamsha_aldebaran15tau"),
+            Ayanamshas.Hipparchus => new AyanamshaDetails(ayanamsha, 15, "ref_ayanamsha_hipparchus"),
+            Ayanamshas.Sassanian => new AyanamshaDetails(ayanamsha, 16, "ref_ayanamsha_sassanian"),
+            Ayanamshas.GalactCtr0Sag => new AyanamshaDetails(ayanamsha, 17, "ref_ayanamsha_galcent0sag"),
+            Ayanamshas.J2000 => new AyanamshaDetails(ayanamsha, 18, "ref_ayanamsha_j2000"),
+            Ayanamshas.J1900 => new AyanamshaDetails(ayanamsha, 19, "ref_ayanamsha_j1900"),
+            Ayanamshas.B1950 => new AyanamshaDetails(ayanamsha, 20, "ref_ayanamsha_b1950"),
+            Ayanamshas.SuryaSiddhanta => new AyanamshaDetails(ayanamsha, 21, "ref_ayanamsha_suryasiddhanta"),
+            Ayanamshas.SuryaSiddhantaMeanSun => new AyanamshaDetails(ayanamsha, 22, "ref_ayanamsha_suryasiddhantameansun"),
+            Ayanamshas.Aryabhata => new AyanamshaDetails(ayanamsha, 23, "ref_ayanamsha_aryabhata"),
+            Ayanamshas.AryabhataMeanSun => new AyanamshaDetails(ayanamsha, 24, "ref_ayanamsha_aryabhatameansun"),
+            Ayanamshas.SsRevati => new AyanamshaDetails(ayanamsha, 25, "ref_ayanamsha_ssrevati"),
+            Ayanamshas.SsCitra => new AyanamshaDetails(ayanamsha, 26, "ref_ayanamsha_sscitra"),
+            Ayanamshas.TrueCitra => new AyanamshaDetails(ayanamsha, 27, "ref_ayanamsha_truecitrapaksha"),
+            Ayanamshas.TrueRevati => new AyanamshaDetails(ayanamsha, 28, "ref_ayanamsha_truerevati"),
+            Ayanamshas.TruePushya => new AyanamshaDetails(ayanamsha, 29, "ref_ayanamsha_truepushya"),
+            Ayanamshas.GalacticCtrBrand => new AyanamshaDetails(ayanamsha, 30, "ref_ayanamsha_galcentbrand"),
+            Ayanamshas.GalacticEqIau1958 => new AyanamshaDetails(ayanamsha, 31, "ref_ayanamsha_galcentiau1958"),
+            Ayanamshas.GalacticEq => new AyanamshaDetails(ayanamsha, 32, "ref_ayanamsha_galequator"),
+            Ayanamshas.GalacticEqMidMula => new AyanamshaDetails(ayanamsha, 33, "ref_ayanamsha_galequatormidmula"),
+            Ayanamshas.Skydram => new AyanamshaDetails(ayanamsha, 34, "ref_ayanamsha_skydram"),
+            Ayanamshas.TrueMula => new AyanamshaDetails(ayanamsha, 35, "ref_ayanamsha_truemula"),
+            Ayanamshas.Dhruva => new AyanamshaDetails(ayanamsha, 36, "ref_ayanamsha_dhruva"),
+            Ayanamshas.Aryabhata522 => new AyanamshaDetails(ayanamsha, 37, "ref_ayanamsha_aryabhata522"),
+            Ayanamshas.Britton => new AyanamshaDetails(ayanamsha, 38, "ref_ayanamsha_britton"),
+            Ayanamshas.GalacticCtrOCap => new AyanamshaDetails(ayanamsha, 39, "ref_ayanamsha_galcent0cap"),
             _ => throw new ArgumentException("Ayanamsha unknown : " + ayanamsha)
         };
     }

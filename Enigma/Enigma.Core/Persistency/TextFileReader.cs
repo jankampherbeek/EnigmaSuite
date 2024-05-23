@@ -53,7 +53,7 @@ public sealed class TextFileReader : ITextFileReader
         List<string> csvLines = new();
         if (File.Exists(location))
         {
-            using StreamReader reader = new StreamReader(location, Encoding.GetEncoding("iso-8859-1"));
+            using StreamReader reader = new StreamReader(location, Encoding.GetEncoding("UTF-8"));
             while (reader.Peek() >= 0)
             {
                 csvLines.Add(reader.ReadLine());

@@ -55,7 +55,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
         StartDate = currentProject.CreationDate;
         DataSetName = currentProject.DataName;
         MultiplFactor = currentProject.ControlGroupMultiplication.ToString();
-        ControlGroupType = currentProject.ControlGroupType.GetDetails().Text;         
+        ControlGroupType = currentProject.ControlGroupType.GetDetails().RbKey;         
     }
  
     

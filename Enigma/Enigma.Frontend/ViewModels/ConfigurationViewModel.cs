@@ -101,8 +101,6 @@ public partial class ConfigurationViewModel: ObservableObject
         _orbMidpointsDeclValue = _model.OrbMidpointsDecl;
         OrbMidpointsDeclText = _orbMidpointsDeclValue.ToString((CultureInfo.InvariantCulture));
     }
-    
-
 
      private Dictionary<AspectTypes, AspectConfigSpecs> DefineAspectSpecs()
      {

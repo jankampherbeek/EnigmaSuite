@@ -22,7 +22,7 @@ public enum OobEventTypes
 
 /// <summary>Details for an OobEventtype.</summary>
 /// <param name="OobEventType">The Out of bounds event type.</param>
-/// <param name="RbKey">Key for descriptive text in rsource bundle.</param>
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
 public record OobEventTypesDetails(OobEventTypes OobEventType, string RbKey);
 
 

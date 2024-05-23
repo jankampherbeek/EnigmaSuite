@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -24,7 +24,7 @@ public class TestHouseSystemSpecifications
             Assert.That(details.NrOfCusps, Is.EqualTo(12));
             Assert.That(details.CounterClockWise, Is.True);
             Assert.That(details.QuadrantSystem, Is.True);
-            Assert.That(details.Text, Is.EqualTo("Regiomontanus"));
+            Assert.That(details.RbKey, Is.EqualTo("ref_housesys_regiomontanus"));
         });
     }
 
@@ -35,7 +35,7 @@ public class TestHouseSystemSpecifications
         {
             HouseSystemDetails details = system.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
@@ -69,7 +69,7 @@ public class TestHouseSystemSpecifications
             Assert.That(allDetails[8].NrOfCusps, Is.EqualTo(12));
             Assert.That(allDetails[19].NrOfCusps, Is.EqualTo(36));
             Assert.That(allDetails[12].SeId, Is.EqualTo('A'));
-            Assert.That(allDetails[3].Text, Is.EqualTo("Porphyri"));
+            Assert.That(allDetails[3].RbKey, Is.EqualTo("ref_housesys_porphyri"));
             Assert.That(allDetails[14].HouseSystem, Is.EqualTo(HouseSystems.EqualAries));
         });
     }

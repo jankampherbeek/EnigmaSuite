@@ -25,7 +25,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
 {
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
     private readonly GlyphsForChartPoints _glyphsForChartPoints;            // TODO replace GlyphsForChartPoints with a solution that uses the configuration.
-
+    private readonly Rosetta _rosetta = Rosetta.Instance;
     public AspectForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
     {
         _doubleToDmsConversions = doubleToDmsConversions;
@@ -45,7 +45,7 @@ public class AspectForDataGridFactory : IAspectForDataGridFactory
         char aspectGlyph = effAspect.Aspect.Glyph;
         string point1Text = effAspect.Point1.GetDetails().Text;
         string point2Text = effAspect.Point2.GetDetails().Text;
-        string aspectText = effAspect.Aspect.Text;
+        string aspectText = _rosetta.GetText(effAspect.Aspect.RbKey);
         string orb = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(effAspect.ActualOrb);
         double exactnessValue = 100 - (effAspect.ActualOrb / effAspect.MaxOrb * 100);
         return new PresentableAspects(point1Text, point1Glyph, aspectText, aspectGlyph, point2Text, point2Glyph, orb, exactnessValue);

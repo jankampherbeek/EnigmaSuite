@@ -32,7 +32,7 @@ public class TestAspectTypes
         {
             AspectDetails details = aspectType.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
