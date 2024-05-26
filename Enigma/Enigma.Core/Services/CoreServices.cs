@@ -110,6 +110,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
         serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
+        serviceCollection.AddTransient<ISpeculumCreator, SpeculumCreator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();

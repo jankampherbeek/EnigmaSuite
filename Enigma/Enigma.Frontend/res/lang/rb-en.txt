@@ -133,6 +133,18 @@ ref_pointcat_cusp = Cusps
 ref_pointcat_fixstar = Fix stars
 ref_pointcat_lots = Arabic points
 ref_pointcat_zodiac = Zodiac points
+# Ref Primary directions methods
+ref_primdirmethod_campanus = Campanus
+ref_primdirmethod_placidus = Placidus
+ref_primdirmethod_placiduspole = Placidus under the pole
+ref_primdirmethod_regiomontanus = Regiomontanus
+ref_primdirmethod_topocentric = Topocentric
+#Ref Primary Directions Time Keys
+ref_primdirtimekey_brahe = Brahe
+ref_primdirtimekey_naibod = Naibod
+ref_primdirtimekey_placidus = Placidus
+ref_primdirtimekey_ptolemy = Ptolemy
+ref_primdirtimekey_vandam = Van Dam
 
 ### shr
 # Buttons
@@ -141,6 +153,7 @@ shr_btn_cancel = Cancel
 shr_btn_close = Close
 shr_btn_help = Help
 shr_btn-ok = OK
+shr_btn_save = Save
 
 ### test
 test-line-1 = First line for testing

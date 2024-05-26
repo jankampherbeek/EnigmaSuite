@@ -52,7 +52,7 @@ public class TestProjectionTypes
 
 
     [Test]
-    public void TestAllPrfojectionTypeDetails()
+    public void TestAllProjectionTypeDetails()
     {
         List<ProjectionTypeDetails> allDetails = ProjectionTypesExtensions.AllDetails();
         Assert.Multiple(() =>

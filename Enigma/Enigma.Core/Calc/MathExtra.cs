@@ -154,9 +154,9 @@ public static class MathExtra
     }
 
     /// <summary>Checks if a point is in the eastern hemisphere.</summary>
-    /// <param name="raPoint">Rightn ascension of the point to check.</param>
+    /// <param name="raPoint">Right ascension of the point to check.</param>
     /// <param name="raMc">Right ascension of the MC.</param>
-    /// <returns>True if the point is in the eastern hemisphere, ot6herwise false.</returns>
+    /// <returns>True if the point is in the eastern hemisphere, otherwise false.</returns>
     public static bool IsEasternHemiSphere(double raPoint, double raMc)
     {
         double raDiff = raPoint - raMc;

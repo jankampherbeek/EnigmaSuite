@@ -81,6 +81,7 @@ ref_calendar_julian = Juliaans
 ref_calendar_julian_short = J
 # Ref Control group types
 ref_controlgrouptype_standardshift = Standaard schuiven met locatie, datum en tijd
+# Ref Coordinates
 ref_coordinate_altitude = Altitude
 ref_coordinate_azimuth = Azimuth
 ref_coordinate_declination = Declinatie
@@ -132,6 +133,18 @@ ref_pointcat_cusp = Cuspen
 ref_pointcat_fixstar = Vaste sterren
 ref_pointcat_lots = Arabische punten
 ref_pointcat_zodiac = Zodiacale punten
+# Ref Primary directions methods
+ref_primdirmethod_campanus = Campanus
+ref_primdirmethod_placidus = Placidus
+ref_primdirmethod_placiduspole = Placidus onder de pool
+ref_primdirmethod_regiomontanus = Regiomontanus
+ref_primdirmethod_topocentric = Topocentrisch
+#Ref Primary Directions Time Keys
+ref_primdirtimekey_brahe = Brahe
+ref_primdirtimekey_naibod = Naibod
+ref_primdirtimekey_placidus = Placidus
+ref_primdirtimekey_ptolemy = Ptolemeus
+ref_primdirtimekey_vandam = Van Dam
 
 ### shr
 # Buttons
@@ -140,6 +153,7 @@ shr_btn_cancel = Annuleer
 shr_btn_close = Sluit
 shr_btn_help = Help
 shr_btn-ok = OK
+shr_btn_save = Opslaan
 
 ### test
 test-line-1 = Eerste test regel
