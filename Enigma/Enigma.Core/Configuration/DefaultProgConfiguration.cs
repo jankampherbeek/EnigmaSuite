@@ -27,7 +27,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
 
     private static ConfigProg CombineDefaultDetails()
     {
-        return new ConfigProg(CreateConfigTransits(), CreateConfigSecDir(), CreateConfigSymDir());
+        return new ConfigProg(CreateConfigTransits(), CreateConfigSecDir(), CreateConfigSymDir(), CreateConfigPrimDir());
     }
 
     private static ConfigProgTransits CreateConfigTransits()
@@ -86,6 +86,39 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         progPoints[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Ascendant].Glyph);
         return new ConfigProgSymDir(orb, timeKey, progPoints);
     }
+
+    private static ConfigProgPrimDir CreateConfigPrimDir()
+    {
+        const PrimDirMethods method = PrimDirMethods.Placidus;
+        const PrimDirApproaches approach = PrimDirApproaches.Mundane;
+        const PrimDirTimeKeys timeKey = PrimDirTimeKeys.Naibod;
+        const PrimDirConverseOptions converseOption = PrimDirConverseOptions.None;
+        const PrimDirLatAspOptions latAspOptions = PrimDirLatAspOptions.Bianchini;
+        Dictionary<ChartPoints, ProgPointConfigSpecs> significators = CreateProgPoints();
+        Dictionary<ChartPoints, ProgPointConfigSpecs> promissors = CreateProgPoints();
+        Dictionary<AspectTypes, AspectConfigSpecs> aspects = CreateAspects();
+        significators[ChartPoints.Sun] = new ProgPointConfigSpecs(true, significators[ChartPoints.Sun].Glyph);
+        significators[ChartPoints.Moon] = new ProgPointConfigSpecs(true, significators[ChartPoints.Moon].Glyph);
+        significators[ChartPoints.Mercury] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mercury].Glyph);
+        significators[ChartPoints.Venus] = new ProgPointConfigSpecs(true, significators[ChartPoints.Venus].Glyph);
+        significators[ChartPoints.Mars] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mars].Glyph);
+        significators[ChartPoints.Jupiter] = new ProgPointConfigSpecs(true, significators[ChartPoints.Jupiter].Glyph);
+        significators[ChartPoints.Saturn] = new ProgPointConfigSpecs(true, significators[ChartPoints.Saturn].Glyph);
+        significators[ChartPoints.Mc] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mc].Glyph);
+        significators[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, significators[ChartPoints.Ascendant].Glyph);
+        promissors[ChartPoints.Sun] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Sun].Glyph);
+        promissors[ChartPoints.Moon] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Moon].Glyph);
+        promissors[ChartPoints.Mercury] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Mercury].Glyph);
+        promissors[ChartPoints.Venus] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Venus].Glyph);
+        promissors[ChartPoints.Mars] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Mars].Glyph);
+        promissors[ChartPoints.Jupiter] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Jupiter].Glyph);
+        promissors[ChartPoints.Saturn] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Saturn].Glyph);
+        aspects[AspectTypes.Conjunction] = new AspectConfigSpecs(true, aspects[AspectTypes.Conjunction].Glyph, 0, true);
+        aspects[AspectTypes.Opposition] = new AspectConfigSpecs(true, aspects[AspectTypes.Opposition].Glyph, 0, true);
+        return new ConfigProgPrimDir(method, approach, timeKey, converseOption, latAspOptions, significators, promissors,
+            aspects);
+    }
+    
     
 
     private static Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints()
@@ -149,4 +182,35 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         };
         return progPointConfigSpecs;
     }
+
+    private static Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects()
+    {
+        Dictionary<AspectTypes, AspectConfigSpecs> progPointAspectSpecs = new()
+        {
+            { AspectTypes.Conjunction, new AspectConfigSpecs(false, 'B', 0, false) },
+            { AspectTypes.Opposition, new AspectConfigSpecs(false, 'C', 0, false) },
+            { AspectTypes.Triangle, new AspectConfigSpecs(false, 'D', 0, false) },
+            { AspectTypes.Square, new AspectConfigSpecs(false, 'E', 0, false) },
+            { AspectTypes.Septile, new AspectConfigSpecs(false, 'N', 0, false) },
+            { AspectTypes.Sextile, new AspectConfigSpecs(false, 'F', 0, false) },
+            { AspectTypes.Quintile, new AspectConfigSpecs(false, 'K', 0, false) },
+            { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 0, false) },
+            { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 0, false) },
+            { AspectTypes.BiQuintile, new AspectConfigSpecs(false, 'L', 0, false) },
+            { AspectTypes.SemiQuintile, new AspectConfigSpecs(false, 'Ö', 0, false) },
+            { AspectTypes.Inconjunct, new AspectConfigSpecs(false, 'H', 0, false) },
+            { AspectTypes.SesquiQuadrate, new AspectConfigSpecs(false, 'J', 0, false) },
+            { AspectTypes.TriDecile, new AspectConfigSpecs(false, 'Õ', 0, false) },
+            { AspectTypes.BiSeptile, new AspectConfigSpecs(false, 'Ú', 0, false) },
+            { AspectTypes.TriSeptile, new AspectConfigSpecs(false, 'Û', 0, false) },
+            { AspectTypes.Novile, new AspectConfigSpecs(false, 'Ü', 0, false) },
+            { AspectTypes.BiNovile, new AspectConfigSpecs(false, 'Ñ', 0, false) },
+            { AspectTypes.QuadraNovile, new AspectConfigSpecs(false, '|', 0, false) },
+            { AspectTypes.Undecile, new AspectConfigSpecs(false, 'ç', 0, false) },
+            { AspectTypes.Centile, new AspectConfigSpecs(false, 'Ç', 0, false) },
+            { AspectTypes.Vigintile, new AspectConfigSpecs(false, 'Ï', 0, false) },
+        };
+        return progPointAspectSpecs;
+    }
+    
 }

@@ -23,7 +23,7 @@ public class TestAyanamshaSpecifications
         {
             Assert.That(details.Ayanamsha, Is.EqualTo(Ayanamshas.Huber));
             Assert.That(details.SeId, Is.EqualTo(12));
-            Assert.That(details.RbKey, Is.EqualTo("ref_ayanamsha_huber"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.ayanamsha.huber"));
         });
     }
 
@@ -64,7 +64,7 @@ public class TestAyanamshaSpecifications
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(41));
-            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref_ayanamsha_none"));
+            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.ayanamsha.none"));
             Assert.That(allDetails[10].SeId, Is.EqualTo(9));
             Assert.That(allDetails[20].Ayanamsha, Is.EqualTo(Ayanamshas.J1900));
         });

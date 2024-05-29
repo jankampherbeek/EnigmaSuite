@@ -30,17 +30,27 @@ public static class StandardTexts
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
     public const string ERROR_TIME = "Enter a correct value for the time.";
     
-    // Texts for the configureation
-    public const string CFG_HOUSE_SYSTEM = "HouseSystem";
+    // Texts for the configuration
     public const string CFG_AYANAMSHA = "Ayanamsha";
+    public const string CFG_BASE_ORB_ASPECTS = "BaseOrbAspects";
+    public const string CFG_BASE_ORB_MIDPOINTS = "BaseOrbMidpoints";
+    public const string CFG_HOUSE_SYSTEM = "HouseSystem";
     public const string CFG_OBSERVER_POSITION = "ObserverPosition";
-    public const string CFG_ZODIAC_TYPE = "ZodiacType";
-    public const string CFG_PROJECTION_TYPE = "ProjectionType";
     public const string CFG_ORB_METHOD = "OrbMethod";
     public const string CFG_ORB_PARALLELS = "OrbParallels";    
     public const string CFG_ORB_MIDPOINTS_DECL = "OrbDeclMidpoints"; 
-    public const string CFG_BASE_ORB_ASPECTS = "BaseOrbAspects";
-    public const string CFG_BASE_ORB_MIDPOINTS = "BaseOrbMidpoints";
+    public const string CFG_PD_APPROACH = "ApproachPrimaryDirections";
+    public const string CFG_PD_CONVERSE = "ConversePrimaryDirections";
+    public const string CFG_PD_LATASP = "LatitudeAspectsPrimaryDirections";
+    public const string CFG_PD_METHOD = "MethodPrimaryDirections";
+    public const string CFG_PD_TIMEKEY = "TimeKeyPrimaryDirections";
+    public const string CFG_PROJECTION_TYPE = "ProjectionType";
     public const string CFG_USE_CUSPS_FOR_ASPECTS = "UseCuspsForAspects";
+    public const string CFG_ZODIAC_TYPE = "ZodiacType";
+    
+    // Prefixes for configurations
+    public const string PCF_SIGNIFICATORS = "PDSG_";
+    public const string PCF_PROMISSORS = "PDPM_";
+    public const string PCF_PDASPECTS = "PDAT_";
 
 }

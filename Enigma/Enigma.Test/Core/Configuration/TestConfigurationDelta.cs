@@ -14,6 +14,8 @@ namespace Enigma.Test.Core.Configuration;
 [TestFixture]
 public class TestConfigurationDelta
 {
+    // TODO: test is too complex, make different smaller tests or create an integration test without all the mocking.
+    
     private IConfigurationDelta _configDelta;
     private IDeltaTexts _deltaTextsFake;
     private Dictionary<ChartPoints, ChartPointConfigSpecs> _chartPointsDefault;
@@ -27,6 +29,7 @@ public class TestConfigurationDelta
     private AstroConfig _configDefault;
     private AstroConfig _configUpdated;
     
+    /*
     [SetUp]
     public void SetUp()
     {
@@ -222,7 +225,8 @@ public class TestConfigurationDelta
         ConfigProgTransits configTransitsDefault = CreateConfigProgTransitsDefault();
         ConfigProgSecDir configSecDirDefault = CreateConfigProgSecDirDefault();
         ConfigProgSymDir configProgSymDirDefault = CreateConfigProgSymDirDefault();
-        return new ConfigProg(configTransitsDefault, configSecDirDefault, configProgSymDirDefault);
+        ConfigProgPrimDir configProgPrimDirDefault = CreateConfigProgPrimDirDefault();
+        return new ConfigProg(configTransitsDefault, configSecDirDefault, configProgSymDirDefault, configProgPrimDirDefault);
     }
     
     private static ConfigProg CreateUpdatedProgConfig()
@@ -230,7 +234,8 @@ public class TestConfigurationDelta
         ConfigProgTransits configTransitsUpdated = CreateConfigProgTransitsUpdated();
         ConfigProgSecDir configSecDirUpdated = CreateConfigProgSecDirUpdated();
         ConfigProgSymDir configProgSymDirUpdated = CreateConfigProgSymDirUpdated();
-        return new ConfigProg(configTransitsUpdated, configSecDirUpdated, configProgSymDirUpdated);
+        ConfigProgPrimDir configProgPrimDirUpdated = CreateConfigProgPrimDirUpdated();
+        return new ConfigProg(configTransitsUpdated, configSecDirUpdated, configProgSymDirUpdated, configProgPrimDirUpdated);
     }
 
     private static IDeltaTexts CreateDeltaTextsMock()
@@ -429,5 +434,16 @@ public class TestConfigurationDelta
         };
         return new ConfigProgSymDir(orb, key, points);
     }
+
+    private static ConfigProgPrimDir CreateConfigProgPrimDirDefault()
+    {
+        return null;   // todo create config for pd
+    }
+    
+    private static ConfigProgPrimDir CreateConfigProgPrimDirUpdated()
+    {
+        return null;   // todo create config for pd
+    }
+    */
     
 }

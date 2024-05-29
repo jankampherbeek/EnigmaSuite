@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,12 +13,24 @@ public sealed class ConfigProg
     public ConfigProgTransits ConfigTransits { get; }
     public ConfigProgSecDir ConfigSecDir { get; }
     public ConfigProgSymDir ConfigSymDir { get; }
+    public ConfigProgPrimDir ConfigPrimDir { get; }
+    
 
-    public ConfigProg(ConfigProgTransits configTransits, ConfigProgSecDir configSecDir, ConfigProgSymDir configSymDir)
+    /// <summary>Configuration for progressive techniques.</summary>
+    /// <param name="configTransits">Configuration for transits.</param>
+    /// <param name="configSecDir">Configuration for secondary directions.</param>
+    /// <param name="configSymDir">Configuration for symbolic directions.</param>
+    /// <param name="configPrimDir">Configuration for primary directions.</param>
+    public ConfigProg(
+        ConfigProgTransits configTransits, 
+        ConfigProgSecDir configSecDir, 
+        ConfigProgSymDir configSymDir,
+        ConfigProgPrimDir configPrimDir)
     {
         ConfigTransits = configTransits;
         ConfigSecDir = configSecDir;
         ConfigSymDir = configSymDir;
+        ConfigPrimDir = configPrimDir;
     }
     
 }
@@ -40,6 +52,29 @@ public record ConfigProgSecDir(double Orb, Dictionary<ChartPoints, ProgPointConf
 /// <param name="ProgPoints">Avaialable points.</param>
 public record ConfigProgSymDir(double Orb, SymbolicKeys TimeKey,
     Dictionary<ChartPoints, ProgPointConfigSpecs> ProgPoints);
+
+
+/// <summary>Configuration for primary directions.</summary>
+/// <param name="Method">Primary method (Placidus, Topocentric etc.).</param>
+/// <param name="Approach">Approach (in mundo, in zodiaco).</param>
+/// <param name="TimeKey">Time key.</param>
+/// <param name="ConverseOption">Options for converse dirctions.</param>
+/// <param name="LatAspOptions">Options for latitude for aspects.</param>
+/// <param name="Significators">Significators.</param>
+/// <param name="Promissors">Promissors.</param>
+/// <param name="Aspects">Aspects (orbs are ignored).</param>
+public record ConfigProgPrimDir(
+    PrimDirMethods Method,
+    PrimDirApproaches Approach,
+    PrimDirTimeKeys TimeKey,
+    PrimDirConverseOptions ConverseOption,
+    PrimDirLatAspOptions LatAspOptions,
+    Dictionary<ChartPoints, ProgPointConfigSpecs> Significators, 
+    Dictionary<ChartPoints, ProgPointConfigSpecs> Promissors,
+    Dictionary<AspectTypes, AspectConfigSpecs> Aspects
+    );
+
+
 
 /// <summary>Configuration details for a progressive point.</summary>
 /// <param name="IsUsed">True if selected, otherwise false.</param>

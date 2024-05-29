@@ -54,13 +54,13 @@ public partial class OobCalViewModel: ObservableObject
     private void DefineTexts()
     {
         Rosetta rosetta = Rosetta.Instance;
-        BtnClose = rosetta.GetText("shr_btn_close");
-        BtnHelp = rosetta.GetText("shr_btn_help");
-        Header = rosetta.GetText("vw_oobcal_title");
-        DayTxt = rosetta.GetText("vw_oobcal_day");
-        MonthTxt = rosetta.GetText("vw_oobcal_month");
-        YearTxt = rosetta.GetText("vw_oobcal_year");
-        TypeOfChange = rosetta.GetText("vw_oobcal_type_of_chance");
+        BtnClose = rosetta.GetText("shr.btn.close");
+        BtnHelp = rosetta.GetText("shr.btn.help");
+        Header = rosetta.GetText("vw.oobcal.title");
+        DayTxt = rosetta.GetText("vw.oobcal.day");
+        MonthTxt = rosetta.GetText("vw.oobcal.month");
+        YearTxt = rosetta.GetText("vw.oobcal.year");
+        TypeOfChange = rosetta.GetText("vw.oobcal.type_of_chance");
     }
 
 }

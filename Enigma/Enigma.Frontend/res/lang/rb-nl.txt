@@ -10,77 +10,77 @@
 
 ### ref
 # Ref AspectTypes
-ref_aspecttype_binovile = Bi-noviel (80°)
-ref_aspecttype_biquintile = Bi-quintiel (144°)
-ref_aspecttype_biseptile = Bi-septiel (102°51′26″)
-ref_aspecttype_centile = Centiel (100°)
-ref_aspecttype_conjunction = Conjunctie (0°)
-ref_aspecttype_inconjunct = Inconjunct (150°)
-ref_aspecttype_novile = Noviel (40°)
-ref_aspecttype_opposition = Oppositie (180°)
-ref_aspecttype_quadranovile = Quadra-noviel (160°)
-ref_aspecttype_quintile = Quintiel (72°)
-ref_aspecttype_semiquintile = Half-quintiel (36°)
-ref_aspecttype_semisextile = Half-sextiel (30°)
-ref_aspecttype_semisquare = Half-vierkant (45°)
-ref_aspecttype_septile = Septiel (51°25′43″)
-ref_aspecttype_sesquiquadrate = Anderhalf-vierkant (135°)
-ref_aspecttype_sextile = Sextiel (60°)
-ref_aspecttype_square = Vierkant (90°)
-ref_aspecttype_triangle = Driehoek (120°)
-ref_aspecttype_tridecile = Tri-deciel (108°)
-ref_aspecttype_triseptile = Tri-septiel (154°17′09″)
-ref_aspecttype_undecile = Undeciel (33°)
-ref_aspecttype_vigintile = Vigintiel (18°)
+ref.aspecttype.binovile = Bi-noviel (80°)
+ref.aspecttype.biquintile = Bi-quintiel (144°)
+ref.aspecttype.biseptile = Bi-septiel (102°51′26″)
+ref.aspecttype.centile = Centiel (100°)
+ref.aspecttype.conjunction = Conjunctie (0°)
+ref.aspecttype.inconjunct = Inconjunct (150°)
+ref.aspecttype.novile = Noviel (40°)
+ref.aspecttype.opposition = Oppositie (180°)
+ref.aspecttype.quadranovile = Quadra-noviel (160°)
+ref.aspecttype.quintile = Quintiel (72°)
+ref.aspecttype.semiquintile = Half-quintiel (36°)
+ref.aspecttype.semisextile = Half-sextiel (30°)
+ref.aspecttype.semisquare = Half-vierkant (45°)
+ref.aspecttype.septile = Septiel (51°25′43″)
+ref.aspecttype.sesquiquadrate = Anderhalf-vierkant (135°)
+ref.aspecttype.sextile = Sextiel (60°)
+ref.aspecttype.square = Vierkant (90°)
+ref.aspecttype.triangle = Driehoek (120°)
+ref.aspecttype.tridecile = Tri-deciel (108°)
+ref.aspecttype.triseptile = Tri-septiel (154°17′09″)
+ref.aspecttype.undecile = Undeciel (33°)
+ref.aspecttype.vigintile = Vigintiel (18°)
 # Ref Ayanamshas
-ref_ayanamsha_aldebaran15tau = Aldebaran 15 Stier
-ref_ayanamsha_aryabhata = Aryabhata
-ref_ayanamsha_aryabhatameansun = Aryabhata Gemiddelde Zon
-ref_ayanamsha_aryabhata522 = Aryabhata 522
-ref_ayanamsha_bhasin = Bhasin
-ref_ayanamsha_britton = Britton
-ref_ayanamsha_b1950 = B1950
-ref_ayanamsha_deluce = DeLuce
-ref_ayanamsha_dhruva = Dhruva
-ref_ayanamsha_djwhalkhul = Djwhal Khul
-ref_ayanamsha_etapiscium = Eta Piscium
-ref_ayanamsha_fagan = Fagan
-ref_ayanamsha_galcentbrand = Galactisch Centrum (Brand)
-ref_ayanamsha_galcentiau1958 = Galactisch Centrum IAU 1958
-ref_ayanamsha_galcent0cap = Galactisch Centrum 0 Steenbok
-ref_ayanamsha_galcent0sag = Galactisch Centrum 0 Boogschutter
-ref_ayanamsha_galequator = Galactische Equator
-ref_ayanamsha_galequatormidmula = Galactische Equator Mid Mula
-ref_ayanamsha_hipparchus = Hipparchus
-ref_ayanamsha_huber = Huber
-ref_ayanamsha_j1900 = J1900 
-ref_ayanamsha_j2000 = J2000
-ref_ayanamsha_krishnamurti = Krishnamurti
-ref_ayanamsha_kugler1 = Kugler (versie 1)
-ref_ayanamsha_kugler2 = Kugler (versie 2)
-ref_ayanamsha_kugler3 = Kugler (versie 3)
-ref_ayanamsha_lahiri = Lahiri
-ref_ayanamsha_none = Geen (Tropische dierenriem)
-ref_ayanamsha_raman = Raman
-ref_ayanamsha_sassanian = Sassanian
-ref_ayanamsha_skydram = Skydram
-ref_ayanamsha_sscitra = Ss Citra
-ref_ayanamsha_ssrevati = Ss Revati
-ref_ayanamsha_suryasiddhanta = SuryaSiddhanta
-ref_ayanamsha_suryasiddhantameansun = SuryaSiddhanta Gemiddelde Zon
-ref_ayanamsha_truecitrapaksha = Ware Citrapaksha
-ref_ayanamsha_truemula = Ware Mula
-ref_ayanamsha_truepushya = Ware Pushya
-ref_ayanamsha_truerevati = Ware Revati
-ref_ayanamsha_ushashashi = UshaShashi
-ref_ayanamsha_yukteshwar = Yukteshwar
+ref.ayanamsha.aldebaran15tau = Aldebaran 15 Stier
+ref.ayanamsha.aryabhata = Aryabhata
+ref.ayanamsha.aryabhatameansun = Aryabhata Gemiddelde Zon
+ref.ayanamsha.aryabhata522 = Aryabhata 522
+ref.ayanamsha.bhasin = Bhasin
+ref.ayanamsha.britton = Britton
+ref.ayanamsha.b1950 = B1950
+ref.ayanamsha.deluce = DeLuce
+ref.ayanamsha.dhruva = Dhruva
+ref.ayanamsha.djwhalkhul = Djwhal Khul
+ref.ayanamsha.etapiscium = Eta Piscium
+ref.ayanamsha.fagan = Fagan
+ref.ayanamsha.galcentbrand = Galactisch Centrum (Brand)
+ref.ayanamsha.galcentiau1958 = Galactisch Centrum IAU 1958
+ref.ayanamsha.galcent0cap = Galactisch Centrum 0 Steenbok
+ref.ayanamsha.galcent0sag = Galactisch Centrum 0 Boogschutter
+ref.ayanamsha.galequator = Galactische Equator
+ref.ayanamsha.galequatormidmula = Galactische Equator Mid Mula
+ref.ayanamsha.hipparchus = Hipparchus
+ref.ayanamsha.huber = Huber
+ref.ayanamsha.j1900 = J1900 
+ref.ayanamsha.j2000 = J2000
+ref.ayanamsha.krishnamurti = Krishnamurti
+ref.ayanamsha.kugler1 = Kugler (versie 1)
+ref.ayanamsha.kugler2 = Kugler (versie 2)
+ref.ayanamsha.kugler3 = Kugler (versie 3)
+ref.ayanamsha.lahiri = Lahiri
+ref.ayanamsha.none = Geen (Tropische dierenriem)
+ref.ayanamsha.raman = Raman
+ref.ayanamsha.sassanian = Sassanian
+ref.ayanamsha.skydram = Skydram
+ref.ayanamsha.sscitra = Ss Citra
+ref.ayanamsha.ssrevati = Ss Revati
+ref.ayanamsha.suryasiddhanta = SuryaSiddhanta
+ref.ayanamsha.suryasiddhantameansun = SuryaSiddhanta Gemiddelde Zon
+ref.ayanamsha.truecitrapaksha = Ware Citrapaksha
+ref.ayanamsha.truemula = Ware Mula
+ref.ayanamsha.truepushya = Ware Pushya
+ref.ayanamsha.truerevati = Ware Revati
+ref.ayanamsha.ushashashi = UshaShashi
+ref.ayanamsha.yukteshwar = Yukteshwar
 # Ref calendars
-ref_calendar_gregorian = Gregoriaans
-ref_calendar_gregorian_short = G
-ref_calendar_julian = Juliaans
-ref_calendar_julian_short = J
+ref.calendar.gregorian = Gregoriaans
+ref.calendar.gregorian_short = G
+ref.calendar.julian = Juliaans
+ref.calendar.julian_short = J
 # Ref Control group types
-ref_controlgrouptype_standardshift = Standaard schuiven met locatie, datum en tijd
+ref.controlgrouptype.standardshift = Standaard schuiven met locatie, datum en tijd
 # Ref Coordinates
 ref_coordinate_altitude = Altitude
 ref_coordinate_azimuth = Azimuth
@@ -133,6 +133,18 @@ ref_pointcat_cusp = Cuspen
 ref_pointcat_fixstar = Vaste sterren
 ref_pointcat_lots = Arabische punten
 ref_pointcat_zodiac = Zodiacale punten
+#Ref primary directions: approaches
+ref.primdirapproach.inmundo = Mundaan
+ref.primdirapproach.inzodiaco = Zodiakaal
+#Ref primary directions: options for converse directions
+ref.primdirconverseoption.modern = Gebruik converse, ooorspronkelijke methode
+ref.primdirconverseoption.none = Geen converse directies
+ref.primdirconverseoption.original = gebruik converse, moderne methode
+#Ref primary directions: options for latitude for aspects
+ref.primdirlataspoption.bianchini = Methode van Bianchini
+ref.primdirlataspoption.none = Geen breedte voor aspecten
+ref.primdirlataspoption.promissor = Breedte van promissors
+ref.primdirlataspoption.significator = Breedte van significator
 # Ref Primary directions methods
 ref_primdirmethod_campanus = Campanus
 ref_primdirmethod_placidus = Placidus
@@ -148,12 +160,12 @@ ref_primdirtimekey_vandam = Van Dam
 
 ### shr
 # Buttons
-shr_btn_calculate = Bereken
-shr_btn_cancel = Annuleer
-shr_btn_close = Sluit
-shr_btn_help = Help
-shr_btn-ok = OK
-shr_btn_save = Opslaan
+shr.btn.calculate = Bereken
+shr.btn.cancel = Annuleer
+shr.btn.close = Sluit
+shr.btn.help = Help
+shr_btn.ok = OK
+shr.btn.save = Opslaan
 
 ### test
 test-line-1 = Eerste test regel
@@ -163,8 +175,19 @@ test-line-2 = Tweede test regel
 
 ### vw
 # OOB Calendar View
-vw_oobcal_day = Dag
-vw_oobcal_month = Maand
-vw_oobcal_title = Out of bounds kalender
-vw_oobcal_type_of_chance = Soort verandering
-vw_oobcal_year = Jaar
+vw.oobcal.day = Dag
+vw.oobcal.month = Maand
+vw.oobcal.title = Out of bounds kalender
+vw.oobcal.type_of_chance = Soort verandering
+vw.oobcal.year = Jaar
+# Configuration progressive techniques
+vw.configprog.pd.aspects = Aspecten
+vw.configprog.pd.hintconverse = Converse
+vw.configprog.pd.hintlataspects = Breedte voor aspecten
+vw.configprog.pd.hintmethod = Methode
+vw.configprog.pd.hintmundanezodiac = Mundaan of zodiakaal
+vw.configprog.pd.hinttimekey = Tijd sleutel
+vw.configprog.pd.promissors = Promissors
+vw.configprog.pd.significators = Significators
+vw.configprog.pd.title = Primaire Directies
+vw.configprog.tabpd = Prim dir

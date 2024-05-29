@@ -157,6 +157,18 @@ public class ConfigurationDelta: IConfigurationDelta
             allDeltas.Add("SM_ORB", newConf.ConfigSymDir.Orb.ToString(CultureInfo.InvariantCulture));
         if (defConf.ConfigSymDir.TimeKey != newConf.ConfigSymDir.TimeKey) 
             allDeltas.Add("SM_KEY", ((int)newConf.ConfigSymDir.TimeKey).ToString());
+        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+            allDeltas.Add(StandardTexts.CFG_PD_METHOD,((int)newConf.ConfigPrimDir.Method).ToString());
+        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+            allDeltas.Add(StandardTexts.CFG_PD_APPROACH,((int)newConf.ConfigPrimDir.Approach).ToString());
+        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+            allDeltas.Add(StandardTexts.CFG_PD_TIMEKEY,((int)newConf.ConfigPrimDir.TimeKey).ToString());
+        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+            allDeltas.Add(StandardTexts.CFG_PD_CONVERSE,((int)newConf.ConfigPrimDir.ConverseOption).ToString());
+        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+            allDeltas.Add(StandardTexts.CFG_PD_LATASP,((int)newConf.ConfigPrimDir.LatAspOptions).ToString());
+        
+        
         foreach ((ChartPoints pointKey, ProgPointConfigSpecs? value) in defConf.ConfigTransits.ProgPoints)
         {
             bool found = newConf.ConfigTransits.ProgPoints.TryGetValue(pointKey, out ProgPointConfigSpecs? newPointValue);
@@ -180,6 +192,30 @@ public class ConfigurationDelta: IConfigurationDelta
             Tuple<string, string> deltaForPoint = _deltaTexts.CreateDeltaForProgChartPoint(
                 ProgresMethods.Symbolic, pointKey, newPointValue);
             allDeltas.Add(deltaForPoint.Item1, deltaForPoint.Item2);
+        }
+        
+        foreach ((ChartPoints pointKey, ProgPointConfigSpecs? value) in defConf.ConfigPrimDir.Significators)
+        {
+            bool found = newConf.ConfigPrimDir.Significators.TryGetValue(pointKey, out ProgPointConfigSpecs? newPointValue);
+            if (!found || newPointValue is null || newPointValue.Equals(value)) continue;
+            Tuple<string, string> deltaForSignificator = _deltaTexts.CreateDeltaForProgChartPoint(
+                ProgresMethods.Primary, pointKey, newPointValue);
+            allDeltas.Add(deltaForSignificator.Item1.Replace("XX", StandardTexts.PCF_SIGNIFICATORS), deltaForSignificator.Item2);
+        }
+        foreach ((ChartPoints pointKey, ProgPointConfigSpecs? value) in defConf.ConfigPrimDir.Promissors)
+        {
+            bool found = newConf.ConfigPrimDir.Promissors.TryGetValue(pointKey, out ProgPointConfigSpecs? newPointValue);
+            if (!found || newPointValue is null || newPointValue.Equals(value)) continue;
+            Tuple<string, string> deltaForSignificator = _deltaTexts.CreateDeltaForProgChartPoint(
+                ProgresMethods.Primary, pointKey, newPointValue);
+            allDeltas.Add(deltaForSignificator.Item1.Replace("XX",StandardTexts.PCF_PROMISSORS), deltaForSignificator.Item2);
+        }
+        foreach ((AspectTypes aspectKey, AspectConfigSpecs? value) in defConf.ConfigPrimDir.Aspects)
+        {
+            bool found = newConf.ConfigPrimDir.Aspects.TryGetValue(aspectKey, out AspectConfigSpecs? newAspectValue);
+            if (!found || newAspectValue is null || newAspectValue.Equals(value)) continue;
+            Tuple<string, string> deltaForAspect = _deltaTexts.CreateDeltaForAspect(aspectKey, newAspectValue);
+            allDeltas.Add(deltaForAspect.Item1, deltaForAspect.Item2.Replace("AT",StandardTexts.PCF_PDASPECTS));
         }
         return allDeltas;
     }
@@ -250,6 +286,7 @@ public class DeltaTexts: IDeltaTexts
             ProgresMethods.Transits => "TR_CP_",
             ProgresMethods.Secondary => "SC_CP_",
             ProgresMethods.Symbolic => "SM_CP_",
+            ProgresMethods.Primary => "PD_XX",          // to be replaced with SG or PM (for significator/promissor)
             _ => ""
         };
         StringBuilder keyTxt = new();

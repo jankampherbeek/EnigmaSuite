@@ -23,8 +23,7 @@ Enigma is Open Source. You can use it following the terms of the GNU General Pub
 
 Enigma uses libraries from the Swiss Ephemeris (SE). For the SE, additional conditions are in place. These conditions prohibit the use of the software unless it is open source and also free. If you want to charge money for a program using software from the SE, you need to buy a professional license from the SE. For more information, see the file *se_license.htm* in the source's root.
 
-To use software from Enigma in your program, that program has to be open source. If you include the libraries from the SE, it also has to be free. Buying a license from the SE does not change the condition from the GPL that the software should remain open source. If you want to create software that is not open source you can use the libraries from the SE but you will need to buy 
-a professional license, and you cannot use any code from Enigma.
+To use software from Enigma in your program, that program has to be open source. If you include the libraries from the SE, it also has to be free. Buying a license from the SE does not change the condition from the GPL that the software should remain open source. If you want to create software that is not open source you can use the libraries from the SE but you will need to buy a professional license, and you cannot use any code from Enigma.
 
 
 
@@ -185,7 +184,7 @@ Enigma implements a dedicated calculation of this oblique longitude.
 
 ### Black Lights Astrology: hypothetical planets
 
-Black Lights Astrology is a system based on the astrology of Dom Neroman, Jean Carteret, and George Bode. Jean Carteret introduced two hypothetical planets: Persephone and Vulcanus. There are no orbital elements known, only a short ephemeris with yearly positions. You can find this ephemeris in: *De Nieuwe Planeten* by George Bode (Dutch, Amsterdam, 1981). The ephemeris show a fully linear orbit for both hypothetical planets. Bode also mentions that an insecurity of 3 degrees should be taken into account. These bodies obviously do not adhere to the laws of Kepler and do not show retrogradation. That could be explained by considering them as non-material points.
+Black Lights Astrology is a system based on the astrology of Dom Neroman, Jean Carteret, and George Bode. Jean Carteret introduced two hypothetical planets: Persephone and Vulcanus. There are no orbital elements known, only a short ephemeris with yearly positions. You can find this ephemeris in: *De Nieuwe Planeten* by George Bode (Dutch, Amsterdam, 1981). The ephemeris shows a fully linear orbit for both hypothetical planets. Bode also mentions that an insecurity of 3 degrees should be taken into account. These bodies obviously do not adhere to the laws of Kepler and do not show retrogradation. That could be explained by considering them as non-material points.
 
 The calculation is based on the positions at Jan. 1, 1900 0:00 . For Persephone, that is 2°00' Scorpio, for Vulcanus 15°42' Aries.
 
@@ -195,7 +194,7 @@ The yearly speed for Persephone is exactly 1°00', for Vulcanus 0°33'. For the 
 
 The lunar Apogee, also called *Black Moon*, is an important point in Black Lights Astrology. Due to the extremely irregular orbit of the moon, the calculation is not straightforward. Several solutions for the calculation of a corrected position have been suggested. For an in depth discussion I highly recommend *Lilith und Priapus - die "Schalen" des Menschen* by Dieter Koch and Bernhard Rindgen (German, Frankfurt a.M., 2000) .
 
-The most popular calculation in Black Lights Astrology is the ony as described by Max Duval and calculated by Jean-Marc Font, for which an ephemeris is available: *Tables do Noeud Lunaire, de Lilith et du Soleil Noir* (French, Paris, 1988). Unfortunately, Duval refused to publish the astronomical theory and the formulas that he used. However, in 2021 Cees Jansen published an article *Over het Apogeum van de Maan en de Gecorrigeerde Zwarte Maan* (Dutch, in NVWOA Nieuwsbrief vol. 26, no. 5, may 2021. https://www.nvwoa.nl/nb/2021nb26-5.pdf ) in which he presented a formula that almost exactly replicates the positions as calculated by Duval and Font. In this formula, he uses the distance between Moon and the uncorrected lunar apogee to calculate a correction factor that is algebraically added to the uncorrected position. 
+The most popular calculation in Black Lights Astrology is the one as described by Max Duval and calculated by Jean-Marc Font, for which an ephemeris is available: *Tables do Noeud Lunaire, de Lilith et du Soleil Noir* (French, Paris, 1988). Unfortunately, Duval refused to publish the astronomical theory and the formulas that he used. However, in 2021 Cees Jansen published an article *Over het Apogeum van de Maan en de Gecorrigeerde Zwarte Maan* (Dutch, in NVWOA Nieuwsbrief vol. 26, no. 5, may 2021. https://www.nvwoa.nl/nb/2021nb26-5.pdf ) in which he presented a formula that almost exactly replicates the positions as calculated by Duval and Font. In this formula, he uses the distance between Moon and the uncorrected lunar apogee to calculate a correction factor that is algebraically added to the uncorrected position. 
 
 The formula is: 
 $$
@@ -213,8 +212,7 @@ $$
 
 To create a control group, you need to calculate random values. The standard *PRNG* (Pseudo Random Number Generator) does not supply true random numbers.
 
-Enigma uses *System.Security.Cryptography* from Microsoft, a *CSPRNG* (Cryptographic Secure Pseudo Random Number 
-Generator). More information: 
+Enigma uses *System.Security.Cryptography* from Microsoft, a *CSPRNG* (Cryptographic Secure Pseudo Random Number Generator). More information: 
 [https://download.microsoft.com/download/1/c/9/1c9813b8-089c-4fef-b2ad-ad80e79403ba/Whitepaper%20-%20The%20Windows%2010%20random%20number%20generation%20infrastructure.pdf](https://download.microsoft.com/download/1/c/9/1c9813b8-089c-4fef-b2ad-ad80e79403ba/Whitepaper - The Windows 10 random number generation infrastructure.pdf)
 
 This solution is sufficiently random to support the creation of control groups.
@@ -262,10 +260,11 @@ An example: **y||a||100||y**  means: use this point or aspect, the glyph is 'a',
 
 The configuration supports three progressive techniques, each with a specific prefix:
 * _transits_, the prefix is <strong>TR_</strong>.
-* secondary directions_, the prefix is <strong>SC_</strong>.
-* _symbolic directions_, with the prefix <strong>SM_</strong>
+* *secondary directions*, the prefix is <strong>SC</strong>_.
+* _symbolic directions_, with the prefix <strong>SM_</strong>.
+* *primary directions*, the prefix is **PD_**,
 
-For each progressive technique, there is one orb, and an enumeration of supported chart points. There is also a time-key for symbolic directions.
+For all progressive technique, except for primary directions, there is one orb, and an enumeration of supported chart points. There is also a time-key for symbolic directions.
 
 * _orb:_ add <strong>ORB</strong> after the prefix of the progressive technique.
 * _chart point:_, add the prefix for the chart point, as defined in the previous paragraph, to the prefix of the progressive technique.
@@ -287,6 +286,20 @@ A few lines with keys and values as an example
 
 The orb for transits is 1.5 degrees, and the key is 1 (one degree, refers to the enum SymbolicKeys).
 For transits, the Sun is used and the glyph is 'a'.
+
+Primary directions use a slightly different approach. There is no orb, and instead of plain chartpoints we use significators and promissors. For primary directions, you can also configure which aspects to use. 
+
+This results in the following porefixes:
+
+**PD_SG_** : significators,
+
+**PD_PM_** : promissors.
+
+**PD_AT_** : aspects
+
+
+
+
 
 
 
@@ -312,12 +325,15 @@ This image shows the most important tables, it ignores some simple lookup tables
 Enigma is in beta. There is plenty of room for improvement. I intend to finish the following points before declaring Enigma production ready.
 
 1. Adding more functionality. 
+
 2. More testing:
    1. Improving the coverage for unit tests.
    2. Adding integration tests.
+   
 3. Code:
-   1. Replacing several enums with lookup tables in the database.
-   2. Solving most warnings.
+   1. Solving most warnings.
+   
+      
 
 
 

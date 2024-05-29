@@ -151,11 +151,128 @@
                     </DataGrid>                      
                 </Grid>                    
             </TabItem>
+            <TabItem Header="{Binding PrimDirTab}">
+               <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="33*"/>
+                        <ColumnDefinition Width="33*"/>
+                    </Grid.ColumnDefinitions>                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="7*"/>
+                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="5*"/>
+                        <RowDefinition Height="40*"/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Name="SubHeaderPrimDir"  
+                               Text="{Binding PrimDirHeader}" 
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
+                    
+                    <ComboBox Grid.Column="0" Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="{Binding PrimDirHintMethod}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllPdMethods}" 
+                              SelectedIndex="{Binding PdMethodIndex, Mode=TwoWay}" />
+                        
+                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="{Binding PrimDirHintTimeKey}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllPdTimeKeys}" 
+                              SelectedIndex="{Binding PdTimeKeyIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Column="2" Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="{Binding PrimDirHintLatAspects}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllPdLatAspects}" 
+                              SelectedIndex="{Binding PdLatAspectsIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Column="0" Grid.Row="2" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="{Binding PrimDirHintApproach}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllPdApproaches}" 
+                              SelectedIndex="{Binding PdApproachIndex, Mode=TwoWay}" />
+                    <ComboBox Grid.Column="1" Grid.Row="2" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="{Binding PrimDirHintConverse}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllPdConverseOptions}" 
+                              SelectedIndex="{Binding PdConverseIndex, Mode=TwoWay}" />
+                    
+                    <TextBlock Grid.Column="0" Grid.Row="4" Margin="6" Text="{Binding PrimDirSignificators}" 
+                               Name="SubHeaderSignificators" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Grid.Row="4" Margin="6" Text="{Binding PrimDirPromissors}" 
+                               Name="SubHeaderPromissors" FontWeight="Bold" />
+                    <TextBlock Grid.Column="2" Grid.Row="4" Margin="6" Text="{Binding PrimDirAspects}" 
+                               Name="SubHeaderAspects" FontWeight="Bold" />
+                    
+                    <DataGrid Grid.Row="5" Grid.Column="0" Margin="6" 
+                              materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="None"
+                              ItemsSource="{Binding AllPdSignificators, Mode=TwoWay}"
+                              SelectionUnit="Cell">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
+                                                CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
+                                                CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>   
+                    </DataGrid> 
+                    <DataGrid Grid.Row="5" Grid.Column="1" Margin="6" 
+                              materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="None"
+                              ItemsSource="{Binding AllPdPromissors, Mode=TwoWay}"
+                              SelectionUnit="Cell">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
+                                                CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding PointName}" Header=" " 
+                                                CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>   
+                    </DataGrid> 
+                    <DataGrid Grid.Row="5" Grid.Column="2" Margin="6" 
+                              materialDesign:DataGridAssist.CellPadding="4 4 4 4"
+                              materialDesign:DataGridAssist.ColumnHeaderPadding="4 4 4 4"
+                              CanUserAddRows="False" CanUserSortColumns="False"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="None"
+                              ItemsSource="{Binding AllPdAspects, Mode=TwoWay}"
+                              SelectionUnit="Cell">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsUsed}"/>
+                            <DataGridTextColumn Binding="{Binding Glyph}" Header=" " 
+                                                CellStyle="{StaticResource GlyphColumnStyle}"
+                                                IsReadOnly="True"/>
+                            <DataGridTextColumn Binding="{Binding AspectName}" Header=" " 
+                                                CellStyle="{StaticResource NameColumnStyle}"
+                                                IsReadOnly="True"/>
+                        </DataGrid.Columns>   
+                    </DataGrid> 
+                </Grid>                    
+            </TabItem>
         </TabControl>
         <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Margin="6" Content="Help" HorizontalAlignment="Right" Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right"  Command="{Binding CloseCommand}"/>
-            <Button Margin="6" Content="Save" HorizontalAlignment="Right" 
+            <Button Margin="6" Content="{Binding BtnHelp}" HorizontalAlignment="Right" 
+                    Command="{Binding HelpCommand}"/>
+            <Button Margin="6" Content="{Binding BtnClose}" HorizontalAlignment="Right"  
+                    Command="{Binding CloseCommand}"/>
+            <Button Margin="6" Content="{Binding BtnSave}" HorizontalAlignment="Right" 
                     Command="{Binding SaveConfigCommand}"/>
         </StackPanel>
     </Grid>

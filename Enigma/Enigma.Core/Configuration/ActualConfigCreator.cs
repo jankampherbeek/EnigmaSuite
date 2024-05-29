@@ -31,7 +31,14 @@ public interface IActualConfigCreator
 /// <inheritdoc/>
 public class ActualConfigCreator: IActualConfigCreator
 {
-
+    private const string PREFIX_TRANSITS = "TR_";
+    private const string PREFIX_SECONDARY = "SC_";
+    private const string PREFIX_SYMBOLIC = "SM_";
+    private const string PREFIX_PRIMARY = "PD_";
+    private const string PREFIX_CHARTPOINTS = "CP_";
+    private const string PREFIX_ASPECTS = "AT_";
+    
+    
     /// <inheritdoc/>
     public AstroConfig CreateActualConfig(AstroConfig defaultConfig, Dictionary<string, string> deltas)
     {
@@ -87,16 +94,55 @@ public class ActualConfigCreator: IActualConfigCreator
                              double.TryParse(scOrbValue, out double scOrb) ? scOrb : defaultConfig.ConfigSecDir.Orb;
         double orbSymDir = deltas.TryGetValue("SM_ORB", out string? smOrbValue) && 
                              double.TryParse(smOrbValue, out double smOrb) ? smOrb : defaultConfig.ConfigSymDir.Orb;
-        Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
+        /*Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
             CreateProgPoints(ProgresMethods.Transits, defaultConfig.ConfigTransits.ProgPoints, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> secDirPoints = 
             CreateProgPoints(ProgresMethods.Secondary, defaultConfig.ConfigSecDir.ProgPoints, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> symDirPoints = 
-            CreateProgPoints(ProgresMethods.Symbolic, defaultConfig.ConfigSymDir.ProgPoints, deltas);
+            CreateProgPoints(ProgresMethods.Symbolic, defaultConfig.ConfigSymDir.ProgPoints, deltas);*/
+        Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
+            CreateProgPoints(PREFIX_TRANSITS, defaultConfig.ConfigTransits.ProgPoints, deltas);
+        Dictionary<ChartPoints, ProgPointConfigSpecs> secDirPoints = 
+            CreateProgPoints(PREFIX_SECONDARY, defaultConfig.ConfigSecDir.ProgPoints, deltas);
+        Dictionary<ChartPoints, ProgPointConfigSpecs> symDirPoints = 
+            CreateProgPoints(PREFIX_SYMBOLIC, defaultConfig.ConfigSymDir.ProgPoints, deltas);
         ConfigProgTransits cfgTransits = new(orbTransits, transitPoints);
         ConfigProgSecDir cfgSecDir = new(orbSecDir, secDirPoints);
         ConfigProgSymDir cfgSymDir = new( orbSymDir, symKey, symDirPoints);
-        return new ConfigProg(cfgTransits, cfgSecDir, cfgSymDir);
+
+        PrimDirMethods pdMethod =
+            deltas.TryGetValue(StandardTexts.CFG_PD_METHOD, out string? pdMethodIdTxt) &&
+            int.TryParse(pdMethodIdTxt, out int pdMethodId)
+                ? PrimDirMethodsExtensions.PrimDirMethodForIndex(pdMethodId)
+                : defaultConfig.ConfigPrimDir.Method;
+        PrimDirApproaches pdApproach =
+            deltas.TryGetValue(StandardTexts.CFG_PD_APPROACH, out string? pdApproachIdTxt) &&
+            int.TryParse(pdApproachIdTxt, out int pdApproachId)
+                ? PrimDirApproachesExtensions.PrimDirApproachForIndex(pdApproachId)
+                : defaultConfig.ConfigPrimDir.Approach;
+        PrimDirTimeKeys pdTimeKey =
+            deltas.TryGetValue(StandardTexts.CFG_PD_TIMEKEY, out string? pdTimeKeyIdTxt) &&
+            int.TryParse(pdTimeKeyIdTxt, out int pdTimeKeyId)
+                ? PrimDirTimeKeysExtensions.PrimDirTimeKeyForIndex(pdTimeKeyId)
+                : defaultConfig.ConfigPrimDir.TimeKey;
+        PrimDirConverseOptions pdConverse =
+            deltas.TryGetValue(StandardTexts.CFG_PD_CONVERSE, out string? pdConverseIdTxt) &&
+            int.TryParse(pdConverseIdTxt, out int pdConverseId)
+                ? PrimDirConverseOptionsExtensions.PrimDirConverseOptionForIndex(pdConverseId)
+                : defaultConfig.ConfigPrimDir.ConverseOption;
+        PrimDirLatAspOptions pdLatAsp =
+            deltas.TryGetValue(StandardTexts.CFG_PD_LATASP, out string? pdLatAspeIdTxt) &&
+            int.TryParse(pdLatAspeIdTxt, out int pdLatAspId)
+                ? PrimDirLatAspOptionsExtensions.PrimDirLatAspOptionForIndex(pdLatAspId)
+                : defaultConfig.ConfigPrimDir.LatAspOptions;
+        Dictionary<ChartPoints, ProgPointConfigSpecs> pdSignificators = 
+            CreateProgPoints(StandardTexts.PCF_SIGNIFICATORS, defaultConfig.ConfigPrimDir.Significators, deltas);
+        Dictionary<ChartPoints, ProgPointConfigSpecs> pdPromissors = 
+            CreateProgPoints(StandardTexts.PCF_PROMISSORS, defaultConfig.ConfigPrimDir.Promissors, deltas);
+        Dictionary<AspectTypes, AspectConfigSpecs> pdAspects =
+            CreateAspects(defaultConfig.ConfigPrimDir.Aspects, deltas);
+        ConfigProgPrimDir cfgPrimDir = new(pdMethod, pdApproach, pdTimeKey, pdConverse, pdLatAsp, pdSignificators, pdPromissors, pdAspects ) ;
+        return new ConfigProg(cfgTransits, cfgSecDir, cfgSymDir, cfgPrimDir);
     }
 
     private Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints(
@@ -106,7 +152,7 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<ChartPoints, ChartPointConfigSpecs> actualChartPoints = new();
         foreach (var defPoint in defChartPoints)
         {
-            string cpKey = "CP_" + (int)defPoint.Key;
+            string cpKey = PREFIX_CHARTPOINTS + (int)defPoint.Key;
             if (deltas.TryGetValue(cpKey, out string? newConfigTxt))
             {
                 try
@@ -129,22 +175,16 @@ public class ActualConfigCreator: IActualConfigCreator
     }
 
     private Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints(
-        ProgresMethods progresMethod,
+        //ProgresMethods progresMethod,
+        string prefix,
         Dictionary<ChartPoints, ProgPointConfigSpecs> defChartPoints, 
         IReadOnlyDictionary<string, string> deltas)
     {
         Dictionary<ChartPoints, ProgPointConfigSpecs> actualProgPoints = new();
         foreach (var defPoint in defChartPoints)
         {
-            string prefix = progresMethod switch
-            {
-                ProgresMethods.Transits => "TR_",
-                ProgresMethods.Secondary => "SC_",
-                ProgresMethods.Symbolic => "SM_",
-                _ => ""
-            };
-
-            string fullPrefix = prefix + "CP_" + (int)defPoint.Key;
+            string fullPrefix = prefix + PREFIX_CHARTPOINTS + (int)defPoint.Key;
+            if ((prefix == StandardTexts.PCF_SIGNIFICATORS) || (prefix == StandardTexts.PCF_PROMISSORS)) fullPrefix = prefix;            
             if (deltas.TryGetValue(fullPrefix, out string? newConfigTxt))
             {
                 try
@@ -174,7 +214,7 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<AspectTypes, AspectConfigSpecs> actualAspectTypes = new();
         foreach (var defAspect in defAspectTypes)
         {
-            string atKey = "AT_" + (int)defAspect.Key;
+            string atKey = PREFIX_ASPECTS + (int)defAspect.Key;
             if (deltas.TryGetValue(atKey, out string? newConfigTxt))
             {
                 try

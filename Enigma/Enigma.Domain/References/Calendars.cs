@@ -29,8 +29,8 @@ public static class CalendarsExtensions
     {
         return cal switch
         {
-            Calendars.Gregorian => new CalendarDetails(cal, "G", "ref_calendar_gregorian"),
-            Calendars.Julian => new CalendarDetails(cal, "J", "ref_calendar_julian"),
+            Calendars.Gregorian => new CalendarDetails(cal, "G", "ref.calendar.gregorian"),
+            Calendars.Julian => new CalendarDetails(cal, "J", "ref.calendar.julian"),
             _ => throw new ArgumentException("Calendar unknown : " + cal)
         };
     }

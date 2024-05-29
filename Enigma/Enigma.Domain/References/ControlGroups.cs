@@ -30,7 +30,7 @@ public static class ControlGroupTypesExtensions
     {
         return cgType switch
         {
-            ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref_controlgrouptype_standardshift"),
+            ControlGroupTypes.StandardShift => new ControlGroupTypeDetails(cgType, "ref.controlgrouptype.standardshift"),
       //      ControlGroupTypes.GroupMemberShift => new ControlGroupTypeDetails(cgType, "Shift members of groups"),   
             _ => throw new ArgumentException("Controlgroup type unknown : " + cgType)
         };

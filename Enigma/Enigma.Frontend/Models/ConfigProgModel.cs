@@ -9,17 +9,24 @@ using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.Support;
 
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for progressive configuration.</summary>
 public class ConfigProgModel
 {
+    private Rosetta _rosetta = Rosetta.Instance;
     private readonly IConfigurationApi _configApi;
     public double TransitOrb { get; }
     public double SecDirOrb { get; }
     public double SymDirOrb { get; }
     public int SymDirTimeKeyIndex { get; }
+    public int PdMethodIndex { get; }
+    public int PdApproachIndex { get; }
+    public int PdTimeKeyIndex { get; }
+    public int PdConverseIndex { get; }
+    public int PdLatAspectsIndex { get; }
 
     private ConfigProg _configProg;
     public ConfigProgModel(IConfigurationApi configApi)
@@ -30,6 +37,11 @@ public class ConfigProgModel
         SecDirOrb = _configProg.ConfigSecDir.Orb;
         SymDirOrb = _configProg.ConfigSymDir.Orb;
         SymDirTimeKeyIndex = (int)_configProg.ConfigSymDir.TimeKey;
+        PdMethodIndex = (int)_configProg.ConfigPrimDir.Method;
+        PdApproachIndex = (int)_configProg.ConfigPrimDir.Approach;
+        PdTimeKeyIndex = (int)_configProg.ConfigPrimDir.TimeKey;
+        PdConverseIndex = (int)_configProg.ConfigPrimDir.ConverseOption;
+        PdLatAspectsIndex = (int)_configProg.ConfigPrimDir.LatAspOptions;
     }
     
     public void UpdateConfig(ConfigProg configProg)
@@ -44,6 +56,31 @@ public class ConfigProgModel
         return SymbolicKeyExtensions.AllDetails().Select(key => key.Text).ToList();
     }
 
+    public List<string> AllPdMethods()
+    {
+        return PrimDirMethodsExtensions.AllDetails().Select(item => _rosetta.GetText(item.RbKey)).ToList();
+    }
+    
+    public List<string> AllPdTimeKeys()
+    {
+        return PrimDirTimeKeysExtensions.AllDetails().Select(item => _rosetta.GetText(item.RbKey)).ToList();
+    }
+    
+    public List<string> AllPdLatAspects()
+    {
+        return PrimDirLatAspOptionsExtensions.AllDetails().Select(item => _rosetta.GetText(item.RbKey)).ToList();
+    }
+    
+    public List<string> AllPdConverseOptions()
+    {
+        return PrimDirConverseOptionsExtensions.AllDetails().Select(item => _rosetta.GetText(item.RbKey)).ToList();
+    }
+
+    public List<string> AllPdApproaches()
+    {
+        return PrimDirApproachesExtensions.AllDetails().Select(item => _rosetta.GetText(item.RbKey)).ToList();
+    }
+    
     public static List<ProgPoint> AllTransitPoints()
     {
         return (from point in PointsExtensions.AllDetails() 
@@ -68,6 +105,32 @@ public class ConfigProgModel
             where configPoint.Key == point.Point 
             select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
     }
+    
+    public List<ProgPoint> AllSignificators()
+    {
+        return (from point in PointsExtensions.AllDetails() 
+            from configPoint in _configProg.ConfigPrimDir.Significators 
+            where configPoint.Key == point.Point 
+            select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
+    }
+    
+    public List<ProgPoint> AllPromissors()
+    {
+        return (from point in PointsExtensions.AllDetails() 
+            from configPoint in _configProg.ConfigPrimDir.Promissors 
+            where configPoint.Key == point.Point 
+            select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
+    }
+
+    public List<ProgAspect> AllAspects()
+    {
+        return (from aspect in AspectTypesExtensions.AllDetails()
+                from configAspect in _configProg.ConfigPrimDir.Aspects
+                where configAspect.Key == aspect.Aspect
+                select new ProgAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, 
+                    _rosetta.GetText(aspect.RbKey))).ToList();   
+    }
+    
 }
 
     
@@ -87,4 +150,22 @@ public class ProgPoint
         PointName = pointName;
     }
 
+}
+
+public class ProgAspect
+{
+    public AspectTypes Aspect { get; }
+    public bool IsUsed { get; set; }
+    public char Glyph { get; set; }
+    public string AspectName { get; set; }
+
+    public ProgAspect(AspectTypes aspect, bool isUsed, char glyph, string aspectName)
+    {
+        Aspect = aspect;
+        IsUsed = isUsed;
+        Glyph = glyph;
+        AspectName = aspectName;
+    }
+    
+    
 }

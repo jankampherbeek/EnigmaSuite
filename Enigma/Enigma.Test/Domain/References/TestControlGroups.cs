@@ -22,7 +22,7 @@ public class TestControlGroupTypes
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.ControlGroupType, Is.EqualTo(controlGroupType));
-            Assert.That(details.RbKey, Is.EqualTo("ref_controlgrouptype_standardshift"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.controlgrouptype.standardshift"));
         });
     }
 

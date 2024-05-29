@@ -17,6 +17,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -25,6 +26,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 public partial class ConfigProgViewModel:ObservableObject
 {
+    private Rosetta _rosetta = Rosetta.Instance; 
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.CONFIG_PROG;
     private const string PROG_CONFIG_SAVED = "The configuration for progressions was successfully saved.";    
     [NotifyPropertyChangedFor(nameof(OrbSecDirValid))]
@@ -33,11 +35,42 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private string _orbSymDirText;
     [NotifyPropertyChangedFor(nameof(OrbTransitValid))]
     [ObservableProperty] private string _orbTransitText;
+
     [ObservableProperty] private ObservableCollection<string> _allSymDirKeys;
+    [ObservableProperty] private ObservableCollection<string> _allPdMethods;
+    [ObservableProperty] private ObservableCollection<string> _allPdTimeKeys;
+    [ObservableProperty] private ObservableCollection<string> _allPdLatAspects;
+    [ObservableProperty] private ObservableCollection<string> _allPdApproaches;
+    [ObservableProperty] private ObservableCollection<string> _allPdConverseOptions;
+    
     [ObservableProperty] private ObservableCollection<ProgPoint> _allTransitPoints;
     [ObservableProperty] private ObservableCollection<ProgPoint> _allSecDirPoints;
     [ObservableProperty] private ObservableCollection<ProgPoint> _allSymDirPoints;
+    [ObservableProperty] private ObservableCollection<ProgPoint> _allPdSignificators;
+    [ObservableProperty] private ObservableCollection<ProgPoint> _allPdPromissors;
+    [ObservableProperty] private ObservableCollection<ProgAspect> _allPdAspects;
     [ObservableProperty] private int _symDirTimeKeyIndex;
+    
+    [ObservableProperty] private int _pdMethodIndex;
+    [ObservableProperty] private int _pdTimeKeyIndex;
+    [ObservableProperty] private int _pdApproachIndex;
+    [ObservableProperty] private int _pdConverseIndex;
+    [ObservableProperty] private int _pdLatAspectsIndex;
+    
+    [ObservableProperty] private string _primDirHeader;
+    [ObservableProperty] private string _btnHelp;
+    [ObservableProperty] private string _btnClose;
+    [ObservableProperty] private string _btnSave;
+    [ObservableProperty] private string _primDirTab;
+    [ObservableProperty] private string _primDirHintMethod;
+    [ObservableProperty] private string _primDirHintTimeKey;
+    [ObservableProperty] private string _primDirHintLatAspects;
+    [ObservableProperty] private string _primDirHintApproach;
+    [ObservableProperty] private string _primDirHintConverse;
+    [ObservableProperty] private string _primDirSignificators;
+    [ObservableProperty] private string _primDirPromissors;
+    [ObservableProperty] private string _primDirAspects;
+    
     
     private double _orbSecDirValue;
     private double _orbSymDirValue;
@@ -53,10 +86,19 @@ public partial class ConfigProgViewModel:ObservableObject
     
     public ConfigProgViewModel()
     {
+        DefineTexts();
+        AllPdMethods = new ObservableCollection<string>(_model.AllPdMethods());
+        AllPdConverseOptions = new ObservableCollection<string>(_model.AllPdConverseOptions());
+        AllPdLatAspects = new ObservableCollection<string>(_model.AllPdLatAspects());
+        AllPdTimeKeys = new ObservableCollection<string>(_model.AllPdTimeKeys());
+        AllPdApproaches = new ObservableCollection<string>(_model.AllPdApproaches());
         AllSymDirKeys =  new ObservableCollection<string>(ConfigProgModel.AllSymDirKeys());
         AllTransitPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllTransitPoints());
         AllSecDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSecDirPoints());
         AllSymDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSymDirPoints());
+        AllPdSignificators = new ObservableCollection<ProgPoint>(_model.AllSignificators());
+        AllPdPromissors = new ObservableCollection<ProgPoint>(_model.AllPromissors());
+        AllPdAspects = new ObservableCollection<ProgAspect>(_model.AllAspects());
         SymDirTimeKeyIndex = _model.SymDirTimeKeyIndex;
         _orbSecDirValue = _model.SecDirOrb;
         _orbSymDirValue = _model.SymDirOrb;
@@ -64,7 +106,32 @@ public partial class ConfigProgViewModel:ObservableObject
         OrbSecDirText = _orbSecDirValue.ToString((CultureInfo.InvariantCulture));
         OrbSymDirText = _orbSymDirValue.ToString((CultureInfo.InvariantCulture));
         OrbTransitText = _orbTransitValue.ToString((CultureInfo.InvariantCulture));
+        
+        PdMethodIndex = _model.PdMethodIndex;
+        PdApproachIndex = _model.PdApproachIndex;
+        PdTimeKeyIndex = _model.PdTimeKeyIndex;
+        PdConverseIndex = _model.PdConverseIndex;
+        PdLatAspectsIndex = _model.PdLatAspectsIndex;
     }
+
+    private void DefineTexts()
+    {
+        BtnHelp = _rosetta.GetText("shr.btn.help");
+        BtnClose = _rosetta.GetText("shr.btn.close");
+        BtnSave = _rosetta.GetText("shr.btn.save");
+        PrimDirTab = _rosetta.GetText("vw.configprog.tabpd");
+        PrimDirHeader = _rosetta.GetText("vw.configprog.pd.title");
+        PrimDirHintMethod = _rosetta.GetText("vw.configprog.pd.hintmethod");
+        PrimDirHintTimeKey = _rosetta.GetText("vw.configprog.pd.hinttimekey");
+        PrimDirHintLatAspects = _rosetta.GetText("vw.configprog.pd.hintlataspects");
+        PrimDirHintApproach = _rosetta.GetText("vw.configprog.pd.hintmundanezodiac");
+        PrimDirHintConverse = _rosetta.GetText("vw.configprog.pd.hintconverse");
+        PrimDirSignificators = _rosetta.GetText("vw.configprog.pd.significators");
+        PrimDirPromissors = _rosetta.GetText("vw.configprog.pd.promissors");
+        PrimDirAspects = _rosetta.GetText("vw.configprog.pd.aspects");
+        
+    }
+    
     
     private bool CheckOrbSecDir()
     {
@@ -122,7 +189,16 @@ public partial class ConfigProgViewModel:ObservableObject
                 SymbolicKeyExtensions.SymbolicKeysForIndex(SymDirTimeKeyIndex),
                 AllSymDirPoints.ToDictionary(point => point.ChartPoint, 
                     point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)));
-            ConfigProg configProg = new(configTransits, configSecDir, configSymDir); 
+            ConfigProgPrimDir configPrimDir = new(
+                PrimDirMethodsExtensions.PrimDirMethodForIndex(PdMethodIndex),
+                PrimDirApproachesExtensions.PrimDirApproachForIndex(PdApproachIndex),
+                PrimDirTimeKeysExtensions.PrimDirTimeKeyForIndex(PdTimeKeyIndex),
+                PrimDirConverseOptionsExtensions.PrimDirConverseOptionForIndex(PdConverseIndex),
+                PrimDirLatAspOptionsExtensions.PrimDirLatAspOptionForIndex(PdLatAspectsIndex),
+                AllPdSignificators.ToDictionary(point => point.ChartPoint, point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
+                AllPdPromissors.ToDictionary(point => point.ChartPoint, point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
+                AllPdAspects.ToDictionary(aspect => aspect.Aspect, aspect => new AspectConfigSpecs(aspect.IsUsed, aspect.Glyph, 0, false)));
+            ConfigProg configProg = new(configTransits, configSecDir, configSymDir, configPrimDir); 
             _model.UpdateConfig(configProg);
             MessageBox.Show(PROG_CONFIG_SAVED, StandardTexts.TITLE_ERROR);
             Log.Information("ConfigProgViewModel.SaveConfig(): send CloseMessage");
