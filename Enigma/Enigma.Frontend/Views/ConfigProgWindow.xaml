@@ -24,10 +24,10 @@
         </Grid.RowDefinitions>
         
         <TextBlock Grid.Row="0" Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Configuration progressive" Name="Header"
+                   Text="{Binding Title}" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
         <TabControl Grid.Row="1">
-            <TabItem Header="Transits">
+            <TabItem Header="{Binding TransitTab}">
                 <Grid Margin="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -35,15 +35,15 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="6" Text="Transits" 
+                    <TextBlock Grid.Row="0" Margin="6" Text="{Binding TransitHeader}" 
                                Name="SubHeaderTransit" 
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />   
                     <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
-                             materialDesign:HintAssist.Hint="Orb"
+                             materialDesign:HintAssist.Hint="{Binding HintOrb}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              BorderBrush="{Binding OrbTransitValid}"
                              Text="{Binding OrbTransitText, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Margin="6" Text="Transiting points" 
+                    <TextBlock Grid.Row="2" Margin="6" Text="{Binding TransitPoints}" 
                                Name="TransitingPoints" FontWeight="Bold" />
                     <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"
@@ -65,7 +65,7 @@
                     </DataGrid>                    
                 </Grid>
             </TabItem>
-            <TabItem Header="Sec dir">
+            <TabItem Header="{Binding SecDirTab}">
                 <Grid Margin="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
@@ -73,15 +73,15 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" Text="Secondary directions" 
-                               Name="SubHeaderSecDir" 
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="6" 
+                               Text="{Binding SecDirHeader}" Name="SubHeaderSecDir" 
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
                     <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center" 
-                             materialDesign:HintAssist.Hint="Orb"
+                             materialDesign:HintAssist.Hint="{Binding HintOrb}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              BorderBrush="{Binding OrbSecDirValid}"
                              Text="{Binding OrbSecDirText, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Margin="6" Text="Secondary points" 
+                    <TextBlock Grid.Row="2" Margin="6" Text="{Binding SecDirPoints}" 
                                Name="SecondaryPoints" FontWeight="Bold" />
                     <DataGrid Grid.Row="3" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"
@@ -103,7 +103,7 @@
                     </DataGrid>                      
                 </Grid>
             </TabItem>
-            <TabItem Header="Symb dir">
+            <TabItem Header="{Binding SymDirTab}">
                <Grid Margin="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*"/>
@@ -115,11 +115,12 @@
                         <RowDefinition Height="10*"/>
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Symbolic directions" 
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
+                               Text="{Binding SymDirHeader}" 
                                Name="SubHeaderSymbDir" 
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
                     <TextBox Grid.Row="1" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
-                             materialDesign:HintAssist.Hint="Orb"
+                             materialDesign:HintAssist.Hint="{Binding HintOrb}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              BorderBrush="{Binding OrbSymDirValid}"
                              Text="{Binding OrbSymDirText, Mode=TwoWay}" />
@@ -129,7 +130,8 @@
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllSymDirKeys}" 
                               SelectedIndex="{Binding SymDirTimeKeyIndex, Mode=TwoWay}" />
-                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Text="Symbolic points" 
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" 
+                               Text="{Binding SymDirPoints}" 
                                Name="SymbDirPoints" FontWeight="Bold" />
                     <DataGrid Grid.Row="3" Grid.Column="0" Margin="6" 
                               materialDesign:DataGridAssist.CellPadding="4 4 4 4"

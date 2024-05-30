@@ -51,9 +51,9 @@ public class ConfigProgModel
         DataVaultCharts.Instance.ClearExistingCharts();
     }
     
-    public static List<string> AllSymDirKeys()
+    public List<string> AllSymDirKeys()
     {
-        return SymbolicKeyExtensions.AllDetails().Select(key => key.Text).ToList();
+        return SymbolicKeyExtensions.AllDetails().Select(key => _rosetta.GetText(key.RbKey)).ToList();
     }
 
     public List<string> AllPdMethods()
@@ -81,7 +81,7 @@ public class ConfigProgModel
         return PrimDirApproachesExtensions.AllDetails().Select(item => _rosetta.GetText(item.RbKey)).ToList();
     }
     
-    public static List<ProgPoint> AllTransitPoints()
+    public List<ProgPoint> AllTransitPoints()
     {
         return (from point in PointsExtensions.AllDetails() 
             from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigTransits.ProgPoints 
@@ -90,7 +90,7 @@ public class ConfigProgModel
     }
     
     
-    public static List<ProgPoint> AllSecDirPoints() 
+    public List<ProgPoint> AllSecDirPoints() 
     {
         return (from point in PointsExtensions.AllDetails() 
             from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigSecDir.ProgPoints 
@@ -98,7 +98,7 @@ public class ConfigProgModel
             select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
     }
     
-    public static List<ProgPoint> AllSymDirPoints() 
+    public List<ProgPoint> AllSymDirPoints() 
     {
         return (from point in PointsExtensions.AllDetails() 
             from configPoint in CurrentConfig.Instance.GetConfigProg().ConfigSymDir.ProgPoints 

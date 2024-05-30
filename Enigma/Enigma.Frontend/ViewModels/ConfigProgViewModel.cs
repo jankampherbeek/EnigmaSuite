@@ -56,12 +56,14 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private int _pdApproachIndex;
     [ObservableProperty] private int _pdConverseIndex;
     [ObservableProperty] private int _pdLatAspectsIndex;
-    
-    [ObservableProperty] private string _primDirHeader;
+
+    [ObservableProperty] private string _title;
     [ObservableProperty] private string _btnHelp;
     [ObservableProperty] private string _btnClose;
     [ObservableProperty] private string _btnSave;
+    [ObservableProperty] private string _hintOrb;
     [ObservableProperty] private string _primDirTab;
+    [ObservableProperty] private string _primDirHeader;
     [ObservableProperty] private string _primDirHintMethod;
     [ObservableProperty] private string _primDirHintTimeKey;
     [ObservableProperty] private string _primDirHintLatAspects;
@@ -70,6 +72,20 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private string _primDirSignificators;
     [ObservableProperty] private string _primDirPromissors;
     [ObservableProperty] private string _primDirAspects;
+
+    [ObservableProperty] private string _secDirTab;
+    [ObservableProperty] private string _secDirHeader;
+    [ObservableProperty] private string _secDirPoints;
+    
+    [ObservableProperty] private string _symDirTab;
+    [ObservableProperty] private string _symDirHeader;
+    [ObservableProperty] private string _symDirPoints;
+    [ObservableProperty] private string _symDirTimeKey;
+    
+    [ObservableProperty] private string _transitTab;
+    [ObservableProperty] private string _transitHeader;
+    [ObservableProperty] private string _transitPoints;
+    
     
     
     private double _orbSecDirValue;
@@ -92,10 +108,10 @@ public partial class ConfigProgViewModel:ObservableObject
         AllPdLatAspects = new ObservableCollection<string>(_model.AllPdLatAspects());
         AllPdTimeKeys = new ObservableCollection<string>(_model.AllPdTimeKeys());
         AllPdApproaches = new ObservableCollection<string>(_model.AllPdApproaches());
-        AllSymDirKeys =  new ObservableCollection<string>(ConfigProgModel.AllSymDirKeys());
-        AllTransitPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllTransitPoints());
-        AllSecDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSecDirPoints());
-        AllSymDirPoints = new ObservableCollection<ProgPoint>(ConfigProgModel.AllSymDirPoints());
+        AllSymDirKeys =  new ObservableCollection<string>(_model.AllSymDirKeys());
+        AllTransitPoints = new ObservableCollection<ProgPoint>(_model.AllTransitPoints());
+        AllSecDirPoints = new ObservableCollection<ProgPoint>(_model.AllSecDirPoints());
+        AllSymDirPoints = new ObservableCollection<ProgPoint>(_model.AllSymDirPoints());
         AllPdSignificators = new ObservableCollection<ProgPoint>(_model.AllSignificators());
         AllPdPromissors = new ObservableCollection<ProgPoint>(_model.AllPromissors());
         AllPdAspects = new ObservableCollection<ProgAspect>(_model.AllAspects());
@@ -116,10 +132,17 @@ public partial class ConfigProgViewModel:ObservableObject
 
     private void DefineTexts()
     {
+        Title = _rosetta.GetText("vw.configprog.title");
         BtnHelp = _rosetta.GetText("shr.btn.help");
         BtnClose = _rosetta.GetText("shr.btn.close");
         BtnSave = _rosetta.GetText("shr.btn.save");
+        HintOrb = _rosetta.GetText("vw.configprog.hintorb");
         PrimDirTab = _rosetta.GetText("vw.configprog.tabpd");
+        SecDirTab = _rosetta.GetText("vw.configprog.tabsc");
+        SymDirTab = _rosetta.GetText("vw.configprog.tabsm");
+        TransitTab = _rosetta.GetText("vw.configprog.tabtr");
+        
+        
         PrimDirHeader = _rosetta.GetText("vw.configprog.pd.title");
         PrimDirHintMethod = _rosetta.GetText("vw.configprog.pd.hintmethod");
         PrimDirHintTimeKey = _rosetta.GetText("vw.configprog.pd.hinttimekey");
@@ -129,7 +152,16 @@ public partial class ConfigProgViewModel:ObservableObject
         PrimDirSignificators = _rosetta.GetText("vw.configprog.pd.significators");
         PrimDirPromissors = _rosetta.GetText("vw.configprog.pd.promissors");
         PrimDirAspects = _rosetta.GetText("vw.configprog.pd.aspects");
+
+        SecDirHeader = _rosetta.GetText("vw.configprog.sc.title");
+        SecDirPoints = _rosetta.GetText("vw.configprog.sc.points");
         
+        SymDirHeader = _rosetta.GetText("vw.configprog.sm.title");
+        SymDirPoints = _rosetta.GetText("vw.configprog.sm.points");
+        SymDirTimeKey = _rosetta.GetText("vw.configprog.sm.timekey");
+        
+        TransitHeader = _rosetta.GetText("vw.configprog.tr.title");
+        TransitPoints = _rosetta.GetText("vw.configprog.tr.points");
     }
     
     

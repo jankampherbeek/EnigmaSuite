@@ -157,6 +157,10 @@ ref_primdirtimekey_naibod = Naibod
 ref_primdirtimekey_placidus = Placidus
 ref_primdirtimekey_ptolemy = Ptolemeus
 ref_primdirtimekey_vandam = Van Dam
+# Ref Symbolic directions timekeys
+ref_symdirtimekey_onedegree = Eén graad
+ref_symdirtimekey_meansun = Gemiddelde Zon
+ref_symdirtimekey_truesun = Werkelijke Zon
 
 ### shr
 # Buttons
@@ -181,6 +185,7 @@ vw.oobcal.title = Out of bounds kalender
 vw.oobcal.type_of_chance = Soort verandering
 vw.oobcal.year = Jaar
 # Configuration progressive techniques
+vw.configprog.hintorb = Orb
 vw.configprog.pd.aspects = Aspecten
 vw.configprog.pd.hintconverse = Converse
 vw.configprog.pd.hintlataspects = Breedte voor aspecten
@@ -190,4 +195,15 @@ vw.configprog.pd.hinttimekey = Tijd sleutel
 vw.configprog.pd.promissors = Promissors
 vw.configprog.pd.significators = Significators
 vw.configprog.pd.title = Primaire Directies
+vw.configprog.sc.points = Secundaire punten
+vw.configprog.sc.title = Secundaire directies
+vw.configprog.sm.points = Symbolische punten
+vw.configprog.sm.timekey = Tijd sleutel
+vw.configprog.sm.title = Symbolische directies
+vw.configprog.title = Configuratie progressief
+vw.configprog.tr.points = Transiterende punten
+vw.configprog.tr.title = Transits
 vw.configprog.tabpd = Prim dir
+vw.configprog.tabsc = Sec dir
+vw.configprog.tabsm = Sym dir
+vw.configprog.tabtr = Transits

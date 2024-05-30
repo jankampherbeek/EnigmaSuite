@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,7 +20,7 @@ public class TestSymbolicKeys
         Assert.Multiple(() =>
         {
             Assert.That(details.SymbolicKey, Is.EqualTo(SymbolicKeys.OneDegree));
-            Assert.That(details.Text, Is.EqualTo("One degree"));
+            Assert.That(details.RbKey, Is.EqualTo("ref_symdirtimekey_onedegree"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestSymbolicKeys
         { 
             SymbolicKeyDetails details = keys.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
@@ -58,7 +58,7 @@ public class TestSymbolicKeys
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));
-            Assert.That(allDetails[1].Text, Is.EqualTo("True Sun"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref_symdirtimekey_truesun"));
             Assert.That(allDetails[2].SymbolicKey, Is.EqualTo(SymbolicKeys.MeanSun));
         });
     }

@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,8 +18,8 @@ public enum SymbolicKeys
 
 /// <summary>Details for a symbolic time key.</summary>
 /// <param name="SymbolicKey">Time key.</param>
-/// <param name="Text">Descriptive text.</param>
-public record SymbolicKeyDetails(SymbolicKeys SymbolicKey, string Text);
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record SymbolicKeyDetails(SymbolicKeys SymbolicKey, string RbKey);
 
 
 /// <summary>Extension class for enum SymbolicKeys.</summary>
@@ -32,13 +32,12 @@ public static class SymbolicKeyExtensions
     {
         return symbolicKey switch
         {
-            SymbolicKeys.OneDegree => new SymbolicKeyDetails(symbolicKey, "One degree"),
-            SymbolicKeys.MeanSun => new SymbolicKeyDetails(symbolicKey, "Mean Sun"),
-            SymbolicKeys.TrueSun => new SymbolicKeyDetails(symbolicKey, "True Sun"),
+            SymbolicKeys.OneDegree => new SymbolicKeyDetails(symbolicKey, "ref_symdirtimekey_onedegree"),
+            SymbolicKeys.MeanSun => new SymbolicKeyDetails(symbolicKey, "ref_symdirtimekey_meansun"),
+            SymbolicKeys.TrueSun => new SymbolicKeyDetails(symbolicKey, "ref_symdirtimekey_truesun"),
             _ => throw new ArgumentException("Symbolic time key unknown : " + symbolicKey)
         };
     }
-
 
     /// <summary>Retrieve details for items in the enum SymbolicKeys.</summary>
     /// <returns>All details.</returns>
