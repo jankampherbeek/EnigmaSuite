@@ -45,12 +45,27 @@ public static class StandardTexts
     public const string CFG_PD_METHOD = "MethodPrimaryDirections";
     public const string CFG_PD_TIMEKEY = "TimeKeyPrimaryDirections";
     public const string CFG_PROJECTION_TYPE = "ProjectionType";
+    public const string CFG_SCORB = "SC_ORB";
+    public const string CFG_SMKEY = "SM_KEY";
+    public const string CFG_SMORB = "SM_ORB";
+    public const string CFG_TRORB = "TR_ORB";
     public const string CFG_USE_CUSPS_FOR_ASPECTS = "UseCuspsForAspects";
     public const string CFG_ZODIAC_TYPE = "ZodiacType";
     
     // Prefixes for configurations
+    public const string PCF_ASPECTCOLOR = "AC_";
+    public const string PCF_ASPECTS = "AT_";
+    public const string PCF_CHARTPOINTS = "CP_";
+    public const string PCF_SECONDARY = "SC_";
+    public const string PCF_SECONDARYPOINTS = "SC_CP_";
     public const string PCF_SIGNIFICATORS = "PDSG_";
     public const string PCF_PROMISSORS = "PDPM_";
     public const string PCF_PDASPECTS = "PDAT_";
-
+    public const string PCF_PDPLACEHOLDERPOINTS = "PD_XX";
+    public const string PCF_PRIMARY = "PD_";    
+    public const string PCF_SYMBOLIC = "SM_";
+    public const string PCF_SYMBOLICPOINTS = "SM_CP_";
+    public const string PCF_TRANSITPOINTS = "TR_CP_";
+    public const string PCF_TRANSITS = "TR_";
+    
 }

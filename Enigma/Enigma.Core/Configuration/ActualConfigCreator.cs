@@ -31,12 +31,12 @@ public interface IActualConfigCreator
 /// <inheritdoc/>
 public class ActualConfigCreator: IActualConfigCreator
 {
-    private const string PREFIX_TRANSITS = "TR_";
+    /*private const string PREFIX_TRANSITS = "TR_";
     private const string PREFIX_SECONDARY = "SC_";
     private const string PREFIX_SYMBOLIC = "SM_";
     private const string PREFIX_PRIMARY = "PD_";
     private const string PREFIX_CHARTPOINTS = "CP_";
-    private const string PREFIX_ASPECTS = "AT_";
+    private const string PREFIX_ASPECTS = "AT_";*/
     
     
     /// <inheritdoc/>
@@ -75,7 +75,7 @@ public class ActualConfigCreator: IActualConfigCreator
                                   bool.TryParse(useCTxt, out bool useC) ? useC : defaultConfig.UseCuspsForAspects;
         
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints = CreateChartPoints(defaultConfig.ChartPoints, deltas);
-        Dictionary<AspectTypes, AspectConfigSpecs> aspectTypes = CreateAspects(defaultConfig.Aspects, deltas);
+        Dictionary<AspectTypes, AspectConfigSpecs> aspectTypes = CreateAspects(defaultConfig.Aspects, deltas, StandardTexts.PCF_ASPECTS);
         Dictionary<AspectTypes, string> aspectColors = CreateAspectColors(defaultConfig.AspectColors, deltas);
         
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
@@ -85,28 +85,27 @@ public class ActualConfigCreator: IActualConfigCreator
 
     public ConfigProg CreateActualProgConfig(ConfigProg defaultConfig, Dictionary<string, string> deltas)
     {
-        SymbolicKeys symKey = deltas.TryGetValue("SM_KEY", out string? symKeyIdTxt) &&    
-                                   int.TryParse(symKeyIdTxt, out int symKeyId) ? 
-            SymbolicKeyExtensions.SymbolicKeysForIndex(symKeyId) : defaultConfig.ConfigSymDir.TimeKey;
-        double orbTransits = deltas.TryGetValue("TR_ORB", out string? trOrbValue) && 
-                                double.TryParse(trOrbValue, out double trOrb) ? trOrb : defaultConfig.ConfigTransits.Orb;
-        double orbSecDir = deltas.TryGetValue("SC_ORB", out string? scOrbValue) && 
-                             double.TryParse(scOrbValue, out double scOrb) ? scOrb : defaultConfig.ConfigSecDir.Orb;
-        double orbSymDir = deltas.TryGetValue("SM_ORB", out string? smOrbValue) && 
-                             double.TryParse(smOrbValue, out double smOrb) ? smOrb : defaultConfig.ConfigSymDir.Orb;
-        /*Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
-            CreateProgPoints(ProgresMethods.Transits, defaultConfig.ConfigTransits.ProgPoints, deltas);
-        Dictionary<ChartPoints, ProgPointConfigSpecs> secDirPoints = 
-            CreateProgPoints(ProgresMethods.Secondary, defaultConfig.ConfigSecDir.ProgPoints, deltas);
-        Dictionary<ChartPoints, ProgPointConfigSpecs> symDirPoints = 
-            CreateProgPoints(ProgresMethods.Symbolic, defaultConfig.ConfigSymDir.ProgPoints, deltas);*/
+        SymbolicKeys symKey = deltas.TryGetValue(StandardTexts.CFG_SMKEY, out string? symKeyIdTxt) &&    
+            int.TryParse(symKeyIdTxt, out int symKeyId) 
+            ? SymbolicKeyExtensions.SymbolicKeysForIndex(symKeyId) 
+            : defaultConfig.ConfigSymDir.TimeKey;
+        double orbTransits = deltas.TryGetValue(StandardTexts.CFG_TRORB, out string? trOrbValue) && 
+            double.TryParse(trOrbValue, out double trOrb) 
+            ? trOrb : defaultConfig.ConfigTransits.Orb;
+        double orbSecDir = deltas.TryGetValue(StandardTexts.CFG_SCORB, out string? scOrbValue) && 
+            double.TryParse(scOrbValue, out double scOrb) 
+            ? scOrb : defaultConfig.ConfigSecDir.Orb;
+        double orbSymDir = deltas.TryGetValue(StandardTexts.CFG_SMORB, out string? smOrbValue) && 
+            double.TryParse(smOrbValue, out double smOrb) 
+            ? smOrb : defaultConfig.ConfigSymDir.Orb;
         Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
-            CreateProgPoints(PREFIX_TRANSITS, defaultConfig.ConfigTransits.ProgPoints, deltas);
+            CreateProgPoints(StandardTexts.PCF_TRANSITS, defaultConfig.ConfigTransits.ProgPoints, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> secDirPoints = 
-            CreateProgPoints(PREFIX_SECONDARY, defaultConfig.ConfigSecDir.ProgPoints, deltas);
+            CreateProgPoints(StandardTexts.PCF_SECONDARY, defaultConfig.ConfigSecDir.ProgPoints, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> symDirPoints = 
-            CreateProgPoints(PREFIX_SYMBOLIC, defaultConfig.ConfigSymDir.ProgPoints, deltas);
+            CreateProgPoints(StandardTexts.PCF_SYMBOLIC, defaultConfig.ConfigSymDir.ProgPoints, deltas);
         ConfigProgTransits cfgTransits = new(orbTransits, transitPoints);
+        
         ConfigProgSecDir cfgSecDir = new(orbSecDir, secDirPoints);
         ConfigProgSymDir cfgSymDir = new( orbSymDir, symKey, symDirPoints);
 
@@ -140,7 +139,7 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<ChartPoints, ProgPointConfigSpecs> pdPromissors = 
             CreateProgPoints(StandardTexts.PCF_PROMISSORS, defaultConfig.ConfigPrimDir.Promissors, deltas);
         Dictionary<AspectTypes, AspectConfigSpecs> pdAspects =
-            CreateAspects(defaultConfig.ConfigPrimDir.Aspects, deltas);
+            CreateAspects(defaultConfig.ConfigPrimDir.Aspects, deltas, StandardTexts.PCF_PDASPECTS);
         ConfigProgPrimDir cfgPrimDir = new(pdMethod, pdApproach, pdTimeKey, pdConverse, pdLatAsp, pdSignificators, pdPromissors, pdAspects ) ;
         return new ConfigProg(cfgTransits, cfgSecDir, cfgSymDir, cfgPrimDir);
     }
@@ -152,7 +151,7 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<ChartPoints, ChartPointConfigSpecs> actualChartPoints = new();
         foreach (var defPoint in defChartPoints)
         {
-            string cpKey = PREFIX_CHARTPOINTS + (int)defPoint.Key;
+            string cpKey = StandardTexts.PCF_CHARTPOINTS + (int)defPoint.Key;
             if (deltas.TryGetValue(cpKey, out string? newConfigTxt))
             {
                 try
@@ -183,7 +182,7 @@ public class ActualConfigCreator: IActualConfigCreator
         Dictionary<ChartPoints, ProgPointConfigSpecs> actualProgPoints = new();
         foreach (var defPoint in defChartPoints)
         {
-            string fullPrefix = prefix + PREFIX_CHARTPOINTS + (int)defPoint.Key;
+            string fullPrefix = prefix + StandardTexts.PCF_CHARTPOINTS + (int)defPoint.Key;
             if ((prefix == StandardTexts.PCF_SIGNIFICATORS) || (prefix == StandardTexts.PCF_PROMISSORS)) fullPrefix = prefix;            
             if (deltas.TryGetValue(fullPrefix, out string? newConfigTxt))
             {
@@ -209,12 +208,13 @@ public class ActualConfigCreator: IActualConfigCreator
 
     private Dictionary<AspectTypes, AspectConfigSpecs> CreateAspects(
         Dictionary<AspectTypes, AspectConfigSpecs> defAspectTypes, 
-        IReadOnlyDictionary<string, string> deltas)
+        IReadOnlyDictionary<string, string> deltas,
+        string prefix)
     {
         Dictionary<AspectTypes, AspectConfigSpecs> actualAspectTypes = new();
         foreach (var defAspect in defAspectTypes)
         {
-            string atKey = PREFIX_ASPECTS + (int)defAspect.Key;
+            string atKey = prefix + (int)defAspect.Key;
             if (deltas.TryGetValue(atKey, out string? newConfigTxt))
             {
                 try

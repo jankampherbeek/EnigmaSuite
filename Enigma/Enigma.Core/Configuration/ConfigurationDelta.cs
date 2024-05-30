@@ -230,11 +230,10 @@ public class DeltaTexts: IDeltaTexts
     /// <inheritdoc/>
     public Tuple<string, string> CreateDeltaForPoint(ChartPoints point, ChartPointConfigSpecs? pointSpecs)
     {
-        const string prefix = "CP_";
         StringBuilder keyTxt = new();
         StringBuilder valueTxt = new();
         if (pointSpecs is null) return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
-        keyTxt.Append(prefix);
+        keyTxt.Append(StandardTexts.PCF_CHARTPOINTS);
         keyTxt.Append((int)point);
         valueTxt.Append(pointSpecs.IsUsed ? "y" : "n");
         valueTxt.Append(SEPARATOR);
@@ -249,11 +248,10 @@ public class DeltaTexts: IDeltaTexts
     /// <inheritdoc/>
     public Tuple<string, string> CreateDeltaForAspect(AspectTypes aspect, AspectConfigSpecs? aspectSpecs)
     {
-        const string prefix = "AT_";
         StringBuilder keyTxt = new("");
         StringBuilder valueTxt = new("");
         if (aspectSpecs is null) return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
-        keyTxt.Append(prefix);
+        keyTxt.Append(StandardTexts.PCF_ASPECTS);
         keyTxt.Append((int)aspect);
         valueTxt.Append(aspectSpecs.IsUsed ? "y" : "n");
         valueTxt.Append(SEPARATOR);
@@ -268,7 +266,7 @@ public class DeltaTexts: IDeltaTexts
     /// <inheritdoc/>
     public Tuple<string, string> CreateDeltaForaspectcolor(AspectTypes aspect, string color)
     {
-        const string prefix = "AC_";
+        const string prefix = StandardTexts.PCF_ASPECTCOLOR;
         StringBuilder keyTxt = new("");
         StringBuilder valueTxt = new("");
         if (string.IsNullOrEmpty(color)) return new Tuple<string, string>(keyTxt.ToString(), valueTxt.ToString());
@@ -283,10 +281,10 @@ public class DeltaTexts: IDeltaTexts
     {
         string prefix = progresMethod switch
         {
-            ProgresMethods.Transits => "TR_CP_",
-            ProgresMethods.Secondary => "SC_CP_",
-            ProgresMethods.Symbolic => "SM_CP_",
-            ProgresMethods.Primary => "PD_XX",          // to be replaced with SG or PM (for significator/promissor)
+            ProgresMethods.Transits => StandardTexts.PCF_TRANSITPOINTS,
+            ProgresMethods.Secondary => StandardTexts.PCF_SECONDARYPOINTS,
+            ProgresMethods.Symbolic => StandardTexts.PCF_SYMBOLICPOINTS,
+            ProgresMethods.Primary => StandardTexts.PCF_PDPLACEHOLDERPOINTS, // will be adapted for significator/promissor  
             _ => ""
         };
         StringBuilder keyTxt = new();
@@ -304,9 +302,9 @@ public class DeltaTexts: IDeltaTexts
     {
         string keyTxt = progresMethod switch
         {
-            ProgresMethods.Transits => "TR_ORB",
-            ProgresMethods.Secondary => "SC_ORB",
-            ProgresMethods.Symbolic => "SM_ORB",
+            ProgresMethods.Transits => StandardTexts.CFG_TRORB,
+            ProgresMethods.Secondary => StandardTexts.CFG_SCORB,
+            ProgresMethods.Symbolic => StandardTexts.CFG_SMORB,
             _ => ""
         };
         string valueTxt = orb.ToString(CultureInfo.InvariantCulture);
@@ -315,7 +313,7 @@ public class DeltaTexts: IDeltaTexts
 
     public Tuple<string, string> CreateDeltaForProgSymKey(SymbolicKeys timeKey)
     {
-        string keyTxt = "SM_KEY";
+        string keyTxt = StandardTexts.CFG_SMKEY;
         string valueTxt = ((int)timeKey).ToString();
         return new Tuple<string, string>(keyTxt, valueTxt);        
     }
