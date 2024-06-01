@@ -27,11 +27,11 @@ public static class PrimDirMethodsExtensions
     {
         return method switch
         {
-            PrimDirMethods.Placidus => new PrimDirMethodDetails("ref_primdirmethod_placidus"),
-            PrimDirMethods.PlacidusPole => new PrimDirMethodDetails("ref_primdirmethod_placiduspole"),
-            PrimDirMethods.Regiomontanus => new PrimDirMethodDetails("ref_primdirmethod_regiomontanus"),
-            PrimDirMethods.Campanus => new PrimDirMethodDetails("ref_primdirmethod_campanus"),
-            PrimDirMethods.Topocentric => new PrimDirMethodDetails("ref_primdirmethod_topocentric"),
+            PrimDirMethods.Placidus => new PrimDirMethodDetails("ref.primdirmethod.placidus"),
+            PrimDirMethods.PlacidusPole => new PrimDirMethodDetails("ref.primdirmethod.placiduspole"),
+            PrimDirMethods.Regiomontanus => new PrimDirMethodDetails("ref.primdirmethod.regiomontanus"),
+            PrimDirMethods.Campanus => new PrimDirMethodDetails("ref.primdirmethod.campanus"),
+            PrimDirMethods.Topocentric => new PrimDirMethodDetails("ref.primdirmethod.topocentric"),
             _ => throw new ArgumentException("PrimDirMethod unknown : " + method)
         };
     }

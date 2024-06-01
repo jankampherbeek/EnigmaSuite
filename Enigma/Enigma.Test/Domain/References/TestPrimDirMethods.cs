@@ -18,7 +18,7 @@ public class TestPrimDirMethods
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.RbKey, Is.EqualTo("ref_primdirmethod_campanus"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.primdirmethod.campanus"));
         });
     }
 
@@ -57,8 +57,8 @@ public class TestPrimDirMethods
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(5));
-            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref_primdirmethod_placidus"));
-            Assert.That(allDetails[2].RbKey, Is.EqualTo("ref_primdirmethod_regiomontanus"));
+            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.primdirmethod.placidus"));
+            Assert.That(allDetails[2].RbKey, Is.EqualTo("ref.primdirmethod.regiomontanus"));
         });
     }
     

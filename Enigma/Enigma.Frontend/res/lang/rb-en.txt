@@ -146,21 +146,55 @@ ref.primdirlataspoption.none = No latitude for aspects
 ref.primdirlataspoption.promissor = Latitude of promissor
 ref.primdirlataspoption.significator = Latitude of significator
 # Ref Primary directions methods
-ref_primdirmethod_campanus = Campanus
-ref_primdirmethod_placidus = Placidus
-ref_primdirmethod_placiduspole = Placidus under the pole
-ref_primdirmethod_regiomontanus = Regiomontanus
-ref_primdirmethod_topocentric = Topocentric
+ref.primdirmethod.campanus = Campanus
+ref.primdirmethod.placidus = Placidus
+ref.primdirmethod.placiduspole = Placidus under the pole
+ref.primdirmethod.regiomontanus = Regiomontanus
+ref.primdirmethod.topocentric = Topocentric
 #Ref Primary Directions Time Keys
-ref_primdirtimekey_brahe = Brahe
-ref_primdirtimekey_naibod = Naibod
-ref_primdirtimekey_placidus = Placidus
-ref_primdirtimekey_ptolemy = Ptolemy
-ref_primdirtimekey_vandam = Van Dam
+ref.primdirtimekey.brahe = Brahe
+ref.primdirtimekey.naibod = Naibod
+ref.primdirtimekey.placidus = Placidus
+ref.primdirtimekey.ptolemy = Ptolemy
+ref.primdirtimekey.vandam = Van Dam
 # Ref Symbolic directions timekeys
-ref_symdirtimekey_onedegree = One degree
-ref_symdirtimekey_meansun = Mean Sun
-ref_symdirtimekey_truesun = True Sun
+ref.symdirtimekey.onedegree = One degree
+ref.symdirtimekey.meansun = Mean Sun
+ref.symdirtimekey.truesun = True Sun
+# Ref Time Zones
+ref.timezone.ut = +00:00: UT/Universal Time, GMT/Greenwich Mean Time
+ref.timezone.cet = +01:00: CET/Central European Time
+ref.timezone.eet = +02:00: EET/Eastern European Time
+ref.timezone.eat = +03:00: EAT/East African time, TRT/Turkey Time
+ref.timezone.irst = +03:30: IRST/Iran Standard Time
+ref.timezone.amt = +04:00: AMT/Armenia Time, MUT/Mauritius Time
+ref.timezone.aft = +04:30: AFT/Afghanistan Time
+ref.timezone.pkt = +05:00: PKT/Pakistan Standard Time, ORAT/Oral Time
+ref.timezone.ist = +05:30: IST/Indian Standard Time
+ref.timezone.iot = +06:00: IOT/Indian Chagos Time, OMST/Omsk Time
+ref.timezone.mmt = +06:30: MMT/Myanmar Standard Time
+ref.timezone.ict = +07:00: ICT/Indochina Time
+ref.timezone.wst = +08:00: WST/Western Standard Time, CST/China Standard Time
+ref.timezone.jst = +09:00: JST/Japan Standard Time
+ref.timezone.acst = +09:30: ACST/Australian Central Standard Time
+ref.timezone.aest = +10:00: AEST/Australian Eastern Standard Time
+ref.timezone.lhst = +10:30: LHST/Lord Howe Standard Time
+ref.timezone.nct = +11:00: NCT/New Caledonia Time
+ref.timezone.nzst = +12:00: NZST/New Zealand Standard Time
+ref.timezone.sst = -11:00: SST/Samoa Standard Time
+ref.timezone.hast = -10:00: HAST/Hawaii-Aleutian Standard Time
+ref.timezone.mart = -09:30: MART/Marquesas Islands Time
+ref.timezone.akst = -09:00: AKST/Alaska Standard Time
+ref.timezone.pst = -08:00: PST/Pacific Standard Time
+ref.timezone.mst = -07:00: MST/Mountain Standard Time
+ref.timezone.cst = -06:00: CST/Central Standard Time
+ref.timezone.est = -05:00: EST/Eastern Standard Time
+ref.timezone.ast = -04:00: AST Atlantic Standard Time
+ref.timezone.nst = -03:30: NST/Newfoundland Standard Time
+ref.timezone.brt = -03:00: BRT/Brasilia Time, ART/Argentina Time
+ref.timezone.gst = -02:00: GST/South Georgia Time
+ref.timezone.azot = -01:00: AZOT/Azores Standard Time
+ref.timezone.lmt = LMT: Local Mean Time
 
 ### shr
 # Buttons
@@ -176,14 +210,11 @@ test-line-1 = First line for testing
 test-line-2 = Second line for testing
 
 ### txt
+# Error texts in StandardTexts
+txt.error.enddate = Enter a correct value for the end date.
+txt.error.startdate = Enter a correct value for the start date.
 
 ### vw
-# OOB Calendar View
-vw.oobcal.day = Day
-vw.oobcal.month = Month
-vw.oobcal.title = Out of bounds calendar
-vw.oobcal.type_of_chance = Type of change
-vw.oobcal.year = Year
 # Configuration progressive techniques
 vw.configprog.hintorb = Orb
 vw.configprog.pd.aspects = Aspects
@@ -207,3 +238,19 @@ vw.configprog.tabpd = Prim dir
 vw.configprog.tabsc = Sec dir
 vw.configprog.tabsm = Sym dir
 vw.configprog.tabtr = Transits
+# Primary directions input
+vw.progpdinput.currentsel = Current selections
+vw.progpdinput.hintconverse = Converse
+vw.progpdinput.hintenddate = End date yyyy/mm/dd
+vw.progpdinput.hintlataspects = Latitude for aspects
+vw.progpdinput.hintmethod = Method
+vw.progpdinput.hintmundanezodiac = Mundane or zodiacal
+vw.progpdinput.hintstartdate = Start date yyyy/mm/dd
+vw.progpdinput.hinttimekey = Time key
+vw.progpdinput.title = Calculate Primary Directions
+# OOB Calendar View
+vw.oobcal.day = Day
+vw.oobcal.month = Month
+vw.oobcal.title = Out of bounds calendar
+vw.oobcal.type_of_chance = Type of change
+vw.oobcal.year = Year

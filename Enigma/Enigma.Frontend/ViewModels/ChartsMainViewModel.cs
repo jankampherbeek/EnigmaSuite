@@ -45,6 +45,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(DeclMidpointsCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclParallelsCommand))]
     [NotifyCanExecuteChangedFor(nameof(OobCalendarCommand))]
+    [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(ProgressionsCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
@@ -225,6 +226,12 @@ public partial class ChartsMainViewModel: ObservableObject,
     {
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.RADIX_LONGITUDE_EQUIVALENTS));
     }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void PrimDir()
+    {
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_PDINPUT));
+    }    
     
     
     [RelayCommand(CanExecute = nameof(IsChartSelected))]

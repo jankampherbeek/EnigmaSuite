@@ -15,6 +15,7 @@ public static class StandardTexts
     public const string ERROR_DATE = "Enter a correct value for the date.";
     public const string ERROR_DEGREE = "Enter a proper value for the degrees.";
     public const string ERROR_DESCRIPTION = "Enter a value for the description.";
+    public const string ERROR_ENDDATE = "txt.error.enddate";
     public const string ERROR_GEOGRAPHIC_LATITUDE = "Enter a correct value for the geographic latitude.";
     public const string ERROR_GEOGRAPHIC_LONGITUDE = "Enter a correct value for the geographic longitude.";
     public const string ERROR_HARMONIC_NR = "Enter a proper positive number - 2..100000 - for the harmonic.";
@@ -28,6 +29,7 @@ public static class StandardTexts
     public const string ERROR_ORB_SECDIR = "Enter a proper value for the orbs for secondary directions.";
     public const string ERROR_ORB_SYMDIR = "Enter a proper value for the orbs for symbolic directions.";
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
+    public const string ERROR_STARTDATE = "txt.error.startdate";
     public const string ERROR_TIME = "Enter a correct value for the time.";
     
     // Texts for the configuration

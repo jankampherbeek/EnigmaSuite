@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -16,11 +16,11 @@ public enum TimeZones
 }
 
 
-/// <summary>Details for a Time Zone</summary>
-/// <param name="TimeZone">The TimeZone</param>
-/// <param name="OffsetFromUt">The difference with Universal Time</param>
-/// <param name="Text">Descriptive text</param>
-public record TimeZoneDetails(TimeZones TimeZone, double OffsetFromUt, string Text);
+/// <summary>Details for a Time Zone.</summary>
+/// <param name="TimeZone">The TimeZone.</param>
+/// <param name="OffsetFromUt">The difference with Universal Time.</param>
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record TimeZoneDetails(TimeZones TimeZone, double OffsetFromUt, string RbKey);
 
 
 /// <summary>Extension class for enum TimeZones.</summary>
@@ -33,43 +33,44 @@ public static class TimeZonesExtensions
     {
         return timeZone switch
         {
-            TimeZones.Ut => new TimeZoneDetails(timeZone, 0.0, "+00:00: UT/Universal Time, GMT/Greenwich Mean Time"),
-            TimeZones.Cet => new TimeZoneDetails(timeZone, 1.0, "+01:00: CET/Central European Time"),
-            TimeZones.Eet => new TimeZoneDetails(timeZone, 2.0, "+02:00: EET/Eastern European Time"),
-            TimeZones.Eat => new TimeZoneDetails(timeZone, 3.0, "+03:00: EAT/East African time, TRT/Turkey Time"),
-            TimeZones.Irst => new TimeZoneDetails(timeZone, 3.5, "+03:30: IRST/Iran Standard Time"),
-            TimeZones.Amt => new TimeZoneDetails(timeZone, 4.0, "+04:00: AMT/Armenia Time, MUT/Mauritius Time"),
-            TimeZones.Aft => new TimeZoneDetails(timeZone, 4.5, "+04:30: AFT/Afghanistan Time"),
-            TimeZones.Pkt => new TimeZoneDetails(timeZone, 5.0, "+05:00: PKT/Pakistan Standard Time, ORAT/Oral Time"),
-            TimeZones.Ist => new TimeZoneDetails(timeZone, 5.5, "+05:30: IST/Indian Standard Time"),
-            TimeZones.Iot => new TimeZoneDetails(timeZone, 6.0, "+06:00: IOT/Indian Chagos Time, OMST/Omsk Time"),
-            TimeZones.Mmt => new TimeZoneDetails(timeZone, 6.5, "+06:30: MMT/Myanmar Standard Time"),
-            TimeZones.Ict => new TimeZoneDetails(timeZone, 7.0, "+07:00: ICT/Indochina Time"),
-            TimeZones.Wst => new TimeZoneDetails(timeZone, 8.0, "+08:00: WST/Western Standard Time, CST/China Standard Time"),
-            TimeZones.Jst => new TimeZoneDetails(timeZone, 9.0, "+09:00: JST/Japan Standard Time"),
-            TimeZones.Acst => new TimeZoneDetails(timeZone, 9.5, "+09:30: ACST/Australian Central Standard Time"),
-            TimeZones.Aest => new TimeZoneDetails(timeZone, 10.0, "+10:00: AEST/Australian Eastern Standard Time"),
-            TimeZones.Lhst => new TimeZoneDetails(timeZone, 10.5, "+10:30: LHST/Lord Howe Standard Time"),
-            TimeZones.Nct => new TimeZoneDetails(timeZone, 11.0, "+11:00: NCT/New Caledonia Time"),
-            TimeZones.Nzst => new TimeZoneDetails(timeZone, 12.0, "+12:00: NZST/New Zealand Standard Time"),
-            TimeZones.Sst => new TimeZoneDetails(timeZone, -11.0, "-11:00: SST/Samoa Standard Time"),
-            TimeZones.Hast => new TimeZoneDetails(timeZone, -10.0, "-10:00: HAST/Hawaii-Aleutian Standard Time"),
-            TimeZones.Mart => new TimeZoneDetails(timeZone, -9.5, "-09:30: MART/Marquesas Islands Time"),
-            TimeZones.Akst => new TimeZoneDetails(timeZone, -9.0, "-09:00: AKST/Alaska Standard Time"),
-            TimeZones.Pst => new TimeZoneDetails(timeZone, -8.0, "-08:00: PST/Pacific Standard Time"),
-            TimeZones.Mst => new TimeZoneDetails(timeZone, -7.0, "-07:00: MST/Mountain Standard Time"),
-            TimeZones.Cst => new TimeZoneDetails(timeZone, -6.0, "-06:00: CST/Central Standard Time"),
-            TimeZones.Est => new TimeZoneDetails(timeZone, -5.0, "-05:00: EST/Eastern Standard Time"),
-            TimeZones.Ast => new TimeZoneDetails(timeZone, -4.0, "-04:00: AST Atlantic Standard Time"),
-            TimeZones.Nst => new TimeZoneDetails(timeZone, -3.5, "-03:30: NST/Newfoundland Standard Time"),
-            TimeZones.Brt => new TimeZoneDetails(timeZone, -3.0, "-03:00: BRT/Brasilia Time, ART/Argentina Time"),
-            TimeZones.Gst => new TimeZoneDetails(timeZone, -2.0, "-02:00: GST/South Georgia Time"),
-            TimeZones.Azot => new TimeZoneDetails(timeZone, -1.0, "-01:00: AZOT/Azores Standard Time"),
-            TimeZones.Lmt => new TimeZoneDetails(timeZone, 0.0, "LMT: Local Mean Time"),
+            TimeZones.Ut => new TimeZoneDetails(timeZone, 0.0, "ref.timezone.ut"),
+            TimeZones.Cet => new TimeZoneDetails(timeZone, 1.0, "ref.timezone.cet"),
+            TimeZones.Eet => new TimeZoneDetails(timeZone, 2.0, "ref.timezone.eet"),
+            TimeZones.Eat => new TimeZoneDetails(timeZone, 3.0, "ref.timezone.eat"),
+            TimeZones.Irst => new TimeZoneDetails(timeZone, 3.5, "ref.timezone.irst"),
+            TimeZones.Amt => new TimeZoneDetails(timeZone, 4.0, "ref.timezone.amt"),
+            TimeZones.Aft => new TimeZoneDetails(timeZone, 4.5, "ref.timezone.aft"),
+            TimeZones.Pkt => new TimeZoneDetails(timeZone, 5.0, "ref.timezone.pkt"),
+            TimeZones.Ist => new TimeZoneDetails(timeZone, 5.5, "ref.timezone.ist"),
+            TimeZones.Iot => new TimeZoneDetails(timeZone, 6.0, "ref.timezone.iot"),
+            TimeZones.Mmt => new TimeZoneDetails(timeZone, 6.5, "ref.timezone.mmt"),
+            TimeZones.Ict => new TimeZoneDetails(timeZone, 7.0, "ref.timezone.ict"),
+            TimeZones.Wst => new TimeZoneDetails(timeZone, 8.0, "ref.timezone.wst"),
+            TimeZones.Jst => new TimeZoneDetails(timeZone, 9.0, "ref.timezone.jst"),
+            TimeZones.Acst => new TimeZoneDetails(timeZone, 9.5, "ref.timezone.acst"),
+            TimeZones.Aest => new TimeZoneDetails(timeZone, 10.0, "ref.timezone.aest"),
+            TimeZones.Lhst => new TimeZoneDetails(timeZone, 10.5, "ref.timezone.aest"),
+            TimeZones.Nct => new TimeZoneDetails(timeZone, 11.0, "ref.timezone.nct"),
+            TimeZones.Nzst => new TimeZoneDetails(timeZone, 12.0, "ref.timezone.nzst"),
+            TimeZones.Sst => new TimeZoneDetails(timeZone, -11.0, "ref.timezone.sst"),
+            TimeZones.Hast => new TimeZoneDetails(timeZone, -10.0, "ref.timezone.hast"),
+            TimeZones.Mart => new TimeZoneDetails(timeZone, -9.5, "ref.timezone.mart"),
+            TimeZones.Akst => new TimeZoneDetails(timeZone, -9.0, "ref.timezone.akst"),
+            TimeZones.Pst => new TimeZoneDetails(timeZone, -8.0, "ref.timezone.pst"),
+            TimeZones.Mst => new TimeZoneDetails(timeZone, -7.0, "ref.timezone.mst"),
+            TimeZones.Cst => new TimeZoneDetails(timeZone, -6.0, "ref.timezone.cst"),
+            TimeZones.Est => new TimeZoneDetails(timeZone, -5.0, "ref.timezone.est"),
+            TimeZones.Ast => new TimeZoneDetails(timeZone, -4.0, "ref.timezone.ast"),
+            TimeZones.Nst => new TimeZoneDetails(timeZone, -3.5, "ref.timezone.nst"),
+            TimeZones.Brt => new TimeZoneDetails(timeZone, -3.0, "ref.timezone.brt"),
+            TimeZones.Gst => new TimeZoneDetails(timeZone, -2.0, "ref.timezone.gst"),
+            TimeZones.Azot => new TimeZoneDetails(timeZone, -1.0, "ref.timezone.azot"),
+            TimeZones.Lmt => new TimeZoneDetails(timeZone, 0.0, "ref.timezone.lmt"),
             _ => throw new ArgumentException("TimeZones : " + timeZone)
         };
     }
-
+    
+    
     /// <summary>Retrieve details for items in the enum TimeZones.</summary>
     /// <returns>All details.</returns>
     public static List<TimeZoneDetails> AllDetails()

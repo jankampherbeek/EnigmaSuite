@@ -146,21 +146,55 @@ ref.primdirlataspoption.none = Geen breedte voor aspecten
 ref.primdirlataspoption.promissor = Breedte van promissors
 ref.primdirlataspoption.significator = Breedte van significator
 # Ref Primary directions methods
-ref_primdirmethod_campanus = Campanus
-ref_primdirmethod_placidus = Placidus
-ref_primdirmethod_placiduspole = Placidus onder de pool
-ref_primdirmethod_regiomontanus = Regiomontanus
-ref_primdirmethod_topocentric = Topocentrisch
+ref.primdirmethod.campanus = Campanus
+ref.primdirmethod.placidus = Placidus
+ref.primdirmethod.placiduspole = Placidus onder de pool
+ref.primdirmethod.regiomontanus = Regiomontanus
+ref.primdirmethod.topocentric = Topocentrisch
 #Ref Primary Directions Time Keys
-ref_primdirtimekey_brahe = Brahe
-ref_primdirtimekey_naibod = Naibod
-ref_primdirtimekey_placidus = Placidus
-ref_primdirtimekey_ptolemy = Ptolemeus
-ref_primdirtimekey_vandam = Van Dam
+ref.primdirtimekey.brahe = Brahe
+ref.primdirtimekey.naibod = Naibod
+ref.primdirtimekey.placidus = Placidus
+ref.primdirtimekey.ptolemy = Ptolemeus
+ref.primdirtimekey.vandam = Van Dam
 # Ref Symbolic directions timekeys
-ref_symdirtimekey_onedegree = Eén graad
-ref_symdirtimekey_meansun = Gemiddelde Zon
-ref_symdirtimekey_truesun = Werkelijke Zon
+ref.symdirtimekey.onedegree = Eén graad
+ref.symdirtimekey.meansun = Gemiddelde Zon
+ref.symdirtimekey.truesun = Werkelijke Zon
+# Ref Time Zones
+ref.timezone.ut = +00:00: UT/Universele tijd, GT/Greenwich Tijd
+ref.timezone.cet = +01:00: CET/Centraal Europese Tijd
+ref.timezone.eet = +02:00: OET/Oost Europese Tijd
+ref.timezone.eat = +03:00: OAT/Oost Afrikaanse Tijd, TRT/Turkse Tijd
+ref.timezone.irst = +03:30: IRST/Iran Standaard Tijd
+ref.timezone.amt = +04:00: AMT/Armenië Tijd, MUT/Mauritius Tijd
+ref.timezone.aft = +04:30: AFT/Afghanistan Tijd
+ref.timezone.pkt = +05:00: PKT/Pakistan Standaard Tijdme, ORAT/Oral Tijd
+ref.timezone.ist = +05:30: IST/India Standaard Tijd
+ref.timezone.iot = +06:00: IOT/India Chagos Tijd, OMST/Omsk Tijd
+ref.timezone.mmt = +06:30: MMT/Myanmar Standaard Tijd
+ref.timezone.ict = +07:00: ICT/Indochina Tijd
+ref.timezone.wst = +08:00: WST/Westerse Standaard Tijd, CST/China Standaard Tijd
+ref.timezone.jst = +09:00: JST/Japanse Standaard Tijd
+ref.timezone.acst = +09:30: ACST/Australische Centrale Standaard Tijd
+ref.timezone.aest = +10:00: AEST/Australische Oosterse Standaard Tijd
+ref.timezone.lhst = +10:30: LHST/Lord Howe Standaard Tijd
+ref.timezone.nct = +11:00: NCT/Nieuw Caledonië Tijd
+ref.timezone.nzst = +12:00: NZST/Nieuw Zeeland Standaard Tijd
+ref.timezone.sst = -11:00: SST/Samoa Standaard Tijd
+ref.timezone.hast = -10:00: HAST/Hawaii-Aleoeten Standaard Tijd
+ref.timezone.mart = -09:30: MART/Marquesas Eilanden Tijd
+ref.timezone.akst = -09:00: AKST/Alaska Standaard Tijd
+ref.timezone.pst = -08:00: PST/Pacific Standaard Tijd
+ref.timezone.mst = -07:00: MST/Mountain Standaard Tijd
+ref.timezone.cst = -06:00: CST/Central Standaard Tijd
+ref.timezone.est = -05:00: EST/Eastern Standaard Tijd
+ref.timezone.ast = -04:00: AST Atlantische Standaard Tijd
+ref.timezone.nst = -03:30: NST/Newfoundland Standaard Tijd
+ref.timezone.brt = -03:00: BRT/Brazilië Tijd, ART/Argentinië Tijd
+ref.timezone.gst = -02:00: GST/Zuid Georgië Tijd
+ref.timezone.azot = -01:00: AZOT/Azoren Standaard Tijd
+ref.timezone.lmt = MPT: Middelbaar Plaatselijke Tijd
 
 ### shr
 # Buttons
@@ -176,14 +210,11 @@ test-line-1 = Eerste test regel
 test-line-2 = Tweede test regel
 
 ### txt
+# Error texts in StandardTexts
+txt.error.enddate = Voer een correcte waarde in voor de eind datum
+txt.error.startdate = Voer een correcte waarde in voor de begin datum
 
 ### vw
-# OOB Calendar View
-vw.oobcal.day = Dag
-vw.oobcal.month = Maand
-vw.oobcal.title = Out of bounds kalender
-vw.oobcal.type_of_chance = Soort verandering
-vw.oobcal.year = Jaar
 # Configuration progressive techniques
 vw.configprog.hintorb = Orb
 vw.configprog.pd.aspects = Aspecten
@@ -207,3 +238,19 @@ vw.configprog.tabpd = Prim dir
 vw.configprog.tabsc = Sec dir
 vw.configprog.tabsm = Sym dir
 vw.configprog.tabtr = Transits
+# Primary directions input
+vw.progpdinput.currentsel = Huidige selecties
+vw.progpdinput.hintconverse = Converse
+vw.progpdinput.hintenddate = Eind datum jjjj/mm/dd
+vw.progpdinput.hintlataspects = Breedte voor aspecten
+vw.progpdinput.hintmethod = Methode
+vw.progpdinput.hintmundanezodiac = Mundaan of zodiakaal
+vw.progpdinput.hintstartdate = Begin datum jjjj/mm/dd
+vw.progpdinput.hinttimekey = Tijd sleutel
+vw.progpdinput.title = Bereken primaire directies
+# OOB Calendar View
+vw.oobcal.day = Dag
+vw.oobcal.month = Maand
+vw.oobcal.title = Out of bounds kalender
+vw.oobcal.type_of_chance = Soort verandering
+vw.oobcal.year = Jaar

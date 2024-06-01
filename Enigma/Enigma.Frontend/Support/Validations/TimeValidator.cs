@@ -27,6 +27,7 @@ public interface ITimeValidator
 /// <inheritdoc/>
 public class TimeValidator : ITimeValidator
 {
+    Rosetta _rosetta = Rosetta.Instance;
     private readonly int[] _timeValues = { 0, 0, 0 };
     private double _ut;
     private int _correctionForDay;
@@ -59,7 +60,7 @@ public class TimeValidator : ITimeValidator
 
     private string CreateFullText(TimeZones timezone, double lmtOffset, bool dst)
     {
-        string timeZoneTextId = timezone.GetDetails().Text;
+        string timeZoneTextId = _rosetta.GetText(timezone.GetDetails().RbKey);
         string dstText = dst ? "DST 1 hour" : "No DST";
         string lmtOffsetText = "";
         if (timezone == TimeZones.Lmt)

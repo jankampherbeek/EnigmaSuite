@@ -32,6 +32,7 @@ public class ChartsWindowsFlow:
     public const string DECL_DIAGRAM = "DeclDiagram";
     public const string DECL_STRIP = "DeclStrip";
     public const string OOB_CAL = "OobCal";
+    public const string PROG_PDINPUT = "ProgPdInput";
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
@@ -53,6 +54,7 @@ public class ChartsWindowsFlow:
     private ProgEventWindow? _progEventWindow;
     private ProgEventResultsWindow? _progEventResultsWindow;
     private ProgressiveMainWindow? _progressiveMainWindow;
+    private ProgPdInputWindow? _progPdInputWindow; 
     private RadixPositionsWindow? _radixPositionsWindow;
     private ChartsWheelWindow? _chartsWheelWindow;
     private RadixAspectsWindow? _radixAspectsWindow;
@@ -88,6 +90,9 @@ public class ChartsWindowsFlow:
             case PROGRESSIVE_MAIN:
                 _progressiveMainWindow?.Close();
                 break;
+            case PROG_PDINPUT:
+                _progPdInputWindow?.Close();
+                break;
             case PROG_EVENT:
                 _progEventWindow?.Close();
                 break;
@@ -113,6 +118,10 @@ public class ChartsWindowsFlow:
             case PROG_EVENT:
                 _progEventWindow = new ProgEventWindow();
                 _progEventWindow.ShowDialog();
+                break;
+            case PROG_PDINPUT:
+                _progPdInputWindow = new ProgPdInputWindow();
+                _progPdInputWindow.ShowDialog();
                 break;
             default:
                 HandleNonDialogView(message.ViewToOpen, message.ParentView);

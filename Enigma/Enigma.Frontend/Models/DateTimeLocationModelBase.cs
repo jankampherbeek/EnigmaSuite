@@ -140,7 +140,7 @@ public abstract class DateTimeLocationModelBase
         List<TimeZoneDetails> tzDetails = TimeZonesExtensions.AllDetails();
         foreach (var tzDetail in tzDetails)
         {
-            AllTimeZones.Add(tzDetail.Text);
+            AllTimeZones.Add(_rosetta.GetText(tzDetail.RbKey));
         }
     }
 }

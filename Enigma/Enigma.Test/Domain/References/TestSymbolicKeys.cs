@@ -20,7 +20,7 @@ public class TestSymbolicKeys
         Assert.Multiple(() =>
         {
             Assert.That(details.SymbolicKey, Is.EqualTo(SymbolicKeys.OneDegree));
-            Assert.That(details.RbKey, Is.EqualTo("ref_symdirtimekey_onedegree"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.symdirtimekey.onedegree"));
         });
     }
 
@@ -58,7 +58,7 @@ public class TestSymbolicKeys
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));
-            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref_symdirtimekey_truesun"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.symdirtimekey.truesun"));
             Assert.That(allDetails[2].SymbolicKey, Is.EqualTo(SymbolicKeys.MeanSun));
         });
     }

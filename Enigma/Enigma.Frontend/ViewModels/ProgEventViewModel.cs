@@ -147,14 +147,12 @@ public partial class ProgEventViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        Log.Information("ProgEventViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Cancel()
     {
-        Log.Information("ProgEventViewModel.Cancel(): send CloseMessage");
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
     

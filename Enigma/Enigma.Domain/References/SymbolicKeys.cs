@@ -32,9 +32,9 @@ public static class SymbolicKeyExtensions
     {
         return symbolicKey switch
         {
-            SymbolicKeys.OneDegree => new SymbolicKeyDetails(symbolicKey, "ref_symdirtimekey_onedegree"),
-            SymbolicKeys.MeanSun => new SymbolicKeyDetails(symbolicKey, "ref_symdirtimekey_meansun"),
-            SymbolicKeys.TrueSun => new SymbolicKeyDetails(symbolicKey, "ref_symdirtimekey_truesun"),
+            SymbolicKeys.OneDegree => new SymbolicKeyDetails(symbolicKey, "ref.symdirtimekey.onedegree"),
+            SymbolicKeys.MeanSun => new SymbolicKeyDetails(symbolicKey, "ref.symdirtimekey.meansun"),
+            SymbolicKeys.TrueSun => new SymbolicKeyDetails(symbolicKey, "ref.symdirtimekey.truesun"),
             _ => throw new ArgumentException("Symbolic time key unknown : " + symbolicKey)
         };
     }

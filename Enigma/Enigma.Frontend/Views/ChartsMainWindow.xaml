@@ -137,6 +137,11 @@
                 </MenuItem>
             </MenuItem>    
             <MenuItem Header="Progressive">
+                <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/primary.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>                
                 <MenuItem Header="Open window for progressions" Command="{Binding ProgressionsCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/event.png"/>

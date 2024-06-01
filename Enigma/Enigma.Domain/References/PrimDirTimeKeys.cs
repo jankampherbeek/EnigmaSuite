@@ -27,11 +27,11 @@ public static class PrimDirTimeKeysExtensions
     {
         return timeKey switch
         {
-            PrimDirTimeKeys.Naibod => new PrimDirTimeKeysDetails("ref_primdirtimekey_naibod"),
-            PrimDirTimeKeys.Ptolemy => new PrimDirTimeKeysDetails("ref_primdirtimekey_ptolemy"),
-            PrimDirTimeKeys.Brahe => new PrimDirTimeKeysDetails("ref_primdirtimekey_brahe"),
-            PrimDirTimeKeys.Placidus => new PrimDirTimeKeysDetails("ref_primdirtimekey_placidus"),
-            PrimDirTimeKeys.VanDam => new PrimDirTimeKeysDetails("ref_primdirtimekey_vandam"),
+            PrimDirTimeKeys.Naibod => new PrimDirTimeKeysDetails("ref.primdirtimekey.naibod"),
+            PrimDirTimeKeys.Ptolemy => new PrimDirTimeKeysDetails("ref.primdirtimekey.ptolemy"),
+            PrimDirTimeKeys.Brahe => new PrimDirTimeKeysDetails("ref.primdirtimekey.brahe"),
+            PrimDirTimeKeys.Placidus => new PrimDirTimeKeysDetails("ref.primdirtimekey.placidus"),
+            PrimDirTimeKeys.VanDam => new PrimDirTimeKeysDetails("ref.primdirtimekey.vandam"),
             _ => throw new ArgumentException("PrimDirTimeKEy unknown : " + timeKey)
         };
     }

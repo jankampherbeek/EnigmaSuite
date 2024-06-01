@@ -157,7 +157,6 @@ public partial class RadixDataInputViewModel: ObservableObject
         if (string.IsNullOrEmpty(Date) && !_calculateClicked) return true; 
         Calendars cal = CalendarIndex == 0 ? Calendars.Gregorian : Calendars.Julian;
         YearCounts yCount = YearCountsExtensions.YearCountForIndex(YearCountIndex);
-        Log.Information("RadixDataInputViewModel.IsDateValid() calls RadixDataInputModel.IsDateValid()");
         return _model.IsDateValid(Date, cal, yCount);
     }
     
@@ -171,14 +170,12 @@ public partial class RadixDataInputViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        Log.Information("RadixDataInputViewModel.Help(): send HelpMessage");  
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private static void Close()
     {
-   //     Log.Information("RadixDataInputViewModel.Close(): send CloseMessage");  
         WeakReferenceMessenger.Default.Send(new CloseRadixDataInputViewMessage(VM_IDENTIFICATION));
     }
 }

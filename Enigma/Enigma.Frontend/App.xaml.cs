@@ -99,6 +99,7 @@ public partial class App
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
+        serviceCollection.AddTransient<ProgPdInputModel>();
         serviceCollection.AddSingleton<ProgEventModel>();
         serviceCollection.AddTransient<ProgEventResultsModel>();
         serviceCollection.AddSingleton<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();

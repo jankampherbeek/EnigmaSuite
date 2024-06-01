@@ -18,7 +18,7 @@ public class TestPrimDirTimeKeys
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.RbKey, Is.EqualTo("ref_primdirtimekey_brahe"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.primdirtimekey.brahe"));
         });
     }
 
@@ -57,8 +57,8 @@ public class TestPrimDirTimeKeys
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(5));
-            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref_primdirtimekey_ptolemy"));
-            Assert.That(allDetails[3].RbKey, Is.EqualTo("ref_primdirtimekey_placidus"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.primdirtimekey.ptolemy"));
+            Assert.That(allDetails[3].RbKey, Is.EqualTo("ref.primdirtimekey.placidus"));
         });
     }
     
