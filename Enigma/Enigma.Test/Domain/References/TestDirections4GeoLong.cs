@@ -21,7 +21,7 @@ public class TestTestDirections4GeoLong
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Direction, Is.EqualTo(direction));
-            Assert.That(details.Text, Is.EqualTo("East"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.directions4geoLong.east"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestTestDirections4GeoLong
         foreach (Directions4GeoLong direction in Enum.GetValues(typeof(Directions4GeoLong)))
         {
             Directions4GeoLongDetails details = direction.GetDetails();
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
@@ -58,7 +58,7 @@ public class TestTestDirections4GeoLong
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].Direction, Is.EqualTo(Directions4GeoLong.East));
-            Assert.That(allDetails[1].Text, Is.EqualTo("West"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.directions4geoLong.west"));
         });
     }
 }

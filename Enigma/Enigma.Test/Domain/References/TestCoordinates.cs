@@ -20,7 +20,7 @@ public class TestCoordinates
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Coordinate, Is.EqualTo(coordinate));
             Assert.That(details.CoordinateSystem, Is.EqualTo(CoordinateSystems.Equatorial));
-            Assert.That(details.RbKey, Is.EqualTo("ref_coordinate_rightascension"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.coordinate.rightascension"));
         });
     }
 
@@ -57,7 +57,7 @@ public class TestCoordinates
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));
-            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref_coordinate_longitude"));
+            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.coordinate.longitude"));
             Assert.That(allDetails[3].CoordinateSystem, Is.EqualTo(CoordinateSystems.Equatorial));
         });
     }

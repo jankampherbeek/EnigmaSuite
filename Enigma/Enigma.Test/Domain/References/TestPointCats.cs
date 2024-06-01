@@ -20,7 +20,7 @@ public class TestPointCats
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Category, Is.EqualTo(pointCat));
-            Assert.That(details.RbKey, Is.EqualTo("ref_pointcat_common"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.pointcat.common"));
         });
     }
 
@@ -58,7 +58,7 @@ public class TestPointCats
         Assert.Multiple(() =>
         {
             Assert.That(allDetails, Has.Count.EqualTo(6));
-            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref_pointcat_common"));
+            Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.pointcat.common"));
             Assert.That(allDetails[1].Category, Is.EqualTo(PointCats.Angle));
         });
     }

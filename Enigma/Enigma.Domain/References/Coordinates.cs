@@ -34,12 +34,12 @@ public static class CoordinatesExtensions
     {
         return coordinate switch
         {
-            Coordinates.Longitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "ref_coordinate_longitude"),
-            Coordinates.Latitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "ref_coordinate_latitude"),
-            Coordinates.RightAscension => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "ref_coordinate_rightascension"),
-            Coordinates.Declination => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "ref_coordinate_declination"),
-            Coordinates.Azimuth => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "ref_coordinate_azimuth"),
-            Coordinates.Altitude => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "ref_coordinate_altitude"),
+            Coordinates.Longitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "ref.coordinate.longitude"),
+            Coordinates.Latitude => new CoordinateDetails(coordinate, CoordinateSystems.Ecliptical, "ref.coordinate.latitude"),
+            Coordinates.RightAscension => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "ref.coordinate.rightascension"),
+            Coordinates.Declination => new CoordinateDetails(coordinate, CoordinateSystems.Equatorial, "ref.coordinate.declination"),
+            Coordinates.Azimuth => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "ref.coordinate.azimuth"),
+            Coordinates.Altitude => new CoordinateDetails(coordinate, CoordinateSystems.Horizontal, "ref.coordinate.altitude"),
             _ => throw new ArgumentException("Coordinate unknown : " + coordinate)
         };
     }

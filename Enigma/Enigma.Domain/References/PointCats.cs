@@ -41,12 +41,12 @@ public static class PointCatsExtensions
     {
         return cat switch
         {
-            PointCats.Common => new PointCatDetails(cat, "ref_pointcat_common"),
-            PointCats.Angle => new PointCatDetails(cat, "ref_pointcat_angle"),
-            PointCats.Cusp => new PointCatDetails(cat, "ref_pointcat_cusp"),
-            PointCats.Zodiac => new PointCatDetails(cat, "ref_pointcat_zodiac"),
-            PointCats.Lots => new PointCatDetails(cat, "ref_pointcat_lots"),
-            PointCats.FixStar => new PointCatDetails(cat, "ref_pointcat_fixstar"),
+            PointCats.Common => new PointCatDetails(cat, "ref.pointcat.common"),
+            PointCats.Angle => new PointCatDetails(cat, "ref.pointcat.angle"),
+            PointCats.Cusp => new PointCatDetails(cat, "ref.pointcat.cusp"),
+            PointCats.Zodiac => new PointCatDetails(cat, "ref.pointcat.zodiac"),
+            PointCats.Lots => new PointCatDetails(cat, "ref.pointcat.lots"),
+            PointCats.FixStar => new PointCatDetails(cat, "ref.pointcat.fixstar"),
             _ => throw new ArgumentException("PointCat unknown : " + cat)
         };
     }

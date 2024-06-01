@@ -32,8 +32,8 @@ public static class ObserverPositionsExtensions
         return obsPos switch
         {
             // No specific flags for geocentric.
-            ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "ref_observerpos_geocentric"),
-            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "ref_observerpos_topocentric"),
+            ObserverPositions.GeoCentric => new ObserverPositionDetails(obsPos, 0, "ref.observerpos.geocentric"),
+            ObserverPositions.TopoCentric => new ObserverPositionDetails(obsPos, EnigmaConstants.SEFLG_TOPOCTR, "ref.observerpos.topocentric"),
             _ => throw new ArgumentException("Observer Position unknown : " + obsPos)
         };
     }

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,10 +18,10 @@ public enum Directions4GeoLong
 }
 
 
-/// <summary>Details for the Directions of geographic longitude</summary>
-/// <param name="Direction">Direction from the enum DirectionsGeo4Long</param>
-/// <param name="Text">Descriptive text</param>
-public record Directions4GeoLongDetails(Directions4GeoLong Direction, string Text);
+/// <summary>Details for the Directions of geographic longitude.</summary>
+/// <param name="Direction">Direction from the enum DirectionsGeo4Long.</param>
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record Directions4GeoLongDetails(Directions4GeoLong Direction, string RbKey);
 
 
 /// <summary>Extension class for enum Directions4GeoLong.</summary>
@@ -34,8 +34,8 @@ public static class Directions4GeoLongExtensions
     {
         return direction switch
         {
-            Directions4GeoLong.East => new Directions4GeoLongDetails(direction, "East"),
-            Directions4GeoLong.West => new Directions4GeoLongDetails(direction, "West"),
+            Directions4GeoLong.East => new Directions4GeoLongDetails(direction, "ref.directions4geoLong.east"),
+            Directions4GeoLong.West => new Directions4GeoLongDetails(direction, "ref.directions4geoLong.west"),
             _ => throw new ArgumentException("Direction for Longitude unknown : " + direction)
         };
     }

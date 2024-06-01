@@ -82,57 +82,69 @@ ref.calendar.julian_short = J
 # Ref Control group types
 ref.controlgrouptype.standardshift = Standaard schuiven met locatie, datum en tijd
 # Ref Coordinates
-ref_coordinate_altitude = Altitude
-ref_coordinate_azimuth = Azimuth
-ref_coordinate_declination = Declinatie
-ref_coordinate_latitude = Breedte
-ref_coordinate_longitude = Lengte
-ref_coordinate_rightascension = Rechte Klimming
+ref.coordinate.altitude = Altitude
+ref.coordinate.azimuth = Azimuth
+ref.coordinate.declination = Declinatie
+ref.coordinate.latitude = Breedte
+ref.coordinate.longitude = Lengte
+ref.coordinate.rightascension = Rechte Klimming
+# Ref Coordinate systems
+ref.coordinatesys.ecliptic = Ecliptic
+ref.coordinatesys.equatorial = Equatorial
+ref.coordinatesys.horizontal = Horizontal
+# Ref directions for geographic latitude
+ref.directions4geolat.north = Noord
+ref.directions4geolat.south = Zuid
+# Ref directions for geographic longitude
+ref.directions4geoLong.east = Oost
+ref.directions4geolong.west = West
 # Ref House systems
-ref_housesys_alcabitius = Alcabitius
-ref_housesys_apc = APC
-ref_housesys_axial = Axiale rotatie
-ref_housesys_campanus = Campanus
-ref_housesys_carter = Carter
-ref_housesys_equalaries = Gelijk vanaf 0 Ram
-ref_housesys_equalasc = Gelijk vanaf Ascendant
-ref_housesys_equalmc = Gelijk vanaf MC
-ref_housesys_gauquelin = Gauquelin
-ref_housesys_horizon = Horizon
-ref_housesys_koch = Koch
-ref_housesys_krusinski = Krusinski
-ref_housesys_morin = Morinus
-ref_housesys_nohouses = Geen
-ref_housesys_placidus = Placidus
-ref_housesys_porphyri = Porphyrius
-ref_housesys_pullensd = Pullen (sinusoidaal delta)
-ref_housesys_pullensr = Pullen (sinusoidaal ratio)
-ref_housesys_regiomontanus = Regiomontanus 
-ref_housesys_sripati = Sripati
-ref_housesys_sunshine = Zonlicht
-ref_housesys_sunshinetreindl = Zonlicht (Treindl)
-ref_housesys_topocentric = Topocentrisch
-ref_housesys_vehlow = Vehlow
-ref_housesys_wholesign = Teken huizen
+ref.housesys.alcabitius = Alcabitius
+ref.housesys.apc = APC
+ref.housesys.axial = Axiale rotatie
+ref.housesys.campanus = Campanus
+ref.housesys.carter = Carter
+ref.housesys.equalaries = Gelijk vanaf 0 Ram
+ref.housesys.equalasc = Gelijk vanaf Ascendant
+ref.housesys.equalmc = Gelijk vanaf MC
+ref.housesys.gauquelin = Gauquelin
+ref.housesys.horizon = Horizon
+ref.housesys.koch = Koch
+ref.housesys.krusinski = Krusinski
+ref.housesys.morin = Morinus
+ref.housesys.nohouses = Geen
+ref.housesys.placidus = Placidus
+ref.housesys.porphyri = Porphyrius
+ref.housesys.pullensd = Pullen (sinusoidaal delta)
+ref.housesys.pullensr = Pullen (sinusoidaal ratio)
+ref.housesys.regiomontanus = Regiomontanus 
+ref.housesys.sripati = Sripati
+ref.housesys.sunshine = Zonlicht
+ref.housesys.sunshinetreindl = Zonlicht (Treindl)
+ref.housesys.topocentric = Topocentrisch
+ref.housesys.vehlow = Vehlow
+ref.housesys.wholesign = Teken huizen
 # Ref Observer Positions
-ref_observerpos_geocentric = Geocentrisch
-ref_observerpos_topocentric = Topocentrisch (met parallax)
+ref.observerpos.geocentric = Geocentrisch
+ref.observerpos.topocentric = Topocentrisch (met parallax)
 # Ref OOB event types
-ref_oobeventtype_endnorth = Einde OOB (Noord)
-ref_oobeventtype_endsouth = Einde OOB (Zuid)
-ref_oobeventtype_initinboundsnorth = Radix In Bounds (Noord)
-ref_oobeventtype_initinboundssouth = Radix In Bounds (Zuid)
-ref_oobeventtype_initoobnorth = Radix OOB (Noord)
-ref_oobeventtype_initoobsouth = Radix OOB (Zuid)
-ref_oobeventtype_startnorth = Begin OOB (Noord)
-ref_oobeventtype_startsouth = Begin OOB (Zuid)
+ref.oobeventtype.endnorth = Einde OOB (Noord)
+ref.oobeventtype.endsouth = Einde OOB (Zuid)
+ref.oobeventtype.initinboundsnorth = Radix In Bounds (Noord)
+ref.oobeventtype.initinboundssouth = Radix In Bounds (Zuid)
+ref.oobeventtype.initoobnorth = Radix OOB (Noord)
+ref.oobeventtype.initoobsouth = Radix OOB (Zuid)
+ref.oobeventtype.startnorth = Begin OOB (Noord)
+ref.oobeventtype.startsouth = Begin OOB (Zuid)
+# Ref Orb methods
+ref.orbmethod.weighted = Gewogen
 # Ref Point Categories (PointCats) 
-ref_pointcat_angle = Mundane hoeken
-ref_pointcat_common = Planeten en vergelijkbare punten
-ref_pointcat_cusp = Cuspen
-ref_pointcat_fixstar = Vaste sterren
-ref_pointcat_lots = Arabische punten
-ref_pointcat_zodiac = Zodiacale punten
+ref.pointcat.angle = Mundane hoeken
+ref.pointcat.common = Planeten en vergelijkbare punten
+ref.pointcat.cusp = Cuspen
+ref.pointcat.fixstar = Vaste sterren
+ref.pointcat.lots = Arabische punten
+ref.pointcat.zodiac = Zodiacale punten
 #Ref primary directions: approaches
 ref.primdirapproach.inmundo = Mundaan
 ref.primdirapproach.inzodiaco = Zodiakaal

@@ -82,57 +82,69 @@ ref.calendar.julian_short = J
 # Ref Control group types
 ref.controlgrouptype.standardshift = Standard shifting of location, date, and time
 # Ref Coordinates
-ref_coordinate_altitude = Altitude
-ref_coordinate_azimuth = Azimuth
-ref_coordinate_declination = Declination
-ref_coordinate_latitude = Latitude
-ref_coordinate_longitude = Longitude
-ref_coordinate_rightascension = Right Ascension
+ref.coordinate.altitude = Altitude
+ref.coordinate.azimuth = Azimuth
+ref.coordinate.declination = Declination
+ref.coordinate.latitude = Latitude
+ref.coordinate.longitude = Longitude
+ref.coordinate.rightascension = Right Ascension
+# Ref Coordinate systems
+ref.coordinatesys.ecliptic = Ecliptic
+ref.coordinatesys.equatorial = Equatorial
+ref.coordinatesys.horizontal = Horizontal
+# Ref directions for geographic latitude
+ref.directions4geolat.north = North
+ref.directions4geolat.south = South
+# Ref directions for geographic longitude
+ref.directions4geoLong.east = East
+ref.directions4geolong.west = West
 # Ref House systems
-ref_housesys_alcabitius = Alcabitius
-ref_housesys_apc = APC
-ref_housesys_axial = Axial rotation
-ref_housesys_campanus = Campanus
-ref_housesys_carter = Carter
-ref_housesys_equalaries = Equal from 0 Aries
-ref_housesys_equalasc = Equal from Ascendant
-ref_housesys_equalmc = Equal from MC
-ref_housesys_gauquelin = Gauquelin
-ref_housesys_horizon = Horizon
-ref_housesys_koch = Koch
-ref_housesys_krusinski = Krusinski
-ref_housesys_morin = Morin
-ref_housesys_nohouses = None
-ref_housesys_placidus = Placidus
-ref_housesys_porphyri = Porphyri
-ref_housesys_pullensd = Pullen (sinusoidal delta)
-ref_housesys_pullensr = Pullen (sinusoidal ratio)
-ref_housesys_regiomontanus = Regiomontanus 
-ref_housesys_sripati = Sripati
-ref_housesys_sunshine = Sunshine
-ref_housesys_sunshinetreindl = Sunshine (Treindl)
-ref_housesys_topocentric = Topocentric
-ref_housesys_vehlow = Vehlow
-ref_housesys_wholesign = Whole sign houses
+ref.housesys.alcabitius = Alcabitius
+ref.housesys.apc = APC
+ref.housesys.axial = Axial rotation
+ref.housesys.campanus = Campanus
+ref.housesys.carter = Carter
+ref.housesys.equalaries = Equal from 0 Aries
+ref.housesys.equalasc = Equal from Ascendant
+ref.housesys.equalmc = Equal from MC
+ref.housesys.gauquelin = Gauquelin
+ref.housesys.horizon = Horizon
+ref.housesys.koch = Koch
+ref.housesys.krusinski = Krusinski
+ref.housesys.morin = Morin
+ref.housesys.nohouses = None
+ref.housesys.placidus = Placidus
+ref.housesys.porphyri = Porphyri
+ref.housesys.pullensd = Pullen (sinusoidal delta)
+ref.housesys.pullensr = Pullen (sinusoidal ratio)
+ref.housesys.regiomontanus = Regiomontanus 
+ref.housesys.sripati = Sripati
+ref.housesys.sunshine = Sunshine
+ref.housesys.sunshinetreindl = Sunshine (Treindl)
+ref.housesys.topocentric = Topocentric
+ref.housesys.vehlow = Vehlow
+ref.housesys.wholesign = Whole sign houses
 # Ref Observer Positions
-ref_observerpos_geocentric = Geocentric
-ref_observerpos_topocentric = Topocentric (with parallax)
+ref.observerpos.geocentric = Geocentric
+ref.observerpos.topocentric = Topocentric (with parallax)
 # Ref OOB event types
-ref_oobeventtype_endnorth = End of OOB (North)
-ref_oobeventtype_endsouth = End of OOB (South)
-ref_oobeventtype_initinboundsnorth = Initial In Bounds (North)
-ref_oobeventtype_initinboundssouth = Initial In Bounds (South)
-ref_oobeventtype_initoobnorth = Initial OOB (North)
-ref_oobeventtype_initoobsouth = Initial OOB (South)
-ref_oobeventtype_startnorth = Start of OOB (North)
-ref_oobeventtype_startsouth = Start of OOB (South)
+ref.oobeventtype.endnorth = End of OOB (North)
+ref.oobeventtype.endsouth = End of OOB (South)
+ref.oobeventtype.initinboundsnorth = Initial In Bounds (North)
+ref.oobeventtype.initinboundssouth = Initial In Bounds (South)
+ref.oobeventtype.initoobnorth = Initial OOB (North)
+ref.oobeventtype.initoobsouth = Initial OOB (South)
+ref.oobeventtype.startnorth = Start of OOB (North)
+ref.oobeventtype.startsouth = Start of OOB (South)
+# Ref Orb methods
+ref.orbmethod.weighted = Weighted
 # Ref Point Categories (PointCats) 
-ref_pointcat_angle = Mundane angles
-ref_pointcat_common = Planets and comparable points
-ref_pointcat_cusp = Cusps
-ref_pointcat_fixstar = Fix stars
-ref_pointcat_lots = Arabic points
-ref_pointcat_zodiac = Zodiac points
+ref.pointcat.angle = Mundane angles
+ref.pointcat.common = Planets and comparable points
+ref.pointcat.cusp = Cusps
+ref.pointcat.fixstar = Fix stars
+ref.pointcat.lots = Arabic points
+ref.pointcat.zodiac = Zodiac points
 #Ref primary directions: approaches
 ref.primdirapproach.inmundo = Mundane
 ref.primdirapproach.inzodiaco = Zodiacal
@@ -157,6 +169,7 @@ ref.primdirtimekey.naibod = Naibod
 ref.primdirtimekey.placidus = Placidus
 ref.primdirtimekey.ptolemy = Ptolemy
 ref.primdirtimekey.vandam = Van Dam
+#Ref Projection types
 # Ref Symbolic directions timekeys
 ref.symdirtimekey.onedegree = One degree
 ref.symdirtimekey.meansun = Mean Sun

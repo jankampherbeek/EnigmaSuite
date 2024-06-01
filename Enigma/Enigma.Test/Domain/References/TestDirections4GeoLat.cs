@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -21,7 +21,7 @@ public class TestTestDirections4GeoLat
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Direction, Is.EqualTo(direction));
-            Assert.That(details.Text, Is.EqualTo("North"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.directions4geolat.north"));
         });
     }
 
@@ -31,7 +31,7 @@ public class TestTestDirections4GeoLat
         foreach (Directions4GeoLat direction in Enum.GetValues(typeof(Directions4GeoLat)))
         {
             Directions4GeoLatDetails details = direction.GetDetails();
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 
@@ -58,7 +58,7 @@ public class TestTestDirections4GeoLat
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].Direction, Is.EqualTo(Directions4GeoLat.North));
-            Assert.That(allDetails[1].Text, Is.EqualTo("South"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.directions4geolat.south"));
         });
     }
 }

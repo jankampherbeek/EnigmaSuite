@@ -104,7 +104,7 @@ public abstract class DateTimeLocationModelBase
         List<Directions4GeoLatDetails> geoLatDetails = Directions4GeoLatExtensions.AllDetails();
         foreach (var geoLatDetail in geoLatDetails)
         {
-            AllDirectionsForLatitude.Add(geoLatDetail.Text);
+            AllDirectionsForLatitude.Add(geoLatDetail.RbKey);
         }
     }
     
@@ -113,7 +113,7 @@ public abstract class DateTimeLocationModelBase
         List<Directions4GeoLongDetails> geoLongDetails = Directions4GeoLongExtensions.AllDetails();
         foreach (var geoLongDetail in geoLongDetails)
         {
-            AllDirectionsForLongitude.Add(geoLongDetail.Text);
+            AllDirectionsForLongitude.Add(geoLongDetail.RbKey);
         }
     }
 

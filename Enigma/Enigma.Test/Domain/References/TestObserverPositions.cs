@@ -22,7 +22,7 @@ public class TestObserverPositionSpecifications
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Position, Is.EqualTo(position));
             Assert.That(details.ValueForFlag, Is.EqualTo(EnigmaConstants.SEFLG_TOPOCTR));
-            Assert.That(details.RbKey, Is.EqualTo("ref_observerpos_topocentric"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.observerpos.topocentric"));
         });
     }
 

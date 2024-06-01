@@ -24,7 +24,7 @@ public class TestHouseSystemSpecifications
             Assert.That(details.NrOfCusps, Is.EqualTo(12));
             Assert.That(details.CounterClockWise, Is.True);
             Assert.That(details.QuadrantSystem, Is.True);
-            Assert.That(details.RbKey, Is.EqualTo("ref_housesys_regiomontanus"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.housesys.regiomontanus"));
         });
     }
 
@@ -69,7 +69,7 @@ public class TestHouseSystemSpecifications
             Assert.That(allDetails[8].NrOfCusps, Is.EqualTo(12));
             Assert.That(allDetails[19].NrOfCusps, Is.EqualTo(36));
             Assert.That(allDetails[12].SeId, Is.EqualTo('A'));
-            Assert.That(allDetails[3].RbKey, Is.EqualTo("ref_housesys_porphyri"));
+            Assert.That(allDetails[3].RbKey, Is.EqualTo("ref.housesys.porphyri"));
             Assert.That(allDetails[14].HouseSystem, Is.EqualTo(HouseSystems.EqualAries));
         });
     }

@@ -35,14 +35,14 @@ public static class OobEventtypesExtensions
     {
         return oobEventType switch
         {
-            OobEventTypes.StartOobNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_startnorth"),
-            OobEventTypes.StartOobSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_startsouth"),
-            OobEventTypes.EndOobNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_endnorth"),
-            OobEventTypes.EndOobSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_endsouth"),
-            OobEventTypes.InitialOobNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initoobnorth"),
-            OobEventTypes.InitialOobSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initoobsouth"),
-            OobEventTypes.InitialInBoundsNorth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initinboundsnorth"),
-            OobEventTypes.InitialInBoundsSouth => new OobEventTypesDetails(oobEventType, "ref_oobeventtype_initinboundssouth"),
+            OobEventTypes.StartOobNorth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.startnorth"),
+            OobEventTypes.StartOobSouth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.startsouth"),
+            OobEventTypes.EndOobNorth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.endnorth"),
+            OobEventTypes.EndOobSouth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.endsouth"),
+            OobEventTypes.InitialOobNorth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.initoobnorth"),
+            OobEventTypes.InitialOobSouth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.initoobsouth"),
+            OobEventTypes.InitialInBoundsNorth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.initinboundsnorth"),
+            OobEventTypes.InitialInBoundsSouth => new OobEventTypesDetails(oobEventType, "ref.oobeventtype.initinboundssouth"),
             _ => throw new ArgumentException("OobEventTypes unknown : " + oobEventType)
         };
     }

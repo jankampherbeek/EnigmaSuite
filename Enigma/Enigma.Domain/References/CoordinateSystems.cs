@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -19,8 +19,8 @@ public enum CoordinateSystems
 /// <summary>Details for a coordinate system.</summary>
 /// <param name="CoordSystem">The coordinate system.</param>
 /// <param name="ValueForFlag">The value to construct the flags, as defined by the Swiss Ephemeris.</param>
-/// <param name="Text">Descriptive text.</param>
-public record CoordinateSystemDetails(CoordinateSystems CoordSystem, int ValueForFlag, string Text);
+/// <param name="RbKey">Key for descriptive text in resurce bundle.</param>
+public record CoordinateSystemDetails(CoordinateSystems CoordSystem, int ValueForFlag, string RbKey);
 
 
 /// <summary>Extension class for enum CoordinateSystems.</summary>
@@ -34,9 +34,9 @@ public static class CoordinateSystemsExtensions
         return coordSys switch
         {
             // No specific flags for ecliptical and horizontal.
-            CoordinateSystems.Ecliptical => new CoordinateSystemDetails(coordSys, 0, "Ecliptic"),
-            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordSys, EnigmaConstants.SEFLG_EQUATORIAL, "Equatorial"),
-            CoordinateSystems.Horizontal => new CoordinateSystemDetails(coordSys, 0, "Horizontal"),
+            CoordinateSystems.Ecliptical => new CoordinateSystemDetails(coordSys, 0, "ref.coordinatesys.ecliptic"),
+            CoordinateSystems.Equatorial => new CoordinateSystemDetails(coordSys, EnigmaConstants.SEFLG_EQUATORIAL, "ref.coordinatesys.equatorial"),
+            CoordinateSystems.Horizontal => new CoordinateSystemDetails(coordSys, 0, "ref.coordinatesys.horizontal"),
             _ => throw new ArgumentException("Coordinate system unknown : " + coordSys)
         };
     }
