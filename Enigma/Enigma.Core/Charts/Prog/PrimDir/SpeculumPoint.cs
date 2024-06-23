@@ -9,12 +9,13 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Charts.Prog.PrimDir;
 
+/// <summary>Point to be used in primary directions.</summary>
 public interface ISpeculumPoint
 {
     public SpeculumPointBase PointBase{ get;  }
 }
 
-
+/// <summary>Basic values for a speculum. All values that are relevant for each point.</summary>
 public class SpeculumPointBase
 {
     public bool IsSignificator { get; private set; }
@@ -26,7 +27,8 @@ public class SpeculumPointBase
     public double Decl { get; private set; }
     
     
-    /// <summary>Construct abstract class SpeculumPoint, a representation of a single point in as speculum.</summary>
+    /// <summary>Basic values for a point to be used in primary directions.
+    /// Each point needs these elements but using different values.</summary>
     /// <param name="point">The point.</param>
     /// <param name="pointPos">All positions for the point.</param>
     /// <param name="request">The original request.</param>
@@ -47,7 +49,7 @@ public class SpeculumPointBase
     
 }
 
-
+/// <summary>Additional basic values for points in SemiArc based primary directions.</summary>
 public class SpeculumPointSaBase
 {
     public double Ad { get; private set; }
@@ -78,7 +80,7 @@ public class SpeculumPointSaBase
 }
 
 
-
+/// <summary>A specific point to be used in Placidus directions.</summary>
 public class SpeculumPointPlac : ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
@@ -91,6 +93,7 @@ public class SpeculumPointPlac : ISpeculumPoint
 }
 
 
+/// <summary>A specific point to be used in Placidus under the Pole directions.</summary>
 public class SpeculumPointPlacPole: ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
@@ -109,10 +112,10 @@ public class SpeculumPointPlacPole: ISpeculumPoint
             : (PointSaBase.MdL / PointSaBase.SaN) * PointSaBase.Ad;
         ElevPole = PrimDirCalcAssist.ElevationOfThePolePlac(AdPlacPole, decl);
     }
-    
 }
 
 
+/// <summary>A specific point to be used in Topocentric directions.</summary>
 public class SpeculumPointTopoc : ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
@@ -130,6 +133,7 @@ public class SpeculumPointTopoc : ISpeculumPoint
 }
 
 
+/// <summary>A specific point to be used in Regiomontanus directions.</summary>
 public class SpeculumPointReg: ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }

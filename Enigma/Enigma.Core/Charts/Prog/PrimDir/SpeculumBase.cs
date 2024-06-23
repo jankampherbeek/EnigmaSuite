@@ -27,13 +27,6 @@ public class SpeculumBase
     
     public SpeculumBase(PrimDirRequest request)
     {
-
-        
-        DefineContent(request);
-    }
-
-    private void DefineContent(PrimDirRequest request)
-    {
         CalculatedChart chart = request.Chart;
         Method = request.Method;
         Approach = request.Approach;
@@ -43,8 +36,9 @@ public class SpeculumBase
         RaIc = RaMc <= HALF_CIRCLE ? RaMc + HALF_CIRCLE : RaMc - HALF_CIRCLE;
         LonMc = chart.Positions[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position;
         LonAsc = chart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
-        OaAsc = RaMc + 90.0;
+        OaAsc =  RaMc + 90.0;
         if (OaAsc >= 360.0) OaAsc -= 360.0;
         OblEcl = chart.Obliquity;
     }
+
 }
