@@ -5,7 +5,7 @@
 
 using Serilog;
 
-namespace Enigma.Domain.References;
+namespace Enigma.Domain.Charts.Prog.PrimDir;
 
 /// <summary>Approaches (in mundo or in zodiaco) for primary directions.</summary>
 public enum PrimDirApproaches

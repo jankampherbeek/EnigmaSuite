@@ -5,12 +5,12 @@
 
 using Serilog;
 
-namespace Enigma.Domain.References;
+namespace Enigma.Domain.Charts.Prog.PrimDir;
 
 /// <summary>Methods for primary directions.</summary>
 public enum PrimDirMethods
 {
-    Placidus = 0, PlacidusPole = 1, Regiomontanus = 2, Campanus = 3, Topocentric = 4
+    Placidus = 0, PlacidusPole = 1, Regiomontanus = 2, Topocentric = 3
 }
 
 /// <summary>Details for methods for primary directions.</summary>
@@ -30,7 +30,6 @@ public static class PrimDirMethodsExtensions
             PrimDirMethods.Placidus => new PrimDirMethodDetails("ref.primdirmethod.placidus"),
             PrimDirMethods.PlacidusPole => new PrimDirMethodDetails("ref.primdirmethod.placiduspole"),
             PrimDirMethods.Regiomontanus => new PrimDirMethodDetails("ref.primdirmethod.regiomontanus"),
-            PrimDirMethods.Campanus => new PrimDirMethodDetails("ref.primdirmethod.campanus"),
             PrimDirMethods.Topocentric => new PrimDirMethodDetails("ref.primdirmethod.topocentric"),
             _ => throw new ArgumentException("PrimDirMethod unknown : " + method)
         };

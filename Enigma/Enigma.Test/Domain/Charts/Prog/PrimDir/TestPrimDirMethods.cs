@@ -3,9 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.References;
+using Enigma.Domain.Charts.Prog.PrimDir;
 
-namespace Enigma.Test.Domain.References;
+namespace Enigma.Test.Domain.Charts.Prog.PrimDir;
 
 [TestFixture]
 public class TestPrimDirMethods
@@ -13,12 +13,12 @@ public class TestPrimDirMethods
     [Test]
     public void TestRetrievingDetails()
     {
-        const PrimDirMethods method = PrimDirMethods.Campanus;
+        const PrimDirMethods method = PrimDirMethods.Topocentric;
         PrimDirMethodDetails details = method.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.RbKey, Is.EqualTo("ref.primdirmethod.campanus"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.primdirmethod.topocentric"));
         });
     }
 
@@ -56,7 +56,7 @@ public class TestPrimDirMethods
         List<PrimDirMethodDetails> allDetails = PrimDirMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(5));
+            Assert.That(allDetails, Has.Count.EqualTo(4));
             Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.primdirmethod.placidus"));
             Assert.That(allDetails[2].RbKey, Is.EqualTo("ref.primdirmethod.regiomontanus"));
         });

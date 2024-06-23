@@ -80,7 +80,7 @@ public class DescriptiveChartText : IDescriptiveChartText
         }
         constructedText.Append(_rosetta.GetText(config.ObserverPosition.GetDetails().RbKey));
         constructedText.Append(' ');
-        constructedText.Append(config.ProjectionType.GetDetails().Text);
+        constructedText.Append(_rosetta.GetText(config.ProjectionType.GetDetails().RbKey));
         return constructedText + "\n";
     }
 }

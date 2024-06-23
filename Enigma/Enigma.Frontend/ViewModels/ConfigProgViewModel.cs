@@ -12,6 +12,7 @@ using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Domain.Charts.Prog.PrimDir;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;

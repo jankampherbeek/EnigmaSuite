@@ -1,4 +1,4 @@
-<Window x:Class="Enigma.Frontend.Ui.Views.ProgPdInputWindow"
+<Window x:Class="Enigma.Frontend.Ui.Charts.Prog.PrimDir.PrimDirInputWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,6 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
+        xmlns:primDir="clr-namespace:Enigma.Frontend.Ui.Charts.Prog.PrimDir"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -13,9 +14,9 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="ProgPdInputWindow" Height="450" Width="600">
+        Title="ProgPdInputWindow" Height="750" Width="600">
     <Window.Resources>
-        <viewModels:ProgPdInputViewModel x:Key="ViewModel"/>
+        <primDir:PrimDirInputViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
         <Grid.ColumnDefinitions>
@@ -32,6 +33,9 @@
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="15*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="15*"/>
+            
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
                    VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -86,15 +90,44 @@
                  Text="{Binding EndDate}"/> 
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
-            <Button Margin="6" Content="{Binding BtnHelp}" HorizontalAlignment="Right" 
-                    Command="{Binding HelpCommand}"/>
-            <Button Margin="6" Content="{Binding BtnCancel}" HorizontalAlignment="Right" 
-                    Command="{Binding CancelCommand}"/>
             <Button Name="CalculateButton"
                     Margin="6" Content="{Binding BtnCalculate}" HorizontalAlignment="Right" 
                     Command="{Binding FinalizeInputCommand}"/>
         </StackPanel>
-        
-        
+        <DataGrid Grid.Row="9" Grid.ColumnSpan="2" Margin="6"
+                materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                CanUserAddRows="False"
+                CanUserSortColumns="True"
+                AutoGenerateColumns="False"
+                HeadersVisibility="All"
+                HorizontalAlignment="Left"
+                ItemsSource="{Binding ActualPrimDirs}"
+                SelectionUnit="Cell">
+        <DataGrid.Columns>
+            <DataGridTextColumn Binding="{Binding Date}" 
+                                Header="{Binding DgDate}" 
+                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+            <DataGridTextColumn Binding="{Binding Promissor}" 
+                                Header="{Binding DgPromissor}" 
+                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+            <DataGridTextColumn Binding="{Binding Aspect}" 
+                                Header="{Binding DgSignificator}" 
+                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+            <DataGridTextColumn Binding="{Binding Significator}" 
+                                Header=" " 
+                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+            <DataGridTextColumn Binding="{Binding DirectConverse}" 
+                                Header="{Binding DgDirectConverse}" 
+                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+        </DataGrid.Columns>
+    </DataGrid>
+        <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Margin="6" Content="{Binding BtnHelp}" HorizontalAlignment="Right" 
+                    Command="{Binding HelpCommand}"/>
+            <Button Margin="6" Content="{Binding BtnClose}" HorizontalAlignment="Right" 
+                    Command="{Binding CloseCommand}"/>
+        </StackPanel>
     </Grid>
 </Window>

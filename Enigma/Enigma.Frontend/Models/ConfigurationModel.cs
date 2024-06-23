@@ -79,12 +79,12 @@ public class ConfigurationModel
 
     public static List<string> AllProjectionTypes()
     {
-        return ProjectionTypesExtensions.AllDetails().Select(detail => detail.Text).ToList();
+        return ProjectionTypesExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
     }
 
     public static List<string> AllOrbMethods()
     {
-        return OrbMethodsExtensions.AllDetails().Select(detail => detail.Text).ToList();
+        return OrbMethodsExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
     }
 
     public static List<GeneralPoint> AllGeneralPoints()

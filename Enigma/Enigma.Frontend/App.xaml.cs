@@ -11,6 +11,7 @@ using Serilog;
 using System.Windows;
 using Enigma.Api;
 using Enigma.Domain.Dtos;
+using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.Support.Conversions;
@@ -99,7 +100,7 @@ public partial class App
         serviceCollection.AddSingleton<IPointsExclusionManager, PointsExclusionManager>();
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
-        serviceCollection.AddTransient<ProgPdInputModel>();
+        serviceCollection.AddTransient<PrimDirInputModel>();
         serviceCollection.AddSingleton<ProgEventModel>();
         serviceCollection.AddTransient<ProgEventResultsModel>();
         serviceCollection.AddSingleton<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();
@@ -123,6 +124,7 @@ public partial class App
         serviceCollection.AddTransient<ResearchResultModel>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();        
         serviceCollection.AddSingleton<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
+        serviceCollection.AddSingleton<ITextToDateConverter, TextToDateConverter>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
         serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();

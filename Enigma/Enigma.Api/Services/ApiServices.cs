@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers;
+using Enigma.Api.Charts.Prog.PrimDir;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -41,6 +41,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IParallelsApi, ParallelsApi>();
         serviceCollection.AddTransient<IPdDataImportExportApi, PdDataImportExportApi>();             
         serviceCollection.AddTransient<IProgAspectsApi, ProgAspectsApi>();
+        serviceCollection.AddTransient<IPrimDirApi, PrimDirApi>();
         serviceCollection.AddTransient<IProgSecDirEventApi, ProgSecDirEventApi>();
         serviceCollection.AddTransient<IProgSymDirEventApi, ProgSymDirEventApi>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();

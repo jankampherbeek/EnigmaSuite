@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -110,59 +110,9 @@ public static class MathExtra
         double rectAngZCoord = rCoord * Math.Sin(thetaCoord);
         return new RectAngCoordinates(rectAngXCoord, rectAngYCoord, rectAngZCoord);
     }
+    
 
 
-    /// <summary>Calculate ascensional difference (AD). Uses the formula AD = arcsin(tan(decl) * tan(geoLat).</summary>
-    /// <param name="decl">Declination.</param>
-    /// <param name="geoLat">Geographic latitude.</param>
-    /// <returns>Calculated ascensional difference.</returns>
-    public static double AscensionalDifference(double decl, double geoLat)
-    {
-        double declRad = DegToRad(decl);
-        double latRad = DegToRad(geoLat);
-        double adRad = Math.Asin(Math.Tan(declRad) * Math.Tan(latRad));
-        return RadToDeg(adRad);
-    }
-
-    /// <summary>Calculate oblique ascension (or descension).</summary>
-    /// <param name="raPoint">Right ascention of point.</param>
-    /// <param name="ascDiff">Ascension difference of point.</param>
-    /// <param name="east">Indicates if point is in easterh hemisphere,</param>
-    /// <param name="north">Indficates if point is in northern hemisphere.</param>
-    /// <returns>Calculated oblique ascension.</returns>
-    public static double ObliqueAscension(double raPoint, double ascDiff, bool east, bool north)
-    {
-        if ((north && east) || (!north && !east))
-        {
-            return RangeUtil.ValueToRange(raPoint - ascDiff, 0.0, 360.0);
-        } 
-        return RangeUtil.ValueToRange(raPoint + ascDiff, 0.0, 360.0);
-    }
-   
-
-    /// <summary>Calculates horizontal distance for a point.</summary>
-    /// <param name="oaPoint">Oblique ascension for the point.</param>
-    /// <param name="oaAsc">Oblique ascension for the ascendant.</param>
-    /// <param name="easternHemiSphere">True if point is in the eastern hemisphere, otherwise false.</param>
-    /// <returns>Calculated value for horizontal distance.</returns>
-    public static double HorizontalDistance(double oaPoint, double oaAsc, bool easternHemiSphere)
-    {
-        if (easternHemiSphere) {
-            return oaPoint - oaAsc;
-        }
-        return RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0);
-    }
-
-    /// <summary>Checks if a point is in the eastern hemisphere.</summary>
-    /// <param name="raPoint">Right ascension of the point to check.</param>
-    /// <param name="raMc">Right ascension of the MC.</param>
-    /// <returns>True if the point is in the eastern hemisphere, otherwise false.</returns>
-    public static bool IsEasternHemiSphere(double raPoint, double raMc)
-    {
-        double raDiff = raPoint - raMc;
-        if (raDiff < 0.0) raDiff += 360.0;
-        return raDiff < 180.0;
-    }
 
     /// <summary>Calculate pole for use in Regiomontanian primary directtions.</summary>
     /// <remarks>See Martin Gansten, Primary directiopns, p. 165.</remarks>/// 

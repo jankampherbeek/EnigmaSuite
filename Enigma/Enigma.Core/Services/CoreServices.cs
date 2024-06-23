@@ -5,6 +5,7 @@
 
 using Enigma.Core.Analysis;
 using Enigma.Core.Calc;
+using Enigma.Core.Charts.Prog.PrimDir;
 using Enigma.Core.Communication;
 using Enigma.Core.Configuration;
 using Enigma.Core.Handlers;
@@ -102,6 +103,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
+        serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
         serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();

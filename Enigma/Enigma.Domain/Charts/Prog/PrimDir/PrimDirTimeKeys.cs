@@ -5,7 +5,7 @@
 
 using Serilog;
 
-namespace Enigma.Domain.References;
+namespace Enigma.Domain.Charts.Prog.PrimDir;
 
 /// <summary>Time keys for primary directions.</summary>
 public enum PrimDirTimeKeys

@@ -5,7 +5,7 @@
 
 using Serilog;
 
-namespace Enigma.Domain.References;
+namespace Enigma.Domain.Charts.Prog.PrimDir;
 
 /// <summary>Options for latitude with aspects in primary directions.</summary>
 public enum PrimDirLatAspOptions

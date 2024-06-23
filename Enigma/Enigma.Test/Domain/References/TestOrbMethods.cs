@@ -19,7 +19,7 @@ public class TestOrbMethods
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.EqualTo("Weighted"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.orbmethod.weighted"));
         });
     }
 
@@ -30,7 +30,7 @@ public class TestOrbMethods
         {
             OrbMethodDetails details = method.GetDetails();
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.Text, Is.Not.Empty);
+            Assert.That(details.RbKey, Is.Not.Empty);
         }
     }
 

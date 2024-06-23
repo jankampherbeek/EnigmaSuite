@@ -3,9 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.References;
+using Enigma.Domain.Charts.Prog.PrimDir;
 
-namespace Enigma.Test.Domain.References;
+namespace Enigma.Test.Domain.Charts.Prog.PrimDir;
 
 [TestFixture]
 public class TestPrimDirApproaches

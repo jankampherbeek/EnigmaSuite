@@ -6,7 +6,7 @@
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
-namespace Enigma.Domain.Requests;
+namespace Enigma.Domain.Charts.Prog.PrimDir;
 
 /// <summary>Request with dta for the calculation of primary directions.</summary>
 /// <param name="Chart">A calculated chart.</param>
@@ -17,16 +17,16 @@ namespace Enigma.Domain.Requests;
 /// <param name="EndDate">End date of the period to check.</param>
 /// <param name="Method">Primary directions method.</param>
 /// <param name="TimeKey">The time key to use.</param>
-/// <param name="InMundo">True if calculations should be in mundo, false for calculations in zodiaco.</param>
-/// <param name="Converse">True if converse directions should be included, otherwise false.</param>
+/// <param name="Approach">Approach (inMundo or inZodiaca).</param>
+/// <param name="ConverseOption">Which option to use for converse directions.</param>
 public record PrimDirRequest(
     CalculatedChart Chart, 
     List<ChartPoints> Significators, 
     List<ChartPoints> Promissors,
     List<AspectTypes> Aspects,
-    SimpleDateTime StartDate,
-    SimpleDateTime EndDate,
+    SimpleDate StartDate,
+    SimpleDate EndDate,
     PrimDirMethods Method,
     PrimDirTimeKeys TimeKey,
-    bool InMundo,
-    bool Converse);
+    PrimDirApproaches Approach,
+    PrimDirConverseOptions ConverseOption);

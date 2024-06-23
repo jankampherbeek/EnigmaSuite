@@ -148,28 +148,29 @@ ref.pointcat.zodiac = Zodiac points
 #Ref primary directions: approaches
 ref.primdirapproach.inmundo = Mundane
 ref.primdirapproach.inzodiaco = Zodiacal
-#Ref primary directions: options for converse directions
+# Ref primary directions: options for converse directions
 ref.primdirconverseoption.modern = Use converse, original method
 ref.primdirconverseoption.none = No converse directions
 ref.primdirconverseoption.original = Use converse, original method
-#Ref primary directions: options for latitude for aspects
+# Ref primary directions: options for latitude for aspects
 ref.primdirlataspoption.bianchini = Bianchini method
 ref.primdirlataspoption.none = No latitude for aspects
 ref.primdirlataspoption.promissor = Latitude of promissor
 ref.primdirlataspoption.significator = Latitude of significator
 # Ref Primary directions methods
-ref.primdirmethod.campanus = Campanus
 ref.primdirmethod.placidus = Placidus
 ref.primdirmethod.placiduspole = Placidus under the pole
 ref.primdirmethod.regiomontanus = Regiomontanus
 ref.primdirmethod.topocentric = Topocentric
-#Ref Primary Directions Time Keys
+# Ref Primary Directions Time Keys
 ref.primdirtimekey.brahe = Brahe
 ref.primdirtimekey.naibod = Naibod
 ref.primdirtimekey.placidus = Placidus
 ref.primdirtimekey.ptolemy = Ptolemy
 ref.primdirtimekey.vandam = Van Dam
-#Ref Projection types
+# Ref Projection types
+ref.projectiontype.obliquelongitude = Oblique longitude (School of Ram)
+ref.projectiontype.twodimensional = Standard (2-dimensional)
 # Ref Symbolic directions timekeys
 ref.symdirtimekey.onedegree = One degree
 ref.symdirtimekey.meansun = Mean Sun
@@ -253,6 +254,10 @@ vw.configprog.tabsm = Sym dir
 vw.configprog.tabtr = Transits
 # Primary directions input
 vw.progpdinput.currentsel = Current selections
+vw.progpdinput.dg.date = Date
+vw.progpdinput.dg.directconverse = D/C
+vw.progpdinput.dg.promissor = Prom.
+vw.progpdinput.dg.significator = Sign.
 vw.progpdinput.hintconverse = Converse
 vw.progpdinput.hintenddate = End date yyyy/mm/dd
 vw.progpdinput.hintlataspects = Latitude for aspects

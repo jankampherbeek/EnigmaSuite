@@ -11,26 +11,26 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
-using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Enigma.Frontend.Ui.ViewModels;
+namespace Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 
-public partial class ProgPdInputViewModel: ObservableObject
+public partial class PrimDirInputViewModel: ObservableObject
 {
-    private const string VM_IDENTIFICATION = ChartsWindowsFlow.PROG_PDINPUT;   
-    private readonly ProgPdInputModel _model = App.ServiceProvider.GetRequiredService<ProgPdInputModel>();
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.CHARTS_PROG_PRIMDIR_INPUT;   
+    private readonly PrimDirInputModel _model = App.ServiceProvider.GetRequiredService<PrimDirInputModel>();
     Rosetta _rosetta = Rosetta.Instance;
     private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     
     [ObservableProperty] private string _title;
     [ObservableProperty] private string _btnHelp;
-    [ObservableProperty] private string _btnCancel;
+    [ObservableProperty] private string _btnClose;
     [ObservableProperty] private string _btnCalculate;
     [ObservableProperty] private string _hintMethod;
     [ObservableProperty] private string _hintTimeKey;
@@ -41,6 +41,11 @@ public partial class ProgPdInputViewModel: ObservableObject
     [ObservableProperty] private string _hintEndDate;
     [ObservableProperty] private string _currentSel;
     [ObservableProperty] private string _description;
+    [ObservableProperty] private string _dgPromissor;
+    [ObservableProperty] private string _dgSignificator;
+    [ObservableProperty] private string _dgDate;
+    [ObservableProperty] private string _dgDirectConverse;
+    
     
     [ObservableProperty] private ObservableCollection<string> _allMethods;
     [ObservableProperty] private ObservableCollection<string> _allTimeKeys;
@@ -60,6 +65,7 @@ public partial class ProgPdInputViewModel: ObservableObject
     [NotifyCanExecuteChangedFor(nameof(FinalizeInputCommand))]
     [NotifyPropertyChangedFor(nameof(EndDateValid))]
     [ObservableProperty] private string _endDate = "";
+    [ObservableProperty] private ObservableCollection<PresentablePrimDirs> _actualPrimDirs;
     
     private bool _calculateClicked;
     
@@ -67,7 +73,7 @@ public partial class ProgPdInputViewModel: ObservableObject
     public SolidColorBrush EndDateValid => IsEndDateValid() ? Brushes.Gray : Brushes.Red;
     
     
-    public ProgPdInputViewModel()
+    public PrimDirInputViewModel()
     {
         DefineTexts();
         AllMethods = new ObservableCollection<string>(_model.AllMethods());
@@ -81,15 +87,20 @@ public partial class ProgPdInputViewModel: ObservableObject
         ConverseIndex = _model.ConverseIndex;
         LatAspectsIndex = _model.LatAspectsIndex;
         Description = _model.DescriptiveText();
+     //   _actualPrimDirs = new ObservableCollection<PresentablePrimDirs>(_model.GetActualPrimDirs());
     }
 
     private void DefineTexts()
     {
         BtnHelp = _rosetta.GetText("shr.btn.help");
-        BtnCancel = _rosetta.GetText("shr.btn.cancel");
+        BtnClose = _rosetta.GetText("shr.btn.close");
         BtnCalculate = _rosetta.GetText("shr.btn.calculate");
         Title = _rosetta.GetText("vw.progpdinput.title");
         CurrentSel = _rosetta.GetText("vw.progpdinput.currentsel");
+        DgDate = _rosetta.GetText("vw.progpdinput.dg.date");
+        DgDirectConverse = _rosetta.GetText("vw.progpdinput.dg.directconverse");
+        DgPromissor = _rosetta.GetText("vw.progpdinput.dg.promissor"); 
+        DgSignificator = _rosetta.GetText("vw.progpdinput.dg.significator");
         HintMethod = _rosetta.GetText("vw.progpdinput.hintmethod");
         HintTimeKey = _rosetta.GetText("vw.progpdinput.hinttimekey");
         HintApproach = _rosetta.GetText("vw.progpdinput.hintmundanezodiac");
@@ -106,8 +117,8 @@ public partial class ProgPdInputViewModel: ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
-            // Create request and fire it
-          // send msg:   WeakReferenceMessenger.Default.Send(new Close.......Message(VM_IDENTIFICATION));
+          _actualPrimDirs = new ObservableCollection<PresentablePrimDirs>(_model.GetActualPrimDirs(
+              StartDate, EndDate, MethodIndex, TimeKeyIndex, ApproachIndex, ConverseIndex));
         }
         else
         {
@@ -140,9 +151,9 @@ public partial class ProgPdInputViewModel: ObservableObject
     }
     
     [RelayCommand]
-    private static void Cancel()
+    private void Close()
     {
-        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+        WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
     }
 
     

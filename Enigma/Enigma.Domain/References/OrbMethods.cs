@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -14,8 +14,8 @@ public enum OrbMethods
 
 /// <summary>Details for an orb orbMethod.</summary>
 /// <param name="OrbMethod">The orb orbMethod.</param>
-/// <param name="Text">Descriptive text.</param>
-public record OrbMethodDetails(OrbMethods OrbMethod, string Text);
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record OrbMethodDetails(OrbMethods OrbMethod, string RbKey);
 
 
 public static class OrbMethodsExtensions
@@ -28,7 +28,7 @@ public static class OrbMethodsExtensions
         return orbMethod switch
         {
        //     OrbMethods.FixMajorMinor => new OrbMethodDetails(orbMethod, "ref.enum.orbmethod.fixmajorminor"),
-            OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "Weighted"),
+            OrbMethods.Weighted => new OrbMethodDetails(orbMethod, "ref.orbmethod.weighted"),
             _ => throw new ArgumentException("OrbMethod unknown : " + orbMethod)
         };
     }

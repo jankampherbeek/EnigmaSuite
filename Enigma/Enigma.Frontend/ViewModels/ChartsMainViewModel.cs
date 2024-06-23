@@ -230,7 +230,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void PrimDir()
     {
-        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_PDINPUT));
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.CHARTS_PROG_PRIMDIR_INPUT));
     }    
     
     

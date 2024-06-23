@@ -145,30 +145,32 @@ ref.pointcat.cusp = Cuspen
 ref.pointcat.fixstar = Vaste sterren
 ref.pointcat.lots = Arabische punten
 ref.pointcat.zodiac = Zodiacale punten
-#Ref primary directions: approaches
+# Ref primary directions: approaches
 ref.primdirapproach.inmundo = Mundaan
 ref.primdirapproach.inzodiaco = Zodiakaal
-#Ref primary directions: options for converse directions
+# Ref primary directions: options for converse directions
 ref.primdirconverseoption.modern = Gebruik converse, ooorspronkelijke methode
 ref.primdirconverseoption.none = Geen converse directies
 ref.primdirconverseoption.original = gebruik converse, moderne methode
-#Ref primary directions: options for latitude for aspects
+# Ref primary directions: options for latitude for aspects
 ref.primdirlataspoption.bianchini = Methode van Bianchini
 ref.primdirlataspoption.none = Geen breedte voor aspecten
 ref.primdirlataspoption.promissor = Breedte van promissors
 ref.primdirlataspoption.significator = Breedte van significator
 # Ref Primary directions methods
-ref.primdirmethod.campanus = Campanus
 ref.primdirmethod.placidus = Placidus
 ref.primdirmethod.placiduspole = Placidus onder de pool
 ref.primdirmethod.regiomontanus = Regiomontanus
 ref.primdirmethod.topocentric = Topocentrisch
-#Ref Primary Directions Time Keys
+# Ref Primary Directions Time Keys
 ref.primdirtimekey.brahe = Brahe
 ref.primdirtimekey.naibod = Naibod
 ref.primdirtimekey.placidus = Placidus
 ref.primdirtimekey.ptolemy = Ptolemeus
 ref.primdirtimekey.vandam = Van Dam
+# Ref Projection types
+ref.projectiontype.obliquelongitude = Schuine lengte (WvA)
+ref.projectiontype.twodimensional = Standaard (2-dimensionaal)
 # Ref Symbolic directions timekeys
 ref.symdirtimekey.onedegree = Eén graad
 ref.symdirtimekey.meansun = Gemiddelde Zon
@@ -252,6 +254,10 @@ vw.configprog.tabsm = Sym dir
 vw.configprog.tabtr = Transits
 # Primary directions input
 vw.progpdinput.currentsel = Huidige selecties
+vw.progpdinput.dg.date = Date
+vw.progpdinput.dg.directconverse = D/C
+vw.progpdinput.dg.promissor = Prom.
+vw.progpdinput.dg.significator = Sign.
 vw.progpdinput.hintconverse = Converse
 vw.progpdinput.hintenddate = Eind datum jjjj/mm/dd
 vw.progpdinput.hintlataspects = Breedte voor aspecten

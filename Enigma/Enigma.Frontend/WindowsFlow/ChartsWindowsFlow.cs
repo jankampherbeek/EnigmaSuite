@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Windows;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.ViewModels;
@@ -26,13 +27,20 @@ public class ChartsWindowsFlow:
     IRecipient<OpenMessage>
 {
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
+    // new style naming
+    public const string CHARTS_PROG_PRIMDIR_INPUT = "PrimDirInput";
+
+    private PrimDirInputWindow? _primDirInputWindow; 
+    
+    
+    
+    // old style naming
     public const string CHARTS_IMPORT = "ChartsImport";
     public const string CHARTS_WHEEL = "ChartsWheel";
     public const string CONFIG_PROG = "ConfigProg";
     public const string DECL_DIAGRAM = "DeclDiagram";
     public const string DECL_STRIP = "DeclStrip";
     public const string OOB_CAL = "OobCal";
-    public const string PROG_PDINPUT = "ProgPdInput";
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
@@ -54,7 +62,7 @@ public class ChartsWindowsFlow:
     private ProgEventWindow? _progEventWindow;
     private ProgEventResultsWindow? _progEventResultsWindow;
     private ProgressiveMainWindow? _progressiveMainWindow;
-    private ProgPdInputWindow? _progPdInputWindow; 
+
     private RadixPositionsWindow? _radixPositionsWindow;
     private ChartsWheelWindow? _chartsWheelWindow;
     private RadixAspectsWindow? _radixAspectsWindow;
@@ -90,8 +98,8 @@ public class ChartsWindowsFlow:
             case PROGRESSIVE_MAIN:
                 _progressiveMainWindow?.Close();
                 break;
-            case PROG_PDINPUT:
-                _progPdInputWindow?.Close();
+            case CHARTS_PROG_PRIMDIR_INPUT:
+                _primDirInputWindow?.Close();
                 break;
             case PROG_EVENT:
                 _progEventWindow?.Close();
@@ -119,10 +127,6 @@ public class ChartsWindowsFlow:
                 _progEventWindow = new ProgEventWindow();
                 _progEventWindow.ShowDialog();
                 break;
-            case PROG_PDINPUT:
-                _progPdInputWindow = new ProgPdInputWindow();
-                _progPdInputWindow.ShowDialog();
-                break;
             default:
                 HandleNonDialogView(message.ViewToOpen, message.ParentView);
                 break;
@@ -139,6 +143,11 @@ public class ChartsWindowsFlow:
                 _progressiveMainWindow = new ProgressiveMainWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _progressiveMainWindow, parentView));
                 _progressiveMainWindow.Show();
+                break;
+            case CHARTS_PROG_PRIMDIR_INPUT:
+                _primDirInputWindow = new PrimDirInputWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _primDirInputWindow, parentView));
+                _primDirInputWindow.Show();
                 break;
             case PROG_EVENT_RESULTS:
                 _progEventResultsWindow = new ProgEventResultsWindow();

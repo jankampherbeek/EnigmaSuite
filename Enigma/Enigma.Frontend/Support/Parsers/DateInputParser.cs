@@ -16,6 +16,7 @@ namespace Enigma.Frontend.Ui.Support.Parsers;
 public interface IDateInputParser
 {
     public bool HandleDate(string inputDate, Calendars calendar, YearCounts yearCount, out FullDate? fullDate);
+    
 }
 
 /// <inheritdoc/>

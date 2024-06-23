@@ -7,11 +7,11 @@ using System.Windows;
 using System.Windows.Media;
 using Enigma.Domain.Constants;
 
-namespace Enigma.Frontend.Ui.Views;
+namespace Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 
-public partial class ProgPdInputWindow : Window
+public partial class PrimDirInputWindow : Window
 {
-    public ProgPdInputWindow()
+    public PrimDirInputWindow()
     {
         InitializeComponent();
         DefineColors();

@@ -74,56 +74,7 @@ internal class TestMathExtra
         Assert.That(MathExtra.RadToDeg(radians), Is.EqualTo(expectedDegrees).Within(DELTA));
     }
 
-    [Test]
-    public void TestAscensionalDifference()
-    {
-        // Values based on example by Gansten in Primary Directions, p. 151.
-        const double decl = 18.16666666667;
-        const double geoLat = 58.2666666666667;
-        const double expected = 32.04675727201;
-        double actual = MathExtra.AscensionalDifference(geoLat, decl);
-        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
-    }
 
-    [Test]
-    public void TestObliqueAscension()
-    {
-        // Values based on example by Gansten in Primary Directions, p. 151.
-        const bool north = true;
-        const bool east = true;
-        const double raPoint = 130.83333333333;
-        const double ascDiff = 32.04675727201;
-        const double expected = 98.78657606132;
-        double actual = MathExtra.ObliqueAscension(raPoint, ascDiff, east, north);
-        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
-    }
-
-    [Test]
-    public void TestHorizontalDistance()
-    {
-        const bool easternHemiSphere = false;
-        const double oaPoint = 288.0;
-        const double oaAsc = 247.0;
-        const double expected = 41.0;
-        double actual = MathExtra.HorizontalDistance(oaPoint, oaAsc, easternHemiSphere);
-        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
-    }
-
-    [Test]
-    public void TestIsEasternHemiSphereIsTrue()
-    {
-        const double raMc = 337.966666666667;
-        const double raPoint = 130.83333333333;
-        Assert.That(MathExtra.IsEasternHemiSphere(raPoint, raMc), Is.True);
-    }
-
-    [Test]
-    public void TestIsEasternHemiSphereIsFalse()
-    {
-        const double raMc = 337.966666666667;
-        const double raPoint = 230.83333333333;
-        Assert.That(MathExtra.IsEasternHemiSphere(raPoint, raMc), Is.False);
-    }
 
     [Test]
     public void TestRegiomontanianPole()

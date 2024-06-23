@@ -67,14 +67,12 @@ public partial class RadixHarmonicsViewModel: ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        Log.Information("RadixHarmonicsViewModel.Help(): send HelpMessage");  
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
     private void Close()
     {
-        Log.Information("RadixHarmonicsViewModel.Close(): send ClosNonDlgMessage"); 
         WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId ));
     }
 

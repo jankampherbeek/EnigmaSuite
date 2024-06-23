@@ -20,9 +20,9 @@ public enum ProjectionTypes
 
 
 /// <summary>Details for a Projection Type</summary>
-/// <param name="ProjectionType">Instance of the enum ProjectionTypes</param>
-/// <param name="Text">Descriptive text</param>
-public record ProjectionTypeDetails(ProjectionTypes ProjectionType, string Text);
+/// <param name="ProjectionType">Instance of the enum ProjectionTypes.</param>
+/// <param name="RbKey">Key to descriptive text in resource bundle.</param>
+public record ProjectionTypeDetails(ProjectionTypes ProjectionType, string RbKey);
 
 
 /// <summary>Extension class for enum ProjectionTypes</summary>
@@ -35,13 +35,12 @@ public static class ProjectionTypesExtensions
     {
         return projType switch
         {
-            ProjectionTypes.ObliqueLongitude => new ProjectionTypeDetails(projType, "Oblique Longitude"),
-            ProjectionTypes.TwoDimensional => new ProjectionTypeDetails(projType, "Standard (2-dimensional)"),
+            ProjectionTypes.ObliqueLongitude => new ProjectionTypeDetails(projType, "ref.projectiontype.obliquelongitude"),
+            ProjectionTypes.TwoDimensional => new ProjectionTypeDetails(projType, "ref.projectiontype.twodimensional"),
             _ => throw new ArgumentException("ProjectionType unknown : " + projType)
         };
 
     }
-
 
     /// <summary>Retrieve details for items in the enum ProjectionTypes</summary>
     /// <returns>All details</returns>
