@@ -21,14 +21,17 @@ public interface IProgPrimDirHandler
 // ========================== Implementation =============================================================
 
 /// <inheritdoc/>
-public class ProgPrimDirHandler(ISpeculumCreator speculumCreator): IProgPrimDirHandler
+public class ProgPrimDirHandler(): IProgPrimDirHandler
 {
-    private ISpeculumCreator _speculumCreator = speculumCreator;
+
+    
     
     /// <inheritdoc/>
     public PrimDirResponse HandleRequest(PrimDirRequest request)
     {
-        switch (request.Method)
+        var speculum = new Speculum(request);
+        return null;
+        /*switch (request.Method)
         {
             case PrimDirMethods.Placidus:
                 return HandlePlacidus(request);
@@ -40,29 +43,10 @@ public class ProgPrimDirHandler(ISpeculumCreator speculumCreator): IProgPrimDirH
                 return HandleTopoCentric(request);
             default:
                 throw new ArgumentException("Unknown method for primary directions: " + request.Method);
-        }
+        }*/
     }
 
-    private PrimDirResponse HandlePlacidus(PrimDirRequest request)
-    {
-        PlacidusSpeculum speculum = _speculumCreator.CreatePlacidusSpeculum(request);
-        return null;
-    }
-    
-    private PrimDirResponse HandlePlacidusUnderThePole(PrimDirRequest request)
-    {
-        return null;
-    }
-    
-    private PrimDirResponse HandleRegiomontanus(PrimDirRequest request)
-    {
-        return null;
-    }
  
-    private PrimDirResponse HandleTopoCentric(PrimDirRequest request)
-    {
-        return null;
-    }
     
     
 }

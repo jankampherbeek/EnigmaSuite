@@ -43,6 +43,7 @@ public class Speculum
                 _speculumPoints.Add(point, new SpeculumPointPlacPole(point, pointPos, request, Base));
                 break;
             case PrimDirMethods.Topocentric:
+                _speculumPoints.Add(point, new SpeculumPointTopoc(point, pointPos, request, Base));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
