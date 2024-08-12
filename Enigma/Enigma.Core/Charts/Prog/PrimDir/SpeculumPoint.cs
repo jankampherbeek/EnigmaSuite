@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Calc;
 using Enigma.Domain.Charts.Prog.PrimDir;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -21,6 +22,7 @@ public class SpeculumPointBase
     public bool IsSignificator { get; private set; }
     public bool IsPromissor { get; private set; }
     public bool ChartLeft { get; private set; }
+    public bool ChartTop { get; private set; }
     public double Lon { get; private set; }
     public double Lat { get; private set; }
     public double Ra { get; private set; }
@@ -41,6 +43,9 @@ public class SpeculumPointBase
         ChartLeft = request.Approach == PrimDirApproaches.Mundane 
             ? PrimDirCalcAssist.IsChartLeft(pointPos.Equatorial.MainPosSpeed.Position, specBase.RaMc) 
             : PrimDirCalcAssist.IsChartLeft(pointPos.Ecliptical.MainPosSpeed.Position, specBase.LonMc);
+        ChartTop  = request.Approach == PrimDirApproaches.Mundane 
+            ? PrimDirCalcAssist.IsChartTop(pointPos.Equatorial.MainPosSpeed.Position, specBase.RaAsc) 
+            : PrimDirCalcAssist.IsChartTop(pointPos.Ecliptical.MainPosSpeed.Position, specBase.LonAsc);
         Lon = pointPos.Ecliptical.MainPosSpeed.Position;
         Lat = pointPos.Ecliptical.DeviationPosSpeed.Position;
         Ra = pointPos.Equatorial.MainPosSpeed.Position;
@@ -54,11 +59,11 @@ public class SpeculumPointSaBase
 {
     public double Ad { get; private set; }
     public double Oad { get; private set; }
-    public double MdU { get; private set; }
-    public double MdL { get; private set; }
+    public double MerDist { get; private set; }
     public double HorDist { get; private set; }
     public double SaD { get; private set; }
     public double SaN { get; private set; }
+    public bool isTop { get; private set; }
 
     public SpeculumPointSaBase(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase)
     {
@@ -69,13 +74,27 @@ public class SpeculumPointSaBase
         bool chartLeft = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartLeft(ra, specBase.RaMc)
             : PrimDirCalcAssist.IsChartLeft(lon, specBase.LonMc);
-        Oad = PrimDirCalcAssist.ObliqueAscdesc(ra, Ad, chartLeft, geoLat >= 0.0);
-        MdU = ra - specBase.RaMc;
-        MdL = ra - specBase.RaIc;
-        SaD = Math.Abs(HorDist) + Math.Abs(MdU);
-        SaN = Math.Abs(HorDist) + Math.Abs(MdL);
+        isTop = request.Approach == PrimDirApproaches.Mundane
+            ? PrimDirCalcAssist.IsChartTop(ra, specBase.RaAsc)
+            : PrimDirCalcAssist.IsChartTop(lon, specBase.LonAsc);
         Ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
-        HorDist = PrimDirCalcAssist.HorizontalDistance(Oad, specBase.OaAsc, chartLeft);        
+        Oad = PrimDirCalcAssist.ObliqueAscDesc(ra, Ad, chartLeft, geoLat >= 0.0);
+        HorDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(Oad, specBase.OaAsc, chartLeft));
+
+
+        MerDist = PrimDirCalcAssist.MeridianDistance(ra, specBase.RaMc, specBase.RaIc, isTop); 
+            ;
+        if (isTop)
+        {
+            SaD = Math.Abs(HorDist) + Math.Abs(MerDist);
+            SaN = 180.0 - SaD;
+        }
+        else
+        {
+            SaN = Math.Abs(HorDist) + Math.Abs(MerDist);
+            SaD = 180.0 - SaN;
+        }
+ 
     }
 }
 
@@ -88,6 +107,7 @@ public class SpeculumPointPlac : ISpeculumPoint
 
     public SpeculumPointPlac(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase)
     {
+        PointBase = new SpeculumPointBase(point, pointPos, request, specBase);
         PointSaBase = new SpeculumPointSaBase(point, pointPos, request, specBase);
     }
 }
@@ -108,8 +128,8 @@ public class SpeculumPointPlacPole: ISpeculumPoint
         PointSaBase = new SpeculumPointSaBase(point, pointPos, request, specBase);
         double decl = pointPos.Equatorial.DeviationPosSpeed.Position;
         AdPlacPole = PointSaBase.HorDist >= 0.0 
-            ? (PointSaBase.MdU / PointSaBase.SaD) * PointSaBase.Ad 
-            : (PointSaBase.MdL / PointSaBase.SaN) * PointSaBase.Ad;
+            ? (PointSaBase.MerDist / PointSaBase.SaD) * PointSaBase.Ad 
+            : (PointSaBase.MerDist / PointSaBase.SaN) * PointSaBase.Ad;
         ElevPole = PrimDirCalcAssist.ElevationOfThePolePlac(AdPlacPole, decl);
     }
 }
@@ -127,8 +147,8 @@ public class SpeculumPointTopoc : ISpeculumPoint
         PointSaBase = new SpeculumPointSaBase(point, pointPos, request, specBase);
         double decl = pointPos.Equatorial.DeviationPosSpeed.Position;
         Mdo = PointSaBase.HorDist >= 0.0
-            ? (PointSaBase.MdU / PointSaBase.SaD) * 90.0
-            : (PointSaBase.MdL / PointSaBase.SaN);
+            ? (PointSaBase.MerDist / PointSaBase.SaD) * 90.0
+            : (PointSaBase.MerDist / PointSaBase.SaN);
     }
 }
 

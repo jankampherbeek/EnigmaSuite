@@ -64,6 +64,8 @@ public class PrimDirInputModel: DateTimeLocationModelBase
         if (requestOk)
         {
             PrimDirResponse pdResponse = _primDirApi.CalcPrimDir(pdRequest);
+            string result = pdResponse.ToString();
+
             // todo populate presentable primdirs            
         }
         return allPrimDirs;

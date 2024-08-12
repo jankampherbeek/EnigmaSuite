@@ -49,6 +49,117 @@ public class TestPrimDirCalcAssist
     }
     
     [Test]
+    public void TestIsChartTopScenario1()
+    {
+        const double raAsc = 90.0;
+        const double raPoint = 100.0;
+        Assert.That(PrimDirCalcAssist.IsChartTop(raPoint, raAsc), Is.False);
+    }
+    
+    [Test]
+    public void TestIsChartTopScenario2()
+    {
+        const double raAsc = 90.0;
+        const double raPoint = 80.0;
+        Assert.That(PrimDirCalcAssist.IsChartTop(raPoint, raAsc), Is.True);
+    }
+
+    [Test]
+    public void TestIsChartTopScenario3()
+    {
+        const double lonAsc = 10.0;
+        const double lonPoint = 350.0;
+        Assert.That(PrimDirCalcAssist.IsChartTop(lonPoint, lonAsc), Is.True);
+    }
+    
+    [Test]
+    public void TestIsChartTopScenario4()
+    {
+        const double lonAsc =350.0;
+        const double lonPoint = 10.0;
+        Assert.That(PrimDirCalcAssist.IsChartTop(lonPoint, lonAsc), Is.False);
+    }
+    
+    
+  [Test]
+    public void TestMeridianDistanceScenario1()
+    {
+        double raMc = 338.0;
+        double raIc = 158.0;
+        double raPoint = 131;
+        double expected = -27.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestMeridianDistanceScenario2()
+    {
+        double raMc = 338.0;
+        double raIc = 158.0;
+        double raPoint = 300;
+        double expected = -38.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, true);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestMeridianDistanceScenario3()
+    {
+        double raMc = 338.0;
+        double raIc = 158.0;
+        double raPoint = 340;
+        double expected = 2.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, true);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestMeridianDistanceScenario4()
+    {
+        double raMc = 338.0;
+        double raIc = 158.0;
+        double raPoint = 156.0;
+        double expected = -2.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+
+    [Test]
+    public void TestMeridianDistanceScenario5()
+    {
+        double raMc = 8.0;
+        double raIc = 188.0;
+        double raPoint = 358.0;
+        double expected = -10.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, true);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestMeridianDistanceScenario6()
+    {
+        double raMc = 179.0;
+        double raIc = 359.0;
+        double raPoint = 1.0;
+        double expected = 2.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+    
+    [Test]
+    public void TestMeridianDistanceScenario7()
+    {
+        double raMc = 179.0;
+        double raIc = 359.0;
+        double raPoint = 357.0;
+        double expected = -2.0;
+        double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+    
+    
+    [Test]
     public void TestHorizontalDistance()
     {
         const bool easternHemiSphere = false;
@@ -118,13 +229,27 @@ public class TestPrimDirCalcAssist
     [Test]
     public void TestElevationOfThePolePlac()
     {
-        // values from Gansten, Prim dir, p. 156
+        // values from Gansten, Prim dir, p. ......
         const double adPole = 15.0;
         const double decl = 18.1666666666667;
         const double expected = 38.2666666666667;
         double actual = PrimDirCalcAssist.ElevationOfThePolePlac(adPole, decl);
         Assert.That(actual, Is.EqualTo(expected).Within(1E-2));   // small delta because the example values are rounded
     }
+    
+    
+    //    public static double AdPromUnderElevPoleSign(double elevPoleSign, double declProm)
+    [Test]
+    public void TestAdPromUnderElevPoleSign()
+    {
+        // values from Gansten, Prim dir, p. 156
+        const double elevPoleSign = 51.783333333;
+        const double declProm = 16.91666666667;
+        const double expected = 22.71666666667;
+        double actual = PrimDirCalcAssist.AdPromUnderElevPoleSign(elevPoleSign, declProm);
+        Assert.That(actual, Is.EqualTo(expected).Within(1E-2));   // small delta because the example values are rounded
+    }
+    
     
     
     [Test]
@@ -136,7 +261,13 @@ public class TestPrimDirCalcAssist
         const double raPoint = 130.83333333333;
         const double ascDiff = 32.04675727201;
         const double expected = 98.78657606132;
-        double actual = PrimDirCalcAssist.ObliqueAscdesc(raPoint, ascDiff, east, north);
+        double actual = PrimDirCalcAssist.ObliqueAscDesc(raPoint, ascDiff, east, north);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
+
+
+  
+        
+    
+    
 }

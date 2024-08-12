@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Charts.Prog.PrimDir;
 
@@ -20,11 +21,51 @@ public static class PrimDirCalcAssist
     /// <returns>True if the point is in the eastern hemisphere, otherwise false.</returns>
     public static bool IsChartLeft(double posPoint, double posMc)
     {
-        double posDiff = posPoint - posMc;
-        if (posDiff < 0.0) posDiff += 360.0;
+        double posDiff = RangeUtil.ValueToRange(posPoint - posMc, 0.0, 360.0);
         return posDiff < 180.0;
     }
 
+
+    /// <summary>Checks if a point is in the upper hemisphere.</summary>
+    /// <param name="posPoint">Position of the point to check, in Right Ascension for directions in mundo,
+    /// in longitude for directions in zodiaco.</param>
+    /// <param name="posAsc">Positions of the ascendant, in Right Ascension for directions in mundo,
+    /// in longitude for directions in zodiaco</param>
+    /// <returns>True if the point is in the upper hemisphere, otherwise false.</returns>
+    public static bool IsChartTop(double posPoint, double posAsc)
+    {
+        double posDiff = RangeUtil.ValueToRange(posPoint - posAsc, 0.0, 360.0);
+        return posDiff > 180.0;
+    }
+
+    /// <summary>Calculate Meridian distance for a point. Compares with raMC if the pint is in the top part of the chart,
+    /// otherwise compares with the raIC.</summary>
+    /// <param name="raPoint">Right Ascension of the point.</param>
+    /// <param name="raMc">Right Ascension of the MC.</param>
+    /// <param name="raIc">Right Ascension of the IC.</param>
+    /// <param name="isTop">True if point is in upper half of the chart.</param>
+    /// <returns>Meridian distance.</returns>
+    public static double MeridianDistance(double raPoint, double raMc, double raIc, bool isTop)
+    {
+        double raMcIc = isTop ? raMc : raIc;
+        double shortArc = raPoint - raMcIc;
+        if (shortArc > 180.0)
+        {
+            shortArc -= 360.0;
+        }
+
+        if (shortArc < -180.0)
+        {
+            shortArc += 360.0;
+        }
+        return shortArc;
+    }
+    
+/*
+ *         double raMc = 179.0;     shortArc -358
+        double raIc = 359.0;
+        double raPoint = 1.0;
+ */
 
     /// <summary>Calculates horizontal distance for a point.</summary>
     /// <param name="oaPoint">Oblique ascension for the point.</param>
@@ -58,7 +99,7 @@ public static class PrimDirCalcAssist
     /// <param name="chartLeft">Indicates if point is in the left part of the chart.</param>
     /// <param name="north">Indficates if point is in northern hemisphere.</param>
     /// <returns>Calculated oblique ascension.</returns>
-    public static double ObliqueAscdesc(double raPoint, double ascDiff, bool chartLeft, bool north)
+    public static double ObliqueAscDesc(double raPoint, double ascDiff, bool chartLeft, bool north)
     {
         if ((north && chartLeft) || (!north && !chartLeft))
         {
@@ -67,7 +108,8 @@ public static class PrimDirCalcAssist
         return RangeUtil.ValueToRange(raPoint + ascDiff, 0.0, 360.0);
         
     }
-
+   
+    
     /// <summary>Calculates the elevation undere the pole for directions using the method Placidus under the pole.</summary>
     /// <param name="adPole">Ascensional difference under the pole.</param>
     /// <param name="decl">Declination.</param>
@@ -80,6 +122,22 @@ public static class PrimDirCalcAssist
         return MathExtra.RadToDeg(elevRad);
     }
 
+
+    /// <summary>AD promissor under elevated pole of significator.</summary>
+    /// <param name="elevPoleSign">Elevated pole significator.</param>
+    /// <param name="declProm">Declination promissor.</param>
+    /// <returns>The calculated AD in degrees.</returns>
+    public static double AdPromUnderElevPoleSign(double elevPoleSign, double declProm)
+    {
+        double signElevPoleRad = MathExtra.DegToRad(elevPoleSign);
+        double promDeclRad = MathExtra.DegToRad(declProm);
+        double result = Math.Asin(Math.Tan(promDeclRad) * Math.Tan(signElevPoleRad));
+        return MathExtra.RadToDeg(result);
+    } 
+
+    
+    
+    
 
     /// <summary>Pole for a specific point, using Regiomontanus directions.</summary>
     /// <param name="decl">Declination.</param>
@@ -111,4 +169,8 @@ public static class PrimDirCalcAssist
         double tanDecl = Math.Tan(MathExtra.DegToRad(decl));
         return MathExtra.RadToDeg(Math.Asin(tanDecl * tanPole));
     }
+
+  
+    
+    
 }
