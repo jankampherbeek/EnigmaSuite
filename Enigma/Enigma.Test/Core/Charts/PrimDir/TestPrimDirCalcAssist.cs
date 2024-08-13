@@ -229,12 +229,11 @@ public class TestPrimDirCalcAssist
     [Test]
     public void TestElevationOfThePolePlac()
     {
-        // values from Gansten, Prim dir, p. ......
-        const double adPole = 15.0;
-        const double decl = 18.1666666666667;
-        const double expected = 38.2666666666667;
+        const double adPole = 16.5042412351;
+        const double decl = 18.3686111111;
+        const double expected = 40.5489600405;
         double actual = PrimDirCalcAssist.ElevationOfThePolePlac(adPole, decl);
-        Assert.That(actual, Is.EqualTo(expected).Within(1E-2));   // small delta because the example values are rounded
+        Assert.That(actual, Is.EqualTo(expected).Within(1E-7));   
     }
     
     
@@ -242,12 +241,11 @@ public class TestPrimDirCalcAssist
     [Test]
     public void TestAdPromUnderElevPoleSign()
     {
-        // values from Gansten, Prim dir, p. 156
-        const double elevPoleSign = 51.783333333;
-        const double declProm = 16.91666666667;
-        const double expected = 22.71666666667;
+        const double elevPoleSign = 40.5489600405;
+        const double declProm = 18.0027777778;
+        const double expected = 16.1429042314;
         double actual = PrimDirCalcAssist.AdPromUnderElevPoleSign(elevPoleSign, declProm);
-        Assert.That(actual, Is.EqualTo(expected).Within(1E-2));   // small delta because the example values are rounded
+        Assert.That(actual, Is.EqualTo(expected).Within(1E-7));   
     }
     
     

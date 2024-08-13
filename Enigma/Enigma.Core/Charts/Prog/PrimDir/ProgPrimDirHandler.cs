@@ -57,12 +57,12 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                 switch (request.Method)
                {
                    case PrimDirMethods.Placidus:
-                       arc = PlacidusArc(significator, promissor, jdStart, jdEnd, speculum, request);
+                       arc = PlacidusArc(significator, promissor, speculum);
                        jdForEvent = _primDirDates.JdForEvent(jdStart, arc, request.TimeKey);
                         // todo add to response
                        break;
                    case PrimDirMethods.PlacidusPole:
-                       arc = PlacidusPoleArc(significator, promissor, jdStart, jdEnd, speculum, request);
+                       arc = PlacidusPoleArc(significator, promissor, speculum);
                        jdForEvent = _primDirDates.JdForEvent(jdStart, arc, request.TimeKey);
                        // todo add to response
                        break;
@@ -84,69 +84,33 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
 
     }
 
-    private double PlacidusArc(ChartPoints significator, ChartPoints promissor, double jdStart, double jdEnd, Speculum speculum, PrimDirRequest request)
+    private double PlacidusArc(ChartPoints significator, ChartPoints promissor, Speculum speculum)
     {
-        SpeculumPointPlac signPoint = (SpeculumPointPlac)speculum.SpeculumPoints[significator];
-        SpeculumPointPlac promPoint = (SpeculumPointPlac)speculum.SpeculumPoints[promissor];
-        double signSa = signPoint.PointBase.ChartTop ? signPoint.PointSaBase.SaD : signPoint.PointSaBase.SaN;
-        double signMd = signPoint.PointSaBase.MerDist;
-        double promSa = promPoint.PointBase.ChartTop ? promPoint.PointSaBase.SaD : promPoint.PointSaBase.SaN;
-        double promMd = promPoint.PointSaBase.MerDist;
-        double signPropSaDist = signMd / signSa;
-        double promProjMerdist = signPropSaDist * promSa;
-        double dirArc = promProjMerdist - promMd;
+        var signPoint = (SpeculumPointPlac)speculum.SpeculumPoints[significator];
+        var promPoint = (SpeculumPointPlac)speculum.SpeculumPoints[promissor];
+        double signPropSaDist = signPoint.MerDist / signPoint.SemiArc;
+        double promProjMerdist = signPropSaDist * promPoint.SemiArc;
+        double dirArc = promProjMerdist - promPoint.MerDist;
         return dirArc;
     }
     
-    private double PlacidusPoleArc(ChartPoints significator, ChartPoints promissor, double jdStart, double jdEnd, Speculum speculum, PrimDirRequest request)
+    private double PlacidusPoleArc(ChartPoints significator, ChartPoints promissor, Speculum speculum)
     {
-        SpeculumPointPlacPole signPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[significator];
-        SpeculumPointPlacPole promPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[promissor];
-        double signSa = signPoint.PointBase.ChartTop ? signPoint.PointSaBase.SaD : signPoint.PointSaBase.SaN;
-        double signMd = signPoint.PointSaBase.MerDist;
-        double promSa = promPoint.PointBase.ChartTop ? promPoint.PointSaBase.SaD : promPoint.PointSaBase.SaN;
-        double promMd = promPoint.PointSaBase.MerDist;
-        double signAd = signPoint.PointSaBase.Ad;
-        double promAd = promPoint.PointSaBase.Ad;
-        double signAdPlacPole = (signMd / signSa) * signAd;
-        double promAdPlacPole = (promMd / promSa) * promAd;
-        double signElevPole = PrimDirCalcAssist.ElevationOfThePolePlac(signAdPlacPole, signPoint.PointBase.Decl);
-  //      double promElevPole = PrimDirCalcAssist.ElevationOfThePolePlac(promAdPlacPole, promPoint.PointBase.Decl);
-        double signOadUnderPole = PrimDirCalcAssist.ObliqueAscDesc(signPoint.PointBase.Ra, signAdPlacPole,
-            signPoint.PointBase.ChartLeft, speculum.Base.GeoLat > 0.0);
-        double promOadUnderPole = PrimDirCalcAssist.ObliqueAscDesc(promPoint.PointBase.Ra, promAdPlacPole,
-            promPoint.PointBase.ChartLeft, speculum.Base.GeoLat > 0.0);
-  //      double promAdUnderPoleOfSign =
-  //          PrimDirCalcAssist.AdPromUnderElevPoleSign(signElevPole, promPoint.PointBase.Decl);
-        double dirArc = promOadUnderPole - signOadUnderPole;
+        var signPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[significator];
+        var promPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[promissor];
+        double promOadUnderPoleOfSign =
+            PrimDirCalcAssist.AdPromUnderElevPoleSign(signPoint.ElevPole, promPoint.PointBase.Decl);
+        double dirArc = promOadUnderPoleOfSign - promPoint.AdPlacPole;
         return dirArc;
     }
     
     private double RegiomontanusArc(ChartPoints significator, ChartPoints promissor, double jdStart, double jdEnd, Speculum speculum, PrimDirRequest request)
     {
-        SpeculumPointPlacPole signPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[significator];
-        SpeculumPointPlacPole promPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[promissor];
-        
-        double signDeclRad = MathExtra.DegToRad(signPoint.PointBase.Decl);
-        double signMdUpperRad = MathExtra.DegToRad(signPoint.PointSaBase.MerDist);
-        double angleX = MathExtra.RadToDeg(Math.Atan2(Math.Tan(signDeclRad), double.Cos(signMdUpperRad)));
-        double angleY = speculum.Base.GeoLat - angleX;
-        double angleXRad = MathExtra.DegToRad(angleX);
-        double angleYRad = MathExtra.DegToRad(angleY);
-        double angleZRad = Math.Atan2(double.Cos(angleYRad), Math.Tan(signMdUpperRad) * Math.Cos(angleXRad));
-        double geoLatRad = MathExtra.DegToRad(speculum.Base.GeoLat);
-        double poleRegRad = Math.Asin(Math.Sin(geoLatRad) * Math.Cos(angleZRad));
-        double adPoleReg = Math.Asin(Math.Tan(signDeclRad) * Math.Tan(poleRegRad));
-        double oadPoleReg = signPoint.PointBase.Ra - adPoleReg;
-        if (promPoint.PointBase.ChartLeft) oadPoleReg = signPoint.PointBase.Ra + adPoleReg;
-        double promDeclRad = MathExtra.DegToRad(promPoint.PointBase.Decl);
-        double adPromUnderPoleSign = Math.Asin(Math.Tan(promDeclRad) * Math.Tan(poleRegRad));
-
-        double oadSignPoleProm = promPoint.PointBase.Ra + adPromUnderPoleSign;
-        if (signPoint.PointBase.ChartLeft) oadSignPoleProm = promPoint.PointBase.Ra - adPromUnderPoleSign;
-
-        double arcDir = oadSignPoleProm - oadPoleReg;
-        
+        SpeculumPointReg signPoint = (SpeculumPointReg)speculum.SpeculumPoints[significator];
+        SpeculumPointReg promPoint = (SpeculumPointReg)speculum.SpeculumPoints[promissor];
+        double oadPromPoleSign = promPoint.PointBase.Ra + signPoint.AdPoleReg;
+        if (signPoint.PointBase.ChartLeft) oadPromPoleSign = promPoint.PointBase.Ra - signPoint.AdPoleReg;
+        double arcDir = oadPromPoleSign - signPoint.OadPoleReg;
         return arcDir;
     }
     
