@@ -20,6 +20,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public class ChartsWheelCanvasController
 {
 
+    public bool NoTime { get; set; } = false;
     public List<Line> SignSeparators { get; private set; } = new();
     public List<TextBlock> SignGlyphs { get; private set; } = new();
     public List<Line> CuspLines { get; private set; } = new();
@@ -77,6 +78,14 @@ public class ChartsWheelCanvasController
 
     private void HandleCusps()
     {
+        if (NoTime)
+        {
+            CuspLines.Clear();
+            CuspCardinalLines.Clear();
+            CuspCardinalIndicators.Clear();
+            CuspTexts.Clear();
+            return;
+        }
         CuspLines = _chartsWheelCusps.CreateCuspLines(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
             GetAscendantLongitude());
         CuspCardinalLines =
@@ -101,11 +110,12 @@ public class ChartsWheelCanvasController
 
     private void HandleAspects()
     {
-        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVaultCharts.GetCurrentChart()!, _metrics, _centerPoint);
+        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVaultCharts.GetCurrentChart()!, _metrics, _centerPoint, NoTime);
     }
 
     private double GetAscendantLongitude()
     {
+        if (NoTime) return 0.0;
         return _currentChart != null
             ? _currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position
             : 0.0;
