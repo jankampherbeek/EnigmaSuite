@@ -190,29 +190,6 @@ public class SpeculumPointReg : ISpeculumPoint
         double AdPoleReg = PrimDirCalcAssist.AdUnderRegPole(PoleReg, PointBase.Decl);
 
         double OadPoleReg = PointBase.Ra - AdPoleReg;
-        
-/*        
-        if (promPoint.PointBase.ChartLeft) oadPoleReg = signPoint.PointBase.Ra + adPoleReg;
-        double promDeclRad = MathExtra.DegToRad(promPoint.PointBase.Decl);
-        double adPromUnderPoleSign = Math.Asin(Math.Tan(promDeclRad) * Math.Tan(poleRegRad));
-
-        double oadSignPoleProm = promPoint.PointBase.Ra + adPromUnderPoleSign;
-        if (signPoint.PointBase.ChartLeft) oadSignPoleProm = promPoint.PointBase.Ra - adPromUnderPoleSign;
-        
-        
-        
-        double decl = pointPos.Equatorial.DeviationPosSpeed.Position;
-        double mdUpper = pointPos.Equatorial.MainPosSpeed.Position - specBase.RaMc;
-  
-        PoleReg = PrimDirCalcAssist.PoleRegiomontanus(decl, mdUpper, specBase.GeoLat);
-        */
-
-        
-        
-        
-        
-        
-        
     }
 }
 
@@ -221,16 +198,30 @@ public class SpeculumPointReg : ISpeculumPoint
 public class SpeculumPointTopoc : ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
-    public SpeculumPointSaBase PointSaBase { get; private set; }
     public double Mdo { get; private set; }
-
+    public double PoleTc { get; private set; }
+   
     public SpeculumPointTopoc(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase)
     {
         PointBase = new SpeculumPointBase(point, pointPos, request, specBase);
-        PointSaBase = new SpeculumPointSaBase(point, pointPos, request, specBase);
+        double geoLat = request.Chart.InputtedChartData.Location.GeoLat;
         double decl = pointPos.Equatorial.DeviationPosSpeed.Position;
-        Mdo = PointSaBase.HorDist >= 0.0
-            ? (PointSaBase.MerDist / PointSaBase.SaD) * 90.0
-            : (PointSaBase.MerDist / PointSaBase.SaN);
+        bool isTop = request.Approach == PrimDirApproaches.Mundane
+            ? PrimDirCalcAssist.IsChartTop(PointBase.Ra, specBase.RaAsc)
+            : PrimDirCalcAssist.IsChartTop(PointBase.Lon, specBase.LonAsc);
+        bool chartLeft = request.Approach == PrimDirApproaches.Mundane
+            ? PrimDirCalcAssist.IsChartLeft(pointPos.Equatorial.MainPosSpeed.Position, specBase.RaMc)
+            : PrimDirCalcAssist.IsChartLeft(pointPos.Ecliptical.MainPosSpeed.Position, specBase.LonMc); 
+        double ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
+        double oad = PrimDirCalcAssist.ObliqueAscDesc(pointPos.Equatorial.MainPosSpeed.Position, ad, chartLeft, geoLat >= 0.0);        
+        double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft));        
+        double merDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, isTop);
+        double semiArc = Math.Abs(horDist) + Math.Abs(merDist);
+        double mdDivSaRad = MathExtra.DegToRad(merDist / semiArc);
+        double geoLatRad = MathExtra.DegToRad(geoLat);
+        double declRad = MathExtra.DegToRad(decl);
+        double poleTcRad = Math.Atan(mdDivSaRad * Math.Tan(geoLatRad) / Math.Tan(declRad));
+        PoleTc = MathExtra.RadToDeg(poleTcRad);
+       
     }
 }

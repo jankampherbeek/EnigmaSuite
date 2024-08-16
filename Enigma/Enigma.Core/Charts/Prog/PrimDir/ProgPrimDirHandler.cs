@@ -116,33 +116,19 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
     
     private double TopocentricArc(ChartPoints significator, ChartPoints promissor, double jdStart, double jdEvent, Speculum speculum, PrimDirRequest request)
     {
-        SpeculumPointPlacPole signPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[significator];
-        SpeculumPointPlacPole promPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[promissor];
+        SpeculumPointTopoc signPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[significator];
+        SpeculumPointTopoc promPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[promissor];
+
+        double poleTcRad = MathExtra.DegToRad(promPoint.PoleTc);
+        double declRad = MathExtra.DegToRad(signPoint.PointBase.Decl);
+        double adUnderPoleTc = MathExtra.RadToDeg(Math.Asin(Math.Tan(poleTcRad) * Math.Tan(declRad)));
         double geoLatRad = MathExtra.DegToRad(speculum.Base.GeoLat);
         double signDeclRad = MathExtra.DegToRad(signPoint.PointBase.Decl);
+        
         double adPoleTc = MathExtra.RadToDeg(Math.Asin(Math.Tan(geoLatRad) * Math.Tan(signDeclRad)));
-        
-        
-        
         double signOad = signPoint.PointBase.Ra + adPoleTc;
-        if (signPoint.PointBase.ChartLeft) signOad = signPoint.PointBase.Ra - adPoleTc;
-        double timeInYears = jdEvent - jdStart;
-        double arcDir = 0.0;
-        switch (request.TimeKey) // todo timekeys van Dam, Ptolemy and Brahe
-        {
-            case PrimDirTimeKeys.Ptolemy:
-                arcDir = timeInYears;
-                break;
-            case PrimDirTimeKeys.Naibod:
-                arcDir = timeInYears * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
-                break;
-           
-        }
-        
-        
-        
-        
-        
+
+        double arc = signPoint.PointBase.Ra + adPoleTc - signOad;          
         return 0.0;
     }
     
