@@ -370,6 +370,7 @@ public class DeclDiagramCanvasController
                 || pointPosition.Key.GetDetails().PointCat == PointCats.Angle).
                 Select(pointPosition => 
                     ConvertFullPosToGraphicForDeclDiagram(pointPosition)).ToList();
+        allPoints = allPoints.OrderBy(p => p.Declination).ToList();
         double sizeOfHalfDiagram = (_metrics.CanvasHeight / 2) - _metrics.DeclDegreeTopOffset;
         double fontSize = _metrics.CelPointGlyphSize;
         DimTextBlock dimTextBlock = new(_metrics.GlyphsFontFamily, fontSize, 1.0, _metrics.CelPointGlyphColor);
@@ -405,9 +406,15 @@ public class DeclDiagramCanvasController
         {
             plottablePoints.AddRange(columns[i]);
         }
-        
-        
-        
+
+        List<SolidColorBrush> pointLineColors =
+        [
+            Brushes.DarkCyan,
+            Brushes.Fuchsia,
+            Brushes.Blue
+        ];
+
+        int colorIndex = 0;
         foreach (var point in plottablePoints)
         {
             double declDegreeSize = sizeOfHalfDiagram / _metrics.DeclDegreesCount;
@@ -434,7 +441,7 @@ public class DeclDiagramCanvasController
                     Y1 = yPos,
                     X2 = _metrics.CanvasWidth - _metrics.DeclDegreeRightOffset,
                     Y2 = yPos,
-                    Stroke = Brushes.DarkCyan,
+                    Stroke = pointLineColors[colorIndex],
                     StrokeThickness = _metrics.PositionLineStrokeSize,
                     Opacity = _metrics.PositionLineOpacity
                 };
@@ -445,14 +452,17 @@ public class DeclDiagramCanvasController
                     Y1 = yBorderForLongitude,
                     X2 = xPos,
                     Y2 = yPos,
-                    Stroke = Brushes.Goldenrod,
+                    Stroke = pointLineColors[colorIndex],
                     StrokeThickness = _metrics.PositionLineStrokeSize,
                     Opacity = _metrics.PositionLineOpacity
                 };
                 Lines.Add(longPositionLine);                
             }
             string glyph = point.Glyph.ToString();
-            SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPosForGlyph - fontSize / 1.8));        
+            Color color = pointLineColors[colorIndex].Color;
+            SignGlyphs.Add(dimTextBlock.CreateTextBlock(glyph, xPos - fontSize / 3, yPosForGlyph - fontSize / 1.8, color));
+            colorIndex++;
+            if (colorIndex > 2) colorIndex = 0;
         }
     }
 

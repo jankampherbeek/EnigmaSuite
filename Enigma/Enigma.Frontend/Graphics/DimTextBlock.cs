@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -28,19 +28,25 @@ internal sealed class DimTextBlock
 
     public TextBlock CreateTextBlock(string text, double posLeft, double posTop)
     {
+        return CreateTextBlock(text, posLeft, posTop, _color);
+    }
+
+    public TextBlock CreateTextBlock(string text, double posLeft, double posTop, Color color)
+    {
         TextBlock textBlock = new()
         {
             Text = text,
             FontFamily = _fontFamily,
             FontSize = _fontSize,
             Opacity = _opacity,
-            Foreground = new SolidColorBrush(_color)
+            Foreground = new SolidColorBrush(color)
         };
         Canvas.SetLeft(textBlock, posLeft);
         Canvas.SetTop(textBlock, posTop);
         return textBlock;
     }
-
+    
+    
     public TextBlock CreateTextBlock(string text, double posLeft, double posTop, RotateTransform transform)
     {
         TextBlock textBlock = CreateTextBlock(text, posLeft, posTop);

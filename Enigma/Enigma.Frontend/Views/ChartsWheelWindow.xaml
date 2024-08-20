@@ -15,17 +15,25 @@
     <Window.Resources>
         <viewModels:ChartsWheelViewModel x:Key="ViewModel"/>
     </Window.Resources>
-    <Grid Margin="6" DataContext="{StaticResource ViewModel}" >    
+    <Grid Margin="6" DataContext="{StaticResource ViewModel}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="75*"/>
+        </Grid.ColumnDefinitions>    
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        <Grid SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
+        <Grid Grid.ColumnSpan="2" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
                 <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
         </Grid>
-        <TextBlock Grid.Row="1" Margin="6" Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
-        <StackPanel Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="6" Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
+        <CheckBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" IsTabStop="True" Content="No time"  
+                  Style="{StaticResource MaterialDesignCheckBox}"
+                  Checked="NoTime_Checked" 
+                  Unchecked="NoTime_Unchecked" />
+        <StackPanel Grid.Column="1" Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>
         </StackPanel>

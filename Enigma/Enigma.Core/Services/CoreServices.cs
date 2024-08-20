@@ -102,6 +102,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IPeriodSupportChecker, PeriodSupportChecker>();
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
+        serviceCollection.AddTransient<IPrimDirDates, PrimDirDates>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
         serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();

@@ -39,6 +39,7 @@ public partial class ChartsWheelViewModel: ObservableObject
         return descText;
     }
     
+    
     [RelayCommand]
     private void Close()
     {

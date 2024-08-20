@@ -19,6 +19,7 @@ public interface IDateConversionFacade
     /// <param name="dateTime"/>
     /// <returns>True if date is a valid date and ut between 0.0 (inclusive) and 24.0 (exclusive).</returns>
     public bool DateTimeIsValid(SimpleDateTime dateTime);
+    
 }
 
 /// <inheritdoc/>
@@ -33,8 +34,8 @@ public sealed class DateConversionFacade : IDateConversionFacade
         int result = ext_swe_date_conversion(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Ut, calendar, ref julianDay);
         bool validPeriod = julianDay is >= EnigmaConstants.PERIOD_TOTAL_START and < EnigmaConstants.PERIOD_TOTAL_END;
         return (result == 0) && dateTime.Ut is >= 0.0 and < 24.0 && validPeriod;
-
     }
+    
 
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_date_conversion")]
     private static extern int ext_swe_date_conversion(int year, int month, int day, double time, char calendar, ref double julianday);

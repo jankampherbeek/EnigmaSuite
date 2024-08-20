@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -15,7 +15,7 @@ namespace Enigma.Frontend.Ui.Views;
 /// <remarks>Still using MVC instead of MVVM for this view as binding multiple visuals with a canvas is rather challenging</remarks>
 public partial class ChartsWheelWindow
 {
-    private readonly ChartsWheelCanvasController _canvasController;
+    private ChartsWheelCanvasController _canvasController;
 
     public ChartsWheelWindow()
     {
@@ -32,7 +32,8 @@ public partial class ChartsWheelWindow
         DrawCelPoints();
         DrawAspects();
     }
-    
+
+   
 
     private void DrawChartFrame()
     {
@@ -80,5 +81,18 @@ public partial class ChartsWheelWindow
         WheelCanvas.Width = _canvasController.CanvasSize;
         Populate();
     }
+
+    private void NoTime_Checked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.NoTime = true;
+        Populate();
+    }
+
+    private void NoTime_Unchecked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.NoTime = false;
+        Populate();
+    }
+    
 
 }

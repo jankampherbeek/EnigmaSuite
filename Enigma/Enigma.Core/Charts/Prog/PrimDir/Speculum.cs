@@ -12,13 +12,14 @@ namespace Enigma.Core.Charts.Prog.PrimDir;
 /// <summary>Speculum for primary directions.</summary>
 public class Speculum
 {
-    private Dictionary<ChartPoints, ISpeculumPoint> _speculumPoints = new();
+    public Dictionary<ChartPoints, ISpeculumPoint> SpeculumPoints = new();
     public SpeculumBase Base { get; set; }
 
     public Speculum(PrimDirRequest request)
     {
         Base = new SpeculumBase(request);
         
+        // TODO add aspects
         foreach (KeyValuePair<ChartPoints, FullPointPos> pointFullPos
                  in request.Chart.Positions
                      .Where(pointFullPos => request.Promissors.Contains(pointFullPos.Key)
@@ -34,16 +35,16 @@ public class Speculum
         switch (request.Method)
         {
             case PrimDirMethods.Regiomontanus:
-                _speculumPoints.Add(point, new SpeculumPointReg(point, pointPos, request, Base));
+                SpeculumPoints.Add(point, new SpeculumPointReg(point, pointPos, request, Base));
                 break;
             case PrimDirMethods.Placidus:
-                _speculumPoints.Add(point, new SpeculumPointPlac(point, pointPos, request, Base));
+                SpeculumPoints.Add(point, new SpeculumPointPlac(point, pointPos, request, Base));
                 break;
             case PrimDirMethods.PlacidusPole:
-                _speculumPoints.Add(point, new SpeculumPointPlacPole(point, pointPos, request, Base));
+                SpeculumPoints.Add(point, new SpeculumPointPlacPole(point, pointPos, request, Base));
                 break;
             case PrimDirMethods.Topocentric:
-                _speculumPoints.Add(point, new SpeculumPointTopoc(point, pointPos, request, Base));
+                SpeculumPoints.Add(point, new SpeculumPointTopoc(point, pointPos, request, Base));
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

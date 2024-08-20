@@ -10,7 +10,7 @@ You are about to learn about a program that calculates charts and also supports 
 You can use it for your astrological calculations. Enigma is accurate and calculates fast, it will produce a chart wheel and perform the most important analysis.
 
 The program also supports several types of research: counting aspects, occupied midpoints, declinations and more. 
-And it generates control groups so that you can cancel out artifacts.
+And it generates control groups so that you can cancel out artefacts.
 
 Several other releases will follow, and each new release will add more functionality.
 
@@ -59,8 +59,7 @@ I might ask you for these log-files if you report an error.
 Enigma supports almost 30,000 years of planetary calculations, but for some celestial points, this period is much shorter. 
 Especially for Chiron, which you cannot calculate before 675 CE.
 
-The Swiss Ephemeris, which takes care of all the calculations in Enigma, does not object if a planet is out of the 
-supported range, it just returns a zero. 
+The Swiss Ephemeris, which takes care of all the calculations in Enigma, does not object if a planet is out of the supported range, it just returns a zero. 
 This translates to zero Aries, and you could happily use this point and calculate aspects and midpoints. 
 That makes little sense, so Enigma filters the results: if it cannot calculate a celestial point, it will just omit it.
 
