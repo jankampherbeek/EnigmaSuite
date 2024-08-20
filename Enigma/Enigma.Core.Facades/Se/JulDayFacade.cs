@@ -47,8 +47,6 @@ public sealed class JulDayFacade : IJulDayFacade
     public SimpleDateTime DateTimeFromJd(double jd, Calendars cal)
     {
         int calFlag = cal == Calendars.Gregorian ? 1 : 0;
-        /*double[] dateAndTime = new double[4];
-        ext_swe_revjul(jd, calFlag, dateAndTime );*/
         int year = 0;
         int month = 0;
         int day = 0;

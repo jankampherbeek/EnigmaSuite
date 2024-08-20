@@ -41,11 +41,11 @@ public class PrimDirDates: IPrimDirDates
         {
             case PrimDirTimeKeys.Ptolemy:
             {
-                return jdStart + arc;
+                return jdStart + arc * 365.25;
             }
             case PrimDirTimeKeys.Naibod:
             {
-                return jdStart + (arc * (EnigmaConstants.TROPICAL_YEAR_IN_DAYS / 360.0));
+                return jdStart + (arc * (EnigmaConstants.TROPICAL_YEAR_IN_DAYS));
             }
             case PrimDirTimeKeys.Brahe:
             {

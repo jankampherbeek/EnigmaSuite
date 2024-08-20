@@ -198,7 +198,6 @@ public class SpeculumPointReg : ISpeculumPoint
 public class SpeculumPointTopoc : ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
-    public double Mdo { get; private set; }
     public double PoleTc { get; private set; }
    
     public SpeculumPointTopoc(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase)
@@ -217,11 +216,8 @@ public class SpeculumPointTopoc : ISpeculumPoint
         double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft));        
         double merDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, isTop);
         double semiArc = Math.Abs(horDist) + Math.Abs(merDist);
-        double mdDivSaRad = MathExtra.DegToRad(merDist / semiArc);
-        double geoLatRad = MathExtra.DegToRad(geoLat);
-        double declRad = MathExtra.DegToRad(decl);
-        double poleTcRad = Math.Atan(mdDivSaRad * Math.Tan(geoLatRad) / Math.Tan(declRad));
-        PoleTc = MathExtra.RadToDeg(poleTcRad);
+        PoleTc = PrimDirCalcAssist.TopocPole(merDist, semiArc, decl, geoLat);
+        
        
     }
 }

@@ -6,7 +6,9 @@
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
+using Enigma.Domain.References;
 using Enigma.Domain.Responses;
+using Enigma.Facades.Se;
 using Serilog;
 
 namespace Enigma.Core.Handlers;
@@ -14,18 +16,31 @@ namespace Enigma.Core.Handlers;
 /// <summary>Handler for the calculation of a Julian Day Number.</summary>
 public interface IJulDayHandler
 {
-    /// <summary>Starts the calculation for a Julian Day Number.</summary>
+    /// <summary>Calculates a Julian Day Number.</summary>
     /// <param name="dateTime">Date and time.</param>
     /// <returns>Response with JD related results and an indication if the calculation was successful.</returns>
     public JulianDayResponse CalcJulDay(SimpleDateTime dateTime);
+
+    /// <summary>Defines the date for a given Julian Day number.</summary>
+    /// <param name="jdNr">Julian Day number.</param>
+    /// <param name="cal">Calendar.</param>
+    /// <returns>The resulting date and time.</returns>
+    public SimpleDateTime CalcDateTime(double jdNr, Calendars cal);
 }
 
 /// <inheritdoc/>
 public sealed class JulDayHandler : IJulDayHandler
 {
     private readonly IJulDayCalc _julDayCalc;
+    private readonly IJulDayFacade _julDayFacade;
 
-    public JulDayHandler(IJulDayCalc julDayCalc) => _julDayCalc = julDayCalc;
+    /// <inheritdoc/>
+    public JulDayHandler(IJulDayCalc julDayCalc, IJulDayFacade julDayFacade)
+    {
+        _julDayCalc = julDayCalc;
+        _julDayFacade = julDayFacade;
+    }
+    
 
     /// <inheritdoc/>
     public JulianDayResponse CalcJulDay(SimpleDateTime dateTime)
@@ -47,4 +62,9 @@ public sealed class JulDayHandler : IJulDayHandler
         return new JulianDayResponse(julDayUt, julDayEt, deltaT);
     }
 
+    /// <inheritdoc/>
+    public SimpleDateTime CalcDateTime(double jdNr, Calendars cal)
+    {
+        return _julDayFacade.DateTimeFromJd(jdNr, cal);
+    }
 }

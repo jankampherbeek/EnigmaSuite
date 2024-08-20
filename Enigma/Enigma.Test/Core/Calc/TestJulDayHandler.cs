@@ -8,6 +8,7 @@ using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
+using Enigma.Facades.Se;
 using FakeItEasy;
 
 namespace Enigma.Test.Core.Calc;
@@ -31,7 +32,8 @@ public class TestJulDayHandler
     public void TestHappyFlow()
     {
         IJulDayCalc calcFake = CreateCalcFake();
-        IJulDayHandler handler = new JulDayHandler(calcFake);
+        IJulDayFacade facadeFake = CreateFacadeFake();
+        IJulDayHandler handler = new JulDayHandler(calcFake, facadeFake);
         JulianDayResponse response = handler.CalcJulDay(_dateTime!);
         Assert.That(response.JulDayUt, Is.EqualTo(EXPECTED_JD).Within(DELTA));
     }
@@ -40,6 +42,12 @@ public class TestJulDayHandler
     {
         var fake = A.Fake<IJulDayCalc>();
         A.CallTo(() => fake.CalcJulDayUt(_dateTime!)).Returns(EXPECTED_JD);
+        return fake;
+    }
+
+    private IJulDayFacade CreateFacadeFake()
+    {
+        var fake = A.Fake<IJulDayFacade>();
         return fake;
     }
 

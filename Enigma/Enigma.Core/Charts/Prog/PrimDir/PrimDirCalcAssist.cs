@@ -170,7 +170,14 @@ public static class PrimDirCalcAssist
         return MathExtra.RadToDeg(Math.Asin(tanDecl * tanPole));
     }
 
-  
+    public static double TopocPole(double merDist, double semiArc, double decl, double geoLat)
+    {
+        double mdDivSa = merDist / semiArc;
+        double geoLatRad = MathExtra.DegToRad(geoLat);
+        double declRad = MathExtra.DegToRad(decl);
+        return MathExtra.RadToDeg(Math.Atan((mdDivSa * Math.Tan(geoLatRad) / Math.Tan(declRad))));
+    }
+
     
     
 }
