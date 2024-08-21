@@ -101,6 +101,8 @@ public partial class App
         serviceCollection.AddSingleton<IProgAspectForPresentationFactory, ProgAspectForPresentationFactory>();
         serviceCollection.AddSingleton<IProgDatesForPresentationFactory, ProgDatesForPresentationFactory>();
         serviceCollection.AddTransient<PrimDirInputModel>();
+        serviceCollection.AddTransient<PrimDirResultsModel>();
+        serviceCollection.AddTransient<IPrimDirForPresentationFactory, PrimDirForPresentationFactory>();
         serviceCollection.AddSingleton<ProgEventModel>();
         serviceCollection.AddTransient<ProgEventResultsModel>();
         serviceCollection.AddSingleton<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();

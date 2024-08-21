@@ -43,6 +43,7 @@ public class ChartsWindowsFlow:
     public const string OOB_CAL = "OobCal";
     public const string PROG_EVENT = "ProgEvent";
     public const string PROG_EVENT_RESULTS = "ProgEventResults";
+    public const string PRIM_DIR_RESULTS = "PrimDirResults"; 
     public const string PROGRESSIVE_MAIN = "ProgressiveMain";
     public const string RADIX_ASPECTS = "RadixAspects";
     public const string RADIX_DATA_INPUT = "RadixDataInput";
@@ -62,7 +63,7 @@ public class ChartsWindowsFlow:
     private ProgEventWindow? _progEventWindow;
     private ProgEventResultsWindow? _progEventResultsWindow;
     private ProgressiveMainWindow? _progressiveMainWindow;
-
+    private PrimDirResultsWindow? _primDirResultsWindow;
     private RadixPositionsWindow? _radixPositionsWindow;
     private ChartsWheelWindow? _chartsWheelWindow;
     private RadixAspectsWindow? _radixAspectsWindow;
@@ -127,6 +128,7 @@ public class ChartsWindowsFlow:
                 _progEventWindow = new ProgEventWindow();
                 _progEventWindow.ShowDialog();
                 break;
+
             default:
                 HandleNonDialogView(message.ViewToOpen, message.ParentView);
                 break;
@@ -139,6 +141,12 @@ public class ChartsWindowsFlow:
         DataVaultCharts.Instance.LastWindowId = _windowCounter;
         switch (viewToOpen)
         {
+            
+            case PRIM_DIR_RESULTS:
+                _primDirResultsWindow = new PrimDirResultsWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _primDirResultsWindow, parentView));
+                _primDirResultsWindow.Show();
+                break;
             case PROGRESSIVE_MAIN:
                 _progressiveMainWindow = new ProgressiveMainWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _progressiveMainWindow, parentView));

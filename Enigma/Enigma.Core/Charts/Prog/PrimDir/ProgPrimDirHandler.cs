@@ -6,7 +6,6 @@
 using Enigma.Core.Calc;
 using Enigma.Core.Handlers;
 using Enigma.Domain.Charts.Prog.PrimDir;
-using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
@@ -63,8 +62,6 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                {
                    case PrimDirMethods.Placidus:
                        arc = PlacidusArc(significator, promissor, speculum);
-                       jdForEvent = _primDirDates.JdForEvent(jdStart, arc, request.TimeKey);
-                        // todo add to response
                        break;
                    case PrimDirMethods.PlacidusPole:
                        arc = PlacidusPoleArc(significator, promissor, speculum);
@@ -86,6 +83,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
             }
         }
         // TODO sort hits
+        hits.Sort((x, y) => x.Jd.CompareTo(y.Jd));
         bool errors = false;
         string resultTxt = "OK";
         return new PrimDirResponse(hits, errors, resultTxt);

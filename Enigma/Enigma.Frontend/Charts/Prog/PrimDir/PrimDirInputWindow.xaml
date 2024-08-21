@@ -14,115 +14,39 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="ProgPdInputWindow" Height="750" Width="600">
+        Title="ProgPdInputWindow" Height="400" Width="400">
     <Window.Resources>
         <primDir:PrimDirInputViewModel x:Key="ViewModel"/>
     </Window.Resources>
     <Grid Margin="6"  DataContext="{StaticResource ViewModel}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="50*"/>
-            <ColumnDefinition Width="50*"/>
-        </Grid.ColumnDefinitions>            
+       
         <Grid.RowDefinitions>
-            <RowDefinition Height="20*"/>
-            <RowDefinition Height="4*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
             <RowDefinition Height="10*"/>
-            <RowDefinition Height="10*"/>
-            <RowDefinition Height="15*"/>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="15*"/>
-            
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0, 6" 
-                   VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="{Binding Title}" Name="Header"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
-        <TextBlock Grid.Row="2"  Grid.Column="0" Margin="6 18 6 0" 
-                   Text="{Binding CurrentSel}" Name="SubHeaderSelections"  
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <ComboBox Grid.Column="0" Grid.Row="3" Margin="6 0 " VerticalAlignment="Center"   
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="{Binding HintMethod}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                  ItemsSource="{Binding AllMethods}" 
-                  SelectedIndex="{Binding MethodIndex, Mode=TwoWay}" />
-        <ComboBox Grid.Column="0" Grid.Row="4" Margin="6 0 " VerticalAlignment="Center"   
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="{Binding HintTimeKey}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                  ItemsSource="{Binding AllTimeKeys}" 
-                  SelectedIndex="{Binding TimeKeyIndex, Mode=TwoWay}" />
-        <ComboBox Grid.Column="0" Grid.Row="5" Margin="6 0 " VerticalAlignment="Center"   
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="{Binding HintApproach}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                  ItemsSource="{Binding AllApproaches}" 
-                  SelectedIndex="{Binding ApproachIndex, Mode=TwoWay}" />
-        <ComboBox Grid.Column="0" Grid.Row="6" Margin="6 0 " VerticalAlignment="Center"   
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="{Binding HintConverse}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                  ItemsSource="{Binding AllConverseOptions}" 
-                  SelectedIndex="{Binding ConverseIndex, Mode=TwoWay}" />        
-        <ComboBox Grid.Column="0" Grid.Row="7" Margin="6 0 " VerticalAlignment="Center"   
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="{Binding HintLatAspects}"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }"
-                  ItemsSource="{Binding AllLatAspects}" 
-                  SelectedIndex="{Binding LatAspectsIndex, Mode=TwoWay}" />        
-        <materialDesign:Card Grid.Row="2" Grid.Column="1" Grid.RowSpan="4" Padding="8" Margin="6"
-                             Name="DescriptionBlock" UniformCornerRadius="6">
-            <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
-        </materialDesign:Card>
-        <TextBox Grid.Row="6" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"                   
+        <TextBlock Grid.Row="0" Margin="6" Text="Define period" 
+                   Name="Header" Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />
+        
+        <TextBox Grid.Row="1" Margin="6 0" VerticalAlignment="Center"                   
                  materialDesign:HintAssist.Hint="{Binding HintStartDate}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding StartDateValid}"
                  Text="{Binding StartDate}"/>  
-        <TextBox Grid.Row="7" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"                   
+        <TextBox Grid.Row="2" Margin="6 0" VerticalAlignment="Center"                   
                  materialDesign:HintAssist.Hint="{Binding HintEndDate}"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding EndDateValid}"
                  Text="{Binding EndDate}"/> 
-        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="3" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Name="CalculateButton"
                     Margin="6" Content="{Binding BtnCalculate}" HorizontalAlignment="Right" 
                     Command="{Binding FinalizeInputCommand}"/>
         </StackPanel>
-        <DataGrid Grid.Row="9" Grid.ColumnSpan="2" Margin="6"
-                materialDesign:DataGridAssist.CellPadding="4 2 2 2"
-                materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
-                CanUserAddRows="False"
-                CanUserSortColumns="True"
-                AutoGenerateColumns="False"
-                HeadersVisibility="All"
-                HorizontalAlignment="Left"
-                ItemsSource="{Binding ActualPrimDirs}"
-                SelectionUnit="Cell">
-        <DataGrid.Columns>
-            <DataGridTextColumn Binding="{Binding Date}" 
-                                Header="{Binding DgDate}" 
-                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
-            <DataGridTextColumn Binding="{Binding Promissor}" 
-                                Header="{Binding DgPromissor}" 
-                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-            <DataGridTextColumn Binding="{Binding Aspect}" 
-                                Header="{Binding DgSignificator}" 
-                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-            <DataGridTextColumn Binding="{Binding Significator}" 
-                                Header=" " 
-                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-            <DataGridTextColumn Binding="{Binding DirectConverse}" 
-                                Header="{Binding DgDirectConverse}" 
-                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
-        </DataGrid.Columns>
-    </DataGrid>
-        <StackPanel Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="{Binding BtnHelp}" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>
