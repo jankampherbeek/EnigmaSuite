@@ -175,7 +175,6 @@ public class ActualConfigCreator: IActualConfigCreator
     }
 
     private Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints(
-        //ProgresMethods progresMethod,
         string prefix,
         Dictionary<ChartPoints, ProgPointConfigSpecs> defChartPoints, 
         IReadOnlyDictionary<string, string> deltas)
@@ -184,7 +183,7 @@ public class ActualConfigCreator: IActualConfigCreator
         foreach (var defPoint in defChartPoints)
         {
             string fullPrefix = prefix + StandardTexts.PCF_CHARTPOINTS + (int)defPoint.Key;
-            if ((prefix == StandardTexts.PCF_SIGNIFICATORS) || (prefix == StandardTexts.PCF_PROMISSORS)) fullPrefix = prefix;            
+      //      if ((prefix == StandardTexts.PCF_SIGNIFICATORS) || (prefix == StandardTexts.PCF_PROMISSORS)) fullPrefix = prefix;            
             if (deltas.TryGetValue(fullPrefix, out string? newConfigTxt))
             {
                 try

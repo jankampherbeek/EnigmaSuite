@@ -61,8 +61,8 @@ public partial class PrimDirInputViewModel: ObservableObject
         BtnClose = _rosetta.GetText("shr.btn.close");
         BtnCalculate = _rosetta.GetText("shr.btn.calculate");
         Title = _rosetta.GetText("vw.progpdinput.title");
-        HintStartDate = _rosetta.GetText("vw.progpdinput.hintenddate");
-        HintEndDate = _rosetta.GetText("vw.progpdinput.hintstartdate");
+        HintStartDate = _rosetta.GetText("vw.progpdinput.hintstartdate");
+        HintEndDate = _rosetta.GetText("vw.progpdinput.hintenddate");
     }
     
     [RelayCommand]

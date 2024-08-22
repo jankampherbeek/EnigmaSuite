@@ -60,11 +60,10 @@ public static class StandardTexts
     public const string PCF_CHARTPOINTS = "CP_";
     public const string PCF_SECONDARY = "SC_";
     public const string PCF_SECONDARYPOINTS = "SC_CP_";
-    public const string PCF_SIGNIFICATORS = "PDSG_";
-    public const string PCF_PROMISSORS = "PDPM_";
-    public const string PCF_PDASPECTS = "PDAT_";
-    public const string PCF_PDPLACEHOLDERPOINTS = "PD_XX";
-    public const string PCF_PRIMARY = "PD_";    
+    public const string PCF_SIGNIFICATORS = "PD_SG_";
+    public const string PCF_PROMISSORS = "PD_PM_";
+    public const string PCF_PDASPECTS = "PD_AT_";
+    public const string PCF_PDPLACEHOLDERPOINTS = "PD_XX_CP_";
     public const string PCF_SYMBOLIC = "SM_";
     public const string PCF_SYMBOLICPOINTS = "SM_CP_";
     public const string PCF_TRANSITPOINTS = "TR_CP_";

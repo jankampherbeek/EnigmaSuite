@@ -233,7 +233,7 @@ public partial class ConfigProgViewModel:ObservableObject
                 AllPdAspects.ToDictionary(aspect => aspect.Aspect, aspect => new AspectConfigSpecs(aspect.IsUsed, aspect.Glyph, 0, false)));
             ConfigProg configProg = new(configTransits, configSecDir, configSymDir, configPrimDir); 
             _model.UpdateConfig(configProg);
-            MessageBox.Show(PROG_CONFIG_SAVED, StandardTexts.TITLE_ERROR);
+            MessageBox.Show(PROG_CONFIG_SAVED);
             Log.Information("ConfigProgViewModel.SaveConfig(): send CloseMessage");
             WeakReferenceMessenger.Default.Send((new ProgConfigUpdatedMessage(VM_IDENTIFICATION)));            
             WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));

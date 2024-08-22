@@ -289,7 +289,7 @@ For transits, the Sun is used and the glyph is 'a'.
 
 Primary directions use a slightly different approach. There is no orb, and instead of plain chartpoints we use significators and promissors. For primary directions, you can also configure which aspects to use. 
 
-This results in the following porefixes:
+This results in the following prefixes:
 
 **PD_SG_** : significators,
 

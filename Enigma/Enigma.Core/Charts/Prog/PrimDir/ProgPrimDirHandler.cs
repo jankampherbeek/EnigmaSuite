@@ -75,14 +75,13 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
                }
-                jdForEvent = _primDirDates.JdForEvent(jdStart, arc, request.TimeKey);
+                jdForEvent = _primDirDates.JdForEvent(request.Chart.InputtedChartData.FullDateTime.JulianDayForEt, arc, request.TimeKey);
                 if (jdForEvent > jdStart && jdForEvent <= jdEnd)
                 {
                     hits.Add(ConstructHit(jdForEvent, cal, significator, promissor, AspectTypes.Conjunction ));
                 }
             }
         }
-        // TODO sort hits
         hits.Sort((x, y) => x.Jd.CompareTo(y.Jd));
         bool errors = false;
         string resultTxt = "OK";
