@@ -52,25 +52,25 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         // TODO add supported aspects
         
         
-        foreach (ChartPoints significator in request.Significators)
+        foreach (ChartPoints movPoint in request.Significators)
         {
             double jdForEvent;
-            foreach (ChartPoints promissor in request.Promissors)
+            foreach (ChartPoints fixPoint in request.Promissors)
             {
 
                switch (request.Method)
                {
                    case PrimDirMethods.Placidus:
-                       arc = PlacidusArc(significator, promissor, speculum);
+                       arc = PlacidusArcMakransky(movPoint, fixPoint, speculum);
                        break;
                    case PrimDirMethods.PlacidusPole:
-                       arc = PlacidusPoleArc(significator, promissor, speculum);
+                       arc = PlacidusPoleArc(movPoint, fixPoint, speculum);
                        break;
                    case PrimDirMethods.Regiomontanus:
-                       arc = RegiomontanusArc(significator, promissor, speculum);
+                       arc = RegiomontanusArc(movPoint, fixPoint, speculum);
                        break;
                    case PrimDirMethods.Topocentric:
-                       arc = TopocentricArc(significator, promissor, speculum);
+                       arc = TopocentricArc(movPoint, fixPoint, speculum);
                        break;
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
@@ -78,7 +78,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                 jdForEvent = _primDirDates.JdForEvent(request.Chart.InputtedChartData.FullDateTime.JulianDayForEt, arc, request.TimeKey);
                 if (jdForEvent > jdStart && jdForEvent <= jdEnd)
                 {
-                    hits.Add(ConstructHit(jdForEvent, cal, significator, promissor, AspectTypes.Conjunction ));
+                    hits.Add(ConstructHit(jdForEvent, cal, movPoint, fixPoint, AspectTypes.Conjunction ));
                 }
             }
         }
@@ -88,7 +88,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         return new PrimDirResponse(hits, errors, resultTxt);
     }
 
-    private PrimDirHit ConstructHit(double jd, Calendars cal, ChartPoints sign, ChartPoints prom, AspectTypes aspect)
+    private PrimDirHit ConstructHit(double jd, Calendars cal, ChartPoints movPoint, ChartPoints fixPoint, AspectTypes aspect)
     {
         const string separator = "/";
         SimpleDateTime dateTime = _julDayHandler.CalcDateTime(jd, cal);
@@ -101,48 +101,91 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         string dayText = $"{dateTime.Day:D2}";
         string calendarText = cal == Calendars.Gregorian ? "G" : "J";
         string dateTxt = yearText + separator + monthText + separator + dayText + " " + calendarText;
-        return new PrimDirHit(jd, dateTxt, sign, prom, aspect);
+        return new PrimDirHit(jd, dateTxt, fixPoint, movPoint, aspect);
     }
 
-    private double PlacidusArc(ChartPoints significator, ChartPoints promissor, Speculum speculum)
+    private double PlacidusArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
     {
-        var signPoint = (SpeculumPointPlac)speculum.SpeculumPoints[significator];
-        var promPoint = (SpeculumPointPlac)speculum.SpeculumPoints[promissor];
-        double signPropSaDist = signPoint.MerDist / signPoint.SemiArc;
-        double promProjMerdist = signPropSaDist * promPoint.SemiArc;
-        double dirArc = promProjMerdist - promPoint.MerDist;
+        /*var specMovPoint = (SpeculumPointPlac)speculum.SpeculumPoints[movPoint];
+        var specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
+         
+        double propSaDistFp = specMovPoint.MerDist / specMovPoint.SemiArc;
+        double projMerdistMp = propSaDistFp * specFixPoint.SemiArc;
+        double dirArc = projMerdistMp - specFixPoint.MerDist;
+        return dirArc;*/
+        var specMovPoint = (SpeculumPointPlac)speculum.SpeculumPoints[movPoint];
+        var specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
+        bool mpDiurnal = specMovPoint.PointBase.ChartTop;
+        bool fpDiurnal = specFixPoint.PointBase.ChartTop;
+        double mpSaD = mpDiurnal ? specMovPoint.SemiArc : 180.0 - specMovPoint.SemiArc;
+        double mpSaN = 180.0 - mpSaD;
+        double fpSaD = fpDiurnal ? specFixPoint.SemiArc : 180.0 - specFixPoint.SemiArc;
+        double fpSaN = 180.0 - fpSaD;
+
+        double fpActualSa = fpDiurnal ? fpSaD : fpSaN; 
+        double mpActualSa = mpDiurnal ? mpSaD : mpSaN;
+        //double mpActualSa = fpDiurnal ? mpSaD : mpSaN;
+        double propSaDistFp = specFixPoint.MerDist / fpActualSa;
+        double projMerdistMp = propSaDistFp * mpActualSa;
+        double dirArc = projMerdistMp - specMovPoint.MerDist;   // maybe the other way around (Gansten p. 153)
         return dirArc;
     }
-    
-    private double PlacidusPoleArc(ChartPoints significator, ChartPoints promissor, Speculum speculum)
+
+    private double PlacidusArcMakransky(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
     {
-        var signPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[significator];
-        var promPoint = (SpeculumPointPlacPole)speculum.SpeculumPoints[promissor];
+        var specMovPoint = (SpeculumPointPlac)speculum.SpeculumPoints[movPoint];
+        var specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
+        int t = 1;
+        if (specFixPoint.PointBase.ChartLeft && specFixPoint.PointBase.ChartTop) t = -1;    // Quadrant IV
+        if (!specFixPoint.PointBase.ChartLeft && !specFixPoint.PointBase.ChartTop) t = -1;  // Quadrant II
+        int v = 1;
+        double r = speculum.Base.RaMc;
+        if (!specFixPoint.IsTop)
+        {
+            v = -1;
+            r = speculum.Base.RaIc;
+        }
+        double raP = specMovPoint.PointBase.Ra;                     // RA promissor
+        double adP = specMovPoint.Ad;                               // AD promisssor
+        double mdS = specFixPoint.MerDist;                          // mer distance significator
+        double saS = specFixPoint.SemiArc;                          // semiarc significator
+        double arc = raP - r + t * (90 + v * adP) * mdS / saS;
+        return RangeUtil.ValueToRange(arc, 0.0, 360.0);
+
+
+
+    }
+    
+    
+    private double PlacidusPoleArc(ChartPoints significator, ChartPoints movPoint, Speculum fixPoint)
+    {
+        var signPoint = (SpeculumPointPlacPole)fixPoint.SpeculumPoints[significator];
+        var promPoint = (SpeculumPointPlacPole)fixPoint.SpeculumPoints[movPoint];
         double promOadUnderPoleOfSign =
             PrimDirCalcAssist.AdPromUnderElevPoleSign(signPoint.ElevPole, promPoint.PointBase.Decl);
         double dirArc = promOadUnderPoleOfSign - promPoint.AdPlacPole;
         return dirArc;
     }
     
-    private double RegiomontanusArc(ChartPoints significator, ChartPoints promissor, Speculum speculum)
+    private double RegiomontanusArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
     {
-        var signPoint = (SpeculumPointReg)speculum.SpeculumPoints[significator];
-        var promPoint = (SpeculumPointReg)speculum.SpeculumPoints[promissor];
+        var signPoint = (SpeculumPointReg)speculum.SpeculumPoints[movPoint];
+        var promPoint = (SpeculumPointReg)speculum.SpeculumPoints[fixPoint];
         double oadPromPoleSign = promPoint.PointBase.Ra + signPoint.AdPoleReg;
         if (signPoint.PointBase.ChartLeft) oadPromPoleSign = promPoint.PointBase.Ra - signPoint.AdPoleReg;
         double arcDir = oadPromPoleSign - signPoint.OadPoleReg;
         return arcDir;
     }
     
-    private double TopocentricArc(ChartPoints significator, ChartPoints promissor, Speculum speculum)
+    private double TopocentricArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
     {
-        var fixPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[significator];
-        var movPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[promissor];
-        double movPoleTcRad = MathExtra.DegToRad(movPoint.PoleTc);
-        double fixDeclRad = MathExtra.DegToRad(fixPoint.PointBase.Decl);
+        var specFixPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[movPoint];
+        var specMovPointx = (SpeculumPointTopoc)speculum.SpeculumPoints[fixPoint];
+        double movPoleTcRad = MathExtra.DegToRad(specMovPointx.PoleTc);
+        double fixDeclRad = MathExtra.DegToRad(specFixPoint.PointBase.Decl);
         double adPoleTc = MathExtra.RadToDeg(Math.Asin(Math.Tan(movPoleTcRad) * Math.Tan(fixDeclRad)));
-        double fixOad = fixPoint.PointBase.Ra + adPoleTc;
-        double arcDir = fixPoint.PointBase.Ra + adPoleTc - fixOad;
+        double fixOad = specFixPoint.PointBase.Ra + adPoleTc;
+        double arcDir = specFixPoint.PointBase.Ra + adPoleTc - fixOad;
         return arcDir;
     }
     

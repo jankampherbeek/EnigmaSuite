@@ -23,6 +23,8 @@ public class SpeculumPointBase
     public bool IsPromissor { get; private set; }
     public bool ChartLeft { get; private set; }
     public bool ChartTop { get; private set; }
+    public double Azimuth { get; private set; }
+    public double Altitude { get; private set; }
     public double Lon { get; private set; }
     public double Lat { get; private set; }
     public double Ra { get; private set; }
@@ -46,6 +48,8 @@ public class SpeculumPointBase
         ChartTop = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartTop(pointPos.Equatorial.MainPosSpeed.Position, specBase.RaAsc)
             : PrimDirCalcAssist.IsChartTop(pointPos.Ecliptical.MainPosSpeed.Position, specBase.LonAsc);
+        Azimuth = pointPos.Horizontal.MainPosSpeed.Position;
+        Altitude = pointPos.Horizontal.DeviationPosSpeed.Position;
         Lon = pointPos.Ecliptical.MainPosSpeed.Position;
         Lat = pointPos.Ecliptical.DeviationPosSpeed.Position;
         Ra = pointPos.Equatorial.MainPosSpeed.Position;
@@ -82,7 +86,7 @@ public class SpeculumPointSaBase
 
 
         MerDist = PrimDirCalcAssist.MeridianDistance(ra, specBase.RaMc, specBase.RaIc, isTop);
-        ;
+        
         if (isTop)
         {
             SaD = Math.Abs(HorDist) + Math.Abs(MerDist);
@@ -102,7 +106,12 @@ public class SpeculumPointPlac : ISpeculumPoint
     public SpeculumPointBase PointBase { get; private set; }
     public double SemiArc { get; set; }
     public double MerDist { get; set; }
-
+    public double HorDist { get; set; }
+    public double Oad { get; set; }
+    public double Ad { get; set; }
+    public bool IsTop { get; set; }
+    public bool ChartLeft { get; set; }
+    
     public SpeculumPointPlac(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase)
     {
         PointBase = new SpeculumPointBase(point, pointPos, request, specBase);
@@ -110,18 +119,18 @@ public class SpeculumPointPlac : ISpeculumPoint
         double ra = pointPos.Equatorial.MainPosSpeed.Position;
         double lon = pointPos.Ecliptical.MainPosSpeed.Position;
         double geoLat = request.Chart.InputtedChartData.Location.GeoLat;
-        bool chartLeft = request.Approach == PrimDirApproaches.Mundane
+        ChartLeft = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartLeft(ra, specBase.RaMc)
             : PrimDirCalcAssist.IsChartLeft(lon, specBase.LonMc);
-        bool isTop = request.Approach == PrimDirApproaches.Mundane
+        IsTop = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartTop(ra, specBase.RaAsc)
             : PrimDirCalcAssist.IsChartTop(lon, specBase.LonAsc);
-        double ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
-        double oad = PrimDirCalcAssist.ObliqueAscDesc(ra, ad, chartLeft, geoLat >= 0.0);
-        double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft));
+        Ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
+        Oad = PrimDirCalcAssist.ObliqueAscDesc(ra, Ad, ChartLeft, geoLat >= 0.0);
+        HorDist = PrimDirCalcAssist.HorizontalDistance(Oad, specBase.OaAsc, ChartLeft);
 
-        MerDist = PrimDirCalcAssist.MeridianDistance(ra, specBase.RaMc, specBase.RaIc, isTop);
-        SemiArc = Math.Abs(horDist) + Math.Abs(MerDist);
+        MerDist = PrimDirCalcAssist.MeridianDistance(ra, specBase.RaMc, specBase.RaIc, IsTop);
+        SemiArc = Math.Abs(HorDist + MerDist);
     }
 }
 

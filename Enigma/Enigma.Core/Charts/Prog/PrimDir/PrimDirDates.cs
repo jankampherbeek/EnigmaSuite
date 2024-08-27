@@ -34,6 +34,7 @@ public class PrimDirDates: IPrimDirDates
     
     private double JdTraject(double jdStart, double arc, PrimDirTimeKeys key)
     {
+        const double naibodPerYear = 0.985647358006;
         double estimatedJd = jdStart + arc * (360.0 / EnigmaConstants.TROPICAL_YEAR_IN_DAYS);
         double sunEclRadix = CalcSunEcliptical(jdStart);
         double sunEquRadix = CalcSunEquatorial(jdStart);
@@ -45,7 +46,8 @@ public class PrimDirDates: IPrimDirDates
             }
             case PrimDirTimeKeys.Naibod:
             {
-                return jdStart + (arc * (EnigmaConstants.TROPICAL_YEAR_IN_DAYS));
+               // return jdStart + ((arc / naibodPerYear) * 365.25);
+               return jdStart + (arc / naibodPerYear) * 365.25;
             }
             case PrimDirTimeKeys.Brahe:
             {
