@@ -48,9 +48,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         double jdStart = jdStartend.Item1;
         double jdEnd = jdStartend.Item2;
         double arc = 0.0;
-        
-        // TODO add supported aspects
-        
+        double oppArc = 0.0;
         
         foreach (ChartPoints movPoint in request.Significators)
         {
@@ -61,7 +59,8 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                switch (request.Method)
                {
                    case PrimDirMethods.Placidus:
-                       arc = PlacidusArcMakransky(movPoint, fixPoint, speculum);
+                       arc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
+                       oppArc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
                        break;
                    case PrimDirMethods.PlacidusPole:
                        arc = PlacidusPoleArc(movPoint, fixPoint, speculum);
@@ -80,8 +79,18 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                 {
                     hits.Add(ConstructHit(jdForEvent, cal, movPoint, fixPoint, AspectTypes.Conjunction ));
                 }
+                jdForEvent = _primDirDates.JdForEvent(request.Chart.InputtedChartData.FullDateTime.JulianDayForEt, oppArc, request.TimeKey);
+                if (jdForEvent > jdStart && jdForEvent <= jdEnd)
+                {
+                    hits.Add(ConstructHit(jdForEvent, cal, movPoint, fixPoint, AspectTypes.Opposition ));
+                }
+
             }
         }
+        
+        // handle oppositions points: add 180 degre to moving points and perform the same foreach loop as the previous one
+        
+        
         hits.Sort((x, y) => x.Jd.CompareTo(y.Jd));
         bool errors = false;
         string resultTxt = "OK";
@@ -104,57 +113,35 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         return new PrimDirHit(jd, dateTxt, fixPoint, movPoint, aspect);
     }
 
-    private double PlacidusArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
-    {
-        /*var specMovPoint = (SpeculumPointPlac)speculum.SpeculumPoints[movPoint];
-        var specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
-         
-        double propSaDistFp = specMovPoint.MerDist / specMovPoint.SemiArc;
-        double projMerdistMp = propSaDistFp * specFixPoint.SemiArc;
-        double dirArc = projMerdistMp - specFixPoint.MerDist;
-        return dirArc;*/
-        var specMovPoint = (SpeculumPointPlac)speculum.SpeculumPoints[movPoint];
-        var specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
-        bool mpDiurnal = specMovPoint.PointBase.ChartTop;
-        bool fpDiurnal = specFixPoint.PointBase.ChartTop;
-        double mpSaD = mpDiurnal ? specMovPoint.SemiArc : 180.0 - specMovPoint.SemiArc;
-        double mpSaN = 180.0 - mpSaD;
-        double fpSaD = fpDiurnal ? specFixPoint.SemiArc : 180.0 - specFixPoint.SemiArc;
-        double fpSaN = 180.0 - fpSaD;
-
-        double fpActualSa = fpDiurnal ? fpSaD : fpSaN; 
-        double mpActualSa = mpDiurnal ? mpSaD : mpSaN;
-        //double mpActualSa = fpDiurnal ? mpSaD : mpSaN;
-        double propSaDistFp = specFixPoint.MerDist / fpActualSa;
-        double projMerdistMp = propSaDistFp * mpActualSa;
-        double dirArc = projMerdistMp - specMovPoint.MerDist;   // maybe the other way around (Gansten p. 153)
-        return dirArc;
-    }
-
-    private double PlacidusArcMakransky(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
+   
+    private double PlacidusArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum, AspectTypes aspect)
     {
         var specMovPoint = (SpeculumPointPlac)speculum.SpeculumPoints[movPoint];
         var specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
-        int t = 1;
-        if (specFixPoint.PointBase.ChartLeft && specFixPoint.PointBase.ChartTop) t = -1;    // Quadrant IV
-        if (!specFixPoint.PointBase.ChartLeft && !specFixPoint.PointBase.ChartTop) t = -1;  // Quadrant II
-        int v = 1;
+        if (aspect == AspectTypes.Opposition)
+        {
+            specMovPoint = (SpeculumPointPlac)speculum.SpeculumOppPoints[movPoint];
+            specFixPoint = (SpeculumPointPlac)speculum.SpeculumPoints[fixPoint];
+        }
+        int quadrCorr = 1;
+        if (specFixPoint.PointBase.ChartLeft && specFixPoint.PointBase.ChartTop) quadrCorr = -1;    // Quadrant IV
+        if (!specFixPoint.PointBase.ChartLeft && !specFixPoint.PointBase.ChartTop) quadrCorr = -1;  // Quadrant II
+        int horCorr = 1;
         double r = speculum.Base.RaMc;
         if (!specFixPoint.IsTop)
         {
-            v = -1;
+            horCorr = -1;
             r = speculum.Base.RaIc;
         }
         double raP = specMovPoint.PointBase.Ra;                     // RA promissor
         double adP = specMovPoint.Ad;                               // AD promisssor
         double mdS = specFixPoint.MerDist;                          // mer distance significator
         double saS = specFixPoint.SemiArc;                          // semiarc significator
-        double arc = raP - r + t * (90 + v * adP) * mdS / saS;
+        double arc = raP - r + quadrCorr * (90 + horCorr * adP) * mdS / saS;
         return RangeUtil.ValueToRange(arc, 0.0, 360.0);
-
-
-
     }
+    
+  
     
     
     private double PlacidusPoleArc(ChartPoints significator, ChartPoints movPoint, Speculum fixPoint)
