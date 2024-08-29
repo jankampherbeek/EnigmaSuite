@@ -56,6 +56,14 @@ public class SpeculumPointBase
         Lat = pointPos.Ecliptical.DeviationPosSpeed.Position;
         Ra = pointPos.Equatorial.MainPosSpeed.Position;
         Decl = pointPos.Equatorial.DeviationPosSpeed.Position;
+        if (request.Approach == PrimDirApproaches.Zodiacal)
+        {
+            double obl = request.Chart.Obliquity;
+            Decl = PrimDirCalcAssist.DeclFromLongNoLat(Lon, obl);
+            Ra = PrimDirCalcAssist.RightAscFromLongNoLat(Lon, obl);
+        }
+        
+        
         if (aspect != AspectTypes.Opposition) return;
         // handle opposition
         ChartLeft = !ChartLeft;
@@ -110,11 +118,10 @@ public class SpeculumPointPlacPole : ISpeculumPoint
         SpeculumBase specBase, AspectTypes aspect)
     {
         PointBase = new SpeculumPointBase(point, pointPos, request, specBase, aspect);
-        //       PointSaBase = new SpeculumPointSaBase(point, pointPos, request, specBase);
-
+        double lon = pointPos.Ecliptical.MainPosSpeed.Position;
         double decl = pointPos.Equatorial.DeviationPosSpeed.Position;
         double ra = pointPos.Equatorial.MainPosSpeed.Position;
-        double lon = pointPos.Ecliptical.MainPosSpeed.Position;
+
         double geoLat = request.Chart.InputtedChartData.Location.GeoLat;
         bool chartLeft = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartLeft(ra, specBase.RaMc)
