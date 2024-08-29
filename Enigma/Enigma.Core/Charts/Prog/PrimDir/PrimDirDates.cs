@@ -47,7 +47,7 @@ public class PrimDirDates: IPrimDirDates
             case PrimDirTimeKeys.Naibod:
             {
                // return jdStart + ((arc / naibodPerYear) * 365.25);
-               return jdStart + (arc / naibodPerYear) * 365.25;
+               return jdStart + (arc / naibodPerYear) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
             }
             case PrimDirTimeKeys.Brahe:
             {
