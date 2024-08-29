@@ -59,20 +59,14 @@ public record ConfigProgSymDir(double Orb, SymbolicKeys TimeKey,
 /// <param name="Method">Primary method (Placidus, Topocentric etc.).</param>
 /// <param name="Approach">Approach (in mundo, in zodiaco).</param>
 /// <param name="TimeKey">Time key.</param>
-/// <param name="ConverseOption">Options for converse dirctions.</param>
-/// <param name="LatAspOptions">Options for latitude for aspects.</param>
 /// <param name="Significators">Significators.</param>
 /// <param name="Promissors">Promissors.</param>
-/// <param name="Aspects">Aspects (orbs are ignored).</param>
 public record ConfigProgPrimDir(
     PrimDirMethods Method,
     PrimDirApproaches Approach,
     PrimDirTimeKeys TimeKey,
-    PrimDirConverseOptions ConverseOption,
-    PrimDirLatAspOptions LatAspOptions,
     Dictionary<ChartPoints, ProgPointConfigSpecs> Significators, 
-    Dictionary<ChartPoints, ProgPointConfigSpecs> Promissors,
-    Dictionary<AspectTypes, AspectConfigSpecs> Aspects
+    Dictionary<ChartPoints, ProgPointConfigSpecs> Promissors
     );
 
 

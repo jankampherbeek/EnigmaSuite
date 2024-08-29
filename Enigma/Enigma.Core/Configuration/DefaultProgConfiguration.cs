@@ -93,11 +93,8 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         const PrimDirMethods method = PrimDirMethods.Placidus;
         const PrimDirApproaches approach = PrimDirApproaches.Mundane;
         const PrimDirTimeKeys timeKey = PrimDirTimeKeys.Naibod;
-        const PrimDirConverseOptions converseOption = PrimDirConverseOptions.None;
-        const PrimDirLatAspOptions latAspOptions = PrimDirLatAspOptions.Bianchini;
         Dictionary<ChartPoints, ProgPointConfigSpecs> significators = CreateProgPoints();
         Dictionary<ChartPoints, ProgPointConfigSpecs> promissors = CreateProgPoints();
-        Dictionary<AspectTypes, AspectConfigSpecs> aspects = CreateAspects();
         significators[ChartPoints.Sun] = new ProgPointConfigSpecs(true, significators[ChartPoints.Sun].Glyph);
         significators[ChartPoints.Moon] = new ProgPointConfigSpecs(true, significators[ChartPoints.Moon].Glyph);
         significators[ChartPoints.Mercury] = new ProgPointConfigSpecs(true, significators[ChartPoints.Mercury].Glyph);
@@ -114,10 +111,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         promissors[ChartPoints.Mars] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Mars].Glyph);
         promissors[ChartPoints.Jupiter] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Jupiter].Glyph);
         promissors[ChartPoints.Saturn] = new ProgPointConfigSpecs(true, promissors[ChartPoints.Saturn].Glyph);
-        aspects[AspectTypes.Conjunction] = new AspectConfigSpecs(true, aspects[AspectTypes.Conjunction].Glyph, 0, true);
-        aspects[AspectTypes.Opposition] = new AspectConfigSpecs(true, aspects[AspectTypes.Opposition].Glyph, 0, true);
-        return new ConfigProgPrimDir(method, approach, timeKey, converseOption, latAspOptions, significators, promissors,
-            aspects);
+        return new ConfigProgPrimDir(method, approach, timeKey, significators, promissors);
     }
     
     

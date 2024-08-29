@@ -70,7 +70,6 @@ public class PrimDirResultsModel
         CalculatedChart? chart = _dataVaultCharts.GetCurrentChart();
         List<ChartPoints> significators = (from signSpec in configProg.ConfigPrimDir.Significators where signSpec.Value.IsUsed select signSpec.Key).ToList();
         List<ChartPoints> promissors = (from promSpec in configProg.ConfigPrimDir.Promissors where promSpec.Value.IsUsed select promSpec.Key).ToList();
-        List<AspectTypes> aspects = (from aspectSpec in configProg.ConfigPrimDir.Aspects where aspectSpec.Value.IsUsed select aspectSpec.Key).ToList();
 
         SimpleDate? startDateResult = null;
         SimpleDate? endDateResult = null;
@@ -81,9 +80,7 @@ public class PrimDirResultsModel
         PrimDirMethods method = _configProg.ConfigPrimDir.Method; 
         PrimDirTimeKeys timeKey = _configProg.ConfigPrimDir.TimeKey;
         PrimDirApproaches approach = _configProg.ConfigPrimDir.Approach;
-        PrimDirConverseOptions converse = _configProg.ConfigPrimDir.ConverseOption;
-        request = new PrimDirRequest(chart, significators, promissors, aspects, startDate, endDate, method, timeKey,
-            approach, converse);
+        request = new PrimDirRequest(chart, significators, promissors, startDate, endDate, method, timeKey, approach);
         return noErrors;
     }
 

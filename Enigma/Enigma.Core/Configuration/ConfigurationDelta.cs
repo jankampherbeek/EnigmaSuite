@@ -163,10 +163,7 @@ public class ConfigurationDelta: IConfigurationDelta
             allDeltas.Add(StandardTexts.CFG_PD_APPROACH,((int)newConf.ConfigPrimDir.Approach).ToString());
         if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
             allDeltas.Add(StandardTexts.CFG_PD_TIMEKEY,((int)newConf.ConfigPrimDir.TimeKey).ToString());
-        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
-            allDeltas.Add(StandardTexts.CFG_PD_CONVERSE,((int)newConf.ConfigPrimDir.ConverseOption).ToString());
-        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
-            allDeltas.Add(StandardTexts.CFG_PD_LATASP,((int)newConf.ConfigPrimDir.LatAspOptions).ToString());
+  
         
         
         foreach ((ChartPoints pointKey, ProgPointConfigSpecs? value) in defConf.ConfigTransits.ProgPoints)
@@ -210,13 +207,7 @@ public class ConfigurationDelta: IConfigurationDelta
                 ProgresMethods.Primary, pointKey, newPointValue);
             allDeltas.Add(deltaForPromissor.Item1.Replace("PD_XX_",StandardTexts.PCF_PROMISSORS), deltaForPromissor.Item2);
         }
-        foreach ((AspectTypes aspectKey, AspectConfigSpecs? value) in defConf.ConfigPrimDir.Aspects)
-        {
-            bool found = newConf.ConfigPrimDir.Aspects.TryGetValue(aspectKey, out AspectConfigSpecs? newAspectValue);
-            if (!found || newAspectValue is null || newAspectValue.Equals(value)) continue;
-            Tuple<string, string> deltaForAspect = _deltaTexts.CreateDeltaForAspect(aspectKey, newAspectValue);
-            allDeltas.Add(deltaForAspect.Item1.Replace("AT_",StandardTexts.PCF_PDASPECTS), deltaForAspect.Item2);
-        }
+
         return allDeltas;
     }
     

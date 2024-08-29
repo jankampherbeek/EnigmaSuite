@@ -173,6 +173,22 @@ public static class PrimDirCalcAssist
         return MathExtra.RadToDeg(Math.Atan((mdDivSa * Math.Tan(geoLatRad) / Math.Tan(declRad))));
     }
 
+    public static double DeclFromLongNoLat(double longitude, double obliquity)
+    {
+        double longRad = MathExtra.DegToRad(longitude);
+        double oblRad = MathExtra.DegToRad(obliquity);
+        double decl = MathExtra.RadToDeg(Math.Asin(Math.Sin(oblRad) * Math.Sin(longRad)));
+        return decl;
+    }
+
+    public static double RightAscFromLongNoLat(double longitude, double obliquity)
+    {
+        double longRad = MathExtra.DegToRad(longitude);
+        double oblRad = MathExtra.DegToRad(obliquity);
+        double ra = RangeUtil.ValueToRange(MathExtra.RadToDeg(Math.Atan2(Math.Sin(longRad) * Math.Cos(oblRad), Math.Cos(longRad))), 0.0, 360.0);
+        return ra;
+
+    } 
     
     
 }

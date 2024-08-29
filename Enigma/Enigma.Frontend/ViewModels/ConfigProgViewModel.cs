@@ -67,12 +67,10 @@ public partial class ConfigProgViewModel:ObservableObject
     [ObservableProperty] private string _primDirHeader;
     [ObservableProperty] private string _primDirHintMethod;
     [ObservableProperty] private string _primDirHintTimeKey;
-    [ObservableProperty] private string _primDirHintLatAspects;
     [ObservableProperty] private string _primDirHintApproach;
-    [ObservableProperty] private string _primDirHintConverse;
     [ObservableProperty] private string _primDirSignificators;
     [ObservableProperty] private string _primDirPromissors;
-    [ObservableProperty] private string _primDirAspects;
+
 
     [ObservableProperty] private string _secDirTab;
     [ObservableProperty] private string _secDirHeader;
@@ -115,7 +113,6 @@ public partial class ConfigProgViewModel:ObservableObject
         AllSymDirPoints = new ObservableCollection<ProgPoint>(_model.AllSymDirPoints());
         AllPdSignificators = new ObservableCollection<ProgPoint>(_model.AllSignificators());
         AllPdPromissors = new ObservableCollection<ProgPoint>(_model.AllPromissors());
-        AllPdAspects = new ObservableCollection<ProgAspect>(_model.AllAspects());
         SymDirTimeKeyIndex = _model.SymDirTimeKeyIndex;
         _orbSecDirValue = _model.SecDirOrb;
         _orbSymDirValue = _model.SymDirOrb;
@@ -127,9 +124,7 @@ public partial class ConfigProgViewModel:ObservableObject
         PdMethodIndex = _model.PdMethodIndex;
         PdApproachIndex = _model.PdApproachIndex;
         PdTimeKeyIndex = _model.PdTimeKeyIndex;
-        PdConverseIndex = _model.PdConverseIndex;
-        PdLatAspectsIndex = _model.PdLatAspectsIndex;
-    }
+   }
 
     private void DefineTexts()
     {
@@ -143,17 +138,13 @@ public partial class ConfigProgViewModel:ObservableObject
         SymDirTab = _rosetta.GetText("vw.configprog.tabsm");
         TransitTab = _rosetta.GetText("vw.configprog.tabtr");
         
-        
         PrimDirHeader = _rosetta.GetText("vw.configprog.pd.title");
         PrimDirHintMethod = _rosetta.GetText("vw.configprog.pd.hintmethod");
         PrimDirHintTimeKey = _rosetta.GetText("vw.configprog.pd.hinttimekey");
-        PrimDirHintLatAspects = _rosetta.GetText("vw.configprog.pd.hintlataspects");
         PrimDirHintApproach = _rosetta.GetText("vw.configprog.pd.hintmundanezodiac");
-        PrimDirHintConverse = _rosetta.GetText("vw.configprog.pd.hintconverse");
         PrimDirSignificators = _rosetta.GetText("vw.configprog.pd.significators");
         PrimDirPromissors = _rosetta.GetText("vw.configprog.pd.promissors");
-        PrimDirAspects = _rosetta.GetText("vw.configprog.pd.aspects");
-
+       
         SecDirHeader = _rosetta.GetText("vw.configprog.sc.title");
         SecDirPoints = _rosetta.GetText("vw.configprog.sc.points");
         
@@ -226,12 +217,11 @@ public partial class ConfigProgViewModel:ObservableObject
                 PrimDirMethodsExtensions.PrimDirMethodForIndex(PdMethodIndex),
                 PrimDirApproachesExtensions.PrimDirApproachForIndex(PdApproachIndex),
                 PrimDirTimeKeysExtensions.PrimDirTimeKeyForIndex(PdTimeKeyIndex),
-                PrimDirConverseOptionsExtensions.PrimDirConverseOptionForIndex(PdConverseIndex),
-                PrimDirLatAspOptionsExtensions.PrimDirLatAspOptionForIndex(PdLatAspectsIndex),
-                AllPdSignificators.ToDictionary(point => point.ChartPoint, point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
-                AllPdPromissors.ToDictionary(point => point.ChartPoint, point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
-                AllPdAspects.ToDictionary(aspect => aspect.Aspect, aspect => new AspectConfigSpecs(aspect.IsUsed, aspect.Glyph, 0, false)));
-            ConfigProg configProg = new(configTransits, configSecDir, configSymDir, configPrimDir); 
+                AllPdSignificators.ToDictionary(point => point.ChartPoint,
+                    point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph)),
+                AllPdPromissors.ToDictionary(point => point.ChartPoint,
+                    point => new ProgPointConfigSpecs(point.IsUsed, point.Glyph))); 
+                ConfigProg configProg = new(configTransits, configSecDir, configSymDir, configPrimDir); 
             _model.UpdateConfig(configProg);
             MessageBox.Show(PROG_CONFIG_SAVED);
             Log.Information("ConfigProgViewModel.SaveConfig(): send CloseMessage");
