@@ -179,7 +179,9 @@ public class SpeculumPointTopoc : ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
     public double PoleTc { get; private set; }
-   
+    public double FactorW { get; private set; }
+    public double FactorQ { get; private set; }
+    
     public SpeculumPointTopoc(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase, AspectTypes aspect)
     {
         PointBase = new SpeculumPointBase(point, pointPos, request, specBase, aspect);
@@ -191,13 +193,17 @@ public class SpeculumPointTopoc : ISpeculumPoint
         bool chartLeft = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartLeft(pointPos.Equatorial.MainPosSpeed.Position, specBase.RaMc)
             : PrimDirCalcAssist.IsChartLeft(pointPos.Ecliptical.MainPosSpeed.Position, specBase.LonMc); 
+        
         double ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
         double oad = PrimDirCalcAssist.ObliqueAscDesc(pointPos.Equatorial.MainPosSpeed.Position, ad, chartLeft, geoLat >= 0.0);        
         double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft));        
         double merDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, isTop);
         double semiArc = Math.Abs(horDist) + Math.Abs(merDist);
-        PoleTc = PrimDirCalcAssist.TopocPole(merDist, semiArc, decl, geoLat);
-        
-       
+        PoleTc = PrimDirCalcAssist.TopocPoleMakransky(merDist, semiArc, geoLat);
+        double declRad = MathExtra.DegToRad(decl);
+        double poleRad = MathExtra.DegToRad(PoleTc);
+        FactorQ = MathExtra.RadToDeg(Math.Tan(declRad) * Math.Tan(poleRad));
+        FactorW = PointBase.Ra - FactorQ;
+        if (!chartLeft) FactorW = PointBase.Ra + FactorQ;
     }
 }

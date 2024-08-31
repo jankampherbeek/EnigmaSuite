@@ -173,6 +173,13 @@ public static class PrimDirCalcAssist
         return MathExtra.RadToDeg(Math.Atan((mdDivSa * Math.Tan(geoLatRad) / Math.Tan(declRad))));
     }
 
+    public static double TopocPoleMakransky(double merDist, double semiArc, double geoLat)
+    {
+        double mdDivSa = merDist / semiArc;
+        double geoLatRad = MathExtra.DegToRad(geoLat);
+        return MathExtra.RadToDeg(Math.Atan(mdDivSa * Math.Tan(geoLatRad)));
+    }
+    
     public static double DeclFromLongNoLat(double longitude, double obliquity)
     {
         double longRad = MathExtra.DegToRad(longitude);

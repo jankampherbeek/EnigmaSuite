@@ -70,7 +70,8 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                        oppArc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
                        break;
                    case PrimDirMethods.Topocentric:
-                       arc = TopocentricArc(movPoint, fixPoint, speculum);
+                       arc = TopocentricArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
+                       oppArc = TopocentricArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
                        break;
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
@@ -88,9 +89,6 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
 
             }
         }
-        
-        // handle oppositions points: add 180 degre to moving points and perform the same foreach loop as the previous one
-        
         
         hits.Sort((x, y) => x.Jd.CompareTo(y.Jd));
         bool errors = false;
@@ -179,15 +177,21 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         return arcDir;
     }
     
-    private double TopocentricArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
+    private double TopocentricArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum, AspectTypes aspect)
     {
         var specFixPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[movPoint];
-        var specMovPointx = (SpeculumPointTopoc)speculum.SpeculumPoints[fixPoint];
-        double movPoleTcRad = MathExtra.DegToRad(specMovPointx.PoleTc);
-        double fixDeclRad = MathExtra.DegToRad(specFixPoint.PointBase.Decl);
-        double adPoleTc = MathExtra.RadToDeg(Math.Asin(Math.Tan(movPoleTcRad) * Math.Tan(fixDeclRad)));
-        double fixOad = specFixPoint.PointBase.Ra + adPoleTc;
-        double arcDir = specFixPoint.PointBase.Ra + adPoleTc - fixOad;
+        var specMovPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[fixPoint];
+        if (aspect == AspectTypes.Opposition)
+        {
+            specFixPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[fixPoint];
+            specMovPoint = (SpeculumPointTopoc)speculum.SpeculumOppPoints[movPoint];
+        }        
+        double declPromRad = MathExtra.DegToRad(specMovPoint.PointBase.Decl);
+        double polesignRad = MathExtra.DegToRad(specFixPoint.PoleTc);
+        double qProm = MathExtra.RadToDeg(Math.Asin(Math.Tan(declPromRad) * Math.Tan(polesignRad)));
+        double wProm = specMovPoint.PointBase.Ra - qProm;
+        if (!specFixPoint.PointBase.ChartLeft) wProm = specMovPoint.PointBase.Ra - qProm;
+        double arcDir = wProm - specFixPoint.FactorW; 
         return arcDir;
     }
     
