@@ -38,7 +38,7 @@ public static class PrimDirCalcAssist
         return posDiff > 180.0;
     }
 
-    /// <summary>Calculate Meridian distance for a point. Compares with raMC if the pint is in the top part of the chart,
+    /// <summary>Calculate Meridian distance for a point. Compares with raMC if the point is in the top part of the chart,
     /// otherwise compares with the raIC.</summary>
     /// <param name="raPoint">Right Ascension of the point.</param>
     /// <param name="raMc">Right Ascension of the MC.</param>
@@ -48,24 +48,11 @@ public static class PrimDirCalcAssist
     public static double MeridianDistance(double raPoint, double raMc, double raIc, bool isTop)
     {
         double raMcIc = isTop ? raMc : raIc;
-        double shortArc = raPoint - raMcIc;
-        if (shortArc > 180.0)
-        {
-            shortArc -= 360.0;
-        }
-
-        if (shortArc < -180.0)
-        {
-            shortArc += 360.0;
-        }
+        double shortArc = RangeUtil.ValueToRange(Math.Abs(raPoint - raMcIc), 0.0, 360.0);
+        if (shortArc >= 180.0) shortArc = Math.Abs(360.0 - shortArc);
         return shortArc;
     }
     
-/*
- *         double raMc = 179.0;     shortArc -358
-        double raIc = 359.0;
-        double raPoint = 1.0;
- */
 
     /// <summary>Calculates horizontal distance for a point.</summary>
     /// <param name="oaPoint">Oblique ascension for the point.</param>
@@ -74,11 +61,19 @@ public static class PrimDirCalcAssist
     /// <returns>Calculated value for horizontal distance.</returns>
     public static double HorizontalDistance(double oaPoint, double oaAsc, bool chartLeft)
     {
-        if (chartLeft) {
-            return oaPoint - oaAsc;
+        double hd = 0.0;
+        if (chartLeft)
+        {
+            hd = Math.Abs(oaPoint - oaAsc);
         }
-        return RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) 
-               - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0);
+        else
+        {
+            hd = Math.Abs(RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) 
+                            - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0));            
+        }
+        if (hd >= 180.0) hd = 360.0 - hd;
+        if (hd >= 90.0) hd = 180.0 - hd;
+        return hd;
     }
 
     /// <summary>Calculate ascensional difference (AD). Uses the formula AD = arcsin(tan(decl) * tan(geoLat).</summary>
@@ -178,6 +173,60 @@ public static class PrimDirCalcAssist
         return MathExtra.RadToDeg(Math.Atan((mdDivSa * Math.Tan(geoLatRad) / Math.Tan(declRad))));
     }
 
+    public static double TopocPoleMakransky(double merDist, double semiArc, double geoLat)
+    {
+        double mdDivSa = merDist / semiArc;
+        double geoLatRad = MathExtra.DegToRad(geoLat);
+        return MathExtra.RadToDeg(Math.Atan(mdDivSa * Math.Tan(geoLatRad)));
+    }
     
+    public static double DeclFromLongNoLat(double longitude, double obliquity)
+    {
+        double longRad = MathExtra.DegToRad(longitude);
+        double oblRad = MathExtra.DegToRad(obliquity);
+        double decl = MathExtra.RadToDeg(Math.Asin(Math.Sin(oblRad) * Math.Sin(longRad)));
+        return decl;
+    }
+
+    public static double RightAscFromLongNoLat(double longitude, double obliquity)
+    {
+        double longRad = MathExtra.DegToRad(longitude);
+        double oblRad = MathExtra.DegToRad(obliquity);
+        double ra = RangeUtil.ValueToRange(MathExtra.RadToDeg(Math.Atan2(Math.Sin(longRad) * Math.Cos(oblRad), Math.Cos(longRad))), 0.0, 360.0);
+        return ra;
+
+    }
+
+
+    public static double ZenithDistReg(double decl, double merDist, double geoLat, bool isTop)
+    {
+        double declRad = MathExtra.DegToRad(decl);
+        double mdRad = MathExtra.DegToRad(merDist);
+        double glRad = MathExtra.DegToRad(geoLat);
+        if (Math.Abs(merDist - 90.0) < 0.000001) return 90 - MathExtra.RadToDeg(Math.Atan(Math.Sin(Math.Abs(glRad)) * Math.Tan(declRad)));
+        double a = MathExtra.RadToDeg(Math.Atan(Math.Cos(glRad) * Math.Tan(mdRad)));
+        double b = MathExtra.RadToDeg(Math.Atan(Math.Tan(Math.Abs(glRad)) * Math.Cos(mdRad)));
+        double c = 0.0;
+        if ((decl >= 0.0 && geoLat >= 0.0) || (decl < 0.0 && geoLat < 0.0))    // decl and geoLat same sign
+        {
+            if (isTop) c = b - Math.Abs(decl);
+            else c = b + Math.Abs(decl);
+        }
+        else      // decl and geoLat of different sign
+        {
+            if (isTop) c = b + Math.Abs(decl);
+            else c = b - Math.Abs(decl);
+        }
+
+        double cRad = MathExtra.DegToRad(c);
+        double f = 0.0;
+        if (Math.Abs(b - decl) < 0.0000001) c = 0;
+        else f = MathExtra.RadToDeg(Math.Atan(Math.Sin(Math.Abs(glRad)) * Math.Sin(mdRad) * Math.Tan(cRad)));
+        double zd = a + f;
+        if (zd < 0.0) zd += 180.0;
+        return zd;
+    }
+
+   
     
 }

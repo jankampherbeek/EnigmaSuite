@@ -11,4 +11,4 @@ namespace Enigma.Domain.Presentables;
 /// <param name="Significator">Glyph for the significator.</param>
 /// <param name="Aspect">Glyph for the aspect.</param>
 /// <param name="DirectConverse">Indication for direct/converse.</param>
-public record PresentablePrimDirs(string Date, char Promissor, char Significator, char Aspect, string DirectConverse);
+public record PresentablePrimDirs(string Date, char Promissor, char Aspect, char Significator,  string DirectConverse);

@@ -125,23 +125,11 @@ public class ActualConfigCreator: IActualConfigCreator
             int.TryParse(pdTimeKeyIdTxt, out int pdTimeKeyId)
                 ? PrimDirTimeKeysExtensions.PrimDirTimeKeyForIndex(pdTimeKeyId)
                 : defaultConfig.ConfigPrimDir.TimeKey;
-        PrimDirConverseOptions pdConverse =
-            deltas.TryGetValue(StandardTexts.CFG_PD_CONVERSE, out string? pdConverseIdTxt) &&
-            int.TryParse(pdConverseIdTxt, out int pdConverseId)
-                ? PrimDirConverseOptionsExtensions.PrimDirConverseOptionForIndex(pdConverseId)
-                : defaultConfig.ConfigPrimDir.ConverseOption;
-        PrimDirLatAspOptions pdLatAsp =
-            deltas.TryGetValue(StandardTexts.CFG_PD_LATASP, out string? pdLatAspeIdTxt) &&
-            int.TryParse(pdLatAspeIdTxt, out int pdLatAspId)
-                ? PrimDirLatAspOptionsExtensions.PrimDirLatAspOptionForIndex(pdLatAspId)
-                : defaultConfig.ConfigPrimDir.LatAspOptions;
         Dictionary<ChartPoints, ProgPointConfigSpecs> pdSignificators = 
             CreateProgPoints(StandardTexts.PCF_SIGNIFICATORS, defaultConfig.ConfigPrimDir.Significators, deltas);
         Dictionary<ChartPoints, ProgPointConfigSpecs> pdPromissors = 
             CreateProgPoints(StandardTexts.PCF_PROMISSORS, defaultConfig.ConfigPrimDir.Promissors, deltas);
-        Dictionary<AspectTypes, AspectConfigSpecs> pdAspects =
-            CreateAspects(defaultConfig.ConfigPrimDir.Aspects, deltas, StandardTexts.PCF_PDASPECTS);
-        ConfigProgPrimDir cfgPrimDir = new(pdMethod, pdApproach, pdTimeKey, pdConverse, pdLatAsp, pdSignificators, pdPromissors, pdAspects ) ;
+        ConfigProgPrimDir cfgPrimDir = new(pdMethod, pdApproach, pdTimeKey, pdSignificators, pdPromissors) ;
         return new ConfigProg(cfgTransits, cfgSecDir, cfgSymDir, cfgPrimDir);
     }
 
@@ -175,7 +163,6 @@ public class ActualConfigCreator: IActualConfigCreator
     }
 
     private Dictionary<ChartPoints, ProgPointConfigSpecs> CreateProgPoints(
-        //ProgresMethods progresMethod,
         string prefix,
         Dictionary<ChartPoints, ProgPointConfigSpecs> defChartPoints, 
         IReadOnlyDictionary<string, string> deltas)
@@ -184,7 +171,7 @@ public class ActualConfigCreator: IActualConfigCreator
         foreach (var defPoint in defChartPoints)
         {
             string fullPrefix = prefix + StandardTexts.PCF_CHARTPOINTS + (int)defPoint.Key;
-            if ((prefix == StandardTexts.PCF_SIGNIFICATORS) || (prefix == StandardTexts.PCF_PROMISSORS)) fullPrefix = prefix;            
+      //      if ((prefix == StandardTexts.PCF_SIGNIFICATORS) || (prefix == StandardTexts.PCF_PROMISSORS)) fullPrefix = prefix;            
             if (deltas.TryGetValue(fullPrefix, out string? newConfigTxt))
             {
                 try

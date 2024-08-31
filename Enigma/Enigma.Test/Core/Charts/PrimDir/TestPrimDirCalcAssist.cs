@@ -87,7 +87,7 @@ public class TestPrimDirCalcAssist
         double raMc = 338.0;
         double raIc = 158.0;
         double raPoint = 131;
-        double expected = -27.0;
+        double expected = 27.0;
         double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
@@ -98,7 +98,7 @@ public class TestPrimDirCalcAssist
         double raMc = 338.0;
         double raIc = 158.0;
         double raPoint = 300;
-        double expected = -38.0;
+        double expected = 38.0;
         double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, true);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
@@ -120,7 +120,7 @@ public class TestPrimDirCalcAssist
         double raMc = 338.0;
         double raIc = 158.0;
         double raPoint = 156.0;
-        double expected = -2.0;
+        double expected = 2.0;
         double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
@@ -131,7 +131,7 @@ public class TestPrimDirCalcAssist
         double raMc = 8.0;
         double raIc = 188.0;
         double raPoint = 358.0;
-        double expected = -10.0;
+        double expected = 10.0;
         double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, true);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
@@ -153,7 +153,7 @@ public class TestPrimDirCalcAssist
         double raMc = 179.0;
         double raIc = 359.0;
         double raPoint = 357.0;
-        double expected = -2.0;
+        double expected = 2.0;
         double actual = PrimDirCalcAssist.MeridianDistance(raPoint, raMc, raIc, false);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
@@ -275,6 +275,26 @@ public class TestPrimDirCalcAssist
         double actual = PrimDirCalcAssist.TopocPole(merDist, semiArc, decl, geoLat);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
+
     
-    
+    [Test]
+    public void TestDeclFromLongNoLat()
+    {
+        const double longitude = 220.884444444444;
+        const double obliquity = 23.437101628;
+        const double expected = -15.09002104;
+        double actual = PrimDirCalcAssist.DeclFromLongNoLat(longitude, obliquity);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
+
+   
+    [Test]
+    public void TestRightAscFromLongLatNoLat()
+    {
+        const double longitude = 309.11851067931303;
+        const double obliquity = 23.447072302623031;
+        const double expected = 311.55400138719745;
+        double actual = PrimDirCalcAssist.RightAscFromLongNoLat(longitude, obliquity);
+        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
+    }
 }

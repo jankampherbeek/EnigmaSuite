@@ -26,8 +26,7 @@ public class ConfigProgModel
     public int PdMethodIndex { get; }
     public int PdApproachIndex { get; }
     public int PdTimeKeyIndex { get; }
-    public int PdConverseIndex { get; }
-    public int PdLatAspectsIndex { get; }
+
 
     private ConfigProg _configProg;
     public ConfigProgModel(IConfigurationApi configApi)
@@ -41,8 +40,7 @@ public class ConfigProgModel
         PdMethodIndex = (int)_configProg.ConfigPrimDir.Method;
         PdApproachIndex = (int)_configProg.ConfigPrimDir.Approach;
         PdTimeKeyIndex = (int)_configProg.ConfigPrimDir.TimeKey;
-        PdConverseIndex = (int)_configProg.ConfigPrimDir.ConverseOption;
-        PdLatAspectsIndex = (int)_configProg.ConfigPrimDir.LatAspOptions;
+
     }
     
     public void UpdateConfig(ConfigProg configProg)
@@ -123,15 +121,7 @@ public class ConfigProgModel
             select new ProgPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text)).ToList();
     }
 
-    public List<ProgAspect> AllAspects()
-    {
-        return (from aspect in AspectTypesExtensions.AllDetails()
-                from configAspect in _configProg.ConfigPrimDir.Aspects
-                where configAspect.Key == aspect.Aspect
-                select new ProgAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, 
-                    _rosetta.GetText(aspect.RbKey))).ToList();   
-    }
-    
+   
 }
 
     

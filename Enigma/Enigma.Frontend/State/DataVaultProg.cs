@@ -16,6 +16,7 @@ public sealed class DataVaultProg
     private readonly List<ProgEvent> _allEvents = new();
     private bool _newEventAdded;
     private int _indexCurrentEvent;
+
     
     
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
@@ -34,6 +35,9 @@ public sealed class DataVaultProg
     
     public ProgresMethods CurrentProgresMethod { get; set; } = ProgresMethods.Undefined;
     public ProgEvent? CurrentProgEvent { get; set; }
+
+    public string PrimDirStarDate { get; set; }
+    public string PrimDirEndDate { get; set; }
 
     public void AddNewEvent(ProgEvent newEvent)
     {

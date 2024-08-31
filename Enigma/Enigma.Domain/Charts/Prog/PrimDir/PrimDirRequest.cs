@@ -12,21 +12,17 @@ namespace Enigma.Domain.Charts.Prog.PrimDir;
 /// <param name="Chart">A calculated chart.</param>
 /// <param name="Significators">Significators to use.</param>
 /// <param name="Promissors">Promissors to use.</param>
-/// <param name="Aspects">Aspects to use.</param>
 /// <param name="StartDate">Start date of the period to check.</param>
 /// <param name="EndDate">End date of the period to check.</param>
 /// <param name="Method">Primary directions method.</param>
 /// <param name="TimeKey">The time key to use.</param>
 /// <param name="Approach">Approach (inMundo or inZodiaca).</param>
-/// <param name="ConverseOption">Which option to use for converse directions.</param>
 public record PrimDirRequest(
     CalculatedChart Chart, 
     List<ChartPoints> Significators, 
     List<ChartPoints> Promissors,
-    List<AspectTypes> Aspects,
     SimpleDate StartDate,
     SimpleDate EndDate,
     PrimDirMethods Method,
     PrimDirTimeKeys TimeKey,
-    PrimDirApproaches Approach,
-    PrimDirConverseOptions ConverseOption);
+    PrimDirApproaches Approach);
