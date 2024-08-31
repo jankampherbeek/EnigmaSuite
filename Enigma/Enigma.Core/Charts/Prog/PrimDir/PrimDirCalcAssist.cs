@@ -188,7 +188,38 @@ public static class PrimDirCalcAssist
         double ra = RangeUtil.ValueToRange(MathExtra.RadToDeg(Math.Atan2(Math.Sin(longRad) * Math.Cos(oblRad), Math.Cos(longRad))), 0.0, 360.0);
         return ra;
 
-    } 
-    
+    }
+
+
+    public static double ZenithDistReg(double decl, double merDist, double geoLat, bool isTop)
+    {
+        double declRad = MathExtra.DegToRad(decl);
+        double mdRad = MathExtra.DegToRad(merDist);
+        double glRad = MathExtra.DegToRad(geoLat);
+        if (Math.Abs(merDist - 90.0) < 0.000001) return 90 - MathExtra.RadToDeg(Math.Atan(Math.Sin(Math.Abs(glRad)) * Math.Tan(declRad)));
+        double a = MathExtra.RadToDeg(Math.Atan(Math.Cos(glRad) * Math.Tan(mdRad)));
+        double b = MathExtra.RadToDeg(Math.Atan(Math.Tan(Math.Abs(glRad)) * Math.Cos(mdRad)));
+        double c = 0.0;
+        if ((decl >= 0.0 && geoLat >= 0.0) || (decl < 0.0 && geoLat < 0.0))    // decl and geoLat same sign
+        {
+            if (isTop) c = b - Math.Abs(decl);
+            else c = b + Math.Abs(decl);
+        }
+        else      // decl and geoLat of different sign
+        {
+            if (isTop) c = b + Math.Abs(decl);
+            else c = b - Math.Abs(decl);
+        }
+
+        double cRad = MathExtra.DegToRad(c);
+        double f = 0.0;
+        if (Math.Abs(b - decl) < 0.0000001) c = 0;
+        else f = MathExtra.RadToDeg(Math.Atan(Math.Sin(Math.Abs(glRad)) * Math.Sin(mdRad) * Math.Tan(cRad)));
+        double zd = a + f;
+        if (zd < 0.0) zd += 180.0;
+        return zd;
+    }
+
+   
     
 }

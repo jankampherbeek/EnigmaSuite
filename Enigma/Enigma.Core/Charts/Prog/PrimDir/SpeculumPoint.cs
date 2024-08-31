@@ -147,27 +147,29 @@ public class SpeculumPointPlacPole : ISpeculumPoint
 public class SpeculumPointReg : ISpeculumPoint
 {
     public SpeculumPointBase PointBase { get; private set; }
+    public double ZenithDist { get; private set; }
+    
     public double PoleReg { get; private set; }
-    public double AdPoleReg { get; set; }
-    public double OadPoleReg { get; set; }
+    public double FactorW { get; private set; }
+    public double FactorQ { get; private set; }
 
     public SpeculumPointReg(ChartPoints point, FullPointPos pointPos, PrimDirRequest request, SpeculumBase specBase, AspectTypes aspect)
     {
         PointBase = new SpeculumPointBase(point, pointPos, request, specBase, aspect);
-        
-        
-        double declRad = MathExtra.DegToRad(PointBase.Decl);
         bool isTop = request.Approach == PrimDirApproaches.Mundane
             ? PrimDirCalcAssist.IsChartTop(PointBase.Ra, specBase.RaAsc)
             : PrimDirCalcAssist.IsChartTop(PointBase.Lon, specBase.LonAsc);
-        
-        //double signMdUpperRad = MathExtra.DegToRad(signPoint.PointSaBase.MerDist);
+        double geoLat = request.Chart.InputtedChartData.Location.GeoLat;
+        double geoLatRad = MathExtra.DegToRad(geoLat);
         double merDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, isTop);
-        double PoleReg = PrimDirCalcAssist.PoleRegiomontanus(PointBase.Decl, merDist, specBase.GeoLat);
-
-        double AdPoleReg = PrimDirCalcAssist.AdUnderRegPole(PoleReg, PointBase.Decl);
-
-        double OadPoleReg = PointBase.Ra - AdPoleReg;
+        ZenithDist = PrimDirCalcAssist.ZenithDistReg(PointBase.Decl, merDist, geoLat, isTop);
+        double zdRad = MathExtra.DegToRad(ZenithDist);
+        PoleReg = MathExtra.RadToDeg(Math.Asin(Math.Sin(geoLatRad) * Math.Sin(zdRad)));
+        double poleRad = MathExtra.DegToRad(PoleReg);
+        double declRad = MathExtra.DegToRad(PointBase.Decl);
+        FactorQ = MathExtra.RadToDeg(Math.Asin(Math.Tan(declRad) * Math.Tan(poleRad)));
+        FactorW = PointBase.Ra - FactorQ;
+        if (!PointBase.ChartLeft) FactorW = PointBase.Ra + FactorQ;
     }
 }
 

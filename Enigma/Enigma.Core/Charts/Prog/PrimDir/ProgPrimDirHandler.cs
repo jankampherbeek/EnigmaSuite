@@ -63,10 +63,11 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                        oppArc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
                        break;
                    case PrimDirMethods.PlacidusPole:
-                       arc = PlacidusPoleArc(movPoint, fixPoint, speculum);
+                       arc = PlacidusPoleArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        break;
                    case PrimDirMethods.Regiomontanus:
-                       arc = RegiomontanusArc(movPoint, fixPoint, speculum);
+                       arc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
+                       oppArc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
                        break;
                    case PrimDirMethods.Topocentric:
                        arc = TopocentricArc(movPoint, fixPoint, speculum);
@@ -144,23 +145,37 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
   
     
     
-    private double PlacidusPoleArc(ChartPoints significator, ChartPoints movPoint, Speculum fixPoint)
+    private double PlacidusPoleArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum, AspectTypes aspect)
     {
-        var signPoint = (SpeculumPointPlacPole)fixPoint.SpeculumPoints[significator];
-        var promPoint = (SpeculumPointPlacPole)fixPoint.SpeculumPoints[movPoint];
-        double promOadUnderPoleOfSign =
-            PrimDirCalcAssist.AdPromUnderElevPoleSign(signPoint.ElevPole, promPoint.PointBase.Decl);
-        double dirArc = promOadUnderPoleOfSign - promPoint.AdPlacPole;
-        return dirArc;
+        // var specFixPoint = (SpeculumPointReg)speculum.SpeculumPoints[significator];
+        // var specMovPoint = (SpeculumPointReg)speculum.SpeculumPoints[movPoint];
+        // if (aspect == AspectTypes.Opposition)
+        // {
+        //     specMovPoint = (SpeculumPointReg)speculum.SpeculumOppPoints[movPoint];
+        //     specFixPoint = (SpeculumPointReg)speculum.SpeculumPoints[fixPoint];
+        // }        
+        // double promOadUnderPoleOfSign =
+        //     PrimDirCalcAssist.AdPromUnderElevPoleSign(signPoint.ElevPole, promPoint.PointBase.Decl);
+        // double dirArc = promOadUnderPoleOfSign - promPoint.AdPlacPole;
+        return 0.0;
     }
     
-    private double RegiomontanusArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum)
+    private double RegiomontanusArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum, AspectTypes aspect)
     {
-        var signPoint = (SpeculumPointReg)speculum.SpeculumPoints[movPoint];
-        var promPoint = (SpeculumPointReg)speculum.SpeculumPoints[fixPoint];
-        double oadPromPoleSign = promPoint.PointBase.Ra + signPoint.AdPoleReg;
-        if (signPoint.PointBase.ChartLeft) oadPromPoleSign = promPoint.PointBase.Ra - signPoint.AdPoleReg;
-        double arcDir = oadPromPoleSign - signPoint.OadPoleReg;
+        var promPoint = (SpeculumPointReg)speculum.SpeculumPoints[movPoint];
+        var signPoint = (SpeculumPointReg)speculum.SpeculumPoints[fixPoint];
+        if (aspect == AspectTypes.Opposition)
+        {
+            signPoint = (SpeculumPointReg)speculum.SpeculumPoints[fixPoint];
+            promPoint = (SpeculumPointReg)speculum.SpeculumOppPoints[movPoint];
+        }
+
+        double declPromRad = MathExtra.DegToRad(promPoint.PointBase.Decl);
+        double poleSignRad = MathExtra.DegToRad(signPoint.PoleReg);
+        double qp = MathExtra.RadToDeg(Math.Asin(Math.Tan(declPromRad) * Math.Tan(poleSignRad)));
+        double wp = promPoint.PointBase.Ra - qp;
+        if (!signPoint.PointBase.ChartLeft) wp = promPoint.PointBase.Ra + qp;        
+        double arcDir = wp - signPoint.FactorW;
         return arcDir;
     }
     
