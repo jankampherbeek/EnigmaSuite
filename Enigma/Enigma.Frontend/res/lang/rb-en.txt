@@ -96,7 +96,7 @@ ref.coordinatesys.horizontal = Horizontal
 ref.directions4geolat.north = North
 ref.directions4geolat.south = South
 # Ref directions for geographic longitude
-ref.directions4geoLong.east = East
+ref.directions4geolong.east = East
 ref.directions4geolong.west = West
 # Ref House systems
 ref.housesys.alcabitius = Alcabitius

@@ -159,9 +159,9 @@ public class ConfigurationDelta: IConfigurationDelta
             allDeltas.Add("SM_KEY", ((int)newConf.ConfigSymDir.TimeKey).ToString());
         if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
             allDeltas.Add(StandardTexts.CFG_PD_METHOD,((int)newConf.ConfigPrimDir.Method).ToString());
-        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+        if (defConf.ConfigPrimDir.Approach != newConf.ConfigPrimDir.Approach) 
             allDeltas.Add(StandardTexts.CFG_PD_APPROACH,((int)newConf.ConfigPrimDir.Approach).ToString());
-        if (defConf.ConfigPrimDir.Method != newConf.ConfigPrimDir.Method) 
+        if (defConf.ConfigPrimDir.TimeKey != newConf.ConfigPrimDir.TimeKey) 
             allDeltas.Add(StandardTexts.CFG_PD_TIMEKEY,((int)newConf.ConfigPrimDir.TimeKey).ToString());
   
         

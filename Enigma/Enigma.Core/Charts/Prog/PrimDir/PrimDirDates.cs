@@ -42,23 +42,26 @@ public class PrimDirDates: IPrimDirDates
         {
             case PrimDirTimeKeys.Ptolemy:
             {
-                return jdStart + arc * 365.25;
+                return jdStart + arc * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;;
             }
             case PrimDirTimeKeys.Naibod:
             {
-               // return jdStart + ((arc / naibodPerYear) * 365.25);
-               return jdStart + (arc / naibodPerYear) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
+               return jdStart + arc / naibodPerYear * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
             }
             case PrimDirTimeKeys.Brahe:
             {
                 double sunNextDay = CalcSunEquatorial(jdStart + 1.0);
                 double raDiff = RangeUtil.ValueToRange(sunNextDay - sunEclRadix, 0.0, 360.0);
-                return jdStart + (arc * raDiff);
+                return jdStart + arc / raDiff * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
             }
             case PrimDirTimeKeys.Placidus:
-                return FindJdForPositionSun(sunEquRadix + arc, estimatedJd, CoordinateSystems.Equatorial); 
+                double secundaryPosEqu = RangeUtil.ValueToRange(sunEquRadix + arc, 0.0, 360.0);
+                double secundaryJdEqu = FindJdForPositionSun(secundaryPosEqu, estimatedJd, CoordinateSystems.Equatorial);
+                return (secundaryJdEqu - jdStart) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS + jdStart;
             case PrimDirTimeKeys.VanDam:
-                return FindJdForPositionSun(sunEclRadix + arc, estimatedJd, CoordinateSystems.Ecliptical);
+                double secundaryPosEcl = RangeUtil.ValueToRange(sunEclRadix + arc, 0.0, 360.0);
+                double secundaryJdEcl = FindJdForPositionSun(secundaryPosEcl, estimatedJd, CoordinateSystems.Ecliptical);
+                return (secundaryJdEcl - jdStart) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS + jdStart;
             default: return 0.0;
         }
     }
@@ -68,12 +71,15 @@ public class PrimDirDates: IPrimDirDates
         const double MAX_DELTA = 0.0001;
         double tempJd = estimatedJd;
         double guessedPos = CalcSun(tempJd, cSys);
-        double delta = RangeUtil.ValueToRange(guessedPos - position, 0.0, 360.0);
-        while (Math.Abs(delta) > MAX_DELTA)
+       
+        double delta = RangeUtil.ValueToRange(position - guessedPos, -180.0, 180.0);
+        bool positionFound = false;
+        while (!positionFound)
         {
-            tempJd += delta;
             guessedPos = CalcSun(tempJd, cSys);
-            delta = RangeUtil.ValueToRange(guessedPos - position, 0.0, 360.0);
+            delta = RangeUtil.ValueToRange(guessedPos - position, -180.0, 180.0);
+            if (Math.Abs(delta) < MAX_DELTA) positionFound = true;
+            else tempJd-= delta;
         }
         return tempJd;
     }

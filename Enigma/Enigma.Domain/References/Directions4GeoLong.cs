@@ -34,8 +34,8 @@ public static class Directions4GeoLongExtensions
     {
         return direction switch
         {
-            Directions4GeoLong.East => new Directions4GeoLongDetails(direction, "ref.directions4geoLong.east"),
-            Directions4GeoLong.West => new Directions4GeoLongDetails(direction, "ref.directions4geoLong.west"),
+            Directions4GeoLong.East => new Directions4GeoLongDetails(direction, "ref.directions4geolong.east"),
+            Directions4GeoLong.West => new Directions4GeoLongDetails(direction, "ref.directions4geolong.west"),
             _ => throw new ArgumentException("Direction for Longitude unknown : " + direction)
         };
     }

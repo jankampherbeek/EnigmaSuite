@@ -41,10 +41,6 @@ public class Speculum
                 SpeculumPoints.Add(point, new SpeculumPointPlac(point, pointPos, request, Base, AspectTypes.Conjunction));
                 SpeculumOppPoints.Add(point, new SpeculumPointPlac(point, pointPos, request, Base, AspectTypes.Opposition));
                 break;
-            case PrimDirMethods.PlacidusPole:
-                SpeculumPoints.Add(point, new SpeculumPointPlacPole(point, pointPos, request, Base, AspectTypes.Conjunction));
-                SpeculumOppPoints.Add(point, new SpeculumPointPlacPole(point, pointPos, request, Base, AspectTypes.Opposition));
-                break;
             case PrimDirMethods.Topocentric:
                 SpeculumPoints.Add(point, new SpeculumPointTopoc(point, pointPos, request, Base, AspectTypes.Conjunction));
                 SpeculumOppPoints.Add(point, new SpeculumPointTopoc(point, pointPos, request, Base, AspectTypes.Opposition));

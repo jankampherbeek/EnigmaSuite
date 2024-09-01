@@ -39,7 +39,7 @@ public class TestPrimDirMethods
     {
         const int index = 1;
         PrimDirMethods method = PrimDirMethodsExtensions.PrimDirMethodForIndex(index);
-        Assert.That(method, Is.EqualTo(PrimDirMethods.PlacidusPole));
+        Assert.That(method, Is.EqualTo(PrimDirMethods.Regiomontanus));
     }
 
     [Test]
@@ -56,9 +56,9 @@ public class TestPrimDirMethods
         List<PrimDirMethodDetails> allDetails = PrimDirMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(4));
+            Assert.That(allDetails, Has.Count.EqualTo(3));
             Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.primdirmethod.placidus"));
-            Assert.That(allDetails[2].RbKey, Is.EqualTo("ref.primdirmethod.regiomontanus"));
+            Assert.That(allDetails[2].RbKey, Is.EqualTo("ref.primdirmethod.topocentric"));
         });
     }
     

@@ -21,7 +21,7 @@ public class TestTestDirections4GeoLong
         {
             Assert.That(details, Is.Not.Null);
             Assert.That(details.Direction, Is.EqualTo(direction));
-            Assert.That(details.RbKey, Is.EqualTo("ref.directions4geoLong.east"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.directions4geolong.east"));
         });
     }
 
@@ -58,7 +58,7 @@ public class TestTestDirections4GeoLong
         {
             Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].Direction, Is.EqualTo(Directions4GeoLong.East));
-            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.directions4geoLong.west"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.directions4geolong.west"));
         });
     }
 }

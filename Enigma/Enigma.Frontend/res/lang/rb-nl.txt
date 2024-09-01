@@ -96,7 +96,7 @@ ref.coordinatesys.horizontal = Horizontal
 ref.directions4geolat.north = Noord
 ref.directions4geolat.south = Zuid
 # Ref directions for geographic longitude
-ref.directions4geoLong.east = Oost
+ref.directions4geolong.east = Oost
 ref.directions4geolong.west = West
 # Ref House systems
 ref.housesys.alcabitius = Alcabitius
