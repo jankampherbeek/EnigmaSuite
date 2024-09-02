@@ -46,7 +46,7 @@
                     Margin="6" Content="{Binding BtnCalculate}" HorizontalAlignment="Right" 
                     Command="{Binding FinalizeInputCommand}"/>
         </StackPanel>
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="4" Grid.Column="0" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="{Binding BtnHelp}" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>

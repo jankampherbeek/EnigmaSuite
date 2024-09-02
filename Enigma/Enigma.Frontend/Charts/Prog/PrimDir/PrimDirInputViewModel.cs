@@ -46,8 +46,8 @@ public partial class PrimDirInputViewModel: ObservableObject
     
     private bool _calculateClicked;
     
-    public SolidColorBrush StartDateValid => IsStartDateValid() ? Brushes.Gray : Brushes.Red;
-    public SolidColorBrush EndDateValid => IsEndDateValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush StartDateValid => AreDatesValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush EndDateValid => AreDatesValid() ? Brushes.Gray : Brushes.Red;
     
     
     public PrimDirInputViewModel()
@@ -87,26 +87,23 @@ public partial class PrimDirInputViewModel: ObservableObject
     
     private string FindErrors()
     {
+        string errorTxt =
+            "Make sure the dates are in the format yyyy//mm/dd, that the start date is at least one day " +
+            "after the birth date, and that the end date is after the start date.";
         StringBuilder errorsText = new();
 
-        if (!IsStartDateValid())
-            errorsText.Append(_rosetta.GetText(StandardTexts.ERROR_STARTDATE) + EnigmaConstants.NEW_LINE);
-        if (!IsEndDateValid())
-            errorsText.Append(_rosetta.GetText(StandardTexts.ERROR_ENDDATE) + EnigmaConstants.NEW_LINE);
+        if (!AreDatesValid())
+            errorsText.Append(errorTxt);
         return errorsText.ToString();
     }
     
-    private bool IsStartDateValid()
+    private bool AreDatesValid()
     {
-        if (string.IsNullOrEmpty(StartDate) && !_calculateClicked) return true; 
-        return _model.IsDateValid(StartDate, Calendars.Gregorian, YearCounts.CE);
+        if ((string.IsNullOrEmpty(StartDate) || string.IsNullOrEmpty(EndDate))  && !_calculateClicked) return true; 
+        return _model.AreDatesValid(StartDate, EndDate, Calendars.Gregorian, YearCounts.CE);
+
     }
     
-    private bool IsEndDateValid()
-    {
-        if (string.IsNullOrEmpty(EndDate) && !_calculateClicked) return true; 
-        return _model.IsDateValid(EndDate, Calendars.Gregorian, YearCounts.CE);
-    }
     
     [RelayCommand]
     private void Close()
