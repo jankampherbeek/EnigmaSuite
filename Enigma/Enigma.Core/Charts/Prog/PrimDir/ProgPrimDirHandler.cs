@@ -50,14 +50,14 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         double arc = 0.0;
         double oppArc = 0.0;
         
-        foreach (ChartPoints movPoint in request.Significators)
+        foreach (ChartPoints movPoint in request.Promissors)
         {
             double jdForEvent;
-            foreach (ChartPoints fixPoint in request.Promissors)
+            foreach (ChartPoints fixPoint in request.Significators)
             {
-
-               switch (request.Method)
-               {
+                if (movPoint == fixPoint) continue;
+                switch (request.Method)
+                {
                    case PrimDirMethods.Placidus:
                        arc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        oppArc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
@@ -72,7 +72,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                        break;
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
-               }
+                }
                 jdForEvent = _primDirDates.JdForEvent(request.Chart.InputtedChartData.FullDateTime.JulianDayForEt, arc, request.TimeKey);
                 if (jdForEvent > jdStart && jdForEvent <= jdEnd)
                 {
@@ -104,8 +104,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         }
         string monthText = $"{dateTime.Month:D2}";
         string dayText = $"{dateTime.Day:D2}";
-        string calendarText = cal == Calendars.Gregorian ? "G" : "J";
-        string dateTxt = yearText + separator + monthText + separator + dayText + " " + calendarText;
+        string dateTxt = yearText + separator + monthText + separator + dayText;
         return new PrimDirHit(jd, dateTxt, fixPoint, movPoint, aspect);
     }
 

@@ -56,8 +56,8 @@
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding Significator}" Header="Significator" 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>                                
-                                <DataGridTextColumn Binding="{Binding DirectConverse}" Header="Direct or converse" 
-                                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                                <!--DataGridTextColumn Binding="{Binding DirectConverse}" Header="Direct or converse" 
+                                                    IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/ -->
                                 <DataGridTextColumn Binding="{Binding Date}" Header="Date" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>                                
                             </DataGrid.Columns>   

@@ -47,7 +47,6 @@ public class ConfigProgModel
     {
         _configApi.WriteDeltasForConfig(configProg);
         CurrentConfig.Instance.ChangeConfigProg(configProg);
-     //   DataVaultCharts.Instance.ClearExistingCharts();
     }
     
     public List<string> AllSymDirKeys()

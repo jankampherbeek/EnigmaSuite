@@ -18,7 +18,7 @@ public record PrimDirResponse(List<PrimDirHit> Hits, bool Errors, string ResultT
 
 /// <summary>Specification for a primary direction 'hit', an exactly formed direction.</summary>
 /// <param name="Jd">Julian day number.</param>
-/// <param name="DateTxt">Textual presetnationof date, format yyyy/mm/dd</param>
+/// <param name="DateTxt">Textual presentation of date, format yyyy/mm/dd</param>
 /// <param name="Significator">The significator.</param>
 /// <param name="Promissor">The promissor.</param>
 /// <param name="Aspect">Aspect, if no aspects are used always conjunction.</param>
