@@ -56,6 +56,9 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
             foreach (ChartPoints fixPoint in request.Significators)
             {
                 if (movPoint == fixPoint) continue;
+                if (!request.Chart.Positions.ContainsKey(movPoint) ||
+                    !request.Chart.Positions.ContainsKey(fixPoint)) continue;
+                
                 switch (request.Method)
                 {
                    case PrimDirMethods.Placidus:

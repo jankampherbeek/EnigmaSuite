@@ -19,6 +19,7 @@ public class Speculum
     public Speculum(PrimDirRequest request)
     {
         Base = new SpeculumBase(request);
+
         foreach (KeyValuePair<ChartPoints, FullPointPos> pointFullPos
                  in request.Chart.Positions
                      .Where(pointFullPos => request.Promissors.Contains(pointFullPos.Key)

@@ -67,10 +67,21 @@ public class PrimDirResultsModel
         bool noErrors = true;
         Calendars cal = Calendars.Gregorian;
         ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
+        AstroConfig configRadix = CurrentConfig.Instance.GetConfig();
         CalculatedChart? chart = _dataVaultCharts.GetCurrentChart();
         List<ChartPoints> significators = (from signSpec in configProg.ConfigPrimDir.Significators where signSpec.Value.IsUsed select signSpec.Key).ToList();
         List<ChartPoints> promissors = (from promSpec in configProg.ConfigPrimDir.Promissors where promSpec.Value.IsUsed select promSpec.Key).ToList();
-
+        List<ChartPoints> supportedSignificators = new();
+        List<ChartPoints> supportedPromissors = new();
+        var supportedPoints = configRadix.ChartPoints;
+        foreach (var signPoint in significators)
+        {
+           if (supportedPoints.ContainsKey(signPoint)) supportedSignificators.Add(signPoint); 
+        }
+        foreach (var promPoint in promissors)
+        {
+            if (supportedPoints.ContainsKey(promPoint)) supportedPromissors.Add(promPoint);
+        }
         SimpleDate? startDateResult = null;
         SimpleDate? endDateResult = null;
         noErrors = noErrors && _textToDateConverter.ConvertText(startDateTxt, cal, out startDateResult);
@@ -80,7 +91,7 @@ public class PrimDirResultsModel
         PrimDirMethods method = _configProg.ConfigPrimDir.Method; 
         PrimDirTimeKeys timeKey = _configProg.ConfigPrimDir.TimeKey;
         PrimDirApproaches approach = _configProg.ConfigPrimDir.Approach;
-        request = new PrimDirRequest(chart, significators, promissors, startDate, endDate, method, timeKey, approach);
+        request = new PrimDirRequest(chart, supportedSignificators, supportedPromissors, startDate, endDate, method, timeKey, approach);
         return noErrors;
     }
 
