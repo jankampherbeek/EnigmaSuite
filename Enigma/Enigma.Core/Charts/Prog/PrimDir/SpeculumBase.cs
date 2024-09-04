@@ -39,6 +39,7 @@ public class SpeculumBase
         RaAsc = chart.Positions[ChartPoints.Ascendant].Equatorial.MainPosSpeed.Position;
         LonAsc = chart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
         OaAsc =  RaMc + 90.0;
+     //   if (GeoLat < 0.0) OaAsc = RaIc + 90.0;
         if (OaAsc >= 360.0) OaAsc -= 360.0;
         OblEcl = chart.Obliquity;
     }

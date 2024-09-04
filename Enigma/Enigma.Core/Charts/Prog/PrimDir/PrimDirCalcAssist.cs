@@ -58,18 +58,34 @@ public static class PrimDirCalcAssist
     /// <param name="oaPoint">Oblique ascension for the point.</param>
     /// <param name="oaAsc">Oblique ascension for the ascendant.</param>
     /// <param name="chartLeft">True if point is in the left demi-circle of the chart, otherwise false.</param>
+    /// <param name="north">True for northern latitude.</param>
     /// <returns>Calculated value for horizontal distance.</returns>
-    public static double HorizontalDistance(double oaPoint, double oaAsc, bool chartLeft)
+    public static double HorizontalDistance(double oaPoint, double oaAsc, bool chartLeft, bool north)
     {
         double hd = 0.0;
-        if (chartLeft)
+        if (north)
         {
-            hd = Math.Abs(oaPoint - oaAsc);
+            if (chartLeft)
+            {
+                hd = Math.Abs(oaPoint - oaAsc);
+            }
+            else
+            {
+                hd = Math.Abs(RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) 
+                              - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0));            
+            }            
         }
         else
         {
-            hd = Math.Abs(RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) 
-                            - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0));            
+            if (!chartLeft)
+            {
+                hd = Math.Abs(oaPoint - oaAsc);
+            }
+            else
+            {
+                hd = Math.Abs(RangeUtil.ValueToRange(oaPoint + 180.0, 0.0, 180.0) 
+                              - RangeUtil.ValueToRange(oaAsc + 180.0, 0.0, 180.0));            
+            } 
         }
         if (hd >= 180.0) hd = 360.0 - hd;
         if (hd >= 90.0) hd = 180.0 - hd;
@@ -92,18 +108,25 @@ public static class PrimDirCalcAssist
     /// <param name="raPoint">Right ascention of point.</param>
     /// <param name="ascDiff">Ascension difference of point.</param>
     /// <param name="chartLeft">Indicates if point is in the left part of the chart.</param>
-    /// <param name="north">Indficates if point is in northern hemisphere.</param>
+    /// <param name="north">Indicates if point is in northern hemisphere.</param>
     /// <returns>Calculated oblique ascension.</returns>
     public static double ObliqueAscDesc(double raPoint, double ascDiff, bool chartLeft, bool north)
     {
-        if ((north && chartLeft) || (!north && !chartLeft))
+        double oa = 0.0;
+        if (north)
         {
-            return RangeUtil.ValueToRange(raPoint - ascDiff, 0.0, 360.0);
-        } 
-        return RangeUtil.ValueToRange(raPoint + ascDiff, 0.0, 360.0);
-        
+            if (chartLeft) oa = raPoint - ascDiff;
+            else  oa = raPoint + ascDiff;           
+        }
+        else
+        {
+            if (chartLeft) oa = raPoint + ascDiff;
+            else oa = raPoint - ascDiff;            
+        }
+        return RangeUtil.ValueToRange(oa, 0.0, 360.0); 
     }
    
+
     
     /// <summary>Calculates the elevation undere the pole for directions using the method Placidus under the pole.</summary>
     /// <param name="adPole">Ascensional difference under the pole.</param>
@@ -165,19 +188,12 @@ public static class PrimDirCalcAssist
         return MathExtra.RadToDeg(Math.Asin(tanDecl * tanPole));
     }
 
-    public static double TopocPole(double merDist, double semiArc, double decl, double geoLat)
-    {
-        double mdDivSa = merDist / semiArc;
-        double geoLatRad = MathExtra.DegToRad(geoLat);
-        double declRad = MathExtra.DegToRad(decl);
-        return MathExtra.RadToDeg(Math.Atan((mdDivSa * Math.Tan(geoLatRad) / Math.Tan(declRad))));
-    }
 
-    public static double TopocPoleMakransky(double merDist, double semiArc, double geoLat)
+    public static double TopocPole(double merDist, double semiArc, double geoLat)
     {
         double mdDivSa = merDist / semiArc;
         double geoLatRad = MathExtra.DegToRad(geoLat);
-        return MathExtra.RadToDeg(Math.Atan(mdDivSa * Math.Tan(geoLatRad)));
+        return Math.Abs(MathExtra.RadToDeg(Math.Atan(mdDivSa * Math.Tan(geoLatRad))));
     }
     
     public static double DeclFromLongNoLat(double longitude, double obliquity)

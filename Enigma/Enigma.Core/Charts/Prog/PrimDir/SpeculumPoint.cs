@@ -99,48 +99,12 @@ public class SpeculumPointPlac : ISpeculumPoint
         IsTop = PointBase.ChartTop;
         Ad = PrimDirCalcAssist.AscensionalDifference(PointBase.Decl, geoLat);
         Oad = PrimDirCalcAssist.ObliqueAscDesc(PointBase.Ra, Ad, ChartLeft, geoLat >= 0.0);
-        HorDist = PrimDirCalcAssist.HorizontalDistance(Oad, specBase.OaAsc, ChartLeft);
+        HorDist = PrimDirCalcAssist.HorizontalDistance(Oad, specBase.OaAsc, ChartLeft, geoLat >= 0.0);
         MerDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, IsTop);
         SemiArc = Math.Abs(HorDist + MerDist);
+        if (geoLat < 0.0) SemiArc = 180.0 - SemiArc;
     }
 }
-
-/// <summary>A specific point to be used in Placidus under the Pole directions.</summary>
-public class SpeculumPointPlacPole : ISpeculumPoint
-{
-    public SpeculumPointBase PointBase { get; private set; }
-
-    public double AdPlacPole { get; private set; }
-    public double ElevPole { get; private set; }
-
-
-    public SpeculumPointPlacPole(ChartPoints point, FullPointPos pointPos, PrimDirRequest request,
-        SpeculumBase specBase, AspectTypes aspect)
-    {
-        PointBase = new SpeculumPointBase(point, pointPos, request, specBase, aspect);
-        double lon = pointPos.Ecliptical.MainPosSpeed.Position;
-        double decl = pointPos.Equatorial.DeviationPosSpeed.Position;
-        double ra = pointPos.Equatorial.MainPosSpeed.Position;
-
-        double geoLat = request.Chart.InputtedChartData.Location.GeoLat;
-        bool chartLeft = request.Approach == PrimDirApproaches.Mundane
-            ? PrimDirCalcAssist.IsChartLeft(ra, specBase.RaMc)
-            : PrimDirCalcAssist.IsChartLeft(lon, specBase.LonMc);
-        bool isTop = request.Approach == PrimDirApproaches.Mundane
-            ? PrimDirCalcAssist.IsChartTop(ra, specBase.RaAsc)
-            : PrimDirCalcAssist.IsChartTop(lon, specBase.LonAsc);
-        double ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
-        double oad = PrimDirCalcAssist.ObliqueAscDesc(ra, ad, chartLeft, geoLat >= 0.0);
-        double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft));
-
-        double merDist = PrimDirCalcAssist.MeridianDistance(ra, specBase.RaMc, specBase.RaIc, isTop);
-        double semiArc = Math.Abs(horDist) + Math.Abs(merDist);
-
-        AdPlacPole = (merDist / semiArc) * ad;  // todo reverse signs for oadUnderPole in southern hemisphere
-        ElevPole = PrimDirCalcAssist.ElevationOfThePolePlac(AdPlacPole, decl);
-    }
-}
-
 
 
 /// <summary>A specific point to be used in Regiomontanus directions.</summary>
@@ -196,10 +160,10 @@ public class SpeculumPointTopoc : ISpeculumPoint
         
         double ad = PrimDirCalcAssist.AscensionalDifference(decl, geoLat);
         double oad = PrimDirCalcAssist.ObliqueAscDesc(pointPos.Equatorial.MainPosSpeed.Position, ad, chartLeft, geoLat >= 0.0);        
-        double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft));        
+        double horDist = Math.Abs(PrimDirCalcAssist.HorizontalDistance(oad, specBase.OaAsc, chartLeft, geoLat >= 0.0));        
         double merDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, isTop);
         double semiArc = Math.Abs(horDist) + Math.Abs(merDist);
-        PoleTc = PrimDirCalcAssist.TopocPoleMakransky(merDist, semiArc, geoLat);
+        PoleTc = PrimDirCalcAssist.TopocPole(merDist, semiArc, geoLat);
         double declRad = MathExtra.DegToRad(decl);
         double poleRad = MathExtra.DegToRad(PoleTc);
         FactorQ = MathExtra.RadToDeg(Math.Tan(declRad) * Math.Tan(poleRad));

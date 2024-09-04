@@ -203,6 +203,22 @@ If you perform a test with harmonics or with midpoints, you can enter the orb th
 
 In other research projects, you use the orbs as defined in the configuration.
 
+
+
+## Time keys for primary directions
+
+Enigma supports the following time keys for primary directions:
+
+- Ptolemy: 1 degree in right ascension per year.
+- Naibod: the mean movement of the Sun in right ascension during a day: 0°59'08".
+- Brahe: the movement of the Sun at the day of birth.
+- Placidus: the total movement of the Sun in secundary directions, measured in right ascension.
+- Van Dam: as Placidus, but measured in longitude.
+
+
+
+
+
 ## Format for data-files
 
 Enigma supports a proprietary data-file and also the import of data from PlanetDance. 

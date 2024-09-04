@@ -58,7 +58,7 @@ public class TestPrimDirMethods
         {
             Assert.That(allDetails, Has.Count.EqualTo(3));
             Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.primdirmethod.placidus"));
-            Assert.That(allDetails[2].RbKey, Is.EqualTo("ref.primdirmethod.topocentric"));
+            Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.primdirmethod.regiomontanus"));
         });
     }
     

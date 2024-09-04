@@ -124,6 +124,8 @@ Select the chart in the left column and click the button **Wheel**, or use the m
 You will see the figure of the chart and the basic information about the chart. Resize the window and the chart will automatically adjust. You do not need to close the window with the wheel to continue. 
 It is possible to open wheels for different charts simultaneously. You can also have one or more windows for wheels open and at the same windows for analysis. You will recognize the chart owner as Enigma shows its name in each window.
 
+At the bottom left is a check-box labeled 'No time'. If you check this, Enigma draws a new wheel without houses and angles. Also, 0 Aries is positioned to the left. You can use this is a birth time is unknown. Please note that Enigma does not change the time so planetary positions do not change. 
+
 
 
 ## Showing the positions of a chart
@@ -211,6 +213,8 @@ You can sort the columns in the table *Occupied Midpoints* by clicking on the he
 <img src="img\decl-diagram.png" alt="decl-diagram" style="zoom:50%;" />
 
 The declination diagram shows an overview of declinations and longitudes.  At the left and the right, the diagram shows the degrees in declination. In most cases the range will be from 30 to -30 (30 North to 30 South). If one of the points has a declination larger than 30 degrees, Enigma will extend that range. The zones at the bottom and the top, indicated by a darker color, indicate where a planet will be Out of Bounds. The outline of the oval form shows the typical declination of the Sun, and other points without latitude.  
+
+The colors of the position lines are the same as the colors used for the symbols. This makes it possible to see the difference if planets are very close in longitude or declination.
 
 Enigma shows the zodiac signs using vertical bars. Horizontal (declination) and vertical (longitude) mark the exact location of the points in the graph.  You can hide the position lines by clicking the checkbox *Hide position lines*.
 

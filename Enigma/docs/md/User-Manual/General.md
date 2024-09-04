@@ -7,18 +7,18 @@
 Thank you for your interest in Enigma. 
 You are about to learn about a program that calculates charts and also supports several types of research into astrology.
 
-You can use it for your astrological calculations. Enigma is accurate and calculates fast, it will produce a chart wheel and perform the most important analysis.
+You can use it for your astrological calculations. Enigma is accurate and calculates fast, it will produce a chart wheel, perform the most important analysis and supports several progressive techniques.
 
 The program also supports several types of research: counting aspects, occupied midpoints, declinations and more. 
 And it generates control groups so that you can cancel out artefacts.
-
-Several other releases will follow, and each new release will add more functionality.
 
 Enigma is free: you do not have to pay for it. 
 And Enigma is open source: I published all code, and anybody can download it. 
 Programmers that want to use my code can do so freely, but only if their own software is also open source.
 
-I hope you enjoy the program!
+The next release of Enigma will be very different. I want to support multiple platforms; not just Windows but also Linux, Mac, Android and iOs. This requires using other programming languages and a lot of effort for the conversion. This will take considerable time. 
+
+In the mean time, I hope you enjoy the current version of Enigma!
 
 Jan Kampherbeek.
 
