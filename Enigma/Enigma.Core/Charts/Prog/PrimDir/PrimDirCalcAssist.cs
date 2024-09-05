@@ -189,13 +189,7 @@ public static class PrimDirCalcAssist
     }
 
 
-    public static double TopocPole(double merDist, double semiArc, double geoLat)
-    {
-        double mdDivSa = merDist / semiArc;
-        double geoLatRad = MathExtra.DegToRad(geoLat);
-        return Math.Abs(MathExtra.RadToDeg(Math.Atan(mdDivSa * Math.Tan(geoLatRad))));
-    }
-    
+   
     public static double DeclFromLongNoLat(double longitude, double obliquity)
     {
         double longRad = MathExtra.DegToRad(longitude);

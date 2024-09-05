@@ -263,19 +263,6 @@ public class TestPrimDirCalcAssist
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
     }
 
-
-    /*[Test]
-    public void TestTopocPole()
-    {
-        const double merDist = 30.0;
-        const double semiArc = 160.0;
-        const double decl = 10.0;
-        const double geoLat = 50.0;
-        const double expected = 51.7230940347;
-        double actual = PrimDirCalcAssist.TopocPole(merDist, semiArc, decl);
-        Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
-    }*/
-
     
     [Test]
     public void TestDeclFromLongNoLat()
