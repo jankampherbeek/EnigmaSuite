@@ -13,12 +13,12 @@ public class TestPrimDirMethods
     [Test]
     public void TestRetrievingDetails()
     {
-        const PrimDirMethods method = PrimDirMethods.Topocentric;
+        const PrimDirMethods method = PrimDirMethods.Regiomontanus;
         PrimDirMethodDetails details = method.GetDetails();
         Assert.Multiple(() =>
         {
             Assert.That(details, Is.Not.Null);
-            Assert.That(details.RbKey, Is.EqualTo("ref.primdirmethod.topocentric"));
+            Assert.That(details.RbKey, Is.EqualTo("ref.primdirmethod.regiomontanus"));
         });
     }
 
@@ -56,7 +56,7 @@ public class TestPrimDirMethods
         List<PrimDirMethodDetails> allDetails = PrimDirMethodsExtensions.AllDetails();
         Assert.Multiple(() =>
         {
-            Assert.That(allDetails, Has.Count.EqualTo(3));
+            Assert.That(allDetails, Has.Count.EqualTo(2));
             Assert.That(allDetails[0].RbKey, Is.EqualTo("ref.primdirmethod.placidus"));
             Assert.That(allDetails[1].RbKey, Is.EqualTo("ref.primdirmethod.regiomontanus"));
         });

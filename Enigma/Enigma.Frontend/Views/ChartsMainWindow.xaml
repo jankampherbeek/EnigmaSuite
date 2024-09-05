@@ -225,7 +225,6 @@
                 <Button Margin="0 3 0 3" Content="Delete Chart" Command="{Binding DeleteChartCommand}"/>   
                 <Button Margin="0 3 0 3" Content="Wheel" Command="{Binding ShowWheelCommand}"/>
                 <Button Margin="0 3 0 3" Content="Positions" Command="{Binding ShowPositionsCommand}"/>
-                <Button Margin="0 3 0 3" Content="Progressions" Command="{Binding ProgressionsCommand}"/>
             </StackPanel>
         </materialDesign:Card>
         <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">

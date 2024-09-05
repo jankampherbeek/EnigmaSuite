@@ -69,10 +69,6 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                        arc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        oppArc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
                        break;
-                   case PrimDirMethods.Topocentric:
-                       arc = TopocentricArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
-                       oppArc = TopocentricArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
-                       break;
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
                 }
@@ -155,24 +151,6 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         double wp = promPoint.PointBase.Ra - qp;
         if (!signPoint.PointBase.ChartLeft) wp = promPoint.PointBase.Ra + qp;        
         double arcDir = wp - signPoint.FactorW;
-        return arcDir;
-    }
-    
-    private double TopocentricArc(ChartPoints movPoint, ChartPoints fixPoint, Speculum speculum, AspectTypes aspect)
-    {
-        var specFixPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[movPoint];
-        var specMovPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[fixPoint];
-        if (aspect == AspectTypes.Opposition)
-        {
-            specFixPoint = (SpeculumPointTopoc)speculum.SpeculumPoints[fixPoint];
-            specMovPoint = (SpeculumPointTopoc)speculum.SpeculumOppPoints[movPoint];
-        }        
-        double declPromRad = MathExtra.DegToRad(specMovPoint.PointBase.Decl);
-        double polesignRad = MathExtra.DegToRad(specFixPoint.PoleTc);
-        double qProm = MathExtra.RadToDeg(Math.Asin(Math.Tan(declPromRad) * Math.Tan(polesignRad)));
-        double wProm = specMovPoint.PointBase.Ra - qProm;
-        if (!specFixPoint.PointBase.ChartLeft) wProm = specMovPoint.PointBase.Ra - qProm;
-        double arcDir = wProm - specFixPoint.FactorW; 
         return arcDir;
     }
     

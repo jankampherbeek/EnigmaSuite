@@ -10,7 +10,7 @@ namespace Enigma.Domain.Charts.Prog.PrimDir;
 /// <summary>Methods for primary directions.</summary>
 public enum PrimDirMethods
 {
-    Placidus = 0, Regiomontanus = 1, Topocentric = 2
+    Placidus = 0, Regiomontanus = 1
 }
 
 /// <summary>Details for methods for primary directions.</summary>
@@ -29,7 +29,6 @@ public static class PrimDirMethodsExtensions
         {
             PrimDirMethods.Placidus => new PrimDirMethodDetails("ref.primdirmethod.placidus"),
             PrimDirMethods.Regiomontanus => new PrimDirMethodDetails("ref.primdirmethod.regiomontanus"),
-            PrimDirMethods.Topocentric => new PrimDirMethodDetails("ref.primdirmethod.topocentric"),
             _ => throw new ArgumentException("PrimDirMethod unknown : " + method)
         };
     }
