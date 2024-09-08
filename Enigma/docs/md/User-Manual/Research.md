@@ -117,3 +117,23 @@ The second tab shows the results of the control-group. The background is light-b
 
 
 
+## Export data to Excel
+
+It would be useful to use the results of your researches in Excel. This is possible and quite simple.
+
+The research results you see on your screen can also be found on your computer's hard drive. The exact location is shown at the bottom of the overview that Enigma displays. This applies to both the test results and the control group results. The files with test results start with "test," for example, `testsummedresult_CountPosInSigns_counts_2024-8-16 22.47.6`. The corresponding control group results start with "control," for example, `consummedresult_CountPosInSigns_counts_2024-8-16 22.47.6`. In the file name, you can recognize the name and the date and time of the conducted research.
+
+To get the results into Excel, proceed as follows:
+
+1. Start Excel.
+2. Open the file with the results. It is located at the location indicated by Enigma with the results. Make sure to select a .txt file and not a .json file.
+3. Select the data and click CTRL-C to copy the data. Go to Excel and paste the data into an Excel sheet by clicking CTRL-V (paste). All text is now in one column.
+4. Select the data in the Excel sheet.
+5. Click on the 'Data' tab in the ribbon menu.
+6. Click on the 'Text to Columns' button in the Data Tools group.
+7. Select 'Delimited' and click Next.
+8. Choose Space as the delimiter. Click Next.
+9. Select General as the Column Data Format.
+10. Click Finish.
+
+If you want full control over the result, choose 'Fixed width' in option 6. Then you can indicate where you want to place the separation between the columns. Usually, this will not be necessary.

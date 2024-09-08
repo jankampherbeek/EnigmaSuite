@@ -3,7 +3,7 @@
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
 
-<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
 .mac-os-11 { --title-bar-height: 28px; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4, h5 { white-space: pre-wrap; }
@@ -219,31 +219,54 @@ mjx-container { break-inside: avoid; }
 .md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
 
 
-import url(https://fonts.googleapis.com/css?family=Open%20Sans);
 :root {
-    --code-block-bg-color: inherit;//#f8f8f8;
-
-    --item-hover-bg-color: #0a0d16;
-    --control-text-color: #b7b7b7;
-    --control-text-hover-color: #eee;
-    --window-border: 1px dashed #9b9b9b;
-
-    --active-file-bg-color: #0070E0;
-    --active-file-border-color: #8d8df0;
-
-    --primary-color: #a3d5fe;
-
-    --active-file-text-color: #0070e0;
-    --item-hover-bg-color: #70717d;
-    --item-hover-text-color: white;
-    --primary-color: #6dc1e7;
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
 }
 
-html,
-body,
-#write{
-	color: #5e676d;
-	font-family: "Open Sans", "Clear Sans", sans-serif;
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
 }
 h1,
 h2,
@@ -251,345 +274,337 @@ h3,
 h4,
 h5,
 h6 {
-	/*font-weight: lighter;*/
-	font-weight: 100;
-	color: #5e676d;
-	font-family: "Open Sans", sans-serif;
-	margin: 0.5rem 0;
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
 }
-
-html {
-	font-size:16px;
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
 }
-
-#write {
-	max-width: 914px;
-	text-align: justify;
+h1 tt,
+h1 code {
+    font-size: inherit;
 }
-
-#write>h1:first-child {
-	margin-top: 2.75rem;
+h2 tt,
+h2 code {
+    font-size: inherit;
 }
-#write>h2:first-child {
-	margin-top: 1.75rem;
+h3 tt,
+h3 code {
+    font-size: inherit;
 }
-#write>h3:first-child {
-	margin-top: 1rem;
+h4 tt,
+h4 code {
+    font-size: inherit;
 }
-#write>h4:first-child {
-	margin-top: 0.5rem;
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
 }
 h1 {
-	margin: 1rem 0;
-	/*line-height: 4rem;
-	padding: 5px 30px;
-	text-align: center;
-	margin-top: 4rem;*/
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
 }
 h2 {
-	margin: 0.8rem 0;
-	/*
-	line-height: 3rem;
-	padding: 0 30px;
-	text-align: center;
-	margin-top: 3rem
-	*/
-}
-h3 {
-}
-h4 {
-}
-h5 {
-	font-size: 1.125rem;
-}
-h6 {
-	font-size: 1.1rem;
-}
-p {
-	color: #5e676d;
-	font-size: 1rem;
-	line-height: 1.5rem;
-	margin: 0 0 1.25rem;
-}
-#write>h3.md-focus:before {
-	left: -1.875rem;
-	top: 0.5rem;
-	padding: 2px;
-}
-#write>h4.md-focus:before {
-	left: -1.875rem;
-	top: 0.3125rem;
-	padding: 2px;
-}
-#write>h5.md-focus:before {
-	left: -1.875rem;
-	top: 0.25rem;
-	padding: 2px;
-}
-#write>h6.md-focus:before {
-	left: -1.875rem;
-	top: .125rem;
-	padding: 2px;
-}
-/*@media screen and (min-width: 48em) {
-	.h1,
-	h1 {
-		font-size: 3.250rem;
-	}
-	.h2,
-	h2 {
-		font-size: 2.298rem;
-	}
-	.h3,
-	h3 {
-		font-size: 1.625rem;
-	}
-	.h4,
-	h4 {
-		font-size: 1.250rem;
-	}
-	.h5,
-	h5 {
-		font-size: 1.150rem;
-	}
-	.h6,
-	h6 {
-		font-size: 1rem;
-	}
-	#write>h4.md-focus:before,
-	#write>h5.md-focus:before,
-	#write>h6.md-focus:before {
-		top: 1px;
-	}
-	p {
-		font-size: 1.25rem;
-		line-height: 1.8;
-	}
-	table {
-		font-size: 1.25rem;
-	}
-}*/
-@media screen and (max-width: 48em) {
-	blockquote {
-		margin-left: 1rem;
-		margin-right: 0;
-		padding: 0.5em;
-	}
-	.h1,
-	h1 {
-		font-size: 2.827rem;
-	}
-	.h2,
-	h2 {
-		font-size: 1.999rem;
-	}
-	.h3,
-	h3 {
-		font-size: 1.413rem;
-	}
-	.h4,
-	h4 {
-		font-size: 1.250rem;
-	}
-	.h5,
-	h5 {
-		font-size: 1.150rem;
-	}
-	.h6,
-	h6 {
-		font-size: 1rem;
-	}
-}
-a,
-.md-def-url {
-	color: #007ee5;
-	text-decoration: none;
-}
-a:hover {
-	text-decoration: underline;
-}
-table {
-	border: 1px solid #e2e2e2;
-	margin-bottom: 20px
-}
-table th,
-table td {
-	padding: 8px;
-	line-height: 1.5rem;
-	vertical-align: top;
-	border: 1px solid #e2e2e2;
-}
-table th {
-	font-weight: normal;
-	background-color: #f0f7fd;
-}
-table thead th {
-	vertical-align: bottom
-}
-table caption+thead tr:first-child th,
-table caption+thead tr:first-child td,
-table colgroup+thead tr:first-child th,
-table colgroup+thead tr:first-child td,
-table thead:first-child tr:first-child th,
-table thead:first-child tr:first-child td {
-	border-top: 0
-}
-table tbody+tbody {
-	border-top: 2px solid #ddd
-}
-code, .md-fences {
-	padding: .5em;
-	background: #f6f9fc;
-	border: 1px solid #d0d4d9;
-	border-radius: 3px;
-	padding: .1em;
-	font-size: 0.9rem !important;
-	margin-left: 0.2em;
-	margin-right: 0.2em;
-}
-.md-fences {
-	margin: 0 0 20px;
-	font-size: 1em;
-	padding: 0.3em 1em;
-  	padding-top: 0.4em;
-}
-.task-list{
-	padding-left: 0;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
 }
 
-.task-list-item {
-	padding-left:2.125rem;
-}
-
-/* Chrome 29+ */
-@media screen and (-webkit-min-device-pixel-ratio:0)
-  and (min-resolution:.001dpcm) {
-    .task-list-item input:before {
-    	margin-top: -0.2rem;
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
     }
 
-    .task-list-item input:checked:before,
-	.task-list-item input[checked]:before {
-		margin-top: -0.2rem;
-	}
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
 }
 
-blockquote {
-	margin: 0 0 1.11111rem;
-	padding: 0.5rem 1.11111rem 0 1.05556rem;
-	border-left: 2px solid rgba(0, 112, 224, 0.32);
+li p.first {
+    display: inline-block;
 }
-blockquote,
-blockquote p {
-	line-height: 1.6;
-	color: #8f8f8f;
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
 }
 #write pre.md-meta-block {
-	min-height: 30px;
-	background: #f8f8f8;
-	padding: 1.5em;
-	font-weight: 300;
-	font-size: 1em;
-	padding-bottom: 1.5em;
-	padding-top: 3em;
-    margin-top: -1.5em;
-	color: #999;
-	border-left: 1000px #f8f8f8 solid;
-	margin-left: -1000px;
-	border-right: 1000px #f8f8f8 solid;
-	margin-right: -1000px;
-	margin-bottom: 2em;
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
 }
-.MathJax_Display {
-	font-size: 0.9em;
-	margin-top: 0.5em;
-	margin-bottom: 0;
-}
-p.mathjax-block,
-.mathjax-block {
-	padding-bottom: 0;
-}
+
 .mathjax-block>.code-tooltip {
-	bottom: 5px;
-	box-shadow: none;
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
 }
 .md-image>.md-meta {
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-}
-.md-image>img {
-	margin-top: 2px;
-}
-.md-image>.md-meta:first-of-type:before {
-	padding-left: 4px;
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
 }
 
-#typora-source {
-	color: #555;
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
 }
 
-/** ui for windows **/
-#md-searchpanel {
-    border-bottom: 1px solid #ccc;
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
 }
 
-#md-searchpanel .btn {
-    border: 1px solid #ccc;
+.sidebar-tabs {
+    border-bottom: none;
 }
 
-#md-notification:before {
-	top: 14px;
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
 }
 
-#md-notification {
-	background: #eee;
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
 }
 
-.megamenu-menu-panel .btn {
-	border: 1px solid #ccc;
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
 }
 
 .mac-seamless-mode #typora-sidebar {
-  background-color: #f7f9fa;
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
 }
 
-.pin-outline .outline-active {
-  color: #0070E0; 
+.mac-os #write{
+    caret-color: AccentColor;
 }
 
-.file-list-item {
-  border-bottom: 1px solid;
-  border-color: #E6E8EB;
+.md-lang {
+    color: #b4654d;
 }
 
-.file-list-item-summary {
-  font-weight: 400;
-  color: #637282; 
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
 }
 
-.file-list-item.active {
-  color: #0070E0;
-  background-color: #E6E8EB;
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
 }
 
-.file-tree-node.active>.file-node-background {
-  background-color: #E6E8EB;
-} 
-
-.file-tree-node.active>.file-node-content {
-  color: #0070E0;
+.ty-preferences .window-content {
+    background-color: #fafafa;
 }
 
-.file-node-content {
-  color: #5e676d;
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
 }
 
-.sidebar-tab.active {
-  font-weight: 400;
-}
-
-code, kbd, pre, samp {
-  font-family: "Roboto Mono", Menlo, monospace;
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
 }
 
 
@@ -597,7 +612,7 @@ code, kbd, pre, samp {
 </style><title>Config</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='enigma-04---configuration-and-settings'><span>Enigma 0.4 - Configuration and settings</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#enigma-04---configuration-and-settings">Enigma 0.4 - Configuration and settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n5"><a class="md-toc-inner" href="#settings">Settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n22"><a class="md-toc-inner" href="#standard-configuration">Standard configuration</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n35"><a class="md-toc-inner" href="#general-selections">General selections</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n45"><a class="md-toc-inner" href="#points">Points</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n51"><a class="md-toc-inner" href="#aspects">Aspects</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n57"><a class="md-toc-inner" href="#aspect-colors">Aspect colors</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n62"><a class="md-toc-inner" href="#configuration-for-progressive-astrology">Configuration for progressive astrology</a></span></p></div><p>&nbsp;</p><h2 id='settings'><span>Settings</span></h2><p><img src="img/settings.png" style="zoom: 50%;" /></p><p><span>You can access </span><em><span>Settings</span></em><span> from both modules </span><em><span>Charts</span></em><span> and </span><em><span>Research</span></em><span> and check them, but in this release of Enigma, you can not change anything.</span></p><p><span>Select the menu option </span><strong><span>General - Settings</span></strong><span>. You will see a window with information about the location of several files.</span></p><ul><li><p><strong><span>Data files</span></strong><span>. This folder contains the data files you imported.</span></p></li><li><p><span>The location of </span><strong><span>Projects</span></strong><span>. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.</span></p></li><li><p><span>Enigma does not yet use </span><strong><span>Exported files</span></strong><span>. In the future, it will contain the results of exporting data.</span></p></li><li><p><span>Enigma writes remarks to </span><strong><span>Log files</span></strong><span>. In case of an error, these log files will be helpful.</span></p></li><li><p><span>The folder </span><strong><span>Database</span></strong><span> contains database for calculated charts and other relevant data.</span></p></li><li><p><span>The </span><strong><span>Documentation</span></strong><span> includes HTML and PDF versions of the User Manual, Installation Manual, Release Notes and Programmers Manual.</span></p><p>&nbsp;</p></li></ul><h2 id='standard-configuration'><span>Standard configuration</span></h2><p><img src="img/configuration-general.png" alt="configuration-general" style="zoom:50%;" /></p><p><span>You can check and change the configuration via the module </span><em><span>Charts</span></em><span> or via the module </span><em><span>Research</span></em><span>.</span>
+<div id='write'  class=''><h1 id='enigma-05---configuration-and-settings'><span>Enigma 0.5 - Configuration and settings</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#enigma-05---configuration-and-settings">Enigma 0.5 - Configuration and settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n5"><a class="md-toc-inner" href="#settings">Settings</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n23"><a class="md-toc-inner" href="#standard-configuration">Standard configuration</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n35"><a class="md-toc-inner" href="#general-selections">General selections</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n46"><a class="md-toc-inner" href="#points">Points</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n52"><a class="md-toc-inner" href="#aspects">Aspects</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n58"><a class="md-toc-inner" href="#aspect-colors">Aspect colors</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n63"><a class="md-toc-inner" href="#configuration-for-progressive-astrology">Configuration for progressive astrology</a></span></p></div><p>&nbsp;</p><h2 id='settings'><span>Settings</span></h2><p><img src="img/settings.png" style="zoom: 50%;" /></p><p><span>You can access </span><em><span>Settings</span></em><span> from both modules </span><em><span>Charts</span></em><span> and </span><em><span>Research</span></em><span> and check them, but in this release of Enigma, you can not change anything.</span></p><p><span>Select the menu option </span><strong><span>General - Settings</span></strong><span>. You will see a window with information about the location of several files.</span></p><ul><li><p><strong><span>Data files</span></strong><span>. This folder contains the data files you imported.</span></p></li><li><p><span>The location of </span><strong><span>Projects</span></strong><span>. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.</span></p></li><li><p><span>Enigma does not yet use </span><strong><span>Exported files</span></strong><span>. In the future, it will contain the results of exporting data.</span></p></li><li><p><span>Enigma writes remarks to </span><strong><span>Log files</span></strong><span>. In case of an error, these log files will be helpful.</span></p></li><li><p><span>The folder </span><strong><span>Database</span></strong><span> contains database for calculated charts and other relevant data.</span></p></li><li><p><span>The </span><strong><span>Documentation</span></strong><span> includes HTML and PDF versions of the User Manual, Installation Manual, Release Notes and Programmers Manual.</span></p><p>&nbsp;</p></li></ul><h2 id='standard-configuration'><span>Standard configuration</span></h2><p><img src="img\configuration-general.png" alt="configuration-general" style="zoom:50%;" /></p><p><span>You can check and change the configuration via the module </span><em><span>Charts</span></em><span> or via the module </span><em><span>Research</span></em><span>.</span>
 <span>Select the menu option </span><strong><span>General - Configuration</span></strong><span>. This will show a window with a wide range of configurable items. The window comprises 4 tabs:</span></p><ul><li><p><span>The tab </span><strong><span>General</span></strong><span> shows astronomical settings and settings for orbs. Enigma initially shows this tab.</span></p></li><li><p><strong><span>Points</span></strong><span> shows the most planets and other points.</span></p></li><li><p><strong><span>Aspects</span></strong><span> shows all available aspects.</span></p></li><li><p><strong><span>Colors</span></strong><span> shows the colors for aspect lines.</span></p></li></ul><h3 id='general-selections'><span>General selections</span></h3><p><span>If you select the tab </span><em><span>General</span></em><span>, you can define the following preferences:</span></p><p><strong><span>House system</span></strong><span>. Currently, Enigma supports only house systems with 12 houses. </span>
 <span>The default selection is Regiomontanus.</span>
 <span>Select </span><em><span>None</span></em><span> if you do not want to use a house system.</span></p><p><strong><span>Type of zodiac</span></strong><span>. Select either </span><em><span>sidereal</span></em><span> or </span><em><span>tropical</span></em><span>.</span>
@@ -613,9 +628,9 @@ code, kbd, pre, samp {
 <span>It is possible to define a percentage for a point that is not selected, so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.</span></p><p><span>Please note that you cannot deselect the classic points and also not MC or Ascendant. See the Appendix, paragraph </span><em><span>Planets and other celestial points</span></em><span> for more information.</span></p><p>&nbsp;</p><h3 id='aspects'><span>Aspects</span></h3><p><img src="img/configuration-aspects.png" style="zoom: 50%;" /></p><p><em><span>Aspects</span></em><span> is the third tab for the configuration.</span>
 <span>At the top of the screen, you can select the type of orb. In the current release, there is only one method to define orbs: Weighted orb. It uses percentages for celestial bodies and for aspects to define the actual orb. You can leave it that way.</span></p><p><span>Just as with celestial points, you can select and deselect the aspects you want to use. And there is also an orb-percentage that you can edit by clicking it.</span></p><p><span>See the paragraph </span><em><span>Defining orbs</span></em><span> for more information in the Appendix.</span></p><p>&nbsp;</p><h3 id='aspect-colors'><span>Aspect colors</span></h3><p><img src="img/configuration-colors.png" style="zoom: 50%;" /></p><p><span>The last tab is </span><em><span>Aspect colors</span></em><span>. Here you can define the color that you want to use for each separate aspect in the chart wheel. Enigma uses 15 colors that are all clearly visible in a drawing. You can define colors for all aspects, even if you do not use them. If you change the configuration and include an aspect, the selected color will automatically be used.</span>
 <span>The right column shows the available colors. You can change the colors in the middle column, with the label </span><em><span>Color</span></em><span>, by typing the color name. You need to type the name of the color exactly as shown in the right column, including the used capitalization. There is never a space in a color name.</span></p><p><span>Enigma checks the color names before saving the configuration and shows a warning if it sees a typo.</span></p><h2 id='configuration-for-progressive-astrology'><span>Configuration for progressive astrology</span></h2><p><span>You can access the configuration for progressive astrology via the module Charts or via the module Research. </span>
-<span>Select the menu option </span><strong><span>General</span></strong><span> - </span><strong><span>Config progressions</span></strong><span>. You will see a window with three tabs.</span>
+<span>Select the menu option </span><strong><span>General</span></strong><span> - </span><strong><span>Config progressions</span></strong><span>. You will see a window with four tabs.</span>
 <span>In the tab </span><em><span>Transits</span></em><span>, you define which celestial points you want to include in transits.</span>
 <span>You can also define the orb for transits.</span></p><p><img src="img/config-transits.png" style="zoom: 50%;" /></p><p><span>The tab </span><em><span>Sec dir</span></em><span> shows the configuration for secondary directions. It works the same as for transits. </span>
-<span>You can select celestial points and define an orb.</span></p><p><img src="img/config-secdir.png" style="zoom: 50%;" /></p><p><span>The third tab </span><em><span>Symb dir</span></em><span> gives access to the configuration for symbolic directions. Just as with secondary directions and transits, you can select celestial points that you want to use and an orb. </span></p><p><span>You can also define a time key in the roll-down menu.</span></p><p><img src="img/config-symdir.png" style="zoom: 50%;" /></p><p>&nbsp;</p></div></div>
+<span>You can select celestial points and define an orb.</span></p><p><img src="img/config-secdir.png" style="zoom: 50%;" /></p><p><span>The third tab </span><em><span>Symb dir</span></em><span> gives access to the configuration for symbolic directions. Just as with secondary directions and transits, you can select celestial points that you want to use and an orb. </span></p><p><span>You can also define a time key in the roll-down menu.</span></p><p><img src="img/config-symdir.png" style="zoom: 50%;" /></p><p><span>The last tab covers primary directions.</span></p><p><span>You can select a method, a time key, and if you want mundane or zodiacal directions. You also need to select the significators (fiex points) and promissors (moving points).</span></p><p><img src="E:\csharp\Enigma\docs\md\User-Manual\img\config-primdir.png" style="zoom:50%;" /></p></div></div>
 </body>
 </html>

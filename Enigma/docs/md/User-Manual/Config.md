@@ -111,7 +111,7 @@ Enigma checks the color names before saving the configuration and shows a warnin
 ## Configuration for progressive astrology
 
 You can access the configuration for progressive astrology via the module Charts or via the module Research. 
-Select the menu option **General** - **Config progressions**. You will see a window with three tabs.
+Select the menu option **General** - **Config progressions**. You will see a window with four tabs.
 In the tab _Transits_, you define which celestial points you want to include in transits.
 You can also define the orb for transits.
 
@@ -128,3 +128,8 @@ You can also define a time key in the roll-down menu.
 
 <img src="img/config-symdir.png" style="zoom: 50%;" />
 
+The last tab covers primary directions.
+
+You can select a method, a time key, and if you want mundane or zodiacal directions. You also need to select the significators (fiex points) and promissors (moving points).
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\config-primdir.png" style="zoom:50%;" />

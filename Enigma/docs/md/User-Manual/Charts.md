@@ -242,7 +242,7 @@ You can sort the columns by clicking on the header.
 
 ## Analysis: longitude equivalents
 
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\longitude-equiv.png" style="zoom: 50%;" />
+<img src="img\longitude-equiv.png" style="zoom: 50%;" />
 
 *Longitude equivalents* (LE) have been introduced by Kt. Boehrer. The idea is that you calculate the longitude that corresponds to the declination of a point, whereby you assume that the point has no latitude. For each declination there are two longitudes that qualify, the longitude that is the closest to the real longitude is used.
 
@@ -265,6 +265,50 @@ Enigma shows the occupied midpoints, gives the actual orb and shows the percenta
 The default orb is 0.6° (0°36’), you can change that value in the configuration.
 
 You can sort the columns *Orb* and *Exactness* by clicking on the header.
+
+
+
+## Progressive: Primary directions
+
+IF uyou selected a chart in the charts main window, you can use the menu-option *Progressive - Primary Directions* to calculate several types of directions. Which type Enigma will use, and which time key, depends on your configuration for progressions.
+
+After selecting this option, you will see a window where you can enter a period.
+
+
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\primdir-period.png" style="zoom:50%;" />
+
+You can enter start and end date in the format *yyyy//mm/dd*
+
+Please note that your input is always used with the Gregorian calendar. 
+
+The start date should be at least one day after the date of birth and the end date should be after the start date. Enigma checks your results if you press the button **Calculate** and it shows a popup if there is any error.
+
+If no errors were found, you will see a window with the results.
+
+<img src="C:\Users\jkamp\AppData\Roaming\Typora\typora-user-images\image-20240906154947686.png" alt="image-20240906154947686" style="zoom:50%;" />
+
+The windows shows the method user and also the time key.
+
+The column shows the direction and the date they are exact. The table is scrollable if the data does not fit.
+
+Please not that only celestial points that are defined in the radix configuration are used. Of course these points should also be defined as promissor and/or significator.
+
+
+
+## Progressive: Out of Bounds Calendar
+
+<img src="img\oobcal.png" alt="oobcal" style="zoom:50%;" />
+
+The Out of Bounds Calendar shows the start date and end date for OOB periods. It covers a period of 120 years and calculates the secondary positions, so the moments that a planet goes OOB or In Bounds again is calculated for the first 120 days of life and projected onto the first 120 years of life.
+
+The calendar shows the positions in the radix, followed by a list of OOB related events events in chronological sequence.
+
+Enigma omits points that have no latitude as they cannot be OOB. It also omits hypothetical planets because the declinations for these points are too unsure.
+
+The calculations are based on the true obliquity, the obliquity corrected for nutation. Enigma calculates the obliquity separately for each day. 
+
+Please note that the dates for slow moving planets like Pluto are not exact: there is a margin of a few days. 
 
 
 
@@ -334,16 +378,3 @@ The tab _Aspects with radix_ shows the aspects between the symbolic positions an
 
 
 
-## Progressive: Out of Bounds Calendar
-
-<img src="D:\dev\proj\EnigmaSuite\Enigma\docs\md\User-Manual\img\oobcal.png" alt="oobcal" style="zoom:50%;" />
-
-The Out of Bounds Calendar shows the start date and end date for OOB periods. It covers a period of 120 years and calculates the secondary positions, so the moments that a planet goes OOB or In Bounds again is calculated for the first 120 days of life and projected onto the first 120 years of life.
-
-The calendar shows the positions in the radix, followed by a list of OOB related events events in chronological sequence.
-
-Enigma omits points that have no latitude as they cannot be OOB. It also omits hypothetical planets because the declinations for these points are too unsure.
-
-The calculations are based on the true obliquity, the obliquity corrected for nutation. Enigma calculates the obliquity separately for each day. 
-
-Please note that the dates for slow moving planets like Pluto are not exact: there is a margin of a few days. 

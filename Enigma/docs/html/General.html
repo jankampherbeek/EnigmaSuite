@@ -3,7 +3,7 @@
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
 
-<style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; --title-bar-height: 20px; }
 .mac-os-11 { --title-bar-height: 28px; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
 h1, h2, h3, h4, h5 { white-space: pre-wrap; }
@@ -219,31 +219,54 @@ mjx-container { break-inside: avoid; }
 .md-alert-text-container::after { content: attr(data-text); text-transform: capitalize; pointer-events: none; margin-right: 1ch; }
 
 
-import url(https://fonts.googleapis.com/css?family=Open%20Sans);
 :root {
-    --code-block-bg-color: inherit;//#f8f8f8;
-
-    --item-hover-bg-color: #0a0d16;
-    --control-text-color: #b7b7b7;
-    --control-text-hover-color: #eee;
-    --window-border: 1px dashed #9b9b9b;
-
-    --active-file-bg-color: #0070E0;
-    --active-file-border-color: #8d8df0;
-
-    --primary-color: #a3d5fe;
-
-    --active-file-text-color: #0070e0;
-    --item-hover-bg-color: #70717d;
-    --item-hover-text-color: white;
-    --primary-color: #6dc1e7;
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
 }
 
-html,
-body,
-#write{
-	color: #5e676d;
-	font-family: "Open Sans", "Clear Sans", sans-serif;
+@include-when-export url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
 }
 h1,
 h2,
@@ -251,345 +274,337 @@ h3,
 h4,
 h5,
 h6 {
-	/*font-weight: lighter;*/
-	font-weight: 100;
-	color: #5e676d;
-	font-family: "Open Sans", sans-serif;
-	margin: 0.5rem 0;
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
 }
-
-html {
-	font-size:16px;
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
 }
-
-#write {
-	max-width: 914px;
-	text-align: justify;
+h1 tt,
+h1 code {
+    font-size: inherit;
 }
-
-#write>h1:first-child {
-	margin-top: 2.75rem;
+h2 tt,
+h2 code {
+    font-size: inherit;
 }
-#write>h2:first-child {
-	margin-top: 1.75rem;
+h3 tt,
+h3 code {
+    font-size: inherit;
 }
-#write>h3:first-child {
-	margin-top: 1rem;
+h4 tt,
+h4 code {
+    font-size: inherit;
 }
-#write>h4:first-child {
-	margin-top: 0.5rem;
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
 }
 h1 {
-	margin: 1rem 0;
-	/*line-height: 4rem;
-	padding: 5px 30px;
-	text-align: center;
-	margin-top: 4rem;*/
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
 }
 h2 {
-	margin: 0.8rem 0;
-	/*
-	line-height: 3rem;
-	padding: 0 30px;
-	text-align: center;
-	margin-top: 3rem
-	*/
-}
-h3 {
-}
-h4 {
-}
-h5 {
-	font-size: 1.125rem;
-}
-h6 {
-	font-size: 1.1rem;
-}
-p {
-	color: #5e676d;
-	font-size: 1rem;
-	line-height: 1.5rem;
-	margin: 0 0 1.25rem;
-}
-#write>h3.md-focus:before {
-	left: -1.875rem;
-	top: 0.5rem;
-	padding: 2px;
-}
-#write>h4.md-focus:before {
-	left: -1.875rem;
-	top: 0.3125rem;
-	padding: 2px;
-}
-#write>h5.md-focus:before {
-	left: -1.875rem;
-	top: 0.25rem;
-	padding: 2px;
-}
-#write>h6.md-focus:before {
-	left: -1.875rem;
-	top: .125rem;
-	padding: 2px;
-}
-/*@media screen and (min-width: 48em) {
-	.h1,
-	h1 {
-		font-size: 3.250rem;
-	}
-	.h2,
-	h2 {
-		font-size: 2.298rem;
-	}
-	.h3,
-	h3 {
-		font-size: 1.625rem;
-	}
-	.h4,
-	h4 {
-		font-size: 1.250rem;
-	}
-	.h5,
-	h5 {
-		font-size: 1.150rem;
-	}
-	.h6,
-	h6 {
-		font-size: 1rem;
-	}
-	#write>h4.md-focus:before,
-	#write>h5.md-focus:before,
-	#write>h6.md-focus:before {
-		top: 1px;
-	}
-	p {
-		font-size: 1.25rem;
-		line-height: 1.8;
-	}
-	table {
-		font-size: 1.25rem;
-	}
-}*/
-@media screen and (max-width: 48em) {
-	blockquote {
-		margin-left: 1rem;
-		margin-right: 0;
-		padding: 0.5em;
-	}
-	.h1,
-	h1 {
-		font-size: 2.827rem;
-	}
-	.h2,
-	h2 {
-		font-size: 1.999rem;
-	}
-	.h3,
-	h3 {
-		font-size: 1.413rem;
-	}
-	.h4,
-	h4 {
-		font-size: 1.250rem;
-	}
-	.h5,
-	h5 {
-		font-size: 1.150rem;
-	}
-	.h6,
-	h6 {
-		font-size: 1rem;
-	}
-}
-a,
-.md-def-url {
-	color: #007ee5;
-	text-decoration: none;
-}
-a:hover {
-	text-decoration: underline;
-}
-table {
-	border: 1px solid #e2e2e2;
-	margin-bottom: 20px
-}
-table th,
-table td {
-	padding: 8px;
-	line-height: 1.5rem;
-	vertical-align: top;
-	border: 1px solid #e2e2e2;
-}
-table th {
-	font-weight: normal;
-	background-color: #f0f7fd;
-}
-table thead th {
-	vertical-align: bottom
-}
-table caption+thead tr:first-child th,
-table caption+thead tr:first-child td,
-table colgroup+thead tr:first-child th,
-table colgroup+thead tr:first-child td,
-table thead:first-child tr:first-child th,
-table thead:first-child tr:first-child td {
-	border-top: 0
-}
-table tbody+tbody {
-	border-top: 2px solid #ddd
-}
-code, .md-fences {
-	padding: .5em;
-	background: #f6f9fc;
-	border: 1px solid #d0d4d9;
-	border-radius: 3px;
-	padding: .1em;
-	font-size: 0.9rem !important;
-	margin-left: 0.2em;
-	margin-right: 0.2em;
-}
-.md-fences {
-	margin: 0 0 20px;
-	font-size: 1em;
-	padding: 0.3em 1em;
-  	padding-top: 0.4em;
-}
-.task-list{
-	padding-left: 0;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
 }
 
-.task-list-item {
-	padding-left:2.125rem;
-}
-
-/* Chrome 29+ */
-@media screen and (-webkit-min-device-pixel-ratio:0)
-  and (min-resolution:.001dpcm) {
-    .task-list-item input:before {
-    	margin-top: -0.2rem;
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
     }
 
-    .task-list-item input:checked:before,
-	.task-list-item input[checked]:before {
-		margin-top: -0.2rem;
-	}
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
 }
 
-blockquote {
-	margin: 0 0 1.11111rem;
-	padding: 0.5rem 1.11111rem 0 1.05556rem;
-	border-left: 2px solid rgba(0, 112, 224, 0.32);
+li p.first {
+    display: inline-block;
 }
-blockquote,
-blockquote p {
-	line-height: 1.6;
-	color: #8f8f8f;
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    pre {
+        page-break-inside: avoid;
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
 }
 #write pre.md-meta-block {
-	min-height: 30px;
-	background: #f8f8f8;
-	padding: 1.5em;
-	font-weight: 300;
-	font-size: 1em;
-	padding-bottom: 1.5em;
-	padding-top: 3em;
-    margin-top: -1.5em;
-	color: #999;
-	border-left: 1000px #f8f8f8 solid;
-	margin-left: -1000px;
-	border-right: 1000px #f8f8f8 solid;
-	margin-right: -1000px;
-	margin-bottom: 2em;
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
 }
-.MathJax_Display {
-	font-size: 0.9em;
-	margin-top: 0.5em;
-	margin-bottom: 0;
-}
-p.mathjax-block,
-.mathjax-block {
-	padding-bottom: 0;
-}
+
 .mathjax-block>.code-tooltip {
-	bottom: 5px;
-	box-shadow: none;
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
 }
 .md-image>.md-meta {
-	padding-left: 0.5em;
-	padding-right: 0.5em;
-}
-.md-image>img {
-	margin-top: 2px;
-}
-.md-image>.md-meta:first-of-type:before {
-	padding-left: 4px;
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
 }
 
-#typora-source {
-	color: #555;
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
 }
 
-/** ui for windows **/
-#md-searchpanel {
-    border-bottom: 1px solid #ccc;
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
 }
 
-#md-searchpanel .btn {
-    border: 1px solid #ccc;
+.sidebar-tabs {
+    border-bottom: none;
 }
 
-#md-notification:before {
-	top: 14px;
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
 }
 
-#md-notification {
-	background: #eee;
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
 }
 
-.megamenu-menu-panel .btn {
-	border: 1px solid #ccc;
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
 }
 
 .mac-seamless-mode #typora-sidebar {
-  background-color: #f7f9fa;
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
 }
 
-.pin-outline .outline-active {
-  color: #0070E0; 
+.mac-os #write{
+    caret-color: AccentColor;
 }
 
-.file-list-item {
-  border-bottom: 1px solid;
-  border-color: #E6E8EB;
+.md-lang {
+    color: #b4654d;
 }
 
-.file-list-item-summary {
-  font-weight: 400;
-  color: #637282; 
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
 }
 
-.file-list-item.active {
-  color: #0070E0;
-  background-color: #E6E8EB;
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
 }
 
-.file-tree-node.active>.file-node-background {
-  background-color: #E6E8EB;
-} 
-
-.file-tree-node.active>.file-node-content {
-  color: #0070E0;
+.ty-preferences .window-content {
+    background-color: #fafafa;
 }
 
-.file-node-content {
-  color: #5e676d;
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
 }
 
-.sidebar-tab.active {
-  font-weight: 400;
-}
-
-code, kbd, pre, samp {
-  font-family: "Roboto Mono", Menlo, monospace;
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
 }
 
 
@@ -597,11 +612,11 @@ code, kbd, pre, samp {
 </style><title>General</title>
 </head>
 <body class='typora-export os-windows'><div class='typora-export-content'>
-<div id='write'  class=''><h1 id='user-manual-enigma-astrology-research---release-04'><span>User Manual Enigma Astrology Research - Release 0.4</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#user-manual-enigma-astrology-research---release-04">User Manual Enigma Astrology Research - Release 0.4</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n3"><a class="md-toc-inner" href="#introduction">Introduction</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n33"><a class="md-toc-inner" href="#general-information">General information</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n35"><a class="md-toc-inner" href="#user-assistance">User assistance</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n37"><a class="md-toc-inner" href="#on-line-help">On-line help</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n39"><a class="md-toc-inner" href="#input-check">Input check</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n43"><a class="md-toc-inner" href="#log-files">Log-files</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n45"><a class="md-toc-inner" href="#preventing-wrong-results">Preventing wrong results</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n49"><a class="md-toc-inner" href="#starting-enigma">Starting Enigma</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n56"><a class="md-toc-inner" href="#checking-for-new-releases">Checking for new releases</a></span></p></div><h2 id='introduction'><span>Introduction</span></h2><p><span>Thank you for your interest in Enigma. </span>
-<span>You are about to learn about a program that calculates charts and also supports several types of research into astrology.</span></p><p><span>You can use it for your astrological calculations. Enigma is accurate and calculates fast, it will produce a chart wheel and perform the most important analysis.</span></p><p><span>The program also supports several types of research: counting aspects, occupied midpoints, declinations and more. </span>
-<span>And it generates control groups so that you can cancel out artifacts.</span></p><p><span>Several other releases will follow, and each new release will add more functionality.</span></p><p><span>Enigma is free: you do not have to pay for it. </span>
+<div id='write'  class=''><h1 id='user-manual-enigma-astrology-research---release-05'><span>User Manual Enigma Astrology Research - Release 0.5</span></h1><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n0"><a class="md-toc-inner" href="#user-manual-enigma-astrology-research---release-05">User Manual Enigma Astrology Research - Release 0.5</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n3"><a class="md-toc-inner" href="#introduction">Introduction</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n12"><a class="md-toc-inner" href="#general-information">General information</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n14"><a class="md-toc-inner" href="#user-assistance">User assistance</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n16"><a class="md-toc-inner" href="#on-line-help">On-line help</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n18"><a class="md-toc-inner" href="#input-check">Input check</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n22"><a class="md-toc-inner" href="#log-files">Log-files</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n24"><a class="md-toc-inner" href="#preventing-wrong-results">Preventing wrong results</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n28"><a class="md-toc-inner" href="#starting-enigma">Starting Enigma</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n35"><a class="md-toc-inner" href="#checking-for-new-releases">Checking for new releases</a></span></p></div><h2 id='introduction'><span>Introduction</span></h2><p><span>Thank you for your interest in Enigma. </span>
+<span>You are about to learn about a program that calculates charts and also supports several types of research into astrology.</span></p><p><span>You can use it for your astrological calculations. Enigma is accurate and calculates fast, it will produce a chart wheel, perform the most important analysis and supports several progressive techniques.</span></p><p><span>The program also supports several types of research: counting aspects, occupied midpoints, declinations and more. </span>
+<span>And it generates control groups so that you can cancel out artefacts.</span></p><p><span>Enigma is free: you do not have to pay for it. </span>
 <span>And Enigma is open source: I published all code, and anybody can download it. </span>
-<span>Programmers that want to use my code can do so freely, but only if their own software is also open source.</span></p><p><span>I hope you enjoy the program!</span></p><p><span>Jan Kampherbeek.</span></p><p>&nbsp;</p><h2 id='general-information'><span>General information</span></h2><p><span>Enigma comprises several modules, currently a module for charts and a module for research.</span>
+<span>Programmers that want to use my code can do so freely, but only if their own software is also open source.</span></p><p><span>The next release of Enigma will be very different. I want to support multiple platforms; not just Windows but also Linux, Mac, Android and iOs. This requires using other programming languages and a lot of effort for the conversion. This will take considerable time. </span></p><p><span>In the mean time, I hope you enjoy the current version of Enigma!</span></p><p><span>Jan Kampherbeek.</span></p><p>&nbsp;</p><h2 id='general-information'><span>General information</span></h2><p><span>Enigma comprises several modules, currently a module for charts and a module for research.</span>
 <span>In future releases, I will add more modules.</span></p><h3 id='user-assistance'><span>User assistance</span></h3><p><span>Enigma tries to help you when using the program. </span>
 <span>It shows on-line help, checks your input, writes details to a log-file and prevents wrong results.</span></p><h4 id='on-line-help'><span>On-line help</span></h4><p><span>In almost all windows, Enigma shows a button </span><strong><span>Help</span></strong><span>. </span>
 <span>If you click this button, the program shows specific information for the current window.</span>
@@ -614,8 +629,7 @@ code, kbd, pre, samp {
 <span>If there are more than 31 log-files, the program deletes the oldest files. </span>
 <span>In case of an error, the log-files can contain important information about the error. </span>
 <span>I might ask you for these log-files if you report an error.</span></p><h4 id='preventing-wrong-results'><span>Preventing wrong results</span></h4><p><span>Enigma supports almost 30,000 years of planetary calculations, but for some celestial points, this period is much shorter. </span>
-<span>Especially for Chiron, which you cannot calculate before 675 CE.</span></p><p><span>The Swiss Ephemeris, which takes care of all the calculations in Enigma, does not object if a planet is out of the </span>
-<span>supported range, it just returns a zero. </span>
+<span>Especially for Chiron, which you cannot calculate before 675 CE.</span></p><p><span>The Swiss Ephemeris, which takes care of all the calculations in Enigma, does not object if a planet is out of the supported range, it just returns a zero. </span>
 <span>This translates to zero Aries, and you could happily use this point and calculate aspects and midpoints. </span>
 <span>That makes little sense, so Enigma filters the results: if it cannot calculate a celestial point, it will just omit it.</span></p><h3 id='starting-enigma'><span>Starting Enigma</span></h3><p><span>Click the Enigma icon to start the program, or search for Enigma in your windows applications and start it from there.</span></p><p><img src="img/start-icon.png" style="zoom:50%;" /></p><p><span>You will see a window with two images, one labeled </span><em><span>Charts</span></em><span> and one labeled </span><em><span>Research</span></em><span>.</span></p><p><img src="img/start.png" style="zoom: 50%;" /></p><p><span>Click an image to go to the corresponding module. </span>
 <span>If you finish working in a module, you will return to this start window and can make another selection.</span>

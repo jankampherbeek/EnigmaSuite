@@ -2,9 +2,29 @@
 
 
 
+## Release 0.5.0 beta - September 10, 2024
+
+Focus on primary directions
+
+### Minor changes
+
+- Position lines in the declination diagram now use different colors that correspond with the celestial points.
+- The wheel diagram now has a checkbox that disables cusps and angles and moves 0 Aries to the left.
+
+### Primary directions
+
+- Support for primary directions for Placidus and Regiomontanus, both zodiacal and mundane, conjunctions andn oppositions andusing 5 different time keys. No support yet for other aspects nor for converse directions.
+- The configuration for progressions has an additional section for primary directions.  
+
+### User manual
+
+- The user manual now contains a description how to export the results of the research module to Excel.
+
+
+
 ## Release 0.4.1 beta - May 18, 2024
 
-Corrected the size for the OOB region in the Declinatrion Strip. Thanks to Wendy guy for the tip.
+Corrected the size for the OOB region in the Declination Strip. Thanks to Wendy guy for the tip.
 
 
 

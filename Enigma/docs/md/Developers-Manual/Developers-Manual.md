@@ -17,7 +17,19 @@ I want to thank Gökhan Yu for convincing me to use C#. It was the right choice 
 I also want to thank Cees Jansen for providing valuable insights on the use of randomness, which was important for the realization of control groups.
 
 
-### License / open source
+
+## Important: this is the latest version in C#
+
+Version 0.5 of Enigma is the latest version that is written in C#. 
+
+I realized that it is necessary to support not only Windows but also other platforms. Therefore, I will rewrite the application in Go for the backend and in Flutter/Dart for the frontend. This will take considerable time but I believe it is worth the effort.
+
+I started to reorganize the code before I made this decision. In the code you will see attempts to support internationalization. I also started to make a more functional organization of the packages. These approaches are far from finished.
+
+
+
+
+## License / open source
 
 Enigma is Open Source. You can use it following the terms of the GNU General Public License (GPL). The GPL allows you to use, change and redistribute this software only if your own software is also open source. It does not have to be free, but the full source code should be publicly available. For more information, see the file *gpl-3.0.txt* in the source's root.
 
@@ -317,23 +329,6 @@ This image shows the most important tables, it ignores some simple lookup tables
 ![data_model.png](data_model.png)
 
 
-
-
-
-## Work to do
-
-Enigma is in beta. There is plenty of room for improvement. I intend to finish the following points before declaring Enigma production ready.
-
-1. Adding more functionality. 
-
-2. More testing:
-   1. Improving the coverage for unit tests.
-   2. Adding integration tests.
-   
-3. Code:
-   1. Solving most warnings.
-   
-      
 
 
 

@@ -8,6 +8,7 @@ using Enigma.Core.Handlers;
 using Enigma.Domain.Charts.Prog.PrimDir;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Serilog;
 
 namespace Enigma.Core.Charts.Prog.PrimDir;
 
@@ -41,18 +42,23 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
     /// <inheritdoc/>
     public PrimDirResponse HandleRequest(PrimDirRequest request)
     {
+        Log.Information("Received request for calc. pd");
+        
         List<PrimDirHit> hits = new();
         Calendars cal = request.StartDate.Calendar;
         var speculum = new Speculum(request);
+        Log.Information("Speculum created.");
         Tuple<double, double> jdStartend = DefineJdLimits(request);
         double jdStart = jdStartend.Item1;
         double jdEnd = jdStartend.Item2;
         double arc = 0.0;
         double oppArc = 0.0;
         
+        Log.Information("Starting loop of promissors.");
         foreach (ChartPoints movPoint in request.Promissors)
         {
             double jdForEvent;
+            Log.Information("Starting loop of significators with promissor " + movPoint);
             foreach (ChartPoints fixPoint in request.Significators)
             {
                 if (movPoint == fixPoint) continue;
@@ -64,14 +70,18 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                    case PrimDirMethods.Placidus:
                        arc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        oppArc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
+                       Log.Information("Placidus arc: " + arc);
                        break;
                    case PrimDirMethods.Regiomontanus:
                        arc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        oppArc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
+                       Log.Information("Regiomontanus arc pr/sig: " + movPoint + "-" + fixPoint +" : " + arc);
                        break;
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
                 }
+
+                if (double.IsNaN(arc)) continue;
                 jdForEvent = _primDirDates.JdForEvent(request.Chart.InputtedChartData.FullDateTime.JulianDayForEt, arc, request.TimeKey);
                 if (jdForEvent > jdStart && jdForEvent <= jdEnd)
                 {
@@ -82,10 +92,9 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                 {
                     hits.Add(ConstructHit(jdForEvent, cal, movPoint, fixPoint, AspectTypes.Opposition ));
                 }
-
             }
         }
-        
+        Log.Information("Comleted loops for significators and promossirors.");
         hits.Sort((x, y) => x.Jd.CompareTo(y.Jd));
         bool errors = false;
         string resultTxt = "OK";
@@ -147,7 +156,12 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         }
         double declPromRad = MathExtra.DegToRad(promPoint.PointBase.Decl);
         double poleSignRad = MathExtra.DegToRad(signPoint.PoleReg);
-        double qp = MathExtra.RadToDeg(Math.Asin(Math.Tan(declPromRad) * Math.Tan(poleSignRad)));
+        double x = Math.Tan(declPromRad) * Math.Tan(poleSignRad);
+        if (Math.Abs(x) > 1.0)
+        {
+            return Double.NaN;
+        }
+        double qp = MathExtra.RadToDeg(x);
         double wp = promPoint.PointBase.Ra - qp;
         if (!signPoint.PointBase.ChartLeft) wp = promPoint.PointBase.Ra + qp;        
         double arcDir = wp - signPoint.FactorW;

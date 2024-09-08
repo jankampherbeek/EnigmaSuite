@@ -9,10 +9,10 @@
   Just like the general configuration, Enigma provides default values at install time, but you can override these values. </p>
 <p>You can define the settings for three progressive techniques, each in their own tabbed page:</p>
 <ul>
-<li><em>Transits</em> in the tab with the same name.</li>
-<li><em>Secondary directions</em> in the tab <em>Sec dir</em>.</li>
-<li><em>Symbolic directions</em> in the tab <em>Sym Dir</em>.</li>
-
+  <li><em>Transits</em> in the tab with the same name.</li>
+  <li><em>Secondary directions</em> in the tab <em>Sec dir</em>.</li>
+  <li><em>Symbolic directions</em> in the tab <em>Sym Dir</em>.</li>
+  <li><em>Primary directions</em> in the tab <em>Prim Dir</em>.</li>
 </ul>
 <p>After changing the configuration, you can save it by clicking on the button <strong>Save</strong>. 
   Saving is done simultaneously for the settings on all tabs. 
@@ -21,17 +21,19 @@
 <p>Click the button <strong>Cancel</strong> to ignore your changes and to close this window.</p>
 
 <h2 id='orbs'>Defining orbs</h2>
-<p>Each tabbed page contains an entry field for the orb, so you can define different orbs for eacht progressive technique.
+<p>The tabs for transits, secundary directions and symbolic directions contain an entry field for the orb, 
+  so you can define different orbs for these progressive techniques.
 </p>
 
 <h2 id='celestial-points'>Points</h2>
-<p>Eacht tab shows the celestial points you can use for your progressive techniques.</p>
+<p>Each tab shows the celestial points you can use for your progressive techniques. 
+  The points for primary directions will be explained later.</p>
 <p>For each point you will find a checkbox. Check this box if you want to take the celestial point into account, 
   deselect it if you do not want to use it. </p>
 <p>See the paragraph <em>Celestial Points Overview</em> in the User Manual for an explanation for each point.</p>
 
 <h2 id='aspects'>Time key</h2>
-<p>If you use symbolic directions, you can define a <em>time key</em>.</p>
+<p>For symbolic directions, you can define a <em>time key</em>.</p>
 <p>You can select one of the following options:</p>
 <ul>
   <li><em>One degree</em>: progress the points in the chart with exact one degree in longitude for each year of life.</li>
@@ -40,6 +42,24 @@
   <li><em>True Sun</em>: the real movement of the Sun in the first days of life define the progressions for the
   points in the chart in the same amount of years. Actually, this time key consists of the secondary Sun.</li>
 </ul>
+
+<h2 id='primdirs'>Primary directions</h2>
+<p>Primary directions are handled in a different way than the previous mentioned techniques.</p>
+<p>You need to define a method, either <i>Placidus</i> or <i>Regiomontanus</i>, and also a time key. 
+  The appendix of the user manual contains descriptions for each time key.</p>
+<p>You also have to select either <i>Mundane</i> (real positions) or <i>Zodiacal</i> (positions if celestial latitude 
+  is ignored).</p>
+<p>There are two list of selectable celestial points:</p>
+<ul>
+  <li><em>Significators</em>, the points that remain fixed as in the radix.</li>
+  <li><em>Promissors</em>, the points that move because of the primary direction.</li>
+</ul>
+<p>Currently, Enigma does not support aspects other than conjunctions and oppositions for primary directions. 
+  Also converse directions are not yet supported.</p>
+<p>There is no orb to define as the results will be presented with the dates when the directions are exact.</p>
+
+
+
 
 </body>
 </html>
