@@ -50,8 +50,9 @@ public class PrimDirDates: IPrimDirDates
             }
             case PrimDirTimeKeys.Brahe:
             {
-                double sunNextDay = CalcSunEquatorial(jdStart + 1.0);
-                double raDiff = RangeUtil.ValueToRange(sunNextDay - sunEclRadix, 0.0, 360.0);
+                double sunBefore = CalcSunEquatorial(jdStart - 0.5);
+                double sunAfter = CalcSunEquatorial(jdStart + 0.5);
+                double raDiff = RangeUtil.ValueToRange(sunAfter - sunBefore, 0.0, 360.0);
                 return jdStart + arc / raDiff * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
             }
             case PrimDirTimeKeys.Placidus:

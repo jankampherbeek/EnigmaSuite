@@ -100,6 +100,9 @@ public static class PrimDirCalcAssist
     {
         double declRad = MathExtra.DegToRad(decl);
         double latRad = MathExtra.DegToRad(geoLat);
+        double x = Math.Tan(declRad) * Math.Tan(latRad);
+        if (Math.Abs(x) > 1.0)
+            return 0.0; // Checked this in the speculum of Morinus, this can take effect if a planet is severely OOB. 
         double adRad = Math.Asin(Math.Tan(declRad) * Math.Tan(latRad));
         return MathExtra.RadToDeg(adRad);
     }

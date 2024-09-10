@@ -70,12 +70,10 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                    case PrimDirMethods.Placidus:
                        arc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        oppArc = PlacidusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
-                       Log.Information("Placidus arc: " + arc);
                        break;
                    case PrimDirMethods.Regiomontanus:
                        arc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Conjunction);
                        oppArc = RegiomontanusArc(movPoint, fixPoint, speculum, AspectTypes.Opposition);
-                       Log.Information("Regiomontanus arc pr/sig: " + movPoint + "-" + fixPoint +" : " + arc);
                        break;
                    default:
                        throw new ArgumentException("Unknown method for primary directions: " + request.Method);
@@ -94,7 +92,7 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
                 }
             }
         }
-        Log.Information("Comleted loops for significators and promossirors.");
+        Log.Information("Completed loops for significators and promissors.");
         hits.Sort((x, y) => x.Jd.CompareTo(y.Jd));
         bool errors = false;
         string resultTxt = "OK";
@@ -161,10 +159,11 @@ public class ProgPrimDirHandler: IProgPrimDirHandler
         {
             return Double.NaN;
         }
-        double qp = MathExtra.RadToDeg(x);
+        double qp = MathExtra.RadToDeg(Math.Asin(x));
+        
         double wp = promPoint.PointBase.Ra - qp;
         if (!signPoint.PointBase.ChartLeft) wp = promPoint.PointBase.Ra + qp;        
-        double arcDir = wp - signPoint.FactorW;
+        double arcDir = RangeUtil.ValueToRange(wp - signPoint.FactorW, 0.0, 360.0);
         return arcDir;
     }
     

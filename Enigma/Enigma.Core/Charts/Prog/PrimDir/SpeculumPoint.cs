@@ -7,6 +7,7 @@ using Enigma.Core.Calc;
 using Enigma.Domain.Charts.Prog.PrimDir;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Serilog;
 
 namespace Enigma.Core.Charts.Prog.PrimDir;
 
@@ -101,8 +102,23 @@ public class SpeculumPointPlac : ISpeculumPoint
         Oad = PrimDirCalcAssist.ObliqueAscDesc(PointBase.Ra, Ad, ChartLeft, geoLat >= 0.0);
         HorDist = PrimDirCalcAssist.HorizontalDistance(Oad, specBase.OaAsc, ChartLeft, geoLat >= 0.0);
         MerDist = PrimDirCalcAssist.MeridianDistance(PointBase.Ra, specBase.RaMc, specBase.RaIc, IsTop);
-        SemiArc = Math.Abs(HorDist + MerDist);
-        if (geoLat < 0.0) SemiArc = 180.0 - SemiArc;
+        //SemiArc = Math.Abs(HorDist + MerDist);
+        SemiArc = 90.0 + Ad;
+        if (!IsTop) SemiArc = 180.0 - SemiArc;
+        
+        
+        Log.Information("Placidus SA for " + point);
+        Log.Information("ChartLeft: " + ChartLeft);
+        Log.Information("IsTop: " + IsTop);
+        Log.Information("Ad: " + Ad);
+        Log.Information("Oad: " + Oad);
+        Log.Information("HorDist: " + HorDist);
+        Log.Information("MerDist: " + MerDist);
+        Log.Information("SemiArc: " + SemiArc);
+        Log.Information("GeoLat: " + geoLat);
+
+        
+        
     }
 }
 
