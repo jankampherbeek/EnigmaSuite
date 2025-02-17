@@ -10,8 +10,8 @@
 	<StartupObject>Enigma.Frontend.Ui.App</StartupObject>
 	<AssemblyName>Enigma</AssemblyName>	
 	<LangVersion>12</LangVersion>	
-	<PackageId>Enigma_0_5_0</PackageId>	
-	<Version>0.5.0</Version>	
+	<PackageId>Enigma_0_5_1</PackageId>	
+	<Version>0.5.1</Version>	
 	<Title>Enigma Astrology Research</Title>	
   </PropertyGroup>
 

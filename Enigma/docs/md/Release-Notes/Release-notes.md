@@ -2,6 +2,16 @@
 
 
 
+## Release 0.5.1 beta - February 18, 2025
+
+Bugfix
+
+### Research module: size of control data
+
+An Out of memory error occurred when processing a large control group. Typically at a size of 20,000 charts (the size of the test group multiplied with the factor for the control group). This problem has been solved.
+
+
+
 ## Release 0.5.0 beta - September 10, 2024
 
 Focus on primary directions

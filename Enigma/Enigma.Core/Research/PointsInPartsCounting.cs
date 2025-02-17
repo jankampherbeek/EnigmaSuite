@@ -10,6 +10,7 @@ using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 using Serilog;
+using Serilog.Core;
 
 namespace Enigma.Core.Research;
 
@@ -44,16 +45,19 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
 
     private CountOfPartsResponse PerformCounts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
+        Log.Information("CGFIX: startint count");
         ResearchMethods researchMethod = request.Method;
         int nrOfParts = DefineNumberOfParts(request);
         List<CountOfParts> allCounts = InitializeCounts(request, nrOfParts);
+        Log.Information("CGFIX: initialization of allCounts completed");
         ResearchPointSelection pointSelection = request.PointSelection;
 
+        Log.Information("CGFIX: starting loop for all charts ");
         foreach (CalculatedResearchChart chart in charts)
         {
             HandleChart(researchMethod, chart, pointSelection, nrOfParts, ref allCounts);
         }
-
+        Log.Information(("CGFIX: Loop for all charts completed"));
         List<int> totals = CountTotals(allCounts);
         CountOfPartsResponse response = new(request, allCounts, totals);
 
@@ -89,28 +93,50 @@ public sealed class PointsInPartsCounting : IPointsInPartsCounting
     private static void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointSelection pointSelection, int nrOfParts, ref List<CountOfParts> allCounts)
     {
         int pointIndex = 0;
+        Dictionary<ChartPoints, FullPointPos> pointPositions = new Dictionary<ChartPoints, FullPointPos>();
+
+        foreach (var posPoint in chart.Positions)
+        {
+            var details = posPoint.Key.GetDetails();
+            if (details.PointCat == PointCats.Common || details.PointCat == PointCats.Angle)
+            {
+                pointPositions.Add(posPoint.Key, posPoint.Value);
+            }
+        }
+
         foreach (ChartPoints selectedCelPoint in pointSelection.SelectedPoints)
         {
-            Dictionary<ChartPoints, FullPointPos> pointPositions = (
-                from posPoint in chart.Positions
-                where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
-                select posPoint).ToDictionary(x => x.Key, x => x.Value);
-
-            foreach (int partIndex in from commonPointPos in pointPositions 
-                     let partIndex = -1 where commonPointPos.Key == selectedCelPoint 
-                     let longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position 
-                     select researchMethod switch
-                     {
-                         ResearchMethods.CountPosInSigns => SignIndex(longitude),
-                         ResearchMethods.CountPosInHouses => DefineHouseNr(longitude, nrOfParts, chart.Positions),
-                         _ => partIndex
-                     } into partIndex where partIndex >= 0 select partIndex)
+          
+            foreach (var commonPointPos in pointPositions)
             {
-                allCounts[pointIndex].Counts[partIndex]++;
+                if (commonPointPos.Key == selectedCelPoint)
+                {
+                    double longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position;
+                    int partIndex;
+
+                    // Handle the switch expression
+                    switch (researchMethod)
+                    {
+                        case ResearchMethods.CountPosInSigns:
+                            partIndex = SignIndex(longitude);
+                            break;
+                        case ResearchMethods.CountPosInHouses:
+                            partIndex = DefineHouseNr(longitude, nrOfParts, chart.Positions);
+                            break;
+                        default:
+                            partIndex = -1;
+                            break;
+                    }
+                    // Only process if partIndex is valid
+                    if (partIndex >= 0)
+                    {
+                        allCounts[pointIndex].Counts[partIndex]++;
+                    }
+                }
             }
             pointIndex++;
         }
-
+        Log.Information("CGFIX: at end of loop in HandleChart. Value of pointIndex : " + pointIndex);
         if (!pointSelection.IncludeCusps) return;
         foreach (KeyValuePair<ChartPoints, FullPointPos> cusp in chart.Positions.Where(cusp => cusp.Key.GetDetails().PointCat == PointCats.Cusp))
         {

@@ -1,10 +1,8 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using System.Text.Json;
 using Enigma.Core.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
@@ -14,6 +12,7 @@ using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 using Newtonsoft.Json;
 using Serilog;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Enigma.Core.Handlers;
 
@@ -128,21 +127,20 @@ public sealed class ResearchMethodHandler : IResearchMethodHandler
         return allCalculatedResearchCharts;
     }
 
-    private void WriteCalculatedChartsToJson(string projectName, string methodName, bool controlGroup, List<CalculatedResearchChart> allCharts)
+    private void WriteCalculatedChartsToJson(string projectName, string methodName, bool controlGroup,
+        List<CalculatedResearchChart> allCharts)
     {
-        
-        
-        
-        var options = new JsonSerializerOptions { WriteIndented = false };
-   //     string jsonText = JsonSerializer.Serialize(allCharts, options);
-        string jsonText = JsonConvert.SerializeObject(allCharts, Formatting.Indented);     
-   
         string pathForResults = _researchPaths.ResultPath(projectName, methodName, controlGroup);
-        _filePersistencyHandler.WriteFile(pathForResults, jsonText);
+        using (var stream = new FileStream(pathForResults, FileMode.Create))
+        using (var writer = new StreamWriter(stream))
+        using (var jsonWriter = new JsonTextWriter(writer))
+        {
+            jsonWriter.Formatting = Formatting.Indented;
+            var serializer = new JsonSerializer();
+            serializer.Serialize(jsonWriter, allCharts);
+        }
+
         Log.Information("Json with positions written to {Path}", pathForResults);
     }
-
-
-
 }
 

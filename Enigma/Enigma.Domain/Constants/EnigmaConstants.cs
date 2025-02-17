@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -10,7 +10,7 @@ namespace Enigma.Domain.Constants;
 public static class EnigmaConstants
 {
     // Version info
-    public const string ENIGMA_VERSION = "0.5.0";
+    public const string ENIGMA_VERSION = "0.5.1";
     // CommonSE celestial points. _RAM = School of Ram, _URA = Uranian.
     /// <summary>SE id to identify Admetos, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ADMETOS_URA = 45;

@@ -97,7 +97,7 @@ public static class PointsExtensions
             ChartPoints.ApogeeInterpolated => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Apogee-interpolated"),
             ChartPoints.ApogeeDuval => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Apogee-Duval"),
             ChartPoints.PersephoneCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Persephone-Carteret"),
-            ChartPoints.VulcanusCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Vulcaus-Carteret"),
+            ChartPoints.VulcanusCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Vulcanus-Carteret"),
 
             ChartPoints.Ascendant => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, "Ascendant"),
             ChartPoints.Mc => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, "MC"),
