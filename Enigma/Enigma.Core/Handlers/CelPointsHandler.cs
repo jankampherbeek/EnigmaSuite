@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -38,6 +38,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     private const double ZERO = 0.0;
     private readonly ISeFlags _seFlags;
     private readonly ICelPointSeCalc _celPointSeCalc;
+    private readonly IApsideSeCalc _apsideSeCalc;
     private readonly ICelPointsElementsCalc _celPointElementsCalc;
     private readonly ICelPointFormulaCalc _celPointFormulaCalc;
     private readonly ICoTransFacade _coordinateConversionFacade;
@@ -51,6 +52,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     public CelPointsHandler(ISeFlags seFlags,
                                ICelPointSeCalc positionCelPointSeCalc,
                                ICelPointsElementsCalc posCelPointsElementsCalc,
+                               IApsideSeCalc apsideSeCalc,
                                ICelPointFormulaCalc celPointFormulaCalc,
                                ICoTransFacade coordinateConversionFacade,
                                IHorizontalHandler horizontalHandler,
@@ -61,6 +63,7 @@ public sealed class CelPointsHandler : ICelPointsHandler
     {
         _seFlags = seFlags;
         _celPointSeCalc = positionCelPointSeCalc;
+        _apsideSeCalc = apsideSeCalc;
         _celPointElementsCalc = posCelPointsElementsCalc;
         _celPointFormulaCalc = celPointFormulaCalc;
         _coordinateConversionFacade = coordinateConversionFacade;
@@ -97,6 +100,15 @@ public sealed class CelPointsHandler : ICelPointsHandler
                 case CalculationCats.CommonSe:
                 {
                     KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForSePoint(celPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
+                    commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
+                    break;
+                }
+                case CalculationCats.Apsides:
+                {
+                    // Currently only supports Diamond and Diamond, so no oscillation is used. 
+                    var method = ApsidesMethods.mean;
+                    KeyValuePair<ChartPoints, FullPointPos> fullPointPos = CreatePosForApside(celPoint, jdUt, method,
+                        location, flagsEcliptical, flagsEquatorial);
                     commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
                     break;
                 }
@@ -199,6 +211,19 @@ public sealed class CelPointsHandler : ICelPointsHandler
 
     }
 
+    private KeyValuePair<ChartPoints, FullPointPos> CreatePosForApside(ChartPoints celPoint, double julDay,
+        ApsidesMethods method, Location? location, int flagsEcl,  int flagsEq)
+    {
+        PosSpeed[] eclipticPosSpeed = _apsideSeCalc.CalculateApside(celPoint, julDay, method, flagsEcl);
+        PosSpeed[] equatorialPosSpeed = _apsideSeCalc.CalculateApside(celPoint, julDay, method, flagsEq);
+        var equCoordinates = new EquatorialCoordinates(equatorialPosSpeed[0].Position, equatorialPosSpeed[1].Position);
+        HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
+        HorizontalCoordinates horCoord = _horizontalHandler.CalcHorizontal(horizontalRequest);
+        FullPointPos fullPointPos = _fullPointPosFactory.CreateFullPointPos(eclipticPosSpeed, equatorialPosSpeed, horCoord);
+        return new KeyValuePair<ChartPoints, FullPointPos>(celPoint, fullPointPos);
+    }
+        
+    
 
     private double[][] CreatePosForElementBasedPoint(ChartPoints celPoint, double julDay, double obliquity, ObserverPositions observerPosition)
     {

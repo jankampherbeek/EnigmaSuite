@@ -106,7 +106,24 @@ public static class EnigmaConstants
     public const int SE_VULCANUS_URA = 46;
     /// <summary>SE id to identify Zeus, hypothetical planet, Uranian astrology. The id is part of seorbel.txt.</summary>
     public const int SE_ZEUS_URA = 42;
-
+    /// <summary>Id to identify Black Sun (Aphelion)</summary>
+    public const int SE_BLACKSUN = 49;
+    /// <summary>Id to identify Diamond (Perihelion)</summary>    
+    public const int SE_DIAMOND = 50;
+    /// <summary>Id to identify mean Priapus (Mean apogee)</summary>
+    public const int SE_PRIAPUS_MEAN = 51;
+    /// <summary>Id to identify oscillating Priapus (Oscillating apogee)</summary>
+    public const int SE_PRIAPUS_TRUE = 52;
+    /// <summary>Id to identify Dragon (Most northern point of Lunar orbit)</summary>
+    public const int SE_DRAGON = 53;
+    /// <summary>Id to identify Beast (Most southern point of Lunar orbit)</summary>
+    public const int SE_BEAST = 54; 
+    /// <summary>Id to identify Mean lunar south node</summary>
+    public const int SE_MEAN_SOUTHNODE = 55;
+    /// <summary>Id to identify True (Oscillating) lunar south node</summary>
+    public const int SE_TRUE_SOUTHNODE = 56;
+    
+    
     // CommonSE flags
     /// <summary>Flag: indication to use the Swiss Ephemeris.</summary>
     public const int SEFLG_SWIEPH = 2;
