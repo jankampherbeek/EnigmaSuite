@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2024.
+// Jan Kampherbeek, (c) 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -200,9 +200,9 @@ public sealed class OobCalendarCalc : IOobCalendarCalc
             ChartPoints.Earth,
             ChartPoints.MeanNode,
             ChartPoints.TrueNode,
-            ChartPoints.ApogeeCorrected,
-            ChartPoints.ApogeeDuval,
+            ChartPoints.SouthNode,
             ChartPoints.ApogeeInterpolated,
+            ChartPoints.ApogeeCorrected,
             ChartPoints.ApogeeMean,
             ChartPoints.PersephoneCarteret,
             ChartPoints.VulcanusCarteret,

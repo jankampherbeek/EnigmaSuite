@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -41,9 +41,11 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         const double orbParallels = 1.0;
         const double orbMidpointsDecl = 0.2;
         const bool useCuspsForAspects = false;
+        const ApogeeTypes apogeeType = ApogeeTypes.Duval;
+        const bool oscillateNodes = false;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             chartPointsSpecs, aspectSpecs, aspectColorSpecs,baseOrbAspects, baseOrbMidpoints, orbParallels, 
-            orbMidpointsDecl, useCuspsForAspects);
+            orbMidpointsDecl, useCuspsForAspects, apogeeType, oscillateNodes);
     }
 
     private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()
@@ -62,7 +64,7 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { ChartPoints.Neptune,  new ChartPointConfigSpecs(true, 'j',50, true) },
             { ChartPoints.Pluto,  new ChartPointConfigSpecs(true, 'k',50, true) },
             { ChartPoints.MeanNode,  new ChartPointConfigSpecs(false, '{',65, true) },
-            { ChartPoints.TrueNode,  new ChartPointConfigSpecs(true, '{',65, true) },
+            { ChartPoints.SouthNode, new ChartPointConfigSpecs(false, '}', 65, false )},
             { ChartPoints.Chiron,  new ChartPointConfigSpecs(true, 'w',65, true) },
             { ChartPoints.PersephoneRam, new ChartPointConfigSpecs(false, '/', 40, true) },
             { ChartPoints.HermesRam, new ChartPointConfigSpecs(false, '<', 40, true) },
@@ -95,19 +97,15 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { ChartPoints.Astraea, new ChartPointConfigSpecs(false, 'Ã', 40, true) },
             { ChartPoints.ApogeeMean, new ChartPointConfigSpecs(false, ',', 65, true) },
             { ChartPoints.ApogeeCorrected, new ChartPointConfigSpecs(false, '.', 65, true) },
-            { ChartPoints.ApogeeInterpolated, new ChartPointConfigSpecs(false, '.', 65, true) },
-            { ChartPoints.ApogeeDuval, new ChartPointConfigSpecs(false, '.', 65, true) },
             { ChartPoints.PersephoneCarteret, new ChartPointConfigSpecs(false, 'à', 40, true) },
             { ChartPoints.VulcanusCarteret, new ChartPointConfigSpecs(false, 'Ï', 40, true) },
             
             { ChartPoints.BlackSun, new ChartPointConfigSpecs(false, '[', 65, false) },
             { ChartPoints.Diamond, new ChartPointConfigSpecs(false, ']', 65, false) },
-            { ChartPoints.PriapusMean, new ChartPointConfigSpecs(false, '\\', 65, false) },
-            { ChartPoints.PriapusTrue, new ChartPointConfigSpecs(false, ';', 65, false) },
-            { ChartPoints.Dragon, new ChartPointConfigSpecs(false, 'D', 65, false) },
-            { ChartPoints.Beast, new ChartPointConfigSpecs(false, 'B', 65, false) },
-            { ChartPoints.MeanSouthNode, new ChartPointConfigSpecs(false, '}', 65, false) },
-            { ChartPoints.TrueSouthNode, new ChartPointConfigSpecs(false, '}', 65, false) },
+            { ChartPoints.Priapus, new ChartPointConfigSpecs(false, '\\', 65, false) },
+            { ChartPoints.PriapusCorrected, new ChartPointConfigSpecs(false, ':', 65, false)},
+            { ChartPoints.Dragon, new ChartPointConfigSpecs(false, 'è', 65, false) },
+            { ChartPoints.Beast, new ChartPointConfigSpecs(false, ';', 65, false) },
             { ChartPoints.ZeroAries, new ChartPointConfigSpecs(false, '1', 0, false) },
             { ChartPoints.FortunaNoSect, new ChartPointConfigSpecs(false, 'e', 40, true) },
             { ChartPoints.FortunaSect, new ChartPointConfigSpecs(false, 'e', 40, true) },

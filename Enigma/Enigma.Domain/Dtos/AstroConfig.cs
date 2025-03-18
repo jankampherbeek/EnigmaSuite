@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,44 +8,40 @@ using Enigma.Domain.References;
 
 namespace Enigma.Domain.Dtos;
 
-public sealed class AstroConfig
+public sealed class AstroConfig(
+    HouseSystems houseSystem,
+    Ayanamshas ayanamsha,
+    ObserverPositions observerPosition,
+    ZodiacTypes zodiacType,
+    ProjectionTypes projectionType,
+    OrbMethods orbMethod,
+    Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints,
+    Dictionary<AspectTypes, AspectConfigSpecs> aspects,
+    Dictionary<AspectTypes, string> aspectColors,
+    double baseOrbAspects,
+    double baseOrbMidpoints,
+    double orbParallels,
+    double orbMidpointsDecl,
+    bool useCuspsForAspects,
+    ApogeeTypes apogeeType,
+    bool oscillateNodes)
 {
-    public HouseSystems HouseSystem { get; }
-    public Ayanamshas Ayanamsha { get; }
-    public ObserverPositions ObserverPosition { get; }
-    public ZodiacTypes ZodiacType { get; }
-    public ProjectionTypes ProjectionType { get; }
-    public OrbMethods OrbMethod { get; }
-    public bool UseCuspsForAspects { get; }
-    public Dictionary<ChartPoints, ChartPointConfigSpecs> ChartPoints;
-    public Dictionary<AspectTypes, AspectConfigSpecs> Aspects;
-    public Dictionary<AspectTypes, string> AspectColors;
-    public double BaseOrbAspects { get; }
-    public double BaseOrbMidpoints { get; }
-    public double OrbMidpointsDecl { get; }
-    public double OrbParallels { get; }
-
-    public AstroConfig(HouseSystems houseSystem, Ayanamshas ayanamsha, ObserverPositions observerPosition, 
-        ZodiacTypes zodiacType, ProjectionTypes projectionType, OrbMethods orbMethod,
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects,
-        Dictionary<AspectTypes, string> aspectColors, double baseOrbAspects, double baseOrbMidpoints, double orbParallels, 
-        double orbMidpointsDecl, bool useCuspsForAspects)
-    {
-        HouseSystem = houseSystem;
-        Ayanamsha = ayanamsha;
-        ObserverPosition = observerPosition;
-        ZodiacType = zodiacType;
-        ProjectionType = projectionType;
-        OrbMethod = orbMethod;
-        ChartPoints = chartPoints;
-        Aspects = aspects;
-        AspectColors = aspectColors;
-        BaseOrbAspects = baseOrbAspects;
-        BaseOrbMidpoints = baseOrbMidpoints;
-        OrbMidpointsDecl = orbMidpointsDecl;
-        OrbParallels = orbParallels;
-        UseCuspsForAspects = useCuspsForAspects;
-    }
+    public HouseSystems HouseSystem { get; } = houseSystem;
+    public Ayanamshas Ayanamsha { get; } = ayanamsha;
+    public ObserverPositions ObserverPosition { get; } = observerPosition;
+    public ZodiacTypes ZodiacType { get; } = zodiacType;
+    public ProjectionTypes ProjectionType { get; } = projectionType;
+    public OrbMethods OrbMethod { get; } = orbMethod;
+    public bool UseCuspsForAspects { get; } = useCuspsForAspects;
+    public Dictionary<ChartPoints, ChartPointConfigSpecs> ChartPoints = chartPoints;
+    public Dictionary<AspectTypes, AspectConfigSpecs> Aspects = aspects;
+    public Dictionary<AspectTypes, string> AspectColors = aspectColors;
+    public double BaseOrbAspects { get; } = baseOrbAspects;
+    public double BaseOrbMidpoints { get; } = baseOrbMidpoints;
+    public double OrbMidpointsDecl { get; } = orbMidpointsDecl;
+    public double OrbParallels { get; } = orbParallels;
+    public ApogeeTypes ApogeeType { get; } = apogeeType;
+    public bool OscillateNodes { get; } = oscillateNodes;
 }
 
 /// <summary>Configuration details for a chart point.</summary>

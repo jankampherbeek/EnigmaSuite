@@ -27,7 +27,6 @@ public static class FacadeServices
         serviceCollection.AddTransient<IDateConversionFacade, DateConversionFacade>();
         serviceCollection.AddTransient<IJulDayFacade, JulDayFacade>();
         serviceCollection.AddTransient<IRevJulFacade, RevJulFacade>();
-
-
+        serviceCollection.AddTransient<IOrbitalElementsFacade, OrbitalElementsFacade>();
     }
 }

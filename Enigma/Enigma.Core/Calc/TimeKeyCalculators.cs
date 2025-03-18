@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -33,8 +33,8 @@ public sealed class SolarArcCalculator: ISolarArcCalculator
     /// <inheritdoc/>
     public double CalcSolarArcForTimespan(double jdRadix, double timespan, Location? location, int flags)
     {
-        PosSpeed[] sunStart = _calculator.CalculateCelPoint(ChartPoints.Sun, jdRadix, location, flags);
-        PosSpeed[] sunEnd = _calculator.CalculateCelPoint(ChartPoints.Sun, jdRadix + timespan, location, flags);
+        PosSpeed[] sunStart = _calculator.CalculateCelPoint((int)ChartPoints.Sun, jdRadix, location, flags);
+        PosSpeed[] sunEnd = _calculator.CalculateCelPoint((int)ChartPoints.Sun, jdRadix + timespan, location, flags);
         return sunEnd[0].Position - sunStart[0].Position;
     }
 }

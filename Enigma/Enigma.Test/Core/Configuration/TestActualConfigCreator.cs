@@ -131,6 +131,7 @@ public class TestActualConfigCreator
         const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         const OrbMethods orbMethod = OrbMethods.Weighted;
+        const ApogeeTypes apogeeType = ApogeeTypes.Corrected;
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
         Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = CreateAspects();
         Dictionary<AspectTypes, string> aspectColorSpecs = CreateAspectColors();
@@ -139,9 +140,10 @@ public class TestActualConfigCreator
         const double orbParallels = 1.0;
         const double orbMidpointsDecl = 0.5;
         const bool useCuspsForAspects = false;
+        const bool oscillateNodes = false;
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             chartPointsSpecs, aspectSpecs, aspectColorSpecs, baseOrbAspects, baseOrbMidpoints, orbParallels,
-            orbMidpointsDecl, useCuspsForAspects);
+            orbMidpointsDecl, useCuspsForAspects, apogeeType, oscillateNodes);
     }
 
     private static Dictionary<ChartPoints, ChartPointConfigSpecs> CreateChartPoints()

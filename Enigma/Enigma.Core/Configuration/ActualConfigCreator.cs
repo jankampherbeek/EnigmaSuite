@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -32,13 +32,7 @@ public interface IActualConfigCreator
 /// <inheritdoc/>
 public class ActualConfigCreator: IActualConfigCreator
 {
-    /*private const string PREFIX_TRANSITS = "TR_";
-    private const string PREFIX_SECONDARY = "SC_";
-    private const string PREFIX_SYMBOLIC = "SM_";
-    private const string PREFIX_PRIMARY = "PD_";
-    private const string PREFIX_CHARTPOINTS = "CP_";
-    private const string PREFIX_ASPECTS = "AT_";*/
-    
+   
     
     /// <inheritdoc/>
     public AstroConfig CreateActualConfig(AstroConfig defaultConfig, Dictionary<string, string> deltas)
@@ -56,13 +50,22 @@ public class ActualConfigCreator: IActualConfigCreator
                                          int.TryParse(projIdTxt, out int projId) ? 
                                          ProjectionTypesExtensions.ProjectionTypeForIndex(projId) : 
                                          defaultConfig.ProjectionType;
+        
         ObserverPositions observerPosition = deltas.TryGetValue(StandardTexts.CFG_OBSERVER_POSITION, out string? obsIdTxt) && 
                                              int.TryParse(obsIdTxt, out int obsId) ? 
                                              ObserverPositionsExtensions.ObserverPositionForIndex(obsId) : 
                                              defaultConfig.ObserverPosition;
+        
         OrbMethods orbMethod = deltas.TryGetValue(StandardTexts.CFG_ORB_METHOD, out string? orbIdTxt) && 
                                int.TryParse(orbIdTxt, out int orbId) ? 
                                OrbMethodsExtensions.OrbMethodForIndex(orbId) : defaultConfig.OrbMethod;
+        
+        
+        ApogeeTypes apogeeType = deltas.TryGetValue(StandardTexts.CFG_APOGEETYPE, out string? apogeeText) &&
+                                 int.TryParse(apogeeText, out int atId) ? 
+                                ApogeeTypesExtensions.ApogeeTypeForIndex(atId) : defaultConfig.ApogeeType;
+        
+        
         double baseOrbAspects = deltas.TryGetValue(StandardTexts.CFG_BASE_ORB_ASPECTS, out string? aspOrbTxt) && 
                                 double.TryParse(aspOrbTxt, out double aspOrb) ? aspOrb : defaultConfig.BaseOrbAspects;
         double baseOrbMidpoints = deltas.TryGetValue(StandardTexts.CFG_BASE_ORB_MIDPOINTS, out string? mpOrbTxt) && 
@@ -71,17 +74,17 @@ public class ActualConfigCreator: IActualConfigCreator
                                double.TryParse(parOrbTxt, out double parOrb) ? parOrb : defaultConfig.OrbParallels;
         double orbMidpointsDecl =  deltas.TryGetValue(StandardTexts.CFG_ORB_MIDPOINTS_DECL, out string? mpdOrbTxt) && 
                                double.TryParse(mpdOrbTxt, out double mpdOrb) ? mpdOrb : defaultConfig.OrbMidpointsDecl;
-        
         bool useCuspsForAspects = deltas.TryGetValue(StandardTexts.CFG_USE_CUSPS_FOR_ASPECTS, out string? useCTxt) && 
                                   bool.TryParse(useCTxt, out bool useC) ? useC : defaultConfig.UseCuspsForAspects;
-        
+        bool oscillateNodes = deltas.TryGetValue(StandardTexts.CFG_OSCILLATE_NODES, out string? oscTxt) &&
+                              bool.TryParse(oscTxt, out bool osc) ? osc
+                                : defaultConfig.OscillateNodes;
         Dictionary<ChartPoints, ChartPointConfigSpecs> chartPoints = CreateChartPoints(defaultConfig.ChartPoints, deltas);
         Dictionary<AspectTypes, AspectConfigSpecs> aspectTypes = CreateAspects(defaultConfig.Aspects, deltas, StandardTexts.PCF_ASPECTS);
         Dictionary<AspectTypes, string> aspectColors = CreateAspectColors(defaultConfig.AspectColors, deltas);
-        
         return new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
             chartPoints, aspectTypes, aspectColors, baseOrbAspects, baseOrbMidpoints, orbParallels, orbMidpointsDecl, 
-            useCuspsForAspects);
+            useCuspsForAspects, apogeeType, oscillateNodes);
     }
 
     public ConfigProg CreateActualProgConfig(ConfigProg defaultConfig, Dictionary<string, string> deltas)

@@ -33,6 +33,7 @@ public static class StandardTexts
     public const string ERROR_TIME = "Enter a correct value for the time.";
     
     // Texts for the configuration
+    public const string CFG_APOGEETYPE = "ApogeeType";
     public const string CFG_AYANAMSHA = "Ayanamsha";
     public const string CFG_BASE_ORB_ASPECTS = "BaseOrbAspects";
     public const string CFG_BASE_ORB_MIDPOINTS = "BaseOrbMidpoints";
@@ -40,7 +41,8 @@ public static class StandardTexts
     public const string CFG_OBSERVER_POSITION = "ObserverPosition";
     public const string CFG_ORB_METHOD = "OrbMethod";
     public const string CFG_ORB_PARALLELS = "OrbParallels";    
-    public const string CFG_ORB_MIDPOINTS_DECL = "OrbDeclMidpoints"; 
+    public const string CFG_ORB_MIDPOINTS_DECL = "OrbDeclMidpoints";
+    public const string CFG_OSCILLATE_NODES = "OscillateNodes";
     public const string CFG_PD_APPROACH = "ApproachPrimaryDirections";
     public const string CFG_PD_CONVERSE = "ConversePrimaryDirections";
     public const string CFG_PD_LATASP = "LatitudeAspectsPrimaryDirections";
@@ -55,15 +57,17 @@ public static class StandardTexts
     public const string CFG_ZODIAC_TYPE = "ZodiacType";
     
     // Prefixes for configurations
+    public const string PCF_APOGEETYPE = "APOT_";
     public const string PCF_ASPECTCOLOR = "AC_";
     public const string PCF_ASPECTS = "AT_";
     public const string PCF_CHARTPOINTS = "CP_";
-    public const string PCF_SECONDARY = "SC_";
-    public const string PCF_SECONDARYPOINTS = "SC_CP_";
-    public const string PCF_SIGNIFICATORS = "PD_SG_";
     public const string PCF_PROMISSORS = "PD_PM_";
     public const string PCF_PDASPECTS = "PD_AT_";
     public const string PCF_PDPLACEHOLDERPOINTS = "PD_XX_CP_";
+    public const string PCF_OSCILLATENODES = "OSCN_";
+    public const string PCF_SECONDARY = "SC_";
+    public const string PCF_SECONDARYPOINTS = "SC_CP_";
+    public const string PCF_SIGNIFICATORS = "PD_SG_";    
     public const string PCF_SYMBOLIC = "SM_";
     public const string PCF_SYMBOLICPOINTS = "SM_CP_";
     public const string PCF_TRANSITPOINTS = "TR_CP_";

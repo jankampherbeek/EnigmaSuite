@@ -16,7 +16,7 @@ public sealed class ChartsWheelMetrics
     public static double MinDistance => 6.0;
 
     // Fonts
-    public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrology");
+    public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrologyBLA");
     public FontFamily PositionTextsFontFamily { get; } = new ("Calibri");
     // Colors
     public Color CuspLineColor { get; } = Colors.SteelBlue;

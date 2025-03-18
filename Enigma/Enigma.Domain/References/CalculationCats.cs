@@ -18,10 +18,11 @@ public enum CalculationCats
 {
     CommonSe = 0,
     CommonElements = 1,
-    CommonFormula = 2,
-    Mundane = 3,
-    Lots = 4,
-    ZodiacFixed = 5,
-    Apsides = 6
+    CommonFormulaLongitude = 2,
+    CommonFormulaFull = 3,
+    Mundane = 4,
+    Lots = 5,
+    ZodiacFixed = 6,
+    Apsides = 7,
 }
 

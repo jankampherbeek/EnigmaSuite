@@ -26,6 +26,7 @@ public class TestDescriptiveChartText
     private const ZodiacTypes ZODIAC_TYPE = ZodiacTypes.Tropical;
     private const ProjectionTypes PROJ_TYPE = ProjectionTypes.TwoDimensional;
     private const OrbMethods ORB_METHOD = OrbMethods.Weighted;
+    private const ApogeeTypes APOGEE_TYPE = ApogeeTypes.Corrected;
     private readonly Dictionary<ChartPoints, ChartPointConfigSpecs?> _chartPoints = new();
     private readonly Dictionary<AspectTypes, AspectConfigSpecs?> _aspects = new();
     private readonly Dictionary<AspectTypes, string> _aspectColors = new();
@@ -34,6 +35,7 @@ public class TestDescriptiveChartText
     private const double ORB_PARALLELS = 0.8;
     private const double ORB_MIDPOINTS_DECL = 0.4;
     private const bool USE_CUSPS_FOR_ASPECTS = false;
+    private const bool OSCILLATE_NODES = false;
     private const int ID = 123;
     private const double GEO_LONG = 12.25;
     private const double GEO_LAT = 30.5;
@@ -73,7 +75,7 @@ public class TestDescriptiveChartText
     {
         return new AstroConfig(HOUSE_SYSTEM, AYANAMSHA, OBSERVER_POS, ZODIAC_TYPE, PROJ_TYPE, 
             ORB_METHOD, _chartPoints, _aspects, _aspectColors, BASE_ORB_ASPECTS, BASE_ORB_MIDPOINTS, 
-            ORB_PARALLELS, ORB_MIDPOINTS_DECL, USE_CUSPS_FOR_ASPECTS);
+            ORB_PARALLELS, ORB_MIDPOINTS_DECL, USE_CUSPS_FOR_ASPECTS, APOGEE_TYPE, OSCILLATE_NODES);
     }
 
 

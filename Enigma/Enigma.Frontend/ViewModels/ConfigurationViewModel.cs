@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -36,6 +36,7 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private int _observerPositionIndex;
     [ObservableProperty] private int _projectionTypeIndex;
     [ObservableProperty] private int _orbMethodIndex;
+    [ObservableProperty] private int _apogeeTypeIndex;
     [NotifyPropertyChangedFor(nameof(BaseOrbAspectsValid))]
     [NotifyCanExecuteChangedFor(nameof(SaveConfigCommand))]
     [ObservableProperty] private string _baseOrbAspectsText;
@@ -47,6 +48,7 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private string _orbParallelsText;
     [ObservableProperty] private string _orbMidpointsDeclText;
     [ObservableProperty] private bool _applyAspectsToCusps;
+    [ObservableProperty] private bool _applyOscillatingNodes;
     [ObservableProperty] private ObservableCollection<string> _allHouses;
     [ObservableProperty] private ObservableCollection<string> _allZodiacTypes;
     [ObservableProperty] private ObservableCollection<string> _allAyanamshas;
@@ -56,7 +58,7 @@ public partial class ConfigurationViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<GeneralAspect> _allAspects;
     [ObservableProperty] private ObservableCollection<AspectColor> _allAspectColors;
     [ObservableProperty] private ObservableCollection<string> _allOrbMethods;
-
+    [ObservableProperty] private ObservableCollection<string> _allApogeeTypes;
     
     
     private double _baseOrbAspectsValue;
@@ -86,12 +88,14 @@ public partial class ConfigurationViewModel: ObservableObject
         AllAspectColors = new ObservableCollection<AspectColor>(ConfigurationModel.AllAspectColors());
         AllAspects = new ObservableCollection<GeneralAspect>(ConfigurationModel.AllAspects());
         AllOrbMethods = new ObservableCollection<string>(ConfigurationModel.AllOrbMethods());
+        AllApogeeTypes = new ObservableCollection<string>(ConfigurationModel.AllApogeeTypes());
         
         HouseIndex = _model.HouseIndex;
         ZodiacTypeIndex = _model.ZodiacTypeIndex;
         AyanamshaIndex = _model.AyanamshaIndex;
         ObserverPositionIndex = _model.ObserverPositionIndex;
         ProjectionTypeIndex = _model.ProjectionTypeIndex;
+        ApogeeTypeIndex = _model.ApogeeTypeIndex;
         _baseOrbAspectsValue = _model.AspectBaseOrb;
         BaseOrbAspectsText = _baseOrbAspectsValue.ToString(CultureInfo.InvariantCulture);
         _baseOrbMidpointsValue = _model.MidpointBaseOrb;
@@ -99,7 +103,9 @@ public partial class ConfigurationViewModel: ObservableObject
         _orbParallelsValue = _model.OrbParallels;
         OrbParallelsText = _orbParallelsValue.ToString(CultureInfo.InvariantCulture);
         _orbMidpointsDeclValue = _model.OrbMidpointsDecl;
-        OrbMidpointsDeclText = _orbMidpointsDeclValue.ToString((CultureInfo.InvariantCulture));
+        OrbMidpointsDeclText = _orbMidpointsDeclValue.ToString(CultureInfo.InvariantCulture);
+        ApplyAspectsToCusps = _model.ApplyAspectsForCusps;
+        ApplyOscillatingNodes = _model.ApplyOscillationForNodes;
     }
 
      private Dictionary<AspectTypes, AspectConfigSpecs> DefineAspectSpecs()
@@ -139,15 +145,18 @@ public partial class ConfigurationViewModel: ObservableObject
             ObserverPositions observerPosition = ObserverPositionsExtensions.ObserverPositionForIndex(ObserverPositionIndex);
             ZodiacTypes zodiacType = ZodiacTypeExtensions.ZodiacTypeForIndex(ZodiacTypeIndex);
             ProjectionTypes projectionType = ProjectionTypesExtensions.ProjectionTypeForIndex(ProjectionTypeIndex);
+            ApogeeTypes apogeeType = ApogeeTypesExtensions.ApogeeTypeForIndex(ApogeeTypeIndex);
+            
             const OrbMethods orbMethod = OrbMethods.Weighted;
             Dictionary<ChartPoints, ChartPointConfigSpecs> configChartPoints = DefineChartPointSpecs();
             Dictionary<AspectTypes, AspectConfigSpecs> configAspects = DefineAspectSpecs();
             Dictionary<AspectTypes, string> configAspectColors = DefineAspectColorSpecs();
             bool useCuspsForAspects = ApplyAspectsToCusps;
+            bool oscillateNodes = ApplyOscillatingNodes;
         
             AstroConfig config = new AstroConfig(houseSystem, ayanamsha, observerPosition, zodiacType, projectionType, orbMethod,
                 configChartPoints, configAspects, configAspectColors, _baseOrbAspectsValue, _baseOrbMidpointsValue, 
-                _orbParallelsValue, _orbMidpointsDeclValue, useCuspsForAspects);
+                _orbParallelsValue, _orbMidpointsDeclValue, useCuspsForAspects, apogeeType, oscillateNodes);
             _model.UpdateConfig(config);
             MessageBox.Show(CONFIGURATION_SAVED);
             Log.Information("ConfigurationViewModel.SaveConfig(): send ConfigUpdatedMessage and CloseMessage");

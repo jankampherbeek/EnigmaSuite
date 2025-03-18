@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -54,8 +54,8 @@ public class TestSolarArcCalculator
     private ICelPointSeCalc CreateCelPointSeCalcMock()
     {
         var calcFake = A.Fake<ICelPointSeCalc>();
-        A.CallTo(() => calcFake.CalculateCelPoint(ChartPoints.Sun, JD_RADIX, _location, FLAGS)).Returns(_jdRadixEclSunPos);
-        A.CallTo(() => calcFake.CalculateCelPoint(ChartPoints.Sun, JD_EVENT, _location, FLAGS)).Returns(_jdEventEclSunPos);
+        A.CallTo(() => calcFake.CalculateCelPoint((int)ChartPoints.Sun, JD_RADIX, _location, FLAGS)).Returns(_jdRadixEclSunPos);
+        A.CallTo(() => calcFake.CalculateCelPoint((int)ChartPoints.Sun, JD_EVENT, _location, FLAGS)).Returns(_jdEventEclSunPos);
         return calcFake;
     }
 
