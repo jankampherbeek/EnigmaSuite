@@ -37,7 +37,7 @@ public sealed class CalcApsidesFacade: ICalcApsidesFacade
         var descNodePositions = new double[6];
         var perihPositions = new double[6];
         var aphPositions = new double[6];
-        //         _ = ext_swe_calc_ut(julianDay, seCelPointId, flags, positions, resultValue);
+        seCelPointId = (int)ChartPoints.Sun;
         _ = ext_swe_nod_aps_ut(julianDay, seCelPointId, flags, methodId, ascNodePositions, descNodePositions,
             perihPositions, aphPositions, resultValue);
         var result = new double[2][];

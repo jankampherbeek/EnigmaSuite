@@ -22,13 +22,12 @@ public interface IApsideSeCalc
 }
 
 /// <inheritdoc/>
-public class ApsideSeCalc(ICalcApsidesFacade calcApsidesFacade, IChartPointsMapping chartPointsMapping)
-    : IApsideSeCalc
+public class ApsideSeCalc(ICalcApsidesFacade calcApsidesFacade): IApsideSeCalc
 {
     /// <inheritdoc/>
     public PosSpeed[] CalculateApside(ChartPoints celPoint, double jdnr, ApsidesMethods method, int flags)
     {
-        int pointId = chartPointsMapping.SeIdForCelestialPoint(celPoint);
+        int pointId = (int)celPoint;
         double[][] positions = calcApsidesFacade.ApsidesFromSe(jdnr, pointId, method, flags);
         PosSpeed mainPos;
         PosSpeed deviation;

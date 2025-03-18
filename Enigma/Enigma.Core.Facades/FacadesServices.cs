@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022, 2023, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -19,7 +19,7 @@ public static class FacadeServices
     {
         // Handlers
         serviceCollection.AddTransient<IHousesFacade, HousesFacade>();
-
+        serviceCollection.AddTransient<ICalcApsidesFacade, CalcApsidesFacade>();
         serviceCollection.AddTransient<IAyanamshaFacade, AyanamshaFacade>();
         serviceCollection.AddTransient<IAzAltFacade, AzAltFacade>();
         serviceCollection.AddTransient<ICalcUtFacade, CalcUtFacade>();

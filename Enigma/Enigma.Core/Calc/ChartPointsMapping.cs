@@ -32,8 +32,9 @@ public interface IChartPointsMapping
 public sealed class ChartPointsMapping : IChartPointsMapping
 {
     private readonly List<ChartPoints> _elementsCandidates = new() { ChartPoints.PersephoneRam, ChartPoints.HermesRam, ChartPoints.DemeterRam };
-    private readonly List<ChartPoints> _formulaCandidates = new() { ChartPoints.ApogeeDuval, ChartPoints.PersephoneCarteret, ChartPoints.VulcanusCarteret };
-
+    private readonly List<ChartPoints> _formulaCandidates = new() { ChartPoints.ApogeeDuval, ChartPoints.PersephoneCarteret, 
+        ChartPoints.VulcanusCarteret, ChartPoints.PriapusMean, ChartPoints.PriapusTrue, ChartPoints.Dragon, ChartPoints.Beast };
+    private readonly List<ChartPoints> _apsideCandidates = new() { ChartPoints.BlackSun, ChartPoints.Diamond };
 
     /// <inheritdoc/>
     public CalculationCats CalculationTypeForPoint(ChartPoints point)
@@ -44,6 +45,7 @@ public sealed class ChartPointsMapping : IChartPointsMapping
             // celestial points, < 1000 to avoid cusps etc.
             < 1000 when _elementsCandidates.Contains(point) => CalculationCats.CommonElements,
             < 1000 when _formulaCandidates.Contains(point) => CalculationCats.CommonFormula,
+            < 1000 when _apsideCandidates.Contains(point) => CalculationCats.Apsides,
             < 1000 => CalculationCats.CommonSe,
             // mundane points or cusps
             < 3000 => CalculationCats.Mundane,
