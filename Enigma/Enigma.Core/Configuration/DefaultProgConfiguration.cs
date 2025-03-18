@@ -46,7 +46,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         progPoints[ChartPoints.Neptune] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Neptune].Glyph);
         progPoints[ChartPoints.Pluto] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Pluto].Glyph);
         progPoints[ChartPoints.Chiron] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Chiron].Glyph);
-        progPoints[ChartPoints.TrueNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.TrueNode].Glyph);
+        progPoints[ChartPoints.MeanNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.MeanNode].Glyph);
         return new ConfigProgTransits(orb, progPoints);
     }
     
@@ -61,7 +61,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         progPoints[ChartPoints.Mars] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Mars].Glyph);
         progPoints[ChartPoints.Jupiter] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Jupiter].Glyph);
         progPoints[ChartPoints.Saturn] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Saturn].Glyph);
-        progPoints[ChartPoints.TrueNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.TrueNode].Glyph);
+        progPoints[ChartPoints.MeanNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.MeanNode].Glyph);
         return new ConfigProgSecDir(orb, progPoints);
     }
     
@@ -82,7 +82,7 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
         progPoints[ChartPoints.Neptune] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Neptune].Glyph);
         progPoints[ChartPoints.Pluto] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Pluto].Glyph);
         progPoints[ChartPoints.Chiron] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Chiron].Glyph);
-        progPoints[ChartPoints.TrueNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.TrueNode].Glyph);
+        progPoints[ChartPoints.MeanNode] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.MeanNode].Glyph);
         progPoints[ChartPoints.Mc] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Mc].Glyph);
         progPoints[ChartPoints.Ascendant] = new ProgPointConfigSpecs(true, progPoints[ChartPoints.Ascendant].Glyph);
         return new ConfigProgSymDir(orb, timeKey, progPoints);
@@ -131,7 +131,6 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
             { ChartPoints.Neptune, new ProgPointConfigSpecs(false, 'j') },
             { ChartPoints.Pluto, new ProgPointConfigSpecs(false, 'k') },
             { ChartPoints.MeanNode, new ProgPointConfigSpecs(false, '{') },
-            { ChartPoints.TrueNode, new ProgPointConfigSpecs(false, '{') },
             { ChartPoints.Chiron, new ProgPointConfigSpecs(false, 'w') },
             { ChartPoints.PersephoneRam, new ProgPointConfigSpecs(false, '/') },
             { ChartPoints.HermesRam, new ProgPointConfigSpecs(false, '<') },
@@ -164,8 +163,6 @@ public sealed class DefaultProgConfiguration: IDefaultProgConfiguration
             { ChartPoints.Astraea, new ProgPointConfigSpecs(false, 'Ã') },
             { ChartPoints.ApogeeMean, new ProgPointConfigSpecs(false, ',') },
             { ChartPoints.ApogeeCorrected, new ProgPointConfigSpecs(false, '.') },
-            { ChartPoints.ApogeeInterpolated, new ProgPointConfigSpecs(false, '.') },
-            { ChartPoints.ApogeeDuval, new ProgPointConfigSpecs(false, '.') },
             { ChartPoints.PersephoneCarteret, new ProgPointConfigSpecs(false, 'à') },
             { ChartPoints.VulcanusCarteret, new ProgPointConfigSpecs(false, 'Ï') },
             { ChartPoints.FortunaNoSect, new ProgPointConfigSpecs(false, 'e') },

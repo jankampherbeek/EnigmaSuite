@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -73,7 +73,7 @@ public sealed class CelPointForDataGridFactory : ICelPointForDataGridFactory
                 .Position);
 
         if (commonPos.Key == ChartPoints.VulcanusCarteret || commonPos.Key == ChartPoints.PersephoneCarteret ||
-            commonPos.Key == ChartPoints.ApogeeDuval)
+            commonPos.Key == ChartPoints.ApogeeCorrected)
         {
             eclipticalLong = new Tuple<string, char, string>(longPosText, longGlyph, noData);
             eclipticalLat = new Tuple<string, string>(noData, noData);

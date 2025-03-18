@@ -9,6 +9,10 @@
 # vw : views.
 
 ### ref
+# Ref ApogeeTypes
+ref.apogeetype.corrected = Gecorrigeerd (Swiss Ephemeris)
+ref.apogeetype.duval = Gecorrigeerd (Max Duval)
+ref.apogeetype.interpolated = Geïnterpoleerd
 # Ref AspectTypes
 ref.aspecttype.binovile = Bi-noviel (80°)
 ref.aspecttype.biquintile = Bi-quintiel (144°)

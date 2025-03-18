@@ -91,6 +91,8 @@ public class TestCalculationPreferencesCreator
             1.6,
             1.0,
             0.5,
+            false,
+            ApogeeTypes.Corrected,
             false);
     }
     

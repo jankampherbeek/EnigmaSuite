@@ -6,6 +6,7 @@
 using Enigma.Core.Configuration;
 using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
+using Serilog;
 
 namespace Enigma.Core.Handlers;
 
@@ -99,9 +100,19 @@ public sealed class ConfigurationHandler : IConfigurationHandler
     /// <inheritdoc/>
     public AstroConfig ReadCurrentConfig()
     {
-        AstroConfig defaultConfig = _defaultConfig.CreateDefaultConfig();
-        Dictionary<string, string> deltas = _configReader.ReadDeltasForConfig();
-        return _configCreator.CreateActualConfig(defaultConfig, deltas);
+        AstroConfig actualConfig;
+        try
+        {
+            AstroConfig defaultConfig = _defaultConfig.CreateDefaultConfig();
+            Dictionary<string, string> deltas = _configReader.ReadDeltasForConfig();
+            actualConfig = _configCreator.CreateActualConfig(defaultConfig, deltas);
+        }
+        catch (Exception e)
+        {
+            Log.Error("Could not read actualconfig");
+            throw;
+        }
+        return actualConfig;
     }
 
     /// <inheritdoc/>

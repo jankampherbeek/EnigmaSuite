@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -95,8 +95,7 @@ public sealed class HousesHandler : IHousesHandler
         {
             for (int n = 1; n < eclValues[0].Length; n++)
             {
-                int cuspIndex = 2000 + n;
-                ChartPoints cusp = PointsExtensions.PointForIndex(cuspIndex);
+                ChartPoints cusp = PointsExtensions.PointForIndex(CalculationCats.Mundane, n);
                 KeyValuePair<ChartPoints, FullPointPos> cuspPos = CreateFullChartPointPosForCusp(cusp, tropicalValues[0][n], eclValues[0][n], jdUt, obliquity, location);
                 mundanePositions.Add(cuspPos.Key, cuspPos.Value);
             }            

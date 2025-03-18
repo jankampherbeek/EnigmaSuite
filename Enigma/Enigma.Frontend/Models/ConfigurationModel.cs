@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -26,14 +26,14 @@ public class ConfigurationModel
     public int ZodiacTypeIndex { get; }
     public int AyanamshaIndex { get; }
     public int ObserverPositionIndex { get; }
-    
+    public int ApogeeTypeIndex { get; }
     public int ProjectionTypeIndex { get; }
     public double AspectBaseOrb { get; }
     public double MidpointBaseOrb { get; }
-
     public double OrbParallels { get; }
-
     public double OrbMidpointsDecl { get; }
+    public bool ApplyAspectsForCusps { get; }
+    public bool ApplyOscillationForNodes { get; }   
     
     public ConfigurationModel(IConfigurationApi configApi)
     {
@@ -44,10 +44,13 @@ public class ConfigurationModel
         AyanamshaIndex = (int)currentConfig.Ayanamsha;
         ObserverPositionIndex = (int)currentConfig.ObserverPosition;
         ProjectionTypeIndex = (int)currentConfig.ProjectionType;
+        ApogeeTypeIndex = (int)currentConfig.ApogeeType;
         AspectBaseOrb = currentConfig.BaseOrbAspects;
         MidpointBaseOrb = currentConfig.BaseOrbMidpoints;
         OrbParallels = currentConfig.OrbParallels;
         OrbMidpointsDecl = currentConfig.OrbMidpointsDecl;
+        ApplyAspectsForCusps = currentConfig.UseCuspsForAspects;
+        ApplyOscillationForNodes = currentConfig.OscillateNodes;
     }
 
     public void UpdateConfig(AstroConfig astroConfig)
@@ -87,6 +90,11 @@ public class ConfigurationModel
         return OrbMethodsExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
     }
 
+    public static List<string> AllApogeeTypes()
+    {
+        return ApogeeTypesExtensions.AllDetails().Select(detail => _rosetta.GetText(detail.RbKey)).ToList();
+    }
+    
     public static List<GeneralPoint> AllGeneralPoints()
     {
         Log.Information("ConfigurationModel.AllGeneralPoints: retrieving chartpoints from CurrentConfig");
@@ -117,7 +125,6 @@ public class ConfigurationModel
             select new AspectColor(aspect.Aspect, aspect.Glyph, _rosetta.GetText(aspect.RbKey), 
                 configColorAspect.Value)).ToList();
     }
-    
 }
 
 

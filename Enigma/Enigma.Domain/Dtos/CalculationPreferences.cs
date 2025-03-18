@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -22,7 +22,8 @@ public record CalculationPreferences(List<ChartPoints> ActualChartPoints,
     CoordinateSystems CoordinateSystem,
     ObserverPositions ActualObserverPosition,
     ProjectionTypes ActualProjectionType,
-    HouseSystems ActualHouseSystem);
+    HouseSystems ActualHouseSystem,
+    bool Oscillate);
 
 
 /// <summary>Creates calculation preferences from a configuration.</summary>
@@ -58,7 +59,7 @@ public class CalculationPreferencesCreator : ICalculationPreferencesCreator
             where point.Value.IsUsed 
             select point.Key).ToList();
         return new CalculationPreferences(actualChartPoints, config.ZodiacType, config.Ayanamsha,
-            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.OscillateNodes);
     }
 
     /// <inheritdoc/>
@@ -66,7 +67,7 @@ public class CalculationPreferencesCreator : ICalculationPreferencesCreator
     {
         List<ChartPoints> actualChartPoints = new() { point };
         return new CalculationPreferences(actualChartPoints, config.ZodiacType, config.Ayanamsha,
-            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem);
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.OscillateNodes);
     }
 }
 

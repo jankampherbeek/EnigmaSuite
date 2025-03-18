@@ -81,6 +81,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
+        serviceCollection.AddTransient<IInclinationCalc, InclinationCalc>();
         serviceCollection.AddTransient<IChartsEventsDao, ChartsEventsDao>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();

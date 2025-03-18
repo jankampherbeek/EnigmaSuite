@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -122,6 +122,10 @@ public class ConfigurationDelta: IConfigurationDelta
             allDeltas.Add(StandardTexts.CFG_ORB_MIDPOINTS_DECL,((double)newConf.OrbMidpointsDecl).ToString(CultureInfo.InvariantCulture));
         if (defConf.UseCuspsForAspects != newConf.UseCuspsForAspects) 
             allDeltas.Add(StandardTexts.CFG_USE_CUSPS_FOR_ASPECTS,(newConf.UseCuspsForAspects).ToString());
+        if (defConf.ApogeeType != newConf.ApogeeType)
+            allDeltas.Add(StandardTexts.CFG_APOGEETYPE, ((int)newConf.ApogeeType).ToString());
+        if (defConf.OscillateNodes != newConf.OscillateNodes)
+            allDeltas.Add(StandardTexts.CFG_OSCILLATE_NODES, (newConf.OscillateNodes).ToString());
         foreach ((ChartPoints pointKey, ChartPointConfigSpecs? value) in defConf.ChartPoints)
         {
             bool found = newConf.ChartPoints.TryGetValue(pointKey, out ChartPointConfigSpecs? newPointValue);

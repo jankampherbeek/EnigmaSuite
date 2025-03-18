@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -29,7 +29,7 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
             ChartPoints.Neptune => 'j',
             ChartPoints.Pluto => 'k',
             ChartPoints.MeanNode => '{',
-            ChartPoints.TrueNode => '{',
+            ChartPoints.SouthNode => '{',     // TODO use new glyph for south node
             ChartPoints.Chiron => 'w',
             ChartPoints.PersephoneRam => '/',
             ChartPoints.HermesRam => '<',
@@ -62,8 +62,6 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
             ChartPoints.Astraea => 'Ã',
             ChartPoints.ApogeeMean => ',',
             ChartPoints.ApogeeCorrected => '.',
-            ChartPoints.ApogeeInterpolated => '.',
-            ChartPoints.ApogeeDuval => '.',
             ChartPoints.PersephoneCarteret => 'à',
             ChartPoints.VulcanusCarteret => 'Ï',
             ChartPoints.Ascendant => 'A',

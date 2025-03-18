@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023.
+// Jan Kampherbeek, (c) 2023, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -20,8 +20,8 @@ public enum ChartPoints
     Eris = 25, Pholus = 26, Ceres = 27, Pallas = 28, Juno = 29, Vesta = 30, Isis = 31, Nessus = 32,
     Huya = 33, Varuna = 34, Ixion = 35, Quaoar = 36, Haumea = 37, Orcus = 38, Makemake = 39, Sedna = 40, Hygieia = 41, Astraea = 42,
     ApogeeMean = 43, ApogeeCorrected = 44, ApogeeInterpolated = 45, ApogeeDuval = 46,
-    PersephoneCarteret = 47, VulcanusCarteret = 48, BlackSun = 49, Diamond = 50, PriapusMean = 51, PriapusTrue = 52, Dragon = 53, Beast = 54, 
-    MeanSouthNode = 55, TrueSouthNode = 56,
+    PersephoneCarteret = 47, VulcanusCarteret = 48, PerigeeInterpolated = 49,
+    Priapus = 50, Dragon = 51, Beast = 52, SouthNode = 53, BlackSun = 54, Diamond = 55,
     Ascendant = 1001, Mc = 1002, EastPoint = 1003, Vertex = 1004,
     Cusp1 = 2001, Cusp2 = 2002, Cusp3 = 2003, Cusp4 = 2004, Cusp5 = 2005, Cusp6 = 2006, Cusp7 = 2007, Cusp8 = 2008, Cusp9 = 2009,
     Cusp10 = 2010, Cusp11 = 2011, Cusp12 = 2012, Cusp13 = 2013, Cusp14 = 2014, Cusp15 = 2015, Cusp16 = 2016, Cusp17 = 2017, Cusp18 = 2018,
@@ -35,8 +35,9 @@ public enum ChartPoints
 /// <param name="Point">The point</param>
 /// <param name="PointCat">The category for the point</param>
 /// <param name="CalculationCat">The category of calculation that is used for this point</param>
+/// <param name="CalcId">Calculation ID, same as SEId for Se calculated points.</param>
 /// <param name="Text">Name of point</param>
-public record PointDetails(ChartPoints Point, PointCats PointCat, CalculationCats CalculationCat, string Text);
+public record PointDetails(ChartPoints Point, PointCats PointCat, CalculationCats CalculationCat, int CalcId, string Text);
 
 
 /// <summary>Extension class for ChartPoints.</summary>
@@ -49,111 +50,113 @@ public static class PointsExtensions
     {
         return point switch
         {
-
-            ChartPoints.Sun => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Sun"),
-            ChartPoints.Moon => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Moon"),
-            ChartPoints.Mercury => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Mercury"),
-            ChartPoints.Venus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Venus"),
-            ChartPoints.Earth => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Earth"),
-            ChartPoints.Mars => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Mars"),
-            ChartPoints.Jupiter => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Jupiter"),
-            ChartPoints.Saturn => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Saturn"),
-            ChartPoints.Uranus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Uranus"),
-            ChartPoints.Neptune => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Neptune"),
-            ChartPoints.Pluto => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Pluto"),
-            ChartPoints.MeanNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Node-mean"),
-            ChartPoints.TrueNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Node-true"),
-            ChartPoints.Chiron => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Chiron"),
-            ChartPoints.PersephoneRam => new PointDetails(point, PointCats.Common, CalculationCats.CommonElements, "Persephone-Ram"),
-            ChartPoints.HermesRam => new PointDetails(point, PointCats.Common, CalculationCats.CommonElements, "Hermes-Ram"),
-            ChartPoints.DemeterRam => new PointDetails(point, PointCats.Common, CalculationCats.CommonElements, "Demeter-Ram"),
-            ChartPoints.CupidoUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Cupido-Uranian"),
-            ChartPoints.HadesUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Hades-Uranian"),
-            ChartPoints.ZeusUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Zeus-Uranian"),
-            ChartPoints.KronosUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Kronos-Uranian"),
-            ChartPoints.ApollonUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Apollon-Uranian"),
-            ChartPoints.AdmetosUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Admetos-Uranian"),
-            ChartPoints.VulcanusUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Vulcanus-Uranian"),
-            ChartPoints.PoseidonUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Poseidon-Uranian"),
-            ChartPoints.Eris => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Eris"),
-            ChartPoints.Pholus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Pholus"),
-            ChartPoints.Ceres => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Ceres"),
-            ChartPoints.Pallas => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Pallas"),
-            ChartPoints.Juno => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Juno"),
-            ChartPoints.Vesta => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Vesta"),
-            ChartPoints.Isis => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Isis-Transpluto"),
-            ChartPoints.Nessus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Nessus"),
-            ChartPoints.Huya => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Huya"),
-            ChartPoints.Varuna => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Varuna"),
-            ChartPoints.Ixion => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Ixion"),
-            ChartPoints.Quaoar => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Quaoar"),
-            ChartPoints.Haumea => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Haumea"),
-            ChartPoints.Orcus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Orcus"),
-            ChartPoints.Makemake => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Makemake"),
-            ChartPoints.Sedna => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Sedna"),
-            ChartPoints.Hygieia => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Hygieia"),
-            ChartPoints.Astraea => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Astraea"),
-            ChartPoints.ApogeeMean => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Apogee-mean"),
-            ChartPoints.ApogeeCorrected => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Apogee-corrected"),
-            ChartPoints.ApogeeInterpolated => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, "Apogee-interpolated"),
-            ChartPoints.ApogeeDuval => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Apogee-Duval"),
-            ChartPoints.PersephoneCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Persephone-Carteret"),
-            ChartPoints.VulcanusCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Vulcanus-Carteret"),
-            ChartPoints.BlackSun => new PointDetails(point, PointCats.Common, CalculationCats.Apsides, "Black Sun (aphelion)"),
-            ChartPoints.Diamond => new PointDetails(point, PointCats.Common, CalculationCats.Apsides, "Diamond (perihelion)"),
-            ChartPoints.PriapusMean => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Priapus (perigee)"),
-            ChartPoints.PriapusTrue => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Priapus (perigee, oscillating)"),
-            ChartPoints.Dragon => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Dragon"),
-            ChartPoints.Beast => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "Beast"),            
-            ChartPoints.MeanSouthNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "South node - mean"),
-            ChartPoints.TrueSouthNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormula, "South node - true"),
-            
-            ChartPoints.Ascendant => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, "Ascendant"),
-            ChartPoints.Mc => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, "MC"),
-            ChartPoints.EastPoint => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, "Eastpoint"),
-            ChartPoints.Vertex => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, "Vertex"),
-
-            ChartPoints.Cusp1 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-1"),
-            ChartPoints.Cusp2 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-2"),
-            ChartPoints.Cusp3 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-3"),
-            ChartPoints.Cusp4 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-4"),
-            ChartPoints.Cusp5 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-5"),
-            ChartPoints.Cusp6 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-6"),
-            ChartPoints.Cusp7 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-7"),
-            ChartPoints.Cusp8 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-8"),
-            ChartPoints.Cusp9 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-9"),
-            ChartPoints.Cusp10 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-10"),
-            ChartPoints.Cusp11 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-11"),
-            ChartPoints.Cusp12 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-12"),
-            ChartPoints.Cusp13 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-13"),
-            ChartPoints.Cusp14 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-14"),
-            ChartPoints.Cusp15 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-15"),
-            ChartPoints.Cusp16 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-16"),
-            ChartPoints.Cusp17 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-17"),
-            ChartPoints.Cusp18 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-18"),
-            ChartPoints.Cusp19 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-19"),
-            ChartPoints.Cusp20 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-20"),
-            ChartPoints.Cusp21 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-21"),
-            ChartPoints.Cusp22 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-22"),
-            ChartPoints.Cusp23 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-23"),
-            ChartPoints.Cusp24 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-24"),
-            ChartPoints.Cusp25 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-25"),
-            ChartPoints.Cusp26 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-26"),
-            ChartPoints.Cusp27 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-27"),
-            ChartPoints.Cusp28 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-28"),
-            ChartPoints.Cusp29 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-29"),
-            ChartPoints.Cusp30 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-30"),
-            ChartPoints.Cusp31 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-31"),
-            ChartPoints.Cusp32 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-32"),
-            ChartPoints.Cusp33 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-33"),
-            ChartPoints.Cusp34 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-34"),
-            ChartPoints.Cusp35 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-35"),
-            ChartPoints.Cusp36 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, "Cusp-36"),
-
-            ChartPoints.ZeroAries => new PointDetails(point, PointCats.Zodiac, CalculationCats.ZodiacFixed, "Zero-Aries"),
-
-            ChartPoints.FortunaSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, "Pars-sect"),
-            ChartPoints.FortunaNoSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, "Pars-no-sect)"),
+            // CommonSe
+            ChartPoints.Sun => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 0, "Sun"),
+            ChartPoints.Moon => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 1,"Moon"),
+            ChartPoints.Mercury => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 2,"Mercury"),
+            ChartPoints.Venus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 3,"Venus"),
+            ChartPoints.Mars => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 4,"Mars"),
+            ChartPoints.Jupiter => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 5,"Jupiter"),
+            ChartPoints.Saturn => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 6,"Saturn"),
+            ChartPoints.Uranus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 7,"Uranus"),
+            ChartPoints.Neptune => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 8,"Neptune"),
+            ChartPoints.Pluto => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 9, "Pluto"),
+            ChartPoints.MeanNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 10, "North node"),
+            ChartPoints.TrueNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 11, "North node"),
+            ChartPoints.ApogeeMean => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 12,"Apogee-mean"),
+            ChartPoints.ApogeeCorrected => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 13,"Apogee-corrected"),
+            ChartPoints.Earth => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 14,"Earth"),            
+            ChartPoints.Chiron => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 15,"Chiron"),            
+            ChartPoints.Pholus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 16,"Pholus"),
+            ChartPoints.Ceres => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 17,"Ceres"),
+            ChartPoints.Pallas => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 18,"Pallas"),
+            ChartPoints.Juno => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 19,"Juno"),
+            ChartPoints.Vesta => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 20,"Vesta"),
+            ChartPoints.ApogeeInterpolated => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 21, "Apogee-interpolated"),
+            ChartPoints.PerigeeInterpolated => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 22, "Perigee-interpolated"),
+            ChartPoints.CupidoUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 40, "Cupido-Uranian"),
+            ChartPoints.HadesUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 41, "Hades-Uranian"),
+            ChartPoints.ZeusUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 42, "Zeus-Uranian"),
+            ChartPoints.KronosUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 43, "Kronos-Uranian"),
+            ChartPoints.ApollonUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 44, "Apollon-Uranian"),
+            ChartPoints.AdmetosUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 45, "Admetos-Uranian"),
+            ChartPoints.VulcanusUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 46,"Vulcanus-Uranian"),
+            ChartPoints.PoseidonUra => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 47,"Poseidon-Uranian"),
+            ChartPoints.Isis => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 48,"Isis-Transpluto"),
+            ChartPoints.Eris => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 1009001,"Eris"),
+            ChartPoints.Nessus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 17066,"Nessus"),
+            ChartPoints.Huya => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 48628,"Huya"),
+            ChartPoints.Varuna => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 30000,"Varuna"),
+            ChartPoints.Ixion => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 38978, "Ixion"),
+            ChartPoints.Quaoar => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 60000,"Quaoar"),
+            ChartPoints.Haumea => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 146108,"Haumea"),
+            ChartPoints.Orcus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 100482,"Orcus"),
+            ChartPoints.Makemake => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 146472,"Makemake"),
+            ChartPoints.Sedna => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 100377, "Sedna"),
+            ChartPoints.Hygieia => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe,10010, "Hygieia"),
+            ChartPoints.Astraea => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 10005,"Astraea"),
+            // CommonElements
+            ChartPoints.PersephoneRam => new PointDetails(point, PointCats.Common, CalculationCats.CommonElements, 300,"Persephone-Ram"),
+            ChartPoints.HermesRam => new PointDetails(point, PointCats.Common, CalculationCats.CommonElements, 301,"Hermes-Ram"),
+            ChartPoints.DemeterRam => new PointDetails(point, PointCats.Common, CalculationCats.CommonElements, 302,"Demeter-Ram"),
+            // CommonFormulaLongitude
+            ChartPoints.PersephoneCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaLongitude, 400, "Persephone-Carteret"),
+            ChartPoints.VulcanusCarteret => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaLongitude, 401,"Vulcanus-Carteret"),
+            ChartPoints.ApogeeDuval => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaLongitude, 401, "Apogee Duval"),
+            // CommonFormulaFull
+            ChartPoints.Priapus => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 501,"Priapus (perigee)"),
+            ChartPoints.Dragon => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 502,"Dragon"),
+            ChartPoints.Beast => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 503,"Beast"),  
+            ChartPoints.SouthNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 504, "South node"),
+            // CommonApsides
+            ChartPoints.BlackSun => new PointDetails(point, PointCats.Common, CalculationCats.Apsides, 601,"Black Sun (aphelion)"),
+            ChartPoints.Diamond => new PointDetails(point, PointCats.Common, CalculationCats.Apsides, 602,"Diamond (perihelion)"),
+            // Mundane
+            ChartPoints.Mc => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 700,"MC"),
+            ChartPoints.Ascendant => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 701, "Ascendant"),
+            ChartPoints.EastPoint => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 702,"Eastpoint"),
+            ChartPoints.Vertex => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 703,"Vertex"),
+            ChartPoints.Cusp1 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 1,"Cusp-1"),
+            ChartPoints.Cusp2 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 2,"Cusp-2"),
+            ChartPoints.Cusp3 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 3,"Cusp-3"),
+            ChartPoints.Cusp4 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 4,"Cusp-4"),
+            ChartPoints.Cusp5 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 5,"Cusp-5"),
+            ChartPoints.Cusp6 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 6,"Cusp-6"),
+            ChartPoints.Cusp7 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 7,"Cusp-7"),
+            ChartPoints.Cusp8 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 8,"Cusp-8"),
+            ChartPoints.Cusp9 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 9,"Cusp-9"),
+            ChartPoints.Cusp10 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 10,"Cusp-10"),
+            ChartPoints.Cusp11 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 11,"Cusp-11"),
+            ChartPoints.Cusp12 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 12,"Cusp-12"),
+            ChartPoints.Cusp13 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 13,"Cusp-13"),
+            ChartPoints.Cusp14 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 14,"Cusp-14"),
+            ChartPoints.Cusp15 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 15,"Cusp-15"),
+            ChartPoints.Cusp16 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 16,"Cusp-16"),
+            ChartPoints.Cusp17 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 17,"Cusp-17"),
+            ChartPoints.Cusp18 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 18,"Cusp-18"),
+            ChartPoints.Cusp19 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 19,"Cusp-19"),
+            ChartPoints.Cusp20 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 20,"Cusp-20"),
+            ChartPoints.Cusp21 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 21, "Cusp-21"),
+            ChartPoints.Cusp22 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 22,"Cusp-22"),
+            ChartPoints.Cusp23 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 23,"Cusp-23"),
+            ChartPoints.Cusp24 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 24,"Cusp-24"),
+            ChartPoints.Cusp25 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 25,"Cusp-25"),
+            ChartPoints.Cusp26 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 26,"Cusp-26"),
+            ChartPoints.Cusp27 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 27,"Cusp-27"),
+            ChartPoints.Cusp28 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 28, "Cusp-28"),
+            ChartPoints.Cusp29 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 29,"Cusp-29"),
+            ChartPoints.Cusp30 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 30,"Cusp-30"),
+            ChartPoints.Cusp31 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 31,"Cusp-31"),
+            ChartPoints.Cusp32 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 32,"Cusp-32"),
+            ChartPoints.Cusp33 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 33,"Cusp-33"),
+            ChartPoints.Cusp34 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 34,"Cusp-34"),
+            ChartPoints.Cusp35 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 35,"Cusp-35"),
+            ChartPoints.Cusp36 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 36,"Cusp-36"),
+            // ZodiacFixed
+            ChartPoints.ZeroAries => new PointDetails(point, PointCats.Zodiac, CalculationCats.ZodiacFixed, 800,"Zero-Aries"),
+            // Lots
+            ChartPoints.FortunaSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, 900,"Pars-sect"),
+            ChartPoints.FortunaNoSect => new PointDetails(point, PointCats.Lots, CalculationCats.Lots, 901,"Pars-no-sect)"),
 
             _ => throw new ArgumentException("Point unknown : " + point)
         };
@@ -168,20 +171,23 @@ public static class PointsExtensions
     }
 
 
-    /// <summary>Find point for an index.</summary>
-    /// <param name="index">Index to look for.</param>
+    /// <summary>Find point for a caclulation index.</summary>
+    /// <param name="calcCat">Calcualtion category</param>
+    /// <param name="calcId">Calculation index to look for.</param>
     /// <returns>The point for the index.</returns>
     /// <exception cref="ArgumentException">Is thrown if a non existing index is given.</exception>
-    public static ChartPoints PointForIndex(int index)
+    public static ChartPoints PointForIndex(CalculationCats calcCat, int calcId)
     {
         foreach (ChartPoints currentPoint in Enum.GetValues(typeof(ChartPoints)))
         {
-            if ((int)currentPoint == index) return currentPoint;
+            if (currentPoint.GetDetails().CalcId == calcId && currentPoint.GetDetails().CalculationCat == calcCat) return currentPoint;
         }
-        Log.Error("ChartPoints.PointForIndex(): Could not find point for index : {Index}", index);
+        Log.Error("ChartPoints.PointForIndex(): Could not find point for calculation category {Cat} and index : {Index}", calcCat, calcId);
         throw new ArgumentException("Wrong index for ChartPoints");
     }
 
+
+    
 }
 
 

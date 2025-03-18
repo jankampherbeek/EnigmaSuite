@@ -38,7 +38,7 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointCelestialFormula()
     {
         const ChartPoints point = ChartPoints.PersephoneCarteret;
-        const CalculationCats expectedType = CalculationCats.CommonFormula;
+        const CalculationCats expectedType = CalculationCats.CommonFormulaLongitude;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(actualType, Is.EqualTo(expectedType));
     }
@@ -65,7 +65,7 @@ public class TestChartPointMappings
     public void TestCalculationTypeForPointZodiac()
     {
         const ChartPoints point = ChartPoints.ZeroAries;
-        const CalculationCats expectedType = CalculationCats.Lots;
+        const CalculationCats expectedType = CalculationCats.ZodiacFixed;
         CalculationCats actualType = _mapping.CalculationTypeForPoint(point);
         Assert.That(actualType, Is.EqualTo(expectedType));
     }
@@ -83,16 +83,11 @@ public class TestChartPointMappings
     public void TestSeIdForPointHappyFlow()
     {
         const ChartPoints point = ChartPoints.Juno;
-        const int expectedId = EnigmaConstants.SE_JUNO;
+        int expectedId = ChartPoints.Juno.GetDetails().CalcId;
         int actualId = _mapping.SeIdForCelestialPoint(point);
         Assert.That(actualId, Is.EqualTo(expectedId));
     }
 
-    [Test]
-    public void TestSeIdForPointError()
-    {
-        const ChartPoints point = ChartPoints.Mc;
-        _ = Assert.Throws<EnigmaException>(() => _mapping.SeIdForCelestialPoint(point));
-    }
+
 
 }

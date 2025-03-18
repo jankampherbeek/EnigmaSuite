@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -165,7 +165,13 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.Mc,
             ChartPoints.Sun,
             ChartPoints.MeanNode,
-            ChartPoints.TrueNode
+            ChartPoints.SouthNode,
+            ChartPoints.ApogeeMean,
+            ChartPoints.ApogeeCorrected,
+            ChartPoints.Dragon,
+            ChartPoints.Beast,
+            ChartPoints.BlackSun,
+            ChartPoints.Priapus
         };
         const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
@@ -183,11 +189,13 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.Sun,
             ChartPoints.Moon,
             ChartPoints.MeanNode,
-            ChartPoints.TrueNode,
+            ChartPoints.SouthNode,
             ChartPoints.ApogeeMean,
             ChartPoints.ApogeeCorrected,
-            ChartPoints.ApogeeDuval,
-            ChartPoints.ApogeeInterpolated
+            ChartPoints.Dragon,
+            ChartPoints.Beast,
+            ChartPoints.BlackSun,
+            ChartPoints.Priapus
         };
         const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);

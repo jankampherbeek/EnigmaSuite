@@ -99,13 +99,21 @@
             </TabItem>
             <TabItem Header="Points">
                 <Grid Margin="6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"/>
-                        <RowDefinition Height="90*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="10*"/>
+                        <RowDefinition Height="50*"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Margin="6" Text="Celestial points" Name="SubHeaderPoints"
+                    <TextBlock Grid.Column="0" Grid.Row="0" Margin="6" Text="Celestial points" Name="SubHeaderPoints"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold" />
-                    <DataGrid Grid.Row="1" Margin="6" HorizontalAlignment="Left"
+                    <DataGrid Grid.Column="0" Grid.Row="1" Grid.RowSpan="5" Margin="6" HorizontalAlignment="Left"
                               materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                               materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                               CanUserAddRows="False" CanUserSortColumns="False"
@@ -125,6 +133,15 @@
                                                                Header="Orb%" IsReadOnly="False"/>
                         </DataGrid.Columns>   
                     </DataGrid>
+                    <ComboBox Grid.Column="1" Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Type of apogee (Black Moon)"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding AllApogeeTypes}" 
+                              SelectedIndex="{Binding ApogeeTypeIndex, Mode=TwoWay}" />
+                    <CheckBox Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" IsTabStop="False" Content="Use oscillating (true) nodes"  
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              IsChecked="{Binding ApplyOscillatingNodes}" />
                 </Grid>
             </TabItem>
             <TabItem Header="Aspects">

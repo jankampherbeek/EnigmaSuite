@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2024.
+// Jan Kampherbeek, (c) 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -104,7 +104,8 @@ public class PrimDirDates: IPrimDirDates
             CoordinateSystems.Equatorial, 
             ObserverPositions.GeoCentric,
             ProjectionTypes.TwoDimensional, 
-            HouseSystems.NoHouses);
+            HouseSystems.NoHouses,
+            false);   // TODO define correct value for Oscillate
         return _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, jd, loc, prefs).Equatorial.MainPosSpeed.Position;
     }
     
@@ -122,7 +123,8 @@ public class PrimDirDates: IPrimDirDates
             CoordinateSystems.Ecliptical, 
             ObserverPositions.GeoCentric,
             ProjectionTypes.TwoDimensional, 
-            HouseSystems.NoHouses);
+            HouseSystems.NoHouses,
+            false);    // TODO define correct value for Oscillate
         return _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, jd, loc, prefs).Ecliptical.MainPosSpeed.Position;
     }
     
