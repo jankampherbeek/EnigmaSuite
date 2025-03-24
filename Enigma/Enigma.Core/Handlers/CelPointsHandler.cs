@@ -80,8 +80,10 @@ public sealed class CelPointsHandler(
             {
                 case CalculationCats.CommonSe:
                 {
+                    var actCelPoint = celPoint;
+                    if (celPoint == ChartPoints.NorthNode && prefs.Oscillate) actCelPoint = ChartPoints.TrueNode;
                     KeyValuePair<ChartPoints, FullPointPos> fullPointPos =
-                        CreatePosForSePoint(celPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
+                        CreatePosForSePoint(actCelPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
                     commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
                     break;
                 }
@@ -131,6 +133,42 @@ public sealed class CelPointsHandler(
                 }
                 case CalculationCats.CommonFormulaFull:
                 {
+                    if (celPoint is ChartPoints.SouthNode)
+                    {
+                        var northNode = prefs.Oscillate ? ChartPoints.TrueNode : ChartPoints.NorthNode;
+                        var nodePos = CreatePosForSePoint(northNode, jdUt, location, flagsEcliptical, flagsEquatorial);
+                        var nodeDistancePos = nodePos.Value.Ecliptical.DistancePosSpeed.Position;
+                        var nodeDistanceSpeed = nodePos.Value.Ecliptical.DistancePosSpeed.Speed;
+                        var distPosSpeed = new PosSpeed(nodeDistancePos, nodeDistanceSpeed);
+                        var nodeLongPos = nodePos.Value.Ecliptical.MainPosSpeed.Position + 180.0;
+                        if (nodeLongPos >= 360.0) nodeLongPos -= 360.0;
+                        var nodeLongSpeed = nodePos.Value.Ecliptical.MainPosSpeed.Speed;
+                        var eclLongPosSpeed = new PosSpeed(nodeLongPos, nodeLongSpeed);
+                        var eclLatPosSpeed = new PosSpeed(0.0, 0.0);
+                        var eclPosSpeeds = new PointPosSpeeds(eclLongPosSpeed, eclLatPosSpeed, distPosSpeed);
+                        
+                        var nodeRaPos = nodePos.Value.Equatorial.MainPosSpeed.Position + 180.0;
+                        if (nodeRaPos >= 360.0) nodeRaPos -= 360.0;
+                        var nodeRaSpeed = nodePos.Value.Equatorial.MainPosSpeed.Speed;
+                        var raPosSpeed = new PosSpeed(nodeRaPos, nodeRaSpeed);
+                        var nodeDeclPos = nodePos.Value.Equatorial.DeviationPosSpeed.Position * -1.0;
+                        var nodeDeclSpeed = nodePos.Value.Equatorial.DeviationPosSpeed.Speed;
+                        var declPosSpeed = new PosSpeed(nodeDeclPos, nodeDeclSpeed);
+                        var equPosSpeeds = new PointPosSpeeds(raPosSpeed, declPosSpeed, distPosSpeed);
+                        
+                        var nodeAzimuth = nodePos.Value.Horizontal.MainPosSpeed.Position + 180.0;
+                        if (nodeAzimuth >= 360.0) nodeAzimuth -= 360.0;
+                        var azimPosSpeed = new PosSpeed(nodeAzimuth, 0.0);
+                        var nodeAltitude = nodePos.Value.Horizontal.DeviationPosSpeed.Position * -1.0;
+                        var altPosSpeed = new PosSpeed(nodeAltitude, 0.0);
+                        var horDistPosSpeed = new PosSpeed(0.0, 0.0);
+                        var horPosSpeeds = new PointPosSpeeds(azimPosSpeed, altPosSpeed, horDistPosSpeed);
+
+                        var southNodeFpPos = new FullPointPos(eclPosSpeeds, equPosSpeeds, horPosSpeeds);
+                        commonPoints.Add(celPoint, southNodeFpPos);
+                    }
+                    
+                    
                     if (celPoint is ChartPoints.Priapus or ChartPoints.PriapusCorrected)
                     {
                         var apogee = prefs.ApogeeType switch
@@ -195,7 +233,8 @@ public sealed class CelPointsHandler(
 
                     if (celPoint is ChartPoints.Dragon or ChartPoints.Beast)
                     {
-                        var node = prefs.Oscillate ? ChartPoints.TrueNode : ChartPoints.MeanNode;
+                        var node = prefs.Oscillate ? ChartPoints.TrueNode : ChartPoints.NorthNode;
+                        
                         var fullPointPosNode =
                             CreatePosForSePoint(node, jdUt, location, flagsEcliptical, flagsEquatorial);
                         var eclLongNode = fullPointPosNode.Value.Ecliptical.MainPosSpeed.Position;

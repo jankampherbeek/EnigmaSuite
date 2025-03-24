@@ -198,7 +198,7 @@ public sealed class OobCalendarCalc : IOobCalendarCalc
         {
             ChartPoints.Sun,
             ChartPoints.Earth,
-            ChartPoints.MeanNode,
+            ChartPoints.NorthNode,
             ChartPoints.TrueNode,
             ChartPoints.SouthNode,
             ChartPoints.ApogeeInterpolated,

@@ -14,7 +14,7 @@ public enum ChartPoints
 {
     Sun = 0, Moon = 1, Mercury = 2, Venus = 3, Earth=4, Mars = 5, Jupiter = 6, Saturn = 7,
     Uranus = 8, Neptune = 9, Pluto = 10,
-    MeanNode = 11, TrueNode = 12, Chiron = 13,
+    NorthNode = 11, TrueNode = 12, Chiron = 13,
     PersephoneRam = 14, HermesRam = 15, DemeterRam = 16,
     CupidoUra = 17, HadesUra = 18, ZeusUra = 19, KronosUra = 20, ApollonUra = 21, AdmetosUra = 22, VulcanusUra = 23, PoseidonUra = 24,
     Eris = 25, Pholus = 26, Ceres = 27, Pallas = 28, Juno = 29, Vesta = 30, Isis = 31, Nessus = 32,
@@ -61,7 +61,7 @@ public static class PointsExtensions
             ChartPoints.Uranus => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 7,"Uranus"),
             ChartPoints.Neptune => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 8,"Neptune"),
             ChartPoints.Pluto => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 9, "Pluto"),
-            ChartPoints.MeanNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 10, "North node"),
+            ChartPoints.NorthNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 10, "North node"),
             ChartPoints.TrueNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 11, "North node"),
             ChartPoints.ApogeeMean => new PointDetails(point, PointCats.Common, CalculationCats.CommonSe, 12,"Apogee-mean"),
             // TODO add variable type for CalculationCats to Apogeecorrected

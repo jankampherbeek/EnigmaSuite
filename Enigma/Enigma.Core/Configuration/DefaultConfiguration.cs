@@ -63,7 +63,7 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { ChartPoints.Uranus,  new ChartPointConfigSpecs(true, 'i',50, true) },
             { ChartPoints.Neptune,  new ChartPointConfigSpecs(true, 'j',50, true) },
             { ChartPoints.Pluto,  new ChartPointConfigSpecs(true, 'k',50, true) },
-            { ChartPoints.MeanNode,  new ChartPointConfigSpecs(false, '{',65, true) },
+            { ChartPoints.NorthNode,  new ChartPointConfigSpecs(false, '{',65, true) },
             { ChartPoints.SouthNode, new ChartPointConfigSpecs(false, '}', 65, false )},
             { ChartPoints.Chiron,  new ChartPointConfigSpecs(true, 'w',65, true) },
             { ChartPoints.PersephoneRam, new ChartPointConfigSpecs(false, '/', 40, true) },
