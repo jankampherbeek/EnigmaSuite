@@ -1,9 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api.Charts.Prog.PrimDir;
+using Enigma.Api.LocationAndTimeZones;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -33,6 +34,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IHarmonicsApi, HarmonicsApi>();
         serviceCollection.AddTransient<IHorizontalApi, HorizontalApi>();
         serviceCollection.AddTransient<IHousesApi, HousesApi>();
+        serviceCollection.AddTransient<ILocationApi, LocationApi>();
         serviceCollection.AddTransient<IMidpointsApi, MidpointsApi>();
         serviceCollection.AddTransient<IJulianDayApi, JulianDayApi>();
         serviceCollection.AddTransient<IObliqueLongitudeApi, ObliqueLongitudeApi>();
