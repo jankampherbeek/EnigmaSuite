@@ -40,6 +40,8 @@ namespace Enigma.Core.LocationAndTimeZones;
                         });
                     }
                 }
+                countries.Sort((x, y) =>
+                    string.Compare(x.Name, y.Name, StringComparison.OrdinalIgnoreCase));
                 return countries;
             }
             catch (Exception ex)
@@ -83,7 +85,8 @@ namespace Enigma.Core.LocationAndTimeZones;
                         IndicationTz = fields[6].Trim()
                     });
                 }
-
+                cities.Sort((x, y) =>
+                    string.Compare(x.Name, y.Name, StringComparison.OrdinalIgnoreCase));
                 return cities;
             }
             catch (Exception ex)

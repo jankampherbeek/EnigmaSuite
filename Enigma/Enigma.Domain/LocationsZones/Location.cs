@@ -7,14 +7,14 @@ namespace Enigma.Domain.LocationsZones;
 
 
 /// <summary>Data for a country, to be used in finding coordinates.</summary>
-public class Country
+public record Country
 {
     public string Code { get; set; }
     public string Name { get; set; }
 }
 
 /// <summary>Data for a city, to be used in finding coordinates.</summary>
-public class City
+public record City
 {
     public string Country { get; set; }
     public string Name { get; set; }
