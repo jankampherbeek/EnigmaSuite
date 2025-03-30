@@ -107,7 +107,7 @@
         <ComboBox Grid.Row="11" Grid.Column="0" 
                   ItemsSource="{Binding AllCountries, UpdateSourceTrigger=PropertyChanged}"
                   VerticalAlignment="Center" 
-                  SelectedItem="{Binding SelectedCountry, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   DisplayMemberPath="Name"
                   materialDesign:HintAssist.Hint="Select a country"
                   Margin="6, 0"
@@ -117,7 +117,7 @@
         
         <ComboBox Grid.Row="12" Grid.Column="0" 
                   ItemsSource="{Binding CitiesForCountry, UpdateSourceTrigger=LostFocus}"
-                  SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
+                  SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   DisplayMemberPath="Name"
                   VerticalContentAlignment="Center"
                   materialDesign:HintAssist.Hint="Select a city after selecting a country"
@@ -135,7 +135,7 @@
                   VerticalAlignment="Center" Margin="6 0"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllDirectionsForLongitude}"
-                  SelectedIndex="{Binding DirLongIndex, Mode=TwoWay}" />
+                  SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Row="14" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"

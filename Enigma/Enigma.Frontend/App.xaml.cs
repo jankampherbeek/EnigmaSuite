@@ -69,6 +69,7 @@ public partial class App
         serviceCollection.AddTransient<CyclesMainModel>();
         serviceCollection.AddTransient<DatafileOverviewModel>();
         serviceCollection.AddTransient<DatafileImportModel>();
+        serviceCollection.AddSingleton<IDataInputConverter, DataInputConverter>();
         serviceCollection.AddTransient<IDateInputParser, DateInputParser>();
         serviceCollection.AddSingleton<IDataNameForPresentationFactory, DataNameForPresentationFactory>();
         serviceCollection.AddSingleton<IDateValidator, DateValidator>();

@@ -1,8 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024, 2025.
+// Copyright (c) 2023 Jan Kampherbeek.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -18,6 +19,7 @@ using Enigma.Domain.LocationsZones;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -31,8 +33,8 @@ public partial class RadixDataInputViewModel
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_DATA_INPUT;
     
  //   public event PropertyChangedEventHandler PropertyChanged;
-    public ObservableCollection<Country> _allCountries;
-    public ObservableCollection<City> _citiesForCountry;
+
+
     private Country _selectedCountry;
     private City _selectedCity;
     [ObservableProperty] private string _nameId = "";
@@ -71,11 +73,13 @@ public partial class RadixDataInputViewModel
     [ObservableProperty] private ObservableCollection<string> _allCalendars;
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
     [ObservableProperty] private ObservableCollection<string> _allTimeZones;
-
+    [ObservableProperty] private ObservableCollection<Country> _allCountries;
+    [ObservableProperty] private ObservableCollection<City> _citiesForCountry;
     [ObservableProperty]
     private string _geoLong = "";
     [ObservableProperty]
     private string _geoLat;
+    
     private readonly int _enumIndexForLmt;
     private readonly RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
     
@@ -86,9 +90,12 @@ public partial class RadixDataInputViewModel
     public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
+
+    private IDataInputConverter _dataInputConverter;
     
     public RadixDataInputViewModel()
     {
+        _dataInputConverter = new DataInputConverter();
         AllRatings = new ObservableCollection<string>(_model.AllRatings);
         AllCategories = new ObservableCollection<string>(_model.AllCategories);
         AllDirectionsForLatitude = new ObservableCollection<string>(_model.AllDirectionsForLatitude);
@@ -113,7 +120,7 @@ public partial class RadixDataInputViewModel
             {
                await UpdateCitiesAsync();
             });            
-
+    
         }
     }
     
@@ -141,30 +148,12 @@ public partial class RadixDataInputViewModel
     
     private void UpdateCoordinates()
     {
-        GeoLong = SelectedCity.GeoLong;
-        GeoLat = SelectedCity.GeoLat;
+        GeoLong = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLong);
+        GeoLat = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLat);
+        DirLongIndex = SelectedCity.GeoLong.StartsWith('-') ? 1 : 0;
+        DirLatIndex = SelectedCity.GeoLat.StartsWith('-') ? 1 : 0;
     }
 
-    public ObservableCollection<Country> AllCountries
-    {
-        get => _allCountries;
-        set
-        {
-            _allCountries = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public ObservableCollection<City> CitiesForCountry
-    {
-        get => _citiesForCountry;
-        set
-        {
-            _citiesForCountry = value;
-            OnPropertyChanged(nameof(CitiesForCountry));
-        }
-    }
-    
     [RelayCommand]
     private void Calculate()
     {
