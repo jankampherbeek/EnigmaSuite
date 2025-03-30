@@ -82,7 +82,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
 
     private CalculationPreferences DefinePreferences()
     {
-        AstroConfig config = _configurationHandler.ReadCurrentConfig();
+        var config = _configurationHandler.ReadCurrentConfig();
         Dictionary<ChartPoints, ChartPointConfigSpecs> cpSpecs = config.ChartPoints;
         List<ChartPoints> celPoints = (from cpSpec in cpSpecs 
             where cpSpec.Value.IsUsed 
@@ -90,7 +90,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             where pointCat == PointCats.Common 
             select cpSpec.Key).ToList();
         return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
-            config.ObserverPosition, config.ProjectionType, config.HouseSystem, ApogeeTypes.Corrected,false);  // TODO define correct value for Oscillate andf apogee type
+            config.ObserverPosition, config.ProjectionType, config.HouseSystem, ApogeeTypes.Corrected,false);  // TODO define correct value for Oscillate and apogee type
     }
 
 }
