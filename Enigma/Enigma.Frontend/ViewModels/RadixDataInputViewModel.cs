@@ -25,11 +25,12 @@ using Serilog;
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for data input for a chart</summary>
-public partial class RadixDataInputViewModel: ObservableObject, INotifyPropertyChanged
+[ObservableObject]
+public partial class RadixDataInputViewModel
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_DATA_INPUT;
     
-    public event PropertyChangedEventHandler PropertyChanged;
+ //   public event PropertyChangedEventHandler PropertyChanged;
     public ObservableCollection<Country> _allCountries;
     public ObservableCollection<City> _citiesForCountry;
     private Country _selectedCountry;
@@ -40,11 +41,7 @@ public partial class RadixDataInputViewModel: ObservableObject, INotifyPropertyC
     [ObservableProperty] private string _locationName = "";
     [NotifyPropertyChangedFor(nameof(GeoLatValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
-    [ObservableProperty] private string _geoLat = "";
-    [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
-    [ObservableProperty] private string _geoLong = "";
-    [NotifyPropertyChangedFor(nameof(GeoLong))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
     [ObservableProperty] private string _lmtGeoLong = "";
@@ -75,6 +72,10 @@ public partial class RadixDataInputViewModel: ObservableObject, INotifyPropertyC
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
     [ObservableProperty] private ObservableCollection<string> _allTimeZones;
 
+    [ObservableProperty]
+    private string _geoLong = "";
+    [ObservableProperty]
+    private string _geoLat;
     private readonly int _enumIndexForLmt;
     private readonly RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
     
@@ -100,7 +101,7 @@ public partial class RadixDataInputViewModel: ObservableObject, INotifyPropertyC
         CitiesForCountry = new ObservableCollection<City>();
         _enumIndexForLmt = (int)TimeZones.Lmt;
     }
-
+    
     public Country SelectedCountry
     {
         get => _selectedCountry;
@@ -141,14 +142,9 @@ public partial class RadixDataInputViewModel: ObservableObject, INotifyPropertyC
     private void UpdateCoordinates()
     {
         GeoLong = SelectedCity.GeoLong;
+        GeoLat = SelectedCity.GeoLat;
     }
-    
-    protected new virtual void OnPropertyChanged([CallerMemberName] string propertyName = null!)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    
-    
+
     public ObservableCollection<Country> AllCountries
     {
         get => _allCountries;

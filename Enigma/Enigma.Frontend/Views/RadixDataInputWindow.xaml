@@ -129,19 +129,18 @@
                  materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding GeoLongValid}"
-                 Text="{Binding GeoLong, Mode=TwoWay}"/>
+                 Text="{Binding GeoLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Grid.Row="13" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="East/West"
                   VerticalAlignment="Center" Margin="6 0"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllDirectionsForLongitude}"
                   SelectedIndex="{Binding DirLongIndex, Mode=TwoWay}" />
-        <TextBox Grid.Row="14" Grid.Column="0"  
+        <TextBox Grid.Row="14" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
-                 VerticalAlignment="Center" Margin="6 0"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding GeoLatValid}"
-                 Text="{Binding GeoLat, Mode=TwoWay}"/>
+                 Text="{Binding GeoLat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Grid.Row="14" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="North/South"
                   VerticalAlignment="Center" Margin="6 0"
