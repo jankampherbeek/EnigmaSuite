@@ -29,6 +29,6 @@ public class ConfigPreferencesConverter: IConfigPreferencesConverter
             where spec.Value.IsUsed 
             select spec.Key).ToList();
         return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
-            config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.OscillateNodes);
+            config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.ApogeeType, config.OscillateNodes);
     }
 }

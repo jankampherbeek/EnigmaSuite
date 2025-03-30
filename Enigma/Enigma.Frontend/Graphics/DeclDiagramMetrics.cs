@@ -68,7 +68,7 @@ public class DeclDiagramMetrics
     
     // Fonts and colors.
     public FontFamily DegreeTextsFontFamily { get; } = new ("Calibri");
-    public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrology");
+    public FontFamily GlyphsFontFamily { get; } = new ("EnigmaAstrologyBLA");
     public double DegreeTextSize { get; private set; }
     
     public double DegreeTextOpacity = 1.0;

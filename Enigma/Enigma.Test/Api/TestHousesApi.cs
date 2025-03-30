@@ -106,7 +106,7 @@ public class TestHousesApi
         };
         return new CalculationPreferences(points, ZodiacTypes.Tropical, Ayanamshas.None, 
             CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ProjectionTypes.TwoDimensional, 
-            HouseSystems.Apc, false);
+            HouseSystems.Apc, ApogeeTypes.Interpolated, false);
     }
 
 }

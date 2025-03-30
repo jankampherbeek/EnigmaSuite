@@ -9,6 +9,7 @@ using Enigma.Core.Charts.Prog.PrimDir;
 using Enigma.Core.Communication;
 using Enigma.Core.Configuration;
 using Enigma.Core.Handlers;
+using Enigma.Core.LocationAndTimeZones;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Core.Research.Services;
@@ -86,6 +87,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
+        serviceCollection.AddTransient<ILocationHandler, LocationHandler>();
         serviceCollection.AddTransient<ILongitudeEquivalentHandler, LongitudeEquivalentHandler>();
         serviceCollection.AddTransient<ILotsCalculator, LotsCalculator>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();

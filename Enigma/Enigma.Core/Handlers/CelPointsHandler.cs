@@ -68,15 +68,22 @@ public sealed class CelPointsHandler(
         int flagsEcliptical = seFlags.DefineFlags(CoordinateSystems.Ecliptical, prefs.ActualObserverPosition, prefs.ActualZodiacType);
         int flagsEquatorial = seFlags.DefineFlags(CoordinateSystems.Equatorial, prefs.ActualObserverPosition, prefs.ActualZodiacType);
         var commonPoints = new Dictionary<ChartPoints, FullPointPos>();
-        foreach (ChartPoints celPoint in celPoints)   
+        foreach (ChartPoints celPoint in celPoints)
         {
-            CalculationCats calculationCat = chartPointsMapping.CalculationTypeForPoint(celPoint);
+            CalculationCats calculationCat = celPoint.GetDetails().CalculationCat;
+            if (celPoint == ChartPoints.ApogeeCorrected && prefs.ApogeeType == ApogeeTypes.Duval)
+            {
+                calculationCat = CalculationCats.CommonFormulaLongitude;
+            }
+            
             switch (calculationCat)
             {
                 case CalculationCats.CommonSe:
                 {
+                    var actCelPoint = celPoint;
+                    if (celPoint == ChartPoints.NorthNode && prefs.Oscillate) actCelPoint = ChartPoints.TrueNode;
                     KeyValuePair<ChartPoints, FullPointPos> fullPointPos =
-                        CreatePosForSePoint(celPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
+                        CreatePosForSePoint(actCelPoint, jdUt, location, flagsEcliptical, flagsEquatorial);
                     commonPoints.Add(fullPointPos.Key, fullPointPos.Value);
                     break;
                 }
@@ -115,7 +122,7 @@ public sealed class CelPointsHandler(
                 }
                 case CalculationCats.CommonFormulaLongitude:
                 {
-                    double longitude = CreateLongitudeForFormulaPoint(celPoint, jdUt);
+                    double longitude = celPointFormulaCalc.Calculate(celPoint, jdUt);
                     List<double> posSpeedValues = new() { longitude, ZERO, ZERO, ZERO, ZERO, ZERO };
                     List<double> emptyPosSpeedValues = new() { ZERO, ZERO, ZERO, ZERO, ZERO, ZERO };
                     PointPosSpeeds posSpeeds = new PointPosSpeeds(posSpeedValues);
@@ -126,39 +133,93 @@ public sealed class CelPointsHandler(
                 }
                 case CalculationCats.CommonFormulaFull:
                 {
-                    if (celPoint == ChartPoints.Priapus)
+                    if (celPoint is ChartPoints.SouthNode)
                     {
-                        var fullPointPos = CreatePosForSePoint(ChartPoints.BlackSun, jdUt, location, flagsEcliptical,
-                            flagsEquatorial);
-                        var eclLong = fullPointPos.Value.Ecliptical.MainPosSpeed.Position + 180.0;
+                        var northNode = prefs.Oscillate ? ChartPoints.TrueNode : ChartPoints.NorthNode;
+                        var nodePos = CreatePosForSePoint(northNode, jdUt, location, flagsEcliptical, flagsEquatorial);
+                        var nodeDistancePos = nodePos.Value.Ecliptical.DistancePosSpeed.Position;
+                        var nodeDistanceSpeed = nodePos.Value.Ecliptical.DistancePosSpeed.Speed;
+                        var distPosSpeed = new PosSpeed(nodeDistancePos, nodeDistanceSpeed);
+                        var nodeLongPos = nodePos.Value.Ecliptical.MainPosSpeed.Position + 180.0;
+                        if (nodeLongPos >= 360.0) nodeLongPos -= 360.0;
+                        var nodeLongSpeed = nodePos.Value.Ecliptical.MainPosSpeed.Speed;
+                        var eclLongPosSpeed = new PosSpeed(nodeLongPos, nodeLongSpeed);
+                        var eclLatPosSpeed = new PosSpeed(0.0, 0.0);
+                        var eclPosSpeeds = new PointPosSpeeds(eclLongPosSpeed, eclLatPosSpeed, distPosSpeed);
+                        
+                        var nodeRaPos = nodePos.Value.Equatorial.MainPosSpeed.Position + 180.0;
+                        if (nodeRaPos >= 360.0) nodeRaPos -= 360.0;
+                        var nodeRaSpeed = nodePos.Value.Equatorial.MainPosSpeed.Speed;
+                        var raPosSpeed = new PosSpeed(nodeRaPos, nodeRaSpeed);
+                        var nodeDeclPos = nodePos.Value.Equatorial.DeviationPosSpeed.Position * -1.0;
+                        var nodeDeclSpeed = nodePos.Value.Equatorial.DeviationPosSpeed.Speed;
+                        var declPosSpeed = new PosSpeed(nodeDeclPos, nodeDeclSpeed);
+                        var equPosSpeeds = new PointPosSpeeds(raPosSpeed, declPosSpeed, distPosSpeed);
+                        
+                        var nodeAzimuth = nodePos.Value.Horizontal.MainPosSpeed.Position + 180.0;
+                        if (nodeAzimuth >= 360.0) nodeAzimuth -= 360.0;
+                        var azimPosSpeed = new PosSpeed(nodeAzimuth, 0.0);
+                        var nodeAltitude = nodePos.Value.Horizontal.DeviationPosSpeed.Position * -1.0;
+                        var altPosSpeed = new PosSpeed(nodeAltitude, 0.0);
+                        var horDistPosSpeed = new PosSpeed(0.0, 0.0);
+                        var horPosSpeeds = new PointPosSpeeds(azimPosSpeed, altPosSpeed, horDistPosSpeed);
+
+                        var southNodeFpPos = new FullPointPos(eclPosSpeeds, equPosSpeeds, horPosSpeeds);
+                        commonPoints.Add(celPoint, southNodeFpPos);
+                    }
+                    
+                    
+                    if (celPoint is ChartPoints.Priapus or ChartPoints.PriapusCorrected)
+                    {
+                        var apogee = prefs.ApogeeType switch
+                        {
+                            ApogeeTypes.Corrected => ChartPoints.ApogeeCorrected,
+                            ApogeeTypes.Duval => ChartPoints.ApogeeCorrected,
+                            ApogeeTypes.Interpolated => ChartPoints.ApogeeInterpolated,
+                            _ => ChartPoints.ApogeeMean
+                        };
+                        if (celPoint == ChartPoints.Priapus) apogee = ChartPoints.ApogeeMean;
+                        var fullPointPosApogee =
+                            CreatePosForSePoint(apogee, jdUt, location, flagsEcliptical, flagsEquatorial);
+                        if (apogee == ChartPoints.ApogeeCorrected && prefs.ApogeeType == ApogeeTypes.Duval)
+                        {
+                            double longitude = celPointFormulaCalc.Calculate(ChartPoints.ApogeeCorrected, jdUt);
+                            List<double> posSpeedValues = new() { longitude, ZERO, ZERO, ZERO, ZERO, ZERO };
+                            List<double> emptyPosSpeedValues = new() { ZERO, ZERO, ZERO, ZERO, ZERO, ZERO };
+                            PointPosSpeeds posSpeeds = new PointPosSpeeds(posSpeedValues);
+                            PointPosSpeeds emptyPosSpeeds = new PointPosSpeeds(emptyPosSpeedValues);
+                            FullPointPos fpPos = new FullPointPos(posSpeeds, emptyPosSpeeds, emptyPosSpeeds);
+                            fullPointPosApogee = new KeyValuePair<ChartPoints, FullPointPos>(ChartPoints.ApogeeCorrected, fpPos);                       
+                        }
+                        var eclLong = fullPointPosApogee.Value.Ecliptical.MainPosSpeed.Position + 180.0;
                         if (eclLong >= 360.0) eclLong -= 360.0;
                         var eclipticPositions = new List<double>
                         {
                             eclLong,
-                            fullPointPos.Value.Ecliptical.MainPosSpeed.Speed,
-                            fullPointPos.Value.Ecliptical.DeviationPosSpeed.Position * -1.0,
-                            fullPointPos.Value.Ecliptical.DeviationPosSpeed.Speed,
+                            fullPointPosApogee.Value.Ecliptical.MainPosSpeed.Speed,
+                            fullPointPosApogee.Value.Ecliptical.DeviationPosSpeed.Position * -1.0,
+                            fullPointPosApogee.Value.Ecliptical.DeviationPosSpeed.Speed,
                             0.0,
                             0.0
                         };
-                        var ra = fullPointPos.Value.Equatorial.MainPosSpeed.Position + 180.0;
+                        var ra = fullPointPosApogee.Value.Equatorial.MainPosSpeed.Position + 180.0;
                         if (ra >= 360.0) ra -= 360.0;
                         var equatorialPositions = new List<double>
                         {
                             ra,
-                            fullPointPos.Value.Equatorial.MainPosSpeed.Speed,
-                            fullPointPos.Value.Equatorial.DeviationPosSpeed.Position * -1.0,
-                            fullPointPos.Value.Equatorial.DeviationPosSpeed.Speed,
+                            fullPointPosApogee.Value.Equatorial.MainPosSpeed.Speed,
+                            fullPointPosApogee.Value.Equatorial.DeviationPosSpeed.Position * -1.0,
+                            fullPointPosApogee.Value.Equatorial.DeviationPosSpeed.Speed,
                             0.0,
                             0.0
                         };
-                        var azimuth = fullPointPos.Value.Horizontal.MainPosSpeed.Position + 180.0;
+                        var azimuth = fullPointPosApogee.Value.Horizontal.MainPosSpeed.Position + 180.0;
                         if (azimuth >= 360.0) azimuth -= 360.0;
                         var horizontalPositions = new List<double>
                         {
                             azimuth,
                             0.0,
-                            fullPointPos.Value.Horizontal.DeviationPosSpeed.Position * -1.0,
+                            fullPointPosApogee.Value.Horizontal.DeviationPosSpeed.Position * -1.0,
                             0.0,
                             0.0,
                             0.0
@@ -172,7 +233,8 @@ public sealed class CelPointsHandler(
 
                     if (celPoint is ChartPoints.Dragon or ChartPoints.Beast)
                     {
-                        var node = prefs.Oscillate ? ChartPoints.TrueNode : ChartPoints.MeanNode;
+                        var node = prefs.Oscillate ? ChartPoints.TrueNode : ChartPoints.NorthNode;
+                        
                         var fullPointPosNode =
                             CreatePosForSePoint(node, jdUt, location, flagsEcliptical, flagsEquatorial);
                         var eclLongNode = fullPointPosNode.Value.Ecliptical.MainPosSpeed.Position;
@@ -187,7 +249,8 @@ public sealed class CelPointsHandler(
                         var eclipticPosSpeed = new PosSpeed[]
                         {
                             new PosSpeed(longitude, 0.0),
-                            new PosSpeed(latitude, 0.0)
+                            new PosSpeed(latitude, 0.0),
+                            new PosSpeed(0.0, 0.0)
                         };
                         // Calculate equatorial coordinates
                         var eqCoord = coordinateConversionCalc.PerformConversion(
@@ -197,17 +260,16 @@ public sealed class CelPointsHandler(
                         var equatorialPosSpeed = new PosSpeed[]
                         {
                             new PosSpeed(ra, 0.0),
-                            new PosSpeed(decl, 0.0)
+                            new PosSpeed(decl, 0.0),
+                            new PosSpeed(0.0, 0.0)
                         };
                         // Calculate horizontal coordinates
                         HorizontalRequest horizontalRequest = new(jdUt, location, eqCoord);
                         HorizontalCoordinates horCoord = horizontalHandler.CalcHorizontal(horizontalRequest);
                         FullPointPos fullPointPos =
                             fullPointPosFactory.CreateFullPointPos(eclipticPosSpeed, equatorialPosSpeed, horCoord);
-                        // Add to commonPoints
                         commonPoints.Add(celPoint, fullPointPos);
                     }
-
                     break;
                 }
             }

@@ -38,8 +38,8 @@ public sealed class CelPointFormulaCalc: ICelPointFormulaCalc
                 return CalcCarteretHypPlanet(jdUt, 212.0, 1.0);
             case ChartPoints.VulcanusCarteret:
                 return CalcCarteretHypPlanet(jdUt, 15.7, 0.55);
-            case ChartPoints.ApogeeCorrected:
-                return CalcApogeeDuval(jdUt);   // TODO make difference based on configuration
+            case ChartPoints.ApogeeCorrected:    // should always be Duval
+                return CalcApogeeDuval(jdUt);  
             default: return 0.0;
         }
     }
@@ -62,8 +62,8 @@ public sealed class CelPointFormulaCalc: ICelPointFormulaCalc
     {
         Location? location = new Location("", 0.0, 0.0);     // dummy location
         const int flagsEcl = 2 + 256; // use SE + speed
-        double longSun = _celPointSeCalc.CalculateCelPoint((int)ChartPoints.Sun, jdUt, location, flagsEcl)[0].Position;
-        double longApogeeMean = _celPointSeCalc.CalculateCelPoint((int)ChartPoints.ApogeeMean,jdUt, location, flagsEcl)[0].Position;
+        double longSun = _celPointSeCalc.CalculateCelPoint(ChartPoints.Sun.GetDetails().CalcId, jdUt, location, flagsEcl)[0].Position;
+        double longApogeeMean = _celPointSeCalc.CalculateCelPoint(ChartPoints.ApogeeMean.GetDetails().CalcId,jdUt, location, flagsEcl)[0].Position;
         double diff = RangeUtil.ValueToRange(longSun - longApogeeMean, -180.0, 180.0);
         const double factor1 = 12.37;
         double sin2Diff = Math.Sin(MathExtra.DegToRad(2 * diff));

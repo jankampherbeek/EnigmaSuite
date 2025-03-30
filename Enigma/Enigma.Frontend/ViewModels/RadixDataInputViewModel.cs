@@ -1,20 +1,25 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Copyright (c) 2023 Jan Kampherbeek.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Domain.Constants;
+using Enigma.Domain.LocationsZones;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
-using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -22,19 +27,23 @@ using Serilog;
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for data input for a chart</summary>
-public partial class RadixDataInputViewModel: ObservableObject
+[ObservableObject]
+public partial class RadixDataInputViewModel
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_DATA_INPUT;
+    
+ //   public event PropertyChangedEventHandler PropertyChanged;
+
+
+    private Country _selectedCountry;
+    private City _selectedCity;
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
     [ObservableProperty] private string _source = "";
     [ObservableProperty] private string _locationName = "";
     [NotifyPropertyChangedFor(nameof(GeoLatValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
-    [ObservableProperty] private string _geoLat = "";
-    [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
-    [ObservableProperty] private string _geoLong = "";
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
     [ObservableProperty] private string _lmtGeoLong = "";
@@ -52,10 +61,10 @@ public partial class RadixDataInputViewModel: ObservableObject
     [ObservableProperty] private int _lmtDirLongIndex;
     [ObservableProperty] private int _calendarIndex;
     [ObservableProperty] private int _yearCountIndex;
+    [ObservableProperty] private int _timeZoneIndex;
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(LmtEnabled))]
-    [ObservableProperty] private int _timeZoneIndex;
-    
+   
     [ObservableProperty] private ObservableCollection<string> _allRatings;
     [ObservableProperty] private ObservableCollection<string> _allCategories;
     [ObservableProperty] private ObservableCollection<string> _allDirectionsForLatitude;
@@ -64,6 +73,13 @@ public partial class RadixDataInputViewModel: ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allCalendars;
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
     [ObservableProperty] private ObservableCollection<string> _allTimeZones;
+    [ObservableProperty] private ObservableCollection<Country> _allCountries;
+    [ObservableProperty] private ObservableCollection<City> _citiesForCountry;
+    [ObservableProperty]
+    private string _geoLong = "";
+    [ObservableProperty]
+    private string _geoLat;
+    
     private readonly int _enumIndexForLmt;
     private readonly RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
     
@@ -74,9 +90,12 @@ public partial class RadixDataInputViewModel: ObservableObject
     public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
+
+    private IDataInputConverter _dataInputConverter;
     
     public RadixDataInputViewModel()
     {
+        _dataInputConverter = new DataInputConverter();
         AllRatings = new ObservableCollection<string>(_model.AllRatings);
         AllCategories = new ObservableCollection<string>(_model.AllCategories);
         AllDirectionsForLatitude = new ObservableCollection<string>(_model.AllDirectionsForLatitude);
@@ -85,15 +104,56 @@ public partial class RadixDataInputViewModel: ObservableObject
         AllCalendars = new ObservableCollection<string>(_model.AllCalendars);
         AllYearCounts = new ObservableCollection<string>(_model.AllYearCounts);
         AllTimeZones = new ObservableCollection<string>(_model.AllTimeZones);
+        AllCountries = new ObservableCollection<Country>(_model.AllCountries);
+        CitiesForCountry = new ObservableCollection<City>();
         _enumIndexForLmt = (int)TimeZones.Lmt;
     }
-
-    private void DefineTexts()
+    
+    public Country SelectedCountry
     {
-        
+        get => _selectedCountry;
+        set
+        {
+            _selectedCountry = value;
+            OnPropertyChanged();
+            Task.Run(async () => 
+            {
+               await UpdateCitiesAsync();
+            });            
+    
+        }
+    }
+    
+    public City SelectedCity
+    {
+        get => _selectedCity;
+        set
+        {
+            _selectedCity = value;
+            OnPropertyChanged();
+            UpdateCoordinates();
+        }
     }
 
+    private async Task UpdateCitiesAsync()
+    {
+        var countryCode = SelectedCountry.Code;
+        var cities = await Task.Run(() => _model.CitiesForCountry(countryCode));
     
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            CitiesForCountry = new ObservableCollection<City>(cities);
+        });
+    }
+    
+    private void UpdateCoordinates()
+    {
+        GeoLong = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLong);
+        GeoLat = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLat);
+        DirLongIndex = SelectedCity.GeoLong.StartsWith('-') ? 1 : 0;
+        DirLatIndex = SelectedCity.GeoLat.StartsWith('-') ? 1 : 0;
+    }
+
     [RelayCommand]
     private void Calculate()
     {
@@ -101,7 +161,7 @@ public partial class RadixDataInputViewModel: ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
-            Log.Information("RadixDataInputViewModel.Calculate(): starting alculation of chart");
+            Log.Information("RadixDataInputViewModel.Calculate(): starting calculation of chart");
             _model.CreateChartData(NameId, Description, Source, LocationName, CategoryIndex, RatingIndex);
             Log.Information("RadixDataInputViewModel.Calculate(): send NewChartMessage and CloseMessage");  
             WeakReferenceMessenger.Default.Send(new CloseRadixDataInputViewMessage(VM_IDENTIFICATION));
@@ -111,7 +171,7 @@ public partial class RadixDataInputViewModel: ObservableObject
             MessageBox.Show(errors, StandardTexts.TITLE_ERROR);
         }
     }
-
+    
     private string FindErrors()
     {
         StringBuilder errorsText = new();
@@ -166,6 +226,7 @@ public partial class RadixDataInputViewModel: ObservableObject
         TimeZones timeZone = TimeZonesExtensions.TimeZoneForIndex(TimeZoneIndex);
         return _model.IsTimeValid(Time, timeZone, ApplyDst);
     }
+    
     
     [RelayCommand]
     private static void Help()

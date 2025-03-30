@@ -16,6 +16,8 @@ namespace Enigma.Domain.Dtos;
 /// <param name="ActualObserverPosition">Position of observer.</param>
 /// <param name="ActualProjectionType">Type of projection.</param>
 /// <param name="ActualHouseSystem">House system.</param>
+/// <param name="ApogeeType">Type of calculation for the apogee.</param>
+/// <param name="Oscillate">Use oscillated version for lunar nodes.</param>
 public record CalculationPreferences(List<ChartPoints> ActualChartPoints,
     ZodiacTypes ActualZodiacType,
     Ayanamshas ActualAyanamsha,
@@ -23,6 +25,7 @@ public record CalculationPreferences(List<ChartPoints> ActualChartPoints,
     ObserverPositions ActualObserverPosition,
     ProjectionTypes ActualProjectionType,
     HouseSystems ActualHouseSystem,
+    ApogeeTypes ApogeeType,
     bool Oscillate);
 
 
@@ -59,7 +62,7 @@ public class CalculationPreferencesCreator : ICalculationPreferencesCreator
             where point.Value.IsUsed 
             select point.Key).ToList();
         return new CalculationPreferences(actualChartPoints, config.ZodiacType, config.Ayanamsha,
-            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.OscillateNodes);
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.ApogeeType, config.OscillateNodes);
     }
 
     /// <inheritdoc/>
@@ -67,7 +70,7 @@ public class CalculationPreferencesCreator : ICalculationPreferencesCreator
     {
         List<ChartPoints> actualChartPoints = new() { point };
         return new CalculationPreferences(actualChartPoints, config.ZodiacType, config.Ayanamsha,
-            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.OscillateNodes);
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.ApogeeType, config.OscillateNodes);
     }
 }
 

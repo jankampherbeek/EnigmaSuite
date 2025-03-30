@@ -19,9 +19,9 @@ public interface IInclinationCalc
     public double CalcInclination(ChartPoints point, double jdUt, int flags);
 }
 
-public class InclinationCalc(OrbitalElementsFacade orbElemFacade) : IInclinationCalc
+public class InclinationCalc(IOrbitalElementsFacade orbElemFacade) : IInclinationCalc
 {
-    private OrbitalElementsFacade _orbElemFacade = orbElemFacade;
+    private IOrbitalElementsFacade _orbElemFacade = orbElemFacade;
 
     public double CalcInclination(ChartPoints point, double jdUt, int flags)
     {

@@ -105,6 +105,7 @@ public class PrimDirDates: IPrimDirDates
             ObserverPositions.GeoCentric,
             ProjectionTypes.TwoDimensional, 
             HouseSystems.NoHouses,
+            ApogeeTypes.Corrected,   // TODO define correct value for ApogeeType
             false);   // TODO define correct value for Oscillate
         return _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, jd, loc, prefs).Equatorial.MainPosSpeed.Position;
     }
@@ -124,6 +125,7 @@ public class PrimDirDates: IPrimDirDates
             ObserverPositions.GeoCentric,
             ProjectionTypes.TwoDimensional, 
             HouseSystems.NoHouses,
+            ApogeeTypes.Corrected, // TODO define correct value for apogee type
             false);    // TODO define correct value for Oscillate
         return _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, jd, loc, prefs).Ecliptical.MainPosSpeed.Position;
     }

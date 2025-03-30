@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2022, 2023, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -90,7 +90,7 @@ public sealed class CalculatedResearchPositions : ICalculatedResearchPositions
             where pointCat == PointCats.Common 
             select cpSpec.Key).ToList();
         return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
-            config.ObserverPosition, config.ProjectionType, config.HouseSystem, false);  // TODO define correct value for Oscillate
+            config.ObserverPosition, config.ProjectionType, config.HouseSystem);
     }
 
 }

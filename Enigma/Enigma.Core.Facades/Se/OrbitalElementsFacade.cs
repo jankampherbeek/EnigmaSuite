@@ -10,7 +10,7 @@ using Enigma.Domain.Dtos;
 
 namespace Enigma.Facades.Se;
 
-public interface ICalcOrbitalElementsFacade
+public interface IOrbitalElementsFacade
 {
     /// <summary>Calculate orbital elements.</summary>
     /// <param name="jd">Julian day number.</param>
@@ -21,7 +21,7 @@ public interface ICalcOrbitalElementsFacade
 }
 
 /// <inheritdoc/>
-public class OrbitalElementsFacade: ICalcOrbitalElementsFacade
+public class OrbitalElementsFacade: IOrbitalElementsFacade
 {
     /// <inheritdoc/>
     public OrbitalElements CalcOrbitalElements(double jd, int seId, int flags)
@@ -39,6 +39,6 @@ public class OrbitalElementsFacade: ICalcOrbitalElementsFacade
     /// <param name="dret">Returned values for orbital elements</param>
     /// <param name="serr">Text if any error occurs</param>
     /// <returns>An indication if the calculation was successful</returns>
-    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_get_orbital_elemements")]
+    [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_get_orbital_elements")]
     private static extern int ext_swe_get_orbital_elements(double tjd, int ipl, int iflag,  double[] dret, StringBuilder serr);
 }

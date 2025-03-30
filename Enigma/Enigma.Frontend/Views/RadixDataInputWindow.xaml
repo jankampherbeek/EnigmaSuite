@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Data input for radix" Height="760" Width="520">
+        Title="Enigma - Data input for radix" Height="800" Width="520">
     <Window.Resources>
         <viewModels:RadixDataInputViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -23,6 +23,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="10*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
@@ -70,86 +72,108 @@
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                   ItemsSource="{Binding AllCategories}"
                   SelectedIndex="{Binding CategoryIndex, Mode=TwoWay}" />
-        <!-- Location -->
-        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
-                   Text="Location" Name="SubHeaderLocation"  
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <TextBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
-                 materialDesign:HintAssist.Hint="Name of location"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 Text="{Binding LocationName, Mode=TwoWay}" />   
-        <TextBox Grid.Row="8" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"   
-                 materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 BorderBrush="{Binding GeoLongValid}"
-                 Text="{Binding GeoLong}"/>
-        <ComboBox Grid.Row="8" Grid.Column="1" IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="East/West"
-                  VerticalAlignment="Center" Margin="6 0"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
-                  ItemsSource="{Binding AllDirectionsForLongitude}"
-                  SelectedIndex="{Binding DirLongIndex, Mode=TwoWay}" />
-        <TextBox Grid.Row="9" Grid.Column="0"  
-                 materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
-                 VerticalAlignment="Center" Margin="6 0"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 BorderBrush="{Binding GeoLatValid}"
-                 Text="{Binding GeoLat}"/>
-        <ComboBox Grid.Row="9" Grid.Column="1" IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="North/South"
-                  VerticalAlignment="Center" Margin="6 0"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
-                  ItemsSource="{Binding AllDirectionsForLatitude}"
-                  SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
+
         <!-- Date and time -->
-        <TextBlock Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
+        <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
                    Text="Date and time" Name="SubHeaderDateTime" 
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <TextBox Grid.Row="11" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  Grid.ColumnSpan="2"                  
+        <TextBox Grid.Row="7" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  Grid.ColumnSpan="2"                  
                  materialDesign:HintAssist.Hint="Date yyyy/mm/dd"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding DateValid}"
                  Text="{Binding Date}"/>  
-        <ComboBox Grid.Row="12" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+        <ComboBox Grid.Row="8" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Calendar"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllCalendars}"
                   SelectedIndex="{Binding CalendarIndex, Mode=TwoWay}" />
-        <ComboBox Grid.Row="12" Grid.Column="1" Margin="6 0" VerticalAlignment="Center" 
+        <ComboBox Grid.Row="8" Grid.Column="1" Margin="6 0" VerticalAlignment="Center" 
                   Text=""  IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="Yearcount"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllYearCounts}"
                   SelectedIndex="{Binding YearCountIndex, Mode=TwoWay}" />
-        <TextBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
+        <TextBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Time hh:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding TimeValid}"
                  Text="{Binding Time}"/>  
-        <ComboBox Grid.Row="14" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+        
+                <!-- Location -->
+        <TextBlock Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
+                   Text="Location" Name="SubHeaderLocation"  
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
+        <ComboBox Grid.Row="11" Grid.Column="0" 
+                  ItemsSource="{Binding AllCountries, UpdateSourceTrigger=PropertyChanged}"
+                  VerticalAlignment="Center" 
+                  SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  DisplayMemberPath="Name"
+                  materialDesign:HintAssist.Hint="Select a country"
+                  Margin="6, 0"
+                  IsEditable="False"
+                  IsTextSearchEnabled="True"
+                  StaysOpenOnEdit="False"/>
+        
+        <ComboBox Grid.Row="12" Grid.Column="0" 
+                  ItemsSource="{Binding CitiesForCountry, UpdateSourceTrigger=LostFocus}"
+                  SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  DisplayMemberPath="Name"
+                  VerticalContentAlignment="Center"
+                  materialDesign:HintAssist.Hint="Select a city after selecting a country"
+                  Margin="6,0"
+                  IsEditable="False"
+                  IsTextSearchEnabled="True"
+                  StaysOpenOnEdit="True"/>
+        <TextBox Grid.Row="13" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"   
+                 materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 BorderBrush="{Binding GeoLongValid}"
+                 Text="{Binding GeoLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="13" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="East/West"
+                  VerticalAlignment="Center" Margin="6 0"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  ItemsSource="{Binding AllDirectionsForLongitude}"
+                  SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBox Grid.Row="14" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 BorderBrush="{Binding GeoLatValid}"
+                 Text="{Binding GeoLat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="14" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  materialDesign:HintAssist.Hint="North/South"
+                  VerticalAlignment="Center" Margin="6 0"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
+                  ItemsSource="{Binding AllDirectionsForLatitude}"
+                  SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
+        <!-- TimeZone -->
+        <TextBlock Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
+                   Text="TimeZone" Name="SubHeaderTimeZone"  
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
+        <ComboBox Grid.Row="16" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="TimeZone"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllTimeZones}"
                   SelectedIndex="{Binding TimeZoneIndex, Mode=TwoWay}" />       
-        <CheckBox Grid.Row="14" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"  
+        <CheckBox Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"  
                   Style="{StaticResource MaterialDesignCheckBox}"
                   IsChecked="{Binding ApplyDst}" />
-        <TextBox Grid.Row="15" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  
+        <TextBox Grid.Row="17" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  
                  materialDesign:HintAssist.Hint="Longitude for LMT ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  Text="{Binding LmtGeoLong}"
                  BorderBrush="{Binding LmtGeoLongValid}"
                  IsEnabled="{Binding LmtEnabled}" />
-        <ComboBox Grid.Row="15" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"   
+        <ComboBox Grid.Row="17" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"   
                   IsEditable="True" IsReadOnly="True"
                   materialDesign:HintAssist.Hint="East/West"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllLmtDirectionsForLongitude}"
                   SelectedIndex="{Binding LmtDirLongIndex, Mode=TwoWay}" 
                   IsEnabled="{Binding LmtEnabled}" />
-        <StackPanel Grid.Row="16" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>
@@ -158,8 +182,5 @@
             <Button Margin="6" Content="Calculate" HorizontalAlignment="Right" 
                     Command="{Binding CalculateCommand}"/>
         </StackPanel>
-        
-        
     </Grid>
-
 </Window>
