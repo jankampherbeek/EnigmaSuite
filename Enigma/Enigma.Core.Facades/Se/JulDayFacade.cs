@@ -30,6 +30,13 @@ public interface IJulDayFacade
     /// <param name="julianDayUt">Value for Julian Day in UT.</param>
     /// <returns>The value for Delta T in seconds and fractions of seconds.</returns>
     public double DeltaTFromSe(double julianDayUt);
+
+    /// <summary>Defines the weekday for a given JD.</summary>
+    /// <remarks>Only supports Gregorian calendar.
+    /// This function replaces the swe_day_of_week function from the SE which is not available in the DLL.</remarks>
+    /// <param name="julianDayUt">Julian day for UT.</param>
+    /// <returns>The day number: Monday=0 ... Sunday=6.</returns>
+    public int DayOfWeek(double julianDayUt);
 }
 
 /// <inheritdoc/>
@@ -62,6 +69,12 @@ public sealed class JulDayFacade : IJulDayFacade
         const int flag = EnigmaConstants.SEFLG_SWIEPH;
         return ext_swe_deltat_ex(julianDayUt, flag);
     }
+
+    /// <inheritdoc/>
+    public int DayOfWeek(double julianDayUt)
+    {
+        return (int)(julianDayUt + 0.5) % 7;
+    }
     
 
     /// <summary>Access dll to retrieve Julian Day number.</summary>
@@ -84,8 +97,5 @@ public sealed class JulDayFacade : IJulDayFacade
 
     [DllImport("swedll64.dll", CharSet = CharSet.Ansi, EntryPoint = "swe_revjul")]
     private static extern void ext_swe_revjul(double julianDayUt, int gregFlag, ref int year, ref int month, ref int day, ref double hour);
-
-    
-    
     
 }

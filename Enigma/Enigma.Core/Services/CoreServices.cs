@@ -64,12 +64,15 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
+        serviceCollection.AddTransient<IDayDefHandler, DayDefHandler>();
         serviceCollection.AddTransient<IDeclinationParallelsCounting, DeclinationParallelsCounting>();
         serviceCollection.AddTransient<IDeclMidpointsHandler, DeclMidpointsHandler>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
+        serviceCollection.AddTransient<IDstHandler, DstHandling>();
+        serviceCollection.AddTransient<IDstParser, DstParser>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();

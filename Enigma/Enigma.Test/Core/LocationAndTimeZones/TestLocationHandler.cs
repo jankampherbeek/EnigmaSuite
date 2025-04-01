@@ -5,7 +5,7 @@
 
 using Enigma.Core.LocationAndTimeZones;
 
-namespace Enigma.Test.LocationAndTimeZones;
+namespace Enigma.Test.Core.LocationAndTimeZones;
 
 [TestFixture]
 public class TestLocationHandler
