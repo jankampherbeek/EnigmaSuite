@@ -71,7 +71,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
-        serviceCollection.AddTransient<IDstHandler, DstHandling>();
+        serviceCollection.AddTransient<IDstHandler, DstHandler>();
         serviceCollection.AddTransient<IDstParser, DstParser>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();

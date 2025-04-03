@@ -24,3 +24,8 @@ public record City
     public string Elevation { get; set; }
     public string IndicationTz { get; set; }
 }
+
+
+public record DateTimeHms(int Year, int Month, int Day, int Hour, int Min, int Sec);
+
+public record ZoneInfo(double Offset, string TzName, bool Dst);
