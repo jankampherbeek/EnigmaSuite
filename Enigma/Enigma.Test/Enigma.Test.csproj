@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Api\LocationAndTimezones\" />
     <Folder Include="Frontend.Ui\Models\" />
   </ItemGroup>
 

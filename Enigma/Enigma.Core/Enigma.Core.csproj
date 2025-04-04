@@ -16,8 +16,6 @@
     <PackageReference Include="Dapper" Version="2.1.24" />
     <PackageReference Include="LiteDB" Version="5.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NodaTime" Version="3.2.2" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="Serilog.Expressions" Version="4.0.0" />
     <PackageReference Include="SQLite" Version="3.13.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
