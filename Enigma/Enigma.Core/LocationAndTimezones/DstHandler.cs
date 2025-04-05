@@ -3,6 +3,10 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
+using Enigma.Facades.Se;
+
 namespace Enigma.Core.LocationAndTimeZones;
 
 public interface IDstHandler
@@ -11,7 +15,7 @@ public interface IDstHandler
 }
 
 public class DstHandling(
-    IJulDayCalculator jdCalc,
+    IJulDayFacade jdFacade,
     // IJulDayFacade dowCalc,
     // IDayDefHandler dayNrCalc,
     IDstParser dstLinesParser)
@@ -31,8 +35,8 @@ public class DstHandling(
         dstLines = dstLines.OrderBy(line => line!.StartJd).ToList();
 
         var clockTime = dateTime.Hour + dateTime.Min / 60.0 + dateTime.Sec / 3600.0;
-        var jd = jdCalc.CalcJd(dateTime.Year, dateTime.Month, dateTime.Day, clockTime,
-            true); // always use Gregorian cal.
+        var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, clockTime, Calendars.Gregorian);
+        var jd = jdFacade.JdFromSe(sdt); 
         if (jd < dstLines[0]!.StartJd)
         {
             return emptyDstInfo;

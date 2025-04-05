@@ -4,6 +4,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
+using Enigma.Facades.Se;
+
 namespace Enigma.Core.LocationAndTimeZones;
 
 using Enigma.Core.Conversion;
@@ -17,7 +21,7 @@ public interface ITzHandler
 }
 
 public class TzHandling(
-    IJulDayCalculator jdCalc, 
+    IJulDayFacade jdFacade, 
     IDstHandler dstHandler, 
     ITimeZoneReader tzReader,
     ITimeZoneLineParser tzLineParser) : ITzHandler
@@ -64,7 +68,8 @@ public class TzHandling(
     private (TzLine Line, Exception Error) FindZone(DateTimeHms dateTime, List<TzLine> lines)
     {
         var time = dateTime.Hour + dateTime.Min / 60.0 + dateTime.Sec / 3600.0;
-        var jd = jdCalc.CalcJd(dateTime.Year, dateTime.Month, dateTime.Day, time, true);
+        var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, time, Calendars.Gregorian);
+        var jd = jdFacade.JdFromSe(sdt); 
         var counter = 0;
         var line = lines[0];
         foreach (var newLine in lines.Skip(1))
@@ -98,11 +103,11 @@ public record ZoneInfo(double offset, string tzName, bool dst)
     public bool Dst { get; } = dst;
 }
 
-// Assuming these interfaces and classes exist in C#
-public interface IJulDayCalculator
-{
-    double CalcJd(int year, int month, int day, double hour, bool gregorian);
-}
+// // Assuming these interfaces and classes exist in C#
+// public interface IJulDayCalculator
+// {
+//     double CalcJd(int year, int month, int day, double hour, bool gregorian);
+// }
 
 
 public record DateTimeHms
