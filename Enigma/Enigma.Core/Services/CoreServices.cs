@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -123,6 +123,8 @@ public static class CoreServices
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
+        serviceCollection.AddTransient<ITimeZoneLineParser, TimeZoneLineParser>();
+        serviceCollection.AddTransient<ITimeZoneReader, TimeZoneReader>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
         serviceCollection.RegisterResearchServices();

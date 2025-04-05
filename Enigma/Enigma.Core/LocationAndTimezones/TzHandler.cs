@@ -3,15 +3,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Conversion;
-using Microsoft.VisualBasic;
-using Serilog;
 
 namespace Enigma.Core.LocationAndTimeZones;
 
+using Enigma.Core.Conversion;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 
 public interface ITzHandler
@@ -19,10 +16,13 @@ public interface ITzHandler
     ZoneInfo CurrentTime(DateTimeHms dateTime, string tzName);
 }
 
-public class TzHandling(IJulDayCalculator jdCalc, IDstHandler dstHandler) : ITzHandler
+public class TzHandling(
+    IJulDayCalculator jdCalc, 
+    IDstHandler dstHandler, 
+    ITimeZoneReader tzReader,
+    ITimeZoneLineParser tzLineParser) : ITzHandler
 {
-    private static readonly string PathSep = Path.DirectorySeparatorChar.ToString();
-    private static readonly string FilePathZones = $"tz-coord{PathSep}zones.csv";
+
 
     public ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName)
     {
@@ -49,107 +49,17 @@ public class TzHandling(IJulDayCalculator jdCalc, IDstHandler dstHandler) : ITzH
         return new ZoneInfo(zoneOffset + dstOffset, tzName, dstUsed);
     }
 
-    private (double Offset, string TzName, string DstRule) ZoneData(DateTimeHms dateTime, string tzName)
+    private (double Offset, string TzName, string DstRule) ZoneData(DateTimeHms dateTime, string tzIndication)
     {
-        var (zoneTxtLines, error) = ReadTzLines(tzName);
-        if (error != null)
-        {
-            // Log error: "Reading lines from the tz file returns an error"
-            return (0.0f, "", "");
-        }
-
-        var (zoneLines, parseError) = ParseTzLines(zoneTxtLines, tzName);
-        if (parseError != null)
-        {
-            // Log error: "Parsing lines from the tz file returns an error"
-            return (0.0f, "", "");
-        }
-
+        var zoneTxtLines = tzReader.ReadLinesForTzIndication(tzIndication);
+        var zoneLines = tzLineParser.ParseTzLines(zoneTxtLines, tzIndication);
         var (actualZone, findError) = FindZone(dateTime, zoneLines);
-        if (findError != null)
-        {
-            // Log error: "Finding zone from the tz file returns an error"
-            return (0.0f, "", "");
-        }
-
         return (actualZone.StdOff, actualZone.Name, actualZone.Rules);
     }
 
-    private (List<string> Lines, Exception Error) ReadTzLines(string tzName)
-    {
-        var searchTxt1 = "Zone\t" + tzName;
-        var searchTxt2 = "Zone " + tzName;
-        var tzLines = new List<string>();
+  
 
-        try
-        {
-            using var tzFile = new StreamReader(FilePathZones);
-            var startLineFound = false;
-            string line;
-            while ((line = tzFile.ReadLine()) != null)
-            {
-                line = line.Trim();
-                if (line.StartsWith(searchTxt1) || line.StartsWith(searchTxt2))
-                {
-                    tzLines.Add(line);
-                    startLineFound = true;
-                }
-                else
-                {
-                    if (startLineFound)
-                    {
-                        if (!line.StartsWith("Zone"))
-                        {
-                            tzLines.Add(line);
-                        }
-                        else
-                        {
-                            startLineFound = false;
-                        }
-                    }
-                }
-            }
-
-            return (tzLines, null);
-        }
-        catch (Exception ex)
-        {
-            // Log error: "Could not open tz file"
-            return (new List<string>(), ex);
-        }
-    }
-
-    private (List<TzLine> Lines, Exception Error) ParseTzLines(List<string> lines, string name)
-    {
-        var parsedLines = new List<TzLine>();
-        foreach (var line in lines)
-        {
-            var dataLine = line;
-            if (line.StartsWith("Zone;"))
-            {
-                dataLine = line.Substring("Zone;".Length);
-                var index = dataLine.IndexOf(';');
-                dataLine = dataLine.Substring(index + 1); // remove tz name
-            }
-
-            var items = dataLine.Split(';');
-            var offset = DateTimeConversion.ParseHmsFromText(items[0], items[1], items[2]);
-            var sdt = DateTimeConversion.ParseDateTimeFromText(items.Skip(3).ToArray());
-            var until = jdCalc.CalcJd(sdt.Year, sdt.Month, sdt.Day, sdt.Ut, true); // always Gregorian
-
-            var tzLine = new TzLine
-            {
-                Name = name,
-                StdOff = offset,
-                Rules = items[3],
-                Format = items[4],
-                Until = until
-            };
-            parsedLines.Add(tzLine);
-        }
-
-        return (parsedLines, null);
-    }
+  
 
     private (TzLine Line, Exception Error) FindZone(DateTimeHms dateTime, List<TzLine> lines)
     {
