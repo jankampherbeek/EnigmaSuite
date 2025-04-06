@@ -17,10 +17,10 @@ using System.Linq;
 
 public interface ITzHandler
 {
-    ZoneInfo CurrentTime(DateTimeHms dateTime, string tzName);
+    ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName);
 }
 
-public class TzHandling(
+public class TzHandler(
     IJulDayFacade jdFacade, 
     IDstHandler dstHandler, 
     ITimeZoneReader tzReader,

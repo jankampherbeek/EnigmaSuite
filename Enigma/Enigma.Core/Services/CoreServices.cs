@@ -10,11 +10,12 @@ using Enigma.Core.Communication;
 using Enigma.Core.Configuration;
 using Enigma.Core.Handlers;
 using Enigma.Core.LocationAndTimeZones;
+using Enigma.Core.LocationAndTimeZones.Services;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Core.Research.Services;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+
 
 namespace Enigma.Core.Services;
 
@@ -71,8 +72,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
-        serviceCollection.AddTransient<IDstHandler, DstHandling>();
-        serviceCollection.AddTransient<IDstParser, DstParser>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
@@ -123,10 +122,9 @@ public static class CoreServices
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
-        serviceCollection.AddTransient<ITimeZoneLineParser, TimeZoneLineParser>();
-        serviceCollection.AddTransient<ITimeZoneReader, TimeZoneReader>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
+        serviceCollection.RegisterLocAndTzServices();
         serviceCollection.RegisterResearchServices();
 
     }
