@@ -57,15 +57,12 @@ public class TzHandling(
     {
         var zoneTxtLines = tzReader.ReadLinesForTzIndication(tzIndication);
         var zoneLines = tzLineParser.ParseTzLines(zoneTxtLines, tzIndication);
-        var (actualZone, findError) = FindZone(dateTime, zoneLines);
+        var actualZone = FindZone(dateTime, zoneLines);
         return (actualZone.StdOff, actualZone.Name, actualZone.Rules);
     }
+    
 
-  
-
-  
-
-    private (TzLine Line, Exception Error) FindZone(DateTimeHms dateTime, List<TzLine> lines)
+    private TzLine FindZone(DateTimeHms dateTime, List<TzLine> lines)
     {
         var time = dateTime.Hour + dateTime.Min / 60.0 + dateTime.Sec / 3600.0;
         var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, time, Calendars.Gregorian);
@@ -83,40 +80,7 @@ public class TzHandling(
             counter++;
         }
 
-        return (line, null);
+        return line;
     }
-}
-
-public record TzLine
-{
-    public string Name { get; set; }
-    public double StdOff { get; set; }
-    public string Rules { get; set; }
-    public string Format { get; set; }
-    public double Until { get; set; }
-}
-
-public record ZoneInfo(double offset, string tzName, bool dst)
-{
-    public double Offset { get; } = offset;
-    public string TzName { get; } = tzName;
-    public bool Dst { get; } = dst;
-}
-
-// // Assuming these interfaces and classes exist in C#
-// public interface IJulDayCalculator
-// {
-//     double CalcJd(int year, int month, int day, double hour, bool gregorian);
-// }
-
-
-public record DateTimeHms
-{
-    public int Year { get; set; }
-    public int Month { get; set; }
-    public int Day { get; set; }
-    public int Hour { get; set; }
-    public int Min { get; set; }
-    public int Sec { get; set; }
 }
 

@@ -70,16 +70,9 @@ public class TimeZoneLineParser(IJulDayFacade jdFacade): ITimeZoneLineParser
                 
                 sdt = DateTimeConversion.ParseDateTimeFromText(dateTime);
             }
-            var until = jdFacade.JdFromSe(sdt);  
+            var until = jdFacade.JdFromSe(sdt);
 
-            var tzLine = new TzLine
-            {
-                Name = name,
-                StdOff = offset,
-                Rules = rules,
-                Format = format,
-                Until = until
-            };
+            var tzLine = new TzLine(name, offset, rules, format, until);
             parsedLines.Add(tzLine);
         }
         return parsedLines;

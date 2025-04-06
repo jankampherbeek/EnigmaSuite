@@ -24,14 +24,12 @@ public class TestTimeZoneLineParser
     public void TestParseTzLinesContent()
     {
         var parser = new TimeZoneLineParser(new JulDayFacade());
-        var expected = new TzLine
-        {
-            Name = "Asia/Hanoi",
-            StdOff = 9.0,
-            Rules = "-",
-            Format = "+09",
-            Until = 2431700.875
-        };
+        const string name = "Asia/Hanoi";
+        const double stdOff = 9.0;
+        const string rules = "-";
+        const string format = "+09";
+        const double until = 2431700.875;
+        var expected = new TzLine(name, stdOff, rules, format, until);
         var result = parser.ParseTzLines(CreateZoneLines(), "Asia/Hanoi");
         Assert.That(result.ToArray()[4], Is.EqualTo(expected));
     }
@@ -40,14 +38,13 @@ public class TestTimeZoneLineParser
     public void TestParseTzLinesHeader()
     {
         var parser = new TimeZoneLineParser(new JulDayFacade());
-        var expected = new TzLine
-        {
-            Name = "Asia/Hanoi",
-            StdOff = 7.0 + 3.0/60.0 + 24.0/3600.0,
-            Rules = "-",
-            Format = "LMT",
-            Until = 2417392.5
-        };
+        const string name = "Asia/Hanoi";
+        const double stdOff = 7.0 + 3.0 / 60.0 + 24.0 / 3600.0;
+        const string rules = "-";
+        const string format = "LMT";
+        const double until = 2417392.5;
+
+        var expected = new TzLine(name, stdOff, rules, format, until);
         var result = parser.ParseTzLines(CreateZoneLines(), "Asia/Hanoi");
         Assert.That(result.ToArray()[0], Is.EqualTo(expected));
     }
