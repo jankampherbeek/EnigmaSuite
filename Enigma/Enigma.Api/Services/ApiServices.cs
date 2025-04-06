@@ -9,6 +9,7 @@ using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace
     Enigma.Api.Services;
@@ -55,6 +56,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
         serviceCollection.AddTransient<IReferencesApi, ReferencesApi>();
         serviceCollection.AddTransient<ISeApi, SeApi>();
+        serviceCollection.AddTransient<ITimeZoneApi, TimeZoneApi>();
 
         serviceCollection.RegisterFacadesServices();
         serviceCollection.RegisterDomainServices();
