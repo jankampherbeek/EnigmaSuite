@@ -18,6 +18,28 @@ public record TzLine(string Name, double StdOff, string Rules, string Format, do
 
 
 /// <summary>Definition for date and time</summary>
-
 public record DateTimeHms(int Year, int Month, int Day, int Hour, int Min, int Sec);
 
+/// <summary>Elements for a line with DST information</summary>
+/// <param name="Name">Name of the DST rule</param>
+/// <param name="From">Start year</param>
+/// <param name="To">End year of definition of end year (e.g. 1920, only)</param>
+/// <param name="In">Month that change takes effect</param>
+/// <param name="On">Day, or definition for day, that change takes effect (e.g. 14, last6)</param>
+/// <param name="At">Time that change takes effect</param>
+/// <param name="Save">Value for DST</param>
+/// <param name="Letter">Letter that indicates the change (e.g. S, -)</param>
+public record DstElementsLine(string Name, int From, int To, int In, string On, double At, double Save, string Letter);
+
+/// <summary>Comprised data from a DST line</summary>
+/// <param name="StartJd">Julian Day the change takes effect</param>
+/// <param name="Offset">Additional offset for DST</param>
+/// <param name="Letter">Letter that indicates the change</param>
+public record DstLine(double StartJd, double Offset, string Letter);
+
+/// <summary>
+/// 
+/// </summary>
+/// <param name="Offset"></param>
+/// <param name="Letter"></param>
+public record DstInfo(double Offset, string Letter);

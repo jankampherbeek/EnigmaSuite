@@ -3,8 +3,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc;
-using Enigma.Core.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.LocationAndTimeZones.Services;
@@ -16,9 +14,13 @@ public static class LocAndTzServices
 {
     public static void RegisterLocAndTzServices(this ServiceCollection serviceCollection)
     {
-        serviceCollection.AddTransient<IDstHandler, DstHandling>();
+        serviceCollection.AddTransient<IDayDefHandler, DayDefHandler>();
+        serviceCollection.AddTransient<IDstHandler, DstHandler>();
+        serviceCollection.AddTransient<IDstLineReader, DstLineReader>();
         serviceCollection.AddTransient<IDstParser, DstParser>();
+        serviceCollection.AddTransient<ILocationHandler, LocationHandler>();
         serviceCollection.AddTransient<ITimeZoneLineParser, TimeZoneLineParser>();
         serviceCollection.AddTransient<ITimeZoneReader, TimeZoneReader>();
+        serviceCollection.AddTransient<ITzHandler, TzHandler>();
     }
 }

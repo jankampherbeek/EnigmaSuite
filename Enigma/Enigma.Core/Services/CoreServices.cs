@@ -65,7 +65,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
         serviceCollection.AddTransient<IDateTimeValidator, DateTimeValidator>();
-        serviceCollection.AddTransient<IDayDefHandler, DayDefHandler>();
         serviceCollection.AddTransient<IDeclinationParallelsCounting, DeclinationParallelsCounting>();
         serviceCollection.AddTransient<IDeclMidpointsHandler, DeclMidpointsHandler>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
@@ -89,7 +88,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
-        serviceCollection.AddTransient<ILocationHandler, LocationHandler>();
         serviceCollection.AddTransient<ILongitudeEquivalentHandler, LongitudeEquivalentHandler>();
         serviceCollection.AddTransient<ILotsCalculator, LotsCalculator>();
         serviceCollection.AddTransient<IMidpointsHandler, MidpointsHandler>();
