@@ -58,9 +58,10 @@ public class TimeZoneLineParser(IJulDayFacade jdFacade): ITimeZoneLineParser
                 rules = items[3];
                 format = items[4];
                 offset = DateTimeConversion.ParseHmsFromText(items[0], items[1], items[2]);
+                var year = items[5] == "0" ? "2100" : items[5]; 
                 var dateTime = new string[]
                 {
-                    items[5],     // year
+                    year,         // year
                     items[6],     // month
                     items[7],     // day
                     items[0],     // hour

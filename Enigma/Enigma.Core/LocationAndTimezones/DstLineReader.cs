@@ -30,7 +30,9 @@ public class DstLineReader: IDstLineReader
             foreach (var line in File.ReadLines(FilePathRules))
             {
                 var trimmedLine = line.Trim();
-                if (trimmedLine.StartsWith(ruleName, StringComparison.Ordinal))
+                var indexFirstSep = trimmedLine.IndexOf(';');
+                var ruleFound = trimmedLine[..indexFirstSep];
+                if (ruleFound.Equals(ruleName))
                 {
                     matchingLines.Add(trimmedLine);
                 }

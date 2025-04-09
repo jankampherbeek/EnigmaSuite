@@ -18,7 +18,7 @@ public class TestDstParser
         IDstParser parser = new DstParser(facade, handler);
         const int expectedCount = 12;
         const string expectedLetter = "NST";
-        const double expectedOffset = 0.0;
+        const double expectedOffset = 1.0;
         var dstLines = new List<string>
         {
             "Neth;1916;1916;5;1;0;00;0;1;00;0;NST",

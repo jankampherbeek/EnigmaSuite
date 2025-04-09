@@ -18,15 +18,17 @@ public static class FacadeServices
     public static void RegisterFacadesServices(this ServiceCollection serviceCollection)
     {
         // Handlers
-        serviceCollection.AddTransient<IHousesFacade, HousesFacade>();
-        serviceCollection.AddTransient<ICalcApsidesFacade, CalcApsidesFacade>();
+
+
         serviceCollection.AddTransient<IAyanamshaFacade, AyanamshaFacade>();
         serviceCollection.AddTransient<IAzAltFacade, AzAltFacade>();
+        serviceCollection.AddTransient<ICalcApsidesFacade, CalcApsidesFacade>();
         serviceCollection.AddTransient<ICalcUtFacade, CalcUtFacade>();
         serviceCollection.AddTransient<ICoTransFacade, CoTransFacade>();
         serviceCollection.AddTransient<IDateConversionFacade, DateConversionFacade>();
+        serviceCollection.AddTransient<IHousesFacade, HousesFacade>();
         serviceCollection.AddTransient<IJulDayFacade, JulDayFacade>();
-        serviceCollection.AddTransient<IRevJulFacade, RevJulFacade>();
         serviceCollection.AddTransient<IOrbitalElementsFacade, OrbitalElementsFacade>();
+        serviceCollection.AddTransient<IRevJulFacade, RevJulFacade>();
     }
 }

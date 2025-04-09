@@ -3,6 +3,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Data.Entity.Infrastructure;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
@@ -41,12 +42,11 @@ public class DstHandler(
         }
         var emptyDstInfo = new DstInfo(0, "");
         DstLine? actDstLine = null;
+        DstLine? prevDstLine = null;
         try
         {
             var dstTxtLines = dstLineReader.ReadDstLinesMatchingRule(dstRule);
             var dstLines = dstLinesParser.ProcessDstLines(dstTxtLines);
-            dstLines = dstLines.OrderBy(line => line!.StartJd).ToList();
-
             var clockTime = dateTime.Hour + dateTime.Min / MINUTES_PER_HOUR + dateTime.Sec / SECONDS_PER_HOUR;
             var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, clockTime, Calendars.Gregorian);
             var jd = jdFacade.JdFromSe(sdt);
@@ -54,13 +54,13 @@ public class DstHandler(
             {
                 return emptyDstInfo;
             }
-
-            var prevDstLine = dstLines[0];
+            prevDstLine = dstLines[0];
             foreach (var line in dstLines)
             {
-                if (line!.StartJd < jd)
+                if (line!.StartJd >= jd)
                 {
                     actDstLine = prevDstLine;
+                    break;
                 }
                 prevDstLine = line;
             }

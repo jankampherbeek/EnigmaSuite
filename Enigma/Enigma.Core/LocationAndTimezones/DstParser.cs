@@ -54,7 +54,8 @@ public class DstParser : IDstParser
                 throw new FormatException($"Invalid value for from in dataLine: {dataLine}");
             }
 
-            if (!int.TryParse(items[2], out var to))
+            var toValue = items[2].Equals("max") ? "2100" : items[2]; // Assume the year 2100 for max
+            if (!int.TryParse(toValue, out var to))
             {
                 throw new FormatException($"Invalid value for to in dataLine: {dataLine}");
             }
@@ -67,41 +68,32 @@ public class DstParser : IDstParser
             var sdt = DateTimeConversion.ParseDateTimeFromText(items[6..9]);
             var startTime = sdt.Ut;
 
-            var oset = DateTimeConversion.ParseDateTimeFromText(items[8..11]);
-
-            var offset = oset.Ut;
-
+            var offset = DateTimeConversion.ParseHmsFromText(items[8], items[9], items[10]);
             parsedLines.Add(new DstElementsLine(items[0], from, to, @in, items[4], startTime, offset, items[11]));
-
         }
-
         return parsedLines;
     }
 
     private List<DstLine?> ParseDstLines(List<DstElementsLine> lines)
     {
         var parsedLines = new List<DstLine?>();
-
         foreach (var line in lines)
         {
             for (var year = line.From; year <= line.To; year++)
             {
-                var newLine = CreateSingleDstLine(line);
-   
-
+                var newLine = CreateSingleDstLine(line, year);
                 parsedLines.Add(newLine);
             }
         }
-
+        parsedLines.Sort((x, y) => x!.StartJd.CompareTo(y!.StartJd));
         return parsedLines;
     }
 
-    private DstLine? CreateSingleDstLine(DstElementsLine line)
+    private DstLine? CreateSingleDstLine(DstElementsLine line, int year)
     {
         var day =
-            _dayNrCalc.DayFromDefinition(line.From, line.In, line.On); // resp. year, month and day definition
-
-        var sdt = new SimpleDateTime(line.From, line.In, day, line.At, Calendars.Gregorian);
+            _dayNrCalc.DayFromDefinition(year, line.In, line.On); // resp. year, month and day definition
+        var sdt = new SimpleDateTime(year, line.In, day, line.At, Calendars.Gregorian);
         var jd = _jdFacade.JdFromSe(sdt); // always Gregorian
         return new DstLine(jd, line.Save, line.Letter);
     }

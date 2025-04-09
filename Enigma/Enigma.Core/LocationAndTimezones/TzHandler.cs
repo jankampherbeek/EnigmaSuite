@@ -3,6 +3,8 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Globalization;
+
 namespace Enigma.Core.LocationAndTimeZones;
 
 using System.Collections.Generic;
@@ -41,18 +43,24 @@ public class TzHandler(
         var zoneLines = tzLineParser.ParseTzLines(zoneTxtLines, tzGroupName);
         var actualZone = FindZone(dateTime, zoneLines);
         var zoneOffset = actualZone.StdOff;
-        var tzName = actualZone.Name;
+        var tzName = actualZone.Format;
         var dstRule = actualZone.Rules;
         if (!string.IsNullOrEmpty(dstRule) && dstRule.Length >= 2) // ignoring hyphen and empty string
         {
-            dstUsed = true;
             var dst = dstHandler.CurrentDst(dateTime, dstRule);
             dstOffset = dst.Offset;
-            tzName = tzName.Replace("%s", dst.Letter);
+            dstUsed = Math.Abs(dstOffset - 0.0) > 1E-8;
+            var replacement = dstUsed ? dst.Letter : "";
+            tzName = tzName.Replace("%s", replacement);
+
         }
         if (tzName.Contains("%z"))
         {
             tzName = DateTimeConversion.ParseSexTextFromFloat(zoneOffset);
+        }
+        if (string.IsNullOrEmpty(tzName))
+        {
+            tzName = "Zone " + zoneOffset.ToString("0.000", CultureInfo.InvariantCulture);
         }
         return new ZoneInfo(zoneOffset + dstOffset, tzName, dstUsed);
     }
@@ -62,19 +70,15 @@ public class TzHandler(
         var time = dateTime.Hour + dateTime.Min / MINUTES_PER_HOUR + dateTime.Sec / SECONDS_PER_HOUR;
         var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, time, Calendars.Gregorian);
         var jd = jdFacade.JdFromSe(sdt); 
-        // var counter = 0;
-        // var line = lines[0];
-        // foreach (var newLine in lines.Skip(1))
-        // {
-        //     if (newLine.Until < jd)
-        //     {
-        //         line = lines[counter];
-        //         continue;
-        //     }
-        //     counter++;
-        // }
-        // return line;
-        return lines.LastOrDefault(line => line.Until >= jd) ?? lines[0];
+        var line = new TzLine("", 0.0, "", "", 0.0);
+        foreach (var newLine in lines)
+        {
+            if (newLine.Until >= jd)
+            {
+                return newLine;
+            }
+        }
+        return line;
     }
 }
 
