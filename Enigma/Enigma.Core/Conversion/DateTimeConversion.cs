@@ -81,12 +81,16 @@ public static class DateTimeConversion
             }
         }
 
+        var posNegFactor = h >= 0.0 ? 1 : -1;
+
         if (!string.IsNullOrEmpty(mTxt))
         {
             if (!int.TryParse(mTxt, out m))
             {
                 throw new FormatException($"Invalid minute format: {mTxt}");
             }
+
+            m *= posNegFactor;
         }
 
         if (string.IsNullOrEmpty(sTxt)) return h + m / MINUTES_PER_HOUR + s / SECONDS_PER_HOUR;
@@ -94,6 +98,8 @@ public static class DateTimeConversion
         {
             throw new FormatException($"Invalid second format: {sTxt}");
         }
+
+        s *= posNegFactor;
         return h + m / 60.0 + s / 3600.0;
     }
 

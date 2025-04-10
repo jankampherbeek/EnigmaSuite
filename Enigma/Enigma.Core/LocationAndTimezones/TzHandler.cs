@@ -26,13 +26,13 @@ public interface ITzHandler
 
 /// <inhertidoc/>
 public class TzHandler(
-    IJulDayFacade jdFacade, 
-    IDstHandler dstHandler, 
+    IJulDayFacade jdFacade,
+    IDstHandler dstHandler,
     ITimeZoneReader tzReader,
     ITimeZoneLineParser tzLineParser) : ITzHandler
 {
     private const double MINUTES_PER_HOUR = 60.0;
-    private const double SECONDS_PER_HOUR = 3600.0; 
+    private const double SECONDS_PER_HOUR = 3600.0;
 
     /// <inhertidoc/>
     public ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName)
@@ -52,16 +52,18 @@ public class TzHandler(
             dstUsed = Math.Abs(dstOffset - 0.0) > 1E-8;
             var replacement = dstUsed ? dst.Letter : "";
             tzName = tzName.Replace("%s", replacement);
-
         }
+
         if (tzName.Contains("%z"))
         {
             tzName = DateTimeConversion.ParseSexTextFromFloat(zoneOffset);
         }
+
         if (string.IsNullOrEmpty(tzName))
         {
             tzName = "Zone " + zoneOffset.ToString("0.000", CultureInfo.InvariantCulture);
         }
+
         return new ZoneInfo(zoneOffset + dstOffset, tzName, dstUsed);
     }
 
@@ -69,16 +71,21 @@ public class TzHandler(
     {
         var time = dateTime.Hour + dateTime.Min / MINUTES_PER_HOUR + dateTime.Sec / SECONDS_PER_HOUR;
         var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, time, Calendars.Gregorian);
-        var jd = jdFacade.JdFromSe(sdt); 
+        var jd = jdFacade.JdFromSe(sdt);
         var line = new TzLine("", 0.0, "", "", 0.0);
-        foreach (var newLine in lines)
+        if (lines[0].Until > jd)
         {
-            if (newLine.Until >= jd)
+            return lines[0];
+        }
+
+        for (var i = 1; i < lines.Count; i++)
+        {
+            if (lines[i].Until > jd)
             {
-                return newLine;
+                return lines[i];
             }
         }
+
         return line;
     }
 }
-

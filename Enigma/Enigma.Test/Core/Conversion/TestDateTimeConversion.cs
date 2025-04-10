@@ -91,6 +91,7 @@ public class TestDateTimeConversion
 
     [Test]
     [TestCase ("14", "50", "15", 14.0 + 50.0 / 60.0 + 15.0 / 3600.0)]
+    [TestCase("-2", "20", "10", -2.0 - 20.0 / 60.0 - 10.0 / 3600.0)]   // negative value
     [TestCase ("", "", "", 0.0)]
     public void TestParseHmsFromTextHappyFlow(string hTxt, string mTxt, string sTxt, double expected)
     {
@@ -98,7 +99,6 @@ public class TestDateTimeConversion
         Assert.That(result, Is.EqualTo(expected).Within(1e-8));
     }
     
-
     [Test]
     public void TestParseSexTextFromFloat()
     {
