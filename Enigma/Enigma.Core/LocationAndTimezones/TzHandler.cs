@@ -45,12 +45,16 @@ public class TzHandler(
         var zoneOffset = actualZone.StdOff;
         var tzName = actualZone.Format;
         var dstRule = actualZone.Rules;
+        var isInvalid = false; 
+        var isAmbiguous = false; 
         if (!string.IsNullOrEmpty(dstRule) && dstRule.Length >= 2) // ignoring hyphen and empty string
         {
-            var dst = dstHandler.CurrentDst(dateTime, dstRule);
+            var dst = dstHandler.CurrentDst(dateTime, dstRule, zoneOffset);
             dstOffset = dst.Offset;
             dstUsed = Math.Abs(dstOffset - 0.0) > 1E-8;
             var replacement = dstUsed ? dst.Letter : "";
+            isInvalid = dst.IsInvalid;
+            isAmbiguous = dst.IsAmbiguous;
             tzName = tzName.Replace("%s", replacement);
         }
 
@@ -64,7 +68,7 @@ public class TzHandler(
             tzName = "Zone " + zoneOffset.ToString("0.000", CultureInfo.InvariantCulture);
         }
 
-        return new ZoneInfo(zoneOffset + dstOffset, tzName, dstUsed);
+        return new ZoneInfo(zoneOffset + dstOffset, tzName, dstUsed, isInvalid, isAmbiguous);
     }
 
     private TzLine FindZone(DateTimeHms dateTime, List<TzLine> lines)

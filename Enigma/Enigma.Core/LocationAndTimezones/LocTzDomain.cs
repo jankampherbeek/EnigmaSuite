@@ -27,19 +27,23 @@ public record DateTimeHms(int Year, int Month, int Day, int Hour, int Min, int S
 /// <param name="In">Month that change takes effect</param>
 /// <param name="On">Day, or definition for day, that change takes effect (e.g. 14, last6)</param>
 /// <param name="At">Time that change takes effect</param>
+/// <param name="Ut">'u' if UT is used, otherwise 'n'</param>
 /// <param name="Save">Value for DST</param>
 /// <param name="Letter">Letter that indicates the change (e.g. S, -)</param>
-public record DstElementsLine(string Name, int From, int To, int In, string On, double At, double Save, string Letter);
+public record DstElementsLine(string Name, int From, int To, int In, string On, double At, string Ut,double Save, string Letter);
 
 /// <summary>Comprised data from a DST line</summary>
 /// <param name="StartJd">Julian Day the change takes effect</param>
 /// <param name="Offset">Additional offset for DST</param>
 /// <param name="Letter">Letter that indicates the change</param>
-public record DstLine(double StartJd, double Offset, string Letter);
+/// <param name="IsUst">True if UT is used, otherwise false</param>
+public record DstLine(double StartJd, double Offset, string Letter, bool IsUt);
 
 /// <summary>
 /// 
 /// </summary>
-/// <param name="Offset"></param>
-/// <param name="Letter"></param>
-public record DstInfo(double Offset, string Letter);
+/// <param name="Offset">Offset because of DST</param>
+/// <param name="Letter">Letter that indicates the change</param>
+/// <param name="IsInvalid">True if time is invalid because of dst change</param>
+/// <param name="IsAmbiguous">True if time is ambiguous because of dst change</param>
+public record DstInfo(double Offset, string Letter, bool IsInvalid, bool IsAmbiguous);

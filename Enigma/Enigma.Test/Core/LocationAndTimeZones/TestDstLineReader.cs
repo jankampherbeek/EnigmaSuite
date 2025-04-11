@@ -33,7 +33,7 @@ public class TestDstLineReader
     public void TestReadDstLinesMatchingRule_Content()
     {
         const string rule = "Nic";
-        const string expected = "Nic;1979;1980;6;0>=2;0;00;0;0;0;0;S";
+        const string expected = "Nic;1979;1980;6;0>=2;0;00;0;n;0;0;0;S";
         var lines = _reader.ReadDstLinesMatchingRule(rule);
         Assert.That(lines[1], Is.EqualTo(expected));
     }

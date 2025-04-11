@@ -44,7 +44,7 @@ public class DstParser : IDstParser
         {
             var dataLine = line;
             var items = dataLine.Split(';');
-            if (items.Length < 12)
+            if (items.Length < 13)
             {
                 throw new FormatException($"Invalid dataLine: {dataLine}");
             }
@@ -65,11 +65,9 @@ public class DstParser : IDstParser
                 throw new FormatException($"Invalid value for in in dataLine: {dataLine}");
             }
 
-            var sdt = DateTimeConversion.ParseDateTimeFromText(items[6..9]);
-            var startTime = sdt.Ut;
-
-            var offset = DateTimeConversion.ParseHmsFromText(items[8], items[9], items[10]);
-            parsedLines.Add(new DstElementsLine(items[0], from, to, @in, items[4], startTime, offset, items[11]));
+            var startTime = DateTimeConversion.ParseHmsFromText(items[5], items[6], items[7]); 
+            var offset = DateTimeConversion.ParseHmsFromText(items[9], items[10], items[11]);
+            parsedLines.Add(new DstElementsLine(items[0], from, to, @in, items[4], startTime, items[8],offset, items[12]));
         }
         return parsedLines;
     }
@@ -95,7 +93,7 @@ public class DstParser : IDstParser
             _dayNrCalc.DayFromDefinition(year, line.In, line.On); // resp. year, month and day definition
         var sdt = new SimpleDateTime(year, line.In, day, line.At, Calendars.Gregorian);
         var jd = _jdFacade.JdFromSe(sdt); // always Gregorian
-        return new DstLine(jd, line.Save, line.Letter);
+        return new DstLine(jd, line.Save, line.Letter, line.Ut == "u");
     }
 }
 

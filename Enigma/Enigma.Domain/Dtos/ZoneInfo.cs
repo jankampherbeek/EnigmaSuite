@@ -9,4 +9,6 @@ namespace Enigma.Domain.Dtos;
 /// <param name="Offset">Actual offset, including offset for DST</param>
 /// <param name="TzName">Abbreviation of the zone or an indication of the offset</param>
 /// <param name="Dst">True if DST applies</param>
-public record ZoneInfo(double Offset, string TzName, bool Dst);
+/// <param name="Invalid">True if inputted time is invalid because of DST change</param>
+/// <param name="Ambiguous">True if inputted time is ambiguous because of DST change</param>
+public record ZoneInfo(double Offset, string TzName, bool Dst, bool Invalid, bool Ambiguous);
