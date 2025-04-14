@@ -1,12 +1,15 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
+using Serilog;
+using Exception = System.Exception;
 
 namespace Enigma.Core.Handlers;
 
@@ -24,43 +27,43 @@ public interface IDataImportHandler
 
 
 /// <inheritdoc/>
-public sealed class DataImportHandler : IDataImportHandler
+public sealed class DataImportHandler(
+    IFileCopier fileCopier,
+    ICsvImporter csvImporter,
+    ICsvExporter csvExporter)
+    : IDataImportHandler
 {
-    private readonly IFileCopier _fileCopier;
-    private readonly ITextFileReader _textFileReader;
-    private readonly ITextFileWriter _textFileWriter;
-    private readonly ICsv2JsonConverter _csv2JsonConverter;
-
-    public DataImportHandler(IFileCopier fileCopier, ITextFileReader textFileReader, ITextFileWriter textFileWriter, 
-        ICsv2JsonConverter csv2JsonConverter)
-    {
-        _fileCopier = fileCopier;
-        _textFileReader = textFileReader;
-        _textFileWriter = textFileWriter;
-        _csv2JsonConverter = csv2JsonConverter;
-    }
-
     /// <inheritdoc/>
     public ResultMessage ImportStandardData(string fullPathSource, string dataName, ResearchDataTypes dataType)
     {
-        string fullCsvPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
-                             Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
-        string fullJsonPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
-                              Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
-        string fullErrorPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
-        _fileCopier.CopyFile(fullPathSource, fullCsvPath);
-        List<string> csvLines = _textFileReader.ReadAllLines(fullCsvPath);
-        (bool item1, string? jsonText, List<string>? errorLines) = 
-            _csv2JsonConverter.ConvertResearchDataCsvToJson(csvLines, dataName, dataType);
-        if (item1)
+        var fullInputPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
+                            Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
+        var fullOutputPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
+                             Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.csv";
+        var fullErrorPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
+        try
         {
-            _textFileWriter.WriteFile(fullJsonPath, jsonText);
-            _textFileWriter.WriteFile(fullErrorPath, "Import succesfull, no errors occurred."); 
-            return new ResultMessage(0, "File successfully imported."); 
+            fileCopier.CopyFile(fullPathSource, fullInputPath);
+            List<StandardInputItem> inputItems; 
+            if (dataType == ResearchDataTypes.PlanetDance)
+            {
+                inputItems = csvImporter.ProcessPlanetDanceData(fullInputPath);                
+            }
+            else     // Enigma data 
+            {
+                // TODO handle Enigma data
+                inputItems = new List<StandardInputItem>();
+            }
+            csvExporter.WriteStandardInputToCsv(inputItems, fullOutputPath);
+            return new ResultMessage(0, "File successfully imported");
         }
-        _textFileWriter.WriteFile(fullErrorPath, errorLines);
-        return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);
+        catch (Exception e)
+        {
+            Log.Error($"Could not import data. An exception occurred: {e.Message} using input filePath {fullInputPath} and output file path {fullOutputPath}");
+            return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);
+        }
     }
-
+    
+    
     
 }

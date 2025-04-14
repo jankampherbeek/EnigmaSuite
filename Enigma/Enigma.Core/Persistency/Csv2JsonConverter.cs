@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2025.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -13,17 +13,17 @@ using Serilog;
 namespace Enigma.Core.Persistency;
 
 /// <summary>Reads data from a csv file, converts it, and writes the result to a Json file.</summary>
-public interface ICsv2JsonConverter
+public interface ICsv2JsonConverter    // TODO rename
 {
-    /// <summary>Processes data in the 'standard' csv-format and converts it to Json.</summary>
+    /// <summary>Processes data in the 'standard' csv-format and converts it to internal csv format.</summary>
     /// <remarks>Creates a list of lines that could not be processed.</remarks>
     /// <param name="csvLines">The csv lines to convert.</param>
     /// <param name="dataName">Name for the data.</param>
     /// <param name="dataType">Type of research data.</param>
     /// <returns>Tuple with three items: a boolean that indicates if the conversion was succesfull,
-    /// a string with the json, and a list with csv-lines that caused an error.
+    /// a string with the new csv, and a list with csv-lines that caused an error.
     /// If the first item is true, the list with error-lines should be empty.</returns>
-    public Tuple<bool, string, List<string>> ConvertResearchDataCsvToJson(List<string> csvLines, string dataName, 
+    public Tuple<bool, string, List<string>> ConvertResearchDataCsvToNewCsv(List<string> csvLines, string dataName, 
         ResearchDataTypes dataType);
     
 }
@@ -46,7 +46,7 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
 
    
     /// <inheritdoc/>
-    public Tuple<bool, string, List<string>> ConvertResearchDataCsvToJson(List<string> csvLines, string dataName, ResearchDataTypes dataType)
+    public Tuple<bool, string, List<string>> ConvertResearchDataCsvToNewCsv(List<string> csvLines, string dataName, ResearchDataTypes dataType)
     {
         bool noErrors = true;
         int count = csvLines.Count;
@@ -66,7 +66,7 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
                     processedLine = ProcessPlanetDanceLine(csvLines[i]);                        
                     break;
                 default:
-                    Log.Error("Csv2JsonConverter.ConvertResearchDataToJson receive an unsupported instance of ResearchDataTypes: {DataType}", dataType);
+                    Log.Error("Csv2Converter.ConvertResearchDataToNewCsv received an unsupported instance of ResearchDataTypes: {DataType}", dataType);
                     throw new ArgumentException("Unknown type for research data.");
             }
             
@@ -80,13 +80,15 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
                 allInput.Add(processedLine.Item1);
             }
         }
-        string jsonText = "";
-        if (!noErrors) return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
+        string newCsvTxt = "";
+        if (!noErrors) return new Tuple<bool, string, List<string>>(noErrors, newCsvTxt, resultLines);
         string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         StandardInput standardInput = new(dataName, creation, allInput);
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        jsonText = JsonSerializer.Serialize(standardInput, options);
-        return new Tuple<bool, string, List<string>>(noErrors, jsonText, resultLines);
+              
+        
+        // var options = new JsonSerializerOptions { WriteIndented = false }; 
+        // newCsvTxt = JsonSerializer.Serialize(standardInput, options);
+        return new Tuple<bool, string, List<string>>(noErrors, newCsvTxt, resultLines);
     }
 
     private Tuple<StandardInputItem?, bool> ProcessStandardLine(string csvLine)
@@ -137,9 +139,6 @@ public sealed class Csv2JsonConverter : ICsv2JsonConverter
         StandardInputItem? inputItem = null;
         try
         {   // Rumen Kolev;1960;11;29;3;0;50;Varna;Bulgaria;27.916667;43.216667;2.000000;
-            
-            
-            
             string[] csvElements = csvLine.Split(";");
             string id = csvElements[0];
             string name = csvElements[0];

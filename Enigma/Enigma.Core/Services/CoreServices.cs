@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using CsvHelper;
 using Enigma.Core.Analysis;
 using Enigma.Core.Calc;
 using Enigma.Core.Charts.Prog.PrimDir;
@@ -57,6 +58,8 @@ public static class CoreServices
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
         serviceCollection.AddTransient<ICsv2JsonConverter, Csv2JsonConverter>();
+        serviceCollection.AddTransient<ICsvExporter, CsvExporter>();
+        serviceCollection.AddTransient<ICsvImporter, CsvImporter>();
         serviceCollection.AddTransient<IDataFilePreparationHandler, DataFilePreparationHandler>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
         serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
