@@ -3,14 +3,13 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using CsvHelper;
 using Enigma.Core.Analysis;
 using Enigma.Core.Calc;
 using Enigma.Core.Charts.Prog.PrimDir;
 using Enigma.Core.Communication;
 using Enigma.Core.Configuration;
+using Enigma.Core.Data.Services;
 using Enigma.Core.Handlers;
-using Enigma.Core.LocationAndTimeZones;
 using Enigma.Core.LocationAndTimeZones.Services;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
@@ -58,11 +57,8 @@ public static class CoreServices
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
         serviceCollection.AddTransient<ICsv2JsonConverter, Csv2JsonConverter>();
-        serviceCollection.AddTransient<ICsvExporter, CsvExporter>();
-        serviceCollection.AddTransient<ICsvImporter, CsvImporter>();
         serviceCollection.AddTransient<IDataFilePreparationHandler, DataFilePreparationHandler>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
-        serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
         serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();
         serviceCollection.AddTransient<IDateCheckedConversion, DateCheckedConversion>();
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
@@ -125,6 +121,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
+        serviceCollection.RegisterDataServices();
         serviceCollection.RegisterLocAndTzServices();
         serviceCollection.RegisterResearchServices();
 

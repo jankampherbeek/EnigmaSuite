@@ -5,13 +5,12 @@
 
 using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
-using Enigma.Domain.Persistables;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 using Serilog;
 using Exception = System.Exception;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Data;
 
 
 /// <summary>Handles the import and conversion to Json of a csv datafile.</summary>
@@ -44,16 +43,12 @@ public sealed class DataImportHandler(
         try
         {
             fileCopier.CopyFile(fullPathSource, fullInputPath);
-            List<StandardInputItem> inputItems; 
-            if (dataType == ResearchDataTypes.PlanetDance)
+            var inputItems = dataType switch
             {
-                inputItems = csvImporter.ProcessPlanetDanceData(fullInputPath);                
-            }
-            else     // Enigma data 
-            {
-                // TODO handle Enigma data
-                inputItems = new List<StandardInputItem>();
-            }
+                ResearchDataTypes.PlanetDance => csvImporter.ProcessPlanetDanceData(fullInputPath),
+                ResearchDataTypes.StandardEnigma => csvImporter.ProcessEnigmaData(fullInputPath),
+                _ => []
+            };
             csvExporter.WriteStandardInputToCsv(inputItems, fullOutputPath);
             return new ResultMessage(0, "File successfully imported");
         }

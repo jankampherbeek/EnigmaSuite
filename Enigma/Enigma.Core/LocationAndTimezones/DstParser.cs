@@ -65,8 +65,8 @@ public class DstParser : IDstParser
                 throw new FormatException($"Invalid value for in in dataLine: {dataLine}");
             }
 
-            var startTime = DateTimeConversion.ParseHmsFromText(items[5], items[6], items[7]); 
-            var offset = DateTimeConversion.ParseHmsFromText(items[9], items[10], items[11]);
+            var startTime = DateTimeConversion.ParseDHmsToDoubleFromText(items[5], items[6], items[7]); 
+            var offset = DateTimeConversion.ParseDHmsToDoubleFromText(items[9], items[10], items[11]);
             parsedLines.Add(new DstElementsLine(items[0], from, to, @in, items[4], startTime, items[8],offset, items[12]));
         }
         return parsedLines;

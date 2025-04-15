@@ -64,29 +64,28 @@ public class TestDateTimeConversion
         Assert.That(ex.Message, Does.Contain("Not enough items to define a date"));
     }
 
-    [Test]
-    public void TestParseDateTimeFromTextInvalidHour()
-    {
-        string[] items = ["2025", "2", "19", "ab", "33", "12"];
-        var ex = Assert.Throws<FormatException>(() => DateTimeConversion.ParseDateTimeFromText(items));
-        Assert.That(ex.Message, Does.Contain("Invalid hour format: ab"));
-    }
-
-    [Test]
-    public void TestParseDateTimeFromTextInvalidMinute()
-    {
-        string[] items = ["2025", "2", "19", "14", "ab", "12"];
-        var ex = Assert.Throws<FormatException>(() => DateTimeConversion.ParseDateTimeFromText(items));
-        Assert.That(ex.Message, Does.Contain("Invalid minute format: ab"));
-    }
-
     
     [Test]
-    public void TestParseDateTimeFromTextInvalidSecond()
+    [TestCase ("2025","2","19","ab","33","12", "Invalid hour format: ab")]
+    [TestCase ("2025","2","19","14","ab","12", "Invalid minute format: ab")]
+    [TestCase ("2025","2","19","14","33","ab", "Invalid second format: ab")]
+    public void TestParseDateTimeFromTextInvalidHour(string y, string mo, string d, string h, string mi, string s, string expectedMsg)
     {
-        string[] items = ["2025", "2", "19", "14", "33", "ab"];
+        string[] items = [y, mo, d, h, mi, s];
         var ex = Assert.Throws<FormatException>(() => DateTimeConversion.ParseDateTimeFromText(items));
-        Assert.That(ex.Message, Does.Contain("Invalid second format: ab"));
+        Assert.That(ex.Message, Does.Contain(expectedMsg));
+    }
+ 
+    
+    [Test]
+    [TestCase ("2025", "2", "19", "25", "33", "12", "Hour (25) must be between -23 and 23")]
+    [TestCase ("2025", "2", "19", "10", "90", "12", "Minute (90) must be between 0 and 59")]
+    [TestCase ("2025", "2", "19", "10", "9", "82", "Second (82) must be between 0 and 59")]
+    public void TestParseDateTimeFromTextHourOutOfRange(string y, string mo, string d, string h, string mi, string s, string expectedMsg)
+    {
+        string[] items = [y, mo, d, h, mi, s];
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => DateTimeConversion.ParseDateTimeFromText(items));
+        Assert.That(ex.Message, Does.Contain(expectedMsg));
     }
 
     [Test]
@@ -95,16 +94,29 @@ public class TestDateTimeConversion
     [TestCase ("", "", "", 0.0)]
     public void TestParseHmsFromTextHappyFlow(string hTxt, string mTxt, string sTxt, double expected)
     {
-        var result = DateTimeConversion.ParseHmsFromText(hTxt, mTxt, sTxt);
+        var result = DateTimeConversion.ParseDHmsToDoubleFromText(hTxt, mTxt, sTxt);
         Assert.That(result, Is.EqualTo(expected).Within(1e-8));
     }
     
     [Test]
-    public void TestParseSexTextFromFloat()
+    [TestCase ("14", "100", "15", $"Minute (100) must be between 0 and 59")]
+    [TestCase ("14", "-10", "15", $"Minute (-10) must be between 0 and 59")]
+    [TestCase ("14", "10", "150", $"Second (150) must be between 0 and 59")]
+    [TestCase ("14", "10", "-15", $"Second (-15) must be between 0 and 59")]
+    public void TestParseHmsFromTextValueOutOfRange(string hTxt, string mTxt, string sTxt, string expectedMsg)
     {
-        const double value = 1.5;
-        const string expected = "1:30:00";
-
+        var ex = Assert.Throws<ArgumentOutOfRangeException>(() => DateTimeConversion.ParseDHmsToDoubleFromText(hTxt, mTxt, sTxt));
+        Assert.That(ex.Message, Does.Contain(expectedMsg));
+    }
+    
+    
+    [Test]
+    [TestCase (1.5, "1:30:00")]
+    [TestCase (-10.5, "-10:30:00")]
+    [TestCase (240.75, "240:45:00")]
+    [TestCase (-100.75, "-100:45:00")]
+    public void TestParseSexTextFromFloat(double value, string expected)
+    {
         var result = DateTimeConversion.ParseSexTextFromFloat(value);
         Assert.That(result, Is.EqualTo(expected));
     }

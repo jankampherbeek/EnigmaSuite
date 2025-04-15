@@ -9,7 +9,7 @@ using CsvHelper.Configuration;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistables;
 
-namespace Enigma.Core.Persistency;
+namespace Enigma.Core.Data;
 
 /// <summary>Writes items to a file in csv format</summary>
 public interface ICsvExporter
@@ -17,18 +17,22 @@ public interface ICsvExporter
      /// <summary>Convert standard input items to csv and write the results to a file</summary>
      /// <param name="inputItems">The items to process</param>
      /// <param name="fullPath">Full path and filaname of the csv file te write</param>
-    public void WriteStandardInputToCsv(List<StandardInputItem> inputItems, string fullPath);
+    public void WriteStandardInputToCsv(IEnumerable<StandardInputItem> inputItems, string fullPath);
 }
 
 
 public class CsvExporter: ICsvExporter
 {
-    public void WriteStandardInputToCsv(List<StandardInputItem> inputItems, string fullPath)
+    public void WriteStandardInputToCsv(IEnumerable<StandardInputItem> inputItems, string fullPath)
     {
+        if (!inputItems.Any()) throw new ArgumentException("Input items cannot be empty", nameof(inputItems));
+        if (string.IsNullOrWhiteSpace(fullPath))
+            throw new ArgumentException("File path cannot be null or empty", nameof(fullPath));
+        
         var config = new CsvConfiguration(CultureInfo.InvariantCulture)
         {
-            Delimiter = ";", // Gebruik puntkomma als scheidingsteken
-            HasHeaderRecord = true, // Schrijf kolomkoppen
+            Delimiter = ";", 
+            HasHeaderRecord = true
         };
         try
         {

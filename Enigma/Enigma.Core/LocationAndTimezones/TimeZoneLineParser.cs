@@ -40,7 +40,7 @@ public class TimeZoneLineParser(IJulDayFacade jdFacade): ITimeZoneLineParser
             if (line.StartsWith(ZONE))
             {
                 var headerItems = line.Split(SEPARATOR);
-                offset = DateTimeConversion.ParseHmsFromText(headerItems[2], headerItems[3], headerItems[4]);
+                offset = DateTimeConversion.ParseDHmsToDoubleFromText(headerItems[2], headerItems[3], headerItems[4]);
                 var dateTime = new string[]
                 {
                     headerItems[6],     // year
@@ -57,7 +57,7 @@ public class TimeZoneLineParser(IJulDayFacade jdFacade): ITimeZoneLineParser
                 var items = dataLine.Split(SEPARATOR);
                 rules = items[3];
                 format = items[4];
-                offset = DateTimeConversion.ParseHmsFromText(items[0], items[1], items[2]);
+                offset = DateTimeConversion.ParseDHmsToDoubleFromText(items[0], items[1], items[2]);
                 var year = items[5] == "0" ? "2100" : items[5]; 
                 var dateTime = new string[]
                 {
