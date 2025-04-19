@@ -8,25 +8,11 @@ using Enigma.Domain.References;
 
 namespace Enigma.Domain.Research;
 
-/// <summary>Representation of ResearchProject. Also used for persistency with JSON.</summary>
-public class ResearchProject
-{
-    public string Name { get; }
-    public string Description { get; }
-    public string DataName { get; }
-    public string CreationDate { get; }
-    public ControlGroupTypes ControlGroupType { get; }
-
-    public int ControlGroupMultiplication { get; }
-
-    public ResearchProject(string name, string description, string dataName, ControlGroupTypes controlGroupType, int controlGroupMultiplication)
-    {
-        Name = name;
-        Description = description;
-        DataName = dataName;
-        ControlGroupType = controlGroupType;
-        ControlGroupMultiplication = controlGroupMultiplication;
-        CreationDate = DateTime.Now.ToString("F");
-    }
-
-}
+/// <summary>Representation of ResearchProject. Also used for persistency with csv</summary>
+public record ResearchProject(
+    string Name,
+    string Description,
+    string DataName,
+    string CreationDate,
+    ControlGroupTypes ControlGroupType,
+    int ControlGroupMultiplication);

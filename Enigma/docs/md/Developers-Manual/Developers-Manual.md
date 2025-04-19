@@ -1,6 +1,6 @@
 # Developers Documentation Enigma Research
 
-## Version 0.5
+## Version 0.6
 
 ## Enigma Research - introduction
 
@@ -15,16 +15,6 @@ Please read the User Manual for information about the functionality of Enigma Re
 I want to thank Gökhan Yu for convincing me to use C#. It was the right choice for building a Windows based astrology application. Gökhan also provided valuable insights into the technicalities of C# and .Net.
 
 I also want to thank Cees Jansen for providing valuable insights on the use of randomness, which was important for the realization of control groups.
-
-
-
-## Important: this is the latest version in C#
-
-Version 0.5 of Enigma is the latest version that is written in C#. 
-
-I realized that it is necessary to support not only Windows but also other platforms. Therefore, I will rewrite the application in Go for the backend and in Flutter/Dart for the frontend. This will take considerable time but I believe it is worth the effort.
-
-I started to reorganize the code before I made this decision. In the code you will see attempts to support internationalization. I also started to make a more functional organization of the packages. These approaches are far from finished.
 
 
 
@@ -46,7 +36,7 @@ To use software from Enigma in your program, that program has to be open source.
 
 #### IDE
 I develop Enigma with _JetBrains Rider_. This IDE is not free, but you can try to apply for a free open source license. I am happy JetBrains accepted Enigma for such a free license :-) 
-The code also works on MicroSoft Visual Studio (Community Edition).
+The code should also work on MicroSoft Visual Studio (Community Edition).
 
 #### Dependency injection
 For dependency injection, Enigma uses the NuGet package *Micosoft.Extensions.DependencyInjection*.
@@ -87,9 +77,11 @@ For a definition check: https://docs.microsoft.com/en-us/dotnet/csharp/fundament
 ### Architectural decisions
 
 #### Windows based
-Enigma works on Windows platforms. I will not attempt to support other platforms, at least not for the foreseeable future. 
-The main reason is that being multi-platform requires much effort, even with the availability of solutions like Avalonia.
-These efforts would be both in time and financial: supporting Apple hardware is difficult without buying it.
+Enigma works on Windows platforms. Starting with version 1.0, Enigma will be cross-platform. Initially, I intended to rewrite the application in Go and use Flutter/Dart for the frontend. But that would work only if I use the Go backend as a local web server or implement complex solutions. I also tried to replace Flutter with Fyne. Fyne is a good GUI, written in Go, but it is too limited. So I will use another alternative: C# with Avalonia. Avalonia will replace WPF, which is Windows-only. 
+
+Before I start working on the cross-platform version 1.0 there will be one or two releases that are only for Windows. This release 0.6 and maybe a relase 0.7.
+
+I will restructure the code in Enigma, moving to a more functional separation of folders. This will be an ongoing process. 
 
 #### Using separated projects
 The code of Enigma comprises 6 separate projects:
@@ -101,7 +93,7 @@ The code of Enigma comprises 6 separate projects:
 * **Test**: All unit tests.
 
 #### WPF for the frontend
-The frontend uses WPF and XAML. I also considered Avalonia, which supports multiple environments and improves the XAML syntax. But Avalonia does not support as many NuGet packages as plain WPF does. It does not support the material design package, which was a no-go for me.
+The frontend uses WPF and XAML. 
 
 #### Frontend specifics
 The frontend uses the MVVM pattern. Navigation between views in the frontend goes partly via messaging.
@@ -116,7 +108,7 @@ Separate classes, that react on messages, handle the creation and termination of
 
 #### Unit testing
 I use NUnit for unit testing. I believe testing is very important though I am not religious about Test Driven Development.
-Enigma does not yet support integration tests but I want to add that in a future release.
+There are initial attempts to add integration tests.
 
 #### Interfacing
 
@@ -135,7 +127,7 @@ Material Design. You can download the originals at https://fonts.google.com/icon
 
 ### i18N
 
-Enigma will support internationalization in the future, supporting both English and Dutch. In release 0.5 I started implementing functionality for i18N. 
+Enigma will does not yet support internationalization but will do so starting with version 1.0. 
 
   
 
@@ -145,10 +137,10 @@ Clone the repository from GitHub: https://github.com/jankampherbeek/EnigmaSuite 
 
 Copy swedll64.dll from Enigmasuite/Enigma/Enigma.Frontend.res to:
 
-- EnigmaSuite\Enigma\Enigma.Frontend\bin\Debug\net7.0-windows8.0
-- EnigmaSuite\Enigma\Enigma.Frontend\bin\Release\net7.0-windows8.0 
-- EnigmaSuite\Enigma\Enigma.Test\bin\Debug\net7.0-windows8.0
-- EnigmaSuite\Enigma\Enigma.Test\bin\Release\net7.0-windows8.0
+- EnigmaSuite\Enigma\Enigma.Frontend\bin\Debug\net8.0-windows
+- EnigmaSuite\Enigma\Enigma.Frontend\bin\Release\net8.0-windows 
+- EnigmaSuite\Enigma\Enigma.Test\bin\Debug\net8.0-windows
+- EnigmaSuite\Enigma\Enigma.Test\bin\Release\net8.0-windows
 
 ## Projects
 
@@ -161,13 +153,12 @@ Enigma is a .NET solution that contains 6 projects. There is a separate project 
 #### Project API
 
 The classes in this project receive requests from the Frontend, perform some basic validation, and pass the requests to 
-a handler in the *Core.Handlers* project. In most cases, the API returns a response to the Frontend. 
+the backend. In most cases, the API returns a response to the Frontend. 
 An API contains no business logic.
 
-#### Project Core.Handlers
+#### Project Core
 
-A Handler orchestrates the fulfillment of a request. Possibly it uses some basic business logic but many times, but often it relies on helper classes. A handler may call other handlers. 
-Sometimes it will simply pass through a request but it can also combine the results of several helper classes.
+Handles the fulfillment of a request. Takes care of persistency.
 
 #### Project Facades
 
@@ -175,7 +166,7 @@ The project *Facades* contains classes that can access the outside world. A rang
 
 #### Project Domain
 
-*Domain* contains all domain objects, including enums, DTO's and records. *Domain* cannot access other projects and is itself accessible by all projects.
+*Domain* contains domain objects that should be shared between the frontend and the backend, including enums, DTO's and records. *Domain* cannot access other projects and is itself accessible by all projects. 
 
 
 
@@ -183,7 +174,7 @@ The project *Facades* contains classes that can access the outside world. A rang
 
 I follow the usual approach using the Swiss Ephemeris, but I need to mention some specifics.
 
-### School of Ram: hypothetical planets
+### School of Ram hypothetical planets
 
 Enigma supports the three hypothetical planets as proposed by the School of Ram: Persephone, Hermes and Demeter. 
 The calculations are based on the orbital elements and calculated separately, without accessing the SE.
@@ -232,7 +223,7 @@ This solution is sufficiently random to support the creation of control groups.
 
 
 ## Configuration
-Enigma uses two configurations: a configuration for general use and an additional configuration for progressions. The system defines a standard configuration, and the user can change the configurations by defining deltas. Enigma uses these deltas to correct the standard configuration and define the actual configuration. 
+Enigma uses two configurations: a configuration for general use and an additional configuration for progressions. The system defines a standard configuration, and the user can change the configuration by defining deltas. Enigma uses these deltas to correct the standard configuration and define the actual configuration. 
 
 The program saves the configuration as a dictionary. The key-value pairs in the dictionary use a predefined key and a value that can comprise multiple values, separated by two pipes (standing lines). It is not possible to use a single char as a separator as all characters are being used by the Enigma font. Using one character would interfere with the glyph for that character.
 

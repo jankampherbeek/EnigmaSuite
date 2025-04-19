@@ -3,12 +3,14 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.IO;
 using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Messaging;
@@ -38,10 +40,25 @@ public partial class MainViewModel: ObservableObject
         Rosetta.Instance.SetLanguage("en");
     }
 
-    private static bool HandleCheckRdbms()
+    private void HandleCheckRdbms()
     {
-        IRdbmsPrepApi rdbmsPrepApi = App.ServiceProvider.GetRequiredService<IRdbmsPrepApi>();
-        return rdbmsPrepApi.PrepareRdbms();
+        try
+        {
+            // Ensure the database directory exists
+            Directory.CreateDirectory(ApplicationSettings.LocationDatabase);
+            
+            // Initialize the database
+            IRdbmsPreparator rdbmsPreparator = App.ServiceProvider.GetRequiredService<IRdbmsPreparator>();
+            if (!rdbmsPreparator.PreparaDatabase())
+            {
+                Log.Error("Failed to prepare database");
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error initializing database: {Message}", ex.Message);
+            // Continue with application startup even if database initialization fails
+        }
     }
     
     private void HandleCheckNewVersion()

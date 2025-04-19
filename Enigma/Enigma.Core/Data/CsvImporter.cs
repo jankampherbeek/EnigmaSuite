@@ -19,7 +19,7 @@ public interface ICsvImporter
     /// <summary>Read a list with Enigma standard data from a file and return standardized input data</summary>
     /// <param name="fullPath">Full path and filename for csv file</param>
     /// <returns>A list of standard input items</returns>
-    public List <StandardInputItem> ProcessEnigmaData(string fullPath);
+    public List <StandardInputItem> ProcessStandardData(string fullPath);
     
     /// <summary>Read a list with data exported from PlanetDance and return standardized input data</summary>
     /// <param name="fullPath">Full path and filename for csv file</param>
@@ -41,7 +41,7 @@ public class CsvImporter : ICsvImporter
     
     
     /// <inheritdoc/>
-    public List<StandardInputItem> ProcessEnigmaData(string fullPath)
+    public List<StandardInputItem> ProcessStandardData(string fullPath)
     {
         if (string.IsNullOrEmpty(fullPath))
         {
@@ -74,7 +74,7 @@ public class CsvImporter : ICsvImporter
             var (gLong, gLat) = ParseCoordinates(eData.Lon, eData.Lat);
             var (pDate, pTime) = ParseDateTime(eData.Date, eData.Time, eData.Zone, eData.Dst); 
             var sItem = new StandardInputItem(eData.Id.Trim(), eData.Name.Trim(), gLong, gLat,
-                pDate, pTime);
+                pDate.Year, pDate.Month, pDate.Day, pDate.Calendar, pTime.Hour, pTime.Minute, pTime.Second, pTime.ZoneOffset, pTime.Dst);
             standardData.Add((sItem));
         }
         Log.Information($"CsvImporter completed processing of Enigma data from {fullPath}");
@@ -106,11 +106,9 @@ public class CsvImporter : ICsvImporter
             var pdData = csv.GetRecord<PlanetDanceData>();
             // convert pdData to standardItem
             var cal = pdData.Year < 1582 ? JUL_CAL : GREG_CAL;  // TODO find solution for swithch between Julian and Gregorian calendar
-            var date = new PersistableDate(pdData.Year, pdData.Month, pdData.Day, cal);
             // PlanetDance does not export DST but gives a combined offset for zone and DST. DST is set to zero.
-            var time = new PersistableTime(pdData.Hour, pdData.Min, pdData.Sec, pdData.Zone, 0.0);
             var sItem = new StandardInputItem(counter++.ToString(), pdData.Name, pdData.Lon, pdData.Lat,
-                date, time);
+                pdData.Year, pdData.Month, pdData.Day, cal,  pdData.Hour, pdData.Min, pdData.Sec, pdData.Zone, 0.0);
             standardData.Add((sItem));
         }
         Log.Information($"CsvImporter completed processing of PlanetDance data from {fullPath}");

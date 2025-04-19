@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -83,16 +83,14 @@ public sealed class StandardShiftControlGroupCreator(
 
         foreach (var inputItem in inputItems)
         {
-            var date = inputItem.Date!;
-            var time = inputItem.Time!;
-            _years.Add(date.Year);
-            _months.Add(date.Month);
-            _days.Add(date.Day);
-            _hours.Add(time.Hour);
-            _minutes.Add(time.Minute);
-            _seconds.Add(time.Second);
-            _dsts.Add(time.Dst);
-            _zoneOffsets.Add(time.ZoneOffset);
+            _years.Add(inputItem.Year);
+            _months.Add(inputItem.Month);
+            _days.Add(inputItem.Day);
+            _hours.Add(inputItem.Hour);
+            _minutes.Add(inputItem.Minute);
+            _seconds.Add(inputItem.Second);
+            _dsts.Add(inputItem.Dst);
+            _zoneOffsets.Add(inputItem.ZoneOffset);
             _latitudes.Add(inputItem.GeoLatitude);
             _longitudes.Add(inputItem.GeoLongitude);
         }
@@ -131,11 +129,12 @@ public sealed class StandardShiftControlGroupCreator(
             var longitude = GetFromList(_longitudes);
 
             // For now only support for Gregorian calendar
-            PersistableDate date = new(year, month, day, "G");   
-            PersistableTime time = new(hour, minute, second, zoneOffset, dst);
+            const string cal = "G";
             var id = counter++;
             var name = "Controldata " + sequence + "-" + id;
-            _controlGroupItems.Add(new StandardInputItem(sequence + "-" + id, name, longitude, latitude, date, time));
+            _controlGroupItems.Add(new StandardInputItem(sequence + "-" + id, name, longitude, latitude, year, month,
+                day, cal, hour, minute, second, zoneOffset, dst));
+            
         }
     }
 

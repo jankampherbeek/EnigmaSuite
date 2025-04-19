@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Requests;
+
 namespace Enigma.Domain.Persistables;
 
 /// <summary>Representation of Standard Input as used for persistency.</summary>
@@ -16,6 +18,12 @@ public record StandardInputItem(
     string Name,
     double GeoLongitude,
     double GeoLatitude,
-    PersistableDate? Date,
-    PersistableTime? Time);
-
+    int Year,
+    int Month,
+    int Day,
+    string Calendar,
+    int Hour,
+    int Minute,
+    int Second,
+    double ZoneOffset,
+    double Dst);

@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Data;
 using Enigma.Core.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
@@ -27,10 +28,10 @@ public interface IResearchMethodHandler
 
 /// <inheritdoc/>
 public sealed class ResearchMethodHandler(
+    ICsvImporter csvImporter,
     ICalculatedResearchPositions researchPositions,
     IPointsInPartsCounting pointsInZodiacPartsCounting,
     IFilePersistencyHandler filePersistencyHandler,
-    IResearchDataHandler researchDataHandler,
     IResearchPaths researchPaths,
     IAspectsCounting aspectsCounting,
     IUnaspectedCounting unaspectedCounting,
@@ -83,18 +84,10 @@ public sealed class ResearchMethodHandler(
     {
         List<CalculatedResearchChart> allCalculatedResearchCharts = [];
         var fullPath = researchPaths.DataPath(projectName, controlGroup);
-        Log.Information("Reading Json from path : {Fp}", fullPath);
-        var json = filePersistencyHandler.ReadFile(fullPath);
-        if (json != "")
-        {
-            var standardInput = researchDataHandler.GetStandardInputFromJson(json);
-            allCalculatedResearchCharts = researchPositions.CalculatePositions(standardInput);
-            Log.Information("Calculation completed");            
-        }
-        else
-        {
-            Log.Error("Could not find data for project {ProjName}", projectName);
-        }
+        Log.Information("Reading csv from path : {Fp}", fullPath);
+        var standardInput = csvImporter.ProcessStandardData(fullPath);   
+        allCalculatedResearchCharts = researchPositions.CalculatePositions(standardInput);
+        Log.Information("Calculation completed");            
         return allCalculatedResearchCharts;
     }
 

@@ -3,7 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -87,8 +89,9 @@ public partial class ProjectInputViewModel: ObservableObject
             string multiplicationText = ControlGroupMultiplications[CgMultiplicationIndex]; 
             int multiplicationValue = int.Parse(multiplicationText);
             ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
+            DateTime now = DateTime.Now;
             ResearchProject project = new(ProjectName, ProjectDescription, 
-                AvailableDatafileNames[DatafileIndex], cgType, multiplicationValue);
+                AvailableDatafileNames[DatafileIndex], now.ToString(CultureInfo.InvariantCulture),cgType, multiplicationValue);
             ResultMessage resultMessage = _model.SaveProject(project);
             if (resultMessage.ErrorCode != 0)
             {

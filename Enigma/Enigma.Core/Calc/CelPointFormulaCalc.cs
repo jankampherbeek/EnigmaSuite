@@ -1,10 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2024, 2025.
+// Jan Kampherbeek, (c) 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
 namespace Enigma.Core.Calc;
@@ -32,47 +31,34 @@ public sealed class CelPointFormulaCalc: ICelPointFormulaCalc
     
     public double Calculate(ChartPoints planet, double jdUt)
     {
-        switch (planet)
+        return planet switch
         {
-            case ChartPoints.PersephoneCarteret:
-                return CalcCarteretHypPlanet(jdUt, 212.0, 1.0);
-            case ChartPoints.VulcanusCarteret:
-                return CalcCarteretHypPlanet(jdUt, 15.7, 0.55);
-            case ChartPoints.ApogeeCorrected:    // should always be Duval
-                return CalcApogeeDuval(jdUt);  
-            default: return 0.0;
-        }
+            ChartPoints.PersephoneCarteret => CalcCarteretHypPlanet(jdUt, 212.0, 1.0),
+            ChartPoints.VulcanusCarteret => CalcCarteretHypPlanet(jdUt, 15.7, 0.55),
+            ChartPoints.ApogeeCorrected => // should always be Duval
+                CalcApogeeDuval(jdUt),
+            _ => 0.0
+        };
     }
     
 
-    private double CalcCarteretHypPlanet(double jdUt, double startPoint, double yearlySpeed)
+    private static double CalcCarteretHypPlanet(double jdUt, double startPoint, double yearlySpeed)
     {
         return startPoint + ((jdUt - JD1900) * (yearlySpeed / EnigmaConstants.TROPICAL_YEAR_IN_DAYS));
-    }
-
-    private double SinD(double value)
-    {
-        double valueRad = MathExtra.DegToRad(value);
-        double resultRad = Math.Sin(valueRad);
-        double resultD = MathExtra.RadToDeg(resultRad);
-        return resultD;
     }
     
     private double CalcApogeeDuval(double jdUt)
     {
-        Location? location = new Location("", 0.0, 0.0);     // dummy location
         const int flagsEcl = 2 + 256; // use SE + speed
-        double longSun = _celPointSeCalc.CalculateCelPoint(ChartPoints.Sun.GetDetails().CalcId, jdUt, location, flagsEcl)[0].Position;
-        double longApogeeMean = _celPointSeCalc.CalculateCelPoint(ChartPoints.ApogeeMean.GetDetails().CalcId,jdUt, location, flagsEcl)[0].Position;
-        double diff = RangeUtil.ValueToRange(longSun - longApogeeMean, -180.0, 180.0);
+        var longSun = _celPointSeCalc.CalculateCelPoint(ChartPoints.Sun.GetDetails().CalcId, jdUt, flagsEcl)[0].Position;
+        var longApogeeMean = _celPointSeCalc.CalculateCelPoint(ChartPoints.ApogeeMean.GetDetails().CalcId,jdUt, flagsEcl)[0].Position;
+        var diff = RangeUtil.ValueToRange(longSun - longApogeeMean, -180.0, 180.0);
         const double factor1 = 12.37;
-        double sin2Diff = Math.Sin(MathExtra.DegToRad(2 * diff));
-        double factor2 = Math.Sin(MathExtra.DegToRad((2 * (diff - 11.726 * sin2Diff))));
-        double sin6Diff = Math.Sin(MathExtra.DegToRad(6 * diff));
-        double factor3 = (8.8 / 60.0) * sin6Diff;
-        double corrFactor = factor1 * factor2 + factor3;
-        return  RangeUtil.ValueToRange(longApogeeMean + corrFactor, 0.0, 360.0);
+        var sin2Diff = Math.Sin(MathExtra.DegToRad(2 * diff));
+        var factor2 = Math.Sin(MathExtra.DegToRad((2 * (diff - 11.726 * sin2Diff))));
+        var sin6Diff = Math.Sin(MathExtra.DegToRad(6 * diff));
+        var factor3 = (8.8 / 60.0) * sin6Diff;
+        var corrFactor = factor1 * factor2 + factor3;
+        return RangeUtil.ValueToRange(longApogeeMean + corrFactor, 0.0, 360.0);
     }
-    
-    
 }

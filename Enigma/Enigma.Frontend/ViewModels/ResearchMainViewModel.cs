@@ -37,7 +37,7 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     {
         _researchWindowsFlow = App.ServiceProvider.GetRequiredService<ResearchWindowsFlow>();
         _model = App.ServiceProvider.GetRequiredService<ResearchMainModel>();
-        AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
+     //   AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
         WeakReferenceMessenger.Default.Register(this);        
     }
     

@@ -25,7 +25,8 @@ public class CsvExporter: ICsvExporter
 {
     public void WriteStandardInputToCsv(IEnumerable<StandardInputItem> inputItems, string fullPath)
     {
-        if (!inputItems.Any()) throw new ArgumentException("Input items cannot be empty", nameof(inputItems));
+        var standardInputItems = inputItems.ToList();
+        if (standardInputItems.Count == 0) throw new ArgumentException("Input items cannot be empty", nameof(inputItems));
         if (string.IsNullOrWhiteSpace(fullPath))
             throw new ArgumentException("File path cannot be null or empty", nameof(fullPath));
         
@@ -40,7 +41,7 @@ public class CsvExporter: ICsvExporter
             using var csv = new CsvWriter(writer, config);
             csv.WriteHeader<StandardInputItem>();
             csv.NextRecord();
-            foreach (var item in inputItems)
+            foreach (var item in standardInputItems)
             {
                 csv.WriteRecord(item);
                 csv.NextRecord();

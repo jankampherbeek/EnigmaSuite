@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,12 +18,11 @@ public interface ICalcUtFacade
     /// <summary>Retrieve positions for a celestial point.</summary>
     /// <remarks>Calls the function ext_swe_calc_ut from the CommonSE.</remarks>
     /// <param name="julianDay">Julian day calculated for UT.</param>
-    /// <param name="seCelPointId">Identifier for the celestial point as used by the CommonSE.</param>
+    /// <param name="seCelPointId">Identifier for the celestial point as used by the SE.</param>
     /// <param name="flags">Combined value for flags to define the desired calculation.</param>
     /// <returns>Array with 6 positions, subsequently: longitude, latitude, distance, longitude speed, latitude speed and distance speed.</returns>
     public double[] PositionFromSe(double julianDay, int seCelPointId, int flags);
 }
-
 
 /// <inheritdoc/>
 /// <remarks>Throws a SwissEphException if the CommonSE returns an error.</remarks>
@@ -34,7 +33,7 @@ public sealed class CalcUtFacade : ICalcUtFacade
     public double[] PositionFromSe(double julianDay, int seCelPointId, int flags)
     {
         StringBuilder resultValue = new(256);
-        double[] positions = new double[6];
+        var positions = new double[6];
         _ = ext_swe_calc_ut(julianDay, seCelPointId, flags, positions, resultValue);
         return positions;
     }

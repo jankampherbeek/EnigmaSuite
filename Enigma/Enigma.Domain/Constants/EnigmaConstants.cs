@@ -98,13 +98,13 @@ public static class EnigmaConstants
     public const char NEW_LINE = '\n';
 
     // Locations
-    public const string USER_MANUAL = "https://radixpro.com/usermanual/0_4/UserManual.html";
+    public const string USER_MANUAL = "https://radixpro.com/usermanual/0_6/UserManual.html";
     /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
     public const string CONFIG_DELTA_LOCATION = "c:/enigma_ar/enigmacfgdelta.json";
     /// <summary>Location of deltas for configuration file for rogressions, contains path and filename.</summary>
     public const string CONFIG_PROG_DELTA_LOCATION = "c:/enigma_ar/enigmaprogcfgdelta.json";
     /// <summary>Name of relational database.</summary>   
-    public const string RDBMS_NAME = "/EnigmaRDBMS.sqlite";
+    public const string RDBMS_NAME = "EnigmaRDBMS.sqlite";
     /// <summary>Url to find latest release information.</summary>
     public const string RELEASE_CHECK_URL = "http://radixpro.com/rel/enigma-ar-latest.json";
 

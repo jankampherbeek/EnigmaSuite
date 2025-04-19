@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -9,18 +9,18 @@ using Enigma.Domain.Research;
 namespace Enigma.Core.Research;
 
 
-/// <summary>Converts a ResearchProject to Json and vice versa.</summary>
+/// <summary>Converts a ResearchProject to csv and vice versa.</summary>
 public interface IResearchProjectParser
 {
-    /// <summary>Create Json from a ResearchProject.</summary>
-    /// <param name="project">The project to convert to Json.</param>
-    /// <returns>The Json result.</returns>
+    /// <summary>Create csv from a ResearchProject.</summary>
+    /// <param name="project">The project to convert to csv.</param>
+    /// <returns>The csv result.</returns>
     public string Marshall(ResearchProject project);
 
-    /// <summary>Create a ResearchProject from Json.</summary>
-    /// <param name="jsonString">The Json with the project data.</param>
-    /// <returns>The rtesulting Research Project.</returns>
-    public ResearchProject UnMarshall(string jsonString);
+    /// <summary>Create a ResearchProject from csv.</summary>
+    /// <param name="csv">The csv with the project data.</param>
+    /// <returns>The resulting Research Project.</returns>
+    public ResearchProject UnMarshall(string csv);
 }
 
 /// <inheritdoc/>

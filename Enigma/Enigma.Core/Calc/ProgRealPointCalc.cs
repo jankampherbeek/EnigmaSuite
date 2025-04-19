@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -83,7 +83,7 @@ public class ProgRealPointCalc: IProgRealPointCalc
                 case CalculationCats.CommonSe:
                 {
                     KeyValuePair<ChartPoints, ProgPositions> calcResult = CreatePosForSePoint(celPoint,
-                        julianDayUt, location, flagsEcliptical, flagsEquatorial);
+                        julianDayUt, flagsEcliptical, flagsEquatorial);
                     pointsInTransit.Add(calcResult.Key, calcResult.Value);
                     break;
                 }
@@ -100,10 +100,10 @@ public class ProgRealPointCalc: IProgRealPointCalc
     }
 
     private KeyValuePair<ChartPoints, ProgPositions> CreatePosForSePoint(ChartPoints celPoint, double julDay, 
-        Location? location, int flagsEcl, int flagsEq)
+        int flagsEcl, int flagsEq)
     {
-        PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint((int)celPoint, julDay, location, flagsEcl);
-        PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint((int)celPoint, julDay, location, flagsEq);
+        PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint((int)celPoint, julDay, flagsEcl);
+        PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint((int)celPoint, julDay, flagsEq);
         ProgPositions progPos = new(eclipticPosSpeed[0].Position, eclipticPosSpeed[1].Position,
             equatorialPosSpeed[0].Position, equatorialPosSpeed[1].Position);
         return new KeyValuePair<ChartPoints, ProgPositions>(celPoint, progPos);

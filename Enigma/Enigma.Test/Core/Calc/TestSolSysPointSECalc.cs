@@ -60,12 +60,11 @@ public class TestCelPointCalc
 
     private static PosSpeed[] CalculatePosSpeedForCelPoint()
     {
-        var location = new Location("", 52.0, 6.0);
         var calcUtFacadeFake = A.Fake<ICalcUtFacade>();
         A.CallTo(() => calcUtFacadeFake.PositionFromSe(JULIAN_DAY_UT, ChartPoints.Mars.GetDetails().CalcId, FLAGS_ECLIPTICAL)).
             Returns(new[] { LONGITUDE, LATITUDE, DISTANCE, LONG_SPEED, LAT_SPEED, DIST_SPEED });
         ICelPointSeCalc calc = new CelPointSeCalc(calcUtFacadeFake, new ChartPointsMapping());
-        return calc.CalculateCelPoint(ChartPoints.Mars.GetDetails().CalcId, JULIAN_DAY_UT, location, FLAGS_ECLIPTICAL);
+        return calc.CalculateCelPoint(ChartPoints.Mars.GetDetails().CalcId, JULIAN_DAY_UT, FLAGS_ECLIPTICAL);
     }
 
 }

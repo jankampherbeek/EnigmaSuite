@@ -38,7 +38,9 @@ public sealed class ProjectDetails : IProjectDetails
     public ResearchProject FindProjectDetails(string projectName)
     {
         string projectPath = ApplicationSettings.Instance.LocationProjectFiles + Path.DirectorySeparatorChar + projectName
-            + Path.DirectorySeparatorChar + "project.json";
+            + Path.DirectorySeparatorChar + "project.csv";
+        
+        
         string jsonText = _textFileReader.ReadFile(projectPath);
         return _parser.UnMarshall(jsonText);
     }

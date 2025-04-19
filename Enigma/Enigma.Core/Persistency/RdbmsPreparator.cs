@@ -19,43 +19,143 @@ public interface IRdbmsPreparator
     public bool PreparaDatabase();
 }
 
-
 /// <inheritdoc/>
 public class RdbmsPreparator: IRdbmsPreparator
 {
-    private const string DATA_SOURCE_PREFIX = "Data Source=";
+    private const string DB_VERSION = "0.6.0";
     
     /// <inheritdoc/>
     public bool PreparaDatabase()
     {
-        bool noErrors = true;
-        string fullPath = CreateFullPath();
+        var noErrors = true;
+        var fullPath = CreateFullPath();
+        var oldPath = GetOldDatabasePath();
+
+        Log.Information("Checking database at {FullPath}", fullPath);
+        Log.Information("Old database path: {OldPath}", oldPath);
+
         if (!DbExists(fullPath))
         {
-            Log.Information("Database not found at {FullPath}. Creating a new database", fullPath);
-            if (CreateDatabase(fullPath))
+            // Only try to migrate if new database doesn't exist
+            if (File.Exists(oldPath))
             {
-                Log.Information("Database successfully created");
-                if (PopulateDatabase(fullPath))
+                Log.Information("New database not found, attempting to migrate from old location");
+                if (MigrateDatabase(oldPath, fullPath))
                 {
-                    Log.Information("Database successfully populated");
+                    Log.Information("Database successfully migrated from old location");
                 }
-                else noErrors = false;
+                else
+                {
+                    Log.Error("Database migration failed");
+                    noErrors = false;
+                }
             }
             else
             {
-                Log.Error("Database could not be created");
-                noErrors = false;
-            } 
-
+                Log.Information("No database found, creating new one at {FullPath}", fullPath);
+                if (CreateDatabase(fullPath))
+                {
+                    Log.Information("Database successfully created");
+                    if (PopulateDatabase(fullPath))
+                    {
+                        Log.Information("Database successfully populated");
+                    }
+                    else noErrors = false;
+                }
+                else
+                {
+                    Log.Error("Database could not be created");
+                    noErrors = false;
+                }
+            }
         }
+        else
+        {
+            Log.Information("Database already exists at {FullPath}", fullPath);
+        }
+
+        // Verify database exists and is not empty
+        if (File.Exists(fullPath) && new FileInfo(fullPath).Length > 0)
+        {
+            Log.Information("Database exists and is not empty at {FullPath}", fullPath);
+            var latestVersion = LatestVersion(fullPath);
+            Log.Information("Latest version of database is {Version}", latestVersion);
+        }
+        else
+        {
+            Log.Error("Database is missing or empty at {FullPath}", fullPath);
+            noErrors = false;
+        }
+
+        if (noErrors) noErrors = UpdateDatabase(fullPath);
         return noErrors;
     }
 
+    private static bool UpdateDatabase(string fullPath)
+    {
+        var noErrors = true;
+        try
+        {
+            var currentVersion = LatestVersion(fullPath);
+            Log.Information("Current database version: {CurrentVersion}, Target version: {TargetVersion}", 
+                currentVersion, DB_VERSION);
+
+            // Compare versions using string comparison
+            if (string.Compare(currentVersion, DB_VERSION, StringComparison.Ordinal) >= 0)
+            {
+                Log.Information("Database is already at version {Version} or higher", DB_VERSION);
+                return noErrors;
+            }
+            Log.Information("Starting database update to version {Version}", DB_VERSION);
+            var sqlQuery = ConstructInit_0_6_Query();
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            using var transaction = dbConnection.BeginTransaction();
+            try
+            {
+                var affectedRows = dbConnection.Execute(sqlQuery, transaction: transaction);
+                Log.Information("DDL executed, affected rows: {Rows}", affectedRows);
+                // Update version
+                const string setVersionQuery = "INSERT INTO DbVersions(description) VALUES(@version)";
+                var versionParams = new { version = DB_VERSION };
+                affectedRows = dbConnection.Execute(setVersionQuery, versionParams, transaction: transaction);
+                Log.Information("Version update executed, affected rows: {Rows}", affectedRows);
+
+                // Verify tables were created
+                const string tablesQuery = "SELECT name FROM sqlite_master WHERE type='table'";
+                var tables = dbConnection.Query<string>(tablesQuery, transaction: transaction).ToList();
+                Log.Information("Tables after update: {Tables}", string.Join(", ", tables));
+                transaction.Commit();
+                Log.Information("Successfully committed database update to version {Version}", DB_VERSION);
+            }
+            catch (Exception e)
+            {
+                transaction.Rollback();
+                Log.Error("Error during database update, rolling back. Exception: {Msg}", e.Message);
+                throw;
+            }
+        }
+        catch (Exception e)
+        {
+            Log.Error("Exception while updating database to version {Version}: {Msg}", DB_VERSION, e.Message);
+            Log.Error("Stack trace: {StackTrace}", e.StackTrace);
+            noErrors = false;
+        }
+        return noErrors;
+    }
+    
+    
 
     private static string CreateFullPath()
     {
-        return ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
+        return Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+    }
+
+    private static string GetOldDatabasePath()
+    {
+        return Path.Combine(@"c:\enigma_ar\database", EnigmaConstants.RDBMS_NAME);
     }
     
     private static bool DbExists(string fullPath)
@@ -63,19 +163,114 @@ public class RdbmsPreparator: IRdbmsPreparator
         return File.Exists(fullPath);
     }
 
-    private static bool CreateDatabase(string fullPath)
+    private static bool MigrateDatabase(string oldPath, string newPath)
     {
-        bool noErrors = true;
         try
         {
-            SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
-            string sqlQuery = ConstructInitQuery();
-            using var cnn = dbConnection;
-            cnn.Open();
-            cnn.Execute(sqlQuery);            
-        } catch (Exception e)
+            Log.Information("Attempting to migrate database from {OldPath} to {NewPath}", oldPath, newPath);
+            if (!File.Exists(oldPath))
+            {
+                Log.Information("Old database not found at {OldPath}, skipping migration", oldPath);
+                return false;
+            }
+            // Check if new database already exists and is not empty
+            if (File.Exists(newPath) && new FileInfo(newPath).Length > 0)
+            {
+                Log.Information("New database already exists and is not empty, skipping migration");
+                return true;
+            }
+            // Ensure the new directory exists
+            var newDirectory = Path.GetDirectoryName(newPath);
+            if (!string.IsNullOrEmpty(newDirectory))
+            {
+                Directory.CreateDirectory(newDirectory);
+            }
+            // Delete empty database if it exists
+            if (File.Exists(newPath) && new FileInfo(newPath).Length == 0)
+            {
+                Log.Information("Deleting empty database file at {NewPath}", newPath);
+                File.Delete(newPath);
+            }
+            // Copy the database file
+            File.Copy(oldPath, newPath, true);
+            Log.Information("Successfully migrated database to new location");
+            // Verify the migration
+            if (File.Exists(newPath) && new FileInfo(newPath).Length > 0)
+            {
+                Log.Information("Migration verified: new database size is {Size} bytes", new FileInfo(newPath).Length);
+                return true;
+            }
+            Log.Error("Migration failed: new database is empty");
+            return false;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error during database migration. Exception: {Msg}", e.Message);
+            Log.Error("Stack trace: {StackTrace}", e.StackTrace);
+            return false;
+        }
+    }
+
+    private static string LatestVersion(string fullPath)
+    {
+        try
+        {
+            Log.Information("Attempting to connect to database at: {FullPath}", fullPath);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+            // Try to get the latest version
+            const string versionQuery = "SELECT description FROM DbVersions ORDER BY description DESC LIMIT 1";
+            var version = dbConnection.Query<string>(versionQuery).FirstOrDefault();
+            if (version == null)
+            {
+                Log.Warning("No version found in DbVersions table");
+                return "0.0";
+            }
+            Log.Information("Latest version found: {Version}", version);
+            return version;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error when reading latest version of database. Exception: {Msg}", e.Message);
+            Log.Error("Stack trace: {StackTrace}", e.StackTrace);
+            return "0.0";
+        }
+    }
+    
+    
+    private static bool CreateDatabase(string fullPath)
+    {
+        var noErrors = true;
+        try
+        {
+            Log.Information("Creating database at: {FullPath}", fullPath);
+            // Ensure the directory exists
+            var directory = Path.GetDirectoryName(fullPath);
+            if (!string.IsNullOrEmpty(directory))
+            {
+                Directory.CreateDirectory(directory);
+                Log.Information("Created directory: {Directory}", directory);
+            }
+            // Create the database file
+            SQLiteConnection.CreateFile(fullPath);
+            Log.Information("Created database file");
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+            // Create initial tables
+            var sqlQuery = ConstructInitQuery();
+            dbConnection.Execute(sqlQuery);
+            Log.Information("Created database schema");
+            // Insert initial version
+            const string versionSql = "INSERT INTO DbVersions(description) VALUES(@version)";
+            dbConnection.Execute(versionSql, new { version = "0.0" });
+            Log.Information("Inserted initial version");
+        } 
+        catch (Exception e)
         {
             Log.Error("An error occurred while creating database. Exception: {Msg}", e.Message);
+            Log.Error("Stack trace: {StackTrace}", e.StackTrace);
             noErrors = false;
         }
         return noErrors;
@@ -83,18 +278,19 @@ public class RdbmsPreparator: IRdbmsPreparator
 
     private static bool PopulateDatabase(string fullPath)
     {
-        bool noErrors = true;
+        var noErrors = true;
         try
         {
-            SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
-            string sqlQuery = ConstructPopulateQuery();
-            using var cnn = dbConnection;
-            cnn.Open();
-            cnn.Execute(sqlQuery);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            var sqlQuery = ConstructPopulateQuery();
+            dbConnection.Open();
+            dbConnection.Execute(sqlQuery);
             var anonymousDbVersion = new{description = EnigmaConstants.ENIGMA_VERSION};
             const string versionSql = "insert into DbVersions(description) VALUES(@description);";
-            cnn.Execute(versionSql, anonymousDbVersion);
-        } catch (Exception e)
+            dbConnection.Execute(versionSql, anonymousDbVersion);
+        } 
+        catch (Exception e)
         {
             Log.Error("An error occurred while populating database. Exception: {Msg}", e.Message);
             noErrors = false;
@@ -131,6 +327,19 @@ public class RdbmsPreparator: IRdbmsPreparator
             ;
     }
 
+    private static string ConstructInit_0_6_Query()
+    {
+        return
+            """
+            create TABLE DataFiles(id integer primary key AUTOINCREMENT, name varchar(50) NOT NULL,
+                         location varchar(256) NOT NULL);
+            create TABLE Projects(id integer primary key AUTOINCREMENT, name varchar(50) NOT NULL,
+                         description varchar(200), location varchar(256) NOT NULL, multiFactor integer NOT NULL,
+                         created varchar(30) NOT NULL, datafile integer NOT NULL,
+                         FOREIGN KEY (dataFile) REFERENCES DataFiles(id));
+            """;
+    }
+    
     private static string ConstructPopulateQuery()
     {
         return """

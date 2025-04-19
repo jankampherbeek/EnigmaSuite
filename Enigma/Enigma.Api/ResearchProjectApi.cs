@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -33,19 +33,15 @@ public interface IProjectsOverviewApi
 
 
 /// <inheritdoc/>
-public sealed class ProjectCreationApi : IProjectCreationApi
+public sealed class ProjectCreationApi(IProjectCreationHandler projectCreationHandler) : IProjectCreationApi
 {
-    private readonly IProjectCreationHandler _projectCreationHandler;
-
-    public ProjectCreationApi(IProjectCreationHandler projectCreationHandler) => _projectCreationHandler = projectCreationHandler;
-
     /// <inheritdoc/>
     public ResultMessage CreateProject(ResearchProject project)
     {
         Guard.Against.Null(project);
         Log.Information("ProjectCreationApi CreateProject: about to create project {Name}", project.Name);
-        bool success = _projectCreationHandler.CreateProject(project, out int errorCode);
-        string msg = "Project created";
+        var success = projectCreationHandler.CreateProject(project, out int errorCode);
+        var msg = "Project created";
         if (success)
         {
             Log.Information("ProjectCreationApi.CreateProject(): Project {Name} successfully created", project.Name);
@@ -60,17 +56,13 @@ public sealed class ProjectCreationApi : IProjectCreationApi
 }
 
 /// <inheritdoc/>
-public sealed class ProjectsOverviewApi : IProjectsOverviewApi
+public sealed class ProjectsOverviewApi(IProjectsOverviewHandler projectsOverviewHandler) : IProjectsOverviewApi
 {
-    private readonly IProjectsOverviewHandler _projectsOverviewHandler;
-
-    public ProjectsOverviewApi(IProjectsOverviewHandler projectsOverviewHandler) => _projectsOverviewHandler = projectsOverviewHandler;
-
     /// <inheritdoc/>
     public List<ResearchProject> GetDetailsForAllProjects()
     {
         Log.Information("ProjectsOverviewApi.GetDetailsForAllProjects(). Returning list of projects");
-        return _projectsOverviewHandler.ReadAllProjectDetails();
+        return projectsOverviewHandler.ReadAllProjectDetails();
     }
 }
 

@@ -20,7 +20,6 @@ public class TestSolarArcCalculator
     private const double JD_RADIX = 2000000;
     private const double JD_EVENT = 2000038;
     private const double TIMESPAN = 38.0;
-    private readonly Location? _location = new("Anywhere", 0.0, 0.0);
     private const int FLAGS = 258;
     private readonly PosSpeed[] _jdRadixEclSunPos = new PosSpeed[3];
     private readonly PosSpeed[] _jdEventEclSunPos = new PosSpeed[3];
@@ -46,7 +45,7 @@ public class TestSolarArcCalculator
     public void TestCalcSolarArcForTimespan()
     {
         const double expected = 38.1;
-        double actual = _calculator!.CalcSolarArcForTimespan(JD_RADIX, TIMESPAN, _location, FLAGS);
+        double actual = _calculator!.CalcSolarArcForTimespan(JD_RADIX, TIMESPAN, FLAGS);
         Assert.That(actual, Is.EqualTo(expected).Within(DELTA));
 
     }
@@ -54,8 +53,8 @@ public class TestSolarArcCalculator
     private ICelPointSeCalc CreateCelPointSeCalcMock()
     {
         var calcFake = A.Fake<ICelPointSeCalc>();
-        A.CallTo(() => calcFake.CalculateCelPoint((int)ChartPoints.Sun, JD_RADIX, _location, FLAGS)).Returns(_jdRadixEclSunPos);
-        A.CallTo(() => calcFake.CalculateCelPoint((int)ChartPoints.Sun, JD_EVENT, _location, FLAGS)).Returns(_jdEventEclSunPos);
+        A.CallTo(() => calcFake.CalculateCelPoint((int)ChartPoints.Sun, JD_RADIX, FLAGS)).Returns(_jdRadixEclSunPos);
+        A.CallTo(() => calcFake.CalculateCelPoint((int)ChartPoints.Sun, JD_EVENT, FLAGS)).Returns(_jdEventEclSunPos);
         return calcFake;
     }
 

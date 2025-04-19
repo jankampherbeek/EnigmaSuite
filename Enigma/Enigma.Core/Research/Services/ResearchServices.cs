@@ -19,7 +19,6 @@ public static class ResearchServices
         // Handlers
         serviceCollection.AddTransient<IProjectCreationHandler, ProjectCreationHandler>();
         serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
-        serviceCollection.AddTransient<IResearchDataHandler, ResearchDataHandler>();
         serviceCollection.AddTransient<IResearchMethodHandler, ResearchMethodHandler>();
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();
 
@@ -30,7 +29,6 @@ public static class ResearchServices
         serviceCollection.AddTransient<IControlGroupCreator, StandardShiftControlGroupCreator>();
         serviceCollection.AddTransient<IControlGroupRng, ControlGroupRng>();
         serviceCollection.AddTransient<IHarmonicConjunctionsCounting, HarmonicConjunctionsCounting>();
-        serviceCollection.AddTransient<IInputDataConverter, InputDataConverter>();
         serviceCollection.AddTransient<IOccupiedMidpointsCounting, OccupiedMidpointsCounting>();
         serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();

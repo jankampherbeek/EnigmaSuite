@@ -46,7 +46,7 @@ public sealed class DataImportHandler(
             var inputItems = dataType switch
             {
                 ResearchDataTypes.PlanetDance => csvImporter.ProcessPlanetDanceData(fullInputPath),
-                ResearchDataTypes.StandardEnigma => csvImporter.ProcessEnigmaData(fullInputPath),
+                ResearchDataTypes.StandardEnigma => csvImporter.ProcessStandardData(fullInputPath),
                 _ => []
             };
             csvExporter.WriteStandardInputToCsv(inputItems, fullOutputPath);

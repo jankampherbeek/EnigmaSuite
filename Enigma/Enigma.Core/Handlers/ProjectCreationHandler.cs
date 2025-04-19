@@ -1,13 +1,20 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Globalization;
+using System.Security.AccessControl;
+using CsvHelper;
+using CsvHelper.Configuration;
+using Enigma.Core.Data;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistables;
+using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Serilog;
 
@@ -23,98 +30,80 @@ public interface IProjectCreationHandler
     public bool CreateProject(ResearchProject project, out int errorCode);
 }
 
-public sealed class ProjectCreationHandler : IProjectCreationHandler
+public sealed class ProjectCreationHandler(
+    IResearchProjectParser researchProjectParser,
+    ITextFileWriter textFileWriter,
+    ITextFileReader textFileReader,
+    IControlGroupCreator controlGroupCreator,
+    ICsvExporter csvExporter,
+    ICsvImporter csvImporter)
+    : IProjectCreationHandler
 {
 
-    private readonly ApplicationSettings _applicationSettings;
-    private readonly IResearchProjectParser _researchProjectParser;
-    private readonly ITextFileWriter _textFileWriter;
-    private readonly ITextFileReader _textFileReader;
-    private readonly IControlGroupCreator _controlGroupCreator;
-    private readonly IInputDataConverter _inputDataConverter;
 
-    public ProjectCreationHandler(IResearchProjectParser researchProjectParser,
-        ITextFileWriter textFileWriter,
-        ITextFileReader textFileReader,
-        IControlGroupCreator controlGroupCreator,
-        IInputDataConverter inputDataConverter)
-    {
-        _researchProjectParser = researchProjectParser;
-        _textFileWriter = textFileWriter;
-        _textFileReader = textFileReader;
-        _applicationSettings = ApplicationSettings.Instance;
-        _controlGroupCreator = controlGroupCreator;
-        _inputDataConverter = inputDataConverter;
-    }
+    private readonly ApplicationSettings _applicationSettings = ApplicationSettings.Instance;
 
     public bool CreateProject(ResearchProject project, out int errorCode)
     {
-
+        var projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name;
         errorCode = 0;
-        if (FolderExists(project.Name))
+        if (FolderExists(projPath))
         {
             errorCode = ResultCodes.RESEARCH_PROJFOLDER_EXISTS;
             return false;
         }
-        if (!CreateFolder(project.Name))
+        if (!CreateFolder(projPath))
         {
             errorCode = ResultCodes.RESEARCH_CANNOT_CREATE_PROJFOLDER;
             return false;
         }
-        if (!CreateFolder(project.Name + @"\results"))
+        if (!CreateFolder(projPath + Path.DirectorySeparatorChar + "results"))
         {
             errorCode = ResultCodes.RESEARCH_CANNOT_CREATE_RESULTSFOLDER;
             return false;
         }
-        if (!ParseJson(project, out string jsonText))
-        {
-            errorCode = ResultCodes.RESEARCH_CANNOT_PARSE_PROJECT2_JSON;
-            return false;
-        }
-        if (!WriteJsonToFile(jsonText, project))
+
+        // if (!ReadProject(project, projPath))
+        // {
+        //     errorCode = ResultCodes.RESEARCH_CANNOT_PARSE_PROJECT2_JSON;
+        //     return false;
+        // }
+        if (!WriteProject(project, projPath))
         {
             errorCode = ResultCodes.RESEARCH_CANNOT_WRITE_JSON4_PROJECT;
             return false;
         }
-        if (!CopyDataFile(project))
+        if (!CopyDataFile(project, projPath))
         {
             errorCode = ResultCodes.RESEARCH_CANNOT_COPY_DATAFILE;
             return false;
         }
-        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
-        string inputData = _textFileReader.ReadFile(projDataPath);
-        StandardInput standardInput = _inputDataConverter.UnMarshallStandardInput(inputData);
-        List<StandardInputItem> allInputItems = standardInput.ChartData;
-
-
-
-        // maak controlgroup via ControlGroupCreator
-        List<StandardInputItem> controlGroupData = _controlGroupCreator.CreateMultipleControlData(allInputItems, project.ControlGroupType, project.ControlGroupMultiplication);
-        string creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-        StandardInput controlGroup = new(project.Name, creation, controlGroupData);
-        // schrijf data controlgroep weg
-        string controlGroupJson = _inputDataConverter.MarshallStandardInput(controlGroup);
-
-        string controlGroupPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "controldata.json";
-
-        _textFileWriter.WriteFile(controlGroupPath, controlGroupJson);
-
-
-
+        var projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.csv";
+        Log.Information($"Defined location of testdata: {projDataPath}");
+        var standardInput = csvImporter.ProcessStandardData(projDataPath);  
+        Log.Information(">>>>> Measuring: start creating control group data");
+        var controlGroupData = controlGroupCreator.CreateMultipleControlData(standardInput, project.ControlGroupType, project.ControlGroupMultiplication);
+        Log.Information(">>>>> Measuring: completed creating control group data");
+        var creation = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+        Log.Information(">>>>> Measuring: start creating csv for controldata");
+        var controlGroupPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "controldata.csv";
+        csvExporter.WriteStandardInputToCsv(controlGroupData, controlGroupPath);
+        Log.Information(">>>>> Measuring: completed creating csv for controldata");
         return true;
     }
 
-    private bool FolderExists(string projectName)
+    private bool FolderExists(string projPath)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName;
+        Log.Information($"Check existence of folder : {projPath}");
         return Directory.Exists(projPath);
     }
 
-    private bool CreateFolder(string projectName)
+    private bool CreateFolder(string projPath)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName;
+       // string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName;
         try
         {
+            Log.Information($"Create folder for research: {projPath}");
             Directory.CreateDirectory(projPath);
         }
         catch (Exception e)
@@ -125,42 +114,74 @@ public sealed class ProjectCreationHandler : IProjectCreationHandler
         return true;
     }
 
-    private bool ParseJson(ResearchProject project, out string jsonText)
+    private ResearchProject ReadProject(string projCsv, string projPath)
     {
-        jsonText = "";
+     //   var projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name;
+
+     var proj = new ResearchProject("","","","",ControlGroupTypes.StandardShift, 1);
         try
         {
-            jsonText = _researchProjectParser.Marshall(project);
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                Delimiter = ",",
+                HasHeaderRecord = true,
+                HeaderValidated = null,
+                IgnoreBlankLines = true,
+            };
+
+            using var reader = new StreamReader(projPath);
+            using var csv = new CsvReader(reader, config);
+            csv.Read();
+            csv.ReadHeader();
+            while (csv.Read())
+            {
+                proj = csv.GetRecord<ResearchProject>();
+            }
         }
         catch (Exception e)
         {
-            Log.Error("Received an exception {A} when parsing project {B} to JSON", e.Message, project.Name);
-            return false;
+            var errorTxt = $"Received an exception {e.Message} when reading project from {projPath}";
+            Log.Error(errorTxt);
+            throw new PersistencyException(errorTxt);
         }
-        return true;
+        return proj;
     }
 
 
-    private bool WriteJsonToFile(string jsonText, ResearchProject project)
+    private bool WriteProject(ResearchProject projectDetails, string projPath)
     {
-        string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "project.json";
-        try
-        {
-            _textFileWriter.WriteFile(projPath, jsonText);
-        }
-        catch (Exception e)
-        {
-            Log.Error("Received an exception {A} when writing Json to file {B}, using the following JSON: {C}", e.Message, projPath, jsonText);
-            return false;
-        }
-        return true;
-
+       var config = new CsvConfiguration(CultureInfo.InvariantCulture)
+       {
+           Delimiter = ",", 
+           HasHeaderRecord = true
+       };
+       try
+       {
+           using var writer = new StreamWriter(projPath);
+           using var csv = new CsvWriter(writer, config);
+           csv.WriteHeader<ProjectDetails>();
+           csv.NextRecord();
+           csv.WriteRecord(projectDetails);
+           csv.NextRecord();
+       }
+       catch (CsvHelperException ex)
+       {
+           Log.Error($"Could not write to {projPath}. Encountered CsvHelperException {ex.Message}");
+           return false;
+       }
+       catch (IOException ex)
+       {
+           Log.Error($"Could not write to {projPath}. Encountered IOException {ex.Message}");
+           return false;
+       }
+       return true;
     }
 
-    private bool CopyDataFile(ResearchProject project)
+    private bool CopyDataFile(ResearchProject project, string projPath)
     {
-        string dataPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.json";
-        string projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.json";
+        var dataPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + project.DataName + Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + project.DataName;
+        //var projDataPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.csv";
+        var projDataPath = projPath + Path.DirectorySeparatorChar + "testdata.csv";
         try
         {
             File.Copy(dataPath, projDataPath, true);

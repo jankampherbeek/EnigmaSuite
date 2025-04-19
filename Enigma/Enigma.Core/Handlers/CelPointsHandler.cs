@@ -331,8 +331,8 @@ public sealed class CelPointsHandler(
     private KeyValuePair<ChartPoints, FullPointPos> CreatePosForSePoint(ChartPoints celPoint, double julDay, Location? location, int flagsEcl, int flagsEq)
     {
         var seId = celPoint.GetDetails().CalcId;
-        PosSpeed[] eclipticPosSpeed = positionCelPointSeCalc.CalculateCelPoint(seId, julDay, location, flagsEcl);
-        PosSpeed[] equatorialPosSpeed = positionCelPointSeCalc.CalculateCelPoint(seId, julDay, location, flagsEq);
+        PosSpeed[] eclipticPosSpeed = positionCelPointSeCalc.CalculateCelPoint(seId, julDay, flagsEcl);
+        PosSpeed[] equatorialPosSpeed = positionCelPointSeCalc.CalculateCelPoint(seId, julDay, flagsEq);
         var equCoordinates = new EquatorialCoordinates(equatorialPosSpeed[0].Position, equatorialPosSpeed[1].Position);
         HorizontalRequest horizontalRequest = new(julDay, location, equCoordinates);
         HorizontalCoordinates horCoord = horizontalHandler.CalcHorizontal(horizontalRequest);

@@ -56,7 +56,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
-        serviceCollection.AddTransient<ICsv2JsonConverter, Csv2JsonConverter>();
         serviceCollection.AddTransient<IDataFilePreparationHandler, DataFilePreparationHandler>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
         serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();

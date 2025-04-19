@@ -3,6 +3,8 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
+using System.IO;
 using Enigma.Api.Services;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
@@ -144,7 +146,11 @@ public partial class App
     {
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
-            .WriteTo.File(EnigmaLogRoot + @"/enigma_.log", rollingInterval: RollingInterval.Day)
+            .WriteTo.File(Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) +  Path.DirectorySeparatorChar +
+                "enigma" +  Path.DirectorySeparatorChar + "logs",
+                "enigma"),
+                rollingInterval: RollingInterval.Day)
             .CreateLogger();
     }
 
