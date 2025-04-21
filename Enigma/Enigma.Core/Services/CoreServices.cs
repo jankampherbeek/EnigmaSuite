@@ -56,8 +56,8 @@ public static class CoreServices
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
+        serviceCollection.AddTransient<IDataFileDao, DataFileDao>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
-        serviceCollection.AddTransient<IDataNamesHandler, DataNamesHandler>();
         serviceCollection.AddTransient<IDateCheckedConversion, DateCheckedConversion>();
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
         serviceCollection.AddTransient<IDateTimeHandler, DateTimeHandler>();
@@ -71,7 +71,6 @@ public static class CoreServices
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
-        serviceCollection.AddTransient<IFoldersInfo, FoldersInfo>();
         serviceCollection.AddTransient<IFullPointPosFactory, FullPointPosFactory>();
         serviceCollection.AddTransient<IHarmonicsCalculator, HarmonicsCalculator>();
         serviceCollection.AddTransient<IHarmonicsHandler, HarmonicsHandler>();
@@ -104,6 +103,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IPrimDirDates, PrimDirDates>();
+        serviceCollection.AddTransient<IProjectDao, ProjectDao>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
         serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
@@ -112,6 +112,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IResourceBundleHandler, TestResourceBundleHandler>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
+        serviceCollection.AddTransient<ISettingsDao, SettingsDao>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
         serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();

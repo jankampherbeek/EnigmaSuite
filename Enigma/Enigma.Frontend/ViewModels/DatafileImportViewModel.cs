@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -60,7 +60,7 @@ public partial class DatafileImportViewModel: ObservableObject
     private void PerformBrowse()
     {
         Microsoft.Win32.OpenFileDialog openFileDlg = new();
-        bool? result = openFileDlg.ShowDialog();
+        var result = openFileDlg.ShowDialog();
         if (result == true)
         {
             DatafileName = openFileDlg.FileName;
@@ -79,7 +79,7 @@ public partial class DatafileImportViewModel: ObservableObject
             
             if (_model.CheckIfNameCanBeUsed(DatasetName))
             {
-                ResultMessage resultMsg = _model.PerformImport(DatafileName, DatasetName, DataTypeIndex);
+                var resultMsg = _model.PerformImport(DatafileName, DatasetName, DataTypeIndex);
                 if (resultMsg.ErrorCode > ResultCodes.OK)
                 {
                     ErrorText = ERROR;

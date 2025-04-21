@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -18,6 +18,8 @@ using Enigma.Frontend.Ui.Support;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using System.Windows;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -35,8 +37,13 @@ public partial class MainViewModel: ObservableObject
     {
         _generalWindowsFlow = App.ServiceProvider.GetRequiredService<GeneralWindowsFlow>();
         HandleCheckNewVersion();
-        HandleCheckDirForSettings();
+        HandleCheckDirForSettings();   // TODO, obsolete, remove
         HandleCheckRdbms();
+        if (!HandleCheckSettings())
+        {
+            MessageBox.Show("You did not define a work folder. Please restart Enigma and try again.");
+            Environment.Exit(1);
+        }
         Rosetta.Instance.SetLanguage("en");
     }
 
@@ -63,8 +70,8 @@ public partial class MainViewModel: ObservableObject
     
     private void HandleCheckNewVersion()
     {
-        ICommunicationApi communicationApi = App.ServiceProvider.GetRequiredService<ICommunicationApi>();
-        ReleaseInfo releaseInfo = communicationApi.LatestAvaialableRelease();
+        var communicationApi = App.ServiceProvider.GetRequiredService<ICommunicationApi>();
+        var releaseInfo = communicationApi.LatestAvaialableRelease();
         if (releaseInfo.Version == "")
         {
             Log.Error("Could not check for updates as creating an internet connection failed");
@@ -81,7 +88,7 @@ public partial class MainViewModel: ObservableObject
     
     private static void HandleCheckDirForSettings()     
     {
-        ApplicationSettings settings = ApplicationSettings.Instance;
+        var settings = ApplicationSettings.Instance;
         if (!Directory.Exists(ApplicationSettings.LocationEnigmaRoot)) Directory.CreateDirectory(ApplicationSettings.LocationEnigmaRoot);
         if (!Directory.Exists(ApplicationSettings.LocationExportFiles)) Directory.CreateDirectory(ApplicationSettings.LocationExportFiles);
         if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);
@@ -89,6 +96,67 @@ public partial class MainViewModel: ObservableObject
         if (!Directory.Exists(ApplicationSettings.LocationDatabase)) Directory.CreateDirectory(ApplicationSettings.LocationDatabase);
         if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
         if (!Directory.Exists(ApplicationSettings.LocationDocs)) Directory.CreateDirectory(ApplicationSettings.LocationDocs);
+    }
+
+    private static string GetWorkfolderPath()
+    {
+        MessageBox.Show("This is the first time that you start this verion of Enigma. \n" +
+                       "After closing this popup, you need to select a folder where you want to save results form working with Enigma\n" +
+                       "Please click OK and define a folder in the next screen.");
+
+        var dialog = new Microsoft.Win32.OpenFileDialog
+        {
+            Title = "Select folder for Enigma work files",
+            Filter = "Folders|*.none",
+            CheckFileExists = false,
+            CheckPathExists = true,
+            FileName = "Select Folder",
+            InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        };
+
+        if (dialog.ShowDialog() == true)
+        {
+            return Path.GetDirectoryName(dialog.FileName) ?? string.Empty;
+        }
+        return string.Empty;
+    }
+
+    // Checks if minimal settings are available.
+    private static bool HandleCheckSettings()
+    {
+        try
+        {
+            var settingsApi = App.ServiceProvider.GetRequiredService<ISettingsApi>();
+            var workfolderExists = settingsApi.SettingExists("workfolder");
+            if (workfolderExists) return true;
+
+            Log.Warning("Workfolder setting not found in database");
+            var workfolderPath = GetWorkfolderPath();
+            if (string.IsNullOrEmpty(workfolderPath))
+            {
+                MessageBox.Show("No workfolder selected. The application may not function correctly.", 
+                    "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (settingsApi.InsertSetting("workfolder", workfolderPath))
+            {
+                MessageBox.Show("Workfolder has been set successfully.", 
+                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true;
+            }
+            
+            MessageBox.Show("Failed to save workfolder setting.", 
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+        }
+        catch (Exception ex)
+        {
+            Log.Error("Error checking settings: {Message}", ex.Message);
+            MessageBox.Show($"Error checking settings: {ex.Message}", 
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            return false;
+        }
     }
     
     
@@ -121,6 +189,5 @@ public partial class MainViewModel: ObservableObject
         Log.Information("MainViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
-    
     
 }

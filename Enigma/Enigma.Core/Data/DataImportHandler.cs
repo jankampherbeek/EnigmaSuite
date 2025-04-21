@@ -29,36 +29,57 @@ public interface IDataImportHandler
 public sealed class DataImportHandler(
     IFileCopier fileCopier,
     ICsvImporter csvImporter,
-    ICsvExporter csvExporter)
+    ICsvExporter csvExporter,
+    ISettingsDao settingsDao,
+    IDataFileDao dataFileDao)
     : IDataImportHandler
 {
     /// <inheritdoc/>
     public ResultMessage ImportStandardData(string fullPathSource, string dataName, ResearchDataTypes dataType)
     {
-        var fullInputPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
-                            Path.DirectorySeparatorChar + "csv" + Path.DirectorySeparatorChar + dataName + ".csv";
-        var fullOutputPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName + 
-                             Path.DirectorySeparatorChar + "json" + Path.DirectorySeparatorChar + "date_time_loc.csv";
-        var fullErrorPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + "errors.txt";
+        // TODO check values for ResultMessage, or find an alternative solution
+        var workFolder = settingsDao.ReadSetting("workfolder");
+        var fullInputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "orig" + 
+                            Path.DirectorySeparatorChar + dataName + ".csv";
+        var fullOutputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "standard" + 
+                             Path.DirectorySeparatorChar + "date_time_loc.csv";
+        var fullErrorPath = workFolder + Path.DirectorySeparatorChar + "dataName" + Path.DirectorySeparatorChar + "errors.txt";
+        int dataIndex;
         try
         {
-            fileCopier.CopyFile(fullPathSource, fullInputPath);
-            var inputItems = dataType switch
-            {
-                ResearchDataTypes.PlanetDance => csvImporter.ProcessPlanetDanceData(fullInputPath),
-                ResearchDataTypes.StandardEnigma => csvImporter.ProcessStandardData(fullInputPath),
-                _ => []
-            };
-            csvExporter.WriteStandardInputToCsv(inputItems, fullOutputPath);
-            return new ResultMessage(0, "File successfully imported");
+            var dataFileDto = new DataFileDto();
+            dataFileDto.Name = dataName;
+            dataFileDto.Location = fullOutputPath;
+            dataIndex = dataFileDao.InsertDataFile(dataFileDto);
         }
         catch (Exception e)
         {
-            Log.Error($"Could not import data. An exception occurred: {e.Message} using input filePath {fullInputPath} and output file path {fullOutputPath}");
-            return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);
+            var errorTxt = $"Could not insert datafile {dataName} into database";
+            Log.Error(errorTxt);
+            return new ResultMessage(2, errorTxt);
         }
+
+        if (dataIndex > 0)
+        {
+            try
+            {
+                fileCopier.CopyFile(fullPathSource, fullInputPath);
+                var inputItems = dataType switch
+                {
+                    ResearchDataTypes.PlanetDance => csvImporter.ProcessPlanetDanceData(fullInputPath),
+                    ResearchDataTypes.StandardEnigma => csvImporter.ProcessStandardData(fullInputPath),
+                    _ => []
+                };
+                csvExporter.WriteStandardInputToCsv(inputItems, fullOutputPath);
+                return new ResultMessage(0, "File successfully imported");
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not import data. An exception occurred: {e.Message} using input filePath {fullInputPath} and output file path {fullOutputPath}");
+                return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);
+            }
+        }
+
+        return new ResultMessage(2, "File could not be imported");
     }
-    
-    
-    
 }

@@ -1,4 +1,4 @@
-﻿// Enigma Astrology Research.
+// Enigma Astrology Research.
 // Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
@@ -9,7 +9,7 @@ using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Research;
 
 /// <summary>Api for creation of a research project.</summary>
 public interface IProjectCreationApi
@@ -65,5 +65,3 @@ public sealed class ProjectsOverviewApi(IProjectsOverviewHandler projectsOvervie
         return projectsOverviewHandler.ReadAllProjectDetails();
     }
 }
-
-

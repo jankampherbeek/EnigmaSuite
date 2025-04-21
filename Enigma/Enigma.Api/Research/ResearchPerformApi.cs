@@ -1,15 +1,17 @@
-﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Handlers;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
+using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Research;
 
 
 /// <summary>Api for handling tests.</summary>

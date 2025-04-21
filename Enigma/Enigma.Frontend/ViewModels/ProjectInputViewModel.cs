@@ -57,7 +57,7 @@ public partial class ProjectInputViewModel: ObservableObject
     {
         AvailableControlGroupTypes = new ObservableCollection<string>(_model.GetControlGroupTypeNames());
         AvailableDatafileNames = new ObservableCollection<string>(_model.GetDataNames());
-        ControlGroupMultiplications = new ObservableCollection<string>(_model.GetCgMultiplicationFactors());
+        ControlGroupMultiplications = new ObservableCollection<string>(ProjectInputModel.GetCgMultiplicationFactors());
     }
     
     private bool IsProjectNameValid()

@@ -337,6 +337,7 @@ public class RdbmsPreparator: IRdbmsPreparator
                          description varchar(200), location varchar(256) NOT NULL, multiFactor integer NOT NULL,
                          created varchar(30) NOT NULL, datafile integer NOT NULL,
                          FOREIGN KEY (dataFile) REFERENCES DataFiles(id));
+            create TABLE Settings(name varchar(30) primary key, value varchar(256) NOT NULL);
             """;
     }
     
@@ -361,44 +362,4 @@ public class RdbmsPreparator: IRdbmsPreparator
                """;
     }
     
-    /// <summary>Data Transfer Object for DataFiles table.</summary>
-    public class DataFileDto
-    {
-        /// <summary>Name of the data file.</summary>
-        public string Name { get; set; } = string.Empty;
-        
-        /// <summary>Location of the data file.</summary>
-        public string Location { get; set; } = string.Empty;
-    }
-
-    /// <summary>Inserts a new data file into the database.</summary>
-    /// <param name="dataFile">The data file to insert.</param>
-    /// <returns>The ID of the newly inserted data file, or -1 if the insert failed.</returns>
-    public static int InsertDataFile(DataFileDto dataFile)
-    {
-        try
-        {
-            var fullPath = CreateFullPath();
-            var connectionString = $"Data Source={fullPath}";
-            using var dbConnection = new SQLiteConnection(connectionString);
-            dbConnection.Open();
-
-            const string insertQuery = """
-                INSERT INTO DataFiles(name, location)
-                VALUES(@Name, @Location);
-                SELECT last_insert_rowid();
-                """;
-
-            var id = dbConnection.Query<int>(insertQuery, dataFile).FirstOrDefault();
-            Log.Information("Inserted data file {Name} at {Location} with ID {Id}", 
-                dataFile.Name, dataFile.Location, id);
-            return id;
-        }
-        catch (Exception e)
-        {
-            Log.Error("Error inserting data file {Name} at {Location}. Exception: {Msg}", 
-                dataFile.Name, dataFile.Location, e.Message);
-            return -1;
-        }
-    }
 }

@@ -5,6 +5,7 @@
 
 using Enigma.Api.Charts.Prog.PrimDir;
 using Enigma.Api.LocationAndTimeZones;
+using Enigma.Api.Research;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -49,13 +50,14 @@ public static class ApiServices
         serviceCollection.AddTransient<IProgSymDirEventApi, ProgSymDirEventApi>();
         serviceCollection.AddTransient<IProgTransitsEventApi, ProgTransitsEventApi>();
         serviceCollection.AddTransient<IRdbmsPrepApi, RdbmsPrepApi>();
-        serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<IResearchPerformApi, ResearchPerformApi>();
         serviceCollection.AddTransient<IResourceBundleApi, ResourceBundleApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
         serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
         serviceCollection.AddTransient<IReferencesApi, ReferencesApi>();
+        serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<ISeApi, SeApi>();
+        serviceCollection.AddTransient<ISettingsApi, SettingsApi>();
         serviceCollection.AddTransient<ITimeZoneApi, TimeZoneApi>();
 
         serviceCollection.RegisterFacadesServices();

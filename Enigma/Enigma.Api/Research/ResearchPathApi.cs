@@ -1,4 +1,4 @@
-﻿// Enigma Astrology Research.
+// Enigma Astrology Research.
 // Jan Kampherbeek, (c) 2022, 2024.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
@@ -6,7 +6,7 @@
 using Ardalis.GuardClauses;
 using Enigma.Core.Handlers;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Research;
 
 public interface IResearchPathApi
 {

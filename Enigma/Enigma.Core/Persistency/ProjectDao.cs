@@ -31,6 +31,9 @@ public class ProjectDto
     
     /// <summary>ID of the associated data file.</summary>
     public int DataFile { get; set; }
+
+    /// <summary>Name of the associated data file.</summary>
+    public string DataFileName { get; set; } = string.Empty;
 }
 
 
@@ -41,6 +44,10 @@ public interface IProjectDao
     public int InsertProject(ProjectDto project);
     /// <summary>Deletes project from the database.</summary>
     public bool DeleteProject(int id);
+
+    /// <summary>Gets all projects with their associated data file names.</summary>
+    /// <returns>List of projects with data file information.</returns>
+    public List<ProjectDto> GetAllProjectsWithDataFiles();
 }
 
 public class ProjectDao: IProjectDao
@@ -104,4 +111,30 @@ public class ProjectDao: IProjectDao
         }
     }
 
+    /// <inheritdoc/>
+    public List<ProjectDto> GetAllProjectsWithDataFiles()
+    {
+        try
+        {
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            const string query = """
+                SELECT p.id, p.name, p.description, p.multiFactor, p.created, p.datafile, d.name as dataFileName
+                FROM Projects p
+                JOIN DataFiles d ON p.datafile = d.id
+                """;
+
+            var projects = dbConnection.Query<ProjectDto>(query).ToList();
+            Log.Information("Retrieved {Count} projects from database", projects.Count);
+            return projects;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error reading projects from database: {Message}", e.Message);
+            return new List<ProjectDto>();
+        }
+    }
 }

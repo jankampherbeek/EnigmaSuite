@@ -7,6 +7,7 @@ using Ardalis.GuardClauses;
 using Enigma.Core.Data;
 using Enigma.Core.Handlers;
 using Enigma.Core.Persistency;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 using Serilog;
@@ -16,13 +17,13 @@ namespace Enigma.Api;
 /// <summary>Api for conversions from Csv to Json.</summary>
 public interface IDataHandlerApi
 {
-    /// <summary>Convert a datafile in standard csv-format to a Json file.</summary>
+    /// <summary>Convert an inputted datafiles in csv to standard csv-format.</summary>
     /// <remarks>Locations for the files are retrieved from the application settings.</remarks>
     /// <param name="sourceFile">Path to the source file.</param>
     /// <param name="dataName">Name for the datafile.</param>
     /// <param name="dataType">Type of research data.</param>
     /// <returns>Resultmessage with info about this action.</returns>
-    public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName, ResearchDataTypes dataType);
+    public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType);
 
 
 }
@@ -42,7 +43,7 @@ public interface IDataFileManagementApi
 
     /// <summary>Create a list of data names, based in folders in the file system.</summary>
     /// <returns>Dat names.</returns>
-    public IEnumerable<string> GetDataNames();
+    public IEnumerable<DataFileDto> GetDataNames();
 }
 
 
@@ -65,32 +66,24 @@ public sealed class DataHandlerApi : IDataHandlerApi
 
 
     /// <inheritdoc/>
-    public ResultMessage ConvertDataFile2Json(string sourceFile, string dataName, ResearchDataTypes dataType)
+    public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType)
     {
         Guard.Against.NullOrEmpty(dataName);
-        Log.Information("DataHandlerApi ConvertDataFile2Json, using sourceFile {Source} and dataName {Data}", sourceFile, dataName);
+        Log.Information(
+            $"DataHandlerApi Convert data to standard format, using sourceFile {sourceFile} and dataName {dataName}");
         return _dataImportHandler.ImportStandardData(sourceFile, dataName, dataType);
     }
 }
 
 /// <inheritdoc/>
-public sealed class DataFileManagementApi : IDataFileManagementApi
+public sealed class DataFileManagementApi(IDataFilePreparator dataFilePreparator, IDataFileDao dataFileDao) : IDataFileManagementApi
 {
-    private readonly IDataFilePreparator _dataFilePreparator;
-    private readonly IDataNamesHandler _dataNamesHandler;
-
-    public DataFileManagementApi(IDataFilePreparator dataFilePreparator, IDataNamesHandler dataNamesHandler)
-    {
-        _dataFilePreparator = dataFilePreparator;
-        _dataNamesHandler = dataNamesHandler;
-    }
-
     /// <inheritdoc/>
     public bool DataFileNameIsAvailable(string name)
     {
         Guard.Against.NullOrEmpty(name);
         Log.Information($"Check if datafile with name {name} exists in database");
-        return _dataFilePreparator.DataNameAvailable(name);
+        return dataFileDao.IsDataNameAvailable(name);
     }
 
     /// <inheritdoc/>
@@ -98,14 +91,14 @@ public sealed class DataFileManagementApi : IDataFileManagementApi
     {
         Guard.Against.NullOrEmpty(fullPath);
         Log.Information("DataFileManagementApi CreateFoldersForData, using fullPath : {Path}", fullPath);
-        return _dataFilePreparator.MakeFolderStructure(fullPath);
+        return dataFilePreparator.MakeFolderStructure(fullPath);
     }
 
     /// <inheritdoc/>
-    public IEnumerable<string> GetDataNames()
+    public IEnumerable<DataFileDto> GetDataNames()
     {
         Log.Information("DataFileManagementApi GetDataNames");
-        return _dataNamesHandler.GetExistingDataNames();
+        return dataFileDao.AllDataFiles();
     }
 }
 

@@ -29,15 +29,9 @@ public interface IDataFileDao
     /// <returns>True if the name is available (not in use), otherwise false.</returns>
     public bool IsDataNameAvailable(string name);
 
-    /// <summary>Inserts a new project into the database.</summary>
-    /// <param name="project">The project to insert.</param>
-    /// <returns>The ID of the newly inserted project, or -1 if the insert failed.</returns>
-    public int InsertProject(ProjectDto project);
-
-    /// <summary>Deletes a project from the database</summary>
-    /// <param name="id">The id of the project</param>
-    /// <returns>True if the record was deleted, false if the record was not found or could not be deleted</returns>
-    public bool DeleteProject(int id);
+    /// <summary>Gets all data files from the database.</summary>
+    /// <returns>List of all data files.</returns>
+    public List<DataFileDto> AllDataFiles();
 }
 
 /// <inheritdoc/>
@@ -145,7 +139,7 @@ public class DataFileDao: IDataFileDao
     }
 
     /// <inheritdoc/>
-    public int InsertProject(ProjectDto project)
+    public List<DataFileDto> AllDataFiles()
     {
         try
         {
@@ -153,55 +147,17 @@ public class DataFileDao: IDataFileDao
             var connectionString = $"Data Source={fullPath}";
             using var dbConnection = new SQLiteConnection(connectionString);
             dbConnection.Open();
-            const string insertQuery = """
-                                       INSERT INTO Projects(name, description, location, multiFactor, created, datafile)
-                                       VALUES(@Name, @Description, @Location, @MultiFactor, @Created, @DataFile);
-                                       SELECT last_insert_rowid();
-                                       """;
 
-            var id = dbConnection.Query<int>(insertQuery, project).FirstOrDefault();
-            Log.Information("Inserted project {Name} at {Location} with ID {Id}", 
-                project.Name, project.Location, id);
-            return id;
-        }
-        catch (Exception e)
-        {
-            Log.Error("Error inserting project {Name} at {Location}. Exception: {Msg}", 
-                project.Name, project.Location, e.Message);
-            return -1;
-        }
-    }
-
-    /// <inheritdoc/>
-    public bool DeleteProject(int id)
-    {
-        try
-        {
-            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
-            var connectionString = $"Data Source={fullPath}";
-            using var dbConnection = new SQLiteConnection(connectionString);
-            dbConnection.Open();
+            const string query = "SELECT id, name, location FROM DataFiles ORDER BY name";
+            var dataFiles = dbConnection.Query<DataFileDto>(query).ToList();
             
-            const string deleteQuery = """
-                DELETE FROM Projects 
-                WHERE id = @Id
-                """;
-            var affectedRows = dbConnection.Execute(deleteQuery, new { Id = id });
-            var success = affectedRows > 0;
-            if (success)
-            {
-                Log.Information("Successfully deleted project with ID {Id}", id);
-            }
-            else
-            {
-                Log.Warning("No project found with ID {Id}", id);
-            }
-            return success;
+            Log.Information("Retrieved {Count} data files from database", dataFiles.Count);
+            return dataFiles;
         }
         catch (Exception e)
         {
-            Log.Error("Error deleting project with ID {Id}. Exception: {Msg}", id, e.Message);
-            return false;
+            Log.Error("Error reading data files from database: {Message}", e.Message);
+            return new List<DataFileDto>();
         }
     }
 }

@@ -4,17 +4,16 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Persistency;
-using Enigma.Core.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Research;
+using Enigma.Domain.References;
+using Serilog;
 
 namespace Enigma.Core.Handlers;
-
 
 /// <summary>Handle retrieving overviews of projects.</summary>
 public interface IProjectsOverviewHandler
 {
-
     /// <summary>Read the details of all projects.</summary>
     /// <returns>Details for all projects.</returns>
     public List<ResearchProject> ReadAllProjectDetails();
@@ -23,20 +22,39 @@ public interface IProjectsOverviewHandler
 /// <inheritdoc/>
 public sealed class ProjectsOverviewHandler : IProjectsOverviewHandler
 {
-    private readonly IProjectDetails _projectDetails;
-    private readonly IFoldersInfo _foldersInfo;
-    public ProjectsOverviewHandler(IProjectDetails projectDetails, IFoldersInfo foldersInfo)
+    private readonly IProjectDao _projectDao;
+
+    public ProjectsOverviewHandler(IProjectDao projectDao)
     {
-        _projectDetails = projectDetails;
-        _foldersInfo = foldersInfo;
+        _projectDao = projectDao;
     }
 
     /// <inheritdoc/>
     public List<ResearchProject> ReadAllProjectDetails()
     {
-        string path = ApplicationSettings.Instance.LocationProjectFiles;
-        List<string> projectNames = _foldersInfo.GetExistingFolderNames(path, false);
-        return (from proj in projectNames let startPos = proj.LastIndexOf(Path.DirectorySeparatorChar) + 1 
-            select proj[startPos..] into projText select _projectDetails.FindProjectDetails(projText)).ToList();
+        try
+        {
+            var projects = _projectDao.GetAllProjectsWithDataFiles();
+            var researchProjects = new List<ResearchProject>();
+
+            foreach (var project in projects)
+            {
+                researchProjects.Add(new ResearchProject(
+                    project.Name,
+                    project.Description,
+                    project.DataFileName,
+                    project.Created,
+                    ControlGroupTypes.StandardShift, // Default value, as this is not stored in the database
+                    project.MultiFactor));
+            }
+
+            Log.Information("Converted {Count} projects to ResearchProject objects", researchProjects.Count);
+            return researchProjects;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error converting projects to ResearchProject objects: {Message}", e.Message);
+            return new List<ResearchProject>();
+        }
     }
 }

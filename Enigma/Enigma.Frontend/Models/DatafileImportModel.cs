@@ -16,17 +16,8 @@ using Enigma.Domain.Responses;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for the overview of data files</summary>
-public sealed class DatafileImportModel
+public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi, IDataHandlerApi dataHandlerApi, ISettingsApi settingsApi)
 {
-    private readonly IDataFileManagementApi _fileManagementApi;
-    private readonly IDataHandlerApi _dataHandlerApi;
-
-    public DatafileImportModel(IDataFileManagementApi fileManagementApi, IDataHandlerApi dataHandlerApi )
-    {
-        _fileManagementApi = fileManagementApi;
-        _dataHandlerApi = dataHandlerApi;
-    }
-    
     public List<string> AllDataTypes()
     {
         return ResearchDataTypesExtensions.AllDetails().Select(detail => detail.Name).ToList();
@@ -38,23 +29,25 @@ public sealed class DatafileImportModel
     /// <returns>True if a directory for the data with the given name can be created, otherwise false.</returns>
     public bool CheckIfNameCanBeUsed(string dataName)
     {
-        return _fileManagementApi.DataFileNameIsAvailable(dataName);
+        return fileManagementApi.DataFileNameIsAvailable(dataName);
     }
 
-    /// <summary>Start processing a csv file and convert it to Json. If no error occurs, save the Json and a copy of the csv.</summary>
+    /// <summary>Start processing a csv file and convert it to standard format. If no error occurs, save the Json and a copy of the csv.</summary>
     /// <param name="inputFile">Csv to read.</param>
     /// <param name="dataName">Name for data.</param>
     /// <returns>ResultMessage with a descriptive text and an error_code (possibly zero: no error).</returns>
     public ResultMessage PerformImport(string inputFile, string dataName, int dataTypeIndex)
     {
-        ResearchDataTypes dataType = ResearchDataTypesExtensions.DataTypeForIndex(dataTypeIndex);
-        string dataPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
-        ResultMessage receivedResultMessage = _fileManagementApi.CreateFoldersForData(dataPath);
+        var dataType = ResearchDataTypesExtensions.DataTypeForIndex(dataTypeIndex);
+        var workFolder = settingsApi.ReadSetting("workfolder");        
+        var dataPath = workFolder + Path.DirectorySeparatorChar + dataName;
+        
+        var receivedResultMessage = fileManagementApi.CreateFoldersForData(dataPath);
         if (receivedResultMessage.ErrorCode > ResultCodes.OK)
         {
             return receivedResultMessage;
         }
-        receivedResultMessage = _dataHandlerApi.ConvertDataFile2Json(inputFile, dataName, dataType);
+        receivedResultMessage = dataHandlerApi.ConvertDataFile2Standard(inputFile, dataName, dataType);
         return receivedResultMessage;
     }
 

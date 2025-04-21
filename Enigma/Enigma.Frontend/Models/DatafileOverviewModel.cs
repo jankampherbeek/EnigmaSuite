@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using Enigma.Api;
+using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.PresentationFactories;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -25,7 +26,7 @@ public sealed class DatafileOverviewModel
 
     public List<string> GetDataNames()
     {
-        IEnumerable<string> fullPathDataNames = _fileManagementApi.GetDataNames();
-        return _dataNameForPresentationFactory.CreateDataNamesForListView(fullPathDataNames);
+        IEnumerable<DataFileDto> allDataNames = _fileManagementApi.GetDataNames();
+        return _dataNameForPresentationFactory.CreateDataNamesForListView(allDataNames);
     }
 }

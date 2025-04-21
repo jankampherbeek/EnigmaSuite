@@ -1,12 +1,12 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Documents;
 using Enigma.Api;
+using Enigma.Api.Research;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
@@ -17,37 +17,28 @@ using Enigma.Frontend.Ui.Support;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for input new project</summary>
-public class ProjectInputModel
+public class ProjectInputModel(
+    IDataFileManagementApi fileManagementApi,
+    IProjectCreationApi projectCreationApi,
+    IDataNameForPresentationFactory dataNameForPresentationFactory)
 {
-    private Rosetta _rosetta = Rosetta.Instance;
-    private readonly IDataFileManagementApi _fileManagementApi;
-    private readonly IProjectCreationApi _projectCreationApi;
-    private readonly IDataNameForPresentationFactory _dataNameForPresentationFactory;    
-
-    public ProjectInputModel(IDataFileManagementApi fileManagementApi,
-        IProjectCreationApi projectCreationApi,
-        IDataNameForPresentationFactory dataNameForPresentationFactory)
-    {
-        _fileManagementApi = fileManagementApi;
-        _projectCreationApi = projectCreationApi;
-        _dataNameForPresentationFactory = dataNameForPresentationFactory;
-    }
+    private readonly Rosetta _rosetta = Rosetta.Instance;
 
     public List<string> GetDataNames()
     {
-        IEnumerable<string> fullPathDataNames = _fileManagementApi.GetDataNames();
-        return _dataNameForPresentationFactory.CreateDataNamesForListView(fullPathDataNames);
+        var allData = fileManagementApi.GetDataNames();
+        return dataNameForPresentationFactory.CreateDataNamesForListView(allData);
     }
 
-    public List<string> GetCgMultiplicationFactors()
+    public static List<string> GetCgMultiplicationFactors()
     {
-        return new List<string> 
-        {
+        return
+        [
             "1",
             "10",
             "100",
             "1000"
-        };
+        ];
     }
     
     public List<string> GetControlGroupTypeNames()
@@ -57,8 +48,7 @@ public class ProjectInputModel
 
     public ResultMessage SaveProject(ResearchProject project)
     {
-        return _projectCreationApi.CreateProject(project);
+        return projectCreationApi.CreateProject(project);
     }
-    
     
 }
