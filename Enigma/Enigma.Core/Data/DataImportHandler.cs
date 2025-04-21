@@ -12,7 +12,6 @@ using Exception = System.Exception;
 
 namespace Enigma.Core.Data;
 
-
 /// <summary>Handles the import and conversion to Json of a csv datafile.</summary>
 public interface IDataImportHandler
 {
@@ -23,7 +22,6 @@ public interface IDataImportHandler
     /// <returns>Resultmessage with a description of the action.</returns>
     public ResultMessage ImportStandardData(string fullPathSource, string dataName, ResearchDataTypes dataType);
 }
-
 
 /// <inheritdoc/>
 public sealed class DataImportHandler(
@@ -39,27 +37,31 @@ public sealed class DataImportHandler(
     {
         // TODO check values for ResultMessage, or find an alternative solution
         var workFolder = settingsDao.ReadSetting("workfolder");
-        var fullInputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "orig" + 
+        var fullInputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "orig" +
                             Path.DirectorySeparatorChar + dataName + ".csv";
-        var fullOutputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "standard" + 
+        var fullOutputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar +
+                             "standard" +
                              Path.DirectorySeparatorChar + "date_time_loc.csv";
-        var fullErrorPath = workFolder + Path.DirectorySeparatorChar + "dataName" + Path.DirectorySeparatorChar + "errors.txt";
+        var fullErrorPath = workFolder + Path.DirectorySeparatorChar + "dataName" + Path.DirectorySeparatorChar +
+                            "errors.txt";
         int dataIndex;
         try
         {
-            var dataFileDto = new DataFileDto();
-            dataFileDto.Name = dataName;
-            dataFileDto.Location = fullOutputPath;
+            var dataFileDto = new DataFileDto
+            {
+                Name = dataName,
+                Location = fullOutputPath
+            };
             dataIndex = dataFileDao.InsertDataFile(dataFileDto);
         }
         catch (Exception e)
         {
-            var errorTxt = $"Could not insert datafile {dataName} into database";
+            var errorTxt = $"Encountered excepten {e.Message} when trying to insert datafile {dataName} into database";
             Log.Error(errorTxt);
             return new ResultMessage(2, errorTxt);
         }
 
-        if (dataIndex > 0)
+        if (dataIndex <= 0) return new ResultMessage(2, "File could not be imported");
         {
             try
             {
@@ -75,11 +77,12 @@ public sealed class DataImportHandler(
             }
             catch (Exception e)
             {
-                Log.Error($"Could not import data. An exception occurred: {e.Message} using input filePath {fullInputPath} and output file path {fullOutputPath}");
-                return new ResultMessage(1, "Error in reading csv, check file " + fullErrorPath);
+                var deleted = dataFileDao.DeleteDataFile(dataIndex);
+                Log.Error(
+                    $"Could not import data. An exception occurred: {e.Message} using input filePath {fullInputPath} and output file path {fullOutputPath}. Database rolled back: {deleted}");
+                return new ResultMessage(1,
+                    $"Error in reading csv, check file {fullErrorPath}. Database rolled back: {deleted}");
             }
         }
-
-        return new ResultMessage(2, "File could not be imported");
     }
 }

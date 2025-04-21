@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -24,8 +24,7 @@ public interface IDataHandlerApi
     /// <param name="dataType">Type of research data.</param>
     /// <returns>Resultmessage with info about this action.</returns>
     public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType);
-
-
+    
 }
 
 /// <summary>Api for managing the file system.</summary>
@@ -58,20 +57,15 @@ public interface IPdDataImportExportApi
 
 
 /// <inheritdoc/>
-public sealed class DataHandlerApi : IDataHandlerApi
+public sealed class DataHandlerApi(IDataImportHandler dataImportHandler) : IDataHandlerApi
 {
-    private readonly IDataImportHandler _dataImportHandler;
-
-    public DataHandlerApi(IDataImportHandler dataImportHandler) => _dataImportHandler = dataImportHandler;
-
-
     /// <inheritdoc/>
     public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType)
     {
         Guard.Against.NullOrEmpty(dataName);
         Log.Information(
             $"DataHandlerApi Convert data to standard format, using sourceFile {sourceFile} and dataName {dataName}");
-        return _dataImportHandler.ImportStandardData(sourceFile, dataName, dataType);
+        return dataImportHandler.ImportStandardData(sourceFile, dataName, dataType);
     }
 }
 
@@ -104,18 +98,11 @@ public sealed class DataFileManagementApi(IDataFilePreparator dataFilePreparator
 
 
 /// <inheritdoc/>
-public sealed class PdDataImportExportApi : IPdDataImportExportApi
+public sealed class PdDataImportExportApi(IPdDataFromToRdbmsHandler handler) : IPdDataImportExportApi
 {
-    private readonly IPdDataFromToRdbmsHandler _handler;
-
-    public PdDataImportExportApi(IPdDataFromToRdbmsHandler handler)
-    {
-        _handler = handler;
-    }
-    
     public bool ImportPdDataToRdbms(string csvFilename)
     {
-        return _handler.ImportPdDataToRdbms(csvFilename);
+        return handler.ImportPdDataToRdbms(csvFilename);
     }
 }
 

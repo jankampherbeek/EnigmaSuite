@@ -35,6 +35,7 @@ public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi
     /// <summary>Start processing a csv file and convert it to standard format. If no error occurs, save the Json and a copy of the csv.</summary>
     /// <param name="inputFile">Csv to read.</param>
     /// <param name="dataName">Name for data.</param>
+    /// <param name="dataTypeIndex">Index for datatype</param>
     /// <returns>ResultMessage with a descriptive text and an error_code (possibly zero: no error).</returns>
     public ResultMessage PerformImport(string inputFile, string dataName, int dataTypeIndex)
     {
@@ -50,7 +51,5 @@ public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi
         receivedResultMessage = dataHandlerApi.ConvertDataFile2Standard(inputFile, dataName, dataType);
         return receivedResultMessage;
     }
-
-
     
 }
