@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using Dapper;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 using Serilog;
 
 namespace Enigma.Core.Persistency;
@@ -43,17 +44,15 @@ public interface IReferencesDao
     /// <param name="index">The id of te file format.</param>
     /// <returns>If found: the name of the file format, otherwise an empty string.</returns>
     string ReadNameForFileFormat(int index);
-
 }
 
 
 public class ReferencesDao : IReferencesDao
 {
     private const string DATA_SOURCE_PREFIX = "Data Source=";
-    
+    private string fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
     public Dictionary<long, string> ReadAllRatings()
     {
-        string fullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
         SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
         const string sqlQuery = "SELECT * FROM Ratings";
         using var cnn = dbConnection;
@@ -64,7 +63,6 @@ public class ReferencesDao : IReferencesDao
     public string ReadNameForRating(int index)
     {
         string ratingNameResult = "";
-        string fullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
         SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
         const string sqlQuery = "SELECT name FROM Ratings where id = @ratingIndex";
         using var cnn = dbConnection;
@@ -76,7 +74,6 @@ public class ReferencesDao : IReferencesDao
 
     public Dictionary<long, string> ReadAllChartCategories()
     {
-        string fullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
         SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
         const string sqlQuery = "SELECT * FROM ChartCategories";
         using var cnn = dbConnection;
@@ -87,7 +84,6 @@ public class ReferencesDao : IReferencesDao
     public string ReadNameForChartCategory(int index)
     {
         string categoryNameResult = "";
-        string fullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
         SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
         const string sqlQuery = "SELECT name FROM ChartCategories where id = @catIndex";
         using var cnn = dbConnection;
@@ -99,24 +95,26 @@ public class ReferencesDao : IReferencesDao
 
     public Dictionary<long, string> ReadAllFileFormats()
     {
-        string fullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
-        SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
-        const string sqlQuery = "SELECT * FROM FileFormats";
-        using var cnn = dbConnection;
-        var fileFormats = cnn.Query(sqlQuery).ToList();
-        return fileFormats.ToDictionary<dynamic, long, string>(fileFormat => fileFormat.id, fileFormat => fileFormat.name);
+        var fileFormats = new Dictionary<long, string>();
+        foreach (ResearchDataTypes dataType in Enum.GetValues(typeof(ResearchDataTypes)))
+        {
+            var details = dataType.GetDetails();
+            fileFormats.Add((long)details.DataType, details.Name);
+        }
+        return fileFormats;
     }
 
     public string ReadNameForFileFormat(int index)
     {
-        string fileFormatNameResult = "";
-        string fullPath = ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
-        SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
-        const string sqlQuery = "SELECT name FROM FileFormats where id = @fileFormatIndex";
-        using var cnn = dbConnection;
-        var names = cnn.Query(sqlQuery, new { fileFormatIndex = index }).ToList();
-        if (names.Count > 0) fileFormatNameResult = names[0].name;
-        else Log.Error("ReferencesDao.ReadNameForFileFormat: could not find file format for {Index}", index);
-        return fileFormatNameResult;
+        try
+        {
+            var dataType = (ResearchDataTypes)index;
+            return dataType.GetDetails().Name;
+        }
+        catch (Exception)
+        {
+            Log.Error("ReferencesDao.ReadNameForFileFormat: could not find file format for {Index}", index);
+            return string.Empty;
+        }
     }
 }

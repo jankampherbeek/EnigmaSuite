@@ -11,17 +11,6 @@ using Serilog;
 
 namespace Enigma.Core.Persistency;
 
-/// <summary>Data Transfer Object for DataFiles table.</summary>
-public class DataFileDto
-{
-    /// <summary>Name of the data file.</summary>
-    public string Name { get; set; } = string.Empty;
-        
-    /// <summary>Location of the data file.</summary>
-    public string Location { get; set; } = string.Empty;
-}
-
-
 /// <summary>DAO for research data files and projects</summary>
 public interface IDataFileDao
 {
@@ -34,6 +23,11 @@ public interface IDataFileDao
     /// <param name="id">The id of the data file</param>
     /// <returns>True if the record was deleted, false if the record was not found or could not be deleted</returns>
     public bool DeleteDataFile(int id);
+
+    /// <summary>Checks if a data name is available in the database.</summary>
+    /// <param name="name">Name of the data to check.</param>
+    /// <returns>True if the name is available (not in use), otherwise false.</returns>
+    public bool IsDataNameAvailable(string name);
 
     /// <summary>Inserts a new project into the database.</summary>
     /// <param name="project">The project to insert.</param>
@@ -120,6 +114,32 @@ public class DataFileDao: IDataFileDao
         catch (Exception e)
         {
             Log.Error("Error deleting data file with ID {Id}. Exception: {Msg}", id, e.Message);
+            return false;
+        }
+    }
+
+    /// <inheritdoc/>
+    public bool IsDataNameAvailable(string name)
+    {
+        try
+        {
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            const string query = "SELECT COUNT(*) FROM DataFiles WHERE name = @Name";
+            var count = dbConnection.ExecuteScalar<int>(query, new { Name = name });
+            
+            Log.Information("Checked if data name {Name} is available. Result: {Available}", 
+                name, count == 0);
+            
+            return count == 0;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error checking data name availability for {Name}. Exception: {Msg}", 
+                name, e.Message);
             return false;
         }
     }

@@ -38,3 +38,36 @@ public record ResearchChartSingleCoord(
 /// <param name="ExcludedPoints">List of ChartPoints to exclude.</param>
 /// <param name="ExcludeCusps">True if cusps should be excluded. Angles are defined as part of the excludedpoints.</param>
 public record PointsToExclude(List<ChartPoints> ExcludedPoints, bool ExcludeCusps);
+
+
+/// <summary>Data Transfer Object for DataFiles table.</summary>
+public class DataFileDto
+{
+    /// <summary>Name of the data file.</summary>
+    public string Name { get; set; } = string.Empty;
+        
+    /// <summary>Location of the data file.</summary>
+    public string Location { get; set; } = string.Empty;
+}
+
+/// <summary>Data Transfer Object for Projects table.</summary>
+public class ProjectDto
+{
+    /// <summary>Name of the project.</summary>
+    public string Name { get; set; } = string.Empty;
+        
+    /// <summary>Description of the project.</summary>
+    public string Description { get; set; } = string.Empty;
+        
+    /// <summary>Location of the project.</summary>
+    public string Location { get; set; } = string.Empty;
+        
+    /// <summary>Multi-factor indicator.</summary>
+    public bool MultiFactor { get; set; }
+        
+    /// <summary>Creation date of the project.</summary>
+    public DateTime Created { get; set; }
+        
+    /// <summary>ID of the associated data file.</summary>
+    public int DataFile { get; set; }
+} 

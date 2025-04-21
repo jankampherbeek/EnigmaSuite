@@ -6,6 +6,7 @@
 using Ardalis.GuardClauses;
 using Enigma.Core.Data;
 using Enigma.Core.Handlers;
+using Enigma.Core.Persistency;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 using Serilog;
@@ -29,10 +30,10 @@ public interface IDataHandlerApi
 /// <summary>Api for managing the file system.</summary>
 public interface IDataFileManagementApi
 {
-    /// <summary>Check if a folder can be created.</summary>
-    /// <param name="fullPath">The full path of the folder to check.</param>
-    /// <returns>True if the folder does not yet exist, otherwise false.</returns>
-    public bool FolderIsAvailable(string fullPath);
+    /// <summary>Check if a datafile is not yet used</summary>
+    /// <param name="name">The name for the datafile to check</param>
+    /// <returns>True if the datafile exists, otherwise false.</returns>
+    public bool DataFileNameIsAvailable(string name);
 
     /// <summary>Creates folders for research data and additionally subfodlers 'csv' and 'json'.</summary>
     /// <param name="fullPath">The path for the datafiles, not including the csv and json subfolders.</param>
@@ -75,21 +76,21 @@ public sealed class DataHandlerApi : IDataHandlerApi
 /// <inheritdoc/>
 public sealed class DataFileManagementApi : IDataFileManagementApi
 {
-    private readonly IDataFilePreparationHandler _preparationHandler;
+    private readonly IDataFilePreparator _dataFilePreparator;
     private readonly IDataNamesHandler _dataNamesHandler;
 
-    public DataFileManagementApi(IDataFilePreparationHandler preparationHandler, IDataNamesHandler dataNamesHandler)
+    public DataFileManagementApi(IDataFilePreparator dataFilePreparator, IDataNamesHandler dataNamesHandler)
     {
-        _preparationHandler = preparationHandler;
+        _dataFilePreparator = dataFilePreparator;
         _dataNamesHandler = dataNamesHandler;
     }
 
     /// <inheritdoc/>
-    public bool FolderIsAvailable(string fullPath)
+    public bool DataFileNameIsAvailable(string name)
     {
-        Guard.Against.NullOrEmpty(fullPath);
-        Log.Information("DataFileManagementApi FolderIsAvailable, using fullPath : {Path}", fullPath);
-        return _preparationHandler.FolderNameAvailable(fullPath);
+        Guard.Against.NullOrEmpty(name);
+        Log.Information($"Check if datafile with name {name} exists in database");
+        return _dataFilePreparator.DataNameAvailable(name);
     }
 
     /// <inheritdoc/>
@@ -97,7 +98,7 @@ public sealed class DataFileManagementApi : IDataFileManagementApi
     {
         Guard.Against.NullOrEmpty(fullPath);
         Log.Information("DataFileManagementApi CreateFoldersForData, using fullPath : {Path}", fullPath);
-        return _preparationHandler.MakeFolderStructure(fullPath);
+        return _dataFilePreparator.MakeFolderStructure(fullPath);
     }
 
     /// <inheritdoc/>

@@ -57,7 +57,7 @@ public interface IChartDataDao
 /// <inheritdoc />
 public sealed class ChartDataDao : IChartDataDao
 {
-    private readonly string _fullPath = "Data Source=" + ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
+    private readonly string _fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
     
     /// <inheritdoc />
     public long AddChartData(PersistableChartData chartData)

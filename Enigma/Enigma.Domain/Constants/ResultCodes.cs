@@ -13,7 +13,8 @@ public static class ResultCodes
 
     public const int GENERAL_ERROR = 100;
     public const int WRONG_ARGUMENTS = 101;
-    
+
+    public const int DB_INSERT_FAILED = 1012;
     public const int DIR_COULD_NOT_BE_CREATED = 1013;
 
     // errors for research project

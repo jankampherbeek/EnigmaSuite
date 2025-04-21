@@ -38,8 +38,7 @@ public sealed class DatafileImportModel
     /// <returns>True if a directory for the data with the given name can be created, otherwise false.</returns>
     public bool CheckIfNameCanBeUsed(string dataName)
     {
-        string fullPath = ApplicationSettings.LocationDataFiles + Path.DirectorySeparatorChar + dataName;
-        return _fileManagementApi.FolderIsAvailable(fullPath);
+        return _fileManagementApi.DataFileNameIsAvailable(dataName);
     }
 
     /// <summary>Start processing a csv file and convert it to Json. If no error occurs, save the Json and a copy of the csv.</summary>

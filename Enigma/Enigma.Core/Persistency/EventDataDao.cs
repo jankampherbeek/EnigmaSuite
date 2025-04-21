@@ -45,7 +45,7 @@ public interface IEventDataDao
 /// <inheritdoc />
 public sealed class EventDataDao : IEventDataDao
 {
-    private readonly string _fullPath = "Data Source=" + ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
+    private readonly string _fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
     private readonly IChartsEventsDao _chartsEventsDao;
     
     public EventDataDao(IChartsEventsDao chartsEventsDao)

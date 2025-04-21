@@ -44,7 +44,7 @@ public interface IChartsEventsDao
 /// <inheritdoc />
 public sealed class ChartsEventsDao : IChartsEventsDao
 {
-    private readonly string _fullPath = "Data Source=" + ApplicationSettings.LocationDatabase + EnigmaConstants.RDBMS_NAME;
+    private readonly string _fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
 
     /// <inheritdoc />
     public void Insert(long chartId, long eventId)
