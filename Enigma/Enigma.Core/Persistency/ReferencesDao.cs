@@ -49,11 +49,18 @@ public interface IReferencesDao
 
 public class ReferencesDao : IReferencesDao
 {
-    private const string DATA_SOURCE_PREFIX = "Data Source=";
-    private string fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+ //   private const string DATA_SOURCE_PREFIX = "Data Source=";
+ //   private string fullPath = Path.Combine(ApplicationSettings.LocationDatabase, "database", EnigmaConstants.RDBMS_NAME);
+    
+
+    
+    
+    
     public Dictionary<long, string> ReadAllRatings()
     {
-        SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         const string sqlQuery = "SELECT * FROM Ratings";
         using var cnn = dbConnection;
         var ratings = cnn.Query(sqlQuery).ToList();
@@ -63,7 +70,9 @@ public class ReferencesDao : IReferencesDao
     public string ReadNameForRating(int index)
     {
         string ratingNameResult = "";
-        SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         const string sqlQuery = "SELECT name FROM Ratings where id = @ratingIndex";
         using var cnn = dbConnection;
         var names = cnn.Query(sqlQuery, new { ratingIndex = index }).ToList();
@@ -74,7 +83,9 @@ public class ReferencesDao : IReferencesDao
 
     public Dictionary<long, string> ReadAllChartCategories()
     {
-        SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         const string sqlQuery = "SELECT * FROM ChartCategories";
         using var cnn = dbConnection;
         var categories = cnn.Query(sqlQuery).ToList();
@@ -84,7 +95,9 @@ public class ReferencesDao : IReferencesDao
     public string ReadNameForChartCategory(int index)
     {
         string categoryNameResult = "";
-        SQLiteConnection dbConnection = new(DATA_SOURCE_PREFIX + fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         const string sqlQuery = "SELECT name FROM ChartCategories where id = @catIndex";
         using var cnn = dbConnection;
         var names = cnn.Query(sqlQuery, new { catIndex = index }).ToList();

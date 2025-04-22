@@ -12,31 +12,6 @@ using Serilog;
 namespace Enigma.Core.Persistency;
 
 
-/// <summary>Data Transfer Object for Projects table.</summary>
-public class ProjectDto
-{
-    /// <summary>Name of the project.</summary>
-    public string Name { get; set; } = string.Empty;
-    /// <summary>Description of the project.</summary>
-    public string Description { get; set; } = string.Empty;
-   
-    /// <summary>Location of the project.</summary>
-    public string Location { get; set; } = string.Empty;
-    
-    /// <summary>Multiplier factor for the project.</summary>
-    public int MultiFactor { get; set; }
-    
-    /// <summary>Creation date of the project.</summary>
-    public string Created { get; set; } = string.Empty;
-    
-    /// <summary>ID of the associated data file.</summary>
-    public int DataFile { get; set; }
-
-    /// <summary>Name of the associated data file.</summary>
-    public string DataFileName { get; set; } = string.Empty;
-}
-
-
 /// <summary>DAO for research projects</summary>
 public interface IProjectDao
 {

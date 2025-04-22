@@ -45,7 +45,6 @@ public interface IEventDataDao
 /// <inheritdoc />
 public sealed class EventDataDao : IEventDataDao
 {
-    private readonly string _fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
     private readonly IChartsEventsDao _chartsEventsDao;
     
     public EventDataDao(IChartsEventsDao chartsEventsDao)
@@ -83,7 +82,9 @@ public sealed class EventDataDao : IEventDataDao
     
     private long PerformInsert(PersistableEventData eventData)
     {
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         long newIndex = -1;
         const string sql = """
                            INSERT INTO Events (description, locationName, geoLong, geoLat, dateText, timeText, jdForEt)
@@ -117,7 +118,9 @@ public sealed class EventDataDao : IEventDataDao
         bool result = false;
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sql = """
                                DELETE FROM ChartsEvents WHERE EventId = @Id;
                                DELETE FROM Events WHERE Id = @Id;
@@ -142,7 +145,9 @@ public sealed class EventDataDao : IEventDataDao
         PersistableEventData? result = null;
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sqlChart = "SELECT * FROM Events WHERE id = @Id;";
             var dp = new DynamicParameters();
             dp.Add("@Id", index);
@@ -165,7 +170,9 @@ public sealed class EventDataDao : IEventDataDao
         List<PersistableEventData> result = new();
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sql = """
                                SELECT id, description, locationName, geoLong, geoLat, dateText, timeText, jdForEt 
                                FROM EVENTS WHERE id in (

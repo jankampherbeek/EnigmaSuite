@@ -85,7 +85,7 @@ public sealed class ResearchMethodHandler(
         List<CalculatedResearchChart> allCalculatedResearchCharts = [];
         var fullPath = researchPaths.DataPath(projectName, controlGroup);
         Log.Information("Reading csv from path : {Fp}", fullPath);
-        var standardInput = csvImporter.ProcessStandardData(fullPath);   
+        var standardInput = csvImporter.ProcessStandardInputData(fullPath);   
         allCalculatedResearchCharts = researchPositions.CalculatePositions(standardInput);
         Log.Information("Calculation completed");            
         return allCalculatedResearchCharts;

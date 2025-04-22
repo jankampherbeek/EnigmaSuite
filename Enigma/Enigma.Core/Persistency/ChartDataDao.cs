@@ -57,7 +57,6 @@ public interface IChartDataDao
 /// <inheritdoc />
 public sealed class ChartDataDao : IChartDataDao
 {
-    private readonly string _fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
     
     /// <inheritdoc />
     public long AddChartData(PersistableChartData chartData)
@@ -122,7 +121,9 @@ public sealed class ChartDataDao : IChartDataDao
 
     private long PerformInsertChartIdentification(PersistableChartIdentification chartIdent)
     {
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         long newIndex = -1;
         const string sql = """
                            INSERT INTO Charts (name, description, category)
@@ -140,8 +141,9 @@ public sealed class ChartDataDao : IChartDataDao
 
     private long PerformInsertChartDateTimeLocation(PersistableChartDateTimeLocation dateTimeLoc, long chartId)
     {
-        
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         long newIndex = -1;
         const string sql = 
             """
@@ -170,7 +172,9 @@ public sealed class ChartDataDao : IChartDataDao
         bool result = false;
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sql = """
                                DELETE FROM Events WHERE id IN (SELECT eventId FROM ChartsEvents WHERE ChartId = @Id);
                                DELETE FROM ChartsEvents WHERE ChartId = @Id; 
@@ -196,7 +200,9 @@ public sealed class ChartDataDao : IChartDataDao
         PersistableChartData? result = null;
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sqlChart = "SELECT * FROM CHARTS WHERE id = @Id";
             const string sqlData = "SELECT * FROM DATELOCATIONS WHERE chartId = @Id";
             var dp = new DynamicParameters();
@@ -221,7 +227,9 @@ public sealed class ChartDataDao : IChartDataDao
         List<PersistableChartIdentification> allChartIdentifications = new();
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sql = "SELECT * FROM CHARTS";
             using var cnn = dbConnection;
             cnn.Open();
@@ -240,7 +248,9 @@ public sealed class ChartDataDao : IChartDataDao
         List<PersistableChartIdentification> foundChartIdentifications = new();
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             string sql = "";
             if (string.IsNullOrEmpty(searchNamePart)) sql = "SELECT * FROM CHARTS;";
             else sql = "SELECT * FROM CHARTS WHERE UPPER(NAME) LIKE '%" + searchNamePart + "%';";
@@ -257,7 +267,9 @@ public sealed class ChartDataDao : IChartDataDao
     
     private int PerformCount()
     {
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         const string sql = "SELECT count(*) FROM CHARTS;";
         using var cnn = dbConnection;
         cnn.Open();
@@ -267,7 +279,9 @@ public sealed class ChartDataDao : IChartDataDao
 
     private long PerformHighestIndex()
     {
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         if (PerformCount() == 0)
         {
             return -1L;

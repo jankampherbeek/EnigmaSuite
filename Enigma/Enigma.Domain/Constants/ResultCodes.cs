@@ -31,4 +31,7 @@ public static class ResultCodes
     /// <summary>Error: could not create results folder as subfolder in projectfolder.</summary>
     public const int RESEARCH_CANNOT_CREATE_RESULTSFOLDER = 1019;
     
+    public const int RESEARCH_CANNOT_WRITE_CONTROLGROUP = 1020;
+    public const int RESEARCH_CANNOT_READ_TESTDATA = 1021;
+    public const int RESEARCH_NO_DATAFILE_SELECTED = 1022;
 }

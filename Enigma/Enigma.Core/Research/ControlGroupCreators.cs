@@ -22,9 +22,6 @@ public interface IControlDataCalendar
 }
 
 
-
-
-
 public sealed class StandardShiftControlGroupCreator(
     IControlGroupRng controlGroupRng,
     IControlDataCalendar controlDataCalendar)

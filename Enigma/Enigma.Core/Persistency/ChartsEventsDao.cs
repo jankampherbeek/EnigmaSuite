@@ -44,7 +44,6 @@ public interface IChartsEventsDao
 /// <inheritdoc />
 public sealed class ChartsEventsDao : IChartsEventsDao
 {
-    private readonly string _fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
 
     /// <inheritdoc />
     public void Insert(long chartId, long eventId)
@@ -70,7 +69,9 @@ public sealed class ChartsEventsDao : IChartsEventsDao
 
     private void PerformInsert(long chartId, long eventId)
     {
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         long newIndex = -1;
         const string sql = "INSERT INTO Chartsevents (chartId, eventId) VALUES (@chart, @event);";
         var dp = new DynamicParameters();
@@ -94,7 +95,9 @@ public sealed class ChartsEventsDao : IChartsEventsDao
     
     private bool PerformDelete(long chartIndex)
     {
-        SQLiteConnection dbConnection = new(_fullPath);
+        var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+        var connectionString = $"Data Source={fullPath}";
+        SQLiteConnection dbConnection = new(connectionString);
         bool result = false;
         const string sql = "DELETE FROM ChartsEvents WHERE chartId = @chartId;";
         var dp = new DynamicParameters();
@@ -120,7 +123,9 @@ public sealed class ChartsEventsDao : IChartsEventsDao
         List<InterChartEvent> records  = new();
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sqlChart = "SELECT * FROM CHARTSEVENTS WHERE chartId = @Id";
             var dp = new DynamicParameters();
             dp.Add("@Id", index);
@@ -143,7 +148,9 @@ public sealed class ChartsEventsDao : IChartsEventsDao
         List<InterChartEvent> records = new();
         try
         {
-            SQLiteConnection dbConnection = new(_fullPath);
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            SQLiteConnection dbConnection = new(connectionString);
             const string sqlChart = "SELECT * FROM CHARTSEVENTS;";
             using var cnn = dbConnection;
             cnn.Open();

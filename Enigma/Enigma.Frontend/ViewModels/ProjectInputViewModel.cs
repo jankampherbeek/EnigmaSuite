@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -32,8 +32,6 @@ public partial class ProjectInputViewModel: ObservableObject
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_INPUT;
     private const string ERROR_PROJECT_IN_USE = "Projectname is already in use.";
     private const string RESULTMSG_PROJECT_SAVED = "Project has been saved.";
-    private const int MAX_MULTIPLICATION = 10;
-    private const int MIN_MULTIPLICATION = 1;
     
     private readonly ProjectInputModel _model = App.ServiceProvider.GetRequiredService<ProjectInputModel>();
     private bool _saveClicked;
@@ -43,7 +41,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [NotifyPropertyChangedFor(nameof(ProjectDescriptionValid))]   
     [ObservableProperty] private string _projectDescription = string.Empty;
     [ObservableProperty] private int _controlGroupIndex;
-    [ObservableProperty] private int _datafileIndex;
+    [ObservableProperty] private int _datafileIndex = -1;  // Initialize to -1 to indicate no selection
     [ObservableProperty] private int _cgMultiplicationIndex;
     [ObservableProperty] private ObservableCollection<string> _availableControlGroupTypes;
     [ObservableProperty] private ObservableCollection<string> _controlGroupMultiplications;
@@ -58,6 +56,12 @@ public partial class ProjectInputViewModel: ObservableObject
         AvailableControlGroupTypes = new ObservableCollection<string>(_model.GetControlGroupTypeNames());
         AvailableDatafileNames = new ObservableCollection<string>(_model.GetDataNames());
         ControlGroupMultiplications = new ObservableCollection<string>(ProjectInputModel.GetCgMultiplicationFactors());
+        
+        // Set default values
+        if (AvailableDatafileNames.Count > 0)
+        {
+            DatafileIndex = 0;  // Select first item by default
+        }
     }
     
     private bool IsProjectNameValid()
@@ -76,7 +80,7 @@ public partial class ProjectInputViewModel: ObservableObject
 
     private bool IsDatafileValid()
     {
-        return AvailableDatafileNames.Count > 0;
+        return DatafileIndex >= 0 && AvailableDatafileNames.Count > 0;
     }
     
     [RelayCommand]
@@ -86,12 +90,24 @@ public partial class ProjectInputViewModel: ObservableObject
         string errors = FindErrors();
         if (string.IsNullOrEmpty(errors))
         {
+            if (!IsDatafileValid())
+            {
+                MessageBox.Show(StandardTexts.ERROR_DATAFILE_MISSING, StandardTexts.TITLE_ERROR);
+                return;
+            }
+
             string multiplicationText = ControlGroupMultiplications[CgMultiplicationIndex]; 
             int multiplicationValue = int.Parse(multiplicationText);
             ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
             DateTime now = DateTime.Now;
+            
+            // DatafileIndex is already set from the ComboBox selection
             ResearchProject project = new(ProjectName, ProjectDescription, 
-                AvailableDatafileNames[DatafileIndex], now.ToString(CultureInfo.InvariantCulture),cgType, multiplicationValue);
+                DatafileIndex + 1, // Add 1 because database indices start at 1
+                now.ToString(CultureInfo.InvariantCulture),
+                cgType, 
+                multiplicationValue);
+                
             ResultMessage resultMessage = _model.SaveProject(project);
             if (resultMessage.ErrorCode != 0)
             {

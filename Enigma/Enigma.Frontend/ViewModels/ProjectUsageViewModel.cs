@@ -8,6 +8,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Api;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
@@ -43,7 +44,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     private bool _sufficientSelections;
     private bool _testCanceled;
     
-    public ProjectUsageViewModel()
+    public ProjectUsageViewModel(IDataFileManagementApi dataFileApi)
     {
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
         WeakReferenceMessenger.Default.Register<CancelMessage>(this);
@@ -53,7 +54,8 @@ public partial class ProjectUsageViewModel: ObservableObject,
         ProjectName = currentProject.Name;
         Description = currentProject.Description;
         StartDate = currentProject.CreationDate;
-        DataSetName = currentProject.DataName;
+        var dataFileDto = dataFileApi.ReadDataFile(currentProject.IndexDataFile);
+        DataSetName = dataFileDto is not null ? dataFileDto.Name : "Not found";
         MultiplFactor = currentProject.ControlGroupMultiplication.ToString();
         ControlGroupType = currentProject.ControlGroupType.GetDetails().RbKey;         
     }

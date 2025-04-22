@@ -3,7 +3,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Persistency;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Enigma.Core.Data.Services;
@@ -17,6 +16,7 @@ public static class DataServices
     {   
         serviceCollection.AddTransient<ICsvExporter, CsvExporter>();
         serviceCollection.AddTransient<ICsvImporter, CsvImporter>();
+        serviceCollection.AddTransient<ICsvStandardDataReader, CsvStandardDataReader>();
         serviceCollection.AddTransient<IDataImportHandler, DataImportHandler>();
     }
 }

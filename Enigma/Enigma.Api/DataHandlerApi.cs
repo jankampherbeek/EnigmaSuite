@@ -43,6 +43,12 @@ public interface IDataFileManagementApi
     /// <summary>Create a list of data names, based in folders in the file system.</summary>
     /// <returns>Dat names.</returns>
     public IEnumerable<DataFileDto> GetDataNames();
+
+    /// <summary>Read DTO for a specific datafile</summary>
+    /// <param name="index">The id of the data file</param>
+    /// <returns>The datafile if one is found, otherwise null</returns>
+    public DataFileDto? ReadDataFile(int index);
+
 }
 
 
@@ -93,6 +99,11 @@ public sealed class DataFileManagementApi(IDataFilePreparator dataFilePreparator
     {
         Log.Information("DataFileManagementApi GetDataNames");
         return dataFileDao.AllDataFiles();
+    }
+
+    public DataFileDto? ReadDataFile(int index)
+    {
+        return dataFileDao.ReadDataFile(index);
     }
 }
 

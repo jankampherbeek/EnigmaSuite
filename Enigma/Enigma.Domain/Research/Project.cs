@@ -12,7 +12,7 @@ namespace Enigma.Domain.Research;
 public record ResearchProject(
     string Name,
     string Description,
-    string DataName,
+    int IndexDataFile,
     string CreationDate,
     ControlGroupTypes ControlGroupType,
     int ControlGroupMultiplication);

@@ -1,10 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Globalization;
 using Enigma.Core.Persistency;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.Research;
 using Enigma.Domain.References;
 using Serilog;
@@ -20,21 +20,14 @@ public interface IProjectsOverviewHandler
 }
 
 /// <inheritdoc/>
-public sealed class ProjectsOverviewHandler : IProjectsOverviewHandler
+public sealed class ProjectsOverviewHandler(IProjectDao projectDao) : IProjectsOverviewHandler
 {
-    private readonly IProjectDao _projectDao;
-
-    public ProjectsOverviewHandler(IProjectDao projectDao)
-    {
-        _projectDao = projectDao;
-    }
-
     /// <inheritdoc/>
     public List<ResearchProject> ReadAllProjectDetails()
     {
         try
         {
-            var projects = _projectDao.GetAllProjectsWithDataFiles();
+            var projects = projectDao.GetAllProjectsWithDataFiles();
             var researchProjects = new List<ResearchProject>();
 
             foreach (var project in projects)
@@ -42,8 +35,8 @@ public sealed class ProjectsOverviewHandler : IProjectsOverviewHandler
                 researchProjects.Add(new ResearchProject(
                     project.Name,
                     project.Description,
-                    project.DataFileName,
-                    project.Created,
+                    project.DataFile,
+                    project.Created.ToString(CultureInfo.InvariantCulture),
                     ControlGroupTypes.StandardShift, // Default value, as this is not stored in the database
                     project.MultiFactor));
             }
@@ -54,7 +47,7 @@ public sealed class ProjectsOverviewHandler : IProjectsOverviewHandler
         catch (Exception e)
         {
             Log.Error("Error converting projects to ResearchProject objects: {Message}", e.Message);
-            return new List<ResearchProject>();
+            return [];
         }
     }
 }

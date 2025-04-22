@@ -16,15 +16,15 @@ namespace Enigma.Core.Data;
 /// <summary>Read csv files and returns standardized input data</summary>
 public interface ICsvImporter
 {
-    /// <summary>Read a list with Enigma standard data from a file and return standardized input data</summary>
+    /// <summary>Read a list with Enigma input data from a file and return standardized input data</summary>
     /// <param name="fullPath">Full path and filename for csv file</param>
     /// <returns>A list of standard input items</returns>
-    public List <StandardInputItem> ProcessStandardData(string fullPath);
+    public List <StandardInputItem> ProcessStandardInputData(string fullPath);
     
     /// <summary>Read a list with data exported from PlanetDance and return standardized input data</summary>
     /// <param name="fullPath">Full path and filename for csv file</param>
     /// <returns>A list of standard input items</returns>
-    public List <StandardInputItem> ProcessPlanetDanceData(string fullPath);
+    public List <StandardInputItem> ProcessPlanetDanceInputData(string fullPath);
 }
 
 /// <inheritdoc/>
@@ -41,7 +41,7 @@ public class CsvImporter : ICsvImporter
     
     
     /// <inheritdoc/>
-    public List<StandardInputItem> ProcessStandardData(string fullPath)
+    public List<StandardInputItem> ProcessStandardInputData(string fullPath)
     {
         if (string.IsNullOrEmpty(fullPath))
         {
@@ -82,7 +82,7 @@ public class CsvImporter : ICsvImporter
     }
 
     /// <inheritdoc/>
-    public List<StandardInputItem> ProcessPlanetDanceData(string fullPath)
+    public List<StandardInputItem> ProcessPlanetDanceInputData(string fullPath)
     {
         if (string.IsNullOrEmpty(fullPath)) throw new ArgumentNullException(nameof(fullPath));
         if (!File.Exists(fullPath)) throw new FileNotFoundException("CSV file not found", fullPath);

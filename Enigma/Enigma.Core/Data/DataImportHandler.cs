@@ -68,8 +68,8 @@ public sealed class DataImportHandler(
                 fileCopier.CopyFile(fullPathSource, fullInputPath);
                 var inputItems = dataType switch
                 {
-                    ResearchDataTypes.PlanetDance => csvImporter.ProcessPlanetDanceData(fullInputPath),
-                    ResearchDataTypes.StandardEnigma => csvImporter.ProcessStandardData(fullInputPath),
+                    ResearchDataTypes.PlanetDance => csvImporter.ProcessPlanetDanceInputData(fullInputPath),
+                    ResearchDataTypes.StandardEnigma => csvImporter.ProcessStandardInputData(fullInputPath),
                     _ => []
                 };
                 csvExporter.WriteStandardInputToCsv(inputItems, fullOutputPath);

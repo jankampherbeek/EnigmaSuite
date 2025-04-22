@@ -63,7 +63,7 @@ public class ProjectDto
     public string Location { get; set; } = string.Empty;
         
     /// <summary>Multi-factor indicator.</summary>
-    public bool MultiFactor { get; set; }
+    public int MultiFactor { get; set; }
         
     /// <summary>Creation date of the project.</summary>
     public DateTime Created { get; set; }
