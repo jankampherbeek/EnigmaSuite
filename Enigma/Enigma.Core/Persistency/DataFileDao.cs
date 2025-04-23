@@ -37,6 +37,11 @@ public interface IDataFileDao
     /// <param name="id">The ID of the data file to read.</param>
     /// <returns>The data file, or null if not found.</returns>
     public DataFileDto? ReadDataFile(int id);
+
+    /// <summary>Reads a data file from the database by its name.</summary>
+    /// <param name="name">The name of the data file to read.</param>
+    /// <returns>The data file, or null if not found.</returns>
+    public DataFileDto? ReadDataFile(string name);
 }
 
 /// <inheritdoc/>
@@ -195,6 +200,38 @@ public class DataFileDao: IDataFileDao
         {
             Log.Error("Error reading data file with ID {Id}. Exception: {Msg}", 
                 id, e.Message);
+            return null;
+        }
+    }
+
+    /// <inheritdoc/>
+    public DataFileDto? ReadDataFile(string name)
+    {
+        try
+        {
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            const string query = "SELECT id, name, location FROM DataFiles WHERE name = @Name";
+            var dataFile = dbConnection.QueryFirstOrDefault<DataFileDto>(query, new { Name = name });
+            
+            if (dataFile == null)
+            {
+                Log.Warning("No data file found with name {Name}", name);
+            }
+            else
+            {
+                Log.Information("Read data file with name {Name}", name);
+            }
+            
+            return dataFile;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error reading data file with name {Name}. Exception: {Msg}", 
+                name, e.Message);
             return null;
         }
     }

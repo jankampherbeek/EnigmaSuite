@@ -50,5 +50,13 @@ public class ProjectInputModel(
     {
         return projectCreationApi.CreateProject(project);
     }
-    
+
+    /// <summary>Gets the datafile ID for a given datafile name</summary>
+    /// <param name="datafileName">The name of the datafile</param>
+    /// <returns>The ID of the datafile, or -1 if not found</returns>
+    public int GetDatafileId(string datafileName)
+    {
+        var dataFile = fileManagementApi.ReadDataFile(datafileName);
+        return dataFile?.Id ?? -1;
+    }
 }

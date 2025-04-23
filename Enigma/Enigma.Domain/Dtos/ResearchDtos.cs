@@ -43,6 +43,8 @@ public record PointsToExclude(List<ChartPoints> ExcludedPoints, bool ExcludeCusp
 /// <summary>Data Transfer Object for DataFiles table.</summary>
 public class DataFileDto
 {
+    /// <summary>Id of the data file</summary>
+    public int Id { get; set; } = -1;
     /// <summary>Name of the data file.</summary>
     public string Name { get; set; } = string.Empty;
         

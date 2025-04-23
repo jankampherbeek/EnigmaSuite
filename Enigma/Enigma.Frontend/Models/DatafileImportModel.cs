@@ -41,7 +41,7 @@ public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi
     {
         var dataType = ResearchDataTypesExtensions.DataTypeForIndex(dataTypeIndex);
         var workFolder = settingsApi.ReadSetting("workfolder");        
-        var dataPath = workFolder + Path.DirectorySeparatorChar + dataName;
+        var dataPath = workFolder + Path.DirectorySeparatorChar + "datafiles" + Path.DirectorySeparatorChar + Path.DirectorySeparatorChar + dataName;
         
         var receivedResultMessage = fileManagementApi.CreateFoldersForData(dataPath);
         if (receivedResultMessage.ErrorCode > ResultCodes.OK)

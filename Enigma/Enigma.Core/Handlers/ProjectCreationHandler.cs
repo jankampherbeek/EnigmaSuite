@@ -10,7 +10,6 @@ using Enigma.Core.Data;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
@@ -58,7 +57,7 @@ public sealed class ProjectCreationHandler(
         var workFolder = settingsDao.ReadSetting("workfolder");
         Log.Information("Using workfolder: {WorkFolder}", workFolder);
         
-        var projPath = workFolder + Path.DirectorySeparatorChar + project.Name;
+        var projPath = workFolder + Path.DirectorySeparatorChar + "projects" + Path.DirectorySeparatorChar + project.Name;
         var projectDto = new ProjectDto
         {
             Name = project.Name,
@@ -122,7 +121,7 @@ public sealed class ProjectCreationHandler(
         }
         
         Log.Information("Starting control group creation");
-        var projDataPath = workFolder + Path.DirectorySeparatorChar + project.Name +
+        var projDataPath = workFolder + Path.DirectorySeparatorChar + "projects" + Path.DirectorySeparatorChar + project.Name +
                            Path.DirectorySeparatorChar + "testdata.csv";
         Log.Information("Reading test data from: {Path}", projDataPath);
         
@@ -142,7 +141,7 @@ public sealed class ProjectCreationHandler(
                 project.ControlGroupMultiplication);
             Log.Information("Control group data created successfully");
             
-            var controlGroupDir = workFolder + Path.DirectorySeparatorChar + project.Name;
+            var controlGroupDir = workFolder + Path.DirectorySeparatorChar + "projects" + Path.DirectorySeparatorChar + project.Name;
             Log.Information("Checking control group directory: {Dir}", controlGroupDir);
             if (!Directory.Exists(controlGroupDir))
             {
@@ -302,7 +301,8 @@ public sealed class ProjectCreationHandler(
         }
 
         var workFolder = settingsDao.ReadSetting("workfolder");
-        var projDataPath = workFolder + Path.DirectorySeparatorChar + project.Name + Path.DirectorySeparatorChar + "testdata.csv";
+        var projDataPath = workFolder + Path.DirectorySeparatorChar + "projects" + Path.DirectorySeparatorChar 
+                           + project.Name + Path.DirectorySeparatorChar + "testdata.csv";
         Log.Information("Destination path: {Path}", projDataPath);
         
         try

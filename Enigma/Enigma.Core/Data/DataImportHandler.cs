@@ -37,13 +37,12 @@ public sealed class DataImportHandler(
     {
         // TODO check values for ResultMessage, or find an alternative solution
         var workFolder = settingsDao.ReadSetting("workfolder");
-        var fullInputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar + "orig" +
-                            Path.DirectorySeparatorChar + dataName + ".csv";
-        var fullOutputPath = workFolder + Path.DirectorySeparatorChar + dataName + Path.DirectorySeparatorChar +
-                             "standard" +
-                             Path.DirectorySeparatorChar + "date_time_loc.csv";
-        var fullErrorPath = workFolder + Path.DirectorySeparatorChar + "dataName" + Path.DirectorySeparatorChar +
-                            "errors.txt";
+        var fullInputPath = workFolder + Path.DirectorySeparatorChar + "datafiles" + Path.DirectorySeparatorChar +  
+                            dataName + Path.DirectorySeparatorChar + "orig" + Path.DirectorySeparatorChar + dataName + ".csv";
+        var fullOutputPath = workFolder + Path.DirectorySeparatorChar + "datafiles" + Path.DirectorySeparatorChar +  
+                             dataName + Path.DirectorySeparatorChar + "standard" + Path.DirectorySeparatorChar + "date_time_loc.csv";
+        var fullErrorPath = workFolder + Path.DirectorySeparatorChar + "datafiles" + Path.DirectorySeparatorChar + "dataName" 
+                            + Path.DirectorySeparatorChar + "errors.txt";
         int dataIndex;
         try
         {

@@ -49,8 +49,11 @@ public interface IDataFileManagementApi
     /// <returns>The datafile if one is found, otherwise null</returns>
     public DataFileDto? ReadDataFile(int index);
 
+    /// <summary>Read DTO for a specific datafile by its name</summary>
+    /// <param name="name">The name of the data file</param>
+    /// <returns>The datafile if one is found, otherwise null</returns>
+    public DataFileDto? ReadDataFile(string name);
 }
-
 
 /// <summary>Api for import from, and export to PlanetDance data.</summary>
 public interface IPdDataImportExportApi
@@ -60,7 +63,6 @@ public interface IPdDataImportExportApi
     /// <returns>True if no errors occurred, otherwise false.</returns>
     public bool ImportPdDataToRdbms(string csvFilename);
 }
-
 
 /// <inheritdoc/>
 public sealed class DataHandlerApi(IDataImportHandler dataImportHandler) : IDataHandlerApi
@@ -90,7 +92,7 @@ public sealed class DataFileManagementApi(IDataFilePreparator dataFilePreparator
     public ResultMessage CreateFoldersForData(string fullPath)
     {
         Guard.Against.NullOrEmpty(fullPath);
-        Log.Information("DataFileManagementApi CreateFoldersForData, using fullPath : {Path}", fullPath);
+        Log.Information($"Create folders for data at {fullPath}");
         return dataFilePreparator.MakeFolderStructure(fullPath);
     }
 
@@ -103,10 +105,19 @@ public sealed class DataFileManagementApi(IDataFilePreparator dataFilePreparator
 
     public DataFileDto? ReadDataFile(int index)
     {
+        Guard.Against.NegativeOrZero(index);
+        Log.Information($"Read data file with index {index}");
         return dataFileDao.ReadDataFile(index);
     }
-}
 
+    /// <inheritdoc/>
+    public DataFileDto? ReadDataFile(string name)
+    {
+        Guard.Against.NullOrEmpty(name);
+        Log.Information($"Read data file with name {name}");
+        return dataFileDao.ReadDataFile(name);
+    }
+}
 
 /// <inheritdoc/>
 public sealed class PdDataImportExportApi(IPdDataFromToRdbmsHandler handler) : IPdDataImportExportApi

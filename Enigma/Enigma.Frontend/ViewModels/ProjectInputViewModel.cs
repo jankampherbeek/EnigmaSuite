@@ -41,7 +41,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [NotifyPropertyChangedFor(nameof(ProjectDescriptionValid))]   
     [ObservableProperty] private string _projectDescription = string.Empty;
     [ObservableProperty] private int _controlGroupIndex;
-    [ObservableProperty] private int _datafileIndex = -1;  // Initialize to -1 to indicate no selection
+    [ObservableProperty] private string _selectedDatafileName = string.Empty;
     [ObservableProperty] private int _cgMultiplicationIndex;
     [ObservableProperty] private ObservableCollection<string> _availableControlGroupTypes;
     [ObservableProperty] private ObservableCollection<string> _controlGroupMultiplications;
@@ -60,7 +60,7 @@ public partial class ProjectInputViewModel: ObservableObject
         // Set default values
         if (AvailableDatafileNames.Count > 0)
         {
-            DatafileIndex = 0;  // Select first item by default
+            SelectedDatafileName = AvailableDatafileNames[0];  // Select first item by default
         }
     }
     
@@ -80,7 +80,7 @@ public partial class ProjectInputViewModel: ObservableObject
 
     private bool IsDatafileValid()
     {
-        return DatafileIndex >= 0 && AvailableDatafileNames.Count > 0;
+        return !string.IsNullOrEmpty(SelectedDatafileName) && AvailableDatafileNames.Contains(SelectedDatafileName);
     }
     
     [RelayCommand]
@@ -101,9 +101,16 @@ public partial class ProjectInputViewModel: ObservableObject
             ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
             DateTime now = DateTime.Now;
             
-            // DatafileIndex is already set from the ComboBox selection
+            // Get the datafile ID from the selected name
+            int datafileId = _model.GetDatafileId(SelectedDatafileName);
+            if (datafileId < 0)
+            {
+                MessageBox.Show(StandardTexts.ERROR_DATAFILE_MISSING, StandardTexts.TITLE_ERROR);
+                return;
+            }
+            
             ResearchProject project = new(ProjectName, ProjectDescription, 
-                DatafileIndex + 1, // Add 1 because database indices start at 1
+                datafileId,
                 now.ToString(CultureInfo.InvariantCulture),
                 cgType, 
                 multiplicationValue);
@@ -127,7 +134,6 @@ public partial class ProjectInputViewModel: ObservableObject
             MessageBox.Show(errors, StandardTexts.TITLE_ERROR);
     }
     
-    
     private string FindErrors()
     {
         StringBuilder errorsText = new();
@@ -147,12 +153,10 @@ public partial class ProjectInputViewModel: ObservableObject
         WeakReferenceMessenger.Default.Send(new CancelMessage(VM_IDENTIFICATION));
     }
     
-    
     [RelayCommand]
     private static void Help()
     {
         Log.Information("ProjectInputViewModel.Help(): send HelpMessage");  
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
-
 }
