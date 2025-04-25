@@ -41,10 +41,12 @@ public partial class ProjectUsageViewModel: ObservableObject,
     [ObservableProperty] private ObservableCollection<PresentableMethodDetails> _testMethods = new();
     
     private readonly ProjectUsageModel _model = App.ServiceProvider.GetRequiredService<ProjectUsageModel>();
+
+    private readonly IDataFileManagementApi _dataFileApi = App.ServiceProvider.GetRequiredService < IDataFileManagementApi>();
     private bool _sufficientSelections;
     private bool _testCanceled;
     
-    public ProjectUsageViewModel(IDataFileManagementApi dataFileApi)
+    public ProjectUsageViewModel()
     {
         WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
         WeakReferenceMessenger.Default.Register<CancelMessage>(this);
@@ -54,7 +56,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
         ProjectName = currentProject.Name;
         Description = currentProject.Description;
         StartDate = currentProject.CreationDate;
-        var dataFileDto = dataFileApi.ReadDataFile(currentProject.IndexDataFile);
+        var dataFileDto = _dataFileApi.ReadDataFile(currentProject.IndexDataFile);
         DataSetName = dataFileDto is not null ? dataFileDto.Name : "Not found";
         MultiplFactor = currentProject.ControlGroupMultiplication.ToString();
         ControlGroupType = currentProject.ControlGroupType.GetDetails().RbKey;         
