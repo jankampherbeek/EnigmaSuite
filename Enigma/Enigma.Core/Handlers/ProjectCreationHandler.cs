@@ -10,8 +10,6 @@ using Enigma.Core.Data;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Exceptions;
-using Enigma.Domain.References;
 using Enigma.Domain.Research;
 using Serilog;
 using ProjectDto = Enigma.Domain.Dtos.ProjectDto;
@@ -29,12 +27,8 @@ public interface IProjectCreationHandler
 }
 
 public sealed class ProjectCreationHandler(
-    IResearchProjectParser researchProjectParser,
-    ITextFileWriter textFileWriter,
-    ITextFileReader textFileReader,
     IControlGroupCreator controlGroupCreator,
     ICsvExporter csvExporter,
-    ICsvImporter csvImporter,
     ICsvStandardDataReader csvStandardDataReader,
     ISettingsDao settingsDao,
     IProjectDao projectDao,
@@ -142,18 +136,14 @@ public sealed class ProjectCreationHandler(
             Log.Information("Control group data created successfully");
             
             var controlGroupDir = workFolder + Path.DirectorySeparatorChar + "projects" + Path.DirectorySeparatorChar + project.Name;
-            Log.Information("Checking control group directory: {Dir}", controlGroupDir);
             if (!Directory.Exists(controlGroupDir))
             {
                 Log.Error("Control group directory does not exist: {Dir}", controlGroupDir);
                 errorCode = ResultCodes.RESEARCH_CANNOT_CREATE_PROJFOLDER;
                 return false;
             }
-            Log.Information("Control group directory exists and is accessible");
 
             var controlGroupPath = controlGroupDir + Path.DirectorySeparatorChar + "controldata.csv";
-            Log.Information("Preparing to write control group data to: {Path}", controlGroupPath);
-            
             try
             {
                 Log.Information("Attempting to write control group data to: {Path}", controlGroupPath);
@@ -179,20 +169,18 @@ public sealed class ProjectCreationHandler(
             errorCode = ResultCodes.RESEARCH_CANNOT_READ_TESTDATA;
             return false;
         }
-        
         Log.Information("Project creation completed successfully");
         return true;
     }
 
-    private bool FolderExists(string projPath)
+    private static bool FolderExists(string projPath)
     {
         Log.Information($"Check existence of folder : {projPath}");
         return Directory.Exists(projPath);
     }
 
-    private bool CreateFolder(string projPath)
+    private static bool CreateFolder(string projPath)
     {
-        // string projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName;
         try
         {
             Log.Information($"Create folder for research: {projPath}");
@@ -203,46 +191,10 @@ public sealed class ProjectCreationHandler(
             Log.Error("Received an exception {A} when creating a project folder {B}", e.Message, projPath);
             return false;
         }
-
         return true;
     }
 
-    private ResearchProject ReadProject(string projCsv, string projPath)
-    {
-        //   var projPath = _applicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + project.Name;
-
-        var proj = new ResearchProject("", "", 0, "", ControlGroupTypes.StandardShift, 1);
-        try
-        {
-            var config = new CsvConfiguration(CultureInfo.InvariantCulture)
-            {
-                Delimiter = ",",
-                HasHeaderRecord = true,
-                HeaderValidated = null,
-                IgnoreBlankLines = true,
-            };
-
-            using var reader = new StreamReader(projPath);
-            using var csv = new CsvReader(reader, config);
-            csv.Read();
-            csv.ReadHeader();
-            while (csv.Read())
-            {
-                proj = csv.GetRecord<ResearchProject>();
-            }
-        }
-        catch (Exception e)
-        {
-            var errorTxt = $"Received an exception {e.Message} when reading project from {projPath}";
-            Log.Error(errorTxt);
-            throw new PersistencyException(errorTxt);
-        }
-
-        return proj;
-    }
-
-
-    private bool WriteProject(ResearchProject projectDetails, string projPath)
+    private static bool WriteProject(ResearchProject projectDetails, string projPath)
     {
         var projectFilePath = projPath + Path.DirectorySeparatorChar + "project.csv";
         Log.Information("Writing project details to: {Path}", projectFilePath);

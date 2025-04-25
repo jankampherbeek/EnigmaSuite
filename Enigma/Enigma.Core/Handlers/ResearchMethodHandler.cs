@@ -10,9 +10,7 @@ using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
-using Newtonsoft.Json;
 using Serilog;
-using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Enigma.Core.Handlers;
 
@@ -24,14 +22,34 @@ public interface IResearchMethodHandler
     /// <returns>Results of the test as instance of MethodResponse or one of its children.</returns>
     public MethodResponse HandleResearch(GeneralResearchRequest request);
 
+    /// <summary>Event that reports progress of chart processing.</summary>
+    event EventHandler<ChartProgressEventArgs> ChartProgress;
+}
+
+/// <summary>Event arguments for chart processing progress.</summary>
+public class ChartProgressEventArgs : EventArgs
+{
+    /// <summary>Number of charts processed so far.</summary>
+    public int ProcessedCharts { get; }
+
+    /// <summary>Total number of charts to process.</summary>
+    public int TotalCharts { get; }
+
+    /// <summary>Create new instance of ChartProgressEventArgs.</summary>
+    /// <param name="processedCharts">Number of charts processed so far.</param>
+    /// <param name="totalCharts">Total number of charts to process.</param>
+    public ChartProgressEventArgs(int processedCharts, int totalCharts)
+    {
+        ProcessedCharts = processedCharts;
+        TotalCharts = totalCharts;
+    }
 }
 
 /// <inheritdoc/>
 public sealed class ResearchMethodHandler(
-    ICsvImporter csvImporter,
+  ICsvStandardDataReader csvStandardDataReader,
     ICalculatedResearchPositions researchPositions,
     IPointsInPartsCounting pointsInZodiacPartsCounting,
-    IFilePersistencyHandler filePersistencyHandler,
     IResearchPaths researchPaths,
     IAspectsCounting aspectsCounting,
     IUnaspectedCounting unaspectedCounting,
@@ -42,69 +60,267 @@ public sealed class ResearchMethodHandler(
     IDeclinationParallelsCounting declinationParallelsCounting)
     : IResearchMethodHandler
 {
+    private bool _isProcessing;
+
+    /// <inheritdoc/>
+    public event EventHandler<ChartProgressEventArgs>? ChartProgress;
+
     /// <inheritdoc/>
     public MethodResponse HandleResearch(GeneralResearchRequest request)
     {
         var method = request.Method;
         Log.Information("ResearchMethodHandler HandleResearch, using method {M} for project {P}", method, request.ProjectName);
-        var allCalculatedResearchCharts = CalculateAllCharts(request.ProjectName, request.UseControlGroup);
-        WriteCalculatedChartsToJson(request.ProjectName, method.ToString(), request.UseControlGroup, allCalculatedResearchCharts);
+        
+        var fullPath = researchPaths.DataPath(request.ProjectName, request.UseControlGroup);
+        Log.Information("Reading csv from path : {Fp}", fullPath);
+        var standardInput = csvStandardDataReader.ReadStandardInputData(fullPath);
+        
+        const int batchSize = 5000;
+        var totalCharts = standardInput.Count;
+        var processedCharts = 0;
+        List<MethodResponse> orderedResponses = [];
+
+        Log.Information("Starting research with {TotalCharts} charts", totalCharts);
+        _isProcessing = true;
+
+        while (processedCharts < totalCharts)
+        {
+            var remainingCharts = totalCharts - processedCharts;
+            var currentBatchSize = Math.Min(batchSize, remainingCharts);
+            var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
+            var batchCharts = researchPositions.CalculatePositions(batchInput);
+            processedCharts += currentBatchSize;
+            Log.Information("Processed {ProcessedCharts} of {TotalCharts} charts", processedCharts, totalCharts);
+            
+            // Only raise progress event if we're processing
+            if (_isProcessing)
+            {
+                ChartProgress?.Invoke(this, new ChartProgressEventArgs(processedCharts, totalCharts));
+            }
+
+            var batchResponse = ProcessBatch(request, batchCharts);
+            orderedResponses.Add(batchResponse);
+        }
+
+        _isProcessing = false;
+        // Combine all responses in order
+        return CombineOrderedResponses(orderedResponses);
+    }
+
+    private MethodResponse ProcessBatch(GeneralResearchRequest request, List<CalculatedResearchChart> batchCharts)
+    {
         switch (request)
         {
             case CountHarmonicConjunctionsRequest conjunctionsRequest:
-                return harmonicConjunctionsCounting.CountHarmonicConjunctions(allCalculatedResearchCharts, conjunctionsRequest); 
+                return harmonicConjunctionsCounting.CountHarmonicConjunctions(batchCharts, conjunctionsRequest);
             case CountOccupiedMidpointsRequest midpointsRequest:
-                return occupiedMidpointsCounting.CountMidpoints(allCalculatedResearchCharts, midpointsRequest);
+                return occupiedMidpointsCounting.CountMidpoints(batchCharts, midpointsRequest);
             case CountOccupiedMidpointsDeclinationRequest midpointsDeclinationRequest:
-                return occupiedMidpointsDeclinationCounting.CountMidpointsInDeclination(allCalculatedResearchCharts, midpointsDeclinationRequest );
-                
+                return occupiedMidpointsDeclinationCounting.CountMidpointsInDeclination(batchCharts, midpointsDeclinationRequest);
         }
-        // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-        switch (method)
+
+        switch (request.Method)
         {
             case ResearchMethods.CountUnaspected:
-                return unaspectedCounting.CountUnaspected(allCalculatedResearchCharts, request);
+                return unaspectedCounting.CountUnaspected(batchCharts, request);
             case ResearchMethods.CountAspects:
-                return aspectsCounting.CountAspects(allCalculatedResearchCharts, request);
+                return aspectsCounting.CountAspects(batchCharts, request);
             case ResearchMethods.CountPosInSigns:
-                return pointsInZodiacPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+                return pointsInZodiacPartsCounting.CountPointsInParts(batchCharts, request);
             case ResearchMethods.CountPosInHouses:
-                return pointsInZodiacPartsCounting.CountPointsInParts(allCalculatedResearchCharts, request);
+                return pointsInZodiacPartsCounting.CountPointsInParts(batchCharts, request);
             case ResearchMethods.CountOob:
-                return oobCounting.CountOob(allCalculatedResearchCharts, request);
+                return oobCounting.CountOob(batchCharts, request);
             case ResearchMethods.CountDeclinationParallels:
-                return declinationParallelsCounting.CountParallels(allCalculatedResearchCharts, request);
+                return declinationParallelsCounting.CountParallels(batchCharts, request);
+            case ResearchMethods.CountOccupiedMidpoints:
+            case ResearchMethods.CountHarmonicConjunctions:
+            case ResearchMethods.CountDeclinationMidpoints:
             default:
-                Log.Error("ResearchMethodHandler.HandleResearch() received an unrecognized request : {Request}", request);
+                Log.Error("ResearchMethodHandler.ProcessBatch() received an unrecognized request : {Request}", request);
                 throw new EnigmaException("Unrecognized ResearchMethod in request for ResearchMethodHandler");
         }
     }
 
-    private List<CalculatedResearchChart> CalculateAllCharts(string projectName, bool controlGroup)
+    private MethodResponse CombineOrderedResponses(List<MethodResponse> orderedResponses)
     {
-        List<CalculatedResearchChart> allCalculatedResearchCharts = [];
-        var fullPath = researchPaths.DataPath(projectName, controlGroup);
-        Log.Information("Reading csv from path : {Fp}", fullPath);
-        var standardInput = csvImporter.ProcessStandardInputData(fullPath);   
-        allCalculatedResearchCharts = researchPositions.CalculatePositions(standardInput);
-        Log.Information("Calculation completed");            
-        return allCalculatedResearchCharts;
-    }
-
-    private void WriteCalculatedChartsToJson(string projectName, string methodName, bool controlGroup,
-        List<CalculatedResearchChart> allCharts)
-    {
-        var pathForResults = researchPaths.ResultPath(projectName, methodName, controlGroup);
-        using (var stream = new FileStream(pathForResults, FileMode.Create))
-        using (var writer = new StreamWriter(stream))
-        using (var jsonWriter = new JsonTextWriter(writer))
+        switch (orderedResponses.Count)
         {
-            jsonWriter.Formatting = Formatting.None;
-            var serializer = new JsonSerializer();
-            serializer.Serialize(jsonWriter, allCharts);
+            case 0:
+                throw new EnigmaException("No results were generated");
+            case 1:
+                return orderedResponses[0];
         }
 
-        Log.Information("Json with positions written to {Path}", pathForResults);
+        // Verify all responses are of the same type
+        var responseType = orderedResponses[0].GetType();
+        if (orderedResponses.Any(r => r.GetType() != responseType))
+        {
+            throw new EnigmaException("Cannot combine responses of different types");
+        }
+
+        // Combine responses in order
+        var combinedResponse = orderedResponses[0];
+        for (var i = 1; i < orderedResponses.Count; i++)
+        {
+            combinedResponse = CombineTwoResponses(combinedResponse, orderedResponses[i]);
+        }
+
+        return combinedResponse;
+    }
+
+    private static MethodResponse CombineTwoResponses(MethodResponse response1, MethodResponse response2)
+    {
+        return response1 switch
+        {
+            CountOfAspectsResponse aspects1 when response2 is CountOfAspectsResponse aspects2 =>
+                new CountOfAspectsResponse(
+                    aspects1.Request,
+                    CombineArrays(aspects1.AllCounts, aspects2.AllCounts),
+                    CombineArrays(aspects1.TotalsPerPointCombi, aspects2.TotalsPerPointCombi),
+                    CombineArrays(aspects1.TotalsPerAspect, aspects2.TotalsPerAspect),
+                    aspects1.PointsUsed,
+                    aspects1.AspectsUsed),
+
+            CountOfParallelsResponse parallels1 when response2 is CountOfParallelsResponse parallels2 =>
+                new CountOfParallelsResponse(
+                    parallels1.Request,
+                    CombineArrays(parallels1.AllCounts, parallels2.AllCounts),
+                    CombineArrays(parallels1.TotalsPerPointCombi, parallels2.TotalsPerPointCombi),
+                    CombineArrays(parallels1.TotalsPerAspect, parallels2.TotalsPerAspect),
+                    parallels1.PointsUsed),
+
+            CountOfPartsResponse parts1 when response2 is CountOfPartsResponse parts2 =>
+                new CountOfPartsResponse(
+                    parts1.Request,
+                    CombineCountOfParts(parts1.Counts, parts2.Counts),
+                    CombineArrays(parts1.Totals, parts2.Totals)),
+
+            CountOfUnaspectedResponse unaspected1 when response2 is CountOfUnaspectedResponse unaspected2 =>
+                new CountOfUnaspectedResponse(
+                    unaspected1.Request,
+                    CombineSimpleCounts(unaspected1.Counts, unaspected2.Counts)),
+
+            CountOfOccupiedMidpointsResponse midpoints1 when response2 is CountOfOccupiedMidpointsResponse midpoints2 =>
+                new CountOfOccupiedMidpointsResponse(
+                    midpoints1.Request,
+                    CombineDictionary(midpoints1.AllCounts, midpoints2.AllCounts)),
+
+            CountOfOccupiedMidpointsDeclResponse declMidpoints1 when response2 is CountOfOccupiedMidpointsDeclResponse declMidpoints2 =>
+                new CountOfOccupiedMidpointsDeclResponse(
+                    declMidpoints1.Request,
+                    CombineDictionary(declMidpoints1.AllCounts, declMidpoints2.AllCounts)),
+
+            CountHarmonicConjunctionsResponse conjunctions1 when response2 is CountHarmonicConjunctionsResponse conjunctions2 =>
+                new CountHarmonicConjunctionsResponse(
+                    conjunctions1.Request,
+                    CombineDictionary(conjunctions1.AllCounts, conjunctions2.AllCounts)),
+
+            CountOobResponse oob1 when response2 is CountOobResponse oob2 =>
+                new CountOobResponse(
+                    oob1.Request,
+                    CombineSimpleCounts(oob1.Counts, oob2.Counts)),
+
+            _ => throw new EnigmaException($"Combination not implemented for response type {response1.GetType()}")
+        };
+    }
+
+    private static int[,,] CombineArrays(int[,,] array1, int[,,] array2)
+    {
+        var dim1 = array1.GetLength(0);
+        var dim2 = array1.GetLength(1);
+        var dim3 = array1.GetLength(2);
+        var result = new int[dim1, dim2, dim3];
+        
+        for (var i = 0; i < dim1; i++)
+        {
+            for (var j = 0; j < dim2; j++)
+            {
+                for (var k = 0; k < dim3; k++)
+                {
+                    result[i, j, k] = array1[i, j, k] + array2[i, j, k];
+                }
+            }
+        }
+        return result;
+    }
+
+    private static int[,] CombineArrays(int[,] array1, int[,] array2)
+    {
+        var dim1 = array1.GetLength(0);
+        var dim2 = array1.GetLength(1);
+        var result = new int[dim1, dim2];
+        
+        for (var i = 0; i < dim1; i++)
+        {
+            for (var j = 0; j < dim2; j++)
+            {
+                result[i, j] = array1[i, j] + array2[i, j];
+            }
+        }
+        return result;
+    }
+
+    private static int[] CombineArrays(int[] array1, int[] array2)
+    {
+        var result = new int[array1.Length];
+        for (var i = 0; i < array1.Length; i++)
+        {
+            result[i] = array1[i] + array2[i];
+        }
+        return result;
+    }
+
+    private static List<int> CombineArrays(List<int> list1, List<int> list2)
+    {
+        var result = new List<int>(list1.Count);
+        for (var i = 0; i < list1.Count; i++)
+        {
+            result.Add(list1[i] + list2[i]);
+        }
+        return result;
+    }
+
+    private static List<CountOfParts> CombineCountOfParts(List<CountOfParts> parts1, List<CountOfParts> parts2)
+    {
+        var result = new List<CountOfParts>();
+        for (var i = 0; i < parts1.Count; i++)
+        {
+            var combinedCounts = new List<int>();
+            for (var j = 0; j < parts1[i].Counts.Count; j++)
+            {
+                combinedCounts.Add(parts1[i].Counts[j] + parts2[i].Counts[j]);
+            }
+            result.Add(new CountOfParts(parts1[i].Point, combinedCounts));
+        }
+        return result;
+    }
+
+    private static List<SimpleCount> CombineSimpleCounts(List<SimpleCount> counts1, List<SimpleCount> counts2)
+    {
+        var result = new List<SimpleCount>();
+        for (var i = 0; i < counts1.Count; i++)
+        {
+            result.Add(new SimpleCount(counts1[i].Point, counts1[i].Count + counts2[i].Count));
+        }
+        return result;
+    }
+
+    private static Dictionary<T, int> CombineDictionary<T>(Dictionary<T, int> dict1, Dictionary<T, int> dict2) where T : notnull
+    {
+        var result = new Dictionary<T, int>(dict1);
+        foreach (var kvp in dict2)
+        {
+            if (result.ContainsKey(kvp.Key))
+            {
+                result[kvp.Key] += kvp.Value;
+            }
+            else
+            {
+                result[kvp.Key] = kvp.Value;
+            }
+        }
+        return result;
     }
 }
 

@@ -1,13 +1,11 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Handlers;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
-using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Serilog;
 
@@ -22,19 +20,24 @@ public interface IResearchPerformApi
     /// <param name="request">GeneralResearchRequest or one of its children.</param>
     /// <returns>MethodResponse or one of its children.</returns>
     public MethodResponse PerformResearch(GeneralResearchRequest request);
+
+    /// <summary>Event that reports progress of chart processing.</summary>
+    event EventHandler<ChartProgressEventArgs> ChartProgress;
 }
 
 /// <inheritdoc/>
 public sealed class ResearchPerformApi : IResearchPerformApi
 {
-
     private readonly IResearchMethodHandler _researchMethodHandler;
-
-
+    
     public ResearchPerformApi(IResearchMethodHandler researchPerformHandler)
     {
         _researchMethodHandler = researchPerformHandler;
+        _researchMethodHandler.ChartProgress += (sender, args) => ChartProgress?.Invoke(this, args);
     }
+
+    /// <inheritdoc/>
+    public event EventHandler<ChartProgressEventArgs>? ChartProgress;
 
     /// <inheritdoc/>
     public MethodResponse PerformResearch(GeneralResearchRequest request)

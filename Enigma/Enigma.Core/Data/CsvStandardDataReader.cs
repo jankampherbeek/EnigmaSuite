@@ -21,7 +21,7 @@ public interface ICsvStandardDataReader
 }
 
 /// <inheritdoc/>
-public class CsvStandardDataReader : ICsvStandardDataReader
+public sealed class CsvStandardDataReader : ICsvStandardDataReader
 {
     /// <inheritdoc/>
     public List<StandardInputItem> ReadStandardInputData(string filePath)
@@ -44,7 +44,6 @@ public class CsvStandardDataReader : ICsvStandardDataReader
         {
             Delimiter = ";",
             HasHeaderRecord = true,
-           // HeaderValidated = null,
             IgnoreBlankLines = true,
             MissingFieldFound = null,
         };

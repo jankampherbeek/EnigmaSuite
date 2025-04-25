@@ -21,6 +21,7 @@ public static class ResearchServices
         serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
         serviceCollection.AddTransient<IResearchMethodHandler, ResearchMethodHandler>();
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();
+        serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
 
         // Helpers
         serviceCollection.AddTransient<IAspectsCounting, AspectsCounting>();
@@ -33,7 +34,6 @@ public static class ResearchServices
         serviceCollection.AddTransient<IPointsInPartsCounting, PointsInPartsCounting>();
         serviceCollection.AddTransient<IProjectDetails, ProjectDetails>();
         serviceCollection.AddTransient<IResearchMethodUtils, ResearchMethodUtils>();
-        serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
         serviceCollection.AddTransient<IResearchProjectParser, ResearchProjectParser>();
         serviceCollection.AddTransient<IUnaspectedCounting, UnaspectedCounting>();
 

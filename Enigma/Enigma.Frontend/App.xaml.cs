@@ -111,6 +111,7 @@ public partial class App
         serviceCollection.AddSingleton<IProgPositionsForPresentationFactory, ProgPositionsForPresentationFactory>();
         serviceCollection.AddTransient<ProgressiveMainModel>();
         serviceCollection.AddTransient<ProjectUsageModel>();
+        serviceCollection.AddTransient<ProjectUsageViewModel>();
         serviceCollection.AddTransient<ProjectInputModel>();
         serviceCollection.AddTransient<RadixAspectsModel>();
         serviceCollection.AddTransient<RadixDataInputModel>();

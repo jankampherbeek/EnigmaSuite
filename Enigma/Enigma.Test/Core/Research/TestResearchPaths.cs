@@ -1,9 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 
+using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 
 namespace Enigma.Test.Core.Research;
@@ -16,7 +17,8 @@ public class TestResearchPaths
     [SetUp]
     public void SetUp()
     {
-        _researchPaths = new ResearchPaths();
+        ISettingsDao settingsDao = new SettingsDao();
+        _researchPaths = new ResearchPaths(settingsDao);
     }
 
 

@@ -1,9 +1,9 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Domain.Dtos;
+using Enigma.Core.Persistency;
 
 namespace Enigma.Core.Research;
 
@@ -40,9 +40,9 @@ public interface IResearchPaths
 }
 
 /// <inherit/>
-public sealed class ResearchPaths : IResearchPaths
+public sealed class ResearchPaths(ISettingsDao settingsDao) : IResearchPaths
 {
-
+    /// <inherit/>
     public string DataPath(string projName, bool useControlGroup)
     {
         return ConstructDataPath(projName, useControlGroup);
@@ -66,52 +66,57 @@ public sealed class ResearchPaths : IResearchPaths
         return ConstructSummedResultsPath(projName, methodName, useControlGroup);
     }
 
-    private static string ConstructDataPath(string projName, bool useControlGroup)
+    private string ConstructDataPath(string projName, bool useControlGroup)
     {
-        ApplicationSettings appSettings = ApplicationSettings.Instance;
-        string projFiles = appSettings.LocationProjectFiles;
-        string dataFilename = useControlGroup ? "controldata" : "testdata";
-        return projFiles + @"\" + projName + @"\" + dataFilename + ".json";
+        var workFolder = settingsDao.ReadSetting("workfolder");
+        if (string.IsNullOrEmpty(workFolder))
+        {
+            throw new InvalidOperationException("Setting for workfolder not found in database");
+        }
+        var dataFilename = useControlGroup ? "controldata" : "testdata";
+        return Path.Combine(workFolder, "projects", projName, dataFilename + ".csv");
     }
 
-    private static string ConstructResultPath(string projName, string methodName, bool useControlGroup)
+    private string ConstructResultPath(string projName, string methodName, bool useControlGroup)
     {
-        ApplicationSettings appSettings = ApplicationSettings.Instance;
-        string projFiles = appSettings.LocationProjectFiles;
-        string dateTimeStamp = ConstructDateTimeStamp();
-        string prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
-        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_positions_" + dateTimeStamp + ".json";
+        var workFolder = settingsDao.ReadSetting("workfolder");
+        if (string.IsNullOrEmpty(workFolder))
+        {
+            throw new InvalidOperationException("Workfolder setting not found in database");
+        }
+        var dateTimeStamp = ConstructDateTimeStamp();
+        var prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
+        return Path.Combine(workFolder, "projects", projName, "results", prefix + methodName + "_positions_" + dateTimeStamp + ".json");
     }
 
-    private static string ConstructCountResultsPath(string projName, string methodName, bool useControlGroup)
+    private string ConstructCountResultsPath(string projName, string methodName, bool useControlGroup)
     {
-        ApplicationSettings appSettings = ApplicationSettings.Instance;
-        string projFiles = appSettings.LocationProjectFiles;
-        string dateTimeStamp = ConstructDateTimeStamp();
-        string prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
-        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".json";
+        var workFolder = settingsDao.ReadSetting("workfolder");
+        if (string.IsNullOrEmpty(workFolder))
+        {
+            throw new InvalidOperationException("Workfolder setting not found in database");
+        }
+        var dateTimeStamp = ConstructDateTimeStamp();
+        var prefix = useControlGroup ? "controldataresult_" : "testdataresult_";
+        return Path.Combine(workFolder, "projects", projName, "results", prefix + methodName + "_counts_" + dateTimeStamp + ".json");
     }
 
-    private static string ConstructSummedResultsPath(string projName, string methodName, bool useControlGroup)
+    private string ConstructSummedResultsPath(string projName, string methodName, bool useControlGroup)
     {
-        ApplicationSettings appSettings = ApplicationSettings.Instance;
-        string projFiles = appSettings.LocationProjectFiles;
-        string dateTimeStamp = ConstructDateTimeStamp();
-        string prefix = useControlGroup ? "controlsummedresult_" : "testsummedresult_";
-        return projFiles + @"\" + projName + @"\results" + @"\" + prefix + methodName + "_counts_" + dateTimeStamp + ".txt";
-
+        var workFolder = settingsDao.ReadSetting("workfolder");
+        if (string.IsNullOrEmpty(workFolder))
+        {
+            throw new InvalidOperationException("Workfolder setting not found in database");
+        }
+        var dateTimeStamp = ConstructDateTimeStamp();
+        var prefix = useControlGroup ? "controlsummedresult_" : "testsummedresult_";
+        return Path.Combine(workFolder, "projects", projName, "results", prefix + methodName + "_counts_" + dateTimeStamp + ".txt");
     }
 
     private static string ConstructDateTimeStamp()
     {
-        DateTime dateTime = DateTime.Now;
-        string year = dateTime.Year.ToString();
-        string month = dateTime.Month.ToString();
-        string day = dateTime.Day.ToString();
-        string hour = dateTime.Hour.ToString();
-        string minute = dateTime.Minute.ToString();
-        string second = dateTime.Second.ToString();
-        return year + "-" + month + "-" + day + " " + hour + "-" + minute + "-" + second;
+        var now = DateTime.Now;
+        return $"{now.Year}-{now.Month}-{now.Day} {now.Hour}.{now.Minute}.{now.Second}";
     }
 }
 
