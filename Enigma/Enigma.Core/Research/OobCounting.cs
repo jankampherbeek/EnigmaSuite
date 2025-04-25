@@ -25,24 +25,16 @@ public interface IOobCounting
 //========== Implementation ===================================================================
 
 /// <inheritdoc/>
-public class OobCounting: IOobCounting
+public class OobCounting(
+    IResearchPaths researchPaths,
+    IFilePersistencyHandler filePersistencyHandler,
+    IResearchMethodUtils researchMethodUtils,
+    IPointsMapping pointsMapping)
+    : IOobCounting
 {
-    private readonly IResearchPaths _researchPaths;
-    private readonly IFilePersistencyHandler _filePersistencyHandler;
-    private readonly IResearchMethodUtils _researchMethodUtils;
-    private readonly IPointsMapping _pointsMapping;
+    private readonly IResearchPaths _researchPaths = researchPaths;
+    private readonly IFilePersistencyHandler _filePersistencyHandler = filePersistencyHandler;
 
-    public OobCounting(IResearchPaths researchPaths, 
-        IFilePersistencyHandler filePersistencyHandler, 
-        IResearchMethodUtils researchMethodUtils,
-        IPointsMapping pointsMapping)
-    {
-        _researchPaths = researchPaths;
-        _filePersistencyHandler = filePersistencyHandler;
-        _researchMethodUtils = researchMethodUtils;
-        _pointsMapping = pointsMapping;
-    }
-    
     /// <inheritdoc/>
     public CountOobResponse CountOob(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
@@ -57,23 +49,20 @@ public class OobCounting: IOobCounting
     
      private CountOobResponse HandleCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
-        AstroConfig config = request.Config;
-        
-        int selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
-        int[,] allCounts = new int[selectedCelPointSize, charts.Count];
-
-        int chartIndex = 0;
-        foreach (CalculatedResearchChart calcResearchChart in charts)
+        var selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
+        var allCounts = new int[selectedCelPointSize, charts.Count];
+        var chartIndex = 0;
+        foreach (var calcResearchChart in charts)
         {
-            double obliquity = calcResearchChart.Obliquity;
-            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
-            List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Equatorial, false);
-            foreach (PositionedPoint posPoint in posPoints)
+            var obliquity = calcResearchChart.Obliquity;
+            var relevantChartPointPositions = researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
+            var posPoints = pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Equatorial, false);
+            foreach (var posPoint in posPoints)
             {
-                ChartPoints point = posPoint.Point;
-                bool oob = Math.Abs(posPoint.Position) > obliquity;
+                var point = posPoint.Point;
+                var oob = Math.Abs(posPoint.Position) > obliquity;
                 if (!oob) continue;
-                int oobIndex = 0;
+                var oobIndex = 0;
                 foreach (var rcpPos in relevantChartPointPositions)
                 {
                     if (rcpPos.Key == point)
@@ -86,12 +75,12 @@ public class OobCounting: IOobCounting
             chartIndex++;
         }
         List<SimpleCount> resultingCounts = new();
-        List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
-        int i = 0;
+        var selectedPoints = request.PointSelection.SelectedPoints;
+        var i = 0;
         foreach (var point in selectedPoints)
         {
-            int oobCount = 0;
-            for (int j = 0; j < charts.Count; j++)
+            var oobCount = 0;
+            for (var j = 0; j < charts.Count; j++)
             {
                 oobCount += allCounts[i, j];
             }

@@ -39,7 +39,7 @@ public sealed class PointsInPartsCounting(
     {
         var researchMethod = request.Method;
         var nrOfParts = DefineNumberOfParts(request);
-        List<CountOfParts> allCounts = InitializeCounts(request, nrOfParts);
+        var allCounts = InitializeCounts(request, nrOfParts);
         var pointSelection = request.PointSelection;
 
         foreach (var chart in charts)
@@ -94,20 +94,17 @@ public sealed class PointsInPartsCounting(
 
         foreach (var selectedCelPoint in pointSelection.SelectedPoints)
         {
-          
             foreach (var commonPointPos in pointPositions)
             {
                 if (commonPointPos.Key != selectedCelPoint) continue;
                 var longitude = commonPointPos.Value.Ecliptical.MainPosSpeed.Position;
-
-                // Handle the switch expression
+                
                 var partIndex = researchMethod switch
                 {
                     ResearchMethods.CountPosInSigns => SignIndex(longitude),
                     ResearchMethods.CountPosInHouses => DefineHouseNr(longitude, nrOfParts, chart.Positions),
                     _ => -1
                 };
-                // Only process if partIndex is valid
                 if (partIndex >= 0)
                 {
                     allCounts[pointIndex].Counts[partIndex]++;
@@ -130,7 +127,7 @@ public sealed class PointsInPartsCounting(
 
     private static List<int> CountTotals(IReadOnlyList<CountOfParts> allCounts)
     {
-        List<int> totals = new();
+        List<int> totals = [];
         var nrOfParts = allCounts.Count > 0 ? allCounts[0].Counts.Count : 0;
         for (var i = 0; i < nrOfParts; i++)
         {

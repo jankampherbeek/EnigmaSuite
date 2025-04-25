@@ -29,24 +29,12 @@ public interface IOccupiedMidpointsDeclinationCounting
 
 
 /// <inheritdoc/>
-public sealed class OccupiedMidpointsDeclinationCounting: IOccupiedMidpointsDeclinationCounting
+public sealed class OccupiedMidpointsDeclinationCounting(
+    IMidpointsHandler midpointsHandler,
+    IPointsMapping pointsMapping,
+    IResearchMethodUtils researchMethodUtils)
+    : IOccupiedMidpointsDeclinationCounting
 {
-    
-    private readonly IMidpointsHandler _midpointsHandler;
-    private readonly IPointsMapping _pointsMapping;
-    private readonly IResearchMethodUtils _researchMethodUtils;
-
-
-    public OccupiedMidpointsDeclinationCounting(
-        IMidpointsHandler midpointsHandler, 
-        IPointsMapping pointsMapping, 
-        IResearchMethodUtils researchMethodUtils)
-    {
-        _midpointsHandler = midpointsHandler;
-        _pointsMapping = pointsMapping;
-        _researchMethodUtils = researchMethodUtils;
-    }
-    
     /// <inheritdoc/>
     public CountOfOccupiedMidpointsDeclResponse CountMidpointsInDeclination(
         IEnumerable<CalculatedResearchChart> charts, 
@@ -57,20 +45,20 @@ public sealed class OccupiedMidpointsDeclinationCounting: IOccupiedMidpointsDecl
 
     private CountOfOccupiedMidpointsDeclResponse PerformCount(IEnumerable<CalculatedResearchChart> charts, CountOccupiedMidpointsDeclinationRequest request)
     {
-        List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
-        Dictionary<OccupiedMidpointStructure, int> allCounts = InitializeAllCounts(selectedPoints);
-        AstroConfig config = request.Config;
-        double orb = config.OrbMidpointsDecl;
+        var selectedPoints = request.PointSelection.SelectedPoints;
+        var allCounts = InitializeAllCounts(selectedPoints);
+        var config = request.Config;
+        var orb = config.OrbMidpointsDecl;
 
-        foreach (OccupiedMidpointStructure mpStructure in from calcResearchChart in charts 
+        foreach (var mpStructure in from calcResearchChart in charts 
                  let commonPositions = (
                      from posPoint in calcResearchChart.Positions
                      where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
                      select posPoint).ToDictionary(x => x.Key, x => x.Value) 
-                 select _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection) 
+                 select researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection) 
                  into relevantChartPointPositions 
-                 select _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Equatorial, false) 
-                 into posPoints select _midpointsHandler.RetrieveOccupiedMidpointsInDeclination(posPoints, orb) 
+                 select pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Equatorial, false) 
+                 into posPoints select midpointsHandler.RetrieveOccupiedMidpointsInDeclination(posPoints, orb) 
                  into occupiedMidpoints 
                  from mpStructure 
                      in occupiedMidpoints.Select(occupiedMidpoint 
@@ -87,11 +75,11 @@ public sealed class OccupiedMidpointsDeclinationCounting: IOccupiedMidpointsDecl
     {
         const int countValue = 0;
         Dictionary<OccupiedMidpointStructure, int> allCounts = new();
-        foreach (ChartPoints firstPoint in selectedPoints)
+        foreach (var firstPoint in selectedPoints)
         {
-            foreach (ChartPoints secondPoint in selectedPoints)
+            foreach (var secondPoint in selectedPoints)
             {
-                foreach (ChartPoints occupyingPoint in selectedPoints)
+                foreach (var occupyingPoint in selectedPoints)
                 {
                     allCounts.Add(new OccupiedMidpointStructure(firstPoint, secondPoint, occupyingPoint), countValue);
                 }
@@ -99,7 +87,5 @@ public sealed class OccupiedMidpointsDeclinationCounting: IOccupiedMidpointsDecl
         }
         return allCounts;
     }
-
-
-
+    
 }

@@ -58,15 +58,15 @@ public class ResearchResultModel
     {
         _fileAccessApi = fileAccessApi;
         _researchPathApi = researchPathApi;
-        ResearchProject? project = _dataVaultResearch.CurrentProject;
+        var project = _dataVaultResearch.CurrentProject;
         if (project != null)
         {
             ProjectName = project.Name;     
         }
-        ResearchMethods method = _dataVaultResearch.ResearchMethod;
+        var method = _dataVaultResearch.ResearchMethod;
         MethodName = method.GetDetails().Text;
-        MethodResponse? responseTest = _dataVaultResearch.ResponseTest;
-        MethodResponse? responseCg = _dataVaultResearch.ResponseCg;
+        var responseTest = _dataVaultResearch.ResponseTest;
+        var responseCg = _dataVaultResearch.ResponseCg;
         if (responseTest != null && responseCg != null)
         {
             SetMethodResponses(responseTest, responseCg);
@@ -177,12 +177,12 @@ public class ResearchResultModel
 
     private void WriteResults(GeneralResearchRequest request)
     {
-        string projName = request.ProjectName;
-        string methodName = request.Method.ToString();
-        bool useControlGroup = false;
-        string pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
+        var projName = request.ProjectName;
+        var methodName = request.Method.ToString();
+        var useControlGroup = false;
+        var pathTest = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         useControlGroup = true;
-        string pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
+        var pathControl = _researchPathApi.SummedResultsPath(projName, methodName, useControlGroup);
         TestResultText += EnigmaConstants.NEW_LINE + RESULTS_SAVED_AT + EnigmaConstants.NEW_LINE + pathTest;
         ControlResultText += EnigmaConstants.NEW_LINE + RESULTS_SAVED_AT + EnigmaConstants.NEW_LINE + pathControl;
         _fileAccessApi.WriteFile(pathTest, TestResultText);
@@ -204,8 +204,8 @@ public class ResearchResultModel
         StringBuilder resultData = new();
         if (response is CountOfPartsResponse(_, var countOfParts, var totals))
         {
-            string headerLine = string.Empty;
-            string longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..MAX_LINE_SIZE];
+            var headerLine = string.Empty;
+            var longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..MAX_LINE_SIZE];
 
             headerLine = response.Request.Method switch
             {
@@ -216,11 +216,11 @@ public class ResearchResultModel
             resultData.AppendLine(headerLine);
             resultData.AppendLine(longSeparatorLine);
 
-            foreach (CountOfParts cop in countOfParts)
+            foreach (var cop in countOfParts)
             {
-                string name = cop.Point + SPACES;
+                var name = cop.Point + SPACES;
                 resultData.Append(name[..LARGE_COLUMN_SIZE]);
-                foreach (int count in cop.Counts)
+                foreach (var count in cop.Counts)
                 {
                     resultData.Append((count + SPACES)[..COLUMN_SIZE]);
                 }
@@ -228,7 +228,7 @@ public class ResearchResultModel
             }
             resultData.AppendLine(longSeparatorLine);
             resultData.Append(SPACES);
-            foreach (int total in totals)
+            foreach (var total in totals)
             {
                 resultData.Append((total + SPACES)[..COLUMN_SIZE]);
             }
@@ -249,12 +249,12 @@ public class ResearchResultModel
         if (response is CountOfAspectsResponse(var generalResearchRequest, var allCounts, 
             var totalsPerPointCombi, var totalsPerAspect, var chartPointsList, var aspectTypesList))
         {
-            string aspectSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
-            string aspectSeparatorLine = SEPARATOR_LINE;
-            string separatorFragment = SEPARATOR_LINE[..COLUMN_SIZE];
+            var aspectSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
+            var aspectSeparatorLine = SEPARATOR_LINE;
+            var separatorFragment = SEPARATOR_LINE[..COLUMN_SIZE];
             StringBuilder headerLine = new();
             headerLine.Append(aspectSpaces);
-            foreach (AspectTypes asp in aspectTypesList)
+            foreach (var asp in aspectTypesList)
             {
                 headerLine.Append((((int)asp.GetDetails().Angle) + SPACES)[..COLUMN_SIZE]);
                 aspectSeparatorLine += separatorFragment;
@@ -264,15 +264,15 @@ public class ResearchResultModel
             resultData.AppendLine(headerLine.ToString());
             resultData.AppendLine(aspectSeparatorLine);
             StringBuilder detailLine;
-            int nrOfCelPoints = chartPointsList.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
-            for (int i = 0; i < nrOfCelPoints; i++)
+            var nrOfCelPoints = chartPointsList.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
+            for (var i = 0; i < nrOfCelPoints; i++)
             {
-                for (int j = i + 1; j < chartPointsList.Count; j++)
+                for (var j = i + 1; j < chartPointsList.Count; j++)
                 {
                     detailLine = new StringBuilder();
                     detailLine.Append(chartPointsList[i].GetDetails().Text.PadRight(25));
                     detailLine.Append(chartPointsList[j].GetDetails().Text.PadRight(25));
-                    for (int k = 0; k < aspectTypesList.Count; k++)
+                    for (var k = 0; k < aspectTypesList.Count; k++)
                     {
                         detailLine.Append((allCounts[i, j, k] + SPACES)[..COLUMN_SIZE]);
                     }
@@ -280,10 +280,10 @@ public class ResearchResultModel
                     resultData.AppendLine(detailLine.ToString());
                 }
             }
-            int totalOverall = 0;
+            var totalOverall = 0;
             detailLine = new StringBuilder();
             detailLine.Append(("Totals of aspects" + SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE]);
-            foreach (int count in totalsPerAspect)
+            foreach (var count in totalsPerAspect)
             {
                 detailLine.Append((count + SPACES)[..COLUMN_SIZE]);
                 totalOverall += count;
@@ -308,9 +308,9 @@ public class ResearchResultModel
             var totalsPerPointCombi, var totalsPerParallel, var chartPointsList))
         {
 
-            string parallelSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
-            string parallelSeparatorLine = SEPARATOR_LINE;
-            string separatorFragment = SEPARATOR_LINE[..LARGE_COLUMN_SIZE];
+            var parallelSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
+            var parallelSeparatorLine = SEPARATOR_LINE;
+            var separatorFragment = SEPARATOR_LINE[..LARGE_COLUMN_SIZE];
             StringBuilder headerLine = new();
             headerLine.Append(parallelSpaces);
             headerLine.Append("Par." + SPACES[..6]);
@@ -321,15 +321,15 @@ public class ResearchResultModel
             resultData.AppendLine(headerLine.ToString());
             resultData.AppendLine(parallelSeparatorLine);
             StringBuilder detailLine;
-            int nrOfCelPoints = chartPointsList.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
-            for (int i = 0; i < nrOfCelPoints; i++)
+            var nrOfCelPoints = chartPointsList.Count(item => item.GetDetails().PointCat != PointCats.Cusp);
+            for (var i = 0; i < nrOfCelPoints; i++)
             {
-                for (int j = i + 1; j < chartPointsList.Count; j++)
+                for (var j = i + 1; j < chartPointsList.Count; j++)
                 {
                     detailLine = new StringBuilder();
                     detailLine.Append(chartPointsList[i].GetDetails().Text.PadRight(25));
                     detailLine.Append(chartPointsList[j].GetDetails().Text.PadRight(25));
-                    for (int k = 0; k < 2; k++)
+                    for (var k = 0; k < 2; k++)
                     {
                         detailLine.Append((allCounts[i, j, k] + SPACES)[..10]);
                     }
@@ -337,10 +337,10 @@ public class ResearchResultModel
                     resultData.AppendLine(detailLine.ToString());
                 }
             }
-            int totalOverall = 0;
+            var totalOverall = 0;
             detailLine = new StringBuilder();
             detailLine.Append(("Totals" + SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE]);
-            foreach (int count in totalsPerParallel)
+            foreach (var count in totalsPerParallel)
             {
                 detailLine.Append((count + SPACES)[..10]);
                 totalOverall += count;
@@ -368,7 +368,7 @@ public class ResearchResultModel
         {
             resultData.AppendLine(CHARTS_WITHOUT_ASPECTS);
             resultData.AppendLine(SEPARATOR_LINE);
-            foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
+            foreach (var simpleCount in qualifiedResponse.Counts)
             {
                 resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
             }
@@ -391,14 +391,14 @@ public class ResearchResultModel
                 resultData.AppendLine(OCCUPIED_MIDPOINTS + " " + qualifiedRequest.DivisionForDial 
                                       + ". " + ORB + ": " + qualifiedRequest.Orb);
                 resultData.AppendLine((SEPARATOR_LINE + SEPARATOR_LINE)[..MIDPOINT_SEPARATOR_SIZE]);
-                Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
-                foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
+                var allCounts = qualifiedResponse.AllCounts;
+                foreach (var midpoint in allCounts)
                 {
                     if (midpoint.Value <= 0) continue;
-                    string firstPointName = midpoint.Key.FirstPoint.GetDetails().Text;
-                    string secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
-                    string occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
-                    string midpointCount = midpoint.Value.ToString();
+                    var firstPointName = midpoint.Key.FirstPoint.GetDetails().Text;
+                    var secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
+                    var occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
+                    var midpointCount = midpoint.Value.ToString();
                     resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
                 }
@@ -426,14 +426,14 @@ public class ResearchResultModel
             {
                 resultData.AppendLine(OCCUPIED_MIDPOINTS_DECL + " " + ORB + ": " + qualifiedRequest.Orb);
                 resultData.AppendLine((SEPARATOR_LINE + SEPARATOR_LINE)[..MIDPOINT_SEPARATOR_SIZE]);
-                Dictionary<OccupiedMidpointStructure, int> allCounts = qualifiedResponse.AllCounts;
-                foreach (KeyValuePair<OccupiedMidpointStructure, int> midpoint in allCounts)
+                var allCounts = qualifiedResponse.AllCounts;
+                foreach (var midpoint in allCounts)
                 {
                     if (midpoint.Value <= 0) continue;
-                    string firstPointName = midpoint.Key.FirstPoint.GetDetails().Text;
-                    string secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
-                    string occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
-                    string midpointCount = midpoint.Value.ToString();
+                    var firstPointName = midpoint.Key.FirstPoint.GetDetails().Text;
+                    var secondPointName = midpoint.Key.SecondPoint.GetDetails().Text;
+                    var occPointName = midpoint.Key.OccupyingPoint.GetDetails().Text;
+                    var midpointCount = midpoint.Value.ToString();
                     resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
                 }
@@ -464,13 +464,13 @@ public class ResearchResultModel
                 resultData.AppendLine(HARMONIC_CONJUNCTIONS + qualifiedRequest.HarmonicNumber
                     + ". " + ORB + ": " + qualifiedRequest.Orb);
                 resultData.AppendLine(SEPARATOR_LINE);
-                Dictionary<TwoPointStructure, int> allCounts = qualifiedResponse.AllCounts;
-                foreach (KeyValuePair<TwoPointStructure, int> harmConj in allCounts)
+                var allCounts = qualifiedResponse.AllCounts;
+                foreach (var harmConj in allCounts)
                 {
                     if (harmConj.Value <= 0) continue;
-                    string firstPointName = harmConj.Key.Point.GetDetails().Text;
-                    string secondPointName = harmConj.Key.Point2.GetDetails().Text;
-                    string harmonicCount = harmConj.Value.ToString();
+                    var firstPointName = harmConj.Key.Point.GetDetails().Text;
+                    var secondPointName = harmConj.Key.Point2.GetDetails().Text;
+                    var harmonicCount = harmConj.Value.ToString();
                     resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / "
                         + ("Radix" + " " + secondPointName + SPACES)[..LARGE_COLUMN_SIZE] + " " + harmonicCount);
                 }
@@ -496,7 +496,7 @@ public class ResearchResultModel
         {
             resultData.AppendLine(OOB_POSITIONS);
             resultData.AppendLine(SEPARATOR_LINE);
-            foreach (SimpleCount simpleCount in qualifiedResponse.Counts)
+            foreach (var simpleCount in qualifiedResponse.Counts)
             {
                 resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
             }

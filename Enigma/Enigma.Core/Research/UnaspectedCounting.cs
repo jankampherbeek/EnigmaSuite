@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -23,19 +23,12 @@ public interface IUnaspectedCounting
 }
 
 
-public sealed class UnaspectedCounting : IUnaspectedCounting
+public sealed class UnaspectedCounting(
+    IAspectsHandler aspectsHandler,
+    IPointsMapping pointsMapping,
+    IResearchMethodUtils researchMethodUtils)
+    : IUnaspectedCounting
 {
-    private readonly IAspectsHandler _aspectsHandler;
-    private readonly IPointsMapping _pointsMapping;
-    private readonly IResearchMethodUtils _researchMethodUtils;
-
-    public UnaspectedCounting(IAspectsHandler aspectsHandler, IPointsMapping pointsMapping, IResearchMethodUtils researchMethodUtils)
-    {
-        _aspectsHandler = aspectsHandler;
-        _pointsMapping = pointsMapping;
-        _researchMethodUtils = researchMethodUtils;
-
-    }
     public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
         return PerformCount(charts, request);
@@ -43,27 +36,25 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
 
     private CountOfUnaspectedResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
-        AstroConfig config = request.Config;
-
-        Dictionary<AspectTypes, AspectConfigSpecs> configSelectedAspects = _researchMethodUtils.DefineConfigSelectedAspects(config);
-        int selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
-        int[,] allCounts = new int[selectedCelPointSize, charts.Count];
-
-        int chartIndex = 0;
-        foreach (CalculatedResearchChart calcResearchChart in charts)
+        var config = request.Config;
+        var configSelectedAspects = researchMethodUtils.DefineConfigSelectedAspects(config);
+        var selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
+        var allCounts = new int[selectedCelPointSize, charts.Count];
+        var chartIndex = 0;
+        foreach (var calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
-            List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
-            List<PositionedPoint> cuspPoints = new();       // use empty list
-            List<DefinedAspect> definedAspects = _aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);
+            var relevantChartPointPositions = researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
+            var posPoints = pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
+            List<PositionedPoint> cuspPoints = [];       // use empty list
+            var definedAspects = aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);
 
-            foreach (PositionedPoint posPoint in posPoints)
+            foreach (var posPoint in posPoints)
             {
-                ChartPoints point = posPoint.Point;
-                int aspectCount = definedAspects.Count(defAspect => defAspect.Point1 == point || defAspect.Point2 == point);
+                var point = posPoint.Point;
+                var aspectCount = definedAspects.Count(defAspect => defAspect.Point1 == point || defAspect.Point2 == point);
 
                 if (aspectCount != 0) continue;
-                int aspectIndex = 0;
+                var aspectIndex = 0;
                 foreach (var rcpPos in relevantChartPointPositions)
                 {
                     if (rcpPos.Key == point)
@@ -76,12 +67,12 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
             chartIndex++;
         }
         List<SimpleCount> resultingCounts = new();
-        List<ChartPoints> selectedPoints = request.PointSelection.SelectedPoints;
-        int i = 0;
+        var selectedPoints = request.PointSelection.SelectedPoints;
+        var i = 0;
         foreach (var point in selectedPoints)
         {
-            int unaspectedCount = 0;
-            for (int j = 0; j < charts.Count; j++)
+            var unaspectedCount = 0;
+            for (var j = 0; j < charts.Count; j++)
             {
                 unaspectedCount += allCounts[i, j];
             }
@@ -90,7 +81,5 @@ public sealed class UnaspectedCounting : IUnaspectedCounting
         }
         return new CountOfUnaspectedResponse(request, resultingCounts);
     }
-
-
 
 }
