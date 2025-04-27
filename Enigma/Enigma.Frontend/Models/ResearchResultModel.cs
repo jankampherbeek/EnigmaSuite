@@ -201,6 +201,7 @@ public class ResearchResultModel
 
     private static string CreatePartsResultData(MethodResponse response)
     {
+        Log.Information("Start construction of result data for parts");
         StringBuilder resultData = new();
         if (response is CountOfPartsResponse(_, var countOfParts, var totals))
         {
@@ -239,6 +240,7 @@ public class ResearchResultModel
             Log.Error("ResearchResultModel.CreatePartsResultData() used a wrong response : {Response}", response);
             throw new EnigmaException("Wrong response in ResearchResultModel.CreatePartsResultData");
         }
+        Log.Information("Completed construction of result data for parts");
         return resultData.ToString();
     }
 

@@ -39,7 +39,7 @@ public sealed class CalculatedResearchPositions(
 
     private List<CalculatedResearchChart> Calculate(List<StandardInputItem> standardInputItems)
     {
-        Log.Information("CalculatedResearchPositions: Start of calculation");
+   //     Log.Information("CalculatedResearchPositions: Start of calculation");
         var calcPref = DefinePreferences();
         List<CalculatedResearchChart> calculatedCharts = (from inputItem in standardInputItems 
             let location = new Location("", inputItem.GeoLongitude, inputItem.GeoLatitude) 
@@ -48,7 +48,7 @@ public sealed class CalculatedResearchPositions(
             let cpRequest = new CelPointsRequest(jdUt, location, calcPref) 
             let chartPositions = chartAllPositionsHandler.CalcFullChart(cpRequest) 
             select new CalculatedResearchChart(chartPositions, obliquity, inputItem)).ToList();
-        Log.Information("CalculatedResearchPositions: Calculation completed");
+    //    Log.Information("CalculatedResearchPositions: Calculation completed");
         return calculatedCharts;
     }
 

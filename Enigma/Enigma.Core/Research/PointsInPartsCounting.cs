@@ -49,11 +49,11 @@ public sealed class PointsInPartsCounting(
         var totals = CountTotals(allCounts);
         CountOfPartsResponse response = new(request, allCounts, totals);
 
-        var options = new JsonSerializerOptions { WriteIndented = true };
-        var jsonText = JsonSerializer.Serialize(response, options);
-        var pathForResults = researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
-        filePersistencyHandler.WriteFile(pathForResults, jsonText);
-        Log.Information("Countings written to {Path}", pathForResults);
+    //    var options = new JsonSerializerOptions { WriteIndented = true };
+    //    var jsonText = JsonSerializer.Serialize(response, options);
+    //    var pathForResults = researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
+    //    filePersistencyHandler.WriteFile(pathForResults, jsonText);
+    //    Log.Information("Countings written to {Path}", pathForResults);
         return response;
     }
 

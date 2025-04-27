@@ -75,7 +75,7 @@ public sealed class ResearchMethodHandler(
         Log.Information("Reading csv from path : {Fp}", fullPath);
         var standardInput = csvStandardDataReader.ReadStandardInputData(fullPath);
         
-        const int batchSize = 5000;
+        const int batchSize = 2000;
         var totalCharts = standardInput.Count;
         var processedCharts = 0;
         List<MethodResponse> orderedResponses = [];
@@ -90,7 +90,7 @@ public sealed class ResearchMethodHandler(
             var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
             var batchCharts = researchPositions.CalculatePositions(batchInput);
             processedCharts += currentBatchSize;
-            Log.Information("Processed {ProcessedCharts} of {TotalCharts} charts", processedCharts, totalCharts);
+         //   Log.Information("Processed {ProcessedCharts} of {TotalCharts} charts", processedCharts, totalCharts);
             
             // Only raise progress event if we're processing
             if (_isProcessing)

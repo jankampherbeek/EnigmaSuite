@@ -42,6 +42,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [ObservableProperty] private string _projectDescription = string.Empty;
     [ObservableProperty] private int _controlGroupIndex;
     [ObservableProperty] private string _selectedDatafileName = string.Empty;
+    [ObservableProperty] private int _datafileIndex = -1;
     [ObservableProperty] private int _cgMultiplicationIndex;
     [ObservableProperty] private ObservableCollection<string> _availableControlGroupTypes;
     [ObservableProperty] private ObservableCollection<string> _controlGroupMultiplications;
@@ -56,11 +57,13 @@ public partial class ProjectInputViewModel: ObservableObject
         AvailableControlGroupTypes = new ObservableCollection<string>(_model.GetControlGroupTypeNames());
         AvailableDatafileNames = new ObservableCollection<string>(_model.GetDataNames());
         ControlGroupMultiplications = new ObservableCollection<string>(ProjectInputModel.GetCgMultiplicationFactors());
-        
-        // Set default values
-        if (AvailableDatafileNames.Count > 0)
+    }
+    
+    partial void OnDatafileIndexChanged(int value)
+    {
+        if (value >= 0 && value < AvailableDatafileNames.Count)
         {
-            SelectedDatafileName = AvailableDatafileNames[0];  // Select first item by default
+            SelectedDatafileName = AvailableDatafileNames[value];
         }
     }
     
