@@ -83,12 +83,20 @@ public sealed class ResearchMethodHandler(
         Log.Information("Starting research with {TotalCharts} charts", totalCharts);
         _isProcessing = true;
 
+        // TODO create csv for batchcharts
+        // Write header to csv
+        
+        
         while (processedCharts < totalCharts)
         {
             var remainingCharts = totalCharts - processedCharts;
             var currentBatchSize = Math.Min(batchSize, remainingCharts);
             var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
             var batchCharts = researchPositions.CalculatePositions(batchInput);
+            // TODO add batchCharts to csv
+            // add indication for decl or longitude (zie request.PointSelection)
+            // add list of supported chartpoints (zie request.Method)
+            
             processedCharts += currentBatchSize;
          //   Log.Information("Processed {ProcessedCharts} of {TotalCharts} charts", processedCharts, totalCharts);
             

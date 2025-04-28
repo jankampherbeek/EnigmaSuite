@@ -3,8 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Text.Json;
-using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
@@ -24,10 +22,7 @@ public interface IPointsInPartsCounting
 }
 
 /// <inheritdoc/>
-public sealed class PointsInPartsCounting(
-    IResearchPaths researchPaths,
-    IFilePersistencyHandler filePersistencyHandler)
-    : IPointsInPartsCounting
+public sealed class PointsInPartsCounting: IPointsInPartsCounting
 {
     /// <inheritdoc/>
     public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
@@ -48,12 +43,6 @@ public sealed class PointsInPartsCounting(
         }
         var totals = CountTotals(allCounts);
         CountOfPartsResponse response = new(request, allCounts, totals);
-
-    //    var options = new JsonSerializerOptions { WriteIndented = true };
-    //    var jsonText = JsonSerializer.Serialize(response, options);
-    //    var pathForResults = researchPaths.CountResultsPath(request.ProjectName, researchMethod.ToString(), request.UseControlGroup);
-    //    filePersistencyHandler.WriteFile(pathForResults, jsonText);
-    //    Log.Information("Countings written to {Path}", pathForResults);
         return response;
     }
 

@@ -54,7 +54,7 @@ public class ResearchPointSelectionModel
                 currentCpSpec.Key.GetDetails().PointCat == PointCats.Cusp && pointsToExclude.ExcludeCusps) continue;
             PointDetails cpDetails = currentCpSpec.Key.GetDetails();
             char glyph = currentCpSpec.Value.Glyph;
-            _selCpDetails.Add(new SelectableChartPointDetails { Selected = false, ChartPoint = cpDetails.Point, Glyph = glyph, Name = cpDetails.Text});
+            _selCpDetails.Add(new SelectableChartPointDetails { Selected = true, ChartPoint = cpDetails.Point, Glyph = glyph, Name = cpDetails.Text});
         }
         return _selCpDetails;
     }

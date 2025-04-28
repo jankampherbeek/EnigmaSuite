@@ -3,17 +3,14 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Enigma.Api;
 using Enigma.Api.Research;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
-using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Enigma.Frontend.Ui.State;
 using Serilog;
@@ -23,17 +20,17 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for research result</summary>
 public class ResearchResultModel
 {
-    private const int COLUMN_SIZE = 7;
+    private const int COLUMN_SIZE = 9;
     private const int LARGE_COLUMN_SIZE = 20;
     private const int START_COLUMN_ASPECTS_SIZE = 50;
-    private const int MAX_LINE_SIZE = 104;
+    private const int MAX_LINE_SIZE = 128;
     private const int MIDPOINT_SEPARATOR_SIZE = 80;
     private const string SPACES = "                    "; // 20 spaces
     private const string SEPARATOR_LINE = "--------------------------------------------------"; // 50 positions
     private const string HEADER_SIGNS =
-        "                    ARI    TAU    GEM    CAN    LEO    VIR    LIB    SCO    SAG    CAP    AQU    PIS";
+        "                    ARI      TAU      GEM      CAN      LEO      VIR      LIB      SCO      SAG      CAP      AQU      PIS";
     private const string HEADER_HOUSES =
-        "                    1      2      3      4      5      6      7      8      9      10     11     12 ";
+        "                    1        2        3        4        5        6        7        8        9        10       11       12 ";
     private const string HARMONIC_CONJUNCTIONS = "Harmonic conjunctions. Harmonic number: ";
     private const string OCCUPIED_MIDPOINTS = "Occupied midpoints for dial division";
     private const string OCCUPIED_MIDPOINTS_DECL = "Occupied midpoints in declination";
