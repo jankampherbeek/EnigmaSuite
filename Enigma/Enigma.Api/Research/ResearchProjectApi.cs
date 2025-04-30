@@ -8,6 +8,9 @@ using Enigma.Core.Handlers;
 using Enigma.Domain.Research;
 using Enigma.Domain.Responses;
 using Serilog;
+using System.Globalization;
+using Enigma.Core.Persistency;
+using Enigma.Domain.References;
 
 namespace Enigma.Api.Research;
 
@@ -20,7 +23,6 @@ public interface IProjectCreationApi
     public ResultMessage CreateProject(ResearchProject project);
 }
 
-
 /// <summary>Overview of available projects.</summary>
 public interface IProjectsOverviewApi
 {
@@ -29,8 +31,14 @@ public interface IProjectsOverviewApi
     public List<ResearchProject> GetDetailsForAllProjects();
 }
 
-
-
+/// <summary>Api for reading a specific project.</summary>
+public interface IProjectApi
+{
+    /// <summary>Read a project by its name.</summary>
+    /// <param name="name">The name of the project to read.</param>
+    /// <returns>The project, or null if not found.</returns>
+    public ResearchProject? ReadProject(string name);
+}
 
 /// <inheritdoc/>
 public sealed class ProjectCreationApi(IProjectCreationHandler projectCreationHandler) : IProjectCreationApi
@@ -63,5 +71,34 @@ public sealed class ProjectsOverviewApi(IProjectsOverviewHandler projectsOvervie
     {
         Log.Information("ProjectsOverviewApi.GetDetailsForAllProjects(). Returning list of projects");
         return projectsOverviewHandler.ReadAllProjectDetails();
+    }
+}
+
+/// <inheritdoc/>
+public sealed class ProjectApi(IProjectDao projectDao) : IProjectApi
+{
+    /// <inheritdoc/>
+    public ResearchProject? ReadProject(string name)
+    {
+        Guard.Against.NullOrEmpty(name);
+        Log.Information("ProjectApi: Reading project {Name}", name);
+        
+        var projectDto = projectDao.ReadProject(name);
+        if (projectDto == null)
+        {
+            Log.Warning("Project {Name} not found", name);
+            return null;
+        }
+
+        var researchProject = new ResearchProject(
+            projectDto.Name,
+            projectDto.Description,
+            projectDto.DataFile,
+            projectDto.Created.ToString(CultureInfo.InvariantCulture),
+            ControlGroupTypes.StandardShift, // TODO read from database
+            projectDto.MultiFactor);
+
+        Log.Information("Successfully read project {Name}", name);
+        return researchProject;
     }
 }

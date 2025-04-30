@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
@@ -19,14 +20,15 @@ public interface IUnaspectedCounting
     /// <param name="charts">The calculated charts to check.</param>
     /// <param name="request">The original request.</param>
     /// <returns>The calculated counts.</returns>
-    public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
+    public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts,
+        GeneralResearchRequest request);
 }
-
 
 public sealed class UnaspectedCounting(
     IAspectsHandler aspectsHandler,
     IPointsMapping pointsMapping,
-    IResearchMethodUtils researchMethodUtils)
+    IResearchMethodUtils researchMethodUtils,
+    IProjectDao projectDao)
     : IUnaspectedCounting
 {
     public CountOfUnaspectedResponse CountUnaspected(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
@@ -36,6 +38,7 @@ public sealed class UnaspectedCounting(
 
     private CountOfUnaspectedResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
+        var ctrlGroupFactor = projectDao.ReadProject(request.ProjectName)!.MultiFactor;
         var config = request.Config;
         var configSelectedAspects = researchMethodUtils.DefineConfigSelectedAspects(config);
         var selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
@@ -43,15 +46,20 @@ public sealed class UnaspectedCounting(
         var chartIndex = 0;
         foreach (var calcResearchChart in charts)
         {
-            var relevantChartPointPositions = researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
-            var posPoints = pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
-            List<PositionedPoint> cuspPoints = [];       // use empty list
-            var definedAspects = aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects, config.ChartPoints, config.BaseOrbAspects);
+            var relevantChartPointPositions =
+                researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
+            var posPoints =
+                pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical,
+                    true);
+            List<PositionedPoint> cuspPoints = []; // use empty list
+            var definedAspects = aspectsHandler.AspectsForPosPoints(posPoints, cuspPoints, configSelectedAspects,
+                config.ChartPoints, config.BaseOrbAspects);
 
             foreach (var posPoint in posPoints)
             {
                 var point = posPoint.Point;
-                var aspectCount = definedAspects.Count(defAspect => defAspect.Point1 == point || defAspect.Point2 == point);
+                var aspectCount =
+                    definedAspects.Count(defAspect => defAspect.Point1 == point || defAspect.Point2 == point);
 
                 if (aspectCount != 0) continue;
                 var aspectIndex = 0;
@@ -61,11 +69,13 @@ public sealed class UnaspectedCounting(
                     {
                         allCounts[aspectIndex, chartIndex]++;
                     }
+
                     aspectIndex++;
                 }
             }
             chartIndex++;
         }
+
         List<SimpleCount> resultingCounts = new();
         var selectedPoints = request.PointSelection.SelectedPoints;
         var i = 0;
@@ -76,10 +86,11 @@ public sealed class UnaspectedCounting(
             {
                 unaspectedCount += allCounts[i, j];
             }
+
             resultingCounts.Add(new SimpleCount(point, unaspectedCount));
             i++;
         }
-        return new CountOfUnaspectedResponse(request, resultingCounts);
-    }
 
+        return new CountOfUnaspectedResponse(request, ctrlGroupFactor, resultingCounts);
+    }
 }

@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
@@ -26,9 +27,13 @@ public interface IAspectsCounting
 public sealed class AspectsCounting(
     IAspectsHandler aspectsHandler,
     IPointsMapping pointsMapping,
-    IResearchMethodUtils researchMethodUtils)
+    IResearchMethodUtils researchMethodUtils,
+    IProjectDao projectDao)
     : IAspectsCounting
 {
+    
+    
+    
     /// <inheritdoc/>
     public CountOfAspectsResponse CountAspects(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
@@ -38,6 +43,7 @@ public sealed class AspectsCounting(
 
     private CountOfAspectsResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
+        var ctrlGroupFactor = projectDao.ReadProject(request.ProjectName)!.MultiFactor;
         var config = request.Config;
         var configSelectedAspects = researchMethodUtils.DefineConfigSelectedAspects(config);
         var chartPointConfigSpecs = config.ChartPoints;
@@ -73,13 +79,14 @@ public sealed class AspectsCounting(
                 allCounts[index1, index2, index3] += 1;
             }
         }
-        return CreateResponse(request, selectedCelPointSize, allCounts, allPoints, configSelectedAspects);
+        return CreateResponse(request, selectedCelPointSize, allCounts, allPoints, configSelectedAspects, ctrlGroupFactor);
     }
 
 
 
     private static CountOfAspectsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize,
-        int[,,] allCounts, IReadOnlyCollection<PositionedPoint> posPoints, Dictionary<AspectTypes, AspectConfigSpecs> aspects)
+        int[,,] allCounts, IReadOnlyCollection<PositionedPoint> posPoints, Dictionary<AspectTypes, 
+            AspectConfigSpecs> aspects, int ctrlgroupFactor)
     {
         var aspectTypes = aspects.Select(acSpec => acSpec.Key).ToList();
         var chartPoints = posPoints.Select(posPoint => posPoint.Point).ToList();
@@ -99,7 +106,7 @@ public sealed class AspectsCounting(
                 totalsPerPointCombi[i, j] += total;
             }
         }
-        return new CountOfAspectsResponse(request, allCounts, totalsPerPointCombi, totalsPerAspect, chartPoints, aspectTypes);
+        return new CountOfAspectsResponse(request, ctrlgroupFactor, allCounts, totalsPerPointCombi, totalsPerAspect, chartPoints, aspectTypes);
     }
 
 }

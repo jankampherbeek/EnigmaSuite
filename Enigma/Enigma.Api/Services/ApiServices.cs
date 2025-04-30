@@ -54,6 +54,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IResourceBundleApi, ResourceBundleApi>();
         serviceCollection.AddTransient<IProjectCreationApi, ProjectCreationApi>();
         serviceCollection.AddTransient<IProjectsOverviewApi, ProjectsOverviewApi>();
+        serviceCollection.AddTransient<IProjectApi, ProjectApi>();
         serviceCollection.AddTransient<IReferencesApi, ReferencesApi>();
         serviceCollection.AddTransient<IResearchPathApi, ResearchPathApi>();
         serviceCollection.AddTransient<ISeApi, SeApi>();

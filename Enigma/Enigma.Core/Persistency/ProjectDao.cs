@@ -23,6 +23,11 @@ public interface IProjectDao
     /// <summary>Gets all projects with their associated data file names.</summary>
     /// <returns>List of projects with data file information.</returns>
     public List<ProjectDto> GetAllProjectsWithDataFiles();
+
+    /// <summary>Reads a project from the database by its name.</summary>
+    /// <param name="name">The name of the project to read.</param>
+    /// <returns>The project, or null if not found.</returns>
+    public ProjectDto? ReadProject(string name);
 }
 
 public class ProjectDao: IProjectDao
@@ -110,6 +115,40 @@ public class ProjectDao: IProjectDao
         {
             Log.Error("Error reading projects from database: {Message}", e.Message);
             return new List<ProjectDto>();
+        }
+    }
+
+    /// <inheritdoc/>
+    public ProjectDto? ReadProject(string name)
+    {
+        try
+        {
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            const string query = """
+                SELECT p.id, p.name, p.description, p.location, p.multiFactor, p.created, p.datafile
+                FROM Projects p
+                WHERE p.name = @Name
+                """;
+
+            var project = dbConnection.QueryFirstOrDefault<ProjectDto>(query, new { Name = name });
+            if (project != null)
+            {
+                Log.Information("Retrieved project {Name} from database", name);
+            }
+            else
+            {
+                Log.Warning("Project {Name} not found in database", name);
+            }
+            return project;
+        }
+        catch (Exception e)
+        {
+            Log.Error("Error reading project {Name} from database: {Message}", name, e.Message);
+            return null;
         }
     }
 }

@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
@@ -22,14 +23,14 @@ public interface IOobCounting
     public CountOobResponse CountOob(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
 }
 
-//========== Implementation ===================================================================
 
 /// <inheritdoc/>
-public class OobCounting(
+public sealed class OobCounting(
     IResearchPaths researchPaths,
     IFilePersistencyHandler filePersistencyHandler,
     IResearchMethodUtils researchMethodUtils,
-    IPointsMapping pointsMapping)
+    IPointsMapping pointsMapping,
+    IProjectDao projectDao)
     : IOobCounting
 {
     private readonly IResearchPaths _researchPaths = researchPaths;
@@ -43,12 +44,7 @@ public class OobCounting(
 
     private CountOobResponse PerformCounts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
-        return HandleCount(charts, request);
-    }
-    
-    
-     private CountOobResponse HandleCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
-    {
+        var ctrlGroupFactor = projectDao.ReadProject(request.ProjectName)!.MultiFactor;
         var selectedCelPointSize = request.PointSelection.SelectedPoints.Count;
         var allCounts = new int[selectedCelPointSize, charts.Count];
         var chartIndex = 0;
@@ -57,10 +53,9 @@ public class OobCounting(
             var obliquity = calcResearchChart.Obliquity;
             var relevantChartPointPositions = researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
             var posPoints = pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Equatorial, false);
-            foreach (var posPoint in posPoints)
+            foreach (var (point, position) in posPoints)
             {
-                var point = posPoint.Point;
-                var oob = Math.Abs(posPoint.Position) > obliquity;
+                var oob = Math.Abs(position) > obliquity;
                 if (!oob) continue;
                 var oobIndex = 0;
                 foreach (var rcpPos in relevantChartPointPositions)
@@ -87,8 +82,7 @@ public class OobCounting(
             resultingCounts.Add(new SimpleCount(point, oobCount));
             i++;
         }
-        return new CountOobResponse(request, resultingCounts);
+        return new CountOobResponse(request, ctrlGroupFactor, resultingCounts);
     }
-    
     
 }

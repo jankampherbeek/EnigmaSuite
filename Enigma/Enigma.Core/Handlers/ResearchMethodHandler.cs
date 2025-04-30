@@ -219,6 +219,7 @@ public sealed class ResearchMethodHandler(
             CountOfAspectsResponse aspects1 when response2 is CountOfAspectsResponse aspects2 =>
                 new CountOfAspectsResponse(
                     aspects1.Request,
+                    aspects1.CtrlGroupFactor,
                     CombineArrays(aspects1.AllCounts, aspects2.AllCounts),
                     CombineArrays(aspects1.TotalsPerPointCombi, aspects2.TotalsPerPointCombi),
                     CombineArrays(aspects1.TotalsPerAspect, aspects2.TotalsPerAspect),
@@ -228,6 +229,7 @@ public sealed class ResearchMethodHandler(
             CountOfParallelsResponse parallels1 when response2 is CountOfParallelsResponse parallels2 =>
                 new CountOfParallelsResponse(
                     parallels1.Request,
+                    parallels1.CtrlGroupFactor,
                     CombineArrays(parallels1.AllCounts, parallels2.AllCounts),
                     CombineArrays(parallels1.TotalsPerPointCombi, parallels2.TotalsPerPointCombi),
                     CombineArrays(parallels1.TotalsPerAspect, parallels2.TotalsPerAspect),
@@ -236,34 +238,40 @@ public sealed class ResearchMethodHandler(
             CountOfPartsResponse parts1 when response2 is CountOfPartsResponse parts2 =>
                 new CountOfPartsResponse(
                     parts1.Request,
+                    parts1.CtrlGroupFactor,
                     CombineCountOfParts(parts1.Counts, parts2.Counts),
                     CombineArrays(parts1.Totals, parts2.Totals)),
 
             CountOfUnaspectedResponse unaspected1 when response2 is CountOfUnaspectedResponse unaspected2 =>
                 new CountOfUnaspectedResponse(
                     unaspected1.Request,
+                    unaspected1.CtrlGroupFactor,
                     CombineSimpleCounts(unaspected1.Counts, unaspected2.Counts)),
 
             CountOfOccupiedMidpointsResponse midpoints1 when response2 is CountOfOccupiedMidpointsResponse midpoints2 =>
                 new CountOfOccupiedMidpointsResponse(
                     midpoints1.Request,
+                    midpoints1.CtrlGroupFactor,
                     CombineDictionary(midpoints1.AllCounts, midpoints2.AllCounts)),
 
             CountOfOccupiedMidpointsDeclResponse declMidpoints1 when
                 response2 is CountOfOccupiedMidpointsDeclResponse declMidpoints2 =>
                 new CountOfOccupiedMidpointsDeclResponse(
                     declMidpoints1.Request,
+                    declMidpoints1.CtrlGroupFactor,
                     CombineDictionary(declMidpoints1.AllCounts, declMidpoints2.AllCounts)),
 
             CountHarmonicConjunctionsResponse conjunctions1 when
                 response2 is CountHarmonicConjunctionsResponse conjunctions2 =>
                 new CountHarmonicConjunctionsResponse(
                     conjunctions1.Request,
+                    conjunctions1.CtrlGroupFactor,
                     CombineDictionary(conjunctions1.AllCounts, conjunctions2.AllCounts)),
 
             CountOobResponse oob1 when response2 is CountOobResponse oob2 =>
                 new CountOobResponse(
                     oob1.Request,
+                    oob1.CtrlGroupFactor,
                     CombineSimpleCounts(oob1.Counts, oob2.Counts)),
 
             _ => throw new EnigmaException($"Combination not implemented for response type {response1.GetType()}")

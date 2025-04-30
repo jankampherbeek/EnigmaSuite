@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Handlers;
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
@@ -22,26 +23,15 @@ public interface IDeclinationParallelsCounting
     public CountOfParallelsResponse CountParallels(List<CalculatedResearchChart> charts, GeneralResearchRequest request);
 }
 
-// ===================== Implementation ==========================================
 
 /// <inheritdoc/>
-public class DeclinationParallelsCounting: IDeclinationParallelsCounting
+public sealed class DeclinationParallelsCounting(
+    IPointsMapping pointsMapping,
+    IResearchMethodUtils researchMethodUtils,
+    IParallelsHandler parallelsHandler,
+    IProjectDao projectDao)
+    : IDeclinationParallelsCounting
 {
-    private readonly IPointsMapping _pointsMapping;
-    private readonly IResearchMethodUtils _researchMethodUtils;
-    private readonly IParallelsHandler _parallelsHandler;
-
-
-    public DeclinationParallelsCounting(
-        IPointsMapping pointsMapping, 
-        IResearchMethodUtils researchMethodUtils,
-        IParallelsHandler parallelsHandler)
-    {
-        _pointsMapping = pointsMapping;
-        _researchMethodUtils = researchMethodUtils;
-        _parallelsHandler = parallelsHandler;
-    }
-    
     /// <inheritdoc/>
     public CountOfParallelsResponse CountParallels(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
@@ -51,53 +41,54 @@ public class DeclinationParallelsCounting: IDeclinationParallelsCounting
     
     private CountOfParallelsResponse PerformCount(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
-        AstroConfig config = request.Config;
-        double orb = config.OrbParallels;
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointConfigSpecs = config.ChartPoints;
-        int celPointSize = chartPointConfigSpecs.Count;
-        int selectedCelPointSize = 0;
-        int parallelSize = 2;    // parallel and contra-parallel
-        int[,,] allCounts = new int[celPointSize, celPointSize, parallelSize];
+        var ctrlGroupFactor = projectDao.ReadProject(request.ProjectName)!.MultiFactor;
+        var config = request.Config;
+        var orb = config.OrbParallels;
+        var chartPointConfigSpecs = config.ChartPoints;
+        var celPointSize = chartPointConfigSpecs.Count;
+        var selectedCelPointSize = 0;
+        const int parallelSize = 2; // parallel and contra-parallel
+        var allCounts = new int[celPointSize, celPointSize, parallelSize];
         List<PositionedPoint> allPoints = new();
 
-        foreach (CalculatedResearchChart calcResearchChart in charts)
+        foreach (var calcResearchChart in charts)
         {
-            Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = 
-                _researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
-            List<PositionedPoint> posPoints = 
-                _pointsMapping.MapFullPointPos2PositionedPoint(
+            var relevantChartPointPositions = 
+                researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection);
+            var posPoints = 
+                pointsMapping.MapFullPointPos2PositionedPoint(
                     relevantChartPointPositions, CoordinateSystems.Equatorial, false);
             selectedCelPointSize = relevantChartPointPositions.Count;
             allPoints = new List<PositionedPoint>(posPoints.Count);
             allPoints.AddRange(posPoints);
             IEnumerable<DefinedParallel> definedParallels =
-                _parallelsHandler.ParallelsForPosPoints(allPoints, chartPointConfigSpecs, orb);
-            foreach (DefinedParallel defParallel in definedParallels)
+                parallelsHandler.ParallelsForPosPoints(allPoints, chartPointConfigSpecs, orb);
+            foreach (var defParallel in definedParallels)
             {
-                int index1 = _researchMethodUtils.FindIndexForPoint(defParallel.Point1, allPoints);
-                int index2 = _researchMethodUtils.FindIndexForPoint(defParallel.Point2, allPoints);
-                int index3 = defParallel.OppParallel ? 1 : 0;
+                var index1 = researchMethodUtils.FindIndexForPoint(defParallel.Point1, allPoints);
+                var index2 = researchMethodUtils.FindIndexForPoint(defParallel.Point2, allPoints);
+                var index3 = defParallel.OppParallel ? 1 : 0;
                 allCounts[index1, index2, index3] += 1;
             }
         }
-        return CreateResponse(request, selectedCelPointSize, allCounts, allPoints);
+        return CreateResponse(request, ctrlGroupFactor, selectedCelPointSize, allCounts, allPoints);
     }
 
 
 
-    private static CountOfParallelsResponse CreateResponse(GeneralResearchRequest request, int selectedCelPointSize,
+    private static CountOfParallelsResponse CreateResponse(GeneralResearchRequest request, int ctrlgroupFactor, int selectedCelPointSize,
         int[,,] allCounts, IReadOnlyCollection<PositionedPoint> posPoints)
     {
-        List<ChartPoints> chartPoints = posPoints.Select(posPoint => posPoint.Point).ToList();
-        int[,] totalsPerPointCombi = new int[posPoints.Count, posPoints.Count];
-        int[] totalsPerParallel = new int[2];             // parallel and contra-parallel
+        var chartPoints = posPoints.Select(posPoint => posPoint.Point).ToList();
+        var totalsPerPointCombi = new int[posPoints.Count, posPoints.Count];
+        var totalsPerParallel = new int[2];             // parallel and contra-parallel
 
-        for (int i = 0; i < selectedCelPointSize; i++)
+        for (var i = 0; i < selectedCelPointSize; i++)
         {
-            for (int j = 0; j < posPoints.Count; j++)
+            for (var j = 0; j < posPoints.Count; j++)
             {
-                int total = 0;
-                for (int k = 0; k < 2; k++)        
+                var total = 0;
+                for (var k = 0; k < 2; k++)        
                 {
                     total += allCounts[i, j, k];
                     totalsPerParallel[k] += allCounts[i, j, k];
@@ -105,9 +96,7 @@ public class DeclinationParallelsCounting: IDeclinationParallelsCounting
                 totalsPerPointCombi[i, j] += total;
             }
         }
-        return new CountOfParallelsResponse(request, allCounts, totalsPerPointCombi, totalsPerParallel, chartPoints);
+        return new CountOfParallelsResponse(request, ctrlgroupFactor, allCounts, totalsPerPointCombi, totalsPerParallel, chartPoints);
     }
-    
-    
     
 }

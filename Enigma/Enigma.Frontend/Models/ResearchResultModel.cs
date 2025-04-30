@@ -200,7 +200,7 @@ public class ResearchResultModel
     {
         Log.Information("Start construction of result data for parts");
         StringBuilder resultData = new();
-        if (response is CountOfPartsResponse(_, var countOfParts, var totals))
+        if (response is CountOfPartsResponse(_, var ctrlGroupFactor, var countOfParts, var totals))
         {
             var headerLine = string.Empty;
             var longSeparatorLine = (SEPARATOR_LINE + SEPARATOR_LINE + SEPARATOR_LINE)[..MAX_LINE_SIZE];
@@ -231,6 +231,16 @@ public class ResearchResultModel
                 resultData.Append((total + SPACES)[..COLUMN_SIZE]);
             }
             resultData.AppendLine();
+            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+            {
+                resultData.Append(SPACES);
+                foreach (var total in totals)
+                {
+                    var meanValue = total / (double)ctrlGroupFactor;
+                    var meanTxt = $"{meanValue:F3}";
+                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                }
+            }
         }
         else
         {
@@ -245,7 +255,7 @@ public class ResearchResultModel
     private static string CreateAspectsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-        if (response is CountOfAspectsResponse(var generalResearchRequest, var allCounts, 
+        if (response is CountOfAspectsResponse(var generalResearchRequest, var ctrlGroupFactor, var allCounts, 
             var totalsPerPointCombi, var totalsPerAspect, var chartPointsList, var aspectTypesList))
         {
             var aspectSpaces = (SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE];
@@ -290,6 +300,16 @@ public class ResearchResultModel
             detailLine.Append((totalOverall + SPACES)[..COLUMN_SIZE]);
             resultData.AppendLine(aspectSeparatorLine);
             resultData.AppendLine(detailLine.ToString());
+            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+            {
+                resultData.Append(SPACES);
+                foreach (var total in totalsPerAspect)
+                {
+                    var meanValue = total / (double)ctrlGroupFactor;
+                    var meanTxt = $"{meanValue:F3}";
+                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                }
+            }
         }
         else
         {
@@ -303,7 +323,7 @@ public class ResearchResultModel
     private static string CreateParallelsResultData(MethodResponse response)
     {
         StringBuilder resultData = new();
-        if (response is CountOfParallelsResponse(var generalResearchRequest, var allCounts, 
+        if (response is CountOfParallelsResponse(var generalResearchRequest, var ctrlGroupFactor, var allCounts, 
             var totalsPerPointCombi, var totalsPerParallel, var chartPointsList))
         {
 
@@ -347,6 +367,16 @@ public class ResearchResultModel
             detailLine.Append((totalOverall + SPACES)[..10]);
             resultData.AppendLine(parallelSeparatorLine);
             resultData.AppendLine(detailLine.ToString());
+            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+            {
+                resultData.Append(SPACES);
+                foreach (var total in totalsPerParallel)
+                {
+                    var meanValue = total / (double)ctrlGroupFactor;
+                    var meanTxt = $"{meanValue:F3}";
+                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                }
+            }
         }
         else
         {
@@ -365,11 +395,22 @@ public class ResearchResultModel
         StringBuilder resultData = new();
         if (response is CountOfUnaspectedResponse qualifiedResponse)
         {
+            var ctrlGroupFactor = ((CountOfUnaspectedResponse)response).CtrlGroupFactor;
             resultData.AppendLine(CHARTS_WITHOUT_ASPECTS);
             resultData.AppendLine(SEPARATOR_LINE);
             foreach (var simpleCount in qualifiedResponse.Counts)
             {
                 resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
+            }
+            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+            {
+                resultData.Append(SPACES);
+                foreach (var total in qualifiedResponse.Counts)
+                {
+                    var meanValue = total.Count / (double)ctrlGroupFactor;
+                    var meanTxt = $"{meanValue:F3}";
+                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                }
             }
         }
         else
@@ -385,6 +426,8 @@ public class ResearchResultModel
         StringBuilder resultData = new();
         if (response is CountOfOccupiedMidpointsResponse qualifiedResponse)
         {
+            var ctrlGroupFactor = ((CountOfOccupiedMidpointsResponse)response).CtrlGroupFactor;
+            
             if (response.Request is CountOccupiedMidpointsRequest qualifiedRequest)
             {
                 resultData.AppendLine(OCCUPIED_MIDPOINTS + " " + qualifiedRequest.DivisionForDial 
@@ -400,6 +443,16 @@ public class ResearchResultModel
                     var midpointCount = midpoint.Value.ToString();
                     resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
+                }
+                if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+                {
+                    resultData.Append(SPACES);
+                    foreach (var total in qualifiedResponse.AllCounts)
+                    {
+                        var meanValue = total.Value / (double)ctrlGroupFactor;
+                        var meanTxt = $"{meanValue:F3}";
+                        resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                    }
                 }
             }
             else
@@ -421,6 +474,8 @@ public class ResearchResultModel
         StringBuilder resultData = new();
         if (response is CountOfOccupiedMidpointsDeclResponse qualifiedResponse)
         {
+            var ctrlGroupFactor = ((CountOfOccupiedMidpointsDeclResponse)response).CtrlGroupFactor;
+            
             if (response.Request is CountOccupiedMidpointsDeclinationRequest qualifiedRequest)
             {
                 resultData.AppendLine(OCCUPIED_MIDPOINTS_DECL + " " + ORB + ": " + qualifiedRequest.Orb);
@@ -435,6 +490,16 @@ public class ResearchResultModel
                     var midpointCount = midpoint.Value.ToString();
                     resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
+                }
+                if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+                {
+                    resultData.Append(SPACES);
+                    foreach (var total in qualifiedResponse.AllCounts)
+                    {
+                        var meanValue = total.Value / (double)ctrlGroupFactor;
+                        var meanTxt = $"{meanValue:F3}";
+                        resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                    }
                 }
             }
             else
@@ -458,6 +523,7 @@ public class ResearchResultModel
         StringBuilder resultData = new();
         if (response is CountHarmonicConjunctionsResponse qualifiedResponse)
         {
+            var ctrlGroupFactor = ((CountHarmonicConjunctionsResponse)response).CtrlGroupFactor;
             if (response.Request is CountHarmonicConjunctionsRequest qualifiedRequest)
             {
                 resultData.AppendLine(HARMONIC_CONJUNCTIONS + qualifiedRequest.HarmonicNumber
@@ -473,6 +539,16 @@ public class ResearchResultModel
                     resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / "
                         + ("Radix" + " " + secondPointName + SPACES)[..LARGE_COLUMN_SIZE] + " " + harmonicCount);
                 }
+                if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+                {
+                    resultData.Append(SPACES);
+                    foreach (var total in qualifiedResponse.AllCounts)
+                    {
+                        var meanValue = total.Value / (double)ctrlGroupFactor;
+                        var meanTxt = $"{meanValue:F3}";
+                        resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                    }
+                }                
             }
             else
             {
@@ -490,15 +566,27 @@ public class ResearchResultModel
 
     private static string CreateOobResultData(MethodResponse response)
     {
+  
         StringBuilder resultData = new();
         if (response is CountOobResponse qualifiedResponse)
         {
+            var ctrlGroupFactor = ((CountOobResponse)response).CtrlGroupFactor;
             resultData.AppendLine(OOB_POSITIONS);
             resultData.AppendLine(SEPARATOR_LINE);
             foreach (var simpleCount in qualifiedResponse.Counts)
             {
                 resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
             }
+            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
+            {
+                resultData.Append(SPACES);
+                foreach (var total in qualifiedResponse.Counts)
+                {
+                    var meanValue = total.Count / (double)ctrlGroupFactor;
+                    var meanTxt = $"{meanValue:F3}";
+                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                }
+            }  
         }
         else
         {

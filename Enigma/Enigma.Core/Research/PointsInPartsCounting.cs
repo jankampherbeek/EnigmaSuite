@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
@@ -22,8 +23,9 @@ public interface IPointsInPartsCounting
 }
 
 /// <inheritdoc/>
-public sealed class PointsInPartsCounting: IPointsInPartsCounting
+public sealed class PointsInPartsCounting(IProjectDao projectDao): IPointsInPartsCounting
 {
+    
     /// <inheritdoc/>
     public CountOfPartsResponse CountPointsInParts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
@@ -32,6 +34,7 @@ public sealed class PointsInPartsCounting: IPointsInPartsCounting
 
     private CountOfPartsResponse PerformCounts(List<CalculatedResearchChart> charts, GeneralResearchRequest request)
     {
+        var ctrlGroupFactor = projectDao.ReadProject(request.ProjectName)!.MultiFactor;
         var researchMethod = request.Method;
         var nrOfParts = DefineNumberOfParts(request);
         var allCounts = InitializeCounts(request, nrOfParts);
@@ -42,7 +45,7 @@ public sealed class PointsInPartsCounting: IPointsInPartsCounting
             HandleChart(researchMethod, chart, pointSelection, nrOfParts, ref allCounts);
         }
         var totals = CountTotals(allCounts);
-        CountOfPartsResponse response = new(request, allCounts, totals);
+        CountOfPartsResponse response = new(request, ctrlGroupFactor, allCounts, totals);
         return response;
     }
 
@@ -70,7 +73,7 @@ public sealed class PointsInPartsCounting: IPointsInPartsCounting
     private static void HandleChart(ResearchMethods researchMethod, CalculatedResearchChart chart, ResearchPointSelection pointSelection, int nrOfParts, ref List<CountOfParts> allCounts)
     {
         var pointIndex = 0;
-        Dictionary<ChartPoints, FullPointPos> pointPositions = new Dictionary<ChartPoints, FullPointPos>();
+        var pointPositions = new Dictionary<ChartPoints, FullPointPos>();
 
         foreach (var posPoint in chart.Positions)
         {
