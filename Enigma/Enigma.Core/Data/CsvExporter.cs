@@ -6,6 +6,7 @@
 using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.Persistables;
 
@@ -18,6 +19,13 @@ public interface ICsvExporter
      /// <param name="inputItems">The items to process</param>
      /// <param name="fullPath">Full path and filaname of the csv file te write</param>
     public void WriteStandardInputToCsv(IEnumerable<StandardInputItem> inputItems, string fullPath);
+
+     
+     /// <summary>Convert research positions to csv and write the results to a file</summary>
+     /// <remarks>The file is creaed once and the lines are appended in several batches</remarks>
+     /// <param name="inputItems">The research positions to write</param>
+     /// <param name="fullPath">Path of the file</param>
+    public void WriteResearchPositionsToCsv(IEnumerable<ResearchPositionsForChart> inputItems, string fullPath, CultureInfo culture);
 }
 
 
@@ -58,5 +66,30 @@ public class CsvExporter: ICsvExporter
                 $"Could not write to {fullPath}. Encountered IOException {ex.Message}");
         }
     }
-    
+
+    public void WriteResearchPositionsToCsv(IEnumerable<ResearchPositionsForChart> inputItems, string fullPath, CultureInfo culture)
+    {
+        ArgumentNullException.ThrowIfNull(inputItems);
+        if (string.IsNullOrWhiteSpace(fullPath))
+            throw new ArgumentException("File path cannot be null or empty", nameof(fullPath));
+
+        try
+        {
+            using var writer = new StreamWriter(fullPath, true);
+            foreach (var item in inputItems)
+            {
+                var line = string.Join(";", new[]
+                {
+                    item.Id,
+                    string.Join(";", item.Positions.Select(p => $"{p.Abbrev};{p.Position.ToString(culture)}"))
+                });
+                writer.WriteLine(line);
+            }
+        }
+        catch (IOException ex)
+        {
+            throw new PersistencyException(
+                $"Could not write to {fullPath}. Encountered IOException {ex.Message}");
+        }
+    }
 }

@@ -16,23 +16,15 @@ using Enigma.Frontend.Ui.State;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for project usage</summary>
-public class ProjectUsageModel
+public class ProjectUsageModel(IResearchPerformApi researchPerformApi)
 {
-    private readonly DataVaultResearch _dataVaultResearch;
+    private readonly DataVaultResearch _dataVaultResearch = DataVaultResearch.Instance;
     private ResearchProject? _currentProject; 
-    private readonly AstroConfig _currentAstroConfig;
-    private readonly IResearchPerformApi _researchPerformApi;
+    private readonly AstroConfig _currentAstroConfig = CurrentConfig.Instance.GetConfig();
     public HarmonicDetailsSelection HarmonicDetailsSelection { get; set; }
     public MidpointDetailsSelection MidpointDetailsSelection { get; set; }
-    public ResearchPointSelection? CurrenPointSelection { get; set; }
+    public ResearchPointSelection? CurrentPointSelection { get; set; }
 
-    public ProjectUsageModel(IResearchPerformApi researchPerformApi)
-    {
-        _dataVaultResearch = DataVaultResearch.Instance;
-        _researchPerformApi = researchPerformApi;
-        _currentAstroConfig = CurrentConfig.Instance.GetConfig();
-    }
-    
     public static List<PresentableMethodDetails> GetAllMethodDetails()
     {
         List<ResearchMethodDetails> methodDetails = ResearchMethodsExtensions.AllDetails();
@@ -45,7 +37,7 @@ public class ProjectUsageModel
         _currentProject = _dataVaultResearch.CurrentProject;
         MethodResponse? responseCg = null;
         MethodResponse? responseTest = null;
-        if (CurrenPointSelection == null || CurrenPointSelection.SelectedPoints.Count <= 0) return;    // prevent processing if user closed window without entering data
+        if (CurrentPointSelection == null || CurrentPointSelection.SelectedPoints.Count <= 0) return;    // prevent processing if user closed window without entering data
         if (_currentProject == null) return;
         switch (researchMethod)
         {
@@ -57,11 +49,11 @@ public class ProjectUsageModel
             case ResearchMethods.CountOob:
             {
                 bool useControlGroup = false;
-                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig);
-                responseTest = _researchPerformApi.PerformResearch(request);
+                GeneralResearchRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig);
+                responseTest = researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new GeneralResearchRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig);
-                responseCg = _researchPerformApi.PerformResearch(request);
+                request = new GeneralResearchRequest(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig);
+                responseCg = researchPerformApi.PerformResearch(request);
                 break;
             }
             case ResearchMethods.CountOccupiedMidpoints:
@@ -70,22 +62,22 @@ public class ProjectUsageModel
                 if (selection is null) return;
                 (int divisionForDial, double orb) = selection;
                 bool useControlGroup = false;
-                CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
-                responseTest = _researchPerformApi.PerformResearch(request);
+                CountOccupiedMidpointsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig, divisionForDial, orb);
+                responseTest = researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, divisionForDial, orb);
-                responseCg = _researchPerformApi.PerformResearch(request);
+                request = new CountOccupiedMidpointsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig, divisionForDial, orb);
+                responseCg = researchPerformApi.PerformResearch(request);
                 break;
             }
             case ResearchMethods.CountDeclinationMidpoints:
             {
                 double orb = 1.0;
                 bool useControlGroup = false;
-                CountOccupiedMidpointsDeclinationRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, orb);
-                responseTest = _researchPerformApi.PerformResearch(request);
+                CountOccupiedMidpointsDeclinationRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig, orb);
+                responseTest = researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new CountOccupiedMidpointsDeclinationRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, orb);
-                responseCg = _researchPerformApi.PerformResearch(request);
+                request = new CountOccupiedMidpointsDeclinationRequest(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig, orb);
+                responseCg = researchPerformApi.PerformResearch(request);
                 break;
             }
             case ResearchMethods.CountHarmonicConjunctions:
@@ -94,11 +86,11 @@ public class ProjectUsageModel
                 if (selection is null) return;
                 (double harmonicNumber, double orb) = selection;
                 bool useControlGroup = false;
-                CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
-                responseTest = _researchPerformApi.PerformResearch(request);
+                CountHarmonicConjunctionsRequest request = new(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig, harmonicNumber, orb);
+                responseTest = researchPerformApi.PerformResearch(request);
                 useControlGroup = true;
-                request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrenPointSelection, _currentAstroConfig, harmonicNumber, orb);
-                responseCg = _researchPerformApi.PerformResearch(request);                    
+                request = new CountHarmonicConjunctionsRequest(_currentProject.Name, researchMethod, useControlGroup, CurrentPointSelection, _currentAstroConfig, harmonicNumber, orb);
+                responseCg = researchPerformApi.PerformResearch(request);                    
                 break;
             }
         }

@@ -3,7 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Globalization;
 using Enigma.Core.Data;
+using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
@@ -47,7 +49,9 @@ public class ChartProgressEventArgs : EventArgs
 
 /// <inheritdoc/>
 public sealed class ResearchMethodHandler(
-  ICsvStandardDataReader csvStandardDataReader,
+    ICsvStandardDataReader csvStandardDataReader,
+    ICsvExporter csvExporter,
+    ISettingsDao settingsDao,
     ICalculatedResearchPositions researchPositions,
     IPointsInPartsCounting pointsInZodiacPartsCounting,
     IResearchPaths researchPaths,
@@ -69,12 +73,13 @@ public sealed class ResearchMethodHandler(
     public MethodResponse HandleResearch(GeneralResearchRequest request)
     {
         var method = request.Method;
-        Log.Information("ResearchMethodHandler HandleResearch, using method {M} for project {P}", method, request.ProjectName);
-        
+        Log.Information("ResearchMethodHandler HandleResearch, using method {M} for project {P}", method,
+            request.ProjectName);
+
         var fullPath = researchPaths.DataPath(request.ProjectName, request.UseControlGroup);
         Log.Information("Reading csv from path : {Fp}", fullPath);
         var standardInput = csvStandardDataReader.ReadStandardInputData(fullPath);
-        
+
         const int batchSize = 2000;
         var totalCharts = standardInput.Count;
         var processedCharts = 0;
@@ -83,22 +88,16 @@ public sealed class ResearchMethodHandler(
         Log.Information("Starting research with {TotalCharts} charts", totalCharts);
         _isProcessing = true;
 
-        // TODO create csv for batchcharts
-        // Write header to csv
-        
-        
         while (processedCharts < totalCharts)
         {
             var remainingCharts = totalCharts - processedCharts;
             var currentBatchSize = Math.Min(batchSize, remainingCharts);
             var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
             var batchCharts = researchPositions.CalculatePositions(batchInput);
-            // TODO add batchCharts to csv
-            // add indication for decl or longitude (zie request.PointSelection)
-            // add list of supported chartpoints (zie request.Method)
+            AddChartsToCsv(batchCharts, request.ProjectName, request.Method, request.UseControlGroup,
+                request.PointSelection);
             
             processedCharts += currentBatchSize;
-         //   Log.Information("Processed {ProcessedCharts} of {TotalCharts} charts", processedCharts, totalCharts);
             
             // Only raise progress event if we're processing
             if (_isProcessing)
@@ -124,7 +123,8 @@ public sealed class ResearchMethodHandler(
             case CountOccupiedMidpointsRequest midpointsRequest:
                 return occupiedMidpointsCounting.CountMidpoints(batchCharts, midpointsRequest);
             case CountOccupiedMidpointsDeclinationRequest midpointsDeclinationRequest:
-                return occupiedMidpointsDeclinationCounting.CountMidpointsInDeclination(batchCharts, midpointsDeclinationRequest);
+                return occupiedMidpointsDeclinationCounting.CountMidpointsInDeclination(batchCharts,
+                    midpointsDeclinationRequest);
         }
 
         switch (request.Method)
@@ -149,6 +149,41 @@ public sealed class ResearchMethodHandler(
                 throw new EnigmaException("Unrecognized ResearchMethod in request for ResearchMethodHandler");
         }
     }
+
+    private void AddChartsToCsv(List<CalculatedResearchChart> charts, string projName, ResearchMethods method,
+        bool isControlGroup, ResearchPointSelection selection)
+    {
+        var workFolder = settingsDao.ReadSetting("workfolder");
+        var coord = "Longitude";
+        if (method is ResearchMethods.CountOob or ResearchMethods.CountDeclinationMidpoints
+            or ResearchMethods.CountDeclinationParallels)
+        {
+            coord = "Declination";
+        }
+
+        var dateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace("/","-").Replace(" ","-").Replace(":","-");
+        var sep = Path.DirectorySeparatorChar;
+        var typeOfTest = isControlGroup ? "Control" : "Test";
+        var fullPath = workFolder + sep + "projects" + sep + projName + sep + "results" + sep + typeOfTest + "-" 
+            + coord + "-" + dateTime + ".csv";
+
+        var persistableCharts = charts.Select(chart => new ResearchPositionsForChart
+        {
+            Id = chart.InputItem.Id,
+            Positions = chart.Positions
+                .Where(pos => selection.SelectedPoints.Contains(pos.Key) ||
+                              (selection.IncludeCusps && pos.Key.GetDetails().PointCat == PointCats.Cusp))
+                .Select(pos => new ResearchPosition
+                {
+                    Abbrev = pos.Key.GetDetails().Abbr,
+                    Position = coord == "Longitude"
+                        ? pos.Value.Ecliptical.MainPosSpeed.Position
+                        : pos.Value.Equatorial.MainPosSpeed.Position
+                }).ToList()
+        }).ToList();
+        csvExporter.WriteResearchPositionsToCsv(persistableCharts, fullPath, CultureInfo.CurrentCulture);
+    }
+
 
     private MethodResponse CombineOrderedResponses(List<MethodResponse> orderedResponses)
     {
@@ -214,12 +249,14 @@ public sealed class ResearchMethodHandler(
                     midpoints1.Request,
                     CombineDictionary(midpoints1.AllCounts, midpoints2.AllCounts)),
 
-            CountOfOccupiedMidpointsDeclResponse declMidpoints1 when response2 is CountOfOccupiedMidpointsDeclResponse declMidpoints2 =>
+            CountOfOccupiedMidpointsDeclResponse declMidpoints1 when
+                response2 is CountOfOccupiedMidpointsDeclResponse declMidpoints2 =>
                 new CountOfOccupiedMidpointsDeclResponse(
                     declMidpoints1.Request,
                     CombineDictionary(declMidpoints1.AllCounts, declMidpoints2.AllCounts)),
 
-            CountHarmonicConjunctionsResponse conjunctions1 when response2 is CountHarmonicConjunctionsResponse conjunctions2 =>
+            CountHarmonicConjunctionsResponse conjunctions1 when
+                response2 is CountHarmonicConjunctionsResponse conjunctions2 =>
                 new CountHarmonicConjunctionsResponse(
                     conjunctions1.Request,
                     CombineDictionary(conjunctions1.AllCounts, conjunctions2.AllCounts)),
@@ -239,7 +276,7 @@ public sealed class ResearchMethodHandler(
         var dim2 = array1.GetLength(1);
         var dim3 = array1.GetLength(2);
         var result = new int[dim1, dim2, dim3];
-        
+
         for (var i = 0; i < dim1; i++)
         {
             for (var j = 0; j < dim2; j++)
@@ -250,6 +287,7 @@ public sealed class ResearchMethodHandler(
                 }
             }
         }
+
         return result;
     }
 
@@ -258,7 +296,7 @@ public sealed class ResearchMethodHandler(
         var dim1 = array1.GetLength(0);
         var dim2 = array1.GetLength(1);
         var result = new int[dim1, dim2];
-        
+
         for (var i = 0; i < dim1; i++)
         {
             for (var j = 0; j < dim2; j++)
@@ -266,6 +304,7 @@ public sealed class ResearchMethodHandler(
                 result[i, j] = array1[i, j] + array2[i, j];
             }
         }
+
         return result;
     }
 
@@ -276,6 +315,7 @@ public sealed class ResearchMethodHandler(
         {
             result[i] = array1[i] + array2[i];
         }
+
         return result;
     }
 
@@ -286,6 +326,7 @@ public sealed class ResearchMethodHandler(
         {
             result.Add(list1[i] + list2[i]);
         }
+
         return result;
     }
 
@@ -299,8 +340,10 @@ public sealed class ResearchMethodHandler(
             {
                 combinedCounts.Add(parts1[i].Counts[j] + parts2[i].Counts[j]);
             }
+
             result.Add(new CountOfParts(parts1[i].Point, combinedCounts));
         }
+
         return result;
     }
 
@@ -311,10 +354,12 @@ public sealed class ResearchMethodHandler(
         {
             result.Add(new SimpleCount(counts1[i].Point, counts1[i].Count + counts2[i].Count));
         }
+
         return result;
     }
 
-    private static Dictionary<T, int> CombineDictionary<T>(Dictionary<T, int> dict1, Dictionary<T, int> dict2) where T : notnull
+    private static Dictionary<T, int> CombineDictionary<T>(Dictionary<T, int> dict1, Dictionary<T, int> dict2)
+        where T : notnull
     {
         var result = new Dictionary<T, int>(dict1);
         foreach (var kvp in dict2)
@@ -328,7 +373,7 @@ public sealed class ResearchMethodHandler(
                 result[kvp.Key] = kvp.Value;
             }
         }
+
         return result;
     }
 }
-

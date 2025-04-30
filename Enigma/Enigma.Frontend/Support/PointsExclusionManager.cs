@@ -112,11 +112,7 @@ public class PointsExclusionManager : IPointsExclusionManager
     {
         List<ChartPoints> exclusionPoints = new()
         {
-            ChartPoints.Vertex,
-            ChartPoints.EastPoint,
             ChartPoints.ZeroAries,
-            ChartPoints.FortunaNoSect,
-            ChartPoints.FortunaSect
         };
         const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);
@@ -171,7 +167,9 @@ public class PointsExclusionManager : IPointsExclusionManager
             ChartPoints.Dragon,
             ChartPoints.Beast,
             ChartPoints.BlackSun,
-            ChartPoints.Priapus
+            ChartPoints.Priapus,
+            ChartPoints.FortunaSect,
+            ChartPoints.FortunaNoSect
         };
         const bool excludeCusps = true;
         return new PointsToExclude(exclusionPoints, excludeCusps);

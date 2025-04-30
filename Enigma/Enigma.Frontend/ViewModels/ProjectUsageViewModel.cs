@@ -76,7 +76,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
             WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,
                 ResearchWindowsFlow.RESEARCH_POINT_SELECTION));
             ResearchPointSelection? selection = DataVaultResearch.Instance.CurrentPointsSelection;
-            _model.CurrenPointSelection = selection;
+            _model.CurrentPointSelection = selection;
             int selectedNumber = selection != null ? selection.SelectedPoints.Count : 0; 
             _sufficientSelections = selectedNumber >= minNumber;
             if (_sufficientSelections || _testCanceled)

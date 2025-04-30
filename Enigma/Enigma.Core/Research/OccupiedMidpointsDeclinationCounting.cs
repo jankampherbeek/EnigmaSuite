@@ -53,7 +53,7 @@ public sealed class OccupiedMidpointsDeclinationCounting(
         foreach (var mpStructure in from calcResearchChart in charts 
                  let commonPositions = (
                      from posPoint in calcResearchChart.Positions
-                     where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle)
+                     where (posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle || posPoint.Key.GetDetails().PointCat == PointCats.Lots)
                      select posPoint).ToDictionary(x => x.Key, x => x.Value) 
                  select researchMethodUtils.DefineSelectedPointPositions(calcResearchChart, request.PointSelection) 
                  into relevantChartPointPositions 

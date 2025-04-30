@@ -70,13 +70,22 @@ public sealed class CalculatedResearchPositions(
     {
         var config = configurationHandler.ReadCurrentConfig();
         var cpSpecs = config.ChartPoints;
-        var celPoints = (from cpSpec in cpSpecs 
-            where cpSpec.Value.IsUsed 
-            let pointCat = cpSpec.Key.GetDetails().PointCat 
-            where pointCat == PointCats.Common 
-            select cpSpec.Key).ToList();
+        var celPoints = new List<ChartPoints>();
+        
+        foreach (var cpSpec in cpSpecs)
+        {
+            if (cpSpec.Value.IsUsed)
+            {
+                var pointCat = cpSpec.Key.GetDetails().PointCat;
+                if (pointCat != PointCats.Cusp)
+                {
+                    celPoints.Add(cpSpec.Key);
+                }
+            }
+        }
+        
         return new CalculationPreferences(celPoints, config.ZodiacType, config.Ayanamsha, CoordinateSystems.Ecliptical, 
-            config.ObserverPosition, config.ProjectionType, config.HouseSystem, ApogeeTypes.Corrected,false);  // TODO define correct value for Oscillate and apogee type
+            config.ObserverPosition, config.ProjectionType, config.HouseSystem, ApogeeTypes.Corrected, false);
     }
 
 }

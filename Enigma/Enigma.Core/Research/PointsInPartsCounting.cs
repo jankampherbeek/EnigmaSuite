@@ -75,7 +75,7 @@ public sealed class PointsInPartsCounting: IPointsInPartsCounting
         foreach (var posPoint in chart.Positions)
         {
             var details = posPoint.Key.GetDetails();
-            if (details.PointCat == PointCats.Common || details.PointCat == PointCats.Angle)
+            if (details.PointCat == PointCats.Common || details.PointCat == PointCats.Angle || details.PointCat == PointCats.Lots)
             {
                 pointPositions.Add(posPoint.Key, posPoint.Value);
             }

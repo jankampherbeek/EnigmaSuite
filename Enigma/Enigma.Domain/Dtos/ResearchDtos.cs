@@ -72,4 +72,22 @@ public class ProjectDto
         
     /// <summary>ID of the associated data file.</summary>
     public int DataFile { get; set; }
-} 
+}
+
+/// <summary>DTO for calculated research positions</summary>
+public class ResearchPosition
+{
+    /// <summary>Abbreviation of the chartpoint</summary>
+    public string Abbrev { get; set; }
+    /// <summary>Position of the chartpoint</summary>
+    public double Position { get; set; }
+}
+
+/// <summary>DTO for a chart with calculated research positions</summary>
+public class ResearchPositionsForChart
+{
+    /// <summary>Id for this chart</summary>
+    public string Id { get; set; }
+    /// <summary>List of positions for this chart</summary>
+    public List<ResearchPosition> Positions { get; set; }
+}
