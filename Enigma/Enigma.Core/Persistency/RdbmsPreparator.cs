@@ -331,7 +331,7 @@ public class RdbmsPreparator: IRdbmsPreparator
     {
         return
             """
-            create TABLE ControlGroupTypes(id integer primary key AUTOINCREMENT, name varchar(100) NOT NULL);
+            create TABLE ControlGroupTypes(id integer primary key AUTOINCREMENT, name varchar(100) NOT NULL, rbkey varchar(50) NOT NULL);
             create TABLE DataFiles(id integer primary key AUTOINCREMENT, name varchar(50) NOT NULL,
                          location varchar(256) NOT NULL);
             create TABLE Projects(id integer primary key AUTOINCREMENT, name varchar(50) NOT NULL,
@@ -346,7 +346,7 @@ public class RdbmsPreparator: IRdbmsPreparator
     private static string ConstructPopulateQuery()
     {
         return """
-               insert into ControlGroupTypes(name) VALUES('StandardShift');
+               insert into ControlGroupTypes(name, rbkey) VALUES('StandardShift','ref.controlgrouptype.standardshift');
                insert into ChartCategories(name) VALUES('Female');
                insert into ChartCategories(name) VALUES('Male');
                insert into ChartCategories(name) VALUES('Event');

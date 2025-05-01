@@ -26,6 +26,7 @@ public static class ApiServices
         serviceCollection.AddTransient<IChartDataPersistencyApi, ChartDataPersistencyApi>();
         serviceCollection.AddTransient<ICommunicationApi, CommunicationApi>();
         serviceCollection.AddTransient<IConfigurationApi, ConfigurationApi>();
+        serviceCollection.AddTransient<IControlGroupTypeApi, ControlGroupTypeApi>();
         serviceCollection.AddTransient<ICoordinateConversionApi, CoordinateConversionApi>();
         serviceCollection.AddTransient<IDateTimeApi, DateTimeApi>();
         serviceCollection.AddTransient<IDataHandlerApi, DataHandlerApi>();

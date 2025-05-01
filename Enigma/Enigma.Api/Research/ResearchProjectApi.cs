@@ -95,7 +95,7 @@ public sealed class ProjectApi(IProjectDao projectDao) : IProjectApi
             projectDto.Description,
             projectDto.DataFile,
             projectDto.Created.ToString(CultureInfo.InvariantCulture),
-            ControlGroupTypes.StandardShift, // TODO read from database
+            projectDto.ControlGroupType,
             projectDto.MultiFactor);
 
         Log.Information("Successfully read project {Name}", name);

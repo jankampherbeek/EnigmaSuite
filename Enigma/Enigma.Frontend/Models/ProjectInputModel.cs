@@ -20,6 +20,7 @@ namespace Enigma.Frontend.Ui.Models;
 public class ProjectInputModel(
     IDataFileManagementApi fileManagementApi,
     IProjectCreationApi projectCreationApi,
+    IControlGroupTypeApi controlGroupTypeApi,
     IDataNameForPresentationFactory dataNameForPresentationFactory)
 {
     private readonly Rosetta _rosetta = Rosetta.Instance;
@@ -44,6 +45,11 @@ public class ProjectInputModel(
     public List<string> GetControlGroupTypeNames()
     {
         return ControlGroupTypesExtensions.AllDetails().Select(  cGroup => _rosetta.GetText(cGroup.RbKey)).ToList();
+    }
+
+    public int GetControlGroupTypeId(string name)
+    {
+        return controlGroupTypeApi.GetIdForControlGroupType(name);
     }
 
     public ResultMessage SaveProject(ResearchProject project)

@@ -72,6 +72,9 @@ public class ProjectDto
         
     /// <summary>ID of the associated data file.</summary>
     public int DataFile { get; set; }
+    
+    /// <summary>ID of the controlgroup type that is used</summary>
+    public int ControlGroupType { get; set; }
 }
 
 /// <summary>DTO for calculated research positions</summary>

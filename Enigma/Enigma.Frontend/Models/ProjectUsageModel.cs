@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Enigma.Api;
 using Enigma.Api.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -16,7 +17,7 @@ using Enigma.Frontend.Ui.State;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for project usage</summary>
-public class ProjectUsageModel(IResearchPerformApi researchPerformApi)
+public class ProjectUsageModel(IResearchPerformApi researchPerformApi, IControlGroupTypeApi controlGroupTypeApi)
 {
     private readonly DataVaultResearch _dataVaultResearch = DataVaultResearch.Instance;
     private ResearchProject? _currentProject; 
@@ -100,8 +101,11 @@ public class ProjectUsageModel(IResearchPerformApi researchPerformApi)
         DataVaultResearch.Instance.ResponseTest = results.Item1;
         DataVaultResearch.Instance.ResponseCg = results.Item2;
     }
-    
 
+    public string GetRbKeyForControlGroupType(int id)
+    {
+        return controlGroupTypeApi.GetRbKeyForControlGroupType(id);
+    }
 
 }
 

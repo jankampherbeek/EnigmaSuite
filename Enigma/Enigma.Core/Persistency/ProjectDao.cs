@@ -129,7 +129,7 @@ public class ProjectDao: IProjectDao
             dbConnection.Open();
 
             const string query = """
-                SELECT p.id, p.name, p.description, p.location, p.multiFactor, p.created, p.datafile
+                SELECT p.id, p.name, p.description, p.location, p.multiFactor, p.created, p.datafile, p.controlgrouptype
                 FROM Projects p
                 WHERE p.name = @Name
                 """;

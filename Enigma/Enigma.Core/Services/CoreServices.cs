@@ -54,6 +54,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IConfigurationDelta, ConfigurationDelta>();
         serviceCollection.AddTransient<IConfigurationHandler, ConfigurationHandler>();
         serviceCollection.AddTransient<IConfigWriter, ConfigWriter>();
+        serviceCollection.AddTransient<IControlGroupTypeDao, ControlGroupTypeDao>();
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
         serviceCollection.AddTransient<IDataFileDao, DataFileDao>();

@@ -103,8 +103,7 @@ public partial class ProjectInputViewModel: ObservableObject
             int multiplicationValue = int.Parse(multiplicationText);
             ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
             DateTime now = DateTime.Now;
-            
-            // Get the datafile ID from the selected name
+            var cgIndexinDb = _model.GetControlGroupTypeId(cgType.ToString());
             int datafileId = _model.GetDatafileId(SelectedDatafileName);
             if (datafileId < 0)
             {
@@ -115,7 +114,7 @@ public partial class ProjectInputViewModel: ObservableObject
             ResearchProject project = new(ProjectName, ProjectDescription, 
                 datafileId,
                 now.ToString(CultureInfo.InvariantCulture),
-                cgType, 
+                cgIndexinDb, 
                 multiplicationValue);
                 
             ResultMessage resultMessage = _model.SaveProject(project);

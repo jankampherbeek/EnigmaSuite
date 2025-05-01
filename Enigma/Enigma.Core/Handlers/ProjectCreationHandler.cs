@@ -131,7 +131,7 @@ public sealed class ProjectCreationHandler(
             var standardInput = csvStandardDataReader.ReadStandardInputData(projDataPath);
             Log.Information("Successfully read test data, creating control group");
             
-            var controlGroupData = controlGroupCreator.CreateMultipleControlData(standardInput, project.ControlGroupType,
+            var controlGroupData = controlGroupCreator.CreateMultipleControlData(standardInput, project.IndexControlGroupType,
                 project.ControlGroupMultiplication);
             Log.Information("Control group data created successfully");
             

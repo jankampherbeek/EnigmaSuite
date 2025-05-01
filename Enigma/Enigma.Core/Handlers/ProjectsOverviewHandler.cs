@@ -37,7 +37,7 @@ public sealed class ProjectsOverviewHandler(IProjectDao projectDao) : IProjectsO
                     project.Description,
                     project.DataFile,
                     project.Created.ToString(CultureInfo.InvariantCulture),
-                    ControlGroupTypes.StandardShift, // Default value, as this is not stored in the database
+                    project.ControlGroupType,
                     project.MultiFactor));
             }
 

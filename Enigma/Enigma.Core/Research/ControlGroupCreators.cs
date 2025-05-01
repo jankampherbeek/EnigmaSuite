@@ -11,7 +11,7 @@ namespace Enigma.Core.Research;
 public interface IControlGroupCreator
 {
     public List<StandardInputItem> CreateMultipleControlData(List<StandardInputItem> inputItems,
-        ControlGroupTypes controlGroupType,
+        int controlGroupTypeId,
         int multiplicity);
 
 }
@@ -27,6 +27,7 @@ public sealed class StandardShiftControlGroupCreator(
     IControlDataCalendar controlDataCalendar)
     : IControlGroupCreator
 {
+    // TODO handle different controlgroup types
     private readonly List<StandardInputItem> _controlGroupItems = [];
     private readonly List<int> _years = [];
     private readonly List<int> _months = [];
@@ -41,7 +42,7 @@ public sealed class StandardShiftControlGroupCreator(
 
 
     public List<StandardInputItem> CreateMultipleControlData(List<StandardInputItem> inputItems,
-        ControlGroupTypes controlGroupType,
+        int controlGroupTypeId,
         int multiplicity)
     {
         var allControlData = new List<StandardInputItem>();

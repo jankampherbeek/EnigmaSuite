@@ -59,7 +59,9 @@ public partial class ProjectUsageViewModel: ObservableObject,
         var dataFileDto = _dataFileApi.ReadDataFile(currentProject.IndexDataFile);
         DataSetName = dataFileDto is not null ? dataFileDto.Name : "Not found";
         MultiplFactor = currentProject.ControlGroupMultiplication.ToString();
-        ControlGroupType = currentProject.ControlGroupType.GetDetails().RbKey;         
+        var cgTypeId = currentProject.IndexControlGroupType;
+        var rbKey = _model.GetRbKeyForControlGroupType(cgTypeId);
+        ControlGroupType = rbKey;         
     }
  
     
