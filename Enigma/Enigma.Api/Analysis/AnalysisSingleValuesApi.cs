@@ -3,13 +3,13 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers;
+using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Analysis;
 
-/// <summary>API for the calculation of sts of single values for analysis.</summary>
+/// <summary>API for the calculation of sets of single values for analysis.</summary>
 public interface IAnalysisSingleValuesApi
 {
     /// <summary>Calculate longitude equivalents.</summary>
@@ -19,17 +19,10 @@ public interface IAnalysisSingleValuesApi
 }
 
 
-public class AnalysisSingleValuesApi : IAnalysisSingleValuesApi
+public class AnalysisSingleValuesApi(ILongitudeEquivalentHandler longitudeEquivalentHandler) : IAnalysisSingleValuesApi
 {
-    private ILongitudeEquivalentHandler _longitudeEquivalentHandler;
-
-    public AnalysisSingleValuesApi(ILongitudeEquivalentHandler longitudeEquivalentHandler)
-    {
-        _longitudeEquivalentHandler = longitudeEquivalentHandler;
-    }
-    
     public List<Tuple<PositionedPoint, bool>> CalculateLongitudeEquivalents(LongitudeEquivalentRequest request)
     {
-        return _longitudeEquivalentHandler.DefineEquivalents(request);
+        return longitudeEquivalentHandler.DefineEquivalents(request);
     }
 }

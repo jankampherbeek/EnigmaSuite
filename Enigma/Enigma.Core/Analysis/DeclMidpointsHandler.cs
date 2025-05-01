@@ -3,10 +3,9 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Analysis;
 
 /// <summary>Handler for midpoints in declination.</summary>
 public interface IDeclMidpointsHandler
@@ -19,22 +18,10 @@ public interface IDeclMidpointsHandler
 }
 
 
-////////// Implementation //////////
-
-public class DeclMidpointsHandler : IDeclMidpointsHandler
+public class DeclMidpointsHandler(IOccupiedMidpointsFinder occupiedMidpoints) : IDeclMidpointsHandler
 {
-    private readonly IOccupiedMidpointsFinder _occupiedMidpoints;
-
-    public DeclMidpointsHandler(IOccupiedMidpointsFinder occupiedMidpoints)
-    {
-        _occupiedMidpoints = occupiedMidpoints;
-    }
-    
     public IEnumerable<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double orb)
     {
-        return _occupiedMidpoints.CalculateOccupiedMidpointsInDeclination(chart, orb);
-        
-        
-        
+        return occupiedMidpoints.CalculateOccupiedMidpointsInDeclination(chart, orb);
     }
 }

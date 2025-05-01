@@ -20,7 +20,6 @@ public static class ResearchServices
         serviceCollection.AddTransient<IProjectCreationHandler, ProjectCreationHandler>();
         serviceCollection.AddTransient<IProjectsOverviewHandler, ProjectsOverviewHandler>();
         serviceCollection.AddTransient<IResearchMethodHandler, ResearchMethodHandler>();
-        serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();
         serviceCollection.AddTransient<IResearchPaths, ResearchPaths>();
 
         // Helpers

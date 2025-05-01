@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using Enigma.Api;
+using Enigma.Api.Analysis;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
@@ -13,20 +13,12 @@ using Enigma.Frontend.Ui.Support;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for harmonics in radix</summary>
-public sealed class RadixHarmonicsModel
+public sealed class RadixHarmonicsModel(
+    IHarmonicsApi harmonicsApi,
+    IHarmonicForDataGridFactory dataGridFactory,
+    IDescriptiveChartText descriptiveChartText)
 {
-    private readonly IHarmonicsApi _harmonicsApi;
-    private readonly IHarmonicForDataGridFactory _dataGridFactory;
-    private readonly IDescriptiveChartText _descriptiveChartText;
-    private readonly DataVaultCharts _dataVaultCharts;
-
-    public RadixHarmonicsModel(IHarmonicsApi harmonicsApi, IHarmonicForDataGridFactory dataGridFactory, IDescriptiveChartText descriptiveChartText)
-    {
-        _dataVaultCharts = DataVaultCharts.Instance;
-        _harmonicsApi = harmonicsApi;
-        _dataGridFactory = dataGridFactory;
-        _descriptiveChartText = descriptiveChartText;
-    }
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
     public string RetrieveChartName()
     {
@@ -39,8 +31,8 @@ public sealed class RadixHarmonicsModel
         var chart = _dataVaultCharts.GetCurrentChart();
         List<PresentableHarmonic> presHarmonics = new();
         if (chart == null) return presHarmonics;
-        List<double> harmonicPositions = _harmonicsApi.Harmonics(chart, harmonicNr);
-        presHarmonics = _dataGridFactory.CreateHarmonicForDataGrid(harmonicPositions, chart);
+        List<double> harmonicPositions = harmonicsApi.Harmonics(chart, harmonicNr);
+        presHarmonics = dataGridFactory.CreateHarmonicForDataGrid(harmonicPositions, chart);
         return presHarmonics;
     }
 
@@ -49,7 +41,7 @@ public sealed class RadixHarmonicsModel
         var chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         return chart != null
-            ? _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData)
+            ? descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData)
             : "";
     }
 

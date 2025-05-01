@@ -1,11 +1,9 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Research;
-
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Research;
 
 
 /// <summary>Handler for paths for files that are used for research.</summary>
@@ -43,36 +41,29 @@ public interface IResearchPathHandler
 
 
 /// <inherit/>
-public sealed class ResearchPathHandler : IResearchPathHandler
+public sealed class ResearchPathHandler(IResearchPaths researchPaths) : IResearchPathHandler
 {
-    private readonly IResearchPaths _researchPaths;
-
-    public ResearchPathHandler(IResearchPaths researchPaths)
-    {
-        _researchPaths = researchPaths;
-    }
-
     /// <inherit/>
     public string DataPath(string projName, bool useControlGroup)
     {
-        return _researchPaths.DataPath(projName, useControlGroup);
+        return researchPaths.DataPath(projName, useControlGroup);
     }
 
     /// <inherit/>
     public string ResultPath(string projName, string methodName, bool useControlGroup)
     {
-        return _researchPaths.ResultPath(projName, methodName, useControlGroup);
+        return researchPaths.ResultPath(projName, methodName, useControlGroup);
     }
 
     /// <inherit/>
     public string CountResultsPath(string projName, string methodName, bool useControlGroup)
     {
-        return _researchPaths.CountResultsPath(projName, methodName, useControlGroup);
+        return researchPaths.CountResultsPath(projName, methodName, useControlGroup);
     }
 
     /// <inherit/>
     public string SummedResultsPath(string projName, string methodName, bool useControlGroup)
     {
-        return _researchPaths.SummedResultsPath(projName, methodName, useControlGroup);
+        return researchPaths.SummedResultsPath(projName, methodName, useControlGroup);
     }
 }

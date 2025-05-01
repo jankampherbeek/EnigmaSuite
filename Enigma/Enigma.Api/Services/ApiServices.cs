@@ -1,8 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Analysis;
+using Enigma.Api.Calc;
 using Enigma.Api.Charts.Prog.PrimDir;
 using Enigma.Api.LocationAndTimeZones;
 using Enigma.Api.Research;
@@ -10,7 +12,6 @@ using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace
     Enigma.Api.Services;

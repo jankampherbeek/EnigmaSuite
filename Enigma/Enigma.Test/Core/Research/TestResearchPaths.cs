@@ -28,7 +28,7 @@ public class TestResearchPaths
         const string projName = "Project Name";
         const bool useControlGroup = false;
         var pathText = _researchPaths!.DataPath(projName, useControlGroup);
-        const string expected = @"\project\Project Name\testdata.json";
+        const string expected = @"\projects\Project Name\testdata.csv";
         Assert.That(pathText, Does.Contain(expected));
     }
 
@@ -38,7 +38,7 @@ public class TestResearchPaths
         const string projName = "Project Name";
         const bool useControlGroup = true;
         var pathText = _researchPaths!.DataPath(projName, useControlGroup);
-        const string expected = @"\project\Project Name\controldata.json";
+        const string expected = @"\projects\Project Name\controldata.csv";
         Assert.That(pathText, Does.Contain(expected));
     }
 
@@ -49,7 +49,7 @@ public class TestResearchPaths
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = false;
         var pathText = _researchPaths!.ResultPath(projName, methodName, useControlGroup);
-        const string expected = @"\project\Project Name\results\testdataresult_";
+        const string expected = @"\projects\Project Name\results\testdataresult_";
         Assert.That(pathText, Does.Contain(expected));
     }
 
@@ -60,7 +60,7 @@ public class TestResearchPaths
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = true;
         var pathText = _researchPaths!.ResultPath(projName, methodName, useControlGroup);
-        const string expected = @"\project\Project Name\results\controldataresult_";
+        const string expected = @"\projects\Project Name\results\controldataresult_";
         Assert.That(pathText, Does.Contain(expected));
     }
 
@@ -71,7 +71,7 @@ public class TestResearchPaths
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = false;
         var pathText = _researchPaths!.CountResultsPath(projName, methodName, useControlGroup);
-        const string expected = @"\project\Project Name\results\testdataresult_CountPosInSigns_counts_";
+        const string expected = @"\projects\Project Name\results\testdataresult_CountPosInSigns_counts_";
         Assert.That(pathText, Does.Contain(expected));
     }
     
@@ -82,7 +82,7 @@ public class TestResearchPaths
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = true;
         var pathText = _researchPaths!.CountResultsPath(projName, methodName, useControlGroup);
-        const string expected = @"\project\Project Name\results\controldataresult_CountPosInSigns_counts_";
+        const string expected = @"\projects\Project Name\results\controldataresult_CountPosInSigns_counts_";
         Assert.That(pathText, Does.Contain(expected));
     }
     
@@ -93,7 +93,7 @@ public class TestResearchPaths
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = false;
         var pathText = _researchPaths!.SummedResultsPath(projName, methodName, useControlGroup);
-        const string expected = @"\project\Project Name\results\testsummedresult_CountPosInSigns_counts_";
+        const string expected = @"\projects\Project Name\results\testsummedresult_CountPosInSigns_counts_";
         Assert.That(pathText, Does.Contain(expected));
     }
     
@@ -104,7 +104,7 @@ public class TestResearchPaths
         const string methodName = "CountPosInSigns";
         const bool useControlGroup = true;
         var pathText = _researchPaths!.SummedResultsPath(projName, methodName, useControlGroup);
-        const string expected = @"\project\Project Name\results\controlsummedresult_CountPosInSigns_counts_";
+        const string expected = @"\projects\Project Name\results\controlsummedresult_CountPosInSigns_counts_";
         Assert.That(pathText, Does.Contain(expected));
     }
 }

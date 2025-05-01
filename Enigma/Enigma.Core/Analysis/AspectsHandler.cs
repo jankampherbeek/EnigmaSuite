@@ -1,15 +1,14 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Points;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Analysis;
 
 
 /// <summary>Handler for aspects.</summary>
@@ -36,25 +35,17 @@ public interface IAspectsHandler
 
 
 /// <inheritdoc/>
-public sealed class AspectsHandler : IAspectsHandler
+public sealed class AspectsHandler(
+    IPointsMapping pointsMapping,
+    ICalculatedDistance calculatedDistance,
+    IAspectPointSelector aspectPointSelector,
+    IAspectOrbConstructor aspectOrbConstructor)
+    : IAspectsHandler
 {
-    private readonly IPointsMapping _pointsMapping;
-    private readonly ICalculatedDistance _calculatedDistance;
-    private readonly IAspectPointSelector _aspectPointSelector;
-    private readonly IAspectOrbConstructor _aspectOrbConstructor;
-
-    public AspectsHandler(IPointsMapping pointsMapping, ICalculatedDistance calculatedDistance, IAspectPointSelector aspectPointSelector, IAspectOrbConstructor aspectOrbConstructor)
-    {
-        _pointsMapping = pointsMapping;
-        _calculatedDistance = calculatedDistance;
-        _aspectPointSelector = aspectPointSelector;
-        _aspectOrbConstructor = aspectOrbConstructor;
-    }
-
     /// <inheritdoc/>
     public IEnumerable<DefinedAspect> AspectsForChartPoints(AspectRequest request)
     {
-        Dictionary<ChartPoints, FullPointPos> chartPointPositions =
+        var chartPointPositions =
             (from posPoint in request.CalcChart.Positions
              where posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle
              select posPoint)
@@ -62,17 +53,17 @@ public sealed class AspectsHandler : IAspectsHandler
 
         Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs = request.Config.ChartPoints;
 
-        Dictionary<ChartPoints, FullPointPos> relevantChartPointPositions = _aspectPointSelector.SelectPoints(chartPointPositions, chartPointConfigSpecs);
-        List<PositionedPoint> posPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
+        var relevantChartPointPositions = aspectPointSelector.SelectPoints(chartPointPositions, chartPointConfigSpecs);
+        var posPoints = pointsMapping.MapFullPointPos2PositionedPoint(relevantChartPointPositions, CoordinateSystems.Ecliptical, true);
         List<PositionedPoint> cuspPoints = new();
         if (request.Config.UseCuspsForAspects)
         {
-            Dictionary<ChartPoints, FullPointPos> relevantCusps =
+            var relevantCusps =
                 (from posPoint in request.CalcChart.Positions
                  where posPoint.Key.GetDetails().PointCat == PointCats.Cusp
                  select posPoint)
                 .ToDictionary(x => x.Key, x => x.Value);
-            cuspPoints = _pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
+            cuspPoints = pointsMapping.MapFullPointPos2PositionedPoint(relevantCusps, CoordinateSystems.Ecliptical, true);
         }
         Dictionary<AspectTypes, AspectConfigSpecs?> allAspects = request.Config.Aspects;
         Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects = allAspects.Where(acSpec 
@@ -85,18 +76,18 @@ public sealed class AspectsHandler : IAspectsHandler
     public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs, double baseOrb)
     {
 
-        List<DistanceBetween2Points> pointDistances = _calculatedDistance.ShortestDistances(posPoints);
-        List<DistanceBetween2Points> cuspDistances = new();
+        var pointDistances = calculatedDistance.ShortestDistances(posPoints);
+        List<DistanceBetween2Points> cuspDistances = [];
         if (cuspPoints.Count > 0)
         {
-            cuspDistances = _calculatedDistance.ShortestDistanceBetweenPointsAndCusps(posPoints, cuspPoints);
+            cuspDistances = calculatedDistance.ShortestDistanceBetweenPointsAndCusps(posPoints, cuspPoints);
         }
         List<DistanceBetween2Points> allDistances = new(pointDistances.Count + cuspDistances.Count);
         allDistances.AddRange(pointDistances);
         allDistances.AddRange(cuspDistances);
         return (from distance in allDistances 
             from aspectConfigSpec in relevantAspects 
-            let maxOrb = _aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, 
+            let maxOrb = aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, 
                 aspectConfigSpec.Value.PercentageOrb / 100.0, baseOrb, chartPointConfigSpecs) 
             let aspectType = aspectConfigSpec.Key 
             let aspectDistance = aspectType.GetDetails().Angle 
@@ -105,6 +96,5 @@ public sealed class AspectsHandler : IAspectsHandler
             select new DefinedAspect(distance.Point1.Point, distance.Point2.Point, aspectType.GetDetails(), 
                 maxOrb, actualOrb)).ToList();
     }
-
-
+    
 }

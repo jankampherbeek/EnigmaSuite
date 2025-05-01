@@ -1,10 +1,10 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Core.Handlers;
+using Enigma.Core.Research;
 
 namespace Enigma.Api.Research;
 
@@ -39,21 +39,13 @@ public interface IResearchPathApi
 
 }
 
-public sealed class ResearchPathApi : IResearchPathApi
+public sealed class ResearchPathApi(IResearchPathHandler researchPathHandler) : IResearchPathApi
 {
-    private readonly IResearchPathHandler _researchPathHandler;
-
-    public ResearchPathApi(IResearchPathHandler researchPathHandler)
-    {
-        _researchPathHandler = researchPathHandler;
-    }
-
-
     /// <inherit/>
     public string DataPath(string projName, bool useControlGroup)
     {
         Guard.Against.NullOrEmpty(projName);
-        return _researchPathHandler.DataPath(projName, useControlGroup);
+        return researchPathHandler.DataPath(projName, useControlGroup);
     }
 
     /// <inherit/>
@@ -61,7 +53,7 @@ public sealed class ResearchPathApi : IResearchPathApi
     {
         Guard.Against.NullOrEmpty(projName);
         Guard.Against.NullOrEmpty(methodName);
-        return _researchPathHandler.ResultPath(projName, methodName, useControlGroup);
+        return researchPathHandler.ResultPath(projName, methodName, useControlGroup);
     }
 
     /// <inherit/>
@@ -69,7 +61,7 @@ public sealed class ResearchPathApi : IResearchPathApi
     {
         Guard.Against.NullOrEmpty(projName);
         Guard.Against.NullOrEmpty(methodName);
-        return _researchPathHandler.CountResultsPath(projName, methodName, useControlGroup);
+        return researchPathHandler.CountResultsPath(projName, methodName, useControlGroup);
     }
 
     /// <inherit/>
@@ -77,7 +69,7 @@ public sealed class ResearchPathApi : IResearchPathApi
     {
         Guard.Against.NullOrEmpty(projName);
         Guard.Against.NullOrEmpty(methodName);
-        return _researchPathHandler.SummedResultsPath(projName, methodName, useControlGroup);
+        return researchPathHandler.SummedResultsPath(projName, methodName, useControlGroup);
     }
 
 }

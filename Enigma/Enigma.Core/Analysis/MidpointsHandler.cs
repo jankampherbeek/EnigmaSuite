@@ -1,13 +1,11 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-
-using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Analysis;
 
 /// <summary>Handler for midpoints.</summary>
 public interface IMidpointsHandler
@@ -40,47 +38,35 @@ public interface IMidpointsHandler
 }
 
 
-// ======================= Implementation ======================================================
-
 /// <inheritdoc/>
-public sealed class MidpointsHandler : IMidpointsHandler
+public sealed class MidpointsHandler(
+    IPointsForMidpoints analysisPointsForMidpoints,
+    IBaseMidpointsCreator baseMidpointsCreator,
+    IOccupiedMidpointsFinder occupiedMidpoints)
+    : IMidpointsHandler
 {
-    private readonly IPointsForMidpoints _analysisPointsForMidpoints;
-    private readonly IBaseMidpointsCreator _baseMidpointsCreator;
-    private readonly IOccupiedMidpointsFinder _occupiedMidpoints;
-
-
-    public MidpointsHandler(IPointsForMidpoints analysisPointsForMidpoints,
-        IBaseMidpointsCreator baseMidpointsCreator,
-        IOccupiedMidpointsFinder occupiedMidpoints)
-    {
-        _analysisPointsForMidpoints = analysisPointsForMidpoints;
-        _baseMidpointsCreator = baseMidpointsCreator;
-        _occupiedMidpoints = occupiedMidpoints;
-    }
-
     /// <inheritdoc/>
     public IEnumerable<BaseMidpoint> RetrieveBaseMidpoints(CalculatedChart chart)
     {
         const double dialSize = 360.0;
-        List<PositionedPoint> analysisPoints = _analysisPointsForMidpoints.CreatePositionedPoints(chart, dialSize);
-        return _baseMidpointsCreator.CreateBaseMidpoints(analysisPoints);
+        var analysisPoints = analysisPointsForMidpoints.CreatePositionedPoints(chart, dialSize);
+        return baseMidpointsCreator.CreateBaseMidpoints(analysisPoints);
     }
 
     /// <inheritdoc/>
     public IEnumerable<OccupiedMidpoint> RetrieveOccupiedMidpoints(CalculatedChart chart, double dialSize, double orb)
     {
-        return _occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize, orb);
+        return occupiedMidpoints.CalculateOccupiedMidpoints(chart, dialSize, orb);
     }
 
     /// <inheritdoc/>
     public List<OccupiedMidpoint> RetrieveOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb)
     {
-        return _occupiedMidpoints.CalculateOccupiedMidpoints(posPoints, dialSize, orb);
+        return occupiedMidpoints.CalculateOccupiedMidpoints(posPoints, dialSize, orb);
     }
 
     public List<OccupiedMidpoint> RetrieveOccupiedMidpointsInDeclination(List<PositionedPoint> posPoints, double orb)
     {
-        return _occupiedMidpoints.CalculateOccupiedMidpointsInDeclination(posPoints, orb);
+        return occupiedMidpoints.CalculateOccupiedMidpointsInDeclination(posPoints, orb);
     }
 }

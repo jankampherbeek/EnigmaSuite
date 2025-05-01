@@ -1,13 +1,12 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Analysis;
 
 /// <summary>Handler for harmonics.</summary>
 public interface IHarmonicsHandler
@@ -26,32 +25,25 @@ public interface IHarmonicsHandler
 }
 
 /// <inheritdoc/>
-public sealed class HarmonicsHandler : IHarmonicsHandler
+public sealed class HarmonicsHandler(IHarmonicsCalculator calculator) : IHarmonicsHandler
 {
-    private readonly IHarmonicsCalculator _calculator;
-
-    public HarmonicsHandler(IHarmonicsCalculator calculator)
-    {
-        _calculator = calculator;
-    }
-
     /// <inheritdoc/>
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber)
     {
         var allPoints = from point in chart.Positions           // TODO remove restriction for Vertex and Eastpoint as new glyphs are available
                         where (point.Key.GetDetails().PointCat == PointCats.Common) || (point.Key.GetDetails().PointCat == PointCats.Angle && point.Key != ChartPoints.Vertex && point.Key != ChartPoints.EastPoint)
                         select point;
-        List<double> originalPositions = allPoints.Select(item => item.Value.Ecliptical.MainPosSpeed.Position).ToList();
-        return _calculator.CalculateHarmonics(originalPositions, harmonicNumber);
+        var originalPositions = allPoints.Select(item => item.Value.Ecliptical.MainPosSpeed.Position).ToList();
+        return calculator.CalculateHarmonics(originalPositions, harmonicNumber);
     }
 
     /// <inheritdoc/>
     public Dictionary<ChartPoints, double> RetrieveHarmonicPositions(List<PositionedPoint> posPoints, double harmonicNumber)
     {
         Dictionary<ChartPoints, double> harmonicPositions = new();
-        foreach (PositionedPoint posPoint in posPoints)
+        foreach (var posPoint in posPoints)
         {
-            double harmonic = _calculator.CalculateHarmonic(posPoint.Position, harmonicNumber);
+            var harmonic = calculator.CalculateHarmonic(posPoint.Position, harmonicNumber);
             harmonicPositions.Add(posPoint.Point, harmonic);
         }
         return harmonicPositions;

@@ -14,7 +14,7 @@ using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Research;
 
 /// <summary>Handlers for performing research methods.</summary>
 public interface IResearchMethodHandler

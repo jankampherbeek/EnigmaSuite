@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Core.Handlers;
+using Enigma.Core.Research;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
 using Serilog;

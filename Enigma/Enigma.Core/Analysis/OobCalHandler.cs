@@ -9,7 +9,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
 using Enigma.Facades.Se;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Analysis;
 
 /// <summary>Handler for the calculation of an Out of Bounds calendar.</summary>
 public interface IOobCalHandler
@@ -21,38 +21,28 @@ public interface IOobCalHandler
 }
 
 
-// =================== Implementation ================================================================
-
 /// <inheritdoc/>
-public sealed class OobCalHandler: IOobCalHandler
+public sealed class OobCalHandler(IOobCalendarCalc oobCalc, IJulDayFacade julDayFacade) : IOobCalHandler
 {
     private const double HOURS_PER_DAY = 24.0;
-    private readonly IOobCalendarCalc _oobCalc;
-    private readonly IJulDayFacade _julDayFacade;
-    
-    public OobCalHandler(IOobCalendarCalc oobCalc, IJulDayFacade julDayFacade)
-    {
-        _oobCalc = oobCalc;
-        _julDayFacade = julDayFacade;
-    }
-    
+
     /// <inheritdoc/>
     public List<OobCalEvent> CreateOobCalendar(OobCalRequest request)
     {
-        IEnumerable<OobSecJdEvent> jdEvents = _oobCalc.CreateOobCalendar(request).OrderBy(p => p.SecJd);
+        IEnumerable<OobSecJdEvent> jdEvents = oobCalc.CreateOobCalendar(request).OrderBy(p => p.SecJd);
         return ConvertToCalendarDates(jdEvents, request);
     }
 
     private List<OobCalEvent> ConvertToCalendarDates(IEnumerable<OobSecJdEvent> jdEvents, OobCalRequest request)
     {
-        List<OobCalEvent> oobCalEvents = new();
-        double radixJd = request.JdStart;
-        double zoneCorr = request.TimeOffset / HOURS_PER_DAY;
+        List<OobCalEvent> oobCalEvents = [];
+        var radixJd = request.JdStart;
+        var zoneCorr = request.TimeOffset / HOURS_PER_DAY;
         foreach (var jdEvent in jdEvents)
         {
-            double jdSpanInSecDays = jdEvent.SecJd - radixJd;
-            double jdSpanInYears = jdSpanInSecDays * EnigmaConstants.TROPICAL_YEAR_IN_DAYS + zoneCorr;
-            SimpleDateTime dTime = _julDayFacade.DateTimeFromJd(radixJd + jdSpanInYears, request.Cal);
+            var jdSpanInSecDays = jdEvent.SecJd - radixJd;
+            var jdSpanInYears = jdSpanInSecDays * EnigmaConstants.TROPICAL_YEAR_IN_DAYS + zoneCorr;
+            var dTime = julDayFacade.DateTimeFromJd(radixJd + jdSpanInYears, request.Cal);
             oobCalEvents.Add(new OobCalEvent(jdEvent.Point, jdEvent.EventType, dTime.Year, dTime.Month, dTime.Day));
         }
 

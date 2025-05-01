@@ -3,10 +3,10 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers;
+using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Analysis;
 
 /// <summary>SPI for the calculation of midpoints in declination.</summary>
 public interface IDeclMidpointsApi
@@ -20,21 +20,11 @@ public interface IDeclMidpointsApi
 }
 
 
-
-////////// Implementation //////////
-
-public class DeclMidpointsApi : IDeclMidpointsApi
+public class DeclMidpointsApi(IDeclMidpointsHandler handler) : IDeclMidpointsApi
 {
-    private IDeclMidpointsHandler _handler;
-
-    public DeclMidpointsApi(IDeclMidpointsHandler handler)
-    {
-        _handler = handler;
-    }
-    
     public IEnumerable<OccupiedMidpoint> OccupiedDeclMidpoints(CalculatedChart chart, double orb)
     {
-        return _handler.RetrieveOccupiedMidpoints(chart, orb);
+        return handler.RetrieveOccupiedMidpoints(chart, orb);
     }
 } 
  

@@ -1,12 +1,13 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
 
-namespace Enigma.Core.Handlers;
+namespace Enigma.Core.Calc;
 
 /// <summary>Handler for the calculation of  range of charts for research purposes.</summary>
 public interface ICalcChartsRangeHandler
@@ -17,30 +18,23 @@ public interface ICalcChartsRangeHandler
     public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request);
 }
 
-// ======================= Implementation ===================================
 
 /// <inheritdoc/>
-public sealed class CalcChartsRangeHandler : ICalcChartsRangeHandler
+public sealed class CalcChartsRangeHandler(
+    IChartAllPositionsHandler chartAllPositionsHandler,
+    IJulDayHandler julDayHandler)
+    : ICalcChartsRangeHandler
 {
-    private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
-    private readonly IJulDayHandler _julDayHandler;
-
-    public CalcChartsRangeHandler(IChartAllPositionsHandler chartAllPositionsHandler, IJulDayHandler julDayHandler)
-    {
-        _chartAllPositionsHandler = chartAllPositionsHandler;
-        _julDayHandler = julDayHandler;
-    }
-
     /// <inheritdoc/>
     public List<FullChartForResearchItem> CalculateRange(ChartsRangeRequest request)
     {
-        CalculationPreferences preferences = request.Preferences;
-        List<DataForCalculationOfRange> calcData = request.CalcData;
+        var preferences = request.Preferences;
+        var calcData = request.CalcData;
 
         return (from calcDataItem in calcData 
-            let jdUt = _julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt 
+            let jdUt = julDayHandler.CalcJulDay(calcDataItem.DateTime).JulDayUt 
             let celPointsRequest = new CelPointsRequest(jdUt, calcDataItem.Location, preferences) 
-            let chartPositions = _chartAllPositionsHandler.CalcFullChart(celPointsRequest) 
+            let chartPositions = chartAllPositionsHandler.CalcFullChart(celPointsRequest) 
             select new FullChartForResearchItem(calcDataItem.Id, chartPositions)).ToList();
     }
 

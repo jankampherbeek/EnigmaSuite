@@ -5,7 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using Enigma.Api;
+using Enigma.Api.Analysis;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.PresentationFactories;
@@ -16,26 +16,14 @@ using Enigma.Frontend.Ui.Support.Conversions;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for midpoints in radix</summary>
-public sealed class RadixMidpointsModel
+public sealed class RadixMidpointsModel(
+    IMidpointsApi midpointsApi,
+    IMidpointForDataGridFactory midpointForDataGridFactory,
+    IDoubleToDmsConversions doubleToDmsConversions,
+    IDescriptiveChartText descriptiveChartText)
 {
-    private readonly IMidpointsApi _midpointsApi;
-    private readonly IMidpointForDataGridFactory _midpointForDataGridFactory;
-    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly IDescriptiveChartText _descriptiveChartText;
-    private readonly DataVaultCharts _dataVaultCharts;
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
-
-    public RadixMidpointsModel(IMidpointsApi midpointsApi, 
-        IMidpointForDataGridFactory midpointForDataGridFactory, 
-        IDoubleToDmsConversions doubleToDmsConversions, 
-        IDescriptiveChartText descriptiveChartText)
-    {
-        _dataVaultCharts = DataVaultCharts.Instance;
-        _midpointsApi = midpointsApi;
-        _midpointForDataGridFactory = midpointForDataGridFactory;
-        _doubleToDmsConversions = doubleToDmsConversions;
-        _descriptiveChartText = descriptiveChartText;
-    }
 
     /// <summary>Calculate midpoints in radix</summary>
   /// <param name="dialSize">The size of the 'dial' to use.</param>
@@ -49,10 +37,10 @@ public sealed class RadixMidpointsModel
         if (chart == null)
             return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
         double orb = CurrentConfig.Instance.GetConfig().BaseOrbMidpoints;
-        IEnumerable<BaseMidpoint> baseMidpoints = _midpointsApi.AllMidpoints(chart);
-        presMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
-        IEnumerable<OccupiedMidpoint> occupiedMidpoints = _midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
-        presOccMidpoints = _midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
+        IEnumerable<BaseMidpoint> baseMidpoints = midpointsApi.AllMidpoints(chart);
+        presMidpoints = midpointForDataGridFactory.CreateMidpointsDataGrid(baseMidpoints);
+        IEnumerable<OccupiedMidpoint> occupiedMidpoints = midpointsApi.OccupiedMidpoints(chart, dialSize, orb);
+        presOccMidpoints = midpointForDataGridFactory.CreateMidpointsDataGrid(occupiedMidpoints);
         return new Tuple<List<PresentableMidpoint>, List<PresentableOccupiedMidpoint>>(presMidpoints, presOccMidpoints);
     }
 
@@ -60,12 +48,12 @@ public sealed class RadixMidpointsModel
   /// <returns>Textual description</returns>
     public string DescriptiveText()
     {
-        string descText = "";
-        CalculatedChart? chart = _dataVaultCharts.GetCurrentChart();
+        var descText = "";
+        var chart = _dataVaultCharts.GetCurrentChart();
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {
-            descText = _descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
+            descText = descriptiveChartText.ShortDescriptiveText(config, chart.InputtedChartData.MetaData);
         }
         return descText;
     }
@@ -73,7 +61,7 @@ public sealed class RadixMidpointsModel
 
     public string DegreesToDms(double value)
     {
-        return _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(value);
+        return doubleToDmsConversions.ConvertDoubleToPositionsDmsText(value);
     }
 
 }

@@ -1,15 +1,15 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Ardalis.GuardClauses;
-using Enigma.Core.Handlers;
+using Enigma.Core.Analysis;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Requests;
 using Serilog;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Analysis;
 
 
 /// <summary>Api for the analysis of aspects.</summary>
@@ -21,17 +21,8 @@ public interface IAspectsApi
 }
 
 /// <inheritdoc/>
-public sealed class AspectsApi : IAspectsApi
+public sealed class AspectsApi(IAspectsHandler aspectHandler) : IAspectsApi
 {
-
-    private readonly IAspectsHandler _aspectHandler;
-
-    public AspectsApi(IAspectsHandler aspectHandler)
-    {
-        _aspectHandler = aspectHandler;
-    }
-
-
     /// <inheritdoc/>
     public IEnumerable<DefinedAspect> AspectsForCelPoints(AspectRequest request)
     {
@@ -39,7 +30,7 @@ public sealed class AspectsApi : IAspectsApi
         Guard.Against.Null(request.CalcChart);
         Log.Information("AspectsApi: AspectsForChartPoints for chart {Name}", 
             request.CalcChart.InputtedChartData.MetaData.Name);
-        return _aspectHandler.AspectsForChartPoints(request);
+        return aspectHandler.AspectsForChartPoints(request);
     }
 }
 
