@@ -331,12 +331,14 @@ public class RdbmsPreparator: IRdbmsPreparator
     {
         return
             """
+            create TABLE ControlGroupTypes(id integer primary key AUTOINCREMENT, name varchar(100) NOT NULL);
             create TABLE DataFiles(id integer primary key AUTOINCREMENT, name varchar(50) NOT NULL,
                          location varchar(256) NOT NULL);
             create TABLE Projects(id integer primary key AUTOINCREMENT, name varchar(50) NOT NULL,
                          description varchar(200), location varchar(256) NOT NULL, multiFactor integer NOT NULL,
-                         created varchar(30) NOT NULL, datafile integer NOT NULL,
-                         FOREIGN KEY (dataFile) REFERENCES DataFiles(id));
+                         created varchar(30) NOT NULL, datafile integer NOT NULL, controlgrouptype integer NOT NULL,
+                         FOREIGN KEY (dataFile) REFERENCES DataFiles(id),
+                         FOREIGN KEY (controlgrouptype) REFERENCES ControlGroupTypes(id));
             create TABLE Settings(name varchar(30) primary key, value varchar(256) NOT NULL);
             """;
     }
@@ -344,6 +346,7 @@ public class RdbmsPreparator: IRdbmsPreparator
     private static string ConstructPopulateQuery()
     {
         return """
+               insert into ControlGroupTypes(name) VALUES('StandardShift');
                insert into ChartCategories(name) VALUES('Female');
                insert into ChartCategories(name) VALUES('Male');
                insert into ChartCategories(name) VALUES('Event');
