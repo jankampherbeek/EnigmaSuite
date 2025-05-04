@@ -43,7 +43,7 @@ public partial class ProjectInputViewModel: ObservableObject
     [ObservableProperty] private int _controlGroupIndex;
     [ObservableProperty] private string _selectedDatafileName = string.Empty;
     [ObservableProperty] private int _datafileIndex = -1;
-    [ObservableProperty] private int _cgMultiplicationIndex;
+    [ObservableProperty] private string _multiplicationValue = "1";
     [ObservableProperty] private ObservableCollection<string> _availableControlGroupTypes;
     [ObservableProperty] private ObservableCollection<string> _controlGroupMultiplications;
     [ObservableProperty] private ObservableCollection<string> _availableDatafileNames;
@@ -51,6 +51,7 @@ public partial class ProjectInputViewModel: ObservableObject
     public SolidColorBrush ProjectNameValid => IsProjectNameValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush ProjectDescriptionValid => IsProjectDescriptionValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DatafileValid => IsDatafileValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush MultiplicationValid => IsMultiplicationValid() ? Brushes.Gray : Brushes.Red;
     
     public ProjectInputViewModel()
     {
@@ -85,6 +86,13 @@ public partial class ProjectInputViewModel: ObservableObject
     {
         return !string.IsNullOrEmpty(SelectedDatafileName) && AvailableDatafileNames.Contains(SelectedDatafileName);
     }
+
+    private bool IsMultiplicationValid()
+    {
+        if (string.IsNullOrEmpty(MultiplicationValue) && !_saveClicked) return true;
+        if (!int.TryParse(MultiplicationValue, out int value)) return false;
+        return value >= 1 && value <= 1000;
+    }
     
     [RelayCommand]
     private void SaveProject()
@@ -99,8 +107,12 @@ public partial class ProjectInputViewModel: ObservableObject
                 return;
             }
 
-            string multiplicationText = ControlGroupMultiplications[CgMultiplicationIndex]; 
-            int multiplicationValue = int.Parse(multiplicationText);
+            if (!int.TryParse(MultiplicationValue, out int multiplicationValue) || multiplicationValue < 1 || multiplicationValue > 1000)
+            {
+                MessageBox.Show("Multiplication value must be between 1 and 1000", StandardTexts.TITLE_ERROR);
+                return;
+            }
+
             ControlGroupTypes cgType = ControlGroupTypesExtensions.ControlGroupTypeForIndex(ControlGroupIndex);
             DateTime now = DateTime.Now;
             var cgIndexinDb = _model.GetControlGroupTypeId(cgType.ToString());
@@ -145,6 +157,8 @@ public partial class ProjectInputViewModel: ObservableObject
             errorsText.Append(StandardTexts.ERROR_DESCRIPTION + EnigmaConstants.NEW_LINE);
         if (!IsDatafileValid())
             errorsText.Append(StandardTexts.ERROR_DATAFILE_MISSING + EnigmaConstants.NEW_LINE);
+        if (!IsMultiplicationValid())
+            errorsText.Append("Multiplication value must be between 1 and 1000" + EnigmaConstants.NEW_LINE);
         return errorsText.ToString();
     }
 
