@@ -5,7 +5,7 @@
 
 using Enigma.Core.Persistency;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Persistency;
 
 /// <summary>Api for the preparation of the relational database.</summary>
 public interface IRdbmsPrepApi
@@ -16,18 +16,11 @@ public interface IRdbmsPrepApi
 }
 
 /// <inheritdoc/>
-public class RdbmsPrepApi: IRdbmsPrepApi
+public sealed class RdbmsPrepApi(IRdbmsPreparator preparator) : IRdbmsPrepApi
 {
-    private IRdbmsPreparator _preparator;
-    
-    public RdbmsPrepApi(IRdbmsPreparator preparator)
-    {
-        _preparator = preparator;
-    }
-    
     /// <inheritdoc/>
     public bool PrepareRdbms()
     {
-        return _preparator.PreparaDatabase();
+        return preparator.PreparaDatabase();
     }
 }

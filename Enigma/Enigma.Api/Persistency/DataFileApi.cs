@@ -12,24 +12,19 @@ using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 using Serilog;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Persistency;
 
 /// <summary>Api for conversions from Csv to Json.</summary>
-public interface IDataHandlerApi
+public interface IDataFileApi
 {
-    /// <summary>Convert an inputted datafiles in csv to standard csv-format.</summary>
+    /// <summary>Convert an inputted datafile in csv to standard csv-format.</summary>
     /// <remarks>Locations for the files are retrieved from the application settings.</remarks>
     /// <param name="sourceFile">Path to the source file.</param>
     /// <param name="dataName">Name for the datafile.</param>
     /// <param name="dataType">Type of research data.</param>
     /// <returns>Resultmessage with info about this action.</returns>
     public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType);
-    
-}
 
-/// <summary>Api for managing the file system.</summary>
-public interface IDataFileManagementApi
-{
     /// <summary>Check if a datafile is not yet used</summary>
     /// <param name="name">The name for the datafile to check</param>
     /// <returns>True if the datafile exists, otherwise false.</returns>
@@ -65,7 +60,10 @@ public interface IPdDataImportExportApi
 }
 
 /// <inheritdoc/>
-public sealed class DataHandlerApi(IDataImportHandler dataImportHandler) : IDataHandlerApi
+public sealed class DataFileApi(
+    IDataImportHandler dataImportHandler,
+    IDataFilePreparator dataFilePreparator,
+    IDataFileDao dataFileDao) : IDataFileApi
 {
     /// <inheritdoc/>
     public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType)
@@ -75,11 +73,7 @@ public sealed class DataHandlerApi(IDataImportHandler dataImportHandler) : IData
             $"DataHandlerApi Convert data to standard format, using sourceFile {sourceFile} and dataName {dataName}");
         return dataImportHandler.ImportStandardData(sourceFile, dataName, dataType);
     }
-}
 
-/// <inheritdoc/>
-public sealed class DataFileManagementApi(IDataFilePreparator dataFilePreparator, IDataFileDao dataFileDao) : IDataFileManagementApi
-{
     /// <inheritdoc/>
     public bool DataFileNameIsAvailable(string name)
     {
@@ -127,5 +121,3 @@ public sealed class PdDataImportExportApi(IPdDataFromToRdbmsHandler handler) : I
         return handler.ImportPdDataToRdbms(csvFilename);
     }
 }
-
-

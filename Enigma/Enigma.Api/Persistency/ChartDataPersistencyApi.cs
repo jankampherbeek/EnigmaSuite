@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using Enigma.Core.Persistency;
 using Enigma.Domain.Persistables;
 using Serilog;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Persistency;
 
 /// <summary>AI for persistency ChartData.</summary>
 public interface IChartDataPersistencyApi

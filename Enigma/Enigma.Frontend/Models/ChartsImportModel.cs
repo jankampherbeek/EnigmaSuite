@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Domain.Responses;
 
 namespace Enigma.Frontend.Ui.Models;

@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Api.Research;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
@@ -18,7 +19,7 @@ namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for input new project</summary>
 public class ProjectInputModel(
-    IDataFileManagementApi fileManagementApi,
+    IDataFileApi fileManagementApi,
     IProjectCreationApi projectCreationApi,
     IControlGroupTypeApi controlGroupTypeApi,
     IDataNameForPresentationFactory dataNameForPresentationFactory)

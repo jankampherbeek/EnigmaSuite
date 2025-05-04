@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Persistables;
 using Enigma.Domain.Presentables;

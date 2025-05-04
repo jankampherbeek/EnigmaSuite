@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,7 +8,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Research;
@@ -42,7 +42,7 @@ public partial class ProjectUsageViewModel: ObservableObject,
     
     private readonly ProjectUsageModel _model = App.ServiceProvider.GetRequiredService<ProjectUsageModel>();
 
-    private readonly IDataFileManagementApi _dataFileApi = App.ServiceProvider.GetRequiredService < IDataFileManagementApi>();
+    private readonly IDataFileApi _dataFileApi = App.ServiceProvider.GetRequiredService < IDataFileApi>();
     private bool _sufficientSelections;
     private bool _testCanceled;
     

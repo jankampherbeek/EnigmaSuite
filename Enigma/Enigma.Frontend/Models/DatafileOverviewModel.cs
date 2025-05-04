@@ -4,7 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.PresentationFactories;
 
@@ -13,11 +13,11 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for the overview of data files</summary>
 public sealed class DatafileOverviewModel
 {
-    private readonly IDataFileManagementApi _fileManagementApi;
+    private readonly IDataFileApi _fileManagementApi;
 
     private readonly IDataNameForPresentationFactory _dataNameForPresentationFactory;
     
-    public DatafileOverviewModel(IDataFileManagementApi fileManagementApi, 
+    public DatafileOverviewModel(IDataFileApi fileManagementApi, 
         IDataNameForPresentationFactory dataNameForPresentationFactory)
     {
         _fileManagementApi = fileManagementApi;

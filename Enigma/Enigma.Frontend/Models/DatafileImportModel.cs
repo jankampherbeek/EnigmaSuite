@@ -4,19 +4,18 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Domain.Constants;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
 
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for the overview of data files</summary>
-public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi, IDataHandlerApi dataHandlerApi, ISettingsApi settingsApi)
+public sealed class DatafileImportModel(IDataFileApi dataFileApi, ISettingsApi settingsApi)
 {
     public List<string> AllDataTypes()
     {
@@ -29,7 +28,7 @@ public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi
     /// <returns>True if a directory for the data with the given name can be created, otherwise false.</returns>
     public bool CheckIfNameCanBeUsed(string dataName)
     {
-        return fileManagementApi.DataFileNameIsAvailable(dataName);
+        return dataFileApi.DataFileNameIsAvailable(dataName);
     }
 
     /// <summary>Start processing a csv file and convert it to standard format. If no error occurs, save the Json and a copy of the csv.</summary>
@@ -43,12 +42,12 @@ public sealed class DatafileImportModel(IDataFileManagementApi fileManagementApi
         var workFolder = settingsApi.ReadSetting("workfolder");        
         var dataPath = workFolder + Path.DirectorySeparatorChar + "datafiles" + Path.DirectorySeparatorChar + Path.DirectorySeparatorChar + dataName;
         
-        var receivedResultMessage = fileManagementApi.CreateFoldersForData(dataPath);
+        var receivedResultMessage = dataFileApi.CreateFoldersForData(dataPath);
         if (receivedResultMessage.ErrorCode > ResultCodes.OK)
         {
             return receivedResultMessage;
         }
-        receivedResultMessage = dataHandlerApi.ConvertDataFile2Standard(inputFile, dataName, dataType);
+        receivedResultMessage = dataFileApi.ConvertDataFile2Standard(inputFile, dataName, dataType);
         return receivedResultMessage;
     }
     

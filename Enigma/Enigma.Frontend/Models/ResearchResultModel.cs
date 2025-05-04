@@ -5,7 +5,7 @@
 
 using System.Linq;
 using System.Text;
-using Enigma.Api;
+using Enigma.Api.Persistency;
 using Enigma.Api.Research;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Exceptions;

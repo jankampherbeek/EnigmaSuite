@@ -7,7 +7,7 @@ using Ardalis.GuardClauses;
 using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 
-namespace Enigma.Api;
+namespace Enigma.Api.Persistency;
 
 /// <summary>API for managing settings</summary>
 public interface ISettingsApi

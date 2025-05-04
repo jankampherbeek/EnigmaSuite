@@ -135,7 +135,7 @@
                     </DataGrid>
                     <ComboBox Grid.Column="1" Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
-                              materialDesign:HintAssist.Hint="Type of apogee (Black Moon)"
+                              materialDesign:HintAssist.Hint="Type of corrected apogee (Black Moon)"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding AllApogeeTypes}" 
                               SelectedIndex="{Binding ApogeeTypeIndex, Mode=TwoWay}" />

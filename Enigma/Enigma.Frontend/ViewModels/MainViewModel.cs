@@ -19,6 +19,7 @@ using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
+using Enigma.Api.Persistency;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace Enigma.Frontend.Ui.ViewModels;

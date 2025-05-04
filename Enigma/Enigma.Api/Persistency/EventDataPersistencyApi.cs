@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -8,10 +8,7 @@ using Enigma.Core.Persistency;
 using Enigma.Domain.Persistables;
 using Serilog;
 
-namespace Enigma.Api;
-
-
-
+namespace Enigma.Api.Persistency;
 
 /// <summary>AI for persistency Event data.</summary>
 public interface IEventDataPersistencyApi
@@ -41,32 +38,21 @@ public interface IEventDataPersistencyApi
 }
 
 
-
-
-
 /// <inheritdoc/>
-public sealed class EventDataPersistencyApi : IEventDataPersistencyApi
+public sealed class EventDataPersistencyApi(IEventDataDao eventDataDao) : IEventDataPersistencyApi
 {
-
-    private readonly IEventDataDao _eventDataDao;
-
-    public EventDataPersistencyApi(IEventDataDao eventDataDao)
-    {
-        _eventDataDao = eventDataDao;
-    }
-
     /// <inheritdoc/>
     public PersistableEventData? ReadEventData(long index)
     {
         Log.Information("EventDataPersistencyApi.ReadEventData() for id {Id} requested", index);
-        return _eventDataDao.ReadEventData(index);
+        return eventDataDao.ReadEventData(index);
     }
 
     /// <inheritdoc/>
     public List<PersistableEventData> SearchEventData(long chartId)
     {
         Log.Information("EventDataPersistencyApi.SearchEventData() for chartId {Id} requested", chartId);
-        return _eventDataDao.SearchEventData(chartId);
+        return eventDataDao.SearchEventData(chartId);
     }
 
     /// <inheritdoc/>
@@ -76,14 +62,14 @@ public sealed class EventDataPersistencyApi : IEventDataPersistencyApi
         Log.Information(
             "EventDataPersistencyApi.AddEventData() for eventData with id {EventData} and chartId {ChartId} requested", 
             eventData.Id, chartId);
-        return _eventDataDao.AddEventData(eventData, chartId);
+        return eventDataDao.AddEventData(eventData, chartId);
     }
 
     /// <inheritdoc/>
     public bool DeleteEventData(long index)
     {
         Log.Information("EventDataPersistencyApi.DeleteEventData() for index {Index} requested", index);
-        return _eventDataDao.DeleteEventData(index);
+        return eventDataDao.DeleteEventData(index);
     }
     
 }

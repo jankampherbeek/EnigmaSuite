@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using Dapper;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
+using LiteDB;
 using Serilog;
 
 namespace Enigma.Core.Persistency;
@@ -56,7 +57,7 @@ public class RdbmsPreparator: IRdbmsPreparator
                 if (CreateDatabase(fullPath))
                 {
                     Log.Information("Database successfully created");
-                    if (PopulateDatabase(fullPath))
+                    if (PopulateDatabaseInitial(fullPath))
                     {
                         Log.Information("Database successfully populated");
                     }
@@ -107,7 +108,7 @@ public class RdbmsPreparator: IRdbmsPreparator
                 return noErrors;
             }
             Log.Information("Starting database update to version {Version}", DB_VERSION);
-            var sqlQuery = ConstructInit_0_6_Query();
+            var sqlQuery = Construct_0_6_Query();
             var connectionString = $"Data Source={fullPath}";
             using var dbConnection = new SQLiteConnection(connectionString);
             dbConnection.Open();
@@ -129,6 +130,8 @@ public class RdbmsPreparator: IRdbmsPreparator
                 Log.Information("Tables after update: {Tables}", string.Join(", ", tables));
                 transaction.Commit();
                 Log.Information("Successfully committed database update to version {Version}", DB_VERSION);
+                PopulateDatabase_0_6(fullPath);
+                Log.Information("Populated version 0.6.0 of database");
             }
             catch (Exception e)
             {
@@ -276,14 +279,23 @@ public class RdbmsPreparator: IRdbmsPreparator
         return noErrors;
     }
 
-    private static bool PopulateDatabase(string fullPath)
+    private static bool PopulateDatabaseInitial(string fullPath)
+    {
+        return PopulateDatabase(fullPath, ConstructPopulateQuery(), "0.6.0");
+    }
+    
+    private static bool PopulateDatabase_0_6(string fullPath)
+    {
+        return PopulateDatabase(fullPath, ConstructPopulate_0_6_Query(), "0.6.0");
+    }
+
+    private static bool PopulateDatabase(string fullPath, string sqlQuery, string version)
     {
         var noErrors = true;
         try
         {
             var connectionString = $"Data Source={fullPath}";
             using var dbConnection = new SQLiteConnection(connectionString);
-            var sqlQuery = ConstructPopulateQuery();
             dbConnection.Open();
             dbConnection.Execute(sqlQuery);
             var anonymousDbVersion = new{description = EnigmaConstants.ENIGMA_VERSION};
@@ -292,12 +304,11 @@ public class RdbmsPreparator: IRdbmsPreparator
         } 
         catch (Exception e)
         {
-            Log.Error("An error occurred while populating database. Exception: {Msg}", e.Message);
+            Log.Error($"An error occurred while populating database for version {version}. Exception: {e.Message}");
             noErrors = false;
         }
         return noErrors;
     }
-    
 
     private static string ConstructInitQuery()
     {
@@ -327,7 +338,7 @@ public class RdbmsPreparator: IRdbmsPreparator
             ;
     }
 
-    private static string ConstructInit_0_6_Query()
+    private static string Construct_0_6_Query()
     {
         return
             """
@@ -342,11 +353,10 @@ public class RdbmsPreparator: IRdbmsPreparator
             create TABLE Settings(name varchar(30) primary key, value varchar(256) NOT NULL);
             """;
     }
-    
+                   
     private static string ConstructPopulateQuery()
     {
         return """
-               insert into ControlGroupTypes(name, rbkey) VALUES('StandardShift','ref.controlgrouptype.standardshift');
                insert into ChartCategories(name) VALUES('Female');
                insert into ChartCategories(name) VALUES('Male');
                insert into ChartCategories(name) VALUES('Event');
@@ -365,4 +375,8 @@ public class RdbmsPreparator: IRdbmsPreparator
                """;
     }
     
+    private static string ConstructPopulate_0_6_Query()
+    {
+        return "insert into ControlGroupTypes(name, rbkey) VALUES('StandardShift','ref.controlgrouptype.standardshift');";
+    }
 }
