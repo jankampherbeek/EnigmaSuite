@@ -42,8 +42,8 @@ public class ProjectDao: IProjectDao
             using var dbConnection = new SQLiteConnection(connectionString);
             dbConnection.Open();
             const string insertQuery = """
-                                       INSERT INTO Projects(name, description, location, multiFactor, created, datafile)
-                                       VALUES(@Name, @Description, @Location, @MultiFactor, @Created, @DataFile);
+                                       INSERT INTO Projects(name, description, location, multiFactor, created, datafile, controlgrouptype)
+                                       VALUES(@Name, @Description, @Location, @MultiFactor, @Created, @DataFile, @ControlGroupType);
                                        SELECT last_insert_rowid();
                                        """;
             var id = dbConnection.Query<int>(insertQuery, project).FirstOrDefault();

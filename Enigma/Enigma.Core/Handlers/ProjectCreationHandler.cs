@@ -59,6 +59,7 @@ public sealed class ProjectCreationHandler(
             Description = project.Description,
             Location = projPath,
             DataFile = project.IndexDataFile,
+            ControlGroupType = project.IndexControlGroupType,
             MultiFactor = project.ControlGroupMultiplication
         };
         errorCode = 0;

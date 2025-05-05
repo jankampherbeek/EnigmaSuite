@@ -10,9 +10,8 @@ using Enigma.Domain.Responses;
 using Serilog;
 using System.Globalization;
 using Enigma.Core.Persistency;
-using Enigma.Domain.References;
 
-namespace Enigma.Api.Research;
+namespace Enigma.Api.Persistency;
 
 /// <summary>Api for creation of a research project.</summary>
 public interface IProjectCreationApi
@@ -48,7 +47,7 @@ public sealed class ProjectCreationApi(IProjectCreationHandler projectCreationHa
     {
         Guard.Against.Null(project);
         Log.Information("ProjectCreationApi CreateProject: about to create project {Name}", project.Name);
-        var success = projectCreationHandler.CreateProject(project, out int errorCode);
+        var success = projectCreationHandler.CreateProject(project, out var errorCode);
         var msg = "Project created";
         if (success)
         {

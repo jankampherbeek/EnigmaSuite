@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -32,9 +32,9 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         const ZodiacTypes zodiacType = ZodiacTypes.Tropical;
         const ProjectionTypes projectionType = ProjectionTypes.TwoDimensional;
         const OrbMethods orbMethod = OrbMethods.Weighted;
-        Dictionary<ChartPoints, ChartPointConfigSpecs> chartPointsSpecs = CreateChartPoints();
-        Dictionary<AspectTypes, AspectConfigSpecs> aspectSpecs = CreateAspects();
-        Dictionary<AspectTypes, string> aspectColorSpecs = CreateAspectColors(); 
+        var chartPointsSpecs = CreateChartPoints();
+        var aspectSpecs = CreateAspects();
+        var aspectColorSpecs = CreateAspectColors(); 
         
         const double baseOrbAspects = 10.0;
         const double baseOrbMidpoints = 1.6;
@@ -114,7 +114,6 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { ChartPoints.EastPoint, new ChartPointConfigSpecs(false, ' ', 20, true) },
             { ChartPoints.Vertex, new ChartPointConfigSpecs(false, ' ', 0, true) }
         };
-
         return chartPointConfigSpecs;
     }
 
@@ -123,27 +122,27 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         Dictionary<AspectTypes, AspectConfigSpecs> aspectConfigSpecs = new()
         {
             { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100, true) },
-            { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100, true) },
-            { AspectTypes.Triangle, new AspectConfigSpecs(true, 'D', 85, true) },
-            { AspectTypes.Square, new AspectConfigSpecs(true, 'E', 85, true) },
-            { AspectTypes.Septile, new AspectConfigSpecs(false, 'N', 30, true) },
             { AspectTypes.Sextile, new AspectConfigSpecs(true, 'F', 70, true) },
-            { AspectTypes.Quintile, new AspectConfigSpecs(false, 'Q', 30, true) },
-            { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 30, true) },
-            { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 30, true)},
-            { AspectTypes.SemiQuintile, new AspectConfigSpecs(false, 'Ô', 30, true) },
-            { AspectTypes.BiQuintile, new AspectConfigSpecs(false, 'L', 30, true) },
+            { AspectTypes.Square, new AspectConfigSpecs(true, 'E', 85, true) },            
+            { AspectTypes.Triangle, new AspectConfigSpecs(true, 'D', 85, true) },            
+            { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100, true) },
             { AspectTypes.Inconjunct, new AspectConfigSpecs(false, 'H', 30, true) },
-            { AspectTypes.SesquiQuadrate, new AspectConfigSpecs(false, 'J', 30, true) },
-            { AspectTypes.TriDecile, new AspectConfigSpecs(false, 'Õ', 15, true) },
-            { AspectTypes.BiSeptile, new AspectConfigSpecs(false, 'Ú', 15, true) },
-            { AspectTypes.TriSeptile, new AspectConfigSpecs(false, 'Û', 15, true) },
-            { AspectTypes.Novile, new AspectConfigSpecs(false, 'Ü', 15, true) },
+            { AspectTypes.Vigintile, new AspectConfigSpecs(false, 'Ï', 15, true) },
+            { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 30, true) },
+            { AspectTypes.Undecile, new AspectConfigSpecs(false, 'ç', 15, true) },  
+            { AspectTypes.SemiQuintile, new AspectConfigSpecs(false, 'Ô', 30, true) },
+            { AspectTypes.Novile, new AspectConfigSpecs(false, 'Ü', 15, true) },            
+            { AspectTypes.SemiSquare, new AspectConfigSpecs(false, 'I', 30, true)},
+            { AspectTypes.Septile, new AspectConfigSpecs(false, 'N', 30, true) },
+            { AspectTypes.Quintile, new AspectConfigSpecs(false, 'Q', 30, true) },
             { AspectTypes.BiNovile, new AspectConfigSpecs(false, 'Ñ', 15, true) },
-            { AspectTypes.QuadraNovile, new AspectConfigSpecs(false, '|', 15, true) },
-            { AspectTypes.Undecile, new AspectConfigSpecs(false, 'ç', 15, true) },
             { AspectTypes.Centile, new AspectConfigSpecs(false, 'Ç', 15, true) },
-            { AspectTypes.Vigintile, new AspectConfigSpecs(false, 'Ï', 15, true) }
+            { AspectTypes.BiSeptile, new AspectConfigSpecs(false, 'Ú', 15, true) },            
+            { AspectTypes.TriDecile, new AspectConfigSpecs(false, 'Õ', 15, true) },
+            { AspectTypes.SesquiQuadrate, new AspectConfigSpecs(false, 'J', 30, true) },
+            { AspectTypes.BiQuintile, new AspectConfigSpecs(false, 'L', 30, true) },
+            { AspectTypes.TriSeptile, new AspectConfigSpecs(false, 'Û', 15, true) },
+            { AspectTypes.QuadraNovile, new AspectConfigSpecs(false, '|', 15, true) },
         };
         return aspectConfigSpecs;
     }
@@ -153,27 +152,27 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         Dictionary<AspectTypes, string> aspectColors = new()
         {
             { AspectTypes.Conjunction, "Blue" },
-            { AspectTypes.Opposition, "Red" },
-            { AspectTypes.Triangle, "Green" },
-            { AspectTypes.Square, "Red" },
-            { AspectTypes.Septile, "Gray" },
             { AspectTypes.Sextile, "Green" },
-            { AspectTypes.Quintile, "CornflowerBlue" },
-            { AspectTypes.SemiSextile, "Gray" },
-            { AspectTypes.SemiSquare, "Orange" },
-            { AspectTypes.SemiQuintile, "CornflowerBlue" },
-            { AspectTypes.BiQuintile, "CornflowerBlue" },
+            { AspectTypes.Square, "Red" },
+            { AspectTypes.Triangle, "Green" },            
+            { AspectTypes.Opposition, "Red" },
             { AspectTypes.Inconjunct, "Purple" },
-            { AspectTypes.SesquiQuadrate, "Orange" },
-            { AspectTypes.TriDecile, "Gray" },
-            { AspectTypes.BiSeptile, "Gray" },
-            { AspectTypes.TriSeptile, "Gray" },
-            { AspectTypes.Novile, "Gray" },
-            { AspectTypes.BiNovile, "Gray" },
-            { AspectTypes.QuadraNovile, "Gray" },
+            { AspectTypes.Vigintile, "Gray" },
+            { AspectTypes.SemiSextile, "Gray" },
             { AspectTypes.Undecile, "Gray" },
+            { AspectTypes.SemiQuintile, "CornflowerBlue" },
+            { AspectTypes.Novile, "Gray" },            
+            { AspectTypes.SemiSquare, "Orange" },
+            { AspectTypes.Septile, "Gray" },
+            { AspectTypes.Quintile, "CornflowerBlue" },
+            { AspectTypes.BiNovile, "Gray" },
             { AspectTypes.Centile, "Gray" },
-            { AspectTypes.Vigintile, "Gray" }
+            { AspectTypes.BiSeptile, "Gray" },
+            { AspectTypes.TriDecile, "Gray" },
+            { AspectTypes.SesquiQuadrate, "Orange" },       
+            { AspectTypes.BiQuintile, "CornflowerBlue" },
+            { AspectTypes.TriSeptile, "Gray" },
+            { AspectTypes.QuadraNovile, "Gray" },
         };
         return aspectColors;
     }
