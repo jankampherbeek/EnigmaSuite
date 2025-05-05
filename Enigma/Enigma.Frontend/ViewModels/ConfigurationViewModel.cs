@@ -79,14 +79,16 @@ public partial class ConfigurationViewModel: ObservableObject
 
     public ConfigurationViewModel()
     {
+        var (points, aspects, colors) = ConfigurationModel.GetAllConfigurationData();
+        
         AllHouses = new ObservableCollection<string>(ConfigurationModel.AllHouses());
         AllZodiacTypes = new ObservableCollection<string>(ConfigurationModel.AllZodiacTypes());
         AllAyanamshas = new ObservableCollection<string>(ConfigurationModel.AllAyanamshas());
         AllObserverPositions = new ObservableCollection<string>(ConfigurationModel.AllObserverPositions());
         AllProjectionTypes = new ObservableCollection<string>(ConfigurationModel.AllProjectionTypes());
-        AllGeneralPoints = new ObservableCollection<GeneralPoint>(ConfigurationModel.AllGeneralPoints());
-        AllAspectColors = new ObservableCollection<AspectColor>(ConfigurationModel.AllAspectColors());
-        AllAspects = new ObservableCollection<GeneralAspect>(ConfigurationModel.AllAspects());
+        AllGeneralPoints = new ObservableCollection<GeneralPoint>(points);
+        AllAspectColors = new ObservableCollection<AspectColor>(colors);
+        AllAspects = new ObservableCollection<GeneralAspect>(aspects);
         AllOrbMethods = new ObservableCollection<string>(ConfigurationModel.AllOrbMethods());
         AllApogeeTypes = new ObservableCollection<string>(ConfigurationModel.AllApogeeTypes());
         

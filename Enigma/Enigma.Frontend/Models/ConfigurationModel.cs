@@ -118,12 +118,39 @@ public class ConfigurationModel
 
     public static List<AspectColor> AllAspectColors()
     {
-        var configColors = CurrentConfig.Instance.GetConfig().AspectColors.AsList();
+        var config = CurrentConfig.Instance.GetConfig();
         return (from aspect in AspectTypesExtensions.AllDetails()
-            from configColorAspect in CurrentConfig.Instance.GetConfig().AspectColors
+            from configColorAspect in config.AspectColors
             where configColorAspect.Key == aspect.Aspect
             select new AspectColor(aspect.Aspect, aspect.Glyph, _rosetta.GetText(aspect.RbKey), 
                 configColorAspect.Value)).ToList();
+    }
+
+    public static (List<GeneralPoint> Points, List<GeneralAspect> Aspects, List<AspectColor> Colors) GetAllConfigurationData()
+    {
+        var config = CurrentConfig.Instance.GetConfig();
+        Log.Information("ConfigurationModel.GetAllConfigurationData: retrieving all config data");
+        
+        var points = (from point in PointsExtensions.AllDetails() 
+                from configPoint in config.ChartPoints 
+                where configPoint.Key == point.Point 
+                select new GeneralPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text, 
+                    configPoint.Value.PercentageOrb, configPoint.Value.ShowInChart)).ToList();
+                    
+        var aspects = (from aspect in AspectTypesExtensions.AllDetails()
+                from configAspect in config.Aspects
+                where configAspect.Key == aspect.Aspect
+                select new GeneralAspect(aspect.Aspect, configAspect.Value.IsUsed, configAspect.Value.Glyph, 
+                    _rosetta.GetText(aspect.RbKey), configAspect.Value.PercentageOrb, 
+                    configAspect.Value.ShowInChart)).ToList();
+                    
+        var colors = (from aspect in AspectTypesExtensions.AllDetails()
+                from configColorAspect in config.AspectColors
+                where configColorAspect.Key == aspect.Aspect
+                select new AspectColor(aspect.Aspect, aspect.Glyph, _rosetta.GetText(aspect.RbKey), 
+                    configColorAspect.Value)).ToList();
+                    
+        return (points, aspects, colors);
     }
 }
 
