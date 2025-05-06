@@ -5,6 +5,7 @@
 
 using System.Collections.Generic;
 using Enigma.Api;
+using Enigma.Api.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;

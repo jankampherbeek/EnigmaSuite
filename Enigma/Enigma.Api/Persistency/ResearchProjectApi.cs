@@ -10,6 +10,7 @@ using Enigma.Domain.Responses;
 using Serilog;
 using System.Globalization;
 using Enigma.Core.Persistency;
+using Enigma.Core.Research;
 
 namespace Enigma.Api.Persistency;
 

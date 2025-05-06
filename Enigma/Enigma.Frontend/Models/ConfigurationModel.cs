@@ -9,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using Dapper;
 using Enigma.Api;
+using Enigma.Api.Configuration;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;

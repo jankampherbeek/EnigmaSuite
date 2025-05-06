@@ -5,7 +5,9 @@
 
 using Enigma.Api.Analysis;
 using Enigma.Api.Calc;
+using Enigma.Api.CAlc;
 using Enigma.Api.Charts.Prog.PrimDir;
+using Enigma.Api.Configuration;
 using Enigma.Api.LocationAndTimeZones;
 using Enigma.Api.Persistency;
 using Enigma.Api.Research;

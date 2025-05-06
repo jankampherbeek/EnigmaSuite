@@ -1,9 +1,8 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using System.Collections.Generic;
 using System.Linq;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -23,8 +22,8 @@ public class ConfigPreferencesConverter: IConfigPreferencesConverter
 {
     public CalculationPreferences RetrieveCalculationPreferences()
     {
-        AstroConfig config = CurrentConfig.Instance.GetConfig();
-        List<ChartPoints> celPoints = (
+        var config = CurrentConfig.Instance.GetConfig();
+        var celPoints = (
             from spec in config.ChartPoints 
             where spec.Value.IsUsed 
             select spec.Key).ToList();

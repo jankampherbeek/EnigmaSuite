@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api;
+using Enigma.Api.Analysis;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -11,7 +11,7 @@ using Enigma.Frontend.Ui.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
-using Enigma.Api;
+using Enigma.Api.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Graphics;
@@ -37,7 +37,7 @@ public partial class App
         base.OnStartup(e);
         DefineLogging();
         Log.Information("********************** Enigma starting ***********************");
-        ISeApi seApi = ServiceProvider.GetRequiredService<ISeApi>();
+        var seApi = ServiceProvider.GetRequiredService<ISeApi>();
         seApi.SetupSe("se");
     }
 

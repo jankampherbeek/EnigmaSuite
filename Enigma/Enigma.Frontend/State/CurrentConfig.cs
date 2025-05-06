@@ -3,7 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api;
+using Enigma.Api.Configuration;
 using Enigma.Domain.Dtos;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -45,14 +45,14 @@ public sealed class CurrentConfig
 
     public AstroConfig GetConfig()
     {
-        IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
+        var configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
         Log.Information("CurrentConfig.GetConfig(): requesting config from config api");
         return _currentConfig ?? configApi.GetCurrentConfiguration();
     }
 
     public ConfigProg GetConfigProg()
     {
-        IConfigurationApi configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
+        var configApi = App.ServiceProvider.GetRequiredService<IConfigurationApi>();
         return _currentConfigProg ?? configApi.GetCurrentProgConfiguration();
     }
     

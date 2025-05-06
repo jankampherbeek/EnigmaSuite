@@ -1,9 +1,9 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api;
+using Enigma.Api.Calc;
 using Enigma.Api.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.State;
@@ -37,10 +37,10 @@ public class ProgEventModel: DateTimeLocationModelBase
         }
         SimpleDateTime dateTime = new(FullDate.YearMonthDay[0], FullDate.YearMonthDay[1], FullDate.YearMonthDay[2],
             FullTime.Ut, FullDate.Calendar);
-        double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;
-        string locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "" : locationName + " ";
-        string fullLocationName = locNameCheckedForEmpty + FullGeoLongitude!.GeoLongFullText + " " +
-                                  FullGeoLatitude!.GeoLatFullText;
+        var julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt;
+        var locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "" : locationName + " ";
+        var fullLocationName = locNameCheckedForEmpty + FullGeoLongitude!.GeoLongFullText + " " +
+                               FullGeoLatitude!.GeoLatFullText;
         Location? location = new(fullLocationName, FullGeoLongitude.Longitude, FullGeoLatitude.Latitude);
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ProgEvent progEvent = new(0, description, locationName, location, fullDateTime);

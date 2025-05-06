@@ -1,0 +1,40 @@
+﻿// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2022.
+// All Enigma software is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Domain.Exceptions;
+using Enigma.Domain.Requests;
+using Serilog;
+
+namespace Enigma.Core.Calc;
+
+/// <summary>Handler for the calculation of obliquity of the earths axis.</summary>
+public interface IObliquityHandler
+{
+    /// <summary>Start the calculation.</summary>
+    /// <param name="obliquityRequest"></param>
+    /// <returns></returns>
+    public double CalcObliquity(ObliquityRequest obliquityRequest);
+}
+
+/// <inheritdoc/>
+public sealed class ObliquityHandler(IObliquityCalc obliquityCalc) : IObliquityHandler
+{
+    /// <inheritdoc/>
+    public double CalcObliquity(ObliquityRequest obliquityRequest)
+    {
+        double obliquity;
+        try
+        {
+            obliquity = obliquityCalc.CalculateObliquity(obliquityRequest.JdUt, true);        // always use true obliquity
+        }
+        catch (SwissEphException see)
+        {
+            Log.Error( "ObliquityHandler.CalcObliquity(): received error: {Msg}", see.Message);
+            throw new EnigmaException("SE encounterd error when calculating obliquity");
+        }
+        return obliquity;
+    }
+
+}

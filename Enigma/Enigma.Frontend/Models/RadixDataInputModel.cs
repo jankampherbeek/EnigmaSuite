@@ -1,12 +1,12 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Enigma.Api;
+using Enigma.Api.Calc;
 using Enigma.Api.LocationAndTimeZones;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.LocationsZones;
@@ -53,17 +53,17 @@ public class RadixDataInputModel: DateTimeLocationModelBase
 
     public void CreateChartData(string nameId, string description, string source, string locationName, int chartCat, int rating)
     {
-        long catId = _retrievedCats.Keys.ToList()[chartCat];
-        long ratingId = _retrievedRatings.Keys.ToList()[rating];
+        var catId = _retrievedCats.Keys.ToList()[chartCat];
+        var ratingId = _retrievedRatings.Keys.ToList()[rating];
         if (FullDate == null || FullTime == null) return;
-        int id = ChartsIndexSequence.NewSequenceId();
-        MetaData metaData = CreateMetaData(nameId, description, source, locationName, catId, ratingId);
+        var id = ChartsIndexSequence.NewSequenceId();
+        var metaData = CreateMetaData(nameId, description, source, locationName, catId, ratingId);
        
         SimpleDateTime dateTime = new(FullDate.YearMonthDay[0], FullDate.YearMonthDay[1], FullDate.YearMonthDay[2], 
             FullTime.Ut, FullDate.Calendar);
-        double julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt + FullTime.CorrectionForDay;
-        string locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "Location undefined " : locationName + " ";        
-        string fullLocationName = _locationConversion.CreateLocationDescription(locNameCheckedForEmpty, 
+        var julianDayUt = _julianDayApi.GetJulianDay(dateTime).JulDayUt + FullTime.CorrectionForDay;
+        var locNameCheckedForEmpty = string.IsNullOrEmpty(locationName) ? "Location undefined " : locationName + " ";        
+        var fullLocationName = _locationConversion.CreateLocationDescription(locNameCheckedForEmpty, 
             FullGeoLatitude.Latitude, FullGeoLongitude.Longitude);
         
         
@@ -71,8 +71,8 @@ public class RadixDataInputModel: DateTimeLocationModelBase
         FullDateTime fullDateTime = new(FullDate.DateFullText, FullTime.TimeFullText, julianDayUt);
         ChartData chartData = new(id, metaData, location, fullDateTime);
         Log.Information("RadixDataInputModel.CreateChartData(): calculating chart via ChartCalculation");
-        CalculatedChart chart = _chartCalculation.CalculateChart(chartData);
-        DataVaultCharts dataVaultCharts = DataVaultCharts.Instance;
+        var chart = _chartCalculation.CalculateChart(chartData);
+        var dataVaultCharts = DataVaultCharts.Instance;
         dataVaultCharts.AddNewChart(chart);
         dataVaultCharts.SetNewChartAdded(true);
     }

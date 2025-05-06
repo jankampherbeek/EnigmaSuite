@@ -5,6 +5,7 @@
 
 using System;
 using Enigma.Api;
+using Enigma.Api.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
@@ -14,33 +15,25 @@ using Enigma.Frontend.Ui.Support.Parsers;
 
 namespace Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 
-public class PrimDirInputModel
+public class PrimDirInputModel(
+    IDateInputParser dateInputParser,
+    ITextToDateConverter textToDateConverter,
+    IJulianDayApi julianDayApi)
 {
-    private readonly IDateInputParser _dateInputParser;
-    private readonly ITextToDateConverter _textToDateConverter;
-    private readonly IJulianDayApi _julianDayApi;
-    
-    public PrimDirInputModel(IDateInputParser dateInputParser, 
-        ITextToDateConverter textToDateConverter,
-        IJulianDayApi julianDayApi)
-    {
-        _dateInputParser = dateInputParser;
-        _textToDateConverter = textToDateConverter;
-        _julianDayApi = julianDayApi;
-    }
-    
-   
+    private readonly IDateInputParser _dateInputParser = dateInputParser;
+
+
     public bool AreDatesValid(string startDateTxt, string endDateTxt, Calendars cal, YearCounts yc)
     {
         try
         {
-            bool startDateOk = _textToDateConverter.ConvertText(startDateTxt, cal, out SimpleDate startDate);
-            bool endDateOk = _textToDateConverter.ConvertText(endDateTxt, cal, out SimpleDate endDate);
+            bool startDateOk = textToDateConverter.ConvertText(startDateTxt, cal, out SimpleDate startDate);
+            bool endDateOk = textToDateConverter.ConvertText(endDateTxt, cal, out SimpleDate endDate);
             SimpleDateTime startDateTime = CreateDateTimeNoon(startDate);
             SimpleDateTime endDateTime = CreateDateTimeNoon(endDate);
-            JulianDayResponse response = _julianDayApi.GetJulianDay(startDateTime);
+            JulianDayResponse response = julianDayApi.GetJulianDay(startDateTime);
             double startJd = response.JulDayEt;
-            response = _julianDayApi.GetJulianDay(endDateTime);
+            response = julianDayApi.GetJulianDay(endDateTime);
             double endJd = response.JulDayEt;
             bool sequenceOk = startJd < endJd;
             double radixJd = DataVaultCharts.Instance.GetCurrentChart().InputtedChartData.FullDateTime.JulianDayForEt;

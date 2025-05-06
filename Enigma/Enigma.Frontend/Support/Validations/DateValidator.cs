@@ -1,10 +1,10 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
-using Enigma.Api;
+using Enigma.Api.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Serilog;
@@ -24,37 +24,29 @@ public interface IDateValidator
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate);
 }
 
-public class DateValidator : IDateValidator
+public class DateValidator(IDateTimeApi dateTimeHandler) : IDateValidator
 {
-
-    private readonly IDateTimeApi _dateTimeApi;
-
-    public DateValidator(IDateTimeApi dateTimeHandler)
-    {
-        _dateTimeApi = dateTimeHandler;
-    }
-
     public bool CreateCheckedDate(int[] dateValues, Calendars calendar, YearCounts yearCount, out FullDate? fullDate)
     {
         Log.Information("DateValidator.CreateCheckedDate(): calls private method CheckCalendarRules()");
-        bool success = dateValues is { Length: 3 } && CheckCalendarRules(dateValues, calendar, yearCount);
+        var success = dateValues is { Length: 3 } && CheckCalendarRules(dateValues, calendar, yearCount);
         fullDate = null;
 
         if (!success) return success;
-        string fullDateText = CreateFullDateText(dateValues, calendar);
+        var fullDateText = CreateFullDateText(dateValues, calendar);
         fullDate = new FullDate(dateValues, calendar, fullDateText);
         return success;
     }
 
     private static string CreateFullDateText(IReadOnlyList<int> dateValues, Calendars calendar)
     {
-        string yearText = $"{dateValues[0]:D4}";
+        var yearText = $"{dateValues[0]:D4}";
         if (dateValues[0] > 9999 || dateValues[0] < -9999)
         {
             yearText = $"{dateValues[0]:D5}";
         }
-        string monthText = GetPostFixIdForResourceBundle(dateValues[1]);
-        string calendarText = calendar == Calendars.Gregorian ? "g" : "j";
+        var monthText = GetPostFixIdForResourceBundle(dateValues[1]);
+        var calendarText = calendar == Calendars.Gregorian ? "g" : "j";
         return $"[{monthText}] {yearText}, {dateValues[2]} [{calendarText}]";
     }
 
@@ -69,7 +61,7 @@ public class DateValidator : IDateValidator
         if (yearCount == YearCounts.BCE) dateValues[0] = -dateValues[0] + 1;
         SimpleDateTime simpleDateTime = new(dateValues[0], dateValues[1], dateValues[2], 0.0, calendar);
         Log.Information("DateValidator.CheckCalendarRules(): calling DateTaimeApi.CheckDateTime()");
-        return _dateTimeApi.CheckDateTime(simpleDateTime);
+        return dateTimeHandler.CheckDateTime(simpleDateTime);
     }
 
 }
