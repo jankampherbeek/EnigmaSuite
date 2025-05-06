@@ -6,7 +6,6 @@
 using System.Globalization;
 using Enigma.Core.Data;
 using Enigma.Core.Persistency;
-using Enigma.Core.Research;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Exceptions;
 using Enigma.Domain.References;
@@ -88,6 +87,9 @@ public sealed class ResearchMethodHandler(
         Log.Information("Starting research with {TotalCharts} charts", totalCharts);
         _isProcessing = true;
 
+        var dateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace("/", "-").Replace(" ", "-")
+            .Replace(":", "-");
+
         while (processedCharts < totalCharts)
         {
             var remainingCharts = totalCharts - processedCharts;
@@ -95,10 +97,10 @@ public sealed class ResearchMethodHandler(
             var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
             var batchCharts = researchPositions.CalculatePositions(batchInput);
             AddChartsToCsv(batchCharts, request.ProjectName, request.Method, request.UseControlGroup,
-                request.PointSelection);
-            
+                request.PointSelection, dateTime);
+
             processedCharts += currentBatchSize;
-            
+
             // Only raise progress event if we're processing
             if (_isProcessing)
             {
@@ -151,7 +153,7 @@ public sealed class ResearchMethodHandler(
     }
 
     private void AddChartsToCsv(List<CalculatedResearchChart> charts, string projName, ResearchMethods method,
-        bool isControlGroup, ResearchPointSelection selection)
+        bool isControlGroup, ResearchPointSelection selection, string dateTime)
     {
         var workFolder = settingsDao.ReadSetting("workfolder");
         var coord = "Longitude";
@@ -161,11 +163,10 @@ public sealed class ResearchMethodHandler(
             coord = "Declination";
         }
 
-        var dateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace("/","-").Replace(" ","-").Replace(":","-");
         var sep = Path.DirectorySeparatorChar;
         var typeOfTest = isControlGroup ? "Control" : "Test";
-        var fullPath = workFolder + sep + "projects" + sep + projName + sep + "results" + sep + typeOfTest + "-" 
-            + coord + "-" + dateTime + ".csv";
+        var fullPath = workFolder + sep + "projects" + sep + projName + sep + "results" + sep + typeOfTest + "-"
+                       + coord + "-" + dateTime + ".csv";
 
         var persistableCharts = charts.Select(chart => new ResearchPositionsForChart
         {
