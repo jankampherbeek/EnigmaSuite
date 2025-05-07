@@ -84,6 +84,7 @@ public partial class ProjectInputViewModel: ObservableObject
 
     private bool IsDatafileValid()
     {
+        if (!_saveClicked) return true;
         return !string.IsNullOrEmpty(SelectedDatafileName) && AvailableDatafileNames.Contains(SelectedDatafileName);
     }
 
@@ -91,7 +92,7 @@ public partial class ProjectInputViewModel: ObservableObject
     {
         if (string.IsNullOrEmpty(MultiplicationValue) && !_saveClicked) return true;
         if (!int.TryParse(MultiplicationValue, out int value)) return false;
-        return value >= 1 && value <= 1000;
+        return value is >= 1 and <= 1000;
     }
     
     [RelayCommand]
