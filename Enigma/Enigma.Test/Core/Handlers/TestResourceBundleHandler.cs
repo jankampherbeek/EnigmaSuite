@@ -12,7 +12,7 @@ namespace Enigma.Test.Core.Handlers;
 [TestFixture]
 public class TestResourceBundleHandler
 {
-    private IResourceBundleHandler handler = new Enigma.Core.Handlers.TestResourceBundleHandler(new TextFileReader());
+    private IResourceBundleHandler handler = new Enigma.Core.Handlers.ResourceBundleHandler(new TextFileReader());
 
 
     [Test]

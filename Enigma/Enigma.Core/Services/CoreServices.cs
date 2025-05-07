@@ -111,7 +111,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
         serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();
-        serviceCollection.AddTransient<IResourceBundleHandler, TestResourceBundleHandler>();
+        serviceCollection.AddTransient<IResourceBundleHandler, ResourceBundleHandler>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<ISeHandler, SeHandler>();
         serviceCollection.AddTransient<ISettingsDao, SettingsDao>();

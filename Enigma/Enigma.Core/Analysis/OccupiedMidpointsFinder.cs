@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -7,7 +7,7 @@ using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Analysis;
 
-/// <summary>Handle the calculartion of occupied midpoints.</summary>
+/// <summary>Handle the calculation of occupied midpoints.</summary>
 public interface IOccupiedMidpointsFinder
 {
     /// <summary>Calculate occupied midpoints for a specific dial.</summary>
@@ -39,30 +39,23 @@ public interface IOccupiedMidpointsFinder
 }
 
 /// <inheritdoc/>
-public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
+public sealed class OccupiedMidpointsFinder(
+    IPointsForMidpoints analysisPointsForMidpoints,
+    IBaseMidpointsCreator baseMidpointsCreator)
+    : IOccupiedMidpointsFinder
 {
-
-    private readonly IPointsForMidpoints _analysisPointsForMidpoints;
-    private readonly IBaseMidpointsCreator _baseMidpointsCreator;
-
-    public OccupiedMidpointsFinder(IPointsForMidpoints analysisPointsForMidpoints, IBaseMidpointsCreator baseMidpointsCreator)
-    {
-        _analysisPointsForMidpoints = analysisPointsForMidpoints;
-        _baseMidpointsCreator = baseMidpointsCreator;
-    }
-
     /// <inheritdoc/>
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(CalculatedChart chart, double dialSize, double baseOrb)
     {
-        List<PositionedPoint> analysisPointsInActualDial = _analysisPointsForMidpoints.CreatePositionedPoints(chart, dialSize);
+        var analysisPointsInActualDial = analysisPointsForMidpoints.CreatePositionedPoints(chart, dialSize);
         return CalculateOccupiedMidpoints(analysisPointsInActualDial, dialSize, baseOrb);
     }
 
     /// <inheritdoc/>
     public List<OccupiedMidpoint> CalculateOccupiedMidpoints(List<PositionedPoint> posPoints, double dialSize, double orb)
     {
-        List<BaseMidpoint> baseMidpointsIn360Dial = _baseMidpointsCreator.CreateBaseMidpoints(posPoints);
-        List<BaseMidpoint> baseMidpointsInActualDial = _baseMidpointsCreator.ConvertBaseMidpointsToDial(baseMidpointsIn360Dial, dialSize);
+        var baseMidpointsIn360Dial = baseMidpointsCreator.CreateBaseMidpoints(posPoints);
+        var baseMidpointsInActualDial = baseMidpointsCreator.ConvertBaseMidpointsToDial(baseMidpointsIn360Dial, dialSize);
 
         return (from baseMidpoint in baseMidpointsInActualDial 
             let positionInDial = baseMidpoint.Position 
@@ -75,14 +68,14 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
 
     public List<OccupiedMidpoint> CalculateOccupiedMidpointsInDeclination(CalculatedChart chart, double orb)
     {
-        List<PositionedPoint> analysisPointsInDeclination = _analysisPointsForMidpoints.CreatePositionedPointsForDecl(chart);
+        var analysisPointsInDeclination = analysisPointsForMidpoints.CreatePositionedPointsForDecl(chart);
         return CalculateOccupiedMidpointsInDeclination(analysisPointsInDeclination, orb);
     }
 
     /// <inheritdoc/>
     public List<OccupiedMidpoint> CalculateOccupiedMidpointsInDeclination(List<PositionedPoint> posPoints, double orb)
     {
-        List<BaseMidpoint> baseMidpointsInDeclination = _baseMidpointsCreator.CreateBaseMidpointsInDeclination(posPoints);
+        var baseMidpointsInDeclination = baseMidpointsCreator.CreateBaseMidpointsInDeclination(posPoints);
         return (from baseMidpoint in baseMidpointsInDeclination 
             let positionInDial = baseMidpoint.Position 
             from analysisPoint in posPoints 
@@ -94,17 +87,17 @@ public sealed class OccupiedMidpointsFinder : IOccupiedMidpointsFinder
 
     private static double MeasureMidpointDeviation(double midpointPos, double posCelPoint, double dialSize)
     {
-        double smallPos = (posCelPoint < midpointPos) ? posCelPoint : midpointPos;
-        double largePos = (posCelPoint < midpointPos) ? midpointPos : posCelPoint;
-        double deviation = largePos - smallPos;
+        var smallPos = (posCelPoint < midpointPos) ? posCelPoint : midpointPos;
+        var largePos = (posCelPoint < midpointPos) ? midpointPos : posCelPoint;
+        var deviation = largePos - smallPos;
         if (deviation >= (dialSize / 2.0)) deviation = dialSize - deviation;
         return deviation;
     }
     
     private static double MeasureMidpointDeviation(double midpointPos, double posCelPoint)
     {
-        double smallPos = (posCelPoint < midpointPos) ? posCelPoint : midpointPos;
-        double largePos = (posCelPoint < midpointPos) ? midpointPos : posCelPoint;
+        var smallPos = (posCelPoint < midpointPos) ? posCelPoint : midpointPos;
+        var largePos = (posCelPoint < midpointPos) ? midpointPos : posCelPoint;
         return largePos - smallPos;
     }
 }

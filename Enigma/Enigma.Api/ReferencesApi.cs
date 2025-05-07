@@ -36,52 +36,43 @@ public interface IReferencesApi
     /// <param name="index">The id of the file format.</param>
     /// <returns>If found, the name of the category. Otherwise an empty string.</returns>
     public string ReadNameForFileFormat(int index);
-    
-    
 }
 
 
 /// <inheritdoc/>
-public class ReferencesApi:IReferencesApi
+public class ReferencesApi(IReferencesDao refDao) : IReferencesApi
 {
-    private IReferencesDao _refDao;
-
-    public ReferencesApi(IReferencesDao refDao)
-    {
-        _refDao = refDao;
-    }
-    
     /// <inheritdoc/>
     public Dictionary<long, string> ReadAllRatings()
     {
-        return _refDao.ReadAllRatings();
+        return refDao.ReadAllRatings();
     }
 
     /// <inheritdoc/>
     public string ReadNameForeRating(int index)
     {
-        return _refDao.ReadNameForRating(index);
+        return refDao.ReadNameForRating(index);
     }
 
     /// <inheritdoc/>
     public Dictionary<long, string> ReadAllChartCategories()
     {
-        return _refDao.ReadAllChartCategories();
+        return refDao.ReadAllChartCategories();
     }
 
     /// <inheritdoc/>
     public string ReadNameForChartCategory(int index)
     {
-        return _refDao.ReadNameForChartCategory(index);
+        return refDao.ReadNameForChartCategory(index);
     }
 
     public Dictionary<long, string> ReadAllFileFormats()
     {
-        return _refDao.ReadAllFileFormats();
+        return refDao.ReadAllFileFormats();
     }
 
     public string ReadNameForFileFormat(int index)
     {
-        return _refDao.ReadNameForFileFormat(index);
+        return refDao.ReadNameForFileFormat(index);
     }
 }

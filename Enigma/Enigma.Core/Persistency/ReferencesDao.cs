@@ -49,13 +49,6 @@ public interface IReferencesDao
 
 public class ReferencesDao : IReferencesDao
 {
- //   private const string DATA_SOURCE_PREFIX = "Data Source=";
- //   private string fullPath = Path.Combine(ApplicationSettings.LocationDatabase, "database", EnigmaConstants.RDBMS_NAME);
-    
-
-    
-    
-    
     public Dictionary<long, string> ReadAllRatings()
     {
         var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
@@ -69,7 +62,7 @@ public class ReferencesDao : IReferencesDao
 
     public string ReadNameForRating(int index)
     {
-        string ratingNameResult = "";
+        var ratingNameResult = "";
         var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
         var connectionString = $"Data Source={fullPath}";
         SQLiteConnection dbConnection = new(connectionString);
@@ -94,7 +87,7 @@ public class ReferencesDao : IReferencesDao
 
     public string ReadNameForChartCategory(int index)
     {
-        string categoryNameResult = "";
+        var categoryNameResult = "";
         var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
         var connectionString = $"Data Source={fullPath}";
         SQLiteConnection dbConnection = new(connectionString);

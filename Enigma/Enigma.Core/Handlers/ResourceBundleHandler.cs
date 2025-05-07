@@ -17,19 +17,12 @@ public interface IResourceBundleHandler
 }
 
 /// <inheritdoc/>
-public class TestResourceBundleHandler:IResourceBundleHandler
+public class ResourceBundleHandler(ITextFileReader fileReader) : IResourceBundleHandler
 {
-    private readonly ITextFileReader _fileReader;
-
-    public TestResourceBundleHandler(ITextFileReader fileReader)
-    {
-        _fileReader = fileReader;
-    }
-    
     /// <inheritdoc/>
     public Dictionary<string, string> GetAllTextsFromResourceBundle(string path)
     {
-        List<string> allLines = _fileReader.ReadAllLines(path);
+        List<string> allLines = fileReader.ReadAllLines(path);
         return ProcessLines(allLines);
     }
 

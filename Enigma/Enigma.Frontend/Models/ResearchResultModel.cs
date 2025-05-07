@@ -20,7 +20,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for research result</summary>
 public class ResearchResultModel
 {
-    private const int COLUMN_SIZE = 9;
+    private const int COLUMN_SIZE = 10;
     private const int LARGE_COLUMN_SIZE = 20;
     private const int START_COLUMN_ASPECTS_SIZE = 50;
     private const int MAX_LINE_SIZE = 128;
@@ -28,9 +28,9 @@ public class ResearchResultModel
     private const string SPACES = "                    "; // 20 spaces
     private const string SEPARATOR_LINE = "--------------------------------------------------"; // 50 positions
     private const string HEADER_SIGNS =
-        "                    ARI      TAU      GEM      CAN      LEO      VIR      LIB      SCO      SAG      CAP      AQU      PIS";
+        "                    ARI       TAU       GEM       CAN       LEO       VIR       LIB       SCO       SAG       CAP       AQU       PIS";
     private const string HEADER_HOUSES =
-        "                    1        2        3        4        5        6        7        8        9        10       11       12 ";
+        "                    1         2         3         4         5         6         7         8         9         10        11        12 ";
     private const string HARMONIC_CONJUNCTIONS = "Harmonic conjunctions. Harmonic number: ";
     private const string OCCUPIED_MIDPOINTS = "Occupied midpoints for dial division";
     private const string OCCUPIED_MIDPOINTS_DECL = "Occupied midpoints in declination";
@@ -237,7 +237,7 @@ public class ResearchResultModel
                 foreach (var total in totals)
                 {
                     var meanValue = total / (double)ctrlGroupFactor;
-                    var meanTxt = $"{meanValue:F3}";
+                    var meanTxt = $"{meanValue:F2}";
                     resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
                 }
             }

@@ -20,19 +20,12 @@ public interface ICommunicationHandler
 }
 
 /// <inheritdoc/>
-public class CommunicationHandler : ICommunicationHandler
+public class CommunicationHandler(IHttpRequester httpRequester) : ICommunicationHandler
 {
-    private readonly IHttpRequester _httpRequester;
-
-    public CommunicationHandler(IHttpRequester httpRequester)
-    {
-        _httpRequester = httpRequester;
-    }
-
     /// <inheritdoc/>
     public ReleaseInfo FindLatestRelease()
     {
-        string json = _httpRequester.GetHttpRequest(EnigmaConstants.RELEASE_CHECK_URL);
+        string json = httpRequester.GetHttpRequest(EnigmaConstants.RELEASE_CHECK_URL);
         return json == "" ? new ReleaseInfo("", "", "", "", "") : JsonSerializer.Deserialize<ReleaseInfo>(json)!;
     }
 

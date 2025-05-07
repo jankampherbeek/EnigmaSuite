@@ -18,18 +18,11 @@ public interface IResourceBundleApi
 
 
 /// <inheritdoc/>
-public class ResourceBundleApi: IResourceBundleApi
+public class ResourceBundleApi(IResourceBundleHandler handler) : IResourceBundleApi
 {
-    private readonly IResourceBundleHandler _handler;
-
-    public ResourceBundleApi(IResourceBundleHandler handler)
-    {
-        _handler = handler;
-    }
-    
     /// <inheritdoc/>
     public Dictionary<string, string?> RetrieveTexts(string rbPath)
     {
-        return _handler.GetAllTextsFromResourceBundle(rbPath);
+        return handler.GetAllTextsFromResourceBundle(rbPath);
     }
 }
