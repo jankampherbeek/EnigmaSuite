@@ -5,7 +5,6 @@
 
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Enigma.Api.Services;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
@@ -18,6 +17,7 @@ using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
 using Enigma.Frontend.Ui.Support.Validations;
@@ -31,8 +31,6 @@ namespace Enigma.Frontend.Ui;
 public partial class App
 {
     public static ServiceProvider ServiceProvider { get; } = HandleRegistrationForDi();
-
-    private static readonly string EnigmaLogRoot = ApplicationSettings.LocationLogFiles;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -149,6 +147,7 @@ public partial class App
     {
         var settingsApi = ServiceProvider.GetRequiredService<ISettingsApi>();
         var workFolder = settingsApi.ReadSetting("workfolder");
+        ApplicationSettings.SetWorkFolder(workFolder!);
         // TODO show warning if workfolder is not defined
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()

@@ -20,7 +20,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Api.Persistency;
-using Microsoft.WindowsAPICodePack.Dialogs;
+using Enigma.Frontend.Ui.State;
+
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -89,14 +90,13 @@ public partial class MainViewModel: ObservableObject
     
     private static void HandleCheckDirForSettings()     
     {
-        var settings = ApplicationSettings.Instance;
         if (!Directory.Exists(ApplicationSettings.LocationEnigmaRoot)) Directory.CreateDirectory(ApplicationSettings.LocationEnigmaRoot);
         if (!Directory.Exists(ApplicationSettings.LocationExportFiles)) Directory.CreateDirectory(ApplicationSettings.LocationExportFiles);
-        if (!Directory.Exists(settings.LocationProjectFiles)) Directory.CreateDirectory(settings.LocationProjectFiles);
-        if (!Directory.Exists(ApplicationSettings.LocationDataFiles)) Directory.CreateDirectory(ApplicationSettings.LocationDataFiles);
         if (!Directory.Exists(ApplicationSettings.LocationDatabase)) Directory.CreateDirectory(ApplicationSettings.LocationDatabase);
-        if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
         if (!Directory.Exists(ApplicationSettings.LocationDocs)) Directory.CreateDirectory(ApplicationSettings.LocationDocs);
+        if (!Directory.Exists(ApplicationSettings.LocationProjectFiles)) Directory.CreateDirectory(ApplicationSettings.LocationProjectFiles);
+        if (!Directory.Exists(ApplicationSettings.LocationDataFiles)) Directory.CreateDirectory(ApplicationSettings.LocationDataFiles);
+        if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
     }
 
     private static string GetWorkfolderPath()

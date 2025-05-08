@@ -20,20 +20,15 @@ public partial class AppSettingsViewModel: ObservableObject
     private const string VM_IDENTIFICATION = GeneralWindowsFlow.APP_SETTINGS;
     [ObservableProperty] private string _locationOfDataFiles;
     [ObservableProperty] private string _locationOfProjectFiles;
-    [ObservableProperty] private string _locationOfDatabase;
-    [ObservableProperty] private string _locationOfExportFiles;
     [ObservableProperty] private string _locationOfLogFiles;
-    [ObservableProperty] private string _locationOfDocs;
+
     
     public AppSettingsViewModel()
     {
        AppSettingsModel model = App.ServiceProvider.GetRequiredService<AppSettingsModel>();
        _locationOfDataFiles = AppSettingsModel.LocationOfDataFiles();
-       _locationOfProjectFiles = model.LocationOfProjectFiles();
-       _locationOfDatabase = AppSettingsModel.LocationOfDatabase();
-       _locationOfExportFiles = AppSettingsModel.LocationOfExportFiles();
+       _locationOfProjectFiles = AppSettingsModel.LocationOfProjectFiles();
        _locationOfLogFiles = AppSettingsModel.LocationOfLogFiles();
-       _locationOfDocs = AppSettingsModel.LocationOfDocs();
     }
 
     [RelayCommand] private static void Close()

@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -22,27 +22,17 @@ public interface IProjectDetails
 }
 
 /// <inheritdoc/>
-public sealed class ProjectDetails : IProjectDetails
+public sealed class ProjectDetails(ITextFileReader textFileReader, IResearchProjectParser parser)
+    : IProjectDetails
 {
-
-    private readonly ITextFileReader _textFileReader;
-    private readonly IResearchProjectParser _parser;
-
-    public ProjectDetails(ITextFileReader textFileReader, IResearchProjectParser parser)
-    {
-        _textFileReader = textFileReader;
-        _parser = parser;
-    }
-
     /// <inheritdoc/>
     public ResearchProject FindProjectDetails(string projectName)
     {
-        string projectPath = ApplicationSettings.Instance.LocationProjectFiles + Path.DirectorySeparatorChar + projectName
+        var projectPath = ApplicationSettings.LocationProjectFiles + Path.DirectorySeparatorChar + projectName
             + Path.DirectorySeparatorChar + "project.csv";
         
-        
-        string jsonText = _textFileReader.ReadFile(projectPath);
-        return _parser.UnMarshall(jsonText);
+        var jsonText = textFileReader.ReadFile(projectPath);
+        return parser.UnMarshall(jsonText);
     }
 
 }
