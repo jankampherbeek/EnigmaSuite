@@ -5,6 +5,7 @@
 
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using Enigma.Api.Services;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.Support;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Api.Calc;
+using Enigma.Api.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Frontend.Ui.Charts.Prog.PrimDir;
 using Enigma.Frontend.Ui.Graphics;
@@ -145,12 +147,13 @@ public partial class App
 
     private static void DefineLogging()
     {
+        var settingsApi = ServiceProvider.GetRequiredService<ISettingsApi>();
+        var workFolder = settingsApi.ReadSetting("workfolder");
+        // TODO show warning if workfolder is not defined
         Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .WriteTo.File(Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) +  Path.DirectorySeparatorChar +
-                "enigma" +  Path.DirectorySeparatorChar + "logs",
-                "enigma"),
+                    workFolder + Path.DirectorySeparatorChar + "logs" + Path.DirectorySeparatorChar, "enigma"),
                 rollingInterval: RollingInterval.Day)
             .CreateLogger();
     }
