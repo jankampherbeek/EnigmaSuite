@@ -42,6 +42,11 @@ public interface IDataFileDao
     /// <param name="name">The name of the data file to read.</param>
     /// <returns>The data file, or null if not found.</returns>
     public DataFileDto? ReadDataFile(string name);
+
+    /// <summary>Returns all names of projects that use this datafile</summary>
+    /// <param name="name">Name of the datafile</param>
+    /// <returns>List of project names</returns>
+    public List<string> ReadProjectsForDataFile(string name);
 }
 
 /// <inheritdoc/>
@@ -233,6 +238,36 @@ public class DataFileDao: IDataFileDao
             Log.Error("Error reading data file with name {Name}. Exception: {Msg}", 
                 name, e.Message);
             return null;
+        }
+    }
+
+    /// <inheritdoc/>
+    public List<string> ReadProjectsForDataFile(string name)
+    {
+        try
+        {
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            const string query = """
+                SELECT p.name 
+                FROM Projects p
+                INNER JOIN DataFiles d ON p.datafile = d.id
+                WHERE d.name = @Name
+                ORDER BY p.name
+                """;
+            
+            var projectNames = dbConnection.Query<string>(query, new { Name = name }).ToList();
+
+            Log.Information($"Found {projectNames.Count} projects using data file {name}");
+            return projectNames;
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Error reading projects for data file {name}. Exception: {e.Message}");
+            return [];
         }
     }
 }

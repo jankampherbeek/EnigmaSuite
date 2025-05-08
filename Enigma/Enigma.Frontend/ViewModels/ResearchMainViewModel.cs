@@ -4,10 +4,10 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.ObjectModel;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using Enigma.Domain.Research;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
@@ -31,6 +31,7 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     private readonly ResearchWindowsFlow _researchWindowsFlow;
     [ObservableProperty] private ObservableCollection<ProjectItem> _availableProjects;   
     [NotifyCanExecuteChangedFor(nameof(OpenProjectCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DeleteProjectCommand))]
     [ObservableProperty] private int _projectIndex = -1;
     
     public ResearchMainViewModel()
@@ -65,12 +66,32 @@ public partial class ResearchMainViewModel: ObservableObject, IRecipient<Complet
     [RelayCommand(CanExecute = nameof(IsProjectSelected))]
     private void OpenProject()
     {
-        ResearchProject project = _model.ResearchProjects[ProjectIndex];
+        var project = _model.ResearchProjects[ProjectIndex];
         DataVaultResearch.Instance.CurrentProject = project;
         Log.Information("ResearchMainViewModel.OpenProject(): send OpenMessage"); 
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ResearchWindowsFlow.PROJECT_USAGE));
     }
 
+    [RelayCommand(CanExecute = nameof(IsProjectSelected))]
+    private void DeleteProject()
+    {
+        var project = _model.ResearchProjects[ProjectIndex];
+        var projName = project.Name;
+        
+        var result = MessageBox.Show(
+            $"Are you sure you want to delete project '{projName} and all its results'? This action cannot be undone.",
+            "Confirm Deletion",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Warning
+        );
+
+        if (result == MessageBoxResult.Yes)
+        {
+            _model.DeleteProject(projName);
+            AvailableProjects = new ObservableCollection<ProjectItem>(_model.GetAllProjectItems());
+        }
+    }
+    
     private bool IsProjectSelected()
     {
         return ProjectIndex >= 0;

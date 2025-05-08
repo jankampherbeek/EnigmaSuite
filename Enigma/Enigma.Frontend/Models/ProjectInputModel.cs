@@ -20,7 +20,7 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>Model for input new project</summary>
 public class ProjectInputModel(
     IDataFileApi fileManagementApi,
-    IProjectCreationApi projectCreationApi,
+    IProjectApi projectApi,
     IControlGroupTypeApi controlGroupTypeApi,
     IDataNameForPresentationFactory dataNameForPresentationFactory)
 {
@@ -55,7 +55,7 @@ public class ProjectInputModel(
 
     public ResultMessage SaveProject(ResearchProject project)
     {
-        return projectCreationApi.CreateProject(project);
+        return projectApi.CreateProject(project);
     }
 
     /// <summary>Gets the datafile ID for a given datafile name</summary>

@@ -58,6 +58,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ICoordinateConversionCalc, CoordinateConversionCalc>();
         serviceCollection.AddTransient<ICoordinateConversionHandler, CoordinateConversionHandler>();
         serviceCollection.AddTransient<IDataFileDao, DataFileDao>();
+        serviceCollection.AddTransient<IDataFilePersistencyHandler, DataFilePersistencyHandler>();
         serviceCollection.AddTransient<IDataFilePreparator, DataFilePreparator>();
         serviceCollection.AddTransient<IDateCheckedConversion, DateCheckedConversion>();
         serviceCollection.AddTransient<IDateTimeCalc, DateTimeCalc>();
@@ -104,10 +105,11 @@ public static class CoreServices
         serviceCollection.AddTransient<IPointsForMidpoints, PointsForMidpoints>();        
         serviceCollection.AddTransient<IPositionFinder, PositionFinder>();
         serviceCollection.AddTransient<IPrimDirDates, PrimDirDates>();
-        serviceCollection.AddTransient<IProjectDao, ProjectDao>();
         serviceCollection.AddTransient<IProgAspectsHandler, ProgAspectsHandler>();
         serviceCollection.AddTransient<IProgPrimDirHandler, ProgPrimDirHandler>();
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
+        serviceCollection.AddTransient<IProjectDao, ProjectDao>();
+        serviceCollection.AddTransient<IProjectPersistencyHandler, ProjectPersistencyHandler>();
         serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
         serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();

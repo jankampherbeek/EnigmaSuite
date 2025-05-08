@@ -7,6 +7,7 @@ namespace Enigma.Domain.Research;
 
 /// <summary>Representation of ResearchProject. Also used for persistency with csv</summary>
 public record ResearchProject(
+    int id,
     string Name,
     string Description,
     int IndexDataFile,

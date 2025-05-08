@@ -9,7 +9,7 @@
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         WindowStartupLocation="CenterScreen"    
-        Title="Enigma - Research" Height="560" Width="600">
+        Title="Enigma - Research" Height="560" Width="800">
     <Window.Resources>
         <viewModels:ResearchMainViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -117,6 +117,8 @@
                         Command="{Binding NewProjectCommand}"/>
                 <Button Margin="0 3 0 3"  Content="Open Project" HorizontalAlignment="Right" Width="120"
                         Command="{Binding OpenProjectCommand}"/>
+                <Button Margin="0 3 0 3"  Content="Delete Project" HorizontalAlignment="Right" Width="120"
+                        Command="{Binding DeleteProjectCommand}"/>
             </StackPanel>
         </materialDesign:Card>
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">

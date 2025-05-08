@@ -32,6 +32,7 @@ public sealed class ProjectsOverviewHandler(IProjectDao projectDao) : IProjectsO
             foreach (var project in projects)
             {
                 researchProjects.Add(new ResearchProject(
+                    project.Id,
                     project.Name,
                     project.Description,
                     project.DataFile,

@@ -31,7 +31,7 @@ public class TestResearchProjectParser
     public void TestMarshallUnmarshall()
     {
         
-        ResearchProject project1 = new(PROJECT_NAME, DESCRIPTION, DATA_INDEX,  DateTime.Now.ToString(CultureInfo.InvariantCulture),
+        ResearchProject project1 = new(12, PROJECT_NAME, DESCRIPTION, DATA_INDEX,  DateTime.Now.ToString(CultureInfo.InvariantCulture),
             CONTROL_GROUP_TYPE, MULTIPL_FACTOR);
         var jsonText = _parser!.Marshall(project1);
         var project2 = _parser.UnMarshall(jsonText);

@@ -124,7 +124,8 @@ public partial class ProjectInputViewModel: ObservableObject
                 return;
             }
             
-            ResearchProject project = new(ProjectName, ProjectDescription, 
+            // use -1 for id, the real id is defined by the RDBMS 
+            ResearchProject project = new(-1, ProjectName, ProjectDescription, 
                 datafileId,
                 now.ToString(CultureInfo.InvariantCulture),
                 cgIndexinDb, 

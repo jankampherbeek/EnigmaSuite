@@ -10,7 +10,7 @@ using Enigma.Domain.Research;
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for main research page.</summary>
-public class ResearchMainModel(IProjectsOverviewApi projectsOverviewApi)
+public class ResearchMainModel(IProjectApi projectApi)
 {
     public List<ResearchProject> ResearchProjects = [];
     
@@ -18,7 +18,7 @@ public class ResearchMainModel(IProjectsOverviewApi projectsOverviewApi)
     {
         List<ProjectItem> projectItems = [];
         ResearchProjects = [];
-        var allProjects = projectsOverviewApi.GetDetailsForAllProjects();
+        var allProjects = projectApi.GetDetailsForAllProjects();
         foreach (var project in allProjects)
         {
             ResearchProjects.Add(project);
@@ -27,6 +27,12 @@ public class ResearchMainModel(IProjectsOverviewApi projectsOverviewApi)
         return projectItems;
     }
 
+    public bool DeleteProject(string name)
+    {
+        var proj = projectApi.ReadProject(name);
+        return proj is not null && projectApi.DeleteProject(proj.id);
+    } 
+    
 }
 
 

@@ -17,6 +17,7 @@ public interface IProjectDao
 {
     /// <summary>Inserts a new project into the database.</summary>
     public int InsertProject(ProjectDto project);
+    
     /// <summary>Deletes project from the database.</summary>
     public bool DeleteProject(int id);
 
@@ -28,6 +29,11 @@ public interface IProjectDao
     /// <param name="name">The name of the project to read.</param>
     /// <returns>The project, or null if not found.</returns>
     public ProjectDto? ReadProject(string name);
+    
+    /// <summary>Reads a project from the database by its id.</summary>
+    /// <param name="id">The id of the project to read.</param>
+    /// <returns>The project, or null if not found.</returns>
+    public ProjectDto? ReadProject(int id);
 }
 
 public class ProjectDao: IProjectDao
@@ -137,17 +143,50 @@ public class ProjectDao: IProjectDao
             var project = dbConnection.QueryFirstOrDefault<ProjectDto>(query, new { Name = name });
             if (project != null)
             {
-                Log.Information("Retrieved project {Name} from database", name);
+                Log.Information($"Retrieved project {name} from database");
             }
             else
             {
-                Log.Warning("Project {Name} not found in database", name);
+                Log.Warning($"Project {name} not found in database");
             }
             return project;
         }
         catch (Exception e)
         {
             Log.Error("Error reading project {Name} from database: {Message}", name, e.Message);
+            return null;
+        }
+    }
+
+    public ProjectDto? ReadProject(int id)
+    {
+        try
+        {
+            var fullPath = Path.Combine(ApplicationSettings.LocationDatabase, EnigmaConstants.RDBMS_NAME);
+            var connectionString = $"Data Source={fullPath}";
+            using var dbConnection = new SQLiteConnection(connectionString);
+            dbConnection.Open();
+
+            const string query = """
+                                 SELECT p.id, p.name, p.description, p.location, p.multiFactor, p.created, p.datafile, p.controlgrouptype
+                                 FROM Projects p
+                                 WHERE p.id = @Id
+                                 """;
+
+            var project = dbConnection.QueryFirstOrDefault<ProjectDto>(query, new { Id = id });
+            if (project != null)
+            {
+                Log.Information($"Retrieved project with id {id} from database");
+            }
+            else
+            {
+                Log.Warning($"Project with id {id} not found in database");
+            }
+            return project;
+        }
+        catch (Exception e)
+        {
+            Log.Error($"Error reading project with id {id} from database: {e.Message}");
             return null;
         }
     }

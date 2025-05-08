@@ -5,7 +5,6 @@
 
 using Ardalis.GuardClauses;
 using Enigma.Core.Data;
-using Enigma.Core.Handlers;
 using Enigma.Core.Persistency;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
@@ -36,7 +35,7 @@ public interface IDataFileApi
     public ResultMessage CreateFoldersForData(string fullPath);
 
     /// <summary>Create a list of data names, based in folders in the file system.</summary>
-    /// <returns>Dat names.</returns>
+    /// <returns>Data names.</returns>
     public IEnumerable<DataFileDto> GetDataNames();
 
     /// <summary>Read DTO for a specific datafile</summary>
@@ -48,6 +47,17 @@ public interface IDataFileApi
     /// <param name="name">The name of the data file</param>
     /// <returns>The datafile if one is found, otherwise null</returns>
     public DataFileDto? ReadDataFile(string name);
+
+    /// <summary>Read all project names for projects that use a datafile</summary>
+    /// <param name="name">The name of the data file</param>/// 
+    /// <returns>Zero or more project names</returns>
+    public List<string> GetProjectsForDataFile(string name);
+
+    /// <summary>Delete data file from RDBMS and from file system</summary>
+    /// <param name="id">Id of data file</param>
+    /// <returns>True if the data file was deleted, otherwise false</returns>
+    public bool DeleteDataFile(int id);
+
 }
 
 /// <summary>Api for import from, and export to PlanetDance data.</summary>
@@ -63,7 +73,8 @@ public interface IPdDataImportExportApi
 public sealed class DataFileApi(
     IDataImportHandler dataImportHandler,
     IDataFilePreparator dataFilePreparator,
-    IDataFileDao dataFileDao) : IDataFileApi
+    IDataFileDao dataFileDao,
+    IDataFilePersistencyHandler dataFilePersistencyHandler) : IDataFileApi
 {
     /// <inheritdoc/>
     public ResultMessage ConvertDataFile2Standard(string sourceFile, string dataName, ResearchDataTypes dataType)
@@ -110,6 +121,16 @@ public sealed class DataFileApi(
         Guard.Against.NullOrEmpty(name);
         Log.Information($"Read data file with name {name}");
         return dataFileDao.ReadDataFile(name);
+    }
+
+    public List<string> GetProjectsForDataFile(string name)
+    {
+        return dataFileDao.ReadProjectsForDataFile(name);
+    }
+
+    public bool DeleteDataFile(int id)
+    {
+        return dataFilePersistencyHandler.DeleteDataFileAndRemoveFiles(id);
     }
 }
 
