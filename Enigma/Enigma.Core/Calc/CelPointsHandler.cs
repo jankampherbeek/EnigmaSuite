@@ -3,7 +3,6 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Handlers;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
@@ -47,6 +46,8 @@ public sealed class CelPointsHandler(
 {
     private const double ZERO = 0.0;
 
+    
+    // TODO Refactor CalcCommonPoints
     public Dictionary<ChartPoints, FullPointPos> CalcCommonPoints(double jdUt, double obliquity, double ayanamshaOffset, 
         double armc, Location? location, CalculationPreferences prefs)
     {

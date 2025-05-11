@@ -10,8 +10,8 @@
 
 ### ref
 # Ref ApogeeTypes
-ref.apogeetype.corrected = Corrected (Swiss Ephemeris)
-ref.apogeetype.duval = Corrected (Max Duval)
+ref.apogeetype.corrected = Corr. (SE)
+ref.apogeetype.duval = Corr. (Duval)
 ref.apogeetype.interpolated = Interpolated
 # Ref AspectTypes
 ref.aspecttype.binovile = Bi-novile (80°)

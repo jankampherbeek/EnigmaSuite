@@ -107,7 +107,7 @@ public static class PointsExtensions
    //         ChartPoints.ApogeeDuval => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaLongitude, 402, "Apogee Duval"),
             // CommonFormulaFull
             ChartPoints.Priapus => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 501,"Priapus (perigee)", "pria"),
-            ChartPoints.PriapusCorrected => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 502, "Priapus (corrected perigee)", "pric"),
+            ChartPoints.PriapusCorrected => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 502, "Priapus (corr. perigee)", "pric"),
             ChartPoints.Dragon => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 503,"Dragon", "drag"),
             ChartPoints.Beast => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 504,"Beast", "beas"),  
             ChartPoints.SouthNode => new PointDetails(point, PointCats.Common, CalculationCats.CommonFormulaFull, 505, "South node", "sndm"),
