@@ -122,13 +122,13 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
         Dictionary<AspectTypes, AspectConfigSpecs> aspectConfigSpecs = new()
         {
             { AspectTypes.Conjunction, new AspectConfigSpecs(true, 'B', 100, true) },
+            { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 30, true) },
             { AspectTypes.Sextile, new AspectConfigSpecs(true, 'F', 70, true) },
             { AspectTypes.Square, new AspectConfigSpecs(true, 'E', 85, true) },            
             { AspectTypes.Triangle, new AspectConfigSpecs(true, 'D', 85, true) },            
-            { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100, true) },
             { AspectTypes.Inconjunct, new AspectConfigSpecs(false, 'H', 30, true) },
+            { AspectTypes.Opposition, new AspectConfigSpecs(true, 'C', 100, true) },
             { AspectTypes.Vigintile, new AspectConfigSpecs(false, 'Ï', 15, true) },
-            { AspectTypes.SemiSextile, new AspectConfigSpecs(false, 'G', 30, true) },
             { AspectTypes.Undecile, new AspectConfigSpecs(false, 'ç', 15, true) },  
             { AspectTypes.SemiQuintile, new AspectConfigSpecs(false, 'Ô', 30, true) },
             { AspectTypes.Novile, new AspectConfigSpecs(false, 'Ü', 15, true) },            
