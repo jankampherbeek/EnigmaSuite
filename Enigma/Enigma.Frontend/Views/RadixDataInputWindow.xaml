@@ -39,7 +39,6 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="6,0,0, 6" VerticalAlignment="Center" HorizontalAlignment="Left"
@@ -151,29 +150,15 @@
         <TextBlock Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2" Margin="6 12 6 0" 
                    Text="TimeZone" Name="SubHeaderTimeZone"  
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
-        <ComboBox Grid.Row="16" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="TimeZone"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
-                  ItemsSource="{Binding AllTimeZones}"
-                  SelectedIndex="{Binding TimeZoneIndex, Mode=TwoWay}" />       
+        <TextBox Grid.Row="16" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="TimeZone (hh:mm:ss)"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 BorderBrush="{Binding TimeZoneValid}"
+                 Text="{Binding TimeZone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <CheckBox Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"  
                   Style="{StaticResource MaterialDesignCheckBox}"
                   IsChecked="{Binding ApplyDst}" />
-        <TextBox Grid.Row="17" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"  
-                 materialDesign:HintAssist.Hint="Longitude for LMT ddd:mm:ss"
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
-                 Text="{Binding LmtGeoLong}"
-                 BorderBrush="{Binding LmtGeoLongValid}"
-                 IsEnabled="{Binding LmtEnabled}" />
-        <ComboBox Grid.Row="17" Grid.Column="1" Margin="6 0" VerticalAlignment="Center"   
-                  IsEditable="True" IsReadOnly="True"
-                  materialDesign:HintAssist.Hint="East/West"
-                  Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
-                  ItemsSource="{Binding AllLmtDirectionsForLongitude}"
-                  SelectedIndex="{Binding LmtDirLongIndex, Mode=TwoWay}" 
-                  IsEnabled="{Binding LmtEnabled}" />
-        <StackPanel Grid.Row="18" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
                     Command="{Binding HelpCommand}"/>

@@ -31,6 +31,7 @@ public static class StandardTexts
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
     public const string ERROR_STARTDATE = "txt.error.startdate";
     public const string ERROR_TIME = "Enter a correct value for the time.";
+    public const string ERROR_TIMEZONE = "Enter a correct value for the timezone.";
     
     // Texts for the configuration
     public const string CFG_APOGEETYPE = "ApogeeType";

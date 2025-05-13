@@ -118,7 +118,24 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     {
         return _locationApi.GetAllCitiesForCountry(countryCode);
     }
-    
 
-    
+    public bool IsTimeZoneValid(string timeZone)
+    {
+        if (string.IsNullOrEmpty(timeZone)) return false;
+        
+        // Check format: [-][hh]:mm:ss
+        var pattern = @"^-?\d{2}:\d{2}:\d{2}$";
+        if (!System.Text.RegularExpressions.Regex.IsMatch(timeZone, pattern)) return false;
+
+        // Parse the components
+        var parts = timeZone.Split(':');
+        var hours = int.Parse(parts[0].Replace("-", ""));
+        var minutes = int.Parse(parts[1]);
+        var seconds = int.Parse(parts[2]);
+
+        // Validate ranges
+        if (hours > 23 || minutes > 59 || seconds > 59) return false;
+
+        return true;
+    }
 }
