@@ -75,7 +75,6 @@ public sealed class AspectsHandler(
     /// <inheritdoc/>
     public List<DefinedAspect> AspectsForPosPoints(List<PositionedPoint> posPoints, List<PositionedPoint> cuspPoints, Dictionary<AspectTypes, AspectConfigSpecs> relevantAspects, Dictionary<ChartPoints, ChartPointConfigSpecs?> chartPointConfigSpecs, double baseOrb)
     {
-
         var pointDistances = calculatedDistance.ShortestDistances(posPoints);
         List<DistanceBetween2Points> cuspDistances = [];
         if (cuspPoints.Count > 0)
@@ -85,6 +84,10 @@ public sealed class AspectsHandler(
         List<DistanceBetween2Points> allDistances = new(pointDistances.Count + cuspDistances.Count);
         allDistances.AddRange(pointDistances);
         allDistances.AddRange(cuspDistances);
+
+        // Define points that should not form mutual aspects
+        var excludedMutualAspects = new[] { ChartPoints.NorthNode, ChartPoints.SouthNode, ChartPoints.Dragon, ChartPoints.Beast };
+
         return (from distance in allDistances 
             from aspectConfigSpec in relevantAspects 
             let maxOrb = aspectOrbConstructor.DefineOrb(distance.Point1.Point, distance.Point2.Point, 
@@ -93,6 +96,9 @@ public sealed class AspectsHandler(
             let aspectDistance = aspectType.GetDetails().Angle 
             let actualOrb = Math.Abs(distance.Distance - aspectDistance) 
             where actualOrb <= maxOrb 
+            // Skip mutual aspects between excluded points
+            where !(excludedMutualAspects.Contains(distance.Point1.Point) && 
+                   excludedMutualAspects.Contains(distance.Point2.Point))
             select new DefinedAspect(distance.Point1.Point, distance.Point2.Point, aspectType.GetDetails(), 
                 maxOrb, actualOrb)).ToList();
     }
