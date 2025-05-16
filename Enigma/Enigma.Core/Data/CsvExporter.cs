@@ -29,8 +29,11 @@ public interface ICsvExporter
 }
 
 
-public class CsvExporter: ICsvExporter
+public class CsvExporter: ICsvExporter, IDisposable
 {
+    private StreamWriter? _currentWriter;
+    private string? _currentFilePath;
+
     public void WriteStandardInputToCsv(IEnumerable<StandardInputItem> inputItems, string fullPath)
     {
         var standardInputItems = inputItems.ToList();
@@ -75,7 +78,14 @@ public class CsvExporter: ICsvExporter
 
         try
         {
-            using var writer = new StreamWriter(fullPath, true);
+            // If this is a new file or different from the current one, close the existing writer and create a new one
+            if (_currentWriter == null || _currentFilePath != fullPath)
+            {
+                _currentWriter?.Dispose();
+                _currentFilePath = fullPath;
+                _currentWriter = new StreamWriter(fullPath, true, System.Text.Encoding.UTF8);
+            }
+
             foreach (var item in inputItems)
             {
                 var line = string.Join(";", new[]
@@ -83,13 +93,21 @@ public class CsvExporter: ICsvExporter
                     item.Id,
                     string.Join(";", item.Positions.Select(p => $"{p.Abbrev};{p.Position.ToString(culture)}"))
                 });
-                writer.WriteLine(line);
+                _currentWriter.WriteLine(line);
             }
+            _currentWriter.Flush();
         }
         catch (IOException ex)
         {
             throw new PersistencyException(
                 $"Could not write to {fullPath}. Encountered IOException {ex.Message}");
         }
+    }
+
+    public void Dispose()
+    {
+        _currentWriter?.Dispose();
+        _currentWriter = null;
+        _currentFilePath = null;
     }
 }

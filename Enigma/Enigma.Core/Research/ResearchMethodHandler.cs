@@ -61,9 +61,10 @@ public sealed class ResearchMethodHandler(
     IOobCounting oobCounting,
     IOccupiedMidpointsDeclinationCounting occupiedMidpointsDeclinationCounting,
     IDeclinationParallelsCounting declinationParallelsCounting)
-    : IResearchMethodHandler
+    : IResearchMethodHandler, IDisposable
 {
     private bool _isProcessing;
+    private bool _disposed;
 
     /// <inheritdoc/>
     public event EventHandler<ChartProgressEventArgs>? ChartProgress;
@@ -90,30 +91,52 @@ public sealed class ResearchMethodHandler(
         var dateTime = DateTime.Now.ToString(CultureInfo.InvariantCulture).Replace("/", "-").Replace(" ", "-")
             .Replace(":", "-");
 
-        while (processedCharts < totalCharts)
+        try
         {
-            var remainingCharts = totalCharts - processedCharts;
-            var currentBatchSize = Math.Min(batchSize, remainingCharts);
-            var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
-            var batchCharts = researchPositions.CalculatePositions(batchInput);
-            AddChartsToCsv(batchCharts, request.ProjectName, request.Method, request.UseControlGroup,
-                request.PointSelection, dateTime);
-
-            processedCharts += currentBatchSize;
-
-            // Only raise progress event if we're processing
-            if (_isProcessing)
+            while (processedCharts < totalCharts)
             {
-                ChartProgress?.Invoke(this, new ChartProgressEventArgs(processedCharts, totalCharts));
+                var remainingCharts = totalCharts - processedCharts;
+                var currentBatchSize = Math.Min(batchSize, remainingCharts);
+                var batchInput = standardInput.Skip(processedCharts).Take(currentBatchSize).ToList();
+                var batchCharts = researchPositions.CalculatePositions(batchInput);
+                AddChartsToCsv(batchCharts, request.ProjectName, request.Method, request.UseControlGroup,
+                    request.PointSelection, dateTime);
+
+                processedCharts += currentBatchSize;
+
+                // Only raise progress event if we're processing
+                if (_isProcessing)
+                {
+                    ChartProgress?.Invoke(this, new ChartProgressEventArgs(processedCharts, totalCharts));
+                }
+
+                var batchResponse = ProcessBatch(request, batchCharts);
+                orderedResponses.Add(batchResponse);
             }
 
-            var batchResponse = ProcessBatch(request, batchCharts);
-            orderedResponses.Add(batchResponse);
+            _isProcessing = false;
+            // Combine all responses in order
+            return CombineOrderedResponses(orderedResponses);
         }
+        finally
+        {
+            if (csvExporter is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+    }
 
-        _isProcessing = false;
-        // Combine all responses in order
-        return CombineOrderedResponses(orderedResponses);
+    public void Dispose()
+    {
+        if (!_disposed)
+        {
+            if (csvExporter is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+            _disposed = true;
+        }
     }
 
     private MethodResponse ProcessBatch(GeneralResearchRequest request, List<CalculatedResearchChart> batchCharts)
