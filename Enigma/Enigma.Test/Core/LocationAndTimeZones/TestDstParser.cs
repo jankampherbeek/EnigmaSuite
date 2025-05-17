@@ -36,4 +36,31 @@ public class TestDstParser
             Assert.That(result[0]?.Offset, Is.EqualTo(expectedOffset).Within(1E-8));
         });
     }
+
+    [Test]
+    public void TestParseEntireDstFile()
+    {
+        IJulDayFacade facade = new JulDayFacade();
+        IDayDefHandler handler = new DayDefHandler(facade);
+        IDstParser parser = new DstParser(facade, handler);
+        
+        // Read all lines from the DST data file
+        var dstLines = File.ReadAllLines("tz-coord/dstdata.csv").ToList();
+        
+        // Process all lines
+        var result = parser.ProcessDstLines(dstLines);
+        
+        // Verify that we got results and they are valid
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.Not.Empty);
+            // Verify that all entries have valid data
+            foreach (var entry in result)
+            {
+                Assert.That(entry, Is.Not.Null);
+                Assert.That(entry!.Letter, Is.Not.Null);
+            }
+        });
+    }
 }

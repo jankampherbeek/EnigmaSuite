@@ -56,7 +56,44 @@ public class TestTimeZoneLineParser
         Assert.Throws<ArgumentNullException>(() => parser.ParseTzLines(CreateZoneLines(), ""));
     }
     
-    
+    [Test]
+    public void TestParseEntireTzFile()
+    {
+        var parser = new TimeZoneLineParser(new JulDayFacade());
+        
+        // Read all lines from the timezone data file
+        var tzLines = File.ReadAllLines("tz-coord/tzdata.csv").ToList();
+        
+        // Get unique timezone names from the file
+        var timezoneNames = tzLines
+            .Where(line => line.StartsWith("Zone;"))
+            .Select(line => line.Split(';')[1])
+            .Distinct()
+            .ToList();
+        
+        // Process each timezone
+        foreach (var name in timezoneNames)
+        {
+            var result = parser.ParseTzLines(tzLines, name);
+            
+            // Verify that we got results and they are valid
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.Not.Null);
+                Assert.That(result, Is.Not.Empty);
+                // Verify that all entries have valid data
+                foreach (var entry in result)
+                {
+                    Assert.That(entry, Is.Not.Null);
+                    Assert.That(entry.Name, Is.EqualTo(name));
+                    Assert.That(entry.StdOff, Is.GreaterThanOrEqualTo(-12.0).And.LessThanOrEqualTo(14.0));
+                    Assert.That(entry.Rules, Is.Not.Null);
+                    Assert.That(entry.Format, Is.Not.Null);
+                    Assert.That(entry.Until, Is.GreaterThan(0));
+                }
+            });
+        }
+    }
     
     private static List<string> CreateZoneLines()
     {

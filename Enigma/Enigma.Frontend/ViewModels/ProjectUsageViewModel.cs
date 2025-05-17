@@ -24,8 +24,7 @@ namespace Enigma.Frontend.Ui.ViewModels;
 /// <summary>ViewModel for project usage. Start point for performing research.
 /// Sends messages: OpenMessage(for ResearchPointSelection, ResearchHarmonicDetails, ResearchMidpointDetails,
 /// ResearchResult, Configuration), HelpMessage and CompletedMessage. </summary>
-public partial class ProjectUsageViewModel: ObservableObject, 
-    IRecipient<CompletedMessage>,
+public partial class ProjectUsageViewModel: ObservableObject,
     IRecipient<CancelMessage>
 {
     private const string VM_IDENTIFICATION = ResearchWindowsFlow.PROJECT_USAGE;
@@ -48,7 +47,6 @@ public partial class ProjectUsageViewModel: ObservableObject,
     
     public ProjectUsageViewModel()
     {
-        WeakReferenceMessenger.Default.Register<CompletedMessage>(this);
         WeakReferenceMessenger.Default.Register<CancelMessage>(this);
         ResearchProject? currentProject = DataVaultResearch.Instance.CurrentProject;
         if (currentProject == null) return;
@@ -140,14 +138,10 @@ public partial class ProjectUsageViewModel: ObservableObject,
         return MethodIndex >= 0;
     }
     
-    public void Receive(CompletedMessage message)
-    { 
-        CompleteRequest();
-    }
     
     public void Receive(CancelMessage message)
     {
-        Log.Information("ProjectUsageViewModel.Receive(CompletedMessage) with value {Value}", message.Value);
+        Log.Information("ProjectUsageViewModel.Receive(CancelMessage) with value {Value}", message.Value);
         if (message.Value == ResearchWindowsFlow.RESEARCH_POINT_SELECTION)
         {
             _testCanceled = true;
