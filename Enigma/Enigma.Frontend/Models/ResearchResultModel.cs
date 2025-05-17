@@ -238,7 +238,7 @@ public class ResearchResultModel
                 {
                     var meanValue = total / (double)ctrlGroupFactor;
                     var meanTxt = $"{meanValue:F2}";
-                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
+                    resultData.Append((meanTxt + SPACES + SPACES + SPACES)[..COLUMN_SIZE]);
                 }
             }
         }
@@ -302,11 +302,11 @@ public class ResearchResultModel
             resultData.AppendLine(detailLine.ToString());
             if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
             {
-                resultData.Append(SPACES);
+                resultData.Append(("Mean values" + SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE]);
                 foreach (var total in totalsPerAspect)
                 {
                     var meanValue = total / (double)ctrlGroupFactor;
-                    var meanTxt = $"{meanValue:F3}";
+                    var meanTxt = $"{meanValue:F2}";
                     resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
                 }
             }
@@ -369,11 +369,11 @@ public class ResearchResultModel
             resultData.AppendLine(detailLine.ToString());
             if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
             {
-                resultData.Append(SPACES);
+                resultData.Append(("Mean values" + SPACES + SPACES + SPACES)[..START_COLUMN_ASPECTS_SIZE]);
                 foreach (var total in totalsPerParallel)
                 {
                     var meanValue = total / (double)ctrlGroupFactor;
-                    var meanTxt = $"{meanValue:F3}";
+                    var meanTxt = $"{meanValue:F2}";
                     resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
                 }
             }
@@ -401,16 +401,6 @@ public class ResearchResultModel
             foreach (var simpleCount in qualifiedResponse.Counts)
             {
                 resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
-            }
-            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
-            {
-                resultData.Append(SPACES);
-                foreach (var total in qualifiedResponse.Counts)
-                {
-                    var meanValue = total.Count / (double)ctrlGroupFactor;
-                    var meanTxt = $"{meanValue:F3}";
-                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
-                }
             }
         }
         else
@@ -443,16 +433,6 @@ public class ResearchResultModel
                     var midpointCount = midpoint.Value.ToString();
                     resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
-                }
-                if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
-                {
-                    resultData.Append(SPACES);
-                    foreach (var total in qualifiedResponse.AllCounts)
-                    {
-                        var meanValue = total.Value / (double)ctrlGroupFactor;
-                        var meanTxt = $"{meanValue:F3}";
-                        resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
-                    }
                 }
             }
             else
@@ -490,16 +470,6 @@ public class ResearchResultModel
                     var midpointCount = midpoint.Value.ToString();
                     resultData.AppendLine((firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / " + (secondPointName + SPACES)[..COLUMN_SIZE] 
                                           + " = " + (occPointName + SPACES)[..COLUMN_SIZE] + " " + midpointCount);
-                }
-                if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
-                {
-                    resultData.Append(SPACES);
-                    foreach (var total in qualifiedResponse.AllCounts)
-                    {
-                        var meanValue = total.Value / (double)ctrlGroupFactor;
-                        var meanTxt = $"{meanValue:F3}";
-                        resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
-                    }
                 }
             }
             else
@@ -539,16 +509,6 @@ public class ResearchResultModel
                     resultData.AppendLine(("Harmonic" + " " + firstPointName + SPACES)[..LARGE_COLUMN_SIZE] + " / "
                         + ("Radix" + " " + secondPointName + SPACES)[..LARGE_COLUMN_SIZE] + " " + harmonicCount);
                 }
-                if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
-                {
-                    resultData.Append(SPACES);
-                    foreach (var total in qualifiedResponse.AllCounts)
-                    {
-                        var meanValue = total.Value / (double)ctrlGroupFactor;
-                        var meanTxt = $"{meanValue:F3}";
-                        resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
-                    }
-                }                
             }
             else
             {
@@ -577,16 +537,6 @@ public class ResearchResultModel
             {
                 resultData.AppendLine((simpleCount.Point.GetDetails().Text + SPACES)[..LARGE_COLUMN_SIZE] + simpleCount.Count);
             }
-            if (ctrlGroupFactor > 1 && response.Request.UseControlGroup)
-            {
-                resultData.Append(SPACES);
-                foreach (var total in qualifiedResponse.Counts)
-                {
-                    var meanValue = total.Count / (double)ctrlGroupFactor;
-                    var meanTxt = $"{meanValue:F3}";
-                    resultData.Append((meanTxt + SPACES)[..COLUMN_SIZE]);
-                }
-            }  
         }
         else
         {
