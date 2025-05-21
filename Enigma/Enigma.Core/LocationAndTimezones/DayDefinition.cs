@@ -19,7 +19,8 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
 {
     private const string PF_LAST = "last";
     private const string PF_GE_PATTERN = ">=(\\d)";
-
+    private const string PF_LE_PATTERN = "<=(\\d)";
+    
     public int DayFromDefinition(int year, int month, string def)
     {
         if (def.Length <= 2)
@@ -51,14 +52,21 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
             }
             else
             {
-                defType = "Unknown defDay";
+                geMatch = System.Text.RegularExpressions.Regex.Match(def, PF_LE_PATTERN);
+                if (geMatch.Success)
+                {
+                    defDay = def.Substring(geMatch.Index - 1, 1);
+                    defType = geMatch.Value;
+                    geNumber = int.Parse(geMatch.Groups[1].Value);
+                } else defType = "Unknown defDay";
             }
         }
 
         if (!int.TryParse(defDay, out var targetDayOfWeek)) // Monday=0 ... Sunday=6
         {
-            Log.Error($"Could not parse defDay: {def}");
-            throw new FormatException($"Could not parse DefDay: {def}");
+            var errorTxt = $"DayDefHandler could not parse defDay from {def}";
+            Log.Error(errorTxt);
+            throw new FormatException(errorTxt);
         }
         
         var sdt = new SimpleDateTime(year, month, 1, 12.0, Calendars.Gregorian);
@@ -66,7 +74,7 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
         var firstDayOfWeek = jdFacade.DayOfWeek(jd); // Monday=0 ... Sunday=6
         int actualDay;
         int daysInMonth;
-
+        var daysUntilFirstOccurrence = 0;
         switch (defType)
         {
             case PF_LAST:
@@ -77,9 +85,8 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
                 var diff = (lastDayOfWeek - targetDayOfWeek + 7) % 7;
                 actualDay = daysInMonth - diff;
                 break;
-                
-            case string s when s.StartsWith(">="):
-                var daysUntilFirstOccurrence = (targetDayOfWeek - firstDayOfWeek + 7) % 7;
+            case { } s when s.StartsWith(">="):
+                daysUntilFirstOccurrence = (targetDayOfWeek - firstDayOfWeek + 7) % 7;
                 var firstOccurrence = 1 + daysUntilFirstOccurrence;
                 if (firstOccurrence < geNumber)
                 {
@@ -95,7 +102,18 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
                     actualDay -= 7;
                 }
                 break;
+            case { } s when s.StartsWith("<="):
+                daysUntilFirstOccurrence = (targetDayOfWeek - firstDayOfWeek + 7) % 7;
+                var lastOccurrence = 1 + daysUntilFirstOccurrence;
+                daysInMonth = DateTime.DaysInMonth(year, month);
                 
+                // Calculate the last occurrence that is <= geNumber
+                actualDay = lastOccurrence;
+                while (actualDay + 7 <= daysInMonth && actualDay + 7 <= geNumber)
+                {
+                    actualDay += 7;
+                }
+                break;                
             default:
                 Log.Error($"unknown def type: {def}");
                 throw new ArgumentException($"Unknown def type: {def}");

@@ -1,4 +1,4 @@
-# Enigma 0.5 - Charts
+# Enigma 0.6 - Charts
 
 [TOC]
 

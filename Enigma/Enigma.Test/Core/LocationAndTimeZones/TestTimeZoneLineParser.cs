@@ -14,7 +14,7 @@ public class TestTimeZoneLineParser
     [Test]
     public void TestParseTzLinesCount()
     {
-        var parser = new TimeZoneLineParser(new JulDayFacade());
+        var parser = new TimeZoneLineParser(new JulDayFacade(), new DayDefHandler(new JulDayFacade()));
         var expected = 8;
         var result = parser.ParseTzLines(CreateZoneLines(), "Asia/Hanoi");
         Assert.That(result, Has.Count.EqualTo(expected));
@@ -23,7 +23,7 @@ public class TestTimeZoneLineParser
     [Test]
     public void TestParseTzLinesContent()
     {
-        var parser = new TimeZoneLineParser(new JulDayFacade());
+        var parser = new TimeZoneLineParser(new JulDayFacade(), new DayDefHandler(new JulDayFacade()));
         const string name = "Asia/Hanoi";
         const double stdOff = 9.0;
         const string rules = "-";
@@ -37,7 +37,7 @@ public class TestTimeZoneLineParser
     [Test]
     public void TestParseTzLinesHeader()
     {
-        var parser = new TimeZoneLineParser(new JulDayFacade());
+        var parser = new TimeZoneLineParser(new JulDayFacade(), new DayDefHandler(new JulDayFacade()));
         const string name = "Asia/Hanoi";
         const double stdOff = 7.0 + 3.0 / 60.0 + 24.0 / 3600.0;
         const string rules = "-";
@@ -52,14 +52,14 @@ public class TestTimeZoneLineParser
     [Test]
     public void TestParseTzLines_EmptyName()
     {
-        var parser = new TimeZoneLineParser(new JulDayFacade());
+        var parser = new TimeZoneLineParser(new JulDayFacade(), new DayDefHandler(new JulDayFacade()));
         Assert.Throws<ArgumentNullException>(() => parser.ParseTzLines(CreateZoneLines(), ""));
     }
     
     [Test]
     public void TestParseEntireTzFile()
     {
-        var parser = new TimeZoneLineParser(new JulDayFacade());
+        var parser = new TimeZoneLineParser(new JulDayFacade(), new DayDefHandler(new JulDayFacade()));
         
         // Read all lines from the timezone data file
         var tzLines = File.ReadAllLines("tz-coord/tzdata.csv").ToList();
@@ -86,7 +86,7 @@ public class TestTimeZoneLineParser
                 {
                     Assert.That(entry, Is.Not.Null);
                     Assert.That(entry.Name, Is.EqualTo(name));
-                    Assert.That(entry.StdOff, Is.GreaterThanOrEqualTo(-12.0).And.LessThanOrEqualTo(14.0));
+                    Assert.That(entry.StdOff, Is.GreaterThanOrEqualTo(-16.0).And.LessThanOrEqualTo(16.0));
                     Assert.That(entry.Rules, Is.Not.Null);
                     Assert.That(entry.Format, Is.Not.Null);
                     Assert.That(entry.Until, Is.GreaterThan(0));

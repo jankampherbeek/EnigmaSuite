@@ -1,4 +1,4 @@
-# Enigma 0.5 - Research
+# Enigma 0.6 - Research
 
 [TOC]
 
@@ -39,16 +39,22 @@ This results in a screen with a list of the names for the different data files.
 
 <img src="img/data-file-overview.png" style="zoom: 50%;" />
 
+If you click on the name of a datafile, Enigma shows the projects that use this datafile. If there are no projects for this datafile, the button **Delete** is enabled and you can remove the datafile.
+
+
+
+
+
 
 ## Working with projects
 
 <img src="img/project-new.png" style="zoom: 50%;" />
 
-After creating one or more data-files, you can define a project. A project uses only one data-files, but many projects can use the same data-file.
+After creating one or more data-files, you can define a project. A project uses only one data-file, but many projects can use the same data-file.
 
 Click the button **New project**. On this screen, you need to define a name for your project and you can add a description. Currently, Enigma supports only one type of control-groups: _Standard shifting of location, date, and time. 
 
-You can define a multiplication for the control group, a factor of 1 (no multiplication), 10, 100 or 1000.
+You can define a multiplication for the control group. Enter a number between 1 and 1000. Please note that a large number can result in long processing times for your test.
 
 Click the button **Save** to write the project definitions to your file system.
 
@@ -58,7 +64,7 @@ You will see a confirmation pop-up.
 
 <img src="img/research-with-project.png" style="zoom: 50%;" />
 
-The project(s) that you defined will show in the start-screen for research.
+The project(s) that you defined will show in the start-screen for research. You can use the button **New Project** and, if you did select a project, select **Open Project** or **Delete Project**. If you delete the project, Enigma will remove it from the database and also remove all results, but not the data files.
 You can resize the window if not all text is visible.
 
 
@@ -72,7 +78,7 @@ You can resize the window if not all text is visible.
 Select one project on the start-screen for research and the button **Open Project** becomes available. Click this button and you will see the window _Test with project_.
 
 This window contains information about the selected project and shows a scrollable list of available test methods.
-Currently, Enigma supports 8 tests. 
+Currently, Enigma supports 9 tests. 
 
 You will also see a button **Config**. By clicking this button, you can access the configuration. This can be important, as Enigma uses the existing configuration for all supported tests. If you need to add or remove celestial points, change orbs, etc., you can only do this via the configuration.
 
@@ -83,7 +89,7 @@ Select the test that you want to perform and click the button **Perform Test**. 
 <img src="img/research-select-points.png" style="zoom: 50%;" />
 
 For all tests, you need to make a selection of the available celestial points. 
-Enigma shows all points that you defined in the configuration. 
+Enigma shows all points that you defined in the configuration. All these points are pre-selected.
 Depending on the type of test, you need to specify a specific number of points.
 Enigma gives a warning if you do not specify enough points. 
 
@@ -107,11 +113,15 @@ You need to select the harmonic number and the org to be used. This orb will ove
 
 ### Research results
 
+Please note: depending on the size of you data and of the multiplication factor, it can take a long time before you see any results.
+
 <img src="img/research-results.png" style="zoom: 50%;" />
 
 The results of your test appear in a window _Research results_. This window has two tabs: _Test results_ and _Results control group_. In the first tab, you see the calculated values for your research. At the bottom of the overview, you will see the location where Enigma saves the results. 
 
 The second tab shows the results of the control-group. The background is light-brown while the background of the test data is light-blue. You will also see the location where Enigma stores the data for the control-group results.
+
+If you selected a multiplication factor larger than 1, the control group line shows a line with mean values, underneath the totals. In this example the multiplication factor was 10, so the mean values are calculated by dividing the totals by 10.
 
 <img src="img/research-controlgroup-results.png" style="zoom: 50%;" />
 

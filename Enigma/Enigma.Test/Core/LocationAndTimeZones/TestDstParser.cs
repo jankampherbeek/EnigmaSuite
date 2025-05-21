@@ -3,8 +3,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Persistency;
 using Enigma.Core.LocationAndTimeZones;
+using Enigma.Domain.Dtos;
 using Enigma.Facades.Se;
+using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Enigma.Test.Core.LocationAndTimeZones;
 
@@ -40,6 +44,7 @@ public class TestDstParser
     [Test]
     public void TestParseEntireDstFile()
     {
+        DefineLogging();
         IJulDayFacade facade = new JulDayFacade();
         IDayDefHandler handler = new DayDefHandler(facade);
         IDstParser parser = new DstParser(facade, handler);
@@ -63,4 +68,18 @@ public class TestDstParser
             }
         });
     }
+    
+    private static void DefineLogging()
+    {
+        var workFolder = @"d:/enigma-data/testlog";
+        ApplicationSettings.SetWorkFolder(workFolder!);
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File(Path.Combine(
+                    workFolder + Path.DirectorySeparatorChar + "logs" + Path.DirectorySeparatorChar, "enigma"),
+                rollingInterval: RollingInterval.Day)
+            .CreateLogger();
+    }
+    
 }
+

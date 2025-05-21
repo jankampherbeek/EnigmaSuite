@@ -7,6 +7,7 @@ using Enigma.Core.Conversion;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Facades.Se;
+using Serilog;
 
 namespace Enigma.Core.LocationAndTimeZones;
 
@@ -46,23 +47,31 @@ public class DstParser : IDstParser
             var items = dataLine.Split(';');
             if (items.Length < 13)
             {
-                throw new FormatException($"Invalid dataLine: {dataLine}");
+                var errorTxt = $"Error ParseDstElementsLines: Invalid dataLine: {dataLine}";
+                Log.Error(errorTxt);
+                throw new FormatException(errorTxt);
             }
 
             if (!int.TryParse(items[1], out var from))
             {
-                throw new FormatException($"Invalid value for from in dataLine: {dataLine}");
+                var errorTxt = $"Error ParseDstElementsLines: Invalid value for from in dataLine: {dataLine}";
+                Log.Error(errorTxt);
+                throw new FormatException(errorTxt);
             }
 
             var toValue = items[2].Equals("max") ? "2100" : items[2]; // Assume the year 2100 for max
             if (!int.TryParse(toValue, out var to))
             {
-                throw new FormatException($"Invalid value for to in dataLine: {dataLine}");
+                var errorTxt = $"Error ParseDstElementsLines: Invalid value for to in dataLine: {dataLine}";
+                Log.Error(errorTxt);
+                throw new FormatException(errorTxt);
             }
 
             if (!int.TryParse(items[3], out var @in))
             {
-                throw new FormatException($"Invalid value for in in dataLine: {dataLine}");
+                var errorTxt = $"Error ParseDstElementsLines: Invalid value for in dataLine: {dataLine}";
+                Log.Error(errorTxt);
+                throw new FormatException(errorTxt);
             }
 
             var startTime = DateTimeConversion.ParseDHmsToDoubleFromText(items[5], items[6], items[7]); 
@@ -79,8 +88,15 @@ public class DstParser : IDstParser
         {
             for (var year = line.From; year <= line.To; year++)
             {
-                var newLine = CreateSingleDstLine(line, year);
-                parsedLines.Add(newLine);
+                try
+                {
+                    var newLine = CreateSingleDstLine(line, year);
+                    parsedLines.Add(newLine);
+                }
+                catch (FormatException fe)
+                {
+                    Log.Error($"ParseDstLines encountered FormatException in line {line} and year {year}");
+                }
             }
         }
         parsedLines.Sort((x, y) => x!.StartJd.CompareTo(y!.StartJd));

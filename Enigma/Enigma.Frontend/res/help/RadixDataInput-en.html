@@ -24,17 +24,26 @@
 		value <em>Unknown</em>.</p>
 
 	<h2 id='location'>Location</h2>
-	<p><strong>Name of location</strong>. A city name, address or other identification for the  location. This field is optional.</p>
-	<p><strong>Longitude</strong>. Geographic longitude in the format <em>ddd:mm:ss</em>. 
+	<p><strong>Country</strong>. Select a country from the drop down list. 
+	You can type the first characters to quickly identify the country. 
+	Make sure you use the official English name, e.g. <i>The Netherlands</i> and not <i>Nederland</i> or <i>Holland</i>.</p>
+	<p><strong>City</strong>. After selecting a country you can select a city using the scroll down list.
+	Just as for a country, you can type the first characters to easily find the city.</p>
+	<p><strong>Longitude</strong>. The geographic longitude is automatically filled after you selected a country and a city.
+	You can adjust the value manually if you want a more precise value for someone who was not born at the center of a city. 
+	If you change the longitude, make sure to use the format <em>ddd:mm:ss</em>. 
 		For  <em>123°45&#39;30&quot;</em> you need to enter <em>123:45:30</em>. 
 		You can skip the seconds, they will default to 0 seconds. 
 		So <em>145:15</em> is a valid indication for  <em>145°15&#39;00&quot;</em>. </p>
-	<p>Use the scroll-down box to select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em>. </p>
-	<p><strong>Latitude</strong>. Geographic latitude in the format <em>dd:mm:ss</em>. 
+	<p>Use the scroll-down box to select either <strong>East</strong> or <strong>West</strong>. 
+	Of course this only makes sense for location that are on the meridian of Greenwich.</p>
+	<p><strong>Latitude</strong>. The latitude is also automatically filled. 
+	You can change the value using the format <em>dd:mm:ss</em>. 
 		For <em>52°13&#39;30&quot;</em> you need to enter <em>52:13:30</em>. 
 		You can skip the seconds, they will default to 0 seconds. 
 		So <em>45:15</em> is a valid indication for <em>45°15&#39;00&quot;</em>. </p>
-	<p>Use the scroll-down box to select either <strong>N</strong> <em>(North)</em> or <strong>S</strong> <em>(South)</em>. </p>
+	<p>Use the scroll-down box to select either <strong>North</strong> or <strong>South</strong>.
+This might make sense for a location that is on the equator.</p>
 
 	<h2 id='date-and-time'>Date and time</h2>
 	<p>
@@ -60,16 +69,11 @@
 	</ul>
 	<p><strong>Time</strong>. Enter the time in the format <em>hh:mm:ss</em>, using 24 hour notation. 
 		2h38m30s PM would be <em>14:38:30</em>.</p>
-	<p><strong>Apply DST</strong>. Check the box Apply DST if Daylight Saving Time is applicable.</p>
-	<p><strong>TimeZone</strong>. Select one of the available timezones. 
-		The list contains the offset from UT (Greenwich Time) and the name of the timezone. 
-		If the time does  not fit into one of the available timezones, select <em>LMT: Local Mean Time</em>.  
-		You will get the possibility to define another offset from UT for the time  used.</p>
-	<p><strong>Longitude for LMT</strong>. This field becomes available if you selected LMT as timezone. 
-		Here you can define the geographic longitude for the offset in degrees, minutes, and seconds, using the 
-		format ddd:mm:ss in the same way as for entering the geographic longitude for the location. 
-	Also select either <strong>E</strong> <em>(East)</em> or <strong>W</strong>  <em>(West)</em> to indicate 
-		the direction for the offset.</p>
+	<p><strong>TimeZone</strong>. Enigma automatically defines the offset for Greenwich and the occurrence of DST.
+	For defining the time zone the tz database from IANA is used. 
+	This database is very good but not perfect. In rare cirumstances you might need to change the timezone or the DST.
+	You can do so by entering the offset in the format <em>hh:mm:ss</em>. 
+	Prefix with a minus sign if the offset is west from Greenwich.</p>		
 
 	<h2 id='start-the-calculation'>Start the calculation</h2>
 	<p>Click the button <strong>Calculate</strong> to perform the calculation. 

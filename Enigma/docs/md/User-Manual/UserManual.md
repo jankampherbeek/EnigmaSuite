@@ -1,4 +1,4 @@
-# User Manual Enigma Astrology Research - Release 0.5
+# User Manual Enigma Astrology Research - Release 0.6
 
 
 
