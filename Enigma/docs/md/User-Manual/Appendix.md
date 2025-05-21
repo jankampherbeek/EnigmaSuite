@@ -127,8 +127,8 @@ You can add many other points to the calculation:
 
 - **Arabic parts**: Pars Fortunae, both with and without sect.
 
-- **Mathematical points**: Mean Node and True Node, the vernal point (Zero Aries) and foour calculations for the apogee of the Moon: 
-- Mean, Corrected, Interpolated and according to Duval (calculation by Cees Jansen).
+- **Mathematical points**: Mean Node and True Node, the vernal point (Zero Aries), Dragon and Beast (according to Black Lights Astrology) and four calculations for the apogee of the Moon: 
+    - Mean, Corrected, Interpolated and according to Duval (calculation by Cees Jansen).
 
 - **Centaurs**: Chiron, Nessus and Pholus.
 
@@ -280,7 +280,7 @@ Make sure that you use a comma as a separator and do not use quotes.
 
 ## Result files
 
-If you perform a test, Enigma will create several result files. You can find these files in the folder *c:\enigma_ar\project\\[projectname\]\results .*
+If you perform a test, Enigma will create several result files. You can find these files in your workfolder in .\projects\\[projectname\]\results .*
 
 Replace \[projectname\] with the name you used for the project.
 
@@ -337,35 +337,26 @@ In the folder where you installed Enigma is a sub-folder **doc***.*
 
 In this folder, you will find the *User Manual*, the *Release Notes* and the *Roadmap* for Enigma.
 
+The database and configuration files are located in your personal directory: C:\Users\[your name]\AppData\Local\enigma
+
 For data, Enigma uses a separate folder structure. These folders do not exist after install; Enigma creates them the first time you use the application.
 
 The folder structure is:
 
-    C:\enigma_ar\data
-    \[dataname\] (multiple folders)
-        \csv
-        \json
-    \database
-    \docs
-    \export
+    [The work folder you defined]
+    \datafiles\[dataname\] (multiple folders)
+        \orig         (copy of the original file)
+        \standard     (converted version in standard Enigma format)
     \logs
-    \project
+    \projects
         \projectname\] (multiple folders\]
             \results
 
-In **enigma_ar** you will find the files *enigmaconfig.json* and *enigmaprogconfig.json*. These files contain the configuration for Enigma. Please do not edit these files, but use Enigma itself to change the configuration. If you remove these files, Enigma automatically creates a new default configuration.
-
 The folder **data** contains the imported data files. All data files have a sub-folder with the name you defined for the data. In the folder structure, this is **\[dataname\]**. The folders under [dataname] each have two sub-folders: **csv** and **json**. They contain respectively a copy of the imported file and the conversion to JSON format.
-
-In **database** Enigma maintains a database with data for charts and events. It creates this database after the first calculation of a chart.
-
-**Docs** contains the user manual, installation guide, release notes and developerw manual, all in PDF format. 
-
-The folder **export** is for future use.
 
 Enigma saves log files in the folder **logs**. Each day you use Enigma, it creates a new log file. If the number of log files is larger than 31, the program deletes the oldest log file.
 
-The folder **project** contains sub-folders for each project you create. It uses the names for the projects. In the folder structure, you see **\[projectname\]** as placeholder for these names. This folder contains json files for the definition of the project, the test data, and the control data.
+The folder **projects** contains sub-folders for each project you create. It uses the names for the projects. In the folder structure, you see **\[projectname\]** as placeholder for these names. This folder contains json files for the definition of the project, the test data, and the control data.
 
 The sub-folder **results** contains the results of the different tests.
 
@@ -440,13 +431,7 @@ You can join the Facebook group for Enigma:
 
 The website for Enigma - and for other astrological information - is [*https://radixpro.com*](https://radixpro.com/), use [*https://radixpro.org*](https://radixpro.org/) for technical information for programmers.
 
-### Mailing list
 
-You can subscribe to a mailing list. I only send mails for new releases of Enigma.
-
-To subscribe, send a mail with the subject ‘subscribe’ to enigma@radixpro.org
-
-To stop a subscription, send ‘unsubscribe’ to the same address.
 
 ### Source code
 

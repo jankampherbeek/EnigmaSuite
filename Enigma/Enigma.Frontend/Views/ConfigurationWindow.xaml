@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Configuration" Height="720" Width="540">
+        Title="Enigma - Configuration" Height="720" Width="640">
     <Window.Resources>
         <viewModels:ConfigurationViewModel x:Key="ViewModel"/>
     </Window.Resources>

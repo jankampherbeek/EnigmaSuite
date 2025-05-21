@@ -70,6 +70,8 @@ Click the Enigma icon to start the program, or search for Enigma in your windows
 
 <img src="img/start-icon.png" style="zoom:50%;" />
 
+The first time you start this version you will first see a small popup window where you can define the location where you want to store the logfiles and research results.
+
 You will see a window with two images, one labeled *Charts* and one labeled *Research*.
 
 <img src="img/start.png" style="zoom: 50%;" />
@@ -81,4 +83,4 @@ Both modules of Enigma use the same configuration and the same settings.
 The settings define the location of files that Enigma uses. The configuration gives you the opportunity to define how Enigma behaves astrologically: which house system, which planets, aspects, and much more.
 
 #### Checking for new releases
-Enigma automatically checks for new releases. If a new release is available, it shows a message in the start window.
+Enigma automatically checks for new releases. If a new release is available, it shows a message in the start window, as shown in the picture above.

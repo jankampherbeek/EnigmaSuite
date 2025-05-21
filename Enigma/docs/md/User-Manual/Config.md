@@ -10,19 +10,13 @@
 
 You can access *Settings* from both modules *Charts* and *Research* and check them, but in this release of Enigma, you can not change anything.
 
-Select the menu option **General - Settings**. You will see a window with information about the location of several files.
+Select the menu option **General - Settings**. You will see a window with information about the location of several files. The location depends on the work folder you defined during the first tie you started this version of Enigma. 
 
 - **Data files**. This folder contains the data files you imported.
 
 - The location of **Projects**. All projects will have a sub folder with the name of the project. These sub folders contain all data that is generated for this project.
 
-- Enigma does not yet use **Exported files**. In the future, it will contain the results of exporting data.
-
 - Enigma writes remarks to **Log files**. In case of an error, these log files will be helpful.
-
-- The folder **Database** contains database for calculated charts and other relevant data.
-
-- The **Documentation** includes HTML and PDF versions of the User Manual, Installation Manual, Release Notes and Programmers Manual.
 
   
 
@@ -81,7 +75,11 @@ For each point, you will find a checkbox. Check this box if you want to take the
 There is also a value *Orb%* (Orb percentage) that you can change. Click on the number for the orb and a small pop-up screen appears where you can edit the value. You can enter a percentage from 0 up to 100, make sure you use only whole numbers.
 It is possible to define a percentage for a point that is not selected, so it is easy to remember a percentage if you later decide to include the point. If you want to use a point but not calculate aspects for that point, enter a percentage of zero.
 
-Please note that you cannot deselect the classic points and also not MC or Ascendant. See the Appendix, paragraph *Planets and other celestial points* for more information.
+At the right of the screen you can select a type of correction for the apogee (Black Moon) and (de)select the use of the oscillating (true) lunar node.
+
+See the Appendix, paragraph *Planets and other celestial points* for more information.
+
+
 
 
 
