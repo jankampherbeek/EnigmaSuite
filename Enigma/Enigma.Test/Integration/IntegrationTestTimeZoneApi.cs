@@ -40,6 +40,20 @@ public class IntegrationTestTimeZoneApi: IntegrationTestBase
     [TestCase("America/New_York", 1997,9,12,9,0,0,-4.0, true,"EDT", false, false)]
     [TestCase("Europe/Rome",1968,8,22,17,10,0,2.0, true, "CEST", false, false)]
     [TestCase("America/New_York", 1949,5,15,23,39,0,-4.0, true, "EDT", false, false)]
+ 
+    // Simultaneous change of DST and timezone
+    [TestCase("Asia/Baku", 1992,9,27,1,55,0,4.0, true, "3:00:00", false, false)]
+    [TestCase("Asia/Baku", 1992,9,27,3,05,0,4.0, false, "4:00:00", false, false)]
+    [TestCase("Asia/Baku", 1992,9,27,2,30,0,3.0, false, "3:00:00", false, true)]
+    [TestCase("Asia/Baku", 1992,9,26,14,0,0,4.0, true, "3:00:00", false, false)]
+    
+    // DST change possible in previous month
+    [TestCase("Asia/Jerusalem", 2006,3,31,1,55,0,2.0, false, "IT", false, false)]
+    [TestCase("Asia/Jerusalem", 2006,3,31,3,5,0,3.0, true, "IT", false, false)]
+
+    
+    
+    
     // Invalid DST
     [TestCase("Europe/Amsterdam", 2025, 3, 30, 2, 15, 0, 2.0, true, "CEST", true, false)]
     // Ambiguous DST

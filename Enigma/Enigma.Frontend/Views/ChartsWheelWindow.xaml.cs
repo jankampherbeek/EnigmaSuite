@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -30,7 +30,10 @@ public partial class ChartsWheelWindow
         DrawChartFrame();
         DrawCusps();
         DrawCelPoints();
-        DrawAspects();
+        if (!_canvasController.NoAspects)
+        {
+            DrawAspects();            
+        }
     }
 
    
@@ -93,6 +96,17 @@ public partial class ChartsWheelWindow
         _canvasController.NoTime = false;
         Populate();
     }
+
+    private void NoAspects_Checked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.NoAspects = true;
+        Populate();
+    }
     
+    private void NoAspects_UnChecked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.NoAspects = false;
+        Populate();
+    }
 
 }

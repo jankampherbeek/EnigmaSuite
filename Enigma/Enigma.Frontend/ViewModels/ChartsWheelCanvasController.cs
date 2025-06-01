@@ -21,6 +21,7 @@ public class ChartsWheelCanvasController
 {
 
     public bool NoTime { get; set; } = false;
+    public bool NoAspects { get; set; } = false;
     public List<Line> SignSeparators { get; private set; } = new();
     public List<TextBlock> SignGlyphs { get; private set; } = new();
     public List<Line> CuspLines { get; private set; } = new();

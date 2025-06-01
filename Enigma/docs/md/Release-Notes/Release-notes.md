@@ -2,6 +2,51 @@
 
 
 
+## Release 0.6 beta - June 18, 2025
+
+Support for geographic coordinates and timezones. 
+
+
+
+### Automatic coordinates and timezones
+
+- When entering a new chart, you can select the country and the city from a drop down list and Enigma will automatically fill in the coordinates.
+- All cities and villages in the world with a population of at least 500 people are supported
+- After entering the country and city, Enigma will show the offset and the DST as defined in the TimeZone database.
+
+### New points for Black Lights Astrology
+
+- Support for Dragon and Beast (Black Lights astrology) and for southern lunar node.
+
+  
+
+### User defined work folder
+
+- You can now define a work folder that will contain the results for tests and the log files.
+- Other items, database and configuration, are saved in the user folder of Windows.
+- The standard location c:/enigma-ar is not required anymore
+- An existing database is automatically copied to the new location
+
+
+
+### Research
+
+- Added mean values for totals in tests for sign positions, house positions, aspects.
+- Changed result files from Json to csv, which drastically reduces the file size.
+- You can now easily import the calculated results into a spreadsheet.
+- Improved memory handling so that even millions of charts can be calculated.
+- You can now remove projects and data files via the user interface.
+
+
+
+### Fix
+
+- Added Lot of Fortune to research results, this was missing in previous versions
+
+
+
+
+
 ## Release 0.5.1 beta - February 18, 2025
 
 Bugfix
