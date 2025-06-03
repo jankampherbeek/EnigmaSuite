@@ -47,8 +47,8 @@ public partial class RadixDataInputViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
-    [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
-    [ObservableProperty] private string _lmtGeoLong = "";
+    // [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
+    // [ObservableProperty] private string _lmtGeoLong = "";
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(DateValid))]
     [NotifyPropertyChangedFor(nameof(TimeZone))]
@@ -110,7 +110,7 @@ public partial class RadixDataInputViewModel : ObservableObject
   //  public bool LmtEnabled => TimeZoneIndex == _enumIndexForLmt;
     public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush GeoLongValid => IsGeoLongValid() ? Brushes.Gray : Brushes.Red;
-    public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
+    // public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeZoneValid => IsTimeZoneValid() ? Brushes.Gray : Brushes.Red;
@@ -249,8 +249,8 @@ public partial class RadixDataInputViewModel : ObservableObject
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
         if (!IsGeoLongValid())
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LONGITUDE + EnigmaConstants.NEW_LINE);
-        if (!IsLmtGeoLongValid())
-            errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
+        // if (!IsLmtGeoLongValid())
+        //     errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
         if (!IsDateValid())
             errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
         if (!IsTimeValid())
@@ -275,14 +275,14 @@ public partial class RadixDataInputViewModel : ObservableObject
         return _model.IsGeoLongValid(GeoLong, dir);
     }
 
-    private bool IsLmtGeoLongValid()
-    {
-        if (string.IsNullOrEmpty(LmtGeoLong) && !_calculateClicked) return true;
-     //   if (_enumIndexForLmt != TimeZoneIndex) return true;
-        if (LmtGeoLong == string.Empty) return false;
-        Directions4GeoLong dir = LmtDirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
-        return _model.IsLmtGeoLongValid(LmtGeoLong, dir);
-    }
+    // private bool IsLmtGeoLongValid()
+    // {
+    //     if (string.IsNullOrEmpty(LmtGeoLong) && !_calculateClicked) return true;
+    //  //   if (_enumIndexForLmt != TimeZoneIndex) return true;
+    //     if (LmtGeoLong == string.Empty) return false;
+    //     Directions4GeoLong dir = LmtDirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
+    //     return _model.IsLmtGeoLongValid(LmtGeoLong, dir);
+    // }
     
     private bool IsDateValid()
     {

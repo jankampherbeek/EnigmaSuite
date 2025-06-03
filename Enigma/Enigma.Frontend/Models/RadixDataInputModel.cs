@@ -123,19 +123,19 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     {
         if (string.IsNullOrEmpty(timeZone)) return false;
         
-        // Check format: [-][hh]:mm:ss
-        var pattern = @"^-?\d{2}:\d{2}:\d{2}$";
+        // Check format: [-][hh]:mm[:ss]
+        var pattern = @"^-?\d{2}:\d{2}(:\d{2})?$";
         if (!System.Text.RegularExpressions.Regex.IsMatch(timeZone, pattern)) return false;
-
+    
         // Parse the components
         var parts = timeZone.Split(':');
         var hours = int.Parse(parts[0].Replace("-", ""));
         var minutes = int.Parse(parts[1]);
-        var seconds = int.Parse(parts[2]);
-
+        var seconds = parts.Length > 2 ? int.Parse(parts[2]) : 0;
+    
         // Validate ranges
         if (hours > 23 || minutes > 59 || seconds > 59) return false;
-
+    
         return true;
     }
 }

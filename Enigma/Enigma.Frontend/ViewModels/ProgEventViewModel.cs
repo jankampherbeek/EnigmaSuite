@@ -98,8 +98,8 @@ public partial class ProgEventViewModel: ObservableObject
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
         if (!IsGeoLongValid())
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LONGITUDE + EnigmaConstants.NEW_LINE);
-        if (!IsLmtGeoLongValid())
-            errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
+        // if (!IsLmtGeoLongValid())
+        //     errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
         if (!IsDateValid())
             errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
         if (!IsTimeValid())
