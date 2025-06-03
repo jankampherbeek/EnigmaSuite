@@ -102,8 +102,9 @@ public class ProgRealPointCalc: IProgRealPointCalc
     private KeyValuePair<ChartPoints, ProgPositions> CreatePosForSePoint(ChartPoints celPoint, double julDay, 
         int flagsEcl, int flagsEq)
     {
-        PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint((int)celPoint, julDay, flagsEcl);
-        PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint((int)celPoint, julDay, flagsEq);
+        int seId = celPoint.GetDetails().CalcId;
+        PosSpeed[] eclipticPosSpeed = _celPointSeCalc.CalculateCelPoint(seId, julDay, flagsEcl);
+        PosSpeed[] equatorialPosSpeed = _celPointSeCalc.CalculateCelPoint(seId, julDay, flagsEq);
         ProgPositions progPos = new(eclipticPosSpeed[0].Position, eclipticPosSpeed[1].Position,
             equatorialPosSpeed[0].Position, equatorialPosSpeed[1].Position);
         return new KeyValuePair<ChartPoints, ProgPositions>(celPoint, progPos);
