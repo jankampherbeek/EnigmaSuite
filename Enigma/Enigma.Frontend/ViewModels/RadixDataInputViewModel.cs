@@ -4,10 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,8 +31,6 @@ public partial class RadixDataInputViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_DATA_INPUT;
     
- //   public event PropertyChangedEventHandler PropertyChanged;
-
 
     private Country _selectedCountry;
     private City _selectedCity;
@@ -47,8 +42,6 @@ public partial class RadixDataInputViewModel : ObservableObject
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
-    // [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
-    // [ObservableProperty] private string _lmtGeoLong = "";
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [NotifyPropertyChangedFor(nameof(DateValid))]
     [NotifyPropertyChangedFor(nameof(TimeZone))]
@@ -79,10 +72,8 @@ public partial class RadixDataInputViewModel : ObservableObject
     [ObservableProperty] private int _lmtDirLongIndex;
     [ObservableProperty] private int _calendarIndex;
     [ObservableProperty] private int _yearCountIndex;
-    [ObservableProperty] private int _timeZoneIndex;
+  //  [ObservableProperty] private int _timeZoneIndex;
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
-  //  [NotifyPropertyChangedFor(nameof(LmtEnabled))]
-   
     [ObservableProperty] private ObservableCollection<string> _allRatings;
     [ObservableProperty] private ObservableCollection<string> _allCategories;
     [ObservableProperty] private ObservableCollection<string> _allDirectionsForLatitude;
@@ -90,7 +81,7 @@ public partial class RadixDataInputViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allLmtDirectionsForLongitude;
     [ObservableProperty] private ObservableCollection<string> _allCalendars;
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
-    [ObservableProperty] private ObservableCollection<string> _allTimeZones;
+//    [ObservableProperty] private ObservableCollection<string> _allTimeZones;
     [ObservableProperty] private ObservableCollection<Country> _allCountries;
     [ObservableProperty] private ObservableCollection<City> _citiesForCountry;
     [ObservableProperty]
@@ -101,16 +92,14 @@ public partial class RadixDataInputViewModel : ObservableObject
     [NotifyPropertyChangedFor(nameof(TimeZoneValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     
-   // private readonly int _enumIndexForLmt;
    [ObservableProperty]
     private RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
     private readonly ITimeZoneApi _timeZoneApi = App.ServiceProvider.GetRequiredService<ITimeZoneApi>();
     
     private bool _calculateClicked;
-  //  public bool LmtEnabled => TimeZoneIndex == _enumIndexForLmt;
+  
     public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush GeoLongValid => IsGeoLongValid() ? Brushes.Gray : Brushes.Red;
-    // public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeZoneValid => IsTimeZoneValid() ? Brushes.Gray : Brushes.Red;
@@ -127,10 +116,9 @@ public partial class RadixDataInputViewModel : ObservableObject
         AllLmtDirectionsForLongitude  = new ObservableCollection<string>(_model.AllDirectionsForLongitude);
         AllCalendars = new ObservableCollection<string>(_model.AllCalendars);
         AllYearCounts = new ObservableCollection<string>(_model.AllYearCounts);
-        AllTimeZones = new ObservableCollection<string>(_model.AllTimeZones);
+    //    AllTimeZones = new ObservableCollection<string>(_model.AllTimeZones);
         AllCountries = new ObservableCollection<Country>(_model.AllCountries);
         CitiesForCountry = new ObservableCollection<City>();
-     //   _enumIndexForLmt = (int)TimeZones.Lmt;
     }
     
     public Country SelectedCountry
@@ -249,8 +237,6 @@ public partial class RadixDataInputViewModel : ObservableObject
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
         if (!IsGeoLongValid())
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LONGITUDE + EnigmaConstants.NEW_LINE);
-        // if (!IsLmtGeoLongValid())
-        //     errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
         if (!IsDateValid())
             errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
         if (!IsTimeValid())
@@ -274,15 +260,7 @@ public partial class RadixDataInputViewModel : ObservableObject
         Directions4GeoLong dir = DirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
         return _model.IsGeoLongValid(GeoLong, dir);
     }
-
-    // private bool IsLmtGeoLongValid()
-    // {
-    //     if (string.IsNullOrEmpty(LmtGeoLong) && !_calculateClicked) return true;
-    //  //   if (_enumIndexForLmt != TimeZoneIndex) return true;
-    //     if (LmtGeoLong == string.Empty) return false;
-    //     Directions4GeoLong dir = LmtDirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
-    //     return _model.IsLmtGeoLongValid(LmtGeoLong, dir);
-    // }
+    
     
     private bool IsDateValid()
     {
@@ -295,8 +273,7 @@ public partial class RadixDataInputViewModel : ObservableObject
     private bool IsTimeValid()
     {
         if (string.IsNullOrEmpty(Time) && !_calculateClicked) return true; 
-        TimeZones timeZone = TimeZonesExtensions.TimeZoneForIndex(TimeZoneIndex);
-        return _model.IsTimeValid(Time, timeZone, ApplyDst);
+        return _model.IsLocalTimeValid(Time);
     }
     
     

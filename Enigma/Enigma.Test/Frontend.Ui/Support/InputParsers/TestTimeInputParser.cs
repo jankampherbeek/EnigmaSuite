@@ -26,17 +26,16 @@ public class TestTimeInputParser
         const bool dst = false;
         const string timeInput = "10:12:00";
         int[] timeValues = { 10, 12, 0 };
-        const double lmtOffset = 0.0;
-        const TimeZones timeZone = TimeZones.Ut;
+        const double offset = 0.0;
         var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, true);
         A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
         var timeValidatorFake = A.Fake<ITimeValidator>();
         FullTime? fullTime;
-        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(true);
+        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, offset, dst, out fullTime)).Returns(true);
         ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
-        Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out _), Is.True);
+        Assert.That(parser.HandleTime(timeInput, offset, dst, out _), Is.True);
     }
 
     [Test]
@@ -45,17 +44,16 @@ public class TestTimeInputParser
         const bool dst = false;
         const string timeInput = "10:12";
         int[] timeValues = { 10, 12 };
-        const double lmtOffset = 0.0;
-        const TimeZones timeZone = TimeZones.Ut;
+        const double offset = 0.0;
         var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, true);
         A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
         var timeValidatorFake = A.Fake<ITimeValidator>();
         FullTime? fullTime;
-        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(true);
+        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, offset, dst, out fullTime)).Returns(true);
         ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
-        Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out fullTime), Is.True);
+        Assert.That(parser.HandleTime(timeInput, offset, dst, out fullTime), Is.True);
     }
 
 
@@ -65,15 +63,14 @@ public class TestTimeInputParser
         const bool dst = false;
         const string timeInput = "10:xy:00";
         int[] timeValues = Array.Empty<int>();
-        const double lmtOffset = 0.0;
-        const TimeZones timeZone = TimeZones.Ut;
+        const double offset = 0.0;
         var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, false);
         A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
         var timeValidatorFake = A.Fake<ITimeValidator>();
         ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
-        Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out FullTime? _), Is.False);
+        Assert.That(parser.HandleTime(timeInput, offset, dst, out FullTime? _), Is.False);
     }
 
     [Test]
@@ -82,17 +79,16 @@ public class TestTimeInputParser
         const bool dst = false;
         const string timeInput = "10:72:00";
         int[] timeValues = { 10, 72, 0 };
-        const double lmtOffset = 0.0;
-        const TimeZones timeZone = TimeZones.Ut;
+        const double offset = 0.0;
         var valueRangeConverterFake = A.Fake<IValueRangeConverter>();
         (int[] numbers, bool success) rangeResult = (timeValues, true);
         A.CallTo(() => valueRangeConverterFake.ConvertStringRangeToIntRange(timeInput, SEPARATOR)).Returns(rangeResult);
         var timeValidatorFake = A.Fake<ITimeValidator>();
         FullTime? fullTime;
-        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, timeZone, lmtOffset, dst, out fullTime)).Returns(false);
+        A.CallTo(() => timeValidatorFake.CreateCheckedTime(timeValues, offset, dst, out fullTime)).Returns(false);
         ITimeInputParser parser = new TimeInputParser(valueRangeConverterFake, timeValidatorFake);
 
-        Assert.That(parser.HandleTime(timeInput, timeZone, lmtOffset, dst, out fullTime), Is.False);
+        Assert.That(parser.HandleTime(timeInput, offset, dst, out fullTime), Is.False);
     }
 
 }

@@ -1,8 +1,11 @@
 using System.Collections.Generic;
+using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
+using Enigma.Frontend.Ui.Support.Validations;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -15,6 +18,8 @@ public abstract class DateTimeLocationModelBase
     private readonly ITimeInputParser _timeInputParser;
     private readonly IGeoLongInputParser _geoLongInputParser;
     private readonly IGeoLatInputParser _geoLatInputParser;
+    private readonly IValueRangeConverter _valueRangeConverter;
+    private readonly ITimeValidator _timeValidator;
     protected FullDate? FullDate;
     protected FullDate? SecondFullDate;
     protected FullTime? FullTime;
@@ -31,12 +36,16 @@ public abstract class DateTimeLocationModelBase
     protected DateTimeLocationModelBase(IDateInputParser dateInputParser, 
         ITimeInputParser timeInputParser,
         IGeoLongInputParser geoLongInputParser,
-        IGeoLatInputParser geoLatInputParser)
+        IGeoLatInputParser geoLatInputParser,
+        IValueRangeConverter valueRangeConverter,
+        ITimeValidator timeValidator)
     {
         _dateInputParser = dateInputParser;
         _timeInputParser = timeInputParser;
         _geoLongInputParser = geoLongInputParser;
         _geoLatInputParser = geoLatInputParser;
+        _valueRangeConverter = valueRangeConverter;
+        _timeValidator = timeValidator;
         AllDirectionsForLatitude = new List<string>();
         AllDirectionsForLongitude = new List<string>();
         AllCalendars = new List<string>();
@@ -65,25 +74,27 @@ public abstract class DateTimeLocationModelBase
         return isValid;
     }
     
-    public bool IsTimeValid(string inputTime, TimeZones timeZone, bool dst)
+    public bool IsTimeValid(string inputTime, double offset, bool dst)
     {
-        double offsetLmt = 0.0;
-        if (timeZone == TimeZones.Lmt)
-        {
-            
-            if (_fullLmtGeoLongitude != null) offsetLmt = _fullLmtGeoLongitude.Longitude / 15.0;
-        }
-        bool isValid = _timeInputParser.HandleTime(inputTime, timeZone, offsetLmt, dst, out FullTime? fullTime);
+        bool isValid = _timeInputParser.HandleTime(inputTime, offset, dst, out FullTime? fullTime);
         if (isValid) FullTime = fullTime;
         return isValid;
     }
-    
-    public bool IsLmtGeoLongValid(string lmtLongitude, Directions4GeoLong dir)
+
+
+    public bool IsLocalTimeValid(string inputTime)
     {
-        bool isValid = _geoLongInputParser.HandleGeoLong(lmtLongitude, dir, out FullGeoLongitude? fullLmtGeoLongitude);
-        if (isValid) _fullLmtGeoLongitude = fullLmtGeoLongitude;
-        return isValid;
+        var (timeValues, timeSuccess) =
+            _valueRangeConverter.ConvertStringRangeToIntRange(inputTime, EnigmaConstants.SEPARATOR_TIME);
+        return timeSuccess && _timeValidator.CheckTime(timeValues);
     }
+
+    // public bool IsLmtGeoLongValid(string lmtLongitude, Directions4GeoLong dir)
+    // {
+    //     bool isValid = _geoLongInputParser.HandleGeoLong(lmtLongitude, dir, out FullGeoLongitude? fullLmtGeoLongitude);
+    //     if (isValid) _fullLmtGeoLongitude = fullLmtGeoLongitude;
+    //     return isValid;
+    // }
     
     public bool IsGeoLongValid(string longitude, Directions4GeoLong dir)
     {

@@ -12,7 +12,9 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.LocationsZones;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 using Enigma.Frontend.Ui.Support.Parsers;
+using Enigma.Frontend.Ui.Support.Validations;
 using Serilog;
 using Location = Enigma.Domain.Dtos.Location;
 
@@ -34,9 +36,10 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     private readonly IReferencesApi _referencesApi;
 
     public RadixDataInputModel(IGeoLongInputParser geoLongInputParser, IGeoLatInputParser geoLatInputParser,
-        IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IJulianDayApi julianDayApi, ILocationApi locationApi,
+        IDateInputParser dateInputParser, ITimeInputParser timeInputParser, IValueRangeConverter valueRangeConverter, 
+        ITimeValidator timeValidator, IJulianDayApi julianDayApi, ILocationApi locationApi,
         IChartCalculation chartCalculation, ILocationConversion locationConversion, IReferencesApi referencesApi) : 
-        base(dateInputParser, timeInputParser, geoLongInputParser, geoLatInputParser)
+        base(dateInputParser, timeInputParser, geoLongInputParser, geoLatInputParser, valueRangeConverter, timeValidator)
     {
         _locationConversion = locationConversion;
         _julianDayApi = julianDayApi;
@@ -118,7 +121,8 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     {
         return _locationApi.GetAllCitiesForCountry(countryCode);
     }
-
+    
+    
     public bool IsTimeZoneValid(string timeZone)
     {
         if (string.IsNullOrEmpty(timeZone)) return false;
