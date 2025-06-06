@@ -105,10 +105,27 @@ public class DstParser : IDstParser
 
     private DstLine? CreateSingleDstLine(DstElementsLine line, int year)
     {
+        SimpleDateTime sdt;
+        double jd;
+        var month = line.In;
+        
+        // Calculate the day of week for the first day of the month (0=Monday, 6=Sunday)
+        var firstDayOfMonth = new DateTime(year, month, 1);
+        var startDayOfMonth = ((int)firstDayOfMonth.DayOfWeek + 6) % 7; // Convert Sunday=0 to Monday=0
+        
         var day =
             _dayNrCalc.DayFromDefinition(year, line.In, line.On); // resp. year, month and day definition
-        var sdt = new SimpleDateTime(year, line.In, day, line.At, Calendars.Gregorian);
-        var jd = _jdFacade.JdFromSe(sdt); // always Gregorian
+        if (day > 0)
+        {
+            sdt = new SimpleDateTime(year, line.In, day, line.At, Calendars.Gregorian);
+            jd = _jdFacade.JdFromSe(sdt); // always Gregorian
+        }
+        else
+        {
+            sdt = new SimpleDateTime(year, line.In, 1, line.At,Calendars.Gregorian);
+            jd = _jdFacade.JdFromSe(sdt) + day; // add negative value for day
+        }
+
         return new DstLine(jd, line.Save, line.Letter, line.Ut == "u");
     }
 }

@@ -71,7 +71,7 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
         
         var sdt = new SimpleDateTime(year, month, 1, 12.0, Calendars.Gregorian);
         var jd = jdFacade.JdFromSe(sdt);
-        var firstDayOfWeek = jdFacade.DayOfWeek(jd); // Monday=0 ... Sunday=6
+        var firstDayIdOfMonth = jdFacade.DayOfWeek(jd); // Monday=0 ... Sunday=6
         int actualDay;
         int daysInMonth;
         var daysUntilFirstOccurrence = 0;
@@ -86,7 +86,7 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
                 actualDay = daysInMonth - diff;
                 break;
             case { } s when s.StartsWith(">="):
-                daysUntilFirstOccurrence = (targetDayOfWeek - firstDayOfWeek + 7) % 7;
+                daysUntilFirstOccurrence = (targetDayOfWeek - firstDayIdOfMonth + 7) % 7;
                 var firstOccurrence = 1 + daysUntilFirstOccurrence;
                 if (firstOccurrence < geNumber)
                 {
@@ -103,48 +103,14 @@ public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
                 }
                 break;
             case { } s when s.StartsWith("<="):
-                
-                // New approach:
-                // Bepaal dag_achter '<='
-                // Bepaal actuele_dag
-                // Als dag_achter == actuele_dag --> return datum
-                // Anders -->
-                //      Bereken JD dag_achter (volledige datum van maken)
-                //      Bereken verschil in dag_achterJD met actuele dag
-                //      Trek verschil af van JD
-                //      Vind datum voor JD-verschil
-                //      return datum
-                
-                
-                
-                daysUntilFirstOccurrence = (targetDayOfWeek - firstDayOfWeek + 7) % 7;
-                var firstOccurrenceLe = 1 + daysUntilFirstOccurrence;
-                daysInMonth = DateTime.DaysInMonth(year, month);
-                
-                // Start from the target day and work backwards
-                actualDay = geNumber;
-                var currentDayJd = jdFacade.JdFromSe(new SimpleDateTime(year, month, actualDay, 12.0, Calendars.Gregorian));
-                var currentDayOfWeek = jdFacade.DayOfWeek(currentDayJd);
-                
-                // Calculate how many days to go back to reach the target day of week
-                var daysToGoBack = (currentDayOfWeek - targetDayOfWeek + 7) % 7;
-                actualDay -= daysToGoBack;
-                
-                // If we've gone into the previous month, find the last occurrence there
-                if (actualDay <= 0)
+    
+                if (firstDayIdOfMonth == targetDayOfWeek)
                 {
-                    // Get the last day of the previous month
-                    var prevMonth = month == 1 ? 12 : month - 1;
-                    var prevYear = month == 1 ? year - 1 : year;
-                    var lastDayPrevMonth = DateTime.DaysInMonth(prevYear, prevMonth);
-                    
-                    // Calculate the day of week for the last day of previous month
-                    var lastDayJdLe = jdFacade.JdFromSe(new SimpleDateTime(prevYear, prevMonth, lastDayPrevMonth, 12.0, Calendars.Gregorian));
-                    var lastDayOfWeekLe = jdFacade.DayOfWeek(lastDayJdLe);
-                    
-                    // Calculate the last occurrence of target day in previous month
-                    var diffLe = (lastDayOfWeekLe - targetDayOfWeek + 7) % 7;
-                    actualDay = lastDayPrevMonth - diffLe;
+                    actualDay = firstDayIdOfMonth;
+                }
+                else
+                {
+                    actualDay = Math.Abs(targetDayOfWeek - firstDayIdOfMonth) * -1;                    
                 }
                 break;                
             default:
