@@ -86,6 +86,7 @@ public abstract class DateTimeLocationModelBase
     {
         var (timeValues, timeSuccess) =
             _valueRangeConverter.ConvertStringRangeToIntRange(inputTime, EnigmaConstants.SEPARATOR_TIME);
+        
         return timeSuccess && _timeValidator.CheckTime(timeValues);
     }
 

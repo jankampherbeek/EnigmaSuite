@@ -34,6 +34,8 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     private Country _selectedCountry;
     private City _selectedCity;
+    private double _offset;
+    private bool _dst;
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
     [ObservableProperty] private string _source = "";
@@ -101,7 +103,7 @@ public partial class RadixDataInputViewModel : ObservableObject
     public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush GeoLongValid => IsGeoLongValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
-    public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush TimeValid => IsLocalTimeValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeZoneValid => IsTimeZoneValid() ? Brushes.Gray : Brushes.Red;
 
     private IDataInputConverter _dataInputConverter;
@@ -185,7 +187,9 @@ public partial class RadixDataInputViewModel : ObservableObject
             );
             var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
             // Use only the base timezone offset without DST
-            TimeZone = FormatTimeZone(zoneInfo.Offset - (zoneInfo.Dst ? 1.0 : 0.0));
+            _offset = zoneInfo.Offset;
+            _dst = zoneInfo.Dst;
+            TimeZone = FormatTimeZone(_offset - (_dst ? 1.0 : 0.0));
             ApplyDst = zoneInfo.Dst;
         }
         catch (Exception ex)
@@ -239,10 +243,10 @@ public partial class RadixDataInputViewModel : ObservableObject
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LONGITUDE + EnigmaConstants.NEW_LINE);
         if (!IsDateValid())
             errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
-        if (!IsTimeValid())
-            errorsText.Append(StandardTexts.ERROR_TIME + EnigmaConstants.NEW_LINE);
         if (!IsTimeZoneValid())
             errorsText.Append(StandardTexts.ERROR_TIMEZONE + EnigmaConstants.NEW_LINE);
+        if (!IsTimeValid() || !IsLocalTimeValid())   
+            errorsText.Append(StandardTexts.ERROR_TIME + EnigmaConstants.NEW_LINE);
         return errorsText.ToString();
     }
     
@@ -270,12 +274,16 @@ public partial class RadixDataInputViewModel : ObservableObject
         return _model.IsDateValid(Date, cal, yCount);
     }
     
-    private bool IsTimeValid()
+    private bool IsLocalTimeValid()
     {
         if (string.IsNullOrEmpty(Time) && !_calculateClicked) return true; 
         return _model.IsLocalTimeValid(Time);
     }
-    
+
+    private bool IsTimeValid()
+    {
+        return _model.IsTimeValid(Time, _offset, _dst);
+    }
     
     [RelayCommand]
     private static void Help()
