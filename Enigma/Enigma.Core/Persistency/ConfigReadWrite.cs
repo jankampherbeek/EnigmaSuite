@@ -5,6 +5,7 @@
 
 using Enigma.Core.Configuration;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Dtos;
 
 namespace Enigma.Core.Persistency;
 
@@ -56,13 +57,13 @@ public sealed class ConfigWriter : IConfigWriter
     public bool WriteConfigDeltas(Dictionary<string, string> deltas)
     {
         string parsedDeltas = _configParser.MarshallDeltasForConfig(deltas);
-        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_DELTA_LOCATION, parsedDeltas);
+        return _textFileWriter.WriteFile(ApplicationSettings.ConfigDeltaLocation, parsedDeltas);
     }
 
     public bool WriteConfigDeltasProg(Dictionary<string, string> deltas)
     {
         string parsedDeltas = _configParser.MarshallDeltasForConfig(deltas);
-        return _textFileWriter.WriteFile(EnigmaConstants.CONFIG_PROG_DELTA_LOCATION, parsedDeltas);
+        return _textFileWriter.WriteFile(ApplicationSettings.ConfigProgDeltaLocation, parsedDeltas);
     }
 }
 
@@ -82,13 +83,13 @@ public sealed class ConfigReader : IConfigReader
 
     public Dictionary<string, string> ReadDeltasForConfig()
     {
-        string deltaText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_DELTA_LOCATION);
+        string deltaText = _textFileReader.ReadFile(ApplicationSettings.ConfigDeltaLocation);
         return _configParser.UnMarshallDeltasForConfig(deltaText);
     }
 
     public Dictionary<string, string> ReadDeltasForConfigProg()
     {
-        string deltaText = _textFileReader.ReadFile(EnigmaConstants.CONFIG_PROG_DELTA_LOCATION);
+        string deltaText = _textFileReader.ReadFile(ApplicationSettings.ConfigProgDeltaLocation);
         return _configParser.UnMarshallDeltasForConfig(deltaText);
     }
 }

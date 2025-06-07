@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"        
-        Title="Enigma - Event for progressions" Height="760" Width="520">
+        Title="Enigma - Event for progressions" Height="800" Width="520">
     <Window.Resources>
         <viewModels:ProgEventViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -24,16 +24,16 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="8*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="3*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>

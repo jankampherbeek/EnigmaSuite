@@ -99,10 +99,6 @@ public static class EnigmaConstants
 
     // Locations
     public const string USER_MANUAL = "https://radixpro.com/usermanual/0_6/UserManual.html";
-    /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
-    public const string CONFIG_DELTA_LOCATION = "c:/enigma_ar/enigmacfgdelta.json";
-    /// <summary>Location of deltas for configuration file for rogressions, contains path and filename.</summary>
-    public const string CONFIG_PROG_DELTA_LOCATION = "c:/enigma_ar/enigmaprogcfgdelta.json";
     /// <summary>Name of relational database.</summary>   
     public const string RDBMS_NAME = "EnigmaRDBMS.sqlite";
     /// <summary>Url to find latest release information.</summary>

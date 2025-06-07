@@ -331,9 +331,9 @@ You can use the same event for all supported progressive techniques.
 The start-screen for progressive techniques shows all available events for the chart you are working on.
 
 ### Defining an event
-<img src="img/define-event.png" style="zoom: 50%;" />
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\define-event.png" alt="define-event" style="zoom:50%;" />
 
-Click the button **New event** to define an event. You will see the screen _Define and save event_.The functionality is the same as the data input for a chart. The description of the event can comprise multiple lines.
+Click the button **New event** to define an event. You will see the screen _Define and save event_. The functionality is the same as the data input for a chart. The description of the event can comprise multiple lines.
 Click the button **Save** to put the event into the database.
 
 <img src="img/prog-main-with-event.png" style="zoom: 50%;" />

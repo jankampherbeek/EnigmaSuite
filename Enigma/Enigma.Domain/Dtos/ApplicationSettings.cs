@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -21,6 +21,11 @@ public class ApplicationSettings
 
     public static string WorkFolder = "[Your workfolder]";
 
+    /// <summary>Location of deltas for configuration file, contains path and filename.</summary>
+    public static string ConfigDeltaLocation = LocationEnigmaRoot + Path.DirectorySeparatorChar + "enigmacfgdelta.json";
+    /// <summary>Location of deltas for configuration file for rogressions, contains path and filename.</summary>
+    public static string ConfigProgDeltaLocation =  LocationEnigmaRoot + Path.DirectorySeparatorChar + "enigmaprogcfgdelta.json";
+    
     public static void SetWorkFolder(string wfName)
     {
         WorkFolder = wfName;
@@ -43,11 +48,3 @@ public class ApplicationSettings
     public static ApplicationSettings Instance { get; } = new();
 }
 
-/*
-
-    private static readonly ISettingsApi SettingsApi = App.ServiceProvider.GetRequiredService<ISettingsApi>();
-    private static readonly string? WorkFolder = SettingsApi.ReadSetting("workfolder");
-    
-
-
-    */

@@ -3,9 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Api;
 using Enigma.Api.Persistency;
-using Enigma.Domain.Responses;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -25,6 +23,6 @@ public sealed class ChartsImportModel
     public string PerformImport(string inputFile)
     {
         bool result = _importApi.ImportPdDataToRdbms(inputFile);
-        return result ? "Import successfully completed" : "Data could not be imported. Please check C:\\enigma_ar\\data\\errors.txt";
+        return result ? "Import successfully completed" : "Data could not be imported. Please check the folder \\data\\errors.txt in your workfolder";
     }
 }

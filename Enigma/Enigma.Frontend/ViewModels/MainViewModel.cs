@@ -20,7 +20,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Api.Persistency;
-using Enigma.Frontend.Ui.State;
 
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -41,6 +40,7 @@ public partial class MainViewModel: ObservableObject
         HandleCheckNewVersion();
         HandleCheckDirForSettings();   // TODO, obsolete, remove
         HandleCheckRdbms();
+        HandleCheckConfig();
         if (!HandleCheckSettings())
         {
             MessageBox.Show("You did not define a work folder. Please restart Enigma and try again.");
@@ -69,6 +69,40 @@ public partial class MainViewModel: ObservableObject
             // Continue with application startup even if database initialization fails
         }
     }
+
+    private void HandleCheckConfig()
+    {
+        const string generalConfig = "enigmacfgdelta.json";
+        const string progConfig = "enigmaprogcfgdelta.json";
+        const string previousFolder = @"c:\enigma_ar";
+        var sep = Path.DirectorySeparatorChar;
+        var folder = ApplicationSettings.LocationEnigmaRoot;
+        Log.Information($"Checking for config in {folder}");
+        if (!File.Exists(folder + sep + generalConfig))
+        {
+            Log.Information($"Config not found: {folder + sep + generalConfig} ");
+            if (File.Exists(previousFolder + sep + generalConfig))
+            {
+                Log.Information($"Previous config found in {previousFolder}");
+                File.Copy(previousFolder + sep + generalConfig, folder + sep + generalConfig);
+                Log.Information("Config copied");
+            }
+        }
+        Log.Information($"Checking for prog config in {folder}");
+        if (!File.Exists(folder + sep + progConfig))
+        {
+            Log.Information($"Prog config not found: {folder + sep + generalConfig} ");
+            if (File.Exists(previousFolder + sep + progConfig))
+            {
+                Log.Information($"Previous prog config found in {previousFolder}");                
+                File.Copy(previousFolder + sep + progConfig, folder + sep + progConfig);
+                Log.Information("Prog config copied");                
+            }
+        }
+        
+        
+    }
+    
     
     private void HandleCheckNewVersion()
     {
