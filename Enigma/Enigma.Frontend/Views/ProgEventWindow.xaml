@@ -99,6 +99,7 @@
                   IsTextSearchEnabled="True"
                   StaysOpenOnEdit="True"/>
         <TextBox Grid.Row="9" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"   
+                 IsReadOnly="True"
                  materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding GeoLongValid}"
@@ -110,6 +111,7 @@
                   ItemsSource="{Binding AllDirectionsForLongitude}"
                   SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Row="10" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                 IsReadOnly="True" 
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding GeoLatValid}"
@@ -125,6 +127,7 @@
                    Text="TimeZone" Name="SubHeaderTimeZone"  
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="12" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
+                 IsReadOnly="True"
                  materialDesign:HintAssist.Hint="TimeZone (hh:mm:ss)"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding TimeZoneValid}"

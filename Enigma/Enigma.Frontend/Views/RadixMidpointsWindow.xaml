@@ -102,9 +102,6 @@
             <RadioButton Content="360 degrees" GroupName="RbgDialSize" Margin="6" IsChecked="True" Command="{Binding ChangeDial360Command}" />
             <RadioButton Content="90 degrees" GroupName="RbgDialSize" Margin="6" Command="{Binding ChangeDial90Command}" />
             <RadioButton Content="45 degrees" GroupName="RbgDialSize" Margin="6" Command="{Binding ChangeDial45Command}"/>
-            <TextBlock Text="OrbSize for selected dial:" Margin="6" TextWrapping="Wrap"/>
-            <TextBlock Text="{Binding OrbSize}" Margin="6"/>
-
         </StackPanel>
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Help" Margin="6" Command="{Binding HelpCommand}"/>
