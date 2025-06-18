@@ -1,4 +1,4 @@
-# Installation manual Enigma Astrology Research 0.5
+# Installation manual Enigma Astrology Research 0.6
 
 
 ## Requirements
@@ -83,15 +83,17 @@ Click the button **Finish**.
 The installer made the following changes to your system:
 
 - It installed Enigma in *C:\Program Files (x86)\Enigma Astrology Research*. This folder also contains a sub-folder *se* with the required files from the Swiss Ephemeris, a sub-folder *res* with help-files, and a sub-folder *runtimes* that contains logic for the database. You should never change anything in these folders.
-- The font *EnigmaAstrology* is available. You can use this font also in other applications. For more information, check [*http://radixpro.com/downloads/font*](http://radixpro.com/downloads/font)/
-
-Enigma uses the folder c:/enigma_ar and its sub-folders. After starting, Enigma creates these folders automatically, if they do not yet exist.
+- The astrology funt has been updated. It now includes additional glyphs for Black Lights Astrology. 
 
 
 
 ## After installation
 
 If you start Enigma the first time after installation, you might get a request to install *.Net Runtime*. This is additional software from MicroSoft that is required to run the program. If this Runtime is already available on your computer, you will not see this request. Click the download link in the window about this Runtime. After downloading it, you can click the downloaded file to install the Runtime.
+
+Enigma will ask you to define a work-folder where it can save the results of research and the logfiles. You need to define this workfolder before you can proceed.
+
+
 
 ## Removing Enigma
 

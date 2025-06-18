@@ -266,7 +266,7 @@ public class RdbmsPreparator: IRdbmsPreparator
             dbConnection.Execute(sqlQuery);
             Log.Information("Created database schema");
             // Insert initial version
-            const string versionSql = "INSERT INTO DbVersions(description) VALUES(@version)";
+            const string versionSql = "INSERT INTO DbVersions(description) VALUES(@version)";   // initial version 0.0 of database
             dbConnection.Execute(versionSql, new { version = "0.0" });
             Log.Information("Inserted initial version");
         } 
@@ -298,9 +298,9 @@ public class RdbmsPreparator: IRdbmsPreparator
             using var dbConnection = new SQLiteConnection(connectionString);
             dbConnection.Open();
             dbConnection.Execute(sqlQuery);
-            var anonymousDbVersion = new{description = EnigmaConstants.ENIGMA_VERSION};
-            const string versionSql = "insert into DbVersions(description) VALUES(@description);";
-            dbConnection.Execute(versionSql, anonymousDbVersion);
+            // var anonymousDbVersion = new{description = EnigmaConstants.ENIGMA_VERSION};
+            // const string versionSql = "insert into DbVersions(description) VALUES(@description);";
+            // dbConnection.Execute(versionSql, anonymousDbVersion);
         } 
         catch (Exception e)
         {

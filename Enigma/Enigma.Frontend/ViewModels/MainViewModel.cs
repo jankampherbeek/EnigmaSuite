@@ -20,6 +20,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System.Windows;
 using Enigma.Api.Persistency;
+using Microsoft.Win32;
 
 
 namespace Enigma.Frontend.Ui.ViewModels;
@@ -38,7 +39,7 @@ public partial class MainViewModel: ObservableObject
     {
         _generalWindowsFlow = App.ServiceProvider.GetRequiredService<GeneralWindowsFlow>();
         HandleCheckNewVersion();
-        HandleCheckDirForSettings();   // TODO, obsolete, remove
+    //    HandleCheckDirForSettings();   // TODO, obsolete, remove
         HandleCheckRdbms();
         HandleCheckConfig();
         if (!HandleCheckSettings())
@@ -135,27 +136,37 @@ public partial class MainViewModel: ObservableObject
 
     private static string GetWorkfolderPath()
     {
-        MessageBox.Show("This is the first time that you start this verion of Enigma. \n" +
-                       "After closing this popup, you need to select a folder where you want to save results form working with Enigma\n" +
+        MessageBox.Show("This is the first time that you start this version of Enigma. \n" +
+                       "After closing this popup, you need to select a folder where you want to save results form working with Enigma.\n" +
                        "Please click OK and define a folder in the next screen.");
-
-        var dialog = new Microsoft.Win32.OpenFileDialog
+    
+        // var dialog = new Microsoft.Win32.OpenFileDialog
+        // {
+        //     Title = "Select folder for Enigma work files",
+        //     Filter = "Folders|*.none",
+        //     CheckFileExists = false,
+        //     CheckPathExists = true,
+        //     FileName = "Select Folder",
+        //     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+        // };
+        //
+        // if (dialog.ShowDialog() == true)
+        // {
+        //     return Path.GetDirectoryName(dialog.FileName) ?? string.Empty;
+        // }
+        var dialog = new OpenFolderDialog()
         {
             Title = "Select folder for Enigma work files",
-            Filter = "Folders|*.none",
-            CheckFileExists = false,
-            CheckPathExists = true,
-            FileName = "Select Folder",
             InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         };
-
         if (dialog.ShowDialog() == true)
         {
-            return Path.GetDirectoryName(dialog.FileName) ?? string.Empty;
+            return dialog.FolderName; // Should not be empty
         }
         return string.Empty;
     }
-
+    
+    
     // Checks if minimal settings are available.
     private static bool HandleCheckSettings()
     {
