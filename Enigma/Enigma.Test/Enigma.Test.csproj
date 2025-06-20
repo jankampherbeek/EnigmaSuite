@@ -45,6 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Slices\ZodiacDivisions\" />
     <Folder Include="Frontend.Ui\Models\" />
   </ItemGroup>
 
