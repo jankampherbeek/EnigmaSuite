@@ -1,5 +1,5 @@
 ﻿// Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2022, 2023, 2024, 2025.
+// Jan Kampherbeek, (c) 2022.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -10,7 +10,7 @@ namespace Enigma.Domain.Constants;
 public static class EnigmaConstants
 {
     // Version info
-    public const string ENIGMA_VERSION = "0.6.0";
+    public const string ENIGMA_VERSION = "0.6.1";
 
     /// <summary>SE id to identify obliquity and nutation.</summary>
     public const int SE_ECL_NUT = -1;
