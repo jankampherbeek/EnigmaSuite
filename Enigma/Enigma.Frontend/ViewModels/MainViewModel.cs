@@ -39,7 +39,6 @@ public partial class MainViewModel: ObservableObject
     {
         _generalWindowsFlow = App.ServiceProvider.GetRequiredService<GeneralWindowsFlow>();
         HandleCheckNewVersion();
-    //    HandleCheckDirForSettings();   // TODO, obsolete, remove
         HandleCheckRdbms();
         HandleCheckConfig();
         if (!HandleCheckSettings())
@@ -123,37 +122,12 @@ public partial class MainViewModel: ObservableObject
         }
     }
     
-    private static void HandleCheckDirForSettings()     
-    {
-        if (!Directory.Exists(ApplicationSettings.LocationEnigmaRoot)) Directory.CreateDirectory(ApplicationSettings.LocationEnigmaRoot);
-        if (!Directory.Exists(ApplicationSettings.LocationExportFiles)) Directory.CreateDirectory(ApplicationSettings.LocationExportFiles);
-        if (!Directory.Exists(ApplicationSettings.LocationDatabase)) Directory.CreateDirectory(ApplicationSettings.LocationDatabase);
-        if (!Directory.Exists(ApplicationSettings.LocationDocs)) Directory.CreateDirectory(ApplicationSettings.LocationDocs);
-        if (!Directory.Exists(ApplicationSettings.LocationProjectFiles)) Directory.CreateDirectory(ApplicationSettings.LocationProjectFiles);
-        if (!Directory.Exists(ApplicationSettings.LocationDataFiles)) Directory.CreateDirectory(ApplicationSettings.LocationDataFiles);
-        if (!Directory.Exists(ApplicationSettings.LocationLogFiles)) Directory.CreateDirectory(ApplicationSettings.LocationLogFiles);
-    }
-
     private static string GetWorkfolderPath()
     {
         MessageBox.Show("This is the first time that you start this version of Enigma. \n" +
                        "After closing this popup, you need to select a folder where you want to save results form working with Enigma.\n" +
                        "Please click OK and define a folder in the next screen.");
-    
-        // var dialog = new Microsoft.Win32.OpenFileDialog
-        // {
-        //     Title = "Select folder for Enigma work files",
-        //     Filter = "Folders|*.none",
-        //     CheckFileExists = false,
-        //     CheckPathExists = true,
-        //     FileName = "Select Folder",
-        //     InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
-        // };
-        //
-        // if (dialog.ShowDialog() == true)
-        // {
-        //     return Path.GetDirectoryName(dialog.FileName) ?? string.Empty;
-        // }
+        
         var dialog = new OpenFolderDialog()
         {
             Title = "Select folder for Enigma work files",
