@@ -8,9 +8,9 @@ namespace Enigma.Core.Slices.ZodiacDivisions;
 /// <summary>
 /// Define sign index for decans based on planets
 /// </summary>
-public sealed class DecanPlanets
+public static class DecanPlanets
 {
-    private readonly int[] _planets = [0, 2, 3, 1, 4, 5, 6];  // Index numbers for Sun, Mercury, Venus, Moon, Mars,
+    private static readonly int[] Planets = [0, 2, 3, 1, 4, 5, 6];  // Index numbers for Sun, Mercury, Venus, Moon, Mars,
                                                               // Jupiter and Saturn
     
     /// <summary>
@@ -22,7 +22,7 @@ public sealed class DecanPlanets
     /// The first portion shold get the number 4, followed by 5, 6, 0, 2 etc.</remarks>
     /// <param name="longitude">The ecliptic longitude which should be minimal 0.0 and smaller than 360.0</param>
     /// <returns>The planet index for the decan based on the planets array</returns>
-    public int IndexForDecanPlanet(double longitude)
+    public static int IndexForDecanPlanet(double longitude)
     {
         // Check bounds: longitude should be >= 0 and < 360
         if (longitude is < 0.0 or >= 360.0)
@@ -36,7 +36,7 @@ public sealed class DecanPlanets
         
         // Use the decan index to get the planet index from the planets array
         // The array has 7 elements, so we need to use modulo to cycle through it
-        return _planets[decanIndex % _planets.Length];
+        return Planets[decanIndex % Planets.Length];
     }
     
     

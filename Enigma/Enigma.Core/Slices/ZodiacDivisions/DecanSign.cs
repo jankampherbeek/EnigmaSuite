@@ -8,7 +8,7 @@ namespace Enigma.Core.Slices.ZodiacDivisions;
 /// <summary>
 /// Define sign index for decans based on signs
 /// </summary>
-public class DecanSign
+public static class DecanSign
 {
     /// <summary>
     /// Define sign index for decans based on signs
@@ -21,7 +21,7 @@ public class DecanSign
     /// is larger than 11, subtract 12. </remarks>
     /// <param name="longitude">The ecliptic longitude which should be minimal 0.0 and smaller than 360.0</param>
     /// <returns>The sign index for the decan, 0 = Aries..11 = Pisces</returns>
-    public int IndexForDecanSign(double longitude)
+    public static int IndexForDecanSign(double longitude)
     {
         // Check bounds: longitude should be >= 0 and < 360
         if (longitude is < 0.0 or >= 360.0)
