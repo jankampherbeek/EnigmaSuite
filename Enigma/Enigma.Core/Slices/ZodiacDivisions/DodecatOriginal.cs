@@ -7,13 +7,13 @@ namespace Enigma.Core.Slices.ZodiacDivisions;
 
 
 /// <summary>
-/// Define the dodecatemoria in the original version (method B according to Otto Neugebauer)
+/// Define the dodecatemoria in the original version (method B according to Abraham Sachs)
 /// </summary>
 public static class DodecatOriginal
 {
 
     /// <summary>
-    /// Define sign index for dodecateoria
+    /// Define sign index for dodecatemoria
     /// </summary>
     /// <remarks>Prompt: Check the longitude, it should be equal or larger than 0 and smaller than 360.
     /// Return -1 if the longitude is out of bounds. Otherwise, calculate the index. To do so divide the longitude in
