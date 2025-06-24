@@ -61,11 +61,9 @@ public class ActualConfigCreator: IActualConfigCreator
                                int.TryParse(orbIdTxt, out int orbId) ? 
                                OrbMethodsExtensions.OrbMethodForIndex(orbId) : defaultConfig.OrbMethod;
         
-        
         ApogeeTypes apogeeType = deltas.TryGetValue(StandardTexts.CFG_APOGEETYPE, out string? apogeeText) &&
                                  int.TryParse(apogeeText, out int atId) ? 
                                 ApogeeTypesExtensions.ApogeeTypeForIndex(atId) : defaultConfig.ApogeeType;
-        
         
         double baseOrbAspects = deltas.TryGetValue(StandardTexts.CFG_BASE_ORB_ASPECTS, out string? aspOrbTxt) && 
                                 double.TryParse(aspOrbTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out double aspOrb) ? aspOrb : defaultConfig.BaseOrbAspects;
