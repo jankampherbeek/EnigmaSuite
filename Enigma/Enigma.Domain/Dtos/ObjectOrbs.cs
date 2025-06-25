@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.References;
+using Serilog;
 
 namespace Enigma.Domain.Dtos;
 
@@ -28,6 +29,7 @@ public class OrbDefinitions : IOrbDefinitions
         {
             orbForChartPoint = spec.Value.PercentageOrb / 100.0;
         }
+   
         return new KeyValuePair<ChartPoints, double>(chartPoint, orbForChartPoint);
     }
 }

@@ -43,7 +43,6 @@ public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
             select posPoint).ToDictionary(x => x.Key, x => x.Value);
         int counterCelPoints = 0;
         return (from celPoint in celPoints 
-            where celPoint.Key != ChartPoints.EastPoint && celPoint.Key != ChartPoints.Vertex 
             let glyph = GlyphsForChartPoints.FindGlyph(celPoint.Key) 
             let radixPos = celPoint.Value.Ecliptical.MainPosSpeed.Position 
             let harmonicPos = harmonicPositions[counterCelPoints++] 

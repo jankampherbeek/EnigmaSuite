@@ -117,8 +117,8 @@ public static class PointsExtensions
             // Mundane
             ChartPoints.Mc => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 700,"MC", "mc"),
             ChartPoints.Ascendant => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 701, "Ascendant", "asc"),
-            ChartPoints.EastPoint => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 702,"Eastpoint", "easp"),
-            ChartPoints.Vertex => new PointDetails(point, PointCats.Angle, CalculationCats.Mundane, 703,"Vertex", "vrtx"),
+            ChartPoints.EastPoint => new PointDetails(point, PointCats.Common, CalculationCats.Mundane, 702,"Eastpoint", "easp"),
+            ChartPoints.Vertex => new PointDetails(point, PointCats.Common, CalculationCats.Mundane, 703,"Vertex", "vrtx"),
             ChartPoints.Cusp1 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 1,"Cusp-1", "c1"),
             ChartPoints.Cusp2 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 2,"Cusp-2", "c2"),
             ChartPoints.Cusp3 => new PointDetails(point, PointCats.Cusp, CalculationCats.Mundane, 3,"Cusp-3", "c3"),

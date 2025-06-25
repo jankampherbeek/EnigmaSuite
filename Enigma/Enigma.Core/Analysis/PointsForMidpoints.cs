@@ -68,9 +68,11 @@ public sealed class PointsForMidpoints : IPointsForMidpoints
     private Dictionary<ChartPoints, FullPointPos> SelectPointsWithPositions(CalculatedChart chart)
     {
         Dictionary<ChartPoints, FullPointPos> positions = (
-            from posPoint in chart.Positions    // TODO 0.6 remove restrictions for EastPoint and Vertex as glyphs for these points have been implemented.
-            where posPoint.Key.GetDetails().PointCat == PointCats.Common || (posPoint.Key.GetDetails().PointCat == PointCats.Angle && posPoint.Key != ChartPoints.Vertex && posPoint.Key != ChartPoints.EastPoint) ||
-                  (posPoint.Key.GetDetails().PointCat == PointCats.Zodiac && posPoint.Key == ChartPoints.ZeroAries)
+            from posPoint in chart.Positions   
+            where posPoint.Key.GetDetails().PointCat == PointCats.Common 
+                  || posPoint.Key.GetDetails().PointCat == PointCats.Angle  
+                  || (posPoint.Key.GetDetails().PointCat == PointCats.Zodiac && posPoint.Key == ChartPoints.ZeroAries) 
+                  || posPoint.Key.GetDetails().PointCat == PointCats.Lots
             select posPoint).ToDictionary(x => x.Key, x => x.Value);
         return positions;
     }

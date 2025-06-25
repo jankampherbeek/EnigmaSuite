@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Drawing;
+using System.Globalization;
 using Enigma.Domain.Charts.Prog.PrimDir;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
@@ -60,20 +61,18 @@ public class ActualConfigCreator: IActualConfigCreator
                                int.TryParse(orbIdTxt, out int orbId) ? 
                                OrbMethodsExtensions.OrbMethodForIndex(orbId) : defaultConfig.OrbMethod;
         
-        
         ApogeeTypes apogeeType = deltas.TryGetValue(StandardTexts.CFG_APOGEETYPE, out string? apogeeText) &&
                                  int.TryParse(apogeeText, out int atId) ? 
                                 ApogeeTypesExtensions.ApogeeTypeForIndex(atId) : defaultConfig.ApogeeType;
         
-        
         double baseOrbAspects = deltas.TryGetValue(StandardTexts.CFG_BASE_ORB_ASPECTS, out string? aspOrbTxt) && 
-                                double.TryParse(aspOrbTxt, out double aspOrb) ? aspOrb : defaultConfig.BaseOrbAspects;
+                                double.TryParse(aspOrbTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out double aspOrb) ? aspOrb : defaultConfig.BaseOrbAspects;
         double baseOrbMidpoints = deltas.TryGetValue(StandardTexts.CFG_BASE_ORB_MIDPOINTS, out string? mpOrbTxt) && 
-                                  double.TryParse(mpOrbTxt, out double mpOrb) ? mpOrb : defaultConfig.BaseOrbMidpoints;
+                                  double.TryParse(mpOrbTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out double mpOrb) ? mpOrb : defaultConfig.BaseOrbMidpoints;
         double orbParallels =  deltas.TryGetValue(StandardTexts.CFG_ORB_PARALLELS, out string? parOrbTxt) && 
-                               double.TryParse(parOrbTxt, out double parOrb) ? parOrb : defaultConfig.OrbParallels;
+                               double.TryParse(parOrbTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out double parOrb) ? parOrb : defaultConfig.OrbParallels;
         double orbMidpointsDecl =  deltas.TryGetValue(StandardTexts.CFG_ORB_MIDPOINTS_DECL, out string? mpdOrbTxt) && 
-                               double.TryParse(mpdOrbTxt, out double mpdOrb) ? mpdOrb : defaultConfig.OrbMidpointsDecl;
+                               double.TryParse(mpdOrbTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out double mpdOrb) ? mpdOrb : defaultConfig.OrbMidpointsDecl;
         bool useCuspsForAspects = deltas.TryGetValue(StandardTexts.CFG_USE_CUSPS_FOR_ASPECTS, out string? useCTxt) && 
                                   bool.TryParse(useCTxt, out bool useC) ? useC : defaultConfig.UseCuspsForAspects;
         bool oscillateNodes = deltas.TryGetValue(StandardTexts.CFG_OSCILLATE_NODES, out string? oscTxt) &&
@@ -94,13 +93,13 @@ public class ActualConfigCreator: IActualConfigCreator
             ? SymbolicKeyExtensions.SymbolicKeysForIndex(symKeyId) 
             : defaultConfig.ConfigSymDir.TimeKey;
         double orbTransits = deltas.TryGetValue(StandardTexts.CFG_TRORB, out string? trOrbValue) && 
-            double.TryParse(trOrbValue, out double trOrb) 
+            double.TryParse(trOrbValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double trOrb) 
             ? trOrb : defaultConfig.ConfigTransits.Orb;
         double orbSecDir = deltas.TryGetValue(StandardTexts.CFG_SCORB, out string? scOrbValue) && 
-            double.TryParse(scOrbValue, out double scOrb) 
+            double.TryParse(scOrbValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double scOrb) 
             ? scOrb : defaultConfig.ConfigSecDir.Orb;
         double orbSymDir = deltas.TryGetValue(StandardTexts.CFG_SMORB, out string? smOrbValue) && 
-            double.TryParse(smOrbValue, out double smOrb) 
+            double.TryParse(smOrbValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double smOrb) 
             ? smOrb : defaultConfig.ConfigSymDir.Orb;
         Dictionary<ChartPoints, ProgPointConfigSpecs> transitPoints = 
             CreateProgPoints(StandardTexts.PCF_TRANSITS, defaultConfig.ConfigTransits.ProgPoints, deltas);

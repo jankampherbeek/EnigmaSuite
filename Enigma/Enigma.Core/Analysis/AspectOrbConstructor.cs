@@ -5,6 +5,7 @@
 
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Serilog;
 
 namespace Enigma.Core.Analysis;
 
@@ -30,6 +31,8 @@ public sealed class AspectOrbConstructor : IAspectOrbConstructor
     {
         double factor1 = _orbDefinitions.DefineChartPointOrb(point1, chartPointConfigSpecs).Value;
         double factor2 = _orbDefinitions.DefineChartPointOrb(point2, chartPointConfigSpecs).Value;
+        // If one of the chartpoints has a zero-orb, aspects are disabled, otherwise use the max value.
+        if (factor1 < 0.00001 || factor2 < 0.00001) return 0.0; 
         return Math.Max(factor1, factor2) * aspectOrbFactor * baseOrb;
     }
 

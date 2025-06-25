@@ -101,12 +101,11 @@ public class ChartsWheelCanvasController
 
     private void HandleCelPoints()
     {
-        CelPointGlyphs = _graphicCelPoints.CreateCelPointGlyphsForWheel(_metrics, GetCommonPointsCurrentChart(),
-            _centerPoint, GetAscendantLongitude());
-        CelPointConnectLines = _graphicCelPoints.CreateCelPointConnectLines(_metrics, GetCommonPointsCurrentChart(),
-            _centerPoint, GetAscendantLongitude());
-        CelPointTexts = _graphicCelPoints.CreateCelPointTextsForWheel(_metrics, GetCommonPointsCurrentChart(), _centerPoint,
-            GetAscendantLongitude());
+        var points = GetCommonPointsCurrentChart();
+        var al = GetAscendantLongitude();
+        CelPointGlyphs = _graphicCelPoints.CreateCelPointGlyphsForWheel(_metrics, points, _centerPoint, al);
+        CelPointConnectLines = _graphicCelPoints.CreateCelPointConnectLines(_metrics, points, _centerPoint, al);
+        CelPointTexts = _graphicCelPoints.CreateCelPointTextsForWheel(_metrics, points, _centerPoint, al);
     }
 
     private void HandleAspects()
@@ -143,7 +142,8 @@ public class ChartsWheelCanvasController
     {
         _currentChart = _dataVaultCharts.GetCurrentChart();
         return _currentChart != null
-            ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common)
+            ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common 
+                                                    || item.Key.GetDetails().PointCat == PointCats.Lots)
                 .ToDictionary(item => item.Key, item => item.Value)
             : new Dictionary<ChartPoints, FullPointPos>();
     }

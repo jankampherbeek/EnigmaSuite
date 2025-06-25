@@ -30,8 +30,10 @@ public sealed class HarmonicsHandler(IHarmonicsCalculator calculator) : IHarmoni
     /// <inheritdoc/>
     public List<double> RetrieveHarmonicPositions(CalculatedChart chart, double harmonicNumber)
     {
-        var allPoints = from point in chart.Positions           // TODO remove restriction for Vertex and Eastpoint as new glyphs are available
-                        where (point.Key.GetDetails().PointCat == PointCats.Common) || (point.Key.GetDetails().PointCat == PointCats.Angle && point.Key != ChartPoints.Vertex && point.Key != ChartPoints.EastPoint)
+        var allPoints = from point in chart.Positions   
+                        where (point.Key.GetDetails().PointCat == PointCats.Common) 
+                              || (point.Key.GetDetails().PointCat == PointCats.Angle)
+                              || (point.Key.GetDetails().PointCat == PointCats.Lots)
                         select point;
         var originalPositions = allPoints.Select(item => item.Value.Ecliptical.MainPosSpeed.Position).ToList();
         return calculator.CalculateHarmonics(originalPositions, harmonicNumber);
