@@ -2,6 +2,30 @@
 
 
 
+## Release 0.6.2.  beta - June 25, 2025
+
+Several bugfixes
+
+### Vertex, Eastpoint, Pars Fortunae, aspects with zero orb, orb with fraction in config
+
+Vertex, Eastpoint and Pars Fortunae were not shown in the chart. Vertex and Eastpoint do have a glyph now.
+
+If a celestial point has in the configuration an orb defined as zero, it will be ignored.
+
+An orb in the configuration that has a fraction is now handled correctly.
+
+
+
+## Release 0.6.1 beta - June 20, 2025
+
+Bugfix
+
+### Include timezone and coordinate data
+
+In version 0.6 the data for timezones and geographic coordinates was not included, making it impossible to enter a new chart.
+
+
+
 ## Release 0.6 beta - June 18, 2025
 
 Support for geographic coordinates and timezones. 
