@@ -73,6 +73,8 @@ public sealed class GlyphsForChartPoints            // TODO 0.3 Replace this sol
             ChartPoints.VulcanusCarteret => 'Ï',
             ChartPoints.Ascendant => 'A',
             ChartPoints.Mc => 'M',
+            ChartPoints.Vertex => 'ä',
+            ChartPoints.EastPoint => 'v',
             ChartPoints.ZeroAries => '1',
             ChartPoints.FortunaSect => 'e',
             ChartPoints.FortunaNoSect => 'e',

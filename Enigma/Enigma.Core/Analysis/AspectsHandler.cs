@@ -47,7 +47,9 @@ public sealed class AspectsHandler(
     {
         var chartPointPositions =
             (from posPoint in request.CalcChart.Positions
-             where posPoint.Key.GetDetails().PointCat == PointCats.Common || posPoint.Key.GetDetails().PointCat == PointCats.Angle
+             where posPoint.Key.GetDetails().PointCat == PointCats.Common 
+                   || posPoint.Key.GetDetails().PointCat == PointCats.Angle 
+                   || posPoint.Key.GetDetails().PointCat ==PointCats.Lots
              select posPoint)
             .ToDictionary(x => x.Key, x => x.Value);
 

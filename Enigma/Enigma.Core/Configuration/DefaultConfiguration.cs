@@ -100,19 +100,19 @@ public sealed class DefaultConfiguration : IDefaultConfiguration
             { ChartPoints.PersephoneCarteret, new ChartPointConfigSpecs(false, 'à', 40, true) },
             { ChartPoints.VulcanusCarteret, new ChartPointConfigSpecs(false, 'Ï', 40, true) },
             
-            { ChartPoints.BlackSun, new ChartPointConfigSpecs(false, '[', 65, false) },
-            { ChartPoints.Diamond, new ChartPointConfigSpecs(false, ']', 65, false) },
-            { ChartPoints.Priapus, new ChartPointConfigSpecs(false, '\\', 65, false) },
-            { ChartPoints.PriapusCorrected, new ChartPointConfigSpecs(false, ':', 65, false)},
-            { ChartPoints.Dragon, new ChartPointConfigSpecs(false, 'è', 65, false) },
-            { ChartPoints.Beast, new ChartPointConfigSpecs(false, ';', 65, false) },
-            { ChartPoints.ZeroAries, new ChartPointConfigSpecs(false, '1', 0, false) },
+            { ChartPoints.BlackSun, new ChartPointConfigSpecs(false, '[', 65, true) },
+            { ChartPoints.Diamond, new ChartPointConfigSpecs(false, ']', 65, true) },
+            { ChartPoints.Priapus, new ChartPointConfigSpecs(false, '\\', 65, true) },
+            { ChartPoints.PriapusCorrected, new ChartPointConfigSpecs(false, ':', 65, true)},
+            { ChartPoints.Dragon, new ChartPointConfigSpecs(false, 'è', 65, true) },
+            { ChartPoints.Beast, new ChartPointConfigSpecs(false, ';', 65, true) },
+            { ChartPoints.ZeroAries, new ChartPointConfigSpecs(false, '1', 0, true) },
             { ChartPoints.FortunaNoSect, new ChartPointConfigSpecs(false, 'e', 40, true) },
             { ChartPoints.FortunaSect, new ChartPointConfigSpecs(false, 'e', 40, true) },
             { ChartPoints.Ascendant, new ChartPointConfigSpecs(true, 'A', 100, true) },
             { ChartPoints.Mc, new ChartPointConfigSpecs(true, 'M', 100, true) },
-            { ChartPoints.EastPoint, new ChartPointConfigSpecs(false, ' ', 20, true) },
-            { ChartPoints.Vertex, new ChartPointConfigSpecs(false, ' ', 0, true) }
+            { ChartPoints.EastPoint, new ChartPointConfigSpecs(false, 'v', 20, true) },
+            { ChartPoints.Vertex, new ChartPointConfigSpecs(false, 'ä', 0, true) }
         };
         return chartPointConfigSpecs;
     }

@@ -10,7 +10,7 @@ namespace Enigma.Domain.Constants;
 public static class EnigmaConstants
 {
     // Version info
-    public const string ENIGMA_VERSION = "0.6.1";
+    public const string ENIGMA_VERSION = "0.6.2";
 
     /// <summary>SE id to identify obliquity and nutation.</summary>
     public const int SE_ECL_NUT = -1;
