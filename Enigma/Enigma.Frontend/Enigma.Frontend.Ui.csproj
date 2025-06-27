@@ -844,6 +844,10 @@
     <Resource Include="Images\longitudeequivalents.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <None Remove="Images\divisions.png" />
+    <Resource Include="Images\divisions.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

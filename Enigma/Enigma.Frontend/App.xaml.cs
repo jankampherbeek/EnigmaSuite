@@ -132,6 +132,9 @@ public partial class App
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
         serviceCollection.AddSingleton<ITimeValidator, TimeValidator>();
         serviceCollection.AddSingleton<IValueRangeConverter, ValueRangeConverter>();
+        serviceCollection.AddTransient<ZodiacDivisionsModel>();
+        serviceCollection.AddTransient<ZodiacDivisionsViewModel>();
+        serviceCollection.AddTransient<IZodiacDivisionForDataGridFactory, ZodiacDivisionForDataGridFactory>();
         
         serviceCollection.AddTransient<HelpWindow>();
         

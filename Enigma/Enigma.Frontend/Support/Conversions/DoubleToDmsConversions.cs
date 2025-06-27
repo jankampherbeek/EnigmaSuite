@@ -38,7 +38,7 @@ public interface IDoubleToDmsConversions
     /// Convert value to sexagesimal text. Negative values are indicated with a minus sign.
     /// </summary>
     /// <param name="position">The value to convert.</param>
-    /// <returns>The saexagesimal result in degrees, minutes and seconds.</returns>
+    /// <returns>The sexagesimal result in degrees, minutes and seconds.</returns>
     public string ConvertDoubleToPositionsDmsText(double position);
 }
 

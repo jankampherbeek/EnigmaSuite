@@ -39,7 +39,6 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(AspectsCommand))]
     [NotifyCanExecuteChangedFor(nameof(MidpointsCommand))]
     [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
-    [NotifyCanExecuteChangedFor(nameof(HarmonicsCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclDiagramCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclStripCommand))]
     [NotifyCanExecuteChangedFor(nameof(DeclMidpointsCommand))]
@@ -47,6 +46,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(OobCalendarCommand))]
     [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(ProgressionsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(DivisionCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
@@ -237,7 +237,15 @@ public partial class ChartsMainViewModel: ObservableObject,
     [RelayCommand(CanExecute = nameof(IsChartSelected))]
     private void OobCalendar()
     {
+        Log.Information("ChartsMainViewModel.OobCalendar(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.OOB_CAL));
+    }
+
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Division()
+    {
+        Log.Information("ChartsMainViewModel.Division(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.ZODIAC_DIVISIONS));
     }
     
     [RelayCommand]

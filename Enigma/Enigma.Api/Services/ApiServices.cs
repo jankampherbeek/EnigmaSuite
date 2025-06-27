@@ -11,6 +11,7 @@ using Enigma.Api.Configuration;
 using Enigma.Api.LocationAndTimeZones;
 using Enigma.Api.Persistency;
 using Enigma.Api.Research;
+using Enigma.Api.Slices;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
@@ -62,6 +63,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ISeApi, SeApi>();
         serviceCollection.AddTransient<ISettingsApi, SettingsApi>();
         serviceCollection.AddTransient<ITimeZoneApi, TimeZoneApi>();
+        serviceCollection.AddTransient<ZodiacDivisionsService>();
 
         serviceCollection.RegisterFacadesServices();
         serviceCollection.RegisterDomainServices();

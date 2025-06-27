@@ -135,6 +135,11 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="Zodiac divisions" Command="{Binding DivisionCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/divisions.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>    
             <MenuItem Header="Progressive">
                 <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
