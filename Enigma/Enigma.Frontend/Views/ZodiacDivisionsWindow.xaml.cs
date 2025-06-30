@@ -30,7 +30,7 @@ public partial class ZodiacDivisionsWindow : Window
         Loaded += (sender, e) => 
         {
             System.Diagnostics.Debug.WriteLine("Window Loaded event fired, executing OkCommand");
-            viewModel.OkCommand.Execute(null);
+            viewModel.CalcCommand.Execute(null);
         };
     }
 

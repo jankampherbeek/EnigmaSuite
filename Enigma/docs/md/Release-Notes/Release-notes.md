@@ -2,7 +2,23 @@
 
 
 
-## Release 0.6.2.  beta - June 25, 2025
+
+
+## Release 0.7.0 beta - August 1, 2025
+
+Zodiac divisions, Enneagram and solar.
+
+### Zodiac divisions
+
+Calculation of:
+
+- decans, both based on signs and based on planets.
+- dodecatemoria (dwads), the original version and the 13th harmonic variant.
+- bounds (terms), the Egyptian version and the version according to Ptolemy. 
+
+
+
+## Release 0.6.2  beta - June 25, 2025
 
 Several bugfixes
 
@@ -92,7 +108,7 @@ Focus on primary directions
 
 ### Primary directions
 
-- Support for primary directions for Placidus and Regiomontanus, both zodiacal and mundane, conjunctions andn oppositions andusing 5 different time keys. No support yet for other aspects nor for converse directions.
+- Support for primary directions for Placidus and Regiomontanus, both zodiacal and mundane, conjunctions and oppositions, and using 5 different time keys. No support yet for other aspects nor for converse directions.
 - The configuration for progressions has an additional section for primary directions.  
 
 ### User manual

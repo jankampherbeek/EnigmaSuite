@@ -67,11 +67,11 @@ public partial class ZodiacDivisionsViewModel: ObservableObject
     [RelayCommand]
     private void Help()
     {
-        // TODO: Implement help functionality
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
     
     [RelayCommand]
-    private void Ok()
+    private void Calc()
     {
         CalculateZodiacDivisions();
     }

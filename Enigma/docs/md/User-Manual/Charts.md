@@ -268,9 +268,23 @@ You can sort the columns *Orb* and *Exactness* by clicking on the header.
 
 
 
+## Analysis: Zodiac divisions
+
+
+
+
+
+![zodiac-divisions](E:\csharp\Enigma\docs\md\User-Manual\img\zodiac-divisions.png)
+
+You can define the decans, dodecatemoria (dwads) and bounds (terms) for a chart. Select in the menu *Analysis-Zodiac divisions* and you will see the screen as above. Enigma supports decans for signs and planets, the original dodecatemoria and the version as used by Paulus Alexandrinos (the 13th harmonic), and both Egyptian and Ptolemaic terms.
+
+
+
+
+
 ## Progressive: Primary directions
 
-IF uyou selected a chart in the charts main window, you can use the menu-option *Progressive - Primary Directions* to calculate several types of directions. Which type Enigma will use, and which time key, depends on your configuration for progressions.
+If you selected a chart in the charts main window, you can use the menu-option *Progressive - Primary Directions* to calculate several types of directions. Which type Enigma will use, and which time key, depends on your configuration for progressions.
 
 After selecting this option, you will see a window where you can enter a period.
 
