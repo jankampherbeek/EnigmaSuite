@@ -40,15 +40,15 @@ public class IntegrationTestZodiacDivisionsService
     }
 
     [Test]
-    [TestCase(0.0, ZodiacDivisionMethods.DecansPlanet, 0)] // Sun
-    [TestCase(10.0, ZodiacDivisionMethods.DecansPlanet, 2)] // Mercury
+    [TestCase(0.0, ZodiacDivisionMethods.DecansPlanet, 4)] // Mars
+    [TestCase(10.0, ZodiacDivisionMethods.DecansPlanet, 0)] // Sun
     [TestCase(20.0, ZodiacDivisionMethods.DecansPlanet, 3)] // Venus
-    [TestCase(30.0, ZodiacDivisionMethods.DecansPlanet, 1)] // Moon
-    [TestCase(40.0, ZodiacDivisionMethods.DecansPlanet, 4)] // Mars
-    [TestCase(50.0, ZodiacDivisionMethods.DecansPlanet, 5)] // Jupiter
-    [TestCase(60.0, ZodiacDivisionMethods.DecansPlanet, 6)] // Saturn
-    [TestCase(70.0, ZodiacDivisionMethods.DecansPlanet, 0)] // Sun (second cycle)
-    [TestCase(180.0, ZodiacDivisionMethods.DecansPlanet, 4)] // Mars (third cycle)
+    [TestCase(30.0, ZodiacDivisionMethods.DecansPlanet, 2)] // Mercury
+    [TestCase(40.0, ZodiacDivisionMethods.DecansPlanet, 1)] // Moon
+    [TestCase(50.0, ZodiacDivisionMethods.DecansPlanet, 6)] // Saturn
+    [TestCase(60.0, ZodiacDivisionMethods.DecansPlanet, 5)] // Jupiter
+    [TestCase(70.0, ZodiacDivisionMethods.DecansPlanet, 4)] // Mars (second cycle)
+    [TestCase(180.0, ZodiacDivisionMethods.DecansPlanet, 1)] // Moon (third cycle)
     public void TestDecansPlanetMethod(double longitude, ZodiacDivisionMethods method, int expectedIndex)
     {
         var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
@@ -70,6 +70,8 @@ public class IntegrationTestZodiacDivisionsService
         Assert.That(result, Is.EqualTo(expectedIndex), 
             $"{longitude}° should return index {expectedIndex} for {method}");
     }
+
+    
 
     [Test]
     [TestCase(0.0, ZodiacDivisionMethods.DodecatsOriginal, 0)] // Aries first subportion
@@ -164,12 +166,227 @@ public class IntegrationTestZodiacDivisionsService
         Assert.Multiple(() =>
         {
             Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.Signs), Is.EqualTo(1), "45° should return Taurus (1) for Signs");
-            Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.DecansPlanet), Is.EqualTo(4), "45° should return Mars (4) for DecansPlanet");
+            Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.DecansPlanet), Is.EqualTo(1), "45° should return Moon (1) for DecansPlanet");
             Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.DecansSign), Is.EqualTo(5), "45° should return Virgo (5) for DecansSign");
             Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.DodecatsOriginal), Is.EqualTo(7), "45° should return Libra (7) for DodecatsOriginal");
             Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.DodecatsPaulus), Is.EqualTo(7), "45° should return Libra (7) for DodecatsPaulus");
             Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.BoundsEgyptian), Is.EqualTo(5), "45° should return Jupiter (5) for BoundsEgyptian");
             Assert.That(_zodiacDivisionsService.FindIndexForDivision(longitude, ZodiacDivisionMethods.BoundsPtolemy), Is.EqualTo(5), "45° should return Jupiter (5) for BoundsPtolemy");
         });
+    }
+
+    
+    //  Mercury 2, Venus 3, Mars 4, Jupiter 5, Saturn 6
+    [Test]
+    [TestCase(309.0, 3)]        // Venus
+    [TestCase(121.75, 5)]       // Jupiter
+    [TestCase(305.9, 2)]        // Mercury
+    [TestCase(356.0, 4)]        // Mars
+    [TestCase(352.6, 4)]        // Mars
+    [TestCase(41.95, 2)]        // Mercury
+    [TestCase(207.25, 3)]       // Venus
+    [TestCase(105.55, 2)]       // Mercury
+    [TestCase(203.85, 3)]       // Venus
+    [TestCase(142.35, 2)]       // Mercury
+    [TestCase(286.3, 3)]        // Venus
+    [TestCase(154.2, 2)]        // Mercury
+    [TestCase(150.75, 2)]       // Mercury
+    [TestCase(127.35, 3)]       // Venus
+    [TestCase(314.73, 5)]       // Jupiter
+    [TestCase(251.1, 5 )]       // Jupiter
+    [TestCase(163.3, 3)]        // Venus
+    
+    public void TestRangeOfLongitudesForEgyptianBounds(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.BoundsEgyptian;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
+    }
+    
+    //  Mercury 2, Venus 3, Mars 4, Jupiter 5, Saturn 6
+    [Test]
+    [TestCase(309.0, 2)]        // Mercury 
+    [TestCase(121.75, 5)]       // Jupiter 
+    [TestCase(305.9, 6)]        // Saturn 
+    [TestCase(356.0, 6)]        // Saturn
+    [TestCase(352.6, 4)]        // Mars 
+    [TestCase(41.95, 2)]        // Mercury
+    [TestCase(207.25, 4)]       // Mars
+    [TestCase(105.55, 2)]       // Mercury
+    [TestCase(203.85, 5)]       // Jupiter
+    [TestCase(142.35, 3)]       // Venus 
+    [TestCase(286.3, 5)]        // Jupiter
+    [TestCase(154.2, 2)]        // Mercury 
+    [TestCase(150.75, 2)]       // Mercury
+    [TestCase(127.35, 2)]       // Mercury
+    [TestCase(314.73, 3)]       // Venus
+    [TestCase(251.1, 3)]        // Venus
+    [TestCase(163.3, 5)]        // Jupiter
+    
+    public void TestRangeOfLongitudesForPtolemyBounds(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.BoundsPtolemy;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
+    }
+    
+    //  0..11  Aries..Pisces
+    [Test]
+    [TestCase(309.0, 10)]        // Aquarius  
+    [TestCase(121.75, 4)]        // Leo  
+    [TestCase(305.9, 10)]        // Aquarius  
+    [TestCase(356.0, 7)]         // Scorpio 
+    [TestCase(352.6, 7)]         // Scorpio 
+    [TestCase(41.95, 5)]         // Virgo 
+    [TestCase(207.25, 2)]        // Gemini 
+    [TestCase(105.55, 7)]        // Scorpio 
+    [TestCase(203.85, 2)]        // Gemini  
+    [TestCase(142.35, 0)]        // Aries  
+    [TestCase(286.3, 1)]         // Taurus 
+    [TestCase(154.2, 5)]         // Virgo  
+    [TestCase(150.75, 5)]        // Virgo 
+    [TestCase(127.35, 4)]        // Leo
+    [TestCase(314.73, 2)]        // Gemini 
+    [TestCase(251.1, 0)]         // Aries 
+    [TestCase(163.3, 9)]         // Capricorn 
+    
+    
+    
+    
+    // Sun 0, Moon 1, Mercury 2, Venus 3, Mars 4, Jupiter 5, Saturn 6
+    // the first portion shold get the number 4, followed by 5, 6, 0, 2, 3, 1 etc.
+    // Bouché-Leclercq p. 228: Mars, Sun, Venus, Mercury, Moon, Saturn, Jupiter etc
+    // 4, 0, 3, 2, 1, 6, 5
+    // Aries    4, 0, 3
+    // Taurus   2, 1, 6
+    // Gemini   5, 4, 0
+    // Cancer   3, 2, 1
+    // Leo      6, 5, 4
+    // Virgo    0, 3, 2
+    // Libra    1, 6, 5
+    // Scorpio  4, 0, 3
+    // Sagitt.  2, 1, 6
+    // Capric.  5, 4, 0
+    // Aquarius 3, 2, 1
+    // Pisces   6, 5, 4
+    
+    
+    public void TestRangeOfLongitudesForDecansSign(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.DecansSign;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
+    }
+    
+    [Test]
+    [TestCase(309.0, 3)]        // Venus  
+    [TestCase(121.75, 6)]       // Saturn  
+    [TestCase(305.9, 3)]        // Venus   
+    [TestCase(356.0, 4)]        // Mars 
+    [TestCase(352.6, 4)]        // Mars 
+    [TestCase(41.95, 1)]        // Moon
+    [TestCase(207.25, 5)]       // Jupiter
+    [TestCase(105.55, 2)]       // Mercury
+    [TestCase(203.85, 5)]       // Jupiter  
+    [TestCase(142.35, 4)]       // Mars  
+    [TestCase(286.3, 4)]        // Mars 
+    [TestCase(154.2, 0)]        // Sun 
+    [TestCase(150.75, 0)]       // Sun 
+    [TestCase(127.35, 6)]       // Saturn
+    [TestCase(314.73, 2)]       // Mercury 
+    [TestCase(251.1, 1)]        // Moon 
+    [TestCase(163.3, 3)]        // Venus 
+    
+    public void TestRangeOfLongitudesForDecansPlanet(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.DecansPlanet;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
+    }
+    
+    
+    [Test]
+    [TestCase(309.0, 1)]        // Taurus   
+    [TestCase(121.75, 4)]       // Leo   
+    [TestCase(305.9, 0)]        // Aries    
+    [TestCase(356.0, 9)]        // Capricorn  
+    [TestCase(352.6, 8)]        // Sagittarius  
+    [TestCase(41.95, 5)]        // Virgo 
+    [TestCase(207.25, 4)]       // Leo 
+    [TestCase(105.55, 9)]       // Capricorn 
+    [TestCase(203.85, 3)]       // Cancer   
+    [TestCase(142.35, 0)]       // Aries  
+    [TestCase(286.3, 3)]        // Cancer  
+    [TestCase(154.2, 6)]        // Libra  
+    [TestCase(150.75, 5)]       // Virgo  
+    [TestCase(127.35, 6)]       // Libra 
+    [TestCase(314.73, 3)]       // Cancer  
+    [TestCase(251.1, 0)]        // Aries  
+    [TestCase(163.3, 10)]       // Aquarius  
+    
+    public void TestRangeOfLongitudesForDodecatsOriginal(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.DodecatsOriginal;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
+    }
+    
+    [Test]
+    [TestCase(309.0, 1)]        // Taurus    
+    [TestCase(121.75, 4)]       // Leo   
+    [TestCase(305.9, 0)]        // Aries     
+    [TestCase(356.0, 10)]       // Aquarius   
+    [TestCase(352.6, 8)]        // Sagittarius   
+    [TestCase(41.95, 6)]        // Libra  
+    [TestCase(207.25, 5)]       // Virgo  
+    [TestCase(105.55, 9)]       // Capricorn  
+    [TestCase(203.85, 4)]       // Leo    
+    [TestCase(142.35, 1)]       // Taurus   
+    [TestCase(286.3, 4)]        // Leo   
+    [TestCase(154.2, 6)]        // Libra   
+    [TestCase(150.75, 5)]       // Virgo   
+    [TestCase(127.35, 7)]       // Scorpio  
+    [TestCase(314.73, 4)]       // Leo  
+    [TestCase(251.1, 0)]        // Aries  
+    [TestCase(163.3, 10)]       // Aquarius   
+    
+    public void TestRangeOfLongitudesForDodecatsPaulus(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.DodecatsPaulus;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
+    }
+    
+    [Test]
+    [TestCase(309.0,10 )]     // Aquarius     
+    [TestCase(121.75, 4)]     // Leo    
+    [TestCase(305.9, 10)]     // Aquarius      
+    [TestCase(356.0, 11)]     // Pisces    
+    [TestCase(352.6, 11)]     // Pisces    
+    [TestCase(41.95, 1)]      // Taurus   
+    [TestCase(207.25, 6)]     // Libra   
+    [TestCase(105.55, 3)]     // Cancer   
+    [TestCase(203.85, 6)]     // Libra     
+    [TestCase(142.35, 4)]     // Leo    
+    [TestCase(286.3, 9)]      // Capricorn   
+    [TestCase(154.2, 5)]      // Virgo    
+    [TestCase(150.75, 5)]     // Virgo    
+    [TestCase(127.35, 4)]     // Leo   
+    [TestCase(314.73, 10)]    // Aquarius   
+    [TestCase(251.1, 8)]      // Sagittarius   
+    [TestCase(163.3, 5)]      // Virgo    
+    
+    public void TestRangeOfLongitudesForSigns(double longitude, int expectedIndex)
+    {
+        var method = ZodiacDivisionMethods.Signs;
+        var result = _zodiacDivisionsService.FindIndexForDivision(longitude, method);
+        Assert.That(result, Is.EqualTo(expectedIndex), 
+            $"{longitude}° should return index {expectedIndex} for {method}");
     }
 } 

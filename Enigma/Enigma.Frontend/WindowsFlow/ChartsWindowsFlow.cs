@@ -107,6 +107,9 @@ public class ChartsWindowsFlow:
             case PROG_EVENT:
                 _progEventWindow?.Close();
                 break;
+            case ZODIAC_DIVISIONS:
+                _zodiacDivisionsWindow?.Close();
+                break;
         }
     }
 

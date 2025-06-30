@@ -4,6 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Windows;
+using System.Windows.Media;
+using Enigma.Domain.Constants;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,7 +20,7 @@ public partial class ZodiacDivisionsWindow : Window
     {
         System.Diagnostics.Debug.WriteLine("ZodiacDivisionsWindow constructor called");
         InitializeComponent();
-        
+        DefineColors();
         // Get the ViewModel from the DI container and set as DataContext
         var viewModel = App.ServiceProvider.GetRequiredService<ZodiacDivisionsViewModel>();
         System.Diagnostics.Debug.WriteLine("ViewModel retrieved from DI container");
@@ -31,4 +33,13 @@ public partial class ZodiacDivisionsWindow : Window
             viewModel.OkCommand.Execute(null);
         };
     }
+
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        
+    }
+
+    
+    
 } 

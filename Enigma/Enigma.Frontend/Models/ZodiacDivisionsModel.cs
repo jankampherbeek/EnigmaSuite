@@ -26,7 +26,7 @@ public class ZodiacDivisionsModel
     private readonly IConfigurationApi _cfgApi;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly char[] _planetGlyphs = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' }; // Sun, Moon, Merc., Venus, Mars, Jup., Sat.
+    private readonly char[] _planetGlyphs = new char[] { 'a', 'b', 'c', 'd', 'f', 'g', 'h' }; // Sun, Moon, Merc., Venus, Mars, Jup., Sat.
     private readonly char[] _signGlyphs = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=' }; // Aries .. Pisces
 
     public ZodiacDivisionsModel(ZodiacDivisionsService zdService, IConfigurationApi cfgApi, IDoubleToDmsConversions doubleToDmsConversions)
@@ -39,6 +39,46 @@ public class ZodiacDivisionsModel
     public bool UseDecansPlanet { get; set; }
     public bool UseDodecatsOrignal { get; set; }
     public bool UseBoundsEgyptian { get; set; }
+    
+    /// <summary>
+    /// Get metadata information including chart name and configuration values
+    /// </summary>
+    /// <returns>Combined metadata text</returns>
+    public string GetMetadataText()
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        var currentConfig = _cfgApi.GetCurrentConfiguration();
+        
+        if (currentChart == null)
+        {
+            return "No chart loaded";
+        }
+        
+        var chartName = currentChart.InputtedChartData.MetaData.Name;
+        var ayanamshaText = GetAyanamshaText(currentConfig.Ayanamsha);
+        var observerPositionText = GetObserverPositionText(currentConfig.ObserverPosition);
+        var projectionTypeText = GetProjectionTypeText(currentConfig.ProjectionType);
+        
+        return $"Chart: {chartName}, Ayanamsha: {ayanamshaText}, Observer: {observerPositionText}, Projection: {projectionTypeText}";
+    }
+    
+    private string GetAyanamshaText(Ayanamshas ayanamsha)
+    {
+        var details = ayanamsha.GetDetails();
+        return details.RbKey.Replace("ref.ayanamsha.", "").Replace(".", " ").ToUpperInvariant();
+    }
+    
+    private string GetObserverPositionText(ObserverPositions observerPosition)
+    {
+        var details = observerPosition.GetDetails();
+        return details.RbKey.Replace("ref.observerpos.", "").Replace(".", " ").ToUpperInvariant();
+    }
+    
+    private string GetProjectionTypeText(ProjectionTypes projectionType)
+    {
+        var details = projectionType.GetDetails();
+        return details.RbKey.Replace("ref.projectiontype.", "").Replace(".", " ").ToUpperInvariant();
+    }
     
     /// <summary>
     /// Define the indexes 
@@ -80,8 +120,6 @@ public class ZodiacDivisionsModel
         var dodecatsMethod = UseDodecatsOrignal ? ZodiacDivisionMethods.DodecatsOriginal : ZodiacDivisionMethods.DodecatsPaulus;
         var boundsMethod = UseBoundsEgyptian ? ZodiacDivisionMethods.BoundsEgyptian : ZodiacDivisionMethods.BoundsPtolemy;
         
-        // Create 2D array: rows = available chart points, columns = 5 (planet glyph + 4 indexes)
-       // var result = new char[availableChartPoints.Count, 5];
         
         // Process each available chart point
         for (int i = 0; i < availableChartPoints.Count; i++)
@@ -92,7 +130,7 @@ public class ZodiacDivisionsModel
             // Column 0: Planet glyph
             textLine[0] = chartPoint.Value.Glyph.ToString();
             // Column 1: Longitude
-            textLine[1] = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(longitude);
+            textLine[1] = _doubleToDmsConversions.ConvertDoubleToDmsInSignNoGlyph(longitude);
             // Column 2: Signs 
             var signsIndex = DefineSingleIndex(longitude, signsMethod);
             textLine[2] = GlyphForIndex(signsIndex, signsMethod).ToString();

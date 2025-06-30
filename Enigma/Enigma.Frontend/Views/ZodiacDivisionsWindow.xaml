@@ -29,7 +29,7 @@
         <!-- Title spanning full width -->
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" 
                    Margin="6,0,0,12" VerticalAlignment="Center" HorizontalAlignment="Left"
-                   Text="Zodiac Divisions Calculator" Name="Header"
+                   Text="Zodiac Divisions" Name="Header"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
                    FontWeight="Bold" />
         
@@ -74,14 +74,14 @@
                 </GroupBox>
                 
                 <!-- Terms/Bounds Options -->
-                <GroupBox Margin="0,16,0,8" Style="{StaticResource MaterialDesignGroupBox}" Header="Terms">
+                <GroupBox Margin="0,16,0,8" Style="{StaticResource MaterialDesignGroupBox}" Header="Bounds">
                     <StackPanel>
                         <RadioButton Margin="16,2,0,2" Content="Egyptian" 
                                      Style="{StaticResource MaterialDesignRadioButton}"
-                                     IsChecked="{Binding TermsEgyptianSelected}" />
+                                     IsChecked="{Binding BoundsEgyptianSelected}" />
                         <RadioButton Margin="16,2,0,2" Content="Ptolemy" 
                                      Style="{StaticResource MaterialDesignRadioButton}"
-                                     IsChecked="{Binding TermsPtolemySelected}" />
+                                     IsChecked="{Binding BoundsPtolemySelected}" />
                     </StackPanel>
                 </GroupBox>
   
@@ -92,17 +92,23 @@
         <Grid Grid.Row="1" Grid.Column="1" Margin="12,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>                
             </Grid.RowDefinitions>
             
+            <!-- Meta data -->
+            <TextBlock Grid.Row="0" Margin="0,0,0,8" 
+                       Text="{Binding MetadataText}"
+                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                       FontStyle="Italic"
+                       TextWrapping="Wrap" />
+            
             <!-- Table Header -->
-            <TextBlock Grid.Row="0" Margin="0,0,0,8" Text="Results" 
+            <TextBlock Grid.Row="1" Margin="0,0,0,8" Text="Results" 
                        Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                        FontWeight="Bold" />
-            
-            <!-- DataGrid -->
-            <DataGrid Grid.Row="1" 
+            <DataGrid Grid.Row="2" 
                       materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                       materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                       CanUserAddRows="False" CanUserSortColumns="False"
@@ -111,21 +117,13 @@
                       ItemsSource="{Binding ZodiacDivisionsResults}"
                       SelectionUnit="FullRow"
                       IsReadOnly="True">
-                <!-- DataGrid.Resources>
-                    <Style TargetType="TextBlock" x:Key="GlyphTextBlockStyle">
-                        <Setter Property="FontFamily" Value="/font/EnigmaAstrologyBLA2.ttf#EnigmaAstrologyBLA2"/>
-                        <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="HorizontalAlignment" Value="Center"/>
-                        <Setter Property="VerticalAlignment" Value="Center"/>
-                    </Style>
-                </ -->
                 <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding Longitude}" Header=" " 
-                                        CellStyle="{StaticResource NumberColumnStyle}"
-                                        Width="60"/>
                     <DataGridTextColumn Binding="{Binding Planet}" Header="Planet" 
                                         CellStyle="{StaticResource GlyphColumnStyle}"
                                         Width="60"/>
+                    <DataGridTextColumn Binding="{Binding Longitude}" Header=" " 
+                                        CellStyle="{StaticResource NumberColumnStyle}"
+                                        Width="100"/>
                     <DataGridTextColumn Binding="{Binding Signs}" Header="Signs" 
                                         CellStyle="{StaticResource GlyphColumnStyle}"
                                         Width="80"/>
@@ -142,16 +140,16 @@
             </DataGrid>
             
             <!-- Buttons at bottom -->
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" 
                         Orientation="Horizontal" Margin="0,0,0,8">
                 <Button Margin="6,0,6,0" Width="80" Content="Help" 
                         HorizontalAlignment="Right"
                         Style="{StaticResource MaterialDesignOutlinedButton}"
                         Command="{Binding HelpCommand}" />
-                <Button Margin="6,0,6,0" Width="80" Content="OK"
+                <Button Margin="6,0,6,0" Width="80" Content="Close"
                         HorizontalAlignment="Right"
                         Style="{StaticResource MaterialDesignRaisedButton}"
-                        Command="{Binding OkCommand}" />
+                        Command="{Binding CloseCommand}" />
             </StackPanel>
         </Grid>
     </Grid>

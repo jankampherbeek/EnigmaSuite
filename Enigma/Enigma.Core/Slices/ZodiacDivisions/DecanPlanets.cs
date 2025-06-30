@@ -10,9 +10,18 @@ namespace Enigma.Core.Slices.ZodiacDivisions;
 /// </summary>
 public static class DecanPlanets
 {
-    private static readonly int[] Planets = [0, 2, 3, 1, 4, 5, 6];  // Index numbers for Sun, Mercury, Venus, Moon, Mars,
-                                                              // Jupiter and Saturn
+    private static readonly int[] Planets = [4, 0, 3, 2, 1, 6, 5];
+    // Index number for Mars, Sun, Venus, Mercury, Moon, Saturn, Jupiter
+    //private static readonly int[] Planets = [0, 2, 3, 1, 4, 5, 6];  
+    // Index numbers for Sun, Mercury, Venus, Moon, Mars, Jupiter and Saturn
     
+    // Sun 0, Moon 1, Mercury 2, Venus 3, Mars 4, Jupiter 5, Saturn 6
+    // the first portion shold get the number 4, followed by 5, 6, 0, 2, 3, 1 etc.
+    // Bouché-Leclercq p. 228: Mars, Sun, Venus, Mercury, Moon, Saturn, Jupiter etc
+    // 4, 0, 3, 2, 1, 6, 5
+
+                                                              
+                                                              
     /// <summary>
     /// Define sign index for decans based on planets
     /// </summary>

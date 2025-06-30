@@ -43,34 +43,34 @@ public class TestZodiacDivisionsOrchestrator
     {
         Assert.Multiple(() =>
         {
-            // Test first decan (0-9.999°) - should return Sun (0)
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(0.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "0° should return Sun (0)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(5.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "5° should return Sun (0)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(9.999, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "9.999° should return Sun (0)");
+            // Test first decan (0-9.999°) - should return Mars (4)
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(0.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "0° should return Mars (4)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(5.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "5° should return Mars (4)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(9.999, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "9.999° should return Mars (4)");
             
-            // Test second decan (10-19.999°) - should return Mercury (2)
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(10.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(2), "10° should return Mercury (2)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(15.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(2), "15° should return Mercury (2)");
+            // Test second decan (10-19.999°) - should return Sun (0)
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(10.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "10° should return Sun (0)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(15.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "15° should return Sun (0)");
             
             // Test third decan (20-29.999°) - should return Venus (3)
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(20.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(3), "20° should return Venus (3)");
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(25.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(3), "25° should return Venus (3)");
             
-            // Test fourth decan (30-39.999°) - should return Moon (1)
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(30.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(1), "30° should return Moon (1)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(35.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(1), "35° should return Moon (1)");
+            // Test fourth decan (30-39.999°) - should return Mercury (2)
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(30.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(2), "30° should return Mercury (2)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(35.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(2), "35° should return Mercury (2)");
             
-            // Test fifth decan (40-49.999°) - should return Mars (4)
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(40.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "40° should return Mars (4)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(45.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "45° should return Mars (4)");
+            // Test fifth decan (40-49.999°) - should return Moon (1)
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(40.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(1), "40° should return Moon (1)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(45.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(1), "45° should return Moon (1)");
             
-            // Test sixth decan (50-59.999°) - should return Jupiter (5)
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(50.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(5), "50° should return Jupiter (5)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(55.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(5), "55° should return Jupiter (5)");
+            // Test sixth decan (50-59.999°) - should return Saturn (6)
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(50.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(6), "50° should return Saturn (6)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(55.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(6), "55° should return Saturn (6)");
             
-            // Test seventh decan (60-69.999°) - should return Saturn (6)
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(60.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(6), "60° should return Saturn (6)");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(65.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(6), "65° should return Saturn (6)");
+            // Test seventh decan (60-69.999°) - should return Jupiter (5)
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(60.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(5), "60° should return Jupiter (5)");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(65.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(5), "65° should return Jupiter (5)");
         });
     }
 
@@ -183,8 +183,8 @@ public class TestZodiacDivisionsOrchestrator
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(30.0, ZodiacDivisionMethods.Signs)), Is.EqualTo(1), "Exact 30° should return Taurus (1) for Signs");
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(359.999, ZodiacDivisionMethods.Signs)), Is.EqualTo(11), "359.999° should return Pisces (11) for Signs");
             
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(0.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "Exact 0° should return Sun (0) for DecansPlanet");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(10.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(2), "Exact 10° should return Mercury (2) for DecansPlanet");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(0.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "Exact 0° should return Mars (4) for DecansPlanet");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(10.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(0), "Exact 10° should return Sun (0) for DecansPlanet");
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(20.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(3), "Exact 20° should return Venus (3) for DecansPlanet");
         });
     }
@@ -196,7 +196,7 @@ public class TestZodiacDivisionsOrchestrator
         {
             // Test middle of the zodiac (180°) for different methods
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(180.0, ZodiacDivisionMethods.Signs)), Is.EqualTo(6), "180° should return Libra (6) for Signs");
-            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(180.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(4), "180° should return Mars (4) for DecansPlanet");
+            Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(180.0, ZodiacDivisionMethods.DecansPlanet)), Is.EqualTo(1), "180° should return Moon (1) for DecansPlanet");
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(180.0, ZodiacDivisionMethods.DecansSign)), Is.EqualTo(6), "180° should return Libra (6) for DecansSign");
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(180.0, ZodiacDivisionMethods.DodecatsOriginal)), Is.EqualTo(6), "180° should return Libra (6) for DodecatsOriginal");
             Assert.That(_orchestrator.Calculate(new ZodiacDivisionRequest(180.0, ZodiacDivisionMethods.DodecatsPaulus)), Is.EqualTo(6), "180° should return Libra (6) for DodecatsPaulus");
