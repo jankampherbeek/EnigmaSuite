@@ -655,6 +655,27 @@
     <None Update="res\help\ZodiacDivisions-en.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="res\tz-coord\cities.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\tz-coord\countries.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\tz-coord\dstdata.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\tz-coord\regions.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\tz-coord\tzdata.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\enneagram\enneagram-signs.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="res\enneagram\ennegram-houses.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -673,6 +694,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="res\enneagram\" />
     <Folder Include="Start\" />
   </ItemGroup>
 

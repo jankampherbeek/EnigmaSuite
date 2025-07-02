@@ -46,6 +46,7 @@
 
   <ItemGroup>
     <Folder Include="Api\Slices\" />
+    <Folder Include="Core\Slices\Enneagram\" />
     <Folder Include="Core\Slices\ZodiacDivisions\" />
     <Folder Include="Frontend.Ui\Models\" />
   </ItemGroup>
