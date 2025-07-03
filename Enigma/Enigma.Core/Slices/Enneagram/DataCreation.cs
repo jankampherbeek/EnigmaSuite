@@ -24,9 +24,9 @@ public class DataCreation
     /// If one of the lines does not contain 2 ints and 9 doubles, an exception should be thrown. 
     /// </remarks>
     /// <returns>Data for signs</returns>
-    public List<EnneagramData> ReadDataForSigns()
+    public List<EnneagramData> ReadDataForSigns(IEnumerable<string>? searchPaths = null)
     {
-        return ReadEnneagramData("enneagram-signs.csv");
+        return ReadEnneagramData("enneagram-signs.csv", searchPaths);
     }
 
 
@@ -41,24 +41,47 @@ public class DataCreation
     /// If one of the lines does not contain 2 ints and 9 doubles, an exception should be thrown. 
     /// </remarks>
     /// <returns>Data for houses</returns>
-    public List<EnneagramData> ReadDataForHouses()
+    public List<EnneagramData> ReadDataForHouses(IEnumerable<string>? searchPaths = null)
     {
-        return ReadEnneagramData("ennegram-houses.csv");
+        return ReadEnneagramData("enneagram-houses.csv", searchPaths);
     }
 
     /// <summary>
     /// Reads Enneagram data from a CSV file
     /// </summary>
     /// <param name="fileName">The name of the CSV file to read</param>
+    /// <param name="searchPaths">Optional: override the default search paths</param>
     /// <returns>List of EnneagramData objects</returns>
-    private List<EnneagramData> ReadEnneagramData(string fileName)
+    private List<EnneagramData> ReadEnneagramData(string fileName, IEnumerable<string>? searchPaths = null)
     {
         var data = new List<EnneagramData>();
-        var filePath = Path.Combine("res", "enneagram", fileName);
         
-        if (!File.Exists(filePath))
+        // Try multiple possible paths for the data files
+        var possiblePaths = searchPaths?.ToArray() ?? new[]
         {
-            throw new FileNotFoundException($"Enneagram data file not found: {filePath}");
+            Path.Combine("res", "enneagram", fileName), // Current directory (test files) - highest priority
+            Path.Combine("Enigma.Frontend", "res", "enneagram", fileName),
+            Path.Combine("..", "Enigma.Frontend", "res", "enneagram", fileName),
+            Path.Combine("..", "..", "Enigma.Frontend", "res", "enneagram", fileName),
+            Path.Combine("..", "..", "..", "Enigma.Frontend", "res", "enneagram", fileName),
+            // Test output directory paths
+            Path.Combine("..", "..", "..", "..", "Enigma.Frontend", "res", "enneagram", fileName),
+            Path.Combine("..", "..", "..", "..", "..", "Enigma.Frontend", "res", "enneagram", fileName)
+        };
+        
+        string? filePath = null;
+        foreach (var path in possiblePaths)
+        {
+            if (File.Exists(path))
+            {
+                filePath = path;
+                break;
+            }
+        }
+        
+        if (filePath == null)
+        {
+            throw new FileNotFoundException($"Enneagram data file not found: {fileName}. Searched in: {string.Join(", ", possiblePaths)}");
         }
         
         var lines = File.ReadAllLines(filePath);

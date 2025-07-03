@@ -45,11 +45,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Api\Slices\" />
-    <Folder Include="Core\Slices\Enneagram\" />
     <Folder Include="Core\Slices\SingleCoordinateCalc\" />
     <Folder Include="Core\Slices\ZodiacDivisions\" />
     <Folder Include="Frontend.Ui\Models\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="..\Enigma.Frontend\res\enneagram\enneagram-signs.csv">
+      <Link>res\enneagram\enneagram-signs.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Enigma.Frontend\res\enneagram\enneagram-houses.csv">
+      <Link>res\enneagram\enneagram-houses.csv</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

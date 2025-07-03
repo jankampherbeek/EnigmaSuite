@@ -23,10 +23,11 @@ public class TestDataCreation
     public void TestReadDataForSigns_ValidData()
     {
         // Arrange
-        CreateTestFile("res/enneagram/enneagram-signs.csv", CreateValidSignsData());
+        var testPath = "res/enneagram/enneagram-signs.csv";
+        CreateTestFile(testPath, CreateValidSignsData());
 
         // Act
-        var result = _dataCreation.ReadDataForSigns();
+        var result = _dataCreation.ReadDataForSigns(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -61,10 +62,11 @@ public class TestDataCreation
     public void TestReadDataForHouses_ValidData()
     {
         // Arrange
-        CreateTestFile("res/enneagram/ennegram-houses.csv", CreateValidHousesData());
+        var testPath = "res/enneagram/ennegram-houses.csv";
+        CreateTestFile(testPath, CreateValidHousesData());
 
         // Act
-        var result = _dataCreation.ReadDataForHouses();
+        var result = _dataCreation.ReadDataForHouses(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -99,6 +101,7 @@ public class TestDataCreation
     public void TestReadDataForSigns_IgnoresComments()
     {
         // Arrange
+        var testPath = "res/enneagram/enneagram-signs.csv";
         var data = new[]
         {
             "# This is a comment",
@@ -107,10 +110,10 @@ public class TestDataCreation
             "# Comment in middle",
             "1,2,1.11,1.45,1.13,0.94,0.87,0.92,1.02,0.71,0.86"
         };
-        CreateTestFile("res/enneagram/enneagram-signs.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act
-        var result = _dataCreation.ReadDataForSigns();
+        var result = _dataCreation.ReadDataForSigns(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -121,6 +124,7 @@ public class TestDataCreation
     public void TestReadDataForHouses_IgnoresComments()
     {
         // Arrange
+        var testPath = "res/enneagram/ennegram-houses.csv";
         var data = new[]
         {
             "# This is a comment",
@@ -129,10 +133,10 @@ public class TestDataCreation
             "# Comment in middle",
             "1,2,1.14,0.89,0.71,0.62,1.40,1.13,0.94,1.09,1.07"
         };
-        CreateTestFile("res/enneagram/ennegram-houses.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act
-        var result = _dataCreation.ReadDataForHouses();
+        var result = _dataCreation.ReadDataForHouses(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -143,6 +147,7 @@ public class TestDataCreation
     public void TestReadDataForSigns_IgnoresEmptyLines()
     {
         // Arrange
+        var testPath = "res/enneagram/enneagram-signs.csv";
         var data = new[]
         {
             "",
@@ -150,10 +155,10 @@ public class TestDataCreation
             "   ",
             "1,2,1.11,1.45,1.13,0.94,0.87,0.92,1.02,0.71,0.86"
         };
-        CreateTestFile("res/enneagram/enneagram-signs.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act
-        var result = _dataCreation.ReadDataForSigns();
+        var result = _dataCreation.ReadDataForSigns(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -164,6 +169,7 @@ public class TestDataCreation
     public void TestReadDataForHouses_IgnoresEmptyLines()
     {
         // Arrange
+        var testPath = "res/enneagram/ennegram-houses.csv";
         var data = new[]
         {
             "",
@@ -171,10 +177,10 @@ public class TestDataCreation
             "   ",
             "1,2,1.14,0.89,0.71,0.62,1.40,1.13,0.94,1.09,1.07"
         };
-        CreateTestFile("res/enneagram/ennegram-houses.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act
-        var result = _dataCreation.ReadDataForHouses();
+        var result = _dataCreation.ReadDataForHouses(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -185,9 +191,10 @@ public class TestDataCreation
     public void TestReadDataForSigns_FileNotFound()
     {
         // Arrange - Don't create the file
+        var testPath = "res/enneagram/enneagram-signs.csv";
 
         // Act & Assert
-        var exception = Assert.Throws<FileNotFoundException>(() => _dataCreation.ReadDataForSigns());
+        var exception = Assert.Throws<FileNotFoundException>(() => _dataCreation.ReadDataForSigns(new[] { testPath }));
         Assert.That(exception!.Message, Does.Contain("Enneagram data file not found"));
         Assert.That(exception.Message, Does.Contain("enneagram-signs.csv"));
     }
@@ -196,58 +203,62 @@ public class TestDataCreation
     public void TestReadDataForHouses_FileNotFound()
     {
         // Arrange - Don't create the file
+        var testPath = "res/enneagram/ennegram-houses.csv";
 
         // Act & Assert
-        var exception = Assert.Throws<FileNotFoundException>(() => _dataCreation.ReadDataForHouses());
+        var exception = Assert.Throws<FileNotFoundException>(() => _dataCreation.ReadDataForHouses(new[] { testPath }));
         Assert.That(exception!.Message, Does.Contain("Enneagram data file not found"));
-        Assert.That(exception.Message, Does.Contain("ennegram-houses.csv"));
+        Assert.That(exception.Message, Does.Contain("enneagram-houses.csv"));
     }
 
     [Test]
     public void TestReadDataForSigns_InvalidLineFormat_TooFewValues()
     {
         // Arrange
+        var testPath = "res/enneagram/enneagram-signs.csv";
         var data = new[]
         {
-            "0,1,1.21,0.80,0.80,1.00,0.97,1.31,1.11,0.96", // Only 10 values instead of 11
+            "0,1,1.21,0.80,0.80,1.00,0.97,1.31,1.11,0.96", // Only 10 values
             "1,2,1.11,1.45,1.13,0.94,0.87,0.92,1.02,0.71,0.86"
         };
-        CreateTestFile("res/enneagram/enneagram-signs.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act & Assert
-        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForSigns());
-        Assert.That(exception!.Message, Does.Contain("Expected 11 comma-separated values, but found 10"));
+        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForSigns(new[] { testPath }));
+        Assert.That(exception!.Message, Does.Contain("Invalid line format. Expected 11 comma-separated values"));
     }
 
     [Test]
     public void TestReadDataForHouses_InvalidLineFormat_TooManyValues()
     {
         // Arrange
+        var testPath = "res/enneagram/ennegram-houses.csv";
         var data = new[]
         {
-            "0,1,0.92,0.98,0.61,1.11,1.44,0.66,1.30,1.28,0.69,0.50", // 12 values instead of 11
+            "0,1,0.92,0.98,0.61,1.11,1.44,0.66,1.30,1.28,0.69,0.99", // 12 values
             "1,2,1.14,0.89,0.71,0.62,1.40,1.13,0.94,1.09,1.07"
         };
-        CreateTestFile("res/enneagram/ennegram-houses.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act & Assert
-        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForHouses());
-        Assert.That(exception!.Message, Does.Contain("Expected 11 comma-separated values, but found 12"));
+        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForHouses(new[] { testPath }));
+        Assert.That(exception!.Message, Does.Contain("Invalid line format. Expected 11 comma-separated values"));
     }
 
     [Test]
     public void TestReadDataForSigns_InvalidChartpointValue()
     {
         // Arrange
+        var testPath = "res/enneagram/enneagram-signs.csv";
         var data = new[]
         {
             "abc,1,1.21,0.80,0.80,1.00,0.97,1.31,1.11,0.96,0.84", // Invalid chartpoint
             "1,2,1.11,1.45,1.13,0.94,0.87,0.92,1.02,0.71,0.86"
         };
-        CreateTestFile("res/enneagram/enneagram-signs.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act & Assert
-        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForSigns());
+        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForSigns(new[] { testPath }));
         Assert.That(exception!.Message, Does.Contain("Invalid chartpoint value: abc"));
     }
 
@@ -255,15 +266,16 @@ public class TestDataCreation
     public void TestReadDataForHouses_InvalidIndexValue()
     {
         // Arrange
+        var testPath = "res/enneagram/ennegram-houses.csv";
         var data = new[]
         {
             "0,xyz,0.92,0.98,0.61,1.11,1.44,0.66,1.30,1.28,0.69", // Invalid index
             "1,2,1.14,0.89,0.71,0.62,1.40,1.13,0.94,1.09,1.07"
         };
-        CreateTestFile("res/enneagram/ennegram-houses.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act & Assert
-        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForHouses());
+        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForHouses(new[] { testPath }));
         Assert.That(exception!.Message, Does.Contain("Invalid index value: xyz"));
     }
 
@@ -271,15 +283,16 @@ public class TestDataCreation
     public void TestReadDataForSigns_InvalidFactorValue()
     {
         // Arrange
+        var testPath = "res/enneagram/enneagram-signs.csv";
         var data = new[]
         {
             "0,1,1.21,invalid,0.80,1.00,0.97,1.31,1.11,0.96,0.84", // Invalid factor
             "1,2,1.11,1.45,1.13,0.94,0.87,0.92,1.02,0.71,0.86"
         };
-        CreateTestFile("res/enneagram/enneagram-signs.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act & Assert
-        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForSigns());
+        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForSigns(new[] { testPath }));
         Assert.That(exception!.Message, Does.Contain("Invalid factor value at position 3: invalid"));
     }
 
@@ -287,15 +300,16 @@ public class TestDataCreation
     public void TestReadDataForHouses_InvalidFactorValue()
     {
         // Arrange
+        var testPath = "res/enneagram/ennegram-houses.csv";
         var data = new[]
         {
             "0,1,0.92,0.98,0.61,1.11,1.44,0.66,1.30,1.28,invalid", // Invalid factor
             "1,2,1.14,0.89,0.71,0.62,1.40,1.13,0.94,1.09,1.07"
         };
-        CreateTestFile("res/enneagram/ennegram-houses.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act & Assert
-        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForHouses());
+        var exception = Assert.Throws<FormatException>(() => _dataCreation.ReadDataForHouses(new[] { testPath }));
         Assert.That(exception!.Message, Does.Contain("Invalid factor value at position 10: invalid"));
     }
 
@@ -303,10 +317,11 @@ public class TestDataCreation
     public void TestReadDataForSigns_EmptyFile()
     {
         // Arrange
-        CreateTestFile("res/enneagram/enneagram-signs.csv", []);
+        var testPath = "res/enneagram/enneagram-signs.csv";
+        CreateTestFile(testPath, []);
 
         // Act
-        var result = _dataCreation.ReadDataForSigns();
+        var result = _dataCreation.ReadDataForSigns(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -317,10 +332,11 @@ public class TestDataCreation
     public void TestReadDataForHouses_EmptyFile()
     {
         // Arrange
-        CreateTestFile("res/enneagram/ennegram-houses.csv", []);
+        var testPath = "res/enneagram/ennegram-houses.csv";
+        CreateTestFile(testPath, []);
 
         // Act
-        var result = _dataCreation.ReadDataForHouses();
+        var result = _dataCreation.ReadDataForHouses(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -331,16 +347,17 @@ public class TestDataCreation
     public void TestReadDataForSigns_FileWithOnlyComments()
     {
         // Arrange
+        var testPath = "res/enneagram/enneagram-signs.csv";
         var data = new[]
         {
             "# This is a comment",
             "# Another comment",
             "# No data lines"
         };
-        CreateTestFile("res/enneagram/enneagram-signs.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act
-        var result = _dataCreation.ReadDataForSigns();
+        var result = _dataCreation.ReadDataForSigns(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);
@@ -351,16 +368,17 @@ public class TestDataCreation
     public void TestReadDataForHouses_FileWithOnlyComments()
     {
         // Arrange
+        var testPath = "res/enneagram/ennegram-houses.csv";
         var data = new[]
         {
             "# This is a comment",
             "# Another comment",
             "# No data lines"
         };
-        CreateTestFile("res/enneagram/ennegram-houses.csv", data);
+        CreateTestFile(testPath, data);
 
         // Act
-        var result = _dataCreation.ReadDataForHouses();
+        var result = _dataCreation.ReadDataForHouses(new[] { testPath });
 
         // Assert
         Assert.That(result, Is.Not.Null);

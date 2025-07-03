@@ -673,7 +673,7 @@
     <None Update="res\enneagram\enneagram-signs.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="res\enneagram\ennegram-houses.csv">
+    <None Update="res\enneagram\enneagram-houses.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
