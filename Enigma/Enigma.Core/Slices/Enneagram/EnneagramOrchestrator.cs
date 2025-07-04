@@ -3,8 +3,6 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
-using Enigma.Core.Calc;
-using Enigma.Core.Slices.SingleCoordinateCalc;
 using Enigma.Domain.References;
 using Enigma.Facades.Se;
 
@@ -26,15 +24,8 @@ public class EnneagramOrchestrator
     public EnneagramOrchestrator()
     {
         _calcChartPoints = new CalcChartPointsForEnneagram();
-        
-        var calcUtFacade = new CalcUtFacade();
-        var seFlags = new SeFlags();
-        var positionCalculator = new SinglePositionCalculator(calcUtFacade);
-        var orchestrator = new SingleCoordinateOrchestrator(positionCalculator, seFlags);
-        
         var housesFacade = new HousesFacade();
         _calcHouses = new CalcHousesForEnneagram(housesFacade);
-        
         _enneagramCalc = new EnneagramCalc();
         _dataCreation = new DataCreation();
     }
@@ -43,9 +34,9 @@ public class EnneagramOrchestrator
     /// Handle the calculation of strengths for the 9 Enneagram types
     /// </summary>
     /// <remarks>
-    /// Prompt: Calculate the strengths for 9 Enneagramtypes. Calculate the longitudes for the ChartPoints Sun, Moon,
-    /// Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron, True node, ApogeeMean, using
-    /// CalcChartsHousesForEnneagram. Retrieve the info from request. Calculate the houses using CalcHousesForEnneagram.
+    /// Prompt: Calculate the strengths for 9 Enneagramtypes. Calculate the longitudes for the points as defined in the
+    /// request, using CalcChartsHousesForEnneagram. Retrieve the info from request.
+    /// Calculate the houses using CalcHousesForEnneagram.
     /// Use the results to calculate the strengths for the Enneagram types, using EnneagramCalc. 
     /// </remarks>
     /// <param name="request">Request with the data for then calculation</param>
@@ -54,23 +45,14 @@ public class EnneagramOrchestrator
     {
         ArgumentNullException.ThrowIfNull(request);
         
-        // Define the chart points to calculate (as specified in the prompt)
-        var chartPoints = new List<ChartPoints>
+        // Use the chart points from the request instead of hardcoded list
+        var chartPoints = request.Points;
+        
+        // Validate that the points list is not null or empty
+        if (chartPoints == null || chartPoints.Count == 0)
         {
-            ChartPoints.Sun,
-            ChartPoints.Moon,
-            ChartPoints.Mercury,
-            ChartPoints.Venus,
-            ChartPoints.Mars,
-            ChartPoints.Jupiter,
-            ChartPoints.Saturn,
-            ChartPoints.Uranus,
-            ChartPoints.Neptune,
-            ChartPoints.Pluto,
-            ChartPoints.Chiron,
-            ChartPoints.TrueNode,
-            ChartPoints.ApogeeMean
-        };
+            throw new ArgumentException("Points list cannot be null or empty", nameof(request));
+        }
         
         // Calculate chart points longitudes
         var chartPointPositions = _calcChartPoints.CalcChartPoints(chartPoints, request.JulianDay);
@@ -83,8 +65,10 @@ public class EnneagramOrchestrator
         var housesData = _dataCreation.ReadDataForHouses();
         
         // Use the values from the request
-        var timeIsKnown = request.IsTimeKnown;
-        var plutoDouble = request.IsDoublePluto;
+        var timeIsKnown = request.UseHouses;
+        
+        // Pluto logic: if Pluto is not in the list, ignore IsDoublePluto
+        var plutoDouble = request.IsDoublePluto && chartPoints.Contains(ChartPoints.Pluto);
         
         // Calculate Enneagram strengths
         var strengths = _enneagramCalc.CalcEnneagramStrengths(
@@ -96,14 +80,7 @@ public class EnneagramOrchestrator
             plutoDouble);
         
         // Convert the result to the expected format (List<KeyValuePair<int, double[]>>)
-        // Since EnneagramCalc returns List<KeyValuePair<int, double>>, we need to convert
-        // each double to a double[] with one element
-        var result = new List<KeyValuePair<int, double[]>>();
-        foreach (var strength in strengths)
-        {
-            result.Add(new KeyValuePair<int, double[]>(strength.Key, new double[] { strength.Value }));
-        }
-        
-        return result;
+
+        return strengths.Select(strength => new KeyValuePair<int, double[]>(strength.Key, [strength.Value])).ToList();
     }
 }

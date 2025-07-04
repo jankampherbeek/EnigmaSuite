@@ -41,12 +41,12 @@ public class CalcHousesForEnneagram
             throw new ArgumentException("Julian day must be a finite number", nameof(julianDay));
         }
         
-        if (geoLat <= -90 || geoLat >= 90)
+        if (geoLat is <= -90 or >= 90)
         {
             throw new ArgumentException("Geographic latitude must be between -90 and 90 degrees (exclusive)", nameof(geoLat));
         }
         
-        if (geoLon < -180 || geoLon > 180)
+        if (geoLon is < -180 or > 180)
         {
             throw new ArgumentException("Geographic longitude must be between -180 and 180 degrees", nameof(geoLon));
         }

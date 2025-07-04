@@ -58,37 +58,34 @@ public class EnneagramCalc
         
         // Dictionary to store factors for each Enneagram type (1-9)
         var enneagramFactors = new Dictionary<int, List<double>>();
-        for (int i = 1; i <= 9; i++)
+        for (var i = 1; i <= 9; i++)
         {
             enneagramFactors[i] = new List<double>();
         }
         
         // Process chart points (planets, asteroids, etc.)
-        foreach (var chartPoint in chartPoints)
+        foreach (var (key, longitude) in chartPoints)
         {
-            var pointId = (int)chartPoint.Key;
-            var longitude = chartPoint.Value;
-            
+            var pointId = (int)key;
+
             // Calculate sign (1-12) based on longitude
             var sign = CalculateSign(longitude);
             
             // Find factors for this planet and sign in signsData
             var factors = FindFactors(signsData, pointId, sign);
-            if (factors != null)
+            if (factors == null) continue;
+            // Add factors to each Enneagram type
+            for (var i = 0; i < Math.Min(factors.Length, 9); i++)
             {
-                // Add factors to each Enneagram type
-                for (int i = 0; i < Math.Min(factors.Length, 9); i++)
+                enneagramFactors[i + 1].Add(factors[i]);
+            }
+                
+            // If plutoDouble is true and this is Pluto, add factors again
+            if (!plutoDouble || key != ChartPoints.Pluto) continue;
+            {
+                for (var i = 0; i < Math.Min(factors.Length, 9); i++)
                 {
                     enneagramFactors[i + 1].Add(factors[i]);
-                }
-                
-                // If plutoDouble is true and this is Pluto, add factors again
-                if (plutoDouble && chartPoint.Key == ChartPoints.Pluto)
-                {
-                    for (int i = 0; i < Math.Min(factors.Length, 9); i++)
-                    {
-                        enneagramFactors[i + 1].Add(factors[i]);
-                    }
                 }
             }
         }
@@ -97,7 +94,7 @@ public class EnneagramCalc
         if (timeIsKnown)
         {
             // Process cusps 1-12
-            for (int cuspIndex = 1; cuspIndex <= 12; cuspIndex++)
+            for (var cuspIndex = 1; cuspIndex <= 12; cuspIndex++)
             {
                 if (cuspIndex < houses.Length)
                 {
@@ -106,12 +103,10 @@ public class EnneagramCalc
                     var cuspId = 2000 + cuspIndex; // Cusp IDs are 2001-2012
                     
                     var factors = FindFactors(housesData, cuspId, cuspSign);
-                    if (factors != null)
+                    if (factors == null) continue;
+                    for (var i = 0; i < Math.Min(factors.Length, 9); i++)
                     {
-                        for (int i = 0; i < Math.Min(factors.Length, 9); i++)
-                        {
-                            enneagramFactors[i + 1].Add(factors[i]);
-                        }
+                        enneagramFactors[i + 1].Add(factors[i]);
                     }
                 }
             }
@@ -124,7 +119,7 @@ public class EnneagramCalc
                 var ascendantFactors = FindFactors(signsData, 1001, ascendantSign);
                 if (ascendantFactors != null)
                 {
-                    for (int i = 0; i < Math.Min(ascendantFactors.Length, 9); i++)
+                    for (var i = 0; i < Math.Min(ascendantFactors.Length, 9); i++)
                     {
                         enneagramFactors[i + 1].Add(ascendantFactors[i]);
                     }
@@ -139,7 +134,7 @@ public class EnneagramCalc
                 var mcFactors = FindFactors(signsData, 1002, mcSign);
                 if (mcFactors != null)
                 {
-                    for (int i = 0; i < Math.Min(mcFactors.Length, 9); i++)
+                    for (var i = 0; i < Math.Min(mcFactors.Length, 9); i++)
                     {
                         enneagramFactors[i + 1].Add(mcFactors[i]);
                     }
@@ -149,16 +144,11 @@ public class EnneagramCalc
         
         // Calculate total strength for each Enneagram type by multiplying all factors
         var result = new List<KeyValuePair<int, double>>();
-        for (int enneagramType = 1; enneagramType <= 9; enneagramType++)
+        for (var enneagramType = 1; enneagramType <= 9; enneagramType++)
         {
             var factors = enneagramFactors[enneagramType];
-            double totalStrength = 1.0; // Start with 1 for multiplication
-            
-            foreach (var factor in factors)
-            {
-                totalStrength *= factor;
-            }
-            
+            var totalStrength = factors.Aggregate(1.0, (current, factor) => current * factor); // Start with 1 for multiplication
+
             result.Add(new KeyValuePair<int, double>(enneagramType, totalStrength));
         }
         
