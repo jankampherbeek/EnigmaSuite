@@ -136,6 +136,11 @@ public partial class App
         serviceCollection.AddTransient<ZodiacDivisionsViewModel>();
         serviceCollection.AddTransient<IZodiacDivisionForDataGridFactory, ZodiacDivisionForDataGridFactory>();
         
+        // Enneagram services
+        serviceCollection.AddTransient<EnneagramModel>();
+        serviceCollection.AddTransient<EnneagramViewModel>();
+        serviceCollection.AddTransient<EnneagramWindow>();
+        
         serviceCollection.AddTransient<HelpWindow>();
         
         // Handle services from other projects.

@@ -873,6 +873,10 @@
     <Resource Include="Images\divisions.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <None Remove="Images\enneagram.png" />
+    <Resource Include="Images\enneagram.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

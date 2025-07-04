@@ -55,6 +55,7 @@ public class ChartsWindowsFlow:
     public const string RADIX_POSITIONS = "RadixPositions";
     public const string RADIX_SEARCH = "RadixSearch";
     public const string ZODIAC_DIVISIONS = "ZodiacDivisions";
+    public const string ENNEAGRAM = "Enneagram";
 
     
     private RadixDataInputWindow? _radixDataInputWindow;
@@ -75,6 +76,7 @@ public class ChartsWindowsFlow:
     private DeclStripWindow? _declStripWindow;
     private OobCalWindow? _oobCalWindow;
     private ZodiacDivisionsWindow? _zodiacDivisionsWindow;
+    private EnneagramWindow? _enneagramWindow;
     
     // The tuple contains the id for window, the current window and the textid for the parent window.
     private readonly List<Tuple<int, Window, string>> _openWindows = new();
@@ -109,6 +111,9 @@ public class ChartsWindowsFlow:
                 break;
             case ZODIAC_DIVISIONS:
                 _zodiacDivisionsWindow?.Close();
+                break;
+            case ENNEAGRAM:
+                _enneagramWindow?.Close();
                 break;
         }
     }
@@ -227,6 +232,11 @@ public class ChartsWindowsFlow:
                 _zodiacDivisionsWindow = new ZodiacDivisionsWindow();
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _zodiacDivisionsWindow, parentView));
                 _zodiacDivisionsWindow.Show();
+                break;
+            case ENNEAGRAM:
+                _enneagramWindow = new EnneagramWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _enneagramWindow, parentView));
+                _enneagramWindow.Show();
                 break;
         }
     }

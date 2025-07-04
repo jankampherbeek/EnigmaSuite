@@ -140,6 +140,11 @@
                         <Image Source="/Images/divisions.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Enneagram" Command="{Binding EnneagramCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/enneagram.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>    
             <MenuItem Header="Progressive">
                 <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">

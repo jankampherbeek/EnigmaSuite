@@ -247,6 +247,13 @@ public partial class ChartsMainViewModel: ObservableObject,
         Log.Information("ChartsMainViewModel.Division(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.ZODIAC_DIVISIONS));
     }
+
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Enneagram()
+    {
+        Log.Information("ChartsMainViewModel.Enneagram(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.ENNEAGRAM));
+    }
     
     [RelayCommand]
     private static void About()

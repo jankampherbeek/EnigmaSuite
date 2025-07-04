@@ -1,0 +1,161 @@
+<!-- Prompt: at the top of the window whould be a title with the text 'Enneagram'
+Under the title three parts. At the left a short descriptive text, checkboxes for the ChartPoints Sun, Moon, Mercury, 
+Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron, TrueNode, ApogeeMean (all checked) and, after a smill whitespace 
+checkboxes 'Include houses' (checked) and 'Count Pluto Twice' (unchecked). The second part should contain a list 
+of EnnegramTypes, numbers and names, and strengths for each type. The values: 1 Perfectionist, 2 Helper, 3 Winner,
+4 Feeler, 5 Observer, 6 Loyalist, 7 Optimist, 8 Leader and 9 Peacemaker. The list should be sorted on 
+strength (from high to low). The strengths should be binded with a viewmodel and calculated in a model that accesses the 
+EnneagramService. The model should use the values of CurrentChart in DataVaultCharts.
+The third part should have equal widths and lengths and contain a canvas. On the canvas I want to draw a representation
+of en Enneagram. Five small circles with a number in the circle and a text (see list above). The cirkels should be 
+evenly dividided across a larger invisible circle. The number 9 should be at the top followed by 1..8 in a clockwise
+direction. The small circles should be blue except the circle for the enneagram type that has the highest strength
+which should be red and the circles with the second and third strength which should be orange. 
+Between the circles some lines should be drawn: between 3, 6 and 9 and from 1 to 4 to 2 to 8 to 5 to 7 and to 1. 
+I would like to see a tooltip if a user hovers above one of the circles with an Enneagram type. The content should be
+received from the Nodel via the ViewModel. You can use dummy texts for now, I'll add the final texts later.
+If the window is enlarged or made smaller, the drawing should automatically adapt.
+If a user chanes one of the checkboxes, the strengths should be recalculated and the image drawn anew.
+Underneath the three parts I want the buttons close and help.  
+
+-->
+<Window x:Class="Enigma.Frontend.Ui.Views.EnneagramWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
+        xmlns:viewmodels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        mc:Ignorable="d"
+        Title="Enneagram" Height="600" Width="1000"
+        SizeChanged="Window_SizeChanged">
+    
+    <Window.Resources>
+        <Style TargetType="ToolTip">
+            <Setter Property="Background" Value="Yellow"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Window.Resources>
+    
+    
+    <Window.DataContext>
+        <viewmodels:EnneagramViewModel/>
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Text="Enneagram" 
+                   FontSize="24" FontWeight="Bold" 
+                   HorizontalAlignment="Center" 
+                   Margin="10"/>
+        
+        <!-- Main Content -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Left Panel - Chart Points Selection -->
+            <StackPanel Grid.Column="0" Margin="5">
+                <TextBlock Text="{Binding DescriptionText}" 
+                           TextWrapping="Wrap" 
+                           Margin="0,0,0,10"/>
+                
+                <TextBlock Text="Chart Points:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <CheckBox Content="Sun" IsChecked="{Binding IsSunSelected}" Margin="0,2"/>
+                <CheckBox Content="Moon" IsChecked="{Binding IsMoonSelected}" Margin="0,2"/>
+                <CheckBox Content="Mercury" IsChecked="{Binding IsMercurySelected}" Margin="0,2"/>
+                <CheckBox Content="Venus" IsChecked="{Binding IsVenusSelected}" Margin="0,2"/>
+                <CheckBox Content="Mars" IsChecked="{Binding IsMarsSelected}" Margin="0,2"/>
+                <CheckBox Content="Jupiter" IsChecked="{Binding IsJupiterSelected}" Margin="0,2"/>
+                <CheckBox Content="Saturn" IsChecked="{Binding IsSaturnSelected}" Margin="0,2"/>
+                <CheckBox Content="Uranus" IsChecked="{Binding IsUranusSelected}" Margin="0,2"/>
+                <CheckBox Content="Neptune" IsChecked="{Binding IsNeptuneSelected}" Margin="0,2"/>
+                <CheckBox Content="Pluto" IsChecked="{Binding IsPlutoSelected}" Margin="0,2"/>
+                <CheckBox Content="Chiron" IsChecked="{Binding IsChironSelected}" Margin="0,2"/>
+                <CheckBox Content="True Node" IsChecked="{Binding IsTrueNodeSelected}" Margin="0,2"/>
+                <CheckBox Content="Apogee Mean" IsChecked="{Binding IsApogeeMeanSelected}" Margin="0,2"/>
+                
+                <Separator Margin="0,10"/>
+                
+                <CheckBox Content="Include houses" IsChecked="{Binding IncludeHouses}" Margin="0,2"/>
+                <CheckBox Content="Count Pluto Twice" IsChecked="{Binding CountPlutoTwice}" Margin="0,2"/>
+            </StackPanel>
+            
+            <!-- Middle Panel - Results List -->
+            <StackPanel Grid.Column="1" Margin="5">
+                <TextBlock Text="Enneagram Types (sorted by strength):" 
+                           FontWeight="Bold" 
+                           Margin="0,0,0,10"/>
+                
+                <ListView ItemsSource="{Binding EnneagramResults}" 
+                          Height="400"
+                          BorderThickness="1"
+                          BorderBrush="Gray">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Type" Width="50">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Type}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Name" Width="120">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Name}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Strength" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Strength, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+            
+            <!-- Right Panel - Canvas -->
+            <Border Grid.Column="2" Margin="5" 
+                    BorderThickness="1" 
+                    BorderBrush="Gray">
+                <Canvas x:Name="EnneagramCanvas" 
+                        Background="White"
+                        SizeChanged="Canvas_SizeChanged">
+                    <!-- Enneagram drawing will be rendered here -->
+                </Canvas>
+            </Border>
+        </Grid>
+        
+        <!-- Bottom Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" 
+                    HorizontalAlignment="Right" 
+                    Margin="10">
+            <Button Content="Help" 
+                    Command="{Binding HelpCommand}"
+                    Width="80" 
+                    Height="30" 
+                    Margin="5,0"/>
+            <Button Content="Close" 
+                    Command="{Binding CloseCommand}"
+                    Width="80" 
+                    Height="30" 
+                    Margin="5,0"/>
+        </StackPanel>
+    </Grid>
+</Window>
