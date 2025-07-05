@@ -295,55 +295,55 @@ public partial class EnneagramViewModel : ObservableObject
     {
         return type switch
         {
-            1 => "The perfectionist (world improver, idealist) is a (lower) gut type, focused on improving undesirable things in himself and others.\n\n" +
+            1 => "The perfectionist (world improver, idealist) is a (lower) gut type, focused on improving undesirable things in himself and others.\n" +
                  "Type 1 can get worked up over imperfections, but usually hides his anger. Yet that anger over perceived injustice is a driving " +
-                 "force (frustration type). Repels negative impulses by acting well behaved and formal (reaction formation).\n\n" +
-                 "Sets high standards for himself, but cannot take criticism from others well.\n\n" +
+                 "force (frustration type). Repels negative impulses by acting well behaved and formal (reaction formation).\n" +
+                 "Sets high standards for himself, but cannot take criticism from others well.\n" +
                  "Pitfalls: squeamishness, burnout because the bar is set high.\n" +
                  "Integration point is the cheerful seven.",
-            2 => "The helper is a heart type, focused on helping others. Helpers want to be needed and use their networks to do so.\n\n" +
+            2 => "The helper is a heart type, focused on helping others. Helpers want to be needed and use their networks to do so.\n" +
                  "They take pride in the role they play in other people's lives, they find it hard to distance themselves from it (Jewish mother). " +
-                 "Use willpower to bend things to their will.\n\n" +
+                 "Use willpower to bend things to their will.\n" +
                  "Pitfalls: Manipulation of others, meddling, forgetting/suppressing own needs, division " +
-                 "of the world in- and outgroups (whoever is not for me is against me).\n\n" +
+                 "of the world in- and outgroups (whoever is not for me is against me).\n" +
                  "When unappreciated, twos resemble an unhealthy eight and seek revenge.\n" +
                  "Introspection (four-behavior) brings them closer to their own needs and feelings.",
-            3 => "The winner (successful worker, doer) is a heart type, focused on appreciation from others for his achievements. I perform, therefore I am.\n\n" +
-                 "Outward success earns them appreciation; failure is a disaster and makes them work even harder.\n\n" +
+            3 => "The winner (successful worker, doer) is a heart type, focused on appreciation from others for his achievements. I perform, therefore I am.\n" +
+                 "Outward success earns them appreciation; failure is a disaster and makes them work even harder.\n" +
                  "Like the 2 and 4, type 3 is an image type, easily adapting to social environment (chameleon). " +
-                 "Because of their acting skills, threes can mimic other types well without being those types with heart and soul.\n\n" +
+                 "Because of their acting skills, threes can mimic other types well without being those types with heart and soul.\n" +
                  "Pitfalls: Self-deception through identification with outward goals, image outweighs actual achievements (sprucing up resume), " +
-                 "may have difficulty listening to body.\n\n" +
+                 "may have difficulty listening to body.\n" +
                  "Integration point is the more socially minded loyalist.\n" +
                  "Resting point is the nine (lazing around after burnout).",
-            4 => "The tragic romantic (feeler) is a heart type, focused on others. The four wants to stand out from others by being real and unique.\n\n" +
+            4 => "The tragic romantic (feeler) is a heart type, focused on others. The four wants to stand out from others by being real and unique.\n" +
                  "I am unique, therefore I am. Avoiding mundanity and superficiality, the feeler seeks refuge in art, eccentric clothes, origins, creativity " +
-                 "and original thoughts and deep emotions.\n\n" +
-                 "Pitfalls: Envy, pride, pessimism, division squared.\n\n" +
+                 "and original thoughts and deep emotions.\n" +
+                 "Pitfalls: Envy, pride, pessimism, division squared.\n" +
                  "The integration point of the four is the more objective type 1.",
-            5 => "The Observer (Thinker, Observer) is a main type, observing the world from a distance. I think, therefore I am (Descartes).\n\n" +
-                 "The observer has difficulty plunging into life; he wants to know all about it first.\n\n" +
-                 "He avoids dependence on others or fate by gaining more and more knowledge.\n\n" +
-                 "Pitfalls: Greed, retreating into an ivory tower.\n\n" +
+            5 => "The Observer (Thinker, Observer) is a main type, observing the world from a distance. I think, therefore I am (Descartes).\n" +
+                 "The observer has difficulty plunging into life; he wants to know all about it first.\n" +
+                 "He avoids dependence on others or fate by gaining more and more knowledge.\n" +
+                 "Pitfalls: Greed, retreating into an ivory tower.\n" +
                  "Integration point is the eight, who is not afraid of direct experiences in the here and now.\n" +
                  "The thinker sometimes releases the brakes and then behaves like an extroverted bon vivant.",
-            6 => "The loyalist (questioner, devil's advocate) is a main type. Sixes avoid uncertainty and seek their support in groups.\n\n" +
-                 "They have a love-hate relationship with authority. Loyalists also tend to score on the three and nine (the 3, 6 and 9 are attachment types).\n\n" +
-                 "The restless contrafobic six, like the boss, seeks boundaries, but has a 6>3>9 pattern. The more timid phobic six has a 6>9>6 pattern.\n\n" +
+            6 => "The loyalist (questioner, devil's advocate) is a main type. Sixes avoid uncertainty and seek their support in groups.\n" +
+                 "They have a love-hate relationship with authority. Loyalists also tend to score on the three and nine (the 3, 6 and 9 are attachment types).\n" +
+                 "The restless contrafobic six, like the boss, seeks boundaries, but has a 6>3>9 pattern. The more timid phobic six has a 6>9>6 pattern.\n" +
                  "Integration point is the nine: Despite all uncertainties in life trusting that everything will work out.",
-            7 => "The bon vivant (optimist, planner) is main type, who likes to escape into the future to avoid the real problems.\n\n" +
-                 "Actively seeks pleasure, avoids pain and sorrow. Everything must be fun, the seven idealizes even the past.\n\n" +
+            7 => "The bon vivant (optimist, planner) is main type, who likes to escape into the future to avoid the real problems.\n" +
+                 "Actively seeks pleasure, avoids pain and sorrow. Everything must be fun, the seven idealizes even the past.\n" +
                  "Pitfalls: hypomanic behavior, rationalization.",
-            8 => "The boss (leader) is an (under)gut type, focused on power and control. He does not show his vulnerability.\n\n" +
-                 "The boss says directly what he stands for ('sacred innocence').\n\n" +
-                 "A dominant boss can easily overwhelm others without realizing it.\n\n" +
-                 "Pitfalls: Excess (lust).\n\n" +
+            8 => "The boss (leader) is an (under)gut type, focused on power and control. He does not show his vulnerability.\n" +
+                 "The boss says directly what he stands for ('sacred innocence').\n" +
+                 "A dominant boss can easily overwhelm others without realizing it.\n" +
+                 "Pitfalls: Excess (lust).\n" +
                  "Integration point is the type 2 (use power to protect others).\n" +
                  "Under pressure, they withdraw as the five.",
             9 => "The peacemaker (mediator) is a belly type, focused on inner peace (acadia). He avoids conflict, as a heart type, " +
-                 "feels others well, can mediate well, but can easily forget his own interests.\n\n" +
-                 "Has great difficulty with prioritizing.\n\n" +
-                 "Pitfalls: Not seeing one's own needs, getting lost in trivialities, drudgery and numbness.\n\n" +
+                 "feels others well, can mediate well, but can easily forget his own interests.\n" +
+                 "Has great difficulty with prioritizing.\n" +
+                 "Pitfalls: Not seeing one's own needs, getting lost in trivialities, drudgery and numbness.\n" +
                  "His integration point is the type 3, which is much more focused.",
             _ => $"Text for Enneagram type {type} not found"
         };
