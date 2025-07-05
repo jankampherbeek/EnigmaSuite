@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Enigma.Api.Slices;
 using Enigma.Core.Slices.Enneagram;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.State;
 using Serilog;
@@ -17,15 +16,9 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>
 /// Model for Enneagram calculations and data management
 /// </summary>
-public class EnneagramModel
+public class EnneagramModel(EnneagramService enneagramService)
 {
-    private readonly EnneagramService _enneagramService;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
-
-    public EnneagramModel(EnneagramService enneagramService)
-    {
-        _enneagramService = enneagramService;
-    }
 
     /// <summary>
     /// Get the current chart name
@@ -53,50 +46,31 @@ public class EnneagramModel
         if (currentChart == null)
         {
             Log.Warning("EnneagramModel.CalculateEnneagramStrengths: No current chart available");
-            return new List<KeyValuePair<int, double>>();
+            return [];
         }
 
         var chartData = currentChart.InputtedChartData;
         
         // Create EnneagramRequest
-        var request = new EnneagramRequest(
-            chartData.FullDateTime.JulianDayForEt,
-            chartData.Location.GeoLong,
-            chartData.Location.GeoLat,
-            selectedPoints,
-            includeHouses,
-            countPlutoTwice
-        );
-
-        // Calculate strengths
-        var strengths = _enneagramService.DefineEnneagramStrengths(request);
-        
-        // Sort by strength (high to low)
-        return strengths.OrderByDescending(kvp => kvp.Value).ToList();
-    }
-
-    /// <summary>
-    /// Get the default list of chart points for Enneagram calculation
-    /// </summary>
-    /// <returns>List of default chart points</returns>
-    public List<ChartPoints> GetDefaultChartPoints()
-    {
-        return new List<ChartPoints>
+        if (chartData.Location != null)
         {
-            ChartPoints.Sun,
-            ChartPoints.Moon,
-            ChartPoints.Mercury,
-            ChartPoints.Venus,
-            ChartPoints.Mars,
-            ChartPoints.Jupiter,
-            ChartPoints.Saturn,
-            ChartPoints.Uranus,
-            ChartPoints.Neptune,
-            ChartPoints.Pluto,
-            ChartPoints.Chiron,
-            ChartPoints.TrueNode,
-            ChartPoints.ApogeeMean
-        };
+            var request = new EnneagramRequest(
+                chartData.FullDateTime.JulianDayForEt,
+                chartData.Location.GeoLong,
+                chartData.Location.GeoLat,
+                selectedPoints,
+                includeHouses,
+                countPlutoTwice
+            );
+
+            // Calculate strengths
+            var strengths = enneagramService.DefineEnneagramStrengths(request);
+        
+            // Sort by strength (high to low)
+            return strengths.OrderByDescending(kvp => kvp.Value).ToList();
+        }
+        Log.Error("EnneagramModel.CalculateEnneagramStrengths: No chart data available");
+        return [];
     }
 
     /// <summary>
@@ -104,7 +78,7 @@ public class EnneagramModel
     /// </summary>
     /// <param name="type">Enneagram type (1-9)</param>
     /// <returns>Name of the Enneagram type</returns>
-    public string GetEnneagramTypeName(int type)
+    public static string GetEnneagramTypeName(int type)
     {
         return type switch
         {
