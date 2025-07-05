@@ -100,5 +100,86 @@ public class EnneagramService
             return [];
         }
     }
+
+    /// <summary>
+    /// Define the details for an Enneagram
+    /// </summary>
+    /// <remarks>
+    /// Prompt: This service should act as a facade for the definition of details for an Enneagram.
+    /// It should check if geoLon is not larger than 180.0 and not smaller than -180.0 and also that the geoLat is
+    /// smaller than 66.0 and larger than -66.0. It should also check if the number of points in the request is larger
+    /// than zero. Additionally, it should check the points in the request: the only supported values are the
+    /// ChartPoints Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron, TrueNode, ApogeeMean.
+    /// If these conditions are not met, it should return an empty list and log the error.
+    /// If the input is ok, it should call EnneagramOrchestrator.CalcEnneagramDetails and return the results.
+    /// </remarks>
+    /// <param name="request">Request with data</param>
+    /// <returns>List of Enneagram details lines</returns>
+    public List<EnneagramDetailsLine> DefineEnneagramDetails(EnneagramRequest request)
+    {
+        // Validate longitude bounds (-180.0 to 180.0)
+        if (request.GeoLon < -180.0 || request.GeoLon > 180.0)
+        {
+            Log.Error("EnneagramService.DefineEnneagramDetails: Invalid longitude {Longitude}. Must be between -180.0 and 180.0 degrees", request.GeoLon);
+            return [];
+        }
+
+        // Validate latitude bounds (-66.0 to 66.0, exclusive)
+        if (request.GeoLat <= -66.0 || request.GeoLat >= 66.0)
+        {
+            Log.Error("EnneagramService.DefineEnneagramDetails: Invalid latitude {Latitude}. Must be between -66.0 and 66.0 degrees (exclusive)", request.GeoLat);
+            return [];
+        }
+
+        // Check if the number of points in the request is larger than zero
+        if (request.Points.Count == 0)
+        {
+            Log.Error("EnneagramService.DefineEnneagramDetails: No points provided in request");
+            return [];
+        }
+
+        // Validate that only supported ChartPoints are used
+        var supportedPoints = new HashSet<ChartPoints>
+        {
+            ChartPoints.Sun,
+            ChartPoints.Moon,
+            ChartPoints.Mercury,
+            ChartPoints.Venus,
+            ChartPoints.Mars,
+            ChartPoints.Jupiter,
+            ChartPoints.Saturn,
+            ChartPoints.Uranus,
+            ChartPoints.Neptune,
+            ChartPoints.Pluto,
+            ChartPoints.Chiron,
+            ChartPoints.TrueNode,
+            ChartPoints.ApogeeMean
+        };
+
+        var unsupportedPoints = request.Points.Where(point => !supportedPoints.Contains(point)).ToList();
+        if (unsupportedPoints.Count != 0)
+        {
+            Log.Error("EnneagramService.DefineEnneagramDetails: Unsupported chart points found: {UnsupportedPoints}", string.Join(", ", unsupportedPoints));
+            return [];
+        }
+
+        // Input validation passed, proceed with calculation
+        Log.Information("EnneagramService.DefineEnneagramDetails: Calculating Enneagram details for Julian Day {JulianDay}, Longitude {Longitude}, Latitude {Latitude}, TimeKnown {TimeKnown}, PlutoDouble {PlutoDouble}", 
+            request.JulianDay, request.GeoLon, request.GeoLat, request.UseHouses, request.IsDoublePluto);
+
+        try
+        {
+            var orchestrator = new EnneagramOrchestrator();
+            var result = orchestrator.CalcEnneagramDetails(request);
+            
+            Log.Information("EnneagramService.DefineEnneagramDetails: Successfully calculated {Count} Enneagram details", result.Count);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "EnneagramService.DefineEnneagramDetails: Exception occurred during calculation");
+            return [];
+        }
+    }
     
 }

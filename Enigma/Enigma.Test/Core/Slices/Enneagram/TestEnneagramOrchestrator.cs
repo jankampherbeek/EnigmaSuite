@@ -638,9 +638,7 @@ public class TestEnneagramOrchestrator
             ChartPoints.Pluto,
             ChartPoints.Chiron,
             ChartPoints.TrueNode,
-            ChartPoints.ApogeeMean,
-            ChartPoints.ApogeeInterpolated,
-            ChartPoints.PerigeeInterpolated
+            ChartPoints.ApogeeMean
         };
         
         var requestMinimal = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, minimalPoints, true, false);
@@ -693,6 +691,367 @@ public class TestEnneagramOrchestrator
             {
                 Assert.That(kvp.Value[0], Is.GreaterThan(0.0));
             }
+        });
+    }
+
+    // ===== CalcEnneagramDetails Tests =====
+
+    [Test]
+    public void CalcEnneagramDetails_ValidRequest_ReturnsExpectedResults()
+    {
+        // Arrange
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+
+        // Act
+        var result = _orchestrator.CalcEnneagramDetails(request);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Has.Count.GreaterThan(0));
+            
+            // Should have entries for each chart point plus Ascendant and MC when houses are used
+            var chartPointEntries = result.Where(r => r.InSigns).ToList();
+            Assert.That(chartPointEntries, Has.Count.EqualTo(GetDefaultChartPoints().Count + 2));
+            
+            // All entries should have valid factors
+            foreach (var entry in result)
+            {
+                Assert.That(entry.Factors, Is.Not.Null);
+                Assert.That(entry.Factors, Has.Length.EqualTo(9));
+                Assert.That(entry.PositionIndex, Is.GreaterThanOrEqualTo(1));
+                Assert.That(entry.PositionIndex, Is.LessThanOrEqualTo(12));
+            }
+        });
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_DifferentDates_ReturnsDifferentResults()
+    {
+        // Arrange
+        var dates = new[]
+        {
+            2459580.5, // 2022-01-01
+            2459581.5, // 2022-01-02
+            2459582.5  // 2022-01-03
+        };
+
+        var results = new List<List<EnneagramDetailsLine>>();
+
+        // Act
+        foreach (var date in dates)
+        {
+            var request = new EnneagramRequest(date, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+            var result = _orchestrator.CalcEnneagramDetails(request);
+            results.Add(result);
+        }
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(results, Has.Count.EqualTo(3));
+            
+            // All results should have entries
+            foreach (var result in results)
+            {
+                Assert.That(result, Has.Count.GreaterThan(0));
+            }
+            
+            // Results should be different for different dates (planets move)
+            var firstResult = results[0];
+            var secondResult = results[1];
+            
+            // At least some factors should be different between dates
+            bool hasDifferences = false;
+            for (int i = 0; i < Math.Min(firstResult.Count, secondResult.Count); i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (Math.Abs(firstResult[i].Factors[j] - secondResult[i].Factors[j]) > 0.001)
+                    {
+                        hasDifferences = true;
+                        break;
+                    }
+                }
+                if (hasDifferences) break;
+            }
+            Assert.That(hasDifferences, Is.True, "Factors should differ between different dates");
+        });
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_DifferentLocations_ReturnsDifferentResults()
+    {
+        // Arrange
+        var locations = new[]
+        {
+            (lat: 52.0, lon: 6.53),   // Netherlands
+            (lat: 40.7128, lon: -74.0060), // New York
+            (lat: 35.6762, lon: 139.6503), // Tokyo
+            (lat: -33.8688, lon: 151.2093) // Sydney
+        };
+
+        var results = new List<List<EnneagramDetailsLine>>();
+
+        // Act
+        foreach (var (lat, lon) in locations)
+        {
+            var request = new EnneagramRequest(VALID_JD, lon, lat, GetDefaultChartPoints(), true, false);
+            var result = _orchestrator.CalcEnneagramDetails(request);
+            results.Add(result);
+        }
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(results, Has.Count.EqualTo(4));
+            
+            // All results should have entries
+            foreach (var result in results)
+            {
+                Assert.That(result, Has.Count.GreaterThan(0));
+            }
+            
+            // Results should be different for different locations (houses change)
+            var firstResult = results[0];
+            var secondResult = results[1];
+            
+            // At least some factors should be different between locations
+            bool hasDifferences = false;
+            for (int i = 0; i < Math.Min(firstResult.Count, secondResult.Count); i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (Math.Abs(firstResult[i].Factors[j] - secondResult[i].Factors[j]) > 0.001)
+                    {
+                        hasDifferences = true;
+                        break;
+                    }
+                }
+                if (hasDifferences) break;
+            }
+            Assert.That(hasDifferences, Is.True, "Factors should differ between different locations");
+        });
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_NullRequest_ThrowsArgumentNullException()
+    {
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentNullException>(() => 
+            _orchestrator.CalcEnneagramDetails(null!));
+        Assert.That(exception.ParamName, Is.EqualTo("request"));
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_EmptyPointsList_ThrowsArgumentException()
+    {
+        // Arrange
+        var emptyPointsList = new List<ChartPoints>();
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, emptyPointsList, true, false);
+
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentException>(() => 
+            _orchestrator.CalcEnneagramDetails(request));
+        Assert.That(exception.Message, Does.Contain("Points list cannot be null or empty"));
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_NullPointsList_ThrowsArgumentException()
+    {
+        // Arrange
+        List<ChartPoints>? nullPointsList = null;
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, nullPointsList!, true, false);
+
+        // Act & Assert
+        var exception = Assert.Throws<ArgumentException>(() => 
+            _orchestrator.CalcEnneagramDetails(request));
+        Assert.That(exception.Message, Does.Contain("Points list cannot be null or empty"));
+    }
+
+
+    [Test]
+    public void CalcEnneagramDetails_PlutoDouble_ReturnsDifferentResults()
+    {
+        // Arrange
+        var requestWithoutPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var requestWithPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true);
+
+        // Act
+        var resultWithoutPlutoDouble = _orchestrator.CalcEnneagramDetails(requestWithoutPlutoDouble);
+        var resultWithPlutoDouble = _orchestrator.CalcEnneagramDetails(requestWithPlutoDouble);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(resultWithoutPlutoDouble, Is.Not.Null);
+            Assert.That(resultWithPlutoDouble, Is.Not.Null);
+            
+            // Result with Pluto double should have more entries (Pluto appears twice)
+            Assert.That(resultWithPlutoDouble.Count, Is.GreaterThan(resultWithoutPlutoDouble.Count));
+            
+            // Count Pluto entries
+            var plutoEntriesWithoutDouble = resultWithoutPlutoDouble.Where(r => r.Point == ChartPoints.Pluto).ToList();
+            var plutoEntriesWithDouble = resultWithPlutoDouble.Where(r => r.Point == ChartPoints.Pluto).ToList();
+            Assert.That(plutoEntriesWithoutDouble.Count, Is.EqualTo(1));
+            Assert.That(plutoEntriesWithDouble.Count, Is.EqualTo(2));
+        });
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_PlutoNotInList_IsDoublePlutoIgnored()
+    {
+        // Arrange - Create a list without Pluto but with IsDoublePluto = true
+        var chartPointsWithoutPluto = new List<ChartPoints>
+        {
+            ChartPoints.Sun,
+            ChartPoints.Moon,
+            ChartPoints.Mercury,
+            ChartPoints.Venus,
+            ChartPoints.Mars,
+            ChartPoints.Jupiter,
+            ChartPoints.Saturn,
+            ChartPoints.Uranus,
+            ChartPoints.Neptune,
+            ChartPoints.Chiron,
+            ChartPoints.TrueNode,
+            ChartPoints.ApogeeMean
+        };
+        
+        var requestWithoutPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, chartPointsWithoutPluto, true, true);
+        var requestWithPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true);
+
+        // Act
+        var resultWithoutPluto = _orchestrator.CalcEnneagramDetails(requestWithoutPluto);
+        var resultWithPluto = _orchestrator.CalcEnneagramDetails(requestWithPluto);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(resultWithoutPluto, Is.Not.Null);
+            Assert.That(resultWithPluto, Is.Not.Null);
+            
+            // Result with Pluto should have more entries (Pluto appears twice)
+            Assert.That(resultWithPluto.Count, Is.GreaterThan(resultWithoutPluto.Count));
+            
+            // Count Pluto entries
+            var plutoEntriesWithoutPluto = resultWithoutPluto.Where(r => r.Point == ChartPoints.Pluto).ToList();
+            var plutoEntriesWithPluto = resultWithPluto.Where(r => r.Point == ChartPoints.Pluto).ToList();
+            Assert.That(plutoEntriesWithoutPluto.Count, Is.EqualTo(0));
+            Assert.That(plutoEntriesWithPluto.Count, Is.EqualTo(2));
+        });
+    }
+
+  
+    [Test]
+    public void CalcEnneagramDetails_OnlySun_ReturnsValidResults()
+    {
+        // Arrange - Test with only Sun
+        var onlySun = new List<ChartPoints> { ChartPoints.Sun };
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, onlySun, true, false);
+
+        // Act
+        var result = _orchestrator.CalcEnneagramDetails(request);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Has.Count.GreaterThan(0));
+            
+            // Should have one entry for Sun
+            var sunEntries = result.Where(r => r.Point == ChartPoints.Sun).ToList();
+            Assert.That(sunEntries, Has.Count.EqualTo(1));
+            
+            // Should have entries for Ascendant and MC when time is known
+            var ascendantEntries = result.Where(r => r.Point == ChartPoints.Ascendant).ToList();
+            var mcEntries = result.Where(r => r.Point == ChartPoints.Mc).ToList();
+            Assert.That(ascendantEntries, Has.Count.EqualTo(1));
+            Assert.That(mcEntries, Has.Count.EqualTo(1));
+            
+            // All entries should have valid factors
+            foreach (var entry in result)
+            {
+                Assert.That(entry.Factors, Is.Not.Null);
+                Assert.That(entry.Factors, Has.Length.EqualTo(9));
+            }
+        });
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_ConsistencyCheck_SameInputSameOutput()
+    {
+        // Arrange
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+
+        // Act
+        var result1 = _orchestrator.CalcEnneagramDetails(request);
+        var result2 = _orchestrator.CalcEnneagramDetails(request);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result1, Is.Not.Null);
+            Assert.That(result2, Is.Not.Null);
+            Assert.That(result1.Count, Is.EqualTo(result2.Count));
+            
+            // All entries should be identical
+            for (int i = 0; i < result1.Count; i++)
+            {
+                Assert.That(result1[i].Point, Is.EqualTo(result2[i].Point));
+                Assert.That(result1[i].PositionIndex, Is.EqualTo(result2[i].PositionIndex));
+                Assert.That(result1[i].InSigns, Is.EqualTo(result2[i].InSigns));
+                Assert.That(result1[i].Factors, Is.EqualTo(result2[i].Factors));
+            }
+        });
+    }
+
+    [Test]
+    public void CalcEnneagramDetails_ResultFormat_Verification()
+    {
+        // Arrange
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+
+        // Act
+        var result = _orchestrator.CalcEnneagramDetails(request);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Has.Count.GreaterThan(0));
+            
+            // Verify each entry has correct format
+            foreach (var entry in result)
+            {
+                // Point should be valid (not an invalid enum value)
+                Assert.That(Enum.IsDefined(typeof(ChartPoints), entry.Point), Is.True);
+                
+                // Position index should be 1-12
+                Assert.That(entry.PositionIndex, Is.GreaterThanOrEqualTo(1));
+                Assert.That(entry.PositionIndex, Is.LessThanOrEqualTo(12));
+                
+                // Factors should be valid
+                Assert.That(entry.Factors, Is.Not.Null);
+                Assert.That(entry.Factors, Has.Length.EqualTo(9));
+                
+                // All factors should be positive
+                foreach (var factor in entry.Factors)
+                {
+                    Assert.That(factor, Is.GreaterThan(0.0));
+                }
+            }
+            
+            // Should have chart point entries (including Ascendant and MC)
+            var chartPointEntries = result.Where(r => r.InSigns).ToList();
+            Assert.That(chartPointEntries, Has.Count.GreaterThan(0));
+            
+            // Should have Ascendant and MC entries
+            var ascendantEntries = result.Where(r => r.Point == ChartPoints.Ascendant).ToList();
+            var mcEntries = result.Where(r => r.Point == ChartPoints.Mc).ToList();
+            Assert.That(ascendantEntries, Has.Count.EqualTo(1));
+            Assert.That(mcEntries, Has.Count.EqualTo(1));
         });
     }
 } 

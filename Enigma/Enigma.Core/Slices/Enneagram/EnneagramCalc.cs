@@ -8,12 +8,12 @@ using Enigma.Domain.References;
 namespace Enigma.Core.Slices.Enneagram;
 
 /// <summary>
-/// Calcuylate the strengt of Enneagram types
+/// Calculate the strength of Enneagram types
 /// </summary>
 public class EnneagramCalc
 {
     /// <summary>
-    /// Calculate the strengt for 9 Enneagramtypes.
+    /// Calculate the strength for 9 Enneagramtypes.
     /// </summary>
     /// <remarks>
     /// Prompt: Calculate the relative strengts of the 9 Enneagramtypes.
