@@ -139,7 +139,8 @@ public partial class EnneagramViewModel : ObservableObject
             {
                 Type = strength.Key,
                 Name = EnneagramModel.GetEnneagramTypeName(strength.Key),
-                Strength = strength.Value
+                Strength = strength.Value,
+                TooltipText = GetEnneagramTooltipText(strength.Key)
             });
         }
 
@@ -348,15 +349,15 @@ public partial class EnneagramViewModel : ObservableObject
     {
         return type switch
         {
-            1 => "The Perfectionist: Principled, purposeful, self-controlled, and perfectionistic.",
-            2 => "The Helper: Generous, people-pleasing, and possessive.",
-            3 => "The Winner: Adaptable, excelling, driven, and image-conscious.",
-            4 => "The Feeler: Expressive, dramatic, self-absorbed, and temperamental.",
-            5 => "The Observer: Perceptive, innovative, secretive, and isolated.",
-            6 => "The Loyalist: Engaging, responsible, anxious, and suspicious.",
-            7 => "The Optimist: Busy, fun-loving, and scattered.",
-            8 => "The Leader: Powerful, dominating, self-confident, and confrontational.",
-            9 => "The Peacemaker: Receptive, reassuring, complacent, and resigned.",
+            1 => "The Perfectionist:\n\nPrincipled, purposeful, self-controlled, and perfectionistic. Type Ones are conscientious and ethical, with a strong sense of right and wrong. They are teachers, crusaders, and advocates for change: always striving to improve things, but afraid of making a mistake. Well-organized, orderly, and fastidious, they try to maintain high standards but can slip into being critical and perfectionistic. They typically have problems with repressed anger and impatience. At their best: wise, discerning, realistic, and noble. Can be morally heroic.",
+            2 => "The Helper:\n\nGenerous, people-pleasing, and possessive. Type Twos are empathetic, sincere, and warm-hearted. They are friendly, generous, and self-sacrificing, but can also be sentimental, flattering, and people-pleasing. They are well-meaning and driven to be close to others, but can slip into doing things for others in order to be needed. They typically have problems with possessiveness and with recognizing their own needs. At their best: unselfish and altruistic, they have unconditional love for others.",
+            3 => "The Winner:\n\nAdaptable, excelling, driven, and image-conscious. Type Threes are self-assured, attractive, and charming. Ambitious, competent, and energetic, they can also be status-conscious and highly driven for advancement. They are diplomatic and poised, but can also be overly concerned with their image and what others think of them. They typically have problems with workaholism and competitiveness. At their best: self-accepting, authentic, everything they seem to be—role models who inspire others.",
+            4 => "The Feeler:\n\nExpressive, dramatic, self-absorbed, and temperamental. Type Fours are self-aware, sensitive, and reserved. They are emotionally honest, creative, and personal, but can also be moody and self-conscious. Withholding themselves from others due to feeling vulnerable and defective, they can also feel disdainful and exempt from ordinary ways of living. They typically have problems with self-indulgence and self-pity. At their best: inspired and highly creative, they can renew themselves and transform their experiences.",
+            5 => "The Observer:\n\nPerceptive, innovative, secretive, and isolated. Type Fives are alert, insightful, and curious. They are able to concentrate and focus on developing complex ideas and skills. Independent, innovative, and inventive, they can also become preoccupied with their thoughts and imaginary constructs. They become detached, yet high-strung and intense. They typically have problems with eccentricity, nihilism, and isolation. At their best: visionary pioneers, often ahead of their time, and able to see the world in an entirely new way.",
+            6 => "The Loyalist:\n\nEngaging, responsible, anxious, and suspicious. Type Sixes are reliable, hard-working, responsible, and trustworthy. Excellent 'troubleshooters,' they foresee problems and foster cooperation, but can also become defensive, evasive, and anxious—running on stress while complaining about it. They can be cautious and indecisive, but also reactive, defiant and rebellious. They typically have problems with self-doubt and suspicion. At their best: internally stable and self-reliant, courageously championing themselves and others.",
+            7 => "The Optimist:\n\nBusy, fun-loving, and scattered. Type Sevens are extroverted, optimistic, versatile, and spontaneous. Playful, high-spirited, and practical, they can also misapply and scatter their many talents, becoming over-extended, scattered, and undisciplined. They constantly seek new and exciting experiences, but can become distracted and exhausted by staying on the go. They typically have problems with impatience and impulsiveness. At their best: they focus their talents on worthwhile goals, becoming appreciative, joyous, and satisfied.",
+            8 => "The Leader:\n\nPowerful, dominating, self-confident, and confrontational. Type Eights are self-confident, strong, and assertive. Protective, resourceful, straight-talking, and decisive, but can also be ego-centric and domineering. Eights feel they must control their environment, especially people, sometimes becoming confrontational and intimidating. Eights typically have problems with their tempers and with allowing themselves to be vulnerable. At their best: self-mastering, they use their strength to improve others' lives, becoming heroic, magnanimous, and inspiring.",
+            9 => "The Peacemaker:\n\nReceptive, reassuring, complacent, and resigned. Type Nines are accepting, trusting, and stable. They are usually creative, optimistic, and supportive, but can also be too willing to go along with others to keep the peace. They want everything to go smoothly and be without conflict, but they can also be complacent, simplifying problems and minimizing anything upsetting. They typically have problems with inertia and stubbornness. At their best: indomitable and all-embracing, they are able to bring people together and heal conflicts.",
             _ => $"Type {type}: Description not available."
         };
     }
@@ -370,6 +371,7 @@ public class EnneagramTypeResult
     public int Type { get; init; }
     public string Name { get; set; } = "";
     public double Strength { get; init; }
+    public string TooltipText { get; set; } = "";
 }
 
 /// <summary>

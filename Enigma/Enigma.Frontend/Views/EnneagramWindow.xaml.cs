@@ -9,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using System.Windows.Input;
+using System.Windows.Documents;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls.Primitives;
@@ -49,6 +51,59 @@ public partial class EnneagramWindow : Window
         {
             _viewModel.OnWindowResize(e.NewSize.Width, e.NewSize.Height);
         }
+    }
+
+    private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        // Find the ListViewItem that was clicked
+        var originalSource = e.OriginalSource as DependencyObject;
+        while (originalSource != null && !(originalSource is ListViewItem))
+        {
+            originalSource = VisualTreeHelper.GetParent(originalSource);
+        }
+
+        if (originalSource is ListViewItem item && item.DataContext is EnneagramTypeResult result)
+        {
+            ShowEnneagramTypePopup(result.Type, result.Name, result.TooltipText);
+            e.Handled = true; // Prevent the ListView from processing the selection
+        }
+    }
+
+    private void ShowEnneagramTypePopup(int type, string name, string content)
+    {
+        var titleText = $"{type} - {name}";
+        var contentText = content ?? "No detailed information available for this Enneagram type.";
+        
+        PopupTitle.Text = titleText;
+        PopupContent.Text = contentText;
+        
+        // Force layout update
+        PopupContent.InvalidateVisual();
+        PopupContent.UpdateLayout();
+        
+        PopupOverlay.Visibility = Visibility.Visible;
+        
+        // Position popup near the mouse cursor
+        var mousePosition = Mouse.GetPosition(this);
+        EnneagramTypePopup.HorizontalOffset = mousePosition.X + 10;
+        EnneagramTypePopup.VerticalOffset = mousePosition.Y + 10;
+        
+        EnneagramTypePopup.IsOpen = true;
+    }
+
+    private void Popup_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        // Close popup when clicking on it
+        EnneagramTypePopup.IsOpen = false;
+        PopupOverlay.Visibility = Visibility.Collapsed;
+        e.Handled = true;
+    }
+
+    private void Overlay_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        // Close popup when clicking on overlay
+        EnneagramTypePopup.IsOpen = false;
+        PopupOverlay.Visibility = Visibility.Collapsed;
     }
 
     private void DrawEnneagram()
@@ -94,18 +149,21 @@ public partial class EnneagramWindow : Window
                 Focusable = true
             };
 
-            // Create a border to host the ellipse and set the tooltip
+            // Create a border to host the ellipse and add click functionality
             var border = new Border
             {
                 Width = ellipse.Width,
                 Height = ellipse.Height,
                 Background = Brushes.Transparent, // ensure hit test
-                Child = ellipse
+                Child = ellipse,
+                Cursor = Cursors.Hand
             };
 
-            // Set tooltip
-            var tooltipText = circle.Tooltip ?? "No tooltip text";
-            border.ToolTip = tooltipText;
+            // Add click event handler
+            border.MouseLeftButtonDown += (sender, e) =>
+            {
+                ShowEnneagramTypePopup(circle.Type, circle.Name, circle.Tooltip);
+            };
 
             Canvas.SetLeft(border, circle.X - circle.Radius);
             Canvas.SetTop(border, circle.Y - circle.Radius);

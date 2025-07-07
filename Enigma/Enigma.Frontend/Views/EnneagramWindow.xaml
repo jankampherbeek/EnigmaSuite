@@ -35,13 +35,6 @@ The buttons should be positioned underneath the tabs
         SizeChanged="Window_SizeChanged">
     
     <Window.Resources>
-        <Style TargetType="ToolTip">
-            <Setter Property="Background" Value="Yellow"/>
-            <Setter Property="BorderBrush" Value="Black"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="5"/>
-        </Style>
-        
         <!-- Alternating row colors for the details table -->
         <Style x:Key="AlternatingRowStyle" TargetType="ListViewItem">
             <Style.Triggers>
@@ -53,6 +46,8 @@ The buttons should be positioned underneath the tabs
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
+
     </Window.Resources>
     
     
@@ -66,6 +61,54 @@ The buttons should be positioned underneath the tabs
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        <!-- Background overlay to close popup when clicking outside -->
+        <Rectangle x:Name="PopupOverlay" 
+                   Fill="Transparent" 
+                   Visibility="Collapsed"
+                   MouseLeftButtonDown="Overlay_MouseLeftButtonDown"/>
+        
+        <!-- Popup for Enneagram Type Details -->
+        <Popup x:Name="EnneagramTypePopup" 
+               Placement="Absolute" 
+               StaysOpen="True"
+               PopupAnimation="Fade">
+            <Border Background="White" 
+                    BorderBrush="Black" 
+                    BorderThickness="1" 
+                    CornerRadius="5"
+                    Padding="10"
+                    MaxWidth="400"
+                    MouseLeftButtonDown="Popup_MouseLeftButtonDown">
+                <StackPanel>
+                    <TextBlock x:Name="PopupTitle" 
+                               FontWeight="Bold" 
+                               FontSize="14" 
+                               Margin="0,0,0,5"
+                               TextWrapping="Wrap"
+                               HorizontalAlignment="Left"/>
+                    <Border Background="LightYellow" 
+                            BorderThickness="0" 
+                            Padding="5"
+                            MinHeight="50"
+                            MaxHeight="200">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                                      HorizontalScrollBarVisibility="Disabled">
+                            <TextBox x:Name="PopupContent" 
+                                     Text=""
+                                     TextWrapping="Wrap"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
+                                     Background="Transparent"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     AcceptsReturn="True"
+                                     VerticalScrollBarVisibility="Auto"/>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Border>
+        </Popup>
         
         <!-- Title -->
         <TextBlock Grid.Row="0" Text="Enneagram" 
@@ -117,10 +160,13 @@ The buttons should be positioned underneath the tabs
                                    FontWeight="Bold" 
                                    Margin="0,0,0,10"/>
                         
-                        <ListView ItemsSource="{Binding EnneagramResults}" 
+                        <ListView x:Name="EnneagramResultsListView"
+                                  ItemsSource="{Binding EnneagramResults}" 
                                   Height="400"
                                   BorderThickness="1"
-                                  BorderBrush="Gray">
+                                  BorderBrush="Gray"
+                                  Cursor="Hand"
+                                  PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Type" Width="50">
