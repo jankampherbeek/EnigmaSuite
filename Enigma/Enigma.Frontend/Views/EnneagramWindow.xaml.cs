@@ -3,6 +3,7 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Documents;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls.Primitives;
+using Enigma.Domain.Constants;
 
 namespace Enigma.Frontend.Ui.Views;
 
@@ -24,6 +26,7 @@ public partial class EnneagramWindow : Window
     public EnneagramWindow()
     {
         InitializeComponent();
+        DefineColors();
         _viewModel = App.ServiceProvider.GetRequiredService<EnneagramViewModel>();
         DataContext = _viewModel;
         
@@ -64,12 +67,25 @@ public partial class EnneagramWindow : Window
 
         if (originalSource is ListViewItem item && item.DataContext is EnneagramTypeResult result)
         {
-            ShowEnneagramTypePopup(result.Type, result.Name, result.TooltipText);
+            // Find the corresponding circle position for this Enneagram type
+            var circle = _viewModel?.EnneagramCircles?.FirstOrDefault(c => c.Type == result.Type);
+            if (circle != null)
+            {
+                // Convert canvas coordinates to window coordinates
+                var canvasPosition = EnneagramCanvas.TransformToAncestor(this).Transform(new Point(0, 0));
+                var circlePosition = new Point(canvasPosition.X + circle.X, canvasPosition.Y + circle.Y);
+                ShowEnneagramTypePopup(result.Type, result.Name, result.TooltipText, circlePosition);
+            }
+            else
+            {
+                // Fallback to mouse position if circle not found
+                ShowEnneagramTypePopup(result.Type, result.Name, result.TooltipText);
+            }
             e.Handled = true; // Prevent the ListView from processing the selection
         }
     }
 
-    private void ShowEnneagramTypePopup(int type, string name, string content)
+    private void ShowEnneagramTypePopup(int type, string name, string content, Point? position = null)
     {
         var titleText = $"{type} - {name}";
         var contentText = content ?? "No detailed information available for this Enneagram type.";
@@ -83,10 +99,30 @@ public partial class EnneagramWindow : Window
         
         PopupOverlay.Visibility = Visibility.Visible;
         
-        // Position popup near the mouse cursor
-        var mousePosition = Mouse.GetPosition(this);
-        EnneagramTypePopup.HorizontalOffset = mousePosition.X + 10;
-        EnneagramTypePopup.VerticalOffset = mousePosition.Y + 10;
+        // Position popup at specified position or near the mouse cursor
+        double horizontalOffset, verticalOffset;
+        
+        if (position.HasValue)
+        {
+            horizontalOffset = position.Value.X + 10;
+            verticalOffset = position.Value.Y + 10;
+        }
+        else
+        {
+            var mousePosition = Mouse.GetPosition(this);
+            horizontalOffset = mousePosition.X + 10;
+            verticalOffset = mousePosition.Y + 10;
+        }
+        
+        // Ensure popup stays within window bounds
+        var maxHorizontalOffset = this.ActualWidth - 420; // 400 for popup width + 20 for margin
+        var maxVerticalOffset = this.ActualHeight - 250; // Approximate popup height + margin
+        
+        horizontalOffset = Math.Max(10, Math.Min(horizontalOffset, maxHorizontalOffset));
+        verticalOffset = Math.Max(10, Math.Min(verticalOffset, maxVerticalOffset));
+        
+        EnneagramTypePopup.HorizontalOffset = horizontalOffset;
+        EnneagramTypePopup.VerticalOffset = verticalOffset;
         
         EnneagramTypePopup.IsOpen = true;
     }
@@ -178,7 +214,8 @@ public partial class EnneagramWindow : Window
                 FontWeight = FontWeights.Bold,
                 Foreground = Brushes.White,
                 HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
+                VerticalAlignment = VerticalAlignment.Center,
+                IsHitTestVisible = false
             };
 
             Canvas.SetLeft(numberText, circle.X - 10);
@@ -193,7 +230,8 @@ public partial class EnneagramWindow : Window
                 FontSize = 10,
                 HorizontalAlignment = HorizontalAlignment.Center,
                 TextAlignment = TextAlignment.Center,
-                MaxWidth = circle.Radius * 3
+                MaxWidth = circle.Radius * 3,
+                IsHitTestVisible = false
             };
 
             // Position text based on circle number
@@ -223,5 +261,10 @@ public partial class EnneagramWindow : Window
 
             EnneagramCanvas.Children.Add(nameText);
         }
+    }
+    
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     }
 }

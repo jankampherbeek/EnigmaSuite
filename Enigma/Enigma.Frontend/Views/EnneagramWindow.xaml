@@ -31,7 +31,7 @@ The buttons should be positioned underneath the tabs
         xmlns:local="clr-namespace:Enigma.Frontend.Ui.Views"
         xmlns:viewmodels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
         mc:Ignorable="d"
-        Title="Enneagram" Height="600" Width="1000"
+        Title="Enneagram" Height="700" Width="1000"
         SizeChanged="Window_SizeChanged">
     
     <Window.Resources>
@@ -111,10 +111,8 @@ The buttons should be positioned underneath the tabs
         </Popup>
         
         <!-- Title -->
-        <TextBlock Grid.Row="0" Text="Enneagram" 
-                   FontSize="24" FontWeight="Bold" 
-                   HorizontalAlignment="Center" 
-                   Margin="10"/>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Margin="10" Text="Enneagram" Name ="Header" TextWrapping="Wrap"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" FontWeight="Bold" />  
         
         <!-- Main Content with Tabs -->
         <TabControl Grid.Row="1" Margin="10">
@@ -122,17 +120,13 @@ The buttons should be positioned underneath the tabs
             <TabItem Header="Overview">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     
                     <!-- Left Panel - Chart Points Selection -->
                     <StackPanel Grid.Column="0" Margin="5">
-                        <TextBlock Text="{Binding DescriptionText}" 
-                                   TextWrapping="Wrap" 
-                                   Margin="0,0,0,10"/>
-                        
                         <TextBlock Text="Chart Points:" FontWeight="Bold" Margin="0,0,0,5"/>
                         <CheckBox Content="Sun" IsChecked="{Binding IsSunSelected}" Margin="0,2"/>
                         <CheckBox Content="Moon" IsChecked="{Binding IsMoonSelected}" Margin="0,2"/>
@@ -233,76 +227,133 @@ The buttons should be positioned underneath the tabs
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Point" Width="120">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="Point" HorizontalAlignment="Left"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding ChartPointName}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Sign" Width="100">
+                                <GridViewColumn Width="80">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Sign}" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="{Binding PositionType}" HorizontalAlignment="Center"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="1" Width="70">
+                                <GridViewColumn Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Position}" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="1" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="1" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type1Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="2" Width="70">
+                                <GridViewColumn Header="2" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="2" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type2Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="3" Width="70">
+                                <GridViewColumn Header="3" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="3" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type3Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="4" Width="70">
+                                <GridViewColumn Header="4" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="4" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type4Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="5" Width="70">
+                                <GridViewColumn Header="5" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="5" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type5Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="6" Width="70">
+                                <GridViewColumn Header="6" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="6" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type6Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="7" Width="70">
+                                <GridViewColumn Header="7" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="7" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type7Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="8" Width="70">
+                                <GridViewColumn Header="8" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="8" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type8Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="9" Width="70">
+                                <GridViewColumn Header="9" Width="85">
+                                    <GridViewColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="9" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.HeaderTemplate>
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding Type9Factor, StringFormat=F3}" HorizontalAlignment="Right"/>

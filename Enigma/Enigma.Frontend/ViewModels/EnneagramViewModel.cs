@@ -151,7 +151,8 @@ public partial class EnneagramViewModel : ObservableObject
             EnneagramDetails.Add(new EnneagramDetailResult
             {
                 ChartPointName = GetChartPointName(detail.Point),
-                Sign = detail.PositionIndex,
+                PositionType = detail.InSigns ? "Sign" : "House",
+                Position = detail.PositionIndex,
                 Type1Factor = detail.Factors[0],
                 Type2Factor = detail.Factors[1],
                 Type3Factor = detail.Factors[2],
@@ -380,7 +381,8 @@ public class EnneagramTypeResult
 public class EnneagramDetailResult
 {
     public string ChartPointName { get; set; } = "";
-    public int Sign { get; set; }
+    public string PositionType { get; set; } = ""; // "Sign" or "House"
+    public int Position { get; set; } // Sign number (1-12) or House number (1-12)
     public double Type1Factor { get; set; }
     public double Type2Factor { get; set; }
     public double Type3Factor { get; set; }
