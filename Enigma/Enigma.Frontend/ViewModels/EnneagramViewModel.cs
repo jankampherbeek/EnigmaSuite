@@ -50,6 +50,7 @@ public partial class EnneagramViewModel : ObservableObject
 
     // Results
     [ObservableProperty] private ObservableCollection<EnneagramTypeResult> _enneagramResults = [];
+    [ObservableProperty] private ObservableCollection<EnneagramDetailResult> _enneagramDetails = [];
 
     // Chart information
     [ObservableProperty] private string _chartName = "No chart loaded";
@@ -113,6 +114,7 @@ public partial class EnneagramViewModel : ObservableObject
         if (!_model.IsChartLoaded())
         {
             EnneagramResults.Clear();
+            EnneagramDetails.Clear();
             UpdateEnneagramDrawing();
             return;
         }
@@ -121,12 +123,15 @@ public partial class EnneagramViewModel : ObservableObject
         if (!selectedPoints.Any())
         {
             EnneagramResults.Clear();
+            EnneagramDetails.Clear();
             UpdateEnneagramDrawing();
             return;
         }
 
         var strengths = _model.CalculateEnneagramStrengths(selectedPoints, IncludeHouses, CountPlutoTwice);
+        var details = _model.CalculateEnneagramDetails(selectedPoints, IncludeHouses, CountPlutoTwice);
         
+        // Update strengths results
         EnneagramResults.Clear();
         foreach (var strength in strengths)
         {
@@ -135,6 +140,26 @@ public partial class EnneagramViewModel : ObservableObject
                 Type = strength.Key,
                 Name = EnneagramModel.GetEnneagramTypeName(strength.Key),
                 Strength = strength.Value
+            });
+        }
+
+        // Update details results
+        EnneagramDetails.Clear();
+        foreach (var detail in details)
+        {
+            EnneagramDetails.Add(new EnneagramDetailResult
+            {
+                ChartPointName = GetChartPointName(detail.Point),
+                Sign = detail.PositionIndex,
+                Type1Factor = detail.Factors[0],
+                Type2Factor = detail.Factors[1],
+                Type3Factor = detail.Factors[2],
+                Type4Factor = detail.Factors[3],
+                Type5Factor = detail.Factors[4],
+                Type6Factor = detail.Factors[5],
+                Type7Factor = detail.Factors[6],
+                Type8Factor = detail.Factors[7],
+                Type9Factor = detail.Factors[8]
             });
         }
 
@@ -265,6 +290,34 @@ public partial class EnneagramViewModel : ObservableObject
     }
 
     /// <summary>
+    /// Get the name for a chart point
+    /// </summary>
+    /// <param name="point">Chart point</param>
+    /// <returns>Name of the chart point</returns>
+    private static string GetChartPointName(ChartPoints point)
+    {
+        return point switch
+        {
+            ChartPoints.Sun => "Sun",
+            ChartPoints.Moon => "Moon",
+            ChartPoints.Mercury => "Mercury",
+            ChartPoints.Venus => "Venus",
+            ChartPoints.Mars => "Mars",
+            ChartPoints.Jupiter => "Jupiter",
+            ChartPoints.Saturn => "Saturn",
+            ChartPoints.Uranus => "Uranus",
+            ChartPoints.Neptune => "Neptune",
+            ChartPoints.Pluto => "Pluto",
+            ChartPoints.Chiron => "Chiron",
+            ChartPoints.TrueNode => "True Node",
+            ChartPoints.ApogeeMean => "Apogee Mean",
+            ChartPoints.Ascendant => "Ascendant",
+            ChartPoints.Mc => "MC",
+            _ => point.ToString()
+        };
+    }
+
+    /// <summary>
     /// Get the name for an Enneagram type
     /// </summary>
     /// <param name="type">Enneagram type (1-9)</param>
@@ -295,71 +348,46 @@ public partial class EnneagramViewModel : ObservableObject
     {
         return type switch
         {
-            1 => "The perfectionist (world improver, idealist) is a (lower) gut type, focused on improving undesirable things in himself and others.\n" +
-                 "Type 1 can get worked up over imperfections, but usually hides his anger. Yet that anger over perceived injustice is a driving " +
-                 "force (frustration type).\n Repels negative impulses by acting well behaved and formal (reaction formation).\n" +
-                 "Sets high standards for himself, but cannot take criticism from others well.\n" +
-                 "Pitfalls: squeamishness, burnout because the bar is set high.\n" +
-                 "Integration point is the cheerful seven.",
-            2 => "The helper is a heart type, focused on helping others. Helpers want to be needed and use their networks to do so.\n" +
-                 "\n " +
-                 "Use willpower to bend things to their will.\n" +
-                 "Pitfalls: Manipulation of others, meddling, forgetting/suppressing own needs, division " +
-                 "of the world in- and outgroups (whoever is not for me is against me).\n" +
-                 "When unappreciated, twos resemble an unhealthy eight and seek revenge.\n" +
-                 "Introspection (four-behavior) brings them closer to their own needs and feelings.",
-            3 => "The winner (successful worker, doer) is a heart type, focused on appreciation from others for his achievements. \nI perform, therefore I am.\n" +
-                 "Outward success earns them appreciation; failure is a disaster and makes them work even harder.\n" +
-                 "Like the 2 and 4, type 3 is an image type, easily adapting to social environment (chameleon). " +
-                 "Because of their acting skills, threes can mimic other types well without being those types with heart and soul.\n" +
-                 "Pitfalls: Self-deception through identification with outward goals, image outweighs actual achievements (sprucing up resume), " +
-                 "may have difficulty listening to body.\n" +
-                 "Integration point is the more socially minded loyalist.\n" +
-                 "Resting point is the nine (lazing around after burnout).",
-            4 => "The tragic romantic (feeler) is a heart type, focused on others. \nThe four wants to stand out from others by being real and unique.\n" +
-                 "I am unique, therefore I am. \nAvoiding mundanity and superficiality, the feeler seeks refuge in art, eccentric clothes, origins, creativity " +
-                 "and original thoughts and deep emotions.\n" +
-                 "Pitfalls: Envy, pride, pessimism, division squared.\n" +
-                 "The integration point of the four is the more objective type 1.",
-            5 => "The Observer (Thinker, Observer) is a main type, observing the world from a distance. \nI think, therefore I am (Descartes).\n" +
-                 "The observer has difficulty plunging into life; he wants to know all about it first.\n" +
-                 "He avoids dependence on others or fate by gaining more and more knowledge.\n" +
-                 "Pitfalls: Greed, retreating into an ivory tower.\n" +
-                 "Integration point is the eight, who is not afraid of direct experiences in the here and now.\n" +
-                 "The thinker sometimes releases the brakes and then behaves like an extroverted bon vivant.",
-            6 => "The loyalist (questioner, devil's advocate) is a main type. \nSixes avoid uncertainty and seek their support in groups.\n" +
-                 "They have a love-hate relationship with authority. \nLoyalists also tend to score on the three and nine (the 3, 6 and 9 are attachment types).\n" +
-                 "The restless contrafobic six, like the boss, seeks boundaries, but has a 6>3>9 pattern. \nThe more timid phobic six has a 6>9>6 pattern.\n" +
-                 "Integration point is the nine: Despite all uncertainties in life trusting that everything will work out.",
-            7 => "The bon vivant (optimist, planner) is main type, who likes to escape into the future to avoid the real problems.\n" +
-                 "Actively seeks pleasure, avoids pain and sorrow. \nEverything must be fun, the seven idealizes even the past.\n" +
-                 "Pitfalls: hypomanic behavior, rationalization.",
-            8 => "The boss (leader) is an (under)gut type, focused on power and control. \nHe does not show his vulnerability.\n" +
-                 "The boss says directly what he stands for ('sacred innocence').\n" +
-                 "A dominant boss can easily overwhelm others without realizing it.\n" +
-                 "Pitfalls: Excess (lust).\n" +
-                 "Integration point is the type 2 (use power to protect others).\n" +
-                 "Under pressure, they withdraw as the five.",
-            9 => "The peacemaker (mediator) is a belly type, focused on inner peace (acadia). \nHe avoids conflict, as a heart type, " +
-                 "feels others well, can mediate well, but can easily forget his own interests.\n" +
-                 "Has great difficulty with prioritizing.\n" +
-                 "Pitfalls: Not seeing one's own needs, getting lost in trivialities, drudgery and numbness.\n" +
-                 "His integration point is the type 3, which is much more focused.",
-            _ => $"Text for Enneagram type {type} not found"
+            1 => "The Perfectionist: Principled, purposeful, self-controlled, and perfectionistic.",
+            2 => "The Helper: Generous, people-pleasing, and possessive.",
+            3 => "The Winner: Adaptable, excelling, driven, and image-conscious.",
+            4 => "The Feeler: Expressive, dramatic, self-absorbed, and temperamental.",
+            5 => "The Observer: Perceptive, innovative, secretive, and isolated.",
+            6 => "The Loyalist: Engaging, responsible, anxious, and suspicious.",
+            7 => "The Optimist: Busy, fun-loving, and scattered.",
+            8 => "The Leader: Powerful, dominating, self-confident, and confrontational.",
+            9 => "The Peacemaker: Receptive, reassuring, complacent, and resigned.",
+            _ => $"Type {type}: Description not available."
         };
     }
-
-    
 }
 
 /// <summary>
-/// Result for an Enneagram type
+/// Result for an Enneagram type strength calculation
 /// </summary>
 public class EnneagramTypeResult
 {
     public int Type { get; init; }
     public string Name { get; set; } = "";
     public double Strength { get; init; }
+}
+
+/// <summary>
+/// Result for an Enneagram detail calculation
+/// </summary>
+public class EnneagramDetailResult
+{
+    public string ChartPointName { get; set; } = "";
+    public int Sign { get; set; }
+    public double Type1Factor { get; set; }
+    public double Type2Factor { get; set; }
+    public double Type3Factor { get; set; }
+    public double Type4Factor { get; set; }
+    public double Type5Factor { get; set; }
+    public double Type6Factor { get; set; }
+    public double Type7Factor { get; set; }
+    public double Type8Factor { get; set; }
+    public double Type9Factor { get; set; }
 }
 
 /// <summary>

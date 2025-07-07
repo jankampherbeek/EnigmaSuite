@@ -17,7 +17,11 @@ received from the Nodel via the ViewModel. You can use dummy texts for now, I'll
 If the window is enlarged or made smaller, the drawing should automatically adapt.
 If a user chanes one of the checkboxes, the strengths should be recalculated and the image drawn anew.
 Underneath the three parts I want the buttons close and help.  
-
+Additional prompt: Divide the part of the window underneath the header in two tabs. The left tab should contain the content
+as described above, the right tab should contain an overview of the relevant details of the Enneagram. 
+The data for this overview can be obtained from EnneagramService.DefineEnneagramDetails. The request should be defined
+the same way as in the first tab. Show the data in a tableview with alternating colors for the rows (lightblue and white).
+The buttons should be positioned underneath the tabs 
 -->
 <Window x:Class="Enigma.Frontend.Ui.Views.EnneagramWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -36,6 +40,18 @@ Underneath the three parts I want the buttons close and help.
             <Setter Property="BorderBrush" Value="Black"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="Padding" Value="5"/>
+        </Style>
+        
+        <!-- Alternating row colors for the details table -->
+        <Style x:Key="AlternatingRowStyle" TargetType="ListViewItem">
+            <Style.Triggers>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                    <Setter Property="Background" Value="LightBlue"/>
+                </Trigger>
+                <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </Window.Resources>
     
@@ -57,90 +73,202 @@ Underneath the three parts I want the buttons close and help.
                    HorizontalAlignment="Center" 
                    Margin="10"/>
         
-        <!-- Main Content -->
-        <Grid Grid.Row="1" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <!-- Main Content with Tabs -->
+        <TabControl Grid.Row="1" Margin="10">
+            <!-- First Tab - Enneagram Overview -->
+            <TabItem Header="Overview">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <!-- Left Panel - Chart Points Selection -->
+                    <StackPanel Grid.Column="0" Margin="5">
+                        <TextBlock Text="{Binding DescriptionText}" 
+                                   TextWrapping="Wrap" 
+                                   Margin="0,0,0,10"/>
+                        
+                        <TextBlock Text="Chart Points:" FontWeight="Bold" Margin="0,0,0,5"/>
+                        <CheckBox Content="Sun" IsChecked="{Binding IsSunSelected}" Margin="0,2"/>
+                        <CheckBox Content="Moon" IsChecked="{Binding IsMoonSelected}" Margin="0,2"/>
+                        <CheckBox Content="Mercury" IsChecked="{Binding IsMercurySelected}" Margin="0,2"/>
+                        <CheckBox Content="Venus" IsChecked="{Binding IsVenusSelected}" Margin="0,2"/>
+                        <CheckBox Content="Mars" IsChecked="{Binding IsMarsSelected}" Margin="0,2"/>
+                        <CheckBox Content="Jupiter" IsChecked="{Binding IsJupiterSelected}" Margin="0,2"/>
+                        <CheckBox Content="Saturn" IsChecked="{Binding IsSaturnSelected}" Margin="0,2"/>
+                        <CheckBox Content="Uranus" IsChecked="{Binding IsUranusSelected}" Margin="0,2"/>
+                        <CheckBox Content="Neptune" IsChecked="{Binding IsNeptuneSelected}" Margin="0,2"/>
+                        <CheckBox Content="Pluto" IsChecked="{Binding IsPlutoSelected}" Margin="0,2"/>
+                        <CheckBox Content="Chiron" IsChecked="{Binding IsChironSelected}" Margin="0,2"/>
+                        <CheckBox Content="True Node" IsChecked="{Binding IsTrueNodeSelected}" Margin="0,2"/>
+                        <CheckBox Content="Apogee Mean" IsChecked="{Binding IsApogeeMeanSelected}" Margin="0,2"/>
+                        
+                        <Separator Margin="0,10"/>
+                        
+                        <CheckBox Content="Include houses" IsChecked="{Binding IncludeHouses}" Margin="0,2"/>
+                        <CheckBox Content="Count Pluto Twice" IsChecked="{Binding CountPlutoTwice}" Margin="0,2"/>
+                    </StackPanel>
+                    
+                    <!-- Middle Panel - Results List -->
+                    <StackPanel Grid.Column="1" Margin="5">
+                        <TextBlock Text="Enneagram Types (sorted by strength):" 
+                                   FontWeight="Bold" 
+                                   Margin="0,0,0,10"/>
+                        
+                        <ListView ItemsSource="{Binding EnneagramResults}" 
+                                  Height="400"
+                                  BorderThickness="1"
+                                  BorderBrush="Gray">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Type" Width="50">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Type}" HorizontalAlignment="Center"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Name" Width="120">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="Strength" Width="80">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Strength, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    
+                    <!-- Right Panel - Canvas -->
+                    <Border Grid.Column="2" Margin="5" 
+                            BorderThickness="1" 
+                            BorderBrush="Gray">
+                        <Canvas x:Name="EnneagramCanvas" 
+                                Background="White"
+                                SizeChanged="Canvas_SizeChanged">
+                            <!-- Enneagram drawing will be rendered here -->
+                        </Canvas>
+                    </Border>
+                </Grid>
+            </TabItem>
             
-            <!-- Left Panel - Chart Points Selection -->
-            <StackPanel Grid.Column="0" Margin="5">
-                <TextBlock Text="{Binding DescriptionText}" 
-                           TextWrapping="Wrap" 
-                           Margin="0,0,0,10"/>
-                
-                <TextBlock Text="Chart Points:" FontWeight="Bold" Margin="0,0,0,5"/>
-                <CheckBox Content="Sun" IsChecked="{Binding IsSunSelected}" Margin="0,2"/>
-                <CheckBox Content="Moon" IsChecked="{Binding IsMoonSelected}" Margin="0,2"/>
-                <CheckBox Content="Mercury" IsChecked="{Binding IsMercurySelected}" Margin="0,2"/>
-                <CheckBox Content="Venus" IsChecked="{Binding IsVenusSelected}" Margin="0,2"/>
-                <CheckBox Content="Mars" IsChecked="{Binding IsMarsSelected}" Margin="0,2"/>
-                <CheckBox Content="Jupiter" IsChecked="{Binding IsJupiterSelected}" Margin="0,2"/>
-                <CheckBox Content="Saturn" IsChecked="{Binding IsSaturnSelected}" Margin="0,2"/>
-                <CheckBox Content="Uranus" IsChecked="{Binding IsUranusSelected}" Margin="0,2"/>
-                <CheckBox Content="Neptune" IsChecked="{Binding IsNeptuneSelected}" Margin="0,2"/>
-                <CheckBox Content="Pluto" IsChecked="{Binding IsPlutoSelected}" Margin="0,2"/>
-                <CheckBox Content="Chiron" IsChecked="{Binding IsChironSelected}" Margin="0,2"/>
-                <CheckBox Content="True Node" IsChecked="{Binding IsTrueNodeSelected}" Margin="0,2"/>
-                <CheckBox Content="Apogee Mean" IsChecked="{Binding IsApogeeMeanSelected}" Margin="0,2"/>
-                
-                <Separator Margin="0,10"/>
-                
-                <CheckBox Content="Include houses" IsChecked="{Binding IncludeHouses}" Margin="0,2"/>
-                <CheckBox Content="Count Pluto Twice" IsChecked="{Binding CountPlutoTwice}" Margin="0,2"/>
-            </StackPanel>
-            
-            <!-- Middle Panel - Results List -->
-            <StackPanel Grid.Column="1" Margin="5">
-                <TextBlock Text="Enneagram Types (sorted by strength):" 
-                           FontWeight="Bold" 
-                           Margin="0,0,0,10"/>
-                
-                <ListView ItemsSource="{Binding EnneagramResults}" 
-                          Height="400"
-                          BorderThickness="1"
-                          BorderBrush="Gray">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="Type" Width="50">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Type}" HorizontalAlignment="Center"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Name" Width="120">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Strength" Width="80">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Strength, StringFormat=F3}" HorizontalAlignment="Right"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </StackPanel>
-            
-            <!-- Right Panel - Canvas -->
-            <Border Grid.Column="2" Margin="5" 
-                    BorderThickness="1" 
-                    BorderBrush="Gray">
-                <Canvas x:Name="EnneagramCanvas" 
-                        Background="White"
-                        SizeChanged="Canvas_SizeChanged">
-                    <!-- Enneagram drawing will be rendered here -->
-                </Canvas>
-            </Border>
-        </Grid>
+            <!-- Second Tab - Enneagram Details -->
+            <TabItem Header="Details">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Header for Details -->
+                    <TextBlock Grid.Row="0" 
+                               Text="Detailed Enneagram Analysis" 
+                               FontSize="16" FontWeight="Bold" 
+                               Margin="10,10,10,5"/>
+                    
+                    <!-- Details Table -->
+                    <ListView Grid.Row="1" 
+                              ItemsSource="{Binding EnneagramDetails}" 
+                              Margin="10"
+                              BorderThickness="1"
+                              BorderBrush="Gray"
+                              AlternationCount="2"
+                              ItemContainerStyle="{StaticResource AlternatingRowStyle}">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Point" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding ChartPointName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Sign" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Sign}" HorizontalAlignment="Center"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="1" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type1Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="2" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type2Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="3" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type3Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="4" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type4Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="5" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type5Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="6" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type6Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="7" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type7Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="8" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type8Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="9" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Type9Factor, StringFormat=F3}" HorizontalAlignment="Right"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+        </TabControl>
         
         <!-- Bottom Buttons -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" 

@@ -103,4 +103,46 @@ public class EnneagramModel(EnneagramService enneagramService)
     {
         return _dataVaultCharts.GetCurrentChart() != null;
     }
+
+    /// <summary>
+    /// Calculate Enneagram details for the current chart
+    /// </summary>
+    /// <param name="selectedPoints">Selected chart points</param>
+    /// <param name="includeHouses">Whether to include houses in calculation</param>
+    /// <param name="countPlutoTwice">Whether to count Pluto twice</param>
+    /// <returns>List of Enneagram details for each chart point</returns>
+    public List<EnneagramDetailsLine> CalculateEnneagramDetails(
+        List<ChartPoints> selectedPoints, 
+        bool includeHouses, 
+        bool countPlutoTwice)
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        if (currentChart == null)
+        {
+            Log.Warning("EnneagramModel.CalculateEnneagramDetails: No current chart available");
+            return [];
+        }
+
+        var chartData = currentChart.InputtedChartData;
+        
+        // Create EnneagramRequest
+        if (chartData.Location != null)
+        {
+            var request = new EnneagramRequest(
+                chartData.FullDateTime.JulianDayForEt,
+                chartData.Location.GeoLong,
+                chartData.Location.GeoLat,
+                selectedPoints,
+                includeHouses,
+                countPlutoTwice
+            );
+
+            // Calculate details
+            var details = enneagramService.DefineEnneagramDetails(request);
+            return details;
+        }
+        
+        Log.Error("EnneagramModel.CalculateEnneagramDetails: No chart data available");
+        return [];
+    }
 } 
