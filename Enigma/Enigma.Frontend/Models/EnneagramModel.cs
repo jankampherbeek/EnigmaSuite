@@ -36,11 +36,13 @@ public class EnneagramModel(EnneagramService enneagramService)
     /// <param name="selectedPoints">Selected chart points</param>
     /// <param name="includeHouses">Whether to include houses in calculation</param>
     /// <param name="countPlutoTwice">Whether to count Pluto twice</param>
+    /// <param name="isUpdatedVersion">Whether to use the updated version (theory 2012)</param>
     /// <returns>List of Enneagram strengths sorted by strength (high to low)</returns>
     public List<KeyValuePair<int, double>> CalculateEnneagramStrengths(
         List<ChartPoints> selectedPoints, 
         bool includeHouses, 
-        bool countPlutoTwice)
+        bool countPlutoTwice,
+        bool isUpdatedVersion)
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null)
@@ -59,6 +61,7 @@ public class EnneagramModel(EnneagramService enneagramService)
                 chartData.Location.GeoLong,
                 chartData.Location.GeoLat,
                 selectedPoints,
+                isUpdatedVersion,
                 includeHouses,
                 countPlutoTwice
             );
@@ -110,11 +113,13 @@ public class EnneagramModel(EnneagramService enneagramService)
     /// <param name="selectedPoints">Selected chart points</param>
     /// <param name="includeHouses">Whether to include houses in calculation</param>
     /// <param name="countPlutoTwice">Whether to count Pluto twice</param>
+    /// <param name="isUpdatedVersion">Whether to use the updated version (theory 2012)</param>
     /// <returns>List of Enneagram details for each chart point</returns>
     public List<EnneagramDetailsLine> CalculateEnneagramDetails(
         List<ChartPoints> selectedPoints, 
         bool includeHouses, 
-        bool countPlutoTwice)
+        bool countPlutoTwice,
+        bool isUpdatedVersion)
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null)
@@ -133,6 +138,7 @@ public class EnneagramModel(EnneagramService enneagramService)
                 chartData.Location.GeoLong,
                 chartData.Location.GeoLat,
                 selectedPoints,
+                isUpdatedVersion,
                 includeHouses,
                 countPlutoTwice
             );

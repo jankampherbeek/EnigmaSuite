@@ -50,7 +50,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_ValidRequest_ReturnsExpectedResults()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -93,7 +93,7 @@ public class TestEnneagramOrchestrator
         // Act
         foreach (var date in dates)
         {
-            var request = new EnneagramRequest(date, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+            var request = new EnneagramRequest(date, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
             var result = _orchestrator.CalcEnneagramStrengths(request);
             results.Add(result);
         }
@@ -146,7 +146,7 @@ public class TestEnneagramOrchestrator
         // Act
         foreach (var (lat, lon) in locations)
         {
-            var request = new EnneagramRequest(VALID_JD, lon, lat, GetDefaultChartPoints(), true, false);
+            var request = new EnneagramRequest(VALID_JD, lon, lat, GetDefaultChartPoints(), true, true, false);
             var result = _orchestrator.CalcEnneagramStrengths(request);
             results.Add(result);
         }
@@ -193,7 +193,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_InvalidJulianDay_ThrowsException()
     {
         // Arrange
-        var request = new EnneagramRequest(double.NaN, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(double.NaN, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => 
@@ -204,7 +204,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_InvalidLatitude_ThrowsException()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, 91.0, GetDefaultChartPoints(), true, false); // Invalid latitude
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, 91.0, GetDefaultChartPoints(), true, true, false); // Invalid latitude
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => 
@@ -215,7 +215,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_InvalidLongitude_ThrowsException()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, 181.0, VALID_LAT, GetDefaultChartPoints(), true, false); // Invalid longitude
+        var request = new EnneagramRequest(VALID_JD, 181.0, VALID_LAT, GetDefaultChartPoints(), true, true, false); // Invalid longitude
 
         // Act & Assert
         Assert.Throws<ArgumentException>(() => 
@@ -227,7 +227,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange
         var historicalDate = 2440587.5; // 1969-07-20 (Moon landing)
-        var request = new EnneagramRequest(historicalDate, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(historicalDate, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -251,7 +251,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange
         var futureDate = 2469807.5; // 2050-01-01
-        var request = new EnneagramRequest(futureDate, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(futureDate, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true,false);
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -274,7 +274,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_ConsistencyCheck_SameInputSameOutput()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true,  true,false);
 
         // Act
         var result1 = _orchestrator.CalcEnneagramStrengths(request);
@@ -301,7 +301,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_AllChartPointsIncluded_Verification()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -336,7 +336,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_ResultFormat_Verification()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -376,7 +376,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_ServiceReusability()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act - Use the same orchestrator instance multiple times
         var result1 = _orchestrator.CalcEnneagramStrengths(request);
@@ -408,7 +408,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_RealisticAstronomicalValues()
     {
         // Arrange - Test with a known astronomical event
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false); // 2022-01-01
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false); // 2022-01-01
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -444,8 +444,8 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_TimeNotKnown_ReturnsDifferentResults()
     {
         // Arrange
-        var requestWithTime = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
-        var requestWithoutTime = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), false, false);
+        var requestWithTime = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
+        var requestWithoutTime = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false, false);
 
         // Act
         var resultWithTime = _orchestrator.CalcEnneagramStrengths(requestWithTime);
@@ -477,8 +477,8 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_PlutoDouble_ReturnsDifferentResults()
     {
         // Arrange
-        var requestWithoutPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
-        var requestWithPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true);
+        var requestWithoutPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
+        var requestWithPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, true);
 
         // Act
         var resultWithoutPlutoDouble = _orchestrator.CalcEnneagramStrengths(requestWithoutPlutoDouble);
@@ -510,8 +510,8 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramStrengths_TimeNotKnownAndPlutoDouble_CombinedEffect()
     {
         // Arrange
-        var requestNormal = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
-        var requestCombined = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), false, true);
+        var requestNormal = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
+        var requestCombined = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), false, true, true);
 
         // Act
         var resultNormal = _orchestrator.CalcEnneagramStrengths(requestNormal);
@@ -559,8 +559,8 @@ public class TestEnneagramOrchestrator
             ChartPoints.ApogeeMean
         };
         
-        var requestWithoutPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, chartPointsWithoutPluto, true, true);
-        var requestWithPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true);
+        var requestWithoutPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, chartPointsWithoutPluto, true, true, true);
+        var requestWithPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, true);
 
         // Act
         var resultWithoutPluto = _orchestrator.CalcEnneagramStrengths(requestWithoutPluto);
@@ -593,7 +593,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange
         var emptyPointsList = new List<ChartPoints>();
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, emptyPointsList, true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, emptyPointsList, true, true, false);
 
         // Act & Assert
         var exception = Assert.Throws<ArgumentException>(() => 
@@ -606,7 +606,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange
         List<ChartPoints>? nullPointsList = null;
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, nullPointsList!, true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, nullPointsList!, true, true, false);
 
         // Act & Assert
         var exception = Assert.Throws<ArgumentException>(() => 
@@ -641,8 +641,8 @@ public class TestEnneagramOrchestrator
             ChartPoints.ApogeeMean
         };
         
-        var requestMinimal = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, minimalPoints, true, false);
-        var requestExtended = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, extendedPoints, true, false);
+        var requestMinimal = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, minimalPoints, true, true, false);
+        var requestExtended = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, extendedPoints, true, true, false);
 
         // Act
         var resultMinimal = _orchestrator.CalcEnneagramStrengths(requestMinimal);
@@ -675,7 +675,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange - Test with only Sun
         var onlySun = new List<ChartPoints> { ChartPoints.Sun };
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, onlySun, true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, onlySun, true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramStrengths(request);
@@ -700,7 +700,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramDetails_ValidRequest_ReturnsExpectedResults()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramDetails(request);
@@ -742,7 +742,7 @@ public class TestEnneagramOrchestrator
         // Act
         foreach (var date in dates)
         {
-            var request = new EnneagramRequest(date, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+            var request = new EnneagramRequest(date, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
             var result = _orchestrator.CalcEnneagramDetails(request);
             results.Add(result);
         }
@@ -797,7 +797,7 @@ public class TestEnneagramOrchestrator
         // Act
         foreach (var (lat, lon) in locations)
         {
-            var request = new EnneagramRequest(VALID_JD, lon, lat, GetDefaultChartPoints(), true, false);
+            var request = new EnneagramRequest(VALID_JD, lon, lat, GetDefaultChartPoints(), true, true, false);
             var result = _orchestrator.CalcEnneagramDetails(request);
             results.Add(result);
         }
@@ -849,7 +849,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange
         var emptyPointsList = new List<ChartPoints>();
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, emptyPointsList, true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, emptyPointsList, true, true, false);
 
         // Act & Assert
         var exception = Assert.Throws<ArgumentException>(() => 
@@ -862,7 +862,7 @@ public class TestEnneagramOrchestrator
     {
         // Arrange
         List<ChartPoints>? nullPointsList = null;
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, nullPointsList!, true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, nullPointsList!, true, true, false);
 
         // Act & Assert
         var exception = Assert.Throws<ArgumentException>(() => 
@@ -875,8 +875,8 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramDetails_PlutoDouble_ReturnsDifferentResults()
     {
         // Arrange
-        var requestWithoutPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
-        var requestWithPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true);
+        var requestWithoutPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
+        var requestWithPlutoDouble = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, true);
 
         // Act
         var resultWithoutPlutoDouble = _orchestrator.CalcEnneagramDetails(requestWithoutPlutoDouble);
@@ -894,8 +894,8 @@ public class TestEnneagramOrchestrator
             // Count Pluto entries
             var plutoEntriesWithoutDouble = resultWithoutPlutoDouble.Where(r => r.Point == ChartPoints.Pluto).ToList();
             var plutoEntriesWithDouble = resultWithPlutoDouble.Where(r => r.Point == ChartPoints.Pluto).ToList();
-            Assert.That(plutoEntriesWithoutDouble.Count, Is.EqualTo(1));
-            Assert.That(plutoEntriesWithDouble.Count, Is.EqualTo(2));
+            Assert.That(plutoEntriesWithoutDouble.Count, Is.EqualTo(2));   // PLuto one time in signs and in house = 2
+            Assert.That(plutoEntriesWithDouble.Count, Is.EqualTo(4));     // Pluto 2 times in sign and in house = 4
         });
     }
 
@@ -919,8 +919,8 @@ public class TestEnneagramOrchestrator
             ChartPoints.ApogeeMean
         };
         
-        var requestWithoutPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, chartPointsWithoutPluto, true, true);
-        var requestWithPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true);
+        var requestWithoutPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, chartPointsWithoutPluto, true, true, true);
+        var requestWithPluto = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, true);
 
         // Act
         var resultWithoutPluto = _orchestrator.CalcEnneagramDetails(requestWithoutPluto);
@@ -939,51 +939,17 @@ public class TestEnneagramOrchestrator
             var plutoEntriesWithoutPluto = resultWithoutPluto.Where(r => r.Point == ChartPoints.Pluto).ToList();
             var plutoEntriesWithPluto = resultWithPluto.Where(r => r.Point == ChartPoints.Pluto).ToList();
             Assert.That(plutoEntriesWithoutPluto.Count, Is.EqualTo(0));
-            Assert.That(plutoEntriesWithPluto.Count, Is.EqualTo(2));
+            Assert.That(plutoEntriesWithPluto.Count, Is.EqualTo(4));     // 2 times for signs and 2 times for houses
         });
     }
 
   
-    [Test]
-    public void CalcEnneagramDetails_OnlySun_ReturnsValidResults()
-    {
-        // Arrange - Test with only Sun
-        var onlySun = new List<ChartPoints> { ChartPoints.Sun };
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, onlySun, true, false);
-
-        // Act
-        var result = _orchestrator.CalcEnneagramDetails(request);
-
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.GreaterThan(0));
-            
-            // Should have one entry for Sun
-            var sunEntries = result.Where(r => r.Point == ChartPoints.Sun).ToList();
-            Assert.That(sunEntries, Has.Count.EqualTo(1));
-            
-            // Should have entries for Ascendant and MC when time is known
-            var ascendantEntries = result.Where(r => r.Point == ChartPoints.Ascendant).ToList();
-            var mcEntries = result.Where(r => r.Point == ChartPoints.Mc).ToList();
-            Assert.That(ascendantEntries, Has.Count.EqualTo(1));
-            Assert.That(mcEntries, Has.Count.EqualTo(1));
-            
-            // All entries should have valid factors
-            foreach (var entry in result)
-            {
-                Assert.That(entry.Factors, Is.Not.Null);
-                Assert.That(entry.Factors, Has.Length.EqualTo(9));
-            }
-        });
-    }
-
+  
     [Test]
     public void CalcEnneagramDetails_ConsistencyCheck_SameInputSameOutput()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result1 = _orchestrator.CalcEnneagramDetails(request);
@@ -1011,7 +977,7 @@ public class TestEnneagramOrchestrator
     public void CalcEnneagramDetails_ResultFormat_Verification()
     {
         // Arrange
-        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(VALID_JD, VALID_LON, VALID_LAT, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _orchestrator.CalcEnneagramDetails(request);

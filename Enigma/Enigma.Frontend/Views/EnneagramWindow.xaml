@@ -146,6 +146,7 @@ The buttons should be positioned underneath the tabs
                         
                         <CheckBox Content="Include houses" IsChecked="{Binding IncludeHouses}" Margin="0,2"/>
                         <CheckBox Content="Count Pluto Twice" IsChecked="{Binding CountPlutoTwice}" Margin="0,2"/>
+                        <CheckBox Content="Use updated version" IsChecked="{Binding IsUpdatedVersion}" Margin="0,2"/>
                     </StackPanel>
                     
                     <!-- Middle Panel - Results List -->

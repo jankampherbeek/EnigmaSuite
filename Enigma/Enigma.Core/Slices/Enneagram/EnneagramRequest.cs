@@ -14,6 +14,7 @@ namespace Enigma.Core.Slices.Enneagram;
 /// <param name="GeoLon">Geographic longitude</param>
 /// <param name="GeoLat">Geographic latitude</param>
 /// <param name="Points">ChartPoints to use in the calculation</param>
+/// <param name="IsUpdatedVersion">True -> use updated version (20212), otherwise use original version</param> 
 /// <param name="UseHouses">true if birth time is known</param>
 /// <param name="IsDoublePluto">True if Pluto should be calculated twice</param>
-public record EnneagramRequest(double JulianDay, double GeoLon, double GeoLat, List<ChartPoints> Points, bool UseHouses, bool IsDoublePluto);
+public record EnneagramRequest(double JulianDay, double GeoLon, double GeoLat, List<ChartPoints> Points, bool IsUpdatedVersion, bool UseHouses, bool IsDoublePluto);

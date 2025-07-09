@@ -63,7 +63,7 @@ public class EnneagramCalc
             enneagramFactors[i] = new List<double>();
         }
         
-        // Process chart points (planets, asteroids, etc.)
+        // Process chart points (planets, asteroids, etc.) - Signs data
         foreach (var (key, longitude) in chartPoints)
         {
             var pointId = (int)key;
@@ -90,28 +90,54 @@ public class EnneagramCalc
             }
         }
         
-        // Process house cusps (only if time is known)
+        // Process chart points in houses - Houses data (only when time is known)
         if (timeIsKnown)
         {
-            // Process cusps 1-12
-            for (var cuspIndex = 1; cuspIndex <= 12; cuspIndex++)
+            foreach (var (key, longitude) in chartPoints)
             {
-                if (cuspIndex < houses.Length)
+                var pointId = (int)key;
+                var house = CalculateHouse(longitude, houses);
+                
+                // Find factors for this planet and house in housesData
+                var factors = FindFactors(housesData, pointId, house);
+                if (factors == null) continue;
+                
+                // Add factors to each Enneagram type
+                for (var i = 0; i < Math.Min(factors.Length, 9); i++)
                 {
-                    var cuspLongitude = houses[cuspIndex];
-                    var cuspSign = CalculateSign(cuspLongitude);
-                    var cuspId = 2000 + cuspIndex; // Cusp IDs are 2001-2012
+                    enneagramFactors[i + 1].Add(factors[i]);
+                }
                     
-                    var factors = FindFactors(housesData, cuspId, cuspSign);
-                    if (factors == null) continue;
+                // If plutoDouble is true and this is Pluto, add factors again
+                if (plutoDouble && key == ChartPoints.Pluto)
+                {
                     for (var i = 0; i < Math.Min(factors.Length, 9); i++)
                     {
                         enneagramFactors[i + 1].Add(factors[i]);
                     }
                 }
             }
+        }
+        
+        // Process house cusps (only if time is known)
+        if (timeIsKnown)
+        {
+            // Process cusps 1-12
+            for (var cuspIndex = 1; cuspIndex <= 12; cuspIndex++)
+            {
+                var cuspLongitude = houses[cuspIndex];
+                var cuspSign = CalculateSign(cuspLongitude);
+                var cuspId = 2000 + cuspIndex; // Cusp IDs are 2001-2012
+                    
+                var factors = FindFactors(housesData, cuspId, cuspSign);
+                if (factors == null) continue;
+                for (var i = 0; i < Math.Min(factors.Length, 9); i++)
+                {
+                    enneagramFactors[i + 1].Add(factors[i]);
+                }
+            }
             
-            // Process Ascendant (houses[1]) - ID 1001
+            // Process Ascendant (houses[1]) - ID 1001 - Signs data
             if (houses.Length > 1)
             {
                 var ascendantLongitude = houses[1];
@@ -126,12 +152,42 @@ public class EnneagramCalc
                 }
             }
             
-            // Process MC (houses[10]) - ID 1002
+            // Process MC (houses[10]) - ID 1002 - Signs data
             if (houses.Length > 10)
             {
                 var mcLongitude = houses[10];
                 var mcSign = CalculateSign(mcLongitude);
                 var mcFactors = FindFactors(signsData, 1002, mcSign);
+                if (mcFactors != null)
+                {
+                    for (var i = 0; i < Math.Min(mcFactors.Length, 9); i++)
+                    {
+                        enneagramFactors[i + 1].Add(mcFactors[i]);
+                    }
+                }
+            }
+            
+            // Process Ascendant in houses - Houses data
+            if (houses.Length > 1)
+            {
+                var ascendantLongitude = houses[1];
+                var ascendantHouse = CalculateHouse(ascendantLongitude, houses);
+                var ascendantFactors = FindFactors(housesData, 1001, ascendantHouse);
+                if (ascendantFactors != null)
+                {
+                    for (var i = 0; i < Math.Min(ascendantFactors.Length, 9); i++)
+                    {
+                        enneagramFactors[i + 1].Add(ascendantFactors[i]);
+                    }
+                }
+            }
+            
+            // Process MC in houses - Houses data
+            if (houses.Length > 10)
+            {
+                var mcLongitude = houses[10];
+                var mcHouse = CalculateHouse(mcLongitude, houses);
+                var mcFactors = FindFactors(housesData, 1002, mcHouse);
                 if (mcFactors != null)
                 {
                     for (var i = 0; i < Math.Min(mcFactors.Length, 9); i++)
@@ -177,6 +233,56 @@ public class EnneagramCalc
         if (sign < 1) sign = 1;
         
         return sign;
+    }
+    
+    /// <summary>
+    /// Calculate house (1-12) based on longitude and house cusps
+    /// </summary>
+    /// <param name="longitude">Longitude in degrees</param>
+    /// <param name="houses">House cusps array (houses[0] is ignored, houses[1] is 1st house cusp, etc.)</param>
+    /// <returns>House number (1-12)</returns>
+    private static int CalculateHouse(double longitude, double[] houses)
+    {
+        // Normalize longitude to 0-360 range
+        var normalizedLongitude = longitude % 360.0;
+        if (normalizedLongitude < 0)
+        {
+            normalizedLongitude += 360.0;
+        }
+
+        // Find which house this longitude falls into
+        for (int house = 1; house <= 12; house++)
+        {
+            var currentCusp = houses[house];
+            var nextCusp = house == 12 ? houses[1] : houses[house + 1];
+            
+            // Normalize cusps to 0-360 range
+            currentCusp = currentCusp % 360.0;
+            if (currentCusp < 0) currentCusp += 360.0;
+            nextCusp = nextCusp % 360.0;
+            if (nextCusp < 0) nextCusp += 360.0;
+            
+            // Check if longitude is between current and next cusp
+            if (currentCusp <= nextCusp)
+            {
+                // Normal case: current cusp < next cusp
+                if (normalizedLongitude >= currentCusp && normalizedLongitude < nextCusp)
+                {
+                    return house;
+                }
+            }
+            else
+            {
+                // Wrap-around case: current cusp > next cusp (e.g., 350° to 30°)
+                if (normalizedLongitude >= currentCusp || normalizedLongitude < nextCusp)
+                {
+                    return house;
+                }
+            }
+        }
+        
+        // Fallback: return house 1 if no match found
+        return 1;
     }
     
     /// <summary>

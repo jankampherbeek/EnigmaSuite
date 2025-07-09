@@ -34,14 +34,14 @@ public class EnneagramService
     {
 
         // Validate longitude bounds (-180.0 to 180.0)
-        if (request.GeoLon < -180.0 || request.GeoLon > 180.0)
+        if (request.GeoLon is < -180.0 or > 180.0)
         {
             Log.Error("EnneagramService.DefineEnneagramStrengths: Invalid longitude {Longitude}. Must be between -180.0 and 180.0 degrees", request.GeoLon);
             return [];
         }
 
         // Validate latitude bounds (-66.0 to 66.0, exclusive)
-        if (request.GeoLat <= -66.0 || request.GeoLat >= 66.0)
+        if (request.GeoLat is <= -66.0 or >= 66.0)
         {
             Log.Error("EnneagramService.DefineEnneagramStrengths: Invalid latitude {Latitude}. Must be between -66.0 and 66.0 degrees (exclusive)", request.GeoLat);
             return [];
@@ -118,14 +118,14 @@ public class EnneagramService
     public List<EnneagramDetailsLine> DefineEnneagramDetails(EnneagramRequest request)
     {
         // Validate longitude bounds (-180.0 to 180.0)
-        if (request.GeoLon < -180.0 || request.GeoLon > 180.0)
+        if (request.GeoLon is < -180.0 or > 180.0)
         {
             Log.Error("EnneagramService.DefineEnneagramDetails: Invalid longitude {Longitude}. Must be between -180.0 and 180.0 degrees", request.GeoLon);
             return [];
         }
 
         // Validate latitude bounds (-66.0 to 66.0, exclusive)
-        if (request.GeoLat <= -66.0 || request.GeoLat >= 66.0)
+        if (request.GeoLat is <= -66.0 or >= 66.0)
         {
             Log.Error("EnneagramService.DefineEnneagramDetails: Invalid latitude {Latitude}. Must be between -66.0 and 66.0 degrees (exclusive)", request.GeoLat);
             return [];

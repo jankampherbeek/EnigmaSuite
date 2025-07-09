@@ -63,8 +63,8 @@ public class EnneagramOrchestrator
         var houses = _calcHouses.CalcHouses(request.JulianDay, request.GeoLon, request.GeoLat);
         
         // Read the signs and houses data
-        var signsData = _dataCreation.ReadDataForSigns();
-        var housesData = _dataCreation.ReadDataForHouses();
+        var signsData = _dataCreation.ReadDataForSigns(request.IsUpdatedVersion);
+        var housesData = _dataCreation.ReadDataForHouses(request.IsUpdatedVersion);
         
         // Use the values from the request
         var timeIsKnown = request.UseHouses;
@@ -118,8 +118,8 @@ public class EnneagramOrchestrator
         var houses = _calcHouses.CalcHouses(request.JulianDay, request.GeoLon, request.GeoLat);
         
         // Read the signs and houses data
-        var signsData = _dataCreation.ReadDataForSigns();
-        var housesData = _dataCreation.ReadDataForHouses();
+        var signsData = _dataCreation.ReadDataForSigns(request.IsUpdatedVersion);
+        var housesData = _dataCreation.ReadDataForHouses(request.IsUpdatedVersion);
         
         // Use the values from the request
         var timeIsKnown = request.UseHouses;

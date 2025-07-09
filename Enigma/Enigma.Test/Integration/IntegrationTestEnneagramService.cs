@@ -47,7 +47,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_ValidRequest_ReturnsExpectedResults()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, false); // 2022-01-01, Amsterdam
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, false); // 2022-01-01, Amsterdam
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -78,7 +78,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_VariousLocations_ReturnsValidResults(double julianDay, double longitude, double latitude, bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -101,7 +101,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_BoundaryValues_Valid(double julianDay, double longitude, double latitude, bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -125,7 +125,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_InvalidCoordinates_ReturnsEmptyList(double julianDay, double longitude, double latitude, bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -144,7 +144,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_DifferentFlags_ReturnsValidResults(bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -165,7 +165,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_DifferentDates_ReturnsValidResults(double julianDay)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, 6.53, 52.0, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(julianDay, 6.53, 52.0, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -183,7 +183,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_ConsistencyCheck_SameInputSameOutput()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result1 = _enneagramService.DefineEnneagramStrengths(request);
@@ -210,7 +210,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_ResultFormat_Verification()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -252,8 +252,8 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.ApogeeMean
         };
         
-        var requestWithoutPluto = new EnneagramRequest(2459580.5, 6.53, 52.0, chartPointsWithoutPluto, true, true);
-        var requestWithPluto = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true);
+        var requestWithoutPluto = new EnneagramRequest(2459580.5, 6.53, 52.0, chartPointsWithoutPluto, true, true, true);
+        var requestWithPluto = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, true);
 
         // Act
         var resultWithoutPluto = _enneagramService.DefineEnneagramStrengths(requestWithoutPluto);
@@ -303,7 +303,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.ApogeeInterpolated, // Unsupported
             ChartPoints.PerigeeInterpolated // Unsupported
         };
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, chartPointsWithUnsupported, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, chartPointsWithUnsupported, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -317,7 +317,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     {
         // Arrange - Test with only Sun
         var onlySun = new List<ChartPoints> { ChartPoints.Sun };
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlySun, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlySun, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -335,7 +335,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramStrengths_EmptyPointsList_ReturnsEmptyList()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, new List<ChartPoints>(), true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, new List<ChartPoints>(), true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -369,7 +369,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.PerigeeInterpolated // Unsupported
         };
         
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, chartPointsWithUnsupported, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, chartPointsWithUnsupported, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -388,7 +388,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.PerigeeInterpolated
         };
         
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlyUnsupportedPoints, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlyUnsupportedPoints, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -418,7 +418,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.ApogeeMean
         };
         
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, allSupportedPoints, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, allSupportedPoints, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramStrengths(request);
@@ -436,7 +436,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_ValidRequest_ReturnsExpectedResults()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, false); // 2022-01-01, Amsterdam
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, false); // 2022-01-01, Amsterdam
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -468,7 +468,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_VariousLocations_ReturnsValidResults(double julianDay, double longitude, double latitude, bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -491,7 +491,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_BoundaryValues_Valid(double julianDay, double longitude, double latitude, bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -515,7 +515,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_InvalidCoordinates_ReturnsEmptyList(double julianDay, double longitude, double latitude, bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(julianDay, longitude, latitude, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -533,7 +533,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_DifferentFlags_ReturnsValidResults(bool isTimeKnown, bool isDoublePluto)
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), isTimeKnown, isDoublePluto);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, isTimeKnown, isDoublePluto);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -554,7 +554,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_DifferentDates_ReturnsValidResults(double julianDay)
     {
         // Arrange
-        var request = new EnneagramRequest(julianDay, 6.53, 52.0, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(julianDay, 6.53, 52.0, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -572,7 +572,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_ConsistencyCheck_SameInputSameOutput()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result1 = _enneagramService.DefineEnneagramDetails(request);
@@ -603,7 +603,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     public void DefineEnneagramDetails_ResultFormat_Verification()
     {
         // Arrange
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, GetDefaultChartPoints(), true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -636,8 +636,8 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     {
         // Arrange
         var pointsWithoutPluto = GetDefaultChartPoints().Where(p => p != ChartPoints.Pluto).ToList();
-        var requestWithoutDouble = new EnneagramRequest(2459580.5, 6.53, 52.0, pointsWithoutPluto, true, false);
-        var requestWithDouble = new EnneagramRequest(2459580.5, 6.53, 52.0, pointsWithoutPluto, true, true);
+        var requestWithoutDouble = new EnneagramRequest(2459580.5, 6.53, 52.0, pointsWithoutPluto, true, true, false);
+        var requestWithDouble = new EnneagramRequest(2459580.5, 6.53, 52.0, pointsWithoutPluto, true, true, true);
 
         // Act
         var resultWithoutDouble = _enneagramService.DefineEnneagramDetails(requestWithoutDouble);
@@ -658,8 +658,8 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
         // Arrange
         var onlySun = new List<ChartPoints> { ChartPoints.Sun };
         var onlyMoon = new List<ChartPoints> { ChartPoints.Moon };
-        var requestSun = new EnneagramRequest(2459580.5, 6.53, 52.0, onlySun, true, false);
-        var requestMoon = new EnneagramRequest(2459580.5, 6.53, 52.0, onlyMoon, true, false);
+        var requestSun = new EnneagramRequest(2459580.5, 6.53, 52.0, onlySun, true, true, false);
+        var requestMoon = new EnneagramRequest(2459580.5, 6.53, 52.0, onlyMoon, true, true, false);
 
         // Act
         var resultSun = _enneagramService.DefineEnneagramDetails(requestSun);
@@ -688,7 +688,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     {
         // Arrange
         var onlySun = new List<ChartPoints> { ChartPoints.Sun };
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlySun, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlySun, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -713,7 +713,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
     {
         // Arrange
         var emptyPoints = new List<ChartPoints>();
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, emptyPoints, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, emptyPoints, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -735,7 +735,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.Mc, // Unsupported
             ChartPoints.Cusp1 // Unsupported
         };
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, unsupportedPoints, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, unsupportedPoints, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -756,7 +756,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.Cusp1,
             ChartPoints.Cusp2
         };
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlyUnsupportedPoints, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, onlyUnsupportedPoints, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);
@@ -786,7 +786,7 @@ public class IntegrationTestEnneagramService : IntegrationTestBase
             ChartPoints.TrueNode,
             ChartPoints.ApogeeMean
         };
-        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, allSupportedPoints, true, false);
+        var request = new EnneagramRequest(2459580.5, 6.53, 52.0, allSupportedPoints, true, true, false);
 
         // Act
         var result = _enneagramService.DefineEnneagramDetails(request);

@@ -47,6 +47,7 @@ public partial class EnneagramViewModel : ObservableObject
     // Options
     [ObservableProperty] private bool _includeHouses = true;
     [ObservableProperty] private bool _countPlutoTwice;
+    [ObservableProperty] private bool _isUpdatedVersion = true;
 
     // Results
     [ObservableProperty] private ObservableCollection<EnneagramTypeResult> _enneagramResults = [];
@@ -88,6 +89,7 @@ public partial class EnneagramViewModel : ObservableObject
     partial void OnIsApogeeMeanSelectedChanged(bool value) => CalculateEnneagram();
     partial void OnIncludeHousesChanged(bool value) => CalculateEnneagram();
     partial void OnCountPlutoTwiceChanged(bool value) => CalculateEnneagram();
+    partial void OnIsUpdatedVersionChanged(bool value) => CalculateEnneagram();
 
     /// <summary>
     /// Update chart information
@@ -128,8 +130,8 @@ public partial class EnneagramViewModel : ObservableObject
             return;
         }
 
-        var strengths = _model.CalculateEnneagramStrengths(selectedPoints, IncludeHouses, CountPlutoTwice);
-        var details = _model.CalculateEnneagramDetails(selectedPoints, IncludeHouses, CountPlutoTwice);
+        var strengths = _model.CalculateEnneagramStrengths(selectedPoints, IncludeHouses, CountPlutoTwice, IsUpdatedVersion);
+        var details = _model.CalculateEnneagramDetails(selectedPoints, IncludeHouses, CountPlutoTwice, IsUpdatedVersion);
         
         // Update strengths results
         EnneagramResults.Clear();
