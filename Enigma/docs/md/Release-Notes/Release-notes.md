@@ -16,6 +16,10 @@ Calculation of:
 - dodecatemoria (dwads), the original version and the 13th harmonic variant.
 - bounds (terms), the Egyptian version and the version according to Ptolemy. 
 
+### Enneagram
+
+Calculation of the relative strengths of the 9 Enneagramtypes, based on positions in the chart.
+
 
 
 ## Release 0.6.2  beta - June 25, 2025

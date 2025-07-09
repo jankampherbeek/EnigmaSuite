@@ -1,4 +1,4 @@
-# Enigma 0.6 - Charts
+# Enigma 0.7 - Charts
 
 [TOC]
 
@@ -279,6 +279,31 @@ You can sort the columns *Orb* and *Exactness* by clicking on the header.
 You can define the decans, dodecatemoria (dwads) and bounds (terms) for a chart. Select in the menu *Analysis-Zodiac divisions* and you will see the screen as above. Enigma supports decans for signs and planets, the original dodecatemoria and the version as used by Paulus Alexandrinos (the 13th harmonic), and both Egyptian and Ptolemaic terms.
 
 
+
+## Analysis: Enneagram
+
+If you have calculated or retrieved a chart, you can access an overview of the nine Enneagram types via the menu **Analysis - Enneagram**. 
+
+
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\enneagram-overview.png" style="zoom:50%;" />
+
+The calculation is based on a project by Dutch researcher Sjoerd Visser. He analyzed the charts of 1,315 people whose Enneagram type was sufficiently clear. He then calculated the probability of a planet being in a particular sign or house. This resulted in a table containing a large number of probability values. These values are multiplied together to obtain a total score for each Enneagram type.
+
+In the window, under the **Overview** tab, you’ll see the results displayed both in a table and in an Enneagram diagram. The table shows the exact scores, while the diagram highlights the three highest scores—red for the highest and orange for the second and third. By clicking on either the type in the table or one of the circles in the diagram, Enigma will show the interpretation as given by Sjoerd VIsser. You can adjust several options, such as excluding slow-moving planets to emphasize differences among peers. If you don’t know the birth time, you can turn off the **Include houses** option.
+
+The option to calculate Pluto twice stems from an observation early in this experiment—when little data was available—that it improved the total scores. Nowadays, this is a rarely used option, but you can still experiment with it.
+
+Any change automatically triggers a recalculation.
+
+
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\enneagram-details.png" style="zoom:50%;" />
+
+Under the **Details** tab, you’ll see the factors per planet/sign and per planet/house. This information is primarily intended for studying the principle behind this approach.
+
+For more information, visit Sjoerd Visser’s website:
+https://astrology-research.nl/mystiek/enneagram/famous.html
 
 
 

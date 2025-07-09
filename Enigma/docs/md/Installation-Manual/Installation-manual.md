@@ -1,4 +1,4 @@
-# Installation manual Enigma Astrology Research 0.6
+# Installation manual Enigma Astrology Research 0.7
 
 
 ## Requirements
@@ -106,6 +106,5 @@ Each time you start Enigma, it will check if a new version is available.
 It will perform this check only if it can find a connection to the Internet.
 
 Enigma will inform you of any new release and show a link to download and install it. 
-You can always install without removing the previous release, provided you do not change the location of the installed 
-application.
+You can always install without removing the previous release, provided you do not change the location of the installed application.
 

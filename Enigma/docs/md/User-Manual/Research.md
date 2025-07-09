@@ -1,4 +1,4 @@
-# Enigma 0.6 - Research
+# Enigma 0.7 - Research
 
 [TOC]
 

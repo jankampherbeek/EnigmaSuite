@@ -1,4 +1,4 @@
-# Enigma 0.6 - Appendix
+# Enigma 0.7 - Appendix
 
 [TOC]
 
