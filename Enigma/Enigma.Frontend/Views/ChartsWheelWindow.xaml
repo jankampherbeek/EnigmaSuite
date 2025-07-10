@@ -39,6 +39,7 @@
                   Checked="NoAspects_Checked" 
                   Unchecked="NoAspects_UnChecked" />
         <StackPanel Grid.Column="2" Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="Export" Margin="4" Click="ExportClick"/>
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>
         </StackPanel>
