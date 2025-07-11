@@ -372,6 +372,11 @@ The buttons should be positioned underneath the tabs
         <StackPanel Grid.Row="2" Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     Margin="10">
+            <Button Content="Export" 
+                    Width="80"
+                    Height="30"
+                    Margin="5, 0" 
+                    Click="ExportClick"/>
             <Button Content="Help" 
                     Command="{Binding HelpCommand}"
                     Width="80" 

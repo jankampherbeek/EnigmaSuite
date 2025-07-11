@@ -16,6 +16,7 @@ using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Controls.Primitives;
 using Enigma.Domain.Constants;
+using Enigma.Frontend.Ui.Graphics;
 
 namespace Enigma.Frontend.Ui.Views;
 
@@ -266,5 +267,10 @@ public partial class EnneagramWindow : Window
     private void DefineColors()
     {
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+    }
+    
+    private void ExportClick(object sender, RoutedEventArgs e)
+    {
+        CanvasExporter.WriteCanvasToPng(EnneagramCanvas);
     }
 }

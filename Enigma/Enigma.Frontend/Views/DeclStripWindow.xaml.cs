@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using Enigma.Domain.Constants;
+using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -72,4 +73,8 @@ public partial class DeclStripWindow
         Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     }
     
+    private void ExportClick(object sender, RoutedEventArgs e)
+    {
+        CanvasExporter.WriteCanvasToPng(StripCanvas);
+    }
 }
