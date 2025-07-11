@@ -294,6 +294,8 @@ In the window, under the **Overview** tab, you’ll see the results displayed bo
 
 The option to calculate Pluto twice stems from an observation early in this experiment—when little data was available—that it improved the total scores. Nowadays, this is a rarely used option, but you can still experiment with it.
 
+There are two versions of the Enneagram theory. The first dates from 2010, and this version was improved in 2012. The improved version is selected by default with the checkbox **Updated version**. If you uncheck this box, you will get the results according to the older 2010 version.
+
 Any change automatically triggers a recalculation.
 
 

@@ -18,7 +18,7 @@ Calculation of:
 
 ### Enneagram
 
-Calculation of the relative strengths of the 9 Enneagramtypes, based on positions in the chart.
+Calculation of the relative strengths of the 9 Enneagram types, based on positions in the chart. Supports two versions, including the '2012' version that has not yet been published.
 
 
 
