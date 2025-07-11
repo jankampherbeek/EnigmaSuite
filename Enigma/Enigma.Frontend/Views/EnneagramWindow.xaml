@@ -188,6 +188,7 @@ The buttons should be positioned underneath the tabs
                                 </GridView>
                             </ListView.View>
                         </ListView>
+
                     </StackPanel>
                     
                     <!-- Right Panel - Canvas -->
@@ -201,6 +202,7 @@ The buttons should be positioned underneath the tabs
                         </Canvas>
                     </Border>
                 </Grid>
+                
             </TabItem>
             
             <!-- Second Tab - Enneagram Details -->
@@ -372,21 +374,15 @@ The buttons should be positioned underneath the tabs
         <StackPanel Grid.Row="2" Orientation="Horizontal" 
                     HorizontalAlignment="Right" 
                     Margin="10">
-            <Button Content="Export" 
-                    Width="80"
-                    Height="30"
-                    Margin="5, 0" 
+            <Button Content="Export Figure" 
+                    Margin="6" 
                     Click="ExportClick"/>
             <Button Content="Help" 
                     Command="{Binding HelpCommand}"
-                    Width="80" 
-                    Height="30" 
-                    Margin="5,0"/>
+                    Margin="6"/>
             <Button Content="Close" 
                     Command="{Binding CloseCommand}"
-                    Width="80" 
-                    Height="30" 
-                    Margin="5,0"/>
+                    Margin="6"/>
         </StackPanel>
     </Grid>
 </Window>

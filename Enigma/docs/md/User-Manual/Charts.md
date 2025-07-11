@@ -126,6 +126,10 @@ It is possible to open wheels for different charts simultaneously. You can also 
 
 At the bottom left is a check-box labeled 'No time'. If you check this, Enigma draws a new wheel without houses and angles. Also, 0 Aries is positioned to the left. You can use this is a birth time is unknown. Please note that Enigma does not change the time so planetary positions do not change. 
 
+Also at the bottom is a check-box 'No aspects'. Click this to remove the aspect lines from the chart figure.
+
+Click the button **Export** to save a high quality image of the wheel to your disk. The image will be in PNG-format and can be used in a word processor, website or just be printed.
+
 
 
 ## Showing the positions of a chart
@@ -218,6 +222,8 @@ The colors of the position lines are the same as the colors used for the symbols
 
 Enigma shows the zodiac signs using vertical bars. Horizontal (declination) and vertical (longitude) mark the exact location of the points in the graph.  You can hide the position lines by clicking the checkbox *Hide position lines*.
 
+Click the button **Export** to save a high quality image of the diagramwheel to your disk. The image will be in PNG-format and can be used in a word processor, website or just be printed.
+
 
 
 ## Analysis: declination strip
@@ -225,6 +231,8 @@ Enigma shows the zodiac signs using vertical bars. Horizontal (declination) and 
 <img src="img\decl-strip.png" alt="decl-strip" style="zoom:50%;" />
 
 The declination strip shows the declinations, northern declinations at the left and southern declinations at the right. The Out of Bound region has a darker color blue. The diagram also shows the obliquity.
+
+Click the button **Export** to save a high quality image of the strip to your disk. The image will be in PNG-format and can be used in a word processor, website or just be printed.
 
 
 
@@ -297,6 +305,8 @@ The option to calculate Pluto twice stems from an observation early in this expe
 There are two versions of the Enneagram theory. The first dates from 2010, and this version was improved in 2012. The improved version is selected by default with the checkbox **Updated version**. If you uncheck this box, you will get the results according to the older 2010 version.
 
 Any change automatically triggers a recalculation.
+
+Click the button **Export Figure** to save a high quality image of the Enneagram figure to your disk. The image will be in PNG-format and can be used in a word processor, website or just be printed.
 
 
 
