@@ -20,6 +20,10 @@ Calculation of:
 
 Calculation of the relative strengths of the 9 Enneagram types, based on positions in the chart. Supports two versions, including the '2012' version that has not yet been published.
 
+### Export figures to an image on disk
+
+You can now export all figures to an image in PNG format to disk. You can use this image in your word processor, website of just print it. This functionality is available for the chart whee, the declination diagram, the declination strip and the Enneagram. 
+
 
 
 ## Release 0.6.2  beta - June 25, 2025
