@@ -31,11 +31,13 @@ public partial class RadixDataInputViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.RADIX_DATA_INPUT;
     
-
     private Country _selectedCountry;
     private City _selectedCity;
     private double _offset;
     private bool _dst;
+    private bool _isManualCoordinateEdit;
+    private bool _isManualTimeZoneEdit;
+    
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
     [ObservableProperty] private string _source = "";
@@ -52,7 +54,10 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     partial void OnDateChanged(string value)
     {
-        UpdateTimeZone();
+        if (!_isManualTimeZoneEdit)
+        {
+            UpdateTimeZone();
+        }
     }
 
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
@@ -63,7 +68,10 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     partial void OnTimeChanged(string value)
     {
-        UpdateTimeZone();
+        if (!_isManualTimeZoneEdit)
+        {
+            UpdateTimeZone();
+        }
     }
 
     [ObservableProperty] private bool _applyDst;
@@ -74,7 +82,6 @@ public partial class RadixDataInputViewModel : ObservableObject
     [ObservableProperty] private int _lmtDirLongIndex;
     [ObservableProperty] private int _calendarIndex;
     [ObservableProperty] private int _yearCountIndex;
-  //  [ObservableProperty] private int _timeZoneIndex;
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [ObservableProperty] private ObservableCollection<string> _allRatings;
     [ObservableProperty] private ObservableCollection<string> _allCategories;
@@ -83,18 +90,42 @@ public partial class RadixDataInputViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allLmtDirectionsForLongitude;
     [ObservableProperty] private ObservableCollection<string> _allCalendars;
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
-//    [ObservableProperty] private ObservableCollection<string> _allTimeZones;
     [ObservableProperty] private ObservableCollection<Country> _allCountries;
     [ObservableProperty] private ObservableCollection<City> _citiesForCountry;
+    
+    [NotifyPropertyChangedFor(nameof(GeoLongValid))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [ObservableProperty]
     private string _geoLong = "";
+
+    partial void OnGeoLongChanged(string value)
+    {
+        // Mark as manual edit when user changes coordinates
+        _isManualCoordinateEdit = true;
+    }
+
+    [NotifyPropertyChangedFor(nameof(GeoLatValid))]
+    [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
     [ObservableProperty]
-    private string _geoLat;
-    [ObservableProperty] private string _timeZone = "";
+    private string _geoLat = "";
+
+    partial void OnGeoLatChanged(string value)
+    {
+        // Mark as manual edit when user changes coordinates
+        _isManualCoordinateEdit = true;
+    }
+
     [NotifyPropertyChangedFor(nameof(TimeZoneValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
+    [ObservableProperty] private string _timeZone = "";
+
+    partial void OnTimeZoneChanged(string value)
+    {
+        // Mark as manual edit when user changes timezone
+        _isManualTimeZoneEdit = true;
+    }
     
-   [ObservableProperty]
+    [ObservableProperty]
     private RadixDataInputModel _model = App.ServiceProvider.GetRequiredService<RadixDataInputModel>();
     private readonly ITimeZoneApi _timeZoneApi = App.ServiceProvider.GetRequiredService<ITimeZoneApi>();
     
@@ -115,10 +146,9 @@ public partial class RadixDataInputViewModel : ObservableObject
         AllCategories = new ObservableCollection<string>(_model.AllCategories);
         AllDirectionsForLatitude = new ObservableCollection<string>(_model.AllDirectionsForLatitude);
         AllDirectionsForLongitude = new ObservableCollection<string>(_model.AllDirectionsForLongitude);
-        AllLmtDirectionsForLongitude  = new ObservableCollection<string>(_model.AllDirectionsForLongitude);
+        AllLmtDirectionsForLongitude = new ObservableCollection<string>(_model.AllDirectionsForLongitude);
         AllCalendars = new ObservableCollection<string>(_model.AllCalendars);
         AllYearCounts = new ObservableCollection<string>(_model.AllYearCounts);
-    //    AllTimeZones = new ObservableCollection<string>(_model.AllTimeZones);
         AllCountries = new ObservableCollection<Country>(_model.AllCountries);
         CitiesForCountry = new ObservableCollection<City>();
     }
@@ -134,7 +164,6 @@ public partial class RadixDataInputViewModel : ObservableObject
             {
                await UpdateCitiesAsync();
             });            
-    
         }
     }
     
@@ -145,7 +174,16 @@ public partial class RadixDataInputViewModel : ObservableObject
         {
             _selectedCity = value;
             OnPropertyChanged();
-            UpdateCoordinates();
+            // Only update coordinates automatically if user hasn't manually edited them
+            if (!_isManualCoordinateEdit)
+            {
+                UpdateCoordinates();
+            }
+            // Always update timezone when city changes (unless manually edited)
+            if (!_isManualTimeZoneEdit)
+            {
+                UpdateTimeZone();
+            }
         }
     }
 
@@ -162,11 +200,15 @@ public partial class RadixDataInputViewModel : ObservableObject
     
     private void UpdateCoordinates()
     {
+        if (SelectedCity == null) return;
+        
+        // Reset manual edit flag when updating from city selection
+        _isManualCoordinateEdit = false;
+        
         GeoLong = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLong);
         GeoLat = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLat);
         DirLongIndex = SelectedCity.GeoLong.StartsWith('-') ? 1 : 0;
         DirLatIndex = SelectedCity.GeoLat.StartsWith('-') ? 1 : 0;
-        UpdateTimeZone();
     }
 
     private void UpdateTimeZone()
@@ -186,9 +228,14 @@ public partial class RadixDataInputViewModel : ObservableObject
                 timeParts.Length > 2 ? int.Parse(timeParts[2]) : 0 // Second (optional)
             );
             var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
+            
             // Use only the base timezone offset without DST
             _offset = zoneInfo.Offset;
             _dst = zoneInfo.Dst;
+            
+            // Reset manual edit flag when updating automatically
+            _isManualTimeZoneEdit = false;
+            
             TimeZone = FormatTimeZone(_offset - (_dst ? 1.0 : 0.0));
             ApplyDst = zoneInfo.Dst;
         }
@@ -214,6 +261,32 @@ public partial class RadixDataInputViewModel : ObservableObject
     {
         if (string.IsNullOrEmpty(TimeZone) && !_calculateClicked) return true;
         return _model.IsTimeZoneValid(TimeZone);
+    }
+
+    private double GetEffectiveTimeZoneOffset()
+    {
+        // If timezone was manually edited, parse it to get the offset
+        if (_isManualTimeZoneEdit && !string.IsNullOrEmpty(TimeZone))
+        {
+            try
+            {
+                var parts = TimeZone.Split(':');
+                if (parts.Length >= 2)
+                {
+                    var hours = int.Parse(parts[0]);
+                    var minutes = int.Parse(parts[1]);
+                    var seconds = parts.Length > 2 ? int.Parse(parts[2]) : 0;
+                    return hours + (minutes / 60.0) + (seconds / 3600.0);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error parsing manual timezone");
+            }
+        }
+        
+        // Use the calculated offset with DST if applicable
+        return _offset - (ApplyDst ? 1.0 : 0.0);
     }
 
     [RelayCommand]
@@ -250,7 +323,6 @@ public partial class RadixDataInputViewModel : ObservableObject
         return errorsText.ToString();
     }
     
-    
     private bool IsGeoLatValid()
     {
         if (string.IsNullOrEmpty(GeoLat) && !_calculateClicked) return true; 
@@ -264,7 +336,6 @@ public partial class RadixDataInputViewModel : ObservableObject
         Directions4GeoLong dir = DirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
         return _model.IsGeoLongValid(GeoLong, dir);
     }
-    
     
     private bool IsDateValid()
     {
@@ -282,7 +353,8 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     private bool IsTimeValid()
     {
-        return _model.IsTimeValid(Time, _offset, _dst);
+        var effectiveOffset = GetEffectiveTimeZoneOffset();
+        return _model.IsTimeValid(Time, effectiveOffset, ApplyDst);
     }
     
     [RelayCommand]
