@@ -24,6 +24,10 @@ Calculation of the relative strengths of the 9 Enneagram types, based on positio
 
 You can now export all figures to an image in PNG format to disk. You can use this image in your word processor, website of just print it. This functionality is available for the chart whee, the declination diagram, the declination strip and the Enneagram. 
 
+### Coordinates and time zone offset can be edited
+
+Enigma automatically calculates the coordinates and the time zone offset. You can now override these values. 
+
 
 
 ## Release 0.6.2  beta - June 25, 2025
