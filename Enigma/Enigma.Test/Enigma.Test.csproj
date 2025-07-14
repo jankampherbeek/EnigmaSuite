@@ -46,6 +46,7 @@
 
   <ItemGroup>
     <Folder Include="Core\Slices\SingleCoordinateCalc\" />
+    <Folder Include="Core\Slices\Solar\" />
     <Folder Include="Core\Slices\ZodiacDivisions\" />
     <Folder Include="Frontend.Ui\Models\" />
   </ItemGroup>
