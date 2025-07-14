@@ -128,6 +128,8 @@ At the bottom left is a check-box labeled 'No time'. If you check this, Enigma d
 
 Also at the bottom is a check-box 'No aspects'. Click this to remove the aspect lines from the chart figure.
 
+If you want a neutral background for the signs, click 'No sign colors'.
+
 Click the button **Export** to save a high quality image of the wheel to your disk. The image will be in PNG-format and can be used in a word processor, website or just be printed.
 
 

@@ -28,6 +28,10 @@ You can now export all figures to an image in PNG format to disk. You can use th
 
 Enigma automatically calculates the coordinates and the time zone offset. You can now override these values. 
 
+### Background colors for signs based on elements
+
+The zodiac signs in the chart wheel are shown with a color, based on the elements. You can also choose a neutral background.
+
 
 
 ## Release 0.6.2  beta - June 25, 2025
