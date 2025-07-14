@@ -19,7 +19,6 @@ public class TestSolarOrchestrator
     private IJdForPositionFinder _jdForPositionFinder;
     private ISeFlags _seFlags;
     private IChartAllPositionsHandler _chartAllPositionsHandler;
-    private IAyanamshaFacade _ayanamshaFacade;
     private ICelPointSeCalc _celPointSeCalc;
     private SolarOrchestrator _orchestrator;
 
@@ -29,14 +28,12 @@ public class TestSolarOrchestrator
         _jdForPositionFinder = A.Fake<IJdForPositionFinder>();
         _seFlags = A.Fake<ISeFlags>();
         _chartAllPositionsHandler = A.Fake<IChartAllPositionsHandler>();
-        _ayanamshaFacade = A.Fake<IAyanamshaFacade>();
         _celPointSeCalc = A.Fake<ICelPointSeCalc>();
         
         _orchestrator = new SolarOrchestrator(
             _jdForPositionFinder,
             _seFlags,
             _chartAllPositionsHandler,
-            _ayanamshaFacade,
             _celPointSeCalc);
     }
 

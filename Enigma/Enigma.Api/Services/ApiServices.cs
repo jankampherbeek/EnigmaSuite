@@ -17,6 +17,8 @@ using Enigma.Domain.Services;
 using Enigma.Facades;
 using Enigma.Core.Slices.Solar;
 using Microsoft.Extensions.DependencyInjection;
+using Enigma.Core.Calc;
+using Enigma.Facades.Se;
 
 namespace
     Enigma.Api.Services;
@@ -69,7 +71,13 @@ public static class ApiServices
 
         // Register SolarOrchestrator and its dependencies
         serviceCollection.AddTransient<IJdForPositionFinder, JdForPositionFinder>();
+        serviceCollection.AddTransient<ISeFlags, SeFlags>();
+        serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
+        serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();
         serviceCollection.AddTransient<SolarOrchestrator>();
+        serviceCollection.AddTransient<SolarService>();
+        serviceCollection.AddTransient<ICalcUtFacade, CalcUtFacade>();
+        serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
 
         serviceCollection.RegisterFacadesServices();
         serviceCollection.RegisterDomainServices();

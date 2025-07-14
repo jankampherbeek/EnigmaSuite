@@ -7,35 +7,18 @@ using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Core.Calc;
 using Enigma.Domain.Requests;
-using Enigma.Facades.Se;
 
 namespace Enigma.Core.Slices.Solar;
 
 /// <summary>
 /// Orchestrator for the calculation of a solar
 /// </summary>
-public class SolarOrchestrator
+public class SolarOrchestrator(
+    IJdForPositionFinder jdForPositionFinder,
+    ISeFlags seFlags,
+    IChartAllPositionsHandler chartAllPositionsHandler,
+    ICelPointSeCalc celPointSeCalc)
 {
-    private readonly IJdForPositionFinder _jdForPositionFinder;
-    private readonly ISeFlags _seFlags;
-    private readonly IChartAllPositionsHandler _chartAllPositionsHandler;
-    private readonly IAyanamshaFacade _ayanamshaFacade;
-    private readonly ICelPointSeCalc _celPointSeCalc;
-
-    public SolarOrchestrator(
-        IJdForPositionFinder jdForPositionFinder,
-        ISeFlags seFlags,
-        IChartAllPositionsHandler chartAllPositionsHandler,
-        IAyanamshaFacade ayanamshaFacade,
-        ICelPointSeCalc celPointSeCalc)
-    {
-        _jdForPositionFinder = jdForPositionFinder;
-        _seFlags = seFlags;
-        _chartAllPositionsHandler = chartAllPositionsHandler;
-        _ayanamshaFacade = ayanamshaFacade;
-        _celPointSeCalc = celPointSeCalc;
-    }
-
     /// <summary>
     /// Calculate a solar return chart
     /// </summary>
@@ -56,38 +39,36 @@ public class SolarOrchestrator
         var celPointsRequest = new CelPointsRequest(targetJd, locationToUse, request.CalculationPreferences);
         
         // Calculate the full chart
-        return _chartAllPositionsHandler.CalcFullChart(celPointsRequest);
+        return chartAllPositionsHandler.CalcFullChart(celPointsRequest);
     }
 
     private double GetSunPositionAtRadixTime(double radixJd, bool tropicalReturn)
     {
-        var flags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
+        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
             tropicalReturn ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal);
         
-        var sunPositions = _celPointSeCalc.CalculateCelPoint(0, radixJd, flags);
+        var sunPositions = celPointSeCalc.CalculateCelPoint(0, radixJd, flags);
         return sunPositions[0].Position; // Main position (longitude)
     }
 
     private double CalculateTargetJulianDay(double radixSunPosition, double radixJd, int age, bool tropicalReturn)
     {
-        var flags = _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
+        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
             tropicalReturn ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal);
         
         // Calculate the target Julian Day when the Sun returns to the radix position
-        return _jdForPositionFinder.FindJulianDay(radixSunPosition, radixJd + 365.25 * age, flags);
+        return jdForPositionFinder.FindJulianDay(radixSunPosition, radixJd + 365.25 * age, flags);
     }
 
-    private Location? DetermineLocationToUse(Location radixLocation, Location? relocateLocation)
+    private Location DetermineLocationToUse(Location radixLocation, Location? relocateLocation)
     {
         // If no relocate location is specified, use the radix location
         if (relocateLocation == null)
             return radixLocation;
-        
+
         // If the relocate location is the same as the radix location, use the radix location
-        if (relocateLocation.Equals(radixLocation))
-            return radixLocation;
-        
-        // Otherwise, use the relocate location
-        return relocateLocation;
+        return relocateLocation.Equals(radixLocation) ? radixLocation :
+            // Otherwise, use the relocate location
+            relocateLocation;
     }
 }
