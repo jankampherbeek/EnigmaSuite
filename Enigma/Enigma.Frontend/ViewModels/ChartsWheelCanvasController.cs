@@ -22,8 +22,10 @@ public class ChartsWheelCanvasController
 
     public bool NoTime { get; set; } = false;
     public bool NoAspects { get; set; } = false;
+    public bool ShowSignBackgroundColors { get; set; } = true;
     public List<Line> SignSeparators { get; private set; } = new();
     public List<TextBlock> SignGlyphs { get; private set; } = new();
+    public List<Polygon> SignBackgroundSectors { get; private set; } = new();
     public List<Line> CuspLines { get; private set; } = new();
     public List<Line> CuspCardinalLines { get; private set; } = new();
     public List<TextBlock> CuspCardinalIndicators { get; private set; } = new();
@@ -73,8 +75,20 @@ public class ChartsWheelCanvasController
 
     private void HandleSigns()
     {
+        System.Diagnostics.Debug.WriteLine($"[DEBUG] HandleSigns: ShowSignBackgroundColors = {ShowSignBackgroundColors}");
         SignSeparators = _chartsWheelSigns.CreateSignSeparators(_metrics, _centerPoint, GetAscendantLongitude());
         SignGlyphs = _chartsWheelSigns.CreateSignGlyphs(_metrics, _centerPoint, GetAscendantLongitude());
+        if (ShowSignBackgroundColors)
+        {
+            System.Diagnostics.Debug.WriteLine("[DEBUG] HandleSigns: Creating sign background sectors");
+            SignBackgroundSectors = _chartsWheelSigns.CreateSignBackgroundSectors(_metrics, _centerPoint, GetAscendantLongitude());
+            System.Diagnostics.Debug.WriteLine($"[DEBUG] HandleSigns: Created {SignBackgroundSectors.Count} sign background sectors");
+        }
+        else
+        {
+            System.Diagnostics.Debug.WriteLine("[DEBUG] HandleSigns: Clearing sign background sectors");
+            SignBackgroundSectors.Clear();
+        }
     }
 
     private void HandleCusps()

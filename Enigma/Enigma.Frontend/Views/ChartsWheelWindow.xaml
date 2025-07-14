@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"   
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:views="clr-namespace:Enigma.Frontend.Ui.Views"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -14,31 +15,40 @@
         Title="Enigma - Chart Wheel" Height="900" Width="740" MinHeight="400" MinWidth="300">
     <Window.Resources>
         <viewModels:ChartsWheelViewModel x:Key="ViewModel"/>
+        <views:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
     </Window.Resources>
     <Grid Margin="6" DataContext="{StaticResource ViewModel}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="30*"/>
             <ColumnDefinition Width="30*"/>
-            <ColumnDefinition Width="40*"/>
+            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="10*"/>
         </Grid.ColumnDefinitions>    
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="80"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
-        <Grid Grid.ColumnSpan="3" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
+        <Grid Grid.ColumnSpan="4" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121" Grid.RowSpan="2">
                 <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
         </Grid>
-        <TextBlock Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="6" Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
-        <CheckBox Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" IsTabStop="True" Content="No time"  
+        <TextBlock Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Margin="6" Text="{Binding DescriptionOfChart, Mode = OneWay}" TextWrapping="Wrap" />
+        <CheckBox Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" IsTabStop="True" Content="No time"  
                   Style="{StaticResource MaterialDesignCheckBox}"
                   Checked="NoTime_Checked" 
                   Unchecked="NoTime_Unchecked" />
-        <CheckBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsTabStop="True" Content="No aspects"  
+        <CheckBox Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" IsTabStop="True" Content="No aspects"  
                   Style="{StaticResource MaterialDesignCheckBox}"
                   Checked="NoAspects_Checked" 
                   Unchecked="NoAspects_UnChecked" />
-        <StackPanel Grid.Column="2" Grid.Row="2" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+        <CheckBox Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" IsTabStop="True" Content="No sign colors"  
+                  Style="{StaticResource MaterialDesignCheckBox}"
+                  IsChecked="{Binding ShowSignBackgroundColors, Mode=TwoWay, Converter={StaticResource InverseBooleanConverter}}"
+                  Checked="SignColors_Checked"
+                  Unchecked="SignColors_Unchecked"/>
+        <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="4" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="Export" Margin="4" Click="ExportClick"/>
             <Button Content="Help" Margin="4" Command="{Binding HelpCommand}"/>
             <Button Content="Close" Margin="4" Command="{Binding CloseCommand}"/>

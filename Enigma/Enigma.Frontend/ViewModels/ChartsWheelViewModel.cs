@@ -20,6 +20,8 @@ public partial class ChartsWheelViewModel: ObservableObject
     private readonly IDescriptiveChartText _descriptiveChartText;
 
     [ObservableProperty] private string _descriptionOfChart;
+    [ObservableProperty]
+    private bool _showSignBackgroundColors = true;
     
     public ChartsWheelViewModel()
     {
@@ -39,6 +41,12 @@ public partial class ChartsWheelViewModel: ObservableObject
         return descText;
     }
     
+    partial void OnShowSignBackgroundColorsChanged(bool value)
+    {
+        System.Diagnostics.Debug.WriteLine($"[DEBUG] ViewModel OnShowSignBackgroundColorsChanged: {value}");
+        // This will be handled by the window code-behind through the controller
+        // The property change will trigger the UI update
+    }
     
     [RelayCommand]
     private void Close()
