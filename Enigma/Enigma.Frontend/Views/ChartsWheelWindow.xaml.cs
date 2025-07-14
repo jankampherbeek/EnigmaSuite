@@ -5,17 +5,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Linq;
 using Enigma.Frontend.Ui.Graphics;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Win32;
 
 namespace Enigma.Frontend.Ui.Views;
 
@@ -60,19 +57,15 @@ public partial class ChartsWheelWindow
             
             // Set up property change notification
             viewModel.PropertyChanged += OnViewModelPropertyChanged;
-            
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] DataContext changed: ShowSignBackgroundColors = {viewModel.ShowSignBackgroundColors}");
         }
     }
 
     private void OnViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        System.Diagnostics.Debug.WriteLine($"[DEBUG] OnViewModelPropertyChanged called: PropertyName = {e.PropertyName}");
         if (e.PropertyName == nameof(ChartsWheelViewModel.ShowSignBackgroundColors))
         {
             var viewModel = (ChartsWheelViewModel)sender;
             _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] ViewModel property changed: ShowSignBackgroundColors = {viewModel.ShowSignBackgroundColors}");
             Populate();
         }
     }
@@ -94,7 +87,6 @@ public partial class ChartsWheelWindow
 
     private void DrawChartFrame()
     {
-        System.Diagnostics.Debug.WriteLine($"[DEBUG] DrawChartFrame: Canvas size: {WheelCanvas.Width}x{WheelCanvas.Height}");
         AddToWheel(new List<UIElement>(_canvasController.WheelCircles));
         AddToWheel(new List<UIElement>(_canvasController.SignBackgroundSectors));
         AddToWheel(new List<UIElement>(_canvasController.SignSeparators));
@@ -125,14 +117,6 @@ public partial class ChartsWheelWindow
 
     private void AddToWheel(List<UIElement> uiElements)
     {
-        if (uiElements.Count == 0)
-        {
-            System.Diagnostics.Debug.WriteLine("[DEBUG] AddToWheel: List is empty");
-        }
-        else
-        {
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] AddToWheel: Adding {uiElements.Count} elements of type {uiElements.FirstOrDefault()?.GetType().Name ?? "None"}");
-        }
         foreach (var uiElement in uiElements)
         {
             WheelCanvas.Children.Add(uiElement);
@@ -176,46 +160,17 @@ public partial class ChartsWheelWindow
     private void SignColors_Checked(object sender, RoutedEventArgs e)
     {
         _canvasController.ShowSignBackgroundColors = false;
-        System.Diagnostics.Debug.WriteLine("[DEBUG] SignColors_Checked: Setting ShowSignBackgroundColors = false");
         Populate();
     }
 
     private void SignColors_Unchecked(object sender, RoutedEventArgs e)
     {
         _canvasController.ShowSignBackgroundColors = true;
-        System.Diagnostics.Debug.WriteLine("[DEBUG] SignColors_Unchecked: Setting ShowSignBackgroundColors = true");
         Populate();
     }
 
     private void ExportClick(object sender, RoutedEventArgs e)
     {
-        SaveFileDialog saveFileDialog = new()
-        {
-            Filter = "PNG files (*.png)|*.png|All files (*.*)|*.*",
-            FilterIndex = 1,
-            RestoreDirectory = true
-        };
-
-        if (saveFileDialog.ShowDialog() == true)
-        {
-            try
-            {
-                RenderTargetBitmap renderBitmap = new(
-                    (int)WheelCanvas.ActualWidth,
-                    (int)WheelCanvas.ActualHeight,
-                    96d, 96d, PixelFormats.Pbgra32);
-                renderBitmap.Render(WheelCanvas);
-
-                PngBitmapEncoder encoder = new();
-                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
-
-                using FileStream file = File.Create(saveFileDialog.FileName);
-                encoder.Save(file);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error saving file: " + ex.Message, "Export Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
+        CanvasExporter.WriteCanvasToPng(WheelCanvas);
     }
 }

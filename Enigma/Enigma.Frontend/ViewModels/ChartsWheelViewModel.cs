@@ -43,7 +43,6 @@ public partial class ChartsWheelViewModel: ObservableObject
     
     partial void OnShowSignBackgroundColorsChanged(bool value)
     {
-        System.Diagnostics.Debug.WriteLine($"[DEBUG] ViewModel OnShowSignBackgroundColorsChanged: {value}");
         // This will be handled by the window code-behind through the controller
         // The property change will trigger the UI update
     }

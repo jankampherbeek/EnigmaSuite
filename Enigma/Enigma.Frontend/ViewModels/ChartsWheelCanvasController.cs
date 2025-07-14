@@ -75,18 +75,14 @@ public class ChartsWheelCanvasController
 
     private void HandleSigns()
     {
-        System.Diagnostics.Debug.WriteLine($"[DEBUG] HandleSigns: ShowSignBackgroundColors = {ShowSignBackgroundColors}");
         SignSeparators = _chartsWheelSigns.CreateSignSeparators(_metrics, _centerPoint, GetAscendantLongitude());
         SignGlyphs = _chartsWheelSigns.CreateSignGlyphs(_metrics, _centerPoint, GetAscendantLongitude());
         if (ShowSignBackgroundColors)
         {
-            System.Diagnostics.Debug.WriteLine("[DEBUG] HandleSigns: Creating sign background sectors");
             SignBackgroundSectors = _chartsWheelSigns.CreateSignBackgroundSectors(_metrics, _centerPoint, GetAscendantLongitude());
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] HandleSigns: Created {SignBackgroundSectors.Count} sign background sectors");
         }
         else
         {
-            System.Diagnostics.Debug.WriteLine("[DEBUG] HandleSigns: Clearing sign background sectors");
             SignBackgroundSectors.Clear();
         }
     }
