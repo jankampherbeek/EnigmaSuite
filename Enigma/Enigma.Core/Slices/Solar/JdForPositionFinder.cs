@@ -8,9 +8,24 @@ using Enigma.Core.Calc;
 namespace Enigma.Core.Slices.Solar;
 
 /// <summary>
+/// Interface for finding the Julian Day when the Sun reaches a predefined point
+/// </summary>
+public interface IJdForPositionFinder
+{
+    /// <summary>
+    /// Find the Julian Day when the Sun reaches a given position
+    /// </summary>
+    /// <param name="position">The position in longitude</param>
+    /// <param name="startJd">Estimated start position of the Julian Day</param>
+    /// <param name="flags">Calculation flags</param>
+    /// <returns>The Julian Day when the Sun reaches the specified position</returns>
+    double FindJulianDay(double position, double startJd, int flags);
+}
+
+/// <summary>
 /// Find the Jd in a given period of one day when the Sun reaches a predefined point
 /// </summary>
-public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc)
+public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositionFinder
 {
     private const double SUN_SE_ID = 0; // Sun's SE ID
     private const double MAX_DIFFERENCE = 3E-6; // Maximum difference in degrees (fraction of a second)

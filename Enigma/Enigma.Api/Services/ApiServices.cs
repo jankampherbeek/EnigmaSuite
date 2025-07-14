@@ -15,6 +15,7 @@ using Enigma.Api.Slices;
 using Enigma.Core.Services;
 using Enigma.Domain.Services;
 using Enigma.Facades;
+using Enigma.Core.Slices.Solar;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace
@@ -65,6 +66,10 @@ public static class ApiServices
         serviceCollection.AddTransient<ITimeZoneApi, TimeZoneApi>();
         serviceCollection.AddTransient<ZodiacDivisionsService>();
         serviceCollection.AddTransient<EnneagramService>();
+
+        // Register SolarOrchestrator and its dependencies
+        serviceCollection.AddTransient<IJdForPositionFinder, JdForPositionFinder>();
+        serviceCollection.AddTransient<SolarOrchestrator>();
 
         serviceCollection.RegisterFacadesServices();
         serviceCollection.RegisterDomainServices();

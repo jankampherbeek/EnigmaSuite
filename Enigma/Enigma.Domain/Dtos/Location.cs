@@ -31,4 +31,18 @@ public sealed class Location
         DirLat = GeoLat >= 0.0 ? Directions4GeoLat.North : Directions4GeoLat.South;
     }
 
+    public override bool Equals(object? obj)
+    {
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj is not Location other) return false;
+        return LocationFullName == other.LocationFullName &&
+               GeoLong.Equals(other.GeoLong) &&
+               GeoLat.Equals(other.GeoLat) &&
+               DirLat == other.DirLat;
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(LocationFullName, GeoLong, GeoLat, DirLat);
+    }
 }
