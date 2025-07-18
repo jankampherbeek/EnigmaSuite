@@ -11,7 +11,7 @@ using System.Windows.Shapes;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Graphics;
-using Enigma.Frontend.Ui.State;
+
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -26,8 +26,8 @@ public class ChartsWheelCanvasController(
     IChartsWheelAspects chartsWheelAspects)
 {
 
-    public bool NoTime { get; set; } = false;
-    public bool NoAspects { get; set; } = false;
+    public bool NoTime { get; set; }
+    public bool NoAspects { get; set; }
     public bool ShowSignBackgroundColors { get; set; } = true;
     public List<Line> SignSeparators { get; private set; } = new();
     public List<TextBlock> SignGlyphs { get; private set; } = new();
@@ -42,14 +42,11 @@ public class ChartsWheelCanvasController(
     public List<Ellipse> WheelCircles { get; private set; } = new();
     public List<Line> DegreeLines { get; private set; } = new();
     public List<Line> AspectLines { get; private set; } = new();
-
+    public Dictionary<ChartPoints, FullPointPos>? AllPositions { get; set; }  
+    
     public double CanvasSize { get; private set; }
     private Point _centerPoint;
 
-    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
-
-
-    private CalculatedChart? _currentChart;
 
     private void HandleCircles()
     {
@@ -104,29 +101,28 @@ public class ChartsWheelCanvasController(
 
     private void HandleAspects()
     {
-        AspectLines = chartsWheelAspects.CreateAspectLines(_dataVaultCharts.GetCurrentChart()!, metrics, _centerPoint, NoTime);
+      AspectLines = chartsWheelAspects.CreateAspectLines(AllPositions!, metrics, _centerPoint, NoTime);
     }
 
     private double GetAscendantLongitude()
     {
         if (NoTime) return 0.0;
-        return _currentChart != null
-            ? _currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position
+        return AllPositions != null
+            ? AllPositions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position
             : 0.0;
     }
 
     private double GetMcLongitude()
     {
-        return _currentChart != null ? _currentChart.Positions[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position : 0.0;
+        return AllPositions != null ? AllPositions[ChartPoints.Mc].Ecliptical.MainPosSpeed.Position : 0.0;
     }
 
 
     private List<double> GetHouseLongitudesCurrentChart()
     {
         List<double> longitudes = new();
-        _currentChart = _dataVaultCharts.GetCurrentChart();
-        if (_currentChart == null) return longitudes;
-        longitudes.AddRange(from cusp in _currentChart.Positions
+        if (AllPositions == null) return longitudes;
+        longitudes.AddRange(from cusp in AllPositions
             where cusp.Key.GetDetails().PointCat == PointCats.Cusp
             select cusp.Value.Ecliptical.MainPosSpeed.Position);
         return longitudes;
@@ -134,9 +130,8 @@ public class ChartsWheelCanvasController(
 
     private Dictionary<ChartPoints, FullPointPos> GetCommonPointsCurrentChart()
     {
-        _currentChart = _dataVaultCharts.GetCurrentChart();
-        return _currentChart != null
-            ? _currentChart.Positions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common 
+        return AllPositions != null
+            ? AllPositions.Where(item => item.Key.GetDetails().PointCat == PointCats.Common 
                                                     || item.Key.GetDetails().PointCat == PointCats.Lots)
                 .ToDictionary(item => item.Key, item => item.Value)
             : new Dictionary<ChartPoints, FullPointPos>();
@@ -152,34 +147,11 @@ public class ChartsWheelCanvasController(
 
     public void PrepareDraw()
     {
-        if (_currentChart == null)
-        {
-            _currentChart = _dataVaultCharts.GetCurrentChart();
-        }
         HandleCircles();
         HandleSigns();
         HandleCusps();
         HandleCelPoints();
         HandleAspects();
-    }
-
-    /// <summary>
-    /// Set a custom chart to display instead of the current chart
-    /// </summary>
-    /// <param name="chart">The chart to display</param>
-    public void SetCustomChart(CalculatedChart chart)
-    {
-        _currentChart = chart;
-        PrepareDraw();
-    }
-
-    /// <summary>
-    /// Reset to use the current chart from DataVault
-    /// </summary>
-    public void ResetToCurrentChart()
-    {
-        _currentChart = null;
-        PrepareDraw();
     }
 
 }

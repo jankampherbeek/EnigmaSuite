@@ -5,11 +5,12 @@
 
 
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 
 namespace Enigma.Domain.Requests;
 
 /// <summary>Request to calculate aspects.</summary>
 /// <param name="CalcChart">Calculated chart.</param>
 /// <param name="Config">Current configuration.</param>
-public record AspectRequest(CalculatedChart CalcChart, AstroConfig Config);
+public record AspectRequest(Dictionary<ChartPoints, FullPointPos> CalcChart, AstroConfig Config);
 

@@ -28,8 +28,6 @@ public sealed class AspectsApi(IAspectsHandler aspectHandler) : IAspectsApi
     {
         Guard.Against.Null(request);
         Guard.Against.Null(request.CalcChart);
-        Log.Information("AspectsApi: AspectsForChartPoints for chart {Name}", 
-            request.CalcChart.InputtedChartData.MetaData.Name);
         return aspectHandler.AspectsForChartPoints(request);
     }
 }

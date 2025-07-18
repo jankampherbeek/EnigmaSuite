@@ -46,7 +46,7 @@ public sealed class AspectsHandler(
     public IEnumerable<DefinedAspect> AspectsForChartPoints(AspectRequest request)
     {
         var chartPointPositions =
-            (from posPoint in request.CalcChart.Positions
+            (from posPoint in request.CalcChart
              where posPoint.Key.GetDetails().PointCat == PointCats.Common 
                    || posPoint.Key.GetDetails().PointCat == PointCats.Angle 
                    || posPoint.Key.GetDetails().PointCat ==PointCats.Lots
@@ -61,7 +61,7 @@ public sealed class AspectsHandler(
         if (request.Config.UseCuspsForAspects)
         {
             var relevantCusps =
-                (from posPoint in request.CalcChart.Positions
+                (from posPoint in request.CalcChart
                  where posPoint.Key.GetDetails().PointCat == PointCats.Cusp
                  select posPoint)
                 .ToDictionary(x => x.Key, x => x.Value);

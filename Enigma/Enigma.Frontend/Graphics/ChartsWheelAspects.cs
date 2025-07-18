@@ -21,29 +21,21 @@ namespace Enigma.Frontend.Ui.Graphics;
 // Interfaces for frontend graphics.
 public interface IChartsWheelAspects
 {
-    public List<Line> CreateAspectLines(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint, bool noTime);
+    public List<Line> CreateAspectLines(Dictionary<ChartPoints, FullPointPos> currentChart, ChartsWheelMetrics metrics, Point centerPoint, bool noTime);
 }
 
-public sealed class ChartsWheelAspects : IChartsWheelAspects
+public sealed class ChartsWheelAspects(IAspectsApi aspectsApi, IAspectForWheelFactory aspectForWheelFactory)
+    : IChartsWheelAspects
 {
-    private readonly IAspectsApi _aspectsApi;
-    private readonly IAspectForWheelFactory _aspectForWheelFactory;
-
-    public ChartsWheelAspects(IAspectsApi aspectsApi, IAspectForWheelFactory aspectForWheelFactory)
-    {
-        _aspectsApi = aspectsApi;
-        _aspectForWheelFactory = aspectForWheelFactory;
-    }
-
-    public List<Line> CreateAspectLines(CalculatedChart currentChart, ChartsWheelMetrics metrics, Point centerPoint, bool noTime)
+    public List<Line> CreateAspectLines(Dictionary<ChartPoints, FullPointPos> currentChart, ChartsWheelMetrics metrics, Point centerPoint, bool noTime)
     {
         List<Line> aspectLines = new();
         List<DrawableAspectCoordinatesCp> ssCoordinates = CreateSsCoordinates(currentChart, metrics, centerPoint, noTime);
         Log.Information("ChartsWheelaspect.CreateAspectLines(): retrieving config from CurrentConfig");
         AstroConfig config = CurrentConfig.Instance.GetConfig();
         AspectRequest request = new(currentChart, config);
-        IEnumerable<DefinedAspect> defSsAspects = _aspectsApi.AspectsForCelPoints(request);
-        List<DrawableCelPointAspect> drawSsAspects = _aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
+        IEnumerable<DefinedAspect> defSsAspects = aspectsApi.AspectsForCelPoints(request);
+        List<DrawableCelPointAspect> drawSsAspects = aspectForWheelFactory.CreateCelPointAspectForWheel(defSsAspects);
         foreach ((ChartPoints point1, ChartPoints point2, double exactness, AspectTypes aspectTypes) in drawSsAspects)
         {
 
@@ -81,13 +73,13 @@ public sealed class ChartsWheelAspects : IChartsWheelAspects
     }
 
 
-    private static List<DrawableAspectCoordinatesCp> CreateSsCoordinates(CalculatedChart currentChart, 
+    private static List<DrawableAspectCoordinatesCp> CreateSsCoordinates(Dictionary<ChartPoints, FullPointPos> currentChart, 
         ChartsWheelMetrics metrics, Point centerPoint, bool noTime)
     {
         List<DrawableAspectCoordinatesCp> drawableAspectCoordinatesSs = new();
-        double longAsc = currentChart.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
+        double longAsc = currentChart[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position;
         DimPoint dimPoint = new(centerPoint);
-        foreach (var ssPointPos in currentChart.Positions)
+        foreach (var ssPointPos in currentChart)
         {
             if (noTime && (ssPointPos.Key == ChartPoints.Ascendant || ssPointPos.Key == ChartPoints.Mc ||
                            ssPointPos.Key == ChartPoints.Vertex || ssPointPos.Key == ChartPoints.EastPoint ||

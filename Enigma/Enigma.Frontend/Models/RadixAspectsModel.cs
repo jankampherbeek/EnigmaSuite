@@ -68,6 +68,6 @@ public sealed class RadixAspectsModel
     {
         CalculatedChart? currentChart = _dataVaultCharts.GetCurrentChart();
         AstroConfig config = CurrentConfig.Instance.GetConfig();
-        return new AspectRequest(currentChart!, config);
+        return new AspectRequest(currentChart!.Positions, config);
     }
 }

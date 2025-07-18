@@ -6,11 +6,9 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
-using System.Linq;
 using Enigma.Frontend.Ui.Graphics;
+using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -43,7 +41,7 @@ public partial class ChartsWheelWindow
     {
         InitializeComponent();
         _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
-        
+        _canvasController.AllPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
         // Set up property change handling for the ViewModel
         DataContextChanged += OnDataContextChanged;
     }

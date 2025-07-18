@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System;
 using Enigma.Api.Slices;
-using Enigma.Core.Slices.Solar;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
@@ -15,7 +14,6 @@ using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models
@@ -115,12 +113,9 @@ namespace Enigma.Frontend.Ui.Models
             // Create aspect request for solar vs radix
             var config = CurrentConfig.Instance.GetConfig();
             
-            // Create a temporary CalculatedChart for the solar positions
-            var solarChartData = CreateSolarChartData(radixChart);
-            var solarCalculatedChart = new CalculatedChart(_solarChart, solarChartData, radixChart.Obliquity);
             
             // Create aspect request comparing solar chart with radix chart
-            var aspectRequest = new AspectRequest(solarCalculatedChart, config);
+            var aspectRequest = new AspectRequest(_solarChart, config);
             
             // TODO: Implement solar aspects calculation using the API
             // For now, return empty list - this would need to be implemented in the API layer

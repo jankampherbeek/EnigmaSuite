@@ -1,11 +1,10 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -13,10 +12,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
 using Enigma.Frontend.Ui.State;
-using Enigma.Frontend.Ui.Views;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
@@ -151,33 +148,7 @@ public partial class SolarInputViewModel : ObservableObject
         
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,ChartsWindowsFlow.SOLAR_RESULTS));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
-        
-        
-        // Calculate solar return
-        //var solarResultsModel = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
-
-        
-        // if (success)
-        // {
-        //     // Close current window
-        //     Application.Current.Windows.OfType<Window>().FirstOrDefault(w => w is SolarInputWindow)?.Close();
-        //     
-        //     // Open results window
-        //     var resultsWindow = new SolarResultsWindow();
-        //     var resultsViewModel = resultsWindow.DataContext as SolarResultsViewModel;
-        //     if (resultsViewModel != null)
-        //     {
-        //         // Initialize the ViewModel with the same model instance that has the calculated data
-        //         resultsViewModel.InitializeWithSolarData(solarResultsModel);
-        //     }
-        //     resultsWindow.Show();
-        //     resultsWindow.Populate();
-        // }
-        // else
-        // {
-        //     MessageBox.Show("Failed to calculate solar return. Please check your input and try again.", 
-        //         "Calculation Error", MessageBoxButton.OK, MessageBoxImage.Error);
-        // }
+ 
     }
 
     private bool ParseCoordinate(string coordinate, out double value)

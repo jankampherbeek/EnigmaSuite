@@ -32,7 +32,8 @@ public partial class SolarResultsWindow
     {
         InitializeComponent();
         _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
-        
+     //   var solar = new CalculatedChart(DataVaultProg.Instance.GetCurrentSolar(), null, 0.0);
+        _canvasController.AllPositions = DataVaultProg.Instance.GetCurrentSolar();
         // Set up property change handling for the ViewModel
         DataContextChanged += OnDataContextChanged;
     }
@@ -99,7 +100,7 @@ public partial class SolarResultsWindow
                         solarChartData,
                         currentChart.Obliquity // Use same obliquity as radix
                     );
-                    _canvasController.SetCustomChart(solarCalculatedChart);
+                    _canvasController.AllPositions = solarChart;
                 }
             }
         }
