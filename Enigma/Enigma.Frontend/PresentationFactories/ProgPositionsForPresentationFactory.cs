@@ -16,7 +16,12 @@ namespace Enigma.Frontend.Ui.PresentationFactories;
 /// <summary>Conversions for presentable progressive positions.</summary>
 public interface IProgPositionsForPresentationFactory
 {
-    /// <summary>Convert celestable point positions to PresentableProgPositions.</summary>
+    /// <summary>Convert full point positions to PresentableProgPositions.</summary>
+    /// <param name="positions">The positions to convert.</param>
+    /// <returns>The resulting PresentableProgPositions.</returns>
+    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, FullPointPos> positions);
+    
+    /// <summary>Convert progressive point positions to PresentableProgPositions.</summary>
     /// <param name="positions">The positions to convert.</param>
     /// <returns>The resulting PresentableProgPositions.</returns>
     public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, ProgPositions> positions);
@@ -43,21 +48,43 @@ public sealed class ProgPositionsForPresentationFactory:IProgPositionsForPresent
             select CreateSinglePos(celPos)).ToList();   
     }
 
+    public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, FullPointPos> positions)
+    {
+        return (from celPos in positions 
+            where celPos.Key.GetDetails().PointCat == PointCats.Common  
+            select CreateSinglePos(celPos)).ToList();   
+    }
+    
     
     private PresentableProgPosition CreateSinglePos(KeyValuePair<ChartPoints, ProgPositions> progPos)
     {
-        double longPos = progPos.Value.Longitude;
-        double latPos = progPos.Value.Latitude;
-        double raPos = progPos.Value.Ra;
-        double declPos = progPos.Value.Declination;
+        var longPos = progPos.Value.Longitude;
+        var latPos = progPos.Value.Latitude;
+        var raPos = progPos.Value.Ra;
+        var declPos = progPos.Value.Declination;
         
-        char pointGlyph = GlyphsForChartPoints.FindGlyph(progPos.Key);
-        string longPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).longTxt;
-        char longGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).glyph;
-        string latPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(latPos);
-        string raPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(raPos);
-        string declPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(declPos);
+        var pointGlyph = GlyphsForChartPoints.FindGlyph(progPos.Key);
+        var longPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).longTxt;
+        var longGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).glyph;
+        var latPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(latPos);
+        var raPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(raPos);
+        var declPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(declPos);
         return new PresentableProgPosition(pointGlyph, longPosText, longGlyph,  latPosText, raPosText, declPosText);
     }
     
+    private PresentableProgPosition CreateSinglePos(KeyValuePair<ChartPoints, FullPointPos> pos)
+    {
+        var longPos = pos.Value.Ecliptical.MainPosSpeed.Position;
+        var latPos = pos.Value.Ecliptical.DeviationPosSpeed.Position;
+        var raPos = pos.Value.Equatorial.MainPosSpeed.Position;
+        var declPos = pos.Value.Equatorial.DeviationPosSpeed.Position;
+        
+        var pointGlyph = GlyphsForChartPoints.FindGlyph(pos.Key);
+        var longPosText = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).longTxt;
+        var longGlyph = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(longPos).glyph;
+        var latPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(latPos);
+        var raPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(raPos);
+        var declPosText = _doubleToDmsConversions.ConvertDoubleToPositionsDmsText(declPos);
+        return new PresentableProgPosition(pointGlyph, longPosText, longGlyph,  latPosText, raPosText, declPosText);
+    }
 }

@@ -3,10 +3,12 @@
 // Enigma is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Core.Calc;
 using Enigma.Domain.Requests;
+using Serilog;
 
 namespace Enigma.Core.Slices.Solar;
 
@@ -30,7 +32,8 @@ public class SolarOrchestrator(
         var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.TropicalReturn);
         
         // Calculate the target Julian Day for the solar return
-        var targetJd = CalculateTargetJulianDay(radixSunPosition, request.JdRadix, request.Age, request.TropicalReturn);
+        //var targetJd = CalculateTargetJulianDay(radixSunPosition, request.JdRadix, request.Age, request.TropicalReturn);
+        var targetJd = request.JdRadix + (request.Age + 1) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
         
         // Determine which location to use
         var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
@@ -51,14 +54,16 @@ public class SolarOrchestrator(
         return sunPositions[0].Position; // Main position (longitude)
     }
 
-    private double CalculateTargetJulianDay(double radixSunPosition, double radixJd, int age, bool tropicalReturn)
-    {
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
-            tropicalReturn ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal);
-        
-        // Calculate the target Julian Day when the Sun returns to the radix position
-        return jdForPositionFinder.FindJulianDay(radixSunPosition, radixJd + 365.25 * age, flags);
-    }
+    // private double CalculateTargetJulianDay(double radixSunPosition, double radixJd, int age, bool tropicalReturn)
+    // {
+    //     var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
+    //         tropicalReturn ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal);
+    //     
+    //     // Calculate the target Julian Day when the Sun returns to the radix position
+    //     // Use the precise tropical year calculation: (age + 1) * TROPICAL_YEAR_IN_DAYS
+    //     var estimatedJd = radixJd + (age + 1) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
+    //     return jdForPositionFinder.FindJulianDay(radixSunPosition, estimatedJd, flags);
+    // }
 
     private Location DetermineLocationToUse(Location radixLocation, Location? relocateLocation)
     {

@@ -162,7 +162,11 @@
                         <Image Source="/Images/event.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-
+                <MenuItem Header="Solar" Command="{Binding SolarCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/solar.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
             <MenuItem Header="Help">
                 <MenuItem Header="About Enigma Charts" Command="{Binding AboutCommand}">

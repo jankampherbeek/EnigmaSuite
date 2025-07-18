@@ -29,8 +29,12 @@ public class ChartsWindowsFlow:
     // Constants for the names of general views. The names are without the parts 'Window', 'ViewModel' and 'Model'. 
     // new style naming
     public const string CHARTS_PROG_PRIMDIR_INPUT = "PrimDirInput";
+    public const string SOLAR_INPUT = "SolarInput";
+    public const string SOLAR_RESULTS = "SolarResults";
 
-    private PrimDirInputWindow? _primDirInputWindow; 
+    private PrimDirInputWindow? _primDirInputWindow;
+    private SolarInputWindow? _solarInputWindow;
+    private SolarResultsWindow? _solarResultsWindow; 
     
     
     
@@ -106,6 +110,12 @@ public class ChartsWindowsFlow:
             case CHARTS_PROG_PRIMDIR_INPUT:
                 _primDirInputWindow?.Close();
                 break;
+            case SOLAR_INPUT:
+                _solarInputWindow?.Close();
+                break;
+            case SOLAR_RESULTS:
+                _solarResultsWindow?.Close();
+                break;
             case PROG_EVENT:
                 _progEventWindow?.Close();
                 break;
@@ -138,7 +148,14 @@ public class ChartsWindowsFlow:
                 _progEventWindow = new ProgEventWindow();
                 _progEventWindow.ShowDialog();
                 break;
-
+            case SOLAR_INPUT:
+                _solarInputWindow = new SolarInputWindow();
+                _solarInputWindow.ShowDialog();
+                break;
+            case SOLAR_RESULTS:
+                _solarResultsWindow = new SolarResultsWindow();
+                _solarResultsWindow.ShowDialog();
+                break;
             default:
                 HandleNonDialogView(message.ViewToOpen, message.ParentView);
                 break;
@@ -177,6 +194,12 @@ public class ChartsWindowsFlow:
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _chartsWheelWindow, parentView));
                 _chartsWheelWindow.Show();
                 _chartsWheelWindow.Populate();
+                break;
+            case SOLAR_RESULTS:
+                _solarResultsWindow = new SolarResultsWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _solarResultsWindow, parentView));
+                _solarResultsWindow.Show();
+                _solarResultsWindow.Populate();
                 break;
             case RADIX_POSITIONS:
                 _radixPositionsWindow = new RadixPositionsWindow();

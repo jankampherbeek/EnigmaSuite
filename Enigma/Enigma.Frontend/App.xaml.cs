@@ -135,6 +135,10 @@ public partial class App
         serviceCollection.AddTransient<ZodiacDivisionsModel>();
         serviceCollection.AddTransient<ZodiacDivisionsViewModel>();
         serviceCollection.AddTransient<IZodiacDivisionForDataGridFactory, ZodiacDivisionForDataGridFactory>();
+        serviceCollection.AddTransient<SolarInputModel>();
+        serviceCollection.AddTransient<SolarResultsModel>();
+        serviceCollection.AddTransient<SolarResultsViewModel>();
+        serviceCollection.AddTransient<SolarResultsWindow>();
         
         // Enneagram services
         serviceCollection.AddTransient<EnneagramModel>();
@@ -160,6 +164,7 @@ public partial class App
             .WriteTo.File(Path.Combine(
                     workFolder + Path.DirectorySeparatorChar + "logs" + Path.DirectorySeparatorChar, "enigma"),
                 rollingInterval: RollingInterval.Day)
+            .WriteTo.Console()
             .CreateLogger();
     }
 

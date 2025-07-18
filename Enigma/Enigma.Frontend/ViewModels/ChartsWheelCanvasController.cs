@@ -17,7 +17,13 @@ namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>Controller for charts wheel view</summary>
 /// <remarks>This view uses MVC instead of MVVM</remarks>
-public class ChartsWheelCanvasController
+public class ChartsWheelCanvasController(
+    ChartsWheelMetrics metrics,
+    IGraphicCelPoints graphicCelPoints,
+    IChartsWheelSigns chartsWheelSigns,
+    IChartsWheelCusps chartsWheelCusps,
+    IChartsWheelCircles chartsWheelCircles,
+    IChartsWheelAspects chartsWheelAspects)
 {
 
     public bool NoTime { get; set; } = false;
@@ -40,46 +46,24 @@ public class ChartsWheelCanvasController
     public double CanvasSize { get; private set; }
     private Point _centerPoint;
 
-    private readonly ChartsWheelMetrics _metrics;
-    private readonly DataVaultCharts _dataVaultCharts;
-    private readonly IGraphicCelPoints _graphicCelPoints;
-    private readonly IChartsWheelSigns _chartsWheelSigns;
-    private readonly IChartsWheelCusps _chartsWheelCusps;
-    private readonly IChartsWheelCircles _chartsWheelCircles;
-    private readonly IChartsWheelAspects _chartsWheelAspects;
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
 
     private CalculatedChart? _currentChart;
 
-    public ChartsWheelCanvasController(ChartsWheelMetrics metrics,
-        IGraphicCelPoints graphicCelPoints,
-        IChartsWheelSigns chartsWheelSigns,
-        IChartsWheelCusps chartsWheelCusps,
-        IChartsWheelCircles chartsWheelCircles,
-        IChartsWheelAspects chartsWheelAspects)
-    {
-        _dataVaultCharts = DataVaultCharts.Instance;
-        _graphicCelPoints = graphicCelPoints;
-        _metrics = metrics;
-        _chartsWheelSigns = chartsWheelSigns;
-        _chartsWheelCusps = chartsWheelCusps;
-        _chartsWheelCircles = chartsWheelCircles;
-        _chartsWheelAspects = chartsWheelAspects;
-    }
-
     private void HandleCircles()
     {
-        WheelCircles = _chartsWheelCircles.CreateCircles(_metrics);
-        DegreeLines = _chartsWheelCircles.CreateDegreeLines(_metrics, _centerPoint, GetAscendantLongitude());
+        WheelCircles = chartsWheelCircles.CreateCircles(metrics);
+        DegreeLines = chartsWheelCircles.CreateDegreeLines(metrics, _centerPoint, GetAscendantLongitude());
     }
 
     private void HandleSigns()
     {
-        SignSeparators = _chartsWheelSigns.CreateSignSeparators(_metrics, _centerPoint, GetAscendantLongitude());
-        SignGlyphs = _chartsWheelSigns.CreateSignGlyphs(_metrics, _centerPoint, GetAscendantLongitude());
+        SignSeparators = chartsWheelSigns.CreateSignSeparators(metrics, _centerPoint, GetAscendantLongitude());
+        SignGlyphs = chartsWheelSigns.CreateSignGlyphs(metrics, _centerPoint, GetAscendantLongitude());
         if (ShowSignBackgroundColors)
         {
-            SignBackgroundSectors = _chartsWheelSigns.CreateSignBackgroundSectors(_metrics, _centerPoint, GetAscendantLongitude());
+            SignBackgroundSectors = chartsWheelSigns.CreateSignBackgroundSectors(metrics, _centerPoint, GetAscendantLongitude());
         }
         else
         {
@@ -97,14 +81,14 @@ public class ChartsWheelCanvasController
             CuspTexts.Clear();
             return;
         }
-        CuspLines = _chartsWheelCusps.CreateCuspLines(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
+        CuspLines = chartsWheelCusps.CreateCuspLines(metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
             GetAscendantLongitude());
         CuspCardinalLines =
-            _chartsWheelCusps.CreateCardinalLines(_metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
+            chartsWheelCusps.CreateCardinalLines(metrics, _centerPoint, GetAscendantLongitude(), GetMcLongitude());
         CuspCardinalIndicators =
-            _chartsWheelCusps.CreateCardinalIndicators(_metrics, _centerPoint, GetAscendantLongitude(),
+            chartsWheelCusps.CreateCardinalIndicators(metrics, _centerPoint, GetAscendantLongitude(),
                 GetMcLongitude());
-        CuspTexts = _chartsWheelCusps.CreateCuspTexts(_metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
+        CuspTexts = chartsWheelCusps.CreateCuspTexts(metrics, _centerPoint, GetHouseLongitudesCurrentChart(),
             GetAscendantLongitude());
 
     }
@@ -113,14 +97,14 @@ public class ChartsWheelCanvasController
     {
         var points = GetCommonPointsCurrentChart();
         var al = GetAscendantLongitude();
-        CelPointGlyphs = _graphicCelPoints.CreateCelPointGlyphsForWheel(_metrics, points, _centerPoint, al);
-        CelPointConnectLines = _graphicCelPoints.CreateCelPointConnectLines(_metrics, points, _centerPoint, al);
-        CelPointTexts = _graphicCelPoints.CreateCelPointTextsForWheel(_metrics, points, _centerPoint, al);
+        CelPointGlyphs = graphicCelPoints.CreateCelPointGlyphsForWheel(metrics, points, _centerPoint, al);
+        CelPointConnectLines = graphicCelPoints.CreateCelPointConnectLines(metrics, points, _centerPoint, al);
+        CelPointTexts = graphicCelPoints.CreateCelPointTextsForWheel(metrics, points, _centerPoint, al);
     }
 
     private void HandleAspects()
     {
-        AspectLines = _chartsWheelAspects.CreateAspectLines(_dataVaultCharts.GetCurrentChart()!, _metrics, _centerPoint, NoTime);
+        AspectLines = chartsWheelAspects.CreateAspectLines(_dataVaultCharts.GetCurrentChart()!, metrics, _centerPoint, NoTime);
     }
 
     private double GetAscendantLongitude()
@@ -160,20 +144,42 @@ public class ChartsWheelCanvasController
 
     public void Resize(double minSize)
     {
-        _metrics.SetSizeFactor(minSize / 740.0);
-        CanvasSize = _metrics.GridSize;
-        _centerPoint = new Point(_metrics.GridSize / 2, _metrics.GridSize / 2);
+        metrics.SetSizeFactor(minSize / 740.0);
+        CanvasSize = metrics.GridSize;
+        _centerPoint = new Point(metrics.GridSize / 2, metrics.GridSize / 2);
         PrepareDraw();
     }
 
     public void PrepareDraw()
     {
-        _currentChart = _dataVaultCharts.GetCurrentChart();
+        if (_currentChart == null)
+        {
+            _currentChart = _dataVaultCharts.GetCurrentChart();
+        }
         HandleCircles();
         HandleSigns();
         HandleCusps();
         HandleCelPoints();
         HandleAspects();
+    }
+
+    /// <summary>
+    /// Set a custom chart to display instead of the current chart
+    /// </summary>
+    /// <param name="chart">The chart to display</param>
+    public void SetCustomChart(CalculatedChart chart)
+    {
+        _currentChart = chart;
+        PrepareDraw();
+    }
+
+    /// <summary>
+    /// Reset to use the current chart from DataVault
+    /// </summary>
+    public void ResetToCurrentChart()
+    {
+        _currentChart = null;
+        PrepareDraw();
     }
 
 }

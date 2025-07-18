@@ -37,14 +37,11 @@ public class SolarService
     /// <returns>The calculated chartpoints and positions</returns>
     public Dictionary<ChartPoints, FullPointPos> CalculateSolar(SolarRequest request)
     {
-        // Validate request is not null
         if (request == null)
         {
             Log.Error("SolarService.CalculateSolar: Request is null");
             throw new ArgumentNullException(nameof(request), "Request cannot be null");
         }
-
-        // Validate age is larger than zero
         if (request.Age <= 0)
         {
             Log.Error("SolarService.CalculateSolar: Age must be larger than zero, but was {Age}", request.Age);

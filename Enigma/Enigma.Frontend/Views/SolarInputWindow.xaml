@@ -1,0 +1,121 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.SolarInputWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Solar Input" Height="500" Width="450">
+    <Window.Resources>
+        <viewModels:SolarInputViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6" DataContext="{StaticResource ViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0,0,6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Calculate Solar" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   FontWeight="Bold" />
+
+        <!-- Chart Name -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
+                   Text="{Binding ChartName}" Name="ChartNameText"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   FontWeight="Bold"/>
+
+        <!-- Age Input -->
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
+                   Text="Age in years" Name="AgeLabel" 
+                   FontWeight="Bold"/>
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="(integer > 0)" 
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 Text="{Binding Age, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+        <!-- Sidereal Return Checkbox -->
+        <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
+                  Content="Sidereal return" 
+                  Style="{StaticResource MaterialDesignCheckBox}"
+                  IsChecked="{Binding SiderealReturn, Mode=TwoWay}"/>
+
+        <!-- Geographic Coordinates -->
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
+                   Text="Change for relocation:" Name="RelocationLabel" 
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   FontWeight="Bold"/>
+
+        <!-- Longitude -->
+        <TextBox Grid.Row="6" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"   
+                 IsReadOnly="{Binding IsGeoReadOnly}"
+                 materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                 BorderBrush="{Binding GeoLongValid}"
+                 Text="{Binding GeoLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  IsEnabled="{Binding IsGeoEnabled}"
+                  materialDesign:HintAssist.Hint="East/West"
+                  VerticalAlignment="Center" Margin="6,0"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                  ItemsSource="{Binding AllDirectionsForLongitude}"
+                  SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <!-- Latitude -->
+        <TextBox Grid.Row="7" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"
+                 IsReadOnly="{Binding IsGeoReadOnly}" 
+                 materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 BorderBrush="{Binding GeoLatValid}"
+                 Text="{Binding GeoLat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Grid.Row="7" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  IsEnabled="{Binding IsGeoEnabled}"
+                  materialDesign:HintAssist.Hint="North/South"
+                  VerticalAlignment="Center" Margin="6,0"
+                  Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
+                  ItemsSource="{Binding AllDirectionsForLatitude}"
+                  SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
+
+        <!-- Spacer -->
+        <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+                    HorizontalAlignment="Right">
+            <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" 
+                    Command="{Binding CancelCommand}"/>
+            <Button Margin="6" Content="Help" HorizontalAlignment="Right" 
+                    Command="{Binding HelpCommand}"/>
+            <Button Margin="6" Content="Calculate" HorizontalAlignment="Right" 
+                    Command="{Binding CalculateCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window> 

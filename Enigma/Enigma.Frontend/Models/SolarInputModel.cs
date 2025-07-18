@@ -1,0 +1,78 @@
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2023, 2024.
+// All Enigma software is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using Enigma.Api.Slices;
+using Enigma.Core.Slices.Solar;
+using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
+using Enigma.Frontend.Ui.State;
+using Serilog;
+
+namespace Enigma.Frontend.Ui.Models;
+
+/// <summary>Model for solar input window</summary>
+public sealed class SolarInputModel(SolarService solarService, ICalculationPreferencesCreator prefsCreator)
+{
+    private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
+
+    /// <summary>
+    /// Get the current chart name
+    /// </summary>
+    /// <returns>Name of the current chart or empty string if no chart</returns>
+    public string GetCurrentChartName()
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        return currentChart?.InputtedChartData.MetaData.Name ?? "";
+    }
+
+    /// <summary>
+    /// Validate if a chart is currently selected
+    /// </summary>
+    /// <returns>True if a chart is selected, false otherwise</returns>
+    public bool IsChartSelected()
+    {
+        return _dataVaultCharts.GetCurrentChart() != null;
+    }
+
+    /// <summary>
+    /// Calculate solar return (placeholder for future implementation)
+    /// </summary>
+    /// <param name="age">Age for the solar return</param>
+    /// <param name="tropicalReturn">Whether to use sidereal return</param>
+    /// <param name="relocate">Whether to relocate</param>
+    /// <param name="longitude">Longitude for relocation</param>
+    /// <param name="latitude">Latitude for relocation</param>
+    /// <returns>True if calculation was successful</returns>
+    public bool CalculateSolarReturn(int age, bool tropicalReturn, bool relocate, 
+                                   double longitude = 0, double latitude = 0)
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        if (currentChart == null)
+        {
+            Log.Warning("SolarInputModel.CalculateSolarReturn: No current chart available");
+            return false;
+        }
+        Log.Information("SolarInputModel.CalculateSolarReturn: Age={Age}, Sidereal={TropicalReturn}, Relocate={Relocate}", age, tropicalReturn, relocate);
+        var jd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
+        var radixLoc = currentChart.InputtedChartData.Location ?? new Location("Unknown", 0, 0);
+        var relocationLoc = new Location("Relocated", longitude, latitude);
+        var request = CreateSolarRequest(jd, age, tropicalReturn, relocate, radixLoc, relocationLoc);
+        var newSolar = solarService.CalculateSolar(request);
+        DataVaultProg.Instance.SetCurrentSolar(newSolar);
+        return true;
+    }
+
+    private SolarRequest CreateSolarRequest(double jd, int age, bool tropicalReturn, bool relocate, Location radixLoc, Location relocationLoc)
+    {
+        var calcPref = CreateCalculationPreferences();
+        return new SolarRequest(jd, age, tropicalReturn, calcPref, radixLoc, relocationLoc);
+    }
+
+    private CalculationPreferences CreateCalculationPreferences()
+    {
+        var config = CurrentConfig.Instance.GetConfig();
+        return prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical);
+    }
+} 

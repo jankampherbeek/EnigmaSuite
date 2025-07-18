@@ -155,8 +155,6 @@ public sealed class ChartsWheelSigns : IChartsWheelSigns
                     break;
             }
             
-            System.Diagnostics.Debug.WriteLine($"[DEBUG] Sign {signIndex}: {signName} (ascendant sign: {ascendantSign}, current sign: {currentSign}) - Color: R={signColor.R}, G={signColor.G}, B={signColor.B}, A={signColor.A}");
-            
             // Create annular sector between OuterHouseRadius and OuterSignRadius
             PointCollection sectorPoints = new();
             

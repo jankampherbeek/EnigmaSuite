@@ -46,6 +46,7 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(OobCalendarCommand))]
     [NotifyCanExecuteChangedFor(nameof(PrimDirCommand))]
     [NotifyCanExecuteChangedFor(nameof(ProgressionsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
     [NotifyCanExecuteChangedFor(nameof(DivisionCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
@@ -134,6 +135,13 @@ public partial class ChartsMainViewModel: ObservableObject,
     {
         Log.Information("ChartsMainViewModel.Progressions(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROGRESSIVE_MAIN));
+    }
+
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Solar()
+    {
+        Log.Information("ChartsMainViewModel.Solar(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.SOLAR_INPUT));
     }
     
     [RelayCommand]
