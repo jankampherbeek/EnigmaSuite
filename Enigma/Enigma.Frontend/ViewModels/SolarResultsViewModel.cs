@@ -31,7 +31,6 @@ public partial class SolarResultsViewModel : ObservableObject
     [ObservableProperty] private bool _showSignBackgroundColors = true;
     [ObservableProperty] private List<PresentableProgPosition> _solarPositions;
     [ObservableProperty] private List<PresentableProgAspect> _solarAspects;
-   // [NotifyPropertyChangedFor(nameof(OrbSolarValid), nameof(OrbSolarUnderline))]
     [ObservableProperty] private string _orbSolarText;
     
     private double _orbSolarValue;

@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Solar Results" Height="700" Width="800">
+        Title="Enigma - Solar Results" Height="900" Width="800">
     <Window.Resources>
         <viewModels:SolarResultsViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -36,19 +36,20 @@
                    Text="{Binding ChartName}" Name="ChartNameText"
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    FontWeight="Bold"/>
-
-        <!-- Tab Control -->
+        
         <TabControl Grid.Row="2" Margin="6" x:Name="MainTabControl">
+            
             <!-- Solar Chart Tab -->
             <TabItem Header="Solar chart">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="80"/>
                     </Grid.RowDefinitions>
                     
                     <!-- Chart Wheel Canvas -->
-                    <Grid Grid.Row="0" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121">
+                    <Grid Grid.Row="0" Grid.RowSpan="2" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121">
                         <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
                     </Grid>
                     
@@ -64,6 +65,7 @@
                                   Style="{StaticResource MaterialDesignCheckBox}"
                                   Checked="SignColors_Checked" Unchecked="SignColors_Unchecked"/>
                     </StackPanel>
+                    <Button Grid.Row="2" HorizontalAlignment="Right" Margin="6" Content="Export" Click="ExportClick"/>
                 </Grid>
             </TabItem>
 

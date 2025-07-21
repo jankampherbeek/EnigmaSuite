@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Solar Input" Height="500" Width="450">
+        Title="Enigma - Solar Input" Height="400" Width="450">
     <Window.Resources>
         <viewModels:SolarInputViewModel x:Key="ViewModel"/>
     </Window.Resources>
@@ -25,14 +25,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -54,34 +46,30 @@
                    FontWeight="Bold"/>
 
         <!-- Age Input -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
-                   Text="Age in years" Name="AgeLabel" 
-                   FontWeight="Bold"/>
-        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0" VerticalAlignment="Center" 
-                 materialDesign:HintAssist.Hint="(integer > 0)" 
+        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0" VerticalAlignment="Center" 
+                 materialDesign:HintAssist.Hint="Age (in whole numbers)" 
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Age, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Sidereal Return Checkbox -->
-        <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
+        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
                   Content="Sidereal return" 
                   Style="{StaticResource MaterialDesignCheckBox}"
                   IsChecked="{Binding SiderealReturn, Mode=TwoWay}"/>
 
-        <!-- Geographic Coordinates -->
-        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
+        <!-- Relocation -->
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
                    Text="Change for relocation:" Name="RelocationLabel" 
-                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    FontWeight="Bold"/>
 
         <!-- Longitude -->
-        <TextBox Grid.Row="6" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"   
+        <TextBox Grid.Row="5" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"   
                  IsReadOnly="{Binding IsGeoReadOnly}"
                  materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding GeoLongValid}"
                  Text="{Binding GeoLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+        <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   IsEnabled="{Binding IsGeoEnabled}"
                   materialDesign:HintAssist.Hint="East/West"
                   VerticalAlignment="Center" Margin="6,0"
@@ -90,14 +78,15 @@
                   SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <!-- Latitude -->
-        <TextBox Grid.Row="7" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"
+        <TextBox Grid.Row="6" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"
                  IsReadOnly="{Binding IsGeoReadOnly}" 
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding GeoLatValid}"
                  Text="{Binding GeoLat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="7" Grid.Column="1" IsEditable="True" IsReadOnly="True"
-                  IsEnabled="{Binding IsGeoEnabled}"
+        <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+                  IsEnabled=
+                  "{Binding IsGeoEnabled}"
                   materialDesign:HintAssist.Hint="North/South"
                   VerticalAlignment="Center" Margin="6,0"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox}" 
@@ -105,10 +94,10 @@
                   SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
 
         <!-- Spacer -->
-        <Grid Grid.Row="14" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="15" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" 
                     Command="{Binding CancelCommand}"/>

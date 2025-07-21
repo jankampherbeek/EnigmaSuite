@@ -194,7 +194,10 @@ public partial class SolarResultsWindow
     
     private void WheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
     {
-        double availHeight = ActualHeight - 220.0;
+        // Account for: Header (~40px) + Chart Name (~30px) + TabControl header (~30px) + 
+        // CheckBoxes (~60px) + Export button (~80px) + margins and padding (~100px)
+        double reservedHeight = 340.0;
+        double availHeight = ActualHeight - reservedHeight;
         double minSize = Math.Min(availHeight, ActualWidth);
         _canvasController.Resize(minSize);
         WheelCanvas.Height = _canvasController.CanvasSize;
@@ -236,5 +239,10 @@ public partial class SolarResultsWindow
     {
         _canvasController.ShowSignBackgroundColors = true;
         Populate();
+    }
+    
+    private void ExportClick(object sender, RoutedEventArgs e)
+    {
+        CanvasExporter.WriteCanvasToPng(WheelCanvas);
     }
 } 
