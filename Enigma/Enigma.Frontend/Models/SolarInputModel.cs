@@ -40,12 +40,12 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
     /// Calculate solar return (placeholder for future implementation)
     /// </summary>
     /// <param name="age">Age for the solar return</param>
-    /// <param name="tropicalReturn">Whether to use sidereal return</param>
+    /// <param name="siderealReturn">Whether to use sidereal return</param>
     /// <param name="relocate">Whether to relocate</param>
     /// <param name="longitude">Longitude for relocation</param>
     /// <param name="latitude">Latitude for relocation</param>
     /// <returns>True if calculation was successful</returns>
-    public bool CalculateSolarReturn(int age, bool tropicalReturn, bool relocate, 
+    public bool CalculateSolarReturn(int age, bool siderealReturn, bool relocate, 
                                    double longitude = 0, double latitude = 0)
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
@@ -54,20 +54,20 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
             Log.Warning("SolarInputModel.CalculateSolarReturn: No current chart available");
             return false;
         }
-        Log.Information("SolarInputModel.CalculateSolarReturn: Age={Age}, Sidereal={TropicalReturn}, Relocate={Relocate}", age, tropicalReturn, relocate);
+        Log.Information("SolarInputModel.CalculateSolarReturn: Age={Age}, Sidereal={SiderealReturn}, Relocate={Relocate}", age, siderealReturn, relocate);
         var jd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
         var radixLoc = currentChart.InputtedChartData.Location ?? new Location("Unknown", 0, 0);
         var relocationLoc = new Location("Relocated", longitude, latitude);
-        var request = CreateSolarRequest(jd, age, tropicalReturn, relocate, radixLoc, relocationLoc);
+        var request = CreateSolarRequest(jd, age, siderealReturn, relocate, radixLoc, relocationLoc);
         var newSolar = solarService.CalculateSolar(request);
         DataVaultProg.Instance.SetCurrentSolar(newSolar);
         return true;
     }
 
-    private SolarRequest CreateSolarRequest(double jd, int age, bool tropicalReturn, bool relocate, Location radixLoc, Location relocationLoc)
+    private SolarRequest CreateSolarRequest(double jd, int age, bool siderealReturn, bool relocate, Location radixLoc, Location relocationLoc)
     {
         var calcPref = CreateCalculationPreferences();
-        return new SolarRequest(jd, age, tropicalReturn, calcPref, radixLoc, relocationLoc);
+        return new SolarRequest(jd, age, siderealReturn, calcPref, radixLoc, relocationLoc);
     }
 
     private CalculationPreferences CreateCalculationPreferences()

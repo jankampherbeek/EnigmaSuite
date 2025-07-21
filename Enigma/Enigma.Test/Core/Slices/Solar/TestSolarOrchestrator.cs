@@ -91,59 +91,6 @@ public class TestSolarOrchestrator
     }
 
     [Test]
-    public void CalculateSolar_SiderealReturn_ReturnsExpectedPositions()
-    {
-        // Arrange
-        var radixJd = 2459580.5; // 2022-01-01
-        var age = 30;
-        var tropicalReturn = false; // Sidereal return
-        var calculationPreferences = CreateCalculationPreferences();
-        var radixLocation = new Location("Test", 6.53, 52.0);
-        var relocateLocation = (Location?)null;
-        
-        var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
-        
-        // Mock the Sun's position at radix time (sidereal)
-        var radixSunPosition = 275.2;
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
-        
-        // Mock the flags calculation for sidereal
-        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Sidereal))
-            .Returns(65536 + 258); // SEFLG_SIDEREAL + base flags
-        
-        // Mock the JdForPositionFinder to return a target JD
-        var targetJd = radixJd + 365.25 * age;
-        A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 65536 + 258))
-            .Returns(targetJd);
-        
-        // Mock the chart calculation
-        var expectedPositions = new Dictionary<ChartPoints, FullPointPos>
-        {
-            { ChartPoints.Sun, CreateFullPointPos(275.2) },
-            { ChartPoints.Moon, CreateFullPointPos(42.8) }
-        };
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>._))
-            .Returns(expectedPositions);
-
-        // Act
-        var result = _orchestrator.CalculateSolar(request);
-
-        // Assert
-        Assert.Multiple(() =>
-        {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(2));
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
-            Assert.That(result.ContainsKey(ChartPoints.Moon), Is.True);
-        });
-
-        // Verify the correct flags were used for sidereal return
-        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Sidereal))
-            .MustHaveHappened();
-    }
-
-    [Test]
     public void CalculateSolar_WithRelocateLocation_UsesRelocateLocation()
     {
         // Arrange

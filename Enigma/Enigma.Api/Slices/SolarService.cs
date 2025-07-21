@@ -60,9 +60,8 @@ public class SolarService
             // Call the orchestrator to perform the calculation
             var result = _orchestrator.CalculateSolar(request);
             
-            Log.Information("SolarService.CalculateSolar: Successfully calculated solar return for age {Age}, tropical return: {TropicalReturn}", 
-                request.Age, request.TropicalReturn);
-            
+            Log.Information("SolarService.CalculateSolar: Successfully calculated solar return for age {Age}, sidereal return: {SiderealReturn}, jdRadix: {JdRadix}", 
+                request.Age, request.SiderealReturn, request.JdRadix);
             return result;
         }
         catch (Exception ex)

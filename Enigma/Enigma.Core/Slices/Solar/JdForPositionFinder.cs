@@ -56,6 +56,14 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
         // Normalize target position to 0-360 range
         position = NormalizeLongitude(position);
         
+        // Check if we're already at the target position at the start JD
+        var startPosition = GetSunLongitude(startJd, flags);
+        var startDifference = Math.Abs(NormalizeLongitude(startPosition - position));
+        if (startDifference < MAX_DIFFERENCE)
+        {
+            return startJd;
+        }
+        
         var maxIterations = 1000; // Prevent infinite loops
         var iterationCount = 0;
         
@@ -70,8 +78,8 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
             // Find the portion that contains the target position
             var (portionStartJd, portionEndJd) = FindPortionWithPosition(position, startSearchJd, stepSize, flags);
             
-            // Check if we have reached the required precision using the midpoint of the entire current interval
-            var midJd = (startSearchJd + endSearchJd) / 2.0;
+            // Check if we have reached the required precision using the midpoint of the found portion
+            var midJd = (portionStartJd + portionEndJd) / 2.0;
             var sunPosition = GetSunLongitude(midJd, flags);
             var difference = Math.Abs(NormalizeLongitude(sunPosition - position));
             
@@ -80,8 +88,8 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
                 return midJd;
             }
             
-            // If the segment is very small, we're close enough
-            if (portionEndJd - portionStartJd < 0.0001) // Less than about 1.4 minutes
+            // If the portion is very small, we're close enough
+            if (portionEndJd - portionStartJd < 1E-8) 
             {
                 return midJd;
             }
@@ -108,18 +116,21 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
         {
             var nextJd = currentJd + stepSize;
             var currentPosition = GetSunLongitude(nextJd, flags);
-            // Check if the target position is between the two values (with epsilon tolerance)
-            if (IsPositionBetween(targetPosition, previousPosition, currentPosition, epsilon))
-            {
-                return (currentJd, nextJd);
-            }
-            // Also check if target is exactly at one of the segment boundaries (with epsilon tolerance)
+            
+            // Check if target is exactly at one of the segment boundaries (with epsilon tolerance)
             if (Math.Abs(targetPosition - previousPosition) <= epsilon || 
                 Math.Abs(targetPosition - currentPosition) <= epsilon)
             {
                 return (currentJd, nextJd);
             }
-            // Check the midpoint
+            
+            // Check if the target position is between the two values (with epsilon tolerance)
+            if (IsPositionBetween(previousPosition, currentPosition, targetPosition, epsilon))
+            {
+                return (currentJd, nextJd);
+            }
+            
+            // Check the midpoint of this segment
             var midJd = (currentJd + nextJd) / 2.0;
             var midPosition = GetSunLongitude(midJd, flags);
             var midDistance = Math.Abs(NormalizeLongitude(midPosition - targetPosition));
@@ -128,9 +139,11 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
                 bestMidpointDistance = midDistance;
                 bestPortion = (currentJd, nextJd);
             }
+            
             previousPosition = currentPosition;
             currentJd = nextJd;
         }
+        
         // If no exact match found, return the segment whose midpoint is closest to the target
         return bestPortion;
     }

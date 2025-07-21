@@ -4,9 +4,14 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System.Collections.Generic;
+using System.Globalization;
+using System.Text;
+using System.Windows;
+using System.Windows.Media;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using Enigma.Domain.Constants;
 using Enigma.Domain.Presentables;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
@@ -26,14 +31,22 @@ public partial class SolarResultsViewModel : ObservableObject
     [ObservableProperty] private bool _showSignBackgroundColors = true;
     [ObservableProperty] private List<PresentableProgPosition> _solarPositions;
     [ObservableProperty] private List<PresentableProgAspect> _solarAspects;
+   // [NotifyPropertyChangedFor(nameof(OrbSolarValid), nameof(OrbSolarUnderline))]
+    [ObservableProperty] private string _orbSolarText;
     
+    private double _orbSolarValue;
+    
+    public SolidColorBrush OrbSolarValid => CheckOrbSolar() ? Brushes.Gray : Brushes.Red;
+    public SolidColorBrush OrbSolarUnderline => CheckOrbSolar() ? Brushes.Transparent : Brushes.Red;
     
     public SolarResultsViewModel()
     {
-        var model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
-        ChartName = model.GetChartName();
-        SolarPositions = model.GetSolarPositions();
-        SolarAspects = model.GetSolarAspects();
+        var _model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
+     //   _model.HandleAspects(_orbSolarValue);
+        ChartName = _model.GetChartName();
+        SolarPositions = _model.GetSolarPositions();
+        _orbSolarValue = _model.SolarOrb;        
+        OrbSolarText = _orbSolarValue.ToString((CultureInfo.InvariantCulture));
     }
 
     /// <summary>
@@ -45,15 +58,43 @@ public partial class SolarResultsViewModel : ObservableObject
         
         ChartName = model.GetChartName();
         SolarPositions = model.GetSolarPositions();
-        SolarAspects = model.GetSolarAspects();
     }
 
-    partial void OnShowSignBackgroundColorsChanged(bool value)
+    private bool CheckOrbSolar()
     {
-        // This will be handled by the window code-behind through the controller
-        // The property change will trigger the UI update
+        return double.TryParse(OrbSolarText.Replace(',', '.'), NumberStyles.Any, 
+            CultureInfo.InvariantCulture, out _orbSolarValue);
     }
 
+    private string FindErrors()
+    {
+        StringBuilder errorsText = new();
+        if (!CheckOrbSolar())
+        {
+            errorsText.Append(StandardTexts.ERROR_ORB_SOLAR + EnigmaConstants.NEW_LINE);
+        }
+        return errorsText.ToString();
+    }
+
+   
+    [RelayCommand]
+    private void ReCalc()
+    {
+        var errorTxt = FindErrors();
+        if (!string.IsNullOrEmpty(errorTxt))
+        {
+            MessageBox.Show(errorTxt, StandardTexts.TITLE_ERROR);
+            return;
+        }
+        Calculate();
+    }
+
+    private void Calculate()
+    {   var _model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
+        _model.HandleAspects(_orbSolarValue);
+        SolarAspects = _model.SolarAspects;
+    }
+    
     [RelayCommand]
     private void Close()
     {

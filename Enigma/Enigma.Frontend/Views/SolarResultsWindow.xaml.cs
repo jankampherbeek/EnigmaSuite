@@ -58,6 +58,11 @@ public partial class SolarResultsWindow
             _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
             Populate();
         }
+        else if (e.PropertyName == nameof(SolarResultsViewModel.OrbSolarUnderline))
+        {
+            // Ensure the aspects tab remains selected after error popup
+            MainTabControl.SelectedItem = AspectsTab;
+        }
     }
     
     public void Populate()

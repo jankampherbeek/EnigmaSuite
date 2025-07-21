@@ -127,6 +127,10 @@ public partial class App
         serviceCollection.AddTransient<ResearchPointSelectionModel>();
         serviceCollection.AddTransient<ResearchResultModel>();
         serviceCollection.AddSingleton<ISexagesimalConversions, SexagesimalConversions>();        
+        serviceCollection.AddTransient<SolarInputModel>();
+        serviceCollection.AddSingleton<SolarResultsModel>();
+        serviceCollection.AddTransient<SolarResultsViewModel>();
+        serviceCollection.AddTransient<SolarResultsWindow>();
         serviceCollection.AddSingleton<ISortedGraphicCelPointsFactory, SortedGraphicCelPointsFactory>();
         serviceCollection.AddSingleton<ITextToDateConverter, TextToDateConverter>();
         serviceCollection.AddSingleton<ITimeInputParser, TimeInputParser>();
@@ -135,10 +139,7 @@ public partial class App
         serviceCollection.AddTransient<ZodiacDivisionsModel>();
         serviceCollection.AddTransient<ZodiacDivisionsViewModel>();
         serviceCollection.AddTransient<IZodiacDivisionForDataGridFactory, ZodiacDivisionForDataGridFactory>();
-        serviceCollection.AddTransient<SolarInputModel>();
-        serviceCollection.AddTransient<SolarResultsModel>();
-        serviceCollection.AddTransient<SolarResultsViewModel>();
-        serviceCollection.AddTransient<SolarResultsWindow>();
+
         
         // Enneagram services
         serviceCollection.AddTransient<EnneagramModel>();

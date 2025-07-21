@@ -13,8 +13,8 @@ namespace Enigma.Core.Slices.Solar;
 /// <param name="JdRadix">Julian day in the radix</param>
 /// <param name="Age">Age in years</param>
 /// <param name="CalculationPreferences">Details for the calculation</param>
-/// <param name="TropicalReturn">True of a tropical return is used, false for a sidereal return</param> 
+/// <param name="SiderealReturn">True if a sidereal return should be used, false for a tropical return</param> 
 /// <param name="RadixLocation">Location for radix</param>
 /// <param name="RelocateLocation">Optional location for relocation</param>
-public record SolarRequest(double JdRadix, int Age, bool TropicalReturn, CalculationPreferences CalculationPreferences, 
+public record SolarRequest(double JdRadix, int Age, bool SiderealReturn, CalculationPreferences CalculationPreferences, 
     Location RadixLocation, Location? RelocateLocation);

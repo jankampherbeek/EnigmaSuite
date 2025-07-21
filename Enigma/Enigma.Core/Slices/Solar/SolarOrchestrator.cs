@@ -28,52 +28,32 @@ public class SolarOrchestrator(
     /// <returns>A dictionary of chart points and their positions</returns>
     public Dictionary<ChartPoints, FullPointPos> CalculateSolar(SolarRequest request)
     {
-        // Get the Sun's position at the radix time
-        var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.TropicalReturn);
-        
-        // Calculate the target Julian Day for the solar return
-        //var targetJd = CalculateTargetJulianDay(radixSunPosition, request.JdRadix, request.Age, request.TropicalReturn);
+        var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.SiderealReturn);
         var targetJd = request.JdRadix + (request.Age + 1) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
-        
-        // Determine which location to use
         var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
+        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
+        var newJd = jdForPositionFinder.FindJulianDay(radixSunPosition, targetJd, flags);
         
-        // Create the chart calculation request
-        var celPointsRequest = new CelPointsRequest(targetJd, locationToUse, request.CalculationPreferences);
         
-        // Calculate the full chart
+        var celPointsRequest = new CelPointsRequest(newJd, locationToUse, request.CalculationPreferences);
         return chartAllPositionsHandler.CalcFullChart(celPointsRequest);
     }
 
-    private double GetSunPositionAtRadixTime(double radixJd, bool tropicalReturn)
+    private double GetSunPositionAtRadixTime(double radixJd, bool siderealReturn)
     {
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
-            tropicalReturn ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal);
+        // TODO Observerpositions should depend on configuration
+        // TODO sidereal should depend on configuration
+        // var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
+        //     siderealReturn ? ZodiacTypes.Sidereal : ZodiacTypes.Tropical);
+        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
         
         var sunPositions = celPointSeCalc.CalculateCelPoint(0, radixJd, flags);
-        return sunPositions[0].Position; // Main position (longitude)
+        return sunPositions[0].Position; 
     }
 
-    // private double CalculateTargetJulianDay(double radixSunPosition, double radixJd, int age, bool tropicalReturn)
-    // {
-    //     var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
-    //         tropicalReturn ? ZodiacTypes.Tropical : ZodiacTypes.Sidereal);
-    //     
-    //     // Calculate the target Julian Day when the Sun returns to the radix position
-    //     // Use the precise tropical year calculation: (age + 1) * TROPICAL_YEAR_IN_DAYS
-    //     var estimatedJd = radixJd + (age + 1) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
-    //     return jdForPositionFinder.FindJulianDay(radixSunPosition, estimatedJd, flags);
-    // }
 
     private Location DetermineLocationToUse(Location radixLocation, Location? relocateLocation)
     {
-        // If no relocate location is specified, use the radix location
-        if (relocateLocation == null)
-            return radixLocation;
-
-        // If the relocate location is the same as the radix location, use the radix location
-        return relocateLocation.Equals(radixLocation) ? radixLocation :
-            // Otherwise, use the relocate location
-            relocateLocation;
+        return relocateLocation ?? radixLocation;
     }
 }

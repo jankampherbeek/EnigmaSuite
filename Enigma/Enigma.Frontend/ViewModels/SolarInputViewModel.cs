@@ -119,7 +119,6 @@ public partial class SolarInputViewModel : ObservableObject
             return;
         }
 
-        // Parse input values
         if (!int.TryParse(Age, out int ageValue))
         {
             MessageBox.Show("Please enter a valid age.", "Validation Error", 
@@ -144,7 +143,7 @@ public partial class SolarInputViewModel : ObservableObject
             if (DirLongIndex == 1) longitude = -longitude; // West
             if (DirLatIndex == 1) latitude = -latitude;   // South
         }
-        _model.CalculateSolarReturn(ageValue, !SiderealReturn, relocate, longitude, latitude);
+        _model.CalculateSolarReturn(ageValue, SiderealReturn, relocate, longitude, latitude);
         
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,ChartsWindowsFlow.SOLAR_RESULTS));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));

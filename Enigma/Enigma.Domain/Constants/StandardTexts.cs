@@ -27,6 +27,7 @@ public static class StandardTexts
     public const string ERROR_ORB_MIDPOINTS_DECL = "Enter a proper value for the orbs for declination midpoints.";
     public const string ERROR_ORB_PARALLELS = "Enter a proper value for the orbs for parallels.";
     public const string ERROR_ORB_SECDIR = "Enter a proper value for the orbs for secondary directions.";
+    public const string ERROR_ORB_SOLAR = "Enter a proper value for the orb for the solar.";
     public const string ERROR_ORB_SYMDIR = "Enter a proper value for the orbs for symbolic directions.";
     public const string ERROR_ORB_TRANSIT = "Enter a proper value for the orbs for transits.";
     public const string ERROR_STARTDATE = "txt.error.startdate";
