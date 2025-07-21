@@ -47,6 +47,9 @@ public partial class SolarResultsViewModel : ObservableObject
         SolarPositions = _model.GetSolarPositions();
         _orbSolarValue = _model.SolarOrb;        
         OrbSolarText = _orbSolarValue.ToString((CultureInfo.InvariantCulture));
+        
+        // Calculate aspects immediately so they show when the aspects tab is opened
+        Calculate();
     }
 
     /// <summary>
