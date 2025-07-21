@@ -126,9 +126,9 @@
                                   ItemsSource="{Binding SolarAspects}"
                                   SelectionUnit="FullRow">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding SolarGlyph}" Header=" " 
+                                <DataGridTextColumn Binding="{Binding ProgGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
-                                <DataGridTextColumn Binding="{Binding SolarName}" Header="Solar" 
+                                <DataGridTextColumn Binding="{Binding ProgName}" Header="Solar" 
                                                     IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                                 <DataGridTextColumn Binding="{Binding AspectGlyph}" Header=" " 
                                                     IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
