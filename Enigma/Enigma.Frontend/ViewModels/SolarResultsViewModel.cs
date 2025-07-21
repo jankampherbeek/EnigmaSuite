@@ -100,7 +100,7 @@ public partial class SolarResultsViewModel : ObservableObject
     [RelayCommand]
     private void Close()
     {
-        WeakReferenceMessenger.Default.Send(new CloseNonDlgMessage(VM_IDENTIFICATION, _windowId));
+        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
     }
 
     [RelayCommand]
