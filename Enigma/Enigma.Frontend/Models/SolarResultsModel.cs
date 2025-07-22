@@ -90,7 +90,7 @@ public sealed class SolarResultsModel(
             return new List<PresentableProgPosition>();
         }
 
-        return progPositionsForPresentationFactory.CreatePresProgPos(_solarChart);
+        return progPositionsForPresentationFactory.CreatePresSolarPos(_solarChart);
     }
 
     // /// <summary>

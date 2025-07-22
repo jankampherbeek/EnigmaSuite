@@ -25,6 +25,11 @@ public interface IProgPositionsForPresentationFactory
     /// <param name="positions">The positions to convert.</param>
     /// <returns>The resulting PresentableProgPositions.</returns>
     public List<PresentableProgPosition> CreatePresProgPos(Dictionary<ChartPoints, ProgPositions> positions);
+    
+    /// <summary>Convert all solar positions to PresentableProgPositions</summary>
+    /// <param name="positions">The positions to convert.</param>
+    /// <returns>The resulting PresentableProgPositions</returns>
+    public List<PresentableProgPosition> CreatePresSolarPos(Dictionary<ChartPoints, FullPointPos> positions);
 }
 
 /// <inheritdoc/>
@@ -55,6 +60,12 @@ public sealed class ProgPositionsForPresentationFactory:IProgPositionsForPresent
             select CreateSinglePos(celPos)).ToList();   
     }
     
+    public List<PresentableProgPosition> CreatePresSolarPos(Dictionary<ChartPoints, FullPointPos> positions)
+    {
+        return (from celPos in positions 
+            where celPos.Key.GetDetails().PointCat == PointCats.Common || celPos.Key.GetDetails().PointCat == PointCats.Angle  
+            select CreateSinglePos(celPos)).ToList();   
+    }
     
     private PresentableProgPosition CreateSinglePos(KeyValuePair<ChartPoints, ProgPositions> progPos)
     {
