@@ -12,6 +12,7 @@ using Enigma.Core.Calc;
 using Enigma.Facades.Se;
 using Enigma.Facades;
 using Enigma.Core.Services;
+using Enigma.Domain.Services;
 
 namespace Enigma.Test.Integration;
 
@@ -33,8 +34,12 @@ public class IntegrationTestSolarService
         services.AddTransient<SolarService>();
         services.AddTransient<ICalcUtFacade, CalcUtFacade>();
         services.AddTransient<IChartPointsMapping, ChartPointsMapping>();
+        
+        // Register all required services
         services.RegisterFacadesServices();
         services.RegisterHandlerServices();
+        services.RegisterDomainServices();
+        
         var provider = services.BuildServiceProvider();
         _service = provider.GetRequiredService<SolarService>();
     }

@@ -114,16 +114,16 @@ public partial class SolarInputViewModel : ObservableObject
     {
         if (!ValidateInput())
         {
-            MessageBox.Show("Please correct the input errors before calculating.", "Validation Error", 
-                MessageBoxButton.OK, MessageBoxImage.Warning);
+            // MessageBox.Show("Please correct the input errors before calculating.", "Validation Error", 
+            //     MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
-        }
-
+        } 
+        
         if (!int.TryParse(Age, out int ageValue))
         {
-            MessageBox.Show("Please enter a valid age.", "Validation Error", 
-                MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
+        //     MessageBox.Show("Please enter a valid age.", "Validation Error", 
+        //         MessageBoxButton.OK, MessageBoxImage.Warning);
+             return;
         }
 
         // Parse geographic coordinates if relocation is enabled
@@ -156,13 +156,22 @@ public partial class SolarInputViewModel : ObservableObject
         if (string.IsNullOrEmpty(coordinate)) return false;
         
         var parts = coordinate.Split(':');
-        if (parts.Length != 3) return false;
+        if (parts.Length < 2 || parts.Length > 3) return false;
         
         if (!int.TryParse(parts[0], out int degrees) ||
-            !int.TryParse(parts[1], out int minutes) ||
-            !int.TryParse(parts[2], out int seconds))
+            !int.TryParse(parts[1], out int minutes))
         {
             return false;
+        }
+        
+        // If seconds are omitted, use zero
+        int seconds = 0;
+        if (parts.Length == 3)
+        {
+            if (!int.TryParse(parts[2], out seconds))
+            {
+                return false;
+            }
         }
         
         value = degrees + minutes / 60.0 + seconds / 3600.0;

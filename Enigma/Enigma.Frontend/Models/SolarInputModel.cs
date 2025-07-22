@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System.Collections.Generic;
 using Enigma.Api.Calc;
 using Enigma.Api.Slices;
 using Enigma.Core.Slices.Solar;
@@ -64,7 +65,8 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
         var request = CreateSolarRequest(jd, age, siderealReturn, relocate, radixLoc, relocationLoc);
         // define jd for solar
         var jdSolar = solarService.CalculateJdForSolar(request);
-        var celPointsRequest = new CelPointsRequest(jdSolar, relocationLoc, CreateCalculationPreferences());
+        var config = CurrentConfig.Instance.GetConfig();
+        var celPointsRequest = new CelPointsRequest(jdSolar, relocationLoc, prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical));
         var positions = chartAllPositionsApi.GetChart(celPointsRequest);
         DataVaultProg.Instance.SetCurrentSolar(positions);
         return true;
@@ -72,13 +74,19 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
 
     private SolarRequest CreateSolarRequest(double jd, int age, bool siderealReturn, bool relocate, Location radixLoc, Location relocationLoc)
     {
-        var calcPref = CreateCalculationPreferences();
+        var calcPref = CreateCalculationPreferences(siderealReturn);
         return new SolarRequest(jd, age, siderealReturn, calcPref, radixLoc, relocationLoc);
     }
 
-    private CalculationPreferences CreateCalculationPreferences()
+    private CalculationPreferences CreateCalculationPreferences(bool isSidereal)
     {
         var config = CurrentConfig.Instance.GetConfig();
-        return prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical);
+     //   return prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical);
+        var zodiacType = isSidereal ? ZodiacTypes.Sidereal : config.ZodiacType;
+        var ayanamsha = isSidereal ? Ayanamshas.Fagan : Ayanamshas.None;
+        var coordSys = CoordinateSystems.Ecliptical;
+        List<ChartPoints> actualChartPoints = new() { ChartPoints.Sun };
+        return new CalculationPreferences(actualChartPoints, zodiacType, ayanamsha,
+            coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.ApogeeType, config.OscillateNodes);
     }
 } 

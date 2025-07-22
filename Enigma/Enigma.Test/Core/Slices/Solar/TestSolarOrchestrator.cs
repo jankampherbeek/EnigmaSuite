@@ -21,6 +21,7 @@ public class TestSolarOrchestrator
     private IChartAllPositionsHandler _chartAllPositionsHandler;
     private ICelPointSeCalc _celPointSeCalc;
     private SolarOrchestrator _orchestrator;
+    private ICelPointsHandler _celPointsHandler;
 
     [SetUp]
     public void SetUp()
@@ -29,11 +30,13 @@ public class TestSolarOrchestrator
         _seFlags = A.Fake<ISeFlags>();
         _chartAllPositionsHandler = A.Fake<IChartAllPositionsHandler>();
         _celPointSeCalc = A.Fake<ICelPointSeCalc>();
+        _celPointsHandler = A.Fake<ICelPointsHandler>();
         
         _orchestrator = new SolarOrchestrator(
             _jdForPositionFinder,
             _seFlags,
             _chartAllPositionsHandler,
+            _celPointsHandler,
             _celPointSeCalc);
     }
 
@@ -50,10 +53,11 @@ public class TestSolarOrchestrator
         
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
         
-        // Mock the Sun's position at radix time
+        // Mock the Sun's position at radix time using ICelPointsHandler
         var radixSunPosition = 280.5;
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+        var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+            .Returns(mockSunPositions);
         
         // Mock the flags calculation
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -75,7 +79,7 @@ public class TestSolarOrchestrator
         });
 
         // Verify the correct calls were made
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences)).MustHaveHappened();
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
@@ -93,10 +97,11 @@ public class TestSolarOrchestrator
         
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
         
-        // Mock the Sun's position at radix time
+        // Mock the Sun's position at radix time using ICelPointsHandler
         var radixSunPosition = 275.3;
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+        var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+            .Returns(mockSunPositions);
         
         // Mock the flags calculation
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -118,7 +123,7 @@ public class TestSolarOrchestrator
         });
 
         // Verify the correct calls were made
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences)).MustHaveHappened();
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
@@ -136,10 +141,11 @@ public class TestSolarOrchestrator
         {
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
             
-            // Mock the Sun's position at radix time
+            // Mock the Sun's position at radix time using ICelPointsHandler
             var radixSunPosition = 280.5;
-            A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-                .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+            var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+            A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+                .Returns(mockSunPositions);
             
             // Mock the flags calculation
             A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -175,10 +181,11 @@ public class TestSolarOrchestrator
         
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
         
-        // Mock the Sun's position at radix time
+        // Mock the Sun's position at radix time using ICelPointsHandler
         var radixSunPosition = 280.5;
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+        var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+            .Returns(mockSunPositions);
         
         // Mock the flags calculation
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -200,7 +207,7 @@ public class TestSolarOrchestrator
         });
 
         // Verify the correct calls were made
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences)).MustHaveHappened();
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
@@ -218,10 +225,11 @@ public class TestSolarOrchestrator
         
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
         
-        // Mock the Sun's position at radix time
+        // Mock the Sun's position at radix time using ICelPointsHandler
         var radixSunPosition = 280.5;
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+        var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+            .Returns(mockSunPositions);
         
         // Mock the flags calculation
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -243,7 +251,7 @@ public class TestSolarOrchestrator
         });
 
         // Verify the correct calls were made
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences)).MustHaveHappened();
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
@@ -267,10 +275,11 @@ public class TestSolarOrchestrator
         {
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
             
-            // Mock the Sun's position at radix time
+            // Mock the Sun's position at radix time using ICelPointsHandler
             var radixSunPosition = 280.5;
-            A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-                .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+            var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+            A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+                .Returns(mockSunPositions);
             
             // Mock the flags calculation
             A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -311,10 +320,11 @@ public class TestSolarOrchestrator
         {
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
             
-            // Mock the Sun's position at radix time
+            // Mock the Sun's position at radix time using ICelPointsHandler
             var radixSunPosition = 280.5;
-            A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-                .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+            var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+            A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+                .Returns(mockSunPositions);
             
             // Mock the flags calculation
             A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -348,10 +358,11 @@ public class TestSolarOrchestrator
         
         var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
         
-        // Mock the Sun's position at radix time
+        // Mock the Sun's position at radix time using ICelPointsHandler
         var radixSunPosition = 280.5;
-        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
-            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+        var mockSunPositions = CreateMockFullPointPos(radixSunPosition);
+        A.CallTo(() => _celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, A<Location>._, calculationPreferences))
+            .Returns(mockSunPositions);
         
         // Mock the flags calculation
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
@@ -389,5 +400,27 @@ public class TestSolarOrchestrator
             HouseSystems.Regiomontanus,
             ApogeeTypes.Duval,
             false);
+    }
+
+    private static FullPointPos CreateMockFullPointPos(double longitude)
+    {
+        var mainPosSpeed = new PosSpeed(longitude, 0.0);
+        var deviationPosSpeed = new PosSpeed(0.0, 0.0);
+        var distancePosSpeed = new PosSpeed(1.0, 0.0);
+        var eclipticalPosSpeeds = new PointPosSpeeds(mainPosSpeed, deviationPosSpeed, distancePosSpeed);
+        
+        var equatorialPosSpeeds = new PointPosSpeeds(
+            new PosSpeed(0.0, 0.0), // RA
+            new PosSpeed(0.0, 0.0), // Declination
+            new PosSpeed(1.0, 0.0)  // Distance
+        );
+        
+        var horizontalPosSpeeds = new PointPosSpeeds(
+            new PosSpeed(0.0, 0.0), // Azimuth
+            new PosSpeed(0.0, 0.0), // Altitude
+            new PosSpeed(1.0, 0.0)  // Distance
+        );
+        
+        return new FullPointPos(eclipticalPosSpeeds, equatorialPosSpeeds, horizontalPosSpeeds);
     }
 } 

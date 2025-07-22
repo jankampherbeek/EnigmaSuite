@@ -19,6 +19,7 @@ public class SolarOrchestrator(
     IJdForPositionFinder jdForPositionFinder,
     ISeFlags seFlags,
     IChartAllPositionsHandler chartAllPositionsHandler,
+    ICelPointsHandler celPointsHandler,
     ICelPointSeCalc celPointSeCalc)
 {
     /// <summary>
@@ -28,7 +29,7 @@ public class SolarOrchestrator(
     /// <returns>The calculted jd</returns>
     public double CalculateJdForSolar(SolarRequest request)
     {
-        var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.SiderealReturn);
+        var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.SiderealReturn, request);
         var targetJd = request.JdRadix + (request.Age + 1) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
         var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
         var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
@@ -36,16 +37,16 @@ public class SolarOrchestrator(
         return newJd;
     }
 
-    private double GetSunPositionAtRadixTime(double radixJd, bool siderealReturn)
+    private double GetSunPositionAtRadixTime(double radixJd, bool siderealReturn, SolarRequest request)
     {
         // TODO Observerpositions should depend on configuration
-        // TODO sidereal should depend on configuration
-        // var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, 
-        //     siderealReturn ? ZodiacTypes.Sidereal : ZodiacTypes.Tropical);
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
+        // var zodiacType = siderealReturn ? ZodiacTypes.Sidereal : ZodiacTypes.Tropical;
+        // var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.CalculationPreferences.ActualObserverPosition, zodiacType);
         
-        var sunPositions = celPointSeCalc.CalculateCelPoint(0, radixJd, flags);
-        return sunPositions[0].Position; 
+        var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
+        var sunPositions =
+            celPointsHandler.CalcSinglePointWithSe(ChartPoints.Sun, radixJd, locationToUse, request.CalculationPreferences);
+        return sunPositions.Ecliptical.MainPosSpeed.Position; 
     }
 
 
