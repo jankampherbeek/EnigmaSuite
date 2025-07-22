@@ -25,7 +25,7 @@ public class SolarService
     }
 
     /// <summary>
-    /// Calculate a solar
+    /// Calculate the jd for a solar
     /// </summary>
     /// <remarks>
     /// Prompt: check the request: it should not be null, it should contain an age that is larger than zero, and the
@@ -34,8 +34,8 @@ public class SolarService
     /// integration tests that should live in Enigma.Test.Integration
     /// </remarks>
     /// <param name="request">The request</param>
-    /// <returns>The calculated chartpoints and positions</returns>
-    public Dictionary<ChartPoints, FullPointPos> CalculateSolar(SolarRequest request)
+    /// <returns>The calculated jd</returns>
+    public double CalculateJdForSolar(SolarRequest request)
     {
         if (request == null)
         {
@@ -58,9 +58,9 @@ public class SolarService
         try
         {
             // Call the orchestrator to perform the calculation
-            var result = _orchestrator.CalculateSolar(request);
+            var result = _orchestrator.CalculateJdForSolar(request);
             
-            Log.Information("SolarService.CalculateSolar: Successfully calculated solar return for age {Age}, sidereal return: {SiderealReturn}, jdRadix: {JdRadix}", 
+            Log.Information("SolarService.CalculateSolar: Successfully calculated jd for solar for age {Age}, sidereal return: {SiderealReturn}, jdRadix: {JdRadix}", 
                 request.Age, request.SiderealReturn, request.JdRadix);
             return result;
         }

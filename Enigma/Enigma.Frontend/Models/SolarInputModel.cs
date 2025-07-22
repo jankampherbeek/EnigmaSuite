@@ -3,17 +3,20 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using Enigma.Api.Calc;
 using Enigma.Api.Slices;
 using Enigma.Core.Slices.Solar;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
+using Enigma.Domain.Requests;
 using Enigma.Frontend.Ui.State;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for solar input window</summary>
-public sealed class SolarInputModel(SolarService solarService, ICalculationPreferencesCreator prefsCreator)
+public sealed class SolarInputModel(SolarService solarService, ICalculationPreferencesCreator prefsCreator,
+    IChartAllPositionsApi chartAllPositionsApi)
 {
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
@@ -59,8 +62,11 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
         var radixLoc = currentChart.InputtedChartData.Location ?? new Location("Unknown", 0, 0);
         var relocationLoc = new Location("Relocated", longitude, latitude);
         var request = CreateSolarRequest(jd, age, siderealReturn, relocate, radixLoc, relocationLoc);
-        var newSolar = solarService.CalculateSolar(request);
-        DataVaultProg.Instance.SetCurrentSolar(newSolar);
+        // define jd for solar
+        var jdSolar = solarService.CalculateJdForSolar(request);
+        var celPointsRequest = new CelPointsRequest(jdSolar, relocationLoc, CreateCalculationPreferences());
+        var positions = chartAllPositionsApi.GetChart(celPointsRequest);
+        DataVaultProg.Instance.SetCurrentSolar(positions);
         return true;
     }
 

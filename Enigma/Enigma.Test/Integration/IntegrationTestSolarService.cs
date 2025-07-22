@@ -53,25 +53,19 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
 
         // Act
-        var result = _service.CalculateSolar(request);
+        var result = _service.CalculateJdForSolar(request);
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.GreaterThan(0));
+            Assert.That(result, Is.GreaterThan(0.0), "Julian Day should be positive");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
             
-            // Check that Sun is present (solar return should always include Sun)
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
-            
-            // Check that all positions have valid values
-            foreach (var position in result)
-            {
-                Assert.That(position.Value, Is.Not.Null);
-                Assert.That(position.Value.Ecliptical, Is.Not.Null);
-                Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.GreaterThanOrEqualTo(0.0));
-                Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.LessThan(360.0));
-            }
+            // The solar return should be approximately radixJd + (age + 1) * 365.25 days
+            var expectedJd = radixJd + (age + 1) * 365.25;
+            var tolerance = 1.0; // Allow 1 day tolerance for calculation differences
+            Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                "Solar return JD should be approximately radixJd + (age + 1) * 365.25");
         });
     }
 
@@ -89,23 +83,19 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
 
         // Act
-        var result = _service.CalculateSolar(request);
+        var result = _service.CalculateJdForSolar(request);
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.GreaterThan(0));
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+            Assert.That(result, Is.GreaterThan(0.0), "Julian Day should be positive");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
             
-            // Check that all positions have valid values
-            foreach (var position in result)
-            {
-                Assert.That(position.Value, Is.Not.Null);
-                Assert.That(position.Value.Ecliptical, Is.Not.Null);
-                Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.GreaterThanOrEqualTo(0.0));
-                Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.LessThan(360.0));
-            }
+            // For sidereal return, the calculation might be different but should still be reasonable
+            var expectedJd = radixJd + (age + 1) * 365.25;
+            var tolerance = 2.0; // Allow 2 days tolerance for sidereal calculations
+            Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                "Sidereal return JD should be approximately radixJd + (age + 1) * 365.25");
         });
     }
 
@@ -123,23 +113,19 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
 
         // Act
-        var result = _service.CalculateSolar(request);
+        var result = _service.CalculateJdForSolar(request);
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.GreaterThan(0));
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+            Assert.That(result, Is.GreaterThan(0.0), "Julian Day should be positive");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
             
-            // Check that all positions have valid values
-            foreach (var position in result)
-            {
-                Assert.That(position.Value, Is.Not.Null);
-                Assert.That(position.Value.Ecliptical, Is.Not.Null);
-                Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.GreaterThanOrEqualTo(0.0));
-                Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.LessThan(360.0));
-            }
+            // The solar return should be approximately radixJd + (age + 1) * 365.25 days
+            var expectedJd = radixJd + (age + 1) * 365.25;
+            var tolerance = 1.0; // Allow 1 day tolerance for calculation differences
+            Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                "Solar return JD should be approximately radixJd + (age + 1) * 365.25");
         });
     }
 
@@ -157,19 +143,19 @@ public class IntegrationTestSolarService
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
 
             // Act
-            var result = _service.CalculateSolar(request);
+            var result = _service.CalculateJdForSolar(request);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.Not.Null);
-                Assert.That(result, Has.Count.GreaterThan(0));
-                Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+                Assert.That(result, Is.GreaterThan(0.0), $"Julian Day should be positive for age {age}");
+                Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD for age {age}");
                 
-                // Check that Sun position is reasonable for solar return
-                var sunPosition = result[ChartPoints.Sun].Ecliptical.MainPosSpeed.Position;
-                Assert.That(sunPosition, Is.GreaterThanOrEqualTo(0.0));
-                Assert.That(sunPosition, Is.LessThan(360.0));
+                // The solar return should be approximately radixJd + (age + 1) * 365.25 days
+                var expectedJd = radixJd + (age + 1) * 365.25;
+                var tolerance = 1.0; // Allow 1 day tolerance for calculation differences
+                Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                    $"Solar return JD should be approximately radixJd + (age + 1) * 365.25 for age {age}");
             });
         }
     }
@@ -194,23 +180,19 @@ public class IntegrationTestSolarService
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
 
             // Act
-            var result = _service.CalculateSolar(request);
+            var result = _service.CalculateJdForSolar(request);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.Not.Null);
-                Assert.That(result, Has.Count.GreaterThan(0));
-                Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+                Assert.That(result, Is.GreaterThan(0.0), $"Julian Day should be positive for radix JD {radixJd}");
+                Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD {radixJd}");
                 
-                // Check that all positions have valid values
-                foreach (var position in result)
-                {
-                    Assert.That(position.Value, Is.Not.Null);
-                    Assert.That(position.Value.Ecliptical, Is.Not.Null);
-                    Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.GreaterThanOrEqualTo(0.0));
-                    Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.LessThan(360.0));
-                }
+                // The solar return should be approximately radixJd + (age + 1) * 365.25 days
+                var expectedJd = radixJd + (age + 1) * 365.25;
+                var tolerance = 1.0; // Allow 1 day tolerance for calculation differences
+                Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                    $"Solar return JD should be approximately radixJd + (age + 1) * 365.25 for radix JD {radixJd}");
             });
         }
     }
@@ -234,23 +216,19 @@ public class IntegrationTestSolarService
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
 
             // Act
-            var result = _service.CalculateSolar(request);
+            var result = _service.CalculateJdForSolar(request);
 
             // Assert
             Assert.Multiple(() =>
             {
-                Assert.That(result, Is.Not.Null);
-                Assert.That(result, Has.Count.GreaterThan(0));
-                Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+                Assert.That(result, Is.GreaterThan(0.0), $"Julian Day should be positive for radix JD {radixJd}");
+                Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD {radixJd}");
                 
-                // Check that all positions have valid values
-                foreach (var position in result)
-                {
-                    Assert.That(position.Value, Is.Not.Null);
-                    Assert.That(position.Value.Ecliptical, Is.Not.Null);
-                    Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.GreaterThanOrEqualTo(0.0));
-                    Assert.That(position.Value.Ecliptical.MainPosSpeed.Position, Is.LessThan(360.0));
-                }
+                // The solar return should be approximately radixJd + (age + 1) * 365.25 days
+                var expectedJd = radixJd + (age + 1) * 365.25;
+                var tolerance = 1.0; // Allow 1 day tolerance for calculation differences
+                Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                    $"Solar return JD should be approximately radixJd + (age + 1) * 365.25 for radix JD {radixJd}");
             });
         }
     }
@@ -259,7 +237,7 @@ public class IntegrationTestSolarService
     public void TestCalculateSolar_NullRequest_ThrowsArgumentNullException()
     {
         // Act & Assert
-        Assert.Throws<ArgumentNullException>(() => _service.CalculateSolar(null!));
+        Assert.Throws<ArgumentNullException>(() => _service.CalculateJdForSolar(null!));
     }
 
     [Test]
@@ -274,7 +252,7 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => _service.CalculateSolar(request));
+        Assert.Throws<ArgumentException>(() => _service.CalculateJdForSolar(request));
     }
 
     [Test]
@@ -289,7 +267,7 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => _service.CalculateSolar(request));
+        Assert.Throws<ArgumentException>(() => _service.CalculateJdForSolar(request));
     }
 
     [Test]
@@ -304,7 +282,7 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, true, calculationPreferences!, radixLocation, null);
 
         // Act & Assert
-        Assert.Throws<ArgumentException>(() => _service.CalculateSolar(request));
+        Assert.Throws<ArgumentException>(() => _service.CalculateJdForSolar(request));
     }
 
     [Test]
@@ -320,10 +298,10 @@ public class IntegrationTestSolarService
         {
             var age = 20 + i;
             var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
-            var result = _service.CalculateSolar(request);
+            var result = _service.CalculateJdForSolar(request);
             
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+            Assert.That(result, Is.GreaterThan(0.0), $"Julian Day should be positive for iteration {i}");
+            Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD for iteration {i}");
         }
     }
 
@@ -339,24 +317,48 @@ public class IntegrationTestSolarService
         var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
 
         // Act
-        var result = _service.CalculateSolar(request);
+        var result = _service.CalculateJdForSolar(request);
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
+            Assert.That(result, Is.GreaterThan(0.0), "Julian Day should be positive");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
             
-            // For a solar return, the Sun should be at approximately the same longitude as the radix
-            // (within a reasonable margin for the calculation method)
-            var sunPosition = result[ChartPoints.Sun].Ecliptical.MainPosSpeed.Position;
+            // The solar return should be approximately radixJd + (age + 1) * 365.25 days
+            var expectedJd = radixJd + (age + 1) * 365.25;
+            var tolerance = 1.0; // Allow 1 day tolerance for calculation differences
+            Assert.That(result, Is.EqualTo(expectedJd).Within(tolerance), 
+                "Solar return JD should be approximately radixJd + (age + 1) * 365.25");
             
-            // The solar return should be calculated for approximately radixJd + 365.25 * age
-            // The Sun should be at a similar longitude to the original radix
-            // We can't predict the exact position without knowing the original Sun position,
-            // but we can verify the result is reasonable
-            Assert.That(sunPosition, Is.GreaterThanOrEqualTo(0.0));
-            Assert.That(sunPosition, Is.LessThan(360.0));
+            // Verify the result is a reasonable Julian Day number
+            Assert.That(result, Is.GreaterThan(2400000.0), "Julian Day should be in a reasonable range");
+            Assert.That(result, Is.LessThan(2500000.0), "Julian Day should be in a reasonable range");
+        });
+    }
+
+    [Test]
+    public void TestCalculateSolar_ConsistencyBetweenCalls()
+    {
+        // Arrange
+        var radixJd = 2459580.5;
+        var age = 25;
+        var calculationPreferences = CreateCalculationPreferences();
+        var radixLocation = new Location("Test Location", 6.53, 52.0);
+        
+        var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
+
+        // Act - Multiple calls with same parameters
+        var result1 = _service.CalculateJdForSolar(request);
+        var result2 = _service.CalculateJdForSolar(request);
+        var result3 = _service.CalculateJdForSolar(request);
+
+        // Assert - Results should be consistent
+        Assert.Multiple(() =>
+        {
+            Assert.That(result1, Is.EqualTo(result2), "First and second calls should return same JD");
+            Assert.That(result2, Is.EqualTo(result3), "Second and third calls should return same JD");
+            Assert.That(result1, Is.EqualTo(result3), "First and third calls should return same JD");
         });
     }
 

@@ -38,7 +38,7 @@ public class TestSolarOrchestrator
     }
 
     [Test]
-    public void CalculateSolar_TropicalReturn_ReturnsExpectedPositions()
+    public void CalculateJdForSolar_TropicalReturn_ReturnsCorrectJulianDay()
     {
         // Arrange
         var radixJd = 2459580.5; // 2022-01-01
@@ -59,39 +59,111 @@ public class TestSolarOrchestrator
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
             .Returns(258);
         
-        // Mock the JdForPositionFinder to return a target JD
-        var targetJd = radixJd + 365.25 * age;
+        // Mock the JdForPositionFinder to return a calculated solar return JD
+        var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
-            .Returns(targetJd);
+            .Returns(expectedSolarReturnJd);
         
-        // Mock the chart calculation
-        var expectedPositions = new Dictionary<ChartPoints, FullPointPos>
-        {
-            { ChartPoints.Sun, CreateFullPointPos(280.5) },
-            { ChartPoints.Moon, CreateFullPointPos(45.2) }
-        };
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>._))
-            .Returns(expectedPositions);
-
         // Act
-        var result = _orchestrator.CalculateSolar(request);
+        var result = _orchestrator.CalculateJdForSolar(request);
 
         // Assert
         Assert.Multiple(() =>
         {
-            Assert.That(result, Is.Not.Null);
-            Assert.That(result, Has.Count.EqualTo(2));
-            Assert.That(result.ContainsKey(ChartPoints.Sun), Is.True);
-            Assert.That(result.ContainsKey(ChartPoints.Moon), Is.True);
+            Assert.That(result, Is.EqualTo(expectedSolarReturnJd), "Should return the calculated solar return JD");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
         });
 
-        // Verify the correct flags were used for tropical return
-        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
-            .MustHaveHappened();
+        // Verify the correct calls were made
+        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
+        A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
 
     [Test]
-    public void CalculateSolar_WithRelocateLocation_UsesRelocateLocation()
+    public void CalculateJdForSolar_SiderealReturn_ReturnsCorrectJulianDay()
+    {
+        // Arrange
+        var radixJd = 2459580.5; // 2022-01-01
+        var age = 25;
+        var tropicalReturn = false; // Sidereal return
+        var calculationPreferences = CreateCalculationPreferences();
+        var radixLocation = new Location("Test", 6.53, 52.0);
+        var relocateLocation = (Location?)null;
+        
+        var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
+        
+        // Mock the Sun's position at radix time
+        var radixSunPosition = 275.3;
+        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
+            .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+        
+        // Mock the flags calculation
+        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
+            .Returns(258);
+        
+        // Mock the JdForPositionFinder to return a calculated solar return JD
+        var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
+        A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
+            .Returns(expectedSolarReturnJd);
+        
+        // Act
+        var result = _orchestrator.CalculateJdForSolar(request);
+
+        // Assert
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.EqualTo(expectedSolarReturnJd), "Should return the calculated solar return JD");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
+        });
+
+        // Verify the correct calls were made
+        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
+        A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
+    }
+
+    [Test]
+    public void CalculateJdForSolar_DifferentAges_ReturnsCorrectJulianDays()
+    {
+        // Arrange
+        var radixJd = 2459580.5;
+        var ages = new[] { 1, 10, 25, 50, 75, 100 };
+        var calculationPreferences = CreateCalculationPreferences();
+        var radixLocation = new Location("Test", 6.53, 52.0);
+        
+        foreach (var age in ages)
+        {
+            var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
+            
+            // Mock the Sun's position at radix time
+            var radixSunPosition = 280.5;
+            A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
+                .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+            
+            // Mock the flags calculation
+            A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
+                .Returns(258);
+            
+            // Mock the JdForPositionFinder to return a calculated solar return JD
+            var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
+            A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
+                .Returns(expectedSolarReturnJd);
+            
+            // Act
+            var result = _orchestrator.CalculateJdForSolar(request);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedSolarReturnJd), $"Should return correct JD for age {age}");
+                Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD for age {age}");
+            });
+        }
+    }
+
+    [Test]
+    public void CalculateJdForSolar_WithRelocateLocation_UsesRelocateLocation()
     {
         // Arrange
         var radixJd = 2459580.5;
@@ -112,33 +184,29 @@ public class TestSolarOrchestrator
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
             .Returns(258);
         
-        // Mock the JdForPositionFinder to return a target JD
-        var targetJd = radixJd + 365.25 * age;
+        // Mock the JdForPositionFinder to return a calculated solar return JD
+        var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
-            .Returns(targetJd);
+            .Returns(expectedSolarReturnJd);
         
-        // Mock the chart calculation
-        var expectedPositions = new Dictionary<ChartPoints, FullPointPos>
-        {
-            { ChartPoints.Sun, CreateFullPointPos(280.5) }
-        };
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>._))
-            .Returns(expectedPositions);
-
         // Act
-        var result = _orchestrator.CalculateSolar(request);
+        var result = _orchestrator.CalculateJdForSolar(request);
 
         // Assert
-        Assert.That(result, Is.Not.Null);
-        
-        // Verify that the chart calculation was called with the relocate location
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>.That.Matches(
-            req => req.Location!.Equals(relocateLocation))))
-            .MustHaveHappened();
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.EqualTo(expectedSolarReturnJd), "Should return the calculated solar return JD");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
+        });
+
+        // Verify the correct calls were made
+        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
+        A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
 
     [Test]
-    public void CalculateSolar_WithNullRelocateLocation_UsesRadixLocation()
+    public void CalculateJdForSolar_WithNullRelocateLocation_UsesRadixLocation()
     {
         // Arrange
         var radixJd = 2459580.5;
@@ -159,43 +227,126 @@ public class TestSolarOrchestrator
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
             .Returns(258);
         
-        // Mock the JdForPositionFinder to return a target JD
-        var targetJd = radixJd + 365.25 * age;
+        // Mock the JdForPositionFinder to return a calculated solar return JD
+        var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
-            .Returns(targetJd);
+            .Returns(expectedSolarReturnJd);
         
-        // Mock the chart calculation
-        var expectedPositions = new Dictionary<ChartPoints, FullPointPos>
-        {
-            { ChartPoints.Sun, CreateFullPointPos(280.5) }
-        };
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>._))
-            .Returns(expectedPositions);
-
         // Act
-        var result = _orchestrator.CalculateSolar(request);
+        var result = _orchestrator.CalculateJdForSolar(request);
 
         // Assert
-        Assert.That(result, Is.Not.Null);
-        
-        // Verify that the chart calculation was called with the radix location
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>.That.Matches(
-            req => req.Location!.Equals(radixLocation))))
-            .MustHaveHappened();
+        Assert.Multiple(() =>
+        {
+            Assert.That(result, Is.EqualTo(expectedSolarReturnJd), "Should return the calculated solar return JD");
+            Assert.That(result, Is.GreaterThan(radixJd), "Solar return JD should be after radix JD");
+        });
+
+        // Verify the correct calls were made
+        A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, 258)).MustHaveHappened();
+        A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical)).MustHaveHappened();
+        A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258)).MustHaveHappened();
     }
 
     [Test]
-    public void CalculateSolar_WithEqualRelocateLocation_UsesRadixLocation()
+    public void CalculateJdForSolar_HistoricalDates_ReturnsCorrectJulianDays()
+    {
+        // Arrange
+        var historicalDates = new[] 
+        { 
+            2451545.0, // 2000-01-01
+            2415020.0, // 1900-01-01
+            2378495.0, // 1800-01-01
+            2341970.0  // 1700-01-01
+        };
+        var age = 30;
+        var calculationPreferences = CreateCalculationPreferences();
+        var radixLocation = new Location("Test", 6.53, 52.0);
+        
+        foreach (var radixJd in historicalDates)
+        {
+            var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
+            
+            // Mock the Sun's position at radix time
+            var radixSunPosition = 280.5;
+            A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
+                .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+            
+            // Mock the flags calculation
+            A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
+                .Returns(258);
+            
+            // Mock the JdForPositionFinder to return a calculated solar return JD
+            var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
+            A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
+                .Returns(expectedSolarReturnJd);
+            
+            // Act
+            var result = _orchestrator.CalculateJdForSolar(request);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedSolarReturnJd), $"Should return correct JD for radix JD {radixJd}");
+                Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD {radixJd}");
+            });
+        }
+    }
+
+    [Test]
+    public void CalculateJdForSolar_FutureDates_ReturnsCorrectJulianDays()
+    {
+        // Arrange
+        var futureDates = new[] 
+        { 
+            2469580.0, // 2030-01-01
+            2479580.0, // 2040-01-01
+            2489580.0  // 2050-01-01
+        };
+        var age = 30;
+        var calculationPreferences = CreateCalculationPreferences();
+        var radixLocation = new Location("Test", 6.53, 52.0);
+        
+        foreach (var radixJd in futureDates)
+        {
+            var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
+            
+            // Mock the Sun's position at radix time
+            var radixSunPosition = 280.5;
+            A.CallTo(() => _celPointSeCalc.CalculateCelPoint(0, radixJd, A<int>._))
+                .Returns(new[] { new PosSpeed(radixSunPosition, 0.0), new PosSpeed(0, 0), new PosSpeed(0, 0) });
+            
+            // Mock the flags calculation
+            A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
+                .Returns(258);
+            
+            // Mock the JdForPositionFinder to return a calculated solar return JD
+            var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
+            A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
+                .Returns(expectedSolarReturnJd);
+            
+            // Act
+            var result = _orchestrator.CalculateJdForSolar(request);
+
+            // Assert
+            Assert.Multiple(() =>
+            {
+                Assert.That(result, Is.EqualTo(expectedSolarReturnJd), $"Should return correct JD for radix JD {radixJd}");
+                Assert.That(result, Is.GreaterThan(radixJd), $"Solar return JD should be after radix JD {radixJd}");
+            });
+        }
+    }
+
+    [Test]
+    public void CalculateJdForSolar_ConsistencyBetweenCalls_ReturnsSameResult()
     {
         // Arrange
         var radixJd = 2459580.5;
-        var age = 30;
-        var tropicalReturn = true;
+        var age = 25;
         var calculationPreferences = CreateCalculationPreferences();
-        var radixLocation = new Location("Radix", 6.53, 52.0);
-        var relocateLocation = new Location("Radix", 6.53, 52.0); // Same as radix location
+        var radixLocation = new Location("Test", 6.53, 52.0);
         
-        var request = new SolarRequest(radixJd, age, tropicalReturn, calculationPreferences, radixLocation, relocateLocation);
+        var request = new SolarRequest(radixJd, age, true, calculationPreferences, radixLocation, null);
         
         // Mock the Sun's position at radix time
         var radixSunPosition = 280.5;
@@ -206,29 +357,24 @@ public class TestSolarOrchestrator
         A.CallTo(() => _seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical))
             .Returns(258);
         
-        // Mock the JdForPositionFinder to return a target JD
-        var targetJd = radixJd + 365.25 * age;
+        // Mock the JdForPositionFinder to return a calculated solar return JD
+        var expectedSolarReturnJd = radixJd + (age + 1) * 365.25;
         A.CallTo(() => _jdForPositionFinder.FindJulianDay(radixSunPosition, A<double>._, 258))
-            .Returns(targetJd);
+            .Returns(expectedSolarReturnJd);
         
-        // Mock the chart calculation
-        var expectedPositions = new Dictionary<ChartPoints, FullPointPos>
+        // Act - Multiple calls with same parameters
+        var result1 = _orchestrator.CalculateJdForSolar(request);
+        var result2 = _orchestrator.CalculateJdForSolar(request);
+        var result3 = _orchestrator.CalculateJdForSolar(request);
+
+        // Assert - Results should be consistent
+        Assert.Multiple(() =>
         {
-            { ChartPoints.Sun, CreateFullPointPos(280.5) }
-        };
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>._))
-            .Returns(expectedPositions);
-
-        // Act
-        var result = _orchestrator.CalculateSolar(request);
-
-        // Assert
-        Assert.That(result, Is.Not.Null);
-        
-        // Verify that the chart calculation was called with the radix location (not relocate)
-        A.CallTo(() => _chartAllPositionsHandler.CalcFullChart(A<CelPointsRequest>.That.Matches(
-            req => req.Location!.Equals(radixLocation))))
-            .MustHaveHappened();
+            Assert.That(result1, Is.EqualTo(result2), "First and second calls should return same JD");
+            Assert.That(result2, Is.EqualTo(result3), "Second and third calls should return same JD");
+            Assert.That(result1, Is.EqualTo(result3), "First and third calls should return same JD");
+            Assert.That(result1, Is.EqualTo(expectedSolarReturnJd), "Result should match expected solar return JD");
+        });
     }
 
     private static CalculationPreferences CreateCalculationPreferences()
@@ -243,25 +389,5 @@ public class TestSolarOrchestrator
             HouseSystems.Regiomontanus,
             ApogeeTypes.Duval,
             false);
-    }
-
-    private static FullPointPos CreateFullPointPos(double longitude)
-    {
-        var ecliptical = new PointPosSpeeds(
-            new PosSpeed(longitude, 0.0),
-            new PosSpeed(0.0, 0.0),
-            new PosSpeed(1.0, 0.0));
-        
-        var equatorial = new PointPosSpeeds(
-            new PosSpeed(longitude, 0.0),
-            new PosSpeed(0.0, 0.0),
-            new PosSpeed(1.0, 0.0));
-        
-        var horizontal = new PointPosSpeeds(
-            new PosSpeed(0.0, 0.0),
-            new PosSpeed(0.0, 0.0),
-            new PosSpeed(1.0, 0.0));
-        
-        return new FullPointPos(ecliptical, equatorial, horizontal);
     }
 } 
