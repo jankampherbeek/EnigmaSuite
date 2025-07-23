@@ -6,8 +6,10 @@
 using Ardalis.GuardClauses;
 using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 using Enigma.Domain.Requests;
 using Enigma.Domain.Responses;
+using Enigma.Facades.Se;
 using Serilog;
 
 namespace Enigma.Api.Calc;
@@ -27,6 +29,10 @@ public interface IDateTimeApi
     /// <remarks>Throws ArgumentNullException if the request is null.</remarks> 
     /// <returns>True if date and tme are valid.</returns>
     public bool CheckDateTime(SimpleDateTime dateTime);
+    
+    
+
+    
 }
 
 

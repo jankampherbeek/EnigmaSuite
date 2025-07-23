@@ -29,12 +29,18 @@ public interface ISexagesimalConversions
     public double InputGeoLatToDouble(string[] inputLat, Directions4GeoLat direction);
 
     /// <summary>
-    /// Convert input values for time to a double with the hour and fraction.
+    /// Convert input values for time to doubles with the hours, minutes and seconds.
     /// </summary>
-    /// <param name="inputTime">String array with hours, minnutes and seconds, in that sequence.</param>
+    /// <param name="inputTime">String array with hours, minutes and seconds, in that sequence.</param>
     /// <returns>A double representing the hour and fractions of the hour.</returns>
     public double InputTimeToDoubleHours(string[] inputTime);
-
+    
+    /// <summary>
+    /// Convert double value for time to doubles with the hours, minutes and seconds.
+    /// </summary>
+    /// <param name="inputTime">Decimal hours.</param>
+    /// <returns>A double representing the hour, minutes and seconds.</returns>
+    public double[] InputTimeToDoubleHours(double inputTime);
 }
 
 
@@ -57,6 +63,16 @@ public class SexagesimalConversions : ISexagesimalConversions
     public double InputTimeToDoubleHours(string[] inputTime)
     {
         return SexagesimalToDouble(inputTime);
+    }
+
+    public double[] InputTimeToDoubleHours(double inputTime)
+    {
+        var hour = Math.Truncate(inputTime);
+        var remaining = (inputTime - hour) * 60.0;
+        var minute = Math.Truncate(remaining);
+        remaining = (remaining - minute) * 60.0;
+        var second = Math.Truncate(remaining);
+        return [hour, minute, second];
     }
 
     private static double SexagesimalToDouble(IReadOnlyList<string> texts)

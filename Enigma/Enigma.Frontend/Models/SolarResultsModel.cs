@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Enigma.Api.Analysis;
+using Enigma.Api.Calc;
 using Enigma.Api.Slices;
 using Enigma.Domain.Constants;
 using Enigma.Domain.Dtos;
@@ -33,7 +34,9 @@ public sealed class SolarResultsModel(
     IProgAspectsApi progAspectsApi,
     IProgPositionsForPresentationFactory progPosPresFactory,
     IProgAspectForPresentationFactory progAspectForPresentationFactory,
-    IDoubleToDmsConversions doubleToDmsConversions)
+    IDoubleToDmsConversions doubleToDmsConversions,
+    ISexagesimalConversions sexagesimalConversions,
+    IJulianDayApi julianDayApi)
 {
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
     private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
@@ -88,7 +91,12 @@ public sealed class SolarResultsModel(
     public String GetDetailsSolarDate()
     {
         var jdSolar = _dataVaultProg.GetCurrentSolar().InputtedChartData.FullDateTime.JulianDayForEt;
-        var solarDateText = $"Julian Day: {jdSolar}";
+        var calendar = _dataVaultCharts.GetCurrentChart().InputtedChartData.FullDateTime.DateText.Contains("[g]")? Calendars.Gregorian: Calendars.Julian ;
+        var dateTime = julianDayApi.DateTimeFromJd(jdSolar, calendar);
+        var timeTextValues = sexagesimalConversions.InputTimeToDoubleHours(dateTime.Ut);
+        var timeText = $"{timeTextValues[0]}:{timeTextValues[1]}:{timeTextValues[2]} UT";
+        var dateText = $"Julian Day: {jdSolar}, date and time: {dateTime.Year}/{dateTime.Month}/{dateTime.Day}";
+        var solarDateText =  $"{dateText} {timeText}";
         return solarDateText;
     }
 

@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows;
@@ -55,12 +56,8 @@ public partial class SolarInputViewModel : ObservableObject
             ChartName = currentChart.InputtedChartData.MetaData.Name;
             // Initialize with current chart's coordinates
             var location = currentChart.InputtedChartData.Location;
-            GeoLong = location.GeoLong.ToString("F0") + ":" + 
-                     (location.GeoLong % 1 * 60).ToString("F0") + ":" + 
-                     ((location.GeoLong % 1 * 60) % 1 * 60).ToString("F0");
-            GeoLat = location.GeoLat.ToString("F0") + ":" + 
-                    (location.GeoLat % 1 * 60).ToString("F0") + ":" + 
-                    ((location.GeoLat % 1 * 60) % 1 * 60).ToString("F0");
+            GeoLong = FormatCoordinate(location.GeoLong);
+            GeoLat = FormatCoordinate(location.GeoLat);
             DirLongIndex = location.GeoLong >= 0 ? 0 : 1; // East : West
             DirLatIndex = location.GeoLat >= 0 ? 0 : 1;   // North : South
             
@@ -188,5 +185,40 @@ public partial class SolarInputViewModel : ObservableObject
         }
 
         return true;
+    }
+
+    /// <summary>
+    /// Format decimal degrees to degrees:minutes:seconds format
+    /// </summary>
+    /// <param name="decimalDegrees">Decimal degrees value</param>
+    /// <returns>Formatted string in DD:MM:SS format</returns>
+    private static string FormatCoordinate(double decimalDegrees)
+    {
+        // Handle negative values
+        bool isNegative = decimalDegrees < 0;
+        decimalDegrees = Math.Abs(decimalDegrees);
+        
+        // Extract degrees, minutes, and seconds
+        int degrees = (int)decimalDegrees;
+        double remainingMinutes = (decimalDegrees - degrees) * 60;
+        int minutes = (int)remainingMinutes;
+        double seconds = (remainingMinutes - minutes) * 60;
+        
+        // Round seconds to avoid floating point precision issues
+        seconds = Math.Round(seconds, 0);
+        
+        // Handle rounding up that might affect minutes and degrees
+        if (seconds >= 60)
+        {
+            seconds = 0;
+            minutes++;
+        }
+        if (minutes >= 60)
+        {
+            minutes = 0;
+            degrees++;
+        }
+        
+        return $"{degrees}:{minutes:D2}:{(int)seconds:D2}";
     }
 } 

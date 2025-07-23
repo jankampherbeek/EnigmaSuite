@@ -8,6 +8,7 @@ using Enigma.Core.Calc;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Responses;
+using Enigma.Facades.Se;
 using FakeItEasy;
 
 namespace Enigma.Test.Api.Calc;
@@ -22,7 +23,7 @@ public class TestJulianDayApi
     [Test]
     public void TestHappyFlow()
     {
-        IJulianDayApi api = new JulianDayApi(CreateHandlerFake());
+        IJulianDayApi api = new JulianDayApi(CreateHandlerFake(), CreateRevJulFacadeFake());
         var actualResponse = api.GetJulianDay(_dateTime);
         Assert.That(_jdResponse, Is.EqualTo(actualResponse));
     }
@@ -30,9 +31,21 @@ public class TestJulianDayApi
     [Test]
     public void TestRequestDateTimeNull()
     {
-        IJulianDayApi api = new JulianDayApi(CreateHandlerFake());
+        IJulianDayApi api = new JulianDayApi(CreateHandlerFake(), CreateRevJulFacadeFake());
         SimpleDateTime? errorDateTime = null;
         Assert.That(() => api.GetJulianDay(errorDateTime!), Throws.TypeOf<ArgumentNullException>());
+    }
+
+    [Test]
+    public void TestDateTimeFromJd()
+    {
+        var julDay = 123456.789;
+        var calendar = Calendars.Gregorian;
+        var expectedDateTime = new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian);
+        
+        IJulianDayApi api = new JulianDayApi(CreateHandlerFake(), CreateRevJulFacadeFake());
+        var actualDateTime = api.DateTimeFromJd(julDay, calendar);
+        Assert.That(expectedDateTime, Is.EqualTo(actualDateTime));
     }
 
 
@@ -41,6 +54,14 @@ public class TestJulianDayApi
         var handlerFake = A.Fake<IJulDayHandler>();
         A.CallTo(() => handlerFake.CalcJulDay(_dateTime)).Returns(_jdResponse);
         return handlerFake;
+    }
+
+    private IRevJulFacade CreateRevJulFacadeFake()
+    {
+        var facadeFake = A.Fake<IRevJulFacade>();
+        var expectedDateTime = new SimpleDateTime(2022, 4, 20, 19.25, Calendars.Gregorian);
+        A.CallTo(() => facadeFake.DateTimeFromJd(A<double>._, A<Calendars>._)).Returns(expectedDateTime);
+        return facadeFake;
     }
 
 }
