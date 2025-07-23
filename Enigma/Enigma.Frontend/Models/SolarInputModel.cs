@@ -1,5 +1,5 @@
 // Enigma Astrology Research.
-// Jan Kampherbeek, (c) 2023, 2024.
+// Jan Kampherbeek, (c) 2023.
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
@@ -45,12 +45,10 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
     /// </summary>
     /// <param name="age">Age for the solar return</param>
     /// <param name="siderealReturn">Whether to use sidereal return</param>
-    /// <param name="relocate">Whether to relocate</param>
     /// <param name="longitude">Longitude for relocation</param>
     /// <param name="latitude">Latitude for relocation</param>
     /// <returns>True if calculation was successful</returns>
-    public bool CalculateSolarReturn(int age, bool siderealReturn, bool relocate, 
-                                   double longitude = 0, double latitude = 0)
+    public bool CalculateSolarReturn(int age, bool siderealReturn, double longitude = 0, double latitude = 0)
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null)
@@ -58,18 +56,16 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
             Log.Warning("SolarInputModel.CalculateSolarReturn: No current chart available");
             return false;
         }
-        Log.Information("SolarInputModel.CalculateSolarReturn: Age={Age}, Sidereal={SiderealReturn}, Relocate={Relocate}", age, siderealReturn, relocate);
+        Log.Information("SolarInputModel.CalculateSolarReturn: Age={Age}, Sidereal={SiderealReturn}", age, siderealReturn);
         var jd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
         var radixLoc = currentChart.InputtedChartData.Location ?? new Location("Unknown", 0, 0);
         var relocationLoc = new Location("Relocated", longitude, latitude);
-        var request = CreateSolarRequest(jd, age, siderealReturn, relocate, radixLoc, relocationLoc);
-        // define jd for solar
+        var request = CreateSolarRequest(jd, age, siderealReturn, radixLoc, relocationLoc);
         var jdSolar = solarService.CalculateJdForSolar(request);
         var solarObliquity = obliquityApi.GetObliquity(new ObliquityRequest(jdSolar, true));
         var config = CurrentConfig.Instance.GetConfig();
         var celPointsRequest = new CelPointsRequest(jdSolar, relocationLoc, prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical));
         var positions = chartAllPositionsApi.GetChart(celPointsRequest);
-        
         var fullDateTime = new FullDateTime("", "", jdSolar);
         var chartData = new ChartData(-1, null, relocationLoc, fullDateTime);        
         var calculatedSolar = new CalculatedChart(positions, chartData, solarObliquity); 
@@ -77,7 +73,7 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
         return true;
     }
 
-    private SolarRequest CreateSolarRequest(double jd, int age, bool siderealReturn, bool relocate, Location radixLoc, Location relocationLoc)
+    private SolarRequest CreateSolarRequest(double jd, int age, bool siderealReturn, Location radixLoc, Location relocationLoc)
     {
         var calcPref = CreateCalculationPreferences(siderealReturn);
         return new SolarRequest(jd, age, siderealReturn, calcPref, radixLoc, relocationLoc);
@@ -86,11 +82,10 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
     private CalculationPreferences CreateCalculationPreferences(bool isSidereal)
     {
         var config = CurrentConfig.Instance.GetConfig();
-     //   return prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical);
         var zodiacType = isSidereal ? ZodiacTypes.Sidereal : config.ZodiacType;
         var ayanamsha = isSidereal ? Ayanamshas.Fagan : Ayanamshas.None;
         var coordSys = CoordinateSystems.Ecliptical;
-        List<ChartPoints> actualChartPoints = new() { ChartPoints.Sun };
+        List<ChartPoints> actualChartPoints = [ChartPoints.Sun];
         return new CalculationPreferences(actualChartPoints, zodiacType, ayanamsha,
             coordSys, config.ObserverPosition, config.ProjectionType, config.HouseSystem, config.ApogeeType, config.OscillateNodes);
     }

@@ -52,8 +52,6 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
         var startSearchJd = startJd - 0.5; // Start 0.5 days before
         var endSearchJd = startJd + 0.5;   // End 0.5 days after
         var stepSize = SEARCH_PERIOD / PORTIONS;
-        
-        // Normalize target position to 0-360 range
         position = NormalizeLongitude(position);
         
         // Check if we're already at the target position at the start JD
@@ -63,8 +61,7 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
         {
             return startJd;
         }
-        
-        var maxIterations = 1000; // Prevent infinite loops
+        const int maxIterations = 1000; // Prevent infinite loops
         var iterationCount = 0;
         
         while (true)
@@ -89,7 +86,7 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
             }
             
             // If the portion is very small, we're close enough
-            if (portionEndJd - portionStartJd < 1E-8) 
+            if (portionEndJd - portionStartJd < 1E-10) 
             {
                 return midJd;
             }
@@ -106,7 +103,7 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
     /// </summary>
     private (double startJd, double endJd) FindPortionWithPosition(double targetPosition, double startJd, double stepSize, int flags)
     {
-        const double epsilon = 1E-7; // Small tolerance for floating-point comparisons
+        const double epsilon = 1E-10; // Small tolerance for floating-point comparisons
         var currentJd = startJd;
         var previousPosition = GetSunLongitude(currentJd, flags);
         (double startJd, double endJd) bestPortion = (startJd, startJd + stepSize);

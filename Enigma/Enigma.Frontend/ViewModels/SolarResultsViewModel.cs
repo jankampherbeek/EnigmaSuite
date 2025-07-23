@@ -46,17 +46,16 @@ public partial class SolarResultsViewModel : ObservableObject
     
     public SolarResultsViewModel()
     {
-        var _model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
-     //   _model.HandleAspects(_orbSolarValue);
-        ChartName = _model.GetChartName();
-        DetailsRadixDate = _model.GetDetailsRadixDate();
-        DetailsRadixLocation = _model.GetDetailsRadixLocation();
-        DetailsRadixSun = _model.GetDetailsRadixSun();
-        DetailsSolarDate = _model.GetDetailsSolarDate();
-        DetailsSolarLocation = _model.GetDetailsSolarLocation();
-        DetailsSolarSun = _model.GetDetailsSolarSun();
-        SolarPositions = _model.GetSolarPositions();
-        _orbSolarValue = _model.SolarOrb;        
+        var model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
+        ChartName = model.GetChartName();
+        DetailsRadixDate = model.GetDetailsRadixDate();
+        DetailsRadixLocation = model.GetDetailsRadixLocation();
+        DetailsRadixSun = model.GetDetailsRadixSun();
+        DetailsSolarDate = model.GetDetailsSolarDate();
+        DetailsSolarLocation = model.GetDetailsSolarLocation();
+        DetailsSolarSun = model.GetDetailsSolarSun();
+        SolarPositions = model.GetSolarPositions();
+        _orbSolarValue = model.SolarOrb;        
         OrbSolarText = _orbSolarValue.ToString((CultureInfo.InvariantCulture));
         
         // Calculate aspects immediately so they show when the aspects tab is opened
@@ -69,7 +68,6 @@ public partial class SolarResultsViewModel : ObservableObject
     /// <param name="model">The solar results model with calculated data</param>
     public void InitializeWithSolarData(SolarResultsModel model)
     {
-        
         ChartName = model.GetChartName();
         SolarPositions = model.GetSolarPositions();
     }
@@ -104,9 +102,9 @@ public partial class SolarResultsViewModel : ObservableObject
     }
 
     private void Calculate()
-    {   var _model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
-        _model.HandleAspects(_orbSolarValue);
-        SolarAspects = _model.SolarAspects;
+    {   var model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
+        model.HandleAspects(_orbSolarValue);
+        SolarAspects = model.SolarAspects;
     }
     
     [RelayCommand]

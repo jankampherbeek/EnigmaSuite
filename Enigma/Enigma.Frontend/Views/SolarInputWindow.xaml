@@ -26,6 +26,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
@@ -44,32 +46,33 @@
                    Text="{Binding ChartName}" Name="ChartNameText"
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
                    FontWeight="Bold"/>
-
+        <!-- Spacer -->
+        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"/>
         <!-- Age Input -->
-        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0" VerticalAlignment="Center" 
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,0" VerticalAlignment="Center" 
                  materialDesign:HintAssist.Hint="Age (in whole numbers)" 
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  Text="{Binding Age, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Sidereal Return Checkbox -->
-        <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
+        <CheckBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,6" 
                   Content="Sidereal return" 
                   Style="{StaticResource MaterialDesignCheckBox}"
                   IsChecked="{Binding SiderealReturn, Mode=TwoWay}"/>
 
         <!-- Relocation -->
-        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
+        <TextBlock Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="6,12,6,0" 
                    Text="Change for relocation:" Name="RelocationLabel" 
                    FontWeight="Bold"/>
 
         <!-- Longitude -->
-        <TextBox Grid.Row="5" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"   
+        <TextBox Grid.Row="6" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"   
                  IsReadOnly="{Binding IsGeoReadOnly}"
                  materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding GeoLongValid}"
                  Text="{Binding GeoLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="5" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+        <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   IsEnabled="{Binding IsGeoEnabled}"
                   materialDesign:HintAssist.Hint="East/West"
                   VerticalAlignment="Center" Margin="6,0"
@@ -78,13 +81,13 @@
                   SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
         <!-- Latitude -->
-        <TextBox Grid.Row="6" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"
+        <TextBox Grid.Row="7" Grid.Column="0" Margin="6,0" VerticalAlignment="Center"
                  IsReadOnly="{Binding IsGeoReadOnly}" 
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding GeoLatValid}"
                  Text="{Binding GeoLat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="6" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+        <ComboBox Grid.Row="7" Grid.Column="1" IsEditable="True" IsReadOnly="True"
                   IsEnabled=
                   "{Binding IsGeoEnabled}"
                   materialDesign:HintAssist.Hint="North/South"
@@ -94,10 +97,10 @@
                   SelectedIndex="{Binding DirLatIndex, Mode=TwoWay}" />
 
         <!-- Spacer -->
-        <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"/>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
+        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Cancel" HorizontalAlignment="Right" 
                     Command="{Binding CancelCommand}"/>

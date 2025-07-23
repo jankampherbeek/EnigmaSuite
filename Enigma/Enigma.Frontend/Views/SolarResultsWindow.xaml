@@ -149,7 +149,7 @@
             </TabItem>
             
             
-            <!-- Technical details -->
+            <!-- Technical details tab -->
             <TabItem Header="Details" x:Name="DetailsTab">
                 <StackPanel Orientation="Vertical" Margin="6">
                     <TextBlock Margin="6,12,6,6" 

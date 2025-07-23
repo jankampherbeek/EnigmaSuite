@@ -28,18 +28,18 @@ public partial class SolarInputViewModel : ObservableObject
 
     [ObservableProperty] private string _chartName = string.Empty;
     [ObservableProperty] private string _age = string.Empty;
-    [ObservableProperty] private bool _siderealReturn = false;
+    [ObservableProperty] private bool _siderealReturn;
     [ObservableProperty] private string _geoLong = string.Empty;
     [ObservableProperty] private string _geoLat = string.Empty;
-    [ObservableProperty] private int _dirLongIndex = 0;
-    [ObservableProperty] private int _dirLatIndex = 0;
+    [ObservableProperty] private int _dirLongIndex;
+    [ObservableProperty] private int _dirLatIndex;
     [ObservableProperty] private bool _isGeoReadOnly = true;
-    [ObservableProperty] private bool _isGeoEnabled = false;
+    [ObservableProperty] private bool _isGeoEnabled;
     [ObservableProperty] private string _geoLongValid = "Gray";
     [ObservableProperty] private string _geoLatValid = "Gray";
 
-    public List<string> AllDirectionsForLongitude { get; } = new() { "East", "West" };
-    public List<string> AllDirectionsForLatitude { get; } = new() { "North", "South" };
+    public List<string> AllDirectionsForLongitude { get; } = ["East", "West"];
+    public List<string> AllDirectionsForLatitude { get; } = ["North", "South"];
 
     public SolarInputViewModel()
     {
@@ -51,20 +51,21 @@ public partial class SolarInputViewModel : ObservableObject
     private void InitializeData()
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
-        if (currentChart != null)
+        if (currentChart == null) return;
+        ChartName = currentChart.InputtedChartData.MetaData.Name;
+        // Initialize with current chart's coordinates
+        var location = currentChart.InputtedChartData.Location;
+        if (location != null)
         {
-            ChartName = currentChart.InputtedChartData.MetaData.Name;
-            // Initialize with current chart's coordinates
-            var location = currentChart.InputtedChartData.Location;
             GeoLong = FormatCoordinate(location.GeoLong);
             GeoLat = FormatCoordinate(location.GeoLat);
             DirLongIndex = location.GeoLong >= 0 ? 0 : 1; // East : West
-            DirLatIndex = location.GeoLat >= 0 ? 0 : 1;   // North : South
-            
-            // Geographic coordinates are always enabled for relocation
-            IsGeoReadOnly = false;
-            IsGeoEnabled = true;
+            DirLatIndex = location.GeoLat >= 0 ? 0 : 1; // North : South
         }
+
+        // Geographic coordinates are always enabled for relocation
+        IsGeoReadOnly = false;
+        IsGeoEnabled = true;
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -111,21 +112,17 @@ public partial class SolarInputViewModel : ObservableObject
     {
         if (!ValidateInput())
         {
-            // MessageBox.Show("Please correct the input errors before calculating.", "Validation Error", 
-            //     MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         } 
         
         if (!int.TryParse(Age, out int ageValue))
         {
-        //     MessageBox.Show("Please enter a valid age.", "Validation Error", 
-        //         MessageBoxButton.OK, MessageBoxImage.Warning);
              return;
         }
 
         // Parse geographic coordinates if relocation is enabled
         double longitude = 0, latitude = 0;
-        bool relocate = !IsGeoReadOnly;
+        var relocate = !IsGeoReadOnly;
         
         if (relocate)
         {
@@ -135,19 +132,17 @@ public partial class SolarInputViewModel : ObservableObject
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            
-            // Apply direction
             if (DirLongIndex == 1) longitude = -longitude; // West
             if (DirLatIndex == 1) latitude = -latitude;   // South
         }
-        _model.CalculateSolarReturn(ageValue, SiderealReturn, relocate, longitude, latitude);
+        _model.CalculateSolarReturn(ageValue, SiderealReturn, longitude, latitude);
         
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,ChartsWindowsFlow.SOLAR_RESULTS));
         WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
  
     }
 
-    private bool ParseCoordinate(string coordinate, out double value)
+    private static bool ParseCoordinate(string coordinate, out double value)
     {
         value = 0;
         if (string.IsNullOrEmpty(coordinate)) return false;
@@ -162,7 +157,7 @@ public partial class SolarInputViewModel : ObservableObject
         }
         
         // If seconds are omitted, use zero
-        int seconds = 0;
+        var seconds = 0;
         if (parts.Length == 3)
         {
             if (!int.TryParse(parts[2], out seconds))
@@ -177,14 +172,11 @@ public partial class SolarInputViewModel : ObservableObject
 
     private bool ValidateInput()
     {
-        if (string.IsNullOrEmpty(Age) || !int.TryParse(Age, out int ageValue) || ageValue <= 0)
-        {
-            MessageBox.Show("Please enter a valid age (integer > 0).", "Validation Error", 
-                MessageBoxButton.OK, MessageBoxImage.Warning);
-            return false;
-        }
+        if (!string.IsNullOrEmpty(Age) && int.TryParse(Age, out int ageValue) && ageValue > 0) return true;
+        MessageBox.Show("Please enter a valid age (integer > 0).", "Validation Error", 
+            MessageBoxButton.OK, MessageBoxImage.Warning);
+        return false;
 
-        return true;
     }
 
     /// <summary>
@@ -194,20 +186,14 @@ public partial class SolarInputViewModel : ObservableObject
     /// <returns>Formatted string in DD:MM:SS format</returns>
     private static string FormatCoordinate(double decimalDegrees)
     {
-        // Handle negative values
-        bool isNegative = decimalDegrees < 0;
         decimalDegrees = Math.Abs(decimalDegrees);
+        var degrees = (int)decimalDegrees;
+        var remainingMinutes = (decimalDegrees - degrees) * 60;
+        var minutes = (int)remainingMinutes;
+        var seconds = (remainingMinutes - minutes) * 60;
         
-        // Extract degrees, minutes, and seconds
-        int degrees = (int)decimalDegrees;
-        double remainingMinutes = (decimalDegrees - degrees) * 60;
-        int minutes = (int)remainingMinutes;
-        double seconds = (remainingMinutes - minutes) * 60;
-        
-        // Round seconds to avoid floating point precision issues
         seconds = Math.Round(seconds, 0);
         
-        // Handle rounding up that might affect minutes and degrees
         if (seconds >= 60)
         {
             seconds = 0;

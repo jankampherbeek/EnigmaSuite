@@ -68,8 +68,8 @@ public sealed class SolarResultsModel(
     public String GetDetailsRadixDate()
     {
         var currentChart = _dataVaultCharts.GetCurrentChart();
-        var jd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
-        var date = currentChart.InputtedChartData.FullDateTime.DateText;
+        var jd = currentChart!.InputtedChartData.FullDateTime.JulianDayForEt;
+        var date = currentChart!.InputtedChartData.FullDateTime.DateText;
         return $"Date: {date}, Julian Day: {jd}";
     }
     
@@ -151,41 +151,10 @@ public sealed class SolarResultsModel(
             Log.Warning("SolarResultsModel.GetSolarPositions: No solar chart calculated");
             return new List<PresentableProgPosition>();
         }
-
         return progPositionsForPresentationFactory.CreatePresSolarPos(_solarChart);
     }
 
-    // /// <summary>
-    // /// Get solar aspects with radix in presentable format
-    // /// </summary>
-    // /// <returns>List of presentable solar aspects</returns>
-    // public List<PresentableProgAspect> GetSolarAspects()
-    // {
-    //     if (_solarChart == null)
-    //     {
-    //         Log.Warning("SolarResultsModel.GetSolarAspects: No solar chart calculated");
-    //         return new List<PresentableProgAspect>();
-    //     }
-    //
-    //     var radixChart = _dataVaultCharts.GetCurrentChart();
-    //     if (radixChart == null)
-    //     {
-    //         Log.Warning("SolarResultsModel.GetSolarAspects: No radix chart available");
-    //         return new List<PresentableProgAspect>();
-    //     }
-    //
-    //     // Create aspect request for solar vs radix
-    //     var config = CurrentConfig.Instance.GetConfig();
-    //
-    //
-    //     // Create aspect request comparing solar chart with radix chart
-    //     var aspectRequest = new AspectRequest(_solarChart, config);
-    //
-    //     // TODO: Implement solar aspects calculation using the API
-    //     // For now, return empty list - this would need to be implemented in the API layer
-    //     return new List<PresentableProgAspect>();
-    // }
-
+  
     /// <summary>
     /// Create solar chart data for aspect calculations
     /// </summary>
@@ -223,18 +192,17 @@ public sealed class SolarResultsModel(
 
     public void HandleAspects(double orb)
     {
-        CalculatedChart? radix = DataVaultCharts.Instance.GetCurrentChart();
+        var radix = DataVaultCharts.Instance.GetCurrentChart();
         if (radix == null) return;
-        Dictionary<ChartPoints, double> radixPositions = DefineRadixPositions(radix.Positions);
-        Dictionary<ChartPoints, double> solarPositions = DefineRadixPositions(_solarChart);
-     //   ConfigProg configProg = CurrentConfig.Instance.GetConfigProg();
-        AstroConfig astroConfig = CurrentConfig.Instance.GetConfig();
-        Dictionary<AspectTypes, AspectConfigSpecs> configAspects = astroConfig.Aspects;
-        List<AspectTypes> selectedAspects = (from configAspect in configAspects
+        var radixPositions = DefineRadixPositions(radix.Positions);
+        var solarPositions = DefineRadixPositions(_solarChart);
+        var astroConfig = CurrentConfig.Instance.GetConfig();
+        var configAspects = astroConfig.Aspects;
+        var selectedAspects = (from configAspect in configAspects
             where configAspect.Value.IsUsed
             select configAspect.Key).ToList();
         ProgAspectsRequest request = new(radixPositions, solarPositions, selectedAspects, orb);
-        ProgAspectsResponse response = progAspectsApi.FindProgAspects(request);
+        var response = progAspectsApi.FindProgAspects(request);
         if (response.ResultCode == ResultCodes.OK)
         {
             SolarAspects = CreatePresentableProgAspects(response.Aspects);
@@ -250,7 +218,6 @@ public sealed class SolarResultsModel(
     
     private static Dictionary<ChartPoints, double> DefineRadixPositions(Dictionary<ChartPoints, FullPointPos> positions)
     {
-    //    Dictionary<ChartPoints, FullPointPos> fullPositions = radix.Positions;
         return (from fullPos in positions
             let cPoint = fullPos.Key
             where cPoint.GetDetails().PointCat == PointCats.Common || cPoint.GetDetails().PointCat == PointCats.Angle
