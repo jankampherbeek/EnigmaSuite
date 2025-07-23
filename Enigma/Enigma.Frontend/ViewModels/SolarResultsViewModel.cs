@@ -28,10 +28,16 @@ public partial class SolarResultsViewModel : ObservableObject
     private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
 
     [ObservableProperty] private string _chartName;
+    [ObservableProperty] private string _detailsRadixDate;
+    [ObservableProperty] private string _detailsRadixLocation;
+    [ObservableProperty] private string _detailsRadixSun;
+    [ObservableProperty] private string _detailsSolarDate;
+    [ObservableProperty] private string _detailsSolarLocation;
+    [ObservableProperty] private string _detailsSolarSun;
+    [ObservableProperty] private string _orbSolarText;
     [ObservableProperty] private bool _showSignBackgroundColors = true;
     [ObservableProperty] private List<PresentableProgPosition> _solarPositions;
     [ObservableProperty] private List<PresentableProgAspect> _solarAspects;
-    [ObservableProperty] private string _orbSolarText;
     
     private double _orbSolarValue;
     
@@ -43,6 +49,12 @@ public partial class SolarResultsViewModel : ObservableObject
         var _model = App.ServiceProvider.GetRequiredService<SolarResultsModel>();
      //   _model.HandleAspects(_orbSolarValue);
         ChartName = _model.GetChartName();
+        DetailsRadixDate = _model.GetDetailsRadixDate();
+        DetailsRadixLocation = _model.GetDetailsRadixLocation();
+        DetailsRadixSun = _model.GetDetailsRadixSun();
+        DetailsSolarDate = _model.GetDetailsSolarDate();
+        DetailsSolarLocation = _model.GetDetailsSolarLocation();
+        DetailsSolarSun = _model.GetDetailsSolarSun();
         SolarPositions = _model.GetSolarPositions();
         _orbSolarValue = _model.SolarOrb;        
         OrbSolarText = _orbSolarValue.ToString((CultureInfo.InvariantCulture));

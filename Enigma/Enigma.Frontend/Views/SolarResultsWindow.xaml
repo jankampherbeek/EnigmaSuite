@@ -147,8 +147,39 @@
                     </ScrollViewer>
                 </StackPanel>
             </TabItem>
+            
+            
+            <!-- Technical details -->
+            <TabItem Header="Details" x:Name="DetailsTab">
+                <StackPanel Orientation="Vertical" Margin="6">
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="Technical details" Name="DetailsText"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                               FontWeight="Bold"/>
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="Radix"
+                               FontWeight="Bold"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="{Binding DetailsRadixDate}" Name="DetailsRadixDate"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="{Binding DetailsRadixLocation}" Name="DetailsRadixLocation"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="{Binding DetailsRadixSun}" Name="DetailsRadixSun"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="Solar"
+                               FontWeight="Bold"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="{Binding DetailsSolarDate}" Name="DetailsSolarDate"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="{Binding DetailsSolarLocation}" Name="DetailsSolarLocation"/>  
+                    <TextBlock Margin="6,12,6,6" 
+                               Text="{Binding DetailsSolarSun}" Name="DetailsSolarSun"/> 
+                    
+                </StackPanel>
+            </TabItem>
         </TabControl>
-
+        
+        
         <!-- Buttons -->
         <StackPanel Grid.Row="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 

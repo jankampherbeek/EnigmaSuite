@@ -18,7 +18,7 @@ public sealed class DataVaultProg
     private readonly List<ProgEvent> _allEvents = new();
     private bool _newEventAdded;
     private int _indexCurrentEvent;
-    private Dictionary<ChartPoints, FullPointPos>? _currentSolar;
+    private CalculatedChart _currentSolar;
     
     
     // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
@@ -41,14 +41,14 @@ public sealed class DataVaultProg
     public string PrimDirStarDate { get; set; }
     public string PrimDirEndDate { get; set; }
 
-    public Dictionary<ChartPoints, FullPointPos>? GetCurrentSolar()
+    public CalculatedChart? GetCurrentSolar()
     {
         if (_currentSolar != null) return _currentSolar;
         Log.Error("No chart available while using GetCurrentSolar() in DataVaultProg");
         return null;
     }
 
-    public void SetCurrentSolar(Dictionary<ChartPoints, FullPointPos> newSolar)
+    public void SetCurrentSolar(CalculatedChart newSolar)
     {
         _currentSolar = newSolar;
     }

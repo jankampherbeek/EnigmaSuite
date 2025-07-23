@@ -17,7 +17,7 @@ namespace Enigma.Frontend.Ui.Models;
 
 /// <summary>Model for solar input window</summary>
 public sealed class SolarInputModel(SolarService solarService, ICalculationPreferencesCreator prefsCreator,
-    IChartAllPositionsApi chartAllPositionsApi)
+    IChartAllPositionsApi chartAllPositionsApi, IObliquityApi obliquityApi)
 {
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
@@ -65,10 +65,15 @@ public sealed class SolarInputModel(SolarService solarService, ICalculationPrefe
         var request = CreateSolarRequest(jd, age, siderealReturn, relocate, radixLoc, relocationLoc);
         // define jd for solar
         var jdSolar = solarService.CalculateJdForSolar(request);
+        var solarObliquity = obliquityApi.GetObliquity(new ObliquityRequest(jdSolar, true));
         var config = CurrentConfig.Instance.GetConfig();
         var celPointsRequest = new CelPointsRequest(jdSolar, relocationLoc, prefsCreator.CreatePrefs(config, CoordinateSystems.Ecliptical));
         var positions = chartAllPositionsApi.GetChart(celPointsRequest);
-        DataVaultProg.Instance.SetCurrentSolar(positions);
+        
+        var fullDateTime = new FullDateTime("", "", jdSolar);
+        var chartData = new ChartData(-1, null, relocationLoc, fullDateTime);        
+        var calculatedSolar = new CalculatedChart(positions, chartData, solarObliquity); 
+        DataVaultProg.Instance.SetCurrentSolar(calculatedSolar);
         return true;
     }
 

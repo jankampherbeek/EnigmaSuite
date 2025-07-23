@@ -17,6 +17,7 @@ using Enigma.Domain.Responses;
 using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Support;
+using Enigma.Frontend.Ui.Support.Conversions;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.Models;
@@ -31,9 +32,11 @@ public sealed class SolarResultsModel(
     ICalculationPreferencesCreator prefsCreator,
     IProgAspectsApi progAspectsApi,
     IProgPositionsForPresentationFactory progPosPresFactory,
-    IProgAspectForPresentationFactory progAspectForPresentationFactory)
+    IProgAspectForPresentationFactory progAspectForPresentationFactory,
+    IDoubleToDmsConversions doubleToDmsConversions)
 {
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
+    private readonly DataVaultProg _dataVaultProg = DataVaultProg.Instance;
     private readonly SolarService _solarService = solarService;
     private readonly ICelPointForDataGridFactory _celPointForDataGridFactory = celPointForDataGridFactory;
     private readonly IAspectForDataGridFactory _aspectForDataGridFactory = aspectForDataGridFactory;
@@ -58,7 +61,58 @@ public sealed class SolarResultsModel(
         var currentChart = _dataVaultCharts.GetCurrentChart();
         return currentChart?.InputtedChartData.MetaData.Name ?? "";
     }
+    
+    public String GetDetailsRadixDate()
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        var jd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
+        var date = currentChart.InputtedChartData.FullDateTime.DateText;
+        return $"Date: {date}, Julian Day: {jd}";
+    }
+    
+    public String GetDetailsRadixLocation()
+    {
+        var currentChart = _dataVaultCharts.GetCurrentChart();
+        var locationTxt = currentChart.InputtedChartData.Location.LocationFullName;
+        return $"Location: {locationTxt}";
+    }
+    
+    public String GetDetailsRadixSun()
+    {
+        var positions = _dataVaultCharts.GetCurrentChart().Positions;
+        var longitudeSun = positions[ChartPoints.Sun].Ecliptical.MainPosSpeed.Position;
+        return $"Longitude Sun: {longitudeSun}";
+    }
+    
+    
+    public String GetDetailsSolarDate()
+    {
+        var jdSolar = _dataVaultProg.GetCurrentSolar().InputtedChartData.FullDateTime.JulianDayForEt;
+        var solarDateText = $"Julian Day: {jdSolar}";
+        return solarDateText;
+    }
 
+    public String GetDetailsSolarLocation()
+    {
+        var solarLocation = _dataVaultProg.GetCurrentSolar().InputtedChartData.Location;
+        var geoLong = solarLocation.GeoLong;
+        var geoLat = solarLocation.GeoLat;
+        var geoLongDir = geoLong < 0 ? "W" : "E";
+        var geoLatDir = geoLat < 0 ? "S" : "N";
+        var geoLongText = doubleToDmsConversions.ConvertDoubleToPositionsDmsText(geoLong);
+        var geoLatText = doubleToDmsConversions.ConvertDoubleToPositionsDmsText(geoLat);
+        return $"Location: {geoLatText} {geoLatDir} / {geoLongText} {geoLongDir}";
+    }
+
+    public String GetDetailsSolarSun()
+    {
+        var solarChart = DataVaultProg.Instance.GetCurrentSolar();
+        var longitudeSolarSun = solarChart?.Positions[ChartPoints.Sun].Ecliptical.MainPosSpeed.Position;
+        return $"Longitude Sun: {longitudeSolarSun}";
+    }
+
+    
+    
     /// <summary>
     /// Get the solar age used for calculation
     /// </summary>
@@ -83,7 +137,7 @@ public sealed class SolarResultsModel(
     /// <returns>List of presentable solar positions</returns>
     public List<PresentableProgPosition> GetSolarPositions()
     {
-        _solarChart = DataVaultProg.Instance.GetCurrentSolar();
+        _solarChart = DataVaultProg.Instance.GetCurrentSolar().Positions;
         if (_solarChart == null)
         {
             Log.Warning("SolarResultsModel.GetSolarPositions: No solar chart calculated");
