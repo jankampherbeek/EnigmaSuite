@@ -30,7 +30,8 @@ public class SolarOrchestrator(
     public double CalculateJdForSolar(SolarRequest request)
     {
         var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.SiderealReturn, request);
-        var targetJd = request.JdRadix + (request.Age + 1) * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
+        // add 0.1 to prevent searching in previous year
+        var targetJd = request.JdRadix + 0.1 + request.Age * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
         var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
         var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
         var newJd = jdForPositionFinder.FindJulianDay(radixSunPosition, targetJd, flags);
