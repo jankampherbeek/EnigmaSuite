@@ -28,23 +28,23 @@ public interface IJdForPositionFinder
 public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositionFinder
 {
     private const double SUN_SE_ID = 0; // Sun's SE ID
-    private const double MAX_DIFFERENCE = 3E-6; // Maximum difference in degrees (fraction of a second)
+    private const double MAX_DIFFERENCE = 1E-10; // Maximum difference in degrees (much more precise)
     private const double SEARCH_PERIOD = 1.0; // Search period in days (±0.5 days)
     private const int PORTIONS = 10; // Number of portions to divide the search period
 
     /// <summary>
     /// Perform a recursive search to find the JD when the Sun reaches a given position. The max difference should be
-    /// 3E-6 which results in a fraction of a second.
+    /// 1E-10 which results in very high precision.
     /// </summary>
     /// <remarks>
     /// Prompt: find the Julian day when the Sun reaches exactly the positions as defined in the parameters. The position
     /// of the Sum can be calculated with CelPointSECalc.CalculateCelPoint. I would suggest to check a period from
     /// 0.5 day before the startJd until 0.5 day later in about 10 portions, find the correct startJd and endJd for the
     /// portionthat contains the longitude and repeart the process until the difference is negligeable: the difference
-    /// should be less than 3E-6 degrees.
+    /// should be less than 1E-10 degrees.
     /// </remarks>
     /// <param name="position">The position in longitude</param>
-    /// <param name="startJd">Estmated startposition of the Julain Day</param>
+    /// <param name="startJd">Estimated start position of the Julian Day</param>
     /// <param name="flags">Calculation flags</param>
     /// <returns>The Julian Day when the Sun reaches the specified position</returns>
     public double FindJulianDay(double position, double startJd, int flags)
@@ -86,7 +86,7 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
             }
             
             // If the portion is very small, we're close enough
-            if (portionEndJd - portionStartJd < 1E-10) 
+            if (portionEndJd - portionStartJd < 1E-12) 
             {
                 return midJd;
             }
