@@ -121,6 +121,15 @@ public class RadixDataInputModel: DateTimeLocationModelBase
     {
         return _locationApi.GetAllCitiesForCountry(countryCode);
     }
+    // TODO replace CitiesForCountry using the following logic:
+    // Create an empty list<string> cityTexts
+    // retrieve all cities from _locationapi.
+    // for each city: retrieve the regionname using the countrycode and abbreviation in city
+    //     Combine the city name with the regionname
+    //     Convert the coordinates to sexagesimal values and indication of directions
+    //     Add the coordinates to the city name/regionname
+    //     Add the city name/regionname to the list of cityTexts
+    // return the list of cityTexts
     
     
     public bool IsTimeZoneValid(string timeZone)

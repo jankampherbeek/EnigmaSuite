@@ -37,6 +37,7 @@ public partial class RadixDataInputViewModel : ObservableObject
     private bool _dst;
     private bool _isManualCoordinateEdit;
     private bool _isManualTimeZoneEdit;
+    private bool _isUpdatingCoordinatesProgrammatically;
     
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
@@ -100,8 +101,11 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     partial void OnGeoLongChanged(string value)
     {
-        // Mark as manual edit when user changes coordinates
-        _isManualCoordinateEdit = true;
+        // Mark as manual edit when user changes coordinates (but not during programmatic updates)
+        if (!_isUpdatingCoordinatesProgrammatically)
+        {
+            _isManualCoordinateEdit = true;
+        }
     }
 
     [NotifyPropertyChangedFor(nameof(GeoLatValid))]
@@ -111,8 +115,11 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     partial void OnGeoLatChanged(string value)
     {
-        // Mark as manual edit when user changes coordinates
-        _isManualCoordinateEdit = true;
+        // Mark as manual edit when user changes coordinates (but not during programmatic updates)
+        if (!_isUpdatingCoordinatesProgrammatically)
+        {
+            _isManualCoordinateEdit = true;
+        }
     }
 
     [NotifyPropertyChangedFor(nameof(TimeZoneValid))]
@@ -202,6 +209,9 @@ public partial class RadixDataInputViewModel : ObservableObject
     {
         if (SelectedCity == null) return;
         
+        // Set flag to prevent property change handlers from marking as manual edit
+        _isUpdatingCoordinatesProgrammatically = true;
+        
         // Reset manual edit flag when updating from city selection
         _isManualCoordinateEdit = false;
         
@@ -209,6 +219,9 @@ public partial class RadixDataInputViewModel : ObservableObject
         GeoLat = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLat);
         DirLongIndex = SelectedCity.GeoLong.StartsWith('-') ? 1 : 0;
         DirLatIndex = SelectedCity.GeoLat.StartsWith('-') ? 1 : 0;
+        
+        // Reset the programmatic update flag
+        _isUpdatingCoordinatesProgrammatically = false;
     }
 
     private void UpdateTimeZone()
