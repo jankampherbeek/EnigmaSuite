@@ -14,6 +14,7 @@ using Enigma.Core.LocationAndTimeZones.Services;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Core.Research.Services;
+using Enigma.Core.Slices.Solar;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -83,6 +84,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
         serviceCollection.AddTransient<IInclinationCalc, InclinationCalc>();
         serviceCollection.AddTransient<IChartsEventsDao, ChartsEventsDao>();
+        serviceCollection.AddTransient<JdForPosition>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
         serviceCollection.AddTransient<ILocationCheckedConversion, LocationCheckedConversion>();
@@ -119,6 +121,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ISettingsDao, SettingsDao>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
         serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
+        serviceCollection.AddTransient<SunCalculator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();

@@ -4,8 +4,12 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
+using Enigma.Domain.References;
+using Enigma.Facades.Se;
 
 namespace Enigma.Core.Slices.Solar;
+
+// TODO remove: obsolete
 
 /// <summary>
 /// Interface for finding the Julian Day when the Sun reaches a predefined point
@@ -18,8 +22,10 @@ public interface IJdForPositionFinder
     /// <param name="position">The position in longitude</param>
     /// <param name="startJd">Estimated start position of the Julian Day</param>
     /// <param name="flags">Calculation flags</param>
+    /// <param name="request">The original request</param>
+    /// <param name="siderealReturn">True if sidereal return is used, otherwise false</param>
     /// <returns>The Julian Day when the Sun reaches the specified position</returns>
-    double FindJulianDay(double position, double startJd, int flags);
+    double FindJulianDay(double position, double startJd, int flags, SolarRequest request, bool siderealReturn);
 }
 
 /// <summary>
@@ -40,20 +46,39 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
     /// Prompt: find the Julian day when the Sun reaches exactly the positions as defined in the parameters. The position
     /// of the Sum can be calculated with CelPointSECalc.CalculateCelPoint. I would suggest to check a period from
     /// 0.5 day before the startJd until 0.5 day later in about 10 portions, find the correct startJd and endJd for the
-    /// portionthat contains the longitude and repeart the process until the difference is negligeable: the difference
+    /// portion that contains the longitude and repeart the process until the difference is negligeable: the difference
     /// should be less than 1E-10 degrees.
     /// </remarks>
     /// <param name="position">The position in longitude</param>
     /// <param name="startJd">Estimated start position of the Julian Day</param>
     /// <param name="flags">Calculation flags</param>
     /// <returns>The Julian Day when the Sun reaches the specified position</returns>
-    public double FindJulianDay(double position, double startJd, int flags)
+    public double FindJulianDay(double position, double startJd, int flags, SolarRequest request, bool siderealReturn)
     {
-        var startSearchJd = startJd - 0.5; // Start 0.5 days before
-        var endSearchJd = startJd + 0.5;   // End 0.5 days after
+        var startSearchJd = startJd - 2.0; // Start 2 days before (should also cover sidereal returns)
+        var endSearchJd = startJd + 2.0;   // End 2 days after
         var stepSize = SEARCH_PERIOD / PORTIONS;
         position = NormalizeLongitude(position);
         
+        // Prepare for sidereal and/or topocentric
+        // Handle sidereal
+        var zodiacType = ZodiacTypes.Tropical;
+        if (siderealReturn)
+        {
+            SeInitializer.SetAyanamsha(Ayanamshas.Fagan.GetDetails().SeId);
+            zodiacType = ZodiacTypes.Sidereal;
+        }
+        // Handle topocentric
+        if (request.CalculationPreferences.ActualObserverPosition == ObserverPositions.TopoCentric)
+        {
+            var location = request.RelocateLocation ?? request.RadixLocation;
+            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);
+        }
+
+
+
+
+
         // Check if we're already at the target position at the start JD
         var startPosition = GetSunLongitude(startJd, flags);
         var startDifference = Math.Abs(NormalizeLongitude(startPosition - position));
@@ -85,8 +110,14 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
                 return midJd;
             }
             
-            // If the portion is very small, we're close enough
-            if (portionEndJd - portionStartJd < 1E-12) 
+            // If the portion is very small or the start and end are the same, we're close enough
+            if (portionEndJd - portionStartJd < 1E-12 || Math.Abs(portionEndJd - portionStartJd) < 1E-15) 
+            {
+                return midJd;
+            }
+            
+            // Check if the search interval has become too small to make meaningful progress
+            if (Math.Abs(endSearchJd - startSearchJd) < 1E-15)
             {
                 return midJd;
             }
@@ -151,8 +182,15 @@ public class JdForPositionFinder(ICelPointSeCalc celPointSeCalc) : IJdForPositio
     /// </summary>
     private double GetSunLongitude(double jd, int flags)
     {
-        var positions = celPointSeCalc.CalculateCelPoint((int)SUN_SE_ID, jd, flags);
-        return positions[0].Position; // Main position (longitude)
+    //    var positions = celPointSeCalc.CalculateCelPoint((int)SUN_SE_ID, jd, flags);
+    //    return positions[0].Position; // Main position (longitude)
+        
+        
+        var seId = ChartPoints.Sun.GetDetails().CalcId;
+        var pos = celPointSeCalc.CalculatePosForSingleCoord(seId, jd, flags, true);
+        return pos;
+        
+        
     }
     
     /// <summary>
