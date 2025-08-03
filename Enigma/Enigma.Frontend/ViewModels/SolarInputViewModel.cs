@@ -33,8 +33,8 @@ public partial class SolarInputViewModel : ObservableObject
     [ObservableProperty] private string _geoLat = string.Empty;
     [ObservableProperty] private int _dirLongIndex;
     [ObservableProperty] private int _dirLatIndex;
-    [ObservableProperty] private bool _isGeoReadOnly = true;
-    [ObservableProperty] private bool _isGeoEnabled;
+   // [ObservableProperty] private bool _isGeoReadOnly = true;
+//    [ObservableProperty] private bool _isGeoEnabled;
     [ObservableProperty] private string _geoLongValid = "Gray";
     [ObservableProperty] private string _geoLatValid = "Gray";
 
@@ -64,8 +64,8 @@ public partial class SolarInputViewModel : ObservableObject
         }
 
         // Geographic coordinates are always enabled for relocation
-        IsGeoReadOnly = false;
-        IsGeoEnabled = true;
+        // IsGeoReadOnly = false;
+        // IsGeoEnabled = true;
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -122,10 +122,10 @@ public partial class SolarInputViewModel : ObservableObject
 
         // Parse geographic coordinates if relocation is enabled
         double longitude = 0, latitude = 0;
-        var relocate = !IsGeoReadOnly;
+     //   var relocate = !IsGeoReadOnly;
         
-        if (relocate)
-        {
+     //   if (relocate)
+       // {
             if (!ParseCoordinate(GeoLong, out longitude) || !ParseCoordinate(GeoLat, out latitude))
             {
                 MessageBox.Show("Please enter valid geographic coordinates.", "Validation Error", 
@@ -134,7 +134,7 @@ public partial class SolarInputViewModel : ObservableObject
             }
             if (DirLongIndex == 1) longitude = -longitude; // West
             if (DirLatIndex == 1) latitude = -latitude;   // South
-        }
+      //  }
         _model.CalculateSolarReturn(ageValue, SiderealReturn, longitude, latitude);
         
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,ChartsWindowsFlow.SOLAR_RESULTS));
