@@ -152,10 +152,10 @@ public class ChartsWindowsFlow:
                 _solarInputWindow = new SolarInputWindow();
                 _solarInputWindow.ShowDialog();
                 break;
-            case SOLAR_RESULTS:
-                _solarResultsWindow = new SolarResultsWindow();
-                _solarResultsWindow.ShowDialog();
-                break;
+            // case SOLAR_RESULTS:
+            //     _solarResultsWindow = new SolarResultsWindow();
+            //     _solarResultsWindow.ShowDialog();
+            //     break;
             default:
                 HandleNonDialogView(message.ViewToOpen, message.ParentView);
                 break;

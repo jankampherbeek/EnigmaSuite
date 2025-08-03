@@ -121,7 +121,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ISettingsDao, SettingsDao>();
         serviceCollection.AddTransient<ISolarArcCalculator, SolarArcCalculator>();
         serviceCollection.AddTransient<ISouthPointCalculator, SouthPointCalculator>();
-        serviceCollection.AddTransient<SunCalculator>();
+        serviceCollection.AddTransient<ISunCalculator, SunCalculator>();
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
