@@ -11,7 +11,7 @@ using Serilog;
 
 namespace Enigma.Core.Slices.Solar;
 
-public class JdForPosition(SunCalculator sunCalculator, ISeFlags seFlags) 
+public class JdForPosition(ISunCalculator sunCalculator, ISeFlags seFlags) 
 {
 
     public double FindJdForPosition(double estimatedJd, double targetPosition, SolarRequest request)
