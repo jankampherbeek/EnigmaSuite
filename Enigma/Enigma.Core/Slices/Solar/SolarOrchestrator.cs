@@ -34,41 +34,45 @@ public class SolarOrchestrator(
         var radixSunPosition = GetSunPositionAtRadixTime(request.JdRadix, request.SiderealReturn, request);
         // add 0.1 to prevent searching in previous year
         var estimatedJd = request.JdRadix + 0.1 + request.Age * EnigmaConstants.TROPICAL_YEAR_IN_DAYS;
-        var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
-        var newJd = jdForPosition.JdForTropicalTopocentricPosition(estimatedJd, radixSunPosition);
+        
+        var newJd = jdForPosition.FindJdForPosition(estimatedJd, radixSunPosition, request);
         return newJd;
     }
 
     private double GetSunPositionAtRadixTime(double radixJd, bool siderealReturn, SolarRequest request)
     {
-        // Handle sidereal
-        var zodiacType = ZodiacTypes.Tropical;
-        if (siderealReturn)
+        // Six possibilites
+        // Tropical, geocentric, tropical return
+        // Tropical, topocentric, tropical return
+        // Tropical, geocentric, sidereal return
+        // Tropical, topocentric, sidereal return
+        // Sidereal, geocentric, sidereal return
+        // Sidereal, topocentric, sidereal return
+        // (Sidereal should never have a tropical return)
+        
+        var zodiacType = request.CalculationPreferences.ActualZodiacType;      
+        if (zodiacType == ZodiacTypes.Sidereal || siderealReturn)
         {
             SeInitializer.SetAyanamsha(Ayanamshas.Fagan.GetDetails().SeId);
             zodiacType = ZodiacTypes.Sidereal;
         }
-        // Handle topocentric
-        if (request.CalculationPreferences.ActualObserverPosition == ObserverPositions.TopoCentric)
-        {
+        SeInitializer.SetTopocentric(0.0, 0.0, 0.0); // (Re)set to geocentric
+        var observerPos = request.CalculationPreferences.ActualObserverPosition;
+        if (observerPos == ObserverPositions.TopoCentric)
+        {        
             var location = request.RelocateLocation ?? request.RadixLocation;
             SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);
         }
         
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, request.CalculationPreferences.ActualObserverPosition, zodiacType);
-      //  var locationToUse = DetermineLocationToUse(request.RadixLocation, request.RelocateLocation);
-        var pos = CreateLongitudeForSun(radixJd, request.RadixLocation, flags);
+        var radixFlags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, observerPos, zodiacType);
+
+        var pos = CreateLongitudeForSun(radixJd, radixFlags);
         return pos;
     }
 
 
-    private static Location DetermineLocationToUse(Location radixLocation, Location? relocateLocation)
-    {
-        return relocateLocation ?? radixLocation;
-    }
     
-    private double CreateLongitudeForSun(double julDay, Location location, int flags)
+    private double CreateLongitudeForSun(double julDay, int flags)
     {
         var seId = ChartPoints.Sun.GetDetails().CalcId;
         var pos = positionCelPointSeCalc.CalculatePosForSingleCoord(seId, julDay, flags, true);

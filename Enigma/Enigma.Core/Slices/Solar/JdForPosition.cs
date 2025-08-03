@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Core.Calc;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Facades.Se;
 using Serilog;
@@ -13,18 +14,22 @@ namespace Enigma.Core.Slices.Solar;
 public class JdForPosition(SunCalculator sunCalculator, ISeFlags seFlags) 
 {
 
-    public double JdForTropicalTopocentricPosition(double estimatedJd, double targetPosition)
+    public double FindJdForPosition(double estimatedJd, double targetPosition, SolarRequest request)
     {
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, 
-            ObserverPositions.GeoCentric, ZodiacTypes.Tropical);
-        return DefineJd(estimatedJd, targetPosition, flags);
-    }
-    
-    public double JdForSiderealTopocentricPosition(double estimatedJd, double targetPosition)
-    {
-        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, 
-            ObserverPositions.GeoCentric, ZodiacTypes.Sidereal);
-        SeInitializer.SetAyanamsha(Ayanamshas.Fagan.GetDetails().SeId);
+        SeInitializer.SetTopocentric(0.0, 0.0, 0.0);
+        var zodiacType = request.CalculationPreferences.ActualZodiacType;
+        if (zodiacType == ZodiacTypes.Sidereal)
+        {
+            SeInitializer.SetAyanamsha(Ayanamshas.Fagan.GetDetails().SeId);
+        }
+        var observerPos = request.CalculationPreferences.ActualObserverPosition;
+        if (observerPos == ObserverPositions.TopoCentric)
+        {
+            var location = request.RelocateLocation ?? request.RadixLocation;
+            SeInitializer.SetTopocentric(location.GeoLong, location.GeoLat, 0.0);
+        }
+        
+        var flags = seFlags.DefineFlags(CoordinateSystems.Ecliptical, observerPos, zodiacType);
         return DefineJd(estimatedJd, targetPosition, flags);
     }
     
