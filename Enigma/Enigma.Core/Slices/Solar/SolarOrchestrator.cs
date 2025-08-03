@@ -4,12 +4,9 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Constants;
-using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Core.Calc;
-using Enigma.Domain.Requests;
 using Enigma.Facades.Se;
-using Serilog;
 
 namespace Enigma.Core.Slices.Solar;
 
@@ -19,10 +16,7 @@ namespace Enigma.Core.Slices.Solar;
 public class SolarOrchestrator(
     JdForPosition jdForPosition,
     ICelPointSeCalc positionCelPointSeCalc,
-    ISeFlags seFlags,
-    IChartAllPositionsHandler chartAllPositionsHandler,
-    ICelPointsHandler celPointsHandler,
-    ICelPointSeCalc celPointSeCalc)
+    ISeFlags seFlags)
 {
     /// <summary>
     /// Calculate the jd for a solar return chart
@@ -41,15 +35,6 @@ public class SolarOrchestrator(
 
     private double GetSunPositionAtRadixTime(double radixJd, bool siderealReturn, SolarRequest request)
     {
-        // Six possibilites
-        // Tropical, geocentric, tropical return
-        // Tropical, topocentric, tropical return
-        // Tropical, geocentric, sidereal return
-        // Tropical, topocentric, sidereal return
-        // Sidereal, geocentric, sidereal return
-        // Sidereal, topocentric, sidereal return
-        // (Sidereal should never have a tropical return)
-        
         var zodiacType = request.CalculationPreferences.ActualZodiacType;      
         if (zodiacType == ZodiacTypes.Sidereal || siderealReturn)
         {
@@ -69,8 +54,7 @@ public class SolarOrchestrator(
         var pos = CreateLongitudeForSun(radixJd, radixFlags);
         return pos;
     }
-
-
+    
     
     private double CreateLongitudeForSun(double julDay, int flags)
     {

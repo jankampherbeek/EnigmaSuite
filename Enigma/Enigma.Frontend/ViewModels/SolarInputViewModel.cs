@@ -33,8 +33,6 @@ public partial class SolarInputViewModel : ObservableObject
     [ObservableProperty] private string _geoLat = string.Empty;
     [ObservableProperty] private int _dirLongIndex;
     [ObservableProperty] private int _dirLatIndex;
-   // [ObservableProperty] private bool _isGeoReadOnly = true;
-//    [ObservableProperty] private bool _isGeoEnabled;
     [ObservableProperty] private string _geoLongValid = "Gray";
     [ObservableProperty] private string _geoLatValid = "Gray";
 
@@ -53,7 +51,6 @@ public partial class SolarInputViewModel : ObservableObject
         var currentChart = _dataVaultCharts.GetCurrentChart();
         if (currentChart == null) return;
         ChartName = currentChart.InputtedChartData.MetaData.Name;
-        // Initialize with current chart's coordinates
         var location = currentChart.InputtedChartData.Location;
         if (location != null)
         {
@@ -62,10 +59,6 @@ public partial class SolarInputViewModel : ObservableObject
             DirLongIndex = location.GeoLong >= 0 ? 0 : 1; // East : West
             DirLatIndex = location.GeoLat >= 0 ? 0 : 1; // North : South
         }
-
-        // Geographic coordinates are always enabled for relocation
-        // IsGeoReadOnly = false;
-        // IsGeoEnabled = true;
     }
 
     private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -83,13 +76,11 @@ public partial class SolarInputViewModel : ObservableObject
 
     private void ValidateGeoLong()
     {
-        // Basic validation - can be enhanced
         GeoLongValid = string.IsNullOrEmpty(GeoLong) ? "Red" : "Gray";
     }
 
     private void ValidateGeoLat()
     {
-        // Basic validation - can be enhanced
         GeoLatValid = string.IsNullOrEmpty(GeoLat) ? "Red" : "Gray";
     }
 
@@ -120,21 +111,15 @@ public partial class SolarInputViewModel : ObservableObject
              return;
         }
 
-        // Parse geographic coordinates if relocation is enabled
         double longitude = 0, latitude = 0;
-     //   var relocate = !IsGeoReadOnly;
-        
-     //   if (relocate)
-       // {
-            if (!ParseCoordinate(GeoLong, out longitude) || !ParseCoordinate(GeoLat, out latitude))
-            {
-                MessageBox.Show("Please enter valid geographic coordinates.", "Validation Error", 
-                    MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            if (DirLongIndex == 1) longitude = -longitude; // West
-            if (DirLatIndex == 1) latitude = -latitude;   // South
-      //  }
+        if (!ParseCoordinate(GeoLong, out longitude) || !ParseCoordinate(GeoLat, out latitude))
+        {
+            MessageBox.Show("Please enter valid geographic coordinates.", "Validation Error", 
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+        if (DirLongIndex == 1) longitude = -longitude; // West
+        if (DirLatIndex == 1) latitude = -latitude;   // South
         _model.CalculateSolarReturn(ageValue, SiderealReturn, longitude, latitude);
         
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION,ChartsWindowsFlow.SOLAR_RESULTS));

@@ -70,7 +70,7 @@ public static class ApiServices
         serviceCollection.AddTransient<EnneagramService>();
 
         // Register SolarOrchestrator and its dependencies
-        serviceCollection.AddTransient<IJdForPositionFinder, JdForPositionFinder>();
+        serviceCollection.AddTransient<JdForPosition>();
         serviceCollection.AddTransient<ISeFlags, SeFlags>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<ICelPointSeCalc, CelPointSeCalc>();

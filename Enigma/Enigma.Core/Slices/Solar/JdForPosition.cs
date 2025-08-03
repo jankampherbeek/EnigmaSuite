@@ -37,23 +37,13 @@ public class JdForPosition(SunCalculator sunCalculator, ISeFlags seFlags)
     
     private double DefineJd(double estimatedJd, double targetPosition, int flags)
     {
-        Log.Information($"TargetPosition: {targetPosition}");
-        
-        // Get the Sun's position at the estimated JD
         var startPosition = sunCalculator.CalcPositionSun(estimatedJd, flags);
-        Log.Information($"Start position at estimated JD: {startPosition}");
-        
-        // Calculate the angular difference and determine search direction
         var angularDiff = targetPosition - startPosition;
         
         // Handle the 0°/360° boundary - find the shortest path
         if (angularDiff > 180) angularDiff -= 360;
         if (angularDiff < -180) angularDiff += 360;
-        
-        // Convert angular difference to time (Sun moves ~1° per day)
-        // Use a more precise factor of 1.0 days per degree for better accuracy
-        var timeDiff = Math.Abs(angularDiff) * 1.0;
-        
+        var timeDiff = Math.Abs(angularDiff);
         double jdLow, jdHigh;
         if (angularDiff < 0)
         {
@@ -67,13 +57,6 @@ public class JdForPosition(SunCalculator sunCalculator, ISeFlags seFlags)
             jdLow = estimatedJd;
             jdHigh = estimatedJd + timeDiff;
         }
-        
-        // Verify our search bounds
-        var lowPosition = sunCalculator.CalcPositionSun(jdLow, flags);
-        var highPosition = sunCalculator.CalcPositionSun(jdHigh, flags);
-        
-        Log.Information($"Angular diff: {angularDiff}°, Time diff: {timeDiff} days");
-        Log.Information($"Search bounds: jdLow={jdLow} (pos={lowPosition}), jdHigh={jdHigh} (pos={highPosition})");
         
         const double maxDelta = 1E-8; // Target precision: ~0.01 arc-seconds (1E-8 degrees)
         const double minInterval = 1E-12; // Minimum interval size to prevent endless loops
@@ -100,15 +83,9 @@ public class JdForPosition(SunCalculator sunCalculator, ISeFlags seFlags)
             }
             
             var trialPosition = sunCalculator.CalcPositionSun(tempJd, flags);
-            Log.Information($">>>>>>> trialPosition : {trialPosition}, jdLow: {jdLow}, jdHigh: {jdHigh}");
-            
-            // Calculate the shortest angular distance
             var diff = targetPosition - trialPosition;
-            
-            // Handle the 0°/360° boundary
             if (diff > 180) diff -= 360;
             if (diff < -180) diff += 360;
-            
             delta = Math.Abs(diff);
             if (diff < 0.0) 
             {
