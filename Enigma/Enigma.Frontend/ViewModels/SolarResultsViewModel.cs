@@ -116,7 +116,6 @@ public partial class SolarResultsViewModel : ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        Log.Information("SolarResultsViewModel.Help(): send HelpMessage");
         WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 } 

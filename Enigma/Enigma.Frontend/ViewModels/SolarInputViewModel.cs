@@ -93,9 +93,7 @@ public partial class SolarInputViewModel : ObservableObject
     [RelayCommand]
     private static void Help()
     {
-        // TODO: Implement help functionality
-        MessageBox.Show("Help for Solar Return calculation will be implemented here.", "Help", 
-            MessageBoxButton.OK, MessageBoxImage.Information);
+        WeakReferenceMessenger.Default.Send(new HelpMessage(VM_IDENTIFICATION));
     }
 
     [RelayCommand]
