@@ -99,24 +99,24 @@
                   IsTextSearchEnabled="True"
                   StaysOpenOnEdit="True"/>
         <TextBox Grid.Row="9" Grid.Column="0" Margin="6 0" VerticalAlignment="Center"   
-                 IsReadOnly="True"
+                 IsReadOnly="False"
                  materialDesign:HintAssist.Hint="Longitude ddd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                  BorderBrush="{Binding GeoLongValid}"
                  Text="{Binding GeoLong, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="9" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+        <ComboBox Grid.Row="9" Grid.Column="1" IsEditable="True" IsReadOnly="False"
                   materialDesign:HintAssist.Hint="East/West"
                   VerticalAlignment="Center" Margin="6 0"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
                   ItemsSource="{Binding AllDirectionsForLongitude}"
                   SelectedIndex="{Binding DirLongIndex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Row="10" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
-                 IsReadOnly="True" 
+                 IsReadOnly="False" 
                  materialDesign:HintAssist.Hint="Latitude dd:mm:ss"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding GeoLatValid}"
                  Text="{Binding GeoLat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-        <ComboBox Grid.Row="10" Grid.Column="1" IsEditable="True" IsReadOnly="True"
+        <ComboBox Grid.Row="10" Grid.Column="1" IsEditable="True" IsReadOnly="False"
                   materialDesign:HintAssist.Hint="North/South"
                   VerticalAlignment="Center" Margin="6 0"
                   Style="{StaticResource MaterialDesignFloatingHintComboBox }" 
@@ -127,7 +127,7 @@
                    Text="TimeZone" Name="SubHeaderTimeZone"  
                    Style="{StaticResource MaterialDesignHeadline6TextBlock}" FontWeight="Bold"/>
         <TextBox Grid.Row="12" Grid.Column="0" Margin="6 0" VerticalAlignment="Center" 
-                 IsReadOnly="True"
+                 IsReadOnly="False"
                  materialDesign:HintAssist.Hint="TimeZone (hh:mm:ss)"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  BorderBrush="{Binding TimeZoneValid}"

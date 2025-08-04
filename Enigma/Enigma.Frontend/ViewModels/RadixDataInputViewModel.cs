@@ -60,11 +60,11 @@ public partial class RadixDataInputViewModel : ObservableObject
             UpdateTimeZone();
         }
     }
-
-    [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
-    [NotifyPropertyChangedFor(nameof(TimeValid))]
-    [NotifyPropertyChangedFor(nameof(TimeZone))]
-    [NotifyPropertyChangedFor(nameof(ApplyDst))]
+    //
+    // [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
+    // [NotifyPropertyChangedFor(nameof(TimeValid))]
+    // [NotifyPropertyChangedFor(nameof(TimeZone))]
+    // [NotifyPropertyChangedFor(nameof(ApplyDst))]
     [ObservableProperty] private string _time = "";
 
     partial void OnTimeChanged(string value)

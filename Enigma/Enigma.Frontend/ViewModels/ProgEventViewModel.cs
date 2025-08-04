@@ -15,6 +15,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api.LocationAndTimeZones;
 using Enigma.Core.LocationAndTimeZones;
 using Enigma.Domain.Constants;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.LocationsZones;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
@@ -31,6 +32,12 @@ public partial class ProgEventViewModel: ObservableObject
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.PROG_EVENT;
     private Country _selectedCountry;
     private City _selectedCity;
+    private double _offset;
+    private bool _dst;
+    [ObservableProperty] private int _dirLatIndex;
+    [ObservableProperty] private int _dirLongIndex;
+    [ObservableProperty] private int _calendarIndex;
+    [ObservableProperty] private int _yearCountIndex;
     [ObservableProperty] private string _description = string.Empty;
     [ObservableProperty] private string _locationName = "No location";
     [NotifyPropertyChangedFor(nameof(GeoLatValid))]
@@ -38,57 +45,49 @@ public partial class ProgEventViewModel: ObservableObject
     [ObservableProperty] private string _geoLat = "00:00:00";
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
     [ObservableProperty] private string _geoLong = "000:00:00";
-    // [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
-    // [NotifyPropertyChangedFor(nameof(LmtGeoLongValid))]
-    // [ObservableProperty] private string _lmtGeoLong = "";
     [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(DateValid))]
     [ObservableProperty] private string _date = "";
     [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
     [NotifyPropertyChangedFor(nameof(TimeValid))]
     [ObservableProperty] private string _time = "12:00:00";
+    [NotifyPropertyChangedFor(nameof(TimeZoneValid))]
+    [ObservableProperty] private string _timeZone = "00:00:00";
+    [NotifyPropertyChangedFor(nameof(TimeZone))]
     [ObservableProperty] private bool _applyDst;
-    [ObservableProperty] private int _dirLatIndex;
-    [ObservableProperty] private int _dirLongIndex;
-    [ObservableProperty] private int _calendarIndex;
-    [ObservableProperty] private int _yearCountIndex;
-  //  [NotifyPropertyChangedFor(nameof(TimeZoneValid))]
-  //  [NotifyCanExecuteChangedFor(nameof(FinalizeEvent))]
-    // [ObservableProperty] private int _lmtDirLongIndex;
-    // [NotifyCanExecuteChangedFor(nameof(FinalizeEventCommand))]
-    // [NotifyPropertyChangedFor(nameof(LmtEnabled))]
-   // [ObservableProperty] private int _timeZoneIndex;
+    [NotifyPropertyChangedFor(nameof(ApplyDst))]
     [ObservableProperty] private ObservableCollection<string> _allDirectionsForLatitude;
     [ObservableProperty] private ObservableCollection<string> _allDirectionsForLongitude;
     [ObservableProperty] private ObservableCollection<string> _allLmtDirectionsForLongitude;
     [ObservableProperty] private ObservableCollection<string> _allCalendars;
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
-  //  [ObservableProperty] private ObservableCollection<string> _allTimeZones;
     [ObservableProperty] private ObservableCollection<Country> _allCountries;
     [ObservableProperty] private ObservableCollection<City> _citiesForCountry;
-    [ObservableProperty] private string _timeZone = "";
+    ZoneInfo _zoneInfo;
+    private bool _isManualCoordinateEdit;
+    private bool _isManualTimeZoneEdit;
+    private bool _isUpdatingCoordinatesProgrammatically;
 
     partial void OnDateChanged(string value)
     {
-        UpdateTimeZone();
+        UpdateDateTime();
     }
     partial void OnTimeChanged(string value)
     {
-        UpdateTimeZone();
+        UpdateDateTime();
     }
 
-    
-  //  private readonly int _enumIndexForLmt;
-  //  [ObservableProperty]
+    partial void OnTimeZoneChanged(string value)
+    {
+        UpdateDateTime();
+    }
+
     private readonly ProgEventModel _model = App.ServiceProvider.GetRequiredService<ProgEventModel>();
     private readonly ITimeZoneApi _timeZoneApi = App.ServiceProvider.GetRequiredService<ITimeZoneApi>();
     private bool _saveClicked;
     private IDataInputConverter _dataInputConverter;
-    
-  //  public bool LmtEnabled => TimeZoneIndex == _enumIndexForLmt;
     public SolidColorBrush GeoLatValid => IsGeoLatValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush GeoLongValid => IsGeoLongValid() ? Brushes.Gray : Brushes.Red;
- //   public SolidColorBrush LmtGeoLongValid => IsLmtGeoLongValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush DateValid => IsDateValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeValid => IsTimeValid() ? Brushes.Gray : Brushes.Red;
     public SolidColorBrush TimeZoneValid => IsTimeZoneValid() ? Brushes.Gray : Brushes.Red;
@@ -101,9 +100,6 @@ public partial class ProgEventViewModel: ObservableObject
         CitiesForCountry = new ObservableCollection<City>();
         AllCalendars = new ObservableCollection<string>(_model.AllCalendars);
         AllYearCounts = new ObservableCollection<string>(_model.AllYearCounts);
-    //    AllLmtDirectionsForLongitude  = new ObservableCollection<string>(_model.AllDirectionsForLongitude);
-    //    AllTimeZones = new ObservableCollection<string>(_model.AllTimeZones);
-    //    _enumIndexForLmt = (int)TimeZones.Lmt;  
         _dataInputConverter = new DataInputConverter();
     }
     
@@ -147,6 +143,7 @@ public partial class ProgEventViewModel: ObservableObject
             _selectedCity = value;
             OnPropertyChanged();
             UpdateCoordinates();
+            UpdateDateTime();
         }
     }
     
@@ -167,13 +164,13 @@ public partial class ProgEventViewModel: ObservableObject
         GeoLat = _dataInputConverter.ValueTxtToFormattedCoordinate(SelectedCity.GeoLat);
         DirLongIndex = SelectedCity.GeoLong.StartsWith('-') ? 1 : 0;
         DirLatIndex = SelectedCity.GeoLat.StartsWith('-') ? 1 : 0;
-        UpdateTimeZone();
     }
 
-    private void UpdateTimeZone()
+    
+    private void UpdateDateTime()
     {
         if (SelectedCity == null || string.IsNullOrEmpty(Date) || string.IsNullOrEmpty(Time)) return;
-
+        
         try
         {
             var dateParts = Date.Split('/');
@@ -186,10 +183,9 @@ public partial class ProgEventViewModel: ObservableObject
                 int.Parse(timeParts[1]), // Minute
                 timeParts.Length > 2 ? int.Parse(timeParts[2]) : 0 // Second (optional)
             );
-            var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
-            // Use only the base timezone offset without DST
-            TimeZone = FormatTimeZone(zoneInfo.Offset - (zoneInfo.Dst ? 1.0 : 0.0));
-            ApplyDst = zoneInfo.Dst;
+            _zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
+            TimeZone = FormatTimeZone(_zoneInfo.Offset - (_zoneInfo.Dst ? 1.0 : 0.0));
+            ApplyDst = _zoneInfo.Dst;
         }
         catch (Exception ex)
         {
@@ -199,6 +195,32 @@ public partial class ProgEventViewModel: ObservableObject
         }
     }
 
+    private double GetEffectiveTimeZoneOffset()
+    {
+        // If timezone was manually edited, parse it to get the offset
+        if (_isManualTimeZoneEdit && !string.IsNullOrEmpty(TimeZone))
+        {
+            try
+            {
+                var parts = TimeZone.Split(':');
+                if (parts.Length >= 2)
+                {
+                    var hours = int.Parse(parts[0]);
+                    var minutes = int.Parse(parts[1]);
+                    var seconds = parts.Length > 2 ? int.Parse(parts[2]) : 0;
+                    return hours + (minutes / 60.0) + (seconds / 3600.0);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, "Error parsing manual timezone");
+            }
+        }
+        
+        // Use the calculated offset with DST if applicable
+        return _offset - (ApplyDst ? 1.0 : 0.0);
+    }
+    
     private string FormatTimeZone(double offset)
     {
         var sign = offset < 0 ? "-" : "";
@@ -216,8 +238,6 @@ public partial class ProgEventViewModel: ObservableObject
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LATITUDE + EnigmaConstants.NEW_LINE);
         if (!IsGeoLongValid())
             errorsText.Append(StandardTexts.ERROR_GEOGRAPHIC_LONGITUDE + EnigmaConstants.NEW_LINE);
-        // if (!IsLmtGeoLongValid())
-        //     errorsText.Append(StandardTexts.ERROR_LMT_LONGITUDE + EnigmaConstants.NEW_LINE);
         if (!IsDateValid())
             errorsText.Append(StandardTexts.ERROR_DATE + EnigmaConstants.NEW_LINE);
         if (!IsTimeValid())
@@ -241,20 +261,6 @@ public partial class ProgEventViewModel: ObservableObject
         return _model.IsGeoLongValid(GeoLong, dir);
     }
 
-    // private bool IsLmtGeoLongValid()
-    // {
-    //     if (string.IsNullOrEmpty(LmtGeoLong) && !_saveClicked) return true;
-    //     if (_enumIndexForLmt != TimeZoneIndex) return true;
-    //     if (LmtGeoLong == string.Empty) return false;
-    //     Directions4GeoLong dir = LmtDirLongIndex == 0 ? Directions4GeoLong.East : Directions4GeoLong.West; 
-    //     return _model.IsLmtGeoLongValid(LmtGeoLong, dir);
-    // }
-    
-    // private bool IsDateValid()
-    // {
-    //     if (string.IsNullOrEmpty(Date) && !_saveClicked) return true; 
-    //     return _model.IsDateValid(Date, Calendars.Gregorian, YearCounts.CE);
-    // }
     
     private bool IsDateValid()
     {
@@ -263,22 +269,14 @@ public partial class ProgEventViewModel: ObservableObject
         YearCounts yCount = YearCountsExtensions.YearCountForIndex(YearCountIndex);
         return _model.IsDateValid(Date, cal, yCount);
     }
-    
-    
-    // private bool IsTimeValid()
-    // {
-    //     if (string.IsNullOrEmpty(Time) && !_saveClicked) return true; 
-    //     TimeZones timeZone = TimeZonesExtensions.TimeZoneForIndex(TimeZoneIndex);
-    //     return Time == string.Empty || _model.IsTimeValid(Time, timeZone, ApplyDst);
-    // }
+ 
     
     private bool IsTimeValid()
     {
-        if (string.IsNullOrEmpty(Time) && !_saveClicked) return true; 
-        return _model.IsLocalTimeValid(Time);
+        var effectiveOffset = GetEffectiveTimeZoneOffset();
+        return _model.IsTimeValid(Time, effectiveOffset, ApplyDst);
     }
-    
-    
+
     private bool IsTimeZoneValid()
     {
         if (string.IsNullOrEmpty(TimeZone) && !_saveClicked) return true;
