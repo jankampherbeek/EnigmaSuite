@@ -431,3 +431,41 @@ The tab _Aspects with radix_ shows the aspects between the symbolic positions an
 
 
 
+## Progressive: solar returns
+
+If you selected, or calculated, a chart, you can define a solar return via the menu **Progressive - Solar**.
+
+This shows a screen where you can enter the age (in whole numbers) and, if you want to use relocation, enter alternative coordinates. 
+
+Enigma uses your configuration and is able to define a tropical or sidereal solar return and a geocentric or topocentric, including combinations like a topocentric sidereal version.
+
+It is also possible to use a tropical zodiac but calculate the sidereal return, instead of a tropical one. To do so, select the check-box **Sidereal return**.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\solar_input.png" style="zoom:50%;" />
+
+If you press the button **Calculate**, the results are shown in a screen with four tabs.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\solar_results_chart.png" style="zoom:50%;" />
+
+The tab *Solar Chart* shows the chart. As usual, you can use the check-box *No time* to remove houses, *No aspects* to remove aspect lines and *No sign colors* to use the same color for all signs.
+
+You can export the figure to png-format with the button **Export**. 
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\solar_results_positions.png" style="zoom:50%;" />
+
+The tab *Positions* gives a list with the positions in Longitude, Latitude, Right ascension and Declination. 
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\solar_results_aspects.png" style="zoom:50%;" />
+
+You can use the solar return as a chart on its own, but you can also analyze the aspects between the solar and the radix. You will find these aspects at the tab *Aspects with radix*. You can redefine the given orb and click the button **Re-calculate** to find aspects with a more narrow or a wider orb.
+
+The list with aspects is scrollable.
+
+<img src="E:\csharp\Enigma\docs\md\User-Manual\img\solar_results_details.png" style="zoom:50%;" />
+
+The tab *Details* shows the exact longitude of the Sun and additional technical information. 
+
+Enigma checks for a solar position with a precision of about 7 decimals (less then 0.001 arc seconds difference). 
+
+
+

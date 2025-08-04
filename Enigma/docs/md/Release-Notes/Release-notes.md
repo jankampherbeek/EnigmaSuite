@@ -16,6 +16,10 @@ Calculation of:
 - dodecatemoria (dwads), the original version and the 13th harmonic variant.
 - bounds (terms), the Egyptian version and the version according to Ptolemy. 
 
+### Solar returns
+
+Calculation of a solar. Enigma supports relocation and the use of a sidereal return in a chart that is tropical. The solar is shown as a chart figure and as a list of positions (including declinations). Enigma also calculates the aspects between the solar and the radix. 
+
 ### Enneagram
 
 Calculation of the relative strengths of the 9 Enneagram types, based on positions in the chart. Supports two versions, including the '2012' version that has not yet been published.
