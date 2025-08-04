@@ -293,7 +293,7 @@ public partial class ProgEventViewModel: ObservableObject
     [RelayCommand]
     private static void Cancel()
     {
-        WeakReferenceMessenger.Default.Send(new CloseMessage(VM_IDENTIFICATION));
+        WeakReferenceMessenger.Default.Send(new CloseProgEventViewMessage(VM_IDENTIFICATION));
     }
     
 }
