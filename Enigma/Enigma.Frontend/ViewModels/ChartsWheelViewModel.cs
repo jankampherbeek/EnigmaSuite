@@ -36,17 +36,12 @@ public partial class ChartsWheelViewModel: ObservableObject
         var config = CurrentConfig.Instance.GetConfig();
         if (chart != null)
         {
-       descText = _descriptiveChartText.FullDescriptiveText(config, chart.InputtedChartData);
+            descText = _descriptiveChartText.FullDescriptiveText(config, chart.InputtedChartData);
         }
         return descText;
     }
     
-    partial void OnShowSignBackgroundColorsChanged(bool value)
-    {
-        // This will be handled by the window code-behind through the controller
-        // The property change will trigger the UI update
-    }
-    
+ 
     [RelayCommand]
     private void Close()
     {
