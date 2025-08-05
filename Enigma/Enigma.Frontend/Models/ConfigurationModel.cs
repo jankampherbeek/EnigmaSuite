@@ -134,7 +134,7 @@ public class ConfigurationModel
         
         var points = (from point in PointsExtensions.AllDetails() 
                 from configPoint in config.ChartPoints 
-                where configPoint.Key == point.Point 
+                where configPoint.Key == point.Point && configPoint.Key != ChartPoints.Earth
                 select new GeneralPoint(point.Point, configPoint.Value.IsUsed, configPoint.Value.Glyph, point.Text, 
                     configPoint.Value.PercentageOrb, configPoint.Value.ShowInChart)).ToList();
                     

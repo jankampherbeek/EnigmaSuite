@@ -4,9 +4,9 @@
 
 
 
-## Release 0.7.0 beta - August 1, 2025
+## Release 0.7.0 beta - August 6, 2025
 
-Zodiac divisions, Enneagram and solar.
+Zodiac divisions, solar returns and solar.
 
 ### Zodiac divisions
 
@@ -22,15 +22,19 @@ Calculation of a solar. Enigma supports relocation and the use of a sidereal ret
 
 ### Enneagram
 
-Calculation of the relative strengths of the 9 Enneagram types, based on positions in the chart. Supports two versions, including the '2012' version that has not yet been published.
+Calculation of the relative strengths of the 9 Enneagram types, using on positions in the chart. The underlying theory is from the dutch researcher Sjoerd Visser. Enneargram supports two versions, including the '2012' version that has not yet been published.
 
 ### Export figures to an image on disk
 
-You can now export all figures to an image in PNG format to disk. You can use this image in your word processor, website of just print it. This functionality is available for the chart whee, the declination diagram, the declination strip and the Enneagram. 
+You can now export all figures to an image in PNG format to disk. You can use this image in your word processor, website of just print it. This functionality is available for the chart wheel (including the solar), the declination diagram, the declination strip and the Enneagram. 
 
 ### Coordinates and time zone offset can be edited
 
 Enigma automatically calculates the coordinates and the time zone offset. You can now override these values. 
+
+### Regions for cities are shown
+
+If you select a city when entering a chart (or an event), the region is automatically shown. This comes in handy if a country has multiple cities with the same name.
 
 ### Background colors for signs based on elements
 
@@ -39,6 +43,10 @@ The zodiac signs in the chart wheel are shown with a color, based on the element
 ### Fix: take time into account for events
 
 The time is not taken into account when defining an event for transits, secondary directions or symbolic directions.
+
+### Fix: earth is disabled (for now)
+
+In previous versions, you could select the earth in the configuration. this was premature as Enigma does not yet support heliocentric charts, so the earth has been temporarily removed.
 
 
 
