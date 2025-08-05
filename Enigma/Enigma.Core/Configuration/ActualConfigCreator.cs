@@ -149,7 +149,10 @@ public class ActualConfigCreator: IActualConfigCreator
                 {
                     Tuple<bool, char, int, bool> cfgParts = DefineElementsForConfig(newConfigTxt);
                     ChartPointConfigSpecs newConfigSpecs = new(cfgParts.Item1, cfgParts.Item2, cfgParts.Item3, cfgParts.Item4);
-                    actualChartPoints.Add(defPoint.Key, newConfigSpecs);
+                    if (defPoint.Key != ChartPoints.Earth)  // TODO remove condition after introduction of heliocentric charts
+                    {
+                        actualChartPoints.Add(defPoint.Key, newConfigSpecs);
+                    }
                 }
                 catch (Exception e)
                 {

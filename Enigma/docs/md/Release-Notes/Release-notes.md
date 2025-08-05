@@ -36,6 +36,10 @@ Enigma automatically calculates the coordinates and the time zone offset. You ca
 
 The zodiac signs in the chart wheel are shown with a color, based on the elements. You can also choose a neutral background.
 
+### Fix: take time into account for events
+
+The time is not taken into account when defining an event for transits, secondary directions or symbolic directions.
+
 
 
 ## Release 0.6.2  beta - June 25, 2025
