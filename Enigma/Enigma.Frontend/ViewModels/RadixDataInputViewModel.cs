@@ -186,6 +186,13 @@ public partial class RadixDataInputViewModel : ObservableObject
         {
             _selectedCity = value;
             OnPropertyChanged();
+            
+            // Update location name when city is selected
+            if (_selectedCity != null)
+            {
+                LocationName = _selectedCity.Name;
+            }
+            
             // Only update coordinates automatically if user hasn't manually edited them
             if (!_isManualCoordinateEdit)
             {
