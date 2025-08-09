@@ -36,6 +36,7 @@ public class IntegrationTestTimeZoneApi: IntegrationTestBase
     [TestCase("America/New_York", 1887,9,13,2,15,0, -5.0, false, "ET", false, false)]
     [TestCase("Europe/Amsterdam", 1953,1,29,8,37,30,1.0, false, "CET", false, false)]
     [TestCase("Europe/Paris", 1809,9,28,17,0,0, 0.15583333333333332, false, "LMT", false, false)]
+    [TestCase("Europe/Paris", 1860,6,15,12,0,0, 0.4477778, false, "LMT", false, false, 6.71667)] // Dieuze longitude test
     [TestCase("Europe/Rome", -99,6, 29, 0,0,0, 0.8322222222, false, "LMT", false, false)]
     [TestCase("America/New_York", 1997,9,12,9,0,0,-4.0, true,"EDT", false, false)]
     [TestCase("Europe/Rome",1968,8,22,17,10,0,2.0, true, "CEST", false, false)]
@@ -68,10 +69,12 @@ public class IntegrationTestTimeZoneApi: IntegrationTestBase
     [TestCase("Europe/Amsterdam", 2025, 10, 26, 1, 55, 0, 2.0, true, "CEST", false, false)]
     
     public void TestGetTimeZoneDst(string tzIndicator, int y, int mo, int d, int h, int mi, int s, 
-        double expectedOffset, bool expectedDst, string expectedTzName, bool isInvalid, bool isAmbiguous)
+        double expectedOffset, bool expectedDst, string expectedTzName, bool isInvalid, bool isAmbiguous, double longitude = 0.0)
     {
         var dt = new DateTimeHms(y, mo, d, h, mi, s);
-        var result = _tzApi.GetTimeZoneDst(dt, tzIndicator);
+        var result = longitude != 0.0 ? 
+            _tzApi.GetTimeZoneDst(dt, tzIndicator, longitude) : 
+            _tzApi.GetTimeZoneDst(dt, tzIndicator);
         Assert.Multiple(() =>
         {
             Assert.That(result.Dst, Is.EqualTo(expectedDst));

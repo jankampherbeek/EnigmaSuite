@@ -22,6 +22,13 @@ public interface ITzHandler
     /// <param name="tzGroupName">Time zone indication</param>
     /// <returns>Record ZoneInfo with offset, tzName and dstRuleName</returns>
     ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName);
+    
+    /// <summary>Find Offset, TzName and dstRuleName for given dateTime with longitude for LMT calculation</summary>
+    /// <param name="dateTime">Date and time to check</param>
+    /// <param name="tzGroupName">Time zone indication</param>
+    /// <param name="longitude">Geographic longitude for LMT calculation</param>
+    /// <returns>Record ZoneInfo with offset, tzName and dstRuleName</returns>
+    ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName, double? longitude);
 }
 
 /// <inhertidoc/>
@@ -37,6 +44,12 @@ public class TzHandler(
     /// <inhertidoc/>
     public ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName)
     {
+        return CurrentTime(dateTime, tzGroupName, null);
+    }
+    
+    /// <inhertidoc/>
+    public ZoneInfo CurrentTime(DateTimeHms dateTime, string tzGroupName, double? longitude)
+    {
         var dstOffset = 0.0;
         var dstUsed = false;
         var zoneTxtLines = tzReader.ReadLinesForTzIndication(tzGroupName);
@@ -46,7 +59,15 @@ public class TzHandler(
         var tzName = actualZone.Format;
         var dstRule = actualZone.Rules;
         var isInvalid = false; 
-        var isAmbiguous = false; 
+        var isAmbiguous = false;
+        
+        // Check if this is LMT and we have longitude information
+        if (tzName == "LMT" && longitude.HasValue)
+        {
+            // Calculate LMT offset from longitude: offset = longitude / 15
+            zoneOffset = longitude.Value / 15.0;
+        }
+        
         if (!string.IsNullOrEmpty(dstRule) && dstRule.Length >= 2) // ignoring hyphen and empty string
         {
             var dst = dstHandler.CurrentDst(dateTime, dstRule, zoneOffset);

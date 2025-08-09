@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -301,7 +302,9 @@ public partial class RadixDataInputViewModel : ObservableObject
                 int.Parse(timeParts[1]), // Minute
                 timeParts.Length > 2 ? int.Parse(timeParts[2]) : 0 // Second (optional)
             );
-            var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
+            // Parse longitude for LMT calculation
+            var longitude = ParseLongitudeFromCity(SelectedCity);
+            var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz, longitude);
             
             // The following three lines are repeated later. But they prevent retrieving wrong values when caching
             // large amounts of data, e.g. for the USA.
@@ -338,6 +341,28 @@ public partial class RadixDataInputViewModel : ObservableObject
         var minutes = (int)((absOffset - hours) * 60);
         var seconds = (int)(((absOffset - hours) * 60 - minutes) * 60);
         return $"{sign}{hours:D2}:{minutes:D2}:{seconds:D2}";
+    }
+    
+    private double ParseLongitudeFromCity(City city)
+    {
+        if (city == null || string.IsNullOrEmpty(city.GeoLong))
+            return 0.0;
+            
+        try
+        {
+            // Parse the longitude string which is in decimal format
+            // Negative values represent Western longitude
+            if (double.TryParse(city.GeoLong, NumberStyles.Float, CultureInfo.InvariantCulture, out double longitude))
+            {
+                return longitude;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, $"Error parsing longitude from city: {city.GeoLong}");
+        }
+        
+        return 0.0;
     }
 
     private bool IsTimeZoneValid()

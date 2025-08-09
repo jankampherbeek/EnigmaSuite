@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -183,7 +184,9 @@ public partial class ProgEventViewModel: ObservableObject
                 int.Parse(timeParts[1]), // Minute
                 timeParts.Length > 2 ? int.Parse(timeParts[2]) : 0 // Second (optional)
             );
-            _zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
+            // Parse longitude for LMT calculation
+            var longitude = ParseLongitudeFromCity(SelectedCity);
+            _zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz, longitude);
             TimeZone = FormatTimeZone(_zoneInfo.Offset);
             ApplyDst = _zoneInfo.Dst;
         }
@@ -233,6 +236,28 @@ public partial class ProgEventViewModel: ObservableObject
         var minutes = (int)((absOffset - hours) * 60);
         var seconds = (int)(((absOffset - hours) * 60 - minutes) * 60);
         return $"{sign}{hours:D2}:{minutes:D2}:{seconds:D2}";
+    }
+    
+    private double ParseLongitudeFromCity(City city)
+    {
+        if (city == null || string.IsNullOrEmpty(city.GeoLong))
+            return 0.0;
+            
+        try
+        {
+            // Parse the longitude string which is in decimal format
+            // Negative values represent Western longitude
+            if (double.TryParse(city.GeoLong, NumberStyles.Float, CultureInfo.InvariantCulture, out double longitude))
+            {
+                return longitude;
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, $"Error parsing longitude from city: {city.GeoLong}");
+        }
+        
+        return 0.0;
     }
     
     private string FindErrors()

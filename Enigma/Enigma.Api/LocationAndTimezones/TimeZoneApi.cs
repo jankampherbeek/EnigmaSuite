@@ -18,6 +18,13 @@ public interface ITimeZoneApi
     /// <param name="tzIndication">Indication of timezone according to IANA, e.g. Europe/Amsterdam</param>
     /// <returns>The timezone and dst info</returns>
     public ZoneInfo GetTimeZoneDst(DateTimeHms dateTime, string tzIndication);
+    
+    /// <summary>Get the specifications for time zone and dst with longitude for LMT calculation</summary>
+    /// <param name="dateTime">Date and time</param>
+    /// <param name="tzIndication">Indication of timezone according to IANA, e.g. Europe/Amsterdam</param>
+    /// <param name="longitude">Geographic longitude for LMT calculation</param>
+    /// <returns>The timezone and dst info</returns>
+    public ZoneInfo GetTimeZoneDst(DateTimeHms dateTime, string tzIndication, double longitude);
 }
 
 /// <inheritdoc/>
@@ -27,6 +34,15 @@ public class TimeZoneApi(ITzHandler tzHandler): ITimeZoneApi
     public ZoneInfo GetTimeZoneDst(DateTimeHms dateTime, string tzIndication)
     {
         if (tzIndication.Length >= 2) return tzHandler.CurrentTime(dateTime, tzIndication);
+        var errorTxt = $"Indication for time zone should have at least 2 characters but is {tzIndication}";
+        Log.Error(errorTxt);
+        throw new ArgumentException(errorTxt);
+    }
+    
+    /// <inheritdoc/>
+    public ZoneInfo GetTimeZoneDst(DateTimeHms dateTime, string tzIndication, double longitude)
+    {
+        if (tzIndication.Length >= 2) return tzHandler.CurrentTime(dateTime, tzIndication, longitude);
         var errorTxt = $"Indication for time zone should have at least 2 characters but is {tzIndication}";
         Log.Error(errorTxt);
         throw new ArgumentException(errorTxt);
