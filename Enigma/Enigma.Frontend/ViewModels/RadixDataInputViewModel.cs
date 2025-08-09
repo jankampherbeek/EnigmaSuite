@@ -249,7 +249,7 @@ public partial class RadixDataInputViewModel : ObservableObject
             // Reset manual edit flag when updating automatically
             _isManualTimeZoneEdit = false;
             
-            TimeZone = FormatTimeZone(_offset - (_dst ? 1.0 : 0.0));
+            TimeZone = FormatTimeZone(_offset);
             ApplyDst = zoneInfo.Dst;
         }
         catch (Exception ex)
@@ -299,7 +299,7 @@ public partial class RadixDataInputViewModel : ObservableObject
         }
         
         // Use the calculated offset with DST if applicable
-        return _offset - (ApplyDst ? 1.0 : 0.0);
+        return _offset;
     }
 
     [RelayCommand]

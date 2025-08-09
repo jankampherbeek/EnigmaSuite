@@ -266,7 +266,7 @@ Each line contains 9 fields that correspond to the labels used in the first line
 
 - **DST**. Shows if daylight saving time applies. Use *0* for no DST and *1* for DST.
 
-Save your data-file, preferably with the extension .csv at a location of your liking. You can import the data-file in Enigma. If one or more charts are using a wrong format, Enigma will recognize this and create a report with the offending lines at c:\enigma_ar\data\errors.txt.
+Save your data-file, preferably with the extension .csv at a location of your liking. You can import the data-file in Enigma. If one or more charts are using a wrong format, Enigma will recognize this and create a report with the offending lines at the folder 'data\errors.txt' in the workfolder that you defined.
 
 **Example file**
 

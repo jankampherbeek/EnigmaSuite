@@ -184,7 +184,7 @@ public partial class ProgEventViewModel: ObservableObject
                 timeParts.Length > 2 ? int.Parse(timeParts[2]) : 0 // Second (optional)
             );
             _zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
-            TimeZone = FormatTimeZone(_zoneInfo.Offset - (_zoneInfo.Dst ? 1.0 : 0.0));
+            TimeZone = FormatTimeZone(_zoneInfo.Offset);
             ApplyDst = _zoneInfo.Dst;
         }
         catch (Exception ex)

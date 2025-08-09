@@ -109,7 +109,7 @@ This opens a screen where you can select the exported data from PlanetDance via 
 After selecting the file, click the button **Import**. 
 If everything goes well, Enigma confirms that the data has been imported. 
 In case of an error you will see a warning. 
-Any conflicting lines from the exported data are saved in the file C:\enigma_ar\data\errors.txt
+Any conflicting lines from the exported data are saved in the folder 'data\errors.txt' in the workfolder that you defined.
 
 If the import was successful, you can now select the charts via the button **Search Chart** in the Charts main screen.
 In the Appendix, you will find a description of the exported data. 

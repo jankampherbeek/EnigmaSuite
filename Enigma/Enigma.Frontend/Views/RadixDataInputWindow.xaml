@@ -160,7 +160,8 @@
                  Text="{Binding TimeZone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         <CheckBox Grid.Row="16" Grid.Column="1" VerticalAlignment="Center" IsTabStop="False" Content="Apply DST"  
                   Style="{StaticResource MaterialDesignCheckBox}"
-                  IsChecked="{Binding ApplyDst}" />
+                  IsChecked="{Binding ApplyDst}" 
+                  IsEnabled="False" />
         <StackPanel Grid.Row="17" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Orientation="Horizontal" 
                     HorizontalAlignment="Right">
             <Button Margin="6" Content="Help" HorizontalAlignment="Right" 

@@ -28,7 +28,7 @@ Enigma supports two types of data:
 
 Select the type of data. Also select your data file by clicking the button **Browse**. Enter a name for your dataset and click the button **Import**.
 
-Enigma saves all files in the folder c:\enigma_ar\data. It creates a separate folder for each data file. In each of these folders, you will see the sub-folders _csv_ and _json_. These sub-folders contain respectively a copy of the original data and the converted data.
+Enigma saves all files in the folder 'data' under the work folder that you defined. It creates a separate folder for each data file. In each of these folders, you will see the sub-folders _csv_ and _json_. These sub-folders contain respectively a copy of the original data and the converted data.
 
 The data folder also contains a file _errors.txt_ that contains descriptions of any error that was encountered.
 
