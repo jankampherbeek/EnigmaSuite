@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -224,9 +225,24 @@ public partial class RadixDataInputViewModel : ObservableObject
         _isUpdatingCoordinatesProgrammatically = false;
     }
 
-    private void UpdateTimeZone()
+    private async void UpdateTimeZone()
     {
         if (SelectedCity == null || string.IsNullOrEmpty(Date) || string.IsNullOrEmpty(Time)) return;
+
+        // Ensure city data is fully loaded before proceeding
+        var timeout = 0;
+        while ((CitiesForCountry == null || !CitiesForCountry.Any()) && timeout < 100) // Max 5 second timeout
+        {
+            await Task.Delay(50);
+            timeout++;
+        }
+        
+        // Additional check: ensure SelectedCity belongs to the current country
+        if (SelectedCountry != null && SelectedCity.Country != SelectedCountry.Code)
+        {
+            Log.Warning($"SelectedCity country mismatch: {SelectedCity.Country} != {SelectedCountry.Code}");
+            return;
+        }
 
         try
         {
@@ -242,6 +258,23 @@ public partial class RadixDataInputViewModel : ObservableObject
             );
             var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
             
+            //  Begin debug
+
+            Log.Information($"DEBUG: API returned Offset={zoneInfo.Offset}, DST={zoneInfo.Dst}, TzName={zoneInfo.TzName}");
+            
+            _offset = zoneInfo.Offset;
+            _dst = zoneInfo.Dst;
+            Log.Information($"DEBUG: Set _offset={_offset}, _dst={_dst}");
+            
+            TimeZone = FormatTimeZone(_offset);
+            Log.Information($"DEBUG: TimeZone display={TimeZone}");
+
+   //         var effectiveOffset = GetEffectiveTimeZoneOffset();
+   //         Log.Information($"DEBUG: EffectiveOffset={effectiveOffset}");
+            
+            // end debug
+            
+            
             // Use only the base timezone offset without DST
             _offset = zoneInfo.Offset;
             _dst = zoneInfo.Dst;
@@ -251,6 +284,8 @@ public partial class RadixDataInputViewModel : ObservableObject
             
             TimeZone = FormatTimeZone(_offset);
             ApplyDst = zoneInfo.Dst;
+            
+
         }
         catch (Exception ex)
         {
