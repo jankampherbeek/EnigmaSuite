@@ -206,9 +206,13 @@ public partial class ProgEventViewModel: ObservableObject
                 if (parts.Length >= 2)
                 {
                     var hours = int.Parse(parts[0]);
+                    bool positive = hours > 0;
+                    hours = Math.Abs(hours);
                     var minutes = int.Parse(parts[1]);
                     var seconds = parts.Length > 2 ? int.Parse(parts[2]) : 0;
-                    return hours + (minutes / 60.0) + (seconds / 3600.0);
+                    var result = hours + (minutes / 60.0) + (seconds / 3600.0);
+                    if (!positive) result = -result;
+                    return result;
                 }
             }
             catch (Exception ex)
