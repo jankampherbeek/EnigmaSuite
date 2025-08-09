@@ -77,6 +77,12 @@ public class TzHandler(
             isInvalid = dst.IsInvalid;
             isAmbiguous = dst.IsAmbiguous;
             tzName = tzName.Replace("%s", replacement);
+            
+            // If tzName becomes empty after %s replacement, clear it so the final fallback logic can handle it
+            if (string.IsNullOrEmpty(tzName) || tzName.Trim().Length == 0)
+            {
+                tzName = "";
+            }
         }
 
         if (tzName.Contains("%z"))
@@ -97,7 +103,13 @@ public class TzHandler(
         var time = dateTime.Hour + dateTime.Min / MINUTES_PER_HOUR + dateTime.Sec / SECONDS_PER_HOUR;
         var sdt = new SimpleDateTime(dateTime.Year, dateTime.Month, dateTime.Day, time, Calendars.Gregorian);
         var jd = jdFacade.JdFromSe(sdt);
-        var line = new TzLine("", 0.0, "", "", 0.0);
+        
+        // Safety check: if no lines, return empty
+        if (lines == null || lines.Count == 0)
+        {
+            return new TzLine("", 0.0, "", "", 0.0);
+        }
+        
         if (lines[0].Until > jd)
         {
             return lines[0];
@@ -111,6 +123,7 @@ public class TzHandler(
             }
         }
 
-        return line;
+        // If no "until" date is found, use the last (most recent) timezone rule
+        return lines[^1];
     }
 }

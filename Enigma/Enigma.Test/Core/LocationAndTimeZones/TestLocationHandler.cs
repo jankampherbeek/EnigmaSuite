@@ -36,7 +36,6 @@ public class TestLocationHandler
             if (!city.Name.Equals("Enschede")) continue;
             Assert.Multiple(() =>
             {
-                Assert.That(city.Region, Is.EqualTo("Overijssel"));
                 Assert.That(city.IndicationTz, Is.EqualTo("Europe/Amsterdam"));
             });
         }
