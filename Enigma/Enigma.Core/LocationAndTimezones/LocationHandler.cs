@@ -62,17 +62,9 @@ namespace Enigma.Core.LocationAndTimeZones;
                 {
                     var fields = line.Split(ITEM_SEPARATOR);
                     if (fields.Length != 7 || fields[0] != countryCode) continue;
-                    var regionCode = $"{fields[0].Trim()}.{fields[4].Trim()}";
-                    string regionName;
-                    try
-                    {
-                        regionName = FindRegionName(regionCode);
-                    }
-                    catch
-                    {
-                        // TODO: handle error
-                        regionName = string.Empty;
-                    }
+                    
+                    // Extract region from city name (already in parentheses) - much faster than file lookup
+                    string regionName = ExtractRegionFromCityName(fields[1].Trim());
 
                     cities.Add(new City
                     {
@@ -96,25 +88,20 @@ namespace Enigma.Core.LocationAndTimeZones;
             }
         }
 
-        private string FindRegionName(string regionCode)
+        private static string ExtractRegionFromCityName(string cityName)
         {
-            try
+            // Extract region from city name format: "CityName (RegionName)"
+            // e.g., "Fillmore (California)" -> "California"
+            if (string.IsNullOrEmpty(cityName)) return string.Empty;
+            
+            var openParen = cityName.LastIndexOf('(');
+            var closeParen = cityName.LastIndexOf(')');
+            
+            if (openParen > 0 && closeParen > openParen)
             {
-                var lines = File.ReadAllLines(RegionsFile);
-                foreach (var line in lines)
-                {
-                    var fields = line.Split(ITEM_SEPARATOR);
-                    if (fields.Length == 2 && fields[0] == regionCode)
-                    {
-                        return fields[1].Trim();
-                    }
-                }
-                return string.Empty;
+                return cityName.Substring(openParen + 1, closeParen - openParen - 1).Trim();
             }
-            catch (Exception ex)
-            {
-                Log.Error($"Error reading regions file: {ex.Message}");
-                throw;
-            }
+            
+            return string.Empty;
         }
     }

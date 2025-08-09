@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ public partial class RadixDataInputViewModel : ObservableObject
     private bool _isManualCoordinateEdit;
     private bool _isManualTimeZoneEdit;
     private bool _isUpdatingCoordinatesProgrammatically;
+    private static readonly Dictionary<string, List<City>> _cityCache = new();
     
     [ObservableProperty] private string _nameId = "";
     [ObservableProperty] private string _description = "";
@@ -198,6 +200,7 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     private async Task UpdateCitiesAsync()
     {
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
         IsLoadingCities = true;
         
         // Clear current cities immediately to prevent showing wrong ones
@@ -209,16 +212,33 @@ public partial class RadixDataInputViewModel : ObservableObject
         try
         {
             var countryCode = SelectedCountry.Code;
-            var cities = await Task.Run(() => _model.CitiesForCountry(countryCode));
-    
+            List<City> cities;
+            var loadStart = System.Diagnostics.Stopwatch.StartNew();
+            
+            // Check cache first
+            if (_cityCache.TryGetValue(countryCode, out cities))
+            {
+                // Create a new list to avoid reference issues
+                cities = new List<City>(cities);
+            }
+            else
+            {
+                // Load from data source and cache
+                cities = await Task.Run(() => _model.CitiesForCountry(countryCode));
+                _cityCache[countryCode] = new List<City>(cities); // Store a copy in cache
+            }
+            
+            loadStart.Stop();
+            
+            var uiStart = System.Diagnostics.Stopwatch.StartNew();
             Application.Current.Dispatcher.Invoke(() =>
             {
                 CitiesForCountry = new ObservableCollection<City>(cities);
-            });
+             });
+            uiStart.Stop();
         }
         catch (Exception ex)
         {
-            Log.Error(ex, "Error loading cities for country {CountryCode}", SelectedCountry?.Code);
             Application.Current.Dispatcher.Invoke(() =>
             {
                 CitiesForCountry.Clear();
@@ -227,6 +247,7 @@ public partial class RadixDataInputViewModel : ObservableObject
         finally
         {
             IsLoadingCities = false;
+            stopwatch.Stop();
         }
     }
     
@@ -282,21 +303,11 @@ public partial class RadixDataInputViewModel : ObservableObject
             );
             var zoneInfo = _timeZoneApi.GetTimeZoneDst(dateTime, SelectedCity.IndicationTz);
             
-            //  Begin debug
-
-            Log.Information($"DEBUG: API returned Offset={zoneInfo.Offset}, DST={zoneInfo.Dst}, TzName={zoneInfo.TzName}");
-            
+            // The following three lines are repeated later. But they prevent retrieving wrong values when caching
+            // large amounts of data, e.g. for the USA.
             _offset = zoneInfo.Offset;
             _dst = zoneInfo.Dst;
-            Log.Information($"DEBUG: Set _offset={_offset}, _dst={_dst}");
-            
             TimeZone = FormatTimeZone(_offset);
-            Log.Information($"DEBUG: TimeZone display={TimeZone}");
-
-   //         var effectiveOffset = GetEffectiveTimeZoneOffset();
-   //         Log.Information($"DEBUG: EffectiveOffset={effectiveOffset}");
-            
-            // end debug
             
             
             // Use only the base timezone offset without DST
