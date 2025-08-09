@@ -94,6 +94,7 @@ public partial class RadixDataInputViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<string> _allYearCounts;
     [ObservableProperty] private ObservableCollection<Country> _allCountries;
     [ObservableProperty] private ObservableCollection<City> _citiesForCountry;
+    [ObservableProperty] private bool _isLoadingCities;
     
     [NotifyPropertyChangedFor(nameof(GeoLongValid))]
     [NotifyCanExecuteChangedFor(nameof(CalculateCommand))]
@@ -197,13 +198,36 @@ public partial class RadixDataInputViewModel : ObservableObject
 
     private async Task UpdateCitiesAsync()
     {
-        var countryCode = SelectedCountry.Code;
-        var cities = await Task.Run(() => _model.CitiesForCountry(countryCode));
-    
+        IsLoadingCities = true;
+        
+        // Clear current cities immediately to prevent showing wrong ones
         Application.Current.Dispatcher.Invoke(() =>
         {
-            CitiesForCountry = new ObservableCollection<City>(cities);
+            CitiesForCountry.Clear();
         });
+        
+        try
+        {
+            var countryCode = SelectedCountry.Code;
+            var cities = await Task.Run(() => _model.CitiesForCountry(countryCode));
+    
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CitiesForCountry = new ObservableCollection<City>(cities);
+            });
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Error loading cities for country {CountryCode}", SelectedCountry?.Code);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                CitiesForCountry.Clear();
+            });
+        }
+        finally
+        {
+            IsLoadingCities = false;
+        }
     }
     
     private void UpdateCoordinates()
