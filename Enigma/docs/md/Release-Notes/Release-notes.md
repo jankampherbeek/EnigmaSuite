@@ -2,6 +2,22 @@
 
 
 
+## Release 0.7.1 beta - August 10, 2025
+
+Bugfixes
+
+### Errors in time rules 
+
+The DST was calculated twice, resulting in a wrong time offset. This is corrected.
+
+For large countries with many cities, the lookup of cities took several seconds. As a side effect (because of caching), the offsets were wrong. The lookup is now instant and the caching problem has been addressed.
+
+There are still errors in time rules but they are relatively rare and will be addressed in release 0.7.2.
+
+### Missing name of location
+
+The location name was not shown in the windows for the chart wheel and for positions. This has been fixed.
+
 
 
 ## Release 0.7.0 beta - August 6, 2025

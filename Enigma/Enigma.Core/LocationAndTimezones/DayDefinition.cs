@@ -18,8 +18,8 @@ public interface IDayDefHandler
 public class DayDefHandler(IJulDayFacade jdFacade) : IDayDefHandler
 {
     private const string PF_LAST = "last";
-    private const string PF_GE_PATTERN = ">=(\\d)";
-    private const string PF_LE_PATTERN = "<=(\\d)";
+    private const string PF_GE_PATTERN = ">=(\\d+)";
+    private const string PF_LE_PATTERN = "<=(\\d+)";
     
     public int DayFromDefinition(int year, int month, string def)
     {

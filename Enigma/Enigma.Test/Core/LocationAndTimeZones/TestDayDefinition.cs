@@ -18,6 +18,7 @@ public class TestDayDefinition
     [TestCase(2025, 2, "last2", 26)]
     [TestCase(2025, 2, "last2", 26)]  
     [TestCase(2025, 2, "last2", 26)]  
+    [TestCase(1981, 10, "6>=23", 25)]  // Test for the GB-Eire DST issue
     public void TestDayDefHandlerHappyFlow(int year, int month, string definition, int expected)
     {
         IJulDayFacade facade = new JulDayFacade();
