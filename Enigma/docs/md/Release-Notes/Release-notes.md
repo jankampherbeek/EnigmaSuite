@@ -2,6 +2,14 @@
 
 
 
+## Release 0.7.2 beta - Augusts 12, 2025
+
+Bugfix
+
+### Fixed remaining error in time rule
+
+In release 0.7.1 most errors for time rules were solved with one exception. In some cases DST was not recognized like for October 21, 1986 in Glasgow. The DST rule 6>=23 was interpreted as 6>=2. This had also to be solved in a separate program tz-coord that prepares the timezone database for Enigma. This has now been solved.
+
 ## Release 0.7.1 beta - August 10, 2025
 
 Bugfixes
