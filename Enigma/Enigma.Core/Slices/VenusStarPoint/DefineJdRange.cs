@@ -17,7 +17,8 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
 {
     private const double MAX_VENUS_PERIOD = 584.0;
     private const double MIN_VENUS_PERIOD = 583.0;
-    private const Calendars cal = Calendars.Gregorian;
+    private const Calendars CAL = Calendars.Gregorian;
+    private const double JD_TOLERANCE = 0.1; // Tolerance for considering Julian Days as approximately the same (about 2.4 hours)
     
     public List<Tuple<double, VenusPhenomena>> JdRange(double birthJd, bool prenatal)
     {
@@ -30,8 +31,8 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         // calculate inferior conjunctiopns
         for (var i = 0; i < 7; i++)
         {
-            var year = julDayFacade.DateTimeFromJd(lastJdInferior + MIN_VENUS_PERIOD, cal).Year;
-            var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, cal));
+            var year = julDayFacade.DateTimeFromJd(lastJdInferior + MIN_VENUS_PERIOD, CAL).Year;
+            var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, CAL));
             var yearFraction = YearFraction.CalcYearAndFraction(year, lastJdInferior, jdNewYear);
             var jdPhenonomenon = DefineJdPhenomenon(yearFraction, VenusPhenomena.InferiorConjunction);
             lastJdInferior = jdPhenonomenon.Item1;        
@@ -40,8 +41,8 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         // calculate superior conjunctions
         for (var i = 0; i < 7; i++)
         {
-            var year = julDayFacade.DateTimeFromJd(lastJdSuperior + MIN_VENUS_PERIOD, cal).Year;
-            var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, cal));
+            var year = julDayFacade.DateTimeFromJd(lastJdSuperior + MIN_VENUS_PERIOD, CAL).Year;
+            var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, CAL));
             var yearFraction = YearFraction.CalcYearAndFraction(year, lastJdSuperior, jdNewYear);
             var jdPhenonomenon = DefineJdPhenomenon(yearFraction, VenusPhenomena.SuperiorConjunction);
             lastJdSuperior = jdPhenonomenon.Item1;        
@@ -49,14 +50,40 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         }
         
         jdsFound.Sort();
+        jdsFound = RemoveDuplicateJds(jdsFound);
         
-        // sort list
-        // remove duplicates
         // if prenatal is true, return the first item before birth and 4 later items
         // if prenatal is false, return 5 items after birth,
 
 
         return jdsFound;
+    }
+    
+    /// <summary>
+    /// Removes duplicate entries where Julian Days are approximately the same (within tolerance).
+    /// If multiple items have approximately the same JD, only the first one is kept.
+    /// </summary>
+    /// <param name="jdsList">Sorted list of Julian Day and Venus phenomena tuples</param>
+    /// <returns>List with duplicates removed</returns>
+    private static List<Tuple<double, VenusPhenomena>> RemoveDuplicateJds(List<Tuple<double, VenusPhenomena>> jdsList)
+    {
+        if (jdsList.Count <= 1)
+            return jdsList;
+
+        var result = new List<Tuple<double, VenusPhenomena>> { jdsList[0] };  // Add the first item
+
+        for (var i = 1; i < jdsList.Count; i++)
+        {
+            var currentJd = jdsList[i].Item1;
+            var previousJd = jdsList[i - 1].Item1;
+            
+            // If the current JD is not approximately the same as the previous one, add it
+            if (Math.Abs(currentJd - previousJd) > JD_TOLERANCE)
+            {
+                result.Add(jdsList[i]);
+            }
+        }
+        return result;
     }
     
     private Tuple<double, VenusPhenomena> DefineJdPhenomenon(double yearFraction, VenusPhenomena phenomenon)
