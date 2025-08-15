@@ -52,11 +52,8 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         jdsFound.Sort();
         jdsFound = RemoveDuplicateJds(jdsFound);
         
-        // if prenatal is true, return the first item before birth and 4 later items
-        // if prenatal is false, return 5 items after birth,
-
-
-        return jdsFound;
+        // Return appropriate subset based on prenatal parameter
+        return GetSubsetBasedOnPrenatal(jdsFound, birthJd, prenatal);
     }
     
     /// <summary>
@@ -84,6 +81,70 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
             }
         }
         return result;
+    }
+    
+    /// <summary>
+    /// Returns a subset of the list based on the prenatal parameter.
+    /// If prenatal is true: starts with the last JD before birth and includes 4 later JDs.
+    /// If prenatal is false: starts with the first JD after birth and includes 4 later JDs.
+    /// </summary>
+    /// <param name="jdsList">Sorted list of Julian Day and Venus phenomena tuples</param>
+    /// <param name="birthJd">Birth Julian Day</param>
+    /// <param name="prenatal">Whether to include prenatal data</param>
+    /// <returns>Subset of the list based on prenatal parameter</returns>
+    private static List<Tuple<double, VenusPhenomena>> GetSubsetBasedOnPrenatal(List<Tuple<double, VenusPhenomena>> jdsList, double birthJd, bool prenatal)
+    {
+        if (jdsList.Count == 0)
+            return jdsList;
+            
+        if (prenatal)
+        {
+            // Find the last JD before birth
+            var lastBeforeBirthIndex = -1;
+            for (var i = 0; i < jdsList.Count; i++)
+            {
+                if (jdsList[i].Item1 < birthJd)
+                {
+                    lastBeforeBirthIndex = i;
+                }
+                else
+                {
+                    break; // Found first JD after birth, stop searching
+                }
+            }
+            
+            if (lastBeforeBirthIndex == -1)
+            {
+                // No JDs before birth, return first 5 items
+                return jdsList.Take(5).ToList();
+            }
+            
+            // Start from the last JD before birth and include up to 5 items total
+            var startIndex = Math.Max(0, lastBeforeBirthIndex);
+            var endIndex = Math.Min(jdsList.Count, startIndex + 5);
+            return jdsList.GetRange(startIndex, endIndex - startIndex);
+        }
+        else
+        {
+            // Find the first JD after birth
+            var firstAfterBirthIndex = -1;
+            for (var i = 0; i < jdsList.Count; i++)
+            {
+                if (!(jdsList[i].Item1 > birthJd)) continue;
+                firstAfterBirthIndex = i;
+                break;
+            }
+            
+            if (firstAfterBirthIndex == -1)
+            {
+                // No JDs after birth, return empty list or last 5 items
+                return jdsList.Count > 0 ? jdsList.TakeLast(5).ToList() : jdsList;
+            }
+            
+            // Start from the first JD after birth and include up to 5 items
+            var endIndex = Math.Min(jdsList.Count, firstAfterBirthIndex + 5);
+            return jdsList.GetRange(firstAfterBirthIndex, endIndex - firstAfterBirthIndex);
+        }
     }
     
     private Tuple<double, VenusPhenomena> DefineJdPhenomenon(double yearFraction, VenusPhenomena phenomenon)
