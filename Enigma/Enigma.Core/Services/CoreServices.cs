@@ -15,6 +15,7 @@ using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Core.Research.Services;
 using Enigma.Core.Slices.Solar;
+using Enigma.Core.Slices.VenusStarPoint;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -72,6 +73,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
+        serviceCollection.AddTransient<ExactConjunctionDate>();
         serviceCollection.AddTransient<IFileCopier, FileCopier>();
         serviceCollection.AddTransient<IFilePersistencyHandler, FilePersistencyHandler>();
         serviceCollection.AddTransient<IFullPointPosFactory, FullPointPosFactory>();
