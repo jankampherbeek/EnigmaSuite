@@ -66,6 +66,7 @@ public static class ApiServices
         serviceCollection.AddTransient<ISeApi, SeApi>();
         serviceCollection.AddTransient<ISettingsApi, SettingsApi>();
         serviceCollection.AddTransient<ITimeZoneApi, TimeZoneApi>();
+        serviceCollection.AddTransient<VenusStarPointService>();
         serviceCollection.AddTransient<ZodiacDivisionsService>();
         serviceCollection.AddTransient<EnneagramService>();
 

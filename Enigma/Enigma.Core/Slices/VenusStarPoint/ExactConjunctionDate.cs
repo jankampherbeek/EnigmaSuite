@@ -40,17 +40,12 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
     private double FindExactConjunctionDate(double jdLow, double jdHigh)
     {
         var counter = 0;
-        double tempJd = (jdLow + jdHigh) / 2.0; // Initialize with midpoint
-        double longitudeDifference;
+        double bestJd = (jdLow + jdHigh) / 2.0; // Initialize with midpoint
+        double bestDifference = double.MaxValue;
         
-        do
+        while (counter < MAX_ITERATIONS)
         {
             counter++;
-            if (counter > MAX_ITERATIONS)
-            {
-                Log.Error("ExactConjunctionDate: Counter reached {MaxIterations}, this is probably an endless loop", MAX_ITERATIONS);
-                throw new Exception($"ExactConjunctionDate: Counter reached {MAX_ITERATIONS}, this is probably an endless loop");
-            }
             
             // Check if the search interval has become too small
             if (Math.Abs(jdHigh - jdLow) < MIN_INTERVAL)
@@ -59,24 +54,38 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
                 break;
             }
             
-            tempJd = (jdLow + jdHigh) / 2.0;
-            longitudeDifference = CalculateLongitudeDifference(tempJd);
+            var midJd = (jdLow + jdHigh) / 2.0;
+            var longitudeDifference = CalculateLongitudeDifference(midJd);
+            
+            // Keep track of the best approximation found so far
+            if (Math.Abs(longitudeDifference) < Math.Abs(bestDifference))
+            {
+                bestDifference = longitudeDifference;
+                bestJd = midJd;
+            }
+            
+            // If we're within the margin, we've found a good approximation
+            if (Math.Abs(longitudeDifference) <= MARGIN)
+            {
+                return midJd;
+            }
             
             // Determine which half to search next
             if (longitudeDifference > 0)
             {
                 // Sun is ahead of Venus, search in the earlier half
-                jdHigh = tempJd;
+                jdHigh = midJd;
             }
             else
             {
                 // Venus is ahead of Sun, search in the later half
-                jdLow = tempJd;
+                jdLow = midJd;
             }
-            
-        } while (Math.Abs(longitudeDifference) > MARGIN);
+        }
         
-        return tempJd;
+        // If we've reached max iterations, return the best approximation found
+        Log.Warning("Reached maximum iterations ({MaxIterations}), returning best approximation", MAX_ITERATIONS);
+        return bestJd;
     }
     
     /// <summary>
@@ -94,8 +103,9 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
         var difference = sunLongitude - venusLongitude;
         
         // Handle the 0°/360° boundary - find the shortest path
-        if (difference > 180) difference -= 360;
-        if (difference < -180) difference += 360;
+        // Normalize to the range [-180, 180]
+        while (difference > 180) difference -= 360;
+        while (difference < -180) difference += 360;
         
         return difference;
     }

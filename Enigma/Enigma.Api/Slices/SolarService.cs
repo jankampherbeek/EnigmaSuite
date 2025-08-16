@@ -15,15 +15,8 @@ namespace Enigma.Api.Slices;
 /// <summary>
 /// Service for the calculation of a solar
 /// </summary>
-public class SolarService
+public class SolarService(SolarOrchestrator orchestrator)
 {
-    private readonly SolarOrchestrator _orchestrator;
-
-    public SolarService(SolarOrchestrator orchestrator)
-    {
-        _orchestrator = orchestrator;
-    }
-
     /// <summary>
     /// Calculate the jd for a solar
     /// </summary>
@@ -58,7 +51,7 @@ public class SolarService
         try
         {
             // Call the orchestrator to perform the calculation
-            var result = _orchestrator.CalculateJdForSolar(request);
+            var result = orchestrator.CalculateJdForSolar(request);
             
             Log.Information("SolarService.CalculateSolar: Successfully calculated jd for solar for age {Age}, sidereal return: {SiderealReturn}, jdRadix: {JdRadix}", 
                 request.Age, request.SiderealReturn, request.JdRadix);

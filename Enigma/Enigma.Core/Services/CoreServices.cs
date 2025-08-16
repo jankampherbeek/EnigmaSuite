@@ -70,6 +70,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IDeclMidpointsHandler, DeclMidpointsHandler>();
         serviceCollection.AddTransient<IDefaultConfiguration, DefaultConfiguration>();
         serviceCollection.AddTransient<IDefaultProgConfiguration, DefaultProgConfiguration>();
+        serviceCollection.AddTransient<DefineJdRange>();
         serviceCollection.AddTransient<IDeltaTexts, DeltaTexts>();
         serviceCollection.AddTransient<IDirectConversionCalc, DirectConversionCalc>();
         serviceCollection.AddTransient<IEventDataDao, EventDataDao>();
@@ -127,6 +128,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ITextFileReader, TextFileReader>();
         serviceCollection.AddTransient<ITextFileWriter, TextFileWriter>();
         serviceCollection.AddTransient<ITimeCheckedConversion, TimeCheckedConversion>();
+        serviceCollection.AddTransient<VenusStarPointOrchestrator>();
         serviceCollection.AddTransient<IZodiacPointsCalc, ZodiacPointsCalc>();
 
         serviceCollection.RegisterDataServices();
