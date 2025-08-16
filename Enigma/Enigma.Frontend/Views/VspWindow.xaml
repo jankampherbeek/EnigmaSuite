@@ -1,0 +1,124 @@
+<Window x:Class="Enigma.Frontend.Ui.Views.VspWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Enigma - Venus Star Point" Height="800" Width="1200">
+    <Window.Resources>
+        <viewModels:VspViewModel x:Key="ViewModel"/>
+    </Window.Resources>
+    <Grid Margin="6" DataContext="{StaticResource ViewModel}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,0,0,6" 
+                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                   Text="Venus Star Point" Name="Header"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}" 
+                   FontWeight="Bold" />
+
+        <!-- Chart Name -->
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Margin="6,12,6,6" 
+                   Text="{Binding ChartName}" Name="ChartNameText"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                   FontWeight="Bold"/>
+        
+        <!-- Left side - Horoscope Wheel -->
+        <Grid Grid.Row="2" Grid.Column="0" Margin="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            
+            <!-- Chart Wheel Canvas -->
+            <Grid Grid.Row="0" Grid.RowSpan="2" SizeChanged="WheelGrid_SizeChanged" Margin="0,0,0,121">
+                <Canvas x:Name="WheelCanvas" ClipToBounds="True"/>
+            </Grid>
+            
+            <!-- Chart Options -->
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="6">
+                <CheckBox Content="No time" Margin="6,0" 
+                          Style="{StaticResource MaterialDesignCheckBox}"
+                          Checked="NoTime_Checked" Unchecked="NoTime_Unchecked"/>
+                <CheckBox Content="No sign colors" Margin="6,0" 
+                          Style="{StaticResource MaterialDesignCheckBox}"
+                          Checked="SignColors_Checked" Unchecked="SignColors_Unchecked"/>
+            </StackPanel>
+            <Button Grid.Row="2" HorizontalAlignment="Right" Margin="6" Content="Export" Click="ExportClick"/>
+        </Grid>
+
+        <!-- Separator -->
+        <GridSplitter Grid.Row="2" Grid.Column="1" Width="5" HorizontalAlignment="Center" 
+                      Background="{DynamicResource MaterialDesignDivider}"/>
+
+        <!-- Right side - Venus Star Point Data -->
+        <Grid Grid.Row="2" Grid.Column="2" Margin="6">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Controls -->
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="6">
+                <CheckBox Content="PreNatal" Margin="6,0" 
+                          Style="{StaticResource MaterialDesignCheckBox}"
+                          IsChecked="{Binding IsPrenatal}"
+                          Checked="Prenatal_Checked" Unchecked="Prenatal_Unchecked"/>
+            </StackPanel>
+
+            <!-- Venus Star Point Positions List -->
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid Margin="6"
+                          materialDesign:DataGridAssist.CellPadding="4 2 2 2"
+                          materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
+                          CanUserAddRows="False"
+                          CanUserSortColumns="False"
+                          AutoGenerateColumns="False"
+                          HeadersVisibility="All"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          ItemsSource="{Binding VspPositions}"
+                          SelectionUnit="FullRow">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding SequenceId}" Header="Sequence" 
+                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                        <DataGridTextColumn Binding="{Binding DateText}" Header="Date" 
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                        <DataGridTextColumn Binding="{Binding TimeText}" Header="Time" 
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                        <DataGridTextColumn Binding="{Binding PhenomenonText}" Header="Phenomenon" 
+                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                        <DataGridTextColumn Binding="{Binding LongitudeText}" Header="Longitude" 
+                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                    </DataGrid.Columns>   
+                </DataGrid>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- Bottom buttons -->
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Margin="6 6 0 6" Content="Help" Command="{Binding HelpCommand}"/>
+            <Button Margin="6 6 0 6" Content="Close" Command="{Binding CloseCommand}" />
+        </StackPanel>
+    </Grid>
+</Window>

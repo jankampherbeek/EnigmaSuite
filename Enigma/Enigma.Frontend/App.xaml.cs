@@ -146,6 +146,11 @@ public partial class App
         serviceCollection.AddTransient<EnneagramViewModel>();
         serviceCollection.AddTransient<EnneagramWindow>();
         
+        // VSP services
+        serviceCollection.AddTransient<VspModel>();
+        serviceCollection.AddTransient<VspViewModel>();
+        serviceCollection.AddTransient<VspWindow>();
+        
         serviceCollection.AddTransient<HelpWindow>();
         
         // Handle services from other projects.

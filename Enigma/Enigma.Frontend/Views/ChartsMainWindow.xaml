@@ -145,6 +145,11 @@
                         <Image Source="/Images/enneagram.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Venus Star Point" Command="{Binding VspCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/VSP.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>    
             <MenuItem Header="Progressive">
                 <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">

@@ -263,6 +263,13 @@ public partial class ChartsMainViewModel: ObservableObject,
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.ENNEAGRAM));
     }
     
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Vsp()
+    {
+        Log.Information("ChartsMainViewModel.Vsp(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.VSP));
+    }
+    
     [RelayCommand]
     private static void About()
     {

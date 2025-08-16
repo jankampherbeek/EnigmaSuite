@@ -1,0 +1,166 @@
+// Enigma Astrology Research.
+// Jan Kampherbeek, (c) 2025.
+// All Enigma software is open source.
+// Please check the file copyright.txt in the root of the source for further details.
+
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Linq;
+using Enigma.Domain.Dtos;
+using Enigma.Frontend.Ui.Graphics;
+using Enigma.Frontend.Ui.State;
+using Enigma.Frontend.Ui.ViewModels;
+using Enigma.Frontend.Ui.Models;
+using Microsoft.Extensions.DependencyInjection;
+using Enigma.Api.Calc;
+using Enigma.Domain.Constants;
+using Enigma.Domain.Requests;
+using Enigma.Domain.References;
+using Enigma.Core.Slices.VenusStarPoint;
+
+namespace Enigma.Frontend.Ui.Views;
+
+/// <summary>View for Venus Star Point results</summary>
+public partial class VspWindow
+{
+    private ChartsWheelCanvasController _canvasController;
+
+    public VspWindow()
+    {
+        InitializeComponent();
+        _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
+        _canvasController.AllPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
+        // Set up property change handling for the ViewModel
+        DataContextChanged += OnDataContextChanged;
+    }
+
+    private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+    {
+        if (e.NewValue is VspViewModel viewModel)
+        {
+            // Sync the controller with the ViewModel
+            _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
+            
+            // Set up property change notification
+            viewModel.PropertyChanged += OnViewModelPropertyChanged;
+        }
+    }
+    
+    private void OnViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(VspViewModel.ShowSignBackgroundColors))
+        {
+            var viewModel = (VspViewModel)sender;
+            _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
+            Populate();
+        }
+    }
+    
+    public void Populate()
+    {
+        WheelCanvas.Children.Clear();
+        
+        // Get the current chart from DataVaultCharts (same as SolarResultsWindow)
+        var currentChart = DataVaultCharts.Instance.GetCurrentChart();
+        if (currentChart != null)
+        {
+            _canvasController.AllPositions = currentChart.Positions;
+        }
+        
+        _canvasController.PrepareDraw();
+        DrawChartFrame();
+        DrawCusps();
+        DrawCelPoints();
+    }
+    
+
+    
+    private void DrawChartFrame()
+    {
+        AddToWheel(new List<UIElement>(_canvasController.WheelCircles));
+        AddToWheel(new List<UIElement>(_canvasController.SignBackgroundSectors));
+        AddToWheel(new List<UIElement>(_canvasController.SignSeparators));
+        AddToWheel(new List<UIElement>(_canvasController.SignGlyphs));
+        AddToWheel(new List<UIElement>(_canvasController.DegreeLines));
+    }
+    
+    private void DrawCusps()
+    {
+        AddToWheel(new List<UIElement>(_canvasController.CuspLines));
+        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalLines));
+        AddToWheel(new List<UIElement>(_canvasController.CuspTexts));
+        AddToWheel(new List<UIElement>(_canvasController.CuspCardinalIndicators));
+    }
+    
+    private void DrawCelPoints()
+    {
+        AddToWheel(new List<UIElement>(_canvasController.CelPointGlyphs));
+        AddToWheel(new List<UIElement>(_canvasController.CelPointConnectLines));
+        AddToWheel(new List<UIElement>(_canvasController.CelPointTexts));
+    }
+    
+    
+    private void AddToWheel(List<UIElement> uiElements)
+    {
+        foreach (var uiElement in uiElements)
+        {
+            WheelCanvas.Children.Add(uiElement);
+        }
+    }
+    
+    private void WheelGrid_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        // Account for: Header (~40px) + Chart Name (~30px) + margins and padding (~100px)
+        double reservedHeight = 170.0;
+        double availHeight = ActualHeight - reservedHeight;
+        double minSize = Math.Min(availHeight, ActualWidth / 2); // Half width since we have two columns
+        _canvasController.Resize(minSize);
+        WheelCanvas.Height = _canvasController.CanvasSize;
+        WheelCanvas.Width = _canvasController.CanvasSize;
+        Populate();
+    }
+    
+    private void NoTime_Checked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.NoTime = true;
+        Populate();
+    }
+    
+    private void NoTime_Unchecked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.NoTime = false;
+        Populate();
+    }
+    
+  private void SignColors_Checked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.ShowSignBackgroundColors = false;
+        Populate();
+    }
+    
+    private void SignColors_Unchecked(object sender, RoutedEventArgs e)
+    {
+        _canvasController.ShowSignBackgroundColors = true;
+        Populate();
+    }
+    
+    private void Prenatal_Checked(object sender, RoutedEventArgs e)
+    {
+        var viewModel = DataContext as VspViewModel;
+        viewModel?.UpdatePrenatal(true);
+    }
+    
+    private void Prenatal_Unchecked(object sender, RoutedEventArgs e)
+    {
+        var viewModel = DataContext as VspViewModel;
+        viewModel?.UpdatePrenatal(false);
+    }
+    
+    private void ExportClick(object sender, RoutedEventArgs e)
+    {
+        CanvasExporter.WriteCanvasToPng(WheelCanvas);
+    }
+}

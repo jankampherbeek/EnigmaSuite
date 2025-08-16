@@ -32,7 +32,6 @@ public partial class SolarResultsWindow
     {
         InitializeComponent();
         _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
-     //   var solar = new CalculatedChart(DataVaultProg.Instance.GetCurrentSolar(), null, 0.0);
         _canvasController.AllPositions = DataVaultProg.Instance.GetCurrentSolar().Positions;
         // Set up property change handling for the ViewModel
         DataContextChanged += OnDataContextChanged;
