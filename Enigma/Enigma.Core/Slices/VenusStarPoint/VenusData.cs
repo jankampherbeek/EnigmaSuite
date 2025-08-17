@@ -12,12 +12,12 @@ namespace Enigma.Core.Slices.VenusStarPoint;
 public static class VenusData
 {
     public const double VenusInferiorConjunctionFactorA = 2451_996.706;
-    public const double VenusInferiorConjunctionFactorB = 583_921.361;
+    public const double VenusInferiorConjunctionFactorB = 583.921361;
     public const double VenusInferiorConjunctionFactorM0 = 82.7311;
     public const double VenusInferiorConjunctionFactorM1 = 215.513058;
     
     public const double VenusSuperiorConjunctionFactorA = 2451_704.746;
-    public const double VenusSuperiorConjunctionFactorB = 583_921.361;
+    public const double VenusSuperiorConjunctionFactorB = 583.921361;
     public const double VenusSuperiorConjunctionFactorM0 = 154.9745;
     public const double VenusSuperiorConjunctionFactorM1 = 215.513058;
 }

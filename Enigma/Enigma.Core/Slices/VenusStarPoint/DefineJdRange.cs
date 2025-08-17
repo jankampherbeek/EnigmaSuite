@@ -33,7 +33,7 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         {
             var year = julDayFacade.DateTimeFromJd(lastJdInferior + MIN_VENUS_PERIOD, CAL).Year;
             var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, CAL));
-            var yearFraction = YearFraction.CalcYearAndFraction(year, lastJdInferior, jdNewYear);
+            var yearFraction = YearFraction.CalcYearAndFraction(year, lastJdInferior + MIN_VENUS_PERIOD, jdNewYear);
             var jdPhenonomenon = DefineJdPhenomenon(yearFraction, VenusPhenomena.InferiorConjunction);
             lastJdInferior = jdPhenonomenon.Item1;        
             jdsFound.Add(jdPhenonomenon);
@@ -43,7 +43,7 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
         {
             var year = julDayFacade.DateTimeFromJd(lastJdSuperior + MIN_VENUS_PERIOD, CAL).Year;
             var jdNewYear = julDayFacade.JdFromSe(new SimpleDateTime(year, 1, 1, 0, CAL));
-            var yearFraction = YearFraction.CalcYearAndFraction(year, lastJdSuperior, jdNewYear);
+            var yearFraction = YearFraction.CalcYearAndFraction(year, lastJdSuperior + MIN_VENUS_PERIOD, jdNewYear);
             var jdPhenonomenon = DefineJdPhenomenon(yearFraction, VenusPhenomena.SuperiorConjunction);
             lastJdSuperior = jdPhenonomenon.Item1;        
             jdsFound.Add(jdPhenonomenon);

@@ -31,14 +31,16 @@ public class EstimatedConjunctionDate
             ? VenusData.VenusInferiorConjunctionFactorM1
             : VenusData.VenusSuperiorConjunctionFactorM1;
         var k = Math.Round((365.2425 * yearFraction + 1721_060 - a) / b);
+
         var jde0 = a + k * b;
         var m = m0 + k * m1;
         var t = (jde0 - 2451_545.0) / 36_525.0;
         var correction = phenomenon == VenusPhenomena.InferiorConjunction 
             ? JdCorrectionInferior(t, m) 
             : JdCorrectionSuperior(t, m);
+        Console.WriteLine("jde0: " + jde0 + "correction: " + correction + " k: " + k + "yearFraction" + yearFraction + " a: " + a + " b:" +b);
         return jde0 + correction;
-
+ 
     }
 
     private static double JdCorrectionInferior(double t, double m)
@@ -51,7 +53,7 @@ public class EstimatedConjunctionDate
         correction += (0.0967 - 0.0018 * t - 0.00003 * t * t) * Math.Sin(mRad * 2.0);
         correction += (0.0913 + 0.0009 * t - 0.00002 * t * t) * Math.Cos(mRad * 2.0);
         correction += (0.0046 - 0.0002 * t) * Math.Sin(mRad * 3.0);
-        correction += (0.0079 + 0.0002 * t) * Math.Cos(mRad * 3.0);
+        correction += (0.0079 + 0.0001 * t) * Math.Cos(mRad * 3.0);
         return correction;
     }
 
