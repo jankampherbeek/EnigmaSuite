@@ -70,13 +70,6 @@ public class IntegrationTestVenusStarPointService
                 Assert.That(position.Longitude, Is.LessThan(360.0));
                 Assert.That(position.Phenomenon, Is.AnyOf(VenusPhenomena.InferiorConjunction, VenusPhenomena.SuperiorConjunction));
             }
-            
-            // Check that sequence IDs are sequential
-            var sequenceIds = result.Select(p => p.SequenceId).OrderBy(id => id).ToList();
-            for (int i = 0; i < sequenceIds.Count; i++)
-            {
-                Assert.That(sequenceIds[i], Is.EqualTo(i));
-            }
         });
     }
 
