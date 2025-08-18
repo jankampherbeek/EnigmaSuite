@@ -150,7 +150,7 @@ public class DefineJdRange(IJulDayFacade julDayFacade, ExactConjunctionDate exac
     private Tuple<double, VenusPhenomena> DefineJdPhenomenon(double yearFraction, VenusPhenomena phenomenon)
     {
         var estimatedJd = EstimatedConjunctionDate.CalcEstimatedConjunctionDate(yearFraction, phenomenon);
-        var exactJd = exactConjunctionDate.CalculateConjunctiondate(estimatedJd);
+        var exactJd = exactConjunctionDate.CalculateConjunctiondate(estimatedJd, phenomenon);
         return new Tuple<double, VenusPhenomena>(exactJd, phenomenon); 
     }
     

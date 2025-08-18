@@ -21,14 +21,14 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
     private const double MIN_INTERVAL = 1E-12; // Minimum interval size to prevent endless loops
     private const int MAX_ITERATIONS = 1000; // Maximum iterations to prevent endless loops
     
-    public double CalculateConjunctiondate(double estimatedJd)
+    public double CalculateConjunctiondate(double estimatedJd, VenusPhenomena phenomenon)
     {
         // Define range from estimatedJD ± 1 day
         var startJd = estimatedJd - 1;
         var endJd = estimatedJd + 1;
         
         // Use binary search to find exact conjunction date
-        return FindExactConjunctionDate(startJd, endJd);
+        return FindExactConjunctionDate(startJd, endJd, phenomenon);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
     /// <param name="jdLow">Lower bound Julian Day</param>
     /// <param name="jdHigh">Upper bound Julian Day</param>
     /// <returns>The exact Julian Day of the conjunction</returns>
-    private double FindExactConjunctionDate(double jdLow, double jdHigh)
+    private double FindExactConjunctionDate(double jdLow, double jdHigh, VenusPhenomena phenomenon)
     {
         var counter = 0;
         double bestJd = (jdLow + jdHigh) / 2.0; // Initialize with midpoint
@@ -46,6 +46,7 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
         while (counter < MAX_ITERATIONS)
         {
             counter++;
+           
             
             // Check if the search interval has become too small
             if (Math.Abs(jdHigh - jdLow) < MIN_INTERVAL)
@@ -73,13 +74,15 @@ public class ExactConjunctionDate(ICalcUtFacade calcUtFacade)
             // Determine which half to search next
             if (longitudeDifference > 0)
             {
-                // Sun is ahead of Venus, search in the earlier half
-                jdHigh = midJd;
+                // Sun is ahead of Venus
+                if (phenomenon == VenusPhenomena.InferiorConjunction) jdHigh = midJd;
+                else jdLow = midJd;
             }
             else
             {
-                // Venus is ahead of Sun, search in the later half
-                jdLow = midJd;
+                // Venus is ahead of Sun
+                if (phenomenon == VenusPhenomena.InferiorConjunction) jdLow = midJd;
+                else jdHigh = midJd;
             }
         }
         
