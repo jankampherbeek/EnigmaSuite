@@ -52,7 +52,9 @@ public partial class VspViewModel : ObservableObject, IRecipient<CloseMessage>
         
         // Initialize data
         ChartName = _model.GetCurrentChartName();
+        System.Diagnostics.Debug.WriteLine($"VspViewModel: ChartName = {ChartName}");
         VspPositions = _model.GetVspPositions(IsPrenatal);
+        System.Diagnostics.Debug.WriteLine($"VspViewModel: VspPositions count = {VspPositions?.Count ?? 0}");
     }
 
     /// <summary>Update the prenatal setting and recalculate VSP positions</summary>

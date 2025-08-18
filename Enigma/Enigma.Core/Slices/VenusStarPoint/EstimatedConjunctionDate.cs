@@ -38,8 +38,7 @@ public class EstimatedConjunctionDate
         var correction = phenomenon == VenusPhenomena.InferiorConjunction 
             ? JdCorrectionInferior(t, m) 
             : JdCorrectionSuperior(t, m);
-        Console.WriteLine("jde0: " + jde0 + "correction: " + correction + " k: " + k + "yearFraction" + yearFraction + " a: " + a + " b:" +b);
-        return jde0 + correction;
+         return jde0 + correction;
  
     }
 

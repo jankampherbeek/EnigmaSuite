@@ -39,12 +39,14 @@ public class ChartsWheelCanvasController(
     public List<Line> CelPointConnectLines { get; private set; } = new();
     public List<TextBlock> CelPointTexts { get; private set; } = new();
     public List<TextBlock> CelPointGlyphs { get; private set; } = new();
+    public List<TextBlock> VspTexts { get; private set; } = new();
     public List<Ellipse> WheelCircles { get; private set; } = new();
     public List<Line> DegreeLines { get; private set; } = new();
     public List<Line> AspectLines { get; private set; } = new();
     public Dictionary<ChartPoints, FullPointPos>? AllPositions { get; set; }  
     
     public double CanvasSize { get; private set; }
+    public ChartsWheelMetrics Metrics => metrics;
     private Point _centerPoint;
 
 
@@ -99,6 +101,11 @@ public class ChartsWheelCanvasController(
         CelPointTexts = graphicCelPoints.CreateCelPointTextsForWheel(metrics, points, _centerPoint, al);
     }
 
+    private void HandleVspPoints()
+    {
+        VspTexts = new List<TextBlock>(); // Will be populated by VspWindow
+    }
+
     private void HandleAspects()
     {
       AspectLines = chartsWheelAspects.CreateAspectLines(AllPositions!, metrics, _centerPoint, NoTime);
@@ -151,6 +158,7 @@ public class ChartsWheelCanvasController(
         HandleSigns();
         HandleCusps();
         HandleCelPoints();
+        HandleVspPoints();
         HandleAspects();
     }
 

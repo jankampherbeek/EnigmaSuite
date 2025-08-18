@@ -13,10 +13,10 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="Enigma - Venus Star Point" Height="800" Width="1200">
-    <Window.Resources>
-        <viewModels:VspViewModel x:Key="ViewModel"/>
-    </Window.Resources>
-    <Grid Margin="6" DataContext="{StaticResource ViewModel}">
+    <Window.DataContext>
+        <viewModels:VspViewModel/>
+    </Window.DataContext>
+    <Grid Margin="6">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

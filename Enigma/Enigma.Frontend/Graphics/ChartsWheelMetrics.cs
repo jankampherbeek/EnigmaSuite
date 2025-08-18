@@ -24,6 +24,7 @@ public sealed class ChartsWheelMetrics
     public Color CelPointColor { get; } = Colors.DarkSlateBlue;
     public Color CelPointConnectLineColor { get; } = Colors.DarkSlateBlue;
     public Color CelPointTextColor { get; } = Colors.DarkSlateBlue;
+    public Color VspTextColor { get; } = Colors.DarkRed;
     public Color HardAspectsColor { get; } = Colors.Red;
     public Color SoftAspectsColor { get; } = Colors.Green;
     public Color MinorAspectsColor { get; } = Colors.Gray;
@@ -61,6 +62,8 @@ public sealed class ChartsWheelMetrics
     public double CelPointTextRadius { get; private set; }
     private double CardinalIndicatorCircle { get; set; }
     public double CardinalIndicatorRadius { get; private set; }
+    private double VspCircle { get; set; }
+    public double VspRadius { get; private set; }
 
 
     private const double OUTER_CIRCLE_INITIAL = 0.98;
@@ -75,6 +78,7 @@ public sealed class ChartsWheelMetrics
     private const double DEGREES_CIRCLE_INITIAL = 0.775;
     private const double DEGREES5_CIRCLE_INITIAL = 0.76;
     private const double CEL_POINT_GLYPH_CIRCLE_INITIAL = 0.54;
+    private const double VSP_CIRCLE_INITIAL = 0.39;
 
 
     // --------------------------------------------------
@@ -93,6 +97,7 @@ public sealed class ChartsWheelMetrics
     public double CelPointTextEastOffset { get; private set; }
     public double CelPointTextWestOffset { get; private set; }
     public double PositionTextSize { get; private set; }
+    public double VspTextSize { get; private set; }
     public double GlyphXOffset { get; private set; }
     public double GlyphYOffset { get; private set; }
     public double GridSize { get; private set; }
@@ -108,6 +113,7 @@ public sealed class ChartsWheelMetrics
     private const double CEL_POINT_TEXT_EAST_OFFSET_INITIAL = 8.0;
     private const double CEL_POINT_TEXT_WEST_OFFSET_INITIAL = -20.0;
     private const double POSITION_TEXT_SIZE_INITIAL = 10.0;
+    private const double VSP_TEXT_SIZE_INITIAL = 15.0;
     private const double GLYPH_X_OFFSET_INITIAL = 0.0;
     private const double GLYPH_Y_OFFSET_INITIAL = 0.0;
 
@@ -142,6 +148,7 @@ public sealed class ChartsWheelMetrics
         CelPointTextEastOffset = CEL_POINT_TEXT_EAST_OFFSET_INITIAL * SizeFactor;
         CelPointTextWestOffset = CEL_POINT_TEXT_WEST_OFFSET_INITIAL * SizeFactor;
         PositionTextSize = POSITION_TEXT_SIZE_INITIAL * (GridSize / 700.0);
+        VspTextSize = VSP_TEXT_SIZE_INITIAL * (GridSize / 700.0);
 
     }
 
@@ -182,6 +189,9 @@ public sealed class ChartsWheelMetrics
 
         CardinalIndicatorCircle = CARDINAL_INDICATOR_CIRCLE_INITIAL * GridSize;
         CardinalIndicatorRadius = CardinalIndicatorCircle / 2;
+
+        VspCircle = VSP_CIRCLE_INITIAL * GridSize;
+        VspRadius = VspCircle / 2;
     }
 
 }

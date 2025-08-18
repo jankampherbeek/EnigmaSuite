@@ -55,14 +55,21 @@ public class VspModel
         {
             var birthJd = currentChart.InputtedChartData.FullDateTime.JulianDayForEt;
             var ayanamsha = GetAyanamshaFromConfiguration();
+            Log.Information($"VspModel.GetVspPositions: Birth JD: {birthJd}, Ayanamsha: {ayanamsha}, Prenatal: {isPrenatal}");
+            
             var request = new VenusStarPointRequest(birthJd, isPrenatal, ayanamsha);
             var vspPositions = _venusStarPointService.VenusStarPointCalculation(request);
             
-            return vspPositions.Select(pos => new PresentableVspPosition(
+            Log.Information($"VspModel.GetVspPositions: Calculated {vspPositions.Count} VSP positions");
+            
+            var result = vspPositions.Select(pos => new PresentableVspPosition(
                 pos,
                 FormatDate(pos.Jd),
                 FormatTime(pos.Jd)
             )).ToList();
+            
+            Log.Information($"VspModel.GetVspPositions: Created {result.Count} presentable VSP positions");
+            return result;
         }
         catch (System.Exception ex)
         {
