@@ -3,6 +3,7 @@
 // All Enigma software is open source.
 // Please check the file copyright.txt in the root of the source for further details.
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Windows.Media;
@@ -61,8 +62,19 @@ public partial class VspViewModel : ObservableObject, IRecipient<CloseMessage>
     /// <param name="isPrenatal">Whether to include prenatal positions</param>
     public void UpdatePrenatal(bool isPrenatal)
     {
+        Console.WriteLine($"UpdatePrenatal called with isPrenatal = {isPrenatal}");
+        System.Diagnostics.Debug.WriteLine($"UpdatePrenatal called with isPrenatal = {isPrenatal}");
+        
         IsPrenatal = isPrenatal;
-        VspPositions = _model.GetVspPositions(IsPrenatal);
+        var newPositions = _model.GetVspPositions(IsPrenatal);
+        
+        Console.WriteLine($"Old VspPositions count: {VspPositions?.Count ?? 0}, New count: {newPositions?.Count ?? 0}");
+        System.Diagnostics.Debug.WriteLine($"Old VspPositions count: {VspPositions?.Count ?? 0}, New count: {newPositions?.Count ?? 0}");
+        
+        VspPositions = newPositions;
+        
+        Console.WriteLine("VspPositions updated - PropertyChanged should fire");
+        System.Diagnostics.Debug.WriteLine("VspPositions updated - PropertyChanged should fire");
     }
 
     public void Receive(CloseMessage message)

@@ -70,10 +70,21 @@ public partial class VspWindow
     
     private void OnViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
+        Console.WriteLine($"OnViewModelPropertyChanged: PropertyName = {e.PropertyName}");
+        System.Diagnostics.Debug.WriteLine($"OnViewModelPropertyChanged: PropertyName = {e.PropertyName}");
+        
         if (e.PropertyName == nameof(VspViewModel.ShowSignBackgroundColors))
         {
             var viewModel = (VspViewModel)sender;
             _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
+            Console.WriteLine("Calling Populate() for ShowSignBackgroundColors change");
+            Populate();
+        }
+        else if (e.PropertyName == nameof(VspViewModel.VspPositions))
+        {
+            // When VspPositions changes (e.g., when Prenatal checkbox is toggled), refresh the chart wheel
+            Console.WriteLine("Calling Populate() for VspPositions change");
+            System.Diagnostics.Debug.WriteLine("Calling Populate() for VspPositions change");
             Populate();
         }
     }
@@ -379,14 +390,46 @@ public partial class VspWindow
     
     private void Prenatal_Checked(object sender, RoutedEventArgs e)
     {
+        Console.WriteLine("Prenatal_Checked called");
+        System.Diagnostics.Debug.WriteLine("Prenatal_Checked called");
         var viewModel = DataContext as VspViewModel;
-        viewModel?.UpdatePrenatal(true);
+        if (viewModel != null)
+        {
+            Console.WriteLine("Calling UpdatePrenatal(true)");
+            System.Diagnostics.Debug.WriteLine("Calling UpdatePrenatal(true)");
+            viewModel.UpdatePrenatal(true);
+            // Also force a chart wheel refresh
+            Console.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(true)");
+            System.Diagnostics.Debug.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(true)");
+            Populate();
+        }
+        else
+        {
+            Console.WriteLine("ViewModel is null in Prenatal_Checked");
+            System.Diagnostics.Debug.WriteLine("ViewModel is null in Prenatal_Checked");
+        }
     }
     
     private void Prenatal_Unchecked(object sender, RoutedEventArgs e)
     {
+        Console.WriteLine("Prenatal_Unchecked called");
+        System.Diagnostics.Debug.WriteLine("Prenatal_Unchecked called");
         var viewModel = DataContext as VspViewModel;
-        viewModel?.UpdatePrenatal(false);
+        if (viewModel != null)
+        {
+            Console.WriteLine("Calling UpdatePrenatal(false)");
+            System.Diagnostics.Debug.WriteLine("Calling UpdatePrenatal(false)");
+            viewModel.UpdatePrenatal(false);
+            // Also force a chart wheel refresh
+            Console.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(false)");
+            System.Diagnostics.Debug.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(false)");
+            Populate();
+        }
+        else
+        {
+            Console.WriteLine("ViewModel is null in Prenatal_Unchecked");
+            System.Diagnostics.Debug.WriteLine("ViewModel is null in Prenatal_Unchecked");
+        }
     }
     
     private void ExportClick(object sender, RoutedEventArgs e)
