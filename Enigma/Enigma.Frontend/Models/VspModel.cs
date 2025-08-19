@@ -13,6 +13,7 @@ using Enigma.Frontend.Ui.State;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Enigma.Frontend.Ui.State;
+using Enigma.Api.Calc;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -20,11 +21,13 @@ namespace Enigma.Frontend.Ui.Models;
 public class VspModel
 {
     private readonly VenusStarPointService _venusStarPointService;
+    private readonly IJulianDayApi _julianDayApi;
     private readonly DataVaultCharts _dataVaultCharts = DataVaultCharts.Instance;
 
-    public VspModel(VenusStarPointService venusStarPointService)
+    public VspModel(VenusStarPointService venusStarPointService, IJulianDayApi julianDayApi)
     {
         _venusStarPointService = venusStarPointService;
+        _julianDayApi = julianDayApi;
     }
 
     /// <summary>
@@ -62,11 +65,7 @@ public class VspModel
             
             Log.Information($"VspModel.GetVspPositions: Calculated {vspPositions.Count} VSP positions");
             
-            var result = vspPositions.Select(pos => new PresentableVspPosition(
-                pos,
-                FormatDate(pos.Jd),
-                FormatTime(pos.Jd)
-            )).ToList();
+            var result = vspPositions.Select(pos => new PresentableVspPosition(pos, _julianDayApi)).ToList();
             
             Log.Information($"VspModel.GetVspPositions: Created {result.Count} presentable VSP positions");
             return result;
@@ -85,23 +84,5 @@ public class VspModel
         // Get the current configuration to determine if we should use sidereal
         var config = CurrentConfig.Instance.GetConfig();
         return config.Ayanamsha;
-    }
-    
-    /// <summary>Format Julian Day to date string</summary>
-    /// <param name="jd">Julian Day</param>
-    /// <returns>Formatted date string</returns>
-    private string FormatDate(double jd)
-    {
-        // Simple date formatting - in a real implementation you'd use a proper date conversion
-        return $"JD {jd:F1}";
-    }
-    
-    /// <summary>Format Julian Day to time string</summary>
-    /// <param name="jd">Julian Day</param>
-    /// <returns>Formatted time string</returns>
-    private string FormatTime(double jd)
-    {
-        // Simple time formatting - in a real implementation you'd use a proper time conversion
-        return $"Time {jd:F4}";
     }
 }

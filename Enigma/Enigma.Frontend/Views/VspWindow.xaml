@@ -89,7 +89,6 @@
             <!-- Venus Star Point Positions List -->
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <DataGrid Margin="6"
-                          materialDesign:DataGridAssist.CellPadding="4 2 2 2"
                           materialDesign:DataGridAssist.ColumnHeaderPadding="4 2 2 2"
                           CanUserAddRows="False"
                           CanUserSortColumns="False"
@@ -98,20 +97,55 @@
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Top"
                           ItemsSource="{Binding VspPositions}"
-                          SelectionUnit="FullRow">
+                          SelectionUnit="FullRow"
+                          AlternatingRowBackground="LightBlue"
+                          RowBackground="White">
                     <DataGrid.Columns>
                         <DataGridTextColumn Binding="{Binding SequenceId}" Header="Sequence" 
-                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                        <DataGridTextColumn Binding="{Binding DateText}" Header="Date" 
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
-                        <DataGridTextColumn Binding="{Binding TimeText}" Header="Time" 
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                                            IsReadOnly="True" Width="80">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource NumberColumnStyle}">
+                                    <Setter Property="Padding" Value="12,6,12,6"/>
+                                    <Setter Property="Margin" Value="2,0,2,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Binding="{Binding DateTimeText}" Header="Date/time (UT)" 
+                                            IsReadOnly="True" Width="180">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource NameColumnStyle}">
+                                    <Setter Property="Padding" Value="12,6,12,6"/>
+                                    <Setter Property="Margin" Value="2,0,2,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding PhenomenonText}" Header="Conjunction" 
-                                            IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                                            IsReadOnly="True" Width="100">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource NameColumnStyle}">
+                                    <Setter Property="Padding" Value="12,6,12,6"/>
+                                    <Setter Property="Margin" Value="2,0,2,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding LongitudeText}" Header="Longitude" 
-                                            IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            IsReadOnly="True" Width="120">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource NumberColumnStyle}">
+                                    <Setter Property="Padding" Value="12,6,12,6"/>
+                                    <Setter Property="Margin" Value="2,0,2,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " 
-                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                                            IsReadOnly="True" Width="40">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell" BasedOn="{StaticResource GlyphColumnStyle}">
+                                    <Setter Property="Padding" Value="12,6,12,6"/>
+                                    <Setter Property="Margin" Value="2,0,2,0"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                     </DataGrid.Columns>   
                 </DataGrid>
             </ScrollViewer>
