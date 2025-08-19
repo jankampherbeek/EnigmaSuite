@@ -31,6 +31,7 @@ public partial class SolarResultsWindow
     public SolarResultsWindow()
     {
         InitializeComponent();
+        DefineColors();
         _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
         _canvasController.AllPositions = DataVaultProg.Instance.GetCurrentSolar().Positions;
         // Set up property change handling for the ViewModel
@@ -243,5 +244,11 @@ public partial class SolarResultsWindow
     private void ExportClick(object sender, RoutedEventArgs e)
     {
         CanvasExporter.WriteCanvasToPng(WheelCanvas);
+    }
+    
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        ChartNameText.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
     }
 } 

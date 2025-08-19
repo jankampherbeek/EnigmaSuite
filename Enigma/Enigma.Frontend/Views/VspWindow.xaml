@@ -12,7 +12,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - Venus Star Point" Height="800" Width="1200">
+        Title="Enigma - Venus Star Point" Height="900" Width="1200">
     <Window.DataContext>
         <viewModels:VspViewModel/>
     </Window.DataContext>

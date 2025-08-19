@@ -33,6 +33,7 @@ public partial class VspWindow
     public VspWindow()
     {
         InitializeComponent();
+        DefineColors();
         _canvasController = App.ServiceProvider.GetRequiredService<ChartsWheelCanvasController>();
         _canvasController.AllPositions = DataVaultCharts.Instance.GetCurrentChart().Positions;
         // Set up property change handling for the ViewModel
@@ -392,4 +393,10 @@ public partial class VspWindow
     {
         CanvasExporter.WriteCanvasToPng(WheelCanvas);
     }
+    
+    private void DefineColors()
+    {
+        Header.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+        ChartNameText.Foreground = (SolidColorBrush)new BrushConverter().ConvertFromString(ColorSettings.HEADER_COLOR)!;
+     }
 }
