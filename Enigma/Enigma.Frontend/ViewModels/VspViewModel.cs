@@ -13,15 +13,16 @@ using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.ViewModels;
 
 /// <summary>ViewModel for Venus Star Point window</summary>
-public partial class VspViewModel : ObservableObject, IRecipient<CloseMessage>
+public partial class VspViewModel : ObservableObject
 {
-    private const string VM_IDENTIFICATION = "VspWindow";
+    private const string VM_IDENTIFICATION = ChartsWindowsFlow.VSP;
     private readonly int _windowId = DataVaultCharts.Instance.LastWindowId;
     private readonly VspModel _model;
 
@@ -47,9 +48,6 @@ public partial class VspViewModel : ObservableObject, IRecipient<CloseMessage>
     public VspViewModel()
     {
         _model = App.ServiceProvider.GetRequiredService<VspModel>();
-        
-        // Register for messaging
-        WeakReferenceMessenger.Default.Register<CloseMessage>(this);
         
         // Initialize data
         ChartName = _model.GetCurrentChartName();
@@ -77,11 +75,5 @@ public partial class VspViewModel : ObservableObject, IRecipient<CloseMessage>
         System.Diagnostics.Debug.WriteLine("VspPositions updated - PropertyChanged should fire");
     }
 
-    public void Receive(CloseMessage message)
-    {
-        if (message.Value == VM_IDENTIFICATION)
-        {
-            WeakReferenceMessenger.Default.Unregister<CloseMessage>(this);
-        }
-    }
+   
 }
