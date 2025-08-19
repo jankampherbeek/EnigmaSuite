@@ -46,8 +46,8 @@ public class PresentableVspPosition
     {
         return phenomenon switch
         {
-            VenusPhenomena.InferiorConjunction => "Inferior Conjunction",
-            VenusPhenomena.SuperiorConjunction => "Superior Conjunction",
+            VenusPhenomena.InferiorConjunction => "Inferior",
+            VenusPhenomena.SuperiorConjunction => "Superior",
             _ => "Unknown"
         };
     }

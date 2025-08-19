@@ -106,7 +106,7 @@
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                         <DataGridTextColumn Binding="{Binding TimeText}" Header="Time" 
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
-                        <DataGridTextColumn Binding="{Binding PhenomenonText}" Header="Phenomenon" 
+                        <DataGridTextColumn Binding="{Binding PhenomenonText}" Header="Conjunction" 
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                         <DataGridTextColumn Binding="{Binding LongitudeText}" Header="Longitude" 
                                             IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
