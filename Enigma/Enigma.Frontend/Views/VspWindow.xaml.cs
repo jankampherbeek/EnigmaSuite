@@ -151,16 +151,24 @@ public partial class VspWindow
             {
                 Console.WriteLine($"VSP Positions count: {viewModel.VspPositions.Count}");
                 System.Diagnostics.Debug.WriteLine($"VSP Positions count: {viewModel.VspPositions.Count}");
-                var vspTexts = CreateVspTexts(viewModel.VspPositions);
-                Console.WriteLine($"VSP Texts created: {vspTexts.Count}");
-                System.Diagnostics.Debug.WriteLine($"VSP Texts created: {vspTexts.Count}");
-                AddToWheel(vspTexts);
                 
-                // Create and add VSP connection lines
+                // First, create and add VSP connection lines (drawn first, behind everything)
                 var vspLines = CreateVspConnectionLines(viewModel.VspPositions);
                 Console.WriteLine($"VSP Lines created: {vspLines.Count}");
                 System.Diagnostics.Debug.WriteLine($"VSP Lines created: {vspLines.Count}");
                 AddToWheel(vspLines);
+                
+                // Then, create and add VSP background circles (drawn second, behind text)
+                var vspCircles = CreateVspCircles(viewModel.VspPositions);
+                Console.WriteLine($"VSP Circles created: {vspCircles.Count}");
+                System.Diagnostics.Debug.WriteLine($"VSP Circles created: {vspCircles.Count}");
+                AddToWheel(vspCircles);
+                
+                // Finally, create and add VSP text (drawn last, on top)
+                var vspTexts = CreateVspTexts(viewModel.VspPositions);
+                Console.WriteLine($"VSP Texts created: {vspTexts.Count}");
+                System.Diagnostics.Debug.WriteLine($"VSP Texts created: {vspTexts.Count}");
+                AddToWheel(vspTexts);
             }
             else
             {
@@ -179,6 +187,42 @@ public partial class VspWindow
         }
     }
     
+    private List<UIElement> CreateVspCircles(List<PresentableVspPosition> vspPositions)
+    {
+        var vspCircles = new List<UIElement>();
+        var centerPoint = new Point(_canvasController.CanvasSize / 2, _canvasController.CanvasSize / 2);
+        var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
+            DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
+        
+        foreach (var vspPosition in vspPositions)
+        {
+            // Calculate the angle for positioning
+            double angle = vspPosition.Longitude - ascendantLongitude + 90.0;
+            if (angle < 0.0) angle += 360.0;
+            if (angle >= 360.0) angle -= 360.0;
+            
+            // Position the circle on the VSP radius
+            var dimPoint = new DimPoint(centerPoint);
+            var point = dimPoint.CreatePoint(angle, _canvasController.Metrics.VspRadius);
+            
+            // Create the light blue background circle
+            var backgroundCircle = new Ellipse
+            {
+                Width = _canvasController.Metrics.VspTextSize * 1.8,
+                Height = _canvasController.Metrics.VspTextSize * 1.8,
+                Fill = new SolidColorBrush(Color.FromRgb(173, 216, 230)) // Light blue color
+            };
+            
+            // Position the circle on the canvas
+            Canvas.SetLeft(backgroundCircle, point.X - backgroundCircle.Width / 2);
+            Canvas.SetTop(backgroundCircle, point.Y - backgroundCircle.Height / 2);
+            
+            vspCircles.Add(backgroundCircle);
+        }
+        
+        return vspCircles;
+    }
+    
     private List<UIElement> CreateVspTexts(List<PresentableVspPosition> vspPositions)
     {
         var vspTexts = new List<UIElement>();
@@ -186,48 +230,37 @@ public partial class VspWindow
         var ascendantLongitude = _canvasController.NoTime ? 0.0 : 
             DataVaultCharts.Instance.GetCurrentChart()?.Positions[ChartPoints.Ascendant].Ecliptical.MainPosSpeed.Position ?? 0.0;
         
-        System.Diagnostics.Debug.WriteLine($"Canvas Size: {_canvasController.CanvasSize}");
-        System.Diagnostics.Debug.WriteLine($"Center Point: {centerPoint}");
-        System.Diagnostics.Debug.WriteLine($"Ascendant Longitude: {ascendantLongitude}");
-        System.Diagnostics.Debug.WriteLine($"VSP Radius: {_canvasController.Metrics.VspRadius}");
-        System.Diagnostics.Debug.WriteLine($"VSP Text Size: {_canvasController.Metrics.VspTextSize}");
-        
         foreach (var vspPosition in vspPositions)
         {
-            System.Diagnostics.Debug.WriteLine($"Processing VSP {vspPosition.SequenceId} at longitude {vspPosition.Longitude}");
-            
             // Calculate the angle for positioning
-            // Longitude starts at 0° Aries, and 9 o'clock is the ascendant
-            // The difference between 0° Aries and ascendant is 360 - longitude asc
             double angle = vspPosition.Longitude - ascendantLongitude + 90.0;
             if (angle < 0.0) angle += 360.0;
             if (angle >= 360.0) angle -= 360.0;
-            
-            System.Diagnostics.Debug.WriteLine($"Calculated angle: {angle}");
-            
-            // Create the text block for the VSP number
-            var textBlock = new TextBlock
-            {
-                Text = vspPosition.SequenceId.ToString(),
-                FontFamily = _canvasController.Metrics.PositionTextsFontFamily,
-                FontSize = _canvasController.Metrics.VspTextSize,
-                Foreground = new SolidColorBrush(Colors.Red), // Make it red for visibility
-                HorizontalAlignment = HorizontalAlignment.Center,
-                VerticalAlignment = VerticalAlignment.Center
-            };
             
             // Position the text on the VSP radius
             var dimPoint = new DimPoint(centerPoint);
             var point = dimPoint.CreatePoint(angle, _canvasController.Metrics.VspRadius);
             
-            System.Diagnostics.Debug.WriteLine($"Positioned at point: {point}");
+            // Calculate longitude in degrees and minutes within the sign
+            double longitudeInSign = vspPosition.Longitude % 30.0;
+            int degrees = (int)longitudeInSign;
+            int minutes = (int)((longitudeInSign - degrees) * 60.0);
             
-            Canvas.SetLeft(textBlock, point.X - textBlock.FontSize / 3);
-            Canvas.SetTop(textBlock, point.Y - textBlock.FontSize / 1.8);
+            // Create the text block for the VSP number and longitude
+            var textBlock = new TextBlock
+            {
+                Text = $"{vspPosition.SequenceId}\n{degrees}°{minutes:D2}'",
+                FontFamily = _canvasController.Metrics.PositionTextsFontFamily,
+                FontSize = _canvasController.Metrics.VspTextSize * 0.8, // Slightly smaller to fit both lines
+                Foreground = new SolidColorBrush(Colors.Red), // Make it red for visibility
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center,
+                TextAlignment = TextAlignment.Center
+            };
             
-            System.Diagnostics.Debug.WriteLine($"Canvas position: Left={Canvas.GetLeft(textBlock)}, Top={Canvas.GetTop(textBlock)}");
-            System.Diagnostics.Debug.WriteLine($"Canvas bounds: Width={WheelCanvas.Width}, Height={WheelCanvas.Height}");
-            System.Diagnostics.Debug.WriteLine($"Text block bounds: Width={textBlock.ActualWidth}, Height={textBlock.ActualHeight}");
+            // Position the text on the canvas - center it properly in the circle
+            Canvas.SetLeft(textBlock, point.X - (_canvasController.Metrics.VspTextSize * 1.8) / 2);
+            Canvas.SetTop(textBlock, point.Y - (_canvasController.Metrics.VspTextSize * 1.8) / 2);
             
             vspTexts.Add(textBlock);
         }
@@ -292,7 +325,7 @@ public partial class VspWindow
                     Y1 = linePoint1.Y,
                     X2 = linePoint2.X,
                     Y2 = linePoint2.Y,
-                    Stroke = new SolidColorBrush(Colors.Blue),
+                    Stroke = new SolidColorBrush(Color.FromRgb(173, 216, 230)), // Light blue color
                     StrokeThickness = 6.0,
                     Opacity = 0.8
                 };
