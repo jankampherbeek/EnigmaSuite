@@ -21,6 +21,7 @@ using Enigma.Domain.Constants;
 using Enigma.Domain.Requests;
 using Enigma.Domain.References;
 using Enigma.Core.Slices.VenusStarPoint;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.Views;
 
@@ -241,12 +242,12 @@ public partial class VspWindow
             var dimPoint = new DimPoint(centerPoint);
             var point = dimPoint.CreatePoint(angle, _canvasController.Metrics.VspRadius);
             
-            // Calculate longitude in degrees and minutes within the sign
+            // Calculate longitude in degrees and minutes within the sign (original format for wheel)
             double longitudeInSign = vspPosition.Longitude % 30.0;
             int degrees = (int)longitudeInSign;
             int minutes = (int)((longitudeInSign - degrees) * 60.0);
             
-            // Create the text block for the VSP number and longitude
+            // Create the text block for the VSP number and longitude (original format)
             var textBlock = new TextBlock
             {
                 Text = $"{vspPosition.SequenceId}\n{degrees}°{minutes:D2}'",

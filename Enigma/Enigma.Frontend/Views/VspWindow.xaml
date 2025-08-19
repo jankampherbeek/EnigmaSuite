@@ -110,6 +110,8 @@
                                             IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
                         <DataGridTextColumn Binding="{Binding LongitudeText}" Header="Longitude" 
                                             IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                        <DataGridTextColumn Binding="{Binding SignGlyph}" Header=" " 
+                                            IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                     </DataGrid.Columns>   
                 </DataGrid>
             </ScrollViewer>

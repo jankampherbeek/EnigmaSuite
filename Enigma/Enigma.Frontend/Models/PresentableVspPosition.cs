@@ -5,6 +5,7 @@
 
 using System.Globalization;
 using Enigma.Core.Slices.VenusStarPoint;
+using Enigma.Frontend.Ui.Support.Conversions;
 
 namespace Enigma.Frontend.Ui.Models;
 
@@ -16,6 +17,7 @@ public class PresentableVspPosition
     public string TimeText { get; }
     public string PhenomenonText { get; }
     public string LongitudeText { get; }
+    public char SignGlyph { get; }
     
     // Original data for internal use
     public double Jd { get; }
@@ -32,7 +34,12 @@ public class PresentableVspPosition
         DateText = dateText;
         TimeText = timeText;
         PhenomenonText = GetPhenomenonText(position.Phenomenon);
-        LongitudeText = FormatLongitude(position.Longitude);
+        
+        // Use the ConvertDoubleToDmsWithGlyph method for proper formatting
+        var doubleToDmsConversions = new DoubleToDmsConversions();
+        var (longitudeText, signGlyph) = doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(position.Longitude);
+        LongitudeText = longitudeText;
+        SignGlyph = signGlyph;
     }
     
     private static string GetPhenomenonText(VenusPhenomena phenomenon)
@@ -43,10 +50,5 @@ public class PresentableVspPosition
             VenusPhenomena.SuperiorConjunction => "Superior Conjunction",
             _ => "Unknown"
         };
-    }
-    
-    private static string FormatLongitude(double longitude)
-    {
-        return longitude.ToString("F2", CultureInfo.InvariantCulture) + "°";
     }
 }
