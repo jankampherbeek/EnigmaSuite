@@ -145,13 +145,28 @@
                         <Image Source="/Images/enneagram.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="BLA schema" Command="{Binding BlaSchemaCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/bla.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Header="Venus Star Point" Command="{Binding VspCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/VSP.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Header="Startpoint zodiac" Command="{Binding StartzodCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/startpoint_zodiac.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>    
             <MenuItem Header="Progressive">
+                <MenuItem Header="Progressive Calendar" Command="{Binding ProgCalCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/prog_cal.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>  
                 <MenuItem Header="Primary Directions" Command="{Binding PrimDirCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/primary.png"/>
@@ -170,6 +185,21 @@
                 <MenuItem Header="Solar" Command="{Binding SolarCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/solar.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Prenatal" Command="{Binding PrenatalCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/prenatal.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Profections" Command="{Binding ProfectionsCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/profections.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Firdaria" Command="{Binding FirdariaCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/Images/firdaria.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
