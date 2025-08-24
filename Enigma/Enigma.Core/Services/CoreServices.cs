@@ -14,6 +14,7 @@ using Enigma.Core.LocationAndTimeZones.Services;
 using Enigma.Core.Persistency;
 using Enigma.Core.Research;
 using Enigma.Core.Research.Services;
+using Enigma.Core.Slices.BlaSchema;
 using Enigma.Core.Slices.Solar;
 using Enigma.Core.Slices.VenusStarPoint;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +37,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IAspectPointSelector, AspectPointSelector>();
         serviceCollection.AddTransient<IAspectsHandler, AspectsHandler>();
         serviceCollection.AddTransient<IBaseMidpointsCreator, BaseMidpointsCreator>();
+        serviceCollection.AddTransient<BlaPositionsFactory>();
         serviceCollection.AddTransient<ICalcChartsRangeHandler, CalcChartsRangeHandler>();
         serviceCollection.AddTransient<ICalcHelioPos, CalcHelioPos>();
         serviceCollection.AddTransient<ICalcSecDirHandler, ProgSecDirHandler>();
@@ -48,6 +50,7 @@ public static class CoreServices
         serviceCollection.AddTransient<ICelPointsHandler, CelPointsHandler>();
         serviceCollection.AddTransient<IChartAllPositionsHandler, ChartAllPositionsHandler>();
         serviceCollection.AddTransient<IChartDataDao, ChartDataDao>();
+        serviceCollection.AddTransient<ChartDetailsFactory>();
         serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
         serviceCollection.AddTransient<ICheckedProgAspects, CheckedProgAspects>();
         serviceCollection.AddTransient<ICommunicationHandler, CommunicationHandler>();
@@ -82,6 +85,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IHarmonicsHandler, HarmonicsHandler>();
         serviceCollection.AddTransient<IHorizontalCalc, HorizontalCalc>();
         serviceCollection.AddTransient<IHorizontalHandler, HorizontalHandler>();
+        serviceCollection.AddTransient<HousePositions>();
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
