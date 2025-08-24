@@ -48,6 +48,14 @@ public partial class ChartsMainViewModel: ObservableObject,
     [NotifyCanExecuteChangedFor(nameof(ProgressionsCommand))]
     [NotifyCanExecuteChangedFor(nameof(SolarCommand))]
     [NotifyCanExecuteChangedFor(nameof(DivisionCommand))]
+    [NotifyCanExecuteChangedFor(nameof(EnneagramCommand))]
+    [NotifyCanExecuteChangedFor(nameof(VspCommand))]
+    [NotifyCanExecuteChangedFor(nameof(BlaSchemaCommand))]
+    [NotifyCanExecuteChangedFor(nameof(StartZodCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ProgCalCommand))]
+    [NotifyCanExecuteChangedFor(nameof(PrenatalCommand))]
+    [NotifyCanExecuteChangedFor(nameof(ProfectionsCommand))]
+    [NotifyCanExecuteChangedFor(nameof(FirdariaCommand))]
     [NotifyPropertyChangedFor(nameof(SelectedChart))]
     [ObservableProperty] private int _chartIndex = -1;
     [ObservableProperty] private string _nrOfChartsInDatabase = string.Empty;
@@ -268,6 +276,48 @@ public partial class ChartsMainViewModel: ObservableObject,
     {
         Log.Information("ChartsMainViewModel.Vsp(): send OpenMessage");
         WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.VSP));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void BlaSchema()
+    {
+        Log.Information("ChartsMainViewModel.BlaSchema(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.BLA_SCHEMA));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void StartZod()
+    {
+        Log.Information("ChartsMainViewModel.StartZod(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.START_ZOD));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void ProgCal()
+    {
+        Log.Information("ChartsMainViewModel.ProgCal(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROG_CAL));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Prenatal()
+    {
+        Log.Information("ChartsMainViewModel.Prenatal(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PRENATAL));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Profections()
+    {
+        Log.Information("ChartsMainViewModel.Profections(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.PROFECTIONS));
+    }
+    
+    [RelayCommand(CanExecute = nameof(IsChartSelected))]
+    private void Firdaria()
+    {
+        Log.Information("ChartsMainViewModel.Firdaria(): send OpenMessage");
+        WeakReferenceMessenger.Default.Send(new OpenMessage(VM_IDENTIFICATION, ChartsWindowsFlow.FIRDARIA));
     }
     
     [RelayCommand]

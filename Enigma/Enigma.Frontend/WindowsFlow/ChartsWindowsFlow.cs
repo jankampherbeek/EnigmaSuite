@@ -61,6 +61,12 @@ public class ChartsWindowsFlow:
     public const string ZODIAC_DIVISIONS = "ZodiacDivisions";
     public const string ENNEAGRAM = "Enneagram";
     public const string VSP = "Vsp";
+    public const string BLA_SCHEMA = "BlaSchema";
+    public const string START_ZOD = "StartZod";
+    public const string PROG_CAL = "ProgCal";
+    public const string PRENATAL = "Prenatal";
+    public const string PROFECTIONS = "Profections";
+    public const string FIRDARIA = "Firdaria";
 
     
     private RadixDataInputWindow? _radixDataInputWindow;
@@ -83,6 +89,12 @@ public class ChartsWindowsFlow:
     private ZodiacDivisionsWindow? _zodiacDivisionsWindow;
     private EnneagramWindow? _enneagramWindow;
     private VspWindow? _vspWindow;
+    private BlaSchemaWindow? _blaSchemaWindow;
+    private StartZodWindow? _startZodWindow;
+    private ProgCalWindow? _progCalWindow;
+    private PrenatalWindow? _prenatalWindow;
+    private ProfectionsWindow? _profectionsWindow;
+    private FirdariaWindow? _firdariaWindow;
     
     // The tuple contains the id for window, the current window and the textid for the parent window.
     private readonly List<Tuple<int, Window, string>> _openWindows = new();
@@ -129,6 +141,24 @@ public class ChartsWindowsFlow:
                 break;
             case VSP:
                 _vspWindow?.Close();
+                break;
+            case BLA_SCHEMA:
+                _blaSchemaWindow?.Close();
+                break;
+            case START_ZOD:
+                _startZodWindow?.Close();
+                break;
+            case PROG_CAL:
+                _progCalWindow?.Close();
+                break;
+            case PRENATAL:
+                _prenatalWindow?.Close();
+                break;
+            case PROFECTIONS:
+                _profectionsWindow?.Close();
+                break;
+            case FIRDARIA:
+                _firdariaWindow?.Close();
                 break;
         }
     }
@@ -271,6 +301,36 @@ public class ChartsWindowsFlow:
                 _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _vspWindow, parentView));
                 _vspWindow.Show();
                 _vspWindow.Populate();
+                break;
+            case BLA_SCHEMA:
+                _blaSchemaWindow = new BlaSchemaWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _blaSchemaWindow, parentView));
+                _blaSchemaWindow.Show();
+                break;
+            case START_ZOD:
+                _startZodWindow = new StartZodWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _startZodWindow, parentView));
+                _startZodWindow.Show();
+                break;
+            case PROG_CAL:
+                _progCalWindow = new ProgCalWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _progCalWindow, parentView));
+                _progCalWindow.Show();
+                break;
+            case PRENATAL:
+                _prenatalWindow = new PrenatalWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _prenatalWindow, parentView));
+                _prenatalWindow.Show();
+                break;
+            case PROFECTIONS:
+                _profectionsWindow = new ProfectionsWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _profectionsWindow, parentView));
+                _profectionsWindow.Show();
+                break;
+            case FIRDARIA:
+                _firdariaWindow = new FirdariaWindow();
+                _openWindows.Add(new Tuple<int, Window, string>(_windowCounter, _firdariaWindow, parentView));
+                _firdariaWindow.Show();
                 break;
         }
     }

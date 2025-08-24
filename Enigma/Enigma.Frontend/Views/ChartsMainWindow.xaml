@@ -155,7 +155,7 @@
                         <Image Source="/Images/VSP.png"/>
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Header="Startpoint zodiac" Command="{Binding StartzodCommand}">
+                <MenuItem Header="Startpoint zodiac" Command="{Binding StartZodCommand}">
                     <MenuItem.Icon>
                         <Image Source="/Images/startpoint_zodiac.png"/>
                     </MenuItem.Icon>

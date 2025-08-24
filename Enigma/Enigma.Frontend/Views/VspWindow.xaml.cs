@@ -44,12 +44,10 @@ public partial class VspWindow
 
     private void OnDataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
     {
-        Console.WriteLine($"OnDataContextChanged called. NewValue: {e.NewValue?.GetType().Name ?? "null"}");
         System.Diagnostics.Debug.WriteLine($"OnDataContextChanged called. NewValue: {e.NewValue?.GetType().Name ?? "null"}");
         
         if (e.NewValue is VspViewModel viewModel)
         {
-            Console.WriteLine("VspViewModel detected, setting up and populating");
             System.Diagnostics.Debug.WriteLine("VspViewModel detected, setting up and populating");
             
             // Sync the controller with the ViewModel
@@ -63,27 +61,23 @@ public partial class VspWindow
         }
         else
         {
-            Console.WriteLine($"DataContext is not VspViewModel: {e.NewValue?.GetType().Name ?? "null"}");
             System.Diagnostics.Debug.WriteLine($"DataContext is not VspViewModel: {e.NewValue?.GetType().Name ?? "null"}");
         }
     }
     
     private void OnViewModelPropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
     {
-        Console.WriteLine($"OnViewModelPropertyChanged: PropertyName = {e.PropertyName}");
         System.Diagnostics.Debug.WriteLine($"OnViewModelPropertyChanged: PropertyName = {e.PropertyName}");
         
         if (e.PropertyName == nameof(VspViewModel.ShowSignBackgroundColors))
         {
             var viewModel = (VspViewModel)sender;
             _canvasController.ShowSignBackgroundColors = viewModel.ShowSignBackgroundColors;
-            Console.WriteLine("Calling Populate() for ShowSignBackgroundColors change");
             Populate();
         }
         else if (e.PropertyName == nameof(VspViewModel.VspPositions))
         {
             // When VspPositions changes (e.g., when Prenatal checkbox is toggled), refresh the chart wheel
-            Console.WriteLine("Calling Populate() for VspPositions change");
             System.Diagnostics.Debug.WriteLine("Calling Populate() for VspPositions change");
             Populate();
         }
@@ -91,12 +85,10 @@ public partial class VspWindow
     
     public void Populate()
     {
-        Console.WriteLine("=== Populate() called ===");
         System.Diagnostics.Debug.WriteLine("=== Populate() called ===");
         
         // Check if ViewModel is properly set
         var viewModel = DataContext as VspViewModel;
-        Console.WriteLine($"Populate: ViewModel is {viewModel != null}");
         System.Diagnostics.Debug.WriteLine($"Populate: ViewModel is {viewModel != null}");
         
         WheelCanvas.Children.Clear();
@@ -112,12 +104,9 @@ public partial class VspWindow
         DrawChartFrame();
         DrawCusps();
         DrawCelPoints();
-        Console.WriteLine("About to call DrawVspPoints()");
         System.Diagnostics.Debug.WriteLine("About to call DrawVspPoints()");
         DrawVspPoints();
-        Console.WriteLine("DrawVspPoints() completed");
         System.Diagnostics.Debug.WriteLine("DrawVspPoints() completed");
-        Console.WriteLine($"Total children in WheelCanvas: {WheelCanvas.Children.Count}");
         System.Diagnostics.Debug.WriteLine($"Total children in WheelCanvas: {WheelCanvas.Children.Count}");
     }
     
@@ -149,43 +138,35 @@ public partial class VspWindow
     
     private void DrawVspPoints()
     {
-        Console.WriteLine("=== DrawVspPoints() called ===");
         System.Diagnostics.Debug.WriteLine("=== DrawVspPoints() called ===");
         var viewModel = DataContext as VspViewModel;
-        Console.WriteLine($"ViewModel: {viewModel != null}");
         System.Diagnostics.Debug.WriteLine($"ViewModel: {viewModel != null}");
         
         if (viewModel != null)
         {
-            Console.WriteLine($"VspPositions: {viewModel.VspPositions != null}, Count: {viewModel.VspPositions?.Count ?? 0}");
             System.Diagnostics.Debug.WriteLine($"VspPositions: {viewModel.VspPositions != null}, Count: {viewModel.VspPositions?.Count ?? 0}");
             
             if (viewModel.VspPositions != null && viewModel.VspPositions.Count > 0)
             {
-                Console.WriteLine($"VSP Positions count: {viewModel.VspPositions.Count}");
                 System.Diagnostics.Debug.WriteLine($"VSP Positions count: {viewModel.VspPositions.Count}");
                 
                 // First, create and add VSP connection lines (drawn first, behind everything)
                 var vspLines = CreateVspConnectionLines(viewModel.VspPositions);
-                Console.WriteLine($"VSP Lines created: {vspLines.Count}");
                 System.Diagnostics.Debug.WriteLine($"VSP Lines created: {vspLines.Count}");
                 AddToWheel(vspLines);
                 
                 // Then, create and add VSP background circles (drawn second, behind text)
                 var vspCircles = CreateVspCircles(viewModel.VspPositions);
-                Console.WriteLine($"VSP Circles created: {vspCircles.Count}");
                 System.Diagnostics.Debug.WriteLine($"VSP Circles created: {vspCircles.Count}");
                 AddToWheel(vspCircles);
                 
                 // Finally, create and add VSP text (drawn last, on top)
                 var vspTexts = CreateVspTexts(viewModel.VspPositions);
-                Console.WriteLine($"VSP Texts created: {vspTexts.Count}");
                 System.Diagnostics.Debug.WriteLine($"VSP Texts created: {vspTexts.Count}");
                 AddToWheel(vspTexts);
             }
             else
             {
-                Console.WriteLine("VSP ViewModel or VspPositions is null or empty");
                 System.Diagnostics.Debug.WriteLine("VSP ViewModel or VspPositions is null or empty");
             }
         }
@@ -390,44 +371,36 @@ public partial class VspWindow
     
     private void Prenatal_Checked(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Prenatal_Checked called");
         System.Diagnostics.Debug.WriteLine("Prenatal_Checked called");
         var viewModel = DataContext as VspViewModel;
         if (viewModel != null)
         {
-            Console.WriteLine("Calling UpdatePrenatal(true)");
             System.Diagnostics.Debug.WriteLine("Calling UpdatePrenatal(true)");
             viewModel.UpdatePrenatal(true);
             // Also force a chart wheel refresh
-            Console.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(true)");
             System.Diagnostics.Debug.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(true)");
             Populate();
         }
         else
         {
-            Console.WriteLine("ViewModel is null in Prenatal_Checked");
             System.Diagnostics.Debug.WriteLine("ViewModel is null in Prenatal_Checked");
         }
     }
     
     private void Prenatal_Unchecked(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Prenatal_Unchecked called");
         System.Diagnostics.Debug.WriteLine("Prenatal_Unchecked called");
         var viewModel = DataContext as VspViewModel;
         if (viewModel != null)
         {
-            Console.WriteLine("Calling UpdatePrenatal(false)");
             System.Diagnostics.Debug.WriteLine("Calling UpdatePrenatal(false)");
             viewModel.UpdatePrenatal(false);
             // Also force a chart wheel refresh
-            Console.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(false)");
             System.Diagnostics.Debug.WriteLine("Forcing chart wheel refresh after UpdatePrenatal(false)");
             Populate();
         }
         else
         {
-            Console.WriteLine("ViewModel is null in Prenatal_Unchecked");
             System.Diagnostics.Debug.WriteLine("ViewModel is null in Prenatal_Unchecked");
         }
     }
