@@ -13,23 +13,22 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// Details for a chart that are relevant for the BLA schema calculations
 /// </summary>
 public record ChartDetails(List<BlaPositions> SignsDecans, 
-    int[] InterceptedSigns, 
-    int[] ClampedHouses,
+    List<int> InterceptedSigns, 
+    List<int> ClampedHouses,
     Dictionary<ChartPoints, int> Houses,
     Dictionary<ChartPoints, int> QuadrantCounts,
     Dictionary<int, List<RulerPair>> HouseRulers);
 
-/// <summary>
-/// Combination of ruler and subruler
-/// </summary>
-/// <param name="Ruler">ChartPoint for the ruler</param>
-/// <param name="SubRuler">ChartPoint for the subruler</param>
-public record RulerPair(ChartPoints Ruler, ChartPoints SubRuler);
+
 
 /// <summary>
 /// Factory for ChartDetails
 /// </summary>
-public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, HousePositions housePos, QuadrantPositions quadrantPos)
+public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, 
+    HousePositions housePos, 
+    QuadrantPositions quadrantPos,
+    InterceptedClamped interceptedClamped,
+    HouseRulers houseRulers)
 {
     /// <summary>
     /// Create ChartDetails
@@ -49,35 +48,12 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, HouseP
 
         var houseCounts = housePos.DefineHousePositions(chart);
         var quadrantCounts = quadrantPos.DefineQuadrants(chart);
+        var interceptedSigns = interceptedClamped.DefineInterceptedSigns(chart);
+        var clampedHouses = interceptedClamped.DefineClampedHouses(chart);
+        var allHouseRulers = houseRulers.DefineHouseRulers(chart);
         
-        
-        
-        int[] interceptedSigns = [];
-        int[] clampedHouses = [];
-        
-        
-        // define main ruler and sub ruler for each house
-        var houseRulers = new Dictionary<int, List<RulerPair>>();
-        
-        
-        // create a hardcoded list of rulers and subrulers
-        // use the longitude of the cusp to define the ruler for the house
-        // add rulers for any intercepted sign in the house
-
-        
-        // define mundane ruler and sub ruler for each house
-        // create a hardcoded list of mundane rulers and subrulers    
-
-
-        return new ChartDetails(signsDecans, interceptedSigns, clampedHouses, houseCounts,  quadrantCounts, houseRulers);
+        return new ChartDetails(signsDecans, interceptedSigns, clampedHouses, houseCounts,  quadrantCounts, allHouseRulers);
 
     }
-    
-   
-    
-    
-    
- 
-    
     
 }

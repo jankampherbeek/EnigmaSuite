@@ -87,6 +87,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IHorizontalCalc, HorizontalCalc>();
         serviceCollection.AddTransient<IHorizontalHandler, HorizontalHandler>();
         serviceCollection.AddTransient<HousePositions>();
+        serviceCollection.AddTransient<HouseRulers>();
         serviceCollection.AddTransient<IHousesCalc, HousesCalc>();
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
