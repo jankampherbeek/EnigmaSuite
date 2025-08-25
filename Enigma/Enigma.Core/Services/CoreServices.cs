@@ -52,6 +52,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IChartDataDao, ChartDataDao>();
         serviceCollection.AddTransient<ChartDetailsFactory>();
         serviceCollection.AddTransient<IChartPointsMapping, ChartPointsMapping>();
+        serviceCollection.AddTransient<IChartsEventsDao, ChartsEventsDao>();
         serviceCollection.AddTransient<ICheckedProgAspects, CheckedProgAspects>();
         serviceCollection.AddTransient<ICommunicationHandler, CommunicationHandler>();
         serviceCollection.AddTransient<IConfigParser, ConfigParser>(); 
@@ -90,7 +91,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IHousesHandler, HousesHandler>();
         serviceCollection.AddTransient<IHttpRequester, HttpRequester>();
         serviceCollection.AddTransient<IInclinationCalc, InclinationCalc>();
-        serviceCollection.AddTransient<IChartsEventsDao, ChartsEventsDao>();
+        serviceCollection.AddTransient<InterceptedClamped>();
         serviceCollection.AddTransient<JdForPosition>();
         serviceCollection.AddTransient<IJulDayCalc, JulDayCalc>();
         serviceCollection.AddTransient<IJulDayHandler, JulDayHandler>();
@@ -119,6 +120,7 @@ public static class CoreServices
         serviceCollection.AddTransient<IProgRealPointCalc, ProgRealPointCalc>();
         serviceCollection.AddTransient<IProjectDao, ProjectDao>();
         serviceCollection.AddTransient<IProjectPersistencyHandler, ProjectPersistencyHandler>();
+        serviceCollection.AddTransient<QuadrantPositions>();
         serviceCollection.AddTransient<IRdbmsPreparator, RdbmsPreparator>();
         serviceCollection.AddTransient<IReferencesDao, ReferencesDao>();
         serviceCollection.AddTransient<IResearchPathHandler, ResearchPathHandler>();

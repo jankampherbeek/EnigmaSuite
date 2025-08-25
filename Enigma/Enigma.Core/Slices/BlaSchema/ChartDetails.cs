@@ -13,10 +13,10 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// Details for a chart that are relevant for the BLA schema calculations
 /// </summary>
 public record ChartDetails(List<BlaPositions> SignsDecans, 
-    int[] QuadrantCounts, 
     int[] InterceptedSigns, 
     int[] ClampedHouses,
     Dictionary<ChartPoints, int> Houses,
+    Dictionary<ChartPoints, int> QuadrantCounts,
     Dictionary<int, List<RulerPair>> HouseRulers);
 
 /// <summary>
@@ -29,7 +29,7 @@ public record RulerPair(ChartPoints Ruler, ChartPoints SubRuler);
 /// <summary>
 /// Factory for ChartDetails
 /// </summary>
-public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, HousePositions housePos)
+public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, HousePositions housePos, QuadrantPositions quadrantPos)
 {
     /// <summary>
     /// Create ChartDetails
@@ -47,10 +47,10 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, HouseP
             signsDecans.Add(blaPositions);
         }
 
-        var houses = housePos.DefineHousePositions(chart);
+        var houseCounts = housePos.DefineHousePositions(chart);
+        var quadrantCounts = quadrantPos.DefineQuadrants(chart);
         
-        // Define quadrant counts
-        int[] quadrantCounts = [];
+        
         
         int[] interceptedSigns = [];
         int[] clampedHouses = [];
@@ -69,7 +69,7 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory, HouseP
         // create a hardcoded list of mundane rulers and subrulers    
 
 
-        return new ChartDetails(signsDecans, quadrantCounts, interceptedSigns, clampedHouses, houses, houseRulers);
+        return new ChartDetails(signsDecans, interceptedSigns, clampedHouses, houseCounts,  quadrantCounts, houseRulers);
 
     }
     
