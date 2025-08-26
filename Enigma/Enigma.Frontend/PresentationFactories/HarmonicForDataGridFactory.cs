@@ -23,16 +23,10 @@ public interface IHarmonicForDataGridFactory
     public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart);
 }
 
-public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
+public sealed class HarmonicForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
+    : IHarmonicForDataGridFactory
 {
-    private readonly IDoubleToDmsConversions _doubleToDmsConversions;
-    private readonly GlyphsForChartPoints _glyphsForChartPoints;
-
-    public HarmonicForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
-    {
-        _doubleToDmsConversions = doubleToDmsConversions;
-        _glyphsForChartPoints = new GlyphsForChartPoints();
-    }
+    private readonly GlyphsForChartPoints _glyphsForChartPoints = new();
 
     /// <inheritdoc/>
     public List<PresentableHarmonic> CreateHarmonicForDataGrid(List<double> harmonicPositions, CalculatedChart chart)
@@ -51,8 +45,8 @@ public sealed class HarmonicForDataGridFactory : IHarmonicForDataGridFactory
 
     private PresentableHarmonic CreatePresHarmonic(char celPointGlyph, double radixPos, double harmonicPos)
     {
-        var (longTxt, glyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(radixPos);
-        (string? harmonicPosText, char harmonicSignGlyph) = _doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(harmonicPos);
+        var (longTxt, glyph) = doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(radixPos);
+        (string? harmonicPosText, char harmonicSignGlyph) = doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(harmonicPos);
 
         return new PresentableHarmonic(celPointGlyph, longTxt, glyph, harmonicPosText, harmonicSignGlyph);
     }
