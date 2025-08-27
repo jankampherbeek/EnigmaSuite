@@ -47,9 +47,17 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Left Column -->
-                <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                <Grid Grid.Column="0" Margin="0,0,12,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
                     <!-- Correction for Black Moon -->
-                    <ComboBox Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="0" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="Correction for Black Moon"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
@@ -57,33 +65,37 @@
                               SelectedIndex="{Binding BlackMoonIndex, Mode=TwoWay}"/>
 
                     <!-- House System -->
-                    <ComboBox Margin="6 0 " VerticalAlignment="Center"   
+                    <ComboBox Grid.Row="1" Margin="6 0 " VerticalAlignment="Center"   
                               IsEditable="True" IsReadOnly="True"
                               materialDesign:HintAssist.Hint="House system"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox }"
                               ItemsSource="{Binding SelectedHouseSystem}" 
                               SelectedIndex="{Binding HouseSystemIndex, Mode=TwoWay}"/>
                     <!-- Checkboxes -->
-                    <CheckBox VerticalAlignment="Center" Content="Include Chiron"  
+                    <CheckBox Grid.Row="2" VerticalAlignment="Center" Content="Include Chiron"  
                               Margin = "0, 8, 0, 0"
                               Style="{StaticResource MaterialDesignCheckBox}"
                               IsChecked="{Binding ChironIndex, Mode=TwoWay}" 
                               Checked="IncludeChironCheckBox_Changed"
                               Unchecked="IncludeChironCheckBox_Changed"/>
-                    <CheckBox VerticalAlignment="Center" Content="Include Eris"  
-                              Margin="0,0,0,8"
-                              Style="{StaticResource MaterialDesignCheckBox}"
-                              IsChecked="{Binding ErisIndex, Mode=TwoWay}" 
-                              Checked="IncludeErisCheckBox_Changed"
-                              Unchecked="IncludeErisCheckBox_Changed"/>
+                                         <CheckBox Grid.Row="3" VerticalAlignment="Center" Content="Include Eris"  
+                               Margin="0,0,0,0"
+                               Style="{StaticResource MaterialDesignCheckBox}"
+                               IsChecked="{Binding ErisIndex, Mode=TwoWay}" 
+                               Checked="IncludeErisCheckBox_Changed"
+                               Unchecked="IncludeErisCheckBox_Changed"/>
 
-                    <!-- Positions DataGrid -->
-                    <DataGrid x:Name="PositionsDataGrid"
-                              AutoGenerateColumns="False" 
-                              Height="300" 
-                              Margin="0,0,0,8"
-                              Style="{StaticResource MaterialDesignDataGrid}"
-                              ItemsSource="{Binding BlaPositions}">
+                     <!-- Spacer -->
+                     <Rectangle Grid.Row="4" Height="8" Fill="Transparent"/>
+
+                     <!-- Positions DataGrid -->
+                                         <DataGrid Grid.Row="5" x:Name="PositionsDataGrid"
+                               AutoGenerateColumns="False" 
+                               Height="Auto"
+                               Margin="0,0,0,0"
+                               Style="{StaticResource MaterialDesignDataGrid}"
+                               ItemsSource="{Binding BlaPositions}"
+                               VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="" Width="Auto" Binding="{Binding PointTextGlyph}"
                                                 IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
@@ -97,7 +109,7 @@
                                                 IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
-                </StackPanel>
+                </Grid>
 
                 <!-- Right Column -->
                 <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto">
