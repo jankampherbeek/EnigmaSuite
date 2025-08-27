@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
-using ScottPlot.AxisLimitCalculators;
 using Serilog;
 
 namespace Enigma.Frontend.Ui.State;

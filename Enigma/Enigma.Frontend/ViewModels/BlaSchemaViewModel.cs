@@ -34,6 +34,10 @@ public partial class BlaSchemaViewModel : ObservableObject
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCrosses = new();
+    
+    // ScottPlot histogram data
+    public double[] HistogramValues { get; private set; } = new double[0];
+    public string[] HistogramLabels { get; private set; } = new string[0];
 
 
     public void Populate()
@@ -51,6 +55,9 @@ public partial class BlaSchemaViewModel : ObservableObject
         
         // Populate Elements/Crosses DataGrid
         ElementsCrosses = _blaElementsCrossesFactory.CreateBlaItemsForElementsCrosses(chartDetails);
+        
+        // Update histogram data
+        UpdateHistogramData();
         
         // populate parts that depend only on positions for chartpoints or houses
         
@@ -76,5 +83,19 @@ public partial class BlaSchemaViewModel : ObservableObject
     public BlaSchemaViewModel()
     {
         // Initialize data here when needed
+    }
+    
+    private void UpdateHistogramData()
+    {
+        if (ElementsCrosses == null || ElementsCrosses.Count == 0)
+        {
+            HistogramValues = new double[0];
+            HistogramLabels = new string[0];
+            return;
+        }
+        
+        // Extract totals and labels from ElementsCrosses
+        HistogramValues = ElementsCrosses.Select(item => (double)item.Total).ToArray();
+        HistogramLabels = ElementsCrosses.Select(item => item.Name).ToArray();
     }
 }

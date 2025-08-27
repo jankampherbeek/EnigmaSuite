@@ -687,6 +687,7 @@
     <PackageReference Include="Microsoft-WindowsAPICodePack-Shell" Version="1.1.5" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="ScottPlot" Version="5.0.56" />
+    <PackageReference Include="ScottPlot.WPF" Version="5.0.56" />
     <PackageReference Include="Serilog.Expressions" Version="4.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />

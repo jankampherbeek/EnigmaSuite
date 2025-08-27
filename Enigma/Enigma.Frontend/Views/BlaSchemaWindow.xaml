@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:viewModels="clr-namespace:Enigma.Frontend.Ui.ViewModels"
+        xmlns:ScottPlot="clr-namespace:ScottPlot.WPF;assembly=ScottPlot.WPF"
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Medium"
@@ -157,31 +158,15 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     
-                                    <!-- Right subpart - Two diagrams side by side -->
-                                    <Grid Grid.Column="1" Margin="8,0,0,0">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Border Grid.Column="0" 
-                                                BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                                BorderThickness="1" 
-                                                Margin="0,0,4,0" 
-                                                Background="{DynamicResource MaterialDesignPaper}">
-                                            <TextBlock Text="Diagram 1" 
-                                                       HorizontalAlignment="Center" 
-                                                       VerticalAlignment="Center"/>
-                                        </Border>
-                                        <Border Grid.Column="1" 
-                                                BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                                BorderThickness="1" 
-                                                Margin="4,0,0,0" 
-                                                Background="{DynamicResource MaterialDesignPaper}">
-                                            <TextBlock Text="Diagram 2" 
-                                                       HorizontalAlignment="Center" 
-                                                       VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Grid>
+                                                                         <!-- Right subpart - Histogram diagram -->
+                                     <Border Grid.Column="1" 
+                                             BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                             BorderThickness="1" 
+                                             Margin="8,0,0,0" 
+                                             Background="{DynamicResource MaterialDesignPaper}">
+                                         <ScottPlot:WpfPlot x:Name="HistogramPlot"
+                                                            Margin="4"/>
+                                     </Border>
                                 </Grid>
                             </StackPanel>
                         </Border>
