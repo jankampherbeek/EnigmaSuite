@@ -89,13 +89,13 @@
                      <Rectangle Grid.Row="4" Height="8" Fill="Transparent"/>
 
                      <!-- Positions DataGrid -->
-                                         <DataGrid Grid.Row="5" x:Name="PositionsDataGrid"
-                               AutoGenerateColumns="False" 
-                               Height="Auto"
-                               Margin="0,0,0,0"
-                               Style="{StaticResource MaterialDesignDataGrid}"
-                               ItemsSource="{Binding BlaPositions}"
-                               VerticalAlignment="Top">
+                    <DataGrid Grid.Row="5" x:Name="PositionsDataGrid"
+                              AutoGenerateColumns="False" 
+                              Height="Auto"
+                              Margin="0,0,0,0"
+                              Style="{StaticResource MaterialDesignDataGrid}"
+                              ItemsSource="{Binding BlaPositions}"
+                              VerticalAlignment="Top">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="" Width="Auto" Binding="{Binding PointTextGlyph}"
                                                 IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
@@ -133,16 +133,18 @@
                                     <DataGrid Grid.Column="0" 
                                               AutoGenerateColumns="False" 
                                               Margin="0,0,8,0"
+                                              ItemsSource="{Binding ElementsCrosses}"
                                               Style="{StaticResource MaterialDesignDataGrid}">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Col 1" Width="*"/>
-                                            <DataGridTextColumn Header="Col 2" Width="*"/>
-                                            <DataGridTextColumn Header="Col 3" Width="*"/>
-                                            <DataGridTextColumn Header="Col 4" Width="*"/>
-                                            <DataGridTextColumn Header="Col 5" Width="*"/>
-                                            <DataGridTextColumn Header="Col 6" Width="*"/>
-                                            <DataGridTextColumn Header="Col 7" Width="*"/>
-                                            <DataGridTextColumn Header="Col 8" Width="*"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Sign" Width="Auto"/>
+                                            <DataGridTextColumn Header="House" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Sum" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Hcusp" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Total" Width="Auto"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     
