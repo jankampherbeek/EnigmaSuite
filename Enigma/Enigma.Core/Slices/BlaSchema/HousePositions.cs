@@ -64,7 +64,7 @@ public class HousePositions
         // find house positions for each ChartPoint that is not a cusp
         foreach (var pos in chart.Positions)
         {
-            if (pos.Key.GetDetails().PointCat != PointCats.Cusp)
+            if (pos.Key.GetDetails().PointCat == PointCats.Common)
             {
                 var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
                 var houseNumber = FindHouseForLongitude(longitude, houseLongitudes);
@@ -74,7 +74,6 @@ public class HousePositions
                 }
             }           
         }
-
         return housePositions;
     }
     

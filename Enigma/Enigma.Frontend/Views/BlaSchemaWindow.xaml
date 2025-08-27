@@ -136,15 +136,24 @@
                                               ItemsSource="{Binding ElementsCrosses}"
                                               Style="{StaticResource MaterialDesignDataGrid}">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Sign" Width="Auto"/>
-                                            <DataGridTextColumn Header="House" Width="Auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Sum" Width="Auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Hcusp" Width="Auto"/>
-                                            <DataGridTextColumn Header="" Width="Auto"/>
-                                            <DataGridTextColumn Header="Total" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Name}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Sign" Width="Auto" Binding="{Binding Sign}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="House" Width="Auto" Binding="{Binding House}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Spacer1}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Sum" Width="Auto" Binding="{Binding Sum}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Spacer2}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Hcusp" Width="Auto" Binding="{Binding Hcusp}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Spacer3}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Total" Width="Auto" Binding="{Binding Total}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     

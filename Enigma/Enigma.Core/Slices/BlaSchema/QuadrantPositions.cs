@@ -43,7 +43,7 @@ public class QuadrantPositions
         // Find quadrant positions for each ChartPoint that is not an angle
         foreach (var pos in chart.Positions)
         {
-            if (pos.Key.GetDetails().PointCat != PointCats.Angle)
+            if (pos.Key.GetDetails().PointCat == PointCats.Common)
             {
                 var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
                 var quadrantNumber = FindQuadrantForLongitude(longitude, quadrantLongitudes);

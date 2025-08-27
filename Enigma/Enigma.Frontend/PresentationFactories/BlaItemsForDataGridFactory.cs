@@ -26,16 +26,16 @@ public interface IBlaPositionForDataGridFactory
     public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(ChartDetails chartDetails);
 }
 
-
-public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions): IBlaPositionForDataGridFactory
+public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsConversions)
+    : IBlaPositionForDataGridFactory
 {
     private readonly BlaPositionsFactory _blaPositionsFactory = new();
     private readonly HousePositions _housePositions = new();
-    
+
     public List<PresentableBlaPosition> CreateBlaPositionsForDataGrid(ChartDetails chartDetails)
     {
         List<PresentableBlaPosition> presentableBlaPositions = new();
-        
+
         foreach (var pos in chartDetails.SignsDecansHouses)
         {
             if (pos.Point.GetDetails().PointCat == PointCats.Common ||
@@ -45,10 +45,11 @@ public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsCo
                 presentableBlaPositions.Add(CreatePresBlaPosition(pointGlyph, pos.longitude, pos.Decan, pos.House));
             }
         }
+
         return presentableBlaPositions;
     }
 
-    private PresentableBlaPosition CreatePresBlaPosition(char pointGlyph, double position, int decan, int houseNr)    
+    private PresentableBlaPosition CreatePresBlaPosition(char pointGlyph, double position, int decan, int houseNr)
     {
         var (longTxt, glyph) = doubleToDmsConversions.ConvertDoubleToDmsWithGlyph(position);
         var houseTxt = GetHouseInRomanNumerals(houseNr);
@@ -74,7 +75,7 @@ public class BlaPositionForDataGridFactory(IDoubleToDmsConversions doubleToDmsCo
             12 => "XII"
         };
     }
-    
+
     private char GetDecanateGlyph(int decan)
     {
         return decan switch
@@ -95,13 +96,12 @@ public class BlaElementsCrossesForDataGridFactory()
 {
     private int _cardinalSCount, _fixedSCount, _mutableSCount, _fireSCount, _earthSCount, _airSCount, _waterSCount;
     private int _cardinalHCount, _fixedHCount, _mutableHCount, _fireHCount, _earthHCount, _airHCount, _waterHCount;
+
     public List<PresentableCrossElementsCount> CreateBlaItemsForElementsCrosses(ChartDetails chartDetails)
     {
-
         foreach (var pos in chartDetails.SignsDecansHouses)
         {
-            var factor = (int)Math.Round(pos.longitude/12) + 1;
-            switch (factor)
+            switch (pos.Sign)
             {
                 case 1 or 4 or 7 or 10:
                     _cardinalSCount++;
@@ -114,7 +114,7 @@ public class BlaElementsCrossesForDataGridFactory()
                     break;
             }
 
-            switch (factor)
+            switch (pos.Sign)
             {
                 case 1 or 5 or 9:
                     _fireSCount++;
@@ -133,42 +133,44 @@ public class BlaElementsCrossesForDataGridFactory()
 
         foreach (var pos in chartDetails.SignsDecansHouses)
         {
-            var house= pos.House;
-            switch (house)
+            if (pos.Point.GetDetails().PointCat == PointCats.Common)
             {
-                case 1 or 4 or 7 or 10:
-                    _cardinalHCount++;
-                    break;
-                case 2 or 5 or 8 or 11:
-                    _fixedHCount++;
-                    break;
-                case 3 or 6 or 9 or 12:
-                    _mutableHCount++;
-                    break;
-            }
+                switch (pos.House)
+                {
+                    case 1 or 4 or 7 or 10:
+                        _cardinalHCount++;
+                        break;
+                    case 2 or 5 or 8 or 11:
+                        _fixedHCount++;
+                        break;
+                    case 3 or 6 or 9 or 12:
+                        _mutableHCount++;
+                        break;
+                }
 
-            switch (house)
-            {
-                case 1 or 5 or 9:
-                    _fireHCount++;
-                    break;
-                case 2 or 6 or 10:
-                    _earthHCount++;
-                    break;
-                case 3 or 7 or 11:
-                    _airHCount++;
-                    break;
-                case 4 or 8 or 12:
-                    _waterHCount++;
-                    break;
+                switch (pos.House)
+                {
+                    case 1 or 5 or 9:
+                        _fireHCount++;
+                        break;
+                    case 2 or 6 or 10:
+                        _earthHCount++;
+                        break;
+                    case 3 or 7 or 11:
+                        _airHCount++;
+                        break;
+                    case 4 or 8 or 12:
+                        _waterHCount++;
+                        break;
+                }
             }
-        } 
+        }
+
         return CreatePresCrossElementsCounts();
     }
 
     private List<PresentableCrossElementsCount> CreatePresCrossElementsCounts()
     {
-
         List<PresentableCrossElementsCount> counts = new();
         var hCusp = 1;
         counts.Add(CreateSinglePresCrossElementsCount("Cardinal", _cardinalSCount, _cardinalHCount, hCusp));
@@ -181,7 +183,8 @@ public class BlaElementsCrossesForDataGridFactory()
         return counts;
     }
 
-    private PresentableCrossElementsCount CreateSinglePresCrossElementsCount(string name, int sCount, int hCount, int hcusp)
+    private PresentableCrossElementsCount CreateSinglePresCrossElementsCount(string name, int sCount, int hCount,
+        int hcusp)
     {
         const string spacer = "";
         var sum = sCount + hCount;
@@ -189,6 +192,4 @@ public class BlaElementsCrossesForDataGridFactory()
         var count = new PresentableCrossElementsCount(name, sCount, hCount, spacer, sum, spacer, hcusp, spacer, total);
         return count;
     }
-    
-    
 }

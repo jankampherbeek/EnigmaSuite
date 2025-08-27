@@ -4,6 +4,7 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Dtos;
+using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.BlaSchema;
 
@@ -27,10 +28,14 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory,
         List<BlaPositions> signsDecans = [];
         foreach (var (chartPoint, value) in chart.Positions)
         {
-            var longitude = value.Ecliptical.MainPosSpeed.Position;
-            var house = housePos.FindSingleHousePosition(chart, longitude);
-            var blaPositions = blaPositionsFactory.CreateBlaPositions(chartPoint, longitude, house);
-            signsDecans.Add(blaPositions);
+            if (chartPoint.GetDetails().PointCat == PointCats.Common ||
+                chartPoint.GetDetails().PointCat == PointCats.Angle)
+            {
+                var longitude = value.Ecliptical.MainPosSpeed.Position;
+                var house = housePos.FindSingleHousePosition(chart, longitude);
+                var blaPositions = blaPositionsFactory.CreateBlaPositions(chartPoint, longitude, house);
+                signsDecans.Add(blaPositions);  
+            }
         }
 
         var houseCounts = housePos.DefineHousePositions(chart);
