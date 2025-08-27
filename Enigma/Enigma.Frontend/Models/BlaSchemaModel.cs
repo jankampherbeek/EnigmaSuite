@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using Enigma.Api.Calc;
 using Enigma.Api.Configuration;
+using Enigma.Api.Slices;
+using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.References;
 using Enigma.Domain.Requests;
@@ -17,18 +19,28 @@ namespace Enigma.Frontend.Ui.Models;
 /// <summary>
 /// Model for the calculation of BLA items
 /// </summary>
-public class BlaModel(IConfigurationApi configApi, IChartAllPositionsApi chartsApi)
+public class BlaSchemaModel(IConfigurationApi configApi, IChartAllPositionsApi chartsApi, BlaSchemaService blaSchemaService)
 {
 
     private Dictionary<ChartPoints, FullPointPos> ? _blaPositions;
-    
+    private ChartDetails _chartDetails;
     
     public void CreateDataForBla(HouseSystems selectedHouseSystem, bool useChiron, bool useEris)
     {
         var cpRequest = CreateCelPointsRequest(selectedHouseSystem, useChiron, useEris);
         _blaPositions = chartsApi.GetChart(cpRequest);
+        var calcChart = GetCalculatedChart();
+        _chartDetails = blaSchemaService.GetChartDetails(calcChart);
+
     }
 
+    public ChartDetails GetChartDetails()
+    {
+        return _chartDetails;
+    } 
+    
+    
+    
     public Dictionary<ChartPoints, double> GetChartPoints()
     {
         if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
@@ -43,6 +55,17 @@ public class BlaModel(IConfigurationApi configApi, IChartAllPositionsApi chartsA
 
         }
         return pointPositions;
+    }
+
+    public CalculatedChart GetCalculatedChart()
+    {
+        if (_blaPositions == null) throw new InvalidOperationException("No data available for BLA");
+        
+        // Get the current chart from the data vault to access its input data and obliquity
+        var currentChart = DataVaultCharts.Instance.GetCurrentChart();
+        if (currentChart == null) throw new InvalidOperationException("No current chart available");
+        
+        return new CalculatedChart(_blaPositions, currentChart.InputtedChartData, currentChart.Obliquity);
     }
 
     public Dictionary<ChartPoints, double> GetHouseCusps()

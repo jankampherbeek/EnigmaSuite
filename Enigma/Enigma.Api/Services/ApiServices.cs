@@ -29,6 +29,7 @@ public static class ApiServices
     {
         serviceCollection.AddTransient<IAnalysisSingleValuesApi, AnalysisSingleValuesApi>();
         serviceCollection.AddTransient<IAspectsApi, AspectsApi>();
+        serviceCollection.AddTransient<BlaSchemaService>();
         serviceCollection.AddTransient<ICalcChartsRangeApi, CalcChartsRangeApi>();
         serviceCollection.AddTransient<IChartAllPositionsApi, ChartAllPositionsApi>();
         serviceCollection.AddTransient<IChartDataPersistencyApi, ChartDataPersistencyApi>();

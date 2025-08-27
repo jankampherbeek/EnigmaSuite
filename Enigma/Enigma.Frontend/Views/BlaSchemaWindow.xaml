@@ -42,74 +42,59 @@
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <Grid Margin="6">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Left Column -->
                 <StackPanel Grid.Column="0" Margin="0,0,12,0">
                     <!-- Correction for Black Moon -->
-                    <TextBlock Text="Correction for Black Moon:" 
-                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
-                               Margin="0,8,0,4"/>
-                    <ComboBox x:Name="BlackMoonCorrectionComboBox"
-                              Margin="0,0,0,8" 
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              SelectedItem="{Binding SelectedBlackMoonCorrection}"
-                              SelectionChanged="BlackMoonCorrectionComboBox_SelectionChanged">
-                        <ComboBoxItem Content="Swiss Ephemeris"/>
-                        <ComboBoxItem Content="Duval (Cees Jansen)"/>
-                        <ComboBoxItem Content="Interpolated"/>
-                    </ComboBox>
+                    <ComboBox Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="Correction for Black Moon"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding SelectedBlackMoonCorrection}" 
+                              SelectedIndex="{Binding BlackMoonIndex, Mode=TwoWay}"/>
 
                     <!-- House System -->
-                    <TextBlock Text="House System:" 
-                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
-                               Margin="0,8,0,4"/>
-                    <ComboBox x:Name="HouseSystemComboBox"
-                              Margin="0,0,0,8" 
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                              SelectedItem="{Binding SelectedHouseSystem}"
-                              SelectionChanged="HouseSystemComboBox_SelectionChanged">
-                        <ComboBoxItem Content="Placidus"/>
-                        <ComboBoxItem Content="Regiomontanus"/>
-                        <ComboBoxItem Content="Campanus"/>
-                        <ComboBoxItem Content="Alcabitius"/>
-                        <ComboBoxItem Content="Koch"/>
-                        <ComboBoxItem Content="Porphyrius"/>
-                        <ComboBoxItem Content="Topocentric"/>
-                    </ComboBox>
-
+                    <ComboBox Margin="6 0 " VerticalAlignment="Center"   
+                              IsEditable="True" IsReadOnly="True"
+                              materialDesign:HintAssist.Hint="House system"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox }"
+                              ItemsSource="{Binding SelectedHouseSystem}" 
+                              SelectedIndex="{Binding HouseSystemIndex, Mode=TwoWay}"/>
                     <!-- Checkboxes -->
-                    <CheckBox x:Name="IncludeChironCheckBox"
-                              Content="Include Chiron" 
-                              Style="{StaticResource MaterialDesignCheckBox}" 
-                              Margin="0,8,0,4"
-                              IsChecked="{Binding IncludeChiron}"
+                    <CheckBox VerticalAlignment="Center" Content="Include Chiron"  
+                              Margin = "0, 8, 0, 0"
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              IsChecked="{Binding ChironIndex, Mode=TwoWay}" 
                               Checked="IncludeChironCheckBox_Changed"
                               Unchecked="IncludeChironCheckBox_Changed"/>
-                    <CheckBox x:Name="IncludeErisCheckBox"
-                              Content="Include Eris" 
-                              Style="{StaticResource MaterialDesignCheckBox}" 
-                              Margin="0,8,0,16"
-                              IsChecked="{Binding IncludeEris}"
+                    <CheckBox VerticalAlignment="Center" Content="Include Eris"  
+                              Margin="0,0,0,8"
+                              Style="{StaticResource MaterialDesignCheckBox}"
+                              IsChecked="{Binding ErisIndex, Mode=TwoWay}" 
                               Checked="IncludeErisCheckBox_Changed"
                               Unchecked="IncludeErisCheckBox_Changed"/>
 
                     <!-- Positions DataGrid -->
-                    <TextBlock Text="Positions:" 
-                               Style="{StaticResource MaterialDesignSubtitle1TextBlock}" 
-                               Margin="0,8,0,4"/>
-                    <DataGrid AutoGenerateColumns="False" 
+                    <DataGrid x:Name="PositionsDataGrid"
+                              AutoGenerateColumns="False" 
                               Height="300" 
                               Margin="0,0,0,8"
-                              Style="{StaticResource MaterialDesignDataGrid}">
+                              Style="{StaticResource MaterialDesignDataGrid}"
+                              ItemsSource="{Binding BlaPositions}">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Column 1" Width="*"/>
-                            <DataGridTextColumn Header="Column 2" Width="*"/>
-                            <DataGridTextColumn Header="Column 3" Width="*"/>
-                            <DataGridTextColumn Header="Column 4" Width="*"/>
-                            <DataGridTextColumn Header="Column 5" Width="*"/>
+                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding PointTextGlyph}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                            <DataGridTextColumn Header="Position" Width="Auto" Binding="{Binding PosText}"
+                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                            <DataGridTextColumn Header="" Width="Auto" Binding="{Binding SignGlyph}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                            <DataGridTextColumn Header="House" Width="Auto" Binding="{Binding HouseNr}"
+                                                IsReadOnly="True" CellStyle="{StaticResource NameColumnStyle}"/>
+                            <DataGridTextColumn Header="Dec." Width="Auto" Binding="{Binding Decanate}"
+                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
@@ -135,7 +120,6 @@
                                     <!-- Left subpart - DataGrid -->
                                     <DataGrid Grid.Column="0" 
                                               AutoGenerateColumns="False" 
-                                              Height="200" 
                                               Margin="0,0,8,0"
                                               Style="{StaticResource MaterialDesignDataGrid}">
                                         <DataGrid.Columns>

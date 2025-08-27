@@ -4,14 +4,18 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using Enigma.Api.Configuration;
 using Enigma.Domain.Dtos;
+using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Messaging;
 using Enigma.Frontend.Ui.Models;
+using Enigma.Frontend.Ui.PresentationFactories;
 using Enigma.Frontend.Ui.State;
 using Enigma.Frontend.Ui.WindowsFlow;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,9 +27,11 @@ namespace Enigma.Frontend.Ui.ViewModels;
 public partial class BlaSchemaViewModel : ObservableObject
 {
     private const string VM_IDENTIFICATION = ChartsWindowsFlow.BLA_SCHEMA;
-    private BlaModel _model = App.ServiceProvider.GetRequiredService<BlaModel>();
+    private BlaSchemaModel _schemaModel = App.ServiceProvider.GetRequiredService<BlaSchemaModel>();
+    private IBlaPositionForDataGridFactory _blaPositionFactory = App.ServiceProvider.GetRequiredService<IBlaPositionForDataGridFactory>();
     
     [ObservableProperty] private string _chartName = "Chart Name";
+    [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
 
 
     public void Populate()
@@ -35,8 +41,12 @@ public partial class BlaSchemaViewModel : ObservableObject
         var useChiron = true;
         var useEris = true;
         
-        _model.CreateDataForBla(houseSystem, useChiron, useEris);
+        _schemaModel.CreateDataForBla(houseSystem, useChiron, useEris);
 
+        // Get chart points and populate the DataGrid
+        var chartDetails = _schemaModel.GetChartDetails();
+        BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
+        
         // populate parts that depend only on positions for chartpoints or houses
         
         // call api for each set of data using the calculated chart as a parameter

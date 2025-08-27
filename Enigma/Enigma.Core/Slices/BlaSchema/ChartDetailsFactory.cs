@@ -4,22 +4,8 @@
 // Please check the file copyright.txt in the root of the source for further details.
 
 using Enigma.Domain.Dtos;
-using Enigma.Domain.References;
-using Enigma.Facades.Se;
 
 namespace Enigma.Core.Slices.BlaSchema;
-
-/// <summary>
-/// Details for a chart that are relevant for the BLA schema calculations
-/// </summary>
-public record ChartDetails(List<BlaPositions> SignsDecans, 
-    List<int> InterceptedSigns, 
-    List<int> ClampedHouses,
-    Dictionary<ChartPoints, int> Houses,
-    Dictionary<ChartPoints, int> QuadrantCounts,
-    Dictionary<int, List<RulerPair>> HouseRulers);
-
-
 
 /// <summary>
 /// Factory for ChartDetails
@@ -42,7 +28,8 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory,
         foreach (var (chartPoint, value) in chart.Positions)
         {
             var longitude = value.Ecliptical.MainPosSpeed.Position;
-            var blaPositions = blaPositionsFactory.CreateBlaPositions(chartPoint, longitude);
+            var house = housePos.FindSingleHousePosition(chart, longitude);
+            var blaPositions = blaPositionsFactory.CreateBlaPositions(chartPoint, longitude, house);
             signsDecans.Add(blaPositions);
         }
 

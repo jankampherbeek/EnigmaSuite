@@ -8,6 +8,30 @@ using Enigma.Domain.References;
 
 namespace Enigma.Core.Slices.BlaSchema;
 
+
+/// <summary>
+/// Details for a chart that are relevant for the BLA schema calculations
+/// </summary>
+public record ChartDetails(
+    List<BlaPositions> SignsDecansHouses, 
+    List<int> InterceptedSigns, 
+    List<int> ClampedHouses,
+    Dictionary<ChartPoints, int> Houses,
+    Dictionary<ChartPoints, int> QuadrantCounts,
+    Dictionary<int, List<RulerPair>> HouseRulers);
+
+
+/// <summary>
+/// Positions for Black Lights Astrology calculations
+/// </summary>
+/// <param name="longitude">Ecliptical longitude</param>
+/// <param name="Point">The chart point</param>
+/// <param name="Sign">Nr of the sign, 1 = Aries,.. 12 = Pisces</param>
+/// <param name="Decan">Nr of the decans: 1 = Mars, 2 = Sun, 3 Venus, 4 = Mercury, 5 = Moon 6 = Saturn, 7 = Jupiter</param>
+/// /// <param name="House">Nr of the house, 1..12</param>
+public record BlaPositions(ChartPoints Point, double longitude, int Sign, int Decan, int House);
+
+
 /// <summary>
 /// Combination of ruler and subruler
 /// </summary>

@@ -11,6 +11,6 @@ namespace Enigma.Domain.Presentables;
 /// <param name="PointTextGlyph">Glyph for the chart point</param>
 /// <param name="PosText">Sexagesimal position without sign</param>
 /// <param name="SignGlyph">Glyph for the sign</param>
-/// <param name="houseNr">Number for the actual house</param>
-/// <param name="decanate">Glyph for the decanate</param>
-public record PresentableBlaPosition(char PointTextGlyph, string PosText, char SignGlyph, int houseNr, char decanate);
+/// <param name="HouseNr">Roman number for the actual house</param>
+/// <param name="Decanate">Glyph for the decanate</param>
+public record PresentableBlaPosition(char PointTextGlyph, string PosText, char SignGlyph, string HouseNr, char Decanate);

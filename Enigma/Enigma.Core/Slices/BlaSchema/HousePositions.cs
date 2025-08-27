@@ -13,11 +13,38 @@ namespace Enigma.Core.Slices.BlaSchema;
 /// </summary>
 public class HousePositions
 {
+
+    /// <summary>
+    /// Find the house position for a point withna specific longitude
+    /// </summary>
+    /// <param name="chart"></param>
+    /// <param name="longitude"></param>
+    /// <returns></returns>
+    public int FindSingleHousePosition(CalculatedChart chart, double longitude)
+    {
+        var houseLongitudes = new Dictionary<int, double>();
+
+        foreach (var pos in chart.Positions)
+        {
+            if (pos.Key.GetDetails().PointCat == PointCats.Cusp)
+            {
+                var index = pos.Key.GetDetails().CalcId;
+                var houseLongitude = pos.Value.Ecliptical.MainPosSpeed.Position;
+                houseLongitudes.Add(index, houseLongitude);
+            }                
+        }
+        var house = FindHouseForLongitude(longitude, houseLongitudes);
+        return house;
+    }
+    
+    
+    
+    
     /// <summary>
     /// Define the position in a house
     /// </summary>
     /// <param name="chart">The calculated chart</param>
-    /// <returns>Dictionary with chart points and the index of the hoouse: 1 .. 12. Zero if no house was found.</returns>
+    /// <returns>Dictionary with chart points and the index of the house: 1 .. 12. Zero if no house was found.</returns>
     public Dictionary<ChartPoints, int> DefineHousePositions(CalculatedChart chart)
     {
         var houseLongitudes = new Dictionary<int, double>();
@@ -29,7 +56,7 @@ public class HousePositions
             if (pos.Key.GetDetails().PointCat == PointCats.Cusp)
             {
                 var index = pos.Key.GetDetails().CalcId;
-                var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
+                var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
                 houseLongitudes.Add(index, longitude);
             }                
         }
@@ -39,7 +66,7 @@ public class HousePositions
         {
             if (pos.Key.GetDetails().PointCat != PointCats.Cusp)
             {
-                var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
+                var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
                 var houseNumber = FindHouseForLongitude(longitude, houseLongitudes);
                 if (houseNumber > 0)
                 {
