@@ -186,10 +186,9 @@ public class BlaElementsCrossesForDataGridFactory()
     private PresentableCrossElementsCount CreateSinglePresCrossElementsCount(string name, int sCount, int hCount,
         int hcusp)
     {
-        const string spacer = "";
         var sum = sCount + hCount;
         var total = sum + hcusp;
-        var count = new PresentableCrossElementsCount(name, sCount, hCount, spacer, sum, spacer, hcusp, spacer, total);
+        var count = new PresentableCrossElementsCount(name, sCount, hCount, sum, hcusp, total);
         return count;
     }
 }

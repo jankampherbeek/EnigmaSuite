@@ -27,4 +27,4 @@ public record PresentableBlaPosition(char PointTextGlyph, string PosText, char S
 /// <param name="Hcusp">HCusp</param>
 /// <param name="Spacer3">Empty column for spacing</param>
 /// <param name="Total">Total</param>
-public record PresentableCrossElementsCount(String Name, int Sign, int House, string Spacer1, int Sum, string Spacer2, int Hcusp, string Spacer3, int Total);
+public record PresentableCrossElementsCount(String Name, int Sign, int House, int Sum, int Hcusp, int Total);
