@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using Enigma.Core.Slices.BlaSchema;
+using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
 using Enigma.Domain.References;
 using Enigma.Frontend.Ui.Support;
@@ -96,8 +97,8 @@ public class BlaElementsCrossesForDataGridFactory()
 {
     private int _cardinalSCount, _fixedSCount, _mutableSCount, _fireSCount, _earthSCount, _airSCount, _waterSCount;
     private int _cardinalHCount, _fixedHCount, _mutableHCount, _fireHCount, _earthHCount, _airHCount, _waterHCount;
-
-    public List<PresentableCrossElementsCount> CreateBlaItemsForElementsCrosses(ChartDetails chartDetails)
+    private int _cardinalCCount, _fixedCCount, _mutableCCount, _fireCCount, _earthCCount, _airCCount, _waterCCount;
+    public List<PresentableCrossElementsCount> CreateBlaItemsForElementsCrosses(ChartDetails chartDetails, CalculatedChart calculatedChart, int hCusp = 0)
     {
         foreach (var pos in chartDetails.SignsDecansHouses)
         {
@@ -166,20 +167,105 @@ public class BlaElementsCrossesForDataGridFactory()
             }
         }
 
+        var houseRulingSigns = SignOnCusps(calculatedChart);
+
+        var pointsInHouses = CalcNrOfPointsInHouses(chartDetails); 
+        
+        
+        
+        foreach (var hrs in houseRulingSigns)
+        {
+            var count = 0;
+            var sign = hrs.Value;
+            foreach (var pih in pointsInHouses)
+            {
+                if (pih.Key == hrs.Key) count = pih.Value;
+            }
+            switch (sign)
+            {
+                case 1 or 4 or 7 or 10:
+                    _cardinalCCount += count;
+                    break;
+                case 2 or 5 or 8 or 11:
+                    _fixedCCount += count;;
+                    break;
+                case 3 or 6 or 9 or 12:
+                    _mutableCCount += count;
+                    break;
+            }
+            switch (sign)
+            {
+                case 1 or 5 or 9:
+                    _fireCCount += count;
+                    break;
+                case 2 or 6 or 10:
+                    _earthCCount += count;;
+                    break;
+                case 3 or 7 or 11:
+                    _airCCount += count;
+                    break;
+                case 4 or 8 or 12:
+                    _waterCCount += count;; 
+                    break;
+            }
+        }
+        
+     
         return CreatePresCrossElementsCounts();
     }
 
+    /// <summary>
+    /// Create dictionary with house number (key) and eclitpical sign (1..12, value)
+    /// </summary>
+    /// <param name="calculatedChart">The actual chart</param>
+    /// <returns>The dictionary</returns>
+    private Dictionary<int, int> SignOnCusps(CalculatedChart calculatedChart)
+    {
+        Dictionary<int, double> houseLongitudes = new();
+        Dictionary<int, int> houseSigns = new();
+        foreach (var pos in calculatedChart.Positions)
+        {
+            if (pos.Key.GetDetails().PointCat != PointCats.Cusp) continue;
+            var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
+            switch (pos.Key)
+            {
+                case ChartPoints.Cusp1: houseLongitudes.Add(1, longitude); break;
+                case ChartPoints.Cusp2: houseLongitudes.Add(2, longitude); break;
+                case ChartPoints.Cusp3: houseLongitudes.Add(3, longitude); break;
+                case ChartPoints.Cusp4: houseLongitudes.Add(4, longitude); break;
+                case ChartPoints.Cusp5: houseLongitudes.Add(5, longitude); break;
+                case ChartPoints.Cusp6: houseLongitudes.Add(6, longitude); break;
+                case ChartPoints.Cusp7: houseLongitudes.Add(7, longitude); break;
+                case ChartPoints.Cusp8: houseLongitudes.Add(8, longitude); break;
+                case ChartPoints.Cusp9: houseLongitudes.Add(9, longitude); break;
+                case ChartPoints.Cusp10: houseLongitudes.Add(10, longitude); break;
+                case ChartPoints.Cusp11: houseLongitudes.Add(11, longitude); break;
+                case ChartPoints.Cusp12: houseLongitudes.Add(12, longitude); break;
+            }
+        }
+
+        foreach (var cuspLong in houseLongitudes)
+        {
+            var signIndex = (int)Math.Round(cuspLong.Value / 30.0) + 1;
+            houseSigns.Add(cuspLong.Key, signIndex);
+        }
+        return houseSigns;
+    }
+    
+    
     private List<PresentableCrossElementsCount> CreatePresCrossElementsCounts()
     {
-        List<PresentableCrossElementsCount> counts = new();
-        var hCusp = 1;
-        counts.Add(CreateSinglePresCrossElementsCount("Cardinal", _cardinalSCount, _cardinalHCount, hCusp));
-        counts.Add(CreateSinglePresCrossElementsCount("Fixed", _fixedSCount, _fixedHCount, hCusp));
-        counts.Add(CreateSinglePresCrossElementsCount("Mutable", _mutableSCount, _mutableHCount, hCusp));
-        counts.Add(CreateSinglePresCrossElementsCount("Fire", _fireSCount, _fireHCount, hCusp));
-        counts.Add(CreateSinglePresCrossElementsCount("Earth", _earthSCount, _earthHCount, hCusp));
-        counts.Add(CreateSinglePresCrossElementsCount("Air", _airSCount, _airHCount, hCusp));
-        counts.Add(CreateSinglePresCrossElementsCount("Water", _waterSCount, _waterHCount, hCusp));
+        List<PresentableCrossElementsCount> counts =
+        [
+            CreateSinglePresCrossElementsCount("Cardinal", _cardinalSCount, _cardinalHCount, _cardinalCCount),
+            CreateSinglePresCrossElementsCount("Fixed", _fixedSCount, _fixedHCount, _fixedCCount),
+            CreateSinglePresCrossElementsCount("Mutable", _mutableSCount, _mutableHCount, _mutableCCount),
+            CreateSinglePresCrossElementsCount("Fire", _fireSCount, _fireHCount, _fireCCount),
+            CreateSinglePresCrossElementsCount("Earth", _earthSCount, _earthHCount, _earthCCount),
+            CreateSinglePresCrossElementsCount("Air", _airSCount, _airHCount, _airCCount),
+            CreateSinglePresCrossElementsCount("Water", _waterSCount, _waterHCount, _waterCCount)
+        ];
+
         return counts;
     }
 
@@ -190,5 +276,32 @@ public class BlaElementsCrossesForDataGridFactory()
         var total = sum + hcusp;
         var count = new PresentableCrossElementsCount(name, sCount, hCount, sum, hcusp, total);
         return count;
+    }
+
+    private static Dictionary<int, int> CalcNrOfPointsInHouses(ChartDetails chartDetails)
+    {
+        var counts = new Dictionary<int, int>
+        {
+            { 1, 0 },
+            { 2, 0 },
+            { 3, 0 },
+            { 4, 0 },
+            { 5, 0 },
+            { 6, 0 },
+            { 7, 0 },
+            { 8, 0 },
+            { 9, 0 },
+            { 10, 0 },
+            { 11, 0 },
+            { 12, 0 }
+        };
+
+        foreach (var point in chartDetails.Houses)
+        {
+            if (point.Key.GetDetails().PointCat != PointCats.Common) continue;
+            var houseNr = point.Value;
+            counts[houseNr]++;
+        }
+        return counts;
     }
 }

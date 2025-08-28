@@ -54,7 +54,7 @@ public partial class BlaSchemaViewModel : ObservableObject
         BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
         
         // Populate Elements/Crosses DataGrid
-        ElementsCrosses = _blaElementsCrossesFactory.CreateBlaItemsForElementsCrosses(chartDetails);
+        ElementsCrosses = _blaElementsCrossesFactory.CreateBlaItemsForElementsCrosses(chartDetails, _schemaModel.GetCalculatedChart());
         
         // Update histogram data
         UpdateHistogramData();
