@@ -33,12 +33,14 @@ public partial class BlaSchemaViewModel : ObservableObject
     
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
-    [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCrosses = new();
+    [ObservableProperty] private List<PresentableCrossElementsCount> _crossesCounts = new();
+    [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCounts = new();
     
     // ScottPlot histogram data
-    public double[] HistogramValues { get; private set; } = new double[0];
-    public string[] HistogramLabels { get; private set; } = new string[0];
-
+    public double[] HistogramCrossesValues { get; private set; } = new double[0];
+    public double[] HistogramElementsValues { get; private set; } = new double[0];
+    public string[] HistogramCrossesLabels { get; private set; } = new string[0];
+    public string[] HistogramElementsLabels { get; private set; } = new string[0];
 
     public void Populate()
     {
@@ -54,14 +56,12 @@ public partial class BlaSchemaViewModel : ObservableObject
         BlaPositions = _blaPositionFactory.CreateBlaPositionsForDataGrid(chartDetails);
         
         // Populate Elements/Crosses DataGrid
-        ElementsCrosses = _blaElementsCrossesFactory.CreateBlaItemsForElementsCrosses(chartDetails, _schemaModel.GetCalculatedChart());
+        CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(chartDetails, _schemaModel.GetCalculatedChart());
+        ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(chartDetails, _schemaModel.GetCalculatedChart());
         
         // Update histogram data
         UpdateHistogramData();
-        
-        // populate parts that depend only on positions for chartpoints or houses
-        
-        // call api for each set of data using the calculated chart as a parameter
+
     }
     
     
@@ -87,15 +87,23 @@ public partial class BlaSchemaViewModel : ObservableObject
     
     private void UpdateHistogramData()
     {
-        if (ElementsCrosses == null || ElementsCrosses.Count == 0)
+        if (CrossesCounts.Count == 0)
         {
-            HistogramValues = new double[0];
-            HistogramLabels = new string[0];
+            HistogramCrossesValues = [];
+            HistogramCrossesLabels = [];
+            return;
+        }
+        if (ElementsCounts.Count == 0)
+        {
+            HistogramElementsValues = [];
+            HistogramElementsLabels = [];
             return;
         }
         
         // Extract totals and labels from ElementsCrosses
-        HistogramValues = ElementsCrosses.Select(item => (double)item.Total).ToArray();
-        HistogramLabels = ElementsCrosses.Select(item => item.Name).ToArray();
+        HistogramCrossesValues = CrossesCounts.Select(item => (double)item.Total).ToArray();
+        HistogramElementsValues = ElementsCounts.Select(item => (double)item.Total).ToArray();
+        HistogramCrossesLabels = CrossesCounts.Select(item => item.Name).ToArray();
+        HistogramElementsLabels = ElementsCounts.Select(item => item.Name).ToArray();
     }
 }

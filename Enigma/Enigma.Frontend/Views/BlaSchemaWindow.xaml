@@ -130,39 +130,76 @@
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
                                     
-                                                                         <!-- Left subpart - DataGrid -->
-                                     <DataGrid Grid.Column="0" 
-                                               AutoGenerateColumns="False" 
-                                               Margin="0,0,8,0"
-                                               ItemsSource="{Binding ElementsCrosses}"
-                                               Style="{StaticResource MaterialDesignDataGrid}"
-                                               Width="Auto"
-                                               HorizontalAlignment="Left">
-                                                                                 <DataGrid.Columns>
-                                             <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Name}" 
-                                                                 IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                             <DataGridTextColumn Header="Sign" Width="Auto" Binding="{Binding Sign}" 
-                                                                 IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                             <DataGridTextColumn Header="House" Width="Auto" Binding="{Binding House}" 
-                                                                 IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                             <DataGridTextColumn Header="Sum" Width="Auto" Binding="{Binding Sum}" 
-                                                                 IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                             <DataGridTextColumn Header="Hcusp" Width="Auto" Binding="{Binding Hcusp}" 
-                                                                 IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                             <DataGridTextColumn Header="Total" Width="Auto" Binding="{Binding Total}" 
-                                                                 IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
-                                         </DataGrid.Columns>
-                                    </DataGrid>
+                                    <!-- Left subpart - DataGrids -->
                                     
-                                                                         <!-- Right subpart - Histogram diagram -->
-                                     <Border Grid.Column="1" 
-                                             BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                             BorderThickness="1" 
-                                             Margin="8,0,0,0" 
-                                             Background="{DynamicResource MaterialDesignPaper}">
-                                         <ScottPlot:WpfPlot x:Name="HistogramPlot"
-                                                            Margin="4"/>
-                                     </Border>
+                                    <StackPanel Orientation="Vertical">
+                                        <DataGrid Grid.Column="0" 
+                                                  AutoGenerateColumns="False" 
+                                                  Margin="0,0,8,0"
+                                                  ItemsSource="{Binding ElementsCounts}"
+                                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                                  Width="Auto"
+                                                  HorizontalAlignment="Left">
+                                            <DataGrid.Columns>
+                                                 <DataGridTextColumn Header="" Width="Auto" Binding="{Binding  Name}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Sign" Width="Auto" Binding="{Binding Sign}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="House" Width="Auto" Binding="{Binding House}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Sum" Width="Auto" Binding="{Binding Sum}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Hcusp" Width="Auto" Binding="{Binding Hcusp}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Total" Width="Auto" Binding="{Binding Total}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>   
+                                        <DataGrid Grid.Column="1" 
+                                                  AutoGenerateColumns="False" 
+                                                  Margin="0,0,8,0"
+                                                  ItemsSource="{Binding CrossesCounts}"
+                                                  Style="{StaticResource MaterialDesignDataGrid}"
+                                                  Width="Auto"
+                                                  HorizontalAlignment="Left">
+                                            <DataGrid.Columns>
+                                                 <DataGridTextColumn Header="" Width="Auto" Binding="{Binding Name}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Sign" Width="Auto" Binding="{Binding Sign}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="House" Width="Auto" Binding="{Binding House}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Sum" Width="Auto" Binding="{Binding Sum}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Hcusp" Width="Auto" Binding="{Binding Hcusp}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                                 <DataGridTextColumn Header="Total" Width="Auto" Binding="{Binding Total}" 
+                                                                     IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                     
+                                    </StackPanel>
+                                    
+                                    <!-- Right subpart - Histogram diagram -->
+                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Width="Auto">
+                                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}"
+                                                BorderThickness="1"
+                                                Margin="4,0,0,0"
+                                                MinWidth="240" Width="Auto"
+                                                Background="{DynamicResource MaterialDesignPaper}">
+                                            <ScottPlot:WpfPlot x:Name="ElementsPlot"
+                                                               Margin="4"/>
+                                        </Border>
+                                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                                BorderThickness="1" 
+                                                Margin="8,0,4,0" 
+                                                MinWidth="240" Width="Auto"
+                                                Background="{DynamicResource MaterialDesignPaper}">
+                                             <ScottPlot:WpfPlot x:Name="CrossesPlot"
+                                                                Margin="4"/>
+                                         </Border>
+
+                                    </StackPanel>
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -203,13 +240,14 @@
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     
-                                    <!-- Right subpart - Diagram -->
+                                    <!-- Right subpart - Diagrams -->
+                                    
                                     <Border Grid.Column="1" 
                                             BorderBrush="{DynamicResource MaterialDesignDivider}" 
                                             BorderThickness="1" 
                                             Margin="8,0,0,0" 
                                             Background="{DynamicResource MaterialDesignPaper}">
-                                        <TextBlock Text="Diagram" 
+                                        <TextBlock Text = "Dispositors" 
                                                    HorizontalAlignment="Center" 
                                                    VerticalAlignment="Center"/>
                                     </Border>

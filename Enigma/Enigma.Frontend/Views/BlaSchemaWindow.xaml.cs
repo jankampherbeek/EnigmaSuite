@@ -74,51 +74,63 @@ public partial class BlaSchemaWindow
     
     private void UpdateHistogram()
     {
-        if (DataContext is not BlaSchemaViewModel viewModel || 
-            viewModel.HistogramValues == null || 
-            viewModel.HistogramValues.Length == 0)
+        if (DataContext is not BlaSchemaViewModel viewModel)
         {
             return;
         }
         
         try
         {
-            // Clear existing plot
-            HistogramPlot.Plot.Clear();
+            // Update Crosses Plot
+            if (viewModel.HistogramCrossesValues != null && viewModel.HistogramCrossesValues.Length > 0)
+            {
+                UpdateSingleHistogram(CrossesPlot, viewModel.HistogramCrossesValues, viewModel.HistogramCrossesLabels, "Crosses");
+            }
             
-            // Create bar plot data
-            var positions = Enumerable.Range(0, viewModel.HistogramValues.Length).Select(i => (double)i).ToArray();
-            var values = viewModel.HistogramValues;
-            var labels = viewModel.HistogramLabels;
-            
-                         // Create bar plot with ScottPlot 5.0 API
-             var barPlot = HistogramPlot.Plot.Add.Bars(positions, values);
-             
-             // Set axis labels (no title to save space)
-             HistogramPlot.Plot.YLabel("Total Count");
-             
-             // Set x-axis tick labels to show the actual names
-             if (labels.Length > 0)
-             {
-                 // Align labels with the bars by adjusting position
-                 var tickPositions = Enumerable.Range(0, labels.Length).Select(i => (double)i).ToArray();
-                 HistogramPlot.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(tickPositions, labels);
-                 
-                 // Center the labels under each bar
-                 HistogramPlot.Plot.Axes.Bottom.TickLabelStyle.Rotation = 0;
-                 HistogramPlot.Plot.Axes.Bottom.TickLabelStyle.Alignment = ScottPlot.Alignment.MiddleCenter;
-             }
-            
-            // Auto-scale the plot
-            HistogramPlot.Plot.Axes.AutoScale();
-            
-            // Refresh the plot
-            HistogramPlot.Refresh();
+            // Update Elements Plot
+            if (viewModel.HistogramElementsValues != null && viewModel.HistogramElementsValues.Length > 0)
+            {
+                UpdateSingleHistogram(ElementsPlot, viewModel.HistogramElementsValues, viewModel.HistogramElementsLabels, "Elements");
+            }
         }
         catch (Exception ex)
         {
             // Log error or show message (you might want to add proper logging here)
             System.Diagnostics.Debug.WriteLine($"Error updating histogram: {ex.Message}");
         }
+    }
+    
+    private void UpdateSingleHistogram(ScottPlot.WPF.WpfPlot plot, double[] values, string[] labels, string title)
+    {
+        // Clear existing plot
+        plot.Plot.Clear();
+        
+        // Create bar plot data
+        var positions = Enumerable.Range(0, values.Length).Select(i => (double)i).ToArray();
+        
+        // Create bar plot with ScottPlot 5.0 API
+        var barPlot = plot.Plot.Add.Bars(positions, values);
+        
+        // Set axis labels
+        plot.Plot.YLabel("Total Count");
+        plot.Plot.Title(title);
+        
+        // Set x-axis tick labels to show the actual names
+        if (labels.Length > 0)
+        {
+            // Align labels with the bars by adjusting position
+            var tickPositions = Enumerable.Range(0, labels.Length).Select(i => (double)i).ToArray();
+            plot.Plot.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(tickPositions, labels);
+            
+            // Center the labels under each bar
+            plot.Plot.Axes.Bottom.TickLabelStyle.Rotation = 0;
+            plot.Plot.Axes.Bottom.TickLabelStyle.Alignment = ScottPlot.Alignment.MiddleCenter;
+        }
+        
+        // Auto-scale the plot
+        plot.Plot.Axes.AutoScale();
+        
+        // Refresh the plot
+        plot.Refresh();
     }
 }
