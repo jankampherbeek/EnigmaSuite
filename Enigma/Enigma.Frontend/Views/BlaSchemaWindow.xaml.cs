@@ -97,6 +97,12 @@ public partial class BlaSchemaWindow
             {
                 UpdateSingleHistogram(QuadrantsPlot, viewModel.HistogramQuadrantValues, viewModel.HistogramQuadrantLabels, "Quadrants");
             }
+            // update decns plot
+            if (viewModel.HistogramDecanValues.Length > 0)
+            {
+                UpdateSingleHistogram(DecansPlot, viewModel.HistogramDecanValues, viewModel.HistogramDecanLabels, "Decans", "EnigmaAstrologyBLA2");
+            }
+            
         }
         catch (Exception ex)
         {
@@ -105,7 +111,7 @@ public partial class BlaSchemaWindow
         }
     }
     
-    private void UpdateSingleHistogram(ScottPlot.WPF.WpfPlot plot, double[] values, string[] labels, string title)
+    private void UpdateSingleHistogram(ScottPlot.WPF.WpfPlot plot, double[] values, string[] labels, string title, string fontFamily = null)
     {
         // Clear existing plot
         plot.Plot.Clear();
@@ -119,6 +125,13 @@ public partial class BlaSchemaWindow
         // Set axis labels
         plot.Plot.YLabel("Total Count");
         plot.Plot.Title(title);
+        
+        // Set font for x-axis labels if specified
+        if (!string.IsNullOrEmpty(fontFamily) && fontFamily == "EnigmaAstrologyBLA2")
+        {
+            // Set font name as string for ScottPlot 5.0
+            plot.Plot.Axes.Bottom.TickLabelStyle.FontName = "EnigmaAstrologyBLA2";
+        }
         
         // Set x-axis tick labels to show the actual names
         if (labels.Length > 0)

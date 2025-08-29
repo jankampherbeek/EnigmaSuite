@@ -27,20 +27,25 @@ public partial class BlaSchemaViewModel : ObservableObject
     private IBlaPositionForDataGridFactory _blaPositionFactory = App.ServiceProvider.GetRequiredService<IBlaPositionForDataGridFactory>();
     private BlaElementsCrossesForDataGridFactory _blaElementsCrossesFactory = App.ServiceProvider.GetRequiredService<BlaElementsCrossesForDataGridFactory>();
     private BlaPresQuadrantCountFactory _blaPresQuadrantCountFactory = App.ServiceProvider.GetRequiredService<BlaPresQuadrantCountFactory>();
+    private BlaPresDecanCountFactory _blaPresDecanCountFactory = App.ServiceProvider.GetRequiredService<BlaPresDecanCountFactory>();
     
     [ObservableProperty] private string _chartName = "Chart Name";
     [ObservableProperty] private List<PresentableBlaPosition> _blaPositions = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _crossesCounts = new();
     [ObservableProperty] private List<PresentableCrossElementsCount> _elementsCounts = new();
     [ObservableProperty] private List<PresentableQuadrantCount> _quadrantCounts = new();
+    [ObservableProperty] private List<PresentableDecanCount> _decanCounts = new();
+    
     
     // ScottPlot histogram data
     public double[] HistogramCrossesValues { get; private set; } = new double[0];
     public double[] HistogramElementsValues { get; private set; } = new double[0];
     public double[] HistogramQuadrantValues { get; private set; } = new double[0];
+    public double[] HistogramDecanValues { get; private set; } = new double[0];
     public string[] HistogramCrossesLabels { get; private set; } = new string[0];
     public string[] HistogramElementsLabels { get; private set; } = new string[0];
     public string[] HistogramQuadrantLabels { get; private set; } = new string[4];
+    public string[] HistogramDecanLabels { get; private set; } = new string[7];
 
     public void Populate()
     {
@@ -59,6 +64,7 @@ public partial class BlaSchemaViewModel : ObservableObject
         CrossesCounts = _blaElementsCrossesFactory.CreatePresCrossesCounts(chartDetails, _schemaModel.GetCalculatedChart());
         ElementsCounts = _blaElementsCrossesFactory.CreatePresElementsCounts(chartDetails, _schemaModel.GetCalculatedChart());
         QuadrantCounts = _blaPresQuadrantCountFactory.CreatePresQuadrants(chartDetails);
+        DecanCounts = _blaPresDecanCountFactory.CreatePresDecans(chartDetails);
         
         // Update histogram data
         UpdateHistogramData();
@@ -100,11 +106,17 @@ public partial class BlaSchemaViewModel : ObservableObject
             HistogramElementsLabels = [];
             return;
         }
-
         if (QuadrantCounts.Count == 0)
         {
             HistogramQuadrantValues = [];
             HistogramQuadrantLabels = new string[4];
+            return;
+        }
+
+        if (DecanCounts.Count == 0)
+        {
+            HistogramDecanValues = [];
+            HistogramDecanLabels = new string[7];
             return;
         }
         
@@ -112,11 +124,32 @@ public partial class BlaSchemaViewModel : ObservableObject
         HistogramCrossesValues = CrossesCounts.Select(item => (double)item.Total).ToArray();
         HistogramElementsValues = ElementsCounts.Select(item => (double)item.Total).ToArray();
         HistogramQuadrantValues = QuadrantCounts.Select(item => (double)item.Count).ToArray();
+        HistogramDecanValues = DecanCounts.Select(item => (double)item.Count).ToArray();
         HistogramCrossesLabels = CrossesCounts.Select(item => item.Name).ToArray();
         HistogramElementsLabels = ElementsCounts.Select(item => item.Name).ToArray();
         for (int i = 0; i < 4; i++)
         {
             HistogramQuadrantLabels[i] = $"Quadrant {i + 1}";
+        }
+        for (int i = 0; i < 7; i++)
+        {
+            HistogramDecanLabels[i] = FindGlyphForDecan(i + 1);
+        }
+    }
+
+    private string FindGlyphForDecan(int decan)
+    {
+        switch (decan)
+        {
+            case 1: return "f";  // Mars
+            case 2: return "a";  // Sun
+            case 3: return "d";  // Venus
+            case 4: return "c";  // Mercury
+            case 5: return "b";  // Moon
+            case 6: return "h";  // Saturn
+            case 7: return "g";  // Jupiter
+            default: return " ";
+
         }
     }
 }

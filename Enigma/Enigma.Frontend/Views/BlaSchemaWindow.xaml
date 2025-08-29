@@ -258,19 +258,22 @@
                                            Margin="0,0,0,8"/>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
                                     
                                     <!-- Left subpart - DataGrid -->
                                     <DataGrid Grid.Column="0" 
+                                              ItemsSource="{Binding DecanCounts}"                                              
                                               AutoGenerateColumns="False" 
                                               Height="200" 
                                               Margin="0,0,8,0"
                                               Style="{StaticResource MaterialDesignDataGrid}">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Col 1" Width="*"/>
-                                            <DataGridTextColumn Header="Col 2" Width="*"/>
+                                            <DataGridTextColumn Header="Decan" Width="Auto" Binding="{Binding Decan}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource GlyphColumnStyle}"/>
+                                            <DataGridTextColumn Header="Sign" Width="Auto" Binding="{Binding Count}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     
@@ -278,11 +281,10 @@
                                     <Border Grid.Column="1" 
                                             BorderBrush="{DynamicResource MaterialDesignDivider}" 
                                             BorderThickness="1" 
+                                            MinWidth="240" Width="Auto"
                                             Margin="8,0,0,0" 
                                             Background="{DynamicResource MaterialDesignPaper}">
-                                        <TextBlock Text="Diagram" 
-                                                   HorizontalAlignment="Center" 
-                                                   VerticalAlignment="Center"/>
+                                            <ScottPlot:WpfPlot x:Name="DecansPlot" Margin="4"/>
                                     </Border>
                                 </Grid>
                             </StackPanel>
