@@ -204,6 +204,92 @@
                             </StackPanel>
                         </Border>
 
+                        <!-- Quadrants Section -->
+                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                BorderThickness="0,0,0,1" 
+                                Margin="0,0,0,16" 
+                                Padding="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Quadrants" 
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                                           Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <!-- Left subpart - DataGrid -->
+                                    <DataGrid Grid.Column="0" 
+                                              ItemsSource="{Binding QuadrantCounts}"
+                                              AutoGenerateColumns="False" 
+                                              Height="150" 
+                                              Margin="0,0,8,0"
+                                              Style="{StaticResource MaterialDesignDataGrid}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Quadrant" Width="Auto" Binding="{Binding Quadrant}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                            <DataGridTextColumn Header="Sign" Width="Auto" Binding="{Binding Count}" 
+                                                                IsReadOnly="True" CellStyle="{StaticResource NumberColumnStyle}"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    
+                                    <!-- Right subpart - Diagram -->
+                                    <Border Grid.Column="1" 
+                                            BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                            BorderThickness="1" 
+                                            MinWidth="240" Width="Auto"
+                                            Margin="8,0,0,0" 
+                                            Background="{DynamicResource MaterialDesignPaper}">
+                                        <ScottPlot:WpfPlot x:Name="QuadrantsPlot" Margin="4"/>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Decanates Section -->
+                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                BorderThickness="0,0,0,1" 
+                                Margin="0,0,0,16" 
+                                Padding="0,0,0,16">
+                            <StackPanel>
+                                <TextBlock Text="Decanates" 
+                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
+                                           Margin="0,0,0,8"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    
+                                    <!-- Left subpart - DataGrid -->
+                                    <DataGrid Grid.Column="0" 
+                                              AutoGenerateColumns="False" 
+                                              Height="200" 
+                                              Margin="0,0,8,0"
+                                              Style="{StaticResource MaterialDesignDataGrid}">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Col 1" Width="*"/>
+                                            <DataGridTextColumn Header="Col 2" Width="*"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                    
+                                    <!-- Right subpart - Diagram -->
+                                    <Border Grid.Column="1" 
+                                            BorderBrush="{DynamicResource MaterialDesignDivider}" 
+                                            BorderThickness="1" 
+                                            Margin="8,0,0,0" 
+                                            Background="{DynamicResource MaterialDesignPaper}">
+                                        <TextBlock Text="Diagram" 
+                                                   HorizontalAlignment="Center" 
+                                                   VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                        
+                        
+                        
                         <!-- Dispositors Section -->
                         <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 
                                 BorderThickness="0,0,0,1" 
@@ -255,87 +341,7 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- Quadrants Section -->
-                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                BorderThickness="0,0,0,1" 
-                                Margin="0,0,0,16" 
-                                Padding="0,0,0,16">
-                            <StackPanel>
-                                <TextBlock Text="Quadrants" 
-                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                                           Margin="0,0,0,8"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <!-- Left subpart - DataGrid -->
-                                    <DataGrid Grid.Column="0" 
-                                              AutoGenerateColumns="False" 
-                                              Height="150" 
-                                              Margin="0,0,8,0"
-                                              Style="{StaticResource MaterialDesignDataGrid}">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Col 1" Width="*"/>
-                                            <DataGridTextColumn Header="Col 2" Width="*"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                    
-                                    <!-- Right subpart - Diagram -->
-                                    <Border Grid.Column="1" 
-                                            BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                            BorderThickness="1" 
-                                            Margin="8,0,0,0" 
-                                            Background="{DynamicResource MaterialDesignPaper}">
-                                        <TextBlock Text="Diagram" 
-                                                   HorizontalAlignment="Center" 
-                                                   VerticalAlignment="Center"/>
-                                    </Border>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
 
-                        <!-- Decanates Section -->
-                        <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                BorderThickness="0,0,0,1" 
-                                Margin="0,0,0,16" 
-                                Padding="0,0,0,16">
-                            <StackPanel>
-                                <TextBlock Text="Decanates" 
-                                           Style="{StaticResource MaterialDesignHeadline6TextBlock}" 
-                                           Margin="0,0,0,8"/>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    
-                                    <!-- Left subpart - DataGrid -->
-                                    <DataGrid Grid.Column="0" 
-                                              AutoGenerateColumns="False" 
-                                              Height="200" 
-                                              Margin="0,0,8,0"
-                                              Style="{StaticResource MaterialDesignDataGrid}">
-                                        <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Col 1" Width="*"/>
-                                            <DataGridTextColumn Header="Col 2" Width="*"/>
-                                        </DataGrid.Columns>
-                                    </DataGrid>
-                                    
-                                    <!-- Right subpart - Diagram -->
-                                    <Border Grid.Column="1" 
-                                            BorderBrush="{DynamicResource MaterialDesignDivider}" 
-                                            BorderThickness="1" 
-                                            Margin="8,0,0,0" 
-                                            Background="{DynamicResource MaterialDesignPaper}">
-                                        <TextBlock Text="Diagram" 
-                                                   HorizontalAlignment="Center" 
-                                                   VerticalAlignment="Center"/>
-                                    </Border>
-                                </Grid>
-                            </StackPanel>
-                        </Border>
 
                         <!-- Specifics Section -->
                         <Border BorderBrush="{DynamicResource MaterialDesignDivider}" 

@@ -28,7 +28,7 @@ public partial class BlaSchemaWindow
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.Populate();
-            UpdateHistogram();
+            UpdateHistograms();
         }
     }
 
@@ -38,7 +38,7 @@ public partial class BlaSchemaWindow
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.Populate();
-            UpdateHistogram();
+            UpdateHistograms();
         }
     }
 
@@ -48,7 +48,7 @@ public partial class BlaSchemaWindow
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.Populate();
-            UpdateHistogram();
+            UpdateHistograms();
         }
     }
 
@@ -58,7 +58,7 @@ public partial class BlaSchemaWindow
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.Populate();
-            UpdateHistogram();
+            UpdateHistograms();
         }
     }
 
@@ -68,11 +68,11 @@ public partial class BlaSchemaWindow
         if (DataContext is BlaSchemaViewModel viewModel)
         {
             viewModel.Populate();
-            UpdateHistogram();
+            UpdateHistograms();
         }
     }
     
-    private void UpdateHistogram()
+    private void UpdateHistograms()
     {
         if (DataContext is not BlaSchemaViewModel viewModel)
         {
@@ -82,15 +82,20 @@ public partial class BlaSchemaWindow
         try
         {
             // Update Crosses Plot
-            if (viewModel.HistogramCrossesValues != null && viewModel.HistogramCrossesValues.Length > 0)
+            if (viewModel.HistogramCrossesValues.Length > 0)
             {
                 UpdateSingleHistogram(CrossesPlot, viewModel.HistogramCrossesValues, viewModel.HistogramCrossesLabels, "Crosses");
             }
             
             // Update Elements Plot
-            if (viewModel.HistogramElementsValues != null && viewModel.HistogramElementsValues.Length > 0)
+            if (viewModel.HistogramElementsValues.Length > 0)
             {
                 UpdateSingleHistogram(ElementsPlot, viewModel.HistogramElementsValues, viewModel.HistogramElementsLabels, "Elements");
+            }
+            // Update quadrants Plot
+            if (viewModel.HistogramQuadrantValues.Length > 0)
+            {
+                UpdateSingleHistogram(QuadrantsPlot, viewModel.HistogramQuadrantValues, viewModel.HistogramQuadrantLabels, "Quadrants");
             }
         }
         catch (Exception ex)

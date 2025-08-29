@@ -48,6 +48,7 @@ public partial class App
         serviceCollection.AddSingleton<IAspectForWheelFactory, AspectForWheelFactory>();
         serviceCollection.AddTransient<BlaSchemaModel>();
         serviceCollection.AddSingleton<IBlaPositionForDataGridFactory, BlaPositionForDataGridFactory>();
+        serviceCollection.AddSingleton<BlaPresQuadrantCountFactory>();
         serviceCollection.AddSingleton<ICelPointForDataGridFactory, CelPointForDataGridFactory>();
         serviceCollection.AddTransient<IChartCalculation, ChartCalculation>();
         serviceCollection.AddTransient<IChartDataConverter, ChartDataConverter>();

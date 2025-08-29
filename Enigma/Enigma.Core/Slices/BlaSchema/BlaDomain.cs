@@ -17,7 +17,7 @@ public record ChartDetails(
     List<int> InterceptedSigns, 
     List<int> ClampedHouses,
     Dictionary<ChartPoints, int> Houses,
-    Dictionary<ChartPoints, int> QuadrantCounts,
+    Dictionary<int, int> QuadrantCounts,
     Dictionary<int, List<RulerPair>> HouseRulers);
 
 

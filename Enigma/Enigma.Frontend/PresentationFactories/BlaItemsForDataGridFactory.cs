@@ -5,6 +5,7 @@
 
 using System;
 using System.Collections.Generic;
+using CsvHelper.Configuration.Attributes;
 using Enigma.Core.Slices.BlaSchema;
 using Enigma.Domain.Dtos;
 using Enigma.Domain.Presentables;
@@ -130,6 +131,8 @@ public class BlaElementsCrossesForDataGridFactory()
 
         return counts;
     }
+
+  
     
     private void ResetCounts()
     {
@@ -352,4 +355,20 @@ public class BlaElementsCrossesForDataGridFactory()
         }
         return counts;
     }
+}
+
+
+public record PresentableQuadrantCount(int Quadrant, int Count);
+
+public class BlaPresQuadrantCountFactory()
+{
+    public List<PresentableQuadrantCount> CreatePresQuadrants(ChartDetails chartDetails)
+    {
+        var presQuadrants = new List<PresentableQuadrantCount>();
+        foreach (var qData in chartDetails.QuadrantCounts)
+        {
+            presQuadrants.Add(new PresentableQuadrantCount(qData.Key, qData.Value));    
+        }
+        return presQuadrants;
+    }    
 }

@@ -15,17 +15,24 @@ namespace Enigma.Core.Slices.BlaSchema;
 public class QuadrantPositions
 {
 
-    public Dictionary<ChartPoints, int> DefineQuadrants(CalculatedChart chart)
+    public Dictionary<int, int> DefineQuadrants(CalculatedChart chart)
     {
         var quadrantLongitudes = new Dictionary<int, double>();
         var quadrantPositions = new Dictionary<ChartPoints, int>();
-        
+        var quadrantCounts = new Dictionary<int, int>
+        {
+            { 1, 0 },
+            { 2, 0 },
+            { 3, 0 },
+            { 4, 0 }
+        };
+
         // Define longitude for quadrants
         foreach (var pos in chart.Positions)
         {
             if (pos.Key.GetDetails().PointCat == PointCats.Angle)
             {
-                var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
+                var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
                 if (pos.Key == ChartPoints.Ascendant)
                 {
                     quadrantLongitudes.Add(1, longitude); // Quadrant 1 starts at Ascendant
@@ -45,16 +52,16 @@ public class QuadrantPositions
         {
             if (pos.Key.GetDetails().PointCat == PointCats.Common)
             {
-                var longitude = pos.Value.Ecliptical.DistancePosSpeed.Position;
+                var longitude = pos.Value.Ecliptical.MainPosSpeed.Position;
                 var quadrantNumber = FindQuadrantForLongitude(longitude, quadrantLongitudes);
                 if (quadrantNumber > 0)
                 {
-                    quadrantPositions.Add(pos.Key, quadrantNumber);
+                    quadrantCounts[quadrantNumber]++;
                 }
             }           
         }
 
-        return quadrantPositions;
+        return quadrantCounts;
     }
     
     /// <summary>
