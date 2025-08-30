@@ -17,6 +17,9 @@ public class QuadrantPositions
 
     public Dictionary<int, int> DefineQuadrants(CalculatedChart chart)
     {
+        if (chart == null)
+            throw new ArgumentNullException(nameof(chart));
+            
         var quadrantLongitudes = new Dictionary<int, double>();
         var quadrantPositions = new Dictionary<ChartPoints, int>();
         var quadrantCounts = new Dictionary<int, int>
@@ -41,8 +44,8 @@ public class QuadrantPositions
 
                 if (pos.Key == ChartPoints.Mc)
                 {
-                    quadrantLongitudes.Add(4, longitude); // Quadrant 4 starts at MC
-                    quadrantLongitudes.Add(2, RangeUtil.ValueToRange(longitude + 180.0, 0.0, 360.0)); // Quadrant 2 starts at IC
+                    quadrantLongitudes.Add(2, longitude); // Quadrant 2 starts at MC
+                    quadrantLongitudes.Add(4, RangeUtil.ValueToRange(longitude + 180.0, 0.0, 360.0)); // Quadrant 4 starts at IC
                 }
             }                
         }
@@ -76,6 +79,8 @@ public class QuadrantPositions
         
         // Sort quadrants by their starting longitude
         var sortedQuadrants = quadrantLongitudes.OrderBy(x => x.Value).ToList();
+        
+
         
         // Check each quadrant
         for (int i = 0; i < sortedQuadrants.Count; i++)
