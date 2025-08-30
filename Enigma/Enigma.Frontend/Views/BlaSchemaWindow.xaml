@@ -13,7 +13,7 @@
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Enigma - BLA Schema" Height="800" Width="1400"
+        Title="Enigma - BLA Schema" Height="2000" Width="1400"
         Loaded="Window_Loaded">
     <Window.DataContext>
         <viewModels:BlaSchemaViewModel/>
@@ -314,17 +314,18 @@
                                               Margin="0,0,8,0"
                                               Style="{StaticResource MaterialDesignDataGrid}">
                                         <DataGrid.Columns>
-                                            <DataGridTextColumn Header="Col 1" Width="*"/>
-                                            <DataGridTextColumn Header="Col 2" Width="*"/>
-                                            <DataGridTextColumn Header="Col 3" Width="*"/>
-                                            <DataGridTextColumn Header="Col 4" Width="*"/>
-                                            <DataGridTextColumn Header="Col 5" Width="*"/>
-                                            <DataGridTextColumn Header="Col 6" Width="*"/>
-                                            <DataGridTextColumn Header="Col 7" Width="*"/>
-                                            <DataGridTextColumn Header="Col 8" Width="*"/>
-                                            <DataGridTextColumn Header="Col 9" Width="*"/>
-                                            <DataGridTextColumn Header="Col 10" Width="*"/>
-                                            <DataGridTextColumn Header="Col 11" Width="*"/>
+                                            <DataGridTextColumn Header="Rulers" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Combined" Width="Auto"/>
+                                            <DataGridTextColumn Header="Signs" Width="auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Sum" Width="Auto"/>
+                                            <DataGridTextColumn Header="Houses" Width="Auto"/>
+                                            <DataGridTextColumn Header="" Width="Auto"/>
+                                            <DataGridTextColumn Header="Sum" Width="Auto"/>
+                                            <DataGridTextColumn Header="Total" Width="Auto"/>
+
                                         </DataGrid.Columns>
                                     </DataGrid>
                                     

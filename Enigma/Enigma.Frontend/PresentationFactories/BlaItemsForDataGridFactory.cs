@@ -415,3 +415,109 @@ public class BlaPresDecanCountFactory()
         }
     }
 }
+
+
+//public record PresentableDispositorCounts(String Rulers, int SignSplitted, int SignMain, int SignSub, int SignSum, int HouseMain, int HouseSub, int HouseSum, int Total);
+
+public class BlaPresDispositorCountsFactory(ChartDetails chartDetails)
+{
+
+    public List<PresentableDispositorCounts> CreatePresDispositorCounts(ChartDetails chartDetails)
+    {
+        var rulerPairs = CreateRulerPairs();
+        var presDispositorCounts = new List<PresentableDispositorCounts>();
+        foreach (var rulerPair in rulerPairs)
+        {
+            const string separator = "/";
+            var mainRuler = CreateRulerGlyph(rulerPair.Ruler);
+            var subRuler = CreateRulerGlyph(rulerPair.SubRuler);
+            var mainRulerCount = CreateSignRulerCount(chartDetails, rulerPair.Ruler) ;
+            var subRulerCount = CreateSignRulerCount(chartDetails, rulerPair.SubRuler);
+            var signSplitted = mainRulerCount + separator + subRulerCount;
+            var signMain = mainRulerCount;
+            var signSub = subRulerCount;
+            var signSum = signMain + signSub;
+            var houseMain = CreateHouseRulerCount(chartDetails, rulerPair.Ruler);
+            var houseSub = CreateHouseRulerCount(chartDetails, rulerPair.SubRuler);
+            var houseSum = houseMain + houseSub;;
+            var total = signSum + houseSum;
+            presDispositorCounts.Add(new PresentableDispositorCounts(mainRuler, separator, subRuler, 
+                signSplitted, signMain, signSub, signSum, houseMain, houseSub, houseSum, total));
+        }
+        return presDispositorCounts;   
+    }
+
+    private int CreateSignRulerCount(ChartDetails chartDetails, ChartPoints ruler)
+    {
+        var sign = 0; 
+        var signCount = 0;
+        // find sign that is ruled by this ruler
+        foreach (var rulers in BlaDomain.SignRulers())
+        {
+            if (ruler == rulers.Value.Ruler || ruler == rulers.Value.SubRuler) sign = rulers.Key;
+        }
+        // find count of factors in this sign
+        if (sign > 0)
+        {
+            signCount = chartDetails.SignCounts[sign];
+        }
+        return signCount;
+    }
+
+    private int CreateHouseRulerCount(ChartDetails chartDetails, ChartPoints ruler)
+    {
+        var house = 0;
+        var houseCount = 0;
+  
+        // find house that is ruled by this ruler
+        foreach (var houseRulers in chartDetails.HouseRulers)
+        {
+            // use only first ruler pair
+            var rulerPair = houseRulers.Value[0];
+            if (ruler == rulerPair.Ruler || ruler == rulerPair.SubRuler)
+            {
+                house = houseRulers.Key;
+                houseCount = chartDetails.HouseCounts[house];
+            }
+        }
+        return houseCount;
+    }
+    
+    private string CreateRulerGlyph(ChartPoints ruler)
+    {
+        switch (ruler)
+        {
+            case ChartPoints.Sun: return "a";
+            case ChartPoints.Moon: return "b";
+            case ChartPoints.Mercury: return "c";
+            case ChartPoints.Venus: return "d";
+            case ChartPoints.Mars: return "f";
+            case ChartPoints.Jupiter: return "g";
+            case ChartPoints.Saturn: return "h";
+            case ChartPoints.Uranus: return "i";
+            case ChartPoints.Neptune: return "j";
+            case ChartPoints.Pluto: return "k";
+            case ChartPoints.ApogeeMean: return ",";    
+            case ChartPoints.Priapus: return "\\";
+            case ChartPoints.PersephoneCarteret: return "à";
+            case ChartPoints.VulcanusCarteret: return "Ï";            
+        }
+        return "";
+    }
+    
+    
+    private List<RulerPair> CreateRulerPairs()
+    {
+        var rulerPairs = new List<RulerPair>();
+        {
+           rulerPairs.Add(new RulerPair(ChartPoints.Sun, ChartPoints.ApogeeMean));
+           rulerPairs.Add(new RulerPair(ChartPoints.Moon, ChartPoints.Priapus));
+           rulerPairs.Add(new RulerPair(ChartPoints.Mercury, ChartPoints.VulcanusCarteret));
+           rulerPairs.Add(new RulerPair(ChartPoints.Venus, ChartPoints.PersephoneCarteret));
+           rulerPairs.Add(new RulerPair(ChartPoints.Mars, ChartPoints.Pluto));
+           rulerPairs.Add(new RulerPair(ChartPoints.Jupiter, ChartPoints.Neptune));
+        }
+        return rulerPairs;
+    }
+    
+}
