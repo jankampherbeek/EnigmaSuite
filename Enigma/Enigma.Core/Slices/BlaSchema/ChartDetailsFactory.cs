@@ -38,13 +38,15 @@ public class ChartDetailsFactory(BlaPositionsFactory blaPositionsFactory,
             }
         }
 
-        var houseCounts = housePos.DefineHousePositions(chart);
+        var housePositions = housePos.DefineHousePositions(chart);
         var quadrantCounts = quadrantPos.DefineQuadrants(chart);
+        var signCounts = SignCounts.CountPointsInSigns(signsDecans);
         var interceptedSigns = interceptedClamped.DefineInterceptedSigns(chart);
         var clampedHouses = interceptedClamped.DefineClampedHouses(chart);
+        var signRulers = SignRulers.CreateSignRulers();
         var allHouseRulers = houseRulers.DefineHouseRulers(chart);
         
-        return new ChartDetails(signsDecans, interceptedSigns, clampedHouses, houseCounts,  quadrantCounts, allHouseRulers);
+        return new ChartDetails(signsDecans, interceptedSigns, clampedHouses, housePositions,  quadrantCounts, signCounts, signRulers, allHouseRulers);
 
     }
     
